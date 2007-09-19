@@ -1,0 +1,904 @@
+klog.o klog.o: klog.cpp klog.h config.h /usr/include/kde/kapp.h \
+  /usr/include/kde/kapplication.h /usr/include/kde/kdeversion.h \
+  /usr/include/kde/kdelibs_export.h /usr/include/kde/kdemacros.h \
+  /usr/share/qt3/include/qglobal.h /usr/share/qt3/include/qconfig.h \
+  /usr/share/qt3/include/qmodules.h /usr/share/qt3/include/qfeatures.h \
+  /usr/share/qt3/include/qapplication.h \
+  /usr/share/qt3/include/qdesktopwidget.h \
+  /usr/share/qt3/include/qwidget.h /usr/share/qt3/include/qwindowdefs.h \
+  /usr/share/qt3/include/qobjectdefs.h /usr/share/qt3/include/qglobal.h \
+  /usr/share/qt3/include/qstring.h /usr/share/qt3/include/qcstring.h \
+  /usr/share/qt3/include/qmemarray.h /usr/share/qt3/include/qgarray.h \
+  /usr/share/qt3/include/qshared.h /usr/share/qt3/include/qwinexport.h \
+  /usr/include/string.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/powerpc-linux-gnu/4.1.3/include/stddef.h \
+  /usr/include/xlocale.h \
+  /usr/lib/gcc/powerpc-linux-gnu/4.1.3/include/limits.h \
+  /usr/lib/gcc/powerpc-linux-gnu/4.1.3/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
+  /usr/include/bits/stdio_lim.h /usr/include/c++/4.1.3/string \
+  /usr/include/c++/4.1.3/powerpc-linux-gnu/bits/c++config.h \
+  /usr/include/c++/4.1.3/powerpc-linux-gnu/bits/os_defines.h \
+  /usr/include/c++/4.1.3/powerpc-linux-gnu/bits/cpu_defines.h \
+  /usr/include/c++/4.1.3/bits/stringfwd.h \
+  /usr/include/c++/4.1.3/bits/char_traits.h \
+  /usr/include/c++/4.1.3/cstring /usr/include/c++/4.1.3/cstddef \
+  /usr/include/c++/4.1.3/bits/stl_algobase.h \
+  /usr/include/c++/4.1.3/climits /usr/include/c++/4.1.3/cstdlib \
+  /usr/include/stdlib.h /usr/include/bits/waitflags.h \
+  /usr/include/bits/waitstatus.h /usr/include/endian.h \
+  /usr/include/bits/endian.h /usr/include/sys/types.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/time.h /usr/include/sys/select.h \
+  /usr/include/bits/select.h /usr/include/bits/sigset.h \
+  /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
+  /usr/include/bits/pthreadtypes.h /usr/include/alloca.h \
+  /usr/include/c++/4.1.3/iosfwd \
+  /usr/include/c++/4.1.3/powerpc-linux-gnu/bits/c++locale.h \
+  /usr/include/c++/4.1.3/cstdio /usr/include/stdio.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/powerpc-linux-gnu/4.1.3/include/stdarg.h \
+  /usr/include/bits/sys_errlist.h /usr/include/bits/stdio.h \
+  /usr/include/c++/4.1.3/clocale /usr/include/locale.h \
+  /usr/include/bits/locale.h /usr/include/langinfo.h \
+  /usr/include/nl_types.h /usr/include/iconv.h /usr/include/libintl.h \
+  /usr/include/c++/4.1.3/powerpc-linux-gnu/bits/c++io.h \
+  /usr/include/c++/4.1.3/powerpc-linux-gnu/bits/gthr.h \
+  /usr/include/c++/4.1.3/powerpc-linux-gnu/bits/gthr-default.h \
+  /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
+  /usr/include/signal.h /usr/include/bits/setjmp.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
+  /usr/include/bits/confname.h /usr/include/getopt.h \
+  /usr/include/c++/4.1.3/cctype /usr/include/ctype.h \
+  /usr/include/c++/4.1.3/bits/postypes.h /usr/include/c++/4.1.3/cwchar \
+  /usr/include/c++/4.1.3/ctime /usr/include/stdint.h \
+  /usr/include/c++/4.1.3/bits/functexcept.h \
+  /usr/include/c++/4.1.3/exception_defines.h \
+  /usr/include/c++/4.1.3/bits/stl_pair.h \
+  /usr/include/c++/4.1.3/bits/cpp_type_traits.h \
+  /usr/include/c++/4.1.3/bits/stl_iterator_base_types.h \
+  /usr/include/c++/4.1.3/bits/stl_iterator_base_funcs.h \
+  /usr/include/c++/4.1.3/bits/concept_check.h \
+  /usr/include/c++/4.1.3/bits/stl_iterator.h \
+  /usr/include/c++/4.1.3/debug/debug.h /usr/include/c++/4.1.3/memory \
+  /usr/include/c++/4.1.3/bits/allocator.h \
+  /usr/include/c++/4.1.3/powerpc-linux-gnu/bits/c++allocator.h \
+  /usr/include/c++/4.1.3/ext/new_allocator.h /usr/include/c++/4.1.3/new \
+  /usr/include/c++/4.1.3/exception \
+  /usr/include/c++/4.1.3/bits/stl_construct.h \
+  /usr/include/c++/4.1.3/bits/stl_uninitialized.h \
+  /usr/include/c++/4.1.3/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/4.1.3/limits \
+  /usr/include/c++/4.1.3/bits/stl_function.h \
+  /usr/include/c++/4.1.3/bits/basic_string.h \
+  /usr/include/c++/4.1.3/bits/atomicity.h \
+  /usr/include/c++/4.1.3/powerpc-linux-gnu/bits/atomic_word.h \
+  /usr/include/c++/4.1.3/algorithm /usr/include/c++/4.1.3/bits/stl_algo.h \
+  /usr/include/c++/4.1.3/bits/stl_heap.h \
+  /usr/include/c++/4.1.3/bits/stl_tempbuf.h \
+  /usr/include/c++/4.1.3/bits/basic_string.tcc \
+  /usr/share/qt3/include/qnamespace.h /usr/share/qt3/include/qobject.h \
+  /usr/share/qt3/include/qevent.h /usr/share/qt3/include/qregion.h \
+  /usr/share/qt3/include/qrect.h /usr/share/qt3/include/qsize.h \
+  /usr/share/qt3/include/qpoint.h /usr/share/qt3/include/qmime.h \
+  /usr/share/qt3/include/qmap.h /usr/share/qt3/include/qdatastream.h \
+  /usr/share/qt3/include/qiodevice.h /usr/share/qt3/include/qpair.h \
+  /usr/share/qt3/include/qvaluelist.h /usr/share/qt3/include/qtl.h \
+  /usr/share/qt3/include/qtextstream.h /usr/include/c++/4.1.3/iterator \
+  /usr/include/c++/4.1.3/ostream /usr/include/c++/4.1.3/ios \
+  /usr/include/c++/4.1.3/bits/localefwd.h \
+  /usr/include/c++/4.1.3/bits/ios_base.h \
+  /usr/include/c++/4.1.3/bits/locale_classes.h \
+  /usr/include/c++/4.1.3/streambuf \
+  /usr/include/c++/4.1.3/bits/streambuf.tcc \
+  /usr/include/c++/4.1.3/bits/basic_ios.h \
+  /usr/include/c++/4.1.3/bits/streambuf_iterator.h \
+  /usr/include/c++/4.1.3/bits/locale_facets.h \
+  /usr/include/c++/4.1.3/cwctype /usr/include/wctype.h \
+  /usr/include/c++/4.1.3/powerpc-linux-gnu/bits/ctype_base.h \
+  /usr/include/c++/4.1.3/powerpc-linux-gnu/bits/ctype_inline.h \
+  /usr/include/c++/4.1.3/bits/codecvt.h \
+  /usr/include/c++/4.1.3/powerpc-linux-gnu/bits/time_members.h \
+  /usr/include/c++/4.1.3/powerpc-linux-gnu/bits/messages_members.h \
+  /usr/include/c++/4.1.3/bits/basic_ios.tcc \
+  /usr/include/c++/4.1.3/bits/ostream.tcc /usr/include/c++/4.1.3/locale \
+  /usr/include/c++/4.1.3/bits/locale_facets.tcc \
+  /usr/include/c++/4.1.3/typeinfo /usr/include/c++/4.1.3/istream \
+  /usr/include/c++/4.1.3/bits/istream.tcc \
+  /usr/include/c++/4.1.3/bits/stream_iterator.h \
+  /usr/include/c++/4.1.3/list /usr/include/c++/4.1.3/bits/stl_list.h \
+  /usr/include/c++/4.1.3/bits/list.tcc /usr/include/c++/4.1.3/map \
+  /usr/include/c++/4.1.3/bits/stl_tree.h \
+  /usr/include/c++/4.1.3/bits/stl_map.h \
+  /usr/include/c++/4.1.3/bits/stl_multimap.h \
+  /usr/share/qt3/include/qpaintdevice.h /usr/share/qt3/include/qpalette.h \
+  /usr/share/qt3/include/qcolor.h /usr/share/qt3/include/qstringlist.h \
+  /usr/share/qt3/include/qstrlist.h /usr/share/qt3/include/qptrlist.h \
+  /usr/share/qt3/include/qglist.h /usr/share/qt3/include/qptrcollection.h \
+  /usr/share/qt3/include/qbrush.h /usr/share/qt3/include/qfont.h \
+  /usr/share/qt3/include/qfontmetrics.h \
+  /usr/share/qt3/include/qfontinfo.h /usr/share/qt3/include/qsizepolicy.h \
+  /usr/share/qt3/include/qasciidict.h /usr/share/qt3/include/qgdict.h \
+  /usr/share/qt3/include/qtranslator.h /usr/share/qt3/include/qpixmap.h \
+  /usr/include/kde/kinstance.h /usr/share/qt3/include/qstring.h \
+  /usr/share/qt3/include/qaction.h /usr/share/qt3/include/qiconset.h \
+  /usr/share/qt3/include/qpixmap.h /usr/share/qt3/include/qkeysequence.h \
+  /usr/share/qt3/include/qwidget.h /usr/include/kde/klineedit.h \
+  /usr/share/qt3/include/qlineedit.h /usr/share/qt3/include/qframe.h \
+  /usr/include/kde/kcompletion.h /usr/share/qt3/include/qmap.h \
+  /usr/share/qt3/include/qptrlist.h /usr/share/qt3/include/qobject.h \
+  /usr/share/qt3/include/qstringlist.h \
+  /usr/share/qt3/include/qguardedptr.h /usr/include/kde/kglobalsettings.h \
+  /usr/share/qt3/include/qcolor.h /usr/share/qt3/include/qfont.h \
+  /usr/include/kde/ksortablevaluelist.h /usr/share/qt3/include/qpair.h \
+  /usr/share/qt3/include/qvaluelist.h /usr/include/kde/kshortcut.h \
+  /usr/share/qt3/include/qkeysequence.h /usr/include/kde/kcombobox.h \
+  /usr/share/qt3/include/qcombobox.h klogui.h \
+  /usr/share/qt3/include/qvariant.h /usr/share/qt3/include/qmainwindow.h \
+  /usr/share/qt3/include/qtoolbar.h /usr/share/qt3/include/qdockwindow.h \
+  /usr/share/qt3/include/qlistview.h /usr/share/qt3/include/qscrollview.h \
+  /usr/share/qt3/include/qscrollbar.h \
+  /usr/share/qt3/include/qrangecontrol.h /usr/include/kde/klistview.h \
+  /usr/include/kde/kdelibs_export.h /usr/share/qt3/include/qfile.h \
+  /usr/share/qt3/include/qdatetime.h \
+  /usr/share/qt3/include/qdatetimeedit.h \
+  /usr/share/qt3/include/qdatetime.h /usr/share/qt3/include/qspinbox.h \
+  /usr/include/kde/ktextedit.h /usr/share/qt3/include/qtextedit.h \
+  /usr/share/qt3/include/qstylesheet.h \
+  /usr/share/qt3/include/qptrvector.h /usr/share/qt3/include/qgvector.h \
+  /usr/share/qt3/include/qdict.h /usr/share/qt3/include/qlabel.h \
+  /usr/share/qt3/include/qpoint.h /usr/share/qt3/include/qlcdnumber.h \
+  /usr/share/qt3/include/qbitarray.h /usr/include/kde/kglobal.h \
+  /usr/include/kde/kpushbutton.h /usr/share/qt3/include/qpushbutton.h \
+  /usr/share/qt3/include/qbutton.h /usr/include/kde/kguiitem.h \
+  /usr/share/qt3/include/qiconset.h /usr/include/kde/kicontheme.h \
+  /usr/include/kde/kstdguiitem.h /usr/share/qt3/include/qcheckbox.h \
+  /usr/share/qt3/include/qmessagebox.h /usr/share/qt3/include/qdialog.h \
+  /usr/share/qt3/include/qfiledialog.h /usr/share/qt3/include/qdir.h \
+  /usr/share/qt3/include/qfileinfo.h /usr/share/qt3/include/qfile.h \
+  /usr/share/qt3/include/qurloperator.h /usr/share/qt3/include/qurl.h \
+  /usr/share/qt3/include/qnetworkprotocol.h \
+  /usr/share/qt3/include/qurlinfo.h /usr/share/qt3/include/qstatusbar.h \
+  /usr/share/qt3/include/qdialog.h /usr/share/qt3/include/qinputdialog.h \
+  /usr/share/qt3/include/qlineedit.h /usr/include/kde/knuminput.h \
+  /usr/include/kde/kled.h /usr/include/kde/kaboutapplication.h \
+  /usr/include/kde/kaboutdata.h /usr/share/qt3/include/qimage.h \
+  /usr/include/kde/klocale.h /usr/include/kde/kaboutdialog.h \
+  /usr/include/kde/kdialogbase.h /usr/include/kde/kdialog.h \
+  /usr/include/kde/kjanuswidget.h /usr/share/qt3/include/qsplitter.h \
+  /usr/include/kde/klistbox.h /usr/share/qt3/include/qlistbox.h \
+  /usr/include/kde/kpopupmenu.h /usr/share/qt3/include/qpopupmenu.h \
+  /usr/share/qt3/include/qmenudata.h /usr/share/qt3/include/qsignal.h \
+  /usr/share/qt3/include/qvariant.h /usr/include/kde/kpixmapeffect.h \
+  /usr/share/qt3/include/qsize.h /usr/include/kde/kpixmap.h \
+  /usr/share/qt3/include/qtimer.h /usr/share/qt3/include/qsocket.h \
+  /usr/share/qt3/include/qhostaddress.h /usr/share/qt3/include/qurl.h \
+  /usr/share/qt3/include/qtextstream.h /usr/include/kde/kprinter.h \
+  /usr/share/qt3/include/qpaintdevice.h /usr/share/qt3/include/qprinter.h \
+  /usr/include/kde/kdeprint/kpreloadobject.h \
+  /usr/share/qt3/include/qpainter.h /usr/share/qt3/include/qpen.h \
+  /usr/share/qt3/include/qpointarray.h /usr/share/qt3/include/qwmatrix.h \
+  /usr/share/qt3/include/qprogressdialog.h \
+  /usr/share/qt3/include/qsemimodal.h /usr/share/qt3/include/qlabel.h \
+  /usr/share/qt3/include/qprogressbar.h \
+  /usr/share/qt3/include/qsplashscreen.h \
+  /usr/share/qt3/include/qpaintdevicemetrics.h \
+  /usr/include/kde/kbugreport.h /usr/share/qt3/include/qtabwidget.h \
+  awarddxcc.h adif.h awardwaz.h qso.h calls.h world.h \
+  /usr/share/qt3/include/qdir.h entity.h prefix.h locator.h \
+  /usr/include/math.h /usr/include/bits/huge_val.h \
+  /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h \
+  /usr/include/bits/inf.h /usr/include/bits/nan.h \
+  /usr/lib/gcc/powerpc-linux-gnu/4.1.3/include/bits/mathdef.h \
+  /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h setup.h \
+  /usr/include/kde/kcolorcombo.h /usr/include/kde/kcolordialog.h \
+  /usr/share/qt3/include/qframe.h /usr/share/qt3/include/qgridview.h \
+  /usr/include/kde/kselect.h /usr/share/qt3/include/qrangecontrol.h \
+  kloghamlib.h /usr/include/hamlib/rig.h /usr/include/hamlib/riglist.h \
+  /usr/include/hamlib/rig_dll.h setupui.h award.h reference.h awards.h \
+  workedcalls.h
+
+klog.h:
+
+config.h:
+
+/usr/include/kde/kapp.h:
+
+/usr/include/kde/kapplication.h:
+
+/usr/include/kde/kdeversion.h:
+
+/usr/include/kde/kdelibs_export.h:
+
+/usr/include/kde/kdemacros.h:
+
+/usr/share/qt3/include/qglobal.h:
+
+/usr/share/qt3/include/qconfig.h:
+
+/usr/share/qt3/include/qmodules.h:
+
+/usr/share/qt3/include/qfeatures.h:
+
+/usr/share/qt3/include/qapplication.h:
+
+/usr/share/qt3/include/qdesktopwidget.h:
+
+/usr/share/qt3/include/qwidget.h:
+
+/usr/share/qt3/include/qwindowdefs.h:
+
+/usr/share/qt3/include/qobjectdefs.h:
+
+/usr/share/qt3/include/qglobal.h:
+
+/usr/share/qt3/include/qstring.h:
+
+/usr/share/qt3/include/qcstring.h:
+
+/usr/share/qt3/include/qmemarray.h:
+
+/usr/share/qt3/include/qgarray.h:
+
+/usr/share/qt3/include/qshared.h:
+
+/usr/share/qt3/include/qwinexport.h:
+
+/usr/include/string.h:
+
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-32.h:
+
+/usr/lib/gcc/powerpc-linux-gnu/4.1.3/include/stddef.h:
+
+/usr/include/xlocale.h:
+
+/usr/lib/gcc/powerpc-linux-gnu/4.1.3/include/limits.h:
+
+/usr/lib/gcc/powerpc-linux-gnu/4.1.3/include/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/bits/posix1_lim.h:
+
+/usr/include/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+/usr/include/bits/posix2_lim.h:
+
+/usr/include/bits/xopen_lim.h:
+
+/usr/include/bits/stdio_lim.h:
+
+/usr/include/c++/4.1.3/string:
+
+/usr/include/c++/4.1.3/powerpc-linux-gnu/bits/c++config.h:
+
+/usr/include/c++/4.1.3/powerpc-linux-gnu/bits/os_defines.h:
+
+/usr/include/c++/4.1.3/powerpc-linux-gnu/bits/cpu_defines.h:
+
+/usr/include/c++/4.1.3/bits/stringfwd.h:
+
+/usr/include/c++/4.1.3/bits/char_traits.h:
+
+/usr/include/c++/4.1.3/cstring:
+
+/usr/include/c++/4.1.3/cstddef:
+
+/usr/include/c++/4.1.3/bits/stl_algobase.h:
+
+/usr/include/c++/4.1.3/climits:
+
+/usr/include/c++/4.1.3/cstdlib:
+
+/usr/include/stdlib.h:
+
+/usr/include/bits/waitflags.h:
+
+/usr/include/bits/waitstatus.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/typesizes.h:
+
+/usr/include/time.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/bits/select.h:
+
+/usr/include/bits/sigset.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/sys/sysmacros.h:
+
+/usr/include/bits/pthreadtypes.h:
+
+/usr/include/alloca.h:
+
+/usr/include/c++/4.1.3/iosfwd:
+
+/usr/include/c++/4.1.3/powerpc-linux-gnu/bits/c++locale.h:
+
+/usr/include/c++/4.1.3/cstdio:
+
+/usr/include/stdio.h:
+
+/usr/include/libio.h:
+
+/usr/include/_G_config.h:
+
+/usr/include/wchar.h:
+
+/usr/include/bits/wchar.h:
+
+/usr/include/gconv.h:
+
+/usr/lib/gcc/powerpc-linux-gnu/4.1.3/include/stdarg.h:
+
+/usr/include/bits/sys_errlist.h:
+
+/usr/include/bits/stdio.h:
+
+/usr/include/c++/4.1.3/clocale:
+
+/usr/include/locale.h:
+
+/usr/include/bits/locale.h:
+
+/usr/include/langinfo.h:
+
+/usr/include/nl_types.h:
+
+/usr/include/iconv.h:
+
+/usr/include/libintl.h:
+
+/usr/include/c++/4.1.3/powerpc-linux-gnu/bits/c++io.h:
+
+/usr/include/c++/4.1.3/powerpc-linux-gnu/bits/gthr.h:
+
+/usr/include/c++/4.1.3/powerpc-linux-gnu/bits/gthr-default.h:
+
+/usr/include/pthread.h:
+
+/usr/include/sched.h:
+
+/usr/include/bits/sched.h:
+
+/usr/include/signal.h:
+
+/usr/include/bits/setjmp.h:
+
+/usr/include/unistd.h:
+
+/usr/include/bits/posix_opt.h:
+
+/usr/include/bits/environments.h:
+
+/usr/include/bits/confname.h:
+
+/usr/include/getopt.h:
+
+/usr/include/c++/4.1.3/cctype:
+
+/usr/include/ctype.h:
+
+/usr/include/c++/4.1.3/bits/postypes.h:
+
+/usr/include/c++/4.1.3/cwchar:
+
+/usr/include/c++/4.1.3/ctime:
+
+/usr/include/stdint.h:
+
+/usr/include/c++/4.1.3/bits/functexcept.h:
+
+/usr/include/c++/4.1.3/exception_defines.h:
+
+/usr/include/c++/4.1.3/bits/stl_pair.h:
+
+/usr/include/c++/4.1.3/bits/cpp_type_traits.h:
+
+/usr/include/c++/4.1.3/bits/stl_iterator_base_types.h:
+
+/usr/include/c++/4.1.3/bits/stl_iterator_base_funcs.h:
+
+/usr/include/c++/4.1.3/bits/concept_check.h:
+
+/usr/include/c++/4.1.3/bits/stl_iterator.h:
+
+/usr/include/c++/4.1.3/debug/debug.h:
+
+/usr/include/c++/4.1.3/memory:
+
+/usr/include/c++/4.1.3/bits/allocator.h:
+
+/usr/include/c++/4.1.3/powerpc-linux-gnu/bits/c++allocator.h:
+
+/usr/include/c++/4.1.3/ext/new_allocator.h:
+
+/usr/include/c++/4.1.3/new:
+
+/usr/include/c++/4.1.3/exception:
+
+/usr/include/c++/4.1.3/bits/stl_construct.h:
+
+/usr/include/c++/4.1.3/bits/stl_uninitialized.h:
+
+/usr/include/c++/4.1.3/bits/stl_raw_storage_iter.h:
+
+/usr/include/c++/4.1.3/limits:
+
+/usr/include/c++/4.1.3/bits/stl_function.h:
+
+/usr/include/c++/4.1.3/bits/basic_string.h:
+
+/usr/include/c++/4.1.3/bits/atomicity.h:
+
+/usr/include/c++/4.1.3/powerpc-linux-gnu/bits/atomic_word.h:
+
+/usr/include/c++/4.1.3/algorithm:
+
+/usr/include/c++/4.1.3/bits/stl_algo.h:
+
+/usr/include/c++/4.1.3/bits/stl_heap.h:
+
+/usr/include/c++/4.1.3/bits/stl_tempbuf.h:
+
+/usr/include/c++/4.1.3/bits/basic_string.tcc:
+
+/usr/share/qt3/include/qnamespace.h:
+
+/usr/share/qt3/include/qobject.h:
+
+/usr/share/qt3/include/qevent.h:
+
+/usr/share/qt3/include/qregion.h:
+
+/usr/share/qt3/include/qrect.h:
+
+/usr/share/qt3/include/qsize.h:
+
+/usr/share/qt3/include/qpoint.h:
+
+/usr/share/qt3/include/qmime.h:
+
+/usr/share/qt3/include/qmap.h:
+
+/usr/share/qt3/include/qdatastream.h:
+
+/usr/share/qt3/include/qiodevice.h:
+
+/usr/share/qt3/include/qpair.h:
+
+/usr/share/qt3/include/qvaluelist.h:
+
+/usr/share/qt3/include/qtl.h:
+
+/usr/share/qt3/include/qtextstream.h:
+
+/usr/include/c++/4.1.3/iterator:
+
+/usr/include/c++/4.1.3/ostream:
+
+/usr/include/c++/4.1.3/ios:
+
+/usr/include/c++/4.1.3/bits/localefwd.h:
+
+/usr/include/c++/4.1.3/bits/ios_base.h:
+
+/usr/include/c++/4.1.3/bits/locale_classes.h:
+
+/usr/include/c++/4.1.3/streambuf:
+
+/usr/include/c++/4.1.3/bits/streambuf.tcc:
+
+/usr/include/c++/4.1.3/bits/basic_ios.h:
+
+/usr/include/c++/4.1.3/bits/streambuf_iterator.h:
+
+/usr/include/c++/4.1.3/bits/locale_facets.h:
+
+/usr/include/c++/4.1.3/cwctype:
+
+/usr/include/wctype.h:
+
+/usr/include/c++/4.1.3/powerpc-linux-gnu/bits/ctype_base.h:
+
+/usr/include/c++/4.1.3/powerpc-linux-gnu/bits/ctype_inline.h:
+
+/usr/include/c++/4.1.3/bits/codecvt.h:
+
+/usr/include/c++/4.1.3/powerpc-linux-gnu/bits/time_members.h:
+
+/usr/include/c++/4.1.3/powerpc-linux-gnu/bits/messages_members.h:
+
+/usr/include/c++/4.1.3/bits/basic_ios.tcc:
+
+/usr/include/c++/4.1.3/bits/ostream.tcc:
+
+/usr/include/c++/4.1.3/locale:
+
+/usr/include/c++/4.1.3/bits/locale_facets.tcc:
+
+/usr/include/c++/4.1.3/typeinfo:
+
+/usr/include/c++/4.1.3/istream:
+
+/usr/include/c++/4.1.3/bits/istream.tcc:
+
+/usr/include/c++/4.1.3/bits/stream_iterator.h:
+
+/usr/include/c++/4.1.3/list:
+
+/usr/include/c++/4.1.3/bits/stl_list.h:
+
+/usr/include/c++/4.1.3/bits/list.tcc:
+
+/usr/include/c++/4.1.3/map:
+
+/usr/include/c++/4.1.3/bits/stl_tree.h:
+
+/usr/include/c++/4.1.3/bits/stl_map.h:
+
+/usr/include/c++/4.1.3/bits/stl_multimap.h:
+
+/usr/share/qt3/include/qpaintdevice.h:
+
+/usr/share/qt3/include/qpalette.h:
+
+/usr/share/qt3/include/qcolor.h:
+
+/usr/share/qt3/include/qstringlist.h:
+
+/usr/share/qt3/include/qstrlist.h:
+
+/usr/share/qt3/include/qptrlist.h:
+
+/usr/share/qt3/include/qglist.h:
+
+/usr/share/qt3/include/qptrcollection.h:
+
+/usr/share/qt3/include/qbrush.h:
+
+/usr/share/qt3/include/qfont.h:
+
+/usr/share/qt3/include/qfontmetrics.h:
+
+/usr/share/qt3/include/qfontinfo.h:
+
+/usr/share/qt3/include/qsizepolicy.h:
+
+/usr/share/qt3/include/qasciidict.h:
+
+/usr/share/qt3/include/qgdict.h:
+
+/usr/share/qt3/include/qtranslator.h:
+
+/usr/share/qt3/include/qpixmap.h:
+
+/usr/include/kde/kinstance.h:
+
+/usr/share/qt3/include/qstring.h:
+
+/usr/share/qt3/include/qaction.h:
+
+/usr/share/qt3/include/qiconset.h:
+
+/usr/share/qt3/include/qpixmap.h:
+
+/usr/share/qt3/include/qkeysequence.h:
+
+/usr/share/qt3/include/qwidget.h:
+
+/usr/include/kde/klineedit.h:
+
+/usr/share/qt3/include/qlineedit.h:
+
+/usr/share/qt3/include/qframe.h:
+
+/usr/include/kde/kcompletion.h:
+
+/usr/share/qt3/include/qmap.h:
+
+/usr/share/qt3/include/qptrlist.h:
+
+/usr/share/qt3/include/qobject.h:
+
+/usr/share/qt3/include/qstringlist.h:
+
+/usr/share/qt3/include/qguardedptr.h:
+
+/usr/include/kde/kglobalsettings.h:
+
+/usr/share/qt3/include/qcolor.h:
+
+/usr/share/qt3/include/qfont.h:
+
+/usr/include/kde/ksortablevaluelist.h:
+
+/usr/share/qt3/include/qpair.h:
+
+/usr/share/qt3/include/qvaluelist.h:
+
+/usr/include/kde/kshortcut.h:
+
+/usr/share/qt3/include/qkeysequence.h:
+
+/usr/include/kde/kcombobox.h:
+
+/usr/share/qt3/include/qcombobox.h:
+
+klogui.h:
+
+/usr/share/qt3/include/qvariant.h:
+
+/usr/share/qt3/include/qmainwindow.h:
+
+/usr/share/qt3/include/qtoolbar.h:
+
+/usr/share/qt3/include/qdockwindow.h:
+
+/usr/share/qt3/include/qlistview.h:
+
+/usr/share/qt3/include/qscrollview.h:
+
+/usr/share/qt3/include/qscrollbar.h:
+
+/usr/share/qt3/include/qrangecontrol.h:
+
+/usr/include/kde/klistview.h:
+
+/usr/include/kde/kdelibs_export.h:
+
+/usr/share/qt3/include/qfile.h:
+
+/usr/share/qt3/include/qdatetime.h:
+
+/usr/share/qt3/include/qdatetimeedit.h:
+
+/usr/share/qt3/include/qdatetime.h:
+
+/usr/share/qt3/include/qspinbox.h:
+
+/usr/include/kde/ktextedit.h:
+
+/usr/share/qt3/include/qtextedit.h:
+
+/usr/share/qt3/include/qstylesheet.h:
+
+/usr/share/qt3/include/qptrvector.h:
+
+/usr/share/qt3/include/qgvector.h:
+
+/usr/share/qt3/include/qdict.h:
+
+/usr/share/qt3/include/qlabel.h:
+
+/usr/share/qt3/include/qpoint.h:
+
+/usr/share/qt3/include/qlcdnumber.h:
+
+/usr/share/qt3/include/qbitarray.h:
+
+/usr/include/kde/kglobal.h:
+
+/usr/include/kde/kpushbutton.h:
+
+/usr/share/qt3/include/qpushbutton.h:
+
+/usr/share/qt3/include/qbutton.h:
+
+/usr/include/kde/kguiitem.h:
+
+/usr/share/qt3/include/qiconset.h:
+
+/usr/include/kde/kicontheme.h:
+
+/usr/include/kde/kstdguiitem.h:
+
+/usr/share/qt3/include/qcheckbox.h:
+
+/usr/share/qt3/include/qmessagebox.h:
+
+/usr/share/qt3/include/qdialog.h:
+
+/usr/share/qt3/include/qfiledialog.h:
+
+/usr/share/qt3/include/qdir.h:
+
+/usr/share/qt3/include/qfileinfo.h:
+
+/usr/share/qt3/include/qfile.h:
+
+/usr/share/qt3/include/qurloperator.h:
+
+/usr/share/qt3/include/qurl.h:
+
+/usr/share/qt3/include/qnetworkprotocol.h:
+
+/usr/share/qt3/include/qurlinfo.h:
+
+/usr/share/qt3/include/qstatusbar.h:
+
+/usr/share/qt3/include/qdialog.h:
+
+/usr/share/qt3/include/qinputdialog.h:
+
+/usr/share/qt3/include/qlineedit.h:
+
+/usr/include/kde/knuminput.h:
+
+/usr/include/kde/kled.h:
+
+/usr/include/kde/kaboutapplication.h:
+
+/usr/include/kde/kaboutdata.h:
+
+/usr/share/qt3/include/qimage.h:
+
+/usr/include/kde/klocale.h:
+
+/usr/include/kde/kaboutdialog.h:
+
+/usr/include/kde/kdialogbase.h:
+
+/usr/include/kde/kdialog.h:
+
+/usr/include/kde/kjanuswidget.h:
+
+/usr/share/qt3/include/qsplitter.h:
+
+/usr/include/kde/klistbox.h:
+
+/usr/share/qt3/include/qlistbox.h:
+
+/usr/include/kde/kpopupmenu.h:
+
+/usr/share/qt3/include/qpopupmenu.h:
+
+/usr/share/qt3/include/qmenudata.h:
+
+/usr/share/qt3/include/qsignal.h:
+
+/usr/share/qt3/include/qvariant.h:
+
+/usr/include/kde/kpixmapeffect.h:
+
+/usr/share/qt3/include/qsize.h:
+
+/usr/include/kde/kpixmap.h:
+
+/usr/share/qt3/include/qtimer.h:
+
+/usr/share/qt3/include/qsocket.h:
+
+/usr/share/qt3/include/qhostaddress.h:
+
+/usr/share/qt3/include/qurl.h:
+
+/usr/share/qt3/include/qtextstream.h:
+
+/usr/include/kde/kprinter.h:
+
+/usr/share/qt3/include/qpaintdevice.h:
+
+/usr/share/qt3/include/qprinter.h:
+
+/usr/include/kde/kdeprint/kpreloadobject.h:
+
+/usr/share/qt3/include/qpainter.h:
+
+/usr/share/qt3/include/qpen.h:
+
+/usr/share/qt3/include/qpointarray.h:
+
+/usr/share/qt3/include/qwmatrix.h:
+
+/usr/share/qt3/include/qprogressdialog.h:
+
+/usr/share/qt3/include/qsemimodal.h:
+
+/usr/share/qt3/include/qlabel.h:
+
+/usr/share/qt3/include/qprogressbar.h:
+
+/usr/share/qt3/include/qsplashscreen.h:
+
+/usr/share/qt3/include/qpaintdevicemetrics.h:
+
+/usr/include/kde/kbugreport.h:
+
+/usr/share/qt3/include/qtabwidget.h:
+
+awarddxcc.h:
+
+adif.h:
+
+awardwaz.h:
+
+qso.h:
+
+calls.h:
+
+world.h:
+
+/usr/share/qt3/include/qdir.h:
+
+entity.h:
+
+prefix.h:
+
+locator.h:
+
+/usr/include/math.h:
+
+/usr/include/bits/huge_val.h:
+
+/usr/include/bits/huge_valf.h:
+
+/usr/include/bits/huge_vall.h:
+
+/usr/include/bits/inf.h:
+
+/usr/include/bits/nan.h:
+
+/usr/lib/gcc/powerpc-linux-gnu/4.1.3/include/bits/mathdef.h:
+
+/usr/include/bits/mathcalls.h:
+
+/usr/include/bits/mathinline.h:
+
+setup.h:
+
+/usr/include/kde/kcolorcombo.h:
+
+/usr/include/kde/kcolordialog.h:
+
+/usr/share/qt3/include/qframe.h:
+
+/usr/share/qt3/include/qgridview.h:
+
+/usr/include/kde/kselect.h:
+
+/usr/share/qt3/include/qrangecontrol.h:
+
+kloghamlib.h:
+
+/usr/include/hamlib/rig.h:
+
+/usr/include/hamlib/riglist.h:
+
+/usr/include/hamlib/rig_dll.h:
+
+setupui.h:
+
+award.h:
+
+reference.h:
+
+awards.h:
+
+workedcalls.h:

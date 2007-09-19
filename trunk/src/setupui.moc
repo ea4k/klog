@@ -1,0 +1,150 @@
+/****************************************************************************
+** setupui meta object code from reading C++ file 'setupui.h'
+**
+** Created: Thu Sep 13 18:00:58 2007
+**      by: The Qt MOC ($Id: qt/moc_yacc.cpp   3.3.7   edited Oct 19 16:22 $)
+**
+** WARNING! All changes made in this file will be lost!
+*****************************************************************************/
+
+#undef QT_NO_COMPAT
+#include "setupui.h"
+#include <qmetaobject.h>
+#include <qapplication.h>
+
+#include <private/qucomextra_p.h>
+#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 26)
+#error "This file was generated using the moc from 3.3.7. It"
+#error "cannot be used with the include files from this version of Qt."
+#error "(The moc has changed too much.)"
+#endif
+
+const char *setupui::className() const
+{
+    return "setupui";
+}
+
+QMetaObject *setupui::metaObj = 0;
+static QMetaObjectCleanUp cleanUp_setupui( "setupui", &setupui::staticMetaObject );
+
+#ifndef QT_NO_TRANSLATION
+QString setupui::tr( const char *s, const char *c )
+{
+    if ( qApp )
+	return qApp->translate( "setupui", s, c, QApplication::DefaultCodec );
+    else
+	return QString::fromLatin1( s );
+}
+#ifndef QT_NO_TRANSLATION_UTF8
+QString setupui::trUtf8( const char *s, const char *c )
+{
+    if ( qApp )
+	return qApp->translate( "setupui", s, c, QApplication::UnicodeUTF8 );
+    else
+	return QString::fromUtf8( s );
+}
+#endif // QT_NO_TRANSLATION_UTF8
+
+#endif // QT_NO_TRANSLATION
+
+QMetaObject* setupui::staticMetaObject()
+{
+    if ( metaObj )
+	return metaObj;
+    QMetaObject* parentObject = QDialog::staticMetaObject();
+    static const QUMethod slot_0 = {"slotOkBtnClicked", 0, 0 };
+    static const QUMethod slot_1 = {"slotCancelBtnClicked", 0, 0 };
+    static const QUMethod slot_2 = {"slotFileNameClicked", 0, 0 };
+    static const QUMethod slot_3 = {"slotOpenFileButtonClicked", 0, 0 };
+    static const QUMethod slot_4 = {"slotSearchAwardFilekPushButtonClicked", 0, 0 };
+    static const QUMethod slot_5 = {"slotAddButtonClicked", 0, 0 };
+    static const QUMethod slot_6 = {"slotAwardClearButtonClicked", 0, 0 };
+    static const QUMethod slot_7 = {"slotAwardRemoveButtonClicked", 0, 0 };
+    static const QUMethod slot_8 = {"slotAddDxClusterPushButtonClicked", 0, 0 };
+    static const QUMethod slot_9 = {"slotClearDxClusterPushButtonClicked", 0, 0 };
+    static const QUParameter param_slot_10[] = {
+	{ "item", &static_QUType_ptr, "QListViewItem", QUParameter::In }
+    };
+    static const QUMethod slot_10 = {"slotAwardSelected", 1, param_slot_10 };
+    static const QUParameter param_slot_11[] = {
+	{ "item", &static_QUType_ptr, "QListViewItem", QUParameter::In },
+	{ "p", &static_QUType_varptr, "\x0e", QUParameter::In }
+    };
+    static const QUMethod slot_11 = {"slotAwardRightButtonFromList", 2, param_slot_11 };
+    static const QUParameter param_slot_12[] = {
+	{ "tint", &static_QUType_int, 0, QUParameter::In }
+    };
+    static const QUMethod slot_12 = {"slotAwardDelete", 1, param_slot_12 };
+    static const QUMethod slot_13 = {"languageChange", 0, 0 };
+    static const QMetaData slot_tbl[] = {
+	{ "slotOkBtnClicked()", &slot_0, QMetaData::Public },
+	{ "slotCancelBtnClicked()", &slot_1, QMetaData::Public },
+	{ "slotFileNameClicked()", &slot_2, QMetaData::Public },
+	{ "slotOpenFileButtonClicked()", &slot_3, QMetaData::Public },
+	{ "slotSearchAwardFilekPushButtonClicked()", &slot_4, QMetaData::Public },
+	{ "slotAddButtonClicked()", &slot_5, QMetaData::Public },
+	{ "slotAwardClearButtonClicked()", &slot_6, QMetaData::Public },
+	{ "slotAwardRemoveButtonClicked()", &slot_7, QMetaData::Public },
+	{ "slotAddDxClusterPushButtonClicked()", &slot_8, QMetaData::Public },
+	{ "slotClearDxClusterPushButtonClicked()", &slot_9, QMetaData::Public },
+	{ "slotAwardSelected(QListViewItem*)", &slot_10, QMetaData::Public },
+	{ "slotAwardRightButtonFromList(QListViewItem*,const QPoint&)", &slot_11, QMetaData::Public },
+	{ "slotAwardDelete(int)", &slot_12, QMetaData::Public },
+	{ "languageChange()", &slot_13, QMetaData::Protected }
+    };
+    metaObj = QMetaObject::new_metaobject(
+	"setupui", parentObject,
+	slot_tbl, 14,
+	0, 0,
+#ifndef QT_NO_PROPERTIES
+	0, 0,
+	0, 0,
+#endif // QT_NO_PROPERTIES
+	0, 0 );
+    cleanUp_setupui.setMetaObject( metaObj );
+    return metaObj;
+}
+
+void* setupui::qt_cast( const char* clname )
+{
+    if ( !qstrcmp( clname, "setupui" ) )
+	return this;
+    return QDialog::qt_cast( clname );
+}
+
+bool setupui::qt_invoke( int _id, QUObject* _o )
+{
+    switch ( _id - staticMetaObject()->slotOffset() ) {
+    case 0: slotOkBtnClicked(); break;
+    case 1: slotCancelBtnClicked(); break;
+    case 2: slotFileNameClicked(); break;
+    case 3: slotOpenFileButtonClicked(); break;
+    case 4: slotSearchAwardFilekPushButtonClicked(); break;
+    case 5: slotAddButtonClicked(); break;
+    case 6: slotAwardClearButtonClicked(); break;
+    case 7: slotAwardRemoveButtonClicked(); break;
+    case 8: slotAddDxClusterPushButtonClicked(); break;
+    case 9: slotClearDxClusterPushButtonClicked(); break;
+    case 10: slotAwardSelected((QListViewItem*)static_QUType_ptr.get(_o+1)); break;
+    case 11: slotAwardRightButtonFromList((QListViewItem*)static_QUType_ptr.get(_o+1),(const QPoint&)*((const QPoint*)static_QUType_ptr.get(_o+2))); break;
+    case 12: slotAwardDelete((int)static_QUType_int.get(_o+1)); break;
+    case 13: languageChange(); break;
+    default:
+	return QDialog::qt_invoke( _id, _o );
+    }
+    return TRUE;
+}
+
+bool setupui::qt_emit( int _id, QUObject* _o )
+{
+    return QDialog::qt_emit(_id,_o);
+}
+#ifndef QT_NO_PROPERTIES
+
+bool setupui::qt_property( int id, int f, QVariant* v)
+{
+    return QDialog::qt_property( id, f, v);
+}
+
+bool setupui::qt_static_property( QObject* , int , int , QVariant* ){ return FALSE; }
+#endif // QT_NO_PROPERTIES

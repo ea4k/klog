@@ -1,0 +1,2045 @@
+# translation of klog.po to Spanish
+# Copyright (C) 2003, 2004, 2006 Free Software Foundation, Inc.
+#
+# Jaime Robles <jaime@kde.org>, 2003, 2004, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: klog\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-09-09 21:20+0200\n"
+"PO-Revision-Date: 2006-12-15 17:24+0100\n"
+"Last-Translator: Jaime Robles <jaime@kde.org>\n"
+"Language-Team: Spanish <kde-es@kybs.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: _translatorinfo.cpp:1
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr "Jaime Robles"
+
+#: _translatorinfo.cpp:3
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
+msgstr "jaime@kde.org"
+
+#: klog.cpp:153
+msgid "Warning - Can't find cty.dat"
+msgstr "Aviso - No puedo encontrar el archivo cty.dat"
+
+#: klog.cpp:154
+msgid ""
+"I can't find the cty.dat file with the data\n"
+"of the Entities. Do you want to continue without\n"
+"this data?\n"
+"\n"
+"(Copy an updated cty.dat file to your ~/.klog dir, please.)"
+msgstr ""
+"No puedo encontrar el archivo cty.dat con los datos\n"
+"de las entidades. ¿Quiere continuar sin\n"
+"estos datos?\n"
+"\n"
+"(Copie un archivo cty.dat actualizado en su directorio ~/.klog)"
+
+#: klog.cpp:310
+msgid "Award:"
+msgstr "Diplomas:"
+
+#: klog.cpp:311
+msgid "LOCAL:"
+msgstr "LOCAL:"
+
+#: klog.cpp:378
+msgid "Ok"
+msgstr "Aceptar"
+
+#: klog.cpp:436
+msgid "<p align=\"center\"><b>KLog</b></p>"
+msgstr "<p align=\"center\"><b>KLog</b></p>"
+
+#: klog.cpp:511
+msgid "save file dialogChoose a filename to save under"
+msgstr "save file dialogElija el nombre para el archivo"
+
+#: klog.cpp:520
+msgid "Warning - File exists"
+msgstr "Atención - Archivo existente"
+
+#: klog.cpp:521
+msgid "The file: "
+msgstr "El archivo: "
+
+#: klog.cpp:523
+msgid "Overwrite"
+msgstr "Sobreescribir"
+
+#: klog.cpp:523
+msgid "Rename"
+msgstr "Renombrar"
+
+#: klog.cpp:543
+msgid "Saving aborted"
+msgstr "Guardar cancelado"
+
+#: klog.cpp:656
+msgid "Saving the log..."
+msgstr "Guardando el log..."
+
+#: klog.cpp:656
+msgid "Abort saving"
+msgstr "Cancelar"
+
+#: klog.cpp:657 klog.cpp:1027 klog.cpp:2194
+msgid "progress"
+msgstr "progreso"
+
+#: klog.cpp:662
+msgid "ADIF v1.0 (some ADIF v2 fields) Export from KLog-"
+msgstr "ADIF v1.0 (algunos campos de ADIF v2 ) Exportado desde KLog-"
+
+#: klog.cpp:663
+msgid ""
+"\n"
+"Log saved: "
+msgstr ""
+"\n"
+"Guardado: "
+
+#: klog.cpp:1026 klog.cpp:2193
+msgid "Reading the log..."
+msgstr "Leyendo el log..."
+
+#: klog.cpp:1026 klog.cpp:2193
+msgid "Abort reading"
+msgstr "Cancelar lectura"
+
+#: klog.cpp:1108 klog.cpp:2368
+msgid "Adding QSO#: "
+msgstr "Añadiendo QSO nº: "
+
+#: klog.cpp:1268
+msgid "QSL Recv and Sent"
+msgstr "QSL recibida y enviada"
+
+#. i18n: file ./klogui.ui line 2751
+#: klog.cpp:1271 rc.cpp:736
+#, no-c-format
+msgid "QSL Received"
+msgstr "QSL recibida"
+
+#. i18n: file ./klogui.ui line 2740
+#: klog.cpp:1276 rc.cpp:733
+#, no-c-format
+msgid "QSL Sent"
+msgstr "QSL enviada"
+
+#: klog.cpp:1411
+msgid "Warning - Save log?"
+msgstr "Atención - ¿Salvar log?"
+
+#: klog.cpp:1412
+msgid "The log has been changed since the last save."
+msgstr "El log ha cambiado desde la última vez que fue guardado."
+
+#: klog.cpp:1414
+msgid "Save Now"
+msgstr "Guardar ahora"
+
+#: klog.cpp:1414
+msgid "Continue anyway"
+msgstr "Continuar de todas formas"
+
+#: klog.cpp:1479 klog.cpp:2418 klog.cpp:2437 setup.cpp:511
+msgid "Open a file"
+msgstr "Abrir archivo"
+
+#: klog.cpp:1480 klog.cpp:2419
+msgid "ADIF files (*.adi *.ADI *.adif)"
+msgstr "Archivos ADIF (*.adi *.ADI *.adif)"
+
+#: klog.cpp:1761
+msgid "KLog-"
+msgstr "KLog-"
+
+#: klog.cpp:1762
+#, fuzzy
+msgid "KLog: "
+msgstr "KLog:-"
+
+#: klog.cpp:2200 klog.cpp:2211
+msgid "KLog - TLF Import"
+msgstr "KLog - Importar de TLF"
+
+#: klog.cpp:2200 klog.cpp:2390
+msgid ""
+"Enter a remark for ALL the imported QSO:\n"
+"(Leave it empty and press OK if no remark)"
+msgstr ""
+"Introduzca un comentario para TODOS los QSO importados:\n"
+"(Déjelo vacío y pulse OK si no quiere comentario"
+
+#: klog.cpp:2212 klog.cpp:2399
+msgid ""
+"Enter the used call:\n"
+"(Leave it empty and press OK if no diferent call was used)"
+msgstr ""
+"Introduzca el indicativo usado:\n"
+"(Déjelo vacío y pulse OK si no se ha usado un indicativo distinto)"
+
+#: klog.cpp:2216 klog.cpp:2402
+msgid "Warning - QRZ not valid"
+msgstr "Atención - QRZ no válido"
+
+#: klog.cpp:2217 klog.cpp:2402
+msgid "Do you want to import without a QRZ?\n"
+msgstr "¿Quiere importar sin un QRZ?\n"
+
+#: klog.cpp:2390 klog.cpp:2399
+msgid "KLog - Log Add"
+msgstr "KLog - Añadir Log"
+
+#: klog.cpp:2427 klog.cpp:3030 klog.cpp:3247 klog.cpp:3253 klog.cpp:3257
+msgid "KLog message:"
+msgstr "Mensaje de KLog:"
+
+#: klog.cpp:2428
+msgid ""
+"The log file has been\n"
+"successfully added!"
+msgstr ""
+"El archivo de log\n"
+"se ha añadido correctamente."
+
+#: klog.cpp:2438
+msgid "TLF files (*.log *.LOG)"
+msgstr "Archivos TLF (*.log *.LOG)"
+
+#: klog.cpp:2469
+msgid "<p align=\"center\"><b>Worked & confirmed before</b></p>"
+msgstr "<p align=\"center\"><b>Ya trabajado y confirmado</b></p>"
+
+#: klog.cpp:2477 klog.cpp:2493
+msgid "<p align=\"center\"><b>Not confirmed, WORK IT!</b></p>"
+msgstr "<p align=\"center\"><b>No confirmado, ¡TRABAJALO!</b></p>"
+
+#: klog.cpp:2482
+msgid "<p align=\"center\"><b>New one in this band, WORK IT!</b></p>"
+msgstr "<p align=\"center\"><b>Nuevo en esta banda, ¡TRABAJALO!</b></p>"
+
+#: klog.cpp:2503
+msgid "<p align=\"center\"><b>NEW ONE, WORK IT!</b></p>"
+msgstr "<p align=\"center\"><b>NUEVO ¡TRABAJALO!</b></p>"
+
+#: klog.cpp:2663
+msgid "Warning - QSO Deletion"
+msgstr "Atención - Eliminar QSO"
+
+#: klog.cpp:2664
+msgid "Do you want to delete the QSO with:\n"
+msgstr "¿Quieres eliminar el QSO con:\n"
+
+#: klog.cpp:2863
+msgid "Printing date: %1"
+msgstr "Fecha de impresión: %1"
+
+#: klog.cpp:2876
+msgid "Print %1"
+msgstr "Impresión %1"
+
+#: klog.cpp:2902
+msgid "Page: %1"
+msgstr "Página: %1"
+
+#: klog.cpp:3031
+msgid ""
+"Check your cluster settings\n"
+"in Setup->Preferences\n"
+"before connecting!"
+msgstr ""
+"Revise la configuración del cluster\n"
+"en Configurar->Preferencias\n"
+"antes de conectar."
+
+#: klog.cpp:3047
+msgid "Trying to connect to the server\n"
+msgstr "Intentado conectar al servidor\n"
+
+#: klog.cpp:3225
+msgid "Connected to server"
+msgstr "Conectado al servidor"
+
+#: klog.cpp:3231
+msgid "Connection closed by the server"
+msgstr "Conexión cerrada por el servidor"
+
+#: klog.cpp:3237
+msgid "Connection closed"
+msgstr "Conexión cerrada"
+
+#: klog.cpp:3248
+msgid "DX-Cluster server refused the connection\n"
+msgstr "El servidor de DXCluster rechazó la conexión\n"
+
+#: klog.cpp:3254
+msgid "Host not found:\n"
+msgstr "Máquina no encontrada:\n"
+
+#: klog.cpp:3258
+msgid ""
+"Error Socket Read,\n"
+"Error unknown!"
+msgstr ""
+"Error de lectura de Socket,\n"
+"Error desconocido."
+
+#: klog.cpp:3262
+msgid "Error number %1 occurred"
+msgstr "Ha tenido lugar el error número %1"
+
+#: klog.cpp:3466
+msgid "KLog message: Bug-reporting"
+msgstr "Mensaje de KLog: Enviar error"
+
+#: klog.cpp:3467
+msgid ""
+"\n"
+"All your suggestions will be welcome!"
+msgstr ""
+"\n"
+"¡Todas sus sugerencias serán bienvenidas!"
+
+#: main.cpp:32
+msgid "The KDE Ham Radio Logging Software"
+msgstr "KLog - El programa de Log para Radioaficionados de KDE"
+
+#. i18n: file ./klogui.ui line 38
+#: main.cpp:47 rc.cpp:6
+#, no-c-format
+msgid "Klog"
+msgstr "Klog"
+
+#. i18n: file ./klogui.rc line 4
+#: rc.cpp:3
+#, no-c-format
+msgid "C&ustom"
+msgstr "Personali&zar"
+
+#. i18n: file ./klogui.ui line 44
+#: rc.cpp:10
+#, no-c-format
+msgid "KLog - The KDE Ham radio logging software."
+msgstr "KLog - El programa de Log para Radioaficionados de KDE"
+
+#. i18n: file ./klogui.ui line 76
+#: rc.cpp:13
+#, no-c-format
+msgid "Info"
+msgstr "Información"
+
+#. i18n: file ./klogui.ui line 96
+#: rc.cpp:16
+#, no-c-format
+msgid "<b>KLog</b>"
+msgstr "<b>KLog</b>"
+
+#. i18n: file ./klogui.ui line 107
+#. i18n: file ./klogui.ui line 289
+#. i18n: file ./klogui.ui line 314
+#: rc.cpp:19 rc.cpp:58 rc.cpp:67
+#, no-c-format
+msgid "--"
+msgstr "--"
+
+#. i18n: file ./klogui.ui line 126
+#: rc.cpp:22
+#, no-c-format
+msgid "<p align=\"center\"><b>10</b></p>"
+msgstr "<p align=\"center\"><b>10</b></p>"
+
+#. i18n: file ./klogui.ui line 137
+#: rc.cpp:25
+#, no-c-format
+msgid "<p align=\"center\"><b>15</b></p>"
+msgstr "<p align=\"center\"><b>15</b></p>"
+
+#. i18n: file ./klogui.ui line 148
+#: rc.cpp:28
+#, no-c-format
+msgid "<p align=\"center\"><b>20</b></p>"
+msgstr "<p align=\"center\"><b>20</b></p>"
+
+#. i18n: file ./klogui.ui line 159
+#: rc.cpp:31
+#, no-c-format
+msgid "<p align=\"center\"><b>40</b></p>"
+msgstr "<p align=\"center\"><b>40</b></p>"
+
+#. i18n: file ./klogui.ui line 170
+#: rc.cpp:34
+#, no-c-format
+msgid "<p align=\"center\"><b>80</b></p>"
+msgstr "<p align=\"center\"><b>80</b></p>"
+
+#. i18n: file ./klogui.ui line 181
+#: rc.cpp:37
+#, no-c-format
+msgid "<p align=\"center\"><b>160</b></p>"
+msgstr "<p align=\"center\"><b>160</b></p>"
+
+#. i18n: file ./klogui.ui line 202
+#: rc.cpp:40
+#, no-c-format
+msgid "<p align=\"center\"><b>2</b></p>"
+msgstr "<p align=\"center\"><b>2</b></p>"
+
+#. i18n: file ./klogui.ui line 213
+#: rc.cpp:43
+#, no-c-format
+msgid "<p align=\"center\"><b>6</b></p>"
+msgstr "<p align=\"center\"><b>6</b></p>"
+
+#. i18n: file ./klogui.ui line 224
+#: rc.cpp:46
+#, no-c-format
+msgid "<p align=\"center\"><b>12</b></p>"
+msgstr "<p align=\"center\"><b>12</b></p>"
+
+#. i18n: file ./klogui.ui line 235
+#: rc.cpp:49
+#, no-c-format
+msgid "<p align=\"center\"><b>17</b></p>"
+msgstr "<p align=\"center\"><b>17</b></p>"
+
+#. i18n: file ./klogui.ui line 246
+#: rc.cpp:52
+#, no-c-format
+msgid "<p align=\"center\"><b>30</b></p>"
+msgstr "<p align=\"center\"><b>30</b></p>"
+
+#. i18n: file ./klogui.ui line 257
+#: rc.cpp:55
+#, no-c-format
+msgid "<p align=\"center\"><b>70cm</b></p>"
+msgstr "<p align=\"center\"><b>70cm</b></p>"
+
+#. i18n: file ./klogui.ui line 292
+#: rc.cpp:61
+#, no-c-format
+msgid "Entity's main prefix"
+msgstr "Prefijo principal de la entidad"
+
+#. i18n: file ./klogui.ui line 303
+#: rc.cpp:64
+#, no-c-format
+msgid "<p align=\"center\"><b>Prefix:</b></p>"
+msgstr "<p align=\"center\"><b>Prefijo:</b></p>"
+
+#. i18n: file ./klogui.ui line 317
+#: rc.cpp:70
+#, no-c-format
+msgid "Entity's continent"
+msgstr "Continente de la entidad"
+
+#. i18n: file ./klogui.ui line 328
+#: rc.cpp:73
+#, no-c-format
+msgid "<p align=\"center\"><b>Continent:</b></p>"
+msgstr "<p align=\"center\"><b>Continente:</b></p>"
+
+#. i18n: file ./klogui.ui line 349
+#: rc.cpp:76
+#, no-c-format
+msgid "<p align=\"center\"><b>deg</b></p>"
+msgstr "<p align=\"center\"><b>gra</b></p>"
+
+#. i18n: file ./klogui.ui line 364
+#: rc.cpp:79
+#, no-c-format
+msgid "Km to the DX through the short path"
+msgstr "Km al DX por el paso corto"
+
+#. i18n: file ./klogui.ui line 375
+#: rc.cpp:82
+#, no-c-format
+msgid "<p align=\"center\"><b>Short Path:</b></p>"
+msgstr "<p align=\"center\"><b>Paso corto:</b></p>"
+
+#. i18n: file ./klogui.ui line 378
+#: rc.cpp:85
+#, no-c-format
+msgid "Short Path"
+msgstr "Paso corto"
+
+#. i18n: file ./klogui.ui line 389
+#. i18n: file ./klogui.ui line 563
+#: rc.cpp:88 rc.cpp:121
+#, no-c-format
+msgid "<b><p align=\"center\">Km</p></b>"
+msgstr "<b><p align=\"center\">Km</p></b>"
+
+#. i18n: file ./klogui.ui line 409
+#: rc.cpp:91
+#, no-c-format
+msgid "Point your antenna in this direction"
+msgstr "Apunte su antena en esta dirección"
+
+#. i18n: file ./klogui.ui line 430
+#: rc.cpp:94
+#, no-c-format
+msgid "<p align=\"center\"><b>ITU:</b></p>"
+msgstr "<p align=\"center\"><b>ITU:</b></p>"
+
+#. i18n: file ./klogui.ui line 441
+#: rc.cpp:97
+#, no-c-format
+msgid "<p align=\"center\"><b>CQ:</b></p>"
+msgstr "<p align=\"center\"><b>CQ:</b></p>"
+
+#. i18n: file ./klogui.ui line 463
+#: rc.cpp:100
+#, no-c-format
+msgid "CQ zone"
+msgstr "Zona CQ"
+
+#. i18n: file ./klogui.ui line 482
+#: rc.cpp:103
+#, no-c-format
+msgid "ITU zone"
+msgstr "Zona ITU"
+
+#. i18n: file ./klogui.ui line 509
+#: rc.cpp:106
+#, no-c-format
+msgid "Turn your antenna in this direction to work via long path"
+msgstr ""
+"Apunte su antena en esta dirección para trabajar al DX por le salto largo"
+
+#. i18n: file ./klogui.ui line 520
+#: rc.cpp:109
+#, no-c-format
+msgid "<p align=\"center\"><b>Long Path:</b></p>"
+msgstr "<p align=\"center\"><b>Paso largo:</b></p>"
+
+#. i18n: file ./klogui.ui line 523
+#: rc.cpp:112
+#, no-c-format
+msgid "Long Path"
+msgstr "Paso largo"
+
+#. i18n: file ./klogui.ui line 540
+#: rc.cpp:115
+#, no-c-format
+msgid "Km to the DX through the long path"
+msgstr "Km al DX por el paso largo"
+
+#. i18n: file ./klogui.ui line 551
+#: rc.cpp:118
+#, no-c-format
+msgid "<b><p align=\"center\">deg</p></b>"
+msgstr "<b><p align=\"center\">gra</p></b>"
+
+#. i18n: file ./klogui.ui line 577
+#. i18n: file ./setupui.ui line 1270
+#: rc.cpp:124 rc.cpp:1099
+#, no-c-format
+msgid "Awards"
+msgstr "Diplomas"
+
+#. i18n: file ./klogui.ui line 591
+#: rc.cpp:127
+#, no-c-format
+msgid "<b>Award</b>"
+msgstr "<b>Diploma</b>"
+
+#. i18n: file ./klogui.ui line 602
+#. i18n: file ./setupui.ui line 919
+#: rc.cpp:130 rc.cpp:1036
+#, no-c-format
+msgid "<b>Worked</b>"
+msgstr "<b>Trabajado</b>"
+
+#. i18n: file ./klogui.ui line 613
+#: rc.cpp:133
+#, no-c-format
+msgid "<b>DXCC:</b>"
+msgstr "<b>DXCC:</b>"
+
+#. i18n: file ./klogui.ui line 624
+#: rc.cpp:136
+#, no-c-format
+msgid "<b>WAZ:</b>"
+msgstr "<b>WAZ:</b>"
+
+#. i18n: file ./klogui.ui line 638
+#. i18n: file ./klogui.ui line 2005
+#: rc.cpp:139 rc.cpp:511
+#, no-c-format
+msgid "<b>IOTA:</b>"
+msgstr "<b>IOTA:</b>"
+
+#. i18n: file ./klogui.ui line 641
+#: rc.cpp:142
+#, no-c-format
+msgid "IOTA checking is still not implemented."
+msgstr "Comprobación IOTA no implementada."
+
+#. i18n: file ./klogui.ui line 655
+#: rc.cpp:145
+#, no-c-format
+msgid "<b>LOCAL:</b>"
+msgstr "<b>LOCAL:</b>"
+
+#. i18n: file ./klogui.ui line 658
+#: rc.cpp:148
+#, no-c-format
+msgid "Local awards checking is still not implemented."
+msgstr "Comprobación de diplomas locales no implementada."
+
+#. i18n: file ./klogui.ui line 669
+#: rc.cpp:151
+#, no-c-format
+msgid "<b>QSOs:</b>"
+msgstr "<b>QSOs:</b>"
+
+#. i18n: file ./klogui.ui line 780
+#. i18n: file ./setupui.ui line 891
+#: rc.cpp:154 rc.cpp:1033
+#, no-c-format
+msgid "<b>Confirmed</b>"
+msgstr "<b>Confirmado</b>"
+
+#. i18n: file ./klogui.ui line 815
+#. i18n: file ./klogui.ui line 1016
+#: rc.cpp:157 rc.cpp:202
+#, no-c-format
+msgid "Search"
+msgstr "Búsqueda"
+
+#. i18n: file ./klogui.ui line 824
+#. i18n: file ./klogui.ui line 2209
+#: rc.cpp:160 rc.cpp:548
+#, no-c-format
+msgid "QRZ"
+msgstr "QRZ"
+
+#. i18n: file ./klogui.ui line 835
+#. i18n: file ./klogui.ui line 2187
+#: rc.cpp:163 rc.cpp:542
+#, no-c-format
+msgid "Date"
+msgstr "Fecha"
+
+#. i18n: file ./klogui.ui line 846
+#: rc.cpp:166
+#, no-c-format
+msgid "Time"
+msgstr "Hora"
+
+#. i18n: file ./klogui.ui line 857
+#. i18n: file ./klogui.ui line 2242
+#: rc.cpp:169 rc.cpp:557
+#, no-c-format
+msgid "Band"
+msgstr "Banda"
+
+#. i18n: file ./klogui.ui line 868
+#. i18n: file ./klogui.ui line 2253
+#: rc.cpp:172 rc.cpp:560
+#, no-c-format
+msgid "Mode"
+msgstr "Modo"
+
+#. i18n: file ./klogui.ui line 879
+#: rc.cpp:175
+#, no-c-format
+msgid "QSL-Sent"
+msgstr "QSL-env"
+
+#. i18n: file ./klogui.ui line 890
+#: rc.cpp:178
+#, no-c-format
+msgid "QSL-rec"
+msgstr "QSL-rec"
+
+#. i18n: file ./klogui.ui line 901
+#. i18n: file ./setupui.ui line 1342
+#: rc.cpp:181 rc.cpp:1112
+#, no-c-format
+msgid "Number"
+msgstr "Número"
+
+#. i18n: file ./klogui.ui line 930
+#. i18n: file ./klogui.ui line 1606
+#: rc.cpp:184 rc.cpp:398
+#, no-c-format
+msgid "<p align=\"center\"><b>Name:</b></p>"
+msgstr "<p align=\"center\"><b>Nombre:</b></p>"
+
+#. i18n: file ./klogui.ui line 941
+#: rc.cpp:187
+#, no-c-format
+msgid "DX Operator's QTH"
+msgstr "QTH del operador del DX"
+
+#. i18n: file ./klogui.ui line 952
+#: rc.cpp:190
+#, no-c-format
+msgid "<p align=\"center\"><b>QTH:</b></p>"
+msgstr "<p align=\"center\"><b>QTH:</b></p>"
+
+#. i18n: file ./klogui.ui line 971
+#: rc.cpp:193
+#, no-c-format
+msgid "<p align=\"center\"><b>Time:</b></p>"
+msgstr "<p align=\"center\"><b>Hora:</b></p>"
+
+#. i18n: file ./klogui.ui line 992
+#: rc.cpp:196
+#, no-c-format
+msgid "DX Operator's name"
+msgstr "Nombre del operador de DX"
+
+#. i18n: file ./klogui.ui line 1008
+#: rc.cpp:199
+#, no-c-format
+msgid "Enter the call to search"
+msgstr "Introduzca el indicativo a buscar"
+
+#. i18n: file ./klogui.ui line 1073
+#: rc.cpp:211
+#, no-c-format
+msgid "Clear current QSO"
+msgstr "Limpiar QSO actual"
+
+#. i18n: file ./klogui.ui line 1084
+#: rc.cpp:217
+#, no-c-format
+msgid "Add this QSO to the log"
+msgstr "Añadir este QSO a este log"
+
+#. i18n: file ./klogui.ui line 1106
+#: rc.cpp:220
+#, no-c-format
+msgid "Enter the DX's QRZ"
+msgstr "Introduzca el QRZ del DX"
+
+#. i18n: file ./klogui.ui line 1129
+#. i18n: file ./setupui.ui line 461
+#: rc.cpp:223 rc.cpp:877
+#, no-c-format
+msgid "SSB"
+msgstr "SSB"
+
+#. i18n: file ./klogui.ui line 1134
+#. i18n: file ./setupui.ui line 466
+#: rc.cpp:226 rc.cpp:880
+#, no-c-format
+msgid "CW"
+msgstr "CW"
+
+#. i18n: file ./klogui.ui line 1139
+#. i18n: file ./setupui.ui line 471
+#: rc.cpp:229 rc.cpp:883
+#, no-c-format
+msgid "FM"
+msgstr "FM"
+
+#. i18n: file ./klogui.ui line 1144
+#. i18n: file ./setupui.ui line 476
+#: rc.cpp:232 rc.cpp:886
+#, no-c-format
+msgid "PSK31"
+msgstr "PSK31"
+
+#. i18n: file ./klogui.ui line 1149
+#. i18n: file ./setupui.ui line 481
+#: rc.cpp:235 rc.cpp:889
+#, no-c-format
+msgid "SSTV"
+msgstr "SSTV"
+
+#. i18n: file ./klogui.ui line 1154
+#. i18n: file ./setupui.ui line 486
+#: rc.cpp:238 rc.cpp:892
+#, no-c-format
+msgid "RTTY"
+msgstr "RTTY"
+
+#. i18n: file ./klogui.ui line 1159
+#. i18n: file ./setupui.ui line 491
+#: rc.cpp:241 rc.cpp:895
+#, no-c-format
+msgid "MTTY"
+msgstr "MTTY"
+
+#. i18n: file ./klogui.ui line 1164
+#. i18n: file ./setupui.ui line 496
+#: rc.cpp:244 rc.cpp:898
+#, no-c-format
+msgid "PKT"
+msgstr "PKT"
+
+#. i18n: file ./klogui.ui line 1169
+#. i18n: file ./setupui.ui line 501
+#: rc.cpp:247 rc.cpp:901
+#, no-c-format
+msgid "AM"
+msgstr "AM"
+
+#. i18n: file ./klogui.ui line 1174
+#. i18n: file ./setupui.ui line 506
+#: rc.cpp:250 rc.cpp:904
+#, no-c-format
+msgid "FAX"
+msgstr "FAX"
+
+#. i18n: file ./klogui.ui line 1179
+#. i18n: file ./setupui.ui line 511
+#: rc.cpp:253 rc.cpp:907
+#, no-c-format
+msgid "HELL"
+msgstr "HELL"
+
+#. i18n: file ./klogui.ui line 1184
+#. i18n: file ./setupui.ui line 516
+#: rc.cpp:256 rc.cpp:910
+#, no-c-format
+msgid "JT44"
+msgstr "JT44"
+
+#. i18n: file ./klogui.ui line 1189
+#. i18n: file ./setupui.ui line 521
+#: rc.cpp:259 rc.cpp:913
+#, no-c-format
+msgid "MT63"
+msgstr "MT63"
+
+#. i18n: file ./klogui.ui line 1194
+#. i18n: file ./setupui.ui line 526
+#: rc.cpp:262 rc.cpp:916
+#, no-c-format
+msgid "CLO"
+msgstr "CLO"
+
+#. i18n: file ./klogui.ui line 1199
+#. i18n: file ./setupui.ui line 531
+#: rc.cpp:265 rc.cpp:919
+#, no-c-format
+msgid "TOR"
+msgstr "TOR"
+
+#. i18n: file ./klogui.ui line 1204
+#: rc.cpp:268
+#, no-c-format
+msgid "GTOR"
+msgstr "GTOR"
+
+#. i18n: file ./klogui.ui line 1209
+#. i18n: file ./setupui.ui line 536
+#: rc.cpp:271 rc.cpp:922
+#, no-c-format
+msgid "FSK"
+msgstr "FSK"
+
+#. i18n: file ./klogui.ui line 1214
+#. i18n: file ./setupui.ui line 541
+#: rc.cpp:274 rc.cpp:925
+#, no-c-format
+msgid "MFSK8"
+msgstr "MFSK8"
+
+#. i18n: file ./klogui.ui line 1219
+#. i18n: file ./setupui.ui line 546
+#: rc.cpp:277 rc.cpp:928
+#, no-c-format
+msgid "MFSK16"
+msgstr "MFSK16"
+
+#. i18n: file ./klogui.ui line 1224
+#. i18n: file ./setupui.ui line 551
+#: rc.cpp:280 rc.cpp:931
+#, no-c-format
+msgid "HSFK"
+msgstr "HSFK"
+
+#. i18n: file ./klogui.ui line 1229
+#. i18n: file ./setupui.ui line 556
+#: rc.cpp:283 rc.cpp:934
+#, no-c-format
+msgid "ATV"
+msgstr "ATV"
+
+#. i18n: file ./klogui.ui line 1234
+#. i18n: file ./setupui.ui line 561
+#: rc.cpp:286 rc.cpp:937
+#, no-c-format
+msgid "PAC"
+msgstr "PAC"
+
+#. i18n: file ./klogui.ui line 1239
+#. i18n: file ./setupui.ui line 566
+#: rc.cpp:289 rc.cpp:940
+#, no-c-format
+msgid "PAC2"
+msgstr "PAC2"
+
+#. i18n: file ./klogui.ui line 1244
+#. i18n: file ./setupui.ui line 571
+#: rc.cpp:292 rc.cpp:943
+#, no-c-format
+msgid "PAC3"
+msgstr "PAC3"
+
+#. i18n: file ./klogui.ui line 1249
+#: rc.cpp:295
+#, no-c-format
+msgid "PCW"
+msgstr "PCW"
+
+#. i18n: file ./klogui.ui line 1254
+#. i18n: file ./setupui.ui line 576
+#: rc.cpp:298 rc.cpp:946
+#, no-c-format
+msgid "PSK63"
+msgstr "PSK63"
+
+#. i18n: file ./klogui.ui line 1259
+#. i18n: file ./setupui.ui line 581
+#: rc.cpp:301 rc.cpp:949
+#, no-c-format
+msgid "PSK125"
+msgstr "PSK125"
+
+#. i18n: file ./klogui.ui line 1264
+#. i18n: file ./setupui.ui line 586
+#: rc.cpp:304 rc.cpp:952
+#, no-c-format
+msgid "Q15"
+msgstr "Q15"
+
+#. i18n: file ./klogui.ui line 1269
+#. i18n: file ./setupui.ui line 591
+#: rc.cpp:307 rc.cpp:955
+#, no-c-format
+msgid "THRB"
+msgstr "THRB"
+
+#. i18n: file ./klogui.ui line 1274
+#. i18n: file ./setupui.ui line 596
+#: rc.cpp:310 rc.cpp:958
+#, no-c-format
+msgid "ASCI"
+msgstr "ASCI"
+
+#. i18n: file ./klogui.ui line 1281
+#: rc.cpp:313
+#, no-c-format
+msgid "Mode selection"
+msgstr "Selección de modo"
+
+#. i18n: file ./klogui.ui line 1287
+#. i18n: file ./setupui.ui line 371
+#: rc.cpp:316 rc.cpp:826
+#, no-c-format
+msgid "160M"
+msgstr "160M"
+
+#. i18n: file ./klogui.ui line 1292
+#. i18n: file ./setupui.ui line 376
+#: rc.cpp:319 rc.cpp:829
+#, no-c-format
+msgid "80M"
+msgstr "80M"
+
+#. i18n: file ./klogui.ui line 1297
+#. i18n: file ./setupui.ui line 381
+#: rc.cpp:322 rc.cpp:832
+#, no-c-format
+msgid "60M"
+msgstr "60M"
+
+#. i18n: file ./klogui.ui line 1302
+#. i18n: file ./setupui.ui line 386
+#: rc.cpp:325 rc.cpp:835
+#, no-c-format
+msgid "40M"
+msgstr "40M"
+
+#. i18n: file ./klogui.ui line 1307
+#. i18n: file ./setupui.ui line 391
+#: rc.cpp:328 rc.cpp:838
+#, no-c-format
+msgid "30M"
+msgstr "30M"
+
+#. i18n: file ./klogui.ui line 1312
+#. i18n: file ./setupui.ui line 396
+#: rc.cpp:331 rc.cpp:841
+#, no-c-format
+msgid "20M"
+msgstr "20M"
+
+#. i18n: file ./klogui.ui line 1317
+#. i18n: file ./setupui.ui line 401
+#: rc.cpp:334 rc.cpp:844
+#, no-c-format
+msgid "17M"
+msgstr "17M"
+
+#. i18n: file ./klogui.ui line 1322
+#. i18n: file ./setupui.ui line 406
+#: rc.cpp:337 rc.cpp:847
+#, no-c-format
+msgid "15M"
+msgstr "15M"
+
+#. i18n: file ./klogui.ui line 1327
+#. i18n: file ./setupui.ui line 411
+#: rc.cpp:340 rc.cpp:850
+#, no-c-format
+msgid "12M"
+msgstr "12M"
+
+#. i18n: file ./klogui.ui line 1332
+#. i18n: file ./setupui.ui line 416
+#: rc.cpp:343 rc.cpp:853
+#, no-c-format
+msgid "10M"
+msgstr "10M"
+
+#. i18n: file ./klogui.ui line 1337
+#. i18n: file ./setupui.ui line 421
+#: rc.cpp:346 rc.cpp:856
+#, no-c-format
+msgid "6M"
+msgstr "6M"
+
+#. i18n: file ./klogui.ui line 1342
+#. i18n: file ./setupui.ui line 426
+#: rc.cpp:349 rc.cpp:859
+#, no-c-format
+msgid "2M"
+msgstr "2M"
+
+#. i18n: file ./klogui.ui line 1347
+#. i18n: file ./setupui.ui line 431
+#: rc.cpp:352 rc.cpp:862
+#, no-c-format
+msgid "125CM"
+msgstr "125CM"
+
+#. i18n: file ./klogui.ui line 1352
+#. i18n: file ./setupui.ui line 436
+#: rc.cpp:355 rc.cpp:865
+#, no-c-format
+msgid "70CM"
+msgstr "70CM"
+
+#. i18n: file ./klogui.ui line 1357
+#. i18n: file ./setupui.ui line 441
+#: rc.cpp:358 rc.cpp:868
+#, no-c-format
+msgid "33CM"
+msgstr "33CM"
+
+#. i18n: file ./klogui.ui line 1362
+#. i18n: file ./setupui.ui line 446
+#: rc.cpp:361 rc.cpp:871
+#, no-c-format
+msgid "23CM"
+msgstr "23CM"
+
+#. i18n: file ./klogui.ui line 1367
+#. i18n: file ./setupui.ui line 451
+#: rc.cpp:364 rc.cpp:874
+#, no-c-format
+msgid "13CM"
+msgstr "13CM"
+
+#. i18n: file ./klogui.ui line 1374
+#: rc.cpp:367
+#, no-c-format
+msgid "Band selection"
+msgstr "Selección de banda"
+
+#. i18n: file ./klogui.ui line 1435
+#. i18n: file ./setupui.ui line 1041
+#: rc.cpp:370 rc.cpp:1045
+#, no-c-format
+msgid "QSO"
+msgstr "QSO"
+
+#. i18n: file ./klogui.ui line 1454
+#: rc.cpp:373
+#, no-c-format
+msgid "<p align=\"center\"><b>RST(tx)<br>RST(rx)</b></p>"
+msgstr "<p align=\"center\"><b>RST(tx)<br>RST(rx)</b></p>"
+
+#. i18n: file ./klogui.ui line 1476
+#: rc.cpp:376
+#, no-c-format
+msgid "R value you give to the DX"
+msgstr "Valor R enviado al DX"
+
+#. i18n: file ./klogui.ui line 1490
+#: rc.cpp:379
+#, no-c-format
+msgid "R value you get from the DX"
+msgstr "Valor R recibido del DX"
+
+#. i18n: file ./klogui.ui line 1517
+#: rc.cpp:382
+#, no-c-format
+msgid "S value you give to the DX"
+msgstr "Valor S enviado al DX"
+
+#. i18n: file ./klogui.ui line 1531
+#: rc.cpp:385
+#, no-c-format
+msgid "S value you get from the DX"
+msgstr "Valor S recibido del DX"
+
+#. i18n: file ./klogui.ui line 1561
+#: rc.cpp:389
+#, no-c-format
+msgid "T value you give to the DX"
+msgstr "Valor T enviado al DX"
+
+#. i18n: file ./klogui.ui line 1575
+#: rc.cpp:392
+#, no-c-format
+msgid "T value you get from the DX"
+msgstr "Valor T recibido del DX"
+
+#. i18n: file ./klogui.ui line 1587
+#: rc.cpp:395
+#, no-c-format
+msgid "DX's operator's name"
+msgstr "Nombre del operador de DX"
+
+#. i18n: file ./klogui.ui line 1625
+#: rc.cpp:401
+#, no-c-format
+msgid "<p align=\"center\"><b>QTH/Locator:</b></p>"
+msgstr "<p align=\"center\"><b>QTH/Locator:</b></p>"
+
+#. i18n: file ./klogui.ui line 1633
+#: rc.cpp:404
+#, no-c-format
+msgid "DX's QTH (City, town)"
+msgstr "QTH del DX (Ciudad, pueblo)"
+
+#. i18n: file ./klogui.ui line 1658
+#: rc.cpp:407
+#, no-c-format
+msgid "Locator's DX (like IN80EK)"
+msgstr "Locator del DX (como IN80EK)"
+
+#. i18n: file ./klogui.ui line 1688
+#: rc.cpp:410
+#, no-c-format
+msgid "Shows the frecuency of the transceiver when hamlib is activated"
+msgstr "Muestra la frecuencia del equipo cuando hamlib está activado"
+
+#. i18n: file ./klogui.ui line 1698
+#: rc.cpp:413
+#, no-c-format
+msgid "QSL"
+msgstr "QSL"
+
+#. i18n: file ./klogui.ui line 1720
+#: rc.cpp:416
+#, no-c-format
+msgid "<b>QSL Sent:</b>"
+msgstr "<b>QSL enviada:</b>"
+
+#. i18n: file ./klogui.ui line 1731
+#: rc.cpp:419
+#, no-c-format
+msgid "You received the QSL this date"
+msgstr "Fecha de recepción de la QSL"
+
+#. i18n: file ./klogui.ui line 1742
+#: rc.cpp:423
+#, no-c-format
+msgid "Send the QSL"
+msgstr "Enviar QSL"
+
+#. i18n: file ./klogui.ui line 1757
+#: rc.cpp:426
+#, no-c-format
+msgid "<b>QSL Recv:</b>"
+msgstr "<b>QSL Recibida:</b>"
+
+#. i18n: file ./klogui.ui line 1768
+#: rc.cpp:429
+#, no-c-format
+msgid "You sent the QSL this date"
+msgstr "Enviaste la QSL en esta fecha"
+
+#. i18n: file ./klogui.ui line 1779
+#: rc.cpp:433
+#, no-c-format
+msgid "QSL card received"
+msgstr "QSL recibida"
+
+#. i18n: file ./klogui.ui line 1800
+#: rc.cpp:436
+#, no-c-format
+msgid "Manager's QRZ"
+msgstr "QRZ del Manager"
+
+#. i18n: file ./klogui.ui line 1806
+#: rc.cpp:439
+#, no-c-format
+msgid "Bureau"
+msgstr "Bureau"
+
+#. i18n: file ./klogui.ui line 1811
+#: rc.cpp:442
+#, no-c-format
+msgid "No QSL"
+msgstr "No QSL"
+
+#. i18n: file ./klogui.ui line 1816
+#: rc.cpp:445
+#, no-c-format
+msgid "QRZ.com"
+msgstr "QRZ.com"
+
+#. i18n: file ./klogui.ui line 1821
+#: rc.cpp:448
+#, no-c-format
+msgid "Manager"
+msgstr "Manager"
+
+#. i18n: file ./klogui.ui line 1826
+#: rc.cpp:451
+#, no-c-format
+msgid "Direct"
+msgstr "Directa"
+
+#. i18n: file ./klogui.ui line 1833
+#: rc.cpp:454
+#, no-c-format
+msgid "How to send the QSL"
+msgstr "Cómo enviar la QSL"
+
+#. i18n: file ./klogui.ui line 1849
+#: rc.cpp:457
+#, no-c-format
+msgid "QSL info..."
+msgstr "QSL info..."
+
+#. i18n: file ./klogui.ui line 1860
+#: rc.cpp:460
+#, no-c-format
+msgid "<b>Via:</b>"
+msgstr "<b>Vía:</b>"
+
+#. i18n: file ./klogui.ui line 1872
+#. i18n: file ./klogui.ui line 2275
+#: rc.cpp:463 rc.cpp:566
+#, no-c-format
+msgid "Remarks"
+msgstr "Comentarios"
+
+#. i18n: file ./klogui.ui line 1883
+#: rc.cpp:466
+#, no-c-format
+msgid "Remarks:"
+msgstr "Comentarios:"
+
+#. i18n: file ./klogui.ui line 1891
+#: rc.cpp:469
+#, no-c-format
+msgid "Comments about this QSO"
+msgstr "Comentarios al QSO"
+
+#. i18n: file ./klogui.ui line 1901
+#: rc.cpp:472
+#, no-c-format
+msgid "Others"
+msgstr "Otros"
+
+#. i18n: file ./klogui.ui line 1910
+#: rc.cpp:475
+#, no-c-format
+msgid "AF"
+msgstr "AF"
+
+#. i18n: file ./klogui.ui line 1915
+#: rc.cpp:478
+#, no-c-format
+msgid "AN"
+msgstr "AN"
+
+#. i18n: file ./klogui.ui line 1920
+#: rc.cpp:481
+#, no-c-format
+msgid "AS"
+msgstr "AS"
+
+#. i18n: file ./klogui.ui line 1925
+#: rc.cpp:484
+#, no-c-format
+msgid "EU"
+msgstr "EU"
+
+#. i18n: file ./klogui.ui line 1930
+#: rc.cpp:487
+#, no-c-format
+msgid "NA"
+msgstr "NA"
+
+#. i18n: file ./klogui.ui line 1935
+#: rc.cpp:490
+#, no-c-format
+msgid "OC"
+msgstr "OC"
+
+#. i18n: file ./klogui.ui line 1940
+#: rc.cpp:493
+#, no-c-format
+msgid "SA"
+msgstr "SA"
+
+#. i18n: file ./klogui.ui line 1947
+#: rc.cpp:496
+#, no-c-format
+msgid "IOTA continent"
+msgstr "Continente IOTA"
+
+#. i18n: file ./klogui.ui line 1961
+#: rc.cpp:499
+#, no-c-format
+msgid "<b>Award:</b>"
+msgstr "<b>Diploma:</b>"
+
+#. i18n: file ./klogui.ui line 1964
+#: rc.cpp:502
+#, no-c-format
+msgid "Several awards, still not implemented."
+msgstr "Diplomas varios, no implementado."
+
+#. i18n: file ./klogui.ui line 1970
+#: rc.cpp:505
+#, no-c-format
+msgid "Default reference"
+msgstr "Referencia predeterminada"
+
+#. i18n: file ./klogui.ui line 1994
+#: rc.cpp:508
+#, no-c-format
+msgid "IOTA number"
+msgstr "Número IOTA"
+
+#. i18n: file ./klogui.ui line 2015
+#: rc.cpp:514
+#, no-c-format
+msgid "My Data"
+msgstr "Mis datos"
+
+#. i18n: file ./klogui.ui line 2040
+#: rc.cpp:517
+#, no-c-format
+msgid "<p align=\"center\"><b>Power</b></p>"
+msgstr "<p align=\"center\"><b>Power</b></p>"
+
+#. i18n: file ./klogui.ui line 2057
+#: rc.cpp:521
+#, no-c-format
+msgid "Power used to make this QSO"
+msgstr "Potencia usada para hacer el QSO"
+
+#. i18n: file ./klogui.ui line 2095
+#: rc.cpp:524
+#, no-c-format
+msgid "<p align=\"center\"><b>Locator:</b></p>"
+msgstr "<p align=\"center\"><b>Locator:</b></p>"
+
+#. i18n: file ./klogui.ui line 2124
+#. i18n: file ./klogui.ui line 2146
+#: rc.cpp:527 rc.cpp:533
+#, no-c-format
+msgid "The operator's call used to work this QSO"
+msgstr "Indicativo del operador de este QSO"
+
+#. i18n: file ./klogui.ui line 2143
+#: rc.cpp:530
+#, no-c-format
+msgid "<p align=\"center\"><b>Operator:</b></p>"
+msgstr "<p align=\"center\"><b>Operador:</b></p>"
+
+#. i18n: file ./klogui.ui line 2167
+#: rc.cpp:536
+#, no-c-format
+msgid "Log"
+msgstr "Registro"
+
+#. i18n: file ./klogui.ui line 2176
+#: rc.cpp:539
+#, no-c-format
+msgid "Numb"
+msgstr "Número"
+
+#. i18n: file ./klogui.ui line 2198
+#: rc.cpp:545
+#, no-c-format
+msgid "UTC"
+msgstr "UTC"
+
+#. i18n: file ./klogui.ui line 2220
+#: rc.cpp:551
+#, no-c-format
+msgid "RST(tx)"
+msgstr "RST(tx)"
+
+#. i18n: file ./klogui.ui line 2231
+#: rc.cpp:554
+#, no-c-format
+msgid "RST(rx)"
+msgstr "RST(rx)"
+
+#. i18n: file ./klogui.ui line 2264
+#: rc.cpp:563
+#, no-c-format
+msgid "Power"
+msgstr "Potencia"
+
+#. i18n: file ./klogui.ui line 2319
+#: rc.cpp:569
+#, no-c-format
+msgid "Cluster"
+msgstr "Cluster"
+
+#. i18n: file ./klogui.ui line 2328
+#: rc.cpp:572
+#, no-c-format
+msgid "KLog DX Cluster"
+msgstr "DXCluster de KLog"
+
+#. i18n: file ./klogui.ui line 2367
+#: rc.cpp:575
+#, no-c-format
+msgid "Double-click over a DX-spot to copy to the QSO input tab"
+msgstr "Pulsar dos veces sobre un aviso de DX lo copiará al cuadro de entrada"
+
+#. i18n: file ./klogui.ui line 2438
+#: rc.cpp:584
+#, no-c-format
+msgid "Tools"
+msgstr "Herramientas"
+
+#. i18n: file ./klogui.ui line 2458
+#: rc.cpp:587
+#, no-c-format
+msgid "New"
+msgstr "Nuevo"
+
+#. i18n: file ./klogui.ui line 2461
+#: rc.cpp:590
+#, no-c-format
+msgid "&New"
+msgstr "&Nuevo"
+
+#. i18n: file ./klogui.ui line 2464
+#: rc.cpp:593
+#, no-c-format
+msgid "Ctrl+N"
+msgstr "Ctrl+N"
+
+#. i18n: file ./klogui.ui line 2481
+#: rc.cpp:602
+#, no-c-format
+msgid "Ctrl+O"
+msgstr "Ctrl+O"
+
+#. i18n: file ./klogui.ui line 2498
+#: rc.cpp:611
+#, no-c-format
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#. i18n: file ./klogui.ui line 2509
+#: rc.cpp:617
+#, no-c-format
+msgid "Save &As..."
+msgstr "Gu&ardar como..."
+
+#. i18n: file ./klogui.ui line 2529
+#: rc.cpp:627
+#, no-c-format
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#. i18n: file ./klogui.ui line 2537
+#: rc.cpp:630
+#, no-c-format
+msgid "Exit"
+msgstr "Salir"
+
+#. i18n: file ./klogui.ui line 2560
+#: rc.cpp:643
+#, no-c-format
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#. i18n: file ./klogui.ui line 2577
+#: rc.cpp:652
+#, no-c-format
+msgid "Ctrl+Y"
+msgstr "Ctrl+Y"
+
+#. i18n: file ./klogui.ui line 2594
+#: rc.cpp:661
+#, no-c-format
+msgid "Ctrl+X"
+msgstr "Ctrl+X"
+
+#. i18n: file ./klogui.ui line 2608
+#: rc.cpp:667
+#, no-c-format
+msgid "C&opy"
+msgstr "C&opiar"
+
+#. i18n: file ./klogui.ui line 2611
+#: rc.cpp:670
+#, no-c-format
+msgid "Ctrl+C"
+msgstr "Ctrl+C"
+
+#. i18n: file ./klogui.ui line 2628
+#: rc.cpp:679
+#, no-c-format
+msgid "Ctrl+V"
+msgstr "Ctrl+V"
+
+#. i18n: file ./klogui.ui line 2639
+#: rc.cpp:682
+#, no-c-format
+msgid "Find"
+msgstr "Buscar"
+
+#. i18n: file ./klogui.ui line 2645
+#: rc.cpp:688
+#, no-c-format
+msgid "Ctrl+F"
+msgstr "Ctrl+F"
+
+#. i18n: file ./klogui.ui line 2656
+#: rc.cpp:694
+#, no-c-format
+msgid "&Contents..."
+msgstr "&Contenidos..."
+
+#. i18n: file ./klogui.ui line 2667
+#: rc.cpp:698
+#, no-c-format
+msgid "Index"
+msgstr "Indice"
+
+#. i18n: file ./klogui.ui line 2670
+#: rc.cpp:701
+#, no-c-format
+msgid "&Index..."
+msgstr "&Indice..."
+
+#. i18n: file ./klogui.ui line 2684
+#: rc.cpp:708
+#, no-c-format
+msgid "&About..."
+msgstr "&Acerca de..."
+
+#. i18n: file ./klogui.ui line 2698
+#. i18n: file ./klogui.ui line 2701
+#: rc.cpp:712 rc.cpp:715
+#, no-c-format
+msgid "&Preferences"
+msgstr "&Preferencias"
+
+#. i18n: file ./klogui.ui line 2709
+#: rc.cpp:718
+#, no-c-format
+msgid "AddTlfLog"
+msgstr "AddTlfLog"
+
+#. i18n: file ./klogui.ui line 2712
+#: rc.cpp:721
+#, no-c-format
+msgid "Import from TLF log"
+msgstr "Importar log de TLF"
+
+#. i18n: file ./klogui.ui line 2715
+#: rc.cpp:724
+#, no-c-format
+msgid "Import a tlf log"
+msgstr "Importar un log de tlf"
+
+#. i18n: file ./klogui.ui line 2718
+#: rc.cpp:727
+#, no-c-format
+msgid "Import from tlf log file"
+msgstr "Importar desde un archivo de log de tlf"
+
+#. i18n: file ./klogui.ui line 2729
+#: rc.cpp:730
+#, no-c-format
+msgid "Delete QSO"
+msgstr "Eliminar QSO"
+
+#. i18n: file ./klogui.ui line 2759
+#: rc.cpp:739
+#, no-c-format
+msgid "Add a log file"
+msgstr "Añadir al archivo de log"
+
+#. i18n: file ./klogui.ui line 2762
+#: rc.cpp:742
+#, no-c-format
+msgid "Add a log file to this log"
+msgstr "Añadir archivo de log a este log"
+
+#. i18n: file ./klogui.ui line 2770
+#: rc.cpp:745
+#, no-c-format
+msgid "Connect to DXCluster"
+msgstr "Conectar al DXCluster"
+
+#. i18n: file ./klogui.ui line 2778
+#: rc.cpp:748
+#, no-c-format
+msgid "Disconnect From DXCluster"
+msgstr "Desconectar del DXCluster"
+
+#. i18n: file ./klogui.ui line 2794
+#: rc.cpp:754
+#, no-c-format
+msgid "Bug report..."
+msgstr "Avisar de error..."
+
+#. i18n: file ./klogui.ui line 2802
+#: rc.cpp:757
+#, no-c-format
+msgid "Check QSL needed"
+msgstr "Buscar tarjetas necesitadas"
+
+#. i18n: file ./klogui.ui line 2810
+#: rc.cpp:760
+#, no-c-format
+msgid "Sort the log"
+msgstr "Ordenar el log"
+
+#. i18n: file ./klogui.ui line 2818
+#. i18n: file ./klogui.ui line 2821
+#: rc.cpp:763 rc.cpp:766
+#, no-c-format
+msgid "Find QSO to QSL"
+msgstr "Buscar QSL por enviar"
+
+#. i18n: file ./klogui.ui line 2824
+#: rc.cpp:769
+#, no-c-format
+msgid "Shows the list of needed QSO that we need to send the QSL card to."
+msgstr ""
+"Muestra la lista de los QSO por confirmar, necesarios para los que no hemos "
+"enviado la tarjeta QSL."
+
+#. i18n: file ./setupui.ui line 16
+#: rc.cpp:772
+#, no-c-format
+msgid "KLog setup"
+msgstr "Configurar KLog"
+
+#. i18n: file ./setupui.ui line 101
+#: rc.cpp:783
+#, no-c-format
+msgid "Personal"
+msgstr "Personal"
+
+#. i18n: file ./setupui.ui line 115
+#: rc.cpp:786
+#, no-c-format
+msgid "<b>QRZ:</b>"
+msgstr "<b>QRZ:</b>"
+
+#. i18n: file ./setupui.ui line 123
+#: rc.cpp:789
+#, no-c-format
+msgid "Enter your locator - IN80EK"
+msgstr "Introduzca su QTH locator ej. IN80EK"
+
+#. i18n: file ./setupui.ui line 134
+#: rc.cpp:792
+#, no-c-format
+msgid "<b>Locator:</b>"
+msgstr "<b>Locator:</b>"
+
+#. i18n: file ./setupui.ui line 142
+#: rc.cpp:795
+#, no-c-format
+msgid "Enter your QRZ - EA4TV"
+msgstr "Introduzca su QRZ - EA4TV"
+
+#. i18n: file ./setupui.ui line 186
+#: rc.cpp:798
+#, no-c-format
+msgid "Misc"
+msgstr "Misc"
+
+#. i18n: file ./setupui.ui line 224
+#: rc.cpp:801
+#, no-c-format
+msgid "Open this file when starting:"
+msgstr "Abrir este archivo al iniciar:"
+
+#. i18n: file ./setupui.ui line 271
+#: rc.cpp:805
+#, no-c-format
+msgid "Show progress dialog when reading log file"
+msgstr "Mostrar el progreso al leer el archivo de log"
+
+#. i18n: file ./setupui.ui line 277
+#: rc.cpp:808
+#, no-c-format
+msgid "Shows a progress bar but makes the log reading slower"
+msgstr "Muestra una barra de progreso pero hace la lectura más lenta"
+
+#. i18n: file ./setupui.ui line 293
+#: rc.cpp:811
+#, no-c-format
+msgid "Time in UTC"
+msgstr "Tiempo en UTC"
+
+#. i18n: file ./setupui.ui line 302
+#: rc.cpp:814
+#, no-c-format
+msgid "If checked the time will be UTC"
+msgstr "Si se marca el tiempo estará en UTC"
+
+#. i18n: file ./setupui.ui line 315
+#: rc.cpp:817
+#, no-c-format
+msgid "Logging in real time"
+msgstr "Log en tiempo real"
+
+#. i18n: file ./setupui.ui line 344
+#: rc.cpp:820
+#, no-c-format
+msgid "<b>Power:</b>"
+msgstr "<b>Potencia:</b>"
+
+#. i18n: file ./setupui.ui line 365
+#: rc.cpp:823
+#, no-c-format
+msgid "<b>Band:</b>"
+msgstr "<b>Banda:</b>"
+
+#. i18n: file ./setupui.ui line 611
+#: rc.cpp:961
+#, no-c-format
+msgid "<b>Mode:</b>"
+msgstr "<b>Modo</b>"
+
+#. i18n: file ./setupui.ui line 623
+#: rc.cpp:964
+#, no-c-format
+msgid "DX-Cluster"
+msgstr "DX-Cluster"
+
+#. i18n: file ./setupui.ui line 653
+#: rc.cpp:967
+#, no-c-format
+msgid "Spots"
+msgstr "Avisos de DX"
+
+#. i18n: file ./setupui.ui line 668
+#: rc.cpp:970
+#, no-c-format
+msgid "Show HF activity"
+msgstr "Muestra actividad en HF"
+
+#. i18n: file ./setupui.ui line 674
+#: rc.cpp:973
+#, no-c-format
+msgid "Show 1.8-30MHz spots"
+msgstr "Muestra avisos desde 1.8 hasta 30MHz"
+
+#. i18n: file ./setupui.ui line 686
+#: rc.cpp:976
+#, no-c-format
+msgid "Show V/UHF activity"
+msgstr "Mostrar actividad en V/UHF"
+
+#. i18n: file ./setupui.ui line 692
+#. i18n: file ./setupui.ui line 710
+#. i18n: file ./setupui.ui line 728
+#: rc.cpp:979 rc.cpp:985 rc.cpp:991
+#, no-c-format
+msgid "Show from 50MHz to GHz spots"
+msgstr "Muestra avisos desde 50MHz hasta GHz"
+
+#. i18n: file ./setupui.ui line 704
+#: rc.cpp:982
+#, no-c-format
+msgid "Show WARC activity"
+msgstr "Muestra actividad WARC"
+
+#. i18n: file ./setupui.ui line 722
+#: rc.cpp:988
+#, no-c-format
+msgid "Show confirmed"
+msgstr "Mostrar confirmados"
+
+#. i18n: file ./setupui.ui line 749
+#: rc.cpp:994
+#, no-c-format
+msgid "Messages"
+msgstr "Mensajes"
+
+#. i18n: file ./setupui.ui line 764
+#: rc.cpp:997
+#, no-c-format
+msgid "Show ANN/FULL messages"
+msgstr "Mostrar mensajes ANN/FULL"
+
+#. i18n: file ./setupui.ui line 770
+#: rc.cpp:1000
+#, no-c-format
+msgid "Show announces"
+msgstr "Mostrar anuncios"
+
+#. i18n: file ./setupui.ui line 782
+#: rc.cpp:1003
+#, no-c-format
+msgid "Show WCY messages"
+msgstr "Mostrar mensajes WCY"
+
+#. i18n: file ./setupui.ui line 788
+#. i18n: file ./setupui.ui line 806
+#: rc.cpp:1006 rc.cpp:1012
+#, no-c-format
+msgid "Show weather messages"
+msgstr "Mostrar mensajes sobre el tiempo"
+
+#. i18n: file ./setupui.ui line 800
+#: rc.cpp:1009
+#, no-c-format
+msgid "Show WWV messages"
+msgstr "Mostrar mensajes WWV"
+
+#. i18n: file ./setupui.ui line 846
+#: rc.cpp:1018
+#, no-c-format
+msgid "Add the DX-Cluster server to the list"
+msgstr "Añadir el servidor de DXCluster a la lista"
+
+#. i18n: file ./setupui.ui line 857
+#: rc.cpp:1024
+#, no-c-format
+msgid ""
+"Clears the text line but also will remove the server from the list if is "
+"already added"
+msgstr ""
+"Limpia la linea de texto pero tambien eliminará el servidor de la lista si "
+"existe"
+
+#. i18n: file ./setupui.ui line 867
+#: rc.cpp:1027
+#, no-c-format
+msgid "Select a dx-cluster server."
+msgstr "Selecciona un servidor de DXCluster."
+
+#. i18n: file ./setupui.ui line 877
+#: rc.cpp:1030
+#, no-c-format
+msgid "Colors"
+msgstr "Colores"
+
+#. i18n: file ./setupui.ui line 964
+#: rc.cpp:1039
+#, no-c-format
+msgid "<b>Default</b>"
+msgstr "<b>Predeterminado:</b>"
+
+#. i18n: file ./setupui.ui line 975
+#: rc.cpp:1042
+#, no-c-format
+msgid "<b>Needed</b>"
+msgstr "<b>Necesitado</b>"
+
+#. i18n: file ./setupui.ui line 1060
+#: rc.cpp:1048
+#, no-c-format
+msgid "Complete data with previous QSOs"
+msgstr "Completar datos con QSOs anterores"
+
+#. i18n: file ./setupui.ui line 1079
+#: rc.cpp:1051
+#, no-c-format
+msgid "Requires the mandatory fields in ALL QSO"
+msgstr ""
+
+#. i18n: file ./setupui.ui line 1085
+#: rc.cpp:1054
+#, no-c-format
+msgid "Mandatory data is: QRZ, date, time, band, mode, RST(rx) & RST (tx)"
+msgstr ""
+
+#. i18n: file ./setupui.ui line 1095
+#: rc.cpp:1057
+#, no-c-format
+msgid "Hamlib"
+msgstr "Hamlib"
+
+#. i18n: file ./setupui.ui line 1114
+#: rc.cpp:1060
+#, no-c-format
+msgid "Activate Hamlib"
+msgstr "Activar Hamlib"
+
+#. i18n: file ./setupui.ui line 1141
+#: rc.cpp:1063
+#, no-c-format
+msgid "Pool hamlib each (msecs)"
+msgstr "Consultar Hamlib cada (msegs)"
+
+#. i18n: file ./setupui.ui line 1161
+#: rc.cpp:1066
+#, no-c-format
+msgid "Device:"
+msgstr "Dispositivo:"
+
+#. i18n: file ./setupui.ui line 1169
+#: rc.cpp:1069
+#, no-c-format
+msgid "/dev/ttyS0"
+msgstr "/dev/ttyS0"
+
+#. i18n: file ./setupui.ui line 1188
+#: rc.cpp:1072
+#, no-c-format
+msgid "1200"
+msgstr "1200"
+
+#. i18n: file ./setupui.ui line 1193
+#: rc.cpp:1075
+#, no-c-format
+msgid "2400"
+msgstr "2400"
+
+#. i18n: file ./setupui.ui line 1198
+#: rc.cpp:1078
+#, no-c-format
+msgid "4800"
+msgstr "4800"
+
+#. i18n: file ./setupui.ui line 1203
+#: rc.cpp:1081
+#, no-c-format
+msgid "9600"
+msgstr "9600"
+
+#. i18n: file ./setupui.ui line 1208
+#: rc.cpp:1084
+#, no-c-format
+msgid "19200"
+msgstr "19200"
+
+#. i18n: file ./setupui.ui line 1213
+#: rc.cpp:1087
+#, no-c-format
+msgid "38400"
+msgstr "38400"
+
+#. i18n: file ./setupui.ui line 1218
+#: rc.cpp:1090
+#, no-c-format
+msgid "57600"
+msgstr "57600"
+
+#. i18n: file ./setupui.ui line 1223
+#: rc.cpp:1093
+#, no-c-format
+msgid "115200"
+msgstr "115200"
+
+#. i18n: file ./setupui.ui line 1253
+#: rc.cpp:1096
+#, no-c-format
+msgid "Transceiver:"
+msgstr "Equipo:"
+
+#. i18n: file ./setupui.ui line 1353
+#: rc.cpp:1115
+#, no-c-format
+msgid "Award"
+msgstr "Diploma"
+
+#. i18n: file ./setupui.ui line 1364
+#: rc.cpp:1118
+#, no-c-format
+msgid "Entity"
+msgstr "Entidad"
+
+#: reference.cpp:31 reference.cpp:61
+msgid "Select The Reference"
+msgstr "Selecione la referencia"
+
+#: setup.cpp:114 setup.cpp:130 setup.cpp:540 setup.cpp:558 setup.cpp:662
+msgid "KLog Warning!"
+msgstr "¡Aviso de KLog!"
+
+#: setup.cpp:115 setup.cpp:541
+msgid "Prefix from - "
+msgstr "El prefijo de .-"
+
+#: setup.cpp:131
+msgid "KLog can not open the file: "
+msgstr "KLog no puede abrir el fichero: "
+
+#: setup.cpp:485
+msgid "Select the file"
+msgstr "Selecione el archivo"
+
+#: setup.cpp:486
+msgid "ADIF files (*.adi *.ADI)"
+msgstr "Archivos ADIF (*.adi *.ADI)"
+
+#: setup.cpp:512
+msgid "Award files (*.awa *.AWA)"
+msgstr "Ficheros de diplomas (*.awa *.AWA)"
+
+#: setup.cpp:559
+msgid "KLog can not open the file:-"
+msgstr "KLog no puede abrir el fichero: -"
+
+#: setup.cpp:663
+msgid ""
+"This function is still not implemented.\n"
+"To erase an award, delete the appropriate line of your klogrc file."
+msgstr ""
+"Esta función aun no está implementada.\n"
+"Para eliminar un diploma, elimine la línea adecuada de su fichero klogrc."
+
+#~ msgid "&Setup"
+#~ msgstr "&Configuración"
+
+#~ msgid "DXCluster"
+#~ msgstr "DXCluster"
+
+#~ msgid "Setup"
+#~ msgstr "Configuración"
+
+#~ msgid "<b>WAE:</b>"
+#~ msgstr "<b>WAE:</b>"
+
+#~ msgid "WAE checking is still not implemented."
+#~ msgstr "Comprobación WAE no implementada."
+
+#~ msgid "Shows the strength of the received signal when hamlib is activated"
+#~ msgstr "Muestra el nivel de la señal recibida cuando se activa hamlib"

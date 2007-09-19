@@ -1,0 +1,295 @@
+/****************************************************************************
+** klogui meta object code from reading C++ file 'klogui.h'
+**
+** Created: Thu Sep 13 18:00:37 2007
+**      by: The Qt MOC ($Id: qt/moc_yacc.cpp   3.3.7   edited Oct 19 16:22 $)
+**
+** WARNING! All changes made in this file will be lost!
+*****************************************************************************/
+
+#undef QT_NO_COMPAT
+#include "klogui.h"
+#include <qmetaobject.h>
+#include <qapplication.h>
+
+#include <private/qucomextra_p.h>
+#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 26)
+#error "This file was generated using the moc from 3.3.7. It"
+#error "cannot be used with the include files from this version of Qt."
+#error "(The moc has changed too much.)"
+#endif
+
+const char *klogui::className() const
+{
+    return "klogui";
+}
+
+QMetaObject *klogui::metaObj = 0;
+static QMetaObjectCleanUp cleanUp_klogui( "klogui", &klogui::staticMetaObject );
+
+#ifndef QT_NO_TRANSLATION
+QString klogui::tr( const char *s, const char *c )
+{
+    if ( qApp )
+	return qApp->translate( "klogui", s, c, QApplication::DefaultCodec );
+    else
+	return QString::fromLatin1( s );
+}
+#ifndef QT_NO_TRANSLATION_UTF8
+QString klogui::trUtf8( const char *s, const char *c )
+{
+    if ( qApp )
+	return qApp->translate( "klogui", s, c, QApplication::UnicodeUTF8 );
+    else
+	return QString::fromUtf8( s );
+}
+#endif // QT_NO_TRANSLATION_UTF8
+
+#endif // QT_NO_TRANSLATION
+
+QMetaObject* klogui::staticMetaObject()
+{
+    if ( metaObj )
+	return metaObj;
+    QMetaObject* parentObject = QMainWindow::staticMetaObject();
+    static const QUMethod slot_0 = {"fileExit", 0, 0 };
+    static const QUMethod slot_1 = {"fileOpen", 0, 0 };
+    static const QUMethod slot_2 = {"fileSave", 0, 0 };
+    static const QUMethod slot_3 = {"fileSaveAs", 0, 0 };
+    static const QUMethod slot_4 = {"filePrint", 0, 0 };
+    static const QUParameter param_slot_5[] = {
+	{ 0, &static_QUType_ptr, "QListViewItem", QUParameter::In }
+    };
+    static const QUMethod slot_5 = {"slotQsoSearchOver", 1, param_slot_5 };
+    static const QUMethod slot_6 = {"slotQSLcomboBoxChanged", 0, 0 };
+    static const QUMethod slot_7 = {"slotModifyBtn", 0, 0 };
+    static const QUMethod slot_8 = {"slotClearBtn", 0, 0 };
+    static const QUMethod slot_9 = {"slotOkBtn", 0, 0 };
+    static const QUMethod slot_10 = {"helpIndex", 0, 0 };
+    static const QUMethod slot_11 = {"helpContents", 0, 0 };
+    static const QUMethod slot_12 = {"helpAbout", 0, 0 };
+    static const QUMethod slot_13 = {"slotBandSelected", 0, 0 };
+    static const QUMethod slot_14 = {"slotModeSelected", 0, 0 };
+    static const QUMethod slot_15 = {"slotQrzChanged", 0, 0 };
+    static const QUParameter param_slot_16[] = {
+	{ "item", &static_QUType_ptr, "QListViewItem", QUParameter::In }
+    };
+    static const QUMethod slot_16 = {"slotQsoSelected", 1, param_slot_16 };
+    static const QUMethod slot_17 = {"slotQSLSent", 0, 0 };
+    static const QUMethod slot_18 = {"slotQSLrec", 0, 0 };
+    static const QUMethod slot_19 = {"slotQslSentBoxChanged", 0, 0 };
+    static const QUMethod slot_20 = {"slotQslRecvBoxChanged", 0, 0 };
+    static const QUMethod slot_21 = {"slotPreferences", 0, 0 };
+    static const QUMethod slot_22 = {"slotImportTlf", 0, 0 };
+    static const QUMethod slot_23 = {"slotIOTAChanged", 0, 0 };
+    static const QUMethod slot_24 = {"slotSearchButton", 0, 0 };
+    static const QUMethod slot_25 = {"slotCancelSearchButton", 0, 0 };
+    static const QUMethod slot_26 = {"slotQrzSearchChanged", 0, 0 };
+    static const QUParameter param_slot_27[] = {
+	{ 0, &static_QUType_ptr, "QListViewItem", QUParameter::In }
+    };
+    static const QUMethod slot_27 = {"slotQsoSearchSelected", 1, param_slot_27 };
+    static const QUParameter param_slot_28[] = {
+	{ 0, &static_QUType_ptr, "QListViewItem", QUParameter::In },
+	{ 0, &static_QUType_varptr, "\x0e", QUParameter::In }
+    };
+    static const QUMethod slot_28 = {"slotQsoRightButtonFromSearch", 2, param_slot_28 };
+    static const QUParameter param_slot_29[] = {
+	{ 0, &static_QUType_ptr, "QListViewItem", QUParameter::In }
+    };
+    static const QUMethod slot_29 = {"slotQsoSelectedForEdit", 1, param_slot_29 };
+    static const QUMethod slot_30 = {"slotQSLRec", 0, 0 };
+    static const QUParameter param_slot_31[] = {
+	{ 0, &static_QUType_ptr, "QListViewItem", QUParameter::In }
+    };
+    static const QUMethod slot_31 = {"slotQsoSearchSelectedForEdit", 1, param_slot_31 };
+    static const QUMethod slot_32 = {"slotQsoDelete", 0, 0 };
+    static const QUParameter param_slot_33[] = {
+	{ 0, &static_QUType_ptr, "QListViewItem", QUParameter::In }
+    };
+    static const QUMethod slot_33 = {"slotQsoRightButton", 1, param_slot_33 };
+    static const QUParameter param_slot_34[] = {
+	{ 0, &static_QUType_ptr, "QListViewItem", QUParameter::In },
+	{ 0, &static_QUType_varptr, "\x0e", QUParameter::In }
+    };
+    static const QUMethod slot_34 = {"slotQsoRightButtonFromLog", 2, param_slot_34 };
+    static const QUMethod slot_35 = {"slotAddLog", 0, 0 };
+    static const QUMethod slot_36 = {"slotClusterConnect", 0, 0 };
+    static const QUMethod slot_37 = {"slotClusterCloseConnection", 0, 0 };
+    static const QUMethod slot_38 = {"slotClusterSendToServer", 0, 0 };
+    static const QUMethod slot_39 = {"slotClusterClearInputLine", 0, 0 };
+    static const QUMethod slot_40 = {"slotKlogSetup", 0, 0 };
+    static const QUMethod slot_41 = {"slotBugReport", 0, 0 };
+    static const QUParameter param_slot_42[] = {
+	{ 0, &static_QUType_int, 0, QUParameter::In }
+    };
+    static const QUMethod slot_42 = {"slotModeChanged", 1, param_slot_42 };
+    static const QUMethod slot_43 = {"slotBandChanged", 0, 0 };
+    static const QUMethod slot_44 = {"slotQslNeededCheck", 0, 0 };
+    static const QUMethod slot_45 = {"slotLocatorChanged", 0, 0 };
+    static const QUParameter param_slot_46[] = {
+	{ 0, &static_QUType_ptr, "QListViewItem", QUParameter::In }
+    };
+    static const QUMethod slot_46 = {"slotClusterSpotToLog", 1, param_slot_46 };
+    static const QUParameter param_slot_47[] = {
+	{ "item", &static_QUType_ptr, "QListViewItem", QUParameter::In }
+    };
+    static const QUMethod slot_47 = {"slotClusterSpotCheck", 1, param_slot_47 };
+    static const QUMethod slot_48 = {"sortLog", 0, 0 };
+    static const QUMethod slot_49 = {"fileNew", 0, 0 };
+    static const QUMethod slot_50 = {"slotLocalAwardChanged", 0, 0 };
+    static const QUMethod slot_51 = {"slotSearchQSO2QSL", 0, 0 };
+    static const QUMethod slot_52 = {"slotMyLocatorChanged", 0, 0 };
+    static const QUMethod slot_53 = {"languageChange", 0, 0 };
+    static const QMetaData slot_tbl[] = {
+	{ "fileExit()", &slot_0, QMetaData::Public },
+	{ "fileOpen()", &slot_1, QMetaData::Public },
+	{ "fileSave()", &slot_2, QMetaData::Public },
+	{ "fileSaveAs()", &slot_3, QMetaData::Public },
+	{ "filePrint()", &slot_4, QMetaData::Public },
+	{ "slotQsoSearchOver(QListViewItem*)", &slot_5, QMetaData::Public },
+	{ "slotQSLcomboBoxChanged()", &slot_6, QMetaData::Public },
+	{ "slotModifyBtn()", &slot_7, QMetaData::Public },
+	{ "slotClearBtn()", &slot_8, QMetaData::Public },
+	{ "slotOkBtn()", &slot_9, QMetaData::Public },
+	{ "helpIndex()", &slot_10, QMetaData::Public },
+	{ "helpContents()", &slot_11, QMetaData::Public },
+	{ "helpAbout()", &slot_12, QMetaData::Public },
+	{ "slotBandSelected()", &slot_13, QMetaData::Public },
+	{ "slotModeSelected()", &slot_14, QMetaData::Public },
+	{ "slotQrzChanged()", &slot_15, QMetaData::Public },
+	{ "slotQsoSelected(QListViewItem*)", &slot_16, QMetaData::Public },
+	{ "slotQSLSent()", &slot_17, QMetaData::Public },
+	{ "slotQSLrec()", &slot_18, QMetaData::Public },
+	{ "slotQslSentBoxChanged()", &slot_19, QMetaData::Public },
+	{ "slotQslRecvBoxChanged()", &slot_20, QMetaData::Public },
+	{ "slotPreferences()", &slot_21, QMetaData::Public },
+	{ "slotImportTlf()", &slot_22, QMetaData::Public },
+	{ "slotIOTAChanged()", &slot_23, QMetaData::Public },
+	{ "slotSearchButton()", &slot_24, QMetaData::Public },
+	{ "slotCancelSearchButton()", &slot_25, QMetaData::Public },
+	{ "slotQrzSearchChanged()", &slot_26, QMetaData::Public },
+	{ "slotQsoSearchSelected(QListViewItem*)", &slot_27, QMetaData::Public },
+	{ "slotQsoRightButtonFromSearch(QListViewItem*,const QPoint&)", &slot_28, QMetaData::Public },
+	{ "slotQsoSelectedForEdit(QListViewItem*)", &slot_29, QMetaData::Public },
+	{ "slotQSLRec()", &slot_30, QMetaData::Public },
+	{ "slotQsoSearchSelectedForEdit(QListViewItem*)", &slot_31, QMetaData::Public },
+	{ "slotQsoDelete()", &slot_32, QMetaData::Public },
+	{ "slotQsoRightButton(QListViewItem*)", &slot_33, QMetaData::Public },
+	{ "slotQsoRightButtonFromLog(QListViewItem*,const QPoint&)", &slot_34, QMetaData::Public },
+	{ "slotAddLog()", &slot_35, QMetaData::Public },
+	{ "slotClusterConnect()", &slot_36, QMetaData::Public },
+	{ "slotClusterCloseConnection()", &slot_37, QMetaData::Public },
+	{ "slotClusterSendToServer()", &slot_38, QMetaData::Public },
+	{ "slotClusterClearInputLine()", &slot_39, QMetaData::Public },
+	{ "slotKlogSetup()", &slot_40, QMetaData::Public },
+	{ "slotBugReport()", &slot_41, QMetaData::Public },
+	{ "slotModeChanged(int)", &slot_42, QMetaData::Public },
+	{ "slotBandChanged()", &slot_43, QMetaData::Public },
+	{ "slotQslNeededCheck()", &slot_44, QMetaData::Public },
+	{ "slotLocatorChanged()", &slot_45, QMetaData::Public },
+	{ "slotClusterSpotToLog(QListViewItem*)", &slot_46, QMetaData::Public },
+	{ "slotClusterSpotCheck(QListViewItem*)", &slot_47, QMetaData::Public },
+	{ "sortLog()", &slot_48, QMetaData::Public },
+	{ "fileNew()", &slot_49, QMetaData::Public },
+	{ "slotLocalAwardChanged()", &slot_50, QMetaData::Public },
+	{ "slotSearchQSO2QSL()", &slot_51, QMetaData::Public },
+	{ "slotMyLocatorChanged()", &slot_52, QMetaData::Public },
+	{ "languageChange()", &slot_53, QMetaData::Protected }
+    };
+    metaObj = QMetaObject::new_metaobject(
+	"klogui", parentObject,
+	slot_tbl, 54,
+	0, 0,
+#ifndef QT_NO_PROPERTIES
+	0, 0,
+	0, 0,
+#endif // QT_NO_PROPERTIES
+	0, 0 );
+    cleanUp_klogui.setMetaObject( metaObj );
+    return metaObj;
+}
+
+void* klogui::qt_cast( const char* clname )
+{
+    if ( !qstrcmp( clname, "klogui" ) )
+	return this;
+    return QMainWindow::qt_cast( clname );
+}
+
+bool klogui::qt_invoke( int _id, QUObject* _o )
+{
+    switch ( _id - staticMetaObject()->slotOffset() ) {
+    case 0: fileExit(); break;
+    case 1: fileOpen(); break;
+    case 2: fileSave(); break;
+    case 3: fileSaveAs(); break;
+    case 4: filePrint(); break;
+    case 5: slotQsoSearchOver((QListViewItem*)static_QUType_ptr.get(_o+1)); break;
+    case 6: slotQSLcomboBoxChanged(); break;
+    case 7: slotModifyBtn(); break;
+    case 8: slotClearBtn(); break;
+    case 9: slotOkBtn(); break;
+    case 10: helpIndex(); break;
+    case 11: helpContents(); break;
+    case 12: helpAbout(); break;
+    case 13: slotBandSelected(); break;
+    case 14: slotModeSelected(); break;
+    case 15: slotQrzChanged(); break;
+    case 16: slotQsoSelected((QListViewItem*)static_QUType_ptr.get(_o+1)); break;
+    case 17: slotQSLSent(); break;
+    case 18: slotQSLrec(); break;
+    case 19: slotQslSentBoxChanged(); break;
+    case 20: slotQslRecvBoxChanged(); break;
+    case 21: slotPreferences(); break;
+    case 22: slotImportTlf(); break;
+    case 23: slotIOTAChanged(); break;
+    case 24: slotSearchButton(); break;
+    case 25: slotCancelSearchButton(); break;
+    case 26: slotQrzSearchChanged(); break;
+    case 27: slotQsoSearchSelected((QListViewItem*)static_QUType_ptr.get(_o+1)); break;
+    case 28: slotQsoRightButtonFromSearch((QListViewItem*)static_QUType_ptr.get(_o+1),(const QPoint&)*((const QPoint*)static_QUType_ptr.get(_o+2))); break;
+    case 29: slotQsoSelectedForEdit((QListViewItem*)static_QUType_ptr.get(_o+1)); break;
+    case 30: slotQSLRec(); break;
+    case 31: slotQsoSearchSelectedForEdit((QListViewItem*)static_QUType_ptr.get(_o+1)); break;
+    case 32: slotQsoDelete(); break;
+    case 33: slotQsoRightButton((QListViewItem*)static_QUType_ptr.get(_o+1)); break;
+    case 34: slotQsoRightButtonFromLog((QListViewItem*)static_QUType_ptr.get(_o+1),(const QPoint&)*((const QPoint*)static_QUType_ptr.get(_o+2))); break;
+    case 35: slotAddLog(); break;
+    case 36: slotClusterConnect(); break;
+    case 37: slotClusterCloseConnection(); break;
+    case 38: slotClusterSendToServer(); break;
+    case 39: slotClusterClearInputLine(); break;
+    case 40: slotKlogSetup(); break;
+    case 41: slotBugReport(); break;
+    case 42: slotModeChanged((int)static_QUType_int.get(_o+1)); break;
+    case 43: slotBandChanged(); break;
+    case 44: slotQslNeededCheck(); break;
+    case 45: slotLocatorChanged(); break;
+    case 46: slotClusterSpotToLog((QListViewItem*)static_QUType_ptr.get(_o+1)); break;
+    case 47: slotClusterSpotCheck((QListViewItem*)static_QUType_ptr.get(_o+1)); break;
+    case 48: sortLog(); break;
+    case 49: fileNew(); break;
+    case 50: slotLocalAwardChanged(); break;
+    case 51: slotSearchQSO2QSL(); break;
+    case 52: slotMyLocatorChanged(); break;
+    case 53: languageChange(); break;
+    default:
+	return QMainWindow::qt_invoke( _id, _o );
+    }
+    return TRUE;
+}
+
+bool klogui::qt_emit( int _id, QUObject* _o )
+{
+    return QMainWindow::qt_emit(_id,_o);
+}
+#ifndef QT_NO_PROPERTIES
+
+bool klogui::qt_property( int id, int f, QVariant* v)
+{
+    return QMainWindow::qt_property( id, f, v);
+}
+
+bool klogui::qt_static_property( QObject* , int , int , QVariant* ){ return FALSE; }
+#endif // QT_NO_PROPERTIES
