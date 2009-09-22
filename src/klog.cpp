@@ -31,7 +31,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     connect( internalTimer, SIGNAL(timeout()), SLOT(slotUpdateTime()) );
     internalTimer->start( 1000 );               // emit signal every 1 second
 
-    Klog::KLogVersion = "0.4.7";
+    Klog::KLogVersion = "0.5";
     Klog::editdeletePixMap = new QPixmap("editdelete.png");
     editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
     Klog::qslRecPixMap = new QPixmap("qslRec.png");
