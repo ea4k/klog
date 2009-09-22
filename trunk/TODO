@@ -5,15 +5,13 @@
 
 <BEFORE RELEASING>
 
-None :-)
-
 </BEFORE RELEASING>
 
 * Check the ADIF QSL_VIA compatibility (B, D, E, M, ...)
 * ADD the STATION_CALLSIGN tag and relate it to OPERATOR
-* URGENT: IMPORT CABRILLO LOGS
 * URGENT: rewrite the hamlib support code!!!
 * URGENT: The way the awards are deleted is not very smart.
+
 The list calls to writeconf and readconf when a award is deleted so if a user
 makes any modification in any other field in the setup GUI, it is saved!
 URGENT: * To add a button to active the Hamlib once it has been disabled if it was actived in the setup.
@@ -23,6 +21,7 @@ URGENT: * To add a button to active the Hamlib once it has been disabled if it w
 	delete a QSO includes delete a reference
 	is worked?
 
+* OPTIMIZATION: Work with the log in a QList and just show in the QTreeWidget
 * OPTIMIZATION: When QSL Managing, it is slow between you accept/send a QSL
 and you can continue... What is done in between???
 * OPTIMIZATION:  When clicking over OK button, it re-paint the loglist
@@ -32,7 +31,7 @@ completely. I should just "add" a new QSO and not re-reading the whole log.
 * OPTIMIZATION: Define a data struct to group all the hamlib/rig control information around.
 * OPTIMIZATION: re-Write the getEntityFromCall() to getEntityFromCall(const QString& call) to secure it and not depend on the textedit content
 
-* BUG F0XXX/TU8 is not recognised as TU but it is if written as TU8/F0XXX
+
 * BUG??????????: To check if remarks is also copied when "complete from previous QSO" as today it IS copied.
 * BUG: RST is a String, Aurora QSOs must be 59A (TNX SM5CNQ)
 * BUG: When adding an award, if the file is not in the .klog dir, it does not work.
@@ -41,6 +40,9 @@ completely. I should just "add" a new QSO and not re-reading the whole log.
 * BUG: The first time you enter a call (although you have already loaded a logfile) KLog does not shows the correct entity band state for that entity. It only happens with the first call in a use of KLog. I still don't know why!
 * BUG: when loading a log, the console shows erros about the range of the dates. It seems to be a bug of Qt, not of KLog but it still needs a check. (I have already checked it but I have not found a way to solve it. Dates are OK and checked while managed.). Maybe related with the lack of date if no QSL has been sent or received?
 
+NEW FEATURE: Add a needed tab in the botton box. Needed spots would be added there. User
+can also add spots there. Maybe I can add two tabs, one for user added and
+another for automatic needed spots.
 
 To check the Debian package as I think icons are not being included (s390/0.3.01)
 http://buildd.debian.org/fetch.php?&pkg=klog&ver=0.3.0-1&arch=s390&stamp=1099872133&file=log&as=raw
@@ -173,3 +175,8 @@ QRZ, Name, QTH
 
 
 Printing: Labels / direct to card. Readed in eHam from OH7JJT
+
+ADIF not supported:
+	CNTY & MY_CNTY: I still don't know how to work with it. Is it a String, Number, combination... I think that the ADIF forum should work on it.
+	All the EQSL fields: under discussion on the ADIF forum
+	All the LOTW fields.
