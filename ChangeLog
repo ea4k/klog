@@ -1,3 +1,20 @@
+date - 0.5
+- Migrated to Qt4
+
+April-2009 0.4.7
+- New feature: Import cabrillo logs.
+- Improved the ADIF compatibility up to ADIF 2.2.2.
+- BUG fixed: Improved the confirmed QSO accounting.
+- BUG fixed: RST format were not changed when another mode was selected if the CALL was empty. (TNX Alvaro, EA4RCT).
+- BUG fixed: Calls like F0XXX/TU8 were not recognised if written as TU8/F0XXX.
+- BUG fixed: TX_PWR is only saved when bigger than 0w :-)
+- BUG fixed: Prefixes were not properly managed and some information, as the STATE from ADIF files were not always well imported.
+- BUG fixed: Related with the ADIF saving CQ & ITU zones for QSO. It was not properly saved but can be recovered from the CALL.
+
+20-dic-2008 0.4.6
+- BUG fixed: Printing was not properly working due to library actualization.
+- BUG fixed: Fields STX/SRX/STATION_CALLSIGN/CONTEST_ID were copied from one QSO to the following one.
+
 23-nov-2008 0.4.5
 - GUI fixed: Changed the order of the input fields tab switching.
 - GUI fixed: Corrected the layout to fix the screen as ITU was not properly shown.
