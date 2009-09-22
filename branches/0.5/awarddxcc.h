@@ -21,7 +21,7 @@
 *  You should have received a copy of the GNU General Public License        *
 *  along with this program; if not, write to the Free Software              *
 *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA*
- *****************************************************************************/ 
+ *****************************************************************************/
 
 #ifndef GLOBAL_DATA
 #define GLOBAL_DATA
@@ -30,7 +30,7 @@ const int ZONES = 40+1;
 const int BANDS = 28;
 const int MODES = 59;
 #endif
- 
+
 
 #ifndef AWARDDXCC_H
 #define AWARDDXCC_H
@@ -105,7 +105,7 @@ public:
   int howManyConfirmedBand(const int tband);
   int howManyConfirmedMode(const int tmode);
   void notConfirmed(const int tentity, const int tband, const int tmode);
-  void notConfirmedString(const int tentity, const QString& tband, const QString& tmode);  
+  void notConfirmedString(const int tentity, const QString& tband, const QString& tmode);
   int howManyConfirmed();
 
 private:

@@ -21,12 +21,14 @@
 *  along with this program; if not, write to the Free Software              *
 *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA*
  *****************************************************************************/
- 
+
 #ifndef ENTITY_H
 #define ENTITY_H
 #include "prefix.h"
 #include <QList>
-#define ENTITIES 340
+// Removed the line below as ENTITIES was defined in awarddxcc.h and const int and was causing compile errors.
+// could remove if unnecessary
+//#define ENTITIES 340
 
  class Entity{
 
@@ -36,7 +38,7 @@ public:
   Entity (const int tnumb, const QString& tentity, const QString& tpfx, const int tcqz, const long tlon, const long tlat, const QString& tcontinent, const int tituz, const int ttimeZone);
 //  Entity (const int tnumb, const QString& tentity, const QString& tpfx, const int tcqz, const long tlon, const long tlat, const QString& tcontinent, const int tituz, const int ttimeZone);
 
-  
+
   ~Entity();
 
   typedef QList<Prefix> Prefixes;
@@ -90,7 +92,7 @@ private:
  // int tzone;
   int ituz;
   int timeZone;
-	int adifCode;
+    int adifCode;
 
 
 };
