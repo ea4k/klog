@@ -135,7 +135,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     i = 0;
     QString comment;
     comment = "";
-    // world.create();
+    // Check we have setup world and cty.dat is in your home folder
     haveWorld();
     slotClearBtn();
     modify = false;
@@ -163,28 +163,24 @@ Klog::~Klog(){
 }
 
 bool Klog::haveWorld(){
-//cout << "KLog::haveWorld" << endl;
-//TODO:setTextFormat(Qt::RichText) to display an URL as a link
-  if (!world.isWorldCreated() ){
-    int ret = QMessageBox::warning( this, i18n("Warning - Can't find cty.dat"),i18n("I can't find the cty.dat file with the DX Entity data.\nYou will not have any information on these.\n\nCopy an updated cty.dat file to your ~/.klog dir, please.\n\nYou can download from: www.country-files.com/cty/cty.dat"));
-    switch(ret){
-      case QMessageBox::Yes: // Continue
-        return true;
-        break;
-      case QMessageBox::No: // Continue
-        return false;
-        break;
+    //TODO:setTextFormat(Qt::RichText) to display an URL as a link
+    if (!world.isWorldCreated() ){
+        int ret = QMessageBox::warning( this, i18n("Warning - Can't find cty.dat"),i18n("I can't find the cty.dat file with the DX Entity data.\nYou will not have any information on these.\n\nCopy an updated cty.dat file to your ~/.klog dir, please.\n\nYou can download from: www.country-files.com/cty/cty.dat"));
+        switch(ret) {
+            case QMessageBox::Yes: // Continue
+                return true;
+                break;
+            case QMessageBox::No: // Continue
+                return false;
+                break;
+        }
     }
-  }
-  return true;
+    return true;
 }
 
-
 void Klog::slotLocatorChanged(){
-// If the locator is changed, we should re-calculate distances...
-// Manages the Locator of the DX
-//cout << "KLog::slotLocatorChanged" << endl;
-
+    // If the locator is changed, we should re-calculate distances...
+    // Manages the Locator of the DX
     dxLocator = getThisQSODXLocator();	//We first have to get the valid locator, from the call
                         // or from the user
 
@@ -2347,11 +2343,11 @@ void Klog::showWhere(const int enti){
 }
 
 void Klog::fillEntityBandState(const int enti){
-/*
-Reads if the entity is worked/confirmed and show it
-*/
+// Reads if the entity is worked/confirmed and show it
 //cout << "KLog::fillEntityBandState: " << QString::number(enti) << endl;
 
+    QPalette confirmedPalette (confirmedColor, QPalette::Window);
+    QPalette workedPalette (workedColor, QPalette::Window);
     if (!dxcc.isWorked(enti)){ // IT IS A NEW ONE!!!!!!!
 
 // Qpalette::Qpalette (
@@ -2365,7 +2361,6 @@ Reads if the entity is worked/confirmed and show it
 
 QPalette newOneColorG ( newOneColor, newOneColor, newOneColor, newOneColor, newOneColor, newOneColor, newOneColor );
 
-textLabelBand2->setBackgroundRole(QPalette::Dark);
 //TODO: DELETED FOR QT4 MIGRATION:
 // SET THE COLOR
 // 		textLabelBand2->setPalette(newOneColor);
@@ -2384,24 +2379,18 @@ textLabelBand2->setBackgroundRole(QPalette::Dark);
 
     if(dxcc.isConfirmedBand(enti, adif.band2Int("2M"))){ // 2m band
       // RED for confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-      textLabelBand2->setPalette(confirmedColor);
+      textLabelBand2->setPalette(confirmedPalette);
+//      textLabelBand2->setPalette(confirmedColor);
     }else{
       if(dxcc.isWorkedBand(enti, adif.band2Int("2M"))){
         // Yellow for worked but not confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-         textLabelBand2->setPalette(workedColor);
+//         textLabelBand2->setPalette(workedColor);
+         textLabelBand2->setPalette(workedPalette);
       }else{
         //GREEN if new one
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
          textLabelBand2->setPalette(neededColor);
       }
     }
-
-
 
   if(dxcc.isConfirmedBand(enti, adif.band2Int("6M"))){ // 6m band
       // RED for confirmed
