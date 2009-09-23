@@ -510,55 +510,49 @@ void Klog::fileSave(){
 
 void Klog::fileSaveAs(){
 //cout << "KLog::fileSaveAs" << endl;
-  bool writ;
-  writ = false;
-  while (!writ){
+//  bool writ = false;
+//  writ = false;
+//  while (!writ){
 
-// COMMENTED TO EASE THE QT4 MIGRATION
-//TODO: Ask the user for the file name
-      QMessageBox msgBox;
-      msgBox.setText(i18n("KLog message:"));
-      QString str = i18n("This function (fileSaveAs) has been MODIFIED to help the QT4 migration.\nIt will be restored ASAP");
-      msgBox.setInformativeText(str);
-      msgBox.setStandardButtons(QMessageBox::Ok);
-      msgBox.setDefaultButton(QMessageBox::Ok);
-      msgBox.setIcon(QMessageBox::Warning);
-      msgBox.exec();
-
-      QString fn = QFileDialog::getSaveFileName(this, i18n("Save File"),
+  QString fn = QFileDialog::getSaveFileName(this, i18n("Save File"),
                             klogDir,
                             i18n("ADIF (*.adi)"));
 
-    if ( !fn.isEmpty() )
-      logFileNameToSave = fn;
-    QFile file( logFileNameToSave );
-      if ( file.exists( ) ) {
+  if ( !fn.isEmpty() )
+    logFileNameToSave = fn;
+  
+  QFile file( logFileNameToSave );
+    
+// Deleted because QFile manages the case of file replacement and I suppose than better than us.
 
-      QMessageBox msgBox;
-      msgBox.setText(i18n("Warning - File exists"));
-      QString str = i18n("The file: ") + logFileNameToSave + i18n(" already exits.\nDo you want to overwrite?");
-      msgBox.setInformativeText(str);
-      msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-      msgBox.setDefaultButton(QMessageBox::No);
-      int ret = msgBox.exec();
 
-      switch(ret) {
-      case QMessageBox::Yes:
-        writ = true;
-      break;
-      case QMessageBox::No:
-        return;
-      break;
-      default: // just for sanity
-        return;
-      break;
-      }
-    }else{
-      writ = true;
-    }
-  }
+//       if ( file.exists( ) ) {
+// 
+//       QMessageBox msgBox;
+//       msgBox.setText(i18n("Warning - File exists"));
+//       QString str = i18n("The file: ") + logFileNameToSave + i18n(" already exits.\nDo you want to overwrite?");
+//       msgBox.setInformativeText(str);
+//       msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+//       msgBox.setDefaultButton(QMessageBox::No);
+//       int ret = msgBox.exec();
+// 
+//       switch(ret) {
+//       case QMessageBox::Yes:
+//         writ = true;
+//       break;
+//       case QMessageBox::No:
+//         return;
+//       break;
+//       default: // just for sanity
+//         return;
+//       break;
+//       }
+//     }else{
+//       writ = true;
+//     }
+
+//   }
   if ( !logFileNameToSave.isEmpty() ) {
-    //adifFileSave();
     adifTempFileSave(logFileNameToSave, logbook, true);
   }else {
     //statusBar()->message( i18n("Saving aborted"), 2000 );
@@ -3027,12 +3021,23 @@ QSO:  3799 PH 1999-03-06 0711 HC8N          59  001    W1AW          59  001    
 }
 
 void Klog::slotAddLog(){
-    qDebug() << "KLog::slotAddLog";
-    QString fileName;
-    QString tempLocator;
-    QString tempOriginalLocator;
-    bool ok;
+  qDebug() << "KLog::slotAddLog";
+  QString fn = "";
+  QString tempLocator;
+  QString tempOriginalLocator;
+  bool ok;
+    
+    
+  fn = QFileDialog::getOpenFileName(this, i18n("Save File"),
+                            klogDir,
+                            i18n("ADIF (*.adi)"));
 
+  if ( fn.isEmpty() ) //TODO: check if it is better any other checking
+    return;
+  
+  QFile file( fn );
+  if ( file.exists( ) ) {	// We will check for all the data only if the file exists
+  
     textStringAux = "";
     textStringAux = QInputDialog::getText(this, i18n("KLog - Log Add"),
                     i18n("Enter a remark for ALL the imported QSO:\n(Leave it empty and press OK if no remark)"), QLineEdit::Normal,
@@ -3045,8 +3050,6 @@ void Klog::slotAddLog(){
         // user entered nothing but clicked over OK
     }
 
-// COMMENTED TO EASE THE QT4 MIGRATION
-//TODO: I have to request a CALL from the USER
     operatorStringAux ="BADCALL";
     ok = true;
     operatorStringAux ="";
@@ -3055,102 +3058,91 @@ void Klog::slotAddLog(){
             QDir::home().dirName(), &ok);
 
     if ( ok && !operatorStringAux.isEmpty() ) {
-        if (operatorStringAux.length()<=2){
+      if (operatorStringAux.length()<=2){
 
-            QMessageBox msgBox;
-            msgBox.setText(i18n("Warning - QRZ not valid"));
-            QString str = i18n("Do you want to import without a QRZ?");
-            msgBox.setInformativeText(str);
-            msgBox.setIcon(QMessageBox::Warning);
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-            msgBox.setDefaultButton(QMessageBox::No);
-            int ret = msgBox.exec();
+	QMessageBox msgBox;
+	msgBox.setText(i18n("Warning - QRZ not valid"));
+	QString str = i18n("Do you want to import without a QRZ?");
+	msgBox.setInformativeText(str);
+	msgBox.setIcon(QMessageBox::Warning);
+	msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+	msgBox.setDefaultButton(QMessageBox::No);
+	int ret = msgBox.exec();
 
-            switch(ret){
-                case QMessageBox::No:// The user does not want to continue without a call
-                    operatorStringAux ="";
-                break;
-                case QMessageBox::Yes: // The user clicked over YES so import
-                    return;
-                break;
-                default: //
-                    return;
-                break;
-
-            }
-        }
+	  switch(ret){
+	    case QMessageBox::No:// The user does not want to continue without a call
+	      operatorStringAux ="";
+	    break;
+	    case QMessageBox::Yes: // The user clicked over YES so import
+	      return;
+	    break;
+	    default: //
+	      return;
+	     break;
+	  }
+	}
     }else if (!ok){ // The user pressed Cancel
-        return;
+      return;
     }else{}
 
     tempLocator="";
-//	tempLocator = QInputDialog::getText(
-// 	  i18n("KLog - Log Add"),
-// 	  i18n("Enter the locator of the activity:\n(Leave it empty and press OK if the locator was ") + getMyLocator() + "."),
-// 	  QLineEdit::Normal, QString::null, &ok, this );
-
     tempLocator = QInputDialog::getText(this, i18n("KLog - Log Add"),
-                                          i18n("Enter the locator of the activity:\n(Leave it empty and press OK if the locator was") + getMyLocator() + ".", QLineEdit::Normal,
+                                          i18n("Enter the locator of the activity:\n(Leave it empty and press OK if the locator was ") + getMyLocator() + ".", QLineEdit::Normal,
                                           QDir::home().dirName(), &ok);
 
 
     if ( ok && !tempLocator.isEmpty() ) {
-        if (!locator.isValidLocator(tempLocator)){
-
-               QMessageBox msgBox;
-               msgBox.setText(i18n("Warning - Locator not valid"));
-               QString str = i18n("Do you want to import without a Locator and use ")
-                + getMyLocator() + "?\n";
-               msgBox.setInformativeText(str);
-               msgBox.setIcon(QMessageBox::Warning);
-               msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-               msgBox.setDefaultButton(QMessageBox::No);
-               int ret = msgBox.exec();
-
-
-
-            switch(ret){
-
-                case QMessageBox::No:// The user does not want to continue without a call
-                    tempLocator = "";
-                break;
-                case QMessageBox::Yes: // The user clicked over YES so import
-                    return;
-                break;
-                default: //
-                    return;
-                break;
-
-            }
-        }
+      if (!locator.isValidLocator(tempLocator)){
+	QMessageBox msgBox;
+	msgBox.setText(i18n("Warning - Locator not valid"));
+	QString str = i18n("Do you want to import without a Locator and use ")
+	  + getMyLocator() + "?\n";
+	msgBox.setInformativeText(str);
+	msgBox.setIcon(QMessageBox::Warning);
+	msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+	msgBox.setDefaultButton(QMessageBox::No);
+	int ret = msgBox.exec();
+	switch(ret){
+	  case QMessageBox::No:// The user does not want to continue without a call
+	    tempLocator = "";
+	  break;
+	  case QMessageBox::Yes: // The user clicked over YES so import
+	    return;
+	  break;
+	  default: //
+	    return;
+	  break;
+	}
+      }
     }else if (!ok){ // The user pressed Cancel
-        return;
+      return;
     }else{}
 
-// COMMENTED TO EASE THE QT4 MIGRATION
-// 	addingLog = true;
-// 	tempOriginalLocator = getMyLocator();	// Replace the default locator with the new one
-// 	setMyLocator(tempLocator);		// just for this log addition
+    addingLog = true;
+    tempOriginalLocator = getMyLocator();	// Replace the default locator with the new one
+    setMyLocator(tempLocator);		// just for this log addition
 
 
-//	adifReadLog(fileName);
+    adifReadLog(fn);
     setMyLocator(tempOriginalLocator);	// Set the original locator again.
     needToSave = true;
     addingLog = false;			// I hace finished the addition.
 
-      QMessageBox msgBox;
-      msgBox.setText(i18n("KLog message:"));
+    QMessageBox msgBox;
+    msgBox.setText(i18n("KLog message:"));
 //	  QString str = i18n("The log file has been\nsuccessfully added!");
       QString str = i18n("The log file has been\nsuccessfully added!");
       msgBox.setInformativeText(str);
       msgBox.setStandardButtons(QMessageBox::Ok);
       msgBox.setDefaultButton(QMessageBox::Ok);
       msgBox.setIcon(QMessageBox::Information);
-      msgBox.exec();
+    msgBox.exec();
+  
+  }  
+  textStringAux = "";
+  operatorStringAux ="";
+  tempLocator="";
 
-    textStringAux = "";
-    operatorStringAux ="";
-    tempLocator="";
 }
 void Klog::slotImportCabrillo(){
 //cout << "KLog::slotImportCabrillo" << endl;
