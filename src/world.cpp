@@ -695,11 +695,12 @@ bool World::isWorldCreated(){
 }
 
 QString World::getEntityName(int num){
+  i = num; //TODO: Just to avoid a compilation warning... to be deleted when this function is implemented
 	return "NULL";
 }
 
 QString World::getMainPrefix (int num){
-
+  i = num; //TODO: Just to avoid a compilation warning... to be deleted when this function is implemented
 	return "NULL";
 }
 
