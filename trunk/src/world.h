@@ -48,7 +48,6 @@ public:
 	World();
 	~World();
 
-	void create();
 	bool isWorldCreated();
 
 	int findEntity(const QString  string);	// If no Entity is found, we return "0"

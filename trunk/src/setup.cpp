@@ -153,7 +153,7 @@ Setup::readConf ()
       if (!data.isEmpty ())
         {			// If there is another line i read it
           data = data.simplified ();
-          QStringList fields = data.split ("=", QString::SkipEmptyParts);
+          QStringList fields = data.split ("=", QString::KeepEmptyParts);
           adifTab = fields[0].toUpper ();
           theData = fields[1];
           if (adifTab == "CALL")

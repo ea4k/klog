@@ -88,6 +88,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     connect(awardsComboBox, SIGNAL(textChanged(QString)), this, SLOT(slotLocalAwardChanged()));
     connect(toolsMerge_QSO_dataAction, SIGNAL(triggered()), this, SLOT(slotcompleteThePreviouslyWorked()));
     connect(ActionCabrilloImport, SIGNAL(triggered()), this, SLOT(slotImportCabrillo()));
+    connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQrzChanged()));
 
     klogDir = QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs
     if (!QDir::setCurrent ( klogDir )){
@@ -97,12 +98,9 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     dirExist = QDir::setCurrent ( klogDir ) ;
     logFileNameToOpen = "";
     logFileNameToSave = "";
-
-
     tempLogFile = "tempklog.adi";
 
     //awards.readConfig();  // Starting the award checks
-
 // HAMLIB
     hamlib = false;
     hamlibPossible = false;
@@ -119,13 +117,10 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
         //listHamlib();
         hamlibPossible = KlogHamlib.init();
         if (hamlibPossible) { // Check if we have a rig plugged to the computer
-
-
             QTimer *hamlibtimer = new QTimer( this );
             connect( hamlibtimer, SIGNAL(timeout()), this, SLOT(slothamlibUpdateFrequency()) );
             hamlibtimer->start( hamlibInterval );
         }else{ // It is not possible to contact to your rig
-
           QMessageBox msgBox;
           msgBox.setText(i18n("KLog message:"));
           QString str = i18n("Could not connect to your radio.Could not connect to your radio.\nCheck your hamlib settings and restart KLog.\n\nKLog will run without hamlib support.\n\n");
@@ -140,7 +135,8 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     i = 0;
     QString comment;
     comment = "";
-    //  world.create();
+    // world.create();
+    haveWorld();
     slotClearBtn();
     modify = false;
     searching2QSL = false;
@@ -154,8 +150,6 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     slotModeChanged(0); //SSB = 0, the default mode
     needToSave = false; // Initialized here to avoid needing to save just after the start
     addingLog = false;	// True when adding a log file to the main one.
-
-
     // Finally, if we configured to open a file by default... we open it!
     if ((openLastByDefault == true) && (logFileNameToOpen !="")){
         adifReadLog(logFileNameToOpen);
@@ -170,18 +164,10 @@ Klog::~Klog(){
 
 bool Klog::haveWorld(){
 //cout << "KLog::haveWorld" << endl;
-
 //TODO:setTextFormat(Qt::RichText) to display an URL as a link
   if (!world.isWorldCreated() ){
-    QMessageBox msgBox;
-    msgBox.setText(i18n("Warning - Can't find cty.dat"));
-    QString str = i18n("I can't find the cty.dat file with the data\nof the Entities. Do you want to continue without\nthis data?\n\n(Copy an updated cty.dat file to your ~/.klog dir, please.)\n\nYou can download from: <a href=\"http://www.country-files.com/cty/cty.dat\">http://www.country-files.com/cty/cty.dat</a>");
-    msgBox.setInformativeText(str);
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-    msgBox.setDefaultButton(QMessageBox::No);
-    int ret = msgBox.exec();
+    int ret = QMessageBox::warning( this, i18n("Warning - Can't find cty.dat"),i18n("I can't find the cty.dat file with the DX Entity data.\nYou will not have any information on these.\n\nCopy an updated cty.dat file to your ~/.klog dir, please.\n\nYou can download from: www.country-files.com/cty/cty.dat"));
     switch(ret){
-
       case QMessageBox::Yes: // Continue
         return true;
         break;
@@ -229,8 +215,6 @@ void Klog::slotMyLocatorChanged(){
     Klog::distance = locator.getDistanceKilometres(locator.getLon(myLocatorTemp), locator.getLat(myLocatorTemp), locator.getLon(dxLocator), locator.getLat(dxLocator));
     beam = locator.getBeam(locator.getLon(myLocatorTemp), locator.getLat(myLocatorTemp), locator.getLon(dxLocator), locator.getLat(dxLocator));
     showDistancesAndBeam(distance, beam);
-
-
 }
 
 void Klog::showDistancesAndBeam(const int dist, const int beam)
@@ -246,10 +230,8 @@ void Klog::showDistancesAndBeam(const int dist, const int beam)
 }
 
 QString Klog::getThisQSODXLocator (){
-//cout << "KLog::getLocatorFromCall" << endl;
-// Firstly we check if the user has entered one locator and, if hasn't
-// We read the DX QRZ and get a default locator from it.
-
+    // Firstly we check if the user has entered one locator and, if hasn't
+    // We read the DX QRZ and get a default locator from it.
     if (locator.isValidLocator((locatorLineEdit->text()).toUpper())) { //User's locator
         return (locatorLineEdit->text()).toUpper();
     }else{
@@ -260,15 +242,11 @@ QString Klog::getThisQSODXLocator (){
     return "NULL";
 }
 
-
 int Klog::getEntityFromCall(){ // We return the Entity number from the QRZ box call.
-//cout << "KLog::getEntityFromCall: " << (qrzLineEdit->text()).toUpper() << endl;
     return world.findEntity((qrzLineEdit->text()).toUpper());
 }
 
 void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
-//cout << "KLog: slotQrzChanged" << endl;
-
     qrzLineEdit->setText(((qrzLineEdit->text())).toUpper());
     callLen = (qrzLineEdit->text()).length();
 
@@ -277,13 +255,12 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
         slotCancelSearchButton();
         slotClearBtn();
         return;
-    }else if ((callLen !=0)&&(!modify)){ // Updating the searchQrzklineEdit if we are not modifying a QSO.
+    } else if ((callLen !=0) && (!modify)){ // Updating the searchQrzklineEdit if we are not modifying a QSO.
         enti = getEntityFromCall();
         if (enti>0){
             if (completeWithPrevious){ // If configured to use this feature
                 showIfPreviouslyWorked();
             }
-
             if (entiBak == enti){
                 callLenPrev = callLen;
 
@@ -309,7 +286,6 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
     callLenPrev = callLen;
     searching2QSL = false;	// If the user enters a QSO we finish the search2QSL process
 }
-
 
 void Klog::prepareIOTAComboBox (const int tenti){
 // We receive the Entity, get the continent and write it to the IOTA combobox
@@ -361,7 +337,6 @@ void Klog::prepareAwardComboBox(const int tenti){
                 awardsComboBox->insertItems(0, awards.getAwardReferences(award));
     }
 }
-
 
 void Klog::slotClearBtn(){
 // This method clears all for the next QSO
@@ -454,7 +429,6 @@ void Klog::slotClearBtn(){
 
 void Klog::clearEntityBox(){
 // This only clear the Entity box, the distances, bearing, entity, ...
-//cout << "KLog::clearEntityBox" << endl;
     entityTextLabel->setText("");
     Klog::distance = 0;
     Klog::beam = 0;
@@ -595,7 +569,6 @@ void Klog::fileSaveAs(){
   }
 }
 
-
 void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
 //adifTempFileSave(logFileNameToSave, logbook, true)
 //adifTempFileSave(logFileNameToSave, tempLogbook, false)
@@ -603,13 +576,9 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
 
     //logFileNameToSave = checkExtension(fn);
     QString fileToSave;
-
     fileToSave = checkExtension(fn);
-
     QFile file( fileToSave );
-
     if ( file.open( QIODevice::WriteOnly ) ) {
-
 //		if (manualSave){
         int progresStep = 0;
 
@@ -627,10 +596,7 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
 //		Klog::LogBook::iterator itEnd;
 //		itEnd = lb.end();
 
-
-
         stream << i18n("ADIF v1.0 (some ADIF v2 fields) Export from KLog-") + Klog::KLogVersion + " \nhttp://jaime.robles.es/klog" << "\n<APP_KLOG_NUMBER:" << QString::number( Klog::number ).length() << ">" << QString::number(Klog::number) << i18n("\nLog saved: ") << dateTime.toString("yyyyMMdd") << "-" << dateTime.toString("hhmm") << "\n<PROGRAMID:4>KLOG <PROGRAMVERSION:" + QString::number((Klog::KLogVersion).length()) << ">" << Klog::KLogVersion << " \n<EOH>\n" << endl;
-
 
         it = lb.begin();
         while (it != lb.end()){
@@ -914,9 +880,6 @@ void Klog::listHamlib(){
     rig_load_all_backends ();
     //cout << "ListHamlib: After loading" << endl;
 //        status = rig_list_foreach (riglist_make_list, NULL);
-
-
-
 }
 
 void Klog::processLogLine (const QString& tLogLine){
@@ -2080,7 +2043,6 @@ void Klog::modifyQso(){ // Modify an existing QSO with the data on the boxes
 
 }
 
-
 void Klog::helpAbout(){
 //cout << "KLog::helpAbout" << endl;
   /*QString description;
@@ -2158,7 +2120,7 @@ void Klog::readConf(){
             data = stream.readLine();
             if(!data.isEmpty()){ // If there is another line I read it
                 data = data.simplified();
-                QStringList fields = data.split("=", QString::SkipEmptyParts);
+                QStringList fields = data.split("=", QString::KeepEmptyParts);
                 //QStringList fields = QStringList::split('=', data );
                 adifTab = fields[0].toUpper();
                 theData = fields[1];
@@ -2177,9 +2139,7 @@ void Klog::readConf(){
                     dxClusterPort = theData.toInt();
                     if ((dxClusterPort>=1)||(dxClusterHost!="NOSERVER")||(DXClusterServerToUse=="NOSERVER")){
                         if (checkIfValidDXCluster((dxClusterHost+":"+QString::number(dxClusterPort)).toLower())){
-
                             DXClusterServerToUse =  (dxClusterHost+":"+QString::number(dxClusterPort)).toLower();
-
                         }
                     }
                 }else if (adifTab == "DXCLUSTERSERVERTOUSE"){
@@ -2321,7 +2281,8 @@ void Klog::readConf(){
         }// Closes the while
         file.close();
     }else{
-      //  slotKlogSetup();
+                qDebug() << "file not opened";
+        slotKlogSetup();
         // the file klogrc with preferences does not exist so we have to create it
     }
     if ((openLastByDefault)&&(logFileNameToOpen !="")){	// Check if the user wants to work on a default logfile.
@@ -2425,18 +2386,18 @@ textLabelBand2->setBackgroundRole(QPalette::Dark);
       // RED for confirmed
 //TODO: DELETED FOR QT4 MIGRATION:
 // SET THE COLOR
-//      textLabelBand2->setPalette(confirmedColor);
+      textLabelBand2->setPalette(confirmedColor);
     }else{
       if(dxcc.isWorkedBand(enti, adif.band2Int("2M"))){
         // Yellow for worked but not confirmed
 //TODO: DELETED FOR QT4 MIGRATION:
 // SET THE COLOR
-//         textLabelBand2->setPalette(workedColor);
+         textLabelBand2->setPalette(workedColor);
       }else{
         //GREEN if new one
 //TODO: DELETED FOR QT4 MIGRATION:
 // SET THE COLOR
-//         textLabelBand2->setPalette(neededColor);
+         textLabelBand2->setPalette(neededColor);
       }
     }
 
@@ -2444,205 +2405,131 @@ textLabelBand2->setBackgroundRole(QPalette::Dark);
 
   if(dxcc.isConfirmedBand(enti, adif.band2Int("6M"))){ // 6m band
       // RED for confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand6->setPalette(confirmedColor);
+       textLabelBand6->setPalette(confirmedColor);
   }else{
     if(dxcc.isWorkedBand(enti, adif.band2Int("6M"))){
       // Yellow for worked but not confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand6->setPalette(workedColor);
+       textLabelBand6->setPalette(workedColor);
     }else{
       //GREEN if new one
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand6->setPalette(neededColor);
+       textLabelBand6->setPalette(neededColor);
     }
   }
 
   if(dxcc.isConfirmedBand(enti, adif.band2Int("10M"))){ // 10m band
 //	cout << "KLog::fillEntityBandState confirmed: " << QString::number(enti) << endl;
     // RED for confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//     textLabelBand10->setPalette(confirmedColor);
+     textLabelBand10->setPalette(confirmedColor);
     }else{
       if(dxcc.isWorkedBand(enti, adif.band2Int("10M"))){
-//cout << "KLog::fillEntityBandState worked: " << QString::number(enti) << endl;
-        // Yellow for worked but not confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//         textLabelBand10->setPalette(workedColor);
+         textLabelBand10->setPalette(workedColor);
       }else{
-//cout << "KLog::fillEntityBandState NEW ONE!: " << QString::number(enti) << endl;
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand10->setPalette(neededColor);
+       textLabelBand10->setPalette(neededColor);
         //GREEN if new one
       }
   }
   if(dxcc.isConfirmedBand(enti, adif.band2Int("12M"))){ // 12m band
-      // RED for confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
 // SET THE COLOR
-//     textLabelBand12->setPalette(confirmedColor);
+     textLabelBand12->setPalette(confirmedColor);
     }else{
       if(dxcc.isWorkedBand(enti, adif.band2Int("12M"))){
         // Yellow for worked but not confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//        textLabelBand12->setPalette(workedColor);
+        textLabelBand12->setPalette(workedColor);
       }else{
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//        textLabelBand12->setPalette(neededColor);
+        textLabelBand12->setPalette(neededColor);
         //GREEN if new one
       }
   }
   if(dxcc.isConfirmedBand(enti, adif.band2Int("15M"))){ // 15m band
     // RED for confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//    textLabelBand15->setPalette(confirmedColor);
+    textLabelBand15->setPalette(confirmedColor);
   }else{
     if(dxcc.isWorkedBand(enti, adif.band2Int("15M"))){
       // Yellow for worked but not confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//      textLabelBand15->setPalette(workedColor);
+      textLabelBand15->setPalette(workedColor);
     }else{
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand15->setPalette(neededColor);
+       textLabelBand15->setPalette(neededColor);
         //GREEN if new one
     }
   }
   if(dxcc.isConfirmedBand(enti, adif.band2Int("17M"))){ // 17m band
     // RED for confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand17->setPalette(confirmedColor);
+       textLabelBand17->setPalette(confirmedColor);
   }else{
     if(dxcc.isWorkedBand(enti, adif.band2Int("17M"))){
       // Yellow for worked but not confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand17->setPalette(workedColor);
+       textLabelBand17->setPalette(workedColor);
     }else{
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand17->setPalette(neededColor);
+       textLabelBand17->setPalette(neededColor);
       //GREEN if new one
     }
   }
   if(dxcc.isConfirmedBand(enti, adif.band2Int("20M"))){ // 20m band
-//    cout << "KLog::fillEntityBandState: confirmed in 20 " << QString::number(enti) << endl;
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//     textLabelBand20->setPalette(confirmedColor);
+     textLabelBand20->setPalette(confirmedColor);
   }else{
     if(dxcc.isWorkedBand(enti, adif.band2Int("20M"))){
-//cout << "KLog::fillEntityBandState: worked in 20 " << QString::number(enti) << endl;
-//TODO: DELETED FOR QT4 MIGRATION:
 // SET THE COLOR
-//       textLabelBand20->setPalette(workedColor);
+       textLabelBand20->setPalette(workedColor);
     }else{
-//cout << "KLog::fillEntityBandState: needed in 20 " << QString::number(enti) << endl;
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand20->setPalette(neededColor);
+       textLabelBand20->setPalette(neededColor);
       //GREEN if new one
     }
   }
   if(dxcc.isConfirmedBand(enti, adif.band2Int("30M"))){ // 30m band
     // RED for confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//     textLabelBand30->setPalette(confirmedColor);
+     textLabelBand30->setPalette(confirmedColor);
     }else{
       if(dxcc.isWorkedBand(enti, adif.band2Int("30M"))){
       // Yellow for worked but not confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//         textLabelBand30->setPalette(workedColor);
+         textLabelBand30->setPalette(workedColor);
       }else{
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//         textLabelBand30->setPalette(neededColor);
+         textLabelBand30->setPalette(neededColor);
         //GREEN if new one
       }
   }
   if(dxcc.isConfirmedBand(enti, adif.band2Int("40M"))){ // 40m band
       // RED for confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//     textLabelBand40->setPalette(confirmedColor);
+     textLabelBand40->setPalette(confirmedColor);
   }else{
     if(dxcc.isWorkedBand(enti, adif.band2Int("40M"))){
       // Yellow for worked but not confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand40->setPalette(workedColor);
+       textLabelBand40->setPalette(workedColor);
     }else{
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand40->setPalette(neededColor);
+       textLabelBand40->setPalette(neededColor);
         //GREEN if new one
     }
   }
   if(dxcc.isConfirmedBand(enti, adif.band2Int("80M"))){ // 80m band
     // RED for confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//     textLabelBand80->setPalette(confirmedColor);
+     textLabelBand80->setPalette(confirmedColor);
   }else{
     if(dxcc.isWorkedBand(enti, adif.band2Int("80M"))){
       // Yellow for worked but not confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand80->setPalette(workedColor);
+       textLabelBand80->setPalette(workedColor);
     }else{
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand80->setPalette(neededColor);
+       textLabelBand80->setPalette(neededColor);
         //GREEN if new one
     }
   }
   if(dxcc.isConfirmedBand(enti, adif.band2Int("70CM"))){ // 70CM band
     // RED for confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//     textLabelBand70cm->setPalette(confirmedColor);
+     textLabelBand70cm->setPalette(confirmedColor);
   }else{
     if(dxcc.isWorkedBand(enti, adif.band2Int("70CM"))){
       // Yellow for worked but not confirmed
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand70cm->setPalette(workedColor);
+       textLabelBand70cm->setPalette(workedColor);
     }else{
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand70cm->setPalette(neededColor);
+       textLabelBand70cm->setPalette(neededColor);
       //GREEN if new one
     }
   }
   if(dxcc.isConfirmedBand(enti, adif.band2Int("160M"))){ // 160m band
-//    cout << "KLog::fillEntityBandState: confirmed in 160 " << QString::number(enti) << endl;
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//     textLabelBand160->setPalette(confirmedColor);
+     textLabelBand160->setPalette(confirmedColor);
   }else{
     if(dxcc.isWorkedBand(enti, adif.band2Int("160M"))){
-//      cout << "KLog::fillEntityBandState: worked in 160 " << QString::number(enti) << endl;
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand160->setPalette(workedColor);
+       textLabelBand160->setPalette(workedColor);
     }else{
-//cout << "KLog::fillEntityBandState: needed in 160 " << QString::number(enti) << endl;
-//TODO: DELETED FOR QT4 MIGRATION:
-// SET THE COLOR
-//       textLabelBand160->setPalette(neededColor);
+       textLabelBand160->setPalette(neededColor);
       //GREEN if new one
     }
   }
