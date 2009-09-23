@@ -190,10 +190,7 @@ bool Klog::haveWorld(){
         break;
     }
   }
-
   return true;
-
-
 }
 
 
@@ -204,7 +201,6 @@ void Klog::slotLocatorChanged(){
 
     dxLocator = getThisQSODXLocator();	//We first have to get the valid locator, from the call
                         // or from the user
-
 
     if ((dxLocator != "NULL") && (locator.isValidLocator(dxLocator) )){
         Klog::distance = locator.getDistanceKilometres(locator.getLon(getMyLocator()), locator.getLat(getMyLocator()), locator.getLon(dxLocator), locator.getLat(dxLocator));
@@ -476,14 +472,14 @@ void Klog::clearEntityBox(){
 
 // COMMENTED TO EASE THE QT4 MIGRATION
 //TODO:
-/*    QMessageBox msgBox;
-    msgBox.setText(i18n("KLog message:"));
-    QString str = i18n("This function (clearEntityBox) has been MODIFIED to help the QT4 migration.\nIt will be restored ASAP");
-    msgBox.setInformativeText(str);
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.setIcon(QMessageBox::Warning);
-    msgBox.exec(); */
+//    QMessageBox msgBox;
+//    msgBox.setText(i18n("KLog message:"));
+//    QString str = i18n("This function (clearEntityBox) has been MODIFIED to help the QT4 migration.\nIt will be restored ASAP");
+//    msgBox.setInformativeText(str);
+//    msgBox.setStandardButtons(QMessageBox::Ok);
+//    msgBox.setDefaultButton(QMessageBox::Ok);
+//    msgBox.setIcon(QMessageBox::Warning);
+//    msgBox.exec();
 
     palette = defaultColor;
     ledColorTextLabel->setPalette(palette);
