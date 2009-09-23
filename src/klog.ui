@@ -263,6 +263,9 @@
          <layout class="QHBoxLayout">
           <item>
            <widget class="QLabel" name="textLabelBand10">
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -276,6 +279,9 @@
           </item>
           <item>
            <widget class="QLabel" name="textLabelBand15">
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -289,6 +295,9 @@
           </item>
           <item>
            <widget class="QLabel" name="textLabelBand20">
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -302,6 +311,9 @@
           </item>
           <item>
            <widget class="QLabel" name="textLabelBand40">
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -315,6 +327,9 @@
           </item>
           <item>
            <widget class="QLabel" name="textLabelBand80">
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -328,6 +343,9 @@
           </item>
           <item>
            <widget class="QLabel" name="textLabelBand160">
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -358,6 +376,9 @@
          <layout class="QHBoxLayout">
           <item>
            <widget class="QLabel" name="textLabelBand2">
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -371,6 +392,9 @@
           </item>
           <item>
            <widget class="QLabel" name="textLabelBand6">
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -384,6 +408,9 @@
           </item>
           <item>
            <widget class="QLabel" name="textLabelBand12">
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -397,6 +424,9 @@
           </item>
           <item>
            <widget class="QLabel" name="textLabelBand17">
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -410,6 +440,9 @@
           </item>
           <item>
            <widget class="QLabel" name="textLabelBand30">
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -423,6 +456,9 @@
           </item>
           <item>
            <widget class="QLabel" name="textLabelBand70cm">
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -1141,6 +1177,9 @@
              <width>15</width>
              <height>15</height>
             </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>true</bool>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
