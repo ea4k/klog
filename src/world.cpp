@@ -27,7 +27,8 @@
 
 //#include "iostream"
 #include "world.h"
-
+// included for debugging
+#include <QMessageBox>
 
 //using namespace std; 
  
@@ -219,22 +220,13 @@ World::World(){
 World::~World(){
 }
 
-
-// We create the world reading from a file "cty.dat"
-void World::create(){
-
-}
-
 QString World::getPrefix(const QString tqrz){
 	aux = findEntity(tqrz);
 
 return (getEntByNumb(aux)).getPfx();
 
-
 //	return prefix;
 }
-
-
 
 // We obtain the Entity from a call
 // It receives a string, get the prefix and send it to
