@@ -166,7 +166,7 @@ class Klog : public QMainWindow, private Ui::klog
     void helpAbout();
     void readQso(); //Just read the values an fill the qso
     void modifyQso(); // Modify an existing QSO with the data on the boxes
-    void slotQsoSelectedForEdit(QTreeWidgetItem* item);//Puts the QSO in the edit box
+    void slotQsoSelectedForEdit(QTreeWidgetItem *, int );//Puts the QSO in the edit box
     void slotQsoSearchSelectedForEdit( QTreeWidgetItem* item); //Puts the QSO in the edit box
     void slotQsoSelected (QTreeWidgetItem* item); // Just to see qso data
 //TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton

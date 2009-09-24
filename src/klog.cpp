@@ -89,6 +89,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     connect(toolsMerge_QSO_dataAction, SIGNAL(triggered()), this, SLOT(slotcompleteThePreviouslyWorked()));
     connect(ActionCabrilloImport, SIGNAL(triggered()), this, SLOT(slotImportCabrillo()));
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQrzChanged()));
+    connect( logTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSelectedForEdit(QTreeWidgetItem *, int)));
 
     klogDir = QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs
     if (!QDir::setCurrent ( klogDir )){
@@ -474,7 +475,6 @@ void Klog::slotOkBtn(){
     readQso();
     if ((qso.getQrz()).length() >= 3){//There are no qrz with less than 3char
         needToSave = true;
-
         if (!modify){
             logbook.append(qso);
             templogbook.append(qso); //Save the just done QSO to do the auto-saving
@@ -1552,8 +1552,8 @@ void Klog::showMenuRightButton(int qqso, const QPoint &p){
 //
 // }
 
-void Klog::slotQsoSelectedForEdit(QTreeWidgetItem* item){
-//cout << "KLog::slotQsoSelectedForEdit" << endl;
+void Klog::slotQsoSelectedForEdit(QTreeWidgetItem *item, int column){
+//    qDebug() << "KLog::slotQsoSelectedForEdit";
     if (item){
         slotClearBtn();
 
@@ -1940,7 +1940,7 @@ void Klog::readQso(){ //Just read the values an fill the qso
 }
 
 void Klog::modifyQso(){ // Modify an existing QSO with the data on the boxes
-//cout << "KLog::modifyQso" << endl;
+  qDebug() << "KLog::modifyQso";
   Klog::LogBook::iterator iter;
 
   for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
@@ -1977,11 +1977,9 @@ void Klog::modifyQso(){ // Modify an existing QSO with the data on the boxes
         if (award.getReferenceNumber(awardsComboBox->currentText())){
         (*iter).setLocalAward(awardsComboBox->currentText());
         (*iter).setLocalAwardNumber(award.getReferenceNumber(awardsComboBox->currentText()));
-
         //award.workReference(awardsComboBox->currentText(), true);
         }
     }
-
       if (locator.isValidLocator((locatorLineEdit->text()).toUpper() ))
         (*iter).setLocator( (locatorLineEdit->text()).toUpper() );
 
@@ -2028,9 +2026,7 @@ void Klog::modifyQso(){ // Modify an existing QSO with the data on the boxes
 //    if(QSLInfotextEdit->isEnabled())
       (*iter).setQslInfo(QSLInfotextEdit->toPlainText());
   }
-
   }
-
 }
 
 void Klog::helpAbout(){
@@ -2271,7 +2267,6 @@ void Klog::readConf(){
         }// Closes the while
         file.close();
     }else{
-                qDebug() << "file not opened";
         slotKlogSetup();
         // the file klogrc with preferences does not exist so we have to create it
     }
@@ -2761,22 +2756,12 @@ void Klog::cabrilloReadLog(const QString& tfileName){
     int progresStep = 0;
     QString contest = "";
     QString usedCallsign = "";
-
-
-// 	Q3ProgressDialog progress( i18n("Reading the log..."), i18n("Abort reading"), 0,
-//                           this, i18n("progress"), TRUE );
-
     QProgressDialog progress(i18n("Reading the log..."), i18n("Abort reading"), 0, totalQsos);
-
     QString progressLabel;
-
-
     bool ok;
-
     QString text = QInputDialog::getText(this, i18n("KLog - Cabrillo Import"),
                                           i18n("Enter a remark for ALL the imported QSO:\n(Leave it empty and press OK if no remark)"), QLineEdit::Normal,
                                           QDir::home().dirName(), &ok);
-
 
     if ( ok && !text.isEmpty() ) {
     // user entered something and pressed OK
@@ -2785,9 +2770,6 @@ void Klog::cabrilloReadLog(const QString& tfileName){
     }else{
     // user entered nothing but clicked over OK
     }
-
-
-
 
     QString data;
     QFile file( tfileName );
@@ -3130,8 +3112,8 @@ void Klog::slotAddLog(){
 
     QMessageBox msgBox;
     msgBox.setText(i18n("KLog message:"));
-//	  QString str = i18n("The log file has been\nsuccessfully added!");
-      QString str = i18n("The log file has been\nsuccessfully added!");
+//	  QString str = i18n("The log file has been\nsucessfully added!");
+      QString str = i18n("The log file has been\nsucessfully added!");
       msgBox.setInformativeText(str);
       msgBox.setStandardButtons(QMessageBox::Ok);
       msgBox.setDefaultButton(QMessageBox::Ok);
@@ -3954,13 +3936,6 @@ QString headerLeft = i18n("Printing date: ") + (QDate::currentDate()).toString(Q
 //       setGeneralStatusField(i18n("Printing complete."));
 
 }
-
-/*
-
-
-*/
-
-
 
 void Klog::sortLog(){
 // I will read the Log from the UI and sorting using the numbers.

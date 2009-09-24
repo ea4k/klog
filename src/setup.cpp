@@ -50,7 +50,7 @@ Setup::Setup (QDialog * parent):QDialog (parent)
   // End of modifications
   /////////////////////////////////////////////////////////////////////////////
 
-  readConf ();
+  readConf();
 
   slotOpenFileButtonClicked ();
   awardToDelete = -1;
@@ -60,8 +60,7 @@ Setup::~Setup ()
 {
 }
 
-void
-Setup::slotOkBtnClicked()
+void Setup::slotOkBtnClicked()
 {
   writeConf();
   accept();
@@ -560,6 +559,7 @@ Setup::readConf ()
   else
     {
       // the file klogrc with preferences does not exist so we have to create it
+      writeConf();
     }
 }
 
