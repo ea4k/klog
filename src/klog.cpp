@@ -138,7 +138,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     comment = "";
     // Check we have setup world and cty.dat is in your home folder
     haveWorld();
-    slotClearBtn();
+//    slotClearBtn(); //Not needed because it is called from slotQrzChanged
     modify = false;
     searching2QSL = false;
     actionSent = false;
@@ -244,10 +244,12 @@ int Klog::getEntityFromCall(){ // We return the Entity number from the QRZ box c
 }
 
 void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
+    qDebug() << "KLog::slotQrzChanged";
     qrzLineEdit->setText(((qrzLineEdit->text())).toUpper());
     callLen = (qrzLineEdit->text()).length();
 
-    if ((callLen == 0) && (callLen<callLenPrev)){ // We are deleting...
+//    if ((callLen == 0) && (callLen<callLenPrev)){ // We are deleting...
+    if ((callLen == 0) ){ //TODO: Maybe the above check of lenght is not really needed (20090926-EA4TV)
         callLenPrev = callLen; // just to avoid a no end loop
         slotCancelSearchButton();
         slotClearBtn();
@@ -336,10 +338,10 @@ void Klog::prepareAwardComboBox(const int tenti){
 }
 
 void Klog::slotClearBtn(){
+      qDebug() << "KLog::slotClearBtn";
 // This method clears all for the next QSO
 // It is still missing the part to set the cursor to the qrzLineEdit->
 
-//cout << "KLog::slotClearBtn" << endl;
     enti = -1;
 //	was = false;
     Klog::j = 0;
@@ -453,7 +455,7 @@ void Klog::clearEntityBox(){
 //    msgBox.exec();
 
     palette = defaultColor;
-    ledColorTextLabel->setPalette(palette);
+    kledColor->setColor(defaultColor);
     textLabelBand2->setPalette(palette );
     textLabelBand70cm->setPalette(palette );
     textLabelBand6->setPalette(palette );
@@ -2348,7 +2350,7 @@ void Klog::fillEntityBandState(const int enti){
 //   const QColor & text,
 //   const QColor & base )
 
-QPalette newOneColorG ( newOneColor, newOneColor, newOneColor, newOneColor, newOneColor, newOneColor, newOneColor );
+//QPalette newOneColorG ( newOneColor, newOneColor, newOneColor, newOneColor, newOneColor, newOneColor, newOneColor );
 
 //TODO: DELETED FOR QT4 MIGRATION:
 // SET THE COLOR
@@ -3206,8 +3208,9 @@ void Klog::slotIOTAChanged(){
 }
 
 void Klog::entityState(const int tentity){
+  qDebug() << "KLog::entityState: " << QString::number(tentity) << endl;
 // Prints the LED and message
-//cout << "KLog::entityState: " << QString::number(tentity) << endl;
+
     int i = tentity;
     if (i == -1){
         return;
@@ -3217,51 +3220,45 @@ void Klog::entityState(const int tentity){
         if(dxcc.isConfirmedBand(i, adif.band2Int((bandComboBox->currentText()).toUpper()))){
             // CONFIRMED IN THIS BAND... NO WORK NEEDED
                         LedtextLabel->setText(tr( "<p align=\"center\"><b>Worked & confirmed before</b></p>"));
-            //newEntitykLed->setColor(confirmedColor );
                         //ledColorTextLabel->setPalette(confirmedColor);
-                        palette.setColor(ledColorTextLabel->backgroundRole(), confirmedColor);
-                        ledColorTextLabel->setPalette(palette);
+//                        palette.setColor(ledColorTextLabel->backgroundRole(), confirmedColor);
+                        kledColor->setColor(confirmedColor);
         }else {
             // CONFIRMED BUT NOT IN THIS BAND SO WORK IT!
             if (dxcc.isWorkedBand(i, adif.band2Int((bandComboBox->currentText()).toUpper()))){
     // IT IS WORKED IN THIS BAND BUT STILL NOT CONFIRMED, WORK IT!
                 LedtextLabel->setText(i18n( "<p align=\"center\"><b>Not confirmed in this band, WORK IT!</b></p>"));
                 //newEntitykLed->setColor(workedColor );
-                                palette.setColor(ledColorTextLabel->backgroundRole(), workedColor);
-                                ledColorTextLabel->setPalette(palette);
+//                                palette.setColor(ledColorTextLabel->backgroundRole(), workedColor);
+                                kledColor->setColor(workedColor);
             }else{
      // IT IS NOT WORKED IN THIS BAND SO WORK IT!
      // LED = GREEN
                 LedtextLabel->setText(i18n( "<p align=\"center\"><b>New one in this band, WORK IT!</b></p>"));
-                //newEntitykLed->setColor(neededColor );
-                                palette.setColor(ledColorTextLabel->backgroundRole(), neededColor);
-                                ledColorTextLabel->setPalette(palette);
+                                //palette.setColor(ledColorTextLabel->backgroundRole(), neededColor);
+                                kledColor->setColor(neededColor);
                         }
         }
     }else{	// END OF CONFIRMED
-//cout << "KLog::entityState a NEW ONE... work it!" << endl;
     // IT IS NOT CONFIRMED SO WORK IT!
         if (dxcc.isWorked(i)){
-//			cout << "KLog::entityState is worked" << endl;
             // IT IS WORKED.... BUT NOT CONFIRMED WORK IT!
             if (dxcc.isWorkedBand(i, adif.band2Int((bandComboBox->currentText()).toUpper()))){
                 // IT IS WORKED IN THIS BAND BUT STILL NOT CONFIRMED, WORK IT!
                 LedtextLabel->setText(i18n( "<p align=\"center\"><b>Not confirmed, WORK IT!</b></p>"));
-                //newEntitykLed->setColor(workedColor );
-                                palette.setColor(ledColorTextLabel->backgroundRole(), workedColor);
-                                ledColorTextLabel->setPalette(palette);
+                                //palette.setColor(ledColorTextLabel->backgroundRole(), workedColor);
+                                kledColor->setColor(workedColor);
                         }else{
                     // IT IS NOT WORKED IN THIS BAND, SO WORK IT!
-                //newEntitykLed->setColor(neededColor );
-                                palette.setColor(ledColorTextLabel->backgroundRole(), neededColor);
-                                ledColorTextLabel->setPalette(palette);
+                                //palette.setColor(ledColorTextLabel->backgroundRole(), neededColor);
+                                kledColor->setColor(neededColor);
             }
         } else{
                 // IT IS A COMPLETE NEW ONE WORK IT AT ANY PRICE!!!!
             LedtextLabel->setText(i18n( "<p align=\"center\"><b>NEW ONE, WORK IT!</b></p>"));
             //newEntitykLed->setColor(neededColor );
-                        palette.setColor(ledColorTextLabel->backgroundRole(), newOneColor);
-                        ledColorTextLabel->setPalette(palette);
+                        //palette.setColor(ledColorTextLabel->backgroundRole(), newOneColor);
+                        kledColor->setColor(newOneColor);
                 }
     }
 

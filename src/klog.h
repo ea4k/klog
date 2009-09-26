@@ -419,7 +419,7 @@ class Klog : public QMainWindow, private Ui::klog
     // 4 Mode
     // 5 RST tx
     // 6 RST rx
-    bool haveAllMandatoryFields[6];
+    bool haveAllMandatoryFields[7];
 
     // hamlib support
     kloghamlib KlogHamlib;
