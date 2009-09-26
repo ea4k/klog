@@ -1164,54 +1164,7 @@
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0">
-          <widget class="QLabel" name="ledColorTextLabel">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>15</width>
-             <height>15</height>
-            </size>
-           </property>
-           <property name="autoFillBackground">
-            <bool>true</bool>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Sunken</enum>
-           </property>
-           <property name="lineWidth">
-            <number>1</number>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="wordWrap">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>138</width>
-             <height>18</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="0" column="2">
+         <item row="0" column="1" colspan="2">
           <widget class="QLineEdit" name="qrzLineEdit">
            <property name="minimumSize">
             <size>
@@ -1615,20 +1568,7 @@
            </item>
           </widget>
          </item>
-         <item row="1" column="0" colspan="2">
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>236</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="1" column="2">
+         <item row="1" column="1" colspan="2">
           <widget class="QDateTimeEdit" name="qsoDateTime">
            <property name="timeSpec">
             <enum>Qt::UTC</enum>
@@ -1654,6 +1594,9 @@
             <string>OK</string>
            </property>
           </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="KLed" name="kledColor"/>
          </item>
         </layout>
        </widget>
@@ -2415,7 +2358,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>980</width>
-     <height>32</height>
+     <height>28</height>
     </rect>
    </property>
    <property name="defaultUp">
@@ -2904,6 +2847,13 @@ p, li { white-space: pre-wrap; }
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>KLed</class>
+   <extends>QWidget</extends>
+   <header>kled.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>qrzLineEdit</tabstop>
   <tabstop>modeComboBox</tabstop>

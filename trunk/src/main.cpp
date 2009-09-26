@@ -36,7 +36,7 @@
 #include "klog.h"
 
 
-static const char *description = I18N_NOOP("The KDE Ham Radio Logging Software");
+//static const char *description = I18N_NOOP("The KDE Ham Radio Logging Software");
 
 
 int main (int argc, char *argv[])
