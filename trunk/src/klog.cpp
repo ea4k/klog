@@ -30,7 +30,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     QTimer *internalTimer = new QTimer( this ); // create internal timer
     connect( internalTimer, SIGNAL(timeout()), SLOT(slotUpdateTime()) );
     internalTimer->start( 1000 );               // emit signal every 1 second
-
+ 
     Klog::KLogVersion = "0.5";
     Klog::editdeletePixMap = new QPixmap("editdelete.png");
     editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
