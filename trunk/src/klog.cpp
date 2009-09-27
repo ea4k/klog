@@ -244,7 +244,7 @@ int Klog::getEntityFromCall(){ // We return the Entity number from the QRZ box c
 }
 
 void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
-    qDebug() << "KLog::slotQrzChanged";
+    //qDebug() << "KLog::slotQrzChanged";
     qrzLineEdit->setText(((qrzLineEdit->text())).toUpper());
     callLen = (qrzLineEdit->text()).length();
 
@@ -338,7 +338,7 @@ void Klog::prepareAwardComboBox(const int tenti){
 }
 
 void Klog::slotClearBtn(){
-      qDebug() << "KLog::slotClearBtn";
+      //qDebug() << "KLog::slotClearBtn";
 // This method clears all for the next QSO
 // It is still missing the part to set the cursor to the qrzLineEdit->
 
@@ -1942,7 +1942,7 @@ void Klog::readQso(){ //Just read the values an fill the qso
 }
 
 void Klog::modifyQso(){ // Modify an existing QSO with the data on the boxes
-  qDebug() << "KLog::modifyQso";
+  //qDebug() << "KLog::modifyQso";
   Klog::LogBook::iterator iter;
 
   for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
@@ -2074,19 +2074,32 @@ void Klog::slotQSLcomboBoxChanged(){
 }
 
 // The next slots run/shows the setup dialog to setup KLog
-void Klog::slotPreferences(){
-    Setup setupDialog;
-    setupDialog.exec();
-}
+ void Klog::slotPreferences(){
+   //qDebug() << "KLog::slotPreferences";
+     Setup setupDialog;
+     setupDialog.exec();
+     readConf();
+ }
 
 void Klog::accept(){
 //cout << "KLog::accept" << endl;
 }
 
 void Klog::createKlogDir(){
+  //qDebug() << "KLog::createKlogDir";
   QFile file( "klogrc" );
-  if ( !(file.open( QIODevice::ReadOnly )) ) {
-    slotKlogSetup();
+  if ( !(file.open( QIODevice::ReadOnly ) ) ) {
+    
+    QMessageBox msgBox;
+    msgBox.setText(i18n("KLog message:"));
+    QString str = i18n("It seems to be the first time you run KLog in this computer.\nThe setup dialog will start to help you to configure KLog.\nWelcome to KLog.\n\nThe KLog team.");
+    msgBox.setInformativeText(str);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.exec();
+   
+    slotPreferences();
   }
 
 }
@@ -2269,8 +2282,17 @@ void Klog::readConf(){
         }// Closes the while
         file.close();
     }else{
-        slotKlogSetup();
-        // the file klogrc with preferences does not exist so we have to create it
+      // the file klogrc with preferences does not exist so we have to create it
+       // slotKlogSetup(); // commenting the slotKlogSetup here we break a loop :-)
+      QMessageBox msgBox;
+      msgBox.setText(i18n("KLog message:"));
+      QString str = i18n("You still have not configured KLog.\nPlease click on:\nSetup->Preferences\n and configure KLog.");
+      msgBox.setInformativeText(str);
+      msgBox.setStandardButtons(QMessageBox::Ok);
+      msgBox.setDefaultButton(QMessageBox::Ok);
+      msgBox.setIcon(QMessageBox::Information);
+      msgBox.exec();
+	
     }
     if ((openLastByDefault)&&(logFileNameToOpen !="")){	// Check if the user wants to work on a default logfile.
         logFileNameToSave = logFileNameToOpen;
@@ -3005,7 +3027,7 @@ QSO:  3799 PH 1999-03-06 0711 HC8N          59  001    W1AW          59  001    
 }
 
 void Klog::slotAddLog(){
-  qDebug() << "KLog::slotAddLog";
+  //qDebug() << "KLog::slotAddLog";
   QString fn = "";
   QString tempLocator;
   QString tempOriginalLocator;
@@ -3208,7 +3230,7 @@ void Klog::slotIOTAChanged(){
 }
 
 void Klog::entityState(const int tentity){
-  qDebug() << "KLog::entityState: " << QString::number(tentity) << endl;
+  //qDebug() << "KLog::entityState: " << QString::number(tentity) << endl;
 // Prints the LED and message
 
     int i = tentity;
@@ -4443,20 +4465,6 @@ bool Klog::checkIfValidDXCluster(const QString &tdxcluster){
         return true;
     else
         return false;
-}
-
-void Klog::slotKlogSetup(){
-// The user wants to configure KLog
-//cout << "KLog::slotKlogSetup" << endl;
-    Setup *setup = new Setup();
-
-    //setup->exec(); // Single threaded
-    //setup->show();
-    readConf();
-    // It is necesary to update all the values affected by the configuration:
-    // Till now only power is shown in the GUI
-    powerSpinBox->setValue(power.toInt());
-    // It is necessary to re-paint the color affected widgets
 }
 
 void Klog::slotBugReport(){

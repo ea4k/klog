@@ -209,7 +209,7 @@ class Klog : public QMainWindow, private Ui::klog
     void slotClusterSpotToLog(QTreeWidgetItem* item);
     void slotClusterSpotCheck(QTreeWidgetItem* item);
 //    void slotClusterSetup();
-    void slotKlogSetup();
+//    void slotKlogSetup();
     void slotBugReport();
     void slotModeChanged (int i);
     void slotBandChanged ();
