@@ -30,7 +30,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     QTimer *internalTimer = new QTimer( this ); // create internal timer
     connect( internalTimer, SIGNAL(timeout()), SLOT(slotUpdateTime()) );
     internalTimer->start( 1000 );               // emit signal every 1 second
- 
+
     Klog::KLogVersion = "0.5";
     Klog::editdeletePixMap = new QPixmap("editdelete.png");
     editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
@@ -522,14 +522,14 @@ void Klog::fileSaveAs(){
 
   if ( !fn.isEmpty() )
     logFileNameToSave = fn;
-  
+
   QFile file( logFileNameToSave );
-    
+
 // Deleted because QFile manages the case of file replacement and I suppose than better than us.
 
 
 //       if ( file.exists( ) ) {
-// 
+//
 //       QMessageBox msgBox;
 //       msgBox.setText(i18n("Warning - File exists"));
 //       QString str = i18n("The file: ") + logFileNameToSave + i18n(" already exits.\nDo you want to overwrite?");
@@ -537,7 +537,7 @@ void Klog::fileSaveAs(){
 //       msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
 //       msgBox.setDefaultButton(QMessageBox::No);
 //       int ret = msgBox.exec();
-// 
+//
 //       switch(ret) {
 //       case QMessageBox::Yes:
 //         writ = true;
@@ -1634,21 +1634,23 @@ void Klog::showQso(){
     if (!modify){
         QTreeWidgetItem * item = new QTreeWidgetItem( logTreeWidget, 0 );
         item->setText( 0, getNumberString(qso.getNumb())  );
-    }else{
+    } else {
+        qDebug() << "MODIFY!";
         QList<QTreeWidgetItem*> item = logTreeWidget->findItems(QString::number(Klog::j), Qt::MatchExactly, 0);
         //QTreeWidgetItem *item = logTreeWidget->findItem(QString::number(Klog::j),0);
         if (item[0]){
+            qDebug() << "MODIFYing IF!";
             //item->setText( 0,  QString::number(Klog::j) );
             item[0]->setText( 0, getNumberString(Klog::j)  );
-                item[0]->setText( 1, qso.getDateTime().toString("yyyy-MM-dd") );
+            item[0]->setText( 1, qso.getDateTime().toString("yyyy-MM-dd") );
             item[0]->setText( 2, qso.getDateTime().toString("hh:mm") );
-                item[0]->setText( 3, qso.getQrz().toUpper() );
-                item[0]->setText( 4, QString::number(qso.getRsttx()) );
-                item[0]->setText( 5, QString::number(qso.getRstrx()) );
-                item[0]->setText( 6, qso.getBand() );
-                item[0]->setText( 7, qso.getMode() );
-                item[0]->setText( 8, qso.getPower() );
-                item[0]->setText( 9, qso.getComment() );
+            item[0]->setText( 3, qso.getQrz().toUpper() );
+            item[0]->setText( 4, QString::number(qso.getRsttx()) );
+            item[0]->setText( 5, QString::number(qso.getRstrx()) );
+            item[0]->setText( 6, qso.getBand() );
+            item[0]->setText( 7, qso.getMode() );
+            item[0]->setText( 8, qso.getPower() );
+            item[0]->setText( 9, qso.getComment() );
         }
     }
 }
@@ -1909,13 +1911,11 @@ void Klog::readQso(){ //Just read the values an fill the qso
     qso.setQslVia(QSLcomboBox->currentText());
 
     // Check if the locator is valid
-    if (locator.isValidLocator((locatorLineEdit->text()).toUpper())){
+    if (locator.isValidLocator((locatorLineEdit->text()).toUpper()))
         qso.setLocator((locatorLineEdit->text()).toUpper());
-    }
 
-    if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
+    if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper()))
         qso.setMyLocator((myLocatorLineEdit->text()).toUpper());
-    }
 
     if(qslVialineEdit->isEnabled())
         qso.setQslManager((qslVialineEdit->text()).toUpper());
@@ -1936,102 +1936,135 @@ void Klog::readQso(){ //Just read the values an fill the qso
     if((stationCallsignLineEdit->text()).length() >= 3)
         qso.setStationCallsign((stationCallsignLineEdit->text()).toUpper());
 
-    if (freqlCDNumber->value() >= 0){
+    if (freqlCDNumber->value() >= 0)
         qso.setFreq(QString::number(freqlCDNumber->value()));
-    }
 }
 
-void Klog::modifyQso(){ // Modify an existing QSO with the data on the boxes
+void Klog::modifyQso(){
+// Modify an existing QSO with the data on the boxes
+//<<<<<<< .mine
+//  qDebug() << "KLog::modifyQso";
+    Klog::LogBook::iterator iter;
+    qDebug() << "After Iter";
+    for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
+        qDebug() << "In for loop";
+        if ( Klog::j == (*iter).getNumb() ){
+            qDebug() << "If statement";
+            (*iter).setQrz( (qrzLineEdit->text()).toUpper() );
+            (*iter).setDateTime(qsoDateTime->dateTime());
+            (*iter).setRstrx(rstrx);
+            (*iter).setRsttx(rsttx);
+            (*iter).setBand ((bandComboBox->currentText()).toUpper());
+            (*iter).setMode((modeComboBox->currentText()).toUpper());
+            (*iter).setPower((powerSpinBox->text()).toUpper());
+            (*iter).setQth((qthkLineEdit->text()).toUpper());
+            (*iter).setOperator((operatorLineEdit->text()).toUpper());
+            (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
+            if ((remarksTextEdit->toPlainText()).length() >0)
+                (*iter).setComment(remarksTextEdit->toPlainText());
+            if((namekLineEdit->text()).length() >= 2)
+                (*iter).setName((namekLineEdit->text()).toUpper());
+            if((qthkLineEdit->text()).length() >= 2)
+                (*iter).setQth((qthkLineEdit->text()).toUpper());
+            if((operatorLineEdit->text()).length() >= 3)
+                (*iter).setOperator((operatorLineEdit->text()).toUpper());
+            if((stationCallsignLineEdit->text()).length() >= 3)
+                (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
+            if ((iotaIntSpinBox->value() != 0)) // IOTA
+                (*iter).setIota(iota);
+            if ((awardsComboBox->currentIndex() != 0)){
+                award = awards.getAwardFor(world.getPrefix(qso.getQrz()));
+                if (award.getReferenceNumber(awardsComboBox->currentText())){
+                    (*iter).setLocalAward(awardsComboBox->currentText());
+                    (*iter).setLocalAwardNumber(award.getReferenceNumber(awardsComboBox->currentText()));
+                    //award.workReference(awardsComboBox->currentText(), true);
+                }
+            }
+            if (locator.isValidLocator((locatorLineEdit->text()).toUpper() ))
+                (*iter).setLocator( (locatorLineEdit->text()).toUpper() );
+            if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
+                (*iter).setMyLocator((myLocatorLineEdit->text()).toUpper());
+            }//else if (locator.isValidLocator(getMyLocator())) {
+            //	(*iter).setMyLocator(getMyLocator());
+            //}
+            if (QSLSentcheckBox->isChecked()){
+                qslSen = QSLSentdateEdit->date();
+                (*iter).QslSent('Y');
+                if (qslSen.isValid()){
+                    (*iter).setQslSenDateOn(qslSen);
+                }
+            } else {
+                (*iter).QslSent('N');
+            }
+            if (QSLReccheckBox->isChecked()){
+                qslRec = QSLRecdateEdit->date();
+                (*iter).QslRec('Y');
+                if (qslRec.isValid()){
+                    (*iter).setQslRecDateOn(qslRec);
+                }
+            }
+            if ((*iter).gotTheQSL()){
+                dxcc.confirmedString(enti, ((*iter).getBand()).toUpper(), ((*iter).getMode()).toUpper());
+                waz.confirmedString( world.getCqzFromCall((*iter).getQrz()) ,((*iter).getBand()).toUpper(),((*iter).getMode()).toUpper());
+            }
+        } else {
+            (*iter).QslRec('N');
+            if (dxcc.isConfirmed(enti)){
+                dxcc.notConfirmedString(enti, (bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
+                waz.notConfirmedString( world.getCqzFromCall((*iter).getQrz()) ,(bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
+            }
+        }
+    }
+//=======
   //qDebug() << "KLog::modifyQso";
-  Klog::LogBook::iterator iter;
+  //Klog::LogBook::iterator iter;
 
-  for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
-    if ( Klog::j == (*iter).getNumb() ){
+    for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
+        if ( Klog::j == (*iter).getNumb() ){
+            (*iter).setQrz( (qrzLineEdit->text()).toUpper() );
+            (*iter).setDateTime(qsoDateTime->dateTime());
+            (*iter).setRstrx(rstrx);
+            (*iter).setRsttx(rsttx);
+            (*iter).setBand ((bandComboBox->currentText()).toUpper());
+            (*iter).setMode((modeComboBox->currentText()).toUpper());
+            (*iter).setPower((powerSpinBox->text()).toUpper());
+            (*iter).setQth((qthkLineEdit->text()).toUpper());
+            (*iter).setOperator((operatorLineEdit->text()).toUpper());
+            (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
 
-      (*iter).setQrz( (qrzLineEdit->text()).toUpper() );
+            if ((remarksTextEdit->toPlainText()).length() >0)
+                (*iter).setComment(remarksTextEdit->toPlainText());
+            if((namekLineEdit->text()).length() >= 2)
+                (*iter).setName((namekLineEdit->text()).toUpper());
+            if((qthkLineEdit->text()).length() >= 2)
+                (*iter).setQth((qthkLineEdit->text()).toUpper());
+            if((operatorLineEdit->text()).length() >= 3)
+                (*iter).setOperator((operatorLineEdit->text()).toUpper());
+            if((stationCallsignLineEdit->text()).length() >= 3)
+                (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
+            if ((iotaIntSpinBox->value() != 0)) // IOTA
+                (*iter).setIota(iota);
 
-      (*iter).setDateTime(qsoDateTime->dateTime());
-      (*iter).setRstrx(rstrx);
-      (*iter).setRsttx(rsttx);
-      (*iter).setBand ((bandComboBox->currentText()).toUpper());
-      (*iter).setMode((modeComboBox->currentText()).toUpper());
-      (*iter).setPower((powerSpinBox->text()).toUpper());
-      (*iter).setQth((qthkLineEdit->text()).toUpper());
-      (*iter).setOperator((operatorLineEdit->text()).toUpper());
-      (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
-
-      if ((remarksTextEdit->toPlainText()).length() >0)
-        (*iter).setComment(remarksTextEdit->toPlainText());
-      if((namekLineEdit->text()).length() >= 2)
-        (*iter).setName((namekLineEdit->text()).toUpper());
-      if((qthkLineEdit->text()).length() >= 2)
-        (*iter).setQth((qthkLineEdit->text()).toUpper());
-      if((operatorLineEdit->text()).length() >= 3)
-        (*iter).setOperator((operatorLineEdit->text()).toUpper());
-      if((stationCallsignLineEdit->text()).length() >= 3)
-        (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
-
-      if ((iotaIntSpinBox->value() != 0)) // IOTA
-        (*iter).setIota(iota);
-
-    if ((awardsComboBox->currentIndex() != 0)){
-        award = awards.getAwardFor(world.getPrefix(qso.getQrz()));
-        if (award.getReferenceNumber(awardsComboBox->currentText())){
-        (*iter).setLocalAward(awardsComboBox->currentText());
-        (*iter).setLocalAwardNumber(award.getReferenceNumber(awardsComboBox->currentText()));
-        //award.workReference(awardsComboBox->currentText(), true);
+            if ((awardsComboBox->currentIndex() != 0)){
+                award = awards.getAwardFor(world.getPrefix(qso.getQrz()));
+                if (award.getReferenceNumber(awardsComboBox->currentText())){
+                    (*iter).setLocalAward(awardsComboBox->currentText());
+                    (*iter).setLocalAwardNumber(award.getReferenceNumber(awardsComboBox->currentText()));
+                    //award.workReference(awardsComboBox->currentText(), true);
+                    //>>>>>>> .r28
+                }
+                (*iter).setQslVia(QSLcomboBox->currentText()); //QSL Info
+                if(qslVialineEdit->isEnabled())
+                    (*iter).setQslManager(qslVialineEdit->text());
+                if ((QSLInfotextEdit->toPlainText()).length() >0)
+                //    if(QSLInfotextEdit->isEnabled())
+                    (*iter).setQslInfo(QSLInfotextEdit->toPlainText());
+            }
         }
     }
-      if (locator.isValidLocator((locatorLineEdit->text()).toUpper() ))
-        (*iter).setLocator( (locatorLineEdit->text()).toUpper() );
-
-
-    if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
-        (*iter).setMyLocator((myLocatorLineEdit->text()).toUpper());
-    }//else if (locator.isValidLocator(getMyLocator())) {
-    //	(*iter).setMyLocator(getMyLocator());
-    //}
-
-      if (QSLSentcheckBox->isChecked()){
-        qslSen = QSLSentdateEdit->date();
-    (*iter).QslSent('Y');
-    if (qslSen.isValid()){
-            (*iter).setQslSenDateOn(qslSen);
-    }
-      }else{
-        (*iter).QslSent('N');
-      }
-
-      if (QSLReccheckBox->isChecked()){
-        qslRec = QSLRecdateEdit->date();
-    (*iter).QslRec('Y');
-    if (qslRec.isValid()){
-            (*iter).setQslRecDateOn(qslRec);
-    }
-        if ((*iter).gotTheQSL()){
-//          if (!dxcc.isConfirmed(enti))
-            dxcc.confirmedString(enti, ((*iter).getBand()).toUpper(), ((*iter).getMode()).toUpper());
-            waz.confirmedString( world.getCqzFromCall((*iter).getQrz()) ,((*iter).getBand()).toUpper(),((*iter).getMode()).toUpper());
-        }
-    }else{
-      (*iter).QslRec('N');
-      if (dxcc.isConfirmed(enti)){
-        dxcc.notConfirmedString(enti, (bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
-        waz.notConfirmedString( world.getCqzFromCall((*iter).getQrz()) ,(bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
-      }
-    }
-
-    (*iter).setQslVia(QSLcomboBox->currentText()); //QSL Info
-    if(qslVialineEdit->isEnabled())
-      (*iter).setQslManager(qslVialineEdit->text());
-    if ((QSLInfotextEdit->toPlainText()).length() >0)
-//    if(QSLInfotextEdit->isEnabled())
-      (*iter).setQslInfo(QSLInfotextEdit->toPlainText());
-  }
-  }
 }
 
-void Klog::helpAbout(){
+void Klog::helpAbout() {
 //cout << "KLog::helpAbout" << endl;
   /*QString description;
 
@@ -2089,7 +2122,7 @@ void Klog::createKlogDir(){
   //qDebug() << "KLog::createKlogDir";
   QFile file( "klogrc" );
   if ( !(file.open( QIODevice::ReadOnly ) ) ) {
-    
+
     QMessageBox msgBox;
     msgBox.setText(i18n("KLog message:"));
     QString str = i18n("It seems to be the first time you run KLog in this computer.\nThe setup dialog will start to help you to configure KLog.\nWelcome to KLog.\n\nThe KLog team.");
@@ -2098,7 +2131,7 @@ void Klog::createKlogDir(){
     msgBox.setDefaultButton(QMessageBox::Ok);
     msgBox.setIcon(QMessageBox::Information);
     msgBox.exec();
-   
+
     slotPreferences();
   }
 
@@ -2292,7 +2325,7 @@ void Klog::readConf(){
       msgBox.setDefaultButton(QMessageBox::Ok);
       msgBox.setIcon(QMessageBox::Information);
       msgBox.exec();
-	
+
     }
     if ((openLastByDefault)&&(logFileNameToOpen !="")){	// Check if the user wants to work on a default logfile.
         logFileNameToSave = logFileNameToOpen;
@@ -3032,18 +3065,18 @@ void Klog::slotAddLog(){
   QString tempLocator;
   QString tempOriginalLocator;
   bool ok;
-    
-    
+
+
   fn = QFileDialog::getOpenFileName(this, i18n("Save File"),
                             klogDir,
                             i18n("ADIF (*.adi)"));
 
   if ( fn.isEmpty() ) //TODO: check if it is better any other checking
     return;
-  
+
   QFile file( fn );
   if ( file.exists( ) ) {	// We will check for all the data only if the file exists
-  
+
     textStringAux = "";
     textStringAux = QInputDialog::getText(this, i18n("KLog - Log Add"),
                     i18n("Enter a remark for ALL the imported QSO:\n(Leave it empty and press OK if no remark)"), QLineEdit::Normal,
@@ -3066,27 +3099,27 @@ void Klog::slotAddLog(){
     if ( ok && !operatorStringAux.isEmpty() ) {
       if (operatorStringAux.length()<=2){
 
-	QMessageBox msgBox;
-	msgBox.setText(i18n("Warning - QRZ not valid"));
-	QString str = i18n("Do you want to import without a QRZ?");
-	msgBox.setInformativeText(str);
-	msgBox.setIcon(QMessageBox::Warning);
-	msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-	msgBox.setDefaultButton(QMessageBox::No);
-	int ret = msgBox.exec();
+    QMessageBox msgBox;
+    msgBox.setText(i18n("Warning - QRZ not valid"));
+    QString str = i18n("Do you want to import without a QRZ?");
+    msgBox.setInformativeText(str);
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+    msgBox.setDefaultButton(QMessageBox::No);
+    int ret = msgBox.exec();
 
-	  switch(ret){
-	    case QMessageBox::No:// The user does not want to continue without a call
-	      operatorStringAux ="";
-	    break;
-	    case QMessageBox::Yes: // The user clicked over YES so import
-	      return;
-	    break;
-	    default: //
-	      return;
-	     break;
-	  }
-	}
+      switch(ret){
+        case QMessageBox::No:// The user does not want to continue without a call
+          operatorStringAux ="";
+        break;
+        case QMessageBox::Yes: // The user clicked over YES so import
+          return;
+        break;
+        default: //
+          return;
+         break;
+      }
+    }
     }else if (!ok){ // The user pressed Cancel
       return;
     }else{}
@@ -3099,26 +3132,26 @@ void Klog::slotAddLog(){
 
     if ( ok && !tempLocator.isEmpty() ) {
       if (!locator.isValidLocator(tempLocator)){
-	QMessageBox msgBox;
-	msgBox.setText(i18n("Warning - Locator not valid"));
-	QString str = i18n("Do you want to import without a Locator and use ")
-	  + getMyLocator() + "?\n";
-	msgBox.setInformativeText(str);
-	msgBox.setIcon(QMessageBox::Warning);
-	msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-	msgBox.setDefaultButton(QMessageBox::No);
-	int ret = msgBox.exec();
-	switch(ret){
-	  case QMessageBox::No:// The user does not want to continue without a call
-	    tempLocator = "";
-	  break;
-	  case QMessageBox::Yes: // The user clicked over YES so import
-	    return;
-	  break;
-	  default: //
-	    return;
-	  break;
-	}
+    QMessageBox msgBox;
+    msgBox.setText(i18n("Warning - Locator not valid"));
+    QString str = i18n("Do you want to import without a Locator and use ")
+      + getMyLocator() + "?\n";
+    msgBox.setInformativeText(str);
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+    msgBox.setDefaultButton(QMessageBox::No);
+    int ret = msgBox.exec();
+    switch(ret){
+      case QMessageBox::No:// The user does not want to continue without a call
+        tempLocator = "";
+      break;
+      case QMessageBox::Yes: // The user clicked over YES so import
+        return;
+      break;
+      default: //
+        return;
+      break;
+    }
       }
     }else if (!ok){ // The user pressed Cancel
       return;
@@ -3143,8 +3176,8 @@ void Klog::slotAddLog(){
       msgBox.setDefaultButton(QMessageBox::Ok);
       msgBox.setIcon(QMessageBox::Information);
     msgBox.exec();
-  
-  }  
+
+  }
   textStringAux = "";
   operatorStringAux ="";
   tempLocator="";
