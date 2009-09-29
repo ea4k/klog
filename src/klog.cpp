@@ -26,6 +26,7 @@
 #include "klog.h"
 
 Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
+  //qDebug() << "KLog::Klog";
     setupUi( this );
     QTimer *internalTimer = new QTimer( this ); // create internal timer
     connect( internalTimer, SIGNAL(timeout()), SLOT(slotUpdateTime()) );
@@ -160,7 +161,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
 }
 
 Klog::~Klog(){
-//cout << "KLog::Destructor" << endl;
+//qDebug() << "KLog::~KLog";
 }
 
 bool Klog::haveWorld(){
@@ -1322,7 +1323,10 @@ void Klog::toEditQso(){
 //cout << "KLog::toEditQSO" << endl;
     Klog::modify = true;
     Klog::j = qso.getNumb();
-    qsoDateTime->setDateTime(qso.getDateTime()); // date
+    qsoDateEdit->setDate(qso.getDate()); // date
+    qsoTimeEdit->setTime(qso.getTime()); // time
+    //qsoDateTime->setDateTime(qso.getDateTime()); // date
+
     qrzLineEdit->setText(qso.getQrz());
     RSendBox->setValue( (QString::number(qso.getRsttx()).at(0)).digitValue() );
     SSendBox->setValue( (QString::number(qso.getRsttx()).at(1)).digitValue() );
@@ -1640,7 +1644,7 @@ void Klog::showQso(){
         qDebug() << "MODIFY!";
         QList<QTreeWidgetItem *> item = logTreeWidget->findItems(QString::number(Klog::j, 7), Qt::MatchExactly, 0);
         qDebug() << "MODIFYing before IF!" << item.count() << QString::number(Klog::j, 7);
-        //qDebug() << item.at(0)->text(0);
+        qDebug() << item.at(0)->text(0);
         if (item.at(0)){
             qDebug() << "MODIFYing IF!" << item.count() << QString::number(Klog::j);
             qDebug() << item.at(0)->text(0);
@@ -1877,7 +1881,8 @@ void Klog::readQso(){ //Just read the values an fill the qso
 
     qso.setNumb (number);
 
-    dateTime =   qsoDateTime->dateTime();
+    //dateTime =   qsoDateTime->dateTime();
+    dateTime =   QDateTime(qsoDateEdit->date(), qsoTimeEdit->time() );
     if (dateTime.isValid()){
         qso.setDateTime(dateTime);
     }else{
@@ -1954,7 +1959,8 @@ void Klog::modifyQso(){
     for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
         if ( Klog::j == (*iter).getNumb() ){
             (*iter).setQrz( (qrzLineEdit->text()).toUpper() );
-            (*iter).setDateTime(qsoDateTime->dateTime());
+            (*iter).setDateTime(QDateTime(qsoDateEdit->date(), qsoTimeEdit->time() ) );
+            //(*iter).setDateTime(qsoDateTime->dateTime());
             (*iter).setRstrx(rstrx);
             (*iter).setRsttx(rsttx);
             (*iter).setBand ((bandComboBox->currentText()).toUpper());
@@ -2109,7 +2115,7 @@ void Klog::slotQSLcomboBoxChanged(){
 
 // The next slots run/shows the setup dialog to setup KLog
  void Klog::slotPreferences(){
-   //qDebug() << "KLog::slotPreferences";
+   //qDebgug() << "KLog::slotPreferences";
      Setup setupDialog;
      setupDialog.exec();
      readConf();
@@ -3187,7 +3193,7 @@ void Klog::slotAddLog(){
 void Klog::slotImportCabrillo(){
 //cout << "KLog::slotImportCabrillo" << endl;
 
-    qDebug() << "KLog::slotImportCabrillo - DELETED TO HELP THE QT4 MIGRATION - TO BE RESTORED ASAP";
+    //qDebug() << "KLog::slotImportCabrillo - DELETED TO HELP THE QT4 MIGRATION - TO BE RESTORED ASAP";
 
       QMessageBox msgBox;
       msgBox.setText(i18n("KLog message:"));
@@ -3238,7 +3244,7 @@ void Klog::slotImportTlf(){
 //
 //
 // 		    tlfReadLog(fileName);
-qDebug() << "KLog::slotImportTlf - DELETED TO HELP THE QT4 MIGRATION - TO BE RESTORED ASAP";
+//qDebug() << "KLog::slotImportTlf - DELETED TO HELP THE QT4 MIGRATION - TO BE RESTORED ASAP";
 
       QMessageBox msgBox;
       msgBox.setText(i18n("KLog message:"));
@@ -3690,7 +3696,7 @@ void Klog::slotQSLRecSent(){
 }
 
 void Klog::slotUpdateTime(){
-//cout << "KLog::slotUpdateTime" << endl;
+//qDebug() << "KLog::slotUpdateTime";
     if (timeInUTC){
         //dateTimeContinuous = QDateTime::currentDateTime(Qt::UTC);
         dateTimeContinuous = (QDateTime::currentDateTime()).toUTC();
@@ -3702,7 +3708,9 @@ void Klog::slotUpdateTime(){
     if ( (!modify) && (realTimeLog) ){
         //qsoDateTime->setAutoAdvance (true);
         dateTime = dateTimeContinuous;
-        qsoDateTime->setDateTime(dateTime);
+        qsoDateEdit->setDate(dateTime.date());
+        qsoTimeEdit->setTime(dateTime.time());
+        //qsoDateTime->setDateTime(dateTime);
     }else{
         //qsoDateTime->setAutoAdvance (false);
     }
@@ -3843,7 +3851,7 @@ QString Klog::getShortNumberString(const int intNumber){
 void Klog::filePrint(){
 // Part of this code comes from KEdit
 //  bool aborted = false;
-qDebug() << "KLog::filePrint - DELETED TP HELP THE QT4 MIGRATION - TO BE RESTORED ASAP";
+//qDebug() << "KLog::filePrint - DELETED TP HELP THE QT4 MIGRATION - TO BE RESTORED ASAP";
 
       QMessageBox msgBox;
       msgBox.setText(i18n("KLog message:"));

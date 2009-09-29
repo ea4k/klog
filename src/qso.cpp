@@ -237,7 +237,24 @@ void Qso::setDateTime(QDateTime tdateTime){
 
 QDateTime Qso::getDateTime() const{
 	//cout << "QSO::getDateTime: " << dateTime.toString() <<endl;
-	return dateTime;}
+	return dateTime;
+}
+void Qso::setDate(QDate tdate){
+    dateTime.setDate(tdate);
+}
+
+QDate Qso::getDate() const{
+    return dateTime.date();
+}
+
+void Qso::setTime(QTime ttime){
+    dateTime.setTime(ttime);
+}
+QTime Qso::getTime() const{
+    return dateTime.time();
+}
+
+
 
 void Qso::setRstrx(int trstrx){
 //	cout << "QSO::setRstrx: " << QString::number(trstrx) <<endl;
