@@ -1164,6 +1164,9 @@
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="KLed" name="kledColor"/>
+         </item>
          <item row="0" column="1" colspan="2">
           <widget class="QLineEdit" name="qrzLineEdit">
            <property name="minimumSize">
@@ -1568,10 +1571,10 @@
            </item>
           </widget>
          </item>
-         <item row="1" column="1" colspan="2">
-          <widget class="QDateTimeEdit" name="qsoDateTime">
-           <property name="timeSpec">
-            <enum>Qt::UTC</enum>
+         <item row="1" column="1">
+          <widget class="QDateEdit" name="qsoDateEdit">
+           <property name="displayFormat">
+            <string>dd/MM/yyyy</string>
            </property>
           </widget>
          </item>
@@ -1595,8 +1598,12 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="KLed" name="kledColor" native="true"/>
+         <item row="1" column="2">
+          <widget class="QTimeEdit" name="qsoTimeEdit">
+           <property name="displayFormat">
+            <string>HH:mm:ss</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -2400,7 +2407,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>978</width>
-     <height>23</height>
+     <height>28</height>
     </rect>
    </property>
    <property name="defaultUp">

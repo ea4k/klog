@@ -37,11 +37,11 @@ int DxSpot::getNumb() const{return numb;}
 void DxSpot::setDateTime(QDateTime tdateTime){dateTime = tdateTime;}
 QDateTime DxSpot::getDateTime() const{return dateTime;}
 
-void DxSpot::setDate(QDate tdate){}
-QDate DxSpot::getDate() const{}
+void DxSpot::setDate(QDate tdate){  dateTime.setDate(tdate);}
+QDate DxSpot::getDate() const{return dateTime.date();}
 
-void DxSpot::setTime(QTime ttime){}
-QTime DxSpot::getTime() const{}
+void DxSpot::setTime(QTime ttime){dateTime.setTime(ttime);}
+QTime DxSpot::getTime() const{return dateTime.time();}
 
 void DxSpot::setFreq(double tfreq){freq = tfreq;}
 
