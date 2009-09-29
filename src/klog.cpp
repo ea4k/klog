@@ -168,6 +168,7 @@ Klog::~Klog(){
 }
 
 bool Klog::haveWorld(){
+    //qDebug() << "KLog::haveWorld";
     //TODO:setTextFormat(Qt::RichText) to display an URL as a link
     if (!world.isWorldCreated() ){
         int ret = QMessageBox::warning( this, i18n("Warning - Can't find cty.dat"),i18n("I can't find the cty.dat file with the DX Entity data.\nYou will not have any information on these.\n\nCopy an updated cty.dat file to your ~/.klog dir, please.\n\nYou can download from: www.country-files.com/cty/cty.dat"));
@@ -184,6 +185,7 @@ bool Klog::haveWorld(){
 }
 
 void Klog::slotLocatorChanged(){
+  //qDebug() << "KLog::slotLocatorChanged";
     // If the locator is changed, we should re-calculate distances...
     // Manages the Locator of the DX
     dxLocator = getThisQSODXLocator();	//We first have to get the valid locator, from the call
@@ -218,8 +220,8 @@ void Klog::slotMyLocatorChanged(){
     showDistancesAndBeam(distance, beam);
 }
 
-void Klog::showDistancesAndBeam(const int dist, const int beam)
-{
+void Klog::showDistancesAndBeam(const int dist, const int beam){
+    //qDebug() << "KLog::showDistancesAndBeam";
 //cout << "KLog::showDistancesAndBeam" << endl;
     distancelCDNumber->display(dist);
     distancellCDNumber->display(40000 - dist);
@@ -231,6 +233,7 @@ void Klog::showDistancesAndBeam(const int dist, const int beam)
 }
 
 QString Klog::getThisQSODXLocator (){
+    //qDebug() << "KLog::getThisQSODXLocator";  
     // Firstly we check if the user has entered one locator and, if hasn't
     // We read the DX QRZ and get a default locator from it.
     if (locator.isValidLocator((locatorLineEdit->text()).toUpper())) { //User's locator
@@ -244,6 +247,7 @@ QString Klog::getThisQSODXLocator (){
 }
 
 int Klog::getEntityFromCall(){ // We return the Entity number from the QRZ box call.
+  //qDebug() << "KLog::getEntityFromCall";
     return world.findEntity((qrzLineEdit->text()).toUpper());
 }
 
@@ -291,6 +295,7 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
 }
 
 void Klog::prepareIOTAComboBox (const int tenti){
+    //qDebug() << "KLog::prepareIOTAComboBox" << QString::number(tenti);  
 // We receive the Entity, get the continent and write it to the IOTA combobox
 //cout << "KLog: prepareIOTAComboBox for entity: " << QString::number(tenti) << endl;
     i = 0;
@@ -299,8 +304,9 @@ void Klog::prepareIOTAComboBox (const int tenti){
 }
 
 void Klog::prepareAwardComboBox(const int tenti){
-//Finds if the Entity received has an award to be controlled and show the
+ //Finds if the Entity received has an award to be controlled and show the
 //it on the award box
+    //qDebug() << "KLog::prepareAwardComboBox"  << QString::number(tenti);
 //cout << "KLog: prepareAwardComboBox for entity: " << QString::number(tenti) << endl;
     if (tenti <= 0){
         awardsComboBox->setEnabled(false);
@@ -342,7 +348,7 @@ void Klog::prepareAwardComboBox(const int tenti){
 }
 
 void Klog::slotClearBtn(){
-      //qDebug() << "KLog::slotClearBtn";
+//qDebug() << "KLog::slotClearBtn";
 // This method clears all for the next QSO
 // It is still missing the part to set the cursor to the qrzLineEdit->
 
@@ -350,7 +356,7 @@ void Klog::slotClearBtn(){
 //	was = false;
     Klog::j = 0;
     qso.clearQso(); // Clears the qso object
-
+    LedtextLabel->setText(i18n( "<p align=\"center\"><b>KLog</b></p>"));
     bandComboBox->setCurrentIndex(band);
     modeComboBox->setCurrentIndex(imode);
 
@@ -432,6 +438,7 @@ void Klog::slotClearBtn(){
 
 void Klog::clearEntityBox(){
 // This only clear the Entity box, the distances, bearing, entity, ...
+//qDebug() << "KLog::clearEntityBox";
     entityTextLabel->setText("");
     Klog::distance = 0;
     Klog::beam = 0;
@@ -476,7 +483,7 @@ void Klog::clearEntityBox(){
 
 void Klog::slotOkBtn(){
 // The QSO is entered!!!
-//cout << "KLog::slotOkBtn" << endl;
+//qDebug() << "KLog::slotOkBtn";
     number++;
     readQso();
     if ((qso.getQrz()).length() >= 3){//There are no qrz with less than 3char
@@ -505,7 +512,7 @@ void Klog::slotOkBtn(){
 
 
 void Klog::fileSave(){
-//cout << "KLog::fileSave" << endl;
+//qDebug() << "KLog::fileSave";
     if (logFileNameToSave != ""){
         //adifFileSave(); // Saving as ADIF
         adifTempFileSave(logFileNameToSave, logbook, true);
@@ -515,6 +522,7 @@ void Klog::fileSave(){
 }
 
 void Klog::fileSaveAs(){
+//qDebug() << "KLog::fileSaveAs";
 //cout << "KLog::fileSaveAs" << endl;
 //  bool writ = false;
 //  writ = false;
@@ -568,6 +576,7 @@ void Klog::fileSaveAs(){
 void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
 //adifTempFileSave(logFileNameToSave, logbook, true)
 //adifTempFileSave(logFileNameToSave, tempLogbook, false)
+//qDebug() << "KLog::adifTempFileSave" << fn;
 //cout << "KLog::adifTempFileSave: " << fn << endl;
 
     //logFileNameToSave = checkExtension(fn);
@@ -818,6 +827,7 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
 
 // This function checks the filename.extension for the ADI
 QString Klog::checkExtension(QString extension){
+  //qDebug() << "KLog::checkExtension" << extension;
 //cout << "KLog::checkExtension" << endl;
     int result;
         result = extension.indexOf(".adi", -4, Qt::CaseInsensitive);
@@ -828,6 +838,7 @@ QString Klog::checkExtension(QString extension){
 };
 
 void Klog::addQSOToLog(){
+//qDebug() << "KLog::addQSOToLog" << QString::number(qso.getNumb()) << " / " << qso.getQrz();
 //cout << "KLog::addQSOToLog: " << QString::number(qso.getNumb()) << " / " << qso.getQrz()<< endl;
 
     Klog::needToSave = true;
@@ -846,6 +857,7 @@ void Klog::addQSOToLog(){
 }
 
 int Klog::getProgresStepForDialog(int totalSteps){
+  //qDebug() << "KLog::getProgresStepForDialog";
 //cout << "KLog::getProgresStepForDialog" << endl;
     if (totalSteps <=100)
         return 2;
@@ -2365,6 +2377,7 @@ QString Klog::getMyLocator() const{
 }
 
 void Klog::showWhere(const int enti){
+  
 //cout << "KLog::showWhere: " << QString::number(enti) << endl;
 //	if ((enti != 0)&&(enti != -1)){
     if (enti >0){
@@ -5039,7 +5052,7 @@ void Klog::getAllTheCallsFromLog(){
 }
 
 void Klog::completeAllQSOsFromLog(){
-//cout << "KLog::completeAllQSOsFromLog" << endl;
+//qDebug() << "KLog::completeAllQSOsFromLog";
 
   Klog::LogBook::iterator it;
 
@@ -5087,6 +5100,7 @@ void Klog::slothamlibUpdateFrequency(){
 *  We read the frequency and mode from the radio
 *
 *****************************************************/
+  //qDebug() << "KLog::slothamlibUpdateFrequency: " << KlogHamlib.getStatusMessage();
 //cout << "KLog::slothamlibUpdateFrequency: " << KlogHamlib.getStatusMessage() << endl;
 
     hamlibFreq = 0.0;
