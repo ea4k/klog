@@ -487,12 +487,12 @@ void Klog::slotOkBtn(){
                 dxcc.worked(enti,bandComboBox->currentIndex(),modeComboBox->currentIndex());
                 waz.worked( world.getCqzFromCall(qso.getQrz()) ,bandComboBox->currentIndex(),modeComboBox->currentIndex());
             }
-        }else{ // We are not ADDING but modifying a QSO.
+        } else { // We are not ADDING but modifying a QSO.
             number--;
             modifyQso();
         }
         showQso();
-    }else{number--;}//Closes the empty call check
+    } else { number--; }//Closes the empty call check
 
     slotClearBtn();
     showLogList();
@@ -1627,24 +1627,32 @@ Qso Klog::getByCall(const QString& tqrz){
 }
 
 void Klog::showQso(){
-//  This shows the data in the QTreeWidget (the botton block)
+// This shows the data in the QTreeWidget (the botton block)
 // The "modify" is still missing
 // I have to look for the QSO if modifying
 //cout << "KLog::showQso" << endl;
     if (!modify){
         QTreeWidgetItem * item = new QTreeWidgetItem( logTreeWidget, 0 );
         item->setText( 0, getNumberString(qso.getNumb())  );
-    } else {
+    }
+    // This does not seem to be needed. QSO already modified and item added to the table
+    /* else {
         qDebug() << "MODIFY!";
-        QList<QTreeWidgetItem*> item = logTreeWidget->findItems(QString::number(Klog::j), Qt::MatchExactly, 0);
-        //QTreeWidgetItem *item = logTreeWidget->findItem(QString::number(Klog::j),0);
-        if (item[0]){
-            qDebug() << "MODIFYing IF!";
+        QList<QTreeWidgetItem *> item = logTreeWidget->findItems(QString::number(Klog::j, 7), Qt::MatchExactly, 0);
+        qDebug() << "MODIFYing before IF!" << item.count() << QString::number(Klog::j, 7);
+        //qDebug() << item.at(0)->text(0);
+        if (item.at(0)){
+            qDebug() << "MODIFYing IF!" << item.count() << QString::number(Klog::j);
+            qDebug() << item.at(0)->text(0);
             //item->setText( 0,  QString::number(Klog::j) );
             item[0]->setText( 0, getNumberString(Klog::j)  );
+            qDebug() << "MODIFYing IF!";
             item[0]->setText( 1, qso.getDateTime().toString("yyyy-MM-dd") );
+            qDebug() << "MODIFYing IF!";
             item[0]->setText( 2, qso.getDateTime().toString("hh:mm") );
+            qDebug() << "MODIFYing IF!";
             item[0]->setText( 3, qso.getQrz().toUpper() );
+            qDebug() << "MODIFYing IF!";
             item[0]->setText( 4, QString::number(qso.getRsttx()) );
             item[0]->setText( 5, QString::number(qso.getRstrx()) );
             item[0]->setText( 6, qso.getBand() );
@@ -1652,7 +1660,7 @@ void Klog::showQso(){
             item[0]->setText( 8, qso.getPower() );
             item[0]->setText( 9, qso.getComment() );
         }
-    }
+    }*/
 }
 
 void Klog::showAwardsNumbers(){
@@ -1942,14 +1950,9 @@ void Klog::readQso(){ //Just read the values an fill the qso
 
 void Klog::modifyQso(){
 // Modify an existing QSO with the data on the boxes
-//<<<<<<< .mine
-//  qDebug() << "KLog::modifyQso";
     Klog::LogBook::iterator iter;
-    qDebug() << "After Iter";
-    for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
-        qDebug() << "In for loop";
+    for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
         if ( Klog::j == (*iter).getNumb() ){
-            qDebug() << "If statement";
             (*iter).setQrz( (qrzLineEdit->text()).toUpper() );
             (*iter).setDateTime(qsoDateTime->dateTime());
             (*iter).setRstrx(rstrx);
@@ -2015,11 +2018,9 @@ void Klog::modifyQso(){
             }
         }
     }
-//=======
-  //qDebug() << "KLog::modifyQso";
-  //Klog::LogBook::iterator iter;
+// Not sure but this below seems to be a duplication of above
 
-    for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
+/*    for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
         if ( Klog::j == (*iter).getNumb() ){
             (*iter).setQrz( (qrzLineEdit->text()).toUpper() );
             (*iter).setDateTime(qsoDateTime->dateTime());
@@ -2061,7 +2062,7 @@ void Klog::modifyQso(){
                     (*iter).setQslInfo(QSLInfotextEdit->toPlainText());
             }
         }
-    }
+    } */
 }
 
 void Klog::helpAbout() {
@@ -5000,8 +5001,6 @@ void Klog::getAllTheCallsFromLog(){
      QProgressDialog progress(i18n("Getting all the calls..."), i18n("Abort"), 0, totalQsos);
 
      progress.setWindowModality(Qt::WindowModal);
-
-
     QString progressLabel;
 /////// Progress dialog
 
@@ -5025,9 +5024,7 @@ void Klog::getAllTheCallsFromLog(){
                 return;
             }
         }
-
     }
-
 }
 
 void Klog::completeAllQSOsFromLog(){
@@ -5103,6 +5100,10 @@ dxClusterSpotItem::dxClusterSpotItem( QTreeWidget *parent, const QString& spot, 
 //cout << "KLog::dxClusterSpotItem - Constructor" << endl;
   spotColor = color;
   setText(0, spot);
+  // Experimenting with fonts for the cluster
+  QFont f("Helvetica");
+  f.setFixedPitch(TRUE);
+  setFont(0, f);
 }
 
 dxClusterSpotItem::~dxClusterSpotItem(){

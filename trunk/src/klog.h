@@ -28,16 +28,12 @@
 
 #include <KDE/KApplication>
 #include <QObject>
-
 #include <QMenu>
 #include <QAction>
 #include <QActionGroup>
 #include <QList>
 #include <QPixmap>
 #include <QTextStream>
-
-#include "ui_klog.h"
-
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QFile>
@@ -59,8 +55,10 @@
 #include <QDialog>
 #include <QInputDialog>
 #include <QTimer>
+#include <QMainWindow>
+#include "ui_klog.h"
 // The next two are for the cluster box
- #include <QTcpSocket>
+#include <QTcpSocket>
 #include <QUrl>
 // The next two are for printing
 #include <QPrinter>
@@ -85,12 +83,10 @@
 #include "reference.h"
 #include "cabrillomanagement.h"
 
-#include <QMainWindow>
-
 using namespace std;
 
 // BANDS 9 {10/12/15/17/20/30/40/80/160}
-//MODES 11 {SSB/CW/FM/PSK31/SSTV/RTTY/TOR/PKT/
+// MODES 11 {SSB/CW/FM/PSK31/SSTV/RTTY/TOR/PKT/
 //          AM/ATV/PAC/CLO
 //
 // CONTINENTS AF, AN, AS, EU, NA, OC, SA

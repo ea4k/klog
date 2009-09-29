@@ -435,8 +435,6 @@ private:
     QString checkisNotAdif(const QString& tword);
     QString checkLines(const QString& tword);
 
-
-
     //QString band_rx; // In split oprations the RX band
 
     //cqz;		// CQ Zone
