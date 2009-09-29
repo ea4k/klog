@@ -192,9 +192,6 @@ void Qso::setPrecedence(const QString &tstring){
 QString Qso::getPrecedence() const{return precedence;}
 
 
-
-
-
 void Qso::setAnt_az (int tnumb){	//Antenna azimut in degrees
 	if ((tnumb>=0)&&(tnumb<=360)){
 		ant_az = tnumb;

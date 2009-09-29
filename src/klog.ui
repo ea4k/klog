@@ -10,8 +10,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>980</width>
-    <height>732</height>
+    <width>978</width>
+    <height>730</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -1596,7 +1596,7 @@
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="KLed" name="kledColor"/>
+          <widget class="KLed" name="kledColor" native="true"/>
          </item>
         </layout>
        </widget>
@@ -2399,8 +2399,8 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>980</width>
-     <height>28</height>
+     <width>978</width>
+     <height>23</height>
     </rect>
    </property>
    <property name="defaultUp">
