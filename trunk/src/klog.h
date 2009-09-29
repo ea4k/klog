@@ -163,7 +163,8 @@ class Klog : public QMainWindow, private Ui::klog
     void readQso(); //Just read the values an fill the qso
     void modifyQso(); // Modify an existing QSO with the data on the boxes
     void slotQsoSelectedForEdit(QTreeWidgetItem *, int );//Puts the QSO in the edit box
-    void slotQsoSearchSelectedForEdit( QTreeWidgetItem* item); //Puts the QSO in the edit box
+    void slotQsoSearchSelectedForEdit( QTreeWidgetItem* item, int); //Puts the QSO in the edit box
+    //void slotQsoSearchSelectedForEdit( QTreeWidgetItem* item); //Puts the QSO in the edit box
     void slotQsoSelected (QTreeWidgetItem* item); // Just to see qso data
 //TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton
 // 	void slotQsoRightButtonFromLog(Q3ListViewItem * item, const QPoint &p);
@@ -202,7 +203,7 @@ class Klog : public QMainWindow, private Ui::klog
     void slotClusterSocketError( int e );
     void slotClusterConnect();
     void slotClusterClearInputLine();
-    void slotClusterSpotToLog(QTreeWidgetItem* item);
+    void slotClusterSpotToLog(QTreeWidgetItem* item, int);
     void slotClusterSpotCheck(QTreeWidgetItem* item);
 //    void slotClusterSetup();
 //    void slotKlogSetup();

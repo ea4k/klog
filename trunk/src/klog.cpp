@@ -91,6 +91,9 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     connect(ActionCabrilloImport, SIGNAL(triggered()), this, SLOT(slotImportCabrillo()));
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQrzChanged()));
     connect( logTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSelectedForEdit(QTreeWidgetItem *, int)));
+    connect( searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));
+    connect( dxclusterTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QTreeWidgetItem *, int)));
+    
 
     klogDir = QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs
     if (!QDir::setCurrent ( klogDir )){
@@ -3472,7 +3475,7 @@ void  Klog::slotCancelSearchButton(){
 
 
 // The following is to select a QSO from the search box
-void Klog::slotQsoSearchSelectedForEdit( QTreeWidgetItem * item){
+void Klog::slotQsoSearchSelectedForEdit( QTreeWidgetItem * item, int){
 //cout << "KLog::slotQsoSearchSelectedForEdit" << endl;
     if (item){
         slotClearBtn();
@@ -4385,7 +4388,7 @@ int Klog::needToWorkFromCluster(const QString &tqrz, const int tband){
 
 // This takes a DX-spot from the DXCluster window and copies to the QSO entry box
 // when the user clicks on it.
-void Klog::slotClusterSpotToLog(QTreeWidgetItem * item){
+void Klog::slotClusterSpotToLog(QTreeWidgetItem * item, int){
 //cout << "KLog::slotClusterSpotToLog" << endl;
     if (item)
         dxClusterString = item->text(0);
