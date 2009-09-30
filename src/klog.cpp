@@ -83,6 +83,12 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     fileSaveAction->setIcon(KIcon("document-save"));
     ActionQslRec->setIcon(KIcon("mail-receive"));
     ActionQsoSen->setIcon(KIcon("mail-folder-outbox"));
+    fileSaveAsAction->setIcon(KIcon("document-save-as"));
+    filePrintAction->setIcon(KIcon("document-print"));
+    fileExitAction->setIcon(KIcon("application-exit"));
+    setupAction->setIcon(KIcon("preferences-system"));
+    ActionBugReport->setIcon(KIcon("tools-report-bug"));
+    helpAboutAction->setIcon(KIcon("help-about"));
 
     // Connect all the slots
     connect(ActionAddKlogLog, SIGNAL(triggered()), this, SLOT(slotAddLog()));
