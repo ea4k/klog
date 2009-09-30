@@ -77,6 +77,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     completeWithPrevious = false;
     completedWithPrevious = false;
     requireMandatory = true;
+    ActionQsoDelete->setIcon(KIcon("edit-delete"));
     // Connect all the slots
     connect(ActionAddKlogLog, SIGNAL(triggered()), this, SLOT(slotAddLog()));
     // connect(ActionQslNeededCheck, SIGNAL(triggered()), this, SLOT(slotQslNeededCheck()));
