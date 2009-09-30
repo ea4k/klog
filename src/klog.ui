@@ -1165,7 +1165,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="0">
-          <widget class="KLed" name="kledColor" native="true"/>
+          <widget class="KLed" name="kledColor"/>
          </item>
          <item row="0" column="1" colspan="2">
           <widget class="QLineEdit" name="qrzLineEdit">
@@ -2407,7 +2407,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>976</width>
-     <height>23</height>
+     <height>28</height>
     </rect>
    </property>
    <property name="defaultUp">
@@ -2761,7 +2761,7 @@ p, li { white-space: pre-wrap; }
   <action name="ActionQsoSen">
    <property name="icon">
     <iconset>
-     <normaloff>image12</normaloff>image12</iconset>
+     <normaloff>qslSenOff.png</normaloff>qslSen.png</iconset>
    </property>
    <property name="iconText">
     <string>QSL Sent</string>
@@ -2773,7 +2773,7 @@ p, li { white-space: pre-wrap; }
   <action name="ActionQslRec">
    <property name="icon">
     <iconset>
-     <normaloff>image13</normaloff>image13</iconset>
+     <normaloff>qslRecOff.png</normaloff>qslRec.png</iconset>
    </property>
    <property name="iconText">
     <string>QSL Received</string>
