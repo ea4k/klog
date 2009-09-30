@@ -10,8 +10,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>978</width>
-    <height>730</height>
+    <width>976</width>
+    <height>728</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -1165,7 +1165,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="0">
-          <widget class="KLed" name="kledColor"/>
+          <widget class="KLed" name="kledColor" native="true"/>
          </item>
          <item row="0" column="1" colspan="2">
           <widget class="QLineEdit" name="qrzLineEdit">
@@ -1623,7 +1623,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="qso">
          <attribute name="title">
@@ -2406,8 +2406,8 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>978</width>
-     <height>28</height>
+     <width>976</width>
+     <height>23</height>
     </rect>
    </property>
    <property name="defaultUp">
