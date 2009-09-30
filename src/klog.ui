@@ -2759,10 +2759,6 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="ActionQsoSen">
-   <property name="icon">
-    <iconset>
-     <normaloff>qslSenOff.png</normaloff>qslSen.png</iconset>
-   </property>
    <property name="iconText">
     <string>QSL Sent</string>
    </property>
@@ -2771,10 +2767,6 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="ActionQslRec">
-   <property name="icon">
-    <iconset>
-     <normaloff>qslRecOff.png</normaloff>qslRec.png</iconset>
-   </property>
    <property name="iconText">
     <string>QSL Received</string>
    </property>
