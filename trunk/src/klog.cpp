@@ -78,6 +78,12 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     completedWithPrevious = false;
     requireMandatory = true;
     ActionQsoDelete->setIcon(KIcon("edit-delete"));
+    fileNewAction->setIcon(KIcon("address-book-new"));
+    fileOpenAction->setIcon(KIcon("document-open"));
+    fileSaveAction->setIcon(KIcon("document-save"));
+    ActionQslRec->setIcon(KIcon("mail-receive"));
+    ActionQsoSen->setIcon(KIcon("mail-folder-outbox"));
+
     // Connect all the slots
     connect(ActionAddKlogLog, SIGNAL(triggered()), this, SLOT(slotAddLog()));
     // connect(ActionQslNeededCheck, SIGNAL(triggered()), this, SLOT(slotQslNeededCheck()));
