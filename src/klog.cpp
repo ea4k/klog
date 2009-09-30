@@ -81,7 +81,6 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     connect(ActionAddKlogLog, SIGNAL(triggered()), this, SLOT(slotAddLog()));
     // connect(ActionQslNeededCheck, SIGNAL(triggered()), this, SLOT(slotQslNeededCheck()));
     connect(ActionSortLog, SIGNAL(triggered()), this, SLOT(sortLog()));
-    connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
     connect(addTlfLogAction, SIGNAL(triggered()), this, SLOT(slotImportTlf()));
     connect(helpContentsAction, SIGNAL(triggered()), this, SLOT(helpContents()));
     connect(helpIndexAction, SIGNAL(triggered()), this, SLOT(helpIndex()));
@@ -94,6 +93,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     connect( logTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSelectedForEdit(QTreeWidgetItem *, int)));
     connect( searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));
     connect( dxclusterTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QTreeWidgetItem *, int)));
+    connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
     
 
     klogDir = QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs
@@ -319,6 +319,7 @@ void Klog::prepareAwardComboBox(const int tenti){
         return;
     }
 
+
 // Prepare to receive the award but... what if it does not change?
     awardsComboBox->clear();
     awardReferences.clear(); // We clear the list
@@ -504,6 +505,7 @@ void Klog::slotOkBtn(){
         }
         showQso();
     } else { number--; }//Closes the empty call check
+
     slotClearBtn();
     showLogList();
     showAwardsNumbers(); //Needed?
@@ -567,9 +569,9 @@ void Klog::fileSaveAs(){
 //   }
   if ( !logFileNameToSave.isEmpty() ) {
     adifTempFileSave(logFileNameToSave, logbook, true);
-  } //else {
+  }else {
     //statusBar()->message( i18n("Saving aborted"), 2000 );
-//  }
+  }
 }
 
 void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
@@ -583,120 +585,49 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
     fileToSave = checkExtension(fn);
     QFile file( fileToSave );
     if ( file.open( QIODevice::WriteOnly ) ) {
+//		if (manualSave){
         int progresStep = 0;
 
+// 		Q3ProgressDialog progress( i18n("Saving the log..."), i18n("Abort saving"), Klog::number,
+//                 this, i18n("progress"), TRUE );
+
         QProgressDialog progress(i18n("Saving the log..."), i18n("Abort saving"), 0, Klog::number);
+
+//		}
+
         QTextStream stream( &file );
+
         Klog::LogBook::iterator it;
+
+//		Klog::LogBook::iterator itEnd;
+//		itEnd = lb.end();
 
         stream << i18n("ADIF v1.0 (some ADIF v2 fields) Export from KLog-") + Klog::KLogVersion + " \nhttp://jaime.robles.es/klog" << "\n<APP_KLOG_NUMBER:" << QString::number( Klog::number ).length() << ">" << QString::number(Klog::number) << i18n("\nLog saved: ") << dateTime.toString("yyyyMMdd") << "-" << dateTime.toString("hhmm") << "\n<PROGRAMID:4>KLOG <PROGRAMVERSION:" + QString::number((Klog::KLogVersion).length()) << ">" << Klog::KLogVersion << " \n<EOH>\n" << endl;
 
         it = lb.begin();
         while (it != lb.end()){
 //		for ( it = lb.begin(); it != lb.end(); ++it ){
-            if ( progress.wasCanceled() ){
+            if ( progress.wasCanceled()){
                 return;
             }
             stream << "<CALL:" <<((*it).getQrz()).length() << ">" << (*it).getQrz() << " <QSO_DATE:8>" << (*it).getDateTime().toString("yyyyMMdd") << " <TIME_ON:4>" << (*it).getDateTime().toString("hhmm") << " <MODE:" << ((*it).getMode()).length() << ">" << ((*it).getMode()).toUpper() << " <BAND:" << ((*it).getBand()).length() << ">" << ((*it).getBand()).toUpper() << " <RST_SENT:" << QString::number( (*it).getRsttx()).length() << ">" << (*it).getRsttx() << " <RST_RCVD:" << QString::number((*it).getRstrx()).length() << ">" << (*it).getRstrx() << " <QSL_RCVD:1>" << (*it).isQslRec() << " <QSL_SENT:1>" << (*it).isQslSent();
-
-// Tried this to see if saving was quicker without the if statements. Not too sure though.
-                stream << " <EQSL_QSL_SENT:1>" << (*it).geteQslRcvd();
-                stream << " <EQSL_QSL_RCVD:1>" << (*it).geteQslRcvd();
-                stream << " <TX_PWR:" << ((*it).getPower()).length() << ">" << (*it).getPower();
-                stream << " <RX_PWR:" << ((*it).getrxPower()).length() << ">" << (*it).getrxPower();
-                stream << " <FREQ:" <<((*it).getFreq()).length() << ">" << (*it).getFreq();
-                stream << " <FREQ_RX:" <<((*it).getFreq_RX()).length() << ">" << (*it).getFreq_RX();
-                stream << " <IOTA:" <<((*it).getIota()).length() << ">" << (*it).getIota();
-                stream << " <MY_IOTA:" <<((*it).getMyIota()).length() << ">" << (*it).getMyIota();
-                stream << " <STATE:" << ( (*it).getLocalAward()).length() << ">" << (*it).getLocalAward();
-                stream << " <NAME:" <<((*it).getName()).length() << ">" << (*it).getName();
-                stream << " <CONT:" <<((*it).getContinent()).length() << ">" << (*it).getContinent();
-                stream << " <DXCC:" << QString::number(((*it).getDXCC())).length() << ">" << QString::number((*it).getDXCC());
-                stream << " <COUNTRY:" <<((*it).getCountry()).length() << ">" << (*it).getCountry();
-                stream << " <MY_COUNTRY:" <<((*it).getMyCountry()).length() << ">" << (*it).getMyCountry();
-                stream << " <MY_NAME:" <<((*it).getMyName()).length() << ">" << (*it).getMyName();
-                stream << " <AGE:" << QString::number(((*it).getAge())).length() << ">" << QString::number((*it).getAge());
-                stream << " <CQZ:" << QString::number(((*it).getCQz())).length() << ">" << QString::number((*it).getCQz());
-                stream << " <ITUZ:" << QString::number(((*it).getITUz())).length() << ">" << QString::number((*it).getITUz());
-                stream << " <MY_CQ_ZONE:" << QString::number(((*it).getMyCQz())).length() << ">" << QString::number((*it).getMyCQz());
-                stream << " <MY_ITU_ZONE:" << QString::number(((*it).getMyITUz())).length() << ">" << QString::number((*it).getMyITUz());
-                stream << " <MY_CITY:" <<((*it).getMyCity()).length() << ">" << (*it).getMyCity();
-                stream << " <DISTANCE:" << QString::number(((*it).getDistance())).length() << ">" << QString::number((*it).getDistance());
-                stream << " <ANT_AZ:" << QString::number(((*it).getAnt_az())).length() << ">" << QString::number((*it).getAnt_az());
-                stream << " <ANT_EL:" << QString::number(((*it).getAnt_el())).length() << ">" << QString::number((*it).getAnt_el());
-                stream << " <ANT_PATH:1>" << (*it).getAnt_Path();
-                stream << " <BAND_RX:" <<((*it).getBand_RX()).length() << ">" << (*it).getBand_RX();
-                stream << " <A_INDEX:" << QString::number(((*it).getA_index())).length() << ">" << QString::number((*it).getA_index());
-                stream << " <K_INDEX:" << QString::number(((*it).getK_index())).length() << ">" << QString::number((*it).getK_index());
-                stream << " <MAX_BURSTS:" << QString::number(((*it).getMaxBursts())).length() << ">" << QString::number((*it).getMaxBursts());
-                stream << " <NR_BURSTS:" << QString::number(((*it).getNRBursts())).length() << ">" << QString::number((*it).getNRBursts());
-                stream << " <NR_PINGS:" << QString::number(((*it).getNRPings())).length() << ">" << QString::number((*it).getNRPings());
-                stream << " <SFI:" << QString::number(((*it).getSFI())).length() << ">" << QString::number((*it).getSFI());
-                stream << " <MS_SHOWER:" <<((*it).getMSShower()).length() << ">" << (*it).getMSShower();
-                stream << " <SAT_MODE:" <<((*it).getSatMode()).length() << ">" << (*it).getSatMode();
-                stream << " <SAT_NAME:" <<((*it).getSatName()).length() << ">" << (*it).getSatName();
-                stream << " <OWNER_CALLSIGN:" <<((*it).getOwnerCall()).length() << ">" << (*it).getOwnerCall();
-                stream << " <PFX:" <<((*it).getPfx()).length() << ">" << (*it).getPfx();
-                stream << " <PRECEDENCE:" <<((*it).getPrecedence()).length() << ">" << (*it).getPrecedence();
-                stream << " <MY_RIG:" <<((*it).getMyRig()).length() << ">" << (*it).getMyRig();
-                stream << " <MY_SIG:" <<((*it).getMySig()).length() << ">" << (*it).getMySig();
-                stream << " <MY_SIG_INFO:" <<((*it).getMySigInfo()).length() << ">" << (*it).getMySigInfo();
-                stream << " <SIG_INFO:" <<((*it).getSigInfo()).length() << ">" << (*it).getSigInfo();
-                stream << " <SIG:" <<((*it).getSig()).length() << ">" << (*it).getSig();
-                stream << " <PUBLIC_KEY:" <<((*it).getPublicKey()).length() << ">" << (*it).getPublicKey();
-                stream << " <CONTEST_ID:" <<((*it).getContestID()).length() << ">" << (*it).getContestID();
-                stream << " <CLASS:" <<((*it).getClass()).length() << ">" << (*it).getClass();
-                stream << " <CHECK:" <<((*it).getCheck()).length() << ">" << (*it).getCheck();
-                stream << " <STX:" << QString::number((*it).getStx()).length() << ">" << (*it).getStx();
-                stream << " <SRX:" <<QString::number((*it).getSrx()).length() << ">" << (*it).getSrx();
-                stream << " <STX_STRING:" <<((*it).getStx_string()).length() << ">" << (*it).getStx_string();
-                stream << " <SRX_STRING:" <<((*it).getSrx_string()).length() << ">" << (*it).getSrx_string();
-                stream << " <EMAIL:" <<((*it).getEmail()).length() << ">" << (*it).getEmail();
-                stream << " <WEB:" <<((*it).getWeb()).length() << ">" << (*it).getWeb();
-                stream << " <QTH:" <<((*it).getQth()).length() << ">" << (*it).getQth();
-                stream << " <OPERATOR:" <<((*it).getOperator()).length() << ">" << (*it).getOperator();
-                stream << " <STATION_CALLSIGN:" <<((*it).getStationCallsign()).length() << ">" << (*it).getStationCallsign();
-                stream << " <CONTACTED_OP:" <<((*it).getContactedOP()).length() << ">" << (*it).getContactedOP();
-                stream << " <EQ_CALL:" <<((*it).getEQCall()).length() << ">" << (*it).getEQCall();
-                stream << " <GRIDSQUARE:" <<((*it).getLocator()).length() << ">" << (*it).getLocator();
-                stream << " <MY_GRIDSQUARE:" <<((*it).getMyLocator()).length() << ">" << (*it).getMyLocator();
-                stream << " <EQSL_QSLRDATE:8>" << (*it).geteQslRecDate().toString("yyyyMMdd");
-                stream << " <EQSL_QSLSDATE:8>" << (*it).geteQslSenDate().toString("yyyyMMdd");
-                stream << " <QSLSDATE:8>" << (*it).getQslSenDate().toString("yyyyMMdd");
-                stream << " <QSLRDATE:8>" << (*it).getQslRecDate().toString("yyyyMMdd");
-            if (((*it).getQslVia()).compare("No QSL") != 0) { //Write nothing
-                if ((*it).getQslVia() == "Manager"){ //If there is a manager
-                    if (((*it).getQslManager()).length()>0)
-                        stream << " <QSL_VIA:" <<((*it).getQslManager()).length() << ">" << (*it).getQslManager();
-                } else { //There is no manager but there is QSL via
-                    if ((((*it).getQslVia()).length())>0)
-                    stream << " <QSL_VIA:" <<((*it).getQslVia()).length() << ">" << (*it).getQslVia();
-                }
-            }
-                stream << " <QSLMSG:" <<((*it).getQslInfo()).length() << ">" << (*it).getQslInfo();
-                stream << " <COMMENT:" << ((*it).getComment()).length() << ">" << (*it).getComment();
-                stream << " <ADDRESS:" << ((*it).getAddress()).length() << ">" << (*it).getAddress();
-                stream << " <MY_STATE:" << ((*it).getMyState()).length() << ">" << (*it).getMyState();
-                stream << " <MY_STREET:" << ((*it).getMyStreet()).length() << ">" << (*it).getMyStreet();
-            stream << " <MY_POSTAL_CODE:" << ((*it).getMyPostalCode()).length() << ">" << (*it).getMyPostalCode();
-            stream << " <ARRL_SECT:" << ((*it).getARRLSect()).length() << ">" << (*it).getARRLSect();
-            stream << " <EOR>" << endl;
-
-
-// Test quick save
-/*
             if ( ((*it).geteQslSent()=='Y') || ((*it).geteQslSent()=='R') || ((*it).geteQslSent()=='Q') || ((*it).geteQslSent()=='I')  )
                 stream << " <EQSL_QSL_SENT:1>" << (*it).geteQslRcvd();
             if ( ((*it).geteQslRcvd()=='Y') || ((*it).geteQslRcvd()=='R') || ((*it).geteQslRcvd()=='I') || ((*it).geteQslRcvd()=='V') )
                 stream << " <EQSL_QSL_RCVD:1>" << (*it).geteQslRcvd();
-            if ( ((*it).getPower()).toInt() > 0)
+            if ( ((*it).getPower()).toInt() > 0) {
                 stream << " <TX_PWR:" << ((*it).getPower()).length() << ">" << (*it).getPower();
-            if ( ((*it).getrxPower()).toInt() != 0)
+            }
+            if ( ((*it).getrxPower()).toInt() != 0) {
                 stream << " <RX_PWR:" << ((*it).getrxPower()).length() << ">" << (*it).getrxPower();
-            if ( ((*it).getFreq()).toDouble() != 0.0)
+            }
+
+            if ( ((*it).getFreq()).toDouble() != 0.0) {
                 stream << " <FREQ:" <<((*it).getFreq()).length() << ">" << (*it).getFreq();
-            if (( ((*it).getFreq_RX()).toDouble() != 0.0) && (((*it).getFreq_RX())!=((*it).getFreq())) )
+            }
+            if (( ((*it).getFreq_RX()).toDouble() != 0.0) && (((*it).getFreq_RX())!=((*it).getFreq())) ){
                 stream << " <FREQ_RX:" <<((*it).getFreq_RX()).length() << ">" << (*it).getFreq_RX();
+            }
             if ((*it).getIotaNumber()!= 0)
                 stream << " <IOTA:" <<((*it).getIota()).length() << ">" << (*it).getIota();
             if ((*it).getMyIotaNumber()!= 0)
@@ -761,6 +692,7 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
                 stream << " <PFX:" <<((*it).getPfx()).length() << ">" << (*it).getPfx();
             if (((*it).getPrecedence()).length()>= 2)
                 stream << " <PRECEDENCE:" <<((*it).getPrecedence()).length() << ">" << (*it).getPrecedence();
+
             if (((*it).getMyRig()).length()== 2)
                 stream << " <MY_RIG:" <<((*it).getMyRig()).length() << ">" << (*it).getMyRig();
             if (((*it).getMySig()).length()== 2)
@@ -773,6 +705,7 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
                 stream << " <SIG:" <<((*it).getSig()).length() << ">" << (*it).getSig();
             if (((*it).getPublicKey()).length()== 2)
                 stream << " <PUBLIC_KEY:" <<((*it).getPublicKey()).length() << ">" << (*it).getPublicKey();
+
             if (((*it).getContestID()).length()>= 2)
                 stream << " <CONTEST_ID:" <<((*it).getContestID()).length() << ">" << (*it).getContestID();
             if (((*it).getClass()).length()>= 2)
@@ -803,28 +736,42 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
                 stream << " <EQ_CALL:" <<((*it).getEQCall()).length() << ">" << (*it).getEQCall();
             if ( locator.isValidLocator((*it).getLocator()) )
                 stream << " <GRIDSQUARE:" <<((*it).getLocator()).length() << ">" << (*it).getLocator();
-            if (locator.isValidLocator((*it).getMyLocator()))
+            if (locator.isValidLocator((*it).getMyLocator())){
                 stream << " <MY_GRIDSQUARE:" <<((*it).getMyLocator()).length() << ">" << (*it).getMyLocator();
-            if (((*it).geteQslRecDate()).isValid() )
+            }
+
+            if (((*it).geteQslRecDate()).isValid() ){
                 stream << " <EQSL_QSLRDATE:8>" << (*it).geteQslRecDate().toString("yyyyMMdd");
-            if (((*it).geteQslSenDate()).isValid() )
+            }
+            if (((*it).geteQslSenDate()).isValid() ){
                 stream << " <EQSL_QSLSDATE:8>" << (*it).geteQslSenDate().toString("yyyyMMdd");
-            if  ((*it).sentTheQSL() && (((*it).getQslSenDate()).isValid() ))
+            }
+
+            if  ((*it).sentTheQSL() && (((*it).getQslSenDate()).isValid() )){
                 stream << " <QSLSDATE:8>" << (*it).getQslSenDate().toString("yyyyMMdd");
-            if ((*it).gotTheQSL()  && (((*it).getQslRecDate()).isValid() ))
+            }
+
+            if ((*it).gotTheQSL()  && (((*it).getQslRecDate()).isValid() )){
                 stream << " <QSLRDATE:8>" << (*it).getQslRecDate().toString("yyyyMMdd");
-            if (((*it).getQslVia()).compare("No QSL") == 0) { //Write nothing
-            } else {
+            }
+
+            if (((*it).getQslVia()).compare("No QSL") == 0){ //Write nothing
+            }else{
                 if ((*it).getQslVia() == "Manager"){ //If there is a manager
-                    if (((*it).getQslManager()).length()>0)
+                    if (((*it).getQslManager()).length()>0){
                         stream << " <QSL_VIA:" <<((*it).getQslManager()).length() << ">" << (*it).getQslManager();
-                } else { //There is no manager but there is QSL via
+                    }
+                }else{//There is no manager but there is QSL via
                     if ((((*it).getQslVia()).length())>0)
                     stream << " <QSL_VIA:" <<((*it).getQslVia()).length() << ">" << (*it).getQslVia();
                 }
             }
-            if ( ((*it).getQslInfo().length()) >= 1)
+
+
+
+            if ( ((*it).getQslInfo().length()) >= 1){
                 stream << " <QSLMSG:" <<((*it).getQslInfo()).length() << ">" << (*it).getQslInfo();
+            }
             if (((*it).getComment()).length()>0)
                 stream << " <COMMENT:" << ((*it).getComment()).length() << ">" << (*it).getComment();
             if (((*it).getAddress()).length()>0)
@@ -835,31 +782,45 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
                 stream << " <MY_STREET:" << ((*it).getMyStreet()).length() << ">" << (*it).getMyStreet();
             if (((*it).getMyPostalCode()).length()>0)
                 stream << " <MY_POSTAL_CODE:" << ((*it).getMyPostalCode()).length() << ">" << (*it).getMyPostalCode();
+
             if (((*it).getARRLSect()).length()>=2)
                 stream << " <ARRL_SECT:" << ((*it).getARRLSect()).length() << ">" << (*it).getARRLSect();
+
+
+
             stream << " <EOR>" << endl;
-*/
+
+
+//	if (manualSave){
             progresStep++;
-            if (showProgressDialog) {
+            if (showProgressDialog){
                 progress.setValue( progresStep );
                 qApp->processEvents();
                 if ( progress.wasCanceled())
                     return;
             }
-        ++it;
-      } // Closes the FOR
+//	}
+
+++it;
+        if((it) != lb.end()){
+
+        }
+
+        if(it != lb.end()){
+
+        }
+        } // Closes the FOR
         file.close();
         if (manualSave){
             templogbook.clear(); // We have saved the whole log, so the temp has also been saved.
             QFile fileTemp( tempLogFile );
-            fileTemp.remove();
-            // maybe we can do without the if statement here.
-//            if (fileTemp.remove()){
+            if (fileTemp.remove()){
                 //cout << "Temp file deleted" << endl;
-//            }
+            }
             needToSave = false;
         }
     } // Closes the IF
+//  	needToSave = false;
 }
 
 
@@ -3553,12 +3514,12 @@ void Klog::slotQsoDelete(){
 //cout << "KLog::slotQsoDelete: " << endl;
     //j = qsoToDelete;
     if ((!modify) && (Klog::j == 0)){
-        int ret = QMessageBox::warning( this, i18n("Warning - No QSO Selected"),i18n("Double click QSO in log window to delete then delete again."));
         return;
     }else{
         Klog::LogBook::iterator iter;
         for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
             if ( j == (*iter).getNumb()){
+
                QMessageBox msgBox;
                msgBox.setText(i18n("Warning - QSO Deletion"));
                QString str = i18n("Do you want to delete the QSO with:\n")
@@ -3570,7 +3531,9 @@ void Klog::slotQsoDelete(){
 
                 switch(ret){
                     case QMessageBox::Yes:
+
                         dxcc.notWorked(world.findEntity((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));
+
                         waz.notWorked(world.getCqzFromCall((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));
 //  						if ((*iter).gotTheQSL()){
 //  							Klog::confirmed--;  //To decrease the showed number
@@ -3617,13 +3580,19 @@ void Klog::showLogList(){
   if (logbook.isEmpty()){	// if no QSOs, we do not show the log ;-)
     return;
   }
+
 //  while (logbook.
+
+
   /*QList<Qso>::const_iterator it;
  for (i = list.constBegin(); i != list.constEnd(); ++i)
      cout << *i << endl;*/
+
 /*  for (int i = 0; i < 10; ++i)
      items.append(new QTreeWidgetItem((QTreeWidget*)0, QStringList(QString("item: %1").arg(i))));*/
+
   QList<QTreeWidgetItem *> items;
+
   logTreeWidget->clear();	// Clear the log
 
 //  logTreeWidget->insertTopLevelItems(0, items);
