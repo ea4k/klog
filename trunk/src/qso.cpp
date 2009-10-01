@@ -208,7 +208,6 @@ void Qso::setAnt_el (int tnumb){		//Antenna elevation in degrees
 }
 int Qso::getAnt_el() const{return ant_az;};		//Antenna elevation in degrees
 
-
 void Qso::setQrz(const QString &tqrz ){
 //	cout << "QSO::setQrz: " << tqrz << endl;
 	qrz = checkisNotAdif(tqrz);
@@ -218,7 +217,6 @@ QString Qso::getQrz() const {
 //	cout << "QSO::getQrz " << endl;
 	return qrz;
 }
-
 
 void Qso::setNumb (int tnumb){
 //	cout << "QSO::setNumb: " << QString::number(tnumb) << endl;
@@ -253,8 +251,6 @@ void Qso::setTime(QTime ttime){
 QTime Qso::getTime() const{
     return dateTime.time();
 }
-
-
 
 void Qso::setRstrx(int trstrx){
 //	cout << "QSO::setRstrx: " << QString::number(trstrx) <<endl;
@@ -295,9 +291,6 @@ void Qso::setITUz (int tnumb){
 
 }
 int Qso::getITUz() const{return ituz;}
-
-
-
 
 void Qso::setMyCQz (int tnumb){
 	if ((tnumb>=0) && (tnumb<=40)){
@@ -374,7 +367,6 @@ QString Qso::getFreq() const{
 	return freq;
 }
 
-
 void Qso::setFreq_RX (const QString& tfreq){
 //TODO: When setting the frequency I should set also the band
 //	cout << "QSO::setFreq: " << tfreq << endl;
@@ -386,11 +378,9 @@ QString Qso::getFreq_RX() const{
 	return freq_rx;
 }
 
-
 void Qso::setMode(const QString& tmode){
     mode = checkisNotAdif(tmode);
 }
-
 
 void Qso::setDXCC (int tnumb){dxcc = tnumb;};
 int Qso::getDXCC() const{return dxcc;};	
@@ -406,7 +396,6 @@ void Qso::setMyCountry(const QString& tcountry){	// ADIF DXCC Country name
 }
 
 QString Qso::getMyCountry() const{return my_country;}			// ADIF DXCC Country name
-
 
 QString Qso::getMode() const{
     return mode;}
@@ -479,12 +468,10 @@ void Qso::setQslRecDateOn(QDate tdate){
 	qslRecc = 'Y';
 }
 
-
 QDate Qso::getQslRecDate() const{
   return qslRec;
 
 }
-
 
 QChar Qso::isQslRec(){
   return qslRecc;
@@ -573,8 +560,6 @@ void Qso::seteQslRcvd(const QChar& eqslState){  // eQSL_RCVD Y, N, R, I, V
 }
 QChar Qso::geteQslRcvd(){return eQSL_qsl_rcvd;}
 
-
-
 void Qso::setLocator(const QString &tgridSquare ){
 	//cout << "QSO::setLocator: " << tgridSquare << endl;
 	gridSquare = checkisNotAdif(tgridSquare);
@@ -615,8 +600,6 @@ void Qso::setMyIota(const QString &tiota){
 QString Qso::getMyIota() const{
     return my_iota;}
 
-
-
 void Qso::setLocalAward(const QString &taward){
 	//cout << "QSO::setLocalAward: " << taward << endl;
 	localAward = checkisNotAdif(taward);
@@ -641,7 +624,6 @@ QString Qso::getIotaContinent() const{
 int Qso::getIotaNumber() const {
   return (iota.section('-',1,1)).toInt();
 }
-
 
 QString Qso::getMyIotaContinent() const{
   return my_iota.section('-',0,0);
@@ -716,7 +698,6 @@ QString Qso::getMyRig() const{
 	return my_rig;
 }
 
-
 void Qso::setMySig (const QString& taux){
 	 my_sig = checkisNotAdif(taux);
 }
@@ -781,7 +762,6 @@ int Qso::getTenten() const{
 	return ten_ten;
 }
 
-
 void Qso::setContinent(const QString &tcont){
 	if ( (tcont == "NA") || (tcont == "SA") || (tcont == "EU") || (tcont == "AF") || (tcont == "OC") || (tcont == "") || (tcont == "AS") || (tcont == "AN")  ){
 		cont = tcont;
@@ -797,21 +777,25 @@ QString Qso::getContinent() const{
 void Qso::setContactedOP(const QString &tqrz){
 	contacted_op = checkisNotAdif(tqrz);
 }
+
 QString Qso::getContactedOP() const{return contacted_op;}
 
 void Qso::setEQCall(const QString &tqrz){
 	eq_call = checkisNotAdif(tqrz);
 }
+
 QString Qso::getEQCall() const{return eq_call;}
 
 void Qso::setEmail(const QString &temail){
 	email = checkisNotAdif(temail);
 }
+
 QString Qso::getEmail() const{return email;}
 
 void Qso::setWeb(const QString &tweb){
 	web = checkisNotAdif(tweb);
 }
+
 QString Qso::getWeb() const{return web;}
 
 
@@ -830,7 +814,6 @@ void Qso::setMyCity(const QString &tqth){
 QString Qso::getMyCity() const{
   return my_city;
 }
-
 
 void Qso::setOperator(const QString &toperator){
     operatorc = checkisNotAdif(toperator);
@@ -870,8 +853,6 @@ void Qso::setCheck(const QString &tcheck){check = checkisNotAdif(tcheck);}; // C
 QString Qso::getCheck() const{return check;};                // Contest check
 void Qso::setClass(const QString &tcclass){cclass = checkisNotAdif(tcclass);}; // Contest class
 QString Qso::getClass() const{return cclass;};                // Contest class
-
-
 
 void Qso::clearQso(){
 	//cout << "Qso::clearQso" << endl;
@@ -959,7 +940,6 @@ QString Qso::checkisNotAdif(const QString& tword){
 	return checkLines(sAux);
 }
 
-
 QString Qso::checkLines(const QString& tword){
 //cout << " - Class Qso::checkLines" << tword << endl;
 	sAux = tword;
@@ -978,5 +958,5 @@ void Qso::setAnt_Path(const QChar& tantpath){ // ANT_PATH  = G, O, S, L
 		ant_path = 'N';
 	}
 }
-QChar Qso::getAnt_Path(){return ant_path;}
 
+QChar Qso::getAnt_Path(){return ant_path;}

@@ -10,8 +10,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>976</width>
-    <height>728</height>
+    <width>974</width>
+    <height>726</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -49,7 +49,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="logdisplayTab">
        <attribute name="title">
@@ -1165,7 +1165,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="0">
-          <widget class="KLed" name="kledColor"/>
+          <widget class="KLed" name="kledColor" native="true"/>
          </item>
          <item row="0" column="1" colspan="2">
           <widget class="QLineEdit" name="qrzLineEdit">
@@ -1623,7 +1623,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="qso">
          <attribute name="title">
@@ -2406,8 +2406,8 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>976</width>
-     <height>28</height>
+     <width>974</width>
+     <height>23</height>
     </rect>
    </property>
    <property name="defaultUp">
@@ -2474,6 +2474,9 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="iconText">
     <string>New</string>
+   </property>
+   <property name="toolTip">
+    <string>New Log</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
