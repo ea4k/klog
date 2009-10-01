@@ -67,6 +67,7 @@
 #include <QSplashScreen>
 #include <QTabWidget>
 #include <QStringList>
+#include <KDE/KIcon>
 
 #include "awarddxcc.h"
 #include "awardwaz.h"

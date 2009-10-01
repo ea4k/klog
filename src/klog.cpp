@@ -103,11 +103,10 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     connect(toolsMerge_QSO_dataAction, SIGNAL(triggered()), this, SLOT(slotcompleteThePreviouslyWorked()));
     connect(ActionCabrilloImport, SIGNAL(triggered()), this, SLOT(slotImportCabrillo()));
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQrzChanged()));
-    connect( logTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSelectedForEdit(QTreeWidgetItem *, int)));
-    connect( searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));
-    connect( dxclusterTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QTreeWidgetItem *, int)));
+    connect(logTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSelectedForEdit(QTreeWidgetItem *, int)));
+    connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));
+    connect(dxclusterTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QTreeWidgetItem *, int)));
     connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
-    
 
     klogDir = QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs
     if (!QDir::setCurrent ( klogDir )){
@@ -247,7 +246,7 @@ void Klog::showDistancesAndBeam(const int dist, const int beam){
 }
 
 QString Klog::getThisQSODXLocator (){
-    //qDebug() << "KLog::getThisQSODXLocator";  
+    //qDebug() << "KLog::getThisQSODXLocator";
     // Firstly we check if the user has entered one locator and, if hasn't
     // We read the DX QRZ and get a default locator from it.
     if (locator.isValidLocator((locatorLineEdit->text()).toUpper())) { //User's locator
@@ -309,7 +308,7 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
 }
 
 void Klog::prepareIOTAComboBox (const int tenti){
-    //qDebug() << "KLog::prepareIOTAComboBox" << QString::number(tenti);  
+    //qDebug() << "KLog::prepareIOTAComboBox" << QString::number(tenti);
 // We receive the Entity, get the continent and write it to the IOTA combobox
 //cout << "KLog: prepareIOTAComboBox for entity: " << QString::number(tenti) << endl;
     i = 0;
@@ -2391,7 +2390,7 @@ QString Klog::getMyLocator() const{
 }
 
 void Klog::showWhere(const int enti){
-  
+
 //cout << "KLog::showWhere: " << QString::number(enti) << endl;
 //	if ((enti != 0)&&(enti != -1)){
     if (enti >0){
@@ -3524,14 +3523,12 @@ void Klog::slotQsoSearchSelectedForEdit( QTreeWidgetItem * item, int){
 
 // We are going to delete a QSO from the log
 void Klog::slotQsoDelete(){
-//cout << "KLog::slotQsoDelete: " << endl;
-    //j = qsoToDelete;
     if ((!modify) && (Klog::j == 0)){
         return;
-    }else{
+    } else {
         Klog::LogBook::iterator iter;
-        for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
-            if ( j == (*iter).getNumb()){
+        for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
+            if ( j == (*iter).getNumb() ) {
 
                QMessageBox msgBox;
                msgBox.setText(i18n("Warning - QSO Deletion"));
@@ -3542,23 +3539,25 @@ void Klog::slotQsoDelete(){
                msgBox.setDefaultButton(QMessageBox::No);
                int ret = msgBox.exec();
 
-                switch(ret){
+               switch(ret){
                     case QMessageBox::Yes:
-
                         dxcc.notWorked(world.findEntity((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));
-
                         waz.notWorked(world.getCqzFromCall((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));
 //  						if ((*iter).gotTheQSL()){
 //  							Klog::confirmed--;  //To decrease the showed number
 //  						}
-                        logbook.erase(iter);
-                        Klog::number--;  //To decrease the showed number
-
+                        // If there is only one entry in the log then you want to delete it the it's easier to create a new log.
+                        if ( Klog::j == 1 ) {
+                            fileNew();
+                        } else {
+                            logbook.erase(iter);
+                            Klog::number--;  //To decrease the showed number
+                        }
                         slotClearBtn();
                         readAwardsStatus();
                         showLogList();
                         showAwardsNumbers();
-                            return;
+                        return;
                         break;
                     case QMessageBox::No:
                         break;
@@ -4081,12 +4080,10 @@ void Klog::sortLog(){
 
 
 void Klog::slotClusterConnect(){
-//cout << "KLog::slotClusterConnect" << endl;
     if (dxClusterConnected)
         return; // If we are connected we don't want to start another connection
 
     if ((DXClusterServerToUse.section(':',1,1)).toInt() <= 0){
-
       QMessageBox msgBox;
       msgBox.setText(i18n("KLog message:"));
       QString str = i18n("Check your cluster settings\nin Setup->Preferences\nbefore connecting!");
@@ -4107,12 +4104,9 @@ void Klog::slotClusterConnect(){
     // connect to the server
 
     dxclusterTreeWidget->setSortingEnabled ( false);
-    //dxclusterTreeWidget->setSorting(-1, false);
-        downTabs->setCurrentIndex(1); // We set the active tab to be the cluster's
+    downTabs->setCurrentIndex(1); // We set the active tab to be the cluster's
     dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterTreeWidget, i18n("Trying to connect to the server\n"), defaultColor);
-
     socket->connectToHost( DXClusterServerToUse.section(':',0,0), (DXClusterServerToUse.section(':',1,1)).toInt() );
-
 }
 
 void Klog::slotClusterCloseConnection(){
@@ -4120,11 +4114,11 @@ void Klog::slotClusterCloseConnection(){
     if (!dxClusterConnected)
         return; // If we are not we can't close any conection
     socket->close();
-        if ( socket->state() == QAbstractSocket::ClosingState ) {
-    // We have a delayed close.
+    if ( socket->state() == QAbstractSocket::ClosingState ) {
+        // We have a delayed close.
         connect( socket, SIGNAL(delayedCloseFinished()), SLOT(socketClosed()) );
     } else {
-    // The socket is closed.
+        // The socket is closed.
         slotClusterSocketClosed();
     }
 }
@@ -4133,19 +4127,19 @@ void Klog::slotClusterSendToServer(){
 //cout << "KLog::slotClusterSendToServer" << endl;
     if (!dxClusterConnected)
         return; // If we are not connected we cannot send any text to the server
-        // write to the server
+    if ( ClusterkLineEditInPut->text().length() < 1 ) {
+        return;
+    }
+    //  write to the server
     QTextStream os(socket);
-    //  if (ClusterkLineEditInput->text() == "bye")
-    //    os << ann/local "Try the free Logging software for Linux: KLog: http://jaime.roble.nu/klog
     os << ClusterkLineEditInPut->text() << "\n";
-    ClusterkLineEditInPut->setText( "" );
+    ClusterkLineEditInPut->clear();
 }
 
 void Klog::slotClusterSocketReadyRead(){
 // read from the server
 // The while could block the flow of the program?
 // ATENTION: The Cluster freq is in KHz and KLog works in MHz!
-//cout << "KLog::slotClusterSocketReadyRead" << endl;
     while ( socket->canReadLine() ) {
         dxClusterString =  socket->readLine();
         dxClusterString = dxClusterString.simplified();
@@ -4314,6 +4308,17 @@ void Klog::slotClusterSocketConnected(){
 //cout << "KLog::slotClusterSocketConnected" << endl;
     dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterTreeWidget, i18n("Connected to server"), defaultColor);
     dxClusterConnected = true;
+
+    if ( dxClusterConnected ) {
+        bool ok;
+        QString callsignText = QInputDialog::getText(this, tr("QInputDialog::getText()"), tr("Enter you callsign to connect to the cluster:"), QLineEdit::Normal, "", &ok);
+        QTextStream os(socket);
+        if ( callsignText.length() > 2 && ok ) {
+            os << callsignText << "\n";
+        } else {
+            os << "Not logged on, you may to enter your callsign again." << "\n";
+        }
+    }
 }
 
 void Klog::slotClusterSocketConnectionClosed(){
