@@ -107,7 +107,6 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));
     connect(dxclusterTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QTreeWidgetItem *, int)));
     connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
-
     klogDir = QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs
     if (!QDir::setCurrent ( klogDir )){
         QDir d1(klogDir);
@@ -1587,7 +1586,7 @@ void Klog::showMenuRightButton(int qqso, const QPoint &p){
 // }
 
 void Klog::slotQsoSelectedForEdit(QTreeWidgetItem *item, int column){
-//    qDebug() << "KLog::slotQsoSelectedForEdit";
+    qDebug() << "KLog::slotQsoSelectedForEdit";
     if (item){
         slotClearBtn();
 
@@ -4142,7 +4141,8 @@ void Klog::slotClusterSocketReadyRead(){
 // ATENTION: The Cluster freq is in KHz and KLog works in MHz!
     while ( socket->canReadLine() ) {
         dxClusterString =  socket->readLine();
-        dxClusterString = dxClusterString.simplified();
+        // changed this to trimmed from simplfied() so the output string is easier to read as a spot
+        dxClusterString = dxClusterString.trimmed();
 //cout << "KLog::slotClusterSocketReadyRead: " << dxClusterString << endl;
         QStringList tokens = dxClusterString.split(" ", QString::SkipEmptyParts);
         //QStringList tokens = QStringList::split( ' ', dxClusterString );
