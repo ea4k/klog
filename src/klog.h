@@ -167,6 +167,7 @@ class Klog : public QMainWindow, private Ui::klog
     void slotQsoSearchSelectedForEdit( QTreeWidgetItem* item, int); //Puts the QSO in the edit box
     //void slotQsoSearchSelectedForEdit( QTreeWidgetItem* item); //Puts the QSO in the edit box
     void slotQsoSelected (QTreeWidgetItem* item); // Just to see qso data
+
 //TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton
 // 	void slotQsoRightButtonFromLog(Q3ListViewItem * item, const QPoint &p);
 // 	void slotQsoRightButtonFromSearch(Q3ListViewItem * item, const QPoint &p);
