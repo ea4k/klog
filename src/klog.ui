@@ -239,7 +239,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="info">
        <attribute name="title">
@@ -256,6 +256,9 @@
           </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
           <property name="text">
            <string>&lt;b&gt;KLog&lt;/b&gt;</string>
@@ -275,6 +278,9 @@
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;10&lt;/b&gt;&lt;/p&gt;</string>
             </property>
@@ -290,6 +296,9 @@
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
             </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;15&lt;/b&gt;&lt;/p&gt;</string>
@@ -307,6 +316,9 @@
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;20&lt;/b&gt;&lt;/p&gt;</string>
             </property>
@@ -322,6 +334,9 @@
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
             </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;40&lt;/b&gt;&lt;/p&gt;</string>
@@ -339,6 +354,9 @@
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;80&lt;/b&gt;&lt;/p&gt;</string>
             </property>
@@ -355,6 +373,9 @@
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;160&lt;/b&gt;&lt;/p&gt;</string>
             </property>
@@ -369,6 +390,9 @@
          <widget class="QLabel" name="entityTextLabel">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
           <property name="text">
            <string>--</string>
@@ -388,6 +412,9 @@
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;2&lt;/b&gt;&lt;/p&gt;</string>
             </property>
@@ -403,6 +430,9 @@
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
             </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;6&lt;/b&gt;&lt;/p&gt;</string>
@@ -420,6 +450,9 @@
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;12&lt;/b&gt;&lt;/p&gt;</string>
             </property>
@@ -435,6 +468,9 @@
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
             </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;17&lt;/b&gt;&lt;/p&gt;</string>
@@ -452,6 +488,9 @@
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;30&lt;/b&gt;&lt;/p&gt;</string>
             </property>
@@ -467,6 +506,9 @@
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
             </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;70cm&lt;/b&gt;&lt;/p&gt;</string>
@@ -491,7 +533,7 @@
                <enum>QFrame::StyledPanel</enum>
               </property>
               <property name="frameShadow">
-               <enum>QFrame::Plain</enum>
+               <enum>QFrame::Raised</enum>
               </property>
               <property name="text">
                <string>--</string>
@@ -505,6 +547,9 @@
              <widget class="QLabel" name="prxtTextLabel">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
               </property>
               <property name="text">
                <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Prefix:&lt;/b&gt;&lt;/p&gt;</string>
@@ -522,6 +567,9 @@
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
               <property name="text">
                <string>--</string>
               </property>
@@ -534,6 +582,9 @@
              <widget class="QLabel" name="continenttTextLabel">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
               </property>
               <property name="text">
                <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Continent:&lt;/b&gt;&lt;/p&gt;</string>
@@ -552,24 +603,14 @@
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
               <property name="text">
                <string comment="Use no more than 4 letters when translating">&lt;p align=&quot;center&quot;&gt;&lt;b&gt;deg&lt;/b&gt;&lt;/p&gt;</string>
               </property>
               <property name="wordWrap">
                <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="3">
-             <widget class="QLCDNumber" name="distancelCDNumber">
-              <property name="toolTip">
-               <string>Km to the DX through the short path</string>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="segmentStyle">
-               <enum>QLCDNumber::Flat</enum>
               </property>
              </widget>
             </item>
@@ -580,6 +621,9 @@
               </property>
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
               </property>
               <property name="text">
                <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Short Path:&lt;/b&gt;&lt;/p&gt;</string>
@@ -593,6 +637,9 @@
              <widget class="QLabel" name="textLabel11">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
               </property>
               <property name="text">
                <string>&lt;b&gt;&lt;p align=&quot;center&quot;&gt;Km&lt;/p&gt;&lt;/b&gt;</string>
@@ -621,6 +668,19 @@
               </property>
              </widget>
             </item>
+            <item row="1" column="3">
+             <widget class="QLCDNumber" name="distancelCDNumber">
+              <property name="toolTip">
+               <string>Km to the DX through the short path</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="segmentStyle">
+               <enum>QLCDNumber::Flat</enum>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item row="0" column="1">
@@ -629,6 +689,9 @@
              <widget class="QLabel" name="itutTextLabel">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
               </property>
               <property name="text">
                <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;ITU:&lt;/b&gt;&lt;/p&gt;</string>
@@ -642,6 +705,9 @@
              <widget class="QLabel" name="cqtTextLabel">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
               </property>
               <property name="text">
                <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;CQ:&lt;/b&gt;&lt;/p&gt;</string>
@@ -717,6 +783,9 @@
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
               <property name="text">
                <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Long Path:&lt;/b&gt;&lt;/p&gt;</string>
               </property>
@@ -746,6 +815,9 @@
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
               <property name="text">
                <string comment="Use no more than 4 letters when translating">&lt;b&gt;&lt;p align=&quot;center&quot;&gt;deg&lt;/p&gt;&lt;/b&gt;</string>
               </property>
@@ -758,6 +830,9 @@
              <widget class="QLabel" name="textLabel13">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
               </property>
               <property name="text">
                <string>&lt;b&gt;&lt;p align=&quot;center&quot;&gt;Km&lt;/p&gt;&lt;/b&gt;</string>
@@ -783,6 +858,9 @@
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
           <property name="text">
            <string>&lt;b&gt;Award&lt;/b&gt;</string>
           </property>
@@ -795,6 +873,9 @@
          <widget class="QLabel" name="textLabel3_3">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
           <property name="text">
            <string>&lt;b&gt;Worked&lt;/b&gt;</string>
@@ -809,6 +890,9 @@
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
           <property name="text">
            <string>&lt;b&gt;DXCC:&lt;/b&gt;</string>
           </property>
@@ -821,6 +905,9 @@
          <widget class="QLabel" name="textLabel2">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
           <property name="text">
            <string>&lt;b&gt;WAZ:&lt;/b&gt;</string>
@@ -841,6 +928,9 @@
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
           <property name="text">
            <string>&lt;b&gt;IOTA:&lt;/b&gt;</string>
           </property>
@@ -860,6 +950,9 @@
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
           <property name="text">
            <string>&lt;b&gt;LOCAL:&lt;/b&gt;</string>
           </property>
@@ -872,6 +965,9 @@
          <widget class="QLabel" name="textLabel1_9">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
           <property name="text">
            <string>&lt;b&gt;QSOs:&lt;/b&gt;</string>
@@ -978,6 +1074,9 @@
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
           <property name="text">
            <string>&lt;b&gt;Confirmed&lt;/b&gt;</string>
           </property>
@@ -1046,6 +1145,9 @@
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
           <property name="text">
            <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Name:&lt;/b&gt;&lt;/p&gt;</string>
           </property>
@@ -1071,6 +1173,9 @@
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Time:&lt;/b&gt;&lt;/p&gt;</string>
             </property>
@@ -1092,6 +1197,9 @@
          <widget class="QLabel" name="textLabel7_2">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
           <property name="text">
            <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;QTH:&lt;/b&gt;&lt;/p&gt;</string>
@@ -1643,6 +1751,12 @@
            <layout class="QHBoxLayout">
             <item>
              <widget class="QLabel" name="textLabel1_2">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
               <property name="text">
                <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;RST(tx)&lt;br&gt;RST(rx)&lt;/b&gt;&lt;/p&gt;</string>
               </property>
@@ -1783,6 +1897,9 @@
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
             <property name="text">
              <string>Frequency</string>
             </property>
@@ -1823,6 +1940,9 @@
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
               <property name="text">
                <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Name:&lt;/b&gt;&lt;/p&gt;</string>
               </property>
@@ -1845,6 +1965,9 @@
              <widget class="QLabel" name="textLabel2_6_2">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
               </property>
               <property name="text">
                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -1869,6 +1992,9 @@ p, li { white-space: pre-wrap; }
              <widget class="QLabel" name="textLabel2_6_3">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
               </property>
               <property name="text">
                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -1938,6 +2064,9 @@ p, li { white-space: pre-wrap; }
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
             <property name="text">
              <string>&lt;b&gt;Via:&lt;/b&gt;</string>
             </property>
@@ -1996,6 +2125,9 @@ p, li { white-space: pre-wrap; }
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
             <property name="text">
              <string>&lt;b&gt;QSL Sent:&lt;/b&gt;</string>
             </property>
@@ -2011,6 +2143,9 @@ p, li { white-space: pre-wrap; }
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
             </property>
             <property name="text">
              <string>&lt;b&gt;QSL Recv:&lt;/b&gt;</string>
@@ -2126,6 +2261,9 @@ p, li { white-space: pre-wrap; }
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
             <property name="text">
              <string>&lt;b&gt;Award:&lt;/b&gt;</string>
             </property>
@@ -2167,6 +2305,9 @@ p, li { white-space: pre-wrap; }
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
             <property name="text">
              <string>&lt;b&gt;IOTA:&lt;/b&gt;</string>
             </property>
@@ -2198,6 +2339,9 @@ p, li { white-space: pre-wrap; }
           </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
           <property name="text">
            <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Locator:&lt;/b&gt;&lt;/p&gt;</string>
@@ -2338,6 +2482,9 @@ p, li { white-space: pre-wrap; }
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
           <property name="text">
            <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Operator:&lt;/b&gt;&lt;/p&gt;</string>
           </property>
@@ -2374,6 +2521,9 @@ p, li { white-space: pre-wrap; }
           </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
           <property name="text">
            <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Station:&lt;/b&gt;&lt;/p&gt;</string>
@@ -2418,7 +2568,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>970</width>
+     <width>972</width>
      <height>32</height>
     </rect>
    </property>
