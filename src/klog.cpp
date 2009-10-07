@@ -3363,7 +3363,7 @@ int Klog::howManyConfirmedQSO(){
     return howManyConfirmed;
 }
 void Klog::slotSearchButton(){
-//cout << "KLog::slotSearchButton" << endl;
+qDebug() << "KLog::slotSearchButton";
 
     if (searching2QSL){
         slotSearchQSO2QSL();
@@ -3428,7 +3428,7 @@ void Klog::slotSearchButton(){
 }
 
 void Klog::slotSearchQSO2QSL(){
-//cout << "KLog::searchQSO2QSL" << endl;
+qDebug() << "KLog::searchQSO2QSL" ;
 //TODO: Maybe I should add a button for this action
 //TODO: After mark a QSO as sent, keep the list in the next QRZ to be QSLed
 
@@ -3489,7 +3489,7 @@ void Klog::slotSearchQSO2QSL(){
 }
 
 void  Klog::slotCancelSearchButton(){
-//cout << "KLog::slotCancelSearchButton" << endl;
+//qDebug() << "KLog::slotCancelSearchButton" << endl;
     //If we are searching QSO to send the QSL we simply call to that slot again :-)
         searchQrzkLineEdit->clear();
         searchQsosTreeWidget->clear();
@@ -3499,7 +3499,7 @@ void  Klog::slotCancelSearchButton(){
 
 // The following is to select a QSO from the search box
 void Klog::slotQsoSearchSelectedForEdit( QTreeWidgetItem * item, int){
-//cout << "KLog::slotQsoSearchSelectedForEdit" << endl;
+qDebug() << "KLog::slotQsoSearchSelectedForEdit" << endl;
     if (item){
         int number = (item->text(7)).toInt();
         // Removing this fixed the double click search issue. It can also be fixed by saving the item->number
@@ -3588,7 +3588,7 @@ void Klog::readAwardsStatus(){
 
 // To print the whole log in the botton box
 void Klog::showLogList(){
-//cout << "KLog::showLogList" << endl;
+//qDebug() << "KLog::showLogList" << endl;
   if (logbook.isEmpty()){	// if no QSOs, we do not show the log ;-)
     return;
   }
@@ -3598,7 +3598,7 @@ void Klog::showLogList(){
 
   /*QList<Qso>::const_iterator it;
  for (i = list.constBegin(); i != list.constEnd(); ++i)
-     cout << *i << endl;*/
+     qDebug() << *i << endl;*/
 
 /*  for (int i = 0; i < 10; ++i)
      items.append(new QTreeWidgetItem((QTreeWidget*)0, QStringList(QString("item: %1").arg(i))));*/
@@ -3635,37 +3635,37 @@ QString Klog::getNumberString(const int intNumber){
 /* This is to pass from an integer to an "always-the-same-length" string the number
    before showing it in the logTreeWidget in order to be able to sort it.
 */
-//cout << "KLog::getNumberString" << endl;
+//qDebug() << "KLog::getNumberString" << endl;
 
     if (intNumber < 10){
-        //cout << "Number: " << "     0" + QString::number(intNumber) << endl;
+        //qDebug() << "Number: " << "     0" + QString::number(intNumber) << endl;
         return "000000" + QString::number(intNumber);
     }else if (intNumber < 100){
-        //cout << "Number: " << "00000" + QString::number(intNumber) << endl;
+        //qDebug() << "Number: " << "00000" + QString::number(intNumber) << endl;
         return "00000" + QString::number(intNumber);
     }else if (intNumber < 1000){
-        //cout << "Number: " << "    " + QString::number(intNumber) << endl;
+        //qDebug() << "Number: " << "    " + QString::number(intNumber) << endl;
         return "0000" + QString::number(intNumber);
     }else if (intNumber < 10000){
-        //cout << "Number: " << "   " + QString::number(intNumber) << endl;
+        //qDebug() << "Number: " << "   " + QString::number(intNumber) << endl;
         return "000" + QString::number(intNumber);
     }else if (intNumber < 100000){
-        //cout << "Number: " << "  " + QString::number(intNumber) << endl;
+        //qDebug() << "Number: " << "  " + QString::number(intNumber) << endl;
         return "00" + QString::number(intNumber);
     }else if (intNumber < 1000000){
-        //cout << "Number: " << " " + QString::number(intNumber) << endl;
+        //qDebug() << "Number: " << " " + QString::number(intNumber) << endl;
         return "0" + QString::number(intNumber);
     }else if (intNumber < 10000000){
-        //cout << "Number: " << QString::number(intNumber) << endl;
+        //qDebug() << "Number: " << QString::number(intNumber) << endl;
         return QString::number(intNumber);
     }else{
-        //cout << "Number2: " << QString::number(intNumber) << endl;
+        //qDebug() << "Number2: " << QString::number(intNumber) << endl;
         return QString::number(intNumber);
     }
 }
 
 void Klog::slotQSLRec(){
-//cout << "KLog::slotQSLRec" << endl;
+//qDebug() << "KLog::slotQSLRec" << endl;
 // 	wasConfirmed = qso.gotTheQSL(); // Was this QSO previously confirmed
 // 	if (!wasConfirmed){
 // 		confirmed++; // checked
@@ -3697,7 +3697,7 @@ void Klog::slotQSLRec(){
 
 void Klog::slotQSLSent(){
 //We have sent the QSL
-//cout << "KLog::slotQSLSent" << endl;
+//qDebug() << "KLog::slotQSLSent" << endl;
     if (!qso.sentTheQSL()){
         Klog::j = qso.getNumb();
         qslSen = QDate::currentDate();
@@ -3719,7 +3719,7 @@ void Klog::slotQSLSent(){
 
 void Klog::slotQSLRecSent(){
 //We have sent and received the QSL
-//cout << "KLog::slotQSLRecSent" << endl;
+//qDebug() << "KLog::slotQSLRecSent" << endl;
     slotQSLRec();
     slotQSLSent();
 }
@@ -3753,7 +3753,7 @@ void Klog::showTip(){
 // TODO: Provide the list of tips
 // To show a tip on the begining of KLog
 // Another way could be receibing an integer to show one or other tip. The tip number can be saved in the configuration file.
-//	cout << "KLog::showTip" << endl;
+//	qDebug() << "KLog::showTip" << endl;
     KlogTip *klogtip = new KlogTip();
 
     klogtip->show(); // Single threaded // exec
@@ -3763,9 +3763,9 @@ void Klog::showTip(){
 */
 
 void Klog::fillDXCCList(){	// Fill the KLog tab
-//cout << "KLog::fillDXCCList: " << endl;
+//qDebug() << "KLog::fillDXCCList: " << endl;
     int howManyEntities = world.howManyEntities();
-//cout << "KLog::fillDXCCList: " << QString::number(howManyEntities) << endl;
+//qDebug() << "KLog::fillDXCCList: " << QString::number(howManyEntities) << endl;
 
 
     dxccTreeWidget->clear();
@@ -3862,7 +3862,7 @@ QString Klog::getShortNumberString(const int intNumber){
 /* This is to pass from an integer to an "always-the-same-length" string the number
    before showing it in the logTreeWidget in order to be able to sort it.
 */
-//cout << "KLog::getShortNumberString" << endl;
+//qDebug() << "KLog::getShortNumberString" << endl;
 
     if (intNumber < 10){
         return "00" + QString::number(intNumber);
@@ -4030,7 +4030,7 @@ QString headerLeft = i18n("Printing date: ") + (QDate::currentDate()).toString(Q
 void Klog::sortLog(){
 // I will read the Log from the UI and sorting using the numbers.
 //TODO: This sorting is highly inefficient. It should be rewritten and optimized
-//cout << "KLog::sortLog" << endl;
+//qDebug() << "KLog::sortLog" << endl;
 
   if (logbook.isEmpty()){	// if no QSOs, we do not show the log ;-)
     return;
@@ -4110,7 +4110,7 @@ void Klog::slotClusterConnect(){
 }
 
 void Klog::slotClusterCloseConnection(){
-//cout << "KLog::slotClusterCloseConnection" << endl;
+//qDebug() << "KLog::slotClusterCloseConnection" << endl;
     if (!dxClusterConnected)
         return; // If we are not we can't close any conection
     socket->close();
@@ -4124,7 +4124,7 @@ void Klog::slotClusterCloseConnection(){
 }
 
 void Klog::slotClusterSendToServer(){
-//cout << "KLog::slotClusterSendToServer" << endl;
+//qDebug() << "KLog::slotClusterSendToServer" << endl;
     if (!dxClusterConnected)
         return; // If we are not connected we cannot send any text to the server
     if ( ClusterkLineEditInPut->text().length() < 1 ) {
@@ -4144,7 +4144,7 @@ void Klog::slotClusterSocketReadyRead(){
         dxClusterString =  socket->readLine();
         // changed this to trimmed from simplfied() so the output string is easier to read as a spot
         dxClusterString = dxClusterString.trimmed();
-//cout << "KLog::slotClusterSocketReadyRead: " << dxClusterString << endl;
+//qDebug() << "KLog::slotClusterSocketReadyRead: " << dxClusterString << endl;
         QStringList tokens = dxClusterString.split(" ", QString::SkipEmptyParts);
         //QStringList tokens = QStringList::split( ' ', dxClusterString );
 
@@ -4306,7 +4306,7 @@ if (	(!dxClusterConfirmedSpots) && (needToWorkFromCluster(tokens[4],adif.freq2In
 }
 
 void Klog::slotClusterSocketConnected(){
-//cout << "KLog::slotClusterSocketConnected" << endl;
+//qDebug() << "KLog::slotClusterSocketConnected" << endl;
     dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterTreeWidget, i18n("Connected to server"), defaultColor);
     dxClusterConnected = true;
 
@@ -4323,19 +4323,19 @@ void Klog::slotClusterSocketConnected(){
 }
 
 void Klog::slotClusterSocketConnectionClosed(){
-//cout << "KLog::slotClusterSocketConnectionClosed" << endl;
+//qDebug() << "KLog::slotClusterSocketConnectionClosed" << endl;
     dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterTreeWidget, i18n("Connection closed by the server"), defaultColor);
     dxClusterConnected = false;
 }
 
 void Klog::slotClusterSocketClosed(){
-//cout << "KLog::slotClusterSocketCluster" << endl;
+//qDebug() << "KLog::slotClusterSocketCluster" << endl;
     dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterTreeWidget, i18n("Connection closed"), defaultColor );
     dxClusterConnected = false;
 }
 
 void Klog::slotClusterSocketError( int e ){
-//cout << "KLog::slotClusterSocketError" << endl;
+//qDebug() << "KLog::slotClusterSocketError" << endl;
 //QSocket::ErrConnectionRefused - if the connection was refused
 //QSocket::ErrHostNotFound - if the host was not found
 //QSocket::ErrSocketRead - if a read from the socket failed
@@ -4388,14 +4388,14 @@ void Klog::slotClusterSocketError( int e ){
 }
 
 void Klog::slotClusterClearInputLine(){
-//cout << "KLog::slotClusterClearInputLine" << endl;
+//qDebug() << "KLog::slotClusterClearInputLine" << endl;
     ClusterkLineEditInPut->setText( "" );
 }
 
 
 int Klog::needToWorkFromCluster(const QString &tqrz, const int tband){
 // 0 confirmed, 1 worked, 2 needed, 3 new one, -1 error
-//cout << "KLog::needToWorkFromCluster: (" << tqrz << "/" << QString::number(tband) << ")"<< endl;
+//qDebug() << "KLog::needToWorkFromCluster: (" << tqrz << "/" << QString::number(tband) << ")"<< endl;
     if (tband == -1){ // If the spot's band is not supported by Klog, we can't say if worked B4
         return -1;
     }
