@@ -250,7 +250,7 @@ QString Klog::getThisQSODXLocator (){
     // We read the DX QRZ and get a default locator from it.
     if (locator.isValidLocator((locatorLineEdit->text()).toUpper())) { //User's locator
         return (locatorLineEdit->text()).toUpper();
-    }else{
+    } else {
         if (locator.isValidLocator(locator.getLocator((world.getEntByNumb(enti)).getLon(),(world.getEntByNumb(enti)).getLat()))   ){
             return locator.getLocator((world.getEntByNumb(enti)).getLon(),(world.getEntByNumb(enti)).getLat());
         }
@@ -264,17 +264,15 @@ int Klog::getEntityFromCall(){ // We return the Entity number from the QRZ box c
 }
 
 void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
-    //qDebug() << "KLog::slotQrzChanged";
     qrzLineEdit->setText(((qrzLineEdit->text())).toUpper());
     callLen = (qrzLineEdit->text()).length();
 
-//    if ((callLen == 0) && (callLen<callLenPrev)){ // We are deleting...
-    if ((callLen == 0) ){ //TODO: Maybe the above check of lenght is not really needed (20090926-EA4TV)
+    if (callLen == 0){ //TODO: Maybe the above check of length is not really needed (20090926-EA4TV)
         callLenPrev = callLen; // just to avoid a no end loop
         slotCancelSearchButton();
         slotClearBtn();
         return;
-    } else if ((callLen !=0) && (!modify)){ // Updating the searchQrzklineEdit if we are not modifying a QSO.
+    } else if((callLen != 0) && (!modify)){ // Updating the searchQrzklineEdit if we are not modifying a QSO.
         enti = getEntityFromCall();
         if (enti>0){
             if (completeWithPrevious){ // If configured to use this feature
@@ -282,22 +280,15 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
             }
             if (entiBak == enti){
                 callLenPrev = callLen;
-                //showWhere(entiBak);
-                return; // We do not need to do nothing except to
-                    // update the callen
-                    // We do not have to update the awards, ...
-            }else{
-            entiBak = enti;
-            // Only if we detect the entity we look for a previous qso
-            // Just copying the string to the search box we will search for previously worked QSOs
+            } else {
+                entiBak = enti;
+                // Only if we detect the entity we look for a previous qso
+                // Just copying the string to the search box we will search for previously worked QSOs
                 searchQrzkLineEdit->setText((qrzLineEdit->text()).toUpper());
             }
-        }else{ //Enti = 0 so no Entity has been located...
         }
     }
-
     // The next 3 were called with entiBak
-
     prepareAwardComboBox(enti);
     showWhere(enti);
     callLenPrev = callLen;
@@ -1397,7 +1388,7 @@ void Klog::toEditQso(){
         (QSLSentdateEdit)->setDate(qso.getQslSenDate());
     }else{
         (QSLSentdateEdit)->setEnabled(false);
-	(QSLSentdateEdit)->setDate(QDate::currentDate());
+    (QSLSentdateEdit)->setDate(QDate::currentDate());
     }
     // If we have received the QSL
     if (QSLReccheckBox->isChecked()){
@@ -1406,7 +1397,7 @@ void Klog::toEditQso(){
         (QSLRecdateEdit)->setDate(qslRec);
     }else{
         (QSLRecdateEdit)->setEnabled(false);
-	(QSLRecdateEdit)->setDate(QDate::currentDate());
+    (QSLRecdateEdit)->setDate(QDate::currentDate());
     }
     //Now the QSl info information
         QSLcomboBox->setItemText(0, qso.getQslVia());
@@ -2386,14 +2377,12 @@ QString Klog::getMyLocator() const{
 }
 
 void Klog::showWhere(const int enti){
-
 //cout << "KLog::showWhere: " << QString::number(enti) << endl;
 //	if ((enti != 0)&&(enti != -1)){
     if (enti >0){
         entityTextLabel->setText((world.getEntByNumb(enti)).getEntity());
         prxTextLabel->setText((world.getEntByNumb(enti)).getPfx());
         continentTextLabel->setText((world.getEntByNumb(enti)).getContinent());
-
         cqLCDNumber->display(world.getCQzFromEntity(enti));
         ituLCDNumber->display(world.getITUzFromEntity(enti));
 
@@ -2407,15 +2396,11 @@ void Klog::showWhere(const int enti){
         }else{
             Klog::distance = locator.getDistanceKilometres(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), (world.getEntByNumb(enti)).getLon(), (world.getEntByNumb(enti)).getLat());
             beam = locator.getBeam(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), (world.getEntByNumb(enti)).getLon(), (world.getEntByNumb(enti)).getLat());
-
-
         }
         showDistancesAndBeam(distance, beam);
         entityState(enti);
         fillEntityBandState(enti);
-
     }else{ // This is what happens if we do not know the Entity
-
         clearEntityBox();
     }
 }
@@ -3419,10 +3404,9 @@ qDebug() << "KLog::slotSearchButton";
         }
     }
     enti = world.findEntity(qrz);
-//	if (enti!=0){
-    if (enti>0){
-        entityState(enti);
-    }
+        if (enti>0){
+            entityState(enti);
+        }
     }
 
 }
@@ -4144,7 +4128,9 @@ void Klog::slotClusterSocketReadyRead(){
         dxClusterString =  socket->readLine();
         // changed this to trimmed from simplfied() so the output string is easier to read as a spot
         dxClusterString = dxClusterString.trimmed();
-//qDebug() << "KLog::slotClusterSocketReadyRead: " << dxClusterString << endl;
+        // Put here to check for callsigns that crash klog. To do with the QString ASSERT error.
+        qDebug() << "KLog::slotClusterSocketReadyRead: " << dxClusterString;
+
         QStringList tokens = dxClusterString.split(" ", QString::SkipEmptyParts);
         //QStringList tokens = QStringList::split( ' ', dxClusterString );
 

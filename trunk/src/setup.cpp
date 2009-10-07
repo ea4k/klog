@@ -23,7 +23,8 @@
 *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA  *
 *****************************************************************************/
 
-#include <klocale.h>
+#include <KDE/KLocale>
+#include <KDE/KIcon>
 #include <QDebug>
 //#include <ostream.h>
 #include "setup.h"
@@ -42,9 +43,9 @@ Setup::Setup (QDialog * parent):QDialog (parent)
   fileName = "";
 
   searchFilekPushButton->setIcon(KIcon("document-open"));
-  
+
  // connect(searchFilekPushButton, SIGNAL(clicked()), this, SLOT(slotFileNameClicked()));
-  
+
   ///////////////////////////////////////////////////////////////////////////////
   // Modifications by kike
   // 25-03-2004
@@ -185,10 +186,9 @@ Setup::readConf ()
                   if ((*it) == (*ite))
                 {
                   QMessageBox::about (this,
-                              i18n ("KLog Warning!"),
-                              i18n
-                              ("Prefix from - %1 - the award: - %2 - is repeated!\n",
-                               "KLog can only manage one award per prefix.\nThis award will not be included\nCheck your klogrc file and/or the award file and fix the problem.").
+                              i18n("KLog Warning!"),
+                              i18n("Prefix from - %1 - the award: - %2 - is repeated!\nKLog can only manage one award per prefix.\nThis award will not be included\n" \
+                                   "Check your klogrc file and/or the award file and fix the problem.").
                               arg (*it).arg (award.
                                      getAwardName
                                      ()));
@@ -811,7 +811,7 @@ Setup::slotFileNameClicked (){
                            klogDir,
                            i18n
                            ("ADIF files (*.adi)"));
-			   
+
   if (!fileName.isEmpty ())
     {
       filenamekLineEdit->setText (fileName);
