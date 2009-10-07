@@ -384,7 +384,7 @@ void Klog::slotClearBtn(){
     Klog::callLenPrev = 0;
     Klog::callLenFound = 0;
     Klog::lastDelete = false;
-    if   ((qrzLineEdit->text()).length() < 1){ // A double clicking of this button shall erase ALL
+    if  ((qrzLineEdit->text()).length() < 1){ // A double clicking of this button shall erase ALL
         operatorLineEdit->clear();
         stationCallsignLineEdit->clear();
     }
@@ -1589,7 +1589,6 @@ void Klog::slotQsoSelectedForEdit(QTreeWidgetItem *item, int column){
     qDebug() << "KLog::slotQsoSelectedForEdit";
     if (item){
         slotClearBtn();
-
         Klog::j = (item->text(0)).toInt(); // j is the QSO number from the loglist
         qso = getByNumber(Klog::j);
         toEditQso();
@@ -3503,8 +3502,11 @@ void  Klog::slotCancelSearchButton(){
 void Klog::slotQsoSearchSelectedForEdit( QTreeWidgetItem * item, int){
 //cout << "KLog::slotQsoSearchSelectedForEdit" << endl;
     if (item){
-        slotClearBtn();
-        qso = getByNumber((item->text(7)).toInt());
+        int number = (item->text(7)).toInt();
+        // Removing this fixed the double click search issue. It can also be fixed by saving the item->number
+        // before running the slot below. When running the slot below though it clears your search.
+        //slotClearBtn();
+        qso = getByNumber(number);
         toEditQso();
         okBtn->setText(i18n("Modify"));
         clearBtn->setText(i18n("Cancel"));
