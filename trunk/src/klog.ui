@@ -10,8 +10,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>970</width>
-    <height>722</height>
+    <width>968</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -2568,7 +2568,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>972</width>
+     <width>968</width>
      <height>32</height>
     </rect>
    </property>
