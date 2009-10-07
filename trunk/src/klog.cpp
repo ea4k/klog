@@ -282,9 +282,7 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
             }
             if (entiBak == enti){
                 callLenPrev = callLen;
-
                 //showWhere(entiBak);
-
                 return; // We do not need to do nothing except to
                     // update the callen
                     // We do not have to update the awards, ...
@@ -416,13 +414,12 @@ void Klog::slotClearBtn(){
     qthkLineEdit->clear();
     // operatorLineEdit->clear();
     namekLineEdit->clear();
-    //TODO: This date is not valid, it is out of range!
 
-    qslSen = QDate::fromString("0000-00-00",Qt::ISODate);
+    qslSen = QDate::currentDate();
     (QSLSentdateEdit)->setDate(qslSen);
     (QSLSentdateEdit)->setEnabled(false);
-    //TODO: This date is not valid, it is out of range!
-    qslRec = QDate::fromString("0000-00-00",Qt::ISODate);
+
+    qslRec = QDate::currentDate();
     (QSLRecdateEdit)->setDate(qslRec);
     (QSLRecdateEdit)->setEnabled(false);
     qslVialineEdit->setDisabled(true); // Next is the QSL info
@@ -1400,15 +1397,16 @@ void Klog::toEditQso(){
         (QSLSentdateEdit)->setDate(qso.getQslSenDate());
     }else{
         (QSLSentdateEdit)->setEnabled(false);
+	(QSLSentdateEdit)->setDate(QDate::currentDate());
     }
     // If we have received the QSL
     if (QSLReccheckBox->isChecked()){
         (QSLRecdateEdit)->setEnabled(true);
         qslRec =  qso.getQslRecDate(); //We need the qslRec in slotQslRecvBoxChanged
         (QSLRecdateEdit)->setDate(qslRec);
-
     }else{
         (QSLRecdateEdit)->setEnabled(false);
+	(QSLRecdateEdit)->setDate(QDate::currentDate());
     }
     //Now the QSl info information
         QSLcomboBox->setItemText(0, qso.getQslVia());
@@ -2424,7 +2422,8 @@ void Klog::showWhere(const int enti){
 
 void Klog::fillEntityBandState(const int enti){
 // Reads if the entity is worked/confirmed and show it
-//cout << "KLog::fillEntityBandState: " << QString::number(enti) << endl;
+qDebug() << "KLog::fillEntityBandState: " << QString::number(enti) << endl;
+
 
     QPalette confirmedPalette (confirmedColor, QPalette::Window);
     QPalette workedPalette (workedColor, QPalette::Window);

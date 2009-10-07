@@ -49,6 +49,7 @@ Qso::Qso(const QString& tqrz, int tnumb, QString& tmode){
   dxcc = 0;
   contest_id="";
   station_callsign="";
+  dateTime = QDateTime::fromString("00000000000000", "yyyyMMddHHmmss");
 }
 
 
@@ -75,6 +76,7 @@ Qso::Qso(const int tnumb, const QString& tqrz, const int trstrx, const int trstt
   srx_string="";
   contest_id="";
   station_callsign="";
+  dateTime = QDateTime::fromString("00000000000000", "yyyyMMddHHmmss");
 }
 
 Qso::Qso(const int tnumb, const QDateTime tdateTime, const QString& tqrz, const int trstrx, const int trsttx, const QString& tband, const QString& tmode, const QString& tpower, const QString& tcomment)
@@ -922,6 +924,7 @@ void Qso::clearQso(){
         arrl_sect="";
         msshower="";
         my_city="";
+	dateTime = QDateTime::fromString("00000000000000", "yyyyMMddHHmmss");
 }
 
 QString Qso::checkisNotAdif(const QString& tword){
