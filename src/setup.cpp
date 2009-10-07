@@ -40,7 +40,6 @@ Setup::Setup (QDialog * parent):QDialog (parent)
       dirExist = d1.mkdir (klogDir);
     }
   dirExist = QDir::setCurrent (klogDir);
-  fileName = "";
 
   searchFilekPushButton->setIcon(KIcon("document-open"));
 
@@ -487,8 +486,7 @@ Setup::readConf ()
         }
           else if (adifTab == "LOGFILENAME")
         {
-          fileName = theData;
-          filenamekLineEdit->setText (fileName);
+          filenamekLineEdit->setText(theData);
         }
           else if (adifTab == "HAMLIB")
         {
@@ -757,11 +755,10 @@ Setup::writeConf ()
     {
       tmp = "false";
     }
-      stream << "OpenLastFile=" + tmp << endl;
-//qDebug() << "FILENAME = " << fileName << filenamekLineEdit->text();
-      if (fileName != "")
+    stream << "OpenLastFile=" + tmp << endl;
+       if (filenamekLineEdit->text() != "")
           stream << "LogFileName=" + filenamekLineEdit->text () << endl;
-      if (checkBoxProgressDialog->isChecked ())
+       if (checkBoxProgressDialog->isChecked ())
     {
       tmp = "true";
     }
@@ -816,17 +813,6 @@ Setup::slotFileNameClicked (){
     {
       filenamekLineEdit->setText (fileName);
     }
-
-/*  QFileDialog fileOpenDialog(this, i18n("Select the file"), TRUE);
-  fileOpenDialog.setFilter(i18n("ADIF files (*.adi *.ADI)"));
-  fileOpenDialog.setDir(klogDir);
-  if (fileOpenDialog.exec() == QDialog::Accepted){
-    fileName=fileOpenDialog.selectedFile();
-    filenamekLineEdit->setText(fileName);
-
-  }
-  else
-    return;*/
 }
 
 
@@ -860,15 +846,6 @@ Setup::slotSearchAwardFilekPushButtonClicked ()
     {
       awardFilenamekLineEdit->setText (awardFileName);
     }
-
-/*	Q3FileDialog fileOpenDialog(this, i18n("Open a file"), TRUE);
-    fileOpenDialog.setFilter(i18n("Award files (*.awa *.AWA)"));
-    fileOpenDialog.setDir(klogDir);
-    if (fileOpenDialog.exec() == QDialog::Accepted)
-        awardFileName=fileOpenDialog.selectedFile();
-    else
-        return;
-        awardFilenamekLineEdit->setText(awardFileName);*/
 }
 
 

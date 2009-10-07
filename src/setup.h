@@ -95,7 +95,6 @@ class Setup : public QDialog, public Ui::setup {
     void writeConf();
     bool dirExist;
     QColor giveColor(QColor c);
-    QString fileName;
     QString awardFileName;
     QString klogDir;
     QString DXClusterServerToUse;
