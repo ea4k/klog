@@ -24,7 +24,7 @@
 *****************************************************************************/
 
 #include <klocale.h>
-//#include <kdebug.h>
+#include <QDebug>
 //#include <ostream.h>
 #include "setup.h"
 
@@ -754,8 +754,9 @@ Setup::writeConf ()
       tmp = "false";
     }
       stream << "OpenLastFile=" + tmp << endl;
+qDebug() << "FILENAME = " << fileName << filenamekLineEdit->text();
       if (fileName != "")
-    stream << "LogFileName=" + filenamekLineEdit->text () << endl;
+          stream << "LogFileName=" + filenamekLineEdit->text () << endl;
       if (checkBoxProgressDialog->isChecked ())
     {
       tmp = "true";
@@ -819,7 +820,6 @@ Setup::slotFileNameClicked ()
     {
       filenamekLineEdit->setText (fileName);
     }
-
 
 /*  QFileDialog fileOpenDialog(this, i18n("Select the file"), TRUE);
   fileOpenDialog.setFilter(i18n("ADIF files (*.adi *.ADI)"));
