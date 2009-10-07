@@ -40,6 +40,11 @@ Setup::Setup (QDialog * parent):QDialog (parent)
     }
   dirExist = QDir::setCurrent (klogDir);
   fileName = "";
+
+  searchFilekPushButton->setIcon(KIcon("document-open"));
+  
+ // connect(searchFilekPushButton, SIGNAL(clicked()), this, SLOT(slotFileNameClicked()));
+  
   ///////////////////////////////////////////////////////////////////////////////
   // Modifications by kike
   // 25-03-2004
@@ -180,8 +185,8 @@ Setup::readConf ()
                   if ((*it) == (*ite))
                 {
                   QMessageBox::about (this,
-                              tr ("KLog Warning!"),
-                              tr
+                              i18n ("KLog Warning!"),
+                              i18n
                               ("Prefix from - %1 - the award: - %2 - is repeated!\n",
                                "KLog can only manage one award per prefix.\nThis award will not be included\nCheck your klogrc file and/or the award file and fix the problem.").
                               arg (*it).arg (award.
@@ -202,8 +207,8 @@ Setup::readConf ()
             }
           else
             {
-              QMessageBox::about (this, tr ("KLog Warning!"),
-                      tr
+              QMessageBox::about (this, i18n ("KLog Warning!"),
+                      i18n
                       ("KLog can not open the file: %1 !\n"
                        "That award will not be read.\nCheck your klogrc file and fix the problem.").
                       arg (theData));
@@ -744,8 +749,7 @@ Setup::writeConf ()
 // (defaultkColorCombo->color()).name() << endl;
       stream << "Power=" +
     QString::number (powerkIntNumInput->value ()) << endl;
-      if (lastFilecheckBox->isChecked ()
-      && (filenamekLineEdit->text () != ""))
+      if (lastFilecheckBox->isChecked () && (filenamekLineEdit->text () != ""))
     {
       tmp = "true";
     }
@@ -754,7 +758,7 @@ Setup::writeConf ()
       tmp = "false";
     }
       stream << "OpenLastFile=" + tmp << endl;
-qDebug() << "FILENAME = " << fileName << filenamekLineEdit->text();
+//qDebug() << "FILENAME = " << fileName << filenamekLineEdit->text();
       if (fileName != "")
           stream << "LogFileName=" + filenamekLineEdit->text () << endl;
       if (checkBoxProgressDialog->isChecked ())
@@ -793,14 +797,6 @@ qDebug() << "FILENAME = " << fileName << filenamekLineEdit->text();
       stream << "Bauds=" << comboBoxTrvSpeedList->currentText () << endl;
       stream << "HamlibInterval=" << QString::number (hamlibIntervalspinBox->
                               value ()) << endl;
-      ///////////////////////////////////////////////////////////////////////////////
-      // Modifications by kike
-      // 25-03-2004
-      //////////////////////////////////////////////////////////////////////////////
-
-      //////////////////////////////////////////////////////////////////////////////
-      // End of modifications
-      //////////////////////////////////////////////////////////////////////////////
 
       file.close ();
     }
@@ -808,14 +804,14 @@ qDebug() << "FILENAME = " << fileName << filenamekLineEdit->text();
 }
 
 void
-Setup::slotFileNameClicked ()
-{
+Setup::slotFileNameClicked (){
+//    qDebug() << "Setup::slotFileNameClicked: ";
   QString fileName = QFileDialog::getOpenFileName (this,
                            i18n ("Select a file"),
                            klogDir,
                            i18n
                            ("ADIF files (*.adi)"));
-
+			   
   if (!fileName.isEmpty ())
     {
       filenamekLineEdit->setText (fileName);
@@ -931,7 +927,7 @@ Setup::slotAddButtonClicked ()
       else
     {
       QMessageBox::about (this, i18n ("KLog Warning!"),
-                  tr ("KLog can not open the file:-%1!\n"
+                  i18n ("KLog can not open the file:-%1!\n"
                   "That award will not be read.\nCheck your klogrc file and fix the problem.").
                   arg (awardFileName));
     }
