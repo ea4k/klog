@@ -99,16 +99,17 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     //connect(helpIndexAction, SIGNAL(triggered()), this, SLOT(helpIndex()));
     connect(iotaIntSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotIOTAChanged()));
     connect(iotaComboBox, SIGNAL(activated(QString)), this, SLOT(slotIOTAChanged()));
-    connect(awardsComboBox, SIGNAL(textChanged(QString)), this, SLOT(slotLocalAwardChanged()));
+//    connect(awardsComboBox, SIGNAL(textChanged(QString)), this, SLOT(slotLocalAwardChanged()));
     connect(toolsMerge_QSO_dataAction, SIGNAL(triggered()), this, SLOT(slotcompleteThePreviouslyWorked()));
     connect(ActionCabrilloImport, SIGNAL(triggered()), this, SLOT(slotImportCabrillo()));
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQrzChanged()));
     connect(logTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSelectedForEdit(QTreeWidgetItem *, int)));
+    connect(logTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoRightButtonFromLog(QTreeWidgetItem *, int)));
     connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));
     connect(dxclusterTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QTreeWidgetItem *, int)));
     connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
-    connect(ActionQslRec, SIGNAL(triggered()), this, SLOT(slotQSLRec));
-    connect(ActionQsoSen, SIGNAL(triggered()), this, SLOT(slotQSLSent));
+    connect(ActionQslRec, SIGNAL(triggered()), this, SLOT(slotQSLRec()));
+    connect(ActionQsoSen, SIGNAL(triggered()), this, SLOT(slotQSLSent()));
     
     
     
@@ -183,6 +184,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
 Klog::~Klog(){
 //qDebug() << "KLog::~KLog";
 }
+
 
 bool Klog::haveWorld(){
     //qDebug() << "KLog::haveWorld";
@@ -1467,15 +1469,33 @@ QString Klog::returnLines(const QString& tword){
 
 }
 
+void Klog::mousePressEvent(QMouseEvent *event){
+qDebug() << "KLog::mousePressEvent";
+  if (event->button() == Qt::LeftButton) {
+qDebug() << "KLog::mousePressEvent-left";    
+  }else if (event->button() == Qt::RightButton) {
+qDebug() << "KLog::mousePressEvent-right";        
+  }
+  lastPoint = event->pos();
+//  logTreeWidget
+}
+
+void Klog::mouseMoveEvent(QMouseEvent *event){}
+void Klog::mouseReleaseEvent(QMouseEvent *event){}
+
 //TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton
-// void Klog::slotQsoRightButtonFromLog(QTreeWidgetItem * item, const QPoint &p){
-// //cout << "KLog::slotQsoRightButtonFromLog" << endl;
-// 	if (item){
-// 		Klog::j = (item->text(0)).toInt(); // j is the QSO number
-// 		showMenuRightButton(Klog::j, p);
-// 	}
-// }
-//
+void Klog::slotQsoRightButtonFromLog(QTreeWidgetItem * item, int){
+ qDebug()  << "KLog::slotQsoRightButtonFromLog";
+
+ if (QApplication::mouseButtons()==Qt::RightButton){
+   qDebug()  << "KLog::slotQsoRightButtonFromLog: right button";
+ 	if (item){
+ 		Klog::j = (item->text(0)).toInt(); // j is the QSO number
+ 		//showMenuRightButton(Klog::j, p);
+ 	}
+  }
+}
+
 // void Klog::slotQsoRightButtonFromSearch(QTreeWidgetItem * item, const QPoint &p){
 // //Maybe This could be deleted and use the previous "slotQsoRightButtonFromLog" to perform
 // // this actions...
