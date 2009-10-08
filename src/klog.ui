@@ -1282,7 +1282,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="0">
-          <widget class="KLed" name="kledColor" native="true"/>
+          <widget class="KLed" name="kledColor"/>
          </item>
          <item row="0" column="1" colspan="2">
           <widget class="QLineEdit" name="qrzLineEdit">
@@ -2569,7 +2569,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>968</width>
-     <height>32</height>
+     <height>28</height>
     </rect>
    </property>
    <property name="defaultUp">
@@ -2835,34 +2835,6 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="name" stdset="0">
     <cstring>editFindAction</cstring>
-   </property>
-  </action>
-  <action name="helpContentsAction">
-   <property name="text">
-    <string>&amp;Contents...</string>
-   </property>
-   <property name="iconText">
-    <string>Contents</string>
-   </property>
-   <property name="shortcut">
-    <string/>
-   </property>
-   <property name="name" stdset="0">
-    <cstring>helpContentsAction</cstring>
-   </property>
-  </action>
-  <action name="helpIndexAction">
-   <property name="text">
-    <string>&amp;Index...</string>
-   </property>
-   <property name="iconText">
-    <string>Index</string>
-   </property>
-   <property name="shortcut">
-    <string/>
-   </property>
-   <property name="name" stdset="0">
-    <cstring>helpIndexAction</cstring>
    </property>
   </action>
   <action name="helpAboutAction">
