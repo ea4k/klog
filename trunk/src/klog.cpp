@@ -33,12 +33,12 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     internalTimer->start( 1000 );               // emit signal every 1 second
 
     Klog::KLogVersion = "0.5";
-    Klog::editdeletePixMap = new QPixmap("editdelete.png");
-    editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
-    Klog::qslRecPixMap = new QPixmap("qslRec.png");
-    qslRecOffPixMap = new QPixmap("qslRecOff.png");
-    Klog::qslSenPixMap = new QPixmap("qslSen.png");
-    qslSenOffPixMap = new QPixmap("qslSenOff.png");
+//     Klog::editdeletePixMap = new QPixmap("editdelete.png");
+//     editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
+//     Klog::qslRecPixMap = new QPixmap("qslRec.png");
+//     qslRecOffPixMap = new QPixmap("qslRecOff.png");
+//     Klog::qslSenPixMap = new QPixmap("qslSen.png");
+//     qslSenOffPixMap = new QPixmap("qslSenOff.png");
     blackColor.setNamedColor("#000000");
     for (i = 0; i<7; i++)
         haveAllMandatoryFields[i] = false;
@@ -95,8 +95,8 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     // connect(ActionQslNeededCheck, SIGNAL(triggered()), this, SLOT(slotQslNeededCheck()));
     connect(ActionSortLog, SIGNAL(triggered()), this, SLOT(sortLog()));
     connect(addTlfLogAction, SIGNAL(triggered()), this, SLOT(slotImportTlf()));
-    connect(helpContentsAction, SIGNAL(triggered()), this, SLOT(helpContents()));
-    connect(helpIndexAction, SIGNAL(triggered()), this, SLOT(helpIndex()));
+    //connect(helpContentsAction, SIGNAL(triggered()), this, SLOT(helpContents()));
+    //connect(helpIndexAction, SIGNAL(triggered()), this, SLOT(helpIndex()));
     connect(iotaIntSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotIOTAChanged()));
     connect(iotaComboBox, SIGNAL(activated(QString)), this, SLOT(slotIOTAChanged()));
     connect(awardsComboBox, SIGNAL(textChanged(QString)), this, SLOT(slotLocalAwardChanged()));
@@ -107,6 +107,11 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));
     connect(dxclusterTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QTreeWidgetItem *, int)));
     connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
+    connect(ActionQslRec, SIGNAL(triggered()), this, SLOT(slotQSLRec));
+    connect(ActionQsoSen, SIGNAL(triggered()), this, SLOT(slotQSLSent));
+    
+    
+    
     klogDir = QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs
     if (!QDir::setCurrent ( klogDir )){
         QDir d1(klogDir);
@@ -677,7 +682,7 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
                 stream << " <NR_BURSTS:" << QString::number(((*it).getNRBursts())).length() << ">" << QString::number((*it).getNRBursts());
             if ( (*it).getNRPings()> 0)
                 stream << " <NR_PINGS:" << QString::number(((*it).getNRPings())).length() << ">" << QString::number((*it).getNRPings());
-            if ((*it).getSFI()!= -1)
+            if ((*it).getSFI()> 0)
                 stream << " <SFI:" << QString::number(((*it).getSFI())).length() << ">" << QString::number((*it).getSFI());
             if (((*it).getMSShower()).length()>= 2)
                 stream << " <MS_SHOWER:" <<((*it).getMSShower()).length() << ">" << (*it).getMSShower();
@@ -1361,6 +1366,8 @@ void Klog::toEditQso(){
 
     if ((qso.getQth()).length() >=2)
         qthkLineEdit->setText(qso.getQth());
+    else
+	qthkLineEdit->clear();
     if ((qso.getOperator()).length() >=3){
         operatorLineEdit->setText(qso.getOperator());
     }else{
@@ -1375,6 +1382,8 @@ void Klog::toEditQso(){
 
     if ((qso.getName()).length() >=2)
         namekLineEdit->setText(qso.getName());
+    else
+	namekLineEdit->clear();
     dxLocator = qso.getLocator();
 
     locatorLineEdit->setText(dxLocator);
@@ -1798,7 +1807,7 @@ void Klog::fileOpen(){
 
 
 void Klog::slotQslSentBoxChanged(){
-//cout << "KLog::SlotQslSentBoxChanged" << endl;
+  qDebug() << "KLog::slotQslSentBoxChanged";
     if (enti == 0)
         return;
     if (QSLSentcheckBox->isChecked()){
@@ -3507,6 +3516,7 @@ qDebug() << "KLog::slotQsoSearchSelectedForEdit" << endl;
 
 // We are going to delete a QSO from the log
 void Klog::slotQsoDelete(){
+qDebug() << "KLog::slotQsoDelete" << endl;
     if ((!modify) && (Klog::j == 0)){
         return;
     } else {
@@ -3649,7 +3659,7 @@ QString Klog::getNumberString(const int intNumber){
 }
 
 void Klog::slotQSLRec(){
-//qDebug() << "KLog::slotQSLRec" << endl;
+qDebug() << "KLog::slotQSLRec" << endl;
 // 	wasConfirmed = qso.gotTheQSL(); // Was this QSO previously confirmed
 // 	if (!wasConfirmed){
 // 		confirmed++; // checked
@@ -3681,7 +3691,7 @@ void Klog::slotQSLRec(){
 
 void Klog::slotQSLSent(){
 //We have sent the QSL
-//qDebug() << "KLog::slotQSLSent" << endl;
+qDebug() << "KLog::slotQSLSent" << endl;
     if (!qso.sentTheQSL()){
         Klog::j = qso.getNumb();
         qslSen = QDate::currentDate();
@@ -4014,7 +4024,7 @@ QString headerLeft = i18n("Printing date: ") + (QDate::currentDate()).toString(Q
 void Klog::sortLog(){
 // I will read the Log from the UI and sorting using the numbers.
 //TODO: This sorting is highly inefficient. It should be rewritten and optimized
-//qDebug() << "KLog::sortLog" << endl;
+qDebug() << "KLog::sortLog" << endl;
 
   if (logbook.isEmpty()){	// if no QSOs, we do not show the log ;-)
     return;
@@ -4031,26 +4041,26 @@ void Klog::sortLog(){
   QProgressDialog progress(i18n("Sorting the log..."), i18n("Abort sorting"), 0, Klog::number);
 
 //TODO: Write the sorting function: Deleted to ease the QT4 migration
-//   while (*itl){
-//   //for ( ; itl.current(); ++itl ){
-//     for ( it = logbook.begin(); it != logbook.end(); ++it ){  //We run the log...
-//       if ( (*it).getNumb() == (itl.current()->text(0)).toInt() ){
-//         progresStep++;
-//         if (showProgressDialog){
-//           progress.setValue( progresStep );
-//           qApp->processEvents();
-//         }
-//         tQso = (*it);
-//         if ( progress.wasCanceled())
-//           return;
-//         oLogbook.append(tQso);
-//       }
-//         if ( progress.wasCanceled())
-//           return;
-//
-//     }
-//   itl++;
-//   }
+//    while (*itl){
+//    //for ( ; itl.current(); ++itl ){
+//      for ( it = logbook.begin(); it != logbook.end(); ++it ){  //We run the log...
+//        if ( (*it).getNumb() == (itl.current()->text(0)).toInt() ){
+//          progresStep++;
+//          if (showProgressDialog){
+//            progress.setValue( progresStep );
+//            qApp->processEvents();
+//          }
+//          tQso = (*it);
+//          if ( progress.wasCanceled())
+//            return;
+//          oLogbook.append(tQso);
+//        }
+//          if ( progress.wasCanceled())
+//            return;
+// 
+//      }
+//    itl++;
+//    }
   logbook = oLogbook;
 }
 
