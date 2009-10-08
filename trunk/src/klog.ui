@@ -10,8 +10,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>968</width>
-    <height>720</height>
+    <width>966</width>
+    <height>718</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -49,7 +49,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="logdisplayTab">
        <attribute name="title">
@@ -120,15 +120,6 @@
         <string>Cluster</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0" colspan="3">
-         <widget class="QTreeWidget" name="dxclusterTreeWidget">
-          <column>
-           <property name="text">
-            <string>KLog DX Cluster</string>
-           </property>
-          </column>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLineEdit" name="ClusterkLineEditInPut"/>
         </item>
@@ -145,6 +136,9 @@
            <string>Clear</string>
           </property>
          </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QListWidget" name="dxclusterListWidget"/>
         </item>
        </layout>
       </widget>
@@ -1282,7 +1276,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="0">
-          <widget class="KLed" name="kledColor"/>
+          <widget class="KLed" name="kledColor" native="true"/>
          </item>
          <item row="0" column="1" colspan="2">
           <widget class="QLineEdit" name="qrzLineEdit">
@@ -2568,8 +2562,8 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>968</width>
-     <height>28</height>
+     <width>966</width>
+     <height>23</height>
     </rect>
    </property>
    <property name="defaultUp">

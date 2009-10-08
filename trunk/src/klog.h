@@ -34,6 +34,7 @@
 #include <QList>
 #include <QPixmap>
 #include <QTextStream>
+#include <QListWidget>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QFile>
@@ -169,7 +170,7 @@ class Klog : public QMainWindow, private Ui::klog
     void slotQsoSelected (QTreeWidgetItem* item); // Just to see qso data
 
 //TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton
- 	void slotQsoRightButtonFromLog(QTreeWidgetItem * item, int);
+// 	void slotQsoRightButtonFromLog(Q3ListViewItem * item, const QPoint &p);
 // 	void slotQsoRightButtonFromSearch(Q3ListViewItem * item, const QPoint &p);
     void slotModifyBtn();
     void showLogList();   // Shows the log in the botton widget
@@ -205,18 +206,14 @@ class Klog : public QMainWindow, private Ui::klog
     void slotClusterSocketError( int e );
     void slotClusterConnect();
     void slotClusterClearInputLine();
-    void slotClusterSpotToLog(QTreeWidgetItem* item, int);
-    void slotClusterSpotCheck(QTreeWidgetItem* item);
+    void slotClusterSpotToLog(QListWidgetItem* item, int);
+    void slotClusterSpotCheck(QListWidgetItem* item);
 //    void slotClusterSetup();
 //    void slotKlogSetup();
     void slotBugReport();
     void slotModeChanged (int i);
     void slotBandChanged ();
     void fillDXCCList();	// Fill the KLog tab
-  protected:
-    virtual void mousePressEvent(QMouseEvent *event);
-    virtual void mouseMoveEvent(QMouseEvent *event);
-    virtual void mouseReleaseEvent(QMouseEvent *event);
 
   private:
 
@@ -442,13 +439,11 @@ class Klog : public QMainWindow, private Ui::klog
     QAction *recQSOAct;
     QAction *senQSOAct;
     QActionGroup *qsoActionsGroup;
-    
-    QPoint lastPoint;
 };
 
-class dxClusterSpotItem : public QTreeWidgetItem {
+class dxClusterSpotItem : public QListWidgetItem {
 public:
-dxClusterSpotItem( QTreeWidget* parent, const QString& spot, const QColor& color );
+dxClusterSpotItem( QListWidget* parent, const QString& spot, const QColor& color );
 ~dxClusterSpotItem();
 virtual void paintCell( QPainter *p, const QPalette &cg,
 int column, int width, int alignment );
