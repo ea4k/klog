@@ -169,7 +169,7 @@ class Klog : public QMainWindow, private Ui::klog
     void slotQsoSelected (QTreeWidgetItem* item); // Just to see qso data
 
 //TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton
-// 	void slotQsoRightButtonFromLog(Q3ListViewItem * item, const QPoint &p);
+ 	void slotQsoRightButtonFromLog(QTreeWidgetItem * item, int);
 // 	void slotQsoRightButtonFromSearch(Q3ListViewItem * item, const QPoint &p);
     void slotModifyBtn();
     void showLogList();   // Shows the log in the botton widget
@@ -213,6 +213,10 @@ class Klog : public QMainWindow, private Ui::klog
     void slotModeChanged (int i);
     void slotBandChanged ();
     void fillDXCCList();	// Fill the KLog tab
+  protected:
+    virtual void mousePressEvent(QMouseEvent *event);
+    virtual void mouseMoveEvent(QMouseEvent *event);
+    virtual void mouseReleaseEvent(QMouseEvent *event);
 
   private:
 
@@ -438,6 +442,8 @@ class Klog : public QMainWindow, private Ui::klog
     QAction *recQSOAct;
     QAction *senQSOAct;
     QActionGroup *qsoActionsGroup;
+    
+    QPoint lastPoint;
 };
 
 class dxClusterSpotItem : public QTreeWidgetItem {
