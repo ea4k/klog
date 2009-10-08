@@ -99,17 +99,16 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     //connect(helpIndexAction, SIGNAL(triggered()), this, SLOT(helpIndex()));
     connect(iotaIntSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotIOTAChanged()));
     connect(iotaComboBox, SIGNAL(activated(QString)), this, SLOT(slotIOTAChanged()));
-//    connect(awardsComboBox, SIGNAL(textChanged(QString)), this, SLOT(slotLocalAwardChanged()));
+    connect(awardsComboBox, SIGNAL(textChanged(QString)), this, SLOT(slotLocalAwardChanged()));
     connect(toolsMerge_QSO_dataAction, SIGNAL(triggered()), this, SLOT(slotcompleteThePreviouslyWorked()));
     connect(ActionCabrilloImport, SIGNAL(triggered()), this, SLOT(slotImportCabrillo()));
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQrzChanged()));
     connect(logTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSelectedForEdit(QTreeWidgetItem *, int)));
-    connect(logTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoRightButtonFromLog(QTreeWidgetItem *, int)));
     connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));
-    connect(dxclusterTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QTreeWidgetItem *, int)));
+    connect(dxclusterListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QListWidgetItem *, int)));
     connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
-    connect(ActionQslRec, SIGNAL(triggered()), this, SLOT(slotQSLRec()));
-    connect(ActionQsoSen, SIGNAL(triggered()), this, SLOT(slotQSLSent()));
+    connect(ActionQslRec, SIGNAL(triggered()), this, SLOT(slotQSLRec));
+    connect(ActionQsoSen, SIGNAL(triggered()), this, SLOT(slotQSLSent));
     
     
     
@@ -184,7 +183,6 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
 Klog::~Klog(){
 //qDebug() << "KLog::~KLog";
 }
-
 
 bool Klog::haveWorld(){
     //qDebug() << "KLog::haveWorld";
@@ -1469,33 +1467,15 @@ QString Klog::returnLines(const QString& tword){
 
 }
 
-void Klog::mousePressEvent(QMouseEvent *event){
-qDebug() << "KLog::mousePressEvent";
-  if (event->button() == Qt::LeftButton) {
-qDebug() << "KLog::mousePressEvent-left";    
-  }else if (event->button() == Qt::RightButton) {
-qDebug() << "KLog::mousePressEvent-right";        
-  }
-  lastPoint = event->pos();
-//  logTreeWidget
-}
-
-void Klog::mouseMoveEvent(QMouseEvent *event){}
-void Klog::mouseReleaseEvent(QMouseEvent *event){}
-
 //TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton
-void Klog::slotQsoRightButtonFromLog(QTreeWidgetItem * item, int){
- qDebug()  << "KLog::slotQsoRightButtonFromLog";
-
- if (QApplication::mouseButtons()==Qt::RightButton){
-   qDebug()  << "KLog::slotQsoRightButtonFromLog: right button";
- 	if (item){
- 		Klog::j = (item->text(0)).toInt(); // j is the QSO number
- 		//showMenuRightButton(Klog::j, p);
- 	}
-  }
-}
-
+// void Klog::slotQsoRightButtonFromLog(QTreeWidgetItem * item, const QPoint &p){
+// //cout << "KLog::slotQsoRightButtonFromLog" << endl;
+// 	if (item){
+// 		Klog::j = (item->text(0)).toInt(); // j is the QSO number
+// 		showMenuRightButton(Klog::j, p);
+// 	}
+// }
+//
 // void Klog::slotQsoRightButtonFromSearch(QTreeWidgetItem * item, const QPoint &p){
 // //Maybe This could be deleted and use the previous "slotQsoRightButtonFromLog" to perform
 // // this actions...
@@ -4117,9 +4097,9 @@ void Klog::slotClusterConnect(){
     connect( socket, SIGNAL(error(int)), SLOT(slotClusterSocketError(int)) );
     // connect to the server
 
-    dxclusterTreeWidget->setSortingEnabled ( false);
+    dxclusterListWidget->setSortingEnabled ( false);
     downTabs->setCurrentIndex(1); // We set the active tab to be the cluster's
-    dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterTreeWidget, i18n("Trying to connect to the server\n"), defaultColor);
+    dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, i18n("Trying to connect to the server\n"), defaultColor);
     socket->connectToHost( DXClusterServerToUse.section(':',0,0), (DXClusterServerToUse.section(':',1,1)).toInt() );
 }
 
@@ -4315,7 +4295,7 @@ if (	(!dxClusterConfirmedSpots) && (needToWorkFromCluster(tokens[4],adif.freq2In
         dxSpotColor = defaultColor;
     }
     if (dxClusterString.length()>=5){
-        dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterTreeWidget, dxClusterString, dxSpotColor);
+        dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, dxClusterString, dxSpotColor);
         dxSpotColor = defaultColor; // The color should be default by default
     }
     }
@@ -4323,7 +4303,7 @@ if (	(!dxClusterConfirmedSpots) && (needToWorkFromCluster(tokens[4],adif.freq2In
 
 void Klog::slotClusterSocketConnected(){
 //qDebug() << "KLog::slotClusterSocketConnected" << endl;
-    dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterTreeWidget, i18n("Connected to server"), defaultColor);
+    dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, i18n("Connected to server"), defaultColor);
     dxClusterConnected = true;
 
     if ( dxClusterConnected ) {
@@ -4340,13 +4320,13 @@ void Klog::slotClusterSocketConnected(){
 
 void Klog::slotClusterSocketConnectionClosed(){
 //qDebug() << "KLog::slotClusterSocketConnectionClosed" << endl;
-    dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterTreeWidget, i18n("Connection closed by the server"), defaultColor);
+    dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, i18n("Connection closed by the server"), defaultColor);
     dxClusterConnected = false;
 }
 
 void Klog::slotClusterSocketClosed(){
 //qDebug() << "KLog::slotClusterSocketCluster" << endl;
-    dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterTreeWidget, i18n("Connection closed"), defaultColor );
+    dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, i18n("Connection closed"), defaultColor );
     dxClusterConnected = false;
 }
 
@@ -4400,7 +4380,7 @@ void Klog::slotClusterSocketError( int e ){
 
     } */
 
-  dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterTreeWidget, i18n("Error number %1 occurred").arg(e), defaultColor);
+  dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, i18n("Error number %1 occurred").arg(e), defaultColor);
 }
 
 void Klog::slotClusterClearInputLine(){
@@ -4437,10 +4417,10 @@ int Klog::needToWorkFromCluster(const QString &tqrz, const int tband){
 
 // This takes a DX-spot from the DXCluster window and copies to the QSO entry box
 // when the user clicks on it.
-void Klog::slotClusterSpotToLog(QTreeWidgetItem * item, int){
+void Klog::slotClusterSpotToLog(QListWidgetItem * item, int row){
 //cout << "KLog::slotClusterSpotToLog" << endl;
     if (item)
-        dxClusterString = item->text(0);
+        dxClusterString = item->text();
     else
         return;
     slotClearBtn();
@@ -4472,10 +4452,10 @@ void Klog::slotClusterSpotToLog(QTreeWidgetItem * item, int){
     showWhere(enti);
 }
 
-void Klog::slotClusterSpotCheck(QTreeWidgetItem * item){
+void Klog::slotClusterSpotCheck(QListWidgetItem * item){
 //cout << "KLog::slotClusterSpotCheck" << endl;
   if (item)
-    dxClusterString = item->text(0);
+    dxClusterString = item->text();
   else{
     //cout << "KLog: slotClusterSpotCheck Limpiamos con clearEntityBox-1" << endl;
     clearEntityBox();
@@ -5157,14 +5137,14 @@ void Klog::slothamlibUpdateFrequency(){
 ** spots.                                                                 **
 ** It may be moved to a self .h & .cpp archives                           **
 ****************************************************************************/
-dxClusterSpotItem::dxClusterSpotItem( QTreeWidget *parent, const QString& spot, const QColor& color ) : QTreeWidgetItem( parent ){
+dxClusterSpotItem::dxClusterSpotItem( QListWidget *parent, const QString& spot, const QColor& color ) : QListWidgetItem( parent ){
 //cout << "KLog::dxClusterSpotItem - Constructor" << endl;
   spotColor = color;
-  setText(0, spot);
+  setText(spot);
   // Experimenting with fonts for the cluster
   QFont f("Helvetica");
   f.setFixedPitch(TRUE);
-  setFont(0, f);
+  setFont(f);
 }
 
 dxClusterSpotItem::~dxClusterSpotItem(){
