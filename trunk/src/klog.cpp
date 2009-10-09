@@ -109,9 +109,9 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
     connect(ActionQslRec, SIGNAL(triggered()), this, SLOT(slotQSLRec));
     connect(ActionQsoSen, SIGNAL(triggered()), this, SLOT(slotQSLSent));
-    
-    
-    
+
+
+
     klogDir = QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs
     if (!QDir::setCurrent ( klogDir )){
         QDir d1(klogDir);
@@ -827,13 +827,9 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
 //  	needToSave = false;
 }
 
-
-
-
 // This function checks the filename.extension for the ADI
 QString Klog::checkExtension(QString extension){
   //qDebug() << "KLog::checkExtension" << extension;
-//cout << "KLog::checkExtension" << endl;
     int result;
         result = extension.indexOf(".adi", -4, Qt::CaseInsensitive);
     if (result < 0)
@@ -844,8 +840,6 @@ QString Klog::checkExtension(QString extension){
 
 void Klog::addQSOToLog(){
 //qDebug() << "KLog::addQSOToLog" << QString::number(qso.getNumb()) << " / " << qso.getQrz();
-//cout << "KLog::addQSOToLog: " << QString::number(qso.getNumb()) << " / " << qso.getQrz()<< endl;
-
     Klog::needToSave = true;
     logbook.append(qso);
     enti = world.findEntity(qso.getQrz());
@@ -863,7 +857,6 @@ void Klog::addQSOToLog(){
 
 int Klog::getProgresStepForDialog(int totalSteps){
   //qDebug() << "KLog::getProgresStepForDialog";
-//cout << "KLog::getProgresStepForDialog" << endl;
     if (totalSteps <=100)
         return 2;
     else if (totalSteps <=1000)
@@ -1234,9 +1227,6 @@ void Klog::adifReadLog(const QString& tfileName){
     int totalQsos = 0; // QSOs in the log to be read
 //	bool qslViac = false;
     int progresStep = 0;
-// 	Q3ProgressDialog progress( i18n("Reading the log..."), i18n("Abort reading"), 0,
-//                           this, i18n("progress"), TRUE );
-
     QProgressDialog progress(i18n("Reading the log..."), i18n("Abort reading"), 0, totalQsos);
 
     QString progressLabel;
@@ -1367,7 +1357,7 @@ void Klog::toEditQso(){
     if ((qso.getQth()).length() >=2)
         qthkLineEdit->setText(qso.getQth());
     else
-	qthkLineEdit->clear();
+    qthkLineEdit->clear();
     if ((qso.getOperator()).length() >=3){
         operatorLineEdit->setText(qso.getOperator());
     }else{
@@ -1383,7 +1373,7 @@ void Klog::toEditQso(){
     if ((qso.getName()).length() >=2)
         namekLineEdit->setText(qso.getName());
     else
-	namekLineEdit->clear();
+    namekLineEdit->clear();
     dxLocator = qso.getLocator();
 
     locatorLineEdit->setText(dxLocator);
@@ -1720,10 +1710,8 @@ bool Klog::didISave(){
 //cout << "KLog::didISave" << endl;
     if (needToSave){
         switch( QMessageBox::information( this, i18n("Warning - Save log?"),
-                                      i18n("The log has been changed since "
-                                      "the last save."),
-                                      i18n("Save Now"), i18n("Cancel"), i18n("Continue anyway"),
-                                      0, 1 ) ) {
+                i18n("The log has been changed since the last save."),
+                i18n("Save Now"), i18n("Cancel"), i18n("Continue anyway"), 0, 1 ) ) {
             case 0:
                 fileSave();
                 return true;
@@ -1743,15 +1731,10 @@ bool Klog::didISave(){
 
 void Klog::fileExit(){
 // Check for saving if modified
-//cout << "KLog::fileExit" << endl;
     if (needToSave){
-        if(!didISave()){ // If i did not save, i cannot exit without saving
+        if(!didISave()) // If i did not save, i cannot exit without saving
             return;
-        }
-    }else{
     }
-//	QFile file( tempLogFile );
-//	tempLogFile.remove();
     close();
 }
 
@@ -1774,23 +1757,16 @@ void Klog::fileNew(){
 
 }
 
-
-
-
 void Klog::fileOpen(){
-//cout << "KLog::fileNew" << endl;
     if (needToSave){
         if(!didISave()){ // If i did not save, i cannot exit without saving
             return;
         }
     }
 
- QString logFileNameToOpen = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                 klogDir,
-                                                 i18n("ADIF files (*.adi)"));
-    if ((logFileNameToOpen.isNull() ) || (logFileNameToOpen.isEmpty())){
+    QString logFileNameToOpen = QFileDialog::getOpenFileName(this, tr("Open File"), klogDir, i18n("ADIF files (*.adi)"));
+    if ((logFileNameToOpen.isNull() ) || (logFileNameToOpen.isEmpty()))
       return;
-    }
     clearAwards();
     if(!logbook.empty()){ //If we are using a log we have to clear it
         logbook.clear();
@@ -1803,11 +1779,8 @@ void Klog::fileOpen(){
     needToSave = false;
 }
 
-
-
-
 void Klog::slotQslSentBoxChanged(){
-  qDebug() << "KLog::slotQslSentBoxChanged";
+//  qDebug() << "KLog::slotQslSentBoxChanged";
     if (enti == 0)
         return;
     if (QSLSentcheckBox->isChecked()){
@@ -1833,7 +1806,6 @@ void Klog::slotQslSentBoxChanged(){
             qso.setQslSenDateOn(qslSen);
         }
 }
-
 
 void Klog::slotQslRecvBoxChanged(){
 //cout << "KLog::slotQslRecvBoxChanged" << endl;
@@ -3357,8 +3329,7 @@ int Klog::howManyConfirmedQSO(){
     return howManyConfirmed;
 }
 void Klog::slotSearchButton(){
-qDebug() << "KLog::slotSearchButton";
-
+//qDebug() << "KLog::slotSearchButton";
     if (searching2QSL){
         slotSearchQSO2QSL();
     }else{
@@ -3396,7 +3367,10 @@ qDebug() << "KLog::slotSearchButton";
                     colorInUse = defaultColor;
                     break;
             }
-            searchBoxItem * item = new searchBoxItem(searchQsosTreeWidget, (*iter).getQrz(), (*iter).getDateTime().toString("yyyy-MM-dd"),(*iter).getDateTime().toString("hh:mm"), (*iter).getBand(), (*iter).getMode(), (*iter).isQslSent(), (*iter).isQslRec(), getNumberString((*iter).getNumb()), colorInUse );
+            searchBoxItem *item = new searchBoxItem(searchQsosTreeWidget, (*iter).getQrz(),
+                                       (*iter).getDateTime().toString("yyyy-MM-dd"),(*iter).getDateTime().toString("hh:mm"),
+                                       (*iter).getBand(), (*iter).getMode(), (*iter).isQslSent(), (*iter).isQslRec(),
+                                       getNumberString((*iter).getNumb()), colorInUse );
 
             colorInUse = defaultColor;
 
@@ -4057,7 +4031,7 @@ qDebug() << "KLog::sortLog" << endl;
 //        }
 //          if ( progress.wasCanceled())
 //            return;
-// 
+//
 //      }
 //    itl++;
 //    }
@@ -4295,7 +4269,11 @@ if (	(!dxClusterConfirmedSpots) && (needToWorkFromCluster(tokens[4],adif.freq2In
         dxSpotColor = defaultColor;
     }
     if (dxClusterString.length()>=5){
-        dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, dxClusterString, dxSpotColor);
+//        dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, dxClusterString, dxSpotColor);
+        QListWidgetItem *item = new QListWidgetItem;
+        item->setText(dxClusterString);
+        item->setFont(QFont ("Courier", 8));
+        dxclusterListWidget->insertItem(0,item);
         dxSpotColor = defaultColor; // The color should be default by default
     }
     }
