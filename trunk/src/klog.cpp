@@ -109,6 +109,10 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
     connect(ActionQslRec, SIGNAL(triggered()), this, SLOT(slotQSLRec));
     connect(ActionQsoSen, SIGNAL(triggered()), this, SLOT(slotQSLSent));
+    
+    
+     connect( searchQsosTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ),
+           this, SLOT( itemContextMenu( const QPoint& ) ) );
 
 
 
@@ -1466,32 +1470,52 @@ QString Klog::returnLines(const QString& tword){
 // 	}
 // }
 //
+
+
+
 // void Klog::slotQsoRightButtonFromSearch(QTreeWidgetItem * item, const QPoint &p){
 // //Maybe This could be deleted and use the previous "slotQsoRightButtonFromLog" to perform
 // // this actions...
-// //cout << "KLog::slotQsoRightButtonfromSearch" << endl;
+//  qDebug() << "KLog::slotQsoRightButtonFromSearch";
+
 // 	if (item){
 // 		Klog::j = (item->text(7)).toInt(); // j is the QSO number
 // 		showMenuRightButton(Klog::j, p);
 // 		slotSearchButton();  // This is for updating the Entity state after QSLing.
 // 	}
-// }
+//}
 
-void Klog::showMenuRightButton(int qqso, const QPoint &p){
-//cout << "KLog::showMenuRightButton" << endl;
+void Klog::itemContextMenu( const QPoint& pos ){
+   qDebug() << "KLog::itemContextMenu - got rightClick: ";
+  QMenu menu(this);
+  menu.setTitle("context");
+  
+  showMenuRightButtoncreateActions();
+  // añade las acciones pertinentes aquí
+  menu.addAction(delQSOAct);
+  menu.addAction(recSenQSOAct);
+  menu.addAction(recQSOAct);
+  menu.addAction(senQSOAct);
+
+  menu.exec(QCursor::pos());
+}
 
 
-// COMMENTED TO EASE THE QT4 MIGRATION
-//TODO:
-      QMessageBox msgBox;
-      msgBox.setText(i18n("KLog message:"));
-      QString str = i18n("This function (slotAddLog) has been MODIFIED to help the QT4 migration.\nIt will be restored ASAP");
-      msgBox.setInformativeText(str);
-      msgBox.setStandardButtons(QMessageBox::Ok);
-      msgBox.setDefaultButton(QMessageBox::Ok);
-      msgBox.setIcon(QMessageBox::Warning);
-      msgBox.exec();
-
+// void Klog::showMenuRightButton(int qqso, const QPoint &p){
+//   qDebug()  << "KLog::showMenuRightButton" << endl;
+// 
+// 
+// // COMMENTED TO EASE THE QT4 MIGRATION
+// //TODO:
+//       QMessageBox msgBox;
+//       msgBox.setText(i18n("KLog message:"));
+//       QString str = i18n("This function (slotAddLog) has been MODIFIED to help the QT4 migration.\nIt will be restored ASAP");
+//       msgBox.setInformativeText(str);
+//       msgBox.setStandardButtons(QMessageBox::Ok);
+//       msgBox.setDefaultButton(QMessageBox::Ok);
+//       msgBox.setIcon(QMessageBox::Warning);
+//       msgBox.exec();
+// 
 
 // 	if (qqso >= 0){
 // 		qso = getByNumber(qqso);
@@ -1530,32 +1554,41 @@ void Klog::showMenuRightButton(int qqso, const QPoint &p){
 // //		qsoMenu->insertSeparator();
 // //		qsoMenu->exec(p);
 // 	}
+//}
+
+ void Klog::showMenuRightButtoncreateActions(){
+ qDebug() << "KLog::showMenuRightButtoncreateActions";
+
+//TODO: Add the shortcut ( QAction::setShorCut()  )
+   delQSOAct = new QAction(i18n("&Delete"), this);
+     //newAct->setShortcuts(QKeySequence::New);
+   delQSOAct->setStatusTip(i18n("Delete a QSO"));
+   connect(delQSOAct, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
+
+   recSenQSOAct = new QAction(i18n("&Recv and Sent"), this);
+   //newAct->setShortcuts(QKeySequence::New);
+   recSenQSOAct->setStatusTip(i18n("QSL Recv and Sent"));
+   connect(recSenQSOAct, SIGNAL(triggered()), this, SLOT(slotQSLRecSent()));
+
+   recQSOAct = new QAction(i18n("&Recv QSL"), this);
+   //newAct->setShortcuts(QKeySequence::New);
+   recQSOAct->setStatusTip(i18n("QSL Received"));
+   connect(recQSOAct, SIGNAL(triggered()), this, SLOT(slotQSLRec()));
+
+   senQSOAct = new QAction(i18n("&Sent QSL"), this);
+   //newAct->setShortcuts(QKeySequence::New);
+   senQSOAct->setStatusTip(i18n("QSL Sent"));
+   connect(senQSOAct, SIGNAL(triggered()), this, SLOT(slotQSLSent()));
+   
+
+//
+// qsoMenu->addAction(delQSOAct);
+// qsoMenu->addAction(recSenQSOAct);
+// qsoMenu->addAction(recQSOAct);
+// qsoMenu->addAction(senQSOAct);
+   
 }
 
-// void Klog::showMenuRightButtoncreateActions(){
-// //cout << "KLog::showMenuRightButtoncreateActions" << endl;
-//
-// //TODO: Add the shortcut ( QAction::setShorCut()  )
-//   delQSOAct = new QAction(i18n("&Delete"), this);
-//     //newAct->setShortcuts(QKeySequence::New);
-//   delQSOAct->setStatusTip(i18n("Delete a QSO"));
-//   connect(delQSOAct, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
-//
-//   recSenQSOAct = new QAction(i18n("&Recv and Sent"), this);
-//   //newAct->setShortcuts(QKeySequence::New);
-//   recSenQSOAct->setStatusTip(i18n("QSL Recv and Sent"));
-//   connect(recSenQSOAct, SIGNAL(triggered()), this, SLOT(slotQSLRecSent()));
-//
-//   recQSOAct = new QAction(i18n("&Recv QSL"), this);
-//   //newAct->setShortcuts(QKeySequence::New);
-//   recQSOAct->setStatusTip(i18n("QSL Received"));
-//   connect(recQSOAct, SIGNAL(triggered()), this, SLOT(slotQSLRec()));
-//
-//   senQSOAct = new QAction(i18n("&Sent QSL"), this);
-//   //newAct->setShortcuts(QKeySequence::New);
-//   senQSOAct->setStatusTip(i18n("QSL Sent"));
-//   connect(senQSOAct, SIGNAL(triggered()), this, SLOT(slotQSLSent()));
-// }
 //
 // void Klog::showMenuRightButtoncreateMenus(){}
 // void Klog::showMenuRightButtoncontextMenuEvent(QContextMenuEvent *event){
@@ -1571,10 +1604,10 @@ void Klog::showMenuRightButton(int qqso, const QPoint &p){
 // qsoMenu->addAction(recQSOAct);
 // qsoMenu->addAction(senQSOAct);
 //
-// }
+//}
 
 void Klog::slotQsoSelectedForEdit(QTreeWidgetItem *item, int column){
-    //qDebug() << "KLog::slotQsoSelectedForEdit";
+    qDebug() << "KLog::slotQsoSelectedForEdit";
     if (item){
         slotClearBtn();
         Klog::j = (item->text(0)).toInt(); // j is the QSO number from the loglist
@@ -2388,7 +2421,7 @@ void Klog::showWhere(const int enti){
 
 void Klog::fillEntityBandState(const int enti){
 // Reads if the entity is worked/confirmed and show it
-//qDebug() << "KLog::fillEntityBandState: " << QString::number(enti) << endl;
+qDebug() << "KLog::fillEntityBandState: " << QString::number(enti) << endl;
 
 
     QPalette confirmedPalette (confirmedColor, QPalette::Window);
@@ -3329,7 +3362,7 @@ int Klog::howManyConfirmedQSO(){
     return howManyConfirmed;
 }
 void Klog::slotSearchButton(){
-//qDebug() << "KLog::slotSearchButton";
+qDebug() << "KLog::slotSearchButton";
     if (searching2QSL){
         slotSearchQSO2QSL();
     }else{
@@ -3398,7 +3431,7 @@ void Klog::slotSearchButton(){
 }
 
 void Klog::slotSearchQSO2QSL(){
-//qDebug() << "KLog::searchQSO2QSL" ;
+qDebug() << "KLog::searchQSO2QSL" ;
 //TODO: Maybe I should add a button for this action
 //TODO: After mark a QSO as sent, keep the list in the next QRZ to be QSLed
 
@@ -3469,7 +3502,7 @@ void  Klog::slotCancelSearchButton(){
 
 // The following is to select a QSO from the search box
 void Klog::slotQsoSearchSelectedForEdit( QTreeWidgetItem * item, int){
-//qDebug() << "KLog::slotQsoSearchSelectedForEdit" << endl;
+qDebug() << "KLog::slotQsoSearchSelectedForEdit" << endl;
     if (item){
         int number = (item->text(7)).toInt();
         // Removing this fixed the double click search issue. It can also be fixed by saving the item->number
@@ -3493,7 +3526,7 @@ void Klog::slotQsoSearchSelectedForEdit( QTreeWidgetItem * item, int){
 
 // We are going to delete a QSO from the log
 void Klog::slotQsoDelete(){
-//qDebug() << "KLog::slotQsoDelete" << endl;
+qDebug() << "KLog::slotQsoDelete" << endl;
     if ((!modify) && (Klog::j == 0)){
         return;
     } else {
@@ -3636,7 +3669,7 @@ QString Klog::getNumberString(const int intNumber){
 }
 
 void Klog::slotQSLRec(){
-//qDebug() << "KLog::slotQSLRec" << endl;
+qDebug() << "KLog::slotQSLRec" << endl;
 // 	wasConfirmed = qso.gotTheQSL(); // Was this QSO previously confirmed
 // 	if (!wasConfirmed){
 // 		confirmed++; // checked
@@ -3668,7 +3701,7 @@ void Klog::slotQSLRec(){
 
 void Klog::slotQSLSent(){
 //We have sent the QSL
-//qDebug() << "KLog::slotQSLSent" << endl;
+qDebug() << "KLog::slotQSLSent" << endl;
     if (!qso.sentTheQSL()){
         Klog::j = qso.getNumb();
         qslSen = QDate::currentDate();
@@ -4001,7 +4034,7 @@ QString headerLeft = i18n("Printing date: ") + (QDate::currentDate()).toString(Q
 void Klog::sortLog(){
 // I will read the Log from the UI and sorting using the numbers.
 //TODO: This sorting is highly inefficient. It should be rewritten and optimized
-//qDebug() << "KLog::sortLog" << endl;
+qDebug() << "KLog::sortLog" << endl;
 
   if (logbook.isEmpty()){	// if no QSOs, we do not show the log ;-)
     return;
@@ -4116,7 +4149,7 @@ void Klog::slotClusterSocketReadyRead(){
         // changed this to trimmed from simplfied() so the output string is easier to read as a spot
         dxClusterString = dxClusterString.trimmed();
         // Put here to check for callsigns that crash klog. To do with the QString ASSERT error.
-        //qDebug() << "KLog::slotClusterSocketReadyRead: " << dxClusterString;
+        qDebug() << "KLog::slotClusterSocketReadyRead: " << dxClusterString;
 
         QStringList tokens = dxClusterString.split(" ", QString::SkipEmptyParts);
         //QStringList tokens = QStringList::split( ' ', dxClusterString );
@@ -4404,7 +4437,7 @@ int Klog::needToWorkFromCluster(const QString &tqrz, const int tband){
 // This takes a DX-spot from the DXCluster window and copies to the QSO entry box
 // when the user clicks on it.
 void Klog::slotClusterSpotToLog(QListWidgetItem * item, int row){
-//qDebug() << "KLog::slotClusterSpotToLog";
+qDebug() << "KLog::slotClusterSpotToLog";
     if (item)
         dxClusterString = item->text();
     else

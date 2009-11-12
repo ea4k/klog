@@ -170,12 +170,14 @@ class Klog : public QMainWindow, private Ui::klog
     //void slotQsoSearchSelectedForEdit( QTreeWidgetItem* item); //Puts the QSO in the edit box
     void slotQsoSelected (QTreeWidgetItem* item); // Just to see qso data
 
+//    void contextMenuEvent(QContextMenuEvent*); // To detect the right clicks
+    void itemContextMenu( const QPoint& pos );
 //TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton
 // 	void slotQsoRightButtonFromLog(Q3ListViewItem * item, const QPoint &p);
 // 	void slotQsoRightButtonFromSearch(Q3ListViewItem * item, const QPoint &p);
     void slotModifyBtn();
     void showLogList();   // Shows the log in the botton widget
-    void showMenuRightButton(int qqso, const QPoint &p); //This is called from  slotQsoRightButton and show the actions menu
+//    void showMenuRightButton(int qqso, const QPoint &p); //This is called from  slotQsoRightButton and show the actions menu
 
 // Printing modules
 //  void slotPrint();
@@ -284,9 +286,9 @@ class Klog : public QMainWindow, private Ui::klog
     void addDXSpotToBandMap(QString& freq, QString& dx, QString& from, QColor& dxcolor); // Adds a DXSpot to the bandmap from dxcluster
     void showTip();
     QString returnLines(const QString& tword); //Puts \n where \\n
-/*	void showMenuRightButtoncreateActions();
-    void showMenuRightButtoncreateMenus();
-    void showMenuRightButtoncontextMenuEvent(QContextMenuEvent *event);*/
+	void showMenuRightButtoncreateActions();
+//    void showMenuRightButtoncreateMenus();
+//    void showMenuRightButtoncontextMenuEvent(QContextMenuEvent *event);
 //    int band2Num(const QString &tband);
 
   //  Qso qso;
@@ -436,6 +438,7 @@ class Klog : public QMainWindow, private Ui::klog
     QTimer *hamlibtimer;
 
     QMenu *qsoMenu;
+//    QMenu *searchRightButtonMenu;
     QAction *delQSOAct;
     QAction *recSenQSOAct;
     QAction *recQSOAct;

@@ -243,7 +243,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="info">
        <attribute name="title">
@@ -1225,6 +1225,9 @@
         </item>
         <item row="3" column="0" colspan="3">
          <widget class="QTreeWidget" name="searchQsosTreeWidget">
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
           <property name="sortingEnabled">
            <bool>true</bool>
           </property>
