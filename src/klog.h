@@ -53,6 +53,7 @@
 #include <QStatusBar>
 #include <QPalette>
 #include <QColor>
+#include <QBrush>
 #include <QDialog>
 #include <QInputDialog>
 #include <QTimer>
@@ -326,6 +327,7 @@ class Klog : public QMainWindow, private Ui::klog
     QColor dxSpotColor;
     QColor blackColor;
     QColor colorInUse;  // Till now only in use in Klog::slotSearchButton()
+    QBrush qbrush; // for the DXCluster colors
     int number;  // QSO number
     //int confirmed; //confirmed QSOs
     int rstrx;  // RST received from the other peer
