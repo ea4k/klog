@@ -1574,7 +1574,7 @@ void Klog::showMenuRightButton(int qqso, const QPoint &p){
 // }
 
 void Klog::slotQsoSelectedForEdit(QTreeWidgetItem *item, int column){
-    qDebug() << "KLog::slotQsoSelectedForEdit";
+    //qDebug() << "KLog::slotQsoSelectedForEdit";
     if (item){
         slotClearBtn();
         Klog::j = (item->text(0)).toInt(); // j is the QSO number from the loglist
@@ -2388,7 +2388,7 @@ void Klog::showWhere(const int enti){
 
 void Klog::fillEntityBandState(const int enti){
 // Reads if the entity is worked/confirmed and show it
-qDebug() << "KLog::fillEntityBandState: " << QString::number(enti) << endl;
+//qDebug() << "KLog::fillEntityBandState: " << QString::number(enti) << endl;
 
 
     QPalette confirmedPalette (confirmedColor, QPalette::Window);
@@ -3371,8 +3371,11 @@ void Klog::slotSearchButton(){
                                        (*iter).getDateTime().toString("yyyy-MM-dd"),(*iter).getDateTime().toString("hh:mm"),
                                        (*iter).getBand(), (*iter).getMode(), (*iter).isQslSent(), (*iter).isQslRec(),
                                        getNumberString((*iter).getNumb()), colorInUse );
-
+				       
             colorInUse = defaultColor;
+	    
+	    
+	    
 
             if ( ((*iter).getName()).length() > 1){
                 previousNamekLineEdit->setText((*iter).getName());
@@ -3395,7 +3398,7 @@ void Klog::slotSearchButton(){
 }
 
 void Klog::slotSearchQSO2QSL(){
-qDebug() << "KLog::searchQSO2QSL" ;
+//qDebug() << "KLog::searchQSO2QSL" ;
 //TODO: Maybe I should add a button for this action
 //TODO: After mark a QSO as sent, keep the list in the next QRZ to be QSLed
 
@@ -3466,7 +3469,7 @@ void  Klog::slotCancelSearchButton(){
 
 // The following is to select a QSO from the search box
 void Klog::slotQsoSearchSelectedForEdit( QTreeWidgetItem * item, int){
-qDebug() << "KLog::slotQsoSearchSelectedForEdit" << endl;
+//qDebug() << "KLog::slotQsoSearchSelectedForEdit" << endl;
     if (item){
         int number = (item->text(7)).toInt();
         // Removing this fixed the double click search issue. It can also be fixed by saving the item->number
@@ -3490,7 +3493,7 @@ qDebug() << "KLog::slotQsoSearchSelectedForEdit" << endl;
 
 // We are going to delete a QSO from the log
 void Klog::slotQsoDelete(){
-qDebug() << "KLog::slotQsoDelete" << endl;
+//qDebug() << "KLog::slotQsoDelete" << endl;
     if ((!modify) && (Klog::j == 0)){
         return;
     } else {
@@ -3633,7 +3636,7 @@ QString Klog::getNumberString(const int intNumber){
 }
 
 void Klog::slotQSLRec(){
-qDebug() << "KLog::slotQSLRec" << endl;
+//qDebug() << "KLog::slotQSLRec" << endl;
 // 	wasConfirmed = qso.gotTheQSL(); // Was this QSO previously confirmed
 // 	if (!wasConfirmed){
 // 		confirmed++; // checked
@@ -3665,7 +3668,7 @@ qDebug() << "KLog::slotQSLRec" << endl;
 
 void Klog::slotQSLSent(){
 //We have sent the QSL
-qDebug() << "KLog::slotQSLSent" << endl;
+//qDebug() << "KLog::slotQSLSent" << endl;
     if (!qso.sentTheQSL()){
         Klog::j = qso.getNumb();
         qslSen = QDate::currentDate();
@@ -3998,7 +4001,7 @@ QString headerLeft = i18n("Printing date: ") + (QDate::currentDate()).toString(Q
 void Klog::sortLog(){
 // I will read the Log from the UI and sorting using the numbers.
 //TODO: This sorting is highly inefficient. It should be rewritten and optimized
-qDebug() << "KLog::sortLog" << endl;
+//qDebug() << "KLog::sortLog" << endl;
 
   if (logbook.isEmpty()){	// if no QSOs, we do not show the log ;-)
     return;
@@ -4113,7 +4116,7 @@ void Klog::slotClusterSocketReadyRead(){
         // changed this to trimmed from simplfied() so the output string is easier to read as a spot
         dxClusterString = dxClusterString.trimmed();
         // Put here to check for callsigns that crash klog. To do with the QString ASSERT error.
-        qDebug() << "KLog::slotClusterSocketReadyRead: " << dxClusterString;
+        //qDebug() << "KLog::slotClusterSocketReadyRead: " << dxClusterString;
 
         QStringList tokens = dxClusterString.split(" ", QString::SkipEmptyParts);
         //QStringList tokens = QStringList::split( ' ', dxClusterString );
@@ -4270,9 +4273,14 @@ if (	(!dxClusterConfirmedSpots) && (needToWorkFromCluster(tokens[4],adif.freq2In
     }
     if (dxClusterString.length()>=5){
 //        dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, dxClusterString, dxSpotColor);
-        QListWidgetItem *item = new QListWidgetItem;
+//        QListWidgetItem *item = new QListWidgetItem(dxclusterListWidget);
+        QListWidgetItem *item = new QListWidgetItem();
+
+	item->setForeground(QBrush(dxSpotColor));
         item->setText(dxClusterString);
-        item->setFont(QFont ("Courier", 8));
+//        item->setFont(QFont ("Courier", 8, QFont::Bold));
+//
+//	item->setFont(QFont (QFont::Bold));
         dxclusterListWidget->insertItem(0,item);
         dxSpotColor = defaultColor; // The color should be default by default
     }
@@ -4396,7 +4404,7 @@ int Klog::needToWorkFromCluster(const QString &tqrz, const int tband){
 // This takes a DX-spot from the DXCluster window and copies to the QSO entry box
 // when the user clicks on it.
 void Klog::slotClusterSpotToLog(QListWidgetItem * item, int row){
-//cout << "KLog::slotClusterSpotToLog" << endl;
+//qDebug() << "KLog::slotClusterSpotToLog";
     if (item)
         dxClusterString = item->text();
     else
@@ -5156,6 +5164,25 @@ searchBoxItem::searchBoxItem( QTreeWidget *parent, const QString& call, const QS
   setText(5, RSTsent);
   setText(6, RSTrec);
   setText(7, numb);
+  
+  setForeground(0,QBrush(color));
+  setForeground(1,QBrush(color));
+  setForeground(2,QBrush(color));
+  setForeground(3,QBrush(color));
+  setForeground(4,QBrush(color));
+  setForeground(5,QBrush(color));
+  setForeground(6,QBrush(color));
+  setForeground(7,QBrush(color));
+
+  
+//  searchBoxItem->setFont(QFont (QFont::Bold));	
+/*item->setForeground(QBrush(dxSpotColor));
+        item->setText(dxClusterString);
+//        item->setFont(QFont ("Courier", 8, QFont::Bold));
+//
+	item->setFont(QFont (QFont::Bold));
+        dxclusterListWidget->insertItem(0,item); */
+  
 
 }
 

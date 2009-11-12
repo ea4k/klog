@@ -49,7 +49,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="logdisplayTab">
        <attribute name="title">
@@ -137,8 +137,18 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QListWidget" name="dxclusterListWidget"/>
+        <item row="0" column="0" colspan="3">
+         <widget class="QListWidget" name="dxclusterListWidget">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="selectionRectVisible">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -399,25 +409,6 @@
         <item row="3" column="0">
          <layout class="QHBoxLayout">
           <item>
-           <widget class="QLabel" name="textLabelBand2">
-            <property name="autoFillBackground">
-             <bool>true</bool>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="text">
-             <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;2&lt;/b&gt;&lt;/p&gt;</string>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QLabel" name="textLabelBand6">
             <property name="autoFillBackground">
              <bool>true</bool>
@@ -487,6 +478,25 @@
             </property>
             <property name="text">
              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;30&lt;/b&gt;&lt;/p&gt;</string>
+            </property>
+            <property name="wordWrap">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="textLabelBand2">
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <property name="text">
+             <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;2&lt;/b&gt;&lt;/p&gt;</string>
             </property>
             <property name="wordWrap">
              <bool>false</bool>
@@ -1274,9 +1284,9 @@
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <layout class="QGridLayout" name="gridLayout">
+        <layout class="QGridLayout" name="gridLayout_u">
          <item row="0" column="0">
-          <widget class="KLed" name="kledColor" native="true"/>
+          <widget class="KLed" name="kledColor"/>
          </item>
          <item row="0" column="1" colspan="2">
           <widget class="QLineEdit" name="qrzLineEdit">
@@ -2563,7 +2573,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>964</width>
-     <height>32</height>
+     <height>28</height>
     </rect>
    </property>
    <property name="defaultUp">
