@@ -77,6 +77,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     completeWithPrevious = false;
     completedWithPrevious = false;
     requireMandatory = true;
+ //   itemSearchClicked = false;
     ActionQsoDelete->setIcon(KIcon("edit-delete"));
     fileNewAction->setIcon(KIcon("address-book-new"));
     fileOpenAction->setIcon(KIcon("document-open"));
@@ -103,16 +104,18 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     connect(toolsMerge_QSO_dataAction, SIGNAL(triggered()), this, SLOT(slotcompleteThePreviouslyWorked()));
     connect(ActionCabrilloImport, SIGNAL(triggered()), this, SLOT(slotImportCabrillo()));
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQrzChanged()));
-    connect(logTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSelectedForEdit(QTreeWidgetItem *, int)));
-    connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));
-    connect(dxclusterListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QListWidgetItem *, int)));
+
+    connect(logTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSelectedForEdit(QTreeWidgetItem *)));
+    connect(logTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT( showRighButtonLogMenu( const QPoint& ) ) );
+
+    connect(dxclusterListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QListWidgetItem *)));
     connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
-    connect(ActionQslRec, SIGNAL(triggered()), this, SLOT(slotQSLRec));
-    connect(ActionQsoSen, SIGNAL(triggered()), this, SLOT(slotQSLSent));
-    
-    
-     connect( searchQsosTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ),
-           this, SLOT( itemContextMenu( const QPoint& ) ) );
+    connect(ActionQslRec, SIGNAL(triggered()), this, SLOT(slotQSLRec()));
+    connect(ActionQsoSen, SIGNAL(triggered()), this, SLOT(slotQSLSent()));
+     
+    connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));    
+    connect( searchQsosTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT( showRighButtonSearchMenu( const QPoint& ) ) );
+
 
 
 
@@ -1484,67 +1487,89 @@ QString Klog::returnLines(const QString& tword){
 // 		slotSearchButton();  // This is for updating the Entity state after QSLing.
 // 	}
 //}
+// void Klog::itemClickedRighButtonSearchMenu( QTreeWidgetItem * item ){
+// qDebug() << "KLog::itemClickedRighButtonSearchMenu ";
+//   if (item){
+//     itemSearchClicked = true;
+//     Klog::j = (item->text(7)).toInt();
+//   }else{
+//     itemSearchClicked = false;
+//   }
+//   
+// }
 
-void Klog::itemContextMenu( const QPoint& pos ){
-   qDebug() << "KLog::itemContextMenu - got rightClick: ";
+
+void Klog::showRighButtonSearchMenu(const QPoint& pos ){
+   //qDebug() << "KLog::showRighButtonSearchMenu - got rightClick: ";
+//searchQsosTreeWidget
+   //QTreeWidgetItem *item = QTreeWidget::itemAt(pos);
+   QTreeWidgetItem *item = searchQsosTreeWidget->itemAt(pos);
+   
+  if (item){
+ //   itemSearchClicked = true;
+    Klog::j = ((item)->text(7)).toInt();
+    showMenuRightButton(Klog::j, pos);
+  }else{
+    return;
+  }
+}
+
+void Klog::showRighButtonLogMenu( const QPoint& pos ){
+  //qDebug() << "KLog::showRighButtonLogMenu - got rightClick: ";
   QMenu menu(this);
-  menu.setTitle("context");
-  
   showMenuRightButtoncreateActions();
-  // añade las acciones pertinentes aquí
-  menu.addAction(delQSOAct);
-  menu.addAction(recSenQSOAct);
-  menu.addAction(recQSOAct);
-  menu.addAction(senQSOAct);
-
-  menu.exec(QCursor::pos());
+  
 }
 
 
-// void Klog::showMenuRightButton(int qqso, const QPoint &p){
-//   qDebug()  << "KLog::showMenuRightButton" << endl;
-// 
-// 
-// // COMMENTED TO EASE THE QT4 MIGRATION
-// //TODO:
-//       QMessageBox msgBox;
-//       msgBox.setText(i18n("KLog message:"));
-//       QString str = i18n("This function (slotAddLog) has been MODIFIED to help the QT4 migration.\nIt will be restored ASAP");
-//       msgBox.setInformativeText(str);
-//       msgBox.setStandardButtons(QMessageBox::Ok);
-//       msgBox.setDefaultButton(QMessageBox::Ok);
-//       msgBox.setIcon(QMessageBox::Warning);
-//       msgBox.exec();
-// 
 
-// 	if (qqso >= 0){
-// 		qso = getByNumber(qqso);
-// 		kk = world.findEntity( qso.getQrz() );
-// 		entityState(kk);
-//
-// //		KMenu *qsoMenu = new KMenu( i18n ("QSO menu"), Ui_klogui );
-//
-// 		qsoMenu = new QMenu(i18n("QSO menu"), this);
-//
-//
-// //		qsoMenu->insertItem( *editdeletePixMap, i18n("Delete"), this, SLOT( slotQsoDelete() ), CTRL + Key_D );
-// //		qsoMenu->insertSeparator();
-// 		if (( !qso.gotTheQSL() ) && ( !qso.sentTheQSL() )){
-// //			qsoMenu->insertItem( *qslRecPixMap, i18n("QSL Recv and Sent"), this, SLOT( slotQSLRecSent() ), CTRL + Key_B );
-//
-// 		  //TODO: To check if a call to showAwardsNumbers() is needed here
-//
-// 		}
-// 		if ( !qso.gotTheQSL() ){
-// 			//qsoMenu->insertItem( *qslRecPixMap, i18n("QSL Received"), this, SLOT( slotQSLRec() ), CTRL + Key_R );
-// //		  qsoActionsGroup->addAction(recQSOAct);
-//
-// 		  showAwardsNumbers();
-// 		}
-// 		if ( !qso.sentTheQSL() ){
-// //			qsoMenu->insertItem( *qslSenPixMap, i18n("QSL Sent"), this, SLOT( slotQSLSent() ), CTRL + Key_S );
-// //		  qsoActionsGroup->addAction(senQSOAct);
-//
+ void Klog::showMenuRightButton(int qqso, const QPoint &p){
+   //qDebug()  << "KLog::showMenuRightButton" << endl;
+ 
+  if (qqso >= 0){
+    showMenuRightButtoncreateActions();
+    qso = getByNumber(qqso);
+    kk = world.findEntity( qso.getQrz() );
+    entityState(kk);
+
+ //KMenu *qsoMenu = new KMenu( i18n ("QSO menu"), Ui_klogui );
+ 
+    QMenu menu(this);
+//  menu.setTitle("context");  
+//   showMenuRightButtoncreateActions();
+// 
+//   menu.addAction(delQSOAct);
+//   menu.addSeparator();
+//   menu.addAction(recSenQSOAct);
+//   menu.addAction(recQSOAct);
+//   menu.addAction(senQSOAct);
+//   menu.exec(QCursor::pos());
+
+//qsoMenu = new QMenu(i18n("QSO menu"), this);
+//qsoMenu->insertItem( *editdeletePixMap, i18n("Delete"), this, SLOT( slotQsoDelete() ), CTRL + Key_D );
+//qsoMenu->insertSeparator();
+    menu.addAction(delQSOAct);
+    menu.addSeparator();
+
+    if (( !qso.gotTheQSL() ) && ( !qso.sentTheQSL() )){
+      //qsoMenu->insertItem( *qslRecPixMap, i18n("QSL Recv and Sent"), this, SLOT( slotQSLRecSent() ), CTRL + Key_B );
+      menu.addAction(recSenQSOAct);
+       		  //TODO: To check if a call to showAwardsNumbers() is needed here
+
+    }
+    if ( !qso.gotTheQSL() ){
+      //qsoMenu->insertItem( *qslRecPixMap, i18n("QSL Received"), this, SLOT( slotQSLRec() ), CTRL + Key_R );
+      menu.addAction(recQSOAct);
+      //qsoActionsGroup->addAction(recQSOAct);
+      showAwardsNumbers();
+    }
+    if ( !qso.sentTheQSL() ){
+      //qsoMenu->insertItem( *qslSenPixMap, i18n("QSL Sent"), this, SLOT( slotQSLSent() ), CTRL + Key_S );
+      //qsoActionsGroup->addAction(senQSOAct);
+      menu.addAction(senQSOAct);
+    }
+    
+    menu.exec(QCursor::pos());
 // 		}else{
 // 		}
 //
@@ -1553,11 +1578,11 @@ void Klog::itemContextMenu( const QPoint& pos ){
 //
 // //		qsoMenu->insertSeparator();
 // //		qsoMenu->exec(p);
-// 	}
-//}
+  }
+}
 
  void Klog::showMenuRightButtoncreateActions(){
- qDebug() << "KLog::showMenuRightButtoncreateActions";
+ //qDebug() << "KLog::showMenuRightButtoncreateActions";
 
 //TODO: Add the shortcut ( QAction::setShorCut()  )
    delQSOAct = new QAction(i18n("&Delete"), this);
@@ -1580,34 +1605,10 @@ void Klog::itemContextMenu( const QPoint& pos ){
    senQSOAct->setStatusTip(i18n("QSL Sent"));
    connect(senQSOAct, SIGNAL(triggered()), this, SLOT(slotQSLSent()));
    
-
-//
-// qsoMenu->addAction(delQSOAct);
-// qsoMenu->addAction(recSenQSOAct);
-// qsoMenu->addAction(recQSOAct);
-// qsoMenu->addAction(senQSOAct);
-   
 }
 
-//
-// void Klog::showMenuRightButtoncreateMenus(){}
-// void Klog::showMenuRightButtoncontextMenuEvent(QContextMenuEvent *event){
-//      QMenu menu(this);
-//      menu.addAction(delQSOAct);
-//      menu.addAction(recSenQSOAct);
-//      menu.addAction(recQSOAct);
-//      menu.addAction(senQSOAct);
-//      menu.exec(event->globalPos());
-//
-// qsoMenu->addAction(delQSOAct);
-// qsoMenu->addAction(recSenQSOAct);
-// qsoMenu->addAction(recQSOAct);
-// qsoMenu->addAction(senQSOAct);
-//
-//}
-
-void Klog::slotQsoSelectedForEdit(QTreeWidgetItem *item, int column){
-    qDebug() << "KLog::slotQsoSelectedForEdit";
+void Klog::slotQsoSelectedForEdit(QTreeWidgetItem *item){
+//    //qDebug() << "KLog::slotQsoSelectedForEdit";
     if (item){
         slotClearBtn();
         Klog::j = (item->text(0)).toInt(); // j is the QSO number from the loglist
@@ -2421,7 +2422,7 @@ void Klog::showWhere(const int enti){
 
 void Klog::fillEntityBandState(const int enti){
 // Reads if the entity is worked/confirmed and show it
-qDebug() << "KLog::fillEntityBandState: " << QString::number(enti) << endl;
+//qDebug() << "KLog::fillEntityBandState: " << QString::number(enti) << endl;
 
 
     QPalette confirmedPalette (confirmedColor, QPalette::Window);
@@ -3362,7 +3363,7 @@ int Klog::howManyConfirmedQSO(){
     return howManyConfirmed;
 }
 void Klog::slotSearchButton(){
-qDebug() << "KLog::slotSearchButton";
+//qDebug() << "KLog::slotSearchButton";
     if (searching2QSL){
         slotSearchQSO2QSL();
     }else{
@@ -3431,7 +3432,7 @@ qDebug() << "KLog::slotSearchButton";
 }
 
 void Klog::slotSearchQSO2QSL(){
-qDebug() << "KLog::searchQSO2QSL" ;
+//qDebug() << "KLog::searchQSO2QSL" ;
 //TODO: Maybe I should add a button for this action
 //TODO: After mark a QSO as sent, keep the list in the next QRZ to be QSLed
 
@@ -3502,7 +3503,7 @@ void  Klog::slotCancelSearchButton(){
 
 // The following is to select a QSO from the search box
 void Klog::slotQsoSearchSelectedForEdit( QTreeWidgetItem * item, int){
-qDebug() << "KLog::slotQsoSearchSelectedForEdit" << endl;
+//qDebug() << "KLog::slotQsoSearchSelectedForEdit" << endl;
     if (item){
         int number = (item->text(7)).toInt();
         // Removing this fixed the double click search issue. It can also be fixed by saving the item->number
@@ -3526,7 +3527,7 @@ qDebug() << "KLog::slotQsoSearchSelectedForEdit" << endl;
 
 // We are going to delete a QSO from the log
 void Klog::slotQsoDelete(){
-qDebug() << "KLog::slotQsoDelete" << endl;
+//qDebug() << "KLog::slotQsoDelete" << endl;
     if ((!modify) && (Klog::j == 0)){
         return;
     } else {
@@ -3669,7 +3670,7 @@ QString Klog::getNumberString(const int intNumber){
 }
 
 void Klog::slotQSLRec(){
-qDebug() << "KLog::slotQSLRec" << endl;
+//qDebug() << "KLog::slotQSLRec" << endl;
 // 	wasConfirmed = qso.gotTheQSL(); // Was this QSO previously confirmed
 // 	if (!wasConfirmed){
 // 		confirmed++; // checked
@@ -3701,7 +3702,7 @@ qDebug() << "KLog::slotQSLRec" << endl;
 
 void Klog::slotQSLSent(){
 //We have sent the QSL
-qDebug() << "KLog::slotQSLSent" << endl;
+//qDebug() << "KLog::slotQSLSent" << endl;
     if (!qso.sentTheQSL()){
         Klog::j = qso.getNumb();
         qslSen = QDate::currentDate();
@@ -4034,7 +4035,7 @@ QString headerLeft = i18n("Printing date: ") + (QDate::currentDate()).toString(Q
 void Klog::sortLog(){
 // I will read the Log from the UI and sorting using the numbers.
 //TODO: This sorting is highly inefficient. It should be rewritten and optimized
-qDebug() << "KLog::sortLog" << endl;
+//qDebug() << "KLog::sortLog" << endl;
 
   if (logbook.isEmpty()){	// if no QSOs, we do not show the log ;-)
     return;
@@ -4149,7 +4150,7 @@ void Klog::slotClusterSocketReadyRead(){
         // changed this to trimmed from simplfied() so the output string is easier to read as a spot
         dxClusterString = dxClusterString.trimmed();
         // Put here to check for callsigns that crash klog. To do with the QString ASSERT error.
-        qDebug() << "KLog::slotClusterSocketReadyRead: " << dxClusterString;
+        //qDebug() << "KLog::slotClusterSocketReadyRead: " << dxClusterString;
 
         QStringList tokens = dxClusterString.split(" ", QString::SkipEmptyParts);
         //QStringList tokens = QStringList::split( ' ', dxClusterString );
@@ -4436,8 +4437,8 @@ int Klog::needToWorkFromCluster(const QString &tqrz, const int tband){
 
 // This takes a DX-spot from the DXCluster window and copies to the QSO entry box
 // when the user clicks on it.
-void Klog::slotClusterSpotToLog(QListWidgetItem * item, int row){
-qDebug() << "KLog::slotClusterSpotToLog";
+void Klog::slotClusterSpotToLog(QListWidgetItem * item){
+//qDebug() << "KLog::slotClusterSpotToLog";
     if (item)
         dxClusterString = item->text();
     else
@@ -5170,17 +5171,17 @@ dxClusterSpotItem::~dxClusterSpotItem(){
 //cout << "KLog::dxClusterSpotItem - Destructor" << endl;
 }
 
-void dxClusterSpotItem::paintCell( QPainter *p, const QPalette &cg,
-                                 int column, int width, int alignment ){
-//cout << "KLog::dxClusterSpotItem - paintCell" << endl;
-  QPalette _cg( cg );
-  //QColor c = _cg.text();
-  _cg.setColor( QPalette::Text, spotColor );
-//TODO: How to replace paintcell in a QTreeWidgetItem to paint it?
-//  QTreeWidgetItem::paintCell( p, _cg, column, width, alignment );
-  _cg.setColor( QPalette::Text, spotColor );
-
-}
+// void dxClusterSpotItem::paintCell( QPainter *p, const QPalette &cg,
+//                                  int column, int width, int alignment ){
+// //cout << "KLog::dxClusterSpotItem - paintCell" << endl;
+//   QPalette _cg( cg );
+//   //QColor c = _cg.text();
+//   _cg.setColor( QPalette::Text, spotColor );
+// //TODO: How to replace paintcell in a QTreeWidgetItem to paint it?
+// //  QTreeWidgetItem::paintCell( p, _cg, column, width, alignment );
+//   _cg.setColor( QPalette::Text, spotColor );
+// 
+// }
 
 /***************************************************************************
 ** This is an auxiliary class intended to provide color to the SEARCH BOX **
@@ -5223,17 +5224,17 @@ searchBoxItem::~searchBoxItem(){
 //cout << "KLog::searchBoxItem - Destructor" << endl;
 }
 
-void searchBoxItem::paintCell( QPainter *p, const QPalette &cg,
-                                 int column, int width, int alignment ){
-//cout << "KLog::searchBoxItem - paintCell" << endl;
-  QPalette _cg( cg );
-  //QColor c = _cg.text();
-  _cg.setColor( QPalette::Text, qsoColor );
-//TODO: How to replace paintcell in a QTreeWidgetItem to paint it?
-//  QTreeWidgetItem::paintCell( p, _cg, column, width, alignment );
-  _cg.setColor( QPalette::Text, qsoColor );
-
-}
+// void searchBoxItem::paintCell( QPainter *p, const QPalette &cg,
+//                                  int column, int width, int alignment ){
+// //cout << "KLog::searchBoxItem - paintCell" << endl;
+//   QPalette _cg( cg );
+//   //QColor c = _cg.text();
+//   _cg.setColor( QPalette::Text, qsoColor );
+// //TODO: How to replace paintcell in a QTreeWidgetItem to paint it?
+// //  QTreeWidgetItem::paintCell( p, _cg, column, width, alignment );
+//   _cg.setColor( QPalette::Text, qsoColor );
+// 
+// }
 
 
 /***************************************************************************

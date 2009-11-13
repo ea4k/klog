@@ -165,22 +165,24 @@ class Klog : public QMainWindow, private Ui::klog
     void helpAbout();
     void readQso(); //Just read the values an fill the qso
     void modifyQso(); // Modify an existing QSO with the data on the boxes
-    void slotQsoSelectedForEdit(QTreeWidgetItem *, int );//Puts the QSO in the edit box
+    void slotQsoSelectedForEdit(QTreeWidgetItem *);//Puts the QSO in the edit box
     void slotQsoSearchSelectedForEdit( QTreeWidgetItem* item, int); //Puts the QSO in the edit box
     //void slotQsoSearchSelectedForEdit( QTreeWidgetItem* item); //Puts the QSO in the edit box
     void slotQsoSelected (QTreeWidgetItem* item); // Just to see qso data
 
 //    void contextMenuEvent(QContextMenuEvent*); // To detect the right clicks
-    void itemContextMenu( const QPoint& pos );
+    void showRighButtonSearchMenu( const QPoint& pos );
+    void showRighButtonLogMenu( const QPoint& pos );
+//    void itemClickedRighButtonSearchMenu( QTreeWidgetItem * item );
 //TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton
 // 	void slotQsoRightButtonFromLog(Q3ListViewItem * item, const QPoint &p);
 // 	void slotQsoRightButtonFromSearch(Q3ListViewItem * item, const QPoint &p);
     void slotModifyBtn();
     void showLogList();   // Shows the log in the botton widget
-//    void showMenuRightButton(int qqso, const QPoint &p); //This is called from  slotQsoRightButton and show the actions menu
+    void showMenuRightButton(int qqso, const QPoint &p); //This is called from  slotQsoRightButton and show the actions menu
 
 // Printing modules
-//  void slotPrint();
+//  void slotPrint();	
 //  void doPrint(KPrinter *printer);
 //  void doPaint(QPainter *p, int autofit, int w, int h);
 
@@ -209,7 +211,7 @@ class Klog : public QMainWindow, private Ui::klog
     void slotClusterSocketError( int e );
     void slotClusterConnect();
     void slotClusterClearInputLine();
-    void slotClusterSpotToLog(QListWidgetItem* item, int);
+    void slotClusterSpotToLog(QListWidgetItem* item);
     void slotClusterSpotCheck(QListWidgetItem* item);
 //    void slotClusterSetup();
 //    void slotKlogSetup();
@@ -294,6 +296,7 @@ class Klog : public QMainWindow, private Ui::klog
   //  Qso qso;
     bool showProgressDialog;
     bool qslViac;
+    //bool itemSearchClicked;  // To know if a QSO has been clicked on the search box
     QColor ledColor;
     Locator locator;
     QString myLocatorTemp;  // To manage temp locators and distances
@@ -450,8 +453,7 @@ class dxClusterSpotItem : public QListWidgetItem {
 public:
 dxClusterSpotItem( QListWidget* parent, const QString& spot, const QColor& color );
 ~dxClusterSpotItem();
-virtual void paintCell( QPainter *p, const QPalette &cg,
-int column, int width, int alignment );
+//virtual void paintCell( QPainter *p, const QPalette &cg, int column, int width, int alignment );
 
 //Message *message() { return myMessage; }
 
@@ -466,8 +468,7 @@ class searchBoxItem : public QTreeWidgetItem {
 public:
 searchBoxItem( QTreeWidget *parent, const QString& call, const QString& date, const QString& time, const QString& band, const QString& mode, const QString& RSTsent, const QString& RSTrec, const QString& numb, const QColor& color );
 ~searchBoxItem();
-virtual void paintCell( QPainter *p, const QPalette &cg,
-        int column, int width, int alignment );
+//virtual void paintCell( QPainter *p, const QPalette &cg, int column, int width, int alignment );
 
 
 protected:
@@ -488,7 +489,7 @@ public:
 dxccItem( QTreeWidget *parent, const QString& numb, const QString& ent, const QString& pref, const QString& m10, const QString& m12, const QString& m15, const QString& m17, const QString& m20, const QString& m30, const QString& m40, const QString& m80, const QString& m160, const QColor& color );
 
 ~dxccItem();
-virtual void paintCell( QPainter *p, const QColorGroup &cg,int column, int width, int alignment );
+//virtual void paintCell( QPainter *p, const QColorGroup &cg,int column, int width, int alignment );
 
 
 protected:
