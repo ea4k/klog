@@ -27,163 +27,124 @@
 
 Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   //qDebug() << "KLog::Klog";
-    setupUi( this );
-    QTimer *internalTimer = new QTimer( this ); // create internal timer
-    connect( internalTimer, SIGNAL(timeout()), SLOT(slotUpdateTime()) );
-    internalTimer->start( 1000 );               // emit signal every 1 second
+  setupUi( this );
+  QTimer *internalTimer = new QTimer( this ); // create internal timer
+  connect( internalTimer, SIGNAL(timeout()), SLOT(slotUpdateTime()) );
+  internalTimer->start( 1000 );         // emit signal every 1 second
 
-    Klog::KLogVersion = "0.5";
-//     Klog::editdeletePixMap = new QPixmap("editdelete.png");
-//     editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
-//     Klog::qslRecPixMap = new QPixmap("qslRec.png");
-//     qslRecOffPixMap = new QPixmap("qslRecOff.png");
-//     Klog::qslSenPixMap = new QPixmap("qslSen.png");
-//     qslSenOffPixMap = new QPixmap("qslSenOff.png");
-    blackColor.setNamedColor("#000000");
-    for (i = 0; i<7; i++)
-        haveAllMandatoryFields[i] = false;
-    operatorStringAux = "";
-    Klog::number = 0;
-    //Klog::confirmed = 0;
-    timeInUTC = true; // Date is shown in UTC unless configured
-    mode = "SSB";
-    // To check what int is the SSB mode
-    imode = 0;
-    band = 2;
-    power = "100";
-    entiBak = 0;
-    callFound = false;
+  Klog::KLogVersion = "0.5";
+//   Klog::editdeletePixMap = new QPixmap("editdelete.png");
+//   editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
+//   Klog::qslRecPixMap = new QPixmap("qslRec.png");
+//   qslRecOffPixMap = new QPixmap("qslRecOff.png");
+//   Klog::qslSenPixMap = new QPixmap("qslSen.png");
+//   qslSenOffPixMap = new QPixmap("qslSenOff.png");
+  blackColor.setNamedColor("#000000");
+  for (i = 0; i<7; i++)
+    haveAllMandatoryFields[i] = false;
+  operatorStringAux = "";
+  Klog::number = 0;
+  //Klog::confirmed = 0;
+  timeInUTC = true; // Date is shown in UTC unless configured
+  mode = "SSB";
+  // To check what int is the SSB mode
+  imode = 0;
+  band = 2;
+  power = "100";
+  entiBak = 0;
+  callFound = false;
 //	wasConfirmed = false;
-    callLen = 0;
-    callLenPrev = 0;
-    callLenFound = 0;
-    tTxValue = 0;  // SSB default
-    tRxValue = 0;
-    sTxValue = 9;
-    sRxValue = 9;
-    dxClusterPort = 0; // The cluster won't start if port == 0
-    dxClusterConnected = false;
-    dxClusterHFSpots=true;
-    dxClusterVHFSpots=true;
-    dxClusterWARCSpots=true;
-    dxClusterCWSpots=true;
-    dxClusterSSBSpots=true;
-    dxClusterWXANNounces=true;
-    dxClusterWCYANNounces=true;
-    dxClusterANNounces=true;
-    dxClusterConfirmedSpots=true;
-    lastDelete = false;
-    showProgressDialog = false;
-    completeWithPrevious = false;
-    completedWithPrevious = false;
-    requireMandatory = true;
+  callLen = 0;
+  callLenPrev = 0;
+  callLenFound = 0;
+  tTxValue = 0;  // SSB default
+  tRxValue = 0;
+  sTxValue = 9;
+  sRxValue = 9;
+  dxClusterPort = 0; // The cluster won't start if port == 0
+  dxClusterConnected = false;
+  dxClusterHFSpots=true;
+  dxClusterVHFSpots=true;
+  dxClusterWARCSpots=true;
+  dxClusterCWSpots=true;
+  dxClusterSSBSpots=true;
+  dxClusterWXANNounces=true;
+  dxClusterWCYANNounces=true;
+  dxClusterANNounces=true;
+  dxClusterConfirmedSpots=true;
+  lastDelete = false;
+  showProgressDialog = false;
+  completeWithPrevious = false;
+  completedWithPrevious = false;
+  requireMandatory = true;
  //   itemSearchClicked = false;
-    ActionQsoDelete->setIcon(KIcon("edit-delete"));
-    fileNewAction->setIcon(KIcon("address-book-new"));
-    fileOpenAction->setIcon(KIcon("document-open"));
-    fileSaveAction->setIcon(KIcon("document-save"));
-    ActionQslRec->setIcon(KIcon("mail-receive"));
-    ActionQsoSen->setIcon(KIcon("mail-folder-outbox"));
-    fileSaveAsAction->setIcon(KIcon("document-save-as"));
-    filePrintAction->setIcon(KIcon("document-print"));
-    fileExitAction->setIcon(KIcon("application-exit"));
-    setupAction->setIcon(KIcon("preferences-system"));
-    ActionBugReport->setIcon(KIcon("tools-report-bug"));
-    helpAboutAction->setIcon(KIcon("help-about"));
 
-    // Connect all the slots
-    connect(ActionAddKlogLog, SIGNAL(triggered()), this, SLOT(slotAddLog()));
-    // connect(ActionQslNeededCheck, SIGNAL(triggered()), this, SLOT(slotQslNeededCheck()));
-    connect(ActionSortLog, SIGNAL(triggered()), this, SLOT(sortLog()));
-    connect(addTlfLogAction, SIGNAL(triggered()), this, SLOT(slotImportTlf()));
-    //connect(helpContentsAction, SIGNAL(triggered()), this, SLOT(helpContents()));
-    //connect(helpIndexAction, SIGNAL(triggered()), this, SLOT(helpIndex()));
-    connect(iotaIntSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotIOTAChanged()));
-    connect(iotaComboBox, SIGNAL(activated(QString)), this, SLOT(slotIOTAChanged()));
-    connect(awardsComboBox, SIGNAL(textChanged(QString)), this, SLOT(slotLocalAwardChanged()));
-    connect(toolsMerge_QSO_dataAction, SIGNAL(triggered()), this, SLOT(slotcompleteThePreviouslyWorked()));
-    connect(ActionCabrilloImport, SIGNAL(triggered()), this, SLOT(slotImportCabrillo()));
-    connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQrzChanged()));
+  createActions(); // Create and connect all the actions
 
-    connect(logTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSelectedForEdit(QTreeWidgetItem *)));
-    connect(logTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT( showRighButtonLogMenu( const QPoint& ) ) );
+  klogDir = QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs
+  if (!QDir::setCurrent ( klogDir )){
+    QDir d1(klogDir);
+    dirExist = d1.mkdir(klogDir);
+  }
+  dirExist = QDir::setCurrent ( klogDir ) ;
+  logFileNameToOpen = "";
+  logFileNameToSave = "";
+  tempLogFile = "tempklog.adi";
 
-    connect(dxclusterListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QListWidgetItem *)));
-    connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
-    connect(ActionQslRec, SIGNAL(triggered()), this, SLOT(slotQSLRec()));
-    connect(ActionQsoSen, SIGNAL(triggered()), this, SLOT(slotQSLSent()));
-     
-    connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));    
-    connect( searchQsosTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT( showRighButtonSearchMenu( const QPoint& ) ) );
-
-
-
-
-    klogDir = QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs
-    if (!QDir::setCurrent ( klogDir )){
-        QDir d1(klogDir);
-        dirExist = d1.mkdir(klogDir);
-    }
-    dirExist = QDir::setCurrent ( klogDir ) ;
-    logFileNameToOpen = "";
-    logFileNameToSave = "";
-    tempLogFile = "tempklog.adi";
-
-    //awards.readConfig();  // Starting the award checks
+  //awards.readConfig();  // Starting the award checks
 // HAMLIB
-    hamlib = false;
-    hamlibPossible = false;
-    hamlibInterval = 500;
-    bauds = 4800;
-    serialPort = "/dev/ttyS0";
-    hamlibFreq = 0.0;
-    rignameNumber = 1; // dummy
+  hamlib = false;
+  hamlibPossible = false;
+  hamlibInterval = 500;
+  bauds = 4800;
+  serialPort = "/dev/ttyS0";
+  hamlibFreq = 0.0;
+  rignameNumber = 1; // dummy
 // HAMLIB
-    createKlogDir(); // if klogDir does not exist, we create it via slotKlogSetup
-    readConf(); // read our data as myQrz, myLocator from ~/.klog/klogrc
+  createKlogDir(); // if klogDir does not exist, we create it via slotKlogSetup
+  readConf(); // read our data as myQrz, myLocator from ~/.klog/klogrc
 
-    if (hamlib){ // The user selected hamlib in the Setup
-        //listHamlib();
-        hamlibPossible = KlogHamlib.init();
-        if (hamlibPossible) { // Check if we have a rig plugged to the computer
-            QTimer *hamlibtimer = new QTimer( this );
-            connect( hamlibtimer, SIGNAL(timeout()), this, SLOT(slothamlibUpdateFrequency()) );
-            hamlibtimer->start( hamlibInterval );
-        }else{ // It is not possible to contact to your rig
-          QMessageBox msgBox;
-          msgBox.setText(i18n("KLog message:"));
-          QString str = i18n("Could not connect to your radio.Could not connect to your radio.\nCheck your hamlib settings and restart KLog.\n\nKLog will run without hamlib support.\n\n");
-          msgBox.setInformativeText(str);
-          msgBox.setStandardButtons(QMessageBox::Ok);
-          msgBox.setDefaultButton(QMessageBox::Ok);
-          msgBox.setIcon(QMessageBox::Warning);
-          msgBox.exec();
-        }
+  if (hamlib){ // The user selected hamlib in the Setup
+    //listHamlib();
+    hamlibPossible = KlogHamlib.init();
+    if (hamlibPossible) { // Check if we have a rig plugged to the computer
+      QTimer *hamlibtimer = new QTimer( this );
+      hamlibtimer->start( hamlibInterval );
+    }else{ // It is not possible to contact to your rig
+      QMessageBox msgBox;
+      msgBox.setText(i18n("KLog message:"));
+      QString str = i18n("Could not connect to your radio.Could not connect to your radio.\nCheck your hamlib settings and restart KLog.\n\nKLog will run without hamlib support.\n\n");
+      msgBox.setInformativeText(str);
+      msgBox.setStandardButtons(QMessageBox::Ok);
+      msgBox.setDefaultButton(QMessageBox::Ok);
+      msgBox.setIcon(QMessageBox::Warning);
+      msgBox.exec();
     }
+  }
 
-    i = 0;
-    QString comment;
-    comment = "";
-    // Check we have setup world and cty.dat is in your home folder
-    haveWorld();
-//    slotClearBtn(); //Not needed because it is called from slotQrzChanged
-    modify = false;
-    searching2QSL = false;
-    actionSent = false;
-    actionRec = false;
-    //  prefixFound = false;
-    //(qsoDateTime->dateEdit())->setOrder(QDateEdit::DMY);
-    //(QSLSentdateEdit)->setOrder(QDateEdit::DMY);
-    //(QSLRecdateEdit)->setOrder(QDateEdit::DMY);
-    slotQrzChanged();
-    slotModeChanged(0); //SSB = 0, the default mode
-    needToSave = false; // Initialized here to avoid needing to save just after the start
-    addingLog = false;	// True when adding a log file to the main one.
-    // Finally, if we configured to open a file by default... we open it!
-    if ((openLastByDefault == true) && (logFileNameToOpen !="")){
-        adifReadLog(logFileNameToOpen);
-    }
-    //showTip();	// TODO: We show a tip when KLog start
+  i = 0;
+  QString comment;
+  comment = "";
+  // Check we have setup world and cty.dat is in your home folder
+  haveWorld();
+//  slotClearBtn(); //Not needed because it is called from slotQrzChanged
+  modify = false;
+  searching2QSL = false;
+  actionSent = false;
+  actionRec = false;
+  //  prefixFound = false;
+  //(qsoDateTime->dateEdit())->setOrder(QDateEdit::DMY);
+  //(QSLSentdateEdit)->setOrder(QDateEdit::DMY);
+  //(QSLRecdateEdit)->setOrder(QDateEdit::DMY);
+  slotQrzChanged();
+  slotModeChanged(0); //SSB = 0, the default mode
+  needToSave = false; // Initialized here to avoid needing to save just after the start
+  addingLog = false;	// True when adding a log file to the main one.
+  // Finally, if we configured to open a file by default... we open it!
+  if ((openLastByDefault == true) && (logFileNameToOpen !="")){
+    adifReadLog(logFileNameToOpen);
+  }
+  //showTip();	// TODO: We show a tip when KLog start
 //	dxcc.printWorkdStatus();
 }
 
@@ -191,25 +152,98 @@ Klog::~Klog(){
 //qDebug() << "KLog::~KLog";
 }
 
+void Klog::createActions(){
+  
+  ActionQsoDelete->setIcon(KIcon("edit-delete"));
+  fileNewAction->setIcon(KIcon("address-book-new"));
+  fileOpenAction->setIcon(KIcon("document-open"));
+  fileSaveAction->setIcon(KIcon("document-save"));
+  ActionQslRec->setIcon(KIcon("mail-receive"));
+  ActionQsoSen->setIcon(KIcon("mail-folder-outbox"));
+  fileSaveAsAction->setIcon(KIcon("document-save-as"));
+  filePrintAction->setIcon(KIcon("document-print"));
+  fileExitAction->setIcon(KIcon("application-exit"));
+  setupAction->setIcon(KIcon("preferences-system"));
+  ActionBugReport->setIcon(KIcon("tools-report-bug"));
+  helpAboutAction->setIcon(KIcon("help-about"));
+  
+  connect( hamlibtimer, SIGNAL(timeout()), this, SLOT(slothamlibUpdateFrequency()) );
+
+  // Connect all the slots
+  connect(ActionAddKlogLog, SIGNAL(triggered()), this, SLOT(slotAddLog()));
+  // connect(ActionQslNeededCheck, SIGNAL(triggered()), this, SLOT(slotQslNeededCheck()));
+  connect(ActionSortLog, SIGNAL(triggered()), this, SLOT(sortLog()));
+  connect(addTlfLogAction, SIGNAL(triggered()), this, SLOT(slotImportTlf()));
+  connect(ActionDXClusterConnect, SIGNAL(triggered()), this, SLOT(slotClusterConnect()) );
+  connect(ActionDXClusterDisconnect, SIGNAL(triggered() ), this, SLOT(slotClusterCloseConnection()) );
+  connect(ActionQslRec, SIGNAL( triggered() ), this, SLOT(slotQSLRec()) );
+  connect(ActionQsoSen, SIGNAL(triggered()), this, SLOT(slotQSLSent()) );
+
+  connect(clearBtn, SIGNAL(clicked()), this, SLOT(slotClearBtn()) );
+  connect(fileNewAction, SIGNAL(triggered()), this, SLOT(fileNew()) );
+  connect(fileExitAction, SIGNAL(triggered()), this, SLOT(fileExit()) );
+  connect(fileOpenAction, SIGNAL(triggered()), this, SLOT(fileOpen()) );
+  connect(filePrintAction, SIGNAL(triggered()), this, SLOT(filePrint()) );
+  connect(fileSaveAction, SIGNAL(triggered()), this, SLOT(filesave()) );
+  connect(fileSaveAsAction, SIGNAL(triggered()), this, SLOT(fileSaveAs()) );
+  connect(helpAboutAction, SIGNAL(triggered()), this, SLOT(helpAbout()) );
+  connect(modeComboBox, SIGNAL(activated(int)), this, SLOT(slotModeChanged(int)) );
+  connect(searchQrzkLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchButton()) );
+  connect(setupAction, SIGNAL(triggered()), this, SLOT(slotPreferences()) );
+  connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotOkBtn()) );
+  connect(ClusterkLineEditInPut, SIGNAL(returnPressed()), this, SLOT(slotClusterSendToServer()) );
+  connect(bandComboBox, SIGNAL(activated(int)), this, SLOT(slotBandChanged()) );
+  connect(ActionBugReport, SIGNAL(triggered()), this, SLOT(slotBugReport()) );
+  connect(myLocatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotMyLocatorChanged()) );
+  connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorChanged() ) );
+//   connect(, SIGNAL( ), this, SLOT() );
+//   connect(, SIGNAL( ), this, SLOT() );
+//   connect(, SIGNAL( ), this, SLOT() );
+//   connect(, SIGNAL( ), this, SLOT() );
+
+  //connect(helpContentsAction, SIGNAL(triggered()), this, SLOT(helpContents()));
+  //connect(helpIndexAction, SIGNAL(triggered()), this, SLOT(helpIndex()));
+  connect(iotaIntSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotIOTAChanged()));
+  connect(iotaComboBox, SIGNAL(activated(QString)), this, SLOT(slotIOTAChanged()));
+  connect(awardsComboBox, SIGNAL(textChanged(QString)), this, SLOT(slotLocalAwardChanged()));
+  connect(toolsMerge_QSO_dataAction, SIGNAL(triggered()), this, SLOT(slotcompleteThePreviouslyWorked()));
+  connect(ActionCabrilloImport, SIGNAL(triggered()), this, SLOT(slotImportCabrillo()));
+  connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQrzChanged()));
+
+  connect(logTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSelectedForEdit(QTreeWidgetItem *)));
+  connect(logTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT(showRighButtonLogMenu( const QPoint& ) ) );
+
+  connect(QSLSentcheckBox, SIGNAL(clicked() ), this, SLOT(slotQslSentBoxChanged() ) );
+  connect(QSLReccheckBox, SIGNAL(clicked() ), this, SLOT(slotQslRecvBoxChanged() ) );
+  
+  connect(dxclusterListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QListWidgetItem *)));
+  connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
+   
+  connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));  
+  connect(searchQsosTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT(showRighButtonSearchMenu(const QPoint& ) ) );
+
+
+}
+
 bool Klog::haveWorld(){
-    //qDebug() << "KLog::haveWorld";
-    //TODO:setTextFormat(Qt::RichText) to display an URL as a link
-    if (!world.isWorldCreated() ){
-        int ret = QMessageBox::warning( this, i18n("Warning - Can't find cty.dat"),i18n("I can't find the cty.dat file with the DX Entity data.\nYou will not have any information on these.\n\nCopy an updated cty.dat file to your ~/.klog dir, please.\n\nYou can download from: www.country-files.com/cty/cty.dat"));
-        switch(ret) {
-            case QMessageBox::Yes: // Continue
-                return true;
-                break;
-            case QMessageBox::No: // Continue
-                return false;
-                break;
-        }
+  //qDebug() << "KLog::haveWorld";
+  //TODO:setTextFormat(Qt::RichText) to display an URL as a link
+  if (!world.isWorldCreated() ){
+    int ret = QMessageBox::warning( this, i18n("Warning - Can't find cty.dat"),i18n("I can't find the cty.dat file with the DX Entity data.\nYou will not have any information on these.\n\nCopy an updated cty.dat file to your ~/.klog dir, please.\n\nYou can download from: www.country-files.com/cty/cty.dat"));
+    switch(ret) {
+      case QMessageBox::Yes: // Continue
+        return true;
+        break;
+      case QMessageBox::No: // Continue
+        return false;
+        break;
     }
-    return true;
+  }
+  return true;
 }
 
 void Klog::slotLocatorChanged(){
-  //qDebug() << "KLog::slotLocatorChanged";
+  qDebug() << "KLog::slotLocatorChanged" << (locatorLineEdit->text()).toUpper();
     // If the locator is changed, we should re-calculate distances...
     // Manages the Locator of the DX
     dxLocator = getThisQSODXLocator();	//We first have to get the valid locator, from the call
@@ -226,7 +260,7 @@ void Klog::slotLocatorChanged(){
 
 void Klog::slotMyLocatorChanged(){
 //When my locator changes, distances and beams should be recalculated!
-//cout << "KLog::slotLocatorChanged" << (myLocatorLineEdit->text()).toUpper() << endl;
+  qDebug() << "KLog::slotMyLocatorChanged" << (myLocatorLineEdit->text()).toUpper();
 
     dxLocator = getThisQSODXLocator();
 
@@ -245,7 +279,7 @@ void Klog::slotMyLocatorChanged(){
 }
 
 void Klog::showDistancesAndBeam(const int dist, const int beam){
-    //qDebug() << "KLog::showDistancesAndBeam";
+qDebug() << "KLog::showDistancesAndBeam: (dist/beam) = (" << QString::number(dist) << "/" << QString::number(beam) << ")";
 //cout << "KLog::showDistancesAndBeam" << endl;
     distancelCDNumber->display(dist);
     distancellCDNumber->display(40000 - dist);
@@ -271,7 +305,7 @@ QString Klog::getThisQSODXLocator (){
 }
 
 int Klog::getEntityFromCall(){ // We return the Entity number from the QRZ box call.
-  //qDebug() << "KLog::getEntityFromCall";
+ qDebug() << "KLog::getEntityFromCall: " <<  QString::number(world.findEntity((qrzLineEdit->text()).toUpper()));
     return world.findEntity((qrzLineEdit->text()).toUpper());
 }
 
@@ -436,6 +470,7 @@ void Klog::slotClearBtn(){
 
     Klog::myLocatorTemp = getMyLocator();  //My default locator from the klogrc
     myLocatorLineEdit->setText(myLocatorTemp);
+    qso.setMyLocator(getMyLocator());
 
     freqlCDNumber->display(0); // Setting the frequency box to 0
 
@@ -896,7 +931,7 @@ void Klog::listHamlib(){
 }
 
 void Klog::processLogLine (const QString& tLogLine){
-//cout << "KLog::processLogLine" << tLogLine << endl;
+qDebug() << "KLog::processLogLine" << tLogLine << endl;
 
     qsoLine="";
     adifTab="";
@@ -1501,12 +1536,10 @@ QString Klog::returnLines(const QString& tword){
 
 void Klog::showRighButtonSearchMenu(const QPoint& pos ){
    //qDebug() << "KLog::showRighButtonSearchMenu - got rightClick: ";
-//searchQsosTreeWidget
-   //QTreeWidgetItem *item = QTreeWidget::itemAt(pos);
-   QTreeWidgetItem *item = searchQsosTreeWidget->itemAt(pos);
+
+  QTreeWidgetItem *item = searchQsosTreeWidget->itemAt(pos);
    
   if (item){
- //   itemSearchClicked = true;
     Klog::j = ((item)->text(7)).toInt();
     showMenuRightButton(Klog::j, pos);
   }else{
@@ -1515,9 +1548,16 @@ void Klog::showRighButtonSearchMenu(const QPoint& pos ){
 }
 
 void Klog::showRighButtonLogMenu( const QPoint& pos ){
-  //qDebug() << "KLog::showRighButtonLogMenu - got rightClick: ";
-  QMenu menu(this);
-  showMenuRightButtoncreateActions();
+qDebug() << "KLog::showRighButtonLogMenu - got rightClick: ";
+  QTreeWidgetItem *item = logTreeWidget->itemAt(pos);
+   
+  if (item){
+    Klog::j = ((item)->text(0)).toInt();
+    showMenuRightButton(Klog::j, pos);
+  }else{
+    return;
+  }
+
   
 }
 
@@ -1814,7 +1854,7 @@ void Klog::fileOpen(){
 }
 
 void Klog::slotQslSentBoxChanged(){
-//  qDebug() << "KLog::slotQslSentBoxChanged";
+ qDebug() << "KLog::slotQslSentBoxChanged";
     if (enti == 0)
         return;
     if (QSLSentcheckBox->isChecked()){
@@ -1824,7 +1864,9 @@ void Klog::slotQslSentBoxChanged(){
         qso.QslSent('Y');
         (QSLSentdateEdit)->setEnabled(true);
         (QSLSentdateEdit)->setDate(qslSen);
+//qDebug() << "KLog::slotQslSentBoxChanged-4";	
     }else{
+//qDebug() << "KLog::slotQslSentBoxChanged-5";      
         qso.QslSent('N');
 /*		//TODO: This date is not valid, it is out of range!
         if ( !(QDateTime::fromString("0000-00-00", Qt::ISODate)).isValid() ) {
@@ -1834,15 +1876,16 @@ void Klog::slotQslSentBoxChanged(){
         (QSLSentdateEdit)->setDate(qslSen);
         (QSLSentdateEdit)->setEnabled(false);
     }
-    if ( (!modify) && (qso.sentTheQSL()))
+    if ( (!modify) && (qso.sentTheQSL()) ){
         qso.QslSent('Y');
         if (qslSen.isValid()){
             qso.setQslSenDateOn(qslSen);
         }
+    }
 }
 
 void Klog::slotQslRecvBoxChanged(){
-//cout << "KLog::slotQslRecvBoxChanged" << endl;
+qDebug() << "KLog::slotQslRecvBoxChanged" << endl;
 //	wasConfirmed = qso.gotTheQSL(); // Was this QSO previously confirmed
     if ((enti == 0) | ( (qrzLineEdit->text()).length() == 0)){
         return;
@@ -1893,7 +1936,7 @@ void Klog::slotQslRecvBoxChanged(){
 }
 
 void Klog::readQso(){ //Just read the values an fill the qso
-//cout << "KLog::readQso" << endl;
+qDebug() << "KLog::readQso" << endl;
     qso.setQrz((qrzLineEdit->text()).toUpper());
     // Calculating RST values
     i = TSendBox->value();
@@ -1957,8 +2000,11 @@ void Klog::readQso(){ //Just read the values an fill the qso
     if (locator.isValidLocator((locatorLineEdit->text()).toUpper()))
         qso.setLocator((locatorLineEdit->text()).toUpper());
 
-    if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper()))
+    if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
         qso.setMyLocator((myLocatorLineEdit->text()).toUpper());
+    }else{
+	qso.setMyLocator(getMyLocator());
+    }
 
     if(qslVialineEdit->isEnabled())
         qso.setQslManager((qslVialineEdit->text()).toUpper());
@@ -1985,6 +2031,7 @@ void Klog::readQso(){ //Just read the values an fill the qso
 
 void Klog::modifyQso(){
 // Modify an existing QSO with the data on the boxes
+qDebug() << "KLog::modifyQso";
     Klog::LogBook::iterator iter;
     for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
         if ( Klog::j == (*iter).getNumb() ){
@@ -2023,9 +2070,9 @@ void Klog::modifyQso(){
                 (*iter).setLocator( (locatorLineEdit->text()).toUpper() );
             if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
                 (*iter).setMyLocator((myLocatorLineEdit->text()).toUpper());
-            }//else if (locator.isValidLocator(getMyLocator())) {
-            //	(*iter).setMyLocator(getMyLocator());
-            //}
+            }/*else if (locator.isValidLocator(getMyLocator())) {
+            	(*iter).setMyLocator(getMyLocator());
+            }*/
             if (QSLSentcheckBox->isChecked()){
                 qslSen = QSLSentdateEdit->date();
                 (*iter).QslSent('Y');
@@ -2381,7 +2428,7 @@ QString Klog::getMyQrz() const{
 }
 
 void Klog::setMyLocator(const QString &tlocator){
-//cout << "KLog::setMyLocator" << endl;
+qDebug() << "KLog::setMyLocator";
     if (locator.isValidLocator(tlocator.toUpper() ))
         myLocator = tlocator;
 }
@@ -2392,7 +2439,7 @@ QString Klog::getMyLocator() const{
 }
 
 void Klog::showWhere(const int enti){
-//cout << "KLog::showWhere: " << QString::number(enti) << endl;
+qDebug() <<  "KLog::showWhere: " << QString::number(enti) << endl;
 //	if ((enti != 0)&&(enti != -1)){
     if (enti >0){
         entityTextLabel->setText((world.getEntByNumb(enti)).getEntity());
@@ -2404,11 +2451,13 @@ void Klog::showWhere(const int enti){
         // If the QSO has a locator and it is valid, calculation is more exact!
         if (locator.isValidLocator((locatorLineEdit->text()).toUpper())){
         // The following code is copy&pasted from "slotLocatorChanged"
+	qDebug() <<  "KLog::showWhere - locator valid: (" << (locatorLineEdit->text()).toUpper()<< ")";
             dxLocator = (locatorLineEdit->text()).toUpper();
 
             Klog::distance = locator.getDistanceKilometres(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), locator.getLon(dxLocator), locator.getLat(dxLocator));
             beam = locator.getBeam(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), locator.getLon(dxLocator), locator.getLat(dxLocator));
         }else{
+	  qDebug() <<  "KLog::showWhere - locator NOT valid: (" << qso.getMyLocator() << ")";
             Klog::distance = locator.getDistanceKilometres(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), (world.getEntByNumb(enti)).getLon(), (world.getEntByNumb(enti)).getLat());
             beam = locator.getBeam(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), (world.getEntByNumb(enti)).getLon(), (world.getEntByNumb(enti)).getLat());
         }
@@ -3670,7 +3719,7 @@ QString Klog::getNumberString(const int intNumber){
 }
 
 void Klog::slotQSLRec(){
-//qDebug() << "KLog::slotQSLRec" << endl;
+qDebug() << "KLog::slotQSLRec" << endl;
 // 	wasConfirmed = qso.gotTheQSL(); // Was this QSO previously confirmed
 // 	if (!wasConfirmed){
 // 		confirmed++; // checked
@@ -3702,7 +3751,7 @@ void Klog::slotQSLRec(){
 
 void Klog::slotQSLSent(){
 //We have sent the QSL
-//qDebug() << "KLog::slotQSLSent" << endl;
+qDebug() << "KLog::slotQSLSent" << endl;
     if (!qso.sentTheQSL()){
         Klog::j = qso.getNumb();
         qslSen = QDate::currentDate();

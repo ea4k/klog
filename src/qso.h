@@ -28,6 +28,7 @@
 #include <QString>
 //#include <qchar.h>
 #include <QDateTime>
+#include <QDebug>
 
  #define CALL_LENGTH 15
 // Modes: 12

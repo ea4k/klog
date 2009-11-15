@@ -420,7 +420,7 @@ QString Qso::getComment()const{
     return comment;}
 
 void Qso::setQslSenDateOn(QDate tdate){
-        //cout << "QSO::setQslSenDateOn: " << tdate.toString() << endl;
+qDebug() << "Qso::setQslSenDateOn: " << tdate.toString() ;
         if (tdate.isValid()){
                 qslSen = tdate;
         }
@@ -432,7 +432,7 @@ QDate Qso::getQslSenDate() const{
 }
 
 void Qso::QslSent(const QChar& qslState){
-//cout << "QSO:QslSent: " << qslState << endl;
+qDebug() << "Qso::QslSent: " << qslState ;
 // Y, N, R, Q, I
 
         if ( (qslState=='Y') || (qslState=='R') || (qslState=='I') || (qslState=='Q') ){
@@ -459,7 +459,8 @@ QChar Qso::isQslSent(){
 }
 
 void Qso::setQslRecDateOn(QDate tdate){
-        //cout << "QSO::setQslRecDateOn: " << tdate.toString() << endl;
+qDebug() << "Qso::setQslRecDateOn" << tdate.toString();
+
         if (tdate.isValid()){
                 qslRec = tdate;
         }
@@ -476,6 +477,7 @@ QChar Qso::isQslRec(){
 }
 
 bool Qso::gotTheQSL(){  // Ask if i have his QSL
+qDebug() << "Qso::gotTheQSL" ;
 //cout << "QSO::gotTheQSL: " << getQrz() << endl;
         if (qslRecc == 'Y'){
                 return true;
@@ -485,10 +487,14 @@ bool Qso::gotTheQSL(){  // Ask if i have his QSL
 }
 
 bool Qso::sentTheQSL(){ // Did i sent my QSL?
-  if (qslSenc == 'Y')
+qDebug() << "Qso::sentTheQSL" ;
+  if (qslSenc == 'Y'){
+    qDebug() << "Qso::sentTheQSL: YES" ;
     return true;
-  else
+  }else{
+    qDebug() << "Qso::sentTheQSL: NO" ;
     return false;
+  }
 }
 
 void Qso::setQslVia(const QString &tInfo){
@@ -520,7 +526,7 @@ QString Qso::getQslInfo()const{
 }
 
 void Qso::seteQslSenDateOn(QDate tdate){
-        //cout << "QSO::setQslSenDateOn: " << tdate.toString() << endl;
+qDebug() << "QSO::seteQslSenDateOn: " << tdate.toString() ;
         if (tdate.isValid()){
                 eqsl_qslsdate = tdate;
         }
@@ -532,7 +538,7 @@ QDate Qso::geteQslSenDate() const{
 }
 
 void Qso::seteQslRecDateOn(QDate tdate){
-        //cout << "QSO::setQslSenDateOn: " << tdate.toString() << endl;
+qDebug() << "QSO::seteQslSenDateOn: " << tdate.toString();
         if (tdate.isValid()){
                 eqsl_qslrdate = tdate;
         }
@@ -544,6 +550,7 @@ QDate Qso::geteQslRecDate() const{
 }
 
 void Qso::seteQslSent(const QChar& eqslState){ // eQSL_Sent Y, N, R, Q, I
+
         if ((eqslState == 'Y') || (eqslState == 'N') || (eqslState == 'R') || (eqslState == 'Q') || (eqslState == 'I') ){
                 eQSL_qsl_sent = eqslState;
         }
@@ -573,6 +580,7 @@ void Qso::setMyLocator(const QString &tgridSquare ){
 }
 
 QString Qso::getMyLocator() const {
+qDebug() << "Qso::getMyLocator: " << myGridSquare ;
   return myGridSquare;
 }
 
