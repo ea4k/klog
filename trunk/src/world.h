@@ -36,6 +36,7 @@ const char SEPARATOR2 = ',';
 #include <QFile>
 #include <QMap>
 #include <QDir>
+#include <QDebug>
 #include "entity.h"
 
 

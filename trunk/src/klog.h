@@ -246,6 +246,7 @@ class Klog : public QMainWindow, private Ui::klog
     void processLogLine (const QString& tLogLine); // Process a line of data/qso from adifReadLog
     void clearGUI();
     bool didISave();
+    void createActions();
     bool haveAllTheFields();
     void entityState(const int tentity);
     void addQSOToLog();

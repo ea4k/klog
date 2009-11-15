@@ -237,7 +237,7 @@ return (getEntByNumb(aux)).getPfx();
 
 int World::findEntity(const QString string){
 // If no Entity is found, we return "0"
-//cout << "World::findEntity: " << string << endl;
+ qDebug() <<  "World::findEntity: " << string << endl;
 
 // The first task is to isolate the prefix
 

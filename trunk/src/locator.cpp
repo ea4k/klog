@@ -101,6 +101,7 @@ bool Locator::isValidLocator(const QString& tlocator){
 
 
 double Locator::getLat(const QString& tlocator){
+qDebug() << "Locator::getLat: " << tlocator;
 	if (isValidLocator(tlocator)){
 //		return -90+((double)tlocator.at(1)-65)*10 + ((double)tlocator.at(3)-48) +((double)tlocator.at(5)-64.5)/24;
 		return -90+((tlocator.at(1)).digitValue()-65)*10 + ((tlocator.at(3)).digitValue()-48) +((tlocator.at(5)).digitValue()-64.5)/24;
@@ -110,6 +111,7 @@ double Locator::getLat(const QString& tlocator){
 }
 
 double Locator::getLon(const QString& tlocator){
+qDebug() << "Locator::getLon: " << tlocator;
   if (isValidLocator(tlocator)){
     return -(-180+((tlocator.at(0)).digitValue()-65)*20 + ((tlocator.at(2)).digitValue()-48)*2 +((tlocator.at(4)).digitValue()-64.5)/12);
   }else
@@ -161,6 +163,7 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
 }
 
 int Locator::getDistanceKilometres(const double lon1, const double lat1, const double lon2, const double lat2){
+qDebug() << "Locator::getDistanceKilometres" ;
   double lo1,la1,lo2,la2;
 
   lo1=lon1*PI/180;   // Convert degrees to radians
