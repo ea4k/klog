@@ -215,9 +215,13 @@ void Klog::createActions(){
 
   connect(QSLSentcheckBox, SIGNAL(clicked() ), this, SLOT(slotQslSentBoxChanged() ) );
   connect(QSLReccheckBox, SIGNAL(clicked() ), this, SLOT(slotQslRecvBoxChanged() ) );
+  connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete())); 
   
-  connect(dxclusterListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *, int)), this, SLOT(slotClusterSpotToLog(QListWidgetItem *)));
-  connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
+  connect(dxclusterListWidget, SIGNAL(itemSelectionChanged ()), this, SLOT(slotClusterSpotSelectionChanged()));
+  connect(dxclusterListWidget, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(slotClusterSpotCheck(QListWidgetItem *)));
+  connect(dxclusterListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(slotClusterSpotToLog(QListWidgetItem *)));
+  connect(dxclusterListWidget, SIGNAL(itemActivated(QListWidgetItem *)), this, SLOT(slotClusterSpotToLog(QListWidgetItem *)));
+  
    
   connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));  
   connect(searchQsosTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT(showRighButtonSearchMenu(const QPoint& ) ) );
@@ -4487,7 +4491,7 @@ int Klog::needToWorkFromCluster(const QString &tqrz, const int tband){
 // This takes a DX-spot from the DXCluster window and copies to the QSO entry box
 // when the user clicks on it.
 void Klog::slotClusterSpotToLog(QListWidgetItem * item){
-//qDebug() << "KLog::slotClusterSpotToLog";
+qDebug() << "KLog::slotClusterSpotToLog";
     if (item)
         dxClusterString = item->text();
     else
@@ -4522,7 +4526,7 @@ void Klog::slotClusterSpotToLog(QListWidgetItem * item){
 }
 
 void Klog::slotClusterSpotCheck(QListWidgetItem * item){
-//cout << "KLog::slotClusterSpotCheck" << endl;
+qDebug() << "KLog::slotClusterSpotCheck" << endl;
   if (item)
     dxClusterString = item->text();
   else{
@@ -4553,10 +4557,13 @@ void Klog::slotClusterSpotCheck(QListWidgetItem * item){
 // Getting and proposing a MODE could be good...
 
   showWhere(enti);
-
-
 }
 
+
+void Klog::slotClusterSpotSelectionChanged(){
+qDebug() << "KLog::slotClusterSpotSelectionChanged";
+  slotClusterSpotCheck(dxclusterListWidget->currentItem());
+}
 
 //void Klog::addDXSpotToBandMap(QString freq, QString dx, QString from){
 
