@@ -35,6 +35,9 @@ const double PI = 3.141592654;
 const bool LATITUDE = false;
 const bool LONGITUDE = true;
 const double EARTH_RADIUS = 6378;
+const bool RADIAN = 180.0/PI;
+
+
 
 class Locator{
 
@@ -52,6 +55,8 @@ public:
   int getDistanceMilles(const double lon1, const double lat1, const double lon2, const double lat2);
   void degTodms(const double deg);
   double dmsTodeg (int deg, int min, int sec);
+  
+  bool checkCoords(const double lon1, const double lat1);
 
 
 private:

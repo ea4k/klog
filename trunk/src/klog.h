@@ -173,10 +173,6 @@ class Klog : public QMainWindow, private Ui::klog
 //    void contextMenuEvent(QContextMenuEvent*); // To detect the right clicks
     void showRighButtonSearchMenu( const QPoint& pos );
     void showRighButtonLogMenu( const QPoint& pos );
-//    void itemClickedRighButtonSearchMenu( QTreeWidgetItem * item );
-//TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton
-// 	void slotQsoRightButtonFromLog(Q3ListViewItem * item, const QPoint &p);
-// 	void slotQsoRightButtonFromSearch(Q3ListViewItem * item, const QPoint &p);
     void slotModifyBtn();
     void showLogList();   // Shows the log in the botton widget
     void showMenuRightButton(int qqso, const QPoint &p); //This is called from  slotQsoRightButton and show the actions menu
@@ -213,6 +209,7 @@ class Klog : public QMainWindow, private Ui::klog
     void slotClusterClearInputLine();
     void slotClusterSpotToLog(QListWidgetItem* item);
     void slotClusterSpotCheck(QListWidgetItem* item);
+    void slotClusterSpotSelectionChanged();
 //    void slotClusterSetup();
 //    void slotKlogSetup();
     void slotBugReport();

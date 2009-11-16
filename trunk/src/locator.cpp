@@ -163,22 +163,40 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
 }
 
 int Locator::getDistanceKilometres(const double lon1, const double lat1, const double lon2, const double lat2){
-qDebug() << "Locator::getDistanceKilometres" ;
+  qDebug() << "Locator::getDistanceKilometres" ;
   double lo1,la1,lo2,la2;
 
+// TODO: Is it needed to check if the longitude and latitude are correct and/or between the magins?  
+//   if (!( (checkCoords(lon1, lat1) ) && (checkCoords(lon2, lat2)) ))
+//     return 0;
+  
   lo1=lon1*PI/180;   // Convert degrees to radians
   la1=lat1*PI/180;
   lo2=lon2*PI/180;  
   la2=lat2*PI/180;
-
+  
+  
 // Calculates distance in km
-  return  (int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS);
+
+
+ return  (int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS);
 
 }
 
 int Locator::getDistanceMilles(const double lon1, const double lat1, const double lon2, const double lat2){
+  qDebug() << "Locator::getDistanceMilles" ;  
   return  (int)(getDistanceKilometres(lon1, lat1, lon2, lat2)/1.609) ;
 
+}
+
+bool Locator::checkCoords(const double lon1, const double lat1){
+qDebug() << "Locator::checkCoords" ;
+// Checks if a coordinates is correct.
+  if ((lat1 > 90.0 || lat1 < -90.0) && (lon1 > 180.0 || lon1 < -180.0)){
+      return true;
+  }else{
+    return false;
+  }
 }
 
 QString Locator::getLocator(const double lon1, const double lat1) const{
