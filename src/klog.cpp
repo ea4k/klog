@@ -77,6 +77,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   completeWithPrevious = false;
   completedWithPrevious = false;
   requireMandatory = true;
+  qsoSelectedBool = false;
  //   itemSearchClicked = false;
 
   createActions(); // Create and connect all the actions
@@ -109,6 +110,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     hamlibPossible = KlogHamlib.init();
     if (hamlibPossible) { // Check if we have a rig plugged to the computer
       QTimer *hamlibtimer = new QTimer( this );
+      connect( hamlibtimer, SIGNAL(timeout()), this, SLOT(slothamlibUpdateFrequency()) );
       hamlibtimer->start( hamlibInterval );
     }else{ // It is not possible to contact to your rig
       QMessageBox msgBox;
@@ -167,24 +169,27 @@ void Klog::createActions(){
   ActionBugReport->setIcon(KIcon("tools-report-bug"));
   helpAboutAction->setIcon(KIcon("help-about"));
   
-  connect( hamlibtimer, SIGNAL(timeout()), this, SLOT(slothamlibUpdateFrequency()) );
+  
 
   // Connect all the slots
   connect(ActionAddKlogLog, SIGNAL(triggered()), this, SLOT(slotAddLog()));
   // connect(ActionQslNeededCheck, SIGNAL(triggered()), this, SLOT(slotQslNeededCheck()));
   connect(ActionSortLog, SIGNAL(triggered()), this, SLOT(sortLog()));
   connect(addTlfLogAction, SIGNAL(triggered()), this, SLOT(slotImportTlf()));
+
   connect(ActionDXClusterConnect, SIGNAL(triggered()), this, SLOT(slotClusterConnect()) );
   connect(ActionDXClusterDisconnect, SIGNAL(triggered() ), this, SLOT(slotClusterCloseConnection()) );
-  connect(ActionQslRec, SIGNAL( triggered() ), this, SLOT(slotQSLRec()) );
+  
+  connect(ActionQslRec, SIGNAL(triggered() ), this, SLOT(slotQSLRec()) );
   connect(ActionQsoSen, SIGNAL(triggered()), this, SLOT(slotQSLSent()) );
 
+  
   connect(clearBtn, SIGNAL(clicked()), this, SLOT(slotClearBtn()) );
   connect(fileNewAction, SIGNAL(triggered()), this, SLOT(fileNew()) );
   connect(fileExitAction, SIGNAL(triggered()), this, SLOT(fileExit()) );
   connect(fileOpenAction, SIGNAL(triggered()), this, SLOT(fileOpen()) );
   connect(filePrintAction, SIGNAL(triggered()), this, SLOT(filePrint()) );
-  connect(fileSaveAction, SIGNAL(triggered()), this, SLOT(filesave()) );
+  connect(fileSaveAction, SIGNAL(triggered()), this, SLOT(fileSave()) );
   connect(fileSaveAsAction, SIGNAL(triggered()), this, SLOT(fileSaveAs()) );
   connect(helpAboutAction, SIGNAL(triggered()), this, SLOT(helpAbout()) );
   connect(modeComboBox, SIGNAL(activated(int)), this, SLOT(slotModeChanged(int)) );
@@ -205,16 +210,22 @@ void Klog::createActions(){
   //connect(helpIndexAction, SIGNAL(triggered()), this, SLOT(helpIndex()));
   connect(iotaIntSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotIOTAChanged()));
   connect(iotaComboBox, SIGNAL(activated(QString)), this, SLOT(slotIOTAChanged()));
-  connect(awardsComboBox, SIGNAL(textChanged(QString)), this, SLOT(slotLocalAwardChanged()));
+  //connect(awardsComboBox, SIGNAL(textChanged(QString)), this, SLOT(slotLocalAwardChanged()));
   connect(toolsMerge_QSO_dataAction, SIGNAL(triggered()), this, SLOT(slotcompleteThePreviouslyWorked()));
   connect(ActionCabrilloImport, SIGNAL(triggered()), this, SLOT(slotImportCabrillo()));
   connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQrzChanged()));
 
   connect(logTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSelectedForEdit(QTreeWidgetItem *)));
-  connect(logTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT(showRighButtonLogMenu( const QPoint& ) ) );
+  connect(logTreeWidget, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(showRighButtonLogMenu( const QPoint& ) ) );
+  connect(logTreeWidget, SIGNAL(itemSelectionChanged ()), this, SLOT(slotLogQSOSelectionChanged()));
+  connect(logTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotLogQSOSelectionChanged()));
+//slotQsoSelected(QTreeWidgetItem* item)
+//    connect(QSLSentcheckBox, SIGNAL(stateChanged(int state) ), this, SLOT(slotQslSentBoxChanged() ) );
+//    connect(QSLReccheckBox, SIGNAL(stateChanged(int state) ), this, SLOT(slotQslRecvBoxChanged() ) );
+   connect(QSLSentcheckBox, SIGNAL(toggled (bool) ), this, SLOT(slotQslSentBoxChanged() ) );
+   connect(QSLReccheckBox, SIGNAL(toggled (bool) ), this, SLOT(slotQslRecvBoxChanged() ) );
 
-  connect(QSLSentcheckBox, SIGNAL(clicked() ), this, SLOT(slotQslSentBoxChanged() ) );
-  connect(QSLReccheckBox, SIGNAL(clicked() ), this, SLOT(slotQslRecvBoxChanged() ) );
+
   connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete())); 
   
   connect(dxclusterListWidget, SIGNAL(itemSelectionChanged ()), this, SLOT(slotClusterSpotSelectionChanged()));
@@ -284,7 +295,7 @@ void Klog::slotMyLocatorChanged(){
 
 void Klog::showDistancesAndBeam(const int dist, const int beam){
 qDebug() << "KLog::showDistancesAndBeam: (dist/beam) = (" << QString::number(dist) << "/" << QString::number(beam) << ")";
-//cout << "KLog::showDistancesAndBeam" << endl;
+
     distancelCDNumber->display(dist);
     distancellCDNumber->display(40000 - dist);
     beamshortlCDNumber->display(beam);
@@ -348,7 +359,7 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
 void Klog::prepareIOTAComboBox (const int tenti){
     //qDebug() << "KLog::prepareIOTAComboBox" << QString::number(tenti);
 // We receive the Entity, get the continent and write it to the IOTA combobox
-//cout << "KLog: prepareIOTAComboBox for entity: " << QString::number(tenti) << endl;
+
     i = 0;
     i = adif.continent2Number((world.getEntByNumb(tenti)).getContinent());
     iotaComboBox->setCurrentIndex (i);
@@ -358,7 +369,7 @@ void Klog::prepareAwardComboBox(const int tenti){
  //Finds if the Entity received has an award to be controlled and show the
 //it on the award box
     //qDebug() << "KLog::prepareAwardComboBox"  << QString::number(tenti);
-//cout << "KLog: prepareAwardComboBox for entity: " << QString::number(tenti) << endl;
+//qDebug()  << "KLog: prepareAwardComboBox for entity: " << QString::number(tenti) << endl;
     if (tenti <= 0){
         awardsComboBox->setEnabled(false);
         awardsComboBox->clear();
@@ -574,7 +585,6 @@ void Klog::fileSave(){
 
 void Klog::fileSaveAs(){
 //qDebug() << "KLog::fileSaveAs";
-//cout << "KLog::fileSaveAs" << endl;
 //  bool writ = false;
 //  writ = false;
 //  while (!writ){
@@ -628,7 +638,7 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
 //adifTempFileSave(logFileNameToSave, logbook, true)
 //adifTempFileSave(logFileNameToSave, tempLogbook, false)
 //qDebug() << "KLog::adifTempFileSave" << fn;
-//cout << "KLog::adifTempFileSave: " << fn << endl;
+
 
     //logFileNameToSave = checkExtension(fn);
     QString fileToSave;
@@ -865,7 +875,7 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
             templogbook.clear(); // We have saved the whole log, so the temp has also been saved.
             QFile fileTemp( tempLogFile );
             if (fileTemp.remove()){
-                //cout << "Temp file deleted" << endl;
+                //qDebug()  << "Temp file deleted";
             }
             needToSave = false;
         }
@@ -880,7 +890,7 @@ QString Klog::checkExtension(QString extension){
         result = extension.indexOf(".adi", -4, Qt::CaseInsensitive);
     if (result < 0)
         extension = extension + ".adi";
-//cout << "KLog::checkExtension returns: " << extension << endl;
+//qDebug()  << "KLog::checkExtension returns: " << extension;
     return extension;
 };
 
@@ -926,11 +936,11 @@ int Klog::getProgresStepForDialog(int totalSteps){
 // adif files.
 
 void Klog::listHamlib(){
-//cout << "KLog::listHamlib" << endl;
+//qDebug()  << "KLog::listHamlib";
     //int status = 0; // the 0 is just for testing
-    //cout << "ListHamlib: Before loading" << endl;
+    //qDebug()  << "ListHamlib: Before loading" ;
     rig_load_all_backends ();
-    //cout << "ListHamlib: After loading" << endl;
+    //qDebug()  << "ListHamlib: After loading";
 //        status = rig_list_foreach (riglist_make_list, NULL);
 }
 
@@ -1191,11 +1201,11 @@ qDebug() << "KLog::processLogLine" << tLogLine << endl;
                         qso.setLocalAward(theData);
                         qso.setLocalAwardNumber(award.getReferenceNumber(theData));
                     }else{
-                        //cout << "Non-Valid Reference" << endl;
+                        //qDebug()  << "Non-Valid Reference" ;
                     }
                 }
             }else{
-// 				cout << "ProcessLogLine == 0 for " << qso.getQrz() << endl;
+// 				qDebug()  << "ProcessLogLine == 0 for " << qso.getQrz();
             }
         }else if ((adifTab == "OPERATOR")||(adifTab == "GUEST_OP")){
             qso.setOperator(theData);
@@ -1217,7 +1227,7 @@ qDebug() << "KLog::processLogLine" << tLogLine << endl;
         // prepare to read the next QSO.
             if (haveAllTheFields()){
                 dateString = dateString+"T"+timeString;
-                //cout << "KLog processLine Date: |" << dateString <<"|"<< endl;
+                //qDebug()  << "KLog processLine Date: |" << dateString <<"|";
                 if ( !(QDateTime::fromString(dateString, Qt::ISODate)).isValid() ) {
                     //cout << "INVALID DATE-3: " << dateString << endl;
                 }else{
@@ -1669,7 +1679,7 @@ void Klog::slotQsoSelectedForEdit(QTreeWidgetItem *item){
 }
 
 void Klog::slotQsoSelected(QTreeWidgetItem* item){
-//cout << "KLog::slotQsoSelected" << endl;
+qDebug() << "KLog::slotQsoSelected" << endl;
     if (item){
         kk = world.findEntity(item->text(3).toUpper());
         // kk this time is the Entity of the call selected
@@ -1858,7 +1868,7 @@ void Klog::fileOpen(){
 }
 
 void Klog::slotQslSentBoxChanged(){
- qDebug() << "KLog::slotQslSentBoxChanged";
+ qDebug() << "KLog::slotQslSentBoxChanged" << endl;
     if (enti == 0)
         return;
     if (QSLSentcheckBox->isChecked()){
@@ -2092,6 +2102,8 @@ qDebug() << "KLog::modifyQso";
                 if (qslRec.isValid()){
                     (*iter).setQslRecDateOn(qslRec);
                 }
+            } else {
+                (*iter).QslRec('N');
             }
             if ((*iter).gotTheQSL()){
                 dxcc.confirmedString(enti, ((*iter).getBand()).toUpper(), ((*iter).getMode()).toUpper());
@@ -3667,7 +3679,7 @@ void Klog::showLogList(){
 
 //  logTreeWidget->insertTopLevelItems(0, items);
 
-//ESTOY AQUI TRATANDO DE MOSTRAR EL LOG EN EL QTREEWIDGET DE UNA FORMA EFICIENTE
+//Here I am trying to show the log in the qtreewidget in an efficient way
 
 
     Klog::LogBook::iterator it;
@@ -3722,57 +3734,127 @@ QString Klog::getNumberString(const int intNumber){
     }
 }
 
+void Klog::slotLogQSOSelectionChanged(){
+// Grabs the selection in the log.
+//qDebug() << "KLog::slotLogQSOSelectionChanged";
+  qsoSelected = getByNumber(((logTreeWidget->currentItem())->text(0)).toInt());
+  qsoSelectedBool = true;
+  //qDebug() << "KLog::slotLogQSOSelectionChanged: " << qsoSelected.getQrz();
+
+}
+
+
+void Klog::slotQSLSeveralRec(){
+qDebug() << "KLog::slotQSLSeveralRec";
+//This function is executed when the user selects one or several QSO in the log and click on QSL rec.
+// It marks all the selected QSO as QSL Received.
+//QList<QTreeWidgetItem *> QTreeWidget::selectedItems () const
+
+  QList<QTreeWidgetItem *> items;
+  items = logTreeWidget->selectedItems();
+  QListIterator<QTreeWidgetItem *> it(items);
+  
+ 
+    while (it.hasNext()) {
+      qDebug() << "KLog::slotQSLSeveralRec: " << (it.next())->text(0)<< endl;
+//      (*it)->text(0)<< endl;
+/*         if ((*it)->text(0) == itemText)
+             (*it)->setSelected(true);*/
+     //    ++it;
+     
+     }  
+  
+  
+//   for (iterat = list.begin(); iterat != list.end(); ++iterat){
+//   qDebug() << "KLog::slotQSLSeveralRec: " << iterat->text(0)<< endl;
+//   
+//   }
+  
+  
+//QList<QTreeWidgetItem *> QSOsSelected = logTreeWidget->selectedItems();
+
+}
 void Klog::slotQSLRec(){
 qDebug() << "KLog::slotQSLRec" << endl;
+// If we are modifying a QSO we work over it if not, we should work on the selected one on the selected on of the Log
+// TODO: Define all the code of what to do if we are not modifying.
+
 // 	wasConfirmed = qso.gotTheQSL(); // Was this QSO previously confirmed
 // 	if (!wasConfirmed){
 // 		confirmed++; // checked
 // 		wasConfirmed = true;
 // 	}
-  if ((!qso.gotTheQSL()) || (modify) ){
-    Klog::j = qso.getNumb();
-    qslRec = QDate::currentDate();
-    Klog::LogBook::iterator iter;
-    for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
-      if ( Klog::j == (*iter).getNumb() ){
-    (*iter).QslRec('Y');
-    if (qslRec.isValid()){
-            (*iter).setQslRecDateOn(qslRec);
-    }
-    needToSave = true;
-        dxcc.confirmedString(kk, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+  int i	= -1;
+  qslRec = QDate::currentDate();  
 
-        waz.confirmedString(world.getCqzFromCall(qso.getQrz()), qso.getBand(),qso.getMode());
-        showLogList();
-        showWhere(kk);
-        //entityState(kk);
-        showAwardsNumbers();
+  if (modify ){
+    if (!qso.gotTheQSL()){
+      Klog::j = qso.getNumb();      
+
+      Klog::LogBook::iterator iter;
+      for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
+	if ( Klog::j == (*iter).getNumb() ){
+	  (*iter).QslRec('Y');
+	  if (qslRec.isValid()){
+	    (*iter).setQslRecDateOn(qslRec);
+	  }
+// 	  needToSave = true;
+// 	  dxcc.confirmedString(kk, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+// 	  waz.confirmedString(world.getCqzFromCall(qso.getQrz()), qso.getBand(),qso.getMode());
+// 	
+	  showLogList();
+	  showWhere(kk);
+	  //entityState(kk);
+	  showAwardsNumbers();
+	}
       }
+    }
+  }else{ // This is executed if we are not modifying
+    //TODO: Maybe this can be optimized as the code of the QSL status update is the same here and in the previous part of the if    
+    if (qsoSelectedBool){
+      Klog::LogBook::iterator iter;
+      for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
+        if ( qsoSelected.getNumb() == (*iter).getNumb() ){
+	  (*iter).QslRec('Y');
+	  if (qslRec.isValid()){
+	    (*iter).setQslRecDateOn(qslRec);
+	  }
+	  needToSave = true;
+	  dxcc.confirmedString(kk, ((*iter).getBand()).toUpper() ,  ((*iter).getMode()).toUpper());
+	  waz.confirmedString(world.getCqzFromCall((*iter).getQrz()), (*iter).getBand(),(*iter).getMode());      
+	}
+      }  
     }
   }
 }
 
 
 void Klog::slotQSLSent(){
-//We have sent the QSL
+// If we are modifying a QSO we work over it if not, we should work on the selected one on the selected on of the Log
+// TODO: Define all the code of what to do if we are not modifying.
 qDebug() << "KLog::slotQSLSent" << endl;
-    if (!qso.sentTheQSL()){
-        Klog::j = qso.getNumb();
-        qslSen = QDate::currentDate();
-        Klog::LogBook::iterator iter;
-        for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
-            if ( Klog::j == (*iter).getNumb() ){
-                (*iter).QslSent('Y');
-                if (qslSen.isValid()){
-                    (*iter).setQslSenDateOn(qslSen);
-                }
-                needToSave = true;
-                //        showLogList(); // i commented it to make the qsl send right button easier
-                showWhere(kk);
-                entityState(kk);
-            }
-        }
+  if (modify){
+    if (!qso.sentTheQSL()) {
+      Klog::j = qso.getNumb();
+      qslSen = QDate::currentDate();
+      Klog::LogBook::iterator iter;
+
+      for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
+	if ( Klog::j == (*iter).getNumb() ){
+	  (*iter).QslSent('Y');
+	  if (qslSen.isValid()){
+	    (*iter).setQslSenDateOn(qslSen);
+	  }
+	  needToSave = true;
+	  //showLogList(); // i commented it to make the qsl send right button easier
+	  showWhere(kk);
+	  entityState(kk);
+	}
+      }
     }
+  }else{ // This is executed if we are not modifying
+  
+  }
 }
 
 void Klog::slotQSLRecSent(){
