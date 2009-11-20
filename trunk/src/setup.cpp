@@ -42,7 +42,10 @@ Setup::Setup (QDialog * parent):QDialog (parent)
   dirExist = QDir::setCurrent (klogDir);
 
   searchFilekPushButton->setIcon(KIcon("document-open"));
-
+  awardFilekToolButton->setIcon(KIcon("document-open"));
+  
+  connect(awardFilekToolButton, SIGNAL(clicked()), this, SLOT(slotAddButtonClicked()));
+  
  // connect(searchFilekPushButton, SIGNAL(clicked()), this, SLOT(slotFileNameClicked()));
 
   ///////////////////////////////////////////////////////////////////////////////
@@ -74,7 +77,7 @@ void Setup::slotOkBtnClicked()
 void
 Setup::slotConfirmedColorPushButton ()
 {
-//cout << "Setup::slotConfirmedColorPushButton " << endl;
+//qDebug()  << "Setup::slotConfirmedColorPushButton " << endl;
   palette = confirmedPushButton->palette ();
   confirmedPushButton->setPalette (giveColor(confirmedPushButton->palette().color(QPalette::Button)));
 }
@@ -82,7 +85,7 @@ Setup::slotConfirmedColorPushButton ()
 void
 Setup::slotWorkedColorPushButton ()
 {
-//cout << "Setup::slotWorkedColorPushButton " << endl;
+//qDebug()  << "Setup::slotWorkedColorPushButton " << endl;
   palette = workedPushButton->palette ();
   workedPushButton->setPalette (giveColor(workedPushButton->palette().color(QPalette::Button)));
 }
@@ -90,7 +93,7 @@ Setup::slotWorkedColorPushButton ()
 void
 Setup::slotNeededColorPushButton ()
 {
-//cout << "Setup::slotNeededColorPushButton " << endl;
+//qDebug()  << "Setup::slotNeededColorPushButton " << endl;
   palette = neededPushButton->palette ();
   neededPushButton->setPalette(giveColor(neededPushButton->palette().color(QPalette::Button)));
 }
@@ -98,7 +101,7 @@ Setup::slotNeededColorPushButton ()
 void
 Setup::slotNewOneColorPushButton ()
 {
-//cout << "Setup::slotNeededColorPushButton " << endl;
+//qDebug()  << "Setup::slotNeededColorPushButton " << endl;
   palette = newOnePushButton->palette();
   newOnePushButton->setPalette(giveColor(newOnePushButton->palette().color(QPalette::Button)));
 }
@@ -106,7 +109,7 @@ Setup::slotNewOneColorPushButton ()
 void
 Setup::slotDefaultColorPushButton ()
 {
-//cout << "Setup::slotDefaultColorPushButton " << endl;
+//qDebug()  << "Setup::slotDefaultColorPushButton " << endl;
   palette = defaultPushButton->palette ();
   defaultPushButton->setPalette(giveColor(defaultPushButton->palette().color(QPalette::Button)));
 }
@@ -520,7 +523,7 @@ Setup::readConf ()
         {
           //comboBoxTrvSpeedList->setCurrentText(theData);
           //speedlineEdit->setText(theData);
-//              cout << "Klog::readConf: " << QString::number(theData.toInt()) << endl;
+//              qDebug()  << "Klog::readConf: " << QString::number(theData.toInt()) << endl;
 
           comboBoxTrvSpeedList->setCurrentIndex (bauds2Num (theData));
         }
@@ -834,7 +837,7 @@ Setup::slotOpenFileButtonClicked ()
 void
 Setup::slotSearchAwardFilekPushButtonClicked ()
 {
-//cout << "Setup::slotSearchAwardFilekPushButton" << endl;
+//qDebug()  << "Setup::slotSearchAwardFilekPushButton" << endl;
 
   QString fileName = QFileDialog::getOpenFileName (this,
                            i18n ("Open a file"),
@@ -849,10 +852,8 @@ Setup::slotSearchAwardFilekPushButtonClicked ()
 }
 
 
-void
-Setup::slotAddButtonClicked ()
-{
-//cout << "Setup::slotAddButtonClicked" << endl;
+void Setup::slotAddButtonClicked (){
+qDebug() << "Setup::slotAddButtonClicked" << endl;
   awardFileName = awardFilenamekLineEdit->text ();
   if (awardFileName.isEmpty ())
     {
@@ -913,9 +914,8 @@ Setup::slotAddButtonClicked ()
 }
 
 void
-Setup::slotAwardClearButtonClicked ()
-{
-//      cout << "Setup::slotAwardClearButtonClicked" << endl;
+Setup::slotAwardClearButtonClicked (){
+//      qDebug()  << "Setup::slotAwardClearButtonClicked" << endl;
 
   awardFilenamekLineEdit->clear ();
 
@@ -923,9 +923,8 @@ Setup::slotAwardClearButtonClicked ()
 }
 
 void
-Setup::slotAwardRemoveButtonClicked ()
-{
-  //cout << "Setup::slotAwardRemoveButtonClicked" << endl;
+Setup::slotAwardRemoveButtonClicked (){
+  //qDebug()  << "Setup::slotAwardRemoveButtonClicked" << endl;
   awardFileName = awardFilenamekLineEdit->text ();
   if (awardFileName.isEmpty ())
     {
@@ -946,7 +945,7 @@ Setup::slotAwardRemoveButtonClicked ()
 void
 Setup::slotAddDxClusterPushButtonClicked ()
 {
-  //cout << "Setup::slotAddDxClusterPushButtonClicked()" << endl;
+  //qDebug()  << "Setup::slotAddDxClusterPushButtonClicked()" << endl;
   bool ok;
   ok = false;
   while (!ok)
@@ -990,7 +989,7 @@ Setup::slotAddDxClusterPushButtonClicked ()
 void
 Setup::slotClearDxClusterPushButtonClicked ()
 {
-  //cout << "Setup::slotClearDxClusterPushButtonClicked()" << endl;
+  //qDebug()  << "Setup::slotClearDxClusterPushButtonClicked()" << endl;
 /*
 
         dxclusterServerListItems = dxClustercomboBox->count();
@@ -1005,7 +1004,7 @@ Setup::slotClearDxClusterPushButtonClicked ()
 
 //TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton option to edit/remove
 // void Setup::slotAwardRightButtonFromList(QTreeWidgetItem * item, const QPoint &p){
-//      //cout << "Setup::slotAwardRightButtonFromLog" << endl;
+//      //qDebug()  << "Setup::slotAwardRightButtonFromLog" << endl;
 //      if (item){
 //              Setup::i = (item->text(0)).toInt(); // i is the QSO number
 //              showMenuRightButton(item, p);
@@ -1013,7 +1012,7 @@ Setup::slotClearDxClusterPushButtonClicked ()
 // }
 //
 // void Setup::showMenuRightButton(QTreeWidgetItem * item, const QPoint &p){
-//      //cout << "Setup::showMenuRightButton = " << item->text(1) << endl;
+//      //qDebug()  << "Setup::showMenuRightButton = " << item->text(1) << endl;
 //      Setup::editdeletePixMap = new QPixmap("editdelete.png");
 //      awardToDelete = ((item)->text(0)).toInt();
 //      KMenu *awardMenu = new KMenu( this );
@@ -1024,7 +1023,7 @@ Setup::slotClearDxClusterPushButtonClicked ()
 
 void Setup::slotAwardSelected (QTreeWidgetItem * item) {
 //void Setup::slotAwardSelected(QTreeWidgetItem* item){
-  //cout << "Setup::slotAwardSelected" << endl;
+  //qDebug()  << "Setup::slotAwardSelected" << endl;
   awardFilenamekLineEdit->setText (klogDir + "/" + (item->text (3)));
   awardToDelete = ((item)->text (0)).toInt ();
 }
@@ -1032,7 +1031,7 @@ void Setup::slotAwardSelected (QTreeWidgetItem * item) {
 
 
 void Setup::slotAwardDelete() {
-  //cout << "Setup::slotAwardDelete: " << QString::number(awardToDelete) << endl;
+  //qDebug()  << "Setup::slotAwardDelete: " << QString::number(awardToDelete) << endl;
   QMessageBox::about (this, i18n ("KLog Warning!"),
               i18n
               ("This function is still not implemented.\nTo erase an award, delete the appropriate line of your klogrc file."));
@@ -1094,7 +1093,7 @@ bool Setup::checkIfValidDXCluster (const QString & tdxcluster) {
 }
 
 bool Setup::checkIfNewDXCluster (const QString & tdxcluster) {
-  //cout << "checkIfNewDXCluster: -" << tdxcluster << "-"<< endl;
+  //qDebug()  << "checkIfNewDXCluster: -" << tdxcluster << "-"<< endl;
   dxclusterServerListItems = dxClustercomboBox->count ();
   for (i = 0; i <= dxclusterServerListItems - 1; i++) {
       if ((dxClustercomboBox->currentText ()) == (tdxcluster)) {
@@ -1110,7 +1109,7 @@ bool Setup::checkIfNewDXCluster (const QString & tdxcluster) {
 
 /*
 void Setup::showMenuRightButton(int taward, const QPoint &p){
-    ////cout << "KLog::showMenuRightButton" << endl;
+    ////qDebug()  << "KLog::showMenuRightButton" << endl;
     if (taward >= 0){
         qso = getByNumber(qqso);
         KMenu *awardMenu = new KMenu( this );

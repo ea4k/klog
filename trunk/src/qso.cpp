@@ -575,7 +575,7 @@ QString Qso::getLocator() const {
 }
 
 void Qso::setMyLocator(const QString &tgridSquare ){
-        //cout << "QSO::setMyLocator: " << tgridSquare << endl;
+qDebug() <<  "QSO::setMyLocator: " << tgridSquare << endl;
         myGridSquare = checkisNotAdif(tgridSquare);
 }
 

@@ -129,6 +129,7 @@ class Klog : public QMainWindow, private Ui::klog
     public slots:
     void slotUpdateTime();
     void slotQSLRec();
+    void slotQSLSeveralRec();
     void slotQSLSent();
     void slotQSLRecSent();
     void slotQsoDelete();
@@ -169,7 +170,7 @@ class Klog : public QMainWindow, private Ui::klog
     void slotQsoSearchSelectedForEdit( QTreeWidgetItem* item, int); //Puts the QSO in the edit box
     //void slotQsoSearchSelectedForEdit( QTreeWidgetItem* item); //Puts the QSO in the edit box
     void slotQsoSelected (QTreeWidgetItem* item); // Just to see qso data
-
+    void slotLogQSOSelectionChanged(); // Grabs the selected QSO from the log
 //    void contextMenuEvent(QContextMenuEvent*); // To detect the right clicks
     void showRighButtonSearchMenu( const QPoint& pos );
     void showRighButtonLogMenu( const QPoint& pos );
@@ -219,12 +220,13 @@ class Klog : public QMainWindow, private Ui::klog
 
   private:
 
-    Qso qso;
+    Qso qso, qsoSelected;
 //	CabrilloManagement cabrilloLog;
 //	Qso previousQso;       // This and workedCall is to check if a call has been previously
 
     bool completeWithPrevious;	// Configuration parameter
     bool completedWithPrevious;
+    bool qsoSelectedBool; 		//To know if a QSO has been selected at least once
     bool requireMandatory;		// Configuration parameter (requires all the mandatory data for all the QSO) (QRZ, date, time, band, mode, RST (TX&RX))
     QString tempLogFile;	// Temp log to save automatically
 
