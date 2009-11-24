@@ -334,6 +334,9 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
         slotClearBtn();
         return;
     } else if((callLen != 0) && (!modify)){ // Updating the searchQrzklineEdit if we are not modifying a QSO.
+        ActionQsoDelete->setEnabled(true);
+	ActionQsoSen->setEnabled(true);
+	ActionQslRec->setEnabled(true);
         enti = getEntityFromCall();
         if (enti>0){
             if (completeWithPrevious){ // If configured to use this feature
@@ -496,6 +499,12 @@ void Klog::slotClearBtn(){
     qrzLineEdit->setFocus();		// The default widget for next QSO is, obviously, the QRZ!
     searching2QSL = false;	// If the user decides to clear the qrzlinedit, we finish the search 2 QSL process.
     completedWithPrevious = false;
+    
+  logTreeWidget->clearSelection(); //The next 5 are always together (should we create a function?)
+  qsoSelectedBool = false;
+  ActionQsoDelete->setEnabled(false);
+  ActionQsoSen->setEnabled(false);
+  ActionQslRec->setEnabled(false);
 }
 
 void Klog::clearEntityBox(){
@@ -569,6 +578,7 @@ void Klog::slotOkBtn(){
 
     slotClearBtn();
     showLogList();
+    readAwardsStatus();
     showAwardsNumbers(); //Needed?
 }
 
@@ -1379,6 +1389,7 @@ void Klog::adifReadLog(const QString& tfileName){
 // cout << "KLog adifreadlog antes de terminar, DESPUES complete with previous" << endl;
     needToSave = false;
     showLogList();
+    readAwardsStatus();    
     showAwardsNumbers();
 
 //dxcc.printWorkdStatus();
@@ -1441,18 +1452,22 @@ void Klog::toEditQso(){
     if (QSLSentcheckBox->isChecked()){
         (QSLSentdateEdit)->setEnabled(true);
         (QSLSentdateEdit)->setDate(qso.getQslSenDate());
+      ActionQsoSen->setEnabled(false);
     }else{
+	ActionQsoSen->setEnabled(true);
         (QSLSentdateEdit)->setEnabled(false);
-    (QSLSentdateEdit)->setDate(QDate::currentDate());
+	(QSLSentdateEdit)->setDate(QDate::currentDate());
     }
     // If we have received the QSL
     if (QSLReccheckBox->isChecked()){
         (QSLRecdateEdit)->setEnabled(true);
         qslRec =  qso.getQslRecDate(); //We need the qslRec in slotQslRecvBoxChanged
         (QSLRecdateEdit)->setDate(qslRec);
+	ActionQslRec->setEnabled(false);
     }else{
-        (QSLRecdateEdit)->setEnabled(false);
-    (QSLRecdateEdit)->setDate(QDate::currentDate());
+      (QSLRecdateEdit)->setEnabled(false);
+      (QSLRecdateEdit)->setDate(QDate::currentDate());
+      ActionQslRec->setEnabled(true);
     }
     //Now the QSl info information
         QSLcomboBox->setItemText(0, qso.getQslVia());
@@ -1615,7 +1630,7 @@ qDebug() << "KLog::showRighButtonLogMenu - got rightClick: ";
       //qsoMenu->insertItem( *qslRecPixMap, i18n("QSL Received"), this, SLOT( slotQSLRec() ), CTRL + Key_R );
       menu.addAction(recQSOAct);
       //qsoActionsGroup->addAction(recQSOAct);
-      showAwardsNumbers();
+//      showAwardsNumbers();
     }
     if ( !qso.sentTheQSL() ){
       //qsoMenu->insertItem( *qslSenPixMap, i18n("QSL Sent"), this, SLOT( slotQSLSent() ), CTRL + Key_S );
@@ -1925,18 +1940,18 @@ qDebug() << "KLog::slotQslRecvBoxChanged" << endl;
         (QSLRecdateEdit)->setDate(qslRec);
         if (!modify){
             (QSLRecdateEdit)->setDate(qslRec);
-            if (dxcc.isConfirmed(enti)){
-                dxcc.notConfirmedString(enti, (bandComboBox->currentText()).toUpper(),  (modeComboBox->currentText()).toUpper());
-                waz.notConfirmedString( world.getCqzFromCall(qso.getQrz()) ,qso.getBand(),qso.getMode());
-            }
+//             if (dxcc.isConfirmed(enti)){
+//                 dxcc.notConfirmedString(enti, (bandComboBox->currentText()).toUpper(),  (modeComboBox->currentText()).toUpper());
+//                 waz.notConfirmedString( world.getCqzFromCall(qso.getQrz()) ,qso.getBand(),qso.getMode());
+//             }
         }else{ // I am modifying
 /*			if (wasConfirmed){ // If i am "deselecting" a previously confirmed QSO...
                 confirmed--;
             }*/
-            if (dxcc.isConfirmed(enti)){
-                dxcc.notConfirmedString(enti, (bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
-                waz.notConfirmedString( world.getCqzFromCall(qso.getQrz()) ,qso.getBand(),qso.getMode());
-            }
+//             if (dxcc.isConfirmed(enti)){
+//                 dxcc.notConfirmedString(enti, (bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
+//                 waz.notConfirmedString( world.getCqzFromCall(qso.getQrz()) ,qso.getBand(),qso.getMode());
+//             }
         }
     }
     if ((!modify) && (qso.gotTheQSL())){
@@ -2111,10 +2126,10 @@ qDebug() << "KLog::modifyQso";
             }
         } else {
             (*iter).QslRec('N');
-            if (dxcc.isConfirmed(enti)){
-                dxcc.notConfirmedString(enti, (bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
-                waz.notConfirmedString( world.getCqzFromCall((*iter).getQrz()) ,(bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
-            }
+//             if (dxcc.isConfirmed(enti)){
+//                 dxcc.notConfirmedString(enti, (bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
+//                 waz.notConfirmedString( world.getCqzFromCall((*iter).getQrz()) ,(bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
+//             }
         }
     }
 // Not sure but this below seems to be a duplication of above
@@ -3611,8 +3626,8 @@ void Klog::slotQsoDelete(){
 
                switch(ret){
                     case QMessageBox::Yes:
-                        dxcc.notWorked(world.findEntity((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));
-                        waz.notWorked(world.getCqzFromCall((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));
+/*                        dxcc.notWorked(world.findEntity((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));
+                        waz.notWorked(world.getCqzFromCall((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));*/
 //  						if ((*iter).gotTheQSL()){
 //  							Klog::confirmed--;  //To decrease the showed number
 //  						}
@@ -3626,6 +3641,7 @@ void Klog::slotQsoDelete(){
                         slotClearBtn();
                         readAwardsStatus();
                         showLogList();
+			readAwardsStatus();
                         showAwardsNumbers();
                         return;
                         break;
@@ -3641,18 +3657,18 @@ void Klog::slotQsoDelete(){
 }
 
 void Klog::readAwardsStatus(){
+qDebug() << "KLog::readAwardsStatus" << endl;
 // Re-read the DXCC and WAZ status. Maybe I could extract to another function...
         Klog::LogBook::iterator ite;
         for ( ite = logbook.begin(); ite != logbook.end(); ++ite ){
             dxcc.worked(world.findEntity((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
+	    waz.worked(world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
             if ((*ite).gotTheQSL()){
                 dxcc.confirmed(world.findEntity((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
+		waz.confirmed (world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
             }
 
-            waz.worked(world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-            if ((*ite).gotTheQSL()){
-                waz.confirmed(world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-            }
+            
         }
 }
 
@@ -3735,11 +3751,26 @@ QString Klog::getNumberString(const int intNumber){
 }
 
 void Klog::slotLogQSOSelectionChanged(){
-// Grabs the selection in the log.
-//qDebug() << "KLog::slotLogQSOSelectionChanged";
-  qsoSelected = getByNumber(((logTreeWidget->currentItem())->text(0)).toInt());
-  qsoSelectedBool = true;
-  //qDebug() << "KLog::slotLogQSOSelectionChanged: " << qsoSelected.getQrz();
+// Grabs the selection in the log, activates the QSL button actions and QSO deletion
+//qDebug() << "KLog::slotLogQSOSelectionChanged: ";
+
+  qsoSelected = getByNumber(((logTreeWidget->currentItem())->text(0)).toInt());  
+  qsoSelectedBool = true;  
+  ActionQsoDelete->setEnabled(true);
+//  qDebug() << "KLog::slotLogQSOSelectionChanged: " << qsoSelected.getQrz() << endl;
+  
+  if (qsoSelected.gotTheQSL()){ 
+      ActionQslRec->setEnabled(false);
+  }else{
+    ActionQslRec->setEnabled(true);
+  }
+
+  if (qsoSelected.sentTheQSL()){
+    ActionQsoSen->setEnabled(false);
+  }else{
+    ActionQsoSen->setEnabled(true);
+
+  }
 
 }
 
@@ -3784,10 +3815,10 @@ qDebug() << "KLog::slotQSLRec" << endl;
 // 		confirmed++; // checked
 // 		wasConfirmed = true;
 // 	}
-  int i	= -1;
+ // int i	= -1;
   qslRec = QDate::currentDate();  
 
-  if (modify ){
+  if (modify){
     if (!qso.gotTheQSL()){
       Klog::j = qso.getNumb();      
 
@@ -3801,11 +3832,6 @@ qDebug() << "KLog::slotQSLRec" << endl;
 // 	  needToSave = true;
 // 	  dxcc.confirmedString(kk, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
 // 	  waz.confirmedString(world.getCqzFromCall(qso.getQrz()), qso.getBand(),qso.getMode());
-// 	
-	  showLogList();
-	  showWhere(kk);
-	  //entityState(kk);
-	  showAwardsNumbers();
 	}
       }
     }
@@ -3826,6 +3852,17 @@ qDebug() << "KLog::slotQSLRec" << endl;
       }  
     }
   }
+  logTreeWidget->clearSelection(); //The next 5 are always together (should we create a function?)
+  qsoSelectedBool = false;
+  ActionQsoDelete->setEnabled(false);
+  ActionQsoSen->setEnabled(false);
+  ActionQslRec->setEnabled(false);
+
+  showLogList();
+  showWhere(kk);
+  //entityState(kk);
+  readAwardsStatus();	  
+  showAwardsNumbers();
 }
 
 
@@ -3833,12 +3870,13 @@ void Klog::slotQSLSent(){
 // If we are modifying a QSO we work over it if not, we should work on the selected one on the selected on of the Log
 // TODO: Define all the code of what to do if we are not modifying.
 qDebug() << "KLog::slotQSLSent" << endl;
+
+  Klog::LogBook::iterator iter;
+  qslSen = QDate::currentDate();
+  
   if (modify){
     if (!qso.sentTheQSL()) {
       Klog::j = qso.getNumb();
-      qslSen = QDate::currentDate();
-      Klog::LogBook::iterator iter;
-
       for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
 	if ( Klog::j == (*iter).getNumb() ){
 	  (*iter).QslSent('Y');
@@ -3847,14 +3885,30 @@ qDebug() << "KLog::slotQSLSent" << endl;
 	  }
 	  needToSave = true;
 	  //showLogList(); // i commented it to make the qsl send right button easier
-	  showWhere(kk);
-	  entityState(kk);
+	//  showWhere(kk);
+	//  entityState(kk);
 	}
       }
     }
   }else{ // This is executed if we are not modifying
-  
+    if (qsoSelectedBool){
+      for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
+	if ( qsoSelected.getNumb() == (*iter).getNumb() ){
+	  (*iter).QslSent('Y');
+	  if (qslSen.isValid()){
+	    (*iter).setQslSenDateOn(qslRec);
+	  }
+	  needToSave = true;
+	}
+      }
+    }
   }
+  logTreeWidget->clearSelection(); //The next 5 are always together (should we create a function?)
+  qsoSelectedBool = false;
+  ActionQsoDelete->setEnabled(false);
+  ActionQsoSen->setEnabled(false);
+  ActionQslRec->setEnabled(false);
+
 }
 
 void Klog::slotQSLRecSent(){
