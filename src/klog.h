@@ -439,7 +439,6 @@ class Klog : public QMainWindow, private Ui::klog
     int hamlibInterval;
     QString serialPort;
     QTimer *hamlibtimer;
-
     QMenu *qsoMenu;
 //    QMenu *searchRightButtonMenu;
     QAction *delQSOAct;
