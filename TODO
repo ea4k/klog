@@ -44,6 +44,7 @@ NEW FEATURE: Add a needed tab in the botton box. Needed spots would be added the
 can also add spots there. Maybe I can add two tabs, one for user added and
 another for automatic needed spots.
 
+
 To check the Debian package as I think icons are not being included (s390/0.3.01)
 http://buildd.debian.org/fetch.php?&pkg=klog&ver=0.3.0-1&arch=s390&stamp=1099872133&file=log&as=raw
 
@@ -81,8 +82,8 @@ possible to reach the Name and QTH with tabs) (P.H. Rankin H.)
 
                    
 <Early versions - WishList>
-* Multi call support, the same user can log with several calls (OPERATOR)
-* Create a new widget for the search QSO to QSL and show highlighted the QSO that are new-ones. Make easier the QSL sending by adding some kind of check-box to avoid having to reload all the list each time.
+* Add a way to group the "NEW ONES" when the user executes the Tools->Find QSO to QSL to priorize the NEW ONES.
+* Multi call support, the same user can log with several calls (OPERATOR).
 * When showing QSO to QSL search and display as "needed" the QRZ that is a new one, has not been confirmed in ANY band.
 * Make the cty.dat QMessage to display an URL "clickable" (setTextFormat(RichText))
 * Include a way to find duplicate QSO (QSO with same QRZ/date/time/band).
