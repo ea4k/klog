@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-26 17:07+0100\n"
+"POT-Creation-Date: 2009-11-26 18:13+0100\n"
 "PO-Revision-Date: 2008-11-09 12:16+0100\n"
 "Last-Translator: Jaime Robles <jaime@kde.org>\n"
 "Language-Team: Spanish <kde-es@kybs.de>\n"
@@ -309,13 +309,13 @@ msgstr "Lösche QSO"
 
 #. i18n: file: src/klog.ui:2906
 #. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
-#: build/ui_klog.h:1628 po/rc.cpp:867 src/klog.cpp:1629 rc.cpp:867
+#: build/ui_klog.h:1628 po/rc.cpp:867 src/klog.cpp:1636 rc.cpp:867
 msgid "QSL Sent"
 msgstr "QSL gesendet"
 
 #. i18n: file: src/klog.ui:2914
 #. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
-#: build/ui_klog.h:1629 po/rc.cpp:870 src/klog.cpp:1624 rc.cpp:870
+#: build/ui_klog.h:1629 po/rc.cpp:870 src/klog.cpp:1631 rc.cpp:870
 msgid "QSL Received"
 msgstr "QSL empfangen"
 
@@ -2327,9 +2327,11 @@ msgstr "Diese Datei beim Start von KLog öffnen:"
 msgid "If checked the time will be UTC"
 msgstr "Falls markiert, erfolgt Zeitanzeige in UTC"
 
-#: build/ui_setup.h:737
+#. i18n: file: src/setup.ui:214
+#. i18n: ectx: property (text), widget (QCheckBox, UTCcheckBox)
+#: build/ui_setup.h:737 po/rc.cpp:966 rc.cpp:966
 #, fuzzy
-msgid "Time in Qt::UTC"
+msgid "Time in UTC"
 msgstr "Zeit in UTC"
 
 #. i18n: file: src/setup.ui:253
@@ -2741,13 +2743,6 @@ msgctxt "Use no more than 4 letters when translating"
 msgid "<b><p align=\"center\">deg</p></b>"
 msgstr "<b><p align=\"center\">Grad</p></b>"
 
-#. i18n: file: src/setup.ui:214
-#. i18n: ectx: property (text), widget (QCheckBox, UTCcheckBox)
-#: po/rc.cpp:966 rc.cpp:966
-#, fuzzy
-msgid "Time in UTC"
-msgstr "Zeit in UTC"
-
 #: po/rc.cpp:1303 rc.cpp:1303
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
@@ -2758,9 +2753,9 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: src/klog.cpp:117 src/klog.cpp:2177 src/klog.cpp:2371 src/klog.cpp:3201
-#: src/klog.cpp:3222 src/klog.cpp:3273 src/klog.cpp:3997 src/klog.cpp:4199
-#: src/klog.cpp:4470 src/klog.cpp:4482
+#: src/klog.cpp:117 src/klog.cpp:2195 src/klog.cpp:2389 src/klog.cpp:3219
+#: src/klog.cpp:3240 src/klog.cpp:3291 src/klog.cpp:4016 src/klog.cpp:4218
+#: src/klog.cpp:4489 src/klog.cpp:4501
 msgid "KLog message:"
 msgstr "KLog Mitteilung:"
 
@@ -2811,24 +2806,24 @@ msgstr "<p align=\"center\"><b>KLog</b></p>"
 msgid "Ok"
 msgstr "Ok"
 
-#: src/klog.cpp:591 src/klog.cpp:3095
+#: src/klog.cpp:599 src/klog.cpp:3113
 msgid "Save File"
 msgstr ""
 
-#: src/klog.cpp:593 src/klog.cpp:3097
+#: src/klog.cpp:601 src/klog.cpp:3115
 #, fuzzy
 msgid "ADIF (*.adi)"
 msgstr "ADIF Dateien (*.adi *.ADI)"
 
-#: src/klog.cpp:653
+#: src/klog.cpp:661
 msgid "Saving the log..."
 msgstr "Speichere Logfile..."
 
-#: src/klog.cpp:653
+#: src/klog.cpp:661
 msgid "Abort saving"
 msgstr "Speichern abbrechen"
 
-#: src/klog.cpp:663
+#: src/klog.cpp:671
 msgid ""
 "ADIF v1.0 (some ADIF v2 fields) Export from KLog-%1\n"
 "http://jaime.robles.es/klog\n"
@@ -2838,87 +2833,87 @@ msgid ""
 "<EOH>\n"
 msgstr ""
 
-#: src/klog.cpp:1286 src/klog.cpp:2609 src/klog.cpp:2841
+#: src/klog.cpp:1293 src/klog.cpp:2627 src/klog.cpp:2859
 msgid "Reading the log..."
 msgstr "Lese das Logfile..."
 
-#: src/klog.cpp:1286 src/klog.cpp:2609 src/klog.cpp:2841
+#: src/klog.cpp:1293 src/klog.cpp:2627 src/klog.cpp:2859
 msgid "Abort reading"
 msgstr "Breche das Lesen ab"
 
-#: src/klog.cpp:1362 src/klog.cpp:2814 src/klog.cpp:3066
+#: src/klog.cpp:1369 src/klog.cpp:2832 src/klog.cpp:3084
 msgid "Adding QSO#: "
 msgstr "Füge QSO# hinzu:"
 
-#: src/klog.cpp:1612
+#: src/klog.cpp:1619
 #, fuzzy
 msgid "&Delete"
 msgstr "Lösche QSO"
 
-#: src/klog.cpp:1614
+#: src/klog.cpp:1621
 #, fuzzy
 msgid "Delete a QSO"
 msgstr "Lösche QSO"
 
-#: src/klog.cpp:1617
+#: src/klog.cpp:1624
 #, fuzzy
 msgid "&Recv and Sent"
 msgstr "QSL an und ab"
 
-#: src/klog.cpp:1619
+#: src/klog.cpp:1626
 msgid "QSL Recv and Sent"
 msgstr "QSL an und ab"
 
-#: src/klog.cpp:1622
+#: src/klog.cpp:1629
 msgid "&Recv QSL"
 msgstr ""
 
-#: src/klog.cpp:1627
+#: src/klog.cpp:1634
 #, fuzzy
 msgid "&Sent QSL"
 msgstr "QSL-Karte gesendet"
 
-#: src/klog.cpp:1641 src/klog.cpp:1668 src/klog.cpp:3511
+#: src/klog.cpp:1648 src/klog.cpp:1675 src/klog.cpp:3529
 #, fuzzy
 msgid "Modify"
 msgstr "Mode"
 
-#: src/klog.cpp:1642 src/klog.cpp:1772 src/klog.cpp:3512
+#: src/klog.cpp:1649 src/klog.cpp:1779 src/klog.cpp:3530
 msgid "Cancel"
 msgstr ""
 
-#: src/klog.cpp:1770
+#: src/klog.cpp:1777
 msgid "Warning - Save log?"
 msgstr "Warnung - Log speichern?"
 
-#: src/klog.cpp:1771
+#: src/klog.cpp:1778
 msgid "The log has been changed since the last save."
 msgstr "Das Log hat sich seit der letzten Änderung verändert."
 
-#: src/klog.cpp:1772
+#: src/klog.cpp:1779
 msgid "Save Now"
 msgstr "Jetzt speichern"
 
-#: src/klog.cpp:1772
+#: src/klog.cpp:1779
 msgid "Continue anyway"
 msgstr "trotzdem weitermachen"
 
-#: src/klog.cpp:1825
+#: src/klog.cpp:1832
 #, fuzzy
 msgid "Open File"
 msgstr "Eine Datei öffnen"
 
-#: src/klog.cpp:1825 src/setup.cpp:810
+#: src/klog.cpp:1832 src/setup.cpp:810
 #, fuzzy
 msgid "ADIF files (*.adi)"
 msgstr "ADIF Dateien (*.adi *.ADI)"
 
-#: src/klog.cpp:2134
+#: src/klog.cpp:2152
 #, fuzzy
 msgid "KLog-%1 - The KDE Ham Radio Logging program"
 msgstr " - das KDE Amateurfunk Logbuch Programm"
 
-#: src/klog.cpp:2135
+#: src/klog.cpp:2153
 #, fuzzy
 msgid ""
 "KLog: %1 - The KDE Ham Radio Logging program\n"
@@ -2930,7 +2925,7 @@ msgstr ""
 "Jaime Robles, EA4TV, jaime@robles.nu Übersetzung: Rainer Dohmen, DL5PD, "
 "dl5pd@darc.de"
 
-#: src/klog.cpp:2178
+#: src/klog.cpp:2196
 msgid ""
 "It seems to be the first time you run KLog in this computer.\n"
 "The setup dialog will start to help you to configure KLog.\n"
@@ -2939,7 +2934,7 @@ msgid ""
 "The KLog team."
 msgstr ""
 
-#: src/klog.cpp:2372
+#: src/klog.cpp:2390
 msgid ""
 "You still have not configured KLog.\n"
 "Please click on:\n"
@@ -2947,7 +2942,7 @@ msgid ""
 " and configure KLog."
 msgstr ""
 
-#: src/klog.cpp:2616 src/klog.cpp:2618 src/klog.cpp:2845 src/klog.cpp:3107
+#: src/klog.cpp:2634 src/klog.cpp:2636 src/klog.cpp:2863 src/klog.cpp:3125
 msgid ""
 "Enter a remark for ALL the imported QSO:\n"
 "(Leave it empty and press OK if no remark)"
@@ -2955,11 +2950,11 @@ msgstr ""
 "Geben Sie einen Kommentar für ALLE importierten QSOs:\n"
 "(Für keinen Kommentar einfach leer lassen und OK drücken)"
 
-#: src/klog.cpp:2617 src/klog.cpp:2631
+#: src/klog.cpp:2635 src/klog.cpp:2649
 msgid "KLog - TLF Import"
 msgstr "KLog - TLF Import"
 
-#: src/klog.cpp:2632
+#: src/klog.cpp:2650
 msgid ""
 "Enter the used call:\n"
 "(Leave it empty and press OK if no diferent call was used)"
@@ -2967,27 +2962,27 @@ msgstr ""
 "Geben Sie das zu benutzende Rufzeichen ein:\n"
 "(leerlassen und OK drücken, wenn kein anderes Rufzeichen benutzt wurde)"
 
-#: src/klog.cpp:2637 src/klog.cpp:3132
+#: src/klog.cpp:2655 src/klog.cpp:3150
 msgid "Warning - QRZ not valid"
 msgstr "WARNUNG - Rufzeichen nicht gültig"
 
-#: src/klog.cpp:2638
+#: src/klog.cpp:2656
 msgid "Do you want to import without a QRZ?\n"
 msgstr "Möchten Sie ohne ein Rufzeichen importieren?\n"
 
-#: src/klog.cpp:2639
+#: src/klog.cpp:2657
 msgid "Yes"
 msgstr ""
 
-#: src/klog.cpp:2639
+#: src/klog.cpp:2657
 msgid "No"
 msgstr ""
 
-#: src/klog.cpp:2658
+#: src/klog.cpp:2676
 msgid "Warning - Possible dates conflict:"
 msgstr "Warnung - Möglicher Datenkonflikt:"
 
-#: src/klog.cpp:2659
+#: src/klog.cpp:2677
 #, fuzzy
 msgid ""
 "Please define if the QSOs were done in the 1900s or in the 2000s years\n"
@@ -2996,16 +2991,16 @@ msgstr ""
 "Bitte festlegen, ob die QSO vor (1900) oder nach (2000) dem "
 "Jahrtausendwechsel stattfanden\n"
 
-#: src/klog.cpp:2844
+#: src/klog.cpp:2862
 #, fuzzy
 msgid "KLog - Cabrillo Import"
 msgstr "KLog - TLF Import"
 
-#: src/klog.cpp:3106 src/klog.cpp:3124 src/klog.cpp:3158
+#: src/klog.cpp:3124 src/klog.cpp:3142 src/klog.cpp:3176
 msgid "KLog - Log Add"
 msgstr "KLog - Log hinzufügen"
 
-#: src/klog.cpp:3122
+#: src/klog.cpp:3140
 #, fuzzy
 msgid ""
 "Enter the used call:\n"
@@ -3014,12 +3009,12 @@ msgstr ""
 "Geben Sie das zu benutzende Rufzeichen ein:\n"
 "(leerlassen und OK drücken, wenn kein anderes Rufzeichen benutzt wurde)"
 
-#: src/klog.cpp:3133
+#: src/klog.cpp:3151
 #, fuzzy
 msgid "Do you want to import without a QRZ?"
 msgstr "Möchten Sie ohne ein Rufzeichen importieren?\n"
 
-#: src/klog.cpp:3156
+#: src/klog.cpp:3174
 #, fuzzy
 msgid ""
 "Enter the locator of the activity:\n"
@@ -3028,17 +3023,17 @@ msgstr ""
 "Geben Sie das zu benutzende Rufzeichen ein:\n"
 "(leerlassen und OK drücken, wenn kein anderes Rufzeichen benutzt wurde)"
 
-#: src/klog.cpp:3166
+#: src/klog.cpp:3184
 #, fuzzy
 msgid "Warning - Locator not valid"
 msgstr "WARNUNG - Rufzeichen nicht gültig"
 
-#: src/klog.cpp:3167
+#: src/klog.cpp:3185
 #, fuzzy
 msgid "Do you want to import without a Locator and use %1 ?\n"
 msgstr "Möchten Sie ohne ein Rufzeichen importieren?\n"
 
-#: src/klog.cpp:3203
+#: src/klog.cpp:3221
 #, fuzzy
 msgid ""
 "The log file has been\n"
@@ -3047,72 +3042,72 @@ msgstr ""
 "Die Logdatei wurde\n"
 "erfolgreich hinzugefügt!"
 
-#: src/klog.cpp:3223
+#: src/klog.cpp:3241
 msgid ""
 "This function (slotImportCabrillo) has been deleted to help the QT4 "
 "migration.\n"
 "It will be restored ASAP"
 msgstr ""
 
-#: src/klog.cpp:3274
+#: src/klog.cpp:3292
 msgid ""
 "This function (slotImportTlf) has been deleted to help the QT4 migration.\n"
 "It will be restored ASAP"
 msgstr ""
 
-#: src/klog.cpp:3307
+#: src/klog.cpp:3325
 msgid "<p align=\"center\"><b>Worked & confirmed before</b></p>"
 msgstr "<p align=\"center\"><b>Gearbeitet & schon bestätigt</b></p>"
 
-#: src/klog.cpp:3315
+#: src/klog.cpp:3333
 msgid "<p align=\"center\"><b>Not confirmed in this band, WORK IT!</b></p>"
 msgstr ""
 "<p align=\"center\"><b>Auf diesem Band noch nicht bestätigt, AB ANS GERÄT!</"
 "b></p>"
 
-#: src/klog.cpp:3322
+#: src/klog.cpp:3340
 msgid "<p align=\"center\"><b>New one in this band, WORK IT!</b></p>"
 msgstr ""
 "<p align=\"center\"><b>Neues Call auf diesem Band, AB ANS GERÄT!</b></p>"
 
-#: src/klog.cpp:3333
+#: src/klog.cpp:3351
 msgid "<p align=\"center\"><b>Not confirmed, WORK IT!</b></p>"
 msgstr "<p align=\"center\"><b>Nicht bestätigt, AB ANS GERÄT!</b></p>"
 
-#: src/klog.cpp:3343
+#: src/klog.cpp:3361
 msgid "<p align=\"center\"><b>NEW ONE, WORK IT!</b></p>"
 msgstr "<p align=\"center\"><b>NEUES CALL, AB ANS GERÄT!</b></p>"
 
-#: src/klog.cpp:3536
+#: src/klog.cpp:3554
 msgid "Warning - QSO Deletion"
 msgstr "Warnung - QSO-Löschung"
 
-#: src/klog.cpp:3537
+#: src/klog.cpp:3555
 msgid "Do you want to delete the QSO with:\n"
 msgstr "Möchten Sie das QSO löschen mit:\n"
 
-#: src/klog.cpp:3538
+#: src/klog.cpp:3556
 #, fuzzy
 msgid " of "
 msgstr " für "
 
-#: src/klog.cpp:3998
+#: src/klog.cpp:4017
 msgid ""
 "This function has been deleted to help the QT4 migration.\n"
 "It will be restored ASAP"
 msgstr ""
 
-#: src/klog.cpp:4158
+#: src/klog.cpp:4177
 #, fuzzy
 msgid "Sorting the log..."
 msgstr "Speichere Logfile..."
 
-#: src/klog.cpp:4158
+#: src/klog.cpp:4177
 #, fuzzy
 msgid "Abort sorting"
 msgstr "Speichern abbrechen"
 
-#: src/klog.cpp:4200
+#: src/klog.cpp:4219
 msgid ""
 "Check your cluster settings\n"
 "in Setup->Preferences\n"
@@ -3122,36 +3117,36 @@ msgstr ""
 "in Einrichtung -> Einstellungen\n"
 "vor dem Connect!"
 
-#: src/klog.cpp:4219
+#: src/klog.cpp:4238
 msgid "Trying to connect to the server\n"
 msgstr "Versuche, den Server zu kontaktieren\n"
 
-#: src/klog.cpp:4432
+#: src/klog.cpp:4451
 msgid "Connected to server"
 msgstr "Verbunden mit dem Server"
 
-#: src/klog.cpp:4437
+#: src/klog.cpp:4456
 msgid "QInputDialog::getText()"
 msgstr ""
 
-#: src/klog.cpp:4437
+#: src/klog.cpp:4456
 #, fuzzy
 msgid "Enter you callsign to connect to the cluster:"
 msgstr "Versuche, den Server zu kontaktieren\n"
 
-#: src/klog.cpp:4449
+#: src/klog.cpp:4468
 msgid "Connection closed by the server"
 msgstr "Verbindung wurde vom Server beendet"
 
-#: src/klog.cpp:4455
+#: src/klog.cpp:4474
 msgid "Connection closed"
 msgstr "Verbindung beendet"
 
-#: src/klog.cpp:4471
+#: src/klog.cpp:4490
 msgid "DX-Cluster server refused the connection\n"
 msgstr "Der DX-Cluster Server hat die Verbindung abgelehnt\n"
 
-#: src/klog.cpp:4473
+#: src/klog.cpp:4492
 #, fuzzy
 msgid ""
 "\n"
@@ -3161,11 +3156,11 @@ msgstr ""
 "Vielleicht sind Sie bereits verbunden, bitte ein anderes Rufzeichen wie "
 "\"RUFZEICHEN-1\" verwenden!"
 
-#: src/klog.cpp:4483
+#: src/klog.cpp:4502
 msgid "Host not found:\n"
 msgstr "Host nicht gefunden:\n"
 
-#: src/klog.cpp:4485
+#: src/klog.cpp:4504
 #, fuzzy
 msgid ""
 "\n"
@@ -3174,32 +3169,32 @@ msgstr ""
 "Rechner nicht gefunden,\n"
 "Überprüfen Sie Ihre Netzwerkeinstellungen!"
 
-#: src/klog.cpp:4509
+#: src/klog.cpp:4528
 msgid "Error number %1 occurred"
 msgstr "Fehler Nummer %1 trat auf"
 
-#: src/klog.cpp:4680
+#: src/klog.cpp:4699
 msgid ""
 "Please send your bug-report/wish to jaime@robles.es\n"
 "Include the KLog version you are using (%1). All your suggestion will be "
 "welcome!"
 msgstr ""
 
-#: src/klog.cpp:4926
+#: src/klog.cpp:4945
 msgid "Merging information..."
 msgstr "Fasse Informationen zusammen..."
 
-#: src/klog.cpp:4926 src/klog.cpp:5163
+#: src/klog.cpp:4945 src/klog.cpp:5182
 msgid "Abort"
 msgstr "Abbrechen"
 
-#: src/klog.cpp:4952 src/klog.cpp:4975 src/klog.cpp:4994 src/klog.cpp:5016
-#: src/klog.cpp:5048 src/klog.cpp:5089
+#: src/klog.cpp:4971 src/klog.cpp:4994 src/klog.cpp:5013 src/klog.cpp:5035
+#: src/klog.cpp:5067 src/klog.cpp:5108
 msgid "Warning: Callsign to complete found"
 msgstr "Warnung: Rufzeichen zum Komplettieren gefunden"
 
-#: src/klog.cpp:4953 src/klog.cpp:4976 src/klog.cpp:4995 src/klog.cpp:5017
-#: src/klog.cpp:5049
+#: src/klog.cpp:4972 src/klog.cpp:4995 src/klog.cpp:5014 src/klog.cpp:5036
+#: src/klog.cpp:5068
 #, fuzzy
 msgid ""
 "Completing a call could cause data to be no accurate. Do you want this data "
@@ -3210,32 +3205,32 @@ msgstr ""
 "Daten zusammengefasst werden?\n"
 "Bitte QTH eingeben"
 
-#: src/klog.cpp:4955
+#: src/klog.cpp:4974
 msgid " - Asign the name "
 msgstr ""
 
-#: src/klog.cpp:4955 src/klog.cpp:4978 src/klog.cpp:4998 src/klog.cpp:5020
-#: src/klog.cpp:5053
+#: src/klog.cpp:4974 src/klog.cpp:4997 src/klog.cpp:5017 src/klog.cpp:5039
+#: src/klog.cpp:5072
 msgid " for "
 msgstr " für "
 
-#: src/klog.cpp:4978
+#: src/klog.cpp:4997
 msgid " - Asign the QTH "
 msgstr ""
 
-#: src/klog.cpp:4997
+#: src/klog.cpp:5016
 msgid " - Asign the Locator "
 msgstr ""
 
-#: src/klog.cpp:5019
+#: src/klog.cpp:5038
 msgid " - Asign the IOTA reference "
 msgstr ""
 
-#: src/klog.cpp:5051
+#: src/klog.cpp:5070
 msgid " - Asign the Local Award reference "
 msgstr ""
 
-#: src/klog.cpp:5090
+#: src/klog.cpp:5109
 #, fuzzy
 msgid ""
 "Completing a call could cause data to be no accurate. Do you want this data "
@@ -3247,15 +3242,15 @@ msgstr ""
 "Daten zusammengefasst werden?\n"
 "Soll die \"QSL empfangen\"-Information in andere QSOs kopiert werden?"
 
-#: src/klog.cpp:5139
+#: src/klog.cpp:5158
 msgid "Merging calls: "
 msgstr "Fasse Rufzeichen zusammen:"
 
-#: src/klog.cpp:5163
+#: src/klog.cpp:5182
 msgid "Getting all the calls..."
 msgstr "Lese alle Rufzeichen ein..."
 
-#: src/klog.cpp:5179
+#: src/klog.cpp:5198
 msgid "Adding Call: "
 msgstr "Füge Rufzeichen hinzu:"
 
@@ -3350,6 +3345,10 @@ msgstr ""
 "Diese Funktion ist noch nicht eingepflegt.\n"
 "Um einen Wettbewerb zu löschen, bitte die dazugehörige Zeile in der Datei "
 "klogrc löschen."
+
+#, fuzzy
+#~ msgid "Time in Qt::UTC"
+#~ msgstr "Zeit in UTC"
 
 #, fuzzy
 #~ msgid "If checked the time will be Qt::UTC"

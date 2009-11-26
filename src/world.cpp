@@ -237,7 +237,7 @@ return (getEntByNumb(aux)).getPfx();
 
 int World::findEntity(const QString string){
 // If no Entity is found, we return "0"
- qDebug() <<  "World::findEntity: " << string << endl;
+//qDebug() <<  "World::findEntity: " << string << endl;
 
 // The first task is to isolate the prefix
 
@@ -662,14 +662,14 @@ int World::getCqz(){
 
 int World::getCqzFromCall(const QString  tqrz){
 //TODO: Check if the i=... is needed and check if this function is needed or just an unefficiency
-qDebug() << "World::getCQzFromCall: " << tqrz << endl;
+//qDebug() << "World::getCQzFromCall: " << tqrz << endl;
     i = findEntity(tqrz);
     return getCqz();
 }
 
 int World::getITUzFromCall(const QString  tqrz){
 //TODO: Check if the i=... is needed and check if this function is needed or just an unefficiency
-qDebug() << "World::getITUzFromCall: " << tqrz << endl;
+//qDebug() << "World::getITUzFromCall: " << tqrz << endl;
     i = findEntity(tqrz);
     return getItuz();
     

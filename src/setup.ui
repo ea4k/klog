@@ -211,7 +211,7 @@
           <string>If checked the time will be UTC</string>
          </property>
          <property name="text">
-          <string>Time in Qt::UTC</string>
+          <string>Time in UTC</string>
          </property>
          <property name="checked">
           <bool>true</bool>

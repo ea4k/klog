@@ -26,10 +26,11 @@
 #ifndef GLOBAL_DATA
 #define GLOBAL_DATA
 const int ENTITIES = 400;
-const int ZONES = 40+1;
+const int ZONES = 40;
 const int BANDS = 28;
 const int MODES = 59;
 #endif
+
  
 #ifndef AWARDWAZ_H
 #define AWARDWAZ_H

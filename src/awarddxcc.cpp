@@ -68,7 +68,7 @@ void AwardDXCC::clear(){
 }
 
 void AwardDXCC::worked(const int tentity, const int tband, const int tmode){
-//cout << "AwardDXCC::worked: " << QString::number(tentity) << "/"  << QString::number(tband) << "/"  << QString::number(tmode) << "/" << endl;
+//qDebug () << "AwardDXCC::worked: " << QString::number(tentity) << "/"  << QString::number(tband) << "/"  << QString::number(tmode) << "/" << endl;
 	i = tentity;
 	j = tband;
 	k = tmode;
@@ -205,7 +205,7 @@ int AwardDXCC::howManyWorked(){
 //cout << "AwardDXCC::howManyWorked" << endl;
 	iAux = 0;
 	for (i = 0; i < ENTITIES; i++){
-		if (dxccW[i] == true){
+		if (dxccW[i]){
 			iAux++;}
 			////cout << "AwardDXCC::howManyWorked enti/iAux: " << QString::number(i) <<"/"<< QString::number(iAux) << endl;
 	}
@@ -219,7 +219,7 @@ int AwardDXCC::howManyWorked(){
 // CONFIRMED
 
 void AwardDXCC::confirmed(const int tentity, const int tband, const int tmode){
-//cout << "AwardDXCC::confirmed: Entity: " << QString::number(tentity) << "/Band: " << QString::number(tband) << QString::number(tmode)<< endl;
+//qDebug() << "AwardDXCC::confirmed: Entity: " << QString::number(tentity) << "/Band: " << QString::number(tband) << QString::number(tmode)<< endl;
 	i = tentity;
 	j = tband;
 	k = tmode;
@@ -311,7 +311,7 @@ int AwardDXCC::howManyConfirmed(){
 //cout << "AwardDXCC::howManyConfirmed" << endl;
 	iAux = 0;
 	for (i = 0; i < ENTITIES; i++){
-		if (dxccC[i]==true)
+		if (dxccC[i])
 			iAux++;
 	}
 	return iAux;
@@ -346,43 +346,3 @@ void AwardDXCC::notConfirmedString(const int tentity, const QString& tband, cons
   dxccm[i][k] = 0;
   dxccC[i] = false;
 }
-
-
-/*
-void AwardDXCC::printWorkdStatus(){
-	i = 0;
-	j = 0;
-	k = 0;
-	for (i = 0; i <  ENTITIES; i++){
-		cout << "Entity: " << QString::number(i);
-		if (dxccW[i]){
-			cout << " Worked / ";
-		}else{
-			cout << " NOT Worked / ";
-		}
-		
-		if (dxccC[i]){
-			cout << " Confirmed" << endl;
-		}else{
-			cout << " NOT Confirmed" << endl;
-		}
-
-		for (j = 0; j <  BANDS; j++){
-			cout << "Band: " << QString::number(j);
-
-		if (dxccb[i][j] == -1){
-			cout << " - Not worked" << endl;
-		}else if (dxccb[i][j] == 0) {
-			cout << " - Worked" << endl;
-		}else if (dxccb[i][j] == 1) {
-			cout << " - Confirmed" << endl;
-		}else{
-			cout << " - UNKNOWN" << endl;
-		}
-
-			
-		
-		}
-}
-}
-*/
