@@ -43,7 +43,7 @@ int main (int argc, char *argv[])
 {
   KAboutData aboutData( "klog", "klog",
       ki18n("KLog"), "0.5",
-      ki18n("A simple text area which can load and save."),
+      ki18n("The KDE Ham radio loggin software."),
       KAboutData::License_GPL,
       ki18n("Copyright (c) 2002-2009, Jaime Robles, EA4TV") );
 //    aboutData.addAuthor("Jaime Robles, EA4TV","http://jaime.robles.es", "jaime@robles.es");
@@ -51,7 +51,7 @@ int main (int argc, char *argv[])
   KCmdLineArgs::init( argc, argv, &aboutData );
  
   KCmdLineOptions options; //new
-  options.add("+[file]", ki18n("Document to open")); //new
+  options.add("+[file]", ki18n("Log to load (Still does not work)")); //new
   KCmdLineArgs::addCmdLineOptions(options); //new
  
   KApplication app;

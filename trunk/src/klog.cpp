@@ -115,7 +115,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
     }else{ // It is not possible to contact to your rig
       QMessageBox msgBox;
       msgBox.setText(i18n("KLog message:"));
-      QString str = i18n("Could not connect to your radio.Could not connect to your radio.\nCheck your hamlib settings and restart KLog.\n\nKLog will run without hamlib support.\n\n");
+      QString str = i18n("Could not connect to your radio.\nCheck your hamlib settings and restart KLog.\n\nKLog will run without hamlib support.\n\n");
       msgBox.setInformativeText(str);
       msgBox.setStandardButtons(QMessageBox::Ok);
       msgBox.setDefaultButton(QMessageBox::Ok);
@@ -244,7 +244,7 @@ bool Klog::haveWorld(){
   //qDebug() << "KLog::haveWorld";
   //TODO:setTextFormat(Qt::RichText) to display an URL as a link
   if (!world.isWorldCreated() ){
-    int ret = QMessageBox::warning( this, i18n("Warning - Can't find cty.dat"),i18n("I can't find the cty.dat file with the DX Entity data.\nYou will not have any information on these.\n\nCopy an updated cty.dat file to your ~/.klog dir, please.\n\nYou can download from: www.country-files.com/cty/cty.dat"));
+    int ret = QMessageBox::warning( this, i18n("Warning - Can't find cty.dat"),i18n("I can't find the cty.dat file with the DX Entity data.\nDo you want to continue without that data?\nCopy an updated cty.dat file to your ~/.klog dir, please.\n\nYou can download from: www.country-files.com/cty/cty.dat"));
     switch(ret) {
       case QMessageBox::Yes: // Continue
         return true;
@@ -555,9 +555,17 @@ void Klog::slotOkBtn(){
             //addToPreviouslyWorked(qso.getQrz());
             kk = workedCall.addCall(qso.getQrz(), qso.getNumb());
             if (enti != 0){
-                dxcc.worked(enti,bandComboBox->currentIndex(),modeComboBox->currentIndex());
-                waz.worked( world.getCqzFromCall(qso.getQrz()) ,bandComboBox->currentIndex(),modeComboBox->currentIndex());
+	      dxcc.worked(enti,bandComboBox->currentIndex(),modeComboBox->currentIndex());
+	      waz.worked( world.getCqzFromCall(qso.getQrz()) ,bandComboBox->currentIndex(),modeComboBox->currentIndex());
+
             }
+	    if (qso.gotTheQSL() && (enti!=0)){
+	      dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+	      waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+	    }
+	    
+	    
+	    
         } else { // We are not ADDING but modifying a QSO.
             number--;
             modifyQso();
@@ -905,7 +913,6 @@ void Klog::addQSOToLog(){
         if (qso.gotTheQSL()){
             dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
             waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
-//			Klog::confirmed++;
         }
     }
     qso.clearQso();
@@ -1889,10 +1896,11 @@ qDebug() << "KLog::slotQslRecvBoxChanged" << endl;
         }else{ // I am modifying
         }
 	readAwardsStatus();
+	showAwardsNumbers();
     }
   
 //     readAwardsStatus();
-//     showAwardsNumbers();
+//     
 }
 
 void Klog::readQso(){ //Just read the values an fill the qso
@@ -1995,7 +2003,7 @@ qDebug() << "KLog::readQso" << endl;
 
 void Klog::modifyQso(){
 // Modify an existing QSO with the data on the boxes
-qDebug() << "KLog::modifyQso";
+qDebug() << "KLog::modifyQso: " << QString::number(Klog::j) << endl;
     Klog::LogBook::iterator iter;
     for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
         if ( Klog::j == (*iter).getNumb() ){
@@ -2055,12 +2063,23 @@ qDebug() << "KLog::modifyQso";
             } else {
                 (*iter).QslRec('N');
             }
-            if ((*iter).gotTheQSL()){
+	    
+// 	    =============
+// 	    if (qso.gotTheQSL() && (enti!=0)){
+// 	      dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+// 	      waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+// 	    }
+// 
+// 	    ===========
+	    
+            if ((*iter).gotTheQSL() ){
                 dxcc.confirmedString(enti, ((*iter).getBand()).toUpper(), ((*iter).getMode()).toUpper());
                 waz.confirmedString( world.getCqzFromCall((*iter).getQrz()) ,((*iter).getBand()).toUpper(),((*iter).getMode()).toUpper());
-            }
+            }else{
+	      (*iter).QslRec('N');
+	    }
         } else {
-            (*iter).QslRec('N');
+       //     (*iter).QslRec('N');
 //             if (dxcc.isConfirmed(enti)){
 //                 dxcc.notConfirmedString(enti, (bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
 //                 waz.notConfirmedString( world.getCqzFromCall((*iter).getQrz()) ,(bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
@@ -2131,7 +2150,7 @@ void Klog::helpAbout() {
 */
 
   QString sAbout1 = i18n("KLog-%1 - The KDE Ham Radio Logging program", Klog::KLogVersion);
-  QString sAbout2 = i18n("KLog: %1 - The KDE Ham Radio Logging program\nYou can find the last version on http://jaime.robles.es/klog\n2003-2009 - Jaime Robles, EA4TV, jaime@robles.es", Klog::KLogVersion);
+  QString sAbout2 = i18n("KLog: %1 - The KDE Ham Radio Logging program\nYou can find the last version on http://jaime.robles.es/klog\n2002 - 2009 - Jaime Robles, EA4TV, jaime@robles.es", Klog::KLogVersion);
   QMessageBox::about( this, sAbout1,sAbout2);
 
     //KLog::aboutData->show(this);
@@ -3575,15 +3594,18 @@ void Klog::readAwardsStatus(){
 qDebug() << "KLog::readAwardsStatus" << endl;
 // Re-read the DXCC and WAZ status. Maybe I could extract to another function...
         Klog::LogBook::iterator ite;
+	dxcc.clear();
+	waz.clear();
         for ( ite = logbook.begin(); ite != logbook.end(); ++ite ){
+	  
             dxcc.worked(world.findEntity((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
 	    waz.worked(world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-            if ((*ite).gotTheQSL()){
+
+	    if ((*ite).gotTheQSL()){
                 dxcc.confirmed(world.findEntity((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
 		waz.confirmed (world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-            }
-
-            
+            }   
+	    
         }
 }
 
@@ -3775,7 +3797,6 @@ qDebug() << "KLog::slotQSLRec" << endl;
 
   showLogList();
   showWhere(kk);
-  //entityState(kk);
   readAwardsStatus();	  
   showAwardsNumbers();
 }
@@ -5085,11 +5106,8 @@ if ( ( (((*_it1).getQslVia()).length()>1)  && !(((*_it2).getQslVia()).length()>1
 {
   QMessageBox msgBox;
   msgBox.setText(i18n("Warning: Callsign to complete found"));
-  QString str = i18n("Completing a call could cause data to be no accurate. Do you want this data to be merged?\n QSO N: #")
-    + QString::number((*_it2).getNumb())
-    + i18n(" - Do you want to copy the QSL information received in other QSOs for ")
-    + (*_it2).getQrz()
-    + "?";
+  QString str = i18n("Completing a call could cause data to be no accurate. Do you want this data to be merged?\n QSO N: # %1 - Do you want to copy the QSL information received in other QSOs for %2 ?", QString::number((*_it2).getNumb()), (*_it2).getQrz());
+    
   msgBox.setInformativeText(str);
 
   msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );

@@ -26,7 +26,7 @@
 #ifndef GLOBAL_DATA
 #define GLOBAL_DATA
 const int ENTITIES = 400;
-const int ZONES = 40+1;
+const int ZONES = 40;
 const int BANDS = 28;
 const int MODES = 59;
 #endif
@@ -35,6 +35,7 @@ const int MODES = 59;
 #ifndef AWARDDXCC_H
 #define AWARDDXCC_H
 //#include <klocale.h>
+#include <QDebug>
 #include "adif.h"
 
 
