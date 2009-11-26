@@ -191,9 +191,7 @@ Setup::readConf ()
                               i18n("KLog Warning!"),
                               i18n("Prefix from - %1 - the award: - %2 - is repeated!\nKLog can only manage one award per prefix.\nThis award will not be included\n" \
                                    "Check your klogrc file and/or the award file and fix the problem.").
-                              arg (*it).arg (award.
-                                     getAwardName
-                                     ()));
+                              arg (*it).arg (award.getAwardName()));
                   return;
                 }
                 }
@@ -809,8 +807,7 @@ Setup::slotFileNameClicked (){
   QString fileName = QFileDialog::getOpenFileName (this,
                            i18n ("Select a file"),
                            klogDir,
-                           i18n
-                           ("ADIF files (*.adi)"));
+                           i18n("ADIF files (*.adi)"));
 
   if (!fileName.isEmpty ())
     {
@@ -842,8 +839,7 @@ Setup::slotSearchAwardFilekPushButtonClicked ()
   QString fileName = QFileDialog::getOpenFileName (this,
                            i18n ("Open a file"),
                            klogDir,
-                           i18n
-                           ("Award files (*.awa)"));
+                           i18n("Award files (*.awa)"));
 
   if (!fileName.isEmpty ())
     {
@@ -880,11 +876,9 @@ qDebug() << "Setup::slotAddButtonClicked" << endl;
           if ((*it) == (*ite))
             {
               QMessageBox::about (this, i18n ("KLog Warning!"),
-                      tr
-                      ("Prefix from - %1 - the award: - %2 - repeated!\n"
+                     i18n("Prefix from - %1 - the award: - %2 - repeated!\n"
                        "KLog can only manage one award per prefix.\nThis award will not be included\nCheck your klogrc file and/or the award file and fix the problem.").
-                      arg (*it).arg (award.
-                             getAwardName ()));
+                      arg (*it).arg (award.getAwardName ()));
               return;
             }
         }

@@ -29,7 +29,7 @@
 
 //-1 Not worked, 0 = worked, 1 = confirmed
 AwardWAZ::AwardWAZ(){
-//cout << "AwardWAZ::AwardWAZ" << endl;
+qDebug()  << "AwardWAZ::AwardWAZ" << endl;
 	i = 0;
 	j = 0;
 	k = 0;
@@ -46,11 +46,11 @@ AwardWAZ::AwardWAZ(){
 }
 
 AwardWAZ::~AwardWAZ(){
-//cout << "AwardWAZ::~AwardWAZ" << endl;
+//qDebug()  << "AwardWAZ::~AwardWAZ" << endl;
 }
 
 void AwardWAZ::clear(){
-//cout << "AwardWAZ::clear" << endl;
+qDebug()  << "AwardWAZ::clear" << endl;
   i = 0;
   j = 0;
   k = 0;
@@ -67,7 +67,7 @@ void AwardWAZ::clear(){
 }
 
 void AwardWAZ::worked(const int tzone, const int tband, const int tmode){
-//cout << "AwardWAZ::worked: " << QString::number(tzone) <<"/" << QString::number(tband)<<"/" << QString::number(tmode)<< endl;
+qDebug()  << "AwardWAZ::worked: " << QString::number(tzone) <<"/" << QString::number(tband)<<"/" << QString::number(tmode)<< endl;
 	i = tzone;
 	j = tband;
 	k = tmode;
@@ -81,7 +81,7 @@ void AwardWAZ::worked(const int tzone, const int tband, const int tmode){
 }
 
 void AwardWAZ::workedString(const int tzone, const QString& tband, const QString& tmode){
-//cout << "AwardWAZ::workedString: " << QString::number(tzone) <<"/" << tband<<"/" << tmode<< endl;
+qDebug()  << "AwardWAZ::workedString: " << QString::number(tzone) <<"/" << tband<<"/" << tmode<< endl;
 //	i = tzone;
 //	sAux = tband;
 	j = adif.band2Int(tband);
@@ -102,7 +102,7 @@ void AwardWAZ::workedString(const int tzone, const QString& tband, const QString
 }
 
 void AwardWAZ::notWorked(const int tzone, const int tband, const int tmode){
-//cout << "AwardWAZ::notWorked: CQZ/Band/Mode: " << QString::number(tzone) <<"/"<< QString::number(tband) <<"/"<< QString::number(tmode)<< endl;
+qDebug()  << "AwardWAZ::notWorked: CQZ/Band/Mode: " << QString::number(tzone) <<"/"<< QString::number(tband) <<"/"<< QString::number(tmode)<< endl;
 
 	i = tzone;
 	j = tband;
@@ -114,7 +114,7 @@ void AwardWAZ::notWorked(const int tzone, const int tband, const int tmode){
 }
 
 void AwardWAZ::notWorkedString(const int tzone, const QString& tband, const QString& tmode){
-//cout << "AwardWAZ::notWorkedString: " << QString::number(tzone) <<"/" << tband <<"/" << tmode<< endl;
+qDebug()  << "AwardWAZ::notWorkedString: " << QString::number(tzone) <<"/" << tband <<"/" << tmode<< endl;
 	i = tzone;
 	sAux = tband;
 	j = adif.band2Int(sAux);
@@ -135,13 +135,13 @@ void AwardWAZ::notWorkedString(const int tzone, const QString& tband, const QStr
 
 
 bool AwardWAZ::isWorked(const int tzone){
-//cout << "AwardWAZ::isWorked" << endl;
+qDebug()  << "AwardWAZ::isWorked" << endl;
 	i = tzone;
 	return wazW[i];
 }
 
 bool AwardWAZ::isWorkedBand (const int tzone, const int tband){
-//cout << "AwardWAZ::isWorkedBand" << endl;
+qDebug()  << "AwardWAZ::isWorkedBand" << endl;
 	i = tzone;
 	j = tband;
 	if ( (wazb[i][j] >= 0) )
@@ -151,7 +151,7 @@ bool AwardWAZ::isWorkedBand (const int tzone, const int tband){
 }
 
 bool AwardWAZ::isWorkedMode (const int tzone, const int tmode){
-//cout << "AwardWAZ::isWorkedMode" << endl;
+qDebug()  << "AwardWAZ::isWorkedMode" << endl;
 	i = tzone;
 	k = tmode;
 //	if (!wazW[i])
@@ -163,7 +163,7 @@ bool AwardWAZ::isWorkedMode (const int tzone, const int tmode){
 }
 
 int AwardWAZ::howManyWorkedBand(const int tband){
-//cout << "AwardWAZ::howManyWorkedBand" << endl;
+qDebug()  << "AwardWAZ::howManyWorkedBand" << endl;
 	iAux = 0;
 	j = tband;
 	for (i = 0; i < ZONES; i++){
@@ -177,7 +177,7 @@ int AwardWAZ::howManyWorkedBand(const int tband){
 }
 
 int AwardWAZ::howManyWorkedMode(const int tmode){
-//cout << "AwardWAZ::howManyWorkedMode" << endl;
+qDebug()  << "AwardWAZ::howManyWorkedMode" << endl;
 	iAux = 0;
 	k = tmode;
 	for (i = 0; i < ZONES; i++){
@@ -190,16 +190,16 @@ int AwardWAZ::howManyWorkedMode(const int tmode){
 }
 
 int AwardWAZ::howManyWorked(){
-//cout << "AwardWAZ::howManyWorked" << endl;
+qDebug()  << "AwardWAZ::howManyWorked" << endl;
 	iAux = 0;
 	for (i = 0; i < ZONES; i++){
 		if (wazW[i] == true){
 			iAux++;
-//			cout << "AwardWAZ::howManyWorked Zone/iAux: " << QString::number(i) <<"/"<< QString::number(iAux) << endl;
+//			qDebug()  << "AwardWAZ::howManyWorked Zone/iAux: " << QString::number(i) <<"/"<< QString::number(iAux) << endl;
 		}
 			
 	}
-//	cout << "AwardWAZ::howManyWorked: " << QString::number(iAux) << endl;
+//	qDebug()  << "AwardWAZ::howManyWorked: " << QString::number(iAux) << endl;
 	return iAux;
 }
 
@@ -208,7 +208,7 @@ int AwardWAZ::howManyWorked(){
 // CONFIRMED
 
 void AwardWAZ::confirmed(const int tzone, const int tband, const int tmode){
-//cout << "AwardWAZ::confirmed" << endl;
+qDebug()  << "AwardWAZ::confirmed (Z/B/M): (" << QString::number(tzone) << "/" << QString::number(tband) << "/" << QString::number(tmode) << ")" << endl;
 	worked(tzone, tband, tmode);
 	i = tzone;
 	j = tband;
@@ -220,7 +220,7 @@ void AwardWAZ::confirmed(const int tzone, const int tband, const int tmode){
 }
 
 void AwardWAZ::confirmedString(const int tzone, const QString& tband, const QString& tmode){
-//cout << "AwardWAZ::confirmedString" << endl;
+qDebug()  << "AwardWAZ::confirmedString (Z/B/M): (" << QString::number(tzone) << "/" << tband << "/" << tmode << ")"<< endl;
 	workedString(tzone, tband, tmode);
 	i = tzone;
 
@@ -242,13 +242,13 @@ void AwardWAZ::confirmedString(const int tzone, const QString& tband, const QStr
 
 
 bool AwardWAZ::isConfirmed(const int tzone){
-//cout << "AwardWAZ::isConfirmed" << endl;
+qDebug()  << "AwardWAZ::isConfirmed(Z): " << QString::number(tzone) << endl;
 	i = tzone;
 	return wazC[i];
 }
 
 bool AwardWAZ::isConfirmedBand (const int tzone, const int tband){
-//cout << "AwardWAZ::isConfirmedBand" << endl;
+qDebug()  << "AwardWAZ::isConfirmedBand (Z/B)" << QString::number(tzone) << "/" << QString::number(tband) << ")" << endl;
 	i = tzone;
 	j = tband;
 //	if (!wazC[i])
@@ -260,7 +260,7 @@ bool AwardWAZ::isConfirmedBand (const int tzone, const int tband){
 }
 
 bool AwardWAZ::isConfirmedMode (const int tzone, const int tmode){
-//cout << "AwardWAZ::isConfirmedMode" << endl;
+qDebug()  << "AwardWAZ::isConfirmedMode(Z/M)" << QString::number(tzone) << "/" << QString::number(tmode) << ")" << endl;;
 	i = tzone;
 	k = tmode;
 	if (wazb[i][k] == 1 )
@@ -271,7 +271,7 @@ bool AwardWAZ::isConfirmedMode (const int tzone, const int tmode){
 }
 
 int AwardWAZ::howManyConfirmedBand(const int tband){
-//cout << "AwardWAZ::howManyConfirmedBand" << endl;
+qDebug()  << "AwardWAZ::howManyConfirmedBand: " << QString::number(tband) << endl;
 	iAux = 0;
 	j = tband;
 	for (i = 0; i < ZONES; i++){
@@ -283,7 +283,7 @@ int AwardWAZ::howManyConfirmedBand(const int tband){
 }
 
 int AwardWAZ::howManyConfirmedMode(const int tmode){
-//cout << "AwardWAZ::howManyConfirmed" << endl;
+qDebug()  << "AwardWAZ::howManyConfirmed: " << QString::number(tmode)  << endl;
 	iAux = 0;
 	k = tmode;
 	for (i = 0; i < ZONES; i++){
@@ -296,18 +296,21 @@ int AwardWAZ::howManyConfirmedMode(const int tmode){
 }
 
 int AwardWAZ::howManyConfirmed(){
-//cout << "AwardWAZ::howManyConfirmed" << endl;
-	iAux = 0;
-	for (i = 0; i < ZONES; i++){
-		if (wazC[i]==true)
-			iAux++;
-	}
-	return iAux;
+qDebug() << "AwardWAZ::howManyConfirmed" << endl;
+  iAux = 0;
+  for (i = 0; i < ZONES; i++){
+//		if (wazC[i]==true){
+  if (wazC[i]){
+    iAux++;
+      qDebug() << "AwardWAZ::howManyConfirmed: " << QString::number(i)<< endl;
+   }
+  }
+  qDebug() << "AwardWAZ::howManyConfirmed-Total: " << iAux;	
+  return iAux;
 }
 
-
  void AwardWAZ::notConfirmed(const int tzone, const int tband, const int tmode){
-//cout << "AwardWAZ::notConfirmed" << endl;
+qDebug()  << "AwardWAZ::notConfirmed" << endl;
   //Needs to have a way to check if it
 	i = tzone;
 	j = tband;
@@ -319,7 +322,7 @@ int AwardWAZ::howManyConfirmed(){
 }
 
 void AwardWAZ::notConfirmedString(const int tzone, const QString& tband, const QString& tmode){
-//cout << "AwardWAZ::notConfirmedString" << endl;
+qDebug()  << "AwardWAZ::notConfirmedString" << endl;
 	i = tzone;
 	sAux = tband;
 	j = adif.band2Int(sAux);
