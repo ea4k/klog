@@ -208,7 +208,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string>If checked the time will be Qt::UTC</string>
+          <string>If checked the time will be UTC</string>
          </property>
          <property name="text">
           <string>Time in Qt::UTC</string>

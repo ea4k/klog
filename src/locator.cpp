@@ -101,7 +101,7 @@ bool Locator::isValidLocator(const QString& tlocator){
 
 
 double Locator::getLat(const QString& tlocator){
-qDebug() << "Locator::getLat: " << tlocator;
+//qDebug() << "Locator::getLat: " << tlocator;
 	if (isValidLocator(tlocator)){
 //		return -90+((double)tlocator.at(1)-65)*10 + ((double)tlocator.at(3)-48) +((double)tlocator.at(5)-64.5)/24;
 		return -90+((tlocator.at(1)).digitValue()-65)*10 + ((tlocator.at(3)).digitValue()-48) +((tlocator.at(5)).digitValue()-64.5)/24;
@@ -111,7 +111,7 @@ qDebug() << "Locator::getLat: " << tlocator;
 }
 
 double Locator::getLon(const QString& tlocator){
-qDebug() << "Locator::getLon: " << tlocator;
+//qDebug() << "Locator::getLon: " << tlocator;
   if (isValidLocator(tlocator)){
     return -(-180+((tlocator.at(0)).digitValue()-65)*20 + ((tlocator.at(2)).digitValue()-48)*2 +((tlocator.at(4)).digitValue()-64.5)/12);
   }else
@@ -163,7 +163,7 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
 }
 
 int Locator::getDistanceKilometres(const double lon1, const double lat1, const double lon2, const double lat2){
-  qDebug() << "Locator::getDistanceKilometres" ;
+//qDebug() << "Locator::getDistanceKilometres" ;
   double lo1,la1,lo2,la2;
 
 // TODO: Is it needed to check if the longitude and latitude are correct and/or between the magins?  
@@ -184,13 +184,13 @@ int Locator::getDistanceKilometres(const double lon1, const double lat1, const d
 }
 
 int Locator::getDistanceMilles(const double lon1, const double lat1, const double lon2, const double lat2){
-  qDebug() << "Locator::getDistanceMilles" ;  
+//qDebug() << "Locator::getDistanceMilles" ;  
   return  (int)(getDistanceKilometres(lon1, lat1, lon2, lat2)/1.609) ;
 
 }
 
 bool Locator::checkCoords(const double lon1, const double lat1){
-qDebug() << "Locator::checkCoords" ;
+//qDebug() << "Locator::checkCoords" ;
 // Checks if a coordinates is correct.
   if ((lat1 > 90.0 || lat1 < -90.0) && (lon1 > 180.0 || lon1 < -180.0)){
       return true;

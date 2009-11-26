@@ -51,7 +51,7 @@ World::World(){
   /*}else if (!file.exists()){
       klogDir=QDir::homePath();  // Maybe it is in the user's home path???
       file.setName( klogDir+"/cty.dat" );
-      //cout << "homePath: " << QDir::homePath() << endl;
+      //qDebug() << "homePath: " << QDir::homePath() << endl;
       */
   }
 // I have no idea where cty.dat is!!!
@@ -82,11 +82,11 @@ World::World(){
       entity.setItuz(ituzone);
       entity.setTimeZone( fields[6].toDouble());
       World::map[entity.getPfx()] = entity;
-// cout << QString::number(entity.getNumb()) << " - " << entity.getEntity() << " - Pref: " << entity.getPfx() << endl;
-// cout << "CQz: " << QString::number(entity.getCqz()) << " - ITUz: " << QString::number(entity.getItuz()) << endl;
-// cout << "Continent: " << entity.getContinent() << " - TimeZone: " << QString::number(entity.getTimeZone()) << endl;
-// cout << "Lat: " << QString::number(entity.getLat()) << " - Lon: " << QString::number(entity.getLon()) << endl;
-// cout << "==========================================================================================" << endl << endl;
+//  qDebug() << QString::number(entity.getNumb()) << " - " << entity.getEntity() << " - Pref: " << entity.getPfx() << endl;
+//  qDebug() << "CQz: " << QString::number(entity.getCqz()) << " - ITUz: " << QString::number(entity.getItuz()) << endl;
+//  qDebug() << "Continent: " << entity.getContinent() << " - TimeZone: " << QString::number(entity.getTimeZone()) << endl;
+//  qDebug() << "Lat: " << QString::number(entity.getLat()) << " - Lon: " << QString::number(entity.getLon()) << endl;
+//  qDebug() << "==========================================================================================" << endl << endl;
 
       World::nmap[number] = entity;
       //I create another data stream to process all prefixes
@@ -143,7 +143,7 @@ World::World(){
 
       }
       // Now we will process when there is ";", the last line of prefixes in an Entity
-//cout << "DATAB con ; #" << datab << "#" << endl;
+//qDebug() << "DATAB con ; #" << datab << "#" << endl;
     datab.trimmed();
     datab.remove(0,4);
       prefs = datab.split(SEPARATOR2);
@@ -248,21 +248,21 @@ int World::findEntity(const QString string){
     qrz2 = qrz;
     i = 0;
     if (prefixa.count('\\')){
-//		cout << "World::findEntity: " << "Contains invert / so changes to /" << endl;
+//		qDebug() << "World::findEntity: " << "Contains invert / so changes to /" << endl;
         prefixa.replace(QChar('\\'), QChar('/'));
-//		cout << "World::findEntity look: " << prefixa << endl;
+//		qDebug() << "World::findEntity look: " << prefixa << endl;
     }
 
     if (prefixa.count('/')) {
-//		cout << "World::findEntity count /: " << prefixa << endl;
+//		qDebug() << "World::findEntity count /: " << prefixa << endl;
         i = giveEnt(prefixa); // Checking full "special prefixes" like "4U/OH2BBF" first
         if (i!=0){
             return i;
         }
         if (prefixa.endsWith("/") ){ // We look for calls ending in slash "/" or "\"
-//			cout << "World::findEntity ends with /: " << prefixa << endl;
+//			qDebug() << "World::findEntity ends with /: " << prefixa << endl;
             prefixa.remove(prefixa.length()-1,1);
-//			cout << "World::findEntity remove the / so: " << prefixa << endl;
+//			qDebug() << "World::findEntity remove the / so: " << prefixa << endl;
         }
         if (prefixa.count('/')){
                         ij = prefixa.indexOf('/');
@@ -426,14 +426,14 @@ int World::findEntity(const QString string){
                     //prefixab = prefixa;
                     prefixa = prefixa.right(prefixa.length()-(ij+1));
 
-//					cout << "Should be the shortest: " << prefixa << endl;
+//					qDebug() << "Should be the shortest: " << prefixa << endl;
 
                     prefixab = prefixa;
                     //return i;
 
                 }else{  // It is a EA4TV/P or EA4TV/QRP
                     // Peter I, is a special "/P" station... so we need to check it.
-//					cout << "Es un corto especial-1: " << prefixa << endl;
+//					qDebug() << "Es un corto especial-1: " << prefixa << endl;
                     if ( (prefixa.toUpper().endsWith("/P")) && (prefixa.toUpper().startsWith("3Y" )) ){
                         // This is Peter I
                         //prefixa = "3Y0PI";
@@ -441,22 +441,22 @@ int World::findEntity(const QString string){
                         return giveEnt(prefixa);
                     }else if ( ( (prefixa.toUpper()).endsWith("/M")) && ((prefixa.toUpper()).startsWith("FO" )) ){
                     // Marquesas, is a special "/M" station... so we need to check it.
-//					cout << "Marquesas!: " << prefixa << endl;
+//					qDebug() << "Marquesas!: " << prefixa << endl;
                         prefixa = "FO/OH1RX";
                         return giveEnt(prefixa);
                     }else if ( ((prefixa.toUpper()).endsWith("/M"))||((prefixa.toUpper()).endsWith("/MM"))){
 // /M and /MM does not count as DXCC
-//						cout << "/M Normal; " << prefixa << endl;
+//						qDebug() << "/M Normal; " << prefixa << endl;
                         return 0;
                     }else{// Normal /p, /m, ... prefix
-//						cout << "Portable/mobile/maritime NORMAL: " << prefixa << endl;
+//						qDebug() << "Portable/mobile/maritime NORMAL: " << prefixa << endl;
                         //return 0;
                     }
                 }
                 qrz2 = prefixab;
             } // end of count a / but it is not a EA4TV/F nor F/EA4TV
             }else{ // It does not have any /
-//			cout << "World::findEntity does not have /: " << prefixa << endl;
+//			qDebug() << "World::findEntity does not have /: " << prefixa << endl;
                         ij = prefixa.indexOf("\\");
             n = (prefixa.length())- ij;
             if (n < 0){
@@ -593,7 +593,7 @@ int World::giveEnt(const QString tqrz){
   it = map.find(qrz);
   if (map.find(qrz) != map.end()){
       prefix = qrz;
-//cout << "giveEnt: " << qrz << QString::number(it.value().getNumb()) << endl;
+//qDebug() << "giveEnt: " << qrz << QString::number(it.value().getNumb()) << endl;
       return it.value().getNumb();
   }
   else
@@ -662,25 +662,33 @@ int World::getCqz(){
 
 int World::getCqzFromCall(const QString  tqrz){
 //TODO: Check if the i=... is needed and check if this function is needed or just an unefficiency
+qDebug() << "World::getCQzFromCall: " << tqrz << endl;
     i = findEntity(tqrz);
     return getCqz();
 }
 
 int World::getITUzFromCall(const QString  tqrz){
 //TODO: Check if the i=... is needed and check if this function is needed or just an unefficiency
+qDebug() << "World::getITUzFromCall: " << tqrz << endl;
     i = findEntity(tqrz);
     return getItuz();
+    
 }
 
 int World::getCQzFromEntity(const int tint){ // Uses getCqz
-    i = tint;
-    return getCqz();
+ qDebug() << "World::getCQzFromEntity: " << QString::number(tint) << endl;
+ 
+ return (getEntByNumb(tint)).getCqz();
+//     i = tint;
+//     return getCqz();
 
 }
 
 int World::getITUzFromEntity(const int tint){ // Uses getCqz
-    i = tint;
-    return getItuz();
+qDebug() << "World::getITUzFromEntity: " << QString::number(tint) << endl;
+//     i = tint;
+//     return getItuz();
+  return (getEntByNumb(tint)).getItuz();
 
 }
 
@@ -695,12 +703,17 @@ bool World::isWorldCreated(){
 }
 
 QString World::getEntityName(int num){
-  i = num; //TODO: Just to avoid a compilation warning... to be deleted when this function is implemented
-    return "NULL";
+qDebug() << "World::getEntityName: " << (getEntByNumb(num)).getEntity() << endl;  
+ // i = num; //TODO: Just to avoid a compilation warning... to be deleted when this function is implemented
+ return (getEntByNumb(num)).getEntity();
+    
 }
 
 QString World::getMainPrefix (int num){
-  i = num; //TODO: Just to avoid a compilation warning... to be deleted when this function is implemented
-    return "NULL";
+qDebug() << "World::getMainPrefix: " << (getEntByNumb(num)).getPfx() << endl;  
+//  i = num; //TODO: Just to avoid a compilation warning... to be deleted when this function is implemented
+//    return "NULL";
+  return (getEntByNumb(num)).getPfx();
+    
 }
 
