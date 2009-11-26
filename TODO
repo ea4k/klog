@@ -39,6 +39,7 @@ completely. I should just "add" a new QSO and not re-reading the whole log.
 * BUG: In case the number of the call (like in EA4TV/6 or in UA1AA/9) changes the DX Entity, KLog does not recognise it.
 * BUG: The first time you enter a call (although you have already loaded a logfile) KLog does not shows the correct entity band state for that entity. It only happens with the first call in a use of KLog. I still don't know why!
 * BUG: when loading a log, the console shows erros about the range of the dates. It seems to be a bug of Qt, not of KLog but it still needs a check. (I have already checked it but I have not found a way to solve it. Dates are OK and checked while managed.). Maybe related with the lack of date if no QSL has been sent or received?
+* BUG: In readQso() If the QSO was QSL received and the user deleted, the dxcc&waz status should be updated.
 
 NEW FEATURE: Add a needed tab in the botton box. Needed spots would be added there. User
 can also add spots there. Maybe I can add two tabs, one for user added and
