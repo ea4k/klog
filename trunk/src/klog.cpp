@@ -1532,19 +1532,21 @@ void Klog::showRighButtonSearchMenu(const QPoint& pos ){
    
   if (item){
     Klog::j = ((item)->text(7)).toInt();
-    showMenuRightButton(Klog::j, pos);
+//    showMenuRightButton(Klog::j, pos);
+    showMenuRightButton(Klog::j);
   }else{
     return;
   }
 }
 
 void Klog::showRighButtonLogMenu( const QPoint& pos ){
-qDebug() << "KLog::showRighButtonLogMenu - got rightClick: ";
+//qDebug() << "KLog::showRighButtonLogMenu - got rightClick: ";
   QTreeWidgetItem *item = logTreeWidget->itemAt(pos);
    
   if (item){
     Klog::j = ((item)->text(0)).toInt();
-    showMenuRightButton(Klog::j, pos);
+    showMenuRightButton(Klog::j);
+    //showMenuRightButton(Klog::j, pos);
   }else{
     return;
   }
@@ -1554,7 +1556,8 @@ qDebug() << "KLog::showRighButtonLogMenu - got rightClick: ";
 
 
 
- void Klog::showMenuRightButton(int qqso, const QPoint &p){
+// void Klog::showMenuRightButton(int qqso, const QPoint &p){
+ void Klog::showMenuRightButton(int qqso){
    //qDebug()  << "KLog::showMenuRightButton" << endl;
  
   if (qqso >= 0){
@@ -4161,7 +4164,7 @@ void Klog::sortLog(){
 // I will read the Log from the UI and sorting using the numbers.
 //TODO: This sorting is highly inefficient. It should be rewritten and optimized
 //qDebug() << "KLog::sortLog" << endl;
-/*
+
   if (logbook.isEmpty()){	// if no QSOs, we do not show the log ;-)
     return;
   }
@@ -4171,13 +4174,34 @@ void Klog::sortLog(){
   oLogbook.clear();                             // an empty list
   Klog::LogBook::iterator it;
   QTreeWidgetItemIterator itl( logTreeWidget );
-  (*itl) = logTreeWidget->topLevelItem(0);
-
+  
   QProgressDialog progress(i18n("Sorting the log..."), i18n("Abort sorting"), 0, Klog::number);
 
-//TODO: Write the sorting function: Deleted to ease the QT4 migration
+  while (*itl) {
+//    if ((*itl)->text(0) == itemText){
+     // (*itl)->setSelected(true);
+     for ( it = logbook.begin(); it != logbook.end(); ++it ){  //We run the log...
+      if ( (*it).getNumb() == ((*itl)->text(0)).toInt() ){
+	progresStep++;
+	if (showProgressDialog){
+	  progress.setValue( progresStep );
+	  qApp->processEvents();
+	}
+	tQso = (*it);
+	if ( progress.wasCanceled())
+	  return;
+	oLogbook.append(tQso);
+      }
+      if ( progress.wasCanceled())
+	return;
+     }
+  ++itl;
+  }
+  logbook = oLogbook; 
+/*
     while (*itl){
-    for ( ; itl.current(); ++itl ){
+    for ( ; (*itl).current(); ++itl ){
+      
       for ( it = logbook.begin(); it != logbook.end(); ++it ){  //We run the log...
         if ( (*it).getNumb() == (itl.current()->text(0)).toInt() ){
           progresStep++;
@@ -4199,7 +4223,7 @@ void Klog::sortLog(){
   
   }
   logbook = oLogbook;
-*/  
+*/ 
 }
 
 /********************************************************************************

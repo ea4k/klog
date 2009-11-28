@@ -176,7 +176,8 @@ class Klog : public QMainWindow, private Ui::klog
     void showRighButtonLogMenu( const QPoint& pos );
     void slotModifyBtn();
     void showLogList();   // Shows the log in the botton widget
-    void showMenuRightButton(int qqso, const QPoint &p); //This is called from  slotQsoRightButton and show the actions menu
+//    void showMenuRightButton(int qqso, const QPoint &p); //This is called from  slotQsoRightButton and show the actions menu
+    void showMenuRightButton(int qqso); //This is called from  slotQsoRightButton and show the actions menu
 
 // Printing modules
 //  void slotPrint();	
