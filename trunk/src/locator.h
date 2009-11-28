@@ -31,11 +31,12 @@
 //#include <klocale.h>
 
 
-const double PI = 3.141592654;
+const double PI = 3.141592654; //http://en.wikipedia.org/wiki/Pi
 const bool LATITUDE = false;
 const bool LONGITUDE = true;
-const double EARTH_RADIUS = 6378;
+const double EARTH_RADIUS = 6371; //http://en.wikipedia.org/wiki/Earth_radius
 const bool RADIAN = 180.0/PI;
+const double DEG_TO_RAD = PI/180.0;
 
 
 
@@ -51,8 +52,8 @@ public:
   double getLon(const QString& tlocator);
   QString getLocator(const double lon1, const double lat1) const;
   int getBeam(const double lon1, const double lat1, const double lon2, const double lat2);
-  int getDistanceKilometres(const double lon1, const double lat1, const double lon2, const double lat2);
-  int getDistanceMilles(const double lon1, const double lat1, const double lon2, const double lat2);
+  int getDistance(const double lon1, const double lat1, const double lon2, const double lat2, const bool inKm);
+  //int getDistanceMilles(const double lon1, const double lat1, const double lon2, const double lat2);
   void degTodms(const double deg);
   double dmsTodeg (int deg, int min, int sec);
   

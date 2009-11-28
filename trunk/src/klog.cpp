@@ -265,7 +265,7 @@ void Klog::slotLocatorChanged(){
                         // or from the user
 
     if ((dxLocator != "NULL") && (locator.isValidLocator(dxLocator) )){
-        Klog::distance = locator.getDistanceKilometres(locator.getLon(getMyLocator()), locator.getLat(getMyLocator()), locator.getLon(dxLocator), locator.getLat(dxLocator));
+        Klog::distance = locator.getDistance(locator.getLon(getMyLocator()), locator.getLat(getMyLocator()), locator.getLon(dxLocator), locator.getLat(dxLocator), true);
         beam = locator.getBeam(locator.getLon(getMyLocator()), locator.getLat(getMyLocator()), locator.getLon(dxLocator), locator.getLat(dxLocator));
         showDistancesAndBeam(distance, beam);
     }else{
@@ -288,7 +288,7 @@ void Klog::slotMyLocatorChanged(){
 
     myLocatorTemp = qso.getMyLocator();
 
-    Klog::distance = locator.getDistanceKilometres(locator.getLon(myLocatorTemp), locator.getLat(myLocatorTemp), locator.getLon(dxLocator), locator.getLat(dxLocator));
+    Klog::distance = locator.getDistance(locator.getLon(myLocatorTemp), locator.getLat(myLocatorTemp), locator.getLon(dxLocator), locator.getLat(dxLocator), true);
     beam = locator.getBeam(locator.getLon(myLocatorTemp), locator.getLat(myLocatorTemp), locator.getLon(dxLocator), locator.getLat(dxLocator));
     showDistancesAndBeam(distance, beam);
 }
@@ -2440,11 +2440,11 @@ qDebug() <<  "KLog::showWhere: " << QString::number(enti) << endl;
 	qDebug() <<  "KLog::showWhere - locator valid: (" << (locatorLineEdit->text()).toUpper()<< ")";
             dxLocator = (locatorLineEdit->text()).toUpper();
 
-            Klog::distance = locator.getDistanceKilometres(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), locator.getLon(dxLocator), locator.getLat(dxLocator));
+            Klog::distance = locator.getDistance(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), locator.getLon(dxLocator), locator.getLat(dxLocator), true);
             beam = locator.getBeam(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), locator.getLon(dxLocator), locator.getLat(dxLocator));
         }else{
 	  qDebug() <<  "KLog::showWhere - locator NOT valid: (" << qso.getMyLocator() << ")";
-            Klog::distance = locator.getDistanceKilometres(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), (world.getEntByNumb(enti)).getLon(), (world.getEntByNumb(enti)).getLat());
+            Klog::distance = locator.getDistance(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), (world.getEntByNumb(enti)).getLon(), (world.getEntByNumb(enti)).getLat(), true);
             beam = locator.getBeam(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), (world.getEntByNumb(enti)).getLon(), (world.getEntByNumb(enti)).getLat());
         }
         showDistancesAndBeam(distance, beam);
@@ -4161,7 +4161,7 @@ void Klog::sortLog(){
 // I will read the Log from the UI and sorting using the numbers.
 //TODO: This sorting is highly inefficient. It should be rewritten and optimized
 //qDebug() << "KLog::sortLog" << endl;
-
+/*
   if (logbook.isEmpty()){	// if no QSOs, we do not show the log ;-)
     return;
   }
@@ -4171,33 +4171,35 @@ void Klog::sortLog(){
   oLogbook.clear();                             // an empty list
   Klog::LogBook::iterator it;
   QTreeWidgetItemIterator itl( logTreeWidget );
+  (*itl) = logTreeWidget->topLevelItem(0);
 
-/*  Q3ProgressDialog progress( i18n("Sorting the log..."), i18n("Abort sorting"), Klog::number,
-                          this, "progress", TRUE );*/
   QProgressDialog progress(i18n("Sorting the log..."), i18n("Abort sorting"), 0, Klog::number);
 
 //TODO: Write the sorting function: Deleted to ease the QT4 migration
-//    while (*itl){
-//    //for ( ; itl.current(); ++itl ){
-//      for ( it = logbook.begin(); it != logbook.end(); ++it ){  //We run the log...
-//        if ( (*it).getNumb() == (itl.current()->text(0)).toInt() ){
-//          progresStep++;
-//          if (showProgressDialog){
-//            progress.setValue( progresStep );
-//            qApp->processEvents();
-//          }
-//          tQso = (*it);
-//          if ( progress.wasCanceled())
-//            return;
-//          oLogbook.append(tQso);
-//        }
-//          if ( progress.wasCanceled())
-//            return;
-//
-//      }
-//    itl++;
-//    }
+    while (*itl){
+    for ( ; itl.current(); ++itl ){
+      for ( it = logbook.begin(); it != logbook.end(); ++it ){  //We run the log...
+        if ( (*it).getNumb() == (itl.current()->text(0)).toInt() ){
+          progresStep++;
+          if (showProgressDialog){
+            progress.setValue( progresStep );
+            qApp->processEvents();
+          }
+          tQso = (*it);
+          if ( progress.wasCanceled())
+            return;
+          oLogbook.append(tQso);
+        }
+        if ( progress.wasCanceled())
+            return;
+
+      }
+    itl++;
+    }
+  
+  }
   logbook = oLogbook;
+*/  
 }
 
 /********************************************************************************
