@@ -39,13 +39,13 @@ Locator::~Locator(){
 
 bool Locator::isValidLocator(const QString& tlocator){
 /* -------------- Subroutine -----------------------
-      Check valid locator
+      Check valid locator (VALID: AA00AA -> RR99XX
       Input : char *locator = 4 or 6 characters word wide locator.
       returned value ==  -1 No error. (Valid locator).
       returned value ==  0 Error.   (Invalid locator).
       Note: also string "END" is considered a valid locator, but returned value is -2.
    ------------------------------------------------- */
-//cout << "Locator::isValidLocator: " << tlocator << endl;
+//qDebug() << "Locator::isValidLocator: " << tlocator << endl;
 
 	int lenght_of_locator;
 	testLocator ="A";
@@ -56,6 +56,7 @@ bool Locator::isValidLocator(const QString& tlocator){
 		testLocator = testLocator +"LM";
 		lenght_of_locator = 6;
 	}
+
 	if (lenght_of_locator != 6) { 
 		return false;
 	}else{
@@ -103,8 +104,7 @@ bool Locator::isValidLocator(const QString& tlocator){
 double Locator::getLat(const QString& tlocator){
 //qDebug() << "Locator::getLat: " << tlocator;
 	if (isValidLocator(tlocator)){
-//		return -90+((double)tlocator.at(1)-65)*10 + ((double)tlocator.at(3)-48) +((double)tlocator.at(5)-64.5)/24;
-		return -90+((tlocator.at(1)).digitValue()-65)*10 + ((tlocator.at(3)).digitValue()-48) +((tlocator.at(5)).digitValue()-64.5)/24;
+	    return ((tlocator.at(1)).toAscii() - 65) * 10 + ((tlocator.at(3)).toAscii() - 48) + ((tlocator.at(5)).toAscii() - 65 + 0.5) / 24 - 90;
 	}else{
 		return 0.0;
 	}
@@ -112,8 +112,9 @@ double Locator::getLat(const QString& tlocator){
 
 double Locator::getLon(const QString& tlocator){
 //qDebug() << "Locator::getLon: " << tlocator;
-  if (isValidLocator(tlocator)){
-    return -(-180+((tlocator.at(0)).digitValue()-65)*20 + ((tlocator.at(2)).digitValue()-48)*2 +((tlocator.at(4)).digitValue()-64.5)/12);
+  if (isValidLocator(tlocator)){    
+    //qDebug() << "Locator::getLon-2: " << QString::number(((tlocator.at(0)).toAscii() - 65) * 20 + ((tlocator.at(2)).toAscii() - 48) * 2 + ((tlocator.at(4)).toAscii() - 65 + 0.5) / 12 - 180) << endl;    
+    return ((tlocator.at(0)).toAscii() - 65) * 20 + ((tlocator.at(2)).toAscii() - 48) * 2 + ((tlocator.at(4)).toAscii() - 65 + 0.5) / 12 - 180;
   }else
     return 0.0;
   
@@ -162,32 +163,37 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
 
 }
 
-int Locator::getDistanceKilometres(const double lon1, const double lat1, const double lon2, const double lat2){
-//qDebug() << "Locator::getDistanceKilometres" ;
+int Locator::getDistance(const double lon1, const double lat1, const double lon2, const double lat2, const bool inKm){
+  //http://en.wikipedia.org/wiki/Haversine_formula
+//qDebug() << "Locator::getDistanceKilometres" << endl;
   double lo1,la1,lo2,la2;
 
 // TODO: Is it needed to check if the longitude and latitude are correct and/or between the magins?  
 //   if (!( (checkCoords(lon1, lat1) ) && (checkCoords(lon2, lat2)) ))
 //     return 0;
   
-  lo1=lon1*PI/180;   // Convert degrees to radians
-  la1=lat1*PI/180;
-  lo2=lon2*PI/180;  
-  la2=lat2*PI/180;
-  
-  
-// Calculates distance in km
+  lo1=lon1* DEG_TO_RAD;   // Convert degrees to radians
+  la1=lat1* DEG_TO_RAD;
+  lo2=lon2* DEG_TO_RAD;  
+  la2=lat2* DEG_TO_RAD;
 
+  if (!inKm){
+  //qDebug() << "Locator::getDistanceKilometres2: " << QString::number((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) << endl;
+    return (int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS);
+  }else{ // In milles
+    return ((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) * 0.62137;
+  }
 
- return  (int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS);
 
 }
 
-int Locator::getDistanceMilles(const double lon1, const double lat1, const double lon2, const double lat2){
-//qDebug() << "Locator::getDistanceMilles" ;  
-  return  (int)(getDistanceKilometres(lon1, lat1, lon2, lat2)/1.609) ;
-
-}
+// int Locator::getDistanceMilles(const double lon1, const double lat1, const double lon2, const double lat2){
+// //qDebug() << "Locator::getDistanceMilles" ;  
+// 
+// // A good way could be add a boolean variable to the getDistance to define if km or milles are requested.
+//   return  (int)(getDistanceKilometres(lon1, lat1, lon2, lat2)/1.609) ;
+// 
+// }
 
 bool Locator::checkCoords(const double lon1, const double lat1){
 //qDebug() << "Locator::checkCoords" ;
