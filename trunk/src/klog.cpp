@@ -155,7 +155,7 @@ Klog::~Klog(){
 }
 
 void Klog::createActions(){
-  
+
   ActionQsoDelete->setIcon(KIcon("edit-delete"));
   fileNewAction->setIcon(KIcon("address-book-new"));
   fileOpenAction->setIcon(KIcon("document-open"));
@@ -168,8 +168,8 @@ void Klog::createActions(){
   setupAction->setIcon(KIcon("preferences-system"));
   ActionBugReport->setIcon(KIcon("tools-report-bug"));
   helpAboutAction->setIcon(KIcon("help-about"));
-  
-  
+
+
 
   // Connect all the slots
   connect(ActionAddKlogLog, SIGNAL(triggered()), this, SLOT(slotAddLog()));
@@ -179,11 +179,11 @@ void Klog::createActions(){
 
   connect(ActionDXClusterConnect, SIGNAL(triggered()), this, SLOT(slotClusterConnect()) );
   connect(ActionDXClusterDisconnect, SIGNAL(triggered() ), this, SLOT(slotClusterCloseConnection()) );
-  
+
   connect(ActionQslRec, SIGNAL(triggered() ), this, SLOT(slotQSLRec()) );
   connect(ActionQsoSen, SIGNAL(triggered()), this, SLOT(slotQSLSent()) );
 
-  
+
   connect(clearBtn, SIGNAL(clicked()), this, SLOT(slotClearBtn()) );
   connect(fileNewAction, SIGNAL(triggered()), this, SLOT(fileNew()) );
   connect(fileExitAction, SIGNAL(triggered()), this, SLOT(fileExit()) );
@@ -226,15 +226,15 @@ void Klog::createActions(){
    connect(QSLReccheckBox, SIGNAL(toggled (bool) ), this, SLOT(slotQslRecvBoxChanged() ) );
 
 
-  connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete())); 
-  
+  connect(ActionQsoDelete, SIGNAL(triggered()), this, SLOT(slotQsoDelete()));
+
   connect(dxclusterListWidget, SIGNAL(itemSelectionChanged ()), this, SLOT(slotClusterSpotSelectionChanged()));
   connect(dxclusterListWidget, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(slotClusterSpotCheck(QListWidgetItem *)));
   connect(dxclusterListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(slotClusterSpotToLog(QListWidgetItem *)));
   connect(dxclusterListWidget, SIGNAL(itemActivated(QListWidgetItem *)), this, SLOT(slotClusterSpotToLog(QListWidgetItem *)));
-  
-   
-  connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));  
+
+
+  connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));
   connect(searchQsosTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT(showRighButtonSearchMenu(const QPoint& ) ) );
 
 
@@ -326,12 +326,12 @@ int Klog::getEntityFromCall(){ // We return the Entity number from the QRZ box c
 
 void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
  //qDebug() << "KLog::slotQrzChanged: " <<  qrzLineEdit->text() << endl;
- 
+
  //TODO: The next sentence only removes from the begining and end. If the user copies a QRZ with spaces they will remain
   qrzLineEdit->setText(((qrzLineEdit->text())).simplified()); // If the call contains any space, we delete it :-)
-  
+
   qrzLineEdit->setText(((qrzLineEdit->text())).toUpper());
-    
+
     callLen = (qrzLineEdit->text()).length();
 
     if (callLen == 0){ //TODO: Maybe the above check of length is not really needed (20090926-EA4TV)
@@ -341,8 +341,8 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
         return;
     } else if((callLen != 0) && (!modify)){ // Updating the searchQrzklineEdit if we are not modifying a QSO.
         ActionQsoDelete->setEnabled(true);
-	ActionQsoSen->setEnabled(true);
-	ActionQslRec->setEnabled(true);
+    ActionQsoSen->setEnabled(true);
+    ActionQslRec->setEnabled(true);
         enti = getEntityFromCall();
         if (enti>0){
             if (completeWithPrevious){ // If configured to use this feature
@@ -505,7 +505,7 @@ void Klog::slotClearBtn(){
     qrzLineEdit->setFocus();		// The default widget for next QSO is, obviously, the QRZ!
     searching2QSL = false;	// If the user decides to clear the qrzlinedit, we finish the search 2 QSL process.
     completedWithPrevious = false;
-    
+
   logTreeWidget->clearSelection(); //The next 5 are always together (should we create a function?)
   qsoSelectedBool = false;
   ActionQsoDelete->setEnabled(false);
@@ -561,17 +561,17 @@ void Klog::slotOkBtn(){
             //addToPreviouslyWorked(qso.getQrz());
             kk = workedCall.addCall(qso.getQrz(), qso.getNumb());
             if (enti != 0){
-	      dxcc.worked(enti,bandComboBox->currentIndex(),modeComboBox->currentIndex());
-	      waz.worked( world.getCqzFromCall(qso.getQrz()) ,bandComboBox->currentIndex(),modeComboBox->currentIndex());
+          dxcc.worked(enti,bandComboBox->currentIndex(),modeComboBox->currentIndex());
+          waz.worked( world.getCqzFromCall(qso.getQrz()) ,bandComboBox->currentIndex(),modeComboBox->currentIndex());
 
             }
-	    if (qso.gotTheQSL() && (enti!=0)){
-	      dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
-	      waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
-	    }
-	    
-	    
-	    
+        if (qso.gotTheQSL() && (enti!=0)){
+          dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+          waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+        }
+
+
+
         } else { // We are not ADDING but modifying a QSO.
             number--;
             modifyQso();
@@ -602,9 +602,7 @@ void Klog::fileSaveAs(){
 //  writ = false;
 //  while (!writ){
 
-  QString fn = QFileDialog::getSaveFileName(this, i18n("Save File"),
-                            klogDir,
-                            i18n("ADIF (*.adi)"));
+  QString fn = QFileDialog::getSaveFileName(this, i18n("Save File"), klogDir, i18n("ADIF (*.adi)"));
 
   if ( !fn.isEmpty() )
     logFileNameToSave = fn;
@@ -674,8 +672,8 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
 
 //		Klog::LogBook::iterator itEnd;
 //		itEnd = lb.end();
-	QString aString = i18n("ADIF v1.0 (some ADIF v2 fields) Export from KLog-%1\nhttp://jaime.robles.es/klog\n<APP_KLOG_NUMBER: %2>%3\nLog saved: %4-%5\n<PROGRAMID:4>KLOG <PROGRAMVERSION: %6>%7\n<EOH>\n",Klog::KLogVersion, QString::number( Klog::number ).length(), QString::number(Klog::number), dateTime.toString("yyyyMMdd"), dateTime.toString("hhmm"), QString::number((Klog::KLogVersion).length()), Klog::KLogVersion);
-	stream << aString << endl;
+    QString aString = i18n("ADIF v1.0 (some ADIF v2 fields) Export from KLog-%1\nhttp://jaime.robles.es/klog\n<APP_KLOG_NUMBER: %2>%3\nLog saved: %4-%5\n<PROGRAMID:4>KLOG <PROGRAMVERSION: %6>%7\n<EOH>\n",Klog::KLogVersion, QString::number( Klog::number ).length(), QString::number(Klog::number), dateTime.toString("yyyyMMdd"), dateTime.toString("hhmm"), QString::number((Klog::KLogVersion).length()), Klog::KLogVersion);
+    stream << aString << endl;
         //stream << i18n("ADIF v1.0 (some ADIF v2 fields) Export from KLog-") + Klog::KLogVersion + " \nhttp://jaime.robles.es/klog" << "\n<APP_KLOG_NUMBER:" << QString::number( Klog::number ).length() << ">" << QString::number(Klog::number) << i18n("\nLog saved: ") << dateTime.toString("yyyyMMdd") << "-" << dateTime.toString("hhmm") << "\n<PROGRAMID:4>KLOG <PROGRAMVERSION:" + QString::number((Klog::KLogVersion).length()) << ">" << Klog::KLogVersion << " \n<EOH>\n" << endl;
 
         it = lb.begin();
@@ -1392,7 +1390,7 @@ void Klog::adifReadLog(const QString& tfileName){
 // cout << "KLog adifreadlog antes de terminar, DESPUES complete with previous" << endl;
     needToSave = false;
     showLogList();
-    readAwardsStatus();    
+    readAwardsStatus();
     showAwardsNumbers();
 
 //dxcc.printWorkdStatus();
@@ -1457,16 +1455,16 @@ void Klog::toEditQso(){
         (QSLSentdateEdit)->setDate(qso.getQslSenDate());
       ActionQsoSen->setEnabled(false);
     }else{
-	ActionQsoSen->setEnabled(true);
+    ActionQsoSen->setEnabled(true);
         (QSLSentdateEdit)->setEnabled(false);
-	(QSLSentdateEdit)->setDate(QDate::currentDate());
+    (QSLSentdateEdit)->setDate(QDate::currentDate());
     }
     // If we have received the QSL
     if (QSLReccheckBox->isChecked()){
         (QSLRecdateEdit)->setEnabled(true);
         qslRec =  qso.getQslRecDate(); //We need the qslRec in slotQslRecvBoxChanged
         (QSLRecdateEdit)->setDate(qslRec);
-	ActionQslRec->setEnabled(false);
+    ActionQslRec->setEnabled(false);
     }else{
       (QSLRecdateEdit)->setEnabled(false);
       (QSLRecdateEdit)->setDate(QDate::currentDate());
@@ -1535,7 +1533,7 @@ void Klog::showRighButtonSearchMenu(const QPoint& pos ){
    //qDebug() << "KLog::showRighButtonSearchMenu - got rightClick: ";
 
   QTreeWidgetItem *item = searchQsosTreeWidget->itemAt(pos);
-   
+
   if (item){
     Klog::j = ((item)->text(7)).toInt();
 //    showMenuRightButton(Klog::j, pos);
@@ -1548,7 +1546,7 @@ void Klog::showRighButtonSearchMenu(const QPoint& pos ){
 void Klog::showRighButtonLogMenu( const QPoint& pos ){
 //qDebug() << "KLog::showRighButtonLogMenu - got rightClick: ";
   QTreeWidgetItem *item = logTreeWidget->itemAt(pos);
-   
+
   if (item){
     Klog::j = ((item)->text(0)).toInt();
     showMenuRightButton(Klog::j);
@@ -1557,7 +1555,7 @@ void Klog::showRighButtonLogMenu( const QPoint& pos ){
     return;
   }
 
-  
+
 }
 
 
@@ -1565,7 +1563,7 @@ void Klog::showRighButtonLogMenu( const QPoint& pos ){
 // void Klog::showMenuRightButton(int qqso, const QPoint &p){
  void Klog::showMenuRightButton(int qqso){
    //qDebug()  << "KLog::showMenuRightButton" << endl;
- 
+
   if (qqso >= 0){
     showMenuRightButtoncreateActions();
     qso = getByNumber(qqso);
@@ -1573,11 +1571,11 @@ void Klog::showRighButtonLogMenu( const QPoint& pos ){
     entityState(kk);
 
  //KMenu *qsoMenu = new KMenu( i18n ("QSO menu"), Ui_klogui );
- 
+
     QMenu menu(this);
-//  menu.setTitle("context");  
+//  menu.setTitle("context");
 //   showMenuRightButtoncreateActions();
-// 
+//
 //   menu.addAction(delQSOAct);
 //   menu.addSeparator();
 //   menu.addAction(recSenQSOAct);
@@ -1594,7 +1592,7 @@ void Klog::showRighButtonLogMenu( const QPoint& pos ){
     if (( !qso.gotTheQSL() ) && ( !qso.sentTheQSL() )){
       //qsoMenu->insertItem( *qslRecPixMap, i18n("QSL Recv and Sent"), this, SLOT( slotQSLRecSent() ), CTRL + Key_B );
       menu.addAction(recSenQSOAct);
-       		  //TODO: To check if a call to showAwardsNumbers() is needed here
+              //TODO: To check if a call to showAwardsNumbers() is needed here
 
     }
     if ( !qso.gotTheQSL() ){
@@ -1608,7 +1606,7 @@ void Klog::showRighButtonLogMenu( const QPoint& pos ){
       //qsoActionsGroup->addAction(senQSOAct);
       menu.addAction(senQSOAct);
     }
-    
+
     menu.exec(QCursor::pos());
 // 		}else{
 // 		}
@@ -1644,7 +1642,7 @@ void Klog::showRighButtonLogMenu( const QPoint& pos ){
    //newAct->setShortcuts(QKeySequence::New);
    senQSOAct->setStatusTip(i18n("QSL Sent"));
    connect(senQSOAct, SIGNAL(triggered()), this, SLOT(slotQSLSent()));
-   
+
 }
 
 void Klog::slotQsoSelectedForEdit(QTreeWidgetItem *item){
@@ -1813,11 +1811,9 @@ void Klog::fileExit(){
 }
 
 void Klog::fileNew(){
-//cout << "KLog::fileNew" << endl;
     operatorStringAux = "";
     Klog::number = 0;
-    //Klog::confirmed = 0;
-    klogDir = QDir::homePath()+"./klog";
+    klogDir = QDir::homePath()+"/.klog";
     logFileNameToSave = "klog.adi";
     slotClearBtn();
     modify = false;
@@ -1864,8 +1860,8 @@ void Klog::slotQslSentBoxChanged(){
         qso.QslSent('Y');
         (QSLSentdateEdit)->setEnabled(true);
         (QSLSentdateEdit)->setDate(qslSen);
-	if (qslSen.isValid()){
-	  qso.setQslSenDateOn(qslSen);
+    if (qslSen.isValid()){
+      qso.setQslSenDateOn(qslSen);
         }
     }else{
         qso.QslSent('N');
@@ -1892,8 +1888,8 @@ qDebug() << "KLog::slotQslRecvBoxChanged" << endl;
         qso.QslRec('Y');
         (QSLRecdateEdit)->setDate(qslRec);
         (QSLRecdateEdit)->setEnabled(true);
-	if (qslRec.isValid()){
-	  qso.setQslRecDateOn(qslRec);
+    if (qslRec.isValid()){
+      qso.setQslRecDateOn(qslRec);
         }
     }else{ // The QSO is NOT confirmed
         qso.QslRec('N');
@@ -1904,12 +1900,12 @@ qDebug() << "KLog::slotQslRecvBoxChanged" << endl;
             (QSLRecdateEdit)->setDate(qslRec);
         }else{ // I am modifying
         }
-	readAwardsStatus();
-	showAwardsNumbers();
+    readAwardsStatus();
+    showAwardsNumbers();
     }
-  
+
 //     readAwardsStatus();
-//     
+//
 }
 
 void Klog::readQso(){ //Just read the values an fill the qso
@@ -1955,8 +1951,8 @@ qDebug() << "KLog::readQso" << endl;
       slotQslRecvBoxChanged();
       slotQslSentBoxChanged();
       if (qso.gotTheQSL()){
-	dxcc.confirmedString(enti, (qso.getBand()).toUpper(), (qso.getMode()).toUpper());
-	waz.confirmedString(world.getCqzFromCall(qso.getQrz()) ,(qso.getBand()).toUpper(),(qso.getMode()).toUpper());
+    dxcc.confirmedString(enti, (qso.getBand()).toUpper(), (qso.getMode()).toUpper());
+    waz.confirmedString(world.getCqzFromCall(qso.getQrz()) ,(qso.getBand()).toUpper(),(qso.getMode()).toUpper());
       }	//TODO: If the QSO was QSL received and the user deleted, the dxxx&waz status should be updated
     }
     slotIOTAChanged();
@@ -1984,7 +1980,7 @@ qDebug() << "KLog::readQso" << endl;
     if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
         qso.setMyLocator((myLocatorLineEdit->text()).toUpper());
     }else{
-	qso.setMyLocator(getMyLocator());
+    qso.setMyLocator(getMyLocator());
     }
 
     if(qslVialineEdit->isEnabled())
@@ -2052,7 +2048,7 @@ qDebug() << "KLog::modifyQso: " << QString::number(Klog::j) << endl;
             if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
                 (*iter).setMyLocator((myLocatorLineEdit->text()).toUpper());
             }/*else if (locator.isValidLocator(getMyLocator())) {
-            	(*iter).setMyLocator(getMyLocator());
+                (*iter).setMyLocator(getMyLocator());
             }*/
             if (QSLSentcheckBox->isChecked()){
                 qslSen = QSLSentdateEdit->date();
@@ -2072,21 +2068,21 @@ qDebug() << "KLog::modifyQso: " << QString::number(Klog::j) << endl;
             } else {
                 (*iter).QslRec('N');
             }
-	    
+
 // 	    =============
 // 	    if (qso.gotTheQSL() && (enti!=0)){
 // 	      dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
 // 	      waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
 // 	    }
-// 
+//
 // 	    ===========
-	    
+
             if ((*iter).gotTheQSL() ){
                 dxcc.confirmedString(enti, ((*iter).getBand()).toUpper(), ((*iter).getMode()).toUpper());
                 waz.confirmedString( world.getCqzFromCall((*iter).getQrz()) ,((*iter).getBand()).toUpper(),((*iter).getMode()).toUpper());
             }else{
-	      (*iter).QslRec('N');
-	    }
+          (*iter).QslRec('N');
+        }
         } else {
        //     (*iter).QslRec('N');
 //             if (dxcc.isConfirmed(enti)){
@@ -2435,10 +2431,10 @@ void Klog::showWhere(const int enti){
 //qDebug() <<  "KLog::showWhere: " << QString::number(enti) << endl;
 //	if ((enti != 0)&&(enti != -1)){
     if (enti >0){
-      
+
         entityTextLabel->setText((world.getEntByNumb(enti)).getEntity());
         prxTextLabel->setText((world.getEntByNumb(enti)).getPfx());
-	
+
         continentTextLabel->setText((world.getEntByNumb(enti)).getContinent());
         cqLCDNumber->display(world.getCQzFromEntity(enti));
         ituLCDNumber->display(world.getITUzFromEntity(enti));
@@ -2446,13 +2442,13 @@ void Klog::showWhere(const int enti){
         // If the QSO has a locator and it is valid, calculation is more exact!
         if (locator.isValidLocator((locatorLineEdit->text()).toUpper())){
         // The following code is copy&pasted from "slotLocatorChanged"
-	qDebug() <<  "KLog::showWhere - locator valid: (" << (locatorLineEdit->text()).toUpper()<< ")";
+    qDebug() <<  "KLog::showWhere - locator valid: (" << (locatorLineEdit->text()).toUpper()<< ")";
             dxLocator = (locatorLineEdit->text()).toUpper();
 
             Klog::distance = locator.getDistance(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), locator.getLon(dxLocator), locator.getLat(dxLocator), true);
             beam = locator.getBeam(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), locator.getLon(dxLocator), locator.getLat(dxLocator));
         }else{
-	  qDebug() <<  "KLog::showWhere - locator NOT valid: (" << qso.getMyLocator() << ")";
+      qDebug() <<  "KLog::showWhere - locator NOT valid: (" << qso.getMyLocator() << ")";
             Klog::distance = locator.getDistance(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), (world.getEntByNumb(enti)).getLon(), (world.getEntByNumb(enti)).getLat(), true);
             beam = locator.getBeam(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), (world.getEntByNumb(enti)).getLon(), (world.getEntByNumb(enti)).getLat());
         }
@@ -2860,255 +2856,195 @@ void Klog::tlfReadLog(const QString& tfileName){
 }
 
 void Klog::cabrilloReadLog(const QString& tfileName){
-//cout << "KLog::cabrilloReadLog" << endl;
-    int totalQsos = 0; // QSOs in the log to be read
-    int progresStep = 0;
-    QString contest = "";
-    QString usedCallsign = "";
-    QProgressDialog progress(i18n("Reading the log..."), i18n("Abort reading"), 0, totalQsos);
-    QString progressLabel;
-    bool ok;
-    QString text = QInputDialog::getText(this, i18n("KLog - Cabrillo Import"),
-                                          i18n("Enter a remark for ALL the imported QSO:\n(Leave it empty and press OK if no remark)"), QLineEdit::Normal,
-                                          QDir::home().dirName(), &ok);
+   int totalQsos = 0; // QSOs in the log to be read
+   int progresStep = 0;
+   QString contest = "";
+   QString usedCallsign = "";
+   QProgressDialog progress(i18n("Reading the log..."), i18n("Abort reading"), 0, totalQsos);
+   QString progressLabel;
+   bool ok;
+   QString text = QInputDialog::getText(this, i18n("KLog - Cabrillo Import"),
+                                        i18n("Enter a remark for ALL the imported QSO:\n(Leave it empty and press OK if no remark)"), QLineEdit::Normal,
+                                        QDir::home().dirName(), &ok);
 
-    if ( ok && !text.isEmpty() ) {
-    // user entered something and pressed OK
-    }else if (!ok){ // The user clicked CANCEL
-        return;
-    }else{
-    // user entered nothing but clicked over OK
-    }
+   if (!ok) { // The user clicked CANCEL
+      return;
+   }
 
-    QString data;
-    QFile file( tfileName );
-    QTextStream stream( &file );
-    if (showProgressDialog){
-        int totalQsos = 0;
-        if ( file.open( QIODevice::ReadOnly ) ) { // We are going to count the number of QSOs of the file
-            while (!stream.atEnd()){
-                data = stream.readLine();
-                    if((!data.isNull()) && (!data.isEmpty()) && (data.startsWith("CONTEST:"))  ){
-                        data = data.simplified().toUpper();
-                        QStringList fields = data.split(" ", QString::SkipEmptyParts);
-                        //QStringList fields = QStringList::split(' ', data );
-                        contest = fields[1];
-
-                        // Now we have to adapt cabrillo to ADIF contest names
-                        if (contest =="FCG-FQP"){
-                            contest = "FL-QSO-PARTY";
-                        }
-
-                    }
-                    if(!data.isEmpty() && (data.startsWith("CALLSIGN:"))  ){
-                        data = data.simplified().toUpper();
-                        QStringList fields = data.split(" ", QString::SkipEmptyParts);
-                        //QStringList fields = QStringList::split(' ', data );
-                        usedCallsign = fields[1];
-
-                    }
-                    if(!data.isEmpty() && (data.startsWith("QSO:"))  ){
-                        totalQsos = totalQsos + 1;
-                        //getProgresStepForDialog
-                    }
-            }
-        }
-        progress.setMaximum(totalQsos);
-    }
-    file.close();
-
-    // Now the QSO reading starts
-
-    if ( file.open( QIODevice::ReadOnly ) ) {
-        QString qfreq;
-        QString qmode;
-        QString qdateString;
-        QString qtimeString;
-        QDateTime qdateTime;
-        QString qmyCall;
-        QString qrsttx;
-        QString qrstrx;
-        int stxNum =-1;
-        int srxNum =-1;
-        QString stxString="";
-        QString srxString="";
-        QString qdxCall;
-        QString qt;
-
-        data = "";
-        while (!stream.atEnd()){
+   QStringList contestLine, fields; // define the list for splitting the readline string and the contest list
+   QString data;
+   QFile file( tfileName );
+   QTextStream stream( &file );
+   if (showProgressDialog){
+      int totalQsos = 0;
+      if ( file.open( QIODevice::ReadOnly ) ) { // We are going to count the number of QSOs of the file
+         while (!stream.atEnd()){
             data = stream.readLine();
-                if((!data.isNull()) && (!data.isEmpty()) && (data.startsWith("QSO:")) ){
-                    data = data.simplified().toUpper();
-                    QStringList fields = data.split(" ", QString::SkipEmptyParts);
-                    //QStringList fields = QStringList::split(' ', data );
-/*
-The first one to develop is WPX SSB
-0    1     2  3          4    5             6   7      8             9   10    11
-QSO: freq  mo date       time call          rst exch   call          rst exch   t
-QSO: ***** ** yyyy-mm-dd nnnn ************* nnn ****** ************* nnn ****** n
-QSO:  3799 PH 1999-03-06 0711 HC8N          59  001    W1AW          59  001    0
-000000000111111111122222222223333333333444444444455555555556666666666777777777788
-123456789012345678901234567890123456789012345678901234567890123456789012345678901
+            if((!data.isNull()) && (!data.isEmpty()) && (data.startsWith("CONTEST:"))  ){
+               data = data.simplified().toUpper();
+               fields = data.split(" ", QString::SkipEmptyParts);
+               contest = fields[1];
+               // Now we have to adapt cabrillo to ADIF contest names
+               if (contest =="FCG-FQP"){
+                  contest = "FL-QSO-PARTY";
+               }
+            }
+            if(!data.isEmpty() && (data.startsWith("CALLSIGN:"))  ){
+               data = data.simplified().toUpper();
+               fields = data.split(" ", QString::SkipEmptyParts);
+               //QStringList fields = QStringList::split(' ', data );
+               usedCallsign = fields[1];
+            }
+            if(!data.isEmpty() && (data.startsWith("QSO:"))  ){
+               totalQsos = totalQsos + 1;
+               //getProgresStepForDialog
+            }
+         }
+      }
+      progress.setMaximum(totalQsos);
+   }
+   file.close();
+   // Now the QSO reading starts
+   if ( file.open( QIODevice::ReadOnly ) ) {
+      QString qfreq;
+      QString qmode;
+      QString qdateString;
+      QString qtimeString;
+      QDateTime qdateTime;
+      QString qmyCall;
+      QString qrsttx;
+      QString qrstrx;
+      int stxNum =-1;
+      int srxNum =-1;
+      QString stxString="";
+      QString srxString="";
+      QString qdxCall;
+      QString qt;
+      int cFREQ = 0, cMODE = 0, cDATE = 0, cTIME = 0, cTXCALL = 0, cTXEXCH = 0;
+      int cTXRST = 0, cTXSTR = 0, cRXCALL = 0, cRXEXCH = 0, cRXRST = 0, cRXSTR = 0, cT = 0;
 
-*/
-                    if ((contest =="CQ-WPX-SSB") || (contest =="IARU-HF") || (contest =="CQ-WPX-SSB") || (contest =="WAEDC") || (contest =="JIDX-CW") || (contest =="CQ-WPX-RTTY")){
-                        qfreq = fields[1];
-                        qmode = fields[2];
-                        qdateString = fields[3];
-                        qtimeString = (fields[4]).insert(2,':');
-                        qmyCall = fields[5];
-                        qrsttx = fields[6];
-                        qrstrx= fields[9];
-                        stxNum = (fields[7]).toInt();
-                        srxNum = (fields[10]).toInt();
-                        qdxCall = fields[8];
-                        qt = fields[11];
-                    }else if (contest =="AP-SPRINT"){
-                        qfreq = fields[1];
-                        qmode = fields[2];
-                        qdateString = fields[3];
-                        qtimeString = (fields[4]).insert(2,':');
-                        qmyCall = fields[5];
-                        qrsttx = fields[6];
-                        qrstrx= fields[9];
-                        stxNum = (fields[7]).toInt();
-                        srxNum = (fields[10]).toInt();
-                        qdxCall = fields[8];
-                    }else if ((contest =="ARRL-10") || (contest =="ARRL-160") || (contest =="ARRL-DX-SSB") || (contest =="STEW-PERRY") || (contest =="NEQP")){
-                        qfreq = fields[1];
-                        qmode = fields[2];
-                        qdateString = fields[3];
-                        qtimeString = (fields[4]).insert(2,':');
-                        qmyCall = fields[5];
-                        qrsttx = fields[6];
-                        qrstrx= fields[9];
-                        stxString = fields[7];
-                        srxString = fields[10];
-                        qdxCall = fields[8];
-//TODO:FAILS with  STEW in the 160m band
+      QFile contestFile(klogDir + "/klog-contest-cabrillo-formats.txt");
+      qDebug() << contestFile.fileName();
+      QTextStream contestStream ( &contestFile );
+      if ( contestFile.open( QIODevice::ReadOnly ) ) {
+         while (!contestStream.atEnd()){
+            data = contestStream.readLine();
+            qDebug() << data;
+            fields = data.split(":", QString::SkipEmptyParts);
+            contestLine = fields[0].split("=", QString::SkipEmptyParts);
+            if( contestLine[1] == contest ) {
+               qDebug() << "CONTEST=" << contestLine[1];
+               // Break out the contest line and get the positions of the cabrillo keys
+               QStringList::const_iterator it;
+               for (it = fields.constBegin(); it != fields.constEnd(); ++it) {
+                  contestLine = (*it).split("=", QString::SkipEmptyParts);
+                  qDebug() << (*it) << contestLine;
+                  if( contestLine[0].toUpper() == "FREQ") {
+                     cFREQ = contestLine[1].toInt();
+                  } else if( contestLine[0].toUpper() == "MODE") {
+                     cMODE = contestLine[1].toInt();
+                  } else if( contestLine[0].toUpper() == "DATE") {
+                     cDATE = contestLine[1].toInt();
+                  } else if( contestLine[0].toUpper() == "TIME") {
+                     cTIME = contestLine[1].toInt();
+                  } else if( contestLine[0].toUpper() == "TXCALL") {
+                     cTXCALL = contestLine[1].toInt();
+                  } else if( contestLine[0].toUpper() == "TXEXCH") {
+                     cTXEXCH = contestLine[1].toInt();
+                  } else if( contestLine[0].toUpper() == "TXRST") {
+                     cTXRST = contestLine[1].toInt();
+                  } else if( contestLine[0].toUpper() == "TXSTR") {
+                     cTXSTR = contestLine[1].toInt();
+                  } else if( contestLine[0].toUpper() == "RXCALL") {
+                     cRXCALL = contestLine[1].toInt();
+                  } else if( contestLine[0].toUpper() == "RXEXCH") {
+                     cRXEXCH = contestLine[1].toInt();
+                  } else if( contestLine[0].toUpper() == "RXRST") {
+                     cRXRST = contestLine[1].toInt();
+                  } else if( contestLine[0].toUpper() == "RXSTR") {
+                     cRXSTR = contestLine[1].toInt();
+                  } else if( contestLine[0].toUpper() == "T") {
+                     cT = contestLine[1].toInt();
+                  }
+               }
+            }
+         }
+      }
+      qDebug() << cMODE << cTIME << cFREQ << cDATE;
+      data.clear();
+      while (!stream.atEnd()){
+         data = stream.readLine();
+         data.simplified().toUpper();
+         if((!data.isNull()) && (!data.isEmpty()) && (data.startsWith("QSO:")) ){
+            fields = data.split(" ", QString::SkipEmptyParts);
+            qfreq = fields[cFREQ];
+            qmode = fields[cMODE];
+            qdateString = fields[cDATE];
+            qtimeString = (fields[cTIME]).insert(2,':');
+            qmyCall = fields[cTXCALL];
+            stxNum = (fields[cTXEXCH]).toInt();
+            qrsttx = fields[cTXRST];
+            stxString = fields[cTXSTR];
+            qdxCall = fields[cRXCALL];
+            qrstrx= fields[cRXRST];
+            srxNum = (fields[cRXEXCH]).toInt();
+            srxString = fields[cRXSTR];
+            qt = fields[cT];
+            // Mode adaptation Cabrillo->ADIF
+            if (qmode == "PH"){
+               qmode = "SSB";
+            }else if (qmode == "RY"){
+               qmode = "RTTY";
+            }
 
-                    }else if ((contest =="ARRL-VHF-SEP") || (contest =="CQ-VHF")){
-                        qfreq = fields[1];
-                        qmode = fields[2];
-                        qdateString = fields[3];
-                        qtimeString = (fields[4]).insert(2,':');
-                        qmyCall = fields[5];
-                        stxString = fields[6];
-                        srxString = fields[8];
-                        qdxCall = fields[7];
-                    }else if ((contest =="CQ-WW-RTTY") || (contest =="RSGB-IOTA")){
-                        qfreq = fields[1];
-                        qmode = fields[2];
-                        qdateString = fields[3];
-                        qtimeString = (fields[4]).insert(2,':');
-                        qmyCall = fields[5];
-                        qrsttx = fields[6];
-                        qrstrx= fields[10];
-                        stxNum = (fields[7]).toInt();
-                        srxNum = (fields[11]).toInt();
-                        stxString = fields[8];
-                        srxString = fields[12];
-                        qdxCall = fields[9];
-                    }else{ // If we do not detect the contest, we will try WPX but
-                        // it may not be properly imported
-                        //TODO: Show a message alerting about the imposibility to detect
-                        // the contest ID.
-                        qfreq = fields[1];
-                        qmode = fields[2];
-                        qdateString = fields[3];
-                        qtimeString = (fields[4]).insert(2,':');
-                        qmyCall = fields[5];
-                        qrsttx = fields[6];
-                        qrstrx= fields[9];
-                        qdxCall = fields[8];
-                        qt = fields[11];
-                    }
+            qdateString = qdateString +"T"+qtimeString;
+            if ( (QDateTime::fromString(qdateString, Qt::ISODate)).isValid() ) {
+               qso.setDateTime(QDateTime::fromString(qdateString, Qt::ISODate));
+            }
 
-                    // Mode adaptation Cabrillo->ADIF
-                    if (qmode == "PH"){
-                        qmode = "SSB";
-                    }else if (qmode == "RY"){
-                        qmode = "RTTY";
-                    }
-
-                    qdateString = qdateString +"T"+qtimeString;
-                    //qdateTime = QDate::fromString(qdateString,Qt::ISODate);
-                    //qso.setDateTime(qdateTime);
-
-                    //cout << "KLog processLine Date: |" << dateString <<"|"<< endl;
-                    if ( !(QDateTime::fromString(qdateString, Qt::ISODate)).isValid() ) {
-                    //cout << "INVALID DATE-3: " << dateString << endl;
-                    }else{
-                        qso.setDateTime(QDateTime::fromString(qdateString, Qt::ISODate));
-                    }
-
-                    Klog::number++;
-                    qso.setNumb(Klog::number);
-                    qso.setComment(text);
-                    qso.setQrz(qdxCall);
-                    qso.setStationCallsign(qmyCall);
-                    qso.setMode(qmode);
-                    qso.setRstrx(qrstrx.toInt());
-                    qso.setRsttx(qrsttx.toInt());
-                    qso.setContestID(contest);
-//					qso.setBand(adif.freq2Band(QString::number((qfreq.toDouble())/1000)));
-
-                    qso.setFreq(QString::number((qfreq.toDouble())/1000));
-
-                    qso.setBand(adif.freq2Band(qso.getFreq()));
-
-                    if (stxNum!=-1){
-                        qso.setStx(stxNum);
-                    }
-                    if (srxNum!=-1){
-                        qso.setSrx(srxNum);
-                    }
-                    if (stxString!=""){
-                        qso.setStx_string(stxString);
-                    }
-                    if (srxString!=""){
-                        qso.setSrx_string(srxString);
-                    }
-// cout << "KLog-Cabrillo Import: =========================== BEGINING" << endl;
-// cout << "KLog-Cabrillo Import: NUMBER: " << QString::number(qso.getNumb()) << endl;
-// cout << "KLog-Cabrillo Import: DX QRZ: " << qso.getQrz() << endl;
-// cout << "KLog-Cabrillo Import: My Call: " << qso.getStationCallsign()<< endl;
-// cout << "KLog-Cabrillo Import: RST TX: " << QString::number(qso.getRsttx())<< endl;
-// cout << "KLog-Cabrillo Import: RST RX: " << QString::number(qso.getRstrx())<< endl;
-// cout << "KLog-Cabrillo Import: MODE: " << qso.getMode()<< endl;
-// cout << "KLog-Cabrillo Import: FREQ: " << qso.getFreq()<< endl;
-// cout << "KLog-Cabrillo Import: BAND: " << qso.getBand()<< endl;
-// cout << "KLog-Cabrillo Import: STX: " << QString::number(qso.getStx())<< endl;
-// cout << "KLog-Cabrillo Import: SRX: " << QString::number(qso.getSrx())<< endl;
-// cout << "KLog-Cabrillo Import: Date: " << qso.getDateTime().toString("yyyy-MM-dd") << endl;
-// cout << "KLog-Cabrillo Import: time: " << qso.getDateTime().toString("hh:mm") << endl;
-// cout << "KLog-Cabrillo Import: TimeString: " << qtimeString << endl;
-// cout << "KLog-Cabrillo Import: =========================== END\n" << endl;
-
-                    addQSOToLog();
-                    if (showProgressDialog){
-                        if ( (number % getProgresStepForDialog(totalQsos) )== 0){ // To update the speed i will only show the progress once each 25 QSOs
-                            progresStep = number;
-                            progressLabel = i18n("Adding QSO#: ") + QString::number(number) + " / " + (QString::number(totalQsos));
-                            progress.setLabelText(progressLabel);
-                            progress.setValue(progresStep );
-                            qApp->processEvents();
-                        }
-                        if ( progress.wasCanceled()){
-                            return;
-                        }
-                    }
-                }
-        }
-    }
-    file.close();
-
-    needToSave = true;
-    showLogList();
-    showAwardsNumbers();
-
-
+            Klog::number++;
+            qso.setNumb(Klog::number);
+            qso.setComment(text);
+            qso.setQrz(qdxCall);
+            qso.setStationCallsign(qmyCall);
+            qso.setMode(qmode);
+            qso.setRstrx(qrstrx.toInt());
+            qso.setRsttx(qrsttx.toInt());
+            qso.setContestID(contest);
+            qso.setFreq(QString::number((qfreq.toDouble())/1000));
+            qso.setBand(adif.freq2Band(qso.getFreq()));
+            if (stxNum!=-1){
+               qso.setStx(stxNum);
+            }
+            if (srxNum!=-1){
+               qso.setSrx(srxNum);
+            }
+            if (stxString!=""){
+               qso.setStx_string(stxString);
+            }
+            if (srxString!=""){
+               qso.setSrx_string(srxString);
+            }
+            addQSOToLog();
+            if (showProgressDialog){
+               if ( (number % getProgresStepForDialog(totalQsos) )== 0){ // To update the speed i will only show the progress once each 25 QSOs
+                  progresStep = number;
+                  progressLabel = i18n("Adding QSO#: ") + QString::number(number) + " / " + (QString::number(totalQsos));
+                  progress.setLabelText(progressLabel);
+                  progress.setValue(progresStep );
+                  qApp->processEvents();
+               }
+               if ( progress.wasCanceled()){
+                  return;
+               }
+            }
+         }
+      }
+   }
+   file.close();
+   needToSave = true;
+   showLogList();
+   showAwardsNumbers();
 }
 
 void Klog::slotAddLog(){
@@ -3118,10 +3054,7 @@ void Klog::slotAddLog(){
   QString tempOriginalLocator;
   bool ok;
 
-
-  fn = QFileDialog::getOpenFileName(this, i18n("Save File"),
-                            klogDir,
-                            i18n("ADIF (*.adi)"));
+  fn = QFileDialog::getOpenFileName(this, i18n("Save File"), klogDir, i18n("ADIF (*.adi)"));
 
   if ( fn.isEmpty() ) //TODO: check if it is better any other checking
     return;
@@ -3144,10 +3077,10 @@ void Klog::slotAddLog(){
     operatorStringAux ="BADCALL";
     ok = true;
     operatorStringAux ="";
-    
+
     /* TRANSLATORS: Replacing the call used with (%1), the call of the user. */
       QString msgCall = i18n("Enter the used call:\n(Leave it empty and press OK if the call %1 was used).",getMyQrz());
-    
+
     operatorStringAux = QInputDialog::getText(this, i18n("KLog - Log Add"),
         msgCall, QLineEdit::Normal,
             QDir::home().dirName(), &ok);
@@ -3241,43 +3174,12 @@ void Klog::slotAddLog(){
 
 }
 void Klog::slotImportCabrillo(){
-//cout << "KLog::slotImportCabrillo" << endl;
+  QString fileName = QFileDialog::getOpenFileName(this, "Open a CAB file", klogDir,"CAB (*.CAB *.cab)");
 
-    //qDebug() << "KLog::slotImportCabrillo - DELETED TO HELP THE QT4 MIGRATION - TO BE RESTORED ASAP";
+  if (fileName == "")
+      return;
 
-      QMessageBox msgBox;
-      msgBox.setText(i18n("KLog message:"));
-      QString str = i18n("This function (slotImportCabrillo) has been deleted to help the QT4 migration.\nIt will be restored ASAP");
-      msgBox.setInformativeText(str);
-      msgBox.setStandardButtons(QMessageBox::Ok);
-      msgBox.setDefaultButton(QMessageBox::Ok);
-      msgBox.setIcon(QMessageBox::Warning);
-      msgBox.exec();
-
-
-// 	  QMessageBox msgBox;
-// 	  msgBox.setText(i18n("KLog message:"));
-// 	  QString str = i18n("The Cabrillo import tool is a new feature and has not been fully tested with all the contests data.\nAlthough it is supposed to work well, please backup your logs and check them after adding the Cabrillo file.\n\nIn case you find an error please contact EA4TV.\nTNX.");
-// 	  msgBox.setInformativeText(str);
-// 	  msgBox.setStandardButtons(QMessageBox::Ok);
-// 	  msgBox.setDefaultButton(QMessageBox::Ok);
-// 	  msgBox.setIcon(QMessageBox::Warning);
-// 	  msgBox.exec();
-
-
-//	cabrilloReadLog(fileName);
-
-
-
-
-// 	Q3FileDialog fileOpenDialog(this, i18n("Open a file"), TRUE);
-// 	fileOpenDialog.setFilter(i18n("CAB files (*.cab *.CAB)"));
-// 	fileOpenDialog.setDir(klogDir);
-// 	if (fileOpenDialog.exec() == QDialog::Accepted)
-// 		fileName=fileOpenDialog.selectedFile();
-// 	else
-// 		return;
-// 	cabrilloReadLog(fileName);
+  cabrilloReadLog(fileName);
 
     //cabrilloLog.cabrilloReadLog("/home/jaime/.klog/cabrillo");
 }
@@ -3429,11 +3331,11 @@ void Klog::slotSearchButton(){
                                        (*iter).getDateTime().toString("yyyy-MM-dd"),(*iter).getDateTime().toString("hh:mm"),
                                        (*iter).getBand(), (*iter).getMode(), (*iter).isQslSent(), (*iter).isQslRec(),
                                        getNumberString((*iter).getNumb()), colorInUse );
-				       
+
             colorInUse = defaultColor;
-	    
-	    
-	    
+
+
+
 
             if ( ((*iter).getName()).length() > 1){
                 previousNamekLineEdit->setText((*iter).getName());
@@ -3584,7 +3486,7 @@ void Klog::slotQsoDelete(){
                         }
                         slotClearBtn();
                         showLogList();
-			readAwardsStatus();
+            readAwardsStatus();
                         showAwardsNumbers();
                         return;
                         break;
@@ -3603,18 +3505,18 @@ void Klog::readAwardsStatus(){
 //qDebug() << "KLog::readAwardsStatus" << endl;
 // Re-read the DXCC and WAZ status. Maybe I could extract to another function...
         Klog::LogBook::iterator ite;
-	dxcc.clear();
-	waz.clear();
+    dxcc.clear();
+    waz.clear();
         for ( ite = logbook.begin(); ite != logbook.end(); ++ite ){
-	  
-            dxcc.worked(world.findEntity((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-	    waz.worked(world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
 
-	    if ((*ite).gotTheQSL()){
+            dxcc.worked(world.findEntity((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
+        waz.worked(world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
+
+        if ((*ite).gotTheQSL()){
                 dxcc.confirmed(world.findEntity((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-		waz.confirmed (world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-            }   
-	    
+        waz.confirmed (world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
+            }
+
         }
 }
 
@@ -3700,12 +3602,12 @@ void Klog::slotLogQSOSelectionChanged(){
 // Grabs the selection in the log, activates the QSL button actions and QSO deletion
 //qDebug() << "KLog::slotLogQSOSelectionChanged: ";
 
-  qsoSelected = getByNumber(((logTreeWidget->currentItem())->text(0)).toInt());  
-  qsoSelectedBool = true;  
+  qsoSelected = getByNumber(((logTreeWidget->currentItem())->text(0)).toInt());
+  qsoSelectedBool = true;
   ActionQsoDelete->setEnabled(true);
 //  qDebug() << "KLog::slotLogQSOSelectionChanged: " << qsoSelected.getQrz() << endl;
-  
-  if (qsoSelected.gotTheQSL()){ 
+
+  if (qsoSelected.gotTheQSL()){
       ActionQslRec->setEnabled(false);
   }else{
     ActionQslRec->setEnabled(true);
@@ -3720,7 +3622,6 @@ void Klog::slotLogQSOSelectionChanged(){
 
 }
 
-
 void Klog::slotQSLSeveralRec(){
 //qDebug() << "KLog::slotQSLSeveralRec";
 //This function is executed when the user selects one or several QSO in the log and click on QSL rec.
@@ -3730,27 +3631,28 @@ void Klog::slotQSLSeveralRec(){
   QList<QTreeWidgetItem *> items;
   items = logTreeWidget->selectedItems();
   QListIterator<QTreeWidgetItem *> it(items);
-  
- 
-    while (it.hasNext()) {
+
+
+//    while (it.hasNext()) {
 //      qDebug() << "KLog::slotQSLSeveralRec: " << (it.next())->text(0)<< endl;
 //      (*it)->text(0)<< endl;
 /*         if ((*it)->text(0) == itemText)
              (*it)->setSelected(true);*/
      //    ++it;
-     
-     }  
-  
-  
+
+     }
+
+
 //   for (iterat = list.begin(); iterat != list.end(); ++iterat){
 //   qDebug() << "KLog::slotQSLSeveralRec: " << iterat->text(0)<< endl;
-//   
+//
 //   }
-  
-  
+
+
 //QList<QTreeWidgetItem *> QSOsSelected = logTreeWidget->selectedItems();
 
-}
+//}
+
 void Klog::slotQSLRec(){
 //qDebug() << "KLog::slotQSLRec" << endl;
 // If we are modifying a QSO we work over it if not, we should work on the selected one on the selected on of the Log
@@ -3762,40 +3664,40 @@ void Klog::slotQSLRec(){
 // 		wasConfirmed = true;
 // 	}
  // int i	= -1;
-  qslRec = QDate::currentDate();  
+  qslRec = QDate::currentDate();
 
   if (modify){
     if (!qso.gotTheQSL()){
-      Klog::j = qso.getNumb();      
+      Klog::j = qso.getNumb();
 
       Klog::LogBook::iterator iter;
       for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
-	if ( Klog::j == (*iter).getNumb() ){
-	  (*iter).QslRec('Y');
-	  if (qslRec.isValid()){
-	    (*iter).setQslRecDateOn(qslRec);
-	  }
+    if ( Klog::j == (*iter).getNumb() ){
+      (*iter).QslRec('Y');
+      if (qslRec.isValid()){
+        (*iter).setQslRecDateOn(qslRec);
+      }
 // 	  needToSave = true;
 // 	  dxcc.confirmedString(kk, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
 // 	  waz.confirmedString(world.getCqzFromCall(qso.getQrz()), qso.getBand(),qso.getMode());
-	}
+    }
       }
     }
   }else{ // This is executed if we are not modifying
-    //TODO: Maybe this can be optimized as the code of the QSL status update is the same here and in the previous part of the if    
+    //TODO: Maybe this can be optimized as the code of the QSL status update is the same here and in the previous part of the if
     if (qsoSelectedBool){
       Klog::LogBook::iterator iter;
       for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
         if ( qsoSelected.getNumb() == (*iter).getNumb() ){
-	  (*iter).QslRec('Y');
-	  if (qslRec.isValid()){
-	    (*iter).setQslRecDateOn(qslRec);
-	  }
-	  needToSave = true;
-	  dxcc.confirmedString(kk, ((*iter).getBand()).toUpper() ,  ((*iter).getMode()).toUpper());
-	  waz.confirmedString(world.getCqzFromCall((*iter).getQrz()), (*iter).getBand(),(*iter).getMode());      
-	}
-      }  
+      (*iter).QslRec('Y');
+      if (qslRec.isValid()){
+        (*iter).setQslRecDateOn(qslRec);
+      }
+      needToSave = true;
+      dxcc.confirmedString(kk, ((*iter).getBand()).toUpper() ,  ((*iter).getMode()).toUpper());
+      waz.confirmedString(world.getCqzFromCall((*iter).getQrz()), (*iter).getBand(),(*iter).getMode());
+    }
+      }
     }
   }
   logTreeWidget->clearSelection(); //The next 5 are always together (should we create a function?)
@@ -3806,7 +3708,7 @@ void Klog::slotQSLRec(){
 
   showLogList();
   showWhere(kk);
-  readAwardsStatus();	  
+  readAwardsStatus();
   showAwardsNumbers();
 }
 
@@ -3818,33 +3720,33 @@ void Klog::slotQSLSent(){
 
   Klog::LogBook::iterator iter;
   qslSen = QDate::currentDate();
-  
+
   if (modify){
     if (!qso.sentTheQSL()) {
       Klog::j = qso.getNumb();
       for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
-	if ( Klog::j == (*iter).getNumb() ){
-	  (*iter).QslSent('Y');
-	  if (qslSen.isValid()){
-	    (*iter).setQslSenDateOn(qslSen);
-	  }
-	  needToSave = true;
-	  //showLogList(); // i commented it to make the qsl send right button easier
-	//  showWhere(kk);
-	//  entityState(kk);
-	}
+    if ( Klog::j == (*iter).getNumb() ){
+      (*iter).QslSent('Y');
+      if (qslSen.isValid()){
+        (*iter).setQslSenDateOn(qslSen);
+      }
+      needToSave = true;
+      //showLogList(); // i commented it to make the qsl send right button easier
+    //  showWhere(kk);
+    //  entityState(kk);
+    }
       }
     }
   }else{ // This is executed if we are not modifying
     if (qsoSelectedBool){
       for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
-	if ( qsoSelected.getNumb() == (*iter).getNumb() ){
-	  (*iter).QslSent('Y');
-	  if (qslSen.isValid()){
-	    (*iter).setQslSenDateOn(qslRec);
-	  }
-	  needToSave = true;
-	}
+    if ( qsoSelected.getNumb() == (*iter).getNumb() ){
+      (*iter).QslSent('Y');
+      if (qslSen.isValid()){
+        (*iter).setQslSenDateOn(qslRec);
+      }
+      needToSave = true;
+    }
       }
     }
   }
@@ -4023,11 +3925,11 @@ void Klog::filePrint(){
   //int numberOfPages = (int)(Klog::number / 10)+1; // To print just 10 QSO per page
   int maxPages = (int)(Klog::number / 10)+1; // To print just 10 QSO per page
 //   int numberOfPages = 10;
-  int printedQso = 1;    
+  int printedQso = 1;
   //int maxPages = 10;
-  
+
   printer.setOrientation(QPrinter::Landscape); // For testing, the log will be printed landscape.
-  
+
   printer.setDocName(getMyQrz()+"-log");
   QPrintDialog *dialog = KdePrint::createPrintDialog(&printer, QList<QWidget*>(), this);
 
@@ -4038,38 +3940,38 @@ void Klog::filePrint(){
 
   QPainter painter;
   //painter.begin(&printer);
-  
+
   if (! painter.begin(&printer)) { // failed to open file
     qWarning("failed to open file to print, is it writable?");
     return;
   }
   QString headerLeft = i18n("Printing date: ") + (QDate::currentDate()).toString(Qt::LocalDate);
   QString headerMid = "KLog-" + Klog::KLogVersion + " - http://jaime.robles.es/klog";
-  QString headerRight;  
+  QString headerRight;
   QString headerLog = (i18n("Number")).leftJustified(6,' ') + "\t" + (i18n("Date")).leftJustified(10,' ') + "\t" + (i18n("Time")).leftJustified(5,' ') + "\t" + (i18n("QRZ")).leftJustified(10,' ') + "\t" + i18n("RST(tx/rx)") +"\t" + (i18n("Band")).leftJustified(5,' ') + "\t" + (i18n("Mode")).leftJustified(7,' ');
 
 
   for (int page = 0; page < maxPages ; ++page) {
     // Use the painter to draw on the page.
-    
+
     //TODO:First thing is to print the header
     headerRight = QString(i18n("Page: %1")).arg(page);
-    
+
     pageToPrint = headerLeft + " --- " + headerMid + " --- " + headerRight + "\n\n\n\n";
     pageToPrint = pageToPrint + headerLog + "\n\n";
-    
+
     //TODO: Now we can print the QSOs
     for (j=0; j<10 ; j++){
       pageToPrint = pageToPrint  + "QSO: " + QString::number(printedQso) + "\n\n";
       printedQso++;
     }
-    
+
     painter.drawText(10, 10, pageToPrint);
 
     if (page != maxPages){
       if (! printer.newPage()) {
-	qWarning("Could not create a new page, disk full?");
-	return ;
+    qWarning("Could not create a new page, disk full?");
+    return ;
      }
 
     //  printer.newPage();
@@ -4104,9 +4006,9 @@ bool Klog::paintRequested(QPrinter *printer){
     /*
     while (it != logbook.end()){
       //(*it).getQrz()
-      
+
       painter.drawText(QRectF(pos, size), Qt::AlignCenter, (*it).getQrz());
-	 //painter.drawText(QRectF(pos, size), img);
+     //painter.drawText(QRectF(pos, size), img);
       ++it;
     }
     */
@@ -4114,7 +4016,7 @@ bool Klog::paintRequested(QPrinter *printer){
   //return true;
 
 }
- 
+
 void Klog::sortLog(){
 // I will read the Log from the UI and sorting using the numbers.
 //TODO: This sorting is highly inefficient. It should be rewritten and optimized
@@ -4129,7 +4031,7 @@ void Klog::sortLog(){
   oLogbook.clear();                             // an empty list
   Klog::LogBook::iterator it;
   QTreeWidgetItemIterator itl( logTreeWidget );
-  
+
   QProgressDialog progress(i18n("Sorting the log..."), i18n("Abort sorting"), 0, Klog::number);
 
   while (*itl) {
@@ -4137,22 +4039,22 @@ void Klog::sortLog(){
      // (*itl)->setSelected(true);
      for ( it = logbook.begin(); it != logbook.end(); ++it ){  //We run the log...
       if ( (*it).getNumb() == ((*itl)->text(0)).toInt() ){
-	progresStep++;
-	if (showProgressDialog){
-	  progress.setValue( progresStep );
-	  qApp->processEvents();
-	}
-	tQso = (*it);
-	if ( progress.wasCanceled())
-	  return;
-	oLogbook.append(tQso);
+    progresStep++;
+    if (showProgressDialog){
+      progress.setValue( progresStep );
+      qApp->processEvents();
+    }
+    tQso = (*it);
+    if ( progress.wasCanceled())
+      return;
+    oLogbook.append(tQso);
       }
       if ( progress.wasCanceled())
-	return;
+    return;
      }
   ++itl;
   }
-  logbook = oLogbook; 
+  logbook = oLogbook;
 }
 
 /********************************************************************************
@@ -4390,7 +4292,7 @@ if (	(!dxClusterConfirmedSpots) && (needToWorkFromCluster(tokens[4],adif.freq2In
 //        QListWidgetItem *item = new QListWidgetItem(dxclusterListWidget);
         QListWidgetItem *item = new QListWidgetItem();
 
-	item->setForeground(QBrush(dxSpotColor));
+    item->setForeground(QBrush(dxSpotColor));
         item->setText(dxClusterString);
 //        item->setFont(QFont ("Courier", 8, QFont::Bold));
 //
@@ -5062,7 +4964,7 @@ if ( ( (((*_it1).getQslVia()).length()>1)  && !(((*_it2).getQslVia()).length()>1
   QMessageBox msgBox;
   msgBox.setText(i18n("Warning: Callsign to complete found"));
   QString str = i18n("Completing a call could cause data to be no accurate. Do you want this data to be merged?\n QSO N: # %1 - Do you want to copy the QSL information received in other QSOs for %2 ?", QString::number((*_it2).getNumb()), (*_it2).getQrz());
-    
+
   msgBox.setInformativeText(str);
 
   msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
@@ -5256,7 +5158,7 @@ dxClusterSpotItem::~dxClusterSpotItem(){
 // //TODO: How to replace paintcell in a QTreeWidgetItem to paint it?
 // //  QTreeWidgetItem::paintCell( p, _cg, column, width, alignment );
 //   _cg.setColor( QPalette::Text, spotColor );
-// 
+//
 // }
 
 /***************************************************************************
@@ -5274,7 +5176,7 @@ searchBoxItem::searchBoxItem( QTreeWidget *parent, const QString& call, const QS
   setText(5, RSTsent);
   setText(6, RSTrec);
   setText(7, numb);
-  
+
   setForeground(0,QBrush(color));
   setForeground(1,QBrush(color));
   setForeground(2,QBrush(color));
@@ -5284,15 +5186,15 @@ searchBoxItem::searchBoxItem( QTreeWidget *parent, const QString& call, const QS
   setForeground(6,QBrush(color));
   setForeground(7,QBrush(color));
 
-  
-//  searchBoxItem->setFont(QFont (QFont::Bold));	
+
+//  searchBoxItem->setFont(QFont (QFont::Bold));
 /*item->setForeground(QBrush(dxSpotColor));
         item->setText(dxClusterString);
 //        item->setFont(QFont ("Courier", 8, QFont::Bold));
 //
-	item->setFont(QFont (QFont::Bold));
+    item->setFont(QFont (QFont::Bold));
         dxclusterListWidget->insertItem(0,item); */
-  
+
 
 }
 
@@ -5309,7 +5211,7 @@ searchBoxItem::~searchBoxItem(){
 // //TODO: How to replace paintcell in a QTreeWidgetItem to paint it?
 // //  QTreeWidgetItem::paintCell( p, _cg, column, width, alignment );
 //   _cg.setColor( QPalette::Text, qsoColor );
-// 
+//
 // }
 
 
