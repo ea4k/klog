@@ -65,6 +65,9 @@
 // The next two are for printing
 #include <QPrinter>
 #include <QPainter>
+#include <QPrintDialog>
+#include <kdeprintdialog.h>
+
 #include <QProgressDialog>
 #include <QSplashScreen>
 #include <QTabWidget>
@@ -148,7 +151,14 @@ class Klog : public QMainWindow, private Ui::klog
     void fileNew();
     void fileSave();
     void fileSaveAs();
+    
+    
     void filePrint();
+    bool paintRequested(QPrinter *printer);
+    
+    
+    
+    
     //void printLabels(); // Generate the file for GLabels or KBarcode
     void slothamlibUpdateFrequency();
 
@@ -180,6 +190,8 @@ class Klog : public QMainWindow, private Ui::klog
     void showMenuRightButton(int qqso); //This is called from  slotQsoRightButton and show the actions menu
 
 // Printing modules
+//     void doPrint(KPrinter *printer);
+//     void doPaint(QPainter *p, int autofit, int w, int h);
 //  void slotPrint();	
 //  void doPrint(KPrinter *printer);
 //  void doPaint(QPainter *p, int autofit, int w, int h);
@@ -218,6 +230,7 @@ class Klog : public QMainWindow, private Ui::klog
     void slotModeChanged (int i);
     void slotBandChanged ();
     void fillDXCCList();	// Fill the KLog tab
+    
 
   private:
 

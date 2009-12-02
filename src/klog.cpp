@@ -325,7 +325,13 @@ int Klog::getEntityFromCall(){ // We return the Entity number from the QRZ box c
 }
 
 void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
-    qrzLineEdit->setText(((qrzLineEdit->text())).toUpper());
+ //qDebug() << "KLog::slotQrzChanged: " <<  qrzLineEdit->text() << endl;
+ 
+ //TODO: The next sentence only removes from the begining and end. If the user copies a QRZ with spaces they will remain
+  qrzLineEdit->setText(((qrzLineEdit->text())).simplified()); // If the call contains any space, we delete it :-)
+  
+  qrzLineEdit->setText(((qrzLineEdit->text())).toUpper());
+    
     callLen = (qrzLineEdit->text()).length();
 
     if (callLen == 0){ //TODO: Maybe the above check of length is not really needed (20090926-EA4TV)
@@ -952,7 +958,7 @@ void Klog::listHamlib(){
 }
 
 void Klog::processLogLine (const QString& tLogLine){
-qDebug() << "KLog::processLogLine" << tLogLine << endl;
+//qDebug() << "KLog::processLogLine" << tLogLine << endl;
 
     qsoLine="";
     adifTab="";
@@ -2415,7 +2421,7 @@ QString Klog::getMyQrz() const{
 }
 
 void Klog::setMyLocator(const QString &tlocator){
-qDebug() << "KLog::setMyLocator";
+//qDebug() << "KLog::setMyLocator";
     if (locator.isValidLocator(tlocator.toUpper() ))
         myLocator = tlocator;
 }
@@ -2426,7 +2432,7 @@ QString Klog::getMyLocator() const{
 }
 
 void Klog::showWhere(const int enti){
-qDebug() <<  "KLog::showWhere: " << QString::number(enti) << endl;
+//qDebug() <<  "KLog::showWhere: " << QString::number(enti) << endl;
 //	if ((enti != 0)&&(enti != -1)){
     if (enti >0){
       
@@ -3594,7 +3600,7 @@ void Klog::slotQsoDelete(){
 }
 
 void Klog::readAwardsStatus(){
-qDebug() << "KLog::readAwardsStatus" << endl;
+//qDebug() << "KLog::readAwardsStatus" << endl;
 // Re-read the DXCC and WAZ status. Maybe I could extract to another function...
         Klog::LogBook::iterator ite;
 	dxcc.clear();
@@ -3716,7 +3722,7 @@ void Klog::slotLogQSOSelectionChanged(){
 
 
 void Klog::slotQSLSeveralRec(){
-qDebug() << "KLog::slotQSLSeveralRec";
+//qDebug() << "KLog::slotQSLSeveralRec";
 //This function is executed when the user selects one or several QSO in the log and click on QSL rec.
 // It marks all the selected QSO as QSL Received.
 //QList<QTreeWidgetItem *> QTreeWidget::selectedItems () const
@@ -3727,7 +3733,7 @@ qDebug() << "KLog::slotQSLSeveralRec";
   
  
     while (it.hasNext()) {
-      qDebug() << "KLog::slotQSLSeveralRec: " << (it.next())->text(0)<< endl;
+//      qDebug() << "KLog::slotQSLSeveralRec: " << (it.next())->text(0)<< endl;
 //      (*it)->text(0)<< endl;
 /*         if ((*it)->text(0) == itemText)
              (*it)->setSelected(true);*/
@@ -3746,7 +3752,7 @@ qDebug() << "KLog::slotQSLSeveralRec";
 
 }
 void Klog::slotQSLRec(){
-qDebug() << "KLog::slotQSLRec" << endl;
+//qDebug() << "KLog::slotQSLRec" << endl;
 // If we are modifying a QSO we work over it if not, we should work on the selected one on the selected on of the Log
 // TODO: Define all the code of what to do if we are not modifying.
 
@@ -3808,7 +3814,7 @@ qDebug() << "KLog::slotQSLRec" << endl;
 void Klog::slotQSLSent(){
 // If we are modifying a QSO we work over it if not, we should work on the selected one on the selected on of the Log
 // TODO: Define all the code of what to do if we are not modifying.
-qDebug() << "KLog::slotQSLSent" << endl;
+//qDebug() << "KLog::slotQSLSent" << endl;
 
   Klog::LogBook::iterator iter;
   qslSen = QDate::currentDate();
@@ -4011,155 +4017,104 @@ QString Klog::getShortNumberString(const int intNumber){
 ****                        Begining of Printing Stuff                       ****
 ********************************************************************************/
 void Klog::filePrint(){
-// Part of this code comes from KEdit
-//  bool aborted = false;
-//qDebug() << "KLog::filePrint - DELETED TP HELP THE QT4 MIGRATION - TO BE RESTORED ASAP";
+  qDebug() << "Klog::filePrint" << endl;
+  QPrinter printer;
+  QString pageToPrint;
+  //int numberOfPages = (int)(Klog::number / 10)+1; // To print just 10 QSO per page
+  int maxPages = (int)(Klog::number / 10)+1; // To print just 10 QSO per page
+//   int numberOfPages = 10;
+  int printedQso = 1;    
+  //int maxPages = 10;
+  
+  printer.setOrientation(QPrinter::Landscape); // For testing, the log will be printed landscape.
+  
+  printer.setDocName(getMyQrz()+"-log");
+  QPrintDialog *dialog = KdePrint::createPrintDialog(&printer, QList<QWidget*>(), this);
 
-      QMessageBox msgBox;
-      msgBox.setText(i18n("KLog message:"));
-      QString str = i18n("This function has been deleted to help the QT4 migration.\nIt will be restored ASAP");
-      msgBox.setInformativeText(str);
-      msgBox.setStandardButtons(QMessageBox::Ok);
-      msgBox.setDefaultButton(QMessageBox::Ok);
-      msgBox.setIcon(QMessageBox::Warning);
-      msgBox.exec();
+  dialog->setWindowTitle(i18n("Print the log"));
 
-    // First task to do is sort the log
+  if (dialog->exec() != QDialog::Accepted)
+    return;
 
-/*
-    sortLog();
-    int progresStep = 0;
-
-    QProgressDialog progress(i18n("Sorting the log..."), i18n("Abort sorting"), 0, Klog::number);
-    bool longQRZ = false;
-
-
-
-QString headerLeft = i18n("Printing date: ") + (QDate::currentDate()).toString(Qt::LocalDate);
-
-
-//QString headerLeft = i18n("Printing date: %1");
+  QPainter painter;
+  //painter.begin(&printer);
+  
+  if (! painter.begin(&printer)) { // failed to open file
+    qWarning("failed to open file to print, is it writable?");
+    return;
+  }
+  QString headerLeft = i18n("Printing date: ") + (QDate::currentDate()).toString(Qt::LocalDate);
   QString headerMid = "KLog-" + Klog::KLogVersion + " - http://jaime.robles.es/klog";
-  QString headerRight;
-
+  QString headerRight;  
   QString headerLog = (i18n("Number")).leftJustified(6,' ') + "\t" + (i18n("Date")).leftJustified(10,' ') + "\t" + (i18n("Time")).leftJustified(5,' ') + "\t" + (i18n("QRZ")).leftJustified(10,' ') + "\t" + i18n("RST(tx/rx)") +"\t" + (i18n("Band")).leftJustified(5,' ') + "\t" + (i18n("Mode")).leftJustified(7,' ');
 
 
-  QFont printFont ("Times", 10 );
-  QFont headerFont(printFont);
-  headerFont.setBold(true);
-  QFontMetrics printFontMetrics(printFont);
-  QFontMetrics headerFontMetrics(headerFont);
-  QPrinter *printer = new QPrinter;
-     if(printer->setup(this) ) {
-
-    // set up KPrinter
-        printer->setFullPage(false);
-        printer->setCreator("KLog");
-//        if ( !m_caption.isEmpty() )
-//            printer->setDocName(m_caption);
-
-        QPainter *p = new QPainter;
-        p->begin( printer );
-        Q3PaintDeviceMetrics metrics( printer );
-        int dy = 0;
-        p->setFont(headerFont);
-        int w = printFontMetrics.width("M");
-//		p->setTabStops(8*w);
-
-        int page = 1;
-        int lineCount = 0;
-        // This maxLineCount should be the QSO max number
-        int maxLineCount = Klog::number;
-        Klog::LogBook::iterator it;
-        it = logbook.begin(); // I am possitioning at the Log's start
-        while(true) {
-            headerRight = QString(i18n("Page: %1")).arg(page);
-            dy = headerFontMetrics.lineSpacing();
-            QRect body( 0, dy*2,  metrics.width(), metrics.height()-dy*2);
-
-            p->drawText(0, 0, metrics.width(), dy, Qt::AlignLeft, headerLeft);
-            p->drawText(0, 0, metrics.width(), dy, Qt::AlignHCenter, headerMid);
-            p->drawText(0, 0, metrics.width(), dy, Qt::AlignRight, headerRight);
-
-            QPen pen;
-            pen.setWidth(3);
-            p->setPen(pen);
-
-            p->drawLine(0, dy+dy/2, metrics.width(), dy+dy/2);
-            int y = dy*2;
-            p->drawText(0, y, metrics.width(), y, Qt::TextExpandTabs | Qt::TextWordWrap, headerLog);
-            y += dy;
-
-//        for ( it = logbook.begin(); it != logbook.end(); ++it ){
-            while(lineCount < maxLineCount) {
-//              QString text = eframe->textLine(lineCount);
-                if ((*it).getQrz().length() >= 8){
-                    longQRZ = true;
-                }else{
-                    longQRZ = false;
-                }
-
-                QString text = (QString::number((*it).getNumb())).leftJustified(6,' ') + "\t" + (*it).getDateTime().toString("dd-MM-yyyy") + "\t" + (*it).getDateTime().toString("hh:mm") + "\t" + ((*it).getQrz()).leftJustified(10,' ');
-
-// 				if (!longQRZ)  // If it is a SHORT QRZ, we need only TWO tabs
-// 					text = text + "\t";
-// 				if(((*it).getQrz()).count('/'))
-// 					text = text + "\t";
-
-
-// 				if ((QString::number((*it).getRstrx())).length()>2)
-// 					text = text + "      ";
-// 				else
-// 					text = text + "       ";
-
-                text = text + "\t" + ( (QString::number((*it).getRsttx())).leftJustified(4,' ') + "/" + (QString::number((*it).getRstrx())).leftJustified(3,' ')).leftJustified(8,' ') + "\t" + ((*it).getBand()).leftJustified(5,' ') + "\t" + ((*it).getMode()).leftJustified(7,' ');
-
-                it++;
-
-                progresStep++;
-                if (showProgressDialog){
-                    progress.setValue( progresStep );
-                    qApp->processEvents();
-                }
-                if ( progress.wasCanceled())
-                    return;
-
-                longQRZ = false;
-                if( text == "" )
-                    text = " ";     // don't ignore empty lines
-                QRect r = p->boundingRect(0, y, body.width(), body.height(), Qt::TextExpandTabs | Qt::TextWordWrap, text);
-                dy = r.height();
-                if (y+dy > metrics.height()) break;
-                if ((*it).getNumb() != 0){
-                    p->drawText(0, y, metrics.width(), metrics.height() - y, Qt::TextExpandTabs | Qt::TextWordWrap, text);
-                    y += dy;
-                }
-                lineCount++;
-            }
-            if (lineCount >= maxLineCount)
-                break;
-            if (it == logbook.end() )
-                break;
-            printer->newPage();
-            page++;
-        }
-        if ( progress.wasCanceled())
-            return;
-        p->end();
-        delete p;
+  for (int page = 0; page < maxPages ; ++page) {
+    // Use the painter to draw on the page.
+    
+    //TODO:First thing is to print the header
+    headerRight = QString(i18n("Page: %1")).arg(page);
+    
+    pageToPrint = headerLeft + " --- " + headerMid + " --- " + headerRight + "\n\n\n\n";
+    pageToPrint = pageToPrint + headerLog + "\n\n";
+    
+    //TODO: Now we can print the QSOs
+    for (j=0; j<10 ; j++){
+      pageToPrint = pageToPrint  + "QSO: " + QString::number(printedQso) + "\n\n";
+      printedQso++;
     }
-    delete printer;
-*/
+    
+    painter.drawText(10, 10, pageToPrint);
 
-// This is just to show the state but it does nothing
-//     if (aborted)
-//       setGeneralStatusField(i18n("Printing aborted."));
-//     else
-//       setGeneralStatusField(i18n("Printing complete."));
+    if (page != maxPages){
+      if (! printer.newPage()) {
+	qWarning("Could not create a new page, disk full?");
+	return ;
+     }
+
+    //  printer.newPage();
+    }
+  }
+
+  painter.end();
 
 }
 
+bool Klog::paintRequested(QPrinter *printer){
+
+    QRectF paper = printer->paperRect(QPrinter::Millimeter);
+    QRectF page = printer->pageRect(QPrinter::Millimeter);
+
+    QPainter painter;
+    if (!painter.begin(printer)) {
+      //   kWarning() << "Opening file failed.";
+         return false;
+     }
+    painter.scale(printer->resolution() / 25.4, printer->resolution() / 25.4);
+    painter.translate(page.topLeft() * -1);
+
+    Klog::LogBook::iterator it;
+    it = logbook.begin();
+    QPointF pos;
+    QSizeF size;
+    pos = page.topLeft();
+    size = page.size();
+    QPixmap pm = QPixmap::grabWidget(logTreeWidget);
+    painter.drawPixmap(0, 0, pm);
+    /*
+    while (it != logbook.end()){
+      //(*it).getQrz()
+      
+      painter.drawText(QRectF(pos, size), Qt::AlignCenter, (*it).getQrz());
+	 //painter.drawText(QRectF(pos, size), img);
+      ++it;
+    }
+    */
+  return painter.end();
+  //return true;
+
+}
+ 
 void Klog::sortLog(){
 // I will read the Log from the UI and sorting using the numbers.
 //TODO: This sorting is highly inefficient. It should be rewritten and optimized
@@ -4198,32 +4153,6 @@ void Klog::sortLog(){
   ++itl;
   }
   logbook = oLogbook; 
-/*
-    while (*itl){
-    for ( ; (*itl).current(); ++itl ){
-      
-      for ( it = logbook.begin(); it != logbook.end(); ++it ){  //We run the log...
-        if ( (*it).getNumb() == (itl.current()->text(0)).toInt() ){
-          progresStep++;
-          if (showProgressDialog){
-            progress.setValue( progresStep );
-            qApp->processEvents();
-          }
-          tQso = (*it);
-          if ( progress.wasCanceled())
-            return;
-          oLogbook.append(tQso);
-        }
-        if ( progress.wasCanceled())
-            return;
-
-      }
-    itl++;
-    }
-  
-  }
-  logbook = oLogbook;
-*/ 
 }
 
 /********************************************************************************
