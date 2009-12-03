@@ -2091,51 +2091,6 @@ qDebug() << "KLog::modifyQso: " << QString::number(Klog::j) << endl;
 //             }
         }
     }
-// Not sure but this below seems to be a duplication of above
-
-/*    for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
-        if ( Klog::j == (*iter).getNumb() ){
-            (*iter).setQrz( (qrzLineEdit->text()).toUpper() );
-            (*iter).setDateTime(qsoDateTime->dateTime());
-            (*iter).setRstrx(rstrx);
-            (*iter).setRsttx(rsttx);
-            (*iter).setBand ((bandComboBox->currentText()).toUpper());
-            (*iter).setMode((modeComboBox->currentText()).toUpper());
-            (*iter).setPower((powerSpinBox->text()).toUpper());
-            (*iter).setQth((qthkLineEdit->text()).toUpper());
-            (*iter).setOperator((operatorLineEdit->text()).toUpper());
-            (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
-
-            if ((remarksTextEdit->toPlainText()).length() >0)
-                (*iter).setComment(remarksTextEdit->toPlainText());
-            if((namekLineEdit->text()).length() >= 2)
-                (*iter).setName((namekLineEdit->text()).toUpper());
-            if((qthkLineEdit->text()).length() >= 2)
-                (*iter).setQth((qthkLineEdit->text()).toUpper());
-            if((operatorLineEdit->text()).length() >= 3)
-                (*iter).setOperator((operatorLineEdit->text()).toUpper());
-            if((stationCallsignLineEdit->text()).length() >= 3)
-                (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
-            if ((iotaIntSpinBox->value() != 0)) // IOTA
-                (*iter).setIota(iota);
-
-            if ((awardsComboBox->currentIndex() != 0)){
-                award = awards.getAwardFor(world.getPrefix(qso.getQrz()));
-                if (award.getReferenceNumber(awardsComboBox->currentText())){
-                    (*iter).setLocalAward(awardsComboBox->currentText());
-                    (*iter).setLocalAwardNumber(award.getReferenceNumber(awardsComboBox->currentText()));
-                    //award.workReference(awardsComboBox->currentText(), true);
-                    //>>>>>>> .r28
-                }
-                (*iter).setQslVia(QSLcomboBox->currentText()); //QSL Info
-                if(qslVialineEdit->isEnabled())
-                    (*iter).setQslManager(qslVialineEdit->text());
-                if ((QSLInfotextEdit->toPlainText()).length() >0)
-                //    if(QSLInfotextEdit->isEnabled())
-                    (*iter).setQslInfo(QSLInfotextEdit->toPlainText());
-            }
-        }
-    } */
 }
 
 void Klog::helpAbout() {
@@ -2626,13 +2581,10 @@ void Klog::tlfReadLog(const QString& tfileName){
     bool year2000 = true;
     int totalQsos = 0; // QSOs in the log to be read
     int progresStep = 0;
-/*	Q3ProgressDialog progress( i18n("Reading the log..."), i18n("Abort reading"), 0,
-                          this, i18n("progress"), TRUE );*/
 
     QProgressDialog progress(i18n("Reading the log..."), i18n("Abort reading"), 0, totalQsos);
 
     QString progressLabel;
-
 
     bool ok;
     QInputDialog qinputD;
@@ -2693,9 +2645,6 @@ void Klog::tlfReadLog(const QString& tfileName){
             break;
 
     }
-
-
-
     QString data =QString();
     QFile file( tfileName );
     QTextStream stream( &file );
@@ -2864,8 +2813,8 @@ void Klog::cabrilloReadLog(const QString& tfileName){
    QString progressLabel;
    bool ok;
    QString text = QInputDialog::getText(this, i18n("KLog - Cabrillo Import"),
-                                        i18n("Enter a remark for ALL the imported QSO:\n(Leave it empty and press OK if no remark)"), QLineEdit::Normal,
-                                        QDir::home().dirName(), &ok);
+           i18n("Enter a remark for ALL the imported QSO:\n(Leave it empty and press OK if no remark)"), QLineEdit::Normal,
+           QDir::home().dirName(), &ok);
 
    if (!ok) { // The user clicked CANCEL
       return;
@@ -2923,22 +2872,23 @@ void Klog::cabrilloReadLog(const QString& tfileName){
       int cFREQ = 0, cMODE = 0, cDATE = 0, cTIME = 0, cTXCALL = 0, cTXEXCH = 0;
       int cTXRST = 0, cTXSTR = 0, cRXCALL = 0, cRXEXCH = 0, cRXRST = 0, cRXSTR = 0, cT = 0;
 
+      // Import cabrillo works by looking at a file - klog-contest-cabrillo-formats.txt - that has a list
+      // of contests and the position of each field in it. This should mean that each contest just needs
+      // an update to this file instead of a code change. This file is currently accesed from the ~/.klog
+      // directory.
+
       QFile contestFile(klogDir + "/klog-contest-cabrillo-formats.txt");
-      qDebug() << contestFile.fileName();
       QTextStream contestStream ( &contestFile );
       if ( contestFile.open( QIODevice::ReadOnly ) ) {
          while (!contestStream.atEnd()){
             data = contestStream.readLine();
-            qDebug() << data;
             fields = data.split(":", QString::SkipEmptyParts);
             contestLine = fields[0].split("=", QString::SkipEmptyParts);
             if( contestLine[1] == contest ) {
-               qDebug() << "CONTEST=" << contestLine[1];
                // Break out the contest line and get the positions of the cabrillo keys
                QStringList::const_iterator it;
                for (it = fields.constBegin(); it != fields.constEnd(); ++it) {
                   contestLine = (*it).split("=", QString::SkipEmptyParts);
-                  qDebug() << (*it) << contestLine;
                   if( contestLine[0].toUpper() == "FREQ") {
                      cFREQ = contestLine[1].toInt();
                   } else if( contestLine[0].toUpper() == "MODE") {
@@ -2970,7 +2920,7 @@ void Klog::cabrilloReadLog(const QString& tfileName){
             }
          }
       }
-      qDebug() << cMODE << cTIME << cFREQ << cDATE;
+
       data.clear();
       while (!stream.atEnd()){
          data = stream.readLine();
@@ -3079,7 +3029,7 @@ void Klog::slotAddLog(){
     operatorStringAux ="";
 
     /* TRANSLATORS: Replacing the call used with (%1), the call of the user. */
-      QString msgCall = i18n("Enter the used call:\n(Leave it empty and press OK if the call %1 was used).",getMyQrz());
+    QString msgCall = i18n("Enter the used call:\n(Leave it empty and press OK if the call %1 was used).",getMyQrz());
 
     operatorStringAux = QInputDialog::getText(this, i18n("KLog - Log Add"),
         msgCall, QLineEdit::Normal,
@@ -3116,16 +3066,13 @@ void Klog::slotAddLog(){
    QString msgLocator = i18n("Enter the locator of the activity:\n(Leave it empty and press OK if the locator was (%1).",getMyLocator());
     tempLocator="";
     tempLocator = QInputDialog::getText(this, i18n("KLog - Log Add"),
-                                          msgLocator, QLineEdit::Normal,
-                                          QDir::home().dirName(), &ok);
-
+                                msgLocator, QLineEdit::Normal, QDir::home().dirName(), &ok);
 
     if ( ok && !tempLocator.isEmpty() ) {
       if (!locator.isValidLocator(tempLocator)){
     QMessageBox msgBox;
     msgBox.setText(i18n("Warning - Locator not valid"));
     QString str = i18n("Do you want to import without a Locator and use %1 ?\n",getMyLocator());
-//      + getMyLocator() + "?\n";
     msgBox.setInformativeText(str);
     msgBox.setIcon(QMessageBox::Warning);
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
@@ -3145,7 +3092,7 @@ void Klog::slotAddLog(){
       }
     }else if (!ok){ // The user pressed Cancel
       return;
-    }else{}
+    }
 
     addingLog = true;
     tempOriginalLocator = getMyLocator();	// Replace the default locator with the new one
@@ -3429,95 +3376,95 @@ void  Klog::slotCancelSearchButton(){
 
 // The following is to select a QSO from the search box
 void Klog::slotQsoSearchSelectedForEdit( QTreeWidgetItem * item, int){
-//qDebug() << "KLog::slotQsoSearchSelectedForEdit" << endl;
-    if (item){
-        int number = (item->text(7)).toInt();
-        // Removing this fixed the double click search issue. It can also be fixed by saving the item->number
-        // before running the slot below. When running the slot below though it clears your search.
-        //slotClearBtn();
-        qso = getByNumber(number);
-        toEditQso();
-        okBtn->setText(i18n("Modify"));
-        clearBtn->setText(i18n("Cancel"));
-        // The following is to modify the number to allow to modify the qso selected
-        Klog::j = qso.getNumb(); // j is the QSO number
-        Klog::modify = true;
-        //    Klog::prefixFound = false;
-        Klog::callFound = false;
-        Klog::entiBak = 0;
-        Klog::callLen = 0;
-        Klog::callLenPrev = 0;
-        Klog::lastDelete = false;
-    }
+   //qDebug() << "KLog::slotQsoSearchSelectedForEdit" << endl;
+   if (item){
+      int number = (item->text(7)).toInt();
+      // Removing this fixed the double click search issue. It can also be fixed by saving the item->number
+      // before running the slot below. When running the slot below though it clears your search.
+      //slotClearBtn();
+      qso = getByNumber(number);
+      toEditQso();
+      okBtn->setText(i18n("Modify"));
+      clearBtn->setText(i18n("Cancel"));
+      // The following is to modify the number to allow to modify the qso selected
+      Klog::j = qso.getNumb(); // j is the QSO number
+      Klog::modify = true;
+      //    Klog::prefixFound = false;
+      Klog::callFound = false;
+      Klog::entiBak = 0;
+      Klog::callLen = 0;
+      Klog::callLenPrev = 0;
+      Klog::lastDelete = false;
+   }
 }
 
 // We are going to delete a QSO from the log
 void Klog::slotQsoDelete(){
-//qDebug() << "KLog::slotQsoDelete" << endl;
-    if ((!modify) && (Klog::j == 0)){
-        return;
-    } else {
-        Klog::LogBook::iterator iter;
-        for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
-            if ( j == (*iter).getNumb() ) {
+   //qDebug() << "KLog::slotQsoDelete" << endl;
+   if ((!modify) && (Klog::j == 0)){
+      return;
+   } else {
+      Klog::LogBook::iterator iter;
+      for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
+         if ( j == (*iter).getNumb() ) {
 
-               QMessageBox msgBox;
-               msgBox.setText(i18n("Warning - QSO Deletion"));
-               QString str = i18n("Do you want to delete the QSO with:\n")
-               + (*iter).getQrz() + i18n(" of ") + (*iter).getDateTime().toString("yyyy-MM-dd") + "?";
-               msgBox.setInformativeText(str);
-               msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-               msgBox.setDefaultButton(QMessageBox::No);
-               int ret = msgBox.exec();
+            QMessageBox msgBox;
+            msgBox.setText(i18n("Warning - QSO Deletion"));
+            QString str = i18n("Do you want to delete the QSO with:\n")
+                          + (*iter).getQrz() + i18n(" of ") + (*iter).getDateTime().toString("yyyy-MM-dd") + "?";
+            msgBox.setInformativeText(str);
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+            msgBox.setDefaultButton(QMessageBox::No);
+            int ret = msgBox.exec();
 
-               switch(ret){
+            switch(ret){
                     case QMessageBox::Yes:
-/*                        dxcc.notWorked(world.findEntity((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));
+               /*                        dxcc.notWorked(world.findEntity((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));
                         waz.notWorked(world.getCqzFromCall((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));*/
-//  						if ((*iter).gotTheQSL()){
-//  							Klog::confirmed--;  //To decrease the showed number
-//  						}
-                        // If there is only one entry in the log then you want to delete it the it's easier to create a new log.
-                        if ( Klog::j == 1 ) {
-                            fileNew();
-                        } else {
-                            logbook.erase(iter);
-                            Klog::number--;  //To decrease the showed number
-                        }
-                        slotClearBtn();
-                        showLogList();
-            readAwardsStatus();
-                        showAwardsNumbers();
-                        return;
-                        break;
+               //  						if ((*iter).gotTheQSL()){
+               //  							Klog::confirmed--;  //To decrease the showed number
+               //  						}
+               // If there is only one entry in the log then you want to delete it the it's easier to create a new log.
+               if ( Klog::j == 1 ) {
+                  fileNew();
+               } else {
+                  logbook.erase(iter);
+                  Klog::number--;  //To decrease the showed number
+               }
+               slotClearBtn();
+               showLogList();
+               readAwardsStatus();
+               showAwardsNumbers();
+               return;
+               break;
                     case QMessageBox::No:
-                        break;
+               break;
                     default: // just for sanity
-                        return;
-                    break;
-                }
-            }
-        }
-    }
+                       return;
+                       break;
+                    }
+         }
+      }
+   }
 }
 
 void Klog::readAwardsStatus(){
-//qDebug() << "KLog::readAwardsStatus" << endl;
-// Re-read the DXCC and WAZ status. Maybe I could extract to another function...
-        Klog::LogBook::iterator ite;
-    dxcc.clear();
-    waz.clear();
-        for ( ite = logbook.begin(); ite != logbook.end(); ++ite ){
+   //qDebug() << "KLog::readAwardsStatus" << endl;
+   // Re-read the DXCC and WAZ status. Maybe I could extract to another function...
+   Klog::LogBook::iterator ite;
+   dxcc.clear();
+   waz.clear();
+   for ( ite = logbook.begin(); ite != logbook.end(); ++ite ){
 
-            dxcc.worked(world.findEntity((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-        waz.worked(world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
+      dxcc.worked(world.findEntity((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
+      waz.worked(world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
 
-        if ((*ite).gotTheQSL()){
-                dxcc.confirmed(world.findEntity((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-        waz.confirmed (world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-            }
+      if ((*ite).gotTheQSL()){
+         dxcc.confirmed(world.findEntity((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
+         waz.confirmed (world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
+      }
 
-        }
+   }
 }
 
 // To print the whole log in the botton box
@@ -3919,91 +3866,103 @@ QString Klog::getShortNumberString(const int intNumber){
 ****                        Begining of Printing Stuff                       ****
 ********************************************************************************/
 void Klog::filePrint(){
-  qDebug() << "Klog::filePrint" << endl;
-  QPrinter printer;
-  QString pageToPrint;
-  //int numberOfPages = (int)(Klog::number / 10)+1; // To print just 10 QSO per page
-  int maxPages = (int)(Klog::number / 10)+1; // To print just 10 QSO per page
-//   int numberOfPages = 10;
-  int printedQso = 1;
-  //int maxPages = 10;
+   qDebug() << "Klog::filePrint" << endl;
+   QPrinter printer;
+   QString pageToPrint;
+   //int numberOfPages = (int)(Klog::number / 10)+1; // To print just 10 QSO per page
+   int maxPages = (int)(Klog::number / 10)+1; // To print just 10 QSO per page
+   //   int numberOfPages = 10;
+   int printedQso = 1;
+   //int maxPages = 10;
 
-  printer.setOrientation(QPrinter::Landscape); // For testing, the log will be printed landscape.
+   printer.setOrientation(QPrinter::Landscape); // For testing, the log will be printed landscape.
 
-  printer.setDocName(getMyQrz()+"-log");
-  QPrintDialog *dialog = KdePrint::createPrintDialog(&printer, QList<QWidget*>(), this);
+   printer.setDocName(getMyQrz()+"-log");
+   QPrintDialog *dialog = KdePrint::createPrintDialog(&printer, QList<QWidget*>(), this);
 
-  dialog->setWindowTitle(i18n("Print the log"));
+   dialog->setWindowTitle(i18n("Print the log"));
 
-  if (dialog->exec() != QDialog::Accepted)
-    return;
+   if (dialog->exec() != QDialog::Accepted)
+      return;
 
-  QPainter painter;
-  //painter.begin(&printer);
+   QPainter painter;
+   //painter.begin(&printer);
 
-  if (! painter.begin(&printer)) { // failed to open file
-    qWarning("failed to open file to print, is it writable?");
-    return;
-  }
-  QString headerLeft = i18n("Printing date: ") + (QDate::currentDate()).toString(Qt::LocalDate);
-  QString headerMid = "KLog-" + Klog::KLogVersion + " - http://jaime.robles.es/klog";
-  QString headerRight;
-  QString headerLog = (i18n("Number")).leftJustified(6,' ') + "\t" + (i18n("Date")).leftJustified(10,' ') + "\t" + (i18n("Time")).leftJustified(5,' ') + "\t" + (i18n("QRZ")).leftJustified(10,' ') + "\t" + i18n("RST(tx/rx)") +"\t" + (i18n("Band")).leftJustified(5,' ') + "\t" + (i18n("Mode")).leftJustified(7,' ');
+   if (! painter.begin(&printer)) { // failed to open file
+      qWarning("failed to open file to print, is it writable?");
+      return;
+   }
+   QString headerLeft = i18n("Printing date: ") + (QDate::currentDate()).toString(Qt::LocalDate);
+   QString headerMid = "KLog-" + Klog::KLogVersion + " - http://jaime.robles.es/klog";
+   QString headerRight;
+   QString headerLog = (i18n("Number")).leftJustified(6,' ') + "\t" + (i18n("Date")).leftJustified(10,' ') + "\t" + (i18n("Time")).leftJustified(5,' ') + "\t" + (i18n("QRZ")).leftJustified(10,' ') + "\t" + i18n("RST(tx/rx)") +"\t" + (i18n("Band")).leftJustified(5,' ') + "\t" + (i18n("Mode")).leftJustified(7,' ');
 
+   Klog::LogBook::iterator it;
+   it = logbook.begin();
+   int row = 100;
+   for (int page = 0; page < maxPages ; ++page) {
+      // Use the painter to draw on the page.
 
-  for (int page = 0; page < maxPages ; ++page) {
-    // Use the painter to draw on the page.
+      //TODO:First thing is to print the header
+      headerRight = QString(i18n("Page: %1")).arg(page);
 
-    //TODO:First thing is to print the header
-    headerRight = QString(i18n("Page: %1")).arg(page);
+      pageToPrint = headerLeft + " --- " + headerMid + " --- " + headerRight + "\n\n\n\n";
+      pageToPrint = pageToPrint + headerLog + "\n\n";
 
-    pageToPrint = headerLeft + " --- " + headerMid + " --- " + headerRight + "\n\n\n\n";
-    pageToPrint = pageToPrint + headerLog + "\n\n";
+      //TODO: Now we can print the QSOs
+      for (j=0; j<10 ; j++){
+         pageToPrint = pageToPrint  + "QSO: " + QString::number(printedQso) + "\n\n";
+         printedQso++;
+      }
 
-    //TODO: Now we can print the QSOs
-    for (j=0; j<10 ; j++){
-      pageToPrint = pageToPrint  + "QSO: " + QString::number(printedQso) + "\n\n";
-      printedQso++;
+    while (it != logbook.end()){
+      painter.drawText(100, row, QString::QString((*it).getNumb()));
+      painter.drawText(200, row, QString::QString((*it).getDateTime().toString("yyyyMMdd")));
+      painter.drawText(300, row, QString::QString((*it).getDateTime().toString("hhmm")));
+      painter.drawText(400, row, (*it).getQrz());
+      painter.drawText(500, row, QString::QString((*it).getRsttx()));
+      painter.drawText(600, row, QString::QString((*it).getRstrx()));
+      painter.drawText(700, row, (*it).getBand());
+      painter.drawText(800, row, (*it).getFreq());
+      ++it;
+      row += 40;
     }
 
-    painter.drawText(10, 10, pageToPrint);
+      painter.drawText(10, 10, pageToPrint);
+      if (page != maxPages){
+         if (! printer.newPage()) {
+            qWarning("Could not create a new page, disk full?");
+            return ;
+         }
+         //  printer.newPage();
+      }
+   }
 
-    if (page != maxPages){
-      if (! printer.newPage()) {
-    qWarning("Could not create a new page, disk full?");
-    return ;
-     }
-
-    //  printer.newPage();
-    }
-  }
-
-  painter.end();
+   painter.end();
 
 }
 
 bool Klog::paintRequested(QPrinter *printer){
 
-    QRectF paper = printer->paperRect(QPrinter::Millimeter);
-    QRectF page = printer->pageRect(QPrinter::Millimeter);
+   QRectF paper = printer->paperRect(QPrinter::Millimeter);
+   QRectF page = printer->pageRect(QPrinter::Millimeter);
 
-    QPainter painter;
-    if (!painter.begin(printer)) {
+   QPainter painter;
+   if (!painter.begin(printer)) {
       //   kWarning() << "Opening file failed.";
-         return false;
-     }
-    painter.scale(printer->resolution() / 25.4, printer->resolution() / 25.4);
-    painter.translate(page.topLeft() * -1);
+      return false;
+   }
+   painter.scale(printer->resolution() / 25.4, printer->resolution() / 25.4);
+   painter.translate(page.topLeft() * -1);
 
-    Klog::LogBook::iterator it;
-    it = logbook.begin();
-    QPointF pos;
-    QSizeF size;
-    pos = page.topLeft();
-    size = page.size();
-    QPixmap pm = QPixmap::grabWidget(logTreeWidget);
-    painter.drawPixmap(0, 0, pm);
-    /*
+   Klog::LogBook::iterator it;
+   it = logbook.begin();
+   QPointF pos;
+   QSizeF size;
+   pos = page.topLeft();
+   size = page.size();
+   QPixmap pm = QPixmap::grabWidget(logTreeWidget);
+   painter.drawPixmap(0, 0, pm);
     while (it != logbook.end()){
       //(*it).getQrz()
 
@@ -4011,50 +3970,49 @@ bool Klog::paintRequested(QPrinter *printer){
      //painter.drawText(QRectF(pos, size), img);
       ++it;
     }
-    */
-  return painter.end();
-  //return true;
+   return painter.end();
+   //return true;
 
 }
 
 void Klog::sortLog(){
-// I will read the Log from the UI and sorting using the numbers.
-//TODO: This sorting is highly inefficient. It should be rewritten and optimized
-//qDebug() << "KLog::sortLog" << endl;
+   // I will read the Log from the UI and sorting using the numbers.
+   //TODO: This sorting is highly inefficient. It should be rewritten and optimized
+   //qDebug() << "KLog::sortLog" << endl;
 
-  if (logbook.isEmpty()){	// if no QSOs, we do not show the log ;-)
-    return;
-  }
-
-  int progresStep = 0;
-  Qso tQso; // Temp QSO
-  oLogbook.clear();                             // an empty list
-  Klog::LogBook::iterator it;
-  QTreeWidgetItemIterator itl( logTreeWidget );
-
-  QProgressDialog progress(i18n("Sorting the log..."), i18n("Abort sorting"), 0, Klog::number);
-
-  while (*itl) {
-//    if ((*itl)->text(0) == itemText){
-     // (*itl)->setSelected(true);
-     for ( it = logbook.begin(); it != logbook.end(); ++it ){  //We run the log...
-      if ( (*it).getNumb() == ((*itl)->text(0)).toInt() ){
-    progresStep++;
-    if (showProgressDialog){
-      progress.setValue( progresStep );
-      qApp->processEvents();
-    }
-    tQso = (*it);
-    if ( progress.wasCanceled())
+   if (logbook.isEmpty()){	// if no QSOs, we do not show the log ;-)
       return;
-    oLogbook.append(tQso);
+   }
+
+   int progresStep = 0;
+   Qso tQso; // Temp QSO
+   oLogbook.clear();                             // an empty list
+   Klog::LogBook::iterator it;
+   QTreeWidgetItemIterator itl( logTreeWidget );
+
+   QProgressDialog progress(i18n("Sorting the log..."), i18n("Abort sorting"), 0, Klog::number);
+
+   while (*itl) {
+      //    if ((*itl)->text(0) == itemText){
+      // (*itl)->setSelected(true);
+      for ( it = logbook.begin(); it != logbook.end(); ++it ){  //We run the log...
+         if ( (*it).getNumb() == ((*itl)->text(0)).toInt() ){
+            progresStep++;
+            if (showProgressDialog){
+               progress.setValue( progresStep );
+               qApp->processEvents();
+            }
+            tQso = (*it);
+            if ( progress.wasCanceled())
+               return;
+            oLogbook.append(tQso);
+         }
+         if ( progress.wasCanceled())
+            return;
       }
-      if ( progress.wasCanceled())
-    return;
-     }
-  ++itl;
-  }
-  logbook = oLogbook;
+      ++itl;
+   }
+   logbook = oLogbook;
 }
 
 /********************************************************************************
