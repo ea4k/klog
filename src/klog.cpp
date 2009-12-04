@@ -3866,28 +3866,21 @@ QString Klog::getShortNumberString(const int intNumber){
 ****                        Begining of Printing Stuff                       ****
 ********************************************************************************/
 void Klog::filePrint(){
-   qDebug() << "Klog::filePrint" << endl;
    QPrinter printer;
    QString pageToPrint;
-   //int numberOfPages = (int)(Klog::number / 10)+1; // To print just 10 QSO per page
-   int maxPages = (int)(Klog::number / 10)+1; // To print just 10 QSO per page
-   //   int numberOfPages = 10;
-   int printedQso = 1;
-   //int maxPages = 10;
+   int qsoPerPage = 30;
+   int maxPages = (int)(Klog::number / qsoPerPage)+1; // To print just 10 QSO per page
+   int printedSoFar = 0;
+   int page = 1;
 
    printer.setOrientation(QPrinter::Landscape); // For testing, the log will be printed landscape.
-
    printer.setDocName(getMyQrz()+"-log");
    QPrintDialog *dialog = KdePrint::createPrintDialog(&printer, QList<QWidget*>(), this);
-
    dialog->setWindowTitle(i18n("Print the log"));
-
    if (dialog->exec() != QDialog::Accepted)
       return;
 
    QPainter painter;
-   //painter.begin(&printer);
-
    if (! painter.begin(&printer)) { // failed to open file
       qWarning("failed to open file to print, is it writable?");
       return;
@@ -3895,84 +3888,46 @@ void Klog::filePrint(){
    QString headerLeft = i18n("Printing date: ") + (QDate::currentDate()).toString(Qt::LocalDate);
    QString headerMid = "KLog-" + Klog::KLogVersion + " - http://jaime.robles.es/klog";
    QString headerRight;
-   QString headerLog = (i18n("Number")).leftJustified(6,' ') + "\t" + (i18n("Date")).leftJustified(10,' ') + "\t" + (i18n("Time")).leftJustified(5,' ') + "\t" + (i18n("QRZ")).leftJustified(10,' ') + "\t" + i18n("RST(tx/rx)") +"\t" + (i18n("Band")).leftJustified(5,' ') + "\t" + (i18n("Mode")).leftJustified(7,' ');
+   QString headerLog = (i18n("Number")).leftJustified(15,' ') + " " + (i18n("Date")).leftJustified(4,' ') +
+                       "/" + (i18n("Time")).leftJustified(5,' ') + "\t\t" + (i18n("QRZ")).leftJustified(17,' ') +
+                       "\t   " + i18n("RST(tx/rx)") + "   " + (i18n("Band")).leftJustified(5,' ') + "\t\t" +
+                       (i18n("Freq")).leftJustified(7,' ') + "\t" + (i18n("Mode")).leftJustified(7,' ');
+
+   headerRight = QString(i18n("Page: %1")).arg(page);
+   painter.drawText(500, 20, headerLeft + " --- " + headerMid + " --- " + headerRight);
+   painter.drawText(100, 50, headerLog);
 
    Klog::LogBook::iterator it;
    it = logbook.begin();
    int row = 100;
-   for (int page = 0; page < maxPages ; ++page) {
-      // Use the painter to draw on the page.
-
-      //TODO:First thing is to print the header
-      headerRight = QString(i18n("Page: %1")).arg(page);
-
-      pageToPrint = headerLeft + " --- " + headerMid + " --- " + headerRight + "\n\n\n\n";
-      pageToPrint = pageToPrint + headerLog + "\n\n";
-
-      //TODO: Now we can print the QSOs
-      for (j=0; j<10 ; j++){
-         pageToPrint = pageToPrint  + "QSO: " + QString::number(printedQso) + "\n\n";
-         printedQso++;
-      }
-
-    while (it != logbook.end()){
-      painter.drawText(100, row, QString::QString((*it).getNumb()));
-      painter.drawText(200, row, QString::QString((*it).getDateTime().toString("yyyyMMdd")));
-      painter.drawText(300, row, QString::QString((*it).getDateTime().toString("hhmm")));
-      painter.drawText(400, row, (*it).getQrz());
-      painter.drawText(500, row, QString::QString((*it).getRsttx()));
-      painter.drawText(600, row, QString::QString((*it).getRstrx()));
-      painter.drawText(700, row, (*it).getBand());
-      painter.drawText(800, row, (*it).getFreq());
-      ++it;
-      row += 40;
-    }
-
-      painter.drawText(10, 10, pageToPrint);
-      if (page != maxPages){
+   while (it != logbook.end()){
+      if (printedSoFar == qsoPerPage) {
+         page++;
          if (! printer.newPage()) {
             qWarning("Could not create a new page, disk full?");
             return ;
          }
-         //  printer.newPage();
+         headerRight = QString(i18n("Page: %1")).arg(page);
+         painter.drawText(500, 20, headerLeft + " --- " + headerMid + " --- " + headerRight);
+         painter.drawText(100, 50, headerLog);
+         printedSoFar = 0;
+         row = 100;
       }
-   }
-
-   painter.end();
-
-}
-
-bool Klog::paintRequested(QPrinter *printer){
-
-   QRectF paper = printer->paperRect(QPrinter::Millimeter);
-   QRectF page = printer->pageRect(QPrinter::Millimeter);
-
-   QPainter painter;
-   if (!painter.begin(printer)) {
-      //   kWarning() << "Opening file failed.";
-      return false;
-   }
-   painter.scale(printer->resolution() / 25.4, printer->resolution() / 25.4);
-   painter.translate(page.topLeft() * -1);
-
-   Klog::LogBook::iterator it;
-   it = logbook.begin();
-   QPointF pos;
-   QSizeF size;
-   pos = page.topLeft();
-   size = page.size();
-   QPixmap pm = QPixmap::grabWidget(logTreeWidget);
-   painter.drawPixmap(0, 0, pm);
-    while (it != logbook.end()){
-      //(*it).getQrz()
-
-      painter.drawText(QRectF(pos, size), Qt::AlignCenter, (*it).getQrz());
-     //painter.drawText(QRectF(pos, size), img);
+      painter.drawText(100, row, getNumberString((*it).getNumb()));
+      painter.drawText(200, row, QString::QString((*it).getDateTime().toString("yyyy/MM/dd")));
+      painter.drawText(300, row, QString::QString((*it).getDateTime().toString("hh:mm")));
+      painter.drawText(400, row, (*it).getQrz());
+      painter.drawText(600, row, QString::number((*it).getRsttx()));
+      painter.drawText(650, row, QString::number((*it).getRstrx()));
+      painter.drawText(700, row, (*it).getBand());
+      painter.drawText(800, row, (*it).getFreq());
+      painter.drawText(900, row, (*it).getMode());
+      painter.drawText(1000, row, (*it).getComment());
       ++it;
-    }
-   return painter.end();
-   //return true;
-
+      row += 30;
+      printedSoFar++;
+   }
+   painter.end();
 }
 
 void Klog::sortLog(){
