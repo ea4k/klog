@@ -151,14 +151,7 @@ class Klog : public QMainWindow, private Ui::klog
     void fileNew();
     void fileSave();
     void fileSaveAs();
-    
-    
     void filePrint();
-    bool paintRequested(QPrinter *printer);
-    
-    
-    
-    
     //void printLabels(); // Generate the file for GLabels or KBarcode
     void slothamlibUpdateFrequency();
 
@@ -192,7 +185,7 @@ class Klog : public QMainWindow, private Ui::klog
 // Printing modules
 //     void doPrint(KPrinter *printer);
 //     void doPaint(QPainter *p, int autofit, int w, int h);
-//  void slotPrint();	
+//  void slotPrint();
 //  void doPrint(KPrinter *printer);
 //  void doPaint(QPainter *p, int autofit, int w, int h);
 
@@ -230,7 +223,7 @@ class Klog : public QMainWindow, private Ui::klog
     void slotModeChanged (int i);
     void slotBandChanged ();
     void fillDXCCList();	// Fill the KLog tab
-    
+
 
   private:
 
@@ -302,7 +295,7 @@ class Klog : public QMainWindow, private Ui::klog
     void addDXSpotToBandMap(QString& freq, QString& dx, QString& from, QColor& dxcolor); // Adds a DXSpot to the bandmap from dxcluster
     void showTip();
     QString returnLines(const QString& tword); //Puts \n where \\n
-	void showMenuRightButtoncreateActions();
+   void showMenuRightButtoncreateActions();
 //    void showMenuRightButtoncreateMenus();
 //    void showMenuRightButtoncontextMenuEvent(QContextMenuEvent *event);
 //    int band2Num(const QString &tband);
