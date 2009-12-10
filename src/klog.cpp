@@ -24,6 +24,7 @@
 
 #include <QtGui>
 #include "klog.h"
+#include "dxmap.h"
 
 Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   //qDebug() << "KLog::Klog";
@@ -148,6 +149,10 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   }
   //showTip();	// TODO: We show a tip when KLog start
 //	dxcc.printWorkdStatus();
+   DXMap *dxMap;
+   dxMap = new DXMap(this);
+   QLayout *dxMapLayout = dxMapTab->layout();
+   dxMapLayout->addWidget(dxMap);
 }
 
 Klog::~Klog(){
