@@ -5,7 +5,10 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
 INCLUDEPATH += .
-LIBS += -lkdecore -lhamlib -lkdeui
+LIBS += -lkdecore \
+    -lhamlib \
+    -lkdeui
+
 # Input
 HEADERS += adif.h \
     award.h \
@@ -25,7 +28,9 @@ HEADERS += adif.h \
     reference.h \
     setup.h \
     workedcalls.h \
-    world.h
+    world.h \
+    dxmap.h \
+    dxmap.h
 FORMS += klog.ui \
     setup.ui
 SOURCES += adif.cpp \
@@ -47,5 +52,8 @@ SOURCES += adif.cpp \
     reference.cpp \
     setup.cpp \
     workedcalls.cpp \
-    world.cpp
+    world.cpp \
+    dxmap.cpp
 QT += network
+OTHER_FILES += map.png
+RESOURCES += ../klog-resources.qrc
