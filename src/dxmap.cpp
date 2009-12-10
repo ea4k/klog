@@ -1,8 +1,4 @@
 #include "dxmap.h"
-#define DEBUG 1
-#ifdef DEBUG
-#include <QDebug>
-#endif
 
 DXMap::DXMap( QWidget *parent ) : QWidget( parent ) {
    // this is connected from the parent widget which will emit a signal whenever the
