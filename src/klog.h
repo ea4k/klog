@@ -88,6 +88,7 @@
 #include "award.h"
 #include "reference.h"
 #include "cabrillomanagement.h"
+//#include "dxmap.h"
 
 using namespace std;
 
@@ -226,7 +227,6 @@ class Klog : public QMainWindow, private Ui::klog
 
 
   private:
-
     Qso qso, qsoSelected;
 //	CabrilloManagement cabrilloLog;
 //	Qso previousQso;       // This and workedCall is to check if a call has been previously
