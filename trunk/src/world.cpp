@@ -662,6 +662,7 @@ int World::getCqz(){
 
 int World::getCqzFromCall(const QString  tqrz){
 //TODO: Check if the i=... is needed and check if this function is needed or just an unefficiency
+// It seems that this way of returning the CQ zone is not very robust
 //qDebug() << "World::getCQzFromCall: " << tqrz << endl;
     i = findEntity(tqrz);
     return getCqz();
@@ -669,6 +670,7 @@ int World::getCqzFromCall(const QString  tqrz){
 
 int World::getITUzFromCall(const QString  tqrz){
 //TODO: Check if the i=... is needed and check if this function is needed or just an unefficiency
+// It seems that this way of returning the ITU zone is not very robust
 //qDebug() << "World::getITUzFromCall: " << tqrz << endl;
     i = findEntity(tqrz);
     return getItuz();
