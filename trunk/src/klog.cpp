@@ -24,7 +24,7 @@
 
 #include <QtGui>
 #include "klog.h"
-#include "dxmap.h"
+//#include "dxmap.h"
 
 Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   //qDebug() << "KLog::Klog";
@@ -149,10 +149,10 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   }
   //showTip();	// TODO: We show a tip when KLog start
 //	dxcc.printWorkdStatus();
-   DXMap *dxMap;
-   dxMap = new DXMap(this);
-   QLayout *dxMapLayout = dxMapTab->layout();
-   dxMapLayout->addWidget(dxMap);
+// /*   DXMap *dxMap;
+//    dxMap = new DXMap(this);
+//    QLayout *dxMapLayout = dxMapTab->layout();
+//    dxMapLayout->addWidget(dxMap);*/
 }
 
 Klog::~Klog(){
@@ -3140,16 +3140,16 @@ void Klog::slotImportTlf(){
 //cout << "KLog::slotImportTlf" << endl;
 //	QString fileName;
 
-//       QString fileName = QFileDialog::getOpenFileName(
-//                     this,
-//                     "Open a TLF file",
-//                     klogDir,
-//                     "TLF (*.log *.LOG)");
-//
-//
-// 		    tlfReadLog(fileName);
-//qDebug() << "KLog::slotImportTlf - DELETED TO HELP THE QT4 MIGRATION - TO BE RESTORED ASAP";
+       QString fileName = QFileDialog::getOpenFileName(
+                     this,
+                     "Open a TLF file",
+                   klogDir,
+                     "TLF (*.log *.LOG)");
 
+
+	    tlfReadLog(fileName);
+//qDebug() << "KLog::slotImportTlf - DELETED TO HELP THE QT4 MIGRATION - TO BE RESTORED ASAP";
+/*
       QMessageBox msgBox;
       msgBox.setText(i18n("KLog message:"));
       QString str = i18n("This function (slotImportTlf) has been deleted to help the QT4 migration.\nIt will be restored ASAP");
@@ -3157,7 +3157,7 @@ void Klog::slotImportTlf(){
       msgBox.setStandardButtons(QMessageBox::Ok);
       msgBox.setDefaultButton(QMessageBox::Ok);
       msgBox.setIcon(QMessageBox::Warning);
-      msgBox.exec();
+      msgBox.exec();*/
 
 
 }
@@ -3873,7 +3873,7 @@ QString Klog::getShortNumberString(const int intNumber){
 void Klog::filePrint(){
    QPrinter printer;
    QString pageToPrint;
-   int qsoPerPage = 30;
+   int qsoPerPage = 25;
    int maxPages = (int)(Klog::number / qsoPerPage)+1; // To print just 10 QSO per page
    int printedSoFar = 0;
    int page = 1;
