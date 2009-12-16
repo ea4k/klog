@@ -102,19 +102,21 @@ bool Locator::isValidLocator(const QString& tlocator){
 
 
 double Locator::getLat(const QString& tlocator){
-//qDebug() << "Locator::getLat: " << tlocator;
+qDebug() << "Locator::getLat: " << tlocator;
+  
 	if (isValidLocator(tlocator)){
-	    return ((tlocator.at(1)).toAscii() - 65) * 10 + ((tlocator.at(3)).toAscii() - 48) + ((tlocator.at(5)).toAscii() - 65 + 0.5) / 24 - 90;
+	    return (((tlocator.at(1)).toAscii() - 65) * 10) + ((tlocator.at(3)).toAscii() - 48) + (((tlocator.at(5)).toAscii() - 65 + 0.5) / 24) - 90;
 	}else{
 		return 0.0;
 	}
 }
 
 double Locator::getLon(const QString& tlocator){
-//qDebug() << "Locator::getLon: " << tlocator;
+  qDebug() << "Locator::getLon: " << tlocator;
+
   if (isValidLocator(tlocator)){    
-    //qDebug() << "Locator::getLon-2: " << QString::number(((tlocator.at(0)).toAscii() - 65) * 20 + ((tlocator.at(2)).toAscii() - 48) * 2 + ((tlocator.at(4)).toAscii() - 65 + 0.5) / 12 - 180) << endl;    
-    return ((tlocator.at(0)).toAscii() - 65) * 20 + ((tlocator.at(2)).toAscii() - 48) * 2 + ((tlocator.at(4)).toAscii() - 65 + 0.5) / 12 - 180;
+    qDebug() << "Locator::getLon-2: " << QString::number((((tlocator.at(0)).toAscii() - 65) * 20) + (((tlocator.at(2)).toAscii() - 48) * 2) + (((tlocator.at(4)).toAscii() - 65 + 0.5) / 12) - 180) << endl;    
+    return (((tlocator.at(0)).toAscii() - 65) * 20) + (((tlocator.at(2)).toAscii() - 48) * 2) + (((tlocator.at(4)).toAscii() - 65 + 0.5) / 12) - 180;
   }else
     return 0.0;
   
@@ -165,7 +167,8 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
 
 int Locator::getDistance(const double lon1, const double lat1, const double lon2, const double lat2, const bool inKm){
   //http://en.wikipedia.org/wiki/Haversine_formula
-//qDebug() << "Locator::getDistanceKilometres" << endl;
+qDebug() << "Locator::getDistanceKilometres: QSO1("<< QString::number(lon1) << "/"
+<< QString::number(lat1)  << ") - QSO2(" << QString::number(lon2) << "/" << QString::number(lat2) << ")" << endl;
   double lo1,la1,lo2,la2;
 
 // TODO: Is it needed to check if the longitude and latitude are correct and/or between the magins?  
@@ -178,9 +181,10 @@ int Locator::getDistance(const double lon1, const double lat1, const double lon2
   la2=lat2* DEG_TO_RAD;
 
   if (!inKm){
-  //qDebug() << "Locator::getDistanceKilometres2: " << QString::number((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) << endl;
+  qDebug() << "Locator::getDistanceKilometres2: " << QString::number((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) << endl;
     return (int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS);
   }else{ // In milles
+    qDebug() << "Locator::getDistanceKilometres2: " << QString::number(((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS))* 0.62137) << endl;
     return ((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) * 0.62137;
   }
 
