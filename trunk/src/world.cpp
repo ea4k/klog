@@ -76,16 +76,16 @@ World::World(){
         entity.setPfx((fields[7].trimmed()).toLatin1());
       }
       entity.setCqz(cqzone);
-      entity.setLon(fields[5].toDouble());
+      entity.setLon(-(fields[5].toDouble())); // KLog works with + for East, cty.dat works the other way (+ for West)
       entity.setLat( fields[4].toDouble());
       entity.setContinent( fields[3].toLatin1());
       entity.setItuz(ituzone);
       entity.setTimeZone( fields[6].toDouble());
       World::map[entity.getPfx()] = entity;
-//  qDebug() << QString::number(entity.getNumb()) << " - " << entity.getEntity() << " - Pref: " << entity.getPfx() << endl;
+qDebug() << QString::number(entity.getNumb()) << " - " << entity.getEntity() << " - Pref: " << entity.getPfx() << endl;
 //  qDebug() << "CQz: " << QString::number(entity.getCqz()) << " - ITUz: " << QString::number(entity.getItuz()) << endl;
 //  qDebug() << "Continent: " << entity.getContinent() << " - TimeZone: " << QString::number(entity.getTimeZone()) << endl;
-//  qDebug() << "Lat: " << QString::number(entity.getLat()) << " - Lon: " << QString::number(entity.getLon()) << endl;
+  qDebug() << "Lat: " << QString::number(entity.getLat()) << " - Lon: " << QString::number(entity.getLon()) << endl;
 //  qDebug() << "==========================================================================================" << endl << endl;
 
       World::nmap[number] = entity;
