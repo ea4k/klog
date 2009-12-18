@@ -8,7 +8,7 @@ with hamlib. This mean that you need the include files of hamlib:
 http://hamlib.sourceforge.net or install the hamlib-dev package of your
 distribution.
 
-3. Create a build fodler in the klog folder and change to this folder
+3. Create a build fodler in the klog folder and change to this folder.
 
     mkdir build; cd build;
 
@@ -20,7 +20,11 @@ distribution.
 
     make -k
 
-6. If you want, install the program as root
+5.5 (JUST FOR INFORMATION)
+
+    You will find the klog executable in the "build" folder.
+
+6. If you want, install the program as root.
 
    su
    make install
