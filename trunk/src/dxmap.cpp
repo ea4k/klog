@@ -1,4 +1,5 @@
 #include "dxmap.h"
+#include <QDebug>
 
 DXMap::DXMap( QWidget *parent ) : QWidget( parent ) {
    // this is connected from the parent widget which will emit a signal whenever the
@@ -10,6 +11,7 @@ DXMap::DXMap( QWidget *parent ) : QWidget( parent ) {
    spotList = new DXSpotList;
    toSpots = new QStringList;
    fromSpots = new QStringList;
+   world = new World;
 }
 
 void DXMap::paintEvent( QPaintEvent * ) {
@@ -43,6 +45,34 @@ void DXMap::paintEvent( QPaintEvent * ) {
  */
    }
 }
+
+void DXMap::plotSpot(QString dxSpotter, QString dxFrequency, QString  dxCall){
+   qDebug() << "DXSPOT->" << dxSpotter << dxFrequency << dxCall;
+   QStringList dxList;
+   QString loggingCountry, spotCountry;
+   int entityNumber, distance, n;
+
+   // Get logging entity location
+   entityNumber = world->findEntity(dxSpotter.toUpper());
+   loggingEntity = world->getEntByNumb(entityNumber);
+   loggingCountry = loggingEntity.getEntity();
+   qDebug() << "DXSPOT->" << entityNumber <<  loggingCountry;
+   // Get the spotted entity location
+   QString call = dxCall.toUpper();
+   entityNumber = world->findEntity(call);
+   spotEntity = world->getEntByNumb(entityNumber);
+   spotCountry = spotEntity.getEntity();
+   qreal frequency = dxFrequency.toDouble();
+   qDebug() << "DXSPOT->" << entityNumber  << spotCountry;
+
+   // Update the dxline list with this spot
+   DxSpot entry = DxSpot(dxSpotter, dxCall, spotCountry, loggingCountry, spotEntity.getLat(), spotEntity.getLon(), loggingEntity.getLat(), loggingEntity.getLon(), frequency);
+//   dxSpotList->insert(dxLineCount++, entry);
+   qDebug() << "DXSPOT->" << dxSpotter << dxFrequency << dxCall;
+
+//   update();
+}
+
 
 void DXMap::plotSpot(DXSpotList &slist){
    spotList = &slist;

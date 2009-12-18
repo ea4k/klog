@@ -41,7 +41,6 @@ SOURCES += adif.cpp \
     awardwaz.cpp \
     cabrillomanagement.cpp \
     calls.cpp \
-    dxspot.cpp \
     entity.cpp \
     klog.cpp \
     kloghamlib.cpp \

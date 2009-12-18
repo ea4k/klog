@@ -1,5 +1,5 @@
 /***************************************************************************
-                          dxspot.h  -  description
+                          DxSpot.h  -  description
                              -------------------
     begin                : lun ene  7 18:42:45 CET 2007
     copyright            : (C) 2007 by Jaime Robles
@@ -24,56 +24,42 @@
  *****************************************************************************/
 
 
-#ifndef DXSPOT_H
-#define DXSPOT_H
+#ifndef DxSpot_H
+#define DxSpot_H
 #include <QString>
-#include <QDateTime>
 
- #define CALL_LENGTH 15
+#include <QString>
 
 class DxSpot{
-    public:
-        DxSpot();
-//		DxSpot(const QString& tqrz, int tnumb, QString& tmode);
-        ~DxSpot();
 
-        void setDxCall(const QString &tdxcall);
-        QString getDxCall() const;
+public:
+   DxSpot() {};
+   ~DxSpot() {};
+   DxSpot(QString sCall,  QString lCall, QString sCountry, QString lCountry,
+           qreal spotLat, qreal spotLong, qreal logLat, qreal logLong, qreal freq) :
+           spotCallsign(sCall), loggingCallsign(lCall), spotCountry(sCountry), loggingCountry(lCountry),
+           spotLatitude(spotLat), spotLongitude(spotLong), loggingLatitude(logLat), loggingLongitude(logLong), frequency(freq) {};
 
-        void setSpotter(const QString &tdxcall);
-        QString getSpotter() const;
+   QString SpotCall() const { return spotCallsign; }
+   QString LogCall() const { return loggingCallsign; }
+   QString SpotCountry() const { return spotCountry; }
+   QString LogCountry() const { return loggingCountry; }
+   qreal SLat() const { return spotLatitude; }
+   qreal SLong() const { return spotLongitude; }
+   qreal LLat() const { return loggingLatitude; }
+   qreal LLong() const { return loggingLongitude; }
+   qreal Frequency() const { return frequency; }
 
-        void setNumb (int tnumb);
-        int getNumb() const;
-
-        void setDateTime(QDateTime tdateTime);
-        QDateTime getDateTime() const;
-
-        void setDate(QDate tdate);
-        QDate getDate() const;
-
-        void setTime(QTime ttime);
-        QTime getTime() const;
-
-        void setFreq(double tfreq);
-        double getFreq() const;
-
-        void clearDXSpot();
-
-        void setcomment(const QString &tcomment);
-        QString getcomment() const;
-
-
-    private:
-        QString dxcall;        // CALL
-        QString dxspotter;        // CALL
-        int numb;           // STX
-        QDateTime dateTime; // QSO_DATE/TIME_ON YYYYMMDD - Time HHMM (0000-2359)
-        double freq;       // Frecuency
-        QString comment;    // COMMENT
+private:
+   QString spotCallsign;
+   QString loggingCallsign;
+   QString spotCountry;
+   QString loggingCountry;
+   qreal spotLatitude;
+   qreal spotLongitude;
+   qreal loggingLatitude;
+   qreal loggingLongitude;
+   qreal frequency;
 
 };
-
-
 #endif
-
