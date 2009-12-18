@@ -242,6 +242,7 @@ class Klog : public QMainWindow, private Ui::klog
 
 
     // Awards supported by KLog
+//    DXMap *dxMap;
     Adif adif;
     AwardDXCC dxcc;
     AwardWAZ waz;

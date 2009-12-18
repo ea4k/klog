@@ -149,10 +149,10 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   }
   //showTip();	// TODO: We show a tip when KLog start
 //	dxcc.printWorkdStatus();
-// /*   DXMap *dxMap;
-//    dxMap = new DXMap(this);
-//    QLayout *dxMapLayout = dxMapTab->layout();
-//    dxMapLayout->addWidget(dxMap);*/
+//   DXMap *dxMap;
+//   dxMap = new DXMap(this);
+//   QLayout *dxMapLayout = dxMapTab->layout();
+//   dxMapLayout->addWidget(dxMap);
 }
 
 Klog::~Klog(){
@@ -566,12 +566,12 @@ void Klog::slotOkBtn(){
       //addToPreviouslyWorked(qso.getQrz());
       kk = workedCall.addCall(qso.getQrz(), qso.getNumb());
       if (enti != 0){
-	dxcc.worked(enti,bandComboBox->currentIndex(),modeComboBox->currentIndex());
-	waz.worked( world.getCqzFromCall(qso.getQrz()) ,bandComboBox->currentIndex(),modeComboBox->currentIndex());
-	if (qso.gotTheQSL()){
-	  dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+   dxcc.worked(enti,bandComboBox->currentIndex(),modeComboBox->currentIndex());
+   waz.worked( world.getCqzFromCall(qso.getQrz()) ,bandComboBox->currentIndex(),modeComboBox->currentIndex());
+   if (qso.gotTheQSL()){
+     dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
           waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
-	}
+   }
       }
     } else { // We are not ADDING but modifying a QSO.
       number--;
@@ -3145,7 +3145,7 @@ void Klog::slotImportTlf(){
                      "TLF (*.log *.LOG)");
 
 
-	    tlfReadLog(fileName);
+       tlfReadLog(fileName);
 //qDebug() << "KLog::slotImportTlf - DELETED TO HELP THE QT4 MIGRATION - TO BE RESTORED ASAP";
 /*
       QMessageBox msgBox;
@@ -3411,50 +3411,50 @@ qDebug() << "KLog::slotQsoDelete" << endl;
     Klog::LogBook::iterator iter;
     for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
       if ( j == (*iter).getNumb() ) {
-	QMessageBox msgBox;
-	msgBox.setText(i18n("Warning - QSO Deletion"));    
-	QString str = i18n("Do you want to delete the QSO with:\n%1 of %2 ?", (*iter).getQrz(), (*iter).getDateTime().toString("yyyy-MM-dd"));
-	msgBox.setInformativeText(str);
-	msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-	msgBox.setDefaultButton(QMessageBox::No);
-	int ret = msgBox.exec();
+   QMessageBox msgBox;
+   msgBox.setText(i18n("Warning - QSO Deletion"));
+   QString str = i18n("Do you want to delete the QSO with:\n%1 of %2 ?", (*iter).getQrz(), (*iter).getDateTime().toString("yyyy-MM-dd"));
+   msgBox.setInformativeText(str);
+   msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+   msgBox.setDefaultButton(QMessageBox::No);
+   int ret = msgBox.exec();
 
-	switch(ret){
-	  case QMessageBox::Yes:
-	    qDebug() << "KLog::slotQsoDelete: YES" << endl;
+   switch(ret){
+     case QMessageBox::Yes:
+       qDebug() << "KLog::slotQsoDelete: YES" << endl;
                /*                        dxcc.notWorked(world.findEntity((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));
                         waz.notWorked(world.getCqzFromCall((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));*/
                //  						if ((*iter).gotTheQSL()){
                //  							Klog::confirmed--;  //To decrease the showed number
                //  						}
                // If there is only one entry in the log then you want to delete it the it's easier to create a new log.
-	    if ( Klog::j == 1 ) {
-	      qDebug() << "KLog::slotQsoDelete-1" << endl;
-	      fileNew();
-	      qDebug() << "KLog::slotQsoDelete-2" << endl;
-	    } else {
-	      qDebug() << "KLog::slotQsoDelete-3" << endl;
-	      logbook.erase(iter);
-	      qDebug() << "KLog::slotQsoDelete-4" << endl;
-	      Klog::number--;  //To decrease the showed number
-	      qDebug() << "KLog::slotQsoDelete-5" << endl;
-	    }
-	    qDebug() << "KLog::slotQsoDelete-6" << endl;
-	    slotClearBtn();
-	    showLogList();
-	    readAwardsStatus();
-	    showAwardsNumbers();
-	    return;
-	  break;
-	  case QMessageBox::No:
-	    qDebug() << "KLog::slotQsoDelete: NO" << endl;
-	  break;
-	  default: // just for sanity
-	    qDebug() << "KLog::slotQsoDelete: DEFAULT" << endl;
-	    return;
-	  break;
-	}
-	qDebug() << "KLog::slotQsoDelete-6" << endl;
+       if ( Klog::j == 1 ) {
+         qDebug() << "KLog::slotQsoDelete-1" << endl;
+         fileNew();
+         qDebug() << "KLog::slotQsoDelete-2" << endl;
+       } else {
+         qDebug() << "KLog::slotQsoDelete-3" << endl;
+         logbook.erase(iter);
+         qDebug() << "KLog::slotQsoDelete-4" << endl;
+         Klog::number--;  //To decrease the showed number
+         qDebug() << "KLog::slotQsoDelete-5" << endl;
+       }
+       qDebug() << "KLog::slotQsoDelete-6" << endl;
+       slotClearBtn();
+       showLogList();
+       readAwardsStatus();
+       showAwardsNumbers();
+       return;
+     break;
+     case QMessageBox::No:
+       qDebug() << "KLog::slotQsoDelete: NO" << endl;
+     break;
+     default: // just for sanity
+       qDebug() << "KLog::slotQsoDelete: DEFAULT" << endl;
+       return;
+     break;
+   }
+   qDebug() << "KLog::slotQsoDelete-6" << endl;
       }
     }
   }
@@ -3477,7 +3477,7 @@ void Klog::readAwardsStatus(){
       }
 
    }
-   
+
 }
 
 // To print the whole log in the botton box
@@ -3631,15 +3631,15 @@ qDebug() << "KLog::slotQSLRec" << endl;
       Klog::j = qso.getNumb();
       Klog::LogBook::iterator iter;
       for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
-	if ( Klog::j == (*iter).getNumb() ){
-	  (*iter).QslRec('Y');
-	  if (qslRec.isValid()){
-	    (*iter).setQslRecDateOn(qslRec);
-	  }
+   if ( Klog::j == (*iter).getNumb() ){
+     (*iter).QslRec('Y');
+     if (qslRec.isValid()){
+       (*iter).setQslRecDateOn(qslRec);
+     }
 // 	  needToSave = true;
 // 	  dxcc.confirmedString(kk, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
 // 	  waz.confirmedString(world.getCqzFromCall(qso.getQrz()), qso.getBand(),qso.getMode());
-	}
+   }
       }
     }
   }else{ // This is executed if we are not modifying
@@ -3647,18 +3647,18 @@ qDebug() << "KLog::slotQSLRec" << endl;
     if (qsoSelectedBool){
       Klog::LogBook::iterator iter;
       for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
-	if ( qsoSelected.getNumb() == (*iter).getNumb() ){
-	  (*iter).QslRec('Y');
-	  if (qslRec.isValid()){
-	    (*iter).setQslRecDateOn(qslRec);
-	  }
-	  needToSave = true;
+   if ( qsoSelected.getNumb() == (*iter).getNumb() ){
+     (*iter).QslRec('Y');
+     if (qslRec.isValid()){
+       (*iter).setQslRecDateOn(qslRec);
+     }
+     needToSave = true;
 
-	  //dxcc.confirmedString(kk, ((*iter).getBand()).toUpper() ,  ((*iter).getMode()).toUpper());
-	  dxcc.confirmedString(world.findEntity( (*iter).getQrz() ), ((*iter).getBand()).toUpper() ,  ((*iter).getMode()).toUpper());
-	  waz.confirmedString(world.getCQzFromEntity(world.findEntity( (*iter).getQrz() )), (*iter).getBand(),(*iter).getMode());
-	  int a = waz.howManyConfirmed();
-	}
+     //dxcc.confirmedString(kk, ((*iter).getBand()).toUpper() ,  ((*iter).getMode()).toUpper());
+     dxcc.confirmedString(world.findEntity( (*iter).getQrz() ), ((*iter).getBand()).toUpper() ,  ((*iter).getMode()).toUpper());
+     waz.confirmedString(world.getCQzFromEntity(world.findEntity( (*iter).getQrz() )), (*iter).getBand(),(*iter).getMode());
+     int a = waz.howManyConfirmed();
+   }
       }
     }
   }
@@ -4069,8 +4069,10 @@ void Klog::slotClusterSocketReadyRead(){
         //0 = DX, 1 = de, 2 = spotter, 3 = Freq, 4 = dxcall, 5 = comment
         //tokens[0] = tokens[0].simplified(); // we remove the spaces just in case it is a freq
 
-
+        qDebug() << "DXCLUSTER->" << dxClusterString << "TOKENS" << tokens;
         if ((tokens[0] == "DX") && (tokens[1] == "de")){
+            // Plot the spot
+//            dxMap->plotSpot(tokens[2], tokens[3], tokens[4]);
             if ( (!dxClusterHFSpots) && (adif.isHF(adif.KHz2MHz(tokens[3])))){ //Check the freq
                 return;
             }
