@@ -82,10 +82,10 @@ World::World(){
       entity.setItuz(ituzone);
       entity.setTimeZone( fields[6].toDouble());
       World::map[entity.getPfx()] = entity;
-qDebug() << QString::number(entity.getNumb()) << " - " << entity.getEntity() << " - Pref: " << entity.getPfx() << endl;
+//qDebug() << QString::number(entity.getNumb()) << " - " << entity.getEntity() << " - Pref: " << entity.getPfx() << endl;
 //  qDebug() << "CQz: " << QString::number(entity.getCqz()) << " - ITUz: " << QString::number(entity.getItuz()) << endl;
 //  qDebug() << "Continent: " << entity.getContinent() << " - TimeZone: " << QString::number(entity.getTimeZone()) << endl;
-  qDebug() << "Lat: " << QString::number(entity.getLat()) << " - Lon: " << QString::number(entity.getLon()) << endl;
+//qDebug() << "Lat: " << QString::number(entity.getLat()) << " - Lon: " << QString::number(entity.getLon()) << endl;
 //  qDebug() << "==========================================================================================" << endl << endl;
 
       World::nmap[number] = entity;
@@ -684,7 +684,7 @@ int World::getITUzFromCall(const QString  tqrz){
 }
 
 int World::getCQzFromEntity(const int tint){ // Uses getCqz
- qDebug() << "World::getCQzFromEntity: " << QString::number(tint) << " = " << QString((getEntByNumb(tint)).getCqz()) << endl;
+ //qDebug() << "World::getCQzFromEntity: " << QString::number(tint) << " = " << QString::number((getEntByNumb(tint)).getCqz()) << endl;
  
  return (getEntByNumb(tint)).getCqz();
 //     i = tint;
@@ -693,7 +693,7 @@ int World::getCQzFromEntity(const int tint){ // Uses getCqz
 }
 
 int World::getITUzFromEntity(const int tint){ // Uses getCqz
-qDebug() << "World::getITUzFromEntity: " << QString::number(tint)  << " = " << QString((getEntByNumb(tint)).getItuz()) << endl;
+//qDebug() << "World::getITUzFromEntity: " << QString::number(tint)  << " = " << QString::number((getEntByNumb(tint)).getItuz()) << endl;
 //     i = tint;
 //     return getItuz();
   return (getEntByNumb(tint)).getItuz();
@@ -711,14 +711,14 @@ bool World::isWorldCreated(){
 }
 
 QString World::getEntityName(int num){
-qDebug() << "World::getEntityName: " << (getEntByNumb(num)).getEntity() << endl;  
+//qDebug() << "World::getEntityName: " << (getEntByNumb(num)).getEntity() << endl;  
  // i = num; //TODO: Just to avoid a compilation warning... to be deleted when this function is implemented
  return (getEntByNumb(num)).getEntity();
     
 }
 
 QString World::getMainPrefix (int num){
-qDebug() << "World::getMainPrefix: " << (getEntByNumb(num)).getPfx() << endl;  
+//qDebug() << "World::getMainPrefix: " << (getEntByNumb(num)).getPfx() << endl;  
 //  i = num; //TODO: Just to avoid a compilation warning... to be deleted when this function is implemented
 //    return "NULL";
   return (getEntByNumb(num)).getPfx();

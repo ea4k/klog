@@ -227,13 +227,13 @@ class Klog : public QMainWindow, private Ui::klog
 
 
   private:
-    Qso qso, qsoSelected;
+    Qso qso, qsoSelected, qsoSearchSelected;
 //	CabrilloManagement cabrilloLog;
 //	Qso previousQso;       // This and workedCall is to check if a call has been previously
 
     bool completeWithPrevious;	// Configuration parameter
     bool completedWithPrevious;
-    bool qsoSelectedBool; 		//To know if a QSO has been selected at least once
+    bool qsoSelectedBool, qsoSearchSelectedBool; 	//To know if a QSO has been selected at least once
     bool requireMandatory;		// Configuration parameter (requires all the mandatory data for all the QSO) (QRZ, date, time, band, mode, RST (TX&RX))
     QString tempLogFile;	// Temp log to save automatically
 

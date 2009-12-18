@@ -222,7 +222,7 @@ void AwardWAZ::confirmed(const int tzone, const int tband, const int tmode){
 }
 
 void AwardWAZ::confirmedString(const int tzone, const QString& tband, const QString& tmode){
-qDebug()  << "AwardWAZ::confirmedString (Z/B/M): (" << QString::number(tzone) << "/" << tband << "/" << tmode << ")"<< endl;
+//qDebug()  << "AwardWAZ::confirmedString (Z/B/M): (" << QString::number(tzone) << "/" << tband << "/" << tmode << ")"<< endl;
 	//workedString(tzone, tband, tmode);
 	i = tzone;
 
@@ -307,7 +307,7 @@ int AwardWAZ::howManyConfirmed(){
     //  qDebug() << "AwardWAZ::howManyConfirmed: " << QString::number(i)<< endl;
    }
   }
-  qDebug() << "AwardWAZ::howManyConfirmed-Total: " << iAux;	
+//  qDebug() << "AwardWAZ::howManyConfirmed-Total: " << iAux;	
   return iAux;
 }
 
