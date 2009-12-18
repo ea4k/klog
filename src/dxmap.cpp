@@ -32,7 +32,7 @@ void DXMap::paintEvent( QPaintEvent * ) {
       spots = spotList->size() - spotsToDisplay;
    }
    for(cnt=spots ; cnt<spotList->size() ; cnt++) {
-      DxSpot list = spotList->value(cnt);
+//      DxSpot list = spotList->value(cnt);
 /*      qreal spotX = list.SLong() * imageX / 2 / 180;
       qreal spotY = list.SLat() * imageY / 2 / 90;
       qreal logX = list.LLong() * imageX / 2 / 180;
@@ -66,7 +66,7 @@ void DXMap::plotSpot(QString dxSpotter, QString dxFrequency, QString  dxCall){
    qDebug() << "DXSPOT->" << entityNumber  << spotCountry;
 
    // Update the dxline list with this spot
-   DxSpot entry = DxSpot(dxSpotter, dxCall, spotCountry, loggingCountry, spotEntity.getLat(), spotEntity.getLon(), loggingEntity.getLat(), loggingEntity.getLon(), frequency);
+//   DxSpot entry = DxSpot(dxSpotter, dxCall, spotCountry, loggingCountry, spotEntity.getLat(), spotEntity.getLon(), loggingEntity.getLat(), loggingEntity.getLon(), frequency);
 //   dxSpotList->insert(dxLineCount++, entry);
    qDebug() << "DXSPOT->" << dxSpotter << dxFrequency << dxCall;
 
