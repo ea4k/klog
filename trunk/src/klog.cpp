@@ -146,7 +146,6 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   addingLog = false;	// True when adding a log file to the main one.
   // Finally, if we configured to open a file by default... we open it!
   if ((openLastByDefault == true) && (logFileNameToOpen !="")){
-    qDebug() << "We are going to open the default Log: " << logFileNameToOpen << endl;
     adifReadLog(logFileNameToOpen);
   }
   //showTip();	// TODO: We show a tip when KLog start
@@ -1291,7 +1290,7 @@ void Klog::processLogLine (const QString& tLogLine){
 }
 
 void Klog::adifReadLog(const QString& tfileName){
-qDebug() << "KLog::adifReadLog: " << tfileName << endl;
+//qDebug() << "KLog::adifReadLog: " << tfileName << endl;
     QFile file( tfileName );
      if ( !file.exists() ){
       QMessageBox msgBox;

@@ -664,21 +664,27 @@ int World::getCqzFromCall(const QString  tqrz){
 //TODO: Check if the i=... is needed and check if this function is needed or just an unefficiency
 // It seems that this way of returning the CQ zone is not very robust
 //qDebug() << "World::getCQzFromCall: " << tqrz << endl;
-    i = findEntity(tqrz);
-    return getCqz();
+//     i = findEntity(tqrz);
+//     return getCqz();
+    
+    return (getEntByNumb(findEntity(tqrz))).getCqz();
+    
 }
 
 int World::getITUzFromCall(const QString  tqrz){
 //TODO: Check if the i=... is needed and check if this function is needed or just an unefficiency
 // It seems that this way of returning the ITU zone is not very robust
 //qDebug() << "World::getITUzFromCall: " << tqrz << endl;
-    i = findEntity(tqrz);
-    return getItuz();
+  return (getEntByNumb(findEntity(tqrz))).getItuz();
+
+
+/*    i = findEntity(tqrz);
+    return getItuz();*/
     
 }
 
 int World::getCQzFromEntity(const int tint){ // Uses getCqz
- qDebug() << "World::getCQzFromEntity: " << QString::number(tint) << endl;
+ qDebug() << "World::getCQzFromEntity: " << QString::number(tint) << " = " << QString((getEntByNumb(tint)).getCqz()) << endl;
  
  return (getEntByNumb(tint)).getCqz();
 //     i = tint;
@@ -687,7 +693,7 @@ int World::getCQzFromEntity(const int tint){ // Uses getCqz
 }
 
 int World::getITUzFromEntity(const int tint){ // Uses getCqz
-qDebug() << "World::getITUzFromEntity: " << QString::number(tint) << endl;
+qDebug() << "World::getITUzFromEntity: " << QString::number(tint)  << " = " << QString((getEntByNumb(tint)).getItuz()) << endl;
 //     i = tint;
 //     return getItuz();
   return (getEntByNumb(tint)).getItuz();
