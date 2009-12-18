@@ -73,6 +73,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   dxClusterWCYANNounces=true;
   dxClusterANNounces=true;
   dxClusterConfirmedSpots=true;
+  openLastByDefault=false;
   lastDelete = false;
   showProgressDialog = false;
   completeWithPrevious = false;
@@ -145,6 +146,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   addingLog = false;	// True when adding a log file to the main one.
   // Finally, if we configured to open a file by default... we open it!
   if ((openLastByDefault == true) && (logFileNameToOpen !="")){
+    qDebug() << "We are going to open the default Log: " << logFileNameToOpen << endl;
     adifReadLog(logFileNameToOpen);
   }
   //showTip();	// TODO: We show a tip when KLog start
@@ -1289,8 +1291,18 @@ void Klog::processLogLine (const QString& tLogLine){
 }
 
 void Klog::adifReadLog(const QString& tfileName){
-//cout << "KLog::adifReadLog" << endl;
+qDebug() << "KLog::adifReadLog: " << tfileName << endl;
     QFile file( tfileName );
+     if ( !file.exists() ){
+      QMessageBox msgBox;
+      msgBox.setText(i18n("KLog message:"));
+      QString str = i18n("The file selected to open does not exist.\nNo file will be opened.");
+      msgBox.setInformativeText(str);
+      msgBox.setStandardButtons(QMessageBox::Ok);
+      msgBox.setDefaultButton(QMessageBox::Ok);
+      msgBox.setIcon(QMessageBox::Information);
+      msgBox.exec();       
+     } 
     int totalQsos = 0; // QSOs in the log to be read
 //	bool qslViac = false;
     int progresStep = 0;
