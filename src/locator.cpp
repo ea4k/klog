@@ -112,10 +112,10 @@ double Locator::getLat(const QString& tlocator){
 }
 
 double Locator::getLon(const QString& tlocator){
-  qDebug() << "Locator::getLon: " << tlocator;
+  //qDebug() << "Locator::getLon: " << tlocator;
 
   if (isValidLocator(tlocator)){    
-    qDebug() << "Locator::getLon-2: " << QString::number((((tlocator.at(0)).toAscii() - 65) * 20) + (((tlocator.at(2)).toAscii() - 48) * 2) + (((tlocator.at(4)).toAscii() - 65 + 0.5) / 12) - 180) << endl;    
+//    qDebug() << "Locator::getLon-2: " << QString::number((((tlocator.at(0)).toAscii() - 65) * 20) + (((tlocator.at(2)).toAscii() - 48) * 2) + (((tlocator.at(4)).toAscii() - 65 + 0.5) / 12) - 180) << endl;    
     return (((tlocator.at(0)).toAscii() - 65) * 20) + (((tlocator.at(2)).toAscii() - 48) * 2) + (((tlocator.at(4)).toAscii() - 65 + 0.5) / 12) - 180;
   }else
     return 0.0;
