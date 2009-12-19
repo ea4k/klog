@@ -10,8 +10,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>962</width>
-    <height>714</height>
+    <width>960</width>
+    <height>712</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -40,6 +40,203 @@
   </property>
   <widget class="QWidget" name="widget">
    <layout class="QGridLayout" name="gridLayout_7">
+    <item row="1" column="0" colspan="2">
+     <widget class="QTabWidget" name="downTabs">
+      <property name="minimumSize">
+       <size>
+        <width>838</width>
+        <height>210</height>
+       </size>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="logdisplayTab">
+       <attribute name="title">
+        <string>Log</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QTreeWidget" name="logTreeWidget">
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <column>
+           <property name="text">
+            <string>Numb</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Date</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>UTC</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>QRZ</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>RST(tx)</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>RST(rx)</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Band</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Mode</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Power</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Remarks</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="clusterTab">
+       <attribute name="title">
+        <string>Cluster</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="1" column="0">
+         <widget class="QLineEdit" name="ClusterkLineEditInPut"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="ClusterkPushButtonOK">
+          <property name="text">
+           <string>OK</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="ClusterkPushButtonClear">
+          <property name="text">
+           <string>Clear</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="3">
+         <widget class="QListWidget" name="dxclusterListWidget">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="selectionRectVisible">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="dxMapTab">
+       <attribute name="title">
+        <string>DX Map</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_6"/>
+      </widget>
+      <widget class="QWidget" name="dxccTab">
+       <attribute name="title">
+        <string>DXCC</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="QTreeWidget" name="dxccTreeWidget">
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <column>
+           <property name="text">
+            <string>Numb</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Entity</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Prefix</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>10m</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>12m</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>15m</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>17m</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>20m</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>30m</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>40m</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>80m</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>160m</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
     <item row="0" column="1">
      <widget class="QTabWidget" name="outputTab">
       <property name="sizePolicy">
@@ -2355,203 +2552,6 @@ p, li { white-space: pre-wrap; }
       </item>
      </layout>
     </item>
-    <item row="1" column="0" colspan="2">
-     <widget class="QTabWidget" name="downTabs">
-      <property name="minimumSize">
-       <size>
-        <width>838</width>
-        <height>210</height>
-       </size>
-      </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="logdisplayTab">
-       <attribute name="title">
-        <string>Log</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="0">
-         <widget class="QTreeWidget" name="logTreeWidget">
-          <property name="contextMenuPolicy">
-           <enum>Qt::CustomContextMenu</enum>
-          </property>
-          <property name="sortingEnabled">
-           <bool>true</bool>
-          </property>
-          <column>
-           <property name="text">
-            <string>Numb</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Date</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>UTC</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>QRZ</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>RST(tx)</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>RST(rx)</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Band</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Mode</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Power</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Remarks</string>
-           </property>
-          </column>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="clusterTab">
-       <attribute name="title">
-        <string>Cluster</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="1" column="0">
-         <widget class="QLineEdit" name="ClusterkLineEditInPut"/>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="ClusterkPushButtonOK">
-          <property name="text">
-           <string>OK</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QPushButton" name="ClusterkPushButtonClear">
-          <property name="text">
-           <string>Clear</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="3">
-         <widget class="QListWidget" name="dxclusterListWidget">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="selectionRectVisible">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="dxMapTab">
-       <attribute name="title">
-        <string>DX Map</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_6"/>
-      </widget>
-      <widget class="QWidget" name="dxccTab">
-       <attribute name="title">
-        <string>DXCC</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="0">
-         <widget class="QTreeWidget" name="dxccTreeWidget">
-          <property name="sortingEnabled">
-           <bool>true</bool>
-          </property>
-          <column>
-           <property name="text">
-            <string>Numb</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Entity</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Prefix</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>10m</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>12m</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>15m</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>17m</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>20m</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>30m</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>40m</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>80m</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>160m</string>
-           </property>
-          </column>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
    </layout>
    <zorder>downTabs</zorder>
    <zorder>outputTab</zorder>
@@ -2580,8 +2580,8 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>962</width>
-     <height>32</height>
+     <width>960</width>
+     <height>22</height>
     </rect>
    </property>
    <property name="defaultUp">

@@ -6,12 +6,10 @@ DXMap::DXMap( QWidget *parent ) : QWidget( parent ) {
    // to/from list is changed.
    setAttribute(Qt::WA_StaticContents);
    spotsToDisplay = SPOTS_TO_DISPLAY;
-   mapImage = QPixmap("/home/kdedevel/.klog/images/map.png");
+   mapImage = QPixmap(":/images/map.png");
    allSpots = FALSE;
-   spotList = new DXSpotList;
-   toSpots = new QStringList;
-   fromSpots = new QStringList;
-   world = new World;
+   numberOfSpots = 0;
+   dxSpotList = new DXSpotList;
 }
 
 void DXMap::paintEvent( QPaintEvent * ) {
@@ -26,12 +24,12 @@ void DXMap::paintEvent( QPaintEvent * ) {
    imageY = painter.window().size().height();
 
    // if sort out how many spots to display and where to start the list
-   if(spotList->size() <= spotsToDisplay || allSpots){
+   if(spotList.size() <= spotsToDisplay || allSpots){
       spots = 0;
    } else {
-      spots = spotList->size() - spotsToDisplay;
+      spots = spotList.size() - spotsToDisplay;
    }
-   for(cnt=spots ; cnt<spotList->size() ; cnt++) {
+   for(cnt=spots ; cnt < spotList.size() ; cnt++) {
 //      DxSpot list = spotList->value(cnt);
 /*      qreal spotX = list.SLong() * imageX / 2 / 180;
       qreal spotY = list.SLat() * imageY / 2 / 90;
@@ -42,66 +40,26 @@ void DXMap::paintEvent( QPaintEvent * ) {
       pen.setColor(getFreqColour(list.Frequency()));
       painter.setPen(pen);
       painter.drawLine(spotpoint,logpoint);
- */
+  */ }
+}
+
+void DXMap::plotSpot(DxSpot spot){
+//   qDebug() << "DXMAP->" << spot.SpotCall() << spot.SpotCountry();
+   //DxSpot entry = DxSpot("A", "A", "C", "D", 4.5, 5.6, 6.6, 6.7, 566.0);
+  // QHash<int, DxSpot> rspots;
+//   rspots.insert(1, entry);
+//   dxSpotList->insert(1, entry);
+   qDebug() << "DXMAP2->";
+//   spotList.insert(0, entry);
+}
+
+void DXMap::plot(){
+   QMap<int, QString> xxxx;
+   xxxx.insert(++numberOfSpots, "entry");
+   qDebug() << "DXMAP2->";
+   foreach(QString value, xxxx) {
+       qDebug() << value;
    }
-}
-
-void DXMap::plotSpot(QString dxSpotter, QString dxFrequency, QString  dxCall){
-   qDebug() << "DXSPOT->" << dxSpotter << dxFrequency << dxCall;
-   QStringList dxList;
-   QString loggingCountry, spotCountry;
-   int entityNumber, distance, n;
-
-   // Get logging entity location
-   entityNumber = world->findEntity(dxSpotter.toUpper());
-   loggingEntity = world->getEntByNumb(entityNumber);
-   loggingCountry = loggingEntity.getEntity();
-   qDebug() << "DXSPOT->" << entityNumber <<  loggingCountry;
-   // Get the spotted entity location
-   QString call = dxCall.toUpper();
-   entityNumber = world->findEntity(call);
-   spotEntity = world->getEntByNumb(entityNumber);
-   spotCountry = spotEntity.getEntity();
-   qreal frequency = dxFrequency.toDouble();
-   qDebug() << "DXSPOT->" << entityNumber  << spotCountry;
-
-   // Update the dxline list with this spot
-//   DxSpot entry = DxSpot(dxSpotter, dxCall, spotCountry, loggingCountry, spotEntity.getLat(), spotEntity.getLon(), loggingEntity.getLat(), loggingEntity.getLon(), frequency);
-//   dxSpotList->insert(dxLineCount++, entry);
-   qDebug() << "DXSPOT->" << dxSpotter << dxFrequency << dxCall;
-
-//   update();
-}
-
-
-void DXMap::plotSpot(DXSpotList &slist){
-   spotList = &slist;
-   update();
-}
-
-void DXMap::plotSpot(DXSpotList *slist){
-   spotList = slist;
-   update();
-}
-
-void DXMap::SetSpotsToDisplay(int spots){
-   spotsToDisplay = spots;
-   update();
-}
-
-void DXMap::AllSpotsDisplay(bool state){
-   allSpots = state;
-   update();
-}
-
-void DXMap::ToSpots(QStringList &list){
-   toSpots = &list;
-   update();
-}
-
-void DXMap::FromSpots(QStringList &list){
-   fromSpots = &list;
-   update();
 }
 
 QColor DXMap::getFreqColour(qreal frequency){
@@ -139,5 +97,5 @@ QColor DXMap::getFreqColour(qreal frequency){
    if(frequency >= LOW_2M && frequency <= HIGH_2M)
       return Qt::darkBlue;
 */
-   return Qt::black;
+   return Qt::red;
 }
