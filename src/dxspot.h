@@ -26,13 +26,14 @@
 #ifndef DXSPOT_H
 #define DXSPOT_H
 
+#include <QDateTime>
 #include <QString>
 
 class DxSpot{
 
 public:
-   DxSpot() {};
-   ~DxSpot() {};
+   DxSpot();
+   ~DxSpot();
    DxSpot(QString sCall,  QString lCall, QString sCountry, QString lCountry,
            qreal spotLat, qreal spotLong, qreal logLat, qreal logLong, qreal freq) :
            spotCallsign(sCall), loggingCallsign(lCall), spotCountry(sCountry), loggingCountry(lCountry),
@@ -47,17 +48,31 @@ public:
    qreal LLat() const { return loggingLatitude; }
    qreal LLong() const { return loggingLongitude; }
    qreal Frequency() const { return frequency; }
-
+   void setDxCall(const QString &tdxcall);
+   void setSpotter(const QString &tdxcall);
+  QString getSpotter();
+  void setNumb (int tnumb);
+  int getNumb();
+  void setcomment(const QString &tcomment);
+  void setDateTime(QDateTime tdateTime);
+  void setDate(QDate tdate);
+  void setTime(QTime ttime);
+  void setFreq(double tfreq);
+  void clearDXSpot();
+  
 private:
    QString spotCallsign;
    QString loggingCallsign;
    QString spotCountry;
    QString loggingCountry;
+   QString dxspotter, dxcall, comment;
    qreal spotLatitude;
    qreal spotLongitude;
    qreal loggingLatitude;
    qreal loggingLongitude;
    qreal frequency;
-
+   int numb;
+   double freq;
+   QDateTime dateTime;
 };
 #endif
