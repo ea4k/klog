@@ -38,7 +38,7 @@ WorkedCalls::~WorkedCalls(){
 
 
 int WorkedCalls::addCall(const QString& workedCall, const int tnum){
-//cout << "WorkedCalls::addCall: " << workedCall << "/" << QString::number(tnum) << endl;
+//qDebug() << "WorkedCalls::addCall: " << workedCall << "/" << QString::number(tnum) << endl;
 	i = 0;
 	i = findCall(workedCall);
 	if (i <= 0){
@@ -46,15 +46,15 @@ int WorkedCalls::addCall(const QString& workedCall, const int tnum){
 		WorkedCalls::qrzMap[workedCall] = i;
 		return i;
 	}else{
-		//cout << "WorkedCalls::addCall: Call already worked " << endl;
+		//qDebug() << "WorkedCalls::addCall: Call already worked " << endl;
 		return 0;
 	}
 }
 
 int WorkedCalls::findCall(const QString& workedCall){
-//cout << "WorkedCalls::findCall: " << workedCall << endl;
+//qDebug() << "WorkedCalls::findCall: " << workedCall << endl;
 	if ((workedCall=="NULL")||(workedCall.isEmpty())||(workedCall.isNull())){ // We are calling this function just after start KLog	
-//		cout << "WorkedCalls::findCall: NULL CALL or empty"  << endl;
+//		qDebug() << "WorkedCalls::findCall: NULL CALL or empty"  << endl;
 		return 0;
 	}
 
@@ -70,13 +70,13 @@ int WorkedCalls::findCall(const QString& workedCall){
 
 
 	for (itQR = qrzMap.begin(); itQR != qrzMap.end(); ++itQR){
-		//cout << "WorkedCall: " << workedCall << "/" << itQR.key() << endl;
+		//qDebug() << "WorkedCall: " << workedCall << "/" << itQR.key() << endl;
 		if (itQR.key() == workedCall){
-//			cout << "WorkedCall: FOUND!" << workedCall << "/" << QString::number(itQR.data())  << endl;	
+//			qDebug() << "WorkedCall: FOUND!" << workedCall << "/" << QString::number(itQR.data())  << endl;	
                         return itQR.value();
 		}
 	
 	}
-//	cout << "WorkedCall::findCall: NOT FOUND: " << workedCall  << endl;
+//	qDebug() << "WorkedCall::findCall: NOT FOUND: " << workedCall  << endl;
 	return 0;
 }

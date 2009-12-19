@@ -6,7 +6,7 @@ DXMap::DXMap( QWidget *parent ) : QWidget( parent ) {
    // to/from list is changed.
    setAttribute(Qt::WA_StaticContents);
    spotsToDisplay = SPOTS_TO_DISPLAY;
-   mapImage = QPixmap(":/images/map.png");
+   mapImage = QPixmap("/home/kdedevel/.klog/images/map.png");
    allSpots = FALSE;
    spotList = new DXSpotList;
    toSpots = new QStringList;
