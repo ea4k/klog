@@ -152,10 +152,12 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   }
   //showTip();	// TODO: We show a tip when KLog start
 //	dxcc.printWorkdStatus();
-//   DXMap *dxMap;
-//   dxMap = new DXMap(this);
-//   QLayout *dxMapLayout = dxMapTab->layout();
-//   dxMapLayout->addWidget(dxMap);
+#ifdef DXMAP
+   DXMap *dxMap;
+   dxMap = new DXMap(this);
+   QLayout *dxMapLayout = dxMapTab->layout();
+   dxMapLayout->addWidget(dxMap);
+#endif
 }
 
 Klog::~Klog(){
@@ -4068,7 +4070,39 @@ void Klog::slotClusterSocketReadyRead(){
         qDebug() << "DXCLUSTER->" << dxClusterString << "TOKENS" << tokens;
         if ((tokens[0] == "DX") && (tokens[1] == "de")){
             // Plot the spot
-//            dxMap->plotSpot(tokens[2], tokens[3], tokens[4]);
+            #ifdef DXMAP
+            // This is to remove the colon (:) from the end of the callsign
+            QString spotter = tokens[2];
+            spotter.truncate(spotter.size() - 1);
+
+   QStringList dxList;
+   QString loggingCountry, spotCountry;
+   int entityNumber, distance, n;
+   Entity spotEntity;
+   Entity loggingEntity;
+
+   //qDebug() << "DXSPOT->" << dxSpotter << dxFrequency << dxCall;
+   // Get logging entity location
+   entityNumber = world.findEntity(tokens[2].toUpper());
+   qDebug() << "DXSPOT1->" << entityNumber <<  loggingCountry;
+   loggingEntity = world.getEntByNumb(entityNumber);
+   loggingCountry = loggingEntity.getEntity();
+   qDebug() << "DXSPOT2->" << entityNumber <<  loggingCountry;
+   // Get the spotted entity location
+   entityNumber = world.findEntity(tokens[4].toUpper());
+   spotEntity = world.getEntByNumb(entityNumber);
+   spotCountry = spotEntity.getEntity();
+   qreal frequency = tokens[3].toDouble();
+   qDebug() << "DXSPOT3->" << entityNumber  << spotCountry;
+
+   // Update the dxline list with this spot
+   DxSpot entry = DxSpot(tokens[2], tokens[4], spotCountry, loggingCountry, spotEntity.getLat(), spotEntity.getLon(), loggingEntity.getLat(), loggingEntity.getLon(), frequency);
+
+
+            qDebug() << tokens[2] << spotter << world.findEntity(spotter);
+          //  dxMap->plotSpot(entry);
+            dxMap->plot();
+            #endif
             if ( (!dxClusterHFSpots) && (adif.isHF(adif.KHz2MHz(tokens[3])))){ //Check the freq
                 return;
             }

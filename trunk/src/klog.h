@@ -88,7 +88,12 @@
 #include "award.h"
 #include "reference.h"
 #include "cabrillomanagement.h"
-//#include "dxmap.h"
+
+// To use the dxmap just uncomment out the define tag below. It will activate all relevant code. Still broken though.
+//#define DXMAP 1
+#ifdef DXMAP
+#include "dxmap.h"
+#endif
 
 using namespace std;
 
@@ -242,7 +247,9 @@ class Klog : public QMainWindow, private Ui::klog
 
 
     // Awards supported by KLog
-//    DXMap *dxMap;
+#ifdef DXMAP
+    DXMap *dxMap;
+#endif
     Adif adif;
     AwardDXCC dxcc;
     AwardWAZ waz;
