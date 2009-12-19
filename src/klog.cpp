@@ -329,7 +329,7 @@ QString Klog::getThisQSODXLocator (){
 }
 
 int Klog::getEntityFromCall(){ // We return the Entity number from the QRZ box call.
- qDebug() << "KLog::getEntityFromCall: " <<  QString::number(world.findEntity((qrzLineEdit->text()).toUpper()));
+ //qDebug() << "KLog::getEntityFromCall: " <<  QString::number(world.findEntity((qrzLineEdit->text()).toUpper()));
     return world.findEntity((qrzLineEdit->text()).toUpper());
 }
 
@@ -1704,7 +1704,8 @@ Qso Klog::getByNumber(const int n){
             return (*iter);
         }
     }
-    //Entity not found
+    //Qso not found
+    iter = logbook.end();
     return (*iter);
 }
 
@@ -3409,43 +3410,37 @@ void Klog::slotQsoDelete(){
     Klog::LogBook::iterator iter;
     for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
       if ( j == (*iter).getNumb() ) {
-   QMessageBox msgBox;
-   msgBox.setText(i18n("Warning - QSO Deletion"));
-   QString str = i18n("Do you want to delete the QSO with:\n%1 of %2 ?", (*iter).getQrz(), (*iter).getDateTime().toString("yyyy-MM-dd"));
-   msgBox.setInformativeText(str);
-   msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-   msgBox.setDefaultButton(QMessageBox::No);
-   int ret = msgBox.exec();
+	QMessageBox msgBox;
+	msgBox.setText(i18n("Warning - QSO Deletion"));
+	QString str = i18n("Do you want to delete the QSO with:\n%1 of %2 ?", (*iter).getQrz(), (*iter).getDateTime().toString("yyyy-MM-dd"));
+	msgBox.setInformativeText(str);
+	msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+	msgBox.setDefaultButton(QMessageBox::No);
+	int ret = msgBox.exec();
 
-   switch(ret){
-     case QMessageBox::Yes:
-//       qDebug() << "KLog::slotQsoDelete: YES" << endl;
-               /*                        dxcc.notWorked(world.findEntity((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));
-                        waz.notWorked(world.getCqzFromCall((*iter).getQrz().toUpper()), adif.band2Int((*iter).getBand()), adif.mode2Int((*iter).getMode()));*/
-               //  						if ((*iter).gotTheQSL()){
-               //  							Klog::confirmed--;  //To decrease the showed number
-               //  						}
-               // If there is only one entry in the log then you want to delete it the it's easier to create a new log.
-       if ( Klog::j == 1 ) {
-         fileNew();
-       } else {
-         logbook.erase(iter);
-         Klog::number--;  //To decrease the showed number
-	 needToSave = true;
-       }
-       slotClearBtn();
-       showLogList();
-       readAwardsStatus();
-       showAwardsNumbers();
-       return;
-     break;
-     case QMessageBox::No:
-     break;
-     default: // just for sanity
-       return;
-     break;
-   }
-
+	switch(ret){
+	  case QMessageBox::Yes:
+	    if (logbook.isEmpty()){return;}
+	    if ( logbook.count() == 1 ) {
+	    //if (( Klog::j == 1 ) && (true )) {
+	      fileNew();
+	    } else {
+	      logbook.erase(iter);
+	      Klog::number--;  //To decrease the showed number
+	      needToSave = true;
+	    }
+	    slotClearBtn();
+	    showLogList();
+	    readAwardsStatus();
+	    showAwardsNumbers();
+	    return;
+	  break;
+	  case QMessageBox::No:
+	  break;
+	  default: // just for sanity
+	    return;
+	  break;
+	}
       }
     }
   }
@@ -3477,43 +3472,27 @@ void Klog::showLogList(){
   if (logbook.isEmpty()){	// if no QSOs, we do not show the log ;-)
     return;
   }
-
-//  while (logbook.
-
-
-  /*QList<Qso>::const_iterator it;
- for (i = list.constBegin(); i != list.constEnd(); ++i)
-     qDebug() << *i << endl;*/
-
-/*  for (int i = 0; i < 10; ++i)
-     items.append(new QTreeWidgetItem((QTreeWidget*)0, QStringList(QString("item: %1").arg(i))));*/
-
   QList<QTreeWidgetItem *> items;
-
+  
   logTreeWidget->clear();	// Clear the log
 
-//  logTreeWidget->insertTopLevelItems(0, items);
-
-//Here I am trying to show the log in the qtreewidget in an efficient way
-
-
-    Klog::LogBook::iterator it;
-    //TODO: CALLS COULD BE IN COLORS TO SHOW IF WORKED/NEEDED, ...
-    // re-implementation using paintcell as in cluster is needed to do so
-    for ( it = logbook.begin(); it != logbook.end(); ++it ){
-        QTreeWidgetItem * item = new QTreeWidgetItem( logTreeWidget, 0 );
-        // item->setText( 0, QString::number((*it).getNumb()) );
-        item->setText( 0, getNumberString((*it).getNumb())  );
-        item->setText( 1, (*it).getDateTime().toString("yyyy-MM-dd") );
-        item->setText( 2, (*it).getDateTime().toString("hh:mm") );
-        item->setText( 3, (*it).getQrz().toUpper() );
-        item->setText( 4, QString::number((*it).getRsttx()) );
-        item->setText( 5, QString::number((*it).getRstrx()) );
-        item->setText( 6, (*it).getBand() );
-        item->setText( 7, (*it).getMode() );
-        item->setText( 8, (*it).getPower() );
-        item->setText( 9, (*it).getComment() );
-    }
+  Klog::LogBook::iterator it;
+  //TODO: CALLS COULD BE IN COLORS TO SHOW IF WORKED/NEEDED, ...
+  // re-implementation using paintcell as in cluster is needed to do so
+  for ( it = logbook.begin(); it != logbook.end(); ++it ){
+    QTreeWidgetItem * item = new QTreeWidgetItem( logTreeWidget, 0 );
+    // item->setText( 0, QString::number((*it).getNumb()) );
+    item->setText( 0, getNumberString((*it).getNumb())  );
+    item->setText( 1, (*it).getDateTime().toString("yyyy-MM-dd") );
+    item->setText( 2, (*it).getDateTime().toString("hh:mm") );
+    item->setText( 3, (*it).getQrz().toUpper() );
+    item->setText( 4, QString::number((*it).getRsttx()) );
+    item->setText( 5, QString::number((*it).getRstrx()) );
+    item->setText( 6, (*it).getBand() );
+    item->setText( 7, (*it).getMode() );
+    item->setText( 8, (*it).getPower() );
+    item->setText( 9, (*it).getComment() );
+  }
 }
 
 QString Klog::getNumberString(const int intNumber){
@@ -3551,9 +3530,8 @@ QString Klog::getNumberString(const int intNumber){
 
 void Klog::slotLogQSOSelectionChanged(){
 // Grabs the selection in the log, activates the QSL button actions and QSO deletion
-//qDebug() << "KLog::slotLogQSOSelectionChanged: ";
+//qDebug() << "KLog::slotLogQSOSelectionChanged: " << QString::number(((logTreeWidget->currentItem())->text(0)).toInt()) << endl;
 
-  qsoSelected = getByNumber(((logTreeWidget->currentItem())->text(0)).toInt());
   qsoSelectedBool = true;
   ActionQsoDelete->setEnabled(true);
 //  qDebug() << "KLog::slotLogQSOSelectionChanged: " << qsoSelected.getQrz() << endl;
@@ -3617,6 +3595,7 @@ void Klog::slotQSLRec(){
 // 	}
  // int i	= -1;
   qslRec = QDate::currentDate();
+  
 
   if (modify){
     if (!qso.gotTheQSL()){
@@ -4735,7 +4714,7 @@ void Klog::clearGUI(){
 }
 
 void Klog::slotcompleteThePreviouslyWorked(){
-//cout << "KLog::slotcompleteThePreviouslyWorked" << endl;
+//qDebug() << "KLog::slotcompleteThePreviouslyWorked" << endl;
     Qso _previousQso;
     int _aa; //auxiliar just for this
     QString _aux;
@@ -4755,22 +4734,17 @@ void Klog::slotcompleteThePreviouslyWorked(){
     Klog::LogBook::iterator _itEnd = logbook.end();
     Klog::LogBook::iterator _it2;
 
-
     for ( _it1 = logbook.begin(); _it1 != _itEnd; ++_it1 ){
         _i++;
 
         _aa = workedCall.findCall((*_it1).getQrz());
-
-        if (_aa>=0){ // Call already worked, completing...
+        if (_aa>0){ // Call already worked, completing...
             //(*_it2) = getByNumber(_aa);
 
             _previousQso = getByNumber(_aa);
-
             for ( _it2 = logbook.begin(); _it2 != _itEnd; ++_it2 ){
                 if (_previousQso.getNumb() == (*_it2).getNumb()){
-
                     if( ( ((*_it2).getName()).isEmpty() ) && (!(((*_it1).getName()).isEmpty()) ) ){
-
                        QMessageBox msgBox;
                        msgBox.setText(i18n("Warning: Callsign to complete found"));
                        QString str = i18n("Completing a call could cause data to be no accurate. Do you want this data to be merged?\n QSO N: #")

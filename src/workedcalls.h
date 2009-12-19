@@ -27,6 +27,7 @@
 #include <QList>
 #include <QString>
 #include <QMap>
+#include <QDebug>
 #include "calls.h"
 //TODO:
 /* IMPORTANT NOTE !!
