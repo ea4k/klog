@@ -1,5 +1,6 @@
 date - 0.5
-- Migrated to Qt4
+- Migrated to Qt4.
+- Updated translations: SV by SM4ABE, DE by DL5PD.
 
 April-2009 0.4.7
 - New feature: Import cabrillo logs.
