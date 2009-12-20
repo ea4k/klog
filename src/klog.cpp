@@ -109,6 +109,9 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   createKlogDir(); // if klogDir does not exist, we create it via slotKlogSetup
   readConf(); // read our data as myQrz, myLocator from ~/.klog/klogrc
 
+  
+  
+  
   if (hamlib){ // The user selected hamlib in the Setup
     //listHamlib();
     hamlibPossible = KlogHamlib.init();
@@ -142,6 +145,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   //(qsoDateTime->dateEdit())->setOrder(QDateEdit::DMY);
   //(QSLSentdateEdit)->setOrder(QDateEdit::DMY);
   //(QSLRecdateEdit)->setOrder(QDateEdit::DMY);
+  qso.setMyLocator(getMyLocator());
   slotQrzChanged();
   slotModeChanged(0); //SSB = 0, the default mode
   needToSave = false; // Initialized here to avoid needing to save just after the start
@@ -2149,7 +2153,7 @@ void Klog::slotQSLcomboBoxChanged(){
 
 // The next slots run/shows the setup dialog to setup KLog
  void Klog::slotPreferences(){
-   //qDebgug() << "KLog::slotPreferences";
+   //qDebug() << "KLog::slotPreferences";
      Setup setupDialog;
      setupDialog.exec();
      readConf();
@@ -2385,13 +2389,13 @@ QString Klog::getMyQrz() const{
 }
 
 void Klog::setMyLocator(const QString &tlocator){
-//qDebug() << "KLog::setMyLocator";
+//qDebug() << "KLog::setMyLocator: " << tlocator;
     if (locator.isValidLocator(tlocator.toUpper() ))
         myLocator = tlocator;
 }
 
 QString Klog::getMyLocator() const{
-//cout << "KLog::getMyLocator" << endl;
+//qDebug() << "KLog::getMyLocator" << myLocator << endl;
     return myLocator;
 }
 
@@ -2410,13 +2414,13 @@ void Klog::showWhere(const int enti){
         // If the QSO has a locator and it is valid, calculation is more exact!
         if (locator.isValidLocator((locatorLineEdit->text()).toUpper())){
         // The following code is copy&pasted from "slotLocatorChanged"
-    //qDebug() <<  "KLog::showWhere - locator valid: (" << (locatorLineEdit->text()).toUpper()<< ")";
+  //  qDebug() <<  "KLog::showWhere - locator valid: (" << (locatorLineEdit->text()).toUpper()<< ")" ;
             dxLocator = (locatorLineEdit->text()).toUpper();
-
+//qDebug() <<  "KLog::showWhere - locator valid. Calling to getDistance.";
             Klog::distance = locator.getDistance(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), locator.getLon(dxLocator), locator.getLat(dxLocator), true);
             beam = locator.getBeam(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), locator.getLon(dxLocator), locator.getLat(dxLocator));
         }else{
-      //qDebug() <<  "KLog::showWhere - locator NOT valid: (" << qso.getMyLocator() << ")";
+    //  qDebug() <<  "KLog::showWhere - locator NOT valid: (" << qso.getMyLocator() << "), calling to getDistance with the cty.dat information.";
             Klog::distance = locator.getDistance(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), (world.getEntByNumb(enti)).getLon(), (world.getEntByNumb(enti)).getLat(), true);
             beam = locator.getBeam(locator.getLon(qso.getMyLocator()), locator.getLat(qso.getMyLocator()), (world.getEntByNumb(enti)).getLon(), (world.getEntByNumb(enti)).getLat());
         }
@@ -3626,7 +3630,7 @@ void Klog::slotQSLRec(){
 	  qsoSelectedBool = false;
 	  dxcc.confirmedString(world.findEntity( (*iter).getQrz() ), ((*iter).getBand()).toUpper() ,  ((*iter).getMode()).toUpper());
 	  waz.confirmedString(world.getCQzFromEntity(world.findEntity( (*iter).getQrz() )), (*iter).getBand(),(*iter).getMode());
-	  int a = waz.howManyConfirmed();
+	  //int a = waz.howManyConfirmed();
 	}
       }
     }else if (qsoSearchSelectedBool){
@@ -3641,7 +3645,7 @@ void Klog::slotQSLRec(){
 	  qsoSearchSelectedBool = false;
 	  dxcc.confirmedString(world.findEntity( (*iter).getQrz() ), ((*iter).getBand()).toUpper() ,  ((*iter).getMode()).toUpper());
 	  waz.confirmedString(world.getCQzFromEntity(world.findEntity( (*iter).getQrz() )), (*iter).getBand(),(*iter).getMode());
-	  int a = waz.howManyConfirmed();
+	  //int a = waz.howManyConfirmed();
 	}
       }      
     }
@@ -3881,7 +3885,7 @@ void Klog::filePrint(){
    QPrinter printer;
    QString pageToPrint;
    int qsoPerPage = 25;
-   int maxPages = (int)(Klog::number / qsoPerPage)+1; // To print just 10 QSO per page
+   //int maxPages = (int)(Klog::number / qsoPerPage)+1; // To print just 10 QSO per page
    int printedSoFar = 0;
    int page = 1;
 
@@ -3914,11 +3918,11 @@ void Klog::filePrint(){
    int row = 100;
    while (it != logbook.end()){
       if (printedSoFar == qsoPerPage) {
-         page++;
          if (! printer.newPage()) {
             qWarning("Could not create a new page, disk full?");
             return ;
          }
+	 page++;
          headerRight = QString(i18n("Page: %1")).arg(page);
          painter.drawText(500, 20, headerLeft + " --- " + headerMid + " --- " + headerRight);
          painter.drawText(100, 50, headerLog);
@@ -4050,6 +4054,7 @@ void Klog::slotClusterSendToServer(){
 }
 
 void Klog::slotClusterSocketReadyRead(){
+// qDebug() << "Klog::slotClusterSocketReadyRead()" << endl;
 // read from the server
 // The while could block the flow of the program?
 // ATENTION: The Cluster freq is in KHz and KLog works in MHz!
@@ -4067,7 +4072,7 @@ void Klog::slotClusterSocketReadyRead(){
         //0 = DX, 1 = de, 2 = spotter, 3 = Freq, 4 = dxcall, 5 = comment
         //tokens[0] = tokens[0].simplified(); // we remove the spaces just in case it is a freq
 
-        qDebug() << "DXCLUSTER->" << dxClusterString << "TOKENS" << tokens;
+// qDebug() << "Klog::slotClusterSocketReadyRead()" << "DXCLUSTER->" << dxClusterString << "TOKENS" << tokens;
         if ((tokens[0] == "DX") && (tokens[1] == "de")){
             // Plot the spot
             #ifdef DXMAP
@@ -4084,22 +4089,22 @@ void Klog::slotClusterSocketReadyRead(){
    //qDebug() << "DXSPOT->" << dxSpotter << dxFrequency << dxCall;
    // Get logging entity location
    entityNumber = world.findEntity(tokens[2].toUpper());
-   qDebug() << "DXSPOT1->" << entityNumber <<  loggingCountry;
+// qDebug() << "Klog::slotClusterSocketReadyRead()"<< "DXSPOT1->" << entityNumber <<  loggingCountry;
    loggingEntity = world.getEntByNumb(entityNumber);
    loggingCountry = loggingEntity.getEntity();
-   qDebug() << "DXSPOT2->" << entityNumber <<  loggingCountry;
+// qDebug() << "Klog::slotClusterSocketReadyRead()"<< "DXSPOT2->" << entityNumber <<  loggingCountry;
    // Get the spotted entity location
    entityNumber = world.findEntity(tokens[4].toUpper());
    spotEntity = world.getEntByNumb(entityNumber);
    spotCountry = spotEntity.getEntity();
    qreal frequency = tokens[3].toDouble();
-   qDebug() << "DXSPOT3->" << entityNumber  << spotCountry;
+// qDebug() << "Klog::slotClusterSocketReadyRead()" << "DXSPOT3->" << entityNumber  << spotCountry;
 
    // Update the dxline list with this spot
    DxSpot entry = DxSpot(tokens[2], tokens[4], spotCountry, loggingCountry, spotEntity.getLat(), spotEntity.getLon(), loggingEntity.getLat(), loggingEntity.getLon(), frequency);
 
 
-            qDebug() << tokens[2] << spotter << world.findEntity(spotter);
+//             qDebug() << tokens[2] << spotter << world.findEntity(spotter);
           //  dxMap->plotSpot(entry);
             dxMap->plot();
             #endif
@@ -4275,7 +4280,7 @@ void Klog::slotClusterSocketConnected(){
         if ( callsignText.length() > 2 && ok ) {
             os << callsignText << "\n";
         } else {
-            os << "Not logged on, you may to enter your callsign again." << "\n";
+            os << i18n("Not logged on, you may to enter your callsign again.") << "\n";
         }
     }
 }
