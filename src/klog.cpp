@@ -351,8 +351,10 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
 
     if (callLen == 0){ //TODO: Maybe the above check of length is not really needed (20090926-EA4TV)
         callLenPrev = callLen; // just to avoid a no end loop
-        slotCancelSearchButton(); //TODO: It is not nice that the search box is deleted because we change the QSO edited.
+	if (modify){
+	  slotCancelSearchButton(); //TODO: It is not nice that the search box is deleted because we change the QSO edited.
 				  // Think something to keep the search while working with searches :-)
+	}
         slotClearBtn();
         return;
     } else if((callLen != 0) && (!modify)){ // Updating the searchQrzklineEdit if we are not modifying a QSO.
