@@ -351,7 +351,8 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
 
     if (callLen == 0){ //TODO: Maybe the above check of length is not really needed (20090926-EA4TV)
         callLenPrev = callLen; // just to avoid a no end loop
-        slotCancelSearchButton();
+        slotCancelSearchButton(); //TODO: It is not nice that the search box is deleted because we change the QSO edited.
+				  // Think something to keep the search while working with searches :-)
         slotClearBtn();
         return;
     } else if((callLen != 0) && (!modify)){ // Updating the searchQrzklineEdit if we are not modifying a QSO.
@@ -578,23 +579,23 @@ void Klog::slotOkBtn(){
       //addToPreviouslyWorked(qso.getQrz());
       kk = workedCall.addCall(qso.getQrz(), qso.getNumb());
       if (enti != 0){
-   dxcc.worked(enti,bandComboBox->currentIndex(),modeComboBox->currentIndex());
-   waz.worked( world.getCqzFromCall(qso.getQrz()) ,bandComboBox->currentIndex(),modeComboBox->currentIndex());
-   if (qso.gotTheQSL()){
-     dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
-          waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
-   }
+	dxcc.worked(enti,bandComboBox->currentIndex(),modeComboBox->currentIndex());
+	waz.worked( world.getCqzFromCall(qso.getQrz()) ,bandComboBox->currentIndex(),modeComboBox->currentIndex());
+	if (qso.gotTheQSL()){
+	  dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+	  waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+	}
       }
-    } else { // We are not ADDING but modifying a QSO.
+    }else{ // We are not ADDING but modifying a QSO.
       number--;
       modifyQso();
     }
    showQso();
-  } else { number--; }//Closes the empty call check
-    slotClearBtn();
-    showLogList();
-    readAwardsStatus();
-    showAwardsNumbers(); //Needed?
+  }else{ number--; }//Closes the empty call check
+  slotClearBtn();
+  showLogList();
+  readAwardsStatus();
+  showAwardsNumbers(); //Needed?
 }
 
 
@@ -1967,10 +1968,10 @@ void Klog::readQso(){ //Just read the values an fill the qso
     if (!modify){
       slotQslRecvBoxChanged();
       slotQslSentBoxChanged();
-      if (qso.gotTheQSL()){
-    dxcc.confirmedString(enti, (qso.getBand()).toUpper(), (qso.getMode()).toUpper());
-    waz.confirmedString(world.getCqzFromCall(qso.getQrz()) ,(qso.getBand()).toUpper(),(qso.getMode()).toUpper());
-      }	//TODO: If the QSO was QSL received and the user deleted, the dxxx&waz status should be updated
+//      if (qso.gotTheQSL()){
+//    dxcc.confirmedString(enti, (qso.getBand()).toUpper(), (qso.getMode()).toUpper());
+//    waz.confirmedString(world.getCqzFromCall(qso.getQrz()) ,(qso.getBand()).toUpper(),(qso.getMode()).toUpper());
+//      }	//TODO: If the QSO was QSL received and the user deleted, the dxxx&waz status should be updated
     }
     slotIOTAChanged();
 
@@ -1997,10 +1998,10 @@ void Klog::readQso(){ //Just read the values an fill the qso
     if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
         qso.setMyLocator((myLocatorLineEdit->text()).toUpper());
     }else{
-    qso.setMyLocator(getMyLocator());
+      qso.setMyLocator(getMyLocator());
     }
 
-    if(qslVialineEdit->isEnabled())
+    if((qslVialineEdit->isEnabled()) && ((qslVialineEdit->text()).length() > 1))
         qso.setQslManager((qslVialineEdit->text()).toUpper());
 
     if ((QSLInfotextEdit->toPlainText()).length() > 0)
@@ -2028,78 +2029,79 @@ void Klog::modifyQso(){
 //qDebug() << "KLog::modifyQso: " << QString::number(Klog::j) << endl;
     Klog::LogBook::iterator iter;
     for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
-        if ( Klog::j == (*iter).getNumb() ){
-            (*iter).setQrz( (qrzLineEdit->text()).toUpper() );
-            (*iter).setDateTime(QDateTime(qsoDateEdit->date(), qsoTimeEdit->time() ) );
-            //(*iter).setDateTime(qsoDateTime->dateTime());
-            (*iter).setRstrx(rstrx);
-            (*iter).setRsttx(rsttx);
-            (*iter).setBand ((bandComboBox->currentText()).toUpper());
-            (*iter).setMode((modeComboBox->currentText()).toUpper());
-            (*iter).setPower((powerSpinBox->text()).toUpper());
-            (*iter).setQth((qthkLineEdit->text()).toUpper());
-            (*iter).setOperator((operatorLineEdit->text()).toUpper());
-            (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
-            if ((remarksTextEdit->toPlainText()).length() >0)
-                (*iter).setComment(remarksTextEdit->toPlainText());
-            if((namekLineEdit->text()).length() >= 2)
-                (*iter).setName((namekLineEdit->text()).toUpper());
-            if((qthkLineEdit->text()).length() >= 2)
-                (*iter).setQth((qthkLineEdit->text()).toUpper());
-            if((operatorLineEdit->text()).length() >= 3)
-                (*iter).setOperator((operatorLineEdit->text()).toUpper());
-            if((stationCallsignLineEdit->text()).length() >= 3)
-                (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
-            if ((iotaIntSpinBox->value() != 0)) // IOTA
-                (*iter).setIota(iota);
-            if ((awardsComboBox->currentIndex() != 0)){
-                award = awards.getAwardFor(world.getPrefix(qso.getQrz()));
-                if (award.getReferenceNumber(awardsComboBox->currentText())){
-                    (*iter).setLocalAward(awardsComboBox->currentText());
-                    (*iter).setLocalAwardNumber(award.getReferenceNumber(awardsComboBox->currentText()));
-                    //award.workReference(awardsComboBox->currentText(), true);
-                }
-            }
-            if (locator.isValidLocator((locatorLineEdit->text()).toUpper() ))
-                (*iter).setLocator( (locatorLineEdit->text()).toUpper() );
-            if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
-                (*iter).setMyLocator((myLocatorLineEdit->text()).toUpper());
-            }/*else if (locator.isValidLocator(getMyLocator())) {
-                (*iter).setMyLocator(getMyLocator());
-            }*/
-            if (QSLSentcheckBox->isChecked()){
-                qslSen = QSLSentdateEdit->date();
-                (*iter).QslSent('Y');
-                if (qslSen.isValid()){
-                    (*iter).setQslSenDateOn(qslSen);
-                }
-            } else {
-                (*iter).QslSent('N');
-            }
-            if (QSLReccheckBox->isChecked()){
-                qslRec = QSLRecdateEdit->date();
-                (*iter).QslRec('Y');
-                if (qslRec.isValid()){
-                    (*iter).setQslRecDateOn(qslRec);
-                }
-            } else {
-                (*iter).QslRec('N');
-            }
-
-// 	    =============
-// 	    if (qso.gotTheQSL() && (enti!=0)){
-// 	      dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
-// 	      waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
-// 	    }
-//
-// 	    ===========
-
-            if ((*iter).gotTheQSL() ){
-                dxcc.confirmedString(enti, ((*iter).getBand()).toUpper(), ((*iter).getMode()).toUpper());
-                waz.confirmedString( world.getCqzFromCall((*iter).getQrz()) ,((*iter).getBand()).toUpper(),((*iter).getMode()).toUpper());
-            }else{
-          (*iter).QslRec('N');
-        }
+        if ( Klog::j == (*iter).getNumb() ) {
+	  (*iter) = qso; //Optimization :-) Why shouldn't we reuse ;-)
+//             (*iter).setQrz( (qrzLineEdit->text()).toUpper() );
+//             (*iter).setDateTime(QDateTime(qsoDateEdit->date(), qsoTimeEdit->time() ) );
+//             //(*iter).setDateTime(qsoDateTime->dateTime());
+//             (*iter).setRstrx(rstrx);
+//             (*iter).setRsttx(rsttx);
+//             (*iter).setBand ((bandComboBox->currentText()).toUpper());
+//             (*iter).setMode((modeComboBox->currentText()).toUpper());
+//             (*iter).setPower((powerSpinBox->text()).toUpper());
+//             (*iter).setQth((qthkLineEdit->text()).toUpper());
+//             (*iter).setOperator((operatorLineEdit->text()).toUpper());
+//             (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
+//             if ((remarksTextEdit->toPlainText()).length() >0)
+//                 (*iter).setComment(remarksTextEdit->toPlainText());
+//             if((namekLineEdit->text()).length() >= 2)
+//                 (*iter).setName((namekLineEdit->text()).toUpper());
+//             if((qthkLineEdit->text()).length() >= 2)
+//                 (*iter).setQth((qthkLineEdit->text()).toUpper());
+//             if((operatorLineEdit->text()).length() >= 3)
+//                 (*iter).setOperator((operatorLineEdit->text()).toUpper());
+//             if((stationCallsignLineEdit->text()).length() >= 3)
+//                 (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
+//             if ((iotaIntSpinBox->value() != 0)) // IOTA
+//                 (*iter).setIota(iota);
+//             if ((awardsComboBox->currentIndex() != 0)){
+//                 award = awards.getAwardFor(world.getPrefix(qso.getQrz()));
+//                 if (award.getReferenceNumber(awardsComboBox->currentText())){
+//                     (*iter).setLocalAward(awardsComboBox->currentText());
+//                     (*iter).setLocalAwardNumber(award.getReferenceNumber(awardsComboBox->currentText()));
+//                     //award.workReference(awardsComboBox->currentText(), true);
+//                 }
+//             }
+//             if (locator.isValidLocator((locatorLineEdit->text()).toUpper() ))
+//                 (*iter).setLocator( (locatorLineEdit->text()).toUpper() );
+//             if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
+//                 (*iter).setMyLocator((myLocatorLineEdit->text()).toUpper());
+//             }/*else if (locator.isValidLocator(getMyLocator())) {
+//                 (*iter).setMyLocator(getMyLocator());
+//             }*/
+//             if (QSLSentcheckBox->isChecked()){
+//                 qslSen = QSLSentdateEdit->date();
+//                 (*iter).QslSent('Y');
+//                 if (qslSen.isValid()){
+//                     (*iter).setQslSenDateOn(qslSen);
+//                 }
+//             } else {
+//                 (*iter).QslSent('N');
+//             }
+//             if (QSLReccheckBox->isChecked()){
+//                 qslRec = QSLRecdateEdit->date();
+//                 (*iter).QslRec('Y');
+//                 if (qslRec.isValid()){
+//                     (*iter).setQslRecDateOn(qslRec);
+//                 }
+//             } else {
+//                 (*iter).QslRec('N');
+//             }
+// 
+// // 	    =============
+// // 	    if (qso.gotTheQSL() && (enti!=0)){
+// // 	      dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+// // 	      waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+// // 	    }
+// //
+// // 	    ===========
+// 
+//             if ((*iter).gotTheQSL() ){
+//                 dxcc.confirmedString(enti, ((*iter).getBand()).toUpper(), ((*iter).getMode()).toUpper());
+//                 waz.confirmedString( world.getCqzFromCall((*iter).getQrz()) ,((*iter).getBand()).toUpper(),((*iter).getMode()).toUpper());
+//             }else{
+//           (*iter).QslRec('N');
+//         }
         } else {
        //     (*iter).QslRec('N');
 //             if (dxcc.isConfirmed(enti)){
@@ -3647,7 +3649,8 @@ void Klog::slotQSLRec(){
 	  waz.confirmedString(world.getCQzFromEntity(world.findEntity( (*iter).getQrz() )), (*iter).getBand(),(*iter).getMode());
 	  //int a = waz.howManyConfirmed();
 	}
-      }      
+      }
+      slotSearchButton();
     }
   }
   logTreeWidget->clearSelection();
@@ -3709,6 +3712,7 @@ void Klog::slotQSLSent(){
 	  qsoSearchSelectedBool = false;
 	}
       }
+      slotSearchButton();
     }
   }
   logTreeWidget->clearSelection(); //The next 5 are always together (should we create a function?)
