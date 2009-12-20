@@ -45,7 +45,7 @@ bool Locator::isValidLocator(const QString& tlocator){
       returned value ==  0 Error.   (Invalid locator).
       Note: also string "END" is considered a valid locator, but returned value is -2.
    ------------------------------------------------- */
-//qDebug() << "Locator::isValidLocator: " << tlocator << endl;
+// qDebug() << "Locator::isValidLocator: " << tlocator << endl;
 
 	int lenght_of_locator;
 	testLocator ="A";
@@ -58,51 +58,63 @@ bool Locator::isValidLocator(const QString& tlocator){
 	}
 
 	if (lenght_of_locator != 6) { 
+// 	  qDebug() << "Locator::isValidLocator: " << tlocator << " NOT valid-1"<< endl;
 		return false;
 	}else{
 		theChar = testLocator.at(0);
 		if (!theChar.isLetter()){  //First letter is not a valid letter
+// 		  qDebug() << "Locator::isValidLocator: " << tlocator << " NOT valid-2"<< endl;
 			return false;
 		}
 		if ((theChar<'A') && (theChar>'R') ){  //First letter is not a valid letter
+// 		  qDebug() << "Locator::isValidLocator: " << tlocator << " NOT valid-3"<< endl;
 			return false;
 		}
 		theChar = testLocator.at(1);
 		if (!theChar.isLetter()){  //Second letter is not a valid letter
+// 		  qDebug() << "Locator::isValidLocator: " << tlocator << " NOT valid-4"<< endl;
 			return false;
 		}
 		if ((theChar<'A') && (theChar>'R') ){  //Second letter is not a valid letter
+// 		  qDebug() << "Locator::isValidLocator: " << tlocator << " NOT valid-5"<< endl;
 			return false;
 		}
 		theChar = testLocator.at(2);
 		if (!theChar.isDigit()){  //Second letter is not a number
+// 		  qDebug() << "Locator::isValidLocator: " << tlocator << " NOT valid-6"<< endl;
 			return false;
 		}
 		theChar = testLocator.at(3);
 		if (!theChar.isDigit()){  //Second letter is not a number
+// 		  qDebug() << "Locator::isValidLocator: " << tlocator << " NOT valid-7"<< endl;
 			return false;
 		}
 		theChar = testLocator.at(4);
 		if (!theChar.isLetter()){  //First letter is not a valid letter
+// 		  qDebug() << "Locator::isValidLocator: " << tlocator << " NOT valid-8"<< endl;
 			return false;
 		}
 		if ((theChar<'A') && (theChar>'X') ){  //First letter is not a valid letter
+// 		  qDebug() << "Locator::isValidLocator: " << tlocator << " NOT valid-9"<< endl;
 			return false;
 		}
 		theChar = testLocator.at(5);
 		if (!theChar.isLetter()){  //Second letter is not a valid letter
+// 		  qDebug() << "Locator::isValidLocator: " << tlocator << " NOT valid-10"<< endl;
 			return false;
 		}
 		if ((theChar<'A') && (theChar>'X') ){  //Second letter is not a valid letter
+		  //qDebug() << "Locator::isValidLocator: " << tlocator << " NOT valid-11"<< endl;
 			return false;
 		}
 	}
+// 	qDebug() << "Locator::isValidLocator: " << tlocator << " IS valid!!"<< endl;
 	return true;
 }
 
 
 double Locator::getLat(const QString& tlocator){
-//qDebug() << "Locator::getLat: " << tlocator;
+// qDebug() << "Locator::getLat: " << tlocator;
   
 	if (isValidLocator(tlocator)){
 	    return (((tlocator.at(1)).toAscii() - 65) * 10) + ((tlocator.at(3)).toAscii() - 48) + (((tlocator.at(5)).toAscii() - 65 + 0.5) / 24) - 90;
@@ -112,7 +124,7 @@ double Locator::getLat(const QString& tlocator){
 }
 
 double Locator::getLon(const QString& tlocator){
-  //qDebug() << "Locator::getLon: " << tlocator;
+// qDebug() << "Locator::getLon: " << tlocator;
 
   if (isValidLocator(tlocator)){    
 //    qDebug() << "Locator::getLon-2: " << QString::number((((tlocator.at(0)).toAscii() - 65) * 20) + (((tlocator.at(2)).toAscii() - 48) * 2) + (((tlocator.at(4)).toAscii() - 65 + 0.5) / 12) - 180) << endl;    
@@ -167,8 +179,8 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
 
 int Locator::getDistance(const double lon1, const double lat1, const double lon2, const double lat2, const bool inKm){
   //http://en.wikipedia.org/wiki/Haversine_formula
-//qDebug() << "Locator::getDistanceKilometres: QSO1("<< QString::number(lon1) << "/"
-//<< QString::number(lat1)  << ") - QSO2(" << QString::number(lon2) << "/" << QString::number(lat2) << ")" << endl;
+// qDebug() << "Locator::getDistanceKilometres: MyPos("<< QString::number(lon1) << "/"
+// << QString::number(lat1)  << ") - DxPos(" << QString::number(lon2) << "/" << QString::number(lat2) << ")" << endl;
   double lo1,la1,lo2,la2;
 
 // TODO: Is it needed to check if the longitude and latitude are correct and/or between the magins?  
@@ -180,24 +192,15 @@ int Locator::getDistance(const double lon1, const double lat1, const double lon2
   lo2=lon2* DEG_TO_RAD;  
   la2=lat2* DEG_TO_RAD;
 
-  if (!inKm){
-  //qDebug() << "Locator::getDistanceKilometres2: " << QString::number((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) << endl;
+  if (inKm){
+  //qDebug() << "Locator::getDistance (Km): " << QString::number((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) << endl;
     return (int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS);
   }else{ // In milles
-    //qDebug() << "Locator::getDistanceKilometres2: " << QString::number(((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS))* 0.62137) << endl;
+    //qDebug() << "Locator::getDistance (Milles): " << QString::number(((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS))* 0.62137) << endl;
     return ((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) * 0.62137;
   }
-
-
 }
 
-// int Locator::getDistanceMilles(const double lon1, const double lat1, const double lon2, const double lat2){
-// //qDebug() << "Locator::getDistanceMilles" ;  
-// 
-// // A good way could be add a boolean variable to the getDistance to define if km or milles are requested.
-//   return  (int)(getDistanceKilometres(lon1, lat1, lon2, lat2)/1.609) ;
-// 
-// }
 
 bool Locator::checkCoords(const double lon1, const double lat1){
 //qDebug() << "Locator::checkCoords" ;

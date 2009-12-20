@@ -98,6 +98,7 @@ void Entity::setLon(double tlon){
 }
 
 double  Entity::getLon() const{
+//qDebug() << "Entity::getLon(): " << QString::number(lon) << endl;
     return lon;
 }
 
@@ -106,6 +107,7 @@ void Entity::setLat(double tlat){
 }
 
 double Entity::getLat() const{
+//qDebug() << "Entity::getLat(): " << QString::number(lat) << endl;
     return  lat;
 }
 
