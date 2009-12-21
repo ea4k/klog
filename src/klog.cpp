@@ -3086,7 +3086,7 @@ void Klog::slotAddLog(){
       return;
     }else{}
     /* TRANSLATORS: Replacing the locator used with (%1), the locator of the user. */
-   QString msgLocator = i18n("Enter the locator of the activity:\n(Leave it empty and press OK if the locator was (%1).",getMyLocator());
+   QString msgLocator = i18n("Enter the locator of the activity:\n(Leave it empty and press OK if the locator was %1).",getMyLocator());
     tempLocator="";
     tempLocator = QInputDialog::getText(this, i18n("KLog - Log Add"),
                                 msgLocator, QLineEdit::Normal, QDir::home().dirName(), &ok);
