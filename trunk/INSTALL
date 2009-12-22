@@ -12,7 +12,7 @@ distribution.
 
     mkdir build; cd build;
 
-4. Prepare the build files using cmake.
+4. Prepare the build files using cmake. Change the installation prefix if needed.
 
     cmake -DCMAKE_INSTALL_PREFIX=/usr ../src
 
@@ -28,3 +28,4 @@ distribution.
 
    su
    make install
+

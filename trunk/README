@@ -1,4 +1,5 @@
 This is my very first KDE program.
+
 The main reason of developing KLog is to learn how to use Qt and KDELibs and also
 to have a ham log program just as i like it to be. :-)
 
@@ -73,5 +74,6 @@ KLog includes many features:
 
   Exportability and importability:
     Imports your contest logs from TLF.
+    Imports your contest logs from Cabrillo.
     Adding a log file to the current one.
     
