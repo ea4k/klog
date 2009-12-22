@@ -177,7 +177,7 @@ Setup::readConf ()
           if (file.open (QIODevice::ReadOnly))
             {
               award.clearAward ();
-              award.readAwardHeaders (theData);
+              award.readAwardHeaders(theData);
               strings = award.getEntityPrefix ();	// Strings here includes the list of prefixes for the award that is being read.
               for (QStringList::Iterator it =
                prefixesOfAwards.begin ();
@@ -778,15 +778,15 @@ Setup::writeConf ()
     }
 
       QTreeWidgetItemIterator itl (awardTreeWidget);
-      while (*itl)
-    {
-      stream << "Award=" + (*itl)->text (3) << endl;
-    }
+       while (*itl){
+	stream << "Award=" + (*itl)->text (3) << endl;
+        ++itl;
+     }
 
 
 //              for ( ; itl.current(); ++itl ){
-//                      stream << "Award=" + (*itl)->text(3) << endl;
-//              }
+//                       stream << "Award=" + (*itl)->text(3) << endl;
+//               }
 
       stream << "HamLib=" + tmp << endl;
       stream << "RigName=" << rigname2rigid[comboBoxTrvList->
@@ -836,12 +836,12 @@ Setup::slotSearchAwardFilekPushButtonClicked ()
 {
 //qDebug()  << "Setup::slotSearchAwardFilekPushButton" << endl;
 
-  QString fileName = QFileDialog::getOpenFileName (this,
+  QString awardFileName = QFileDialog::getOpenFileName (this,
                            i18n ("Open a file"),
                            klogDir,
                            i18n("Award files (*.awa)"));
 
-  if (!fileName.isEmpty ())
+  if (!awardFileName.isEmpty ())
     {
       awardFilenamekLineEdit->setText (awardFileName);
     }
@@ -849,42 +849,31 @@ Setup::slotSearchAwardFilekPushButtonClicked ()
 
 
 void Setup::slotAddButtonClicked (){
-qDebug() << "Setup::slotAddButtonClicked" << endl;
+//qDebug() << "Setup::slotAddButtonClicked" << endl;
   awardFileName = awardFilenamekLineEdit->text ();
-  if (awardFileName.isEmpty ())
-    {
+QString auxString;
+  if (awardFileName.isEmpty ()){
       slotSearchAwardFilekPushButtonClicked ();
-    }
-  else
-    {
-      QFile file (awardFileName);
-      if (file.open (QIODevice::ReadOnly))
-    {
+  }else{
+    QFile file (awardFileName);
+    if (file.open (QIODevice::ReadOnly)){
       award.clearAward ();
       award.readAwardHeaders (awardFileName);
       strings = award.getEntityPrefix ();	// Strings here includes the list of prefixes for the award that is being read.
-
 //Check if the prefixes of the award to be checked are already added!
 // KLog can manage only ONE award per Entity
-
-      for (QStringList::Iterator it = prefixesOfAwards.begin ();
-           it != prefixesOfAwards.end (); ++it)
-        {
-          for (QStringList::Iterator ite = strings.begin ();
-           ite != strings.end (); ++ite)
-        {
-          if ((*it) == (*ite))
-            {
-              QMessageBox::about (this, i18n ("KLog Warning!"),
-                     i18n("Prefix from - %1 - the award: - %2 - repeated!\n"
-                       "KLog can only manage one award per prefix.\nThis award will not be included\nCheck your klogrc file and/or the award file and fix the problem.").
-                      arg (*it).arg (award.getAwardName ()));
-              return;
-            }
-        }
-        }
+    
+      for (QStringList::Iterator it = prefixesOfAwards.begin (); it != prefixesOfAwards.end (); ++it){
+	for (QStringList::Iterator ite = strings.begin (); ite != strings.end (); ++ite){
+          if ((*it) == (*ite)){
+	    auxString = i18n("Prefix from - %1 - the award: - %2 - repeated!\nKLog can only manage one award per prefix.\nThis award will not be included\nCheck your klogrc file and/or the award file and fix the problem.", (*it), award.getAwardName() );
+	    QMessageBox::about (this, i18n ("KLog Warning!"), auxString);
+	    return;
+	  }
+	}
+      }
       QTreeWidgetItem *item = new QTreeWidgetItem (awardTreeWidget, 0);
-      i = getLastAwardNumber ();
+      i = getLastAwardNumber();
       i++;
       item->setText (0, QString::number (i));
       item->setText (1, award.getAwardName ());
@@ -895,13 +884,10 @@ qDebug() << "Setup::slotAddButtonClicked" << endl;
 
 // I have ALL the prefixes passed for previous awards
       prefixesOfAwards = prefixesOfAwards + strings;
-    }
-      else
-    {
+    }else{
+      
       QMessageBox::about (this, i18n ("KLog Warning!"),
-                  i18n ("KLog can not open the file:-%1!\n"
-                  "That award will not be read.\nCheck your klogrc file and fix the problem.").
-                  arg (awardFileName));
+                  i18n ("KLog can not open the file:-%1!\nThat award will not be read.\nCheck your klogrc file and fix the problem.", awardFileName));
     }
 
     }
@@ -945,8 +931,8 @@ Setup::slotAddDxClusterPushButtonClicked ()
   while (!ok)
     {
       QString text = QInputDialog::getText (this,
-                        "KLog: Add a DXCluster server",
-                        "Add the address followed by the :port\nExample: eadx.net:23\nIf no port is specified, 41112 will be used by default.:",
+                        i18n("KLog: Add a DXCluster server"),
+                        i18n("Add the address followed by the :port\nExample: eadx.net:23\nIf no port is specified, 41112 will be used by default.:"),
                         QLineEdit::Normal, QString::null,
                         &ok);
       if (ok && !text.isEmpty ())
@@ -1065,17 +1051,21 @@ void Setup::slotAwardDelete() {
 }
 
 int Setup::getLastAwardNumber() {
+//qDebug()  << "Setup::getLastAwardNumber"  << endl;
   awardN = 0;
+  
   QTreeWidgetItemIterator itl (awardTreeWidget);
-
-  while (*itl)
-    {
-      awardN = ((*itl)->text (0)).toInt ();
-    }
-//      for ( ; itl.current(); ++itl ){
-//              awardN = ((*itl)->text(0)).toInt();
-//              }
-  return awardN + 1;
+   
+  while (*itl){
+    awardN = ((*itl)->text (0)).toInt ();
+    ++itl;
+  }
+/*     for ( ; itl.current(); ++itl ){
+           
+              awardN = ((*itl)->text(0)).toInt();
+	
+    }*/
+  return awardN+1;
 }
 
 bool Setup::checkIfValidDXCluster (const QString & tdxcluster) {
