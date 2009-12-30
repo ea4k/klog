@@ -25,7 +25,7 @@
 
 #include <KDE/KLocale>
 #include <KDE/KIcon>
-#include <QDebug>
+//#include <QDebug>
 //#include <ostream.h>
 #include "setup.h"
 
@@ -45,8 +45,10 @@ Setup::Setup (QDialog * parent):QDialog (parent)
   awardFilekToolButton->setIcon(KIcon("document-open"));
   
   connect(awardFilekToolButton, SIGNAL(clicked()), this, SLOT(slotAddButtonClicked()));
-  
+//   connect(awardFilekToolButton, SIGNAL(clicked()), this, SLOT(slotAddButtonClicked()));
  // connect(searchFilekPushButton, SIGNAL(clicked()), this, SLOT(slotFileNameClicked()));
+//connect(awardTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotAwardRightButtonFromList(QTreeWidgetItem * item)));
+connect(awardTreeWidget, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(showMenuRightButton( const QPoint& ) ) );
 
   ///////////////////////////////////////////////////////////////////////////////
   // Modifications by kike
@@ -189,15 +191,12 @@ Setup::readConf ()
                 {
                   QMessageBox::about (this,
                               i18n("KLog Warning!"),
-                              i18n("Prefix from - %1 - the award: - %2 - is repeated!\nKLog can only manage one award per prefix.\nThis award will not be included\n" \
-                                   "Check your klogrc file and/or the award file and fix the problem.").
-                              arg (*it).arg (award.getAwardName()));
+                              i18n("Prefix from - %1 - the award: - %2 - is repeated!\nKLog can only manage one award per prefix.\nThis award will not be included\nCheck your klogrc file and/or the award file and fix the problem.",(*it), award.getAwardName()));
                   return;
                 }
                 }
             }
-              QTreeWidgetItem *item =
-            new QTreeWidgetItem (awardTreeWidget, 0);
+              QTreeWidgetItem *item = new QTreeWidgetItem (awardTreeWidget, 0);
               awardN++;
               item->setText (0, QString::number (awardN));
               item->setText (1, award.getAwardName ());
@@ -904,22 +903,27 @@ Setup::slotAwardClearButtonClicked (){
 
 void
 Setup::slotAwardRemoveButtonClicked (){
-  //qDebug()  << "Setup::slotAwardRemoveButtonClicked" << endl;
-  awardFileName = awardFilenamekLineEdit->text ();
-  if (awardFileName.isEmpty ())
-    {
+//qDebug()  << "Setup::slotAwardRemoveButtonClicked" << endl;
 
-    }
-  else
-    {
-      if (awardToDelete != -1)
-    {
-      // Before calling to delete we have to prepare it all
-      slotAwardDelete ();
-    }
+  QMessageBox msgBox;
+  msgBox.setText(i18n("KLog message:"));
+  QString str = i18n("This function has still not been implemented.\nRemove the appropriate \"Award=file.awa\" line from the ~/.klog/klogrc file.\n\n");
+  msgBox.setInformativeText(str);
+  msgBox.setStandardButtons(QMessageBox::Ok);
+  msgBox.setDefaultButton(QMessageBox::Ok);
+  msgBox.setIcon(QMessageBox::Warning);
+  msgBox.exec();
 
-    }
 
+
+//   awardFileName = awardFilenamekLineEdit->text ();
+//   if (awardFileName.isEmpty ()){
+//   }else{
+//     if (awardToDelete != -1){
+//       // Before calling to delete we have to prepare it all
+//       slotAwardDelete ();
+//     }
+//   }
 }
 
 void
@@ -967,8 +971,7 @@ Setup::slotAddDxClusterPushButtonClicked ()
 }
 
 void
-Setup::slotClearDxClusterPushButtonClicked ()
-{
+Setup::slotClearDxClusterPushButtonClicked (){
   //qDebug()  << "Setup::slotClearDxClusterPushButtonClicked()" << endl;
 /*
 
@@ -982,30 +985,61 @@ Setup::slotClearDxClusterPushButtonClicked ()
 
 }
 
-//TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton option to edit/remove
-// void Setup::slotAwardRightButtonFromList(QTreeWidgetItem * item, const QPoint &p){
-//      //qDebug()  << "Setup::slotAwardRightButtonFromLog" << endl;
-//      if (item){
-//              Setup::i = (item->text(0)).toInt(); // i is the QSO number
-//              showMenuRightButton(item, p);
-//      }
-// }
-//
-// void Setup::showMenuRightButton(QTreeWidgetItem * item, const QPoint &p){
-//      //qDebug()  << "Setup::showMenuRightButton = " << item->text(1) << endl;
-//      Setup::editdeletePixMap = new QPixmap("editdelete.png");
-//      awardToDelete = ((item)->text(0)).toInt();
-//      KMenu *awardMenu = new KMenu( this );
-//      awardMenu->insertItem( *editdeletePixMap, i18n("Delete"), this, SLOT( slotAwardDelete() ),  QKeySequence(Qt::CTRL + Qt::Key_D));
-//      awardMenu->insertSeparator();
-//      awardMenu->exec(p);
-// }
+//TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton option to edit/remove            
+void Setup::slotAwardRightButtonFromList(QTreeWidgetItem * item){
+//qDebug()  << "Setup::slotAwardRightButtonFromLog" << endl;
+   if (item){
+     Setup::i = (item->text(0)).toInt(); // i is the QSO number
+     slotAwardSelected(item);
+     awardToDelete = ((item)->text(0)).toInt();
+//     showMenuRightButton(item, p);
+   }
+}
+
+void Setup::showMenuRightButton(const QPoint &p){
+//qDebug()  << "Setup::showMenuRightButton" << endl;
+/*  Setup::editdeletePixMap = new QPixmap("editdelete.png");
+  awardToDelete = ((item)->text(0)).toInt();
+  KMenu *awardMenu = new KMenu( this );
+  awardMenu->insertItem( *editdeletePixMap, i18n("Delete"), this, SLOT( slotAwardDelete() ),  QKeySequence(Qt::CTRL + Qt::Key_D));
+  awardMenu->insertSeparator();
+  awardMenu->exec(p);
+  */
+  QTreeWidgetItem *item = awardTreeWidget->itemAt(p);
+  QMenu menu(this);
+  delAWAAct = new QAction(i18n("&Delete"), this);
+  
+  if (item){
+  //  qDebug()  << "Setup::showMenuRightButton = " << item->text(1) << endl;
+    awardToDelete = ((item)->text(0)).toInt();
+    //showMenuRightButton(awardToDelete);
+    if (awardToDelete >0){
+      
+     //newAct->setShortcuts(QKeySequence::New);
+    //  delAWAAct->setStatusTip(i18n("Delete a QSO"));
+      connect(delAWAAct, SIGNAL(triggered()), this, SLOT(slotAwardDelete()));
+
+      
+      menu.addAction(delAWAAct);
+      //menu.addSeparator();
+      menu.exec(QCursor::pos());
+      
+    }else{
+      return;
+    }
+  }else{
+    //qDebug()  << "Setup::showMenuRightButton NO Item selected" << endl;
+    return;
+  }
+  
+  
+}
 
 void Setup::slotAwardSelected (QTreeWidgetItem * item) {
 //void Setup::slotAwardSelected(QTreeWidgetItem* item){
-  //qDebug()  << "Setup::slotAwardSelected" << endl;
+//qDebug()  << "Setup::slotAwardSelected: " << klogDir << "/" << (item->text (3)) << endl;
   awardFilenamekLineEdit->setText (klogDir + "/" + (item->text (3)));
-  awardToDelete = ((item)->text (0)).toInt ();
+  awardToDelete = ((item)->text (0)).toInt();
 }
 
 
@@ -1013,41 +1047,43 @@ void Setup::slotAwardSelected (QTreeWidgetItem * item) {
 void Setup::slotAwardDelete() {
   //qDebug()  << "Setup::slotAwardDelete: " << QString::number(awardToDelete) << endl;
   QMessageBox::about (this, i18n ("KLog Warning!"),
-              i18n
-              ("This function is still not implemented.\nTo erase an award, delete the appropriate line of your klogrc file."));
+              i18n ("This function is still not implemented.\nTo erase an award, delete the appropriate line of your klogrc file."));
 
 /*
 
-        QTreeWidgetItemIterator itl( awardTreeWidget );
-    QStringList::iterator ita;
-    QStringList::iterator itb;
+  QTreeWidgetItemIterator itl( awardTreeWidget );
+  QStringList::iterator ita;
+  QStringList::iterator itb;
     //QStringList::iterator itc;
 
-    QString auxString;
-    QString firstPrefix;
-    int numberOfPrefixes;
-    QStringList auxPrefixesOfAwards;
-    auxPrefixesOfAwards.clear();
+  QString auxString;
+  QString firstPrefix;
+  int numberOfPrefixes;
+  QStringList auxPrefixesOfAwards;
+  auxPrefixesOfAwards.clear();
+  int _ii=1;
 
-    for ( ; itl.current(); ++itl ){
-        if ((((*itl)->text(0)).toInt()) == awardToDelete){
-            auxPrefixesOfAwards = QStringList::split( ", ",  ((*itl)->text(2)));
-                        awardTreeWidget->takeItem(*itl);
-        }
-
-        for ( itb = auxPrefixesOfAwards.begin(); itb != auxPrefixesOfAwards.end(); ++itb  ){
-            for ( ita = prefixesOfAwards.begin(); ita != prefixesOfAwards.end(); ++ita){
-                if ((*ita)==(*itb)){
-                    prefixesOfAwards.remove(ita);
-                }
-
-            }
-
-        }
+  
+  while (*itl){
+ // for ( ; itl.current(); ++itl ){
+    if ((((*itl)->text(0)).toInt()) == awardToDelete){
+      auxPrefixesOfAwards = ((*itl)->text(2)).split(", ");
+      //auxPrefixesOfAwards = QStringList::split( ", ",  ((*itl)->text(2)));
+      awardTreeWidget->takeTopLevelItem(awardToDelete);
+      //awardTreeWidget->takeItem(*itl);
     }
-    awardToDelete = -1;
-
-*/
+    for ( itb = auxPrefixesOfAwards.begin(); itb != auxPrefixesOfAwards.end(); ++itb  ){
+      for ( ita = prefixesOfAwards.begin(); ita != prefixesOfAwards.end(); ++ita){
+	if ((*ita)==(*itb)){	  
+	  prefixesOfAwards.removeAt(_ii);
+	  _ii++;
+	}
+      }
+    }
+    ++itl;
+  }
+  awardToDelete = -1;
+  */
 }
 
 int Setup::getLastAwardNumber() {

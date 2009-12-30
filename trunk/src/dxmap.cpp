@@ -1,5 +1,5 @@
 #include "dxmap.h"
-#include <QDebug>
+//#include <QDebug>
 
 DXMap::DXMap( QWidget *parent ) : QWidget( parent ) {
    // this is connected from the parent widget which will emit a signal whenever the
@@ -49,16 +49,16 @@ void DXMap::plotSpot(DxSpot spot){
   // QHash<int, DxSpot> rspots;
 //   rspots.insert(1, entry);
 //   dxSpotList->insert(1, entry);
-   qDebug() << "DXMAP2->";
+ //  qDebug() << "DXMAP2->";
 //   spotList.insert(0, entry);
 }
 
 void DXMap::plot(){
    QMap<int, QString> xxxx;
    xxxx.insert(++numberOfSpots, "entry");
-   qDebug() << "DXMAP2->";
+ //  qDebug() << "DXMAP2->";
    foreach(QString value, xxxx) {
-       qDebug() << value;
+     //  qDebug() << value;
    }
 }
 

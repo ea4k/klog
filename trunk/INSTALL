@@ -34,6 +34,7 @@ distribution.
   data/klog-contest-cabrillo-formats.txt	(to be able to import cabrillo files)
   awa/tpea.awa					(to be able to manage the TPEA award)
   awa/was.awa					(to be able to manage the WAS award)
+  http://www.country-files.com/cty/cty.dat	(to be able to identify the entities from the call)
 
 You can get more data files and updated ones from the KLog's homepage.
 
