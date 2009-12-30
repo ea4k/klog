@@ -29,3 +29,11 @@ distribution.
    su
    make install
 
+7. Once you have KLog installed, please copy the following files into your
+~/.klog directory:
+  data/klog-contest-cabrillo-formats.txt	(to be able to import cabrillo files)
+  awa/tpea.awa					(to be able to manage the TPEA award)
+  awa/was.awa					(to be able to manage the WAS award)
+
+You can get more data files and updated ones from the KLog's homepage.
+
