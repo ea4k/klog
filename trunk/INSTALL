@@ -8,28 +8,32 @@ with hamlib. This mean that you need the include files of hamlib:
 http://hamlib.sourceforge.net or install the hamlib-dev package of your
 distribution.
 
-3. Create a build fodler in the klog folder and change to this folder.
+3. Create a build folder in the klog folder and change to this folder.
 
     mkdir build; cd build;
 
 4. Prepare the build files using cmake. Change the installation prefix if needed.
 
-    cmake -DCMAKE_INSTALL_PREFIX=/usr ../src
+    cmake -DCMAKE_INSTALL_PREFIX=/usr ..
 
 5. Make everything.
 
-    make -k
+    make
 
 5.5 (JUST FOR INFORMATION)
 
-    You will find the klog executable in the "build" folder.
+    You will find the klog executable in the "build/src" folder.
 
 6. If you want, install the program as root.
 
    su
-   make install
+   make install (if you are not root, try: su -c 'make install' but you will need the root password!)
 
-7. Once you have KLog installed, please copy the following files into your
+7. To uninstall the project:
+
+   make uninstall (or su -c 'make uninstall')
+
+8. Once you have KLog installed, please copy the following files into your
 ~/.klog directory:
   data/klog-contest-cabrillo-formats.txt	(to be able to import cabrillo files)
   awa/tpea.awa					(to be able to manage the TPEA award)
@@ -37,4 +41,5 @@ distribution.
   http://www.country-files.com/cty/cty.dat	(to be able to identify the entities from the call)
 
 You can get more data files and updated ones from the KLog's homepage.
+
 
