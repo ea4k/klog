@@ -1584,8 +1584,6 @@ void Klog::showRighButtonLogMenu( const QPoint& pos ){
   }else{
     return;
   }
-
-
 }
 
 
@@ -1755,13 +1753,9 @@ void Klog::showQso(){
             qDebug() << item.at(0)->text(0);
             //item->setText( 0,  QString::number(Klog::j) );
             item[0]->setText( 0, getNumberString(Klog::j)  );
-            qDebug() << "MODIFYing IF!";
             item[0]->setText( 1, qso.getDateTime().toString("yyyy-MM-dd") );
-            qDebug() << "MODIFYing IF!";
             item[0]->setText( 2, qso.getDateTime().toString("hh:mm") );
-            qDebug() << "MODIFYing IF!";
             item[0]->setText( 3, qso.getQrz().toUpper() );
-            qDebug() << "MODIFYing IF!";
             item[0]->setText( 4, QString::number(qso.getRsttx()) );
             item[0]->setText( 5, QString::number(qso.getRstrx()) );
             item[0]->setText( 6, qso.getBand() );
@@ -2131,7 +2125,7 @@ void Klog::helpAbout() {
 */
 
   QString sAbout1 = i18n("KLog-%1 - The KDE Ham Radio Logging program", Klog::KLogVersion);
-  QString sAbout2 = i18n("KLog: %1 - The KDE Ham Radio Logging program\nYou can find the last version on http://jaime.robles.es/klog\n2002 - 2009 - Jaime Robles, EA4TV, jaime@robles.es", Klog::KLogVersion);
+  QString sAbout2 = i18n("KLog: %1 - The KDE Ham Radio Logging program\nYou can find the last version on http://jaime.robles.es/klog\n2002 - 2010 - Jaime Robles, EA4TV, jaime@robles.es\n2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com", Klog::KLogVersion);
   QMessageBox::about( this, sAbout1,sAbout2);
 
     //KLog::aboutData->show(this);

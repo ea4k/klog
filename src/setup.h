@@ -33,6 +33,7 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QDir>
+#include <QMenu>
 #include <QCheckBox>
 #include <QPushButton>
 #include <QColorDialog>
@@ -73,7 +74,9 @@ class Setup : public QDialog, public Ui::setup {
     void slotAwardRemoveButtonClicked();
     void slotAddDxClusterPushButtonClicked(); //Adds a dxcluster server
     void slotClearDxClusterPushButtonClicked();
-    //TODO: DELETED FOR QT4 MIGRATION: Add the rightbutton option to edit/remove
+    void slotAwardRightButtonFromList(QTreeWidgetItem* item);
+    //void slotAwardRightButtonFromList(QTreeWidgetItem * item, const QPoint &p);
+    void showMenuRightButton(const QPoint &p);
     //void slotAwardRightButtonFromList(Q3ListViewItem * item, const QPoint &p);
     //void showMenuRightButton(Q3ListViewItem * item, const QPoint &p);
     void slotAwardSelected(QTreeWidgetItem* item);
@@ -123,6 +126,7 @@ class Setup : public QDialog, public Ui::setup {
     //QString fileOfAwardToErase;
     QPixmap *editdeletePixMap;
     //QTreeWidgetItem awarditem;
+    QAction *delAWAAct;
 };
 
 #endif
