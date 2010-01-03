@@ -29,11 +29,12 @@
 Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   //qDebug() << "KLog::Klog";
   setupUi( this );
+  qsoDateEdit->setDisplayFormat("dd/MM/yyyy");
   QTimer *internalTimer = new QTimer( this ); // create internal timer
   connect( internalTimer, SIGNAL(timeout()), SLOT(slotUpdateTime()) );
   internalTimer->start( 1000 );         // emit signal every 1 second
 
-  Klog::KLogVersion = "0.5";
+  Klog::KLogVersion = "0.5.0";
 //   Klog::editdeletePixMap = new QPixmap("editdelete.png");
 //   editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
 //   Klog::qslRecPixMap = new QPixmap("qslRec.png");
