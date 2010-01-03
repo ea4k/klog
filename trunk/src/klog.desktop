@@ -7,4 +7,4 @@ Exec=klog
 Icon=klog.png
 Terminal=false
 Type=Application
-Categories=HamRadio;
+Categories=Utility;Database;HamRadio;KDE
