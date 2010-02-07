@@ -516,6 +516,8 @@ void Klog::slotClearBtn(){
     qso.setMyLocator(getMyLocator());
 
     freqlCDNumber->display(0); // Setting the frequency box to 0
+    freqrxdoubleSpinBox->setValue(0.0);
+    freqtxdoubleSpinBox->setValue(0.0);
 
     showDistancesAndBeam(0,0);
     clearEntityBox();
@@ -1447,6 +1449,8 @@ void Klog::toEditQso(){
     QSLSentdateEdit->setDate(qso.getQslSenDate());
     QSLRecdateEdit->setDate(qso.getQslRecDate());
     freqlCDNumber->display(qso.getFreq());
+    freqtxdoubleSpinBox->setValue((qso.getFreq()).toFloat());
+    freqrxdoubleSpinBox->setValue((qso.getFreq_RX()).toFloat());
 
     if ((qso.getQth()).length() >=2)
         qthkLineEdit->setText(qso.getQth());
@@ -2017,8 +2021,14 @@ void Klog::readQso(){ //Just read the values an fill the qso
     if((stationCallsignLineEdit->text()).length() >= 3)
         qso.setStationCallsign((stationCallsignLineEdit->text()).toUpper());
 
-    if (freqlCDNumber->value() >= 0)
-        qso.setFreq(QString::number(freqlCDNumber->value()));
+    if (freqtxdoubleSpinBox->value() >= 0){
+//        qso.setFreq(QString::number(freqlCDNumber->value()));
+	qso.setFreq(QString::number(freqtxdoubleSpinBox->value()));
+    }
+    
+    if (freqrxdoubleSpinBox->value() >= 0){        
+	qso.setFreq_RX(QString::number(freqrxdoubleSpinBox->value()));
+    }
 }
 
 void Klog::modifyQso(){
@@ -4402,12 +4412,19 @@ void Klog::slotClusterSpotToLog(QListWidgetItem * item){
             qrzLineEdit->setText(tokens[4]);
             bandComboBox->setCurrentIndex(adif.freq2Int(  adif.KHz2MHz(tokens[3])));
             freqlCDNumber->display(tokens[3].toDouble());      // We show the frequency in the box in MHz
+	    
+	    freqtxdoubleSpinBox->setValue(tokens[3].toDouble());
+	    freqrxdoubleSpinBox->setValue(0.0);
+
+	    
         }
     }else if ( ((adif.isHF(adif.KHz2MHz(tokens[0]))) || (adif.isVHF(adif.KHz2MHz(tokens[0]))))  && (tokens[0] != "***" ) ){
         if ((tokens[1]).length() != 0){
             qrzLineEdit->setText(tokens[1]);
             bandComboBox->setCurrentIndex(adif.freq2Int(adif.KHz2MHz(tokens[0])));
             freqlCDNumber->display(((tokens[0])).toDouble()); // We show the frequency in the box (in KHz)
+	    freqtxdoubleSpinBox->setValue(((tokens[0])).toDouble());
+	    freqrxdoubleSpinBox->setValue(0.0);
 
         }
     }else    // It is NOT an spot but an announce or similar.
@@ -5090,6 +5107,8 @@ void Klog::slothamlibUpdateFrequency(){
                 band = adif.band2Int(adif.freq2Band(QString::number(hamlibFreq)));
                 bandComboBox->setCurrentIndex(band);
                 freqlCDNumber->display(hamlibFreq);
+		freqtxdoubleSpinBox->setValue(hamlibFreq);
+		freqrxdoubleSpinBox->setValue(0.0);
         }else{
     //cout << "KLog::slothamlibUpdateFrequency - NO Freq: " << QString::number(hamlibFreq) << endl;
     }
