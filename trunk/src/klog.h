@@ -44,6 +44,7 @@
 #include <QLabel>
 #include <QPoint>
 #include <QLCDNumber>
+#include <QDoubleSpinBox>
 #include <KDE/KLocale>
 #include <KDE/KLocalizedString>
 #include <QCheckBox>

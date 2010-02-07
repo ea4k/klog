@@ -1298,7 +1298,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_u">
          <item row="0" column="0">
-          <widget class="KLed" name="kledColor" native="true"/>
+          <widget class="KLed" name="kledColor"/>
          </item>
          <item row="0" column="1" colspan="2">
           <widget class="QLineEdit" name="qrzLineEdit">
@@ -1882,7 +1882,7 @@
             </item>
            </layout>
           </item>
-          <item row="0" column="4" colspan="2">
+          <item row="0" column="3">
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>
              <widget class="QLabel" name="frequencyTextLabel">
@@ -1930,6 +1930,9 @@
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
+              <property name="smallDecimalPoint">
+               <bool>false</bool>
+              </property>
               <property name="numDigits">
                <number>8</number>
               </property>
@@ -1940,8 +1943,32 @@
             </item>
            </layout>
           </item>
-          <item row="1" column="2" colspan="2">
+          <item row="1" column="2">
            <layout class="QVBoxLayout" name="verticalLayout_3"/>
+          </item>
+          <item row="1" column="3">
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QDoubleSpinBox" name="freqrxdoubleSpinBox">
+              <property name="toolTip">
+               <string>Shows the frecuency of the transceiver when hamlib is activated</string>
+              </property>
+              <property name="decimals">
+               <number>3</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QDoubleSpinBox" name="freqtxdoubleSpinBox">
+              <property name="toolTip">
+               <string>Shows the frecuency of the transceiver when hamlib is activated</string>
+              </property>
+              <property name="decimals">
+               <number>3</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="textLabel1_8_2">
@@ -1972,7 +1999,7 @@
           <item row="2" column="2">
            <layout class="QHBoxLayout" name="horizontalLayout"/>
           </item>
-          <item row="2" column="5">
+          <item row="2" column="3">
            <widget class="QLabel" name="textLabel2_6_3">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -2012,14 +2039,14 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="3" column="1" colspan="4">
+          <item row="3" column="1">
            <widget class="QLineEdit" name="qthkLineEdit">
             <property name="toolTip">
              <string>DX's QTH (City, town)</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="5">
+          <item row="3" column="3">
            <widget class="QLineEdit" name="locatorLineEdit">
             <property name="minimumSize">
              <size>
@@ -2035,7 +2062,7 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="4" column="2" colspan="3">
+          <item row="4" column="2">
            <layout class="QVBoxLayout" name="verticalLayout_2"/>
           </item>
          </layout>
@@ -2581,7 +2608,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>960</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <property name="defaultUp">
@@ -2641,7 +2668,7 @@ p, li { white-space: pre-wrap; }
   <action name="fileNewAction">
    <property name="icon">
     <iconset>
-     <normaloff>image0</normaloff>image0</iconset>
+     <normaloff>../../.designer/backup/image0</normaloff>../../.designer/backup/image0</iconset>
    </property>
    <property name="text">
     <string>&amp;New</string>
@@ -2662,7 +2689,7 @@ p, li { white-space: pre-wrap; }
   <action name="fileOpenAction">
    <property name="icon">
     <iconset>
-     <normaloff>image1</normaloff>image1</iconset>
+     <normaloff>../../.designer/backup/image1</normaloff>../../.designer/backup/image1</iconset>
    </property>
    <property name="text">
     <string>&amp;Open...</string>
@@ -2680,7 +2707,7 @@ p, li { white-space: pre-wrap; }
   <action name="fileSaveAction">
    <property name="icon">
     <iconset>
-     <normaloff>image2</normaloff>image2</iconset>
+     <normaloff>../../.designer/backup/image2</normaloff>../../.designer/backup/image2</iconset>
    </property>
    <property name="text">
     <string>&amp;Save</string>
@@ -2712,7 +2739,7 @@ p, li { white-space: pre-wrap; }
   <action name="filePrintAction">
    <property name="icon">
     <iconset>
-     <normaloff>image3</normaloff>image3</iconset>
+     <normaloff>../../.designer/backup/image3</normaloff>../../.designer/backup/image3</iconset>
    </property>
    <property name="text">
     <string>&amp;Print...</string>
@@ -2744,7 +2771,7 @@ p, li { white-space: pre-wrap; }
   <action name="editUndoAction">
    <property name="icon">
     <iconset>
-     <normaloff>image4</normaloff>image4</iconset>
+     <normaloff>../../.designer/backup/image4</normaloff>../../.designer/backup/image4</iconset>
    </property>
    <property name="text">
     <string>&amp;Undo</string>
@@ -2762,7 +2789,7 @@ p, li { white-space: pre-wrap; }
   <action name="editRedoAction">
    <property name="icon">
     <iconset>
-     <normaloff>image5</normaloff>image5</iconset>
+     <normaloff>../../.designer/backup/image5</normaloff>../../.designer/backup/image5</iconset>
    </property>
    <property name="text">
     <string>&amp;Redo</string>
@@ -2780,7 +2807,7 @@ p, li { white-space: pre-wrap; }
   <action name="editCutAction">
    <property name="icon">
     <iconset>
-     <normaloff>image6</normaloff>image6</iconset>
+     <normaloff>../../.designer/backup/image6</normaloff>../../.designer/backup/image6</iconset>
    </property>
    <property name="text">
     <string>&amp;Cut</string>
@@ -2798,7 +2825,7 @@ p, li { white-space: pre-wrap; }
   <action name="editCopyAction">
    <property name="icon">
     <iconset>
-     <normaloff>image7</normaloff>image7</iconset>
+     <normaloff>../../.designer/backup/image7</normaloff>../../.designer/backup/image7</iconset>
    </property>
    <property name="text">
     <string>C&amp;opy</string>
@@ -2816,7 +2843,7 @@ p, li { white-space: pre-wrap; }
   <action name="editPasteAction">
    <property name="icon">
     <iconset>
-     <normaloff>image8</normaloff>image8</iconset>
+     <normaloff>../../.designer/backup/image8</normaloff>../../.designer/backup/image8</iconset>
    </property>
    <property name="text">
     <string>&amp;Paste</string>
@@ -2834,7 +2861,7 @@ p, li { white-space: pre-wrap; }
   <action name="editFindAction">
    <property name="icon">
     <iconset>
-     <normaloff>image9</normaloff>image9</iconset>
+     <normaloff>../../.designer/backup/image9</normaloff>../../.designer/backup/image9</iconset>
    </property>
    <property name="text">
     <string>&amp;Find...</string>
@@ -2866,7 +2893,7 @@ p, li { white-space: pre-wrap; }
   <action name="setupAction">
    <property name="icon">
     <iconset>
-     <normaloff>image10</normaloff>image10</iconset>
+     <normaloff>../../.designer/backup/image10</normaloff>../../.designer/backup/image10</iconset>
    </property>
    <property name="text">
     <string>&amp;Preferences</string>
@@ -2898,7 +2925,7 @@ p, li { white-space: pre-wrap; }
   <action name="ActionQsoDelete">
    <property name="icon">
     <iconset>
-     <normaloff>image11</normaloff>image11</iconset>
+     <normaloff>../../.designer/backup/image11</normaloff>../../.designer/backup/image11</iconset>
    </property>
    <property name="iconText">
     <string>Delete QSO</string>
