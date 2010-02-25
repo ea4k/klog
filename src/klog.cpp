@@ -34,7 +34,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   connect( internalTimer, SIGNAL(timeout()), SLOT(slotUpdateTime()) );
   internalTimer->start( 1000 );         // emit signal every 1 second
 
-  Klog::KLogVersion = "0.5.1";
+  Klog::KLogVersion = "0.5.2";
 //   Klog::editdeletePixMap = new QPixmap("editdelete.png");
 //   editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
 //   Klog::qslRecPixMap = new QPixmap("qslRec.png");
@@ -4026,9 +4026,15 @@ void Klog::slotClusterConnect(){
     // create the socket and connect various of its signals
     socket = new QTcpSocket( this );
     connect( socket, SIGNAL(connected()), SLOT(slotClusterSocketConnected()) );
-    connect( socket, SIGNAL(connectionClosed()), SLOT(slotClusterSocketConnectionClosed()) );
+    //connect( socket, SIGNAL(connectionClosed()), SLOT(slotClusterSocketConnectionClosed()) );
+    connect( socket, SIGNAL(disconnected()), SLOT(slotClusterSocketConnectionClosed()) );
     connect( socket, SIGNAL(readyRead()), SLOT(slotClusterSocketReadyRead()) );
-    connect( socket, SIGNAL(error(int)), SLOT(slotClusterSocketError(int)) );
+    //connect( socket, SIGNAL(error(int)), SLOT(slotClusterSocketError(int)) );
+    //connect( socket, SIGNAL(error(QAbstractSocket::SocketError)), SLOT(slotClusterSocketError(int)) );
+    
+       connect(socket, SIGNAL(error(QAbstractSocket::SocketError)),
+             this, SLOT(slotClusterSocketError(QAbstractSocket::SocketError)));
+    
     // connect to the server
 
     dxclusterListWidget->setSortingEnabled ( false);
@@ -4064,43 +4070,43 @@ void Klog::slotClusterSendToServer(){
     ClusterkLineEditInPut->clear();
 }
 
-void Klog::slotClusterSocketReadyRead(){
+void Klog::slotClusterSocketReadyRead() {
 // qDebug() << "Klog::slotClusterSocketReadyRead()" << endl;
 // read from the server
 // The while could block the flow of the program?
 // ATENTION: The Cluster freq is in KHz and KLog works in MHz!
-    while ( socket->canReadLine() ) {
-        dxClusterString =  socket->readLine();
-        // changed this to trimmed from simplfied() so the output string is easier to read as a spot
-        dxClusterString = dxClusterString.trimmed();
-        // Put here to check for callsigns that crash klog. To do with the QString ASSERT error.
-        //qDebug() << "KLog::slotClusterSocketReadyRead: " << dxClusterString;
+  while ( socket->canReadLine() ) {
+    dxClusterString =  socket->readLine();
+    // changed this to trimmed from simplfied() so the output string is easier to read as a spot
+    dxClusterString = dxClusterString.trimmed();
+    // Put here to check for callsigns that crash klog. To do with the QString ASSERT error.
+    //qDebug() << "KLog::slotClusterSocketReadyRead: " << dxClusterString;
 
-        QStringList tokens = dxClusterString.split(" ", QString::SkipEmptyParts);
-        //QStringList tokens = QStringList::split( ' ', dxClusterString );
+    QStringList tokens = dxClusterString.split(" ", QString::SkipEmptyParts);
+    if (tokens.size()<2){
+      return;
+    }
+    // It is a "DX de SP0TTER FREC DXCALL"
+    //0 = DX, 1 = de, 2 = spotter, 3 = Freq, 4 = dxcall, 5 = comment
+    //tokens[0] = tokens[0].simplified(); // we remove the spaces just in case it is a freq
 
-        // It is a "DX de SP0TTER FREC DXCALL"
-        //0 = DX, 1 = de, 2 = spotter, 3 = Freq, 4 = dxcall, 5 = comment
-        //tokens[0] = tokens[0].simplified(); // we remove the spaces just in case it is a freq
+    //qDebug() << "Klog::slotClusterSocketReadyRead()" << "DXCLUSTER->" << dxClusterString << "TOKENS" << tokens;
+    if ((tokens[0] == "DX") && (tokens[1] == "de")){
+      // Plot the spot
+      #ifdef DXMAP
+      // This is to remove the colon (:) from the end of the callsign
+      QString spotter = tokens[2];
+      spotter.truncate(spotter.size() - 1);
+      QStringList dxList;
+      QString loggingCountry, spotCountry;
+      int entityNumber, distance, n;
+      Entity spotEntity;
+      Entity loggingEntity;
 
-// qDebug() << "Klog::slotClusterSocketReadyRead()" << "DXCLUSTER->" << dxClusterString << "TOKENS" << tokens;
-        if ((tokens[0] == "DX") && (tokens[1] == "de")){
-            // Plot the spot
-            #ifdef DXMAP
-            // This is to remove the colon (:) from the end of the callsign
-            QString spotter = tokens[2];
-            spotter.truncate(spotter.size() - 1);
-
-   QStringList dxList;
-   QString loggingCountry, spotCountry;
-   int entityNumber, distance, n;
-   Entity spotEntity;
-   Entity loggingEntity;
-
-   //qDebug() << "DXSPOT->" << dxSpotter << dxFrequency << dxCall;
-   // Get logging entity location
-   entityNumber = world.findEntity(tokens[2].toUpper());
-// qDebug() << "Klog::slotClusterSocketReadyRead()"<< "DXSPOT1->" << entityNumber <<  loggingCountry;
+      //qDebug() << "DXSPOT->" << dxSpotter << dxFrequency << dxCall;
+      // Get logging entity location
+      entityNumber = world.findEntity(tokens[2].toUpper());
+      // qDebug() << "Klog::slotClusterSocketReadyRead()"<< "DXSPOT1->" << entityNumber <<  loggingCountry;
    loggingEntity = world.getEntByNumb(entityNumber);
    loggingCountry = loggingEntity.getEntity();
 // qDebug() << "Klog::slotClusterSocketReadyRead()"<< "DXSPOT2->" << entityNumber <<  loggingCountry;
@@ -4279,6 +4285,7 @@ if (	(!dxClusterConfirmedSpots) && (needToWorkFromCluster(tokens[4],adif.freq2In
     }
 }
 
+
 void Klog::slotClusterSocketConnected(){
 //qDebug() << "KLog::slotClusterSocketConnected" << endl;
     dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, i18n("Connected to server"), defaultColor);
@@ -4308,57 +4315,59 @@ void Klog::slotClusterSocketClosed(){
     dxClusterConnected = false;
 }
 
-void Klog::slotClusterSocketError( int e ){
+
+//void Klog::slotClusterSocketError( int e ){
+ 
+void Klog::slotClusterSocketError(QAbstractSocket::SocketError socketError){
 //qDebug() << "KLog::slotClusterSocketError" << endl;
 //QSocket::ErrConnectionRefused - if the connection was refused
 //QSocket::ErrHostNotFound - if the host was not found
 //QSocket::ErrSocketRead - if a read from the socket failed
-    if (e == QAbstractSocket::ConnectionRefusedError){
-//  QMessageBox::about( this, i18n("KLog message:"),
-// i18n("DX-Cluster server refused the connection\n")+DXClusterServerToUse+
-// i18n("\nMaybe you are already connected, use another call like \"YOURCALL-1\"!")
-//  );
-                       QMessageBox msgBox;
-                       msgBox.setText(i18n("KLog message:"));
-                       QString str = i18n("DX-Cluster server refused the connection\n")
-                       +DXClusterServerToUse+
-                       i18n("\nMaybe you are already connected, use another call like \"YOURCALL-1\"!");
-                       msgBox.setInformativeText(str);
-                       msgBox.setStandardButtons(QMessageBox::Ok);
-                       msgBox.setDefaultButton(QMessageBox::Ok);
-                       msgBox.setIcon(QMessageBox::Warning);
-                       msgBox.exec();
 
-    }else if (e == QAbstractSocket::HostNotFoundError){
-                       QMessageBox msgBox;
-                       msgBox.setText(i18n("KLog message:"));
-                       QString str = i18n("Host not found:\n")
-                       +DXClusterServerToUse
-                       + i18n("\nCheck your network settings!");
-                       msgBox.setInformativeText(str);
-                       msgBox.setStandardButtons(QMessageBox::Ok);
-                       msgBox.setDefaultButton(QMessageBox::Ok);
-                       msgBox.setIcon(QMessageBox::Warning);
-                       msgBox.exec();
+QString str = "";
+QMessageBox msgBox;
+
+  switch (socketError) {
+    case QAbstractSocket::RemoteHostClosedError:
+    break;
+    case QAbstractSocket::HostNotFoundError:
+//       QMessageBox::information(this, tr("Fortune Client"),
+// 	tr("The host was not found. Please check the "
+// 	 "host name and port settings."));
+      msgBox.setText(i18n("KLog message:"));
+      str = i18n("Host not found:\n") +DXClusterServerToUse
+	+ i18n("\nCheck your network settings!");
+      msgBox.setInformativeText(str);
+      msgBox.setStandardButtons(QMessageBox::Ok);
+      msgBox.setDefaultButton(QMessageBox::Ok);
+      msgBox.setIcon(QMessageBox::Warning);
+      msgBox.exec();
 
 
+    break;
+    case QAbstractSocket::ConnectionRefusedError:
 
-    }/*else if (e == QTcpSocket::ErrSocketRead){
-                       QMessageBox msgBox;
-                       msgBox.setText(i18n("KLog message:"));
-                       QString str = i18n("Error socket read,\n")
-                       + i18n("unknown error!");
-                       msgBox.setInformativeText(str);
-                       msgBox.setStandardButtons(QMessageBox::Ok);
-                       msgBox.setDefaultButton(QMessageBox::Ok);
-                       msgBox.setIcon(QMessageBox::Warning);
-                       msgBox.exec();
+	
+	
+	msgBox.setText(i18n("KLog message:"));
+	str = i18n("DX-Cluster server refused the connection\n") +DXClusterServerToUse+
+	  i18n("\nMaybe you are already connected, use another call like \"YOURCALL-1\"!");
+	msgBox.setInformativeText(str);
+	msgBox.setStandardButtons(QMessageBox::Ok);
+	msgBox.setDefaultButton(QMessageBox::Ok);
+	msgBox.setIcon(QMessageBox::Warning);
+	msgBox.exec();	
+	
+    break;
+    default:
+      QMessageBox::information(this, tr("KLog message"),
+	i18n("The following error occurred: %1.")
+	.arg(socket->errorString()));
+	
+	
+  }
 
-
-
-    } */
-
-  dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, i18n("Error number %1 occurred").arg(e), defaultColor);
+//  dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, i18n("Error number %1 occurred").arg(e), defaultColor);
 }
 
 void Klog::slotClusterClearInputLine(){

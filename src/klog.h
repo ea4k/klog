@@ -59,6 +59,7 @@
 #include <QInputDialog>
 #include <QTimer>
 #include <QMainWindow>
+//#include <QAbstractSocket>
 #include "ui_klog.h"
 // The next two are for the cluster box
 #include <QTcpSocket>
@@ -218,7 +219,8 @@ class Klog : public QMainWindow, private Ui::klog
     void slotClusterSocketConnected();
     void slotClusterSocketConnectionClosed();
     void slotClusterSocketClosed();
-    void slotClusterSocketError( int e );
+    //void slotClusterSocketError( int e );
+    void slotClusterSocketError(QAbstractSocket::SocketError socketError);
     void slotClusterConnect();
     void slotClusterClearInputLine();
     void slotClusterSpotToLog(QListWidgetItem* item);
