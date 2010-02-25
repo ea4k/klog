@@ -1951,20 +1951,32 @@
             <item>
              <widget class="QDoubleSpinBox" name="freqrxdoubleSpinBox">
               <property name="toolTip">
-               <string>Shows the frecuency of the transceiver when hamlib is activated</string>
+               <string>Shows the frecuency of the transceiver when hamlib is activated (RX)</string>
               </property>
               <property name="decimals">
                <number>3</number>
+              </property>
+              <property name="maximum">
+               <double>9999.989999999999782</double>
+              </property>
+              <property name="singleStep">
+               <double>0.001000000000000</double>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QDoubleSpinBox" name="freqtxdoubleSpinBox">
               <property name="toolTip">
-               <string>Shows the frecuency of the transceiver when hamlib is activated</string>
+               <string>Shows the frecuency of the transceiver when hamlib is  (TX)</string>
               </property>
               <property name="decimals">
                <number>3</number>
+              </property>
+              <property name="maximum">
+               <double>9999.989999999999782</double>
+              </property>
+              <property name="singleStep">
+               <double>0.001000000000000</double>
               </property>
              </widget>
             </item>
