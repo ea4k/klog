@@ -50,6 +50,9 @@ Qso::Qso(const QString& tqrz, int tnumb, QString& tmode){
   contest_id="";
   station_callsign="";
   dateTime = QDateTime::fromString("00000000000000", "yyyyMMddHHmmss");
+  sat_mode = "";
+  sat_name = "";
+
 }
 
 
@@ -77,6 +80,9 @@ Qso::Qso(const int tnumb, const QString& tqrz, const int trstrx, const int trstt
   contest_id="";
   station_callsign="";
   dateTime = QDateTime::fromString("00000000000000", "yyyyMMddHHmmss");
+  sat_mode = "";
+  sat_name = "";
+
 }
 
 Qso::Qso(const int tnumb, const QDateTime tdateTime, const QString& tqrz, const int trstrx, const int trsttx, const QString& tband, const QString& tmode, const QString& tpower, const QString& tcomment)
@@ -105,6 +111,9 @@ Qso::Qso(const int tnumb, const QDateTime tdateTime, const QString& tqrz, const 
   contest_id="";
   station_callsign="";
   check="";
+  sat_mode = "";
+  sat_name = "";
+
 }
 
 Qso::Qso (const int tnumb, const QDateTime& tdateTime, const QString& tqrz, const int trstrx, const int trsttx, int tband, const QString& tmode, const int tpower, const QDate& tqslSen,  const QDate& tqslRec, const QString& tcomment){
@@ -133,6 +142,9 @@ Qso::Qso (const int tnumb, const QDateTime& tdateTime, const QString& tqrz, cons
   srx_string="";
   contest_id="";
   station_callsign="";
+  sat_mode = "";
+  sat_name = "";
+
 }
 
 Qso::~Qso(){}
@@ -935,6 +947,10 @@ void Qso::clearQso(){
         msshower="";
         my_city="";
 	dateTime = QDateTime::fromString("00000000000000", "yyyyMMddHHmmss");
+	sat_mode = "";
+	sat_name = "";
+	
+	
 }
 
 QString Qso::checkisNotAdif(const QString& tword){
