@@ -106,6 +106,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   serialPort = "/dev/ttyS0";
   hamlibFreq = 0.0;
   rignameNumber = 1; // dummy
+  
 // HAMLIB
   createKlogDir(); // if klogDir does not exist, we create it via slotKlogSetup
   readConf(); // read our data as myQrz, myLocator from ~/.klog/klogrc
@@ -533,6 +534,8 @@ void Klog::slotClearBtn(){
   ActionQsoDelete->setEnabled(false);
   ActionQsoSen->setEnabled(false);
   ActionQslRec->setEnabled(false);
+  satNamelineEdit->clear();
+  satModelineEdit->clear();
 }
 
 void Klog::clearEntityBox(){
@@ -772,7 +775,7 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
                 stream << " <SFI:" << QString::number(((*it).getSFI())).length() << ">" << QString::number((*it).getSFI());
             if (((*it).getMSShower()).length()>= 2)
                 stream << " <MS_SHOWER:" <<((*it).getMSShower()).length() << ">" << (*it).getMSShower();
-            if (((*it).getSatMode()).length()>= 2)
+            if (((*it).getSatMode()).length()>= 1)
                 stream << " <SAT_MODE:" <<((*it).getSatMode()).length() << ">" << (*it).getSatMode();
             if (((*it).getSatName()).length()>= 2)
                 stream << " <SAT_NAME:" <<((*it).getSatName()).length() << ">" << (*it).getSatName();
@@ -1461,7 +1464,19 @@ void Klog::toEditQso(){
     }else{
         operatorLineEdit->clear();
     }
+        
+    if ((qso.getSatName()).length() >=2){
+        satNamelineEdit->setText(qso.getSatName());
+    }else{
+        satNamelineEdit->clear();
+    }    
 
+    if ((qso.getSatMode()).length() >=1){
+        satModelineEdit->setText(qso.getSatMode());
+    }else{
+        satModelineEdit->clear();
+    }    
+    
     if ((qso.getStationCallsign()).length() >=3){
         stationCallsignLineEdit->setText(qso.getStationCallsign());
     }else{
@@ -2001,6 +2016,12 @@ void Klog::readQso(){ //Just read the values an fill the qso
     }else{
       qso.setMyLocator(getMyLocator());
     }
+    
+   if((satNamelineEdit->text()).length() >= 2)
+        qso.setSatName((satNamelineEdit->text()).toUpper());
+   if((satModelineEdit->text()).length() >= 1)
+        qso.setSatMode((satModelineEdit->text()).toUpper());
+     
 
     if((qslVialineEdit->isEnabled()) && ((qslVialineEdit->text()).length() > 1))
         qso.setQslManager((qslVialineEdit->text()).toUpper());
