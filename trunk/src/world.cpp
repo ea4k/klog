@@ -433,7 +433,7 @@ int World::findEntity(const QString string){
 
                 }else{  // It is a EA4TV/P or EA4TV/QRP
                     // Peter I, is a special "/P" station... so we need to check it.
-//					qDebug() << "Es un corto especial-1: " << prefixa << endl;
+//					qDebug() << "Special and short-1: " << prefixa << endl;
                     if ( (prefixa.toUpper().endsWith("/P")) && (prefixa.toUpper().startsWith("3Y" )) ){
                         // This is Peter I
                         //prefixa = "3Y0PI";
@@ -444,8 +444,9 @@ int World::findEntity(const QString string){
 //					qDebug() << "Marquesas!: " << prefixa << endl;
                         prefixa = "FO/OH1RX";
                         return giveEnt(prefixa);
-                    }else if ( ((prefixa.toUpper()).endsWith("/M"))||((prefixa.toUpper()).endsWith("/MM"))){
-// /M and /MM does not count as DXCC
+//                    }else if ( ((prefixa.toUpper()).endsWith("/M"))||((prefixa.toUpper()).endsWith("/MM"))){
+                    }else if ( (prefixa.toUpper()).endsWith("/MM")){
+//MM does not count as DXCC. Does the /M count?
 //						qDebug() << "/M Normal; " << prefixa << endl;
                         return 0;
                     }else{// Normal /p, /m, ... prefix
