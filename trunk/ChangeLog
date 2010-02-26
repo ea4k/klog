@@ -1,3 +1,9 @@
+February-2010 - 0.5.2
+- Fixed a bug that causes a crash when connectiong to DXCluster. (bug #016653)
+- Added a very basic Satellite support.
+- Removed the Freq LCD and added two new editable widgets: Freq TX and Freq RX. (bug #016609)
+- Added again the entity count of /M stations.
+
 January-2010 - 0.5.1
 - Fixed a bug with the display of the Date.
 
