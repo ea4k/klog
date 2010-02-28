@@ -28,6 +28,7 @@
 //#include "iostream"
 
 #include "adif.h"
+//#include <QDebug>
 
 /*
 This class is really not independant FROM the GUI as the numbers to codify the
@@ -277,7 +278,7 @@ int Adif::mode2Int(const QString& tmode){
 
 int Adif::freq2Int (const QString& tfreq){ // Receives MHz/String
 // Due to float precision the band limits are not exact!
-//cout << "Adif::freq2Int: " << tfreq << endl;
+//qDebug() << "Adif::freq2Int: " << tfreq << endl;
 
     freq = (tfreq.toFloat());
 
@@ -287,7 +288,7 @@ int Adif::freq2Int (const QString& tfreq){ // Receives MHz/String
     return 0;
    }else if ((freq >=3.4)&&(freq <=4)){
     return 1;
-   }else if ((freq >= 5.101)&&(freq <=5.405)){
+   }else if ((freq >= 5.1)&&(freq <=5.405)){
     return 2;
    }else if ((freq >= 7)&&(freq <=7.4)){
     return 3;
@@ -344,6 +345,171 @@ int Adif::freq2Int (const QString& tfreq){ // Receives MHz/String
   }
 
 }
+QString Adif::int2Freq(int tband){
+//qDebug() << "Adif::int2Freq: " << QString::number(tband) << endl;
+  switch(tband){
+    case 1000:// The user does not want to continue without a call
+      return "0.135";
+    break;
+    case 0:
+      return "1.8";
+    break;
+    case 1:
+      return "3.7";
+    break;
+    case 2:
+      return "5.1";
+    break;
+    case 3:
+      return "7";
+    break;
+    case 4:
+      return "10.1";
+    break;
+    case 5:
+      return "14";
+    break;
+    case 6:
+      return "18.1";
+    break;
+    case 7:
+      return "21";
+    break;
+    case 8:
+      return "24.9";
+    break;
+    case 9:
+      return "28";
+    break;
+    case 10:
+      return "50";
+    break;
+    case 11:
+      return "70";
+    break;
+    case 12:
+      return "144";
+    break;
+    case 13:
+      return "220";
+    break;
+    case 14:
+      return "432";
+    break;
+    case 15:
+      return "902";
+    break;
+    case 16:
+      return "1240";
+    break;
+    case 17:
+      return "2400";
+    break;
+    case 1018:
+      return "3300";
+    break;
+    case 1019:
+      return "5650";
+    break;
+    case 1020:
+      return "10000";
+    break;
+    case 1021:
+      return "24000";
+    break;
+    case 1022:
+      return "47000";
+    break;
+    case 1023:
+      return "75500";
+    break;
+    case 1024:
+      return "119980";
+    break;
+    case 1025:
+      return "142000";
+    break;
+    case 1026:
+      return "241000";
+    break;
+        default: //
+          return "-1";
+         break;
+      }
+
+}
+
+
+QString Adif::freqCorrection (const double& tfreq){ // Receives MHz/String
+// Due to float precision the band limits are not exact!
+//qDebug() << "Adif::freqCorrection: " << tfreq << endl;
+
+//    freq = (tfreq.toFloat());
+
+   if ((freq >=0.135)&&(freq <=0.138)){
+    return "0.135";
+   }else if ((freq >=1)&&(freq <3)){
+    return "1.8";
+   }else if ((freq >=3)&&(freq <=4)){
+    return "3.7";
+   }else if ((freq >= 5)&&(freq <=5.405)){
+    return "5.10";
+   }else if ((freq >= 7)&&(freq <=7.4)){
+    return "7";
+  }else if ((freq >= 10.1)&&(freq <10.17)){
+    return "10.1";
+  }else if ((freq >= 14)&&(freq <=14.35)){
+    return "14";
+  }else if ((freq >= 18)&&(freq <=18.169)){
+    return "18.1";
+  }else if ((freq >= 21)&&(freq <=21.46)){
+    return "21";
+  }else if ((freq >= 24.88)&&(freq <=24.991)){
+    return "24.9";
+  }else if ((freq >=28)&&(freq <=29.8)){
+    return "28";
+  }else if ((freq >=50)&&(freq <=54)){
+    return "50";
+  }else if ((freq >=70)&&(freq <=71)){
+    return "70";
+  }else if ((freq >=144)&&(freq <=148)){
+     return "144";
+   }else if ((freq >=220)&&(freq <=225)){
+     return "220";
+   }else if ((freq >=420)&&(freq <=450)){
+     return "432";
+   }else if ((freq >=902)&&(freq <=928)){
+     return "902";
+   }else if ((freq >=1200)&&(freq <=1300)){
+     return "1240";
+   }else if ((freq >=2300)&&(freq <=2450)) {
+     return "2400";
+   }else if ((freq >=3300)&&(freq <=3500)) {
+     return "3300";
+   }else if ((freq >=5650)&&(freq <=5925)) {
+     return "5650";
+   }else if ((freq >=10000)&&(freq <=10500)) {
+     return "10000";
+   }else if ((freq >=24000)&&(freq <=24250)) {
+     return "24000";
+   }else if ((freq >=47000)&&(freq <=47200)) {
+     return "47000";
+   }else if ((freq >=75500)&&(freq <=81000)) {
+     return "75500";
+   }else if ((freq >=119980)&&(freq <=120020)) {
+     return "119980";
+   }else if ((freq >=142000)&&(freq <=149000)) {
+     return "142000";
+   }else if ((freq >=241000)&&(freq <=250000)) {
+     return "241000";
+  }else{
+//cout << "Adif::freq2Int: NOBAND found" << endl;
+    return "0";
+    // If Band is not in this "list" it is still not supported
+  }
+
+}
+
 
 QString Adif::getModeBandPlan(const QString& tfreq){ // (in MHz)
 // cout << "Adif::getModeBandPlan: " << tfreq << endl;

@@ -34,7 +34,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   connect( internalTimer, SIGNAL(timeout()), SLOT(slotUpdateTime()) );
   internalTimer->start( 1000 );         // emit signal every 1 second
 
-  Klog::KLogVersion = "0.5.2";
+  Klog::KLogVersion = "0.5.3";
 //   Klog::editdeletePixMap = new QPixmap("editdelete.png");
 //   editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
 //   Klog::qslRecPixMap = new QPixmap("qslRec.png");
@@ -214,6 +214,10 @@ void Klog::createActions(){
   connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotOkBtn()) );
   connect(ClusterkLineEditInPut, SIGNAL(returnPressed()), this, SLOT(slotClusterSendToServer()) );
   connect(bandComboBox, SIGNAL(activated(int)), this, SLOT(slotBandChanged()) );
+  
+  connect(freqtxdoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotTXFreqChanged(double)) );
+  
+  
   connect(ActionBugReport, SIGNAL(triggered()), this, SLOT(slotBugReport()) );
   connect(myLocatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotMyLocatorChanged()) );
   connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorChanged() ) );
@@ -580,6 +584,7 @@ void Klog::slotOkBtn(){
   if ((qso.getQrz()).length() >= 3){//There are no qrz with less than 3char
     needToSave = true;
     if (!modify){
+      
       logbook.append(qso);
       needToSave = true;
       templogbook.append(qso); //Save the just done QSO to do the auto-saving
@@ -1429,7 +1434,7 @@ void Klog::adifReadLog(const QString& tfileName){
 }
 
 void Klog::toEditQso(){
-//cout << "KLog::toEditQSO" << endl;
+//qDebug() << "KLog::toEditQSO" << endl;
     Klog::modify = true;
     Klog::j = qso.getNumb();
     qsoDateEdit->setDate(qso.getDate()); // date
@@ -1443,8 +1448,8 @@ void Klog::toEditQso(){
     RRecBox->setValue( (QString::number(qso.getRstrx()).at(0)).digitValue() );
     SRecBox->setValue( (QString::number(qso.getRstrx()).at(1)).digitValue() );
     TRecBox->setValue( (QString::number(qso.getRstrx()).at(2)).digitValue() );
-        modeComboBox->setItemText(0, qso.getMode());
-        bandComboBox->setItemText(0, qso.getBand());
+    modeComboBox->setItemText(0, qso.getMode());
+    bandComboBox->setItemText(0, qso.getBand());
     powerSpinBox->setValue((qso.getPower()).toInt());
     remarksTextEdit->setText(returnLines(qso.getComment()));
     QSLSentcheckBox->setChecked(qso.sentTheQSL());
@@ -2055,89 +2060,142 @@ void Klog::readQso(){ //Just read the values an fill the qso
 void Klog::modifyQso(){
 // Modify an existing QSO with the data on the boxes
 //qDebug() << "KLog::modifyQso: " << QString::number(Klog::j) << endl;
-    Klog::LogBook::iterator iter;
-    for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
-        if ( Klog::j == (*iter).getNumb() ) {
-	  (*iter) = qso; //Optimization :-) Why shouldn't we reuse ;-)
-//             (*iter).setQrz( (qrzLineEdit->text()).toUpper() );
-//             (*iter).setDateTime(QDateTime(qsoDateEdit->date(), qsoTimeEdit->time() ) );
-//             //(*iter).setDateTime(qsoDateTime->dateTime());
-//             (*iter).setRstrx(rstrx);
-//             (*iter).setRsttx(rsttx);
-//             (*iter).setBand ((bandComboBox->currentText()).toUpper());
-//             (*iter).setMode((modeComboBox->currentText()).toUpper());
-//             (*iter).setPower((powerSpinBox->text()).toUpper());
-//             (*iter).setQth((qthkLineEdit->text()).toUpper());
-//             (*iter).setOperator((operatorLineEdit->text()).toUpper());
-//             (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
-//             if ((remarksTextEdit->toPlainText()).length() >0)
-//                 (*iter).setComment(remarksTextEdit->toPlainText());
-//             if((namekLineEdit->text()).length() >= 2)
-//                 (*iter).setName((namekLineEdit->text()).toUpper());
-//             if((qthkLineEdit->text()).length() >= 2)
-//                 (*iter).setQth((qthkLineEdit->text()).toUpper());
-//             if((operatorLineEdit->text()).length() >= 3)
-//                 (*iter).setOperator((operatorLineEdit->text()).toUpper());
-//             if((stationCallsignLineEdit->text()).length() >= 3)
-//                 (*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
-//             if ((iotaIntSpinBox->value() != 0)) // IOTA
-//                 (*iter).setIota(iota);
-//             if ((awardsComboBox->currentIndex() != 0)){
-//                 award = awards.getAwardFor(world.getPrefix(qso.getQrz()));
-//                 if (award.getReferenceNumber(awardsComboBox->currentText())){
-//                     (*iter).setLocalAward(awardsComboBox->currentText());
-//                     (*iter).setLocalAwardNumber(award.getReferenceNumber(awardsComboBox->currentText()));
-//                     //award.workReference(awardsComboBox->currentText(), true);
-//                 }
-//             }
-//             if (locator.isValidLocator((locatorLineEdit->text()).toUpper() ))
-//                 (*iter).setLocator( (locatorLineEdit->text()).toUpper() );
-//             if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
-//                 (*iter).setMyLocator((myLocatorLineEdit->text()).toUpper());
-//             }/*else if (locator.isValidLocator(getMyLocator())) {
-//                 (*iter).setMyLocator(getMyLocator());
-//             }*/
-//             if (QSLSentcheckBox->isChecked()){
-//                 qslSen = QSLSentdateEdit->date();
-//                 (*iter).QslSent('Y');
-//                 if (qslSen.isValid()){
-//                     (*iter).setQslSenDateOn(qslSen);
-//                 }
-//             } else {
-//                 (*iter).QslSent('N');
-//             }
-//             if (QSLReccheckBox->isChecked()){
-//                 qslRec = QSLRecdateEdit->date();
-//                 (*iter).QslRec('Y');
-//                 if (qslRec.isValid()){
-//                     (*iter).setQslRecDateOn(qslRec);
-//                 }
-//             } else {
-//                 (*iter).QslRec('N');
-//             }
-// 
-// // 	    =============
-// // 	    if (qso.gotTheQSL() && (enti!=0)){
-// // 	      dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
-// // 	      waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
-// // 	    }
-// //
-// // 	    ===========
-// 
-//             if ((*iter).gotTheQSL() ){
-//                 dxcc.confirmedString(enti, ((*iter).getBand()).toUpper(), ((*iter).getMode()).toUpper());
-//                 waz.confirmedString( world.getCqzFromCall((*iter).getQrz()) ,((*iter).getBand()).toUpper(),((*iter).getMode()).toUpper());
-//             }else{
-//           (*iter).QslRec('N');
+  Klog::LogBook::iterator iter;
+  for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
+    if ( Klog::j == (*iter).getNumb() ) {
+//	  (*iter) = qso; //Optimization :-) Why shouldn't we reuse ;-)
+
+
+      if (((qrzLineEdit->text()).toUpper()).length() >= 3){
+	(*iter).setQrz((qrzLineEdit->text()).toUpper());
+      }
+      // Calculating RST values
+      i = TSendBox->value();
+      rsttx = i;
+      i = SSendBox->value() * 10;
+      rsttx = rsttx + i;
+      i = RSendBox->value() * 100;
+      rsttx = rsttx + i;
+      i = TRecBox->value();
+      rstrx = i;
+      i = SRecBox->value() * 10;
+      rstrx = rstrx + i;
+      i = RRecBox->value() * 100;
+      rstrx = rstrx + i;
+
+      dateTime = QDateTime(qsoDateEdit->date(), qsoTimeEdit->time() );
+      if (dateTime.isValid()){
+	(*iter).setDateTime(dateTime);
+      }else{
+	slotClearBtn();
+	return;
+      }
+      (*iter).setRstrx(rstrx);
+      (*iter).setRsttx(rsttx);
+
+      band = bandComboBox->currentIndex();
+      imode = modeComboBox->currentIndex();
+      power = (powerSpinBox->text()).toUpper();
+      (*iter).setBand ((bandComboBox->currentText()).toUpper());
+      (*iter).setMode((modeComboBox->currentText()).toUpper());
+      (*iter).setPower(power);
+
+    
+    
+      if ((remarksTextEdit->toPlainText()).length() >0)
+	(*iter).setComment(remarksTextEdit->toPlainText());
+
+      (*iter).setQslVia(QSLcomboBox->currentText());
+
+      // Check if the locator is valid
+      if (locator.isValidLocator((locatorLineEdit->text()).toUpper()))
+	(*iter).setLocator((locatorLineEdit->text()).toUpper());
+
+      if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
+	(*iter).setMyLocator((myLocatorLineEdit->text()).toUpper());
+      }else{
+	(*iter).setMyLocator(getMyLocator());
+      }
+    
+          
+      if ((iotaIntSpinBox->value() != 0)) // IOTA
+	(*iter).setIota(iota);
+      
+      if((satNamelineEdit->text()).length() >= 2)
+	(*iter).setSatName((satNamelineEdit->text()).toUpper());
+      if((satModelineEdit->text()).length() >= 1)
+	(*iter).setSatMode((satModelineEdit->text()).toUpper());
+     
+      if((qslVialineEdit->isEnabled()) && ((qslVialineEdit->text()).length() > 1))
+	(*iter).setQslManager((qslVialineEdit->text()).toUpper());
+
+      if ((QSLInfotextEdit->toPlainText()).length() > 0)
+	(*iter).setQslInfo(QSLInfotextEdit->toPlainText());
+
+      if((namekLineEdit->text()).length() >= 2)
+	(*iter).setName((namekLineEdit->text()).toUpper());
+
+      if((qthkLineEdit->text()).length() >= 2)
+	(*iter).setQth((qthkLineEdit->text()).toUpper());
+
+      if((operatorLineEdit->text()).length() >= 3)
+	(*iter).setOperator((operatorLineEdit->text()).toUpper());
+
+      if((stationCallsignLineEdit->text()).length() >= 3)
+	(*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
+
+      if (freqtxdoubleSpinBox->value() >= 0){
+	(*iter).setFreq(QString::number(freqtxdoubleSpinBox->value()));
+      }
+    
+      if (freqrxdoubleSpinBox->value() >= 0){        
+	(*iter).setFreq_RX(QString::number(freqrxdoubleSpinBox->value()));
+      }
+
+      if ((awardsComboBox->currentIndex() != 0)){
+	award = awards.getAwardFor(world.getPrefix(qso.getQrz()));
+	if (award.getReferenceNumber(awardsComboBox->currentText())){
+	  (*iter).setLocalAward(awardsComboBox->currentText());
+	  (*iter).setLocalAwardNumber(award.getReferenceNumber(awardsComboBox->currentText()));
+	  award.workReference(awardsComboBox->currentText(), true);
+	}
+      }
+
+      if (QSLSentcheckBox->isChecked()){
+	qslSen = QSLSentdateEdit->date();
+	(*iter).QslSent('Y');
+	if (qslSen.isValid()){
+	  (*iter).setQslSenDateOn(qslSen);
+	}
+      } else {
+	(*iter).QslSent('N');
+      }
+      
+      if (QSLReccheckBox->isChecked()){
+	qslRec = QSLRecdateEdit->date();
+	(*iter).QslRec('Y');
+	if (qslRec.isValid()){
+	  (*iter).setQslRecDateOn(qslRec);
+	}
+      } else {
+	(*iter).QslRec('N');
+      }
+ 
+      if ((*iter).gotTheQSL() ){
+	dxcc.confirmedString(enti, ((*iter).getBand()).toUpper(), ((*iter).getMode()).toUpper());
+	waz.confirmedString( world.getCqzFromCall((*iter).getQrz()) ,((*iter).getBand()).toUpper(),((*iter).getMode()).toUpper());
+      }else{
+	(*iter).QslRec('N');
+      }
+//       } else {
+// 	     (*iter).QslRec('N');
+//              if (dxcc.isConfirmed(enti)){
+//                  dxcc.notConfirmedString(enti, (bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
+//                  waz.notConfirmedString( world.getCqzFromCall((*iter).getQrz()) ,(bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
+//              }
 //         }
-        } else {
-       //     (*iter).QslRec('N');
-//             if (dxcc.isConfirmed(enti)){
-//                 dxcc.notConfirmedString(enti, (bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
-//                 waz.notConfirmedString( world.getCqzFromCall((*iter).getQrz()) ,(bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
-//             }
-        }
     }
+  }
 }
 
 void Klog::helpAbout() {
@@ -3203,6 +3261,8 @@ void Klog::slotIOTAChanged(){
         iota = iotaComboBox->currentText() + "-" + QString::number(iotaIntSpinBox->value());
         if (!modify)
             qso.setIota(iota);
+    }else{
+      iota = "";
     }
 }
 
@@ -4657,12 +4717,41 @@ void Klog::slotModeChanged (int i){
 
 void Klog::slotBandChanged (){
 //TODO: To check if this slot is really necessary.
-//cout << "KLog::slotBandChanged: "<< QString::number(enti) << endl;
+//qDebug() << "KLog::slotBandChanged: "<< "#" <<  bandComboBox->currentText() << "#" << endl;
     if (((qrzLineEdit->text()).length())==0)
         return;
     entityState(enti);
+  
+    // Check if the freq is already in the band margins, it should not be changed
+    // We update the TX freq to the selected band. 
+    //TODO: If we are modifiying... this hack does not work properly so I had to avoit it.
+    //TODO: Rework this to allow a "quick" freq change when modifiying.	
+//    if((adif.band2Int((bandComboBox->currentText()).toUpper()) != (adif.freq2Int(QString::number(freqtxdoubleSpinBox->value(), 'f', 3)))) && (!modify) )
+//      freqtxdoubleSpinBox->setValue((adif.int2Freq(adif.band2Int(((bandComboBox->currentText()).toUpper())))).toDouble());
 }
 
+void Klog::slotTXFreqChanged(double i){
+//qDebug() << "KLog::slotTXFreqChanged: "<< QString::number(i, 'f', 3) << "/" << adif.freq2Band(QString::number(i, 'f', 3)) << endl;
+// When the users changes the frequency (or it comes from the dxcluster or hamlib) the band combobox is also updated to the correct band.
+// It is needed to make a check to be able to prevent loops in the change of the bandcombobox and this widget.
+//connect(freqtxdoubleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotTXFreqChanged(int)) );
+/*  
+  int bandBackup = band;
+  
+  if ((adif.freq2Int(QString::number(i, 'f', 3))<0)){
+    //adif.freqCorrection(i);
+    freqtxdoubleSpinBox->setValue((adif.freqCorrection(i)).toDouble());
+  }
+  
+  band = adif.band2Int(adif.freq2Band(QString::number(i, 'f', 3)));
+  if (band == -1){
+    band = bandBackup;
+  }else{
+    bandComboBox->setCurrentIndex(band);
+  }
+*/
+  
+}
 
 bool Klog::haveAllTheFields(){
 //cout << "KLog::haveAllTheFields" << endl;

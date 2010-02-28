@@ -66,7 +66,9 @@ public:
     int freq2Int (const QString& tfreq); //(in MHz)   // accepts a string like "144", "10"... the MegaHertz section of a frecuency
     QString getModeBandPlan(const QString& tfreq); //(in MHz)
     QString int2Band(int tband);
+    QString int2Freq(int tband);
     QString freq2Band (const QString& tfreq); // (in MHz) Accepts frecs and returns band
+    QString freqCorrection (const double& tfreq); // (in MHz) Accepts frecs and returns freq in float
     bool isHF(const QString& tfreq);   // (in MHz) Input is the same as in freq2Int
     bool isVHF(const QString& tfreq);  // (in MHz) Input is the same as in freq2Int
     bool isWARC(const QString& tfreq);  // (in MHz) Input is the same as in freq2Int
