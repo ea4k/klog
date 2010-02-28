@@ -4022,8 +4022,8 @@ void Klog::filePrint(){
          row = 100;
       }
       painter.drawText(100, row, getNumberString((*it).getNumb()));
-      painter.drawText(200, row, QString::QString((*it).getDateTime().toString("yyyy/MM/dd")));
-      painter.drawText(300, row, QString::QString((*it).getDateTime().toString("hh:mm")));
+      painter.drawText(200, row, QString((*it).getDateTime().toString("yyyy/MM/dd")));
+      painter.drawText(300, row, QString((*it).getDateTime().toString("hh:mm")));
       painter.drawText(400, row, (*it).getQrz());
       painter.drawText(600, row, QString::number((*it).getRsttx()));
       painter.drawText(650, row, QString::number((*it).getRstrx()));
