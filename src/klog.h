@@ -231,6 +231,7 @@ class Klog : public QMainWindow, private Ui::klog
     void slotBugReport();
     void slotModeChanged (int i);
     void slotBandChanged ();
+    void slotTXFreqChanged(double i);
     void fillDXCCList();	// Fill the KLog tab
 
 

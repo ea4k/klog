@@ -42,10 +42,10 @@
 int main (int argc, char *argv[])
 {
   KAboutData aboutData( "klog", "klog",
-      ki18n("KLog"), "0.5.2",
+      ki18n("KLog"), "0.5.3",
       ki18n("The KDE Ham radio loggin software."),
       KAboutData::License_GPL,
-      ki18n("Copyright (c) 2002-2009, Jaime Robles, EA4TV") );
+      ki18n("Copyright (c) 2002-2010, Jaime Robles, EA4TV") );
 //    aboutData.addAuthor("Jaime Robles, EA4TV","http://jaime.robles.es", "jaime@robles.es");
   //TODO: Add the command line options
   KCmdLineArgs::init( argc, argv, &aboutData );
