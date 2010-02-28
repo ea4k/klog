@@ -1,5 +1,6 @@
 February-2010  0.5.3
 - Fixed a bug that caused modified QSO not being updated.
+- Fixed a bug in the way the band & mode combobox managed the data.
 
 February-2010 - 0.5.2
 - Fixed a bug that causes a crash when connectiong to DXCluster. (bug #016653)
