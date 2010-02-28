@@ -1448,8 +1448,17 @@ void Klog::toEditQso(){
     RRecBox->setValue( (QString::number(qso.getRstrx()).at(0)).digitValue() );
     SRecBox->setValue( (QString::number(qso.getRstrx()).at(1)).digitValue() );
     TRecBox->setValue( (QString::number(qso.getRstrx()).at(2)).digitValue() );
-    modeComboBox->setItemText(0, qso.getMode());
-    bandComboBox->setItemText(0, qso.getBand());
+    //modeComboBox->setEditText(qso.getMode());
+    //modeComboBox->setCurrentIndex(0, qso.getMode());
+    
+    modeComboBox->setCurrentIndex(modeComboBox->findText(qso.getMode()));
+    
+	//qso.getMode()
+	
+    //modeComboBox->setItemText(0, qso.getMode());
+    
+    bandComboBox->setCurrentIndex(bandComboBox->findText(qso.getBand()));
+    //bandComboBox->setCurrentIndex(adif.band2Int(qso.getBand()));
     powerSpinBox->setValue((qso.getPower()).toInt());
     remarksTextEdit->setText(returnLines(qso.getComment()));
     QSLSentcheckBox->setChecked(qso.sentTheQSL());
