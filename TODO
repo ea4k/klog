@@ -7,6 +7,7 @@
 
 </BEFORE RELEASING>
 
+* Check iterators and change by indexes as in modifyQso.
 * Check the TX frequency box number and make it compatible with the bandComboBox (Special care when modifiying...)
 * Check the ADIF QSL_VIA compatibility (B, D, E, M, ...)
 * ADD the STATION_CALLSIGN tag and relate it to OPERATOR

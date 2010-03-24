@@ -1,3 +1,7 @@
+March-2010 0.5.4
+- Small fix to initialize a variable before using it.(realTimeLog in klog.cpp)
+- Fixed a bug that caused KLog to crash of no cty.dat file was found (bug #016917)(TNX KA6MAL)
+
 February-2010  0.5.3
 - Fixed a bug that caused modified QSO not being updated.
 - Fixed a bug in the way the band & mode combobox managed the data.
