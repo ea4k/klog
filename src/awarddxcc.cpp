@@ -72,6 +72,9 @@ void AwardDXCC::worked(const int tentity, const int tband, const int tmode){
 	i = tentity;
 	j = tband;
 	k = tmode;
+	if ((i < 0) || (j<0) || (k<0) ){
+	  return;
+	}
 	if ( dxccb[i][j] < 1){
 		dxccb[i][j] = 0;
 	}
@@ -180,7 +183,7 @@ int AwardDXCC::howManyWorkedBand(const int tband){
 //cout << "AwardDXCC::howManyWorkedBand: " << QString::number(tband) << endl;
 	iAux = 0;
 	j = tband;
-	for (i = 0; i < ENTITIES; i++){
+	for (i = 1; i < ENTITIES; i++){
 		for (j = 0; j < BANDS; j++)
 			if (dxccb[i][j] >= 0 )
 				iAux++;
@@ -192,7 +195,7 @@ int AwardDXCC::howManyWorkedMode(const int tmode){
 //cout << "AwardDXCC::howManyWorkedMode: " << QString::number(tmode)<< endl;
   iAux = 0;
   k = tmode;
-  for (i = 0; i < ENTITIES; i++){
+  for (i = 1; i < ENTITIES; i++){
     for (k = 0; k < MODES; k++)
      if (dxccm[i][k] >= 0 )
         iAux++;
@@ -204,7 +207,7 @@ int AwardDXCC::howManyWorkedMode(const int tmode){
 int AwardDXCC::howManyWorked(){
 //cout << "AwardDXCC::howManyWorked" << endl;
 	iAux = 0;
-	for (i = 0; i < ENTITIES; i++){
+	for (i = 1; i < ENTITIES; i++){
 		if (dxccW[i]){
 			iAux++;}
 			////cout << "AwardDXCC::howManyWorked enti/iAux: " << QString::number(i) <<"/"<< QString::number(iAux) << endl;
@@ -286,7 +289,7 @@ int AwardDXCC::howManyConfirmedBand(const int tband){
 //cout << "AwardDXCC::howManyConfirmedBand: " << QString::number(tband) << endl;
 	iAux = 0;
 	j = tband;
-	for (i = 0; i < ENTITIES; i++){
+	for (i = 1; i < ENTITIES; i++){
 		for (j = 0; j < BANDS; j++)
 			if (dxccb[i][j] == 1 )
 				iAux++;
@@ -296,25 +299,25 @@ int AwardDXCC::howManyConfirmedBand(const int tband){
 
 int AwardDXCC::howManyConfirmedMode(const int tmode){
 //cout << "AwardDXCC::howManyConfirmedMode"  << QString::number(tmode) << endl;
-	iAux = 0;
-	k = tmode;
-	for (i = 0; i < ENTITIES; i++){
-		for (k = 0; k < MODES; k++)
-			if (dxccm[i][k] == 1 )
-				iAux++;
-	}
-	return iAux;
-
+  iAux = 0;
+  k = tmode;
+  for (i = 1; i < ENTITIES; i++){
+    for (k = 0; k < MODES; k++){
+      if (dxccm[i][k] == 1 )
+	iAux++;
+    }
+  }
+  return iAux;
 }
 
 int AwardDXCC::howManyConfirmed(){
 //cout << "AwardDXCC::howManyConfirmed" << endl;
-	iAux = 0;
-	for (i = 0; i < ENTITIES; i++){
-		if (dxccC[i])
-			iAux++;
-	}
-	return iAux;
+  iAux = 0;
+  for (i = 1; i < ENTITIES; i++){
+    if (dxccC[i])
+      iAux++;
+  }
+  return iAux;
 }
 
 

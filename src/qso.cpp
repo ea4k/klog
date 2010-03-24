@@ -220,7 +220,7 @@ void Qso::setQrz(const QString &tqrz ){
 }
 
 QString Qso::getQrz() const {
-//	cout << "QSO::getQrz " << endl;
+//qDebug() << "QSO::getQrz: " << qrz<< endl;
         return qrz;
 }
 
@@ -346,7 +346,7 @@ void Qso::setBand (const QString& tband){
 }
 
 QString Qso::getBand() const{
-        //cout << "QSO::getBand: " << band << endl;
+//qDebug() << "QSO::getBand: " << band << endl;
         return band;
 }
 
@@ -408,6 +408,7 @@ void Qso::setMyCountry(const QString& tcountry){	// ADIF DXCC Country name
 QString Qso::getMyCountry() const{return my_country;}			// ADIF DXCC Country name
 
 QString Qso::getMode() const{
+//qDebug() << "QSO::getMode: " << mode << endl;
     return mode;}
 
 void Qso::setPower(const QString& tpower){

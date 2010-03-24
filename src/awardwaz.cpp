@@ -168,7 +168,7 @@ int AwardWAZ::howManyWorkedBand(const int tband){
 //qDebug()  << "AwardWAZ::howManyWorkedBand" << endl;
 	iAux = 0;
 	j = tband;
-	for (i = 0; i < ZONES; i++){
+	for (i = 1; i < ZONES; i++){
 		for (j = 0; j < BANDS; j++)
 			if (wazb[i][j] >= 0 )
 			{
@@ -182,7 +182,7 @@ int AwardWAZ::howManyWorkedMode(const int tmode){
 //qDebug()  << "AwardWAZ::howManyWorkedMode" << endl;
 	iAux = 0;
 	k = tmode;
-	for (i = 0; i < ZONES; i++){
+	for (i = 1; i < ZONES; i++){
 		for (k = 0; k < MODES; k++)
 			if (wazm[i][k] >= 0 )
 				iAux++;
@@ -194,7 +194,7 @@ int AwardWAZ::howManyWorkedMode(const int tmode){
 int AwardWAZ::howManyWorked(){
 //qDebug()  << "AwardWAZ::howManyWorked" << endl;
 	iAux = 0;
-	for (i = 0; i < ZONES; i++){
+	for (i = 1; i < ZONES; i++){
 		if (wazW[i]){
 			iAux++;
 //			qDebug()  << "AwardWAZ::howManyWorked Zone/iAux: " << QString::number(i) <<"/"<< QString::number(iAux) << endl;
@@ -276,7 +276,7 @@ int AwardWAZ::howManyConfirmedBand(const int tband){
 //qDebug()  << "AwardWAZ::howManyConfirmedBand: " << QString::number(tband) << endl;
 	iAux = 0;
 	j = tband;
-	for (i = 0; i < ZONES; i++){
+	for (i = 1; i < ZONES; i++){
 		for (j = 0; j < BANDS; j++)
 			if (AwardWAZ::wazb[i][j] == 1 )
 				iAux++;
@@ -288,7 +288,7 @@ int AwardWAZ::howManyConfirmedMode(const int tmode){
 //qDebug()  << "AwardWAZ::howManyConfirmed: " << QString::number(tmode)  << endl;
 	iAux = 0;
 	k = tmode;
-	for (i = 0; i < ZONES; i++){
+	for (i = 1; i < ZONES; i++){
 		for (k = 0; k < MODES; k++)
 			if (wazm[i][k] == 1 )
 				iAux++;
@@ -300,7 +300,7 @@ int AwardWAZ::howManyConfirmedMode(const int tmode){
 int AwardWAZ::howManyConfirmed(){
 //qDebug() << "AwardWAZ::howManyConfirmed" << endl;
   iAux = 0;
-  for (i = 0; i < ZONES; i++){
+  for (i = 1; i < ZONES; i++){
 //		if (wazC[i]==true){
   if (wazC[i]){
     iAux++;

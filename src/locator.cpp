@@ -45,7 +45,7 @@ bool Locator::isValidLocator(const QString& tlocator){
       returned value ==  0 Error.   (Invalid locator).
       Note: also string "END" is considered a valid locator, but returned value is -2.
    ------------------------------------------------- */
-// qDebug() << "Locator::isValidLocator: " << tlocator << endl;
+ //qDebug() << "Locator::isValidLocator: " << tlocator << endl;
 
 	int lenght_of_locator;
 	testLocator ="A";
@@ -219,6 +219,7 @@ QString Locator::getLocator(const double lon1, const double lat1) const{
            lat = Latitude in decimal degrees (+ = North; - = South).
    Output: locator = 6 characters world wide locator.
    ------------------------------------------------- */
+//qDebug() << "Locator::getLocator: (" << QString::number(lon1) << "/" << QString::number(lat1) << ")" << endl;
   QString locat = ""; //NO locator
 
   double lo, la;

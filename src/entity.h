@@ -75,8 +75,15 @@ public:
 
   void setContinent(const QString &tcontinent);
   QString getContinent()const;
+  
+  void setDeleted(bool tdeleted);
+  bool getDeleted() const;
 
-  void addPrefix(const QString tprx);
+
+  
+  void setNullEntity();
+
+//  void addPrefix(const QString tprx);
 //  int findPrefix(const QString tprx);
 
 // We obtain the Entity from a call
@@ -94,6 +101,7 @@ private:
   int ituz;
   int timeZone;
     int adifCode;
+    bool deleted;
 
 
 };
