@@ -31,10 +31,13 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   setupUi( this );
   qsoDateEdit->setDisplayFormat("dd/MM/yyyy");
   QTimer *internalTimer = new QTimer( this ); // create internal timer
+  timeInUTC = true; // Date is shown in UTC unless configured
+  realTimeLog = true;
+  modify = false;
   connect( internalTimer, SIGNAL(timeout()), SLOT(slotUpdateTime()) );
   internalTimer->start( 1000 );         // emit signal every 1 second
 
-  Klog::KLogVersion = "0.5.3";
+  Klog::KLogVersion = "0.5.4";
 //   Klog::editdeletePixMap = new QPixmap("editdelete.png");
 //   editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
 //   Klog::qslRecPixMap = new QPixmap("qslRec.png");
@@ -47,13 +50,14 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   operatorStringAux = "";
   Klog::number = 0;
   //Klog::confirmed = 0;
-  timeInUTC = true; // Date is shown in UTC unless configured
+
   mode = "SSB";
   // To check what int is the SSB mode
   imode = 0;
   band = 2;
   power = "100";
   entiBak = 0;
+  enti = 0;
   callFound = false;
 //	wasConfirmed = false;
   callLen = 0;
@@ -139,7 +143,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   // Check we have setup world and cty.dat is in your home folder
   haveWorld();
 //  slotClearBtn(); //Not needed because it is called from slotQrzChanged
-  modify = false;
+  
   searching2QSL = false;
   actionSent = false;
   actionRec = false;
@@ -158,12 +162,14 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   }
   //showTip();	// TODO: We show a tip when KLog start
 //	dxcc.printWorkdStatus();
+
 #ifdef DXMAP
    DXMap *dxMap;
    dxMap = new DXMap(this);
    QLayout *dxMapLayout = dxMapTab->layout();
    dxMapLayout->addWidget(dxMap);
 #endif
+
 }
 
 Klog::~Klog(){
@@ -262,7 +268,7 @@ void Klog::createActions(){
 }
 
 bool Klog::haveWorld(){
-  //qDebug() << "KLog::haveWorld";
+ // qDebug() << "KLog::haveWorld";
   //TODO:setTextFormat(Qt::RichText) to display an URL as a link
   if (!world.isWorldCreated() ){
     int ret = QMessageBox::warning( this, i18n("Warning - Can't find cty.dat"),i18n("I can't find the cty.dat file with the DX Entity data.\nDo you want to continue without that data?\nCopy an updated cty.dat file to your ~/.klog dir, please.\n\nYou can download from: www.country-files.com/cty/cty.dat"));
@@ -298,17 +304,13 @@ void Klog::slotMyLocatorChanged(){
 //When my locator changes, distances and beams should be recalculated!
 //qDebug() << "KLog::slotMyLocatorChanged" << (myLocatorLineEdit->text()).toUpper();
 
-    dxLocator = getThisQSODXLocator();
-
-    if ((locator.isValidLocator((myLocatorLineEdit->text()).toUpper())) && ((myLocatorLineEdit->text()).toUpper() != getMyLocator()) ){
-        qso.setMyLocator((myLocatorLineEdit->text()).toUpper());
-    }else{ // If we do not enter any locator, maybe we do not know it...
-
+  dxLocator = getThisQSODXLocator();
+  if ((locator.isValidLocator((myLocatorLineEdit->text()).toUpper())) && ((myLocatorLineEdit->text()).toUpper() != getMyLocator()) ){
+    qso.setMyLocator((myLocatorLineEdit->text()).toUpper());
+  }else{ // If we do not enter any locator, maybe we do not know it...
         //qso.setMyLocator(getMyLocator());
     }
-
     myLocatorTemp = qso.getMyLocator();
-
     Klog::distance = locator.getDistance(locator.getLon(myLocatorTemp), locator.getLat(myLocatorTemp), locator.getLon(dxLocator), locator.getLat(dxLocator), true);
     beam = locator.getBeam(locator.getLon(myLocatorTemp), locator.getLat(myLocatorTemp), locator.getLon(dxLocator), locator.getLat(dxLocator));
     showDistancesAndBeam(distance, beam);
@@ -327,7 +329,7 @@ void Klog::showDistancesAndBeam(const int dist, const int beam){
 }
 
 QString Klog::getThisQSODXLocator (){
-    //qDebug() << "KLog::getThisQSODXLocator";
+
     // Firstly we check if the user has entered one locator and, if hasn't
     // We read the DX QRZ and get a default locator from it.
     if (locator.isValidLocator((locatorLineEdit->text()).toUpper())) { //User's locator
@@ -346,47 +348,44 @@ int Klog::getEntityFromCall(){ // We return the Entity number from the QRZ box c
 }
 
 void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
- //qDebug() << "KLog::slotQrzChanged: " <<  qrzLineEdit->text() << endl;
+//qDebug() << "KLog::slotQrzChanged: " <<  qrzLineEdit->text() << endl;
 
  //TODO: The next sentence only removes from the begining and end. If the user copies a QRZ with spaces they will remain
   qrzLineEdit->setText(((qrzLineEdit->text())).simplified()); // If the call contains any space, we delete it :-)
-
   qrzLineEdit->setText(((qrzLineEdit->text())).toUpper());
-
-    callLen = (qrzLineEdit->text()).length();
-
-    if (callLen == 0){ //TODO: Maybe the above check of length is not really needed (20090926-EA4TV)
-        callLenPrev = callLen; // just to avoid a no end loop
-	if (modify){
-	  slotCancelSearchButton(); //TODO: It is not nice that the search box is deleted because we change the QSO edited.
+  callLen = (qrzLineEdit->text()).length();
+  if (callLen == 0){ //TODO: Maybe the above check of length is not really needed (20090926-EA4TV)
+    callLenPrev = callLen; // just to avoid a no end loop
+    if (modify){
+      slotCancelSearchButton(); //TODO: It is not nice that the search box is deleted because we change the QSO edited.
 				  // Think something to keep the search while working with searches :-)
-	}
-        slotClearBtn();
-        return;
-    } else if((callLen != 0) && (!modify)){ // Updating the searchQrzklineEdit if we are not modifying a QSO.
-        ActionQsoDelete->setEnabled(true);
+    }
+    slotClearBtn();
+    return;
+  }else if((callLen != 0) && (!modify)){ // Updating the searchQrzklineEdit if we are not modifying a QSO.
+    ActionQsoDelete->setEnabled(true);
     ActionQsoSen->setEnabled(true);
     ActionQslRec->setEnabled(true);
-        enti = getEntityFromCall();
-        if (enti>0){
-            if (completeWithPrevious){ // If configured to use this feature
-                showIfPreviouslyWorked();
-            }
-            if (entiBak == enti){
-                callLenPrev = callLen;
-            } else {
-                entiBak = enti;
-                // Only if we detect the entity we look for a previous qso
-                // Just copying the string to the search box we will search for previously worked QSOs
-                searchQrzkLineEdit->setText((qrzLineEdit->text()).toUpper());
-            }
-        }
+    enti = getEntityFromCall();
+    if (enti>0){
+      if (completeWithPrevious){ // If configured to use this feature
+	showIfPreviouslyWorked();
+      }
+      if (entiBak == enti){
+	callLenPrev = callLen;
+      }else{
+	entiBak = enti;
+	// Only if we detect the entity we look for a previous qso
+	// Just copying the string to the search box we will search for previously worked QSOs
+	searchQrzkLineEdit->setText((qrzLineEdit->text()).toUpper());
+      }
     }
-    // The next 3 were called with entiBak
-    prepareAwardComboBox(enti);
-    showWhere(enti);
-    callLenPrev = callLen;
-    searching2QSL = false;	// If the user enters a QSO we finish the search2QSL process
+  }
+  // The next 3 were called with entiBak
+  prepareAwardComboBox(enti);
+  showWhere(enti);
+  callLenPrev = callLen;
+  searching2QSL = false;	// If the user enters a QSO we finish the search2QSL process
 }
 
 void Klog::prepareIOTAComboBox (const int tenti){
@@ -447,90 +446,84 @@ void Klog::slotClearBtn(){
 // This method clears all for the next QSO
 // It is still missing the part to set the cursor to the qrzLineEdit->
 
-    enti = -1;
-//	was = false;
-    Klog::j = 0;
-    qso.clearQso(); // Clears the qso object
-    LedtextLabel->setText(i18n( "<p align=\"center\"><b>KLog</b></p>"));
-    bandComboBox->setCurrentIndex(band);
-    modeComboBox->setCurrentIndex(imode);
+  enti = -1;
+  //was = false;
+  Klog::j = 0;
+  qso.clearQso(); // Clears the qso object
+  LedtextLabel->setText(i18n( "<p align=\"center\"><b>KLog</b></p>"));
+  bandComboBox->setCurrentIndex(band);
+  modeComboBox->setCurrentIndex(imode);
 
-    Klog::modify = false; // We will add the QSOs
-    Klog::actionSent = false;
-    Klog::actionRec = false;
-    //  Klog::prefixFound = false; // We will look for the Entity
-    Klog::award = awards.getDefaultAward();
-    Klog::entiBak = 0;
-    Klog::enti = 0;
-    Klog::callFound = false;
-    Klog::callLen = 0;
-    Klog::callLenPrev = 0;
-    Klog::callLenFound = 0;
-    Klog::lastDelete = false;
-    if  ((qrzLineEdit->text()).length() < 1){ // A double clicking of this button shall erase ALL
-        operatorLineEdit->clear();
-        stationCallsignLineEdit->clear();
-    }
-    if ((stationCallsignLineEdit->text()).length() < 3) {
-        stationCallsignLineEdit->clear();
-    }
-    if ((operatorLineEdit->text()).length() < 3) {
-        operatorLineEdit->clear();
-    }
+  Klog::modify = false; // We will add the QSOs
+  Klog::actionSent = false;
+  Klog::actionRec = false;
+  //Klog::prefixFound = false; // We will look for the Entity
+  Klog::award = awards.getDefaultAward();
+  Klog::entiBak = 0;
+  Klog::enti = 0;
+  Klog::callFound = false;
+  Klog::callLen = 0;
+  Klog::callLenPrev = 0;
+  Klog::callLenFound = 0;
+  Klog::lastDelete = false;
+  if  ((qrzLineEdit->text()).length() < 1){ // A double clicking of this button shall erase ALL
+    operatorLineEdit->clear();
+    stationCallsignLineEdit->clear();
+  }
+  if ((stationCallsignLineEdit->text()).length() < 3) {
+    stationCallsignLineEdit->clear();
+  }
+  if ((operatorLineEdit->text()).length() < 3) {
+    operatorLineEdit->clear();
+  }
+  //We update the time.
+  //After that we clean the call/mode/band
+  qrzLineEdit->clear();
+  remarksTextEdit->clear();
 
-    //We update the time.
-    //After that we clean the call/mode/band
-    qrzLineEdit->clear();
-    remarksTextEdit->clear();
+  //iotaIntSpinBox->setEnabled(false);
+  TSendBox->setValue(tTxValue);
+  SSendBox->setValue(9);
+  RSendBox->setValue(5);
+  TRecBox->setValue(tRxValue);
+  SRecBox->setValue(9);
+  RRecBox->setValue(5);
+  okBtn->setText(i18n("Ok"));
+  clearBtn->setText(i18n("Clear"));
+  QSLSentcheckBox->setChecked(false);
+  QSLReccheckBox->setChecked(false);
+  powerSpinBox->setValue(power.toInt());
+  qthkLineEdit->clear();
+  // operatorLineEdit->clear();
+  namekLineEdit->clear();
 
-    //iotaIntSpinBox->setEnabled(false);
-    TSendBox->setValue(tTxValue);
-    SSendBox->setValue(9);
-    RSendBox->setValue(5);
-    TRecBox->setValue(tRxValue);
-    SRecBox->setValue(9);
-    RRecBox->setValue(5);
-    okBtn->setText(i18n("Ok"));
-    clearBtn->setText(i18n("Clear"));
+  qslSen = QDate::currentDate();
+  (QSLSentdateEdit)->setDate(qslSen);
+  (QSLSentdateEdit)->setEnabled(false);
+  qslRec = QDate::currentDate();
+  (QSLRecdateEdit)->setDate(qslRec);
+  (QSLRecdateEdit)->setEnabled(false);
+  qslVialineEdit->setDisabled(true); // Next is the QSL info
+  //  QSLInfotextEdit->setDisabled(true);
+  qslVialineEdit->clear();
+  QSLInfotextEdit->clear();
+  QSLcomboBox->setCurrentIndex(0);
 
-    QSLSentcheckBox->setChecked(false);
-    QSLReccheckBox->setChecked(false);
-    powerSpinBox->setValue(power.toInt());
-    qthkLineEdit->clear();
-    // operatorLineEdit->clear();
-    namekLineEdit->clear();
-
-    qslSen = QDate::currentDate();
-    (QSLSentdateEdit)->setDate(qslSen);
-    (QSLSentdateEdit)->setEnabled(false);
-
-    qslRec = QDate::currentDate();
-    (QSLRecdateEdit)->setDate(qslRec);
-    (QSLRecdateEdit)->setEnabled(false);
-    qslVialineEdit->setDisabled(true); // Next is the QSL info
-    //  QSLInfotextEdit->setDisabled(true);
-    qslVialineEdit->clear();
-    QSLInfotextEdit->clear();
-    QSLcomboBox->setCurrentIndex(0);
-
-    locatorLineEdit->clear();
-    Klog::dxLocator="NULL";
-
-    Klog::myLocatorTemp = getMyLocator();  //My default locator from the klogrc
-    myLocatorLineEdit->setText(myLocatorTemp);
-    qso.setMyLocator(getMyLocator());
-
+  locatorLineEdit->clear();
+  Klog::dxLocator="NULL";
+  Klog::myLocatorTemp = getMyLocator();  //My default locator from the klogrc
+  myLocatorLineEdit->setText(myLocatorTemp);
+  qso.setMyLocator(getMyLocator());
     //freqlCDNumber->display(0); // Setting the frequency box to 0
-    freqrxdoubleSpinBox->setValue(0);
-    freqtxdoubleSpinBox->setValue(0);
+  freqrxdoubleSpinBox->setValue(0);
+  freqtxdoubleSpinBox->setValue(0);
 
-    showDistancesAndBeam(0,0);
-    clearEntityBox();
-    prepareAwardComboBox(enti);
-
-    qrzLineEdit->setFocus();		// The default widget for next QSO is, obviously, the QRZ!
-    searching2QSL = false;	// If the user decides to clear the qrzlinedit, we finish the search 2 QSL process.
-    completedWithPrevious = false;
+  showDistancesAndBeam(0,0);
+  clearEntityBox();
+  prepareAwardComboBox(enti);
+  qrzLineEdit->setFocus();		// The default widget for next QSO is, obviously, the QRZ!
+  searching2QSL = false;	// If the user decides to clear the qrzlinedit, we finish the search 2 QSL process.
+  completedWithPrevious = false;
 
   logTreeWidget->clearSelection(); //The next 5 are always together (should we create a function?)
   qsoSelectedBool = false;
@@ -937,7 +930,7 @@ void Klog::addQSOToLog(){
     Klog::needToSave = true;
     logbook.append(qso);
     enti = world.findEntity(qso.getQrz());
-    if (enti != 0){
+    if (enti > 0){
         dxcc.workedString(enti, qso.getBand(), qso.getMode());
         waz.workedString(world.getCqzFromCall(qso.getQrz()), qso.getBand(), qso.getMode() );
         if (qso.gotTheQSL()){
@@ -1400,7 +1393,7 @@ void Klog::adifReadLog(const QString& tfileName){
                 }
                 /*********************************************************/
             }
-            processLogLine (data);
+            processLogLine(data);
             if (showProgressDialog){
                 progresStep++;
                 if ( (number % getProgresStepForDialog(totalQsos) )== 0){ // To update the speed i will only show the progress once each 25 QSOs
@@ -1739,15 +1732,18 @@ Qso Klog::getByNumber(const int n){
 ************************************************************
 */
 //cout << "KLog::getByNumber: " << QString::number(n) << endl;
-    Klog::LogBook::iterator iter;
-    for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
-        if (n == (*iter).getNumb() ){
-            return (*iter);
+
+   // Klog::LogBook::iterator iter;
+    //for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
+    for ( int ii = 0; ii < logbook.size(); ++ii ){
+        if (n == (logbook.at(ii)).getNumb() ){
+            return (logbook.at(ii));
         }
     }
     //Qso not found
-    iter = logbook.end();
-    return (*iter);
+    //iter = logbook.end();
+    //ii = logbook.size();
+    return (logbook.at(logbook.size()));
 }
 
 
@@ -1758,13 +1754,14 @@ Qso Klog::getByCall(const QString& tqrz){
 ************************************************************
 */
 //cout << "KLog::getByCall" << endl;
-    Klog::LogBook::iterator iter;
-    for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
-        if (tqrz.compare(((*iter).getQrz())) == 0)
-            return (*iter);
+  //Klog::LogBook::iterator iter;
+  //for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
+  for ( int ii = 0; ii < logbook.size(); ++ii ){      
+        if (tqrz.compare(((logbook.at(ii)).getQrz())) == 0)
+            return (logbook.at(ii));
         }
     //Entity not found
-    return (*iter);
+    return (logbook.at(logbook.size()));
 }
 
 void Klog::showQso(){
@@ -1778,13 +1775,13 @@ void Klog::showQso(){
     }
     // This does not seem to be needed. QSO already modified and item added to the table
     /* else {
-        qDebug() << "MODIFY!";
+        //qDebug() << "MODIFY!";
         QList<QTreeWidgetItem *> item = logTreeWidget->findItems(QString::number(Klog::j, 7), Qt::MatchExactly, 0);
-        qDebug() << "MODIFYing before IF!" << item.count() << QString::number(Klog::j, 7);
-        qDebug() << item.at(0)->text(0);
+        //qDebug() << "MODIFYing before IF!" << item.count() << QString::number(Klog::j, 7);
+        //qDebug() << item.at(0)->text(0);
         if (item.at(0)){
-            qDebug() << "MODIFYing IF!" << item.count() << QString::number(Klog::j);
-            qDebug() << item.at(0)->text(0);
+            //qDebug() << "MODIFYing IF!" << item.count() << QString::number(Klog::j);
+            //qDebug() << item.at(0)->text(0);
             //item->setText( 0,  QString::number(Klog::j) );
             item[0]->setText( 0, getNumberString(Klog::j)  );
             item[0]->setText( 1, qso.getDateTime().toString("yyyy-MM-dd") );
@@ -1808,7 +1805,7 @@ To Check:
     When a QSO is deleted
     When the status of awards is read
 */
-//cout << "KLog::showAwardNumbers" << endl;
+//qDebug() << "KLog::showAwardNumbers" << endl;
     workedQSOlCDNumber->display(Klog::number);
     //confirmedQSOlCDNumber->display(Klog::confirmed);
     confirmedQSOlCDNumber->display(howManyConfirmedQSO());
@@ -2069,14 +2066,20 @@ void Klog::readQso(){ //Just read the values an fill the qso
 void Klog::modifyQso(){
 // Modify an existing QSO with the data on the boxes
 //qDebug() << "KLog::modifyQso: " << QString::number(Klog::j) << endl;
-  Klog::LogBook::iterator iter;
-  for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
-    if ( Klog::j == (*iter).getNumb() ) {
-//	  (*iter) = qso; //Optimization :-) Why shouldn't we reuse ;-)
 
+  Qso tmpQso;
+    
+    //for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
+//      tmpQso = logbook.at(ii);
+        //if (tmpQso.gotTheQSL()) {
 
+  //Klog::LogBook::iterator iter;
+  for ( int ii = 0; ii < logbook.size(); ++ii ) { 
+  //for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
+    if ( Klog::j == (logbook.at(ii)).getNumb() ) {
+      tmpQso = logbook.at(ii);
       if (((qrzLineEdit->text()).toUpper()).length() >= 3){
-	(*iter).setQrz((qrzLineEdit->text()).toUpper());
+	tmpQso.setQrz((qrzLineEdit->text()).toUpper());
       }
       // Calculating RST values
       i = TSendBox->value();
@@ -2094,119 +2097,107 @@ void Klog::modifyQso(){
 
       dateTime = QDateTime(qsoDateEdit->date(), qsoTimeEdit->time() );
       if (dateTime.isValid()){
-	(*iter).setDateTime(dateTime);
+	tmpQso.setDateTime(dateTime);
       }else{
 	slotClearBtn();
 	return;
       }
-      (*iter).setRstrx(rstrx);
-      (*iter).setRsttx(rsttx);
+      tmpQso.setRstrx(rstrx);
+      tmpQso.setRsttx(rsttx);
 
       band = bandComboBox->currentIndex();
       imode = modeComboBox->currentIndex();
       power = (powerSpinBox->text()).toUpper();
-      (*iter).setBand ((bandComboBox->currentText()).toUpper());
-      (*iter).setMode((modeComboBox->currentText()).toUpper());
-      (*iter).setPower(power);
+      tmpQso.setBand ((bandComboBox->currentText()).toUpper());
+      tmpQso.setMode((modeComboBox->currentText()).toUpper());
+      tmpQso.setPower(power);
 
-    
-    
-      if ((remarksTextEdit->toPlainText()).length() >0)
-	(*iter).setComment(remarksTextEdit->toPlainText());
-
-      (*iter).setQslVia(QSLcomboBox->currentText());
-
-      // Check if the locator is valid
-      if (locator.isValidLocator((locatorLineEdit->text()).toUpper()))
-	(*iter).setLocator((locatorLineEdit->text()).toUpper());
-
-      if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
-	(*iter).setMyLocator((myLocatorLineEdit->text()).toUpper());
-      }else{
-	(*iter).setMyLocator(getMyLocator());
+      if ((remarksTextEdit->toPlainText()).length() >0){
+	tmpQso.setComment(remarksTextEdit->toPlainText());
       }
-    
-          
-      if ((iotaIntSpinBox->value() != 0)) // IOTA
-	(*iter).setIota(iota);
+      tmpQso.setQslVia(QSLcomboBox->currentText());
+      // Check if the locator is valid
+      if (locator.isValidLocator((locatorLineEdit->text()).toUpper())){
+	tmpQso.setLocator((locatorLineEdit->text()).toUpper());
+      }
+      if (locator.isValidLocator((myLocatorLineEdit->text()).toUpper())){
+	tmpQso.setMyLocator((myLocatorLineEdit->text()).toUpper());
+      }else{
+	tmpQso.setMyLocator(getMyLocator());
+      }
+      if ((iotaIntSpinBox->value() != 0)){ // IOTA
+	tmpQso.setIota(iota);
+      }
       
-      if((satNamelineEdit->text()).length() >= 2)
-	(*iter).setSatName((satNamelineEdit->text()).toUpper());
-      if((satModelineEdit->text()).length() >= 1)
-	(*iter).setSatMode((satModelineEdit->text()).toUpper());
-     
-      if((qslVialineEdit->isEnabled()) && ((qslVialineEdit->text()).length() > 1))
-	(*iter).setQslManager((qslVialineEdit->text()).toUpper());
-
+      if((satNamelineEdit->text()).length() >= 2){
+	tmpQso.setSatName((satNamelineEdit->text()).toUpper());
+      }
+      if((satModelineEdit->text()).length() >= 1){
+	tmpQso.setSatMode((satModelineEdit->text()).toUpper());
+      }     
+      if((qslVialineEdit->isEnabled()) && ((qslVialineEdit->text()).length() > 1)){
+	tmpQso.setQslManager((qslVialineEdit->text()).toUpper());
+      }
       if ((QSLInfotextEdit->toPlainText()).length() > 0)
-	(*iter).setQslInfo(QSLInfotextEdit->toPlainText());
+	tmpQso.setQslInfo(QSLInfotextEdit->toPlainText());
 
       if((namekLineEdit->text()).length() >= 2)
-	(*iter).setName((namekLineEdit->text()).toUpper());
+	tmpQso.setName((namekLineEdit->text()).toUpper());
 
       if((qthkLineEdit->text()).length() >= 2)
-	(*iter).setQth((qthkLineEdit->text()).toUpper());
+	tmpQso.setQth((qthkLineEdit->text()).toUpper());
 
       if((operatorLineEdit->text()).length() >= 3)
-	(*iter).setOperator((operatorLineEdit->text()).toUpper());
+	tmpQso.setOperator((operatorLineEdit->text()).toUpper());
 
       if((stationCallsignLineEdit->text()).length() >= 3)
-	(*iter).setStationCallsign((stationCallsignLineEdit->text()).toUpper());
+	tmpQso.setStationCallsign((stationCallsignLineEdit->text()).toUpper());
 
       if (freqtxdoubleSpinBox->value() >= 0){
-	(*iter).setFreq(QString::number(freqtxdoubleSpinBox->value()));
+	tmpQso.setFreq(QString::number(freqtxdoubleSpinBox->value()));
       }
     
       if (freqrxdoubleSpinBox->value() >= 0){        
-	(*iter).setFreq_RX(QString::number(freqrxdoubleSpinBox->value()));
+	tmpQso.setFreq_RX(QString::number(freqrxdoubleSpinBox->value()));
       }
-
       if ((awardsComboBox->currentIndex() != 0)){
 	award = awards.getAwardFor(world.getPrefix(qso.getQrz()));
 	if (award.getReferenceNumber(awardsComboBox->currentText())){
-	  (*iter).setLocalAward(awardsComboBox->currentText());
-	  (*iter).setLocalAwardNumber(award.getReferenceNumber(awardsComboBox->currentText()));
+	  tmpQso.setLocalAward(awardsComboBox->currentText());
+	  tmpQso.setLocalAwardNumber(award.getReferenceNumber(awardsComboBox->currentText()));
 	  award.workReference(awardsComboBox->currentText(), true);
 	}
       }
-
       if (QSLSentcheckBox->isChecked()){
 	qslSen = QSLSentdateEdit->date();
-	(*iter).QslSent('Y');
+	tmpQso.QslSent('Y');
 	if (qslSen.isValid()){
-	  (*iter).setQslSenDateOn(qslSen);
+	  tmpQso.setQslSenDateOn(qslSen);
 	}
       } else {
-	(*iter).QslSent('N');
+	tmpQso.QslSent('N');
       }
-      
       if (QSLReccheckBox->isChecked()){
 	qslRec = QSLRecdateEdit->date();
-	(*iter).QslRec('Y');
+	tmpQso.QslRec('Y');
 	if (qslRec.isValid()){
-	  (*iter).setQslRecDateOn(qslRec);
+	  tmpQso.setQslRecDateOn(qslRec);
 	}
       } else {
-	(*iter).QslRec('N');
+	tmpQso.QslRec('N');
       }
- 
-      if ((*iter).gotTheQSL() ){
-	dxcc.confirmedString(enti, ((*iter).getBand()).toUpper(), ((*iter).getMode()).toUpper());
-	waz.confirmedString( world.getCqzFromCall((*iter).getQrz()) ,((*iter).getBand()).toUpper(),((*iter).getMode()).toUpper());
+      if (tmpQso.gotTheQSL() ){
+	dxcc.confirmedString(enti, (tmpQso.getBand()).toUpper(), (tmpQso.getMode()).toUpper());
+	waz.confirmedString( world.getCqzFromCall(tmpQso.getQrz()) ,(tmpQso.getBand()).toUpper(),(tmpQso.getMode()).toUpper());
       }else{
-	(*iter).QslRec('N');
+	tmpQso.QslRec('N');
       }
-//       } else {
-// 	     (*iter).QslRec('N');
-//              if (dxcc.isConfirmed(enti)){
-//                  dxcc.notConfirmedString(enti, (bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
-//                  waz.notConfirmedString( world.getCqzFromCall((*iter).getQrz()) ,(bandComboBox->currentText()).toUpper(), (modeComboBox->currentText()).toUpper());
-//              }
-//         }
+      
+      logbook.replace(ii,tmpQso);
+      //(logbook.at(ii)).getNumb()
     }
   }
 }
-
 void Klog::helpAbout() {
 //cout << "KLog::helpAbout" << endl;
   /*QString description;
@@ -2250,7 +2241,7 @@ void Klog::slotQSLcomboBoxChanged(){
 
 // The next slots run/shows the setup dialog to setup KLog
  void Klog::slotPreferences(){
-   //qDebug() << "KLog::slotPreferences";
+//qDebug() << "KLog::slotPreferences";
      Setup setupDialog;
      setupDialog.exec();
      readConf();
@@ -2280,7 +2271,7 @@ void Klog::createKlogDir(){
 }
 
 void Klog::readConf(){
-//cout << "KLog::readConf" << endl;
+//qDebug() << "KLog::readConf" << endl;
 
     DXClusterServerToUse ="NOSERVER";
     dxClusterHost="NOSERVER";
@@ -3334,15 +3325,19 @@ void Klog::entityState(const int tentity){
 
 int Klog::howManyConfirmedQSO(){
 //cout << "KLog::howManyConfirmedQSO" << endl;
-    Klog::LogBook::iterator iter;
+    //Klog::LogBook::iterator iter;
     int howManyConfirmed = 0;
-    for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
-        if ((*iter).gotTheQSL()) {
+    Qso tmpQso;
+    for ( int ii = 0; ii < logbook.size(); ++ii ){ 
+    //for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
+      tmpQso = logbook.at(ii);
+        if (tmpQso.gotTheQSL()) {
             howManyConfirmed++;
         }
     }
     return howManyConfirmed;
 }
+
 void Klog::slotSearchButton(){
 //qDebug() << "KLog::slotSearchButton";
     if (searching2QSL){
@@ -3512,12 +3507,19 @@ void Klog::slotQsoDelete(){
   if ((!modify) && (Klog::j == 0)){
     return;
   }else {
-    Klog::LogBook::iterator iter;
-    for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
-      if ( j == (*iter).getNumb() ) {
+   // Klog::LogBook::iterator iter;
+    Qso tmpQso;    
+ 
+    //for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
+    //if (tmpQso.gotTheQSL()) {
+
+    for ( int ii = 0; ii < logbook.size(); ++ii ){ 
+    //for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
+      if ( j == (logbook.at(ii)).getNumb() ) {
+	tmpQso = logbook.at(ii);
 	QMessageBox msgBox;
 	msgBox.setText(i18n("Warning - QSO Deletion"));
-	QString str = i18n("Do you want to delete the QSO with:\n%1 of %2 ?", (*iter).getQrz(), (*iter).getDateTime().toString("yyyy-MM-dd"));
+	QString str = i18n("Do you want to delete the QSO with:\n%1 of %2 ?", tmpQso.getQrz(), tmpQso.getDateTime().toString("yyyy-MM-dd"));
 	msgBox.setInformativeText(str);
 	msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
 	msgBox.setDefaultButton(QMessageBox::No);
@@ -3530,7 +3532,8 @@ void Klog::slotQsoDelete(){
 	    //if (( Klog::j == 1 ) && (true )) {
 	      fileNew();
 	    } else {
-	      logbook.erase(iter);
+	     // logbook.erase(ii);
+	      logbook.removeAt(ii);
 	      Klog::number--;  //To decrease the showed number
 	      needToSave = true;
 	    }
@@ -3552,23 +3555,24 @@ void Klog::slotQsoDelete(){
 }
 
 void Klog::readAwardsStatus(){
-   //qDebug() << "KLog::readAwardsStatus" << endl;
+//qDebug() << "KLog::readAwardsStatus" << endl;
    // Re-read the DXCC and WAZ status. Maybe I could extract to another function...
-   Klog::LogBook::iterator ite;
+   //Klog::LogBook::iterator ite;
    dxcc.clear();
    waz.clear();
-   for ( ite = logbook.begin(); ite != logbook.end(); ++ite ){
-
-      dxcc.worked(world.findEntity((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-      waz.worked(world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-
-      if ((*ite).gotTheQSL()){
-         dxcc.confirmed(world.findEntity((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-         waz.confirmed (world.getCqzFromCall((*ite).getQrz().toUpper()), adif.band2Int((*ite).getBand()), adif.mode2Int((*ite).getMode()));
-      }
-
-   }
-
+   Qso tmpQso;
+     
+  for ( int ii = 0; ii < logbook.size(); ++ii ){
+    tmpQso = logbook.at(ii);
+  // for ( ite = logbook.begin(); ite != logbook.end(); ++ite ){
+    if ( tmpQso.gotTheQSL() ){
+      dxcc.confirmed(world.findEntity((tmpQso.getQrz()).toUpper()), adif.band2Int(tmpQso.getBand()), adif.mode2Int(tmpQso.getMode()));
+      waz.confirmed (world.getCqzFromCall((tmpQso.getQrz()).toUpper()), adif.band2Int(tmpQso.getBand()), adif.mode2Int(tmpQso.getMode()));
+    }else{
+      dxcc.worked(world.findEntity((tmpQso.getQrz()).toUpper()),adif.band2Int(tmpQso.getBand()),adif.mode2Int(tmpQso.getMode()));
+      waz.worked(world.getCqzFromCall(tmpQso.getQrz().toUpper()), adif.band2Int(tmpQso.getBand()), adif.mode2Int(tmpQso.getMode()));
+    }
+  }
 }
 
 // To print the whole log in the botton box
@@ -3581,12 +3585,24 @@ void Klog::showLogList(){
   
   logTreeWidget->clear();	// Clear the log
 
-  Klog::LogBook::iterator it;
+//  Klog::LogBook::iterator it;
   //TODO: CALLS COULD BE IN COLORS TO SHOW IF WORKED/NEEDED, ...
   // re-implementation using paintcell as in cluster is needed to do so
-  for ( it = logbook.begin(); it != logbook.end(); ++it ){
+  //for ( it = logbook.begin(); it != logbook.end(); ++it ){
+  for ( int ii = 0; ii < logbook.size(); ++ii ){    
     QTreeWidgetItem * item = new QTreeWidgetItem( logTreeWidget, 0 );
-    // item->setText( 0, QString::number((*it).getNumb()) );
+
+    item->setText( 0, getNumberString(    (logbook.at(ii)).getNumb()   )  );
+    item->setText( 1, (logbook.at(ii)).getDateTime().toString("yyyy-MM-dd") );
+    item->setText( 2, (logbook.at(ii)).getDateTime().toString("hh:mm") );
+    item->setText( 3, (logbook.at(ii)).getQrz().toUpper() );
+    item->setText( 4, QString::number((logbook.at(ii)).getRsttx()) );
+    item->setText( 5, QString::number((logbook.at(ii)).getRstrx()) );
+    item->setText( 6, (logbook.at(ii)).getBand() );
+    item->setText( 7, (logbook.at(ii)).getMode() );
+    item->setText( 8, (logbook.at(ii)).getPower() );
+    item->setText( 9, (logbook.at(ii)).getComment() );
+    /*
     item->setText( 0, getNumberString((*it).getNumb())  );
     item->setText( 1, (*it).getDateTime().toString("yyyy-MM-dd") );
     item->setText( 2, (*it).getDateTime().toString("hh:mm") );
@@ -3596,7 +3612,7 @@ void Klog::showLogList(){
     item->setText( 6, (*it).getBand() );
     item->setText( 7, (*it).getMode() );
     item->setText( 8, (*it).getPower() );
-    item->setText( 9, (*it).getComment() );
+    item->setText( 9, (*it).getComment() );*/
   }
 }
 

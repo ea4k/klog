@@ -42,7 +42,8 @@ Entity::Entity (const int tnumb, const QString& tentity, const QString& tpfx, co
   timeZone = ttimeZone;
   continent = tcontinent;
   ituz = tituz;
-	adifCode = 0;
+  adifCode = 0;
+  deleted = false;
 }
 /*
 Entity::Entity (const int tnumb, const QString& tentity, const QString& tpfx, const int tcqz, const long tlon, const long tlat, const QString& tcontinent, const int tituz,  const int ttimeZone){
@@ -56,6 +57,7 @@ Entity::Entity (const int tnumb, const QString& tentity, const QString& tpfx, co
   timeZone = ttimeZone;
   continent = tcontinent;
   ituz = tituz;
+  deleted = false;
 }
 */
 Entity::~Entity(){
@@ -127,9 +129,9 @@ QString Entity::getContinent() const{
     return continent;
 }
 
-void Entity::addPrefix(const QString tprx){
-  prefixes.append(tprx);
-}
+// void Entity::addPrefix(const QString tprx){
+//   prefixes.append(tprx);
+// }
 
 void Entity::setTimeZone(int ttimeZone){
     timeZone = ttimeZone;
@@ -148,4 +150,29 @@ void Entity::setAdifCode(int tAdif){
 
 int Entity::getAdifCode() const{
 	return adifCode;
+}
+
+
+void Entity::setDeleted(bool tdeleted){
+	deleted = tdeleted;
+}
+
+
+bool Entity::getDeleted() const{
+	return deleted;
+}
+
+void Entity::setNullEntity(){
+// Sets a NULL entity
+  entity = "NULL";
+  pfx = "NULL";
+  numb = 0;
+  cqz = 0;
+  lon = 0;
+  lat = 0;
+  ituz = 0;
+  continent = "NU";
+  timeZone = 0;
+  adifCode = 0;
+  deleted = true;
 }

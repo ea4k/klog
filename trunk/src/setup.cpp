@@ -572,8 +572,7 @@ Setup::writeConf ()
   QFile file ("klogrc");
   QString tmp;
   tmp = "true";
-  if (file.open (QIODevice::WriteOnly))
-    {
+  if (file.open (QIODevice::WriteOnly)){
       QTextStream stream (&file);
       stream << "call=" << (MyCallkLineEdit->text ()).toUpper () << endl;
       stream << "locator=" << (MyLocatorkLineEdit->text ()).

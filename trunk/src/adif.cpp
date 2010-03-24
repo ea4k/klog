@@ -28,7 +28,7 @@
 //#include "iostream"
 
 #include "adif.h"
-//#include <QDebug>
+#include <QDebug>
 
 /*
 This class is really not independant FROM the GUI as the numbers to codify the
@@ -80,7 +80,7 @@ Adif::~Adif(){
 
 
 int Adif::band2Int(const QString& tband){
-//cout << "- Class Adif::band2Int: #" << tband << "#" << endl;
+//qDebug() << "- Class Adif::band2Int: #" << tband << "#" << endl;
   sAux = tband.toUpper();
 
   if (sAux == "2190M"){
@@ -146,7 +146,7 @@ int Adif::band2Int(const QString& tband){
 }
 
 int Adif::mode2Int(const QString& tmode){
-//cout << " - Class Adif::mode2Int: " << tmode << endl;
+//qDebug() << " - Class Adif::mode2Int: " << tmode << endl;
 
   sAux = tmode.toUpper();
   if (sAux == "SSB"){
@@ -440,7 +440,7 @@ QString Adif::int2Freq(int tband){
 }
 
 
-QString Adif::freqCorrection (const double& tfreq){ // Receives MHz/String
+QString Adif::freqCorrection (const double& freq){ // Receives MHz/String
 // Due to float precision the band limits are not exact!
 //qDebug() << "Adif::freqCorrection: " << tfreq << endl;
 

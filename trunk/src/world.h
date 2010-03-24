@@ -30,6 +30,7 @@ const char SEPARATOR1 = ':';
 const char SEPARATOR2 = ',';
 #include <stdlib.h>
 #include <math.h>
+#include <KDE/KLocale>
 #include <QTextStream>
 #include <QString>
 #include <QStringList>
@@ -101,6 +102,7 @@ private:
 //	EntityIIMap::Iteraror itCqMapi, itItuMapi;	//TODO Map entity/zone to do things faster
 	int getItuz(); // HACK: I should fool-proof this function adding a QString as a call to get the zone
 	int getCqz();  // HACK: I should fool-proof this function adding a QString as a call to get the zone
+	void createNullEntity(); //Creates a null entity that will be an entity in every world 
 
 
 };
