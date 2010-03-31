@@ -37,7 +37,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   connect( internalTimer, SIGNAL(timeout()), SLOT(slotUpdateTime()) );
   internalTimer->start( 1000 );         // emit signal every 1 second
 
-  Klog::KLogVersion = "0.5.4";
+  Klog::KLogVersion = "0.5.5";
 //   Klog::editdeletePixMap = new QPixmap("editdelete.png");
 //   editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
 //   Klog::qslRecPixMap = new QPixmap("qslRec.png");
@@ -280,21 +280,34 @@ void Klog::createActions(){
 
 bool Klog::haveWorld(){
  // qDebug() << "KLog::haveWorld";
-  //TODO:setTextFormat(Qt::RichText) to display an URL as a link
+  //TODO: If the world has not been created, and the user downloads the cty.dat file. KLog should try to recreate the world.
+  // Maybe deleting and creating again the world.
+  
   if (!world.isWorldCreated() ){
-    int ret = QMessageBox::warning( this, i18n("Warning - Can't find cty.dat"),i18n("I can't find the cty.dat file with the DX Entity data.\n\nDo you want to download the cty.dat file now?\n\n(KLog will download the file from www.country-files.com/cty/cty.dat and copy it to your ~/.klog directory.)"));
-    switch(ret) {
-      case QMessageBox::Yes: // Continue
-	requestDownloadctydat = true;
-	return true;
-        break;
-      case QMessageBox::No: // Continue
-	requestDownloadctydat = false;
-        return false;
-        break;
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(i18n("Warning - Can't find cty.dat"));
+    msgBox.setText(i18n("I can't find the cty.dat file with the DX Entity data.\n\nIf KLog download the file from www.country-files.com/cty/cty.dat it will be copied to your ~/.klog directory."));
+    msgBox.setInformativeText("Do you want to download the cty.dat file now?");
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    int ret = msgBox.exec();
+    
+    switch (ret) {
+      case QMessageBox::Yes:
+       requestDownloadctydat = true;
+      break;
+      case QMessageBox::No:
+       requestDownloadctydat = false;
+      break;
+    
+      default:
+       // should never be reached
+      break;
     }
+    return false;
+  }else{
+    return true;
   }
-  return true;
 }
 
 void Klog::slotLocatorChanged(){

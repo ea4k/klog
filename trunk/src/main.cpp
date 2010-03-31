@@ -42,7 +42,7 @@
 int main (int argc, char *argv[])
 {
   KAboutData aboutData( "klog", "klog",
-      ki18n("KLog"), "0.5.4",
+      ki18n("KLog"), "0.5.5",
       ki18n("The KDE Ham radio loggin software."),
       KAboutData::License_GPL,
       ki18n("Copyright (c) 2002-2010, Jaime Robles, EA4TV") );
