@@ -1,3 +1,6 @@
+Date 0.5.5
+- Working in the function to download and update the cty.dat from the web.
+
 March-2010 0.5.4
 - Small fix to initialize a variable before using it.(realTimeLog in klog.cpp)
 - Fixed a bug that caused KLog to crash of no cty.dat file was found (bug #016917)(TNX KA6MAL)

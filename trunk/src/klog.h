@@ -1,4 +1,4 @@
-/****************************f***********************************************
+/***************************************************************************
                           klog.h  -  description
                              -------------------
     begin                : sb dic  7 18:42:45 CET 2002
@@ -63,7 +63,7 @@
 #include "ui_klog.h"
 // The next two are for the cluster box
 #include <QTcpSocket>
-#include <QUrl>
+//#include <QUrl>
 // The next two are for printing
 #include <QPrinter>
 #include <QPainter>
@@ -90,7 +90,7 @@
 #include "award.h"
 #include "reference.h"
 #include "cabrillomanagement.h"
-
+#include "klognetwork.h"
 // To use the dxmap just uncomment out the define tag below. It will activate all relevant code. Still broken though.
 //#define DXMAP 1
 #ifdef DXMAP
@@ -162,6 +162,7 @@ class Klog : public QMainWindow, private Ui::klog
     void filePrint();
     //void printLabels(); // Generate the file for GLabels or KBarcode
     void slothamlibUpdateFrequency();
+    void slotUpdateCTYDATFile();
 
 //	void adifFileSave();
     void adifTempFileSave(const QString& fn, LogBook lb, bool manualSave);  // To save the templog automatically after each QSO is added
@@ -239,7 +240,7 @@ class Klog : public QMainWindow, private Ui::klog
     Qso qso, qsoSelected, qsoSearchSelected;
 //	CabrilloManagement cabrilloLog;
 //	Qso previousQso;       // This and workedCall is to check if a call has been previously
-
+    bool requestDownloadctydat;
     bool completeWithPrevious;	// Configuration parameter
     bool completedWithPrevious;
     bool qsoSelectedBool, qsoSearchSelectedBool; 	//To know if a QSO has been selected at least once
@@ -459,7 +460,8 @@ class Klog : public QMainWindow, private Ui::klog
     QString serialPort;
     QTimer *hamlibtimer;
     QMenu *qsoMenu;
-//    QMenu *searchRightButtonMenu;
+
+    
     QAction *delQSOAct;
     QAction *recSenQSOAct;
     QAction *recQSOAct;
