@@ -50,7 +50,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   operatorStringAux = "";
   Klog::number = 0;
   //Klog::confirmed = 0;
-
+  requestDownloadctydat = false; // to download the cty.dat file if needed
   mode = "SSB";
   // To check what int is the SSB mode
   imode = 0;
@@ -142,6 +142,10 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   comment = "";
   // Check we have setup world and cty.dat is in your home folder
   haveWorld();
+  
+  if (requestDownloadctydat){ // Checkif we need to download the cty.dat file
+    slotUpdateCTYDATFile();
+  }
 //  slotClearBtn(); //Not needed because it is called from slotQrzChanged
   
   searching2QSL = false;
@@ -214,6 +218,11 @@ void Klog::createActions(){
   connect(fileSaveAction, SIGNAL(triggered()), this, SLOT(fileSave()) );
   connect(fileSaveAsAction, SIGNAL(triggered()), this, SLOT(fileSaveAs()) );
   connect(helpAboutAction, SIGNAL(triggered()), this, SLOT(helpAbout()) );
+  
+  connect(actionUpdateCtyDat, SIGNAL(triggered()), this, SLOT(slotUpdateCTYDATFile()) );
+  
+  
+  
   connect(modeComboBox, SIGNAL(activated(int)), this, SLOT(slotModeChanged(int)) );
   connect(searchQrzkLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchButton()) );
   connect(setupAction, SIGNAL(triggered()), this, SLOT(slotPreferences()) );
@@ -260,6 +269,8 @@ void Klog::createActions(){
 
   connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));
   connect(searchQsosTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT(showRighButtonSearchMenu(const QPoint& ) ) );
+  
+  
 /*
   connect(searchQsosTreeWidget, SIGNAL(itemSelectionChanged ()), this, SLOT(slotSearchQSOSelectionChanged()));
   connect(searchQsosTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotSearchQSOSelectionChanged()));*/
@@ -271,12 +282,14 @@ bool Klog::haveWorld(){
  // qDebug() << "KLog::haveWorld";
   //TODO:setTextFormat(Qt::RichText) to display an URL as a link
   if (!world.isWorldCreated() ){
-    int ret = QMessageBox::warning( this, i18n("Warning - Can't find cty.dat"),i18n("I can't find the cty.dat file with the DX Entity data.\nDo you want to continue without that data?\nCopy an updated cty.dat file to your ~/.klog dir, please.\n\nYou can download from: www.country-files.com/cty/cty.dat"));
+    int ret = QMessageBox::warning( this, i18n("Warning - Can't find cty.dat"),i18n("I can't find the cty.dat file with the DX Entity data.\n\nDo you want to download the cty.dat file now?\n\n(KLog will download the file from www.country-files.com/cty/cty.dat and copy it to your ~/.klog directory.)"));
     switch(ret) {
       case QMessageBox::Yes: // Continue
-        return true;
+	requestDownloadctydat = true;
+	return true;
         break;
       case QMessageBox::No: // Continue
+	requestDownloadctydat = false;
         return false;
         break;
     }
@@ -5264,7 +5277,7 @@ void Klog::slothamlibUpdateFrequency(){
                 band = adif.band2Int(adif.freq2Band(QString::number(hamlibFreq)));
                 bandComboBox->setCurrentIndex(band);
                 //freqlCDNumber->display(hamlibFreq);
-		freqtxdoubleSpinBox->setValue(hamlibFreq); //TODO: check if needed to / 1000
+		freqtxdoubleSpinBox->setValue(hamlibFreq);
 		freqrxdoubleSpinBox->setValue(0);
         }else{
     //cout << "KLog::slothamlibUpdateFrequency - NO Freq: " << QString::number(hamlibFreq) << endl;
@@ -5272,6 +5285,21 @@ void Klog::slothamlibUpdateFrequency(){
 
 }
 
+void Klog::slotUpdateCTYDATFile(){
+/****************************************************
+*  Updates the cty.dat file from the web.
+* URL: http://www.country-files.com/cty/cty.dat
+* Info: http://www.country-files.com/cty/#KLog
+*
+*****************************************************/
+  qDebug() << "KLog::slotUpdateCTYDATFile: "  << endl;
+  //TODO: Make the KLogNetwork to return a boolean value to check if the file has been downloaded or not.
+  // and be able to recreate the world.
+  KLogNetwork klogNetwork;
+//  klogNetwork.show();
+  klogNetwork.exec();
+  
+}
 
 /***************************************************************************
 ** This is an auxiliary class intended to provide color to the DX-Cluster **
