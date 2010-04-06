@@ -344,6 +344,7 @@ class Klog : public QMainWindow, private Ui::klog
 
     QPalette palette; // For cluster
     QPainter clusterPainter; // For cluster
+    QPalette qrzDefaultPalette, qrzWorkedB4Palette; // palette for the QRZLineEdit to now if a QRZ has been previously worked.
     QColor confirmedColor;
     QColor workedColor;
     QColor neededColor;
