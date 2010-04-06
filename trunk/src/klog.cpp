@@ -37,6 +37,8 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   connect( internalTimer, SIGNAL(timeout()), SLOT(slotUpdateTime()) );
   internalTimer->start( 1000 );         // emit signal every 1 second
 
+  
+  
   Klog::KLogVersion = "0.5.5";
 //   Klog::editdeletePixMap = new QPixmap("editdelete.png");
 //   editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
@@ -110,6 +112,13 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   serialPort = "/dev/ttyS0";
   hamlibFreq = 0.0;
   rignameNumber = 1; // dummy
+  
+  //qrzDefaultPalette = qrzLineEdit->foregroundRole();
+      //p.setPen( palette().color( QPalette::Normal, QPalette::BrightText ) );
+  //QPalette::BrightText
+  //QColor workedB4Color(Qt::red);
+  //qrzWorkedB4Palette = qrzLineEdit->foregroundRole();
+  //QPalette::WindowText
   
 // HAMLIB
   createKlogDir(); // if klogDir does not exist, we create it via slotKlogSetup
@@ -394,9 +403,9 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
     ActionQslRec->setEnabled(true);
     enti = getEntityFromCall();
     if (enti>0){
-      if (completeWithPrevious){ // If configured to use this feature
-	showIfPreviouslyWorked();
-      }
+      //if (completeWithPrevious){ // If configured to use this feature
+	showIfPreviouslyWorked(); // We call to know if QRZ has been previously worked
+      //}
       if (entiBak == enti){
 	callLenPrev = callLen;
       }else{
@@ -603,6 +612,22 @@ void Klog::slotOkBtn(){
   if ((qso.getQrz()).length() >= 3){//There are no qrz with less than 3char
     needToSave = true;
     if (!modify){
+      /*
+    
+    
+    enti = world.findEntity(qso.getQrz());
+    
+    if (enti > 0){
+        dxcc.workedString(enti, qso.getBand(), qso.getMode());
+        waz.workedString(world.getCqzFromCall(qso.getQrz()), qso.getBand(), qso.getMode() );
+        if (qso.gotTheQSL()){
+            dxcc.confirmedString(enti, (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+            waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
+        }
+    }
+    qso.clearQso();
+      
+      */
       
       logbook.append(qso);
       needToSave = true;
@@ -610,7 +635,7 @@ void Klog::slotOkBtn(){
       adifTempFileSave(tempLogFile, templogbook, false); //Autosave
       //addToPreviouslyWorked(qso.getQrz());
       kk = workedCall.addCall(qso.getQrz(), qso.getNumb());
-      if (enti != 0){
+      if (enti > 0){
 	dxcc.worked(enti,bandComboBox->currentIndex(),modeComboBox->currentIndex());
 	waz.worked( world.getCqzFromCall(qso.getQrz()) ,bandComboBox->currentIndex(),modeComboBox->currentIndex());
 	if (qso.gotTheQSL()){
@@ -956,6 +981,7 @@ void Klog::addQSOToLog(){
     Klog::needToSave = true;
     logbook.append(qso);
     enti = world.findEntity(qso.getQrz());
+    kk = workedCall.addCall(qso.getQrz(), qso.getNumb());
     if (enti > 0){
         dxcc.workedString(enti, qso.getBand(), qso.getMode());
         waz.workedString(world.getCqzFromCall(qso.getQrz()), qso.getBand(), qso.getMode() );
@@ -4820,7 +4846,7 @@ bool Klog::haveAllTheFields(){
 
 //Intended to complete the actual QSO if has been worked before.
 void Klog::showIfPreviouslyWorked(){ // Uses previousQso and workedCall
-//cout << "KLog::showIfPreviouslyWorked" << endl;
+//qDebug() << "KLog::showIfPreviouslyWorked" << endl;
 // The affected fields are:
 //	Name, QTH, Locator, QSLVia & Manager
 //To add a tab in the right box to show the data from previous QSOs for a call.
@@ -4828,109 +4854,67 @@ void Klog::showIfPreviouslyWorked(){ // Uses previousQso and workedCall
 //	kk = 0;
     Qso prevQso;
     int _enti;
-    if (!completeWithPrevious){ // If we have configured KLog not to use this feature
-//		cout << "KLog::showIfPreviouslyWorked FALSE" << endl;
-        return;
-
+    int kk = workedCall.findCall(qrzLineEdit->text());
+    QPalette palette;
+    //bool workedBefore = false;
+    
+    if (kk>0){
+      //qDebug() << "KLog::showIfPreviouslyWorked: Worked before: " << QString::number(kk) << " - Change color" << endl;    
+      // We have worked this QSO before. The QRZ color is changed
+      palette.setColor(QPalette::Text, Qt::red);
+      qrzLineEdit->setPalette(palette);
+      
+      if (completeWithPrevious){ 
+	_enti = getEntityFromCall();
+	//qDebug() << "KLog::showIfPreviouslyWorked: Worked before. We have to complete" << endl;
+	prevQso = getByNumber(kk);
+	if ((prevQso.getQth()).length() >=2){
+	  qthkLineEdit->setText(prevQso.getQth());
+	}
+	if ((prevQso.getName()).length() >=2){
+	  //qDebug() << "KLog::showIfPreviouslyWorked: Worked before - Name: " << prevQso.getName() << endl;
+	  namekLineEdit->setText(prevQso.getName());
+	}
+	dxLocator = prevQso.getLocator();
+	locatorLineEdit->setText(dxLocator);
+	slotLocatorChanged();
+	// IOTA
+	prepareIOTAComboBox(_enti);
+	if (prevQso.getIotaNumber() != 0) {
+	  i = 0;
+	  i = adif.continent2Number((prevQso.getIotaContinent()));
+	  iotaComboBox->setCurrentIndex(i);
+	  iotaIntSpinBox->setValue(prevQso.getIotaNumber());
+	}
+	// Local Award
+	prepareAwardComboBox(_enti);
+	if (award.getReferenceNumber(prevQso.getLocalAward()) != -1 ) {
+	  awardsComboBox->setCurrentIndex(award.getReferenceNumber(prevQso.getLocalAward()));
+	  awardsComboBox->setEnabled(true);
+	}
+	completedWithPrevious = true;
+	kk = 0;
+      }else{
+	qthkLineEdit->clear();
+	namekLineEdit->clear();
+	locatorLineEdit->clear();
+	slotLocatorChanged();
+        iotaIntSpinBox->setValue(0);
+	prepareIOTAComboBox(_enti);
+	//DELETE THE ISLAND
+	awardsComboBox->setCurrentIndex(0);
+	prepareAwardComboBox(_enti);
+	//DELETE THE CODE
+	completedWithPrevious = false;
+      }
     }else{
-//		cout << "KLog::showIfPreviouslyWorked: TRUE" << endl;
-        kk = workedCall.findCall(qrzLineEdit->text());
-        _enti = getEntityFromCall();
-
-        if ((  kk > 0) ){
-//			cout << "KLog::showIfPreviouslyWorked: Worked before: " << QString::number(kk) << endl;
-            prevQso = getByNumber(kk);
-            if ((prevQso.getQth()).length() >=2){
-                qthkLineEdit->setText(prevQso.getQth());
-            }
-            if ((prevQso.getName()).length() >=2){
-//				cout << "KLog::showIfPreviouslyWorked: Worked before - Name: " << prevQso.getName() << endl;
-                namekLineEdit->setText(prevQso.getName());
-            }
-            dxLocator = prevQso.getLocator();
-            locatorLineEdit->setText(dxLocator);
-            slotLocatorChanged();
-
-
-            // IOTA
-            prepareIOTAComboBox(_enti);
-            if (prevQso.getIotaNumber() != 0) {
-                i = 0;
-                i = adif.continent2Number((prevQso.getIotaContinent()));
-
-                iotaComboBox->setCurrentIndex(i);
-                iotaIntSpinBox->setValue(prevQso.getIotaNumber());
-            }
-            // Local Award
-            prepareAwardComboBox(_enti);
-            if (award.getReferenceNumber(prevQso.getLocalAward()) != -1 ) {
-                awardsComboBox->setCurrentIndex(award.getReferenceNumber(prevQso.getLocalAward()));
-                awardsComboBox->setEnabled(true);
-            }
-
-            completedWithPrevious = true;
-            kk = 0;
-        }else{ // If the call is NOT worked, we have to clean the texts
-//		cout << "KLog::showIfPreviouslyWorked: no Worked before" << endl;
-            if (completedWithPrevious){
-//	cout << "KLog::showIfPreviouslyWorked: no Worked deleting..." << endl;
-                qthkLineEdit->clear();
-                namekLineEdit->clear();
-                locatorLineEdit->clear();
-                slotLocatorChanged();
-
-//				iotaComboBox->setCurrentIndex(0);
-                iotaIntSpinBox->setValue(0);
-                prepareIOTAComboBox(_enti);
-            //DELETE THE ISLAND
-                awardsComboBox->setCurrentIndex(0);
-                prepareAwardComboBox(_enti);
-            //DELETE THE CODE
-
-
-                completedWithPrevious = false;
-            }
-        }
+      //qDebug() << "KLog::showIfPreviouslyWorked FALSE: Color to default" << endl;          
+      // return the color to black
+      palette.setColor(QPalette::Text, Qt::black);
+      qrzLineEdit->setPalette(palette);
+      
+      
     }
-
-//
-//		//QSL Info
-//		QSLcomboBox->setItemText(previousQso.getQslVia());
-//		if ((previousQso.getQslVia()).compare("No QSL") == 0){
-//			qslVialineEdit->setDisabled(true);
-//			// QSLInfotextEdit->setDisabled(true);
-//			qslVialineEdit->clear();
-//			// QSLInfotextEdit->clear();
-//		}else{
-//			if ((previousQso.getQslVia()).compare("Manager") == 0){
-//				qslVialineEdit->setEnabled(true);
-//				qslVialineEdit->setText(previousQso.getQslManager());
-//			}else
-//				qslVialineEdit->setDisabled(true);
-            //        QSLInfotextEdit->setEnabled(true);
-    //		QSLInfotextEdit->setText(previousQso.getQslInfo());
-    //	}
-        // IOTA
-        ////cout << "KLog::showIfPreviouslyWorked - IOTA: " << QString::number(previousQso.getIotaNumber()) << endl;
-        /*i = 0;
-        if (previousQso.getIotaNumber() != 0) {
-            i = adif.continent2Number((qso.getIotaContinent()));
-            iotaComboBox->setCurrentIndex(i);
-            iotaIntSpinBox->setValue(previousQso.getIotaNumber());
-        }*/
-        // Local Award
-        /*if (previousQso.getLocalAward() != 0) {
-            iotaComboBox->setCurrentIndex(previousQso.getIotaContinent());
-            iotaIntSpinBox->setEnabled(true);
-            iotaIntSpinBox->setValue(previousQso.getIotaNumber());
-        }*/
-//	}else{ // If not worked B4, we clean the boxes...
-        // Is it really needed? It contradict the "auto IOTA box setting (prepareIOTAComboBox)
-        /*i = 0;
-        if (iotaIntSpinBox->value() != 0);
-            i = iotaIntSpinBox->value();
-        clearGUI();*/
-//	}
 }
 
 void Klog::clearGUI(){

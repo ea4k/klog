@@ -85,6 +85,7 @@ possible to reach the Name and QTH with tabs) (P.H. Rankin H.)
 
                    
 <Early versions - WishList>
+* Maybe a new feature to export QSOs between two dates to a file.
 * Add a way to group the "NEW ONES" when the user executes the Tools->Find QSO to QSL to priorize the NEW ONES.
 * Multi call support, the same user can log with several calls (OPERATOR).
 * When showing QSO to QSL search and display as "needed" the QRZ that is a new one, has not been confirmed in ANY band.
