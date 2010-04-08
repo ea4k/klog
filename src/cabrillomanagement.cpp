@@ -23,7 +23,7 @@
 //using namespace std;
 
 CabrilloManagement::CabrilloManagement(){
-	qso.clearQso();
+	qso.clear();
 };
 
 

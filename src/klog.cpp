@@ -484,7 +484,7 @@ void Klog::slotClearBtn(){
   enti = -1;
   //was = false;
   Klog::j = 0;
-  qso.clearQso(); // Clears the qso object
+  qso.clear(); // Clears the qso object
   LedtextLabel->setText(i18n( "<p align=\"center\"><b>KLog</b></p>"));
   bandComboBox->setCurrentIndex(band);
   modeComboBox->setCurrentIndex(imode);
@@ -625,7 +625,7 @@ void Klog::slotOkBtn(){
             waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
         }
     }
-    qso.clearQso();
+    qso.clear();
       
       */
       
@@ -990,7 +990,7 @@ void Klog::addQSOToLog(){
             waz.confirmedString( world.getCqzFromCall(qso.getQrz()), (qso.getBand()).toUpper() ,  (qso.getMode()).toUpper());
         }
     }
-    qso.clearQso();
+    qso.clear();
 }
 
 int Klog::getProgresStepForDialog(int totalSteps){
@@ -1351,7 +1351,7 @@ void Klog::processLogLine (const QString& tLogLine){
                 //NO OPERATION
             }
                     // Resetting the mandatory fields to read a new QSO
-            qso.clearQso();
+            qso.clear();
             for (i = 0; i<7; i++){
                 haveAllMandatoryFields[i] = false;
             }
@@ -4454,10 +4454,12 @@ void Klog::slotClusterSocketConnected(){
 
     if ( dxClusterConnected ) {
         bool ok;
-        QString callsignText = QInputDialog::getText(this, i18n("KLog message"), i18n("Enter you callsign to connect to the cluster:"), QLineEdit::Normal, "", &ok);
+        QString callsignText = QInputDialog::getText(this, i18n("KLog message"), i18n("Enter your callsign to connect to the cluster:"), QLineEdit::Normal, "", &ok);
+	QString passwordText = QInputDialog::getText(this, i18n("KLog message"), i18n("Enter your password to connect to the cluster:"), QLineEdit::Normal, "", &ok);
         QTextStream os(socket);
         if ( callsignText.length() > 2 && ok ) {
             os << callsignText << "\n";
+	//TODO: Check the DXCluster answer and enter the password if needed.
         } else {
             os << i18n("Not logged on, you may to enter your callsign again.") << "\n";
         }
