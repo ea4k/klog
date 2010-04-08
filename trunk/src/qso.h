@@ -312,7 +312,7 @@ int getTenten() const;
    QChar getAnt_Path();
 
 
-  void clearQso();
+  void clear();
 
 private:
     QString	sAux;	//Auxiliar variable

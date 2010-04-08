@@ -875,8 +875,8 @@ QString Qso::getCheck() const{return check;};                // Contest check
 void Qso::setClass(const QString &tcclass){cclass = checkisNotAdif(tcclass);}; // Contest class
 QString Qso::getClass() const{return cclass;};                // Contest class
 
-void Qso::clearQso(){
-        //cout << "Qso::clearQso" << endl;
+void Qso::clear(){
+        //cout << "Qso::clear" << endl;
 //qrz = "";        // CALL
 //numb = 0;           // STX
 //  QDateTime dateTime; // QSO_DATE/TIME_ON YYYYMMDD - Time HHMM (0000-2359)
