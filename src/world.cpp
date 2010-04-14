@@ -29,41 +29,46 @@
 #include "world.h"
 // included for debugging
 #include <QMessageBox>
-#include <QDebug>
+//#include <QDebug>
 //using namespace std;
 
 World::World(){
 //qDebug() << "World::World()" << endl;
 
+  if (readCTYDAT()){
+    created = true;
+  }else{
+    created = false;
+  }
+  
+
+}
+
+World::~World(){
+}
+
+
+bool World::readCTYDAT(){
+//qDebug() << "World::readCTYDAT()" << endl;
   prefix = "NULL"; // It is just a fake prefix to start with
   int cqzone = 0;
   int ituzone = 0;
   QString finalPrefix="";
   entity.setNullEntity();
+  nmap.clear();
   World::nmap[0] = entity;
-
-  created = false;
   number = 0;
-
-//  QStringList lines;
   World::klogDir = QDir::homePath()+"/.klog/";  // We create the ~/.klog for the logs
   QFile file( klogDir+"cty.dat" );
   if (!file.exists()){ // If the cty.dat file is not in the KLOG home, maybe it is in the current directory
-      klogDir=QDir::currentPath();   // Maybe it is in the current Path??
-      file.setFileName( klogDir+"/cty.dat" );
-      return;
-  /*}else if (!file.exists()){
-      klogDir=QDir::homePath();  // Maybe it is in the user's home path???
-      file.setName( klogDir+"/cty.dat" );
-      //qDebug() << "homePath: " << QDir::homePath() << endl;
-      */
-  }
-// I have no idea where cty.dat is!!!
-
+    klogDir=QDir::currentPath();   // Maybe it is in the current Path??
+    //file.setFileName( klogDir+"/cty.dat" );
+    return false;
+  }else{}
   if ( file.open( QIODevice::ReadOnly ) ) {
     QTextStream stream( &file );
     QString line;
-    while ( !stream.atEnd() ) {
+    while ( !stream.atEnd() ){
       number++;
       // Read a Line and get all data
       QString data = stream.readLine();
@@ -75,9 +80,9 @@ World::World(){
       entity.setNumb(number);
       entity.setEntity( fields[0].toLatin1() );
       if ( ((fields[7].trimmed()).count("*"))>0 ) {
-        entity.setPfx(((fields[7].trimmed()).remove("*")).toLatin1());
+	entity.setPfx(((fields[7].trimmed()).remove("*")).toLatin1());
       }else{
-        entity.setPfx((fields[7].trimmed()).toLatin1());
+	entity.setPfx((fields[7].trimmed()).toLatin1());
       }
       entity.setCqz(cqzone);
       entity.setLon(((fields[5].trimmed())).toDouble()); // KLog works with + for East, cty.dat works the other way (+ for West)
@@ -86,23 +91,19 @@ World::World(){
       entity.setItuz(ituzone);
       entity.setTimeZone( fields[6].toDouble());
       World::map[entity.getPfx()] = entity;
-//qDebug() << QString::number(entity.getNumb()) << " - " << entity.getEntity() << " - Pref: " << entity.getPfx() << endl;
-//  qDebug() << "CQz: " << QString::number(entity.getCqz()) << " - ITUz: " << QString::number(entity.getItuz()) << endl;
-//  qDebug() << "Continent: " << entity.getContinent() << " - TimeZone: " << QString::number(entity.getTimeZone()) << endl;
-//qDebug() << "Lat: " << QString::number(entity.getLat()) << " - Lon: " << QString::number(entity.getLon()) << endl;
-//  qDebug() << "==========================================================================================" << endl << endl;
-
+      //qDebug() << QString::number(entity.getNumb()) << " - " << entity.getEntity() << " - Pref: " << entity.getPfx() << endl;
+      //  qDebug() << "CQz: " << QString::number(entity.getCqz()) << " - ITUz: " << QString::number(entity.getItuz()) << endl;
+      //  qDebug() << "Continent: " << entity.getContinent() << " - TimeZone: " << QString::number(entity.getTimeZone()) << endl;
+      //qDebug() << "Lat: " << QString::number(entity.getLat()) << " - Lon: " << QString::number(entity.getLon()) << endl;
+      //  qDebug() << "==========================================================================================" << endl << endl;
       World::nmap[number] = entity;
       //I create another data stream to process all prefixes
       // and then split the line
       QString datab = stream.readLine();
       datab.trimmed();
       QStringList prefs = datab.split(SEPARATOR2);
-      //QStringList prefs = QStringList::split(SEPARATOR2, datab );
-
-      //While the line does not have a ";"
-      while( (datab.count(";"))<1 ) {
-        ij = (datab.count(","));
+      while( (datab.count(";"))<1 ){
+	ij = (datab.count(","));
 	datab.remove(0,4);
         n = 0;
 	QStringList prefs = datab.split(SEPARATOR2);
@@ -110,9 +111,7 @@ World::World(){
         while (n < ij){
 	  cqzone = fields[1].toInt();
           ituzone = fields[2].toInt();
-
           finalPrefix = prefs[n];
-
           // Here I have the prefix but also the (zone)[zone] when special zone is added
           // HERE IS NECESARY TO CHECK IF THIS IS A SPECIAL PREFIX IN A DIFFERENT ZONE (CQ OR ITU)
           if (finalPrefix.count("(")>0 ){ // The prefix count special CQzone
@@ -130,26 +129,23 @@ World::World(){
           if ((finalPrefix.count("=")>0) ){
 	    finalPrefix = finalPrefix.remove("=");
           }
-
-      //entity.addPrefix(finalPrefix);
+          //entity.addPrefix(finalPrefix);
           World::cqMap[finalPrefix] = cqzone;
           World::ituMap[finalPrefix] = ituzone;
-
           World::map[finalPrefix] = entity;
           n++;
-        }
+	}
         datab = stream.readLine();
 	datab.trimmed();  //removing the spaces at the begining of the lines
-   //     prefs = QStringList::split(SEPARATOR2, datab );
       }
       // Now we will process when there is ";", the last line of prefixes in an Entity
-//qDebug() << "DATAB con ; #" << datab << "#" << endl;
+      //qDebug() << "DATAB con ; #" << datab << "#" << endl;
       datab.trimmed();
       datab.remove(0,4);
       prefs = datab.split(SEPARATOR2);
       //prefs = QStringList::split(SEPARATOR2, datab );
       ij = (datab.count(","));
-      if (ij==0){;
+      if (ij==0){
 	finalPrefix = datab;
 	if ((finalPrefix.count("=")>0) ){
 	  finalPrefix = finalPrefix.remove("=");
@@ -158,62 +154,52 @@ World::World(){
 	  finalPrefix = finalPrefix.remove(";");
 	}
 	World::map[finalPrefix] = entity;
-      }else {
+      }else{
 	n = 0;
 	while (n <= ij){
-        cqzone = fields[1].toInt();
-        ituzone = fields[2].toInt();
-        finalPrefix = prefs[n];
-	if ((finalPrefix.count(";")>0) ){
-	  finalPrefix = finalPrefix.remove(";");
+	  cqzone = fields[1].toInt();
+	  ituzone = fields[2].toInt();
+	  finalPrefix = prefs[n];
+	  if ((finalPrefix.count(";")>0) ){
+	    finalPrefix = finalPrefix.remove(";");
+	  }
+	  // Here I have the prefix but also the (zone)[zone] when special zone is added
+	  // HERE IS NECESARY TO CHECK tHIS IS A SPECIAL PREFIX IN A DIFFERENT ZONE (CQ OR ITU)
+	  if (finalPrefix.count("(")>0 ){ // The prefix contains special CQzone
+	    cqzone = (finalPrefix.section("(",1)).section(")",0,0).toInt();
+	  }
+	  if (finalPrefix.count("[")>0 ){ // The prefix contains special CQzone
+	    ituzone = (finalPrefix.section("[",1)).section("]",0,0).toInt();
+	  }
+	  if (finalPrefix.count("[") >0 ){
+	    finalPrefix = finalPrefix.left((finalPrefix).indexOf("["));
+	  }
+	  if (finalPrefix.count("(") >0 ){
+	    finalPrefix = finalPrefix.left(finalPrefix.indexOf("("));
+	  }
+	  if ((finalPrefix.count("=")>0) ) {
+	    finalPrefix = finalPrefix.remove("=");
+	  }
+	  if ((finalPrefix.count(";")>0) ){
+	    finalPrefix = finalPrefix.remove(";");
+	  }
+	  World::cqMap[finalPrefix] = cqzone;
+	  World::ituMap[finalPrefix] = ituzone;
+	  World::map[finalPrefix] = entity;
+	  n++;
 	}
-        // Here I have the prefix but also the (zone)[zone] when special zone is added
-        // HERE IS NECESARY TO CHECK IF THIS IS A SPECIAL PREFIX IN A DIFFERENT ZONE (CQ OR ITU)
-	if (finalPrefix.count("(")>0 ){ // The prefix contains special CQzone
-         cqzone = (finalPrefix.section("(",1)).section(")",0,0).toInt();
-        }
-
-        if (finalPrefix.count("[")>0 ){ // The prefix contains special CQzone
-         ituzone = (finalPrefix.section("[",1)).section("]",0,0).toInt();
-        }
-        if (finalPrefix.count("[") >0 ){
-         finalPrefix = finalPrefix.left((finalPrefix).indexOf("["));
-        }
-
-        if (finalPrefix.count("(") >0 ){
-         finalPrefix = finalPrefix.left(finalPrefix.indexOf("("));
-        }
-        if ((finalPrefix.count("=")>0) ){
-         finalPrefix = finalPrefix.remove("=");
-        }
-        if ((finalPrefix.count(";")>0) ){
-         finalPrefix = finalPrefix.remove(";");
-        }
-    //entity.addPrefix(finalPrefix);
-        World::cqMap[finalPrefix] = cqzone;
-        World::ituMap[finalPrefix] = ituzone;
-
-        World::map[finalPrefix] = entity;
-        n++;
       }
     }
-      }
-  created = true;
-  file.close();
-
-
+    created = true;
+    file.close();
+    return true;
   }else{ //There is no cty.dat
+    return false;
     //ADD A QMESSAGEBOX
-
   }
-
-
-
-//  wnumber = 0;
+  return false;
 }
 
-World::~World(){
-}
 
 void World::createNullEntity(){
 // Creates a null Entity. This is just for safety in case the cty.dat is not found.
@@ -732,4 +718,5 @@ QString World::getMainPrefix (int num){
   return (getEntByNumb(num)).getPfx();
     
 }
+
 

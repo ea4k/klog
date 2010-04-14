@@ -133,7 +133,7 @@ class Klog : public QMainWindow, private Ui::klog
     LogBook templogbook; //The "not yet saved" logbook.
 
     //public:
-    bool haveWorld();
+    void haveWorld();
 
 //	virtual void run();
 
@@ -163,6 +163,7 @@ class Klog : public QMainWindow, private Ui::klog
     //void printLabels(); // Generate the file for GLabels or KBarcode
     void slothamlibUpdateFrequency();
     void slotUpdateCTYDATFile();
+    
 
 //	void adifFileSave();
     void adifTempFileSave(const QString& fn, LogBook lb, bool manualSave);  // To save the templog automatically after each QSO is added
@@ -309,6 +310,7 @@ class Klog : public QMainWindow, private Ui::klog
     void showTip();
     QString returnLines(const QString& tword); //Puts \n where \\n
    void showMenuRightButtoncreateActions();
+   bool checkCTYDATFile(); // Checks if the cty.dat file is in the ~/.klog directory
 //    void showMenuRightButtoncreateMenus();
 //    void showMenuRightButtoncontextMenuEvent(QContextMenuEvent *event);
 //    int band2Num(const QString &tband);
