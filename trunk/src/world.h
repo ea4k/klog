@@ -70,8 +70,11 @@ public:
 
 	QString getEntityName(int num);
 	QString getMainPrefix (int num);
+	//bool restartWorld();
+	bool readCTYDAT();
 
 private:
+      
   int number;
 //  bool found;
   bool created;

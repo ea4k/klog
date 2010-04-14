@@ -152,9 +152,9 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
   // Check we have setup world and cty.dat is in your home folder
   haveWorld();
   
-  if (requestDownloadctydat){ // Checkif we need to download the cty.dat file
-    slotUpdateCTYDATFile();
-  }
+//   if (requestDownloadctydat){ // Checkif we need to download the cty.dat file
+//     slotUpdateCTYDATFile();
+//   }
 //  slotClearBtn(); //Not needed because it is called from slotQrzChanged
   
   searching2QSL = false;
@@ -287,35 +287,40 @@ void Klog::createActions(){
 
 }
 
-bool Klog::haveWorld(){
- // qDebug() << "KLog::haveWorld";
+void Klog::haveWorld(){
+//qDebug() << "KLog::haveWorld" << endl;
   //TODO: If the world has not been created, and the user downloads the cty.dat file. KLog should try to recreate the world.
   // Maybe deleting and creating again the world.
-  
-  if (!world.isWorldCreated() ){
-    QMessageBox msgBox;
-    msgBox.setWindowTitle(i18n("Warning - Can't find cty.dat"));
-    msgBox.setText(i18n("I can't find the cty.dat file with the DX Entity data.\n\nIf KLog download the file from www.country-files.com/cty/cty.dat it will be copied to your ~/.klog directory."));
-    msgBox.setInformativeText("Do you want to download the cty.dat file now?");
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msgBox.setDefaultButton(QMessageBox::Yes);
-    int ret = msgBox.exec();
+  bool exit = false;
+  while(!exit){
+    if (!checkCTYDATFile() ){
+      QMessageBox msgBox;
+      msgBox.setWindowTitle(i18n("Warning - Can't find cty.dat"));
+      msgBox.setText(i18n("I can't find the cty.dat file with the DX Entity data.\n\nIf KLog download the file from www.country-files.com/cty/cty.dat it will be copied to your ~/.klog directory."));
+      msgBox.setInformativeText("Do you want to download the cty.dat file now?");
+      msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+      msgBox.setDefaultButton(QMessageBox::Yes);
+      int ret = msgBox.exec();
     
-    switch (ret) {
-      case QMessageBox::Yes:
-       requestDownloadctydat = true;
-      break;
-      case QMessageBox::No:
-       requestDownloadctydat = false;
-      break;
+      switch (ret) {
+	case QMessageBox::Yes:
+	  slotUpdateCTYDATFile(); 
+	  if (checkCTYDATFile() ){
+	    world.readCTYDAT();
+	    exit = true;
+	  }
+	break;
+	case QMessageBox::No:
+	  exit = true;
+	break;
     
-      default:
-       // should never be reached
-      break;
+	default:
+	// should never be reached
+	break;
+      }
+    }else{
+      exit = true;
     }
-    return false;
-  }else{
-    return true;
   }
 }
 
@@ -1311,7 +1316,7 @@ void Klog::processLogLine (const QString& tLogLine){
                 dateString = dateString+"T"+timeString;
                 //qDebug()  << "KLog processLine Date: |" << dateString <<"|";
                 if ( !(QDateTime::fromString(dateString, Qt::ISODate)).isValid() ) {
-                    //cout << "INVALID DATE-3: " << dateString << endl;
+                    //qDebug() << "INVALID DATE-3: " << dateString << endl;
                 }else{
                     qso.setDateTime(QDateTime::fromString(dateString, Qt::ISODate));
                 }
@@ -1463,12 +1468,12 @@ void Klog::adifReadLog(const QString& tfileName){
         progress.close();
     } // Closes the if from the file (file could not be opened)
     //TODO Add the support to the checking for data if previously worked.
-//cout << "KLog adifreadlog antes de terminar, complete with previous" << endl;
+//qDebug() << "KLog adifreadlog antes de terminar, complete with previous" << endl;
     if (completeWithPrevious){
         getAllTheCallsFromLog();
         //completeThePreviouslyWorked();
     }
-// cout << "KLog adifreadlog antes de terminar, DESPUES complete with previous" << endl;
+// qDebug() << "KLog adifreadlog antes de terminar, DESPUES complete with previous" << endl;
     needToSave = false;
     showLogList();
     readAwardsStatus();
@@ -1618,7 +1623,7 @@ void Klog::toEditQso(){
 
 
 QString Klog::returnLines(const QString& tword){
-//cout << " - Class KLog::returnLines" << endl;
+//qDebug() << " - Class KLog::returnLines" << endl;
     aux = tword;
     if (aux.count("\\N")>0){
         aux.replace("\\N", QChar('\n'));
@@ -1627,7 +1632,7 @@ QString Klog::returnLines(const QString& tword){
         aux.replace("\\n", QChar('\n'));
     }
 
-    //cout << "KLog::returnLines: " << tword << " - " << aux << endl;
+    //qDebug() << "KLog::returnLines: " << tword << " - " << aux << endl;
     return aux;
 
 
@@ -1773,7 +1778,7 @@ void Klog::slotQsoSelected(QTreeWidgetItem* item){
 
 // This slot just change the text from the OKButton to "Modify"
 void Klog::slotModifyBtn(){
-//cout << "KLog::slotModifyBtn" << endl;
+//qDebug() << "KLog::slotModifyBtn" << endl;
         okBtn->setText(i18n("Modify"));
 }
 
@@ -1783,7 +1788,7 @@ Qso Klog::getByNumber(const int n){
 * a pointer to it                                          *
 ************************************************************
 */
-//cout << "KLog::getByNumber: " << QString::number(n) << endl;
+//qDebug() << "KLog::getByNumber: " << QString::number(n) << endl;
 
    // Klog::LogBook::iterator iter;
     //for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
@@ -1805,7 +1810,7 @@ Qso Klog::getByCall(const QString& tqrz){
 * a pointer to it                                          *
 ************************************************************
 */
-//cout << "KLog::getByCall" << endl;
+//qDebug() << "KLog::getByCall" << endl;
   //Klog::LogBook::iterator iter;
   //for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
   for ( int ii = 0; ii < logbook.size(); ++ii ){      
@@ -1820,7 +1825,7 @@ void Klog::showQso(){
 // This shows the data in the QTreeWidget (the botton block)
 // The "modify" is still missing
 // I have to look for the QSO if modifying
-//cout << "KLog::showQso" << endl;
+//qDebug() << "KLog::showQso" << endl;
     if (!modify){
         QTreeWidgetItem * item = new QTreeWidgetItem( logTreeWidget, 0 );
         item->setText( 0, getNumberString(qso.getNumb())  );
@@ -1870,13 +1875,13 @@ To Check:
 }
 
 void Klog::clearAwards(){
-//cout << "KLog::clearAwards" << endl;
+//qDebug() << "KLog::clearAwards" << endl;
     dxcc.clear();
     waz.clear();
 }
 
 bool Klog::didISave(){
-//cout << "KLog::didISave" << endl;
+//qDebug() << "KLog::didISave" << endl;
     if (needToSave){
         switch( QMessageBox::information( this, i18n("Warning - Save log?"),
                 i18n("The log has been changed since the last save."),
@@ -1964,7 +1969,7 @@ void Klog::slotQslSentBoxChanged(){
         qso.QslSent('N');
 /*		//TODO: This date is not valid, it is out of range!
         if ( !(QDateTime::fromString("0000-00-00", Qt::ISODate)).isValid() ) {
-//			cout << "FECHA NO VALIDA-6: (todo ceros) " << dateString << endl;
+//			qDebug() << "FECHA NO VALIDA-6: (todo ceros) " << dateString << endl;
             qslSen = QDate::fromString("0000-00-00",Qt::ISODate);
         }*/
         (QSLSentdateEdit)->setDate(qslSen);
@@ -2251,7 +2256,7 @@ void Klog::modifyQso(){
   }
 }
 void Klog::helpAbout() {
-//cout << "KLog::helpAbout" << endl;
+//qDebug() << "KLog::helpAbout" << endl;
   /*QString description;
 
   description = "The KDE Ham Radio Logging program";
@@ -2274,7 +2279,7 @@ void Klog::helpAbout() {
 }
 
 void Klog::slotQSLcomboBoxChanged(){
-//cout << "KLog::slotQSLcomboChanged" << endl;
+//qDebug() << "KLog::slotQSLcomboChanged" << endl;
     QString combo = (QSLcomboBox)->currentText();
 
     if (combo.compare("No QSL") == 0){
@@ -2300,7 +2305,7 @@ void Klog::slotQSLcomboBoxChanged(){
  }
 
 void Klog::accept(){
-//cout << "KLog::accept" << endl;
+//qDebug() << "KLog::accept" << endl;
 }
 
 void Klog::createKlogDir(){
@@ -2519,12 +2524,12 @@ void Klog::readConf(){
 }
 
 void Klog::setMyQrz(const QString &tqrz){
-//cout << "KLog::setMyQrz" << endl;
+//qDebug() << "KLog::setMyQrz" << endl;
     myQrz = tqrz;
 }
 
 QString Klog::getMyQrz() const{
-//cout << "KLog::getMyQrz" << endl;
+//qDebug() << "KLog::getMyQrz" << endl;
     return myQrz;
 }
 
@@ -2612,7 +2617,7 @@ void Klog::fillEntityBandState(const int enti){
   }
 
   if(dxcc.isConfirmedBand(enti, adif.band2Int("10M"))){ // 10m band
-//	cout << "KLog::fillEntityBandState confirmed: " << QString::number(enti) << endl;
+//	qDebug() << "KLog::fillEntityBandState confirmed: " << QString::number(enti) << endl;
     // RED for confirmed
      textLabelBand10->setPalette(confirmedColor);
     }else{
@@ -2734,7 +2739,7 @@ void Klog::fillEntityBandState(const int enti){
 void Klog::tlfReadLog(const QString& tfileName){
 //TODO: It is needed to improve the eficiency
 // It is VEEEEEEEEERY slow if the log is big/long
-//cout << "KLog::tlfReadLog" << endl;
+//qDebug() << "KLog::tlfReadLog" << endl;
     bool year2000 = true;
     int totalQsos = 0; // QSOs in the log to be read
     int progresStep = 0;
@@ -2855,11 +2860,11 @@ void Klog::tlfReadLog(const QString& tfileName){
                     //HACK: It is not a good solution as it is only valid until 2099 but... who cares :-P
 
                     if (year2000 == false){
-//					cout << "TLF import 1900" << endl;
+//					qDebug() << "TLF import 1900" << endl;
                         otherAux = "19" + otherAux;
                     }else{
                         otherAux = "20" + otherAux;// only valid till 2009!!!
-//						cout << "TLF import 2000" << endl;
+//						qDebug() << "TLF import 2000" << endl;
                     }
                     if (monthString == "JAN"){
                         dateString = otherAux+"-"+"01-"+dayString;
@@ -3291,7 +3296,7 @@ void Klog::slotImportCabrillo(){
 }
 
 void Klog::slotImportTlf(){
-//cout << "KLog::slotImportTlf" << endl;
+//qDebug() << "KLog::slotImportTlf" << endl;
 //	QString fileName;
 
        QString fileName = QFileDialog::getOpenFileName(
@@ -3306,7 +3311,7 @@ void Klog::slotImportTlf(){
 }
 
 void Klog::slotIOTAChanged(){
-//cout << "KLog::slotIOTAChanged value: " << QString::number(iotaIntSpinBox->value()) << endl;
+//qDebug() << "KLog::slotIOTAChanged value: " << QString::number(iotaIntSpinBox->value()) << endl;
     //iotaIntSpinBox->setEnabled(true);
 
     if ((iotaIntSpinBox->value() != 0)){ //
@@ -3376,7 +3381,7 @@ void Klog::entityState(const int tentity){
 }
 
 int Klog::howManyConfirmedQSO(){
-//cout << "KLog::howManyConfirmedQSO" << endl;
+//qDebug() << "KLog::howManyConfirmedQSO" << endl;
     //Klog::LogBook::iterator iter;
     int howManyConfirmed = 0;
     Qso tmpQso;
@@ -4624,7 +4629,7 @@ void Klog::slotClusterSpotCheck(QListWidgetItem * item){
   if (item)
     dxClusterString = item->text();
   else{
-    //cout << "KLog: slotClusterSpotCheck Limpiamos con clearEntityBox-1" << endl;
+    //qDebug() << "KLog: slotClusterSpotCheck Limpiamos con clearEntityBox-1" << endl;
     clearEntityBox();
     return;
   }
@@ -4641,7 +4646,7 @@ void Klog::slotClusterSpotCheck(QListWidgetItem * item){
       enti = world.findEntity((tokens[1]).toUpper());
 
   }else{    // It is NOT an spot but an announce or similar.
-    //cout << "KLog: slotClusterSpotCheck Limpiamos con clearEntityBox-2" << endl;
+    //qDebug() << "KLog: slotClusterSpotCheck Limpiamos con clearEntityBox-2" << endl;
     clearEntityBox();
     return;
   }
@@ -4662,7 +4667,7 @@ void Klog::slotClusterSpotSelectionChanged(){
 //void Klog::addDXSpotToBandMap(QString freq, QString dx, QString from){
 
 
-//cout << "KLog::addDXSpotToBandMap" << endl;
+//qDebug() << "KLog::addDXSpotToBandMap" << endl;
 /*
         QListViewItem * item = new QListViewItem( logTreeWidget, 0 );
         item->setText( 0, getNumberString(qso.getNumb())  );
@@ -4703,7 +4708,7 @@ void Klog::slotQslNeededCheck(){
 */
 
 bool Klog::checkIfValidDXCluster(const QString &tdxcluster){
-//cout << "KLog::checkIfValidDXCluster" << endl;
+//qDebug() << "KLog::checkIfValidDXCluster" << endl;
     QUrl url("http://"+tdxcluster);
         if ((!url.isEmpty())||(url.port() != -1))
         return true;
@@ -4712,7 +4717,7 @@ bool Klog::checkIfValidDXCluster(const QString &tdxcluster){
 }
 
 void Klog::slotBugReport(){
-//cout << "KLog::slotBugReport" << endl;
+//qDebug() << "KLog::slotBugReport" << endl;
 //	if( bugReport == 0 ){
 //		bugReport = new KBugReport();
 //	}
@@ -4726,7 +4731,7 @@ void Klog::slotBugReport(){
 }
 
 void Klog::slotModeChanged (int i){
-//cout << "KLog::slotModeChanged" << endl;
+//qDebug() << "KLog::slotModeChanged" << endl;
 
 // Commented to fix an error reported by EA4RCT (Alvaro)
 //	if (((qrzLineEdit->text()).length())==0)
@@ -4833,11 +4838,11 @@ void Klog::slotTXFreqChanged(double i){
 }
 
 bool Klog::haveAllTheFields(){
-//cout << "KLog::haveAllTheFields" << endl;
+//qDebug() << "KLog::haveAllTheFields" << endl;
     if (requireMandatory){
         for (i=0;i<7;i++){
             if (!haveAllMandatoryFields[i]){
-//				cout << "Klog::haveAllTheFields(): " << QString::number(i) << endl;
+//				qDebug() << "Klog::haveAllTheFields(): " << QString::number(i) << endl;
                 return false;
             }
         }
@@ -4920,7 +4925,7 @@ void Klog::showIfPreviouslyWorked(){ // Uses previousQso and workedCall
 }
 
 void Klog::clearGUI(){
-//cout << "KLog: clearGUI" << endl;
+//qDebug() << "KLog: clearGUI" << endl;
     qthkLineEdit->clear();
     namekLineEdit->clear();
     locatorLineEdit->clear();
@@ -5061,7 +5066,7 @@ void Klog::slotcompleteThePreviouslyWorked(){
                         }
 
 
-                    }else{ //cout << "NO IOTA" << endl;
+                    }else{ //qDebug() << "NO IOTA" << endl;
                     } // End IOTA
 
 //LOCAL AWARD
@@ -5179,7 +5184,7 @@ previousQso.getQslInfo()
 }
 
 void Klog::getAllTheCallsFromLog(){
-//cout << "KLog:: getAllTheCallsFromLog" << endl;
+//qDebug() << "KLog:: getAllTheCallsFromLog" << endl;
     int _aa; //auxiliar just for this
 
 /////// Progress dialog
@@ -5268,7 +5273,7 @@ void Klog::slothamlibUpdateFrequency(){
 *
 *****************************************************/
   //qDebug() << "KLog::slothamlibUpdateFrequency: " << KlogHamlib.getStatusMessage();
-//cout << "KLog::slothamlibUpdateFrequency: " << KlogHamlib.getStatusMessage() << endl;
+//qDebug() << "KLog::slothamlibUpdateFrequency: " << KlogHamlib.getStatusMessage() << endl;
 
     hamlibFreq = 0.0;
         hamlibFreq = KlogHamlib.getFrequency();
@@ -5279,7 +5284,7 @@ void Klog::slothamlibUpdateFrequency(){
 		freqtxdoubleSpinBox->setValue(hamlibFreq);
 		freqrxdoubleSpinBox->setValue(0);
         }else{
-    //cout << "KLog::slothamlibUpdateFrequency - NO Freq: " << QString::number(hamlibFreq) << endl;
+    //qDebug() << "KLog::slothamlibUpdateFrequency - NO Freq: " << QString::number(hamlibFreq) << endl;
     }
 
 }
@@ -5291,12 +5296,33 @@ void Klog::slotUpdateCTYDATFile(){
 * Info: http://www.country-files.com/cty/#KLog
 *
 *****************************************************/
-  qDebug() << "KLog::slotUpdateCTYDATFile: "  << endl;
+//qDebug() << "KLog::slotUpdateCTYDATFile: "  << endl;
   //TODO: Make the KLogNetwork to return a boolean value to check if the file has been downloaded or not.
   // and be able to recreate the world.
+
   KLogNetwork klogNetwork;
-//  klogNetwork.show();
-  klogNetwork.exec();
+  klogNetwork.exec();  
+  if (checkCTYDATFile()){
+    world.readCTYDAT();  
+  }
+  haveWorld();
+}
+
+bool Klog::checkCTYDATFile(){
+/****************************************************
+*  Checks if the user has the cty.dat and calls for update.
+*
+*****************************************************/
+//qDebug() << "KLog::checkCTYDATFile: "  << klogDir << "/cty.dat" << endl;
+   
+  QFile file("cty.dat" );
+  if (file.exists()){ // If the cty.dat file is not in the KLOG home
+      return true;      
+  }else{
+    return false;
+  }
+  
+  
   
 }
 
@@ -5306,7 +5332,7 @@ void Klog::slotUpdateCTYDATFile(){
 ** It may be moved to a self .h & .cpp archives                           **
 ****************************************************************************/
 dxClusterSpotItem::dxClusterSpotItem( QListWidget *parent, const QString& spot, const QColor& color ) : QListWidgetItem( parent ){
-//cout << "KLog::dxClusterSpotItem - Constructor" << endl;
+//qDebug() << "KLog::dxClusterSpotItem - Constructor" << endl;
   spotColor = color;
   setText(spot);
   // Experimenting with fonts for the cluster
@@ -5316,12 +5342,12 @@ dxClusterSpotItem::dxClusterSpotItem( QListWidget *parent, const QString& spot, 
 }
 
 dxClusterSpotItem::~dxClusterSpotItem(){
-//cout << "KLog::dxClusterSpotItem - Destructor" << endl;
+//qDebug() << "KLog::dxClusterSpotItem - Destructor" << endl;
 }
 
 // void dxClusterSpotItem::paintCell( QPainter *p, const QPalette &cg,
 //                                  int column, int width, int alignment ){
-// //cout << "KLog::dxClusterSpotItem - paintCell" << endl;
+// //qDebug() << "KLog::dxClusterSpotItem - paintCell" << endl;
 //   QPalette _cg( cg );
 //   //QColor c = _cg.text();
 //   _cg.setColor( QPalette::Text, spotColor );
@@ -5336,7 +5362,7 @@ dxClusterSpotItem::~dxClusterSpotItem(){
 ** It may be moved to a self .h & .cpp archives                           **
 ****************************************************************************/
 searchBoxItem::searchBoxItem( QTreeWidget *parent, const QString& call, const QString& date, const QString& time,const QString& band, const QString& mode, const QString& RSTsent, const QString& RSTrec, const QString& numb, const QColor& color ) : QTreeWidgetItem( parent ){
-//cout << "KLog::searchBoxItem - Constructor" << endl;
+//qDebug() << "KLog::searchBoxItem - Constructor" << endl;
   qsoColor = color;
   setText(0, call);
   setText(1, date);
@@ -5369,12 +5395,12 @@ searchBoxItem::searchBoxItem( QTreeWidget *parent, const QString& call, const QS
 }
 
 searchBoxItem::~searchBoxItem(){
-//cout << "KLog::searchBoxItem - Destructor" << endl;
+//qDebug() << "KLog::searchBoxItem - Destructor" << endl;
 }
 
 // void searchBoxItem::paintCell( QPainter *p, const QPalette &cg,
 //                                  int column, int width, int alignment ){
-// //cout << "KLog::searchBoxItem - paintCell" << endl;
+// //qDebug() << "KLog::searchBoxItem - paintCell" << endl;
 //   QPalette _cg( cg );
 //   //QColor c = _cg.text();
 //   _cg.setColor( QPalette::Text, qsoColor );
@@ -5392,7 +5418,7 @@ searchBoxItem::~searchBoxItem(){
 ** BANDMAP						                     **
 ****************************************************************************/
 // bandMapSpotItem::bandMapSpotItem( K3ListView *parent, const QString& freq, const QString& dx, const QString& from, const QColor& dxcolor ) : K3ListViewItem( parent ){
-// //cout << "KLog::bandMapSpotItem - Constructor" << endl;
+// //qDebug() << "KLog::bandMapSpotItem - Constructor" << endl;
 // 	spotColor = dxcolor;
 // 	setText(0, freq);
 // 	setText (1, dx);
@@ -5405,13 +5431,13 @@ searchBoxItem::~searchBoxItem(){
 // }
 //
 // bandMapSpotItem::~bandMapSpotItem(){
-// //cout << "KLog::bandMapSpotItem - Destructor" << endl;
+// //qDebug() << "KLog::bandMapSpotItem - Destructor" << endl;
 // }
 //
 // void bandMapSpotItem::paintCell( QPainter *p, const Qpalette &cg,
 //                                  int column, int width, int alignment )
 // {
-// //cout << "KLog::bandMapSpotItem - paintCell" << endl;
+// //qDebug() << "KLog::bandMapSpotItem - paintCell" << endl;
 //   Qpalette _cg( cg );
 //   QColor c = _cg.text();
 //   _cg.setColor( Qpalette::Text, spotColor );
