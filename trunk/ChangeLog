@@ -1,5 +1,6 @@
 Date 0.5.5
-- Working in the function to download and update the cty.dat from the web.
+- New feature: If cty.dat file is not found, KLog offers to download from the web. 
+- New feature: New tool to update the update the cty.dat file from the web.
 - New feature: QRZ font color changes to red if has been worked previously. (Proposed by KE7TDY)
 
 March-2010 0.5.4
