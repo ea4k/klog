@@ -2,6 +2,7 @@
 #include_directories( ${KDE4_INCLUDES} ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ../build )
 
 set(klog_SRCS
+    klog.cpp
     adif.cpp
     award.cpp
     awarddxcc.cpp
@@ -12,8 +13,8 @@ set(klog_SRCS
     calls.cpp
     dxspot.cpp
     entity.cpp
-    klog.cpp
     kloghamlib.cpp
+    klognetwork.cpp 
     locator.cpp
     main.cpp
     prefix.cpp
