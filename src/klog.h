@@ -469,7 +469,9 @@ class Klog : public QMainWindow, private Ui::klog
     QAction *recSenQSOAct;
     QAction *recQSOAct;
     QAction *senQSOAct;
+    QAction *actionUpdateCtyDat;
     QActionGroup *qsoActionsGroup;
+    
 };
 
 class dxClusterSpotItem : public QListWidgetItem {
