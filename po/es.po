@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 11:55+0200\n"
-"PO-Revision-Date: 2010-03-31 12:07+0200\n"
+"POT-Creation-Date: 2010-04-14 19:40+0200\n"
+"PO-Revision-Date: 2010-04-14 19:48+0200\n"
 "Last-Translator: Jaime Robles <jaime@kde.org>\n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
 #: po/rc.cpp:3 rc.cpp:3
 msgid "Http authentication required"
-msgstr "Autenticación http requerida"
+msgstr "Autenticación HTTP requerida"
 
 #. i18n: file: src/authenticationdialog.ui:19
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -94,7 +94,7 @@ msgstr "Número"
 #. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
 #. i18n: file: src/klog.ui:1250
 #. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
-#: po/rc.cpp:34 po/rc.cpp:286 src/klog.cpp:4050 src/src/ui_klog.h:1733
+#: po/rc.cpp:34 po/rc.cpp:286 src/klog.cpp:4081 src/src/ui_klog.h:1733
 #: src/src/ui_klog.h:1847 rc.cpp:34 rc.cpp:286
 msgid "Date"
 msgstr "Fecha"
@@ -113,7 +113,7 @@ msgstr "UTC"
 #. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
 #. i18n: file: src/klog.ui:1245
 #. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
-#: po/rc.cpp:40 po/rc.cpp:283 src/klog.cpp:4051 src/src/ui_klog.h:1731
+#: po/rc.cpp:40 po/rc.cpp:283 src/klog.cpp:4082 src/src/ui_klog.h:1731
 #: src/src/ui_klog.h:1848 rc.cpp:40 rc.cpp:283
 msgid "QRZ"
 msgstr "QRZ"
@@ -138,7 +138,7 @@ msgstr "RST(rx)"
 #. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
 #. i18n: file: src/klog.ui:1260
 #. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
-#: po/rc.cpp:49 po/rc.cpp:292 src/klog.cpp:4052 src/src/ui_klog.h:1728
+#: po/rc.cpp:49 po/rc.cpp:292 src/klog.cpp:4083 src/src/ui_klog.h:1728
 #: src/src/ui_klog.h:1845 rc.cpp:49 rc.cpp:292
 msgid "Band"
 msgstr "Banda"
@@ -151,7 +151,7 @@ msgstr "Banda"
 #. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
 #. i18n: file: src/klog.ui:1265
 #. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
-#: po/rc.cpp:52 po/rc.cpp:295 src/klog.cpp:4053 src/src/ui_klog.h:1727
+#: po/rc.cpp:52 po/rc.cpp:295 src/klog.cpp:4084 src/src/ui_klog.h:1727
 #: src/src/ui_klog.h:1844 rc.cpp:52 rc.cpp:295
 msgid "Mode"
 msgstr "Modo"
@@ -210,7 +210,7 @@ msgstr "OK"
 #. i18n: ectx: property (text), widget (QPushButton, clearBtn)
 #. i18n: file: src/setup.ui:1230
 #. i18n: ectx: property (text), widget (QPushButton, awardClearpushButton)
-#: po/rc.cpp:67 po/rc.cpp:265 po/rc.cpp:544 po/rc.cpp:1343 src/klog.cpp:518
+#: po/rc.cpp:67 po/rc.cpp:265 po/rc.cpp:544 po/rc.cpp:1343 src/klog.cpp:532
 #: src/src/ui_klog.h:1737 src/src/ui_klog.h:1830 src/src/ui_klog.h:1943
 #: src/src/ui_setup.h:881 rc.cpp:67 rc.cpp:265 rc.cpp:544 rc.cpp:1343
 msgid "Clear"
@@ -665,7 +665,7 @@ msgstr "QTH del operador del DX"
 
 #. i18n: file: src/klog.ui:1255
 #. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
-#: po/rc.cpp:289 src/klog.cpp:4051 src/src/ui_klog.h:1846 rc.cpp:289
+#: po/rc.cpp:289 src/klog.cpp:4082 src/src/ui_klog.h:1846 rc.cpp:289
 msgid "Time"
 msgstr "Hora"
 
@@ -689,7 +689,7 @@ msgstr "QSL-Rec"
 #. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
 #. i18n: file: src/setup.ui:1261
 #. i18n: ectx: property (text), widget (QTreeWidget, awardTreeWidget)
-#: po/rc.cpp:304 po/rc.cpp:1349 src/klog.cpp:4050 src/src/ui_klog.h:1841
+#: po/rc.cpp:304 po/rc.cpp:1349 src/klog.cpp:4081 src/src/ui_klog.h:1841
 #: src/src/ui_setup.h:887 rc.cpp:304 rc.cpp:1349
 msgid "Number"
 msgstr "Número"
@@ -2302,13 +2302,13 @@ msgstr "Eliminar QSO"
 
 #. i18n: file: src/klog.ui:3029
 #. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
-#: po/rc.cpp:920 src/klog.cpp:1712 src/src/ui_klog.h:1694 rc.cpp:920
+#: po/rc.cpp:920 src/klog.cpp:1743 src/src/ui_klog.h:1694 rc.cpp:920
 msgid "QSL Sent"
 msgstr "QSL enviada"
 
 #. i18n: file: src/klog.ui:3037
 #. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
-#: po/rc.cpp:923 src/klog.cpp:1707 src/src/ui_klog.h:1695 rc.cpp:923
+#: po/rc.cpp:923 src/klog.cpp:1738 src/src/ui_klog.h:1695 rc.cpp:923
 msgid "QSL Received"
 msgstr "QSL recibida"
 
@@ -2898,13 +2898,13 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "Sus direcciones de correo-e"
 
-#: src/klog.cpp:130 src/klog.cpp:1341 src/klog.cpp:2286 src/klog.cpp:2480
-#: src/klog.cpp:3241 src/klog.cpp:4148 src/klog.cpp:4480 src/klog.cpp:4495
+#: src/klog.cpp:139 src/klog.cpp:1372 src/klog.cpp:2317 src/klog.cpp:2511
+#: src/klog.cpp:3272 src/klog.cpp:4179 src/klog.cpp:4513 src/klog.cpp:4528
 #: src/setup.cpp:908
 msgid "KLog message:"
 msgstr "Mensaje de KLog:"
 
-#: src/klog.cpp:131
+#: src/klog.cpp:140
 msgid ""
 "Could not connect to your radio.\n"
 "Check your hamlib settings and restart KLog.\n"
@@ -2918,55 +2918,56 @@ msgstr ""
 "KLog se ejecutará sin soporte de hamlib.\n"
 "\n"
 
-#: src/klog.cpp:288
+#: src/klog.cpp:298
 msgid "Warning - Can't find cty.dat"
 msgstr "Atención - No puedo encontrar el archivo cty.dat"
 
-#: src/klog.cpp:289
+#: src/klog.cpp:299
 msgid ""
 "I can't find the cty.dat file with the DX Entity data.\n"
 "\n"
 "If KLog download the file from www.country-files.com/cty/cty.dat it will be "
 "copied to your ~/.klog directory."
 msgstr ""
-"No puedo encontrar el archivo cty.dat con la información de DX.\n"
+"No puedo encontrar el archivo cty.dat con los datos de las entidades de DX.\n"
 "\n"
-"Si KLog descarga el archivo de  http://www.country-files.com/cty/cty.dat lo "
-"copiará en su directorio ~/.klog."
+"Si KLog descarga el archivo de www.country-files.com/cty/cty.dat, será "
+"copiado "
+"a su directorio ~/.klog."
 
-#: src/klog.cpp:435 src/klog.cpp:452
+#: src/klog.cpp:449 src/klog.cpp:466
 msgid "Award:"
 msgstr "Diplomas:"
 
-#: src/klog.cpp:436 src/klog.cpp:453
+#: src/klog.cpp:450 src/klog.cpp:467
 msgid "LOCAL:"
 msgstr "LOCAL:"
 
-#: src/klog.cpp:479 src/klog.cpp:576
+#: src/klog.cpp:493 src/klog.cpp:590
 msgid "<p align=\"center\"><b>KLog</b></p>"
 msgstr "<p align=\"center\"><b>KLog</b></p>"
 
-#: src/klog.cpp:517
+#: src/klog.cpp:531
 msgid "Ok"
 msgstr "Aceptar"
 
-#: src/klog.cpp:650 src/klog.cpp:3140
+#: src/klog.cpp:680 src/klog.cpp:3171
 msgid "Save File"
 msgstr "Guardar archivo"
 
-#: src/klog.cpp:650 src/klog.cpp:3140
+#: src/klog.cpp:680 src/klog.cpp:3171
 msgid "ADIF (*.adi)"
 msgstr "ADIF (*.adi)"
 
-#: src/klog.cpp:710
+#: src/klog.cpp:740
 msgid "Saving the log..."
 msgstr "Guardando el log..."
 
-#: src/klog.cpp:710
+#: src/klog.cpp:740
 msgid "Abort saving"
 msgstr "Cancelar"
 
-#: src/klog.cpp:720
+#: src/klog.cpp:750
 msgid ""
 "ADIF v1.0 (some ADIF v2 fields) Export from KLog-%1\n"
 "http://jaime.robles.es/klog\n"
@@ -2982,7 +2983,7 @@ msgstr ""
 "<PROGRAMID:4>KLOG <PROGRAMVERSION: %6>%7\n"
 "<EOH>\n"
 
-#: src/klog.cpp:1342
+#: src/klog.cpp:1373
 msgid ""
 "The file selected to open does not exist.\n"
 "No file will be opened."
@@ -2990,79 +2991,79 @@ msgstr ""
 "El archivo seleccionado no existe.\n"
 "No se abrirá ningún archivo."
 
-#: src/klog.cpp:1352 src/klog.cpp:2716 src/klog.cpp:2944
+#: src/klog.cpp:1383 src/klog.cpp:2747 src/klog.cpp:2975
 msgid "Reading the log..."
 msgstr "Leyendo el log..."
 
-#: src/klog.cpp:1352 src/klog.cpp:2716 src/klog.cpp:2944
+#: src/klog.cpp:1383 src/klog.cpp:2747 src/klog.cpp:2975
 msgid "Abort reading"
 msgstr "Cancelar lectura"
 
-#: src/klog.cpp:1428 src/klog.cpp:2917 src/klog.cpp:3114
+#: src/klog.cpp:1459 src/klog.cpp:2948 src/klog.cpp:3145
 msgid "Adding QSO#: "
 msgstr "Añadiendo QSO nº: "
 
-#: src/klog.cpp:1695 src/setup.cpp:1009
+#: src/klog.cpp:1726 src/setup.cpp:1009
 msgid "&Delete"
 msgstr "&Eliminar"
 
-#: src/klog.cpp:1697
+#: src/klog.cpp:1728
 msgid "Delete a QSO"
 msgstr "Eliminar QSO"
 
-#: src/klog.cpp:1700
+#: src/klog.cpp:1731
 msgid "&Recv and Sent"
 msgstr "QSL recibida &y enviada"
 
-#: src/klog.cpp:1702
+#: src/klog.cpp:1733
 msgid "QSL Recv and Sent"
 msgstr "QSL recibida y enviada"
 
-#: src/klog.cpp:1705
+#: src/klog.cpp:1736
 msgid "&Recv QSL"
 msgstr "QSL &Recibida"
 
-#: src/klog.cpp:1710
+#: src/klog.cpp:1741
 msgid "&Sent QSL"
 msgstr "&Enviar QSL"
 
-#: src/klog.cpp:1724 src/klog.cpp:1751 src/klog.cpp:3516
+#: src/klog.cpp:1755 src/klog.cpp:1782 src/klog.cpp:3547
 msgid "Modify"
 msgstr "Modificar"
 
-#: src/klog.cpp:1725 src/klog.cpp:1857 src/klog.cpp:3517
+#: src/klog.cpp:1756 src/klog.cpp:1888 src/klog.cpp:3548
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/klog.cpp:1855
+#: src/klog.cpp:1886
 msgid "Warning - Save log?"
 msgstr "Atención - ¿Salvar log?"
 
-#: src/klog.cpp:1856
+#: src/klog.cpp:1887
 msgid "The log has been changed since the last save."
 msgstr "El log ha cambiado desde la última vez que fue guardado."
 
-#: src/klog.cpp:1857
+#: src/klog.cpp:1888
 msgid "Save Now"
 msgstr "Guardar ahora"
 
-#: src/klog.cpp:1857
+#: src/klog.cpp:1888
 msgid "Continue anyway"
 msgstr "Continuar de todas formas"
 
-#: src/klog.cpp:1908
+#: src/klog.cpp:1939
 msgid "Open File"
 msgstr "Abrir archivo"
 
-#: src/klog.cpp:1908 src/setup.cpp:808
+#: src/klog.cpp:1939 src/setup.cpp:808
 msgid "ADIF files (*.adi)"
 msgstr "Archivos ADIF (*.adi)"
 
-#: src/klog.cpp:2243
+#: src/klog.cpp:2274
 msgid "KLog-%1 - The KDE Ham Radio Logging program"
 msgstr "KLog-%1 - El programa de Log para Radioaficionados de KDE"
 
-#: src/klog.cpp:2244
+#: src/klog.cpp:2275
 msgid ""
 "KLog: %1 - The KDE Ham Radio Logging program\n"
 "You can find the last version on http://jaime.robles.es/klog\n"
@@ -3074,7 +3075,7 @@ msgstr ""
 "2009 - 2010 - Jaime Robles, EA4TV, jaime@robles.es 2009 - 2010 - Andrew "
 "Goldie, ZL2ACG, andrew.goldie@rocketmail.com"
 
-#: src/klog.cpp:2287
+#: src/klog.cpp:2318
 msgid ""
 "It seems to be the first time you run KLog in this computer.\n"
 "The setup dialog will start to help you to configure KLog.\n"
@@ -3088,7 +3089,7 @@ msgstr ""
 "\n"
 "El equipo de KLog."
 
-#: src/klog.cpp:2481
+#: src/klog.cpp:2512
 msgid ""
 "You still have not configured KLog.\n"
 "Please click on:\n"
@@ -3099,7 +3100,7 @@ msgstr ""
 "Pulse en: Configuración->Preferencias\n"
 "y configure KLog."
 
-#: src/klog.cpp:2722 src/klog.cpp:2724 src/klog.cpp:2948 src/klog.cpp:3150
+#: src/klog.cpp:2753 src/klog.cpp:2755 src/klog.cpp:2979 src/klog.cpp:3181
 msgid ""
 "Enter a remark for ALL the imported QSO:\n"
 "(Leave it empty and press OK if no remark)"
@@ -3107,11 +3108,11 @@ msgstr ""
 "Introduzca un comentario para TODOS los QSO importados:\n"
 "(Déjelo vacío y pulse OK si no quiere comentario"
 
-#: src/klog.cpp:2723 src/klog.cpp:2737
+#: src/klog.cpp:2754 src/klog.cpp:2768
 msgid "KLog - TLF Import"
 msgstr "KLog - Importar de TLF"
 
-#: src/klog.cpp:2738
+#: src/klog.cpp:2769
 msgid ""
 "Enter the used call:\n"
 "(Leave it empty and press OK if no diferent call was used)"
@@ -3119,27 +3120,27 @@ msgstr ""
 "Introduzca el indicativo usado:\n"
 "(Déjelo vacío y pulse OK si no se ha usado un indicativo distinto)"
 
-#: src/klog.cpp:2743 src/klog.cpp:3175
+#: src/klog.cpp:2774 src/klog.cpp:3206
 msgid "Warning - QRZ not valid"
 msgstr "Atención - QRZ no válido"
 
-#: src/klog.cpp:2744
+#: src/klog.cpp:2775
 msgid "Do you want to import without a QRZ?\n"
 msgstr "¿Quiere importar sin un QRZ?\n"
 
-#: src/klog.cpp:2745
+#: src/klog.cpp:2776 src/klognetwork.cpp:18
 msgid "Yes"
 msgstr "Sí"
 
-#: src/klog.cpp:2745
+#: src/klog.cpp:2776 src/klognetwork.cpp:20
 msgid "No"
 msgstr "No"
 
-#: src/klog.cpp:2764
+#: src/klog.cpp:2795
 msgid "Warning - Possible dates conflict:"
 msgstr "Atención - Posible conflicto de fechas:"
 
-#: src/klog.cpp:2765
+#: src/klog.cpp:2796
 msgid ""
 "Please define if the QSOs were done in the 1900s or in the 2000s years\n"
 "Are these QSO dated before year 2000?"
@@ -3148,15 +3149,15 @@ msgstr ""
 "2000\n"
 "¿Hay QSOs anteriores al año 2000?"
 
-#: src/klog.cpp:2947
+#: src/klog.cpp:2978
 msgid "KLog - Cabrillo Import"
 msgstr "KLog - Importar de Cabrillo"
 
-#: src/klog.cpp:3149 src/klog.cpp:3167 src/klog.cpp:3201
+#: src/klog.cpp:3180 src/klog.cpp:3198 src/klog.cpp:3232
 msgid "KLog - Log Add"
 msgstr "KLog - Añadir Log"
 
-#: src/klog.cpp:3165
+#: src/klog.cpp:3196
 msgid ""
 "Enter the used call:\n"
 "(Leave it empty and press OK if the call %1 was used)."
@@ -3164,11 +3165,11 @@ msgstr ""
 "Introduzca el indicativo utilizado:\n"
 "(Déjelo vacío y pulse OK si se usó el indicativo %1)."
 
-#: src/klog.cpp:3176
+#: src/klog.cpp:3207
 msgid "Do you want to import without a QRZ?"
 msgstr "¿Quiere importar sin un QRZ?"
 
-#: src/klog.cpp:3199
+#: src/klog.cpp:3230
 msgid ""
 "Enter the locator of the activity:\n"
 "(Leave it empty and press OK if the locator was %1)."
@@ -3176,15 +3177,15 @@ msgstr ""
 "Introduzca el locator de la actividad:\n"
 "(Déjelo vacío y pulse OK si el locator es %1)."
 
-#: src/klog.cpp:3207
+#: src/klog.cpp:3238
 msgid "Warning - Locator not valid"
 msgstr "Atención - Locator no válido"
 
-#: src/klog.cpp:3208
+#: src/klog.cpp:3239
 msgid "Do you want to import without a Locator and use %1 ?\n"
 msgstr "¿Quiere importar sin un Locator y usar %1 ?\n"
 
-#: src/klog.cpp:3243
+#: src/klog.cpp:3274
 msgid ""
 "The log file has been\n"
 "sucessfully added!"
@@ -3192,32 +3193,32 @@ msgstr ""
 "El archivo de log\n"
 "se ha añadido correctamente."
 
-#: src/klog.cpp:3307
+#: src/klog.cpp:3338
 msgid "<p align=\"center\"><b>Worked & confirmed before</b></p>"
 msgstr "<p align=\"center\"><b>Trabajado y confirmado antes</b></p>"
 
-#: src/klog.cpp:3315
+#: src/klog.cpp:3346
 msgid "<p align=\"center\"><b>Not confirmed in this band, WORK IT!</b></p>"
 msgstr ""
 "<p align=\"center\"><b>No confirmado en esta banda, ¡TRABÁJALO!</b></p>"
 
-#: src/klog.cpp:3322
+#: src/klog.cpp:3353
 msgid "<p align=\"center\"><b>New one in this band, WORK IT!</b></p>"
 msgstr "<p align=\"center\"><b>Nuevo en esta banda, ¡TRABÁJALO!</b></p>"
 
-#: src/klog.cpp:3333
+#: src/klog.cpp:3364
 msgid "<p align=\"center\"><b>Not confirmed, WORK IT!</b></p>"
 msgstr "<p align=\"center\"><b>No confirmado, ¡TRABÁJALO!</b></p>"
 
-#: src/klog.cpp:3343
+#: src/klog.cpp:3374
 msgid "<p align=\"center\"><b>NEW ONE, WORK IT!</b></p>"
 msgstr "<p align=\"center\"><b>NUEVO ¡TRABÁJALO!</b></p>"
 
-#: src/klog.cpp:3547
+#: src/klog.cpp:3578
 msgid "Warning - QSO Deletion"
 msgstr "Atención - Eliminar QSO"
 
-#: src/klog.cpp:3548
+#: src/klog.cpp:3579
 msgid ""
 "Do you want to delete the QSO with:\n"
 "%1 of %2 ?"
@@ -3225,35 +3226,35 @@ msgstr ""
 "¿Quiere eliminar el QSO con:\n"
 "%1 de %2 ?"
 
-#: src/klog.cpp:4038
+#: src/klog.cpp:4069
 msgid "Print the log"
 msgstr "Imprimir el log"
 
-#: src/klog.cpp:4047
+#: src/klog.cpp:4078
 msgid "Printing date: "
 msgstr "Fecha de impresión: "
 
-#: src/klog.cpp:4052
+#: src/klog.cpp:4083
 msgid "RST(tx/rx)"
 msgstr "RST(tx/rx)"
 
-#: src/klog.cpp:4053
+#: src/klog.cpp:4084
 msgid "Freq"
 msgstr "Frecuencia"
 
-#: src/klog.cpp:4055 src/klog.cpp:4069
+#: src/klog.cpp:4086 src/klog.cpp:4100
 msgid "Page: %1"
 msgstr "Página: %1"
 
-#: src/klog.cpp:4107
+#: src/klog.cpp:4138
 msgid "Sorting the log..."
 msgstr "Ordenando el log..."
 
-#: src/klog.cpp:4107
+#: src/klog.cpp:4138
 msgid "Abort sorting"
 msgstr "Cancelar ordenación"
 
-#: src/klog.cpp:4149
+#: src/klog.cpp:4180
 msgid ""
 "Check your cluster settings\n"
 "in Setup->Preferences\n"
@@ -3263,39 +3264,43 @@ msgstr ""
 "en Configurar->Preferencias\n"
 "antes de conectar."
 
-#: src/klog.cpp:4174
+#: src/klog.cpp:4205
 msgid "Trying to connect to the server\n"
 msgstr "Intentado conectar al servidor\n"
 
-#: src/klog.cpp:4421
+#: src/klog.cpp:4452
 msgid "Connected to server"
 msgstr "Conectado al servidor"
 
-#: src/klog.cpp:4431
+#: src/klog.cpp:4462 src/klog.cpp:4463
 msgid "KLog message"
 msgstr "Mensaje de KLog"
 
-#: src/klog.cpp:4431
-msgid "Enter you callsign to connect to the cluster:"
+#: src/klog.cpp:4462
+msgid "Enter your callsign to connect to the cluster:"
 msgstr "Introduzca su indicativo para conectar al cluster:"
 
-#: src/klog.cpp:4436
+#: src/klog.cpp:4463
+msgid "Enter your password to connect to the cluster:"
+msgstr "Introduzca su contraseña para conectar al cluster:"
+
+#: src/klog.cpp:4469
 msgid "Not logged on, you may to enter your callsign again."
 msgstr "No identificado, introduzca el indicativo de nuevo."
 
-#: src/klog.cpp:4445
+#: src/klog.cpp:4478
 msgid "Connection closed by the server"
 msgstr "Conexión cerrada por el servidor"
 
-#: src/klog.cpp:4455
+#: src/klog.cpp:4488
 msgid "Connection closed"
 msgstr "Conexión cerrada"
 
-#: src/klog.cpp:4481
+#: src/klog.cpp:4514
 msgid "Host not found:\n"
 msgstr "Máquina no encontrada:\n"
 
-#: src/klog.cpp:4482
+#: src/klog.cpp:4515
 msgid ""
 "\n"
 "Check your network settings!"
@@ -3303,11 +3308,11 @@ msgstr ""
 "\n"
 "Compruebe su configuración de red."
 
-#: src/klog.cpp:4496
+#: src/klog.cpp:4529
 msgid "DX-Cluster server refused the connection\n"
 msgstr "El servidor de DXCluster rechazó la conexión\n"
 
-#: src/klog.cpp:4497
+#: src/klog.cpp:4530
 msgid ""
 "\n"
 "Maybe you are already connected, use another call like \"YOURCALL-1\"!"
@@ -3315,11 +3320,11 @@ msgstr ""
 "\n"
 "Puede que ya esté conectado, use otro indicativo como \"INDICATIVO-1\"!"
 
-#: src/klog.cpp:4507
+#: src/klog.cpp:4540
 msgid "The following error occurred: %1."
 msgstr "Ha ocurrido el siguiente error: %1."
 
-#: src/klog.cpp:4693
+#: src/klog.cpp:4726
 msgid ""
 "Please send your bug-report/wish to jaime@robles.es\n"
 "Include the KLog version you are using (%1). All your suggestion will be "
@@ -3330,21 +3335,21 @@ msgstr ""
 "Incluya la versión de KLog que está usando (%1). Todas sus sugerencias serán "
 "bienvenidas."
 
-#: src/klog.cpp:4968
+#: src/klog.cpp:4959
 msgid "Merging information..."
 msgstr "Consolidando información..."
 
-#: src/klog.cpp:4968 src/klog.cpp:5206
+#: src/klog.cpp:4959 src/klog.cpp:5197
 msgid "Abort"
 msgstr "Cancelar"
 
-#: src/klog.cpp:4989 src/klog.cpp:5013 src/klog.cpp:5033 src/klog.cpp:5056
-#: src/klog.cpp:5089 src/klog.cpp:5131
+#: src/klog.cpp:4980 src/klog.cpp:5004 src/klog.cpp:5024 src/klog.cpp:5047
+#: src/klog.cpp:5080 src/klog.cpp:5122
 msgid "Warning: Callsign to complete found"
 msgstr "Atención: Encontrado indicativo a completar"
 
-#: src/klog.cpp:4990 src/klog.cpp:5014 src/klog.cpp:5034 src/klog.cpp:5057
-#: src/klog.cpp:5090
+#: src/klog.cpp:4981 src/klog.cpp:5005 src/klog.cpp:5025 src/klog.cpp:5048
+#: src/klog.cpp:5081
 msgid ""
 "Completing a call could cause data to be no accurate. Do you want this data "
 "to be merged?\n"
@@ -3354,32 +3359,32 @@ msgstr ""
 "consolidar estos datos?\n"
 " QSO Nº: "
 
-#: src/klog.cpp:4992
+#: src/klog.cpp:4983
 msgid " - Asign the name "
 msgstr " - Asignar el nombre"
 
-#: src/klog.cpp:4992 src/klog.cpp:5016 src/klog.cpp:5037 src/klog.cpp:5060
-#: src/klog.cpp:5094
+#: src/klog.cpp:4983 src/klog.cpp:5007 src/klog.cpp:5028 src/klog.cpp:5051
+#: src/klog.cpp:5085
 msgid " for "
 msgstr " a "
 
-#: src/klog.cpp:5016
+#: src/klog.cpp:5007
 msgid " - Asign the QTH "
 msgstr " - Asignar el QTH "
 
-#: src/klog.cpp:5036
+#: src/klog.cpp:5027
 msgid " - Asign the Locator "
 msgstr " - Asignar el Locator "
 
-#: src/klog.cpp:5059
+#: src/klog.cpp:5050
 msgid " - Asign the IOTA reference "
 msgstr " - Asignar referencia IOTA "
 
-#: src/klog.cpp:5092
+#: src/klog.cpp:5083
 msgid " - Asign the Local Award reference "
 msgstr " - Asignar la referencia del diploma local "
 
-#: src/klog.cpp:5132
+#: src/klog.cpp:5123
 msgid ""
 "Completing a call could cause data to be no accurate. Do you want this data "
 "to be merged?\n"
@@ -3391,100 +3396,90 @@ msgstr ""
 " QSO Nº %1 - ¿Quiere copiar la información de QSL recibida en otros QSO para "
 "%2 ?"
 
-#: src/klog.cpp:5182
+#: src/klog.cpp:5173
 msgid "Merging calls: "
 msgstr "Consolidando QSOs: "
 
-#: src/klog.cpp:5206
+#: src/klog.cpp:5197
 msgid "Getting all the calls..."
 msgstr "Obteniendo todos los indicativos..."
 
-#: src/klog.cpp:5222
+#: src/klog.cpp:5213
 msgid "Adding Call: "
 msgstr "Añadiendo indicativo: "
 
-#: src/klognetwork.cpp:18
+#: src/klognetwork.cpp:14
 msgid "&URL:"
 msgstr "&URL:"
 
-#: src/klognetwork.cpp:20
+#: src/klognetwork.cpp:16
 msgid "You are going to download the cty.dat file from:"
 msgstr "Va a descargar el archivo cty.dat de:"
 
-#: src/klognetwork.cpp:22
-msgid "Download"
-msgstr "Descargar"
+#: src/klognetwork.cpp:17
+msgid "Do you want to continue?"
+msgstr "¿Desea continuar?"
 
-#: src/klognetwork.cpp:24
-msgid "Quit"
-msgstr "Salir"
-
-#: src/klognetwork.cpp:57
+#: src/klognetwork.cpp:54
 msgid "KLog: CTY.DAT download"
 msgstr "KLog: Descargar CTY.DAT"
 
-#: src/klognetwork.cpp:73
+#: src/klognetwork.cpp:70
 msgid "KLog: File exists!"
 msgstr "KLog: ¡El archivo ya existe!"
 
-#: src/klognetwork.cpp:74
+#: src/klognetwork.cpp:71
 msgid ""
 "There already exists a file called %1 in the current directory. Overwrite?"
 msgstr "El archivo %1 ya existe ¿Desea sobrescribirlo?"
 
-#: src/klognetwork.cpp:84
+#: src/klognetwork.cpp:81
 msgid "KLog: Can't save the file"
 msgstr "KLog: No puedo guardar el fichero"
 
-#: src/klognetwork.cpp:85
+#: src/klognetwork.cpp:82
 msgid "Unable to save the file %1: %2."
-msgstr "No puedo guardar el fichero %1: %2."
+msgstr "No puedo guardar el archivo %1: %2."
 
-#: src/klognetwork.cpp:104
+#: src/klognetwork.cpp:101
 msgid "KLog: Downloading..."
 msgstr "KLog: Descargando..."
 
-#: src/klognetwork.cpp:105
+#: src/klognetwork.cpp:102
 msgid "Downloading %1."
 msgstr "Descargando %1."
 
-#: src/klognetwork.cpp:111
+#: src/klognetwork.cpp:108
 msgid "Download canceled."
 msgstr "Descarga cancelada."
 
-#: src/klognetwork.cpp:141 src/klognetwork.cpp:192
+#: src/klognetwork.cpp:138 src/klognetwork.cpp:189
 msgid "KLog: Download failed"
 msgstr "KLog: Descarga fallida"
 
-#: src/klognetwork.cpp:142 src/klognetwork.cpp:193
+#: src/klognetwork.cpp:139 src/klognetwork.cpp:190
 msgid "Download failed: %1."
 msgstr "Descarga fallida: %1."
 
-#: src/klognetwork.cpp:146
+#: src/klognetwork.cpp:143
 msgid "Downloaded %1 to the KLog directory."
-msgstr "%1 descargada al directorio de KLog."
+msgstr "%1 descargado al directorio de KLog."
 
-#: src/klognetwork.cpp:153
-msgid "KLog: ctydat downloaded"
+#: src/klognetwork.cpp:150
+msgid "KLog: cty.dat downloaded"
 msgstr "KLog: cty.dat descargado"
 
-#: src/klognetwork.cpp:154
-msgid ""
-"KLog has downloaded the cty.dat file successfully.\n"
-"\n"
-"You should restart KLog to allow the file to be readed."
-msgstr ""
-"KLog ha descargado el archivo cty.dat correctamente.\n"
-"\n"
-"Debería reiniciar KLog para leerlo."
+#: src/klognetwork.cpp:151
+msgid "KLog has downloaded the cty.dat file successfully.\n"
+msgstr "KLog ha descargado el archivo cty.dat correctamente.\n"
 
-#: src/klognetwork.cpp:244
+#: src/klognetwork.cpp:241
 msgid "KLog: SSL error"
 msgstr "KLog: Error de SSL"
 
-#: src/klognetwork.cpp:245
+#: src/klognetwork.cpp:242
 msgid "One or more SSL errors has occurred: %1"
-msgstr "Ha ocurrido uno o más errores de SSL: %1"
+msgstr "Han ocurrido uno o más errores de SSL: %1"
 
 #: src/main.cpp:45
 msgid "KLog"
