@@ -2697,7 +2697,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>960</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
    <property name="defaultUp">
@@ -2726,6 +2726,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="toolsFind_QSO_to_QSLAction"/>
     <addaction name="toolsMerge_QSO_dataAction"/>
     <addaction name="ActionCabrilloImport"/>
+    <addaction name="actionUpdateCtyDatManually"/>
    </widget>
    <widget class="QMenu" name="setupMenu">
     <property name="title">
@@ -3149,6 +3150,14 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="name" stdset="0">
     <cstring>ActionCabrilloImport</cstring>
+   </property>
+  </action>
+  <action name="actionUpdateCtyDatManually">
+   <property name="text">
+    <string>Update CTY.DAT</string>
+   </property>
+   <property name="toolTip">
+    <string>Update the CTY.DAT from the Internet</string>
    </property>
   </action>
  </widget>

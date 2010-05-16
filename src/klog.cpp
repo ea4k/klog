@@ -228,8 +228,8 @@ void Klog::createActions(){
   connect(fileSaveAsAction, SIGNAL(triggered()), this, SLOT(fileSaveAs()) );
   connect(helpAboutAction, SIGNAL(triggered()), this, SLOT(helpAbout()) );
   
-  connect(actionUpdateCtyDat, SIGNAL(triggered()), this, SLOT(slotUpdateCTYDATFile()) );
-  
+ // connect(actionUpdateCtyDat, SIGNAL(triggered()), this, SLOT(slotUpdateCTYDATFile()) );
+  connect(actionUpdateCtyDatManually, SIGNAL(triggered()), this, SLOT(slotUpdateCTYDATFileManually() ) );
   
   
   connect(modeComboBox, SIGNAL(activated(int)), this, SLOT(slotModeChanged(int)) );
@@ -1743,6 +1743,7 @@ void Klog::showRighButtonLogMenu( const QPoint& pos ){
    senQSOAct->setStatusTip(i18n("QSL Sent"));
    connect(senQSOAct, SIGNAL(triggered()), this, SLOT(slotQSLSent()));
 
+  // actionUpdateCtyDat = new QAction("", this);
 }
 
 void Klog::slotQsoSelectedForEdit(QTreeWidgetItem *item){
@@ -5288,7 +5289,24 @@ void Klog::slothamlibUpdateFrequency(){
     }
 
 }
+ 
+ void Klog::slotUpdateCTYDATFileManually(){
+/****************************************************
+*  Updates the cty.dat file from the web.
+* URL: http://www.country-files.com/cty/cty.dat
+* Info: http://www.country-files.com/cty/#KLog
+*
+*****************************************************/
+//qDebug() << "KLog::slotUpdateCTYDATFileManually: "  << endl;
+  //TODO: Make the KLogNetwork to return a boolean value to check if the file has been downloaded or not.
+  // and be able to recreate the world.
 
+  KLogNetwork klogNetwork;
+  klogNetwork.exec();  
+  
+  haveWorld();
+}
+ 
 void Klog::slotUpdateCTYDATFile(){
 /****************************************************
 *  Updates the cty.dat file from the web.

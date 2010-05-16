@@ -163,7 +163,7 @@ class Klog : public QMainWindow, private Ui::klog
     //void printLabels(); // Generate the file for GLabels or KBarcode
     void slothamlibUpdateFrequency();
     void slotUpdateCTYDATFile();
-    
+    void slotUpdateCTYDATFileManually();
 
 //	void adifFileSave();
     void adifTempFileSave(const QString& fn, LogBook lb, bool manualSave);  // To save the templog automatically after each QSO is added
@@ -469,7 +469,8 @@ class Klog : public QMainWindow, private Ui::klog
     QAction *recSenQSOAct;
     QAction *recQSOAct;
     QAction *senQSOAct;
-    QAction *actionUpdateCtyDat;
+   // QAction *actionUpdateCtyDat;
+    //QAction *actionUpdateCtyDatManually;
     QActionGroup *qsoActionsGroup;
     
 };
