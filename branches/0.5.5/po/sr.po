@@ -1,0 +1,3664 @@
+# translation of klog.po to Serbian
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# , 2003
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-05-16 12:17+0200\n"
+"PO-Revision-Date: 2003-08-29 02:53+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0\n"
+
+#. i18n: file: src/klog.ui:33
+#. i18n: ectx: property (windowTitle), widget (QMainWindow, klog)
+#: po/rc.cpp:3 rc.cpp:3
+msgid "Klog"
+msgstr "Klog"
+
+#. i18n: file: src/klog.ui:39
+#. i18n: ectx: property (whatsThis), widget (QMainWindow, klog)
+#: po/rc.cpp:6 rc.cpp:6
+#, fuzzy
+msgid "KLog - The KDE Ham radio logging software."
+msgstr " - KDE program za radio-amaterski dnevnik"
+
+#. i18n: file: src/klog.ui:56
+#. i18n: ectx: attribute (title), widget (QWidget, logdisplayTab)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Log"
+msgstr "Log"
+
+#. i18n: file: src/klog.ui:69
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#. i18n: file: src/klog.ui:176
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#. i18n: file: src/klog.ui:69
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#. i18n: file: src/klog.ui:176
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#: po/rc.cpp:12 po/rc.cpp:57 rc.cpp:12 rc.cpp:57
+msgid "Numb"
+msgstr "Br"
+
+#. i18n: file: src/klog.ui:74
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#. i18n: file: src/klog.ui:1250
+#. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
+#. i18n: file: src/klog.ui:74
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#. i18n: file: src/klog.ui:1250
+#. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
+#: po/rc.cpp:15 po/rc.cpp:267 src/klog.cpp:4082 rc.cpp:15 rc.cpp:267
+msgid "Date"
+msgstr "Datum"
+
+#. i18n: file: src/klog.ui:79
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "UTC"
+msgstr "UTC"
+
+#. i18n: file: src/klog.ui:84
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#. i18n: file: src/klog.ui:1245
+#. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
+#. i18n: file: src/klog.ui:84
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#. i18n: file: src/klog.ui:1245
+#. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
+#: po/rc.cpp:21 po/rc.cpp:264 src/klog.cpp:4083 rc.cpp:21 rc.cpp:264
+msgid "QRZ"
+msgstr "QRZ"
+
+#. i18n: file: src/klog.ui:89
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#: po/rc.cpp:24 rc.cpp:24
+msgid "RST(tx)"
+msgstr "RST(tx)"
+
+#. i18n: file: src/klog.ui:94
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#: po/rc.cpp:27 rc.cpp:27
+msgid "RST(rx)"
+msgstr "RST(rx)"
+
+#. i18n: file: src/klog.ui:99
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#. i18n: file: src/klog.ui:1260
+#. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
+#. i18n: file: src/klog.ui:99
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#. i18n: file: src/klog.ui:1260
+#. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
+#: po/rc.cpp:30 po/rc.cpp:273 src/klog.cpp:4084 rc.cpp:30 rc.cpp:273
+msgid "Band"
+msgstr "Opseg"
+
+#. i18n: file: src/klog.ui:104
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#. i18n: file: src/klog.ui:1265
+#. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
+#. i18n: file: src/klog.ui:104
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#. i18n: file: src/klog.ui:1265
+#. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
+#: po/rc.cpp:33 po/rc.cpp:276 src/klog.cpp:4085 rc.cpp:33 rc.cpp:276
+msgid "Mode"
+msgstr "Vrsta rada"
+
+#. i18n: file: src/klog.ui:109
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#: po/rc.cpp:36 rc.cpp:36
+msgid "Power"
+msgstr "Snaga"
+
+#. i18n: file: src/klog.ui:114
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#. i18n: file: src/klog.ui:2224
+#. i18n: ectx: attribute (title), widget (QWidget, remarks)
+#. i18n: file: src/klog.ui:114
+#. i18n: ectx: property (text), widget (QTreeWidget, logTreeWidget)
+#. i18n: file: src/klog.ui:2224
+#. i18n: ectx: attribute (title), widget (QWidget, remarks)
+#: po/rc.cpp:39 po/rc.cpp:646 rc.cpp:39 rc.cpp:646
+msgid "Remarks"
+msgstr "Napomene"
+
+#. i18n: file: src/klog.ui:123
+#. i18n: ectx: attribute (title), widget (QWidget, clusterTab)
+#: po/rc.cpp:42 rc.cpp:42
+msgid "Cluster"
+msgstr "Kluster"
+
+#. i18n: file: src/klog.ui:132
+#. i18n: ectx: property (text), widget (QPushButton, ClusterkPushButtonOK)
+#. i18n: file: src/klog.ui:1730
+#. i18n: ectx: property (text), widget (QPushButton, okBtn)
+#. i18n: file: src/klog.ui:132
+#. i18n: ectx: property (text), widget (QPushButton, ClusterkPushButtonOK)
+#. i18n: file: src/klog.ui:1730
+#. i18n: ectx: property (text), widget (QPushButton, okBtn)
+#: po/rc.cpp:45 po/rc.cpp:531 rc.cpp:45 rc.cpp:531
+msgid "OK"
+msgstr ""
+
+#. i18n: file: src/klog.ui:139
+#. i18n: ectx: property (text), widget (QPushButton, ClusterkPushButtonClear)
+#. i18n: file: src/klog.ui:1150
+#. i18n: ectx: property (text), widget (QPushButton, searchCancelkPushButton)
+#. i18n: file: src/klog.ui:1720
+#. i18n: ectx: property (text), widget (QPushButton, clearBtn)
+#. i18n: file: src/setup.ui:1230
+#. i18n: ectx: property (text), widget (QPushButton, awardClearpushButton)
+#. i18n: file: src/klog.ui:139
+#. i18n: ectx: property (text), widget (QPushButton, ClusterkPushButtonClear)
+#. i18n: file: src/klog.ui:1150
+#. i18n: ectx: property (text), widget (QPushButton, searchCancelkPushButton)
+#. i18n: file: src/klog.ui:1720
+#. i18n: ectx: property (text), widget (QPushButton, clearBtn)
+#. i18n: file: src/setup.ui:1230
+#. i18n: ectx: property (text), widget (QPushButton, awardClearpushButton)
+#: po/rc.cpp:48 po/rc.cpp:246 po/rc.cpp:525 po/rc.cpp:1327 src/klog.cpp:532
+#: rc.cpp:48 rc.cpp:246 rc.cpp:525 rc.cpp:1327
+#, fuzzy
+msgid "Clear"
+msgstr "Obrisati trenutni unos"
+
+#. i18n: file: src/klog.ui:160
+#. i18n: ectx: attribute (title), widget (QWidget, dxMapTab)
+#: po/rc.cpp:51 rc.cpp:51
+msgid "DX Map"
+msgstr ""
+
+#. i18n: file: src/klog.ui:166
+#. i18n: ectx: attribute (title), widget (QWidget, dxccTab)
+#: po/rc.cpp:54 rc.cpp:54
+msgid "DXCC"
+msgstr ""
+
+#. i18n: file: src/klog.ui:181
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#. i18n: file: src/setup.ui:1271
+#. i18n: ectx: property (text), widget (QTreeWidget, awardTreeWidget)
+#. i18n: file: src/klog.ui:181
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#. i18n: file: src/setup.ui:1271
+#. i18n: ectx: property (text), widget (QTreeWidget, awardTreeWidget)
+#: po/rc.cpp:60 po/rc.cpp:1339 rc.cpp:60 rc.cpp:1339
+#, fuzzy
+msgid "Entity"
+msgstr "Izlaz"
+
+#. i18n: file: src/klog.ui:186
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#: po/rc.cpp:63 rc.cpp:63
+msgid "Prefix"
+msgstr ""
+
+#. i18n: file: src/klog.ui:191
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#: po/rc.cpp:66 rc.cpp:66
+#, fuzzy
+msgid "10m"
+msgstr "10M"
+
+#. i18n: file: src/klog.ui:196
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#: po/rc.cpp:69 rc.cpp:69
+#, fuzzy
+msgid "12m"
+msgstr "12M"
+
+#. i18n: file: src/klog.ui:201
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#: po/rc.cpp:72 rc.cpp:72
+#, fuzzy
+msgid "15m"
+msgstr "Q15"
+
+#. i18n: file: src/klog.ui:206
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#: po/rc.cpp:75 rc.cpp:75
+#, fuzzy
+msgid "17m"
+msgstr "17M"
+
+#. i18n: file: src/klog.ui:211
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#: po/rc.cpp:78 rc.cpp:78
+#, fuzzy
+msgid "20m"
+msgstr "20M"
+
+#. i18n: file: src/klog.ui:216
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#: po/rc.cpp:81 rc.cpp:81
+#, fuzzy
+msgid "30m"
+msgstr "30M"
+
+#. i18n: file: src/klog.ui:221
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#: po/rc.cpp:84 rc.cpp:84
+#, fuzzy
+msgid "40m"
+msgstr "40M"
+
+#. i18n: file: src/klog.ui:226
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#: po/rc.cpp:87 rc.cpp:87
+#, fuzzy
+msgid "80m"
+msgstr "80M"
+
+#. i18n: file: src/klog.ui:231
+#. i18n: ectx: property (text), widget (QTreeWidget, dxccTreeWidget)
+#: po/rc.cpp:90 rc.cpp:90
+#, fuzzy
+msgid "160m"
+msgstr "160M"
+
+#. i18n: file: src/klog.ui:259
+#. i18n: ectx: attribute (title), widget (QWidget, info)
+#: po/rc.cpp:93 rc.cpp:93
+msgid "Info"
+msgstr "Info"
+
+#. i18n: file: src/klog.ui:277
+#. i18n: ectx: property (text), widget (QLabel, LedtextLabel)
+#: po/rc.cpp:96 rc.cpp:96
+msgid "<b>KLog</b>"
+msgstr "<b>KLog</b>"
+
+#. i18n: file: src/klog.ui:298
+#. i18n: ectx: property (text), widget (QLabel, textLabelBand10)
+#: po/rc.cpp:99 rc.cpp:99
+#, fuzzy
+msgid "<p align=\"center\"><b>10</b></p>"
+msgstr "<p align=\"center\"><b>R</b></p>"
+
+#. i18n: file: src/klog.ui:317
+#. i18n: ectx: property (text), widget (QLabel, textLabelBand15)
+#: po/rc.cpp:102 rc.cpp:102
+#, fuzzy
+msgid "<p align=\"center\"><b>15</b></p>"
+msgstr "<p align=\"center\"><b>R</b></p>"
+
+#. i18n: file: src/klog.ui:336
+#. i18n: ectx: property (text), widget (QLabel, textLabelBand20)
+#: po/rc.cpp:105 rc.cpp:105
+#, fuzzy
+msgid "<p align=\"center\"><b>20</b></p>"
+msgstr "<p align=\"center\"><b>2</b></p>"
+
+#. i18n: file: src/klog.ui:355
+#. i18n: ectx: property (text), widget (QLabel, textLabelBand40)
+#: po/rc.cpp:108 rc.cpp:108
+#, fuzzy
+msgid "<p align=\"center\"><b>40</b></p>"
+msgstr "<p align=\"center\"><b>R</b></p>"
+
+#. i18n: file: src/klog.ui:374
+#. i18n: ectx: property (text), widget (QLabel, textLabelBand80)
+#: po/rc.cpp:111 rc.cpp:111
+#, fuzzy
+msgid "<p align=\"center\"><b>80</b></p>"
+msgstr "<p align=\"center\"><b>R</b></p>"
+
+#. i18n: file: src/klog.ui:393
+#. i18n: ectx: property (text), widget (QLabel, textLabelBand160)
+#: po/rc.cpp:114 rc.cpp:114
+#, fuzzy
+msgid "<p align=\"center\"><b>160</b></p>"
+msgstr "<p align=\"center\"><b>R</b></p>"
+
+#. i18n: file: src/klog.ui:411
+#. i18n: ectx: property (text), widget (QLabel, entityTextLabel)
+#. i18n: file: src/klog.ui:552
+#. i18n: ectx: property (text), widget (QLabel, prxTextLabel)
+#. i18n: file: src/klog.ui:587
+#. i18n: ectx: property (text), widget (QLabel, continentTextLabel)
+#. i18n: file: src/klog.ui:411
+#. i18n: ectx: property (text), widget (QLabel, entityTextLabel)
+#. i18n: file: src/klog.ui:552
+#. i18n: ectx: property (text), widget (QLabel, prxTextLabel)
+#. i18n: file: src/klog.ui:587
+#. i18n: ectx: property (text), widget (QLabel, continentTextLabel)
+#: po/rc.cpp:117 po/rc.cpp:141 po/rc.cpp:150 rc.cpp:117 rc.cpp:141 rc.cpp:150
+msgid "--"
+msgstr "--"
+
+#. i18n: file: src/klog.ui:432
+#. i18n: ectx: property (text), widget (QLabel, textLabelBand6)
+#: po/rc.cpp:120 rc.cpp:120
+#, fuzzy
+msgid "<p align=\"center\"><b>6</b></p>"
+msgstr "<p align=\"center\"><b>R</b></p>"
+
+#. i18n: file: src/klog.ui:451
+#. i18n: ectx: property (text), widget (QLabel, textLabelBand12)
+#: po/rc.cpp:123 rc.cpp:123
+#, fuzzy
+msgid "<p align=\"center\"><b>12</b></p>"
+msgstr "<p align=\"center\"><b>2</b></p>"
+
+#. i18n: file: src/klog.ui:470
+#. i18n: ectx: property (text), widget (QLabel, textLabelBand17)
+#: po/rc.cpp:126 rc.cpp:126
+#, fuzzy
+msgid "<p align=\"center\"><b>17</b></p>"
+msgstr "<p align=\"center\"><b>R</b></p>"
+
+#. i18n: file: src/klog.ui:489
+#. i18n: ectx: property (text), widget (QLabel, textLabelBand30)
+#: po/rc.cpp:129 rc.cpp:129
+#, fuzzy
+msgid "<p align=\"center\"><b>30</b></p>"
+msgstr "<p align=\"center\"><b>R</b></p>"
+
+#. i18n: file: src/klog.ui:508
+#. i18n: ectx: property (text), widget (QLabel, textLabelBand2)
+#: po/rc.cpp:132 rc.cpp:132
+msgid "<p align=\"center\"><b>2</b></p>"
+msgstr "<p align=\"center\"><b>2</b></p>"
+
+#. i18n: file: src/klog.ui:527
+#. i18n: ectx: property (text), widget (QLabel, textLabelBand70cm)
+#: po/rc.cpp:135 rc.cpp:135
+#, fuzzy
+msgid "<p align=\"center\"><b>70cm</b></p>"
+msgstr "<p align=\"center\"><b>R</b></p>"
+
+#. i18n: file: src/klog.ui:543
+#. i18n: ectx: property (toolTip), widget (QLabel, prxTextLabel)
+#: po/rc.cpp:138 rc.cpp:138
+msgid "Entity's main prefix"
+msgstr ""
+
+#. i18n: file: src/klog.ui:568
+#. i18n: ectx: property (text), widget (QLabel, prxtTextLabel)
+#: po/rc.cpp:144 rc.cpp:144
+msgid "<p align=\"center\"><b>Prefix:</b></p>"
+msgstr "<p align=\"center\"><b>Prefiks:</b></p>"
+
+#. i18n: file: src/klog.ui:578
+#. i18n: ectx: property (toolTip), widget (QLabel, continentTextLabel)
+#: po/rc.cpp:147 rc.cpp:147
+#, fuzzy
+msgid "Entity's continent"
+msgstr "IOTA-kontinent"
+
+#. i18n: file: src/klog.ui:603
+#. i18n: ectx: property (text), widget (QLabel, continenttTextLabel)
+#: po/rc.cpp:153 rc.cpp:153
+msgid "<p align=\"center\"><b>Continent:</b></p>"
+msgstr "<p align=\"center\"><b>Kontinent:</b></p>"
+
+#. i18n: file: src/klog.ui:623
+#. i18n: ectx: property (text), widget (QLabel, textLabel5)
+#: po/rc.cpp:156 rc.cpp:156
+#, fuzzy
+msgctxt "Use no more than 4 letters when translating"
+msgid "<p align=\"center\"><b>deg</b></p>"
+msgstr "<p align=\"center\"><b>stepeni</b></p>"
+
+#. i18n: file: src/klog.ui:633
+#. i18n: ectx: property (toolTip), widget (QLabel, showtPathtextLabel)
+#: po/rc.cpp:159 rc.cpp:159
+msgid "Short Path"
+msgstr ""
+
+#. i18n: file: src/klog.ui:642
+#. i18n: ectx: property (text), widget (QLabel, showtPathtextLabel)
+#: po/rc.cpp:162 rc.cpp:162
+msgid "<p align=\"center\"><b>Short Path:</b></p>"
+msgstr "<p align=\"center\"><b>Kraći put:</b></p>"
+
+#. i18n: file: src/klog.ui:658
+#. i18n: ectx: property (text), widget (QLabel, textLabel11)
+#. i18n: file: src/klog.ui:851
+#. i18n: ectx: property (text), widget (QLabel, textLabel13)
+#. i18n: file: src/klog.ui:658
+#. i18n: ectx: property (text), widget (QLabel, textLabel11)
+#. i18n: file: src/klog.ui:851
+#. i18n: ectx: property (text), widget (QLabel, textLabel13)
+#: po/rc.cpp:165 po/rc.cpp:201 rc.cpp:165 rc.cpp:201
+msgid "<b><p align=\"center\">Km</p></b>"
+msgstr "<b><p align=\"center\">Km</p></b>"
+
+#. i18n: file: src/klog.ui:668
+#. i18n: ectx: property (toolTip), widget (QLCDNumber, beamshortlCDNumber)
+#: po/rc.cpp:168 rc.cpp:168
+msgid "Point your antenna in this direction"
+msgstr "Usmeriti antenu u tom pravcu"
+
+#. i18n: file: src/klog.ui:687
+#. i18n: ectx: property (toolTip), widget (QLCDNumber, distancelCDNumber)
+#: po/rc.cpp:171 rc.cpp:171
+msgid "Km to the DX through the short path"
+msgstr ""
+
+#. i18n: file: src/klog.ui:710
+#. i18n: ectx: property (text), widget (QLabel, itutTextLabel)
+#: po/rc.cpp:174 rc.cpp:174
+msgid "<p align=\"center\"><b>ITU:</b></p>"
+msgstr "<p align=\"center\"><b>ITU:</b></p>"
+
+#. i18n: file: src/klog.ui:726
+#. i18n: ectx: property (text), widget (QLabel, cqtTextLabel)
+#: po/rc.cpp:177 rc.cpp:177
+msgid "<p align=\"center\"><b>CQ:</b></p>"
+msgstr "<p align=\"center\"><b>CQ:</b></p>"
+
+#. i18n: file: src/klog.ui:742
+#. i18n: ectx: property (toolTip), widget (QLCDNumber, cqLCDNumber)
+#: po/rc.cpp:180 rc.cpp:180
+msgid "CQ zone"
+msgstr ""
+
+#. i18n: file: src/klog.ui:761
+#. i18n: ectx: property (toolTip), widget (QLCDNumber, ituLCDNumber)
+#: po/rc.cpp:183 rc.cpp:183
+msgid "ITU zone"
+msgstr ""
+
+#. i18n: file: src/klog.ui:778
+#. i18n: ectx: property (toolTip), widget (QLCDNumber, beamlonglCDNumber)
+#: po/rc.cpp:186 rc.cpp:186
+#, fuzzy
+msgid "Turn your antenna in this direction to work via long path"
+msgstr "Usmeriti antenu u tom pravcu"
+
+#. i18n: file: src/klog.ui:794
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel10)
+#: po/rc.cpp:189 rc.cpp:189
+msgid "Long Path"
+msgstr ""
+
+#. i18n: file: src/klog.ui:803
+#. i18n: ectx: property (text), widget (QLabel, textLabel10)
+#: po/rc.cpp:192 rc.cpp:192
+msgid "<p align=\"center\"><b>Long Path:</b></p>"
+msgstr "<p align=\"center\"><b>Duži put:</b></p>"
+
+#. i18n: file: src/klog.ui:813
+#. i18n: ectx: property (toolTip), widget (QLCDNumber, distancellCDNumber)
+#: po/rc.cpp:195 rc.cpp:195
+msgid "Km to the DX through the long path"
+msgstr ""
+
+#. i18n: file: src/klog.ui:835
+#. i18n: ectx: property (text), widget (QLabel, textLabel12)
+#: po/rc.cpp:198 rc.cpp:198
+#, fuzzy
+msgctxt "Use no more than 4 letters when translating"
+msgid "<b><p align=\"center\">deg</p></b>"
+msgstr "<b><p align=\"center\">stepeni</p></b>"
+
+#. i18n: file: src/klog.ui:866
+#. i18n: ectx: attribute (title), widget (QWidget, awards)
+#. i18n: file: src/setup.ui:1204
+#. i18n: ectx: attribute (title), widget (QWidget, TabPage)
+#. i18n: file: src/klog.ui:866
+#. i18n: ectx: attribute (title), widget (QWidget, awards)
+#. i18n: file: src/setup.ui:1204
+#. i18n: ectx: attribute (title), widget (QWidget, TabPage)
+#: po/rc.cpp:204 po/rc.cpp:1321 rc.cpp:204 rc.cpp:1321
+msgid "Awards"
+msgstr "Diplome"
+
+#. i18n: file: src/klog.ui:878
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_5)
+#: po/rc.cpp:207 rc.cpp:207
+msgid "<b>Award</b>"
+msgstr "<b>Diploma</b>"
+
+#. i18n: file: src/klog.ui:894
+#. i18n: ectx: property (text), widget (QLabel, textLabel3_3)
+#: po/rc.cpp:210 rc.cpp:210
+msgid "<b>Worked</b>"
+msgstr "<b>Rađen</b>"
+
+#. i18n: file: src/klog.ui:910
+#. i18n: ectx: property (text), widget (QLabel, dxcctextLabel)
+#: po/rc.cpp:213 rc.cpp:213
+msgid "<b>DXCC:</b>"
+msgstr "<b>DXCC:</b>"
+
+#. i18n: file: src/klog.ui:926
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: po/rc.cpp:216 rc.cpp:216
+msgid "<b>WAZ:</b>"
+msgstr "<b>WAZ:</b>"
+
+#. i18n: file: src/klog.ui:939
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel4)
+#: po/rc.cpp:219 rc.cpp:219
+msgid "IOTA checking is still not implemented."
+msgstr ""
+
+#. i18n: file: src/klog.ui:948
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#. i18n: file: src/klog.ui:2256
+#. i18n: ectx: property (text), widget (QLabel, textLabel)
+#. i18n: file: src/klog.ui:948
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#. i18n: file: src/klog.ui:2256
+#. i18n: ectx: property (text), widget (QLabel, textLabel)
+#: po/rc.cpp:222 po/rc.cpp:655 rc.cpp:222 rc.cpp:655
+msgid "<b>IOTA:</b>"
+msgstr "<b>IOTA:</b>"
+
+#. i18n: file: src/klog.ui:961
+#. i18n: ectx: property (toolTip), widget (QLabel, localAwardName)
+#: po/rc.cpp:225 rc.cpp:225
+msgid "Local awards checking is still not implemented."
+msgstr ""
+
+#. i18n: file: src/klog.ui:970
+#. i18n: ectx: property (text), widget (QLabel, localAwardName)
+#: po/rc.cpp:228 rc.cpp:228
+msgid "<b>LOCAL:</b>"
+msgstr "<b>LOKAL:</b>"
+
+#. i18n: file: src/klog.ui:986
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_9)
+#: po/rc.cpp:231 rc.cpp:231
+msgid "<b>QSOs:</b>"
+msgstr "<b>Veza:</b>"
+
+#. i18n: file: src/klog.ui:1094
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_3)
+#: po/rc.cpp:234 rc.cpp:234
+msgid "<b>Confirmed</b>"
+msgstr "<b>Potvrđen</b>"
+
+#. i18n: file: src/klog.ui:1128
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#. i18n: file: src/klog.ui:1143
+#. i18n: ectx: property (text), widget (QPushButton, searchSearchkPushButton)
+#. i18n: file: src/klog.ui:1128
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#. i18n: file: src/klog.ui:1143
+#. i18n: ectx: property (text), widget (QPushButton, searchSearchkPushButton)
+#: po/rc.cpp:237 po/rc.cpp:243 rc.cpp:237 rc.cpp:243
+msgid "Search"
+msgstr "Traži"
+
+#. i18n: file: src/klog.ui:1136
+#. i18n: ectx: property (toolTip), widget (QLineEdit, searchQrzkLineEdit)
+#: po/rc.cpp:240 rc.cpp:240
+msgid "Enter the call to search"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1165
+#. i18n: ectx: property (text), widget (QLabel, textLabel6_2)
+#. i18n: file: src/klog.ui:1979
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_8_2)
+#. i18n: file: src/klog.ui:1165
+#. i18n: ectx: property (text), widget (QLabel, textLabel6_2)
+#. i18n: file: src/klog.ui:1979
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_8_2)
+#: po/rc.cpp:249 po/rc.cpp:581 rc.cpp:249 rc.cpp:581
+msgid "<p align=\"center\"><b>Name:</b></p>"
+msgstr "<p align=\"center\"><b>Ime:</b></p>"
+
+#. i18n: file: src/klog.ui:1175
+#. i18n: ectx: property (toolTip), widget (QLineEdit, previousNamekLineEdit)
+#: po/rc.cpp:252 rc.cpp:252
+#, fuzzy
+msgid "DX Operator's name"
+msgstr "Ime korespondenta"
+
+#. i18n: file: src/klog.ui:1193
+#. i18n: ectx: property (text), widget (QLabel, textLabelTime)
+#: po/rc.cpp:255 rc.cpp:255
+#, fuzzy
+msgid "<p align=\"center\"><b>Time:</b></p>"
+msgstr "<p align=\"center\"><b>Ime:</b></p>"
+
+#. i18n: file: src/klog.ui:1218
+#. i18n: ectx: property (text), widget (QLabel, textLabel7_2)
+#: po/rc.cpp:258 rc.cpp:258
+msgid "<p align=\"center\"><b>QTH:</b></p>"
+msgstr "<p align=\"center\"><b>QTH:</b></p>"
+
+#. i18n: file: src/klog.ui:1228
+#. i18n: ectx: property (toolTip), widget (QLineEdit, previousQthkLineEdit)
+#: po/rc.cpp:261 rc.cpp:261
+#, fuzzy
+msgid "DX Operator's QTH"
+msgstr "Ime korespondenta"
+
+#. i18n: file: src/klog.ui:1255
+#. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
+#: po/rc.cpp:270 src/klog.cpp:4083 rc.cpp:270
+msgid "Time"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1270
+#. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
+#: po/rc.cpp:279 rc.cpp:279
+msgid "QSL-Sent"
+msgstr "QSL Poslata"
+
+#. i18n: file: src/klog.ui:1275
+#. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
+#: po/rc.cpp:282 rc.cpp:282
+#, fuzzy
+msgid "QSL-Rec"
+msgstr "QSL Primljena"
+
+#. i18n: file: src/klog.ui:1280
+#. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
+#. i18n: file: src/setup.ui:1261
+#. i18n: ectx: property (text), widget (QTreeWidget, awardTreeWidget)
+#. i18n: file: src/klog.ui:1280
+#. i18n: ectx: property (text), widget (QTreeWidget, searchQsosTreeWidget)
+#. i18n: file: src/setup.ui:1261
+#. i18n: ectx: property (text), widget (QTreeWidget, awardTreeWidget)
+#: po/rc.cpp:285 po/rc.cpp:1333 src/klog.cpp:4082 rc.cpp:285 rc.cpp:1333
+msgid "Number"
+msgstr "Broj"
+
+#. i18n: file: src/klog.ui:1319
+#. i18n: ectx: property (toolTip), widget (QLineEdit, qrzLineEdit)
+#: po/rc.cpp:288 rc.cpp:288
+msgid "Enter the DX's QRZ"
+msgstr "Uneti pozivni znak DX-a"
+
+#. i18n: file: src/klog.ui:1326
+#. i18n: ectx: property (toolTip), widget (QComboBox, modeComboBox)
+#: po/rc.cpp:291 rc.cpp:291
+msgid "Mode selection"
+msgstr "Izbor vrste rada"
+
+#. i18n: file: src/klog.ui:1330
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:458
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1330
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:458
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:294 po/rc.cpp:1072 rc.cpp:294 rc.cpp:1072
+msgid "SSB"
+msgstr "SSB"
+
+#. i18n: file: src/klog.ui:1335
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:463
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1335
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:463
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:297 po/rc.cpp:1075 rc.cpp:297 rc.cpp:1075
+msgid "CW"
+msgstr "CW"
+
+#. i18n: file: src/klog.ui:1340
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:468
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1340
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:468
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:300 po/rc.cpp:1078 rc.cpp:300 rc.cpp:1078
+msgid "FM"
+msgstr "FM"
+
+#. i18n: file: src/klog.ui:1345
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:473
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1345
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:473
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:303 po/rc.cpp:1081 rc.cpp:303 rc.cpp:1081
+msgid "PSK31"
+msgstr "PSK31"
+
+#. i18n: file: src/klog.ui:1350
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:478
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1350
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:478
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:306 po/rc.cpp:1084 rc.cpp:306 rc.cpp:1084
+msgid "SSTV"
+msgstr "SSTV"
+
+#. i18n: file: src/klog.ui:1355
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:483
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1355
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:483
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:309 po/rc.cpp:1087 rc.cpp:309 rc.cpp:1087
+msgid "RTTY"
+msgstr "RTTY"
+
+#. i18n: file: src/klog.ui:1360
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:488
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1360
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:488
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:312 po/rc.cpp:1090 rc.cpp:312 rc.cpp:1090
+msgid "MTTY"
+msgstr "MTTY"
+
+#. i18n: file: src/klog.ui:1365
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:493
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1365
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:493
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:315 po/rc.cpp:1093 rc.cpp:315 rc.cpp:1093
+msgid "PKT"
+msgstr "PKT"
+
+#. i18n: file: src/klog.ui:1370
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:498
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1370
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:498
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:318 po/rc.cpp:1096 rc.cpp:318 rc.cpp:1096
+msgid "AM"
+msgstr "AM"
+
+#. i18n: file: src/klog.ui:1375
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:503
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1375
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:503
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:321 po/rc.cpp:1099 rc.cpp:321 rc.cpp:1099
+msgid "FAX"
+msgstr "FAX"
+
+#. i18n: file: src/klog.ui:1380
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:508
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1380
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:508
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:324 po/rc.cpp:1102 rc.cpp:324 rc.cpp:1102
+msgid "HELL"
+msgstr "HELL"
+
+#. i18n: file: src/klog.ui:1385
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:513
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1385
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:513
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:327 po/rc.cpp:1105 rc.cpp:327 rc.cpp:1105
+msgid "JT44"
+msgstr "JT44"
+
+#. i18n: file: src/klog.ui:1390
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:518
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1390
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:518
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:330 po/rc.cpp:1108 rc.cpp:330 rc.cpp:1108
+msgid "MT63"
+msgstr "MT63"
+
+#. i18n: file: src/klog.ui:1395
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:523
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1395
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:523
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:333 po/rc.cpp:1111 rc.cpp:333 rc.cpp:1111
+msgid "CLO"
+msgstr "CLO"
+
+#. i18n: file: src/klog.ui:1400
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:528
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1400
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:528
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:336 po/rc.cpp:1114 rc.cpp:336 rc.cpp:1114
+msgid "TOR"
+msgstr "TOR"
+
+#. i18n: file: src/klog.ui:1405
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:339 rc.cpp:339
+msgid "GTOR"
+msgstr "GTOR"
+
+#. i18n: file: src/klog.ui:1410
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:533
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1410
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:533
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:342 po/rc.cpp:1117 rc.cpp:342 rc.cpp:1117
+msgid "FSK"
+msgstr "FSK"
+
+#. i18n: file: src/klog.ui:1415
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:538
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1415
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:538
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:345 po/rc.cpp:1120 rc.cpp:345 rc.cpp:1120
+msgid "MFSK8"
+msgstr "MFSK8"
+
+#. i18n: file: src/klog.ui:1420
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:543
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1420
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:543
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:348 po/rc.cpp:1123 rc.cpp:348 rc.cpp:1123
+msgid "MFSK16"
+msgstr "MFSK16"
+
+#. i18n: file: src/klog.ui:1425
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:548
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1425
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:548
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:351 po/rc.cpp:1126 rc.cpp:351 rc.cpp:1126
+msgid "HSFK"
+msgstr "HFSK"
+
+#. i18n: file: src/klog.ui:1430
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:553
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1430
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:553
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:354 po/rc.cpp:1129 rc.cpp:354 rc.cpp:1129
+msgid "ATV"
+msgstr "ATV"
+
+#. i18n: file: src/klog.ui:1435
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:558
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1435
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:558
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:357 po/rc.cpp:1132 rc.cpp:357 rc.cpp:1132
+msgid "PAC"
+msgstr "PAC"
+
+#. i18n: file: src/klog.ui:1440
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:563
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1440
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:563
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:360 po/rc.cpp:1135 rc.cpp:360 rc.cpp:1135
+msgid "PAC2"
+msgstr "PAC2"
+
+#. i18n: file: src/klog.ui:1445
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:568
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1445
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:568
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:363 po/rc.cpp:1138 rc.cpp:363 rc.cpp:1138
+msgid "PAC3"
+msgstr "PAC3"
+
+#. i18n: file: src/klog.ui:1450
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:366 rc.cpp:366
+msgid "PCW"
+msgstr "PCW"
+
+#. i18n: file: src/klog.ui:1455
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:573
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1455
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:573
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:369 po/rc.cpp:1141 rc.cpp:369 rc.cpp:1141
+msgid "PSK63"
+msgstr "PSK63"
+
+#. i18n: file: src/klog.ui:1460
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:578
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1460
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:578
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:372 po/rc.cpp:1144 rc.cpp:372 rc.cpp:1144
+msgid "PSK125"
+msgstr "PSK125"
+
+#. i18n: file: src/klog.ui:1465
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:583
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1465
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:583
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:375 po/rc.cpp:1147 rc.cpp:375 rc.cpp:1147
+msgid "Q15"
+msgstr "Q15"
+
+#. i18n: file: src/klog.ui:1470
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:588
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1470
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:588
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:378 po/rc.cpp:1150 rc.cpp:378 rc.cpp:1150
+msgid "THRB"
+msgstr "THRB"
+
+#. i18n: file: src/klog.ui:1475
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:593
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#. i18n: file: src/klog.ui:1475
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#. i18n: file: src/setup.ui:593
+#. i18n: ectx: property (text), item, widget (QComboBox, modekComboBox)
+#: po/rc.cpp:381 po/rc.cpp:1153 rc.cpp:381 rc.cpp:1153
+msgid "ASCI"
+msgstr "ASCI"
+
+#. i18n: file: src/klog.ui:1480
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:384 rc.cpp:384
+msgid "AMTORFEC"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1485
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:387 rc.cpp:387
+msgid "CHIP64"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1490
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:390 rc.cpp:390
+msgid "CIP128"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1495
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:393 rc.cpp:393
+msgid "CONTESTI"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1500
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:396 rc.cpp:396
+msgid "DSTAR"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1505
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:399 rc.cpp:399
+msgid "DOMINO"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1510
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:402 rc.cpp:402
+msgid "DOMINOF"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1515
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:405 rc.cpp:405
+#, fuzzy
+msgid "FMHELL"
+msgstr "HELL"
+
+#. i18n: file: src/klog.ui:1520
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:408 rc.cpp:408
+#, fuzzy
+msgid "FSK31"
+msgstr "PSK31"
+
+#. i18n: file: src/klog.ui:1525
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:411 rc.cpp:411
+#, fuzzy
+msgid "FSK441"
+msgstr "FSK"
+
+#. i18n: file: src/klog.ui:1530
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:414 rc.cpp:414
+#, fuzzy
+msgid "HELL80"
+msgstr "HELL"
+
+#. i18n: file: src/klog.ui:1535
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:417 rc.cpp:417
+msgid "JT65"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1540
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:420 rc.cpp:420
+msgid "OLIVIA"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1545
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:423 rc.cpp:423
+#, fuzzy
+msgid "PAX"
+msgstr "FAX"
+
+#. i18n: file: src/klog.ui:1550
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:426 rc.cpp:426
+#, fuzzy
+msgid "PAX2"
+msgstr "PAC2"
+
+#. i18n: file: src/klog.ui:1555
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:429 rc.cpp:429
+#, fuzzy
+msgid "PSK63F"
+msgstr "PSK63"
+
+#. i18n: file: src/klog.ui:1560
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:432 rc.cpp:432
+#, fuzzy
+msgid "PSKAM10"
+msgstr "PSK31"
+
+#. i18n: file: src/klog.ui:1565
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:435 rc.cpp:435
+#, fuzzy
+msgid "PSKAM31"
+msgstr "PSK31"
+
+#. i18n: file: src/klog.ui:1570
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:438 rc.cpp:438
+#, fuzzy
+msgid "PSKAM50"
+msgstr "PSK125"
+
+#. i18n: file: src/klog.ui:1575
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:441 rc.cpp:441
+#, fuzzy
+msgid "PSKFEC31"
+msgstr "PSK31"
+
+#. i18n: file: src/klog.ui:1580
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:444 rc.cpp:444
+#, fuzzy
+msgid "PSKHELL"
+msgstr "HELL"
+
+#. i18n: file: src/klog.ui:1585
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:447 rc.cpp:447
+#, fuzzy
+msgid "QPSK31"
+msgstr "PSK31"
+
+#. i18n: file: src/klog.ui:1590
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:450 rc.cpp:450
+#, fuzzy
+msgid "QPSK63"
+msgstr "PSK63"
+
+#. i18n: file: src/klog.ui:1595
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:453 rc.cpp:453
+#, fuzzy
+msgid "QPSK125"
+msgstr "PSK125"
+
+#. i18n: file: src/klog.ui:1600
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:456 rc.cpp:456
+#, fuzzy
+msgid "THRBX"
+msgstr "THRB"
+
+#. i18n: file: src/klog.ui:1605
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: po/rc.cpp:459 rc.cpp:459
+msgid "VOI"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1613
+#. i18n: ectx: property (toolTip), widget (QComboBox, bandComboBox)
+#: po/rc.cpp:462 rc.cpp:462
+msgid "Band selection"
+msgstr "Izbor opsega"
+
+#. i18n: file: src/klog.ui:1617
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:320
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1617
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:320
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:465 po/rc.cpp:1015 rc.cpp:465 rc.cpp:1015
+msgid "160M"
+msgstr "160M"
+
+#. i18n: file: src/klog.ui:1622
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:325
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1622
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:325
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:468 po/rc.cpp:1018 rc.cpp:468 rc.cpp:1018
+msgid "80M"
+msgstr "80M"
+
+#. i18n: file: src/klog.ui:1627
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:330
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1627
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:330
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:471 po/rc.cpp:1021 rc.cpp:471 rc.cpp:1021
+#, fuzzy
+msgid "60M"
+msgstr "160M"
+
+#. i18n: file: src/klog.ui:1632
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:335
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1632
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:335
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:474 po/rc.cpp:1024 rc.cpp:474 rc.cpp:1024
+msgid "40M"
+msgstr "40M"
+
+#. i18n: file: src/klog.ui:1637
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:340
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1637
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:340
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:477 po/rc.cpp:1027 rc.cpp:477 rc.cpp:1027
+msgid "30M"
+msgstr "30M"
+
+#. i18n: file: src/klog.ui:1642
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:345
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1642
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:345
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:480 po/rc.cpp:1030 rc.cpp:480 rc.cpp:1030
+msgid "20M"
+msgstr "20M"
+
+#. i18n: file: src/klog.ui:1647
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:350
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1647
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:350
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:483 po/rc.cpp:1033 rc.cpp:483 rc.cpp:1033
+msgid "17M"
+msgstr "17M"
+
+#. i18n: file: src/klog.ui:1652
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:355
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1652
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:355
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:486 po/rc.cpp:1036 rc.cpp:486 rc.cpp:1036
+msgid "15M"
+msgstr "15M"
+
+#. i18n: file: src/klog.ui:1657
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:360
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1657
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:360
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:489 po/rc.cpp:1039 rc.cpp:489 rc.cpp:1039
+msgid "12M"
+msgstr "12M"
+
+#. i18n: file: src/klog.ui:1662
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:365
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1662
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:365
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:492 po/rc.cpp:1042 rc.cpp:492 rc.cpp:1042
+msgid "10M"
+msgstr "10M"
+
+#. i18n: file: src/klog.ui:1667
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:370
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1667
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:370
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:495 po/rc.cpp:1045 rc.cpp:495 rc.cpp:1045
+msgid "6M"
+msgstr "6M"
+
+#. i18n: file: src/klog.ui:1672
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#: po/rc.cpp:498 rc.cpp:498
+#, fuzzy
+msgid "4M"
+msgstr "40M"
+
+#. i18n: file: src/klog.ui:1677
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:375
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1677
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:375
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:501 po/rc.cpp:1048 rc.cpp:501 rc.cpp:1048
+msgid "2M"
+msgstr "2M"
+
+#. i18n: file: src/klog.ui:1682
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:380
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1682
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:380
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:504 po/rc.cpp:1051 rc.cpp:504 rc.cpp:1051
+#, fuzzy
+msgid "125CM"
+msgstr "12M"
+
+#. i18n: file: src/klog.ui:1687
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:385
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1687
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:385
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:507 po/rc.cpp:1054 rc.cpp:507 rc.cpp:1054
+msgid "70CM"
+msgstr "70CM"
+
+#. i18n: file: src/klog.ui:1692
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:390
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1692
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:390
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:510 po/rc.cpp:1057 rc.cpp:510 rc.cpp:1057
+#, fuzzy
+msgid "33CM"
+msgstr "23CM"
+
+#. i18n: file: src/klog.ui:1697
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:395
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1697
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:395
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:513 po/rc.cpp:1060 rc.cpp:513 rc.cpp:1060
+msgid "23CM"
+msgstr "23CM"
+
+#. i18n: file: src/klog.ui:1702
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:400
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#. i18n: file: src/klog.ui:1702
+#. i18n: ectx: property (text), item, widget (QComboBox, bandComboBox)
+#. i18n: file: src/setup.ui:400
+#. i18n: ectx: property (text), item, widget (QComboBox, bandkComboBox)
+#: po/rc.cpp:516 po/rc.cpp:1063 rc.cpp:516 rc.cpp:1063
+msgid "13CM"
+msgstr "13CM"
+
+#. i18n: file: src/klog.ui:1710
+#. i18n: ectx: property (displayFormat), widget (QDateEdit, qsoDateEdit)
+#: po/rc.cpp:519 rc.cpp:519
+msgid "dd/MM/yyyy"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1717
+#. i18n: ectx: property (toolTip), widget (QPushButton, clearBtn)
+#: po/rc.cpp:522 rc.cpp:522
+msgid "Clear current QSO"
+msgstr "Obrisati trenutni unos"
+
+#. i18n: file: src/klog.ui:1727
+#. i18n: ectx: property (toolTip), widget (QPushButton, okBtn)
+#: po/rc.cpp:528 rc.cpp:528
+msgid "Add this QSO to the log"
+msgstr "Dodati ovu vezu u dnevnik"
+
+#. i18n: file: src/klog.ui:1737
+#. i18n: ectx: property (displayFormat), widget (QTimeEdit, qsoTimeEdit)
+#: po/rc.cpp:534 rc.cpp:534
+msgid "HH:mm:ss"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1763
+#. i18n: ectx: attribute (title), widget (QWidget, qso)
+#. i18n: file: src/setup.ui:1030
+#. i18n: ectx: attribute (title), widget (QWidget, TabPage)
+#. i18n: file: src/klog.ui:1763
+#. i18n: ectx: attribute (title), widget (QWidget, qso)
+#. i18n: file: src/setup.ui:1030
+#. i18n: ectx: attribute (title), widget (QWidget, TabPage)
+#: po/rc.cpp:537 po/rc.cpp:1267 rc.cpp:537 rc.cpp:1267
+msgid "QSO"
+msgstr "QSO"
+
+#. i18n: file: src/klog.ui:1777
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: po/rc.cpp:540 rc.cpp:540
+#, fuzzy
+msgid "<p align=\"center\"><b>RST(tx)<br>RST(rx)</b></p>"
+msgstr "<p align=\"center\"><b>RST(tx)</b></p>"
+
+#. i18n: file: src/klog.ui:1789
+#. i18n: ectx: property (toolTip), widget (QSpinBox, RSendBox)
+#: po/rc.cpp:543 rc.cpp:543
+msgid "R value you give to the DX"
+msgstr "Predata ocena razumljivosti"
+
+#. i18n: file: src/klog.ui:1802
+#. i18n: ectx: property (toolTip), widget (QSpinBox, RRecBox)
+#: po/rc.cpp:546 rc.cpp:546
+msgid "R value you get from the DX"
+msgstr "Primljena ocena razumljivosti"
+
+#. i18n: file: src/klog.ui:1819
+#. i18n: ectx: property (toolTip), widget (QSpinBox, SSendBox)
+#: po/rc.cpp:549 rc.cpp:549
+msgid "S value you give to the DX"
+msgstr "Predata ocena snage"
+
+#. i18n: file: src/klog.ui:1835
+#. i18n: ectx: property (toolTip), widget (QSpinBox, SRecBox)
+#: po/rc.cpp:552 rc.cpp:552
+msgid "S value you get from the DX"
+msgstr "Primljena ocena snage"
+
+#. i18n: file: src/klog.ui:1852
+#. i18n: ectx: property (toolTip), widget (QSpinBox, TSendBox)
+#: po/rc.cpp:555 rc.cpp:555
+msgid "T value you give to the DX"
+msgstr "Predata ocena tona"
+
+#. i18n: file: src/klog.ui:1871
+#. i18n: ectx: property (toolTip), widget (QSpinBox, TRecBox)
+#: po/rc.cpp:558 rc.cpp:558
+msgid "T value you get from the DX"
+msgstr "Primljena ocena tona"
+
+#. i18n: file: src/klog.ui:1900
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_8_3)
+#: po/rc.cpp:561 rc.cpp:561
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">TX Freq</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1920
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_8_4)
+#: po/rc.cpp:568 rc.cpp:568
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">RX Freq</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1930
+#. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, freqtxdoubleSpinBox)
+#: po/rc.cpp:575 rc.cpp:575
+msgid "Shows the frecuency of the transceiver when hamlib is  (TX)"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1949
+#. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, freqrxdoubleSpinBox)
+#: po/rc.cpp:578 rc.cpp:578
+msgid "Shows the frecuency of the transceiver when hamlib is activated (RX)"
+msgstr ""
+
+#. i18n: file: src/klog.ui:1989
+#. i18n: ectx: property (toolTip), widget (QLineEdit, namekLineEdit)
+#: po/rc.cpp:584 rc.cpp:584
+msgid "DX's operator's name"
+msgstr "Ime korespondenta"
+
+#. i18n: file: src/klog.ui:2012
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_6_3)
+#: po/rc.cpp:587 rc.cpp:587
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Locator:</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2032
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_6_2)
+#: po/rc.cpp:594 rc.cpp:594
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">QTH:</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2042
+#. i18n: ectx: property (toolTip), widget (QLineEdit, qthkLineEdit)
+#: po/rc.cpp:601 rc.cpp:601
+msgid "DX's QTH (City, town)"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2055
+#. i18n: ectx: property (toolTip), widget (QLineEdit, locatorLineEdit)
+#: po/rc.cpp:604 rc.cpp:604
+#, fuzzy
+msgid "The DX locator (like IN80EK)"
+msgstr "Lokator korespodenta (npr. IN80EK)"
+
+#. i18n: file: src/klog.ui:2069
+#. i18n: ectx: attribute (title), widget (QWidget, qsl)
+#: po/rc.cpp:607 rc.cpp:607
+msgid "QSL"
+msgstr "QSL"
+
+#. i18n: file: src/klog.ui:2107
+#. i18n: ectx: property (text), widget (QLabel, textLabel4_3)
+#: po/rc.cpp:610 rc.cpp:610
+msgid "<b>Via:</b>"
+msgstr "<b>Via:</b>"
+
+#. i18n: file: src/klog.ui:2117
+#. i18n: ectx: property (toolTip), widget (QComboBox, QSLcomboBox)
+#: po/rc.cpp:613 rc.cpp:613
+msgid "How to send the QSL"
+msgstr "Kako poslati QSL-kartu"
+
+#. i18n: file: src/klog.ui:2121
+#. i18n: ectx: property (text), item, widget (QComboBox, QSLcomboBox)
+#: po/rc.cpp:616 rc.cpp:616
+msgid "Bureau"
+msgstr "Biro"
+
+#. i18n: file: src/klog.ui:2126
+#. i18n: ectx: property (text), item, widget (QComboBox, QSLcomboBox)
+#: po/rc.cpp:619 rc.cpp:619
+msgid "No QSL"
+msgstr "Bez QSL-karte"
+
+#. i18n: file: src/klog.ui:2131
+#. i18n: ectx: property (text), item, widget (QComboBox, QSLcomboBox)
+#: po/rc.cpp:622 rc.cpp:622
+msgid "QRZ.com"
+msgstr "QRZ.com"
+
+#. i18n: file: src/klog.ui:2136
+#. i18n: ectx: property (text), item, widget (QComboBox, QSLcomboBox)
+#: po/rc.cpp:625 rc.cpp:625
+msgid "Manager"
+msgstr "Menadžer"
+
+#. i18n: file: src/klog.ui:2141
+#. i18n: ectx: property (text), item, widget (QComboBox, QSLcomboBox)
+#: po/rc.cpp:628 rc.cpp:628
+msgid "Direct"
+msgstr "Direkt"
+
+#. i18n: file: src/klog.ui:2155
+#. i18n: ectx: property (toolTip), widget (QLineEdit, qslVialineEdit)
+#: po/rc.cpp:631 rc.cpp:631
+msgid "Manager's QRZ"
+msgstr "Pozivni znak menadžera"
+
+#. i18n: file: src/klog.ui:2168
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: po/rc.cpp:634 rc.cpp:634
+msgid "<b>QSL Sent:</b>"
+msgstr "<b>QSL-karta poslata:</b>"
+
+#. i18n: file: src/klog.ui:2187
+#. i18n: ectx: property (text), widget (QLabel, textLabel3_2)
+#: po/rc.cpp:637 rc.cpp:637
+#, fuzzy
+msgid "<b>QSL Recv:</b>"
+msgstr "<b>QSL-karta Primljena</b>"
+
+#. i18n: file: src/klog.ui:2197
+#. i18n: ectx: property (toolTip), widget (QCheckBox, QSLReccheckBox)
+#: po/rc.cpp:640 rc.cpp:640
+msgid "QSL card received"
+msgstr "QSL-karta primljena"
+
+#. i18n: file: src/klog.ui:2207
+#. i18n: ectx: property (toolTip), widget (QCheckBox, QSLSentcheckBox)
+#: po/rc.cpp:643 rc.cpp:643
+msgid "Send the QSL"
+msgstr "Poslati QSL-kartu"
+
+#. i18n: file: src/klog.ui:2230
+#. i18n: ectx: property (text), widget (QLabel, remarksTextLabel)
+#: po/rc.cpp:649 rc.cpp:649
+#, fuzzy
+msgid "<b>Remarks:</b>"
+msgstr "<b>Diploma:</b>"
+
+#. i18n: file: src/klog.ui:2244
+#. i18n: ectx: attribute (title), widget (QWidget, others)
+#: po/rc.cpp:652 rc.cpp:652
+msgid "Others"
+msgstr "Ostalo"
+
+#. i18n: file: src/klog.ui:2266
+#. i18n: ectx: property (toolTip), widget (QComboBox, iotaComboBox)
+#: po/rc.cpp:658 rc.cpp:658
+msgid "IOTA continent"
+msgstr "IOTA-kontinent"
+
+#. i18n: file: src/klog.ui:2270
+#. i18n: ectx: property (text), item, widget (QComboBox, iotaComboBox)
+#: po/rc.cpp:661 rc.cpp:661
+msgid "AF"
+msgstr "AF"
+
+#. i18n: file: src/klog.ui:2275
+#. i18n: ectx: property (text), item, widget (QComboBox, iotaComboBox)
+#: po/rc.cpp:664 rc.cpp:664
+msgid "AN"
+msgstr "AN"
+
+#. i18n: file: src/klog.ui:2280
+#. i18n: ectx: property (text), item, widget (QComboBox, iotaComboBox)
+#: po/rc.cpp:667 rc.cpp:667
+msgid "AS"
+msgstr "AS"
+
+#. i18n: file: src/klog.ui:2285
+#. i18n: ectx: property (text), item, widget (QComboBox, iotaComboBox)
+#: po/rc.cpp:670 rc.cpp:670
+msgid "EU"
+msgstr "EU"
+
+#. i18n: file: src/klog.ui:2290
+#. i18n: ectx: property (text), item, widget (QComboBox, iotaComboBox)
+#: po/rc.cpp:673 rc.cpp:673
+msgid "NA"
+msgstr "NA"
+
+#. i18n: file: src/klog.ui:2295
+#. i18n: ectx: property (text), item, widget (QComboBox, iotaComboBox)
+#: po/rc.cpp:676 rc.cpp:676
+msgid "OC"
+msgstr "OC"
+
+#. i18n: file: src/klog.ui:2300
+#. i18n: ectx: property (text), item, widget (QComboBox, iotaComboBox)
+#: po/rc.cpp:679 rc.cpp:679
+msgid "SA"
+msgstr "SA"
+
+#. i18n: file: src/klog.ui:2308
+#. i18n: ectx: property (toolTip), widget (QSpinBox, iotaIntSpinBox)
+#: po/rc.cpp:682 rc.cpp:682
+msgid "IOTA number"
+msgstr "IOTA broj"
+
+#. i18n: file: src/klog.ui:2334
+#. i18n: ectx: property (toolTip), widget (QLabel, awardSelectorName)
+#. i18n: file: src/klog.ui:2374
+#. i18n: ectx: property (toolTip), widget (QLabel, awardSelectorName_2)
+#. i18n: file: src/klog.ui:2420
+#. i18n: ectx: property (toolTip), widget (QLabel, awardSelectorName_3)
+#. i18n: file: src/klog.ui:2334
+#. i18n: ectx: property (toolTip), widget (QLabel, awardSelectorName)
+#. i18n: file: src/klog.ui:2374
+#. i18n: ectx: property (toolTip), widget (QLabel, awardSelectorName_2)
+#. i18n: file: src/klog.ui:2420
+#. i18n: ectx: property (toolTip), widget (QLabel, awardSelectorName_3)
+#: po/rc.cpp:685 po/rc.cpp:694 po/rc.cpp:704 rc.cpp:685 rc.cpp:694 rc.cpp:704
+msgid "Several awards, still not implemented."
+msgstr ""
+
+#. i18n: file: src/klog.ui:2343
+#. i18n: ectx: property (text), widget (QLabel, awardSelectorName)
+#: po/rc.cpp:688 rc.cpp:688
+msgid "<b>Award:</b>"
+msgstr "<b>Diploma:</b>"
+
+#. i18n: file: src/klog.ui:2363
+#. i18n: ectx: property (text), item, widget (QComboBox, awardsComboBox)
+#: po/rc.cpp:691 rc.cpp:691
+msgid "Default reference"
+msgstr "Podrazumevani parametri"
+
+#. i18n: file: src/klog.ui:2387
+#. i18n: ectx: property (text), widget (QLabel, awardSelectorName_2)
+#: po/rc.cpp:697 rc.cpp:697
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Satellite</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2433
+#. i18n: ectx: property (text), widget (QLabel, awardSelectorName_3)
+#: po/rc.cpp:707 rc.cpp:707
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Sat Mode</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2451
+#. i18n: ectx: attribute (title), widget (QWidget, TabPage)
+#: po/rc.cpp:714 rc.cpp:714
+msgid "My Data"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2475
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_6_2_2)
+#: po/rc.cpp:717 rc.cpp:717
+#, fuzzy
+msgid "<p align=\"center\"><b>Locator:</b></p>"
+msgstr "<p align=\"center\"><b>Duži put:</b></p>"
+
+#. i18n: file: src/klog.ui:2504
+#. i18n: ectx: property (text), widget (QLabel, powerTextLabel)
+#: po/rc.cpp:720 rc.cpp:720
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Nimbus Sans L'; font-size:9pt; "
+"font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Power:</span></p></body></html>"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2523
+#. i18n: ectx: property (toolTip), widget (QSpinBox, powerSpinBox)
+#: po/rc.cpp:727 rc.cpp:727
+msgid "Power used to make this QSO"
+msgstr "Snaga korišćena u ovoj vezi"
+
+#. i18n: file: src/klog.ui:2551
+#. i18n: ectx: property (toolTip), widget (QLineEdit, stationCallsignLineEdit)
+#. i18n: file: src/klog.ui:2648
+#. i18n: ectx: property (toolTip), widget (QLabel, stationCallsigntextLabel)
+#. i18n: file: src/klog.ui:2551
+#. i18n: ectx: property (toolTip), widget (QLineEdit, stationCallsignLineEdit)
+#. i18n: file: src/klog.ui:2648
+#. i18n: ectx: property (toolTip), widget (QLabel, stationCallsigntextLabel)
+#: po/rc.cpp:730 po/rc.cpp:745 rc.cpp:730 rc.cpp:745
+#, fuzzy
+msgid "The call of the station used to work this QSO"
+msgstr "Snaga korišćena u ovoj vezi"
+
+#. i18n: file: src/klog.ui:2570
+#. i18n: ectx: property (toolTip), widget (QLineEdit, myLocatorLineEdit)
+#: po/rc.cpp:733 rc.cpp:733
+msgid "The locator of the station"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2589
+#. i18n: ectx: property (toolTip), widget (QLineEdit, operatorLineEdit)
+#. i18n: file: src/klog.ui:2608
+#. i18n: ectx: property (toolTip), widget (QLabel, operatortextLabel_2)
+#. i18n: file: src/klog.ui:2589
+#. i18n: ectx: property (toolTip), widget (QLineEdit, operatorLineEdit)
+#. i18n: file: src/klog.ui:2608
+#. i18n: ectx: property (toolTip), widget (QLabel, operatortextLabel_2)
+#: po/rc.cpp:736 po/rc.cpp:739 rc.cpp:736 rc.cpp:739
+#, fuzzy
+msgid "The operator that worked this QSO"
+msgstr "Snaga korišćena u ovoj vezi"
+
+#. i18n: file: src/klog.ui:2617
+#. i18n: ectx: property (text), widget (QLabel, operatortextLabel_2)
+#: po/rc.cpp:742 rc.cpp:742
+#, fuzzy
+msgid "<p align=\"center\"><b>Operator:</b></p>"
+msgstr "<p align=\"center\"><b>Snaga</b></p>"
+
+#. i18n: file: src/klog.ui:2657
+#. i18n: ectx: property (text), widget (QLabel, stationCallsigntextLabel)
+#: po/rc.cpp:748 rc.cpp:748
+#, fuzzy
+msgid "<p align=\"center\"><b>Station:</b></p>"
+msgstr "<p align=\"center\"><b>S</b></p>"
+
+#. i18n: file: src/klog.ui:2678
+#. i18n: ectx: property (label), widget (QToolBar, toolBar)
+#. i18n: file: src/klog.ui:2721
+#. i18n: ectx: property (title), widget (QMenu, PopupMenu)
+#. i18n: file: src/klog.ui:2678
+#. i18n: ectx: property (label), widget (QToolBar, toolBar)
+#. i18n: file: src/klog.ui:2721
+#. i18n: ectx: property (title), widget (QMenu, PopupMenu)
+#: po/rc.cpp:751 po/rc.cpp:757 rc.cpp:751 rc.cpp:757
+msgid "Tools"
+msgstr "Alati"
+
+#. i18n: file: src/klog.ui:2708
+#. i18n: ectx: property (title), widget (QMenu, fileMenu)
+#: po/rc.cpp:754 rc.cpp:754
+msgid "&File"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2733
+#. i18n: ectx: property (title), widget (QMenu, setupMenu)
+#: po/rc.cpp:760 rc.cpp:760
+msgid "&Setup"
+msgstr "&Podešavanja"
+
+#. i18n: file: src/klog.ui:2739
+#. i18n: ectx: property (title), widget (QMenu, PopupMenu_2)
+#: po/rc.cpp:763 rc.cpp:763
+msgid "DXCluster"
+msgstr "DX-klaster"
+
+#. i18n: file: src/klog.ui:2746
+#. i18n: ectx: property (title), widget (QMenu, helpMenu)
+#: po/rc.cpp:766 rc.cpp:766
+msgid "&Help"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2764
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:769 rc.cpp:769
+msgid "&New"
+msgstr "&Novi"
+
+#. i18n: file: src/klog.ui:2767
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:772 rc.cpp:772
+msgid "New"
+msgstr "Novi"
+
+#. i18n: file: src/klog.ui:2770
+#. i18n: ectx: property (toolTip), widget (QMenu, helpMenu)
+#: po/rc.cpp:775 rc.cpp:775
+#, fuzzy
+msgid "New Log"
+msgstr "Log"
+
+#. i18n: file: src/klog.ui:2773
+#. i18n: ectx: property (shortcut), widget (QMenu, helpMenu)
+#: po/rc.cpp:778 rc.cpp:778
+msgid "Ctrl+N"
+msgstr "Ctrl+N"
+
+#. i18n: file: src/klog.ui:2785
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:781 rc.cpp:781
+#, fuzzy
+msgid "&Open..."
+msgstr "&Sadržaj..."
+
+#. i18n: file: src/klog.ui:2788
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:784 rc.cpp:784
+msgid "Open"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2791
+#. i18n: ectx: property (shortcut), widget (QMenu, helpMenu)
+#: po/rc.cpp:787 rc.cpp:787
+msgid "Ctrl+O"
+msgstr "Ctrl+O"
+
+#. i18n: file: src/klog.ui:2803
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:790 rc.cpp:790
+#, fuzzy
+msgid "&Save"
+msgstr "Snimiti sada"
+
+#. i18n: file: src/klog.ui:2806
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:793 rc.cpp:793
+#, fuzzy
+msgid "Save"
+msgstr "Snimiti sada"
+
+#. i18n: file: src/klog.ui:2809
+#. i18n: ectx: property (shortcut), widget (QMenu, helpMenu)
+#: po/rc.cpp:796 rc.cpp:796
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#. i18n: file: src/klog.ui:2817
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:799 rc.cpp:799
+msgid "Save &As..."
+msgstr "Snimi k&Ao..."
+
+#. i18n: file: src/klog.ui:2820
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:802 rc.cpp:802
+#, fuzzy
+msgid "Save As"
+msgstr "Snimi k&Ao..."
+
+#. i18n: file: src/klog.ui:2835
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:805 rc.cpp:805
+msgid "&Print..."
+msgstr ""
+
+#. i18n: file: src/klog.ui:2838
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:808 rc.cpp:808
+msgid "Print"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2841
+#. i18n: ectx: property (shortcut), widget (QMenu, helpMenu)
+#: po/rc.cpp:811 rc.cpp:811
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#. i18n: file: src/klog.ui:2849
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:814 rc.cpp:814
+#, fuzzy
+msgid "E&xit"
+msgstr "Izlaz"
+
+#. i18n: file: src/klog.ui:2852
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:817 rc.cpp:817
+msgid "Exit"
+msgstr "Izlaz"
+
+#. i18n: file: src/klog.ui:2867
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:820 rc.cpp:820
+msgid "&Undo"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2870
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:823 rc.cpp:823
+msgid "Undo"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2873
+#. i18n: ectx: property (shortcut), widget (QMenu, helpMenu)
+#: po/rc.cpp:826 rc.cpp:826
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#. i18n: file: src/klog.ui:2885
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:829 rc.cpp:829
+msgid "&Redo"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2888
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:832 rc.cpp:832
+msgid "Redo"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2891
+#. i18n: ectx: property (shortcut), widget (QMenu, helpMenu)
+#: po/rc.cpp:835 rc.cpp:835
+msgid "Ctrl+Y"
+msgstr "Ctrl+Y"
+
+#. i18n: file: src/klog.ui:2903
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:838 rc.cpp:838
+msgid "&Cut"
+msgstr ""
+
+#. i18n: file: src/klog.ui:2906
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:841 rc.cpp:841
+#, fuzzy
+msgid "Cut"
+msgstr "Kluster"
+
+#. i18n: file: src/klog.ui:2909
+#. i18n: ectx: property (shortcut), widget (QMenu, helpMenu)
+#: po/rc.cpp:844 rc.cpp:844
+msgid "Ctrl+X"
+msgstr "Ctrl+X"
+
+#. i18n: file: src/klog.ui:2921
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:847 rc.cpp:847
+msgid "C&opy"
+msgstr "C&opiraj"
+
+#. i18n: file: src/klog.ui:2924
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:850 rc.cpp:850
+#, fuzzy
+msgid "Copy"
+msgstr "C&opiraj"
+
+#. i18n: file: src/klog.ui:2927
+#. i18n: ectx: property (shortcut), widget (QMenu, helpMenu)
+#: po/rc.cpp:853 rc.cpp:853
+msgid "Ctrl+C"
+msgstr "Ctrl+C"
+
+#. i18n: file: src/klog.ui:2939
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:856 rc.cpp:856
+#, fuzzy
+msgid "&Paste"
+msgstr "Datum"
+
+#. i18n: file: src/klog.ui:2942
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:859 rc.cpp:859
+#, fuzzy
+msgid "Paste"
+msgstr "Datum"
+
+#. i18n: file: src/klog.ui:2945
+#. i18n: ectx: property (shortcut), widget (QMenu, helpMenu)
+#: po/rc.cpp:862 rc.cpp:862
+msgid "Ctrl+V"
+msgstr "Ctrl+V"
+
+#. i18n: file: src/klog.ui:2957
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:865 rc.cpp:865
+#, fuzzy
+msgid "&Find..."
+msgstr "&Indeks..."
+
+#. i18n: file: src/klog.ui:2960
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:868 rc.cpp:868
+msgid "Find"
+msgstr "Nađi"
+
+#. i18n: file: src/klog.ui:2963
+#. i18n: ectx: property (shortcut), widget (QMenu, helpMenu)
+#: po/rc.cpp:871 rc.cpp:871
+msgid "Ctrl+F"
+msgstr "Ctrl+F"
+
+#. i18n: file: src/klog.ui:2971
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:874 rc.cpp:874
+msgid "&About..."
+msgstr "&O programu..."
+
+#. i18n: file: src/klog.ui:2974
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:877 rc.cpp:877
+#, fuzzy
+msgid "About"
+msgstr "&O programu..."
+
+#. i18n: file: src/klog.ui:2989
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:2992
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:2989
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:2992
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:880 po/rc.cpp:883 rc.cpp:880 rc.cpp:883
+msgid "&Preferences"
+msgstr "&Parametri"
+
+#. i18n: file: src/klog.ui:3000
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:886 rc.cpp:886
+msgid "Import from TLF log"
+msgstr "Uvezi iz TLF loga"
+
+#. i18n: file: src/klog.ui:3003
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:889 rc.cpp:889
+msgid "AddTlfLog"
+msgstr "DodajTlfLog"
+
+#. i18n: file: src/klog.ui:3006
+#. i18n: ectx: property (toolTip), widget (QMenu, helpMenu)
+#: po/rc.cpp:892 rc.cpp:892
+msgid "Import a tlf log"
+msgstr "Uvezi tlf log"
+
+#. i18n: file: src/klog.ui:3009
+#. i18n: ectx: property (statusTip), widget (QMenu, helpMenu)
+#: po/rc.cpp:895 rc.cpp:895
+msgid "Import from tlf log file"
+msgstr "Uvezi iz tlf log-fajla"
+
+#. i18n: file: src/klog.ui:3021
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:898 rc.cpp:898
+msgid "Delete QSO"
+msgstr "Obriši vezu"
+
+#. i18n: file: src/klog.ui:3029
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:901 src/klog.cpp:1743 rc.cpp:901
+msgid "QSL Sent"
+msgstr "QSL Poslata"
+
+#. i18n: file: src/klog.ui:3037
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:904 src/klog.cpp:1738 rc.cpp:904
+msgid "QSL Received"
+msgstr "QSL Primljena"
+
+#. i18n: file: src/klog.ui:3045
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:907 rc.cpp:907
+msgid "Add a log file"
+msgstr "Dodaj log-fajl"
+
+#. i18n: file: src/klog.ui:3048
+#. i18n: ectx: property (toolTip), widget (QMenu, helpMenu)
+#: po/rc.cpp:910 rc.cpp:910
+msgid "Add a log file to this log"
+msgstr "Dodaj log-fajl ovom logu"
+
+#. i18n: file: src/klog.ui:3056
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:913 rc.cpp:913
+msgid "Connect to DXCluster"
+msgstr "Konektuj se na DX-klaster"
+
+#. i18n: file: src/klog.ui:3064
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:916 rc.cpp:916
+msgid "Disconnect From DXCluster"
+msgstr "Prekini konekciju sa DX-klasterom"
+
+#. i18n: file: src/klog.ui:3072
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:919 rc.cpp:919
+msgid "Properties"
+msgstr ""
+
+#. i18n: file: src/klog.ui:3080
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:922 rc.cpp:922
+msgid "Bug report..."
+msgstr "Izveštaj o greškama..."
+
+#. i18n: file: src/klog.ui:3088
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:925 rc.cpp:925
+msgid "Check QSL needed"
+msgstr ""
+
+#. i18n: file: src/klog.ui:3096
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:928 rc.cpp:928
+#, fuzzy
+msgid "Sort the log"
+msgstr "Uvezi tlf log"
+
+#. i18n: file: src/klog.ui:3104
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:3107
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:3104
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:3107
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:931 po/rc.cpp:934 rc.cpp:931 rc.cpp:934
+msgid "Find QSO to QSL"
+msgstr ""
+
+#. i18n: file: src/klog.ui:3110
+#. i18n: ectx: property (toolTip), widget (QMenu, helpMenu)
+#: po/rc.cpp:937 rc.cpp:937
+msgid "Shows the list of needed QSO that we need to send the QSL card to."
+msgstr ""
+
+#. i18n: file: src/klog.ui:3118
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:3121
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:3124
+#. i18n: ectx: property (toolTip), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:3118
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:3121
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:3124
+#. i18n: ectx: property (toolTip), widget (QMenu, helpMenu)
+#: po/rc.cpp:940 po/rc.cpp:943 po/rc.cpp:946 rc.cpp:940 rc.cpp:943 rc.cpp:946
+msgid "Merge QSO data"
+msgstr ""
+
+#. i18n: file: src/klog.ui:3132
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:949 rc.cpp:949
+#, fuzzy
+msgid "Clear QSO"
+msgstr "Obrisati trenutni unos"
+
+#. i18n: file: src/klog.ui:3135
+#. i18n: ectx: property (shortcut), widget (QMenu, helpMenu)
+#: po/rc.cpp:952 rc.cpp:952
+msgid "Esc"
+msgstr ""
+
+#. i18n: file: src/klog.ui:3143
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:3146
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:3143
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#. i18n: file: src/klog.ui:3146
+#. i18n: ectx: property (iconText), widget (QMenu, helpMenu)
+#: po/rc.cpp:955 po/rc.cpp:958 rc.cpp:955 rc.cpp:958
+#, fuzzy
+msgid "Import Cabrillo"
+msgstr "Uvezi tlf log"
+
+#. i18n: file: src/klog.ui:3149
+#. i18n: ectx: property (toolTip), widget (QMenu, helpMenu)
+#: po/rc.cpp:961 rc.cpp:961
+#, fuzzy
+msgid "Imports a cabrillo log"
+msgstr "Uvezi tlf log"
+
+#. i18n: file: src/klog.ui:3157
+#. i18n: ectx: property (text), widget (QMenu, helpMenu)
+#: po/rc.cpp:964 rc.cpp:964
+msgid "Update CTY.DAT"
+msgstr ""
+
+#. i18n: file: src/klog.ui:3160
+#. i18n: ectx: property (toolTip), widget (QMenu, helpMenu)
+#: po/rc.cpp:967 rc.cpp:967
+msgid "Update the CTY.DAT from the Internet"
+msgstr ""
+
+#. i18n: file: src/klogui.rc:4
+#. i18n: ectx: Menu (custom)
+#: po/rc.cpp:970 rc.cpp:970
+msgid "C&ustom"
+msgstr ""
+
+#. i18n: file: src/setup.ui:14
+#. i18n: ectx: property (windowTitle), widget (QDialog, setup)
+#: po/rc.cpp:973 rc.cpp:973
+msgid "KLog setup"
+msgstr "KLog podešavanja"
+
+#. i18n: file: src/setup.ui:47
+#. i18n: ectx: property (text), widget (QPushButton, buttonOk)
+#: po/rc.cpp:976 rc.cpp:976
+msgid "&OK"
+msgstr ""
+
+#. i18n: file: src/setup.ui:63
+#. i18n: ectx: property (text), widget (QPushButton, buttonCancel)
+#: po/rc.cpp:979 rc.cpp:979
+msgid "&Cancel"
+msgstr ""
+
+#. i18n: file: src/setup.ui:85
+#. i18n: ectx: attribute (title), widget (QWidget, tabPersonal)
+#: po/rc.cpp:982 rc.cpp:982
+msgid "Personal"
+msgstr "Lični"
+
+#. i18n: file: src/setup.ui:96
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: po/rc.cpp:985 rc.cpp:985
+msgid "<b>QRZ:</b>"
+msgstr "<b>QRZ:</b>"
+
+#. i18n: file: src/setup.ui:132
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: po/rc.cpp:988 rc.cpp:988
+msgid "<b>Locator:</b>"
+msgstr "<b>Lokator:</b>"
+
+#. i18n: file: src/setup.ui:164
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: po/rc.cpp:991 rc.cpp:991
+msgid "Misc"
+msgstr "Razno"
+
+#. i18n: file: src/setup.ui:176
+#. i18n: ectx: property (toolTip), widget (QCheckBox, checkBoxProgressDialog)
+#: po/rc.cpp:994 rc.cpp:994
+msgid "Shows a progress bar but makes the log reading slower"
+msgstr ""
+
+#. i18n: file: src/setup.ui:179
+#. i18n: ectx: property (text), widget (QCheckBox, checkBoxProgressDialog)
+#: po/rc.cpp:997 rc.cpp:997
+msgid "Show progress dialog when reading log file"
+msgstr ""
+
+#. i18n: file: src/setup.ui:195
+#. i18n: ectx: property (text), widget (QCheckBox, lastFilecheckBox)
+#: po/rc.cpp:1000 rc.cpp:1000
+msgid "Open this file when starting:"
+msgstr ""
+
+#. i18n: file: src/setup.ui:211
+#. i18n: ectx: property (toolTip), widget (QCheckBox, UTCcheckBox)
+#: po/rc.cpp:1003 rc.cpp:1003
+#, fuzzy
+msgid "If checked the time will be UTC"
+msgstr "Štiklirati za vreme u UTC"
+
+#. i18n: file: src/setup.ui:214
+#. i18n: ectx: property (text), widget (QCheckBox, UTCcheckBox)
+#: po/rc.cpp:1006 rc.cpp:1006
+#, fuzzy
+msgid "Time in UTC"
+msgstr "Vreme u UTC"
+
+#. i18n: file: src/setup.ui:253
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_4)
+#: po/rc.cpp:1009 rc.cpp:1009
+#, fuzzy
+msgid "<b>Power:</b>"
+msgstr "<b>Port:</b>"
+
+#. i18n: file: src/setup.ui:293
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_5)
+#: po/rc.cpp:1012 rc.cpp:1012
+#, fuzzy
+msgid "<b>Band:</b>"
+msgstr "<b>Diploma:</b>"
+
+#. i18n: file: src/setup.ui:416
+#. i18n: ectx: property (text), widget (QCheckBox, realTimeLogCheckBox)
+#: po/rc.cpp:1066 rc.cpp:1066
+msgid "Logging in real time"
+msgstr "Unos dnevnika u realnom vremenu"
+
+#. i18n: file: src/setup.ui:431
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_4)
+#: po/rc.cpp:1069 rc.cpp:1069
+#, fuzzy
+msgid "<b>Mode:</b>"
+msgstr "<b>Port:</b>"
+
+#. i18n: file: src/setup.ui:604
+#. i18n: ectx: attribute (title), widget (QWidget, tabCluster)
+#: po/rc.cpp:1156 rc.cpp:1156
+msgid "DX-Cluster"
+msgstr "DX-Klaster"
+
+#. i18n: file: src/setup.ui:626
+#. i18n: ectx: property (toolTip), widget (QPushButton, addDxClusterpushButton)
+#: po/rc.cpp:1159 rc.cpp:1159
+#, fuzzy
+msgid "Add the DX-Cluster server to the list"
+msgstr "Uneite adresu DX-Klaster servera"
+
+#. i18n: file: src/setup.ui:629
+#. i18n: ectx: property (text), widget (QPushButton, addDxClusterpushButton)
+#. i18n: file: src/setup.ui:1223
+#. i18n: ectx: property (text), widget (QPushButton, awardAddpushButton)
+#. i18n: file: src/setup.ui:629
+#. i18n: ectx: property (text), widget (QPushButton, addDxClusterpushButton)
+#. i18n: file: src/setup.ui:1223
+#. i18n: ectx: property (text), widget (QPushButton, awardAddpushButton)
+#: po/rc.cpp:1162 po/rc.cpp:1324 rc.cpp:1162 rc.cpp:1324
+msgid "Add"
+msgstr ""
+
+#. i18n: file: src/setup.ui:636
+#. i18n: ectx: property (toolTip), widget (QPushButton, clearDxClusterpushButton)
+#: po/rc.cpp:1165 rc.cpp:1165
+msgid ""
+"Clears the text line but also will remove the server from the list if is "
+"already added"
+msgstr ""
+
+#. i18n: file: src/setup.ui:639
+#. i18n: ectx: property (text), widget (QPushButton, clearDxClusterpushButton)
+#. i18n: file: src/setup.ui:1253
+#. i18n: ectx: property (text), widget (QPushButton, awardRemovepushButton)
+#. i18n: file: src/setup.ui:639
+#. i18n: ectx: property (text), widget (QPushButton, clearDxClusterpushButton)
+#. i18n: file: src/setup.ui:1253
+#. i18n: ectx: property (text), widget (QPushButton, awardRemovepushButton)
+#: po/rc.cpp:1168 po/rc.cpp:1330 rc.cpp:1168 rc.cpp:1330
+#, fuzzy
+msgid "Remove"
+msgstr "Preimenovati"
+
+#. i18n: file: src/setup.ui:646
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: po/rc.cpp:1171 rc.cpp:1171
+msgid "Spots"
+msgstr "Spotovi"
+
+#. i18n: file: src/setup.ui:658
+#. i18n: ectx: property (toolTip), widget (QCheckBox, HFcheckBox)
+#: po/rc.cpp:1174 rc.cpp:1174
+msgid "Show 1.8-30MHz spots"
+msgstr "Prikazati spotove od 1.8 do 30MHz"
+
+#. i18n: file: src/setup.ui:661
+#. i18n: ectx: property (text), widget (QCheckBox, HFcheckBox)
+#: po/rc.cpp:1177 rc.cpp:1177
+msgid "Show HF activity"
+msgstr "Prikazati KT aktivnosti"
+
+#. i18n: file: src/setup.ui:677
+#. i18n: ectx: property (toolTip), widget (QCheckBox, VHFcheckBox)
+#. i18n: file: src/setup.ui:696
+#. i18n: ectx: property (toolTip), widget (QCheckBox, WARCcheckBox)
+#. i18n: file: src/setup.ui:715
+#. i18n: ectx: property (toolTip), widget (QCheckBox, confirmedcheckBox)
+#. i18n: file: src/setup.ui:734
+#. i18n: ectx: property (toolTip), widget (QCheckBox, SSBcheckBox)
+#. i18n: file: src/setup.ui:753
+#. i18n: ectx: property (toolTip), widget (QCheckBox, CWcheckBox)
+#. i18n: file: src/setup.ui:677
+#. i18n: ectx: property (toolTip), widget (QCheckBox, VHFcheckBox)
+#. i18n: file: src/setup.ui:696
+#. i18n: ectx: property (toolTip), widget (QCheckBox, WARCcheckBox)
+#. i18n: file: src/setup.ui:715
+#. i18n: ectx: property (toolTip), widget (QCheckBox, confirmedcheckBox)
+#. i18n: file: src/setup.ui:734
+#. i18n: ectx: property (toolTip), widget (QCheckBox, SSBcheckBox)
+#. i18n: file: src/setup.ui:753
+#. i18n: ectx: property (toolTip), widget (QCheckBox, CWcheckBox)
+#: po/rc.cpp:1180 po/rc.cpp:1186 po/rc.cpp:1192 po/rc.cpp:1198 po/rc.cpp:1204
+#: rc.cpp:1180 rc.cpp:1186 rc.cpp:1192 rc.cpp:1198 rc.cpp:1204
+msgid "Show from 50MHz to GHz spots"
+msgstr "Prikazati spotove od 50MHz do GHz"
+
+#. i18n: file: src/setup.ui:680
+#. i18n: ectx: property (text), widget (QCheckBox, VHFcheckBox)
+#: po/rc.cpp:1183 rc.cpp:1183
+msgid "Show V/UHF activity"
+msgstr "Prikazati V/UHF aktivnosti"
+
+#. i18n: file: src/setup.ui:699
+#. i18n: ectx: property (text), widget (QCheckBox, WARCcheckBox)
+#: po/rc.cpp:1189 rc.cpp:1189
+#, fuzzy
+msgid "Show WARC activity"
+msgstr "Prikazati KT aktivnosti"
+
+#. i18n: file: src/setup.ui:718
+#. i18n: ectx: property (text), widget (QCheckBox, confirmedcheckBox)
+#: po/rc.cpp:1195 rc.cpp:1195
+msgid "Show confirmed"
+msgstr ""
+
+#. i18n: file: src/setup.ui:737
+#. i18n: ectx: property (text), widget (QCheckBox, SSBcheckBox)
+#: po/rc.cpp:1201 rc.cpp:1201
+#, fuzzy
+msgid "Show SSB activity"
+msgstr "Prikazati KT aktivnosti"
+
+#. i18n: file: src/setup.ui:756
+#. i18n: ectx: property (text), widget (QCheckBox, CWcheckBox)
+#: po/rc.cpp:1207 rc.cpp:1207
+#, fuzzy
+msgid "Show CW activity"
+msgstr "Prikazati KT aktivnosti"
+
+#. i18n: file: src/setup.ui:769
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: po/rc.cpp:1210 rc.cpp:1210
+msgid "Messages"
+msgstr "Poruke"
+
+#. i18n: file: src/setup.ui:781
+#. i18n: ectx: property (toolTip), widget (QCheckBox, ANNcheckBox)
+#: po/rc.cpp:1213 rc.cpp:1213
+msgid "Show announces"
+msgstr "Prikazati saopštenja"
+
+#. i18n: file: src/setup.ui:784
+#. i18n: ectx: property (text), widget (QCheckBox, ANNcheckBox)
+#: po/rc.cpp:1216 rc.cpp:1216
+msgid "Show ANN/FULL messages"
+msgstr "Prikazati ANN/FULL poruke"
+
+#. i18n: file: src/setup.ui:800
+#. i18n: ectx: property (toolTip), widget (QCheckBox, WCYcheckBox)
+#. i18n: file: src/setup.ui:819
+#. i18n: ectx: property (toolTip), widget (QCheckBox, WXcheckBox)
+#. i18n: file: src/setup.ui:800
+#. i18n: ectx: property (toolTip), widget (QCheckBox, WCYcheckBox)
+#. i18n: file: src/setup.ui:819
+#. i18n: ectx: property (toolTip), widget (QCheckBox, WXcheckBox)
+#: po/rc.cpp:1219 po/rc.cpp:1225 rc.cpp:1219 rc.cpp:1225
+msgid "Show weather messages"
+msgstr "Prikazati WX poruke"
+
+#. i18n: file: src/setup.ui:803
+#. i18n: ectx: property (text), widget (QCheckBox, WCYcheckBox)
+#: po/rc.cpp:1222 rc.cpp:1222
+#, fuzzy
+msgid "Show WCY messages"
+msgstr "Prikazati WWV poruke"
+
+#. i18n: file: src/setup.ui:822
+#. i18n: ectx: property (text), widget (QCheckBox, WXcheckBox)
+#: po/rc.cpp:1228 rc.cpp:1228
+msgid "Show WWV messages"
+msgstr "Prikazati WWV poruke"
+
+#. i18n: file: src/setup.ui:835
+#. i18n: ectx: property (toolTip), widget (QComboBox, dxClustercomboBox)
+#: po/rc.cpp:1231 rc.cpp:1231
+msgid "Select a dx-cluster server."
+msgstr ""
+
+#. i18n: file: src/setup.ui:843
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: po/rc.cpp:1234 rc.cpp:1234
+msgid "Colors"
+msgstr "Boje"
+
+#. i18n: file: src/setup.ui:900
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: po/rc.cpp:1237 rc.cpp:1237
+#, fuzzy
+msgid "<p align=\"center\"><b>Needed band</b></p>"
+msgstr "<p align=\"center\"><b>stepeni</b></p>"
+
+#. i18n: file: src/setup.ui:913
+#. i18n: ectx: property (text), widget (QLabel, textLabel3_2)
+#: po/rc.cpp:1240 rc.cpp:1240
+#, fuzzy
+msgid "<p align=\"center\"><b>New One</b></p>"
+msgstr "<p align=\"center\"><b>Ime:</b></p>"
+
+#. i18n: file: src/setup.ui:926
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_3)
+#: po/rc.cpp:1243 rc.cpp:1243
+#, fuzzy
+msgid "<p align=\"center\"><b>Worked</b></p>"
+msgstr "<p align=\"center\"><b>Snaga</b></p>"
+
+#. i18n: file: src/setup.ui:939
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
+#: po/rc.cpp:1246 rc.cpp:1246
+#, fuzzy
+msgid "<p align=\"center\"><b>Confirmed</b></p>"
+msgstr "<p align=\"center\"><b>Ime:</b></p>"
+
+#. i18n: file: src/setup.ui:952
+#. i18n: ectx: property (text), widget (QLabel, defaulttextLabel)
+#: po/rc.cpp:1249 rc.cpp:1249
+#, fuzzy
+msgid "<p align=\"center\"><b>Default</b></p>"
+msgstr "<p align=\"center\"><b>stepeni</b></p>"
+
+#. i18n: file: src/setup.ui:962
+#. i18n: ectx: property (text), widget (QPushButton, defaultPushButton)
+#. i18n: file: src/setup.ui:969
+#. i18n: ectx: property (text), widget (QPushButton, newOnePushButton)
+#. i18n: file: src/setup.ui:976
+#. i18n: ectx: property (text), widget (QPushButton, neededPushButton)
+#. i18n: file: src/setup.ui:983
+#. i18n: ectx: property (text), widget (QPushButton, workedPushButton)
+#. i18n: file: src/setup.ui:990
+#. i18n: ectx: property (text), widget (QPushButton, confirmedPushButton)
+#. i18n: file: src/setup.ui:962
+#. i18n: ectx: property (text), widget (QPushButton, defaultPushButton)
+#. i18n: file: src/setup.ui:969
+#. i18n: ectx: property (text), widget (QPushButton, newOnePushButton)
+#. i18n: file: src/setup.ui:976
+#. i18n: ectx: property (text), widget (QPushButton, neededPushButton)
+#. i18n: file: src/setup.ui:983
+#. i18n: ectx: property (text), widget (QPushButton, workedPushButton)
+#. i18n: file: src/setup.ui:990
+#. i18n: ectx: property (text), widget (QPushButton, confirmedPushButton)
+#: po/rc.cpp:1252 po/rc.cpp:1255 po/rc.cpp:1258 po/rc.cpp:1261 po/rc.cpp:1264
+#: rc.cpp:1252 rc.cpp:1255 rc.cpp:1258 rc.cpp:1261 rc.cpp:1264
+msgid "Click to select"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1045
+#. i18n: ectx: property (text), widget (QCheckBox, completeWithPreviouscheckBox)
+#: po/rc.cpp:1270 rc.cpp:1270
+#, fuzzy
+msgid "Complete data with previous QSOs"
+msgstr "Komentar o ovoj vezi"
+
+#. i18n: file: src/setup.ui:1064
+#. i18n: ectx: property (toolTip), widget (QCheckBox, mandatoryDatacheckBox)
+#: po/rc.cpp:1273 rc.cpp:1273
+msgid "Mandatory data is: QRZ, date, time, band, mode, RST(rx) & RST (tx)"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1067
+#. i18n: ectx: property (text), widget (QCheckBox, mandatoryDatacheckBox)
+#: po/rc.cpp:1276 rc.cpp:1276
+msgid "Requires the mandatory fields in ALL QSO"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1078
+#. i18n: ectx: attribute (title), widget (QWidget, TabPage)
+#: po/rc.cpp:1279 rc.cpp:1279
+msgid "Hamlib"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1092
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_8)
+#: po/rc.cpp:1282 rc.cpp:1282
+msgid "Transceiver:"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1109
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_7)
+#: po/rc.cpp:1285 rc.cpp:1285
+msgid "Device:"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1119
+#. i18n: ectx: property (text), widget (QLineEdit, devicelineEdit)
+#: po/rc.cpp:1288 rc.cpp:1288
+msgid "/dev/ttyS0"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1127
+#. i18n: ectx: property (text), item, widget (QComboBox, comboBoxTrvSpeedList)
+#: po/rc.cpp:1291 rc.cpp:1291
+msgid "1200"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1132
+#. i18n: ectx: property (text), item, widget (QComboBox, comboBoxTrvSpeedList)
+#: po/rc.cpp:1294 rc.cpp:1294
+msgid "2400"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1137
+#. i18n: ectx: property (text), item, widget (QComboBox, comboBoxTrvSpeedList)
+#: po/rc.cpp:1297 rc.cpp:1297
+msgid "4800"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1142
+#. i18n: ectx: property (text), item, widget (QComboBox, comboBoxTrvSpeedList)
+#: po/rc.cpp:1300 rc.cpp:1300
+msgid "9600"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1147
+#. i18n: ectx: property (text), item, widget (QComboBox, comboBoxTrvSpeedList)
+#: po/rc.cpp:1303 rc.cpp:1303
+#, fuzzy
+msgid "19200"
+msgstr "2190M"
+
+#. i18n: file: src/setup.ui:1152
+#. i18n: ectx: property (text), item, widget (QComboBox, comboBoxTrvSpeedList)
+#: po/rc.cpp:1306 rc.cpp:1306
+msgid "38400"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1157
+#. i18n: ectx: property (text), item, widget (QComboBox, comboBoxTrvSpeedList)
+#: po/rc.cpp:1309 rc.cpp:1309
+msgid "57600"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1162
+#. i18n: ectx: property (text), item, widget (QComboBox, comboBoxTrvSpeedList)
+#: po/rc.cpp:1312 rc.cpp:1312
+msgid "115200"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1174
+#. i18n: ectx: property (text), widget (QCheckBox, hamlibcheckBox)
+#: po/rc.cpp:1315 rc.cpp:1315
+msgid "Activate Hamlib"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1191
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_6)
+#: po/rc.cpp:1318 rc.cpp:1318
+msgid "Pool hamlib each (msecs)"
+msgstr ""
+
+#. i18n: file: src/setup.ui:1266
+#. i18n: ectx: property (text), widget (QTreeWidget, awardTreeWidget)
+#: po/rc.cpp:1336 rc.cpp:1336
+#, fuzzy
+msgid "Award"
+msgstr "Diplome"
+
+#. i18n: file: src/setup.ui:1276
+#. i18n: ectx: property (text), widget (QTreeWidget, awardTreeWidget)
+#: po/rc.cpp:1342 rc.cpp:1342
+msgid "File"
+msgstr ""
+
+#: po/rc.cpp:1343 rc.cpp:1343
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+
+#: po/rc.cpp:1344 rc.cpp:1344
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
+
+#: src/klog.cpp:139 src/klog.cpp:1372 src/klog.cpp:2318 src/klog.cpp:2512
+#: src/klog.cpp:3273 src/klog.cpp:4180 src/klog.cpp:4514 src/klog.cpp:4529
+#: src/setup.cpp:908
+msgid "KLog message:"
+msgstr "KLog poruka:"
+
+#: src/klog.cpp:140
+msgid ""
+"Could not connect to your radio.\n"
+"Check your hamlib settings and restart KLog.\n"
+"\n"
+"KLog will run without hamlib support.\n"
+"\n"
+msgstr ""
+
+#: src/klog.cpp:298
+msgid "Warning - Can't find cty.dat"
+msgstr "Pažnja - Ne mogu pronaći cty.dat"
+
+#: src/klog.cpp:299
+msgid ""
+"I can't find the cty.dat file with the DX Entity data.\n"
+"\n"
+"If KLog download the file from www.country-files.com/cty/cty.dat it will be "
+"copied to your ~/.klog directory."
+msgstr ""
+
+#: src/klog.cpp:449 src/klog.cpp:466
+#, fuzzy
+msgid "Award:"
+msgstr "Diplome"
+
+#: src/klog.cpp:450 src/klog.cpp:467
+#, fuzzy
+msgid "LOCAL:"
+msgstr "<b>LOKAL:</b>"
+
+#: src/klog.cpp:493 src/klog.cpp:590
+msgid "<p align=\"center\"><b>KLog</b></p>"
+msgstr "<p align=\"center\"><b>KLog</b></p>"
+
+#: src/klog.cpp:531
+msgid "Ok"
+msgstr "Ok"
+
+#: src/klog.cpp:680 src/klog.cpp:3172
+msgid "Save File"
+msgstr ""
+
+#: src/klog.cpp:680 src/klog.cpp:3172
+#, fuzzy
+msgid "ADIF (*.adi)"
+msgstr "ADIF fajlovi (*.adi *.ADI)"
+
+#: src/klog.cpp:740
+msgid "Saving the log..."
+msgstr ""
+
+#: src/klog.cpp:740
+msgid "Abort saving"
+msgstr ""
+
+#: src/klog.cpp:750
+msgid ""
+"ADIF v1.0 (some ADIF v2 fields) Export from KLog-%1\n"
+"http://jaime.robles.es/klog\n"
+"<APP_KLOG_NUMBER: %2>%3\n"
+"Log saved: %4-%5\n"
+"<PROGRAMID:4>KLOG <PROGRAMVERSION: %6>%7\n"
+"<EOH>\n"
+msgstr ""
+
+#: src/klog.cpp:1373
+msgid ""
+"The file selected to open does not exist.\n"
+"No file will be opened."
+msgstr ""
+
+#: src/klog.cpp:1383 src/klog.cpp:2748 src/klog.cpp:2976
+msgid "Reading the log..."
+msgstr ""
+
+#: src/klog.cpp:1383 src/klog.cpp:2748 src/klog.cpp:2976
+msgid "Abort reading"
+msgstr ""
+
+#: src/klog.cpp:1459 src/klog.cpp:2949 src/klog.cpp:3146
+msgid "Adding QSO#: "
+msgstr ""
+
+#: src/klog.cpp:1726 src/setup.cpp:1009
+#, fuzzy
+msgid "&Delete"
+msgstr "Obriši vezu"
+
+#: src/klog.cpp:1728
+#, fuzzy
+msgid "Delete a QSO"
+msgstr "Obriši vezu"
+
+#: src/klog.cpp:1731
+#, fuzzy
+msgid "&Recv and Sent"
+msgstr "QSL Poslata"
+
+#: src/klog.cpp:1733
+#, fuzzy
+msgid "QSL Recv and Sent"
+msgstr "QSL Poslata"
+
+#: src/klog.cpp:1736
+msgid "&Recv QSL"
+msgstr ""
+
+#: src/klog.cpp:1741
+#, fuzzy
+msgid "&Sent QSL"
+msgstr "Poslati QSL-kartu"
+
+#: src/klog.cpp:1756 src/klog.cpp:1783 src/klog.cpp:3548
+#, fuzzy
+msgid "Modify"
+msgstr "Vrsta rada"
+
+#: src/klog.cpp:1757 src/klog.cpp:1889 src/klog.cpp:3549
+msgid "Cancel"
+msgstr ""
+
+#: src/klog.cpp:1887
+msgid "Warning - Save log?"
+msgstr "Pažnja - Snimiti dnevnik?"
+
+#: src/klog.cpp:1888
+msgid "The log has been changed since the last save."
+msgstr "Dnevnik je izmenjen od zadnjeg snimanja."
+
+#: src/klog.cpp:1889
+msgid "Save Now"
+msgstr "Snimiti sada"
+
+#: src/klog.cpp:1889
+#, fuzzy
+msgid "Continue anyway"
+msgstr "Nastaviti svejedno"
+
+#: src/klog.cpp:1940
+#, fuzzy
+msgid "Open File"
+msgstr "Otvoriti fajl"
+
+#: src/klog.cpp:1940 src/setup.cpp:808
+#, fuzzy
+msgid "ADIF files (*.adi)"
+msgstr "ADIF fajlovi (*.adi *.ADI)"
+
+#: src/klog.cpp:2275
+#, fuzzy
+msgid "KLog-%1 - The KDE Ham Radio Logging program"
+msgstr " - KDE program za radio-amaterski dnevnik"
+
+#: src/klog.cpp:2276
+#, fuzzy
+msgid ""
+"KLog: %1 - The KDE Ham Radio Logging program\n"
+"You can find the last version on http://jaime.robles.es/klog\n"
+"2002 - 2010 - Jaime Robles, EA4TV, jaime@robles.es\n"
+"2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com"
+msgstr ""
+" - KDE program za radio-amaterski dnevnik\n"
+"Najnoviju verziju možete naći na http://jaime.robles.nu/klog\n"
+"Jaime Robles, EA4TV, jaime@robles.nu"
+
+#: src/klog.cpp:2319
+msgid ""
+"It seems to be the first time you run KLog in this computer.\n"
+"The setup dialog will start to help you to configure KLog.\n"
+"Welcome to KLog.\n"
+"\n"
+"The KLog team."
+msgstr ""
+
+#: src/klog.cpp:2513
+msgid ""
+"You still have not configured KLog.\n"
+"Please click on:\n"
+"Setup->Preferences\n"
+" and configure KLog."
+msgstr ""
+
+#: src/klog.cpp:2754 src/klog.cpp:2756 src/klog.cpp:2980 src/klog.cpp:3182
+msgid ""
+"Enter a remark for ALL the imported QSO:\n"
+"(Leave it empty and press OK if no remark)"
+msgstr ""
+
+#: src/klog.cpp:2755 src/klog.cpp:2769
+msgid "KLog - TLF Import"
+msgstr ""
+
+#: src/klog.cpp:2770
+msgid ""
+"Enter the used call:\n"
+"(Leave it empty and press OK if no diferent call was used)"
+msgstr ""
+
+#: src/klog.cpp:2775 src/klog.cpp:3207
+#, fuzzy
+msgid "Warning - QRZ not valid"
+msgstr "Pažnja - Brisanje veze"
+
+#: src/klog.cpp:2776
+#, fuzzy
+msgid "Do you want to import without a QRZ?\n"
+msgstr "Želite li obrisati vezu sa:\n"
+
+#: src/klog.cpp:2777 src/klognetwork.cpp:22
+msgid "Yes"
+msgstr ""
+
+#: src/klog.cpp:2777 src/klognetwork.cpp:24
+msgid "No"
+msgstr ""
+
+#: src/klog.cpp:2796
+#, fuzzy
+msgid "Warning - Possible dates conflict:"
+msgstr "Pažnja - Fajl postoji"
+
+#: src/klog.cpp:2797
+msgid ""
+"Please define if the QSOs were done in the 1900s or in the 2000s years\n"
+"Are these QSO dated before year 2000?"
+msgstr ""
+
+#: src/klog.cpp:2979
+msgid "KLog - Cabrillo Import"
+msgstr ""
+
+#: src/klog.cpp:3181 src/klog.cpp:3199 src/klog.cpp:3233
+msgid "KLog - Log Add"
+msgstr ""
+
+#: src/klog.cpp:3197
+msgid ""
+"Enter the used call:\n"
+"(Leave it empty and press OK if the call %1 was used)."
+msgstr ""
+
+#: src/klog.cpp:3208
+#, fuzzy
+msgid "Do you want to import without a QRZ?"
+msgstr "Želite li obrisati vezu sa:\n"
+
+#: src/klog.cpp:3231
+msgid ""
+"Enter the locator of the activity:\n"
+"(Leave it empty and press OK if the locator was %1)."
+msgstr ""
+
+#: src/klog.cpp:3239
+#, fuzzy
+msgid "Warning - Locator not valid"
+msgstr "Pažnja - Brisanje veze"
+
+#: src/klog.cpp:3240
+#, fuzzy
+msgid "Do you want to import without a Locator and use %1 ?\n"
+msgstr "Želite li obrisati vezu sa:\n"
+
+#: src/klog.cpp:3275
+#, fuzzy
+msgid ""
+"The log file has been\n"
+"sucessfully added!"
+msgstr ""
+"Log fajl je\n"
+"pridodat!"
+
+#: src/klog.cpp:3339
+msgid "<p align=\"center\"><b>Worked & confirmed before</b></p>"
+msgstr "<p align=\"center\"><b>Rađen i potvrđen ranije</b></p>"
+
+#: src/klog.cpp:3347
+#, fuzzy
+msgid "<p align=\"center\"><b>Not confirmed in this band, WORK IT!</b></p>"
+msgstr "<p align=\"center\"><b>Nov na ovom opsegu, URADITI VEZU!</b></p>"
+
+#: src/klog.cpp:3354
+msgid "<p align=\"center\"><b>New one in this band, WORK IT!</b></p>"
+msgstr "<p align=\"center\"><b>Nov na ovom opsegu, URADITI VEZU!</b></p>"
+
+#: src/klog.cpp:3365
+msgid "<p align=\"center\"><b>Not confirmed, WORK IT!</b></p>"
+msgstr "<p align=\"center\"><b>Nije potvrđen, URADITI VEZU!</b></p>"
+
+#: src/klog.cpp:3375
+msgid "<p align=\"center\"><b>NEW ONE, WORK IT!</b></p>"
+msgstr "<p align=\"center\"><b>NOVA ZEMLJA, URADITI VEZU!</b></p>"
+
+#: src/klog.cpp:3579
+msgid "Warning - QSO Deletion"
+msgstr "Pažnja - Brisanje veze"
+
+#: src/klog.cpp:3580
+#, fuzzy
+msgid ""
+"Do you want to delete the QSO with:\n"
+"%1 of %2 ?"
+msgstr "Želite li obrisati vezu sa:\n"
+
+#: src/klog.cpp:4070
+#, fuzzy
+msgid "Print the log"
+msgstr "Uvezi tlf log"
+
+#: src/klog.cpp:4079
+#, fuzzy
+msgid "Printing date: "
+msgstr "Uvezi tlf log"
+
+#: src/klog.cpp:4084
+#, fuzzy
+msgid "RST(tx/rx)"
+msgstr "RST(tx)"
+
+#: src/klog.cpp:4085
+msgid "Freq"
+msgstr ""
+
+#: src/klog.cpp:4087 src/klog.cpp:4101
+msgid "Page: %1"
+msgstr ""
+
+#: src/klog.cpp:4139
+#, fuzzy
+msgid "Sorting the log..."
+msgstr "Uvezi tlf log"
+
+#: src/klog.cpp:4139
+msgid "Abort sorting"
+msgstr ""
+
+#: src/klog.cpp:4181
+msgid ""
+"Check your cluster settings\n"
+"in Setup->Preferences\n"
+"before connecting!"
+msgstr ""
+"Proverite podešavanja klastera\n"
+"u Podešavanja->Parametri\n"
+"pre konektovanja!"
+
+#: src/klog.cpp:4206
+msgid "Trying to connect to the server\n"
+msgstr "Pokušavam konekciju na server\n"
+
+#: src/klog.cpp:4453
+#, fuzzy
+msgid "Connected to server"
+msgstr "Konektovan na server\n"
+
+#: src/klog.cpp:4463 src/klog.cpp:4464
+#, fuzzy
+msgid "KLog message"
+msgstr "KLog poruka:"
+
+#: src/klog.cpp:4463
+#, fuzzy
+msgid "Enter your callsign to connect to the cluster:"
+msgstr "Pokušavam konekciju na server\n"
+
+#: src/klog.cpp:4464
+#, fuzzy
+msgid "Enter your password to connect to the cluster:"
+msgstr "Pokušavam konekciju na server\n"
+
+#: src/klog.cpp:4470
+msgid "Not logged on, you may to enter your callsign again."
+msgstr ""
+
+#: src/klog.cpp:4479
+#, fuzzy
+msgid "Connection closed by the server"
+msgstr "Prekinuta konekcija od servera\n"
+
+#: src/klog.cpp:4489
+#, fuzzy
+msgid "Connection closed"
+msgstr "Konekcija prekinuta\n"
+
+#: src/klog.cpp:4515
+msgid "Host not found:\n"
+msgstr ""
+
+#: src/klog.cpp:4516
+msgid ""
+"\n"
+"Check your network settings!"
+msgstr ""
+
+#: src/klog.cpp:4530
+msgid "DX-Cluster server refused the connection\n"
+msgstr ""
+
+#: src/klog.cpp:4531
+msgid ""
+"\n"
+"Maybe you are already connected, use another call like \"YOURCALL-1\"!"
+msgstr ""
+
+#: src/klog.cpp:4541
+msgid "The following error occurred: %1."
+msgstr ""
+
+#: src/klog.cpp:4727
+msgid ""
+"Please send your bug-report/wish to jaime@robles.es\n"
+"Include the KLog version you are using (%1). All your suggestion will be "
+"welcome!"
+msgstr ""
+
+#: src/klog.cpp:4960
+msgid "Merging information..."
+msgstr ""
+
+#: src/klog.cpp:4960 src/klog.cpp:5198
+msgid "Abort"
+msgstr ""
+
+#: src/klog.cpp:4981 src/klog.cpp:5005 src/klog.cpp:5025 src/klog.cpp:5048
+#: src/klog.cpp:5081 src/klog.cpp:5123
+msgid "Warning: Callsign to complete found"
+msgstr ""
+
+#: src/klog.cpp:4982 src/klog.cpp:5006 src/klog.cpp:5026 src/klog.cpp:5049
+#: src/klog.cpp:5082
+msgid ""
+"Completing a call could cause data to be no accurate. Do you want this data "
+"to be merged?\n"
+" QSO N: #"
+msgstr ""
+
+#: src/klog.cpp:4984
+msgid " - Asign the name "
+msgstr ""
+
+#: src/klog.cpp:4984 src/klog.cpp:5008 src/klog.cpp:5029 src/klog.cpp:5052
+#: src/klog.cpp:5086
+#, fuzzy
+msgid " for "
+msgstr " od "
+
+#: src/klog.cpp:5008
+msgid " - Asign the QTH "
+msgstr ""
+
+#: src/klog.cpp:5028
+msgid " - Asign the Locator "
+msgstr ""
+
+#: src/klog.cpp:5051
+msgid " - Asign the IOTA reference "
+msgstr ""
+
+#: src/klog.cpp:5084
+msgid " - Asign the Local Award reference "
+msgstr ""
+
+#: src/klog.cpp:5124
+msgid ""
+"Completing a call could cause data to be no accurate. Do you want this data "
+"to be merged?\n"
+" QSO N: # %1 - Do you want to copy the QSL information received in other "
+"QSOs for %2 ?"
+msgstr ""
+
+#: src/klog.cpp:5174
+msgid "Merging calls: "
+msgstr ""
+
+#: src/klog.cpp:5198
+msgid "Getting all the calls..."
+msgstr ""
+
+#: src/klog.cpp:5214
+msgid "Adding Call: "
+msgstr ""
+
+#: src/klognetwork.cpp:18
+msgid "&URL:"
+msgstr ""
+
+#: src/klognetwork.cpp:20
+msgid "You are going to download the cty.dat file from:"
+msgstr ""
+
+#: src/klognetwork.cpp:21
+#, fuzzy
+msgid "Do you want to continue?"
+msgstr "Želite li obrisati vezu sa:\n"
+
+#: src/klognetwork.cpp:58
+msgid "KLog: CTY.DAT download"
+msgstr ""
+
+#: src/klognetwork.cpp:74
+#, fuzzy
+msgid "KLog: File exists!"
+msgstr "Pažnja - Fajl postoji"
+
+#: src/klognetwork.cpp:75
+msgid ""
+"There already exists a file called %1 in the current directory. Overwrite?"
+msgstr ""
+
+#: src/klognetwork.cpp:85
+msgid "KLog: Can't save the file"
+msgstr ""
+
+#: src/klognetwork.cpp:86
+msgid "Unable to save the file %1: %2."
+msgstr ""
+
+#: src/klognetwork.cpp:105
+msgid "KLog: Downloading..."
+msgstr ""
+
+#: src/klognetwork.cpp:106
+msgid "Downloading %1."
+msgstr ""
+
+#: src/klognetwork.cpp:112
+msgid "Download canceled."
+msgstr ""
+
+#: src/klognetwork.cpp:142 src/klognetwork.cpp:193
+msgid "KLog: Download failed"
+msgstr ""
+
+#: src/klognetwork.cpp:143 src/klognetwork.cpp:194
+msgid "Download failed: %1."
+msgstr ""
+
+#: src/klognetwork.cpp:147
+msgid "Downloaded %1 to the KLog directory."
+msgstr ""
+
+#: src/klognetwork.cpp:154
+msgid "KLog: cty.dat downloaded"
+msgstr ""
+
+#: src/klognetwork.cpp:155
+msgid "KLog has downloaded the cty.dat file successfully.\n"
+msgstr ""
+
+#: src/klognetwork.cpp:245
+msgid "KLog: SSL error"
+msgstr ""
+
+#: src/klognetwork.cpp:246
+msgid "One or more SSL errors has occurred: %1"
+msgstr ""
+
+#: src/main.cpp:45
+#, fuzzy
+msgid "KLog"
+msgstr "Log"
+
+#: src/main.cpp:46
+#, fuzzy
+msgid "The KDE Ham radio loggin software."
+msgstr " - KDE program za radio-amaterski dnevnik"
+
+#: src/main.cpp:48
+msgid "Copyright (c) 2002-2010, Jaime Robles, EA4TV"
+msgstr ""
+
+#: src/main.cpp:54
+msgid "Log to load (Still does not work)"
+msgstr ""
+
+#: src/setup.cpp:193 src/setup.cpp:209 src/setup.cpp:868 src/setup.cpp:887
+#: src/setup.cpp:1048
+msgid "KLog Warning!"
+msgstr ""
+
+#: src/setup.cpp:194
+msgid ""
+"Prefix from - %1 - the award: - %2 - is repeated!\n"
+"KLog can only manage one award per prefix.\n"
+"This award will not be included\n"
+"Check your klogrc file and/or the award file and fix the problem."
+msgstr ""
+
+#: src/setup.cpp:211
+msgid ""
+"KLog can not open the file: %1 !\n"
+"That award will not be read.\n"
+"Check your klogrc file and fix the problem."
+msgstr ""
+
+#: src/setup.cpp:806
+#, fuzzy
+msgid "Select a file"
+msgstr "Otvoriti fajl"
+
+#: src/setup.cpp:838
+msgid "Open a file"
+msgstr "Otvoriti fajl"
+
+#: src/setup.cpp:840
+#, fuzzy
+msgid "Award files (*.awa)"
+msgstr "ADIF fajlovi (*.adi *.ADI)"
+
+#: src/setup.cpp:867
+msgid ""
+"Prefix from - %1 - the award: - %2 - repeated!\n"
+"KLog can only manage one award per prefix.\n"
+"This award will not be included\n"
+"Check your klogrc file and/or the award file and fix the problem."
+msgstr ""
+
+#: src/setup.cpp:888
+msgid ""
+"KLog can not open the file:-%1!\n"
+"That award will not be read.\n"
+"Check your klogrc file and fix the problem."
+msgstr ""
+
+#: src/setup.cpp:909
+msgid ""
+"This function has still not been implemented.\n"
+"Remove the appropriate \"Award=file.awa\" line from the ~/.klog/klogrc "
+"file.\n"
+"\n"
+msgstr ""
+
+#: src/setup.cpp:937
+#, fuzzy
+msgid "KLog: Add a DXCluster server"
+msgstr "DX-klaster"
+
+#: src/setup.cpp:938
+msgid ""
+"Add the address followed by the :port\n"
+"Example: eadx.net:23\n"
+"If no port is specified, 41112 will be used by default.:"
+msgstr ""
+
+#: src/setup.cpp:1049
+msgid ""
+"This function is still not implemented.\n"
+"To erase an award, delete the appropriate line of your klogrc file."
+msgstr ""
+
+#~ msgid "<p align=\"center\"><b>deg</b></p>"
+#~ msgstr "<p align=\"center\"><b>stepeni</b></p>"
+
+#~ msgid "<b><p align=\"center\">deg</p></b>"
+#~ msgstr "<b><p align=\"center\">stepeni</p></b>"
+
+#, fuzzy
+#~ msgid ""
+#~ "I can't find the cty.dat file with the DX Entity data.\n"
+#~ "Do you want to continue without that data?\n"
+#~ "Copy an updated cty.dat file to your ~/.klog dir, please.\n"
+#~ "\n"
+#~ "You can download from: www.country-files.com/cty/cty.dat"
+#~ msgstr ""
+#~ "Ne mogu pronaći fajl sa podacima o zemljama\n"
+#~ "cty.dat. Želite li da nastavite bez tih podataka?\n"
+#~ "\n"
+#~ "(Ažurnu verziju fajla cty.dat iskopirati na vaš ~/klog direktorijum)"
+
+#, fuzzy
+#~ msgid "Error number %1 occurred"
+#~ msgstr "Došlo je do greške broj %1\n"
+
+#, fuzzy
+#~ msgid " of "
+#~ msgstr " od "
+
+#, fuzzy
+#~ msgid "Time in Qt::UTC"
+#~ msgstr "Vreme u UTC"
+
+#, fuzzy
+#~ msgid "If checked the time will be Qt::UTC"
+#~ msgstr "Štiklirati za vreme u UTC"
+
+#~ msgid ""
+#~ "_: NAME OF TRANSLATORS\n"
+#~ "Your names"
+#~ msgstr "Aleksandar Ilić - YU1IS"
+
+#~ msgid ""
+#~ "_: EMAIL OF TRANSLATORS\n"
+#~ "Your emails"
+#~ msgstr "yu1is@netscape.net"
+
+#~ msgid "save file dialogChoose a filename to save under"
+#~ msgstr "Snimanje fajlaIzaberite ime fajla za snimanje"
+
+#~ msgid "The file: "
+#~ msgstr "Fajl: "
+
+#~ msgid "Overwrite"
+#~ msgstr "Presnimiti"
+
+#~ msgid "Saving aborted"
+#~ msgstr "Snimanje otkazano"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "Log saved: "
+#~ msgstr "KLog poruka:"
+
+#, fuzzy
+#~ msgid "ADIF files (*.adi *.ADI *.adif)"
+#~ msgstr "ADIF fajlovi (*.adi *.ADI)"
+
+#, fuzzy
+#~ msgid "KLog: "
+#~ msgstr "Log"
+
+#, fuzzy
+#~ msgid "1900"
+#~ msgstr "2190M"
+
+#, fuzzy
+#~ msgid "2000"
+#~ msgstr "2190M"
+
+#, fuzzy
+#~ msgid "CAB files (*.cab *.CAB)"
+#~ msgstr "ADIF fajlovi (*.adi *.ADI)"
+
+#~ msgid "TLF files (*.log *.LOG)"
+#~ msgstr "TLF fajlovi (*.log *.LOG)"
+
+#, fuzzy
+#~ msgid "KLog message: Bug-reporting"
+#~ msgstr "KLog poruka:"
+
+#, fuzzy
+#~ msgid "<p align=\"center\"><b>QTH/Locator:</b></p>"
+#~ msgstr "<p align=\"center\"><b>QTH:</b></p>"
+
+#~ msgid "You received the QSL this date"
+#~ msgstr "Primili ste QSL-kartu tog datuma"
+
+#~ msgid "You sent the QSL this date"
+#~ msgstr "Poslali ste QSL-kartu tog datuma"
+
+#~ msgid "QSL info..."
+#~ msgstr "QSL info..."
+
+#~ msgid "Remarks:"
+#~ msgstr "Nappomene:"
+
+#~ msgid "Comments about this QSO"
+#~ msgstr "Komentar o ovoj vezi"
+
+#~ msgid "<p align=\"center\"><b>Power</b></p>"
+#~ msgstr "<p align=\"center\"><b>Snaga</b></p>"
+
+#, fuzzy
+#~ msgid "<p align=\"center\"><b>Call used:</b></p>"
+#~ msgstr "<p align=\"center\"><b>Ime:</b></p>"
+
+#~ msgid "Index"
+#~ msgstr "Indeks"
+
+#, fuzzy
+#~ msgid "Select The Reference"
+#~ msgstr "Podrazumevani parametri"
+
+#, fuzzy
+#~ msgid "<b>Default</b>"
+#~ msgstr "<b>Via:</b>"
+
+#~ msgid "<b>Needed</b>"
+#~ msgstr "<b>Potreban</b>"
+
+#, fuzzy
+#~ msgid "The KDE Ham Radio Logging Software"
+#~ msgstr " - KDE program za radio-amaterski dnevnik"
+
+#~ msgid "Enter your locator - IN80EK"
+#~ msgstr "Unesite svoj lokator - KN03UN"
+
+#~ msgid "Enter your QRZ - EA4TV"
+#~ msgstr "Unesite svoj pozivni znak - EA4TV"
+
+#~ msgid "Setup"
+#~ msgstr "Podešavanja"
+
+#~ msgid ""
+#~ " already exits.\n"
+#~ "Do you want to overwrite?"
+#~ msgstr ""
+#~ " već postoji.\n"
+#~ "Želite li snimanje pod tim imenom?"
+
+#~ msgid "?"
+#~ msgstr "?"
+
+#~ msgid "<b>DX-Cluster server:</b>"
+#~ msgstr "<b>DX-Klaster server:</b>"
+
+#~ msgid "eadx.net"
+#~ msgstr "eadx.net"
+
+#~ msgid "Enter the server's port number"
+#~ msgstr "Unesite broj porta servera"
+
+#~ msgid "<p align=\"center\"><b>RST(rx)</b></p>"
+#~ msgstr "<p align=\"center\"><b>RST(rx)</b></p>"
+
+#~ msgid "<p align=\"center\"><b>T</b></p>"
+#~ msgstr "<p align=\"center\"><b>T</b></p>"
+
+#~ msgid "DX's QTH"
+#~ msgstr "QTH korespondenta"
+
+#~ msgid "<b>20</b>"
+#~ msgstr "<b>20</b>"
+
+#~ msgid "<b>40</b>"
+#~ msgstr "<b>40</b>"
+
+#~ msgid "<b>6<p align=\"center\"></p></b>"
+#~ msgstr "<b>6<p align=\"center\"></p></b>"
+
+#~ msgid "<b>12</b>"
+#~ msgstr "<b>12</b>"
+
+#~ msgid "<b>80</b>"
+#~ msgstr "<b>80</b>"
+
+#~ msgid "<b>10</b>"
+#~ msgstr "<b>10</b>"
+
+#~ msgid "<b>17</b>"
+#~ msgstr "<b>17</b>"
+
+#~ msgid "<b>30</b>"
+#~ msgstr "<b>30</b>"
+
+#~ msgid "<b>15</b>"
+#~ msgstr "<b>15</b>"
+
+#~ msgid "<b>160</b>"
+#~ msgstr "<b>160</b>"
+
+#~ msgid "<b>WAE:</b>"
+#~ msgstr "<b>WAE:</b>"
