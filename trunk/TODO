@@ -13,6 +13,7 @@
 * ADD the STATION_CALLSIGN tag and relate it to OPERATOR
 * URGENT: rewrite the hamlib support code!!!
 * URGENT: The way the awards are deleted is not very smart.
+* When adding/editing a QRZ the cursor position should be keeped... to avoid mistakes while typing/copy&pasting
 
 The list calls to writeconf and readconf when a award is deleted so if a user
 makes any modification in any other field in the setup GUI, it is saved!
