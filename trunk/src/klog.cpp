@@ -39,7 +39,7 @@ Klog::Klog(QMainWindow *parent) : QMainWindow(parent) {
 
   
   
-  Klog::KLogVersion = "0.5.5";
+  Klog::KLogVersion = "0.5.6";
 //   Klog::editdeletePixMap = new QPixmap("editdelete.png");
 //   editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
 //   Klog::qslRecPixMap = new QPixmap("qslRec.png");
@@ -4861,7 +4861,7 @@ void Klog::showIfPreviouslyWorked(){ // Uses previousQso and workedCall
 // This tab will have a button to copy the data into the actual QSO box if wished.
 //	kk = 0;
     Qso prevQso;
-    int _enti;
+    int _enti=0;
     int kk = workedCall.findCall(qrzLineEdit->text());
     QPalette palette;
     //bool workedBefore = false;

@@ -1,3 +1,7 @@
+June-2010 0.5.6
+- Fixed the hamlib compilation scripts (CMakeLists.txt, FindHamlib.cmake). (TNX AB4BD).
+- Fixed one bug that causes some architectures not to compile.
+
 May-2010 0.5.5
 - New feature: If cty.dat file is not found, KLog offers to download from the web. 
 - New feature: New tool to update the update the cty.dat file from the web.
@@ -53,7 +57,7 @@ April-2009 0.4.7
 - Improved the way is readed the cty.dat file and added support for its new format.
 - Improved the ADIF compatibility supported fields, band frecuencies, modes...
 - Improved the QSO merging with previous data.
-- Updated translations: English, Spanish, TNX Swedish (SM4ABE), German (DL5PD).
+- Updated translations: English, Spanish, TNX: Swedish (SM4ABE), German (DL5PD).
 
 1-may-2008 - 0.4.4
 - BUG fixed: KLog now recognises a "/LH" LightHouse stations (TNX G3OAG)
