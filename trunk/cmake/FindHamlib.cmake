@@ -31,9 +31,20 @@ find_library(HAMLIB_LIBRARY
 
 if(HAMLIB_INCLUDE_DIR AND HAMLIB_LIBRARY)
 	set(HAMLIB_FOUND TRUE)
-#	message(STATUS "Hamlib version: ${VERSION}")
-	message(STATUS "Found hamlib library directory at: ${HAMLIB_LIBRARY}")
-	message(STATUS "Found hamlib include directory at: ${HAMLIB_INCLUDE_DIR}")
+
+	find_package(PkgConfig)
+	if(PKG_CONFIG_FOUND)
+
+		execute_process(
+			COMMAND pkg-config --modversion hamlib
+			OUTPUT_VARIABLE HAMLIB_VERSION
+			)
+
+		message(STATUS "Hamlib version: ${HAMLIB_VERSION}")
+	endif(PKG_CONFIG_FOUND)
+
+	message(STATUS "Found hamlib library: ${HAMLIB_LIBRARY}")
+	message(STATUS "Found hamlib include directory: ${HAMLIB_INCLUDE_DIR}")
 endif(HAMLIB_INCLUDE_DIR AND HAMLIB_LIBRARY)
 
 IF(NOT HAMLIB_FOUND)
