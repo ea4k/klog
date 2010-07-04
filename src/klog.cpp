@@ -280,9 +280,9 @@ void Klog::createActions(){
   connect(searchQsosTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT(showRighButtonSearchMenu(const QPoint& ) ) );
   
   
-/*
+
   connect(searchQsosTreeWidget, SIGNAL(itemSelectionChanged ()), this, SLOT(slotSearchQSOSelectionChanged()));
-  connect(searchQsosTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotSearchQSOSelectionChanged()));*/
+/*  connect(searchQsosTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotSearchQSOSelectionChanged()));*/
 
 
 }
@@ -1661,11 +1661,16 @@ void Klog::showRighButtonLogMenu( const QPoint& pos ){
 //qDebug() << "KLog::showRighButtonLogMenu - got rightClick: ";
   QTreeWidgetItem *item = logTreeWidget->itemAt(pos);
 
+  
+  
   if (item){
+    qsoSelected = getByNumber(((logTreeWidget->currentItem())->text(0)).toInt());
+    qsoSelectedBool = true; 
     Klog::j = ((item)->text(0)).toInt();
     showMenuRightButton(Klog::j);
     //showMenuRightButton(Klog::j, pos);
   }else{
+    qsoSelectedBool = false; 
     return;
   }
 }
@@ -1674,7 +1679,7 @@ void Klog::showRighButtonLogMenu( const QPoint& pos ){
 
 // void Klog::showMenuRightButton(int qqso, const QPoint &p){
  void Klog::showMenuRightButton(int qqso){
-// qDebug()  << "KLog::showMenuRightButton: " << QString::number(qqso) << endl;
+//qDebug()  << "KLog::showMenuRightButton: " << QString::number(qqso) << endl;
 
   if (qqso >= 0){
     showMenuRightButtoncreateActions();
@@ -1764,7 +1769,7 @@ void Klog::slotQsoSelectedForEdit(QTreeWidgetItem *item){
 }
 
 void Klog::slotQsoSelected(QTreeWidgetItem* item){
-// qDebug() << "KLog::slotQsoSelected" << endl;
+ //qDebug() << "KLog::slotQsoSelected" << endl;
     if (item){
         kk = world.findEntity(item->text(3).toUpper());
         // kk this time is the Entity of the call selected
@@ -3713,7 +3718,7 @@ void Klog::slotLogQSOSelectionChanged(){
 
   qsoSelectedBool = true;
   ActionQsoDelete->setEnabled(true);
-//  qDebug() << "KLog::slotLogQSOSelectionChanged: " << qsoSelected.getQrz() << endl;
+  //qDebug() << "KLog::slotLogQSOSelectionChanged: " << qsoSelected.getQrz() << endl;
 
   if (qsoSelected.gotTheQSL()){
       ActionQslRec->setEnabled(false);
@@ -3836,17 +3841,18 @@ void Klog::slotQSLRec(){
   showAwardsNumbers();
 }
 
-
+           
 void Klog::slotQSLSent(){
 // If we are modifying a QSO we work over it if not, we should work on the selected one on the selected on of the Log
 // TODO: Define all the code of what to do if we are not modifying.
-//qDebug() << "KLog::slotQSLSent" << endl;
+qDebug() << "KLog::slotQSLSent: " << endl;
 
 
   Klog::LogBook::iterator iter;
   qslSen = QDate::currentDate();
 
   if (modify){
+    qDebug() << "KLog::slotQSLSent: modifying" << endl;
     if (!qso.sentTheQSL()) {
       Klog::j = qso.getNumb();
       for ( iter = logbook.begin(); iter != logbook.end(); ++iter ){
@@ -3860,7 +3866,9 @@ void Klog::slotQSLSent(){
       }
     }
   }else{ // This is executed if we are not modifying
+    qDebug() << "KLog::slotQSLSent: not modifying" << endl;
     if (qsoSelectedBool){
+      qDebug() << "KLog::slotQSLSent: QSO Selected" << endl;
       for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
 	if ( qsoSelected.getNumb() == (*iter).getNumb() ){
 	  (*iter).QslSent('Y');
@@ -3872,6 +3880,7 @@ void Klog::slotQSLSent(){
 	}
       }
     } else if(qsoSearchSelectedBool){
+      qDebug() << "KLog::slotQSLSent: QSO NO Selected" << endl;
 
       for ( iter = logbook.begin(); iter != logbook.end(); ++iter ) {
 	if ( qsoSearchSelected.getNumb() == (*iter).getNumb() ){
@@ -4235,7 +4244,7 @@ void Klog::slotClusterSendToServer(){
 }
 
 void Klog::slotClusterSocketReadyRead() {
-// qDebug() << "Klog::slotClusterSocketReadyRead()" << endl;
+//qDebug() << "Klog::slotClusterSocketReadyRead" << endl;
 // read from the server
 // The while could block the flow of the program?
 // ATENTION: The Cluster freq is in KHz and KLog works in MHz!
@@ -4244,7 +4253,7 @@ void Klog::slotClusterSocketReadyRead() {
     // changed this to trimmed from simplfied() so the output string is easier to read as a spot
     dxClusterString = dxClusterString.trimmed();
     // Put here to check for callsigns that crash klog. To do with the QString ASSERT error.
-    //qDebug() << "KLog::slotClusterSocketReadyRead: " << dxClusterString;
+    //qDebug() << "KLog::slotClusterSocketReadyRead: " << dxClusterString << endl;
 
     QStringList tokens = dxClusterString.split(" ", QString::SkipEmptyParts);
     if (tokens.size()<2){
@@ -4254,10 +4263,10 @@ void Klog::slotClusterSocketReadyRead() {
     //0 = DX, 1 = de, 2 = spotter, 3 = Freq, 4 = dxcall, 5 = comment
     //tokens[0] = tokens[0].simplified(); // we remove the spaces just in case it is a freq
 
-    //qDebug() << "Klog::slotClusterSocketReadyRead()" << "DXCLUSTER->" << dxClusterString << "TOKENS" << tokens;
+    //qDebug() << "Klog::slotClusterSocketReadyRead: " << "DXCLUSTER->" << dxClusterString << "\nTOKENS: " << tokens << endl;
     if ((tokens[0] == "DX") && (tokens[1] == "de")){
       // Plot the spot
-      #ifdef DXMAP
+//#ifdef DXMAP
       // This is to remove the colon (:) from the end of the callsign
       QString spotter = tokens[2];
       spotter.truncate(spotter.size() - 1);
@@ -4282,13 +4291,16 @@ void Klog::slotClusterSocketReadyRead() {
 // qDebug() << "Klog::slotClusterSocketReadyRead()" << "DXSPOT3->" << entityNumber  << spotCountry;
 
    // Update the dxline list with this spot
+#ifdef DXMAP
    DxSpot entry = DxSpot(tokens[2], tokens[4], spotCountry, loggingCountry, spotEntity.getLat(), spotEntity.getLon(), loggingEntity.getLat(), loggingEntity.getLon(), frequency);
+#endif
 
-
-//             qDebug() << tokens[2] << spotter << world.findEntity(spotter);
+            // qDebug() << tokens[2] << spotter << world.findEntity(spotter) << endl;
           //  dxMap->plotSpot(entry);
+#ifdef DXMAP	  
             dxMap->plot();
-            #endif
+#endif
+            //qDebug() << "Klog::slotClusterSocketReadyRead:Freq/Band: " << tokens[3] << endl;
             if ( (!dxClusterHFSpots) && (adif.isHF(adif.KHz2MHz(tokens[3])))){ //Check the freq
                 return;
             }

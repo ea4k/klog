@@ -679,14 +679,17 @@ bool Adif::isSSB(const QString& tfreq){
 }
 
 bool Adif::isHF(const QString& tfreq){ // (in MHz)
-
+//qDebug() << "- Adif::isHF: " << tfreq <<  endl;
     iInt = freq2Int(tfreq);
+    
 //cout << " - Class Adif::isHF: (freq/numb)" << tfreq <<"/" <<QString::number(iInt)<< endl;
     // If i don't recognice I set FALSE (To help DX-Cluster SH/DX commands)
     //TODO: The 1000 is to help the 2190M band. Its is pending the band combobox reorganization.
     if (((iInt < 10) && (iInt>=0) ) || (iInt==1000) ){
+     // qDebug() << "- Adif::isHF: " << tfreq << " - YES" <<  endl;
             return true;
     }else{
+      //qDebug() << "- Adif::isHF: " << tfreq << " - NO" <<  endl;
         return false;
     }
 
@@ -694,7 +697,7 @@ bool Adif::isHF(const QString& tfreq){ // (in MHz)
 
 bool Adif::isVHF(const QString& tfreq){ // (in MHz)
 // To check if 6m band or more only - returns FALSE as a default
-//cout << " - Class Adif::isVHF" << tfreq << endl;
+//qDebug() << "- Adif::isVHF: " << tfreq <<  endl;
 
     iInt = freq2Int(tfreq);
 //cout << " - Class Adif::isVHF: (freq/numb)" << tfreq <<"/" <<QString::number(iInt)<< endl;
@@ -702,8 +705,10 @@ bool Adif::isVHF(const QString& tfreq){ // (in MHz)
     // reorder the bands so the 2190M band is HF
 
     if ((iInt >= 10) && (iInt != 1000)){ //6m or more
+      //qDebug() << "- Adif::isVHF: " << tfreq << " - YES" <<  endl;
         return true;
     }else{
+      //qDebug() << "- Adif::isVHF: " << tfreq << " - NO" <<  endl;
         return false;
     }
 }

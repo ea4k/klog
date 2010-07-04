@@ -490,24 +490,24 @@ QChar Qso::isQslRec(){
 }
 
 bool Qso::gotTheQSL(){  // Ask if i have his QSL
-//qDebug() << "Qso::gotTheQSL" ;
+//qDebug() << "Qso::gotTheQSL"  << endl;
 //cout << "QSO::gotTheQSL: " << getQrz() << endl;
         if (qslRecc == 'Y'){
-//	   qDebug() << "Qso::gotTheQSL - Y (" << getQrz() << ")" << endl ;
+	   //qDebug() << "Qso::gotTheQSL - Y (" << getQrz() << ")" << endl ;
            return true;
         }else{
-//	  qDebug() << "Qso::gotTheQSL - N (" << getQrz() << ")" << endl ;
+	  //qDebug() << "Qso::gotTheQSL - N (" << getQrz() << ")" << endl ;
 	  return false;
         }
 }
 
 bool Qso::sentTheQSL(){ // Did i sent my QSL?
-//qDebug() << "Qso::sentTheQSL" ;
+//qDebug() << "Qso::sentTheQSL"  << endl;
   if (qslSenc == 'Y'){
 //    qDebug() << "Qso::sentTheQSL: YES" ;
     return true;
   }else{
-//    qDebug() << "Qso::sentTheQSL: NO" ;
+    //qDebug() << "Qso::sentTheQSL: NO" << endl;
     return false;
   }
 }

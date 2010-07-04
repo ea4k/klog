@@ -2,6 +2,7 @@ July-2010 0.5.6
 - Fixed the hamlib compilation scripts (CMakeLists.txt, FindHamlib.cmake). (TNX AB4BD).
 - Fixed one bug that causes some architectures not to compile.
 - Fixed some permisions and other warnings for Fedora packaging. (TNX N3LRX).
+- BUG fixed: Setting QSL from the log with right button was not working.
 
 May-2010 0.5.5
 - New feature: If cty.dat file is not found, KLog offers to download from the web. 
