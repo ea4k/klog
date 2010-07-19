@@ -4,7 +4,8 @@
 </critical>
 
 <BEFORE RELEASING>
-
+Shortcuts on the search box dont work.
+Check when adding a logfile to an existing log, the name is shown as call, locator, ... in the boxes.
 </BEFORE RELEASING>
 
 * Check iterators and change by indexes as in modifyQso.
