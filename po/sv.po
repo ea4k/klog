@@ -2,57 +2,58 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Peter Landgren <peter.talken@telia.com>, 2006, 2007, 2008, 2009.
+# Peter Landgren <peter.talken@telia.com>, 2006, 2007, 2008, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: sv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-14 19:40+0200\n"
-"PO-Revision-Date: 2009-12-20 14:18+0100\n"
+"PO-Revision-Date: 2010-07-17 15:47+0200\n"
 "Last-Translator: Peter Landgren <peter.talken@telia.com>\n"
-"Language-Team:  <sv@li.org>\n"
+"Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #. i18n: file: src/authenticationdialog.ui:13
 #. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
 #: po/rc.cpp:3 rc.cpp:3
 msgid "Http authentication required"
-msgstr ""
+msgstr "Http autentisering krävs"
 
 #. i18n: file: src/authenticationdialog.ui:19
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:6 rc.cpp:6
 msgid "You need to supply a Username and a Password to access this site"
 msgstr ""
+"Du måste ange ett Användarnamn och ett Lösenord för att komma åt denna plats"
 
 #. i18n: file: src/authenticationdialog.ui:29
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: po/rc.cpp:9 rc.cpp:9
 msgid "Username:"
-msgstr ""
+msgstr "Användarnamn:"
 
 #. i18n: file: src/authenticationdialog.ui:39
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: po/rc.cpp:12 rc.cpp:12
 msgid "Password:"
-msgstr ""
+msgstr "Lösenord:"
 
 #. i18n: file: src/authenticationdialog.ui:59
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: po/rc.cpp:15 rc.cpp:15
 msgid "Site:"
-msgstr ""
+msgstr "Plats:"
 
 #. i18n: file: src/authenticationdialog.ui:72
 #. i18n: ectx: property (text), widget (QLabel, siteDescription)
 #: po/rc.cpp:19 rc.cpp:19
 #, no-c-format
 msgid "%1 at %2"
-msgstr ""
+msgstr "%1 vid %2"
 
 #. i18n: file: src/klog.ui:33
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, klog)
@@ -1551,7 +1552,6 @@ msgstr "T-värde du fått från DX"
 #. i18n: file: src/klog.ui:1900
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_8_3)
 #: po/rc.cpp:580 src/src/ui_klog.h:1969 rc.cpp:580
-#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -1578,7 +1578,6 @@ msgstr ""
 #. i18n: file: src/klog.ui:1920
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_8_4)
 #: po/rc.cpp:587 src/src/ui_klog.h:1974 rc.cpp:587
-#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -1600,21 +1599,19 @@ msgstr ""
 "font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
 "left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">Effect:</span></p></body></html>"
+"style=\" font-weight:600;\">Effekt:</span></p></body></html>"
 
 #. i18n: file: src/klog.ui:1930
 #. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, freqtxdoubleSpinBox)
 #: po/rc.cpp:594 src/src/ui_klog.h:1980 rc.cpp:594
-#, fuzzy
 msgid "Shows the frecuency of the transceiver when hamlib is  (TX)"
-msgstr "Visar radions frekvens när hamlib är aktiverat"
+msgstr "Visar radions frekvens när hamlib är  (TX)"
 
 #. i18n: file: src/klog.ui:1949
 #. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, freqrxdoubleSpinBox)
 #: po/rc.cpp:597 src/src/ui_klog.h:1983 rc.cpp:597
-#, fuzzy
 msgid "Shows the frecuency of the transceiver when hamlib is activated (RX)"
-msgstr "Visar radions frekvens när hamlib är aktiverat"
+msgstr "Visar radions frekvens när hamlib är aktiverat (RX)"
 
 #. i18n: file: src/klog.ui:1989
 #. i18n: ectx: property (toolTip), widget (QLineEdit, namekLineEdit)
@@ -1863,7 +1860,6 @@ msgstr "Standradreferens"
 #. i18n: file: src/klog.ui:2387
 #. i18n: ectx: property (text), widget (QLabel, awardSelectorName_2)
 #: po/rc.cpp:716 src/src/ui_klog.h:2063 rc.cpp:716
-#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -1885,12 +1881,11 @@ msgstr ""
 "font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
 "left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">Effect:</span></p></body></html>"
+"style=\" font-weight:600;\">Effekt:</span></p></body></html>"
 
 #. i18n: file: src/klog.ui:2433
 #. i18n: ectx: property (text), widget (QLabel, awardSelectorName_3)
 #: po/rc.cpp:726 src/src/ui_klog.h:2071 rc.cpp:726
-#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -1912,7 +1907,7 @@ msgstr ""
 "font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
 "left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">Effect:</span></p></body></html>"
+"style=\" font-weight:600;\">Effekt:</span></p></body></html>"
 
 #. i18n: file: src/klog.ui:2451
 #. i18n: ectx: attribute (title), widget (QWidget, TabPage)
@@ -2436,7 +2431,7 @@ msgstr "Importera en cabrillo-logg"
 #. i18n: ectx: property (text), widget (QMenu, helpMenu)
 #: po/rc.cpp:983 src/src/ui_klog.h:1723 rc.cpp:983
 msgid "Update cty.dat"
-msgstr ""
+msgstr "Uppdatera cty.dat"
 
 #. i18n: file: src/klogui.rc:4
 #. i18n: ectx: Menu (custom)
@@ -2930,6 +2925,10 @@ msgid ""
 "If KLog download the file from www.country-files.com/cty/cty.dat it will be "
 "copied to your ~/.klog directory."
 msgstr ""
+"Kan ej hitta cty.dat-filen hos DX Entity data.\n"
+"\n"
+"Om KLog laddar ner filen from www.country-files.com/cty/cty.dat kommer "
+"den att kopieras till din ~/.klog-mapp"
 
 #: src/klog.cpp:449 src/klog.cpp:466
 msgid "Award:"
@@ -3060,7 +3059,6 @@ msgid "KLog-%1 - The KDE Ham Radio Logging program"
 msgstr "Klog -%1 - KDE's Amatörradiologgprogram"
 
 #: src/klog.cpp:2275
-#, fuzzy
 msgid ""
 "KLog: %1 - The KDE Ham Radio Logging program\n"
 "You can find the last version on http://jaime.robles.es/klog\n"
@@ -3068,8 +3066,9 @@ msgid ""
 "2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com"
 msgstr ""
 "KLog: %1 - KDE's Amatörradiologgprogram\n"
-"Du kan hitta senaste version på http://jaime.robles.es/klog\n"
-"2002 - 2009 - Jaime Robles, EA4TV, jaime@robles.es"
+"Du kan hitta senaste version påhttp://jaime.robles.es/klog\n"
+"2002 - 2010 - Jaime Robles, EA4TV, jaime@robles.es\n"
+"2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com"
 
 #: src/klog.cpp:2318
 msgid ""
@@ -3167,13 +3166,12 @@ msgid "Do you want to import without a QRZ?"
 msgstr "Vill du importera utan ett QRZ?"
 
 #: src/klog.cpp:3230
-#, fuzzy
 msgid ""
 "Enter the locator of the activity:\n"
 "(Leave it empty and press OK if the locator was %1)."
 msgstr ""
 "Skriv in använd lokator för aktivitetn:\n"
-"(Lämna den tom och tryck OK, om lokatorn var (%1))."
+"(Lämna den tom och tryck OK, om lokatorn var %1)."
 
 #: src/klog.cpp:3238
 msgid "Warning - Locator not valid"
@@ -3274,18 +3272,16 @@ msgid "KLog message"
 msgstr "KLog-meddelande"
 
 #: src/klog.cpp:4462
-#, fuzzy
 msgid "Enter your callsign to connect to the cluster:"
 msgstr "Skriv in din signal för att ansluta till klustret:"
 
 #: src/klog.cpp:4463
-#, fuzzy
 msgid "Enter your password to connect to the cluster:"
-msgstr "Skriv in din signal för att ansluta till klustret:"
+msgstr "Skriv in ditt lösenord för att ansluta till klustret:"
 
 #: src/klog.cpp:4469
 msgid "Not logged on, you may to enter your callsign again."
-msgstr "Ej inkloggad, du kan skriva in din anropssignal igen."
+msgstr "Ej inloggad, du kan skriva in din anropssignal igen."
 
 #: src/klog.cpp:4478
 msgid "Connection closed by the server"
@@ -3321,7 +3317,7 @@ msgstr ""
 
 #: src/klog.cpp:4540
 msgid "The following error occurred: %1."
-msgstr ""
+msgstr "Följande fel har inträffat: %1"
 
 #: src/klog.cpp:4726
 msgid ""
@@ -3407,77 +3403,76 @@ msgstr "Lägger till anropen: "
 
 #: src/klognetwork.cpp:14
 msgid "&URL:"
-msgstr ""
+msgstr "&URL:"
 
 #: src/klognetwork.cpp:16
 msgid "You are going to download the cty.dat file from:"
-msgstr ""
+msgstr "Du kommer strax att ladda ner cty.dat-filen från:"
 
 #: src/klognetwork.cpp:17
-#, fuzzy
 msgid "Do you want to continue?"
-msgstr "Vill du importera utan ett QRZ?"
+msgstr "Vill du fortsätta?"
 
 #: src/klognetwork.cpp:54
 msgid "KLog: CTY.DAT download"
-msgstr ""
+msgstr "KLog: CTY.DAT nerladdning"
 
 #: src/klognetwork.cpp:70
 msgid "KLog: File exists!"
-msgstr ""
+msgstr "KLog: Filen finns!"
 
 #: src/klognetwork.cpp:71
 msgid ""
 "There already exists a file called %1 in the current directory. Overwrite?"
-msgstr ""
+msgstr "Det finns redan en fil med namnet %1 i aktuell mapp. Skriva över?"
 
 #: src/klognetwork.cpp:81
 msgid "KLog: Can't save the file"
-msgstr ""
+msgstr "KLog: Kan ej spara filen"
 
 #: src/klognetwork.cpp:82
 msgid "Unable to save the file %1: %2."
-msgstr ""
+msgstr "Kunde ej spara filen %1: %2."
 
 #: src/klognetwork.cpp:101
 msgid "KLog: Downloading..."
-msgstr ""
+msgstr "KLog: laddar ner..."
 
 #: src/klognetwork.cpp:102
 msgid "Downloading %1."
-msgstr ""
+msgstr "Laddar ner %1"
 
 #: src/klognetwork.cpp:108
 msgid "Download canceled."
-msgstr ""
+msgstr "Nerladdning avbruten."
 
 #: src/klognetwork.cpp:138 src/klognetwork.cpp:189
 msgid "KLog: Download failed"
-msgstr ""
+msgstr "KLog: Nerladdning misslyckades"
 
 #: src/klognetwork.cpp:139 src/klognetwork.cpp:190
 msgid "Download failed: %1."
-msgstr ""
+msgstr "Nerladdning misslyckades: %1"
 
 #: src/klognetwork.cpp:143
 msgid "Downloaded %1 to the KLog directory."
-msgstr ""
+msgstr "Laddade ner %! till Klog-mappen"
 
 #: src/klognetwork.cpp:150
 msgid "KLog: cty.dat downloaded"
-msgstr ""
+msgstr "KLog: cty.dat nerladdad"
 
 #: src/klognetwork.cpp:151
 msgid "KLog has downloaded the cty.dat file successfully.\n"
-msgstr ""
+msgstr "KLog har laddat ner cty.dat-filen.\n"
 
 #: src/klognetwork.cpp:241
 msgid "KLog: SSL error"
-msgstr ""
+msgstr "KLog: SSL-fel"
 
 #: src/klognetwork.cpp:242
 msgid "One or more SSL errors has occurred: %1"
-msgstr ""
+msgstr "Ett eller flera SSL-fel har inträffat: %1"
 
 #: src/main.cpp:45
 msgid "KLog"
@@ -3488,9 +3483,8 @@ msgid "The KDE Ham radio loggin software."
 msgstr "Klog - KDE's Amatörradiologgprogram."
 
 #: src/main.cpp:48
-#, fuzzy
 msgid "Copyright (c) 2002-2010, Jaime Robles, EA4TV"
-msgstr "Copyright (c) 2002-2009, Jaime Robles, EA4TV"
+msgstr "Copyright (c) 2002-2010, Jaime Robles, EA4TV"
 
 #: src/main.cpp:54
 msgid "Log to load (Still does not work)"
@@ -3558,7 +3552,6 @@ msgstr ""
 "Kontrollera din klogrc-fil och fixa problemet."
 
 #: src/setup.cpp:909
-#, fuzzy
 msgid ""
 "This function has still not been implemented.\n"
 "Remove the appropriate \"Award=file.awa\" line from the ~/.klog/klogrc "
@@ -3566,12 +3559,13 @@ msgid ""
 "\n"
 msgstr ""
 "Denna funktion är inte införd ännu\n"
-"För att ta bort ett diplom så tag bort motsvarande rad i din klogrc-fil."
+"Tag bort motsvarande diplom \"Award=file.awa\"-rad från ~/.klog/klogrc-filen."
+"\n"
+"\n"
 
 #: src/setup.cpp:937
-#, fuzzy
 msgid "KLog: Add a DXCluster server"
-msgstr "Lägg till DX-Kluster-servern till listan"
+msgstr "Klog: Lägg till en DX-Kluster-server"
 
 #: src/setup.cpp:938
 msgid ""
@@ -3579,6 +3573,9 @@ msgid ""
 "Example: eadx.net:23\n"
 "If no port is specified, 41112 will be used by default.:"
 msgstr ""
+"Lägg till adressen följt av :port\n"
+"Exempel: eadx.net:23\n"
+"Om ingen port är angiven kommer 41112 att användas som standard.:"
 
 #: src/setup.cpp:1049
 msgid ""
