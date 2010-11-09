@@ -1,3 +1,14 @@
+date 0.5.7
+- New feature: Added the Export needed QSL that allows to create an ADIF file with all the QSO with new ones and new bands still not confirmed that has not been QSLed.
+  The objective is to export it to a QSL or label printing software (until KLog implements that feature).
+- Updated translations: SV by SM4ABE.
+- GUI improved: Added sliders to be able to move panels.
+- GUI improved: Changing the band combobox changes the TX Freq box and viceversa.
+- Minor fix: The PROGRAMVERSION tag in log was not properly formated.
+
+CUANDO SE ESTA BUSCANDO Y SE AÑADE QSL ENV/RECV NO SE ACTUALIZA (HAY QUE EJECUTAR EL SEARCH AGAIN)
+PONER UNA PISTA EN EL SEARCH BOX CUANDO SE PONE EL RATON ENCIMA INDICANDO EL QRZ CON EL QUE SE TRABAJO
+
 July-2010 0.5.6
 - Fixed the hamlib compilation scripts (CMakeLists.txt, FindHamlib.cmake). (TNX AB4BD).
 - Fixed one bug that causes some architectures not to compile.

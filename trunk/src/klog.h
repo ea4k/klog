@@ -27,6 +27,7 @@
 #define KLOG_H
 
 #include <KDE/KApplication>
+
 #include <QObject>
 #include <QMenu>
 #include <QAction>
@@ -59,6 +60,7 @@
 #include <QInputDialog>
 #include <QTimer>
 #include <QMainWindow>
+#include<QTextBrowser>
 //#include <QAbstractSocket>
 #include "ui_klog.h"
 // The next two are for the cluster box
@@ -117,7 +119,7 @@ class Klog : public QMainWindow, private Ui::klog
 
     public:
     /** construtor */
-    Klog(QMainWindow *parent = 0);
+    Klog(const QString& tversion, QMainWindow *parent = 0);
     /** destructor */
     ~Klog();
     //Qso qso;
@@ -202,6 +204,7 @@ class Klog : public QMainWindow, private Ui::klog
     void slotAddLog();
     void slotImportTlf();
     void slotImportCabrillo();
+    void slotExportNeeded();	// Export all the needed QSO (new ones and new bands)
     void slotIOTAChanged();
     void sortLog(); //To order by date the log and produce OLog
     void slotcompleteThePreviouslyWorked();
@@ -246,6 +249,7 @@ class Klog : public QMainWindow, private Ui::klog
     bool completedWithPrevious;
     bool qsoSelectedBool, qsoSearchSelectedBool; 	//To know if a QSO has been selected at least once
     bool requireMandatory;		// Configuration parameter (requires all the mandatory data for all the QSO) (QRZ, date, time, band, mode, RST (TX&RX))
+    bool bandFreqLock; // Avoids the deadlock of automatically changing band combobox to freqTX and viceversa forever
     QString tempLogFile;	// Temp log to save automatically
 
     typedef QList<Reference> References; // The list of references of the current award.
@@ -472,6 +476,8 @@ class Klog : public QMainWindow, private Ui::klog
    // QAction *actionUpdateCtyDat;
     //QAction *actionUpdateCtyDatManually;
     QActionGroup *qsoActionsGroup;
+    
+    
     
 };
 

@@ -4,17 +4,16 @@
 </critical>
 
 <BEFORE RELEASING>
-Shortcuts on the search box dont work.
-Check when adding a logfile to an existing log, the name is shown as call, locator, ... in the boxes.
 </BEFORE RELEASING>
 
 * Check iterators and change by indexes as in modifyQso.
-* Check the TX frequency box number and make it compatible with the bandComboBox (Special care when modifiying...)
 * Check the ADIF QSL_VIA compatibility (B, D, E, M, ...)
 * ADD the STATION_CALLSIGN tag and relate it to OPERATOR
 * URGENT: rewrite the hamlib support code!!!
 * URGENT: The way the awards are deleted is not very smart.
 * When adding/editing a QRZ the cursor position should be keeped... to avoid mistakes while typing/copy&pasting
+* When importing a Log, if the imported  includes the seconds, dont loose them. It implies to add seconds support to KLog for all the QSO
+* Improve the way the cty.dat is downloaded, specially the GUI as it is not nice.
 
 The list calls to writeconf and readconf when a award is deleted so if a user
 makes any modification in any other field in the setup GUI, it is saved!

@@ -58,7 +58,7 @@ public:
 	QString getPrefix(const QString tqrz); // Returns the prefix we found in findEntity.
 
 	Entity getEntByNumb(int num);
-	int giveEnt(const QString tqrz);
+	
 	int howManyEntities();
 
 	bool isSpecial(const QString &tpfx);  // This functions returns true if Entity has special zones
@@ -106,6 +106,7 @@ private:
 	int getItuz(); // HACK: I should fool-proof this function adding a QString as a call to get the zone
 	int getCqz();  // HACK: I should fool-proof this function adding a QString as a call to get the zone
 	void createNullEntity(); //Creates a null entity that will be an entity in every world 
+	int giveEnt(const QString tqrz); 		// Internal search fucntion
 
 
 };
