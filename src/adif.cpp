@@ -28,7 +28,7 @@
 //#include "iostream"
 
 #include "adif.h"
-#include <QDebug>
+//#include <QDebug>
 
 /*
 This class is really not independant FROM the GUI as the numbers to codify the
@@ -112,7 +112,7 @@ int Adif::band2Int(const QString& tband){
   }else if (sAux == "2M"){
     return 12;
   }else if (sAux == "125CM"){
-     return 13;
+    return 13;
   }else if (sAux == "70CM"){
     return 14;
   }else if (sAux == "33CM"){
@@ -275,6 +275,12 @@ int Adif::mode2Int(const QString& tmode){
     return 58;
   }else{return -1;}
 }
+
+QString Adif::band2Freq (const QString& tband){
+  //qDebug() << "Adif::band2Freq: " << tband << endl;
+  return int2Freq( band2Int(tband) );
+}
+
 
 int Adif::freq2Int (const QString& tfreq){ // Receives MHz/String
 // Due to float precision the band limits are not exact!
@@ -855,7 +861,7 @@ int Adif::entity2AdifNumber(const QString& tPref){ // returns the ADIF number of
 
 bool Adif::ifValidBand(const QString& tband){
 //cout << "Adif::ifValidBand: " << tband << endl;
-    if (band2Int(tband)>1){
+    if (band2Int(tband)>0){
         return true;
     }else{
         return false;
