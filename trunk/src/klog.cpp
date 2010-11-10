@@ -2238,7 +2238,7 @@ void Klog::slotQslSentBoxChanged(){
         qso.QslSent('N');
 /*		//TODO: This date is not valid, it is out of range!
         if ( !(QDateTime::fromString("0000-00-00", Qt::ISODate)).isValid() ) {
-//			qDebug() << "Date not valid: (all zeros) " << dateString << endl;
+//			qDebug() << "FECHA NO VALIDA-6: (todo ceros) " << dateString << endl;
             qslSen = QDate::fromString("0000-00-00",Qt::ISODate);
         }*/
         (QSLSentdateEdit)->setDate(qslSen);
