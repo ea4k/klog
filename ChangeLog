@@ -1,4 +1,4 @@
-date 0.5.7
+November-2010 0.5.7
 - New feature: Added the Export needed QSL that allows to create an ADIF file with all the QSO with new ones and new bands still not confirmed that has not been QSLed.
   The objective is to export it to a QSL or label printing software (until KLog implements that feature).
 - Updated translations: SV by SM4ABE.
