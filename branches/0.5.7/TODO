@@ -1,0 +1,188 @@
+<critical>
+(Critical is something like crashes and so on)
+* No critical bugs known... but maybe there are some...
+</critical>
+
+<BEFORE RELEASING>
+</BEFORE RELEASING>
+
+* Check iterators and change by indexes as in modifyQso.
+* Check the ADIF QSL_VIA compatibility (B, D, E, M, ...)
+* ADD the STATION_CALLSIGN tag and relate it to OPERATOR
+* URGENT: rewrite the hamlib support code!!!
+* URGENT: The way the awards are deleted is not very smart.
+* When adding/editing a QRZ the cursor position should be keeped... to avoid mistakes while typing/copy&pasting
+* When importing a Log, if the imported  includes the seconds, dont loose them. It implies to add seconds support to KLog for all the QSO
+* Improve the way the cty.dat is downloaded, specially the GUI as it is not nice.
+
+The list calls to writeconf and readconf when a award is deleted so if a user
+makes any modification in any other field in the setup GUI, it is saved!
+URGENT: * To add a button to active the Hamlib once it has been disabled if it was actived in the setup.
+* Check what to do with the "/M" stations. Now they are not counted as a DXCC entity.
+
+* AWARDS: worked/confirmed reference
+	delete a QSO includes delete a reference
+	is worked?
+
+* OPTIMIZATION: Work with the log in a QList and just show in the QTreeWidget
+* OPTIMIZATION: When QSL Managing, it is slow between you accept/send a QSL
+and you can continue... What is done in between???
+* OPTIMIZATION:  When clicking over OK button, it re-paint the loglist
+completely. I should just "add" a new QSO and not re-reading the whole log.
+* OPTIMIZATION: The showLogList() should be in background! to allow the update while using KLog at the same time
+* OPTIMIZATION: Check in the QSL-rec functions the confirmed/dxcc.confirmed/notconfirmed... there is no need to check if it is confirmed before setting as not confirmed!
+* OPTIMIZATION: Define a data struct to group all the hamlib/rig control information around.
+* OPTIMIZATION: re-Write the getEntityFromCall() to getEntityFromCall(const QString& call) to secure it and not depend on the textedit content
+
+
+* BUG??????????: To check if remarks is also copied when "complete from previous QSO" as today it IS copied.
+* BUG: RST is a String, Aurora QSOs must be 59A (TNX SM5CNQ)
+* BUG: When adding an award, if the file is not in the .klog dir, it does not work.
+* BUG: Re-Write the hamlib support!
+* BUG: In case the number of the call (like in EA4TV/6 or in UA1AA/9) changes the DX Entity, KLog does not recognise it.
+* BUG: The first time you enter a call (although you have already loaded a logfile) KLog does not shows the correct entity band state for that entity. It only happens with the first call in a use of KLog. I still don't know why!
+* BUG: when loading a log, the console shows erros about the range of the dates. It seems to be a bug of Qt, not of KLog but it still needs a check. (I have already checked it but I have not found a way to solve it. Dates are OK and checked while managed.). Maybe related with the lack of date if no QSL has been sent or received?
+* BUG: In readQso() If the QSO was QSL received and the user deleted, the dxcc&waz status should be updated.
+
+NEW FEATURE: Add a needed tab in the botton box. Needed spots would be added there. User
+can also add spots there. Maybe I can add two tabs, one for user added and
+another for automatic needed spots.
+
+
+To check the Debian package as I think icons are not being included (s390/0.3.01)
+http://buildd.debian.org/fetch.php?&pkg=klog&ver=0.3.0-1&arch=s390&stamp=1099872133&file=log&as=raw
+
+* Possible fix: To solve the year 2000 date "problem" when importing data from TLF... if the last two digits of the QSO date is "older" than the actual date, then we are importing a 19xx date QSO. (TNX Fermin)
+                Another solution could be just to ask the user about the
+		first two digits when finding a 2-digit year.
+
+URGENT: * To add a button to active the Hamlib once it has been disabled if it was actived in the setup.
+
+There are so many thinks to do in KLog:
+
+<working now in>
+* Working in the dxpot class to add a bandmap from the dxcluster
+* To implement the remove award slot in Setup Class
+
+* showIfPreviouslyWorked(): Create the new tab, ... and read the comments in the klog.cpp file
+* Add a box or whatever to show talks and announces from the DX-Cluster
+* Working in the class qslneeded
+* V/UHF support (locators, distances, Grids...)
+* Reviewing the workflow/diagram of QSL rec/sent
+
+</working now in>
+
+<bugs>
+* It is not possible to log the QSO without using the mouse. (it is not
+possible to reach the Name and QTH with tabs) (P.H. Rankin H.)
+* It is necesary to run klog from a directory with icons to have them in the rightButton actions.
+* I think this is a KLog - bug which has still to be fixed. And
+ perhaps, if there is a field that KLog cannot import, there should be
+ an error message, best thing if it can sort out the wrong field...but
+ a general error should be ok at first. (DL5PD)
+
+
+</bugs>
+
+                   
+<Early versions - WishList>
+* Maybe a new feature to export QSOs between two dates to a file.
+* Add a way to group the "NEW ONES" when the user executes the Tools->Find QSO to QSL to priorize the NEW ONES.
+* Multi call support, the same user can log with several calls (OPERATOR).
+* When showing QSO to QSL search and display as "needed" the QRZ that is a new one, has not been confirmed in ANY band.
+* Make the cty.dat QMessage to display an URL "clickable" (setTextFormat(RichText))
+* Include a way to find duplicate QSO (QSO with same QRZ/date/time/band).
+* Include a message box (maybe another tab...maybe like the log/cluster... to write KLog messages to the user).
+	For example, when reading the log if there is any inconsistence... freq!=band or other... Just a way to communicate with the user.
+* Include a TIP on the start of KLog. Showing there is a mailinglist... ;-)
+* Include another tag in the bottom box to add a list of needed DXSpots to void loosing them if the DXCluster traffic is high (something like a bandmap of contest software) ;-)
+* Include in the DXCluster menu some kind of filters to filter the DXCluster spots by band, mode, ... only spots from my continent.
+* Add in the menu some kind of IARU band plan just as information
+* To include a "Send to DX-Cluster" button so it is possible to automaticaly send a QSO as a spot to the DX-Cluster. Maybe it is necessary to ask for the frecuency and comments ;-)
+* Add a tag to control the rig via Hamlib. Enter frecuency, modes, ...
+* Make configurable the date period (when using two digits for the year) to know if we are importing a 19xx or a 2xxx year. It could solve the problem of TLF log imports.
+* Two timers to save QSO duration. (TNX: P.H. Rankin Hansen)
+* Mode selection by keyboard (use of acelerators). (TNX: P.H. Rankin Hansen)
+* Be able to configure the modes that are going to use. (TNX: P.H. Rankin Hansen)
+* A kind of association between "band+mode+power"... to ease operation (TNX: P.H. Rankin Hansen)
+* Control 2 VFO and allow saving freqs..
+* Save the frecuency if hamlib is being used
+* A "bye" message when disconnecting from cluster to "announce KLog" Maybe a ann/local message
+* a way to make KLog to tell you what QSOs are with a needed and you have not send the QSL.
+* When importing from TLF save STX and SRX (serials tx/rx in contest).
+* Second frecuency when working satellite.
+
+> 6. Although I can imagine it is not that easy to realize, how about
+> getting klog to work together with a callbook or at least with
+> qrz.com or something else, to get name and qth by just entering the
+> callsign, that would be for sure a great improvement (similar to ham
+> office under windows). What do you think about it? Rainer Dohmen, DL5PD.
+* To select an Entity and show the QSOs with that Entity
+* When QSL managing, it would be nice to have the state of the QSO selection in other place than just the color as when selected it is not noticed.
+* Doc for KLog
+* QSL "contribution$" needed? support
+* Import/export from/to tlf(only export is missing), xlog, cabrillo
+* Awards: managing awards as IOTA, WAS, WAZ, WAE, TPEA, ...
+* Satellite support
+* Protect KLog against bad formatted data (ie IOTA in the QSO class)
+
+</Early versions - WishList>
+
+
+<Not so soon - WishList>
+* Add in the setup the possibility to create the station and from the log to select the rig you are using to do the QSO. (P.H. Rankin H.)
+* Power is an int when reading from klogrc but an string in the rest of the program.
+* Contest calendar from Internet?
+</Not so soon - WishList>
+
+<ke6sls>
+1. cty.dat isn't copied to users directory on first startup.
+2. /usr/share/klog/cty.dat *does not exist* in .deb package.
+3. Can not specify frequency--example: 14.233MHz
+4. Tab doesn't move from one part of Klog to the next:
+5. from callsign/mode/freq box will not skip [tab] to RST box.
+
+Wish list:
+1. Simple log screen where I can quickly tab from one field to next with the TAB button on keyboard to
+include the following entries:
+NAME/CITY/STATE-PROVINCE/COUNTRY/RST(auto-switch
+between CW/SSB)/FREQUENCY/MODE/POWER then seperate
+areas for further details like Remarks/QSL/WAS/WAC/etc
+2. Enable manual entry for Modes and Frequency. Example: psk64 12.1055MHz (for those who want exact inafo)
+3. Start/stop qso time duration.
+4. Add splash screen asking for log file to open.
+5. Help documentation under the HELP menu.
+8. Add more import options for other logs like winlog and log-eqf data! �It would be wonderful to be able to
+ import my old log-eqf data into klog.
+<ke6sls>
+
+<YU1IS>
+
+WISHLIST
+
+- It will be so good for me if the statistics about DXCC, WAZ and other could work by 
+bands, modes and "mixed", depending on actual award rules.
+
+</YU1IS>
+
+<DL5PD>
+
+ 5. For me personal (perhaps also for others) I would like to have the
+ activation order changed, that means: first, you enter the callsign,
+ for sure, that is alright. After that, at least in real time mode, it
+ would be handy to switch directly to the name, and then to the qth of
+ the station going to be logged. Perhaps before, you can edit the
+ signal report, but you should definitly skip the step of "power",
+ "band" and "mode" at the beginning, because you don't change it that
+ much during a contest for example.
+QRZ, Name, QTH
+
+</DL5PD>
+
+
+Printing: Labels / direct to card. Readed in eHam from OH7JJT
+
+ADIF not supported:
+	CNTY & MY_CNTY: I still don't know how to work with it. Is it a String, Number, combination... I think that the ADIF forum should work on it.
+	All the EQSL fields: under discussion on the ADIF forum
+	All the LOTW fields.
