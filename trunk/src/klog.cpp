@@ -3537,7 +3537,7 @@ void Klog::slotAddLog(){
     QMessageBox msgBox;
     msgBox.setText(i18n("KLog message:"));
 //	  QString str = i18n("The log file has been\nsucessfully added!");
-      QString str = i18n("The log file has been\nsucessfully added!");
+      QString str = i18n("The log file has been\nsuccessfully added!");
       msgBox.setInformativeText(str);
       msgBox.setStandardButtons(QMessageBox::Ok);
       msgBox.setDefaultButton(QMessageBox::Ok);
