@@ -6,6 +6,7 @@
 <BEFORE RELEASING>
 </BEFORE RELEASING>
 
+* Filters: Select a DXCC entity and a band to find QSO to QSL.
 * Check iterators and change by indexes as in modifyQso.
 * Check the ADIF QSL_VIA compatibility (B, D, E, M, ...)
 * ADD the STATION_CALLSIGN tag and relate it to OPERATOR
