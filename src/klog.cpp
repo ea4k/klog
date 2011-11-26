@@ -39,7 +39,7 @@ Klog::Klog(const QString& tversion, QMainWindow *parent) : QMainWindow(parent) {
   
   
   Klog::KLogVersion = tversion;
-  //Klog::KLogVersion = "0.5.7";
+  //Klog::KLogVersion = "0.5.8";
 //   Klog::editdeletePixMap = new QPixmap("editdelete.png");
 //   editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
 //   Klog::qslRecPixMap = new QPixmap("qslRec.png");
@@ -283,7 +283,7 @@ void Klog::createActions(){
   connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));
   connect(searchQsosTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT(showRighButtonSearchMenu(const QPoint& ) ) );
   
-  
+  //connect(this, SIGNAL(triggered()), this, SLOT(fileExit()) );
 
  // connect(searchQsosTreeWidget, SIGNAL(itemSelectionChanged ()), this, SLOT(slotSearchQSOSelectionChanged()));
 /*  connect(searchQsosTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotSearchQSOSelectionChanged()));*/
@@ -1954,19 +1954,6 @@ void Klog::showRighButtonLogMenu( const QPoint& pos ){
  //KMenu *qsoMenu = new KMenu( i18n ("QSO menu"), Ui_klogui );
 
     QMenu menu(this);
-//  menu.setTitle("context");
-//   showMenuRightButtoncreateActions();
-//
-//   menu.addAction(delQSOAct);
-//   menu.addSeparator();
-//   menu.addAction(recSenQSOAct);
-//   menu.addAction(recQSOAct);
-//   menu.addAction(senQSOAct);
-//   menu.exec(QCursor::pos());
-
-//qsoMenu = new QMenu(i18n("QSO menu"), this);
-//qsoMenu->insertItem( *editdeletePixMap, i18n("Delete"), this, SLOT( slotQsoDelete() ), CTRL + Key_D );
-//qsoMenu->insertSeparator();
     menu.addAction(delQSOAct);
     menu.addSeparator();
 
@@ -2528,7 +2515,7 @@ void Klog::helpAbout() {
 //qDebug() << "KLog::helpAbout" << endl;
   
   QString sAbout1 = i18n("KLog-%1 - The KDE Ham Radio Logging program", Klog::KLogVersion);
-  QString sAbout2 = i18n("You can find the last version on <a href=\"http://jaime.robles.es/klog\">http://jaime.robles.es/klog</a>\n2002 - 2010 - Jaime Robles, EA4TV, jaime@robles.es\n2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com", Klog::KLogVersion);
+  QString sAbout2 = i18n("You can find the last version on <a href=\"http://jaime.robles.es/klog\">http://jaime.robles.es/klog</a>\n2002 - 2011 - Jaime Robles, EA4TV, jaime@robles.es\n2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com", Klog::KLogVersion);
   
   QMessageBox msgBox;
   msgBox.setText(sAbout1);
@@ -5658,6 +5645,35 @@ bool Klog::checkCTYDATFile(){
   
   
 }
+void Klog::closeEvent(QCloseEvent *event)
+ {
+   
+  if (needToSave)
+  {
+    if(!didISave())
+    { // If i did not save, i cannot exit without saving
+      event->ignore();
+      return;
+    }
+    event->accept();
+    close();
+  }
+  
+  else
+  {
+    event->accept();
+  }
+  
+   
+/*   
+     if (maybeSave()) {
+         writeSettings();
+         event->accept();
+     } else {
+         event->ignore();
+     }
+*/
+ }
 
 /***************************************************************************
 ** This is an auxiliary class intended to provide color to the DX-Cluster **

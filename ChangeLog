@@ -1,3 +1,10 @@
+November-2011 0.5.8-RC1
+- Bug fixed: Right button in the search result did not "sent" the QSL card.
+- Bug fixed: Closing the window did not ask to save data before exit. (TNX EA7HEG).
+TODO: - Bug fixed: Beam was not properly calculated. (TNX DL6FBS).
+- GUI updated: Remove the map tab in the main GUI as it is still not implemented.
+
+
 November-2010 0.5.7
 - New feature: Added the Export needed QSL that allows to create an ADIF file with all the QSO with new ones and new bands still not confirmed that has not been QSLed.
   The objective is to export it to a QSL or label printing software (until KLog implements that feature).
