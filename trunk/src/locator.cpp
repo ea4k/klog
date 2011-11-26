@@ -134,14 +134,17 @@ double Locator::getLon(const QString& tlocator){
   
 }
 
-int Locator::getBeam(const double lon1, const double lat1, const double lon2, const double lat2){
+int Locator::getBeam(const double lon1, const double lat1, const double lon2, const double lat2)
+{
+  //lon1 & lat1 origin
+  //lon2 & lat2 destination
   double lon_a,lat_a,lon_b,lat_b, bearing;
   lon_a=lon1*PI/180;   // Convert degrees to radians
   lat_a=lat1*PI/180;
   lon_b=lon2*PI/180;
   lat_b=lat2*PI/180;
 
-//earing_Distance( double lon_a, double lat_a, /* Lon/Lat of point A */
+//bearing_Distance( double lon_a, double lat_a, /* Lon/Lat of point A */
 //                  double lon_b, double lat_b, /* Lon/Lat of point B */
 //                  double *bearing, double *distance )/* From A to B */
 //{
@@ -168,10 +171,14 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
   /* Correct negative (anticlockwise) bearings */
   
   if( bearing < 0.0 )
-    bearing = (2*PI) + bearing;
-  bearing = 360-(180/PI*bearing);
-
+  {
+    bearing = (2*PI) + bearing;   
+  }
+  
   /* Convert to degrees */
+  bearing = (180 * bearing) / PI;
+
+
   return (int)bearing;
 
 

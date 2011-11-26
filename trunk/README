@@ -19,7 +19,7 @@ Look at the Changelog file to see what is done.
 You can download the last version of KLog from:
 
 http://jaime.robles.es/klog
-https://developer.berlios.de/projects/klog/
+https://savannah.nongnu.org/projects/klog
 
 Logs are saved in ~/.klog/klog.adi by default but you can change it.
 

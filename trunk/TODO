@@ -26,11 +26,9 @@ URGENT: * To add a button to active the Hamlib once it has been disabled if it w
 	delete a QSO includes delete a reference
 	is worked?
 
-* OPTIMIZATION: Work with the log in a QList and just show in the QTreeWidget
-* OPTIMIZATION: When QSL Managing, it is slow between you accept/send a QSL
-and you can continue... What is done in between???
-* OPTIMIZATION:  When clicking over OK button, it re-paint the loglist
-completely. I should just "add" a new QSO and not re-reading the whole log.
+* OPTIMIZATION: Work with the log in a QList and just show in the QTreeWidget (model/view)
+* OPTIMIZATION: When QSL Managing, it is slow between you accept/send a QSL and you can continue... What is done in between???
+* OPTIMIZATION: When clicking over OK button, it re-paint the loglist completely. I should just "add" a new QSO and not re-reading the whole log.
 * OPTIMIZATION: The showLogList() should be in background! to allow the update while using KLog at the same time
 * OPTIMIZATION: Check in the QSL-rec functions the confirmed/dxcc.confirmed/notconfirmed... there is no need to check if it is confirmed before setting as not confirmed!
 * OPTIMIZATION: Define a data struct to group all the hamlib/rig control information around.
@@ -162,8 +160,7 @@ areas for further details like Remarks/QSL/WAS/WAC/etc
 
 WISHLIST
 
-- It will be so good for me if the statistics about DXCC, WAZ and other could work by 
-bands, modes and "mixed", depending on actual award rules.
+- It will be so good for me if the statistics about DXCC, WAZ and other could work by bands, modes and "mixed", depending on actual award rules.
 
 </YU1IS>
 

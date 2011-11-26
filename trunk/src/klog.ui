@@ -49,7 +49,7 @@
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
           <widget class="QFrame" name="frame">
@@ -59,9 +59,16 @@
            <property name="frameShadow">
             <enum>QFrame::Raised</enum>
            </property>
-           <layout class="QGridLayout" name="gridLayout_u">
+           <layout class="QGridLayout" name="gridLayout_10">
             <item row="0" column="0">
-             <widget class="KLed" name="kledColor"/>
+             <widget class="KLed" name="kledColor">
+              <property name="maximumSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
             </item>
             <item row="0" column="1" colspan="2">
              <widget class="QLineEdit" name="qrzLineEdit">
@@ -467,10 +474,33 @@
               </item>
              </widget>
             </item>
+            <item row="1" column="0">
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Maximum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
             <item row="1" column="1">
              <widget class="QDateEdit" name="qsoDateEdit">
               <property name="displayFormat">
                <string>dd/MM/yyyy</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QTimeEdit" name="qsoTimeEdit">
+              <property name="displayFormat">
+               <string>HH:mm:ss</string>
               </property>
              </widget>
             </item>
@@ -491,13 +521,6 @@
               </property>
               <property name="text">
                <string>OK</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QTimeEdit" name="qsoTimeEdit">
-              <property name="displayFormat">
-               <string>HH:mm:ss</string>
               </property>
              </widget>
             </item>
@@ -1445,7 +1468,7 @@ p, li { white-space: pre-wrap; }
          </size>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="info">
          <attribute name="title">
@@ -2596,12 +2619,6 @@ p, li { white-space: pre-wrap; }
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="dxMapTab">
-        <attribute name="title">
-         <string>DX Map</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_6"/>
-       </widget>
        <widget class="QWidget" name="dxccTab">
         <attribute name="title">
          <string>DXCC</string>
@@ -2680,9 +2697,6 @@ p, li { white-space: pre-wrap; }
      </widget>
     </item>
    </layout>
-   <zorder>downTabs</zorder>
-   <zorder>outputTab</zorder>
-   <zorder></zorder>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="label" stdset="0">
@@ -2708,7 +2722,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>25</height>
+     <height>19</height>
     </rect>
    </property>
    <property name="defaultUp">
@@ -3190,32 +3204,54 @@ p, li { white-space: pre-wrap; }
   <tabstop>qrzLineEdit</tabstop>
   <tabstop>modeComboBox</tabstop>
   <tabstop>bandComboBox</tabstop>
+  <tabstop>qsoDateEdit</tabstop>
+  <tabstop>qsoTimeEdit</tabstop>
+  <tabstop>namekLineEdit</tabstop>
+  <tabstop>qthkLineEdit</tabstop>
+  <tabstop>locatorLineEdit</tabstop>
+  <tabstop>okBtn</tabstop>
+  <tabstop>clearBtn</tabstop>
+  <tabstop>QSLcomboBox</tabstop>
+  <tabstop>qslVialineEdit</tabstop>
+  <tabstop>QSLInfotextEdit</tabstop>
+  <tabstop>remarksTextEdit</tabstop>
+  <tabstop>iotaComboBox</tabstop>
+  <tabstop>iotaIntSpinBox</tabstop>
+  <tabstop>awardsComboBox</tabstop>
+  <tabstop>satNamelineEdit</tabstop>
+  <tabstop>satModelineEdit</tabstop>
+  <tabstop>powerSpinBox</tabstop>
+  <tabstop>operatorLineEdit</tabstop>
+  <tabstop>stationCallsignLineEdit</tabstop>
+  <tabstop>myLocatorLineEdit</tabstop>
+  <tabstop>QSLSentcheckBox</tabstop>
+  <tabstop>QSLSentdateEdit</tabstop>
+  <tabstop>QSLReccheckBox</tabstop>
+  <tabstop>QSLRecdateEdit</tabstop>
   <tabstop>RSendBox</tabstop>
   <tabstop>SSendBox</tabstop>
   <tabstop>TSendBox</tabstop>
   <tabstop>RRecBox</tabstop>
   <tabstop>SRecBox</tabstop>
   <tabstop>TRecBox</tabstop>
-  <tabstop>namekLineEdit</tabstop>
-  <tabstop>qthkLineEdit</tabstop>
-  <tabstop>QSLcomboBox</tabstop>
-  <tabstop>qslVialineEdit</tabstop>
-  <tabstop>awardsComboBox</tabstop>
-  <tabstop>downTabs</tabstop>
+  <tabstop>freqtxdoubleSpinBox</tabstop>
+  <tabstop>freqrxdoubleSpinBox</tabstop>
   <tabstop>outputTab</tabstop>
-  <tabstop>inputTab</tabstop>
-  <tabstop>previousNamekLineEdit</tabstop>
-  <tabstop>previousQthkLineEdit</tabstop>
   <tabstop>searchQrzkLineEdit</tabstop>
   <tabstop>searchSearchkPushButton</tabstop>
   <tabstop>searchCancelkPushButton</tabstop>
-  <tabstop>ClusterkLineEditInPut</tabstop>
-  <tabstop>ClusterkPushButtonOK</tabstop>
-  <tabstop>ClusterkPushButtonClear</tabstop>
+  <tabstop>previousNamekLineEdit</tabstop>
+  <tabstop>previousQthkLineEdit</tabstop>
   <tabstop>timekLineEdit</tabstop>
-  <tabstop>powerSpinBox</tabstop>
-  <tabstop>myLocatorLineEdit</tabstop>
-  <tabstop>operatorLineEdit</tabstop>
+  <tabstop>searchQsosTreeWidget</tabstop>
+  <tabstop>downTabs</tabstop>
+  <tabstop>logTreeWidget</tabstop>
+  <tabstop>ClusterkPushButtonClear</tabstop>
+  <tabstop>ClusterkPushButtonOK</tabstop>
+  <tabstop>ClusterkLineEditInPut</tabstop>
+  <tabstop>inputTab</tabstop>
+  <tabstop>dxclusterListWidget</tabstop>
+  <tabstop>dxccTreeWidget</tabstop>
  </tabstops>
  <resources/>
  <connections>

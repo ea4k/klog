@@ -117,6 +117,9 @@ class Klog : public QMainWindow, private Ui::klog
     friend class dxClusterSpotItem;
     friend class bandMapSpotItem;
 
+    protected:
+     void closeEvent(QCloseEvent *event);
+
     public:
     /** construtor */
     Klog(const QString& tversion, QMainWindow *parent = 0);
