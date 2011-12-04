@@ -753,7 +753,7 @@ void Klog::slotExportNeeded(){
 
 //		Klog::LogBook::iterator itEnd;
 //		itEnd = lb.end();
-    QString aString = i18n("ADIF v1.0 (some ADIF v2 fields) Export from KLog-%1\nhttp://jaime.robles.es/klog\n<APP_KLOG_NUMBER: %2>%3\nLog saved: %4-%5\n<PROGRAMID:4>KLOG <PROGRAMVERSION:%6>%7\n<EOH>\n",Klog::KLogVersion, QString::number( Klog::number ).length(), QString::number(Klog::number), dateTime.toString("yyyyMMdd"), dateTime.toString("hhmm"), QString::number((Klog::KLogVersion).length()), Klog::KLogVersion);
+    QString aString = i18n("ADIF v1.0 (some ADIF v2 fields) Export from KLog-%1\nhttp://jaime.robles.es/klog\n<APP_KLOG_NUMBER:%2>%3\nLog saved: %4-%5\n<PROGRAMID:4>KLOG <PROGRAMVERSION:%6>%7\n<EOH>\n",Klog::KLogVersion, QString::number( Klog::number ).length(), QString::number(Klog::number), dateTime.toString("yyyyMMdd"), dateTime.toString("hhmm"), QString::number((Klog::KLogVersion).length()), Klog::KLogVersion);
     stream << aString << endl;
         //stream << i18n("ADIF v1.0 (some ADIF v2 fields) Export from KLog-") + Klog::KLogVersion + " \nhttp://jaime.robles.es/klog" << "\n<APP_KLOG_NUMBER:" << QString::number( Klog::number ).length() << ">" << QString::number(Klog::number) << i18n("\nLog saved: ") << dateTime.toString("yyyyMMdd") << "-" << dateTime.toString("hhmm") << "\n<PROGRAMID:4>KLOG <PROGRAMVERSION:" + QString::number((Klog::KLogVersion).length()) << ">" << Klog::KLogVersion << " \n<EOH>\n" << endl;
 
