@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-10 19:34+0100\n"
+"POT-Creation-Date: 2011-12-04 10:27+0100\n"
 "PO-Revision-Date: 2010-07-17 15:47+0200\n"
 "Last-Translator: Peter Landgren <peter.talken@telia.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -17,6 +17,1558 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: build/src/ui_klog.h:1668 src/main.cpp:44
+msgid "KLog"
+msgstr "KLog"
+
+#: build/src/ui_klog.h:1673
+msgid "KLog - The KDE Ham radio logging software."
+msgstr "Klog - KDE's Amatörradiologgprogram."
+
+#: build/src/ui_klog.h:1675
+msgid "&New"
+msgstr "&Nytt"
+
+#: build/src/ui_klog.h:1676
+msgid "New"
+msgstr "Nytt"
+
+#: build/src/ui_klog.h:1678
+msgid "New Log"
+msgstr "Ny logg"
+
+#: build/src/ui_klog.h:1680
+msgid "Ctrl+N"
+msgstr "Ctrl+N"
+
+#: build/src/ui_klog.h:1681
+msgid "&Open..."
+msgstr "&Öppna..."
+
+#: build/src/ui_klog.h:1682
+msgid "Open"
+msgstr "Öppna"
+
+#: build/src/ui_klog.h:1683
+msgid "Ctrl+O"
+msgstr "Ctrl+O"
+
+#: build/src/ui_klog.h:1684
+msgid "&Save"
+msgstr "&Spara"
+
+#: build/src/ui_klog.h:1685
+msgid "Save"
+msgstr "Spara"
+
+#: build/src/ui_klog.h:1686
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: build/src/ui_klog.h:1687
+msgid "Save &As..."
+msgstr "Spar&a som..."
+
+#: build/src/ui_klog.h:1688
+msgid "Save As"
+msgstr "Spara som"
+
+#: build/src/ui_klog.h:1690
+msgid "&Print..."
+msgstr "&Skriv ut..."
+
+#: build/src/ui_klog.h:1691
+msgid "Print"
+msgstr "Skriv ut"
+
+#: build/src/ui_klog.h:1692
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: build/src/ui_klog.h:1693
+msgid "E&xit"
+msgstr "Av&sluta"
+
+#: build/src/ui_klog.h:1694
+msgid "Exit"
+msgstr "Avsluta"
+
+#: build/src/ui_klog.h:1696
+msgid "&Undo"
+msgstr "&Ångra"
+
+#: build/src/ui_klog.h:1697
+msgid "Undo"
+msgstr "Ångra"
+
+#: build/src/ui_klog.h:1698
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#: build/src/ui_klog.h:1699
+msgid "&Redo"
+msgstr "&Gör om"
+
+#: build/src/ui_klog.h:1700
+msgid "Redo"
+msgstr "Gör om"
+
+#: build/src/ui_klog.h:1701
+msgid "Ctrl+Y"
+msgstr "Ctrl+Y"
+
+#: build/src/ui_klog.h:1702
+msgid "&Cut"
+msgstr "&Klipp ut"
+
+#: build/src/ui_klog.h:1703
+msgid "Cut"
+msgstr "Klipp ut"
+
+#: build/src/ui_klog.h:1704
+msgid "Ctrl+X"
+msgstr "Ctrl+X"
+
+#: build/src/ui_klog.h:1705
+msgid "C&opy"
+msgstr "K&opiera"
+
+#: build/src/ui_klog.h:1706
+msgid "Copy"
+msgstr "Kopiera"
+
+#: build/src/ui_klog.h:1707
+msgid "Ctrl+C"
+msgstr "Ctrl+C"
+
+#: build/src/ui_klog.h:1708
+msgid "&Paste"
+msgstr "K&listra in"
+
+#: build/src/ui_klog.h:1709
+msgid "Paste"
+msgstr "Klistra in"
+
+#: build/src/ui_klog.h:1710
+msgid "Ctrl+V"
+msgstr "Ctrl+V"
+
+#: build/src/ui_klog.h:1711
+msgid "&Find..."
+msgstr "&Leta..."
+
+#: build/src/ui_klog.h:1712
+msgid "Find"
+msgstr "Leta"
+
+#: build/src/ui_klog.h:1713
+msgid "Ctrl+F"
+msgstr "Ctrl+F"
+
+#: build/src/ui_klog.h:1714
+msgid "&About..."
+msgstr "&Om..."
+
+#: build/src/ui_klog.h:1715
+msgid "About"
+msgstr "Om"
+
+#: build/src/ui_klog.h:1717 build/src/ui_klog.h:1718
+msgid "&Preferences"
+msgstr "&Inställningar"
+
+#: build/src/ui_klog.h:1719
+msgid "Import from TLF log"
+msgstr "Importera från TLF-logg"
+
+#: build/src/ui_klog.h:1720
+msgid "AddTlfLog"
+msgstr "AddTlfLog"
+
+#: build/src/ui_klog.h:1722
+msgid "Import a tlf log"
+msgstr "Importera en tlf-logg"
+
+#: build/src/ui_klog.h:1725
+msgid "Import from tlf log file"
+msgstr "Importera från tlf-loggfil"
+
+#: build/src/ui_klog.h:1727
+msgid "Delete QSO"
+msgstr "Tag bort QSO"
+
+#: build/src/ui_klog.h:1728 src/klog.cpp:1998
+msgid "QSL Sent"
+msgstr "QSL sänt"
+
+#: build/src/ui_klog.h:1729 src/klog.cpp:1993
+msgid "QSL Received"
+msgstr "QSL mottaget"
+
+#: build/src/ui_klog.h:1730
+msgid "Add a log file"
+msgstr "Lägg till en loggfil"
+
+#: build/src/ui_klog.h:1732
+msgid "Add a log file to this log"
+msgstr "Lägg till en loggfil till denna logg"
+
+#: build/src/ui_klog.h:1734
+msgid "Connect to DXCluster"
+msgstr "Anslut till DX-kluster"
+
+#: build/src/ui_klog.h:1735
+msgid "Disconnect From DXCluster"
+msgstr "Koppla ner från DX-kluster"
+
+#: build/src/ui_klog.h:1736
+msgid "Properties"
+msgstr "Egenskaper"
+
+#: build/src/ui_klog.h:1737
+msgid "Bug report..."
+msgstr "Felrapport..."
+
+#: build/src/ui_klog.h:1738
+msgid "Check QSL needed"
+msgstr "Check QSL behövs"
+
+#: build/src/ui_klog.h:1739
+msgid "Sort the log"
+msgstr "Sortera loggen"
+
+#: build/src/ui_klog.h:1740 build/src/ui_klog.h:1741
+msgid "Find QSO to QSL"
+msgstr "Leta QSO för QSL"
+
+#: build/src/ui_klog.h:1743
+msgid "Shows the list of needed QSO that we need to send the QSL card to."
+msgstr "Visa listan med behövda QSO:n som vi måste skicka QSL-kort till."
+
+#: build/src/ui_klog.h:1745 build/src/ui_klog.h:1746 build/src/ui_klog.h:1748
+msgid "Merge QSO data"
+msgstr "Ställ samman QSO-data"
+
+#: build/src/ui_klog.h:1750
+msgid "Clear QSO"
+msgstr "Rensa QSO"
+
+#: build/src/ui_klog.h:1751
+msgid "Esc"
+msgstr "Esc"
+
+#: build/src/ui_klog.h:1752 build/src/ui_klog.h:1753
+msgid "Import Cabrillo"
+msgstr "Importera Cabrillo"
+
+#: build/src/ui_klog.h:1755
+msgid "Imports a cabrillo log"
+msgstr "Importera en cabrillo-logg"
+
+#: build/src/ui_klog.h:1757
+msgid "Update CTY.DAT"
+msgstr ""
+
+#: build/src/ui_klog.h:1759
+msgid "Update the CTY.DAT from the Internet"
+msgstr ""
+
+#: build/src/ui_klog.h:1761
+#, fuzzy
+msgid "Export QSL needed"
+msgstr "Check QSL behövs"
+
+#: build/src/ui_klog.h:1763
+msgid "Enter the DX's QRZ"
+msgstr "Skriv in DX's QRZ"
+
+#: build/src/ui_klog.h:1767 build/src/ui_setup.h:765
+msgid "SSB"
+msgstr "SSB"
+
+#: build/src/ui_klog.h:1768 build/src/ui_setup.h:766
+msgid "CW"
+msgstr "CW"
+
+#: build/src/ui_klog.h:1769 build/src/ui_setup.h:767
+msgid "FM"
+msgstr "FM"
+
+#: build/src/ui_klog.h:1770 build/src/ui_setup.h:768
+msgid "PSK31"
+msgstr "PSK31"
+
+#: build/src/ui_klog.h:1771 build/src/ui_setup.h:769
+msgid "SSTV"
+msgstr "SSTV"
+
+#: build/src/ui_klog.h:1772 build/src/ui_setup.h:770
+msgid "RTTY"
+msgstr "RTTY"
+
+#: build/src/ui_klog.h:1773 build/src/ui_setup.h:771
+msgid "MTTY"
+msgstr "MTTY"
+
+#: build/src/ui_klog.h:1774 build/src/ui_setup.h:772
+msgid "PKT"
+msgstr "PKT"
+
+#: build/src/ui_klog.h:1775 build/src/ui_setup.h:773
+msgid "AM"
+msgstr "AM"
+
+#: build/src/ui_klog.h:1776 build/src/ui_setup.h:774
+msgid "FAX"
+msgstr "FAX"
+
+#: build/src/ui_klog.h:1777 build/src/ui_setup.h:775
+msgid "HELL"
+msgstr "HELL"
+
+#: build/src/ui_klog.h:1778 build/src/ui_setup.h:776
+msgid "JT44"
+msgstr "JT44"
+
+#: build/src/ui_klog.h:1779 build/src/ui_setup.h:777
+msgid "MT63"
+msgstr "MT63"
+
+#: build/src/ui_klog.h:1780 build/src/ui_setup.h:778
+msgid "CLO"
+msgstr "CLO"
+
+#: build/src/ui_klog.h:1781 build/src/ui_setup.h:779
+msgid "TOR"
+msgstr "TOR"
+
+#: build/src/ui_klog.h:1782
+msgid "GTOR"
+msgstr "GTOR"
+
+#: build/src/ui_klog.h:1783 build/src/ui_setup.h:780
+msgid "FSK"
+msgstr "FSK"
+
+#: build/src/ui_klog.h:1784 build/src/ui_setup.h:781
+msgid "MFSK8"
+msgstr "MFSK8"
+
+#: build/src/ui_klog.h:1785 build/src/ui_setup.h:782
+msgid "MFSK16"
+msgstr "MFSK16"
+
+#: build/src/ui_klog.h:1786 build/src/ui_setup.h:783
+msgid "HSFK"
+msgstr "HSFK"
+
+#: build/src/ui_klog.h:1787 build/src/ui_setup.h:784
+msgid "ATV"
+msgstr "ATV"
+
+#: build/src/ui_klog.h:1788 build/src/ui_setup.h:785
+msgid "PAC"
+msgstr "PAC"
+
+#: build/src/ui_klog.h:1789 build/src/ui_setup.h:786
+msgid "PAC2"
+msgstr "PAC2"
+
+#: build/src/ui_klog.h:1790 build/src/ui_setup.h:787
+msgid "PAC3"
+msgstr "PAC3"
+
+#: build/src/ui_klog.h:1791
+msgid "PCW"
+msgstr "PCW"
+
+#: build/src/ui_klog.h:1792 build/src/ui_setup.h:788
+msgid "PSK63"
+msgstr "PSK63"
+
+#: build/src/ui_klog.h:1793 build/src/ui_setup.h:789
+msgid "PSK125"
+msgstr "PSK125"
+
+#: build/src/ui_klog.h:1794 build/src/ui_setup.h:790
+msgid "Q15"
+msgstr "Q15"
+
+#: build/src/ui_klog.h:1795 build/src/ui_setup.h:791
+msgid "THRB"
+msgstr "THRB"
+
+#: build/src/ui_klog.h:1796 build/src/ui_setup.h:792
+msgid "ASCI"
+msgstr "ASCI"
+
+#: build/src/ui_klog.h:1797
+msgid "AMTORFEC"
+msgstr "AMTORFEC"
+
+#: build/src/ui_klog.h:1798
+msgid "CHIP64"
+msgstr "CHIP64"
+
+#: build/src/ui_klog.h:1799
+msgid "CIP128"
+msgstr "CIP128"
+
+#: build/src/ui_klog.h:1800
+msgid "CONTESTI"
+msgstr "CONTESTI"
+
+#: build/src/ui_klog.h:1801
+msgid "DSTAR"
+msgstr "DSTAR"
+
+#: build/src/ui_klog.h:1802
+msgid "DOMINO"
+msgstr "DOMINO"
+
+#: build/src/ui_klog.h:1803
+msgid "DOMINOF"
+msgstr "DOMINOF"
+
+#: build/src/ui_klog.h:1804
+msgid "FMHELL"
+msgstr "FMHELL"
+
+#: build/src/ui_klog.h:1805
+msgid "FSK31"
+msgstr "FSK31"
+
+#: build/src/ui_klog.h:1806
+msgid "FSK441"
+msgstr "FSK441"
+
+#: build/src/ui_klog.h:1807
+msgid "HELL80"
+msgstr "HELL80"
+
+#: build/src/ui_klog.h:1808
+msgid "JT65"
+msgstr "JT65"
+
+#: build/src/ui_klog.h:1809
+msgid "OLIVIA"
+msgstr "OLIVIA"
+
+#: build/src/ui_klog.h:1810
+msgid "PAX"
+msgstr "PAX"
+
+#: build/src/ui_klog.h:1811
+msgid "PAX2"
+msgstr "PAX2"
+
+#: build/src/ui_klog.h:1812
+msgid "PSK63F"
+msgstr "PSK63F"
+
+#: build/src/ui_klog.h:1813
+msgid "PSKAM10"
+msgstr "PSKAM10"
+
+#: build/src/ui_klog.h:1814
+msgid "PSKAM31"
+msgstr "PSKAM31"
+
+#: build/src/ui_klog.h:1815
+msgid "PSKAM50"
+msgstr "PSKAM50"
+
+#: build/src/ui_klog.h:1816
+msgid "PSKFEC31"
+msgstr "PSKFEC31"
+
+#: build/src/ui_klog.h:1817
+msgid "PSKHELL"
+msgstr "PSKHELL"
+
+#: build/src/ui_klog.h:1818
+msgid "QPSK31"
+msgstr "QPSK31"
+
+#: build/src/ui_klog.h:1819
+msgid "QPSK63"
+msgstr "QPSK63"
+
+#: build/src/ui_klog.h:1820
+msgid "QPSK125"
+msgstr "QPSK125"
+
+#: build/src/ui_klog.h:1821
+msgid "THRBX"
+msgstr "THRBX"
+
+#: build/src/ui_klog.h:1822
+msgid "VOI"
+msgstr "VOI"
+
+#: build/src/ui_klog.h:1825
+msgid "Mode selection"
+msgstr "Modval"
+
+#: build/src/ui_klog.h:1829 build/src/ui_setup.h:743
+msgid "160M"
+msgstr "160M"
+
+#: build/src/ui_klog.h:1830 build/src/ui_setup.h:744
+msgid "80M"
+msgstr "80M"
+
+#: build/src/ui_klog.h:1831 build/src/ui_setup.h:745
+msgid "60M"
+msgstr "60M"
+
+#: build/src/ui_klog.h:1832 build/src/ui_setup.h:746
+msgid "40M"
+msgstr "40M"
+
+#: build/src/ui_klog.h:1833 build/src/ui_setup.h:747
+msgid "30M"
+msgstr "30M"
+
+#: build/src/ui_klog.h:1834 build/src/ui_setup.h:748
+msgid "20M"
+msgstr "20M"
+
+#: build/src/ui_klog.h:1835 build/src/ui_setup.h:749
+msgid "17M"
+msgstr "17M"
+
+#: build/src/ui_klog.h:1836 build/src/ui_setup.h:750
+msgid "15M"
+msgstr "15M"
+
+#: build/src/ui_klog.h:1837 build/src/ui_setup.h:751
+msgid "12M"
+msgstr "12M"
+
+#: build/src/ui_klog.h:1838 build/src/ui_setup.h:752
+msgid "10M"
+msgstr "10M"
+
+#: build/src/ui_klog.h:1839 build/src/ui_setup.h:753
+msgid "6M"
+msgstr "6M"
+
+#: build/src/ui_klog.h:1840
+msgid "4M"
+msgstr "4M"
+
+#: build/src/ui_klog.h:1841 build/src/ui_setup.h:754
+msgid "2M"
+msgstr "2M"
+
+#: build/src/ui_klog.h:1842 build/src/ui_setup.h:755
+msgid "125CM"
+msgstr "125CM"
+
+#: build/src/ui_klog.h:1843 build/src/ui_setup.h:756
+msgid "70CM"
+msgstr "70CM"
+
+#: build/src/ui_klog.h:1844 build/src/ui_setup.h:757
+msgid "33CM"
+msgstr "33CM"
+
+#: build/src/ui_klog.h:1845 build/src/ui_setup.h:758
+msgid "23CM"
+msgstr "23CM"
+
+#: build/src/ui_klog.h:1846 build/src/ui_setup.h:759
+msgid "13CM"
+msgstr "13CM"
+
+#: build/src/ui_klog.h:1849
+msgid "Band selection"
+msgstr "Bandval"
+
+#: build/src/ui_klog.h:1851
+msgid "dd/MM/yyyy"
+msgstr "dd/MM/yyyy"
+
+#: build/src/ui_klog.h:1852
+msgid "HH:mm:ss"
+msgstr "HH:mm:ss"
+
+#: build/src/ui_klog.h:1854
+msgid "Clear current QSO"
+msgstr "Rensa aktuellt QSO"
+
+#: build/src/ui_klog.h:1856 build/src/ui_klog.h:2093 build/src/ui_klog.h:2126
+#: build/src/ui_setup.h:881 src/klog.cpp:536
+msgid "Clear"
+msgstr "Rensa"
+
+#: build/src/ui_klog.h:1858
+msgid "Add this QSO to the log"
+msgstr "Lägg till detta QSO till loggen"
+
+#: build/src/ui_klog.h:1860 build/src/ui_klog.h:2125
+msgid "OK"
+msgstr "OK"
+
+#: build/src/ui_klog.h:1861
+msgid "<p align=\"center\"><b>RST(tx)<br>RST(rx)</b></p>"
+msgstr "<p align=\"center\"><b>RST(tx)<br>RST(rx)</b></p>"
+
+#: build/src/ui_klog.h:1863
+msgid "R value you give to the DX"
+msgstr "R-värde du gett till DX"
+
+#: build/src/ui_klog.h:1866
+msgid "R value you get from the DX"
+msgstr "R-värde du fått från DX"
+
+#: build/src/ui_klog.h:1869
+msgid "S value you give to the DX"
+msgstr "S-värde du gett till DX"
+
+#: build/src/ui_klog.h:1872
+msgid "S value you get from the DX"
+msgstr "S-värde du fått från DX"
+
+#: build/src/ui_klog.h:1875
+msgid "T value you give to the DX"
+msgstr "T-värde du gett till DX"
+
+#: build/src/ui_klog.h:1879
+msgid "T value you get from the DX"
+msgstr "T-värde du fått från DX"
+
+#: build/src/ui_klog.h:1881
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">TX Freq</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">QTH:</span></p></body></html>"
+
+#: build/src/ui_klog.h:1886
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">RX Freq</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Nimbus Sans L'; font-size:9pt; "
+"font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Effekt:</span></p></body></html>"
+
+#: build/src/ui_klog.h:1892
+msgid "Shows the frecuency of the transceiver when hamlib is  (TX)"
+msgstr "Visar radions frekvens när hamlib är  (TX)"
+
+#: build/src/ui_klog.h:1895
+msgid "Shows the frecuency of the transceiver when hamlib is activated (RX)"
+msgstr "Visar radions frekvens när hamlib är aktiverat (RX)"
+
+#: build/src/ui_klog.h:1897 build/src/ui_klog.h:2094
+msgid "<p align=\"center\"><b>Name:</b></p>"
+msgstr "<p align=\"center\"><b>Namn:</b></p>"
+
+#: build/src/ui_klog.h:1899
+msgid "DX's operator's name"
+msgstr "DX-operatörens namn"
+
+#: build/src/ui_klog.h:1902
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Locator:</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Lokator:</span></p></body></html>"
+
+#: build/src/ui_klog.h:1907
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">QTH:</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">QTH:</span></p></body></html>"
+
+#: build/src/ui_klog.h:1913
+msgid "DX's QTH (City, town)"
+msgstr "DX's QTH (Stad,by)"
+
+#: build/src/ui_klog.h:1916
+msgid "The DX locator (like IN80EK)"
+msgstr "DX Lokator (som IN80EK)"
+
+#: build/src/ui_klog.h:1918 build/src/ui_setup.h:861
+msgid "QSO"
+msgstr "QSO"
+
+#: build/src/ui_klog.h:1919
+msgid "<b>Via:</b>"
+msgstr "<b>Via:</b>"
+
+#: build/src/ui_klog.h:1922
+msgid "Bureau"
+msgstr "Byrå"
+
+#: build/src/ui_klog.h:1923
+msgid "No QSL"
+msgstr "Inget QSL"
+
+#: build/src/ui_klog.h:1924
+msgid "QRZ.com"
+msgstr "QRZ.com"
+
+#: build/src/ui_klog.h:1925
+msgid "Manager"
+msgstr "Manager"
+
+#: build/src/ui_klog.h:1926
+msgid "Direct"
+msgstr "Direkt"
+
+#: build/src/ui_klog.h:1929
+msgid "How to send the QSL"
+msgstr "Hur man skickar QSL"
+
+#: build/src/ui_klog.h:1932
+msgid "Manager's QRZ"
+msgstr "Managers QRZ"
+
+#: build/src/ui_klog.h:1934
+msgid "<b>QSL Sent:</b>"
+msgstr "<b>QSL Skickat:</b>"
+
+#: build/src/ui_klog.h:1935
+msgid "<b>QSL Recv:</b>"
+msgstr "<b>QSL Mottag:</b>"
+
+#: build/src/ui_klog.h:1937
+msgid "QSL card received"
+msgstr "QSL-kort mottaget"
+
+#: build/src/ui_klog.h:1941
+msgid "Send the QSL"
+msgstr "Skicka QSL"
+
+#: build/src/ui_klog.h:1944
+msgid "QSL"
+msgstr "QSL"
+
+#: build/src/ui_klog.h:1945
+msgid "<b>Remarks:</b>"
+msgstr "<b>Anmärkning:</b>"
+
+#: build/src/ui_klog.h:1946 build/src/ui_klog.h:2114
+msgid "Remarks"
+msgstr "Anmärkning"
+
+#: build/src/ui_klog.h:1947 build/src/ui_klog.h:2081
+msgid "<b>IOTA:</b>"
+msgstr "<b>IOTA:</b>"
+
+#: build/src/ui_klog.h:1950
+msgid "AF"
+msgstr "AF"
+
+#: build/src/ui_klog.h:1951
+msgid "AN"
+msgstr "AN"
+
+#: build/src/ui_klog.h:1952
+msgid "AS"
+msgstr "AS"
+
+#: build/src/ui_klog.h:1953
+msgid "EU"
+msgstr "EU"
+
+#: build/src/ui_klog.h:1954
+msgid "NA"
+msgstr "NA"
+
+#: build/src/ui_klog.h:1955
+msgid "OC"
+msgstr "OC"
+
+#: build/src/ui_klog.h:1956
+msgid "SA"
+msgstr "SA"
+
+#: build/src/ui_klog.h:1959
+msgid "IOTA continent"
+msgstr "IOTA kontinent"
+
+#: build/src/ui_klog.h:1962
+msgid "IOTA number"
+msgstr "IOTA nummer"
+
+#: build/src/ui_klog.h:1965 build/src/ui_klog.h:1973 build/src/ui_klog.h:1981
+msgid "Several awards, still not implemented."
+msgstr "Åtskilliga diplom, ännu inte införda."
+
+#: build/src/ui_klog.h:1967
+msgid "<b>Award:</b>"
+msgstr "<b>Diplom:</b>"
+
+#: build/src/ui_klog.h:1970
+msgid "Default reference"
+msgstr "Standradreferens"
+
+#: build/src/ui_klog.h:1975
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Satellite</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Nimbus Sans L'; font-size:9pt; "
+"font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Effekt:</span></p></body></html>"
+
+#: build/src/ui_klog.h:1983
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Sat Mode</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Nimbus Sans L'; font-size:9pt; "
+"font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Effekt:</span></p></body></html>"
+
+#: build/src/ui_klog.h:1988
+msgid "Others"
+msgstr "Annat"
+
+#: build/src/ui_klog.h:1989
+msgid "<p align=\"center\"><b>Locator:</b></p>"
+msgstr "<p align=\"center\"><b>Lokator:</b></p>"
+
+#: build/src/ui_klog.h:1990
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Nimbus Sans L'; font-size:9pt; "
+"font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Power:</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Nimbus Sans L'; font-size:9pt; "
+"font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Effect:</span></p></body></html>"
+
+#: build/src/ui_klog.h:1996
+msgid "Power used to make this QSO"
+msgstr "Utnyttjad effekt vid detta QSO"
+
+#: build/src/ui_klog.h:2000 build/src/ui_klog.h:2013
+msgid "The call of the station used to work this QSO"
+msgstr "Den stations anropssignal som brukade köra detta QSO"
+
+#: build/src/ui_klog.h:2003
+msgid "The locator of the station"
+msgstr "Stationens lokator"
+
+#: build/src/ui_klog.h:2006 build/src/ui_klog.h:2009
+msgid "The operator that worked this QSO"
+msgstr "Den signal som körde detta QSO"
+
+#: build/src/ui_klog.h:2011
+msgid "<p align=\"center\"><b>Operator:</b></p>"
+msgstr "<p align=\"center\"><b>Operatör:</b></p>"
+
+#: build/src/ui_klog.h:2015
+msgid "<p align=\"center\"><b>Station:</b></p>"
+msgstr "<p align=\"center\"><b>Station:</b></p>"
+
+#: build/src/ui_klog.h:2016
+msgid "My Data"
+msgstr "Mina data"
+
+#: build/src/ui_klog.h:2017
+msgid "<b>KLog</b>"
+msgstr "<b>KLog</b>"
+
+#: build/src/ui_klog.h:2018
+msgid "<p align=\"center\"><b>10</b></p>"
+msgstr "<p align=\"center\"><b>10</b></p>"
+
+#: build/src/ui_klog.h:2019
+msgid "<p align=\"center\"><b>15</b></p>"
+msgstr "<p align=\"center\"><b>15</b></p>"
+
+#: build/src/ui_klog.h:2020
+msgid "<p align=\"center\"><b>20</b></p>"
+msgstr "<p align=\"center\"><b>20</b></p>"
+
+#: build/src/ui_klog.h:2021
+msgid "<p align=\"center\"><b>40</b></p>"
+msgstr "<p align=\"center\"><b>40</b></p>"
+
+#: build/src/ui_klog.h:2022
+msgid "<p align=\"center\"><b>80</b></p>"
+msgstr "<p align=\"center\"><b>80</b></p>"
+
+#: build/src/ui_klog.h:2023
+msgid "<p align=\"center\"><b>160</b></p>"
+msgstr "<p align=\"center\"><b>160</b></p>"
+
+#: build/src/ui_klog.h:2024 build/src/ui_klog.h:2034 build/src/ui_klog.h:2039
+msgid "--"
+msgstr "--"
+
+#: build/src/ui_klog.h:2025
+msgid "<p align=\"center\"><b>6</b></p>"
+msgstr "<p align=\"center\"><b>6</b></p>"
+
+#: build/src/ui_klog.h:2026
+msgid "<p align=\"center\"><b>12</b></p>"
+msgstr "<p align=\"center\"><b>12</b></p>"
+
+#: build/src/ui_klog.h:2027
+msgid "<p align=\"center\"><b>17</b></p>"
+msgstr "<p align=\"center\"><b>17</b></p>"
+
+#: build/src/ui_klog.h:2028
+msgid "<p align=\"center\"><b>30</b></p>"
+msgstr "<p align=\"center\"><b>30</b></p>"
+
+#: build/src/ui_klog.h:2029
+msgid "<p align=\"center\"><b>2</b></p>"
+msgstr "<p align=\"center\"><b>2</b></p>"
+
+#: build/src/ui_klog.h:2030
+msgid "<p align=\"center\"><b>70cm</b></p>"
+msgstr "<p align=\"center\"><b>70cm</b></p>"
+
+#: build/src/ui_klog.h:2032
+msgid "Entity's main prefix"
+msgstr "Helhets huvudprefix"
+
+#: build/src/ui_klog.h:2035
+msgid "<p align=\"center\"><b>Prefix:</b></p>"
+msgstr "<p align=\"center\"><b>Prefix:</b></p>"
+
+#: build/src/ui_klog.h:2037
+msgid "Entity's continent"
+msgstr "Entity's kontinent"
+
+#: build/src/ui_klog.h:2040
+msgid "<p align=\"center\"><b>Continent:</b></p>"
+msgstr "<p align=\"center\"><b>Kontinent:</b></p>"
+
+#: build/src/ui_klog.h:2041
+msgid "<p align=\"center\"><b>deg</b></p>"
+msgstr "<p align=\"center\"><b>grad</b></p>"
+
+#: build/src/ui_klog.h:2043
+msgid "Short Path"
+msgstr "Korta vägen"
+
+#: build/src/ui_klog.h:2045
+msgid "<p align=\"center\"><b>Short Path:</b></p>"
+msgstr "<p align=\"center\"><b>Korta vägen:</b></p>"
+
+#: build/src/ui_klog.h:2046 build/src/ui_klog.h:2072
+msgid "<b><p align=\"center\">Km</p></b>"
+msgstr "<b><p align=\"center\">km</p></b>"
+
+#: build/src/ui_klog.h:2048
+msgid "Point your antenna in this direction"
+msgstr "Rikta din antenn i denna riktning"
+
+#: build/src/ui_klog.h:2051
+msgid "Km to the DX through the short path"
+msgstr "Km till DX via den korta vägen"
+
+#: build/src/ui_klog.h:2053
+msgid "<p align=\"center\"><b>ITU:</b></p>"
+msgstr "<p align=\"center\"><b>ITU:</b></p>"
+
+#: build/src/ui_klog.h:2054
+msgid "<p align=\"center\"><b>CQ:</b></p>"
+msgstr "<p align=\"center\"><b>CQ:</b></p>"
+
+#: build/src/ui_klog.h:2056
+msgid "CQ zone"
+msgstr "CQ-zon"
+
+#: build/src/ui_klog.h:2059
+msgid "ITU zone"
+msgstr "ITU-zon"
+
+#: build/src/ui_klog.h:2062
+msgid "Turn your antenna in this direction to work via long path"
+msgstr "Vrid din antenn i denna riktning för att köra via långa vägen"
+
+#: build/src/ui_klog.h:2065
+msgid "Long Path"
+msgstr "Långväga"
+
+#: build/src/ui_klog.h:2067
+msgid "<p align=\"center\"><b>Long Path:</b></p>"
+msgstr "<p align=\"center\"><b>Lång väg:</b></p>"
+
+#: build/src/ui_klog.h:2069
+msgid "Km to the DX through the long path"
+msgstr "Km till DX via långa vägen"
+
+#: build/src/ui_klog.h:2071
+msgid "<b><p align=\"center\">deg</p></b>"
+msgstr "<b><p align=\"center\">grad</p></b>"
+
+#: build/src/ui_klog.h:2073
+msgid "Info"
+msgstr "Info"
+
+#: build/src/ui_klog.h:2074
+msgid "<b>Award</b>"
+msgstr "<b>Diplom</b>"
+
+#: build/src/ui_klog.h:2075
+msgid "<b>Worked</b>"
+msgstr "<b>Körda</b>"
+
+#: build/src/ui_klog.h:2076
+msgid "<b>DXCC:</b>"
+msgstr "<b>DXCC:</b>"
+
+#: build/src/ui_klog.h:2077
+msgid "<b>WAZ:</b>"
+msgstr "<b>WAZ:</b>"
+
+#: build/src/ui_klog.h:2079
+msgid "IOTA checking is still not implemented."
+msgstr "IOTA checking är inte införd ännu."
+
+#: build/src/ui_klog.h:2083
+msgid "Local awards checking is still not implemented."
+msgstr "Lokala diplom-checking är inte infört ännu."
+
+#: build/src/ui_klog.h:2085
+msgid "<b>LOCAL:</b>"
+msgstr "<b>LOKAL:</b>"
+
+#: build/src/ui_klog.h:2086
+msgid "<b>QSOs:</b>"
+msgstr "<b>QSOn:</b>"
+
+#: build/src/ui_klog.h:2087
+msgid "<b>Confirmed</b>"
+msgstr "<b>Konfirmerade</b>"
+
+#: build/src/ui_klog.h:2088 build/src/ui_setup.h:888
+msgid "Awards"
+msgstr "Diplom"
+
+#: build/src/ui_klog.h:2090
+msgid "Enter the call to search"
+msgstr "Skriv signal att leta efter"
+
+#: build/src/ui_klog.h:2092 build/src/ui_klog.h:2112
+msgid "Search"
+msgstr "Sök"
+
+#: build/src/ui_klog.h:2096
+msgid "DX Operator's name"
+msgstr "DX-Operatörsnamn"
+
+#: build/src/ui_klog.h:2098
+msgid "<p align=\"center\"><b>Time:</b></p>"
+msgstr "<p align=\"center\"><b>Tid:</b></p>"
+
+#: build/src/ui_klog.h:2099
+msgid "<p align=\"center\"><b>QTH:</b></p>"
+msgstr "<p align=\"center\"><b>QTH:</b></p>"
+
+#: build/src/ui_klog.h:2101
+msgid "DX Operator's QTH"
+msgstr "DX Operatörens QTH"
+
+#: build/src/ui_klog.h:2104 build/src/ui_setup.h:887 src/klog.cpp:4348
+msgid "Number"
+msgstr "Nummer"
+
+#: build/src/ui_klog.h:2105
+msgid "QSL-Rec"
+msgstr "QSL-mottaget"
+
+#: build/src/ui_klog.h:2106
+msgid "QSL-Sent"
+msgstr "QSL-Skickat"
+
+#: build/src/ui_klog.h:2107 build/src/ui_klog.h:2116 src/klog.cpp:4351
+msgid "Mode"
+msgstr "Mod"
+
+#: build/src/ui_klog.h:2108 build/src/ui_klog.h:2117 src/klog.cpp:4350
+msgid "Band"
+msgstr "Band"
+
+#: build/src/ui_klog.h:2109 src/klog.cpp:4349
+msgid "Time"
+msgstr "Tid"
+
+#: build/src/ui_klog.h:2110 build/src/ui_klog.h:2122 src/klog.cpp:4348
+msgid "Date"
+msgstr "Datum"
+
+#: build/src/ui_klog.h:2111 build/src/ui_klog.h:2120 src/klog.cpp:4349
+msgid "QRZ"
+msgstr "QRZ"
+
+#: build/src/ui_klog.h:2115
+msgid "Power"
+msgstr "Effekt"
+
+#: build/src/ui_klog.h:2118
+msgid "RST(rx)"
+msgstr "RST(rx)"
+
+#: build/src/ui_klog.h:2119
+msgid "RST(tx)"
+msgstr "RST(tx)"
+
+#: build/src/ui_klog.h:2121
+msgid "UTC"
+msgstr "UTC"
+
+#: build/src/ui_klog.h:2123 build/src/ui_klog.h:2140
+msgid "Numb"
+msgstr "Nummer"
+
+#: build/src/ui_klog.h:2124
+msgid "Log"
+msgstr "Logg"
+
+#: build/src/ui_klog.h:2127
+msgid "Cluster"
+msgstr "Kluster"
+
+#: build/src/ui_klog.h:2129
+msgid "160m"
+msgstr "160m"
+
+#: build/src/ui_klog.h:2130
+msgid "80m"
+msgstr "80m"
+
+#: build/src/ui_klog.h:2131
+msgid "40m"
+msgstr "40m"
+
+#: build/src/ui_klog.h:2132
+msgid "30m"
+msgstr "30m"
+
+#: build/src/ui_klog.h:2133
+msgid "20m"
+msgstr "20m"
+
+#: build/src/ui_klog.h:2134
+msgid "17m"
+msgstr "17m"
+
+#: build/src/ui_klog.h:2135
+msgid "15m"
+msgstr "15m"
+
+#: build/src/ui_klog.h:2136
+msgid "12m"
+msgstr "12m"
+
+#: build/src/ui_klog.h:2137
+msgid "10m"
+msgstr "10m"
+
+#: build/src/ui_klog.h:2138
+msgid "Prefix"
+msgstr "Prefix"
+
+#: build/src/ui_klog.h:2139 build/src/ui_setup.h:885
+msgid "Entity"
+msgstr "Entitet"
+
+#: build/src/ui_klog.h:2141
+msgid "DXCC"
+msgstr "DXCC"
+
+#: build/src/ui_klog.h:2142 build/src/ui_klog.h:2144
+msgid "Tools"
+msgstr "Verktyg"
+
+#: build/src/ui_klog.h:2143
+msgid "&File"
+msgstr "&Fil"
+
+#: build/src/ui_klog.h:2145
+msgid "&Setup"
+msgstr "&Inställning"
+
+#: build/src/ui_klog.h:2146
+msgid "DXCluster"
+msgstr "DX-Kluster"
+
+#: build/src/ui_klog.h:2147
+msgid "&Help"
+msgstr "&Hjälp"
+
+#: build/src/ui_setup.h:721
+msgid "KLog setup"
+msgstr "KLog-inställning"
+
+#: build/src/ui_setup.h:722
+msgid "&OK"
+msgstr "&OK"
+
+#: build/src/ui_setup.h:724
+msgid "&Cancel"
+msgstr "&Avbryt"
+
+#: build/src/ui_setup.h:726
+msgid "<b>QRZ:</b>"
+msgstr "<b>QRZ:</b>"
+
+#: build/src/ui_setup.h:727
+msgid "<b>Locator:</b>"
+msgstr "<b>Lokator:</b>"
+
+#: build/src/ui_setup.h:728
+msgid "Personal"
+msgstr "Personligt"
+
+#: build/src/ui_setup.h:730
+msgid "Shows a progress bar but makes the log reading slower"
+msgstr "Visar framåtskridandetstapel, men gör loggläsningen långsammare"
+
+#: build/src/ui_setup.h:732
+msgid "Show progress dialog when reading log file"
+msgstr "Visa framåtskridandedialog medan loggfil läses"
+
+#: build/src/ui_setup.h:733
+msgid "Open this file when starting:"
+msgstr "Öppna denna fil vid start:"
+
+#: build/src/ui_setup.h:735
+msgid "If checked the time will be UTC"
+msgstr "Om markerad, blir tiden i UTC"
+
+#: build/src/ui_setup.h:737
+msgid "Time in UTC"
+msgstr "Tid i UTC"
+
+#: build/src/ui_setup.h:739
+msgid "<b>Power:</b>"
+msgstr "<b>Effekt:</b>"
+
+#: build/src/ui_setup.h:740
+msgid "<b>Band:</b>"
+msgstr "<b>Band:</b>"
+
+#: build/src/ui_setup.h:761
+msgid "Logging in real time"
+msgstr "Loggning i realtid"
+
+#: build/src/ui_setup.h:762
+msgid "<b>Mode:</b>"
+msgstr "<b>Mod:</b>"
+
+#: build/src/ui_setup.h:794
+msgid "Misc"
+msgstr "Div."
+
+#: build/src/ui_setup.h:796
+msgid "Add the DX-Cluster server to the list"
+msgstr "Lägg till DX-Kluster-servern till listan"
+
+#: build/src/ui_setup.h:798 build/src/ui_setup.h:880
+msgid "Add"
+msgstr "Lägg till"
+
+#: build/src/ui_setup.h:800
+msgid ""
+"Clears the text line but also will remove the server from the list if is "
+"already added"
+msgstr ""
+"Rensar textraden, men tar även bort servern från listan, om den redan är "
+"tilllagd"
+
+#: build/src/ui_setup.h:802 build/src/ui_setup.h:882
+msgid "Remove"
+msgstr "Tag bort"
+
+#: build/src/ui_setup.h:803
+msgid "Spots"
+msgstr "Ställen"
+
+#: build/src/ui_setup.h:805
+msgid "Show 1.8-30MHz spots"
+msgstr "Visa 1,8 - 30 MHz ställen"
+
+#: build/src/ui_setup.h:807
+msgid "Show HF activity"
+msgstr "Visa HF-aktivitet"
+
+#: build/src/ui_setup.h:809 build/src/ui_setup.h:813 build/src/ui_setup.h:817
+#: build/src/ui_setup.h:821 build/src/ui_setup.h:825
+msgid "Show from 50MHz to GHz spots"
+msgstr "Visa från 50 MHz till GHz-ställen"
+
+#: build/src/ui_setup.h:811
+msgid "Show V/UHF activity"
+msgstr "Visa V/UHF-aktivitet"
+
+#: build/src/ui_setup.h:815
+msgid "Show WARC activity"
+msgstr "Visa WARC-aktivitet"
+
+#: build/src/ui_setup.h:819
+msgid "Show confirmed"
+msgstr "Visa bekräftade"
+
+#: build/src/ui_setup.h:823
+msgid "Show SSB activity"
+msgstr "Visa SSB-aktivitet"
+
+#: build/src/ui_setup.h:827
+msgid "Show CW activity"
+msgstr "Visa CW-aktivitet"
+
+#: build/src/ui_setup.h:828
+msgid "Messages"
+msgstr "Meddelanden"
+
+#: build/src/ui_setup.h:830
+msgid "Show announces"
+msgstr "Visa tillkännagivanden"
+
+#: build/src/ui_setup.h:832
+msgid "Show ANN/FULL messages"
+msgstr "Visa ANN/FULL-meddelanden"
+
+#: build/src/ui_setup.h:834 build/src/ui_setup.h:838
+msgid "Show weather messages"
+msgstr "Visa vädermeddelanden"
+
+#: build/src/ui_setup.h:836
+msgid "Show WCY messages"
+msgstr "Visa WCY-meddelanden"
+
+#: build/src/ui_setup.h:840
+msgid "Show WWV messages"
+msgstr "Visa WWV-meddelanden"
+
+#: build/src/ui_setup.h:842
+msgid "Select a dx-cluster server."
+msgstr "Välj en DX-Kluster-server."
+
+#: build/src/ui_setup.h:844
+msgid "DX-Cluster"
+msgstr "DX-Kluster"
+
+#: build/src/ui_setup.h:845
+msgid "<p align=\"center\"><b>Needed band</b></p>"
+msgstr "<p align=\"center\"><b>Behövda band</b></p>"
+
+#: build/src/ui_setup.h:846
+msgid "<p align=\"center\"><b>New One</b></p>"
+msgstr "<p align=\"center\"><b>Nytt</b></p>"
+
+#: build/src/ui_setup.h:847
+msgid "<p align=\"center\"><b>Worked</b></p>"
+msgstr "<p align=\"center\"><b>Körd</b></p>"
+
+#: build/src/ui_setup.h:848
+msgid "<p align=\"center\"><b>Confirmed</b></p>"
+msgstr "<p align=\"center\"><b>Bekräftad</b></p>"
+
+#: build/src/ui_setup.h:849
+msgid "<p align=\"center\"><b>Default</b></p>"
+msgstr "<p align=\"center\"><b>Standard</b></p>"
+
+#: build/src/ui_setup.h:850 build/src/ui_setup.h:851 build/src/ui_setup.h:852
+#: build/src/ui_setup.h:853 build/src/ui_setup.h:854
+msgid "Click to select"
+msgstr "Klicka för att välja"
+
+#: build/src/ui_setup.h:855
+msgid "Colors"
+msgstr "Färger"
+
+#: build/src/ui_setup.h:856
+msgid "Complete data with previous QSOs"
+msgstr "Komplettera data enligt föregående QSO"
+
+#: build/src/ui_setup.h:858
+msgid "Mandatory data is: QRZ, date, time, band, mode, RST(rx) & RST (tx)"
+msgstr "Obligatoriska data är: QRZ, datum, tid, band, mode, RST(rx) & RST (tx)"
+
+#: build/src/ui_setup.h:860
+msgid "Requires the mandatory fields in ALL QSO"
+msgstr "Kräver de obligatoriska fälten i ALLA QSO"
+
+#: build/src/ui_setup.h:862
+msgid "Transceiver:"
+msgstr "Transceiver:"
+
+#: build/src/ui_setup.h:863
+msgid "Device:"
+msgstr "Enhet:"
+
+#: build/src/ui_setup.h:864
+msgid "/dev/ttyS0"
+msgstr "/dev/ttyS0"
+
+#: build/src/ui_setup.h:867
+msgid "1200"
+msgstr "1200"
+
+#: build/src/ui_setup.h:868
+msgid "2400"
+msgstr "2400"
+
+#: build/src/ui_setup.h:869
+msgid "4800"
+msgstr "4800"
+
+#: build/src/ui_setup.h:870
+msgid "9600"
+msgstr "9600"
+
+#: build/src/ui_setup.h:871
+msgid "19200"
+msgstr "19200"
+
+#: build/src/ui_setup.h:872
+msgid "38400"
+msgstr "38400"
+
+#: build/src/ui_setup.h:873
+msgid "57600"
+msgstr "57600"
+
+#: build/src/ui_setup.h:874
+msgid "115200"
+msgstr "115200"
+
+#: build/src/ui_setup.h:876
+msgid "Activate Hamlib"
+msgstr "Aktivera Hamlib"
+
+#: build/src/ui_setup.h:877
+msgid "Pool hamlib each (msecs)"
+msgstr "Polla hamlib varje (ms)"
+
+#: build/src/ui_setup.h:878
+msgid "Hamlib"
+msgstr "Hamlib"
+
+#: build/src/ui_setup.h:884
+msgid "File"
+msgstr "Fil"
+
+#: build/src/ui_setup.h:886
+msgid "Award"
+msgstr "Diplom"
 
 #: po/rc.cpp:1 rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
@@ -28,9 +1580,9 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sm4abe@ssa.se"
 
-#: src/klog.cpp:139 src/klog.cpp:973 src/klog.cpp:1637 src/klog.cpp:2583
-#: src/klog.cpp:2777 src/klog.cpp:3538 src/klog.cpp:4459 src/klog.cpp:4796
-#: src/klog.cpp:4811 src/setup.cpp:908
+#: src/klog.cpp:139 src/klog.cpp:973 src/klog.cpp:1637 src/klog.cpp:2570
+#: src/klog.cpp:2764 src/klog.cpp:3525 src/klog.cpp:4446 src/klog.cpp:4783
+#: src/klog.cpp:4798 src/setup.cpp:908
 msgid "KLog message:"
 msgstr "KLog-meddelande:"
 
@@ -80,16 +1632,11 @@ msgstr "<p align=\"center\"><b>KLog</b></p>"
 msgid "Ok"
 msgstr "Ok"
 
-#: src/klog.cpp:536 src/ui_klog.h:1740 src/ui_klog.h:1833 src/ui_klog.h:1946
-#: src/ui_setup.h:881
-msgid "Clear"
-msgstr "Rensa"
-
-#: src/klog.cpp:684 src/klog.cpp:3437
+#: src/klog.cpp:684 src/klog.cpp:3424
 msgid "Save File"
 msgstr "Spara fil"
 
-#: src/klog.cpp:684 src/klog.cpp:3437
+#: src/klog.cpp:684 src/klog.cpp:3424
 msgid "ADIF (*.adi)"
 msgstr "ADIF (*.adi)"
 
@@ -102,12 +1649,12 @@ msgstr "Sparar loggen..."
 msgid "Abort saving"
 msgstr "Avbryter sparande"
 
-#: src/klog.cpp:756 src/klog.cpp:1015
+#: src/klog.cpp:756
 #, fuzzy
 msgid ""
 "ADIF v1.0 (some ADIF v2 fields) Export from KLog-%1\n"
 "http://jaime.robles.es/klog\n"
-"<APP_KLOG_NUMBER: %2>%3\n"
+"<APP_KLOG_NUMBER:%2>%3\n"
 "Log saved: %4-%5\n"
 "<PROGRAMID:4>KLOG <PROGRAMVERSION:%6>%7\n"
 "<EOH>\n"
@@ -140,6 +1687,23 @@ msgstr "QSL-kort mottaget"
 msgid "Saving the log..."
 msgstr "Sparar loggen..."
 
+#: src/klog.cpp:1015
+#, fuzzy
+msgid ""
+"ADIF v1.0 (some ADIF v2 fields) Export from KLog-%1\n"
+"http://jaime.robles.es/klog\n"
+"<APP_KLOG_NUMBER: %2>%3\n"
+"Log saved: %4-%5\n"
+"<PROGRAMID:4>KLOG <PROGRAMVERSION:%6>%7\n"
+"<EOH>\n"
+msgstr ""
+"ADIF v1.0 (some ADIF v2 fields) Export från KLog-%1\n"
+"http://jaime.robles.es/klog\n"
+"<APP_KLOG_NUMBER: %2>%3\n"
+"Logg sparad: %4-%5\n"
+"<PROGRAMID:4>KLOG <PROGRAMVERSION: %6>%7\n"
+"<EOH>\n"
+
 #: src/klog.cpp:1638
 msgid ""
 "The file selected to open does not exist.\n"
@@ -148,92 +1712,84 @@ msgstr ""
 "Den fil, som valts att öppnas, saknas.\n"
 "Ingen fil kommer att öppnas."
 
-#: src/klog.cpp:1648 src/klog.cpp:3013 src/klog.cpp:3241
+#: src/klog.cpp:1648 src/klog.cpp:3000 src/klog.cpp:3228
 msgid "Reading the log..."
 msgstr "Läser loggen..."
 
-#: src/klog.cpp:1648 src/klog.cpp:3013 src/klog.cpp:3241
+#: src/klog.cpp:1648 src/klog.cpp:3000 src/klog.cpp:3228
 msgid "Abort reading"
 msgstr "Avbryter läsande"
 
-#: src/klog.cpp:1724 src/klog.cpp:3214 src/klog.cpp:3411
+#: src/klog.cpp:1724 src/klog.cpp:3201 src/klog.cpp:3398
 msgid "Adding QSO#: "
 msgstr "Lägger till QS=#: "
 
-#: src/klog.cpp:1994 src/setup.cpp:1009
+#: src/klog.cpp:1981 src/setup.cpp:1009
 msgid "&Delete"
 msgstr "&Tag bort"
 
-#: src/klog.cpp:1996
+#: src/klog.cpp:1983
 msgid "Delete a QSO"
 msgstr "Tag bort ett QSO"
 
-#: src/klog.cpp:1999
+#: src/klog.cpp:1986
 msgid "&Recv and Sent"
 msgstr "&Mottaget och sänt"
 
-#: src/klog.cpp:2001
+#: src/klog.cpp:1988
 msgid "QSL Recv and Sent"
 msgstr "QSL mottaget och sänt"
 
-#: src/klog.cpp:2004
+#: src/klog.cpp:1991
 msgid "&Recv QSL"
 msgstr "&Mottaget QSL"
 
-#: src/klog.cpp:2006 src/ui_klog.h:1695
-msgid "QSL Received"
-msgstr "QSL mottaget"
-
-#: src/klog.cpp:2009
+#: src/klog.cpp:1996
 msgid "&Sent QSL"
 msgstr "&Skickat QSL"
 
-#: src/klog.cpp:2011 src/ui_klog.h:1694
-msgid "QSL Sent"
-msgstr "QSL sänt"
-
-#: src/klog.cpp:2024 src/klog.cpp:2051 src/klog.cpp:3813
+#: src/klog.cpp:2011 src/klog.cpp:2038 src/klog.cpp:3800
 msgid "Modify"
 msgstr "Ändra"
 
-#: src/klog.cpp:2025 src/klog.cpp:2157 src/klog.cpp:3814
+#: src/klog.cpp:2012 src/klog.cpp:2144 src/klog.cpp:3801
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/klog.cpp:2155
+#: src/klog.cpp:2142
 msgid "Warning - Save log?"
 msgstr "Varning - Spara logg?"
 
-#: src/klog.cpp:2156
+#: src/klog.cpp:2143
 msgid "The log has been changed since the last save."
 msgstr "Loggen har ändrats sedan senaste sparande."
 
-#: src/klog.cpp:2157
+#: src/klog.cpp:2144
 msgid "Save Now"
 msgstr "Spara nu"
 
-#: src/klog.cpp:2157
+#: src/klog.cpp:2144
 msgid "Continue anyway"
 msgstr "Fortsätt i alla fall"
 
-#: src/klog.cpp:2208
+#: src/klog.cpp:2195
 msgid "Open File"
 msgstr "Öppna fil"
 
-#: src/klog.cpp:2208 src/setup.cpp:808
+#: src/klog.cpp:2195 src/setup.cpp:808
 msgid "ADIF files (*.adi)"
 msgstr "ADIF filer (*.adi)"
 
-#: src/klog.cpp:2530
+#: src/klog.cpp:2517
 msgid "KLog-%1 - The KDE Ham Radio Logging program"
 msgstr "Klog -%1 - KDE's Amatörradiologgprogram"
 
-#: src/klog.cpp:2531
+#: src/klog.cpp:2518
 #, fuzzy
 msgid ""
 "You can find the last version on <a href=\"http://jaime.robles.es/klog"
 "\">http://jaime.robles.es/klog</a>\n"
-"2002 - 2010 - Jaime Robles, EA4TV, jaime@robles.es\n"
+"2002 - 2011 - Jaime Robles, EA4TV, jaime@robles.es\n"
 "2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com"
 msgstr ""
 "KLog: %1 - KDE's Amatörradiologgprogram\n"
@@ -241,7 +1797,7 @@ msgstr ""
 "2002 - 2010 - Jaime Robles, EA4TV, jaime@robles.es\n"
 "2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com"
 
-#: src/klog.cpp:2584
+#: src/klog.cpp:2571
 msgid ""
 "It seems to be the first time you run KLog in this computer.\n"
 "The setup dialog will start to help you to configure KLog.\n"
@@ -256,7 +1812,7 @@ msgstr ""
 "\n"
 "The KLog team."
 
-#: src/klog.cpp:2778
+#: src/klog.cpp:2765
 msgid ""
 "You still have not configured KLog.\n"
 "Please click on:\n"
@@ -268,7 +1824,7 @@ msgstr ""
 "Inställning->Inställningar\n"
 " och gör dinna inställningar för KLog."
 
-#: src/klog.cpp:3019 src/klog.cpp:3021 src/klog.cpp:3245 src/klog.cpp:3447
+#: src/klog.cpp:3006 src/klog.cpp:3008 src/klog.cpp:3232 src/klog.cpp:3434
 msgid ""
 "Enter a remark for ALL the imported QSO:\n"
 "(Leave it empty and press OK if no remark)"
@@ -276,11 +1832,11 @@ msgstr ""
 "Skriv in en anmärkning för ALLA importerade QSO:n\n"
 "(Lämna den tom och tryck OK, om ingen anmärkning)"
 
-#: src/klog.cpp:3020 src/klog.cpp:3034
+#: src/klog.cpp:3007 src/klog.cpp:3021
 msgid "KLog - TLF Import"
 msgstr "KLog - TLF-import"
 
-#: src/klog.cpp:3035
+#: src/klog.cpp:3022
 msgid ""
 "Enter the used call:\n"
 "(Leave it empty and press OK if no diferent call was used)"
@@ -288,27 +1844,27 @@ msgstr ""
 "Skriv in använd signal:\n"
 "(Lämna den tom och tryck OK, om ingen skild signal använts)"
 
-#: src/klog.cpp:3040 src/klog.cpp:3472
+#: src/klog.cpp:3027 src/klog.cpp:3459
 msgid "Warning - QRZ not valid"
 msgstr "Varning - QRZ ej giltigt"
 
-#: src/klog.cpp:3041
+#: src/klog.cpp:3028
 msgid "Do you want to import without a QRZ?\n"
 msgstr "Vill du importera utan QRZ?\n"
 
-#: src/klog.cpp:3042 src/klognetwork.cpp:45
+#: src/klog.cpp:3029 src/klognetwork.cpp:45
 msgid "Yes"
 msgstr "Ja"
 
-#: src/klog.cpp:3042 src/klognetwork.cpp:47
+#: src/klog.cpp:3029 src/klognetwork.cpp:47
 msgid "No"
 msgstr "Nej"
 
-#: src/klog.cpp:3061
+#: src/klog.cpp:3048
 msgid "Warning - Possible dates conflict:"
 msgstr "Varning - Möjlig datumkonflikt:"
 
-#: src/klog.cpp:3062
+#: src/klog.cpp:3049
 msgid ""
 "Please define if the QSOs were done in the 1900s or in the 2000s years\n"
 "Are these QSO dated before year 2000?"
@@ -316,15 +1872,15 @@ msgstr ""
 "Ange om QSO:na gjordes på 1900-talet eller 2000-talet\n"
 "Är dessa QSO:n daterade för år 2000?"
 
-#: src/klog.cpp:3244
+#: src/klog.cpp:3231
 msgid "KLog - Cabrillo Import"
 msgstr "KLog - Cabrillo-import"
 
-#: src/klog.cpp:3446 src/klog.cpp:3464 src/klog.cpp:3498
+#: src/klog.cpp:3433 src/klog.cpp:3451 src/klog.cpp:3485
 msgid "KLog - Log Add"
 msgstr "KLog - lägg till logg"
 
-#: src/klog.cpp:3462
+#: src/klog.cpp:3449
 msgid ""
 "Enter the used call:\n"
 "(Leave it empty and press OK if the call %1 was used)."
@@ -332,11 +1888,11 @@ msgstr ""
 "Skriv in använd signal:\n"
 "(Lämna den tom och tryck OK, om signalen %1 använts)"
 
-#: src/klog.cpp:3473
+#: src/klog.cpp:3460
 msgid "Do you want to import without a QRZ?"
 msgstr "Vill du importera utan ett QRZ?"
 
-#: src/klog.cpp:3496
+#: src/klog.cpp:3483
 msgid ""
 "Enter the locator of the activity:\n"
 "(Leave it empty and press OK if the locator was %1)."
@@ -344,47 +1900,48 @@ msgstr ""
 "Skriv in använd lokator för aktivitetn:\n"
 "(Lämna den tom och tryck OK, om lokatorn var %1)."
 
-#: src/klog.cpp:3504
+#: src/klog.cpp:3491
 msgid "Warning - Locator not valid"
 msgstr "Varning - Lokator ej giltigt"
 
-#: src/klog.cpp:3505
+#: src/klog.cpp:3492
 msgid "Do you want to import without a Locator and use %1 ?\n"
 msgstr "Vill du importera utan en lokator och använda %1 ?\n"
 
-#: src/klog.cpp:3540
+#: src/klog.cpp:3527
+#, fuzzy
 msgid ""
 "The log file has been\n"
-"sucessfully added!"
+"successfully added!"
 msgstr ""
 "Loggfilen har\n"
 "lyckligt lagts till!"
 
-#: src/klog.cpp:3604
+#: src/klog.cpp:3591
 msgid "<p align=\"center\"><b>Worked & confirmed before</b></p>"
 msgstr "<p align=\"center\"><b>Körda & konfirmerade före</b></p>"
 
-#: src/klog.cpp:3612
+#: src/klog.cpp:3599
 msgid "<p align=\"center\"><b>Not confirmed in this band, WORK IT!</b></p>"
 msgstr "<p align=\"center\"><b>Ej bekräftad på detta band, KÖR DET!</b></p>"
 
-#: src/klog.cpp:3619
+#: src/klog.cpp:3606
 msgid "<p align=\"center\"><b>New one in this band, WORK IT!</b></p>"
 msgstr "<p align=\"center\"><b>Ny på detta band, KÖR DEN!</b></p>"
 
-#: src/klog.cpp:3630
+#: src/klog.cpp:3617
 msgid "<p align=\"center\"><b>Not confirmed, WORK IT!</b></p>"
 msgstr "<p align=\"center\"><b>Ej konfirmerad, KÖR DEN!</b></p>"
 
-#: src/klog.cpp:3640
+#: src/klog.cpp:3627
 msgid "<p align=\"center\"><b>NEW ONE, WORK IT!</b></p>"
 msgstr "<p align=\"center\"><b>NY, KÖR DEN!</b></p>"
 
-#: src/klog.cpp:3844
+#: src/klog.cpp:3831
 msgid "Warning - QSO Deletion"
 msgstr "Varning - QSO-borttagande"
 
-#: src/klog.cpp:3845
+#: src/klog.cpp:3832
 msgid ""
 "Do you want to delete the QSO with:\n"
 "%1 of %2 ?"
@@ -392,59 +1949,35 @@ msgstr ""
 "Vill du ta bort QSO:et med:\n"
 "%1 av %2 ?"
 
-#: src/klog.cpp:4349
+#: src/klog.cpp:4336
 msgid "Print the log"
 msgstr "Skriver ut loggen"
 
-#: src/klog.cpp:4358
+#: src/klog.cpp:4345
 msgid "Printing date: "
 msgstr "Utskriftsdatum: "
 
-#: src/klog.cpp:4361 src/ui_klog.h:1844 src/ui_setup.h:887
-msgid "Number"
-msgstr "Nummer"
-
-#: src/klog.cpp:4361 src/ui_klog.h:1736 src/ui_klog.h:1850
-msgid "Date"
-msgstr "Datum"
-
-#: src/klog.cpp:4362 src/ui_klog.h:1849
-msgid "Time"
-msgstr "Tid"
-
-#: src/klog.cpp:4362 src/ui_klog.h:1734 src/ui_klog.h:1851
-msgid "QRZ"
-msgstr "QRZ"
-
-#: src/klog.cpp:4363
+#: src/klog.cpp:4350
 msgid "RST(tx/rx)"
 msgstr "RST(tx/rx)"
 
-#: src/klog.cpp:4363 src/ui_klog.h:1731 src/ui_klog.h:1848
-msgid "Band"
-msgstr "Band"
-
-#: src/klog.cpp:4364
+#: src/klog.cpp:4351
 msgid "Freq"
 msgstr "Freq"
 
-#: src/klog.cpp:4364 src/ui_klog.h:1730 src/ui_klog.h:1847
-msgid "Mode"
-msgstr "Mod"
-
-#: src/klog.cpp:4366 src/klog.cpp:4380
+#: src/klog.cpp:4353 src/klog.cpp:4367
 msgid "Page: %1"
 msgstr "Sida: %1"
 
-#: src/klog.cpp:4418
+#: src/klog.cpp:4405
 msgid "Sorting the log..."
 msgstr "Sorterar loggen..."
 
-#: src/klog.cpp:4418
+#: src/klog.cpp:4405
 msgid "Abort sorting"
 msgstr "Avbryter sortering"
 
-#: src/klog.cpp:4460
+#: src/klog.cpp:4447
 msgid ""
 "Check your cluster settings\n"
 "in Setup->Preferences\n"
@@ -454,43 +1987,43 @@ msgstr ""
 "i Inställningar->Inställningar\n"
 "innan anslutning!"
 
-#: src/klog.cpp:4485
+#: src/klog.cpp:4472
 msgid "Trying to connect to the server\n"
 msgstr "Förösker ansluta till servern\n"
 
-#: src/klog.cpp:4735
+#: src/klog.cpp:4722
 msgid "Connected to server"
 msgstr "Ansluten till servern"
 
-#: src/klog.cpp:4745 src/klog.cpp:4746
+#: src/klog.cpp:4732 src/klog.cpp:4733
 msgid "KLog message"
 msgstr "KLog-meddelande"
 
-#: src/klog.cpp:4745
+#: src/klog.cpp:4732
 msgid "Enter your callsign to connect to the cluster:"
 msgstr "Skriv in din signal för att ansluta till klustret:"
 
-#: src/klog.cpp:4746
+#: src/klog.cpp:4733
 msgid "Enter your password to connect to the cluster:"
 msgstr "Skriv in ditt lösenord för att ansluta till klustret:"
 
-#: src/klog.cpp:4752
+#: src/klog.cpp:4739
 msgid "Not logged on, you may to enter your callsign again."
 msgstr "Ej inloggad, du kan skriva in din anropssignal igen."
 
-#: src/klog.cpp:4761
+#: src/klog.cpp:4748
 msgid "Connection closed by the server"
 msgstr "Anslutning stängd av servern"
 
-#: src/klog.cpp:4771
+#: src/klog.cpp:4758
 msgid "Connection closed"
 msgstr "Anslutning stängd"
 
-#: src/klog.cpp:4797
+#: src/klog.cpp:4784
 msgid "Host not found:\n"
 msgstr "Värd ej funnen:\n"
 
-#: src/klog.cpp:4798
+#: src/klog.cpp:4785
 msgid ""
 "\n"
 "Check your network settings!"
@@ -498,11 +2031,11 @@ msgstr ""
 "\n"
 "Kontrollera dina nätverksinställningar!"
 
-#: src/klog.cpp:4812
+#: src/klog.cpp:4799
 msgid "DX-Cluster server refused the connection\n"
 msgstr "DX-kluster-server vägrade anslutning\n"
 
-#: src/klog.cpp:4813
+#: src/klog.cpp:4800
 msgid ""
 "\n"
 "Maybe you are already connected, use another call like \"YOURCALL-1\"!"
@@ -510,11 +2043,11 @@ msgstr ""
 "\n"
 "Du kanske redab är ansluten, använd en anna signal som \"DINSIGNAL-1\"!"
 
-#: src/klog.cpp:4823
+#: src/klog.cpp:4810
 msgid "The following error occurred: %1."
 msgstr "Följande fel har inträffat: %1"
 
-#: src/klog.cpp:5009
+#: src/klog.cpp:4996
 msgid ""
 "Please send your bug-report/wish to jaime@robles.es\n"
 "Include the KLog version you are using (%1). All your suggestion will be "
@@ -523,21 +2056,21 @@ msgstr ""
 "Skicak dina fel-rapporter till jaime@robles.es\n"
 "Tag med KLog-version du använder (%1). Alla dina förslag välkommnas!"
 
-#: src/klog.cpp:5275
+#: src/klog.cpp:5262
 msgid "Merging information..."
 msgstr "Ställer samman information..."
 
-#: src/klog.cpp:5275 src/klog.cpp:5513
+#: src/klog.cpp:5262 src/klog.cpp:5500
 msgid "Abort"
 msgstr "Avbryt"
 
-#: src/klog.cpp:5296 src/klog.cpp:5320 src/klog.cpp:5340 src/klog.cpp:5363
-#: src/klog.cpp:5396 src/klog.cpp:5438
+#: src/klog.cpp:5283 src/klog.cpp:5307 src/klog.cpp:5327 src/klog.cpp:5350
+#: src/klog.cpp:5383 src/klog.cpp:5425
 msgid "Warning: Callsign to complete found"
 msgstr "Varning: ej fullständig anropssignal funnen"
 
-#: src/klog.cpp:5297 src/klog.cpp:5321 src/klog.cpp:5341 src/klog.cpp:5364
-#: src/klog.cpp:5397
+#: src/klog.cpp:5284 src/klog.cpp:5308 src/klog.cpp:5328 src/klog.cpp:5351
+#: src/klog.cpp:5384
 msgid ""
 "Completing a call could cause data to be no accurate. Do you want this data "
 "to be merged?\n"
@@ -547,32 +2080,32 @@ msgstr ""
 "dessa data skall sättas samman?\n"
 " QSO N: #"
 
-#: src/klog.cpp:5299
+#: src/klog.cpp:5286
 msgid " - Asign the name "
 msgstr " - Tilldela namnet "
 
-#: src/klog.cpp:5299 src/klog.cpp:5323 src/klog.cpp:5344 src/klog.cpp:5367
-#: src/klog.cpp:5401
+#: src/klog.cpp:5286 src/klog.cpp:5310 src/klog.cpp:5331 src/klog.cpp:5354
+#: src/klog.cpp:5388
 msgid " for "
 msgstr " för "
 
-#: src/klog.cpp:5323
+#: src/klog.cpp:5310
 msgid " - Asign the QTH "
 msgstr " - Tilldela QTH:et "
 
-#: src/klog.cpp:5343
+#: src/klog.cpp:5330
 msgid " - Asign the Locator "
 msgstr " - Tilldela lokatorn "
 
-#: src/klog.cpp:5366
+#: src/klog.cpp:5353
 msgid " - Asign the IOTA reference "
 msgstr " - Tilldela IOTA-referensen "
 
-#: src/klog.cpp:5399
+#: src/klog.cpp:5386
 msgid " - Asign the Local Award reference "
 msgstr " - Tilldela den lokala diplomreferensen "
 
-#: src/klog.cpp:5439
+#: src/klog.cpp:5426
 msgid ""
 "Completing a call could cause data to be no accurate. Do you want this data "
 "to be merged?\n"
@@ -584,15 +2117,15 @@ msgstr ""
 " QSO N: # %1 - Vill du kopiera QSL-informationen mottagen för att annat QSOs "
 "för %2 ?"
 
-#: src/klog.cpp:5489
+#: src/klog.cpp:5476
 msgid "Merging calls: "
 msgstr "Ställer samman anrop: "
 
-#: src/klog.cpp:5513
+#: src/klog.cpp:5500
 msgid "Getting all the calls..."
 msgstr "Hämtar anropen..."
 
-#: src/klog.cpp:5529
+#: src/klog.cpp:5516
 msgid "Adding Call: "
 msgstr "Lägger till anropen: "
 
@@ -669,12 +2202,9 @@ msgstr "KLog: SSL-fel"
 msgid "One or more SSL errors has occurred: %1"
 msgstr "Ett eller flera SSL-fel har inträffat: %1"
 
-#: src/main.cpp:44
-msgid "KLog"
-msgstr "KLog"
-
 #: src/main.cpp:45
-msgid "The KDE Ham radio loggin software."
+#, fuzzy
+msgid "The KDE Ham radio logging software."
 msgstr "Klog - KDE's Amatörradiologgprogram."
 
 #: src/main.cpp:47
@@ -780,1519 +2310,11 @@ msgstr ""
 "Denna funktion är inte införd ännu\n"
 "För att ta bort ett diplom så tag bort motsvarande rad i din klogrc-fil."
 
-#: src/ui_klog.h:1634
-msgid "Klog"
-msgstr "Klog"
-
-#: src/ui_klog.h:1639
-msgid "KLog - The KDE Ham radio logging software."
-msgstr "Klog - KDE's Amatörradiologgprogram."
-
-#: src/ui_klog.h:1641
-msgid "&New"
-msgstr "&Nytt"
-
-#: src/ui_klog.h:1642
-msgid "New"
-msgstr "Nytt"
-
-#: src/ui_klog.h:1644
-msgid "New Log"
-msgstr "Ny logg"
-
-#: src/ui_klog.h:1646
-msgid "Ctrl+N"
-msgstr "Ctrl+N"
-
-#: src/ui_klog.h:1647
-msgid "&Open..."
-msgstr "&Öppna..."
-
-#: src/ui_klog.h:1648
-msgid "Open"
-msgstr "Öppna"
-
-#: src/ui_klog.h:1649
-msgid "Ctrl+O"
-msgstr "Ctrl+O"
-
-#: src/ui_klog.h:1650
-msgid "&Save"
-msgstr "&Spara"
-
-#: src/ui_klog.h:1651
-msgid "Save"
-msgstr "Spara"
-
-#: src/ui_klog.h:1652
-msgid "Ctrl+S"
-msgstr "Ctrl+S"
-
-#: src/ui_klog.h:1653
-msgid "Save &As..."
-msgstr "Spar&a som..."
-
-#: src/ui_klog.h:1654
-msgid "Save As"
-msgstr "Spara som"
-
-#: src/ui_klog.h:1656
-msgid "&Print..."
-msgstr "&Skriv ut..."
-
-#: src/ui_klog.h:1657
-msgid "Print"
-msgstr "Skriv ut"
-
-#: src/ui_klog.h:1658
-msgid "Ctrl+P"
-msgstr "Ctrl+P"
-
-#: src/ui_klog.h:1659
-msgid "E&xit"
-msgstr "Av&sluta"
-
-#: src/ui_klog.h:1660
-msgid "Exit"
-msgstr "Avsluta"
-
-#: src/ui_klog.h:1662
-msgid "&Undo"
-msgstr "&Ångra"
-
-#: src/ui_klog.h:1663
-msgid "Undo"
-msgstr "Ångra"
-
-#: src/ui_klog.h:1664
-msgid "Ctrl+Z"
-msgstr "Ctrl+Z"
-
-#: src/ui_klog.h:1665
-msgid "&Redo"
-msgstr "&Gör om"
-
-#: src/ui_klog.h:1666
-msgid "Redo"
-msgstr "Gör om"
-
-#: src/ui_klog.h:1667
-msgid "Ctrl+Y"
-msgstr "Ctrl+Y"
-
-#: src/ui_klog.h:1668
-msgid "&Cut"
-msgstr "&Klipp ut"
-
-#: src/ui_klog.h:1669
-msgid "Cut"
-msgstr "Klipp ut"
-
-#: src/ui_klog.h:1670
-msgid "Ctrl+X"
-msgstr "Ctrl+X"
-
-#: src/ui_klog.h:1671
-msgid "C&opy"
-msgstr "K&opiera"
-
-#: src/ui_klog.h:1672
-msgid "Copy"
-msgstr "Kopiera"
-
-#: src/ui_klog.h:1673
-msgid "Ctrl+C"
-msgstr "Ctrl+C"
-
-#: src/ui_klog.h:1674
-msgid "&Paste"
-msgstr "K&listra in"
-
-#: src/ui_klog.h:1675
-msgid "Paste"
-msgstr "Klistra in"
-
-#: src/ui_klog.h:1676
-msgid "Ctrl+V"
-msgstr "Ctrl+V"
-
-#: src/ui_klog.h:1677
-msgid "&Find..."
-msgstr "&Leta..."
-
-#: src/ui_klog.h:1678
-msgid "Find"
-msgstr "Leta"
-
-#: src/ui_klog.h:1679
-msgid "Ctrl+F"
-msgstr "Ctrl+F"
-
-#: src/ui_klog.h:1680
-msgid "&About..."
-msgstr "&Om..."
-
-#: src/ui_klog.h:1681
-msgid "About"
-msgstr "Om"
-
-#: src/ui_klog.h:1683 src/ui_klog.h:1684
-msgid "&Preferences"
-msgstr "&Inställningar"
-
-#: src/ui_klog.h:1685
-msgid "Import from TLF log"
-msgstr "Importera från TLF-logg"
-
-#: src/ui_klog.h:1686
-msgid "AddTlfLog"
-msgstr "AddTlfLog"
-
-#: src/ui_klog.h:1688
-msgid "Import a tlf log"
-msgstr "Importera en tlf-logg"
-
-#: src/ui_klog.h:1691
-msgid "Import from tlf log file"
-msgstr "Importera från tlf-loggfil"
-
-#: src/ui_klog.h:1693
-msgid "Delete QSO"
-msgstr "Tag bort QSO"
-
-#: src/ui_klog.h:1696
-msgid "Add a log file"
-msgstr "Lägg till en loggfil"
-
-#: src/ui_klog.h:1698
-msgid "Add a log file to this log"
-msgstr "Lägg till en loggfil till denna logg"
-
-#: src/ui_klog.h:1700
-msgid "Connect to DXCluster"
-msgstr "Anslut till DX-kluster"
-
-#: src/ui_klog.h:1701
-msgid "Disconnect From DXCluster"
-msgstr "Koppla ner från DX-kluster"
-
-#: src/ui_klog.h:1702
-msgid "Properties"
-msgstr "Egenskaper"
-
-#: src/ui_klog.h:1703
-msgid "Bug report..."
-msgstr "Felrapport..."
-
-#: src/ui_klog.h:1704
-msgid "Check QSL needed"
-msgstr "Check QSL behövs"
-
-#: src/ui_klog.h:1705
-msgid "Sort the log"
-msgstr "Sortera loggen"
-
-#: src/ui_klog.h:1706 src/ui_klog.h:1707
-msgid "Find QSO to QSL"
-msgstr "Leta QSO för QSL"
-
-#: src/ui_klog.h:1709
-msgid "Shows the list of needed QSO that we need to send the QSL card to."
-msgstr "Visa listan med behövda QSO:n som vi måste skicka QSL-kort till."
-
-#: src/ui_klog.h:1711 src/ui_klog.h:1712 src/ui_klog.h:1714
-msgid "Merge QSO data"
-msgstr "Ställ samman QSO-data"
-
-#: src/ui_klog.h:1716
-msgid "Clear QSO"
-msgstr "Rensa QSO"
-
-#: src/ui_klog.h:1717
-msgid "Esc"
-msgstr "Esc"
-
-#: src/ui_klog.h:1718 src/ui_klog.h:1719
-msgid "Import Cabrillo"
-msgstr "Importera Cabrillo"
-
-#: src/ui_klog.h:1721
-msgid "Imports a cabrillo log"
-msgstr "Importera en cabrillo-logg"
-
-#: src/ui_klog.h:1723
-msgid "Update CTY.DAT"
-msgstr ""
-
-#: src/ui_klog.h:1725
-msgid "Update the CTY.DAT from the Internet"
-msgstr ""
-
-#: src/ui_klog.h:1728 src/ui_klog.h:2037
-msgid "Remarks"
-msgstr "Anmärkning"
-
-#: src/ui_klog.h:1729
-msgid "Power"
-msgstr "Effekt"
-
-#: src/ui_klog.h:1732
-msgid "RST(rx)"
-msgstr "RST(rx)"
-
-#: src/ui_klog.h:1733
-msgid "RST(tx)"
-msgstr "RST(tx)"
-
-#: src/ui_klog.h:1735
-msgid "UTC"
-msgstr "UTC"
-
-#: src/ui_klog.h:1737 src/ui_klog.h:1755
-msgid "Numb"
-msgstr "Nummer"
-
-#: src/ui_klog.h:1738
-msgid "Log"
-msgstr "Logg"
-
-#: src/ui_klog.h:1739 src/ui_klog.h:1950
-msgid "OK"
-msgstr "OK"
-
-#: src/ui_klog.h:1741
-msgid "Cluster"
-msgstr "Kluster"
-
-#: src/ui_klog.h:1742
-msgid "DX Map"
-msgstr "DX-karta"
-
-#: src/ui_klog.h:1744
-msgid "160m"
-msgstr "160m"
-
-#: src/ui_klog.h:1745
-msgid "80m"
-msgstr "80m"
-
-#: src/ui_klog.h:1746
-msgid "40m"
-msgstr "40m"
-
-#: src/ui_klog.h:1747
-msgid "30m"
-msgstr "30m"
-
-#: src/ui_klog.h:1748
-msgid "20m"
-msgstr "20m"
-
-#: src/ui_klog.h:1749
-msgid "17m"
-msgstr "17m"
-
-#: src/ui_klog.h:1750
-msgid "15m"
-msgstr "15m"
-
-#: src/ui_klog.h:1751
-msgid "12m"
-msgstr "12m"
-
-#: src/ui_klog.h:1752
-msgid "10m"
-msgstr "10m"
-
-#: src/ui_klog.h:1753
-msgid "Prefix"
-msgstr "Prefix"
-
-#: src/ui_klog.h:1754 src/ui_setup.h:885
-msgid "Entity"
-msgstr "Entitet"
-
-#: src/ui_klog.h:1756
-msgid "DXCC"
-msgstr "DXCC"
-
-#: src/ui_klog.h:1757
-msgid "<b>KLog</b>"
-msgstr "<b>KLog</b>"
-
-#: src/ui_klog.h:1758
-msgid "<p align=\"center\"><b>10</b></p>"
-msgstr "<p align=\"center\"><b>10</b></p>"
-
-#: src/ui_klog.h:1759
-msgid "<p align=\"center\"><b>15</b></p>"
-msgstr "<p align=\"center\"><b>15</b></p>"
-
-#: src/ui_klog.h:1760
-msgid "<p align=\"center\"><b>20</b></p>"
-msgstr "<p align=\"center\"><b>20</b></p>"
-
-#: src/ui_klog.h:1761
-msgid "<p align=\"center\"><b>40</b></p>"
-msgstr "<p align=\"center\"><b>40</b></p>"
-
-#: src/ui_klog.h:1762
-msgid "<p align=\"center\"><b>80</b></p>"
-msgstr "<p align=\"center\"><b>80</b></p>"
-
-#: src/ui_klog.h:1763
-msgid "<p align=\"center\"><b>160</b></p>"
-msgstr "<p align=\"center\"><b>160</b></p>"
-
-#: src/ui_klog.h:1764 src/ui_klog.h:1774 src/ui_klog.h:1779
-msgid "--"
-msgstr "--"
-
-#: src/ui_klog.h:1765
-msgid "<p align=\"center\"><b>6</b></p>"
-msgstr "<p align=\"center\"><b>6</b></p>"
-
-#: src/ui_klog.h:1766
-msgid "<p align=\"center\"><b>12</b></p>"
-msgstr "<p align=\"center\"><b>12</b></p>"
-
-#: src/ui_klog.h:1767
-msgid "<p align=\"center\"><b>17</b></p>"
-msgstr "<p align=\"center\"><b>17</b></p>"
-
-#: src/ui_klog.h:1768
-msgid "<p align=\"center\"><b>30</b></p>"
-msgstr "<p align=\"center\"><b>30</b></p>"
-
-#: src/ui_klog.h:1769
-msgid "<p align=\"center\"><b>2</b></p>"
-msgstr "<p align=\"center\"><b>2</b></p>"
-
-#: src/ui_klog.h:1770
-msgid "<p align=\"center\"><b>70cm</b></p>"
-msgstr "<p align=\"center\"><b>70cm</b></p>"
-
-#: src/ui_klog.h:1772
-msgid "Entity's main prefix"
-msgstr "Helhets huvudprefix"
-
-#: src/ui_klog.h:1775
-msgid "<p align=\"center\"><b>Prefix:</b></p>"
-msgstr "<p align=\"center\"><b>Prefix:</b></p>"
-
-#: src/ui_klog.h:1777
-msgid "Entity's continent"
-msgstr "Entity's kontinent"
-
-#: src/ui_klog.h:1780
-msgid "<p align=\"center\"><b>Continent:</b></p>"
-msgstr "<p align=\"center\"><b>Kontinent:</b></p>"
-
-#: src/ui_klog.h:1781
-msgid "<p align=\"center\"><b>deg</b></p>"
-msgstr "<p align=\"center\"><b>grad</b></p>"
-
-#: src/ui_klog.h:1783
-msgid "Short Path"
-msgstr "Korta vägen"
-
-#: src/ui_klog.h:1785
-msgid "<p align=\"center\"><b>Short Path:</b></p>"
-msgstr "<p align=\"center\"><b>Korta vägen:</b></p>"
-
-#: src/ui_klog.h:1786 src/ui_klog.h:1812
-msgid "<b><p align=\"center\">Km</p></b>"
-msgstr "<b><p align=\"center\">km</p></b>"
-
-#: src/ui_klog.h:1788
-msgid "Point your antenna in this direction"
-msgstr "Rikta din antenn i denna riktning"
-
-#: src/ui_klog.h:1791
-msgid "Km to the DX through the short path"
-msgstr "Km till DX via den korta vägen"
-
-#: src/ui_klog.h:1793
-msgid "<p align=\"center\"><b>ITU:</b></p>"
-msgstr "<p align=\"center\"><b>ITU:</b></p>"
-
-#: src/ui_klog.h:1794
-msgid "<p align=\"center\"><b>CQ:</b></p>"
-msgstr "<p align=\"center\"><b>CQ:</b></p>"
-
-#: src/ui_klog.h:1796
-msgid "CQ zone"
-msgstr "CQ-zon"
-
-#: src/ui_klog.h:1799
-msgid "ITU zone"
-msgstr "ITU-zon"
-
-#: src/ui_klog.h:1802
-msgid "Turn your antenna in this direction to work via long path"
-msgstr "Vrid din antenn i denna riktning för att köra via långa vägen"
-
-#: src/ui_klog.h:1805
-msgid "Long Path"
-msgstr "Långväga"
-
-#: src/ui_klog.h:1807
-msgid "<p align=\"center\"><b>Long Path:</b></p>"
-msgstr "<p align=\"center\"><b>Lång väg:</b></p>"
-
-#: src/ui_klog.h:1809
-msgid "Km to the DX through the long path"
-msgstr "Km till DX via långa vägen"
-
-#: src/ui_klog.h:1811
-msgid "<b><p align=\"center\">deg</p></b>"
-msgstr "<b><p align=\"center\">grad</p></b>"
-
-#: src/ui_klog.h:1813
-msgid "Info"
-msgstr "Info"
-
-#: src/ui_klog.h:1814
-msgid "<b>Award</b>"
-msgstr "<b>Diplom</b>"
-
-#: src/ui_klog.h:1815
-msgid "<b>Worked</b>"
-msgstr "<b>Körda</b>"
-
-#: src/ui_klog.h:1816
-msgid "<b>DXCC:</b>"
-msgstr "<b>DXCC:</b>"
-
-#: src/ui_klog.h:1817
-msgid "<b>WAZ:</b>"
-msgstr "<b>WAZ:</b>"
-
-#: src/ui_klog.h:1819
-msgid "IOTA checking is still not implemented."
-msgstr "IOTA checking är inte införd ännu."
-
-#: src/ui_klog.h:1821 src/ui_klog.h:2038
-msgid "<b>IOTA:</b>"
-msgstr "<b>IOTA:</b>"
-
-#: src/ui_klog.h:1823
-msgid "Local awards checking is still not implemented."
-msgstr "Lokala diplom-checking är inte infört ännu."
-
-#: src/ui_klog.h:1825
-msgid "<b>LOCAL:</b>"
-msgstr "<b>LOKAL:</b>"
-
-#: src/ui_klog.h:1826
-msgid "<b>QSOs:</b>"
-msgstr "<b>QSOn:</b>"
-
-#: src/ui_klog.h:1827
-msgid "<b>Confirmed</b>"
-msgstr "<b>Konfirmerade</b>"
-
-#: src/ui_klog.h:1828 src/ui_setup.h:888
-msgid "Awards"
-msgstr "Diplom"
-
-#: src/ui_klog.h:1830
-msgid "Enter the call to search"
-msgstr "Skriv signal att leta efter"
-
-#: src/ui_klog.h:1832 src/ui_klog.h:1852
-msgid "Search"
-msgstr "Sök"
-
-#: src/ui_klog.h:1834 src/ui_klog.h:1988
-msgid "<p align=\"center\"><b>Name:</b></p>"
-msgstr "<p align=\"center\"><b>Namn:</b></p>"
-
-#: src/ui_klog.h:1836
-msgid "DX Operator's name"
-msgstr "DX-Operatörsnamn"
-
-#: src/ui_klog.h:1838
-msgid "<p align=\"center\"><b>Time:</b></p>"
-msgstr "<p align=\"center\"><b>Tid:</b></p>"
-
-#: src/ui_klog.h:1839
-msgid "<p align=\"center\"><b>QTH:</b></p>"
-msgstr "<p align=\"center\"><b>QTH:</b></p>"
-
-#: src/ui_klog.h:1841
-msgid "DX Operator's QTH"
-msgstr "DX Operatörens QTH"
-
-#: src/ui_klog.h:1845
-msgid "QSL-Rec"
-msgstr "QSL-mottaget"
-
-#: src/ui_klog.h:1846
-msgid "QSL-Sent"
-msgstr "QSL-Skickat"
-
-#: src/ui_klog.h:1854
-msgid "Enter the DX's QRZ"
-msgstr "Skriv in DX's QRZ"
-
-#: src/ui_klog.h:1858 src/ui_setup.h:765
-msgid "SSB"
-msgstr "SSB"
-
-#: src/ui_klog.h:1859 src/ui_setup.h:766
-msgid "CW"
-msgstr "CW"
-
-#: src/ui_klog.h:1860 src/ui_setup.h:767
-msgid "FM"
-msgstr "FM"
-
-#: src/ui_klog.h:1861 src/ui_setup.h:768
-msgid "PSK31"
-msgstr "PSK31"
-
-#: src/ui_klog.h:1862 src/ui_setup.h:769
-msgid "SSTV"
-msgstr "SSTV"
-
-#: src/ui_klog.h:1863 src/ui_setup.h:770
-msgid "RTTY"
-msgstr "RTTY"
-
-#: src/ui_klog.h:1864 src/ui_setup.h:771
-msgid "MTTY"
-msgstr "MTTY"
-
-#: src/ui_klog.h:1865 src/ui_setup.h:772
-msgid "PKT"
-msgstr "PKT"
-
-#: src/ui_klog.h:1866 src/ui_setup.h:773
-msgid "AM"
-msgstr "AM"
-
-#: src/ui_klog.h:1867 src/ui_setup.h:774
-msgid "FAX"
-msgstr "FAX"
-
-#: src/ui_klog.h:1868 src/ui_setup.h:775
-msgid "HELL"
-msgstr "HELL"
-
-#: src/ui_klog.h:1869 src/ui_setup.h:776
-msgid "JT44"
-msgstr "JT44"
-
-#: src/ui_klog.h:1870 src/ui_setup.h:777
-msgid "MT63"
-msgstr "MT63"
-
-#: src/ui_klog.h:1871 src/ui_setup.h:778
-msgid "CLO"
-msgstr "CLO"
-
-#: src/ui_klog.h:1872 src/ui_setup.h:779
-msgid "TOR"
-msgstr "TOR"
-
-#: src/ui_klog.h:1873
-msgid "GTOR"
-msgstr "GTOR"
-
-#: src/ui_klog.h:1874 src/ui_setup.h:780
-msgid "FSK"
-msgstr "FSK"
-
-#: src/ui_klog.h:1875 src/ui_setup.h:781
-msgid "MFSK8"
-msgstr "MFSK8"
-
-#: src/ui_klog.h:1876 src/ui_setup.h:782
-msgid "MFSK16"
-msgstr "MFSK16"
-
-#: src/ui_klog.h:1877 src/ui_setup.h:783
-msgid "HSFK"
-msgstr "HSFK"
-
-#: src/ui_klog.h:1878 src/ui_setup.h:784
-msgid "ATV"
-msgstr "ATV"
-
-#: src/ui_klog.h:1879 src/ui_setup.h:785
-msgid "PAC"
-msgstr "PAC"
-
-#: src/ui_klog.h:1880 src/ui_setup.h:786
-msgid "PAC2"
-msgstr "PAC2"
-
-#: src/ui_klog.h:1881 src/ui_setup.h:787
-msgid "PAC3"
-msgstr "PAC3"
-
-#: src/ui_klog.h:1882
-msgid "PCW"
-msgstr "PCW"
-
-#: src/ui_klog.h:1883 src/ui_setup.h:788
-msgid "PSK63"
-msgstr "PSK63"
-
-#: src/ui_klog.h:1884 src/ui_setup.h:789
-msgid "PSK125"
-msgstr "PSK125"
-
-#: src/ui_klog.h:1885 src/ui_setup.h:790
-msgid "Q15"
-msgstr "Q15"
-
-#: src/ui_klog.h:1886 src/ui_setup.h:791
-msgid "THRB"
-msgstr "THRB"
-
-#: src/ui_klog.h:1887 src/ui_setup.h:792
-msgid "ASCI"
-msgstr "ASCI"
-
-#: src/ui_klog.h:1888
-msgid "AMTORFEC"
-msgstr "AMTORFEC"
-
-#: src/ui_klog.h:1889
-msgid "CHIP64"
-msgstr "CHIP64"
-
-#: src/ui_klog.h:1890
-msgid "CIP128"
-msgstr "CIP128"
-
-#: src/ui_klog.h:1891
-msgid "CONTESTI"
-msgstr "CONTESTI"
-
-#: src/ui_klog.h:1892
-msgid "DSTAR"
-msgstr "DSTAR"
-
-#: src/ui_klog.h:1893
-msgid "DOMINO"
-msgstr "DOMINO"
-
-#: src/ui_klog.h:1894
-msgid "DOMINOF"
-msgstr "DOMINOF"
-
-#: src/ui_klog.h:1895
-msgid "FMHELL"
-msgstr "FMHELL"
-
-#: src/ui_klog.h:1896
-msgid "FSK31"
-msgstr "FSK31"
-
-#: src/ui_klog.h:1897
-msgid "FSK441"
-msgstr "FSK441"
-
-#: src/ui_klog.h:1898
-msgid "HELL80"
-msgstr "HELL80"
-
-#: src/ui_klog.h:1899
-msgid "JT65"
-msgstr "JT65"
-
-#: src/ui_klog.h:1900
-msgid "OLIVIA"
-msgstr "OLIVIA"
-
-#: src/ui_klog.h:1901
-msgid "PAX"
-msgstr "PAX"
-
-#: src/ui_klog.h:1902
-msgid "PAX2"
-msgstr "PAX2"
-
-#: src/ui_klog.h:1903
-msgid "PSK63F"
-msgstr "PSK63F"
-
-#: src/ui_klog.h:1904
-msgid "PSKAM10"
-msgstr "PSKAM10"
-
-#: src/ui_klog.h:1905
-msgid "PSKAM31"
-msgstr "PSKAM31"
-
-#: src/ui_klog.h:1906
-msgid "PSKAM50"
-msgstr "PSKAM50"
-
-#: src/ui_klog.h:1907
-msgid "PSKFEC31"
-msgstr "PSKFEC31"
-
-#: src/ui_klog.h:1908
-msgid "PSKHELL"
-msgstr "PSKHELL"
-
-#: src/ui_klog.h:1909
-msgid "QPSK31"
-msgstr "QPSK31"
-
-#: src/ui_klog.h:1910
-msgid "QPSK63"
-msgstr "QPSK63"
-
-#: src/ui_klog.h:1911
-msgid "QPSK125"
-msgstr "QPSK125"
-
-#: src/ui_klog.h:1912
-msgid "THRBX"
-msgstr "THRBX"
-
-#: src/ui_klog.h:1913
-msgid "VOI"
-msgstr "VOI"
-
-#: src/ui_klog.h:1916
-msgid "Mode selection"
-msgstr "Modval"
-
-#: src/ui_klog.h:1920 src/ui_setup.h:743
-msgid "160M"
-msgstr "160M"
-
-#: src/ui_klog.h:1921 src/ui_setup.h:744
-msgid "80M"
-msgstr "80M"
-
-#: src/ui_klog.h:1922 src/ui_setup.h:745
-msgid "60M"
-msgstr "60M"
-
-#: src/ui_klog.h:1923 src/ui_setup.h:746
-msgid "40M"
-msgstr "40M"
-
-#: src/ui_klog.h:1924 src/ui_setup.h:747
-msgid "30M"
-msgstr "30M"
-
-#: src/ui_klog.h:1925 src/ui_setup.h:748
-msgid "20M"
-msgstr "20M"
-
-#: src/ui_klog.h:1926 src/ui_setup.h:749
-msgid "17M"
-msgstr "17M"
-
-#: src/ui_klog.h:1927 src/ui_setup.h:750
-msgid "15M"
-msgstr "15M"
-
-#: src/ui_klog.h:1928 src/ui_setup.h:751
-msgid "12M"
-msgstr "12M"
-
-#: src/ui_klog.h:1929 src/ui_setup.h:752
-msgid "10M"
-msgstr "10M"
-
-#: src/ui_klog.h:1930 src/ui_setup.h:753
-msgid "6M"
-msgstr "6M"
-
-#: src/ui_klog.h:1931
-msgid "4M"
-msgstr "4M"
-
-#: src/ui_klog.h:1932 src/ui_setup.h:754
-msgid "2M"
-msgstr "2M"
-
-#: src/ui_klog.h:1933 src/ui_setup.h:755
-msgid "125CM"
-msgstr "125CM"
-
-#: src/ui_klog.h:1934 src/ui_setup.h:756
-msgid "70CM"
-msgstr "70CM"
-
-#: src/ui_klog.h:1935 src/ui_setup.h:757
-msgid "33CM"
-msgstr "33CM"
-
-#: src/ui_klog.h:1936 src/ui_setup.h:758
-msgid "23CM"
-msgstr "23CM"
-
-#: src/ui_klog.h:1937 src/ui_setup.h:759
-msgid "13CM"
-msgstr "13CM"
-
-#: src/ui_klog.h:1940
-msgid "Band selection"
-msgstr "Bandval"
-
-#: src/ui_klog.h:1942
-msgid "dd/MM/yyyy"
-msgstr "dd/MM/yyyy"
-
-#: src/ui_klog.h:1944
-msgid "Clear current QSO"
-msgstr "Rensa aktuellt QSO"
-
-#: src/ui_klog.h:1948
-msgid "Add this QSO to the log"
-msgstr "Lägg till detta QSO till loggen"
-
-#: src/ui_klog.h:1951
-msgid "HH:mm:ss"
-msgstr "HH:mm:ss"
-
-#: src/ui_klog.h:1952
-msgid "<p align=\"center\"><b>RST(tx)<br>RST(rx)</b></p>"
-msgstr "<p align=\"center\"><b>RST(tx)<br>RST(rx)</b></p>"
-
-#: src/ui_klog.h:1954
-msgid "R value you give to the DX"
-msgstr "R-värde du gett till DX"
-
-#: src/ui_klog.h:1957
-msgid "R value you get from the DX"
-msgstr "R-värde du fått från DX"
-
-#: src/ui_klog.h:1960
-msgid "S value you give to the DX"
-msgstr "S-värde du gett till DX"
-
-#: src/ui_klog.h:1963
-msgid "S value you get from the DX"
-msgstr "S-värde du fått från DX"
-
-#: src/ui_klog.h:1966
-msgid "T value you give to the DX"
-msgstr "T-värde du gett till DX"
-
-#: src/ui_klog.h:1970
-msgid "T value you get from the DX"
-msgstr "T-värde du fått från DX"
-
-#: src/ui_klog.h:1972
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">TX Freq</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">QTH:</span></p></body></html>"
-
-#: src/ui_klog.h:1977
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">RX Freq</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Nimbus Sans L'; font-size:9pt; "
-"font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">Effekt:</span></p></body></html>"
-
-#: src/ui_klog.h:1983
-msgid "Shows the frecuency of the transceiver when hamlib is  (TX)"
-msgstr "Visar radions frekvens när hamlib är  (TX)"
-
-#: src/ui_klog.h:1986
-msgid "Shows the frecuency of the transceiver when hamlib is activated (RX)"
-msgstr "Visar radions frekvens när hamlib är aktiverat (RX)"
-
-#: src/ui_klog.h:1990
-msgid "DX's operator's name"
-msgstr "DX-operatörens namn"
-
-#: src/ui_klog.h:1993
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">Locator:</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">Lokator:</span></p></body></html>"
-
-#: src/ui_klog.h:1998
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">QTH:</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">QTH:</span></p></body></html>"
-
-#: src/ui_klog.h:2004
-msgid "DX's QTH (City, town)"
-msgstr "DX's QTH (Stad,by)"
-
-#: src/ui_klog.h:2007
-msgid "The DX locator (like IN80EK)"
-msgstr "DX Lokator (som IN80EK)"
-
-#: src/ui_klog.h:2009 src/ui_setup.h:861
-msgid "QSO"
-msgstr "QSO"
-
-#: src/ui_klog.h:2010
-msgid "<b>Via:</b>"
-msgstr "<b>Via:</b>"
-
-#: src/ui_klog.h:2013
-msgid "Bureau"
-msgstr "Byrå"
-
-#: src/ui_klog.h:2014
-msgid "No QSL"
-msgstr "Inget QSL"
-
-#: src/ui_klog.h:2015
-msgid "QRZ.com"
-msgstr "QRZ.com"
-
-#: src/ui_klog.h:2016
-msgid "Manager"
-msgstr "Manager"
-
-#: src/ui_klog.h:2017
-msgid "Direct"
-msgstr "Direkt"
-
-#: src/ui_klog.h:2020
-msgid "How to send the QSL"
-msgstr "Hur man skickar QSL"
-
-#: src/ui_klog.h:2023
-msgid "Manager's QRZ"
-msgstr "Managers QRZ"
-
-#: src/ui_klog.h:2025
-msgid "<b>QSL Sent:</b>"
-msgstr "<b>QSL Skickat:</b>"
-
-#: src/ui_klog.h:2026
-msgid "<b>QSL Recv:</b>"
-msgstr "<b>QSL Mottag:</b>"
-
-#: src/ui_klog.h:2028
-msgid "QSL card received"
-msgstr "QSL-kort mottaget"
-
-#: src/ui_klog.h:2032
-msgid "Send the QSL"
-msgstr "Skicka QSL"
-
-#: src/ui_klog.h:2035
-msgid "QSL"
-msgstr "QSL"
-
-#: src/ui_klog.h:2036
-msgid "<b>Remarks:</b>"
-msgstr "<b>Anmärkning:</b>"
-
-#: src/ui_klog.h:2041
-msgid "AF"
-msgstr "AF"
-
-#: src/ui_klog.h:2042
-msgid "AN"
-msgstr "AN"
-
-#: src/ui_klog.h:2043
-msgid "AS"
-msgstr "AS"
-
-#: src/ui_klog.h:2044
-msgid "EU"
-msgstr "EU"
-
-#: src/ui_klog.h:2045
-msgid "NA"
-msgstr "NA"
-
-#: src/ui_klog.h:2046
-msgid "OC"
-msgstr "OC"
-
-#: src/ui_klog.h:2047
-msgid "SA"
-msgstr "SA"
-
-#: src/ui_klog.h:2050
-msgid "IOTA continent"
-msgstr "IOTA kontinent"
-
-#: src/ui_klog.h:2053
-msgid "IOTA number"
-msgstr "IOTA nummer"
-
-#: src/ui_klog.h:2056 src/ui_klog.h:2064 src/ui_klog.h:2072
-msgid "Several awards, still not implemented."
-msgstr "Åtskilliga diplom, ännu inte införda."
-
-#: src/ui_klog.h:2058
-msgid "<b>Award:</b>"
-msgstr "<b>Diplom:</b>"
-
-#: src/ui_klog.h:2061
-msgid "Default reference"
-msgstr "Standradreferens"
-
-#: src/ui_klog.h:2066
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Satellite</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Nimbus Sans L'; font-size:9pt; "
-"font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">Effekt:</span></p></body></html>"
-
-#: src/ui_klog.h:2074
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Sat Mode</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Nimbus Sans L'; font-size:9pt; "
-"font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">Effekt:</span></p></body></html>"
-
-#: src/ui_klog.h:2079
-msgid "Others"
-msgstr "Annat"
-
-#: src/ui_klog.h:2080
-msgid "<p align=\"center\"><b>Locator:</b></p>"
-msgstr "<p align=\"center\"><b>Lokator:</b></p>"
-
-#: src/ui_klog.h:2081
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Nimbus Sans L'; font-size:9pt; "
-"font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">Power:</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Nimbus Sans L'; font-size:9pt; "
-"font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
-"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-"style=\" font-weight:600;\">Effect:</span></p></body></html>"
-
-#: src/ui_klog.h:2087
-msgid "Power used to make this QSO"
-msgstr "Utnyttjad effekt vid detta QSO"
-
-#: src/ui_klog.h:2091 src/ui_klog.h:2104
-msgid "The call of the station used to work this QSO"
-msgstr "Den stations anropssignal som brukade köra detta QSO"
-
-#: src/ui_klog.h:2094
-msgid "The locator of the station"
-msgstr "Stationens lokator"
-
-#: src/ui_klog.h:2097 src/ui_klog.h:2100
-msgid "The operator that worked this QSO"
-msgstr "Den signal som körde detta QSO"
-
-#: src/ui_klog.h:2102
-msgid "<p align=\"center\"><b>Operator:</b></p>"
-msgstr "<p align=\"center\"><b>Operatör:</b></p>"
-
-#: src/ui_klog.h:2106
-msgid "<p align=\"center\"><b>Station:</b></p>"
-msgstr "<p align=\"center\"><b>Station:</b></p>"
-
-#: src/ui_klog.h:2107
-msgid "My Data"
-msgstr "Mina data"
-
-#: src/ui_klog.h:2108 src/ui_klog.h:2110
-msgid "Tools"
-msgstr "Verktyg"
-
-#: src/ui_klog.h:2109
-msgid "&File"
-msgstr "&Fil"
-
-#: src/ui_klog.h:2111
-msgid "&Setup"
-msgstr "&Inställning"
-
-#: src/ui_klog.h:2112
-msgid "DXCluster"
-msgstr "DX-Kluster"
-
-#: src/ui_klog.h:2113
-msgid "&Help"
-msgstr "&Hjälp"
-
-#: src/ui_setup.h:721
-msgid "KLog setup"
-msgstr "KLog-inställning"
-
-#: src/ui_setup.h:722
-msgid "&OK"
-msgstr "&OK"
-
-#: src/ui_setup.h:724
-msgid "&Cancel"
-msgstr "&Avbryt"
-
-#: src/ui_setup.h:726
-msgid "<b>QRZ:</b>"
-msgstr "<b>QRZ:</b>"
-
-#: src/ui_setup.h:727
-msgid "<b>Locator:</b>"
-msgstr "<b>Lokator:</b>"
-
-#: src/ui_setup.h:728
-msgid "Personal"
-msgstr "Personligt"
-
-#: src/ui_setup.h:730
-msgid "Shows a progress bar but makes the log reading slower"
-msgstr "Visar framåtskridandetstapel, men gör loggläsningen långsammare"
-
-#: src/ui_setup.h:732
-msgid "Show progress dialog when reading log file"
-msgstr "Visa framåtskridandedialog medan loggfil läses"
-
-#: src/ui_setup.h:733
-msgid "Open this file when starting:"
-msgstr "Öppna denna fil vid start:"
-
-#: src/ui_setup.h:735
-msgid "If checked the time will be UTC"
-msgstr "Om markerad, blir tiden i UTC"
-
-#: src/ui_setup.h:737
-msgid "Time in UTC"
-msgstr "Tid i UTC"
-
-#: src/ui_setup.h:739
-msgid "<b>Power:</b>"
-msgstr "<b>Effekt:</b>"
-
-#: src/ui_setup.h:740
-msgid "<b>Band:</b>"
-msgstr "<b>Band:</b>"
-
-#: src/ui_setup.h:761
-msgid "Logging in real time"
-msgstr "Loggning i realtid"
-
-#: src/ui_setup.h:762
-msgid "<b>Mode:</b>"
-msgstr "<b>Mod:</b>"
-
-#: src/ui_setup.h:794
-msgid "Misc"
-msgstr "Div."
-
-#: src/ui_setup.h:796
-msgid "Add the DX-Cluster server to the list"
-msgstr "Lägg till DX-Kluster-servern till listan"
-
-#: src/ui_setup.h:798 src/ui_setup.h:880
-msgid "Add"
-msgstr "Lägg till"
-
-#: src/ui_setup.h:800
-msgid ""
-"Clears the text line but also will remove the server from the list if is "
-"already added"
-msgstr ""
-"Rensar textraden, men tar även bort servern från listan, om den redan är "
-"tilllagd"
-
-#: src/ui_setup.h:802 src/ui_setup.h:882
-msgid "Remove"
-msgstr "Tag bort"
-
-#: src/ui_setup.h:803
-msgid "Spots"
-msgstr "Ställen"
-
-#: src/ui_setup.h:805
-msgid "Show 1.8-30MHz spots"
-msgstr "Visa 1,8 - 30 MHz ställen"
-
-#: src/ui_setup.h:807
-msgid "Show HF activity"
-msgstr "Visa HF-aktivitet"
-
-#: src/ui_setup.h:809 src/ui_setup.h:813 src/ui_setup.h:817 src/ui_setup.h:821
-#: src/ui_setup.h:825
-msgid "Show from 50MHz to GHz spots"
-msgstr "Visa från 50 MHz till GHz-ställen"
-
-#: src/ui_setup.h:811
-msgid "Show V/UHF activity"
-msgstr "Visa V/UHF-aktivitet"
-
-#: src/ui_setup.h:815
-msgid "Show WARC activity"
-msgstr "Visa WARC-aktivitet"
-
-#: src/ui_setup.h:819
-msgid "Show confirmed"
-msgstr "Visa bekräftade"
-
-#: src/ui_setup.h:823
-msgid "Show SSB activity"
-msgstr "Visa SSB-aktivitet"
-
-#: src/ui_setup.h:827
-msgid "Show CW activity"
-msgstr "Visa CW-aktivitet"
-
-#: src/ui_setup.h:828
-msgid "Messages"
-msgstr "Meddelanden"
-
-#: src/ui_setup.h:830
-msgid "Show announces"
-msgstr "Visa tillkännagivanden"
-
-#: src/ui_setup.h:832
-msgid "Show ANN/FULL messages"
-msgstr "Visa ANN/FULL-meddelanden"
-
-#: src/ui_setup.h:834 src/ui_setup.h:838
-msgid "Show weather messages"
-msgstr "Visa vädermeddelanden"
-
-#: src/ui_setup.h:836
-msgid "Show WCY messages"
-msgstr "Visa WCY-meddelanden"
-
-#: src/ui_setup.h:840
-msgid "Show WWV messages"
-msgstr "Visa WWV-meddelanden"
-
-#: src/ui_setup.h:842
-msgid "Select a dx-cluster server."
-msgstr "Välj en DX-Kluster-server."
-
-#: src/ui_setup.h:844
-msgid "DX-Cluster"
-msgstr "DX-Kluster"
-
-#: src/ui_setup.h:845
-msgid "<p align=\"center\"><b>Needed band</b></p>"
-msgstr "<p align=\"center\"><b>Behövda band</b></p>"
-
-#: src/ui_setup.h:846
-msgid "<p align=\"center\"><b>New One</b></p>"
-msgstr "<p align=\"center\"><b>Nytt</b></p>"
-
-#: src/ui_setup.h:847
-msgid "<p align=\"center\"><b>Worked</b></p>"
-msgstr "<p align=\"center\"><b>Körd</b></p>"
-
-#: src/ui_setup.h:848
-msgid "<p align=\"center\"><b>Confirmed</b></p>"
-msgstr "<p align=\"center\"><b>Bekräftad</b></p>"
-
-#: src/ui_setup.h:849
-msgid "<p align=\"center\"><b>Default</b></p>"
-msgstr "<p align=\"center\"><b>Standard</b></p>"
-
-#: src/ui_setup.h:850 src/ui_setup.h:851 src/ui_setup.h:852 src/ui_setup.h:853
-#: src/ui_setup.h:854
-msgid "Click to select"
-msgstr "Klicka för att välja"
-
-#: src/ui_setup.h:855
-msgid "Colors"
-msgstr "Färger"
-
-#: src/ui_setup.h:856
-msgid "Complete data with previous QSOs"
-msgstr "Komplettera data enligt föregående QSO"
-
-#: src/ui_setup.h:858
-msgid "Mandatory data is: QRZ, date, time, band, mode, RST(rx) & RST (tx)"
-msgstr "Obligatoriska data är: QRZ, datum, tid, band, mode, RST(rx) & RST (tx)"
-
-#: src/ui_setup.h:860
-msgid "Requires the mandatory fields in ALL QSO"
-msgstr "Kräver de obligatoriska fälten i ALLA QSO"
-
-#: src/ui_setup.h:862
-msgid "Transceiver:"
-msgstr "Transceiver:"
-
-#: src/ui_setup.h:863
-msgid "Device:"
-msgstr "Enhet:"
-
-#: src/ui_setup.h:864
-msgid "/dev/ttyS0"
-msgstr "/dev/ttyS0"
-
-#: src/ui_setup.h:867
-msgid "1200"
-msgstr "1200"
-
-#: src/ui_setup.h:868
-msgid "2400"
-msgstr "2400"
-
-#: src/ui_setup.h:869
-msgid "4800"
-msgstr "4800"
-
-#: src/ui_setup.h:870
-msgid "9600"
-msgstr "9600"
-
-#: src/ui_setup.h:871
-msgid "19200"
-msgstr "19200"
-
-#: src/ui_setup.h:872
-msgid "38400"
-msgstr "38400"
-
-#: src/ui_setup.h:873
-msgid "57600"
-msgstr "57600"
-
-#: src/ui_setup.h:874
-msgid "115200"
-msgstr "115200"
-
-#: src/ui_setup.h:876
-msgid "Activate Hamlib"
-msgstr "Aktivera Hamlib"
-
-#: src/ui_setup.h:877
-msgid "Pool hamlib each (msecs)"
-msgstr "Polla hamlib varje (ms)"
-
-#: src/ui_setup.h:878
-msgid "Hamlib"
-msgstr "Hamlib"
-
-#: src/ui_setup.h:884
-msgid "File"
-msgstr "Fil"
-
-#: src/ui_setup.h:886
-msgid "Award"
-msgstr "Diplom"
+#~ msgid "Klog"
+#~ msgstr "Klog"
+
+#~ msgid "DX Map"
+#~ msgstr "DX-karta"
 
 #~ msgid "Http authentication required"
 #~ msgstr "Http autentisering krävs"

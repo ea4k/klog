@@ -1,7 +1,8 @@
-November-2011 0.5.8-RC1
+December-2011 0.5.8
 - Bug fixed: Right button in the search result did not "sent" the QSL card.
 - Bug fixed: Closing the window did not ask to save data before exit. (TNX EA7HEG).
-TODO: - Bug fixed: Beam was not properly calculated. (TNX DL6FBS).
+- Bug fixed: Beam was not properly calculated. (TNX DL6FBS).
+- Bug fixed: Minor problem of APP_KLOG_NUMBER ADIF header fixed.
 - GUI updated: Remove the map tab in the main GUI as it is still not implemented.
 - GUI updated: Ordered the tab-switching to make it more usable. (TNX Cedric).
 
