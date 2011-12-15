@@ -536,7 +536,7 @@ void Klog::slotClearBtn(){
   clearBtn->setText(i18n("Clear"));
   QSLSentcheckBox->setChecked(false);
   QSLReccheckBox->setChecked(false);
-  powerSpinBox->setValue(power.toInt());
+  powerSpinBox->setValue(power.toDouble());
   qthkLineEdit->clear();
   // operatorLineEdit->clear();
   namekLineEdit->clear();
@@ -776,7 +776,7 @@ void Klog::slotExportNeeded(){
                 stream << " <EQSL_QSL_SENT:1>" << (*it).geteQslRcvd();
             if ( ((*it).geteQslRcvd()=='Y') || ((*it).geteQslRcvd()=='R') || ((*it).geteQslRcvd()=='I') || ((*it).geteQslRcvd()=='V') )
                 stream << " <EQSL_QSL_RCVD:1>" << (*it).geteQslRcvd();
-            if ( ((*it).getPower()).toInt() > 0) {
+            if ( ((*it).getPower()).toDouble() > 0) {
                 stream << " <TX_PWR:" << ((*it).getPower()).length() << ">" << (*it).getPower();
             }
             if ( ((*it).getrxPower()).toInt() != 0) {
@@ -793,7 +793,7 @@ void Klog::slotExportNeeded(){
                 stream << " <IOTA:" <<((*it).getIota()).length() << ">" << (*it).getIota();
             if ((*it).getMyIotaNumber()!= 0)
                 stream << " <MY_IOTA:" <<((*it).getMyIota()).length() << ">" << (*it).getMyIota();
-            if ((*it).getLocalAwardNumber() != 0)
+            if ((*it).getLocalAwardNumber() > 0)
                 stream << " <STATE:" << ( (*it).getLocalAward()).length() << ">" << (*it).getLocalAward();
             if (((*it).getName()).length()>= 2)
                 stream << " <NAME:" <<((*it).getName()).length() << ">" << (*it).getName();
@@ -1027,10 +1027,10 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
                 stream << " <EQSL_QSL_SENT:1>" << (*it).geteQslRcvd();
             if ( ((*it).geteQslRcvd()=='Y') || ((*it).geteQslRcvd()=='R') || ((*it).geteQslRcvd()=='I') || ((*it).geteQslRcvd()=='V') )
                 stream << " <EQSL_QSL_RCVD:1>" << (*it).geteQslRcvd();
-            if ( ((*it).getPower()).toInt() > 0) {
+            if ( ((*it).getPower()).toDouble() > 0) {
                 stream << " <TX_PWR:" << ((*it).getPower()).length() << ">" << (*it).getPower();
             }
-            if ( ((*it).getrxPower()).toInt() != 0) {
+            if ( ((*it).getrxPower()).toDouble() > 0) {
                 stream << " <RX_PWR:" << ((*it).getrxPower()).length() << ">" << (*it).getrxPower();
             }
 
@@ -1044,7 +1044,7 @@ void Klog::adifTempFileSave(const QString& fn, LogBook lb, bool manualSave){
                 stream << " <IOTA:" <<((*it).getIota()).length() << ">" << (*it).getIota();
             if ((*it).getMyIotaNumber()!= 0)
                 stream << " <MY_IOTA:" <<((*it).getMyIota()).length() << ">" << (*it).getMyIota();
-            if ((*it).getLocalAwardNumber() != 0)
+            if ((*it).getLocalAwardNumber() > 0)
                 stream << " <STATE:" << ( (*it).getLocalAward()).length() << ">" << (*it).getLocalAward();
             if (((*it).getName()).length()>= 2)
                 stream << " <NAME:" <<((*it).getName()).length() << ">" << (*it).getName();
@@ -1774,7 +1774,7 @@ void Klog::toEditQso(){
     
     bandComboBox->setCurrentIndex(bandComboBox->findText(qso.getBand()));
     //bandComboBox->setCurrentIndex(adif.band2Int(qso.getBand()));
-    powerSpinBox->setValue((qso.getPower()).toInt());
+    powerSpinBox->setValue((qso.getPower()).toDouble());
     remarksTextEdit->setText(returnLines(qso.getComment()));
     QSLSentcheckBox->setChecked(qso.sentTheQSL());
     QSLReccheckBox->setChecked(qso.gotTheQSL());

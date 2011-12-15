@@ -39,10 +39,10 @@ class Qso{
 public:
   Qso();
   Qso(const QString& tqrz, int tnumb, QString& tmode);
-  Qso (const int tnumb, const QString& tqrz, const int trstrx, const int trsttx, const QString& tmode, const QString& tband, const int tpower);
+  Qso (const int tnumb, const QString& tqrz, const int trstrx, const int trsttx, const QString& tmode, const QString& tband, const double tpower);
   // Next constructor is used to read log
   Qso (const int tnumb, const QDateTime tdateTime, const QString& tqrz, const int trstrx, const int trsttx, const QString& tband, const QString& tmode, const QString& tpower, const QString& tcomment);
-  Qso (const int tnumb, const QDateTime& tdateTime, const QString& tqrz, const int trstrx, const int trsttx, int tband, const QString& tmode, const int tpower, const QDate& tqslSen,  const QDate& tqslRec, const QString& tcomment);
+  Qso (const int tnumb, const QDateTime& tdateTime, const QString& tqrz, const int trstrx, const int trsttx, int tband, const QString& tmode, const double tpower, const QDate& tqslSen,  const QDate& tqslRec, const QString& tcomment);
   ~Qso();
 
   void setQrz(const QString &tqrz);
