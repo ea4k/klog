@@ -3,7 +3,7 @@ December-2011 0.5.8
 - Bug fixed: Closing the window did not ask to save data before exit. (TNX EA7HEG).
 - Bug fixed: Beam was not properly calculated. (TNX DL6FBS).
 - Bug fixed: Minor problem of APP_KLOG_NUMBER ADIF header fixed.
-- Bug fixed: When modifying, some fields did not accepted empty fields (deleting). (TNX VK4JAZ)
+- Bug fixed: When modifying, some fields did not accepted empty fields (deleting). (TNX VK4JAZ).
 - GUI updated: Remove the map tab in the main GUI as it is still not implemented.
 - GUI updated: Ordered the tab-switching to make it more usable. (TNX Cedric).
 - Added the support for QRP. Power has two decimals. (TNX VK4JAZ).
