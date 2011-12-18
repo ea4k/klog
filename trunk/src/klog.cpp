@@ -2326,7 +2326,7 @@ void Klog::readQso(){ //Just read the values an fill the qso
 
     }
 
-    if ((remarksTextEdit->toPlainText()).length() >0)
+//    if ((remarksTextEdit->toPlainText()).length() >0)
         qso.setComment(remarksTextEdit->toPlainText());
 
     qso.setQslVia(QSLcomboBox->currentText());
@@ -2341,32 +2341,34 @@ void Klog::readQso(){ //Just read the values an fill the qso
       qso.setMyLocator(getMyLocator());
     }
     
-   if((satNamelineEdit->text()).length() >= 2)
+   if ((satNamelineEdit->text()).length() >= 2)
         qso.setSatName((satNamelineEdit->text()).toUpper());
-   if((satModelineEdit->text()).length() >= 1)
+   
+   if ((satModelineEdit->text()).length() >= 1)
         qso.setSatMode((satModelineEdit->text()).toUpper());
      
 
-    if((qslVialineEdit->isEnabled()) && ((qslVialineEdit->text()).length() > 1))
-        qso.setQslManager((qslVialineEdit->text()).toUpper());
+    if ((qslVialineEdit->isEnabled()) && ((qslVialineEdit->text()).length() > 2)) 
+      qso.setQslManager((qslVialineEdit->text()).toUpper());
 
     if ((QSLInfotextEdit->toPlainText()).length() > 0)
         //  if(QSLInfotextEdit->isEnabled())
         qso.setQslInfo(QSLInfotextEdit->toPlainText());
 
-    if((namekLineEdit->text()).length() >= 2)
+    if ( (namekLineEdit->text()).length() >= 2  ) 
         qso.setName((namekLineEdit->text()).toUpper());
 
-    if((qthkLineEdit->text()).length() >= 2)
+    if ( (qthkLineEdit->text()).length() >= 2   )
         qso.setQth((qthkLineEdit->text()).toUpper());
 
-    if((operatorLineEdit->text()).length() >= 3)
+    if ((operatorLineEdit->text()).length() >= 3)
         qso.setOperator((operatorLineEdit->text()).toUpper());
 
-    if((stationCallsignLineEdit->text()).length() >= 3)
+    if ((stationCallsignLineEdit->text()).length() >= 3) 
         qso.setStationCallsign((stationCallsignLineEdit->text()).toUpper());
 
-    if (freqtxdoubleSpinBox->value() >= 0){
+    if (freqtxdoubleSpinBox->value() >= 0) 
+    {
 //        qso.setFreq(QString::number(freqlCDNumber->value()));
 	qso.setFreq(QString::number(freqtxdoubleSpinBox->value()));//TODO: check of needed /1000
     }
@@ -2442,52 +2444,69 @@ void Klog::modifyQso(){
 	tmpQso.setIota(iota);
       }
       
-      if((satNamelineEdit->text()).length() >= 2){
-	tmpQso.setSatName((satNamelineEdit->text()).toUpper());
+      if ( (satNamelineEdit->text()).length() != 1) 
+      {
+        tmpQso.setSatName((satNamelineEdit->text()).toUpper());
       }
-      if((satModelineEdit->text()).length() >= 1){
-	tmpQso.setSatMode((satModelineEdit->text()).toUpper());
-      }     
-      if((qslVialineEdit->isEnabled()) && ((qslVialineEdit->text()).length() > 1)){
+      //if ( ((satModelineEdit->text()).length() >= 1)   )
+      //{
+        tmpQso.setSatMode((satModelineEdit->text()).toUpper());
+      //}
+       
+      if ( ((qslVialineEdit->isEnabled()) && ((qslVialineEdit->text()).length() > 2)) || ((qslVialineEdit->isEnabled()) && ((qslVialineEdit->text()).length() == 0)   ) )
+      {
+      //if((qslVialineEdit->isEnabled()) && ((qslVialineEdit->text()).length() > 1)){
 	tmpQso.setQslManager((qslVialineEdit->text()).toUpper());
       }
-      if ((QSLInfotextEdit->toPlainText()).length() > 0)
+      //if ( ((QSLInfotextEdit->toPlainText()).length() > 0) || ( modify )  )
+      //if ((QSLInfotextEdit->toPlainText()).length() > 0)
 	tmpQso.setQslInfo(QSLInfotextEdit->toPlainText());
 
-      if((namekLineEdit->text()).length() >= 2)
+      //if((namekLineEdit->text()).length() >= 2)
+      if ( (namekLineEdit->text()).length() !=1  )  // just because we consider that there are no names with 1 character.
 	tmpQso.setName((namekLineEdit->text()).toUpper());
 
-      if((qthkLineEdit->text()).length() >= 2)
+      if ( (qthkLineEdit->text()).length() !=1   ) // just because we consider that there are no QTH with 1 character.
+      //if((qthkLineEdit->text()).length() >= 2)
 	tmpQso.setQth((qthkLineEdit->text()).toUpper());
 
-      if((operatorLineEdit->text()).length() >= 3)
+      if ( ((operatorLineEdit->text()).length() >= 3) || ((operatorLineEdit->text()).length() == 0) ) 
+      //if((operatorLineEdit->text()).length() >= 3)
 	tmpQso.setOperator((operatorLineEdit->text()).toUpper());
 
-      if((stationCallsignLineEdit->text()).length() >= 3)
+      if ( ((stationCallsignLineEdit->text()).length() >= 3) || ((stationCallsignLineEdit->text()).length() == 0) )  
+      //if((stationCallsignLineEdit->text()).length() >= 3)
 	tmpQso.setStationCallsign((stationCallsignLineEdit->text()).toUpper());
 
-      if (freqtxdoubleSpinBox->value() >= 0){
+      if (freqtxdoubleSpinBox->value() >= 0)
+      {
 	tmpQso.setFreq(QString::number(freqtxdoubleSpinBox->value()));
       }
     
-      if (freqrxdoubleSpinBox->value() >= 0){        
+      if (freqrxdoubleSpinBox->value() >= 0)
+      {        
 	tmpQso.setFreq_RX(QString::number(freqrxdoubleSpinBox->value()));
       }
-      if ((awardsComboBox->currentIndex() != 0)){
+      if ((awardsComboBox->currentIndex() != 0))
+      {
 	award = awards.getAwardFor(world.getPrefix(qso.getQrz()));
-	if (award.getReferenceNumber(awardsComboBox->currentText())){
+	if (award.getReferenceNumber(awardsComboBox->currentText()))
+	{
 	  tmpQso.setLocalAward(awardsComboBox->currentText());
 	  tmpQso.setLocalAwardNumber(award.getReferenceNumber(awardsComboBox->currentText()));
 	  award.workReference(awardsComboBox->currentText(), true);
 	}
       }
-      if (QSLSentcheckBox->isChecked()){
+      if (QSLSentcheckBox->isChecked())
+      {
 	qslSen = QSLSentdateEdit->date();
 	tmpQso.QslSent('Y');
 	if (qslSen.isValid()){
 	  tmpQso.setQslSenDateOn(qslSen);
 	}
-      } else {
+      }
+      else
+      {
 	tmpQso.QslSent('N');
       }
       if (QSLReccheckBox->isChecked()){
@@ -2511,6 +2530,7 @@ void Klog::modifyQso(){
     }
   }
 }
+
 void Klog::helpAbout() {
 //qDebug() << "KLog::helpAbout" << endl;
   
