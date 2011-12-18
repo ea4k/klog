@@ -7,3 +7,4 @@ Icon=klog-icon.png
 Terminal=false
 Type=Application
 Categories=Utility;HamRadio;KDE
+Encoding=UTF-8
