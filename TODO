@@ -4,6 +4,9 @@
 </critical>
 
 <BEFORE RELEASING>
+Fix the "loop" that is created at the beginig with the download the cty.dat
+file.
+
 </BEFORE RELEASING>
 
 * Add eQSL to the list of QSL VIA.
