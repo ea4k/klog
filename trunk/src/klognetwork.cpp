@@ -6,34 +6,7 @@
 
 KLogNetwork::KLogNetwork(QWidget *parent)
      : QDialog(parent){
-//qDebug() << "KLogNetwork::KLogNetwork" << endl;
-
-
-/*
-
- QMessageBox msgBox;
- msgBox.setText("KLog: Download & update the CTY.DAT file");
- msgBox.setInformativeText(i18n("You are going to download the cty.dat file from: <a href\"http://www.country-files.com/cty/cty.dat\">http://www.country-files.com/cty/cty.dat</a>\nDo you want to continue?"));
- msgBox.setStandardButtons(QMessageBox::Ok  | QMessageBox::Cancel);
- msgBox.setDefaultButton(QMessageBox::Ok);
- int ret = msgBox.exec();
- 
-  switch (ret) {
-   case QMessageBox::Ok:
-       // Save was clicked
-       
-       
-       DOWNLOAD THE CTY.DAT
-       
-       break;
-   case QMessageBox::Cancel:
-       // Cancel was clicked
-       break;
-   default:
-       // should never be reached
-       break;
- }
-*/
+qDebug() << "KLogNetwork::KLogNetwork" << endl;
 
 
   urlLineEdit = new QLineEdit("http://www.country-files.com/cty/cty.dat");
@@ -65,7 +38,7 @@ KLogNetwork::KLogNetwork(QWidget *parent)
 #endif
   connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelDownload()));
   connect(downloadButton, SIGNAL(clicked()), this, SLOT(downloadFile()));
-  connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
+  connect(quitButton, SIGNAL(clicked()), this, SLOT(done(1)));
 
   QHBoxLayout *topLayout = new QHBoxLayout;
   topLayout->addWidget(urlLabel);
@@ -170,9 +143,6 @@ void KLogNetwork::downloadFile() {
          statusLabel->setText(i18n("Downloaded %1 to the KLog directory.").arg(fileName));
 	 
 	 
-	 
-	 
-	 
 	  QMessageBox msgBox;
     msgBox.setWindowTitle(i18n("KLog: cty.dat downloaded"));
     msgBox.setText(i18n("KLog has downloaded the cty.dat file successfully.\n"));
@@ -183,7 +153,7 @@ void KLogNetwork::downloadFile() {
     
     switch (ret) {
       case QMessageBox::Ok:
-       
+      done(1);
       break;
       default:
        // should never be reached
