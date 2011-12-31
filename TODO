@@ -4,8 +4,7 @@
 </critical>
 
 <BEFORE RELEASING>
-Fix the "loop" that is created at the beginig with the download the cty.dat
-file.
+http://bugs.debian.org/cgi-bin/pkgreport.cgi?package=klog
 
 </BEFORE RELEASING>
 
