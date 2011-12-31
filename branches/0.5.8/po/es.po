@@ -1,0 +1,2526 @@
+# translation of es.po to Spanish
+# Copyright (C) 2003, 2004, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
+#
+# Jaime Robles <jaime@kde.org>, 2003, 2004, 2006, 2007, 2008, 2009, 2010, 2011.
+# Jaime Robles <jaime@robles.es>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: es\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-04 10:27+0100\n"
+"PO-Revision-Date: 2011-12-04 09:45+0100\n"
+"Last-Translator: Jaime Robles <jaime@robles.es>\n"
+"Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.2\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: build/src/ui_klog.h:1668 src/main.cpp:44
+msgid "KLog"
+msgstr "KLog"
+
+#: build/src/ui_klog.h:1673
+msgid "KLog - The KDE Ham radio logging software."
+msgstr "KLog - El programa de Log para Radioaficionados de KDE"
+
+#: build/src/ui_klog.h:1675
+msgid "&New"
+msgstr "&Nuevo"
+
+#: build/src/ui_klog.h:1676
+msgid "New"
+msgstr "Nuevo"
+
+#: build/src/ui_klog.h:1678
+msgid "New Log"
+msgstr "Nuevo log"
+
+#: build/src/ui_klog.h:1680
+msgid "Ctrl+N"
+msgstr "Ctrl+N"
+
+#: build/src/ui_klog.h:1681
+msgid "&Open..."
+msgstr "&Abrir..."
+
+#: build/src/ui_klog.h:1682
+msgid "Open"
+msgstr "Abrir"
+
+#: build/src/ui_klog.h:1683
+msgid "Ctrl+O"
+msgstr "Ctrl+O"
+
+#: build/src/ui_klog.h:1684
+msgid "&Save"
+msgstr "&Guardar"
+
+#: build/src/ui_klog.h:1685
+msgid "Save"
+msgstr "Guardar"
+
+#: build/src/ui_klog.h:1686
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: build/src/ui_klog.h:1687
+msgid "Save &As..."
+msgstr "Gu&ardar como..."
+
+#: build/src/ui_klog.h:1688
+msgid "Save As"
+msgstr "Guardar como"
+
+#: build/src/ui_klog.h:1690
+msgid "&Print..."
+msgstr "Im&primir..."
+
+#: build/src/ui_klog.h:1691
+msgid "Print"
+msgstr "Imprimir"
+
+#: build/src/ui_klog.h:1692
+msgid "Ctrl+P"
+msgstr "Ctrl+P"
+
+#: build/src/ui_klog.h:1693
+msgid "E&xit"
+msgstr "&Salir"
+
+#: build/src/ui_klog.h:1694
+msgid "Exit"
+msgstr "Salir"
+
+#: build/src/ui_klog.h:1696
+msgid "&Undo"
+msgstr "&Deshacer"
+
+#: build/src/ui_klog.h:1697
+msgid "Undo"
+msgstr "Deshacer"
+
+#: build/src/ui_klog.h:1698
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#: build/src/ui_klog.h:1699
+msgid "&Redo"
+msgstr "Re&hacer"
+
+#: build/src/ui_klog.h:1700
+msgid "Redo"
+msgstr "Rehacer"
+
+#: build/src/ui_klog.h:1701
+msgid "Ctrl+Y"
+msgstr "Ctrl+Y"
+
+#: build/src/ui_klog.h:1702
+msgid "&Cut"
+msgstr "C&ortar"
+
+#: build/src/ui_klog.h:1703
+msgid "Cut"
+msgstr "Cortar"
+
+#: build/src/ui_klog.h:1704
+msgid "Ctrl+X"
+msgstr "Ctrl+X"
+
+#: build/src/ui_klog.h:1705
+msgid "C&opy"
+msgstr "C&opiar"
+
+#: build/src/ui_klog.h:1706
+msgid "Copy"
+msgstr "&Copiar"
+
+#: build/src/ui_klog.h:1707
+msgid "Ctrl+C"
+msgstr "Ctrl+C"
+
+#: build/src/ui_klog.h:1708
+msgid "&Paste"
+msgstr "&Pegar"
+
+#: build/src/ui_klog.h:1709
+msgid "Paste"
+msgstr "Pegar"
+
+#: build/src/ui_klog.h:1710
+msgid "Ctrl+V"
+msgstr "Ctrl+V"
+
+#: build/src/ui_klog.h:1711
+msgid "&Find..."
+msgstr "&Buscar..."
+
+#: build/src/ui_klog.h:1712
+msgid "Find"
+msgstr "Buscar"
+
+#: build/src/ui_klog.h:1713
+msgid "Ctrl+F"
+msgstr "Ctrl+F"
+
+#: build/src/ui_klog.h:1714
+msgid "&About..."
+msgstr "&Acerca de..."
+
+#: build/src/ui_klog.h:1715
+msgid "About"
+msgstr "Acerca de"
+
+#: build/src/ui_klog.h:1717 build/src/ui_klog.h:1718
+msgid "&Preferences"
+msgstr "&Preferencias"
+
+#: build/src/ui_klog.h:1719
+msgid "Import from TLF log"
+msgstr "Importar log de TLF"
+
+#: build/src/ui_klog.h:1720
+msgid "AddTlfLog"
+msgstr "AddTlfLog"
+
+#: build/src/ui_klog.h:1722
+msgid "Import a tlf log"
+msgstr "Importar un log de tlf"
+
+#: build/src/ui_klog.h:1725
+msgid "Import from tlf log file"
+msgstr "Importar desde un archivo de log de tlf"
+
+#: build/src/ui_klog.h:1727
+msgid "Delete QSO"
+msgstr "Eliminar QSO"
+
+#: build/src/ui_klog.h:1728 src/klog.cpp:1998
+msgid "QSL Sent"
+msgstr "QSL enviada"
+
+#: build/src/ui_klog.h:1729 src/klog.cpp:1993
+msgid "QSL Received"
+msgstr "QSL recibida"
+
+#: build/src/ui_klog.h:1730
+msgid "Add a log file"
+msgstr "Añadir al archivo de log"
+
+#: build/src/ui_klog.h:1732
+msgid "Add a log file to this log"
+msgstr "Añadir archivo de log a este log"
+
+#: build/src/ui_klog.h:1734
+msgid "Connect to DXCluster"
+msgstr "Conectar al DXCluster"
+
+#: build/src/ui_klog.h:1735
+msgid "Disconnect From DXCluster"
+msgstr "Desconectar del DXCluster"
+
+#: build/src/ui_klog.h:1736
+msgid "Properties"
+msgstr "Propiedades"
+
+#: build/src/ui_klog.h:1737
+msgid "Bug report..."
+msgstr "Avisar de error..."
+
+#: build/src/ui_klog.h:1738
+msgid "Check QSL needed"
+msgstr "Buscar tarjetas necesitadas"
+
+#: build/src/ui_klog.h:1739
+msgid "Sort the log"
+msgstr "Ordenar el log"
+
+#: build/src/ui_klog.h:1740 build/src/ui_klog.h:1741
+msgid "Find QSO to QSL"
+msgstr "Buscar QSL por enviar"
+
+#: build/src/ui_klog.h:1743
+msgid "Shows the list of needed QSO that we need to send the QSL card to."
+msgstr ""
+"Muestra la lista de los QSO por confirmar, necesarios para los que no hemos "
+"enviado la tarjeta QSL."
+
+#: build/src/ui_klog.h:1745 build/src/ui_klog.h:1746 build/src/ui_klog.h:1748
+msgid "Merge QSO data"
+msgstr "Consolidar QSO"
+
+#: build/src/ui_klog.h:1750
+msgid "Clear QSO"
+msgstr "Limpiar QSO"
+
+#: build/src/ui_klog.h:1751
+msgid "Esc"
+msgstr "Esc"
+
+#: build/src/ui_klog.h:1752 build/src/ui_klog.h:1753
+msgid "Import Cabrillo"
+msgstr "Importar Cabrillo"
+
+#: build/src/ui_klog.h:1755
+msgid "Imports a cabrillo log"
+msgstr "Importa un log de cabrillo"
+
+#: build/src/ui_klog.h:1757
+msgid "Update CTY.DAT"
+msgstr "Actualizar CTY.DAT"
+
+#: build/src/ui_klog.h:1759
+msgid "Update the CTY.DAT from the Internet"
+msgstr "Actualiza CTY.DAT desde Internet"
+
+#: build/src/ui_klog.h:1761
+msgid "Export QSL needed"
+msgstr "Exportar tarjetas necesitadas"
+
+#: build/src/ui_klog.h:1763
+msgid "Enter the DX's QRZ"
+msgstr "Introduzca el QRZ del DX"
+
+#: build/src/ui_klog.h:1767 build/src/ui_setup.h:765
+msgid "SSB"
+msgstr "SSB"
+
+#: build/src/ui_klog.h:1768 build/src/ui_setup.h:766
+msgid "CW"
+msgstr "CW"
+
+#: build/src/ui_klog.h:1769 build/src/ui_setup.h:767
+msgid "FM"
+msgstr "FM"
+
+#: build/src/ui_klog.h:1770 build/src/ui_setup.h:768
+msgid "PSK31"
+msgstr "PSK31"
+
+#: build/src/ui_klog.h:1771 build/src/ui_setup.h:769
+msgid "SSTV"
+msgstr "SSTV"
+
+#: build/src/ui_klog.h:1772 build/src/ui_setup.h:770
+msgid "RTTY"
+msgstr "RTTY"
+
+#: build/src/ui_klog.h:1773 build/src/ui_setup.h:771
+msgid "MTTY"
+msgstr "MTTY"
+
+#: build/src/ui_klog.h:1774 build/src/ui_setup.h:772
+msgid "PKT"
+msgstr "PKT"
+
+#: build/src/ui_klog.h:1775 build/src/ui_setup.h:773
+msgid "AM"
+msgstr "AM"
+
+#: build/src/ui_klog.h:1776 build/src/ui_setup.h:774
+msgid "FAX"
+msgstr "FAX"
+
+#: build/src/ui_klog.h:1777 build/src/ui_setup.h:775
+msgid "HELL"
+msgstr "HELL"
+
+#: build/src/ui_klog.h:1778 build/src/ui_setup.h:776
+msgid "JT44"
+msgstr "JT44"
+
+#: build/src/ui_klog.h:1779 build/src/ui_setup.h:777
+msgid "MT63"
+msgstr "MT63"
+
+#: build/src/ui_klog.h:1780 build/src/ui_setup.h:778
+msgid "CLO"
+msgstr "CLO"
+
+#: build/src/ui_klog.h:1781 build/src/ui_setup.h:779
+msgid "TOR"
+msgstr "TOR"
+
+#: build/src/ui_klog.h:1782
+msgid "GTOR"
+msgstr "GTOR"
+
+#: build/src/ui_klog.h:1783 build/src/ui_setup.h:780
+msgid "FSK"
+msgstr "FSK"
+
+#: build/src/ui_klog.h:1784 build/src/ui_setup.h:781
+msgid "MFSK8"
+msgstr "MFSK8"
+
+#: build/src/ui_klog.h:1785 build/src/ui_setup.h:782
+msgid "MFSK16"
+msgstr "MFSK16"
+
+#: build/src/ui_klog.h:1786 build/src/ui_setup.h:783
+msgid "HSFK"
+msgstr "HSFK"
+
+#: build/src/ui_klog.h:1787 build/src/ui_setup.h:784
+msgid "ATV"
+msgstr "ATV"
+
+#: build/src/ui_klog.h:1788 build/src/ui_setup.h:785
+msgid "PAC"
+msgstr "PAC"
+
+#: build/src/ui_klog.h:1789 build/src/ui_setup.h:786
+msgid "PAC2"
+msgstr "PAC2"
+
+#: build/src/ui_klog.h:1790 build/src/ui_setup.h:787
+msgid "PAC3"
+msgstr "PAC3"
+
+#: build/src/ui_klog.h:1791
+msgid "PCW"
+msgstr "PCW"
+
+#: build/src/ui_klog.h:1792 build/src/ui_setup.h:788
+msgid "PSK63"
+msgstr "PSK63"
+
+#: build/src/ui_klog.h:1793 build/src/ui_setup.h:789
+msgid "PSK125"
+msgstr "PSK125"
+
+#: build/src/ui_klog.h:1794 build/src/ui_setup.h:790
+msgid "Q15"
+msgstr "Q15"
+
+#: build/src/ui_klog.h:1795 build/src/ui_setup.h:791
+msgid "THRB"
+msgstr "THRB"
+
+#: build/src/ui_klog.h:1796 build/src/ui_setup.h:792
+msgid "ASCI"
+msgstr "ASCI"
+
+#: build/src/ui_klog.h:1797
+msgid "AMTORFEC"
+msgstr "AMTORFEC"
+
+#: build/src/ui_klog.h:1798
+msgid "CHIP64"
+msgstr "CHIP64"
+
+#: build/src/ui_klog.h:1799
+msgid "CIP128"
+msgstr "CIP128"
+
+#: build/src/ui_klog.h:1800
+msgid "CONTESTI"
+msgstr "CONTESTI"
+
+#: build/src/ui_klog.h:1801
+msgid "DSTAR"
+msgstr "DSTAR"
+
+#: build/src/ui_klog.h:1802
+msgid "DOMINO"
+msgstr "DOMINO"
+
+#: build/src/ui_klog.h:1803
+msgid "DOMINOF"
+msgstr "DOMINOF"
+
+#: build/src/ui_klog.h:1804
+msgid "FMHELL"
+msgstr "FMHELL"
+
+#: build/src/ui_klog.h:1805
+msgid "FSK31"
+msgstr "FSK31"
+
+#: build/src/ui_klog.h:1806
+msgid "FSK441"
+msgstr "FSK441"
+
+#: build/src/ui_klog.h:1807
+msgid "HELL80"
+msgstr "HELL80"
+
+#: build/src/ui_klog.h:1808
+msgid "JT65"
+msgstr "JT65"
+
+#: build/src/ui_klog.h:1809
+msgid "OLIVIA"
+msgstr "OLIVIA"
+
+#: build/src/ui_klog.h:1810
+msgid "PAX"
+msgstr "PAX"
+
+#: build/src/ui_klog.h:1811
+msgid "PAX2"
+msgstr "PAX2"
+
+#: build/src/ui_klog.h:1812
+msgid "PSK63F"
+msgstr "PSK63F"
+
+#: build/src/ui_klog.h:1813
+msgid "PSKAM10"
+msgstr "PSKAM10"
+
+#: build/src/ui_klog.h:1814
+msgid "PSKAM31"
+msgstr "PSKAM31"
+
+#: build/src/ui_klog.h:1815
+msgid "PSKAM50"
+msgstr "PSKAM50"
+
+#: build/src/ui_klog.h:1816
+msgid "PSKFEC31"
+msgstr "PSKFEC31"
+
+#: build/src/ui_klog.h:1817
+msgid "PSKHELL"
+msgstr "PSKHELL"
+
+#: build/src/ui_klog.h:1818
+msgid "QPSK31"
+msgstr "QPSK31"
+
+#: build/src/ui_klog.h:1819
+msgid "QPSK63"
+msgstr "QPSK63"
+
+#: build/src/ui_klog.h:1820
+msgid "QPSK125"
+msgstr "QPSK125"
+
+#: build/src/ui_klog.h:1821
+msgid "THRBX"
+msgstr "THRBX"
+
+#: build/src/ui_klog.h:1822
+msgid "VOI"
+msgstr "VOI"
+
+#: build/src/ui_klog.h:1825
+msgid "Mode selection"
+msgstr "Selección de modo"
+
+#: build/src/ui_klog.h:1829 build/src/ui_setup.h:743
+msgid "160M"
+msgstr "160M"
+
+#: build/src/ui_klog.h:1830 build/src/ui_setup.h:744
+msgid "80M"
+msgstr "80M"
+
+#: build/src/ui_klog.h:1831 build/src/ui_setup.h:745
+msgid "60M"
+msgstr "60M"
+
+#: build/src/ui_klog.h:1832 build/src/ui_setup.h:746
+msgid "40M"
+msgstr "40M"
+
+#: build/src/ui_klog.h:1833 build/src/ui_setup.h:747
+msgid "30M"
+msgstr "30M"
+
+#: build/src/ui_klog.h:1834 build/src/ui_setup.h:748
+msgid "20M"
+msgstr "20M"
+
+#: build/src/ui_klog.h:1835 build/src/ui_setup.h:749
+msgid "17M"
+msgstr "17M"
+
+#: build/src/ui_klog.h:1836 build/src/ui_setup.h:750
+msgid "15M"
+msgstr "15M"
+
+#: build/src/ui_klog.h:1837 build/src/ui_setup.h:751
+msgid "12M"
+msgstr "12M"
+
+#: build/src/ui_klog.h:1838 build/src/ui_setup.h:752
+msgid "10M"
+msgstr "10M"
+
+#: build/src/ui_klog.h:1839 build/src/ui_setup.h:753
+msgid "6M"
+msgstr "6M"
+
+#: build/src/ui_klog.h:1840
+msgid "4M"
+msgstr "4M"
+
+#: build/src/ui_klog.h:1841 build/src/ui_setup.h:754
+msgid "2M"
+msgstr "2M"
+
+#: build/src/ui_klog.h:1842 build/src/ui_setup.h:755
+msgid "125CM"
+msgstr "125CM"
+
+#: build/src/ui_klog.h:1843 build/src/ui_setup.h:756
+msgid "70CM"
+msgstr "70CM"
+
+#: build/src/ui_klog.h:1844 build/src/ui_setup.h:757
+msgid "33CM"
+msgstr "33CM"
+
+#: build/src/ui_klog.h:1845 build/src/ui_setup.h:758
+msgid "23CM"
+msgstr "23CM"
+
+#: build/src/ui_klog.h:1846 build/src/ui_setup.h:759
+msgid "13CM"
+msgstr "13CM"
+
+#: build/src/ui_klog.h:1849
+msgid "Band selection"
+msgstr "Selección de banda"
+
+#: build/src/ui_klog.h:1851
+msgid "dd/MM/yyyy"
+msgstr "dd/MM/aaaa"
+
+#: build/src/ui_klog.h:1852
+msgid "HH:mm:ss"
+msgstr "HH:mm:ss"
+
+#: build/src/ui_klog.h:1854
+msgid "Clear current QSO"
+msgstr "Limpiar QSO actual"
+
+#: build/src/ui_klog.h:1856 build/src/ui_klog.h:2093 build/src/ui_klog.h:2126
+#: build/src/ui_setup.h:881 src/klog.cpp:536
+msgid "Clear"
+msgstr "Cancelar"
+
+#: build/src/ui_klog.h:1858
+msgid "Add this QSO to the log"
+msgstr "Añadir este QSO al log"
+
+#: build/src/ui_klog.h:1860 build/src/ui_klog.h:2125
+msgid "OK"
+msgstr "OK"
+
+#: build/src/ui_klog.h:1861
+msgid "<p align=\"center\"><b>RST(tx)<br>RST(rx)</b></p>"
+msgstr "<p align=\"center\"><b>RST(tx)<br>RST(rx)</b></p>"
+
+#: build/src/ui_klog.h:1863
+msgid "R value you give to the DX"
+msgstr "Valor R enviado al DX"
+
+#: build/src/ui_klog.h:1866
+msgid "R value you get from the DX"
+msgstr "Valor R recibido del DX"
+
+#: build/src/ui_klog.h:1869
+msgid "S value you give to the DX"
+msgstr "Valor S enviado al DX"
+
+#: build/src/ui_klog.h:1872
+msgid "S value you get from the DX"
+msgstr "Valor S recibido del DX"
+
+#: build/src/ui_klog.h:1875
+msgid "T value you give to the DX"
+msgstr "Valor T enviado al DX"
+
+#: build/src/ui_klog.h:1879
+msgid "T value you get from the DX"
+msgstr "Valor T recibido del DX"
+
+#: build/src/ui_klog.h:1881
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">TX Freq</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Frec TX</span></p></body></html>"
+
+#: build/src/ui_klog.h:1886
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">RX Freq</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Frec RX</span></p></body></html>"
+
+#: build/src/ui_klog.h:1892
+msgid "Shows the frecuency of the transceiver when hamlib is  (TX)"
+msgstr "Muestra la frecuencia del equipo cuando hamlib está activado (TX)"
+
+#: build/src/ui_klog.h:1895
+msgid "Shows the frecuency of the transceiver when hamlib is activated (RX)"
+msgstr "Muestra la frecuencia del equipo cuando hamlib está activado (RX)"
+
+#: build/src/ui_klog.h:1897 build/src/ui_klog.h:2094
+msgid "<p align=\"center\"><b>Name:</b></p>"
+msgstr "<p align=\"center\"><b>Nombre:</b></p>"
+
+#: build/src/ui_klog.h:1899
+msgid "DX's operator's name"
+msgstr "Nombre del operador del DX"
+
+#: build/src/ui_klog.h:1902
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Locator:</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Locator:</span></p></body></html>"
+
+#: build/src/ui_klog.h:1907
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">QTH:</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">QTH:</span></p></body></html>"
+
+#: build/src/ui_klog.h:1913
+msgid "DX's QTH (City, town)"
+msgstr "QTH del DX (Ciudad, pueblo)"
+
+#: build/src/ui_klog.h:1916
+msgid "The DX locator (like IN80EK)"
+msgstr "Locator del DX (como IN80EK)"
+
+#: build/src/ui_klog.h:1918 build/src/ui_setup.h:861
+msgid "QSO"
+msgstr "QSO"
+
+#: build/src/ui_klog.h:1919
+msgid "<b>Via:</b>"
+msgstr "<b>Vía:</b>"
+
+#: build/src/ui_klog.h:1922
+msgid "Bureau"
+msgstr "Bureau"
+
+#: build/src/ui_klog.h:1923
+msgid "No QSL"
+msgstr "No QSL"
+
+#: build/src/ui_klog.h:1924
+msgid "QRZ.com"
+msgstr "QRZ.com"
+
+#: build/src/ui_klog.h:1925
+msgid "Manager"
+msgstr "Manager"
+
+#: build/src/ui_klog.h:1926
+msgid "Direct"
+msgstr "Directa"
+
+#: build/src/ui_klog.h:1929
+msgid "How to send the QSL"
+msgstr "Cómo enviar la QSL"
+
+#: build/src/ui_klog.h:1932
+msgid "Manager's QRZ"
+msgstr "QRZ del Manager"
+
+#: build/src/ui_klog.h:1934
+msgid "<b>QSL Sent:</b>"
+msgstr "<b>QSL enviada:</b>"
+
+#: build/src/ui_klog.h:1935
+msgid "<b>QSL Recv:</b>"
+msgstr "<b>QSL Recibida:</b>"
+
+#: build/src/ui_klog.h:1937
+msgid "QSL card received"
+msgstr "QSL recibida"
+
+#: build/src/ui_klog.h:1941
+msgid "Send the QSL"
+msgstr "Enviar QSL"
+
+#: build/src/ui_klog.h:1944
+msgid "QSL"
+msgstr "QSL"
+
+#: build/src/ui_klog.h:1945
+msgid "<b>Remarks:</b>"
+msgstr "<b>Comentarios:</b>"
+
+#: build/src/ui_klog.h:1946 build/src/ui_klog.h:2114
+msgid "Remarks"
+msgstr "Comentarios"
+
+#: build/src/ui_klog.h:1947 build/src/ui_klog.h:2081
+msgid "<b>IOTA:</b>"
+msgstr "<b>IOTA:</b>"
+
+#: build/src/ui_klog.h:1950
+msgid "AF"
+msgstr "AF"
+
+#: build/src/ui_klog.h:1951
+msgid "AN"
+msgstr "AN"
+
+#: build/src/ui_klog.h:1952
+msgid "AS"
+msgstr "AS"
+
+#: build/src/ui_klog.h:1953
+msgid "EU"
+msgstr "EU"
+
+#: build/src/ui_klog.h:1954
+msgid "NA"
+msgstr "NA"
+
+#: build/src/ui_klog.h:1955
+msgid "OC"
+msgstr "OC"
+
+#: build/src/ui_klog.h:1956
+msgid "SA"
+msgstr "SA"
+
+#: build/src/ui_klog.h:1959
+msgid "IOTA continent"
+msgstr "Continente IOTA"
+
+#: build/src/ui_klog.h:1962
+msgid "IOTA number"
+msgstr "Número IOTA"
+
+#: build/src/ui_klog.h:1965 build/src/ui_klog.h:1973 build/src/ui_klog.h:1981
+msgid "Several awards, still not implemented."
+msgstr "Diplomas varios, no implementado."
+
+#: build/src/ui_klog.h:1967
+msgid "<b>Award:</b>"
+msgstr "<b>Diploma:</b>"
+
+#: build/src/ui_klog.h:1970
+msgid "Default reference"
+msgstr "Referencia predeterminada"
+
+#: build/src/ui_klog.h:1975
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Satellite</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Satélite</span></p></body></html>"
+
+#: build/src/ui_klog.h:1983
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Sat Mode</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Modo Sat</span></p></body></html>"
+
+#: build/src/ui_klog.h:1988
+msgid "Others"
+msgstr "Otros"
+
+#: build/src/ui_klog.h:1989
+msgid "<p align=\"center\"><b>Locator:</b></p>"
+msgstr "<p align=\"center\"><b>Locator:</b></p>"
+
+#: build/src/ui_klog.h:1990
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Nimbus Sans L'; font-size:9pt; "
+"font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Power:</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Nimbus Sans L'; font-size:9pt; "
+"font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">Potencia:</span></p></body></html>"
+
+#: build/src/ui_klog.h:1996
+msgid "Power used to make this QSO"
+msgstr "Potencia usada para hacer el QSO"
+
+#: build/src/ui_klog.h:2000 build/src/ui_klog.h:2013
+msgid "The call of the station used to work this QSO"
+msgstr "Indicativo de la estación utilizado para trabajar este QSO"
+
+#: build/src/ui_klog.h:2003
+msgid "The locator of the station"
+msgstr "Locator de la estación"
+
+#: build/src/ui_klog.h:2006 build/src/ui_klog.h:2009
+msgid "The operator that worked this QSO"
+msgstr "Indicativo del operador que trabajó este QSO"
+
+#: build/src/ui_klog.h:2011
+msgid "<p align=\"center\"><b>Operator:</b></p>"
+msgstr "<p align=\"center\"><b>Operador:</b></p>"
+
+#: build/src/ui_klog.h:2015
+msgid "<p align=\"center\"><b>Station:</b></p>"
+msgstr "<p align=\"center\"><b>Estación:</b></p>"
+
+#: build/src/ui_klog.h:2016
+msgid "My Data"
+msgstr "Mis datos"
+
+#: build/src/ui_klog.h:2017
+msgid "<b>KLog</b>"
+msgstr "<b>KLog</b>"
+
+#: build/src/ui_klog.h:2018
+msgid "<p align=\"center\"><b>10</b></p>"
+msgstr "<p align=\"center\"><b>10</b></p>"
+
+#: build/src/ui_klog.h:2019
+msgid "<p align=\"center\"><b>15</b></p>"
+msgstr "<p align=\"center\"><b>15</b></p>"
+
+#: build/src/ui_klog.h:2020
+msgid "<p align=\"center\"><b>20</b></p>"
+msgstr "<p align=\"center\"><b>20</b></p>"
+
+#: build/src/ui_klog.h:2021
+msgid "<p align=\"center\"><b>40</b></p>"
+msgstr "<p align=\"center\"><b>40</b></p>"
+
+#: build/src/ui_klog.h:2022
+msgid "<p align=\"center\"><b>80</b></p>"
+msgstr "<p align=\"center\"><b>80</b></p>"
+
+#: build/src/ui_klog.h:2023
+msgid "<p align=\"center\"><b>160</b></p>"
+msgstr "<p align=\"center\"><b>160</b></p>"
+
+#: build/src/ui_klog.h:2024 build/src/ui_klog.h:2034 build/src/ui_klog.h:2039
+msgid "--"
+msgstr "--"
+
+#: build/src/ui_klog.h:2025
+msgid "<p align=\"center\"><b>6</b></p>"
+msgstr "<p align=\"center\"><b>6</b></p>"
+
+#: build/src/ui_klog.h:2026
+msgid "<p align=\"center\"><b>12</b></p>"
+msgstr "<p align=\"center\"><b>12</b></p>"
+
+#: build/src/ui_klog.h:2027
+msgid "<p align=\"center\"><b>17</b></p>"
+msgstr "<p align=\"center\"><b>17</b></p>"
+
+#: build/src/ui_klog.h:2028
+msgid "<p align=\"center\"><b>30</b></p>"
+msgstr "<p align=\"center\"><b>30</b></p>"
+
+#: build/src/ui_klog.h:2029
+msgid "<p align=\"center\"><b>2</b></p>"
+msgstr "<p align=\"center\"><b>2</b></p>"
+
+#: build/src/ui_klog.h:2030
+msgid "<p align=\"center\"><b>70cm</b></p>"
+msgstr "<p align=\"center\"><b>70cm</b></p>"
+
+#: build/src/ui_klog.h:2032
+msgid "Entity's main prefix"
+msgstr "Prefijo principal de la entidad"
+
+#: build/src/ui_klog.h:2035
+msgid "<p align=\"center\"><b>Prefix:</b></p>"
+msgstr "<p align=\"center\"><b>Prefijo:</b></p>"
+
+#: build/src/ui_klog.h:2037
+msgid "Entity's continent"
+msgstr "Continente de la entidad"
+
+#: build/src/ui_klog.h:2040
+msgid "<p align=\"center\"><b>Continent:</b></p>"
+msgstr "<p align=\"center\"><b>Continente:</b></p>"
+
+#: build/src/ui_klog.h:2041
+msgid "<p align=\"center\"><b>deg</b></p>"
+msgstr "<p align=\"center\"><b>gra</b></p>"
+
+#: build/src/ui_klog.h:2043
+msgid "Short Path"
+msgstr "Paso corto"
+
+#: build/src/ui_klog.h:2045
+msgid "<p align=\"center\"><b>Short Path:</b></p>"
+msgstr "<p align=\"center\"><b>Paso corto:</b></p>"
+
+#: build/src/ui_klog.h:2046 build/src/ui_klog.h:2072
+msgid "<b><p align=\"center\">Km</p></b>"
+msgstr "<b><p align=\"center\">Km</p></b>"
+
+#: build/src/ui_klog.h:2048
+msgid "Point your antenna in this direction"
+msgstr "Apunte su antena en esta dirección"
+
+#: build/src/ui_klog.h:2051
+msgid "Km to the DX through the short path"
+msgstr "Km al DX por el paso corto"
+
+#: build/src/ui_klog.h:2053
+msgid "<p align=\"center\"><b>ITU:</b></p>"
+msgstr "<p align=\"center\"><b>ITU:</b></p>"
+
+#: build/src/ui_klog.h:2054
+msgid "<p align=\"center\"><b>CQ:</b></p>"
+msgstr "<p align=\"center\"><b>CQ:</b></p>"
+
+#: build/src/ui_klog.h:2056
+msgid "CQ zone"
+msgstr "Zona CQ"
+
+#: build/src/ui_klog.h:2059
+msgid "ITU zone"
+msgstr "Zona ITU"
+
+#: build/src/ui_klog.h:2062
+msgid "Turn your antenna in this direction to work via long path"
+msgstr ""
+"Apunte su antena en esta dirección para trabajar al DX por el salto largo"
+
+#: build/src/ui_klog.h:2065
+msgid "Long Path"
+msgstr "Paso largo"
+
+#: build/src/ui_klog.h:2067
+msgid "<p align=\"center\"><b>Long Path:</b></p>"
+msgstr "<p align=\"center\"><b>Paso largo:</b></p>"
+
+#: build/src/ui_klog.h:2069
+msgid "Km to the DX through the long path"
+msgstr "Km al DX por el paso largo"
+
+#: build/src/ui_klog.h:2071
+msgid "<b><p align=\"center\">deg</p></b>"
+msgstr "<b><p align=\"center\">gra</p></b>"
+
+#: build/src/ui_klog.h:2073
+msgid "Info"
+msgstr "Información"
+
+#: build/src/ui_klog.h:2074
+msgid "<b>Award</b>"
+msgstr "<b>Diploma</b>"
+
+#: build/src/ui_klog.h:2075
+msgid "<b>Worked</b>"
+msgstr "<b>Trabajado</b>"
+
+#: build/src/ui_klog.h:2076
+msgid "<b>DXCC:</b>"
+msgstr "<b>DXCC:</b>"
+
+#: build/src/ui_klog.h:2077
+msgid "<b>WAZ:</b>"
+msgstr "<b>WAZ:</b>"
+
+#: build/src/ui_klog.h:2079
+msgid "IOTA checking is still not implemented."
+msgstr "Comprobación IOTA no implementada."
+
+#: build/src/ui_klog.h:2083
+msgid "Local awards checking is still not implemented."
+msgstr "Comprobación de diplomas locales no implementada."
+
+#: build/src/ui_klog.h:2085
+msgid "<b>LOCAL:</b>"
+msgstr "<b>LOCAL:</b>"
+
+#: build/src/ui_klog.h:2086
+msgid "<b>QSOs:</b>"
+msgstr "<b>QSOs:</b>"
+
+#: build/src/ui_klog.h:2087
+msgid "<b>Confirmed</b>"
+msgstr "<b>Confirmado</b>"
+
+#: build/src/ui_klog.h:2088 build/src/ui_setup.h:888
+msgid "Awards"
+msgstr "Diplomas"
+
+#: build/src/ui_klog.h:2090
+msgid "Enter the call to search"
+msgstr "Introduzca el indicativo a buscar"
+
+#: build/src/ui_klog.h:2092 build/src/ui_klog.h:2112
+msgid "Search"
+msgstr "Búsqueda"
+
+#: build/src/ui_klog.h:2096
+msgid "DX Operator's name"
+msgstr "Nombre del operador del DX"
+
+#: build/src/ui_klog.h:2098
+msgid "<p align=\"center\"><b>Time:</b></p>"
+msgstr "<p align=\"center\"><b>Hora:</b></p>"
+
+#: build/src/ui_klog.h:2099
+msgid "<p align=\"center\"><b>QTH:</b></p>"
+msgstr "<p align=\"center\"><b>QTH:</b></p>"
+
+#: build/src/ui_klog.h:2101
+msgid "DX Operator's QTH"
+msgstr "QTH del operador del DX"
+
+#: build/src/ui_klog.h:2104 build/src/ui_setup.h:887 src/klog.cpp:4348
+msgid "Number"
+msgstr "Número"
+
+#: build/src/ui_klog.h:2105
+msgid "QSL-Rec"
+msgstr "QSL-Rec"
+
+#: build/src/ui_klog.h:2106
+msgid "QSL-Sent"
+msgstr "QSL-env"
+
+#: build/src/ui_klog.h:2107 build/src/ui_klog.h:2116 src/klog.cpp:4351
+msgid "Mode"
+msgstr "Modo"
+
+#: build/src/ui_klog.h:2108 build/src/ui_klog.h:2117 src/klog.cpp:4350
+msgid "Band"
+msgstr "Banda"
+
+#: build/src/ui_klog.h:2109 src/klog.cpp:4349
+msgid "Time"
+msgstr "Hora"
+
+#: build/src/ui_klog.h:2110 build/src/ui_klog.h:2122 src/klog.cpp:4348
+msgid "Date"
+msgstr "Fecha"
+
+#: build/src/ui_klog.h:2111 build/src/ui_klog.h:2120 src/klog.cpp:4349
+msgid "QRZ"
+msgstr "QRZ"
+
+#: build/src/ui_klog.h:2115
+msgid "Power"
+msgstr "Potencia"
+
+#: build/src/ui_klog.h:2118
+msgid "RST(rx)"
+msgstr "RST(rx)"
+
+#: build/src/ui_klog.h:2119
+msgid "RST(tx)"
+msgstr "RST(tx)"
+
+#: build/src/ui_klog.h:2121
+msgid "UTC"
+msgstr "UTC"
+
+#: build/src/ui_klog.h:2123 build/src/ui_klog.h:2140
+msgid "Numb"
+msgstr "Número"
+
+#: build/src/ui_klog.h:2124
+msgid "Log"
+msgstr "Registro"
+
+#: build/src/ui_klog.h:2127
+msgid "Cluster"
+msgstr "Cluster"
+
+#: build/src/ui_klog.h:2129
+msgid "160m"
+msgstr "160M"
+
+#: build/src/ui_klog.h:2130
+msgid "80m"
+msgstr "80M"
+
+#: build/src/ui_klog.h:2131
+msgid "40m"
+msgstr "40M"
+
+#: build/src/ui_klog.h:2132
+msgid "30m"
+msgstr "30M"
+
+#: build/src/ui_klog.h:2133
+msgid "20m"
+msgstr "20M"
+
+#: build/src/ui_klog.h:2134
+msgid "17m"
+msgstr "17M"
+
+#: build/src/ui_klog.h:2135
+msgid "15m"
+msgstr "15M"
+
+#: build/src/ui_klog.h:2136
+msgid "12m"
+msgstr "12M"
+
+#: build/src/ui_klog.h:2137
+msgid "10m"
+msgstr "10M"
+
+#: build/src/ui_klog.h:2138
+msgid "Prefix"
+msgstr "Prefijo"
+
+#: build/src/ui_klog.h:2139 build/src/ui_setup.h:885
+msgid "Entity"
+msgstr "Entidad"
+
+#: build/src/ui_klog.h:2141
+msgid "DXCC"
+msgstr "DXCC"
+
+#: build/src/ui_klog.h:2142 build/src/ui_klog.h:2144
+msgid "Tools"
+msgstr "Herramientas"
+
+#: build/src/ui_klog.h:2143
+msgid "&File"
+msgstr "&Archivo"
+
+#: build/src/ui_klog.h:2145
+msgid "&Setup"
+msgstr "&Configuración"
+
+#: build/src/ui_klog.h:2146
+msgid "DXCluster"
+msgstr "DXCluster"
+
+#: build/src/ui_klog.h:2147
+msgid "&Help"
+msgstr "A&yuda"
+
+#: build/src/ui_setup.h:721
+msgid "KLog setup"
+msgstr "Configurar KLog"
+
+#: build/src/ui_setup.h:722
+msgid "&OK"
+msgstr "&OK"
+
+#: build/src/ui_setup.h:724
+msgid "&Cancel"
+msgstr "&Cancelar"
+
+#: build/src/ui_setup.h:726
+msgid "<b>QRZ:</b>"
+msgstr "<b>QRZ:</b>"
+
+#: build/src/ui_setup.h:727
+msgid "<b>Locator:</b>"
+msgstr "<b>Locator:</b>"
+
+#: build/src/ui_setup.h:728
+msgid "Personal"
+msgstr "Personal"
+
+#: build/src/ui_setup.h:730
+msgid "Shows a progress bar but makes the log reading slower"
+msgstr "Muestra una barra de progreso pero hace la lectura más lenta"
+
+#: build/src/ui_setup.h:732
+msgid "Show progress dialog when reading log file"
+msgstr "Mostrar el progreso al leer el archivo de log"
+
+#: build/src/ui_setup.h:733
+msgid "Open this file when starting:"
+msgstr "Abrir este archivo al iniciar:"
+
+#: build/src/ui_setup.h:735
+msgid "If checked the time will be UTC"
+msgstr "Si se marca, la hora estará en UTC"
+
+#: build/src/ui_setup.h:737
+msgid "Time in UTC"
+msgstr "Tiempo en UTC"
+
+#: build/src/ui_setup.h:739
+msgid "<b>Power:</b>"
+msgstr "<b>Potencia:</b>"
+
+#: build/src/ui_setup.h:740
+msgid "<b>Band:</b>"
+msgstr "<b>Banda:</b>"
+
+#: build/src/ui_setup.h:761
+msgid "Logging in real time"
+msgstr "Log en tiempo real"
+
+#: build/src/ui_setup.h:762
+msgid "<b>Mode:</b>"
+msgstr "<b>Modo:</b>"
+
+#: build/src/ui_setup.h:794
+msgid "Misc"
+msgstr "Misc"
+
+#: build/src/ui_setup.h:796
+msgid "Add the DX-Cluster server to the list"
+msgstr "Añadir el servidor de DXCluster a la lista"
+
+#: build/src/ui_setup.h:798 build/src/ui_setup.h:880
+msgid "Add"
+msgstr "Añadir"
+
+#: build/src/ui_setup.h:800
+msgid ""
+"Clears the text line but also will remove the server from the list if is "
+"already added"
+msgstr ""
+"Limpia la linea de texto pero también eliminará el servidor de la lista si "
+"existe"
+
+#: build/src/ui_setup.h:802 build/src/ui_setup.h:882
+msgid "Remove"
+msgstr "Eliminar"
+
+#: build/src/ui_setup.h:803
+msgid "Spots"
+msgstr "Avisos de DX"
+
+#: build/src/ui_setup.h:805
+msgid "Show 1.8-30MHz spots"
+msgstr "Muestra avisos desde 1.8 hasta 30MHz"
+
+#: build/src/ui_setup.h:807
+msgid "Show HF activity"
+msgstr "Muestra actividad en HF"
+
+#: build/src/ui_setup.h:809 build/src/ui_setup.h:813 build/src/ui_setup.h:817
+#: build/src/ui_setup.h:821 build/src/ui_setup.h:825
+msgid "Show from 50MHz to GHz spots"
+msgstr "Muestra avisos desde 50MHz hasta GHz"
+
+#: build/src/ui_setup.h:811
+msgid "Show V/UHF activity"
+msgstr "Mostrar actividad en V/UHF"
+
+#: build/src/ui_setup.h:815
+msgid "Show WARC activity"
+msgstr "Muestra actividad WARC"
+
+#: build/src/ui_setup.h:819
+msgid "Show confirmed"
+msgstr "Mostrar confirmados"
+
+#: build/src/ui_setup.h:823
+msgid "Show SSB activity"
+msgstr "Mostrar actividad SSB"
+
+#: build/src/ui_setup.h:827
+msgid "Show CW activity"
+msgstr "Muestra actividad CW"
+
+#: build/src/ui_setup.h:828
+msgid "Messages"
+msgstr "Mensajes"
+
+#: build/src/ui_setup.h:830
+msgid "Show announces"
+msgstr "Mostrar anuncios"
+
+#: build/src/ui_setup.h:832
+msgid "Show ANN/FULL messages"
+msgstr "Mostrar mensajes ANN/FULL"
+
+#: build/src/ui_setup.h:834 build/src/ui_setup.h:838
+msgid "Show weather messages"
+msgstr "Mostrar mensajes sobre el tiempo"
+
+#: build/src/ui_setup.h:836
+msgid "Show WCY messages"
+msgstr "Mostrar mensajes WCY"
+
+#: build/src/ui_setup.h:840
+msgid "Show WWV messages"
+msgstr "Mostrar mensajes WWV"
+
+#: build/src/ui_setup.h:842
+msgid "Select a dx-cluster server."
+msgstr "Selecciona un servidor de DXCluster."
+
+#: build/src/ui_setup.h:844
+msgid "DX-Cluster"
+msgstr "DX-Cluster"
+
+#: build/src/ui_setup.h:845
+msgid "<p align=\"center\"><b>Needed band</b></p>"
+msgstr "<p align=\"center\"><b>Banda necesitada</b></p>"
+
+#: build/src/ui_setup.h:846
+msgid "<p align=\"center\"><b>New One</b></p>"
+msgstr "<p align=\"center\"><b>Nuevo</b></p>"
+
+#: build/src/ui_setup.h:847
+msgid "<p align=\"center\"><b>Worked</b></p>"
+msgstr "<p align=\"center\"><b>Trabajado</b></p>"
+
+#: build/src/ui_setup.h:848
+msgid "<p align=\"center\"><b>Confirmed</b></p>"
+msgstr "<p align=\"center\"><b>Confirmado</b></p>"
+
+#: build/src/ui_setup.h:849
+msgid "<p align=\"center\"><b>Default</b></p>"
+msgstr "<p align=\"center\"><b>Predeterminado</b></p>"
+
+#: build/src/ui_setup.h:850 build/src/ui_setup.h:851 build/src/ui_setup.h:852
+#: build/src/ui_setup.h:853 build/src/ui_setup.h:854
+msgid "Click to select"
+msgstr "Pulse para seleccionar"
+
+#: build/src/ui_setup.h:855
+msgid "Colors"
+msgstr "Colores"
+
+#: build/src/ui_setup.h:856
+msgid "Complete data with previous QSOs"
+msgstr "Completar datos con QSOs anteriores"
+
+#: build/src/ui_setup.h:858
+msgid "Mandatory data is: QRZ, date, time, band, mode, RST(rx) & RST (tx)"
+msgstr ""
+"Los campos obligatorios son: QRZ, fecha, hora, banda, modo, RST(rx) y RST(tx)"
+
+#: build/src/ui_setup.h:860
+msgid "Requires the mandatory fields in ALL QSO"
+msgstr "Requerir los campos obligatorios en todos los QSOs"
+
+#: build/src/ui_setup.h:862
+msgid "Transceiver:"
+msgstr "Equipo:"
+
+#: build/src/ui_setup.h:863
+msgid "Device:"
+msgstr "Dispositivo:"
+
+#: build/src/ui_setup.h:864
+msgid "/dev/ttyS0"
+msgstr "/dev/ttyS0"
+
+#: build/src/ui_setup.h:867
+msgid "1200"
+msgstr "1200"
+
+#: build/src/ui_setup.h:868
+msgid "2400"
+msgstr "2400"
+
+#: build/src/ui_setup.h:869
+msgid "4800"
+msgstr "4800"
+
+#: build/src/ui_setup.h:870
+msgid "9600"
+msgstr "9600"
+
+#: build/src/ui_setup.h:871
+msgid "19200"
+msgstr "19200"
+
+#: build/src/ui_setup.h:872
+msgid "38400"
+msgstr "38400"
+
+#: build/src/ui_setup.h:873
+msgid "57600"
+msgstr "57600"
+
+#: build/src/ui_setup.h:874
+msgid "115200"
+msgstr "115200"
+
+#: build/src/ui_setup.h:876
+msgid "Activate Hamlib"
+msgstr "Activar Hamlib"
+
+#: build/src/ui_setup.h:877
+msgid "Pool hamlib each (msecs)"
+msgstr "Consultar Hamlib cada (msegs)"
+
+#: build/src/ui_setup.h:878
+msgid "Hamlib"
+msgstr "Hamlib"
+
+#: build/src/ui_setup.h:884
+msgid "File"
+msgstr "Archivo"
+
+#: build/src/ui_setup.h:886
+msgid "Award"
+msgstr "Diploma"
+
+#: po/rc.cpp:1 rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Sus nombres"
+
+#: po/rc.cpp:2 rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "Sus direcciones de correo-e"
+
+#: src/klog.cpp:139 src/klog.cpp:973 src/klog.cpp:1637 src/klog.cpp:2570
+#: src/klog.cpp:2764 src/klog.cpp:3525 src/klog.cpp:4446 src/klog.cpp:4783
+#: src/klog.cpp:4798 src/setup.cpp:908
+msgid "KLog message:"
+msgstr "Mensaje de KLog:"
+
+#: src/klog.cpp:140
+msgid ""
+"Could not connect to your radio.\n"
+"Check your hamlib settings and restart KLog.\n"
+"\n"
+"KLog will run without hamlib support.\n"
+"\n"
+msgstr ""
+"No pude conectar con su radio.\n"
+"Compruebe la configuración de hamlib y reinicie KLog.\n"
+"\n"
+"KLog se ejecutará sin soporte de hamlib.\n"
+"\n"
+
+#: src/klog.cpp:302
+msgid "Warning - Can't find cty.dat"
+msgstr "Atención - No puedo encontrar el archivo cty.dat"
+
+#: src/klog.cpp:303
+msgid ""
+"I can't find the cty.dat file with the DX Entity data.\n"
+"\n"
+"If KLog download the file from www.country-files.com/cty/cty.dat it will be "
+"copied to your ~/.klog directory."
+msgstr ""
+"No puedo encontrar el archivo cty.dat con los datos de las entidades de DX.\n"
+"\n"
+"Si KLog descarga el archivo de www.country-files.com/cty/cty.dat, será "
+"copiado a su directorio ~/.klog."
+
+#: src/klog.cpp:453 src/klog.cpp:470
+msgid "Award:"
+msgstr "Diplomas:"
+
+#: src/klog.cpp:454 src/klog.cpp:471
+msgid "LOCAL:"
+msgstr "LOCAL:"
+
+#: src/klog.cpp:497 src/klog.cpp:594
+msgid "<p align=\"center\"><b>KLog</b></p>"
+msgstr "<p align=\"center\"><b>KLog</b></p>"
+
+#: src/klog.cpp:535
+msgid "Ok"
+msgstr "Aceptar"
+
+#: src/klog.cpp:684 src/klog.cpp:3424
+msgid "Save File"
+msgstr "Guardar archivo"
+
+#: src/klog.cpp:684 src/klog.cpp:3424
+msgid "ADIF (*.adi)"
+msgstr "ADIF (*.adi)"
+
+#: src/klog.cpp:746
+msgid "Saving the needed QSL log..."
+msgstr "Guardando el log de QSL necesitadas"
+
+#: src/klog.cpp:746 src/klog.cpp:1005
+msgid "Abort saving"
+msgstr "Cancelar"
+
+#: src/klog.cpp:756
+msgid ""
+"ADIF v1.0 (some ADIF v2 fields) Export from KLog-%1\n"
+"http://jaime.robles.es/klog\n"
+"<APP_KLOG_NUMBER:%2>%3\n"
+"Log saved: %4-%5\n"
+"<PROGRAMID:4>KLOG <PROGRAMVERSION:%6>%7\n"
+"<EOH>\n"
+msgstr ""
+"ADIF v1.0 (algunos campos ADIF v2) Exportado con KLog-%1\n"
+"http://jaime.robles.es/klog\n"
+"<APP_KLOG_NUMBER:%2>%3\n"
+"Log guardado: %4-%5\n"
+"<PROGRAMID:4>KLOG <PROGRAMVERSION:%6>%7\n"
+"<EOH>\n"
+
+#: src/klog.cpp:974
+msgid ""
+"The needed QSL export has been finished.\n"
+"The QSOs have been exported to "
+msgstr ""
+"Ha terminado la exportación de QSL necesitadas.\n"
+"Los QSOs se hane xportado a "
+
+#: src/klog.cpp:974
+msgid ""
+"/neededqsllog.adi\n"
+" You need to send "
+msgstr ""
+"/neededqsllog.adi\n"
+" Necesitas enviar "
+
+#: src/klog.cpp:974
+msgid "QSL cards"
+msgstr "tarjetas QSL"
+
+#: src/klog.cpp:1005
+msgid "Saving the log..."
+msgstr "Guardando el log..."
+
+#: src/klog.cpp:1015
+msgid ""
+"ADIF v1.0 (some ADIF v2 fields) Export from KLog-%1\n"
+"http://jaime.robles.es/klog\n"
+"<APP_KLOG_NUMBER: %2>%3\n"
+"Log saved: %4-%5\n"
+"<PROGRAMID:4>KLOG <PROGRAMVERSION:%6>%7\n"
+"<EOH>\n"
+msgstr ""
+"ADIF v1.0 (algunos campos ADIF v2) Exportado con KLog-%1\n"
+"http://jaime.robles.es/klog\n"
+"<APP_KLOG_NUMBER:%2>%3\n"
+"Log guardado: %4-%5\n"
+"<PROGRAMID:4>KLOG <PROGRAMVERSION:%6>%7\n"
+"<EOH>\n"
+
+#: src/klog.cpp:1638
+msgid ""
+"The file selected to open does not exist.\n"
+"No file will be opened."
+msgstr ""
+"El archivo seleccionado no existe.\n"
+"No se abrirá ningún archivo."
+
+#: src/klog.cpp:1648 src/klog.cpp:3000 src/klog.cpp:3228
+msgid "Reading the log..."
+msgstr "Leyendo el log..."
+
+#: src/klog.cpp:1648 src/klog.cpp:3000 src/klog.cpp:3228
+msgid "Abort reading"
+msgstr "Cancelar lectura"
+
+#: src/klog.cpp:1724 src/klog.cpp:3201 src/klog.cpp:3398
+msgid "Adding QSO#: "
+msgstr "Añadiendo QSO nº: "
+
+#: src/klog.cpp:1981 src/setup.cpp:1009
+msgid "&Delete"
+msgstr "&Eliminar"
+
+#: src/klog.cpp:1983
+msgid "Delete a QSO"
+msgstr "Eliminar QSO"
+
+#: src/klog.cpp:1986
+msgid "&Recv and Sent"
+msgstr "QSL recibida &y enviada"
+
+#: src/klog.cpp:1988
+msgid "QSL Recv and Sent"
+msgstr "QSL recibida y enviada"
+
+#: src/klog.cpp:1991
+msgid "&Recv QSL"
+msgstr "QSL &Recibida"
+
+#: src/klog.cpp:1996
+msgid "&Sent QSL"
+msgstr "&Enviar QSL"
+
+#: src/klog.cpp:2011 src/klog.cpp:2038 src/klog.cpp:3800
+msgid "Modify"
+msgstr "Modificar"
+
+#: src/klog.cpp:2012 src/klog.cpp:2144 src/klog.cpp:3801
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/klog.cpp:2142
+msgid "Warning - Save log?"
+msgstr "Atención - ¿Salvar log?"
+
+#: src/klog.cpp:2143
+msgid "The log has been changed since the last save."
+msgstr "El log ha cambiado desde la última vez que fue guardado."
+
+#: src/klog.cpp:2144
+msgid "Save Now"
+msgstr "Guardar ahora"
+
+#: src/klog.cpp:2144
+msgid "Continue anyway"
+msgstr "Continuar de todas formas"
+
+#: src/klog.cpp:2195
+msgid "Open File"
+msgstr "Abrir archivo"
+
+#: src/klog.cpp:2195 src/setup.cpp:808
+msgid "ADIF files (*.adi)"
+msgstr "Archivos ADIF (*.adi)"
+
+#: src/klog.cpp:2517
+msgid "KLog-%1 - The KDE Ham Radio Logging program"
+msgstr "KLog-%1 - El programa de Log para Radioaficionados de KDE"
+
+#: src/klog.cpp:2518
+msgid ""
+"You can find the last version on <a href=\"http://jaime.robles.es/klog"
+"\">http://jaime.robles.es/klog</a>\n"
+"2002 - 2011 - Jaime Robles, EA4TV, jaime@robles.es\n"
+"2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com"
+msgstr ""
+"Puedes encontrar la última versión en <a href=\"http://jaime.robles.es/klog"
+"\">http://jaime.robles.es/klog</a>\n"
+"2002 - 2011 - Jaime Robles, EA4TV, jaime@robles.es\n"
+"2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com"
+
+#: src/klog.cpp:2571
+msgid ""
+"It seems to be the first time you run KLog in this computer.\n"
+"The setup dialog will start to help you to configure KLog.\n"
+"Welcome to KLog.\n"
+"\n"
+"The KLog team."
+msgstr ""
+"Parece que es la primera vez que se ejecuta KLog en este ordenador.\n"
+"El menú de configuración le ayudará a configurar KLog.\n"
+"Bienvenido a KLog.\n"
+"\n"
+"El equipo de KLog."
+
+#: src/klog.cpp:2765
+msgid ""
+"You still have not configured KLog.\n"
+"Please click on:\n"
+"Setup->Preferences\n"
+" and configure KLog."
+msgstr ""
+"No ha configurado KLog aun.\n"
+"Pulse en: Configuración->Preferencias\n"
+"y configure KLog."
+
+#: src/klog.cpp:3006 src/klog.cpp:3008 src/klog.cpp:3232 src/klog.cpp:3434
+msgid ""
+"Enter a remark for ALL the imported QSO:\n"
+"(Leave it empty and press OK if no remark)"
+msgstr ""
+"Introduzca un comentario para TODOS los QSO importados:\n"
+"(Déjelo vacío y pulse OK si no quiere comentario"
+
+#: src/klog.cpp:3007 src/klog.cpp:3021
+msgid "KLog - TLF Import"
+msgstr "KLog - Importar de TLF"
+
+#: src/klog.cpp:3022
+msgid ""
+"Enter the used call:\n"
+"(Leave it empty and press OK if no diferent call was used)"
+msgstr ""
+"Introduzca el indicativo usado:\n"
+"(Déjelo vacío y pulse OK si no se ha usado un indicativo distinto)"
+
+#: src/klog.cpp:3027 src/klog.cpp:3459
+msgid "Warning - QRZ not valid"
+msgstr "Atención - QRZ no válido"
+
+#: src/klog.cpp:3028
+msgid "Do you want to import without a QRZ?\n"
+msgstr "¿Quiere importar sin un QRZ?\n"
+
+#: src/klog.cpp:3029 src/klognetwork.cpp:45
+msgid "Yes"
+msgstr "Sí"
+
+#: src/klog.cpp:3029 src/klognetwork.cpp:47
+msgid "No"
+msgstr "No"
+
+#: src/klog.cpp:3048
+msgid "Warning - Possible dates conflict:"
+msgstr "Atención - Posible conflicto de fechas:"
+
+#: src/klog.cpp:3049
+msgid ""
+"Please define if the QSOs were done in the 1900s or in the 2000s years\n"
+"Are these QSO dated before year 2000?"
+msgstr ""
+"Por favor, defina si los QSOs se hicieron en los años 1900 o en los años "
+"2000\n"
+"¿Hay QSOs anteriores al año 2000?"
+
+#: src/klog.cpp:3231
+msgid "KLog - Cabrillo Import"
+msgstr "KLog - Importar de Cabrillo"
+
+#: src/klog.cpp:3433 src/klog.cpp:3451 src/klog.cpp:3485
+msgid "KLog - Log Add"
+msgstr "KLog - Añadir Log"
+
+#: src/klog.cpp:3449
+msgid ""
+"Enter the used call:\n"
+"(Leave it empty and press OK if the call %1 was used)."
+msgstr ""
+"Introduzca el indicativo utilizado:\n"
+"(Déjelo vacío y pulse OK si se usó el indicativo %1)."
+
+#: src/klog.cpp:3460
+msgid "Do you want to import without a QRZ?"
+msgstr "¿Quiere importar sin un QRZ?"
+
+#: src/klog.cpp:3483
+msgid ""
+"Enter the locator of the activity:\n"
+"(Leave it empty and press OK if the locator was %1)."
+msgstr ""
+"Introduzca el locator de la actividad:\n"
+"(Déjelo vacío y pulse OK si el locator es %1)."
+
+#: src/klog.cpp:3491
+msgid "Warning - Locator not valid"
+msgstr "Atención - Locator no válido"
+
+#: src/klog.cpp:3492
+msgid "Do you want to import without a Locator and use %1 ?\n"
+msgstr "¿Quiere importar sin un Locator y usar %1 ?\n"
+
+#: src/klog.cpp:3527
+msgid ""
+"The log file has been\n"
+"successfully added!"
+msgstr ""
+"El archivo de log\n"
+"se ha añadido correctamente."
+
+#: src/klog.cpp:3591
+msgid "<p align=\"center\"><b>Worked & confirmed before</b></p>"
+msgstr "<p align=\"center\"><b>Trabajado y confirmado antes</b></p>"
+
+#: src/klog.cpp:3599
+msgid "<p align=\"center\"><b>Not confirmed in this band, WORK IT!</b></p>"
+msgstr ""
+"<p align=\"center\"><b>No confirmado en esta banda, ¡TRABÁJALO!</b></p>"
+
+#: src/klog.cpp:3606
+msgid "<p align=\"center\"><b>New one in this band, WORK IT!</b></p>"
+msgstr "<p align=\"center\"><b>Nuevo en esta banda, ¡TRABÁJALO!</b></p>"
+
+#: src/klog.cpp:3617
+msgid "<p align=\"center\"><b>Not confirmed, WORK IT!</b></p>"
+msgstr "<p align=\"center\"><b>No confirmado, ¡TRABÁJALO!</b></p>"
+
+#: src/klog.cpp:3627
+msgid "<p align=\"center\"><b>NEW ONE, WORK IT!</b></p>"
+msgstr "<p align=\"center\"><b>NUEVO ¡TRABÁJALO!</b></p>"
+
+#: src/klog.cpp:3831
+msgid "Warning - QSO Deletion"
+msgstr "Atención - Eliminar QSO"
+
+#: src/klog.cpp:3832
+msgid ""
+"Do you want to delete the QSO with:\n"
+"%1 of %2 ?"
+msgstr ""
+"¿Quiere eliminar el QSO con:\n"
+"%1 de %2 ?"
+
+#: src/klog.cpp:4336
+msgid "Print the log"
+msgstr "Imprimir el log"
+
+#: src/klog.cpp:4345
+msgid "Printing date: "
+msgstr "Fecha de impresión: "
+
+#: src/klog.cpp:4350
+msgid "RST(tx/rx)"
+msgstr "RST(tx/rx)"
+
+#: src/klog.cpp:4351
+msgid "Freq"
+msgstr "Frecuencia"
+
+#: src/klog.cpp:4353 src/klog.cpp:4367
+msgid "Page: %1"
+msgstr "Página: %1"
+
+#: src/klog.cpp:4405
+msgid "Sorting the log..."
+msgstr "Ordenando el log..."
+
+#: src/klog.cpp:4405
+msgid "Abort sorting"
+msgstr "Cancelar ordenación"
+
+#: src/klog.cpp:4447
+msgid ""
+"Check your cluster settings\n"
+"in Setup->Preferences\n"
+"before connecting!"
+msgstr ""
+"Revise la configuración del cluster\n"
+"en Configurar->Preferencias\n"
+"antes de conectar."
+
+#: src/klog.cpp:4472
+msgid "Trying to connect to the server\n"
+msgstr "Intentado conectar al servidor\n"
+
+#: src/klog.cpp:4722
+msgid "Connected to server"
+msgstr "Conectado al servidor"
+
+#: src/klog.cpp:4732 src/klog.cpp:4733
+msgid "KLog message"
+msgstr "Mensaje de KLog"
+
+#: src/klog.cpp:4732
+msgid "Enter your callsign to connect to the cluster:"
+msgstr "Introduzca su indicativo para conectar al cluster:"
+
+#: src/klog.cpp:4733
+msgid "Enter your password to connect to the cluster:"
+msgstr "Introduzca su contraseña para conectar al cluster:"
+
+#: src/klog.cpp:4739
+msgid "Not logged on, you may to enter your callsign again."
+msgstr "No identificado, introduzca el indicativo de nuevo."
+
+#: src/klog.cpp:4748
+msgid "Connection closed by the server"
+msgstr "Conexión cerrada por el servidor"
+
+#: src/klog.cpp:4758
+msgid "Connection closed"
+msgstr "Conexión cerrada"
+
+#: src/klog.cpp:4784
+msgid "Host not found:\n"
+msgstr "Máquina no encontrada:\n"
+
+#: src/klog.cpp:4785
+msgid ""
+"\n"
+"Check your network settings!"
+msgstr ""
+"\n"
+"Compruebe su configuración de red."
+
+#: src/klog.cpp:4799
+msgid "DX-Cluster server refused the connection\n"
+msgstr "El servidor de DXCluster rechazó la conexión\n"
+
+#: src/klog.cpp:4800
+msgid ""
+"\n"
+"Maybe you are already connected, use another call like \"YOURCALL-1\"!"
+msgstr ""
+"\n"
+"Puede que ya esté conectado, use otro indicativo como \"INDICATIVO-1\"!"
+
+#: src/klog.cpp:4810
+msgid "The following error occurred: %1."
+msgstr "Ha ocurrido el siguiente error: %1."
+
+#: src/klog.cpp:4996
+msgid ""
+"Please send your bug-report/wish to jaime@robles.es\n"
+"Include the KLog version you are using (%1). All your suggestion will be "
+"welcome!"
+msgstr ""
+"Envie sus reportes de  error y las funcionalidades que desee añadir a "
+"jaime@robles.es.\n"
+"Incluya la versión de KLog que está usando (%1). Todas sus sugerencias serán "
+"bienvenidas."
+
+#: src/klog.cpp:5262
+msgid "Merging information..."
+msgstr "Consolidando información..."
+
+#: src/klog.cpp:5262 src/klog.cpp:5500
+msgid "Abort"
+msgstr "Cancelar"
+
+#: src/klog.cpp:5283 src/klog.cpp:5307 src/klog.cpp:5327 src/klog.cpp:5350
+#: src/klog.cpp:5383 src/klog.cpp:5425
+msgid "Warning: Callsign to complete found"
+msgstr "Atención: Encontrado indicativo a completar"
+
+#: src/klog.cpp:5284 src/klog.cpp:5308 src/klog.cpp:5328 src/klog.cpp:5351
+#: src/klog.cpp:5384
+msgid ""
+"Completing a call could cause data to be no accurate. Do you want this data "
+"to be merged?\n"
+" QSO N: #"
+msgstr ""
+"Completar un indicativo puede provocar inexactitud en los datos. ¿Quiere "
+"consolidar estos datos?\n"
+" QSO Nº: "
+
+#: src/klog.cpp:5286
+msgid " - Asign the name "
+msgstr " - Asignar el nombre"
+
+#: src/klog.cpp:5286 src/klog.cpp:5310 src/klog.cpp:5331 src/klog.cpp:5354
+#: src/klog.cpp:5388
+msgid " for "
+msgstr " a "
+
+#: src/klog.cpp:5310
+msgid " - Asign the QTH "
+msgstr " - Asignar el QTH "
+
+#: src/klog.cpp:5330
+msgid " - Asign the Locator "
+msgstr " - Asignar el Locator "
+
+#: src/klog.cpp:5353
+msgid " - Asign the IOTA reference "
+msgstr " - Asignar referencia IOTA "
+
+#: src/klog.cpp:5386
+msgid " - Asign the Local Award reference "
+msgstr " - Asignar la referencia del diploma local "
+
+#: src/klog.cpp:5426
+msgid ""
+"Completing a call could cause data to be no accurate. Do you want this data "
+"to be merged?\n"
+" QSO N: # %1 - Do you want to copy the QSL information received in other "
+"QSOs for %2 ?"
+msgstr ""
+"Completar un indicativo puede provocar inexactitud en los datos. ¿Quiere "
+"consolidar estos datos?\n"
+" QSO Nº %1 - ¿Quiere copiar la información de QSL recibida en otros QSO para "
+"%2 ?"
+
+#: src/klog.cpp:5476
+msgid "Merging calls: "
+msgstr "Consolidando QSOs: "
+
+#: src/klog.cpp:5500
+msgid "Getting all the calls..."
+msgstr "Obteniendo todos los indicativos..."
+
+#: src/klog.cpp:5516
+msgid "Adding Call: "
+msgstr "Añadiendo indicativo: "
+
+#: src/klognetwork.cpp:41
+msgid "&URL:"
+msgstr "&URL:"
+
+#: src/klognetwork.cpp:43
+msgid "You are going to download the cty.dat file from:"
+msgstr "Va a descargar el archivo cty.dat de:"
+
+#: src/klognetwork.cpp:44
+msgid "Do you want to continue?"
+msgstr "¿Desea continuar?"
+
+#: src/klognetwork.cpp:81
+msgid "KLog: CTY.DAT download"
+msgstr "KLog: Descargar CTY.DAT"
+
+#: src/klognetwork.cpp:97
+msgid "KLog: File exists!"
+msgstr "KLog: ¡El archivo ya existe!"
+
+#: src/klognetwork.cpp:98
+msgid ""
+"There already exists a file called %1 in the current directory. Overwrite?"
+msgstr "El archivo %1 ya existe ¿Desea sobrescribirlo?"
+
+#: src/klognetwork.cpp:108
+msgid "KLog: Can't save the file"
+msgstr "KLog: No puedo guardar el fichero"
+
+#: src/klognetwork.cpp:109
+msgid "Unable to save the file %1: %2."
+msgstr "No puedo guardar el archivo %1: %2."
+
+#: src/klognetwork.cpp:128
+msgid "KLog: Downloading..."
+msgstr "KLog: Descargando..."
+
+#: src/klognetwork.cpp:129
+msgid "Downloading %1."
+msgstr "Descargando %1."
+
+#: src/klognetwork.cpp:135
+msgid "Download canceled."
+msgstr "Descarga cancelada."
+
+#: src/klognetwork.cpp:165 src/klognetwork.cpp:216
+msgid "KLog: Download failed"
+msgstr "KLog: Descarga fallida"
+
+#: src/klognetwork.cpp:166 src/klognetwork.cpp:217
+msgid "Download failed: %1."
+msgstr "Descarga fallida: %1."
+
+#: src/klognetwork.cpp:170
+msgid "Downloaded %1 to the KLog directory."
+msgstr "%1 descargado al directorio de KLog."
+
+#: src/klognetwork.cpp:177
+msgid "KLog: cty.dat downloaded"
+msgstr "KLog: cty.dat descargado"
+
+#: src/klognetwork.cpp:178
+msgid "KLog has downloaded the cty.dat file successfully.\n"
+msgstr "KLog ha descargado el archivo cty.dat correctamente.\n"
+
+#: src/klognetwork.cpp:268
+msgid "KLog: SSL error"
+msgstr "KLog: Error de SSL"
+
+#: src/klognetwork.cpp:269
+msgid "One or more SSL errors has occurred: %1"
+msgstr "Han ocurrido uno o más errores de SSL: %1"
+
+#: src/main.cpp:45
+msgid "The KDE Ham radio logging software."
+msgstr "KLog - El programa de Log para Radioaficionados de KDE."
+
+#: src/main.cpp:47
+msgid "Copyright (c) 2002-2010, Jaime Robles, EA4TV"
+msgstr "Copyright (c) 2002-2010, Jaime Robles, EA4TV"
+
+#: src/main.cpp:53
+msgid "Log to load (Still does not work)"
+msgstr "Log a cargar (aun no funciona)"
+
+#: src/setup.cpp:193 src/setup.cpp:209 src/setup.cpp:868 src/setup.cpp:887
+#: src/setup.cpp:1048
+msgid "KLog Warning!"
+msgstr "¡Aviso de KLog!"
+
+#: src/setup.cpp:194
+msgid ""
+"Prefix from - %1 - the award: - %2 - is repeated!\n"
+"KLog can only manage one award per prefix.\n"
+"This award will not be included\n"
+"Check your klogrc file and/or the award file and fix the problem."
+msgstr ""
+"¡El prefijo - %1 - del diploma: - %2 - está repetido!\n"
+"KLog sólo puede gesionar un diploma por prefijo.\n"
+"Este diploma no se incluirá. \n"
+"Compruebe su klogrc file y/o archivo del diploma (*.awa) y corrija el "
+"problema."
+
+#: src/setup.cpp:211
+msgid ""
+"KLog can not open the file: %1 !\n"
+"That award will not be read.\n"
+"Check your klogrc file and fix the problem."
+msgstr ""
+"KLog no puede abrir el archivo %1\n"
+"Ese diploma no se leerá.\n"
+"Revise su archivo klogrc y corrija el problema."
+
+#: src/setup.cpp:806
+msgid "Select a file"
+msgstr "Seleccione el archivo"
+
+#: src/setup.cpp:838
+msgid "Open a file"
+msgstr "Abrir archivo"
+
+#: src/setup.cpp:840
+msgid "Award files (*.awa)"
+msgstr "Archivos de diplomas (*.awa)"
+
+#: src/setup.cpp:867
+msgid ""
+"Prefix from - %1 - the award: - %2 - repeated!\n"
+"KLog can only manage one award per prefix.\n"
+"This award will not be included\n"
+"Check your klogrc file and/or the award file and fix the problem."
+msgstr ""
+"¡El prefijo - %1 - del diploma: - %2 - está repetido!\n"
+"KLog sólo puede gesionar un diploma por prefijo.\n"
+"Este diploma no se incluirá.\n"
+"Compruebe su klogrc file y/o archivo del diploma (*.awa) y corrija el "
+"problema."
+
+#: src/setup.cpp:888
+msgid ""
+"KLog can not open the file:-%1!\n"
+"That award will not be read.\n"
+"Check your klogrc file and fix the problem."
+msgstr ""
+"KLog no puede abrir el archivo %1.\n"
+"Ese diploma no se incluirá.\n"
+"Revise su archivo klogrc y corrija el problema."
+
+#: src/setup.cpp:909
+msgid ""
+"This function has still not been implemented.\n"
+"Remove the appropriate \"Award=file.awa\" line from the ~/.klog/klogrc "
+"file.\n"
+"\n"
+msgstr ""
+"Esta función aun no está implementada.\n"
+"Elimine la línea adecuada \"Award=archivo.awa\" de su archivo ~/.klog/"
+"klogrc.\n"
+"\n"
+
+#: src/setup.cpp:937
+msgid "KLog: Add a DXCluster server"
+msgstr "KLog: Añadir un servidor de DXCluster"
+
+#: src/setup.cpp:938
+msgid ""
+"Add the address followed by the :port\n"
+"Example: eadx.net:23\n"
+"If no port is specified, 41112 will be used by default.:"
+msgstr ""
+"Añada la dirección seguida de :puerto\n"
+"Ejemplo: eadx.net:23\n"
+"Si no se especifica puerto, se usará 41112 de forma predeterminada.:"
+
+#: src/setup.cpp:1049
+msgid ""
+"This function is still not implemented.\n"
+"To erase an award, delete the appropriate line of your klogrc file."
+msgstr ""
+"Esta función aun no está implementada.\n"
+"Para eliminar un diploma, elimine la línea adecuada de su archivo klogrc."
+
+#~ msgid "Klog"
+#~ msgstr "Klog"
+
+#~ msgid "DX Map"
+#~ msgstr "Mapa DX"
+
+#~ msgid "Http authentication required"
+#~ msgstr "Autenticación HTTP requerida"
+
+#~ msgid "You need to supply a Username and a Password to access this site"
+#~ msgstr ""
+#~ "Necesita proporcionar un nombre de usuario y contraseña para acceder a "
+#~ "este sitio"
+
+#~ msgid "Username:"
+#~ msgstr "Usuario:"
+
+#~ msgid "Password:"
+#~ msgstr "Contraseña:"
+
+#~ msgid "Site:"
+#~ msgstr "Sitio:"
+
+#~ msgid "%1 at %2"
+#~ msgstr "%1 en %2"
+
+#~ msgctxt "Use no more than 4 letters when translating"
+#~ msgid "<p align=\"center\"><b>deg</b></p>"
+#~ msgstr "<p align=\"center\"><b>grad</b></p>"
+
+#~ msgctxt "Use no more than 4 letters when translating"
+#~ msgid "<b><p align=\"center\">deg</p></b>"
+#~ msgstr "<b><p align=\"center\">grad</p></b>"
+
+#~ msgid "Update cty.dat"
+#~ msgstr "Actualizar cty.dat"
+
+#~ msgid "C&ustom"
+#~ msgstr "Personali&zar"
+
+#~ msgid ""
+#~ "I can't find the cty.dat file with the DX Entity data.\n"
+#~ "Do you want to continue without that data?\n"
+#~ "Copy an updated cty.dat file to your ~/.klog dir, please.\n"
+#~ "\n"
+#~ "You can download from: www.country-files.com/cty/cty.dat"
+#~ msgstr ""
+#~ "No puedo encontrar el archivo cty.dat con los datos\n"
+#~ "de las entidades. ¿Quiere continuar sin\n"
+#~ "estos datos?\n"
+#~ "\n"
+#~ "Copie un archivo cty.dat actualizado en su directorio ~/.klog\n"
+#~ "\n"
+#~ "Puede descargar el archivo desde http://www.country-files.com/cty/cty.dat"
+
+#~ msgid "Frequency"
+#~ msgstr "Frecuencia"
+
+#~ msgid "Error number %1 occurred"
+#~ msgstr "Ha tenido lugar el error número %1"
+
+#~ msgid " of "
+#~ msgstr " a "
+
+#, fuzzy
+#~ msgid "Time in Qt::UTC"
+#~ msgstr "Tiempo en UTC"
+
+#~ msgid "If checked the time will be Qt::UTC"
+#~ msgstr "Si se marca el tiempo estará en UTC"
+
+#~ msgid ""
+#~ " - Do you want to copy the QSL information received in other QSOs for "
+#~ msgstr " - ¿Quiere copiar la información d QSL recibida en otros QSO para  "
+
+#~ msgid "A simple text area which can load and save."
+#~ msgstr "Un area de texto sencillo que puede cargar y guardar"
+
+#~ msgid "Document to open"
+#~ msgstr "Documento a abrir"
+
+#~ msgid ""
+#~ "_: NAME OF TRANSLATORS\n"
+#~ "Your names"
+#~ msgstr "Jaime Robles"
+
+#~ msgid ""
+#~ "_: EMAIL OF TRANSLATORS\n"
+#~ "Your emails"
+#~ msgstr "jaime@kde.org"
+
+#~ msgid "save file dialogChoose a filename to save under"
+#~ msgstr "save file dialogElija el nombre para el archivo"
+
+#~ msgid "The file: "
+#~ msgstr "El archivo: "
+
+#~ msgid "Overwrite"
+#~ msgstr "Sobreescribir"
+
+#~ msgid "Saving aborted"
+#~ msgstr "Guardar cancelado"
+
+#~ msgid "progress"
+#~ msgstr "progreso"
+
+#~ msgid "ADIF v1.0 (some ADIF v2 fields) Export from KLog-"
+#~ msgstr "ADIF v1.0 (algunos campos de ADIF v2 ) Exportado desde KLog-"
+
+#~ msgid ""
+#~ "\n"
+#~ "Log saved: "
+#~ msgstr ""
+#~ "\n"
+#~ "Guardado: "
+
+#~ msgid "ADIF files (*.adi *.ADI *.adif)"
+#~ msgstr "Archivos ADIF (*.adi *.ADI *.adif)"
+
+#~ msgid "KLog: "
+#~ msgstr "KLog: "
+
+#~ msgid "1900"
+#~ msgstr "1900"
+
+#~ msgid "2000"
+#~ msgstr "2000"
+
+#~ msgid " was used)"
+#~ msgstr ")"
+
+#~ msgid ""
+#~ "The Cabrillo import tool is a new feature and has not been fully tested "
+#~ "with all the contests data.\n"
+#~ "Although it is supposed to work well, please backup your logs and check "
+#~ "them after adding the Cabrillo file.\n"
+#~ "\n"
+#~ "In case you find an error please contact EA4TV.\n"
+#~ "TNX."
+#~ msgstr ""
+#~ "La herramienta para importar Cabrillo es una nueva funcionalidad y no ha "
+#~ "sido aun probada con datos de todos los concursos.\n"
+#~ "Aunque se espera que funcione bien, por favor haga una copia de seguridad "
+#~ "de sus logs y revíselos después de añadir el fichero Cabrillo.\n"
+#~ "\n"
+#~ "En caso de que encuentre un error, contacte con EA4TV.\n"
+#~ "TNX."
+
+#~ msgid "CAB files (*.cab *.CAB)"
+#~ msgstr "CAB files (*.cab *.CAB)"
+
+#~ msgid "TLF files (*.log *.LOG)"
+#~ msgstr "Archivos TLF (*.log *.LOG)"
+
+#~ msgid ""
+#~ "Error Socket Read,\n"
+#~ "Error unknown!"
+#~ msgstr ""
+#~ "Error de lectura de Socket,\n"
+#~ "Error desconocido."
+
+#~ msgid "KLog message: Bug-reporting"
+#~ msgstr "Mensaje de KLog: Enviar error"
+
+#~ msgid ""
+#~ "\n"
+#~ "All your suggestions will be welcome!"
+#~ msgstr ""
+#~ "\n"
+#~ "¡Todas sus sugerencias serán bienvenidas!"
+
+#~ msgid "<p align=\"center\"><b>QTH/Locator:</b></p>"
+#~ msgstr "<p align=\"center\"><b>QTH/Locator:</b></p>"
+
+#~ msgid "You received the QSL this date"
+#~ msgstr "Fecha de recepción de la QSL"
+
+#~ msgid "You sent the QSL this date"
+#~ msgstr "Enviaste la QSL en esta fecha"
+
+#~ msgid "QSL info..."
+#~ msgstr "QSL info..."
+
+#~ msgid "Remarks:"
+#~ msgstr "Comentarios:"
+
+#~ msgid "Comments about this QSO"
+#~ msgstr "Comentarios al QSO"
+
+#~ msgid "<p align=\"center\"><b>Power</b></p>"
+#~ msgstr "<p align=\"center\"><b>Power</b></p>"
+
+#~ msgid "<p align=\"center\"><b>Call used:</b></p>"
+#~ msgstr "<p align=\"center\"><b>Indicativo utilizado:</b></p>"
+
+#~ msgid "Double-click over a DX-spot to copy to the QSO input tab"
+#~ msgstr ""
+#~ "Pulsar dos veces sobre un aviso de DX lo copiará al cuadro de entrada"
+
+#~ msgid "Index"
+#~ msgstr "Indice"
+
+#~ msgid "Select The Reference"
+#~ msgstr "Selecione la referencia"
+
+#~ msgid "Prefix from - "
+#~ msgstr "El prefijo de .-"
+
+#~ msgid "KLog can not open the file:-"
+#~ msgstr "KLog no puede abrir el fichero: -"

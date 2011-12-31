@@ -1,0 +1,79 @@
+This is my very first KDE program.
+
+The main reason of developing KLog is to learn how to use Qt and KDELibs and also
+to have a ham log program just as i like it to be. :-)
+
+If you have any idea, you want to help translating into your language or you have
+any comment it will be welcome.
+At this moment, KLog is in several languages:
+English (TNX EA4TV)
+Spanish (TNX EA4TV)
+German (TNX DL5PD)
+Portuguese BR (Josenivaldo Benito)
+Portuguese (TNX CT1DRB)
+Servian (TNX YU1IS)
+Swedish (TNX Peter Landgren)
+
+Look at the Changelog file to see what is done.
+
+You can download the last version of KLog from:
+
+http://jaime.robles.es/klog
+https://savannah.nongnu.org/projects/klog
+
+Logs are saved in ~/.klog/klog.adi by default but you can change it.
+
+You should run klog from a directory with the "cty.dat" file to allow klog
+to read the data.
+You can find the last cty.dat file at:
+http://www.country-files.com/cty/
+
+You can find the last hamlib package at:
+http://hamlib.sourceforge.net/
+
+Thanks for using KLog!
+73 de Jaime, EA4TV
+
+==========================================================
+FEATURES or What does KLog do?
+
+KLog includes many features:
+  Works in a self directory ~/.klog
+  Selection, creation of the log file to work in.
+  Beam and distance calculations (for long and short path) based on call or locator.
+  Colors to differenciate new ones for worked or confirmed entities.
+  Main led shows info about the current QSO.
+  Band, mode & power sticky between contacts.
+  Search for a call in the log.
+  Real and/or deferred time logging.
+  Time in UTC or local time (configurable).
+  QSO deletion, edition, ...
+  Default values (power, mode, ...)
+  Opens the default logfile when started (configurable).
+  Bug report system.
+      
+  Log:
+    IOTA field.
+    Locator, QTH, Name, operator, ...
+  
+  QSL stuff:
+    Easy QSL received and sent managing with dates.
+    QSL via (bureau, direct, manager, qrz.com, ...)
+
+  Awards and stadistics:
+    Number of QSOs worked and QSOs confirmed.
+    Basic DXCC award support per band.
+    Basic WAZ award support per band.
+    Configurable per entity local award (TPEA-EA, WAS-K, DOK-DL...)
+
+  DX-Cluster support:
+    Basic DX-Cluster support.
+    Shows for all spots the state (needed/worked/confirmed) in colors.
+    Configurable seen (HF/VHF/ANN, ...)
+    It is possible to copy a DX-Spot from cluster to QSO entry box.
+
+  Exportability and importability:
+    Imports your contest logs from TLF.
+    Imports your contest logs from Cabrillo.
+    Adding a log file to the current one.
+    
