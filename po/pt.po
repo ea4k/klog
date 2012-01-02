@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-04 10:27+0100\n"
+"POT-Creation-Date: 2012-01-02 19:06+0100\n"
 "PO-Revision-Date: 2003-01-30 12:54+0100\n"
 "Last-Translator: David Quental CT1DRB\n"
 "Language-Team: PT\n"
@@ -209,12 +209,12 @@ msgstr "Importar desde o ficheiro de logo do tlf"
 msgid "Delete QSO"
 msgstr "Data"
 
-#: build/src/ui_klog.h:1728 src/klog.cpp:1998
+#: build/src/ui_klog.h:1728 src/klog.cpp:2002
 #, fuzzy
 msgid "QSL Sent"
 msgstr "<b>QSL Enviada:</b>"
 
-#: build/src/ui_klog.h:1729 src/klog.cpp:1993
+#: build/src/ui_klog.h:1729 src/klog.cpp:1997
 #, fuzzy
 msgid "QSL Received"
 msgstr "<b>QSL Recebida:</b>"
@@ -647,8 +647,8 @@ msgstr ""
 msgid "Clear current QSO"
 msgstr ""
 
-#: build/src/ui_klog.h:1856 build/src/ui_klog.h:2093 build/src/ui_klog.h:2126
-#: build/src/ui_setup.h:881 src/klog.cpp:536
+#: build/src/ui_klog.h:1856 build/src/ui_klog.h:2104 build/src/ui_klog.h:2137
+#: build/src/ui_setup.h:881 src/klog.cpp:540
 #, fuzzy
 msgid "Clear"
 msgstr "Data"
@@ -657,40 +657,40 @@ msgstr "Data"
 msgid "Add this QSO to the log"
 msgstr ""
 
-#: build/src/ui_klog.h:1860 build/src/ui_klog.h:2125
+#: build/src/ui_klog.h:1860 build/src/ui_klog.h:2136
 msgid "OK"
 msgstr ""
 
-#: build/src/ui_klog.h:1861
+#: build/src/ui_klog.h:1864
 #, fuzzy
 msgid "<p align=\"center\"><b>RST(tx)<br>RST(rx)</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:1863
+#: build/src/ui_klog.h:1866
 msgid "R value you give to the DX"
 msgstr ""
 
-#: build/src/ui_klog.h:1866
+#: build/src/ui_klog.h:1869
 msgid "R value you get from the DX"
 msgstr ""
 
-#: build/src/ui_klog.h:1869
+#: build/src/ui_klog.h:1872
 msgid "S value you give to the DX"
 msgstr ""
 
-#: build/src/ui_klog.h:1872
+#: build/src/ui_klog.h:1875
 msgid "S value you get from the DX"
 msgstr ""
 
-#: build/src/ui_klog.h:1875
+#: build/src/ui_klog.h:1878
 msgid "T value you give to the DX"
 msgstr ""
 
-#: build/src/ui_klog.h:1879
+#: build/src/ui_klog.h:1882
 msgid "T value you get from the DX"
 msgstr ""
 
-#: build/src/ui_klog.h:1881
+#: build/src/ui_klog.h:1884
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -704,7 +704,7 @@ msgid ""
 "style=\" font-weight:600;\">TX Freq</span></p></body></html>"
 msgstr ""
 
-#: build/src/ui_klog.h:1886
+#: build/src/ui_klog.h:1889
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -718,24 +718,24 @@ msgid ""
 "style=\" font-weight:600;\">RX Freq</span></p></body></html>"
 msgstr ""
 
-#: build/src/ui_klog.h:1892
+#: build/src/ui_klog.h:1895
 msgid "Shows the frecuency of the transceiver when hamlib is  (TX)"
 msgstr ""
 
-#: build/src/ui_klog.h:1895
+#: build/src/ui_klog.h:1898
 msgid "Shows the frecuency of the transceiver when hamlib is activated (RX)"
 msgstr ""
 
-#: build/src/ui_klog.h:1897 build/src/ui_klog.h:2094
+#: build/src/ui_klog.h:1900 build/src/ui_klog.h:2105
 #, fuzzy
 msgid "<p align=\"center\"><b>Name:</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:1899
+#: build/src/ui_klog.h:1902
 msgid "DX's operator's name"
 msgstr ""
 
-#: build/src/ui_klog.h:1902
+#: build/src/ui_klog.h:1905
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -749,7 +749,7 @@ msgid ""
 "style=\" font-weight:600;\">Locator:</span></p></body></html>"
 msgstr ""
 
-#: build/src/ui_klog.h:1907
+#: build/src/ui_klog.h:1910
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -763,137 +763,137 @@ msgid ""
 "style=\" font-weight:600;\">QTH:</span></p></body></html>"
 msgstr ""
 
-#: build/src/ui_klog.h:1913
+#: build/src/ui_klog.h:1916
 msgid "DX's QTH (City, town)"
 msgstr ""
 
-#: build/src/ui_klog.h:1916
+#: build/src/ui_klog.h:1919
 #, fuzzy
 msgid "The DX locator (like IN80EK)"
 msgstr "Escrever o seu QHT locator, ex: IM58LP"
 
-#: build/src/ui_klog.h:1918 build/src/ui_setup.h:861
+#: build/src/ui_klog.h:1921 build/src/ui_setup.h:861
 msgid "QSO"
 msgstr "QSO"
 
-#: build/src/ui_klog.h:1919
+#: build/src/ui_klog.h:1922
 msgid "<b>Via:</b>"
 msgstr "<b>VIA:</b>"
 
-#: build/src/ui_klog.h:1922
+#: build/src/ui_klog.h:1925
 msgid "Bureau"
 msgstr "Buro"
 
-#: build/src/ui_klog.h:1923
+#: build/src/ui_klog.h:1926
 msgid "No QSL"
 msgstr "Não QSL"
 
-#: build/src/ui_klog.h:1924
+#: build/src/ui_klog.h:1927
 msgid "QRZ.com"
 msgstr "QRZ.com"
 
-#: build/src/ui_klog.h:1925
+#: build/src/ui_klog.h:1928
 msgid "Manager"
 msgstr "Manager"
 
-#: build/src/ui_klog.h:1926
+#: build/src/ui_klog.h:1929
 msgid "Direct"
 msgstr "Directa"
 
-#: build/src/ui_klog.h:1929
+#: build/src/ui_klog.h:1932
 msgid "How to send the QSL"
 msgstr ""
 
-#: build/src/ui_klog.h:1932
+#: build/src/ui_klog.h:1935
 #, fuzzy
 msgid "Manager's QRZ"
 msgstr "Manager"
 
-#: build/src/ui_klog.h:1934
+#: build/src/ui_klog.h:1937
 msgid "<b>QSL Sent:</b>"
 msgstr "<b>QSL Enviada:</b>"
 
-#: build/src/ui_klog.h:1935
+#: build/src/ui_klog.h:1938
 #, fuzzy
 msgid "<b>QSL Recv:</b>"
 msgstr "<b>QSL Recebida:</b>"
 
-#: build/src/ui_klog.h:1937
+#: build/src/ui_klog.h:1940
 #, fuzzy
 msgid "QSL card received"
 msgstr "<b>QSL Recebida:</b>"
 
-#: build/src/ui_klog.h:1941
+#: build/src/ui_klog.h:1944
 msgid "Send the QSL"
 msgstr ""
 
-#: build/src/ui_klog.h:1944
+#: build/src/ui_klog.h:1947
 msgid "QSL"
 msgstr "QSL"
 
-#: build/src/ui_klog.h:1945
+#: build/src/ui_klog.h:1948
 #, fuzzy
 msgid "<b>Remarks:</b>"
 msgstr "<b>Diploma:</b>"
 
-#: build/src/ui_klog.h:1946 build/src/ui_klog.h:2114
+#: build/src/ui_klog.h:1949 build/src/ui_klog.h:2125
 msgid "Remarks"
 msgstr "Anotações"
 
-#: build/src/ui_klog.h:1947 build/src/ui_klog.h:2081
+#: build/src/ui_klog.h:1950 build/src/ui_klog.h:2092
 msgid "<b>IOTA:</b>"
 msgstr "<b>IOTA:</b>"
 
-#: build/src/ui_klog.h:1950
+#: build/src/ui_klog.h:1953
 msgid "AF"
 msgstr "AF"
 
-#: build/src/ui_klog.h:1951
+#: build/src/ui_klog.h:1954
 msgid "AN"
 msgstr "AN"
 
-#: build/src/ui_klog.h:1952
+#: build/src/ui_klog.h:1955
 msgid "AS"
 msgstr "AS"
 
-#: build/src/ui_klog.h:1953
+#: build/src/ui_klog.h:1956
 msgid "EU"
 msgstr "EU"
 
-#: build/src/ui_klog.h:1954
+#: build/src/ui_klog.h:1957
 msgid "NA"
 msgstr "NA"
 
-#: build/src/ui_klog.h:1955
+#: build/src/ui_klog.h:1958
 msgid "OC"
 msgstr "OC"
 
-#: build/src/ui_klog.h:1956
+#: build/src/ui_klog.h:1959
 msgid "SA"
 msgstr "SA"
 
-#: build/src/ui_klog.h:1959
+#: build/src/ui_klog.h:1962
 msgid "IOTA continent"
 msgstr ""
 
-#: build/src/ui_klog.h:1962
+#: build/src/ui_klog.h:1965
 msgid "IOTA number"
 msgstr ""
 
-#: build/src/ui_klog.h:1965 build/src/ui_klog.h:1973 build/src/ui_klog.h:1981
+#: build/src/ui_klog.h:1968 build/src/ui_klog.h:1976 build/src/ui_klog.h:1984
 msgid "Several awards, still not implemented."
 msgstr ""
 
-#: build/src/ui_klog.h:1967
+#: build/src/ui_klog.h:1970
 #, fuzzy
 msgid "<b>Award:</b>"
 msgstr "<b>Diploma:</b>"
 
-#: build/src/ui_klog.h:1970
+#: build/src/ui_klog.h:1973
 msgid "Default reference"
 msgstr "Referência por defeito"
 
-#: build/src/ui_klog.h:1975
+#: build/src/ui_klog.h:1978
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -907,7 +907,7 @@ msgid ""
 "weight:600;\">Satellite</span></p></body></html>"
 msgstr ""
 
-#: build/src/ui_klog.h:1983
+#: build/src/ui_klog.h:1986
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -921,17 +921,17 @@ msgid ""
 "weight:600;\">Sat Mode</span></p></body></html>"
 msgstr ""
 
-#: build/src/ui_klog.h:1988
+#: build/src/ui_klog.h:1991
 #, fuzzy
 msgid "Others"
 msgstr "Outros"
 
-#: build/src/ui_klog.h:1989
+#: build/src/ui_klog.h:1992
 #, fuzzy
 msgid "<p align=\"center\"><b>Locator:</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:1990
+#: build/src/ui_klog.h:1993
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -945,406 +945,415 @@ msgid ""
 "style=\" font-weight:600;\">Power:</span></p></body></html>"
 msgstr ""
 
-#: build/src/ui_klog.h:1996
-msgid "Power used to make this QSO"
-msgstr ""
-
-#: build/src/ui_klog.h:2000 build/src/ui_klog.h:2013
+#: build/src/ui_klog.h:1999 build/src/ui_klog.h:2012
 msgid "The call of the station used to work this QSO"
 msgstr ""
 
-#: build/src/ui_klog.h:2003
+#: build/src/ui_klog.h:2002
 msgid "The locator of the station"
 msgstr ""
 
-#: build/src/ui_klog.h:2006 build/src/ui_klog.h:2009
+#: build/src/ui_klog.h:2005 build/src/ui_klog.h:2008
 msgid "The operator that worked this QSO"
 msgstr ""
 
-#: build/src/ui_klog.h:2011
+#: build/src/ui_klog.h:2010
 #, fuzzy
 msgid "<p align=\"center\"><b>Operator:</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2015
+#: build/src/ui_klog.h:2014
 #, fuzzy
 msgid "<p align=\"center\"><b>Station:</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
 #: build/src/ui_klog.h:2016
+msgid "Power used to do the QSO in watts"
+msgstr ""
+
+#: build/src/ui_klog.h:2019
 msgid "My Data"
 msgstr ""
 
-#: build/src/ui_klog.h:2017
+#: build/src/ui_klog.h:2020
 #, fuzzy
 msgid "<b>KLog</b>"
 msgstr "<b>KLog</b>"
 
-#: build/src/ui_klog.h:2018
+#: build/src/ui_klog.h:2021
 #, fuzzy
 msgid "<p align=\"center\"><b>10</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2019
+#: build/src/ui_klog.h:2022
 #, fuzzy
 msgid "<p align=\"center\"><b>15</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2020
+#: build/src/ui_klog.h:2023
 #, fuzzy
 msgid "<p align=\"center\"><b>20</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2021
+#: build/src/ui_klog.h:2024
 #, fuzzy
 msgid "<p align=\"center\"><b>40</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2022
+#: build/src/ui_klog.h:2025
 #, fuzzy
 msgid "<p align=\"center\"><b>80</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2023
+#: build/src/ui_klog.h:2026
 #, fuzzy
 msgid "<p align=\"center\"><b>160</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2024 build/src/ui_klog.h:2034 build/src/ui_klog.h:2039
+#: build/src/ui_klog.h:2027 build/src/ui_klog.h:2037 build/src/ui_klog.h:2042
 msgid "--"
 msgstr "--"
 
-#: build/src/ui_klog.h:2025
+#: build/src/ui_klog.h:2028
 #, fuzzy
 msgid "<p align=\"center\"><b>6</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2026
+#: build/src/ui_klog.h:2029
 #, fuzzy
 msgid "<p align=\"center\"><b>12</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2027
+#: build/src/ui_klog.h:2030
 #, fuzzy
 msgid "<p align=\"center\"><b>17</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2028
+#: build/src/ui_klog.h:2031
 #, fuzzy
 msgid "<p align=\"center\"><b>30</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2029
+#: build/src/ui_klog.h:2032
 #, fuzzy
 msgid "<p align=\"center\"><b>2</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2030
+#: build/src/ui_klog.h:2033
 #, fuzzy
 msgid "<p align=\"center\"><b>70cm</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2032
+#: build/src/ui_klog.h:2035
 msgid "Entity's main prefix"
 msgstr ""
 
-#: build/src/ui_klog.h:2035
+#: build/src/ui_klog.h:2038
 #, fuzzy
 msgid "<p align=\"center\"><b>Prefix:</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2037
+#: build/src/ui_klog.h:2040
 msgid "Entity's continent"
 msgstr ""
 
-#: build/src/ui_klog.h:2040
+#: build/src/ui_klog.h:2043
 #, fuzzy
 msgid "<p align=\"center\"><b>Continent:</b></p>"
 msgstr "<p alin=\"centro\"><b>Pequeno path:</b></p>"
 
-#: build/src/ui_klog.h:2041
+#: build/src/ui_klog.h:2044
 #, fuzzy
 msgid "<p align=\"center\"><b>deg</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2043
+#: build/src/ui_klog.h:2046
 #, fuzzy
 msgid "Short Path"
 msgstr "Importar um log tlf"
 
-#: build/src/ui_klog.h:2045
+#: build/src/ui_klog.h:2048
 msgid "<p align=\"center\"><b>Short Path:</b></p>"
 msgstr "<p alin=\"centro\"><b>Pequeno path:</b></p>"
 
-#: build/src/ui_klog.h:2046 build/src/ui_klog.h:2072
-#, fuzzy
-msgid "<b><p align=\"center\">Km</p></b>"
-msgstr "<p alin=\"centro\"><b>KLog</b></p>"
+#: build/src/ui_klog.h:2049 build/src/ui_klog.h:2079
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-"
+"left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
+"style=\" font-weight:600;\">km</span></p></body></html>"
+msgstr ""
 
-#: build/src/ui_klog.h:2048
+#: build/src/ui_klog.h:2055
 msgid "Point your antenna in this direction"
 msgstr "Aponte a sua antena nesta direcção"
 
-#: build/src/ui_klog.h:2051
+#: build/src/ui_klog.h:2058
 msgid "Km to the DX through the short path"
 msgstr ""
 
-#: build/src/ui_klog.h:2053
+#: build/src/ui_klog.h:2060
 #, fuzzy
 msgid "<p align=\"center\"><b>ITU:</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2054
+#: build/src/ui_klog.h:2061
 #, fuzzy
 msgid "<p align=\"center\"><b>CQ:</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2056
+#: build/src/ui_klog.h:2063
 msgid "CQ zone"
 msgstr ""
 
-#: build/src/ui_klog.h:2059
+#: build/src/ui_klog.h:2066
 msgid "ITU zone"
 msgstr ""
 
-#: build/src/ui_klog.h:2062
+#: build/src/ui_klog.h:2069
 #, fuzzy
 msgid "Turn your antenna in this direction to work via long path"
 msgstr "Aponte a sua antena nesta direcção"
 
-#: build/src/ui_klog.h:2065
+#: build/src/ui_klog.h:2072
 #, fuzzy
 msgid "Long Path"
 msgstr "Importar um log tlf"
 
-#: build/src/ui_klog.h:2067
+#: build/src/ui_klog.h:2074
 #, fuzzy
 msgid "<p align=\"center\"><b>Long Path:</b></p>"
 msgstr "<p alin=\"centro\"><b>Pequeno path:</b></p>"
 
-#: build/src/ui_klog.h:2069
+#: build/src/ui_klog.h:2076
 msgid "Km to the DX through the long path"
 msgstr ""
 
-#: build/src/ui_klog.h:2071
+#: build/src/ui_klog.h:2078
 #, fuzzy
 msgid "<b><p align=\"center\">deg</p></b>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2073
+#: build/src/ui_klog.h:2084
 msgid "Info"
 msgstr "Info"
 
-#: build/src/ui_klog.h:2074
+#: build/src/ui_klog.h:2085
 #, fuzzy
 msgid "<b>Award</b>"
 msgstr "<b>Diploma:</b>"
 
-#: build/src/ui_klog.h:2075
+#: build/src/ui_klog.h:2086
 #, fuzzy
 msgid "<b>Worked</b>"
 msgstr "<b>Trabalhado</b>"
 
-#: build/src/ui_klog.h:2076
+#: build/src/ui_klog.h:2087
 msgid "<b>DXCC:</b>"
 msgstr "<b>DXCC:</b>"
 
-#: build/src/ui_klog.h:2077
+#: build/src/ui_klog.h:2088
 msgid "<b>WAZ:</b>"
 msgstr "<b>WAZ:</b>"
 
-#: build/src/ui_klog.h:2079
+#: build/src/ui_klog.h:2090
 msgid "IOTA checking is still not implemented."
 msgstr ""
 
-#: build/src/ui_klog.h:2083
+#: build/src/ui_klog.h:2094
 msgid "Local awards checking is still not implemented."
 msgstr ""
 
-#: build/src/ui_klog.h:2085
+#: build/src/ui_klog.h:2096
 #, fuzzy
 msgid "<b>LOCAL:</b>"
 msgstr "<b>LOCAL:</b>"
 
-#: build/src/ui_klog.h:2086
+#: build/src/ui_klog.h:2097
 #, fuzzy
 msgid "<b>QSOs:</b>"
 msgstr "<b>CQ:</b>"
 
-#: build/src/ui_klog.h:2087
+#: build/src/ui_klog.h:2098
 #, fuzzy
 msgid "<b>Confirmed</b>"
 msgstr "<b>Confirmado</b>"
 
-#: build/src/ui_klog.h:2088 build/src/ui_setup.h:888
+#: build/src/ui_klog.h:2099 build/src/ui_setup.h:888
 msgid "Awards"
 msgstr "Diplomas"
 
-#: build/src/ui_klog.h:2090
+#: build/src/ui_klog.h:2101
 msgid "Enter the call to search"
 msgstr ""
 
-#: build/src/ui_klog.h:2092 build/src/ui_klog.h:2112
+#: build/src/ui_klog.h:2103 build/src/ui_klog.h:2123
 msgid "Search"
 msgstr ""
 
-#: build/src/ui_klog.h:2096
+#: build/src/ui_klog.h:2107
 msgid "DX Operator's name"
 msgstr ""
 
-#: build/src/ui_klog.h:2098
+#: build/src/ui_klog.h:2109
 #, fuzzy
 msgid "<p align=\"center\"><b>Time:</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2099
+#: build/src/ui_klog.h:2110
 #, fuzzy
 msgid "<p align=\"center\"><b>QTH:</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: build/src/ui_klog.h:2101
+#: build/src/ui_klog.h:2112
 msgid "DX Operator's QTH"
 msgstr ""
 
-#: build/src/ui_klog.h:2104 build/src/ui_setup.h:887 src/klog.cpp:4348
+#: build/src/ui_klog.h:2115 build/src/ui_setup.h:887 src/klog.cpp:4372
 #, fuzzy
 msgid "Number"
 msgstr "Número"
 
-#: build/src/ui_klog.h:2105
+#: build/src/ui_klog.h:2116
 #, fuzzy
 msgid "QSL-Rec"
 msgstr "QSL"
 
-#: build/src/ui_klog.h:2106
+#: build/src/ui_klog.h:2117
 #, fuzzy
 msgid "QSL-Sent"
 msgstr "<b>QSL Enviada:</b>"
 
-#: build/src/ui_klog.h:2107 build/src/ui_klog.h:2116 src/klog.cpp:4351
+#: build/src/ui_klog.h:2118 build/src/ui_klog.h:2127 src/klog.cpp:4375
 msgid "Mode"
 msgstr "Modo"
 
-#: build/src/ui_klog.h:2108 build/src/ui_klog.h:2117 src/klog.cpp:4350
+#: build/src/ui_klog.h:2119 build/src/ui_klog.h:2128 src/klog.cpp:4374
 msgid "Band"
 msgstr "Banda"
 
-#: build/src/ui_klog.h:2109 src/klog.cpp:4349
+#: build/src/ui_klog.h:2120 src/klog.cpp:4373
 msgid "Time"
 msgstr ""
 
-#: build/src/ui_klog.h:2110 build/src/ui_klog.h:2122 src/klog.cpp:4348
+#: build/src/ui_klog.h:2121 build/src/ui_klog.h:2133 src/klog.cpp:4372
 msgid "Date"
 msgstr "Data"
 
-#: build/src/ui_klog.h:2111 build/src/ui_klog.h:2120 src/klog.cpp:4349
+#: build/src/ui_klog.h:2122 build/src/ui_klog.h:2131 src/klog.cpp:4373
 msgid "QRZ"
 msgstr "QRZ"
 
-#: build/src/ui_klog.h:2115
+#: build/src/ui_klog.h:2126
 msgid "Power"
 msgstr "Potência"
 
-#: build/src/ui_klog.h:2118
+#: build/src/ui_klog.h:2129
 msgid "RST(rx)"
 msgstr "RST(rx)"
 
-#: build/src/ui_klog.h:2119
+#: build/src/ui_klog.h:2130
 msgid "RST(tx)"
 msgstr "RST(tx)"
 
-#: build/src/ui_klog.h:2121
+#: build/src/ui_klog.h:2132
 msgid "UTC"
 msgstr "UTC"
 
-#: build/src/ui_klog.h:2123 build/src/ui_klog.h:2140
+#: build/src/ui_klog.h:2134 build/src/ui_klog.h:2151
 msgid "Numb"
 msgstr "Número"
 
-#: build/src/ui_klog.h:2124
+#: build/src/ui_klog.h:2135
 #, fuzzy
 msgid "Log"
 msgstr "Log"
 
-#: build/src/ui_klog.h:2127
+#: build/src/ui_klog.h:2138
 msgid "Cluster"
 msgstr ""
 
-#: build/src/ui_klog.h:2129
+#: build/src/ui_klog.h:2140
 #, fuzzy
 msgid "160m"
 msgstr "160M"
 
-#: build/src/ui_klog.h:2130
+#: build/src/ui_klog.h:2141
 #, fuzzy
 msgid "80m"
 msgstr "80M"
 
-#: build/src/ui_klog.h:2131
+#: build/src/ui_klog.h:2142
 #, fuzzy
 msgid "40m"
 msgstr "40M"
 
-#: build/src/ui_klog.h:2132
+#: build/src/ui_klog.h:2143
 #, fuzzy
 msgid "30m"
 msgstr "30M"
 
-#: build/src/ui_klog.h:2133
+#: build/src/ui_klog.h:2144
 #, fuzzy
 msgid "20m"
 msgstr "20M"
 
-#: build/src/ui_klog.h:2134
+#: build/src/ui_klog.h:2145
 #, fuzzy
 msgid "17m"
 msgstr "17M"
 
-#: build/src/ui_klog.h:2135
+#: build/src/ui_klog.h:2146
 #, fuzzy
 msgid "15m"
 msgstr "15M"
 
-#: build/src/ui_klog.h:2136
+#: build/src/ui_klog.h:2147
 #, fuzzy
 msgid "12m"
 msgstr "12M"
 
-#: build/src/ui_klog.h:2137
+#: build/src/ui_klog.h:2148
 #, fuzzy
 msgid "10m"
 msgstr "10M"
 
-#: build/src/ui_klog.h:2138
+#: build/src/ui_klog.h:2149
 msgid "Prefix"
 msgstr ""
 
-#: build/src/ui_klog.h:2139 build/src/ui_setup.h:885
+#: build/src/ui_klog.h:2150 build/src/ui_setup.h:885
 #, fuzzy
 msgid "Entity"
 msgstr "Sair"
 
-#: build/src/ui_klog.h:2141
+#: build/src/ui_klog.h:2152
 msgid "DXCC"
 msgstr ""
 
-#: build/src/ui_klog.h:2142 build/src/ui_klog.h:2144
+#: build/src/ui_klog.h:2153 build/src/ui_klog.h:2155
 msgid "Tools"
 msgstr "Ferramentas"
 
-#: build/src/ui_klog.h:2143
+#: build/src/ui_klog.h:2154
 msgid "&File"
 msgstr ""
 
-#: build/src/ui_klog.h:2145
+#: build/src/ui_klog.h:2156
 msgid "&Setup"
 msgstr "&Configurar"
 
-#: build/src/ui_klog.h:2146
+#: build/src/ui_klog.h:2157
 msgid "DXCluster"
 msgstr ""
 
-#: build/src/ui_klog.h:2147
+#: build/src/ui_klog.h:2158
 msgid "&Help"
 msgstr ""
 
@@ -1626,13 +1635,13 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: src/klog.cpp:139 src/klog.cpp:973 src/klog.cpp:1637 src/klog.cpp:2570
-#: src/klog.cpp:2764 src/klog.cpp:3525 src/klog.cpp:4446 src/klog.cpp:4783
-#: src/klog.cpp:4798 src/setup.cpp:908
+#: src/klog.cpp:138 src/klog.cpp:977 src/klog.cpp:1641 src/klog.cpp:2594
+#: src/klog.cpp:2788 src/klog.cpp:3549 src/klog.cpp:4470 src/klog.cpp:4807
+#: src/klog.cpp:4822 src/setup.cpp:908
 msgid "KLog message:"
 msgstr ""
 
-#: src/klog.cpp:140
+#: src/klog.cpp:139
 msgid ""
 "Could not connect to your radio.\n"
 "Check your hamlib settings and restart KLog.\n"
@@ -1641,11 +1650,11 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/klog.cpp:302
+#: src/klog.cpp:303
 msgid "Warning - Can't find cty.dat"
 msgstr ""
 
-#: src/klog.cpp:303
+#: src/klog.cpp:304
 msgid ""
 "I can't find the cty.dat file with the DX Entity data.\n"
 "\n"
@@ -1653,43 +1662,43 @@ msgid ""
 "copied to your ~/.klog directory."
 msgstr ""
 
-#: src/klog.cpp:453 src/klog.cpp:470
+#: src/klog.cpp:457 src/klog.cpp:474
 #, fuzzy
 msgid "Award:"
 msgstr "Diplomas"
 
-#: src/klog.cpp:454 src/klog.cpp:471
+#: src/klog.cpp:458 src/klog.cpp:475
 #, fuzzy
 msgid "LOCAL:"
 msgstr "<b>LOCAL:</b>"
 
-#: src/klog.cpp:497 src/klog.cpp:594
+#: src/klog.cpp:501 src/klog.cpp:598
 msgid "<p align=\"center\"><b>KLog</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: src/klog.cpp:535
+#: src/klog.cpp:539
 msgid "Ok"
 msgstr "Ok"
 
-#: src/klog.cpp:684 src/klog.cpp:3424
+#: src/klog.cpp:688 src/klog.cpp:3448
 msgid "Save File"
 msgstr ""
 
-#: src/klog.cpp:684 src/klog.cpp:3424
+#: src/klog.cpp:688 src/klog.cpp:3448
 #, fuzzy
 msgid "ADIF (*.adi)"
 msgstr "Ficheiros ADIF (*.adi *.ADI)"
 
-#: src/klog.cpp:746
+#: src/klog.cpp:750
 #, fuzzy
 msgid "Saving the needed QSL log..."
 msgstr "Importar um log tlf"
 
-#: src/klog.cpp:746 src/klog.cpp:1005
+#: src/klog.cpp:750 src/klog.cpp:1009
 msgid "Abort saving"
 msgstr ""
 
-#: src/klog.cpp:756
+#: src/klog.cpp:760
 msgid ""
 "ADIF v1.0 (some ADIF v2 fields) Export from KLog-%1\n"
 "http://jaime.robles.es/klog\n"
@@ -1699,29 +1708,29 @@ msgid ""
 "<EOH>\n"
 msgstr ""
 
-#: src/klog.cpp:974
+#: src/klog.cpp:978
 msgid ""
 "The needed QSL export has been finished.\n"
 "The QSOs have been exported to "
 msgstr ""
 
-#: src/klog.cpp:974
+#: src/klog.cpp:978
 msgid ""
 "/neededqsllog.adi\n"
 " You need to send "
 msgstr ""
 
-#: src/klog.cpp:974
+#: src/klog.cpp:978
 #, fuzzy
 msgid "QSL cards"
 msgstr "<b>QSL Recebida:</b>"
 
-#: src/klog.cpp:1005
+#: src/klog.cpp:1009
 #, fuzzy
 msgid "Saving the log..."
 msgstr "Importar um log tlf"
 
-#: src/klog.cpp:1015
+#: src/klog.cpp:1019
 msgid ""
 "ADIF v1.0 (some ADIF v2 fields) Export from KLog-%1\n"
 "http://jaime.robles.es/klog\n"
@@ -1731,98 +1740,98 @@ msgid ""
 "<EOH>\n"
 msgstr ""
 
-#: src/klog.cpp:1638
+#: src/klog.cpp:1642
 msgid ""
 "The file selected to open does not exist.\n"
 "No file will be opened."
 msgstr ""
 
-#: src/klog.cpp:1648 src/klog.cpp:3000 src/klog.cpp:3228
+#: src/klog.cpp:1652 src/klog.cpp:3024 src/klog.cpp:3252
 msgid "Reading the log..."
 msgstr ""
 
-#: src/klog.cpp:1648 src/klog.cpp:3000 src/klog.cpp:3228
+#: src/klog.cpp:1652 src/klog.cpp:3024 src/klog.cpp:3252
 msgid "Abort reading"
 msgstr ""
 
-#: src/klog.cpp:1724 src/klog.cpp:3201 src/klog.cpp:3398
+#: src/klog.cpp:1728 src/klog.cpp:3225 src/klog.cpp:3422
 msgid "Adding QSO#: "
 msgstr ""
 
-#: src/klog.cpp:1981 src/setup.cpp:1009
+#: src/klog.cpp:1985 src/setup.cpp:1009
 #, fuzzy
 msgid "&Delete"
 msgstr "Data"
 
-#: src/klog.cpp:1983
+#: src/klog.cpp:1987
 #, fuzzy
 msgid "Delete a QSO"
 msgstr "Data"
 
-#: src/klog.cpp:1986
+#: src/klog.cpp:1990
 #, fuzzy
 msgid "&Recv and Sent"
 msgstr "<b>QSL Enviada:</b>"
 
-#: src/klog.cpp:1988
+#: src/klog.cpp:1992
 #, fuzzy
 msgid "QSL Recv and Sent"
 msgstr "<b>QSL Enviada:</b>"
 
-#: src/klog.cpp:1991
+#: src/klog.cpp:1995
 msgid "&Recv QSL"
 msgstr ""
 
-#: src/klog.cpp:1996
+#: src/klog.cpp:2000
 msgid "&Sent QSL"
 msgstr ""
 
-#: src/klog.cpp:2011 src/klog.cpp:2038 src/klog.cpp:3800
+#: src/klog.cpp:2015 src/klog.cpp:2042 src/klog.cpp:3824
 #, fuzzy
 msgid "Modify"
 msgstr "Modo"
 
-#: src/klog.cpp:2012 src/klog.cpp:2144 src/klog.cpp:3801
+#: src/klog.cpp:2016 src/klog.cpp:2148 src/klog.cpp:3825
 msgid "Cancel"
 msgstr ""
 
-#: src/klog.cpp:2142
+#: src/klog.cpp:2146
 msgid "Warning - Save log?"
 msgstr ""
 
-#: src/klog.cpp:2143
+#: src/klog.cpp:2147
 msgid "The log has been changed since the last save."
 msgstr ""
 
-#: src/klog.cpp:2144
+#: src/klog.cpp:2148
 msgid "Save Now"
 msgstr ""
 
-#: src/klog.cpp:2144
+#: src/klog.cpp:2148
 msgid "Continue anyway"
 msgstr ""
 
-#: src/klog.cpp:2195
+#: src/klog.cpp:2199
 #, fuzzy
 msgid "Open File"
 msgstr "Abrir um ficheiro"
 
-#: src/klog.cpp:2195 src/setup.cpp:808
+#: src/klog.cpp:2199 src/setup.cpp:808
 #, fuzzy
 msgid "ADIF files (*.adi)"
 msgstr "Ficheiros ADIF (*.adi *.ADI)"
 
-#: src/klog.cpp:2517
+#: src/klog.cpp:2541
 #, fuzzy
 msgid "KLog-%1 - The KDE Ham Radio Logging program"
 msgstr "KLog 0.1beta - O programa de log para radioamadorismo do KDE"
 
-#: src/klog.cpp:2518
+#: src/klog.cpp:2542
 #, fuzzy
 msgid ""
 "You can find the last version on <a href=\"http://jaime.robles.es/klog"
 "\">http://jaime.robles.es/klog</a>\n"
-"2002 - 2011 - Jaime Robles, EA4TV, jaime@robles.es\n"
+"2002 - 2012 - Jaime Robles, EA4TV, jaime@robles.es\n"
 "2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com"
 msgstr ""
 "KLog 0.1beta - O programa de log para radioamadorismo do KDE\n"
@@ -1830,7 +1839,7 @@ msgstr ""
 "klog\n"
 "Jaime Robles, EA4TV, jaime@robles.nu"
 
-#: src/klog.cpp:2571
+#: src/klog.cpp:2595
 msgid ""
 "It seems to be the first time you run KLog in this computer.\n"
 "The setup dialog will start to help you to configure KLog.\n"
@@ -1839,7 +1848,7 @@ msgid ""
 "The KLog team."
 msgstr ""
 
-#: src/klog.cpp:2765
+#: src/klog.cpp:2789
 msgid ""
 "You still have not configured KLog.\n"
 "Please click on:\n"
@@ -1847,270 +1856,270 @@ msgid ""
 " and configure KLog."
 msgstr ""
 
-#: src/klog.cpp:3006 src/klog.cpp:3008 src/klog.cpp:3232 src/klog.cpp:3434
+#: src/klog.cpp:3030 src/klog.cpp:3032 src/klog.cpp:3256 src/klog.cpp:3458
 msgid ""
 "Enter a remark for ALL the imported QSO:\n"
 "(Leave it empty and press OK if no remark)"
 msgstr ""
 
-#: src/klog.cpp:3007 src/klog.cpp:3021
+#: src/klog.cpp:3031 src/klog.cpp:3045
 msgid "KLog - TLF Import"
 msgstr ""
 
-#: src/klog.cpp:3022
+#: src/klog.cpp:3046
 msgid ""
 "Enter the used call:\n"
 "(Leave it empty and press OK if no diferent call was used)"
 msgstr ""
 
-#: src/klog.cpp:3027 src/klog.cpp:3459
+#: src/klog.cpp:3051 src/klog.cpp:3483
 msgid "Warning - QRZ not valid"
 msgstr ""
 
-#: src/klog.cpp:3028
+#: src/klog.cpp:3052
 msgid "Do you want to import without a QRZ?\n"
 msgstr ""
 
-#: src/klog.cpp:3029 src/klognetwork.cpp:45
+#: src/klog.cpp:3053 src/klognetwork.cpp:18 src/klogstarttips.cpp:18
 msgid "Yes"
 msgstr ""
 
-#: src/klog.cpp:3029 src/klognetwork.cpp:47
+#: src/klog.cpp:3053 src/klognetwork.cpp:20 src/klogstarttips.cpp:20
 msgid "No"
 msgstr ""
 
-#: src/klog.cpp:3048
+#: src/klog.cpp:3072
 msgid "Warning - Possible dates conflict:"
 msgstr ""
 
-#: src/klog.cpp:3049
+#: src/klog.cpp:3073
 msgid ""
 "Please define if the QSOs were done in the 1900s or in the 2000s years\n"
 "Are these QSO dated before year 2000?"
 msgstr ""
 
-#: src/klog.cpp:3231
+#: src/klog.cpp:3255
 msgid "KLog - Cabrillo Import"
 msgstr ""
 
-#: src/klog.cpp:3433 src/klog.cpp:3451 src/klog.cpp:3485
+#: src/klog.cpp:3457 src/klog.cpp:3475 src/klog.cpp:3509
 msgid "KLog - Log Add"
 msgstr ""
 
-#: src/klog.cpp:3449
+#: src/klog.cpp:3473
 msgid ""
 "Enter the used call:\n"
 "(Leave it empty and press OK if the call %1 was used)."
 msgstr ""
 
-#: src/klog.cpp:3460
+#: src/klog.cpp:3484
 msgid "Do you want to import without a QRZ?"
 msgstr ""
 
-#: src/klog.cpp:3483
+#: src/klog.cpp:3507
 msgid ""
 "Enter the locator of the activity:\n"
 "(Leave it empty and press OK if the locator was %1)."
 msgstr ""
 
-#: src/klog.cpp:3491
+#: src/klog.cpp:3515
 msgid "Warning - Locator not valid"
 msgstr ""
 
-#: src/klog.cpp:3492
+#: src/klog.cpp:3516
 msgid "Do you want to import without a Locator and use %1 ?\n"
 msgstr ""
 
-#: src/klog.cpp:3527
+#: src/klog.cpp:3551
 msgid ""
 "The log file has been\n"
 "successfully added!"
 msgstr ""
 
-#: src/klog.cpp:3591
+#: src/klog.cpp:3615
 msgid "<p align=\"center\"><b>Worked & confirmed before</b></p>"
 msgstr "<p alin=\"centro\"><b>Trabalhado e antes confirmado</b></p>"
 
-#: src/klog.cpp:3599
+#: src/klog.cpp:3623
 #, fuzzy
 msgid "<p align=\"center\"><b>Not confirmed in this band, WORK IT!</b></p>"
 msgstr "<p alin=\"centro\"><b>  deg - Km  </b></p>"
 
-#: src/klog.cpp:3606
+#: src/klog.cpp:3630
 #, fuzzy
 msgid "<p align=\"center\"><b>New one in this band, WORK IT!</b></p>"
 msgstr "<p alin=\"centro\"><b>  deg - Km  </b></p>"
 
-#: src/klog.cpp:3617
+#: src/klog.cpp:3641
 #, fuzzy
 msgid "<p align=\"center\"><b>Not confirmed, WORK IT!</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: src/klog.cpp:3627
+#: src/klog.cpp:3651
 #, fuzzy
 msgid "<p align=\"center\"><b>NEW ONE, WORK IT!</b></p>"
 msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
-#: src/klog.cpp:3831
+#: src/klog.cpp:3855
 msgid "Warning - QSO Deletion"
 msgstr ""
 
-#: src/klog.cpp:3832
+#: src/klog.cpp:3856
 msgid ""
 "Do you want to delete the QSO with:\n"
 "%1 of %2 ?"
 msgstr ""
 
-#: src/klog.cpp:4336
+#: src/klog.cpp:4360
 #, fuzzy
 msgid "Print the log"
 msgstr "Importar um log tlf"
 
-#: src/klog.cpp:4345
+#: src/klog.cpp:4369
 #, fuzzy
 msgid "Printing date: "
 msgstr "Importar um log tlf"
 
-#: src/klog.cpp:4350
+#: src/klog.cpp:4374
 #, fuzzy
 msgid "RST(tx/rx)"
 msgstr "RST(tx)"
 
-#: src/klog.cpp:4351
+#: src/klog.cpp:4375
 msgid "Freq"
 msgstr ""
 
-#: src/klog.cpp:4353 src/klog.cpp:4367
+#: src/klog.cpp:4377 src/klog.cpp:4391
 msgid "Page: %1"
 msgstr ""
 
-#: src/klog.cpp:4405
+#: src/klog.cpp:4429
 #, fuzzy
 msgid "Sorting the log..."
 msgstr "Importar um log tlf"
 
-#: src/klog.cpp:4405
+#: src/klog.cpp:4429
 msgid "Abort sorting"
 msgstr ""
 
-#: src/klog.cpp:4447
+#: src/klog.cpp:4471
 msgid ""
 "Check your cluster settings\n"
 "in Setup->Preferences\n"
 "before connecting!"
 msgstr ""
 
-#: src/klog.cpp:4472
+#: src/klog.cpp:4496
 msgid "Trying to connect to the server\n"
 msgstr ""
 
-#: src/klog.cpp:4722
+#: src/klog.cpp:4746
 msgid "Connected to server"
 msgstr ""
 
-#: src/klog.cpp:4732 src/klog.cpp:4733
+#: src/klog.cpp:4756 src/klog.cpp:4757
 #, fuzzy
 msgid "KLog message"
 msgstr "Log"
 
-#: src/klog.cpp:4732
+#: src/klog.cpp:4756
 msgid "Enter your callsign to connect to the cluster:"
 msgstr ""
 
-#: src/klog.cpp:4733
+#: src/klog.cpp:4757
 msgid "Enter your password to connect to the cluster:"
 msgstr ""
 
-#: src/klog.cpp:4739
+#: src/klog.cpp:4763
 msgid "Not logged on, you may to enter your callsign again."
 msgstr ""
 
-#: src/klog.cpp:4748
+#: src/klog.cpp:4772
 msgid "Connection closed by the server"
 msgstr ""
 
-#: src/klog.cpp:4758
+#: src/klog.cpp:4782
 msgid "Connection closed"
 msgstr ""
 
-#: src/klog.cpp:4784
+#: src/klog.cpp:4808
 msgid "Host not found:\n"
 msgstr ""
 
-#: src/klog.cpp:4785
+#: src/klog.cpp:4809
 msgid ""
 "\n"
 "Check your network settings!"
 msgstr ""
 
-#: src/klog.cpp:4799
+#: src/klog.cpp:4823
 msgid "DX-Cluster server refused the connection\n"
 msgstr ""
 
-#: src/klog.cpp:4800
+#: src/klog.cpp:4824
 msgid ""
 "\n"
 "Maybe you are already connected, use another call like \"YOURCALL-1\"!"
 msgstr ""
 
-#: src/klog.cpp:4810
+#: src/klog.cpp:4834
 msgid "The following error occurred: %1."
 msgstr ""
 
-#: src/klog.cpp:4996
+#: src/klog.cpp:5020
 msgid ""
 "Please send your bug-report/wish to jaime@robles.es\n"
 "Include the KLog version you are using (%1). All your suggestion will be "
 "welcome!"
 msgstr ""
 
-#: src/klog.cpp:5262
+#: src/klog.cpp:5286
 msgid "Merging information..."
 msgstr ""
 
-#: src/klog.cpp:5262 src/klog.cpp:5500
+#: src/klog.cpp:5286 src/klog.cpp:5524
 msgid "Abort"
 msgstr ""
 
-#: src/klog.cpp:5283 src/klog.cpp:5307 src/klog.cpp:5327 src/klog.cpp:5350
-#: src/klog.cpp:5383 src/klog.cpp:5425
+#: src/klog.cpp:5307 src/klog.cpp:5331 src/klog.cpp:5351 src/klog.cpp:5374
+#: src/klog.cpp:5407 src/klog.cpp:5449
 msgid "Warning: Callsign to complete found"
 msgstr ""
 
-#: src/klog.cpp:5284 src/klog.cpp:5308 src/klog.cpp:5328 src/klog.cpp:5351
-#: src/klog.cpp:5384
+#: src/klog.cpp:5308 src/klog.cpp:5332 src/klog.cpp:5352 src/klog.cpp:5375
+#: src/klog.cpp:5408
 msgid ""
 "Completing a call could cause data to be no accurate. Do you want this data "
 "to be merged?\n"
 " QSO N: #"
 msgstr ""
 
-#: src/klog.cpp:5286
+#: src/klog.cpp:5310
 msgid " - Asign the name "
 msgstr ""
 
-#: src/klog.cpp:5286 src/klog.cpp:5310 src/klog.cpp:5331 src/klog.cpp:5354
-#: src/klog.cpp:5388
+#: src/klog.cpp:5310 src/klog.cpp:5334 src/klog.cpp:5355 src/klog.cpp:5378
+#: src/klog.cpp:5412
 msgid " for "
 msgstr ""
 
-#: src/klog.cpp:5310
+#: src/klog.cpp:5334
 msgid " - Asign the QTH "
 msgstr ""
 
-#: src/klog.cpp:5330
+#: src/klog.cpp:5354
 msgid " - Asign the Locator "
 msgstr ""
 
-#: src/klog.cpp:5353
+#: src/klog.cpp:5377
 msgid " - Asign the IOTA reference "
 msgstr ""
 
-#: src/klog.cpp:5386
+#: src/klog.cpp:5410
 msgid " - Asign the Local Award reference "
 msgstr ""
 
-#: src/klog.cpp:5426
+#: src/klog.cpp:5450
 msgid ""
 "Completing a call could cause data to be no accurate. Do you want this data "
 "to be merged?\n"
@@ -2118,88 +2127,90 @@ msgid ""
 "QSOs for %2 ?"
 msgstr ""
 
-#: src/klog.cpp:5476
+#: src/klog.cpp:5500
 msgid "Merging calls: "
 msgstr ""
 
-#: src/klog.cpp:5500
+#: src/klog.cpp:5524
 msgid "Getting all the calls..."
 msgstr ""
 
-#: src/klog.cpp:5516
+#: src/klog.cpp:5540
 msgid "Adding Call: "
 msgstr ""
 
-#: src/klognetwork.cpp:41
+#: src/klognetwork.cpp:14 src/klogstarttips.cpp:14
 msgid "&URL:"
 msgstr ""
 
-#: src/klognetwork.cpp:43
+#: src/klognetwork.cpp:16 src/klogstarttips.cpp:16
 msgid "You are going to download the cty.dat file from:"
 msgstr ""
 
-#: src/klognetwork.cpp:44
+#: src/klognetwork.cpp:17 src/klogstarttips.cpp:17
 msgid "Do you want to continue?"
 msgstr ""
 
-#: src/klognetwork.cpp:81
+#: src/klognetwork.cpp:55 src/klogstarttips.cpp:55
 msgid "KLog: CTY.DAT download"
 msgstr ""
 
-#: src/klognetwork.cpp:97
+#: src/klognetwork.cpp:71 src/klogstarttips.cpp:71
 msgid "KLog: File exists!"
 msgstr ""
 
-#: src/klognetwork.cpp:98
+#: src/klognetwork.cpp:72 src/klogstarttips.cpp:72
 msgid ""
 "There already exists a file called %1 in the current directory. Overwrite?"
 msgstr ""
 
-#: src/klognetwork.cpp:108
+#: src/klognetwork.cpp:82 src/klogstarttips.cpp:82
 msgid "KLog: Can't save the file"
 msgstr ""
 
-#: src/klognetwork.cpp:109
+#: src/klognetwork.cpp:83 src/klogstarttips.cpp:83
 msgid "Unable to save the file %1: %2."
 msgstr ""
 
-#: src/klognetwork.cpp:128
+#: src/klognetwork.cpp:102 src/klogstarttips.cpp:102
 msgid "KLog: Downloading..."
 msgstr ""
 
-#: src/klognetwork.cpp:129
+#: src/klognetwork.cpp:103 src/klogstarttips.cpp:103
 msgid "Downloading %1."
 msgstr ""
 
-#: src/klognetwork.cpp:135
+#: src/klognetwork.cpp:109 src/klogstarttips.cpp:109
 msgid "Download canceled."
 msgstr ""
 
-#: src/klognetwork.cpp:165 src/klognetwork.cpp:216
+#: src/klognetwork.cpp:139 src/klognetwork.cpp:187 src/klogstarttips.cpp:139
+#: src/klogstarttips.cpp:187
 msgid "KLog: Download failed"
 msgstr ""
 
-#: src/klognetwork.cpp:166 src/klognetwork.cpp:217
+#: src/klognetwork.cpp:140 src/klognetwork.cpp:188 src/klogstarttips.cpp:140
+#: src/klogstarttips.cpp:188
 msgid "Download failed: %1."
 msgstr ""
 
-#: src/klognetwork.cpp:170
+#: src/klognetwork.cpp:144 src/klogstarttips.cpp:144
 msgid "Downloaded %1 to the KLog directory."
 msgstr ""
 
-#: src/klognetwork.cpp:177
+#: src/klognetwork.cpp:148 src/klogstarttips.cpp:148
 msgid "KLog: cty.dat downloaded"
 msgstr ""
 
-#: src/klognetwork.cpp:178
+#: src/klognetwork.cpp:149 src/klogstarttips.cpp:149
 msgid "KLog has downloaded the cty.dat file successfully.\n"
 msgstr ""
 
-#: src/klognetwork.cpp:268
+#: src/klognetwork.cpp:239 src/klogstarttips.cpp:239
 msgid "KLog: SSL error"
 msgstr ""
 
-#: src/klognetwork.cpp:269
+#: src/klognetwork.cpp:240 src/klogstarttips.cpp:240
 msgid "One or more SSL errors has occurred: %1"
 msgstr ""
 
@@ -2209,7 +2220,7 @@ msgid "The KDE Ham radio logging software."
 msgstr "KLog 0.1beta - O programa de log para radioamadorismo do KDE"
 
 #: src/main.cpp:47
-msgid "Copyright (c) 2002-2010, Jaime Robles, EA4TV"
+msgid "Copyright (c) 2002-2012, Jaime Robles, EA4TV"
 msgstr ""
 
 #: src/main.cpp:53
@@ -2289,6 +2300,10 @@ msgid ""
 "This function is still not implemented.\n"
 "To erase an award, delete the appropriate line of your klogrc file."
 msgstr ""
+
+#, fuzzy
+#~ msgid "<b><p align=\"center\">Km</p></b>"
+#~ msgstr "<p alin=\"centro\"><b>KLog</b></p>"
 
 #~ msgid "Klog"
 #~ msgstr "Klog"
