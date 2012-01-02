@@ -6,7 +6,7 @@
 
 KLogNetwork::KLogNetwork(QWidget *parent)
      : QDialog(parent){
-qDebug() << "KLogNetwork::KLogNetwork" << endl;
+//qDebug() << "KLogNetwork::KLogNetwork" << endl;
 
 
   urlLineEdit = new QLineEdit("http://www.country-files.com/cty/cty.dat");
