@@ -1,4 +1,4 @@
-TBD 0.5.9
+January-2012 0.5.9
 - Bug fixed: When starting for the first time, the CTY.DAT file downloaded had a loop that was not properly managed. (Debian bug: #653697) (TNX Jonas Stein)
 - Fixed some typo: "Km" changed to "km". (Debian bug: #6536978) (TNX Jonas Stein)
 

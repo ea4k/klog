@@ -39,7 +39,6 @@ Klog::Klog(const QString& tversion, QMainWindow *parent) : QMainWindow(parent) {
   
   
   Klog::KLogVersion = tversion;
-  //Klog::KLogVersion = "0.5.8";
 //   Klog::editdeletePixMap = new QPixmap("editdelete.png");
 //   editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
 //   Klog::qslRecPixMap = new QPixmap("qslRec.png");
@@ -2540,7 +2539,7 @@ void Klog::helpAbout() {
 //qDebug() << "KLog::helpAbout" << endl;
   
   QString sAbout1 = i18n("KLog-%1 - The KDE Ham Radio Logging program", Klog::KLogVersion);
-  QString sAbout2 = i18n("You can find the last version on <a href=\"http://jaime.robles.es/klog\">http://jaime.robles.es/klog</a>\n2002 - 2011 - Jaime Robles, EA4TV, jaime@robles.es\n2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com", Klog::KLogVersion);
+  QString sAbout2 = i18n("You can find the last version on <a href=\"http://jaime.robles.es/klog\">http://jaime.robles.es/klog</a>\n2002 - 2012 - Jaime Robles, EA4TV, jaime@robles.es\n2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com", Klog::KLogVersion);
   
   QMessageBox msgBox;
   msgBox.setText(sAbout1);

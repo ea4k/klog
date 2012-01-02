@@ -41,10 +41,10 @@
 
 int main (int argc, char *argv[]){
   KAboutData aboutData( "klog", "klog",
-  ki18n("KLog"), "0.5.8",
+  ki18n("KLog"), "0.5.9",
   ki18n("The KDE Ham radio logging software."),
   KAboutData::License_GPL,
-  ki18n("Copyright (c) 2002-2010, Jaime Robles, EA4TV") );
+  ki18n("Copyright (c) 2002-2012, Jaime Robles, EA4TV") );
 //    aboutData.addAuthor("Jaime Robles, EA4TV","http://jaime.robles.es", "jaime@robles.es");
   //TODO: Add the command line options
   KCmdLineArgs::init( argc, argv, &aboutData );
@@ -55,7 +55,7 @@ int main (int argc, char *argv[]){
  
   KApplication app;
  
-  Klog* klog = new Klog("0.5.8");
+  Klog* klog = new Klog("0.5.9");
   klog->show();
  
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs(); //new
