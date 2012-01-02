@@ -38,7 +38,8 @@ qDebug() << "KLogNetwork::KLogNetwork" << endl;
 #endif
   connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelDownload()));
   connect(downloadButton, SIGNAL(clicked()), this, SLOT(downloadFile()));
-  connect(quitButton, SIGNAL(clicked()), this, SLOT(done(1)));
+  //connect(quitButton, SIGNAL(clicked()), this, SLOT(done(1)));
+  connect(quitButton, SIGNAL(clicked()), this, SLOT(reject() ) );
 
   QHBoxLayout *topLayout = new QHBoxLayout;
   topLayout->addWidget(urlLabel);
