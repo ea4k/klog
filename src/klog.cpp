@@ -296,7 +296,9 @@ void Klog::haveWorld(){
   //TODO: If the world has not been created, and the user downloads the cty.dat file. KLog should try to recreate the world.
   // Maybe deleting and creating again the world.
   bool exit = false;
-  while(!exit){
+  KLogNetwork klogNetwork;
+  
+  while((!exit) && (!checkCTYDATFile()) ){
     if (!checkCTYDATFile() ){
       QMessageBox msgBox;
       msgBox.setWindowTitle(i18n("Warning - Can't find cty.dat"));
@@ -308,9 +310,12 @@ void Klog::haveWorld(){
     
       switch (ret) {
 	case QMessageBox::Yes:
-	  slotUpdateCTYDATFile(); 
-	  if (checkCTYDATFile() ){
-	    world.readCTYDAT();
+	  //slotUpdateCTYDATFile(); 
+	   
+	  klogNetwork.exec();  
+	  exit = world.readCTYDAT();
+	  if (checkCTYDATFile() )
+	  {	    
 	    exit = true;
 	  }
 	break;
@@ -5642,10 +5647,15 @@ void Klog::slotUpdateCTYDATFile(){
 
   KLogNetwork klogNetwork;
   klogNetwork.exec();  
-  if (checkCTYDATFile()){
+  if (checkCTYDATFile())
+  {
     world.readCTYDAT();  
   }
-  haveWorld();
+  else
+  {
+    haveWorld();  
+  }
+  
 }
 
 bool Klog::checkCTYDATFile(){
