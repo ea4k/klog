@@ -28,7 +28,7 @@
 //#include "iostream"
 #include "world.h"
 // included for debugging
-#include <QMessageBox>
+
 //#include <QDebug>
 //using namespace std;
 

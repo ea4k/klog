@@ -19,7 +19,7 @@
 #define KLOGHAMLIB_H
 #include <QMessageBox>
 #include <QString>
-#include <klocale.h>
+//#include <klocale.h>
 
 #include <hamlib/rig.h>
 #define SERIAL_PORT "/dev/ttyS0"

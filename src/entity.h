@@ -24,9 +24,12 @@
 
 #ifndef ENTITY_H
 #define ENTITY_H
-#include "prefix.h"
 #include <QDebug>
 #include <QList>
+
+#include "prefix.h"
+
+
 // Commented out the below line as ENTITIES is defined as a const int in awarddxcc.h. This causes an
 // obscure compiler error.
 //#define ENTITIES 340

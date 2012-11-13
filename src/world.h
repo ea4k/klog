@@ -30,7 +30,9 @@ const char SEPARATOR1 = ':';
 const char SEPARATOR2 = ',';
 #include <stdlib.h>
 #include <math.h>
-#include <KDE/KLocale>
+#include <QTranslator>
+//#include <KDE/KLocale>
+#include <QMessageBox>
 #include <QTextStream>
 #include <QString>
 #include <QStringList>

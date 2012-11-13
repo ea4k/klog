@@ -21,7 +21,7 @@
 *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA*
  *****************************************************************************/
 
-#include <QtGui>
+
 #include "klog.h"
 //#include "dxmap.h"
 
@@ -4553,7 +4553,7 @@ void Klog::slotClusterSocketReadyRead() {
       spotter.truncate(spotter.size() - 1);
       QStringList dxList;
       QString loggingCountry, spotCountry;
-      int entityNumber, distance, n;
+      int entityNumber;
       Entity spotEntity;
       Entity loggingEntity;
 

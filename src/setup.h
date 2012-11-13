@@ -26,6 +26,9 @@
 #ifndef SETUP_H
 #define SETUP_H
 
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 #include <QObject>
 #include <QFile>
 #include <QFileDialog>

@@ -321,8 +321,8 @@ private:
   QDateTime dateTime; // QSO_DATE/TIME_ON YYYYMMDD - Time HHMM (0000-2359)
   int rstrx;          // RST_RCVD
   int rsttx;          // RST_SENT
-  QString freq;       // Frecuency
-  QString freq_rx;       // Frecuency
+  QString freq;       // Frequency
+  QString freq_rx;       // Frequency
   QString band;       // BAND
   QString band_rx;       // BAND_RX
 

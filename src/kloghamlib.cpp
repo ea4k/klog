@@ -297,7 +297,7 @@ double kloghamlib::getFrequency(){
 */
 	if (!rigLaunched){
 //	cout << "KLogHamlib::getFrequency:not launched" << endl;
-	radioStatus ="radio status: (getFrecuency) Error: Not previously launched";
+	radioStatus ="radio status: (getFrequency) Error: Not previously launched";
 		return 0.0;
 	}else{
 //		cout << "KLogHamlib::getFrequency: YES launched" << endl;
@@ -307,10 +307,10 @@ double kloghamlib::getFrequency(){
 //		retcode = rig_get_freq(radio, RIG_VFO_CURR, &freq);
 		if (retcode == RIG_OK ) {
 //			cout << "KLogHamlib::getFrequency: " << QString::number(freq) << endl;
-			radioStatus ="radio status: (getFrecuency) Geting freq:: " + QString::number(freq);
+			radioStatus ="radio status: (getFrequency) Geting freq:: " + QString::number(freq);
 			return freq; // We are geting the freq in MHz
         	} else {
-			radioStatus ="radio status: (getFrecuency) Error: getting freq: " + QString(rigerror(retcode));
+			radioStatus ="radio status: (getFrequency) Error: getting freq: " + QString(rigerror(retcode));
 				printf("rig_get_freq: error =  %s \n", rigerror(retcode));
 			return 0.0;
 		
@@ -454,7 +454,7 @@ RIG_LEVEL_STRENGTH: val is an integer, representing the S Meter level in dB, acc
 }
 
 void kloghamlib::setFrequency(double tFreq){ // Freq is in MHz
-//    cout << "kloghamlib - Frecuency: " << QString::number(tFreq) << endl;
+//    cout << "kloghamlib - Frequency: " << QString::number(tFreq) << endl;
 	if (!rigLaunched){
 		return;
 	}else{

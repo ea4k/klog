@@ -25,7 +25,7 @@
 #include <KDE/KApplication>
 #include <KDE/KAboutData>
 #include <KDE/KCmdLineArgs>
-#include <KDE/KUrl> //new
+//#include <KDE/KUrl> //new
  
 
 #include <kcmdlineargs.h>
@@ -41,7 +41,7 @@
 
 int main (int argc, char *argv[]){
   KAboutData aboutData( "klog", "klog",
-  ki18n("KLog"), "0.5.9",
+  ki18n("KLog"), "0.6.0",
   ki18n("The KDE Ham radio logging software."),
   KAboutData::License_GPL,
   ki18n("Copyright (c) 2002-2012, Jaime Robles, EA4TV") );
@@ -55,7 +55,7 @@ int main (int argc, char *argv[]){
  
   KApplication app;
  
-  Klog* klog = new Klog("0.5.9");
+  Klog* klog = new Klog("0.6.0");
   klog->show();
  
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs(); //new

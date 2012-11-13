@@ -917,7 +917,7 @@ void Qso::clear(){
         dxcc=0;
         country="";
         my_country="";
-        freq = "0.0"; // Frecuency
+        freq = "0.0"; // Frequency
         freq_rx = freq;
         rx_power = "0"; //RX_PWR
         power = "0"; //TX_PWR

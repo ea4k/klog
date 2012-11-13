@@ -27,7 +27,12 @@
 #define KLOG_H
 
 #include <KDE/KApplication>
+#include <KDE/KIcon>
+#include <KDE/KLocale>
+#include <KDE/KLocalizedString>
+#include <kdeprintdialog.h>
 
+#include <QtGui>
 #include <QObject>
 #include <QMenu>
 #include <QAction>
@@ -46,8 +51,7 @@
 #include <QPoint>
 #include <QLCDNumber>
 #include <QDoubleSpinBox>
-#include <KDE/KLocale>
-#include <KDE/KLocalizedString>
+
 #include <QCheckBox>
 #include <QMessageBox>
 #include <QTextStream>
@@ -60,24 +64,21 @@
 #include <QInputDialog>
 #include <QTimer>
 #include <QMainWindow>
-#include<QTextBrowser>
-//#include <QAbstractSocket>
-#include "ui_klog.h"
-// The next two are for the cluster box
+#include <QTextBrowser>
 #include <QTcpSocket>
-//#include <QUrl>
-// The next two are for printing
+
 #include <QPrinter>
 #include <QPainter>
 #include <QPrintDialog>
-#include <kdeprintdialog.h>
+
+
 
 #include <QProgressDialog>
 #include <QSplashScreen>
 #include <QTabWidget>
 #include <QStringList>
-#include <KDE/KIcon>
 
+#include "ui_klog.h"
 #include "awarddxcc.h"
 #include "awardwaz.h"
 #include "qso.h"
@@ -96,7 +97,7 @@
 // To use the dxmap just uncomment out the define tag below. It will activate all relevant code. Still broken though.
 //#define DXMAP 1
 #ifdef DXMAP
-#include "dxmap.h"
+  #include "dxmap.h"
 #endif
 
 using namespace std;
