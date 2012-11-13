@@ -29,7 +29,10 @@
 #define KLOG_NET_H
 
 #include <QDialog>
-#include <KDE/KLocale>
+#include <QtGui>
+#include <QtNetwork>
+
+//#include <KDE/KLocale>
 
 class QDialogButtonBox;
 class QFile;

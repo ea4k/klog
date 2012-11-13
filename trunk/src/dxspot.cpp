@@ -9,7 +9,7 @@ DxSpot::DxSpot(){
 	dxspotter = "";        // CALL
 	numb = 0;;           // STX
 //QDateTime dateTime; // QSO_DATE/TIME_ON YYYYMMDD - Time HHMM (0000-2359)
-	freq= 0.0;       // Frecuency
+	freq= 0.0;       // Frequency
 	comment="";    // COMMENT
 
 }

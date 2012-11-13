@@ -4,10 +4,11 @@
 #include <QWidget>
 #include <QPainter>
 #include <QPaintEvent>
-#include "dxspot.h"
 #include <QPixmap>
 #include <QHash>
 #include <QMap>
+
+#include "dxspot.h"
 
 typedef QHash<int, DxSpot> DXSpotList;
 

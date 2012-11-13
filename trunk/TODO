@@ -7,6 +7,7 @@
 
 </BEFORE RELEASING>
 
+* Copy: Operator name, station, power and locator saved for next QSO entry (via setup) (TNX Jonas Stein)
 * Add eQSL to the list of QSL VIA.
 * Filters: Select a DXCC entity and a band to find QSO to QSL.
 * Check iterators and change by indexes as in modifyQso.

@@ -63,7 +63,7 @@ public:
 
     int band2Int(const QString& tband);
     int mode2Int(const QString& tmode);
-    int freq2Int (const QString& tfreq); //(in MHz)   // accepts a string like "144", "10"... the MegaHertz section of a frecuency
+    int freq2Int (const QString& tfreq); //(in MHz)   // accepts a string like "144", "10"... the MegaHertz section of a frequency
     QString band2Freq (const QString& tband); //Accepts a band and returns the default freq for that band
     QString getModeBandPlan(const QString& tfreq); //(in MHz)
     QString int2Band(int tband);

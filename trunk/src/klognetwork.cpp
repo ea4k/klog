@@ -1,5 +1,3 @@
-#include <QtGui>
-#include <QtNetwork>
 
 #include "klognetwork.h"
 //#include "ui_authenticationdialog.h"
