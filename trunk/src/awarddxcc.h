@@ -35,7 +35,7 @@ const int MODES = 59;
 #ifndef AWARDDXCC_H
 #define AWARDDXCC_H
 //#include <klocale.h>
-#include <QDebug>
+//#include <QDebug>
 #include "adif.h"
 
 

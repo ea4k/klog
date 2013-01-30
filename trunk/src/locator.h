@@ -27,7 +27,7 @@
 #define LOCATOR_H
 #include <math.h>
 #include <QString>
-#include <QDebug>
+//#include <QDebug>
 //#include <klocale.h>
 
 

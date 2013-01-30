@@ -34,7 +34,7 @@ const int MODES = 59;
  
 #ifndef AWARDWAZ_H
 #define AWARDWAZ_H
-#include <QDebug>
+//#include <QDebug>
 //#include <klocale.h>
 #include "adif.h"
 

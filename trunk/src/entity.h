@@ -24,7 +24,7 @@
 
 #ifndef ENTITY_H
 #define ENTITY_H
-#include <QDebug>
+//#include <QDebug>
 #include <QList>
 
 #include "prefix.h"
