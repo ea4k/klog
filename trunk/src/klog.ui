@@ -545,7 +545,7 @@
             <string/>
            </property>
            <property name="currentIndex">
-            <number>4</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="qso">
             <attribute name="title">
@@ -1424,7 +1424,7 @@ p, li { white-space: pre-wrap; }
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_4">
