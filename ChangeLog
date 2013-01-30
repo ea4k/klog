@@ -1,4 +1,4 @@
-January-2013 on 0.6.0
+January-2013 - 0.6.0
 - Bug fixed: Typo "Frecuency" changed to "Frequency" in a tooltip. (Debian bug: #654328) (TNX Jonas Stein)
 - Bug fixed: Typo/wishlist "Numb" changed to "Number" in main table. (Debian bug: #654331) (TNX Jonas Stein)
 - Bug fixed: Typo/wishlist "UTC" changed to "Time" in main table. (Debian bug: #654331) (TNX Jonas Stein)
@@ -7,11 +7,11 @@ January-2013 on 0.6.0
 - GUI improved: The information boxes are now independant from the top right tab widget to improve usability.
 - GUI updated: Disabled the Setup tab of Hamlib until hamlib is properly working.
 
-January-2012 0.5.9
+January-2012 - 0.5.9
 - Bug fixed: When starting for the first time, the CTY.DAT file downloaded had a loop that was not properly managed. (Debian bug: #653697) (TNX Jonas Stein)
 - Fixed some typo: "Km" changed to "km". (Debian bug: #6536978) (TNX Jonas Stein)
 
-December-2011 0.5.8
+December-2011 - 0.5.8
 - Bug fixed: Right button in the search result did not "sent" the QSL card.
 - Bug fixed: Closing the window did not ask to save data before exit. (TNX EA7HEG).
 - Bug fixed: Beam was not properly calculated. (TNX DL6FBS).
@@ -21,7 +21,7 @@ December-2011 0.5.8
 - GUI updated: Ordered the tab-switching to make it more usable. (TNX Cedric).
 - Added the support for QRP. Power has two decimals. (TNX VK4JAZ).
 
-November-2010 0.5.7
+November-2010 - 0.5.7
 - New feature: Added the Export needed QSL that allows to create an ADIF file with all the QSO with new ones and new bands still not confirmed that has not been QSLed.
   The objective is to export it to a QSL or label printing software (until KLog implements that feature).
 - Updated translations: SV by SM4ABE.
@@ -29,22 +29,22 @@ November-2010 0.5.7
 - GUI improved: Changing the band combobox changes the TX Freq box and viceversa.
 - Minor fix: The PROGRAMVERSION tag in log was not properly formated.
 
-July-2010 0.5.6
+July-2010 - 0.5.6
 - Fixed the hamlib compilation scripts (CMakeLists.txt, FindHamlib.cmake). (TNX AB4BD).
 - Fixed one bug that causes some architectures not to compile.
 - Fixed some permisions and other warnings for Fedora packaging. (TNX N3LRX).
 - BUG fixed: Setting QSL from the log with right button was not working.
 
-May-2010 0.5.5
+May-2010 - 0.5.5
 - New feature: If cty.dat file is not found, KLog offers to download from the web. 
 - New feature: New tool to update the update the cty.dat file from the web.
 - New feature: QRZ font color changes to red if has been worked previously. (Proposed by KE7TDY)
 
-March-2010 0.5.4
+March-2010 - 0.5.4
 - Small fix to initialize a variable before using it.(realTimeLog in klog.cpp)
 - Fixed a bug that caused KLog to crash of no cty.dat file was found (bug #016917)(TNX KA6MAL)
 
-February-2010  0.5.3
+February-2010 - 0.5.3
 - Fixed a bug that caused modified QSO not being updated.
 - Fixed a bug in the way the band & mode combobox managed the data.
 
@@ -72,11 +72,11 @@ April-2009 0.4.7
 - BUG fixed: Prefixes were not properly managed and some information, as the STATE from ADIF files were not always well imported.
 - BUG fixed: Related with the ADIF saving CQ & ITU zones for QSO. It was not properly saved but can be recovered from the CALL.
 
-20-dic-2008 0.4.6
+20-dic-2008 - 0.4.6
 - BUG fixed: Printing was not properly working due to library actualization.
 - BUG fixed: Fields STX/SRX/STATION_CALLSIGN/CONTEST_ID were copied from one QSO to the following one.
 
-23-nov-2008 0.4.5
+23-nov-2008 - 0.4.5
 - GUI fixed: Changed the order of the input fields tab switching.
 - GUI fixed: Corrected the layout to fix the screen as ITU was not properly shown.
 - GUI improved: Added a new one color to differ a completely new one spot in the DX-cluster from a needed in a band.
@@ -155,7 +155,7 @@ The information comming from all the appearances of a call in the log is grouped
 - New translation: KLog is now also in German.(TNX DL5PD)
 
 
-18-Jan-2006 0.3.3
+18-Jan-2006 - 0.3.3
 - New feature: It is now possible to sort the log by numbers from the main log.
 - New feature: The frequency box is now also used when no hamlib support is active (double clicking over a
   dx-cluster spot.
@@ -169,7 +169,7 @@ The information comming from all the appearances of a call in the log is grouped
 - GUI Improved: You can now reach to Name&QTH using the tab key (TNX P.H. Rankin Hansen)
 - GUI Improved: QTH/Locator is now on the main QSO tab (TNX P.H. Rankin Hansen)
 
-25-Apr-2005 0.3.2
+25-Apr-2005 - 0.3.2
 - New feature-(unstable): Hamlib support to control/read the rig from KLog.
 - New feature-(unstable): It is possible to click over a DX-Spot and set the radio to that frecuency & mode to work the spot (hamlib).
 - New feature-(unstable): KLog reads the frecuency, band, mode and signal from the radio in real time (hamlib).
@@ -182,7 +182,7 @@ The information comming from all the appearances of a call in the log is grouped
 - Bug fixed: KLog can now read ADIF files where the QSO can be in several lines.
 - Bug fixed: Importing from tlf, the QSO count was not properly done because of the comment lines.
 
-16-Jan-2005 0.3.1
+16-Jan-2005 - 0.3.1
 
 - KLog has been optimized and now runs faster.
 - New feature: KLog saves the date/time of the last log file save.
@@ -201,7 +201,7 @@ The information comming from all the appearances of a call in the log is grouped
 - Bug fixed: If we are modifying a QSO, the search box is not updated. Avoids some 
   crashes.
 
-07-Nov-2004 0.3.0
+07-Nov-2004 - 0.3.0
 
 - Fixed source code to allow compiling in more architectures.
 - New feature: It is possible to show a progress dialog when opening the log file. 
@@ -219,14 +219,14 @@ The information comming from all the appearances of a call in the log is grouped
 - Improved the gui: When connecting to the DX-Cluster server, automatically sets 
   the DXCluster window as active.
 
-2-May-2004 0.2.9
+2-May-2004 - 0.2.9
 
 - New feature: Selection of a DX-Spot shows the Entity data and state.
 - New feature: KLog checks and captures the output of a sh/dx command in cluster.
 - Fixed bug(caused in 0.2.8): QRZs as KA3AA, when the prefix is just one letter but the call uses two are now well recognised.
 - Fixed bug: Better recognision from /number calls from DX-Cluster.
 
-21-Mar-2004 0.2.8
+21-Mar-2004 - 0.2.8
 
 - Fixed bug: Now ignores comments in TLF's files.
 - Fixed bug: QRZs as VP2MCV, with complex prefixes are now well recognised.
@@ -238,7 +238,7 @@ The information comming from all the appearances of a call in the log is grouped
 - New feature: Now it is possible to double-click over a DXCluster spot to copy it to the QSO input box. (TNX ea1ddn)
 - New feature: In the search box, QSOs are colored indicating if worked, needed, ...
 
-04-Jan-2004 0.2.7
+04-Jan-2004 - 0.2.7
 
 - Fixed bug: When editing a QSO, the QSL date was not properly displayed.
 - Fixed bug: When entering a QSO, if the band is changed, KLog checks the state in this new band.
@@ -247,7 +247,7 @@ The information comming from all the appearances of a call in the log is grouped
 - New feature: It is posible to select a default mode & band in the setup.
 - First Icon draft created.
 
-02-Dec-2003 0.2.6
+02-Dec-2003 - 0.2.6
 
 - Fixed bug: When Non real time logging was setting the time was "real time" when modifying. (TNX rz3dfs)
 - Fixed bug: When reading the log file if an entity was not recognised Klog used to crash.
@@ -261,7 +261,7 @@ The information comming from all the appearances of a call in the log is grouped
 - New feature: Also a default color is selectionable as non-info color.
 - Improved the gui: Band info leds removed to gain space in the info widget.
 
-26-Aug-2003 0.2.5
+26-Aug-2003 - 0.2.5
 
 - Fixed bug:�RST was changed so when entering SSB RST. Entering 590 -> showed 509. (TNX ke6sls)
 - Fixed bug: In cluster some frecs (432MHz and 2190m) were not properly recognized.
@@ -274,7 +274,7 @@ The information comming from all the appearances of a call in the log is grouped
 - New feature: Colors for confirmed/worked/needed are configurable by the user.
 - New feature: Added tips to many widgets to explain their functions.
 
-31-Jul-2003 0.2.4
+31-Jul-2003 - 0.2.4
 
 - Fixed bug: Some calls were not recognized when checked (as 3da0sv).
 - Fixed bug: When opening a second log having a previous one KLog did not ask for saving if needed.
@@ -284,7 +284,7 @@ The information comming from all the appearances of a call in the log is grouped
 - New feature: Clock is now in UTC by default but can be changed in preferences.
 
 
-24-Jul-2003 0.2.3
+24-Jul-2003 - 0.2.3
 - Improved the gui: The "entity state" LED has been moved to a always seen zone.
 - Improved the gui: The way to edit QSO.
 - Fixed bug: When searching it showed a wrong name and a qth.
@@ -294,14 +294,14 @@ The information comming from all the appearances of a call in the log is grouped
 - New feature: QSO selection's data is shown in the show box.
 - New feature: You can delete qso & manage qsl from the list with righ button quickly & easily.
 
-30-Jun-2003 0.2.2
+30-Jun-2003 - 0.2.2
 
 - Changed the behavior of the search box to look not only for complete calls but characters.
 - Fixed bug: Improved the GUI layout.
 - Fixed bug: When editing a previous QSO the date was not always properly saved.
 - New feature: Added real time clock.
 
-20-Mar-2003 0.2.0
+20-Mar-2003 - 0.2.0
 
 - New feature: Added search for QSO tab.
 - New feature: Added Name field.
@@ -311,7 +311,7 @@ The information comming from all the appearances of a call in the log is grouped
 - Fixed bug: When selecting a "portable" (/P) (or /number) qso in the list it didn't recognize the entity.
 - Translation updated: pt_BR.
 
-13-Mar-2003 0.1-beta02
+13-Mar-2003 - 0.1-beta02
 
 - Added many modes and some more bands.
 - New feature: Asking for saving when finishing without save.
@@ -324,7 +324,7 @@ The information comming from all the appearances of a call in the log is grouped
 - Fixed bug: If you had a log and started a new one, the DXCC kept the data.
 - Fixed bug: The IOTA number was limited to 99 (now 999).
 
-28-Feb-2003 0.1-beta
+28-Feb-2003 - 0.1-beta
 
 - New feature: Led is green (new one), yellow (worked but not confirmed), red (confirmed).
 - New feature: Support calls as EA4TV/EA8, EA8/EA4TV.
@@ -339,7 +339,7 @@ The information comming from all the appearances of a call in the log is grouped
 - Fixed bug: The Mode combo-box showed SBB and it is SSB.
 - Fixed bug: some calls showed as worked before and they were not.
 
-29-Jan-2003 0.1-alpha
+29-Jan-2003 - 0.1-alpha
 - Fixed bug: When modifying a QSO it was not shown in the log box.
 - Fixed bug: If you clicked over the log box but not over a qso, the program crashed
 - Fixed bug: When modifying a QSO the date was always set to "now".
@@ -353,7 +353,7 @@ The information comming from all the appearances of a call in the log is grouped
 - QSL via is working, manager field, and QSL info field
 
 
-22-Jan-2003 / 0.1-pre-alpha
+22-Jan-2003 - 0.1-pre-alpha
 - First "release" of the software.
 - You can add/edit QSOs and save/read your log to/from the disk with a fixed name in ADIF format.
 - Can manage QSL sent/rec.
