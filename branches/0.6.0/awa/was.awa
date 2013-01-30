@@ -1,0 +1,63 @@
+<award_entity:1>K
+<award_entity:3>KH6
+<award_entity:3>KL7
+<award_entity:3>KP4
+<award_entity:3>KP2
+<award_name:4>WAS
+<award_references:2>52
+<award_version:8>20081113
+<award_sponsor:4>ARRL
+<eoh>
+
+<award_refnumber:1>1 <award_subdivision:2>K4 <award_abbrev:1>AL <award_refname:8>Alabama <eor>
+<award_refnumber:1>2 <award_subdivision:3>KL7 <award_abbrev:2>AK <award_refname:6>Alaska <eor>
+<award_refnumber:1>3 <award_subdivision:2>K7 <award_abbrev:2>AZ <award_refname:7>Arizona <eor>
+<award_refnumber:1>4 <award_subdivision:2>K5 <award_abbrev:2>AR <award_refname:8>Arkansas <eor>
+<award_refnumber:1>5 <award_subdivision:2>K6 <award_abbrev:2>CA <award_refname:10>California <eor>
+<award_refnumber:1>6 <award_subdivision:2>K0 <award_abbrev:2>CO <award_refname:8>Colorado <eor>
+<award_refnumber:1>7 <award_subdivision:2>K1 <award_abbrev:2>CT <award_refname:11>Connecticut <eor>
+<award_refnumber:1>8 <award_subdivision:2>K3 <award_abbrev:2>DE <award_refname:8>Delaware <eor>
+<award_refnumber:1>9 <award_subdivision:2>K4 <award_abbrev:2>FL <award_refname:7>Florida <eor>
+<award_refnumber:2>10 <award_subdivision:2>K4 <award_abbrev:2>GA <award_refname:7>Georgia <eor>
+<award_refnumber:2>11 <award_subdivision:3>KH6 <award_abbrev:2>HI <award_refname:6>Hawaii <eor>
+<award_refnumber:2>12 <award_subdivision:2>K7 <award_abbrev:2>ID <award_refname:5>Idaho <eor>
+<award_refnumber:2>13 <award_subdivision:2>K9 <award_abbrev:2>IL <award_refname:8>Illinois <eor>
+<award_refnumber:2>14 <award_subdivision:2>K9 <award_abbrev:2>IN <award_refname:7>Indiana <eor>
+<award_refnumber:2>15 <award_subdivision:2>K0 <award_subdivision:2>K  <award_abbrev:2>IA <award_refname:4>Iowa <eor>
+<award_refnumber:2>16 <award_subdivision:2>K0 <award_abbrev:2>KS <award_refname:6>Kansas <eor>
+<award_refnumber:2>17 <award_subdivision:2>K4 <award_abbrev:2>KY <award_refname:8>Kentucky <eor>
+<award_refnumber:2>18 <award_subdivision:2>K5 <award_abbrev:2>LA <award_refname:9>Louisiana <eor>
+<award_refnumber:2>19 <award_subdivision:2>K1 <award_abbrev:2>ME <award_refname:5>Maine <eor>
+<award_refnumber:2>20 <award_subdivision:2>K3 <award_abbrev:2>MD <award_refname:8>Maryland <eor>
+<award_refnumber:2>21 <award_subdivision:2>K1 <award_abbrev:2>MA <award_refname:12>Massachusetts <eor>
+<award_refnumber:2>22 <award_subdivision:2>K8 <award_abbrev:2>MI <award_refname:8>Michigan <eor>
+<award_refnumber:2>23 <award_subdivision:2>K0 <award_abbrev:2>MN <award_refname:9>Minnesota <eor>
+<award_refnumber:2>24 <award_subdivision:2>K5 <award_abbrev:2>MS <award_refname:11>Mississippi <eor>
+<award_refnumber:2>25 <award_subdivision:2>K0 <award_abbrev:2>MO <award_refname:8>Missouri <eor>
+<award_refnumber:2>26 <award_subdivision:2>K7 <award_abbrev:2>MT <award_refname:6>Montana <eor>
+<award_refnumber:2>27 <award_subdivision:2>K0 <award_abbrev:2>NE <award_refname:8>Nebraska <eor>
+<award_refnumber:2>28 <award_subdivision:2>K7 <award_abbrev:2>NV <award_refname:6>Nevada <eor>
+<award_refnumber:2>29 <award_subdivision:2>K1 <award_abbrev:2>NH <award_refname:13>New_Hampshire <eor>
+<award_refnumber:2>30 <award_subdivision:2>K2 <award_abbrev:2>NJ <award_refname:10>New_Jersey <eor>
+<award_refnumber:2>31 <award_subdivision:2>K5 <award_abbrev:2>NM <award_refname:10>New_Mexico <eor>
+<award_refnumber:2>32 <award_subdivision:2>K2 <award_abbrev:2>NY <award_refname:8>New_York <eor>
+<award_refnumber:2>33 <award_subdivision:2>K4 <award_abbrev:2>NC <award_refname:14>North_Carolina <eor>
+<award_refnumber:2>34 <award_subdivision:2>K0 <award_abbrev:2>ND <award_refname:12>North_Dakota <eor>
+<award_refnumber:2>35 <award_subdivision:2>K8 <award_abbrev:2>OH <award_refname:4>Ohio <eor>
+<award_refnumber:2>36 <award_subdivision:2>K5 <award_abbrev:2>OK <award_refname:8>Oklahoma <eor>
+<award_refnumber:2>37 <award_subdivision:2>K7 <award_abbrev:2>OR <award_refname:6>Oregon <eor>
+<award_refnumber:2>38 <award_subdivision:2>K3 <award_abbrev:2>PA <award_refname:12>Pennsylvania <eor>
+<award_refnumber:2>39 <award_subdivision:2>K1 <award_abbrev:2>RI <award_refname:12>Rhode_Island <eor>
+<award_refnumber:2>40 <award_subdivision:2>K4 <award_abbrev:2>SC <award_refname:14>South_Carolina <eor>
+<award_refnumber:2>41 <award_subdivision:2>K0 <award_abbrev:2>SD <award_refname:12>South_Dakota <eor>
+<award_refnumber:2>42 <award_subdivision:2>K4 <award_abbrev:2>TN <award_refname:9>Tennessee <eor>
+<award_refnumber:2>43 <award_subdivision:2>K5 <award_abbrev:2>TX <award_refname:5>Texas <eor>
+<award_refnumber:2>44 <award_subdivision:2>K7 <award_abbrev:2>UT <award_refname:4>Utah <eor>
+<award_refnumber:2>45 <award_subdivision:2>K1 <award_abbrev:2>VT <award_refname:7>Vermont <eor>
+<award_refnumber:2>46 <award_subdivision:2>K4 <award_abbrev:2>VA <award_refname:8>Virginia <eor>
+<award_refnumber:2>47 <award_subdivision:2>K7 <award_abbrev:2>WA <award_refname:10>Washington <eor>
+<award_refnumber:2>48 <award_subdivision:2>K8 <award_abbrev:2>WV <award_refname:13>West_Virginia <eor>
+<award_refnumber:2>49 <award_subdivision:2>K9 <award_abbrev:2>WI <award_refname:9>Wisconsin <eor>
+<award_refnumber:2>50 <award_subdivision:2>K7 <award_abbrev:2>WY <award_refname:7>Wyoming <eor>
+<award_refnumber:2>51 <award_subdivision:3>KP4 <award_abbrev:2>PR <award_refname:11>Puerto_Rico <eor>
+<award_refnumber:2>52 <award_subdivision:3>KP2 <award_abbrev:2>VI <award_refname:14>Virgin_Islands <eor>
