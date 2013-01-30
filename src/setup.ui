@@ -1074,6 +1074,12 @@
       </layout>
      </widget>
      <widget class="QWidget" name="TabPage">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="toolTip">
+       <string>Hamlib support will be added in a future release.</string>
+      </property>
       <attribute name="title">
        <string>Hamlib</string>
       </attribute>

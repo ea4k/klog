@@ -10,8 +10,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1203</width>
-    <height>752</height>
+    <width>860</width>
+    <height>666</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -39,7 +39,7 @@
    <string>KLog - The KDE Ham radio logging software.</string>
   </property>
   <widget class="QWidget" name="widget">
-   <layout class="QGridLayout" name="gridLayout_7">
+   <layout class="QGridLayout" name="gridLayout_12">
     <item row="0" column="0">
      <widget class="QSplitter" name="splitter_2">
       <property name="orientation">
@@ -545,7 +545,7 @@
             <string/>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>4</number>
            </property>
            <widget class="QWidget" name="qso">
             <attribute name="title">
@@ -716,7 +716,7 @@ p, li { white-space: pre-wrap; }
                <item row="1" column="0">
                 <widget class="QDoubleSpinBox" name="freqtxdoubleSpinBox">
                  <property name="toolTip">
-                  <string>Shows the frecuency of the transceiver when hamlib is  (TX)</string>
+                  <string>Shows the frequency of the transceiver when hamlib is  (TX)</string>
                  </property>
                  <property name="layoutDirection">
                   <enum>Qt::LeftToRight</enum>
@@ -735,7 +735,7 @@ p, li { white-space: pre-wrap; }
                <item row="1" column="1">
                 <widget class="QDoubleSpinBox" name="freqrxdoubleSpinBox">
                  <property name="toolTip">
-                  <string>Shows the frecuency of the transceiver when hamlib is activated (RX)</string>
+                  <string>Shows the frequency of the transceiver when hamlib is activated (RX)</string>
                  </property>
                  <property name="layoutDirection">
                   <enum>Qt::LeftToRight</enum>
@@ -752,9 +752,6 @@ p, li { white-space: pre-wrap; }
                 </widget>
                </item>
               </layout>
-             </item>
-             <item row="1" column="2" colspan="2">
-              <layout class="QVBoxLayout" name="verticalLayout_3"/>
              </item>
              <item row="2" column="0">
               <widget class="QLabel" name="textLabel1_8_2">
@@ -847,6 +844,9 @@ p, li { white-space: pre-wrap; }
                 <number>6</number>
                </property>
               </widget>
+             </item>
+             <item row="1" column="2" colspan="2">
+              <layout class="QVBoxLayout" name="verticalLayout_3"/>
              </item>
              <item row="4" column="2" colspan="2">
               <layout class="QVBoxLayout" name="verticalLayout_2"/>
@@ -1239,170 +1239,201 @@ p, li { white-space: pre-wrap; }
             <attribute name="title">
              <string>My Data</string>
             </attribute>
-            <widget class="QLabel" name="textLabel2_6_2_2">
+            <widget class="QWidget" name="gridLayoutWidget">
              <property name="geometry">
               <rect>
-               <x>9</x>
-               <y>152</y>
-               <width>78</width>
-               <height>26</height>
+               <x>10</x>
+               <y>20</y>
+               <width>411</width>
+               <height>161</height>
               </rect>
              </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <property name="text">
-              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Locator:&lt;/b&gt;&lt;/p&gt;</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="wordWrap">
-              <bool>false</bool>
-             </property>
-            </widget>
-            <widget class="QLabel" name="powerTextLabel">
-             <property name="geometry">
-              <rect>
-               <x>9</x>
-               <y>9</y>
-               <width>71</width>
-               <height>25</height>
-              </rect>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <property name="text">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+             <layout class="QGridLayout" name="gridLayout_11">
+              <item row="2" column="0">
+               <widget class="QLabel" name="stationCallsigntextLabel">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>The call of the station used to work this QSO</string>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <property name="text">
+                 <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Station:&lt;/b&gt;&lt;/p&gt;</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="wordWrap">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLineEdit" name="myLocatorLineEdit">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>The locator of the station</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="operatortextLabel_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>The operator that worked this QSO</string>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <property name="text">
+                 <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Operator:&lt;/b&gt;&lt;/p&gt;</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="wordWrap">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="textLabel2_6_2_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <property name="text">
+                 <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Locator:&lt;/b&gt;&lt;/p&gt;</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="wordWrap">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="stationCallsignLineEdit">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>The call of the station used to work this QSO</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="operatorLineEdit">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>The operator that worked this QSO</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QDoubleSpinBox" name="powerSpinBox">
+                <property name="toolTip">
+                 <string>Power used to do the QSO in watts</string>
+                </property>
+                <property name="suffix">
+                 <string/>
+                </property>
+                <property name="maximum">
+                 <double>9999.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>25.000000000000000</double>
+                </property>
+                <property name="value">
+                 <double>100.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="powerTextLabel">
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <property name="text">
+                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Nimbus Sans L'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Power:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="wordWrap">
-              <bool>false</bool>
-             </property>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="wordWrap">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
-            <widget class="QLineEdit" name="stationCallsignLineEdit">
-             <property name="geometry">
-              <rect>
-               <x>197</x>
-               <y>107</y>
-               <width>144</width>
-               <height>23</height>
-              </rect>
-             </property>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="">
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QLabel" name="LedtextLabel">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="toolTip">
-              <string>The call of the station used to work this QSO</string>
-             </property>
-            </widget>
-            <widget class="QLineEdit" name="myLocatorLineEdit">
-             <property name="geometry">
-              <rect>
-               <x>197</x>
-               <y>151</y>
-               <width>144</width>
-               <height>23</height>
-              </rect>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="toolTip">
-              <string>The locator of the station</string>
-             </property>
-            </widget>
-            <widget class="QLineEdit" name="operatorLineEdit">
-             <property name="geometry">
-              <rect>
-               <x>197</x>
-               <y>62</y>
-               <width>144</width>
-               <height>23</height>
-              </rect>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="toolTip">
-              <string>The operator that worked this QSO</string>
-             </property>
-            </widget>
-            <widget class="QLabel" name="operatortextLabel_2">
-             <property name="geometry">
-              <rect>
-               <x>9</x>
-               <y>63</y>
-               <width>90</width>
-               <height>26</height>
-              </rect>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="toolTip">
-              <string>The operator that worked this QSO</string>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <property name="text">
-              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Operator:&lt;/b&gt;&lt;/p&gt;</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="wordWrap">
-              <bool>false</bool>
-             </property>
-            </widget>
-            <widget class="QLabel" name="stationCallsigntextLabel">
-             <property name="geometry">
-              <rect>
-               <x>9</x>
-               <y>108</y>
-               <width>76</width>
-               <height>26</height>
-              </rect>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
+               <verstretch>1</verstretch>
               </sizepolicy>
              </property>
              <property name="minimumSize">
@@ -1411,9 +1442,6 @@ p, li { white-space: pre-wrap; }
                <height>0</height>
               </size>
              </property>
-             <property name="toolTip">
-              <string>The call of the station used to work this QSO</string>
-             </property>
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -1421,1102 +1449,1054 @@ p, li { white-space: pre-wrap; }
               <enum>QFrame::Raised</enum>
              </property>
              <property name="text">
-              <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Station:&lt;/b&gt;&lt;/p&gt;</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <string>&lt;b&gt;KLog&lt;/b&gt;</string>
              </property>
              <property name="wordWrap">
               <bool>false</bool>
              </property>
             </widget>
-            <widget class="QDoubleSpinBox" name="powerSpinBox">
-             <property name="geometry">
-              <rect>
-               <x>200</x>
-               <y>10</y>
-               <width>91</width>
-               <height>22</height>
-              </rect>
+           </item>
+           <item>
+            <widget class="QLabel" name="entityTextLabel">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
              </property>
-             <property name="toolTip">
-              <string>Power used to do the QSO in watts</string>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
              </property>
-             <property name="suffix">
-              <string/>
+             <property name="text">
+              <string>--</string>
              </property>
-             <property name="maximum">
-              <double>9999.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>25.000000000000000</double>
-             </property>
-             <property name="value">
-              <double>100.000000000000000</double>
+             <property name="wordWrap">
+              <bool>false</bool>
              </property>
             </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTabWidget" name="outputTab">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>390</width>
+             <height>320</height>
+            </size>
+           </property>
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
+           <widget class="QWidget" name="info">
+            <attribute name="title">
+             <string>Info</string>
+            </attribute>
+            <layout class="QGridLayout" name="gridLayout_7">
+             <item row="0" column="0">
+              <layout class="QHBoxLayout">
+               <item>
+                <widget class="QLabel" name="textLabelBand10">
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;10&lt;/b&gt;&lt;/p&gt;</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="textLabelBand15">
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;15&lt;/b&gt;&lt;/p&gt;</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="textLabelBand20">
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;20&lt;/b&gt;&lt;/p&gt;</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="textLabelBand40">
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;40&lt;/b&gt;&lt;/p&gt;</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="textLabelBand80">
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;80&lt;/b&gt;&lt;/p&gt;</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="textLabelBand160">
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;160&lt;/b&gt;&lt;/p&gt;</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="0">
+              <layout class="QHBoxLayout">
+               <item>
+                <widget class="QLabel" name="textLabelBand6">
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;6&lt;/b&gt;&lt;/p&gt;</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="textLabelBand12">
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;12&lt;/b&gt;&lt;/p&gt;</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="textLabelBand17">
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;17&lt;/b&gt;&lt;/p&gt;</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="textLabelBand30">
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;30&lt;/b&gt;&lt;/p&gt;</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="textLabelBand2">
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;2&lt;/b&gt;&lt;/p&gt;</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="textLabelBand70cm">
+                 <property name="autoFillBackground">
+                  <bool>true</bool>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;70cm&lt;/b&gt;&lt;/p&gt;</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="2" column="0">
+              <layout class="QGridLayout">
+               <item row="0" column="0">
+                <layout class="QGridLayout">
+                 <item row="1" column="1">
+                  <widget class="QLabel" name="prxTextLabel">
+                   <property name="toolTip">
+                    <string>Entity's main prefix</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="text">
+                    <string>--</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="prxtTextLabel">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="text">
+                    <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Prefix:&lt;/b&gt;&lt;/p&gt;</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="continentTextLabel">
+                   <property name="toolTip">
+                    <string>Entity's continent</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="text">
+                    <string>--</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="continenttTextLabel">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="text">
+                    <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Continent:&lt;/b&gt;&lt;/p&gt;</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item row="1" column="0">
+                <layout class="QGridLayout">
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="textLabel5">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="text">
+                    <string comment="Use no more than 4 letters when translating">&lt;p align=&quot;center&quot;&gt;&lt;b&gt;deg&lt;/b&gt;&lt;/p&gt;</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0" colspan="4">
+                  <widget class="QLabel" name="showtPathtextLabel">
+                   <property name="toolTip">
+                    <string>Short Path</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="text">
+                    <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Short Path:&lt;/b&gt;&lt;/p&gt;</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="QLabel" name="textLabel11">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="text">
+                    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;km&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLCDNumber" name="beamshortlCDNumber">
+                   <property name="toolTip">
+                    <string>Point your antenna in this direction</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="numDigits">
+                    <number>3</number>
+                   </property>
+                   <property name="mode">
+                    <enum>QLCDNumber::Dec</enum>
+                   </property>
+                   <property name="segmentStyle">
+                    <enum>QLCDNumber::Flat</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="3">
+                  <widget class="QLCDNumber" name="distancelCDNumber">
+                   <property name="toolTip">
+                    <string>Km to the DX through the short path</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="segmentStyle">
+                    <enum>QLCDNumber::Flat</enum>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item row="0" column="1">
+                <layout class="QGridLayout">
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="itutTextLabel">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="text">
+                    <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;ITU:&lt;/b&gt;&lt;/p&gt;</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="cqtTextLabel">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="text">
+                    <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;CQ:&lt;/b&gt;&lt;/p&gt;</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLCDNumber" name="cqLCDNumber">
+                   <property name="font">
+                    <font>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>CQ zone</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="segmentStyle">
+                    <enum>QLCDNumber::Flat</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLCDNumber" name="ituLCDNumber">
+                   <property name="font">
+                    <font>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>ITU zone</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="segmentStyle">
+                    <enum>QLCDNumber::Flat</enum>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item row="1" column="1">
+                <layout class="QGridLayout">
+                 <item row="1" column="1">
+                  <widget class="QLCDNumber" name="beamlonglCDNumber">
+                   <property name="toolTip">
+                    <string>Turn your antenna in this direction to work via long path</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="numDigits">
+                    <number>3</number>
+                   </property>
+                   <property name="segmentStyle">
+                    <enum>QLCDNumber::Flat</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0" colspan="4">
+                  <widget class="QLabel" name="textLabel10">
+                   <property name="toolTip">
+                    <string>Long Path</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="text">
+                    <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Long Path:&lt;/b&gt;&lt;/p&gt;</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="3">
+                  <widget class="QLCDNumber" name="distancellCDNumber">
+                   <property name="toolTip">
+                    <string>Km to the DX through the long path</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="segmentStyle">
+                    <enum>QLCDNumber::Flat</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="textLabel12">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="text">
+                    <string comment="Use no more than 4 letters when translating">&lt;b&gt;&lt;p align=&quot;center&quot;&gt;deg&lt;/p&gt;&lt;/b&gt;</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="QLabel" name="textLabel13">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="text">
+                    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;km&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="awards">
+            <attribute name="title">
+             <string>Awards</string>
+            </attribute>
+            <layout class="QGridLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="textLabel1_5">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="text">
+                <string>&lt;b&gt;Award&lt;/b&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QLabel" name="textLabel3_3">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="text">
+                <string>&lt;b&gt;Worked&lt;/b&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="dxcctextLabel">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="text">
+                <string>&lt;b&gt;DXCC:&lt;/b&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="textLabel2">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="text">
+                <string>&lt;b&gt;WAZ:&lt;/b&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="textLabel4">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>IOTA checking is still not implemented.</string>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="text">
+                <string>&lt;b&gt;IOTA:&lt;/b&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="localAwardName">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Local awards checking is still not implemented.</string>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="text">
+                <string>&lt;b&gt;LOCAL:&lt;/b&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="textLabel1_9">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="text">
+                <string>&lt;b&gt;QSOs:&lt;/b&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLCDNumber" name="IOTAlCDNumber">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLCDNumber" name="LOCALlCDNumber">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QLCDNumber" name="confirmedQSOlCDNumber">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QLCDNumber" name="DXCCworkedlCDNumber">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QLCDNumber" name="WAZworkedlCDNumber">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QLCDNumber" name="IOTAworkedlCDNumber">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="2">
+              <widget class="QLCDNumber" name="LOCALworkedlCDNumber">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="2">
+              <widget class="QLCDNumber" name="workedQSOlCDNumber">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="textLabel2_3">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="text">
+                <string>&lt;b&gt;Confirmed&lt;/b&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLCDNumber" name="DXCClCDNumber">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLCDNumber" name="WAZlCDNumber">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="tab">
+            <attribute name="title">
+             <string>Search</string>
+            </attribute>
+            <layout class="QGridLayout" name="gridLayout_6">
+             <item row="0" column="0" colspan="3">
+              <layout class="QHBoxLayout">
+               <item>
+                <widget class="QLineEdit" name="searchQrzkLineEdit">
+                 <property name="toolTip">
+                  <string>Enter the call to search</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="searchSearchkPushButton">
+                 <property name="text">
+                  <string>Search</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="searchCancelkPushButton">
+                 <property name="text">
+                  <string>Clear</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="textLabel6_2">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="text">
+                <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Name:&lt;/b&gt;&lt;/p&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="previousNamekLineEdit">
+               <property name="toolTip">
+                <string>DX Operator's name</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2" rowspan="2">
+              <layout class="QVBoxLayout">
+               <item>
+                <widget class="QLabel" name="textLabelTime">
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Time:&lt;/b&gt;&lt;/p&gt;</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="timekLineEdit">
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="textLabel7_2">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="text">
+                <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;QTH:&lt;/b&gt;&lt;/p&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="previousQthkLineEdit">
+               <property name="toolTip">
+                <string>DX Operator's QTH</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0" colspan="3">
+              <widget class="QTreeWidget" name="searchQsosTreeWidget">
+               <property name="contextMenuPolicy">
+                <enum>Qt::CustomContextMenu</enum>
+               </property>
+               <property name="selectionMode">
+                <enum>QAbstractItemView::MultiSelection</enum>
+               </property>
+               <property name="sortingEnabled">
+                <bool>true</bool>
+               </property>
+               <column>
+                <property name="text">
+                 <string>QRZ</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Date</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Time</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Band</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Mode</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>QSL-Sent</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>QSL-Rec</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Number</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
         </layout>
-       </widget>
-       <widget class="QTabWidget" name="outputTab">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>390</width>
-          <height>320</height>
-         </size>
-        </property>
-        <property name="currentIndex">
-         <number>0</number>
-        </property>
-        <widget class="QWidget" name="info">
-         <attribute name="title">
-          <string>Info</string>
-         </attribute>
-         <layout class="QGridLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="LedtextLabel">
-            <property name="minimumSize">
-             <size>
-              <width>300</width>
-              <height>10</height>
-             </size>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="text">
-             <string>&lt;b&gt;KLog&lt;/b&gt;</string>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <layout class="QHBoxLayout">
-            <item>
-             <widget class="QLabel" name="textLabelBand10">
-              <property name="autoFillBackground">
-               <bool>true</bool>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;10&lt;/b&gt;&lt;/p&gt;</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="textLabelBand15">
-              <property name="autoFillBackground">
-               <bool>true</bool>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;15&lt;/b&gt;&lt;/p&gt;</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="textLabelBand20">
-              <property name="autoFillBackground">
-               <bool>true</bool>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;20&lt;/b&gt;&lt;/p&gt;</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="textLabelBand40">
-              <property name="autoFillBackground">
-               <bool>true</bool>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;40&lt;/b&gt;&lt;/p&gt;</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="textLabelBand80">
-              <property name="autoFillBackground">
-               <bool>true</bool>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;80&lt;/b&gt;&lt;/p&gt;</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="textLabelBand160">
-              <property name="autoFillBackground">
-               <bool>true</bool>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;160&lt;/b&gt;&lt;/p&gt;</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="entityTextLabel">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="text">
-             <string>--</string>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <layout class="QHBoxLayout">
-            <item>
-             <widget class="QLabel" name="textLabelBand6">
-              <property name="autoFillBackground">
-               <bool>true</bool>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;6&lt;/b&gt;&lt;/p&gt;</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="textLabelBand12">
-              <property name="autoFillBackground">
-               <bool>true</bool>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;12&lt;/b&gt;&lt;/p&gt;</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="textLabelBand17">
-              <property name="autoFillBackground">
-               <bool>true</bool>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;17&lt;/b&gt;&lt;/p&gt;</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="textLabelBand30">
-              <property name="autoFillBackground">
-               <bool>true</bool>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;30&lt;/b&gt;&lt;/p&gt;</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="textLabelBand2">
-              <property name="autoFillBackground">
-               <bool>true</bool>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;2&lt;/b&gt;&lt;/p&gt;</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="textLabelBand70cm">
-              <property name="autoFillBackground">
-               <bool>true</bool>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;70cm&lt;/b&gt;&lt;/p&gt;</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="4" column="0">
-           <layout class="QGridLayout">
-            <item row="0" column="0">
-             <layout class="QGridLayout">
-              <item row="1" column="1">
-               <widget class="QLabel" name="prxTextLabel">
-                <property name="toolTip">
-                 <string>Entity's main prefix</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <property name="text">
-                 <string>--</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLabel" name="prxtTextLabel">
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <property name="text">
-                 <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Prefix:&lt;/b&gt;&lt;/p&gt;</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="continentTextLabel">
-                <property name="toolTip">
-                 <string>Entity's continent</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <property name="text">
-                 <string>--</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="continenttTextLabel">
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <property name="text">
-                 <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Continent:&lt;/b&gt;&lt;/p&gt;</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="1" column="0">
-             <layout class="QGridLayout">
-              <item row="1" column="0">
-               <widget class="QLabel" name="textLabel5">
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <property name="text">
-                 <string comment="Use no more than 4 letters when translating">&lt;p align=&quot;center&quot;&gt;&lt;b&gt;deg&lt;/b&gt;&lt;/p&gt;</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0" colspan="4">
-               <widget class="QLabel" name="showtPathtextLabel">
-                <property name="toolTip">
-                 <string>Short Path</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <property name="text">
-                 <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Short Path:&lt;/b&gt;&lt;/p&gt;</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QLabel" name="textLabel11">
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <property name="text">
-                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;km&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLCDNumber" name="beamshortlCDNumber">
-                <property name="toolTip">
-                 <string>Point your antenna in this direction</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="numDigits">
-                 <number>3</number>
-                </property>
-                <property name="mode">
-                 <enum>QLCDNumber::Dec</enum>
-                </property>
-                <property name="segmentStyle">
-                 <enum>QLCDNumber::Flat</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="3">
-               <widget class="QLCDNumber" name="distancelCDNumber">
-                <property name="toolTip">
-                 <string>Km to the DX through the short path</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="segmentStyle">
-                 <enum>QLCDNumber::Flat</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="0" column="1">
-             <layout class="QGridLayout">
-              <item row="0" column="1">
-               <widget class="QLabel" name="itutTextLabel">
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <property name="text">
-                 <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;ITU:&lt;/b&gt;&lt;/p&gt;</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="cqtTextLabel">
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <property name="text">
-                 <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;CQ:&lt;/b&gt;&lt;/p&gt;</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLCDNumber" name="cqLCDNumber">
-                <property name="font">
-                 <font>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="toolTip">
-                 <string>CQ zone</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="segmentStyle">
-                 <enum>QLCDNumber::Flat</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLCDNumber" name="ituLCDNumber">
-                <property name="font">
-                 <font>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="toolTip">
-                 <string>ITU zone</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="segmentStyle">
-                 <enum>QLCDNumber::Flat</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="1" column="1">
-             <layout class="QGridLayout">
-              <item row="1" column="1">
-               <widget class="QLCDNumber" name="beamlonglCDNumber">
-                <property name="toolTip">
-                 <string>Turn your antenna in this direction to work via long path</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="numDigits">
-                 <number>3</number>
-                </property>
-                <property name="segmentStyle">
-                 <enum>QLCDNumber::Flat</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0" colspan="4">
-               <widget class="QLabel" name="textLabel10">
-                <property name="toolTip">
-                 <string>Long Path</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <property name="text">
-                 <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Long Path:&lt;/b&gt;&lt;/p&gt;</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="3">
-               <widget class="QLCDNumber" name="distancellCDNumber">
-                <property name="toolTip">
-                 <string>Km to the DX through the long path</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <property name="segmentStyle">
-                 <enum>QLCDNumber::Flat</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="textLabel12">
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <property name="text">
-                 <string comment="Use no more than 4 letters when translating">&lt;b&gt;&lt;p align=&quot;center&quot;&gt;deg&lt;/p&gt;&lt;/b&gt;</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QLabel" name="textLabel13">
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <property name="text">
-                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;km&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="awards">
-         <attribute name="title">
-          <string>Awards</string>
-         </attribute>
-         <layout class="QGridLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="textLabel1_5">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="text">
-             <string>&lt;b&gt;Award&lt;/b&gt;</string>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="textLabel3_3">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="text">
-             <string>&lt;b&gt;Worked&lt;/b&gt;</string>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="dxcctextLabel">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="text">
-             <string>&lt;b&gt;DXCC:&lt;/b&gt;</string>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="textLabel2">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="text">
-             <string>&lt;b&gt;WAZ:&lt;/b&gt;</string>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="textLabel4">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="toolTip">
-             <string>IOTA checking is still not implemented.</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="text">
-             <string>&lt;b&gt;IOTA:&lt;/b&gt;</string>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="localAwardName">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="toolTip">
-             <string>Local awards checking is still not implemented.</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="text">
-             <string>&lt;b&gt;LOCAL:&lt;/b&gt;</string>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="textLabel1_9">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="text">
-             <string>&lt;b&gt;QSOs:&lt;/b&gt;</string>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLCDNumber" name="IOTAlCDNumber">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="segmentStyle">
-             <enum>QLCDNumber::Flat</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLCDNumber" name="LOCALlCDNumber">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="segmentStyle">
-             <enum>QLCDNumber::Flat</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QLCDNumber" name="confirmedQSOlCDNumber">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="segmentStyle">
-             <enum>QLCDNumber::Flat</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QLCDNumber" name="DXCCworkedlCDNumber">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="segmentStyle">
-             <enum>QLCDNumber::Flat</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QLCDNumber" name="WAZworkedlCDNumber">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="segmentStyle">
-             <enum>QLCDNumber::Flat</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="2">
-           <widget class="QLCDNumber" name="IOTAworkedlCDNumber">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="segmentStyle">
-             <enum>QLCDNumber::Flat</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="2">
-           <widget class="QLCDNumber" name="LOCALworkedlCDNumber">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="segmentStyle">
-             <enum>QLCDNumber::Flat</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="2">
-           <widget class="QLCDNumber" name="workedQSOlCDNumber">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="segmentStyle">
-             <enum>QLCDNumber::Flat</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="textLabel2_3">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="text">
-             <string>&lt;b&gt;Confirmed&lt;/b&gt;</string>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLCDNumber" name="DXCClCDNumber">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="segmentStyle">
-             <enum>QLCDNumber::Flat</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLCDNumber" name="WAZlCDNumber">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="segmentStyle">
-             <enum>QLCDNumber::Flat</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="tab">
-         <attribute name="title">
-          <string>Search</string>
-         </attribute>
-         <layout class="QGridLayout" name="gridLayout_6">
-          <item row="0" column="0" colspan="3">
-           <layout class="QHBoxLayout">
-            <item>
-             <widget class="QLineEdit" name="searchQrzkLineEdit">
-              <property name="toolTip">
-               <string>Enter the call to search</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="searchSearchkPushButton">
-              <property name="text">
-               <string>Search</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="searchCancelkPushButton">
-              <property name="text">
-               <string>Clear</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="textLabel6_2">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="text">
-             <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Name:&lt;/b&gt;&lt;/p&gt;</string>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="previousNamekLineEdit">
-            <property name="toolTip">
-             <string>DX Operator's name</string>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2" rowspan="2">
-           <layout class="QVBoxLayout">
-            <item>
-             <widget class="QLabel" name="textLabelTime">
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="text">
-               <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Time:&lt;/b&gt;&lt;/p&gt;</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="timekLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="textLabel7_2">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="text">
-             <string>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;QTH:&lt;/b&gt;&lt;/p&gt;</string>
-            </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="previousQthkLineEdit">
-            <property name="toolTip">
-             <string>DX Operator's QTH</string>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0" colspan="3">
-           <widget class="QTreeWidget" name="searchQsosTreeWidget">
-            <property name="contextMenuPolicy">
-             <enum>Qt::CustomContextMenu</enum>
-            </property>
-            <property name="selectionMode">
-             <enum>QAbstractItemView::MultiSelection</enum>
-            </property>
-            <property name="sortingEnabled">
-             <bool>true</bool>
-            </property>
-            <column>
-             <property name="text">
-              <string>QRZ</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Date</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Time</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Band</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Mode</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>QSL-Sent</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>QSL-Rec</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Number</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-         </layout>
-        </widget>
        </widget>
       </widget>
       <widget class="QTabWidget" name="downTabs">
@@ -2544,7 +2524,7 @@ p, li { white-space: pre-wrap; }
            </property>
            <column>
             <property name="text">
-             <string>Numb</string>
+             <string>Number</string>
             </property>
            </column>
            <column>
@@ -2554,7 +2534,7 @@ p, li { white-space: pre-wrap; }
            </column>
            <column>
             <property name="text">
-             <string>UTC</string>
+             <string>TIME</string>
             </property>
            </column>
            <column>
@@ -2735,7 +2715,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1203</width>
+     <width>860</width>
      <height>19</height>
     </rect>
    </property>
