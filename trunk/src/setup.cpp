@@ -934,7 +934,7 @@ Setup::slotAddDxClusterPushButtonClicked ()
     {
       QString text = QInputDialog::getText (this,
                         i18n("KLog: Add a DXCluster server"),
-                        i18n("Add the address followed by the :port\nExample: eadx.net:23\nIf no port is specified, 41112 will be used by default.:"),
+                        i18n("Add the address followed by the :port\nExample: dxfun.com:8000\nIf no port is specified, 41112 will be used by default.:"),
                         QLineEdit::Normal, QString::null,
                         &ok);
       if (ok && !text.isEmpty ())

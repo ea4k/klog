@@ -32,7 +32,7 @@
 #include <QtGui>
 #include <QtNetwork>
 
-//#include <KDE/KLocale>
+#include <KDE/KLocale>
 
 class QDialogButtonBox;
 class QFile;

@@ -1,9 +1,11 @@
-Working on 0.6.0
+January-2013 on 0.6.0
 - Bug fixed: Typo "Frecuency" changed to "Frequency" in a tooltip. (Debian bug: #654328) (TNX Jonas Stein)
 - Bug fixed: Typo/wishlist "Numb" changed to "Number" in main table. (Debian bug: #654331) (TNX Jonas Stein)
 - Bug fixed: Typo/wishlist "UTC" changed to "Time" in main table. (Debian bug: #654331) (TNX Jonas Stein)
 - Removal of several not needed #includes.
 - Removed some warnings on compilation.
+- GUI improved: The information boxes are now independant from the top right tab widget to improve usability.
+- GUI updated: Disabled the Setup tab of Hamlib until hamlib is properly working.
 
 January-2012 0.5.9
 - Bug fixed: When starting for the first time, the CTY.DAT file downloaded had a loop that was not properly managed. (Debian bug: #653697) (TNX Jonas Stein)
