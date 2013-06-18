@@ -1,3 +1,6 @@
+TBD - 2013 - 0.6.1
+- Bug fixed: Locator was not properly calculated due to a sign difference management from KLog and CTY.DAT.
+
 January-2013 - 0.6.0
 - Bug fixed: Typo "Frecuency" changed to "Frequency" in a tooltip. (Debian bug: #654328) (TNX Jonas Stein)
 - Bug fixed: Typo/wishlist "Numb" changed to "Number" in main table. (Debian bug: #654331) (TNX Jonas Stein)
