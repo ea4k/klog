@@ -23,7 +23,7 @@
 *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA*
  *****************************************************************************/
 //#include <klocale.h>
-//#include <kdebug.h>
+#include <kdebug.h>
 //#include <ostream.h>
 #include "locator.h"
 
@@ -124,7 +124,7 @@ double Locator::getLat(const QString& tlocator){
 }
 
 double Locator::getLon(const QString& tlocator){
-// qDebug() << "Locator::getLon: " << tlocator;
+ //qDebug() << "Locator::getLon: " << tlocator;
 
   if (isValidLocator(tlocator)){    
 //    qDebug() << "Locator::getLon-2: " << QString::number((((tlocator.at(0)).toAscii() - 65) * 20) + (((tlocator.at(2)).toAscii() - 48) * 2) + (((tlocator.at(4)).toAscii() - 65 + 0.5) / 12) - 180) << endl;    
@@ -138,16 +138,23 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
 {
   //lon1 & lat1 origin
   //lon2 & lat2 destination
+  
   double lon_a,lat_a,lon_b,lat_b, bearing;
+
   lon_a=lon1*PI/180;   // Convert degrees to radians
   lat_a=lat1*PI/180;
   lon_b=lon2*PI/180;
   lat_b=lat2*PI/180;
 
+// fabs(fmodf(getBearing(vectorA, vectorB) + 180 - angle, 360) - 180);
+  
 //bearing_Distance( double lon_a, double lat_a, /* Lon/Lat of point A */
 //                  double lon_b, double lat_b, /* Lon/Lat of point B */
 //                  double *bearing, double *distance )/* From A to B */
 //{
+//  lat2 = asin(sin(lat1)*cos(dist) + cos(lat1)*sin(dist)*cos(brg))
+//  lon2 = lon1 + atan2(sin(brg)*sin(dist)*cos(lat1), cos(dist)-sin(lat1)*sin(lat2))
+
   double
     gc_arc, cos_gc_arc,       /* Great circle arc   A to B */
     cos_bearing, sin_bearing, /* cos/sin of bearing A to B */
@@ -177,12 +184,10 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
   
   /* Convert to degrees */
   bearing = (180 * bearing) / PI;
-
-
+   
   return (int)bearing;
-
-
 }
+
 
 int Locator::getDistance(const double lon1, const double lat1, const double lon2, const double lat2, const bool inKm){
   //http://en.wikipedia.org/wiki/Haversine_formula
