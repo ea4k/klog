@@ -397,7 +397,8 @@ int Klog::getEntityFromCall(){ // We return the Entity number from the QRZ box c
 
 void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
 //qDebug() << "KLog::slotQrzChanged: " <<  qrzLineEdit->text() << endl;
-
+  int cursorPosition=0;
+  cursorPosition = qrzLineEdit->cursorPosition();
  //TODO: The next sentence only removes from the begining and end. If the user copies a QRZ with spaces they will remain
   qrzLineEdit->setText(((qrzLineEdit->text())).simplified()); // If the call contains any space, we delete it :-)
   qrzLineEdit->setText(((qrzLineEdit->text())).toUpper());
@@ -409,6 +410,7 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
 				  // Think something to keep the search while working with searches :-)
     }
     slotClearBtn();
+    qrzLineEdit->setCursorPosition(cursorPosition);
     return;
   }else if((callLen != 0) && (!modify)){ // Updating the searchQrzklineEdit if we are not modifying a QSO.
     ActionQsoDelete->setEnabled(true);
@@ -434,6 +436,7 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
   showWhere(enti);
   callLenPrev = callLen;
   searching2QSL = false;	// If the user enters a QSO we finish the search2QSL process
+  qrzLineEdit->setCursorPosition(cursorPosition);
 }
 
 void Klog::prepareIOTAComboBox (const int tenti){
@@ -2538,21 +2541,19 @@ void Klog::modifyQso(){
 void Klog::helpAbout() {
 //qDebug() << "KLog::helpAbout" << endl;
   
-  QString sAbout1 = i18n("KLog-%1 - The KDE Ham Radio Logging program", Klog::KLogVersion);
-  QString sAbout2 = i18n("You can find the last version on <a href=\"http://jaime.robles.es/klog\">http://jaime.robles.es/klog</a>\n2002 - 2013 - Jaime Robles, EA4TV, jaime@robles.es\n2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com", Klog::KLogVersion);
+  QString sAbout1 = i18n("KLog-%1 - The KDE Ham Radio Logging program\n\n", Klog::KLogVersion);
+  //QString sAbout2 = i18n("You can find the last version on <a href=\"http://jaime.robles.es/klog\">http://jaime.robles.es/klog</a>\n2002 - 2013 - Jaime Robles, EA4TV, jaime@robles.es\n2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com", Klog::KLogVersion);
+  QString sAbout2 = i18n("You can find the last version on ") + QString("http://jaime.robles.es/klog") + i18n("\n2002 - 2013 - Jaime Robles, EA4TV, jaime@robles.es\n2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com", Klog::KLogVersion);
   
   QMessageBox msgBox;
+  msgBox.setTextFormat(Qt::AutoText);
   msgBox.setText(sAbout1);
   msgBox.setInformativeText(sAbout2);
+  
   msgBox.setStandardButtons(QMessageBox::Ok);
-  msgBox.setTextFormat(Qt::RichText);
-  
-  int ret = msgBox.exec();
-  
-  
- // QMessageBox::about( this, sAbout1,sAbout2);
 
-    //KLog::aboutData->show(this);
+  msgBox.exec();
+  
 }
 
 void Klog::slotQSLcomboBoxChanged(){
