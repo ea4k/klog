@@ -24,7 +24,8 @@
  *****************************************************************************/
 //#include <klocale.h>
 //#include <kdebug.h>
-//#include "iostream"
+//#include<iostream>
+//#include <QDebug>
 #include "qso.h"
 //using namespace std;
 
@@ -240,7 +241,7 @@ void Qso::setDateTime(QDateTime tdateTime){
 }
 
 QDateTime Qso::getDateTime() const{
-        //cout << "QSO::getDateTime: " << dateTime.toString() <<endl;
+        //qDebug() << "QSO::getDateTime: " << dateTime.toString() <<endl;
         return dateTime;
 }
 

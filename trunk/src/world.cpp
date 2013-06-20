@@ -85,8 +85,8 @@ bool World::readCTYDAT(){
 	entity.setPfx((fields[7].trimmed()).toLatin1());
       }
       entity.setCqz(cqzone);
-      entity.setLon(((fields[5].trimmed())).toDouble()); // KLog works with + for East, cty.dat works the other way (+ for West)
-      entity.setLat( fields[4].toDouble());
+      entity.setLon(-((fields[5].trimmed())).toDouble()); // KLog works with + for East, cty.dat works the other way (+ for West)
+      entity.setLat(fields[4].toDouble());
       entity.setContinent( fields[3].toLatin1());
       entity.setItuz(ituzone);
       entity.setTimeZone( fields[6].toDouble());
