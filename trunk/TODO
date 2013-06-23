@@ -5,6 +5,11 @@
 
 <BEFORE RELEASING>
 
+Working in the help Dialog.
+Find another class than the QTextBrowser or adapt the QtextBrowser to get the
+text properly shown
+
+
 </BEFORE RELEASING>
 
 * Copy: Operator name, station, power and locator saved for next QSO entry (via setup) (TNX Jonas Stein)

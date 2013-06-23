@@ -13,6 +13,7 @@ set(klog_SRCS
     calls.cpp
     dxspot.cpp
     entity.cpp
+    helpaboutdialog.cpp
     kloghamlib.cpp
     klognetwork.cpp 
     locator.cpp

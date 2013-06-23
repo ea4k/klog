@@ -36,9 +36,8 @@ Klog::Klog(const QString& tversion, QMainWindow *parent) : QMainWindow(parent) {
   connect( internalTimer, SIGNAL(timeout()), SLOT(slotUpdateTime()) );
   internalTimer->start( 1000 );         // emit signal every 1 second
 
-  
-  
   Klog::KLogVersion = tversion;
+  helpAboutDialog = new HelpAboutDialog();
 //   Klog::editdeletePixMap = new QPixmap("editdelete.png");
 //   editdeleteOffPixMap = new QPixmap("editdeleteOff.png");
 //   Klog::qslRecPixMap = new QPixmap("qslRec.png");
@@ -281,6 +280,11 @@ void Klog::createActions(){
 
   connect(searchQsosTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotQsoSearchSelectedForEdit(QTreeWidgetItem *, int)));
   connect(searchQsosTreeWidget, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT(showRighButtonSearchMenu(const QPoint& ) ) );
+
+  connect(txFreqPushButton, SIGNAL(clicked()), this, SLOT(slotTXFreqPushButtonClicked()) );
+  connect(rxFreqPushButton, SIGNAL(clicked()), this, SLOT(slotRXFreqPushButtonClicked()) );
+
+
   
   //connect(this, SIGNAL(triggered()), this, SLOT(fileExit()) );
 
@@ -666,6 +670,7 @@ void Klog::slotOkBtn(){
    showQso();
   }else{ number--; }//Closes the empty call check
   slotClearBtn();
+  updateFreqFromBandCombo();
   showLogList();
   readAwardsStatus();
   showAwardsNumbers(); //Needed?
@@ -2541,6 +2546,8 @@ void Klog::modifyQso(){
 void Klog::helpAbout() {
 //qDebug() << "KLog::helpAbout" << endl;
   
+    helpAboutDialog->show();
+/*
   QString sAbout1 = i18n("KLog-%1 - The KDE Ham Radio Logging program\n\n", Klog::KLogVersion);
   //QString sAbout2 = i18n("You can find the last version on <a href=\"http://jaime.robles.es/klog\">http://jaime.robles.es/klog</a>\n2002 - 2013 - Jaime Robles, EA4TV, jaime@robles.es\n2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com", Klog::KLogVersion);
   QString sAbout2 = i18n("You can find the last version on ") + QString("http://jaime.robles.es/klog") + i18n("\n2002 - 2013 - Jaime Robles, EA4TV, jaime@robles.es\n2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com", Klog::KLogVersion);
@@ -2553,6 +2560,7 @@ void Klog::helpAbout() {
   msgBox.setStandardButtons(QMessageBox::Ok);
 
   msgBox.exec();
+  */
   
 }
 
@@ -5097,7 +5105,8 @@ void Klog::slotModeChanged (int i){
 void Klog::slotBandChanged (){
 //TODO: To check if this slot is really necessary.
 //qDebug() << "KLog::slotBandChanged: "<< "#" <<  bandComboBox->currentText() << "#" << endl;
-
+    updateFreqFromBandCombo();
+/*
   if (!bandFreqLock){
     bandFreqLock = true;
     if (adif.band2Int(bandComboBox->currentText()) != adif.freq2Int(freqtxdoubleSpinBox->cleanText()) ){
@@ -5106,7 +5115,7 @@ void Klog::slotBandChanged (){
     }
     bandFreqLock = false;
   }
-    
+*/
     if (((qrzLineEdit->text()).length())==0)
         return;
     entityState(enti);    
@@ -5147,23 +5156,35 @@ void Klog::slotTXFreqChanged(double i){
     bandFreqLock = false;
   }
 
-/*  
-  int bandBackup = band;
-  
-  if ((adif.freq2Int(QString::number(i, 'f', 3))<0)){
-    //adif.freqCorrection(i);
-    freqtxdoubleSpinBox->setValue((adif.freqCorrection(i)).toDouble());
-  }
-  
-  band = adif.band2Int(adif.freq2Band(QString::number(i, 'f', 3)));
-  if (band == -1){
-    band = bandBackup;
-  }else{
-    bandComboBox->setCurrentIndex(band);
-  }
-*/
-  
+void Klog::updateFreqFromBandCombo()
+{
+    if (!bandFreqLock){
+      bandFreqLock = true;
+      if (adif.band2Int(bandComboBox->currentText()) != adif.freq2Int(freqtxdoubleSpinBox->cleanText()) ){
+        freqtxdoubleSpinBox->setValue(   (adif.band2Freq(bandComboBox->currentText())).toDouble() );
+        //freqrxdoubleSpinBox->setValue(   (adif.band2Freq(bandComboBox->currentText())).toDouble() );
+      }else{
+      }
+      bandFreqLock = false;
+    }
 
+
+}
+  
+void Klog::slotTXFreqPushButtonClicked()
+{
+    //This slot copies the RX frequency from the RX to TX box
+
+    freqtxdoubleSpinBox->setValue(freqrxdoubleSpinBox->value());
+
+
+}
+void Klog::slotRXFreqPushButtonClicked()
+{
+    //This slot copies the TX frequency from the TX to RX box
+    freqrxdoubleSpinBox->setValue(freqtxdoubleSpinBox->value());
+
+}
 
 bool Klog::haveAllTheFields(){
 //qDebug() << "KLog::haveAllTheFields" << endl;
