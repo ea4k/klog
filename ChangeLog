@@ -1,3 +1,6 @@
+TBD - 2013 - 0.6.2
+- GUI updated: You can click on RX or TX Frequency buttons to copy the frequency to the other one.
+
 June - 2013 - 0.6.1
 - Bug fixed: Locator was not properly calculated due to a sign difference management from KLog and CTY.DAT.
 - GUI updated: The cursor position management of the QRZ box has been improved to ease the operation.

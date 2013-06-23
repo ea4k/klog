@@ -94,6 +94,7 @@
 #include "reference.h"
 #include "cabrillomanagement.h"
 #include "klognetwork.h"
+#include "helpaboutdialog.h"
 // To use the dxmap just uncomment out the define tag below. It will activate all relevant code. Still broken though.
 //#define DXMAP 1
 #ifdef DXMAP
@@ -242,6 +243,8 @@ class Klog : public QMainWindow, private Ui::klog
     void slotBandChanged ();
     void slotTXFreqChanged(double i);
     void fillDXCCList();	// Fill the KLog tab
+    void slotTXFreqPushButtonClicked();
+    void slotRXFreqPushButtonClicked();
 
 
   private:
@@ -269,6 +272,7 @@ class Klog : public QMainWindow, private Ui::klog
     AwardWAZ waz;
     Awards awards;
     Award award;
+    HelpAboutDialog *helpAboutDialog;
     QStringList awardReferences;	// All the references of the current award to prepare the combobox
     QString DXClusterServerToUse;
     void processLogLine (const QString& tLogLine); // Process a line of data/qso from adifReadLog
@@ -297,6 +301,7 @@ class Klog : public QMainWindow, private Ui::klog
     void showAwardsNumbers(); // Shows how many worked, confirmed, ...
     void clearAwards();
     void showDistancesAndBeam(const int dist, const int beam); // Shows distance and beam
+    void updateFreqFromBandCombo();
 
 // Worked before
     void completeAllQSOsFromLog();
