@@ -50,7 +50,7 @@ public:
     int checkPrefix(const QString &tprefix);
         // Returns the Award for a Prefix or -1 if none
     QString getAwardName (const QString &tprefix);
-    Award getAwardFor(const QString &tprefix);
+    Award getAwardFor(const QString &_tprefix);
     //Award getIntAwardFor(int tEntity);
     Award getDefaultAward();
     QStringList getAwardReferences(Award &taward);
