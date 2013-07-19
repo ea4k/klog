@@ -455,7 +455,7 @@ void Klog::prepareIOTAComboBox (const int tenti){
 void Klog::prepareAwardComboBox(const int tenti){
  //Finds if the Entity received has an award to be controlled and show the
 //it on the award box
-//qDebug() << "KLog::prepareAwardComboBox"  << QString::number(tenti);
+//ebug() << "KLog::prepareAwardComboBox"  << QString::number(tenti) << endl;
 //qDebug()  << "KLog: prepareAwardComboBox for entity: " << QString::number(tenti) << endl;
     if (tenti <= 0){
         awardsComboBox->setEnabled(false);
@@ -472,7 +472,6 @@ void Klog::prepareAwardComboBox(const int tenti){
     awardsComboBox->clear();
     awardReferences.clear(); // We clear the list
     award.clearAward();
-
     award = awards.getAwardFor((world.getEntByNumb(tenti)).getPfx());
     if (award.getAwardReference() == -1){  // we do not have any award for this entity.
         awardsComboBox->setEnabled(false);
@@ -483,16 +482,14 @@ void Klog::prepareAwardComboBox(const int tenti){
         localAwardName->setEnabled(false);
         return;
     }else{
-
         aux = "<b>" + award.getAwardName() + ":</b>";
         awardSelectorName->setText(aux);
         awardsComboBox->setEnabled(true);
         localAwardName->setText(aux);
         localAwardName->setEnabled(true);
         awardSelectorName->setEnabled(true);
-
         aux = (world.getEntByNumb(tenti)).getPfx();
-                awardsComboBox->insertItems(0, awards.getAwardReferences(award));
+	awardsComboBox->insertItems(0, awards.getAwardReferences(award));
     }
 }
 

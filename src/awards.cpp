@@ -24,6 +24,7 @@
 
 //#include <klocale.h>
 //#include "iostream"
+//#include <QDebug>
 //using namespace std;
 
 #include "awards.h"
@@ -32,6 +33,7 @@ Awards::Awards(){
     listOfAwards.clear();
     awardReference = 0;
     awardDefault.setAwardReference(-1);
+    awardAux.setAwardReference(-1);
 
 }
 
@@ -80,7 +82,7 @@ void Awards::readConfig(){
 
 
 int Awards::checkPrefix(const QString &tprefix){
-//cout << "Awards::checkPrefix()  " << endl;
+//qDebug()   << "Awards::checkPrefix()  " << tprefix << endl;
     ListOfAwards::iterator it;
     for ( it = listOfAwards.begin(); it != listOfAwards.end(); ++it ){
         if ( ((*it).getEntityPrefix()).count(tprefix) != 0){
@@ -101,17 +103,21 @@ QString Awards::getAwardName (const QString &tprefix){
     return awardDefault.getAwardName();
 }
 
-Award Awards::getAwardFor(const QString &tprefix){
-//cout << "Awards::getAwardFor() " << tprefix << endl;
-    awardAux = awardDefault;
-    ListOfAwards::iterator it;
-    for ( it = listOfAwards.begin(); it != listOfAwards.end(); ++it ){
-        if ((*it).checkPrefix(tprefix)){
-//cout << "Awards::getAwardFor() " << "Found award: " << (*it).getAwardName() << endl;
+Award Awards::getAwardFor(const QString &_tprefix)
+{
+  QString tprefix;
+  tprefix = _tprefix; 
+  
+//qDebug()  << "Awards::getAwardFor() " << tprefix << endl;
+    //awardAux = awardDefault;
+  ListOfAwards::iterator it;
+  for ( it = listOfAwards.begin(); it != listOfAwards.end(); ++it ){
+    if ((*it).checkPrefix(tprefix)){
+//qDebug()  << "Awards::getAwardFor() " << "Found award: " << (*it).getAwardName() << endl;
             return (*it);
         }
     }
-//cout << "Awards::getAwardFor() " << "No award found for this prefix" << endl;
+//qDebug()  << "Awards::getAwardFor() " << "No award found for this prefix" << endl;
     return awardDefault; // If we did not found the award for this prefix we simply return
 
 }

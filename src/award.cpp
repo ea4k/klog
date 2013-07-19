@@ -23,13 +23,13 @@
 *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA*
  *****************************************************************************/
 
-//#include <kdebug.h>
+#include <QDebug>
 //#include <klocale.h>
 
 #include "award.h"
 
 Award::Award(){
-//cout << "Award::Constructor-Default " << endl;
+//qDebug()   << "Award::Constructor-Default " << endl;
     number = 0;
     awardReference = -1;
     numberOfReferences = -1;
@@ -40,7 +40,7 @@ Award::Award(){
 }
 
 Award::Award(const QString &tfile){
-//cout << "Award::Constructor-2 " << endl;
+//qDebug()    << "Award::Constructor-2 " << endl;
     number = 0;
     awardReference = -1;
     numberOfReferences = -1;
