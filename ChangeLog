@@ -1,6 +1,7 @@
 TBD - 2013 - 0.6.2
 - Bug fixed: Under some conditions, KLog crashes when entering a new QRZ. (TNX LW1EQI).
 - Bug fixed: IOTA data was not properly cleared when clicking the Cancel button.
+- Bug fixed: QSL combobox content was not properly managed. (TNX DF4FH).
 - GUI updated: You can click on RX or TX Frequency buttons to copy the frequency to the other one.
 
 June - 2013 - 0.6.1
@@ -345,7 +346,7 @@ The information comming from all the appearances of a call in the log is grouped
 - Clear button shows "Cancel" when modifying.
 - Changed many classes from Qt classes to KDE classes.
 - Fixed bug: Some times the QSL was checked automaticaly.
-- Fixed bug: The Mode combo-box showed SBB and it is SSB.
+- Fixed bug: The Mode combobox showed SBB and it is SSB.
 - Fixed bug: some calls showed as worked before and they were not.
 
 29-Jan-2003 - 0.1-alpha

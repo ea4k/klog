@@ -574,7 +574,8 @@ void Klog::slotClearBtn(){
   clearEntityBox();
   iotaComboBox->setCurrentIndex(0);
   iotaIntSpinBox->setValue(0);
-#  prepareAwardComboBox(enti);
+
+//  prepareAwardComboBox(enti);
   qrzLineEdit->setFocus();		// The default widget for next QSO is, obviously, the QRZ!
   searching2QSL = false;	// If the user decides to clear the qrzlinedit, we finish the search 2 QSL process.
   completedWithPrevious = false;
@@ -1517,16 +1518,16 @@ void Klog::processLogLine (const QString& tLogLine){
         }else if (adifTab == "EQSL_QSL_SENT"){
             qso.seteQslSent(theData[0]);
         }else if (adifTab == "QSL_VIA"){ //Manager?
-            if (theData == "No QSL"){
+            if (theData == "NO QSL"){
                 qso.setQslVia(theData);
                 qslViac = true;
-            }else if (theData == "Bureau"){
+            }else if (theData == "BUREAU"){
                 qso.setQslVia(theData);
                 qslViac = true;
-            }else if (theData == "QRZ.com"){
+            }else if (theData == "QRZ.COM"){
                 qso.setQslVia(theData);
                 qslViac = true;
-            }else if (theData == "Direct"){
+            }else if (theData == "DIRECT"){
                 qso.setQslVia(theData);
                 qslViac = true;
             }else{
@@ -1856,14 +1857,15 @@ void Klog::toEditQso(){
       ActionQslRec->setEnabled(true);
     }
     //Now the QSl info information
-        QSLcomboBox->setItemText(0, qso.getQslVia());
-    if ((qso.getQslVia()).compare("No QSL") == 0){
+//        QSLcomboBox->setItemText(0, qso.getQslVia());
+        QSLcomboBox->setCurrentIndex(getNumberOfQSLComboBoxFromText(qso.getQslVia()));
+    if ((qso.getQslVia()).compare("NO QSL") == 0){
         qslVialineEdit->setDisabled(true);
         //    QSLInfotextEdit->setDisabled(true);
         qslVialineEdit->clear();
         //    QSLInfotextEdit->clear();
         }else{
-        if ((qso.getQslVia()).compare("Manager") == 0){
+        if ((qso.getQslVia()).compare("MANAGER") == 0){
             qslVialineEdit->setEnabled(true);
             qslVialineEdit->setText(qso.getQslManager());
             }else{
@@ -2340,7 +2342,7 @@ void Klog::readQso(){ //Just read the values an fill the qso
 //    if ((remarksTextEdit->toPlainText()).length() >0)
         qso.setComment(remarksTextEdit->toPlainText());
 
-    qso.setQslVia(QSLcomboBox->currentText());
+    qso.setQslVia((QSLcomboBox->currentText()).toUpper());
 
     // Check if the locator is valid
     if (locator.isValidLocator((locatorLineEdit->text()).toUpper()))
@@ -2441,7 +2443,7 @@ void Klog::modifyQso(){
       if ((remarksTextEdit->toPlainText()).length() >0){
 	tmpQso.setComment(remarksTextEdit->toPlainText());
       }
-      tmpQso.setQslVia(QSLcomboBox->currentText());
+      tmpQso.setQslVia((QSLcomboBox->currentText()).toUpper());
       // Check if the locator is valid
       if (locator.isValidLocator((locatorLineEdit->text()).toUpper())){
 	tmpQso.setLocator((locatorLineEdit->text()).toUpper());
@@ -2565,7 +2567,7 @@ void Klog::helpAbout() {
 
 void Klog::slotQSLcomboBoxChanged(){
 //qDebug() << "KLog::slotQSLcomboChanged" << endl;
-    QString combo = (QSLcomboBox)->currentText();
+    QString combo = ((QSLcomboBox)->currentText()).toUpper();
 
     if (combo.compare("No QSL") == 0){
         qslVialineEdit->setDisabled(true);
@@ -5589,7 +5591,7 @@ void Klog::completeAllQSOsFromLog(){
     qso.setAddress ((*it).getAddress());
     qso.setARRLSect ((*it).getARRLSect());
           qso.setComment(remarksTextEdit->toPlainText());
-  qso.setQslVia(QSLcomboBox->currentText());
+  qso.setQslVia((QSLcomboBox->currentText()).toUpper());
   // Check if the locator is valid
   if (locator.isValidLocator((locatorLineEdit->text()).toUpper()))
     qso.setLocator((locatorLineEdit->text()).toUpper());
@@ -5724,6 +5726,38 @@ void Klog::closeEvent(QCloseEvent *event)
      }
 */
  }
+
+int Klog::getNumberOfQSLComboBoxFromText(const QString &tqslvia)
+{
+  QString _text = tqslvia.toUpper();
+
+  if (_text == "BUREAU")
+  {
+    return 0;
+  }
+  else if (_text == "NO QSL")
+  {
+    return 1;
+  }
+  else if (_text == "QRZ.COM")
+  {
+    return 2;
+  }
+  else if (_text == "MANAGER")
+  {
+    return 3;
+  }
+  else if (_text == "DIRECT")
+  {
+    return 4;
+  }
+  else
+  {
+    return 0;
+  }
+
+  return 0;
+}
 
 /***************************************************************************
 ** This is an auxiliary class intended to provide color to the DX-Cluster **

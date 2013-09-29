@@ -314,7 +314,8 @@ class Klog : public QMainWindow, private Ui::klog
     QString getNumberString(const int intNumber); //Receives a number a returns a string of a fixed length
     QString getShortNumberString(const int intNumber); //Same that previous but with 3 characters
     int getEntityFromCall(); // Just read the call from the QRZ box and returns the entity number
-
+    
+    int getNumberOfQSLComboBoxFromText(const QString &tqslvia);
     void prepareAwardComboBox(const int tenti);
     QString checkExtension(QString extension); // To check the extension of the file // TNX Kike
 
