@@ -572,7 +572,9 @@ void Klog::slotClearBtn(){
 
   showDistancesAndBeam(0,0);
   clearEntityBox();
-  prepareAwardComboBox(enti);
+  iotaComboBox->setCurrentIndex(0);
+  iotaIntSpinBox->setValue(0);
+#  prepareAwardComboBox(enti);
   qrzLineEdit->setFocus();		// The default widget for next QSO is, obviously, the QRZ!
   searching2QSL = false;	// If the user decides to clear the qrzlinedit, we finish the search 2 QSL process.
   completedWithPrevious = false;
