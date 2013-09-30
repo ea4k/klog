@@ -13,14 +13,11 @@ text properly shown
 </BEFORE RELEASING>
 
 * Copy: Operator name, station, power and locator saved for next QSO entry (via setup) (TNX Jonas Stein)
-* Add eQSL to the list of QSL VIA.
 * Filters: Select a DXCC entity and a band to find QSO to QSL.
 * Check iterators and change by indexes as in modifyQso.
 * Check the ADIF QSL_VIA compatibility (B, D, E, M, ...)
-* ADD the STATION_CALLSIGN tag and relate it to OPERATOR
 * URGENT: rewrite the hamlib support code!!!
 * URGENT: The way the awards are deleted is not very smart.
-* When adding/editing a QRZ the cursor position should be keeped... to avoid mistakes while typing/copy&pasting
 * When importing a Log, if the imported  includes the seconds, dont loose them. It implies to add seconds support to KLog for all the QSO
 * Improve the way the cty.dat is downloaded, specially the GUI as it is not nice.
 

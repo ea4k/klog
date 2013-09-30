@@ -24,7 +24,28 @@
 
 #include "klog.h"
 //#include "dxmap.h"
+void Klog::keyPressEvent(QKeyEvent *e) 
+{
 
+  if (e->key() == Qt::Key_W)
+  {
+    qDebug() << "Klog::keyPressEvent CTRL+W: " << endl;
+    slotClearBtn();
+  }
+  else if (e->key() == Qt::Key_Q) 
+  {
+    qDebug() << "Klog::keyPressEvent CTRL+Q " << endl;
+    toEditLastQso();
+  }
+  else
+  {
+    qDebug() << "Klog::keyPressEvent OTHER: "  << endl;
+  
+  }
+
+}
+
+    
 Klog::Klog(const QString& tversion, QMainWindow *parent) : QMainWindow(parent) {
   //qDebug() << "KLog::Klog";
   setupUi( this );
@@ -1524,6 +1545,9 @@ void Klog::processLogLine (const QString& tLogLine){
             }else if (theData == "BUREAU"){
                 qso.setQslVia(theData);
                 qslViac = true;
+	    }else if (theData == "EQSL"){
+                qso.setQslVia(theData);
+                qslViac = true;
             }else if (theData == "QRZ.COM"){
                 qso.setQslVia(theData);
                 qslViac = true;
@@ -1531,7 +1555,7 @@ void Klog::processLogLine (const QString& tLogLine){
                 qso.setQslVia(theData);
                 qslViac = true;
             }else{
-                qso.setQslVia("Manager");
+                qso.setQslVia("MANAGER");
                 qso.setQslManager(theData);
                 qslViac = true;
             }
@@ -2031,6 +2055,27 @@ void Klog::slotQsoSelectedForEdit(QTreeWidgetItem *item){
     }
 }
 
+void Klog::toEditLastQso()
+{
+  //qDebug() << "KLog::toEditLastQso" << endl;
+  int tn, ln;
+  
+  if (!templogbook.isEmpty())
+  {
+    tn = (templogbook.last()).getNumb();
+    toEditQso();
+  }
+  else if (!logbook.isEmpty())
+  {
+    ln = (logbook.last()).getNumb();
+    
+    toEditQso();
+  }
+  else
+  {
+  
+  }
+}
 void Klog::slotQsoSelected(QTreeWidgetItem* item){
  //qDebug() << "KLog::slotQsoSelected" << endl;
     if (item){
@@ -2547,8 +2592,8 @@ void Klog::modifyQso(){
 void Klog::helpAbout() {
 //qDebug() << "KLog::helpAbout" << endl;
   
-    helpAboutDialog->show();
-/*
+    //helpAboutDialog->show();
+
   QString sAbout1 = i18n("KLog-%1 - The KDE Ham Radio Logging program\n\n", Klog::KLogVersion);
   //QString sAbout2 = i18n("You can find the last version on <a href=\"http://jaime.robles.es/klog\">http://jaime.robles.es/klog</a>\n2002 - 2013 - Jaime Robles, EA4TV, jaime@robles.es\n2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com", Klog::KLogVersion);
   QString sAbout2 = i18n("You can find the last version on ") + QString("http://jaime.robles.es/klog") + i18n("\n2002 - 2013 - Jaime Robles, EA4TV, jaime@robles.es\n2009 - 2010 - Andrew Goldie, ZL2ACG, andrew.goldie@rocketmail.com", Klog::KLogVersion);
@@ -2561,24 +2606,55 @@ void Klog::helpAbout() {
   msgBox.setStandardButtons(QMessageBox::Ok);
 
   msgBox.exec();
-  */
+  
   
 }
 
 void Klog::slotQSLcomboBoxChanged(){
 //qDebug() << "KLog::slotQSLcomboChanged" << endl;
-    QString combo = ((QSLcomboBox)->currentText()).toUpper();
+    //QString combo = ((QSLcomboBox)->currentText()).toUpper();
+/*
+  if (_text == "BUREAU")
+  {
+    return 0;
+  }
+  else if (_text == "NO QSL")
+  {
+    return 1;
+  }
+  else if (_text == "QRZ.COM")
+  {
+    return 2;
+  }
+  else if (_text == "MANAGER")
+  {
+    return 3;
+  }
+  else if (_text == "DIRECT")
+  {
+    return 4;
+  }
+  else if (_text == "EQSL")
+  {
+    return 5;
 
-    if (combo.compare("No QSL") == 0){
+*/
+    int i = getNumberOfQSLComboBoxFromText(((QSLcomboBox)->currentText()));
+
+    if (i == 1) // NO QSL
+    {
         qslVialineEdit->setDisabled(true);
         //    QSLInfotextEdit->setDisabled(true);
         qslVialineEdit->clear();
         //    QSLInfotextEdit->clear();
-    }else{
-        if (combo.compare("Manager") == 0)
-            qslVialineEdit->setEnabled(true);
-        else
-            qslVialineEdit->setDisabled(true);
+    }
+    else if ((i == 3) || (i == 5)) // MANAGER || EQSL
+    {
+      qslVialineEdit->setEnabled(true);
+    }
+    else
+    {
+      qslVialineEdit->setDisabled(true);
     //    QSLInfotextEdit->setEnabled(true);
     }
 }
@@ -5750,6 +5826,10 @@ int Klog::getNumberOfQSLComboBoxFromText(const QString &tqslvia)
   else if (_text == "DIRECT")
   {
     return 4;
+  }
+  else if (_text == "EQSL")
+  {
+    return 5;
   }
   else
   {
