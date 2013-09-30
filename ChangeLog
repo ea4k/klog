@@ -3,6 +3,9 @@ TBD - 2013 - 0.6.2
 - Bug fixed: IOTA data was not properly cleared when clicking the Cancel button.
 - Bug fixed: QSL combobox content was not properly managed. (TNX DF4FH).
 - GUI updated: You can click on RX or TX Frequency buttons to copy the frequency to the other one.
+- GUI updated: You can select eQSL in the QSL combobox as an option to mark the QSL information of a QSO.
+- GUI updated: Two new shortcuts: CTRL+W: deletes the current QSO. CTRL+Q: to (quick)edit the last QSO added.
+- GUI updated: Minor tab reorder.
 
 June - 2013 - 0.6.1
 - Bug fixed: Locator was not properly calculated due to a sign difference management from KLog and CTY.DAT.

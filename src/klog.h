@@ -218,6 +218,7 @@ class Klog : public QMainWindow, private Ui::klog
   Qso getByNumber(const int n);
   void showQso(); // Gets data from the Input part and show in the botton widget
   void toEditQso(); //Puts the QSO data in the edit box
+  void toEditLastQso(); // Sends to toEditQso the last QSO added
   void accept();
 
   private slots:
@@ -275,6 +276,7 @@ class Klog : public QMainWindow, private Ui::klog
     HelpAboutDialog *helpAboutDialog;
     QStringList awardReferences;	// All the references of the current award to prepare the combobox
     QString DXClusterServerToUse;
+    void keyPressEvent(QKeyEvent *e);
     void processLogLine (const QString& tLogLine); // Process a line of data/qso from adifReadLog
     void clearGUI();
     bool didISave();
