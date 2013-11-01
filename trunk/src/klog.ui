@@ -948,6 +948,11 @@ p, li { white-space: pre-wrap; }
                  <string>Direct</string>
                 </property>
                </item>
+               <item>
+                <property name="text">
+                 <string>eQSL</string>
+                </property>
+               </item>
               </widget>
              </item>
              <item row="2" column="2" rowspan="2" colspan="4">
@@ -959,7 +964,7 @@ p, li { white-space: pre-wrap; }
                 <bool>false</bool>
                </property>
                <property name="toolTip">
-                <string>Manager's QRZ</string>
+                <string>Manager's QRZ or eQSL provider</string>
                </property>
               </widget>
              </item>
@@ -1019,10 +1024,18 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item row="1" column="3">
-              <widget class="QDateEdit" name="QSLRecdateEdit"/>
+              <widget class="QDateEdit" name="QSLRecdateEdit">
+               <property name="toolTip">
+                <string>Date when the QSL card was received</string>
+               </property>
+              </widget>
              </item>
              <item row="0" column="3">
-              <widget class="QDateEdit" name="QSLSentdateEdit"/>
+              <widget class="QDateEdit" name="QSLSentdateEdit">
+               <property name="toolTip">
+                <string>Date when the QSL card was sent</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -1042,7 +1055,11 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item>
-              <widget class="QTextEdit" name="remarksTextEdit"/>
+              <widget class="QTextEdit" name="remarksTextEdit">
+               <property name="toolTip">
+                <string>Remarks of the QSO</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -1162,6 +1179,9 @@ p, li { white-space: pre-wrap; }
                <property name="focusPolicy">
                 <enum>Qt::TabFocus</enum>
                </property>
+               <property name="toolTip">
+                <string>Award's reference</string>
+               </property>
                <property name="duplicatesEnabled">
                 <bool>false</bool>
                </property>
@@ -1202,6 +1222,9 @@ p, li { white-space: pre-wrap; }
               <widget class="QLineEdit" name="satNamelineEdit">
                <property name="acceptDrops">
                 <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Name of the satellite</string>
                </property>
               </widget>
              </item>
@@ -1248,6 +1271,9 @@ p, li { white-space: pre-wrap; }
               <widget class="QLineEdit" name="satModelineEdit">
                <property name="acceptDrops">
                 <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Satellite mode</string>
                </property>
               </widget>
              </item>
@@ -3218,11 +3244,11 @@ p, li { white-space: pre-wrap; }
   <tabstop>bandComboBox</tabstop>
   <tabstop>qsoDateEdit</tabstop>
   <tabstop>qsoTimeEdit</tabstop>
+  <tabstop>okBtn</tabstop>
+  <tabstop>clearBtn</tabstop>
   <tabstop>namekLineEdit</tabstop>
   <tabstop>qthkLineEdit</tabstop>
   <tabstop>locatorLineEdit</tabstop>
-  <tabstop>okBtn</tabstop>
-  <tabstop>clearBtn</tabstop>
   <tabstop>QSLcomboBox</tabstop>
   <tabstop>qslVialineEdit</tabstop>
   <tabstop>QSLInfotextEdit</tabstop>
@@ -3263,6 +3289,9 @@ p, li { white-space: pre-wrap; }
   <tabstop>inputTab</tabstop>
   <tabstop>dxclusterListWidget</tabstop>
   <tabstop>dxccTreeWidget</tabstop>
+  <tabstop>txFreqPushButton</tabstop>
+  <tabstop>rxFreqPushButton</tabstop>
+  <tabstop>powerSpinBox</tabstop>
  </tabstops>
  <resources/>
  <connections>

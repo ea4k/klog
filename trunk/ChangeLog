@@ -1,4 +1,4 @@
-TBD - 2013 - 0.6.2
+November-2013 - 0.6.2
 - Bug fixed: Under some conditions, KLog crashes when entering a new QRZ. (TNX LW1EQI).
 - Bug fixed: IOTA data was not properly cleared when clicking the Cancel button.
 - Bug fixed: QSL combobox content was not properly managed. (TNX DF4FH).
@@ -7,7 +7,7 @@ TBD - 2013 - 0.6.2
 - GUI updated: Two new shortcuts: CTRL+W: deletes the current QSO. CTRL+Q: to (quick)edit the last QSO added.
 - GUI updated: Minor tab reorder.
 
-June - 2013 - 0.6.1
+June-2013 - 0.6.1
 - Bug fixed: Locator was not properly calculated due to a sign difference management from KLog and CTY.DAT.
 - GUI updated: The cursor position management of the QRZ box has been improved to ease the operation.
 

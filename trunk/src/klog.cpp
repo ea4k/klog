@@ -29,17 +29,15 @@ void Klog::keyPressEvent(QKeyEvent *e)
 
   if (e->key() == Qt::Key_W)
   {
-    qDebug() << "Klog::keyPressEvent CTRL+W: " << endl;
     slotClearBtn();
   }
   else if (e->key() == Qt::Key_Q) 
   {
-    qDebug() << "Klog::keyPressEvent CTRL+Q " << endl;
     toEditLastQso();
   }
   else
   {
-    qDebug() << "Klog::keyPressEvent OTHER: "  << endl;
+    //qDebug() << "Klog::keyPressEvent OTHER: "  << endl;
   
   }
 
