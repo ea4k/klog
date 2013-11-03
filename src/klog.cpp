@@ -1785,6 +1785,7 @@ void Klog::adifReadLog(const QString& tfileName){
 
 void Klog::toEditQso(){
 //qDebug() << "KLog::toEditQSO" << endl;
+  //TODO: Make toEditQSO to receive the QSO to edit, as an int.
     Klog::modify = true;
     Klog::j = qso.getNumb();
     qsoDateEdit->setDate(qso.getDate()); // date
@@ -2057,7 +2058,8 @@ void Klog::slotQsoSelectedForEdit(QTreeWidgetItem *item){
 void Klog::toEditLastQso()
 {
   //qDebug() << "KLog::toEditLastQso" << endl;
-  int tn, ln;
+  int ln;
+  int tn;
   
   if (!templogbook.isEmpty())
   {
