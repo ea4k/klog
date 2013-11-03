@@ -2,6 +2,7 @@ November-2013 - 0.6.2
 - Bug fixed: Under some conditions, KLog crashes when entering a new QRZ. (TNX LW1EQI).
 - Bug fixed: IOTA data was not properly cleared when clicking the Cancel button.
 - Bug fixed: QSL combobox content was not properly managed. (TNX DF4FH).
+- Bug (gui) fixed: IOTA continent is now "automagically" detected... again (a bug prevented this functionality).
 - GUI updated: You can click on RX or TX Frequency buttons to copy the frequency to the other one.
 - GUI updated: You can select eQSL in the QSL combobox as an option to mark the QSL information of a QSO.
 - GUI updated: Two new shortcuts: CTRL+W: deletes the current QSO. CTRL+Q: to (quick)edit the last QSO added.

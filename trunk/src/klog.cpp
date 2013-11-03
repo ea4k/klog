@@ -456,6 +456,7 @@ void Klog::slotQrzChanged(){   // We set the QRZ in the QSO
   }
   // The next 3 were called with entiBak
   prepareAwardComboBox(enti);
+  prepareIOTAComboBox(enti);
   showWhere(enti);
   callLenPrev = callLen;
   searching2QSL = false;	// If the user enters a QSO we finish the search2QSL process
