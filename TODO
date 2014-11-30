@@ -1,191 +1,270 @@
-<critical>
-(Critical is something like crashes and so on)
-* No critical bugs known... but maybe there are some...
-</critical>
-
-<BEFORE RELEASING>
-
-Working in the help Dialog.
-Find another class than the QTextBrowser or adapt the QtextBrowser to get the
-text properly shown
+This is a kind of roadmap for KLog development.
+It is not fixed... new features may be prioritized or not added without any notice ;-)
+Feel free to request any roadmap change if you have any suggestion.
 
 
-</BEFORE RELEASING>
 
-* Copy: Operator name, station, power and locator saved for next QSO entry (via setup) (TNX Jonas Stein)
-* Filters: Select a DXCC entity and a band to find QSO to QSL.
-* Check iterators and change by indexes as in modifyQso.
-* Check the ADIF QSL_VIA compatibility (B, D, E, M, ...)
-* URGENT: rewrite the hamlib support code!!!
-* URGENT: The way the awards are deleted is not very smart.
-* When importing a Log, if the imported  includes the seconds, dont loose them. It implies to add seconds support to KLog for all the QSO
-* Improve the way the cty.dat is downloaded, specially the GUI as it is not nice.
+KLog 0.0.4
+TODO: when File New:
+    Clean the DB & query.exec("VACUUM");
+TODO: Fix the FileManager::adifReadLog to be able to read logs with several lines per QSO.
+TODO: Add a button to rescore awards
+TODO: Add a button to update the search Box without modifying the text.
+TODO: Add the feature to add and manage several logs.
+TODO: Add a default filename to save ADIF files.
+TODO: Update Bearing/distance/... when changing Locator.
+TODO: Update the IOTA continent when modifying QRZ
+TODO: Add the posibility to keep "MY_DATA" from one QSO to the next.
+TODO: Change COMMENT to NOTES to adapt to ADIF 3.0.4 multiline value
+TODO: Add an option to auto-complete info (QTH, Locator, Name, QSL Manager, IOTA, AWARD, ...) from previous QSO
+TODO: Adapt to ADIF 3.0.4
+TODO: Make the Tool->Needed, QSL sent but pending to receive
+TODO: Make a tool to mark and export QSO from the right button. (i.e. To mark several QSOto print and export the ADIF file with just those QSO)
+TODO: Update the database with the Entities data when updating the CTY.CSV file!
+TODO: DXCLuster QLineEdit input should be disabled when not connected.
+TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
+TODO: Pass the version to the filemanager to be able to export the correct version in the ADIF file.
 
-The list calls to writeconf and readconf when a award is deleted so if a user
-makes any modification in any other field in the setup GUI, it is saved!
-URGENT: * To add a button to active the Hamlib once it has been disabled if it was actived in the setup.
-* Check what to do with the "/M" stations. Now they are not counted as a DXCC entity.
+KLog 0.0.5
+TODO: Add Satellite support (maybe another Tab) (look this file (below) for details.
+TODO: Add another tab in the botton to list the DXCC status
+TBD - Added the feature to add and manage several logs.
 
-* AWARDS: worked/confirmed reference
-	delete a QSO includes delete a reference
-	is worked?
+KLog 0.0.6
+TODO: Support CQ WW SSB (Including Cabrillo Import/Export)
+TODO: Support CQ WW CW (Including Cabrillo Import/Export)
 
-* OPTIMIZATION: Work with the log in a QList and just show in the QTreeWidget (model/view)
-* OPTIMIZATION: When QSL Managing, it is slow between you accept/send a QSL and you can continue... What is done in between???
-* OPTIMIZATION: When clicking over OK button, it re-paint the loglist completely. I should just "add" a new QSO and not re-reading the whole log.
-* OPTIMIZATION: The showLogList() should be in background! to allow the update while using KLog at the same time
-* OPTIMIZATION: Check in the QSL-rec functions the confirmed/dxcc.confirmed/notconfirmed... there is no need to check if it is confirmed before setting as not confirmed!
-* OPTIMIZATION: Define a data struct to group all the hamlib/rig control information around.
-* OPTIMIZATION: re-Write the getEntityFromCall() to getEntityFromCall(const QString& call) to secure it and not depend on the textedit content
+KLog 0.0.7
+TODO: Hamlib support (Linux)
 
+KLog 0.0.8
+TODO: Support CQ WPX SSB (Including Cabrillo Import/Export)
+TODO: Support CQ WPX CW (Including Cabrillo Import/Export)
 
-* BUG??????????: To check if remarks is also copied when "complete from previous QSO" as today it IS copied.
-* BUG: RST is a String, Aurora QSOs must be 59A (TNX SM5CNQ)
-* BUG: When adding an award, if the file is not in the .klog dir, it does not work.
-* BUG: Re-Write the hamlib support!
-* BUG: In case the number of the call (like in EA4TV/6 or in UA1AA/9) changes the DX Entity, KLog does not recognise it.
-* BUG: The first time you enter a call (although you have already loaded a logfile) KLog does not shows the correct entity band state for that entity. It only happens with the first call in a use of KLog. I still don't know why!
-* BUG: when loading a log, the console shows erros about the range of the dates. It seems to be a bug of Qt, not of KLog but it still needs a check. (I have already checked it but I have not found a way to solve it. Dates are OK and checked while managed.). Maybe related with the lack of date if no QSL has been sent or received?
-* BUG: In readQso() If the QSO was QSL received and the user deleted, the dxcc&waz status should be updated.
+KLog 0.0.9
+WORLDEDITOR Dialog
+TODO: Create a function to check if the ADIF DXCC corresponds with the prefix.
+TODO: Add a ComboBox to change and define a DXCC for each QSO.
+TODO: World Editor: Create a way to add an entity.
+TODO: World Editor: Create a way to remove an entity.
+TODO: World Editor: Create a way to edit an entity.
 
-NEW FEATURE: Add a needed tab in the botton box. Needed spots would be added there. User
-can also add spots there. Maybe I can add two tabs, one for user added and
-another for automatic needed spots.
-
-
-To check the Debian package as I think icons are not being included (s390/0.3.01)
-http://buildd.debian.org/fetch.php?&pkg=klog&ver=0.3.0-1&arch=s390&stamp=1099872133&file=log&as=raw
-
-* Possible fix: To solve the year 2000 date "problem" when importing data from TLF... if the last two digits of the QSO date is "older" than the actual date, then we are importing a 19xx date QSO. (TNX Fermin)
-                Another solution could be just to ask the user about the
-		first two digits when finding a 2-digit year.
-
-URGENT: * To add a button to active the Hamlib once it has been disabled if it was actived in the setup.
-
-There are so many thinks to do in KLog:
-
-<working now in>
-* Working in the dxpot class to add a bandmap from the dxcluster
-* To implement the remove award slot in Setup Class
-
-* showIfPreviouslyWorked(): Create the new tab, ... and read the comments in the klog.cpp file
-* Add a box or whatever to show talks and announces from the DX-Cluster
-* Working in the class qslneeded
-* V/UHF support (locators, distances, Grids...)
-* Reviewing the workflow/diagram of QSL rec/sent
-
-</working now in>
-
-<bugs>
-* It is not possible to log the QSO without using the mouse. (it is not
-possible to reach the Name and QTH with tabs) (P.H. Rankin H.)
-* It is necesary to run klog from a directory with icons to have them in the rightButton actions.
-* I think this is a KLog - bug which has still to be fixed. And
- perhaps, if there is a field that KLog cannot import, there should be
- an error message, best thing if it can sort out the wrong field...but
- a general error should be ok at first. (DL5PD)
+KLog 0.0.10
+TODO: Integrate with www.clublog.org (http://www.clublog.org/docs/pages/viewpage.action?pageId=1638482)
 
 
-</bugs>
+KLog 0.0.11
+TODO: Integrate with eqsl.cc
 
-                   
-<Early versions - WishList>
-* Maybe a new feature to export QSOs between two dates to a file.
-* Add a way to group the "NEW ONES" when the user executes the Tools->Find QSO to QSL to priorize the NEW ONES.
-* Multi call support, the same user can log with several calls (OPERATOR).
-* When showing QSO to QSL search and display as "needed" the QRZ that is a new one, has not been confirmed in ANY band.
-* Make the cty.dat QMessage to display an URL "clickable" (setTextFormat(RichText))
-* Include a way to find duplicate QSO (QSO with same QRZ/date/time/band).
-* Include a message box (maybe another tab...maybe like the log/cluster... to write KLog messages to the user).
-	For example, when reading the log if there is any inconsistence... freq!=band or other... Just a way to communicate with the user.
-* Include a TIP on the start of KLog. Showing there is a mailinglist... ;-)
-* Include another tag in the bottom box to add a list of needed DXSpots to void loosing them if the DXCluster traffic is high (something like a bandmap of contest software) ;-)
-* Include in the DXCluster menu some kind of filters to filter the DXCluster spots by band, mode, ... only spots from my continent.
-* Add in the menu some kind of IARU band plan just as information
-* To include a "Send to DX-Cluster" button so it is possible to automaticaly send a QSO as a spot to the DX-Cluster. Maybe it is necessary to ask for the frecuency and comments ;-)
-* Add a tag to control the rig via Hamlib. Enter frecuency, modes, ...
-* Make configurable the date period (when using two digits for the year) to know if we are importing a 19xx or a 2xxx year. It could solve the problem of TLF log imports.
-* Two timers to save QSO duration. (TNX: P.H. Rankin Hansen)
-* Mode selection by keyboard (use of acelerators). (TNX: P.H. Rankin Hansen)
-* Be able to configure the modes that are going to use. (TNX: P.H. Rankin Hansen)
-* A kind of association between "band+mode+power"... to ease operation (TNX: P.H. Rankin Hansen)
-* Control 2 VFO and allow saving freqs..
-* Save the frecuency if hamlib is being used
-* A "bye" message when disconnecting from cluster to "announce KLog" Maybe a ann/local message
-* a way to make KLog to tell you what QSOs are with a needed and you have not send the QSL.
-* When importing from TLF save STX and SRX (serials tx/rx in contest).
-* Second frecuency when working satellite.
-
-> 6. Although I can imagine it is not that easy to realize, how about
-> getting klog to work together with a callbook or at least with
-> qrz.com or something else, to get name and qth by just entering the
-> callsign, that would be for sure a great improvement (similar to ham
-> office under windows). What do you think about it? Rainer Dohmen, DL5PD.
-* To select an Entity and show the QSOs with that Entity
-* When QSL managing, it would be nice to have the state of the QSO selection in other place than just the color as when selected it is not noticed.
-* Doc for KLog
-* QSL "contribution$" needed? support
-* Import/export from/to tlf(only export is missing), xlog, cabrillo
-* Awards: managing awards as IOTA, WAS, WAZ, WAE, TPEA, ...
-* Satellite support
-* Protect KLog against bad formatted data (ie IOTA in the QSO class)
-
-</Early versions - WishList>
+KLog 0.0.12
+TODO: Server to log all the QSO in real time (through the network) from N1MM
+        http://n1mm.hamdocs.com/tiki-index.php?page=UDP+Broadcasts&structure=N1MM+Logger+Documentation
 
 
-<Not so soon - WishList>
-* Add in the setup the possibility to create the station and from the log to select the rig you are using to do the QSO. (P.H. Rankin H.)
-* Power is an int when reading from klogrc but an string in the rest of the program.
-* Contest calendar from Internet?
-</Not so soon - WishList>
+<BUGS>
+TODO: Check if the data has been modified (only memory) and save the data!
+TODO BUG: When modifying allow deleting data (as in KLog 0.5.8)
+DONE BUG: Worked DXCC and WAZ are not updated until confirmed :-?
+DONE BUG: When toEdit, the IOTA field is not copied to the UI; IOTA needs to be added always with "6" chars in the BD (AF-001 and not "AF-1" or "AF-001")
+</BUGS>
 
-<ke6sls>
-1. cty.dat isn't copied to users directory on first startup.
-2. /usr/share/klog/cty.dat *does not exist* in .deb package.
-3. Can not specify frequency--example: 14.233MHz
-4. Tab doesn't move from one part of Klog to the next:
-5. from callsign/mode/freq box will not skip [tab] to RST box.
+TODO: HelpHelpDialog
+TODO: HelpAboutDialog
 
-Wish list:
-1. Simple log screen where I can quickly tab from one field to next with the TAB button on keyboard to
-include the following entries:
-NAME/CITY/STATE-PROVINCE/COUNTRY/RST(auto-switch
-between CW/SSB)/FREQUENCY/MODE/POWER then seperate
-areas for further details like Remarks/QSL/WAS/WAC/etc
-2. Enable manual entry for Modes and Frequency. Example: psk64 12.1055MHz (for those who want exact inafo)
-3. Start/stop qso time duration.
-4. Add splash screen asking for log file to open.
-5. Help documentation under the HELP menu.
-8. Add more import options for other logs like winlog and log-eqf data! �It would be wonderful to be able to
- import my old log-eqf data into klog.
-<ke6sls>
+TODO: setuppagelogs.cpp
 
-<YU1IS>
+TODO: DXCluster: Lines that are not a DX should not be in another color than default.
+TODO: Add a default DX Cluster server
 
-WISHLIST
+TODO: Add all the Entity Info to the slotClear to clear everything.
+TODO: Add a list of previous QSO with the same station, if any.
 
-- It will be so good for me if the statistics about DXCC, WAZ and other could work by bands, modes and "mixed", depending on actual award rules.
-
-</YU1IS>
-
-<DL5PD>
-
- 5. For me personal (perhaps also for others) I would like to have the
- activation order changed, that means: first, you enter the callsign,
- for sure, that is alright. After that, at least in real time mode, it
- would be handy to switch directly to the name, and then to the qth of
- the station going to be logged. Perhaps before, you can edit the
- signal report, but you should definitly skip the step of "power",
- "band" and "mode" at the beginning, because you don't change it that
- much during a contest for example.
-QRZ, Name, QTH
-
-</DL5PD>
+TODO: Create something like a void Awards::setAwardsOfAllQSO to read ALL QSO and set the Awards at once instead of adding one QSO per QSO
 
 
-Printing: Labels / direct to card. Readed in eHam from OH7JJT
+<KLOG IDEAS>
+1.- Create a class to hide the "database.h" class so we can implement KLog without SQLite, like KLog.
+    I should hide all SQLite calls though another class...
 
-ADIF not supported:
-	CNTY & MY_CNTY: I still don't know how to work with it. Is it a String, Number, combination... I think that the ADIF forum should work on it.
-	All the EQSL fields: under discussion on the ADIF forum
-	All the LOTW fields.
+</KLOG IDEAS>
+
+KLOG TODO:
+TODO: To create a function tha runs the log and marks "N" if QSL has not been sent or received.
+
+
+TODO: CTY.DAT update
+TODO: Export QSL needed (to an ADIF file)
+TODO: Award tabs: center/bold tabs
+do: Add export to cabrillo to the logfile
+
+
+
+SETUP:
+TODO: Show progress when doing actions
+TODO: Open this file when opening
+TODO: DXCLuster: Show HF activity
+TODO: DXCLuster: Show WARC
+TODO: DXCLuster: Show VHUF
+TODO: DXCLuster: Show confirmed
+TODO: DXCLuster: Show SSB
+TODO: DXCLuster: Show CW
+TODO: DXCLuster: Show Ann/full
+TODO: DXCLuster: Show WCY
+TODO: DXCLuster: Show WWV
+TODO: DXCLuster: Double click on a spot, add it to log
+TODO: DXCLuster: Add Cluster servers
+DONE: TODO: Colors: Confirmed, Worked, Needed band, New, Default
+
+TODO: Complete with previous QSO (Name, ...)
+TODO: Require mandatory fields in all QSO
+
+TODO: Awards: Add Award
+TODO: Awards: Remove Award
+
+=====================
+<SATELLITE SUPPORT>
+TODO: Add satellite input fields (in the others input Tab?)
+TODO: Sat Modes:
+http://www.amsat.org/amsat/intro/sats_faq.html#RTFToC5
+http://www.sckans.edu/~sireland/radio/amsat.html
+
+A - This mode requires a 2 meter SSB/CW transmitter and a 10 meter SSB/CW receiver and supports CW and voice.
+B - This mode requires a 70 cm SSB/CW transmitter and a 2 meter SSB/CW receiver and supports CW and voice. Some satellites also support RTTY and SSTV in this mode.
+J -> V Uplink and U downlink
+JA - This mode stands for J Analog and requires a 2 meter SSB/CW transmitter and a 70 cm SSB/CW receiver and supports CW, voice.
+JD - This mode stands for J Digital and requires a 2 meter FM transmitter and a 70 cm SSB/CW receiver and supports packet.
+
+K - This mode requires a 15 meter SSB/CW transmitter and a 10 meter SSB/CW receiver and supports CW and voice. This mode is unique in that it can be done with a simple HF rig.
+S - This mode requires a 70 cm SSB/CW transmitter and a 2.4 GHz SSB/CW receiver and supports CW and voice. Many people use a 2.4 GHz to 2 meter converter with a 2 meter SSB/CW receiver instead of buying a 2.4 GHz SSB/CW receiver.
+T - This mode requires a 15 meter SSB/CW transmitter and a 2 meter SSB/CW receiver and supports CW and voice.
+KT, KA, BS, Some satellites have dual modes that operate simultaneously. For example, AO-13 can operate in mode BS which means that it can do both mode B and mode S simultaneously. Other common dual modes are KT and KA.
+
+Mode V
+Mode U
+Mode U/V -> B
+</SATELLITE SUPPORT>
+
+TODO: Code a way to sort the bands/modes in the "setuppagebandsmodes.cpp
+
+TODO: Create an "updateKLog" class to manage all the release updates
+so there is a way to detect the version of KLog and upgrade the DB to the latest.
+
+
+TODO:
+The following fields may add information, even if the qsl has not been rcvd/sent
+<QSL_RCVD_VIA:1>B <QSL_SENT_VIA:1>B
+
+TODO: showStatusOfDXCC should be executed when band change.
+TODO: bandComboBox is populated with TOO much modes (repeated!).
+
+TODO: Add color support: messages for slotQRZTextChanged
+TODO: Add color support: log?
+
+TODO: SetupPageColors: Check the style in the buttons as the rounds are lost when I change the color!!
+
+TODO: MainWindow::processConfigLine:  add support for the cluster data.
+TODO: Check when to connect the DXCluster and when no, it tries twice or more...
+
+TODO: Awards: make a function to calculate the total.
+
+TODO: Working on the dxCluster: Tool to save the DXCluster in a file (for further analysis).
+
+TODO: Color support: Add needed, worked, confirmed, neutral colors to the configuration dialog.
+TODO: Color support: Support the bar when a QRZ is entered.
+TODO: Color support: Calculate a color for the log.
+
+TODO: World::getDXStatus: Calculate the algorithm to know the different status for a DXCC (confirmed, worked, confirmed in another band, ,...)
+TODO: World:: Maybe the color should be returned from the World class
+
+TODO: Check the readDataFromUI. QSO are not added when in contest.
+TODO: Check that New Log, Open, ... somewhere the log table is removed from the DB!
+
+TODO: The confirmed WAZ number is not properly calculated.
+
+TODO: GUI: Add in the input box a combobox to change the CQZ
+TODO: GUI: Add in the input box a combobox to change the ITUZ
+TODO: GUI: Add in the input box a combobox to change the DXCC
+
+TODO: In CQWWSSB, when editing QSO the SRX, Points, multiplier, ... are not sent to the edit so after "OK", those data are lost.
+
+TODO: MainWindow::slotQsoDeleteFromLog: Add the CALL to the message before detele a QSO.
+
+TODO: Search GUI: add multi-selection QSO to do the same actions inmultiple QSO.
+
+
+TODO: When importing ADIF, update the logview sometimes... just to show the progress.
+TODO: When importing ADIF: Only shows the ProgresDialog when the number is low >1000 <14000 investigate
+TODO: Import Cabrillo
+
+
+
+
+TODO: Add the Find QSOs to QSL.
+TODO: Code the DX-Cluster connection.
+
+
+TODO: To check how can I order the columns in the log or in the search QTableView. Now the order depends only on the order of the SQL table.
+
+TODO: When mofiying a cell directly in the log, it is possible to select a mode/band that is not actually active in the configuration.
+
+TODO: Slot: If (only)eqsl/lotw is sent/rec, the QSL_RCVD_VIA should be E
+
+TODO: Code a Tool to get statistcs for the contests, some kind of post contest tool.
+	http://www.qsl.net/3v4-002/Contests/2011%20CQ-WW-SSB%203V8SS/index.htm
+
+TODO: Be able to send scores to: http://www.cqcontest.ru/help/developers.jsp
+
+
+TODO: Read the IOTA information in the qsoToEdit
+TODO: Create an update CTY.DAT without overwriting the current data. Just Adding and correcting (asking) if data is already there but different.
+TODO: Create an export CTY.DAT file to create a CTY.DAT file with ALL the data in the current "world".
+
+
+
+FILEMANAGER
+TODO: adifLogExportToFile: Count the marked QSO and adjust the numberOfQsos
+TODO: FileManager::adifReadLog: Optimize the dialog (maybe updating only each 100 or as in KLog)
+TODO: FileManager::adifReadLog: Add a semaphore/lock or similar to avoid running the same method twice or more at the same time... or at least the same file.
+        It seems that now it "serializes" the import...
+TODO: Check that FileManager::adifLogExportToFile is exporting ALL the DB fields.
+TODO: FileManager::adifLogExportToFile code a progress dialog for exporting.
+TODO: When importing ADIF: Check if all the QSO have all the mandatory fields and warn the user if not.
+
+Optimization: The ADIF import is very slow. Optimization is recommended.
+
+
+IMPROVEMENT: Improve the result of the log printing.
+
+DONE: TODO: Working on the DB version update functions
+DONE: MainWindow::showAwards Remove "empty CQZ" when counting to avoid having 41 CQ zones
+DONE: Code the color configuration for status of an entity (needed/worked/confirmed).
+DONE: Color support: Calculate a color for the search results.
+DONE: Color support: Calculate a color for the DXCluster.
+DONE: TODO: Colors: Reconfigure the colors needs KLog to be restarted.
+DONE: Working on the dxCluster: Color support, identify the different kind of lines... DX de, normal spots, comments, ...
+DONE: Working on setAwardDXCC: When adding if a pair is already entered but we are going to add a confirmed status, modify it.
+DONE: Right click on log to show a to edit QSO.
+DONE: Right click on log to show a QSL received.
+DONE: Right click on log to remove a QSO.
+DONE: Right click on log to show a QSL sent.
+TODO: Right click on search to remove a QSO.
+DONE: Right click on search to show a QSL reception.
+DONE: Right click on search to show a QSL sent.
+DONE: Right click on search to show to edit QSO.
+DONE: Added a select/unselect all button to the search QSO tab.
+DONE: Search QSO to send
+DONE: Add a button to export to ADIF the content of searchResultsTreeWidget
+
+DONE: When importing ADIF, if the CQZ/ITUZ/DXCC is empty, calculate and add it.
+DONE: Not export ADIF fields if "N":
+DONE: Print the log.
+DONE: TODO: Time in UTC
+DONE: TODO: Log in real time
+DONE: Double click on cluster to select
+DONE: TODO: When double clicking on a DX-Spot, frequency should be also copied to inputbox
+DONE: TODO: When a DX-Spot is selected, the DX-Entity and status should be shown.
+DONE: TODO: DXCluster: Connect, disconnect and connect again does not work
+DONE: TODO: Add a field in Mainwindow to manage RX_PWR
+DONE: TODO: slotclearbuttons->Colors to default
+
+TODO: Recalculate DXCC Status when deleting/modiying QSO - void Awards::recalculateAwards()
