@@ -1,3 +1,0 @@
-Installing KLog on a OSX system is easy.
-
-Just click and drop the icon into the Applications folder
