@@ -49,7 +49,7 @@ class DXClusterWidget : public QWidget
 
     void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
     void setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy );
-
+    void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
 
 
     ~DXClusterWidget();

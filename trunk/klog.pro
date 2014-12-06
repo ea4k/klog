@@ -9,9 +9,21 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     QT *= printsupport
     QT += widgets
 }
-
+unix {
+    macx {
+        TARGET = KLog
+        #QMAKE_LFLAGS += -F/Library/Frameworks
+        #LIBS += -framework TheFramework
+        #SOURCES += windowinfo_mac.cpp
+    } else {
+        #SOURCES += windowinfo_x11.cpp
+        TARGET = klog
+    }
+} else {
+    TARGET = klog
+}
 # greaterThan(QT_MAJOR_VERSION, 4): QT += widgets core gui sql network
-TARGET = klog
+#TARGET = klog
 CONFIG += app_bundle
 CONFIG += static
 TEMPLATE = app
