@@ -552,6 +552,13 @@ QStringList DXClusterWidget::readItem(QListWidgetItem * item)
 
 }
 
+void DXClusterWidget::setDXClusterServer(const QString &clusterToConnect, const int portToConnect)
+{
+    server = clusterToConnect;
+    port = portToConnect;
+    //qDebug() << "DXClusterWidget::setDXClusterServer: " << server << ":"<< QString::number(port)  << endl;
+}
+
 /***************************************************************************
 ** This is an auxiliary class intended to provide color to the DX-Cluster **
 ** spots.                                                                 **

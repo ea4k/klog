@@ -1,3 +1,6 @@
+TBD - 0.9.1
+- Bugfix: Selected DX-Cluster servers were not used to connect. (TNX DL6FBS)
+
 November-2014 - 0.9.0
 - Ensures the ASCII requirement of ADIF.
 - Updated the Preferences dialog.

@@ -376,10 +376,10 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     // UI DX
 
     // CLUSTER
-
+    dxClusterWidget = new DXClusterWidget(dxclusterServerToConnect , dxclusterServerPort, this);
     //dxClusterWidget = new DXClusterWidget(this);
     //QWidget *dxClusterTabWidget = new QWidget;
-    dxClusterWidget = new DXClusterWidget(dxclusterServerToConnect , dxclusterServerPort, this);
+
 
     // </CLUSTER>
 
@@ -398,6 +398,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     {
        exit(0);
     }
+
 
     createUI();
     createlogModel();
@@ -4299,20 +4300,21 @@ bool MainWindow::processConfigLine(const QString _line){
         }
     }
     else if (values.at(0) =="DXCLUSTERSERVERTOUSE"){
-        //dxClusterServerToUse=value;
-
         aux = value;  //dxfun.com:8000
         if (aux.contains(':'))
         {
             dxclusterServerToConnect = (aux.split(':', QString::SkipEmptyParts)).at(0);
             dxclusterServerPort = ((aux.split(':', QString::SkipEmptyParts)).at(1)).toInt();
         }
-        if ((dxclusterServerToConnect.length()< 3) || (dxclusterServerPort < 0))
-        {
+
+        if ((dxclusterServerToConnect.length()< 3) || (dxclusterServerPort <= 0))
+        {            
             dxclusterServerToConnect = "dxfun.com";
             dxclusterServerPort = 8000;
         }
+        dxClusterWidget->setDXClusterServer(dxclusterServerToConnect, dxclusterServerPort);       
     }
+
 
     else if(values.at(0)=="POWER")
     {
