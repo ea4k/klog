@@ -2,7 +2,7 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
-
+Bug: Check if the dxcluster configuration to show or not confirmed/worked works properly
 
 KLog 0.0.4
 TODO: when File New:
