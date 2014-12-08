@@ -1,0 +1,254 @@
+#include "setuppageworldeditor.h"
+
+
+
+SetupPageWorldEditor::SetupPageWorldEditor(QWidget *parent) : QWidget(parent)
+{
+    //qDebug() << "SetupPageWorldEditor::SetupPageWorldEditor"  << endl;
+    //worldPanel = new QWidget;
+
+    world = new World();
+
+    setupEntityDialog = new SetupEntityDialog();
+
+    worldModel = new QSqlRelationalTableModel(this);
+    worldView = new QTableView;
+    worldView->setContextMenuPolicy(Qt::CustomContextMenu);
+    worldView->setSortingEnabled(true);
+
+
+    createWorldModel();
+    createWorldPanel();
+
+    worldView->setCurrentIndex(worldModel->index(0, 0));
+
+    addEntityPushButton = new QPushButton;
+    delEntityPushButton = new QPushButton;
+    editEntityPushButton = new QPushButton;
+    exportWorldPushButton  = new QPushButton;
+    loadWorldPushButton  = new QPushButton;
+
+    addEntityPushButton->setText("Add");
+    delEntityPushButton->setText("Delete");
+    editEntityPushButton->setText("Edit");
+
+    exportWorldPushButton->setText("Export World");
+    loadWorldPushButton->setText("Import World");
+
+    addEntityPushButton->setEnabled(false);
+    delEntityPushButton->setEnabled(false);
+    editEntityPushButton->setEnabled(false);
+
+    addEntityPushButton->setToolTip("Still not implemented.");
+    delEntityPushButton->setToolTip("Still not implemented.");
+    editEntityPushButton->setToolTip("Still not implemented.");
+
+    exportWorldPushButton->setEnabled(false);
+    loadWorldPushButton->setEnabled(false);
+    exportWorldPushButton->setToolTip("Still not implemented.");
+    loadWorldPushButton->setToolTip("Still not implemented.");
+
+
+    QHBoxLayout *buttonsLayout = new QHBoxLayout;
+    buttonsLayout->addWidget(exportWorldPushButton);
+    buttonsLayout->addWidget(loadWorldPushButton);
+    buttonsLayout->addSpacerItem(new QSpacerItem(10,0,QSizePolicy::Expanding,QSizePolicy::Maximum));
+    buttonsLayout->addWidget(addEntityPushButton);
+    buttonsLayout->addWidget(editEntityPushButton);
+    buttonsLayout->addWidget(delEntityPushButton);
+/*
+    QHBoxLayout *wbuttonsLayout = new QHBoxLayout;
+    wbuttonsLayout->addSpacerItem(new QSpacerItem(10,0,QSizePolicy::Expanding,QSizePolicy::Maximum));
+    wbuttonsLayout->addWidget(exportWorldPushButton);
+    wbuttonsLayout->addWidget(loadWorldPushButton);
+
+    QHBoxLayout *buttonsLayout = new QHBoxLayout;
+    buttonsLayout->addLayout(wbuttonsLayout);
+    buttonsLayout->addLayout(ebuttonsLayout);
+*/
+    QVBoxLayout *layout = new QVBoxLayout;
+
+    layout->addWidget(worldView);
+    layout->addLayout(buttonsLayout);
+
+    setLayout(layout);
+
+    createActions();
+
+}
+
+SetupPageWorldEditor::~SetupPageWorldEditor()
+{
+    //qDebug() << "SetupPageWorldEditor::~SetupPageWorldEditor"  << endl;
+
+}
+
+void SetupPageWorldEditor::createWorldPanel()
+{
+
+    worldView->setModel(worldModel);
+    QString stringQuery = QString("SELECT * FROM entity");
+    QSqlQuery query(stringQuery);
+    QSqlRecord rec = query.record(); // Number of columns
+    int columns = rec.count();
+
+    for (int i = 0; i < columns; i++ ){
+        worldView->setColumnHidden(i, true);
+    }
+
+    columns = rec.indexOf("mainprefix");
+    worldView->setColumnHidden(columns, false);
+    columns = rec.indexOf("name");
+    worldView->setColumnHidden(columns, false);
+    columns = rec.indexOf("dxcc");
+    worldView->setColumnHidden(columns, false);
+    columns = rec.indexOf("continent");
+    worldView->setColumnHidden(columns, false);
+    columns = rec.indexOf("cqz");
+    worldView->setColumnHidden(columns, false);
+    columns = rec.indexOf("ituz");
+    worldView->setColumnHidden(columns, false);
+    columns = rec.indexOf("utc");
+    worldView->setColumnHidden(columns, false);
+    columns = rec.indexOf("latitude");
+    worldView->setColumnHidden(columns, false);
+    columns = rec.indexOf("longitude");
+    worldView->setColumnHidden(columns, false);
+    columns = rec.indexOf("deleted");
+    worldView->setColumnHidden(columns, false);
+    columns = rec.indexOf("sincedate");
+    worldView->setColumnHidden(columns, false);
+    columns = rec.indexOf("todate");
+    worldView->setColumnHidden(columns, false);
+
+
+    worldView->setItemDelegate(new QSqlRelationalDelegate(this));
+    worldView->setSelectionMode( QAbstractItemView::SingleSelection);
+    worldView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    worldView->resizeColumnsToContents();
+    worldView->horizontalHeader()->setStretchLastSection(true);
+
+}
+
+void SetupPageWorldEditor::createWorldModel()
+{
+/*
+    WORLD_DXCCid = 0,
+    WORLD_Nameid = 1,
+    WORLD_MainPrefix = 2,
+    WORLD_CQZ = 3,
+    WORLD_ITUZ = 4,
+    WORLD_Cont = 5
+
+*/
+
+    QString stringQuery = QString("SELECT * FROM entity");
+    QSqlQuery q(stringQuery);
+    QSqlRecord rec = q.record();
+
+    int nameCol;
+
+    //worldModel = new QSqlRelationalTableModel(this);
+    worldModel->setTable("entity");
+
+    nameCol = rec.indexOf("mainprefix");
+    worldModel->setSort(nameCol, Qt::AscendingOrder);
+
+    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Prefix"));
+    nameCol = rec.indexOf("name");
+    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Entity"));
+    nameCol = rec.indexOf("dxcc");
+    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("ARRL id"));
+    nameCol = rec.indexOf("continent");
+    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Continent"));
+    nameCol = rec.indexOf("cqz");
+    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("CQ Zone"));
+    nameCol = rec.indexOf("ituz");
+    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("ITU Zone"));
+    nameCol = rec.indexOf("utc");
+    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("UTC"));
+    nameCol = rec.indexOf("latitude");
+    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Latitude"));
+    nameCol = rec.indexOf("longitude");
+    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Longitude"));
+
+    nameCol = rec.indexOf("deleted");
+    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Deleted"));
+
+    nameCol = rec.indexOf("sincedate");
+    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Since Date"));
+    nameCol = rec.indexOf("deleted");
+    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("To Date"));
+
+    worldModel->select();
+}
+
+void SetupPageWorldEditor::createActions()
+{
+    //qDebug() << "SetupPageWorldEditor::createActions" << endl;
+    connect(addEntityPushButton, SIGNAL(clicked()), this, SLOT(slotAddButtonClicked()) );
+    connect(delEntityPushButton, SIGNAL(clicked()), this, SLOT(slotDelButtonClicked()) );
+    connect(editEntityPushButton, SIGNAL(clicked()), this, SLOT(slotEditButtonClicked()) );
+
+    connect(worldView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickEntity( const QModelIndex& ) ) );
+
+    //SIGNAL received from the setupEntityDialog
+    // void entityAdded(const QStringList _qs); // entity
+    connect(setupEntityDialog, SIGNAL(entityAdded(QStringList)), this, SLOT(slotAnalyzeEntityAddedSignal(QStringList) ) );
+
+}
+
+void SetupPageWorldEditor::slotAnalyzeEntityAddedSignal(const QStringList _qs)
+{
+    /*
+    //qDebug() << "SetupPageWorldEditor::slotAnalyzeEntityAddedSignal\n" <<
+                _qs.at(0) << "\n" <<
+                _qs.at(1) << "\n" <<
+                _qs.at(2) << "\n" <<
+                _qs.at(3) << "\n" <<
+                _qs.at(4) << "\n" <<
+                _qs.at(5) << "\n" <<
+                _qs.at(6) << "\n" <<
+                _qs.at(7) << "\n" <<
+                _qs.at(8) << "\n" <<
+                _qs.at(9) << "\n" <<
+                _qs.at(10) << "\n" << endl;
+                */
+}
+
+void SetupPageWorldEditor::slotAddButtonClicked()
+{
+    //qDebug() << "SetupPageWorldEditor::slotAddButtonClicked" << endl;
+    setupEntityDialog->exec();
+    //TODO
+}
+
+void SetupPageWorldEditor::slotDelButtonClicked()
+{
+    //qDebug() << "SetupPageWorldEditor::slotDelButtonClicked" << endl;
+    //TODO
+}
+
+void SetupPageWorldEditor::slotEditButtonClicked()
+{
+    //qDebug() << "SetupPageWorldEditor::slotEditButtonClicked" << endl;
+    //TODO
+}
+
+void SetupPageWorldEditor::slotDoubleClickEntity( const QModelIndex & index)
+{
+    //qDebug() << "SetupPageWorldEditor::slotDoubleClickEntity" << endl;
+    //TODO
+
+    QSqlQuery query;
+    QString queryString;
+    int row = index.row();
+
+
+    //qDebug() << "SetupPageWorldEditor::slotDoubleClickEntity: ARRLid: " << QString::number((worldModel->index(row, 8)).data(0).toInt()) << endl;
+
+
+
+}
+
+
