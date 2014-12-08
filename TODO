@@ -3,6 +3,7 @@ It is not fixed... new features may be prioritized or not added without any noti
 Feel free to request any roadmap change if you have any suggestion.
 
 Bug: Check if the dxcluster configuration to show or not confirmed/worked works properly
+Bug: When right-click on search if the QSL sent was already sent, in the QSL rec the QSL sent options are offered
 
 KLog 0.0.4
 TODO: when File New:
