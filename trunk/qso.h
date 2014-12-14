@@ -43,13 +43,15 @@ class QSO
 public:
     QSO();
     ~QSO();
+    void clear();
+
 private:
     //Strings
     QString address, address_int, call, check, contestClass, comment, comment_intl, contacted_op,
             contest_id, email, eq_call, fists, my_fists, guest_op, ms_shower, my_city,
             my_city_intl, name, name_intl, my_name, my_name_intl, my_postal_code, my_postal_code_intl,
             my_rig, my_rig_intl, my_sig, my_sig_intl, my_sig_info, my_sig_info_intl, my_street,
-            my_street_intl, notes, notes_intl, operator_call, owner_callsign, pxf, precedence,
+            my_street_intl, notes, notes_intl, operator_call, owner_callsign, pfx, precedence,
             public_key, qslmsg, qslmsg_intl, qsl_via, qth, qth_intl, rig, rig_intl, rst_rcvd, rst_sent,
             sat_mode, sat_name, sig, sig_intl, sig_info, sig_info_intl, skcc, srx_string, stx_string,
             station_callsign, web;
