@@ -3477,7 +3477,7 @@ void MainWindow::slotDoubleClickSearch(QTreeWidgetItem * item, int)
 
 void MainWindow::slotRighButtonSearch(const QPoint& pos)
 {
-    qDebug() << "MainWindow::slotRighButtonSearch"  << endl;
+    //qDebug() << "MainWindow::slotRighButtonSearch"  << endl;
 
 
     QTreeWidgetItem *item = searchResultsTreeWidget->itemAt(pos);
@@ -3485,63 +3485,63 @@ void MainWindow::slotRighButtonSearch(const QPoint& pos)
 
     if (item)
     {
-        qDebug() << "MainWindow::slotRighButtonSearch ITEM=true"  << endl;
+        //qDebug() << "MainWindow::slotRighButtonSearch ITEM=true"  << endl;
         // 6 is the column in the searchResultsTreeWidget where the id is saved
         if (stationCallSignShownInSearch)
         {
-            qDebug() << "MainWindow::slotRighButtonSearch stationCallSignShownInSearch = true"  << endl;
+            //qDebug() << "MainWindow::slotRighButtonSearch stationCallSignShownInSearch = true"  << endl;
             _qsoID = ((item)->text(7)).toInt();
-            qDebug() << "MainWindow::slotRighButtonSearch QSO1: " << QString::number(_qsoID)  << endl;
+            //qDebug() << "MainWindow::slotRighButtonSearch QSO1: " << QString::number(_qsoID)  << endl;
         }
         else
         {
-            qDebug() << "MainWindow::slotRighButtonSearch stationCallSignShownInSearch = false"  << endl;
+            //qDebug() << "MainWindow::slotRighButtonSearch stationCallSignShownInSearch = false"  << endl;
             _qsoID = ((item)->text(6)).toInt();
-            qDebug() << "MainWindow::slotRighButtonSearch QSO2: " << QString::number(_qsoID)  << endl;
+            //qDebug() << "MainWindow::slotRighButtonSearch QSO2: " << QString::number(_qsoID)  << endl;
         }
-        qDebug() << "MainWindow::slotRighButtonSearch QSO: " << QString::number(_qsoID)  << endl;
+        //qDebug() << "MainWindow::slotRighButtonSearch QSO: " << QString::number(_qsoID)  << endl;
         showMenuRightButtonSearchCreateActions();
-        qDebug() << "MainWindow::slotRighButtonSearch -05"   << endl;
+        //qDebug() << "MainWindow::slotRighButtonSearch -05"   << endl;
         righButtonSearchMenu(_qsoID);
-        qDebug() << "MainWindow::slotRighButtonSearch -06"   << endl;
+        //qDebug() << "MainWindow::slotRighButtonSearch -06"   << endl;
     }else
     {
-        qDebug() << "MainWindow::slotRighButtonSearch ITEM=false"  << endl;
+        //qDebug() << "MainWindow::slotRighButtonSearch ITEM=false"  << endl;
         return;
     }
 
-    qDebug() << "MainWindow::slotRighButtonSearch: "  << QString::number(_qsoID) << endl;
+    //qDebug() << "MainWindow::slotRighButtonSearch: "  << QString::number(_qsoID) << endl;
 
 }
 
 void MainWindow::righButtonSearchMenu(const int trow)
 {
-    qDebug() << "MainWindow::slotshowRighButtonSearchMenu:  " << QString::number(trow) << endl;
+    //qDebug() << "MainWindow::slotshowRighButtonSearchMenu:  " << QString::number(trow) << endl;
 
     bool qslReceived = isQSLReceived(trow);
     bool qslSent = isQSLSent(trow);
-qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -01"  << endl;
+
     QMenu menu(this);
-qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -02"  << endl;
+
     menu.addAction(delQSOFromSearchAct);
-    qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -03"  << endl;
+    //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -03"  << endl;
     delQSOFromSearchAct->setData(trow);
-    qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -04"  << endl;
+    //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -04"  << endl;
 
     menu.addAction(qsoToEditFromSearchAct);
-    qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -05"  << endl;
+    //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -05"  << endl;
     qsoToEditFromSearchAct->setData(trow);
-    qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -06"  << endl;
+    //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -06"  << endl;
 
     menu.addSeparator();
-qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -07"  << endl;
+    //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -07"  << endl;
     if (qslSent)
     {
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSLSent"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSLSent"  << endl;
     }
     else
     {
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Sent"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Sent"  << endl;
         QMenu *menuSentQsl = menu.addMenu(tr("QSL Send"));
         menuSentQsl->addAction(qslSentViaBureauFromSearchAct);
         menuSentQsl->addAction(qslSentViaDirectFromSearchAct);
@@ -3549,49 +3549,49 @@ qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -07"  << endl;
         qslSentViaBureauFromSearchAct->setData(trow);
         qslSentViaDirectFromSearchAct->setData(trow);
         qslSentRequestedAct->setData(trow);
-qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -end qsl not sent"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -end qsl not sent"  << endl;
 
     }
 
     if (qslReceived)
     {
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSLRec"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSLRec"  << endl;
     }
     else
     {
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec"  << endl;
         QMenu *menuRecQsl = menu.addMenu(tr("QSL Rcvd"));
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 01"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 01"  << endl;
         menuRecQsl->addAction(qslRecViaBureauFromSearchAct);
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 02"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 02"  << endl;
         menuRecQsl->addAction(qslRecViaBureauMarkReqFromSearchAct);
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 03"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 03"  << endl;
         menuRecQsl->addAction(qslRecViaDirectFromSearchAct);
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 04"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 04"  << endl;
         menuRecQsl->addAction(qslRecViaDirectMarkReqFromSearchAct);
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 05"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 05"  << endl;
         menuRecQsl->addAction(qslRecRequestedAct);
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 06"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 06"  << endl;
         
         qslRecViaBureauFromSearchAct->setData(trow);
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 07"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 07"  << endl;
         qslRecViaBureauMarkReqFromSearchAct->setData(trow);
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 08"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 08"  << endl;
         qslRecViaDirectFromSearchAct->setData(trow);
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 09"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 09"  << endl;
         qslRecViaDirectMarkReqFromSearchAct->setData(trow);
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 10"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 10"  << endl;
         qslRecRequestedAct->setData(trow);
-        qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -end qsl not rec"  << endl;
+        //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -end qsl not rec"  << endl;
     }
-qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -end qsl"  << endl;
+    //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -end qsl"  << endl;
     menu.exec(QCursor::pos());
-    qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -END"  << endl;
+    //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -END"  << endl;
 }
 
 void MainWindow::slotRighButtonFromLog(const QPoint& pos)
 {
-    qDebug() << "MainWindow::slotshowRighButtonFromLog"  << endl;
+    //qDebug() << "MainWindow::slotshowRighButtonFromLog"  << endl;
     int row = (logView->indexAt(pos)).row();
     showMenuRightButtonFromLogCreateActions();
     righButtonFromLogMenu(row);
@@ -3599,7 +3599,7 @@ void MainWindow::slotRighButtonFromLog(const QPoint& pos)
 
 void MainWindow::righButtonFromLogMenu(const int trow)
 {
-    qDebug() << "MainWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << endl;
+    //qDebug() << "MainWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << endl;
     int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
     bool qslReceived = isQSLReceived(_qsoID);
     bool qslSent = isQSLSent(_qsoID);
@@ -3651,7 +3651,7 @@ void MainWindow::righButtonFromLogMenu(const int trow)
 
 void MainWindow::showMenuRightButtonSearchCreateActions()
 {
-qDebug() << "MainWindow::showMenuRightButtonSearchCreateActions" << endl;
+ //qDebug() << "MainWindow::showMenuRightButtonSearchCreateActions" << endl;
 
     delQSOFromSearchAct = new QAction(tr("&Delete"), this);
     delQSOFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_D);

@@ -52,8 +52,7 @@ SOURCES += main.cpp \
     helpaboutdialog.cpp \
     setuppageworldeditor.cpp \
     setupentitydialog.cpp \
-    startwizard.cpp \
-    qso.cpp
+    startwizard.cpp
 HEADERS += setupdialog.h \
     mainwindow.h \
     world.h \
@@ -78,8 +77,7 @@ HEADERS += setupdialog.h \
     startwizard.h \
     downloadcty.h \
     dataproxy.h \
-    dataproxy_sqlite.h \
-    qso.h
+    dataproxy_sqlite.h
 OTHER_FILES += TODO\
     README-DEVEL\
     tips-for-devel.txt \

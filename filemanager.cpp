@@ -75,30 +75,46 @@ bool FileManager::checkADIFValidFormat(const QStringList _qs)
 {
     QStringList qs = _qs;
 
+
     if (qs.count()!= 2)
     {
         //qDebug() << "FileManager::checkADIFValidFormat-0 (not two) " << endl;
         return false;
     }
 
-    //qDebug() << "FileManager::checkADIFValidFormat: " << qs.at(0) << endl;
-    //qDebug() << "FileManager::checkADIFValidFormat: " << qs.at(1) << endl;
+    QString q0 = qs.at(0);
+    QString q1 = qs.at(1);
 
-    int i = (qs.at(0)).count(":");
-    if (i != 1)
+   //qDebug() << "FileManager::checkADIFValidFormat: " << qs.at(0) << endl;
+   //qDebug() << "FileManager::checkADIFValidFormat: " << qs.at(1) << endl;
+
+    int len = 0;
+    int i = (qs.at(0)).count(":");       
+
+    if (i == 2)
+    { // DATE:8:D / 20141020
+        len = (q0.section(':', 1, 1)).toInt();
+    }
+    else if (i == 1)
+    { // DATE:8 / 20141020
+        len = (q0.section(':', 1, 1)).toInt();
+    }
+    else
     {
         //qDebug() << "FileManager::checkADIFValidFormat-1 " << endl;
         return false;
     }
-    i = (qs.at(0)).indexOf(":");
-    i = (qs.at(0)).length() - i -1;
+
+    //i = (qs.at(0)).indexOf(":");
+    //i = (qs.at(0)).length() - i -1;
 
     //qDebug() << "i = " << QString::number(i) << "/" << qs.at(0) << endl;
 
-    int len = ( (qs.at(0)).right(i)).toInt();
+
+    //len = ( (qs.at(0)).right(i)).toInt();
     //qDebug() << "len = " << QString::number(len) << endl;
 
-    if ( (qs.at(1)).length() != len )
+    if ( (q1).length() != len )
     {
         //qDebug() << "FileManager::checkADIFValidFormat-2: " << (qs.at(1)) << " - " << QString::number((qs.at(1)).length()) << "/" << QString::number(len) << endl;
         return false;
@@ -2471,7 +2487,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
 //qDebug() << "FileManager::processQsoReadingADIF: " << _line.at(0) << endl;
     //qDebug() << "FileManager::processQsoReadingADIF: " << _line.join("/") << endl;
 
-
+    int i = -1;
     QDate date;
     QTime time;
     QStringList qs = _line;
@@ -2485,7 +2501,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     int dxcc = 0;
     int cqz = 0;
     int ituz = 0;
-    int i; // Aux value
+    //int i; // Aux value
     QString aux; // Aux string
     QString qrzCall = "";
 
@@ -2516,11 +2532,32 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
             //qDebug() << "FileManager::processQsoReadingADIF: (oneField)" << oneField << endl;
             if (checkADIFValidFormat(oneField))
             {
-                field = oneField.at(0).trimmed();
-                data = oneField.at(1).trimmed();
+                i = (qs.at(0)).count(":");
+                field = (oneField.at(0)).trimmed(); // Needs to be cleared FIELD:4:D
+                data = (oneField.at(1)).trimmed();
                 data = checkAndFixASCIIinADIF(data);
-                lenght = field.indexOf(":");
-                field = field.left(lenght);
+
+                if (i == 2)
+                { // DATE:8:D / 20141020
+                    lenght = (field.section(':', 1, 1)).toInt();
+                    field = field.section(':', 0, 0);
+                }
+                else if (i == 1)
+                { // DATE:8 / 20141020
+                    lenght = (field.section(':', 1, 1)).toInt();
+                    field = field.section(':', 0, 0);
+                }
+                else
+                {
+                    //qDebug() << "FileManager::checkADIFValidFormat-1 " << endl;
+                    //return false;
+                }
+
+                //field = oneField.at(0).trimmed();
+                //data = oneField.at(1).trimmed();
+
+                //lenght = field.indexOf(":");
+                //field = field.left(lenght);
                 //qDebug() << "FileManager::processQsoReadingADIF (field/data): " << field << "/" << data << endl;
 
                 if (field == "CALL")
