@@ -1,5 +1,5 @@
 December-2013 - 0.9.0.3RC1
-- Bugfix: ADIF was not properly imported when Fields where using the Type of data optional field. (TNX EB1TR)
+- Bugfix: ADIF was not properly imported when Fields where using the Type of data optional field preventing logs from Logger32 being imported. (TNX EB1TR)
 
 November-2014 - 0.9.0.2
 - Bugfix: Right-click on search result sometimes caused KLog to crash.
