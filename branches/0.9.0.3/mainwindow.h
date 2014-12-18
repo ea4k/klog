@@ -114,11 +114,15 @@ private slots:
     void slotQRZTextChanged();
     void slotSRXTextChanged();
     void slotSTXTextChanged();
+    void slotLocatorTextChanged();
+    void slotMyLocatorTextChanged();
+
     void slotSearchBoxTextChanged();
     void slotSearchExportButtonClicked();
     void slotSearchBoxSelectAllButtonClicked();
     void slotSearchClearButtonClicked();
     void slotSearchBoxSelectionChanged();
+    void slotSearchBoxReSearchButtonClicked();
 
     void slotModeComboBoxChanged();
     void slotBandComboBoxChanged();
@@ -189,7 +193,7 @@ private slots:
     void slotDoubleClickLog( const QModelIndex & index);
     void slotDoubleClickSearch( QTreeWidgetItem* item, int); // Double click on a QSO in the search box
 
-    //doubleClicked ( const QModelIndex & index )
+    void slotRecalculateAwardsButtonClicked();
 
     //SEARCH
     void slotRighButtonSearch(const QPoint& pos);
@@ -282,6 +286,8 @@ private:
 
 
     void qsoToEdit (const int _qso);
+    void showInfoFromLocators(const QString _loc1, const QString _loc2);
+    void clearInfoFromLocators();
 
     //void showQRZEntityInfo(const QString _qrz);
     void showEntityInfo(const int _enti);
@@ -432,7 +438,8 @@ private:
 
 
     QLineEdit *searchBoxLineEdit;
-    QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton;
+    QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
+    QPushButton *recalculateAwardsButton;
     bool searchSelectAllClicked, stationCallSignShownInSearch;
     bool qslingNeeded;
 

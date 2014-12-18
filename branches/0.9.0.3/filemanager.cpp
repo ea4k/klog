@@ -29,7 +29,7 @@
 
 FileManager::FileManager()
 {
-//qDebug() << "FileManager::FileManager()" << endl;
+qDebug() << "FileManager::FileManager()" << endl;
     ignoreUnknownAlways = false;
     world = new World();
     awards = new Awards();
@@ -143,7 +143,7 @@ bool FileManager::adifLogExport(const QString& _fileName)
 }
 
 bool FileManager::adifLogExportToFile(const QString& _fileName, bool justMarked, bool _qslRequested ){
-//qDebug() << "FileManager::adifLogExportToFile: " << _fileName << endl;
+qDebug() << "FileManager::adifLogExportToFile: " << _fileName << endl;
     bool exportJustMarkedQSO = justMarked;
     bool marked = false;
     bool exportOnlyQSLRequested = _qslRequested;
@@ -1683,7 +1683,7 @@ bool FileManager::cabrilloLogExport(const QString& _fileName, const int _contest
 
 bool FileManager::cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst)
 {
-//qDebug() << "FileManager::cabrilloLogExportCQWWToFile" << _fileName, endl;
+qDebug() << "FileManager::cabrilloLogExportCQWWToFile" << _fileName, endl;
 /*
 START-OF-LOG:
 ARRL-SECTION:
@@ -1935,7 +1935,7 @@ QFile file(_fileName);
 
 bool FileManager::cabrilloLogExportToFile(const QString& _fileName, const int logNconst)
 {
-//qDebug() << "FileManager::cabrilloLogExportToFile" << endl;
+qDebug() << "FileManager::cabrilloLogExportToFile" << endl;
 
     //TODO: Message "You must select a proper file format
     QMessageBox msgBox;
@@ -2484,7 +2484,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
 bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber)
 {
-//qDebug() << "FileManager::processQsoReadingADIF: " << _line.at(0) << endl;
+qDebug() << "FileManager::processQsoReadingADIF: " << _line.at(0) << endl;
     //qDebug() << "FileManager::processQsoReadingADIF: " << _line.join("/") << endl;
 
     int i = -1;

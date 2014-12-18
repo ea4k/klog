@@ -57,7 +57,6 @@ bool Locator::isValidLocator(const QString& tlocator){
 	}
 
 	if (lenght_of_locator != 6) { 
-
 		return false;
 	}else{
 		theChar = testLocator.at(0);
@@ -221,7 +220,7 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
 
 int Locator::getDistance(const double lon1, const double lat1, const double lon2, const double lat2, const bool _imperialSystem){
   //http://en.wikipedia.org/wiki/Haversine_formula
-// qDebug() << "Locator::getDistanceKilometres: MyPos("<< QString::number(lon1) << "/"
+    //qDebug() << "Locator::getDistanceKilometres: MyPos("<< QString::number(lon1) << "/"
 // << QString::number(lat1)  << ") - DxPos(" << QString::number(lon2) << "/" << QString::number(lat2) << ")" << endl;
   double lo1,la1,lo2,la2;
 

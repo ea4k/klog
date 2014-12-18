@@ -121,7 +121,11 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     searchBoxClearButton = new QPushButton(tr("&Clear"), this);
     searchBoxExportButton  = new QPushButton(tr("&Export Highlited"), this);
     searchBoxSelectAllButton  = new QPushButton(tr("&Select All"), this);
+    searchBoxReSearchButton = new QPushButton(tr("&Search"), this);
     searchSelectAllClicked = false;
+
+    recalculateAwardsButton = new QPushButton(tr("Recalculate"), this);
+    recalculateAwardsButton->setToolTip(tr("Click to recalculate the award status"));
 
     scoreTextEdit = new QTextEdit;
 
@@ -1896,6 +1900,7 @@ void MainWindow::createSearchResultsPanel()
     searchBoxClearButton->setToolTip(tr("Clear the searchs"));
     searchBoxExportButton->setToolTip(tr("Export the search result to an ADIF file"));
     searchBoxSelectAllButton->setToolTip(tr("Select/Unselect all the QSO of the box"));
+    searchBoxReSearchButton->setToolTip(tr("Search in the log"));
 
      searchBoxLineEdit->setToolTip(tr("Enter the QRZ to search"));
      searchResultsTreeWidget->setToolTip(tr("Search results"));
@@ -2183,12 +2188,16 @@ void MainWindow::createActionsCommon(){
     connect(rstTXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(rstRXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(operatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(myLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );    
     connect(qslViaLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    connect(myLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(locatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+
     connect(qthLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+
+    connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorTextChanged() ) );
+    connect(myLocatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotMyLocatorTextChanged() ) );
 
 
 //connect(bandComboBox, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
@@ -2229,7 +2238,10 @@ void MainWindow::createActionsCommon(){
     connect(searchBoxExportButton, SIGNAL(clicked()), this, SLOT(slotSearchExportButtonClicked() ) );
     connect(searchBoxClearButton, SIGNAL(clicked()), this, SLOT(slotSearchClearButtonClicked() ) );
     connect(searchBoxSelectAllButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxSelectAllButtonClicked() ) );
+    connect(searchBoxReSearchButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxReSearchButtonClicked() ) );
 
+
+    connect(recalculateAwardsButton, SIGNAL(clicked()), this, SLOT(slotRecalculateAwardsButtonClicked() ) );
 
 //connect(searchResultsTreeWidget, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickSearch( const QModelIndex& ) ) );
 
@@ -2238,6 +2250,13 @@ void MainWindow::createActionsCommon(){
 //SIGNAL dxspotclicked(const QStringList _qs)
     connect(dxClusterWidget, SIGNAL(dxspotclicked(QStringList)), this, SLOT(slotAnalyzeDxClusterSignal(QStringList) ) );
 
+
+}
+
+void MainWindow::slotRecalculateAwardsButtonClicked()
+{
+    //qDebug() << "MainWindow::recalculateAwardsButtonClicked: " << endl;
+    awards->recalculateAwards();
 
 }
 
@@ -2384,7 +2403,6 @@ void MainWindow::slotQRZTextChanged()
         return;
     }
 
-
     world->checkQRZValidFormat(qrzLineEdit->text());
 
 
@@ -2515,6 +2533,13 @@ void MainWindow::slotQRZTextChanged()
     //qDebug() << "MainWindow::slotQRZTextChanged: END" << endl;
 }
 
+
+
+void MainWindow::slotSearchBoxReSearchButtonClicked()
+{
+    slotSearchBoxTextChanged();
+}
+
 void MainWindow::slotSearchClearButtonClicked()
 {
     //qDebug() << "MainWindow::slotSearchClearButtonClicked: " << endl;
@@ -2605,7 +2630,7 @@ void MainWindow::slotSearchExportButtonClicked()
     //qDebug() << "MainWindow::slotSearchExportButtonClicked: to Ask filename" << endl;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
                                kontestDir,
-                               tr("ADIF (*.adi)"));
+                               tr("ADIF (*.adi *.adif)"));
 
     //qDebug() << "MainWindow::slotSearchExportButtonClicked: to call save file" << endl;
     filemanager->adifLogExportMarked(fileName);
@@ -2966,6 +2991,11 @@ void MainWindow::slotClearButtonClicked()
             iotaContinentComboBox->setCurrentIndex(0);
             //iotaNumberLineEdit->setEnabled(false);
             iotaNumberLineEdit->setText("000");
+            continentLabel->setText("");
+            prefixLabel->setText("");
+            cqzLabel->setText("0");
+            ituzLabel->setText("0");
+            clearInfoFromLocators();
             clearBandLabels();
 
             showAwards();
@@ -3361,7 +3391,7 @@ bool MainWindow::saveFileAs()
     QFileDialog dialog(this);
 
     QStringList filters;
-    filters << "ADIF files (*.adi)"
+    filters << "ADIF files (*.adi *.adif)"
             << "Cabrillo files (*.log)"
             << "Any files (*)";
 
@@ -3369,7 +3399,7 @@ bool MainWindow::saveFileAs()
 
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
                         kontestDir,
-                        tr("ADIF files (*.adi);;Cabrillo files (*.log);;Any file (*.*)"));
+                        tr("ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)"));
 
     if ( (fileName.endsWith(".adi", Qt::CaseInsensitive)) || (fileName.endsWith(".log", Qt::CaseInsensitive)) )
     {
@@ -5483,6 +5513,8 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxUpRightAwardsTabLayout->addWidget(qsoNLabelN, 4, 0);
     dxUpRightAwardsTabLayout->addWidget(qsoWorkedQLCDNumber, 4, 1);
     dxUpRightAwardsTabLayout->addWidget(qsoConfirmedQLCDNumber, 4, 2);
+    dxUpRightAwardsTabLayout->addWidget(recalculateAwardsButton, 5, 1);
+
 
 
     awardsTabWidget->setLayout(dxUpRightAwardsTabLayout);
@@ -5500,6 +5532,8 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
 
     QHBoxLayout *dxUpRightButtonsLayout = new QHBoxLayout;
     //dxUpRightLineAndButtonsLayout->addWidget(searchBoxLineEdit);
+
+    dxUpRightButtonsLayout->addWidget(searchBoxReSearchButton);
     dxUpRightButtonsLayout->addWidget(searchBoxClearButton);
     dxUpRightButtonsLayout->addWidget(searchBoxSelectAllButton);
     dxUpRightButtonsLayout->addWidget(searchBoxExportButton);
@@ -5874,7 +5908,7 @@ void MainWindow::slotADIFExport(){
 
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"),
                                kontestDir,
-                               tr("ADIF (*.adi)"));
+                               tr("ADIF (*.adi *.adif)"));
 
 
     filemanager->adifLogExport(fileName);
@@ -5886,7 +5920,7 @@ void MainWindow::slotRQSLExport()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"),
                                kontestDir,
-                               tr("ADIF (*.adi)"));
+                               tr("ADIF (*.adi *.adif)"));
 
 
     filemanager->adifReqQSLExport(fileName);
@@ -5911,7 +5945,7 @@ void MainWindow::slotADIFImport(){
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                      kontestDir,
-                                                     tr("ADIF (*.adi)"));
+                                                     tr("ADIF (*.adi *.adif)"));
     if (fileName.isNull())
     {
     }
@@ -6831,65 +6865,87 @@ void MainWindow::sloteQSLSentComboBoxChanged(){
     }
 }
 
-/*
-void MainWindow::showQRZEntityInfo(const QString _qrz){
-    //qDebug() << "MainWindow::showQRZEntityInfo" << _qrz << endl;
-    QString theQrz = _qrz;
 
-    //if (theQrz.length()<3)
-    //{
-    //    return;
-    //}
-//    int entitygetQRZARRLId(const QString _qrz);
+void MainWindow::showInfoFromLocators(const QString _loc1, const QString _loc2)
+{// Local / DX
+    //qDebug() << "MainWindow::showInfoFromLocators: " << _loc1 << "/" << _loc2 << endl;
+    QString lloc = _loc1.toUpper();
+    QString ldx = _loc2.toUpper();
 
-    infoLabel2->setText(world->getEntityName(currentEntity));
-    //infoLabel2->setText(world->getQRZEntityName(theQrz));
-    //continentLabel->setText( world->getQRZContinentShortName(theQrz) );
-    continentLabel->setText( world->getContinentShortName(currentEntity) );
-    prefixLabel->setText( world->getQRZEntityMainPrefix(theQrz));
-
-    dxLocator = world->getQRZLocator(theQrz);
-
-    int beam = locator->getBeamBetweenLocators(myLocator, dxLocator);
-
-    gradShortLabel->setText( QString::number(beam) );
-
-
-     if (beam >= 180)
-     {
-           gradLongLabel->setText( QString::number(beam -180 ) );
-     }
-     else
-     {
-         gradLongLabel->setText( QString::number(beam + 180 ) );
-     }
-
-
-     //TODO: Add a configuration in the setup to work in milles or Km. The true in the
-     //      getDistanceBetweenLocators should become a variable.
-
-    distShortLabel->setText( QString::number(locator->getDistanceBetweenLocators(myLocator, dxLocator, true) ) );
-    distLongLabel->setText( QString::number(40000 - locator->getDistanceBetweenLocators(myLocator, dxLocator, true) ) );
-
-    if( (world->getQRZCqz(theQrz))>0 )
+    if ( locator->isValidLocator(lloc)  )
     {
-        cqzLabel->setText( QString::number( world->getQRZCqz(theQrz) ) );
+        if ( locator->isValidLocator(ldx)  )
+        {
+
+            int beam = locator->getBeamBetweenLocators(lloc, ldx);
+
+
+            gradShortLabel->setText( QString::number(beam) );
+
+             if (beam >= 180)
+             {
+                   gradLongLabel->setText( QString::number(beam -180 ) );
+             }
+             else
+             {
+                 gradLongLabel->setText( QString::number(beam + 180 ) );
+             }
+
+             distShortLabel->setText( QString::number( locator->getDistanceBetweenLocators(lloc, ldx, imperialSystem) ) );
+             distLongLabel->setText( QString::number( 40000 - locator->getDistanceBetweenLocators(lloc, ldx, imperialSystem) ) );
+        }
+        else
+        {
+            clearInfoFromLocators();
+            return;
+        }
     }
     else
     {
-        cqzLabel->setText("0");
-    }
-
-    if ( (world->getQRZItuz(theQrz))>0  )
-    {
-        ituzLabel->setText( QString::number( world->getQRZItuz(theQrz) ) );
-    }
-    else
-    {
-        ituzLabel->setText("0");
+        clearInfoFromLocators();
+        return ;
     }
 }
-*/
+
+void MainWindow::slotLocatorTextChanged()
+{
+    //qDebug() << "MainWindow::slotLocatorTextChanged: " << locatorLineEdit->text() << endl;
+    if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) )
+    {
+        dxLocator = (locatorLineEdit->text()).toUpper();
+        showInfoFromLocators(myLocator, dxLocator);
+    }
+    else
+    {
+        return;
+    }
+}
+
+void MainWindow::slotMyLocatorTextChanged()
+{
+    //qDebug() << "MainWindow::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << endl;
+
+    if ( locator->isValidLocator((myLocatorLineEdit->text()).toUpper()) )
+    {
+        myLocator = (myLocatorLineEdit->text()).toUpper();
+        //qDebug() << "MainWindow::slotMyLocatorTextChanged: My LOCATOR CHANGED TO: " << myLocator << endl;
+        slotLocatorTextChanged();
+    }
+    else
+    {
+        return;
+    }
+}
+
+
+void MainWindow::clearInfoFromLocators()
+{
+    //qDebug() << "MainWindow::clearInfoFromLocators" << endl;
+    gradShortLabel->setText( "0" );
+    gradLongLabel->setText( "0" );
+    distShortLabel->setText( "0" );
+    distLongLabel->setText( "0" );
+}
 
 void MainWindow::showEntityInfo(const int _enti)
 {
@@ -6903,30 +6959,18 @@ void MainWindow::showEntityInfo(const int _enti)
     infoLabel2->setText(world->getEntityName(_enti));
     continentLabel->setText( world->getContinentShortName(_enti) );
     prefixLabel->setText( world->getEntityMainPrefix(_enti));
-    dxLocator = world->getLocator(_enti);
-    int beam = locator->getBeamBetweenLocators(myLocator, dxLocator);
 
-    gradShortLabel->setText( QString::number(beam) );
+    if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) )
+    {
+        dxLocator = (locatorLineEdit->text()).toUpper();
+    }
+    else
+    {
+        dxLocator = world->getLocator(_enti);
+    }
 
+    showInfoFromLocators (myLocator, dxLocator);
 
-     if (beam >= 180)
-     {
-           gradLongLabel->setText( QString::number(beam -180 ) );
-     }
-     else
-     {
-         gradLongLabel->setText( QString::number(beam + 180 ) );
-     }
-
-
-     //TODO: Add a configuration in the setup to work in milles or Km. The true in the
-     //      getDistanceBetweenLocators should become a variable.
-
-
-    distShortLabel->setText( QString::number( locator->getDistanceBetweenLocators(myLocator, dxLocator, imperialSystem) ) );
-    distLongLabel->setText( QString::number( 40000 - locator->getDistanceBetweenLocators(myLocator, dxLocator, imperialSystem) ) );
-    //distShortLabel->setText( QString::number(locator->getDistanceBetweenLocators(myLocator, dxLocator, true) ) );
-    //distLongLabel->setText( QString::number(40000 - locator->getDistanceBetweenLocators(myLocator, dxLocator, true) ) );
     int i = world->getEntityCqz(_enti);
 
 
