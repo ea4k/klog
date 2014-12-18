@@ -4,15 +4,13 @@ Feel free to request any roadmap change if you have any suggestion.
 
 Bug: Check if the dxcluster configuration to show or not confirmed/worked works properly
 
-KLog 0.0.4
+KLog 0.9.1
 TODO: when File New:
     Clean the DB & query.exec("VACUUM");
+
 TODO: Fix the FileManager::adifReadLog to be able to read logs with several lines per QSO.
-TODO: Add a button to rescore awards
-TODO: Add a button to update the search Box without modifying the text.
 TODO: Add the feature to add and manage several logs.
-TODO: Add a default filename to save ADIF files.
-TODO: Update Bearing/distance/... when changing Locator.
+
 TODO: Update the IOTA continent when modifying QRZ
 TODO: Add the posibility to keep "MY_DATA" from one QSO to the next.
 TODO: Change COMMENT to NOTES to adapt to ADIF 3.0.4 multiline value
@@ -25,23 +23,23 @@ TODO: DXCLuster QLineEdit input should be disabled when not connected.
 TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
 TODO: Pass the version to the filemanager to be able to export the correct version in the ADIF file.
 
-KLog 0.0.5
+KLog 0.9.2
 TODO: Add Satellite support (maybe another Tab) (look this file (below) for details.
 TODO: Add another tab in the botton to list the DXCC status
 TBD - Added the feature to add and manage several logs.
 
-KLog 0.0.6
+KLog 0.9.3
 TODO: Support CQ WW SSB (Including Cabrillo Import/Export)
 TODO: Support CQ WW CW (Including Cabrillo Import/Export)
 
-KLog 0.0.7
+KLog 0.9.4
 TODO: Hamlib support (Linux)
 
-KLog 0.0.8
+KLog 0.9.5
 TODO: Support CQ WPX SSB (Including Cabrillo Import/Export)
 TODO: Support CQ WPX CW (Including Cabrillo Import/Export)
 
-KLog 0.0.9
+KLog 0.9.6
 WORLDEDITOR Dialog
 TODO: Create a function to check if the ADIF DXCC corresponds with the prefix.
 TODO: Add a ComboBox to change and define a DXCC for each QSO.
@@ -49,14 +47,14 @@ TODO: World Editor: Create a way to add an entity.
 TODO: World Editor: Create a way to remove an entity.
 TODO: World Editor: Create a way to edit an entity.
 
-KLog 0.0.10
+KLog 0.9.7
 TODO: Integrate with www.clublog.org (http://www.clublog.org/docs/pages/viewpage.action?pageId=1638482)
 
 
-KLog 0.0.11
+KLog 0.9.8
 TODO: Integrate with eqsl.cc
 
-KLog 0.0.12
+KLog 0.9.9
 TODO: Server to log all the QSO in real time (through the network) from N1MM
         http://n1mm.hamdocs.com/tiki-index.php?page=UDP+Broadcasts&structure=N1MM+Logger+Documentation
 
