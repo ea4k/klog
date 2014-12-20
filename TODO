@@ -7,7 +7,7 @@ Bug: Check if the dxcluster configuration to show or not confirmed/worked works 
 KLog 0.9.1
 TODO: when File New:
     Clean the DB & query.exec("VACUUM");
-
+TODO: When Saving As, KLog should offer the default filename.
 TODO: Fix the FileManager::adifReadLog to be able to read logs with several lines per QSO.
 TODO: Add the feature to add and manage several logs.
 
