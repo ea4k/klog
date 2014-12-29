@@ -1,6 +1,7 @@
 December-2013 - 0.9.0.3RC1
 - Bugfix: ADIF was not properly imported when Fields where using the Type of data optional field preventing logs from Logger32 being imported. (TNX EB1TR)
 - KLog recognizes now .ADIF files (instead of only .ADI).
+- KLog shows now the WAZ status.
 - GUI: Added a button to rescore awards.
 - GUI: Added a button to update the search Box without modifying the text.
 - GUI: Updates Bearing/distance/... when changing Locator.
