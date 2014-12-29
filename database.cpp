@@ -390,7 +390,7 @@ bool DataBase::createDataBase()
                  "sincedate VARCHAR(10), "
                  "todate VARCHAR(10), "
                  "UNIQUE (dxcc, mainprefix), "
-                 "FOREIGN KEY (continent) REFERENCES continent)");
+                 "FOREIGN KEY (continent) REFERENCES continent(shortname))");
 //TODO: To add some columns in this the table to mark if worked/confirmed/band/Mode
 //query.exec("INSERT INTO entity (name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate) VALUES ('Canada', '0', '0', '0', '0', '0', '0', '0', 'VE', 'q', 'sincedate', 'todate')");
 
@@ -528,8 +528,8 @@ confirmed = 1     Set as Confirmed
       query.exec("INSERT INTO continent (shortname, name) VALUES ('AS', 'Asia')");
       query.exec("INSERT INTO continent (shortname, name) VALUES ('EU', 'Europe')");
       query.exec("INSERT INTO continent (shortname, name) VALUES ('NA', 'North America')");
-      query.exec("INSERT INTO continent (shortname, name) VALUES ('SA', 'South America')");
       query.exec("INSERT INTO continent (shortname, name) VALUES ('OC', 'Oceania')");
+      query.exec("INSERT INTO continent (shortname, name) VALUES ('SA', 'South America')");
       query.exec("INSERT INTO continent (shortname, name) VALUES ('AN', 'Antartica')");
 
 
