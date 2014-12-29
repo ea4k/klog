@@ -870,7 +870,7 @@ QString World::getQRZContinentNumber(const QString _qrz)
 
 int World::getContinentNumber(const int _enti)
 {
-    //qDebug() << "World::getQRZContinentNumber: " << _qrz << endl;
+    //qDebug() << "World::getQRZContinentNumber: " << QString::number(_enti) << endl;
     if (_enti <= 0)
     {
         return -1;
@@ -890,16 +890,29 @@ int World::getContinentNumber(const int _enti)
     else
     {
         query.next();
-        if ( !(query.isValid()) ) {
-           //qDebug() << "World::getQRZContinentNumber(qrz/i/Cont): NO VALID"  << endl;
+        if ( !(query.isValid()) ) {           
             return -1;
         }else{
-            //qDebug() << "World::getQRZContinentNumber(qrz/i/Cont): VALID"  << endl;
             a = (query.value(0)).toInt();
+            queryString = "SELECT id FROM continent where shortname=='" + query.value(0).toString() + "'";
+            if (query.exec(queryString))
+            {
+                query.next();
+                if(query.isValid())
+                {
+                    return query.value(0).toInt();
+                }
+                else
+                { // Value not valid
+                    return -1;
+                }
+            }
+            else
+            { // Error in the query
+                return -1;
+            }
+
         }
-
-
-        //qDebug() << "World::getQRZContinentNumber(qrz/i/Cont): " <<_qrz << "/" << QString::number(i) << "/" <<  a << endl;
         return a;
     }
     return -1;

@@ -49,7 +49,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     dxclusterServerPort = 8000;
     contestMode = NoContest;
 
-    defaultADIFLogFile = "";
+    defaultADIFLogFile = "klog.adi";
     softwareVersion = tversion;
 
     kontestDir = _kontestDir;
@@ -437,6 +437,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     {
         updateQSLRecAndSent();
         awards->recalculateAwards();
+        showAwards();
     }
 
     slotClearButtonClicked();
@@ -2257,6 +2258,7 @@ void MainWindow::slotRecalculateAwardsButtonClicked()
 {
     //qDebug() << "MainWindow::recalculateAwardsButtonClicked: " << endl;
     awards->recalculateAwards();
+    showAwards();
 
 }
 
@@ -2489,9 +2491,9 @@ void MainWindow::slotQRZTextChanged()
                 //qDebug() << "MainWindow::checkContest  CQZ < 0"<< endl;
             }
 
-            i = currentEntity;
+            //i = currentEntity;
 
-            if (i>0){
+            if (currentEntity>0){
                 updateStatusBar(world->getEntityName(currentEntity) + "  -  CQ: " + QString::number(dx_CQz) + "  -  ITU: " + QString::number(dx_ITUz));
             }
             else
@@ -2507,17 +2509,19 @@ void MainWindow::slotQRZTextChanged()
             //qDebug() << "MainWindow::slotQRZTextChanged: CQ-WW-CW:" << endl;
         break;
         default:
-            //qDebug() << "MainWindow::slotQRZTextChanged: Default:" << endl;
+            qDebug() << "MainWindow::slotQRZTextChanged: Default:" << endl;
             //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
         if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) )
             {
+                //qDebug() << "MainWindow::slotQRZTextChanged: Default: IF1: i=" << QString::number(i) << endl;
                 previousEntity = currentEntity;
                 InValidCharsInPrevCall = false;
                 showEntityInfo(currentEntity);
                 showStatusOfDXCC(_qs);
                 i = (world->getContinentNumber(currentEntity));
-                        ;
+
                 if (  i > 0 )
+
                 {
                     iotaContinentComboBox->setCurrentIndex( i - 1 );
                 }
@@ -2526,6 +2530,11 @@ void MainWindow::slotQRZTextChanged()
                     iotaContinentComboBox->setCurrentIndex( 0 );
                 }
             }
+        else
+        {
+            //qDebug() << "MainWindow::slotQRZTextChanged: Default: else" << endl;
+        }
+
         break;
     }
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
@@ -3388,7 +3397,7 @@ bool MainWindow::saveFile(const QString _fileName)
 bool MainWindow::saveFileAs()
 {
     //qDebug() << "MainWindow::saveFileAs"  << endl;
-    QFileDialog dialog(this);
+    //QFileDialog dialog(this);
 
     QStringList filters;
     filters << "ADIF files (*.adi *.adif)"
@@ -3397,8 +3406,15 @@ bool MainWindow::saveFileAs()
 
 //    dialog.setNameFilters(filters);
 
+/*
+ QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                            "/home/jana/untitled.png",
+                            tr("Images (*.png *.xpm *.jpg)"));
+*/
+
+   // kontestDir+"/"+defaultADIFLogFile,
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
-                        kontestDir,
+                                                   kontestDir,
                         tr("ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)"));
 
     if ( (fileName.endsWith(".adi", Qt::CaseInsensitive)) || (fileName.endsWith(".log", Qt::CaseInsensitive)) )
@@ -4074,6 +4090,7 @@ void MainWindow::slotQsoDeleteFromLog()
           logModel->removeRow((delQSOFromLogAct->data()).toInt());
           slotSearchBoxTextChanged();
           awards->recalculateAwards();
+          showAwards();
           break;
       case QMessageBox::No:
           // No was clicked
@@ -4118,6 +4135,7 @@ void MainWindow::slotQsoDeleteFromSearch()
                     slotSearchBoxTextChanged();
                 }
                 awards->recalculateAwards();
+                showAwards();
 
             }
             else
