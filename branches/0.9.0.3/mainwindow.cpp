@@ -7124,38 +7124,13 @@ void MainWindow::showAwards()
     }
     qsoConfirmedQLCDNumber->display(_num);
     _num = 0;
-/*
-    aux = "SELECT count (*) from  (SELECT DISTINCT dxcc FROM awarddxcc)";
-    query.exec(aux);
-    query.next();
-    if (query.isValid())
-    {
-        _num = (query.value(0)).toInt();
-    }
-*/
-    dxccWorkedQLCDNumber->display(awards->getDXCCWorked(currentLog));
 
+    dxccWorkedQLCDNumber->display(awards->getDXCCWorked(currentLog));
     _num = 0;
-/*
-    aux = "SELECT COUNT (*) FROM (SELECT DISTINCT dxcc FROM awarddxcc WHERE confirmed='1')";
-    query.exec(aux);
-    query.next();
-    if (query.isValid())
-    {
-        _num = (query.value(0)).toInt();
-    }
-*/
+
     dxccConfirmedQLCDNumber->display(awards->getDXCCConfirmed(currentLog));
     _num = 0;
-/*
-    aux = "SELECT count (*) from  (SELECT DISTINCT cqz FROM awardwaz)";
-    query.exec(aux);
-    query.next();
-    if (query.isValid())
-    {
-        _num = (query.value(0)).toInt();
-    }
-*/
+
     wazWorkedQLCDNumber->display(awards->getWAZWorked(currentLog));
     _num = 0;
 /*

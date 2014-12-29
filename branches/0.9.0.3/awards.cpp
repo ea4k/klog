@@ -239,7 +239,9 @@ int Awards::getWAZWorked(const int _logNumber)
     //qDebug() << "Awards::getWAZWorked (logNumber): " << QString::number(_logNumber) << endl;
     QSqlQuery query;
     QString stringQuery;
-    stringQuery = QString("SELECT count (cqz) from  (SELECT DISTINCT cqz FROM awardwaz WHERE lognumber='%1' AND cqz <> '')").arg(_logNumber);
+    //stringQuery = QString("SELECT DISTINCT cqz FROM log WHERE qsl_rcvd='Y'");
+    stringQuery = QString("SELECT count (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND lognumber='%1')").arg(_logNumber);
+    //stringQuery = QString("SELECT count (cqz) from  (SELECT DISTINCT cqz FROM awardwaz WHERE lognumber='%1' AND cqz <> '')").arg(_logNumber);
     query.exec(stringQuery);
 
     query.next();
