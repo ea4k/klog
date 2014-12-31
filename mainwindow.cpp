@@ -241,8 +241,9 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     modeComboBox = new QComboBox;
     dateEdit = new QDateEdit;
     timeEdit = new QTimeEdit;
-    statusBar = new QStatusBar;
-    qsoStatusBar = new QStatusBar;
+    //statusBar = new QStatusBar;
+    //setStatusBar(statusBar);
+    //qsoStatusBar = new QStatusBar;
     OKButton = new QPushButton(tr("&Add"), this);
     spotItButton = new QPushButton(tr("&Spot"), this);
     clearButton = new QPushButton(tr("&Clear"), this);
@@ -447,11 +448,16 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
 }
 
+void MainWindow::createStatusBar()
+{
+    statusBar()->showMessage(tr("Ready"));
+}
 
 void MainWindow::createUI()
 {
 
  //qDebug() << "MainWindow::createUI" << endl;
+    createStatusBar();
 
     if ( (contestMode == CQ_WW_SSB) || (contestMode == CQ_WW_CW) )
     {
@@ -2078,8 +2084,8 @@ void MainWindow::createUICQWW()
     modeComboBox->setToolTip(tr("Mode of the QSO"));
     dateEdit->setToolTip(tr("Date of the QSO"));
     timeEdit->setToolTip(tr("Time of the QSO"));
-    statusBar->setToolTip(tr("Misc information"));
-    qsoStatusBar->setToolTip(tr("QSO information"));
+    //statusBar->setToolTip(tr("Misc information"));
+    //qsoStatusBar->setToolTip(tr("QSO information"));
     OKButton->setToolTip(tr("Add the QSO to the log"));
     spotItButton->setToolTip(tr("Spots this QSO to the DX Cluster"));
     clearButton->setToolTip(tr("Clears the box"));
@@ -2087,8 +2093,8 @@ void MainWindow::createUICQWW()
     gridGroupBox = new QGroupBox(tr("Input"));
     QGridLayout *layout = new QGridLayout;
 
-    updateStatusBar(tr("Ready"));
-    updateQSOStatusBar(tr("Ready"));
+    //updateStatusBar(tr("Ready"));
+    //updateQSOStatusBar(tr("Ready"));
 
     rstTXLineEdit->setInputMask("990");
     rstRXLineEdit->setInputMask("990");
@@ -2148,9 +2154,9 @@ void MainWindow::createUICQWW()
     BandModeLayout->addWidget(bandComboBox);
     BandModeLayout->addWidget(modeComboBox);
 
-    QHBoxLayout *statusBarLayout = new QHBoxLayout;
-    statusBarLayout->addWidget(statusBar);
-    statusBarLayout->addWidget(qsoStatusBar);
+    //QHBoxLayout *statusBarLayout = new QHBoxLayout;
+    //statusBarLayout->addWidget(statusBar);
+    //statusBarLayout->addWidget(qsoStatusBar);
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(OKButton);
@@ -2166,7 +2172,7 @@ void MainWindow::createUICQWW()
     layout->addLayout(TimeLayout, 2, 0);
     layout->addLayout(BandModeLayout, 2, 1);
     layout->addLayout(buttonsLayout,3, 1);
-    layout->addLayout(statusBarLayout, 4, 0, 2 , -1);
+    //layout->addLayout(statusBarLayout, 4, 0, 2 , -1);
 
     gridGroupBox->setLayout(layout);
     gridGroupBox->resize(gridGroupBox->minimumSize());
@@ -2362,9 +2368,9 @@ bool MainWindow::checkContest(){
 
     }
 
-
-
-    updateQSOStatusBar(qsoStatus);
+    updateStatusBar(qsoStatus);
+    //statusBar()->showMessage(qsoStatus);
+    //updateQSOStatusBar(qsoStatus);
 
     return false;
 }
@@ -2495,10 +2501,14 @@ void MainWindow::slotQRZTextChanged()
 
             if (currentEntity>0){
                 updateStatusBar(world->getEntityName(currentEntity) + "  -  CQ: " + QString::number(dx_CQz) + "  -  ITU: " + QString::number(dx_ITUz));
+                //statusBar()->showMessage();
+                //updateStatusBar(world->getEntityName(currentEntity) + "  -  CQ: " + QString::number(dx_CQz) + "  -  ITU: " + QString::number(dx_ITUz));
             }
             else
             {
                 updateStatusBar(tr("Ready..."));
+                //statusBar()->showMessage();
+                //updateStatusBar(tr("Ready..."));
             }
 
             i = checkIfWorkedB4(currentQrz);
@@ -2509,7 +2519,7 @@ void MainWindow::slotQRZTextChanged()
             //qDebug() << "MainWindow::slotQRZTextChanged: CQ-WW-CW:" << endl;
         break;
         default:
-            qDebug() << "MainWindow::slotQRZTextChanged: Default:" << endl;
+            //qDebug() << "MainWindow::slotQRZTextChanged: Default:" << endl;
             //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
         if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) )
             {
@@ -3010,6 +3020,7 @@ void MainWindow::slotClearButtonClicked()
             showAwards();
         break;
     }
+    statusBar()->clearMessage();
 }
 
 void MainWindow::clearBandLabels()
@@ -3172,6 +3183,12 @@ void MainWindow::createMenusCommon()
     toolMenu->addAction(findRequestedQSLAct);
     //findQSO2QSLAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(findRequestedQSLAct, SIGNAL(triggered()), this, SLOT(slotToolSearchRequestedQSLToSend()));
+
+
+    findQSLPendingToReceiveAct = new QAction(tr("&Find pending to receive QSL"), this);
+    toolMenu->addAction(findQSLPendingToReceiveAct);
+    connect(findQSLPendingToReceiveAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
+
 
     ReqQSLExport = new QAction(tr("&Export Requested QSL to ADIF..."), this);
     toolMenu->addAction(ReqQSLExport);
@@ -3473,19 +3490,15 @@ void MainWindow::newFile()
 
 void MainWindow::updateStatusBar(const QString statusm)
 {
-    statusBarMessage = statusm;
-    statusBar->showMessage(statusBarMessage);
+    //qDebug() << "MainWindow::updateStatusBar: " << statusm  << endl;
+    statusBar()->showMessage(statusm);
 }
 
-void MainWindow::updateQSOStatusBar(const QString statusm)
-{
-    qsoStatusBar->showMessage(statusm);
-}
+
 
 
 bool MainWindow::readCtyFile()
 {
-
     return false;
 }
 
@@ -3767,8 +3780,7 @@ void MainWindow::showMenuRightButtonSearchCreateActions()
         qslRecViaDirectFromSearchAct = new QAction(tr("Direc&t"), this);
         qslRecViaBureauFromSearchAct->setStatusTip(tr("QSL received via direct"));
     //}
-        qslRecViaDirectFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_T);
-    //qslRecViaDirectFromSearchAct->setStatusTip(tr("QSL received via direc&t"));
+        qslRecViaDirectFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_T);        
     connect(qslRecViaDirectFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectFromSearch() ));
 }
 
@@ -4921,8 +4933,8 @@ void MainWindow::createUIDX()
     modeComboBox->setToolTip(tr("Mode of the QSO"));
     dateEdit->setToolTip(tr("Date of the QSO"));
     timeEdit->setToolTip(tr("Time of the QSO"));
-    statusBar->setToolTip(tr("Misc information"));
-    qsoStatusBar->setToolTip(tr("QSO information"));
+    //statusBar->setToolTip(tr("Misc information"));
+    //qsoStatusBar->setToolTip(tr("QSO information"));
     OKButton->setToolTip(tr("Add the QSO to the log"));
     spotItButton->setToolTip(tr("Spots this QSO to the DX Cluster"));
     clearButton->setToolTip(tr("Clears the box"));
@@ -5324,9 +5336,9 @@ void MainWindow::createUIDX()
     qrzgroupBox->setLayout(qrzvbox);
 
 
-    QHBoxLayout *statusBarLayout = new QHBoxLayout;
-    statusBarLayout->addWidget(statusBar);
-    statusBarLayout->addWidget(qsoStatusBar);
+    //QHBoxLayout *statusBarLayout = new QHBoxLayout;
+    //statusBarLayout->addWidget(statusBar);
+    //statusBarLayout->addWidget(qsoStatusBar);
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(OKButton);
@@ -7597,7 +7609,9 @@ QString MainWindow::saveFileName(const QUrl &url)
  {
 
     //qDebug() << "MainWindow::slotToolSearchRequestedQSLToSend" << endl;
-
+     slotToolSearchQSL(1);
+     //return;
+/*
      int nameCol = -1;
      QString _call, _dateTime, _band, _mode, _freq, _qsltx, _qslrx, _id, _stationcallsign;
      QFont font;
@@ -7693,22 +7707,21 @@ QString MainWindow::saveFileName(const QUrl &url)
          qslingNeeded = true;
          dxUpRightTab->setCurrentIndex(2);
      }
-
-
-
+*/
  }
 
 void MainWindow::slotToolSearchNeededQSLToSend()
 {
     //qDebug() << "MainWindow::slotToolSearchQSLToSend - TO PREPARE THE QUERY and optimize the function" << endl;
+    slotToolSearchQSL(0);
+ /*
+    return;
     int nameCol = -1;
     QString _call, _dateTime, _band, _mode, _freq, _qsltx, _qslrx, _id, _stationcallsign;
     QFont font;
     font.setBold(true);
     QColor color;
     QStringList q;
-
-
 
     QString stringQuery = ("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y';");
 
@@ -7810,6 +7823,150 @@ void MainWindow::slotToolSearchNeededQSLToSend()
         //searchBoxLineEdit->setFocus(Qt::OtherFocusReason);
     }
 
+*/
+}
+
+void MainWindow::slotToolSearchNeededQSLPendingToReceive()
+{
+    //qDebug() << "MainWindow::slotToolSearchNeededQSLPendingToReceive "  << endl;
+    // QSL RCVD requested or
+    // QSL Sent Y and qsl_rcvd!=Y AND qsl_rcvd!=I
+    //select call from log where (qsl_sent='Y' and qsl_rcvd!='Y' and qsl_rcvd!='I') OR
+    //QString stringQuery = QString("SELECT call FROM log where (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R'");
+    slotToolSearchQSL(2);
+}
+
+
+
+
+void MainWindow::slotToolSearchQSL(const int actionQSL)
+{
+    //qDebug() << "MainWindow::slotToolSearchQSL: " << QString::number(actionQSL) << endl;
+    QString stringQuery = QString();
+    QString message = QString();
+
+
+    switch (actionQSL)
+    {
+        case 0://void slotToolSearchNeededQSLToSend();
+            stringQuery = "SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R';";
+            message = tr("Needed QSO to send the QSL");
+            qslingNeeded = true;
+            dxUpRightTab->setCurrentIndex(2);
+        break;
+        case 1://void slotToolSearchRequestedQSLToSend();
+            stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, id FROM log  WHERE qsl_sent=='R' AND lognumber='%1'").arg(currentLog);
+            message = tr("My QSL requested to be sent");
+        break;
+        case 2://void slotToolSearchNeededQSLPendingToReceive();
+            stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log where (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R'");
+            message = tr("DX QSL pending to be received");
+        break;
+        default:
+        // should never be reached
+            return;
+        break;
+    }
+
+    int nameCol = -1;
+    QString _call, _dateTime, _band, _mode, _freq, _qsltx, _qslrx, _id, _stationcallsign;
+    QFont font;
+    font.setBold(true);
+    QColor color;
+    QStringList q;
+
+    searchResultsTreeWidget->clear();
+    QSqlQuery query(stringQuery);
+    QSqlRecord rec = query.record();
+
+    if (!query.exec())
+    {
+    //TODO: Control the error!!
+    }
+    else
+    {
+        updateStatusBar(message); // updating the status bar
+        while(query.next())
+        {
+        if (query.isValid())
+        {
+            QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
+            nameCol = rec.indexOf("call");
+            _call= (query.value(nameCol)).toString();
+            nameCol = rec.indexOf("qso_date");
+            _dateTime = (query.value(nameCol)).toString();
+            nameCol = rec.indexOf("time_on");
+            _dateTime = _dateTime + "-" +(query.value(nameCol)).toString();
+
+            nameCol = rec.indexOf("bandid");
+            _freq = (query.value(nameCol)).toString();
+            _band = db->getBandNameFromNumber( _freq.toInt() );
+
+            nameCol = rec.indexOf("modeid");
+            _mode = db->getModeNameFromNumber( (query.value(nameCol)).toInt() );
+            //qDebug() << "MainWindow::slotToolSearchQSL: mode " << QString::number((query.value(nameCol)).toInt()) << endl;
+
+            nameCol = rec.indexOf("qsl_sent");
+            _qsltx = (query.value(nameCol)).toString();
+            if (_qsltx.length()<1)
+            {
+                _qsltx = "N";
+            }
+
+            nameCol = rec.indexOf("qsl_rcvd");
+            _qslrx = (query.value(nameCol)).toString();
+            if (_qslrx.length()<1)
+            {
+                _qslrx = "N";
+            }
+
+            if (stationCallSignShownInSearch)
+            {
+
+                nameCol = rec.indexOf("station_callsign");
+                _stationcallsign = (query.value(nameCol)).toString();
+                if (_stationcallsign.length()<3)
+                {
+                    _stationcallsign = stationQRZ;
+                }
+            }
+
+            nameCol = rec.indexOf("id");
+            _id= (query.value(nameCol)).toString();
+
+            q.clear();
+            q << _call << _freq << _mode << QString::number(currentLog);
+
+            color = awards->getQRZDXStatusColor(q);
+
+            item->setText(0, _call);
+            item->setText(1, _dateTime);
+            item->setText(2, _band);
+            item->setText(3, _mode);
+            item->setText(4, _qsltx);
+            item->setText(5, _qslrx);
+            if (stationCallSignShownInSearch)
+            {
+                item->setText(6, _stationcallsign);
+                item->setText(7, _id);
+            }
+            else
+            {
+                item->setText(6, _id);
+            }
+
+            item->setForeground(0, QBrush(color));
+
+        }
+        else
+        {
+        //TODO: Check what is happening here!
+        }
+    }
+        //qslingNeeded = true;
+        dxUpRightTab->setCurrentIndex(2);
+
+    }
 
 }
 
