@@ -1,12 +1,16 @@
 December-2013 - 0.9.0.3RC1
 - Bugfix: ADIF was not properly imported when Fields where using the Type of data optional field preventing logs from Logger32 being imported. (TNX EB1TR)
+- Bugfix: QSL Sent/Received status in the search box were switched.
 - KLog recognizes now .ADIF files (instead of only .ADI).
 - KLog shows now the WAZ status.
+- It is possible to find QSL pending to receive.
 - GUI: Added a button to rescore awards.
 - GUI: Added a button to update the search Box without modifying the text.
 - GUI: Updates Bearing/distance/... when changing Locator.
-- GUI: When the QRZ lineedit is blank or the clear button is clicked, entity info is deleted (beam, distance, ...)
+- GUI: When the QRZ lineedit is blank or the clear button is clicked, entity info is deleted (beam, distance, ...).
 - GUI: The IOTA continent is updated when the QRZ is modified.
+- GUI: DXCLuster input is disabled when not connected.
+- GUI: Corrected the behaviour of the status bar.
 
 November-2014 - 0.9.0.2
 - Bugfix: Right-click on search result sometimes caused KLog to crash.

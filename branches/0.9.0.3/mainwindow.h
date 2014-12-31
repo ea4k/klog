@@ -58,7 +58,7 @@ class QLineEdit;
 class QComboBox;
 class QTimeEdit;
 class QDateEdit;
-class QStatusBar;
+//class QStatusBar;
 class QMenuBar;
 class QMenu;
 class QMessageBox;
@@ -167,6 +167,8 @@ private slots:
     void slotUpdateCTYDAT();
     void slotToolSearchNeededQSLToSend();
     void slotToolSearchRequestedQSLToSend();
+    void slotToolSearchNeededQSLPendingToReceive();
+    void slotToolSearchQSL(const int actionQSL);
 
     void slotExitFromSlotDialog(const int exitID);
 
@@ -213,13 +215,14 @@ private:
     bool saveToDisk(const QString &filename, QIODevice *data);
     bool maybeSave();
 
+
     QString saveFileName(const QUrl &url);
 
     QNetworkAccessManager manager;
     QNetworkRequest request;
 
     //</UPDATE CTY.DAT>
-
+    void createStatusBar();
     void createUI();
     void createUICQWW();
     void createUIDX();
@@ -241,7 +244,7 @@ private:
 
     void createKeyEvents();
     void updateStatusBar(const QString statusm);
-    void updateQSOStatusBar(const QString statusm);
+
     bool readCtyFile();
 
 
@@ -343,7 +346,7 @@ private:
     QComboBox *bandComboBox, *modeComboBox;
     QDateEdit *dateEdit;
     QTimeEdit *timeEdit;
-    QStatusBar *statusBar, *qsoStatusBar;
+    //QStatusBar *statusBar, *qsoStatusBar;
     QString statusBarMessage;
 
     QTabWidget *dxBottonTab, *dxUpLeftTab, *dxUpRightTab;
@@ -377,6 +380,7 @@ private:
     QAction *fillQsoAct;
     QAction *findQSO2QSLAct;
     QAction *findRequestedQSLAct;
+    QAction *findQSLPendingToReceiveAct;
 
     QAction *downloadCTYAct;
 

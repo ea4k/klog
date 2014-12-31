@@ -79,6 +79,9 @@ DXClusterWidget::DXClusterWidget(const QString &clusterToConnect, const int port
     sendButton = new QPushButton;
     clearButton = new QPushButton;
 
+    inputCommand->setDisabled(true);
+    inputCommand->setToolTip(tr("Click on Connect to connect to the DX-Cluster server"));
+
     dxClusterListWidget->setMouseTracking(true);
 
     sendButton->setText(tr("Connect"));
@@ -324,6 +327,9 @@ void DXClusterWidget::slotClusterSocketConnected()
             os << tr("Not logged on, you may to enter your callsign again.") << "\n";
             dxClusterAlreadyConnected = false;
         }
+        inputCommand->setEnabled(true);
+        inputCommand->setToolTip(tr("Enter here the commands to be sent to the DX-Cluster server"));
+
     }
 }
 
@@ -337,6 +343,8 @@ void DXClusterWidget::slotClusterSocketConnectionClosed()
     dxClusterConnected = false;
     dxClusterAlreadyConnected = false;
     sendButton->setText(tr("Connect"));
+    inputCommand->setDisabled(true);
+    inputCommand->setToolTip(tr("Click on Connect to connect to the DX-Cluster server"));
     //connect(inputCommand, SIGNAL(returnPressed()), this, SLOT(slotClusterSendToServer()) );
     disconnect (inputCommand, SIGNAL(returnPressed()), this, SLOT(slotClusterSendToServer()) );
 }
