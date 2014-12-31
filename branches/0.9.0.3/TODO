@@ -5,7 +5,7 @@ Feel free to request any roadmap change if you have any suggestion.
 Bug: Check if the dxcluster configuration to show or not confirmed/worked works properly
 
 KLog 0.9.1
-BUG: Cuidado que cuenta 41 zonas!!
+BUG: Becareful, KLog is counting 41 CQ zones in the awards tab!
 TODO: when File New:
     Clean the DB & query.exec("VACUUM");
 TODO: When Saving As, KLog should offer the default filename.
