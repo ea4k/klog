@@ -86,7 +86,7 @@ bool DataProxy_SQLite::clearLog()
     //qDebug() << "DataProxy_SQLite::clearLog" << endl;
     int errorCode = 0;
     QSqlQuery query;
-    if (query.exec("DELETE FROM log WHERE 1"))
+    if (query.exec("DELETE FROM log"))
     {
         //qDebug() << "DataProxy_SQLite::clearLog: Log deleted!" << endl;
     }
@@ -101,7 +101,7 @@ bool DataProxy_SQLite::clearLog()
         //qDebug() << "DataProxy_SQLite::clearLog: LastError-n: " << QString::number(query.lastError().number() ) << endl;
     }
 
-    if (query.exec("DELETE FROM awarddxcc WHERE 1"))
+    if (query.exec("DELETE FROM awarddxcc"))
     {
         //qDebug() << "DataProxy_SQLite::clearLog: Awarddxcc deleted!" << endl;
     }
@@ -116,7 +116,7 @@ bool DataProxy_SQLite::clearLog()
         //qDebug() << "DataProxy_SQLite::clearLog: LastError-n: " << QString::number(query.lastError().number() ) << endl;
     }
 
-    if (query.exec("DELETE FROM awardwaz WHERE 1"))
+    if (query.exec("DELETE FROM awardwaz"))
     {
         //qDebug() << "DataProxy_SQLite::clearLog: Awardwaz deleted!" << endl;
     }

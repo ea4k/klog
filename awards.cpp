@@ -691,8 +691,8 @@ Deberia tratar de meterlo todo en una transaccion
     }
 
 
-    query.exec("DELETE FROM awarddxcc WHERE 1");
-    query.exec("DELETE FROM awardwaz WHERE 1");
+    query.exec("DELETE FROM awarddxcc");
+    query.exec("DELETE FROM awardwaz");
 
     QProgressDialog progress("Updating the award status... " + QString::number(numberOfQsos) + " QSOs", "Abort Update", 0, numberOfQsos);
     progress.setWindowModality(Qt::WindowModal);

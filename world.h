@@ -61,6 +61,7 @@ public:
 
     ~World();
     bool create(const QString _kontestDir);
+    bool recreate(const QString _kontestDir);
 
     QString getQRZEntityName(const QString _qrz);
     QString getEntityName(const int _entityN);
@@ -83,13 +84,11 @@ public:
     double getQRZLatitude(const QString _qrz); // Returns the latitude of the Entity
     double getLatitude(const int _enti); // Returns the latitude of the Entity
 
-
     int getQRZCqz(const QString _qrz);
     int getEntityCqz(const int _enti);
 
     int getQRZItuz(const QString _qrz);
     int getEntityItuz(const int _enti);
-
 
     int getQRZARRLId(const QString _qrz); //Returns the ARRL id of the Entity from a QRZ & Returns -1 if not found.
     bool isNewCQz(const int _cqz);
