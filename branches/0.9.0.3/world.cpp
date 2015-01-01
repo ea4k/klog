@@ -84,6 +84,29 @@ World::~World()
     //qDebug() << "World::~World" << endl;
 }
 
+bool World::recreate(const QString _kontestDir)
+{
+    //qDebug() << "World::recreate: " << _kontestDir << endl;
+
+    QSqlQuery query;
+    if (query.exec("DELETE FROM entity"))
+    {
+        if (query.exec("DELETE FROM prefixesofentity"))
+        {
+             return create(_kontestDir);
+        }
+        else
+        {//TODO: Manage the query error
+            return false;
+        }
+    }
+    else
+    {//TODO: Manage the query error
+        return false;
+    }
+    return false;
+}
+
 bool World::create(const QString _kontestDir)
 {
     //qDebug() << "World::create: " << _kontestDir << endl;

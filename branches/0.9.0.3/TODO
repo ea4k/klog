@@ -5,18 +5,18 @@ Feel free to request any roadmap change if you have any suggestion.
 Bug: Check if the dxcluster configuration to show or not confirmed/worked works properly
 
 KLog 0.9.1
-BUG: Becareful, KLog is counting 41 CQ zones in the awards tab!
+TODO: WorldEditor is not updated when the CTY.CSV file is updated
 TODO: when File New:
     Clean the DB & query.exec("VACUUM");
 TODO: When Saving As, KLog should offer the default filename.
 TODO: Fix the FileManager::adifReadLog to be able to read logs with several lines per QSO.
+
 TODO: Add the feature to add and manage several logs.
 TODO: Add the posibility to keep "MY_DATA" from one QSO to the next.
 TODO: Change COMMENT to NOTES to adapt to ADIF 3.0.4 multiline value
 TODO: Add an option to auto-complete info (QTH, Locator, Name, QSL Manager, IOTA, AWARD, ...) from previous QSO
 TODO: Adapt to ADIF 3.0.4
-TODO: Make the Tool->Needed, QSL sent but pending to receive
-TODO: Make a tool to mark and export QSO from the right button. (i.e. To mark several QSOto print and export the ADIF file with just those QSO)
+TODO: Make a tool to mark and export QSO from the right button. (i.e. To mark several QSO to print and export the ADIF file with just those QSO)
 TODO: Update the database with the Entities data when updating the CTY.CSV file!
 TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
 TODO: Check the DX-Cluster filters. Maybe the show confirmed is not working.
@@ -40,6 +40,7 @@ TODO: Support CQ WPX CW (Including Cabrillo Import/Export)
 
 KLog 0.9.6
 WORLDEDITOR Dialog
+TODO: WorldEditor is not updated when the CTY.CSV file is updated
 TODO: Create a function to check if the ADIF DXCC corresponds with the prefix.
 TODO: Add a ComboBox to change and define a DXCC for each QSO.
 TODO: World Editor: Create a way to add an entity.

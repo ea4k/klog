@@ -576,6 +576,7 @@ void MainWindow::slotQRZReturnPressed()
                 //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
                 errorCode = query.lastError().number();
                 QMessageBox msgBox;
+                msgBox.setIcon(QMessageBox::Warning);
                 aux = tr("An unexpected error ocurred when trying to add the QSO to your log. If the problem persists, please contact the developer for analysis: ");
                 msgBox.setText(aux + "MW-1#" + QString::number(errorCode));
                 msgBox.setStandardButtons(QMessageBox::Ok);
@@ -3402,6 +3403,7 @@ bool MainWindow::saveFile(const QString _fileName)
         //qDebug() << "MainWindow::saveFile: 3"  << endl;
         //TODO: Message "You must select a proper file format
        QMessageBox msgBox;
+       msgBox.setIcon(QMessageBox::Information);
        msgBox.setText(tr("Nothing has been saved. You have to select a valid file type."));
        msgBox.exec();
        return false;
@@ -3451,6 +3453,7 @@ bool MainWindow::saveFileAs()
 
         //TODO: Message "You must select a proper file format
        QMessageBox msgBox;
+       msgBox.setIcon(QMessageBox::Information);
        msgBox.setText(tr("Nothing has been saved. You have to select a valid file type."));
        msgBox.exec();
        return false;
@@ -4091,6 +4094,7 @@ void MainWindow::slotQsoDeleteFromLog()
     //qDebug() << "MainWindow::slotQsoDeleteFromLog: " << (delQSOFromLogAct->data()).toString() << endl;
 
     QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Information);
     msgBox.setText(tr("You have requested to delete this QSO."));
     msgBox.setInformativeText(tr("Are you sure?"));
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -4126,6 +4130,7 @@ void MainWindow::slotQsoDeleteFromSearch()
         QString message = QString(tr("You have requested to delete the QSO with: %1")).arg(_qrz);
 
         QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Question);
         msgBox.setText(message);
         msgBox.setInformativeText(tr("Are you sure?"));
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -4779,6 +4784,7 @@ void MainWindow::checkIfNewBandOrMode()
     {
         errorCode = query.lastError().number();
         QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
         aux = tr("An unexpected error ocurred while looking for new bands & modes in your log. If the problem persists, please contact the developer for analysis: ");
         msgBox.setText(aux + "MW-2#" + QString::number(errorCode));
         msgBox.setStandardButtons(QMessageBox::Ok);
@@ -7321,7 +7327,8 @@ void MainWindow::slotUpdateCTYDAT()
 {
     //qDebug() << "MainWindow::slotUpdateCTYDAT" << endl;
     downloadCTYFile();
-
+    //TODO: world.recreate returns a boolean, so it is possible to manage the errors
+    world->recreate(kontestDir);
 
 }
 
@@ -7491,6 +7498,7 @@ bool MainWindow::downloadCTYFile()
     //qDebug() << "MainWindow::downloadCTYFile" << endl;
 
     QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Question);
     msgBox.setText("You are going to download the last CTY.CVS file. Do you want to proceed?");
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::Yes);
@@ -7540,25 +7548,43 @@ bool MainWindow::downloadCtyDatFile()
 void MainWindow::slotDownloadFinished(QNetworkReply *reply)
 {
     //qDebug() << "MainWindow::downloadFinished" << endl;
+    QMessageBox::StandardButton ret;
 
+    //QMessageBox msgBox;
     QUrl url = reply->url();
     if (reply->error()) {
-        fprintf(stderr, "Download of %s failed: %s\n",
-                url.toEncoded().constData(),
-                qPrintable(reply->errorString()));
+
+    ret = QMessageBox::warning(this, tr("KLog"),
+                          tr("The download failed!.\n"
+                             "Do you want to update the file?"),
+                          QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+
+       // fprintf(stderr, "Download of %s failed: %s\n",
+       //         url.toEncoded().constData(),
+       //         qPrintable(reply->errorString()));
     } else {
         QString filename = saveFileName(url);
-        if (saveToDisk(filename, reply))
+
+        if (filename.length()>=1)
+        {
+            if (saveToDisk(filename, reply))
             //printf("Download of %s succeeded (saved to %s)\n",
             //       url.toEncoded().constData(), qPrintable(filename));
+            {
+
+                ret = QMessageBox::information(this, tr("KLog"),
+                                               tr("The file has been downloaded!"),
+                                               QMessageBox::Ok,
+                                               QMessageBox::Ok);
+            }
+
+        }
+        else
         {
-            QMessageBox msgBox;
-            msgBox.setText(tr("The file has been downloaded."));
-             msgBox.exec();
+
         }
 
     }
-
 
     reply->deleteLater();
 
@@ -7587,11 +7613,35 @@ QString MainWindow::saveFileName(const QUrl &url)
     //qDebug() << "MainWindow::saveFileName" << endl;
     QString path = url.path();
     QString basename = QFileInfo(path).fileName();
+    QMessageBox::StandardButton ret;
 
     if (basename.isEmpty())
         basename = "download";
 
     if (QFile::exists(basename)) {
+
+
+        //qDebug() << "MainWindow::saveFileName: File already exist: " << basename << endl;
+        ret = QMessageBox::warning(this, "KLog",
+                                       tr("The file already exits and needs to be overwritten.\n"
+                                          "Do you want to update the file?"),
+                                       QMessageBox::Yes | QMessageBox::Cancel,
+                                       QMessageBox::Yes);
+        switch (ret) {
+          case QMessageBox::Yes:
+              // Save was clicked
+               return basename;
+              break;
+          case QMessageBox::Cancel:
+              // Cancel was clicked
+                return "";
+              break;
+          default:
+              // should never be reached
+              break;
+        }
+
+      /*
         // already exists, don't overwrite
         int i = 0;
         basename += '.';
@@ -7599,6 +7649,7 @@ QString MainWindow::saveFileName(const QUrl &url)
             ++i;
 
         basename += QString::number(i);
+        */
     }
 
     return basename;
