@@ -1,0 +1,64 @@
+<app_klog_pridiv_entity:2>EA
+<app_klog_pridiv_entity:3>EA6
+<app_klog_pridiv_entity:3>EA8
+<app_klog_pridiv_entity:3>EA9
+<app_klog_pridiv_dxcc:3>281
+<app_klog_pridiv_name:4>TPEA
+<app_klog_pridiv_references:2>48
+<app_klog_pridiv_version:8>20150105
+<app_klog_pridiv_sponsor:3>URE
+<eoh>
+
+<app_klog_pridiv_refnumber:1>1 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:1>O <app_klog_pridiv_refname:8>Asturias <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:1>2 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:2>AV <app_klog_pridiv_refname:5>Avila <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:1>3 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:2>BU <app_klog_pridiv_refname:6>Burgos <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:1>4 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:1>S <app_klog_pridiv_refname:9>Cantabria <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:1>5 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:1>C <app_klog_pridiv_refname:8>A_Coruña <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:1>6 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:2>LO <app_klog_pridiv_refname:8>La_Rioja <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:1>7 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:2>LE <app_klog_pridiv_refname:4>Leon <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:1>8 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:2>LU <app_klog_pridiv_refname:4>Lugo <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:1>9 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:2>OU <app_klog_pridiv_refname:2>Ourense <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>10 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:1>P <app_klog_pridiv_refname:8>Palencia <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>11 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:2>PO <app_klog_pridiv_refname:10>Pontevedra <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>12 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:2>SA <app_klog_pridiv_refname:9>Salamanca <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>13 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:2>SG <app_klog_pridiv_refname:7>Segovia <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>14 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:2>SO <app_klog_pridiv_refname:5>Soria <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>15 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:2>VA <app_klog_pridiv_refname:10>Valladolid <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>16 <app_klog_pridiv_subdivision:3>EA1 <app_klog_pridiv_abbrev:2>ZA <app_klog_pridiv_refname:6>Zamora <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>17 <app_klog_pridiv_subdivision:3>EA2 <app_klog_pridiv_abbrev:2>VI <app_klog_pridiv_refname:5>Alava <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>18 <app_klog_pridiv_subdivision:3>EA2 <app_klog_pridiv_abbrev:2>SS <app_klog_pridiv_refname:10>Guipuzcoa <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>19 <app_klog_pridiv_subdivision:3>EA2 <app_klog_pridiv_abbrev:2>HU <app_klog_pridiv_refname:6>Huesca <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>20 <app_klog_pridiv_subdivision:3>EA2 <app_klog_pridiv_abbrev:2>NA <app_klog_pridiv_refname:7>Navarra <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>21 <app_klog_pridiv_subdivision:3>EA2 <app_klog_pridiv_abbrev:2>TE <app_klog_pridiv_refname:6>Teruel <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>22 <app_klog_pridiv_subdivision:3>EA2 <app_klog_pridiv_abbrev:2>BI <app_klog_pridiv_refname:7>Vizcaya <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>23 <app_klog_pridiv_subdivision:3>EA2 <app_klog_pridiv_abbrev:1>Z <app_klog_pridiv_refname:8>Zaragoza <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>24 <app_klog_pridiv_subdivision:3>EA3 <app_klog_pridiv_abbrev:1>B <app_klog_pridiv_refname:9>Barcelona <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>25 <app_klog_pridiv_subdivision:3>EA3 <app_klog_pridiv_abbrev:2>GI <app_klog_pridiv_refname:6>Girona <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>26 <app_klog_pridiv_subdivision:3>EA3 <app_klog_pridiv_abbrev:1>L <app_klog_pridiv_refname:6>Lleida <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>27 <app_klog_pridiv_subdivision:3>EA3 <app_klog_pridiv_abbrev:1>T <app_klog_pridiv_refname:9>Tarragona <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>28 <app_klog_pridiv_subdivision:3>EA4 <app_klog_pridiv_abbrev:2>BA <app_klog_pridiv_refname:8>Badajoz <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>29 <app_klog_pridiv_subdivision:3>EA4 <app_klog_pridiv_abbrev:2>CC <app_klog_pridiv_refname:7>Caceres <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>30 <app_klog_pridiv_subdivision:3>EA4 <app_klog_pridiv_abbrev:2>CR <app_klog_pridiv_refname:11>Ciudad_Real <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>31 <app_klog_pridiv_subdivision:3>EA4 <app_klog_pridiv_abbrev:2>CU <app_klog_pridiv_refname:6>Cuenca <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>32 <app_klog_pridiv_subdivision:3>EA4 <app_klog_pridiv_abbrev:2>GU <app_klog_pridiv_refname:11>Guadalajara <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>33 <app_klog_pridiv_subdivision:3>EA4 <app_klog_pridiv_abbrev:1>M <app_klog_pridiv_refname:6>Madrid <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>34 <app_klog_pridiv_subdivision:3>EA4 <app_klog_pridiv_abbrev:2>TO <app_klog_pridiv_refname:6>Toledo <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>35 <app_klog_pridiv_subdivision:3>EA4 <app_klog_pridiv_abbrev:2>AB <app_klog_pridiv_refname:8>Albacete <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>38 <app_klog_pridiv_subdivision:3>EA5 <app_klog_pridiv_abbrev:1>A <app_klog_pridiv_refname:8>Alicante <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>39 <app_klog_pridiv_subdivision:3>EA5 <app_klog_pridiv_abbrev:2>CS <app_klog_pridiv_refname:9>Castellon <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>40 <app_klog_pridiv_subdivision:3>EA5 <app_klog_pridiv_abbrev:2>MU <app_klog_pridiv_refname:6>Murcia <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>41 <app_klog_pridiv_subdivision:3>EA5 <app_klog_pridiv_abbrev:1>V <app_klog_pridiv_refname:8>Valencia <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>36 <app_klog_pridiv_subdivision:3>EA6 <app_klog_pridiv_abbrev:2>IB <app_klog_pridiv_refname:8>Baleares <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>37 <app_klog_pridiv_subdivision:3>EA7 <app_klog_pridiv_abbrev:2>AL <app_klog_pridiv_refname:7>Almeria <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>38 <app_klog_pridiv_subdivision:3>EA7 <app_klog_pridiv_abbrev:2>CA <app_klog_pridiv_refname:5>Cadiz <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>39 <app_klog_pridiv_subdivision:3>EA7 <app_klog_pridiv_abbrev:2>CO <app_klog_pridiv_refname:7>Cordoba <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>40 <app_klog_pridiv_subdivision:3>EA7 <app_klog_pridiv_abbrev:2>GR <app_klog_pridiv_refname:7>Granada <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>41 <app_klog_pridiv_subdivision:3>EA7 <app_klog_pridiv_abbrev:1>H <app_klog_pridiv_refname:6>Huelva <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>42 <app_klog_pridiv_subdivision:3>EA7 <app_klog_pridiv_abbrev:1>J <app_klog_pridiv_refname:4>Jaen <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>43 <app_klog_pridiv_subdivision:3>EA7 <app_klog_pridiv_abbrev:2>MA <app_klog_pridiv_refname:6>Malaga <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>44 <app_klog_pridiv_subdivision:3>EA7 <app_klog_pridiv_abbrev:2>SE <app_klog_pridiv_refname:7>Sevilla <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>45 <app_klog_pridiv_subdivision:3>EA8 <app_klog_pridiv_abbrev:2>GC <app_klog_pridiv_refname:10>Las_Palmas <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>46 <app_klog_pridiv_subdivision:3>EA8 <app_klog_pridiv_abbrev:2>TF <app_klog_pridiv_refname:8>Tenerife <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>47 <app_klog_pridiv_subdivision:3>EA9 <app_klog_pridiv_abbrev:2>CE <app_klog_pridiv_refname:5>Ceuta <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+<app_klog_pridiv_refnumber:2>48 <app_klog_pridiv_subdivision:3>EA9 <app_klog_pridiv_abbrev:2>ML <app_klog_pridiv_refname:7>Melilla <app_klog_pridiv_cq:2>14 <app_klog_pridiv_itu:2>37 <eor>
+
