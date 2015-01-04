@@ -37,6 +37,7 @@
 #include <QProgressDialog>
 #include <QMultiHash>
 #include "world.h"
+#include "awardslocal.h"
 #include "dataproxy.h"
 #include "dataproxy_sqlite.h"
 
@@ -130,6 +131,11 @@ private:
     typedef QMultiHash<int, int> DXStatus;
 
     DXStatus dxccWorked, dxccConfirmed, wazWorked, wazConfirmed;
+
+    // LOCAL AWARDS
+    AwardsLocal awardslocal;
+
+    // \LOCAL AWARDS
 
 
 };

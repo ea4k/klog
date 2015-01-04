@@ -55,7 +55,7 @@ SOURCES += main.cpp \
     startwizard.cpp \
     award.cpp \
     awardreference.cpp \
-    localawards.cpp
+    awardslocal.cpp
 HEADERS += setupdialog.h \
     mainwindow.h \
     world.h \
@@ -83,7 +83,7 @@ HEADERS += setupdialog.h \
     dataproxy_sqlite.h \
     award.h \
     awardreference.h \
-    localawards.h
+    awardslocal.h
 OTHER_FILES += TODO\
     README-DEVEL\
     tips-for-devel.txt \
