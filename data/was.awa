@@ -1,0 +1,63 @@
+<app_klog_pridiv_entity:1>K
+<app_klog_pridiv_entity:3>KH6
+<app_klog_pridiv_entity:3>KL7
+<app_klog_pridiv_entity:3>KP4
+<app_klog_pridiv_entity:3>KP2
+<app_klog_pridiv_name:4>WAS
+<app_klog_pridiv_references:2>52
+<app_klog_pridiv_version:8>20150105
+<app_klog_pridiv_sponsor:4>ARRL
+<eoh>
+
+<app_klog_pridiv_refnumber:1>1 <app_klog_pridiv_subdivision:2>K4 <app_klog_pridiv_abbrev:1>AL <app_klog_pridiv_refname:8>Alabama <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:1>2 <app_klog_pridiv_subdivision:3>KL7 <app_klog_pridiv_abbrev:2>AK <app_klog_pridiv_refname:6>Alaska <app_klog_pridiv_cq:1>1 <app_klog_pridiv_itu:3>1,2  <eor>
+<app_klog_pridiv_refnumber:1>3 <app_klog_pridiv_subdivision:2>K7 <app_klog_pridiv_abbrev:2>AZ <app_klog_pridiv_refname:7>Arizona <app_klog_pridiv_cq:1>3 <app_klog_pridiv_itu:3>6,7 <eor>
+<app_klog_pridiv_refnumber:1>4 <app_klog_pridiv_subdivision:2>K5 <app_klog_pridiv_abbrev:2>AR <app_klog_pridiv_refname:8>Arkansas <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:3>7,8 <eor>
+<app_klog_pridiv_refnumber:1>5 <app_klog_pridiv_subdivision:2>K6 <app_klog_pridiv_abbrev:2>CA <app_klog_pridiv_refname:10>California <app_klog_pridiv_cq:1>3 <app_klog_pridiv_itu:1>6 <eor>
+<app_klog_pridiv_refnumber:1>6 <app_klog_pridiv_subdivision:2>K0 <app_klog_pridiv_abbrev:2>CO <app_klog_pridiv_refname:8>Colorado <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>7 <eor>
+<app_klog_pridiv_refnumber:1>7 <app_klog_pridiv_subdivision:2>K1 <app_klog_pridiv_abbrev:2>CT <app_klog_pridiv_refname:11>Connecticut <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:1>8 <app_klog_pridiv_subdivision:2>K3 <app_klog_pridiv_abbrev:2>DE <app_klog_pridiv_refname:8>Delaware <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:1>9 <app_klog_pridiv_subdivision:2>K4 <app_klog_pridiv_abbrev:2>FL <app_klog_pridiv_refname:7>Florida <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>10 <app_klog_pridiv_subdivision:2>K4 <app_klog_pridiv_abbrev:2>GA <app_klog_pridiv_refname:7>Georgia <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>11 <app_klog_pridiv_subdivision:3>KH6 <app_klog_pridiv_abbrev:2>HI <app_klog_pridiv_refname:6>Hawaii <app_klog_pridiv_cq:2>31 <app_klog_pridiv_itu:2>61 <eor>
+<app_klog_pridiv_refnumber:2>12 <app_klog_pridiv_subdivision:2>K7 <app_klog_pridiv_abbrev:2>ID <app_klog_pridiv_refname:5>Idaho <app_klog_pridiv_cq:1>3 <app_klog_pridiv_itu:1>6 <eor>
+<app_klog_pridiv_refnumber:2>13 <app_klog_pridiv_subdivision:2>K9 <app_klog_pridiv_abbrev:2>IL <app_klog_pridiv_refname:8>Illinois <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:3>7,8 <eor>
+<app_klog_pridiv_refnumber:2>14 <app_klog_pridiv_subdivision:2>K9 <app_klog_pridiv_abbrev:2>IN <app_klog_pridiv_refname:7>Indiana <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>15 <app_klog_pridiv_subdivision:2>K0 <app_klog_pridiv_abbrev:2>IA <app_klog_pridiv_refname:4>Iowa <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>7 <eor>
+<app_klog_pridiv_refnumber:2>16 <app_klog_pridiv_subdivision:2>K0 <app_klog_pridiv_abbrev:2>KS <app_klog_pridiv_refname:6>Kansas <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>7 <eor>
+<app_klog_pridiv_refnumber:2>17 <app_klog_pridiv_subdivision:2>K4 <app_klog_pridiv_abbrev:2>KY <app_klog_pridiv_refname:8>Kentucky <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>18 <app_klog_pridiv_subdivision:2>K5 <app_klog_pridiv_abbrev:2>LA <app_klog_pridiv_refname:9>Louisiana <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:3>7,8 <eor>
+<app_klog_pridiv_refnumber:2>19 <app_klog_pridiv_subdivision:2>K1 <app_klog_pridiv_abbrev:2>ME <app_klog_pridiv_refname:5>Maine <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>20 <app_klog_pridiv_subdivision:2>K3 <app_klog_pridiv_abbrev:2>MD <app_klog_pridiv_refname:8>Maryland <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>21 <app_klog_pridiv_subdivision:2>K1 <app_klog_pridiv_abbrev:2>MA <app_klog_pridiv_refname:12>Massachusetts <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>22 <app_klog_pridiv_subdivision:2>K8 <app_klog_pridiv_abbrev:2>MI <app_klog_pridiv_refname:8>Michigan <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:3>7,8 <eor>
+<app_klog_pridiv_refnumber:2>23 <app_klog_pridiv_subdivision:2>K0 <app_klog_pridiv_abbrev:2>MN <app_klog_pridiv_refname:9>Minnesota <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>7 <eor>
+<app_klog_pridiv_refnumber:2>24 <app_klog_pridiv_subdivision:2>K5 <app_klog_pridiv_abbrev:2>MS <app_klog_pridiv_refname:11>Mississippi <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:3>7,8 <eor>
+<app_klog_pridiv_refnumber:2>25 <app_klog_pridiv_subdivision:2>K0 <app_klog_pridiv_abbrev:2>MO <app_klog_pridiv_refname:8>Missouri <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:3>7,8 <eor>
+<app_klog_pridiv_refnumber:2>26 <app_klog_pridiv_subdivision:2>K7 <app_klog_pridiv_abbrev:2>MT <app_klog_pridiv_refname:6>Montana <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>6,7 <eor>
+<app_klog_pridiv_refnumber:2>27 <app_klog_pridiv_subdivision:2>K0 <app_klog_pridiv_abbrev:2>NE <app_klog_pridiv_refname:8>Nebraska <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>7 <eor>
+<app_klog_pridiv_refnumber:2>28 <app_klog_pridiv_subdivision:2>K7 <app_klog_pridiv_abbrev:2>NV <app_klog_pridiv_refname:6>Nevada <app_klog_pridiv_cq:1>3 <app_klog_pridiv_itu:1>6 <eor>
+<app_klog_pridiv_refnumber:2>29 <app_klog_pridiv_subdivision:2>K1 <app_klog_pridiv_abbrev:2>NH <app_klog_pridiv_refname:13>New_Hampshire <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>30 <app_klog_pridiv_subdivision:2>K2 <app_klog_pridiv_abbrev:2>NJ <app_klog_pridiv_refname:10>New_Jersey <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>31 <app_klog_pridiv_subdivision:2>K5 <app_klog_pridiv_abbrev:2>NM <app_klog_pridiv_refname:10>New_Mexico <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>7 <eor>
+<app_klog_pridiv_refnumber:2>32 <app_klog_pridiv_subdivision:2>K2 <app_klog_pridiv_abbrev:2>NY <app_klog_pridiv_refname:8>New_York <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>33 <app_klog_pridiv_subdivision:2>K4 <app_klog_pridiv_abbrev:2>NC <app_klog_pridiv_refname:14>North_Carolina <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>34 <app_klog_pridiv_subdivision:2>K0 <app_klog_pridiv_abbrev:2>ND <app_klog_pridiv_refname:12>North_Dakota <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>7 <eor>
+<app_klog_pridiv_refnumber:2>35 <app_klog_pridiv_subdivision:2>K8 <app_klog_pridiv_abbrev:2>OH <app_klog_pridiv_refname:4>Ohio <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>36 <app_klog_pridiv_subdivision:2>K5 <app_klog_pridiv_abbrev:2>OK <app_klog_pridiv_refname:8>Oklahoma <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>7 <eor>
+<app_klog_pridiv_refnumber:2>37 <app_klog_pridiv_subdivision:2>K7 <app_klog_pridiv_abbrev:2>OR <app_klog_pridiv_refname:6>Oregon <app_klog_pridiv_cq:1>3 <app_klog_pridiv_itu:1>6 <eor>
+<app_klog_pridiv_refnumber:2>38 <app_klog_pridiv_subdivision:2>K3 <app_klog_pridiv_abbrev:2>PA <app_klog_pridiv_refname:12>Pennsylvania <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>39 <app_klog_pridiv_subdivision:2>K1 <app_klog_pridiv_abbrev:2>RI <app_klog_pridiv_refname:12>Rhode_Island <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>40 <app_klog_pridiv_subdivision:2>K4 <app_klog_pridiv_abbrev:2>SC <app_klog_pridiv_refname:14>South_Carolina <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>41 <app_klog_pridiv_subdivision:2>K0 <app_klog_pridiv_abbrev:2>SD <app_klog_pridiv_refname:12>South_Dakota <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>7 <eor>
+<app_klog_pridiv_refnumber:2>42 <app_klog_pridiv_subdivision:2>K4 <app_klog_pridiv_abbrev:2>TN <app_klog_pridiv_refname:9>Tennessee <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:3>7,8 <eor>
+<app_klog_pridiv_refnumber:2>43 <app_klog_pridiv_subdivision:2>K5 <app_klog_pridiv_abbrev:2>TX <app_klog_pridiv_refname:5>Texas <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>7 <eor>
+<app_klog_pridiv_refnumber:2>44 <app_klog_pridiv_subdivision:2>K7 <app_klog_pridiv_abbrev:2>UT <app_klog_pridiv_refname:4>Utah <app_klog_pridiv_cq:1>3 <app_klog_pridiv_itu:3>6,7 <eor>
+<app_klog_pridiv_refnumber:2>45 <app_klog_pridiv_subdivision:2>K1 <app_klog_pridiv_abbrev:2>VT <app_klog_pridiv_refname:7>Vermont <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>46 <app_klog_pridiv_subdivision:2>K4 <app_klog_pridiv_abbrev:2>VA <app_klog_pridiv_refname:8>Virginia <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>47 <app_klog_pridiv_subdivision:2>K7 <app_klog_pridiv_abbrev:2>WA <app_klog_pridiv_refname:10>Washington <app_klog_pridiv_cq:1>3 <app_klog_pridiv_itu:1>6 <eor>
+<app_klog_pridiv_refnumber:2>48 <app_klog_pridiv_subdivision:2>K8 <app_klog_pridiv_abbrev:2>WV <app_klog_pridiv_refname:13>West_Virginia <app_klog_pridiv_cq:1>5 <app_klog_pridiv_itu:1>8 <eor>
+<app_klog_pridiv_refnumber:2>49 <app_klog_pridiv_subdivision:2>K9 <app_klog_pridiv_abbrev:2>WI <app_klog_pridiv_refname:9>Wisconsin <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>7,8 <eor>
+<app_klog_pridiv_refnumber:2>50 <app_klog_pridiv_subdivision:2>K7 <app_klog_pridiv_abbrev:2>WY <app_klog_pridiv_refname:7>Wyoming <app_klog_pridiv_cq:1>4 <app_klog_pridiv_itu:1>7 <eor>
+<app_klog_pridiv_refnumber:2>51 <app_klog_pridiv_subdivision:3>KP4 <app_klog_pridiv_abbrev:2>PR <app_klog_pridiv_refname:11>Puerto_Rico <app_klog_pridiv_cq:1>8 <app_klog_pridiv_itu:2>11 <eor>
+<app_klog_pridiv_refnumber:2>52 <app_klog_pridiv_subdivision:3>KP2 <app_klog_pridiv_abbrev:2>VI <app_klog_pridiv_refname:14>Virgin_Islands <app_klog_pridiv_cq:1>8 <app_klog_pridiv_itu:2>11 <eor>
