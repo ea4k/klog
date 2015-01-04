@@ -26,6 +26,7 @@ public:
 
     virtual bool deleteQSO(const int _qsoId);
     virtual int isWorkedB4(const QString _qrz, const int _currentLog);
+    virtual bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     virtual bool isQSLReceived(const int _qsoId);
     virtual bool isQSLSent(const int _qsoId);
 
@@ -38,6 +39,9 @@ public:
     virtual bool qslRecViaDirect(const int _qsoId, const QString _updateDate);
     virtual bool qslRecViaDirect(const int _qsoId, const QString _updateDate, const bool _queueSentQSL);
 
+    virtual bool isHF(const int _band);
+    virtual bool isWARC(const int _band);
+    virtual bool isVHF(const int _band);
 
     virtual QString getCallFromId(const int _qsoId);
 

@@ -2484,7 +2484,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
 bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber)
 {
-qDebug() << "FileManager::processQsoReadingADIF: " << _line.at(0) << endl;
+//qDebug() << "FileManager::processQsoReadingADIF: " << _line.at(0) << endl;
     //qDebug() << "FileManager::processQsoReadingADIF: " << _line.join("/") << endl;
 
     int i = -1;

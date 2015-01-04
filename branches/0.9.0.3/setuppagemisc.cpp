@@ -58,6 +58,11 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station Callsign used in the search box"), this);
     showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will show also the callsign on the air to do the QSO."));
 
+
+    keepMyDataCheckBox = new QCheckBox(tr("Use My Data tab for all QSO"), this);
+    keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
+
+
     imperialCheckBox ->setToolTip(tr("Check it for Imperial system (Miles instead of Kilometres)."));
     dbInMemory->setToolTip(tr("Working in memory (vs in file) is much quicker but you will need to save the ADIF file each time you exit KLog."));
     realTimeCheckbox->setToolTip(tr("Select to use real time."));
@@ -74,12 +79,14 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     useDefaultName->setChecked(true);
     alwaysADIFCheckBox->setChecked(true);
     showStationCallWhenSearchCheckBox->setChecked(true);
+    keepMyDataCheckBox->setChecked(true);
 
     fileNameButton = new QPushButton;
     fileNameButton->setToolTip(tr("Click to change the default ADIF file"));
     //TODO: Add an icon "open" to this pushbutton
 
     QHBoxLayout *fileLayout = new QHBoxLayout;
+    fileLayout->addWidget(useDefaultName);
     fileLayout->addWidget(defaultFileNameLineEdit);
     fileLayout->addWidget(fileNameButton);
     defaultFileNameLineEdit->setEnabled(true);
@@ -87,16 +94,28 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
 
     UTCCheckbox->setChecked(true);
     realTimeCheckbox->setChecked(true);
-    showStationCallWhenSearchCheckBox->setChecked(true);
+    //showStationCallWhenSearchCheckBox->setChecked(true);
+
+    QHBoxLayout *timeLayout = new QHBoxLayout;
+    timeLayout->addWidget(UTCCheckbox);
+    timeLayout->addWidget(realTimeCheckbox);
+
+    //QHBoxLayout *fileOptLayout = new QHBoxLayout;
+    //fileOptLayout->addWidget(useDefaultName);
+    //fileOptLayout->addWidget(alwaysADIFCheckBox);
+
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(dbInMemory);
-    mainLayout->addWidget(alwaysADIFCheckBox);
-    mainLayout->addWidget(useDefaultName);
     mainLayout->addLayout(fileLayout);
-    mainLayout->addWidget(realTimeCheckbox);
-    mainLayout->addWidget(UTCCheckbox);
+    mainLayout->addWidget(alwaysADIFCheckBox);
+    //mainLayout->addWidget(useDefaultName);
+    //mainLayout->addLayout(fileOptLayout);
+    //mainLayout->addWidget(realTimeCheckbox);
+    //mainLayout->addWidget(UTCCheckbox);
+    mainLayout->addLayout(timeLayout);
     mainLayout->addWidget(imperialCheckBox);
+    mainLayout->addWidget(keepMyDataCheckBox);
     mainLayout->addWidget(sendQSLWhenRecCheckBox);
     mainLayout->addWidget(showStationCallWhenSearchCheckBox);
 
@@ -358,3 +377,30 @@ void SetupPageMisc::setShowStationCallSignInSearch(const QString t)
 
 }
 
+
+QString SetupPageMisc::getKeepMyData()
+{
+
+    if (keepMyDataCheckBox->isChecked())
+    {
+        return "True";
+    }
+    else
+    {
+        return "False";
+    }
+
+}
+
+void SetupPageMisc::setKeepMyData(const QString t)
+{
+    if ( (t.toUpper()) == "FALSE")
+    {
+        keepMyDataCheckBox->setChecked(false);
+    }
+    else
+    {
+        keepMyDataCheckBox->setChecked(true);
+    }
+
+}

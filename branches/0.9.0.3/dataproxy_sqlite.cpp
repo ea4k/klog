@@ -492,3 +492,82 @@ int DataProxy_SQLite::isWorkedB4(const QString _qrz, const int _currentLog)
     }
 }
 
+bool DataProxy_SQLite::isDXCCConfirmed(const int _dxcc, const int _currentLog)
+{
+    qDebug() << "DataProxy_SQLite::isDXCCConfirmed: " << QString::number(_dxcc) << "/" << QString::number(_currentLog) << endl;
+    QString queryString = QString("SELECT confirmed from awarddxcc WHERE dxcc='%1' AND lognumber='%2'").arg(_dxcc).arg(_currentLog);
+    QSqlQuery query;
+
+    if (query.exec (queryString))
+    {
+        query.next();
+        if (query.isValid())
+        {
+            if ( (query.value(0)).toInt() == 1)
+            {
+                qDebug() << "DataProxy_SQLite::isDXCCConfrmed: TRUE" << endl;
+                return true;
+            }
+            else
+            {
+                qDebug() << "DataProxy_SQLite::isDXCCConfrmed: FALSE1" << endl;
+                return false;
+            }
+        }
+        else
+        {
+            qDebug() << "DataProxy_SQLite::isDXCCConfrmed: FALSE2" << endl;
+            return false;
+        }
+    }
+    else
+    {
+        qDebug() << "DataProxy_SQLite::isDXCCConfrmed: FALSE3" << endl;
+        return false;
+    }
+    qDebug() << "DataProxy_SQLite::isDXCCConfrmed: FALSE4" << endl;
+    return false;
+}
+
+bool DataProxy_SQLite::isHF(const int _band)
+{
+    if ((_band>=18) && (_band<=27))
+    {
+        qDebug() << "DataProxy_SQLite::isHF: TRUE" << endl;
+        return true;
+    }
+    else
+    {
+        qDebug() << "DataProxy_SQLite::isHF: FALSE" << endl;
+        return false;
+    }
+}
+
+bool DataProxy_SQLite::isWARC(const int _band)
+{
+    if ((_band == 19) || (_band==21) ||(_band==23) )
+    {
+        qDebug() << "DataProxy_SQLite::isWARC: tRUE" << endl;
+        return true;
+    }
+    else
+    {
+        qDebug() << "DataProxy_SQLite::isWARC: FALSE" << endl;
+        return false;
+    }
+}
+
+bool DataProxy_SQLite::isVHF(const int _band)
+{
+    if (_band<=17)
+    {
+        qDebug() << "DataProxy_SQLite::isVHF: TRUE" << endl;
+        return true;
+    }
+    else
+    {
+        qDebug() << "DataProxy_SQLite::isVHF: FALSE" << endl;
+        return false;
+    }
+}
+

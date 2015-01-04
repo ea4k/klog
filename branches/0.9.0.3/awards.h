@@ -38,6 +38,7 @@
 #include <QMultiHash>
 #include "world.h"
 #include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 class QProgressDialog;
 
@@ -66,6 +67,8 @@ public:
     int getWAZConfirmed(const int _logNumber);
 
     int getQSOsInLog(const int _logNumber);
+
+    bool getIsDXCCConfirmed(const int _dxcc, const int _logNumber);
 
     QString checkIfValidIOTA(const QString _tiota);
 

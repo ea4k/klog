@@ -65,7 +65,7 @@ SetupDialog::SetupDialog(const bool _firstTime)
 
     logsPage = new SetupPageLogs(this);
 
-    tabWidget->addTab(userDataPage, tr("User data"));
+    tabWidget->addTab(userDataPage, tr("My Data"));
     tabWidget->addTab(bandsModesPage, tr("Bands/Modes"));
     tabWidget->addTab(dxClusterPage, tr("DX-Cluster"));
     tabWidget->addTab(colorsPage, tr("Colors"));
@@ -405,6 +405,7 @@ void SetupDialog::slotOkButtonClicked()
         stream << "ImperialSystem=" << miscPage->getImperial() << ";" <<  endl;
         stream << "SendQSLWhenRec=" << miscPage->getSendQSLWhenRec() << ";" <<  endl;
         stream << "ShowCallsignInSearch=" << miscPage->getShowStationCallSignInSearch() << ";" <<  endl;
+        stream << "KeepMyData=" << miscPage->getKeepMyData() << ";" <<  endl;
 
 
 
@@ -533,6 +534,8 @@ bool SetupDialog::processConfigLine(const QString _line)
         miscPage->setDefaultFileName(value.toLower());
     }else if (values.at(0)=="IMPERIALSYSTEM"){
         miscPage->setImperial(value.toLower());
+    }else if (values.at(0)=="KEEPMYDATA"){
+        miscPage->setKeepMyData(value.toLower());
     }else if (values.at(0)=="SENDQSLWHENREC"){
         miscPage->setSendQSLWhenRec(value.toLower());
     }
@@ -741,6 +744,7 @@ void SetupDialog::setDefaults()
     miscPage->setAlwaysADIF("FALSE");
     miscPage->setSendQSLWhenRec("TRUE");
     miscPage->setShowStationCallSignInSearch("TRUE");
+    miscPage->setKeepMyData("TRUE");
 
     dxClusterPage->setShowHFRadiobutton("TRUE");
     dxClusterPage->setShowVHFRadiobutton("TRUE");
