@@ -479,7 +479,8 @@ QString World::getQRZEntityName(const QString _qrz)
     QString queryString;
     QSqlQuery query;
     int prefixIDNumber = getPrefixId(_qrz);
-
+    return getEntityName(prefixIDNumber);
+/*
     queryString = "SELECT dxcc FROM prefixesofentity WHERE id=='" + QString::number(prefixIDNumber) +"'";
     //qDebug() << "World::getQRZEntityName: queryString-1: " << queryString << endl;
     query.exec(queryString);
@@ -508,6 +509,7 @@ QString World::getQRZEntityName(const QString _qrz)
     }
 
     return "";
+*/
 }
 
 QString World::getEntityName(const int _entityN)
@@ -545,28 +547,8 @@ int World::getQRZCqz(const QString _qrz)
         return -1;
     }
 
-    QSqlQuery query;
-    QString queryString;
-
     int prefixIdNumber = getPrefixId(_qrz);
-    queryString = "SELECT cqz FROM prefixesofentity WHERE dxcc=='" + QString::number(prefixIdNumber) +"'";
-    query.exec(queryString);
-    query.next();
-
-    //qDebug() << "World::getQRZCqz: " <<_qrz << " = " <<  QString::number(prefixIdNumber) << endl;
-
-    if (query.isValid()){
-
-        return (query.value(0)).toInt();
-    }else{
-
-        return -1;
-    }
-
-    return -1;
-
-
-
+    return getEntityCqz(prefixIdNumber);
 
 }
 
@@ -577,22 +559,9 @@ int World::getQRZItuz(const QString _qrz)
     {
         return -1;
     }
-    QSqlQuery query;
-    QString queryString;
 
     int prefixIdNumber = getPrefixId(_qrz);
-    queryString = "SELECT ituz FROM prefixesofentity WHERE dxcc=='" + QString::number(prefixIdNumber) +"'";
-    query.exec(queryString);
-    query.next();
-    //qDebug() << "World::getQRZItuz: " <<_qrz << " = " <<  (query.value(0)).toInt() << endl;
-
-    if (query.isValid()){
-        return (query.value(0)).toInt();
-    }else{
-        return -1;
-    }
-
-    return -1;
+    return getEntityItuz(prefixIdNumber);
 
 }
 
@@ -1615,7 +1584,7 @@ QString World::changeSlashAndFindPrefix(const QString _qrz)
             aux.remove(aux.length()-1,1);
         }
         iaux1 = aux.indexOf('/');
-        //qDebug() << "World::getPrefixId: Slash found at: "  << QString::number(iaux1) << endl;
+        //qDebug() << "World::changeSlashAndFindPrefix: Slash found at: "  << QString::number(iaux1) << endl;
 
         iaux2 = (aux.length())- iaux1; // iaux2 is the length of the second part
         if (iaux2 < 0){
@@ -1730,5 +1699,37 @@ bool World::checkQRZValidFormat(const QString _qrz)
     //qDebug()  << "World::checkQRZValidFormat: Suffix = " << suffix << endl;
     //qDebug()  << "World::checkQRZValidFormat: Call = " << prefix+separator+suffix << endl;
     return true;
+}
+
+QStringList World::getEntitiesNames()
+{
+    //qDebug()  << "World::getEntitiesNames"  << endl;
+    QString aux = QString();
+    QStringList qs;
+    qs.clear();
+    QString stringQuery = QString("SELECT mainprefix, name FROM entity");
+    QSqlQuery query;
+
+    if (query.exec(stringQuery))
+    {
+        while ( (query.next())) {
+            if (query.isValid())
+            {
+                aux.clear();
+                aux = (query.value(0)).toString() + "-" + (query.value(1)).toString();
+                //result = result + ", " + (query.value(0)).toString();
+                qs << aux;
+            }
+            else
+            {
+            }
+        }
+
+    }
+    else
+    {
+
+    }
+    return qs;
 }
 

@@ -123,6 +123,7 @@ private slots:
     void slotSearchClearButtonClicked();
     void slotSearchBoxSelectionChanged();
     void slotSearchBoxReSearchButtonClicked();
+    //void slotSearchBoxOnItemChanged( QTreeWidgetItem * item, int column);
 
     void slotModeComboBoxChanged();
     void slotBandComboBoxChanged();
@@ -269,6 +270,9 @@ private:
     QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
     QString readDataFromUIDX();
     QString readDataFromUIDXModifying();
+
+    int getDXCCFromComboBox();
+
     //QString readDataFromUICQWW();
 
     void setAwardDXCC(const int _qsoId, bool modifying); // Adds or modify the status of a DXCC entity
@@ -298,6 +302,8 @@ private:
     void showAwards();
     void updateQSLRecAndSent();
     double checkFreqRanges(double _f);
+
+    void selectCorrectComboBoxEntity(const int _ent); // Select the appropriate entity in the ComboBox
 
     //int Km2Mile(const bool _imperialSystemSelected, const bool _dataInMiles, const int _km);
 
@@ -412,6 +418,7 @@ private:
     QPushButton *OKButton, *spotItButton, *clearButton;
     QStringList bands;
     QStringList modes;
+    QStringList entitiesList;
 
     // UI DX
     QLabel *entityAwardLabel, *iotaAwardLabel, *entityNameLabel;
@@ -472,12 +479,15 @@ private:
     QString stx;
     QString srx;
 
-    bool realTime, UTCTime, alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec;
+    bool realTime, UTCTime, alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, keepMyData;
+    bool cleaning;
     // Station Setup
     bool configured, modify;
     bool needToEnd; // Just to control if the software needs to end.
     QString stationQRZ, operatorQRZ, myLocator, dxLocator;
-    double myPower;
+    QString lastOperatorQRZ, lastStationQRZ, lastMyLocator;
+    double myPower, lastPower;
+
     int my_CQz, my_ITUz, defaultMode, defaultBand, currentMode, currentModeShown, currentBand, currentBandShown;
     int currentEntity, previousEntity;
     bool InValidCharsInPrevCall;

@@ -32,7 +32,7 @@ Awards::Awards()
 {
     //qDebug() << "Awards::Awards"  << endl;
     world = new World();
-     dataProxy = new DataProxy();
+    dataProxy = new DataProxy_SQLite();
     //world->create();
 
     //newOneColor = Qt::green;
@@ -292,7 +292,7 @@ int Awards::getDXStatus (const QStringList _qs)
 2 - worked in this band, not this mode                              - neededColor       ( mode=-1=> 3/neededColor )
 3 - worked in this band and mode                                    - neededColor       ( mode=-1=> 3/neededColor )
 4 - confirmed in this mode, not worked in this band                 - workedColor       ( mode=-1=> 0/newOneColor )
-5 - confirmed in this band, not worked in this mode                 - neededColor       ( mode=-1=> 8confirmedColor )
+5 - confirmed in this band, not worked in this mode                 - neededColor       ( mode=-1=> 8/confirmedColor )
 6 - confirmed in this mode, not confirmed, but worked in this band  - workedColor       ( mode=-1=> 3/neededColor )
 7 - confirmed in this band, not confirmed, but worked in this mode  - workedColor       ( mode=-1=> 8/confirmedColor )
 8 - confirmed in this band and mode                                 - confirmedColor    ( mode=-1=> 8/confirmedColor )
@@ -1588,4 +1588,11 @@ int Awards::setDXCCToQSO(const int _dxcc, const int _qsoid) // Defines the DXCC 
         //qDebug() << "Awards::setDXCCToQSO: LastError-n: " << QString::number(query.lastError().number() ) << endl;
         return errorCode;
     }
+}
+
+bool Awards::getIsDXCCConfirmed(const int _dxcc, const int _logNumber)
+{
+  //  isDXCCConfirmed(const int _dxcc, const int _currentLog);
+    return dataProxy->isDXCCConfirmed(_dxcc, _logNumber);
+
 }

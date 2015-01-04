@@ -33,6 +33,8 @@ email                : jaime@robles.es
 #include <QObject>
 #include "awards.h"
 #include "world.h"
+#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 class QWidget;
 class QTcpSocket;
@@ -50,6 +52,7 @@ class DXClusterWidget : public QWidget
     void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
     void setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy );
     void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
+    void setCurrentLog(const int _log);
 
 
     ~DXClusterWidget();
@@ -73,8 +76,10 @@ signals:
 
 private:
 
+    void initClass();
     void connectToDXCluster();
     QStringList readItem(QListWidgetItem * item);
+    bool checkIfNeedsToBePrinted(const QString _dxCall, const int _band, const int _mode);
 
     void addData(); //TO BE DELETED, JUST FOR TESTING PURPOSES
 
@@ -94,10 +99,12 @@ private:
 
     World *world;
     Awards *awards;
+    DataProxy *dataProxy;
 
     bool showhf, showvhf, showwarc, showworked, showconfirmed, showann,  showwwv, showwcy;
     bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;
 
+    int currentLog;
 
  };
 

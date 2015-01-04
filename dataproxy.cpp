@@ -113,6 +113,26 @@ int DataProxy::isWorkedB4(const QString _qrz, const int _currentLog)
     return -1;
 }
 
+bool DataProxy::isDXCCConfirmed(const int _dxcc, const int _currentLog)
+{
+    return false;
+}
+
+bool DataProxy::isHF(const int _band)
+{
+    return false;
+}
+
+bool DataProxy::isWARC(const int _band)
+{
+    return false;
+}
+
+bool DataProxy::isVHF(const int _band)
+{
+    return false;
+}
+
 
 
 

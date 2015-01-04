@@ -150,6 +150,7 @@ void SetupPageWorldEditor::createWorldModel()
 
     //worldModel = new QSqlRelationalTableModel(this);
     worldModel->setTable("entity");
+    worldModel->setEditStrategy(QSqlTableModel::OnFieldChange);
 
     nameCol = rec.indexOf("mainprefix");
     worldModel->setSort(nameCol, Qt::AscendingOrder);

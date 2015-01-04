@@ -30,23 +30,12 @@ DXClusterWidget::DXClusterWidget(QWidget *parent)
 {
     //qDebug() << "DXClusterWidget::DXClusterWidget" << endl;
     awards = new Awards();
-    dxClusterAlreadyConnected = false;
-
-    showhf = true;
-    showvhf = true;
-    showwarc = true;
-    showworked = true;
-    showconfirmed = true;
-    showann = true;
-    showwwv = true;
-    showwcy = true;
+    dataProxy = new DataProxy();
+    initClass();
 }
 
-
-DXClusterWidget::DXClusterWidget(const QString &clusterToConnect, const int portToConnect, QWidget *parent)
-          : QWidget(parent)
+void DXClusterWidget::initClass()
 {
-    //qDebug() << "DXClusterWidget::DXClusterWidget" << clusterToConnect << QString::number(portToConnect) << endl;
     dxClusterConnected = false;
     dxClusterAlreadyConnected = false;
 
@@ -59,6 +48,15 @@ DXClusterWidget::DXClusterWidget(const QString &clusterToConnect, const int port
     showwwv = true;
     showwcy = true;
 
+    currentLog = 0;
+}
+
+DXClusterWidget::DXClusterWidget(const QString &clusterToConnect, const int portToConnect, QWidget *parent)
+          : QWidget(parent)
+{
+    //qDebug() << "DXClusterWidget::DXClusterWidget" << clusterToConnect << QString::number(portToConnect) << endl;
+
+    initClass();
     server = clusterToConnect;
     port = portToConnect;
 
@@ -71,6 +69,7 @@ DXClusterWidget::DXClusterWidget(const QString &clusterToConnect, const int port
 
     world = new World();
     awards = new Awards();
+    dataProxy = new DataProxy_SQLite();
 
     tcpSocket = new QTcpSocket(this);
 
@@ -202,6 +201,88 @@ void DXClusterWidget::slotClusterDisplayError(QAbstractSocket::SocketError socke
 
  }
 
+bool DXClusterWidget::checkIfNeedsToBePrinted(const QString _dxCall, int const _band, const int _mode)
+{
+    //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: " << _dxCall << "/" << dataProxy->getNameFromBandId(_band) << QString::number(_mode)<< endl;
+    QStringList qs;
+    qs.clear();
+    qs << _dxCall << QString::number(_band) << QString::number(_mode)  << QString::number(currentLog);
+    bool isConfirmed = false;
+    int status = awards->getDXStatus (qs);
+
+
+    if (!showconfirmed)
+    {
+        //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is confirmed? ("<< QString::number(status)<< ")" << endl;
+        if (status == 3)
+        {
+            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: It is confirmed: DON'T' print: " << _dxCall <<"/" << dataProxy->getNameFromBandId(_band) << endl;
+            return false;
+        }
+    }
+
+    if (!showhf)
+    {
+        //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is HF?" << endl;
+        if (dataProxy->isHF(_band))
+        {
+            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: Not showing HF but... is it WARC?" << endl;
+            if ( (showwarc) && dataProxy->isWARC(_band) )
+            {
+                //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: Not showing HF but... is WARC, print!" << endl;
+                return true;
+            }
+
+            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is HF: DON'T print: "<< _dxCall << "/" << dataProxy->getNameFromBandId(_band) << QString::number(_mode)<< endl;
+            return false;
+        }
+        else
+        {
+            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is NOT HF" << endl;
+        }
+    }
+
+    if (!showwarc)
+    {
+        //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is WARC?" << endl;
+        if (dataProxy->isWARC(_band))
+        {
+            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is WARC, DON'T print: "<< _dxCall << "/" << dataProxy->getNameFromBandId(_band) << QString::number(_mode)<< endl;
+            return false;
+        }
+        else
+        {
+            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is NOT WARC" << endl;
+
+        }
+
+    }
+
+    if (!showvhf)
+    {
+        //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is VHF?" << endl;
+        if (dataProxy->isVHF(_band))
+        {
+            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is VHF, DON'T print: "<< _dxCall << "/" << dataProxy->getNameFromBandId(_band) << QString::number(_mode)<< endl;
+            return false;
+        }
+        else
+        {
+            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is NOT VHF " << endl;
+
+        }
+    }
+
+
+    //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: returns TRUE and will be printed: " << _dxCall << "/" << dataProxy->getNameFromBandId(_band) << QString::number(_mode)<< endl;
+    return true;
+}
+
+void DXClusterWidget::setCurrentLog(const int _log)
+{
+    currentLog = _log;
+}
+
 void DXClusterWidget::slotClusterDataArrived()
 {
     //qDebug() << "DXClusterWidget::slotClusterDataArrived" << endl;
@@ -246,6 +327,7 @@ void DXClusterWidget::slotClusterDataArrived()
 
             dxSpotColor = awards->getQRZDXStatusColor(qs);
             //qDebug() << "DX de ->" << spotter << dxFrequency << dxCall << endl;
+
         }
         else if ((tokens[0] == "To") && (tokens[1] == "ALL"))
         {
@@ -281,6 +363,12 @@ void DXClusterWidget::slotClusterDataArrived()
         //dxSpotColor = awards->getQRZDXStatusColor(qs);
         //qDebug() << "DXClusterWidget::slotClusterDataArrived: Call/dxSpotColor: " << dxCall <<"/"<< dxSpotColor.name() << endl;
         //dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, dxClusterString, dxSpotColor);
+        //TODO: Change the "-1" by the mode
+        if (!checkIfNeedsToBePrinted(dxCall, spotBand.toInt(), -1))
+        {
+            //qDebug() << "DXClusterWidget::slotClusterDataArrived - Not to be printed!: " << dxCall << endl;
+            return;
+        }
 
         QListWidgetItem *item = new QListWidgetItem();
         item->setForeground(QBrush(dxSpotColor));

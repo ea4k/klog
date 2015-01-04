@@ -100,6 +100,8 @@ public:
 
     bool checkQRZValidFormat(const QString _qrz);
 
+    QStringList getEntitiesNames();
+
 private slots:
 
 

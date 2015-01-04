@@ -45,6 +45,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     DBinMemory = false;
     needToEnd = false;
+    cleaning = false;
     dxclusterServerToConnect = "dxfun.com";
     dxclusterServerPort = 8000;
     contestMode = NoContest;
@@ -74,10 +75,17 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     myLocator = "";
     dxLocator ="";
     myPower = 0.0;
+    lastPower = myPower;
+    lastOperatorQRZ = operatorQRZ;
+    lastStationQRZ = stationQRZ;
+    lastMyLocator = myLocator;
+
+    entitiesList.clear();
     currentEntity = -1; // To optimize the calls to different world methods if the entity does not change. Used in slotQRZTextChanged
     previousEntity = -1;// To optimize the calls to different world methods if the entity does not change.
     realTime=true;
     UTCTime=true;
+    keepMyData=true;
     alwaysADIF=false;
     useDefaultLogFileName=false;
     needToSave=false;
@@ -117,6 +125,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     searchResultsTreeWidget->setSortingEnabled(true);
     //searchResultsTreeWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
     searchResultsTreeWidget->setSelectionMode(QAbstractItemView::MultiSelection);
+    searchResultsTreeWidget->setMouseTracking(true);
 
     searchBoxClearButton = new QPushButton(tr("&Clear"), this);
     searchBoxExportButton  = new QPushButton(tr("&Export Highlited"), this);
@@ -192,6 +201,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         {
             //qDebug() << "MainWindow::MainWindow: !existingData" << endl;
             world->create(kontestDir);
+            entitiesList = world->getEntitiesNames();
 
             //createData();
         }else
@@ -271,6 +281,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     iotaContinentComboBox = new QComboBox;
     entityAwardComboBox = new QComboBox;
     entityNameComboBox = new QComboBox;
+
     //notesTextEdit = new QTextEdit;
     commentLineEdit = new QLineEdit;
     continentLabel = new QLabel;
@@ -382,6 +393,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     // CLUSTER
     dxClusterWidget = new DXClusterWidget(dxclusterServerToConnect , dxclusterServerPort, this);
+    dxClusterWidget->setCurrentLog(currentLog);
+
     //dxClusterWidget = new DXClusterWidget(this);
     //QWidget *dxClusterTabWidget = new QWidget;
 
@@ -691,6 +704,25 @@ QString MainWindow::readDataFromUIDX()
     QString trstrx = rstRXLineEdit->text();
 
     int dxcc = world->getQRZARRLId(tqrz);
+    int dxcc2 = getDXCCFromComboBox();
+
+    if (dxcc!=dxcc2)
+    {
+        QString dxccn1 = world->getEntityName(dxcc);
+        QString dxccn2 = world->getEntityName(dxcc2);
+
+        QMessageBox::StandardButton ret;
+        ret = QMessageBox::warning(this, tr("KLog"),
+                                   tr("You have selected an entity")+"("+dxccn2+")\n"+tr("that is different from the KLog proposed entity")+ "("+dxccn1+")\n"
+                    +tr("Push Apply to apply your selection."),
+                 QMessageBox::Apply | QMessageBox::Discard);
+        if (ret == QMessageBox::Apply)
+        {
+            dxcc = dxcc2;
+        }
+
+    }
+
     int cqz = world->getEntityCqz(dxcc);
     int ituz = world->getEntityItuz(dxcc);
 
@@ -731,9 +763,11 @@ QString MainWindow::readDataFromUIDX()
         stringData = stringData + ", '" + aux1 + "'";
     }
 
+
     aux1 = operatorLineEdit->text();
     if (aux1.length()>2)
     {
+        lastOperatorQRZ = aux1.toUpper();
         stringFields = stringFields + ", operator";
         stringData = stringData + ", '" + aux1 + "'";
     }
@@ -741,13 +775,15 @@ QString MainWindow::readDataFromUIDX()
     aux1 = stationCallSignLineEdit->text();
     if (aux1.length()>2)
     {
+        lastStationQRZ = aux1.toUpper();
         stringFields = stringFields + ", station_callsign";
         stringData = stringData + ", '" + aux1 + "'";
     }
 
     aux1 = myLocatorLineEdit->text();
     if (aux1.length()>2)
-    {
+    {                   
+        lastMyLocator = aux1.toUpper();
         stringFields = stringFields + ", my_gridsquare";
         stringData = stringData + ", '" + aux1 + "'";
     }
@@ -806,6 +842,7 @@ QString MainWindow::readDataFromUIDX()
     aux1 = QString::number(myPowerSpinBox->value());
     if ((aux1.toDouble())>0.0)
     {
+        lastPower = aux1.toDouble();
         stringFields = stringFields + ", tx_pwr";
         stringData = stringData + ", '" + aux1 + "'";
     }
@@ -2243,10 +2280,16 @@ void MainWindow::createActionsCommon(){
     connect(searchResultsTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotDoubleClickSearch(QTreeWidgetItem *, int)));
     connect(searchResultsTreeWidget, SIGNAL(itemSelectionChanged( ) ), this, SLOT(slotSearchBoxSelectionChanged( ) ) );
 
+    //connect(searchResultsTreeWidget, SIGNAL(itemEntered ( QTreeWidgetItem *, int) ), this, SLOT(slotSearchBoxOnItemChanged( QTreeWidgetItem *, int) ) );
+
+
+
     connect(searchBoxExportButton, SIGNAL(clicked()), this, SLOT(slotSearchExportButtonClicked() ) );
     connect(searchBoxClearButton, SIGNAL(clicked()), this, SLOT(slotSearchClearButtonClicked() ) );
     connect(searchBoxSelectAllButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxSelectAllButtonClicked() ) );
     connect(searchBoxReSearchButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxReSearchButtonClicked() ) );
+
+
 
 
     connect(recalculateAwardsButton, SIGNAL(clicked()), this, SLOT(slotRecalculateAwardsButtonClicked() ) );
@@ -2399,6 +2442,11 @@ bool MainWindow::validCharactersInCall(const QString _qrz)
 void MainWindow::slotQRZTextChanged()
 {    
     //qDebug() << "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << endl;
+    if (cleaning)
+    {
+        return;
+    }
+
     int cursorP = qrzLineEdit->cursorPosition();
     infoLabel1->clear();
 
@@ -2465,6 +2513,8 @@ void MainWindow::slotQRZTextChanged()
 
     currentQrz = qrzLineEdit->text();
     currentEntity = world->getQRZARRLId(currentQrz);
+    selectCorrectComboBoxEntity(currentEntity);
+
     dx_CQz = world->getEntityCqz(currentEntity);
     dx_ITUz = world->getEntityItuz(currentEntity);
 
@@ -2559,6 +2609,16 @@ void MainWindow::slotSearchBoxReSearchButtonClicked()
 {
     slotSearchBoxTextChanged();
 }
+
+/*
+void MainWindow::slotSearchBoxOnItemChanged( QTreeWidgetItem * item, int column)
+{
+    qDebug() << "MainWindow::slotSearchBoxOnItemChanged: " << (item->data (0, Qt::DisplayRole)).toString() << QString::number(column) << endl;
+    //searchResultsTreeWidget
+    //item->data (0, Qt::DisplayRole)
+
+}
+*/
 
 void MainWindow::slotSearchClearButtonClicked()
 {
@@ -2687,6 +2747,7 @@ void MainWindow::slotSearchBoxTextChanged()
     //int nameCol;
     QString _id, _call, _dateTime, _band, _mode, _qsltx, _qslrx, _freq, _stationcallsign;
     QStringList q;
+    int i = -1;
     int cursorP = searchBoxLineEdit->cursorPosition();
 
     searchBoxLineEdit->setText((searchBoxLineEdit->text()).toUpper());
@@ -2774,10 +2835,10 @@ void MainWindow::slotSearchBoxTextChanged()
             if (stationCallSignShownInSearch)
             {
                 _stationcallsign = (query.value(7)).toString();
-                if (_stationcallsign.length()<3)
-                {
-                    _stationcallsign = stationQRZ;
-                }
+                //if (_stationcallsign.length()<3)
+                //{
+                //    _stationcallsign = stationQRZ;
+                //}
                 _id = (query.value(8)).toString();
             }
             else
@@ -2802,7 +2863,17 @@ void MainWindow::slotSearchBoxTextChanged()
     //_qs << QRZ << BandId << lognumber;
 */
                 QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
+                i = world->getQRZARRLId(_call);
+                aux = world->getEntityName(i) + " - CQ: " + QString::number(world->getEntityCqz(i));
+                item->setToolTip(0, aux);
+                item->setToolTip(1, aux);
+                item->setToolTip(2, aux);
+                item->setToolTip(3, aux);
+                item->setToolTip(4, aux);
+                item->setToolTip(5, aux);
+                item->setToolTip(6, aux);
 
+                //item->setToolTip(0, world->getQRZEntityName(_call));
                 item->setText(0, _call);
                 item->setFont(0, font);
                 item->setText(1, _dateTime);
@@ -2814,6 +2885,7 @@ void MainWindow::slotSearchBoxTextChanged()
                 {
                     item->setText(6, _stationcallsign);
                     item->setText(7, _id);
+                    item->setToolTip(7, aux);
 
                 }
                 else
@@ -2943,7 +3015,8 @@ void MainWindow::slotSpotItButtonClicked()
 
 void MainWindow::slotClearButtonClicked()
 {
-    //qDebug() << "MainWindow::slotClearButtonClicked" << endl;
+   //qDebug() << "MainWindow::slotClearButtonClicked" << endl;
+    cleaning = true;
     modify = false;
     OKButton->setText(tr("&Add"));
     modifyingQSO = -1;
@@ -2988,12 +3061,7 @@ void MainWindow::slotClearButtonClicked()
             commentLineEdit->clear();
             infoLabel1->clear();
             infoLabel2->clear();
-            stationCallSignLineEdit->setText(stationQRZ);
 
-            operatorLineEdit->setText(operatorQRZ);
-
-            myLocatorLineEdit->setText(myLocator);
-            myPowerSpinBox->setValue(myPower);
             rxPowerSpinBox->setValue(0);
             qslSentViaComboBox->setCurrentIndex(0); // has to be changed before the qslSentComboBox to avoid calling the slot
             qslRecViaComboBox->setCurrentIndex(0); // has to be changed before the qslRecComboBox to avoid calling the slot
@@ -3007,21 +3075,35 @@ void MainWindow::slotClearButtonClicked()
             lotwRecComboBox->setCurrentIndex(1);
             qslmsgTextEdit->clear();
             qslViaLineEdit->clear();
-
             iotaContinentComboBox->setCurrentIndex(0);
+            entityNameComboBox->setCurrentIndex(0);
             //iotaNumberLineEdit->setEnabled(false);
             iotaNumberLineEdit->setText("000");
             continentLabel->setText("");
             prefixLabel->setText("");
             cqzLabel->setText("0");
             ituzLabel->setText("0");
+            if (!keepMyData)
+            {
+                myPowerSpinBox->setValue(lastPower);
+                operatorLineEdit->setText(lastOperatorQRZ);
+                stationCallSignLineEdit->setText(lastStationQRZ);
+                myLocatorLineEdit->setText(lastMyLocator);
+            }
+            else
+            {
+                myPowerSpinBox->setValue(myPower);
+                operatorLineEdit->setText(operatorQRZ);
+                stationCallSignLineEdit->setText(stationQRZ);
+                myLocatorLineEdit->setText(myLocator);
+            }
             clearInfoFromLocators();
             clearBandLabels();
-
             showAwards();
         break;
     }
     statusBar()->clearMessage();
+    cleaning = false;
 }
 
 void MainWindow::clearBandLabels()
@@ -4297,12 +4379,15 @@ void MainWindow::readConfigData()
     }
     showEntityInfo(currentEntity);
 
+    lastPower = myPower;
+    lastOperatorQRZ = operatorQRZ;
+    lastStationQRZ = stationQRZ;
+    lastMyLocator = myLocator;
 
     configured = true;
     awards->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     dxClusterWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
-    //dxClusterWidget->setDXClusterSpotConfig(const QString &_showhf, const QString &_showvhf, const QString &_showwarc, const QString &_showworked, const QString &_showconfirmed, const QString &_showann, const QString &_showwwv, const QString &_showwcy )
-
+    dxClusterWidget->setDXClusterSpotConfig(dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY );
 
     initialContestModeConfiguration();
 
@@ -4486,6 +4571,19 @@ bool MainWindow::processConfigLine(const QString _line){
         else
         {
             UTCTime=true;
+        }
+
+    }
+    else if (values.at(0)=="KEEPMYDATA")
+    {
+        //qDebug() << "MainWindow::processConfigLine: UTCTIME: " << value.toUpper() <<endl;
+        if ( (value.toUpper()) == "FALSE")
+        {
+            keepMyData=false;
+        }
+        else
+        {
+            keepMyData=true;
         }
 
     }
@@ -4975,6 +5073,9 @@ void MainWindow::createUIDX()
     infoLabel1->setToolTip(tr("Status of the DX entity"));
     infoLabel2->setToolTip(tr("Name of the DX entity"));
 
+    entityAwardComboBox->setToolTip(tr("Select the correct award for this QSO"));
+    entityNameComboBox->setToolTip(tr("Select the correct entity of the current QSO"));
+
     //QGridLayout *layout = new QGridLayout;
 
     dxUpLeftInputFrame = new QFrame;
@@ -4982,6 +5083,7 @@ void MainWindow::createUIDX()
     //dxUpRightOutputFrame = new QFrame;
     //dxUpRightOutputFrame->setFrameShadow(QFrame::Raised);
     //dxUpRightOutputFrame->setFrameStyle(QFrame::StyledPanel);
+
 
 
     dxUpLeftTab = new QTabWidget;
@@ -5042,12 +5144,9 @@ void MainWindow::createUIDX()
     qthLayout->addLayout(qthHLayout);
     qthLayout->addWidget(qthLineEdit);
 
-
-
     QVBoxLayout *rstQTHLayout = new QVBoxLayout;
     rstQTHLayout->addLayout(RSTLayout);
     rstQTHLayout->addLayout(qthLayout);
-
 
     QLabel *txfreqLabelN = new QLabel(tr("Freq TX"));
     txfreqLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
@@ -5069,8 +5168,6 @@ void MainWindow::createUIDX()
     //locLayout->addSpacerItem(new QSpacerItem(50,1));
     //locLayout->addWidget(spacerLocLabel);
     locLayout->addLayout(locVLayout);
-
-
 
     QVBoxLayout *freqLocLayout = new QVBoxLayout;
     freqLocLayout->addLayout(freqLayout);
@@ -5140,31 +5237,12 @@ void MainWindow::createUIDX()
     QLabel *QSLViaLabelN = new QLabel(tr("QSL Via"));
     QSLViaLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-
-/*
-    QHBoxLayout *qslSentLayout = new QHBoxLayout;
-    qslSentLayout->addWidget(qslSentComboBox);
-    qslSentLayout->addWidget(qslSentQDateEdit);    
-    qslSentLayout->addWidget(qslSentViaComboBox);
-
-    QHBoxLayout *qslRecLayout = new QHBoxLayout;
-    qslRecLayout->addWidget(qslRecComboBox);
-    qslRecLayout->addWidget(qslRecQDateEdit);    
-    qslRecLayout->addWidget(qslRecViaComboBox);
-
-    QFormLayout *qslInputTabWidgetLayout = new QFormLayout;
-    qslInputTabWidgetLayout->addRow(QSLSentLabelN, qslSentLayout);
-    qslInputTabWidgetLayout->addRow(QSLRecLabelN, qslRecLayout);
-
-    QHBoxLayout *qslViaLayout = new QHBoxLayout;
-    qslViaLayout->addWidget(QSLViaLabelN);
-    qslViaLayout->addWidget(qslViaLineEdit);
-
-    QVBoxLayout *qslTabLayout = new QVBoxLayout;
-    qslTabLayout->addLayout(qslInputTabWidgetLayout);
-    qslTabLayout->addLayout(qslViaLayout);
-    qslTabLayout->addWidget(qslmsgTextEdit);
-    */
+    //entityNameComboBox = new QComboBox;entitiesList
+    if (entitiesList.count()>1)
+    {
+        entitiesList.prepend("00-Not Identified");
+        entityNameComboBox->addItems(entitiesList);
+    }
 
     QGridLayout *QSLLayout = new QGridLayout;
     QSLLayout->addWidget(QSLSentLabelN, 0, 0);
@@ -5677,7 +5755,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     //qslmsgTextEdit->setEnabled(false);
     //qslViaLineEdit->setEnabled(false);
     entityAwardComboBox->setEnabled(false);
-    entityNameComboBox->setEnabled(false);
+    entityNameComboBox->setEnabled(true);
 
 //qDebug() << "MainWindow::createUIDX - OS DETECTION"  << endl;
 
@@ -6730,6 +6808,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
                 //qDebug() << "MainWindow::qsoToEdit: - in default - 100: " << QString::number(currentEntity)  << endl;
                 showEntityInfo(currentEntity);
+                selectCorrectComboBoxEntity(currentEntity);
                 //qDebug() << "MainWindow::qsoToEdit: - in default - 101"  << endl;
 
                 QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
@@ -7895,6 +7974,8 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
     //qDebug() << "MainWindow::slotToolSearchQSL: " << QString::number(actionQSL) << endl;
     QString stringQuery = QString();
     QString message = QString();
+    QString aux = QString();
+    int i = -1;
 
 
     switch (actionQSL)
@@ -7942,6 +8023,17 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
         if (query.isValid())
         {
             QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
+            //aux = world->getQRZEntityName(_call);
+            i = world->getQRZARRLId(_call);
+            aux = world->getEntityName(i) + " - CQ: " + QString::number(world->getEntityCqz(i));
+            item->setToolTip(0, aux);
+            item->setToolTip(1, aux);
+            item->setToolTip(2, aux);
+            item->setToolTip(3, aux);
+            item->setToolTip(4, aux);
+            item->setToolTip(5, aux);
+            item->setToolTip(6, aux);
+
             nameCol = rec.indexOf("call");
             _call= (query.value(nameCol)).toString();
             nameCol = rec.indexOf("qso_date");
@@ -7973,13 +8065,22 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
 
             if (stationCallSignShownInSearch)
             {
+                qDebug() << "MainWindow::slotToolSearchQSL: stationCallSign "<< endl;
 
                 nameCol = rec.indexOf("station_callsign");
-                _stationcallsign = (query.value(nameCol)).toString();
-                if (_stationcallsign.length()<3)
+                if (((query.value(nameCol)).toString()).length()>=3)
                 {
-                    _stationcallsign = stationQRZ;
+                    _stationcallsign = (query.value(nameCol)).toString();
                 }
+                else
+                {
+                    _stationcallsign.clear();
+                }
+
+                //if (_stationcallsign.length()<3)
+                //{
+                //    _stationcallsign = stationQRZ;
+                //}
             }
 
             nameCol = rec.indexOf("id");
@@ -8000,6 +8101,7 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
             {
                 item->setText(6, _stationcallsign);
                 item->setText(7, _id);
+                item->setToolTip(7, aux);
             }
             else
             {
@@ -8181,3 +8283,30 @@ void MainWindow::updateQSLRecAndSent()
     }
 }
 
+void MainWindow::selectCorrectComboBoxEntity(const int _ent)
+{// Select the appropriate entity in the ComboBox
+    //qDebug() << "MainWindow::selectCorrectEntity: " << QString::number(_ent) << "/" << world->getEntityMainPrefix(_ent)  << endl;
+    if (_ent<=0)
+    {
+        entityNameComboBox->setCurrentIndex(0);
+        return;
+    }
+    QString pref = QString();
+    //pref = world->getEntityMainPrefix(_ent);
+    pref = world->getEntityName(_ent);
+
+    int indexC = entityNameComboBox->findText(pref, Qt::MatchContains);
+    //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC) << endl;
+    entityNameComboBox->setCurrentIndex(indexC);
+
+}
+
+int MainWindow::getDXCCFromComboBox()
+{
+    qDebug() << "MainWindow::getDXCCFromComboBox" << endl;
+    QString pref = (entityNameComboBox->currentText()).split('-').at(0);
+    qDebug() << "MainWindow::getDXCCFromComboBox: " << pref << "/" << QString::number(world->getQRZARRLId(pref))<< endl;
+    return world->getQRZARRLId(pref);
+
+
+}

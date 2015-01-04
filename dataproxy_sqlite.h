@@ -24,6 +24,7 @@ public:
 
     bool deleteQSO(const int _qsoId);
     int isWorkedB4(const QString _qrz, const int _currentLog);
+    bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);
 
@@ -36,6 +37,9 @@ public:
     bool qslSentAsRequested(const int _qsoId, const QString _updateDate);
     bool qslRecAsRequested(const int _qsoId, const QString _updateDate);
 
+    bool isHF(const int _band);
+    bool isWARC(const int _band);
+    bool isVHF(const int _band);
 
     QString getCallFromId(const int _qsoId);
 
@@ -44,7 +48,7 @@ public:
 private:
     bool dbCreated;
     DataBase *db;
-    QSqlRelationalTableModel *logModel;
+    //QSqlRelationalTableModel *logModel;
 
 };
 
