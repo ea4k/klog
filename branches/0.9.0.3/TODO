@@ -19,6 +19,7 @@ TODO: Add Satellite support (maybe another Tab) (look this file (below) for deta
 TODO: Add another tab in the botton to list the DXCC status.
 TBD - Added the feature to add and manage several logs.
 TODO: Add an option to auto-complete info (QTH, Locator, Name, QSL Manager(qsl_via), IOTA, AWARD, Entity...) from previously worked QSO.
+TODO: UI: Modify the DX-Cluster tab to show the data in a table: DX de/Freq/DX/Comment/Time/Loc
 
 KLog 0.9.3
 TODO: Support CQ WW SSB (Including Cabrillo Import/Export)
