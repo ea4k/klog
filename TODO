@@ -12,7 +12,7 @@ TODO: Adapt to ADIF 3.0.4
 TODO: Make a tool to mark and export QSO from the right button. (i.e. To mark several QSO to print and export the ADIF file with just those QSO)
 TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
 TODO: Check the colors in the searchBox, they may be not correct.
-
+TODO: Add CQ DX Marathon support.
 
 KLog 0.9.2
 TODO: Add Satellite support (maybe another Tab) (look this file (below) for details.
