@@ -8,6 +8,7 @@ December-2013 - 0.9.0.3RC1
 - KLog shows now the WAZ status.
 - DXCluster filters are now working.
 - The user can manually assign the DXCC entity for a DX.
+- Improved the function to update the DB from one release to the following.
 - It is possible to find QSL pending to receive.
 - It is possible to modify entities data in the World Editor in preferences.
 - It is possible to choose in preferences whether to keep my Data Tab from one QSO to the next or not.
@@ -19,6 +20,7 @@ December-2013 - 0.9.0.3RC1
 - GUI: The IOTA continent is updated when the QRZ is modified.
 - GUI: DXCluster input is disabled when not connected.
 - GUI: Corrected the behaviour of the status bar.
+- GUI: Added primary & secondary subdivisions in the Others Tab.
 
 
 November-2014 - 0.9.0.2

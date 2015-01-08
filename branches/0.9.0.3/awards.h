@@ -36,8 +36,8 @@
 #include <QStringList>
 #include <QProgressDialog>
 #include <QMultiHash>
+
 #include "world.h"
-#include "awardslocal.h"
 #include "dataproxy.h"
 #include "dataproxy_sqlite.h"
 
@@ -52,7 +52,6 @@ public:
     Awards();
     ~Awards();
     void setAwards(const int _qsoId);
-
     void setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId);
     /*
     _workedOrConfirmed = 0     Set as Worked
@@ -91,6 +90,7 @@ public:
     5 - Confirmed: Confirmed in this band.
     6 - Default: Not applicable
     */
+
 
 private:
 
@@ -131,11 +131,6 @@ private:
     typedef QMultiHash<int, int> DXStatus;
 
     DXStatus dxccWorked, dxccConfirmed, wazWorked, wazConfirmed;
-
-    // LOCAL AWARDS
-    AwardsLocal awardslocal;
-
-    // \LOCAL AWARDS
 
 
 };

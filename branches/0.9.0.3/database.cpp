@@ -105,7 +105,7 @@ bool DataBase::createConnection()
             stringQuery ="PRAGMA case_sensitive_like=OFF;";
             query.exec(stringQuery);
 
-            //REVISAR SI ESTAS QUERIES FUNCIONAN O NO
+
         }
     createBandModeMaps();
     }
@@ -639,8 +639,6 @@ confirmed = 1     Set as Confirmed
       query.exec("INSERT INTO mode (name, cabrillo) VALUES ('WSPR', 'NO')");
 
 
-
-
 query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('G', 'GrayLine')");
 query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('O', 'Other')");
 query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('S', 'ShortPath')");
@@ -833,8 +831,7 @@ int DataBase::getBandIdFromFreq(const QString fr)
 {
      //qDebug() << "DataBase::getBandIdFromFreq: " << fr << endl;
     //Freq should be in MHz
-    QString queryString = QString("SELECT id FROM band WHERE lower < '%1' and upper > '%2'").arg(fr).arg(fr);
-    //QString queryString = QString("�").arg(fr).arg(fr);
+    QString queryString = QString("SELECT id FROM band WHERE lower < '%1' and upper > '%2'").arg(fr).arg(fr);    
     QSqlQuery query(queryString);
     query.next();
 
@@ -908,7 +905,32 @@ bool DataBase::updateIfNeeded()
     }
     else
     { // DB is outdated. We need to update!!
-        updateToLatest();
+
+        QMessageBox msgBox;
+        msgBox.setText("KLog DB needs to be upgraded.");
+        msgBox.setInformativeText("Do you want to upgrade it now?\nIf DB is not upgraded KLog may not work properly.");
+        msgBox.setStandardButtons(QMessageBox::Apply | QMessageBox::Discard);
+        msgBox.setDefaultButton(QMessageBox::Apply);
+
+        int ret = msgBox.exec();
+
+        switch (ret)
+        {
+            case QMessageBox::Apply:
+            // Save was clicked
+                updateToLatest();
+            break;
+            case QMessageBox::Discard:
+            // Discard was clicked
+            break;
+            default:
+            // should never be reached
+                return false;
+            break;
+        }
+
+
+
     }
 
     // If the DB needs to be updated... we update it! :-)
@@ -1118,7 +1140,8 @@ bool DataBase::updateToLatest()
  * The updateXXX are recursive calls that calls the previous one.
  *
  */
-    return updateTo003();
+    qDebug() << "DataBase::updateToLatest-003 " << endl;
+    return updateTo004();
 }
 
 bool DataBase::updateTo003()
@@ -1129,16 +1152,19 @@ bool DataBase::updateTo003()
   *
   * // dbVersion shows the DB version that is being deployed
   * // latestReaded shows the DB version that is currently deployed.
+  *i.e.:
+  *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
   *
   */
-    //qDebug() << "DataBase::updateTo003" << endl;
+    qDebug() << "DataBase::updateTo003" << endl;
     bool IAmIn003 = false;
     bool IAmIn002 = false;
     bool ErrorUpdating = false;
 
-    if (latestReaded == 0.003)
+    if (latestReaded >= 0.003)
     {
-        IAmIn003 = true;
+        //IAmIn003 = true;
+        return true;
     }
     else
     {
@@ -1146,19 +1172,77 @@ bool DataBase::updateTo003()
     }
 
 
-    while (!IAmIn003 || !ErrorUpdating)
+    while (!IAmIn003 && !ErrorUpdating)
     {
-        while (!IAmIn002 || !ErrorUpdating)
+        while (!IAmIn002 && !ErrorUpdating)
         {
             //IAmIn002 = updateTo002();
             IAmIn002 = true;
         }
         if (ErrorUpdating)
         {
-            return ErrorUpdating;
+            return false;
         }
         //DO ALL THE TASKS TO BE IN 0.003 from 0.002 HERE and set ErrorUpdating if it is not possible.
         IAmIn003 = true;
     }
     return IAmIn003;
+}
+
+bool DataBase::updateTo004()
+{// Updates the DB to 0.0.4
+ /*
+  * This function should be used as a template to create the all the update functions implementing the needed changes
+  * in the dB to update from one version to the following one.
+  *
+  * // dbVersion shows the DB version that is being deployed
+  * // latestReaded shows the DB version that is currently deployed.
+  *i.e.:
+  *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
+  *
+  */
+    qDebug() << "DataBase::updateTo004" << endl;
+    bool IAmIn004 = false;
+    bool IAmIn003 = false;
+    bool ErrorUpdating = false;
+    QString stringQuery = QString();
+    QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+    QSqlQuery query;
+
+    bool sqlOk = false;
+
+    if (latestReaded >= 0.004)
+    {
+        return true;
+    }
+    else
+    {
+        IAmIn004 = false;
+    }
+
+
+    while (!IAmIn004 && !ErrorUpdating)
+    {
+        while (!IAmIn003 && !ErrorUpdating)
+        {
+            //IAmIn002 = updateTo002();
+            IAmIn003 = true;
+        }
+        if (ErrorUpdating)
+        {
+            return false;
+        }
+        sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+        if (sqlOk)
+        { // Version updated
+            sqlOk = query.exec("DROP TABLE award_enumeration");
+        }
+        else
+        { // Version not updated
+
+        }
+        //DO ALL THE TASKS TO BE IN 0.004 from 0.003 HERE and set ErrorUpdating if it is not possible.
+        IAmIn004 = true;
+    }
+    return IAmIn004;
 }

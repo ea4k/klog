@@ -421,7 +421,7 @@ private:
     QStringList entitiesList;
 
     // UI DX
-    QLabel *entityAwardLabel, *iotaAwardLabel, *entityNameLabel;
+    QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel;
     QLabel *infoLabel1, *infoLabel2;
     QLabel *bandLabel1, *bandLabel2, *bandLabel3, *bandLabel4;
     QLabel *bandLabel5, *bandLabel6, *bandLabel7, *bandLabel8;
@@ -430,7 +430,7 @@ private:
     QLabel *gradShortLabel, *distShortLabel;
     QLabel *gradLongLabel, *distLongLabel;
 
-    QComboBox *iotaContinentComboBox, *entityAwardComboBox, *entityNameComboBox;
+    QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox;
     QLineEdit *iotaNumberLineEdit, *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit, *commentLineEdit;
     QTextEdit *notesTextEdit;
     QDoubleSpinBox *myPowerSpinBox, *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox;

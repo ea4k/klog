@@ -275,11 +275,13 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     bandLabel10 = new QLabel(tr("17M"));
     bandLabel11 = new QLabel(tr("30M"));
     bandLabel12 = new QLabel(tr("70CM"));
-    entityAwardLabel = new QLabel(tr("Award"));
+    entityPrimLabel = new QLabel(tr("Primary Div"));
+    entitySecLabel = new QLabel(tr("Secondary Div"));
     iotaAwardLabel = new QLabel(tr("IOTA"));
     entityNameLabel = new QLabel(tr("Entity"));
     iotaContinentComboBox = new QComboBox;
-    entityAwardComboBox = new QComboBox;
+    entityPrimDivComboBox = new QComboBox;
+    entitySecDivComboBox = new QComboBox;
     entityNameComboBox = new QComboBox;
 
     //notesTextEdit = new QTextEdit;
@@ -5073,7 +5075,8 @@ void MainWindow::createUIDX()
     infoLabel1->setToolTip(tr("Status of the DX entity"));
     infoLabel2->setToolTip(tr("Name of the DX entity"));
 
-    entityAwardComboBox->setToolTip(tr("Select the correct award for this QSO"));
+    entityPrimDivComboBox->setToolTip(tr("Select the primary division for this QSO"));
+    entitySecDivComboBox->setToolTip(tr("Select the secondary division for this QSO"));
     entityNameComboBox->setToolTip(tr("Select the correct entity of the current QSO"));
 
     //QGridLayout *layout = new QGridLayout;
@@ -5105,8 +5108,6 @@ void MainWindow::createUIDX()
     QLabel *locLabel = new QLabel(qsoInputTabWidget);
     locLabel->setText("Locator");
     locLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-    //qDebug() << "MainWindow::createUIDX: Start" << endl;
 
     QLabel *rxPowerSpinBoxLabelN = new QLabel(tr("Power(rx)"));
     rxPowerSpinBoxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
@@ -5332,10 +5333,11 @@ void MainWindow::createUIDX()
     i = dxUpLeftTab->addTab(commentInputTabWidget, tr("Comment"));
 
 
-    //entityAwardLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    //entityPrimLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     //iotaAwardLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     //entityNameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    entityAwardLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    entityPrimLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    entitySecLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     iotaAwardLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     entityNameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
@@ -5350,19 +5352,23 @@ void MainWindow::createUIDX()
     othersInputTabWidgetLayout->addRow(iotaAwardLabel, othersIotaInputLayout);
     //othersInputTabWidgetLayout->addWidget(iotaContinentComboBox, 0, 1);
     //othersInputTabWidgetLayout->addWidget(iotaNumberLineEdit, 0, 2);
-    othersInputTabWidgetLayout->addRow(entityAwardLabel, entityAwardComboBox);
+    othersInputTabWidgetLayout->addRow(entityPrimLabel, entityPrimDivComboBox);
     othersInputTabWidgetLayout->addRow(entityNameLabel, entityNameComboBox);
-    //othersInputTabWidgetLayout->addWidget(entityAwardComboBox, 1, 1);
+    //othersInputTabWidgetLayout->addWidget(entityPrimDivComboBox, 1, 1);
 */
 
     QGridLayout *othersInputTabWidgetLayout = new QGridLayout;
-    othersInputTabWidgetLayout->addWidget(iotaAwardLabel, 0, 0);
-    othersInputTabWidgetLayout->addWidget(iotaContinentComboBox, 0, 1);
-    othersInputTabWidgetLayout->addWidget(iotaNumberLineEdit, 0, 2);
-    othersInputTabWidgetLayout->addWidget(entityAwardLabel, 1, 0);
-    othersInputTabWidgetLayout->addWidget(entityAwardComboBox, 1, 1, 1, 2);
-    othersInputTabWidgetLayout->addWidget(entityNameLabel, 2, 0);
-    othersInputTabWidgetLayout->addWidget(entityNameComboBox, 2, 1, 1, 2);
+    othersInputTabWidgetLayout->addWidget(entityNameLabel, 0, 0);
+    othersInputTabWidgetLayout->addWidget(entityNameComboBox, 0, 1, 1, 2);
+
+
+    othersInputTabWidgetLayout->addWidget(entityPrimLabel, 1, 0);
+    othersInputTabWidgetLayout->addWidget(entityPrimDivComboBox, 1, 1, 1, 2);
+    othersInputTabWidgetLayout->addWidget(entitySecLabel, 2, 0);
+    othersInputTabWidgetLayout->addWidget(entitySecDivComboBox, 2, 1, 1, 2);
+    othersInputTabWidgetLayout->addWidget(iotaAwardLabel, 3, 0);
+    othersInputTabWidgetLayout->addWidget(iotaContinentComboBox, 3, 1);
+    othersInputTabWidgetLayout->addWidget(iotaNumberLineEdit, 3, 2);
 
     othersInputTabWidget->setLayout(othersInputTabWidgetLayout);
     i = dxUpLeftTab->addTab(othersInputTabWidget, tr("Others"));
@@ -5754,7 +5760,8 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     qslRecViaComboBox->setEnabled(false);
     //qslmsgTextEdit->setEnabled(false);
     //qslViaLineEdit->setEnabled(false);
-    entityAwardComboBox->setEnabled(false);
+    entityPrimDivComboBox->setEnabled(false);
+    entitySecDivComboBox->setEnabled(false);
     entityNameComboBox->setEnabled(true);
 
 //qDebug() << "MainWindow::createUIDX - OS DETECTION"  << endl;
@@ -5824,12 +5831,6 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     distLongLabel->setFrameShadow(QFrame::Raised);
     distLongLabel->setFrameStyle(QFrame::StyledPanel);
 
-    //entityAwardLabel->setFrameShadow(QFrame::Raised);
-    //entityAwardLabel->setFrameStyle(QFrame::StyledPanel);
-    //iotaAwardLabel->setFrameShadow(QFrame::Raised);
-    //iotaAwardLabel->setFrameStyle(QFrame::StyledPanel);
-    //entityNameLabel->setFrameShadow(QFrame::Raised);
-    //entityNameLabel->setFrameStyle(QFrame::StyledPanel);
 
     bandLabel1->setFrameShadow(QFrame::Raised);
     bandLabel1->setFrameStyle(QFrame::StyledPanel);
@@ -5961,9 +5962,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     distLongLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     distLongLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     gradLongLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //iotaAwardLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //entityAwardLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //entityNameLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
+
 
     bandLabel1->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     bandLabel2->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
