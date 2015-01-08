@@ -36,9 +36,9 @@
 
 class QSqlRelationalTableModel;
 
-// Last db update 0.0.3-alpha
-// Previous db update 0.0.1-alpha
-const float DBVersionf = 0.003;
+// Last db update 0.0.4
+// Previous db update 0.0.3
+const float DBVersionf = 0.004;
 
 class DataBase
 {
@@ -77,6 +77,7 @@ private:
     bool isTheDBCreated();
     bool updateToLatest();
     bool updateTo003(); // Updates the DB to 0.0.3
+    bool updateTo004();
 
     bool createTheBandQuickReference();
     bool createTheModeQuickReference();
