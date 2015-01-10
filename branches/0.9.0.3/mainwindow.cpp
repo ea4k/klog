@@ -59,6 +59,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     configured = false;
     modify = false;
     qslingNeeded = false; // When clicking on Find QSO to QSL
+    selectedYear = 0;
     defaultMode = 0;
     defaultBand = 0;
     currentMode = 0;
@@ -249,6 +250,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     SRXLineEdit = new QLineEdit;
     bandComboBox = new QComboBox;
     modeComboBox = new QComboBox;
+
     dateEdit = new QDateEdit;
     timeEdit = new QTimeEdit;
     //statusBar = new QStatusBar;
@@ -321,10 +323,6 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     rxFreqSpinBox->setMaximum(9999);
     rxFreqSpinBox->setSuffix(tr("MHz"));
 
-    //freqQLCDNumber = new QLCDNumber;
-    //freqQLCDNumber->setDigitCount(7);
-    //freqQLCDNumber->setSmallDecimalPoint(true);
-
     dxccConfirmedQLCDNumber = new QLCDNumber;
     dxccWorkedQLCDNumber = new QLCDNumber;
     wazConfirmedQLCDNumber = new QLCDNumber;
@@ -333,8 +331,14 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     localWorkedQLCDNumber = new QLCDNumber;
     qsoConfirmedQLCDNumber = new QLCDNumber;
     qsoWorkedQLCDNumber = new QLCDNumber;
+    dxMarathonDXCC = new QLCDNumber;
+    dxMarathonCQ = new QLCDNumber;
+    dxMarathonPoints = new QLCDNumber;
+    operatingYearsComboBox = new QComboBox;
+
     qsoWorkedQLCDNumber->setDigitCount(7);
     qsoConfirmedQLCDNumber->setDigitCount(7);
+
     qslSentComboBox = new QComboBox;
     qslRecComboBox = new QComboBox;
     eqslSentComboBox = new QComboBox;
@@ -397,10 +401,6 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     dxClusterWidget = new DXClusterWidget(dxclusterServerToConnect , dxclusterServerPort, this);
     dxClusterWidget->setCurrentLog(currentLog);
 
-    //dxClusterWidget = new DXClusterWidget(this);
-    //QWidget *dxClusterTabWidget = new QWidget;
-
-
     // </CLUSTER>
 
     // </UI>
@@ -451,6 +451,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     } else
     {
+        operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
         updateQSLRecAndSent();
         awards->recalculateAwards();
         showAwards();
@@ -2284,16 +2285,12 @@ void MainWindow::createActionsCommon(){
 
     //connect(searchResultsTreeWidget, SIGNAL(itemEntered ( QTreeWidgetItem *, int) ), this, SLOT(slotSearchBoxOnItemChanged( QTreeWidgetItem *, int) ) );
 
-
-
     connect(searchBoxExportButton, SIGNAL(clicked()), this, SLOT(slotSearchExportButtonClicked() ) );
     connect(searchBoxClearButton, SIGNAL(clicked()), this, SLOT(slotSearchClearButtonClicked() ) );
     connect(searchBoxSelectAllButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxSelectAllButtonClicked() ) );
     connect(searchBoxReSearchButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxReSearchButtonClicked() ) );
 
-
-
-
+    connect(operatingYearsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotOperatingYearComboBoxChanged() ) ) ;
     connect(recalculateAwardsButton, SIGNAL(clicked()), this, SLOT(slotRecalculateAwardsButtonClicked() ) );
 
 //connect(searchResultsTreeWidget, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickSearch( const QModelIndex& ) ) );
@@ -5071,6 +5068,10 @@ void MainWindow::createUIDX()
     localWorkedQLCDNumber->setToolTip(tr("Number of worked local references"));
     qsoConfirmedQLCDNumber->setToolTip(tr("Number of confirmed QSO"));
     qsoWorkedQLCDNumber->setToolTip(tr("Number of worked QSO"));
+    dxMarathonDXCC->setToolTip(tr("Number of DXCC worked on the selected year"));
+    dxMarathonCQ->setToolTip(tr("Number of CQ Zones worked on the selected year"));
+    dxMarathonPoints->setToolTip(tr("Score for the DXMarathon on the selected year"));
+    operatingYearsComboBox->setToolTip(tr("Select the year you want to check"));
 
     infoLabel1->setToolTip(tr("Status of the DX entity"));
     infoLabel2->setToolTip(tr("Name of the DX entity"));
@@ -5086,8 +5087,6 @@ void MainWindow::createUIDX()
     //dxUpRightOutputFrame = new QFrame;
     //dxUpRightOutputFrame->setFrameShadow(QFrame::Raised);
     //dxUpRightOutputFrame->setFrameStyle(QFrame::StyledPanel);
-
-
 
     dxUpLeftTab = new QTabWidget;
     dxUpRightTab = new QTabWidget;
@@ -5589,13 +5588,23 @@ addLayout ( QLayout * layout, int row, int column,
 int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
 */
 
+    QLabel *dxMarathonTopDXCCLabelN = new QLabel(tr("DXCC"));
+    QLabel *dxMarathonTopCQLabelN = new QLabel(tr("CQ"));
+    QLabel *dxMarathonTopScoreLabelN = new QLabel(tr("Score"));
+    QLabel *dxMarathonLabelN = new QLabel(tr("DX-Marathon"));
+
+    dxMarathonTopDXCCLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+    dxMarathonTopCQLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+    dxMarathonTopScoreLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+    dxMarathonLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+
     QWidget *searchTabWidget = new QWidget;
     i = dxUpRightTab->addTab(infoTabWidget, tr("Info"));
 
     QWidget *awardsTabWidget = new QWidget;
 
     QLabel *awardLabelN = new QLabel(tr("Award"));    
-    awardLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+    awardLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);    
 
     QLabel *confirmedLabelN = new QLabel(tr("Confirmed"));
     confirmedLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
@@ -5617,6 +5626,29 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     QLabel *qsoNLabelN = new QLabel(tr("QSOs"));
     qsoNLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
 
+    //QVBoxLayout *dxMarathonTLayout = new QVBoxLayout;
+    //dxMarathonTLayout->addWidget();
+    //dxMarathonTLayout->addWidget();
+    QGridLayout *dxMarathonDLayout = new QGridLayout;
+/*
+    dxMarathonDLayout->addWidget(dxMarathonTopDXCCLabelN, 0, 0);
+    dxMarathonDLayout->addWidget(dxMarathonTopCQLabelN, 0, 1);
+    dxMarathonDLayout->addWidget(dxMarathonTopScoreLabelN, 0, 2);
+    dxMarathonDLayout->addWidget(dxMarathonDXCC, 1, 0);
+    dxMarathonDLayout->addWidget(dxMarathonCQ, 1, 1);
+    dxMarathonDLayout->addWidget(dxMarathonPoints, 1, 2);
+*/
+    dxMarathonDLayout->addWidget(dxMarathonTopDXCCLabelN, 0, 0);
+    dxMarathonDLayout->addWidget(dxMarathonTopCQLabelN, 0, 1);
+    dxMarathonDLayout->addWidget(dxMarathonTopScoreLabelN, 0, 2);
+    dxMarathonDLayout->addWidget(dxMarathonDXCC, 1, 0);
+    dxMarathonDLayout->addWidget(dxMarathonCQ, 1, 1);
+    dxMarathonDLayout->addWidget(dxMarathonPoints, 1, 2);
+
+    QVBoxLayout *dxMarathonTLayout = new QVBoxLayout;
+    dxMarathonTLayout->addWidget(dxMarathonLabelN);
+    dxMarathonTLayout->addWidget(operatingYearsComboBox);
+
     QGridLayout *dxUpRightAwardsTabLayout = new QGridLayout;
     dxUpRightAwardsTabLayout->addWidget(awardLabelN, 0, 0);
     dxUpRightAwardsTabLayout->addWidget(workedLabelN, 0, 1);
@@ -5633,9 +5665,10 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxUpRightAwardsTabLayout->addWidget(qsoNLabelN, 4, 0);
     dxUpRightAwardsTabLayout->addWidget(qsoWorkedQLCDNumber, 4, 1);
     dxUpRightAwardsTabLayout->addWidget(qsoConfirmedQLCDNumber, 4, 2);
-    dxUpRightAwardsTabLayout->addWidget(recalculateAwardsButton, 5, 1);
 
-
+    dxUpRightAwardsTabLayout->addLayout(dxMarathonTLayout, 5, 0);
+    dxUpRightAwardsTabLayout->addLayout(dxMarathonDLayout, 5, 1, 1, -1);
+    dxUpRightAwardsTabLayout->addWidget(recalculateAwardsButton, 6, 1);
 
     awardsTabWidget->setLayout(dxUpRightAwardsTabLayout);
 
@@ -5792,6 +5825,16 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     confirmedLabelN->setFrameStyle(QFrame::StyledPanel);
     awardLabelN->setFrameShadow(QFrame::Raised);
     awardLabelN->setFrameStyle(QFrame::StyledPanel);
+
+    dxMarathonTopDXCCLabelN->setFrameShadow(QFrame::Raised);
+    dxMarathonTopCQLabelN->setFrameShadow(QFrame::Raised);
+    dxMarathonTopScoreLabelN->setFrameShadow(QFrame::Raised);
+    dxMarathonLabelN->setFrameShadow(QFrame::Raised);
+    dxMarathonTopDXCCLabelN->setFrameStyle(QFrame::StyledPanel);
+    dxMarathonTopCQLabelN->setFrameStyle(QFrame::StyledPanel);
+    dxMarathonTopScoreLabelN->setFrameStyle(QFrame::StyledPanel);
+    dxMarathonLabelN->setFrameStyle(QFrame::StyledPanel);
+
     continentLabel->setFrameShadow(QFrame::Raised);
     continentLabel->setFrameStyle(QFrame::StyledPanel);
     continentLabelN->setFrameShadow(QFrame::Raised);
@@ -5944,6 +5987,11 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     workedLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     confirmedLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     awardLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
+    dxMarathonTopDXCCLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
+    dxMarathonTopCQLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
+    dxMarathonTopScoreLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
+    dxMarathonLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
+
     continentLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     continentLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     prefixLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
@@ -7229,19 +7277,20 @@ void MainWindow::showAwards()
 
     wazWorkedQLCDNumber->display(awards->getWAZWorked(currentLog));
     _num = 0;
-/*
-    aux = "SELECT COUNT (*) FROM (SELECT DISTINCT cqz FROM awardwaz WHERE confirmed='1')";
-    query.exec(aux);
-    query.next();
-    if (query.isValid())
-    {
-        _num = (query.value(0)).toInt();
-    }
-*/
+
     wazConfirmedQLCDNumber->display(awards->getWAZConfirmed(currentLog));
+
+    showDXMarathon(selectedYear);
+
 
 }
 
+void MainWindow::showDXMarathon(const int _year)
+{
+    dxMarathonDXCC->display(awards->getDXMarathonDXCC(_year, currentLog));
+    dxMarathonCQ->display(awards->getDXMarathonCQ(_year, currentLog));
+    dxMarathonPoints->display(dxMarathonDXCC->value() + dxMarathonCQ->value());
+}
 void MainWindow::fillQSOData()
 { // Updates all QSO with the dxcc, CQZ, ... if empty.
     //qDebug() << "MainWindow::fillQSOData" << endl;
@@ -8306,6 +8355,11 @@ int MainWindow::getDXCCFromComboBox()
     QString pref = (entityNameComboBox->currentText()).split('-').at(0);
     qDebug() << "MainWindow::getDXCCFromComboBox: " << pref << "/" << QString::number(world->getQRZARRLId(pref))<< endl;
     return world->getQRZARRLId(pref);
+}
 
-
+void MainWindow::slotOperatingYearComboBoxChanged()
+{
+    //qDebug() << "MainWindow::slotOperatingYearComboBoxChanged: " << operatingYearsComboBox->currentText() << endl;
+    selectedYear = (operatingYearsComboBox->currentText()).toInt();
+    showDXMarathon(selectedYear);
 }

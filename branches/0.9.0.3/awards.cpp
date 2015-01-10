@@ -648,10 +648,9 @@ QColor Awards::getDefaultColor()
 void Awards::recalculateAwards()
 {
 /*
-    Hay que optimizar esto
-La lectura del Select y los insert de los setAwardDXCC es MUUUUY lento
-
-Deberia tratar de meterlo todo en una transaccion
+  TODO: I need to optimize this function.
+    The select & insert of setAwardDXCC are too slow)
+    Should go in a transaction
 */
 
     //qDebug() << "Awards::recalculateAwards" << endl;
@@ -666,6 +665,7 @@ Deberia tratar de meterlo todo en una transaccion
     QString queryString, aux, _call, _qslStatus;
     bool cancelPressed = false;
     bool CQZknown = false;
+    bool CQZknownBefore = false;
     bool DXCCknown = false;
     bool DXCCknownBefore = false;
     bool queryOk = false;
@@ -708,13 +708,13 @@ Deberia tratar de meterlo todo en una transaccion
         {
             i++;
             DXCCknownBefore = false;
+            CQZknownBefore = false;
             nameCol = rec.indexOf("call");
             _call = (query.value(nameCol)).toString();
 
 
             nameCol = rec.indexOf("id");
             _id = (query.value(nameCol)).toInt();
-
 
 
             nameCol = rec.indexOf("dxcc");
@@ -744,7 +744,6 @@ Deberia tratar de meterlo todo en una transaccion
                 //qDebug() << "Awards::recalculateAwards: DXCC already known for id: " << QString::number(_id)  << " = " << QString::number(_dxcc) << endl;
             }
 
-
             //qDebug() << "Awards::recalculateAwards: CALL/ID/DXCC-2: " << _call << "/"<< _id << "/" << QString::number(_dxcc) << endl;
 
             nameCol = rec.indexOf("bandid");
@@ -752,7 +751,6 @@ Deberia tratar de meterlo todo en una transaccion
 
             nameCol = rec.indexOf("modeid");
             _mode = (query.value(nameCol)).toInt();
-
 
             nameCol = rec.indexOf("qsl_rcvd");
             _qslStatus = (query.value(nameCol)).toString();
@@ -764,7 +762,6 @@ Deberia tratar de meterlo todo en una transaccion
             {
                 _confirmed = 0;
             }
-
 
             //qDebug() << "Awards::recalculateAwards: Recalculating CQZ " << endl;
 
@@ -795,6 +792,7 @@ Deberia tratar de meterlo todo en una transaccion
             else
             {
                 CQZknown = true;
+                CQZknownBefore = true;
                 //qDebug() << "Awards::recalculateAwards: CQZ already known for id: " << QString::number(_id) << " = " << QString::number(_cqz) << endl;
             }
 
@@ -822,6 +820,10 @@ Deberia tratar de meterlo todo en una transaccion
             if ((DXCCknown) && (!DXCCknownBefore))
             { //I should update the DXCC in the log as it was not known before and now it is!
                 errorCode = setDXCCToQSO(_dxcc, _id);
+            }
+            if ((CQZknown) && (!CQZknownBefore))
+            { //I should update the DXCC in the log as it was not known before and now it is!
+                errorCode = setCQToQSO(_cqz, _id);
             }
 
             if (( (i % step ) == 0) )
@@ -1590,9 +1592,106 @@ int Awards::setDXCCToQSO(const int _dxcc, const int _qsoid) // Defines the DXCC 
     }
 }
 
+int Awards::setCQToQSO(const int _cqz, const int _qsoid) // Defines the CQ in a QSO
+{
+    //qDebug() << "Awards::setCQToQSO: " << QString::number(_cqz) << "/" << QString::number(_qsoid) << endl;
+    int errorCode = -1;
+    QString queryString = QString("UPDATE log SET cqz='%1' WHERE id='%2'").arg(_cqz).arg(_qsoid);
+    QSqlQuery query = QSqlQuery();
+    bool sqlOK = query.exec(queryString);
+    if (sqlOK)
+    {
+        return 1;
+    }
+    else
+    {
+        //qDebug() << "Awards::setCQToQSO: DXCC Updated in Log but failed...." << endl;
+        errorCode = query.lastError().number();
+        //qDebug() << "Awards::setCQToQSO: LastQuery: " << query.lastQuery()  << endl;
+        //qDebug() << "Awards::setCQToQSO: LastError-data: " << query.lastError().databaseText()  << endl;
+        //qDebug() << "Awards::setCQToQSO: LastError-driver: " << query.lastError().driverText()  << endl;
+        //qDebug() << "Awards::setCQToQSO: LastError-n: " << QString::number(query.lastError().number() ) << endl;
+        return errorCode;
+    }
+}
+
 bool Awards::getIsDXCCConfirmed(const int _dxcc, const int _logNumber)
 {
   //  isDXCCConfirmed(const int _dxcc, const int _currentLog);
     return dataProxy->isDXCCConfirmed(_dxcc, _logNumber);
+
+}
+
+int Awards::getDXMarathonDXCC(const int _year, const int _logNumber)
+{
+    //qDebug() << "Awards::getDXMarathonDXCC: " << QString::number(_year) << endl;
+
+    QSqlQuery query;
+    QString stringQuery;
+    bool sqlOK;
+    stringQuery = QString("SELECT count (dxcc) from  (SELECT DISTINCT dxcc FROM log WHERE lognumber='%0' AND qso_date LIKE '%%1%' AND dxcc <>'')").arg(_logNumber).arg(_year);
+//SELECT count (dxcc) FROM (SELECT DISTINCT dxcc FROM log WHERE lognumber='0' AND qso_date LIKE '%2014%' AND dxcc <>'')
+    sqlOK = query.exec(stringQuery);
+    //qDebug() << "Awards::getDXCCWorked: stringQuery: " << stringQuery << endl;
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            //qDebug() << "Awards::getDXCCWorked: " << QString::number((query.value(0)).toInt()) << endl;
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            //qDebug() << "Awards::getDXCCWorked: 0" << endl;
+            return 0;
+        }
+
+    }
+    else
+    {
+        //qDebug() << "Awards::getDXCCWorked: Query error" << endl;
+        return 0;
+    }
+}
+
+int Awards::getDXMarathonCQ(const int _year, const int _logNumber)
+{
+    //qDebug() << "Awards::getDXMarathonCQ: " << QString::number(_year) << endl;
+    QSqlQuery query;
+    QString stringQuery;
+    bool sqlOK;
+    stringQuery = QString("SELECT count (cqz) from  (SELECT DISTINCT cqz FROM log WHERE lognumber='%0' AND qso_date LIKE '%%1%' AND cqz <>'')").arg(_logNumber).arg(_year);
+//SELECT count (dxcc) FROM (SELECT DISTINCT dxcc FROM log WHERE lognumber='0' AND qso_date LIKE '%2014%' AND dxcc <>'')
+    sqlOK = query.exec(stringQuery);
+    //qDebug() << "Awards::getDXCCWorked: stringQuery: " << stringQuery << endl;
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            //qDebug() << "Awards::getDXCCWorked: " << QString::number((query.value(0)).toInt()) << endl;
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            //qDebug() << "Awards::getDXCCWorked: 0" << endl;
+            return 0;
+        }
+
+    }
+    else
+    {
+        //qDebug() << "Awards::getDXCCWorked: Query error" << endl;
+        return 0;
+    }
+
+}
+
+int Awards::getDXMarathonScore(const int _year, const int _logNumber)
+{
+    //qDebug() << "Awards::getDXMarathonScore: " << QString::number(_year) << endl;
+
+    return getDXMarathonDXCC(_year, _logNumber) + getDXMarathonCQ(_year, _logNumber);
 
 }
