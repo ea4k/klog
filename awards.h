@@ -79,6 +79,10 @@ public:
     QColor getQRZDXStatusColor(const QStringList _qs);
     QColor getDefaultColor();
 
+    int getDXMarathonDXCC(const int _year, const int _logNumber);
+    int getDXMarathonCQ(const int _year, const int _logNumber);
+    int getDXMarathonScore(const int _year, const int _logNumber);
+
     // Receives:  QStringList _qs;
     //_qs << QRZ << BandId << lognumber;
     /*
@@ -100,6 +104,7 @@ private:
 
     int setAwardDXCCConfirmed(const int _band, const int _mode, const int _dxcc, const int _newQSOid); // Changes the status of a DXCC from worked to confirmed
     int setDXCCToQSO(const int _dxcc, const int _qsoid); // Defines the DXCC in a QSO
+    int setCQToQSO(const int _cqz, const int _qsoid); // Defines the CQ zone in a QSO
 
     int dxccStatusBandMode(const int _ent, const int _band, const int _mode, const int _logNumber, bool _checkingMode); //-1 error / 0 Not worked / 1 worked / 2 confirmed
     int dxccStatus(const int _ent, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed

@@ -2,6 +2,7 @@
 #define DATAPROXY_SQLITE_H
 
 #include <QString>
+#include <QStringList>
 
 #include "dataproxy.h"
 #include "database.h"
@@ -42,6 +43,7 @@ public:
     bool isVHF(const int _band);
 
     QString getCallFromId(const int _qsoId);
+    QStringList getOperatingYears(const int _currentLog);
 
     bool clearLog();
 

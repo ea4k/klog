@@ -128,6 +128,7 @@ private slots:
     void slotModeComboBoxChanged();
     void slotBandComboBoxChanged();
     void slotIOTAComboBoxChanged();
+    void slotOperatingYearComboBoxChanged();
     void slotOKButtonClicked();
     void slotSpotItButtonClicked();
     void slotClearButtonClicked();
@@ -300,6 +301,7 @@ private:
     void showEntityInfo(const int _enti);
     QString getStyleColorToLabelFromBand(const QString _b, const QString _q);
     void showAwards();
+    void showDXMarathon(const int _year);
     void updateQSLRecAndSent();
     double checkFreqRanges(double _f);
 
@@ -431,6 +433,7 @@ private:
     QLabel *gradLongLabel, *distLongLabel;
 
     QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox;
+    QComboBox *operatingYearsComboBox;
     QLineEdit *iotaNumberLineEdit, *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit, *commentLineEdit;
     QTextEdit *notesTextEdit;
     QDoubleSpinBox *myPowerSpinBox, *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox;
@@ -438,7 +441,8 @@ private:
     QLCDNumber *dxccConfirmedQLCDNumber, *dxccWorkedQLCDNumber,
                 *wazConfirmedQLCDNumber, *wazWorkedQLCDNumber,
                 *localConfirmedQLCDNumber, *localWorkedQLCDNumber,
-                *qsoConfirmedQLCDNumber, *qsoWorkedQLCDNumber;
+                *qsoConfirmedQLCDNumber, *qsoWorkedQLCDNumber,
+                *dxMarathonDXCC, *dxMarathonCQ, *dxMarathonPoints;
     QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox;
     QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit;
 
@@ -494,6 +498,7 @@ private:
     int currentLog; // This is to be able to manage multiple logs without showing
                     // them all at the same time.
     int modifyingQSO; // When modifying, the QSO is saved here.
+    int selectedYear;
 
     // Station Setup
 
