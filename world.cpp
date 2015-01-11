@@ -1707,7 +1707,7 @@ QStringList World::getEntitiesNames()
     QString aux = QString();
     QStringList qs;
     qs.clear();
-    QString stringQuery = QString("SELECT mainprefix, name FROM entity");
+    QString stringQuery = QString("SELECT mainprefix, name, dxcc FROM entity");
     QSqlQuery query;
 
     if (query.exec(stringQuery))
@@ -1716,7 +1716,7 @@ QStringList World::getEntitiesNames()
             if (query.isValid())
             {
                 aux.clear();
-                aux = (query.value(0)).toString() + "-" + (query.value(1)).toString();
+                aux = (query.value(0)).toString() + "-" + (query.value(1)).toString()+" ("+(query.value(2)).toString()+")";
                 //result = result + ", " + (query.value(0)).toString();
                 qs << aux;
             }
