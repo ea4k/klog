@@ -5245,7 +5245,7 @@ void MainWindow::createUIDX()
     //entityNameComboBox = new QComboBox;entitiesList
     if (entitiesList.count()>1)
     {
-        entitiesList.prepend("00-Not Identified");
+        entitiesList.prepend("00-Not Identified (000)");
         entityNameComboBox->addItems(entitiesList);
     }
 
@@ -8348,7 +8348,8 @@ void MainWindow::selectCorrectComboBoxEntity(const int _ent)
     //pref = world->getEntityMainPrefix(_ent);
     pref = world->getEntityName(_ent);
 
-    int indexC = entityNameComboBox->findText(pref, Qt::MatchContains);
+    //int indexC = entityNameComboBox->findText(pref, Qt::MatchContains);
+    int indexC = entityNameComboBox->findText("("+QString::number(_ent)+")", Qt::MatchContains);
     //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC) << endl;
     entityNameComboBox->setCurrentIndex(indexC);
 
