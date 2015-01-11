@@ -154,12 +154,12 @@ int main(int argc, char *argv[])
     }
     else
     {
-        //qDebug() << "MAIN: Not the first time that is executed! " << endl;
         MainWindow mw(kontestDir, version);
         mw.show();
+
         return app.exec();
     }
 
-    return app.exec();
+    //return app.exec();
 }
 

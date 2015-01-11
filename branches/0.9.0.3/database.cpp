@@ -41,6 +41,21 @@ DataBase::~DataBase()
     //qDebug() << "DataBase::~DataBase"  << endl;
 }
 
+void DataBase::compress()
+{
+    //qDebug() << "DataBase::compress " << endl;
+
+    QSqlDatabase db = QSqlDatabase::database();
+    if (!db.open()) {
+        QMessageBox::warning(0, QObject::tr("Database Error"),
+                             db.lastError().text());
+    }
+   else
+    {
+        db.exec("VACUUM;");
+    }
+
+}
 
 bool DataBase::createConnection()
 {
@@ -72,7 +87,8 @@ bool DataBase::createConnection()
     }
    else
     {
-        //qDebug() << "DataBase::createConnection: creted?" << endl;
+        //qDebug() << "DataBase::createConnection: created?" << endl;
+
 
         if (isTheDBCreated())
         {
@@ -1140,7 +1156,7 @@ bool DataBase::updateToLatest()
  * The updateXXX are recursive calls that calls the previous one.
  *
  */
-    qDebug() << "DataBase::updateToLatest-003 " << endl;
+    //qDebug() << "DataBase::updateToLatest-003 " << endl;
     return updateTo004();
 }
 
@@ -1156,7 +1172,7 @@ bool DataBase::updateTo003()
   *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
   *
   */
-    qDebug() << "DataBase::updateTo003" << endl;
+    //qDebug() << "DataBase::updateTo003" << endl;
     bool IAmIn003 = false;
     bool IAmIn002 = false;
     bool ErrorUpdating = false;
@@ -1201,7 +1217,7 @@ bool DataBase::updateTo004()
   *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
   *
   */
-    qDebug() << "DataBase::updateTo004" << endl;
+    //qDebug() << "DataBase::updateTo004" << endl;
     bool IAmIn004 = false;
     bool IAmIn003 = false;
     bool ErrorUpdating = false;

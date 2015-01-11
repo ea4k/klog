@@ -47,6 +47,7 @@ public:
     virtual QString getCallFromId(const int _qsoId);
 
     virtual QStringList getOperatingYears(const int _currentLog);
+    virtual void compressDB();
 /*
     virtual bool addDXMarathonQSO(const int _year, const int _dxcc, const int _cqz, const int _power, const int _mode, const int qsoid, const int _currentLog);
     virtual int getDXMarathonTotalScore(const int _year);

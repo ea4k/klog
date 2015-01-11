@@ -180,6 +180,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
 
 
+
     //qDebug() << "MainWindow::MainWindow: 1 " << endl;
     world = new World(kontestDir, softwareVersion);
 
@@ -416,6 +417,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     readConfigData();
     if (needToEnd)
     {
+        //QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+        db->compress();
        exit(0);
     }
 
@@ -2612,7 +2615,7 @@ void MainWindow::slotSearchBoxReSearchButtonClicked()
 /*
 void MainWindow::slotSearchBoxOnItemChanged( QTreeWidgetItem * item, int column)
 {
-    qDebug() << "MainWindow::slotSearchBoxOnItemChanged: " << (item->data (0, Qt::DisplayRole)).toString() << QString::number(column) << endl;
+    //qDebug() << "MainWindow::slotSearchBoxOnItemChanged: " << (item->data (0, Qt::DisplayRole)).toString() << QString::number(column) << endl;
     //searchResultsTreeWidget
     //item->data (0, Qt::DisplayRole)
 
@@ -3154,6 +3157,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
     {
         db->unMarkAllQSO();
         //slotFileClose();
+        dataProxy->compressDB();
+        //db->compress();
         event->accept();
     }
     else
@@ -8113,7 +8118,7 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
 
             if (stationCallSignShownInSearch)
             {
-                qDebug() << "MainWindow::slotToolSearchQSL: stationCallSign "<< endl;
+                //qDebug() << "MainWindow::slotToolSearchQSL: stationCallSign "<< endl;
 
                 nameCol = rec.indexOf("station_callsign");
                 if (((query.value(nameCol)).toString()).length()>=3)
@@ -8351,9 +8356,9 @@ void MainWindow::selectCorrectComboBoxEntity(const int _ent)
 
 int MainWindow::getDXCCFromComboBox()
 {
-    qDebug() << "MainWindow::getDXCCFromComboBox" << endl;
+    //qDebug() << "MainWindow::getDXCCFromComboBox" << endl;
     QString pref = (entityNameComboBox->currentText()).split('-').at(0);
-    qDebug() << "MainWindow::getDXCCFromComboBox: " << pref << "/" << QString::number(world->getQRZARRLId(pref))<< endl;
+    //qDebug() << "MainWindow::getDXCCFromComboBox: " << pref << "/" << QString::number(world->getQRZARRLId(pref))<< endl;
     return world->getQRZARRLId(pref);
 }
 

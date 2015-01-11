@@ -6,9 +6,11 @@ December-2013 - 0.9.0.3RC1
 - Bugfix: Search results showed the default Station Callsign if non was in the QSO. This lead to errors if QRZ was not the default.
 - KLog recognizes now .ADIF files (instead of only .ADI).
 - KLog shows now the WAZ status.
+- Added a very basic support of DX Marathon (http://www.dxmarathon.com/)
 - DXCluster filters are now working.
 - The user can manually assign the DXCC entity for a DX.
 - Improved the function to update the DB from one release to the following.
+- DB file is compressed everytime KLog finishes.
 - It is possible to find QSL pending to receive.
 - It is possible to modify entities data in the World Editor in preferences.
 - It is possible to choose in preferences whether to keep my Data Tab from one QSO to the next or not.

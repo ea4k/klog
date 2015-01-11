@@ -44,6 +44,7 @@ public:
 
     QString getCallFromId(const int _qsoId);
     QStringList getOperatingYears(const int _currentLog);
+    void compressDB();
 
     bool clearLog();
 

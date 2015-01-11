@@ -69,6 +69,7 @@ public:
 
     bool unMarkAllQSO();
     bool updateIfNeeded();
+    void compress();
 
 
 
@@ -93,6 +94,8 @@ private:
     QHash<int, QString> IDModeHash;
     QMap<QString, int> bandQMap;
     QMap<QString, int> modeQMap;
+
+    //QSqlDatabase *db;
 
 };
 
