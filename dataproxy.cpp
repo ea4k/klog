@@ -30,7 +30,7 @@
 
 DataProxy::DataProxy()
 {
-   // qDebug() << "DataProxy::DataProxy"  << endl;
+   //qDebug() << "DataProxy::DataProxy"  << endl;
 }
 
 
@@ -165,6 +165,10 @@ QStringList DataProxy::getOperatingYears(const int _currentLog)
     return QStringList();
 }
 
+void DataProxy::compressDB()
+{
+
+}
 
 
 
