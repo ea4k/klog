@@ -236,8 +236,8 @@ Before deploying, translations should be updated.
 
   Run the following command from the sources directory:
 
-       macdeployqt klog-[VERSION].app/ -no-plugins -dmg
-       mv klog.dmg klog-[VERSION].dmg
+       macdeployqt KLog.app/ -dmg
+       mv KLog.dmg KLog-[VERSION].dmg
 
 9.3 DEPLOYING ON WINDOWS
     Currently using an Open Source Licence of: BitRock InstallBuilder
