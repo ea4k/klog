@@ -39,6 +39,7 @@ SetupDialog::SetupDialog(const bool _firstTime)
     version = ".";
     pageRequested = 0;
 
+
     firstTime = _firstTime;
     if (firstTime)
     {
@@ -459,8 +460,8 @@ void SetupDialog::slotReadConfigData()
         //firstTime = true;
         return;
     }
-    dxClusterServerToUse = "dxfun.com:8000";
-    dxClusterServers.clear();
+
+    //dxClusterServers.clear();
 
     setDefaults();
 
@@ -754,6 +755,9 @@ void SetupDialog::setDefaults()
     dxClusterPage->setShowANNRadiobutton("TRUE");
     dxClusterPage->setShowWWVRadiobutton("TRUE");
     dxClusterPage->setShowWCYRadiobutton("TRUE");
+    dxClusterServers.clear();
+    dxClusterServers.append("dxfun.com:8000");
+    dxClusterServerToUse = "dxfun.com:8000";
 
 }
 
