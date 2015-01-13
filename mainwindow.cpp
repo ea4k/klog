@@ -234,6 +234,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     setCentralWidget(mainWidget);
 
     dateTime = new QDateTime();
+    selectedYear = (dateTime->currentDateTime()).date().year();
 
 
     timer = new QTimer(this);
@@ -454,7 +455,15 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     } else
     {
-        operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
+        if (dataProxy->getLastQSOid()<1)
+        {
+            operatingYearsComboBox->addItem(QString::number(selectedYear));
+        }
+        else
+        {
+            operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
+        }
+
         updateQSLRecAndSent();
         awards->recalculateAwards();
         showAwards();
@@ -6129,6 +6138,7 @@ void MainWindow::slotADIFImport(){
             case CQ_WW_CW:
             break;
             default:
+                operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
                 awards->recalculateAwards();
                 showAwards();
             break;
