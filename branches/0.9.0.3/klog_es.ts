@@ -32,7 +32,7 @@
     <message>
         <location filename="startwizard.cpp" line="1032"/>
         <source>KLog</source>
-        <translation>Klog</translation>
+        <translation>KLog</translation>
     </message>
     <message>
         <source>Kontest</source>
@@ -65,7 +65,7 @@ Do you want to try again?</source>
     <message>
         <location filename="dxcluster.cpp" line="119"/>
         <source>Click on connect to connect to the DX-Cluster</source>
-        <translation>Pulsa en conectar para conectar al DX-Cluster</translation>
+        <translation>Pulse en conectar para conectar al DX-Cluster</translation>
     </message>
     <message>
         <location filename="dxcluster.cpp" line="173"/>
@@ -97,7 +97,7 @@ Do you want to try again?</source>
 
 - your network connection;
 - the host name and port settings.</source>
-        <translation>Máquina no encontrada. Por favor revisa:
+        <translation>Máquina no encontrada. Por favor revise:
 
 - la conexión de red
 - el nombre y puerto de la máquina.</translation>
@@ -127,12 +127,12 @@ Do you want to try again?</source>
     <message>
         <location filename="dxcluster.cpp" line="405"/>
         <source>Enter your callsign to connect to the cluster:</source>
-        <translation>Introduce tu indicativo para conectar al cluster:</translation>
+        <translation>Introduzca su indicativo para conectar al cluster:</translation>
     </message>
     <message>
         <location filename="dxcluster.cpp" line="406"/>
         <source>Enter your password to connect to the cluster:</source>
-        <translation>Introduce tu contraseña para conectar al cluster:</translation>
+        <translation>Introduzca su contraseña para conectar al cluster:</translation>
     </message>
     <message>
         <location filename="dxcluster.cpp" line="411"/>
@@ -143,7 +143,7 @@ Do you want to try again?</source>
     <message>
         <location filename="dxcluster.cpp" line="415"/>
         <source>Not logged on, you may to enter your callsign again.</source>
-        <translation>No identificado, puedes introducir tu contraseña de nuevo.</translation>
+        <translation>No identificado, puede introducir su contraseña de nuevo.</translation>
     </message>
     <message>
         <location filename="dxcluster.cpp" line="419"/>
@@ -211,7 +211,7 @@ Do you want to try again?</source>
     <message>
         <location filename="filemanager.cpp" line="1943"/>
         <source>I am sorry but the Cabrillo Export To File feature has still not been implemented.</source>
-        <translation>Lo sentimos pero la funcióon de Exportar Cabrillo aun no está implementada.</translation>
+        <translation>Lo sentimos pero la función de Exportar Cabrillo aun no está implementada.</translation>
     </message>
     <message>
         <location filename="filemanager.cpp" line="2225"/>
@@ -228,14 +228,14 @@ Do you want to try again?</source>
     <message>
         <location filename="filemanager.cpp" line="2311"/>
         <source>An unexpected error ocurred while importing. Please send this code to the developer for analysis: </source>
-        <translation>Ha ocurrido un error inesperado al importar. Por favor envíe este cóodigo al desarrollador para que su análisis: </translation>
+        <translation>Ha ocurrido un error inesperado al importar. Por favor envíe este cóodigo al desarrollador para su análisis: </translation>
     </message>
     <message>
         <location filename="filemanager.cpp" line="2357"/>
         <location filename="filemanager.cpp" line="2439"/>
         <source>An error ocurred while importing. No data will be imported. Please send this code to the developer for analysis: </source>
         <oldsource>An error ocurred while MID-importing. No data will be imported. Please send this code to the developer for analysis: </oldsource>
-        <translation>Ha ocurrido un error al importar. No se importará ningún dato. Por favor envía este código al desarrollador para su análisis: </translation>
+        <translation>Ha ocurrido un error al importar. No se importará ningún dato. Por favor envíe este código al desarrollador para su análisis: </translation>
     </message>
 </context>
 <context>
@@ -253,7 +253,7 @@ Do you want to try again?</source>
         <location filename="startwizard.cpp" line="860"/>
         <source>Please select whether you prefer to run the DB in memory or in a file:&lt;ul&gt;&lt;li&gt;Running KLog in memory will be much faster, specially when managing several thousands of QSOs.&lt;/li&gt;&lt;li&gt;Running KLog in a file will be much secure and you will not be forced to save the file before exiting or opening the logfile when starting KLog.&lt;/li&gt;&lt;/ul&gt;Please know that in this version this feature is still not fully-implemented so KLog will run in file.</source>
         <oldsource>Please select whether you prefer to run the DB in memory or in a file:&lt;ul&gt;&lt;li&gt;Running Kontest in memory will be much faster, specially when managing several thousands of QSOs.&lt;/li&gt;&lt;li&gt;Running Kontest in a file will be much secure and you will not be forced to save the file before exiting or opening the logfile when starting Kontest.&lt;/li&gt;&lt;/ul&gt;Please know that in this version this feature is still not fully-implemented so Kontest will run in file.</oldsource>
-        <translation>Por favor selecciona si prefieres ejecutar la BD en memoria o en un fichero:&lt;ul&gt;&lt;li&gt;Ejecutar KLog en memoria será más rápido, especialmente cuando gestiones varios miles de QSOs.&lt;/li&gt;&lt;li&gt;Ejecutar KLog en un fichero será mucho más seguro y no estarás forzado a guardar el fichero cada vez que salgas o a abrirlo cuando entres a KLog.&lt;/li&gt;&lt;/ul&gt;Nota: Ten en cuenta que esta funcionalidad no estáa completamente implementada y KLog se ejecutará en un fichero.</translation>
+        <translation>Por favor seleccione si prefiere ejecutar la BD en memoria o en un fichero:&lt;ul&gt;&lt;li&gt;Ejecutar KLog en memoria será más rápido, especialmente cuando gestione varios miles de QSOs.&lt;/li&gt;&lt;li&gt;Ejecutar KLog en un fichero será mucho más seguro y no estará forzado a guardar el fichero cada vez que salga o a abrirlo cuando entre a KLog.&lt;/li&gt;&lt;/ul&gt;Nota: Tenga en cuenta que esta funcionalidad no está completamente implementada y KLog se ejecutará en un fichero.</translation>
     </message>
     <message>
         <location filename="startwizard.cpp" line="869"/>
@@ -281,12 +281,12 @@ Do you want to try again?</source>
 <context>
     <name>HelpAboutDialog</name>
     <message>
-        <location filename="helpaboutdialog.cpp" line="22"/>
+        <location filename="helpaboutdialog.cpp" line="18"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="helpaboutdialog.cpp" line="40"/>
+        <location filename="helpaboutdialog.cpp" line="36"/>
         <source>About KLog</source>
         <oldsource>About Kontest</oldsource>
         <translation>Acerca de KLog</translation>
@@ -296,9 +296,9 @@ Do you want to try again?</source>
     <name>HelpHelpDialog</name>
     <message>
         <location filename="helphelpdialog.cpp" line="12"/>
-        <source>&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2014&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLog is a free logging software for hamradio operators.&lt;br&gt;&lt;br&gt;&lt;b&gt;Please know that this is an BETA release and it may contain many bugs.&lt;br&gt;Backup your data before using this software!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, OSX &amp; Windows) and provide new functionalities that KLog was not providing. &lt;br&gt;&lt;br&gt;Find more information and latest release at&lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;&lt;br&gt;&lt;br&gt;Author: Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</source>
-        <oldsource>&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2014&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLog is a free logging software for hamradio operators.&lt;br&gt;&lt;br&gt;&lt;b&gt;Please know that this is an BETA release and it may contain many bugs.&lt;br&gt;Backup your data before using this software!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, OSX &amp; Windows) and provide new functionalities that KLog was not providing. &lt;br&gt;&lt;br&gt;Find more information and latest release at&lt;br&gt;&lt;a href=http://jaime.robles.es&gt;http://jaime.robles.es/klog&lt;/a&gt;&lt;br&gt;&lt;br&gt;Author: Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</oldsource>
-        <translation>&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2014&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLog es software libre de log para radioaficionados.&lt;br&gt;&lt;br&gt;&lt;b&gt;Ten en cuenta que esta es una versión BETA y puede tener muchos errores.&lt;br&gt;¡Haz una copia de seguridad de tus datos antes de usar este programa!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLog ha sido completamente reescrito desde su versión 0.6.2 para proporcionar una aplicación multiplataforma capaz de correr en los sistemas operativos principales (Linux, OSX &amp; Windows) y soporta nuevas funcionalidades que KLog no proporcionaba. &lt;br&gt;&lt;br&gt;Encuentra más información en &lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;&lt;br&gt;&lt;br&gt;Autor: Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</translation>
+        <source>&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2015&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLog is a free logging software for hamradio operators.&lt;br&gt;&lt;br&gt;&lt;b&gt;Please know that this is an BETA release and it may contain many bugs.&lt;br&gt;Backup your data before using this software!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, OSX &amp; Windows) and provide new functionalities that KLog was not providing. &lt;br&gt;&lt;br&gt;Find more information and latest release at&lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;&lt;br&gt;&lt;br&gt;Author: Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</source>
+        <oldsource>&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2014&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLog is a free logging software for hamradio operators.&lt;br&gt;&lt;br&gt;&lt;b&gt;Please know that this is an BETA release and it may contain many bugs.&lt;br&gt;Backup your data before using this software!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, OSX &amp; Windows) and provide new functionalities that KLog was not providing. &lt;br&gt;&lt;br&gt;Find more information and latest release at&lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;&lt;br&gt;&lt;br&gt;Author: Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</oldsource>
+        <translation>&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2015&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLog es software libre de log para radioaficionados.&lt;br&gt;&lt;br&gt;&lt;b&gt;Tenga en cuenta que esta es una versión BETA y puede tener muchos errores.&lt;br&gt;¡Haga una copia de seguridad de sus datos antes de usar este programa!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLog ha sido completamente reescrito desde su versión 0.6.2 para proporcionar una aplicación multiplataforma capaz de correr en los sistemas operativos principales (Linux, OSX &amp; Windows) y soporta nuevas funcionalidades que KLog no proporcionaba. &lt;br&gt;&lt;br&gt;Encuentre más información en &lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;&lt;br&gt;&lt;br&gt;Autor: Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="helphelpdialog.cpp" line="20"/>
@@ -324,13 +324,13 @@ Do you want to try again?</source>
         <location filename="startwizard.cpp" line="142"/>
         <source>Welcome to KLog! You need to agree the License before starting using this software</source>
         <oldsource>Welcome to Kontest! You need to agree the License before starting using this software</oldsource>
-        <translation>¡Bienvenido a KLog! Necesitas aceptar los términos de la licencia antes de empezar a usar este programa</translation>
+        <translation>¡Bienvenido a KLog! Debe aceptar los términos de la licencia antes de empezar a usar este programa</translation>
     </message>
     <message>
         <location filename="startwizard.cpp" line="150"/>
         <source>&lt;html&gt;&lt;head&gt;                             &lt;title&gt;Welcome to KLog&lt;/title&gt;             &lt;/head&gt;&lt;body&gt;             &lt;p&gt;It looks to be the first time you run KLog in this computer.&lt;/p&gt;             &lt;p&gt;KLog is a free hamradio logging software that is able to run in Linux, OSX and Windows. It is designed to provide general             purpose, DX logging and contest logging.&lt;/p&gt;             &lt;p&gt;It support ADIF and Cabrillo file formats import and export, QSL managing support and many other features...&lt;/p&gt;             &lt;p&gt;Before you can start using KLog, you will be asked to:             &lt;ul&gt;             &lt;li&gt;Agree the terms of the license&lt;/li&gt;             &lt;li&gt;Define how do you prefer to run KLog&lt;/li&gt;             &lt;li&gt;Enter your call, CQ zone, ... and main configuration.&lt;/li&gt;             &lt;/ul&gt;             &lt;/p&gt;             &lt;p&gt;Enjoy KLog and contact the development team if you have any suggestion!&lt;/p&gt;             &lt;p&gt;&lt;h3&gt;73 de EA4TV&lt;/h3&gt;&lt;/p&gt;             &lt;/body&gt;&lt;/html&gt;</source>
         <oldsource>&lt;html&gt;&lt;head&gt;                             &lt;title&gt;Welcome to Kontest&lt;/title&gt;             &lt;/head&gt;&lt;body&gt;             &lt;p&gt;It looks to be the first time you run Kontest in this computer.&lt;/p&gt;             &lt;p&gt;Kontest is a free hamradio logging software that is able to run in Windows and Linux. It is designed to provide general             purpose, DX logging and contest logging.&lt;/p&gt;             &lt;p&gt;It support ADIF and Cabrillo file formats import and export, QSL managing support and many other features...&lt;/p&gt;             &lt;p&gt;Before you can start using Kontest, you will be asked to:             &lt;ul&gt;             &lt;li&gt;Agree the terms of the license&lt;/li&gt;             &lt;li&gt;Define how do you prefer to run Kontest&lt;/li&gt;             &lt;li&gt;Enter your call, CQ zone, ... and main configuration.&lt;/li&gt;             &lt;/ul&gt;             &lt;/p&gt;             &lt;p&gt;Enjoy Kontest and contact the development team if you have any suggestion!&lt;/p&gt;             &lt;p&gt;&lt;h3&gt;73 de EA4TV&lt;/h3&gt;&lt;/p&gt;             &lt;/body&gt;&lt;/html&gt;</oldsource>
-        <translation>&lt;html&gt;&lt;head&gt;                             &lt;title&gt;Bienvenido a KLog&lt;/title&gt;             &lt;/head&gt;&lt;body&gt;             &lt;p&gt;Parece ser la primera vez que se ejecuta KLog en este ordenador.&lt;/p&gt;             &lt;p&gt;KLog es un software libre de log para radioaficionados capaz de ejecutarse en Windows, Linux y OSX. Está diseñado como log de propósito general, DX y concursos.&lt;/p&gt;             &lt;p&gt;Soporta los formatos ADIF y Cabrillo en importación y exportación, gestión de QSL y muchas otras funciones...&lt;/p&gt;             &lt;p&gt;Antes de usar KLog se tepediráa que:             &lt;ul&gt;             &lt;li&gt;Aceptes los términos de la licencia&lt;/li&gt;             &lt;li&gt;Definas cómo quieres ejecutar KLog&lt;/li&gt;             &lt;li&gt;Introduzcas tu indicativo, zona CQ, ... y la configuración principal.&lt;/li&gt;             &lt;/ul&gt;             &lt;/p&gt;             &lt;p&gt;¡Distruta de KLog y contacta con el equipo de desarrollo si tienes alguna sugerencia!&lt;/p&gt;             &lt;p&gt;&lt;h3&gt;73 de EA4TV&lt;/h3&gt;&lt;/p&gt;             &lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head&gt;                             &lt;title&gt;Bienvenido a KLog&lt;/title&gt;             &lt;/head&gt;&lt;body&gt;             &lt;p&gt;Parece ser la primera vez que se ejecuta KLog en este ordenador.&lt;/p&gt;             &lt;p&gt;KLog es un software libre de log para radioaficionados capaz de ejecutarse en Windows, Linux y OSX. Está diseñado como log de propósito general, DX y concursos.&lt;/p&gt;             &lt;p&gt;Soporta los formatos ADIF y Cabrillo en importación y exportación, gestión de QSL y muchas otras funciones...&lt;/p&gt;             &lt;p&gt;Antes de usar KLog se pedirá que:             &lt;ul&gt;             &lt;li&gt;Acepte los términos de la licencia&lt;/li&gt;             &lt;li&gt;Defina cómo quiere ejecutar KLog&lt;/li&gt;             &lt;li&gt;Introduzca su indicativo, zona CQ, ... y la configuración principal.&lt;/li&gt;             &lt;/ul&gt;             &lt;/p&gt;             &lt;p&gt;¡Distrute de KLog y contacte con el equipo de desarrollo si tienee alguna sugerencia!&lt;/p&gt;             &lt;p&gt;&lt;h3&gt;73 de EA4TV&lt;/h3&gt;&lt;/p&gt;             &lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Welcome to Kontest!You need to agree the License before stating using this software</source>
@@ -353,7 +353,7 @@ Do you want to try again?</source>
         <location filename="startwizard.cpp" line="189"/>
         <source>Welcome to KLog!You need to agree the License before starting using this software</source>
         <oldsource>Welcome to Kontest!You need to agree the License before starting using this software</oldsource>
-        <translation>¡Bienvenido a KLog! Debes aprobar los términos de la licencia antes de poder usar este programa</translation>
+        <translation>¡Bienvenido a KLog! Debe aprobar los términos de la licencia antes de poder usar este programa</translation>
     </message>
     <message>
         <location filename="startwizard.cpp" line="830"/>
@@ -2446,7 +2446,7 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
         <location filename="setuppagemisc.cpp" line="56"/>
         <source>QSOs will be marked to be pending to send the QSL if the DX QSL is received and you have not sent your.</source>
         <oldsource>Working in memory (vs in file) is much quicker but you will need to save the ADIF file each time you start Kontest.</oldsource>
-        <translation>Los QSO se marcarán como pendientes de enviar si se recibe la tarjeta del DX y no has enviado la tuya.</translation>
+        <translation>Los QSO se marcarán como pendientes de enviar si se recibe la tarjeta del DX y no ha enviado la suya.</translation>
     </message>
     <message>
         <location filename="setuppagemisc.cpp" line="58"/>
@@ -2471,13 +2471,13 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
     <message>
         <location filename="setuppagemisc.cpp" line="66"/>
         <source>Check it for Imperial system (Miles instead of Kilometres).</source>
-        <translation>Marcar si quieres sistema imperial (Millas en vez de Kilómetros).</translation>
+        <translation>Marcar si quiere usar sistema imperial (Millas en vez de Kilómetros).</translation>
     </message>
     <message>
         <location filename="setuppagemisc.cpp" line="67"/>
         <source>Working in memory (vs in file) is much quicker but you will need to save the ADIF file each time you exit KLog.</source>
         <oldsource>Working in memory (vs in file) is much quicker but you will need to save the ADIF file each time you exit KLog.</oldsource>
-        <translation>Trabajar en memoria (en vez de fichero) es más rápido pero deberás salvar el fichero ADIF cada vez que salgas de KLog.</translation>
+        <translation>Trabajar en memoria (en vez de fichero) es más rápido pero deberá salvar el fichero ADIF cada vez que salga de KLog.</translation>
     </message>
     <message>
         <location filename="setuppagemisc.cpp" line="68"/>
@@ -2539,47 +2539,47 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
     <message>
         <location filename="setuppageuserdata.cpp" line="68"/>
         <source>Enter your name</source>
-        <translation>Introduce tu nombre</translation>
+        <translation>Introduzca su nombre</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="69"/>
         <source>Enter your address - 1st line</source>
-        <translation>Introduce tu direccion - 1ª línea</translation>
+        <translation>Introduzca su direccion - 1ª línea</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="70"/>
         <source>Enter your  address - 2nd line</source>
-        <translation>Introduce tu direccion - 2ª línea</translation>
+        <translation>Introduzca su direccion - 2ª línea</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="71"/>
         <source>Enter your address - 3st line</source>
-        <translation>Introduce tu direccion - 3ª línea</translation>
+        <translation>Introduzca su direccion - 3ª línea</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="72"/>
         <source>Enter your  address - 4nd line</source>
-        <translation>Introduce tu direccion - 4ª línea</translation>
+        <translation>Introduzca su direccion - 4ª línea</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="73"/>
         <source>Enter your city</source>
-        <translation>Introduce tu ciudad</translation>
+        <translation>Introduzca su ciudad</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="74"/>
         <source>Enter your zip code</source>
-        <translation>Introduce tu código postal</translation>
+        <translation>Introduzca su código postal</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="75"/>
         <source>Enter your province or state</source>
-        <translation>Introduce tu provincia o estado</translation>
+        <translation>Introduzca su provincia o estado</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="76"/>
         <source>Enter your country</source>
-        <translation>Introduce tu país</translation>
+        <translation>Introduzca su país</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="78"/>
@@ -2614,37 +2614,37 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
     <message>
         <location filename="setuppageuserdata.cpp" line="130"/>
         <source>Enter your rig #1 information</source>
-        <translation>Introduce la información de tu equipo/radio #1</translation>
+        <translation>Introduzca la información de su equipo/radio #1</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="131"/>
         <source>Enter your rig #2 information</source>
-        <translation>Introduce la información de tu equipo/radio #2</translation>
+        <translation>Introduzca la información de su equipo/radio #2</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="132"/>
         <source>Enter your rig #3 information</source>
-        <translation>Introduce la información de tu equipo/radio #3</translation>
+        <translation>Introduzca la información de su equipo/radio #3</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="133"/>
         <source>Enter your antenna #1 information</source>
-        <translation>Introduce la información de tu antena #1</translation>
+        <translation>Introduzca la información de su antena #1</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="134"/>
         <source>Enter your antenna #2 information</source>
-        <translation>Introduce la información de tu antena #2</translation>
+        <translation>Introduzca la información de su antena #2</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="135"/>
         <source>Enter your antenna #3 information</source>
-        <translation>Introduce la información de tu antena #3</translation>
+        <translation>Introduzca la información de su antena #3</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="136"/>
         <source>Enter your power information</source>
-        <translation>Introduce información sobre tu potencia</translation>
+        <translation>Introduzca información sobre su potencia</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="138"/>
@@ -2680,12 +2680,12 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
     <message>
         <location filename="setuppageuserdata.cpp" line="169"/>
         <source>Enter the station callsign that will be used for logging</source>
-        <translation>Introduce el indicativo de la estación que será usado para el log</translation>
+        <translation>Introduzca el indicativo de la estación que será usado para el log</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="170"/>
         <source>Enter the operators (comma separated if more than one).</source>
-        <translation>Introduce los operadores (separados por comas si hay más de uno).</translation>
+        <translation>Introduzca los operadores (separados por comas si hay más de uno).</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="174"/>
