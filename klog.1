@@ -1,0 +1,56 @@
+.TH KLog 1 "version 0.9.0.3" "Jaime Robles, EA4TV" "Hamradio"
+.SH "NAME"
+klog \- The Ham Radio Logging program
+
+.SH SYNOPSIS
+\fBklog\fR \fI[option]\fR
+.SH OPTIONS
+A summary of options is included below.
+.TP 
+\fB\-\-help\fR Show summary of options.
+.TP 
+\fB\-\-version\fR Output version information and exit.
+.SH DESCRIPTION
+\fBklog\fR
+is a ham radio logging program for Linux, OSX and Windows.
+With KLog you can log your QSOs and save it in ADIF format. KLog
+helps you to manage DXCC, WAZ and IOTA award.
+.SH USAGE
+Enter you QSO data in the top left box while entity data, direction and
+other usefull information will be shown in the top right box.
+.P
+Previous QSOs are shown in the botton box where you can click to edit them.
+.P
+Here is a list of keys that can be used to navigate
+through klog:
+
+
+.TP 
+\fIControl a\fR: Add a QSO.
+.TP 
+\fIControl d\fR: Delete a selected QSO.
+.SH PRINTING
+KLog has a very basic printing feature implemented.
+
+.SH PREFERENCES
+You can edit the ~/.klog/klogrc file to setup you call and locator.
+
+.P
+All the data files are saved in the KLog home directory (~/.klog) by
+default.
+
+.SH FILES
+\fI/usr/share/klog/cty.csv\fR 
+contains the DXCC entries read by KLog.
+\fI~/.klog/logbook.dat.\fR 
+contains all the logbook and information of KLog.
+
+.SH AUTHORS
+KLog was written by Jaime Robles, EA4TV
+<jaime at robles.es> aka <jaime at kde.org>
+
+Download the last version from: http://jaime.robles.es
+
+Calculation of heading and distance was taken from Loccalc code
+by Marco Bersani, IK2PIH.
+
