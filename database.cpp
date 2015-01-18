@@ -492,7 +492,19 @@ confirmed = 1     Set as Confirmed
                  "comment VARCHAR, "
                  "logtype VARCHAR )");
 
-/*
+      /*
+      query.exec("CREATE TABLE sat_modes ("
+                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                 "name VARCHAR(15) NOT NULL,"
+                 "uplink INTEGER NOT NULL,"
+                 "downlink INTEGER NOT NULL,"
+                 "FOREIGN KEY (uplink) REFERENCES band, "
+                 "FOREIGN KEY (downlink) REFERENCES band)");
+    //http://en.wikipedia.org/wiki/OSCAR#Mode_designators
+
+      //query.exec("INSERT INTO sat_modes (name, uplink, downlink) VALUES ('H', '15M', '148', '144')");
+
+
       query.exec("CREATE TABLE sat_modes ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(8) NOT NULL, "
@@ -505,9 +517,7 @@ confirmed = 1     Set as Confirmed
                  "uplink INTEGER NOT NULL,"
                  "downlink INTEGER NOT NULL,"
                  "FOREIGN KEY (uplink) REFERENCES band, "
-                 "FOREIGN KEY (downlink) REFERENCES band, "
-                 "FOREIGN KEY (dxcc) REFERENCES entity)");
-
+                 "FOREIGN KEY (downlink) REFERENCES band)");
 */
 /*
       qry.prepare( "INSERT INTO names (id, firstname, lastname) VALUES (:id, :firstname, :lastname)" );
@@ -963,12 +973,14 @@ bool DataBase::createTheBandQuickReference()
     QHash<QString, int> modeIDHash;
     QHash<int, QString> IDBandHash;
     QHash<int, QString> IDModeHash
+    QHash<double, int> freqBandIdHash;
 
 */
     //qDebug() << "DataBase::createTheBandQuickReference: " << endl;
     QString st = "NULL";
     int in = 0;
-    QSqlQuery query("SELECT id, name FROM band");
+    double fr = 0;
+    QSqlQuery query("SELECT id, name, lower FROM band");
     while (query.next())
     {
 
@@ -976,8 +988,11 @@ bool DataBase::createTheBandQuickReference()
         {
             st = (query.value(1)).toString();
             in = (query.value(0)).toInt();
+            fr = (query.value(2)).toDouble();
             bandIDHash.insert(st, in );
             IDBandHash.insert(in, st);
+            freqBandIdHash.insert(in, fr);
+
             //qDebug() << "DataBase::createTheBandQuickReference: " << st <<"/" << QString::number(in)<< endl;
         }
         else
@@ -1146,6 +1161,22 @@ bool DataBase::createBandModeMaps()
     {
         return false;
     }
+
+}
+
+double DataBase::getFreqFromBandId(const int _i)
+{
+
+    if (freqBandIdHash.contains(_i))
+    {
+        return freqBandIdHash.value(_i);
+    }
+    else
+    {
+        return -1.0;
+    }
+    return -2.0;
+
 
 }
 

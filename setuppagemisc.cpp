@@ -59,7 +59,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will show also the callsign on the air to do the QSO."));
 
 
-    keepMyDataCheckBox = new QCheckBox(tr("Use My Data tab for all QSO"), this);
+    keepMyDataCheckBox = new QCheckBox(tr("Reset to My Data for all QSO"), this);
     keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
 
 

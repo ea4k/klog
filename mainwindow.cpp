@@ -103,6 +103,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     dxClusterShowWWV=true;
     dxClusterShowWCY=true;
 
+    keepSatPage = false;
+
     defaultColor.setNamedColor("slategrey");
     neededColor.setNamedColor("yellow");
     workedColor.setNamedColor("blue");
@@ -224,6 +226,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     }
     setupDialog = new SetupDialog(!configured);
     dataProxy = new DataProxy_SQLite();
+
+    satTabWidget = new MainWindowSatTab();
 
     filemanager = new FileManager(kontestDir, softwareVersion, *db);
 
@@ -541,6 +545,7 @@ void MainWindow::slotBandComboBoxChanged(){
     if (i>=0)
     {
         currentBand = i;
+        //txFreqSpinBox->setValue(dataProxy->getFreqFromBandId(i));
     }
 
 
@@ -1286,6 +1291,23 @@ QString MainWindow::readDataFromUIDX()
             //stringData = stringData + ", '0'";
         break;
     }
+
+    aux1 = satTabWidget->getSatName();
+    if (aux1.length()>0)
+    {
+        stringFields = stringFields + ", sat_name";
+        stringData = stringData + ", '" + aux1 + "'";
+    }
+
+    aux1 = satTabWidget->getSatMode();
+    if (aux1.length()>0)
+    {
+        stringFields = stringFields + ", sat_mode";
+        stringData = stringData + ", '" + aux1 + "'";
+    }
+
+    keepSatPage = satTabWidget->getRepeatThis();
+
     // The data reading finish here. Now, we prepare the data to insert into the DB
 
     if (stringFields.startsWith(", ") )
@@ -1345,8 +1367,6 @@ WHERE [condition];
 
     QString trsttx = rstTXLineEdit->text();
     QString trstrx = rstRXLineEdit->text();
-
-
 
     int dxcc = world->getQRZARRLId(tqrz);
     int cqz = world->getEntityCqz(dxcc);
@@ -1826,7 +1846,25 @@ WHERE [condition];
             //updateString = updateString + "confirmed = '0', ";
 
         break;
+    }    
+
+    aux1 = satTabWidget->getSatName();
+    if (aux1.length()>0)
+    {
+        updateString = updateString + ", sat_name";
+        updateString = updateString + ", '" + aux1 + "'";
     }
+
+    aux1 = satTabWidget->getSatMode();
+    if (aux1.length()>0)
+    {
+        updateString = updateString + ", sat_mode";
+        updateString = updateString + ", '" + aux1 + "'";
+    }
+
+    keepSatPage = satTabWidget->getRepeatThis();
+
+
     // The data reading finish here. Now, we prepare the data to insert into the DB
 
     if ( updateString.endsWith(", ") )
@@ -5112,9 +5150,9 @@ void MainWindow::createUIDX()
     QWidget *qsoInputTabWidget = new QWidget;
     //QFormLayout *qsoInputTabWidgetLayout = new QFormLayout;
     QLabel *nameLabel = new QLabel(qsoInputTabWidget);
-
     nameLabel->setText("Name");
     nameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+
     QLabel *qthLabel = new QLabel(qsoInputTabWidget);
     qthLabel->setText("QTH");
     qthLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
@@ -5415,6 +5453,15 @@ void MainWindow::createUIDX()
 
     myDataInputTabWidget->setLayout(myDataInputTabWidgetLayout);
     i = dxUpLeftTab->addTab(myDataInputTabWidget, tr("My Data"));
+
+  // MyData Tab finishes here
+
+    // Sat Tab starts hre
+    i = dxUpLeftTab->addTab(satTabWidget, tr("Satellite"));
+
+
+    // Sat Tab finishes here
+
 
     QHBoxLayout *TimeLayout = new QHBoxLayout;
     TimeLayout->addWidget(dateEdit);
