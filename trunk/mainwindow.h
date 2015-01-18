@@ -48,6 +48,7 @@
 #include "locator.h"
 #include "dxcluster.h"
 #include "awards.h"
+#include "mainwindowsattab.h"
 
 
 class QTimer;
@@ -458,8 +459,12 @@ private:
     bool searchSelectAllClicked, stationCallSignShownInSearch;
     bool qslingNeeded;
 
+    MainWindowSatTab *satTabWidget;
+    bool keepSatPage;
+
     // UI DX
     SetupDialog *setupDialog;
+
     // <CLUSTER>
     DXClusterWidget *dxClusterWidget;
     bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;

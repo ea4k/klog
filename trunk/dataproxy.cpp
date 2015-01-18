@@ -61,6 +61,10 @@ QString DataProxy::getNameFromModeId (const int _id)
     return "";
 }
 
+double DataProxy::getFreqFromBandId(const int _id)
+{
+    return -1.0;
+}
 
 int DataProxy::getLastQSOid()
 {

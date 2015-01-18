@@ -21,6 +21,8 @@ public:
     QString getNameFromBandId (const int _id);
     QString getNameFromModeId (const int _id);
 
+    double getFreqFromBandId(const int _id);
+
     int getLastQSOid();
 
     bool deleteQSO(const int _qsoId);

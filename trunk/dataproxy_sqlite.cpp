@@ -83,6 +83,10 @@ QString DataProxy_SQLite::getNameFromModeId (const int _id)
     return db->getModeNameFromID2(_id);
 }
 
+double DataProxy_SQLite::getFreqFromBandId(const int _id)
+{
+    return db->getFreqFromBandId(_id);
+}
 
 int DataProxy_SQLite::getLastQSOid()
 {

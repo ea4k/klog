@@ -67,6 +67,8 @@ public:
 
     int getBandIdFromFreq(const QString fr); //Freq should be in MHz
 
+    double getFreqFromBandId(const int _i);
+
     bool unMarkAllQSO();
     bool updateIfNeeded();
     void compress();
@@ -92,8 +94,11 @@ private:
     QHash<QString, int> modeIDHash;
     QHash<int, QString> IDBandHash;
     QHash<int, QString> IDModeHash;
+    QHash<int, double> freqBandIdHash;
+
     QMap<QString, int> bandQMap;
     QMap<QString, int> modeQMap;
+
 
     //QSqlDatabase *db;
 
