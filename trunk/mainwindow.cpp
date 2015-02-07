@@ -3741,6 +3741,13 @@ void MainWindow::righButtonSearchMenu(const int trow)
         menuSentQsl->addAction(qslSentViaBureauFromSearchAct);
         menuSentQsl->addAction(qslSentViaDirectFromSearchAct);
         menuSentQsl->addAction(qslSentRequestedAct);
+        if (!qslReceived)
+        {
+            menuSentQsl->addAction(qslSentViaBureauMarkRcvReqFromSearchAct);
+            menuSentQsl->addAction(qslSentViaDirectMarkRcvReqFromSearchAct);
+            qslSentViaBureauMarkRcvReqFromSearchAct->setData(trow);
+            qslSentViaDirectMarkRcvReqFromSearchAct->setData(trow);
+        }
         qslSentViaBureauFromSearchAct->setData(trow);
         qslSentViaDirectFromSearchAct->setData(trow);
         qslSentRequestedAct->setData(trow);
@@ -3874,49 +3881,37 @@ void MainWindow::showMenuRightButtonSearchCreateActions()
     qslSentRequestedAct->setStatusTip(tr("Mark my QSL as requested"));
     connect(qslSentRequestedAct, SIGNAL(triggered()), this, SLOT( slotQSLSentMarkAsRequested()   ));
 
+    qslSentViaDirectMarkRcvReqFromSearchAct = new QAction(tr("Via Direct && mark DX QSL as requested"), this);
+    qslSentViaDirectMarkRcvReqFromSearchAct->setStatusTip(tr("Send this QSL via direct & mark DX QSL as requested"));
+    connect(qslSentViaDirectMarkRcvReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaDirectMarkDXReqFromSearch() ));
+
+    qslSentViaBureauMarkRcvReqFromSearchAct = new QAction(tr("Via Bureau && mark DX QSL as requested"), this);
+    qslSentViaBureauMarkRcvReqFromSearchAct->setStatusTip(tr("Send this QSL via bureau & mark DX QSL as requested"));
+    connect(qslSentViaBureauMarkRcvReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaBureuMarkDXReqFromSearch() ));
+
+
     qslRecRequestedAct = new QAction(tr("&Request the QSL"), this);
     //qslSentRequestedAct->setShortcut(Qt::CTRL + Qt::Key_R);
     qslRecRequestedAct->setStatusTip(tr("Mark the QSL as requested"));
     connect(qslRecRequestedAct, SIGNAL(triggered()), this, SLOT( slotQSLRecMarkAsRequested()   ));
 
 
-    //if (sendQSLWhenRec)
-    //{
-        qslRecViaBureauMarkReqFromSearchAct = new QAction(tr("Via bureau && mark my QSL as requested"), this);
-        qslRecViaBureauMarkReqFromSearchAct->setStatusTip(tr("QSL received via bureau & mark QSL as requested"));
+    qslRecViaBureauMarkReqFromSearchAct = new QAction(tr("Via bureau && mark my QSL as requested"), this);
+    qslRecViaBureauMarkReqFromSearchAct->setStatusTip(tr("QSL received via bureau & mark my QSL as requested"));
+    connect(qslRecViaBureauMarkReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaBureauMarkReqFromSearch() ));
 
-        //qslRecViaBureauMarkReqFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_R);
-        connect(qslRecViaBureauMarkReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaBureauMarkReqFromSearch() ));
-
-        qslRecViaBureauFromSearchAct = new QAction(tr("Via bureau"), this);
-        qslRecViaBureauFromSearchAct->setStatusTip(tr("QSL received via bureau"));
-    //}
-    //else
-    //{
-        qslRecViaBureauFromSearchAct = new QAction(tr("Via bureau"), this);
-        qslRecViaBureauFromSearchAct->setStatusTip(tr("QSL received via bureau"));
-    //}
-
-
-    qslRecViaBureauFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_R);
+    qslRecViaBureauFromSearchAct = new QAction(tr("Via bureau"), this);
+    qslRecViaBureauFromSearchAct->setStatusTip(tr("QSL received via bureau"));
+    //qslRecViaBureauFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_R);
     connect(qslRecViaBureauFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaBureauFromSearch() ));
 
+    qslRecViaDirectMarkReqFromSearchAct = new QAction(tr("Direc&t && mark as my QSL requested"), this);
+    qslRecViaDirectMarkReqFromSearchAct->setStatusTip(tr("QSL received via direct & mark my QSL as requested"));
+    connect(qslRecViaDirectMarkReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectMarkReqFromSearch() ));
 
-    //if (sendQSLWhenRec)
-    //{
-        qslRecViaDirectMarkReqFromSearchAct = new QAction(tr("Direc&t && mark as my QSL requested"), this);
-        qslRecViaDirectMarkReqFromSearchAct->setStatusTip(tr("QSL received via direct & mark my QSL as requested"));
-        connect(qslRecViaDirectMarkReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectMarkReqFromSearch() ));
-
-        qslRecViaDirectFromSearchAct = new QAction(tr("Direc&t"), this);
-        qslRecViaBureauFromSearchAct->setStatusTip(tr("QSL received via direct"));
-    //}
-    //else
-    //{
-        qslRecViaDirectFromSearchAct = new QAction(tr("Direc&t"), this);
-        qslRecViaBureauFromSearchAct->setStatusTip(tr("QSL received via direct"));
-    //}
-        qslRecViaDirectFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_T);        
+    qslRecViaDirectFromSearchAct = new QAction(tr("Direc&t"), this);
+    qslRecViaBureauFromSearchAct->setStatusTip(tr("QSL received via direct"));
+    //qslRecViaDirectFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_T);
     connect(qslRecViaDirectFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectFromSearch() ));
 }
 
@@ -3966,6 +3961,46 @@ void MainWindow::showMenuRightButtonFromLogCreateActions()
   qslRecViaDirectFromLogAct->setStatusTip(tr("QSL received via direc&t"));
   connect(qslRecViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectFromLog() ));
 
+}
+void MainWindow::slotQSLSentViaBureuMarkDXReqFromSearch()
+{
+    qDebug() << "slotQSLSentViaBureuMarkDXReqFromSearch: " << (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+    int _qsoId = (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt();
+
+    dataProxy->qslSentViaBureau(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
+    dataProxy->qslRecAsRequested(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
+
+
+    if(qslingNeeded)
+    {
+        slotToolSearchNeededQSLToSend();
+    }
+    else
+    {
+        slotSearchBoxTextChanged();
+    }
+    // Mark Sent, Bureau, date, update log.
+
+}
+void MainWindow::slotQSLSentViaDirectMarkDXReqFromSearch()
+{
+    qDebug() << "slotQSLSentViaDirectMarkDXReqFromSearch: " << (qslSentViaDirectMarkRcvReqFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectMarkRcvReqFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+
+    int _qsoId = (qslSentViaDirectMarkRcvReqFromSearchAct->data()).toInt();
+
+    dataProxy->qslSentViaDirect(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
+    dataProxy->qslRecAsRequested(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
+
+
+    if(qslingNeeded)
+    {
+        slotToolSearchNeededQSLToSend();
+    }
+    else
+    {
+        slotSearchBoxTextChanged();
+    }
+    // Mark Sent, Bureau, date, update log.
 }
 
 void MainWindow::slotQSLSentViaBureauFromSearch()

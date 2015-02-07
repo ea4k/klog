@@ -1,5 +1,7 @@
 TBD - 0.9.1
 - Working on Satellite support.
+- GUI: It is possible to mark a QSL sent via bureau/direct & DX QSL as requested with one action from Search box.
+
 
 January-2015 - 0.9.0.3
 - Bugfix: ADIF was not properly imported when Fields where using the Type of data optional field preventing logs from Logger32 being imported. (TNX EB1TR)
