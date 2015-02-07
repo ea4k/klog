@@ -147,6 +147,9 @@ private slots:
     void slotQsoDeleteFromSearch();
     void slotQSLSentViaBureauFromSearch();
     void slotQSLSentViaDirectFromSearch();
+    void slotQSLSentViaDirectMarkDXReqFromSearch();
+
+    void slotQSLSentViaBureuMarkDXReqFromSearch();
     void slotQSLRecViaDirectFromSearch();
     void slotQSLRecViaBureauFromSearch();
     void slotQSLRecViaDirectMarkReqFromSearch();
@@ -409,6 +412,8 @@ private:
     QAction *qsoToEditFromSearchAct;
     QAction *qslSentViaBureauFromSearchAct;
     QAction *qslSentViaDirectFromSearchAct;
+    QAction *qslSentViaDirectMarkRcvReqFromSearchAct;
+    QAction *qslSentViaBureauMarkRcvReqFromSearchAct;
     QAction *qslRecViaBureauFromSearchAct;
     QAction *qslRecViaDirectFromSearchAct;
     QAction *qslRecViaBureauMarkReqFromSearchAct;
