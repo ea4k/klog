@@ -6,7 +6,7 @@ Bug: Check if the dxcluster configuration to show or not confirmed/worked works 
 
 KLog 0.9.1
 TODO: Keep adapting to ADIF 3.0.4
-
+TODO: Add a QSL Sent via direct & Mark QSL Rec¡v as reuested
 
 KLog 0.9.2
 TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
