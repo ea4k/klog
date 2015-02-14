@@ -337,9 +337,9 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     localWorkedQLCDNumber = new QLCDNumber;
     qsoConfirmedQLCDNumber = new QLCDNumber;
     qsoWorkedQLCDNumber = new QLCDNumber;
-    dxMarathonDXCC = new QLCDNumber;
-    dxMarathonCQ = new QLCDNumber;
-    dxMarathonPoints = new QLCDNumber;
+    dxMarathonDXCCQLCDNumber = new QLCDNumber;
+    dxMarathonCQQLCDNumber = new QLCDNumber;
+    dxMarathonPointsQLCDNumber = new QLCDNumber;
     operatingYearsComboBox = new QComboBox;
 
     qsoWorkedQLCDNumber->setDigitCount(7);
@@ -459,7 +459,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     } else
     {
-        if (dataProxy->getLastQSOid()<1)
+        if (dataProxy->getLastQSOid()<=1)
         {
             operatingYearsComboBox->addItem(QString::number(selectedYear));
         }
@@ -3146,6 +3146,12 @@ void MainWindow::slotClearButtonClicked()
                 stationCallSignLineEdit->setText(stationQRZ);
                 myLocatorLineEdit->setText(myLocator);
             }
+
+            if (!satTabWidget->getRepeatThis())
+            {
+                satTabWidget->clear();
+            }
+
             clearInfoFromLocators();
             clearBandLabels();
             showAwards();
@@ -5155,9 +5161,9 @@ void MainWindow::createUIDX()
     localWorkedQLCDNumber->setToolTip(tr("Number of worked local references"));
     qsoConfirmedQLCDNumber->setToolTip(tr("Number of confirmed QSO"));
     qsoWorkedQLCDNumber->setToolTip(tr("Number of worked QSO"));
-    dxMarathonDXCC->setToolTip(tr("Number of DXCC worked on the selected year"));
-    dxMarathonCQ->setToolTip(tr("Number of CQ Zones worked on the selected year"));
-    dxMarathonPoints->setToolTip(tr("Score for the DXMarathon on the selected year"));
+    dxMarathonDXCCQLCDNumber->setToolTip(tr("Number of DXCC worked on the selected year"));
+    dxMarathonCQQLCDNumber->setToolTip(tr("Number of CQ Zones worked on the selected year"));
+    dxMarathonPointsQLCDNumber->setToolTip(tr("Score for the DXMarathon on the selected year"));
     operatingYearsComboBox->setToolTip(tr("Select the year you want to check"));
 
     infoLabel1->setToolTip(tr("Status of the DX entity"));
@@ -5737,9 +5743,9 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxMarathonDLayout->addWidget(dxMarathonTopDXCCLabelN, 0, 0);
     dxMarathonDLayout->addWidget(dxMarathonTopCQLabelN, 0, 1);
     dxMarathonDLayout->addWidget(dxMarathonTopScoreLabelN, 0, 2);
-    dxMarathonDLayout->addWidget(dxMarathonDXCC, 1, 0);
-    dxMarathonDLayout->addWidget(dxMarathonCQ, 1, 1);
-    dxMarathonDLayout->addWidget(dxMarathonPoints, 1, 2);
+    dxMarathonDLayout->addWidget(dxMarathonDXCCQLCDNumber, 1, 0);
+    dxMarathonDLayout->addWidget(dxMarathonCQQLCDNumber, 1, 1);
+    dxMarathonDLayout->addWidget(dxMarathonPointsQLCDNumber, 1, 2);
 
     QVBoxLayout *dxMarathonTLayout = new QVBoxLayout;
     dxMarathonTLayout->addWidget(dxMarathonLabelN);
@@ -7384,9 +7390,20 @@ void MainWindow::showAwards()
 
 void MainWindow::showDXMarathon(const int _year)
 {
-    dxMarathonDXCC->display(awards->getDXMarathonDXCC(_year, currentLog));
-    dxMarathonCQ->display(awards->getDXMarathonCQ(_year, currentLog));
-    dxMarathonPoints->display(dxMarathonDXCC->value() + dxMarathonCQ->value());
+    //qDebug() << "MainWindow::MainWindow::showDXMarathon: Year: " << QString::number(_year) << endl;
+    int i = 0;
+
+    i = awards->getDXMarathonDXCC(_year, currentLog);
+    //qDebug() << "MainWindow::MainWindow::showDXMarathon: DXCC: " << QString::number(i) << endl;
+    dxMarathonDXCCQLCDNumber->display(i);
+
+    i = awards->getDXMarathonCQ(_year, currentLog);
+    dxMarathonCQQLCDNumber->display(i);
+    //qDebug() << "MainWindow::MainWindow::showDXMarathon: CQ: " << QString::number(i) << endl;
+
+    i = awards->getDXMarathonScore(_year, currentLog);
+    dxMarathonPointsQLCDNumber->display(i);
+    //qDebug() << "MainWindow::MainWindow::showDXMarathon: Score: " << QString::number(i) << endl;
 }
 void MainWindow::fillQSOData()
 { // Updates all QSO with the dxcc, CQZ, ... if empty.

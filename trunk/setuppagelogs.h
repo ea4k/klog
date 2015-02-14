@@ -29,8 +29,8 @@
 //#include <QtWidgets>
 #include <QtGui>
 #include <QtSql>
-#include <QWizard>
-#include <QWizardPage>
+
+#include "setuppagelogsnew.h"
 
 const int CONTEST_DX = 0;
 const int CONTEST_CQ_WW_SSB = 1;
@@ -65,14 +65,7 @@ private slots:
     void slotEditButtonClicked();
     void slotRemoveButtonClicked();
 
-    void slotStationCallSignTextChanged();
-    void slotTypeComboBoxChanged(const int _ind);
-    void slotCatAssistedComboBoxChanged();
-    void slotCatOperatorsComboBoxChanged();
-    void slotCatPowerComboBoxChanged();
-    void slotCatBandsComboBoxChanged();
-    void slotBandsComboBoxChanged();
-    void slotCatModeComboBoxChanged();
+
 
 
     //void slotCreateLog();
@@ -89,8 +82,8 @@ private:
 
     /* Wizard to create a new log*/
 
-    QWizardPage *createLogTypePage();
-    QWizard *newLogWizard; // Wizard to create a new log
+    //QWizardPage *createLogTypePage();
+    //QWizard *newLogWizard; // Wizard to create a new log
 
     /*^Wizard to create a new log^*/
 
@@ -111,21 +104,11 @@ private:
     int lastLog;
     QString currentLogComment;
     QString currentStationCallSign;
-    QDateEdit *dateEdit;
 
-    QLineEdit *stationCallsignLineEdit, *nameLineEdit;
-    QLineEdit *operatorsLineEdit;
 
-    QComboBox *typeComboBox;
-    QComboBox *contestCatModeComboBox;
-    QComboBox *contestCatOperatorsComboBox;
-    QComboBox *contestCatAssistedComboBox;
-    QComboBox *contestCatPowerComboBox;
-    QComboBox *contestCatBandsComboBox;
-    QComboBox *contestBandsComboBox;
 
-    bool stationCallsignFilled, operatorsFilled;
-    int typeOperation; // DX, CQ-WW-SSB, CQ-WW-CW, CQ-WPX-SSB, CQ-WPX-CW
+
+    SetupPageLogsNew newLog;
 
 };
 

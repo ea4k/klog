@@ -448,7 +448,7 @@ private:
                 *wazConfirmedQLCDNumber, *wazWorkedQLCDNumber,
                 *localConfirmedQLCDNumber, *localWorkedQLCDNumber,
                 *qsoConfirmedQLCDNumber, *qsoWorkedQLCDNumber,
-                *dxMarathonDXCC, *dxMarathonCQ, *dxMarathonPoints;
+                *dxMarathonDXCCQLCDNumber, *dxMarathonCQQLCDNumber, *dxMarathonPointsQLCDNumber;
     QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox;
     QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit;
 

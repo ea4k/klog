@@ -33,6 +33,7 @@ Awards::Awards()
     //qDebug() << "Awards::Awards"  << endl;
     world = new World();
     dataProxy = new DataProxy_SQLite();
+    dxMarathon = new DXMarathon();
     //world->create();
 
     //newOneColor = Qt::green;
@@ -1626,72 +1627,19 @@ int Awards::getDXMarathonDXCC(const int _year, const int _logNumber)
 {
     //qDebug() << "Awards::getDXMarathonDXCC: " << QString::number(_year) << endl;
 
-    QSqlQuery query;
-    QString stringQuery;
-    bool sqlOK;
-    stringQuery = QString("SELECT count (dxcc) from  (SELECT DISTINCT dxcc FROM log WHERE lognumber='%0' AND qso_date LIKE '%%1%' AND dxcc <>'')").arg(_logNumber).arg(_year);
-//SELECT count (dxcc) FROM (SELECT DISTINCT dxcc FROM log WHERE lognumber='0' AND qso_date LIKE '%2014%' AND dxcc <>'')
-    sqlOK = query.exec(stringQuery);
-    //qDebug() << "Awards::getDXCCWorked: stringQuery: " << stringQuery << endl;
-    if (sqlOK)
-    {
-        query.next();
-        if (query.isValid())
-        {
-            //qDebug() << "Awards::getDXCCWorked: " << QString::number((query.value(0)).toInt()) << endl;
-            return (query.value(0)).toInt();
-        }
-        else
-        {
-            //qDebug() << "Awards::getDXCCWorked: 0" << endl;
-            return 0;
-        }
-
-    }
-    else
-    {
-        //qDebug() << "Awards::getDXCCWorked: Query error" << endl;
-        return 0;
-    }
+    return dxMarathon->getDXMarathonDXCC(_year, _logNumber);
 }
 
 int Awards::getDXMarathonCQ(const int _year, const int _logNumber)
 {
     //qDebug() << "Awards::getDXMarathonCQ: " << QString::number(_year) << endl;
-    QSqlQuery query;
-    QString stringQuery;
-    bool sqlOK;
-    stringQuery = QString("SELECT count (cqz) from  (SELECT DISTINCT cqz FROM log WHERE lognumber='%0' AND qso_date LIKE '%%1%' AND cqz <>'')").arg(_logNumber).arg(_year);
-//SELECT count (dxcc) FROM (SELECT DISTINCT dxcc FROM log WHERE lognumber='0' AND qso_date LIKE '%2014%' AND dxcc <>'')
-    sqlOK = query.exec(stringQuery);
-    //qDebug() << "Awards::getDXCCWorked: stringQuery: " << stringQuery << endl;
-    if (sqlOK)
-    {
-        query.next();
-        if (query.isValid())
-        {
-            //qDebug() << "Awards::getDXCCWorked: " << QString::number((query.value(0)).toInt()) << endl;
-            return (query.value(0)).toInt();
-        }
-        else
-        {
-            //qDebug() << "Awards::getDXCCWorked: 0" << endl;
-            return 0;
-        }
-
-    }
-    else
-    {
-        //qDebug() << "Awards::getDXCCWorked: Query error" << endl;
-        return 0;
-    }
-
+    return dxMarathon->getDXMarathonCQ(_year, _logNumber);
 }
 
 int Awards::getDXMarathonScore(const int _year, const int _logNumber)
 {
     //qDebug() << "Awards::getDXMarathonScore: " << QString::number(_year) << endl;
 
-    return getDXMarathonDXCC(_year, _logNumber) + getDXMarathonCQ(_year, _logNumber);
+    return dxMarathon->getDXMarathonScore(_year, _logNumber);
 
 }

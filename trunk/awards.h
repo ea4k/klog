@@ -38,6 +38,7 @@
 #include <QMultiHash>
 
 #include "world.h"
+#include "awarddxmarathon.h"
 #include "dataproxy.h"
 #include "dataproxy_sqlite.h"
 
@@ -131,6 +132,7 @@ private:
 
     World *world;
     DataProxy *dataProxy;
+    DXMarathon *dxMarathon;
 
 
     typedef QMultiHash<int, int> DXStatus;
