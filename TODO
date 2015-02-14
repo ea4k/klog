@@ -6,13 +6,15 @@ Bug: Check if the dxcluster configuration to show or not confirmed/worked works 
 
 KLog 0.9.1
 TODO: Keep adapting to ADIF 3.0.4
+TODO: Run in memory
+TBD - Add the feature to add and manage several logs.
 
 
 KLog 0.9.2
 TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
 TODO: Add Satellite support (maybe another Tab) (look this file (below) for details.
 TODO: Add another tab in the botton to list the DXCC status.
-TBD - Add the feature to add and manage several logs.
+
 TODO: Add an option to auto-complete info (QTH, Locator, Name, QSL Manager(qsl_via), IOTA, AWARD, Entity...) from previously worked QSO.
 TODO: UI: Modify the DX-Cluster tab to show the data in a table: DX de/Freq/DX/Comment/Time/Loc
 TODO: Keep adapting to ADIF 3.0.4

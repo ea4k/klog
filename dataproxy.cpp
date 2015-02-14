@@ -174,6 +174,15 @@ void DataProxy::compressDB()
 
 }
 
+int DataProxy::getDXCConYear(const int _year, const int _logNumber)
+{
+    return -1;
+}
+int DataProxy::getCQzonYear(const int _year, const int _logNumber)
+{
+    return -1;
+}
+
 
 
 

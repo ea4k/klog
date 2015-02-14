@@ -635,3 +635,70 @@ void DataProxy_SQLite::compressDB()
 {
     db->compress();
 }
+
+int DataProxy_SQLite::getDXCConYear(const int _year, const int _logNumber)
+{
+    //qDebug() << "DataProxy_SQLite::getDXCConYear: " << QString::number(_year) << "/" << QString::number(_logNumber) << endl;
+
+    QSqlQuery query;
+    QString stringQuery;
+    bool sqlOK;
+    stringQuery = QString("SELECT count (dxcc) from  (SELECT DISTINCT dxcc FROM log WHERE lognumber='%0' AND qso_date LIKE '%%1%' AND dxcc <>'')").arg(_logNumber).arg(_year);
+
+    sqlOK = query.exec(stringQuery);
+    //qDebug() << "DataProxy_SQLite::getDXCConYear: stringQuery: " << stringQuery << endl;
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            //qDebug() << "DataProxy_SQLite::getDXCConYear: " << QString::number((query.value(0)).toInt()) << endl;
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            //qDebug() << "DataProxy_SQLite::getDXCConYear: 0" << endl;
+            return 0;
+        }
+
+    }
+    else
+    {
+        //qDebug() << "DataProxy_SQLite::getDXCConYear: Query error" << endl;
+        return 0;
+    }
+
+}
+
+int DataProxy_SQLite::getCQzonYear(const int _year, const int _logNumber)
+{
+    //qDebug() << "DataProxy_SQLite::getCQzonYear: " << QString::number(_year) << endl;
+    QSqlQuery query;
+    QString stringQuery;
+    bool sqlOK;
+    stringQuery = QString("SELECT count (cqz) from  (SELECT DISTINCT cqz FROM log WHERE lognumber='%0' AND qso_date LIKE '%%1%' AND cqz <>'')").arg(_logNumber).arg(_year);
+
+    sqlOK = query.exec(stringQuery);
+    //qDebug() << "DataProxy_SQLite::getCQzonYear: stringQuery: " << stringQuery << endl;
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            //qDebug() << "DataProxy_SQLite::getCQzonYear: " << QString::number((query.value(0)).toInt()) << endl;
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            //qDebug() << "DataProxy_SQLite::getCQzonYear: 0" << endl;
+            return 0;
+        }
+
+    }
+    else
+    {
+        //qDebug() << "DataProxy_SQLite::getCQzonYear: Query error" << endl;
+        return 0;
+    }
+}
+

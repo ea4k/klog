@@ -50,6 +50,10 @@ public:
 
     bool clearLog();
 
+    int getDXCConYear(const int _year, const int _logNumber);
+    int getCQzonYear(const int _year, const int _logNumber);
+
+
 private:
     bool dbCreated;
     DataBase *db;
