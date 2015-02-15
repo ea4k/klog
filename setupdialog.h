@@ -90,6 +90,7 @@ private:
     QStringList dxClusterServers;
 
     QTabWidget *tabWidget;
+    int logsPageTabN;
 
     QListWidget *contentsWidget;
     QStackedWidget *pagesWidget;

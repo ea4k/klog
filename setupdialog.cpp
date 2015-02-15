@@ -50,7 +50,7 @@ SetupDialog::SetupDialog(const bool _firstTime)
         //qDebug() << "SetupDialog::SetupDialog FIRST TIME = FALSE" << endl;
     }
 
-    int logsPageTabN=-1;
+    logsPageTabN=-1;
 
     locator = new Locator();
 
@@ -179,7 +179,7 @@ SetupDialog::~SetupDialog()
 
 void SetupDialog::setData(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
 {
-    //qDebug() << "SetupDialog::setData" << endl;
+    qDebug() << "SetupDialog::setData: " << QString::number(_page) << endl;
     firstTime = _firstTime;
     if (firstTime)
     {
@@ -213,6 +213,11 @@ void SetupDialog::setPage(const int _page)
 {
     //qDebug() << "SetupDialog::setPage("<<QString::number(_page) << ")" << endl;
     pageRequested = _page;
+
+    if ((pageRequested==6) && (logsPageTabN>0))// The user is opening a new log
+    {
+        tabWidget->setCurrentIndex(pageRequested);
+    }
 }
 
 void SetupDialog::slotCancelButtonClicked()

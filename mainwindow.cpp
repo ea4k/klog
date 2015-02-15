@@ -34,6 +34,7 @@
 
 //#include <qDebug>
 
+
 MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 {
     upAndRunning = false; // To define some actions that can only be run when starting the software
