@@ -1,4 +1,5 @@
 TBD - 0.9.1
+- TODO: Working in the setuppagelogs.cpp to add a new log
 - Improved the DXMarathon code.
 - GUI: Added basic Satellite support.
 - GUI: It is possible to mark a QSL sent via bureau/direct & DX QSL as requested with one action from Search box.

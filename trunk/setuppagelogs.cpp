@@ -32,9 +32,20 @@
 SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
 //qDebug() << "SetupPageLogs::SetupPageLogs" << endl;
 
-    //SetupPageLogsNew newLog;
+    stationCallsign = QString();
+    operators = QString();
+    comment = QString();
+    dateString = QString();
+    typeContest = -1;
+    contestCatMode = -1;
+    contestCatOperators = -1;
+    contestCatAssisted = -1;
+    contestCatPower = -1;
+    contestCatBands = -1;
+    contestBands = -1;
 
 
+    newLog = new SetupPageLogsNew();
     logsModel = new QSqlRelationalTableModel(this);
     logsView = new QTableView;
     logsView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -96,7 +107,8 @@ SetupPageLogs::~SetupPageLogs(){
 void SetupPageLogs::slotNewButtonClicked()
 {
     //qDebug() << "SetupPageLogs::slotNewButtonClicked" << endl;
-    newLog.show();
+
+    newLog->exec();
 }
 
 void SetupPageLogs::slotEditButtonClicked()
@@ -185,6 +197,7 @@ void SetupPageLogs::createActions()
     connect(newLogPushButton, SIGNAL(clicked ( )), this, SLOT(slotNewButtonClicked() ) );
     connect(removePushButton, SIGNAL(clicked ( )), this, SLOT(slotRemoveButtonClicked() ) );
     connect(editPushButton, SIGNAL(clicked ( )), this, SLOT(slotEditButtonClicked() ) );
+    connect(newLog, SIGNAL(newLogData(QStringList)), this, SLOT(slotAnalyzeNewLogData(QStringList) ) );
 
 
     //loadAllPushButton->setToolTip(tr("Load all the logs"));
@@ -240,6 +253,76 @@ void SetupPageLogs::readLogs()
         //qDebug() << "SetupPageLogs::readLogs: " << QString::number(_logs.size())<< endl;
 }
 
+void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
+{
+    qDebug() << "SetupPageLogs::slotAnalyzeNewLogData" << endl;
+
+    if (_qs.length()!=11)
+    {
+        qDebug() << "SetupPageLogs::slotAnalyzeNewLogData != 11" << endl;
+        return;
+    }
+
+    stationCallsign = _qs.at(0);
+    operators = _qs.at(1);
+    comment = _qs.at(2);
+    dateString = _qs.at(3);
+    typeContest  = (_qs.at(4)).toInt();
+    contestCatMode  = (_qs.at(5)).toInt();
+    contestCatOperators  = (_qs.at(6)).toInt();
+    contestCatAssisted  = (_qs.at(7)).toInt();
+    contestCatPower  = (_qs.at(8)).toInt();
+    contestCatBands  = (_qs.at(9)).toInt();
+    contestBands  = (_qs.at(10)).toInt();
+
+    QStringList newLog;
+    newLog.clear();
+    newLog << dateString << stationCallsign << QString::number(typeContest) << comment;
+    addNewLog(newLog);
+
+}
+
+bool SetupPageLogs::addNewLog(const QStringList _qs)
+{
+    qDebug() << "SetupPageLogs::addNewLog" << endl;
+    QString aux = QString();
+    int nameCol = -1;
+
+    QString _dateString = _qs.at(0);
+    QString _stationCallsign = _qs.at(1);
+    QString _typeContest = _qs.at(2);
+    QString _comment = _qs.at(3);
+
+
+    QString queryString = QString("SELECT * FROM logs WHERE logdate='%1' AND stationcall='%2' AND logtype='%3'").arg(_dateString).arg(_stationCallsign).arg(_typeContest);
+    //"logs"
+    //"id, logdate, stationcall, comment, logtype"
+    QSqlQuery query;
+
+    bool sqlOK = query.exec(queryString);
+    QSqlRecord rec = query.record(); // Number of columns
+
+    while ( (query.next()) && (query.isValid()) )
+    {
+        nameCol = rec.indexOf("id");
+        aux = (query.value(nameCol)).toString();
+        qDebug() << "SetupPageLogs::addNewLog: id = " << aux << endl;
+        return false;
+    }
+    queryString = QString("INSERT INTO logs (logdate, stationcall, comment, logtype) values('%1','%2','%3','%4')").arg(_dateString).arg(_stationCallsign).arg(_comment).arg(_typeContest);
+
+    sqlOK = query.exec(queryString);
+    if (sqlOK)
+    {
+        qDebug() << "SetupPageLogs::addNewLog ADDED! id = "  << endl;
+    }
+    else
+    {
+        return false;
+    }
+
+
+}
 
 
 
