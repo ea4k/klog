@@ -52,7 +52,10 @@ SOURCES += main.cpp \
     helpaboutdialog.cpp \
     setuppageworldeditor.cpp \
     setupentitydialog.cpp \
-    startwizard.cpp
+    startwizard.cpp \
+    mainwindowsattab.cpp \
+    awarddxmarathon.cpp \
+    setuppagelogsnew.cpp
 HEADERS += setupdialog.h \
     mainwindow.h \
     world.h \
@@ -77,7 +80,10 @@ HEADERS += setupdialog.h \
     startwizard.h \
     downloadcty.h \
     dataproxy.h \
-    dataproxy_sqlite.h
+    dataproxy_sqlite.h \
+    mainwindowsattab.h \
+    awarddxmarathon.h \
+    setuppagelogsnew.h
 OTHER_FILES += TODO\
     README-DEVEL\
     tips-for-devel.txt \

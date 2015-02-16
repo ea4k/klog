@@ -322,6 +322,8 @@ bool SetupPageLogs::addNewLog(const QStringList _qs)
     }
 
 
+    La query de insercion no da fallo pero no se ve el log
+
 }
 
 
