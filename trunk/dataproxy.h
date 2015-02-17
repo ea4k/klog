@@ -54,7 +54,7 @@ public:
     virtual int getDXCConYear(const int _year, const int _logNumber);
     virtual int getCQzonYear(const int _year, const int _logNumber);
 
-
+    virtual QStringList getContestNames();
 /*
     virtual bool isMultiplier(const QStringList _qs);
     virtual int getQSOPoints(const QStringList _qs);

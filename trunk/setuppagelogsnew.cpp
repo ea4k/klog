@@ -33,6 +33,8 @@
 SetupPageLogsNew::SetupPageLogsNew(QWidget *parent)
 
 {
+    dataProxy = new DataProxy_SQLite();
+
     logData.clear();
     stationCallsignFilled = false;
     operatorsFilled = true;
@@ -95,7 +97,8 @@ void SetupPageLogsNew::createWidget()
     typeComboBox->setToolTip(tr("Select the kind of operation for this log"));
     QStringList _qs;
     _qs.clear();
-    _qs << "DX" << "CQ-WW-SSB"  << "CQ-WW-CW"  << "CQ-WPX-SSB"  << "CQ-WPX-CW" ;
+    _qs.append(dataProxy->getContestNames());
+    //_qs << "DX" << "CQ-WW-SSB"  << "CQ-WW-CW"  << "CQ-WPX-SSB"  << "CQ-WPX-CW" ;
     typeComboBox->addItems(_qs);
 
     QLabel *catModeLabel = new QLabel(tr("Mode Category"));
@@ -323,8 +326,8 @@ void SetupPageLogsNew::slotOKButtonClicked()
     qDebug() << "SetupPageLogsNew::slotOkButtonClicked" << endl;
     stationCallsign = stationCallsignLineEdit->text();
     operators = operatorsLineEdit->text();
-    comment = commentLineEdit->text();
-    dateString = dateEdit->text();
+    comment = commentLineEdit->text();    
+    dateString = dateEdit->date().toString("yyyy/MM/dd");
 
     if (typeComboBox->isEnabled())
     {

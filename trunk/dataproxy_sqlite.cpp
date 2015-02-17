@@ -702,3 +702,39 @@ int DataProxy_SQLite::getCQzonYear(const int _year, const int _logNumber)
     }
 }
 
+QStringList DataProxy_SQLite::getContestNames()
+{
+    QStringList contests = QStringList();
+    QSqlQuery query;
+    QString stringQuery;
+    bool sqlOK;
+    stringQuery = QString("SELECT shortname from contest");
+
+    sqlOK = query.exec(stringQuery);
+    //qDebug() << "DataProxy_SQLite::getCQzonYear: stringQuery: " << stringQuery << endl;
+    if (sqlOK)
+    {
+        while(query.next())
+        {
+            if (query.isValid())
+            {
+                stringQuery = (query.value(0)).toString();
+                contests.append(stringQuery);
+            }
+            else
+            {
+                return QStringList();
+            }
+
+        }
+
+        return contests;
+    }
+    else
+    {
+         return QStringList();
+    }
+
+    return QStringList();
+
+}

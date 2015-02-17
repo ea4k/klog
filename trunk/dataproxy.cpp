@@ -183,6 +183,10 @@ int DataProxy::getCQzonYear(const int _year, const int _logNumber)
     return -1;
 }
 
+QStringList DataProxy::getContestNames()
+{
+    return QStringList();
+}
 
 
 
