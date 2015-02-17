@@ -53,6 +53,7 @@ public:
     int getDXCConYear(const int _year, const int _logNumber);
     int getCQzonYear(const int _year, const int _logNumber);
 
+    QStringList getContestNames();
 
 private:
     bool dbCreated;

@@ -74,12 +74,13 @@ signals:
 
 private:
     //void createActions();
-    void readLogs();
+    QStringList readLogs();
 
     void createLogsPanel();
     void createLogsModel();
     void createActions();
     bool addNewLog(const QStringList _qs);
+    void updateSelectedLogs();
 
     /* Wizard to create a new log*/
 
@@ -105,6 +106,8 @@ private:
     int lastLog;
     QString currentLogComment;
     QString currentStationCallSign;
+    QComboBox *currentLogs;
+    QStringList logsAvailable;
 
     SetupPageLogsNew *newLog;
 
