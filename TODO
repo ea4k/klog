@@ -8,7 +8,7 @@ KLog 0.9.1
 TODO: Keep adapting to ADIF 3.0.4
 TODO: Run in memory
 TBD - Add the feature to add and manage several logs.
-
+TODO: When editing, do not modify the DXCC, keep the saved one
 
 KLog 0.9.2
 TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
