@@ -36,9 +36,9 @@
 
 class QSqlRelationalTableModel;
 
-// Last db update 0.0.4
-// Previous db update 0.0.3
-const float DBVersionf = 0.004;
+// Last db update 0.0.5
+// Previous db update 0.0.4
+const float DBVersionf = 0.005;
 
 class DataBase
 {
@@ -81,9 +81,12 @@ private:
     bool updateToLatest();
     bool updateTo003(); // Updates the DB to 0.0.3
     bool updateTo004();
+    bool updateTo005();
 
     bool createTheBandQuickReference();
     bool createTheModeQuickReference();
+
+    bool populateContestData();
 
     float dbVersion;    // The current version of the DB. May differ from latestReaded if we are updating the DB!
     QString softVersion;
