@@ -384,7 +384,18 @@ bool DataBase::createDataBase()
       query.exec("CREATE TABLE contest ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(20) NOT NULL, "
-                 "name VARCHAR(40) NOT NULL)");
+                 "name VARCHAR(40) NOT NULL"
+                 "ALTER TABLE contest ADD COLUMN cat1 VARCHAR"
+                 "ALTER TABLE contest ADD COLUMN cat2 VARCHAR"
+                 "ALTER TABLE contest ADD COLUMN cat3 VARCHAR"
+                 "ALTER TABLE contest ADD COLUMN cat4 VARCHAR"
+                 "ALTER TABLE contest ADD COLUMN overlay VARCHAR)");
+
+
+      query.exec("CREATE TABLE contestcategory ("
+                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                 "shortname VARCHAR(20) NOT NULL, "
+                 "name VARCHAR(40) NOT NULL");
 
       query.exec("CREATE TABLE award_enumeration ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -558,6 +569,7 @@ confirmed = 1     Set as Confirmed
       query.exec("INSERT INTO continent (shortname, name) VALUES ('SA', 'South America')");
       query.exec("INSERT INTO continent (shortname, name) VALUES ('AN', 'Antartica')");
 
+      populateContestData();
 
       //To add a band, just create another line:
       query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('0', '0', '0', 'Light')");
@@ -1187,8 +1199,8 @@ bool DataBase::updateToLatest()
  * The updateXXX are recursive calls that calls the previous one.
  *
  */
-    //qDebug() << "DataBase::updateToLatest-003 " << endl;
-    return updateTo004();
+    qDebug() << "DataBase::updateToLatest-005 " << endl;
+    return updateTo005();
 }
 
 bool DataBase::updateTo003()
@@ -1248,7 +1260,7 @@ bool DataBase::updateTo004()
   *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
   *
   */
-    //qDebug() << "DataBase::updateTo004" << endl;
+    qDebug() << "DataBase::updateTo004" << endl;
     bool IAmIn004 = false;
     bool IAmIn003 = false;
     bool ErrorUpdating = false;
@@ -1292,4 +1304,109 @@ bool DataBase::updateTo004()
         IAmIn004 = true;
     }
     return IAmIn004;
+}
+
+
+bool DataBase::updateTo005()
+{// Updates the DB to 0.0.5
+    /*
+     * This function should be used as a template to create the all the update functions implementing the needed changes
+     * in the dB to update from one version to the following one.
+     *
+     * // dbVersion shows the DB version that is being deployed
+     * // latestReaded shows the DB version that is currently deployed.
+     *i.e.:
+     *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
+     *
+     */
+
+       qDebug() << "DataBase::updateTo005" << endl;
+       bool IAmIn005 = false;
+       bool IAmIn004 = false;
+       bool ErrorUpdating = false;
+       QString stringQuery = QString();
+       QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+       QSqlQuery query;
+
+       bool sqlOk = false;
+
+       if (latestReaded >= 0.005)
+       {
+           qDebug() << "DataBase::updateTo005 - Already in 005" << endl;
+           return true;
+       }
+       else
+       {
+           qDebug() << "DataBase::updateTo005 - 005 update false" << endl;
+           IAmIn005 = false;
+       }
+
+
+       while (!IAmIn005 && !ErrorUpdating)
+       {
+           while (!IAmIn004 && !ErrorUpdating)
+           {               
+               IAmIn004 = updateTo004();
+           }
+           if (ErrorUpdating)
+           {
+               qDebug() << "DataBase::updateTo005 - 005 update false2" << endl;
+               return false;
+           }
+           sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+           if (sqlOk)
+           { // Version updated
+               if(query.exec("ALTER TABLE contest ADD COLUMN cat1 VARCHAR"))
+               {
+                   if(query.exec("ALTER TABLE contest ADD COLUMN cat2 VARCHAR"))
+                   {
+                       if(query.exec("ALTER TABLE contest ADD COLUMN cat3 VARCHAR"))
+                       {
+                           qDebug() << "DataBase::updateTo005 - 005 updated" << endl;
+                           IAmIn005 = true;
+
+                       }
+                       else
+                       {
+                           ErrorUpdating = true;
+                           qDebug() << "DataBase::updateTo005 - 005 update false3" << endl;
+                       }
+
+                   }
+                   else
+                   {
+                       ErrorUpdating = true;
+                       qDebug() << "DataBase::updateTo005 - 005 update false4" << endl;
+                   }
+               }
+               else
+               {
+                   qDebug() << "DataBase::updateTo005 - 005 update false5" << endl;
+                   ErrorUpdating = true;
+               }
+           }
+           else
+           { // Version not updated
+               qDebug() << "DataBase::updateTo005 - 005 update false6" << endl;
+                ErrorUpdating = true;
+           }
+       }
+       qDebug() << "DataBase::updateTo005 - 005 updated 3" << endl;
+
+       //TODO: Delete the table and recreate it
+       return IAmIn005;
+
+}
+
+
+
+bool DataBase::populateContestData()
+{
+    QSqlQuery query;
+
+    query.exec("INSERT INTO contest (shortname, name, cat1, cat2, cat3, cat4, overlay) VALUES ('DX', 'Normal log', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A')");
+    query.exec("INSERT INTO contest (shortname, name, cat1, cat2, cat3, cat4, overlay) VALUES ('CQ-WW-SSB', 'CQ WW DX Contest(SSB)', 'Single-Operator', 'High-Power', 'All-Band', 'N/A', 'N/A')");
+    query.exec("INSERT INTO contest (shortname, name, cat1, cat2, cat3, cat4, overlay) VALUES ('CQ-WW-SSB', 'CQ WW DX Contest(SSB)', 'Single-Operator', 'Low-Power', 'All-Band', 'N/A', 'N/A')");
+
+    return true;
 }
