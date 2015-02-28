@@ -276,9 +276,9 @@ QStringList SetupPageLogs::readLogs()
 
 void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
 {
-    //qDebug() << "SetupPageLogs::slotAnalyzeNewLogData" << endl;
+    qDebug() << "SetupPageLogs::slotAnalyzeNewLogData (length=" << QString::number(_qs.length()) << ")" << endl;
 
-    if (_qs.length()!=11)
+    if (_qs.length()!=12)
     {
         return;
     }
@@ -304,7 +304,7 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
 
 bool SetupPageLogs::addNewLog(const QStringList _qs)
 {
-    //qDebug() << "SetupPageLogs::addNewLog" << endl;
+    qDebug() << "SetupPageLogs::addNewLog" << endl;
     QString aux = QString();
     int nameCol = -1;
 
@@ -317,6 +317,7 @@ bool SetupPageLogs::addNewLog(const QStringList _qs)
     QString queryString = QString("SELECT * FROM logs WHERE logdate='%1' AND stationcall='%2' AND logtype='%3'").arg(_dateString).arg(_stationCallsign).arg(_typeContest);
     //"logs"
     //"id, logdate, stationcall, comment, logtype"
+    qDebug() << "SetupPageLogs::addNewLog query1: " << queryString << endl;
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
@@ -326,11 +327,12 @@ bool SetupPageLogs::addNewLog(const QStringList _qs)
     {
         nameCol = rec.indexOf("id");
         aux = (query.value(nameCol)).toString();
-        //qDebug() << "SetupPageLogs::addNewLog: id = " << aux << endl;
+        qDebug() << "SetupPageLogs::addNewLog: id = " << aux << endl;
         return false;
     }
     queryString = QString("INSERT INTO logs (logdate, stationcall, comment, logtype) values('%1','%2','%3','%4')").arg(_dateString).arg(_stationCallsign).arg(_comment).arg(_typeContest);
 
+    qDebug() << "SetupPageLogs::addNewLog query1: " << queryString << endl;
     sqlOK = query.exec(queryString);
     if (sqlOK)
     {
@@ -348,18 +350,18 @@ bool SetupPageLogs::addNewLog(const QStringList _qs)
 
 void SetupPageLogs::updateSelectedLogs()
 {
-    //qDebug() << "SetupPageLogs::updateSelectedLogs" << endl;
+    qDebug() << "SetupPageLogs::updateSelectedLogs" << endl;
     logsAvailable = readLogs();
 
     if (logsAvailable.length()>0)
     {
-        //qDebug() << "SetupPageLogs::updateSelectedLogs Mayor que 1" << endl;
+        qDebug() << "SetupPageLogs::updateSelectedLogs Mayor que 1" << endl;
         currentLogs->clear();
         currentLogs->addItems(logsAvailable);
     }
     else
     {
-        //qDebug() << "SetupPageLogs::updateSelectedLogs Menor que 1" << endl;
+        qDebug() << "SetupPageLogs::updateSelectedLogs Menor que 1" << endl;
     }
 
 }

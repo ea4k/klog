@@ -188,5 +188,16 @@ QStringList DataProxy::getContestNames()
     return QStringList();
 }
 
+QStringList DataProxy::getContestCat(const int _catn){
+    return QStringList();
+}
 
+QStringList DataProxy::getBandNames(){
+    return QStringList();
+}
+
+QStringList DataProxy::getValidCatOptions(const int _currentCat, const int _lowerCa)
+{
+    return QStringList();
+}
 

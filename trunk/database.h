@@ -85,7 +85,8 @@ private:
 
     bool createTheBandQuickReference();
     bool createTheModeQuickReference();
-
+    bool recreateContestData();
+    bool createTableContest();
     bool populateContestData();
 
     float dbVersion;    // The current version of the DB. May differ from latestReaded if we are updating the DB!

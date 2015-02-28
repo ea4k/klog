@@ -54,6 +54,10 @@ public:
     int getCQzonYear(const int _year, const int _logNumber);
 
     QStringList getContestNames();
+    QStringList getContestCat(const int _catn);
+
+    QStringList getBandNames();
+    QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
 private:
     bool dbCreated;

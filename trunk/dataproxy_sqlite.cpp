@@ -704,14 +704,75 @@ int DataProxy_SQLite::getCQzonYear(const int _year, const int _logNumber)
 
 QStringList DataProxy_SQLite::getContestNames()
 {
+    qDebug() << "DataProxy_SQLite::getContestNames() "  << endl;
     QStringList contests = QStringList();
     QSqlQuery query;
     QString stringQuery;
     bool sqlOK;
-    stringQuery = QString("SELECT shortname from contest");
+    stringQuery = QString("SELECT DISTINCT name from supportedcontests ORDER BY id ASC");
 
     sqlOK = query.exec(stringQuery);
-    //qDebug() << "DataProxy_SQLite::getCQzonYear: stringQuery: " << stringQuery << endl;
+    if (sqlOK)
+    {
+        while(query.next())
+        {
+            if (query.isValid())
+            {
+                stringQuery = (query.value(0)).toString();
+                qDebug() << "DataProxy_SQLite::getContestNames: " << stringQuery  << endl;
+                contests.append(stringQuery);
+            }
+            else
+            {
+                return QStringList();
+            }
+
+        }
+
+        return contests;
+    }
+    else
+    {
+         return QStringList();
+    }
+
+    return QStringList();
+
+}
+
+QStringList DataProxy_SQLite::getContestCat(const int _catn)
+{
+    QStringList contests = QStringList();
+    QSqlQuery query;
+    QString stringQuery;
+    bool sqlOK;
+
+    switch (_catn) {
+        case 1:
+            stringQuery = QString("SELECT DISTINCT name from contestcatoperator ORDER BY id ASC");
+        break;
+        case 2:
+            stringQuery = QString("SELECT DISTINCT name from contestcatassisted ORDER BY id ASC");
+        break;
+        case 3:
+            stringQuery = QString("SELECT DISTINCT name from contestcatpower ORDER BY id ASC");
+        break;
+        case 4:
+            stringQuery = QString("SELECT DISTINCT name from contestcatband ORDER BY id ASC");
+        break;
+        case 5:
+            stringQuery = QString("SELECT DISTINCT name from contestcatoverlay ORDER BY id ASC");
+        break;
+        case 6:
+            stringQuery = QString("SELECT DISTINCT name from contestcatmode ORDER BY id ASC");
+        break;
+        default:
+            return QStringList();
+        break;
+
+        }
+
+    sqlOK = query.exec(stringQuery);
     if (sqlOK)
     {
         while(query.next())
@@ -737,4 +798,97 @@ QStringList DataProxy_SQLite::getContestNames()
 
     return QStringList();
 
+}
+
+QStringList DataProxy_SQLite::getBandNames()
+{
+
+    QStringList bands = QStringList();
+    QSqlQuery query;
+    QString stringQuery;
+    bool sqlOK;
+    stringQuery = QString("SELECT DISTINCT name from band");
+    sqlOK = query.exec(stringQuery);
+    if (sqlOK)
+    {
+        while(query.next())
+        {
+            if (query.isValid())
+            {
+                stringQuery = (query.value(0)).toString();
+                bands.append(stringQuery);
+            }
+            else
+            {
+                return QStringList();
+            }
+
+        }
+
+        return bands;
+    }
+    else
+    {
+         return QStringList();
+    }
+}
+
+QStringList DataProxy_SQLite::getValidCatOptions(const int _currentCat, const int _lowerCat)
+{
+    qDebug() << "DataProxy_SQLite::getContestNames: " << QString::number(_currentCat) <<"/" << QString::number(_lowerCat) << endl;
+    QStringList contests = QStringList();
+    QSqlQuery query;
+    QString stringQuery;
+    bool sqlOK;
+
+    switch (_currentCat) {
+
+        case 0:
+            stringQuery = QString("SELECT DISTINCT contestcatoperator.name FROM contestcatoperator JOIN contest ON contest.catoperator=contestcatoperator.id WHERE contest.contest='%1' ORDER BY contestcatoperator.id").arg(_lowerCat);
+
+        break;
+        case 1:
+            stringQuery = QString("SELECT DISTINCT contestcatassisted.name FROM contestcatassisted JOIN contest ON contest.catassisted=contestcatassisted.id WHERE contest.catoperator='1' ORDER BY contestcatassisted.id").arg(_lowerCat);
+        break;
+        case 2:
+            stringQuery = QString("SELECT DISTINCT contestcatpower.name FROM contestcatpower JOIN contest ON contest.catpower=contestcatpower.id WHERE contest.catoperator='1' ORDER BY contestcatpower.id").arg(_lowerCat);
+        break;
+        case 3:
+            stringQuery = QString("SELECT DISTINCT contestcatband.name FROM contestcatband JOIN contest ON contest.catband=contestcatband.id WHERE contest.catoperator='1' ORDER BY contestcatband.id").arg(_lowerCat);
+        break;
+        case 4:
+            stringQuery = QString("SELECT DISTINCT contestcatoverlay.name FROM contestcatoverlay JOIN contest ON contest.catoverlay=contestcatoverlay.id WHERE contest.catoperator='1' ORDER BY contestcatoverlay.id").arg(_lowerCat);
+        break;
+        case 5:
+            stringQuery = QString("SELECT DISTINCT contestcatmode.name FROM contestcatmode JOIN contest ON contest.catmode=contestcatmode.id WHERE contest.catoperator='1' ORDER BY contestcatmode.id").arg(_lowerCat);
+        break;
+        default:
+            return QStringList();
+        break;
+
+        }
+
+    sqlOK = query.exec(stringQuery);
+    if (sqlOK)
+    {
+        while(query.next())
+        {
+            if (query.isValid())
+            {
+                stringQuery = (query.value(0)).toString();
+                contests.append(stringQuery);
+            }
+            else
+            {
+                return QStringList();
+            }
+
+        }
+
+        return contests;
+    }
+    else
+    {
+         return QStringList();
+    }
 }
