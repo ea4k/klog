@@ -1,4 +1,5 @@
 TBD - 0.9.1
+- TODO: When a log is added, the type of log is shown just as a number
 - TODO: Working in the DataBase to create different types of logs
 - TODO: Working in the setuppagelogs.cpp to manage the contests from the DB
 

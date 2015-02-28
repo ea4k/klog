@@ -52,10 +52,12 @@ private slots:
     void slotTypeComboBoxChanged(const int _ind);
     void slotCatAssistedComboBoxChanged();
     void slotCatOperatorsComboBoxChanged();
+    void slotOperatorsTextChanged();
     void slotCatPowerComboBoxChanged();
     void slotCatBandsComboBoxChanged();
     void slotBandsComboBoxChanged();
     void slotCatModeComboBoxChanged();
+    void slotCatOverlayComboBoxChanged();
 
 signals:
     void newLogData(const QStringList _qs); //
@@ -64,6 +66,8 @@ private:
 
     void createWidget();
     void gatherAndSend();
+    QStringList getValidCatOptions(const int _currentCat, const int _higherCat);
+
 
     DataProxy *dataProxy;
 
@@ -79,9 +83,11 @@ private:
     QComboBox *contestCatPowerComboBox;
     QComboBox *contestCatBandsComboBox;
     QComboBox *contestBandsComboBox;
+    QComboBox *contestCatOverlayComboBox;
+
 
     QString stationCallsign, operators, comment, dateString;
-    int typeContest, contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands;
+    int typeContest, contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands, contestCatOverlay;
 
     bool stationCallsignFilled, operatorsFilled;
     int typeOperation; // DX, CQ-WW-SSB, CQ-WW-CW, CQ-WPX-SSB, CQ-WPX-CW

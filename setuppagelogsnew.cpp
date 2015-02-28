@@ -49,6 +49,8 @@ SetupPageLogsNew::SetupPageLogsNew(QWidget *parent)
     contestCatPower = -1;
     contestCatBands = -1;
     contestBands = -1;
+    contestCatOverlay = -1;
+
 
     stationCallsignLineEdit = new QLineEdit;
     operatorsLineEdit = new QLineEdit;
@@ -64,6 +66,8 @@ SetupPageLogsNew::SetupPageLogsNew(QWidget *parent)
     contestCatPowerComboBox = new QComboBox;
     contestCatBandsComboBox = new QComboBox;
     contestBandsComboBox = new QComboBox;
+    contestCatOverlayComboBox = new QComboBox;
+    contestCatModeComboBox = new QComboBox;
 
     okButton = new QPushButton(tr("&Ok"), this);
     cancelButton = new QPushButton(tr("&Cancel"), this);
@@ -73,6 +77,7 @@ SetupPageLogsNew::SetupPageLogsNew(QWidget *parent)
 
 void SetupPageLogsNew::createWidget()
 {
+    qDebug() << "SetupPageLogsNew::createWidget" << endl;
     QLabel *stationCallsignLabel = new QLabel(tr("StationCallsign"));
     stationCallsignLabel->setWordWrap(true);
     QLabel *operatorsLabel = new QLabel(tr("Operators"));
@@ -94,25 +99,27 @@ void SetupPageLogsNew::createWidget()
     QLabel *dateLabel = new QLabel(tr("Date"));
     dateLabel->setWordWrap(true);
 
+
+
     typeComboBox->setToolTip(tr("Select the kind of operation for this log"));
     QStringList _qs;
     _qs.clear();
-    _qs.append(dataProxy->getContestNames());
-    //_qs << "DX" << "CQ-WW-SSB"  << "CQ-WW-CW"  << "CQ-WPX-SSB"  << "CQ-WPX-CW" ;
+    _qs.append(dataProxy->getContestNames());    
     typeComboBox->addItems(_qs);
+    qDebug() << "SetupPageLogsNew::createWidget - contestNames: " << _qs.at(0) << endl;
 
     QLabel *catModeLabel = new QLabel(tr("Mode Category"));
     catModeLabel->setWordWrap(true);
     contestCatModeComboBox->setToolTip(tr("Select the mode category"));
     _qs.clear();
-    _qs << "SSB" << "CW" << "MIXED";
+    _qs.append(dataProxy->getContestCat(6));
     contestCatModeComboBox->addItems(_qs);
 
     QLabel *catOpLabel = new QLabel(tr("Operators Category"));
     catOpLabel->setWordWrap(true);
     contestCatOperatorsComboBox->setToolTip(tr("Select the operators category"));
     _qs.clear();
-    _qs << "SINGLE" << "MULTI";
+    _qs.append(dataProxy->getContestCat(1));
     contestCatOperatorsComboBox->addItems(_qs);
 
 
@@ -120,24 +127,40 @@ void SetupPageLogsNew::createWidget()
     catOpLabel->setWordWrap(true);
     contestCatAssistedComboBox->setToolTip(tr("Select the assisted category"));
     _qs.clear();
-    _qs << "NON-ASSISTED" << "ASSISTED";
+    _qs.append(dataProxy->getContestCat(2));
     contestCatAssistedComboBox->addItems(_qs);
 
     QLabel *catPowerLabel = new QLabel(tr("Power Category"));
     catPowerLabel->setWordWrap(true);
     contestCatPowerComboBox->setToolTip(tr("Select the power category"));
     _qs.clear();
-    _qs << "QRP" << "LOW" << "HIGH";
+    _qs.append(dataProxy->getContestCat(3));
     contestCatPowerComboBox->addItems(_qs);
 
     QLabel *catBandsLabel = new QLabel(tr("Bands Category"));
     catBandsLabel->setWordWrap(true);
     contestCatBandsComboBox->setToolTip(tr("Select the bands category"));
     _qs.clear();
-    _qs << "ALL" << "10" << "15" << "20" << "40" << "80" << "160";
+    _qs.append(dataProxy->getContestCat(4));
     contestCatBandsComboBox->addItems(_qs);
 
+    QLabel *bandsLabel = new QLabel(tr("Bands"));
+    bandsLabel->setWordWrap(true);
+    contestBandsComboBox->setToolTip(tr("Select the band"));
+    _qs.clear();
+    _qs.append(dataProxy->getBandNames());
+    contestBandsComboBox->addItems(_qs);
+
+
+    QLabel *cat5Label = new QLabel(tr("Overlay"));
+    cat5Label->setWordWrap(true);
+    contestCatOverlayComboBox->setToolTip(tr("Select the overlay category, if any"));
+    _qs.clear();
+    _qs.append(dataProxy->getContestCat(5));
+    contestCatOverlayComboBox->addItems(_qs);
+
     connect(stationCallsignLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStationCallSignTextChanged() ) );
+    connect(operatorsLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotOperatorsTextChanged() ) );
     connect(typeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotTypeComboBoxChanged(int) ) ) ;
     connect(contestCatModeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatModeComboBoxChanged() ) ) ;
     connect(contestCatAssistedComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatAssistedComboBoxChanged() ) ) ;
@@ -145,6 +168,8 @@ void SetupPageLogsNew::createWidget()
     connect(contestCatPowerComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatPowerComboBoxChanged() ) ) ;
     connect(contestCatBandsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatBandsComboBoxChanged() ) ) ;
     connect(contestBandsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotBandsComboBoxChanged() ) ) ;
+    connect(contestCatOverlayComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatOverlayComboBoxChanged() ) ) ;
+    //connect(contestCatModeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatModeComboBoxChanged() ) ) ;
     connect(okButton,SIGNAL(clicked()), this, SLOT(slotOKButtonClicked() ) );
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked() ) );
 
@@ -172,6 +197,7 @@ void SetupPageLogsNew::createWidget()
 
     callsLayout->addWidget(catBandsLabel, 9, 0);
     callsLayout->addWidget(contestCatBandsComboBox, 9, 1);
+    callsLayout->addWidget(contestBandsComboBox, 9, 2);
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addSpacerItem(new QSpacerItem(10,0,QSizePolicy::Expanding,QSizePolicy::Maximum));
@@ -187,6 +213,31 @@ void SetupPageLogsNew::createWidget()
 
 }
 
+
+void SetupPageLogsNew::slotOperatorsTextChanged()
+{
+    qDebug() << "SetupPageLogsNew::slotOperatorsTextChanged" << endl;
+//    connect(stationCallsignLineEdit, SIGNAL(textChanged(QString)), this, SLOT( ) );
+    int cursorP = operatorsLineEdit->cursorPosition();
+
+    QString currentQrz = operatorsLineEdit->text();
+    if ((currentQrz.at(cursorP-1)).isSpace())
+    {
+        currentQrz = currentQrz.remove(cursorP-1, 1);
+        cursorP--;
+        operatorsLineEdit->setText(currentQrz);
+    }
+
+    operatorsLineEdit->setText(((operatorsLineEdit->text())).simplified());
+    operatorsLineEdit->setText((operatorsLineEdit->text()).toUpper());
+
+    operatorsLineEdit->setCursorPosition(cursorP);
+
+    if (currentQrz.length()>=3)
+    {//TODO: Add a check of the format (comma separated)
+        operatorsFilled= true;
+    }
+}
 
 void SetupPageLogsNew::slotStationCallSignTextChanged()
 {
@@ -213,111 +264,94 @@ void SetupPageLogsNew::slotStationCallSignTextChanged()
     }
 }
 
-
 void SetupPageLogsNew::slotTypeComboBoxChanged(const int _ind)
 {
-    //qDebug() << "SetupPageLogsNew::slotTypeComboBoxChanged" << endl;
+    qDebug() << "SetupPageLogsNew::slotTypeComboBoxChanged" << endl;
 //    connect(typeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotTypeComboBoxChanged() ) ) ;
 
     int i = _ind;
     //int i = typeComboBox->currentIndex();
     //qDebug() << "SetupPageLogsNew::slotTypeComboBoxChanged: " << QString::number(i) << endl;
 
+    //contestCatModeComboBox->setEnabled(true);
+    //contestCatOperatorsComboBox->setEnabled(true);
+    //contestCatAssistedComboBox->setEnabled(true);
+    //contestCatPowerComboBox->setEnabled(true);
+    //contestCatBandsComboBox->setEnabled(true);
+    //contestBandsComboBox->setEnabled(true);
 
-    switch (i)
-    {
+    //contestCatOperatorsComboBox->clear();
+    //contestCatOperatorsComboBox->addItems(getValidCatOptions(0,i));
 
-        case 0: // DX = No Contest
-            typeOperation = 0;
-            contestCatModeComboBox->setEnabled(false);
-            contestCatOperatorsComboBox->setEnabled(false);
-            contestCatAssistedComboBox->setEnabled(false);
-            contestCatPowerComboBox->setEnabled(false);
-            contestCatBandsComboBox->setEnabled(false);
-            contestBandsComboBox->setEnabled(false);
-
-        break;
-        case 1: // CQ-WW-SSB
-            typeOperation = 1;
-            contestCatModeComboBox->setEnabled(true);
-            contestCatOperatorsComboBox->setEnabled(true);
-            contestCatAssistedComboBox->setEnabled(true);
-            contestCatPowerComboBox->setEnabled(true);
-            contestCatBandsComboBox->setEnabled(true);
-            contestBandsComboBox->setEnabled(true);
-        break;
-        case 2: // CQ-WW-CW
-            typeOperation = 2;
-            contestCatModeComboBox->setEnabled(true);
-            contestCatOperatorsComboBox->setEnabled(true);
-            contestCatAssistedComboBox->setEnabled(true);
-            contestCatPowerComboBox->setEnabled(true);
-            contestCatBandsComboBox->setEnabled(true);
-            contestBandsComboBox->setEnabled(true);
-        break;
-        case 3:  // CQ-WPX-SSB
-            typeOperation = 3;
-            contestCatModeComboBox->setEnabled(true);
-            contestCatOperatorsComboBox->setEnabled(true);
-            contestCatAssistedComboBox->setEnabled(true);
-            contestCatPowerComboBox->setEnabled(true);
-            contestCatBandsComboBox->setEnabled(true);
-            contestBandsComboBox->setEnabled(true);
-        break;
-        case 4:  // CQ-WPX-CW
-            typeOperation = 4;
-            contestCatModeComboBox->setEnabled(true);
-            contestCatOperatorsComboBox->setEnabled(true);
-            contestCatAssistedComboBox->setEnabled(true);
-            contestCatPowerComboBox->setEnabled(true);
-            contestCatBandsComboBox->setEnabled(true);
-            contestBandsComboBox->setEnabled(true);
-        break;
-        default:// DX = No Contest
-            typeOperation = 0;
-            contestCatModeComboBox->setEnabled(false);
-            contestCatOperatorsComboBox->setEnabled(false);
-            contestCatAssistedComboBox->setEnabled(false);
-            contestCatPowerComboBox->setEnabled(false);
-            contestCatBandsComboBox->setEnabled(false);
-            contestBandsComboBox->setEnabled(false);
-        break;
-
-    }
 }
 
 
 
 void SetupPageLogsNew::slotCatAssistedComboBoxChanged()
 {
-   //qDebug() << "SetupPageLogs:slotCatAssistedComboBoxChanged: " << QString::number(contestCatAssistedComboBox->currentIndex())  << endl;
+   qDebug() << "SetupPageLogs:slotCatAssistedComboBoxChanged: " << QString::number(contestCatAssistedComboBox->currentIndex())  << endl;
 //connect(contestCatAssistedComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatAssistedComboBoxChanged() ) ) ;
+
+
 }
 void SetupPageLogsNew::slotCatOperatorsComboBoxChanged()
 {
-   //qDebug() << "SetupPageLogsNew::slotCatOperatorsComboBoxChanged(): " << QString::number(contestCatOperatorsComboBox->currentIndex())  << endl;
-//connect(contestCatOperatorsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatOperatorsComboBoxChanged() ) ) ;
+   qDebug() << "SetupPageLogsNew::slotCatOperatorsComboBoxChanged(): " << QString::number(contestCatOperatorsComboBox->currentIndex())  << endl;
+   // 1 - contestcatoperator
+   // 2 - contestcatassisted
+   // 3 - contestcatpower
+   // 4 - contestcatband
+   // 5 - contestcatoverlay
+   // 6 - contestcatmode
+/*
+   contestCatAssistedComboBox->clear();
+   //contestCatAssistedComboBox->addItems(getValidCatOptions(1,contestCatOperatorsComboBox->currentIndex()));
+   contestCatAssistedComboBox->addItems(getValidCatOptions(1,2));
+   contestCatPowerComboBox->clear();
+   //contestCatPowerComboBox->addItems(getValidCatOptions(1,contestCatOperatorsComboBox->currentIndex()));
+   contestCatPowerComboBox->addItems(getValidCatOptions(1,3));
+   contestCatBandsComboBox->clear();
+   //contestCatBandsComboBox->addItems(getValidCatOptions(1,contestCatOperatorsComboBox->currentIndex()));
+   contestCatBandsComboBox->addItems(getValidCatOptions(1,4));
+*/
+
 }
 void SetupPageLogsNew::slotCatPowerComboBoxChanged()
 {
-    //qDebug() << "SetupPageLogsNew::slotCatPowerComboBoxChanged(): " << QString::number(contestCatPowerComboBox->currentIndex())  << endl;
+    qDebug() << "SetupPageLogsNew::slotCatPowerComboBoxChanged(): " << QString::number(contestCatPowerComboBox->currentIndex())  << endl;
 //connect(contestCatPowerComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatPowerComboBoxChanged() ) ) ;
+
 }
 
 void SetupPageLogsNew::slotCatBandsComboBoxChanged()
 {
-    //qDebug() << "SetupPageLogsNew::slotCatBandsComboBoxChanged(): " << QString::number(contestCatBandsComboBox->currentIndex())  << endl;
+    qDebug() << "SetupPageLogsNew::slotCatBandsComboBoxChanged(): " << QString::number(contestCatBandsComboBox->currentIndex())  << endl;
 //connect(contestCatBandsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatBandsComboBoxChanged() ) ) ;
+    //contestCatBandsComboBox->clear();
+    //contestCatBandsComboBox->addItems(getValidCatOptions(1,contestCatBandsComboBox->currentIndex()));
 }
+
 void SetupPageLogsNew::slotBandsComboBoxChanged()
 {
-    //qDebug() << "SetupPageLogsNew::slotBandsComboBoxChanged(): " << QString::number(contestBandsComboBox->currentIndex()) << endl;
+    qDebug() << "SetupPageLogsNew::slotBandsComboBoxChanged(): " << QString::number(contestBandsComboBox->currentIndex()) << endl;
             //connect(contestBandsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotBandsComboBoxChanged() ) ) ;
+}
+
+
+void SetupPageLogsNew::slotCatOverlayComboBoxChanged()
+{
+     qDebug() << "SetupPageLogsNew::slotCatOverlayComboBoxChanged(): " << QString::number(contestCatOverlayComboBox->currentIndex())  << endl;
+     //contestCatOverlayComboBox->clear();
+     //contestCatOverlayComboBox->addItems(getValidCatOptions(4,contestCatOverlayComboBox->currentIndex()));
+
 }
 
 void SetupPageLogsNew::slotCatModeComboBoxChanged()
 {
-    //qDebug() << "SetupPageLogsNew::slotModeComboBoxChanged(): " << QString::number(contestCatModeComboBox->currentIndex())  << endl;
+    qDebug() << "SetupPageLogsNew::slotCatModeComboBoxChanged(): " << QString::number(contestCatModeComboBox->currentIndex())  << endl;
+    //contestCatModeComboBox->clear();
+    //contestCatModeComboBox->addItems(getValidCatOptions(5,contestCatModeComboBox->currentIndex()));
+    //contestCatModeComboBox->addItems(getValidCatOptions(1,6));
 
 }
 
@@ -392,6 +426,15 @@ void SetupPageLogsNew::slotOKButtonClicked()
         contestBands = -1;
     }
 
+    if (contestCatOverlayComboBox->isEnabled())
+    {
+        contestCatOverlay = contestCatOverlayComboBox->currentIndex();
+    }
+    else
+    {
+        contestCatOverlay = -1;
+    }
+
     gatherAndSend();
     close();
 
@@ -399,6 +442,7 @@ void SetupPageLogsNew::slotOKButtonClicked()
 }
 void SetupPageLogsNew::gatherAndSend()
 {
+     qDebug() << "SetupPageLogsNew::gatherAndSend" << endl;
     logData.clear();
     logData << stationCallsign << operators << comment << dateString
             << QString::number(typeContest)
@@ -407,14 +451,33 @@ void SetupPageLogsNew::gatherAndSend()
             << QString::number(contestCatAssisted)
             << QString::number(contestCatPower)
             << QString::number(contestCatBands)
-            << QString::number(contestBands);
+            << QString::number(contestBands)
+            << QString::number(contestCatOverlay);
 
+    // Update the SetupPageLogs::slotAnalyzeNewLogData if you add or remove any field (Today 12)
     emit newLogData(logData);
 
 }
+
 void SetupPageLogsNew::slotCancelButtonClicked()
 {
     qDebug() << "SetupPageLogsNew::slotCancelButtonClicked" << endl;
     logData.clear();
     close();
 }
+
+QStringList SetupPageLogsNew::getValidCatOptions(const int _currentCat, const int _higherCat)
+{// currentCat is the current category and highercat is the category we want to know the information
+// being:
+// 1 - contestcatoperator
+// 2 - contestcatassisted
+// 3 - contestcatpower
+// 4 - contestcatband
+// 5 - contestcatoverlay
+// 6 - contestcatmode
+
+    qDebug() << "SetupPageLogsNew::getValidCatOptions: " << QString::number(_currentCat) <<"/"<< QString::number(_higherCat) << endl;
+    //return dataProxy->getValidCatOptions(_currentCat, _higherCat);
+
+}
+

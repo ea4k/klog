@@ -381,16 +381,7 @@ bool DataBase::createDataBase()
                  "shortname VARCHAR(3) NOT NULL, "
                  "name VARCHAR(10) NOT NULL)");
 
-      query.exec("CREATE TABLE contest ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "shortname VARCHAR(20) NOT NULL, "
-                 "name VARCHAR(40) NOT NULL"
-                 "ALTER TABLE contest ADD COLUMN cat1 VARCHAR"
-                 "ALTER TABLE contest ADD COLUMN cat2 VARCHAR"
-                 "ALTER TABLE contest ADD COLUMN cat3 VARCHAR"
-                 "ALTER TABLE contest ADD COLUMN cat4 VARCHAR"
-                 "ALTER TABLE contest ADD COLUMN overlay VARCHAR)");
-
+      createTableContest();
 
       query.exec("CREATE TABLE contestcategory ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -683,12 +674,6 @@ query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('S', 'Sho
 query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('L', 'LongPath')");
 
 query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AL', 'Alabama')");
-
-query.exec("INSERT INTO contest (shortname, name) VALUES ('CQ-WW-SSB', 'CQ WW DX Contest(SSB)')");
-query.exec("INSERT INTO contest (shortname, name) VALUES ('CQ-WW-CW', 'CQ WW DX Contest(CW)')");
-query.exec("INSERT INTO contest (shortname, name) VALUES ('CQ-WPX-SSB', 'CQ WW WPX Contest (SSB)')");
-query.exec("INSERT INTO contest (shortname, name) VALUES ('CQ-WPX-CW', 'CQ WW CW Contest (CW)')");
-query.exec("INSERT INTO contest (shortname, name) VALUES ('CQ-WW-RTTY', 'CQ/RJ WW RTTY DX Contest')");
 
 
 query.exec("INSERT INTO award_enumeration (name) VALUES ('AJA')");
@@ -1356,32 +1341,14 @@ bool DataBase::updateTo005()
            sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
            if (sqlOk)
            { // Version updated
-               if(query.exec("ALTER TABLE contest ADD COLUMN cat1 VARCHAR"))
+               if (recreateContestData())
                {
-                   if(query.exec("ALTER TABLE contest ADD COLUMN cat2 VARCHAR"))
-                   {
-                       if(query.exec("ALTER TABLE contest ADD COLUMN cat3 VARCHAR"))
-                       {
-                           qDebug() << "DataBase::updateTo005 - 005 updated" << endl;
-                           IAmIn005 = true;
-
-                       }
-                       else
-                       {
-                           ErrorUpdating = true;
-                           qDebug() << "DataBase::updateTo005 - 005 update false3" << endl;
-                       }
-
-                   }
-                   else
-                   {
-                       ErrorUpdating = true;
-                       qDebug() << "DataBase::updateTo005 - 005 update false4" << endl;
-                   }
+                   qDebug() << "DataBase::updateTo005 - recreateContestData OK" << endl;
+                   IAmIn005 = true;
                }
                else
                {
-                   qDebug() << "DataBase::updateTo005 - 005 update false5" << endl;
+                   qDebug() << "DataBase::updateTo005 - recreateContestData FAILED" << endl;
                    ErrorUpdating = true;
                }
            }
@@ -1397,16 +1364,170 @@ bool DataBase::updateTo005()
        return IAmIn005;
 
 }
+bool DataBase::recreateContestData()
+{
+    QSqlQuery query;
+    bool sqlOk = false;
+    sqlOk = query.exec("DROP TABLE contest");
+    if (sqlOk)
+    {
+        if (createTableContest())
+        {
+            return populateContestData();
+        }
+    }
+    return false;
 
+}
+
+bool DataBase::createTableContest()
+{
+    QSqlQuery query;
+
+    query.exec("CREATE TABLE contest ("
+               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+               "contest INTEGER NOT NULL,"
+               "catoperator INTEGER NOT NULL,"
+               "catassisted INTEGER NOT NULL,"
+               "catpower INTEGER NOT NULL,"
+               "catband INTEGER NOT NULL,"
+               "catoverlay INTEGER NOT NULL,"
+               "catmode INTEGER NOT NULL,"
+               "FOREIGN KEY (contest) REFERENCES supportedcontests(id), "
+               "FOREIGN KEY (catoperator) REFERENCES contestcatoperator(id), "
+               "FOREIGN KEY (catassisted) REFERENCES contestcatassisted(id), "
+               "FOREIGN KEY (catpower) REFERENCES contestcatpower(id), "
+               "FOREIGN KEY (catband) REFERENCES contestcatband(id), "
+               "FOREIGN KEY (catoverlay) REFERENCES contestcatoverlay(id), "
+               "FOREIGN KEY (catmode) REFERENCES contestcatmode(id))");
+
+    query.exec("CREATE TABLE supportedcontests ("
+                   "id INTEGER PRIMARY KEY, "
+                   "longname VARCHAR,"
+                   "name VARCHAR)");
+
+    query.exec("CREATE TABLE contestcatoperator ("
+                   "id INTEGER PRIMARY KEY, "
+                   "name VARCHAR)");
+    
+    query.exec("CREATE TABLE contestcatassisted ("
+                   "id INTEGER PRIMARY KEY, "
+                   "name VARCHAR)");
+    
+    query.exec("CREATE TABLE contestcatpower ("
+                   "id INTEGER PRIMARY KEY, "
+                   "name VARCHAR)");
+    
+    query.exec("CREATE TABLE contestcatband ("
+                   "id INTEGER PRIMARY KEY, "
+                   "name VARCHAR)");
+    
+    query.exec("CREATE TABLE contestcatoverlay ("
+                   "id INTEGER PRIMARY KEY, "
+                   "name VARCHAR)");
+    
+    query.exec("CREATE TABLE contestcatmode ("
+                   "id INTEGER PRIMARY KEY, "
+                   "name VARCHAR)");
+
+    // ADDING ALL THE CATEGORIES OPTIONS
+
+    query.exec("INSERT INTO supportedcontests (id, longname, name) VALUES ('0', 'Normal log', 'DX')");
+    query.exec("INSERT INTO supportedcontests (id, longname, name) VALUES ('1', 'CQ WW DX Contest(SSB)', 'CQ-WW-SSB')");
+
+    query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('0', 'N/A')");
+    query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('1', 'Single-Operator')");
+    query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('2', 'Multi-One')");
+    query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('3', 'Multi-Two')");
+    query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('4', 'Multi-Unlimited')");
+    query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('5', 'CheckLog')");
+
+    query.exec("INSERT INTO contestcatassisted (id, name) VALUES ('0', 'N/A')");
+    query.exec("INSERT INTO contestcatassisted (id, name) VALUES ('1', 'Non-Assisted')");
+    query.exec("INSERT INTO contestcatassisted (id, name) VALUES ('2', 'Assisted')");
+
+    query.exec("INSERT INTO contestcatpower (id, name) VALUES ('0', 'N/A')");
+    query.exec("INSERT INTO contestcatpower (id, name) VALUES ('1', 'High-Power')");
+    query.exec("INSERT INTO contestcatpower (id, name) VALUES ('2', 'Low-Power')");
+    query.exec("INSERT INTO contestcatpower (id, name) VALUES ('3', 'QRP')");
+
+    query.exec("INSERT INTO contestcatband (id, name) VALUES ('0', 'N/A')");
+    query.exec("INSERT INTO contestcatband (id, name) VALUES ('1', 'All-Band')");
+    query.exec("INSERT INTO contestcatband (id, name) VALUES ('2', 'Single-Band')");
+
+    query.exec("INSERT INTO contestcatoverlay (id, name) VALUES ('0', 'N/A')");
+    query.exec("INSERT INTO contestcatoverlay (id, name) VALUES ('1', 'Classic')");
+    query.exec("INSERT INTO contestcatoverlay (id, name) VALUES ('2', 'Rookie')");
+
+    query.exec("INSERT INTO contestcatmode (id, name) VALUES ('0', 'SSB')");
+    query.exec("INSERT INTO contestcatmode (id, name) VALUES ('1', 'CW')");
+    query.exec("INSERT INTO contestcatmode (id, name) VALUES ('2', 'MIXED')");
+
+    return true;
+
+}
 
 
 bool DataBase::populateContestData()
 {
     QSqlQuery query;
 
-    query.exec("INSERT INTO contest (shortname, name, cat1, cat2, cat3, cat4, overlay) VALUES ('DX', 'Normal log', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A')");
-    query.exec("INSERT INTO contest (shortname, name, cat1, cat2, cat3, cat4, overlay) VALUES ('CQ-WW-SSB', 'CQ WW DX Contest(SSB)', 'Single-Operator', 'High-Power', 'All-Band', 'N/A', 'N/A')");
-    query.exec("INSERT INTO contest (shortname, name, cat1, cat2, cat3, cat4, overlay) VALUES ('CQ-WW-SSB', 'CQ WW DX Contest(SSB)', 'Single-Operator', 'Low-Power', 'All-Band', 'N/A', 'N/A')");
+    
+    // CONTEST DEFINITIONS START HERE
+
+    // DX
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (0, 0, 0, 0, 0, 0, 0)");
+    // DX START
+
+    // CQ WW DX SSB START
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 1, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 2, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 1, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 2, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 1, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 2, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 1, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 2, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 1, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 2, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 1, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 2, 0, 0)");
+
+
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 1, 1, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 2, 1, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 1, 1, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 2, 1, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 1, 1, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 2, 1, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 1, 1, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 2, 1, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 1, 1, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 2, 1, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 1, 1, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 2, 1, 0)");
+
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 1, 2, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 2, 2, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 1, 2, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 2, 2, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 1, 2, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 2, 2, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 1, 2, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 2, 2, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 1, 2, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 2, 2, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 1, 2, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 2, 2, 0)");
+
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 2, 0, 1, 1, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 2, 0, 2, 1, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 3, 0, 1, 1, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 3, 0, 2, 1, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 4, 0, 1, 1, 0, 0)");
+    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 5, 0, 0, 0, 0, 0)");
+    // CQ WW DX SSB END
+
 
     return true;
 }

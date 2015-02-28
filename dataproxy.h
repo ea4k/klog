@@ -55,6 +55,12 @@ public:
     virtual int getCQzonYear(const int _year, const int _logNumber);
 
     virtual QStringList getContestNames();
+    virtual QStringList getContestCat(const int _catn);
+
+    virtual QStringList getBandNames();
+
+    virtual QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
+
 /*
     virtual bool isMultiplier(const QStringList _qs);
     virtual int getQSOPoints(const QStringList _qs);
