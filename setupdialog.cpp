@@ -35,6 +35,7 @@ This class calls all the othet "Setup..." to manage the configuration
 SetupDialog::SetupDialog(const bool _firstTime)
 {
     //qDebug() << "SetupDialog::SetupDialog 1" << endl;
+    nolog = true;
     configFileName = "klogrc";
     version = ".";
     pageRequested = 0;
@@ -43,11 +44,11 @@ SetupDialog::SetupDialog(const bool _firstTime)
     firstTime = _firstTime;
     if (firstTime)
     {
-        //qDebug() << "SetupDialog::SetupDialog FIRST TIME = TRUE" << endl;
+        qDebug() << "SetupDialog::SetupDialog FIRST TIME = TRUE" << endl;
     }
     else
     {
-        //qDebug() << "SetupDialog::SetupDialog FIRST TIME = FALSE" << endl;
+        qDebug() << "SetupDialog::SetupDialog FIRST TIME = FALSE" << endl;
     }
 
     logsPageTabN=-1;
@@ -103,7 +104,7 @@ SetupDialog::SetupDialog(const bool _firstTime)
     {
         tabWidget->setCurrentIndex(logsPageTabN);
     }
-
+    nolog = !(haveAtleastOneLog());
 }
 
 
@@ -223,8 +224,16 @@ void SetupDialog::slotCancelButtonClicked()
 {
 
     //qDebug() << "SetupDialog::slotCancelButtonClicked" << endl;
-    if (firstTime)
+    if (firstTime || nolog)
     {
+        if (nolog)
+        {
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setText(tr("You need to enter at least one log in the Log's tab."));
+            msgBox.exec();
+            return;
+        }
         emit exitSignal(2);
     }
 
@@ -461,6 +470,7 @@ void SetupDialog::slotOkButtonClicked()
         stream << "WorkedColor=" << colorsPage->getWorkedColor() << ";" <<  endl;
         stream << "ConfirmedColor=" << colorsPage->getConfirmedColor() << ";" <<  endl;
         stream << "DefaultColor=" << colorsPage->getDefaultColor() << ";" <<  endl;
+        stream << "SelectedLog=" << QString::number(logsPage->getSelectedLog()) << ";" <<  endl;
 
 
         file.close ();
@@ -668,6 +678,8 @@ bool SetupDialog::processConfigLine(const QString _line)
         colorsPage->setConfirmedColor(value);
     }else if(values.at(0)=="DEFAULTCOLOR"){
         colorsPage->setDefaultColor(value);
+    }else if(values.at(0)=="SELECTEDLOG"){
+        logsPage->setSelectedLog(value.toInt());
 
     }else{
         //qDebug() << "SetupDialog::processConfigLine: NONE: " << endl;

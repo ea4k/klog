@@ -1,5 +1,7 @@
 TBD - 0.9.1
-- TODO: Check if the selected log is used in the log
+- TODO: 1.- Create a new table that only holds the log selected by currentLog
+        2.- Point logmodel to that new table
+
 - TODO: Working in the setuppagelogs.cpp to manage the contests from the DB
 
 - Improved the DXMarathon code.

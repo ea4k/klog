@@ -202,3 +202,7 @@ QStringList DataProxy::getValidCatOptions(const int _currentCat, const int _lowe
     return QStringList();
 }
 
+int DataProxy::getNumberOfManagedLogs()
+{
+    return -1;
+}

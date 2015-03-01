@@ -89,6 +89,7 @@ private:
     bool haveAtleastOneLog();
 
     bool firstTime; // To know if we are calling it from the Start wizard or not
+    bool nolog; // If there is no log being managed
     QString dxClusterServerToUse;
     QStringList dxClusterServers;
 

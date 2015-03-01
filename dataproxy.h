@@ -62,6 +62,8 @@ public:
 
     virtual QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
+    virtual int getNumberOfManagedLogs();
+
 /*
     virtual bool isMultiplier(const QStringList _qs);
     virtual int getQSOPoints(const QStringList _qs);

@@ -44,6 +44,8 @@ class SetupPageLogs : public QWidget {
 public:
     SetupPageLogs(QWidget *parent=0);
     ~SetupPageLogs();
+    int getSelectedLog();
+    void setSelectedLog(const int _i);
 /*
     QString getBands(); // 10m, 12m, 15m
     QString getModes(); //ssb, CW
