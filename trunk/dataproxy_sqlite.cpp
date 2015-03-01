@@ -892,3 +892,35 @@ QStringList DataProxy_SQLite::getValidCatOptions(const int _currentCat, const in
          return QStringList();
     }
 }
+
+bool DataProxy_SQLite::haveAtLeastOneLog()
+{
+    qDebug() << "DataProxy_SQLite::haveAtLeastOneLog()" << endl;
+    QSqlQuery query;
+
+    if (query.exec("SELECT COUNT(id) from logs"))
+    {
+        query.next();
+        if (query.isValid())
+        {
+            if((query.value(0)).toInt()>0)
+            {
+                   return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return -1;
+    }
+    return false;
+}

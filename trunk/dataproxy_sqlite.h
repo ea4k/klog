@@ -15,6 +15,8 @@ public:
 
     void createLogModel();
     void createLogPanel();
+    bool haveAtLeastOneLog();
+
     int getIdFromModeName(const QString& _modeName);
     int getIdFromBandName(const QString& _bandName);
 

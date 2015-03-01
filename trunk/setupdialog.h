@@ -37,6 +37,8 @@
 #include "setuppagelogs.h"
 #include "setuppageworldeditor.h"
 
+#include "dataproxy_sqlite.h"
+
 
 #include "locator.h"
 
@@ -84,6 +86,7 @@ private:
     bool isValidBand (const QString b);
     bool isValidMode (const QString b);
     QString checkAndFixASCIIinADIF(const QString _data);
+    bool haveAtleastOneLog();
 
     bool firstTime; // To know if we are calling it from the Start wizard or not
     QString dxClusterServerToUse;
@@ -109,7 +112,7 @@ private:
 
     QStringList bands, modes;
     Locator *locator;
-
+    DataProxy *dataProxy;
 
 };
 

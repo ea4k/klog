@@ -492,7 +492,8 @@ confirmed = 1     Set as Confirmed
                  "logdate VARCHAR(10), "
                  "stationcall VARCHAR(15) NOT NULL, "
                  "comment VARCHAR, "
-                 "logtype VARCHAR )");
+                 "logtype VARCHAR, "
+                 "FOREIGN KEY (logtype) REFERENCES supportedcontests(name))");
 
       /*
       query.exec("CREATE TABLE sat_modes ("
@@ -1344,6 +1345,15 @@ bool DataBase::updateTo005()
                if (recreateContestData())
                {
                    qDebug() << "DataBase::updateTo005 - recreateContestData OK" << endl;
+                   query.exec ("DROP TABLE logs");
+                   query.exec("CREATE TABLE logs ("
+                              "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                              "logdate VARCHAR(10), "
+                              "stationcall VARCHAR(15) NOT NULL, "
+                              "comment VARCHAR, "
+                              "logtype VARCHAR, "
+                              "FOREIGN KEY (logtype) REFERENCES supportedcontests(name))");
+
                    IAmIn005 = true;
                }
                else

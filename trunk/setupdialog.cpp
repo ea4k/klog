@@ -38,7 +38,7 @@ SetupDialog::SetupDialog(const bool _firstTime)
     configFileName = "klogrc";
     version = ".";
     pageRequested = 0;
-
+    dataProxy = new DataProxy_SQLite();
 
     firstTime = _firstTime;
     if (firstTime)
@@ -112,7 +112,7 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
 {
     //qDebug() << "SetupDialog::SetupDialog 2" << endl;
     firstTime = _firstTime;
-
+    dataProxy = new DataProxy_SQLite();
     configFileName = _configFile;
     version = _softwareVersion;
     pageRequested = _page;
@@ -121,7 +121,6 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
     locator = new Locator();
 
     tabWidget = new QTabWidget;
-
 
     userDataPage = new SetupPageUserDataPage();
     bandsModesPage = new SetupPageBandsModes(this);
@@ -300,6 +299,22 @@ void SetupDialog::slotOkButtonClicked()
 //qDebug() << "SetupDialog::slotOkButonClicked" << endl;
 
     if ((userDataPage->getStationQrz()).length() < 3){ // There are no valid calls with less than 3 Chars
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setText(tr("You need to enter at least a valid QRZ."));
+        msgBox.exec();
+        return;
+    }
+
+    if (!haveAtleastOneLog())
+    {
+        qDebug() << "SetupDialog::slotOkButonClicked - NO LOG!" << endl;
+
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setText(tr("You have not selected the kind of log you want.\nYou will be redirected to the Log tab.\nPlease add and select the kind of log you want to use."));
+        msgBox.exec();
+        tabWidget->setCurrentIndex(logsPageTabN);
         return;
     }
 
@@ -789,4 +804,9 @@ QString SetupDialog::checkAndFixASCIIinADIF(const QString _data)
 
 
     return newString;
+}
+
+bool SetupDialog::haveAtleastOneLog()
+{
+    return dataProxy->haveAtLeastOneLog();
 }

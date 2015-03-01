@@ -12,6 +12,7 @@ public:
     ~DataProxy();
     virtual void createLogModel();
     virtual void createLogPanel();
+    virtual bool haveAtLeastOneLog();
 
 
     //UI functions

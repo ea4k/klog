@@ -1,12 +1,11 @@
 TBD - 0.9.1
-- TODO: When a log is added, the type of log is shown just as a number
-- TODO: Working in the DataBase to create different types of logs
+- TODO: Check if the selected log is used in the log
 - TODO: Working in the setuppagelogs.cpp to manage the contests from the DB
 
 - Improved the DXMarathon code.
 - GUI: Added basic Satellite support.
 - GUI: It is possible to mark a QSL sent via bureau/direct & DX QSL as requested with one action from Search box.
-
+- GUI: KLog request a valid QRZ and at least one first logtype to start using it.
 
 January-2015 - 0.9.0.3
 - Bugfix: ADIF was not properly imported when Fields where using the Type of data optional field preventing logs from Logger32 being imported. (TNX EB1TR)
