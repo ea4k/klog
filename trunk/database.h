@@ -85,6 +85,10 @@ private:
 
     bool createTheBandQuickReference();
     bool createTheModeQuickReference();
+
+    bool recreateLog(); // Drops the log table and calls createTableLog
+    bool createTableLog();
+
     bool recreateContestData();
     bool createTableContest();
     bool populateContestData();

@@ -61,6 +61,8 @@ public:
     QStringList getBandNames();
     QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
+    int getNumberOfManagedLogs();
+
 private:
     bool dbCreated;
     DataBase *db;

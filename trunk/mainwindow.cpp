@@ -162,11 +162,12 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
         if (existingData)
         {
-           //qDebug() << "MainWindow::MainWindow: existing data" << endl;
+           qDebug() << "MainWindow::MainWindow: existing data" << endl;
+           //configured= false;
         }
         else
         {
-            //qDebug() << "MainWindow::MainWindow: NOT existing data" << endl;
+            qDebug() << "MainWindow::MainWindow: NOT existing data" << endl;
         }
 
     statusBarMessage = tr("Starting KLog");
@@ -219,11 +220,11 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     }
     if (configured)
     {
-        //qDebug() << "MainWindow::MainWindow: configured = true" << endl;
+        qDebug() << "MainWindow::MainWindow: configured = true" << endl;
     }
     else
     {
-        //qDebug() << "MainWindow::MainWindow: configured = false" << endl;
+        qDebug() << "MainWindow::MainWindow: configured = false" << endl;
     }
     setupDialog = new SetupDialog(!configured);
     dataProxy = new DataProxy_SQLite();
@@ -449,6 +450,10 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     logView->setCurrentIndex(logModel->index(0, 0));
     //searchResultsTreeWidget->setCurrentIndex(logModel->index(0, 0));
 
+    if (dataProxy->getNumberOfManagedLogs()<1)
+    {
+        slotSetup(6);
+    }
     checkIfNewBandOrMode();
 
     if ( (contestMode == CQ_WW_SSB) || (contestMode == CQ_WW_CW) )
@@ -475,6 +480,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     }
 
     slotClearButtonClicked();
+
 
     upAndRunning = true;
     //qDebug() << "MainWindow::MainWindow: END" << endl;
@@ -3468,7 +3474,7 @@ void MainWindow::slotScoreWinShow()
 
 void MainWindow::slotSetup(const int _page)
 {
-    //qDebug() << "MainWindow::slotSetup - 01"  << endl;
+    qDebug() << "MainWindow::slotSetup - 01"  << endl;
 
     if (!needToEnd)
     {
@@ -3610,24 +3616,36 @@ void MainWindow::newFile()
      //TODO: Ask for a confirmation to the user
     //TODO: Clean the DB & query.exec("VACUUM");
 
+    int lastLog = currentLog;
+
     slotSetup(6);
+
+    if (lastLog == currentLog)
+    { // It seems that the user didn't really want a new log
+        return;
+    }
+
+    points = 0;
+    multipliers = 0;
+    qsoPoints = 0;
+    qsoMultiplier = 0;
+    logModel->select();
+    slotClearButtonClicked();
+    searchResultsTreeWidget->clear();
+
+
+/*
     if (dataProxy->clearLog())
     {
-        points = 0;
-        multipliers = 0;
-        qsoPoints = 0;
-        qsoMultiplier = 0;
 
-        logModel->select();
-        slotClearButtonClicked();
-        searchResultsTreeWidget->clear();
+
 
     }
     else
     {
         //TODO: An error to create a new file has ocurred. Manage it!
     }
-
+*/
 
 }
 
@@ -4430,7 +4448,7 @@ void MainWindow::readConfigData()
     QFile file(configFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         //qDebug() << "MainWindow::slotReadConfigData: File not found" << configFileName << endl;
-        if (configured)
+        if (configured )
         {
             //qDebug() << "MainWindow::readConfigData: configured = true" << endl;
         }
@@ -4811,6 +4829,10 @@ bool MainWindow::processConfigLine(const QString _line){
     else if(values.at(0)=="DEFAULTCOLOR")
     {
         defaultColor.setNamedColor(value);
+    }else if(values.at(0)=="SELECTEDLOG"){
+        currentLog = value.toInt();
+        qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
+
     }
     else
     {

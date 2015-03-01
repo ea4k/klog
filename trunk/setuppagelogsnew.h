@@ -44,6 +44,7 @@ class SetupPageLogsNew : public QDialog
 public:
     SetupPageLogsNew(QWidget *parent = 0);
 
+
 private slots:
     void slotOKButtonClicked();
     void slotCancelButtonClicked();

@@ -924,3 +924,28 @@ bool DataProxy_SQLite::haveAtLeastOneLog()
     }
     return false;
 }
+
+int DataProxy_SQLite::getNumberOfManagedLogs()
+{
+    //qDebug() << "DataProxy_SQLite::getNumberOfManagedLogs" << endl;
+    QSqlQuery query;
+    if (query.exec("SELECT COUNT (*) from logs"))
+    {
+        query.next();
+        if (query.isValid())
+        {
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    else
+    {
+        return -1;
+    }
+
+
+    return -1;
+}

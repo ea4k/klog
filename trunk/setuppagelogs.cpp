@@ -244,7 +244,7 @@ QStringList SetupPageLogs::readLogs()
             aux2 = (query.value(nameCol)).toString();
 
             nameCol = rec.indexOf("logdate");
-            aux2 = aux2.append("-");
+            aux2 = aux2.append("--");
             aux2.append((query.value(nameCol)).toString());
 
             nameCol = rec.indexOf("stationcall");
@@ -354,15 +354,45 @@ void SetupPageLogs::updateSelectedLogs()
 
     if (logsAvailable.length()>0)
     {
-        qDebug() << "SetupPageLogs::updateSelectedLogs Mayor que 1" << endl;
         currentLogs->clear();
         currentLogs->addItems(logsAvailable);
     }
     else
     {
-        qDebug() << "SetupPageLogs::updateSelectedLogs Menor que 1" << endl;
+        qDebug() << "SetupPageLogs::updateSelectedLogs Not selected (less than 1)" << endl;
     }
-
 }
 
+int SetupPageLogs::getSelectedLog()
+{
+    QString selectedLog = currentLogs->currentText();
+    int i = 0;
+    QStringList qs;
+    qs.clear();
+    qs << selectedLog.split("-");
+    i = (qs.at(0)).toInt();
+    if (i>=1)
+    {
+        return i;
+    }
+    else
+    {
+        return 0;
+    }
+    return 0;
+}
 
+void SetupPageLogs::setSelectedLog(const int _i)
+{
+
+    QString n = QString::number(_i) + "--";
+    int selected = currentLogs->findText(n, Qt::MatchStartsWith);
+    if (selected > 0)
+    {
+        currentLogs->setCurrentIndex(selected);
+    }
+    else
+    {
+        return;
+    }
+}
