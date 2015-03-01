@@ -40,6 +40,7 @@ DataProxy::~DataProxy()
 
 void DataProxy::createLogModel(){}
 void DataProxy::createLogPanel(){}
+bool DataProxy::haveAtLeastOneLog(){return true;}
 
 int DataProxy::getIdFromModeName(const QString& _modeName)
 {

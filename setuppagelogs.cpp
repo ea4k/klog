@@ -28,7 +28,6 @@
 
 #include "setuppagelogs.h"
 
-
 SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
 //qDebug() << "SetupPageLogs::SetupPageLogs" << endl;
 
@@ -36,7 +35,7 @@ SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
     operators = QString();
     comment = QString();
     dateString = QString();
-    typeContest = -1;
+    typeContest = QString();
     contestCatMode = -1;
     contestCatOperators = -1;
     contestCatAssisted = -1;
@@ -287,7 +286,7 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     operators = _qs.at(1);
     comment = _qs.at(2);
     dateString = _qs.at(3);
-    typeContest  = (_qs.at(4)).toInt();
+    typeContest  = _qs.at(4);
     contestCatMode  = (_qs.at(5)).toInt();
     contestCatOperators  = (_qs.at(6)).toInt();
     contestCatAssisted  = (_qs.at(7)).toInt();
@@ -297,14 +296,14 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
 
     QStringList newLog;
     newLog.clear();
-    newLog << dateString << stationCallsign << QString::number(typeContest) << comment;
+    newLog << dateString << stationCallsign << _qs.at(4) << comment;
     addNewLog(newLog);
 
 }
 
 bool SetupPageLogs::addNewLog(const QStringList _qs)
 {
-    qDebug() << "SetupPageLogs::addNewLog" << endl;
+    qDebug() << "SetupPageLogs::addNewLog: " << _qs.at(2) << endl;
     QString aux = QString();
     int nameCol = -1;
 

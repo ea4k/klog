@@ -50,6 +50,7 @@ SetupPageLogsNew::SetupPageLogsNew(QWidget *parent)
     contestCatBands = -1;
     contestBands = -1;
     contestCatOverlay = -1;
+    typeConteststr = QString();
 
 
     stationCallsignLineEdit = new QLineEdit;
@@ -366,10 +367,13 @@ void SetupPageLogsNew::slotOKButtonClicked()
     if (typeComboBox->isEnabled())
     {
         typeContest = typeComboBox->currentIndex();
+        typeConteststr = typeComboBox->currentText();
     }
     else
     {
         typeContest = -1;
+        typeConteststr = QString();
+
     }
 
     if (contestCatModeComboBox->isEnabled())
@@ -442,10 +446,10 @@ void SetupPageLogsNew::slotOKButtonClicked()
 }
 void SetupPageLogsNew::gatherAndSend()
 {
-     qDebug() << "SetupPageLogsNew::gatherAndSend" << endl;
+     qDebug() << "SetupPageLogsNew::gatherAndSend: " << typeConteststr << endl;
     logData.clear();
     logData << stationCallsign << operators << comment << dateString
-            << QString::number(typeContest)
+            << typeConteststr
             << QString::number(contestCatMode)
             << QString::number(contestCatOperators)
             << QString::number(contestCatAssisted)

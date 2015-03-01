@@ -86,7 +86,7 @@ private:
     QComboBox *contestCatOverlayComboBox;
 
 
-    QString stationCallsign, operators, comment, dateString;
+    QString stationCallsign, operators, comment, dateString, typeConteststr;
     int typeContest, contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands, contestCatOverlay;
 
     bool stationCallsignFilled, operatorsFilled;

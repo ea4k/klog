@@ -111,8 +111,8 @@ private:
 
     SetupPageLogsNew *newLog;
 
-    QString stationCallsign, operators, comment, dateString;
-    int typeContest, contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands;
+    QString stationCallsign, operators, comment, dateString, typeContest;
+    int contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands;
 
 };
 
