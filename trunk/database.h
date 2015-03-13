@@ -87,7 +87,7 @@ private:
     bool createTheModeQuickReference();
 
     bool recreateLog(); // Drops the log table and calls createTableLog
-    bool createTableLog();
+    bool createTableLog(const int _i); //Creates log=0 or selectedlog=1
 
     bool recreateContestData();
     bool createTableContest();
