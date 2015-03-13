@@ -160,11 +160,24 @@ bool DataBase::isTheDBCreated()
     return false;
 }
 
-bool DataBase::createTableLog()
-{
+bool DataBase::createTableLog(const int _i)
+{ //Creates log=0 or selectedlog=1
+    QString logToCreate = "log";
+    if (_i==1)
+    {
+        logToCreate = "selectedlog";
+    }
+    else
+    {
+        logToCreate = "log";
+    }
+
     QSqlQuery query;
-    query.exec("CREATE TABLE log ("
-             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+
+    QString stringQuery = "CREATE TABLE " + logToCreate;
+
+
+             stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
              "qso_date VARCHAR(10) NOT NULL, "
              "time_on VARCHAR(8) NOT NULL, "
              "call VARCHAR(40) NOT NULL, "
@@ -295,6 +308,10 @@ bool DataBase::createTableLog()
              "FOREIGN KEY (modeid) REFERENCES mode, "
              "FOREIGN KEY (dxcc) REFERENCES entity, "
              "FOREIGN KEY (bandid) REFERENCES band)");
+
+    qDebug() << "DataBase::createTableLog: " << stringQuery  << endl;
+    return query.exec(stringQuery);
+
 }
 
 bool DataBase::createDataBase()
@@ -354,7 +371,8 @@ bool DataBase::createDataBase()
                   "UNIQUE (cabrillo, name) )");
 
 
-    createTableLog();
+    createTableLog(0);
+    createTableLog(1);
 
       //DATE YYYY-MM-DD
       //TIME HHmmss
@@ -1400,12 +1418,40 @@ bool DataBase::recreateContestData()
 
 bool DataBase::recreateLog()
 {
+    qDebug() << "DataBase::recreateLog"  << endl;
     QSqlQuery query;
     bool sqlOk = false;
     sqlOk = query.exec("DROP TABLE log");
     if (sqlOk)
     {
-        return createTableLog();
+        qDebug() << "DataBase::recreateLog log table dropped"  << endl;
+        if (createTableLog(0))
+        {
+            qDebug() << "DataBase::recreateLog createTableLog(0) recreated"  << endl;
+            sqlOk = query.exec("DROP TABLE IF EXISTS selectedlog;");
+            if (sqlOk)
+            {
+                qDebug() << "DataBase::recreateLog selectedlog table dropped ... creating Table 1"  << endl;
+
+                return createTableLog(1);
+            }
+            else
+            {
+                qDebug() << "DataBase::recreateLog log table NOT dropped"  << endl;
+                return sqlOk;
+            }
+
+        }
+        else
+        {
+            qDebug() << "DataBase::recreateLog createTableLog(0) NOT recreated"  << endl;
+            return false;
+        }
+    }
+    else
+    {
+        qDebug() << "DataBase::recreateLog sqlOK1 false"  << endl;
+        return sqlOk;
     }
 
 }

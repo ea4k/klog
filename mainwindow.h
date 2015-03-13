@@ -241,7 +241,7 @@ private:
     void createActionsCQWW();
     void createActionsDX();
     void createlogPanel();
-    void createlogModel();
+    void createlogModel(const int _i);
 
     void createScorePanel();
     void createSearchResultsPanel();
@@ -341,7 +341,7 @@ private:
     //QLabel distLongLabelN;
 
 
-    QSqlRelationalTableModel *logModel;    
+    QSqlRelationalTableModel *logModel;
     QWidget *logPanel;
     QTableView *logView;
     QTreeWidget *searchResultsTreeWidget;

@@ -117,6 +117,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     modes << "SSB" << "CW" << "RTTY";
 
     logModel = new QSqlRelationalTableModel(this);
+
     logView = new QTableView;
     logView->setContextMenuPolicy(Qt::CustomContextMenu);
     logView->setSortingEnabled(true);
@@ -431,8 +432,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
 
     createUI();
-    createlogModel();
-    createlogPanel();
+    createlogModel(currentLog);
+    //createlogPanel();
     createSearchResultsPanel();
     loggWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
     connect(loggWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
@@ -1894,7 +1895,7 @@ void MainWindow::createlogPanel()
     logView->setModel(logModel);
     QString stringQuery;
     stringQuery = QString("SELECT * FROM log LIMIT 1");
-    //stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, rst_sent, stx, rst_rcvd, points, multiplier FROM log WHERE lognumber='%1'").arg(currentLog);
+
     QSqlQuery query;
     query.exec(stringQuery);
     QSqlRecord rec;
@@ -1912,10 +1913,7 @@ void MainWindow::createlogPanel()
     switch (contestMode) {
 
         case CQ_WW_SSB:
-            //stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, rst_sent, stx, srx, rst_rcvd, points, multiplier FROM log WHERE lognumber='%1'").arg(currentLog);
-            //query.exec(stringQuery);
-            //rec = query.record(); // Number of columns
-            //columns = rec.count();
+
 
             logLabel = new QLabel(tr("Log"));
             logLabel->setBuddy(logView);
@@ -2062,7 +2060,7 @@ void MainWindow::createScorePanel()
 }
 
 
-void MainWindow::createlogModel()
+void MainWindow::createlogModel(const int _i)
 {
 /*
     Log_Id = 0,
@@ -2082,23 +2080,25 @@ is a foreign key that maps with field id of table city, and that
 the view should present the city's name field to the user.
 
 */
+
+
+
+    QSqlQuery q;
     QString stringQuery = QString("SELECT * from log LIMIT 1");
-    QSqlQuery q; //(stringQuery);
     QSqlRecord rec; // = q.record();
 
     int nameCol;
 
-    //stringQuery = QString("SELECT id, qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, notes FROM log WHERE lognumber='%1'").arg(currentLog);
-    //stringQuery = QString(stringQuery);
     q.exec(stringQuery);
     q.next();
     rec = q.record(); // Number of columns
-    //int columns = rec.count();
-
 
     logModel = new QSqlRelationalTableModel(this);
-    logModel->setTable("log");
 
+    stringQuery = QString("lognumber='%1'").arg(_i);
+    QSqlQuery query(stringQuery);
+    logModel->setTable("log");
+    logModel->setFilter(stringQuery);
 
 
     switch (contestMode) {
@@ -2150,6 +2150,7 @@ the view should present the city's name field to the user.
 
 
 logModel->select();
+createlogPanel();
 
 }
 
@@ -3481,32 +3482,32 @@ void MainWindow::slotSetup(const int _page)
     setupDialog->setData(configFileName, softwareVersion, _page, !configured);
 
     //SetupDialog setupDialog(configFileName, QString::number(softwareVersion), configured, _page);
-    //qDebug() << "MainWindow::slotSetup - 02"  << endl;
+    qDebug() << "MainWindow::slotSetup - 02"  << endl;
     //return setupDialog.exec();
     //setupDialog.exec();
     setupDialog->exec();
-    //qDebug() << "MainWindow::slotSetup - 03"  << endl;
+    qDebug() << "MainWindow::slotSetup - 03"  << endl;
     if (needToEnd)
     {
-        //qDebug() << "MainWindow::slotSetup - 03.1"  << endl;
+        qDebug() << "MainWindow::slotSetup - 03.1"  << endl;
         return;
-        //qDebug() << "MainWindow::slotSetup - 03.2"  << endl;
+        qDebug() << "MainWindow::slotSetup - 03.2"  << endl;
     }
     else
     {
-        //qDebug() << "MainWindow::slotSetup - 03.3"  << endl;
+        qDebug() << "MainWindow::slotSetup - 03.3"  << endl;
         readConfigData();
-        //qDebug() << "MainWindow::slotSetup - 03.4"  << endl;
+        qDebug() << "MainWindow::slotSetup - 03.4"  << endl;
     }
 
-
-    //qDebug() << "MainWindow::slotSetup - 04"  << endl;
+    createlogModel(currentLog);
+    qDebug() << "MainWindow::slotSetup - 04"  << endl;
 
     if (configured){
-        //contest->~Contest();
-        //qDebug() << "MainWindow::slotSetup - 05"  << endl;
+        qDebug() << "MainWindow::slotSetup - 05"  << endl;
+
     }else{
-        //qDebug() << "MainWindow::slotSetup - 06"  << endl;
+        qDebug() << "MainWindow::slotSetup - 06"  << endl;
 
     }
 }
@@ -7375,7 +7376,8 @@ void MainWindow::showAwards()
     QSqlQuery query;
     QString aux;
 
-    aux = "SELECT count(id) FROM log";
+    //aux = "SELECT count(id) FROM log";
+    aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
     query.exec(aux);
     query.next();
     if (query.isValid())
@@ -7385,7 +7387,7 @@ void MainWindow::showAwards()
     qsoWorkedQLCDNumber->display(_num);
     _num = 0;
 
-    aux = "SELECT count(id) FROM log WHERE qsl_rcvd='Y'";
+    aux = QString("SELECT count(id) FROM log WHERE qsl_rcvd='Y' AND lognumber='%1'").arg(currentLog);
     query.exec(aux);
     query.next();
     if (query.isValid())
@@ -7432,7 +7434,10 @@ void MainWindow::fillQSOData()
 { // Updates all QSO with the dxcc, CQZ, ... if empty.
     //qDebug() << "MainWindow::fillQSOData" << endl;
 
-    QSqlQuery query("SELECT call, bandid, modeid, qso_date, time_on, lognumber, confirmed, id, cqz, ituz, dxcc FROM log");
+    QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, time_on, lognumber, confirmed, id, cqz, ituz, dxcc FROM log WHERE lognumber='%1'").arg(currentLog);
+
+    QSqlQuery query;
+    query.exec(stringQuery);
     QSqlQuery query1;
     QSqlRecord rec = query.record();
     int nameCol;
@@ -7445,7 +7450,8 @@ void MainWindow::fillQSOData()
     int numberOfQsos = 0;
     int i = 0;
 
-    aux = "SELECT count(id) FROM log";
+    aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
+    //aux = "SELECT count(id) FROM log";
     query1.exec(aux);
     query1.next();
     if (query1.isValid())
@@ -7607,7 +7613,8 @@ void MainWindow::slotFilePrint()
     int _numberOfQsos = 0;
     bool cancelPrinting = false;
 
-    aux = "SELECT count(id) FROM log";
+    aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
+    //aux = "SELECT count(id) FROM log";
     query.exec(aux);
     query.next();
     if (query.isValid())
@@ -8166,7 +8173,9 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
     switch (actionQSL)
     {
         case 0://void slotToolSearchNeededQSLToSend();
-            stringQuery = "SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R';";
+         aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
+
+         stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R' AND log.lognumber='%1');").arg(currentLog);
             message = tr("Needed QSO to send the QSL");
             qslingNeeded = true;
             dxUpRightTab->setCurrentIndex(2);
@@ -8176,7 +8185,7 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
             message = tr("My QSL requested to be sent");
         break;
         case 2://void slotToolSearchNeededQSLPendingToReceive();
-            stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log where (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R'");
+        stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log WHERE lognumber='%1' AND ( (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R')");
             message = tr("DX QSL pending to be received");
         break;
         default:
