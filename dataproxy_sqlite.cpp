@@ -895,7 +895,7 @@ QStringList DataProxy_SQLite::getValidCatOptions(const int _currentCat, const in
 
 bool DataProxy_SQLite::haveAtLeastOneLog()
 {
-    qDebug() << "DataProxy_SQLite::haveAtLeastOneLog()" << endl;
+    //qDebug() << "DataProxy_SQLite::haveAtLeastOneLog()" << endl;
     QSqlQuery query;
 
     if (query.exec("SELECT COUNT(id) from logs"))
@@ -920,7 +920,7 @@ bool DataProxy_SQLite::haveAtLeastOneLog()
     }
     else
     {
-        return -1;
+        return false;
     }
     return false;
 }

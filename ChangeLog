@@ -1,6 +1,8 @@
 TBD - 0.9.1
 
+- TODO: Add the possibility to add a Log in the logs tab
 - TODO: Working in the setuppagelogs.cpp to manage the contests from the DB
+
 
 - Improved the DXMarathon code.
 - GUI: Added basic Satellite support.

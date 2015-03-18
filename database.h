@@ -33,6 +33,7 @@
 #include <QtSql>
 #include <QString>
 #include <QDateTime>
+#include <QObject>
 
 class QSqlRelationalTableModel;
 
@@ -42,6 +43,7 @@ const float DBVersionf = 0.005;
 
 class DataBase
 {
+
 public:
     DataBase(const QString _softVersion, bool  inmemoryonly = false);
     ~DataBase();
@@ -86,12 +88,13 @@ private:
     bool createTheBandQuickReference();
     bool createTheModeQuickReference();
 
-    bool recreateLog(); // Drops the log table and calls createTableLog
-    bool createTableLog(const int _i); //Creates log=0 or selectedlog=1
+    bool updateLog(); // Updates the log table
+    bool createTableLog(); //Creates log=0 or selectedlog=1
 
     bool recreateContestData();
     bool createTableContest();
     bool populateContestData();
+    bool howManyQSOsInLog(const int i);
 
     float dbVersion;    // The current version of the DB. May differ from latestReaded if we are updating the DB!
     QString softVersion;
