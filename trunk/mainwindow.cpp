@@ -3482,32 +3482,25 @@ void MainWindow::slotSetup(const int _page)
     setupDialog->setData(configFileName, softwareVersion, _page, !configured);
 
     //SetupDialog setupDialog(configFileName, QString::number(softwareVersion), configured, _page);
-    qDebug() << "MainWindow::slotSetup - 02"  << endl;
+
     //return setupDialog.exec();
     //setupDialog.exec();
     setupDialog->exec();
-    qDebug() << "MainWindow::slotSetup - 03"  << endl;
+
     if (needToEnd)
     {
-        qDebug() << "MainWindow::slotSetup - 03.1"  << endl;
         return;
-        qDebug() << "MainWindow::slotSetup - 03.2"  << endl;
     }
     else
     {
-        qDebug() << "MainWindow::slotSetup - 03.3"  << endl;
         readConfigData();
-        qDebug() << "MainWindow::slotSetup - 03.4"  << endl;
     }
 
     createlogModel(currentLog);
-    qDebug() << "MainWindow::slotSetup - 04"  << endl;
 
     if (configured){
-        qDebug() << "MainWindow::slotSetup - 05"  << endl;
 
     }else{
-        qDebug() << "MainWindow::slotSetup - 06"  << endl;
 
     }
 }
@@ -4832,7 +4825,7 @@ bool MainWindow::processConfigLine(const QString _line){
         defaultColor.setNamedColor(value);
     }else if(values.at(0)=="SELECTEDLOG"){
         currentLog = value.toInt();
-        qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
+        //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
 
     }
     else

@@ -74,6 +74,8 @@ SetupPageLogsNew::SetupPageLogsNew(QWidget *parent)
     cancelButton = new QPushButton(tr("&Cancel"), this);
     createWidget();
 
+    isThereAnyNotManagedLog();
+
 }
 
 void SetupPageLogsNew::createWidget()
@@ -485,3 +487,28 @@ QStringList SetupPageLogsNew::getValidCatOptions(const int _currentCat, const in
 
 }
 
+bool SetupPageLogsNew::isThereAnyNotManagedLog()
+{
+    qDebug() << "SetupPageLogsNew::isThereAnyNotManagedLog" << endl;
+
+    QSqlQuery query;
+    if (query.exec("SELECT DISTINCT lognumber FROM log WHERE lognumber!=1"))
+    {
+        while (query.next())
+        {
+            qDebug() << "SetupPageLogsNew::isThereAnyNotManagedLog en el while" << endl;
+            if (query.isValid())
+            {
+                qDebug() << "SetupPageLogsNew::isThereAnyNotManagedLog - Log found!:  " << QString::number((query.value(0)).toInt()) << endl;
+
+            }
+            else
+            {
+                qDebug() << "SetupPageLogsNew::isThereAnyNotManagedLog Not valid!" << endl;
+            }
+            qDebug() << "SetupPageLogsNew::isThereAnyNotManagedLog en el while - FINAL" << endl;
+        }
+        qDebug() << "SetupPageLogsNew::isThereAnyNotManagedLog tras el while" << endl;
+    }
+    qDebug() << "SetupPageLogsNew::isThereAnyNotManagedLog END" << endl;
+}

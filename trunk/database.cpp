@@ -160,21 +160,14 @@ bool DataBase::isTheDBCreated()
     return false;
 }
 
-bool DataBase::createTableLog(const int _i)
+bool DataBase::createTableLog()
 { //Creates log=0 or selectedlog=1
-    QString logToCreate = "log";
-    if (_i==1)
-    {
-        logToCreate = "selectedlog";
-    }
-    else
-    {
-        logToCreate = "log";
-    }
+
+    //QString logToCreate = "log";
 
     QSqlQuery query;
 
-    QString stringQuery = "CREATE TABLE " + logToCreate;
+    QString stringQuery = "CREATE TABLE log" ;
 
 
              stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -309,7 +302,7 @@ bool DataBase::createTableLog(const int _i)
              "FOREIGN KEY (dxcc) REFERENCES entity, "
              "FOREIGN KEY (bandid) REFERENCES band)");
 
-    qDebug() << "DataBase::createTableLog: " << stringQuery  << endl;
+    //qDebug() << "DataBase::createTableLog: " << stringQuery  << endl;
     return query.exec(stringQuery);
 
 }
@@ -371,8 +364,8 @@ bool DataBase::createDataBase()
                   "UNIQUE (cabrillo, name) )");
 
 
-    createTableLog(0);
-    createTableLog(1);
+    createTableLog();
+
 
       //DATE YYYY-MM-DD
       //TIME HHmmss
@@ -1338,6 +1331,8 @@ bool DataBase::updateTo005()
        QString stringQuery = QString();
        QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
        QSqlQuery query;
+       QMessageBox msgBox;
+       msgBox.setIcon(QMessageBox::Information);
 
        bool sqlOk = false;
 
@@ -1370,7 +1365,7 @@ bool DataBase::updateTo005()
                if (recreateContestData())
                {
                    qDebug() << "DataBase::updateTo005 - recreateContestData OK" << endl;
-                   recreateLog();
+
                    query.exec ("DROP TABLE logs");
                    query.exec("CREATE TABLE logs ("
                               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -1379,6 +1374,29 @@ bool DataBase::updateTo005()
                               "comment VARCHAR, "
                               "logtype VARCHAR, "
                               "FOREIGN KEY (logtype) REFERENCES supportedcontests(name))");
+
+                   if (howManyQSOsInLog(0)>0)
+                   { // If the user has QSOs that were added with previous versions...
+                     // We need to create a new log and rename all QSOs to that QSO.
+                     //stringQuery = QString("UPDATE log SET lognumber='1' WHERE lognumber='0'");
+
+
+                       msgBox.setText(QObject::tr("KLog has detected a previous log in the DB. All data will be migrated to a newly created DX type log for you."));
+                       msgBox.exec();
+
+                        query.exec("UPDATE log SET lognumber='1' WHERE lognumber='0'");
+
+                        QString dateString = (QDate::currentDate()).toString("yyyy/MM/dd");
+
+
+                        stringQuery = QString("INSERT INTO logs (logdate, stationcall, logtype) values('%1','%2','DX')").arg(dateString).arg("NOCALL");
+                        query.exec(stringQuery);
+
+                   }
+                   else
+                   {
+
+                   }
 
                    IAmIn005 = true;
                }
@@ -1397,6 +1415,14 @@ bool DataBase::updateTo005()
        qDebug() << "DataBase::updateTo005 - 005 updated 3" << endl;
 
        //TODO: Delete the table and recreate it
+       if (IAmIn005)
+       {
+
+            msgBox.setText(QObject::tr("All the data was migrated correctly. Don't forget to go to Setup->Preferences to check that everything is OK."));
+            msgBox.exec();
+
+
+       }
        return IAmIn005;
 
 }
@@ -1416,43 +1442,12 @@ bool DataBase::recreateContestData()
 
 }
 
-bool DataBase::recreateLog()
+bool DataBase::updateLog()
 {
-    qDebug() << "DataBase::recreateLog"  << endl;
+    qDebug() << "DataBase::updateLog"  << endl;
     QSqlQuery query;
     bool sqlOk = false;
-    sqlOk = query.exec("DROP TABLE log");
-    if (sqlOk)
-    {
-        qDebug() << "DataBase::recreateLog log table dropped"  << endl;
-        if (createTableLog(0))
-        {
-            qDebug() << "DataBase::recreateLog createTableLog(0) recreated"  << endl;
-            sqlOk = query.exec("DROP TABLE IF EXISTS selectedlog;");
-            if (sqlOk)
-            {
-                qDebug() << "DataBase::recreateLog selectedlog table dropped ... creating Table 1"  << endl;
 
-                return createTableLog(1);
-            }
-            else
-            {
-                qDebug() << "DataBase::recreateLog log table NOT dropped"  << endl;
-                return sqlOk;
-            }
-
-        }
-        else
-        {
-            qDebug() << "DataBase::recreateLog createTableLog(0) NOT recreated"  << endl;
-            return false;
-        }
-    }
-    else
-    {
-        qDebug() << "DataBase::recreateLog sqlOK1 false"  << endl;
-        return sqlOk;
-    }
 
 }
 
@@ -1606,4 +1601,29 @@ bool DataBase::populateContestData()
 
 
     return true;
+}
+
+bool DataBase::howManyQSOsInLog(const int i)
+{
+
+    qDebug() << "DataProxy_SQLite::haveAtLeastOneLog()" << endl;
+    QSqlQuery query;
+    QString sqlQueryString = QString("SELECT COUNT(id) from log WHERE lognumber='%1'").arg(i);
+
+    if (query.exec(sqlQueryString))
+    {
+        query.next();
+        if (query.isValid())
+        {
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    else
+    {
+        return -1;
+    }
 }

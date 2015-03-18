@@ -64,7 +64,7 @@ signals:
     void newLogData(const QStringList _qs); //
 private:
 
-
+    bool isThereAnyNotManagedLog();
     void createWidget();
     void gatherAndSend();
     QStringList getValidCatOptions(const int _currentCat, const int _higherCat);

@@ -179,7 +179,7 @@ SetupDialog::~SetupDialog()
 
 void SetupDialog::setData(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
 {
-    qDebug() << "SetupDialog::setData: " << QString::number(_page) << endl;
+   //qDebug() << "SetupDialog::setData: " << QString::number(_page) << endl;
     firstTime = _firstTime;
     if (firstTime)
     {
