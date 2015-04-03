@@ -300,6 +300,7 @@ void SetupPageLogsNew::slotTypeComboBoxChanged()
     qDebug() << "SetupPageLogsNew::slotTypeComboBoxChanged" << endl;
 //    connect(typeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotTypeComboBoxChanged() ) ) ;
 
+
     contestCatMode = contestCatModeComboBox->currentIndex();
     contestCatBands = contestCatBandsComboBox->currentIndex();
     contestCatPower = contestCatPowerComboBox->currentIndex();
