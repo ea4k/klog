@@ -57,12 +57,17 @@ public:
 
     virtual QStringList getContestNames();
     virtual QStringList getContestCat(const int _catn);
+    virtual QStringList getContestOverlays();
+    virtual int getContestTypeN(const int _co, const int _catop, const int _catas, const int _catpo, const int _catba, const int _catov, const int _catmo);
+    virtual QStringList getDataFromContestType(const int _n);
 
     virtual QStringList getBandNames();
 
     virtual QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
+
     virtual int getNumberOfManagedLogs();
+    virtual QString getStationCallSignFromLog(const int _log);
 
 /*
     virtual bool isMultiplier(const QStringList _qs);

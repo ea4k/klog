@@ -1,5 +1,9 @@
 TBD - 0.9.1
 
+- TODO: Add the functionality to edit a Log in setuppage
+- TODO: Remove all not needed fields from SetupPageLogNew::gatherAndSend() the type is enough
+- TODO: Selecting stationQRZ from the selected log
+- TODO: BUG: When the Operators or stationcallsign qrz call is deleted and reaches to 0 lenght, KLog crashes (SetupPageLogsNew::slotOperatorsTextChanged )
 - TODO: Add the possibility to modify/edit a Log in the logs tab
 - TODO: Working in the setuppagelogs.cpp to manage the contests from the DB
 

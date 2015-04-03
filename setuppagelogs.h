@@ -67,6 +67,8 @@ private slots:
     void slotEditButtonClicked();
     void slotRemoveButtonClicked();
     void slotAnalyzeNewLogData(const QStringList _qs);
+    void slotLogSelected(const QModelIndex & index);
+    void slotLogDoubleClicked(const QModelIndex & index);
 
     //void slotCreateLog();
 
@@ -83,6 +85,7 @@ private:
     void createActions();
     bool addNewLog(const QStringList _qs);
     void updateSelectedLogs();
+    void readSelectedLog(const int _i);
 
     /* Wizard to create a new log*/
 
@@ -114,7 +117,7 @@ private:
     SetupPageLogsNew *newLog;
 
     QString stationCallsign, operators, comment, dateString, typeContest;
-    int contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands;
+    int contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands, typeContestN;
 
 };
 

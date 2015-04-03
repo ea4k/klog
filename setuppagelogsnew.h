@@ -42,7 +42,24 @@ class SetupPageLogsNew : public QDialog
     Q_OBJECT
 
 public:
+    //SetupPageLogsNew(QWidget *parent = 0);
     SetupPageLogsNew(QWidget *parent = 0);
+
+    void setEditing(const bool b);
+    void setStationCallSign(const QString _st);
+    void setOperators(const QString _st);
+    void setComment(const QString _st);
+    void setDateString(const QString _st);
+    void setTypeN(const int _n);
+
+    void setType(const QString _st);
+    void setCMode(const int _n);
+    void setCOperators(const int _n);
+    void setCAssisted(const int _n);
+    void setCPower(const int _n);
+    void setCBands(const int _n);
+    void setBands(const int _n);
+    void setCOverlay(const int _n);
 
 
 private slots:
@@ -50,7 +67,7 @@ private slots:
     void slotCancelButtonClicked();
 
     void slotStationCallSignTextChanged();
-    void slotTypeComboBoxChanged(const int _ind);
+    void slotTypeComboBoxChanged();
     void slotCatAssistedComboBoxChanged();
     void slotCatOperatorsComboBoxChanged();
     void slotOperatorsTextChanged();
@@ -60,6 +77,7 @@ private slots:
     void slotCatModeComboBoxChanged();
     void slotCatOverlayComboBoxChanged();
 
+
 signals:
     void newLogData(const QStringList _qs); //
 private:
@@ -68,6 +86,9 @@ private:
     void createWidget();
     void gatherAndSend();
     QStringList getValidCatOptions(const int _currentCat, const int _higherCat);
+    int getSelectedTypeContest();
+    void fillWithType(const int _n);
+    void updateAllCats();
 
 
     DataProxy *dataProxy;
@@ -88,7 +109,7 @@ private:
 
 
     QString stationCallsign, operators, comment, dateString, typeConteststr;
-    int typeContest, contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands, contestCatOverlay;
+    int typeContest, typeContestSelected, contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands, contestCatOverlay;
 
     bool stationCallsignFilled, operatorsFilled;
     int typeOperation; // DX, CQ-WW-SSB, CQ-WW-CW, CQ-WPX-SSB, CQ-WPX-CW
@@ -96,7 +117,11 @@ private:
     QPushButton *okButton, *cancelButton;
 
     QStringList logData;
+    bool editing;
 
+    QLabel *catAsLabel, *catOpLabel, *catModeLabel, *catPowerLabel, *catBandsLabel, *overlayLabel;
+    QLabel *typeLabel;
+    bool checking, bCass, bCOp, bCMo, bCPo, bCBa, bCOv, bCTy;
 
 };
 
