@@ -193,6 +193,11 @@ QStringList DataProxy::getContestCat(const int _catn){
     return QStringList();
 }
 
+QStringList DataProxy::getContestOverlays()
+{
+    return QStringList();
+}
+
 QStringList DataProxy::getBandNames(){
     return QStringList();
 }
@@ -205,4 +210,18 @@ QStringList DataProxy::getValidCatOptions(const int _currentCat, const int _lowe
 int DataProxy::getNumberOfManagedLogs()
 {
     return -1;
+}
+
+QString DataProxy::getStationCallSignFromLog(const int _log)
+{
+    return QString();
+}
+
+int DataProxy::getContestTypeN(const int _co, const int _catop, const int _catas, const int _catpo, const int _catba, const int _catov, const int _catmo)
+{
+    return -1;
+}
+QStringList DataProxy::getDataFromContestType(const int _n)
+{
+    return QStringList();
 }

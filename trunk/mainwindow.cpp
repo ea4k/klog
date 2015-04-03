@@ -74,6 +74,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     qsoMultiplier = 0;
     operatorQRZ = "";
     stationQRZ = "";
+    mainQRZ = "";
     myLocator = "";
     dxLocator ="";
     myPower = 0.0;
@@ -136,6 +137,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     searchBoxExportButton  = new QPushButton(tr("&Export Highlited"), this);
     searchBoxSelectAllButton  = new QPushButton(tr("&Select All"), this);
     searchBoxReSearchButton = new QPushButton(tr("&Search"), this);
+    searchAllRadioButton = new QRadioButton (tr("All"), this);
     searchSelectAllClicked = false;
 
     recalculateAwardsButton = new QPushButton(tr("Recalculate"), this);
@@ -2004,6 +2006,7 @@ void MainWindow::createSearchResultsPanel()
     searchBoxExportButton->setToolTip(tr("Export the search result to an ADIF file"));
     searchBoxSelectAllButton->setToolTip(tr("Select/Unselect all the QSO of the box"));
     searchBoxReSearchButton->setToolTip(tr("Search in the log"));
+    searchAllRadioButton->setToolTip(tr("Search in all logs"));
 
      searchBoxLineEdit->setToolTip(tr("Enter the QRZ to search"));
      searchResultsTreeWidget->setToolTip(tr("Search results"));
@@ -2336,6 +2339,7 @@ void MainWindow::createActionsCommon(){
 // SEARCH BOX VIEW
 
     connect(searchBoxLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchBoxTextChanged() ) );
+    connect(searchAllRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotSearchBoxTextChanged() ) );
 
     connect(searchResultsTreeWidget, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonSearch( const QPoint& ) ) );
     connect(searchResultsTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotDoubleClickSearch(QTreeWidgetItem *, int)));
@@ -2804,6 +2808,7 @@ void MainWindow::slotSearchBoxTextChanged()
     //int nameCol;
     QString _id, _call, _dateTime, _band, _mode, _qsltx, _qslrx, _freq, _stationcallsign;
     QStringList q;
+    bool searchAll = searchAllRadioButton->isChecked();
     int i = -1;
     int cursorP = searchBoxLineEdit->cursorPosition();
 
@@ -2824,18 +2829,13 @@ void MainWindow::slotSearchBoxTextChanged()
     QSqlQuery query;
     QString queryString, aux;
 
-    if (false)
+    if (searchAll)
     {
-       // QChar lastChar = ;
-        aux = theCall.left(theCall.length()-1);
-        aux = aux.append(QChar((theCall.at(theCall.length()-1)).unicode()+1));
-        queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call >= '%1' AND call < '%2' AND lognumber='%3'").arg(theCall).arg(aux).arg(currentLog);
-        //qDebug() << "MainWindow::slotSearchBoxTextChanged: QS1: " << queryString << endl;
+        queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%%1%'").arg(theCall);
     }
     else
     {
-      queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%%1%' AND lognumber='%2'").arg(theCall).arg(currentLog);
-      //qDebug() << "MainWindow::slotSearchBoxTextChanged: QS2: " << queryString << endl;
+        queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%%1%' AND lognumber='%2'").arg(theCall).arg(currentLog);
     }
 
 
@@ -2958,7 +2958,7 @@ void MainWindow::slotSearchBoxTextChanged()
 /*
     if (((theCall.at(cursorP-1)).isSpace()) && (cursorP>1))
     {
-        searchBoxLineEdit->setText(theCall.remove(cursorP-1, 1));
+        ->setText(theCall.remove(cursorP-1, 1));
         cursorP--;
     }
     */
@@ -3479,31 +3479,30 @@ void MainWindow::slotSetup(const int _page)
 
     if (!needToEnd)
     {
-    setupDialog->setData(configFileName, softwareVersion, _page, !configured);
+        setupDialog->setData(configFileName, softwareVersion, _page, !configured);
+        setupDialog->exec();
 
-    //SetupDialog setupDialog(configFileName, QString::number(softwareVersion), configured, _page);
+        if (needToEnd)
+        {
+            return;
+        }
+        else
+        {
+            readConfigData();
+        }
 
-    //return setupDialog.exec();
-    //setupDialog.exec();
-    setupDialog->exec();
+        createlogModel(currentLog);
 
-    if (needToEnd)
-    {
-        return;
-    }
-    else
-    {
-        readConfigData();
-    }
-
-    createlogModel(currentLog);
-
-    if (configured){
-
-    }else{
+        if (configured)
+        {
+        }
+        else
+        {
+        }
 
     }
-}
+    defineStationCallsign();
+
 
 }
 
@@ -4451,7 +4450,7 @@ void MainWindow::readConfigData()
             //qDebug() << "MainWindow::readConfigDataw: configured = false" << endl;
         }
         slotSetup();
-
+        defineStationCallsign();
         return;
     }
 
@@ -4485,6 +4484,7 @@ void MainWindow::readConfigData()
     showEntityInfo(currentEntity);
 
     lastPower = myPower;
+    defineStationCallsign();
     lastOperatorQRZ = operatorQRZ;
     lastStationQRZ = stationQRZ;
     lastMyLocator = myLocator;
@@ -4532,7 +4532,7 @@ bool MainWindow::processConfigLine(const QString _line){
     }
 
     if (values.at(0) == "CALLSIGN"){
-        stationQRZ = value;
+        mainQRZ = value;
     }else if (values.at(0)=="CQZ"){
         my_CQz = value.toInt();
     }else if (values.at(0)=="ITUZ"){
@@ -4825,7 +4825,7 @@ bool MainWindow::processConfigLine(const QString _line){
         defaultColor.setNamedColor(value);
     }else if(values.at(0)=="SELECTEDLOG"){
         currentLog = value.toInt();
-        //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
+        qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
 
     }
     else
@@ -5817,10 +5817,17 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxUpRightSearchTabLayout->addLayout(dxUpRightButtonsLayout, 1, 0, -1, 0);
     dxUpRightSearchTabLayout->addWidget(searchResultsTreeWidget, 2, 0, -1, 0 );
 */
+
+
+    QHBoxLayout *dxUpRightSearchTopLayout = new QHBoxLayout;
+    dxUpRightSearchTopLayout->addWidget(searchBoxLineEdit);
+    dxUpRightSearchTopLayout->addWidget(searchAllRadioButton);
+
     QVBoxLayout *dxUpRightSearchTabLayout = new QVBoxLayout;
     //dxUpRightSearchTabLayout->addWidget(searchgroupBox, 0, 0 );
     //dxUpRightSearchTabLayout->addLayout(dxUpRightLineAndButtonsLayout, 0, 1 );
-    dxUpRightSearchTabLayout->addWidget(searchBoxLineEdit);
+    //dxUpRightSearchTabLayout->addWidget(searchBoxLineEdit);
+    dxUpRightSearchTabLayout->addLayout(dxUpRightSearchTopLayout);
     dxUpRightSearchTabLayout->addLayout(dxUpRightButtonsLayout);
     dxUpRightSearchTabLayout->addWidget(searchResultsTreeWidget);
 
@@ -8502,4 +8509,26 @@ void MainWindow::slotOperatingYearComboBoxChanged()
     //qDebug() << "MainWindow::slotOperatingYearComboBoxChanged: " << operatingYearsComboBox->currentText() << endl;
     selectedYear = (operatingYearsComboBox->currentText()).toInt();
     showDXMarathon(selectedYear);
+}
+
+void MainWindow::defineStationCallsign()
+{
+
+    qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << endl;
+    QString logQRZ;
+    logQRZ = dataProxy->getStationCallSignFromLog(currentLog);
+    qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ << endl;
+
+    if (world->checkQRZValidFormat(logQRZ))
+    {
+        stationQRZ = logQRZ;
+    }
+    else
+    {
+        stationQRZ = mainQRZ;
+    }
+    lastStationQRZ = stationQRZ;
+
+    qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << endl;
+
 }

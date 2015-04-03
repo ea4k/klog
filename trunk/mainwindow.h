@@ -291,6 +291,7 @@ private:
     void createData();
     bool processConfigLine(const QString _line);
     void readConfigData();
+    void defineStationCallsign();
 
     void checkIfNewBandOrMode();
     void readActiveBands (const QStringList actives);
@@ -460,6 +461,7 @@ private:
 
     QLineEdit *searchBoxLineEdit;
     QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
+    QRadioButton *searchAllRadioButton;
     QPushButton *recalculateAwardsButton;
     bool searchSelectAllClicked, stationCallSignShownInSearch;
     bool qslingNeeded;
@@ -498,7 +500,7 @@ private:
     // Station Setup
     bool configured, modify;
     bool needToEnd; // Just to control if the software needs to end.
-    QString stationQRZ, operatorQRZ, myLocator, dxLocator;
+    QString mainQRZ, stationQRZ, operatorQRZ, myLocator, dxLocator;
     QString lastOperatorQRZ, lastStationQRZ, lastMyLocator;
     double myPower, lastPower;
 
