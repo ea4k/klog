@@ -120,7 +120,7 @@ private:
     bool editing;
 
     QLabel *catAsLabel, *catOpLabel, *catModeLabel, *catPowerLabel, *catBandsLabel, *overlayLabel;
-    QLabel *typeLabel;
+    QLabel *typeLabel, *validCats;
     bool checking, bCass, bCOp, bCMo, bCPo, bCBa, bCOv, bCTy;
 
 };

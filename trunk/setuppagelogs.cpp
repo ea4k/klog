@@ -162,6 +162,66 @@ void SetupPageLogs::slotEditButtonClicked()
 void SetupPageLogs::slotRemoveButtonClicked()
 {
     //qDebug() << "SetupPageLogs::slotRemoveButtonClicked" << endl;
+    int selectedLog = getSelectedLog();
+
+    QMessageBox::StandardButton ret;
+    ret = QMessageBox::warning(this, tr("KLog"),
+             tr("Do you really want to remove this log?\n"
+                "All the QSO from this log will be also deleted..."),
+             QMessageBox::Yes | QMessageBox::No);
+    if (ret == QMessageBox::Yes)
+    {
+        qDebug() << "SetupPageLogs::slotRemoveButtonClicked (selected log to remove: " << QString::number(selectedLog) << ")" << endl;
+        QString stringQuery = QString("DELETE FROM logs WHERE id='%1'").arg(selectedLog);
+        QSqlQuery query(stringQuery);
+
+        bool sqlOk = query.exec();
+        if (sqlOk)
+        {
+            qDebug() << "SetupPageLogs::slotRemoveButtonClicked (REMOVED: " << QString::number(selectedLog) << ")" << endl;
+            logsModel->select();
+            updateSelectedLogs();
+            stringQuery = QString("DELETE FROM log WHERE lognumber='%1'").arg(selectedLog);
+            query.exec(stringQuery);
+            sqlOk = query.exec();
+            qDebug() << "SetupPageLogs::slotRemoveButtonClicked: LastQuery: " << query.lastQuery()  << endl;
+            if (sqlOk)
+            {
+                qDebug() << "SetupPageLogs::slotRemoveButtonClicked (QSOS REMOVED: " << QString::number(selectedLog) << ")" << endl;
+                stringQuery = QString("DELETE FROM awarddxcc WHERE lognumber='%2'").arg(selectedLog);
+                query.exec(stringQuery);
+                sqlOk = query.exec();
+                qDebug() << "SetupPageLogs::slotRemoveButtonClicked: LastQuery: " << query.lastQuery()  << endl;
+                if (sqlOk)
+                {
+                    qDebug() << "SetupPageLogs::slotRemoveButtonClicked (AWARDDXCC REMOVED: " << QString::number(selectedLog) << ")" << endl;
+
+                }
+                else
+                {
+                    qDebug() << "SetupPageLogs::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedLog) << ")" << endl;
+                }
+
+
+            }
+            else
+            {
+                qDebug() << "SetupPageLogs::slotRemoveButtonClicked (QSOS NOT REMOVED: " << QString::number(selectedLog) << ")" << endl;
+            }
+        }
+        else
+        {
+            qDebug() << "SetupPageLogs::slotRemoveButtonClicked (NOT REMOVED: " << QString::number(selectedLog) << ")" << endl;
+        }
+
+    }
+
+
+
+    //ASK FOR A CONFIRMATION
+
+    //DELETE ALL THE QSO IN THE REMOVED LOG
+
 }
 
 void SetupPageLogs::createLogsPanel()
@@ -428,6 +488,7 @@ void SetupPageLogs::updateSelectedLogs()
     else
     {
         qDebug() << "SetupPageLogs::updateSelectedLogs Not selected (less than 1)" << endl;
+        currentLogs->clear();
     }
 }
 
