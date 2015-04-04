@@ -1,6 +1,5 @@
 TBD - 0.9.1
 
-- TODO: Add the functionality to edit a Log in setuppage
 - TODO: Remove all not needed fields from SetupPageLogNew::gatherAndSend() the type is enough
 - TODO: Selecting stationQRZ from the selected log
 - TODO: BUG: When the Operators or stationcallsign qrz call is deleted and reaches to 0 lenght, KLog crashes (SetupPageLogsNew::slotOperatorsTextChanged )
@@ -12,7 +11,7 @@ TBD - 0.9.1
 - GUI: Added basic Satellite support.
 - GUI: It is possible to mark a QSL sent via bureau/direct & DX QSL as requested with one action from Search box.
 - GUI: KLog request a valid QRZ and at least one first logtype to start using it.
-- KLog supports the management of several logs, being possible to select the one to use.
+- KLog supports the management of several logs, being possible to edit, remove and select the one to use.
 
 January-2015 - 0.9.0.3
 - Bugfix: ADIF was not properly imported when Fields where using the Type of data optional field preventing logs from Logger32 being imported. (TNX EB1TR)
