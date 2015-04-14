@@ -1,5 +1,8 @@
 TBD - 0.9.1
-
+- TODO: Any sat QSO must follow the FO-29 format AND include the <PROP_MODE:3>SAT
+- TODO: BUG: Check if BAND & FREQ are coherent before adding a QSO (or
+- importinng) Maybe when saving
+- TODO: Add "tr" to the error to be able to translate the error codes (in DataBase)
 - TODO: Remove all not needed fields from SetupPageLogNew::gatherAndSend() the type is enough
 - TODO: Selecting stationQRZ from the selected log
 - TODO: BUG: When the Operators or stationcallsign qrz call is deleted and reaches to 0 lenght, KLog crashes (SetupPageLogsNew::slotOperatorsTextChanged )
