@@ -780,12 +780,11 @@ QString MainWindow::readDataFromUIDX()
         {
             stringFields = stringFields + ", freq";
             stringData = stringData + ", '" + aux1 + "'";
-            qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND OK" << endl;
+            //qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND OK" << endl;
         }
         else
         {
-            qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND NOK" << endl;
-
+            //qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND NOK" << endl;
         }
 
 
@@ -1419,8 +1418,18 @@ WHERE [condition];
     if ( (txFreqSpinBox->value()) > 0  )
     {
         aux1 = QString::number(txFreqSpinBox->value());
-        updateString = updateString + "freq = '";
-        updateString = updateString + aux1 + "', ";
+
+        if (db->isThisFreqInBand(db->getBandNameFromID2(tband), aux1) )
+        {
+
+            updateString = updateString + "freq = '";
+            updateString = updateString + aux1 + "', ";
+
+        }
+        else
+        {
+        }
+
     }
 
     if ( (rxFreqSpinBox->value()) > 0  )
