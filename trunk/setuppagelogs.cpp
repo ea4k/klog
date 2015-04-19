@@ -199,6 +199,7 @@ void SetupPageLogs::slotRemoveButtonClicked()
                 }
                 else
                 {
+                    showError(tr("Log has not been removed. (#3)"));
                     qDebug() << "SetupPageLogs::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedLog) << ")" << endl;
                 }
 
@@ -206,11 +207,13 @@ void SetupPageLogs::slotRemoveButtonClicked()
             }
             else
             {
+                showError(tr("Log has not been removed. (#2)"));
                 qDebug() << "SetupPageLogs::slotRemoveButtonClicked (QSOS NOT REMOVED: " << QString::number(selectedLog) << ")" << endl;
             }
         }
         else
         {
+            showError(tr("Log has not been removed. (#1)"));
             qDebug() << "SetupPageLogs::slotRemoveButtonClicked (NOT REMOVED: " << QString::number(selectedLog) << ")" << endl;
         }
 
@@ -547,4 +550,13 @@ contestCatPower  = (_qs.at(8)).toInt();
 contestCatBands  = (_qs.at(9)).toInt();
 contestBands  = (_qs.at(10)).toInt();
 */
+}
+
+void SetupPageLogs::showError(const QString _errorC)
+{
+    QString text = QString(tr("An error has ocurred showing the folloing error code:\n'%1'")).arg(_errorC);
+    int ret = QMessageBox::warning(this, tr("KLog - SetupPageLogs"),
+                                   text,
+                                   QMessageBox::Ok);
+
 }

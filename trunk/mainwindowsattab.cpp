@@ -88,11 +88,19 @@ void MainWindowSatTab::satModeTextChanged()
 
 QString MainWindowSatTab::getSatName()
 {
-    return satNameLineEdit->text();
+    // Sat name must follow the format CC-NN to make it compatible with LOTW
+    // C = Character
+    // N = Number
+
+    QString satName;
+    satName = satNameLineEdit->text();
+    //TODO: Check that the format is OK
+    return satName;
 }
 
 void MainWindowSatTab::setSatName(const QString _t)
 {
+     //TODO: Check that the format is OK
     satNameLineEdit->setText(_t);
 }
 

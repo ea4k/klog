@@ -86,6 +86,7 @@ private:
     bool addNewLog(const QStringList _qs);
     void updateSelectedLogs();
     void readSelectedLog(const int _i);
+    void showError(const QString _errorC);
 
     /* Wizard to create a new log*/
 

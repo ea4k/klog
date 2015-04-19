@@ -154,14 +154,18 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, bool justMarked,
         return false;
 
     QTextStream out(&file);
-    QString aux1, aux2, queryString;
+    QString aux1, aux2, queryString, bandst, bandrxst; // bandst & bandrxst are to check if the band is properly defined
     int nameCol = 0;
     QSqlQuery query1;
     int numberOfQsos = 0;
     int currentQso = 0;
     bool noMoreQso = false;
     int step = 1;
+    bool propsat=false; // Just to check if we have added the prop_mode needed by LOTW when SAT QSO
+    bool bandOK = false; // Just to check if the band is properly defined
 
+    bandst = QString();
+    bandrxst = QString();
 
     if (exportJustMarkedQSO)
     {
@@ -283,6 +287,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, bool justMarked,
                     aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
                     aux1 = db->getBandNameFromID2(aux1.toInt());
                     out << "<BAND:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                    bandst = aux1;
 
                   /*
                     queryString = QString("SELECT name FROM band WHERE id='%1'").arg(aux1);
@@ -301,6 +306,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, bool justMarked,
                     {
                         aux1 = db->getBandNameFromID2(aux1.toInt());
                         out << "<BAND_RX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                        bandrxst = aux1;
 
                         /*
                         queryString = QString("SELECT name FROM band WHERE id='%1'").arg(aux1);
@@ -537,12 +543,23 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, bool justMarked,
                     nameCol = rec.indexOf("freq");
                     aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
-                        out << "<FREQ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                        //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
+                        if (db->isThisFreqInBand(bandst, aux1))
+                        {
+                           out << "<FREQ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                        }
+
+
+
                     }
                     nameCol = rec.indexOf("freq_rx");
                     aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
-                        out << "<FREQ_RX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                        //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
+                        if (db->isThisFreqInBand(bandrxst, aux1))
+                        {
+                           out << "<FREQ_RX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                        }
                     }
 
                     nameCol = rec.indexOf("gridsquare");
@@ -775,11 +792,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, bool justMarked,
                         out << "<PRECEDENCE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
-                    nameCol = rec.indexOf("prop_mode");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
-                    if ((aux1.length())>1){
-                        out << "<PROP_MODE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
-                    }
+
 
                     nameCol = rec.indexOf("public_key");
                     aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
@@ -882,6 +895,14 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, bool justMarked,
                         out << "<TX_PWR:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
+                    nameCol = rec.indexOf("prop_mode");
+                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    if ((aux1.length())>1){
+                        out << "<PROP_MODE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                        propsat = true;
+                    }
+
+
                     nameCol = rec.indexOf("sat_mode");
                     aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
@@ -892,6 +913,11 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, bool justMarked,
                     aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<SAT_NAME:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+
+                        if (!propsat)
+                        {
+                             out << "<PROP_MODE:3>SAT ";
+                        }
                     }
 
                     nameCol = rec.indexOf("sfi");
@@ -990,6 +1016,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, bool justMarked,
                 aux1 = db->getBandNameFromID2(aux1.toInt());
 
                 out << "<BAND:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                bandst = aux1;
                 /*
                 aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
                 queryString = QString("SELECT name FROM band WHERE id='%1'").arg(aux1);
@@ -1007,6 +1034,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, bool justMarked,
                 if ( (0 < aux1.toInt()) && (aux1.toInt() < 30) && (aux1.length()>0) ){
                     aux1 = db->getBandNameFromID2(aux1.toInt());
                     out << "<BAND_RX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                    bandrxst = aux1;
                     /*queryString = QString("SELECT name FROM band WHERE id='%1'").arg(aux1);
                     query1.exec(queryString);
                     query1.next();
@@ -1246,12 +1274,20 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, bool justMarked,
                 nameCol = rec.indexOf("freq");
                 aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
-                    out << "<FREQ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                    if (db->isThisFreqInBand(bandst, aux1))
+                    {
+                        out << "<FREQ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                    }
+
                 }
                 nameCol = rec.indexOf("freq_rx");
                 aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
-                    out << "<FREQ_RX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                    if (db->isThisFreqInBand(bandst, aux1))
+                    {
+                        out << "<FREQ_RX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                    }
+
                 }
 
                 nameCol = rec.indexOf("gridsquare");
@@ -2101,6 +2137,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
    // while ( (!file.atEnd() ) && (!noMoreQso) && (sqlOK))
     while ((!noMoreQso) && (sqlOK))
     {
+
         if (!file.atEnd())
         {
             line.clear();
@@ -2111,8 +2148,6 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
              fields << line.split("<", QString::SkipEmptyParts);
         }
-
-
 
         //TODO: Check what happens
 
@@ -2143,6 +2178,9 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
             //qDebug() << "FileManager::adifReadLog fields: " << aux << endl;
         }
+
+        //qDebug() << "FileManager::adifReadLog-W-1" << endl;
+
         if (auxString.length()>0)
         {
             //qDebug() << "FileManager::adifReadLog auxString2: " << auxString << endl;
@@ -2163,13 +2201,14 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             while ( (!EOR) && (!fields.isEmpty()) )
             {
 
+                //qDebug() << "FileManager::adifReadLog-W-2" << endl;
 
-                //qDebug() << "FileManager::adifReadLog: -6"  << endl;
 
                 fieldToAnalyze = (fields.takeFirst()).trimmed();
 
                 if ( fieldToAnalyze.contains("EOR>") )
                 {
+                     //qDebug() << "FileManager::adifReadLog-W-2.1" << endl;
                     currentQSOfields << fieldToAnalyze;
                     preparedQBool = processQsoReadingADIF(currentQSOfields, logN);
                     if (preparedQBool)
@@ -2190,6 +2229,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                 }
                 else
                 {
+                     //qDebug() << "FileManager::adifReadLog-W-2.2" << endl;
                     //qDebug() << "FileManager::readAdif: Not contains EOR"  << endl;
 
                     if ((!fieldToAnalyze.contains('>')) && (currentQSOfields.length()>0))
@@ -2205,14 +2245,15 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                     EOR = false;
                 }
             }
-
+            //qDebug() << "FileManager::adifReadLog-W-3" << endl;
             sqlOK = preparedQuery.exec();
+            //qDebug() << "FileManager::adifReadLog-W-4" << endl;
 
             //qDebug() << "FileManager::adifReadLog: executedQuery1: " << preparedQuery.executedQuery()  << endl;
             //qDebug() << "FileManager::adifReadLog: LastQuery1: " << preparedQuery.lastQuery()  << endl;
 
             queryPreparation(logN); // to clear Values
-
+        //qDebug() << "FileManager::adifReadLog-W-5" << endl;
 
              //qDebug() << "FileManager::adifReadLog: executedQuery2: " << preparedQuery.executedQuery()  << endl;
              //qDebug() << "FileManager::adifReadLog: LastQuery2: " << preparedQuery.lastQuery()  << endl;
@@ -2484,7 +2525,9 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
 bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber)
 {
-//qDebug() << "FileManager::processQsoReadingADIF: " << _line.at(0) << endl;
+
+
+    //qDebug() << "FileManager::processQsoReadingADIF: " << _line.at(0) << endl;
     //qDebug() << "FileManager::processQsoReadingADIF: " << _line.join("/") << endl;
 
     int i = -1;
@@ -2504,6 +2547,10 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     //int i; // Aux value
     QString aux; // Aux string
     QString qrzCall = "";
+    bool bandDef = false;
+    bool bandRXDef = false;
+    int bandi = -1;
+    int bandrxi = -1;
 
     //bool ret;
     int lenght = 0;
@@ -2579,6 +2626,8 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                     if (i>=0)
                     {
                         preparedQuery.bindValue( ":bandid", i );
+                        bandDef = true;
+                        bandi = i;
                         //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << endl;
                     }
                     else
@@ -2649,6 +2698,8 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                     if (i>=0)
                     {
                         preparedQuery.bindValue( ":band_rx", i );
+                        bandRXDef = true;
+                        bandrxi = i;
                     }
                     /*
                     queryString = QString("SELECT id FROM band WHERE name ='%1'").arg(data);
@@ -2812,10 +2863,45 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                 else if (field == "FREQ")
                 {
                     preparedQuery.bindValue( ":freq", data.toDouble() );
+                    if (bandDef)
+                    {
+                        if (db->isThisFreqInBand(db->getBandNameFromNumber(bandi), data))
+                        {
+                            preparedQuery.bindValue( ":freq", data.toDouble() );
+                        }
+                        else
+                        {
+                            // IF band is defined but not the same than freq, Band wins
+                        }
+                    }
+                    else
+                    {
+                        preparedQuery.bindValue( ":freq", data.toDouble() );
+                    }
+
+
                 }
                 else if (field == "FREQ_RX")
                 {
-                    preparedQuery.bindValue( ":freq_rx", data.toDouble() );
+                    //bandDef = true;
+                    //bandi = i;
+                    //i = db->getBandIDFromName2(data);
+                    if (bandRXDef)
+                    {
+                        if (db->isThisFreqInBand(db->getBandNameFromNumber(bandrxi), data))
+                        {
+                            preparedQuery.bindValue( ":freq_rx", data.toDouble() );
+                        }
+                        else
+                        {
+                            // IF band is defined but not the same than freq, Band wins
+                        }
+                    }
+                    else
+                    {
+                        preparedQuery.bindValue( ":freq_rx", data.toDouble() );
+                    }
+
                 }
                 else if (field == "GRIDSQUARE")
                 {
