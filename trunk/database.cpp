@@ -867,22 +867,34 @@ int DataBase::getBandIdFromFreq(const QString fr)
 {
      qDebug() << "DataBase::getBandIdFromFreq: " << fr << endl;
     //Freq should be in MHz
+     bool sqlOk = false;
     QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(fr).arg(fr);
 
     QSqlQuery query(queryString);
-    query.next();
-    qDebug() << "DataBase::getBandIdFromFreq: Query OK" << query.lastQuery() << endl;
-
-    if (query.isValid())
+    sqlOk = query.exec();
+    qDebug() << "DataBase::getBandIdFromFreq: Query: " << query.lastQuery() << endl;
+    if (sqlOk)
     {
-        qDebug() << "DataBase::getBandIdFromFreq: Query valid"  << endl;
-        return (query.value(0)).toInt();
+        qDebug() << "DataBase::getBandIdFromFreq: Query OK" << endl;
+        query.next();
+
+
+        if (query.isValid())
+        {
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            return -1;
+        }
     }
     else
     {
-        qDebug() << "DataBase::getBandIdFromFreq: Query Not valid"  << endl;
-        return -1;
+        qDebug() << "DataBase::getBandIdFromFreq: Query NOK" << endl;
+       return -1;
     }
+
+
     return -1;
 }
 
