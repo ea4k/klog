@@ -77,6 +77,7 @@ private:
     void queryPreparation(const int _logN);
 
     bool checkADIFValidFormat(const QStringList _qs);
+
     DataBase *db;
     //float softwareVersion;
 

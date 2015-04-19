@@ -1,7 +1,6 @@
 TBD - 0.9.1
-- TODO: Any sat QSO must follow the FO-29 format AND include the <PROP_MODE:3>SAT
-- TODO: BUG: Check if BAND & FREQ are coherent before adding a QSO (or
-- importinng) Maybe when saving
+
+- TODO: BUG: Check if BAND & FREQ are coherent before adding a QSO (or importinng) Maybe when saving (Band wins)
 - TODO: Add "tr" to the error to be able to translate the error codes (in DataBase)
 - TODO: Remove all not needed fields from SetupPageLogNew::gatherAndSend() the type is enough
 - TODO: Selecting stationQRZ from the selected log
@@ -10,6 +9,7 @@ TBD - 0.9.1
 - TODO: Working in the setuppagelogs.cpp to manage the contests from the DB
 
 
+- All Satellite QSO include the PROP_MODE ADIF tag to make it compatible with LOTW.
 - Improved the DXMarathon code.
 - GUI: Added basic Satellite support.
 - GUI: It is possible to mark a QSL sent via bureau/direct & DX QSL as requested with one action from Search box.

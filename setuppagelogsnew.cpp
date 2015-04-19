@@ -659,6 +659,7 @@ void SetupPageLogsNew::gatherAndSend()
 {
      qDebug() << "SetupPageLogsNew::gatherAndSend: " << typeConteststr << endl;
     logData.clear();
+
     logData << stationCallsign << operators << comment << dateString
             << typeConteststr
             << QString::number(contestCatMode)
@@ -669,7 +670,7 @@ void SetupPageLogsNew::gatherAndSend()
             << QString::number(contestBands)
             << QString::number(contestCatOverlay)
             << QString::number(typeContest);
-
+    //logData << QString::number(typeContest)
     // Update the SetupPageLogs::slotAnalyzeNewLogData if you add or remove any field (Today 12)
     emit newLogData(logData);
 

@@ -775,8 +775,21 @@ QString MainWindow::readDataFromUIDX()
     if ( (txFreqSpinBox->value()) > 0  )
     {
         aux1 = QString::number(txFreqSpinBox->value());
-        stringFields = stringFields + ", freq";
-        stringData = stringData + ", '" + aux1 + "'";
+
+        if (db->isThisFreqInBand(db->getBandNameFromID2(tband), aux1) )
+        {
+            stringFields = stringFields + ", freq";
+            stringData = stringData + ", '" + aux1 + "'";
+            qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND OK" << endl;
+        }
+        else
+        {
+            qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND NOK" << endl;
+
+        }
+
+
+
     }
 
     if ( (rxFreqSpinBox->value()) > 0  )
@@ -1307,6 +1320,9 @@ QString MainWindow::readDataFromUIDX()
     {
         stringFields = stringFields + ", sat_name";
         stringData = stringData + ", '" + aux1 + "'";
+
+        stringFields = stringFields + ", prop_mode";
+        stringData = stringData + ", 'SAT'";
     }
 
     aux1 = satTabWidget->getSatMode();

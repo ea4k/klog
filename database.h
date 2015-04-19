@@ -68,6 +68,7 @@ public:
     QString getModeNameFromID2(const int _i);
 
     int getBandIdFromFreq(const QString fr); //Freq should be in MHz
+    bool isThisFreqInBand(const QString b, const QString fr); //Freq should be in MHz
 
     double getFreqFromBandId(const int _i);
 
@@ -90,11 +91,13 @@ private:
 
     bool updateLog(); // Updates the log table
     bool createTableLog(); //Creates log=0 or selectedlog=1
+    bool createTableLogs();
 
     bool recreateContestData();
     bool createTableContest();
     bool populateContestData();
     bool howManyQSOsInLog(const int i);
+    void showError(const QString _errorC);
 
     float dbVersion;    // The current version of the DB. May differ from latestReaded if we are updating the DB!
     QString softVersion;

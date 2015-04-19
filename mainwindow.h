@@ -50,7 +50,6 @@
 #include "awards.h"
 #include "mainwindowsattab.h"
 
-
 class QTimer;
 class QDateTime;
 

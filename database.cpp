@@ -505,15 +505,7 @@ confirmed = 1     Set as Confirmed
                  "shortname VARCHAR(8) NOT NULL, "
                  "name VARCHAR(55) NOT NULL)");
 
-      query.exec("CREATE TABLE logs ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "logdate VARCHAR(10), "
-                 "stationcall VARCHAR(15) NOT NULL, "
-                 "comment VARCHAR, "
-                 "logtype VARCHAR, "
-                 "logtypen INTEGER, "
-                 "FOREIGN KEY (logtypen) REFERENCES supportedcontests(id),"
-                 "FOREIGN KEY (logtype) REFERENCES supportedcontests(name))");
+      createTableLogs();
 
       /*
       query.exec("CREATE TABLE sat_modes ("
@@ -873,22 +865,48 @@ bool DataBase::isValidModeNumber (const int b)
 
 int DataBase::getBandIdFromFreq(const QString fr)
 {
-     //qDebug() << "DataBase::getBandIdFromFreq: " << fr << endl;
+     qDebug() << "DataBase::getBandIdFromFreq: " << fr << endl;
     //Freq should be in MHz
-    QString queryString = QString("SELECT id FROM band WHERE lower < '%1' and upper > '%2'").arg(fr).arg(fr);    
+    QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(fr).arg(fr);
+
     QSqlQuery query(queryString);
     query.next();
+    qDebug() << "DataBase::getBandIdFromFreq: Query OK" << query.lastQuery() << endl;
 
     if (query.isValid())
     {
+        qDebug() << "DataBase::getBandIdFromFreq: Query valid"  << endl;
         return (query.value(0)).toInt();
     }
     else
     {
+        qDebug() << "DataBase::getBandIdFromFreq: Query Not valid"  << endl;
         return -1;
     }
     return -1;
 }
+
+
+bool DataBase::isThisFreqInBand(const QString b, const QString fr)
+{//Freq should be in MHz
+   qDebug() << "DataBase::isThisFreqInBand: " << b << "/" << fr << endl;
+    int bandNf = getBandIdFromFreq(fr);
+    int bandN = getBandIDFromName2(b);
+    qDebug() << "DataBase::isThisFreqInBand: (b/f)" << QString::number(bandN) << "/" << QString::number(bandNf) << endl;
+    if (bandNf == bandN)
+    {
+        qDebug() << "DataBase::isThisFreqInBand: OK " << b << "/" << fr << endl;
+        return true;
+    }
+    else
+    {
+        qDebug() << "DataBase::isThisFreqInBand: NOK " << b << "/" << fr << endl;
+        return false;
+    }
+
+    return false;
+}
+
 
 bool DataBase::unMarkAllQSO()
 {
@@ -1335,6 +1353,7 @@ bool DataBase::updateTo005()
        QSqlQuery query;
        QMessageBox msgBox;
        msgBox.setIcon(QMessageBox::Information);
+       int errorCode;
 
        bool sqlOk = false;
 
@@ -1367,16 +1386,12 @@ bool DataBase::updateTo005()
                if (recreateContestData())
                {
                    qDebug() << "DataBase::updateTo005 - recreateContestData OK" << endl;
-
-                   query.exec("CREATE TABLE logs ("
-                              "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                              "logdate VARCHAR(10), "
-                              "stationcall VARCHAR(15) NOT NULL, "
-                              "comment VARCHAR, "
-                              "logtype VARCHAR, "
-                              "logtypen INTEGER, "
-                              "FOREIGN KEY (logtypen) REFERENCES supportedcontests(id),"
-                              "FOREIGN KEY (logtype) REFERENCES supportedcontests(name))");
+                   sqlOk = query.exec ("DROP table logs");
+                   sqlOk = createTableLogs();
+                   if (!sqlOk)
+                   {
+                       qDebug() << "DataBase::updateTo005 - logs table do not created" << endl;
+                   }
 
 
                    if (howManyQSOsInLog(0)>0)
@@ -1388,14 +1403,41 @@ bool DataBase::updateTo005()
                        msgBox.setText(QObject::tr("KLog has detected a previous log in the DB. All data will be migrated to a newly created DX type log for you."));
                        msgBox.exec();
 
-                        query.exec("UPDATE log SET lognumber='1' WHERE lognumber='0'");
+                        if (query.exec("UPDATE log SET lognumber='1' WHERE lognumber='0'"))
+                        {}
+                        else
+                        {
+                            //showError(QObject::tr("QSOs not updated to main log"));
+                            qDebug() << "DataBase::updateTo005 - QSOs not updated to main log" << endl;
+                            errorCode = query.lastError().number();
+                            qDebug() << "DataBase::updateTo005 - query error: " << QString::number(errorCode) << endl;
+                            qDebug() << "DataBase::updateTo005: LastQuery: " << query.lastQuery()  << endl;
+                            qDebug() << "DataBase::updateTo005: LastError-data: " << query.lastError().databaseText()  << endl;
+                            qDebug() << "DataBase::updateTo005: LastError-driver: " << query.lastError().driverText()  << endl;
+                            qDebug() << "DataBase::updateTo005: LastError-n: " << QString::number(query.lastError().number() ) << endl;
+                        }
 
                         QString dateString = (QDate::currentDate()).toString("yyyy/MM/dd");
 
 
-                        stringQuery = QString("INSERT INTO logs (logdate, stationcall, logtype) values('%1','%2','DX', '0')").arg(dateString).arg("NOCALL");
-                        query.exec(stringQuery);
+                        stringQuery = QString("INSERT INTO logs (logdate, stationcall, logtype, logtypen) values('%1','%2','DX', '0')").arg(dateString).arg("N0CALL");
+                        if (query.exec(stringQuery))
+                        {
 
+                        }
+                        else
+                        {
+                            //showError(QObject::tr("New Log not created"));
+                            qDebug() << "DataBase::updateTo005 - New Log not created" << endl;
+                            //qDebug() << "DataProxy_SQLite::clearLog: Log deleted FAILED" << endl;
+                            errorCode = query.lastError().number();
+                            qDebug() << "DataBase::updateTo005a - query error: " << QString::number(errorCode) << endl;
+                            qDebug() << "DataBase::updateTo005a: LastQuery: " << query.lastQuery()  << endl;
+                            qDebug() << "DataBase::updateTo005a: LastError-data: " << query.lastError().databaseText()  << endl;
+                            qDebug() << "DataBase::updateTo005a: LastError-driver: " << query.lastError().driverText()  << endl;
+                            qDebug() << "DataBase::updateTo005a: LastError-n: " << QString::number(query.lastError().number() ) << endl;
+
+                        }
                    }
                    else
                    {
@@ -1422,7 +1464,7 @@ bool DataBase::updateTo005()
        if (IAmIn005)
        {
 
-            msgBox.setText(QObject::tr("All the data was migrated correctly. Don't forget to go to Setup->Preferences to check that everything is OK."));
+            msgBox.setText(QObject::tr("All the data was migrated correctly. You need to go to Setup->Preferences->Logs to update the Station callsign and check that everything is OK."));
             msgBox.exec();
 
 
@@ -1453,6 +1495,20 @@ bool DataBase::updateLog()
     bool sqlOk = false;
 
 
+}
+
+bool DataBase::createTableLogs()
+{
+    QSqlQuery query;
+    return query.exec("CREATE TABLE logs ("
+               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+               "logdate VARCHAR(10), "
+               "stationcall VARCHAR(15) NOT NULL, "
+               "comment VARCHAR, "
+               "logtype VARCHAR, "
+               "logtypen INTEGER, "
+               "FOREIGN KEY (logtypen) REFERENCES supportedcontests(id),"
+               "FOREIGN KEY (logtype) REFERENCES supportedcontests(name))");
 }
 
 bool DataBase::createTableContest()
@@ -1632,3 +1688,6 @@ bool DataBase::howManyQSOsInLog(const int i)
         return -1;
     }
 }
+
+
+
