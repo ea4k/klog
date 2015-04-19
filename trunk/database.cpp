@@ -872,10 +872,10 @@ int DataBase::getBandIdFromFreq(const QString fr)
 
     QSqlQuery query(queryString);
     sqlOk = query.exec();
-    qDebug() << "DataBase::getBandIdFromFreq: Query: " << query.lastQuery() << endl;
+    //qDebug() << "DataBase::getBandIdFromFreq: Query: " << query.lastQuery() << endl;
     if (sqlOk)
     {
-        qDebug() << "DataBase::getBandIdFromFreq: Query OK" << endl;
+        //qDebug() << "DataBase::getBandIdFromFreq: Query OK" << endl;
         query.next();
 
 
@@ -890,7 +890,7 @@ int DataBase::getBandIdFromFreq(const QString fr)
     }
     else
     {
-        qDebug() << "DataBase::getBandIdFromFreq: Query NOK" << endl;
+        //qDebug() << "DataBase::getBandIdFromFreq: Query NOK" << endl;
        return -1;
     }
 
