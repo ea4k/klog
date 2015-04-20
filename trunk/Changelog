@@ -1,14 +1,6 @@
 TBD - 0.9.1
-
-- TODO: BUG: Check if BAND & FREQ are coherent before adding a QSO (or importinng) Maybe when saving (Band wins)
-- TODO: Add "tr" to the error to be able to translate the error codes (in DataBase)
-- TODO: Remove all not needed fields from SetupPageLogNew::gatherAndSend() the type is enough
-- TODO: Selecting stationQRZ from the selected log
-- TODO: BUG: When the Operators or stationcallsign qrz call is deleted and reaches to 0 lenght, KLog crashes (SetupPageLogsNew::slotOperatorsTextChanged )
-- TODO: Add the possibility to modify/edit a Log in the logs tab
-- TODO: Working in the setuppagelogs.cpp to manage the contests from the DB
-
-
+- Bugfix: Fixed DataBase::getBandIdFromFreq it was not ansswering properly.
+- Now checks if band & frequency are coherent before adding a QSO. Band wins.
 - All Satellite QSO include the PROP_MODE ADIF tag to make it compatible with LOTW.
 - Improved the DXMarathon code.
 - GUI: Added basic Satellite support.

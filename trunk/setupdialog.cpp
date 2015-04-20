@@ -44,11 +44,11 @@ SetupDialog::SetupDialog(const bool _firstTime)
     firstTime = _firstTime;
     if (firstTime)
     {
-        qDebug() << "SetupDialog::SetupDialog FIRST TIME = TRUE" << endl;
+        //qDebug() << "SetupDialog::SetupDialog FIRST TIME = TRUE" << endl;
     }
     else
     {
-        qDebug() << "SetupDialog::SetupDialog FIRST TIME = FALSE" << endl;
+        //qDebug() << "SetupDialog::SetupDialog FIRST TIME = FALSE" << endl;
     }
 
     logsPageTabN=-1;
@@ -317,7 +317,7 @@ void SetupDialog::slotOkButtonClicked()
 
     if (!haveAtleastOneLog())
     {
-        qDebug() << "SetupDialog::slotOkButonClicked - NO LOG!" << endl;
+        //qDebug() << "SetupDialog::slotOkButonClicked - NO LOG!" << endl;
 
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
