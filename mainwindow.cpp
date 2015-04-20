@@ -67,7 +67,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     currentModeShown = currentMode;
     currentBand = 0;
     currentBandShown = currentBand;
-    currentLog = 0;
+    currentLog = 1;
     points = 0;
     multipliers = 0;
     qsoPoints = 0;
@@ -165,12 +165,12 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
         if (existingData)
         {
-           qDebug() << "MainWindow::MainWindow: existing data" << endl;
+           //qDebug() << "MainWindow::MainWindow: existing data" << endl;
            //configured= false;
         }
         else
         {
-            qDebug() << "MainWindow::MainWindow: NOT existing data" << endl;
+            //qDebug() << "MainWindow::MainWindow: NOT existing data" << endl;
         }
 
     statusBarMessage = tr("Starting KLog");
@@ -223,11 +223,11 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     }
     if (configured)
     {
-        qDebug() << "MainWindow::MainWindow: configured = true" << endl;
+        //qDebug() << "MainWindow::MainWindow: configured = true" << endl;
     }
     else
     {
-        qDebug() << "MainWindow::MainWindow: configured = false" << endl;
+        //qDebug() << "MainWindow::MainWindow: configured = false" << endl;
     }
     setupDialog = new SetupDialog(!configured);
     dataProxy = new DataProxy_SQLite();
@@ -483,7 +483,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     }
 
     slotClearButtonClicked();
-
+    //logModel->select();
 
     upAndRunning = true;
     //qDebug() << "MainWindow::MainWindow: END" << endl;
@@ -814,7 +814,7 @@ QString MainWindow::readDataFromUIDX()
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-    aux1 = stationCallSignLineEdit->text();
+    aux1 = (stationCallSignLineEdit->text()).toUpper();
     if (aux1.length()>2)
     {
         lastStationQRZ = aux1.toUpper();
@@ -1398,6 +1398,29 @@ WHERE [condition];
     int ituz = world->getEntityItuz(dxcc);
 
 
+    /**/
+
+    int dxcc2 = getDXCCFromComboBox();
+
+    if (dxcc!=dxcc2)
+    {
+        QString dxccn1 = world->getEntityName(dxcc);
+        QString dxccn2 = world->getEntityName(dxcc2);
+
+        QMessageBox::StandardButton ret;
+        ret = QMessageBox::warning(this, tr("KLog"),
+                                   tr("You have selected an entity: ")+"("+dxccn2+")\n"+tr("that is different from the\nKLog proposed entity: ")+ "("+dxccn1+")\n\n"
+                    +tr("Push Apply to apply your selection."),
+                 QMessageBox::Apply | QMessageBox::Discard);
+        if (ret == QMessageBox::Apply)
+        {
+            dxcc = dxcc2;
+        }
+
+    }
+    /**/
+
+
     QString updateString = "UPDATE log SET call = '" + tqrz + "', bandid = '" + QString::number(tband) + "', modeid = '" + QString::number(tmode) + "', qso_date = '" + tdate + "', time_on = '" + ttime + "', rst_sent = '" + trsttx + "', rst_rcvd = '" + trstrx + "', lognumber = '" + QString::number(currentLog) + "', ";
 
     aux1 = nameLineEdit->text();
@@ -1453,7 +1476,7 @@ WHERE [condition];
         updateString = updateString + aux1 + "', ";
     }
 
-    aux1 = stationCallSignLineEdit->text();
+    aux1 = (stationCallSignLineEdit->text()).toUpper();
     if (aux1.length()>2)
     {
         updateString = updateString + "station_callsign = '";
@@ -3168,15 +3191,15 @@ void MainWindow::slotClearButtonClicked()
             if (!keepMyData)
             {
                 myPowerSpinBox->setValue(lastPower);
-                operatorLineEdit->setText(lastOperatorQRZ);
-                stationCallSignLineEdit->setText(lastStationQRZ);
+                operatorLineEdit->setText(lastOperatorQRZ.toUpper());
+                stationCallSignLineEdit->setText(lastStationQRZ.toUpper());
                 myLocatorLineEdit->setText(lastMyLocator);
             }
             else
             {
                 myPowerSpinBox->setValue(myPower);
-                operatorLineEdit->setText(operatorQRZ);
-                stationCallSignLineEdit->setText(stationQRZ);
+                operatorLineEdit->setText(operatorQRZ.toUpper());
+                stationCallSignLineEdit->setText(stationQRZ.toUpper());
                 myLocatorLineEdit->setText(myLocator);
             }
 
@@ -3500,7 +3523,7 @@ void MainWindow::slotScoreWinShow()
 
 void MainWindow::slotSetup(const int _page)
 {
-    qDebug() << "MainWindow::slotSetup - 01"  << endl;
+    //qDebug() << "MainWindow::slotSetup - 01"  << endl;
 
     if (!needToEnd)
     {
@@ -3527,8 +3550,6 @@ void MainWindow::slotSetup(const int _page)
 
     }
     defineStationCallsign();
-
-
 }
 
 void MainWindow::openFile()
@@ -4007,7 +4028,7 @@ void MainWindow::showMenuRightButtonFromLogCreateActions()
 }
 void MainWindow::slotQSLSentViaBureuMarkDXReqFromSearch()
 {
-    qDebug() << "slotQSLSentViaBureuMarkDXReqFromSearch: " << (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+    //qDebug() << "slotQSLSentViaBureuMarkDXReqFromSearch: " << (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
     int _qsoId = (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt();
 
     dataProxy->qslSentViaBureau(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
@@ -4027,7 +4048,7 @@ void MainWindow::slotQSLSentViaBureuMarkDXReqFromSearch()
 }
 void MainWindow::slotQSLSentViaDirectMarkDXReqFromSearch()
 {
-    qDebug() << "slotQSLSentViaDirectMarkDXReqFromSearch: " << (qslSentViaDirectMarkRcvReqFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectMarkRcvReqFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+    //qDebug() << "slotQSLSentViaDirectMarkDXReqFromSearch: " << (qslSentViaDirectMarkRcvReqFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectMarkRcvReqFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
 
     int _qsoId = (qslSentViaDirectMarkRcvReqFromSearchAct->data()).toInt();
 
@@ -4850,7 +4871,7 @@ bool MainWindow::processConfigLine(const QString _line){
         defaultColor.setNamedColor(value);
     }else if(values.at(0)=="SELECTEDLOG"){
         currentLog = value.toInt();
-        qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
+        //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
 
     }
     else
@@ -6480,11 +6501,11 @@ void MainWindow::qsoToEdit (const int _qso)
 
         nameCol = rec.indexOf("operator");
         aux1 = (query.value(nameCol)).toString();
-        operatorLineEdit->setText(aux1);
+        operatorLineEdit->setText(aux1.toUpper());
 
         nameCol = rec.indexOf("station_callsign");
         aux1 = (query.value(nameCol)).toString();
-        stationCallSignLineEdit->setText(aux1);
+        stationCallSignLineEdit->setText(aux1.toUpper());
 
         nameCol = rec.indexOf("my_gridsquare");
         aux1 = (query.value(nameCol)).toString();
@@ -7006,6 +7027,21 @@ void MainWindow::qsoToEdit (const int _qso)
                 }
 
                 //qDebug() << "MainWindow::qsoToEdit: - in default - 100: " << QString::number(currentEntity)  << endl;
+
+                nameCol = rec.indexOf("dxcc");
+                aux1  = (query.value(nameCol)).toString();
+
+                //qDebug() << "MainWindow::qsoToEdit: Checking DXCC: " << aux1 << " - " << world->getEntityName(aux1.toInt()) << endl;
+
+                if (aux1.toInt()>=1)
+                {
+                    currentEntity = aux1.toInt();
+                }
+                else
+                {
+                    currentEntity = world->getQRZARRLId(currentQrz);
+                }
+
                 showEntityInfo(currentEntity);
                 selectCorrectComboBoxEntity(currentEntity);
                 //qDebug() << "MainWindow::qsoToEdit: - in default - 101"  << endl;
@@ -8539,10 +8575,10 @@ void MainWindow::slotOperatingYearComboBoxChanged()
 void MainWindow::defineStationCallsign()
 {
 
-    qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << endl;
+    //qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << endl;
     QString logQRZ;
     logQRZ = dataProxy->getStationCallSignFromLog(currentLog);
-    qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ << endl;
+    //qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ << endl;
 
     if (world->checkQRZValidFormat(logQRZ))
     {
@@ -8554,6 +8590,6 @@ void MainWindow::defineStationCallsign()
     }
     lastStationQRZ = stationQRZ;
 
-    qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << endl;
+    //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << endl;
 
 }

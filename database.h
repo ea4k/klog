@@ -26,14 +26,14 @@
  *                                                                           *
  *****************************************************************************/
 
-
+#include <QObject>
 #include <QSqlDatabase>
 #include <QMessageBox>
 #include <QSqlQuery>
 #include <QtSql>
 #include <QString>
 #include <QDateTime>
-#include <QObject>
+#include <QInputDialog>
 
 class QSqlRelationalTableModel;
 
@@ -45,6 +45,7 @@ class DataBase
 {
 
 public:
+    DataBase();
     DataBase(const QString _softVersion, bool  inmemoryonly = false);
     ~DataBase();
     bool createConnection();
