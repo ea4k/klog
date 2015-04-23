@@ -89,6 +89,8 @@ private:
     int getSelectedTypeContest();
     void fillWithType(const int _n);
     void updateAllCats();
+    void showOK();
+    void showNOK();
 
 
     DataProxy *dataProxy;
