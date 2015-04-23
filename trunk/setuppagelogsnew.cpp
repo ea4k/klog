@@ -94,6 +94,7 @@ SetupPageLogsNew::SetupPageLogsNew(QWidget *parent)
     createWidget();
 
     isThereAnyNotManagedLog();
+    okButton->setEnabled(false);
 
 }
 
@@ -287,6 +288,7 @@ void SetupPageLogsNew::slotStationCallSignTextChanged()
 //    connect(stationCallsignLineEdit, SIGNAL(textChanged(QString)), this, SLOT( ) );
     if ((stationCallsignLineEdit->text()).length()<1)
     {
+        showNOK();
         return;
     }
 
@@ -309,6 +311,7 @@ void SetupPageLogsNew::slotStationCallSignTextChanged()
     {
         stationCallsignFilled = true;
     }
+    showOK();
 }
 
 void SetupPageLogsNew::slotTypeComboBoxChanged()
@@ -332,13 +335,12 @@ void SetupPageLogsNew::slotTypeComboBoxChanged()
         typeLabel->setStyleSheet("QLabel {color : red; }");
         validCats->setText(tr("Categories not OK"));
         validCats->setStyleSheet("QLabel {color : red; }");
+        okButton->setEnabled(false);
     }
     else
     {
          typeLabel->setStyleSheet("QLabel {color : black; }");
-         validCats->setText(tr("Categories OK"));
-         validCats->setStyleSheet("QLabel {color : black; }");
-
+            showOK();
     }
 }
 
@@ -362,14 +364,12 @@ void SetupPageLogsNew::slotCatAssistedComboBoxChanged()
    if (typeContest < 0)
    {
        catAsLabel->setStyleSheet("QLabel {color : red; }");
-       validCats->setText(tr("Categories not OK"));
-       validCats->setStyleSheet("QLabel {color : red; }");
+       showNOK();
    }
    else
    {
         catAsLabel->setStyleSheet("QLabel {color : black; }");
-        validCats->setText(tr("Categories OK"));
-        validCats->setStyleSheet("QLabel {color : black; }");
+        showOK();
    }
 
 }
@@ -391,14 +391,12 @@ void SetupPageLogsNew::slotCatOperatorsComboBoxChanged()
    if (typeContest < 0)
    {
        catOpLabel->setStyleSheet("QLabel {color : red; }");
-       validCats->setText(tr("Categories not OK"));
-       validCats->setStyleSheet("QLabel {color : red; }");
+       showNOK();
    }
    else
    {
         catOpLabel->setStyleSheet("QLabel {color : black; }");
-        validCats->setText(tr("Categories OK"));
-        validCats->setStyleSheet("QLabel {color : black; }");
+        showOK();
    }
 
 }
@@ -421,14 +419,12 @@ void SetupPageLogsNew::slotCatPowerComboBoxChanged()
     if (typeContest < 0)
     {
         catPowerLabel->setStyleSheet("QLabel {color : red; }");
-        validCats->setText(tr("Categories not OK"));
-        validCats->setStyleSheet("QLabel {color : red; }");
+        showNOK();
     }
     else
     {
          catPowerLabel->setStyleSheet("QLabel {color : black; }");
-         validCats->setText(tr("Categories OK"));
-         validCats->setStyleSheet("QLabel {color : black; }");
+         showOK();
     }
 
 }
@@ -451,14 +447,12 @@ void SetupPageLogsNew::slotCatBandsComboBoxChanged()
     if (typeContest < 0)
     {
         catBandsLabel->setStyleSheet("QLabel {color : red; }");
-        validCats->setText(tr("Categories not OK"));
-        validCats->setStyleSheet("QLabel {color : red; }");
+        showNOK();
     }
     else
     {
          catBandsLabel->setStyleSheet("QLabel {color : black; }");
-         validCats->setText(tr("Categories OK"));
-         validCats->setStyleSheet("QLabel {color : black; }");
+         showOK();
     }
 
 }
@@ -489,14 +483,12 @@ void SetupPageLogsNew::slotCatOverlayComboBoxChanged()
      if (typeContest < 0)
      {
          overlayLabel->setStyleSheet("QLabel {color : red; }");
-         validCats->setText(tr("Categories not OK"));
-         validCats->setStyleSheet("QLabel {color : red; }");
+         showNOK();
      }
      else
      {
           overlayLabel->setStyleSheet("QLabel {color : black; }");
-          validCats->setText(tr("Categories OK"));
-          validCats->setStyleSheet("QLabel {color : black; }");
+          showOK();
      }
 
 }
@@ -519,14 +511,12 @@ void SetupPageLogsNew::slotCatModeComboBoxChanged()
     if (typeContest < 0)
     {
         catModeLabel->setStyleSheet("QLabel {color : red; }");
-        validCats->setText(tr("Categories not OK"));
-        validCats->setStyleSheet("QLabel {color : red; }");
+        showNOK();
     }
     else
     {
          catModeLabel->setStyleSheet("QLabel {color : black; }");
-         validCats->setText(tr("Categories OK"));
-         validCats->setStyleSheet("QLabel {color : black; }");
+         showOK();
     }
 
 }
@@ -880,3 +870,17 @@ void SetupPageLogsNew::updateAllCats()
 
 }
 
+void SetupPageLogsNew::showOK()
+{
+    validCats->setText(tr("Categories OK"));
+    validCats->setStyleSheet("QLabel {color : black; }");
+    okButton->setEnabled(true);
+
+}
+
+void SetupPageLogsNew::showNOK()
+{
+    validCats->setText(tr("Categories not OK"));
+    validCats->setStyleSheet("QLabel {color : red; }");
+    okButton->setEnabled(false);
+}
