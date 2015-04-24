@@ -3356,6 +3356,11 @@ void MainWindow::createMenusCommon()
     //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
     connect(ADIFExport, SIGNAL(triggered()), this, SLOT(slotADIFExport()));
 
+    ADIFExportAll = new QAction(tr("&Export all logs to ADIF..."), this);
+    toolMenu->addAction(ADIFExportAll);
+    //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
+    connect(ADIFExportAll, SIGNAL(triggered()), this, SLOT(slotADIFExportAll()));
+
     ADIFImport = new QAction(tr("&Import from ADIF..."), this);
     toolMenu->addAction(ADIFImport);
     //ADIFImport->setMenuRole(QAction::ApplicationSpecificRole);
@@ -3575,7 +3580,7 @@ bool MainWindow::saveFile(const QString _fileName)
     if (fileName.endsWith(".adi", Qt::CaseInsensitive))
     {
         //qDebug() << "MainWindow::saveFile: 1"  << endl;
-        needToSave = !(filemanager->adifLogExport(fileName));
+        needToSave = !(filemanager->adifLogExport(fileName, currentLog));
     }
     else if (fileName.endsWith(".log", Qt::CaseInsensitive))
     {
@@ -6243,9 +6248,17 @@ void MainWindow::slotADIFExport(){
                                kontestDir,
                                tr("ADIF (*.adi *.adif)"));
 
+    filemanager->adifLogExport(fileName, currentLog);
 
-    filemanager->adifLogExport(fileName);
+}
 
+void MainWindow::slotADIFExportAll(){
+    //qDebug() << "MainWindow::slotADIFExportAll " << endl;
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"),
+                               kontestDir,
+                               tr("ADIF (*.adi *.adif)"));
+
+    filemanager->adifLogExport(fileName, 0);
 
 }
 
