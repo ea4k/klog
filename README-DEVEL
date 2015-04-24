@@ -143,6 +143,7 @@ Header fields:
 QSO fields:
     APP_KLOG_POINTS: Points given by the QSO.
     APP_KLOG_MULTIPLIER: Information about the multiplier status of the QSO.
+    APP_KLOG_LOGN: Lognumber if the ADIF file contains several logs.
 
 
 KLog is also importing other application defined ADIF fields:

@@ -160,6 +160,7 @@ private slots:
     void slotrstTXTextChanged();
     void slotrstRXTextChanged();
     void slotADIFExport();
+    void slotADIFExportAll();
     void slotADIFImport();
     void slotRQSLExport();
     void slotCabrilloExport();
@@ -386,6 +387,7 @@ private:
     QAction *scoreWinAct;
     QAction *scoreeWinAct;
     QAction *ADIFExport;
+    QAction *ADIFExportAll;
     QAction *ADIFImport;
     QAction *ReqQSLExport;
     QAction *CabrilloExport;

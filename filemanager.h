@@ -59,15 +59,16 @@ public:
     ~FileManager();
     bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
-    bool adifLogExport(const QString& _fileName);
+    bool adifLogExport(const QString& _fileName, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);
     bool adifReqQSLExport(const QString& _fileName);
     bool cabrilloLogExport(const QString& _fileName, const int _contestType, const int logNconst);
 
 private:
-    bool adifLogExportToFile(const QString& _fileName, bool justMarked = false, bool _qslRequested = false);
+    bool adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked = false, bool _qslRequested = false);
     bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);
     bool cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst);
+    bool adifCheckMoreThanOneLog(QFile &_f);
 
     QString checkAndFixASCIIinADIF(const QString _data);
 

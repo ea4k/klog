@@ -8,6 +8,7 @@ KLog 0.9.1
 Bug: Check if the dxcluster configuration to show or not confirmed/worked works properly
 
 KLog 0.9.2
+TODO: When importing an ADIF file with several logs, create automatically the logs as detected.
 TODO: Remove all not needed fields from SetupPageLogNew::gatherAndSend() the type is enough
 TODO: Add "tr" to the error to be able to translate the error codes (in DataBase)
 TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
