@@ -3560,14 +3560,17 @@ void MainWindow::slotSetup(const int _page)
 void MainWindow::openFile()
 {
 
-    if (dataProxy->clearLog())
-    {
-        logModel->select();
-    }
-    else
-    {
+    int lastLog = currentLog;
 
+    slotSetup(6);
+
+    if (lastLog == currentLog)
+    { // It seems that the user didn't really want a new log
+        return;
     }
+
+    logModel->select();
+
 }
 
 bool MainWindow::saveFile(const QString _fileName)

@@ -42,6 +42,8 @@
 #include "world.h"
 #include "awards.h"
 #include "database.h"
+#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 enum
 {
@@ -57,7 +59,7 @@ public:
     FileManager(const QString _kontestDir);
     FileManager(const QString _kontestDir, const QString _softVersion, DataBase _db);
     ~FileManager();
-    bool readAdif(const QString& tfileName, const int logN);
+    //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
     bool adifLogExport(const QString& _fileName, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);
@@ -70,9 +72,10 @@ private:
     bool cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst);
     bool adifCheckMoreThanOneLog(QFile &_f);
 
+
     QString checkAndFixASCIIinADIF(const QString _data);
 
-    bool processQsoReadingADIF(const QStringList _line, const int logNumber);
+    bool processQsoReadingADIF(const QStringList _line, const int logNumber, const int _maxLog, QHash <int, int> &_logs);
 
     int getProgresStepForDialog(int totalSteps);
     void queryPreparation(const int _logN);
@@ -81,7 +84,7 @@ private:
 
     DataBase *db;
     //float softwareVersion;
-
+    DataProxy *dataProxy;
 
 
 
