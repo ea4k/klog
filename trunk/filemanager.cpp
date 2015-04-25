@@ -36,6 +36,7 @@ FileManager::FileManager()
     db = new DataBase(0);
     db->createBandModeMaps();
     kontestVersion="";
+    dataProxy = new DataProxy_SQLite();
    // preparedQuery = new QSqlQuery;
 
 }
@@ -50,6 +51,7 @@ FileManager::FileManager(const QString _kontestDir)
     db = new DataBase(0);
     db->createBandModeMaps();
     kontestVersion="";
+    dataProxy = new DataProxy_SQLite();
 //preparedQuery = new QSqlQuery;
 
 }
@@ -63,6 +65,7 @@ FileManager::FileManager(const QString _kontestDir, const QString _softVersion, 
     db = new DataBase(0);
     db->createBandModeMaps();
     kontestVersion = _softVersion;
+    dataProxy = new DataProxy_SQLite();
 //preparedQuery = new QSqlQuery;
 }
 
@@ -2073,6 +2076,7 @@ bool FileManager::adifCheckMoreThanOneLog(QFile& _f)
 {
     //qDebug() << "FileManager::adifCheckMoreThanOneLog:" << endl;
     QFile &file = _f;
+
     qint64 pos; //Position in the file
     QString line = QString();
     QStringList fields;
@@ -2110,6 +2114,7 @@ bool FileManager::adifCheckMoreThanOneLog(QFile& _f)
                     if (aux != lastAux)
                     {
                         //qDebug() << "FileManager::adifCheckMoreThanOneLog: MORE THAN ONE!" << aux << endl;
+                        file.close();
                         return true;
                     }
                     lastAux = aux;
@@ -2119,6 +2124,7 @@ bool FileManager::adifCheckMoreThanOneLog(QFile& _f)
         }
     }
     //qDebug() << "FileManager::adifCheckMoreThanOneLog: JUST ONE!" << aux << endl;
+    file.close();
     return false;
 }
 
@@ -2128,6 +2134,8 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
     //int n = 0;
     QSqlDatabase db = QSqlDatabase::database();
+    int maxLogs = dataProxy->getNumberOfManagedLogs(); // To manage several logs
+    QHash<int, int> hashLogs;
 
     bool sqlOK = true;
     QStringList queries = QStringList();
@@ -2161,6 +2169,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     QFile file( fileName );
 
     bool moreThanOneLog = adifCheckMoreThanOneLog(file);
+    //Hay que cerrar el fichero
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -2322,7 +2331,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                 {
                      //qDebug() << "FileManager::adifReadLog-W-2.1" << endl;
                     currentQSOfields << fieldToAnalyze;
-                    preparedQBool = processQsoReadingADIF(currentQSOfields, logN);
+                    preparedQBool = processQsoReadingADIF(currentQSOfields, logN, maxLogs, hashLogs);
                     if (preparedQBool)
                     {
                         //qDebug() << "FileManager::adifReadLog: preparedQBool = true"  << endl;
@@ -2336,11 +2345,11 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                 }
                 else
                 {
-                    //qDebug() << "FileManager::readAdif: Not contains EOR"  << endl;
+                    //qDebug() << "FileManager::adifReadLog: Not contains EOR"  << endl;
 
                     if ((!fieldToAnalyze.contains('>')) && (currentQSOfields.length()>0))
                     {
-                        //qDebug() << "FileManager::readAdif: Contains > & currentsQSOfields.length>0"  << endl;
+                        //qDebug() << "FileManager::adifReadLog: Contains > & currentsQSOfields.length>0"  << endl;
                         auxString = currentQSOfields.at(currentQSOfields.length()-1);
                         auxString = auxString + "\n" + fieldToAnalyze;
                         //currentQSOfields.at(currentQSOfields.length()) = auxString;
@@ -2622,12 +2631,17 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
 }
 
-bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber)
+bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber, const int _maxLog, QHash<int, int> &_logs)
 {
 
-
-    //qDebug() << "FileManager::processQsoReadingADIF: " << _line.at(0) << endl;
+    //qDebug() << "FileManager::processQsoReadingADIF: log: " << QString::number(logNumber) << endl;
+   //qDebug() << "FileManager::processQsoReadingADIF: log: " << _line.at(0) << endl;
     //qDebug() << "FileManager::processQsoReadingADIF: " << _line.join("/") << endl;
+    int maxLogs = _maxLog; // To manage several logs
+    QHash<int, int> &hashLogs = _logs;
+
+    //QFile &file = _f;
+
 
     int i = -1;
     QDate date;
@@ -3297,10 +3311,47 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                 {
                     preparedQuery.bindValue( ":multiplier", data.toInt() );
                 }
+                else if (field == "APP_KLOG_LOGN") //Lognumber in a multiple-log file
+                {
+/*
+                    int currentL = data.toInt();
+                   //qDebug() << "FileManager::processQsoReadingADIF: APP_KLOG_LOGN "  << QString::number(currentL) << endl;
+
+                    //TODO: Calculate the lognumber and set the lognumber
+                    //TODO: Working to create the lognumber automatically
+                        //int maxLogs = _maxLog; // To manage several logs
+                        //QHash<int, int> &hashLogs = _logs;
+                    //int currentL = data.toInt();
+                    //QHash<QString, int>::const_iterator i = hashLogs.find(currentL);
+                    //logNumber = hashLogs.value(hashLogs.find(currentL));
+
+
+                    QHash<int, int>::const_iterator in = hashLogs.constBegin();
+
+                    while (in != hashLogs.constEnd()) {
+                        if (in.value() == currentL)
+                        {
+                           //qDebug() << "FileManager::processQsoReadingADIF No new log " << QString::number(currentL) << endl;
+                            i = logNumber;
+                        }
+                        else
+                        {
+
+                            hashLogs.insert(maxLogs+1, (hashLogs.end()).value() +1 );
+                           //qDebug() << "FileManager::processQsoReadingADIF New LogN added: " << QString::number( (hashLogs.end()).key()) << "/" << QString::number( (hashLogs.end()).value()) << endl;
+                            i = (hashLogs.end()).value();
+                        }
+
+                        ++in;
+                    }
+*/
+
+                }
                 else if (field == "APP_N1MM_POINTS") //Importing from N1MM
                 {
                     preparedQuery.bindValue( ":points", data.toInt() );
                 }
+
                 else
                 {
                 }
@@ -3311,6 +3362,8 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
             }
         }
     }
+    //preparedQuery.bindValue( ":lognumber", i);
+   //qDebug() << "FileManager::processQsoReadingADIF: logNumber: " << QString::number(logNumber) << endl;
     preparedQuery.bindValue( ":lognumber", logNumber);
 
 
@@ -3457,6 +3510,7 @@ QString FileManager::checkAndFixASCIIinADIF(const QString _data)
     return newString;
 }
 
+/*
 bool FileManager::readAdif(const QString& tfileName, const int logN)
 {
     //qDebug() << "FileManager::readAdif: " << tfileName << endl;
@@ -3502,12 +3556,12 @@ bool FileManager::readAdif(const QString& tfileName, const int logN)
     else
     { // The file does not have any header.
       // Reading the first QSO...
-        /*
-          Cases:
-            1.- One big line with several QSO
-            2.- One QSO uses several lines.
-            3.- Last line of one QSO includes data of the next one
-        */
+
+        //  Cases:
+        //    1.- One big line with several QSO
+        //    2.- One QSO uses several lines.
+        //    3.- Last line of one QSO includes data of the next one
+
         inHeader = false;
 
     }
@@ -3566,6 +3620,7 @@ bool FileManager::readAdif(const QString& tfileName, const int logN)
     return true;
 
 }
+*/
 
 bool FileManager::adifReqQSLExport(const QString& _fileName)
 {

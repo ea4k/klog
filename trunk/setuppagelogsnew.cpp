@@ -530,7 +530,7 @@ void SetupPageLogsNew::slotOKButtonClicked()
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("You need to enter a valid QRZ in the Station Callsign box\nThe log will not be opened."));
+        msgBox.setText(tr("You need to enter a valid QRZ in the Station Callsign box.\nThe log will not be opened."));
         msgBox.exec();
         return;
     }
@@ -642,7 +642,7 @@ void SetupPageLogsNew::slotOKButtonClicked()
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("You selected an invalid combination\nThe log will not be opened."));
+        msgBox.setText(tr("You selected an invalid combination.\nThe log will not be opened."));
         msgBox.exec();
 
     }
