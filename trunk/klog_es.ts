@@ -2864,7 +2864,7 @@ The log will not be opened.</oldsource>
     <message>
         <location filename="setuppageuserdata.cpp" line="39"/>
         <source>Station data</source>
-        <translation>Indicativo de estación</translation>
+        <translation type="unfinished">Datos de la estación</translation>
     </message>
     <message>
         <location filename="setuppageuserdata.cpp" line="68"/>

@@ -5,6 +5,13 @@ KLog will provide hamradio contest and DX logging support.
 
 Check http://jaime.robles.es for news & updates.
 
+Please join the mailing list at:
+
+    - Users: https://lists.nongnu.org/mailman/listinfo/klog-users
+    - Developers: https://lists.nongnu.org/mailman/listinfo/klog-devel
+
+If you are a native in a language different than English or Spanish, please consider helping us translating KLog into your native language.
+Please contact me at jaimeNOMORESPAMrobles.es (change "NOMORESPAM" by @).
 
 Read the INSTALL.txt for installation purposes.
 Read the changelog (windows users, rename to changelog.txt) to see the changes from one version to another.
