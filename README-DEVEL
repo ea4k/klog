@@ -232,9 +232,6 @@ Before deploying, translations should be updated.
 
 9.2 DEPLOYING ON OSX
 
-  Rename the bundle directory (klog.app) from the sources directory to klog[VERSION].app
-  being [VERSION] the version to be deployed.
-
   Run the following command from the sources directory:
 
        macdeployqt KLog.app/ -dmg
