@@ -1,3 +1,6 @@
+April-2015 - 0.9.1.1
+- Bugfix: Editing a QSO with satellite data was not properly done and caused some errors.
+
 April-2015 - 0.9.1
 - Bugfix: Fixed DataBase::getBandIdFromFreq it was not ansswering properly.
 - Now checks if band & frequency are coherent before adding a QSO. Band wins.

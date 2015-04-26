@@ -616,7 +616,7 @@ void MainWindow::slotQRZReturnPressed()
         if (queryString != "NULL") {
             if (!query.exec(queryString))
             {
-                //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
+                qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
                 errorCode = query.lastError().number();
                 QMessageBox msgBox;
                 msgBox.setIcon(QMessageBox::Warning);
@@ -910,6 +910,28 @@ QString MainWindow::readDataFromUIDX()
         }
     }
     // EQSL-SENT
+
+    aux1 = satTabWidget->getSatName();
+    qDebug() << "MainWindow::readDataFromUIDX: SAT1 " << aux1 << endl;
+    if (aux1.length()>0)
+    {
+        stringFields = stringFields + ", sat_name";
+        stringData = stringData + ", '" + aux1 + "'";
+
+        stringFields = stringFields + ", prop_mode";
+        stringData = stringData + ", '" + "SAT" + "'";
+
+    }
+
+    aux1 = satTabWidget->getSatMode();
+
+    if (aux1.length()>0)
+    {
+        stringFields = stringFields + ", sat_mode";
+        stringData = stringData + ", '" + aux1 + "'";
+    }
+
+    keepSatPage = satTabWidget->getRepeatThis();
 
     int i = eqslSentComboBox->currentIndex();
     //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
@@ -1314,24 +1336,6 @@ QString MainWindow::readDataFromUIDX()
         break;
     }
 
-    aux1 = satTabWidget->getSatName();
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", sat_name";
-        stringData = stringData + ", '" + aux1 + "'";
-
-        stringFields = stringFields + ", prop_mode";
-        stringData = stringData + ", 'SAT'";
-    }
-
-    aux1 = satTabWidget->getSatMode();
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", sat_mode";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    keepSatPage = satTabWidget->getRepeatThis();
 
     // The data reading finish here. Now, we prepare the data to insert into the DB
 
@@ -1565,6 +1569,25 @@ WHERE [condition];
             updateString = updateString + aux1 + "', ";
         }
     }
+
+    aux1 = satTabWidget->getSatName();
+    qDebug() << "MainWindow::readDataFromUIDX: SAT2 " << aux1 << endl;
+    if (aux1.length()>0)
+    {
+        updateString = updateString + "sat_name = '";
+        updateString = updateString + aux1 + "', ";
+
+        updateString = updateString + "prop_mode = '";
+        updateString = updateString + "SAT', ";
+    }
+
+    aux1 = satTabWidget->getSatMode();
+    if (aux1.length()>0)
+    {
+        updateString = updateString + "sat_mode = '";
+        updateString = updateString + aux1 + "', ";
+    }
+
     // EQSL-SENT
 
     int i = eqslSentComboBox->currentIndex();
@@ -1906,19 +1929,6 @@ WHERE [condition];
         break;
     }    
 
-    aux1 = satTabWidget->getSatName();
-    if (aux1.length()>0)
-    {
-        updateString = updateString + ", sat_name";
-        updateString = updateString + ", '" + aux1 + "'";
-    }
-
-    aux1 = satTabWidget->getSatMode();
-    if (aux1.length()>0)
-    {
-        updateString = updateString + ", sat_mode";
-        updateString = updateString + ", '" + aux1 + "'";
-    }
 
     keepSatPage = satTabWidget->getRepeatThis();
 
@@ -7041,6 +7051,28 @@ void MainWindow::qsoToEdit (const int _qso)
                     iotaNumberLineEdit->setText(values.at(1));
 
                 }
+
+                nameCol = rec.indexOf("sat_name");
+                aux1 = (query.value(nameCol)).toString();
+                if (aux1.length()>0)
+                {
+                    satTabWidget->setSatName(aux1);
+                }
+
+
+                nameCol = rec.indexOf("sat_mode");
+                aux1 = (query.value(nameCol)).toString();
+                if (aux1.length()>1)
+                {
+                    satTabWidget->setSatMode(aux1);
+                }
+
+
+
+
+
+
+                nameLineEdit->setText(aux1);
 
                 //qDebug() << "MainWindow::qsoToEdit: - in default - 100: " << QString::number(currentEntity)  << endl;
 
