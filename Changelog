@@ -1,4 +1,4 @@
-TBD - 0.9.1
+April-2015 - 0.9.1
 - Bugfix: Fixed DataBase::getBandIdFromFreq it was not ansswering properly.
 - Now checks if band & frequency are coherent before adding a QSO. Band wins.
 - All Satellite QSO include the PROP_MODE ADIF tag to make it compatible with LOTW.
