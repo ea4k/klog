@@ -4,6 +4,11 @@ Feel free to request any roadmap change if you have any suggestion.
 
 KLog 0.9.2
 Bug?: Check if the dxcluster configuration to show or not confirmed/worked works properly
+Bug: Flfigi ADIF is not imported. Maybe due to spaces or to a missing BAND
+field. (tnx AA5VI)
+TODO: Add a context suggestion to hit enter if no password is expected for
+the cluster. (tnx AA5VI)
+
 TODO: When importing an ADIF file with several logs, create automatically the logs as detected.
 TODO: Remove all not needed fields from SetupPageLogNew::gatherAndSend() the type is enough
 TODO: Add "tr" to the error to be able to translate the error codes (in DataBase)
@@ -48,6 +53,9 @@ TODO: Integrate with eqsl.cc
 KLog 0.9.9
 TODO: Server to log all the QSO in real time (through the network) from N1MM
         http://n1mm.hamdocs.com/tiki-index.php?page=UDP+Broadcasts&structure=N1MM+Logger+Documentation
+
+KLog 0.9.10
+TODO: Integrate with FLIGI real time logging (req by AA5VI)
 
 
 <BUGS>
