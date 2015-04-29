@@ -6515,7 +6515,11 @@ void MainWindow::qsoToEdit (const int _qso)
 
         nameCol = rec.indexOf("name");
         aux1 = (query.value(nameCol)).toString();
-        nameLineEdit->setText(aux1);
+        //qDebug() << "MainWindow::qsoToEdit: - NAME: " << aux1  << endl;
+        if (aux1.length()>0)
+        {
+            nameLineEdit->setText(aux1);
+        }
 
         nameCol = rec.indexOf("qth");
         aux1 = (query.value(nameCol)).toString();
@@ -7069,10 +7073,6 @@ void MainWindow::qsoToEdit (const int _qso)
 
 
 
-
-
-
-                nameLineEdit->setText(aux1);
 
                 //qDebug() << "MainWindow::qsoToEdit: - in default - 100: " << QString::number(currentEntity)  << endl;
 
