@@ -24,6 +24,7 @@ public:
     QString getNameFromModeId (const int _id);
 
     double getFreqFromBandId(const int _id);
+    int getBandIdFromFreq(const double _n);
 
     int getLastQSOid();
 
