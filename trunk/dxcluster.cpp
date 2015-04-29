@@ -210,49 +210,50 @@ bool DXClusterWidget::checkIfNeedsToBePrinted(const QString _dxCall, int const _
     bool isConfirmed = false;
     int status = awards->getDXStatus (qs);
 
+    qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: Status: " << _dxCall << "/" << QString::number(status);
 
     if (!showconfirmed)
     {
-        //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is confirmed? ("<< QString::number(status)<< ")" << endl;
+        qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is confirmed? ("<< QString::number(status)<< ")" << endl;
         if (status == 3)
         {
-            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: It is confirmed: DON'T' print: " << _dxCall <<"/" << dataProxy->getNameFromBandId(_band) << endl;
+            qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: It is confirmed: DON'T' print: " << _dxCall <<"/" << dataProxy->getNameFromBandId(_band) << endl;
             return false;
         }
     }
 
     if (!showhf)
     {
-        //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is HF?" << endl;
+        qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is HF?" << endl;
         if (dataProxy->isHF(_band))
         {
-            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: Not showing HF but... is it WARC?" << endl;
+            qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: Not showing HF but... is it WARC?" << endl;
             if ( (showwarc) && dataProxy->isWARC(_band) )
             {
-                //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: Not showing HF but... is WARC, print!" << endl;
+                qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: Not showing HF but... is WARC, print!" << endl;
                 return true;
             }
 
-            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is HF: DON'T print: "<< _dxCall << "/" << dataProxy->getNameFromBandId(_band) << QString::number(_mode)<< endl;
+            qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is HF: DON'T print: "<< _dxCall << "/" << dataProxy->getNameFromBandId(_band) << QString::number(_mode)<< endl;
             return false;
         }
         else
         {
-            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is NOT HF" << endl;
+            qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is NOT HF" << endl;
         }
     }
 
     if (!showwarc)
     {
-        //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is WARC?" << endl;
+        qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is WARC?" << endl;
         if (dataProxy->isWARC(_band))
         {
-            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is WARC, DON'T print: "<< _dxCall << "/" << dataProxy->getNameFromBandId(_band) << QString::number(_mode)<< endl;
+            qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is WARC, DON'T print: "<< _dxCall << "/" << dataProxy->getNameFromBandId(_band) << QString::number(_mode)<< endl;
             return false;
         }
         else
         {
-            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is NOT WARC" << endl;
+            qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is NOT WARC" << endl;
 
         }
 
@@ -308,7 +309,7 @@ void DXClusterWidget::slotClusterDataArrived()
 
         if ((tokens[0] == "DX") && (tokens[1] == "de"))
         {
-            //qDebug() << "DXClusterWidget::slotClusterDataArrived: DX DE" << endl;
+            qDebug() << "******************** DXClusterWidget::slotClusterDataArrived: DX DE" << endl;
             isADXSpot = true;
             QString spotter = tokens[2];
             spotter.truncate(spotter.size() - 1);
@@ -326,18 +327,18 @@ void DXClusterWidget::slotClusterDataArrived()
             qs << dxCall << spotBand << "-1" << "0";
 
             dxSpotColor = awards->getQRZDXStatusColor(qs);
-            //qDebug() << "DX de ->" << spotter << dxFrequency << dxCall << endl;
+            qDebug() << "DX de ->" << "Spotter: " << spotter << "Freq: "<< dxFrequency << "DX: " << dxCall << endl;
 
         }
         else if ((tokens[0] == "To") && (tokens[1] == "ALL"))
         {
-            //qDebug() << "DXClusterWidget::slotClusterDataArrived: TO ALL" << endl;
+            qDebug() << "DXClusterWidget::slotClusterDataArrived: TO ALL" << endl;
             dxSpotColor = awards->getDefaultColor();
         }
         else if ( (dxClusterString.length()>=5) && (world->checkQRZValidFormat(tokens[1])) )
         { // Freq / DXCall / Date // time
            //_qs << QRZ << Freq in MHz << lognumber;
-            //qDebug() << "DXClusterWidget::slotClusterDataArrived: LENGTH >= 5" << endl;
+            qDebug() << "DXClusterWidget::slotClusterDataArrived: LENGTH >= 5" << endl;
             isADXSpot = true;
             dxCall = tokens[1];
             dxFrequency = tokens[0];
@@ -366,7 +367,7 @@ void DXClusterWidget::slotClusterDataArrived()
         //TODO: Change the "-1" by the mode
         if (!checkIfNeedsToBePrinted(dxCall, spotBand.toInt(), -1))
         {
-            //qDebug() << "DXClusterWidget::slotClusterDataArrived - Not to be printed!: " << dxCall << endl;
+            qDebug() << "DXClusterWidget::slotClusterDataArrived - Not to be printed!: " << dxCall << endl;
             return;
         }
 
@@ -382,7 +383,8 @@ void DXClusterWidget::slotClusterDataArrived()
         //dxClusterListWidget->insertItem(0,item);
     }
 
-    //qDebug() << "DXClusterWidget::slotClusterDataArrived: " << dxClusterString << endl;
+    qDebug() << "--------------------- DXClusterWidget::slotClusterDataArrived: " << dxClusterString << endl;
+//qDebug() << "DXClusterWidget::slotClusterDataArrived: " << dxClusterString << endl;
 
 }
 
