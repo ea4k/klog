@@ -67,6 +67,11 @@ double DataProxy::getFreqFromBandId(const int _id)
     return -1.0;
 }
 
+int DataProxy::getBandIdFromFreq(const double _n)
+{
+    return -1;
+}
+
 int DataProxy::getLastQSOid()
 {
     return -1;

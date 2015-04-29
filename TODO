@@ -3,6 +3,8 @@ It is not fixed... new features may be prioritized or not added without any noti
 Feel free to request any roadmap change if you have any suggestion.
 
 KLog 0.9.2
+Bug: An ADIF file with one blank line and one QSO freezes KLog.
+Bug?: Check if if is possible to import a ONE line log
 Bug?: Check if the dxcluster configuration to show or not confirmed/worked works properly
 Bug: Flfigi ADIF is not imported. Maybe due to spaces or to a missing BAND
 field. (tnx AA5VI)

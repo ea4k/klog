@@ -88,6 +88,12 @@ double DataProxy_SQLite::getFreqFromBandId(const int _id)
     return db->getFreqFromBandId(_id);
 }
 
+int DataProxy_SQLite::getBandIdFromFreq(const double _n)
+{
+    return db->getBandIdFromFreq(QString::number(_n));
+}
+
+
 int DataProxy_SQLite::getLastQSOid()
 {
     //qDebug() << "DataProxy_SQLite::getLastQSOid" << endl;

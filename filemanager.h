@@ -86,6 +86,8 @@ private:
     //float softwareVersion;
     DataProxy *dataProxy;
 
+    bool rstTXDefault, rstRXDefault; // If true and a log is not including RST, 59 is automatically added
+
 
 
     bool printQs(const QString _q, const QStringList _line);

@@ -24,6 +24,7 @@ public:
     virtual QString getNameFromModeId (const int _id);
 
     virtual double getFreqFromBandId(const int _id);
+    virtual int getBandIdFromFreq(const double _n);
 
     virtual int getLastQSOid();
     virtual bool clearLog();
