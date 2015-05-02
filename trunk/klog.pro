@@ -9,21 +9,19 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     QT *= printsupport
     QT += widgets
 }
-unix {
-    macx {
-        TARGET = KLog
-        #QMAKE_LFLAGS += -F/Library/Frameworks
-        #LIBS += -framework TheFramework
-        #SOURCES += windowinfo_mac.cpp
-    } else {
-        #SOURCES += windowinfo_x11.cpp
-        TARGET = klog
-    }
-} else {
+unix { 
+    macx:TARGET = KLog
+    
+    # QMAKE_LFLAGS += -F/Library/Frameworks
+    # LIBS += -framework TheFramework
+    # SOURCES += windowinfo_mac.cpp
+    else:# SOURCES += windowinfo_x11.cpp
     TARGET = klog
 }
+else:TARGET = klog
+
 # greaterThan(QT_MAJOR_VERSION, 4): QT += widgets core gui sql network
-#TARGET = klog
+# TARGET = klog
 CONFIG += app_bundle
 CONFIG += static
 TEMPLATE = app
@@ -55,7 +53,9 @@ SOURCES += main.cpp \
     startwizard.cpp \
     mainwindowsattab.cpp \
     awarddxmarathon.cpp \
-    setuppagelogsnew.cpp
+    setuppagelogsnew.cpp \
+    setuppageclublog.cpp \
+    elogclublog.cpp
 HEADERS += setupdialog.h \
     mainwindow.h \
     world.h \
@@ -83,12 +83,14 @@ HEADERS += setupdialog.h \
     dataproxy_sqlite.h \
     mainwindowsattab.h \
     awarddxmarathon.h \
-    setuppagelogsnew.h
-OTHER_FILES += TODO\
-    README-DEVEL\
+    setuppagelogsnew.h \
+    setuppageclublog.h \
+    elogclublog.h
+OTHER_FILES += TODO \
+    README-DEVEL \
     tips-for-devel.txt \
     INSTALL.txt \
-    INSTALL-linux\
+    INSTALL-linux \
     INSTALL-win.txt \
     Changelog \
     INSTALL-osx.txt \

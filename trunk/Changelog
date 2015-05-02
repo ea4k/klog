@@ -3,6 +3,8 @@
 - BugFix: STX_String field was not always imported properly.
 - KLog is able to import QSOs with no BAND field if FREQ field is present.
 - KLog offers the user a default value if RST_TX or RST_RX field is not present when importing.
+- GUI: Added some shortcuts in the preference widget.
+- Support of realtime log upload to ClubLog.org
 
 April-2015 - 0.9.1.1
 - Bugfix: Editing a QSO with satellite data was not properly done and caused some errors.

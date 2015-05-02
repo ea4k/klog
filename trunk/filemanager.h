@@ -96,6 +96,7 @@ private:
     QString kontestVersion;
     //QProgressBar *progressBar;
     bool ignoreUnknownAlways;   // When importing ADIF, ignore all unknown fields.
+    bool noMoreQso;
 
     World *world;
     Awards *awards;

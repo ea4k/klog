@@ -36,6 +36,7 @@
 #include "setuppagecolors.h"
 #include "setuppagelogs.h"
 #include "setuppageworldeditor.h"
+#include "setuppageclublog.h"
 
 #include "dataproxy_sqlite.h"
 
@@ -106,6 +107,7 @@ private:
     SetupPageColors *colorsPage;
     SetupPageLogs *logsPage;
     SetupPageWorldEditor *worldEditorPage;
+    SetupPageClubLog *clubLogPage;
 
     int pageRequested; // The page on the Dialog that is requested to be shown when you call it
     //QString kontestDir;

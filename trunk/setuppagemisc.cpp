@@ -46,20 +46,20 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
 #endif
 
 
-    imperialCheckBox = new QCheckBox(tr("Imperial system"), this);
-    dbInMemory = new QCheckBox(tr("DB in Memory"), this);
-    realTimeCheckbox = new QCheckBox(tr("Log in real time"), this);
-    UTCCheckbox = new QCheckBox(tr("Time in UTC"), this);
-    alwaysADIFCheckBox = new QCheckBox(tr("Save ADIF on exit"), this);    
-    useDefaultName = new QCheckBox(tr("Use this default filename"), this);
-    sendQSLWhenRecCheckBox = new QCheckBox(tr("Mark QSO to send QSL when QSL is received"), this);
+    imperialCheckBox = new QCheckBox(tr("&Imperial system"), this);
+    dbInMemory = new QCheckBox(tr("DB in &Memory"), this);
+    realTimeCheckbox = new QCheckBox(tr("&Log in real time"), this);
+    UTCCheckbox = new QCheckBox(tr("&Time in UTC"), this);
+    alwaysADIFCheckBox = new QCheckBox(tr("&Save ADIF on exit"), this);
+    useDefaultName = new QCheckBox(tr("Use this &default filename"), this);
+    sendQSLWhenRecCheckBox = new QCheckBox(tr("Mark &QSO to send QSL when QSL is received"), this);
     sendQSLWhenRecCheckBox->setToolTip(tr("QSOs will be marked to be pending to send the QSL if the DX QSL is received and you have not sent your."));
 
-    showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station Callsign used in the search box"), this);
+    showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station &Callsign used in the search box"), this);
     showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will show also the callsign on the air to do the QSO."));
 
 
-    keepMyDataCheckBox = new QCheckBox(tr("Reset to My Data for all QSO"), this);
+    keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSO"), this);
     keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
 
 

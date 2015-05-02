@@ -35,8 +35,8 @@ SetupPageUserDataPage::SetupPageUserDataPage(QWidget *parent) : QWidget(parent){
    QWidget *personalTab = new QWidget;
    QWidget *stationTab = new QWidget;
 
-   tabWidget->addTab(personalTab, tr("Personal data"));
-   tabWidget->addTab(stationTab, tr("Station data"));
+   tabWidget->addTab(personalTab, tr("&Personal data"));
+   tabWidget->addTab(stationTab, tr("Station &data"));
 
    qrzLineEdit = new QLineEdit;
    operatorsLineEdit = new QLineEdit;
@@ -67,20 +67,27 @@ SetupPageUserDataPage::SetupPageUserDataPage(QWidget *parent) : QWidget(parent){
 
    nameLineEdit->setToolTip(tr("Enter your name"));
    address1LineEdit->setToolTip(tr("Enter your address - 1st line"));
-   address2LineEdit->setToolTip(tr("Enter your  address - 2nd line"));
+   address2LineEdit->setToolTip(tr("Enter your address - 2nd line"));
    address3LineEdit->setToolTip(tr("Enter your address - 3st line"));
-   address4LineEdit->setToolTip(tr("Enter your  address - 4nd line"));
+   address4LineEdit->setToolTip(tr("Enter your address - 4nd line"));
    cityLineEdit->setToolTip(tr("Enter your city"));
    zipLineEdit->setToolTip(tr("Enter your zip code"));
    provinceLineEdit->setToolTip(tr("Enter your province or state"));
    countryLineEdit->setToolTip(tr("Enter your country"));
 
-   QLabel *nameLabel = new QLabel(tr("Name"));
-   QLabel *addressLabel = new QLabel(tr("Address"));
-   QLabel *cityLabel = new QLabel(tr("City"));
-   QLabel *zipLabel = new QLabel(tr("Zip Code"));
-   QLabel *provLabel = new QLabel(tr("Prov/State"));
-   QLabel *countryLabel = new QLabel(tr("Country"));
+   QLabel *nameLabel = new QLabel(tr("&Name"));
+   QLabel *addressLabel = new QLabel(tr("&Address"));
+   QLabel *cityLabel = new QLabel(tr("Cit&y"));
+   QLabel *zipLabel = new QLabel(tr("&Zip Code"));
+   QLabel *provLabel = new QLabel(tr("Pro&v/State"));
+   QLabel *countryLabel = new QLabel(tr("Countr&y"));
+
+   nameLabel->setBuddy(nameLineEdit);
+   addressLabel->setBuddy(address1LineEdit);
+   cityLabel->setBuddy(cityLineEdit);
+   zipLabel->setBuddy(zipLineEdit);
+   provLabel->setBuddy(provinceLineEdit);
+   countryLabel->setBuddy(countryLineEdit);
 
 
    //void	addWidget ( QWidget * widget, int fromRow, int fromColumn, int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
@@ -135,13 +142,21 @@ SetupPageUserDataPage::SetupPageUserDataPage(QWidget *parent) : QWidget(parent){
    ant3LineEdit->setToolTip(tr("Enter your antenna #3 information"));
    myPowerSpinBox->setToolTip(tr("Enter your power information"));
 
-   QLabel *rig1Label = new QLabel(tr("Rig 1"));
-   QLabel *rig2Label = new QLabel(tr("Rig 2"));
-   QLabel *rig3Label = new QLabel(tr("Rig 3"));
-   QLabel *antenna1Label = new QLabel(tr("Antenna 1"));
-   QLabel *antenna2Label = new QLabel(tr("Antenna 2"));
-   QLabel *antenna3Label = new QLabel(tr("Antenna 2"));
-   QLabel *powerLabel = new QLabel(tr("Power"));
+   QLabel *rig1Label = new QLabel(tr("&Rig 1"));
+   QLabel *rig2Label = new QLabel(tr("R&ig 2"));
+   QLabel *rig3Label = new QLabel(tr("Ri&g 3"));
+   QLabel *antenna1Label = new QLabel(tr("Antenna &1"));
+   QLabel *antenna2Label = new QLabel(tr("Antenna &2"));
+   QLabel *antenna3Label = new QLabel(tr("Antenna &3"));
+   QLabel *powerLabel = new QLabel(tr("Po&wer"));
+
+   rig1Label->setBuddy(rig1LineEdit);
+   rig2Label->setBuddy(rig2LineEdit);
+   rig3Label->setBuddy(rig3LineEdit);
+   antenna1Label->setBuddy(ant1LineEdit);
+   antenna2Label->setBuddy(ant2LineEdit);
+   antenna3Label->setBuddy(ant3LineEdit);
+   powerLabel->setBuddy(myPowerSpinBox);
 
    //void	addWidget ( QWidget * widget, int fromRow, int fromColumn, int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
    // 0 1 2 3
@@ -171,11 +186,17 @@ SetupPageUserDataPage::SetupPageUserDataPage(QWidget *parent) : QWidget(parent){
     myLocatorLineEdit->setToolTip(tr("Enter the locator of your station. KLog will propose one locator based on your callsign"));
 
 
-    QLabel *qrzLabel = new QLabel(tr("QRZ"));
-    QLabel *operatorsLabel = new QLabel (tr("Operators"));
-    QLabel *cqzLabel = new QLabel(tr("CQ Zone"));
-    QLabel *ituzLabel = new QLabel(tr("ITU Zone"));
-    myLocatorLabel = new QLabel(tr("Locator"));
+    QLabel *qrzLabel = new QLabel(tr("&QRZ"));
+    QLabel *operatorsLabel = new QLabel (tr("&Operators"));
+    QLabel *cqzLabel = new QLabel(tr("&CQ Zone"));
+    QLabel *ituzLabel = new QLabel(tr("&ITU Zone"));
+    myLocatorLabel = new QLabel(tr("&Locator"));
+
+    qrzLabel->setBuddy(qrzLineEdit);
+    operatorsLabel->setBuddy(operatorsLineEdit);
+    cqzLabel->setBuddy(cqzLineEdit);
+    ituzLabel->setBuddy(ituzLineEdit);
+    myLocatorLabel->setBuddy(myLocatorLineEdit);
 
     cqzLineEdit->setInputMask("09");
     ituzLineEdit->setInputMask("09");
@@ -317,11 +338,11 @@ void SetupPageUserDataPage::slotMyLocatorTextChanged()
     {
         if (!(locator->isValidLocator(myLocatorLineEdit->text()) ))
         {
-            myLocatorLabel->setText(tr("Locator (not valid)"));
+            myLocatorLabel->setText(tr("&Locator (not valid)"));
         }
         else
         {
-            myLocatorLabel->setText(tr("Locator"));
+            myLocatorLabel->setText(tr("&Locator"));
         }
 
     }

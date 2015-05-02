@@ -140,6 +140,12 @@ QString DataProxy::getCallFromId(const int _qsoId)
     return "";
 }
 
+QStringList DataProxy::getClubLogRealTimeFromId(const int _qsoId)
+{
+    return QStringList();
+}
+
+
 bool DataProxy::deleteQSO(const int _qsoId)
 {
     return false;

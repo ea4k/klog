@@ -74,14 +74,14 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
     addClusterButton->setText(tr("Add"));
     deleteClusterButton->setText(tr("Delete"));
 
-    showHFRadiobutton->setText(tr("Show HF spots"));
-    showVHFRadiobutton->setText(tr("Show V/UHF spots"));
-    showWARCRadiobutton->setText(tr("Show WARC spots"));
-    showWorkedRadiobutton->setText(tr("Show worked spots"));
-    showConfirmedRadiobutton->setText(tr("Show confirmed spots"));
-    showANNRadiobutton->setText(tr("Show ANN/FULL messages"));
-    showWWVRadiobutton->setText(tr("Show WWV messages"));
-    showWCYRadiobutton->setText(tr("Show WCY messages"));
+    showHFRadiobutton->setText(tr("Show &HF spots"));
+    showVHFRadiobutton->setText(tr("Show V/&UHF spots"));
+    showWARCRadiobutton->setText(tr("Show W&ARC spots"));
+    showWorkedRadiobutton->setText(tr("Show &worked spots"));
+    showConfirmedRadiobutton->setText(tr("Show &confirmed spots"));
+    showANNRadiobutton->setText(tr("Show ANN/&FULL messages"));
+    showWWVRadiobutton->setText(tr("Show WW&V messages"));
+    showWCYRadiobutton->setText(tr("Show WC&Y messages"));
 
     QGroupBox *spotsGroupBox = new QGroupBox(tr("DX Spots"));
 

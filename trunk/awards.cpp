@@ -282,7 +282,7 @@ int Awards::getWAZConfirmed(const int _logNumber)
 int Awards::getDXStatus (const QStringList _qs)
 {
 
-qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
+    //qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
 // Receives:  QStringList _qs;
 //_qs << QRZ << BandId << << ModeId << lognumber;
 
@@ -318,65 +318,65 @@ qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1
     int _logNumber = _qs.at(3).toInt();
     int dxccEntity = world->getQRZARRLId(_qs.at(0) );
 
-    qDebug() << "Awards::getDXStatus: dxccEntity: " << QString::number(dxccEntity) << endl;
+   //qDebug() << "Awards::getDXStatus: dxccEntity: " << QString::number(dxccEntity) << endl;
 
 
     bool checkingMode = true;
     if (_mode==-1)
     {
         checkingMode = false;
-        qDebug() << "Awards::getDXStatus: checkingMode = FALSE" << endl;
+       //qDebug() << "Awards::getDXStatus: checkingMode = FALSE" << endl;
     }
 
     switch(dxccStatus(dxccEntity, _logNumber))
     { //-1 error / 0 Not worked / 1 worked / 2 confirmed
         case 0: // Not worked in any band                       => NEW ONE!
-        qDebug() << "Awards::getDXStatus: dxccStatus returned: 0" << endl;
+       //qDebug() << "Awards::getDXStatus: dxccStatus returned: 0" << endl;
             return 0;
         break;
         case 1: // Worked in another band, but not confirmed    => Could be new one, but it has been worked
-        qDebug() << "Awards::getDXStatus: dxccStatus returned 1: " << endl;
+       //qDebug() << "Awards::getDXStatus: dxccStatus returned 1: " << endl;
             switch (dxccStatusBandMode (dxccEntity, _band, _mode, _logNumber, checkingMode))
             {// Status in this band & Mode? //-1 error / 0 Not worked / 1 worked / 2 confirmed
 
                 case 0: //
-                qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 1: " << endl;
+               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 1: " << endl;
                     return 1;
                 break;
                 case 1: //
-                qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 2: " << endl;
+               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 2: " << endl;
                     return 2;
                 break;
                 default:
-                qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned default: " << endl;
+               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned default: " << endl;
                     return -1;
                 break;
             }
         break;
         case 2: // Confirmed
-        qDebug() << "Awards::getDXStatus: dxccStatus returned 2: " << endl;
+       //qDebug() << "Awards::getDXStatus: dxccStatus returned 2: " << endl;
             switch (dxccStatusBandMode (dxccEntity, _band, _mode, _logNumber, checkingMode))
             {// Status in this band & Mode? //-1 error / 0 Not worked / 1 worked / 2 confirmed
                 case 0: // Not worked in this band&Mode
-                qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 0 but I translate into 1: " << endl;
+               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 0 but I translate into 1: " << endl;
                     return 1;
                 break;
                 case 1: // Worked in this band&Mode
-                qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 1 but I translate into 2: " << endl;
+               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 1 but I translate into 2: " << endl;
                     return 2;
                 break;
                 case 2: // Confirmed in this band&Mode
-                qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 2 but I translate into 3: " << endl;
+               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 2 but I translate into 3: " << endl;
                     return 3;
                 break;
                 default:
-                qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned default2: " << endl;
+               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned default2: " << endl;
                     return -1;
                 break;
             }
         break;
         default:
-        qDebug() << "Awards::getDXStatus: dxccStatus returned default: " << endl;
+       //qDebug() << "Awards::getDXStatus: dxccStatus returned default: " << endl;
             return -1;
         break;
     }
@@ -384,18 +384,18 @@ qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1
 }
 int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode, const int _logNumber, bool _checkingMode)
 {//-1 error / 0 Not worked / 1 worked / 2 confirmed
-    qDebug() << "Awards::dxccStatusBandMode: " << QString::number(_ent) << "/" << QString::number(_band) << "/" << QString::number(_mode) << endl;
+   //qDebug() << "Awards::dxccStatusBandMode: " << QString::number(_ent) << "/" << QString::number(_band) << "/" << QString::number(_mode) << endl;
     QSqlQuery query = QSqlQuery();
     QString queryString = QString();
 
     if (_checkingMode)
     {
-        qDebug() << "Awards::dxccStatusBandMode: Checking Mode TRUE" << endl;
+       //qDebug() << "Awards::dxccStatusBandMode: Checking Mode TRUE" << endl;
         queryString = QString("SELECT confirmed FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND mode='%3' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_mode)).arg(QString::number(_logNumber));
     }
     else
     {
-        qDebug() << "Awards::dxccStatusBandMode: Checking Mode FALSE" << endl;
+       //qDebug() << "Awards::dxccStatusBandMode: Checking Mode FALSE" << endl;
         queryString = QString("SELECT confirmed FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND lognumber='%3' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
     }
 
@@ -483,7 +483,7 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
     //From Search QSO to QSL: q << _call << bandid << _mode << QString::number(currentLog);
 
 
-    qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3) << endl;
+    //qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3) << endl;
     // Receives:  QStringList _qs;
     //_qs << QRZ << BandID << ModeId << lognumber;
 
@@ -501,24 +501,24 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
 
         case 0:
             returnedColor = newOneColor;
-           qDebug() << "Awards::getQRZDXStatusColor: 0: " << returnedColor.name() << endl;
+          //qDebug() << "Awards::getQRZDXStatusColor: 0: " << returnedColor.name() << endl;
 
         break;
         case 1:
             returnedColor =  neededColor;
-           qDebug() << "Awards::getQRZDXStatusColor: 1: " << returnedColor.name() << endl;
+          //qDebug() << "Awards::getQRZDXStatusColor: 1: " << returnedColor.name() << endl;
         break;
         case 2:
             returnedColor =  workedColor;
-            qDebug() << "Awards::getQRZDXStatusColor: 2: " << returnedColor.name() << endl;
+           //qDebug() << "Awards::getQRZDXStatusColor: 2: " << returnedColor.name() << endl;
         break;
         case 3:
             returnedColor =  confirmedColor;
-            qDebug() << "Awards::getQRZDXStatusColor: 3: " << returnedColor.name() << endl;
+           //qDebug() << "Awards::getQRZDXStatusColor: 3: " << returnedColor.name() << endl;
         break;
         default:
             returnedColor =  defaultColor;
-           qDebug() << "Awards::getQRZDXStatusColor: Def: " << returnedColor.name() << endl;
+          //qDebug() << "Awards::getQRZDXStatusColor: Def: " << returnedColor.name() << endl;
         break;
 
     }

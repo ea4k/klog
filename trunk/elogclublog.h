@@ -1,57 +1,45 @@
 #ifndef ELOGCLUBLOG_H
 #define ELOGCLUBLOG_H
-/***************************************************************************
-                          elogclublog.h  -  description
-                             -------------------
-    begin                : apt 2015
-    copyright            : (C) 2015 by Jaime Robles
-    email                : jaime@robles.es
- ***************************************************************************/
-
-/*****************************************************************************
- * This file is part of KLog.                                             *
- *                                                                           *
- *    KLog is free software: you can redistribute it and/or modify        *
- *    it under the terms of the GNU General Public License as published by   *
- *    the Free Software Foundation, either version 3 of the License, or      *
- *    (at your option) any later version.                                    *
- *                                                                           *
- *    KLog is distributed in the hope that it will be useful,                *
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
- *    GNU General Public License for more details.                           *
- *                                                                           *
- *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
- *                                                                           *
- *****************************************************************************/
-
-/*
-    This class implements the interface with http://www.clublog.org
-
-Realtime QSO uploading:
-    http://clublog.freshdesk.com/support/solutions/articles/54906-how-to-upload-qsos-in-real-time
-ADIF ClubLog (16 fields)
-    http://clublog.freshdesk.com/support/solutions/articles/53202-which-adif-fields-does-club-log-use-
-
-*/
-
-#include <QNetworkAccessManager>
- #include <QStringList>
+#include <QObject>
+#include <QString>
+#include <QProgressDialog>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
 
 
-class eLogClubLog
-{
+class eLogClubLog : public QObject {
+    Q_OBJECT
 public:
-    eLogClubLog();
+    explicit eLogClubLog();
+    ~eLogClubLog();
 
-    int sendQSO(const QString _qso);
+    void setCredentials(const QString _call, const QString _email, const QString _pass);
+    int sendQSO(const QStringList _qso);
+
+    //int download();
 
 private:
-    QString getCLubLogAdif(const QStringList _q);
+    QString getClubLogAdif(const QStringList _q);
+    QString call, email, pass, api;
 
-    //QHttp *http;
+    QNetworkAccessManager *manager;
+    QNetworkReply* reply;
+
+    int result;
+    QString target;
+
+private slots:
+    void downloadFinished(QNetworkReply* data);
+    void downloadProgress(qint64 received, qint64 total);
+    void slotErrorManagement(QNetworkReply::NetworkError networkError);
+
+
+signals:
+    void actionReturnDownload(const int _i);
+    void done();
+    void actionShowProgres(qint64 received, qint64 total);
+    void actionError(const int _i);
+
 
 };
-
-#endif // ELOGCLUBLOG_H
+#endif // DOWNLOADCTY_H
