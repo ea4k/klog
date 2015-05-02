@@ -49,6 +49,7 @@ public:
     virtual bool isVHF(const int _band);
 
     virtual QString getCallFromId(const int _qsoId);
+    virtual QStringList getClubLogRealTimeFromId(const int _qsoId);
 
     virtual QStringList getOperatingYears(const int _currentLog);
     virtual void compressDB();

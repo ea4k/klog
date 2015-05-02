@@ -107,6 +107,15 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     keepSatPage = false;
 
+    clublogActive = false;
+    clublogRealTime = false;
+    clublogUser = QString();
+    clublogPass = QString();
+    clublogEmail = QString();
+    elogClublog = new eLogClubLog();
+
+
+
     defaultColor.setNamedColor("slategrey");
     neededColor.setNamedColor("yellow");
     workedColor.setNamedColor("blue");
@@ -640,10 +649,13 @@ void MainWindow::slotQRZReturnPressed()
             {
                 //TODO: To move the following lines to this part to properly manage the query result!!
                 //ret = true;
+                qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
 
                 needToSave = true;
                 if (modify)
                 {
+                    qDebug() << "MainWindow::slotQRZReturnPressed: Modifying! " << endl;
+
                     if(modifyingQSO>0)
                     {
                         awards->setAwards(modifyingQSO);
@@ -653,15 +665,52 @@ void MainWindow::slotQRZReturnPressed()
                 }
                 else
                 {
+                    qDebug() << "MainWindow::slotQRZReturnPressed: Not Modifying " << endl;
                     lastId = dataProxy->getLastQSOid();
                     if (lastId>=0)
                     {
+                        qDebug() << "MainWindow::slotQRZReturnPressed: Lastid: "<< QString::number(lastId) << endl;
                         awards->setAwards(lastId);   //Update the DXCC award status
+
+                        // Send to CLUBLOG if enabled
+
+                        if (clublogActive)
+                        {
+                            qDebug() << "MainWindow::slotQRZReturnPressed: clublogActive TRUE" << endl;
+                        }
+                        else
+                        {
+                            qDebug() << "MainWindow::slotQRZReturnPressed: clublogActive FALSE" << endl;
+                        }
+                        if (clublogRealTime)
+                        {
+                            qDebug() << "MainWindow::slotQRZReturnPressed: clublogRealTime TRUE" << endl;
+                        }
+                        else
+                        {
+                            qDebug() << "MainWindow::slotQRZReturnPressed: clublogRealTime FALSE" << endl;
+                        }
+
+
+                        if ((clublogActive) & (clublogRealTime))
+                        {
+                            qDebug() << "MainWindow::slotQRZReturnPressed: (Sending ClubLog) Lastid: "<< QString::number(lastId) << endl;
+                            int x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(lastId));
+                        }
+                        else
+                        {
+                            qDebug() << "MainWindow::slotQRZReturnPressed: (No ClubLog) Lastid: "<< QString::number(lastId) << endl;
+                        }
+                        //<CLUBLOG>
                     }
                 }
 
 
                 logModel->select();
+
+
+
+
                 slotClearButtonClicked();
             }
         }
@@ -4565,6 +4614,17 @@ void MainWindow::readConfigData()
         slotClearButtonClicked();
         createSearchResultsPanel();
     }
+
+    // I need to init the CLUBLOG
+    if (clublogActive)
+    {
+        elogClublog->setCredentials(clublogUser, clublogEmail, clublogPass);
+    }
+    else
+    {
+
+    }
+
 //qDebug() << "MainWindow::slotReadConfigData - END" << endl;
 
 }
@@ -4572,7 +4632,7 @@ void MainWindow::readConfigData()
 bool MainWindow::processConfigLine(const QString _line){
     //qDebug() << "MainWindow::processConfigLine: " << _line << endl;
 
-    QString line = (_line.toUpper()).simplified();
+    QString line = _line.simplified();
     //line.simplified();
     QString aux;
 
@@ -4587,21 +4647,23 @@ bool MainWindow::processConfigLine(const QString _line){
         //qDebug() << "MainWindow::processConfigLine: Wrong Line!" << endl;
         return false;
     }
-
+    QString field = (values.at(0)).toUpper();
     QString value = values.at(1);
+
     int endValue = value.indexOf(';');
     if (endValue>-1){
 
         value = value.left(value.length() - (value.length() - endValue));
     }
 
-    if (values.at(0) == "CALLSIGN"){
+
+    if (field == "CALLSIGN"){
         mainQRZ = value;
-    }else if (values.at(0)=="CQZ"){
+    }else if (field=="CQZ"){
         my_CQz = value.toInt();
-    }else if (values.at(0)=="ITUZ"){
+    }else if (field=="ITUZ"){
         my_ITUz = value.toInt();
-    }else if (values.at(0)=="CONTEST"){
+    }else if (field=="CONTEST"){
         //qDebug() << "MainWindow::processConfigLine: CONTEST: " << endl;
         if (value=="CQ-WW-SSB"){
             contestMode = CQ_WW_SSB;
@@ -4617,36 +4679,26 @@ bool MainWindow::processConfigLine(const QString _line){
             contestMode = NoContest;
         }
 
-    }else if (values.at(0)=="MODES"){
+    }else if (field=="MODES"){
         //qDebug() << "MainWindow::processConfigLine: MODES: " << endl;
         readActiveModes(value.split(", ", QString::SkipEmptyParts));
-    }else if (values.at(0)=="BANDS"){
+    }else if (field=="BANDS"){
         //qDebug() << "MainWindow::processConfigLine: BANDS: " << endl;
         readActiveBands(value.split(", ", QString::SkipEmptyParts));
-    }else if (values.at(0)=="REALTIME"){
+    }else if (field=="REALTIME"){
         //qDebug() << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
-        if ( (value.toUpper()) == "FALSE")
-        {
-            realTime=false;
-        }
-        else
-        {
-            realTime=true;
-        }
+
+        realTime = trueOrFalse(value);
+
     }
-    else if (values.at(0)=="INMEMORY")
+    else if (field=="INMEMORY")
     {
     //qDebug() << "MainWindow::processConfigLine: INMEMORY: " << value.toUpper() << endl;
-        if ( (value.toUpper()) == "FALSE")
-        {
-            DBinMemory=false;
-        }
-        else
-        {
-            DBinMemory=true;
-        }
+
+         DBinMemory = trueOrFalse(value);
+
     }
-    else if (values.at(0) =="DXCLUSTERSERVERTOUSE"){
+    else if (field =="DXCLUSTERSERVERTOUSE"){
         aux = value;  //dxfun.com:8000
         if (aux.contains(':'))
         {
@@ -4663,7 +4715,7 @@ bool MainWindow::processConfigLine(const QString _line){
     }
 
 
-    else if(values.at(0)=="POWER")
+    else if(field=="POWER")
     {
         if (value.toDouble()>0.0)
         {
@@ -4672,195 +4724,88 @@ bool MainWindow::processConfigLine(const QString _line){
         }
 
     }
-    else if (values.at(0)=="USEDEFAULTNAME")
+    else if (field=="USEDEFAULTNAME")
     {
-        if ( (value.toUpper()) == "TRUE")
-        {
-            useDefaultLogFileName=true;
-        }
-        else
-        {
-            useDefaultLogFileName=false;
-        }
+         useDefaultLogFileName = trueOrFalse(value);
     }
 
-    else if (values.at(0)=="IMPERIALSYSTEM")
+    else if (field=="IMPERIALSYSTEM")
     {
-        if ( (value.toUpper()) == "TRUE")
-        {
-            imperialSystem=true;
-        }
-        else
-        {
-            imperialSystem=false;
-        }
+        imperialSystem = trueOrFalse(value);
     }
-    else if (values.at(0)=="SENDQSLWHENREC")
+    else if (field=="SENDQSLWHENREC")
     {
-        if ( (value.toUpper()) == "TRUE")
-        {
-            sendQSLWhenRec=true;
-        }
-        else
-        {
-            sendQSLWhenRec=false;
-        }
+        sendQSLWhenRec = trueOrFalse(value);
     }
 
-    else if (values.at(0)=="SHOWCALLSIGNINSEARCH")
+    else if (field=="SHOWCALLSIGNINSEARCH")
     {
-        if ( (value.toUpper()) == "TRUE")
-        {
-            stationCallSignShownInSearch=true;
-        }
-        else
-        {
-            stationCallSignShownInSearch=false;
-        }
+        stationCallSignShownInSearch = trueOrFalse(value);
     }
 
-    else if (values.at(0)=="ALWAYSADIF")
+    else if (field=="ALWAYSADIF")
     {
-        if ( (value.toUpper()) == "FALSE")
-        {
-            alwaysADIF=false;
-        }
-        else
-        {
-            alwaysADIF=true;
-        }
+        alwaysADIF = trueOrFalse(value);
     }
-    else if (values.at(0)=="UTCTIME")
+    else if (field=="UTCTIME")
     {
         //qDebug() << "MainWindow::processConfigLine: UTCTIME: " << value.toUpper() <<endl;
-        if ( (value.toUpper()) == "FALSE")
-        {
-            UTCTime=false;
-        }
-        else
-        {
-            UTCTime=true;
-        }
-
+        UTCTime = trueOrFalse(value);
     }
-    else if (values.at(0)=="KEEPMYDATA")
+    else if (field=="KEEPMYDATA")
     {
         //qDebug() << "MainWindow::processConfigLine: UTCTIME: " << value.toUpper() <<endl;
-        if ( (value.toUpper()) == "FALSE")
-        {
-            keepMyData=false;
-        }
-        else
-        {
-            keepMyData=true;
-        }
-
+        keepMyData  = trueOrFalse(value);
     }
 
-    else if (values.at(0)=="DXCLUSTERSHOWHF")
+    else if (field=="DXCLUSTERSHOWHF")
     {
-        if ( (value.toUpper()) == "FALSE")
-        {
-            dxClusterShowHF=false;
-        }
-        else
-        {
-            dxClusterShowHF=true;
-        }
+        dxClusterShowHF  = trueOrFalse(value);
     }
 
-    else if (values.at(0)=="DXCLUSTERSHOWVHF")
+    else if (field=="DXCLUSTERSHOWVHF")
     {
-        if ( (value.toUpper()) == "FALSE")
-        {
-            dxClusterShowVHF=false;
-        }
-        else
-        {
-            dxClusterShowVHF=true;
-        }
+        dxClusterShowVHF = trueOrFalse(value);
     }
 
-    else if (values.at(0)=="DXCLUSTERSHOWWARC")
+    else if (field=="DXCLUSTERSHOWWARC")
     {
-        if ( (value.toUpper()) == "FALSE")
-        {
-            dxClusterShowWARC=false;
-        }
-        else
-        {
-            dxClusterShowWARC=true;
-        }
+        dxClusterShowWARC  = trueOrFalse(value);
     }
 
-    else if (values.at(0)=="DXCLUSTERSHOWWORKED")
+    else if (field=="DXCLUSTERSHOWWORKED")
     {
-        if ( (value.toUpper()) == "FALSE")
-        {
-            dxClusterShowWorked=false;
-        }
-        else
-        {
-            dxClusterShowWorked=true;
-        }
+        dxClusterShowWorked = trueOrFalse(value);
     }
 
-    else if (values.at(0)=="DXCLUSTERSHOWCONFIRMED")
+    else if (field=="DXCLUSTERSHOWCONFIRMED")
     {
-        if ( (value.toUpper()) == "FALSE")
-        {
-            dxClusterShowConfirmed=false;
-        }
-        else
-        {
-            dxClusterShowConfirmed=true;
-        }
+        dxClusterShowConfirmed = trueOrFalse(value);
     }
 
-    else if (values.at(0)=="DXCLUSTERSHOWANN")
+    else if (field=="DXCLUSTERSHOWANN")
     {
-        if ( (value.toUpper()) == "FALSE")
-        {
-            dxClusterShowAnn=false;
-        }
-        else
-        {
-            dxClusterShowAnn=true;
-        }
+        dxClusterShowAnn = trueOrFalse(value);
     }
 
 
-    else if (values.at(0)=="DXCLUSTERSHOWWWV")
+    else if (field=="DXCLUSTERSHOWWWV")
     {
-        if ( (value.toUpper()) == "FALSE")
-        {
-            dxClusterShowWWV=false;
-        }
-        else
-        {
-            dxClusterShowWWV=true;
-        }
+        dxClusterShowWWV = trueOrFalse(value);
     }
 
 
-    else if (values.at(0)=="DXCLUSTERSHOWWCY")
+    else if (field=="DXCLUSTERSHOWWCY")
     {
-        if ( (value.toUpper()) == "FALSE")
-        {
-            dxClusterShowWCY=false;
-        }
-        else
-        {
-            dxClusterShowWCY=true;
-        }
+        dxClusterShowWCY = trueOrFalse(value);
     }
 
-    else if (values.at(0)=="DEFAULTADIFFILE")
+    else if (field=="DEFAULTADIFFILE")
     {
         defaultADIFLogFile = value.toLower();
     }
 
-    else if (values.at(0)=="STATIONLOCATOR")
+    else if (field=="STATIONLOCATOR")
     {
 
         if ( locator->isValidLocator(value) )
@@ -4868,29 +4813,51 @@ bool MainWindow::processConfigLine(const QString _line){
             myLocator = value.toUpper();
         }
     }
-    else if(values.at(0)=="NEWONECOLOR")
+    else if(field=="NEWONECOLOR")
     {
         newOneColor.setNamedColor(value);
     }
-    else if(values.at(0)=="NEEDEDCOLOR")
+    else if(field=="NEEDEDCOLOR")
     {
         neededColor.setNamedColor(value);
     }
-    else if(values.at(0)=="WORKEDCOLOR")
+    else if(field=="WORKEDCOLOR")
     {
         workedColor.setNamedColor(value);
     }
-    else if(values.at(0)=="CONFIRMEDCOLOR")
+    else if(field=="CONFIRMEDCOLOR")
     {
         confirmedColor.setNamedColor(value);
     }
-    else if(values.at(0)=="DEFAULTCOLOR")
+    else if(field=="DEFAULTCOLOR")
     {
         defaultColor.setNamedColor(value);
-    }else if(values.at(0)=="SELECTEDLOG"){
+    }else if(field=="SELECTEDLOG")
+    {
         currentLog = value.toInt();
         //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
+    }else if(field=="CLUBLOGACTIVE")
+    {
+       qDebug() << "MainWindow::processConfigLine: clublogActive: " << value << endl;
+        clublogActive = trueOrFalse(value);
+    }
+    else if(field=="CLUBLOGREALTIME")
+    {
+        qDebug() << "MainWindow::processConfigLine: clublogRealTime: " << value << endl;
+        clublogRealTime = trueOrFalse(value);
+    }
+    else if(field=="CLUBLOGCALL")
+    {
+        clublogUser = value;
+    }
+    else if(field=="CLUBLOGPASS")
+    {
+        clublogPass = value;
 
+    }
+    else if(field=="CLUBLOGEMAIL")
+    {
+        clublogEmail = value;
     }
     else
     {
@@ -8640,4 +8607,19 @@ void MainWindow::defineStationCallsign()
 
     //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << endl;
 
+}
+
+bool MainWindow::trueOrFalse(const QString _s)
+{// reads a String and return true if s.upper()== TRUE :-)
+    qDebug() << "MainWindow::trueOrFalse: " << _s << endl;
+
+    if ( (_s.toUpper()) == "TRUE")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    return false;
 }

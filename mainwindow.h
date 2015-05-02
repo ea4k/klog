@@ -49,6 +49,7 @@
 #include "dxcluster.h"
 #include "awards.h"
 #include "mainwindowsattab.h"
+#include "elogclublog.h"
 
 class QTimer;
 class QDateTime;
@@ -291,6 +292,7 @@ private:
     void createData();
     bool processConfigLine(const QString _line);
     void readConfigData();
+    bool trueOrFalse(const QString _s); // reads a String and return true if s.upper()== TRUE :-)
     void defineStationCallsign();
 
     void checkIfNewBandOrMode();
@@ -520,6 +522,14 @@ private:
     QColor workedColor;
     QColor confirmedColor;
     QColor newOneColor;
+
+    //<CLUBLOG>
+    bool clublogActive, clublogRealTime;
+    QString clublogUser, clublogPass, clublogEmail;
+
+    eLogClubLog *elogClublog;
+
+    //</CLUBLOG>
 
     // Contest
     int contestMode, points, qsoPoints, multipliers, qsoMultiplier;

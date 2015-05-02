@@ -64,17 +64,17 @@ SetupDialog::SetupDialog(const bool _firstTime)
     colorsPage = new SetupPageColors(this);
     miscPage = new SetupPageMisc(this);
     worldEditorPage = new SetupPageWorldEditor (this);
-
     logsPage = new SetupPageLogs(this);
+    clubLogPage = new SetupPageClubLog(this);
 
     tabWidget->addTab(userDataPage, tr("My Data"));
     tabWidget->addTab(bandsModesPage, tr("Bands/Modes"));
     tabWidget->addTab(dxClusterPage, tr("DX-Cluster"));
     tabWidget->addTab(colorsPage, tr("Colors"));
     tabWidget->addTab(miscPage, tr("Misc"));
-
     tabWidget->addTab(worldEditorPage, tr("World Editor"));
     logsPageTabN = tabWidget->addTab(logsPage, tr("Logs"));
+    tabWidget->addTab(clubLogPage, tr("ClubLog"));
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
     QPushButton *okButton = new QPushButton(tr("OK"));
@@ -129,17 +129,17 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
     colorsPage = new SetupPageColors(this);
     miscPage = new SetupPageMisc(this);
     worldEditorPage = new SetupPageWorldEditor (this);
-
     logsPage = new SetupPageLogs(this);
+    clubLogPage = new SetupPageClubLog(this);
 
     tabWidget->addTab(userDataPage, tr("User data"));
     tabWidget->addTab(bandsModesPage, tr("Bands/Modes"));
-    tabWidget->addTab(dxClusterPage, tr("DX-Cluster"));
+    tabWidget->addTab(dxClusterPage, tr("D&X-Cluster"));
     tabWidget->addTab(colorsPage, tr("Colors"));
     tabWidget->addTab(miscPage, tr("Misc"));
-
     tabWidget->addTab(worldEditorPage, tr("World Editor"));
     logsPageTabN = tabWidget->addTab(logsPage, tr("Logs"));
+    tabWidget->addTab(clubLogPage, tr("ClubLog"));
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
     QPushButton *okButton = new QPushButton(tr("OK"));
@@ -472,6 +472,18 @@ void SetupDialog::slotOkButtonClicked()
         stream << "DefaultColor=" << colorsPage->getDefaultColor() << ";" <<  endl;
         stream << "SelectedLog=" << QString::number(logsPage->getSelectedLog()) << ";" <<  endl;
 
+        // CLUBLOG
+
+        if ((clubLogPage->getClubLog()).toUpper() == "TRUE" )
+        {
+            stream << "ClubLogActive=" << clubLogPage->getClubLog() << ";" <<  endl;
+            stream << "ClubLogRealTime=" << clubLogPage->getClubLogRealTime() << ";" <<  endl;
+            stream << "ClubLogCall=" << clubLogPage->getCallsign() << ";" <<  endl;
+            stream << "ClubLogPass=" << clubLogPage->getPassword() << ";" <<  endl;
+            stream << "ClubLogEmail=" << clubLogPage->getEmail() << ";" <<  endl;
+        }
+
+        // CLUBLOG
 
         file.close ();
     }
@@ -680,12 +692,23 @@ bool SetupDialog::processConfigLine(const QString _line)
         colorsPage->setDefaultColor(value);
     }else if(values.at(0)=="SELECTEDLOG"){
         logsPage->setSelectedLog(value.toInt());
-
+    }else if(values.at(0)=="CLUBLOGACTIVE"){
+        clubLogPage->setClubLog(value);
+    }
+    else if(values.at(0)=="CLUBLOGREALTIME"){
+        clubLogPage->setClubLogRealTime(value);
+    }
+    else if(values.at(0)=="CLUBLOGCALL"){
+        clubLogPage->setCallsign(value);
+    }
+    else if(values.at(0)=="CLUBLOGPASS"){
+        clubLogPage->setPassword(value);
+    }
+    else if(values.at(0)=="CLUBLOGEMAIL"){
+        clubLogPage->setEmail(value);
     }else{
         //qDebug() << "SetupDialog::processConfigLine: NONE: " << endl;
     }
-
-
 
     // Lines are: Option = value;
 

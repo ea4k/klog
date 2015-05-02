@@ -61,12 +61,9 @@ SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
     lastLog = 0;
 
 
-    newLogPushButton = new QPushButton(tr("New"), this);
-    //loadAllPushButton = new QPushButton(tr("Load All"), this);
-    //loadSelectedPushButton = new QPushButton(tr("Load"), this);
-    //clearPushButton = new QPushButton(tr("Clear"), this);
-    editPushButton = new QPushButton(tr("Edit"), this);
-    removePushButton = new QPushButton(tr("Remove"), this);
+    newLogPushButton = new QPushButton(tr("&New"), this);
+    editPushButton = new QPushButton(tr("&Edit"), this);
+    removePushButton = new QPushButton(tr("&Remove"), this);
 
 
     newLogPushButton->setToolTip(tr("Add a new log"));
@@ -80,12 +77,8 @@ SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(newLogPushButton);
-    //buttonsLayout->addWidget(loadSelectedPushButton);
-    //buttonsLayout->addWidget(loadAllPushButton);
     buttonsLayout->addWidget(editPushButton);
     buttonsLayout->addWidget(removePushButton);
-    //buttonsLayout->addWidget(clearPushButton);
-
 
     QVBoxLayout *widgetLayout = new QVBoxLayout;
     widgetLayout->addWidget(logsView);

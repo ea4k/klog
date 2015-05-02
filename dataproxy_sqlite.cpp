@@ -500,6 +500,214 @@ QString DataProxy_SQLite::getCallFromId(const int _qsoId)
     }
 }
 
+
+QStringList DataProxy_SQLite::getClubLogRealTimeFromId(const int _qsoId)
+{
+  //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: " << QString::number(_qsoId) << endl;
+/* Return a QStringList with these data:
+QSO_DATE, TIME_ON, QSLRDATE, QSLSDATE, CALL, OPERATOR, MODE, BAND, BAND_RX, FREQ, QSL_RCVD,
+LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
+*/
+
+    QSqlQuery query;
+    int nameCol = -1;
+    QStringList dataC = QStringList();
+    QString aux1 = QString();
+
+// IMPORTANT: band_rx is not always present, and if it is not present, the query with INNER JOIN will fail.
+// To fix that we will do two queries, one to check if I have all the data and if not another one with a reduced scope.
+
+    QString stringQuery = QString("SELECT qso_date, time_on, qslrdate, qslsdate, call, operator, M.name, B.name, R.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN band as R ON band_rx = R.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
+    bool sqlOk = query.exec(stringQuery);
+
+   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastQuery: " << query.lastQuery()  << endl;
+   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-data: " << query.lastError().databaseText()  << endl;
+   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-driver: " << query.lastError().driverText()  << endl;
+   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-n: " << QString::number(query.lastError().number() ) << endl;
+
+
+    QSqlRecord rec = query.record();
+    if (sqlOk)
+    {
+      //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId sqlOK" << endl;
+        if (query.next())
+        //if (1)
+        {
+            if (query.isValid())
+            {
+                nameCol = rec.indexOf("qso_date");
+                dataC << (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("time_on");
+
+
+                //aux = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                //aux1 = checkAndFixASCIIinADIF(aux1);
+                //qDebug() << "FileManager::adifLogExportToFile-time_on: "  << aux1 << endl;
+
+                aux1 = (query.value(nameCol)).toString();
+               //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId time: " << aux1 << endl;
+                if ( ((aux1.length()) == 5) || ((aux1.length()) == 8) ){
+                    aux1.remove(QChar(':'), Qt::CaseInsensitive);
+                    dataC << aux1;
+                   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId time1.5: " << aux1 << endl;
+
+                }
+               //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId time2: " << aux1 << endl;
+
+
+
+
+                dataC << (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("qslrdate");
+                dataC << (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("qslsdate");
+                dataC << (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("call");
+                dataC << (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("operator");
+                dataC << (query.value(nameCol)).toString();
+
+                //nameCol = rec.indexOf("M.name");                 //TODO: Fix this to get the proper column
+                dataC << (query.value(6)).toString();
+
+                //nameCol = rec.indexOf("B.name");
+                dataC << (query.value(7)).toString();               //TODO: Fix this to get the proper column
+
+                //nameCol = rec.indexOf("R.name");                 //TODO: Fix this to get the proper column (use an index instead of a number)
+                dataC << (query.value(8)).toString();
+
+                nameCol = rec.indexOf("freq");
+                dataC << (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("qsl_rcvd");
+                dataC << (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("lotw_qsl_rcvd");
+                dataC << (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("qsl_sent");
+                dataC << (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("dxcc");
+                dataC << (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("prop_mode");
+                dataC << (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("credit_granted");
+                dataC << (query.value(nameCol)).toString();
+
+               //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: RETURNING ... OK" << endl;
+                return dataC;
+            }
+            else
+            {
+                //NO VALID
+               //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NO VALID NOT OK" << endl;
+                return QStringList();
+            }
+        }
+        else
+        {
+            QString stringQuery = QString("SELECT qso_date, time_on, qslrdate, qslsdate, call, operator, M.name, B.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
+            //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NO NEXT NOT OK" << endl;
+
+            sqlOk = query.exec(stringQuery);
+            rec = query.record();
+            if (sqlOk)
+            {
+               //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId OK2" << endl;
+                if (query.next())
+                {
+                   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NEXT OK2" << endl;
+                    if (query.isValid())
+                    {
+                        nameCol = rec.indexOf("qso_date");
+                        dataC << (query.value(nameCol)).toString();
+                        nameCol = rec.indexOf("time_on");
+
+                        aux1 = (query.value(nameCol)).toString();
+                       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId time2-1: " << aux1 << endl;
+                        if ( ((aux1.length()) == 5) || ((aux1.length()) == 8) ){
+                            aux1.remove(QChar(':'), Qt::CaseInsensitive);
+                            dataC << aux1;
+                           //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId time2-1.5: " << aux1 << endl;
+
+                        }
+                       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId time2-2: " << aux1 << endl;
+
+
+                        //dataC << (query.value(nameCol)).toString();
+                        nameCol = rec.indexOf("qslrdate");
+                        dataC << (query.value(nameCol)).toString();
+                        nameCol = rec.indexOf("qslsdate");
+                        dataC << (query.value(nameCol)).toString();
+                        nameCol = rec.indexOf("call");
+                        dataC << (query.value(nameCol)).toString();
+                        nameCol = rec.indexOf("operator");
+                        dataC << (query.value(nameCol)).toString();
+
+                        nameCol = rec.indexOf("M.name");                 //TODO: Fix this to get the proper column
+                        dataC << (query.value(6)).toString();
+
+                        nameCol = rec.indexOf("B.name");
+                        dataC << (query.value(7)).toString();               //TODO: Fix this to get the proper column
+
+                        //nameCol = rec.indexOf("band_rx");                 //TODO: Fix this to get the proper column (use an index instead of a number)
+                        dataC << "";
+
+                        nameCol = rec.indexOf("freq");
+                        dataC << (query.value(nameCol)).toString();
+                        nameCol = rec.indexOf("qsl_rcvd");
+                        dataC << (query.value(nameCol)).toString();
+                        nameCol = rec.indexOf("lotw_qsl_rcvd");
+                        dataC << (query.value(nameCol)).toString();
+                        nameCol = rec.indexOf("qsl_sent");
+                        dataC << (query.value(nameCol)).toString();
+                        nameCol = rec.indexOf("dxcc");
+                        dataC << (query.value(nameCol)).toString();
+                        nameCol = rec.indexOf("prop_mode");
+                        dataC << (query.value(nameCol)).toString();
+                        nameCol = rec.indexOf("credit_granted");
+                        dataC << (query.value(nameCol)).toString();
+                       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: RETURNING ... OK" << endl;
+                        return dataC;
+
+                    }
+                    else
+                    {
+                       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NO VALID NOT OK2" << endl;
+                        return QStringList();
+                    }
+                }
+                else
+                {
+                   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NO NEXT NOT OK2" << endl;
+                    return QStringList();
+                }
+
+
+
+            }
+            else
+            {
+               //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NOT OK2" << endl;
+                return QStringList();
+            }
+
+
+
+
+
+
+            return QStringList();
+            // NO NEXT
+        }
+    }
+    else
+    {
+       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NOT sqlOK" << endl;
+        return QStringList();
+    }
+qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId END NOT OK" << endl;
+    return QStringList();
+}
+
+
 bool DataProxy_SQLite::deleteQSO(const int _qsoId)
 {
     //qDebug() << "DataProxy_SQLite::deleteQSO" << endl;

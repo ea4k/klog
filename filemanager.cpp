@@ -36,6 +36,7 @@ FileManager::FileManager()
     db = new DataBase(0);
     db->createBandModeMaps();
     kontestVersion="";
+    noMoreQso = false;
     dataProxy = new DataProxy_SQLite();
    // preparedQuery = new QSqlQuery;
 
@@ -52,6 +53,7 @@ FileManager::FileManager(const QString _kontestDir)
     db->createBandModeMaps();
     kontestVersion="";
     dataProxy = new DataProxy_SQLite();
+    noMoreQso = false;
 //preparedQuery = new QSqlQuery;
 
 }
@@ -66,6 +68,7 @@ FileManager::FileManager(const QString _kontestDir, const QString _softVersion, 
     db->createBandModeMaps();
     kontestVersion = _softVersion;
     dataProxy = new DataProxy_SQLite();
+    noMoreQso = false;
 //preparedQuery = new QSqlQuery;
 }
 
@@ -165,7 +168,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     QSqlQuery query1;
     int numberOfQsos = 0;
     int currentQso = 0;
-    bool noMoreQso = false;
+    //bool noMoreQso = false;
     int step = 1;
     bool propsat=false; // Just to check if we have added the prop_mode needed by LOTW when SAT QSO
     bool bandOK = false; // Just to check if the band is properly defined
@@ -246,7 +249,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     progress.setMaximum(numberOfQsos);
     progress.setWindowModality(Qt::WindowModal);
 
-    out << "ADIF v2.2.7 Export from KLog\nhttp://jaime.robles.es/klog\n<APP_KLOG_RELEASE:" << QString::number(kontestVersion.length()) << ">" << kontestVersion << "\n<PROGRAMID:7>KLOG" << endl;
+    out << "ADIF v2.2.7 Export from KLog\nhttp://jaime.robles.es/klog\n<PROGRAMVERSION:" << QString::number(kontestVersion.length()) << ">" << kontestVersion << "\n<PROGRAMID:7>KLOG" << endl;
     out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
 
     QDateTime dateTime = (QDateTime::currentDateTime()).toUTC();
@@ -2606,6 +2609,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             msgBox.setText(aux + "FM-3 #" + QString::number(errorCode));
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
+
             int ret = msgBox.exec();
             switch (ret) {
               case QMessageBox::Ok:
@@ -3412,8 +3416,23 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     {
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog: Not all required data found!"));
-        msgBox.setText(tr("This QSO is not including all the needed information.\nPlease edit the ADIF file and make sure that in includes\nCALL, QSO_DATE, TIME_ON, BAND and MODE."));
-        msgBox.exec();
+        msgBox.setText(tr("This QSO is not including the minimum data to consider a QSO as valid!.\n\n\nPlease edit the ADIF file and make sure that it include at least:\n\nCALL, QSO_DATE, TIME_ON, BAND and MODE.\n\nDo you want to continue with the current file?"));
+        msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Cancel);
+        msgBox.setIcon(QMessageBox::Warning);
+        int ret = msgBox.exec();
+        switch (ret) {
+          case QMessageBox::Yes:
+              // Yes was clicked
+
+              break;
+        case QMessageBox::Cancel:
+            noMoreQso = true;
+            break;
+          default:
+              // should never be reached
+              break;
+        }
 
     }
 
@@ -3425,6 +3444,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::Yes);
+        msgBox.setIcon(QMessageBox::Warning);
         int ret = msgBox.exec();
         switch (ret) {
           case QMessageBox::Yes:
@@ -3446,6 +3466,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
         msgBox.setWindowTitle(tr("KLog: No RST RX found!"));
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::Yes);
+        msgBox.setIcon(QMessageBox::Warning);
         int ret = msgBox.exec();
         switch (ret) {
           case QMessageBox::Yes:

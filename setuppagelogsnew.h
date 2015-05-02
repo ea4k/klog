@@ -122,7 +122,10 @@ private:
     bool editing;
 
     QLabel *catAsLabel, *catOpLabel, *catModeLabel, *catPowerLabel, *catBandsLabel, *overlayLabel;
-    QLabel *typeLabel, *validCats;
+    QLabel *typeLabel, *validCats, *stationCallsignLabel, *operatorsLabel, *commentLabel, *dateLabel;
+
+    //nameLabel->setBuddy();
+
     bool checking, bCass, bCOp, bCMo, bCPo, bCBa, bCOv, bCTy;
 
 };

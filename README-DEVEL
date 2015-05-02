@@ -138,7 +138,7 @@ KLog is using some application defined ADIF fields: APP_{PROGRAMID}_{FIELDNAME}
 Header fields:
     APP_KLOG_LOG_DATE_EXPORT: The date and time (in UTC) when the log was exported.
     APP_KLOG_QSOS: The number of QSOs in the log.
-    APP_KLOG_RELEASE: Release of KLog used to export the log file.
+    DEPRECATED: APP_KLOG_RELEASE: Release of KLog used to export the log file. CHANGED TO PROGRAMVERSION (ADIF standard)
 
 QSO fields:
     APP_KLOG_POINTS: Points given by the QSO.
