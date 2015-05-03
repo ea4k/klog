@@ -21,7 +21,8 @@ public:
 
 private:
     QString getClubLogAdif(const QStringList _q);
-    int sendData(const QString _q); //                  Sends the data (http post) to ClubLog
+    int sendData(const QString _q);                     //  Sends the data (http post) to ClubLog
+    QString prepareToTranslate(const QString _m);       //  Get the message and put it in a tr to be able to translate it
 
     QString call, email, pass, api;
 
@@ -42,6 +43,7 @@ signals:
     void done();
     void actionShowProgres(qint64 received, qint64 total);
     void actionError(const int _i);
+    void showMessage(const QString _t);
 
 
 };

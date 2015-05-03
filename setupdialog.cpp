@@ -522,11 +522,11 @@ bool SetupDialog::processConfigLine(const QString _line)
 
     //qDebug() << "SetupDialog::processConfigLine: " << _line << endl;
 
-    QString line = (_line.toUpper()).simplified();
+    QString line = _line.simplified();
     //line.simplified();
 
     QStringList values = line.split("=", QString::SkipEmptyParts);
-
+    QString tab = QString();
 
 
     if (line.startsWith('#')){
@@ -538,6 +538,8 @@ bool SetupDialog::processConfigLine(const QString _line)
         return false;
     }
     QString value = values.at(1);
+    tab = (values.at(0)).toUpper();
+
     int endValue = value.indexOf(';');
     if (endValue>-1){
 
@@ -545,166 +547,166 @@ bool SetupDialog::processConfigLine(const QString _line)
     }
     value = checkAndFixASCIIinADIF(value); // Check whether the value is valid.
 
-    if (values.at(0) == "CALLSIGN"){
+    if (tab == "CALLSIGN"){
         //qDebug() << "SetupDialog::processConfigLine: CALLSIGN: " << value << endl;
         userDataPage->setStationQrz(value);
-    }else if (values.at(0) == "OPERATORS"){
+    }else if (tab == "OPERATORS"){
         userDataPage->setOperators(value);
-    }else if (values.at(0)=="CQZ"){
+    }else if (tab=="CQZ"){
         userDataPage->setCQz((value).toInt());
 
-    }else if (values.at(0)=="ITUZ"){
+    }else if (tab=="ITUZ"){
         userDataPage->setITUz((value).toInt());
-    }else if (values.at(0)=="CONTEST"){
+    }else if (tab=="CONTEST"){
         //userDataPage->setContest(value);
-    }else if (values.at(0)=="MODES"){
+    }else if (tab=="MODES"){
         readActiveModes(value);
         bandsModesPage->setActiveModes(modes);
-    }else if (values.at(0)=="BANDS"){
+    }else if (tab=="BANDS"){
         readActiveBands(value);
         bandsModesPage->setActiveBands(bands);
-    }else if (values.at(0)=="INMEMORY"){
+    }else if (tab=="INMEMORY"){
         miscPage->setInMemory(value);
-    }else if (values.at(0)=="REALTIME"){
+    }else if (tab=="REALTIME"){
         miscPage->setRealTime(value);
-    }else if (values.at(0)=="UTCTIME"){
+    }else if (tab=="UTCTIME"){
         miscPage->setUTCTime(value);
-    }else if (values.at(0)=="ALWAYSADIF"){
+    }else if (tab=="ALWAYSADIF"){
         miscPage->setAlwaysADIF(value);
-    }else if (values.at(0)=="USEDEFAULTNAME"){
+    }else if (tab=="USEDEFAULTNAME"){
         miscPage->setDefaultFileName(value);
-    }else if (values.at(0)=="DEFAULTADIFFILE"){
+    }else if (tab=="DEFAULTADIFFILE"){
         miscPage->setDefaultFileName(value.toLower());
-    }else if (values.at(0)=="IMPERIALSYSTEM"){
+    }else if (tab=="IMPERIALSYSTEM"){
         miscPage->setImperial(value.toLower());
-    }else if (values.at(0)=="KEEPMYDATA"){
+    }else if (tab=="KEEPMYDATA"){
         miscPage->setKeepMyData(value.toLower());
-    }else if (values.at(0)=="SENDQSLWHENREC"){
+    }else if (tab=="SENDQSLWHENREC"){
         miscPage->setSendQSLWhenRec(value.toLower());
     }
-    else if (values.at(0)=="SHOWCALLSIGNINSEARCH"){
+    else if (tab=="SHOWCALLSIGNINSEARCH"){
         miscPage->setShowStationCallSignInSearch(value.toLower());
     }
-    else if (values.at(0)=="NAME")
+    else if (tab =="NAME")
     {
         userDataPage->setName(value);
     }
-    else if (values.at(0)=="ADDRESS1")
+    else if (tab =="ADDRESS1")
     {
         userDataPage->setAddress1(value);
     }
-    else if (values.at(0)=="ADDRESS2")
+    else if (tab =="ADDRESS2")
     {
         userDataPage->setAddress2(value);
     }
-    else if (values.at(0)=="ADDRESS3")
+    else if (tab =="ADDRESS3")
     {
         userDataPage->setAddress3(value);
     }
-    else if (values.at(0)=="ADDRESS4")
+    else if (tab =="ADDRESS4")
     {
         userDataPage->setAddress4(value);
     }
-    else if (values.at(0)=="CITY")
+    else if (tab =="CITY")
     {
         userDataPage->setCity(value);
     }
-    else if (values.at(0)=="ZIPCODE")
+    else if (tab =="ZIPCODE")
     {
         userDataPage->setZipCode(value);
     }
-    else if (values.at(0)=="PROVINCESTATE")
+    else if (tab =="PROVINCESTATE")
     {
         userDataPage->setProvince(value);
     }
-    else if (values.at(0)=="COUNTRY")
+    else if (tab =="COUNTRY")
     {
         userDataPage->setCountry(value);
     }
-    else if (values.at(0)=="POWER")
+    else if (tab =="POWER")
     {
         userDataPage->setPower(value);
     }
-    else if (values.at(0)=="RIG1")
+    else if (tab =="RIG1")
     {
         userDataPage->setRig1(value);
     }
-    else if (values.at(0)=="RIG2")
+    else if (tab =="RIG2")
     {
         userDataPage->setRig2(value);
     }
-    else if (values.at(0)=="RIG3")
+    else if (tab =="RIG3")
     {
         userDataPage->setRig3(value);
     }
 
-    else if (values.at(0)=="ANTENNA1")
+    else if (tab =="ANTENNA1")
     {
         userDataPage->setAntenna1(value);
     }
-    else if (values.at(0)=="ANTENNA2")
+    else if (tab =="ANTENNA2")
     {
         userDataPage->setAntenna2(value);
     }
-    else if (values.at(0)=="ANTENNA3")
+    else if (tab =="ANTENNA3")
     {
         userDataPage->setAntenna3(value);
     }
-    else if (values.at(0)=="STATIONLOCATOR"){
+    else if (tab =="STATIONLOCATOR"){
 
         if ( locator->isValidLocator(value) )
         {
             userDataPage->setStationLocator(value);
         }
 
-    }else if (values.at(0)=="DXCLUSTERSHOWHF"){
+    }else if (tab =="DXCLUSTERSHOWHF"){
         dxClusterPage->setShowHFRadiobutton(value);
-    }else if (values.at(0)=="DXCLUSTERSHOWVHF"){
+    }else if (tab =="DXCLUSTERSHOWVHF"){
         dxClusterPage->setShowVHFRadiobutton(value);
-    }else if (values.at(0)=="DXCLUSTERSHOWWARC"){
+    }else if (tab =="DXCLUSTERSHOWWARC"){
         dxClusterPage->setShowWARCRadiobutton(value);
-    }else if (values.at(0)=="DXCLUSTERSHOWWORKED"){
+    }else if (tab =="DXCLUSTERSHOWWORKED"){
         dxClusterPage->setShowWorkedRadiobutton(value);
-    }else if (values.at(0)=="DXCLUSTERSHOWCONFIRMED"){
+    }else if (tab =="DXCLUSTERSHOWCONFIRMED"){
         dxClusterPage->setShowConfirmedRadiobutton(value);
-    }else if (values.at(0)=="DXCLUSTERSHOWANN"){
+    }else if (tab =="DXCLUSTERSHOWANN"){
         dxClusterPage->setShowANNRadiobutton(value);
-    }else if (values.at(0)=="DXCLUSTERSHOWWWV"){
+    }else if (tab =="DXCLUSTERSHOWWWV"){
         dxClusterPage->setShowWWVRadiobutton(value);
-    }else if (values.at(0)=="DXCLUSTERSHOWWCY"){
+    }else if (tab =="DXCLUSTERSHOWWCY"){
         dxClusterPage->setShowWCYRadiobutton(value);
-    }else if(values.at(0)=="DXCLUSTERSERVERPORT"){
+    }else if(tab =="DXCLUSTERSERVERPORT"){
         dxClusterServers << value;
         //qDebug() << "SetupDialog::processConfigLine: dxClusterServers: " << dxClusterServers.last() << endl;
 
-    }else if (values.at(0) =="DXCLUSTERSERVERTOUSE"){
+    }else if (tab  =="DXCLUSTERSERVERTOUSE"){
         dxClusterServerToUse=value;
     }
-    else if(values.at(0)=="NEWONECOLOR"){
+    else if(tab =="NEWONECOLOR"){
         colorsPage->setNewOneColor(value);
-    }else if(values.at(0)=="NEEDEDCOLOR"){
+    }else if(tab =="NEEDEDCOLOR"){
         colorsPage->setNeededColor(value);
-    }else if(values.at(0)=="WORKEDCOLOR"){
+    }else if(tab =="WORKEDCOLOR"){
         colorsPage->setWorkedColor(value);
-    }else if(values.at(0)=="CONFIRMEDCOLOR"){
+    }else if(tab =="CONFIRMEDCOLOR"){
         colorsPage->setConfirmedColor(value);
-    }else if(values.at(0)=="DEFAULTCOLOR"){
+    }else if(tab =="DEFAULTCOLOR"){
         colorsPage->setDefaultColor(value);
-    }else if(values.at(0)=="SELECTEDLOG"){
+    }else if(tab =="SELECTEDLOG"){
         logsPage->setSelectedLog(value.toInt());
-    }else if(values.at(0)=="CLUBLOGACTIVE"){
+    }else if(tab =="CLUBLOGACTIVE"){
         clubLogPage->setClubLog(value);
     }
-    else if(values.at(0)=="CLUBLOGREALTIME"){
+    else if(tab =="CLUBLOGREALTIME"){
         clubLogPage->setClubLogRealTime(value);
     }
-    else if(values.at(0)=="CLUBLOGCALL"){
+    else if(tab =="CLUBLOGCALL"){
         clubLogPage->setCallsign(value);
     }
-    else if(values.at(0)=="CLUBLOGPASS"){
+    else if(tab =="CLUBLOGPASS"){
         clubLogPage->setPassword(value);
     }
-    else if(values.at(0)=="CLUBLOGEMAIL"){
+    else if(tab =="CLUBLOGEMAIL"){
         clubLogPage->setEmail(value);
     }else{
         //qDebug() << "SetupDialog::processConfigLine: NONE: " << endl;

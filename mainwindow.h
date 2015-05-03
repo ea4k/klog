@@ -212,6 +212,9 @@ private slots:
     void slotAnalyzeDxClusterSignal(const QStringList _qs);
 
     // CLUSTER
+    //CLUBLOG
+    void slotElogClubLogShowMessage(const QString _s);
+    //CLUBLOG
 
 
 private:

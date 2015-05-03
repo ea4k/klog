@@ -2470,9 +2470,16 @@ void MainWindow::createActionsCommon(){
 //SIGNAL dxspotclicked(const QStringList _qs)
     connect(dxClusterWidget, SIGNAL(dxspotclicked(QStringList)), this, SLOT(slotAnalyzeDxClusterSignal(QStringList) ) );
 
+// CLUBLOG
+    connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
 
 }
 
+void MainWindow::slotElogClubLogShowMessage(const QString _s)
+{
+    updateStatusBar(_s);
+
+}
 void MainWindow::slotRecalculateAwardsButtonClicked()
 {
     //qDebug() << "MainWindow::recalculateAwardsButtonClicked: " << endl;
@@ -3758,8 +3765,8 @@ void MainWindow::newFile()
 
 void MainWindow::updateStatusBar(const QString statusm)
 {
-    //qDebug() << "MainWindow::updateStatusBar: " << statusm  << endl;
-    statusBar()->showMessage(statusm);
+    qDebug() << "MainWindow::updateStatusBar: " << statusm  << endl;
+    statusBar()->showMessage(statusm, 2000);
 }
 
 
