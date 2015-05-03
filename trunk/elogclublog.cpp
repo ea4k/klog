@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QDebug>
 
+
 eLogClubLog::eLogClubLog() : QObject(0)
 {    
     call= QString();
@@ -19,6 +20,37 @@ eLogClubLog::~eLogClubLog()
 }
 
 
+QString eLogClubLog::prepareToTranslate(const QString _m)
+{
+    if (_m == "No match found")
+    {
+        return tr("No match found");
+    }
+    else if (_m == "Dropped QSO")
+    {
+        return tr("Dropped QSO");
+    }
+    else if (_m == "OK")
+    {
+        return tr("OK");
+    }
+    else if (_m == "Login rejected")
+    {
+        return tr("Login rejected");
+    }
+    else if (_m == "Upload denied")
+    {
+        return tr("Upload denied");
+    }
+    else if (_m == "Rejected: Callsign is your own call")
+    {
+        return tr("Rejected: Callsign is your own call");
+    }
+    else
+    {
+        return _m;
+    }
+}
 
  void eLogClubLog::downloadFinished(QNetworkReply *data)
 {
@@ -27,9 +59,15 @@ eLogClubLog::~eLogClubLog()
     result = data->error();
     //qDebug() << "eLogClubLog::downloadFinished - Result = " << QString::number(result) << endl;
 
+    const QByteArray sdata = data->readAll();
+
+    QString text = "ClubLog: " + prepareToTranslate(sdata);
+
+
+
     if (result == QNetworkReply::NoError)
     {
-        const QByteArray sdata = data->readAll();
+
 
         qDebug() << sdata;
 
@@ -50,6 +88,7 @@ eLogClubLog::~eLogClubLog()
 
     //qDebug() << "eLogClubLog::downloadFinished - Result = " << QString::number(result) << endl;
     //emit done();
+    emit  showMessage(text);
 
 }
 
@@ -70,11 +109,11 @@ void eLogClubLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
     }
     else if (result == QNetworkReply::HostNotFoundError)
     {
-        //qDebug() << "eLogClubLog::downloadFinished: Host not found" << endl;
+        //qDebug() << "eLogClubLog::slotErrorManagement: Host not found" << endl;
     }
     else
     {
-        //qDebug() << "eLogClubLog::downloadFinished: ERROR!" << endl;
+        //qDebug() << "eLogClubLog::slotErrorManagement: ERROR!" << endl;
     }
 
     //actionError(result);
@@ -93,32 +132,6 @@ int eLogClubLog::sendQSO(const QStringList _qso)
     qDebug() << "eLogClubLog::sendQSO: " << qso << endl;
     return sendData(qso);
 
-    /*
-    QUrl serviceUrl = QUrl("https://secure.clublog.org/realtime.php");
-    QByteArray postData;
-
-    //QByteArray postData;
-
-    QUrl params;
-    params.addQueryItem("email",email);
-    params.addQueryItem("password",pass);
-    params.addQueryItem("callsign",call);
-    params.addQueryItem("api",api);
-    params.addQueryItem("adif",qso);
-
-    postData = params.encodedQuery();
-
-    // Call the webservice
-    QNetworkAccessManager *networkManager = new QNetworkAccessManager(this);
-
-    QNetworkRequest request(serviceUrl);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-    connect(networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(downloadFinished(QNetworkReply*)));
-
-    networkManager->post(request, postData);
-*/
-    //qDebug() << "eLogClubLog::sendQSO (result): " << QString::number(result) << endl;
-   // return result;
 }
 
 
@@ -145,6 +158,7 @@ int eLogClubLog::sendData(const QString _q)
 
     QNetworkRequest request(serviceUrl);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
     connect(networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(downloadFinished(QNetworkReply*)));
 
     networkManager->post(request, postData);
@@ -154,6 +168,7 @@ int eLogClubLog::sendData(const QString _q)
 }
 
 QString eLogClubLog::getClubLogAdif(const QStringList _q)
+
 {
     qDebug() << "eLogClubLog::getClubLogAdif: " << QString::number(_q.length()) << endl;
     // _qso must include 16 ordered fields than can be empty or contain data. This function builds the ADIF QSO
