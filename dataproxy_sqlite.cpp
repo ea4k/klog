@@ -503,11 +503,16 @@ QString DataProxy_SQLite::getCallFromId(const int _qsoId)
 
 QStringList DataProxy_SQLite::getClubLogRealTimeFromId(const int _qsoId)
 {
-  //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: " << QString::number(_qsoId) << endl;
-/* Return a QStringList with these data:
+  qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: " << QString::number(_qsoId) << endl;
+/* Return a QStringList with 16 fields with these data:
+
 QSO_DATE, TIME_ON, QSLRDATE, QSLSDATE, CALL, OPERATOR, MODE, BAND, BAND_RX, FREQ, QSL_RCVD,
 LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
+
+
 */
+
+
 
     QSqlQuery query;
     int nameCol = -1;
@@ -520,16 +525,16 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
     QString stringQuery = QString("SELECT qso_date, time_on, qslrdate, qslsdate, call, operator, M.name, B.name, R.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN band as R ON band_rx = R.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
     bool sqlOk = query.exec(stringQuery);
 
-   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastQuery: " << query.lastQuery()  << endl;
-   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-data: " << query.lastError().databaseText()  << endl;
-   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-driver: " << query.lastError().driverText()  << endl;
-   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-n: " << QString::number(query.lastError().number() ) << endl;
+   qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastQuery: " << query.lastQuery()  << endl;
+   qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-data: " << query.lastError().databaseText()  << endl;
+   qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-driver: " << query.lastError().driverText()  << endl;
+   qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-n: " << QString::number(query.lastError().number() ) << endl;
 
 
     QSqlRecord rec = query.record();
     if (sqlOk)
     {
-      //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId sqlOK" << endl;
+      qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId sqlOK" << endl;
         if (query.next())
         //if (1)
         {

@@ -24,6 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
+
 #include <QtGui>
 #include <QtSql>
 #include <QObject>
@@ -4390,7 +4391,8 @@ void MainWindow::slotQSOToEditFromSearch()
 
 void MainWindow::slotQsoDeleteFromLog()
 {
-    //qDebug() << "MainWindow::slotQsoDeleteFromLog: " << (delQSOFromLogAct->data()).toString() << endl;
+    qDebug() << "MainWindow::slotQsoDeleteFromLog: " << (delQSOFromLogAct->data()).toString() << endl;
+
 
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Information);
@@ -4400,9 +4402,19 @@ void MainWindow::slotQsoDeleteFromLog()
     msgBox.setDefaultButton(QMessageBox::No);
     int ret = msgBox.exec();
 
+    int QSOid = ((logModel->index((delQSOFromLogAct->data()).toInt(), 0)).data(0)).toInt();
+
+    qDebug() << "MainWindow::slotQsoDeleteFromLog (id): " << QString::number(QSOid) << endl;
+
     switch (ret) {
       case QMessageBox::Yes:
-          logModel->removeRow((delQSOFromLogAct->data()).toInt());
+        qDebug() << "MainWindow::slotQsoDeleteFromLog (id): -1" << endl;
+        elogClublog->deleteQSO(dataProxy->getClubLogRealTimeFromId(QSOid));
+        qDebug() << "MainWindow::slotQsoDeleteFromLog (id): -2"<< endl;
+        logModel->removeRow((delQSOFromLogAct->data()).toInt());
+
+
+qDebug() << "MainWindow::slotQsoDeleteFromLog (id):-3 " << endl;
           slotSearchBoxTextChanged();
           awards->recalculateAwards();
           showAwards();
@@ -4421,8 +4433,10 @@ void MainWindow::slotQsoDeleteFromSearch()
     //qDebug() << "MainWindow::slotQsoDeleteFromSearch: " << (delQSOFromSearchAct->data()).toString() << endl;
 
     //qDebug() << "MainWindow::slotQsoDeleteFromSearch: " << QString::number((logModel->index((delQSOFromSearchAct->data(6)).toInt(), 0)).data(0).toInt()) << endl;
+    int QSOid = (delQSOFromSearchAct->data()).toInt();
+    int x = -1;
 
-    QString _qrz = dataProxy->getCallFromId((delQSOFromSearchAct->data()).toInt());
+    QString _qrz = dataProxy->getCallFromId(QSOid);
     if (_qrz.length()>=3)
     {
 
@@ -4439,8 +4453,11 @@ void MainWindow::slotQsoDeleteFromSearch()
         switch (ret)
         {
             case QMessageBox::Yes:
-            if(dataProxy->deleteQSO((delQSOFromSearchAct->data()).toInt()))
+            x = elogClublog->deleteQSO(dataProxy->getClubLogRealTimeFromId(QSOid));
+            if(dataProxy->deleteQSO(QSOid))
             {
+
+
                 logModel->select();
                 if(qslingNeeded)
                 {
