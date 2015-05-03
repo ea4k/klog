@@ -500,11 +500,7 @@ confirmed = 1     Set as Confirmed
                  "shortname VARCHAR(1) NOT NULL, "
                  "name VARCHAR(15) NOT NULL)");
 
-      query.exec("CREATE TABLE prop_mode_enumeration ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "shortname VARCHAR(8) NOT NULL, "
-                 "name VARCHAR(55) NOT NULL)");
-
+      createTablePropModes();
       createTableLogs();
 
       /*
@@ -574,6 +570,8 @@ confirmed = 1     Set as Confirmed
       query.exec("INSERT INTO continent (shortname, name) VALUES ('AN', 'Antartica')");
 
       populateContestData();
+      populatePropagationModes();
+
 
       //To add a band, just create another line:
       query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('0', '0', '0', 'Light')");
@@ -694,10 +692,6 @@ query.exec("INSERT INTO award_enumeration (name) VALUES ('CQDX')");
 query.exec("INSERT INTO award_enumeration (name) VALUES (CQDXFIELD')");
 query.exec("INSERT INTO award_enumeration (name) VALUES (DXCC')");
 query.exec("INSERT INTO award_enumeration (name) VALUES (TPEA')");
-
-query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AUR', 'Aurora')");
-query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AUE', 'Aurora-E')");
-query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('BS', 'Back scatter')");
 
 
 query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('B', 'Bureau')");
@@ -1236,7 +1230,7 @@ bool DataBase::updateToLatest()
  *
  */
     //qDebug() << "DataBase::updateToLatest-005 " << endl;
-    return updateTo005();
+    return updateTo006();
 }
 
 bool DataBase::updateTo003()
@@ -1498,8 +1492,8 @@ bool DataBase::updateTo005()
             msgBox.exec();
        }
        return IAmIn005;
-
 }
+
 bool DataBase::recreateContestData()
 {
     QSqlQuery query;
@@ -1521,8 +1515,6 @@ bool DataBase::updateLog()
     //qDebug() << "DataBase::updateLog"  << endl;
     QSqlQuery query;
     bool sqlOk = false;
-
-
 }
 
 bool DataBase::createTableLogs()
@@ -1538,6 +1530,16 @@ bool DataBase::createTableLogs()
                "FOREIGN KEY (logtypen) REFERENCES supportedcontests(id),"
                "FOREIGN KEY (logtype) REFERENCES supportedcontests(name))");
 }
+
+bool DataBase::createTablePropModes()
+{
+    QSqlQuery query;
+    query.exec("CREATE TABLE prop_mode_enumeration ("
+               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+               "shortname VARCHAR(8) NOT NULL, "
+               "name VARCHAR(55) NOT NULL)");
+}
+
 
 bool DataBase::createTableContest()
 {
@@ -1628,6 +1630,31 @@ bool DataBase::createTableContest()
 
 }
 
+bool DataBase::populatePropagationModes()
+{
+    QSqlQuery query;
+
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AUR', 'Aurora')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AUE', 'Aurora-E')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('BS', 'Back scatter')");
+
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('ECH', 'EchoLink')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('EME', 'Earth-Moon-Earth')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('ES', 'Sporadic E')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('FAI', 'Field Aligned Irregularities')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('F2', 'F2 Reflection')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('INTERNET', 'Internet-assisted')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('ION', 'Ionoscatter')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('IRL', 'IRLP')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('MS', 'Meteor scatter')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES (RPT'', 'Terrestrial or atmospheric repeater or transponder')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('RS', 'Rain scatter')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('SAT', 'Satellite')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('TEP', 'Trans-equatorial')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('TR', 'Tropospheric ducting')");
+
+    return true;
+}
 
 bool DataBase::populateContestData()
 {
@@ -1717,6 +1744,72 @@ bool DataBase::howManyQSOsInLog(const int i)
     {
         return -1;
     }
+}
+
+bool DataBase::updateTo006()
+{// Updates the DB to 0.0.6
+ /*
+  * This function should be used as a template to create the all the update functions implementing the needed changes
+  * in the dB to update from one version to the following one.
+  *
+  * // dbVersion shows the DB version that is being deployed
+  * // latestReaded shows the DB version that is currently deployed.
+  *i.e.:
+  *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
+  *
+  */
+    //qDebug() << "DataBase::updateTo004" << endl;
+    bool IAmIn006 = false;
+    bool IAmIn005 = false;
+    bool ErrorUpdating = false;
+    QString stringQuery = QString();
+    QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+    QSqlQuery query;
+
+    bool sqlOk = false;
+
+    if (latestReaded >= 0.006)
+    {
+        return true;
+    }
+    else
+    {
+        IAmIn006 = false;
+    }
+
+
+    while (!IAmIn006 && !ErrorUpdating)
+    {
+        while (!IAmIn005 && !ErrorUpdating)
+        {
+
+            IAmIn005 = true;
+        }
+        if (ErrorUpdating)
+        {
+            return false;
+        }
+        sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+        if (sqlOk)
+        { // Version updated
+            sqlOk = query.exec("DROP TABLE prop_mode_enumeration");
+
+            sqlOk = createTablePropModes();
+            sqlOk = populatePropagationModes();
+            if (!sqlOk)
+            {
+                //qDebug() << "DataBase::updateTo006 - prop_mode table do not created" << endl;
+            }
+
+        }
+        else
+        { // Version not updated
+
+        }
+        //DO ALL THE TASKS TO BE IN 0.006 from 0.005 HERE and set ErrorUpdating if it is not possible.
+        IAmIn006 = true;
+    }
+    return IAmIn006;
 }
 
 

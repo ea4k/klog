@@ -15,11 +15,14 @@ public:
 
     void setCredentials(const QString _call, const QString _email, const QString _pass);
     int sendQSO(const QStringList _qso);
+    int deleteQSO(const QStringList _qso);
 
     //int download();
 
 private:
     QString getClubLogAdif(const QStringList _q);
+    int sendData(const QString _q); //                  Sends the data (http post) to ClubLog
+
     QString call, email, pass, api;
 
     QNetworkAccessManager *manager;

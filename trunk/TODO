@@ -2,6 +2,11 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
+
+TODO: Add a ComboBox with the PROP_MODE to select, it so ClubLog & LOTW accept the QSOs
+
+
+
 KLog 0.9.2
 Bug: An ADIF file with one blank line and one QSO freezes KLog.
 Bug?: Check if if is possible to import a ONE line log
@@ -51,6 +56,7 @@ TODO: Integrate with www.clublog.org (http://www.clublog.org/docs/pages/viewpage
 
 KLog 0.9.8
 TODO: Integrate with eqsl.cc
+https://www.eqsl.cc/qslcard/ADIFContentSpecs.cfm
 
 KLog 0.9.9
 TODO: Server to log all the QSO in real time (through the network) from N1MM

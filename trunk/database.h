@@ -37,9 +37,9 @@
 
 class QSqlRelationalTableModel;
 
-// Last db update 0.0.5
-// Previous db update 0.0.4
-const float DBVersionf = 0.005;
+// Last db update 0.0.6
+// Previous db update 0.0.5
+const float DBVersionf = 0.006;
 
 class DataBase
 {
@@ -86,6 +86,7 @@ private:
     bool updateTo003(); // Updates the DB to 0.0.3
     bool updateTo004();
     bool updateTo005();
+    bool updateTo006();
 
     bool createTheBandQuickReference();
     bool createTheModeQuickReference();
@@ -93,10 +94,13 @@ private:
     bool updateLog(); // Updates the log table
     bool createTableLog(); //Creates log=0 or selectedlog=1
     bool createTableLogs();
+    bool createTablePropModes();
 
     bool recreateContestData();
     bool createTableContest();
     bool populateContestData();
+    bool populatePropagationModes();
+
     bool howManyQSOsInLog(const int i);
     void showError(const QString _errorC);
 
