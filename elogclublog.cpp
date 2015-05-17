@@ -5,8 +5,7 @@
 #include <QFile>
 #include <QDebug>
 
-Ahora tengo que comprobar qué devuelve clublog para gestionar errores y dar los mensajes al usuario
-Modificar QSO en clublog
+
 
 eLogClubLog::eLogClubLog() : QObject(0)
 {    
