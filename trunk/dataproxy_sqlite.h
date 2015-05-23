@@ -42,6 +42,7 @@ public:
     bool qslRecViaDirect(const int _qsoId, const QString _updateDate, const bool _queueSentQSL);
     bool qslSentAsRequested(const int _qsoId, const QString _updateDate);
     bool qslRecAsRequested(const int _qsoId, const QString _updateDate);
+    bool setClubLogSent(const int _qsoId, const QString _st, const QString _updateDate);
 
     bool isHF(const int _band);
     bool isWARC(const int _band);

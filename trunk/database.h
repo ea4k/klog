@@ -96,6 +96,8 @@ private:
     bool createTableLog(bool temp = false); // false creates the prouction DB. True a temporal one.
     bool createTableLogs();
     bool createTablePropModes();
+    bool createTableClubLogStatus();
+    bool populateTableClubLogStatus();
 
     bool recreateContestData();
     bool createTableContest();

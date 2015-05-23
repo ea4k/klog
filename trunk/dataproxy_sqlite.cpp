@@ -423,6 +423,25 @@ bool DataProxy_SQLite::qslRecAsRequested(const int _qsoId, const QString _update
     return false;
 }
 
+bool DataProxy_SQLite::setClubLogSent(const int _qsoId, const QString _st, const QString _updateDate)
+{ // Updates the QSO with the ClubLog status & date
+
+    QSqlQuery query;
+    QString stringQuery;
+    stringQuery = QString("UPDATE log SET clublog_qso_upload_status = '%1', clublog_qso_upload_date = '%2' WHERE id = '%3'").arg(_st).arg(_updateDate).arg(_qsoId);
+    qDebug() << "DataProxy_SQLite::setClubLogSent: " << stringQuery << endl;
+
+    if (query.exec(stringQuery))
+    {
+        qDebug() << "DataProxy_SQLite::setClubLogSent - TRUE" << endl;
+        return true;
+    }
+    qDebug() << "DataProxy_SQLite::setClubLogSent - FALSE" << endl;
+
+    return false;
+}
+
+
 bool DataProxy_SQLite::isQSLReceived(const int _qsoId)
 {
 
@@ -513,7 +532,6 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
 */
 
 
-
     QSqlQuery query;
     int nameCol = -1;
     QStringList dataC = QStringList();
@@ -530,6 +548,7 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
    qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-driver: " << query.lastError().driverText()  << endl;
    qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-n: " << QString::number(query.lastError().number() ) << endl;
 
+   dataC << QString::number(_qsoId);
 
     QSqlRecord rec = query.record();
     if (sqlOk)

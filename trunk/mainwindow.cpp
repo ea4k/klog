@@ -39,7 +39,7 @@
 MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 {
     upAndRunning = false; // To define some actions that can only be run when starting the software
-    connect(&manager, SIGNAL(finished(QNetworkReply*)), SLOT(slotDownloadFinished(QNetworkReply*)));
+    connect(&manager, SIGNAL(finished(QNetworkReply*)), SLOT(slotDownloadFinished(QNetworkReply*))); // To download cty.csv
 
 
     // <ui>
@@ -114,6 +114,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     clublogPass = QString();
     clublogEmail = QString();
     elogClublog = new eLogClubLog();
+    clublogAnswer = -1;
 
 
 
@@ -366,6 +367,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     eqslRecComboBox = new QComboBox;
     lotwSentComboBox = new QComboBox;
     lotwRecComboBox = new QComboBox;
+    clublogComboBox = new QComboBox;
+
 
     QStringList qsAux;
     qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Validated");
@@ -382,6 +385,10 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Verified");
     qslRecComboBox->addItems(qsAux);
 
+    qsAux.clear();
+    qsAux << tr("Y-Uploaded") << tr("N-Do not upload") << tr("M-Modified");
+    clublogComboBox->addItems(qsAux);
+
     qslSentViaComboBox = new QComboBox;
     qslRecViaComboBox = new QComboBox;
 
@@ -394,13 +401,14 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     eqslRecQDateEdit = new QDateEdit;
     lotwSentQDateEdit = new QDateEdit;
     lotwRecQDateEdit = new QDateEdit;
+    clublogQDateEdit = new QDateEdit;
 
     qslSentQDateEdit = new QDateEdit;
     qslRecQDateEdit = new QDateEdit;
     qslmsgTextEdit = new QTextEdit;
     qslViaLineEdit = new QLineEdit;
 
-
+    clublogComboBox->setCurrentIndex(1); // Do not upload
     qslRecComboBox->setCurrentIndex(1); // Not received
     qslSentComboBox->setCurrentIndex(1); // Not sent
     eqslSentComboBox->setCurrentIndex(1);
@@ -697,6 +705,7 @@ void MainWindow::slotQRZReturnPressed()
                         {
                             qDebug() << "MainWindow::slotQRZReturnPressed: (Sending ClubLog) Lastid: "<< QString::number(lastId) << endl;
                             int x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(lastId));
+
                         }
                         else
                         {
@@ -982,8 +991,44 @@ QString MainWindow::readDataFromUIDX()
     }
 
     keepSatPage = satTabWidget->getRepeatThis();
+    //CLUBLOG
+    int i = clublogComboBox->currentIndex();
+    //qsAux << tr("Y-Uploaded") << tr("N-Do not upload") << tr("M-Modified");
 
-    int i = eqslSentComboBox->currentIndex();
+    clublogQDateEdit->setDate((dateTime->currentDateTime()).date());
+    qDebug() << "MainWindow::readDataFromUIDX: ClubLogDate: " << (clublogQDateEdit->date()).toString("yyyy/MM/dd") << endl;
+
+    switch (i)
+    {
+        case 0: // Y-Yes
+
+
+            stringFields = stringFields + ", clublog_qso_upload_status";
+            stringData = stringData + ", 'Y'";
+            stringFields = stringFields + ", clublog_qso_upload_date";
+            stringData = stringData + ", '" + (clublogQDateEdit->date()).toString("yyyy/MM/dd") + "'";
+        break;
+        case 1: //N-Do not upload
+            stringFields = stringFields + ", clublog_qso_upload_status";
+            stringData = stringData + ", 'N'";
+        break;
+        case 2: // M-Modified
+
+            stringFields = stringFields + ", clublog_qso_upload_status";
+            stringData = stringData + ", 'M'";
+            stringFields = stringFields + ", clublog_qso_upload_date";
+            stringData = stringData + ", '" + (clublogQDateEdit->date()).toString("yyyy/MM/dd") + "'";
+
+        break;
+        default: //N-No
+        //TODO: Pending to define a default value, if needed
+        break;
+    }
+    //CLUBLOG
+
+
+
+    i = eqslSentComboBox->currentIndex();
     //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
     switch (i)
     {
@@ -1637,10 +1682,30 @@ WHERE [condition];
         updateString = updateString + "sat_mode = '";
         updateString = updateString + aux1 + "', ";
     }
-
+    //CLUBLOG
+    int i = clublogComboBox->currentIndex();
+    //qsAux << tr("Y-Uploaded") << tr("N-Do not upload") << tr("M-Modified");
+    switch (i)
+    {
+        case 0: // Y-Yes
+            updateString = updateString + "clublog_qso_upload_status = 'Y', ";
+            updateString = updateString + "clublog_qso_upload_date = '" + (clublogQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
+        break;
+        case 1: //N-Do not upload
+            updateString = updateString + "clublog_qso_upload_status = 'N', ";
+        break;
+        case 2: // M-Modified
+            updateString = updateString + "clublog_qso_upload_status = 'M', ";
+            updateString = updateString + "clublog_qso_upload_date = '" + (clublogQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
+        break;
+        default: //N-No
+        //TODO: Pending to define a default value, if needed
+        break;
+    }
+    //CLUBLOG
     // EQSL-SENT
 
-    int i = eqslSentComboBox->currentIndex();
+    i = eqslSentComboBox->currentIndex();
     //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
     switch (i)
     {
@@ -2472,27 +2537,31 @@ void MainWindow::createActionsCommon(){
 
 // CLUBLOG
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
-    connect (elogClublog, SIGNAL (actionReturnDownload(int)), this, SLOT (slotElogClubLogProcessAnswer(int)));
+    connect (elogClublog, SIGNAL (actionReturnDownload(int, int)), this, SLOT (slotElogClubLogProcessAnswer(int, int)));
 
 }
 
 void MainWindow::slotElogClubLogShowMessage(const QString _s)
 {
+    qDebug() << "MainWindow::slotElogClubLogShowMessage: " << _s << endl;
     updateStatusBar(_s);
-
 }
-void MainWindow::slotElogClubLogProcessAnswer(const int _i)
+
+void MainWindow::slotElogClubLogProcessAnswer(const int _i, const int _qID)
 {
     qDebug() << "MainWindow::slotElogClubLogProcessAnswer: " <<QString::number(_i) << endl;
 
-    if (_i == QNetworkReply::NoError)
-    {
+    clublogAnswer = _i;
 
+    if (clublogAnswer == 0) // NO ERROR
+    {
+        dataProxy->setClubLogSent(_qID, "Y", (clublogQDateEdit->date()).toString("yyyy/MM/dd"));
     }
     else
     {
-
+        dataProxy->setClubLogSent(_qID, "M", (clublogQDateEdit->date()).toString("yyyy/MM/dd"));
     }
+
 
 }
 
@@ -3220,6 +3289,7 @@ void MainWindow::slotClearButtonClicked()
 
     qsoPoints = 0;
     qsoMultiplier = 0;
+    clublogAnswer = -1;
 
     switch (contestMode) {
 
@@ -3251,6 +3321,8 @@ void MainWindow::slotClearButtonClicked()
             infoLabel2->clear();
 
             rxPowerSpinBox->setValue(0);
+
+            clublogComboBox->setCurrentIndex(1);
             qslSentViaComboBox->setCurrentIndex(0); // has to be changed before the qslSentComboBox to avoid calling the slot
             qslRecViaComboBox->setCurrentIndex(0); // has to be changed before the qslRecComboBox to avoid calling the slot
 
@@ -5222,10 +5294,13 @@ void MainWindow::createUIDX()
     OKButton->setToolTip(tr("Add the QSO to the log"));
     spotItButton->setToolTip(tr("Spots this QSO to the DX Cluster"));
     clearButton->setToolTip(tr("Clears the box"));
+    clublogComboBox->setToolTip(tr("Status on ClubLog"));
     eqslSentComboBox->setToolTip(tr("Status of the eQSL sending"));
     eqslRecComboBox->setToolTip(tr("Status of the eQSL reception"));
     lotwSentComboBox->setToolTip(tr("Status of the LotW sending"));
     lotwRecComboBox->setToolTip(tr("Status of the LotW reception"));
+
+    clublogQDateEdit->setToolTip(tr("Date of the ClubLog upload"));
     eqslSentQDateEdit->setToolTip(tr("Date of the eQSL sending"));
     eqslRecQDateEdit->setToolTip(tr("Date of the eQSL reception"));
     lotwSentQDateEdit->setToolTip(tr("Date of the LotW sending"));
@@ -5446,6 +5521,8 @@ void MainWindow::createUIDX()
 
     // eQSL Tab definition starts here
 
+    QLabel *clublogLabelN = new QLabel(tr("ClubLog"));
+    clublogLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
     QLabel *eQSLSentLabelN = new QLabel(tr("eQSL Sent"));
     eQSLSentLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
@@ -5481,20 +5558,23 @@ void MainWindow::createUIDX()
     eqslInputTabWidgetLayout->addRow(lotWRecLabelN, lotwRecLayout);
 */
     QGridLayout *eqslInputTabWidgetLayout = new QGridLayout;
-    eqslInputTabWidgetLayout->addWidget(eQSLSentLabelN, 0, 0);
-    eqslInputTabWidgetLayout->addWidget(eQSLRecLabelN, 1, 0);
-    eqslInputTabWidgetLayout->addWidget(lotWSentLabelN, 2, 0);
-    eqslInputTabWidgetLayout->addWidget(lotWRecLabelN, 3, 0);
+    eqslInputTabWidgetLayout->addWidget(clublogLabelN, 0, 0);
+    eqslInputTabWidgetLayout->addWidget(eQSLSentLabelN, 1, 0);
+    eqslInputTabWidgetLayout->addWidget(eQSLRecLabelN, 2, 0);
+    eqslInputTabWidgetLayout->addWidget(lotWSentLabelN, 3, 0);
+    eqslInputTabWidgetLayout->addWidget(lotWRecLabelN, 4, 0);
 
-    eqslInputTabWidgetLayout->addWidget(eqslSentComboBox, 0, 1);
-    eqslInputTabWidgetLayout->addWidget(eqslRecComboBox, 1, 1);
-    eqslInputTabWidgetLayout->addWidget(lotwSentComboBox, 2, 1);
-    eqslInputTabWidgetLayout->addWidget(lotwRecComboBox, 3, 1);
+    eqslInputTabWidgetLayout->addWidget(clublogComboBox, 0, 1);
+    eqslInputTabWidgetLayout->addWidget(eqslSentComboBox, 1, 1);
+    eqslInputTabWidgetLayout->addWidget(eqslRecComboBox, 2, 1);
+    eqslInputTabWidgetLayout->addWidget(lotwSentComboBox, 3, 1);
+    eqslInputTabWidgetLayout->addWidget(lotwRecComboBox, 4, 1);
 
-    eqslInputTabWidgetLayout->addWidget(eqslSentQDateEdit, 0, 2);
-    eqslInputTabWidgetLayout->addWidget(eqslRecQDateEdit, 1, 2);
-    eqslInputTabWidgetLayout->addWidget(lotwSentQDateEdit, 2, 2);
-    eqslInputTabWidgetLayout->addWidget(lotwRecQDateEdit, 3, 2);
+    eqslInputTabWidgetLayout->addWidget(clublogQDateEdit, 0, 2);
+    eqslInputTabWidgetLayout->addWidget(eqslSentQDateEdit, 1, 2);
+    eqslInputTabWidgetLayout->addWidget(eqslRecQDateEdit, 2, 2);
+    eqslInputTabWidgetLayout->addWidget(lotwSentQDateEdit, 3, 2);
+    eqslInputTabWidgetLayout->addWidget(lotwRecQDateEdit, 4, 2);
 
     eqslInputTabWidget->setLayout(eqslInputTabWidgetLayout);
 
@@ -6785,6 +6865,47 @@ void MainWindow::qsoToEdit (const int _qso)
 
 
     //TODO: BUG: When something is selected while modifying the QSL is deleted???
+
+        //CLUBLOG
+        nameCol = rec.indexOf("clublog_qso_upload_status");
+        aux1 = (query.value(nameCol)).toString();
+
+        if (  (aux1.toUpper()) == "Y" )
+        {
+            clublogComboBox->setCurrentIndex( clublogComboBox->findText(tr("Y-Uploaded")) );
+            nameCol = rec.indexOf("clublog_qso_upload_date");
+            aux1 = (query.value(nameCol)).toString();
+            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+            {
+                clublogQDateEdit->setEnabled(true);
+                clublogQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+            }
+        }
+
+        else if ( (aux1.toUpper()) == "N")
+        {
+            clublogComboBox->setCurrentIndex( clublogComboBox->findText(tr("N-Do not upload")) );
+        }
+        else if ( (aux1.toUpper()) == "M")
+        {
+            clublogComboBox->setCurrentIndex( clublogComboBox->findText(tr("M-Modified")) );
+
+            nameCol = rec.indexOf("clublog_qso_upload_date");
+            aux1 = (query.value(nameCol)).toString();
+            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+            {
+                clublogQDateEdit->setEnabled(true);
+                clublogQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+            }
+        }
+        else
+        {
+            eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(tr("N-No") ) );
+        }
+
+
+        //CLUBLOG
+
 
         //EQSL_QSL_SENT: {Y, N, R, Q, I}
         // tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");

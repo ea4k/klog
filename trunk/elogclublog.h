@@ -14,7 +14,7 @@ public:
     ~eLogClubLog();
 
     void setCredentials(const QString _call, const QString _email, const QString _pass);
-    int sendQSO(const QStringList _qso);
+    int sendQSO(QStringList _qso);
     int deleteQSO(const QStringList _qso);
 
     //int download();
@@ -28,7 +28,7 @@ private:
 
     QNetworkAccessManager *manager;
     QNetworkReply* reply;
-
+    int currentQSO;
     int result;
     QString target;
 
@@ -39,7 +39,7 @@ private slots:
 
 
 signals:
-    void actionReturnDownload(const int _i);
+    void actionReturnDownload(const int _i, const int _qsoId);
     void done();
     void actionShowProgres(qint64 received, qint64 total);
     void actionError(const int _i);

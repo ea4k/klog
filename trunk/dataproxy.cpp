@@ -125,6 +125,11 @@ bool DataProxy::qslRecAsRequested(const int _qsoId, const QString _updateDate)
     return false;
 }
 
+bool DataProxy::setClubLogSent(const int _qsoId, const QString _st, const QString _updateDate)
+{
+    return false;
+}
+
 bool DataProxy::isQSLReceived(const int _qsoId)
 {
     return false;
