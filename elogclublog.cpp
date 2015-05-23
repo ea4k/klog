@@ -13,6 +13,7 @@ eLogClubLog::eLogClubLog() : QObject(0)
     email = QString();
     pass = QString();
     api = "9467beee93377e82a276b0a777d388b5c933d044";
+    currentQSO = -1;
 }
 
 eLogClubLog::~eLogClubLog()
@@ -30,29 +31,37 @@ eLogClubLog::~eLogClubLog()
 
     const QByteArray sdata = data->readAll();
 
-    QString text = "ClubLog: " + prepareToTranslate(sdata);
+    QString text = QString();
 
+    if (currentQSO>0)
+    {
+        emit actionReturnDownload(result, currentQSO);
+        currentQSO = -1;
+    }
 
 
     if (result == QNetworkReply::NoError)
     {
 
-
+        text = "ClubLog: " + prepareToTranslate(sdata);
         qDebug() << sdata;
 
-        emit actionReturnDownload(result);
+
     }
     else if (result == QNetworkReply::HostNotFoundError)
     {
         qDebug() << "eLogClubLog::downloadFinished - Result = Host Not found! = " << QString::number(result)  << endl;
+        text = "ClubLog: " + tr("Host not found!");
     }
     else if (result == QNetworkReply::TimeoutError)
     {
         qDebug() << "eLogClubLog::downloadFinished - Result = Time out error! = " << QString::number(result)  << endl;
+        text = "ClubLog: " + tr("Timeout error!");
     }
     else
     {
         qDebug() << "eLogClubLog::downloadFinished - Result = UNDEFINED = " << QString::number(result)  << endl;
+        text = "ClubLog: " + tr("Undefined error...");
     }
 
     //qDebug() << "eLogClubLog::downloadFinished - Result = " << QString::number(result) << endl;
@@ -89,14 +98,22 @@ void eLogClubLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
 }
 
 
-int eLogClubLog::sendQSO(const QStringList _qso)
+int eLogClubLog::sendQSO(QStringList _qso)
 {
     qDebug() << "eLogClubLog::sendQSO: " << call <<"/"<< email << "/" << pass << "/" << api  << endl;
     qDebug() << "eLogClubLog::sendQSO:: length = " << QString::number(_qso.length()) << endl;
-    if (_qso.length()!=16)
+    // First Data in the QStringList is the QSO id, not to be sent to clublog but used in the signal actionReturnDownload(const int _i, const int _qsoId);
+
+    if (_qso.length()!=17)
     {
         return -1;
     }
+    currentQSO = (_qso.at(0)).toInt();
+
+
+
+    _qso.removeFirst();
+
     QString qso = getClubLogAdif(_qso);
     qDebug() << "eLogClubLog::sendQSO: " << qso << endl;
     return sendData(qso);
@@ -175,44 +192,42 @@ ClubLog only accepts the following ADIF fields:
         qso = "<QSO_DATE:" + QString::number(aux1.length()) + ">" +  aux1  +  " ";
     }
 
-qDebug() << "eLogClubLog::getClubLogAdif: 1"  << endl;
-
     //qso = "<QSO_DATE:" + QString::number((_q.at(0)).length()) + ">" + _q.at(0) + " ";
     qso = qso + "<TIME_ON:" + QString::number((_q.at(1)).length()) + ">" + _q.at(1) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 10"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 10"  << endl;
     qso = qso + "<QSLRDATE:" + QString::number((_q.at(2)).length()) + ">" + _q.at(2) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 20"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 20"  << endl;
     qso = qso + "<QSLSDATE:" + QString::number((_q.at(3)).length()) + ">" + _q.at(3) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 30"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 30"  << endl;
     qso = qso + "<CALL:" + QString::number((_q.at(4)).length()) + ">" + _q.at(4) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 40"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 40"  << endl;
     qso = qso + "<OPERATOR:" + QString::number((_q.at(5)).length()) + ">" + _q.at(5) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 50"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 50"  << endl;
     qso = qso + "<MODE:" + QString::number((_q.at(6)).length()) + ">" + _q.at(6) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 60"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 60"  << endl;
     qso = qso + "<BAND:" + QString::number((_q.at(7)).length()) + ">" + _q.at(7) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 70"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 70"  << endl;
     qso = qso + "<BAND_RX:" + QString::number((_q.at(8)).length()) + ">" + _q.at(8) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 80"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 80"  << endl;
     qso = qso + "<FREQ:" + QString::number((_q.at(9)).length()) + ">" + _q.at(9) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 90"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 90"  << endl;
     qso = qso + "<QSL_RCVD:" + QString::number((_q.at(10)).length()) + ">" + _q.at(10) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 100"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 100"  << endl;
     qso = qso + "<LOTW_QSL_RCVD:" + QString::number((_q.at(11)).length()) + ">" + _q.at(11) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 110"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 110"  << endl;
     qso = qso + "<QSL_SENT:" + QString::number((_q.at(12)).length()) + ">" + _q.at(12) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 120"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 120"  << endl;
     qso = qso + "<DXCC:" + QString::number((_q.at(13)).length()) + ">" + _q.at(13) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 130'"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 130'"  << endl;
     qso = qso + "<PROP_MODE:" + QString::number((_q.at(14)).length()) + ">" + _q.at(14) + " ";
-qDebug() << "eLogClubLog::getClubLogAdif: 140"  << endl;
+//qDebug() << "eLogClubLog::getClubLogAdif: 140"  << endl;
     qso = qso + "<CREDIT_GRANTED:" + QString::number((_q.at(15)).length()) + ">" + _q.at(15) + " ";
-    qDebug() << "eLogClubLog::getClubLogAdif: 150"  << endl;
+    //qDebug() << "eLogClubLog::getClubLogAdif: 150"  << endl;
     qso = qso + "<EOR>";
-    //qDebug() << "eLogClubLog::getCLubLogAdif - QSO: "  << qso << endl;
+    ////qDebug() << "eLogClubLog::getCLubLogAdif - QSO: "  << qso << endl;
 
 
-    qDebug() << "eLogClubLog::getClubLogAdif: 100"  << endl;
+    //qDebug() << "eLogClubLog::getClubLogAdif: 100"  << endl;
     return qso;
 }
 

@@ -3177,7 +3177,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                 }
                 else if (field == "CLUBLOG_QSO_UPLOAD_DATE")
                 {
-                    preparedQuery.bindValue( ":clublog_qso_upload_date", data );
+                    preparedQuery.bindValue( ":clublog_qso_upload_date", (date.fromString(data, "yyyyMMdd")).toString("yyyy/MM/dd") );
                 }
                 else if (field == "CLUBLOG_QSO_UPLOAD_STATUS")
                 {

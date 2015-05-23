@@ -512,6 +512,8 @@ confirmed = 1     Set as Confirmed
 
       createTablePropModes();
       createTableLogs();
+      createTableClubLogStatus();
+      populateTableClubLogStatus();
 
       /*
       query.exec("CREATE TABLE sat_modes ("
@@ -1820,6 +1822,8 @@ bool DataBase::updateTo006()
             {
                 qDebug() << "DataBase::updateTo006 - prop_mode table do not created" << endl;
             }
+            createTableClubLogStatus();
+            populateTableClubLogStatus();
 
         }
         else
@@ -1869,3 +1873,26 @@ bool DataBase::updateTableLogTo006()
     return false;
 }
 
+bool DataBase::createTableClubLogStatus()
+{
+    QSqlQuery query;
+    return query.exec("CREATE TABLE clublog_status ("
+               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+               "shortname VARCHAR(1) NOT NULL, "
+               "name VARCHAR(15) NOT NULL)");
+}
+
+bool DataBase::populateTableClubLogStatus()
+{
+    QSqlQuery query;
+
+    if (query.exec("INSERT INTO clublog_status (shortname, name) VALUES ('Y', 'Uploaded')"))
+    {
+        if (query.exec("INSERT INTO clublog_status (shortname, name) VALUES ('N', 'Do not upload')"))
+        {
+            return query.exec("INSERT INTO clublog_status (shortname, name) VALUES ('M', 'Modified')");
+        }
+    }
+    return false;
+
+}

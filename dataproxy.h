@@ -35,6 +35,7 @@ public:
     virtual bool isQSLReceived(const int _qsoId);
     virtual bool isQSLSent(const int _qsoId);
 
+
     virtual bool qslSentViaDirect(const int _qsoId, const QString _updateDate);
     virtual bool qslSentViaBureau(const int _qsoId, const QString _updateDate);
     virtual bool qslSentAsRequested(const int _qsoId, const QString _updateDate);
@@ -43,6 +44,7 @@ public:
     virtual bool qslRecViaBureau(const int _qsoId, const QString _updateDate, const bool _queueSentQSL);
     virtual bool qslRecViaDirect(const int _qsoId, const QString _updateDate);
     virtual bool qslRecViaDirect(const int _qsoId, const QString _updateDate, const bool _queueSentQSL);
+    virtual bool setClubLogSent(const int _qsoId, const QString _st, const QString _updateDate);
 
     virtual bool isHF(const int _band);
     virtual bool isWARC(const int _band);
@@ -70,6 +72,8 @@ public:
 
     virtual int getNumberOfManagedLogs();
     virtual QString getStationCallSignFromLog(const int _log);
+
+
 
 /*
     virtual bool isMultiplier(const QStringList _qs);

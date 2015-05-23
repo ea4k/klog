@@ -214,7 +214,7 @@ private slots:
     // CLUSTER
     //CLUBLOG
     void slotElogClubLogShowMessage(const QString _s);
-    void slotElogClubLogProcessAnswer(const int _i);
+    void slotElogClubLogProcessAnswer(const int _i, const int _qID);
     //CLUBLOG
 
 
@@ -457,8 +457,8 @@ private:
                 *localConfirmedQLCDNumber, *localWorkedQLCDNumber,
                 *qsoConfirmedQLCDNumber, *qsoWorkedQLCDNumber,
                 *dxMarathonDXCCQLCDNumber, *dxMarathonCQQLCDNumber, *dxMarathonPointsQLCDNumber;
-    QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox;
-    QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit;
+    QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox;
+    QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit, *clublogQDateEdit;
 
     QComboBox *qslSentComboBox, *qslRecComboBox, *qslSentViaComboBox, *qslRecViaComboBox;
     QDateEdit *qslSentQDateEdit, *qslRecQDateEdit;
@@ -532,6 +532,7 @@ private:
     QString clublogUser, clublogPass, clublogEmail;
 
     eLogClubLog *elogClublog;
+    int clublogAnswer;
 
     //</CLUBLOG>
 
