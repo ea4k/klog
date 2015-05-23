@@ -87,12 +87,13 @@ private:
     bool updateTo004();
     bool updateTo005();
     bool updateTo006();
+    bool updateTableLogTo006();
 
     bool createTheBandQuickReference();
     bool createTheModeQuickReference();
 
     bool updateLog(); // Updates the log table
-    bool createTableLog(); //Creates log=0 or selectedlog=1
+    bool createTableLog(bool temp = false); // false creates the prouction DB. True a temporal one.
     bool createTableLogs();
     bool createTablePropModes();
 

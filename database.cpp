@@ -160,15 +160,23 @@ bool DataBase::isTheDBCreated()
     return false;
 }
 
-bool DataBase::createTableLog()
-{ //Creates log=0 or selectedlog=1
+bool DataBase::createTableLog(bool temp)
+{ //Creates a temporal table or the normal one.
 
     //QString logToCreate = "log";
 
     QSqlQuery query;
-
-    QString stringQuery = "CREATE TABLE log" ;
-
+    QString stringQuery = QString();
+    if (temp)
+    {
+        stringQuery = "CREATE TABLE log" ;
+        qDebug() << "DataBase::createTableLog: log"  << endl;
+    }
+    else
+    {
+        stringQuery = "CREATE TABLE logtemp" ;
+        qDebug() << "DataBase::createTableLog: logtemp"  << endl;
+    }
 
              stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
              "qso_date VARCHAR(10) NOT NULL, "
@@ -286,7 +294,7 @@ bool DataBase::createTableLog()
              "FOREIGN KEY (qsl_sent_via) REFERENCES qsl_via_enumeration, "
              "FOREIGN KEY (qsl_rcvd) REFERENCES qsl_rec_status, "
              "FOREIGN KEY (qsl_sent) REFERENCES qsl_sent_status, "
-             "FOREIGN KEY (prop_mode) REFERENCES prop_mode_emumeration, "
+             "FOREIGN KEY (prop_mode) REFERENCES prop_mode_enumeration, "
              "FOREIGN KEY (my_country) REFERENCES entity, "
              "FOREIGN KEY (lotw_qsl_rcvd) REFERENCES qsl_rec_status, "
              "FOREIGN KEY (lotw_qsl_sent) REFERENCES qsl_sent_status, "
@@ -364,7 +372,7 @@ bool DataBase::createDataBase()
                   "UNIQUE (cabrillo, name) )");
 
 
-    createTableLog();
+    createTableLog(true);
 
 
       //DATE YYYY-MM-DD
@@ -1534,10 +1542,7 @@ bool DataBase::createTableLogs()
 bool DataBase::createTablePropModes()
 {
     QSqlQuery query;
-    query.exec("CREATE TABLE prop_mode_enumeration ("
-               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-               "shortname VARCHAR(8) NOT NULL, "
-               "name VARCHAR(55) NOT NULL)");
+    return query.exec("CREATE TABLE prop_mode_enumeration (id INTEGER PRIMARY KEY AUTOINCREMENT, shortname VARCHAR(8) NOT NULL, name VARCHAR(55) NOT NULL)");
 }
 
 
@@ -1758,7 +1763,7 @@ bool DataBase::updateTo006()
   *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
   *
   */
-    //qDebug() << "DataBase::updateTo004" << endl;
+    qDebug() << "DataBase::updateTo006" << endl;
     bool IAmIn006 = false;
     bool IAmIn005 = false;
     bool ErrorUpdating = false;
@@ -1793,12 +1798,25 @@ bool DataBase::updateTo006()
         if (sqlOk)
         { // Version updated
             sqlOk = query.exec("DROP TABLE prop_mode_enumeration");
+            if (!sqlOk)
+            {
+                qDebug() << "DataBase::updateTo006 - prop_mode_enumeration NOT DROPED" << endl;
+            }
 
             sqlOk = createTablePropModes();
+            if (!sqlOk)
+            {
+                qDebug() << "DataBase::updateTo006 - createTablePropModes FALSE" << endl;
+            }
             sqlOk = populatePropagationModes();
             if (!sqlOk)
             {
-                //qDebug() << "DataBase::updateTo006 - prop_mode table do not created" << endl;
+                qDebug() << "DataBase::updateTo006 - populatePropagationModes FALSE" << endl;
+            }
+            sqlOk = updateTableLogTo006();
+            if (!sqlOk)
+            {
+                qDebug() << "DataBase::updateTo006 - prop_mode table do not created" << endl;
             }
 
         }
@@ -1812,5 +1830,40 @@ bool DataBase::updateTo006()
     return IAmIn006;
 }
 
+bool DataBase::updateTableLogTo006()
+{
+    qDebug() << "DataBase::updateTableLogTo006 " << endl;
+    createTableLog(false);
+    QString queryString = QString ("INSERT INTO logtemp (qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber) SELECT qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber FROM log");
 
+    QSqlQuery query;
+    if (query.exec(queryString))
+    {
+        queryString = "DROP TABLE log";
+        if (query.exec(queryString))
+        {
+            queryString = "ALTER TABLE logtemp RENAME TO log" ;
+            if (query.exec(queryString))
+            {
+                qDebug() << "DataBase::updateTableLogTo006 TRUE " << endl;
+                return true;
+            }
+            else
+            {
+                qDebug() << "DataBase::updateTableLogTo006 FALSE ALTER TABLE logTemp " << endl;
+            }
+        }
+        else
+        {
+            qDebug() << "DataBase::updateTableLogTo006 FALSE drop table log " << endl;
+        }
+
+    }
+    else
+    {
+        qDebug() << "DataBase::updateTableLogTo006 FALSE INSERT " << endl;
+    }
+    qDebug() << "DataBase::updateTableLogTo006 FALSE " << endl;
+    return false;
+}
 

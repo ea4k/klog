@@ -27,7 +27,7 @@
 
 int main(int argc, char *argv[])
 {
-    QString version = "0.9.1.1";
+    QString version = "0.9.2";
     QDir d1 = QDir();
 
     QApplication app(argc, argv);
