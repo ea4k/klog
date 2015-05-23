@@ -597,6 +597,7 @@ void MainWindow::slotQRZReturnPressed()
     int lastId = -1;
     int errorCode = 0;
     QString aux;
+    int _x; //for clublog management
 
     //bool ret = false;
     QString tqrz = qrzLineEdit->text();
@@ -668,6 +669,22 @@ void MainWindow::slotQRZReturnPressed()
                     if(modifyingQSO>0)
                     {
                         awards->setAwards(modifyingQSO);
+
+                        if ((clublogActive) & (clublogRealTime))
+                        {
+                            qDebug() << "MainWindow::slotQRZReturnPressed: (Modifiying ClubLog) Lastid: "<< QString::number(lastId) << endl;
+                            // Delete QSO in CLubLog
+                            _x = elogClublog->deleteQSO(clublogPrevQSO);
+                            // Add modified QSO in ClubLog
+                            _x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSO));
+
+                        }
+                        else
+                        {
+                            qDebug() << "MainWindow::slotQRZReturnPressed: (No ClubLog) Lastid: "<< QString::number(lastId) << endl;
+                        }
+
+
                     }
 
                     // CHECK WHAT WAS THE QSOID to add the awards, if needed
@@ -704,7 +721,7 @@ void MainWindow::slotQRZReturnPressed()
                         if ((clublogActive) & (clublogRealTime))
                         {
                             qDebug() << "MainWindow::slotQRZReturnPressed: (Sending ClubLog) Lastid: "<< QString::number(lastId) << endl;
-                            int x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(lastId));
+                            _x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(lastId));
 
                         }
                         else
@@ -3290,6 +3307,7 @@ void MainWindow::slotClearButtonClicked()
     qsoPoints = 0;
     qsoMultiplier = 0;
     clublogAnswer = -1;
+    clublogPrevQSO.clear();
 
     switch (contestMode) {
 
@@ -6505,8 +6523,12 @@ void MainWindow::qsoToEdit (const int _qso)
     query.next();
     if (query.isValid())
     {
+        if ((clublogActive) && (clublogRealTime))
+        {
+            clublogPrevQSO = dataProxy->getClubLogRealTimeFromId(_qso);
+        }
 
-    QSqlRecord rec = query.record();
+        QSqlRecord rec = query.record();
 
 
     // ADD THE DATA THAT IS PRESENT IN ALL THE MODES
@@ -7236,6 +7258,8 @@ void MainWindow::qsoToEdit (const int _qso)
     //qDebug() << "MainWindow::qsoToEdit: - in default - 106"  << endl;
     } //Closes the next.isValid
     //qDebug() << "MainWindow::qsoToEdit: - in default - END"  << endl;
+
+
 }
 
 void MainWindow::slotIOTAComboBoxChanged()
@@ -8784,3 +8808,5 @@ bool MainWindow::trueOrFalse(const QString _s)
     }
     return false;
 }
+
+

@@ -15,7 +15,7 @@ public:
 
     void setCredentials(const QString _call, const QString _email, const QString _pass);
     int sendQSO(QStringList _qso);
-    int deleteQSO(const QStringList _qso);
+    int deleteQSO(QStringList _qso);
 
     //int download();
 
