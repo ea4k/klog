@@ -3,7 +3,7 @@ It is not fixed... new features may be prioritized or not added without any noti
 Feel free to request any roadmap change if you have any suggestion.
 
 TODO: Check the values that clublog is returning to manage errors and show messages to the user
-TODO: To add the possibiity to upload a modified QSO to clublog.
+TODO: To add the possibility to upload a modified QSO to clublog.
 TODO: Add a ComboBox with the PROP_MODE to select, it so ClubLog & LOTW accept the QSOs
 
 

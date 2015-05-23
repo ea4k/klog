@@ -23,7 +23,79 @@ eLogClubLog::~eLogClubLog()
 
 QString eLogClubLog::prepareToTranslate(const QString _m)
 {
-    if (_m == "No match found")
+    if (_m == "Callsign missing")
+    {
+        return tr("Callsign missing");
+    }
+    else if (_m == "Invalid callsign")
+    {
+        return tr("Invalid callsign");
+    }
+    else if (_m == "Skipping SWL callsign")
+    {
+        return tr("Skipping SWL callsign");
+    }
+    else if (_m == "Callsign is your ow call")
+    {
+        return tr("Callsign is your ow call");
+    }
+    else if (_m == "Invalid callsign with no DXCC mapping")
+    {
+        return tr("Invalid callsign with no DXCC mapping");
+    }
+    else if (_m == "Updated QSO")
+    {
+        return tr("Updated QSO");
+    }
+    else if (_m == "Invalid ADIF record")
+    {
+        return tr("Invalid ADIF record");
+    }
+    else if (_m == "Missing ADIF record")
+    {
+        return tr("Missing ADIF record");
+    }
+    else if (_m == "Test mode - parameters ok, no action taken")
+    {
+        return tr("Test mode - parameters ok, no action taken");
+    }
+    else if (_m == "Excesive API Usage")
+    {
+        return tr("Excesive API Usage");
+    }
+    else if (_m == "Internal Error")
+    {
+        return tr("Internal Error");
+    }
+    else if (_m == "Rejected")
+    {
+        return tr("Rejected");
+    }
+    else if (_m == "QSO Duplicate")
+    {
+        return tr("QSO Duplicate");
+    }
+    else if (_m == "QSO Modified")
+    {
+        return tr("QSO Modified");
+    }
+    else if (_m == "Missing Login")
+    {
+        return tr("Missing Login");
+    }
+    else if (_m == "QSO OK")
+    {
+        return tr("QSO OK");
+    }
+    else if (_m == "Upload denied")
+    {
+        return tr("Upload denied");
+    }
+    else if (_m == "No callsign selected")
+    {
+        return tr("No callsign selected");
+    }
+    else if (_m == "No match found")
     {
         return tr("No match found");
     }
