@@ -214,6 +214,7 @@ private slots:
     // CLUSTER
     //CLUBLOG
     void slotElogClubLogShowMessage(const QString _s);
+    void slotElogClubLogProcessAnswer(const int _i);
     //CLUBLOG
 
 

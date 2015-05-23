@@ -2472,6 +2472,7 @@ void MainWindow::createActionsCommon(){
 
 // CLUBLOG
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
+    connect (elogClublog, SIGNAL (actionReturnDownload(int)), this, SLOT (slotElogClubLogProcessAnswer(int)));
 
 }
 
@@ -2480,6 +2481,21 @@ void MainWindow::slotElogClubLogShowMessage(const QString _s)
     updateStatusBar(_s);
 
 }
+void MainWindow::slotElogClubLogProcessAnswer(const int _i)
+{
+    qDebug() << "MainWindow::slotElogClubLogProcessAnswer: " <<QString::number(_i) << endl;
+
+    if (_i == QNetworkReply::NoError)
+    {
+
+    }
+    else
+    {
+
+    }
+
+}
+
 void MainWindow::slotRecalculateAwardsButtonClicked()
 {
     //qDebug() << "MainWindow::recalculateAwardsButtonClicked: " << endl;
