@@ -241,13 +241,15 @@ void eLogClubLog::setCredentials(const QString _call, const QString _email, cons
 }
 
 
-int eLogClubLog::deleteQSO(const QStringList _qso)
+int eLogClubLog::deleteQSO(QStringList _qso)
 {
     qDebug() << "eLogClubLog::deleteQSO: length = " << QString::number(_qso.length()) << endl;
-    if (_qso.length()!=16)
+    if (_qso.length()!=17)
     {
         return -1;
     }
+
+    _qso.removeFirst();
 
 //http://clublog.freshdesk.com/support/solutions/articles/54908-using-adif-to-update-or-delete-qsos
 //<CALL:5>VP9NO<QSO_DATE:8>20070903<TIME_ON:6>213300<BAND:3>30M<MODE:2>CW<QSLCALL:5>GH6UW<EOR>
@@ -256,6 +258,8 @@ int eLogClubLog::deleteQSO(const QStringList _qso)
 
     QString qso = getClubLogAdif(_qso);
     qso.replace("<EOR>", replaceCall);
+
+    qDebug() << "eLogClubLog::deleteQSO: ready to send = " << qso << endl;
 
     return sendData(qso);
 

@@ -533,6 +533,7 @@ private:
 
     eLogClubLog *elogClublog;
     int clublogAnswer;
+    QStringList clublogPrevQSO;
 
     //</CLUBLOG>
 
