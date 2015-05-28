@@ -51,6 +51,7 @@ public:
     void clear();
 
 signals:
+    void setPropModeSat(const QString _p);
 
 public slots:
 private slots:

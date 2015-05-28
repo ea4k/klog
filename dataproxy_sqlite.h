@@ -66,6 +66,8 @@ public:
     QStringList getDataFromContestType(const int _n);
 
     QStringList getBandNames();
+    QStringList getPropModeList();
+
     QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
 

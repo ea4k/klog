@@ -171,6 +171,8 @@ private slots:
     void sloteQSLSentComboBoxChanged();
     void slotQSLViaTextChanged();
 
+    void slotSetPropMode(const QString _p);
+
     void slotUpdateCTYDAT();
     void slotToolSearchNeededQSLToSend();
     void slotToolSearchRequestedQSLToSend();
@@ -434,10 +436,10 @@ private:
     QPushButton *OKButton, *spotItButton, *clearButton;
     QStringList bands;
     QStringList modes;
-    QStringList entitiesList;
+    QStringList entitiesList, propModeList;
 
     // UI DX
-    QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel;
+    QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     QLabel *infoLabel1, *infoLabel2;
     QLabel *bandLabel1, *bandLabel2, *bandLabel3, *bandLabel4;
     QLabel *bandLabel5, *bandLabel6, *bandLabel7, *bandLabel8;
@@ -446,7 +448,7 @@ private:
     QLabel *gradShortLabel, *distShortLabel;
     QLabel *gradLongLabel, *distLongLabel;
 
-    QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox;
+    QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
     QComboBox *operatingYearsComboBox;
     QLineEdit *iotaNumberLineEdit, *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit, *commentLineEdit;
     QTextEdit *notesTextEdit;

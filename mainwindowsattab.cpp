@@ -77,12 +77,30 @@ void MainWindowSatTab::satNameTextChanged()
     //qDebug() << "MainWindowSatTab::satNameTextChanged: " << satNameLineEdit->text() << endl;
     satNameLineEdit->setText((satNameLineEdit->text()).toUpper());
 
+    if ((satNameLineEdit->text()).length()>0)
+    {
+        emit setPropModeSat("SAT");
+    }
+    else if ((satModeLineEdit->text()).length()<1)
+    {
+        emit setPropModeSat("Not");
+    }
+
 }
 
 void MainWindowSatTab::satModeTextChanged()
 {
     //qDebug() << "MainWindowSatTab::satModeTextChanged: " << satModeLineEdit->text() << endl;
     satModeLineEdit->setText((satModeLineEdit->text()).toUpper());
+
+    if ((satModeLineEdit->text()).length()>0)
+    {
+        emit setPropModeSat("SAT");
+    }
+    else if ((satNameLineEdit->text()).length()<1)
+    {
+        emit setPropModeSat("Not");
+    }
 
 }
 
