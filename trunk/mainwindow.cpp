@@ -7,20 +7,20 @@
  ***************************************************************************/
 
 /*****************************************************************************
- * This file is part of KLog.                                             *
+ * This file is part of KLog.                                                *
  *                                                                           *
- *    KLog is free software: you can redistribute it and/or modify        *
+ *    KLog is free software: you can redistribute it and/or modify           *
  *    it under the terms of the GNU General Public License as published by   *
  *    the Free Software Foundation, either version 3 of the License, or      *
  *    (at your option) any later version.                                    *
  *                                                                           *
- *    KLog is distributed in the hope that it will be useful,             *
+ *    KLog is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -41,6 +41,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     upAndRunning = false; // To define some actions that can only be run when starting the software
     connect(&manager, SIGNAL(finished(QNetworkReply*)), SLOT(slotDownloadFinished(QNetworkReply*))); // To download cty.csv
 
+    dataProxy = new DataProxy_SQLite();
 
     // <ui>
     doc = new QTextDocument;
@@ -85,6 +86,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     lastMyLocator = myLocator;
 
     entitiesList.clear();
+    propModeList.clear();
     currentEntity = -1; // To optimize the calls to different world methods if the entity does not change. Used in slotQRZTextChanged
     previousEntity = -1;// To optimize the calls to different world methods if the entity does not change.
     realTime=true;
@@ -199,7 +201,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
 
 
-    //qDebug() << "MainWindow::MainWindow: 1 " << endl;
+   //qDebug() << "MainWindow::MainWindow: 1 " << endl;
     world = new World(kontestDir, softwareVersion);
 
     //qDebug() << "MainWindow::MainWindow: 2" << endl;
@@ -210,38 +212,40 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     if (!db->createConnection())
     {
-        //qDebug() << "MainWindow::MainWindow: 4" << endl;
+       //qDebug() << "MainWindow::MainWindow: 4" << endl;
         return;
     }
     else
     {
+        db->updateIfNeeded(); // Check if we need to update the DB
 
-        //qDebug() << "MainWindow::MainWindow: 5" << endl;
+       //qDebug() << "MainWindow::MainWindow: 5" << endl;
         if (!existingData)
         {
-            //qDebug() << "MainWindow::MainWindow: !existingData" << endl;
+           //qDebug() << "MainWindow::MainWindow: !existingData" << endl;
             world->create(kontestDir);
             entitiesList = world->getEntitiesNames();
+
 
             //createData();
         }else
         {
-            //qDebug() << "MainWindow::MainWindow: existingData" << endl;
+           //qDebug() << "MainWindow::MainWindow: existingData" << endl;
         }
 
-        db->updateIfNeeded(); // Check if we need to update the DB
+        propModeList = dataProxy->getPropModeList();
 
     }
     if (configured)
     {
-        //qDebug() << "MainWindow::MainWindow: configured = true" << endl;
+       //qDebug() << "MainWindow::MainWindow: configured = true" << endl;
     }
     else
     {
-        //qDebug() << "MainWindow::MainWindow: configured = false" << endl;
+       //qDebug() << "MainWindow::MainWindow: configured = false" << endl;
     }
     setupDialog = new SetupDialog(!configured);
-    dataProxy = new DataProxy_SQLite();
+
 
     satTabWidget = new MainWindowSatTab();
 
@@ -275,14 +279,11 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     dateEdit = new QDateEdit;
     timeEdit = new QTimeEdit;
-    //statusBar = new QStatusBar;
-    //setStatusBar(statusBar);
-    //qsoStatusBar = new QStatusBar;
+
     OKButton = new QPushButton(tr("&Add"), this);
     spotItButton = new QPushButton(tr("&Spot"), this);
     clearButton = new QPushButton(tr("&Clear"), this);
-    //mainToolBar = new QToolBar(this);
-    //numberOfQso = 1;
+
 
     // UI DX
     infoLabel1 = new QLabel(tr("Status bar..."));
@@ -303,10 +304,12 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     entitySecLabel = new QLabel(tr("Secondary Div"));
     iotaAwardLabel = new QLabel(tr("IOTA"));
     entityNameLabel = new QLabel(tr("Entity"));
+    propModeLabel = new QLabel(tr("Propagation mode"));
     iotaContinentComboBox = new QComboBox;
     entityPrimDivComboBox = new QComboBox;
     entitySecDivComboBox = new QComboBox;
     entityNameComboBox = new QComboBox;
+    propModeComboBox = new QComboBox;
 
     //notesTextEdit = new QTextEdit;
     commentLineEdit = new QLineEdit;
@@ -504,7 +507,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     //logModel->select();
 
     upAndRunning = true;
-    //qDebug() << "MainWindow::MainWindow: END" << endl;
+   //qDebug() << "MainWindow::MainWindow: END" << endl;
 
 }
 
@@ -2621,6 +2624,10 @@ void MainWindow::createActionsDX(){
 
     connect(eqslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLSentComboBoxChanged() ) )  ;
     connect(eqslRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLRecvComboBoxChanged() ) ) ;
+
+    connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
+
+
 }
 
 bool MainWindow::checkContest(){
@@ -3355,7 +3362,8 @@ void MainWindow::slotClearButtonClicked()
             qslViaLineEdit->clear();
             iotaContinentComboBox->setCurrentIndex(0);
             entityNameComboBox->setCurrentIndex(0);
-            //iotaNumberLineEdit->setEnabled(false);
+            propModeComboBox->setCurrentIndex(0);
+qDebug() << "MainWindow::MainWindow: A" << endl;
             iotaNumberLineEdit->setText("000");
             continentLabel->setText("");
             prefixLabel->setText("");
@@ -5352,7 +5360,7 @@ void MainWindow::createUIDX()
 
     entityPrimDivComboBox->setToolTip(tr("Select the primary division for this QSO"));
     entitySecDivComboBox->setToolTip(tr("Select the secondary division for this QSO"));
-    entityNameComboBox->setToolTip(tr("Select the correct entity of the current QSO"));
+    entityNameComboBox->setToolTip(tr("Select the propagation mode for this current QSO"));
 
     //QGridLayout *layout = new QGridLayout;
 
@@ -5517,6 +5525,13 @@ void MainWindow::createUIDX()
         entitiesList.prepend("00-Not Identified (000)");
         entityNameComboBox->addItems(entitiesList);
     }
+qDebug() << "MainWindow::MainWindow: B" << endl;
+    if (propModeList.count()>1)
+    {
+        propModeList.prepend("00 - Not - Not Identified");
+        propModeComboBox->addItems(propModeList);
+    }
+qDebug() << "MainWindow::MainWindow: C" << endl;
 
     QGridLayout *QSLLayout = new QGridLayout;
     QSLLayout->addWidget(QSLSentLabelN, 0, 0);
@@ -5610,30 +5625,14 @@ void MainWindow::createUIDX()
     commentInputTabWidget->setLayout(commentInputTabWidgetLayout);
     i = dxUpLeftTab->addTab(commentInputTabWidget, tr("Comment"));
 
-
-    //entityPrimLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    //iotaAwardLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    //entityNameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+qDebug() << "MainWindow::MainWindow: D" << endl;
     entityPrimLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     entitySecLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     iotaAwardLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     entityNameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    propModeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
 // Others Tab starts here
-
-/*
-    QHBoxLayout *othersIotaInputLayout = new QHBoxLayout;
-    othersIotaInputLayout->addWidget(iotaContinentComboBox);
-    othersIotaInputLayout->addWidget(iotaNumberLineEdit);
-
-    QFormLayout *othersInputTabWidgetLayout = new QFormLayout;
-    othersInputTabWidgetLayout->addRow(iotaAwardLabel, othersIotaInputLayout);
-    //othersInputTabWidgetLayout->addWidget(iotaContinentComboBox, 0, 1);
-    //othersInputTabWidgetLayout->addWidget(iotaNumberLineEdit, 0, 2);
-    othersInputTabWidgetLayout->addRow(entityPrimLabel, entityPrimDivComboBox);
-    othersInputTabWidgetLayout->addRow(entityNameLabel, entityNameComboBox);
-    //othersInputTabWidgetLayout->addWidget(entityPrimDivComboBox, 1, 1);
-*/
 
     QGridLayout *othersInputTabWidgetLayout = new QGridLayout;
     othersInputTabWidgetLayout->addWidget(entityNameLabel, 0, 0);
@@ -5647,10 +5646,12 @@ void MainWindow::createUIDX()
     othersInputTabWidgetLayout->addWidget(iotaAwardLabel, 3, 0);
     othersInputTabWidgetLayout->addWidget(iotaContinentComboBox, 3, 1);
     othersInputTabWidgetLayout->addWidget(iotaNumberLineEdit, 3, 2);
+    othersInputTabWidgetLayout->addWidget(propModeLabel, 4, 0);
+    othersInputTabWidgetLayout->addWidget(propModeComboBox, 4, 1, 1, 2);
 
     othersInputTabWidget->setLayout(othersInputTabWidgetLayout);
     i = dxUpLeftTab->addTab(othersInputTabWidget, tr("Others"));
-
+qDebug() << "MainWindow::MainWindow: E" << endl;
 
 // MyData tab starts here
 
@@ -6091,6 +6092,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     entityPrimDivComboBox->setEnabled(false);
     entitySecDivComboBox->setEnabled(false);
     entityNameComboBox->setEnabled(true);
+    propModeComboBox->setEnabled(true);
 
 //qDebug() << "MainWindow::createUIDX - OS DETECTION"  << endl;
 
@@ -8809,4 +8811,9 @@ bool MainWindow::trueOrFalse(const QString _s)
     return false;
 }
 
-
+void MainWindow::slotSetPropMode(const QString _p)
+{
+    qDebug() << "MainWindow::slotSetPropMode: " << _p << endl;
+    int indexC = propModeComboBox->findText(" - " + _p + " - ", Qt::MatchContains);
+    propModeComboBox->setCurrentIndex(indexC);
+}

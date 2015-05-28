@@ -80,6 +80,7 @@ private slots:
 
 signals:
     void newLogData(const QStringList _qs); //
+
 private:
 
     bool isThereAnyNotManagedLog();

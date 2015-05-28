@@ -1107,6 +1107,39 @@ QStringList DataProxy_SQLite::getBandNames()
     }
 }
 
+
+QStringList DataProxy_SQLite::getPropModeList()
+{
+    qDebug()  << "DataProxy_SQLite::getPropModeLists"  << endl;
+    QString aux = QString();
+    QStringList qs;
+    qs.clear();
+    QString stringQuery = QString("SELECT id, shortname, name FROM prop_mode_enumeration");
+    QSqlQuery query;
+
+    if (query.exec(stringQuery))
+    {
+        while ( (query.next())) {
+            if (query.isValid())
+            {
+                aux.clear();
+                aux = (query.value(0)).toString() + " - " + (query.value(1)).toString() + " - " + (query.value(2)).toString();
+                qs << aux;
+            }
+            else
+            {
+            }
+        }
+
+    }
+    else
+    {
+        return QStringList();
+    }
+    return qs;
+}
+
+
 QStringList DataProxy_SQLite::getValidCatOptions(const int _currentCat, const int _lowerCat)
 {
     //qDebug() << "DataProxy_SQLite::getContestNames: " << QString::number(_currentCat) <<"/" << QString::number(_lowerCat) << endl;

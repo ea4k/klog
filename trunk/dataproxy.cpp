@@ -218,6 +218,11 @@ QStringList DataProxy::getBandNames(){
     return QStringList();
 }
 
+QStringList DataProxy::getPropModeList()
+{
+    return QStringList();
+}
+
 QStringList DataProxy::getValidCatOptions(const int _currentCat, const int _lowerCa)
 {
     return QStringList();
