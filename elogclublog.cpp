@@ -8,7 +8,8 @@
 
 
 eLogClubLog::eLogClubLog() : QObject(0)
-{    
+{
+    qDebug() << "eLogClubLog::eLogClubLog"  << endl;
     call= QString();
     email = QString();
     pass = QString();
@@ -72,8 +73,9 @@ eLogClubLog::~eLogClubLog()
 
 
 void eLogClubLog::downloadProgress(qint64 received, qint64 total) {
+    qDebug() << "eLogClubLog::downloadProgress: " << QString::number(received) << "/" << QString::number(total) << endl;
+
     qDebug() << received << total;
-    //qDebug() << "eLogClubLog::downloadProgress: " << QString::number(received) << "/" << QString::number(total) << endl;
     emit actionShowProgres(received, total);
 }
 
@@ -207,9 +209,17 @@ ClubLog only accepts the following ADIF fields:
 //qDebug() << "eLogClubLog::getClubLogAdif: 60"  << endl;
     qso = qso + "<BAND:" + QString::number((_q.at(7)).length()) + ">" + _q.at(7) + " ";
 //qDebug() << "eLogClubLog::getClubLogAdif: 70"  << endl;
-    qso = qso + "<BAND_RX:" + QString::number((_q.at(8)).length()) + ">" + _q.at(8) + " ";
-//qDebug() << "eLogClubLog::getClubLogAdif: 80"  << endl;
-    qso = qso + "<FREQ:" + QString::number((_q.at(9)).length()) + ">" + _q.at(9) + " ";
+    if ((_q.at(8)).length()> 2)
+    {
+        qso = qso + "<BAND_RX:" + QString::number((_q.at(8)).length()) + ">" + _q.at(8) + " ";
+    }
+
+    if ((_q.at(9)).length()> 2)
+    {
+        qso = qso + "<FREQ:" + QString::number((_q.at(9)).length()) + ">" + _q.at(9) + " ";
+    }
+
+
 //qDebug() << "eLogClubLog::getClubLogAdif: 90"  << endl;
     qso = qso + "<QSL_RCVD:" + QString::number((_q.at(10)).length()) + ">" + _q.at(10) + " ";
 //qDebug() << "eLogClubLog::getClubLogAdif: 100"  << endl;
@@ -217,14 +227,19 @@ ClubLog only accepts the following ADIF fields:
 //qDebug() << "eLogClubLog::getClubLogAdif: 110"  << endl;
     qso = qso + "<QSL_SENT:" + QString::number((_q.at(12)).length()) + ">" + _q.at(12) + " ";
 //qDebug() << "eLogClubLog::getClubLogAdif: 120"  << endl;
-    qso = qso + "<DXCC:" + QString::number((_q.at(13)).length()) + ">" + _q.at(13) + " ";
+    if ((_q.at(13)).toInt()> 0)
+    {
+        qso = qso + "<DXCC:" + QString::number((_q.at(13)).length()) + ">" + _q.at(13) + " ";
+    }
+
+
 //qDebug() << "eLogClubLog::getClubLogAdif: 130'"  << endl;
     qso = qso + "<PROP_MODE:" + QString::number((_q.at(14)).length()) + ">" + _q.at(14) + " ";
 //qDebug() << "eLogClubLog::getClubLogAdif: 140"  << endl;
     qso = qso + "<CREDIT_GRANTED:" + QString::number((_q.at(15)).length()) + ">" + _q.at(15) + " ";
     //qDebug() << "eLogClubLog::getClubLogAdif: 150"  << endl;
     qso = qso + "<EOR>";
-    ////qDebug() << "eLogClubLog::getCLubLogAdif - QSO: "  << qso << endl;
+    ////qDebug() << "eLogClubLog:: - QSO: "  << qso << endl;
 
 
     //qDebug() << "eLogClubLog::getClubLogAdif: 100"  << endl;
@@ -263,10 +278,12 @@ int eLogClubLog::deleteQSO(QStringList _qso)
 
     return sendData(qso);
 
+
 }
 
 QString eLogClubLog::prepareToTranslate(const QString _m)
 {
+    qDebug() << "eLogClubLog:: = prepareToTranslate" << _m << endl;
     if (_m == "Callsign missing")
     {
         return tr("Callsign missing");

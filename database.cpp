@@ -34,6 +34,7 @@ DataBase::DataBase(const QString _softVersion, bool inmemoryonly){
     softVersion = _softVersion;
     inMemoryOnly = inmemoryonly;
     latestReaded = 0.0;
+
 }
 
 DataBase::~DataBase()
@@ -257,7 +258,7 @@ bool DataBase::createTableLog(bool temp)
              "owner_callsign VARCHAR, "
              "pfx VARCHAR, "
              "precedence VARCHAR, "
-             "prop_mode VARCHAR(8), "
+             "prop_mode VARCHAR, "
              "public_key VARCHAR, "
              "qslmsg VARCHAR, "
              "qslrdate VARCHAR(10), "
@@ -1030,7 +1031,9 @@ bool DataBase::createTheBandQuickReference()
     QHash<double, int> freqBandIdHash;
 
 */
+
     //qDebug() << "DataBase::createTheBandQuickReference: " << endl;
+
     QString st = "NULL";
     int in = 0;
     double fr = 0;
@@ -1546,7 +1549,7 @@ bool DataBase::createTableLogs()
 bool DataBase::createTablePropModes()
 {
     QSqlQuery query;
-    return query.exec("CREATE TABLE prop_mode_enumeration (id INTEGER PRIMARY KEY AUTOINCREMENT, shortname VARCHAR(8) NOT NULL, name VARCHAR(55) NOT NULL)");
+    return query.exec("CREATE TABLE prop_mode_enumeration (id INTEGER PRIMARY KEY AUTOINCREMENT, shortname VARCHAR(8), name VARCHAR(55) )");
 }
 
 
@@ -1643,6 +1646,7 @@ bool DataBase::populatePropagationModes()
 {
     QSqlQuery query;
 
+    //query.exec("INSERT INTO prop_mode_enumeration (id, shortname, name) VALUES ('0', Not', 'Not Identified')");
     query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AUR', 'Aurora')");
     query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AUE', 'Aurora-E')");
     query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('BS', 'Back scatter')");

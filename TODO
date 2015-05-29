@@ -2,6 +2,14 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
+BUG:
+
+
+BUG:
+CLUBLOG
+If qsoToEdit, nothing is modified and OK. (Clublog returns QSO DUPE)
+Again qsoToEdit, nothing is modified and OK (Clublogs returns QSO DROPPED, and QSO is dropped!)
+
 TODO: Check the values that clublog is returning to manage errors and show messages to the user
 TODO: To add the possibility to upload a modified QSO to clublog.
 TODO: Check the PROP_MODE that is being used in ClubLog
@@ -79,6 +87,7 @@ TODO: HelpHelpDialog
 TODO: HelpAboutDialog
 
 TODO: setuppagelogs.cpp
+TODO: Remove references to DataBase from all classes except DataProxySQLite
 
 TODO: DXCluster: Lines that are not a DX should not be in another color than default.
 TODO: Add a default DX Cluster server
@@ -93,7 +102,7 @@ TODO: Create something like a void Awards::setAwardsOfAllQSO to read ALL QSO and
 
 KLOG TODO:
 TODO: To create a function tha runs the log and marks "N" if QSL has not been sent or received.
-
+TODO: Create a setup page to configure a default prop_mode per band (ie 6m = ES)
 
 TODO: CTY.DAT update
 TODO: Award tabs: center/bold tabs

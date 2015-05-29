@@ -284,6 +284,7 @@ private:
     QString readDataFromUIDXModifying();
 
     int getDXCCFromComboBox();
+    QString getPropModeFromComboBox();
 
     //QString readDataFromUICQWW();
 
