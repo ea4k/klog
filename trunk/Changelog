@@ -7,8 +7,8 @@
 - GUI: Added some shortcuts in the preference widget.
 - Support of realtime upload, modification & removal of a single QSO from ClubLog.org.
 - Updated the DB with the PROP_MODE options.
-- GUI: Added a Propagation Mode tab.
-- GUI: Prop_Mode tab automatically goes to SAT if sat name or sat mode are defined
+- GUI: Added a Propagation Mode Combobox.
+- GUI: Prop_Mode combobox automatically goes to SAT if sat name or sat mode are defined
 
 April-2015 - 0.9.1.1
 - Bugfix: Editing a QSO with satellite data was not properly done and caused some errors.

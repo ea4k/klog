@@ -41,8 +41,6 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     upAndRunning = false; // To define some actions that can only be run when starting the software
     connect(&manager, SIGNAL(finished(QNetworkReply*)), SLOT(slotDownloadFinished(QNetworkReply*))); // To download cty.csv
 
-    dataProxy = new DataProxy_SQLite();
-
     // <ui>
     doc = new QTextDocument;
 
@@ -198,9 +196,6 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     db = new DataBase(softwareVersion, DBinMemory);
 
-
-
-
    //qDebug() << "MainWindow::MainWindow: 1 " << endl;
     world = new World(kontestDir, softwareVersion);
 
@@ -233,9 +228,12 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
            //qDebug() << "MainWindow::MainWindow: existingData" << endl;
         }
 
-        propModeList = dataProxy->getPropModeList();
+
 
     }
+    dataProxy = new DataProxy_SQLite();
+    propModeList = dataProxy->getPropModeList();
+
     if (configured)
     {
        //qDebug() << "MainWindow::MainWindow: configured = true" << endl;
@@ -570,7 +568,7 @@ void MainWindow::slotModeComboBoxChanged(){
 }
 
 void MainWindow::slotBandComboBoxChanged(){
-   //qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << endl;
+   qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << endl;
     int i;
     i = dataProxy->getIdFromBandName(bandComboBox->currentText());
     if (i>=0)
@@ -996,10 +994,6 @@ QString MainWindow::readDataFromUIDX()
     {
         stringFields = stringFields + ", sat_name";
         stringData = stringData + ", '" + aux1 + "'";
-
-        stringFields = stringFields + ", prop_mode";
-        stringData = stringData + ", '" + "SAT" + "'";
-
     }
 
     aux1 = satTabWidget->getSatMode();
@@ -1011,6 +1005,14 @@ QString MainWindow::readDataFromUIDX()
     }
 
     keepSatPage = satTabWidget->getRepeatThis();
+
+    aux1 = getPropModeFromComboBox();
+    if ((aux1.length()>0) && (aux1 != "Not"))
+    {
+        stringFields = stringFields + ", prop_mode";
+        stringData = stringData + ", '" + aux1 + "'";
+    }
+
     //CLUBLOG
     int i = clublogComboBox->currentIndex();
     //qsAux << tr("Y-Uploaded") << tr("N-Do not upload") << tr("M-Modified");
@@ -1692,16 +1694,37 @@ WHERE [condition];
         updateString = updateString + "sat_name = '";
         updateString = updateString + aux1 + "', ";
 
-        updateString = updateString + "prop_mode = '";
-        updateString = updateString + "SAT', ";
+        //updateString = updateString + "prop_mode = '";
+        //updateString = updateString + "SAT', ";
     }
 
     aux1 = satTabWidget->getSatMode();
+
     if (aux1.length()>0)
     {
         updateString = updateString + "sat_mode = '";
         updateString = updateString + aux1 + "', ";
     }
+
+    aux1 = getPropModeFromComboBox();
+    qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << endl;
+    if ((aux1.length()>0) && (aux1 != "Not"))
+    {
+         qDebug() << "MainWindow::readDataFromUIDX: PropMode(1):  " << aux1 << endl;
+        updateString = updateString + "prop_mode = '";
+        updateString = updateString + aux1 + "', ";
+    }
+    else if ((aux1.length()==0) || (aux1 == "Not"))
+    {
+        qDebug() << "MainWindow::readDataFromUIDX: PropMode(2):  " << aux1 << endl;
+        updateString = updateString + "prop_mode = '',";
+        //updateString = updateString + aux1 + "', ";
+    }
+    else
+    {
+        qDebug() << "MainWindow::readDataFromUIDX: PropMode(3):  " << aux1 << endl;
+    }
+
     //CLUBLOG
     int i = clublogComboBox->currentIndex();
     //qsAux << tr("Y-Uploaded") << tr("N-Do not upload") << tr("M-Modified");
@@ -3363,7 +3386,7 @@ void MainWindow::slotClearButtonClicked()
             iotaContinentComboBox->setCurrentIndex(0);
             entityNameComboBox->setCurrentIndex(0);
             propModeComboBox->setCurrentIndex(0);
-qDebug() << "MainWindow::MainWindow: A" << endl;
+
             iotaNumberLineEdit->setText("000");
             continentLabel->setText("");
             prefixLabel->setText("");
@@ -5525,13 +5548,13 @@ void MainWindow::createUIDX()
         entitiesList.prepend("00-Not Identified (000)");
         entityNameComboBox->addItems(entitiesList);
     }
-qDebug() << "MainWindow::MainWindow: B" << endl;
+
     if (propModeList.count()>1)
     {
         propModeList.prepend("00 - Not - Not Identified");
         propModeComboBox->addItems(propModeList);
     }
-qDebug() << "MainWindow::MainWindow: C" << endl;
+
 
     QGridLayout *QSLLayout = new QGridLayout;
     QSLLayout->addWidget(QSLSentLabelN, 0, 0);
@@ -5625,7 +5648,7 @@ qDebug() << "MainWindow::MainWindow: C" << endl;
     commentInputTabWidget->setLayout(commentInputTabWidgetLayout);
     i = dxUpLeftTab->addTab(commentInputTabWidget, tr("Comment"));
 
-qDebug() << "MainWindow::MainWindow: D" << endl;
+
     entityPrimLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     entitySecLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     iotaAwardLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
@@ -5651,7 +5674,7 @@ qDebug() << "MainWindow::MainWindow: D" << endl;
 
     othersInputTabWidget->setLayout(othersInputTabWidgetLayout);
     i = dxUpLeftTab->addTab(othersInputTabWidget, tr("Others"));
-qDebug() << "MainWindow::MainWindow: E" << endl;
+
 
 // MyData tab starts here
 
@@ -6507,6 +6530,7 @@ void MainWindow::qsoToEdit (const int _qso)
 {
     //qDebug() << "MainWindow::qsoToEdit: " << QString::number(_qso) << endl;
 
+
     int nameCol;
     QString aux1;
     double testValueDouble; // Variable just to test if the value is in the appropriate range
@@ -7241,6 +7265,16 @@ void MainWindow::qsoToEdit (const int _qso)
                 {
                     currentEntity = world->getQRZARRLId(currentQrz);
                 }
+
+                nameCol = rec.indexOf("prop_mode");
+                aux1  = (query.value(nameCol)).toString();
+
+                if(( propModeComboBox->findText(aux1+" -", Qt::MatchContains))>0)
+                {
+                    propModeComboBox->setCurrentIndex( propModeComboBox->findText(aux1+" -", Qt::MatchContains));
+                    qDebug() << "MainWindow::qsoToEdit: Prop2: " << aux1 << endl;
+                }
+
 
                 showEntityInfo(currentEntity);
                 selectCorrectComboBoxEntity(currentEntity);
@@ -8798,7 +8832,7 @@ void MainWindow::defineStationCallsign()
 
 bool MainWindow::trueOrFalse(const QString _s)
 {// reads a String and return true if s.upper()== TRUE :-)
-    qDebug() << "MainWindow::trueOrFalse: " << _s << endl;
+    //qDebug() << "MainWindow::trueOrFalse: " << _s << endl;
 
     if ( (_s.toUpper()) == "TRUE")
     {
@@ -8814,6 +8848,26 @@ bool MainWindow::trueOrFalse(const QString _s)
 void MainWindow::slotSetPropMode(const QString _p)
 {
     qDebug() << "MainWindow::slotSetPropMode: " << _p << endl;
+    if(modify)
+    {
+        return;
+    }
     int indexC = propModeComboBox->findText(" - " + _p + " - ", Qt::MatchContains);
     propModeComboBox->setCurrentIndex(indexC);
 }
+
+
+QString MainWindow::getPropModeFromComboBox()
+{
+    QString _pm = QString();
+    qDebug() << "MainWindow::getPropModeFromComboBox:" << propModeComboBox->currentText() << endl;
+    _pm = (((propModeComboBox->currentText()).split('-')).at(1)).simplified();
+    qDebug() << "MainWindow::getPropModeFromComboBox: " << _pm << endl;
+    if (_pm == "Not")
+    {
+        return QString();
+    }
+    return _pm;
+}
+
+
