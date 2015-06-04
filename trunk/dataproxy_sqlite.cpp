@@ -429,14 +429,14 @@ bool DataProxy_SQLite::setClubLogSent(const int _qsoId, const QString _st, const
     QSqlQuery query;
     QString stringQuery;
     stringQuery = QString("UPDATE log SET clublog_qso_upload_status = '%1', clublog_qso_upload_date = '%2' WHERE id = '%3'").arg(_st).arg(_updateDate).arg(_qsoId);
-    qDebug() << "DataProxy_SQLite::setClubLogSent: " << stringQuery << endl;
+    //qDebug() << "DataProxy_SQLite::setClubLogSent: " << stringQuery << endl;
 
     if (query.exec(stringQuery))
     {
-        qDebug() << "DataProxy_SQLite::setClubLogSent - TRUE" << endl;
+        //qDebug() << "DataProxy_SQLite::setClubLogSent - TRUE" << endl;
         return true;
     }
-    qDebug() << "DataProxy_SQLite::setClubLogSent - FALSE" << endl;
+    //qDebug() << "DataProxy_SQLite::setClubLogSent - FALSE" << endl;
 
     return false;
 }

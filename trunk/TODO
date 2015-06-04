@@ -2,9 +2,8 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
-BUG: Check the QSL pending to receive menu option. It does not work
-properly.
-BUG: Check the QSL to send QSL. It may not be working.
+BUG: Check the options that are marked in QSL when rightbutton.
+i.e.: Is myQSL sent marked as requested when it shoould be the DX-QSL?
 
 BUG:
 Clublog: In
