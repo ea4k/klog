@@ -2,20 +2,29 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
+BUG: Check the QSL pending to receive menu option. It does not work
+properly.
+
+BUG:
+Clublog: In
+void MainWindow::slotQRZReturnPressed()
+_x = elogClublog->deleteQSO(clublogPrevQSO);
+_x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSO))
+It runs so fast and not serialized that at the end sometimes the QSO is deleted but not created afterwards
+
 BUG:
 
 
-BUG:
 CLUBLOG
 If qsoToEdit, nothing is modified and OK. (Clublog returns QSO DUPE)
 Again qsoToEdit, nothing is modified and OK (Clublogs returns QSO DROPPED, and QSO is dropped!)
 
 TODO: Check the values that clublog is returning to manage errors and show messages to the user
 TODO: To add the possibility to upload a modified QSO to clublog.
-TODO: Check the PROP_MODE that is being used in ClubLog
-TODO: Add a ComboBox with the PROP_MODE to select, it so ClubLog & LOTW accept the QSOs
 
-
+TODO: Upload a logfile to clublog
+// Ideas: https://code.google.com/p/datacod-qt-tools/source/browse/upcoder/uploader.h
+// https://code.google.com/p/datacod-qt-tools/source/browse/upcoder/uploader.cpp
 
 KLog 0.9.2
 Bug: An ADIF file with one blank line and one QSO freezes KLog.
