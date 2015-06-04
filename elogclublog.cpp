@@ -23,12 +23,12 @@ eLogClubLog::~eLogClubLog()
 }
 
 
- void eLogClubLog::downloadFinished(QNetworkReply *data)
+ void eLogClubLog::slotQsoUploadFinished(QNetworkReply *data)
 {
-    qDebug() << "eLogClubLog::downloadFinished"  << endl;
+    qDebug() << "eLogClubLog::slotQsoUploadFinished"  << endl;
 
     result = data->error();
-    //qDebug() << "eLogClubLog::downloadFinished - Result = " << QString::number(result) << endl;
+    //qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = " << QString::number(result) << endl;
 
     const QByteArray sdata = data->readAll();
 
@@ -51,26 +51,67 @@ eLogClubLog::~eLogClubLog()
     }
     else if (result == QNetworkReply::HostNotFoundError)
     {
-        qDebug() << "eLogClubLog::downloadFinished - Result = Host Not found! = " << QString::number(result)  << endl;
+        qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = Host Not found! = " << QString::number(result)  << endl;
         text = "ClubLog: " + tr("Host not found!");
     }
     else if (result == QNetworkReply::TimeoutError)
     {
-        qDebug() << "eLogClubLog::downloadFinished - Result = Time out error! = " << QString::number(result)  << endl;
+        qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = Time out error! = " << QString::number(result)  << endl;
         text = "ClubLog: " + tr("Timeout error!");
     }
     else
     {
-        qDebug() << "eLogClubLog::downloadFinished - Result = UNDEFINED = " << QString::number(result)  << endl;
+        qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = UNDEFINED = " << QString::number(result)  << endl;
         text = "ClubLog: " + tr("Undefined error...");
     }
 
-    //qDebug() << "eLogClubLog::downloadFinished - Result = " << QString::number(result) << endl;
+    //qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = " << QString::number(result) << endl;
     //emit done();
     emit  showMessage(text);
 
 }
 
+void eLogClubLog::slotFileUploadFinished(QNetworkReply *data)
+{
+    qDebug() << "eLogClubLog::slotFileUploadFinished"  << endl;
+
+    result = data->error();
+    //qDebug() << "eLogClubLog::slotFileUploadFinished - Result = " << QString::number(result) << endl;
+
+    const QByteArray sdata = data->readAll();
+
+    QString text = QString();
+
+
+    if (result == QNetworkReply::NoError)
+    {
+
+        text = "ClubLog: " + prepareToTranslate(sdata);
+        qDebug() << "eLogClubLog::slotFileUploadFinished - Result = NoError = " << QString::number(result)  << endl;
+        qDebug() << sdata;
+
+
+    }
+    else if (result == QNetworkReply::HostNotFoundError)
+    {
+        qDebug() << "eLogClubLog::slotFileUploadFinished - Result = Host Not found! = " << QString::number(result)  << endl;
+        text = "ClubLog: " + tr("Host not found!");
+    }
+    else if (result == QNetworkReply::TimeoutError)
+    {
+        qDebug() << "eLogClubLog::slotFileUploadFinished - Result = Time out error! = " << QString::number(result)  << endl;
+        text = "ClubLog: " + tr("Timeout error!");
+    }
+    else
+    {
+        qDebug() << "eLogClubLog::slotFileUploadFinished - Result = UNDEFINED = " << QString::number(result)  << endl;
+        text = "ClubLog: " + tr("Undefined error...");
+    }
+
+    //qDebug() << "eLogClubLog::slotFileUploadFinished - Result = " << QString::number(result) << endl;
+    //emit done();
+    emit  showMessage(text);
+}
 
 void eLogClubLog::downloadProgress(qint64 received, qint64 total) {
     qDebug() << "eLogClubLog::downloadProgress: " << QString::number(received) << "/" << QString::number(total) << endl;
@@ -103,7 +144,7 @@ void eLogClubLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
 int eLogClubLog::sendQSO(QStringList _qso)
 {
     qDebug() << "eLogClubLog::sendQSO: " << call <<"/"<< email << "/" << pass << "/" << api  << endl;
-    qDebug() << "eLogClubLog::sendQSO:: length = " << QString::number(_qso.length()) << endl;
+    //qDebug() << "eLogClubLog::sendQSO:: length = " << QString::number(_qso.length()) << endl;
     // First Data in the QStringList is the QSO id, not to be sent to clublog but used in the signal actionReturnDownload(const int _i, const int _qsoId);
 
     if (_qso.length()!=17)
@@ -111,8 +152,6 @@ int eLogClubLog::sendQSO(QStringList _qso)
         return -1;
     }
     currentQSO = (_qso.at(0)).toInt();
-
-
 
     _qso.removeFirst();
 
@@ -147,7 +186,7 @@ int eLogClubLog::sendData(const QString _q)
     QNetworkRequest request(serviceUrl);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 
-    connect(networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(downloadFinished(QNetworkReply*)));
+    connect(networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slotQsoUploadFinished(QNetworkReply*)));
 
     networkManager->post(request, postData);
 
@@ -155,10 +194,11 @@ int eLogClubLog::sendData(const QString _q)
 
 }
 
+
 QString eLogClubLog::getClubLogAdif(const QStringList _q)
 
 {
-    qDebug() << "eLogClubLog::getClubLogAdif: " << QString::number(_q.length()) << endl;
+    //qDebug() << "eLogClubLog::getClubLogAdif: " << QString::number(_q.length()) << endl;
     // _qso must include 16 ordered fields than can be empty or contain data. This function builds the ADIF QSO
 /* http://clublog.freshdesk.com/support/solutions/articles/53202-which-adif-fields-does-club-log-use-
 ClubLog only accepts the following ADIF fields:
@@ -384,4 +424,14 @@ QString eLogClubLog::prepareToTranslate(const QString _m)
     {
         return _m;
     }
+}
+
+
+int eLogClubLog::modifyQSO (QStringList _oldQSO, QStringList _newQSO)
+{
+   int x = -1;
+
+    x = deleteQSO(_oldQSO);
+    x = sendQSO(_newQSO);
+    return x;
 }

@@ -177,6 +177,7 @@ private slots:
     void slotToolSearchNeededQSLToSend();
     void slotToolSearchRequestedQSLToSend();
     void slotToolSearchNeededQSLPendingToReceive();
+    void slotToolSearchNeededQSLRequested();
     void slotToolSearchQSL(const int actionQSL);
 
     void slotExitFromSlotDialog(const int exitID);
@@ -404,6 +405,7 @@ private:
     QAction *findQSO2QSLAct;
     QAction *findRequestedQSLAct;
     QAction *findQSLPendingToReceiveAct;
+    QAction *findQSLDXRequestedAct;
 
     QAction *downloadCTYAct;
 

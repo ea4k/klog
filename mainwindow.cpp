@@ -2586,7 +2586,7 @@ void MainWindow::createActionsCommon(){
 
 void MainWindow::slotElogClubLogShowMessage(const QString _s)
 {
-    qDebug() << "MainWindow::slotElogClubLogShowMessage: " << _s << endl;
+    //qDebug() << "MainWindow::slotElogClubLogShowMessage: " << _s << endl;
     updateStatusBar(_s);
 }
 
@@ -3559,16 +3559,19 @@ void MainWindow::createMenusCommon()
     toolMenu->addAction(ADIFExport);
     //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
     connect(ADIFExport, SIGNAL(triggered()), this, SLOT(slotADIFExport()));
+    ADIFExport->setToolTip(tr("Export the current log to an ADIF logfile"));
 
     ADIFExportAll = new QAction(tr("&Export all logs to ADIF..."), this);
     toolMenu->addAction(ADIFExportAll);
     //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
     connect(ADIFExportAll, SIGNAL(triggered()), this, SLOT(slotADIFExportAll()));
+    ADIFExportAll->setToolTip(tr("Export ALL the QSO coming from ALL the logs in the same logfile. QSOs will be mixed up in the same ADIF file."));
 
     ADIFImport = new QAction(tr("&Import from ADIF..."), this);
     toolMenu->addAction(ADIFImport);
     //ADIFImport->setMenuRole(QAction::ApplicationSpecificRole);
     connect(ADIFImport, SIGNAL(triggered()), this, SLOT(slotADIFImport()));
+    ADIFImport->setToolTip(tr("Import an ADIF file in the current log"));
 
     toolMenu->addSeparator();
 
@@ -3576,6 +3579,7 @@ void MainWindow::createMenusCommon()
     toolMenu->addAction(fillQsoAct);
     //fillQsoAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(fillQsoAct, SIGNAL(triggered()), this, SLOT(fillQSOData()));
+    fillQsoAct->setToolTip(tr("Run the log reusing previous QSO to reuse and fill missing information in other QSO"));
 
     toolMenu->addSeparator();
 
@@ -3583,29 +3587,36 @@ void MainWindow::createMenusCommon()
     toolMenu->addAction(findQSO2QSLAct);
     //findQSO2QSLAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(findQSO2QSLAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLToSend()));
+    findQSO2QSLAct->setToolTip(tr("Shows QSO that are needed and you should send your QSL and request the DX-QSL"));
 
-    findRequestedQSLAct = new QAction(tr("Find &requested QSL"), this);
+    findRequestedQSLAct = new QAction(tr("Find &requested MY-QSL"), this);
     toolMenu->addAction(findRequestedQSLAct);
     //findQSO2QSLAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(findRequestedQSLAct, SIGNAL(triggered()), this, SLOT(slotToolSearchRequestedQSLToSend()));
+    findRequestedQSLAct->setToolTip(tr("Shows the QSO that have requested my QSL to be sent and is still pending. You should keep this queue empty!"));
 
-
-    findQSLPendingToReceiveAct = new QAction(tr("&Find pending to receive QSL"), this);
+    findQSLPendingToReceiveAct = new QAction(tr("&Find pending to receive DX-QSL"), this);
     toolMenu->addAction(findQSLPendingToReceiveAct);
     connect(findQSLPendingToReceiveAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
+    findQSLPendingToReceiveAct->setToolTip(tr("Shows the DX-QSL that has been requested or simply my QSL has been sent with no answer"));
+
+    findQSLDXRequestedAct = new QAction(tr("&Find requested DX-QSL"), this);
+    toolMenu->addAction(findQSLDXRequestedAct);
+    connect(findQSLDXRequestedAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLRequested()));
+    findQSLDXRequestedAct->setToolTip(tr("Shows the DX-QSL that has been requested"));
 
 
     ReqQSLExport = new QAction(tr("&Export Requested QSL to ADIF..."), this);
     toolMenu->addAction(ReqQSLExport);
     connect(ReqQSLExport, SIGNAL(triggered()), this, SLOT(slotRQSLExport()));
-
+    ReqQSLExport->setToolTip(tr("Export all requested My-QSL QSO to an ADIF file (i.e. to import it in a QSL tag printing software)"));
     toolMenu->addSeparator();
 
     downloadCTYAct = new QAction (tr("&Update CTY.CSV"), this);
     toolMenu->addAction(downloadCTYAct);
     //downloadCTYAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(downloadCTYAct, SIGNAL(triggered()), this, SLOT(slotUpdateCTYDAT()));
-
+    downloadCTYAct->setToolTip(tr("Update the country file to have updated DX-Entity data"));
 
     toolMenu->addSeparator();
 
@@ -3902,7 +3913,7 @@ void MainWindow::newFile()
 
 void MainWindow::updateStatusBar(const QString statusm)
 {
-    qDebug() << "MainWindow::updateStatusBar: " << statusm  << endl;
+    //qDebug() << "MainWindow::updateStatusBar: " << statusm  << endl;
     statusBar()->showMessage(statusm, 2000);
 }
 
@@ -8230,103 +8241,7 @@ QString MainWindow::saveFileName(const QUrl &url)
     //qDebug() << "MainWindow::slotToolSearchRequestedQSLToSend" << endl;
      slotToolSearchQSL(1);
      //return;
-/*
-     int nameCol = -1;
-     QString _call, _dateTime, _band, _mode, _freq, _qsltx, _qslrx, _id, _stationcallsign;
-     QFont font;
-     font.setBold(true);
-     QColor color;
-     QStringList q;
 
-     QString stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, id FROM log  WHERE qsl_sent='R'AND lognumber='%1'").arg(currentLog);
-
-     searchResultsTreeWidget->clear();
-     QSqlQuery query(stringQuery);
-     QSqlRecord rec = query.record();
-
-     if (!query.exec())
-     {
-         //TODO: Control the error!!
-     }
-     else
-     {
-         while(query.next())
-         {
-         if (query.isValid())
-         {
-             QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
-             nameCol = rec.indexOf("call");
-             _call= (query.value(nameCol)).toString();
-             nameCol = rec.indexOf("qso_date");
-             _dateTime = (query.value(nameCol)).toString();
-             nameCol = rec.indexOf("time_on");
-             _dateTime = _dateTime + "-" +(query.value(nameCol)).toString();
-
-             nameCol = rec.indexOf("bandid");
-             _freq = (query.value(nameCol)).toString();
-             _band = db->getBandNameFromNumber( _freq.toInt() );
-
-             nameCol = rec.indexOf("modeid");
-             _mode = db->getModeNameFromNumber( (query.value(nameCol)).toInt() );
-
-             nameCol = rec.indexOf("qsl_sent");
-             _qsltx = (query.value(nameCol)).toString();
-             if (_qsltx.length()<1)
-             {
-                 _qsltx = "N";
-             }
-
-             nameCol = rec.indexOf("qsl_rcvd");
-             _qslrx = (query.value(nameCol)).toString();
-             if (_qslrx.length()<1)
-             {
-                 _qslrx = "N";
-             }
-
-             nameCol = rec.indexOf("id");
-             _id= (query.value(nameCol)).toString();
-
-             nameCol = rec.indexOf("station_callsign");
-             _stationcallsign = (query.value(nameCol)).toString();
-             if (_stationcallsign.length()<3)
-             {
-                 _stationcallsign = stationQRZ;
-             }
-
-
-             q.clear();
-             q << _call << _freq << _mode << QString::number(currentLog);
-             //q << _call << _freq << "-1" << QString::number(currentLog);
-
-             color = awards->getQRZDXStatusColor(q);
-             item->setText(0, _call);
-             item->setText(1, _dateTime);
-             item->setText(2, _band);
-             item->setText(3, _mode);
-             item->setText(4, _qsltx);
-             item->setText(5, _qslrx);
-             if (stationCallSignShownInSearch)
-             {
-                 item->setText(6, _stationcallsign);
-                 item->setText(7, _id);
-             }
-             else
-             {
-                item->setText(6, _id);
-             }
-
-             item->setForeground(0, QBrush(color));
-
-         }
-         else
-         {
-
-         }
-     }
-         qslingNeeded = true;
-         dxUpRightTab->setCurrentIndex(2);
-     }
-*/
  }
 
 void MainWindow::slotToolSearchNeededQSLToSend()
@@ -8455,12 +8370,16 @@ void MainWindow::slotToolSearchNeededQSLPendingToReceive()
     slotToolSearchQSL(2);
 }
 
-
+void MainWindow::slotToolSearchNeededQSLRequested()
+{ // Requested DX QSL
+    slotToolSearchQSL(3);
+}
 
 
 void MainWindow::slotToolSearchQSL(const int actionQSL)
 {
     //qDebug() << "MainWindow::slotToolSearchQSL: " << QString::number(actionQSL) << endl;
+    // 2 means QSL_RCVD = 'R'
     QString stringQuery = QString();
     QString message = QString();
     QString aux = QString();
@@ -8482,9 +8401,13 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
             message = tr("My QSL requested to be sent");
         break;
         case 2://void slotToolSearchNeededQSLPendingToReceive();
-        stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log WHERE lognumber='%1' AND ( (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R')");
+        stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log WHERE lognumber='%1' AND ( (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R')").arg(currentLog);
             message = tr("DX QSL pending to be received");
         break;
+    case 3://void slotToolSearchNeededQSLRequested()
+    stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log WHERE lognumber='%1' AND  qsl_rcvd='R'").arg(currentLog);
+        message = tr("DX QSL pending to be received");
+    break;
         default:
         // should never be reached
             return;
@@ -8847,7 +8770,7 @@ bool MainWindow::trueOrFalse(const QString _s)
 
 void MainWindow::slotSetPropMode(const QString _p)
 {
-    qDebug() << "MainWindow::slotSetPropMode: " << _p << endl;
+    //qDebug() << "MainWindow::slotSetPropMode: " << _p << endl;
     if(modify)
     {
         return;

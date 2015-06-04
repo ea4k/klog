@@ -1,6 +1,7 @@
 #ifndef ELOGCLUBLOG_H
 #define ELOGCLUBLOG_H
 #include <QObject>
+#include <QFile>
 #include <QString>
 #include <QProgressDialog>
 #include <QtNetwork/QNetworkAccessManager>
@@ -16,6 +17,9 @@ public:
     void setCredentials(const QString _call, const QString _email, const QString _pass);
     int sendQSO(QStringList _qso);
     int deleteQSO(QStringList _qso);
+    int modifyQSO (QStringList _oldQSO, QStringList _newQSO);
+
+    //int sendLogFile(const QFile _f);
 
     //int download();
 
@@ -33,7 +37,8 @@ private:
     QString target;
 
 private slots:
-    void downloadFinished(QNetworkReply* data);
+    void slotQsoUploadFinished(QNetworkReply* data);
+    void slotFileUploadFinished(QNetworkReply* data);
     void downloadProgress(qint64 received, qint64 total);
     void slotErrorManagement(QNetworkReply::NetworkError networkError);
 
