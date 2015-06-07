@@ -535,11 +535,14 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
     int nameCol = -1;
     QStringList dataC = QStringList();
     QString aux1 = QString();
+    QString aux2 = QString();
+    QString call = QString();
 
 // IMPORTANT: band_rx is not always present, and if it is not present, the query with INNER JOIN will fail.
 // To fix that we will do two queries, one to check if I have all the data and if not another one with a reduced scope.
 
-    QString stringQuery = QString("SELECT qso_date, time_on, qslrdate, qslsdate, call, operator, M.name, B.name, R.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN band as R ON band_rx = R.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
+    QString stringQuery = QString("SELECT qso_date, time_on, qslrdate, qslsdate, call, station_callsign, operator, M.name, B.name, R.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN band as R ON band_rx = R.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
+
     bool sqlOk = query.exec(stringQuery);
     if (!sqlOk)
     {
@@ -587,19 +590,22 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                 dataC << (query.value(nameCol)).toString();
                 nameCol = rec.indexOf("qslsdate");
                 dataC << (query.value(nameCol)).toString();
+
                 nameCol = rec.indexOf("call");
-                dataC << (query.value(nameCol)).toString();
+                call = (query.value(nameCol)).toString();
+                dataC << call;
+
                 nameCol = rec.indexOf("operator");
                 dataC << (query.value(nameCol)).toString();
 
                 //nameCol = rec.indexOf("M.name");                 //TODO: Fix this to get the proper column
-                dataC << (query.value(6)).toString();
+                dataC << (query.value(7)).toString();
 
                 //nameCol = rec.indexOf("B.name");
-                dataC << (query.value(7)).toString();               //TODO: Fix this to get the proper column
+                dataC << (query.value(8)).toString();               //TODO: Fix this to get the proper column
 
                 //nameCol = rec.indexOf("R.name");                 //TODO: Fix this to get the proper column (use an index instead of a number)
-                dataC << (query.value(8)).toString();
+                dataC << (query.value(9)).toString();
 
                 nameCol = rec.indexOf("freq");
                 dataC << (query.value(nameCol)).toString();
@@ -615,7 +621,19 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                 dataC << (query.value(nameCol)).toString();
                 nameCol = rec.indexOf("credit_granted");
                 dataC << (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("station_callsign");
+                aux2 = (query.value(nameCol)).toString();
+                if (aux2.length()>2)
+                {
+                    dataC <<  aux2;
+                }
+                else
+                {
+                    dataC << call;
+                }
 
+
+                //dataC << (query.value(nameCol)).toString();
                //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: RETURNING ... OK" << endl;
                 return dataC;
             }
@@ -628,8 +646,10 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
         }
         else
         {
-            QString stringQuery = QString("SELECT qso_date, time_on, qslrdate, qslsdate, call, operator, M.name, B.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
+            QString stringQuery = QString("SELECT qso_date, time_on, qslrdate, qslsdate, call, station_callsign, operator, M.name, B.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
+            //QString stringQuery = QString("SELECT qso_date, time_on, qslrdate, qslsdate, call, operator, M.name, B.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
             //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NO NEXT NOT OK" << endl;
+            call = QString();
 
             sqlOk = query.exec(stringQuery);
             rec = query.record();
@@ -661,16 +681,17 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                         dataC << (query.value(nameCol)).toString();
                         nameCol = rec.indexOf("qslsdate");
                         dataC << (query.value(nameCol)).toString();
-                        nameCol = rec.indexOf("call");
-                        dataC << (query.value(nameCol)).toString();
+                        nameCol = rec.indexOf("call");                        
+                        call = (query.value(nameCol)).toString();
+                        dataC << call;
                         nameCol = rec.indexOf("operator");
                         dataC << (query.value(nameCol)).toString();
 
                         nameCol = rec.indexOf("M.name");                 //TODO: Fix this to get the proper column
-                        dataC << (query.value(6)).toString();
+                        dataC << (query.value(7)).toString();
 
                         nameCol = rec.indexOf("B.name");
-                        dataC << (query.value(7)).toString();               //TODO: Fix this to get the proper column
+                        dataC << (query.value(8)).toString();               //TODO: Fix this to get the proper column
 
                         //nameCol = rec.indexOf("band_rx");                 //TODO: Fix this to get the proper column (use an index instead of a number)
                         dataC << "";
@@ -689,6 +710,19 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                         dataC << (query.value(nameCol)).toString();
                         nameCol = rec.indexOf("credit_granted");
                         dataC << (query.value(nameCol)).toString();
+                        aux2 = QString();
+                        nameCol = rec.indexOf("station_callsign");
+                        aux2 = (query.value(nameCol)).toString();
+                        if (aux2.length()>2)
+                        {
+                            dataC <<  aux2;
+                        }
+                        else
+                        {
+                            dataC << call;
+                        }
+
+
                        //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: RETURNING ... OK" << endl;
                         return dataC;
 

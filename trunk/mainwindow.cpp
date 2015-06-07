@@ -2581,6 +2581,26 @@ void MainWindow::createActionsCommon(){
 // CLUBLOG
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
     connect (elogClublog, SIGNAL (actionReturnDownload(int, int)), this, SLOT (slotElogClubLogProcessAnswer(int, int)));
+    connect (elogClublog, SIGNAL (disableClubLogAction(bool)), this, SLOT (slotElogClubLogDisable(bool)));
+
+}
+void MainWindow::slotElogClubLogDisable(const bool _b)
+{
+    qDebug() << "MainWindow::slotElogClubLogDisable: " << endl;
+    if (_b)
+    {
+        clublogActive = false;
+        setupDialog->setClubLogActive(false);
+
+    }
+    else
+    {
+        clublogActive = true;
+        setupDialog->setClubLogActive(true);
+    }
+    //TODO: Disable clublog in the klogrc file
+    //bool FileManager::modifySetupFile(const QString& _filename, const QString _field, const QString _value)
+    filemanager->modifySetupFile(configFileName, "ClubLogActive", "False");
 
 }
 
@@ -4790,7 +4810,7 @@ void MainWindow::readConfigData()
     // I need to init the CLUBLOG
     if (clublogActive)
     {
-        elogClublog->setCredentials(clublogUser, clublogEmail, clublogPass);
+        elogClublog->setCredentials(clublogUser, clublogEmail, clublogPass, false);
     }
     else
     {

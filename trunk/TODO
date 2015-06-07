@@ -3,10 +3,13 @@ It is not fixed... new features may be prioritized or not added without any noti
 Feel free to request any roadmap change if you have any suggestion.
 
 BUG: Check the options that are marked in QSL when rightbutton.
-i.e.: Is myQSL sent marked as requested when it shoould be the DX-QSL?
+i.e.: Is myQSL sent marked as requested when it should be the DX-QSL?
+
+
+
 
 BUG:
-Clublog: In
+Clublog:
 void MainWindow::slotQRZReturnPressed()
 _x = elogClublog->deleteQSO(clublogPrevQSO);
 _x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSO))
@@ -15,38 +18,39 @@ It runs so fast and not serialized that at the end sometimes the QSO is deleted 
 BUG:
 
 
-CLUBLOG
+<CLUBLOG>
+TODO: Add the possibility to the user to select from the setup a call to be used in clublog or use the one comming from the station callsign lineedit
+TODO: In slotQsoUploadFinished, if QSO is not uploaded. mark it as not uploaded in the log
+
 If qsoToEdit, nothing is modified and OK. (Clublog returns QSO DUPE)
 Again qsoToEdit, nothing is modified and OK (Clublogs returns QSO DROPPED, and QSO is dropped!)
 
 TODO: Check the values that clublog is returning to manage errors and show messages to the user
 TODO: To add the possibility to upload a modified QSO to clublog.
+TODO: If there is an error in password/username or whatever, disable clublog in KLog
 
 TODO: Upload a logfile to clublog
 // Ideas: https://code.google.com/p/datacod-qt-tools/source/browse/upcoder/uploader.h
 // https://code.google.com/p/datacod-qt-tools/source/browse/upcoder/uploader.cpp
 
+TODO: Define a maximum QSO upload rate to clublog to avoid excesive API usage.
+</CLUBLOG>
+
 KLog 0.9.2
+BUG: DXCluster spots are not correctly shown (worked/needed/...)
 Bug: An ADIF file with one blank line and one QSO freezes KLog.
 Bug?: Check if if is possible to import a ONE line log
 Bug?: Check if the dxcluster configuration to show or not confirmed/worked works properly
-Bug: Flfigi ADIF is not imported. Maybe due to spaces or to a missing BAND
-field. (tnx AA5VI)
-TODO: Add a context suggestion to hit enter if no password is expected for
-the cluster. (tnx AA5VI)
-
+TODO: Add a context suggestion to hit enter if no password is expected for the cluster. (tnx AA5VI)
+TODO: Add a message to show if a Spot/QSO is valid for the current year DX-Marathon
 TODO: When importing an ADIF file with several logs, create automatically the logs as detected.
 TODO: Remove all not needed fields from SetupPageLogNew::gatherAndSend() the type is enough
-TODO: Add "tr" to the error to be able to translate the error codes (in DataBase)
-TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
-TODO: Add Satellite support (maybe another Tab) (look this file (below) for details.
-TODO: Sats: https://www.eqsl.cc/qslcard/ADIFContentSpecs.cfm
-TODO: Sats: https://lotw.arrl.org/lotw/faq#sats
 TODO: Add another tab in the botton to list the DXCC status.
 TODO: Add an option to auto-complete info (QTH, Locator, Name, QSL Manager(qsl_via), IOTA, AWARD, Entity...) from previously worked QSO.
-TODO: UI: Modify the DX-Cluster tab to show the data in a table: DX de/Freq/DX/Comment/Time/Loc
-TODO: Keep adapting to ADIF 3.0.4
 TODO: Run in memory
+TODO: Keep adapting to ADIF 3.0.4
+
+
 
 KLog 0.9.3
 TODO: Support CQ WW SSB (Including Cabrillo Import/Export)
@@ -84,6 +88,12 @@ TODO: Server to log all the QSO in real time (through the network) from N1MM
 KLog 0.9.10
 TODO: Integrate with FLIGI real time logging (req by AA5VI)
 
+KLog 0.9.11 - Cluster release
+TODO: Add flags to the DXCluster widget
+TODO: UI: Modify the DX-Cluster tab to show the data in a table: DX de/Freq/DX/Comment/Time/Loc
+
+KLog 0.9.12
+TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
 
 <BUGS>
 TODO: Check if the data has been modified (only memory) and save the data!
@@ -143,7 +153,11 @@ TODO: Awards: Remove Award
 
 =====================
 <SATELLITE SUPPORT>
+TODO: Add Satellite support (maybe another Tab) (look this file (below) for details.
+TODO: Satellite name QLineEdit mask "Aaa-900" (check how the ISS is named to see if it would match... does not match!!!)
 TODO: Add satellite input fields (in the others input Tab?)
+TODO: Sats: https://www.eqsl.cc/qslcard/ADIFContentSpecs.cfm
+TODO: Sats: https://lotw.arrl.org/lotw/faq#sats
 TODO: Sat Modes:
 http://www.amsat.org/amsat/intro/sats_faq.html#RTFToC5
 http://www.sckans.edu/~sireland/radio/amsat.html

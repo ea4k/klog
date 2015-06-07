@@ -2,7 +2,6 @@
 - BugFix: When editing a QSO the name was not shown.
 - BugFix: STX_String field was not always imported properly.
 - BugFix: Fixed a minor bug in log table regarding the prop_mode foreign key.
-
 - KLog is able to import QSOs with no BAND field if FREQ field is present.
 - KLog offers the user a default value if RST_TX or RST_RX field is not present when importing.
 - GUI: Added some shortcuts in the preference widget.

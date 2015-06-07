@@ -218,6 +218,7 @@ private slots:
     //CLUBLOG
     void slotElogClubLogShowMessage(const QString _s);
     void slotElogClubLogProcessAnswer(const int _i, const int _qID);
+    void slotElogClubLogDisable(const bool _b);
     //CLUBLOG
 
 

@@ -59,13 +59,23 @@ SetupPageClubLog::SetupPageClubLog(QWidget *parent) : QWidget(parent)
 
     sendInRealTimeCheckBox = new QCheckBox(tr("&Send QSOs in real time"), this);
     clubLogActiveCheckBox = new QCheckBox(tr("&Activate ClubLog"), this);
+    useQSOStationCallCheckBox = new QCheckBox(tr("Use QSO Station &Callsign"), this);
+    sendInRealTimeCheckBox->setToolTip(tr("Send each QSO to ClubLog in real time, as they are added (or modified) in KLog"));
+    clubLogActiveCheckBox->setToolTip(tr("Starts the ClubLog support in KLog"));
+    useQSOStationCallCheckBox->setToolTip(tr("Use the Station Callsign defined in each QSO instead of the defined here"));
+
+    QHBoxLayout *callSLayout = new QHBoxLayout;
+    callSLayout->addWidget(callLineEdit);
+    callSLayout->addWidget(useQSOStationCallCheckBox);
+
 
     QGridLayout *glayout = new QGridLayout;
 
     glayout->addWidget(callLabel, 0, 0);
     glayout->addWidget(emailLabel, 1, 0);
     glayout->addWidget(passwordLabel, 2, 0);
-    glayout->addWidget(callLineEdit, 0, 1);
+    glayout->addLayout(callSLayout, 0, 1);
+    //glayout->addWidget(callLineEdit, 0, 1);
     glayout->addWidget(emailLineEdit, 1, 1);
     glayout->addWidget(passwordLineEdit, 2, 1);
 
@@ -81,6 +91,7 @@ SetupPageClubLog::SetupPageClubLog(QWidget *parent) : QWidget(parent)
     //connect(newOneColorButton, SIGNAL(clicked()), this, SLOT(slotNewOneColorButtonClicked()) );
 
     connect(clubLogActiveCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotClubLogActive(bool)));
+    connect(useQSOStationCallCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotUseStationCall(bool)));
     //connect(sendInRealTimeCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotClubLogActive(bool)));
     slotClubLogActive(clubLogActive);
 
@@ -121,6 +132,47 @@ QString SetupPageClubLog::getCallsign()
     return (callLineEdit->text()).toUpper();
 }
 
+
+
+
+
+
+
+QString SetupPageClubLog::getUseQSOStationCallsign()
+{
+    if (useQSOStationCallCheckBox->isChecked() )
+    {
+        return "True";
+    }
+    else
+    {
+        return "False";
+    }
+}
+
+
+void SetupPageClubLog::setUseStationCall(const QString _s)
+{
+    if ( (_s.toUpper()) == "FALSE")
+    {
+        useQSOStationCallCheckBox->setChecked(false);
+    }
+    else
+    {
+        useQSOStationCallCheckBox->setChecked(true);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 QString SetupPageClubLog::getClubLog()
 {
     if (clubLogActiveCheckBox->isChecked() )
@@ -132,6 +184,7 @@ QString SetupPageClubLog::getClubLog()
         return "False";
     }
 }
+
 
 void SetupPageClubLog::setClubLog(const QString _s)
 {
@@ -147,6 +200,22 @@ void SetupPageClubLog::setClubLog(const QString _s)
     }
 }
 
+void SetupPageClubLog::slotUseStationCall(bool _s)
+{
+    qDebug() << "SetupPageClubLog::slotUseStationCall" << endl;
+    if (useQSOStationCallCheckBox->isChecked())
+    {
+        callLineEdit->setEnabled(false);
+        callLabel->setEnabled(false);
+    }
+    else
+    {
+        callLineEdit->setEnabled(true);
+        callLabel->setEnabled(true);
+    }
+
+}
+
 void SetupPageClubLog::slotClubLogActive(bool _s)
 {
     qDebug() << "SetupPageClubLog::slotClubLogActive" << endl;
@@ -160,6 +229,7 @@ void SetupPageClubLog::slotClubLogActive(bool _s)
         emailLineEdit->setEnabled(true);
         passwordLineEdit->setEnabled(true);
         sendInRealTimeCheckBox->setEnabled(true);
+        useQSOStationCallCheckBox->setEnabled(true);
         clubLogActive = true;
     }
     else
@@ -172,6 +242,7 @@ void SetupPageClubLog::slotClubLogActive(bool _s)
         emailLineEdit->setEnabled(false);
         passwordLineEdit->setEnabled(false);
         sendInRealTimeCheckBox->setEnabled(false);
+        useQSOStationCallCheckBox->setEnabled(false);
         clubLogActive = false;
     }
 

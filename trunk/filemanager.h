@@ -65,6 +65,7 @@ public:
     bool adifLogExportMarked(const QString& _fileName);
     bool adifReqQSLExport(const QString& _fileName);
     bool cabrilloLogExport(const QString& _fileName, const int _contestType, const int logNconst);
+    bool modifySetupFile(const QString& _filename, QString _field, const QString _value);
 
 private:
     bool adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked = false, bool _qslRequested = false);

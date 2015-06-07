@@ -3788,3 +3788,51 @@ bool FileManager::adifReqQSLExport(const QString& _fileName)
 {
     return adifLogExportToFile(_fileName, false, true);
 }
+
+
+bool FileManager::modifySetupFile(const QString& _filename, QString _field, const QString _value)
+{
+    qDebug() << "FileManager::modifySetupFile" << endl;
+
+
+    QFile file(_filename);
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)){
+        qDebug() << "FileManager::modifySetupFile File not found" << _filename << endl;
+        return false;
+    }
+
+    QTemporaryFile tmp;
+    if (!tmp.open()) {
+           qDebug() << "FileManager::modifySetupFile- Temp file not opened" << endl;
+           return false;
+    }
+
+    QString line = QString();
+    QTextStream in(&file);
+    QTextStream out(&tmp);
+    qint64 pos1 = in.pos();
+    qint64 pos2 = out.pos();
+
+    out << in.readAll();
+
+    in.seek(pos1);
+    out.seek(pos2);
+
+
+    qDebug() << "FileManager::modifySetupFile- Copiado... empezamos a leer" << endl;
+
+    while (!out.atEnd())
+    {
+        line = out.readLine();
+        qDebug() << "FileManager::modifySetupFile- Temp file: " << line << endl;
+        if (line.startsWith(_field))
+        {
+            in << _field << "=" << _value << ";" << endl;
+        }
+        else
+        {
+            in << line << endl;
+        }
+    }
+    qDebug() << "FileManager::modifySetupFile- Leído y fin!" << endl;
+}
