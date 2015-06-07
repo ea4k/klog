@@ -481,6 +481,7 @@ void SetupDialog::slotOkButtonClicked()
             stream << "ClubLogCall=" << clubLogPage->getCallsign() << ";" <<  endl;
             stream << "ClubLogPass=" << clubLogPage->getPassword() << ";" <<  endl;
             stream << "ClubLogEmail=" << clubLogPage->getEmail() << ";" <<  endl;
+            stream << "ClubLogUseStationCallsign=" << clubLogPage->getUseQSOStationCallsign() << ";" << endl;
         }
 
         // CLUBLOG
@@ -708,6 +709,9 @@ bool SetupDialog::processConfigLine(const QString _line)
     }
     else if(tab =="CLUBLOGEMAIL"){
         clubLogPage->setEmail(value);
+    }
+    else if(tab =="CLUBLOGUSESTATIONCALLSIGN"){
+            clubLogPage->setUseStationCall(value);
     }else{
         //qDebug() << "SetupDialog::processConfigLine: NONE: " << endl;
     }
@@ -846,4 +850,10 @@ QString SetupDialog::checkAndFixASCIIinADIF(const QString _data)
 bool SetupDialog::haveAtleastOneLog()
 {
     return dataProxy->haveAtLeastOneLog();
+}
+
+void SetupDialog::setClubLogActive(const bool _b)
+{
+    clubLogPage->setClubLog("False");
+
 }

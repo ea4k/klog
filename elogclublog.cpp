@@ -15,6 +15,8 @@ eLogClubLog::eLogClubLog() : QObject(0)
     pass = QString();
     api = "9467beee93377e82a276b0a777d388b5c933d044";
     currentQSO = -1;
+    useQSOStationCallsign = false;
+    stationCallsign = QString();
 }
 
 eLogClubLog::~eLogClubLog()
@@ -53,16 +55,33 @@ eLogClubLog::~eLogClubLog()
     {
         qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = Host Not found! = " << QString::number(result)  << endl;
         text = "ClubLog: " + tr("Host not found!");
+        //TODO: Mark the previous QSO as not sent to clublog
     }
     else if (result == QNetworkReply::TimeoutError)
     {
         qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = Time out error! = " << QString::number(result)  << endl;
         text = "ClubLog: " + tr("Timeout error!");
+        //TODO: Mark the previous QSO as not sent to clublog
+    }
+    else if (result == 202)
+    {
+        qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = Password Error! = " << QString::number(result)  << endl;
+        text = "ClubLog: " + tr("It seems to be a PASSWORD ERROR, check your password");
+
+        int ret = QMessageBox::warning(0, tr("KLog - clublog"),
+                                       tr("It seems that your Clublog's password is not correct\n"
+                                          "Please check your password in the setup. Clublog uploads will be disabled."),
+                                       QMessageBox::Ok);
+        emit disableClubLogAction(true);
+        //TODO: Mark the previous QSO as not sent to clublog
+
+
     }
     else
     {
         qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = UNDEFINED = " << QString::number(result)  << endl;
         text = "ClubLog: " + tr("Undefined error...");
+        //TODO: Mark the previous QSO as not sent to clublog
     }
 
     //qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = " << QString::number(result) << endl;
@@ -147,13 +166,21 @@ int eLogClubLog::sendQSO(QStringList _qso)
     //qDebug() << "eLogClubLog::sendQSO:: length = " << QString::number(_qso.length()) << endl;
     // First Data in the QStringList is the QSO id, not to be sent to clublog but used in the signal actionReturnDownload(const int _i, const int _qsoId);
 
-    if (_qso.length()!=17)
+    if (_qso.length()!=18)
     {
         return -1;
     }
     currentQSO = (_qso.at(0)).toInt();
 
     _qso.removeFirst();
+
+    stationCallsign = QString();
+    if (useQSOStationCallsign)
+    {
+        stationCallsign = _qso.last();      
+    }
+    qDebug() << "eLogClubLog::sendQSO (stationCallsign =  " << _qso.last() << ")" << endl;
+     _qso.removeLast();
 
     QString qso = getClubLogAdif(_qso);
     qDebug() << "eLogClubLog::sendQSO: " << qso << endl;
@@ -164,7 +191,7 @@ int eLogClubLog::sendQSO(QStringList _qso)
 
 int eLogClubLog::sendData(const QString _q)
 {
-    qDebug() << "eLogClubLog::sendData: " << _q<< endl;
+    qDebug() << "eLogClubLog::sendData: " << _q << endl;
 
     QUrl serviceUrl = QUrl("https://secure.clublog.org/realtime.php");
     QByteArray postData;
@@ -174,7 +201,17 @@ int eLogClubLog::sendData(const QString _q)
     QUrl params;
     params.addQueryItem("email",email);
     params.addQueryItem("password",pass);
-    params.addQueryItem("callsign",call);
+    if ((useQSOStationCallsign) && (stationCallsign.length()>2))
+    {
+        params.addQueryItem("callsign",stationCallsign);
+        qDebug() << "eLogClubLog::sendData - callsign 1: " << stationCallsign << endl;
+    }
+    else
+    {
+        params.addQueryItem("callsign",call);
+        qDebug() << "eLogClubLog::sendData - callsign 2: " << call << endl;
+    }
+
     params.addQueryItem("api",api);
     params.addQueryItem("adif",_q);
 
@@ -286,12 +323,13 @@ ClubLog only accepts the following ADIF fields:
     return qso;
 }
 
-void eLogClubLog::setCredentials(const QString _call, const QString _email, const QString _pass)
+void eLogClubLog::setCredentials(const QString _call, const QString _email, const QString _pass, const bool _useQSOStationCall)
 {
     qDebug() << "eLogClubLog::setCredentials" << endl;
     call = _call;
     email = _email;
     pass = _pass;
+    useQSOStationCallsign = _useQSOStationCall;
 
 }
 

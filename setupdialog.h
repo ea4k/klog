@@ -58,6 +58,7 @@ public:
     ~SetupDialog();
 
     void setData(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime=true);
+    void setClubLogActive(const bool _b);
 
 public slots:
 

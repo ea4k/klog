@@ -49,7 +49,7 @@ void MainWindowSatTab::createUI()
     keepLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO"));
 
     keepThisDataForNextQSORadiobutton->setToolTip(tr("Data entered in this tab will be copied into the next QSO"));
-    satNameLineEdit->setToolTip(tr("Name of the Satellite"));
+    satNameLineEdit->setToolTip(tr("Name of the Satellite (format like AO-51)"));
     satModeLineEdit->setToolTip(tr("Satellite mode used"));
 
     QLabel *satNameLabel = new QLabel();

@@ -42,6 +42,7 @@ public:
     void setCallsign(const QString c);
     void setClubLog(const QString _s);
     void setClubLogRealTime(const QString _s);
+    void setUseStationCall(const QString _s);
 
 
 
@@ -50,17 +51,20 @@ public:
     QString getCallsign();
     QString getClubLog();
     QString getClubLogRealTime();
+    QString getUseQSOStationCallsign();
+
 
 
 private slots:
 
     void slotClubLogActive(bool _s);
+    void slotUseStationCall(bool _s);
 
 private:
 
     //QString defaultFileName;
 
-    QCheckBox *sendInRealTimeCheckBox, *clubLogActiveCheckBox;
+    QCheckBox *sendInRealTimeCheckBox, *clubLogActiveCheckBox, *useQSOStationCallCheckBox;
     QLineEdit *passwordLineEdit, *emailLineEdit, *callLineEdit;
     QString call, email, pass;
     QLabel *callLabel, *passwordLabel, *emailLabel;
