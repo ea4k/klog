@@ -87,7 +87,8 @@ private:
     bool updateTo004();
     bool updateTo005();
     bool updateTo006();
-    bool updateTableLogTo006();
+    bool updateTableLog();
+
 
     bool createTheBandQuickReference();
     bool createTheModeQuickReference();
@@ -98,6 +99,9 @@ private:
     bool createTablePropModes();
     bool createTableClubLogStatus();
     bool populateTableClubLogStatus();
+    bool createTableMode();
+    bool populateTableMode();
+    bool populateTableBand();
 
     bool recreateContestData();
     bool createTableContest();

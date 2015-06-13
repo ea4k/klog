@@ -2,8 +2,6 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
-TODO: Update the list of ADIF bands/modes
-
 BUG: Check the options that are marked in QSL when rightbutton.
 i.e.: Is myQSL sent marked as requested when it should be the DX-QSL?
 
