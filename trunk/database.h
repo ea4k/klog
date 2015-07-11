@@ -87,7 +87,7 @@ private:
     bool updateTo004();
     bool updateTo005();
     bool updateTo006();
-    bool updateTableLog();
+    bool updateTableLog(const int _v);
 
 
     bool createTheBandQuickReference();
@@ -99,9 +99,10 @@ private:
     bool createTablePropModes();
     bool createTableClubLogStatus();
     bool populateTableClubLogStatus();
-    bool createTableMode();
-    bool populateTableMode();
-    bool populateTableBand();
+    bool createTableMode(const bool NoTmp);
+    bool populateTableMode(const bool NoTmp);
+    bool createTableBand(const bool NoTmp);
+    bool populateTableBand(const bool NoTmp);
 
     bool recreateContestData();
     bool createTableContest();
@@ -110,6 +111,10 @@ private:
 
     bool howManyQSOsInLog(const int i);
     void showError(const QString _errorC);
+
+    bool moveFromModeIdToSubmodeId();
+    bool updateModeIdFromSubModeId();
+    bool updateBandIdTableLogToNewOnes();
 
     float dbVersion;    // The current version of the DB. May differ from latestReaded if we are updating the DB!
     QString softVersion;

@@ -116,8 +116,6 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     elogClublog = new eLogClubLog();
     clublogAnswer = -1;
 
-
-
     defaultColor.setNamedColor("slategrey");
     neededColor.setNamedColor("yellow");
     workedColor.setNamedColor("blue");
@@ -170,7 +168,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     #endif
 
 
-    //qDebug() << "MainWindow::MainWindow: logbook: " << QString(kontestDir + "logbook.dat") << endl;
+    qDebug() << "MainWindow::MainWindow: logbook: " << QString(kontestDir + "logbook.dat") << endl;
 
         bool existingData = QFile::exists(kontestDir + "logbook.dat");
 
@@ -196,10 +194,10 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     db = new DataBase(softwareVersion, DBinMemory);
 
-   //qDebug() << "MainWindow::MainWindow: 1 " << endl;
+   qDebug() << "MainWindow::MainWindow: 1 " << endl;
     world = new World(kontestDir, softwareVersion);
 
-    //qDebug() << "MainWindow::MainWindow: 2" << endl;
+    qDebug() << "MainWindow::MainWindow: 2" << endl;
 
 
     //readConfigData();
@@ -207,17 +205,17 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     if (!db->createConnection())
     {
-       //qDebug() << "MainWindow::MainWindow: 4" << endl;
+       qDebug() << "MainWindow::MainWindow: 4" << endl;
         return;
     }
     else
     {
         db->updateIfNeeded(); // Check if we need to update the DB
 
-       //qDebug() << "MainWindow::MainWindow: 5" << endl;
+       qDebug() << "MainWindow::MainWindow: 5" << endl;
         if (!existingData)
         {
-           //qDebug() << "MainWindow::MainWindow: !existingData" << endl;
+           qDebug() << "MainWindow::MainWindow: !existingData" << endl;
             world->create(kontestDir);
             entitiesList = world->getEntitiesNames();
 
@@ -225,7 +223,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
             //createData();
         }else
         {
-           //qDebug() << "MainWindow::MainWindow: existingData" << endl;
+           qDebug() << "MainWindow::MainWindow: existingData" << endl;
         }
 
 
@@ -236,17 +234,18 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     if (configured)
     {
-       //qDebug() << "MainWindow::MainWindow: configured = true" << endl;
+       qDebug() << "MainWindow::MainWindow: configured = true" << endl;
     }
     else
     {
-       //qDebug() << "MainWindow::MainWindow: configured = false" << endl;
+       qDebug() << "MainWindow::MainWindow: configured = false" << endl;
     }
+    qDebug() << "MainWindow::MainWindow: 5.1" << endl;
     setupDialog = new SetupDialog(!configured);
-
+    qDebug() << "MainWindow::MainWindow: 6" << endl;
 
     satTabWidget = new MainWindowSatTab();
-
+    qDebug() << "MainWindow::MainWindow: 7" << endl;
     filemanager = new FileManager(kontestDir, softwareVersion, *db);
 
     locator = new Locator();
@@ -254,7 +253,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     mainWidget = new QWidget(this);
     setCentralWidget(mainWidget);
-
+    qDebug() << "MainWindow::MainWindow: 8" << endl;
     dateTime = new QDateTime();
     selectedYear = (dateTime->currentDateTime()).date().year();
 
@@ -262,7 +261,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
     timer->start(1000);
-
+qDebug() << "MainWindow::MainWindow: 9" << endl;
     previousQrz = "";
     qrzLineEdit = new QLineEdit;
     nameLineEdit = new QLineEdit;
@@ -345,7 +344,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     rxFreqSpinBox->setDecimals(3);
     rxFreqSpinBox->setMaximum(9999);
     rxFreqSpinBox->setSuffix(tr("MHz"));
-
+qDebug() << "MainWindow::MainWindow: 10" << endl;
     dxccConfirmedQLCDNumber = new QLCDNumber;
     dxccWorkedQLCDNumber = new QLCDNumber;
     wazConfirmedQLCDNumber = new QLCDNumber;
@@ -435,26 +434,30 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     // </UI>
 
-
+qDebug() << "MainWindow::MainWindow: 11" << endl;
 
 //**************************************************
 
 
     //createDXClusterUI();
     connect( setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
-
+qDebug() << "MainWindow::MainWindow: 12" << endl;
     readConfigData();
     if (needToEnd)
     {
         //QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
         db->compress();
+        qDebug() << "MainWindow::MainWindow: 12.5" << endl;
        exit(0);
     }
 
-
+qDebug() << "MainWindow::MainWindow: 13" << endl;
     createUI();
+    qDebug() << "MainWindow::MainWindow: 14 - currentLog: " << QString::number(currentLog) << endl;
     createlogModel(currentLog);
-    //createlogPanel();
+
+qDebug() << "MainWindow::MainWindow: 15" << endl;
+
     createSearchResultsPanel();
     loggWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
     connect(loggWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
@@ -472,11 +475,16 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     logView->setCurrentIndex(logModel->index(0, 0));
     //searchResultsTreeWidget->setCurrentIndex(logModel->index(0, 0));
 
+    qDebug() << "MainWindow::MainWindow: 16" << endl;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
+        qDebug() << "MainWindow::MainWindow: 16.1" << endl;
         slotSetup(6);
+        qDebug() << "MainWindow::MainWindow: 16.2" << endl;
     }
+    qDebug() << "MainWindow::MainWindow: 17" << endl;
     checkIfNewBandOrMode();
+    qDebug() << "MainWindow::MainWindow: 18" << endl;
 
     if ( (contestMode == CQ_WW_SSB) || (contestMode == CQ_WW_CW) )
     {
@@ -500,12 +508,12 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         awards->recalculateAwards();
         showAwards();
     }
-
+qDebug() << "MainWindow::MainWindow: 2" << endl;
     slotClearButtonClicked();
     //logModel->select();
 
     upAndRunning = true;
-   //qDebug() << "MainWindow::MainWindow: END" << endl;
+   qDebug() << "MainWindow::MainWindow: END" << endl;
 
 }
 
@@ -546,7 +554,7 @@ void MainWindow::slotModeComboBoxChanged(){
     //qDebug() << "MainWindow::slotModeComboBoxChanged: " << QString::number(modeComboBox->currentIndex()) << endl;
 
     int i;
-    i = dataProxy->getIdFromModeName(modeComboBox->currentText());
+    i = dataProxy->getSubModeIdFromSubMode(modeComboBox->currentText());
     if (i>=0)
     {
         currentMode = i;
@@ -2171,17 +2179,6 @@ void MainWindow::createlogPanel()
 
         break;
         default:
-            //stringQuery = QString("SELECT id, qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, notes FROM log WHERE lognumber='%1'").arg(currentLog);
-            //query.exec(stringQuery);
-            //query.next();
-            //rec = query.record(); // Number of columns
-            //columns = rec.count();
-/*
-            for (int i=0;i<columns; i++)
-            {
-                logView->setColumnHidden(i, true);
-            }
-*/
             columns = rec.indexOf("qso_date");
             logView->setColumnHidden(columns, false);
             columns = rec.indexOf("time_on");
@@ -2202,10 +2199,7 @@ void MainWindow::createlogPanel()
         break;
     }
 
-   //logView = new QTableView;
-
     logView->setItemDelegate(new QSqlRelationalDelegate(this));
-    //logView->setItemDelegate(new QSqlRelationalDelegate(logView));
     logView->setSelectionMode( QAbstractItemView::SingleSelection);
     logView->setSelectionBehavior(QAbstractItemView::SelectRows);
     logView->resizeColumnsToContents();
@@ -2301,7 +2295,7 @@ the view should present the city's name field to the user.
 */
 
 
-
+    qDebug() << "MainWindow::createlogModel: " << QString::number(_i) << endl;
     QSqlQuery q;
     QString stringQuery = QString("SELECT * from log LIMIT 1");
     QSqlRecord rec; // = q.record();
@@ -2311,10 +2305,12 @@ the view should present the city's name field to the user.
     q.exec(stringQuery);
     q.next();
     rec = q.record(); // Number of columns
+    qDebug() << "MainWindow::createlogModel - columns: " << QString::number(rec.count()) << endl;
 
     logModel = new QSqlRelationalTableModel(this);
 
     stringQuery = QString("lognumber='%1'").arg(_i);
+    qDebug() << "MainWindow::createlogModel - filter: " << stringQuery << endl;
     QSqlQuery query(stringQuery);
     logModel->setTable("log");
     logModel->setFilter(stringQuery);
@@ -2334,8 +2330,10 @@ the view should present the city's name field to the user.
 
             nameCol = rec.indexOf("bandid");
             logModel->setRelation(nameCol, QSqlRelation("band", "id", "name"));
+
             nameCol = rec.indexOf("modeid");
-            logModel->setRelation(nameCol, QSqlRelation("mode", "id", "name"));
+            //logModel->setRelation(nameCol, QSqlRelation("mode", "id", "name"));
+            logModel->setRelation(nameCol, QSqlRelation("mode", "id", "submode"));
 
             nameCol = rec.indexOf("id");
             logModel->setSort(nameCol, Qt::AscendingOrder);
@@ -3180,7 +3178,8 @@ void MainWindow::slotSearchBoxTextChanged()
                 //color = Qt::red;
                 //TODO: Optimize the awards->getQRZDXStatusColor because is TOO slow
                 color =  awards->getQRZDXStatusColor(q);
-                _mode = db->getModeNameFromNumber(_mode.toInt());
+                _mode = dataProxy->getSubModeFromId(_mode.toInt());
+                //_mode = db->getModeNameFromNumber(_mode.toInt());
 /*
     awards.getQRZDXStatusColor(const QStringList _qs);
     // Receives:  QStringList _qs;
@@ -3781,6 +3780,7 @@ void MainWindow::slotSetup(const int _page)
 
         createlogModel(currentLog);
 
+
         if (configured)
         {
         }
@@ -3790,6 +3790,7 @@ void MainWindow::slotSetup(const int _page)
 
     }
     defineStationCallsign();
+    checkIfNewBandOrMode();
 }
 
 void MainWindow::openFile()
@@ -5079,156 +5080,31 @@ bool MainWindow::processConfigLine(const QString _line){
 
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
- //that is not currently selected as active
-    //qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
+//that is not currently selected as active
+qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
 //    modes
 //    bands
-    int errorCode = 0;
-    QHash<int, int> hashb;
-    QHash<int, int> hashm;
-
-    int bandIdInt = -1;
-    int modeIdInt = -1;
-
-    QString stringQuery, aux;
-
-    QSqlQuery query, query1, query2;
-
-    // We run the bands... identifying all of the already added, same for modes
-    for (int i = 0; i < bands.count();  i++)
-    {
-
-        bandIdInt = dataProxy->getIdFromBandName(bands.at(i));
-        if (bandIdInt>=0)
-        {
-            hashb[bandIdInt] = bandIdInt;
-        }
-        else
-        {}
-
-    }
-
-    for (int i = 0; i < modes.count();  i++)
-    {
-
-        modeIdInt = dataProxy->getIdFromModeName(modes.at(i));
-        if (modeIdInt>=0)
-        {
-            hashb[modeIdInt] = modeIdInt;
-        }
-        else
-        {}
-    }
-    //qDebug() << "MainWindow::checkIfNewBandOrMode-1" << endl;
-    stringQuery = QString("SELECT bandid, modeid FROM log WHERE lognumber='%1'").arg(currentLog);
-
-    if(query.exec (stringQuery))
-    {
-        QSqlRecord rec = query.record();
-
-        int nameCol;
-
-        while (query.next())
-        {
-            if (query.isValid())
-            {
-            nameCol = rec.indexOf("bandid");
-            //qDebug() << (query.value(nameCol)).toString(); // output all bands
-            if (!(hashb.contains((query.value(nameCol)).toInt())))
-            {
-
-                //void MainWindow::readActiveBands (const QStringList actives)
 
 
-                stringQuery = QString("SELECT name FROM band WHERE id='%1'").arg((query.value(nameCol)).toString());
-                query1.exec(stringQuery);
-                query1.next();
-                if ( query1.isValid() )
-                {
-                    if ( db->isValidBand((query1.value(0)).toString())  )
-                    {
-                        hashb.insert((query.value(nameCol)).toInt(), (query.value(nameCol)).toInt() );
+    QStringList bandsInLog = dataProxy->getBandsInLog(currentLog);
+    QStringList modesInLog = dataProxy->getModesInLog(currentLog);
 
-                        aux = (query1.value(0)).toString();
-                        if (aux.length()>0)
-                        {
-                            bands << aux;
-                        }
+    bands << bandsInLog;
+    QSet<QString> set = bands.toSet();
+    bands.clear();
+    bands << set.toList();
 
-                        //qDebug() << "MainWindow::checkIfNewBandOrMode: New BAND: " << (query1.value(0)).toString() << " - "  << QString::number((query.value(nameCol)).toInt()) << endl;
+    set.clear();
+    modes << modesInLog;
+    set = modes.toSet();
+    modes.clear();
+    modes << set.toList();
 
+    bandComboBox->clear();
+    bandComboBox->addItems(bands);
+    modeComboBox->clear();
+    modeComboBox->addItems(modes);
 
-                        //TODO: EA4TV añadir al hashb la banda nueva
-                       // stringQuery = QString("SELECT id FROM band WHERE name='%1'").arg(bands.at(i));
-                        //query2.exec(stringQuery);
-                        //query2.next();
-                        //hashb[(query2.value(0)).toInt()] = (query2.value(0)).toInt();
-                    }
-                }
-            }
-            else
-            {
-                //qDebug() << "MainWindow::checkIfNewBandOrMode: BAND not new: " << (query1.value(0)).toString() << endl;
-            }
-
-            nameCol = rec.indexOf("modeid");
-            //qDebug() << (query.value(nameCol)).toString(); // output all bands
-
-            if (!(hashm.contains((query.value(nameCol)).toInt())))
-            {
-                //void MainWindow::readActiveBands (const QStringList actives)
-                stringQuery = QString("SELECT name FROM mode WHERE id='%1'").arg((query.value(nameCol)).toString());
-                query1.exec(stringQuery);
-                query1.next();
-                if ( query1.isValid() )
-                {
-                    if ( db->isValidMode((query1.value(0)).toString())  )
-                    {
-                        hashm.insert((query.value(nameCol)).toInt(), (query.value(nameCol)).toInt() );
-
-                        aux = (query1.value(0)).toString();
-                        if (aux.length()>0)
-                        {
-                            modes << aux;
-                        }
-                        //modes << (query1.value(0)).toString();
-                        //qDebug() << "MainWindow::checkIfNewBandOrMode: New MODE" << (query1.value(0)).toString() << endl;
-
-                        //TODO: Add to the hashm the new modes
-                    }
-                }
-            }
-            else
-            {
-                //qDebug() << "MainWindow::checkIfNewBandOrMode: MODE not new" << endl;
-            }
-            }//Closes the next.isValid
-        }//Closes the While
-        bandComboBox->clear();
-        bandComboBox->addItems(bands);
-        modeComboBox->clear();
-        modeComboBox->addItems(modes);
-
-    }
-    else
-    {
-        errorCode = query.lastError().number();
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Warning);
-        aux = tr("An unexpected error ocurred while looking for new bands & modes in your log. If the problem persists, please contact the developer for analysis: ");
-        msgBox.setText(aux + "MW-2#" + QString::number(errorCode));
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
-        switch (ret)
-        {
-            case QMessageBox::Ok:
-            break;
-            default:
-            // should never be reached
-            break;
-        }
-    }
     //qDebug() << "MainWindow::checkIfNewBandOrMode-END" << endl;
 }
 
@@ -5303,7 +5179,6 @@ void MainWindow::readActiveModes (const QStringList actives)
 
     }
     modes.removeDuplicates();
-
 }
 
 
@@ -5312,8 +5187,6 @@ void MainWindow::createData()
 {
     //qDebug() << "MainWindow::createData " << endl;
 
-
-
 }
 
 void MainWindow::createUIDX()
@@ -5321,16 +5194,7 @@ void MainWindow::createUIDX()
     //qDebug() << "MainWindow::createUIDX" << endl;
 
     QStringList continents;
-/*
-    QSqlQuery query("SELECT name FROM band");
-    while (query.next()) {
-        bands << query.value(0).toString();
-    }
-    QSqlQuery query1("SELECT name FROM mode");
-    while (query1.next()) {
-        modes << query1.value(0).toString();
-    }
-*/
+
     QSqlQuery query2("SELECT shortname FROM continent");
     while (query2.next()) {
         if (query2.isValid())
@@ -6525,13 +6389,7 @@ void  MainWindow::initialContestModeConfiguration()
 
         case CQ_WW_SSB:
         //qDebug() << "MainWindow::initialContestModeConfiguration: - 05" << endl;
-            query.exec("SELECT id FROM mode WHERE name='SSB'");
-            query.next();
-            if (query.isValid())
-            {
-                defaultMode = (query.value(0)).toInt() -1;
-            }
-
+            defaultMode = dataProxy->getIdFromModeName("SSB");
             SRXLineEdit->setInputMask("09");
             STXLineEdit->setInputMask("09");
 
@@ -6623,7 +6481,7 @@ void MainWindow::qsoToEdit (const int _qso)
     nameCol = rec.indexOf("modeid");
     aux1 = (query.value(nameCol)).toString();
 
-    stringQuery = QString("SELECT name FROM mode WHERE id ='%1'").arg(aux1);
+    stringQuery = QString("SELECT submode FROM mode WHERE id ='%1'").arg(aux1);
     queryAux.exec(stringQuery);
     queryAux.next();
     if (queryAux.isValid())
@@ -8059,14 +7917,21 @@ void MainWindow::slotFilePrint()
 
                 nameCol = rec.indexOf("modeid");
                 aux = (query.value(nameCol)).toString();
-                stringQuery = QString("SELECT name FROM mode WHERE id='%1'").arg(aux);
-                query1.exec(stringQuery);
-                query1.next();
-                if (query1.isValid())
+                aux = dataProxy->getNameFromSubModeId(aux.toInt());
+                if (aux.length()>1)
                 {
                     cursor = textTable->cellAt(row, 7).firstCursorPosition();
                     cursor.insertText((query1.value(0)).toString());
                 }
+
+                //stringQuery = QString("SELECT name FROM mode WHERE id='%1'").arg(aux);
+                //query1.exec(stringQuery);
+                //query1.next();
+                //if (query1.isValid())
+                //{
+                //    cursor = textTable->cellAt(row, 7).firstCursorPosition();
+                //    cursor.insertText((query1.value(0)).toString());
+                //}
 
                 nameCol = rec.indexOf("comment");
                 aux = (query.value(nameCol)).toString();
@@ -8480,7 +8345,12 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
             _band = db->getBandNameFromNumber( _freq.toInt() );
 
             nameCol = rec.indexOf("modeid");
-            _mode = db->getModeNameFromNumber( (query.value(nameCol)).toInt() );
+            _mode = dataProxy->getSubModeFromId((query.value(nameCol)).toInt());
+
+            //nameCol = rec.indexOf("modeid");
+            //_mode = db->getModeNameFromNumber( (query.value(nameCol)).toInt() );
+
+
             //qDebug() << "MainWindow::slotToolSearchQSL: mode " << QString::number((query.value(nameCol)).toInt()) << endl;
 
             nameCol = rec.indexOf("qsl_sent");

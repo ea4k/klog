@@ -18,13 +18,23 @@ public:
     //UI functions
     virtual int getIdFromModeName(const QString& _modeName);
     virtual int getIdFromBandName(const QString& _bandName);
-
+    virtual int getSubModeIdFromSubMode(const QString _subModeName);
+    virtual int getModeIdFromSubModeId(const int _sm);
 
     virtual QString getNameFromBandId (const int _id);
     virtual QString getNameFromModeId (const int _id);
+    virtual QString getNameFromSubModeId (const int _id);
+    virtual QString getSubModeFromId (const int _id);
+    virtual QString getNameFromSubMode (const QString _sm); // Checks if a submode is deprecated //TODO: Check if really needed
+    virtual QString getModeFromSubMode (const QString _sm);
+    virtual bool isModeDeprecated (const QString _sm);
 
     virtual double getFreqFromBandId(const int _id);
     virtual int getBandIdFromFreq(const double _n);
+    virtual QStringList getBands();
+    virtual QStringList getModes();
+    virtual QStringList getBandsInLog(const int _log);
+    virtual QStringList getModesInLog(const int _log);
 
     virtual int getLastQSOid();
     virtual bool clearLog();

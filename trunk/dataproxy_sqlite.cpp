@@ -59,6 +59,98 @@ int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
 
 }
 
+int DataProxy_SQLite::getSubModeIdFromSubMode(const QString _subModeName)
+{
+
+    if (_subModeName.length()<2)
+    {
+        return -3;
+    }
+    QSqlQuery query;
+    QString stQuery = QString("SELECT id FROM mode WHERE submode='%1'").arg(_subModeName);
+    if (query.exec(stQuery))
+    {
+        query.next();
+        if (query.isValid())
+        {
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    else
+    {
+        return -2;
+    }
+}
+
+int DataProxy_SQLite::getModeIdFromSubModeId(const int _sm)
+{
+    return getIdFromModeName(getModeFromSubMode(getSubModeFromId(_sm)));
+
+}
+
+QString DataProxy_SQLite::getModeFromSubMode (const QString _sm)
+{
+    if (_sm.length()<2)
+    {
+        return "";
+    }
+    QSqlQuery query;
+    QString stQuery = QString("SELECT name FROM mode WHERE submode='%1'").arg(_sm);
+    if (query.exec(stQuery))
+    {
+        query.next();
+        if (query.isValid())
+        {
+            return (query.value(0)).toString();
+        }
+        else
+        {
+            return "";
+        }
+    }
+    else
+    {
+        return "";
+    }
+}
+
+bool DataProxy_SQLite::isModeDeprecated (const QString _sm)
+{
+    if (_sm.length()<2)
+    {
+        return -3;
+    }
+    QSqlQuery query;
+    QString stQuery = QString("SELECT deprecated FROM mode WHERE submode='%1'").arg(_sm);
+    if (query.exec(stQuery))
+    {
+        query.next();
+        if (query.isValid())
+        {
+            if ( (query.value(0)).toInt() == 1 )
+            {
+               return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false; // In case we can't check, we don't state it as deprecated
+        }
+    }
+    else
+    {
+        return false;   // In case we can't check, we don't state it as deprecated
+    }
+}
+
 int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
 {
     //qDebug() << "DataProxy_SQLite::getIdFromBandName: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
@@ -83,6 +175,69 @@ QString DataProxy_SQLite::getNameFromModeId (const int _id)
     return db->getModeNameFromID2(_id);
 }
 
+QString DataProxy_SQLite::getNameFromSubModeId (const int _id)
+{
+    QSqlQuery query;
+    QString stringQuery = QString("SELECT submode, mode, deprecated FROM mode WHERE id='%1'").arg(_id);
+    query.exec(stringQuery);
+    query.next();
+    if (query.isValid())
+    {
+        if ( (query.value(2)).toInt()<0 )
+        { // DEPRECATED VALUE, return the MODE
+            return (query.value(1)).toString();
+        }
+        else
+        {
+            return (query.value(0)).toString();
+        }
+    }
+    else
+    {
+        return "";
+    }
+}
+
+QString DataProxy_SQLite::getSubModeFromId (const int _id)
+{
+    QSqlQuery query;
+    QString stringQuery = QString("SELECT submode FROM mode WHERE id='%1'").arg(_id);
+    query.exec(stringQuery);
+    query.next();
+    if (query.isValid())
+    {
+        return (query.value(0)).toString();
+    }
+    else
+    {
+        return "";
+    }
+
+}
+
+QString DataProxy_SQLite::getNameFromSubMode (const QString _sm)
+{
+    QSqlQuery query;
+    QString stringQuery = QString("SELECT mode, deprecated FROM mode WHERE submode='%1'").arg(_sm.toUpper());
+    query.exec(stringQuery);
+    query.next();
+    if (query.isValid())
+    {
+        if ( (query.value(1)).toInt()<0 )
+        { // DEPRECATED VALUE, return the MODE
+            return (query.value(0)).toString();
+        }
+        else
+        {
+            return _sm.toUpper();
+        }
+    }
+    else
+    {
+        return "";
+    }
+}
+
 double DataProxy_SQLite::getFreqFromBandId(const int _id)
 {
     return db->getFreqFromBandId(_id);
@@ -91,6 +246,60 @@ double DataProxy_SQLite::getFreqFromBandId(const int _id)
 int DataProxy_SQLite::getBandIdFromFreq(const double _n)
 {
     return db->getBandIdFromFreq(QString::number(_n));
+}
+
+QStringList DataProxy_SQLite::getBands()
+{
+    QStringList bands = QStringList();
+    QSqlQuery query("SELECT name FROM band");
+    while (query.next()) {
+        if (query.isValid()){
+            bands << query.value(0).toString();
+        }
+
+    }
+
+    return bands;
+}
+
+QStringList DataProxy_SQLite::getModes()
+{
+    QStringList modes = QStringList();
+    QSqlQuery query("SELECT submode FROM mode");
+    while (query.next()) {
+        if (query.isValid()){
+            modes << query.value(0).toString();
+        }
+
+    }
+
+    return modes;
+}
+
+QStringList DataProxy_SQLite::getBandsInLog(const int _log)
+{
+    QStringList bands = QStringList();
+    QString stringQuery = QString("SELECT DISTINCT band.name FROM log, band WHERE band.id = log.bandid AND log.lognumber='%1'").arg(_log);
+    QSqlQuery query(stringQuery);
+    while (query.next()) {
+        if (query.isValid()){
+            bands << query.value(0).toString();
+        }
+    }
+    return bands;
+}
+
+QStringList DataProxy_SQLite::getModesInLog(const int _log)
+{
+    QStringList modes = QStringList();
+    QString stringQuery = QString("SELECT DISTINCT mode.submode FROM log, mode WHERE mode.id = log.modeid AND log.lognumber='%1'").arg(_log);
+    QSqlQuery query(stringQuery);
+    while (query.next()) {
+        if (query.isValid()){
+            modes << query.value(0).toString();
+        }
+    }
+    return modes;
 }
 
 
