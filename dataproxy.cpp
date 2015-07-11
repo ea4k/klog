@@ -52,6 +52,26 @@ int DataProxy::getIdFromBandName(const QString& _bandName)
     return -1;
 }
 
+int DataProxy::getSubModeIdFromSubMode(const QString _subModeName)
+{
+    return -1;
+}
+
+int DataProxy::getModeIdFromSubModeId(const int _sm)
+{
+    return -1;
+}
+
+QString DataProxy::getModeFromSubMode (const QString _sm)
+{
+    return "";
+}
+
+bool DataProxy::isModeDeprecated (const QString _sm)
+{
+    return false;
+}
+
 QString DataProxy::getNameFromBandId (const int _id)
 {
     return "";
@@ -62,14 +82,51 @@ QString DataProxy::getNameFromModeId (const int _id)
     return "";
 }
 
+QString DataProxy::getNameFromSubModeId (const int _id)
+{
+    return "";
+}
+
+QString DataProxy::getSubModeFromId (const int _id)
+{
+    return QString();
+}
+
+QString DataProxy::getNameFromSubMode (const QString _sm)
+{
+    return "";
+}
+
+
 double DataProxy::getFreqFromBandId(const int _id)
 {
     return -1.0;
 }
 
+
 int DataProxy::getBandIdFromFreq(const double _n)
 {
     return -1;
+}
+
+QStringList DataProxy::getBands()
+{
+    return QStringList();
+}
+
+QStringList DataProxy::getModes()
+{
+    return QStringList();
+}
+
+QStringList DataProxy::getBandsInLog(const int _log)
+{
+    return QStringList();
+}
+
+QStringList DataProxy::getModesInLog(const int _log)
+{
+    return QStringList();
 }
 
 int DataProxy::getLastQSOid()

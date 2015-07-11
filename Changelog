@@ -11,6 +11,7 @@
 - GUI: Added some shortcuts in the preference widget.
 - Support of realtime upload, modification & removal of a single QSO to/from ClubLog.org.
 - Updated the DB with the PROP_MODE options.
+- Improved the way KLog manages & shows the bands & modes.
 - GUI: Added a Propagation Mode Combobox.
 - GUI: Prop_Mode combobox automatically goes to SAT if sat name or sat mode are defined.
 - GUI: Added a Find DX-QSL requested option.

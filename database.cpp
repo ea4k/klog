@@ -349,14 +349,6 @@ bool DataBase::createDataBase()
 
     query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
 
-    qres = query.exec("CREATE TABLE band ("
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                "lower REAL NOT NULL, "
-                "upper REAL NOT NULL, "
-                "cabrillo VARCHAR(6) NOT NULL, "
-                "name VARCHAR(40) NOT NULL, "
-                "UNIQUE (lower, upper, cabrillo, name) )");
-
 
 
 /*
@@ -370,11 +362,11 @@ bool DataBase::createDataBase()
         //qDebug() << "DataBase::createDataBase: " << query.lastError().text() << endl;
     }
 */
+    createTableBand(true);
+    populateTableBand(true);
 
-    populateTableBand();
-
-    createTableMode();
-    populateTableMode();
+    createTableMode(true);
+    populateTableMode(true);
 
     createTableLog(true);
 
@@ -1545,177 +1537,253 @@ bool DataBase::createTableContest()
 
 }
 
-bool DataBase::createTableMode()
-{
+bool DataBase::createTableMode(const bool NoTmp)
+{ // NoTmp = false => TMP data table to operate and be deleted afterwards
+
+    QString stringQuery = QString();
     QSqlQuery query;
-    return query.exec("CREATE TABLE mode ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "cabrillo VARCHAR(2) NOT NULL, "
-                  "name VARCHAR(40) NOT NULL, "
-                  "submode VARCHAR(40) NOT NULL, "
-                  "deprecated VARCHAR(1) NOT NULL)");
+    if (NoTmp)
+    {
+        stringQuery = "CREATE TABLE mode" ;
+    }
+    else
+    {
+        stringQuery = "CREATE TABLE modetemp" ;
+    }
+
+        stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                            "cabrillo VARCHAR(2) NOT NULL, "
+                                             "name VARCHAR(40) NOT NULL, "
+                                             "submode VARCHAR(40) NOT NULL, "
+                                             "deprecated VARCHAR(1) NOT NULL)");
+    return  query.exec(stringQuery);
+
 
 }
 
-bool DataBase::populateTableMode()
+bool DataBase::populateTableMode(const bool NoTmp)
 {
     QSqlQuery query;
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('AM', 'AM', 'PH', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('AMTORFEC', 'TOR', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('ASCI', 'RTTY', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('ATV', 'ATV', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('CHIP', 'CHIP', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('CHIP64', 'CHIP', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('CHIP128', 'CHIP', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('CLO', 'CLO', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('CONTESTI', 'CONTESTI', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('CW', 'CW', 'CW', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('DIGITALVOICE', 'DIGITALVOICE', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('DSTAR', 'DSTAR', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('DOMINO', 'DOMINO', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('DOMINOEX', 'DOMINO', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('DOMINOF', 'DOMINO', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('FAX', 'FAX', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('FM', 'FM', 'PH', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('FMHELL', 'HELL', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('FSK31', 'PSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('FSK441', 'FSK441', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('FSKHELL', 'HELL', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('GTOR', 'TOR', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('HELL', 'HELL', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('HELL80', 'HELL', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('HFSK', 'HELL', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('ISCAT', 'ISCAT', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('ISCAT-A', 'ISCAT', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('ISCAT-B', 'ISCAT', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT4', 'JT4', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT4A', 'JT4', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT4B', 'JT4', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT4C', 'JT4', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT4D', 'JT4', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT4E', 'JT4', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT4F', 'JT4', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT4G', 'JT4', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT6M', 'JT6M', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT9-1', 'JT9', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT9-2', 'JT9', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT9-5', 'JT9', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT9-10', 'JT9', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT9-30', 'JT9', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT44', 'JT44', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT65', 'JT65', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT65A', 'JT65', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT65B', 'JT65', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT65B2', 'JT65', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT65C', 'JT65', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('JT65C2', 'JT65', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MFSK', 'MFSK', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MFSK4', 'MFSK', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MFSK8', 'MFSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MFSK11', 'MFSK', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MFSK16', 'MFSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MFSK22', 'MFSK', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MFSK31', 'MFSK', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MFSK32', 'MFSK', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MFSK64', 'MFSK', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MFSK128', 'MFSK', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MT63', 'MT63', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('OLIVIA', 'OLIVIA', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 4/125', 'OLIVIA', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 4/250', 'OLIVIA', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 8/250', 'OLIVIA', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 8/500', 'OLIVIA', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 16/500', 'OLIVIA', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 16/1000', 'OLIVIA', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 32/1000', 'OLIVIA', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('OPERA', 'OPERA', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('OPERA-BEACON', 'OPERA', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('OPERA-QSO', 'OPERA', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PAC', 'PAC', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PAC2', 'PAC', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PAC3', 'PAC', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PAC4', 'PAC', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PAX', 'PAX', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PAX2', 'PAX', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PCW', 'CW', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PKT', 'PKT', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSK10', 'PSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSK31', 'PSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSK63', 'PSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSK63F', 'PSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSK125', 'PSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSK250', 'PSK', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSK500', 'PSK', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSK1000', 'PSK', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSKAM10', 'PSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSKAM31', 'PSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSKAM50', 'PSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSKFEC31', 'PSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSK2K', 'PSK2K', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('PSKHELL', 'HELL', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('Q15', 'Q15', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('QPSK31', 'PSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('QPSK63', 'PSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('QPSK125', 'PSK', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('QPSK250', 'PSK', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('QPSK500', 'PSK', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('ROS', 'ROS', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('ROS-EME', 'ROS', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('ROS-HF', 'ROS', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('ROS-MF', 'ROS', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('RTTY', 'RTTY', 'RY', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('RTTYM', 'RTTYM', 'RY', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('SSB', 'SSB', 'PH', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('LSB', 'SSB', 'PH', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('USB', 'SSB', 'PH', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('SSTV', 'SSTV', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('THRB', 'THRB', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('THRBX', 'THRB', 'NO', '0')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('THOR', 'THOR', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('TOR', 'TOR', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('V4', 'V4', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('VOI', 'VOI', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('WINMOR', 'WINMOR', 'NO', '1')");
-    query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('WSPR', 'WSPR', 'NO', '1')");
+    QString tableName = QString();
+    QString squery = QString();
+    if (NoTmp)
+    {
+        tableName = "mode";
+    }
+    else
+    {
+        tableName = "modetemp";
+    }
+
+
+    //query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('AM', 'AM', 'PH', '0')");
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('AM', 'AM', 'PH', '0')").arg(tableName));
+
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('AMTORFEC', 'TOR', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ASCI', 'RTTY', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ATV', 'ATV', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP', 'CHIP', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP64', 'CHIP', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP128', 'CHIP', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CLO', 'CLO', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CONTESTI', 'CONTESTI', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CW', 'CW', 'CW', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DIGITALVOICE', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DSTAR', 'DSTAR', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINO', 'DOMINO', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINOEX', 'DOMINO', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINOF', 'DOMINO', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FAX', 'FAX', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FM', 'FM', 'PH', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FMHELL', 'HELL', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSK31', 'PSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSK441', 'FSK441', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSKHELL', 'HELL', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('GTOR', 'TOR', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HELL', 'HELL', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HELL80', 'HELL', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HFSK', 'HELL', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT', 'ISCAT', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT-A', 'ISCAT', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT-B', 'ISCAT', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4', 'JT4', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4A', 'JT4', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4B', 'JT4', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4C', 'JT4', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4D', 'JT4', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4E', 'JT4', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4F', 'JT4', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4G', 'JT4', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT6M', 'JT6M', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-1', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-2', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-5', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-10', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-30', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT44', 'JT44', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65', 'JT65', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65A', 'JT65', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65B', 'JT65', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65B2', 'JT65', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65C', 'JT65', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65C2', 'JT65', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK', 'MFSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK4', 'MFSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK8', 'MFSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK11', 'MFSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK16', 'MFSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK22', 'MFSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK31', 'MFSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK32', 'MFSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK64', 'MFSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK128', 'MFSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MT63', 'MT63', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA', 'OLIVIA', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 4/125', 'OLIVIA', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 4/250', 'OLIVIA', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 8/250', 'OLIVIA', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 8/500', 'OLIVIA', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 16/500', 'OLIVIA', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 16/1000', 'OLIVIA', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 32/1000', 'OLIVIA', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OPERA', 'OPERA', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OPERA-BEACON', 'OPERA', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OPERA-QSO', 'OPERA', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC', 'PAC', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC2', 'PAC', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC3', 'PAC', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC4', 'PAC', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAX', 'PAX', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAX2', 'PAX', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PCW', 'CW', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PKT', 'PKT', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK', 'PSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK10', 'PSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK31', 'PSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK63', 'PSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK63F', 'PSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK125', 'PSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK250', 'PSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK500', 'PSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK1000', 'PSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKAM10', 'PSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKAM31', 'PSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKAM50', 'PSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKFEC31', 'PSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK2K', 'PSK2K', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKHELL', 'HELL', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('Q15', 'Q15', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK31', 'PSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK63', 'PSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK125', 'PSK', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK250', 'PSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK500', 'PSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS', 'ROS', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-EME', 'ROS', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-HF', 'ROS', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-MF', 'ROS', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('RTTY', 'RTTY', 'RY', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('RTTYM', 'RTTYM', 'RY', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SSB', 'SSB', 'PH', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('LSB', 'SSB', 'PH', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('USB', 'SSB', 'PH', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SSTV', 'SSTV', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THRB', 'THRB', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THRBX', 'THRB', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR', 'THOR', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('TOR', 'TOR', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('V4', 'V4', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VOI', 'VOI', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('WINMOR', 'WINMOR', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('WSPR', 'WSPR', 'NO', '0')").arg(tableName));
     return true;
 }
 
-bool DataBase::populateTableBand()
+
+bool DataBase::createTableBand(const bool NoTmp)
+{ // NoTmp = false => TMP data table to operate and be deleted afterwards
+
+    QString stringQuery = QString();
+    QSqlQuery query;
+    if (NoTmp)
+    {
+        stringQuery = "CREATE TABLE band" ;
+    }
+    else
+    {
+        stringQuery = "CREATE TABLE bandtemp" ;
+    }
+
+/*
+    qres = query.exec("CREATE TABLE band ("
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "lower REAL NOT NULL, "
+                "upper REAL NOT NULL, "
+                "cabrillo VARCHAR(6) NOT NULL, "
+                "name VARCHAR(40) NOT NULL, "
+                "UNIQUE (lower, upper, cabrillo, name) )");
+*/
+
+        stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                            "lower REAL NOT NULL, "
+                                            "upper REAL NOT NULL, "
+                                            "cabrillo VARCHAR(6) NOT NULL, "
+                                            "name VARCHAR(40) NOT NULL, "
+                                            "UNIQUE (lower, upper, cabrillo, name) )");
+    return  query.exec(stringQuery);
+
+
+}
+
+bool DataBase::populateTableBand(const bool NoTmp)
 {
     // Cabrillo definition: http://wwrof.org/cabrillo/cabrillo-specification-v3/
+
     QSqlQuery query;
+    QString tableName = QString();
+    QString squery = QString();
+    if (NoTmp)
+    {
+        tableName = "band";
+    }
+    else
+    {
+        tableName = "bandtemp";
+    }
+
+
     //To add a band, just create another line:
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('0', '0', '0', 'Light')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('1mm', '241000', '250000', '241G')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('2mm', '142000', '149000', '142G')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('2.5mm', '119980', '120020', '119G')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('4mm', '75500', '81000', '75G')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('6mm', '47000', '47200', '47G')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('1.25CM', '24000', '24250', '24G')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('3CM', '10000', '10500', '10G')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('6CM', '5650', '5925', '5.7G')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('9CM', '3300', '3500', '3.4G')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('13CM', '2340', '2450', '2.3G')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('23CM', '1240', '1300', '1.2G')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('33CM', '902', '928', '902')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('70CM', '420', '450', '432')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('1.25M', '222', '225', '222')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('2M', '144', '148', '144')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('4M', '70', '71', '4M')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('6M', '50', '54', '50')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('10M', '28.0', '29.7', '28000')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('12M', '24.89', '24.99', '24000')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('15M', '21.0', '21.45', '21000')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('17M', '18.068', '18.168', '18100')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('20M', '14.0', '14.35', '14000')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('30M', '10.0', '10.15', '10000')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('40M', '7.0', '7.3', '7000')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('60M', '5.102', '5.404', '5100')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('80M', '3.5', '4.0', '3500')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('160M', '1.8', '2.0', '1800')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('560M', '0.501', '0.504', '560M')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('630M', '0.472', '0.479', '630M')");
-    query.exec("INSERT INTO band (name, lower, upper, cabrillo) VALUES ('2190M', '0.136', '0.137', '2190M')");
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('0', '0', '0', 'Light')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('1mm', '241000', '250000', '241G')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2mm', '142000', '149000', '142G')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2.5mm', '119980', '120020', '119G')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('4mm', '75500', '81000', '75G')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('6mm', '47000', '47200', '47G')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('1.25CM', '24000', '24250', '24G')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('3CM', '10000', '10500', '10G')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('6CM', '5650', '5925', '5.7G')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('9CM', '3300', '3500', '3.4G')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('13CM', '2340', '2450', '2.3G')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('23CM', '1240', '1300', '1.2G')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('33CM', '902', '928', '902')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('70CM', '420', '450', '432')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('1.25M', '222', '225', '222')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2M', '144', '148', '144')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('4M', '70', '71', '4M')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('6M', '50', '54', '50')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('10M', '28.0', '29.7', '28000')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('12M', '24.89', '24.99', '24000')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('15M', '21.0', '21.45', '21000')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('17M', '18.068', '18.168', '18100')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('20M', '14.0', '14.35', '14000')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('30M', '10.0', '10.15', '10000')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('40M', '7.0', '7.3', '7000')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('60M', '5.102', '5.404', '5100')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('80M', '3.5', '4.0', '3500')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('160M', '1.8', '2.0', '1800')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('560M', '0.501', '0.504', '560M')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('630M', '0.472', '0.479', '630M')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2190M', '0.136', '0.137', '2190M')").arg(tableName));
 
     return true;
 }
@@ -1901,30 +1969,71 @@ bool DataBase::updateTo006()
             {
                 qDebug() << "DataBase::updateTo006 - populatePropagationModes FALSE" << endl;
             }
-            sqlOk = updateTableLog();
+            sqlOk = updateTableLog(6);
+
             if (!sqlOk)
             {
                 qDebug() << "DataBase::updateTo006 - prop_mode table do not created" << endl;
             }
 
-            sqlOk = query.exec ("DELETE FROM band");
-            if (!sqlOk)
+            createTableBand(false);
+            populateTableBand(false);
+            updateBandIdTableLogToNewOnes();
+            if (query.exec("DROP TABLE band"))
             {
-                qDebug() << "DataBase::updateTo006 - band table do not deleted" << endl;
-            }
-            populateTableBand();
-// Create a temp mode, move the mode,
+                if (query.exec("ALTER TABLE bandtemp RENAME TO band"))
+                {
 
-            sqlOk = query.exec ("DROP TABLE mode");
-            if (!sqlOk)
-            {
-                qDebug() << "DataBase::updateTo006 - mode table not dropped" << endl;
+                }
+                else
+                {
+                    qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not renamed" << endl;
+                }
+
             }
-            createTableMode();
-            populateTableMode();
+            else
+            {
+                qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not dropped" << endl;
+            }
+
+            createTableMode(false);
+            populateTableMode(false);
+
+            updateModeIdFromSubModeId();
+
+
+            if (query.exec("DROP TABLE mode"))
+            {
+                if (query.exec("ALTER TABLE modetemp RENAME TO mode"))
+                {
+
+                }
+                else
+                {
+                    qDebug() << "DataBase::updateTo006 - ERROR - modetemp not renamed" << endl;
+                }
+
+            }
+            else
+            {
+                qDebug() << "DataBase::updateTo006 - ERROR - modetemp not dropped" << endl;
+            }
+
+
+
+
 
             createTableClubLogStatus();
             populateTableClubLogStatus();
+
+
+
+
+            //sqlOk = query.exec("UPDATE log set submodeid = modeid");
+            //if(!sqlOk)
+            //{
+            //    qDebug() << "DataBase::updateTo006 - SubmodeId not populated" << endl;
+            //}
 
         }
         else
@@ -1937,34 +2046,50 @@ bool DataBase::updateTo006()
     return IAmIn006;
 }
 
-bool DataBase::updateTableLog()
+bool DataBase::updateTableLog(const int _v)
 {
     qDebug() << "DataBase::updateTableLog " << endl;
     createTableLog(false);
-    QString queryString = QString ("INSERT INTO logtemp (qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber) SELECT qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber FROM log");
+    QString queryString;
+    switch (_v)
+    {
+    case 6:
+        queryString = QString ("INSERT INTO logtemp (qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber) SELECT qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber FROM log");
+    break;
+    default:
+        return false;
+    break;
+    }
+
 
     QSqlQuery query;
     if (query.exec(queryString))
     {
+        qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Query executed" << endl;
         queryString = "DROP TABLE log";
         if (query.exec(queryString))
         {
+            qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Table log dropped" << endl;
+
             queryString = "ALTER TABLE logtemp RENAME TO log" ;
             if (query.exec(queryString))
             {
+                qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - tmp renamed" << endl;
                 return true;
             }
             else
             {
+                qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Renaming failed" << endl;
             }
         }
         else
         {
+            qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Table log Not dropped" << endl;
         }
-
     }
     else
     {
+        qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - query failed" << endl;
     }
     return false;
 }
@@ -1991,5 +2116,170 @@ bool DataBase::populateTableClubLogStatus()
         }
     }
     return false;
+
+}
+
+bool DataBase::moveFromModeIdToSubmodeId()
+{
+
+    return false;
+}
+
+bool DataBase::updateModeIdFromSubModeId()
+{
+    qDebug() << "DataBase::updateModeIdFromSubModeId: "  << endl;
+
+    QString modetxt = QString();
+    QString sq = QString();
+    bool sqlOk2 = false;
+    bool sqlOk3 = false;
+    int modeFound = -1;
+    int id = -1;
+
+    QSqlQuery query, query2, query3;
+    bool sqlOk = query.exec("SELECT modeid, id FROM log");
+    if (sqlOk)
+    {
+        while (query.next())
+        {
+            modetxt = "";
+            modeFound = -1;
+
+            if (query.isValid())
+            {
+                modeFound = (query.value(0)).toInt();
+                id = (query.value(1)).toInt();
+
+                modetxt = getModeNameFromID2(modeFound);
+                //qDebug() << "DataBase::updateModeIdFromSubModeId: mode found: " << modetxt << endl;
+
+                sq = QString("SELECT id FROM modetemp WHERE submode='%1'").arg(modetxt);
+                sqlOk2 = query2.exec(sq);
+                if (sqlOk2)
+                {
+                    if (query2.next())
+                    {
+                        if (query2.isValid())
+                        {
+                            modeFound = query2.value(0).toInt();
+                            sq = QString ("UPDATE log SET modeid='%1' WHERE id='%2'").arg(modeFound).arg(id);
+                            sqlOk3 = query3.exec(sq);
+                            if (sqlOk3)
+                            {
+                                //qDebug() << "DataBase::updateModeIdFromSubModeId: ID: " << QString::number(id) << " updated to: " << QString::number(modeFound) <<"/"<< modetxt << endl;
+                            }
+                            else
+                            {
+                                //qDebug() << "DataBase::updateModeIdFromSubModeId: ID: " << QString::number(id) << " NOT updated-2"  << endl;
+                            }
+
+
+                        }
+                        else
+                        {
+                            //qDebug() << "DataBase::updateModeIdFromSubModeId: query2 not valid "   << endl;
+                        }
+
+                    }
+                    else
+                    {
+                     //qDebug() << "DataBase::updateModeIdFromSubModeId: query2 not next "   << endl;
+                    }
+
+                }
+                else
+                {
+                    //qDebug() << "DataBase::updateModeIdFromSubModeId: ID: " << QString::number(id) << " NOT updated-1"  << endl;
+                }
+
+            }
+        }
+        //qDebug() << "DataBase::updateModeIdFromSubModeId: FINISHED OK"  << endl;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
+
+bool DataBase::updateBandIdTableLogToNewOnes()
+{
+    qDebug() << "DataBase::updateBandIdTableLogToNewOnes: "  << endl;
+
+    QString bandtxt = QString();
+    QString sq = QString();
+    bool sqlOk2 = false;
+    bool sqlOk3 = false;
+    int bandFound = -1;
+    int id = -1;
+
+    QSqlQuery query, query2, query3;
+    bool sqlOk = query.exec("SELECT bandid, id FROM log");
+    if (sqlOk)
+    {
+        while (query.next())
+        {
+            bandtxt = "";
+            bandFound = -1;
+
+            if (query.isValid())
+            {
+                bandFound = (query.value(0)).toInt();
+                id = (query.value(1)).toInt();
+                bandtxt = getBandNameFromNumber(bandFound);
+
+                qDebug() << "DataBase::updateBandIdTableLogToNewOnes: band found: " << bandtxt << endl;
+
+                sq = QString("SELECT id FROM bandtemp WHERE name='%1'").arg(bandtxt);
+                sqlOk2 = query2.exec(sq);
+                if (sqlOk2)
+                {
+                    if (query2.next())
+                    {
+                        if (query2.isValid())
+                        {
+                            bandFound = query2.value(0).toInt();
+                            sq = QString ("UPDATE log SET bandid='%1' WHERE id='%2'").arg(bandFound).arg(id);
+                            sqlOk3 = query3.exec(sq);
+                            if (sqlOk3)
+                            {
+                                qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << endl;
+                            }
+                            else
+                            {
+                                qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  << endl;
+                            }
+
+
+                        }
+                        else
+                        {
+                            //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not valid "   << endl;
+                        }
+
+                    }
+                    else
+                    {
+                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not next "   << endl;
+                    }
+
+                }
+                else
+                {
+                    //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-1"  << endl;
+                }
+
+            }
+        }
+        //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FINISHED OK"  << endl;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 
 }

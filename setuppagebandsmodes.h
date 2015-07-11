@@ -31,6 +31,8 @@
 #include <QSqlQuery>
 #include <QStringList>
 #include <QListWidget>
+#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 
 class SetupPageBandsModes : public QWidget {
@@ -63,6 +65,7 @@ private:
     QStringList bands, modes;
     QPushButton *bandSelPushButton, *bandUnSelPushButton, *modeSelPushButton, *modeUnSelPushButton;
 
+    DataProxy *dataProxy;
 
     //QCheckBox *10m;
 };

@@ -34,40 +34,54 @@ This class calls all the othet "Setup..." to manage the configuration
 
 SetupDialog::SetupDialog(const bool _firstTime)
 {
-    //qDebug() << "SetupDialog::SetupDialog 1" << endl;
+    qDebug() << "SetupDialog::SetupDialog 1" << endl;
     nolog = true;
     configFileName = "klogrc";
     version = ".";
     pageRequested = 0;
+    qDebug() << "SetupDialog::SetupDialog 2" << endl;
     dataProxy = new DataProxy_SQLite();
+    qDebug() << "SetupDialog::SetupDialog 3" << endl;
 
     firstTime = _firstTime;
     if (firstTime)
     {
-        //qDebug() << "SetupDialog::SetupDialog FIRST TIME = TRUE" << endl;
+        qDebug() << "SetupDialog::SetupDialog FIRST TIME = TRUE" << endl;
     }
     else
     {
-        //qDebug() << "SetupDialog::SetupDialog FIRST TIME = FALSE" << endl;
+        qDebug() << "SetupDialog::SetupDialog FIRST TIME = FALSE" << endl;
     }
+    qDebug() << "SetupDialog::SetupDialog 3.1" << endl;
 
     logsPageTabN=-1;
-
+qDebug() << "SetupDialog::SetupDialog 3.2" << endl;
     locator = new Locator();
-
+qDebug() << "SetupDialog::SetupDialog 3.3" << endl;
     tabWidget = new QTabWidget;
+qDebug() << "SetupDialog::SetupDialog 3.4" << endl;
 
 
     userDataPage = new SetupPageUserDataPage();
+    qDebug() << "SetupDialog::SetupDialog 3.5" << endl;
     bandsModesPage = new SetupPageBandsModes(this);
+    qDebug() << "SetupDialog::SetupDialog 3.6" << endl;
     dxClusterPage = new SetupPageDxCluster(this);
+    qDebug() << "SetupDialog::SetupDialog 3.7" << endl;
     colorsPage = new SetupPageColors(this);
+    qDebug() << "SetupDialog::SetupDialog 3.8" << endl;
     miscPage = new SetupPageMisc(this);
+qDebug() << "SetupDialog::SetupDialog 3.9" << endl;
     worldEditorPage = new SetupPageWorldEditor (this);
+ qDebug() << "SetupDialog::SetupDialog 3.10" << endl;
     logsPage = new SetupPageLogs(this);
+    qDebug() << "SetupDialog::SetupDialog 3.11" << endl;
     clubLogPage = new SetupPageClubLog(this);
+    qDebug() << "SetupDialog::SetupDialog 3.12" << endl;
 
-    tabWidget->addTab(userDataPage, tr("My Data"));
+    qDebug() << "SetupDialog::SetupDialog 4" << endl;
+
+    tabWidget->addTab(userDataPage, tr("My Data"));    
     tabWidget->addTab(bandsModesPage, tr("Bands/Modes"));
     tabWidget->addTab(dxClusterPage, tr("DX-Cluster"));
     tabWidget->addTab(colorsPage, tr("Colors"));
@@ -97,14 +111,16 @@ SetupDialog::SetupDialog(const bool _firstTime)
     setLayout(mainLayout);
 
     setWindowTitle(tr("Config Dialog"));
-
+qDebug() << "SetupDialog::SetupDialog 4" << endl;
     slotReadConfigData();
+qDebug() << "SetupDialog::SetupDialog 5" << endl;
 
     if ((pageRequested==6) && (logsPageTabN>0))// The user is opening a new log
     {
         tabWidget->setCurrentIndex(logsPageTabN);
     }
     nolog = !(haveAtleastOneLog());
+    qDebug() << "SetupDialog::SetupDialog END" << endl;
 }
 
 
