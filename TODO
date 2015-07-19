@@ -1,3 +1,7 @@
+revisar filemanager, dataproxy, database y las demas en busca de referencias a submodeid en la tabla log
+
+
+
 This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.

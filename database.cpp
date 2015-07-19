@@ -34,6 +34,7 @@ DataBase::DataBase(const QString _softVersion, bool inmemoryonly){
     softVersion = _softVersion;
     inMemoryOnly = inmemoryonly;
     latestReaded = 0.0;
+    util = new Utilities();
 
 }
 
@@ -2026,15 +2027,6 @@ bool DataBase::updateTo006()
             createTableClubLogStatus();
             populateTableClubLogStatus();
 
-
-
-
-            //sqlOk = query.exec("UPDATE log set submodeid = modeid");
-            //if(!sqlOk)
-            //{
-            //    qDebug() << "DataBase::updateTo006 - SubmodeId not populated" << endl;
-            //}
-
         }
         else
         { // Version not updated
@@ -2128,7 +2120,8 @@ bool DataBase::moveFromModeIdToSubmodeId()
 bool DataBase::updateModeIdFromSubModeId()
 {
     qDebug() << "DataBase::updateModeIdFromSubModeId: "  << endl;
-
+    bool cancel = false;
+    bool alreadyCancelled = false;
     QString modetxt = QString();
     QString sq = QString();
     bool sqlOk2 = false;
@@ -2136,8 +2129,28 @@ bool DataBase::updateModeIdFromSubModeId()
     int modeFound = -1;
     int id = -1;
 
+    int qsos;
+    int i = 0;
+    QString aux;
     QSqlQuery query, query2, query3;
-    bool sqlOk = query.exec("SELECT modeid, id FROM log");
+    bool sqlOk = query.exec("SELECT COUNT (*) FROM log");
+    if (sqlOk)
+    {
+        query.next();
+        qsos = (query.value(0)).toInt();
+    }
+    else
+    {
+        return false;
+    }
+
+    int step = util->getProgresStepForDialog(qsos);
+
+    QProgressDialog progress(QObject::tr("Updating mode information..."), QObject::tr("Abort updating"), 0, qsos);
+    progress.setMaximum(qsos);
+    progress.setWindowModality(Qt::WindowModal);
+
+    sqlOk = query.exec("SELECT modeid, id FROM log");
     if (sqlOk)
     {
         while (query.next())
@@ -2147,6 +2160,16 @@ bool DataBase::updateModeIdFromSubModeId()
 
             if (query.isValid())
             {
+
+                i++;
+
+                if (( (i % step )== 0) )
+                { // To update the speed I will only show the progress once each X QSOs
+                    aux = QObject::tr("Updating mode information...\n QSO: ")  + QString::number(i) + "/" + QString::number(qsos);
+                    progress.setLabelText(aux);
+                    progress.setValue(i);
+                }
+
                 modeFound = (query.value(0)).toInt();
                 id = (query.value(1)).toInt();
 
@@ -2193,8 +2216,49 @@ bool DataBase::updateModeIdFromSubModeId()
                 }
 
             }
+
+
+            if ( progress.wasCanceled() )
+            {
+                if (alreadyCancelled)
+                {
+
+                }
+                else
+                {
+                    alreadyCancelled = true;
+
+                    QMessageBox msgBox;
+                    aux = QObject::tr("Cancelling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
+                    msgBox.setText(aux);
+                    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                    msgBox.setDefaultButton(QMessageBox::No);
+                    int ret = msgBox.exec();
+                    switch (ret) {
+                      case QMessageBox::Yes:
+                          // Yes was clicked
+                            cancel = true;
+                          break;
+
+                      case QMessageBox::No:
+                          // No Save was clicked
+                            cancel = false;
+                            progress.setCancelButton(0);
+                          break;
+                      default:
+                          // should never be reached
+                            cancel = false;
+                          break;
+                    }
+                }
+            }
+
+
         }
-        //qDebug() << "DataBase::updateModeIdFromSubModeId: FINISHED OK"  << endl;
+        if (cancel && (!alreadyCancelled))
+        {
+            return false;
+        }
         return true;
     }
     else
@@ -2210,28 +2274,64 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     qDebug() << "DataBase::updateBandIdTableLogToNewOnes: "  << endl;
 
     QString bandtxt = QString();
+
+    bool cancel = false;
+    bool alreadyCancelled = false;
+
+
     QString sq = QString();
     bool sqlOk2 = false;
     bool sqlOk3 = false;
     int bandFound = -1;
     int id = -1;
-
+    int qsos;
+    int i = 0;
+    QString aux;
     QSqlQuery query, query2, query3;
-    bool sqlOk = query.exec("SELECT bandid, id FROM log");
+    bool sqlOk = query.exec("SELECT COUNT (*) FROM log");
     if (sqlOk)
     {
-        while (query.next())
+        query.next();
+        qsos = (query.value(0)).toInt();
+    }
+    else
+    {
+        return false;
+    }
+
+    int step = util->getProgresStepForDialog(qsos);
+
+    QProgressDialog progress(QObject::tr("Updating bands information..."), QObject::tr("Abort updating"), 0, qsos);
+    progress.setMaximum(qsos);
+    progress.setWindowModality(Qt::WindowModal);
+
+
+
+    sqlOk = query.exec("SELECT bandid, id FROM log");
+    if (sqlOk)
+    {
+        while (query.next() && (!cancel) )
         {
             bandtxt = "";
             bandFound = -1;
 
             if (query.isValid())
             {
+                i++;
+
+                if (( (i % step )== 0) )
+                { // To update the speed I will only show the progress once each X QSOs
+                    aux = QObject::tr("Updating bands information...\n QSO: ")  + QString::number(i) + "/" + QString::number(qsos);
+                    progress.setLabelText(aux);
+                    progress.setValue(i);
+                }
+
+
                 bandFound = (query.value(0)).toInt();
                 id = (query.value(1)).toInt();
                 bandtxt = getBandNameFromNumber(bandFound);
 
-                qDebug() << "DataBase::updateBandIdTableLogToNewOnes: band found: " << bandtxt << endl;
+                //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: band found: " << bandtxt << endl;
 
                 sq = QString("SELECT id FROM bandtemp WHERE name='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
@@ -2246,11 +2346,11 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                             sqlOk3 = query3.exec(sq);
                             if (sqlOk3)
                             {
-                                qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << endl;
+                                //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << endl;
                             }
                             else
                             {
-                                qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  << endl;
+                                //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  << endl;
                             }
 
 
@@ -2273,6 +2373,46 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                 }
 
             }
+
+            if ( progress.wasCanceled() )
+            {
+                if (alreadyCancelled)
+                {
+
+                }
+                else
+                {
+                    alreadyCancelled = true;
+
+                    QMessageBox msgBox;
+                    aux = QObject::tr("Cancelling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
+                    msgBox.setText(aux);
+                    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                    msgBox.setDefaultButton(QMessageBox::No);
+                    int ret = msgBox.exec();
+                    switch (ret) {
+                      case QMessageBox::Yes:
+                          // Yes was clicked
+                            cancel = true;
+                          break;
+
+                      case QMessageBox::No:
+                          // No Save was clicked
+                            cancel = false;
+                            progress.setCancelButton(0);
+                          break;
+                      default:
+                          // should never be reached
+                            cancel = false;
+                          break;
+                    }
+                }
+            }
+
+        }
+        if (cancel && (!alreadyCancelled))
+        {
+            return false;
         }
         //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FINISHED OK"  << endl;
         return true;

@@ -576,7 +576,7 @@ void MainWindow::slotModeComboBoxChanged(){
 }
 
 void MainWindow::slotBandComboBoxChanged(){
-   qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << endl;
+   //qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << endl;
     int i;
     i = dataProxy->getIdFromBandName(bandComboBox->currentText());
     if (i>=0)
@@ -5081,7 +5081,7 @@ bool MainWindow::processConfigLine(const QString _line){
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
 //that is not currently selected as active
-qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
+//qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
 //    modes
 //    bands
 

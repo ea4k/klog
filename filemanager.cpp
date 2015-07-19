@@ -38,6 +38,7 @@ FileManager::FileManager()
     kontestVersion="";
     noMoreQso = false;
     dataProxy = new DataProxy_SQLite();
+    util = new Utilities();
    // preparedQuery = new QSqlQuery;
 
 }
@@ -54,6 +55,7 @@ FileManager::FileManager(const QString _kontestDir)
     kontestVersion="";
     dataProxy = new DataProxy_SQLite();
     noMoreQso = false;
+    util = new Utilities();
 //preparedQuery = new QSqlQuery;
 
 }
@@ -69,6 +71,7 @@ FileManager::FileManager(const QString _kontestDir, const QString _softVersion, 
     kontestVersion = _softVersion;
     dataProxy = new DataProxy_SQLite();
     noMoreQso = false;
+    util = new Utilities();
 //preparedQuery = new QSqlQuery;
 }
 
@@ -245,7 +248,8 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
     //qDebug() << "FileManager::adifLogExportToFile END -  numberOfQsos = " << QString::number(numberOfQsos) << endl;
 
-    step = getProgresStepForDialog(numberOfQsos);
+    step = util->getProgresStepForDialog(numberOfQsos);
+    //step = getProgresStepForDialog(numberOfQsos);
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQsos, this);
     progress.setMaximum(numberOfQsos);
     progress.setWindowModality(Qt::WindowModal);
@@ -371,6 +375,8 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                     nameCol = rec.indexOf("modeid");
                     aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    // get SubModeId to check if it is the same or not from modeid
+                    aux2 = dataProxy->getSubModeFromId(aux1.toInt());
                     aux1 = db->getModeNameFromID2(aux1.toInt());
                     if (aux1.length()>1)
                     {
@@ -378,22 +384,12 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                         out << "<MODE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
-                    nameCol = rec.indexOf("submodeid");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
-
-                    if ((aux1.length())>0)
+                    if ((aux1 != aux2) && (aux2.length()>1))
                     {
-                        aux1 = dataProxy->getNameFromSubModeId(aux1.toInt());
-                        if ( aux1.length()>0 )
-                        {
-                            out << "<SUBMODE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
-                            if (!haveMode)
-                            {
-                                out << "<MODE:" << QString::number(( dataProxy->getModeFromSubMode(aux1)).length()) << ">" << dataProxy->getModeFromSubMode(aux1)  << " ";
-                                haveMode=true;
-                            }
-                        }
+                        haveMode = true;
+                        out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
                     }
+
 
                     nameCol = rec.indexOf("srx");
                     aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
@@ -1124,6 +1120,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                 nameCol = rec.indexOf("modeid");
                 aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+
+                // get SubModeId to check if it is the same or not from modeid
+                aux2 = dataProxy->getSubModeFromId(aux1.toInt());
+
                 aux1 = db->getModeNameFromID2(aux1.toInt());
                 if (aux1.length()>1)
                 {
@@ -1132,23 +1132,12 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
 
-                nameCol = rec.indexOf("submodeid");
-                aux1 = (query.value(nameCol)).toString();
-                aux1 = checkAndFixASCIIinADIF(aux1);
-
-                if ((aux1.length())>0)
+                if ((aux1 != aux2) && (aux2.length()>1))
                 {
-                    aux1 = dataProxy->getNameFromSubModeId(aux1.toInt());
-                    if ( aux1.length()>0 )
-                    {
-                        out << "<SUBMODE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
-                        if (!haveMode)
-                        {
-                            out << "<MODE:" << QString::number((dataProxy->getModeFromSubMode(aux1)).length()) << ">" << dataProxy->getModeFromSubMode(aux1)  << " ";
-                            haveMode = true;
-                        }
-                    }
+                    haveMode = true;
+                    out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
                 }
+
 
                 nameCol = rec.indexOf("srx");
                 aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
@@ -1982,7 +1971,7 @@ QFile file(_fileName);
                 }
             }
 
-            nameCol = rec.indexOf("submodeid");
+            nameCol = rec.indexOf("modeid");
             aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
             queryString = QString("SELECT cabrillo FROM mode WHERE id='%1'").arg(aux1);
             query1.exec(queryString);
@@ -2095,23 +2084,6 @@ bool FileManager::printQs(const QString _q, const QStringList _line){
     return true;
 }
 
-int FileManager::getProgresStepForDialog(int totalSteps){
-  //qDebug() << "FileManager::getProgresStepForDialog";
-    if (totalSteps <=100)
-        return 1;
-    else if (totalSteps <=1000)
-        return 5;
-    else if (totalSteps <=4000)
-        return 10;
-    else if (totalSteps <=5000)
-        return 15;
-    else if (totalSteps <=7000)
-        return 20;
-    else if (totalSteps <=9999)
-        return 25;
-    else
-        return 50;
-}
 
 bool FileManager::adifLogExportMarked(const QString& _fileName)
 {
@@ -2176,7 +2148,7 @@ bool FileManager::adifCheckMoreThanOneLog(QFile& _f)
 
 bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 {
-    qDebug() << "FileManager::adifReadLog:" << tfileName << endl;
+    //qDebug() << "FileManager::adifReadLog:" << tfileName << endl;
 
     //int n = 0;
     QSqlDatabase db = QSqlDatabase::database();
@@ -2220,7 +2192,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        qDebug() << "FileManager::adifReadLog File not found" << fileName << endl;
+        //qDebug() << "FileManager::adifReadLog File not found" << fileName << endl;
         return false;
     }
 
@@ -2241,7 +2213,8 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     progress.setValue(0);
     progress.setMaximum(numberOfQsos);
 
-    step = getProgresStepForDialog(numberOfQsos);
+    step = util->getProgresStepForDialog(numberOfQsos);
+    //step = getProgresStepForDialog(numberOfQsos);
     //qDebug() << "FileManager::adifReadLog (STEP)/Number: " << QString::number(step) << "/" << QString::number(numberOfQsos) << endl;
     //qDebug() << "FileManager::adifReadLog (number & step: " << QString::number(numberOfQsos % step) << endl;
 
@@ -2290,7 +2263,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     // START reading QSO data...
    //qDebug() << "FileManager::adifReadLog: QSO data reading started..."  << endl;
 
-    preparedQuery.prepare( "INSERT INTO log (call, qso_date, bandid, modeid, time_on, time_off, srx, stx, srx_string, stx_string, submodeid, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_state, state, my_street, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, swl, ten_ten, web, points, multiplier, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :time_on, :time_off, :srx, :stx, :srx_string, :stx_string, :submodeid, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_state, :state, :my_street, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :swl, :ten_ten, :web, :points, :multiplier, :lognumber)" );
+    preparedQuery.prepare( "INSERT INTO log (call, qso_date, bandid, modeid, time_on, time_off, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_state, state, my_street, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, swl, ten_ten, web, points, multiplier, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :time_on, :time_off, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_state, :state, :my_street, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :swl, :ten_ten, :web, :points, :multiplier, :lognumber)" );
 
     if (db.transaction())
     {
@@ -2421,7 +2394,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             }
             else
             {
-                qDebug() << "FileManager::adifReadLog: executedQuery1 with NO ERROR "  << endl;
+                //qDebug() << "FileManager::adifReadLog: executedQuery1 with NO ERROR "  << endl;
 
             }
 
@@ -2462,7 +2435,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             if (sqlOK)
             {
                 currentQSOfields.clear();
-                qDebug() << "FileManager::adifReadLog: (1) in While sqlOK (QSO added) = TRUE"  << endl;
+                //qDebug() << "FileManager::adifReadLog: (1) in While sqlOK (QSO added) = TRUE"  << endl;
             }
             else
             {
@@ -2515,10 +2488,10 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                 }
                 else
                 {
-                    qDebug() << "FileManager::adifReadLog: (2) LastQuery: " << preparedQuery.lastQuery()  << endl;
-                    qDebug() << "FileManager::adifReadLog: (2) LastError-data: " << preparedQuery.lastError().databaseText()  << endl;
-                    qDebug() << "FileManager::adifReadLog: (2) LastError-driver: " << preparedQuery.lastError().driverText()  << endl;
-                    qDebug() << "FileManager::adifReadLog: (2) LastError-n: " << QString::number(preparedQuery.lastError().number() ) << endl;
+                    //qDebug() << "FileManager::adifReadLog: (2) LastQuery: " << preparedQuery.lastQuery()  << endl;
+                    //qDebug() << "FileManager::adifReadLog: (2) LastError-data: " << preparedQuery.lastError().databaseText()  << endl;
+                    //qDebug() << "FileManager::adifReadLog: (2) LastError-driver: " << preparedQuery.lastError().driverText()  << endl;
+                    //qDebug() << "FileManager::adifReadLog: (2) LastError-n: " << QString::number(preparedQuery.lastError().number() ) << endl;
 
                     QMessageBox msgBox;
                     aux = tr("An unexpected error ocurred while importing. Please send this code to the developer for analysis: ");
@@ -2547,20 +2520,20 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                 qsosInTransaction = 0;
                 if (db.commit())
                 {
-                    qDebug() << "FileManager::adifReadLog: MIDcommit OK: " <<  QString::number(i) << endl;
+                    //qDebug() << "FileManager::adifReadLog: MIDcommit OK: " <<  QString::number(i) << endl;
 
                     if (db.transaction())
                     {
-                        qDebug() << "FileManager::adifReadLog: MIDTransaction Opened" << endl;
+                        //qDebug() << "FileManager::adifReadLog: MIDTransaction Opened" << endl;
                     }
                     else
                     {
-                        qDebug() << "FileManager::adifReadLog: MIDTransaction NOT Opened"  << endl;
+                        //qDebug() << "FileManager::adifReadLog: MIDTransaction NOT Opened"  << endl;
                     }
                 }
                 else
                 {
-                    qDebug() << "FileManager::adifReadLog: MIDcommit NOK: " <<  QString::number(i) << endl;
+                    //qDebug() << "FileManager::adifReadLog: MIDcommit NOK: " <<  QString::number(i) << endl;
                     errorCode = preparedQuery.lastError().number();
 
                     QMessageBox msgBox;
@@ -2575,24 +2548,24 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                           // Yes was clicked
                             sqlOK = false;
                             noMoreQso = true;
-                            qDebug() << "FileManager::adifReadLog: I have just set sqlOK=False (3)" << endl;
+                            //qDebug() << "FileManager::adifReadLog: I have just set sqlOK=False (3)" << endl;
                           break;
                       default:
                           // should never be reached
                             sqlOK = false;
-                            qDebug() << "FileManager::adifReadLog: I have just set sqlOK=False (4)" << endl;
+                            //qDebug() << "FileManager::adifReadLog: I have just set sqlOK=False (4)" << endl;
                           break;
                     }
 
                     if (db.rollback())
                     {
-                        qDebug() << "FileManager::adifReadLog: MIDcommit NOK: Rolledback"  << endl;
+                        //qDebug() << "FileManager::adifReadLog: MIDcommit NOK: Rolledback"  << endl;
 
                     }
                     else
                     {
                       //TODO: Check the error if db.rollback returns false
-                      qDebug() << "FileManager::adifReadLog: MIDcommit NOK: Roleback returned FALSE¿?"  << endl;
+                      //qDebug() << "FileManager::adifReadLog: MIDcommit NOK: Roleback returned FALSE¿?"  << endl;
                     }
 
                 }
@@ -2621,26 +2594,26 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
     if (noMoreQso)
     {
-        qDebug() << "FileManager::adifReadLog: noMoreQso = true" << endl;
+        //qDebug() << "FileManager::adifReadLog: noMoreQso = true" << endl;
     }
     else
     {
-        qDebug() << "FileManager::adifReadLog: noMoreQso = false" << endl;
+        //qDebug() << "FileManager::adifReadLog: noMoreQso = false" << endl;
     }
     if (sqlOK)
     {
-        qDebug() << "FileManager::adifReadLog: sqlOK = true" << endl;
+        //qDebug() << "FileManager::adifReadLog: sqlOK = true" << endl;
     }
     else
     {
-        qDebug() << "FileManager::adifReadLog: sqlOK = false" << endl;
+        //qDebug() << "FileManager::adifReadLog: sqlOK = false" << endl;
     }
 
     if (sqlOK)
     {
         if (db.commit())
         {
-            qDebug() << "FileManager::adifReadLog: Last commit OK"  << endl;
+            //qDebug() << "FileManager::adifReadLog: Last commit OK"  << endl;
         }
         else
         {
@@ -2679,7 +2652,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     }
     else
     {
-        qDebug() << "FileManager::adifReadLog: sqlOK = NOK"  << endl;
+        //qDebug() << "FileManager::adifReadLog: sqlOK = NOK"  << endl;
 
     }
 
@@ -2688,7 +2661,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
 
 
-    qDebug() << "FileManager::adifReadLog END "  << endl;
+    //qDebug() << "FileManager::adifReadLog END "  << endl;
     return true;
 
 }
@@ -2838,28 +2811,18 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
 
                 else if (field == "MODE")
                 {
-                    if ( dataProxy->isModeDeprecated(data)  )
-                    {
-                        i = dataProxy->getSubModeIdFromSubMode(data);
-                        if (i>=0)
-                        {
-                            preparedQuery.bindValue( ":submodeid", i );
-                            haveSubMode = true;
-                        }
-                        data = dataProxy->getModeFromSubMode(data);
-                    }
-                    else
-                    {
-                        // MODE is not deprecated, nothing to do, just continue
-                    }
-
-                    i = db->getModeIDFromName2(data);
+                    i = dataProxy->getSubModeIdFromSubMode(data); // get modeid
                     if (i>=0)
                     {
-                        preparedQuery.bindValue( ":modeid", i );
-                        haveMode = true;
+                        {
+                            if (!haveSubMode)
+                            {
+                                preparedQuery.bindValue( ":modeid", i );
+                                haveMode = true;
+                                haveSubMode = true;
+                            }
+                        }
                     }
-
                 }
 
                 else if (field == "SUBMODE")
@@ -2867,9 +2830,10 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                     i = dataProxy->getSubModeIdFromSubMode(data);
                     if (i>=0)
                     {
-                        preparedQuery.bindValue( ":submodeid", i );
+                        preparedQuery.bindValue( ":modeid", i );
                         haveSubMode = true;
-                        submode = data;
+                        haveMode=true;
+                        //submode = data;
                     }
                 }
 
@@ -3478,12 +3442,12 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     //preparedQuery.bindValue( ":lognumber", i);
    //qDebug() << "FileManager::processQsoReadingADIF: logNumber: " << QString::number(logNumber) << endl;
 
-    if ((haveSubMode) && (!haveMode))
-    { // We can guess the mode from a submode!
+   // if ((haveSubMode) && (!haveMode))
+   // { // We can guess the mode from a submode!
 
-        preparedQuery.bindValue( ":mode", dataProxy->getIdFromModeName(dataProxy->getModeFromSubMode(submode)) );
-        haveMode  = true;
-    }
+   //     preparedQuery.bindValue( ":mode", dataProxy->getIdFromModeName(dataProxy->getModeFromSubMode(submode)) );
+   //     haveMode  = true;
+   // }
 
     if (!(haveBand && haveCall && haveMode && haveTime && haveDate ))
     {
@@ -3583,7 +3547,6 @@ void FileManager::queryPreparation(const int _logN)
     preparedQuery.bindValue( ":call", "" );
     preparedQuery.bindValue( ":bandid", "" );
     preparedQuery.bindValue( ":modeid", "" );
-    preparedQuery.bindValue( ":submodeid", "" );
     preparedQuery.bindValue( ":stx", "" );
     preparedQuery.bindValue( ":srx", "" );
     preparedQuery.bindValue( ":qso_date_off", "");

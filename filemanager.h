@@ -44,6 +44,7 @@
 #include "database.h"
 #include "dataproxy.h"
 #include "dataproxy_sqlite.h"
+#include "utilities.h"
 
 enum
 {
@@ -78,7 +79,7 @@ private:
 
     bool processQsoReadingADIF(const QStringList _line, const int logNumber, const int _maxLog, QHash <int, int> &_logs);
 
-    int getProgresStepForDialog(int totalSteps);
+    //int getProgresStepForDialog(int totalSteps);
     void queryPreparation(const int _logN);
 
     bool checkADIFValidFormat(const QStringList _qs);
@@ -86,6 +87,7 @@ private:
     DataBase *db;
     //float softwareVersion;
     DataProxy *dataProxy;
+    Utilities *util;
 
     bool rstTXDefault, rstRXDefault; // If true and a log is not including RST, 59 is automatically added
 

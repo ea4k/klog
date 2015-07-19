@@ -697,7 +697,8 @@ void Awards::recalculateAwards()
         query.next();
         numberOfQsos = query.value(0).toInt();
         //qDebug() << "Awards::recalculateAwards: MAX = " << QString::number(numberOfQsos) << endl;
-        step = getProgresStepForDialog(numberOfQsos);
+        //step = getProgresStepForDialog(numberOfQsos);
+        step = util.getProgresStepForDialog(numberOfQsos);
 
     }
     else
@@ -1316,26 +1317,6 @@ bool Awards::setAwardWAZ(const int _cqz, const int _band, const int _mode, const
         }
     }
     return (isOK1 && isOK2);
-}
-
-
-
-int Awards::getProgresStepForDialog(int totalSteps){
-  //qDebug() << "FileManager::getProgresStepForDialog";
-    if (totalSteps <=100)
-        return 1;
-    else if (totalSteps <=1000)
-        return 5;
-    else if (totalSteps <=4000)
-        return 10;
-    else if (totalSteps <=5000)
-        return 15;
-    else if (totalSteps <=7000)
-        return 20;
-    else if (totalSteps <=9999)
-        return 25;
-    else
-        return 50;
 }
 
 

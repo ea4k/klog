@@ -55,7 +55,8 @@ SOURCES += main.cpp \
     awarddxmarathon.cpp \
     setuppagelogsnew.cpp \
     setuppageclublog.cpp \
-    elogclublog.cpp
+    elogclublog.cpp \
+    utilities.cpp
 HEADERS += setupdialog.h \
     mainwindow.h \
     world.h \
@@ -85,7 +86,8 @@ HEADERS += setupdialog.h \
     awarddxmarathon.h \
     setuppagelogsnew.h \
     setuppageclublog.h \
-    elogclublog.h
+    elogclublog.h \
+    utilities.h
 OTHER_FILES += TODO \
     README-DEVEL \
     tips-for-devel.txt \
