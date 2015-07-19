@@ -34,6 +34,8 @@
 #include <QString>
 #include <QDateTime>
 #include <QInputDialog>
+#include <QProgressDialog>
+#include "utilities.h"
 
 class QSqlRelationalTableModel;
 
@@ -130,6 +132,7 @@ private:
     QMap<QString, int> bandQMap;
     QMap<QString, int> modeQMap;
 
+    Utilities *util;
 
     //QSqlDatabase *db;
 
