@@ -281,29 +281,30 @@ int Awards::getWAZConfirmed(const int _logNumber)
 
 int Awards::getDXStatus (const QStringList _qs)
 {
+    //estoy aqui tratando de que salga el color adecuado
 
     //qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
 // Receives:  QStringList _qs;
 //_qs << QRZ << BandId << << ModeId << lognumber;
 
 /*
--1 - Error.
-0 - New one.
-1 - worked in this mode, not this band                              - newOneColor       ( mode=-1=> 0/newOneColor )
-2 - worked in this band, not this mode                              - neededColor       ( mode=-1=> 3/neededColor )
-3 - worked in this band and mode                                    - neededColor       ( mode=-1=> 3/neededColor )
-4 - confirmed in this mode, not worked in this band                 - workedColor       ( mode=-1=> 0/newOneColor )
-5 - confirmed in this band, not worked in this mode                 - neededColor       ( mode=-1=> 8/confirmedColor )
-6 - confirmed in this mode, not confirmed, but worked in this band  - workedColor       ( mode=-1=> 3/neededColor )
-7 - confirmed in this band, not confirmed, but worked in this mode  - workedColor       ( mode=-1=> 8/confirmedColor )
-8 - confirmed in this band and mode                                 - confirmedColor    ( mode=-1=> 8/confirmedColor )
+    -1 - Error.
+    0 - New one.                                                        - newOneColor       ( mode=-1=> 0/newOneColor       )
+    1 - worked in this mode, not this band                              - neededColor       ( mode=-1=> 1/neededColor       )
+    2 - worked in this band, not this mode                              - workedColor       ( mode=-1=> 3/workedColor       )
+    3 - worked in this band and mode                                    - workedColor       ( mode=-1=> 3/workedColor       )
+    4 - confirmed in this mode, not worked in this band                 - neededColor       ( mode=-1=> 1/neededColor       )
+    5 - confirmed in this band, not worked in this mode                 - neededColor       ( mode=-1=> 8/confirmedColor    )
+    6 - confirmed in this mode, not confirmed, but worked in this band  - workedColor       ( mode=-1=> 3/workedColor       )
+    7 - confirmed in this band, not confirmed, but worked in this mode  - workedColor       ( mode=-1=> 8/confirmedColor    )
+    8 - confirmed in this band and mode                                 - confirmedColor    ( mode=-1=> 8/confirmedColor    )
 */
 
 /*
 0   -   New One     -   Never worked before                         -   RED
-1   -   Needed      -   New one in this band                        -   ORANGE
-2   -   Worked      -   Worked in this band but not confirmed       -   YELLOW
-3   -   Confirmed   -   Confirmed in this band                      -   GREEN
+1   -   Needed      -   Needed in this band                         -   ORANGE
+3   -   Worked      -   Worked in this band but not confirmed       -   YELLOW
+8   -   Confirmed   -   Confirmed in this band                      -   GREEN
 */
 
 
@@ -325,7 +326,6 @@ int Awards::getDXStatus (const QStringList _qs)
     if (_mode==-1)
     {
         checkingMode = false;
-       //qDebug() << "Awards::getDXStatus: checkingMode = FALSE" << endl;
     }
 
     switch(dxccStatus(dxccEntity, _logNumber))
@@ -340,15 +340,19 @@ int Awards::getDXStatus (const QStringList _qs)
             {// Status in this band & Mode? //-1 error / 0 Not worked / 1 worked / 2 confirmed
 
                 case 0: //
-               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 1: " << endl;
+                    qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 0(not worked): " << endl;
                     return 1;
                 break;
                 case 1: //
-               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 2: " << endl;
+                    qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 1(worked): " << endl;
+                    return 2;
+                break;
+                case 2: //
+                    qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 2(confirmed): " << endl;
                     return 2;
                 break;
                 default:
-               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned default: " << endl;
+                    qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned default: " << endl;
                     return -1;
                 break;
             }
@@ -478,7 +482,7 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
 
 QColor Awards::getQRZDXStatusColor(const QStringList _qs)
 {
-    //qDebug() << "Awards::getQRZDXStatusColor qs.length: " << QString::number(_qs.length()) << endl;
+    qDebug() << "Awards::getQRZDXStatusColor qs.length: " << QString::number(_qs.length()) << endl;
 
     //From Search QSO to QSL: q << _call << bandid << _mode << QString::number(currentLog);
 
@@ -487,38 +491,64 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
     // Receives:  QStringList _qs;
     //_qs << QRZ << BandID << ModeId << lognumber;
 
-    /*
-    0 - New One
-    1 - Needed
-    2 - Worked
-    3 - Confirmed
-    */
+/*
+ -1 - Error.
+  0 - New one.                                                        - newOneColor       ( mode=-1=> 0/newOneColor       )
+  1 - worked in this mode, not this band                              - neededColor       ( mode=-1=> 1/neededColor       )
+  2 - worked in this band, not this mode                              - workedColor       ( mode=-1=> 3/workedColor       )
+  3 - worked in this band and mode                                    - workedColor       ( mode=-1=> 3/workedColor       )
+  4 - confirmed in this mode, not worked in this band                 - neededColor       ( mode=-1=> 1/neededColor       )
+  5 - confirmed in this band, not worked in this mode                 - neededColor       ( mode=-1=> 8/confirmedColor    )
+  6 - confirmed in this mode, not confirmed, but worked in this band  - workedColor       ( mode=-1=> 3/workedColor       )
+  7 - confirmed in this band, not confirmed, but worked in this mode  - workedColor       ( mode=-1=> 8/confirmedColor    )
+  8 - confirmed in this band and mode                                 - confirmedColor    ( mode=-1=> 8/confirmedColor    )
+*/
 
     QColor returnedColor;
     int status = getDXStatus(_qs);
-    //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << endl;
+    qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << endl;
     switch (status) {
 
         case 0:
             returnedColor = newOneColor;
-          //qDebug() << "Awards::getQRZDXStatusColor: 0: " << returnedColor.name() << endl;
+            qDebug() << "Awards::getQRZDXStatusColor: 0-new: " << returnedColor.name() << endl;
 
         break;
         case 1:
             returnedColor =  neededColor;
-          //qDebug() << "Awards::getQRZDXStatusColor: 1: " << returnedColor.name() << endl;
+            qDebug() << "Awards::getQRZDXStatusColor: 1-needed: " << returnedColor.name() << endl;
         break;
         case 2:
             returnedColor =  workedColor;
-           //qDebug() << "Awards::getQRZDXStatusColor: 2: " << returnedColor.name() << endl;
+            qDebug() << "Awards::getQRZDXStatusColor: 2-worked: " << returnedColor.name() << endl;
         break;
         case 3:
+            returnedColor =  workedColor;
+            qDebug() << "Awards::getQRZDXStatusColor: 3-worked: " << returnedColor.name() << endl;
+        break;
+        case 4:
+            returnedColor =  neededColor;
+            qDebug() << "Awards::getQRZDXStatusColor: 4-needed: " << returnedColor.name() << endl;
+        break;
+        case 5:
+            returnedColor =  neededColor;
+            qDebug() << "Awards::getQRZDXStatusColor: 5-needed: " << returnedColor.name() << endl;
+        break;
+        case 6:
+            returnedColor =  workedColor;
+            qDebug() << "Awards::getQRZDXStatusColor: 6-worked: " << returnedColor.name() << endl;
+        break;
+        case 7:
+            returnedColor =  workedColor;
+            qDebug() << "Awards::getQRZDXStatusColor: 7-worked: " << returnedColor.name() << endl;
+        break;
+        case 8:
             returnedColor =  confirmedColor;
-           //qDebug() << "Awards::getQRZDXStatusColor: 3: " << returnedColor.name() << endl;
+            qDebug() << "Awards::getQRZDXStatusColor: 8-confirmed: " << returnedColor.name() << endl;
         break;
         default:
             returnedColor =  defaultColor;
-          //qDebug() << "Awards::getQRZDXStatusColor: Def: " << returnedColor.name() << endl;
+            qDebug() << "Awards::getQRZDXStatusColor: Def: " << returnedColor.name() << endl;
         break;
 
     }

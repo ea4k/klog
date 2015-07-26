@@ -60,6 +60,7 @@ public:
     bool isValidModeNumber (const int b);
     QString getBandNameFromNumber(const int _n);
     QString getModeNameFromNumber(const int _n);
+    QString getSubModeNameFromNumber(const int _n);
 
     int getBandIdFromName(const QString b);
     int getModeIdFromName(const QString b);
@@ -117,6 +118,8 @@ private:
     bool moveFromModeIdToSubmodeId();
     bool updateModeIdFromSubModeId();
     bool updateBandIdTableLogToNewOnes();
+    bool updateBandIdTableAward(const int _db);
+    bool updateModeIdTableAward(const int _db);
 
     float dbVersion;    // The current version of the DB. May differ from latestReaded if we are updating the DB!
     QString softVersion;

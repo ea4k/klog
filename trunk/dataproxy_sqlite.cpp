@@ -731,7 +731,7 @@ QString DataProxy_SQLite::getCallFromId(const int _qsoId)
 
 QStringList DataProxy_SQLite::getClubLogRealTimeFromId(const int _qsoId)
 {
-  qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: " << QString::number(_qsoId) << endl;
+   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: " << QString::number(_qsoId) << endl;
 /* Return a QStringList with 16 fields with these data:
 
 QSO_DATE, TIME_ON, QSLRDATE, QSLSDATE, CALL, OPERATOR, MODE, BAND, BAND_RX, FREQ, QSL_RCVD,
@@ -755,10 +755,10 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
     bool sqlOk = query.exec(stringQuery);
     if (!sqlOk)
     {
-        qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastQuery: " << query.lastQuery()  << endl;
-        qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-data: " << query.lastError().databaseText()  << endl;
-        qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-driver: " << query.lastError().driverText()  << endl;
-        qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-n: " << QString::number(query.lastError().number() ) << endl;
+       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastQuery: " << query.lastQuery()  << endl;
+       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-data: " << query.lastError().databaseText()  << endl;
+       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-driver: " << query.lastError().driverText()  << endl;
+       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: LastError-n: " << QString::number(query.lastError().number() ) << endl;
     }
 
    dataC << QString::number(_qsoId);
@@ -766,7 +766,7 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
     QSqlRecord rec = query.record();
     if (sqlOk)
     {
-      qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId sqlOK" << endl;
+     //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId sqlOK" << endl;
         if (query.next())
         //if (1)
         {
@@ -969,13 +969,13 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
     else
     {
        //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NOT sqlOK" << endl;
-        qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastQuery: " << query.lastQuery()  << endl;
-        qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-data: " << query.lastError().databaseText()  << endl;
-        qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-driver: " << query.lastError().driverText()  << endl;
-        qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-n: " << QString::number(query.lastError().number() ) << endl;
+       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastQuery: " << query.lastQuery()  << endl;
+       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-data: " << query.lastError().databaseText()  << endl;
+       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-driver: " << query.lastError().driverText()  << endl;
+       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-n: " << QString::number(query.lastError().number() ) << endl;
         return QStringList();
     }
-qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId END NOT OK" << endl;
+   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId END NOT OK" << endl;
     return QStringList();
 }
 
@@ -1358,7 +1358,7 @@ QStringList DataProxy_SQLite::getBandNames()
 
 QStringList DataProxy_SQLite::getPropModeList()
 {
-    qDebug()  << "DataProxy_SQLite::getPropModeLists"  << endl;
+   //qDebug()  << "DataProxy_SQLite::getPropModeLists"  << endl;
     QString aux = QString();
     QStringList qs;
     qs.clear();

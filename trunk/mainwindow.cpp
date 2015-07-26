@@ -168,7 +168,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     #endif
 
 
-    qDebug() << "MainWindow::MainWindow: logbook: " << QString(kontestDir + "logbook.dat") << endl;
+   //qDebug() << "MainWindow::MainWindow: logbook: " << QString(kontestDir + "logbook.dat") << endl;
 
         bool existingData = QFile::exists(kontestDir + "logbook.dat");
 
@@ -194,10 +194,10 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     db = new DataBase(softwareVersion, DBinMemory);
 
-   qDebug() << "MainWindow::MainWindow: 1 " << endl;
+  //qDebug() << "MainWindow::MainWindow: 1 " << endl;
     world = new World(kontestDir, softwareVersion);
 
-    qDebug() << "MainWindow::MainWindow: 2" << endl;
+   //qDebug() << "MainWindow::MainWindow: 2" << endl;
 
 
     //readConfigData();
@@ -205,17 +205,17 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     if (!db->createConnection())
     {
-       qDebug() << "MainWindow::MainWindow: 4" << endl;
+      //qDebug() << "MainWindow::MainWindow: 4" << endl;
         return;
     }
     else
     {
         db->updateIfNeeded(); // Check if we need to update the DB
 
-       qDebug() << "MainWindow::MainWindow: 5" << endl;
+      //qDebug() << "MainWindow::MainWindow: 5" << endl;
         if (!existingData)
         {
-           qDebug() << "MainWindow::MainWindow: !existingData" << endl;
+          //qDebug() << "MainWindow::MainWindow: !existingData" << endl;
             world->create(kontestDir);
             entitiesList = world->getEntitiesNames();
 
@@ -223,7 +223,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
             //createData();
         }else
         {
-           qDebug() << "MainWindow::MainWindow: existingData" << endl;
+          //qDebug() << "MainWindow::MainWindow: existingData" << endl;
         }
 
 
@@ -234,18 +234,18 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     if (configured)
     {
-       qDebug() << "MainWindow::MainWindow: configured = true" << endl;
+      //qDebug() << "MainWindow::MainWindow: configured = true" << endl;
     }
     else
     {
-       qDebug() << "MainWindow::MainWindow: configured = false" << endl;
+      //qDebug() << "MainWindow::MainWindow: configured = false" << endl;
     }
-    qDebug() << "MainWindow::MainWindow: 5.1" << endl;
+   //qDebug() << "MainWindow::MainWindow: 5.1" << endl;
     setupDialog = new SetupDialog(!configured);
-    qDebug() << "MainWindow::MainWindow: 6" << endl;
+   //qDebug() << "MainWindow::MainWindow: 6" << endl;
 
     satTabWidget = new MainWindowSatTab();
-    qDebug() << "MainWindow::MainWindow: 7" << endl;
+   //qDebug() << "MainWindow::MainWindow: 7" << endl;
     filemanager = new FileManager(kontestDir, softwareVersion, *db);
 
     locator = new Locator();
@@ -253,7 +253,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     mainWidget = new QWidget(this);
     setCentralWidget(mainWidget);
-    qDebug() << "MainWindow::MainWindow: 8" << endl;
+   //qDebug() << "MainWindow::MainWindow: 8" << endl;
     dateTime = new QDateTime();
     selectedYear = (dateTime->currentDateTime()).date().year();
 
@@ -261,7 +261,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
     timer->start(1000);
-qDebug() << "MainWindow::MainWindow: 9" << endl;
+    qDebug() << "MainWindow::MainWindow: 9" << endl;
     previousQrz = "";
     qrzLineEdit = new QLineEdit;
     nameLineEdit = new QLineEdit;
@@ -344,7 +344,7 @@ qDebug() << "MainWindow::MainWindow: 9" << endl;
     rxFreqSpinBox->setDecimals(3);
     rxFreqSpinBox->setMaximum(9999);
     rxFreqSpinBox->setSuffix(tr("MHz"));
-qDebug() << "MainWindow::MainWindow: 10" << endl;
+
     dxccConfirmedQLCDNumber = new QLCDNumber;
     dxccWorkedQLCDNumber = new QLCDNumber;
     wazConfirmedQLCDNumber = new QLCDNumber;
@@ -434,29 +434,26 @@ qDebug() << "MainWindow::MainWindow: 10" << endl;
 
     // </UI>
 
-qDebug() << "MainWindow::MainWindow: 11" << endl;
+
 
 //**************************************************
 
 
     //createDXClusterUI();
     connect( setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
-qDebug() << "MainWindow::MainWindow: 12" << endl;
+
     readConfigData();
     if (needToEnd)
     {
         //QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
         db->compress();
-        qDebug() << "MainWindow::MainWindow: 12.5" << endl;
+       //qDebug() << "MainWindow::MainWindow: 12.5" << endl;
        exit(0);
     }
 
-qDebug() << "MainWindow::MainWindow: 13" << endl;
     createUI();
-    qDebug() << "MainWindow::MainWindow: 14 - currentLog: " << QString::number(currentLog) << endl;
+   //qDebug() << "MainWindow::MainWindow: 14 - currentLog: " << QString::number(currentLog) << endl;
     createlogModel(currentLog);
-
-qDebug() << "MainWindow::MainWindow: 15" << endl;
 
     createSearchResultsPanel();
     loggWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
@@ -475,16 +472,15 @@ qDebug() << "MainWindow::MainWindow: 15" << endl;
     logView->setCurrentIndex(logModel->index(0, 0));
     //searchResultsTreeWidget->setCurrentIndex(logModel->index(0, 0));
 
-    qDebug() << "MainWindow::MainWindow: 16" << endl;
+   //qDebug() << "MainWindow::MainWindow: 16" << endl;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
-        qDebug() << "MainWindow::MainWindow: 16.1" << endl;
+       //qDebug() << "MainWindow::MainWindow: 16.1" << endl;
         slotSetup(6);
-        qDebug() << "MainWindow::MainWindow: 16.2" << endl;
+       //qDebug() << "MainWindow::MainWindow: 16.2" << endl;
     }
-    qDebug() << "MainWindow::MainWindow: 17" << endl;
+   //qDebug() << "MainWindow::MainWindow: 17" << endl;
     checkIfNewBandOrMode();
-    qDebug() << "MainWindow::MainWindow: 18" << endl;
 
     if ( (contestMode == CQ_WW_SSB) || (contestMode == CQ_WW_CW) )
     {
@@ -508,12 +504,12 @@ qDebug() << "MainWindow::MainWindow: 15" << endl;
         awards->recalculateAwards();
         showAwards();
     }
-qDebug() << "MainWindow::MainWindow: 2" << endl;
+
     slotClearButtonClicked();
     //logModel->select();
 
     upAndRunning = true;
-   qDebug() << "MainWindow::MainWindow: END" << endl;
+  //qDebug() << "MainWindow::MainWindow: END" << endl;
 
 }
 
@@ -644,7 +640,7 @@ void MainWindow::slotQRZReturnPressed()
         if (queryString != "NULL") {
             if (!query.exec(queryString))
             {
-                qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
+               //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
                 errorCode = query.lastError().number();
                 QMessageBox msgBox;
                 msgBox.setIcon(QMessageBox::Warning);
@@ -668,12 +664,12 @@ void MainWindow::slotQRZReturnPressed()
             {
                 //TODO: To move the following lines to this part to properly manage the query result!!
                 //ret = true;
-                qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
+               //qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
 
                 needToSave = true;
                 if (modify)
                 {
-                    qDebug() << "MainWindow::slotQRZReturnPressed: Modifying! " << endl;
+                   //qDebug() << "MainWindow::slotQRZReturnPressed: Modifying! " << endl;
 
                     if(modifyingQSO>0)
                     {
@@ -681,7 +677,7 @@ void MainWindow::slotQRZReturnPressed()
 
                         if ((clublogActive) & (clublogRealTime))
                         {
-                            qDebug() << "MainWindow::slotQRZReturnPressed: (Modifiying ClubLog) Lastid: "<< QString::number(lastId) << endl;
+                           //qDebug() << "MainWindow::slotQRZReturnPressed: (Modifiying ClubLog) Lastid: "<< QString::number(lastId) << endl;
                             // Delete QSO in CLubLog
                             _x = elogClublog->deleteQSO(clublogPrevQSO);
                             // Add modified QSO in ClubLog
@@ -690,7 +686,7 @@ void MainWindow::slotQRZReturnPressed()
                         }
                         else
                         {
-                            qDebug() << "MainWindow::slotQRZReturnPressed: (No ClubLog) Lastid: "<< QString::number(lastId) << endl;
+                           //qDebug() << "MainWindow::slotQRZReturnPressed: (No ClubLog) Lastid: "<< QString::number(lastId) << endl;
                         }
 
 
@@ -700,42 +696,42 @@ void MainWindow::slotQRZReturnPressed()
                 }
                 else
                 {
-                    qDebug() << "MainWindow::slotQRZReturnPressed: Not Modifying " << endl;
+                   //qDebug() << "MainWindow::slotQRZReturnPressed: Not Modifying " << endl;
                     lastId = dataProxy->getLastQSOid();
                     if (lastId>=0)
                     {
-                        qDebug() << "MainWindow::slotQRZReturnPressed: Lastid: "<< QString::number(lastId) << endl;
+                       //qDebug() << "MainWindow::slotQRZReturnPressed: Lastid: "<< QString::number(lastId) << endl;
                         awards->setAwards(lastId);   //Update the DXCC award status
 
                         // Send to CLUBLOG if enabled
 
                         if (clublogActive)
                         {
-                            qDebug() << "MainWindow::slotQRZReturnPressed: clublogActive TRUE" << endl;
+                           //qDebug() << "MainWindow::slotQRZReturnPressed: clublogActive TRUE" << endl;
                         }
                         else
                         {
-                            qDebug() << "MainWindow::slotQRZReturnPressed: clublogActive FALSE" << endl;
+                           //qDebug() << "MainWindow::slotQRZReturnPressed: clublogActive FALSE" << endl;
                         }
                         if (clublogRealTime)
                         {
-                            qDebug() << "MainWindow::slotQRZReturnPressed: clublogRealTime TRUE" << endl;
+                           //qDebug() << "MainWindow::slotQRZReturnPressed: clublogRealTime TRUE" << endl;
                         }
                         else
                         {
-                            qDebug() << "MainWindow::slotQRZReturnPressed: clublogRealTime FALSE" << endl;
+                           //qDebug() << "MainWindow::slotQRZReturnPressed: clublogRealTime FALSE" << endl;
                         }
 
 
                         if ((clublogActive) & (clublogRealTime))
                         {
-                            qDebug() << "MainWindow::slotQRZReturnPressed: (Sending ClubLog) Lastid: "<< QString::number(lastId) << endl;
+                           //qDebug() << "MainWindow::slotQRZReturnPressed: (Sending ClubLog) Lastid: "<< QString::number(lastId) << endl;
                             _x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(lastId));
 
                         }
                         else
                         {
-                            qDebug() << "MainWindow::slotQRZReturnPressed: (No ClubLog) Lastid: "<< QString::number(lastId) << endl;
+                           //qDebug() << "MainWindow::slotQRZReturnPressed: (No ClubLog) Lastid: "<< QString::number(lastId) << endl;
                         }
                         //<CLUBLOG>
                     }
@@ -997,7 +993,7 @@ QString MainWindow::readDataFromUIDX()
     // EQSL-SENT
 
     aux1 = satTabWidget->getSatName();
-    qDebug() << "MainWindow::readDataFromUIDX: SAT1 " << aux1 << endl;
+   //qDebug() << "MainWindow::readDataFromUIDX: SAT1 " << aux1 << endl;
     if (aux1.length()>0)
     {
         stringFields = stringFields + ", sat_name";
@@ -1026,7 +1022,7 @@ QString MainWindow::readDataFromUIDX()
     //qsAux << tr("Y-Uploaded") << tr("N-Do not upload") << tr("M-Modified");
 
     clublogQDateEdit->setDate((dateTime->currentDateTime()).date());
-    qDebug() << "MainWindow::readDataFromUIDX: ClubLogDate: " << (clublogQDateEdit->date()).toString("yyyy/MM/dd") << endl;
+   //qDebug() << "MainWindow::readDataFromUIDX: ClubLogDate: " << (clublogQDateEdit->date()).toString("yyyy/MM/dd") << endl;
 
     switch (i)
     {
@@ -1696,7 +1692,7 @@ WHERE [condition];
     }
 
     aux1 = satTabWidget->getSatName();
-    qDebug() << "MainWindow::readDataFromUIDX: SAT2 " << aux1 << endl;
+   //qDebug() << "MainWindow::readDataFromUIDX: SAT2 " << aux1 << endl;
     if (aux1.length()>0)
     {
         updateString = updateString + "sat_name = '";
@@ -1715,22 +1711,22 @@ WHERE [condition];
     }
 
     aux1 = getPropModeFromComboBox();
-    qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << endl;
+   //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << endl;
     if ((aux1.length()>0) && (aux1 != "Not"))
     {
-         qDebug() << "MainWindow::readDataFromUIDX: PropMode(1):  " << aux1 << endl;
+        //qDebug() << "MainWindow::readDataFromUIDX: PropMode(1):  " << aux1 << endl;
         updateString = updateString + "prop_mode = '";
         updateString = updateString + aux1 + "', ";
     }
     else if ((aux1.length()==0) || (aux1 == "Not"))
     {
-        qDebug() << "MainWindow::readDataFromUIDX: PropMode(2):  " << aux1 << endl;
+       //qDebug() << "MainWindow::readDataFromUIDX: PropMode(2):  " << aux1 << endl;
         updateString = updateString + "prop_mode = '',";
         //updateString = updateString + aux1 + "', ";
     }
     else
     {
-        qDebug() << "MainWindow::readDataFromUIDX: PropMode(3):  " << aux1 << endl;
+       //qDebug() << "MainWindow::readDataFromUIDX: PropMode(3):  " << aux1 << endl;
     }
 
     //CLUBLOG
@@ -2295,7 +2291,7 @@ the view should present the city's name field to the user.
 */
 
 
-    qDebug() << "MainWindow::createlogModel: " << QString::number(_i) << endl;
+   //qDebug() << "MainWindow::createlogModel: " << QString::number(_i) << endl;
     QSqlQuery q;
     QString stringQuery = QString("SELECT * from log LIMIT 1");
     QSqlRecord rec; // = q.record();
@@ -2305,12 +2301,12 @@ the view should present the city's name field to the user.
     q.exec(stringQuery);
     q.next();
     rec = q.record(); // Number of columns
-    qDebug() << "MainWindow::createlogModel - columns: " << QString::number(rec.count()) << endl;
+   //qDebug() << "MainWindow::createlogModel - columns: " << QString::number(rec.count()) << endl;
 
     logModel = new QSqlRelationalTableModel(this);
 
     stringQuery = QString("lognumber='%1'").arg(_i);
-    qDebug() << "MainWindow::createlogModel - filter: " << stringQuery << endl;
+   //qDebug() << "MainWindow::createlogModel - filter: " << stringQuery << endl;
     QSqlQuery query(stringQuery);
     logModel->setTable("log");
     logModel->setFilter(stringQuery);
@@ -2584,7 +2580,7 @@ void MainWindow::createActionsCommon(){
 }
 void MainWindow::slotElogClubLogDisable(const bool _b)
 {
-    qDebug() << "MainWindow::slotElogClubLogDisable: " << endl;
+   //qDebug() << "MainWindow::slotElogClubLogDisable: " << endl;
     if (_b)
     {
         clublogActive = false;
@@ -2610,7 +2606,7 @@ void MainWindow::slotElogClubLogShowMessage(const QString _s)
 
 void MainWindow::slotElogClubLogProcessAnswer(const int _i, const int _qID)
 {
-    qDebug() << "MainWindow::slotElogClubLogProcessAnswer: " <<QString::number(_i) << endl;
+   //qDebug() << "MainWindow::slotElogClubLogProcessAnswer: " <<QString::number(_i) << endl;
 
     clublogAnswer = _i;
 
@@ -4567,7 +4563,7 @@ void MainWindow::slotQSOToEditFromSearch()
 
 void MainWindow::slotQsoDeleteFromLog()
 {
-    qDebug() << "MainWindow::slotQsoDeleteFromLog: " << (delQSOFromLogAct->data()).toString() << endl;
+   //qDebug() << "MainWindow::slotQsoDeleteFromLog: " << (delQSOFromLogAct->data()).toString() << endl;
 
 
     QMessageBox msgBox;
@@ -4580,17 +4576,17 @@ void MainWindow::slotQsoDeleteFromLog()
 
     int QSOid = ((logModel->index((delQSOFromLogAct->data()).toInt(), 0)).data(0)).toInt();
 
-    qDebug() << "MainWindow::slotQsoDeleteFromLog (id): " << QString::number(QSOid) << endl;
+   //qDebug() << "MainWindow::slotQsoDeleteFromLog (id): " << QString::number(QSOid) << endl;
 
     switch (ret) {
       case QMessageBox::Yes:
-        qDebug() << "MainWindow::slotQsoDeleteFromLog (id): -1" << endl;
+       //qDebug() << "MainWindow::slotQsoDeleteFromLog (id): -1" << endl;
         elogClublog->deleteQSO(dataProxy->getClubLogRealTimeFromId(QSOid));
-        qDebug() << "MainWindow::slotQsoDeleteFromLog (id): -2"<< endl;
+       //qDebug() << "MainWindow::slotQsoDeleteFromLog (id): -2"<< endl;
         logModel->removeRow((delQSOFromLogAct->data()).toInt());
 
 
-qDebug() << "MainWindow::slotQsoDeleteFromLog (id):-3 " << endl;
+    //qDebug() << "MainWindow::slotQsoDeleteFromLog (id):-3 " << endl;
           slotSearchBoxTextChanged();
           awards->recalculateAwards();
           showAwards();
@@ -5031,12 +5027,12 @@ bool MainWindow::processConfigLine(const QString _line){
         //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
     }else if(field=="CLUBLOGACTIVE")
     {
-       qDebug() << "MainWindow::processConfigLine: clublogActive: " << value << endl;
+      //qDebug() << "MainWindow::processConfigLine: clublogActive: " << value << endl;
         clublogActive = trueOrFalse(value);
     }
     else if(field=="CLUBLOGREALTIME")
     {
-        qDebug() << "MainWindow::processConfigLine: clublogRealTime: " << value << endl;
+       //qDebug() << "MainWindow::processConfigLine: clublogRealTime: " << value << endl;
         clublogRealTime = trueOrFalse(value);
     }
     else if(field=="CLUBLOGCALL")
@@ -7161,7 +7157,7 @@ void MainWindow::qsoToEdit (const int _qso)
                 if(( propModeComboBox->findText(aux1+" -", Qt::MatchContains))>0)
                 {
                     propModeComboBox->setCurrentIndex( propModeComboBox->findText(aux1+" -", Qt::MatchContains));
-                    qDebug() << "MainWindow::qsoToEdit: Prop2: " << aux1 << endl;
+                   //qDebug() << "MainWindow::qsoToEdit: Prop2: " << aux1 << endl;
                 }
 
 
@@ -8673,9 +8669,9 @@ void MainWindow::slotSetPropMode(const QString _p)
 QString MainWindow::getPropModeFromComboBox()
 {
     QString _pm = QString();
-    qDebug() << "MainWindow::getPropModeFromComboBox:" << propModeComboBox->currentText() << endl;
+   //qDebug() << "MainWindow::getPropModeFromComboBox:" << propModeComboBox->currentText() << endl;
     _pm = (((propModeComboBox->currentText()).split('-')).at(1)).simplified();
-    qDebug() << "MainWindow::getPropModeFromComboBox: " << _pm << endl;
+   //qDebug() << "MainWindow::getPropModeFromComboBox: " << _pm << endl;
     if (_pm == "Not")
     {
         return QString();

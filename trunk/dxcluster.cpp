@@ -286,7 +286,7 @@ void DXClusterWidget::setCurrentLog(const int _log)
 
 void DXClusterWidget::slotClusterDataArrived()
 {
-    //qDebug() << "DXClusterWidget::slotClusterDataArrived" << endl;
+    qDebug() << "DXClusterWidget::slotClusterDataArrived" << endl;
     QStringList qs;
     QString dxClusterString;
     QString dxCall;
@@ -305,7 +305,7 @@ void DXClusterWidget::slotClusterDataArrived()
         }
         // It is a "DX de SP0TTER FREC DXCALL"
         //0 = DX, 1 = de, 2 = spotter, 3 = Freq, 4 = dxcall, 5 = comment
-        //qDebug() << "DXClusterWidget::slotClusterDataArrived: " << "DXCLUSTER->" << dxClusterString << "\nTOKENS: " << tokens << endl;
+        qDebug() << "DXClusterWidget::slotClusterDataArrived: " << "DXCLUSTER->" << dxClusterString << "\nTOKENS: " << tokens << endl;
 
         if ((tokens[0] == "DX") && (tokens[1] == "de"))
         {
@@ -383,8 +383,9 @@ void DXClusterWidget::slotClusterDataArrived()
         //dxClusterListWidget->insertItem(0,item);
     }
 
-    qDebug() << "--------------------- DXClusterWidget::slotClusterDataArrived: " << dxClusterString << endl;
-//qDebug() << "DXClusterWidget::slotClusterDataArrived: " << dxClusterString << endl;
+    //qDebug() << "--------------------- DXClusterWidget::slotClusterDataArrived: " << dxClusterString << endl;
+
+    qDebug() << "DXClusterWidget::slotClusterDataArrived: " << dxClusterString << endl;
 
 }
 
