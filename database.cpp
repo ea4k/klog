@@ -731,6 +731,30 @@ QString DataBase::getModeNameFromNumber(const int _n)
     }
 }
 
+QString DataBase::getSubModeNameFromNumber(const int _n)
+{
+    QSqlQuery query;
+    QString queryString = QString("SELECT submode FROM mode WHERE id='%1'").arg(_n);
+
+    query.exec(queryString);
+    query.next();
+    if ( query.isValid() )
+    {
+        if ( isValidMode((query.value(0)).toString())  )
+        {
+            return (query.value(0)).toString();
+        }
+        else
+        {
+            return "";
+        }
+    }
+    else
+    {
+        return "";
+    }
+}
+
 bool DataBase::isValidBand (const QString b)
 {
     if (b.length()<1)
@@ -1980,6 +2004,9 @@ bool DataBase::updateTo006()
             createTableBand(false);
             populateTableBand(false);
             updateBandIdTableLogToNewOnes();
+            updateBandIdTableAward(1); // DXCC
+            updateBandIdTableAward(2); // WAZ
+
             if (query.exec("DROP TABLE band"))
             {
                 if (query.exec("ALTER TABLE bandtemp RENAME TO band"))
@@ -1997,10 +2024,13 @@ bool DataBase::updateTo006()
                 qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not dropped" << endl;
             }
 
+
             createTableMode(false);
             populateTableMode(false);
 
             updateModeIdFromSubModeId();
+            updateModeIdTableAward(1); //DXCC
+            updateModeIdTableAward(2); // WAZ
 
 
             if (query.exec("DROP TABLE mode"))
@@ -2150,7 +2180,7 @@ bool DataBase::updateModeIdFromSubModeId()
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
 
-    sqlOk = query.exec("SELECT modeid, id FROM log");
+    sqlOk = query.exec("SELECT modeid, id FROM log ORDER BY modeid");
     if (sqlOk)
     {
         while (query.next())
@@ -2277,7 +2307,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
 
     bool cancel = false;
     bool alreadyCancelled = false;
-
+    int errorCode = -1;
 
     QString sq = QString();
     bool sqlOk2 = false;
@@ -2305,9 +2335,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
 
-
-
-    sqlOk = query.exec("SELECT bandid, id FROM log");
+    sqlOk = query.exec("SELECT bandid, id FROM log ORDER BY bandid DESC");
     if (sqlOk)
     {
         while (query.next() && (!cancel) )
@@ -2351,15 +2379,21 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                             else
                             {
                                 //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  << endl;
-                            }
+                                qDebug() << "DataBase::updateBandIdTableLogToNewOnes - QSOs not updated to main log" << endl;
+                                errorCode = query3.lastError().number();
+                                qDebug() << "DataBase::updateBandIdTableLogToNewOnes - query error: " << QString::number(errorCode) << endl;
+                                qDebug() << "DataBase::updateBandIdTableLogToNewOnes: LastQuery: " << query3.lastQuery()  << endl;
+                                qDebug() << "DataBase::updateBandIdTableLogToNewOnes: LastError-data: " << query3.lastError().databaseText()  << endl;
+                                qDebug() << "DataBase::updateBandIdTableLogToNewOnes: LastError-driver: " << query3.lastError().driverText()  << endl;
+                                qDebug() << "DataBase::updateBandIdTableLogToNewOnes: LastError-n: " << QString::number(query3.lastError().number() ) << endl;
 
+                            }
 
                         }
                         else
                         {
                             //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not valid "   << endl;
                         }
-
                     }
                     else
                     {
@@ -2423,3 +2457,382 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     }
 
 }
+
+bool DataBase::updateBandIdTableAward(const int _db)
+{
+    qDebug() << "DataBase::updateBandIdTableAward: "  << endl;
+
+    QString table = QString();
+    QString field = QString();
+    QString awardSelected = QString();
+
+    switch (_db) {
+      case 1: //
+            table = "awarddxcc";
+            field = "band";
+            awardSelected = "DXCC";
+          break;
+
+      case 2:
+            table = "awardwaz";
+            field = "band";
+            awardSelected = "WAZ";
+          break;
+      default:
+            return false;
+          break;
+    }
+
+    QString bandtxt = QString();
+
+    bool cancel = false;
+    bool alreadyCancelled = false;
+    int errorCode = -1;
+
+
+    QString sq = QString();
+    bool sqlOk2 = false;
+    bool sqlOk3 = false;
+    int bandFound = -1;
+    int id = -1;
+    int qsos;
+    int i = 0;
+    QString aux;
+    QSqlQuery query, query2, query3;
+
+
+    sq = QString("SELECT COUNT (*) FROM %1").arg(table);
+
+    bool sqlOk = query.exec(sq);
+    if (sqlOk)
+    {
+        query.next();
+        qsos = (query.value(0)).toInt();
+    }
+    else
+    {
+        return false;
+    }
+
+    int step = util->getProgresStepForDialog(qsos);
+    QString progressmsg = QString(QObject::tr("Updating bands information in %1 status...")).arg(awardSelected);
+
+    QProgressDialog progress(progressmsg, QObject::tr("Abort updating"), 0, qsos);
+    progress.setMaximum(qsos);
+    progress.setWindowModality(Qt::WindowModal);
+
+
+    sq = QString("SELECT %1, id FROM %2 ORDER BY %3 DESC").arg(field).arg(table).arg(field);
+
+    sqlOk = query.exec(sq);
+    if (sqlOk)
+    {
+        while (query.next() && (!cancel) )
+        {
+            bandtxt = "";
+            bandFound = -1;
+
+            if (query.isValid())
+            {
+                i++;
+
+                if (( (i % step )== 0) )
+                { // To update the speed I will only show the progress once each X QSOs
+                    aux = QObject::tr("Updating bands information...\n Progress: ")  + QString::number(i) + "/" + QString::number(qsos);
+                    progress.setLabelText(aux);
+                    progress.setValue(i);
+                }
+
+
+                bandFound = (query.value(0)).toInt();
+                id = (query.value(1)).toInt();
+                bandtxt = getBandNameFromNumber(bandFound);
+
+                //qDebug() << "DataBase::updateBandIdTableAward: band found: " << bandtxt << endl;
+
+                sq = QString("SELECT id FROM bandtemp WHERE name='%1'").arg(bandtxt);
+                sqlOk2 = query2.exec(sq);
+                if (sqlOk2)
+                {
+                    if (query2.next())
+                    {
+                        if (query2.isValid())
+                        {
+                            bandFound = query2.value(0).toInt();
+                            sq = QString ("UPDATE %1 SET %2='%3' WHERE id='%4'").arg(table).arg(field).arg(bandFound).arg(id);
+                            sqlOk3 = query3.exec(sq);
+                            if (sqlOk3)
+                            {
+                                //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << endl;
+                            }
+                            else
+                            {
+                                qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " NOT updated-2"  << endl;
+
+                                qDebug() << "DataBase::updateBandIdTableAward - QSOs not updated to main log" << endl;
+                                errorCode = query3.lastError().number();
+                                qDebug() << "DataBase::updateBandIdTableAward - query error: " << QString::number(errorCode) << endl;
+                                qDebug() << "DataBase::updateBandIdTableAward: LastQuery: " << query3.lastQuery()  << endl;
+                                qDebug() << "DataBase::updateBandIdTableAward: LastError-data: " << query3.lastError().databaseText()  << endl;
+                                qDebug() << "DataBase::updateBandIdTableAward: LastError-driver: " << query3.lastError().driverText()  << endl;
+                                qDebug() << "DataBase::updateBandIdTableAward: LastError-n: " << QString::number(query3.lastError().number() ) << endl;
+
+                            }
+
+                        }
+                        else
+                        {
+                            //qDebug() << "DataBase::updateBandIdTableAward: query2 not valid "   << endl;
+                        }
+                    }
+                    else
+                    {
+                     //qDebug() << "DataBase::updateBandIdTableAward: query2 not next "   << endl;
+                    }
+
+                }
+                else
+                {
+                    //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " NOT updated-1"  << endl;
+                }
+
+            }
+
+            if ( progress.wasCanceled() )
+            {
+                if (alreadyCancelled)
+                {
+
+                }
+                else
+                {
+                    alreadyCancelled = true;
+
+                    QMessageBox msgBox;
+                    aux = QObject::tr("Cancelling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
+                    msgBox.setText(aux);
+                    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                    msgBox.setDefaultButton(QMessageBox::No);
+                    int ret = msgBox.exec();
+                    switch (ret) {
+                      case QMessageBox::Yes:
+                          // Yes was clicked
+                            cancel = true;
+                          break;
+
+                      case QMessageBox::No:
+                          // No Save was clicked
+                            cancel = false;
+                            progress.setCancelButton(0);
+                          break;
+                      default:
+                          // should never be reached
+                            cancel = false;
+                          break;
+                    }
+                }
+            }
+        }
+        if (cancel && (!alreadyCancelled))
+        {
+            return false;
+        }
+        qDebug() << "DataBase::updateBandIdTableAward: FINISHED OK"  << endl;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
+bool DataBase::updateModeIdTableAward(const int _db)
+{
+    qDebug() << "DataBase::updateModeIdTableAward: "  << endl;
+
+    QString table = QString();
+    QString field = "mode";
+    QString awardSelected = QString();
+
+    switch (_db) {
+      case 1: //
+            table = "awarddxcc";
+            awardSelected = "DXCC";
+          break;
+
+      case 2:
+            table = "awardwaz";
+            awardSelected = "WAZ";
+          break;
+      default:
+            return false;
+          break;
+    }
+
+    QString bandtxt = QString();
+
+    bool cancel = false;
+    bool alreadyCancelled = false;
+    int errorCode = -1;
+
+
+    QString sq = QString();
+    bool sqlOk2 = false;
+    bool sqlOk3 = false;
+    int bandFound = -1;
+    int id = -1;
+    int qsos;
+    int i = 0;
+    QString aux;
+    QSqlQuery query, query2, query3;
+
+
+    sq = QString("SELECT COUNT (*) FROM %1").arg(table);
+
+    bool sqlOk = query.exec(sq);
+    if (sqlOk)
+    {
+        query.next();
+        qsos = (query.value(0)).toInt();
+    }
+    else
+    {
+        return false;
+    }
+
+    int step = util->getProgresStepForDialog(qsos);
+    QString progressmsg = QString(QObject::tr("Updating mode information in %1 status...")).arg(awardSelected);
+
+    QProgressDialog progress(progressmsg, QObject::tr("Abort updating"), 0, qsos);
+    progress.setMaximum(qsos);
+    progress.setWindowModality(Qt::WindowModal);
+
+
+    sq = QString("SELECT %1, id FROM %2 ORDER BY %3 DESC").arg(field).arg(table).arg(field);
+
+    sqlOk = query.exec(sq);
+    if (sqlOk)
+    {
+        while (query.next() && (!cancel) )
+        {
+            bandtxt = "";
+            bandFound = -1;
+
+            if (query.isValid())
+            {
+                i++;
+
+                if (( (i % step )== 0) )
+                { // To update the speed I will only show the progress once each X QSOs
+                    aux = QObject::tr("Updating bands information...\n Progress: ")  + QString::number(i) + "/" + QString::number(qsos);
+                    progress.setLabelText(aux);
+                    progress.setValue(i);
+                }
+
+
+                bandFound = (query.value(0)).toInt();
+                id = (query.value(1)).toInt();
+                bandtxt = getSubModeNameFromNumber(bandFound);
+
+                //qDebug() << "DataBase::updateModeIdTableAward: mode found: " << bandtxt << endl;
+
+                sq = QString("SELECT id FROM modetemp WHERE submode='%1'").arg(bandtxt);
+                sqlOk2 = query2.exec(sq);
+                if (sqlOk2)
+                {
+                    if (query2.next())
+                    {
+                        if (query2.isValid())
+                        {
+                            bandFound = query2.value(0).toInt();
+                            sq = QString ("UPDATE %1 SET %2='%3' WHERE id='%4'").arg(table).arg(field).arg(bandFound).arg(id);
+                            sqlOk3 = query3.exec(sq);
+                            if (sqlOk3)
+                            {
+                                //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << endl;
+                            }
+                            else
+                            {
+                                qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " NOT updated-2"  << endl;
+
+                                qDebug() << "DataBase::updateModeIdTableAward - QSOs not updated to main log" << endl;
+                                errorCode = query3.lastError().number();
+                                qDebug() << "DataBase::updateModeIdTableAward - query error: " << QString::number(errorCode) << endl;
+                                qDebug() << "DataBase::updateModeIdTableAward: LastQuery: " << query3.lastQuery()  << endl;
+                                qDebug() << "DataBase::updateModeIdTableAward: LastError-data: " << query3.lastError().databaseText()  << endl;
+                                qDebug() << "DataBase::updateModeIdTableAward: LastError-driver: " << query3.lastError().driverText()  << endl;
+                                qDebug() << "DataBase::updateModeIdTableAward: LastError-n: " << QString::number(query3.lastError().number() ) << endl;
+
+                            }
+
+                        }
+                        else
+                        {
+                            //qDebug() << "DataBase::updateModeIdTableAward: query2 not valid "   << endl;
+                        }
+                    }
+                    else
+                    {
+                     //qDebug() << "DataBase::updateModeIdTableAward: query2 not next "   << endl;
+                    }
+
+                }
+                else
+                {
+                    //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " NOT updated-1"  << endl;
+                }
+
+            }
+
+            if ( progress.wasCanceled() )
+            {
+                if (alreadyCancelled)
+                {
+
+                }
+                else
+                {
+                    alreadyCancelled = true;
+
+                    QMessageBox msgBox;
+                    aux = QObject::tr("Cancelling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
+                    msgBox.setText(aux);
+                    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                    msgBox.setDefaultButton(QMessageBox::No);
+                    int ret = msgBox.exec();
+                    switch (ret) {
+                      case QMessageBox::Yes:
+                          // Yes was clicked
+                            cancel = true;
+                          break;
+
+                      case QMessageBox::No:
+                          // No Save was clicked
+                            cancel = false;
+                            progress.setCancelButton(0);
+                          break;
+                      default:
+                          // should never be reached
+                            cancel = false;
+                          break;
+                    }
+                }
+            }
+        }
+        if (cancel && (!alreadyCancelled))
+        {
+            return false;
+        }
+        qDebug() << "DataBase::updateModeIdTableAward: FINISHED OK"  << endl;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
+
+

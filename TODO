@@ -1,7 +1,3 @@
-revisar filemanager, dataproxy, database y las demas en busca de referencias a submodeid en la tabla log
-
-
-
 This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
@@ -9,13 +5,9 @@ Feel free to request any roadmap change if you have any suggestion.
 BUG: Check the options that are marked in QSL when rightbutton.
 i.e.: Is myQSL sent marked as requested when it should be the DX-QSL?
 
-ESTOY CAMBIANDO LOS ACCESOS de modeid a submodeid
-Habrá que cambiar tambien alguno en dataproxy y/o en firemanager??
-
-
-No se muestran los contactos,
-Todo parece apuntar a los modos... investigar
-
+TODO: Working in:
+int Awards::getDXStatus (const QStringList _qs)
+To find & show the right color
 
 
 BUG:

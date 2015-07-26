@@ -30,11 +30,11 @@
 
 
 SetupPageBandsModes::SetupPageBandsModes(QWidget *parent) : QWidget(parent){
-qDebug() << "SetupPageBandsModes::SetupPageBandsModes" << endl;
+   //qDebug() << "SetupPageBandsModes::SetupPageBandsModes" << endl;
    // bandsWidget = new QWidget;
 
     dataProxy = new DataProxy_SQLite();
-qDebug() << "SetupPageBandsModes::SetupPageBandsModes -1" << endl;
+   //qDebug() << "SetupPageBandsModes::SetupPageBandsModes -1" << endl;
 
     bandsNotActiveListWidget = new QListWidget(this);
     bandsActiveListWidget = new QListWidget(this);
@@ -79,19 +79,19 @@ qDebug() << "SetupPageBandsModes::SetupPageBandsModes -1" << endl;
     bandsModesWidgetLayout->addLayout(bandsButtonsLayout);
     bandsModesWidgetLayout->addWidget(modesGroupBox);
     bandsModesWidgetLayout->addLayout(modesButtonsLayout);
-qDebug() << "SetupPageBandsModes::SetupPageBandsModes -2" << endl;
+   //qDebug() << "SetupPageBandsModes::SetupPageBandsModes -2" << endl;
     bands.clear();
-    qDebug() << "SetupPageBandsModes::SetupPageBandsModes -2.1" << endl;
+   //qDebug() << "SetupPageBandsModes::SetupPageBandsModes -2.1" << endl;
     bands << dataProxy->getBands();
-qDebug() << "SetupPageBandsModes::SetupPageBandsModes -3" << endl;
+   //qDebug() << "SetupPageBandsModes::SetupPageBandsModes -3" << endl;
     modes.clear();
-    qDebug() << "SetupPageBandsModes::SetupPageBandsModes -3.1" << endl;
+   //qDebug() << "SetupPageBandsModes::SetupPageBandsModes -3.1" << endl;
     modes << dataProxy->getModes();
-qDebug() << "SetupPageBandsModes::SetupPageBandsModes -4" << endl;
+   //qDebug() << "SetupPageBandsModes::SetupPageBandsModes -4" << endl;
     bandsNotActiveListWidget->addItems(bands);
-qDebug() << "SetupPageBandsModes::SetupPageBandsModes -5" << endl;
+   //qDebug() << "SetupPageBandsModes::SetupPageBandsModes -5" << endl;
     modesNotActiveListWidget->addItems(modes);
-qDebug() << "SetupPageBandsModes::SetupPageBandsModes -6" << endl;
+   //qDebug() << "SetupPageBandsModes::SetupPageBandsModes -6" << endl;
     setLayout(bandsModesWidgetLayout);
 
     connect(bandsNotActiveListWidget, SIGNAL(itemDoubleClicked (  QListWidgetItem *  )), this, SLOT(slotBandActiveItemDoubleClicked ( QListWidgetItem * ) ) );
@@ -100,7 +100,7 @@ qDebug() << "SetupPageBandsModes::SetupPageBandsModes -6" << endl;
     connect(bandUnSelPushButton, SIGNAL(clicked ( )), this, SLOT(slotBandUnSelButtonClicked ( ) ) );
     connect(modeSelPushButton, SIGNAL(clicked ( )), this, SLOT(slotModeSelButtonClicked ( ) ) );
     connect(modeUnSelPushButton, SIGNAL(clicked ( )), this, SLOT(slotModeUnSelButtonClicked ( ) ) );
-qDebug() << "SetupPageBandsModes::SetupPageBandsModes - END" << endl;
+    //qDebug() << "SetupPageBandsModes::SetupPageBandsModes - END" << endl;
     //connect(logView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickLog( const QModelIndex& ) ) );
 }
 
