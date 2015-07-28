@@ -191,14 +191,12 @@ int Awards::getDXCCWorked(const int _logNumber)
             //qDebug() << "Awards::getDXCCWorked: 0" << endl;
             return 0;
         }
-
     }
     else
     {
         //qDebug() << "Awards::getDXCCWorked: Query error" << endl;
         return 0;
     }
-
 }
 
 int Awards::getDXCCConfirmed(const int _logNumber)
@@ -281,30 +279,36 @@ int Awards::getWAZConfirmed(const int _logNumber)
 
 int Awards::getDXStatus (const QStringList _qs)
 {
-    //estoy aqui tratando de que salga el color adecuado
 
-    //qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
+ qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
 // Receives:  QStringList _qs;
 //_qs << QRZ << BandId << << ModeId << lognumber;
 
-/*
-    -1 - Error.
-    0 - New one.                                                        - newOneColor       ( mode=-1=> 0/newOneColor       )
-    1 - worked in this mode, not this band                              - neededColor       ( mode=-1=> 1/neededColor       )
-    2 - worked in this band, not this mode                              - workedColor       ( mode=-1=> 3/workedColor       )
-    3 - worked in this band and mode                                    - workedColor       ( mode=-1=> 3/workedColor       )
-    4 - confirmed in this mode, not worked in this band                 - neededColor       ( mode=-1=> 1/neededColor       )
-    5 - confirmed in this band, not worked in this mode                 - neededColor       ( mode=-1=> 8/confirmedColor    )
-    6 - confirmed in this mode, not confirmed, but worked in this band  - workedColor       ( mode=-1=> 3/workedColor       )
-    7 - confirmed in this band, not confirmed, but worked in this mode  - workedColor       ( mode=-1=> 8/confirmedColor    )
-    8 - confirmed in this band and mode                                 - confirmedColor    ( mode=-1=> 8/confirmedColor    )
+/*                                                                                                                  Not mode
+    -1 - Error.                                                                                     - ERROR     - ERROR
+ 0  -   New one                                                                                 - New One       - New One       -   0
+ 1  -   Worked but not in this band nor this mode                                               - Needed One    - Needed One    -   1
+ 2  -   Worked in this band, not this mode                                                      - Needed One    - Worked One    -   3
+ 3  -   Worked in this band and in this mode                                                    - Worked One    - Worked One    -   3
+ 4  -   Worked in this mode, not this band                                                      - Needed One    - Needed One    -   1
+
+ 5  -   Confirmed in another band/mode but not worked in this band nor this mode                - Needed One    - Needed One    -   1
+ 6  -   Confirmed in another band/mode but just worked in this band and not in this mode        - Needed One    - Worked One    -   3
+ 7  -   Confirmed in another band/mode but just worked in this mode and not in this band        - Needed One    - Needed One    -   1
+ 8  -   Confirmed in another band/mode but just worked in this band and mode                    - Worked One    - Worked One    -   3
+ 9  -   Confirmed in this mode, but not worked this band                                        - Needed One    - Needed One    -   1
+10  -   Confirmed in this mode, but worked this band                                            - Worked One    - Worked One    -   3
+11  -   Confirmed in this band but not worked in this mode                                      - Needed One    - Confirmed One -   13
+12  -   Confirmed in this band but worked in this mode                                          - Worked One    - Confirmed One -   13
+13  -   Confirmed in this band and mode                                                         - Confirmed One - Confirmed One -   13
+
 */
 
 /*
 0   -   New One     -   Never worked before                         -   RED
-1   -   Needed      -   Needed in this band                         -   ORANGE
-3   -   Worked      -   Worked in this band but not confirmed       -   YELLOW
-8   -   Confirmed   -   Confirmed in this band                      -   GREEN
+1   -   Needed      -   New one in this band                        -   ORANGE
+2   -   Worked      -   Worked in this band but not confirmed       -   YELLOW
+3   -   Confirmed   -   Confirmed in this band                      -   GREEN
 */
 
 
@@ -312,6 +316,7 @@ int Awards::getDXStatus (const QStringList _qs)
     {
         return -1;
     }
+
     int errorCode = 0;
 
     int _band = _qs.at(1).toInt();
@@ -326,66 +331,197 @@ int Awards::getDXStatus (const QStringList _qs)
     if (_mode==-1)
     {
         checkingMode = false;
+       //qDebug() << "Awards::getDXStatus: checkingMode = FALSE" << endl;
     }
+    // dxccStatusMode(const int _ent, const int _mode, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
+
+    int wb = dxccStatusBand(dxccEntity, _band, _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
+    int wm = dxccStatusMode(dxccEntity, _mode, _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
+
 
     switch(dxccStatus(dxccEntity, _logNumber))
-    { //-1 error / 0 Not worked / 1 worked / 2 confirmed
-        case 0: // Not worked in any band                       => NEW ONE!
-       //qDebug() << "Awards::getDXStatus: dxccStatus returned: 0" << endl;
-            return 0;
+    {
+    case 0:
+        return 0;                   // ATNO
         break;
-        case 1: // Worked in another band, but not confirmed    => Could be new one, but it has been worked
-       //qDebug() << "Awards::getDXStatus: dxccStatus returned 1: " << endl;
-            switch (dxccStatusBandMode (dxccEntity, _band, _mode, _logNumber, checkingMode))
-            {// Status in this band & Mode? //-1 error / 0 Not worked / 1 worked / 2 confirmed
-
-                case 0: //
-                    qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 0(not worked): " << endl;
+    case 1:                         // Worked, not confirmed
+        switch (wb)
+        {
+        case 0:                     //  Not worked in this band but in another band
+           switch (wm)
+           {
+           case 0:                  //  Not worked in this band nor the mode
+               return 1;
+               break;
+           case 1:                  //  Not worked in this band but worked in this mode
+               if (checkingMode)
+               {
+                   return 4;
+               }
+               else
+               {
                     return 1;
-                break;
-                case 1: //
-                    qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 1(worked): " << endl;
+               }
+               break;
+           default:                 // ERROR
+               return -1;
+               break;
+           }
+            break;
+        case 1:                     // Worked in this band
+            switch (wm)
+            {
+            case 0:                 // Worked in this band but not worked in this mode
+                if (checkingMode)
+                {
                     return 2;
-                break;
-                case 2: //
-                    qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 2(confirmed): " << endl;
-                    return 2;
-                break;
-                default:
-                    qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned default: " << endl;
-                    return -1;
-                break;
-            }
-        break;
-        case 2: // Confirmed
-       //qDebug() << "Awards::getDXStatus: dxccStatus returned 2: " << endl;
-            switch (dxccStatusBandMode (dxccEntity, _band, _mode, _logNumber, checkingMode))
-            {// Status in this band & Mode? //-1 error / 0 Not worked / 1 worked / 2 confirmed
-                case 0: // Not worked in this band&Mode
-               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 0 but I translate into 1: " << endl;
-                    return 1;
-                break;
-                case 1: // Worked in this band&Mode
-               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 1 but I translate into 2: " << endl;
-                    return 2;
-                break;
-                case 2: // Confirmed in this band&Mode
-               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned 2 but I translate into 3: " << endl;
+                }
+                else
+                {
                     return 3;
+                }
                 break;
-                default:
-               //qDebug() << "Awards::getDXStatus: dxccStatusBandMode returned default2: " << endl;
-                    return -1;
+            case 1:                 // Worked in this band and in this mode.
+                return 3;
+                break;
+            default:
+                return -1;          // ERROR
                 break;
             }
-        break;
-        default:
-       //qDebug() << "Awards::getDXStatus: dxccStatus returned default: " << endl;
+            break;
+        default:                    // ERROR
             return -1;
+            break;
+        }
+
         break;
+    case 2:         // Confirmed
+
+        if (wb==2)
+        {
+            if (!checkingMode)
+            {
+                return 13;
+            }
+            else
+            {
+                switch (wm)
+                {
+                case 0:                 // Confirmed in this band, not worked in this mode
+                    return 11;
+                    break;
+                case 1:                 // Confirmed in this band and worked in the mode
+                    return 12;
+                    break;
+                case 2:                 // Confirmed in this band and mode
+                    return 13;
+                    break;
+                }
+
+            }
+
+        }
+        else if ((wb ==1) || (wb == 0))
+        {
+            if (wm == 2)
+            {
+                if (wb == 1)
+                {                   // Confirmed in this mode, worked in this band
+                    if (checkingMode)
+                    {
+                        return 10;
+                    }
+                    else
+                    {
+                        return 3;
+                    }
+                }
+                else if (wb == 0)
+                {                   // Confirmed in this mode, not worked in this band
+                    if (checkingMode)
+                    {
+                        return 9;
+                    }
+                    else
+                    {
+                        return 1;
+                    }
+                }
+                else
+                {                   // ERROR
+                    return -1;
+                }
+            }
+            else if ((wb == 1) && (wm == 1))
+            {
+                 // Confirmed in another band & mode, worked in this band and mode
+                if (checkingMode)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 8;
+                }
+            }
+            else if ((wb == 1) && (wm == 0))
+            {
+                // Confirmed in another band & mode, worked in this band but not this mode
+                if (checkingMode)
+                {
+                    return 6;
+                }
+                else
+                {
+                    return 3;
+                }
+            }
+            else if ((wb == 0) && (wm == 1))
+            {
+                // Confirmed in another band & mode, not worked in this band but worked in this mode
+                if (checkingMode)
+                {
+                    return 7;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            else if ((wb == 0) && (wm == 0))
+            {
+                //  // Confirmed in another band & mode, not worked in this band nor this mode
+                if (checkingMode)
+                {
+                    return 5;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            else
+            {
+                return -1;          // ERROR
+            }
+        }
+        else
+        {                           // ERROR
+            return -1;
+        }
+
+
+        break;
+    default:        // ERROR
+        return -1;
+        break;
+
     }
     return -1;
+
 }
+
+
 int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode, const int _logNumber, bool _checkingMode)
 {//-1 error / 0 Not worked / 1 worked / 2 confirmed
    //qDebug() << "Awards::dxccStatusBandMode: " << QString::number(_ent) << "/" << QString::number(_band) << "/" << QString::number(_mode) << endl;
@@ -482,7 +618,7 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
 
 QColor Awards::getQRZDXStatusColor(const QStringList _qs)
 {
-    qDebug() << "Awards::getQRZDXStatusColor qs.length: " << QString::number(_qs.length()) << endl;
+    //qDebug() << "Awards::getQRZDXStatusColor qs.length: " << QString::number(_qs.length()) << endl;
 
     //From Search QSO to QSL: q << _call << bandid << _mode << QString::number(currentLog);
 
@@ -491,71 +627,137 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
     // Receives:  QStringList _qs;
     //_qs << QRZ << BandID << ModeId << lognumber;
 
-/*
- -1 - Error.
-  0 - New one.                                                        - newOneColor       ( mode=-1=> 0/newOneColor       )
-  1 - worked in this mode, not this band                              - neededColor       ( mode=-1=> 1/neededColor       )
-  2 - worked in this band, not this mode                              - workedColor       ( mode=-1=> 3/workedColor       )
-  3 - worked in this band and mode                                    - workedColor       ( mode=-1=> 3/workedColor       )
-  4 - confirmed in this mode, not worked in this band                 - neededColor       ( mode=-1=> 1/neededColor       )
-  5 - confirmed in this band, not worked in this mode                 - neededColor       ( mode=-1=> 8/confirmedColor    )
-  6 - confirmed in this mode, not confirmed, but worked in this band  - workedColor       ( mode=-1=> 3/workedColor       )
-  7 - confirmed in this band, not confirmed, but worked in this mode  - workedColor       ( mode=-1=> 8/confirmedColor    )
-  8 - confirmed in this band and mode                                 - confirmedColor    ( mode=-1=> 8/confirmedColor    )
-*/
+    /*
+    0 - New One
+    1 - Needed
+    2 - Worked
+    3 - Confirmed
+    */
 
     QColor returnedColor;
     int status = getDXStatus(_qs);
-    qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << endl;
+
+    qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << "/" << getDXStatusString(status) << endl;
+
+    //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << endl;
     switch (status) {
 
         case 0:
             returnedColor = newOneColor;
-            qDebug() << "Awards::getQRZDXStatusColor: 0-new: " << returnedColor.name() << endl;
+          //qDebug() << "Awards::getQRZDXStatusColor: 0: " << returnedColor.name() << endl;
 
         break;
         case 1:
             returnedColor =  neededColor;
-            qDebug() << "Awards::getQRZDXStatusColor: 1-needed: " << returnedColor.name() << endl;
+          //qDebug() << "Awards::getQRZDXStatusColor: 1: " << returnedColor.name() << endl;
         break;
         case 2:
-            returnedColor =  workedColor;
-            qDebug() << "Awards::getQRZDXStatusColor: 2-worked: " << returnedColor.name() << endl;
+            returnedColor =  neededColor;
+           //qDebug() << "Awards::getQRZDXStatusColor: 2: " << returnedColor.name() << endl;
         break;
         case 3:
             returnedColor =  workedColor;
-            qDebug() << "Awards::getQRZDXStatusColor: 3-worked: " << returnedColor.name() << endl;
+           //qDebug() << "Awards::getQRZDXStatusColor: 3: " << returnedColor.name() << endl;
         break;
-        case 4:
-            returnedColor =  neededColor;
-            qDebug() << "Awards::getQRZDXStatusColor: 4-needed: " << returnedColor.name() << endl;
-        break;
-        case 5:
-            returnedColor =  neededColor;
-            qDebug() << "Awards::getQRZDXStatusColor: 5-needed: " << returnedColor.name() << endl;
-        break;
-        case 6:
-            returnedColor =  workedColor;
-            qDebug() << "Awards::getQRZDXStatusColor: 6-worked: " << returnedColor.name() << endl;
-        break;
-        case 7:
-            returnedColor =  workedColor;
-            qDebug() << "Awards::getQRZDXStatusColor: 7-worked: " << returnedColor.name() << endl;
-        break;
-        case 8:
-            returnedColor =  confirmedColor;
-            qDebug() << "Awards::getQRZDXStatusColor: 8-confirmed: " << returnedColor.name() << endl;
-        break;
+    case 4:
+        returnedColor =  neededColor;
+       break;
+    case 5:
+        returnedColor =  neededColor;
+       break;
+    case 6:
+        returnedColor =  neededColor;
+       break;
+    case 7:
+        returnedColor =  neededColor;
+       break;
+    case 8:
+        returnedColor =  workedColor;
+       break;
+    case 9:
+        returnedColor =  neededColor;
+       break;
+    case 10:
+        returnedColor =  workedColor;
+       break;
+    case 11:
+        returnedColor =  neededColor;
+       break;
+    case 12:
+        returnedColor =  workedColor;
+       break;
+    case 13:
+        returnedColor =  confirmedColor;
+       break;
+    break;
         default:
             returnedColor =  defaultColor;
-            qDebug() << "Awards::getQRZDXStatusColor: Def: " << returnedColor.name() << endl;
+          //qDebug() << "Awards::getQRZDXStatusColor: Def: " << returnedColor.name() << endl;
         break;
 
     }
     return returnedColor;
 }
 
+QString Awards::getDXStatusString (const int _status)
+{
 
+qDebug() << "Awards::getgetDXStatusString: " << QString::number(_status) << endl;
+
+QString message = QString();
+
+switch (_status) {
+
+    case 0:
+        message = QObject::tr("0-new One");
+    break;
+    case 1:
+        message = QObject::tr("1-Needed, work it!");
+    break;
+    case 2:
+        message = QObject::tr("2-Needed, work it!");
+    break;
+    case 3:
+        message = QObject::tr("3-Worked but not confirmed");
+    break;
+    case 4:
+        message = QObject::tr("4-Needed, work it!");
+   break;
+    case 5:
+        message = QObject::tr("5-Needed, work it!");
+   break;
+    case 6:
+        message = QObject::tr("6-Needed, work it!");
+   break;
+    case 7:
+        message = QObject::tr("7-Needed, work it!");
+   break;
+    case 8:
+        message = QObject::tr("8-Worked but not confirmed");
+   break;
+    case 9:
+    message = QObject::tr("9-Needed, work it!");
+   break;
+    case 10:
+        message = QObject::tr("10-Worked but not confirmed");
+   break;
+    case 11:
+    message = QObject::tr("11-Needed, work it!");
+   break;
+    case 12:
+        message = QObject::tr("12-Worked but not confirmed");
+   break;
+    case 13:
+    message = QObject::tr("13-Confirmed");
+   break;
+    break;
+    default:
+        message = QObject::tr("Not identified");
+    break;
+
+}
+return message;
+}
 
 
 QString Awards::checkIfValidIOTA(const QString _tiota)
@@ -727,8 +929,7 @@ void Awards::recalculateAwards()
         query.next();
         numberOfQsos = query.value(0).toInt();
         //qDebug() << "Awards::recalculateAwards: MAX = " << QString::number(numberOfQsos) << endl;
-        //step = getProgresStepForDialog(numberOfQsos);
-        step = util.getProgresStepForDialog(numberOfQsos);
+        step = getProgresStepForDialog(numberOfQsos);
 
     }
     else
@@ -1350,6 +1551,26 @@ bool Awards::setAwardWAZ(const int _cqz, const int _band, const int _mode, const
 }
 
 
+
+int Awards::getProgresStepForDialog(int totalSteps){
+  //qDebug() << "FileManager::getProgresStepForDialog";
+    if (totalSteps <=100)
+        return 1;
+    else if (totalSteps <=1000)
+        return 5;
+    else if (totalSteps <=4000)
+        return 10;
+    else if (totalSteps <=5000)
+        return 15;
+    else if (totalSteps <=7000)
+        return 20;
+    else if (totalSteps <=9999)
+        return 25;
+    else
+        return 50;
+}
+
+
 int Awards::setAwardDXCCst(const int _dxcc, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId)
 {
    //qDebug() << "Awards::setAwardDXCCst-0: " << QString::number(_dxcc) << "/" << QString::number(_band) << "/" << QString::number(_mode) << "/" << QString::number(_logNumber) << "/" << QString::number(_qsoId) << endl;
@@ -1668,3 +1889,104 @@ int Awards::getDXMarathonScore(const int _year, const int _logNumber)
     return dxMarathon->getDXMarathonScore(_year, _logNumber);
 
 }
+
+int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
+{
+    //-1 error / 0 Not worked / 1 worked / 2 confirmed
+       //qDebug() << "Awards::dxccStatusBand: " << QString::number(_ent) << "/" << QString::number(_band) << endl;
+
+        QSqlQuery query = QSqlQuery();
+        QString queryString = QString();
+
+        queryString = QString("SELECT confirmed FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
+
+
+        if (query.exec(queryString))
+        {
+            if (query.next())
+            {
+                if ( query.isValid() )
+                {
+                    if(query.value(0).toInt() == 1)         // Confirmed
+                    {
+                        return 2;
+                    }
+                    else if(query.value(0).toInt() == 0)    // Worked
+                    {
+                        return 1;
+                    }
+                    else                                    // Not worked
+                    {
+                        return 0;
+                    }
+                }                                           // Not present => Not worked
+                else
+                {
+                    return 0;
+                }
+            }
+            else                                            // Not present => Not worked
+            { // No value => Not Worked
+                return 0;
+            }
+
+        }
+        else
+        { // The query fails...
+          //TODO: Manage the query error
+            return -1;
+        }
+
+        return 0;                                       // if arrives to here decision => not worked
+}
+
+int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
+{
+    //-1 error / 0 Not worked / 1 worked / 2 confirmed
+       //qDebug() << "Awards::dxccStatusMode: " << QString::number(_ent) << "/" << QString::number(_mode) << endl;
+
+        QSqlQuery query = QSqlQuery();
+        QString queryString = QString();
+
+        queryString = QString("SELECT confirmed FROM awarddxcc WHERE dxcc='%1' AND mode='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_mode)).arg(QString::number(_logNumber));
+
+
+        if (query.exec(queryString))
+        {
+            if (query.next())
+            {
+                if ( query.isValid() )
+                {
+                    if(query.value(0).toInt() == 1)         // Confirmed
+                    {
+                        return 2;
+                    }
+                    else if(query.value(0).toInt() == 0)    // Worked
+                    {
+                        return 1;
+                    }
+                    else                                    // Not worked
+                    {
+                        return 0;
+                    }
+                }                                           // Not present => Not worked
+                else
+                {
+                    return 0;
+                }
+            }
+            else                                            // Not present => Not worked
+            { // No value => Not Worked
+                return 0;
+            }
+
+        }
+        else
+        { // The query fails...
+          //TODO: Manage the query error
+            return -1;
+        }
+
+        return 0;                                       // if arrives to here decision => not worked
+}
+

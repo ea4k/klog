@@ -41,7 +41,6 @@
 #include "awarddxmarathon.h"
 #include "dataproxy.h"
 #include "dataproxy_sqlite.h"
-#include "utilities.h"
 
 class QProgressDialog;
 
@@ -116,6 +115,12 @@ private:
     _cConfirmed = 1     Set as Confirmed
     */
 
+
+    /**/
+    int dxccStatusBand(const int _ent, const int band, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
+    int dxccStatusMode(const int _ent, const int band, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
+    /**/
+
     void setAwardWAZ(const int _qsoId);
     bool setAwardWAZ(const int _cqz, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId);
     int setAwardWAZst(const int _cqz, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
@@ -123,7 +128,7 @@ private:
     _confirmed = 0     Set as Worked
     _confirmed = 1     Set as Confirmed
     */
-    //int getProgresStepForDialog(int totalSteps);
+    int getProgresStepForDialog(int totalSteps);
 
     QColor newOneColor;     //
     QColor neededColor;     //
@@ -134,7 +139,6 @@ private:
     World *world;
     DataProxy *dataProxy;
     DXMarathon *dxMarathon;
-    Utilities util;
 
 
     typedef QMultiHash<int, int> DXStatus;
