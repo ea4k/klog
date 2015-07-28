@@ -208,14 +208,14 @@ bool DXClusterWidget::checkIfNeedsToBePrinted(const QString _dxCall, int const _
     qs.clear();
     qs << _dxCall << QString::number(_band) << QString::number(_mode)  << QString::number(currentLog);
     bool isConfirmed = false;
-    int status = awards->getDXStatus (qs);
+    bool status = awards->isThisSpotConfirmed (qs);
 
     qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: Status: " << _dxCall << "/" << QString::number(status);
 
     if (!showconfirmed)
     {
         qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is confirmed? ("<< QString::number(status)<< ")" << endl;
-        if (status == 3)
+        if (status)
         {
             qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: It is confirmed: DON'T' print: " << _dxCall <<"/" << dataProxy->getNameFromBandId(_band) << endl;
             return false;
@@ -406,7 +406,7 @@ void DXClusterWidget::slotClusterSocketConnected()
     if (( dxClusterConnected ) && (!dxClusterAlreadyConnected) ){
         bool ok;
         QString callsignText = QInputDialog::getText(this, tr("KLog message"), tr("Enter your callsign to connect to the cluster:"), QLineEdit::Normal, "", &ok);
-        QString passwordText = QInputDialog::getText(this, tr("KLog message"), tr("Enter your password to connect to the cluster:"), QLineEdit::Normal, "", &ok);
+        QString passwordText = QInputDialog::getText(this, tr("KLog message"), tr("Enter your password to connect to the cluster:\n(Just hit enter for no password)"), QLineEdit::Normal, "", &ok);
         QTextStream os(tcpSocket);
         if ( callsignText.length() > 2 && ok ) {
             os << callsignText << "\n";

@@ -276,7 +276,19 @@ int Awards::getWAZConfirmed(const int _logNumber)
     }
 }
 
+bool Awards::isThisSpotConfirmed(const QStringList _qs)
+{
 
+    if (getDXStatus(_qs) == 13)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
 int Awards::getDXStatus (const QStringList _qs)
 {
 
