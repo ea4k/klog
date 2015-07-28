@@ -324,7 +324,7 @@ void DXClusterWidget::slotClusterDataArrived()
 
             qs.clear();
             spotBand = QString::number(world->getBandIdFromFreq(  dxFrequency  ) );
-            qs << dxCall << spotBand << "-1" << "0";
+            qs << dxCall << spotBand << "-1" << QString::number(currentLog) ;
 
             dxSpotColor = awards->getQRZDXStatusColor(qs);
             qDebug() << "DX de ->" << "Spotter: " << spotter << "Freq: "<< dxFrequency << "DX: " << dxCall << endl;
@@ -346,7 +346,7 @@ void DXClusterWidget::slotClusterDataArrived()
 
             qs.clear();
             spotBand = QString::number(world->getBandIdFromFreq(  dxFrequency  ) );
-            qs << dxCall << spotBand << "-1" << "0";
+            qs << dxCall << spotBand << "-1" << QString::number(currentLog) ;
 
 
             dxSpotColor = awards->getQRZDXStatusColor(qs);

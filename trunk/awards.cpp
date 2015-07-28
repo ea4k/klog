@@ -623,7 +623,7 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
     //From Search QSO to QSL: q << _call << bandid << _mode << QString::number(currentLog);
 
 
-    //qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3) << endl;
+    qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3) << endl;
     // Receives:  QStringList _qs;
     //_qs << QRZ << BandID << ModeId << lognumber;
 
@@ -635,64 +635,58 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
     */
 
     QColor returnedColor;
+
     int status = getDXStatus(_qs);
 
     qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << "/" << getDXStatusString(status) << endl;
 
     //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << endl;
     switch (status) {
-
         case 0:
             returnedColor = newOneColor;
-          //qDebug() << "Awards::getQRZDXStatusColor: 0: " << returnedColor.name() << endl;
-
         break;
         case 1:
             returnedColor =  neededColor;
-          //qDebug() << "Awards::getQRZDXStatusColor: 1: " << returnedColor.name() << endl;
         break;
         case 2:
             returnedColor =  neededColor;
-           //qDebug() << "Awards::getQRZDXStatusColor: 2: " << returnedColor.name() << endl;
         break;
         case 3:
             returnedColor =  workedColor;
-           //qDebug() << "Awards::getQRZDXStatusColor: 3: " << returnedColor.name() << endl;
         break;
-    case 4:
-        returnedColor =  neededColor;
-       break;
-    case 5:
-        returnedColor =  neededColor;
-       break;
-    case 6:
-        returnedColor =  neededColor;
-       break;
-    case 7:
-        returnedColor =  neededColor;
-       break;
-    case 8:
-        returnedColor =  workedColor;
-       break;
-    case 9:
-        returnedColor =  neededColor;
-       break;
-    case 10:
-        returnedColor =  workedColor;
-       break;
-    case 11:
-        returnedColor =  neededColor;
-       break;
-    case 12:
-        returnedColor =  workedColor;
-       break;
-    case 13:
-        returnedColor =  confirmedColor;
-       break;
-    break;
+        case 4:
+            returnedColor =  neededColor;
+        break;
+        case 5:
+            returnedColor =  neededColor;
+        break;
+        case 6:
+            returnedColor =  neededColor;
+        break;
+        case 7:
+            returnedColor =  neededColor;
+        break;
+        case 8:
+            returnedColor =  workedColor;
+        break;
+        case 9:
+            returnedColor =  neededColor;
+        break;
+        case 10:
+            returnedColor =  workedColor;
+        break;
+        case 11:
+            returnedColor =  neededColor;
+        break;
+        case 12:
+            returnedColor =  workedColor;
+        break;
+        case 13:
+            returnedColor =  confirmedColor;
+        break;
+        break;
         default:
             returnedColor =  defaultColor;
-          //qDebug() << "Awards::getQRZDXStatusColor: Def: " << returnedColor.name() << endl;
         break;
 
     }

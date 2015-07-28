@@ -5,10 +5,6 @@ Feel free to request any roadmap change if you have any suggestion.
 BUG: Check the options that are marked in QSL when rightbutton.
 i.e.: Is myQSL sent marked as requested when it should be the DX-QSL?
 
-TODO: Working in:
-int Awards::getDXStatus (const QStringList _qs)
-To find & show the right color
-
 
 BUG:
 Clublog:

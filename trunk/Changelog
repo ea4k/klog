@@ -4,6 +4,8 @@
 - BugFix: When editing a QSO the name was not shown.
 - BugFix: STX_String field was not always imported properly.
 - BugFix: Fixed a minor bug in log table regarding the prop_mode foreign key.
+- BugFix: Improved the color & status shown of a QSO on the DXCC.
+- BugFix: Fixed a bug that caused the colors in the DX-Cluster to appear always as new one.
 - Added the 630M & 13CM bands.
 - Updated Mode & submode definition up to ADIF 3.0.4.
 - KLog is able to import QSOs with no BAND field if FREQ field is present.
