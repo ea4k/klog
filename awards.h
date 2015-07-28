@@ -70,6 +70,7 @@ public:
     int getQSOsInLog(const int _logNumber);
 
     bool getIsDXCCConfirmed(const int _dxcc, const int _logNumber);
+    bool isThisSpotConfirmed(const QStringList _qs);
 
     QString checkIfValidIOTA(const QString _tiota);
 
