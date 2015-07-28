@@ -2196,13 +2196,17 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
         return false;
     }
 
-
+    bool hasEOH = false;
     pos = file.pos();
 
     while ( !file.atEnd()   )
     {
         line = file.readLine();
         numberOfQsos = numberOfQsos + line.count("EOR>");
+        if ((line.count("<EOH>")>0) && (!hasEOH))
+        {
+            hasEOH = true;
+        }
     }
    //qDebug() << "FileManager::adifReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
 
@@ -2214,6 +2218,8 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     progress.setMaximum(numberOfQsos);
 
     step = util->getProgresStepForDialog(numberOfQsos);
+     qDebug() << "FileManager::adifReadLog: -2" << endl;
+
     //step = getProgresStepForDialog(numberOfQsos);
     //qDebug() << "FileManager::adifReadLog (STEP)/Number: " << QString::number(step) << "/" << QString::number(numberOfQsos) << endl;
     //qDebug() << "FileManager::adifReadLog (number & step: " << QString::number(numberOfQsos % step) << endl;
@@ -2235,8 +2241,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     { // The file has a header
 
         line.clear(); // We should finish the if with real data in "line" or a clear one.
-
-        while ( inHeader )
+        while ( inHeader && hasEOH)
         {
             line = file.readLine().trimmed().toUpper();
             if (line.contains("<EOH>"))
@@ -2245,8 +2250,9 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                 line.clear(); //TODO: Maybe this clearing deletes a line that may have data...
             }
         }
+        pos = file.pos();
     }
-    else
+    else if (!(line.startsWith('<')))
     { // The file does not have any header.
       // Reading the first QSO...
         /*
@@ -2255,10 +2261,20 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             2.- One QSO uses several lines.
             3.- Last line of one QSO includes data of the next one
         */
-
+        inHeader = true;
+        while (inHeader)
+        {
+            pos = file.pos();
+            line = file.readLine().trimmed().toUpper();
+            if (  (line.startsWith('<'))  )
+            {
+                inHeader = false;
+                line.clear(); //TODO: Maybe this clearing deletes a line that may have data...
+            }
+        }
     }
 
-
+    file.seek(pos);
 
     // START reading QSO data...
    //qDebug() << "FileManager::adifReadLog: QSO data reading started..."  << endl;
