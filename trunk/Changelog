@@ -19,6 +19,7 @@
 - GUI: Added a Propagation Mode Combobox.
 - GUI: Prop_Mode combobox automatically goes to SAT if sat name or sat mode are defined.
 - GUI: Added a Find DX-QSL requested option.
+- Some minor performance improvements.
 
 April-2015 - 0.9.1.1
 - Bugfix: Editing a QSO with satellite data was not properly done and caused some errors.

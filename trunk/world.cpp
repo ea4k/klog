@@ -406,6 +406,7 @@ int World::getPrefixId(const QString _qrz)
     //qDebug() << "World::getPrefixId: " << _qrz << endl;
     //TODO: Instead of going from long to short, identify prefixes from the begining:
     // character(may be number) + number
+
     int errorCode;
 
     if (_qrz.length() < 1)
@@ -523,8 +524,10 @@ QString World::getEntityName(const int _entityN)
     QString queryString;
     QSqlQuery query;
 
-    queryString = "SELECT name FROM entity WHERE dxcc=='" + QString::number(prefixIDNumber) +"'";
-    //qDebug() << "World::getEntityNamee: queryString-2: " << queryString << endl;
+    queryString = QString("SELECT name FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(prefixIDNumber);
+
+    //queryString = "SELECT name FROM entity WHERE dxcc=='" + QString::number(prefixIDNumber) +"'";
+    //qDebug() << "World::getEntityName: queryString-2: " << queryString << endl;
     query.exec(queryString);
     query.next();
     //qDebug() << "World::getEntityName end: " << _qrz << " = " << (query.value(0)).toString() << endl;
@@ -575,6 +578,7 @@ int World::getEntityCqz(const int _enti)
     QSqlQuery query;
     QString queryString;
 
+    //queryString = QString("SELECT cqz FROM prefixesofentity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(prefixIDNumber);
     queryString = "SELECT cqz FROM prefixesofentity WHERE dxcc=='" + QString::number(_enti) +"'";
     query.exec(queryString);
     query.next();
@@ -628,31 +632,7 @@ int World::getQRZARRLId(const QString _qrz)
 
     int prefixIdNumber = getPrefixId(_qrz);
     return prefixIdNumber;
-/*
-    queryString = "SELECT dxcc FROM prefixesofentity WHERE id='" + QString::number(prefixIdNumber) +"'";
-    //qDebug() << "World::getQRZARRLId QUERY: " << queryString << endl;
 
-    if (!query.exec(queryString))
-    {
-        //qDebug() << "World::getQRZARRLId: 0"  << endl;
-        return -1;
-    }
-    else
-    {
-        query.next();
-        //qDebug() << "World::getQRZARRLId: " <<_qrz << " = " <<  (query.value(0)).toInt() << endl;
-        if (query.isValid()){
-            //qDebug() << "World::getQRZARRLId: 1 (ARRLid found!)"  << endl;
-            return (query.value(0)).toInt();
-        }else{
-            //qDebug() << "World::getQRZARRLId: 2 (not found!)"  << endl;
-            return -1;
-        }
-    }
-
-    //qDebug() << "World::getQRZARRLId: 3"  << endl;
-    return -1;
-*/
 }
 
 QString World::getQRZEntityMainPrefix(const QString _qrz)
@@ -665,6 +645,9 @@ QString World::getQRZEntityMainPrefix(const QString _qrz)
     QString queryString;
     QSqlQuery query;
     int i = getQRZARRLId(_qrz);
+
+    return getEntityMainPrefix(i);
+/*
     queryString = "SELECT mainprefix FROM entity WHERE dxcc=='" + QString::number(i) +"'";
 
     if (!query.exec(queryString))
@@ -691,7 +674,9 @@ QString World::getQRZEntityMainPrefix(const QString _qrz)
 
 
     return "";
+*/
 }
+
 
 QString World::getEntityMainPrefix(const int _entityN)
 {
@@ -702,7 +687,10 @@ QString World::getEntityMainPrefix(const int _entityN)
 
     QString queryString;
     QSqlQuery query;
-    queryString = "SELECT mainprefix FROM entity WHERE dxcc=='" + QString::number(_entityN) +"'";
+
+    queryString = QString("SELECT mainprefix FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_entityN);
+
+    //queryString = "SELECT mainprefix FROM entity WHERE dxcc=='" + QString::number(_entityN) +"'";
 
     if (!query.exec(queryString))
     {
@@ -791,7 +779,7 @@ QString World::getContinentShortName(const int _enti)
 {
     //qDebug() << "World::getQRZContinentShortName: " << _qrz << endl;
 
-    QString continentNumber = QString::number(_enti);
+    //QString continentNumber = QString::number(_enti);
 
     if ( _enti < 0 )
     {
@@ -800,7 +788,8 @@ QString World::getContinentShortName(const int _enti)
 
     QString queryString;
     QSqlQuery query;
-    queryString = "SELECT continent FROM entity WHERE dxcc=='" + continentNumber +"'";
+    queryString = QString("SELECT continent FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_enti);
+    //queryString = "SELECT continent FROM entity WHERE dxcc=='" + continentNumber +"'";
 
     if (!query.exec(queryString))
     {
@@ -827,14 +816,15 @@ QString World::getQRZContinentNumber(const QString _qrz)
     //qDebug() << "World::getQRZContinentNumber: " << _qrz << endl;
 
     QString a;
-    //if (_qrz.length()<3) // CALLS MAY BE ONLY K
-    //{
-    //    return "-1";
-    //}
+
     QString queryString;
     QSqlQuery query;
     int i = getQRZARRLId(_qrz);
-    queryString = "SELECT continent FROM entity WHERE dxcc=='" + QString::number(i) +"'";
+    return QString::number(getContinentNumber(i));
+  /*
+    queryString = QString("SELECT continent FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(i);
+
+    //queryString = "SELECT continent FROM entity WHERE dxcc=='" + QString::number(i) +"'";
 
 
     if (!query.exec(queryString))
@@ -857,7 +847,7 @@ QString World::getQRZContinentNumber(const QString _qrz)
         return a;
     }
     return "-1";
-
+*/
 }
 
 int World::getContinentNumber(const int _enti)
@@ -872,7 +862,8 @@ int World::getContinentNumber(const int _enti)
     QString queryString;
     QSqlQuery query;
     int i = _enti;
-    queryString = "SELECT continent FROM entity WHERE dxcc=='" + QString::number(i) +"'";
+    queryString = QString("SELECT continent FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(i);
+    //queryString = "SELECT continent FROM entity WHERE dxcc=='" + QString::number(i) +"'";
 
 
     if (!query.exec(queryString))

@@ -257,6 +257,11 @@ int DataProxy::getCQzonYear(const int _year, const int _logNumber)
     return -1;
 }
 
+bool DataProxy::newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber)
+{
+    return false;
+}
+
 QStringList DataProxy::getContestNames()
 {
     return QStringList();
@@ -302,4 +307,9 @@ int DataProxy::getContestTypeN(const int _co, const int _catop, const int _catas
 QStringList DataProxy::getDataFromContestType(const int _n)
 {
     return QStringList();
+}
+
+int DataProxy::getHowManyQSOInLog(const int _log)
+{
+    return 0;
 }

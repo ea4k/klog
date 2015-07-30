@@ -5,6 +5,13 @@ Feel free to request any roadmap change if you have any suggestion.
 BUG: Check the options that are marked in QSL when rightbutton.
 i.e.: Is myQSL sent marked as requested when it should be the DX-QSL?
 
+BUG: QSL Status is not OK. Data is OK, need to read properly.
+Message is not OK
+Shows 5 - needed should be confirmed (green) but color is ok
+
+BUG: CTY:CSV is not properly updated
+
+TODO GUI: To add the CQ/ITU box or make them editable
 
 BUG:
 Clublog:
@@ -43,6 +50,10 @@ TODO: Add an option to auto-complete info (QTH, Locator, Name, QSL Manager(qsl_v
 TODO: Run in memory
 TODO: Keep adapting to ADIF 3.0.4
 
+NEXT:
+TODO: Some Entities have more than one CQ zone. Create a way to manage it and allow the user to select (combobox?)
+TODO: Some Entities are not recognized by ARRL (I, IG9, IT9 are the same ARRL id entities but different ones). Maybe I should not be working
+      with ARRLid or maybe I should detect special ones and "id+10000" so >10000 ids are special ones.
 
 
 KLog 0.9.3
@@ -51,7 +62,6 @@ TODO: Support CQ WW CW (Including Cabrillo Import/Export)
 
 KLog 0.9.4
 TODO: Hamlib support (Linux).
-TODO: Add a DXCluster bandmap.
 
 KLog 0.9.5
 TODO: Support CQ WPX SSB (Including Cabrillo Import/Export)
@@ -82,8 +92,10 @@ KLog 0.9.10
 TODO: Integrate with FLIGI real time logging (req by AA5VI)
 
 KLog 0.9.11 - Cluster release
-TODO: Add flags to the DXCluster widget
-TODO: UI: Modify the DX-Cluster tab to show the data in a table: DX de/Freq/DX/Comment/Time/Loc
+TODO: DXCluster: Add flags to the DXCluster widget
+TODO: DXCluster: UI: Modify the DX-Cluster tab to show the data in a table?: DX de/Freq/DX/Comment/Time/Loc
+TODO: DXCluster: Add the DXMarathon information to the spots
+TODO: DXCLuster: Create a band map
 
 KLog 0.9.12
 TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)

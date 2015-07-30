@@ -68,6 +68,7 @@ public:
 
     virtual int getDXCConYear(const int _year, const int _logNumber);
     virtual int getCQzonYear(const int _year, const int _logNumber);
+    virtual bool newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber);
 
     virtual QStringList getContestNames();
     virtual QStringList getContestCat(const int _catn);
@@ -80,7 +81,7 @@ public:
 
     virtual QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
-
+    virtual int getHowManyQSOInLog(const int _log);
     virtual int getNumberOfManagedLogs();
     virtual QString getStationCallSignFromLog(const int _log);
 
