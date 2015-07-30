@@ -50,3 +50,9 @@ int DXMarathon::getDXMarathonScore(const int _year, const int _logNumber)
     return ( getDXMarathonDXCC(_year, _logNumber) + getDXMarathonCQ(_year, _logNumber));
 
 }
+
+bool DXMarathon::neededForDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber)
+{
+    return dataProxy->newDXMarathon(_dxcc, _cq, _year, _logNumber);
+
+}

@@ -296,6 +296,7 @@ private:
     int checkIfWorkedB4(const QString _qrz);
     bool checkContest();    
     void showStatusOfDXCC(const QStringList _qs);
+    void showDXMarathonNeeded(const int _dxcc, const int _cqz, const int _year, const int _log);
 
     bool createConnection();
     void createData();
@@ -510,6 +511,7 @@ private:
 
     bool realTime, UTCTime, alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, keepMyData;
     bool cleaning;
+    bool manageMode; // If true, the DXCC and awards will take the mode into consideration to decide if needed or worked. False implies only band is taken into account
     // Station Setup
     bool configured, modify;
     bool needToEnd; // Just to control if the software needs to end.

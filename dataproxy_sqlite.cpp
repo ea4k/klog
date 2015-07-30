@@ -1146,14 +1146,12 @@ int DataProxy_SQLite::getDXCConYear(const int _year, const int _logNumber)
             //qDebug() << "DataProxy_SQLite::getDXCConYear: 0" << endl;
             return 0;
         }
-
     }
     else
     {
         //qDebug() << "DataProxy_SQLite::getDXCConYear: Query error" << endl;
         return 0;
     }
-
 }
 
 int DataProxy_SQLite::getCQzonYear(const int _year, const int _logNumber)
@@ -1186,6 +1184,58 @@ int DataProxy_SQLite::getCQzonYear(const int _year, const int _logNumber)
         //qDebug() << "DataProxy_SQLite::getCQzonYear: Query error" << endl;
         return 0;
     }
+}
+
+bool DataProxy_SQLite::newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber)
+{
+    qDebug() << "DataProxy_SQLite::newDXMarathon" << endl;
+    QSqlQuery query;
+    QString stringQuery;
+    bool sqlOK;
+    bool existingDXCC = false;
+    bool existingCQz = false;
+
+    stringQuery = QString("SELECT dxcc, cqz FROM log WHERE (lognumber='%1' AND qso_date  LIKE'%%2%') AND (dxcc ='%3' OR cqz ='%4')").arg(_logNumber).arg(_year).arg(_dxcc).arg(_cq);
+
+    sqlOK = query.exec(stringQuery);
+    if (sqlOK)
+    {
+        while(query.next())
+        {
+            if (query.isValid())
+            {
+                if ( (query.value(0)).toInt() == _dxcc)
+                {
+                    qDebug() << "DataProxy_SQLite::newDXMarathon - Existing DXCC" << endl;
+                    existingDXCC = true;
+                }
+                if ( (query.value(1)).toInt() == _cq)
+                {
+                    qDebug() << "DataProxy_SQLite::newDXMarathon - Existing CQz" << endl;
+                    existingCQz = true;
+                }
+
+            }
+        }
+
+        if (existingDXCC && existingCQz)
+        {
+            qDebug() << "DataProxy_SQLite::newDXMarathon - FALSE" << endl;
+            return false;
+        }
+        else
+        {
+            qDebug() << "DataProxy_SQLite::newDXMarathon - TRUE1" << endl;
+            return true;
+        }
+    }
+    else
+    {
+        qDebug() << "DataProxy_SQLite::newDXMarathon - TRUE2" << endl;
+         return true;   // It is an error inthe query but Work First Worry Later, let us work that QSO.
+    }
+    qDebug() << "DataProxy_SQLite::newDXMarathon - TRUE3" << endl;
+    return true;
 }
 
 QStringList DataProxy_SQLite::getContestNames()
@@ -1637,3 +1687,29 @@ QStringList DataProxy_SQLite::getDataFromContestType(const int _n)
     }
 }
 
+
+int DataProxy_SQLite::getHowManyQSOInLog(const int _log)
+{
+    QSqlQuery query;
+    QString aux;
+    aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(_log);
+    if (query.exec(aux))
+    {
+        query.next();
+        if (query.isValid())
+        {
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            return 0;
+        }
+
+    }
+    else
+    {
+        return 0;
+    }
+
+
+}

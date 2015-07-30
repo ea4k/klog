@@ -335,8 +335,12 @@ int Awards::getDXStatus (const QStringList _qs)
     int _mode = _qs.at(2).toInt();
     int _logNumber = _qs.at(3).toInt();
     int dxccEntity = world->getQRZARRLId(_qs.at(0) );
+    if (dxccEntity<=0)
+    {
+        return -1;
+    }
 
-   //qDebug() << "Awards::getDXStatus: dxccEntity: " << QString::number(dxccEntity) << endl;
+   qDebug() << "Awards::getDXStatus: dxccEntity: " << QString::number(dxccEntity) << endl;
 
 
     bool checkingMode = true;
@@ -350,185 +354,149 @@ int Awards::getDXStatus (const QStringList _qs)
     int wb = dxccStatusBand(dxccEntity, _band, _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
     int wm = dxccStatusMode(dxccEntity, _mode, _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
 
+    if (wm==-1)
+    {
+        checkingMode = false;
+    }
+
+    qDebug() << "Awards::getDXStatus: wb=" << QString::number(wb) << " - wm=" << QString::number(wm) << endl;
 
     switch(dxccStatus(dxccEntity, _logNumber))
     {
     case 0:
+        qDebug() << "Awards::getDXStatus: return 0" << endl;
         return 0;                   // ATNO
         break;
     case 1:                         // Worked, not confirmed
         switch (wb)
         {
         case 0:                     //  Not worked in this band but in another band
-           switch (wm)
-           {
-           case 0:                  //  Not worked in this band nor the mode
-               return 1;
-               break;
-           case 1:                  //  Not worked in this band but worked in this mode
-               if (checkingMode)
-               {
-                   return 4;
-               }
-               else
-               {
-                    return 1;
-               }
-               break;
-           default:                 // ERROR
-               return -1;
-               break;
-           }
-            break;
-        case 1:                     // Worked in this band
-            switch (wm)
+            if (checkingMode)
             {
-            case 0:                 // Worked in this band but not worked in this mode
-                if (checkingMode)
+                if (wm==1)
                 {
-                    return 2;
+                    qDebug() << "Awards::getDXStatus: return 4" << endl;
+                    return 4;
                 }
                 else
                 {
-                    return 3;
+                    qDebug() << "Awards::getDXStatus: return 1" << endl;
+                    return 1;
                 }
-                break;
-            case 1:                 // Worked in this band and in this mode.
-                return 3;
-                break;
-            default:
-                return -1;          // ERROR
-                break;
+            }
+            else
+            {
+                qDebug() << "Awards::getDXStatus: return 4 nc" << endl;
+                return 4;
             }
             break;
+        case 1:                     // Worked in this band
+            if (checkingMode)
+            {
+                if (wm==1)
+                {
+                    qDebug() << "Awards::getDXStatus: return 3" << endl;
+                    return 3;
+                }
+                else
+                {
+                    qDebug() << "Awards::getDXStatus: return 2" << endl;
+                    return 2;
+                }
+            }
+            else
+            {
+                qDebug() << "Awards::getDXStatus: return 3 nc" << endl;
+                return 3;
+            }
+
+            break;
         default:                    // ERROR
+            qDebug() << "Awards::getDXStatus: return -1 - 1" << endl;
             return -1;
             break;
         }
 
-        break;
+    break;
     case 2:         // Confirmed
-
         if (wb==2)
         {
-            if (!checkingMode)
+            if (checkingMode)
             {
-                return 13;
+                if (wm==2)
+                {
+                    qDebug() << "Awards::getDXStatus: return 13" << endl;
+                    return 13;
+                }
+                else if (wm==1)
+                {
+                    qDebug() << "Awards::getDXStatus: return 12" << endl;
+                    return 12;
+                }
+                else
+                {
+                    qDebug() << "Awards::getDXStatus: return 11" << endl;
+                    return 11;
+                }
             }
             else
             {
-                switch (wm)
-                {
-                case 0:                 // Confirmed in this band, not worked in this mode
-                    return 11;
-                    break;
-                case 1:                 // Confirmed in this band and worked in the mode
-                    return 12;
-                    break;
-                case 2:                 // Confirmed in this band and mode
-                    return 13;
-                    break;
-                }
-
+                qDebug() << "Awards::getDXStatus: return 13 nc" << endl;
+                return 13;
             }
 
         }
         else if ((wb ==1) || (wb == 0))
         {
-            if (wm == 2)
+            if (checkingMode)
             {
-                if (wb == 1)
-                {                   // Confirmed in this mode, worked in this band
-                    if (checkingMode)
+                if (wb==1)
+                {
+                    if (wm==1)
                     {
-                        return 10;
+                        qDebug() << "Awards::getDXStatus: return 8" << endl;
+                        return 8;
                     }
                     else
                     {
-                        return 3;
+                        qDebug() << "Awards::getDXStatus: return 6" << endl;
+                        return 6;
                     }
                 }
-                else if (wb == 0)
-                {                   // Confirmed in this mode, not worked in this band
-                    if (checkingMode)
+                else
+                {
+                    if (wm==1)
                     {
-                        return 9;
+                        qDebug() << "Awards::getDXStatus: return 7" << endl;
+                        return 7;
                     }
                     else
                     {
-                        return 1;
+                        qDebug() << "Awards::getDXStatus: return 5" << endl;
+                        return 5;
                     }
                 }
-                else
-                {                   // ERROR
-                    return -1;
-                }
-            }
-            else if ((wb == 1) && (wm == 1))
-            {
-                 // Confirmed in another band & mode, worked in this band and mode
-                if (checkingMode)
-                {
-                    return 3;
-                }
-                else
-                {
-                    return 8;
-                }
-            }
-            else if ((wb == 1) && (wm == 0))
-            {
-                // Confirmed in another band & mode, worked in this band but not this mode
-                if (checkingMode)
-                {
-                    return 6;
-                }
-                else
-                {
-                    return 3;
-                }
-            }
-            else if ((wb == 0) && (wm == 1))
-            {
-                // Confirmed in another band & mode, not worked in this band but worked in this mode
-                if (checkingMode)
-                {
-                    return 7;
-                }
-                else
-                {
-                    return 1;
-                }
-            }
-            else if ((wb == 0) && (wm == 0))
-            {
-                //  // Confirmed in another band & mode, not worked in this band nor this mode
-                if (checkingMode)
-                {
-                    return 5;
-                }
-                else
-                {
-                    return 1;
-                }
+
             }
             else
             {
-                return -1;          // ERROR
+                qDebug() << "Awards::getDXStatus: return 8 nc" << endl;
+                return 8;
             }
         }
         else
-        {                           // ERROR
+        {
+            qDebug() << "Awards::getDXStatus: return -1 - 2" << endl;
             return -1;
         }
-
-
-        break;
-    default:        // ERROR
+    break;
+    default:
+        qDebug() << "Awards::getDXStatus: return -1 default" << endl;
         return -1;
-        break;
+    break;
 
-    }
+    }   // END OF SWITCH
+
     return -1;
 
 }
@@ -536,7 +504,7 @@ int Awards::getDXStatus (const QStringList _qs)
 
 int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode, const int _logNumber, bool _checkingMode)
 {//-1 error / 0 Not worked / 1 worked / 2 confirmed
-   //qDebug() << "Awards::dxccStatusBandMode: " << QString::number(_ent) << "/" << QString::number(_band) << "/" << QString::number(_mode) << endl;
+   qDebug() << "Awards::dxccStatusBandMode: " << QString::number(_ent) << "/" << QString::number(_band) << "/" << QString::number(_mode) << endl;
     QSqlQuery query = QSqlQuery();
     QString queryString = QString();
 
@@ -560,24 +528,29 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
             {
                 if(query.value(0).toInt() == 1)
                 {
+                    qDebug() << "Awards::dxccStatusBandMode: return - 2" << endl;
                     return 2;
                 }
                 else if(query.value(0).toInt() == 0)
                 {
+                    qDebug() << "Awards::dxccStatusBandMode: return - 1" << endl;
                     return 1;
                 }
                 else
                 {
+                    qDebug() << "Awards::dxccStatusBandMode: return - 0-1" << endl;
                     return 0;
                 }
             }
             else
             {
+                qDebug() << "Awards::dxccStatusBandMode: return - 0-2" << endl;
                 return 0;
             }
         }
         else
         { // No value => Not Worked
+            qDebug() << "Awards::dxccStatusBandMode: return - 0-3" << endl;
             return 0;
         }
 
@@ -585,16 +558,17 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
     else
     { // The query fails...
       //TODO: Manage the query error
+        qDebug() << "Awards::dxccStatusBandMode: return - -1" << endl;
         return -1;
     }
-
+qDebug() << "Awards::dxccStatusBandMode: return - 0-4" << endl;
     return 0;
 }
 
 
 int Awards::dxccStatus(const int _ent, const int _logNumber)
 {//-1 error / 0 Not worked / 1 worked / 2 confirmed
-    //qDebug() << "Awards::dxccStatus: " << QString::number(_ent) << endl;
+    qDebug() << "Awards::dxccStatus: " << QString::number(_ent) << endl;
     QSqlQuery query = QSqlQuery();
     QString queryString = QString();
     int worked = 0;
@@ -612,19 +586,22 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
                     return 2;
                 }
                 else if(query.value(0).toInt() == 0)
-                {
+                {                 
                     worked = 1;
                 }
             }
         }
+        qDebug() << "Awards::dxccStatus: return "<< QString::number(worked)  << endl;
         return worked;
 
     }
     else
     { // The query fails...
       //TODO: Manage the query error
+        qDebug() << "Awards::dxccStatus: return -1"  << endl;
         return -1;
     }
+    qDebug() << "Awards::dxccStatus: return 0"  << endl;
     return 0;
 }
 
@@ -635,7 +612,7 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
     //From Search QSO to QSL: q << _call << bandid << _mode << QString::number(currentLog);
 
 
-    qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3) << endl;
+    //qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3) << endl;
     // Receives:  QStringList _qs;
     //_qs << QRZ << BandID << ModeId << lognumber;
 
@@ -650,7 +627,7 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
 
     int status = getDXStatus(_qs);
 
-    qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << "/" << getDXStatusString(status) << endl;
+    //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << "/" << getDXStatusString(status) << endl;
 
     //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << endl;
     switch (status) {
@@ -708,7 +685,7 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
 QString Awards::getDXStatusString (const int _status)
 {
 
-qDebug() << "Awards::getgetDXStatusString: " << QString::number(_status) << endl;
+qDebug() << "Awards::getDXStatusString: " << QString::number(_status) << endl;
 
 QString message = QString();
 
@@ -1896,6 +1873,11 @@ int Awards::getDXMarathonScore(const int _year, const int _logNumber)
 
 }
 
+bool Awards::isDXMarathonNeed(const int _dxcc, const int _cq, const int _year, const int _logNumber)
+{
+    return dxMarathon->neededForDXMarathon(_dxcc, _cq, _year, _logNumber);
+}
+
 int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
 {
     //-1 error / 0 Not worked / 1 worked / 2 confirmed
@@ -1915,24 +1897,29 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
                 {
                     if(query.value(0).toInt() == 1)         // Confirmed
                     {
+                        qDebug() << "Awards::dxccStatusBand: return - 2" << endl;
                         return 2;
                     }
                     else if(query.value(0).toInt() == 0)    // Worked
                     {
+                        qDebug() << "Awards::dxccStatusBand: return - 1" << endl;
                         return 1;
                     }
                     else                                    // Not worked
                     {
+                        qDebug() << "Awards::dxccStatusBand: return - 0" << endl;
                         return 0;
                     }
                 }                                           // Not present => Not worked
                 else
                 {
+                    qDebug() << "Awards::dxccStatusBand: return - 0.1" << endl;
                     return 0;
                 }
             }
             else                                            // Not present => Not worked
             { // No value => Not Worked
+                qDebug() << "Awards::dxccStatusBand: return - 0.2" << endl;
                 return 0;
             }
 
@@ -1940,19 +1927,25 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
         else
         { // The query fails...
           //TODO: Manage the query error
+            qDebug() << "Awards::dxccStatusBand: return - -1" << endl;
             return -1;
         }
-
+qDebug() << "Awards::dxccStatusBand: return - 0.3" << endl;
         return 0;                                       // if arrives to here decision => not worked
 }
 
 int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
 {
     //-1 error / 0 Not worked / 1 worked / 2 confirmed
-       //qDebug() << "Awards::dxccStatusMode: " << QString::number(_ent) << "/" << QString::number(_mode) << endl;
+       qDebug() << "Awards::dxccStatusMode: " << QString::number(_ent) << "/" << QString::number(_mode) << endl;
 
         QSqlQuery query = QSqlQuery();
         QString queryString = QString();
+        if (_mode == -1)
+        {
+            qDebug() << "Awards::dxccStatusMode: return - -1" << endl;
+            return -1;
+        }
 
         queryString = QString("SELECT confirmed FROM awarddxcc WHERE dxcc='%1' AND mode='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_mode)).arg(QString::number(_logNumber));
 
@@ -1965,24 +1958,29 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
                 {
                     if(query.value(0).toInt() == 1)         // Confirmed
                     {
+                        qDebug() << "Awards::dxccStatusMode: return - 2" << endl;
                         return 2;
                     }
                     else if(query.value(0).toInt() == 0)    // Worked
                     {
+                        qDebug() << "Awards::dxccStatusMode: return - 1" << endl;
                         return 1;
                     }
                     else                                    // Not worked
                     {
+                        qDebug() << "Awards::dxccStatusMode: return - 0" << endl;
                         return 0;
                     }
                 }                                           // Not present => Not worked
                 else
                 {
+                    qDebug() << "Awards::dxccStatusMode: return - 0.1" << endl;
                     return 0;
                 }
             }
             else                                            // Not present => Not worked
             { // No value => Not Worked
+                qDebug() << "Awards::dxccStatusMode: return - 0.2" << endl;
                 return 0;
             }
 
@@ -1990,9 +1988,10 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
         else
         { // The query fails...
           //TODO: Manage the query error
+            qDebug() << "Awards::dxccStatusMode: return - -1" << endl;
             return -1;
         }
-
+qDebug() << "Awards::dxccStatusMode: return - 0.3" << endl;
         return 0;                                       // if arrives to here decision => not worked
 }
 

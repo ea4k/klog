@@ -60,6 +60,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     configured = false;
     modify = false;
     qslingNeeded = false; // When clicking on Find QSO to QSL
+    manageMode = false;
     selectedYear = 0;
     defaultMode = 0;
     defaultBand = 0;
@@ -557,14 +558,23 @@ void MainWindow::slotModeComboBoxChanged(){
     }
 
     //qDebug() << "MainWindow::slotModeComboBoxChanged: " << QString::number(modeComboBox->currentIndex()) << "/" << QString::number(currentMode) << endl;
-
-    currentBandShown = bandComboBox->currentIndex();
-    currentModeShown = modeComboBox->currentIndex();
+    currentBandShown = dataProxy->getIdFromBandName(bandComboBox->currentText());
+    currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
+    //currentBandShown = bandComboBox->currentIndex();
+    //currentModeShown = modeComboBox->currentIndex();
     i = checkIfWorkedB4(currentQrz);
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
-    _qs << currentQrz << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
+    if (manageMode)
+    {
+        _qs << currentQrz << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
+    }
+    else
+    {
+        _qs << currentQrz << QString::number(currentBandShown) << "-1" << QString::number(currentLog);
+    }
+
     showStatusOfDXCC(_qs);
 
     //int i = checkIfWorkedB4(currentQrz);
@@ -584,13 +594,22 @@ void MainWindow::slotBandComboBoxChanged(){
 
     //qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << "/" << QString::number(currentBand) << endl;
 
-    currentBandShown = bandComboBox->currentIndex();
-    currentModeShown = modeComboBox->currentIndex();
+    currentBandShown = dataProxy->getIdFromBandName(bandComboBox->currentText());
+    currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
+       //currentModeShown = modeComboBox->currentIndex();
     i = checkIfWorkedB4(currentQrz);
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
-    _qs << currentQrz << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
+    if (manageMode)
+    {
+        _qs << currentQrz << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
+    }
+    else
+    {
+        _qs << currentQrz << QString::number(currentBandShown) << "-1" << QString::number(currentLog);
+    }
+
     showStatusOfDXCC(_qs);
 }
 
@@ -2675,6 +2694,7 @@ bool MainWindow::checkContest(){
     QString qsoStatus, aux;
     int currentEntity = world->getQRZARRLId(currentQrz);
     int tband = 1 + bandComboBox->currentIndex();
+
     //int tmode = 1 + modeComboBox->currentIndex();
 
     switch (contestMode) {
@@ -2763,26 +2783,27 @@ bool MainWindow::validCharactersInCall(const QString _qrz)
 }
 void MainWindow::slotQRZTextChanged()
 {    
-    //qDebug() << "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << endl;
+    qDebug() << "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << endl;
     if (cleaning)
     {
         return;
     }
 
     int cursorP = qrzLineEdit->cursorPosition();
-    infoLabel1->clear();
-
+    //infoLabel1->clear();    
     qrzLineEdit->setText(((qrzLineEdit->text())).simplified());
     qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
-
     if (!validCharactersInCall(qrzLineEdit->text()))
     {
         infoLabel1->setText(tr("Not valid characters in the QRZ box"));
         InValidCharsInPrevCall = true;
         return;
     }
-
-    world->checkQRZValidFormat(qrzLineEdit->text());
+    //if (!world->checkQRZValidFormat(qrzLineEdit->text()))
+    //{
+    //    qDebug() << "MainWindow::slotQRZTextChanged: NOT valid QRZ Format" << endl;
+    //    return;
+    //}
 
 
     if (((qrzLineEdit->text()).length() < 1))
@@ -2798,6 +2819,7 @@ void MainWindow::slotQRZTextChanged()
         qrzSmallModDontCalculate=false;
         return;
     }
+
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
     int i;    
     int dx_CQz = -1;
@@ -2837,6 +2859,8 @@ void MainWindow::slotQRZTextChanged()
     currentEntity = world->getQRZARRLId(currentQrz);
     selectCorrectComboBoxEntity(currentEntity);
 
+    //qDebug() << "MainWindow::slotQRZTextChanged: Entity: " << QString::number(currentEntity) << endl;
+
     dx_CQz = world->getEntityCqz(currentEntity);
     dx_ITUz = world->getEntityItuz(currentEntity);
 
@@ -2849,9 +2873,17 @@ void MainWindow::slotQRZTextChanged()
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
-    _qs << currentQrz << QString::number(currentBand) << QString::number(currentMode) << QString::number(currentLog);
+    if (manageMode)
+    {
+        _qs << currentQrz << QString::number(currentBand) << QString::number(currentMode) << QString::number(currentLog);
+    }
+    else
+    {
+        _qs << currentQrz << QString::number(currentBand) << "-1" << QString::number(currentLog);
+    }
 
-    //showStatusOfDXCC(_qs);
+
+
 
    // NOW ONLY SPECIFIC ACTIONS DEPENDING ON THE RUNNING MODE
 
@@ -2896,11 +2928,15 @@ void MainWindow::slotQRZTextChanged()
             //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
         if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) )
             {
-                //qDebug() << "MainWindow::slotQRZTextChanged: Default: IF1: i=" << QString::number(i) << endl;
+            //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << endl;
                 previousEntity = currentEntity;
                 InValidCharsInPrevCall = false;
                 showEntityInfo(currentEntity);
                 showStatusOfDXCC(_qs);
+
+                showDXMarathonNeeded(currentEntity, dx_CQz, dateEdit->date().year(), currentLog);
+
+
                 i = (world->getContinentNumber(currentEntity));
 
                 if (  i > 0 )
@@ -3168,6 +3204,11 @@ void MainWindow::slotSearchBoxTextChanged()
 
 
                 q.clear();
+                if (!manageMode)
+                {
+                    _mode = "-1";
+                }
+
                 q << _call << _freq << _mode << QString::number(currentLog);
                 //QColor color = Qt::red;
 
@@ -3334,7 +3375,7 @@ void MainWindow::slotSpotItButtonClicked()
 
 void MainWindow::slotClearButtonClicked()
 {
-   //qDebug() << "MainWindow::slotClearButtonClicked" << endl;
+    qDebug() << "MainWindow::slotClearButtonClicked" << endl;
     cleaning = true;
     modify = false;
     OKButton->setText(tr("&Add"));
@@ -3429,7 +3470,7 @@ void MainWindow::slotClearButtonClicked()
 
             clearInfoFromLocators();
             clearBandLabels();
-            showAwards();
+            //showAwards();
         break;
     }
     statusBar()->clearMessage();
@@ -7168,7 +7209,17 @@ void MainWindow::qsoToEdit (const int _qso)
                 QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
                 _qs.clear();
                 //TODO: The band sometimes fails here. Check
-                _qs << currentQrz << QString::number(bandComboBox->currentIndex()) << QString::number(modeComboBox->currentIndex()) << QString::number(currentLog);
+
+                if (manageMode)
+                {
+                   // _qs << currentQrz << QString::number(bandComboBox->currentIndex()) << QString::number(modeComboBox->currentIndex()) << QString::number(currentLog);
+                     _qs << currentQrz << QString::number(dataProxy->getIdFromBandName(bandComboBox->currentText())) << QString::number(dataProxy->getIdFromBandName(modeComboBox->currentText()))  << QString::number(currentLog);
+                }
+                else
+                {
+                    _qs << currentQrz << QString::number(dataProxy->getIdFromBandName(bandComboBox->currentText())) << "-1"  << QString::number(currentLog);
+                }
+
                 //qDebug() << "MainWindow::qsoToEdit: - in default - 104"  << endl;
                 showStatusOfDXCC(_qs);
 
@@ -7420,7 +7471,7 @@ void MainWindow::clearInfoFromLocators()
 
 void MainWindow::showEntityInfo(const int _enti)
 {
-    //qDebug() << "MainWindow::showEntityInfo" << QString::number(_enti) << endl;
+    qDebug() << "MainWindow::showEntityInfo" << QString::number(_enti) << endl;
 
     if (_enti<=0)
     {
@@ -7485,38 +7536,17 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
     if ((_qs.length() != 4) || (_qs.at(1) == "-1")) // is the qs valid?
     {
         clearBandLabels();
-        infoLabel1->setText(tr("No message"));
+        infoLabel1->setText(tr("--"));
         return;
     }
     // Set the status bar with the appropriate message
     int status = awards->getDXStatus (_qs);
+    QString message = QString();
 
-    //qDebug() << "MainWindow::showStatusOfDXC: " << QString::number(status) << endl;
+    qDebug() << "MainWindow::showStatusOfDXC: " << QString::number(status) << endl;
 
-    switch (status) {
-
-        case 0:
-        //qDebug() << "MainWindow::showStatusOfDXC: (new one) QRZ: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) << endl;
-            infoLabel1->setText(tr("New One!"));
-        break;
-        case 1:
-        //qDebug() << "MainWindow::showStatusOfDXC: (needed) QRZ: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) << endl;
-            infoLabel1->setText(tr("Needed QSO!"));
-        break;
-        case 2:
-        //qDebug() << "MainWindow::showStatusOfDXC: (Worked) QRZ: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) << endl;
-            infoLabel1->setText(tr("Worked but not confirmed!"));
-        break;
-        case 3:
-        //qDebug() << "MainWindow::showStatusOfDXC: (Confirmed) QRZ: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) << endl;
-            infoLabel1->setText(tr("Confirmed"));
-        break;
-        default:
-        //qDebug() << "MainWindow::showStatusOfDXC: (noMessage) QRZ: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) << endl;
-            infoLabel1->setText(tr("No message"));
-        break;
-    }
-
+    message = awards->getDXStatusString(status);
+    infoLabel1->setText(message);
 
     //Run all the bandLabel1-12 to set the appropriate color
     // qs.at(0) = QRZ
@@ -7546,6 +7576,20 @@ QString MainWindow::getStyleColorToLabelFromBand(const QString _b, const QString
 
 }
 
+
+void MainWindow::showDXMarathonNeeded(const int _dxcc, const int _cqz, const int _year, const int _log)
+{
+    qDebug() << "MainWindow::showDXMarathonNeeded" << endl;
+    if ((_dxcc<=0) || (_cqz<=0))
+    {
+        return;
+    }
+    if ( awards->isDXMarathonNeed(_dxcc, _cqz, _year, _log))
+    {        
+        infoLabel1->setText(infoLabel1->text()+ tr(" - Needed for DXMarathon"));
+    }
+}
+
 void MainWindow::showAwards()
 { // Updates and show all the award status tab.
 //qDebug() << "MainWindow::showAwards" << endl;
@@ -7554,11 +7598,10 @@ void MainWindow::showAwards()
   Local
 */
     int _num = 0;
-
     QSqlQuery query;
     QString aux;
 
-    //aux = "SELECT count(id) FROM log";
+/*
     aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
     query.exec(aux);
     query.next();
@@ -7566,6 +7609,9 @@ void MainWindow::showAwards()
     {
         _num = (query.value(0)).toInt();
     }
+    */
+    _num = dataProxy->getHowManyQSOInLog(currentLog);
+
     qsoWorkedQLCDNumber->display(_num);
     _num = 0;
 
@@ -7631,7 +7677,7 @@ void MainWindow::fillQSOData()
 
     int numberOfQsos = 0;
     int i = 0;
-
+/*
     aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
     //aux = "SELECT count(id) FROM log";
     query1.exec(aux);
@@ -7640,7 +7686,8 @@ void MainWindow::fillQSOData()
     {
         numberOfQsos = (query1.value(0)).toInt();
     }
-
+*/
+    numberOfQsos = dataProxy->getHowManyQSOInLog(currentLog);
 
     //int progressBarPosition = 0;
 
@@ -7794,7 +7841,7 @@ void MainWindow::slotFilePrint()
     int row = 0;
     int _numberOfQsos = 0;
     bool cancelPrinting = false;
-
+/*
     aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
     //aux = "SELECT count(id) FROM log";
     query.exec(aux);
@@ -7803,7 +7850,8 @@ void MainWindow::slotFilePrint()
     {
         _numberOfQsos = (query.value(0)).toInt();
     }
-
+*/
+    _numberOfQsos = dataProxy->getHowManyQSOInLog(currentLog);
 
 
     QTextCursor cursor(doc);
@@ -8270,8 +8318,7 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
     switch (actionQSL)
     {
         case 0://void slotToolSearchNeededQSLToSend();
-         aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
-
+         //aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
          stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R' AND log.lognumber='%1');").arg(currentLog);
             message = tr("Needed QSO to send the QSL");
             qslingNeeded = true;
@@ -8387,6 +8434,11 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
             _id= (query.value(nameCol)).toString();
 
             q.clear();
+            if (!manageMode)
+            {
+                _mode = "-1";
+            }
+
             q << _call << _freq << _mode << QString::number(currentLog);
 
             color = awards->getQRZDXStatusColor(q);
@@ -8430,6 +8482,11 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
     //qDebug() << "MainWindow::slotAnalyzeDxClusterSignal: 1: " << ql.at(0) <<"/1: " << ql.at(1) << "/2: " << ql.at(2) << endl;
     QStringList qls;
     qls.clear();
+    QString _mode = "-1";
+    if (!manageMode)
+    {
+        _mode = "-1";
+    }
 
     if (ql.length()==3)
     {
@@ -8445,7 +8502,7 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
             // db.getBandFromFreq expects a MHz!
             //(ql.at(1)).toDouble()
 
-            qls << ql.at(0) << QString::number(db->getBandIdFromFreq(QString::number((ql.at(1).toDouble()/1000)))) << QString::number(-1) <<  QString::number(currentLog);
+            qls << ql.at(0) << QString::number(db->getBandIdFromFreq(QString::number((ql.at(1).toDouble()/1000)))) << _mode <<  QString::number(currentLog);
             // We use a mode = -1 because we don't know the mode info from the DXCluster spot
 
             // TODO: Check if we can know the mode and replace the "-1" in previous sentence

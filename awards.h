@@ -84,6 +84,7 @@ public:
     int getDXMarathonDXCC(const int _year, const int _logNumber);
     int getDXMarathonCQ(const int _year, const int _logNumber);
     int getDXMarathonScore(const int _year, const int _logNumber);
+    bool isDXMarathonNeed(const int _dxcc, const int _cq, const int _year, const int _logNumber);
 
     // Receives:  QStringList _qs;
     //_qs << QRZ << BandId << lognumber;

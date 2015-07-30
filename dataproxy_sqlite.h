@@ -69,6 +69,7 @@ public:
 
     int getDXCConYear(const int _year, const int _logNumber);
     int getCQzonYear(const int _year, const int _logNumber);
+    bool newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber);
 
     QStringList getContestNames();
     QStringList getContestCat(const int _catn);
@@ -81,7 +82,7 @@ public:
 
     QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
-
+    int getHowManyQSOInLog(const int _log);
     int getNumberOfManagedLogs();
     QString getStationCallSignFromLog(const int _log);
 
