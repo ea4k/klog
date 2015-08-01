@@ -490,7 +490,7 @@ void SetupPageLogs::updateSelectedLogs()
 
 int SetupPageLogs::getSelectedLog()
 {
-    //qDebug() << "SetupPageLogs::getSelectedLog: " << currentLogs->currentText() << endl;
+    qDebug() << "SetupPageLogs::getSelectedLog: " << currentLogs->currentText() << endl;
     QString selectedLog = currentLogs->currentText();
     int i = 0;
     QStringList qs;

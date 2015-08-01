@@ -13,6 +13,7 @@
 - KLog offers the user a default value if RST_TX or RST_RX field is not present when importing.
 - GUI: Added some shortcuts in the preference widget.
 - GUI: DXCluster: Add a suggestion to hit enter if no password is expected for the cluster. (tnx AA5VI)
+- GUI: DXCluster: Warns you if the spot is needed for the current year DX-Marathon
 - Support of realtime upload, modification & removal of a single QSO to/from ClubLog.org.
 - Updated the DB with the PROP_MODE options.
 - Improved the way KLog manages & shows the bands & modes.
