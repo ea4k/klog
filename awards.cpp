@@ -292,7 +292,7 @@ bool Awards::isThisSpotConfirmed(const QStringList _qs)
 int Awards::getDXStatus (const QStringList _qs)
 {
 
- ////qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
+//qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
 // Receives:  QStringList _qs;
 //_qs << QRZ << BandId << << ModeId << lognumber;
 
@@ -347,7 +347,7 @@ int Awards::getDXStatus (const QStringList _qs)
     if (_mode==-1)
     {
         checkingMode = false;
-       ////qDebug() << "Awards::getDXStatus: checkingMode = FALSE" << endl;
+       //qDebug() << "Awards::getDXStatus: checkingMode = FALSE" << endl;
     }
     // dxccStatusMode(const int _ent, const int _mode, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
 
@@ -615,12 +615,15 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
 
 QColor Awards::getQRZDXStatusColor(const QStringList _qs)
 {
+    //qs << dxCall << spotBand << "-1" << QString::number(currentLog) ;
+
+
     //qDebug() << "Awards::getQRZDXStatusColor qs.length: " << QString::number(_qs.length()) << endl;
 
     //From Search QSO to QSL: q << _call << bandid << _mode << QString::number(currentLog);
 
 
-    //qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3) << endl;
+   //qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3) << endl;
     // Receives:  QStringList _qs;
     //_qs << QRZ << BandID << ModeId << lognumber;
 
@@ -635,7 +638,7 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
 
     int status = getDXStatus(_qs);
 
-    //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << "/" << getDXStatusString(status) << endl;
+   //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << "/" << getDXStatusString(status) << endl;
 
     //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << endl;
     switch (status) {

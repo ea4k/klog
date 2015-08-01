@@ -429,7 +429,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     // CLUSTER
     dxClusterWidget = new DXClusterWidget(dxclusterServerToConnect , dxclusterServerPort, this);
-    dxClusterWidget->setCurrentLog(currentLog);
+
 
     // </CLUSTER>
 
@@ -504,6 +504,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         updateQSLRecAndSent();
         awards->recalculateAwards();
         showAwards();
+        dxClusterWidget->setCurrentLog(currentLog);
     }
 
 
@@ -5079,6 +5080,7 @@ bool MainWindow::processConfigLine(const QString _line){
     }else if(field=="SELECTEDLOG")
     {
         currentLog = value.toInt();
+        dxClusterWidget->setCurrentLog(currentLog);
         //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
     }else if(field=="CLUBLOGACTIVE")
     {
@@ -8070,14 +8072,14 @@ bool MainWindow::downloadCtyDatFile()
     request.setUrl(url);
     QNetworkReply *reply= manager.get(request);
 
-    //qDebug() << "MainWindow::downloadCtyDatFile - END" << endl;
+    qDebug() << "MainWindow::downloadCtyDatFile - END" << endl;
 
     return true;
 }
 
 void MainWindow::slotDownloadFinished(QNetworkReply *reply)
 {
-    //qDebug() << "MainWindow::downloadFinished" << endl;
+    qDebug() << "MainWindow::downloadFinished" << endl;
     QMessageBox::StandardButton ret;
 
     //QMessageBox msgBox;
