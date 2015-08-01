@@ -279,7 +279,16 @@ QStringList DataProxy_SQLite::getModes()
 QStringList DataProxy_SQLite::getBandsInLog(const int _log)
 {
     QStringList bands = QStringList();
-    QString stringQuery = QString("SELECT DISTINCT band.name FROM log, band WHERE band.id = log.bandid AND log.lognumber='%1'").arg(_log);
+    QString stringQuery = QString();
+    if (_log <= 0)
+    {
+        stringQuery = QString("SELECT DISTINCT band.name FROM log, band WHERE band.id = log.bandid ORDER BY band.id DESC");
+    }
+    else
+    {
+        stringQuery = QString("SELECT DISTINCT band.name FROM log, band WHERE band.id = log.bandid AND log.lognumber='%1' ORDER BY band.id DESC").arg(_log);
+    }
+
     QSqlQuery query(stringQuery);
     while (query.next()) {
         if (query.isValid()){
@@ -292,13 +301,24 @@ QStringList DataProxy_SQLite::getBandsInLog(const int _log)
 QStringList DataProxy_SQLite::getModesInLog(const int _log)
 {
     QStringList modes = QStringList();
-    QString stringQuery = QString("SELECT DISTINCT mode.submode FROM log, mode WHERE mode.id = log.modeid AND log.lognumber='%1'").arg(_log);
+    QString stringQuery = QString();
+    if (_log <=0 )
+    {
+        stringQuery = QString("SELECT mode.id, mode.submode, COUNT (mode.submode) FROM log, mode WHERE mode.id = log.modeid GROUP BY mode.submode  ORDER BY count (mode.submode) DESC");
+    }
+    else
+    {
+
+        stringQuery = QString("SELECT mode.id, mode.submode, COUNT (mode.submode) FROM log, mode WHERE mode.id = log.modeid AND log.lognumber='%1' GROUP BY mode.submode  ORDER BY count (mode.submode) DESC").arg(_log);
+    }
+
     QSqlQuery query(stringQuery);
     while (query.next()) {
         if (query.isValid()){
-            modes << query.value(0).toString();
+            modes << query.value(1).toString();
         }
     }
+    //qDebug() << "DataProxy_SQLite::getModesInLog: " << modes.join(" - ") << endl;
     return modes;
 }
 
@@ -1188,7 +1208,7 @@ int DataProxy_SQLite::getCQzonYear(const int _year, const int _logNumber)
 
 bool DataProxy_SQLite::newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber)
 {
-    qDebug() << "DataProxy_SQLite::newDXMarathon" << endl;
+   //qDebug() << "DataProxy_SQLite::newDXMarathon" << endl;
     QSqlQuery query;
     QString stringQuery;
     bool sqlOK;
@@ -1206,12 +1226,12 @@ bool DataProxy_SQLite::newDXMarathon(const int _dxcc, const int _cq, const int _
             {
                 if ( (query.value(0)).toInt() == _dxcc)
                 {
-                    qDebug() << "DataProxy_SQLite::newDXMarathon - Existing DXCC" << endl;
+                    //qDebug() << "DataProxy_SQLite::newDXMarathon - Existing DXCC" << endl;
                     existingDXCC = true;
                 }
                 if ( (query.value(1)).toInt() == _cq)
                 {
-                    qDebug() << "DataProxy_SQLite::newDXMarathon - Existing CQz" << endl;
+                   //qDebug() << "DataProxy_SQLite::newDXMarathon - Existing CQz" << endl;
                     existingCQz = true;
                 }
 
@@ -1220,21 +1240,21 @@ bool DataProxy_SQLite::newDXMarathon(const int _dxcc, const int _cq, const int _
 
         if (existingDXCC && existingCQz)
         {
-            qDebug() << "DataProxy_SQLite::newDXMarathon - FALSE" << endl;
+           //qDebug() << "DataProxy_SQLite::newDXMarathon - FALSE" << endl;
             return false;
         }
         else
         {
-            qDebug() << "DataProxy_SQLite::newDXMarathon - TRUE1" << endl;
+           //qDebug() << "DataProxy_SQLite::newDXMarathon - TRUE1" << endl;
             return true;
         }
     }
     else
     {
-        qDebug() << "DataProxy_SQLite::newDXMarathon - TRUE2" << endl;
+       //qDebug() << "DataProxy_SQLite::newDXMarathon - TRUE2" << endl;
          return true;   // It is an error inthe query but Work First Worry Later, let us work that QSO.
     }
-    qDebug() << "DataProxy_SQLite::newDXMarathon - TRUE3" << endl;
+   //qDebug() << "DataProxy_SQLite::newDXMarathon - TRUE3" << endl;
     return true;
 }
 

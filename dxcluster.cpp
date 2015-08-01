@@ -327,6 +327,12 @@ void DXClusterWidget::slotClusterDataArrived()
             qs << dxCall << spotBand << "-1" << QString::number(currentLog) ;
 
             dxSpotColor = awards->getQRZDXStatusColor(qs);
+
+            if (awards->isDXMarathonNeed(world->getQRZARRLId(dxCall), world->getQRZCqz(dxCall), QDateTime::currentDateTime().date().year(), currentLog))
+            {
+                dxClusterString = dxClusterString + "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
+            }
+
             qDebug() << "DX de ->" << "Spotter: " << spotter << "Freq: "<< dxFrequency << "DX: " << dxCall << endl;
 
         }
@@ -350,6 +356,10 @@ void DXClusterWidget::slotClusterDataArrived()
 
 
             dxSpotColor = awards->getQRZDXStatusColor(qs);
+            if (awards->isDXMarathonNeed(world->getQRZARRLId(dxCall), world->getQRZCqz(dxCall), QDateTime::currentDateTime().date().year(), currentLog))
+            {
+                dxClusterString = dxClusterString + "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
+            }
         }
         else
         {

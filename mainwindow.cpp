@@ -262,7 +262,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
     timer->start(1000);
-    qDebug() << "MainWindow::MainWindow: 9" << endl;
+
     previousQrz = "";
     qrzLineEdit = new QLineEdit;
     nameLineEdit = new QLineEdit;
@@ -481,7 +481,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
        //qDebug() << "MainWindow::MainWindow: 16.2" << endl;
     }
    //qDebug() << "MainWindow::MainWindow: 17" << endl;
-    checkIfNewBandOrMode();
+    //checkIfNewBandOrMode();
 
     if ( (contestMode == CQ_WW_SSB) || (contestMode == CQ_WW_CW) )
     {
@@ -506,8 +506,17 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         showAwards();
     }
 
+
+    //bandComboBox->setCurrentIndex(bandComboBox->findText(_aux));
+    currentBandShown = dataProxy->getIdFromBandName(bandComboBox->currentText());
+    currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
+    currentBand = currentBandShown;
+    currentMode = currentModeShown;
+
+
     slotClearButtonClicked();
     //logModel->select();
+
 
     upAndRunning = true;
   //qDebug() << "MainWindow::MainWindow: END" << endl;
@@ -596,6 +605,8 @@ void MainWindow::slotBandComboBoxChanged(){
 
     currentBandShown = dataProxy->getIdFromBandName(bandComboBox->currentText());
     currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
+    currentBand = currentBandShown;
+    currentMode = currentModeShown;
        //currentModeShown = modeComboBox->currentIndex();
     i = checkIfWorkedB4(currentQrz);
 
@@ -2783,7 +2794,7 @@ bool MainWindow::validCharactersInCall(const QString _qrz)
 }
 void MainWindow::slotQRZTextChanged()
 {    
-    qDebug() << "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << endl;
+   //qDebug()() << "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << endl;
     if (cleaning)
     {
         return;
@@ -2801,7 +2812,7 @@ void MainWindow::slotQRZTextChanged()
     }
     //if (!world->checkQRZValidFormat(qrzLineEdit->text()))
     //{
-    //    qDebug() << "MainWindow::slotQRZTextChanged: NOT valid QRZ Format" << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: NOT valid QRZ Format" << endl;
     //    return;
     //}
 
@@ -3375,7 +3386,7 @@ void MainWindow::slotSpotItButtonClicked()
 
 void MainWindow::slotClearButtonClicked()
 {
-    qDebug() << "MainWindow::slotClearButtonClicked" << endl;
+   //qDebug()() << "MainWindow::slotClearButtonClicked" << endl;
     cleaning = true;
     modify = false;
     OKButton->setText(tr("&Add"));
@@ -3387,8 +3398,11 @@ void MainWindow::slotClearButtonClicked()
     rstRXLineEdit->setText("59");
     qthLineEdit->clear();
 
-    bandComboBox->setCurrentIndex(currentBandShown);
-    modeComboBox->setCurrentIndex(defaultMode);
+    //qDebug() << "MainWindow::slotClearButtonClicked: " << QString::number(currentBand) << endl;
+    bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(currentBand)));
+    modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromModeId(currentMode)));
+    //bandComboBox->setCurrentIndex(currentBand);
+    //modeComboBox->setCurrentIndex(currentMode);
 
     qsoPoints = 0;
     qsoMultiplier = 0;
@@ -3827,7 +3841,7 @@ void MainWindow::slotSetup(const int _page)
 
     }
     defineStationCallsign();
-    checkIfNewBandOrMode();
+    //checkIfNewBandOrMode();
 }
 
 void MainWindow::openFile()
@@ -5131,17 +5145,23 @@ void MainWindow::checkIfNewBandOrMode()
     bands.clear();
     bands << set.toList();
 
+qDebug() << "MainWindow::checkIfNewBandOrMode: Modes1: " << modes.join(" - ") << endl;
     set.clear();
     modes << modesInLog;
     set = modes.toSet();
+
+
     modes.clear();
     modes << set.toList();
-
+    modes.sort();
+qDebug() << "MainWindow::checkIfNewBandOrMode: Modes2: " << modes.join(" - ") << endl;
     bandComboBox->clear();
     bandComboBox->addItems(bands);
     modeComboBox->clear();
     modeComboBox->addItems(modes);
 
+    qDebug() << "MainWindow::checkIfNewBandOrMode: Bands: " << bands.join(" - ") << endl;
+    qDebug() << "MainWindow::checkIfNewBandOrMode: Modes: " << modes.join(" - ") << endl;
     //qDebug() << "MainWindow::checkIfNewBandOrMode-END" << endl;
 }
 
@@ -6375,7 +6395,7 @@ void MainWindow::slotADIFImport(){
         filemanager->adifReadLog(fileName, currentLog);
         logModel->select();
 
-        checkIfNewBandOrMode();
+        //checkIfNewBandOrMode();
 
         switch (contestMode) {
 
@@ -6512,7 +6532,8 @@ void MainWindow::qsoToEdit (const int _qso)
     }
     else
     {
-        bandComboBox->setCurrentIndex(defaultBand);
+        bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand)));
+        //bandComboBox->setCurrentIndex(defaultBand);
     }
 
     nameCol = rec.indexOf("modeid");
@@ -6528,7 +6549,8 @@ void MainWindow::qsoToEdit (const int _qso)
     }
     else
     {
-        modeComboBox->setCurrentIndex(defaultMode);
+        modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromModeId(defaultMode)));
+        //modeComboBox->setCurrentIndex(defaultMode);
     }
 
     nameCol = rec.indexOf("rst_sent");
@@ -7471,7 +7493,7 @@ void MainWindow::clearInfoFromLocators()
 
 void MainWindow::showEntityInfo(const int _enti)
 {
-    qDebug() << "MainWindow::showEntityInfo" << QString::number(_enti) << endl;
+   //qDebug()() << "MainWindow::showEntityInfo" << QString::number(_enti) << endl;
 
     if (_enti<=0)
     {
@@ -7543,7 +7565,7 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
     int status = awards->getDXStatus (_qs);
     QString message = QString();
 
-    qDebug() << "MainWindow::showStatusOfDXC: " << QString::number(status) << endl;
+    //qDebug() << "MainWindow::showStatusOfDXC: " << QString::number(status) << endl;
 
     message = awards->getDXStatusString(status);
     infoLabel1->setText(message);
@@ -7579,7 +7601,7 @@ QString MainWindow::getStyleColorToLabelFromBand(const QString _b, const QString
 
 void MainWindow::showDXMarathonNeeded(const int _dxcc, const int _cqz, const int _year, const int _log)
 {
-    qDebug() << "MainWindow::showDXMarathonNeeded" << endl;
+   //qDebug()() << "MainWindow::showDXMarathonNeeded" << endl;
     if ((_dxcc<=0) || (_cqz<=0))
     {
         return;
@@ -8567,7 +8589,8 @@ void MainWindow::clusterSpotToLog(const QString _call, const QString _freq)
     }
     else
     {
-        bandComboBox->setCurrentIndex(defaultBand);
+        bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand)));
+        //bandComboBox->setCurrentIndex(defaultBand);
     }
 
 }

@@ -292,7 +292,7 @@ bool Awards::isThisSpotConfirmed(const QStringList _qs)
 int Awards::getDXStatus (const QStringList _qs)
 {
 
- qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
+ ////qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
 // Receives:  QStringList _qs;
 //_qs << QRZ << BandId << << ModeId << lognumber;
 
@@ -340,14 +340,14 @@ int Awards::getDXStatus (const QStringList _qs)
         return -1;
     }
 
-   qDebug() << "Awards::getDXStatus: dxccEntity: " << QString::number(dxccEntity) << endl;
+   //qDebug() << "Awards::getDXStatus: dxccEntity: " << QString::number(dxccEntity) << endl;
 
 
     bool checkingMode = true;
     if (_mode==-1)
     {
         checkingMode = false;
-       //qDebug() << "Awards::getDXStatus: checkingMode = FALSE" << endl;
+       ////qDebug() << "Awards::getDXStatus: checkingMode = FALSE" << endl;
     }
     // dxccStatusMode(const int _ent, const int _mode, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
 
@@ -359,12 +359,12 @@ int Awards::getDXStatus (const QStringList _qs)
         checkingMode = false;
     }
 
-    qDebug() << "Awards::getDXStatus: wb=" << QString::number(wb) << " - wm=" << QString::number(wm) << endl;
+    //qDebug() << "Awards::getDXStatus: wb=" << QString::number(wb) << " - wm=" << QString::number(wm) << endl;
 
     switch(dxccStatus(dxccEntity, _logNumber))
     {
     case 0:
-        qDebug() << "Awards::getDXStatus: return 0" << endl;
+        //qDebug() << "Awards::getDXStatus: return 0" << endl;
         return 0;                   // ATNO
         break;
     case 1:                         // Worked, not confirmed
@@ -375,18 +375,18 @@ int Awards::getDXStatus (const QStringList _qs)
             {
                 if (wm==1)
                 {
-                    qDebug() << "Awards::getDXStatus: return 4" << endl;
+                    //qDebug() << "Awards::getDXStatus: return 4" << endl;
                     return 4;
                 }
                 else
                 {
-                    qDebug() << "Awards::getDXStatus: return 1" << endl;
+                    //qDebug() << "Awards::getDXStatus: return 1" << endl;
                     return 1;
                 }
             }
             else
             {
-                qDebug() << "Awards::getDXStatus: return 4 nc" << endl;
+                //qDebug() << "Awards::getDXStatus: return 4 nc" << endl;
                 return 4;
             }
             break;
@@ -395,24 +395,24 @@ int Awards::getDXStatus (const QStringList _qs)
             {
                 if (wm==1)
                 {
-                    qDebug() << "Awards::getDXStatus: return 3" << endl;
+                    //qDebug() << "Awards::getDXStatus: return 3" << endl;
                     return 3;
                 }
                 else
                 {
-                    qDebug() << "Awards::getDXStatus: return 2" << endl;
+                    //qDebug() << "Awards::getDXStatus: return 2" << endl;
                     return 2;
                 }
             }
             else
             {
-                qDebug() << "Awards::getDXStatus: return 3 nc" << endl;
+                //qDebug() << "Awards::getDXStatus: return 3 nc" << endl;
                 return 3;
             }
 
             break;
         default:                    // ERROR
-            qDebug() << "Awards::getDXStatus: return -1 - 1" << endl;
+            //qDebug() << "Awards::getDXStatus: return -1 - 1" << endl;
             return -1;
             break;
         }
@@ -425,23 +425,23 @@ int Awards::getDXStatus (const QStringList _qs)
             {
                 if (wm==2)
                 {
-                    qDebug() << "Awards::getDXStatus: return 13" << endl;
+                    //qDebug() << "Awards::getDXStatus: return 13" << endl;
                     return 13;
                 }
                 else if (wm==1)
                 {
-                    qDebug() << "Awards::getDXStatus: return 12" << endl;
+                    //qDebug() << "Awards::getDXStatus: return 12" << endl;
                     return 12;
                 }
                 else
                 {
-                    qDebug() << "Awards::getDXStatus: return 11" << endl;
+                    //qDebug() << "Awards::getDXStatus: return 11" << endl;
                     return 11;
                 }
             }
             else
             {
-                qDebug() << "Awards::getDXStatus: return 13 nc" << endl;
+                //qDebug() << "Awards::getDXStatus: return 13 nc" << endl;
                 return 13;
             }
 
@@ -454,12 +454,12 @@ int Awards::getDXStatus (const QStringList _qs)
                 {
                     if (wm==1)
                     {
-                        qDebug() << "Awards::getDXStatus: return 8" << endl;
+                        //qDebug() << "Awards::getDXStatus: return 8" << endl;
                         return 8;
                     }
                     else
                     {
-                        qDebug() << "Awards::getDXStatus: return 6" << endl;
+                        //qDebug() << "Awards::getDXStatus: return 6" << endl;
                         return 6;
                     }
                 }
@@ -467,12 +467,12 @@ int Awards::getDXStatus (const QStringList _qs)
                 {
                     if (wm==1)
                     {
-                        qDebug() << "Awards::getDXStatus: return 7" << endl;
+                        //qDebug() << "Awards::getDXStatus: return 7" << endl;
                         return 7;
                     }
                     else
                     {
-                        qDebug() << "Awards::getDXStatus: return 5" << endl;
+                        //qDebug() << "Awards::getDXStatus: return 5" << endl;
                         return 5;
                     }
                 }
@@ -480,18 +480,26 @@ int Awards::getDXStatus (const QStringList _qs)
             }
             else
             {
-                qDebug() << "Awards::getDXStatus: return 8 nc" << endl;
-                return 8;
+                if (wb==0)
+                {
+                    //qDebug() << "Awards::getDXStatus: return 7 nc" << endl;
+                    return 7;
+                }
+                else
+                {
+                    //qDebug() << "Awards::getDXStatus: return 8 nc" << endl;
+                    return 8;
+                }
             }
         }
         else
         {
-            qDebug() << "Awards::getDXStatus: return -1 - 2" << endl;
+            //qDebug() << "Awards::getDXStatus: return -1 - 2" << endl;
             return -1;
         }
     break;
     default:
-        qDebug() << "Awards::getDXStatus: return -1 default" << endl;
+        //qDebug() << "Awards::getDXStatus: return -1 default" << endl;
         return -1;
     break;
 
@@ -504,7 +512,7 @@ int Awards::getDXStatus (const QStringList _qs)
 
 int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode, const int _logNumber, bool _checkingMode)
 {//-1 error / 0 Not worked / 1 worked / 2 confirmed
-   qDebug() << "Awards::dxccStatusBandMode: " << QString::number(_ent) << "/" << QString::number(_band) << "/" << QString::number(_mode) << endl;
+   //qDebug() << "Awards::dxccStatusBandMode: " << QString::number(_ent) << "/" << QString::number(_band) << "/" << QString::number(_mode) << endl;
     QSqlQuery query = QSqlQuery();
     QString queryString = QString();
 
@@ -528,29 +536,29 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
             {
                 if(query.value(0).toInt() == 1)
                 {
-                    qDebug() << "Awards::dxccStatusBandMode: return - 2" << endl;
+                   //qDebug() << "Awards::dxccStatusBandMode: return - 2" << endl;
                     return 2;
                 }
                 else if(query.value(0).toInt() == 0)
                 {
-                    qDebug() << "Awards::dxccStatusBandMode: return - 1" << endl;
+                   //qDebug() << "Awards::dxccStatusBandMode: return - 1" << endl;
                     return 1;
                 }
                 else
                 {
-                    qDebug() << "Awards::dxccStatusBandMode: return - 0-1" << endl;
+                   //qDebug() << "Awards::dxccStatusBandMode: return - 0-1" << endl;
                     return 0;
                 }
             }
             else
             {
-                qDebug() << "Awards::dxccStatusBandMode: return - 0-2" << endl;
+               //qDebug() << "Awards::dxccStatusBandMode: return - 0-2" << endl;
                 return 0;
             }
         }
         else
         { // No value => Not Worked
-            qDebug() << "Awards::dxccStatusBandMode: return - 0-3" << endl;
+           //qDebug() << "Awards::dxccStatusBandMode: return - 0-3" << endl;
             return 0;
         }
 
@@ -558,7 +566,7 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
     else
     { // The query fails...
       //TODO: Manage the query error
-        qDebug() << "Awards::dxccStatusBandMode: return - -1" << endl;
+       //qDebug() << "Awards::dxccStatusBandMode: return - -1" << endl;
         return -1;
     }
 qDebug() << "Awards::dxccStatusBandMode: return - 0-4" << endl;
@@ -568,7 +576,7 @@ qDebug() << "Awards::dxccStatusBandMode: return - 0-4" << endl;
 
 int Awards::dxccStatus(const int _ent, const int _logNumber)
 {//-1 error / 0 Not worked / 1 worked / 2 confirmed
-    qDebug() << "Awards::dxccStatus: " << QString::number(_ent) << endl;
+   //qDebug() << "Awards::dxccStatus: " << QString::number(_ent) << endl;
     QSqlQuery query = QSqlQuery();
     QString queryString = QString();
     int worked = 0;
@@ -591,17 +599,17 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
                 }
             }
         }
-        qDebug() << "Awards::dxccStatus: return "<< QString::number(worked)  << endl;
+       //qDebug() << "Awards::dxccStatus: return "<< QString::number(worked)  << endl;
         return worked;
 
     }
     else
     { // The query fails...
       //TODO: Manage the query error
-        qDebug() << "Awards::dxccStatus: return -1"  << endl;
+       //qDebug() << "Awards::dxccStatus: return -1"  << endl;
         return -1;
     }
-    qDebug() << "Awards::dxccStatus: return 0"  << endl;
+   //qDebug() << "Awards::dxccStatus: return 0"  << endl;
     return 0;
 }
 
@@ -685,7 +693,7 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
 QString Awards::getDXStatusString (const int _status)
 {
 
-qDebug() << "Awards::getDXStatusString: " << QString::number(_status) << endl;
+    //qDebug() << "Awards::getDXStatusString: " << QString::number(_status) << endl;
 
 QString message = QString();
 
@@ -1897,29 +1905,29 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
                 {
                     if(query.value(0).toInt() == 1)         // Confirmed
                     {
-                        qDebug() << "Awards::dxccStatusBand: return - 2" << endl;
+                       //qDebug() << "Awards::dxccStatusBand: return - 2" << endl;
                         return 2;
                     }
                     else if(query.value(0).toInt() == 0)    // Worked
                     {
-                        qDebug() << "Awards::dxccStatusBand: return - 1" << endl;
+                       //qDebug() << "Awards::dxccStatusBand: return - 1" << endl;
                         return 1;
                     }
                     else                                    // Not worked
                     {
-                        qDebug() << "Awards::dxccStatusBand: return - 0" << endl;
+                       //qDebug() << "Awards::dxccStatusBand: return - 0" << endl;
                         return 0;
                     }
                 }                                           // Not present => Not worked
                 else
                 {
-                    qDebug() << "Awards::dxccStatusBand: return - 0.1" << endl;
+                   //qDebug() << "Awards::dxccStatusBand: return - 0.1" << endl;
                     return 0;
                 }
             }
             else                                            // Not present => Not worked
             { // No value => Not Worked
-                qDebug() << "Awards::dxccStatusBand: return - 0.2" << endl;
+               //qDebug() << "Awards::dxccStatusBand: return - 0.2" << endl;
                 return 0;
             }
 
@@ -1927,7 +1935,7 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
         else
         { // The query fails...
           //TODO: Manage the query error
-            qDebug() << "Awards::dxccStatusBand: return - -1" << endl;
+           //qDebug() << "Awards::dxccStatusBand: return - -1" << endl;
             return -1;
         }
 qDebug() << "Awards::dxccStatusBand: return - 0.3" << endl;
@@ -1937,13 +1945,13 @@ qDebug() << "Awards::dxccStatusBand: return - 0.3" << endl;
 int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
 {
     //-1 error / 0 Not worked / 1 worked / 2 confirmed
-       qDebug() << "Awards::dxccStatusMode: " << QString::number(_ent) << "/" << QString::number(_mode) << endl;
+      //qDebug() << "Awards::dxccStatusMode: " << QString::number(_ent) << "/" << QString::number(_mode) << endl;
 
         QSqlQuery query = QSqlQuery();
         QString queryString = QString();
         if (_mode == -1)
         {
-            qDebug() << "Awards::dxccStatusMode: return - -1" << endl;
+           //qDebug() << "Awards::dxccStatusMode: return - -1" << endl;
             return -1;
         }
 
@@ -1958,29 +1966,29 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
                 {
                     if(query.value(0).toInt() == 1)         // Confirmed
                     {
-                        qDebug() << "Awards::dxccStatusMode: return - 2" << endl;
+                       //qDebug() << "Awards::dxccStatusMode: return - 2" << endl;
                         return 2;
                     }
                     else if(query.value(0).toInt() == 0)    // Worked
                     {
-                        qDebug() << "Awards::dxccStatusMode: return - 1" << endl;
+                       //qDebug() << "Awards::dxccStatusMode: return - 1" << endl;
                         return 1;
                     }
                     else                                    // Not worked
                     {
-                        qDebug() << "Awards::dxccStatusMode: return - 0" << endl;
+                       //qDebug() << "Awards::dxccStatusMode: return - 0" << endl;
                         return 0;
                     }
                 }                                           // Not present => Not worked
                 else
                 {
-                    qDebug() << "Awards::dxccStatusMode: return - 0.1" << endl;
+                   //qDebug() << "Awards::dxccStatusMode: return - 0.1" << endl;
                     return 0;
                 }
             }
             else                                            // Not present => Not worked
             { // No value => Not Worked
-                qDebug() << "Awards::dxccStatusMode: return - 0.2" << endl;
+               //qDebug() << "Awards::dxccStatusMode: return - 0.2" << endl;
                 return 0;
             }
 
@@ -1988,7 +1996,7 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
         else
         { // The query fails...
           //TODO: Manage the query error
-            qDebug() << "Awards::dxccStatusMode: return - -1" << endl;
+           //qDebug() << "Awards::dxccStatusMode: return - -1" << endl;
             return -1;
         }
 qDebug() << "Awards::dxccStatusMode: return - 0.3" << endl;
