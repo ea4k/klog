@@ -202,7 +202,7 @@ void SetupPageClubLog::setClubLog(const QString _s)
 
 void SetupPageClubLog::slotUseStationCall(bool _s)
 {
-    qDebug() << "SetupPageClubLog::slotUseStationCall" << endl;
+   //qDebug() << "SetupPageClubLog::slotUseStationCall" << endl;
     if (useQSOStationCallCheckBox->isChecked())
     {
         callLineEdit->setEnabled(false);
@@ -218,10 +218,10 @@ void SetupPageClubLog::slotUseStationCall(bool _s)
 
 void SetupPageClubLog::slotClubLogActive(bool _s)
 {
-    qDebug() << "SetupPageClubLog::slotClubLogActive" << endl;
+   //qDebug() << "SetupPageClubLog::slotClubLogActive" << endl;
     if (_s)
     {
-        qDebug() << "SetupPageClubLog::slotClubLogActive TRUE" << endl;
+       //qDebug() << "SetupPageClubLog::slotClubLogActive TRUE" << endl;
         callLabel->setEnabled(true);
         emailLabel->setEnabled(true);
         passwordLabel->setEnabled(true);
@@ -234,7 +234,7 @@ void SetupPageClubLog::slotClubLogActive(bool _s)
     }
     else
     {
-        qDebug() << "SetupPageClubLog::slotClubLogActive FALSE" << endl;
+       //qDebug() << "SetupPageClubLog::slotClubLogActive FALSE" << endl;
         callLabel->setEnabled(false);
         emailLabel->setEnabled(false);
         passwordLabel->setEnabled(false);

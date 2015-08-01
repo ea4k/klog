@@ -45,7 +45,6 @@ KLog 0.9.2
 TODO: Add a message to show if a Spot/QSO is valid for the current year DX-Marathon
 TODO: When importing an ADIF file with several logs, create automatically the logs as detected.
 TODO: Remove all not needed fields from SetupPageLogNew::gatherAndSend() the type is enough
-TODO: Add another tab in the botton to list the DXCC status.
 TODO: Add an option to auto-complete info (QTH, Locator, Name, QSL Manager(qsl_via), IOTA, AWARD, Entity...) from previously worked QSO.
 TODO: Run in memory
 TODO: Keep adapting to ADIF 3.0.4
@@ -54,6 +53,9 @@ NEXT:
 TODO: Some Entities have more than one CQ zone. Create a way to manage it and allow the user to select (combobox?)
 TODO: Some Entities are not recognized by ARRL (I, IG9, IT9 are the same ARRL id entities but different ones). Maybe I should not be working
       with ARRLid or maybe I should detect special ones and "id+10000" so >10000 ids are special ones.
+TODO: Add a Default band & mode in the setup dialog (MainWindow::slotClearButtonClicked, ...)
+TODO: Add another tab in the botton to list the DXCC status.
+TODO: checkIfNewBandOrMode() is not being used. Code should be removed...
 
 
 KLog 0.9.3

@@ -33,7 +33,7 @@
 
 #include <QNetworkRequest>
 #include <QNetworkReply>
-
+#include <QtAlgorithms>
 
 #include "database.h"
 #include "setupdialog.h"

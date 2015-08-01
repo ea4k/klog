@@ -747,6 +747,7 @@ void SetupDialog::readActiveBands (const QString actives)
     bool atLeastOne = false;
 
     QStringList values = actives.split(", ", QString::SkipEmptyParts);
+    QStringList _abands;
 
     for (int i = 0; i < values.count() ; i++)
     {
@@ -756,14 +757,18 @@ void SetupDialog::readActiveBands (const QString actives)
             {
                 //qDebug() << "SetupDialog::readActiveBands (at least One!): " << values.at(i) << endl;
                 atLeastOne = true;
-                bands.clear();
+                _abands.clear();
             }
 
-            bands << values.at(i);
+            _abands << values.at(i);
             //qDebug() << "SetupDialog::readActiveBands: " << values.at(i) << endl;
         }
 
     }
+    bands.clear();
+    bands << dataProxy->getBandsInLog(-1);
+    bands << _abands;
+    bands.removeDuplicates();
 }
 
 void SetupDialog::readActiveModes (const QString actives)
@@ -771,7 +776,7 @@ void SetupDialog::readActiveModes (const QString actives)
     //qDebug() << "SetupDialog::readActiveModes: " << actives << endl;
 
     bool atLeastOne = false;
-
+    QStringList _amodes;
     QStringList values = actives.split(", ", QString::SkipEmptyParts);
 
     for (int i = 0; i < values.count() ; i++)
@@ -781,13 +786,20 @@ void SetupDialog::readActiveModes (const QString actives)
             if (!atLeastOne)
             {
                 atLeastOne = true;
-                modes.clear();
+                _amodes.clear();
             }
 
-            modes << values.at(i);
+            _amodes << values.at(i);
         }
 
     }
+
+    modes.clear();
+    modes << dataProxy->getModesInLog(-1);
+    modes << _amodes;
+    modes.removeDuplicates();
+    //qDebug() << "SetupDialog::readActiveModes: " << modes.join(" / ") << endl;
+
 
 }
 
