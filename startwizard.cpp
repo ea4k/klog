@@ -10,14 +10,14 @@
     kontestDir = _kontestDir;
     inMemory = true;
 
-    fileOrMemoryPage = new FileOrMemoryPage();
+    //fileOrMemoryPage = new FileOrMemoryPage();
     ctyPage = new CTYPage(kontestDir);
 
     setWizardStyle(QWizard::AeroStyle);
     setPage(Page_Intro, new IntroPage);
     setPage(Page_Lic, new LicPage);
     //setPage(Page_Mem, new FileOrMemoryPage);
-    setPage(Page_Mem, fileOrMemoryPage);
+
     setPage(Page_CTY, ctyPage);
 
 
@@ -30,7 +30,7 @@
     disconnect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
     connect(cancelButton, SIGNAL( clicked() ), this, SLOT( slotCancelWizard() ) );
 
-    connect(fileOrMemoryPage, SIGNAL(exeInMemory(bool)), this, SLOT(slotRunInMemory(bool) ) );
+    //connect(fileOrMemoryPage, SIGNAL(exeInMemory(bool)), this, SLOT(slotRunInMemory(bool) ) );
     //connect(ctyPage, SIGNAL(downloadTheFileSignal(bool)), this, SLOT(slotDownloadCTY(bool) ) );
 
   QList<QWizard::WizardButton> layout;
@@ -841,7 +841,8 @@
 
  int LicPage::nextId() const
 {
-    return StartWizard::Page_Mem;
+     return StartWizard::Page_CTY;
+    //return StartWizard::Page_Mem;
 }
 
 
@@ -849,7 +850,7 @@
  {
 
  }
-
+/*
 FileOrMemoryPage::FileOrMemoryPage(QWidget *parent)
       : QWizardPage(parent)
 {
@@ -903,6 +904,7 @@ int FileOrMemoryPage::nextId() const
 {
    return StartWizard::Page_CTY;
 }
+*/
 
 CTYPage::CTYPage(const QString _kontestDir, QWidget *parent) : QWizardPage(parent)
 {

@@ -44,7 +44,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     // <ui>
     doc = new QTextDocument;
 
-    DBinMemory = false;
+
     needToEnd = false;
     cleaning = false;
     qrzAutoChanging = false;
@@ -201,6 +201,9 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         }
     }
 
+
+
+    DBinMemory = false;
     db = new DataBase(softwareVersion, DBinMemory);
 
   //qDebug() << "MainWindow::MainWindow: 1 " << endl;
@@ -241,17 +244,10 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     dataProxy = new DataProxy_SQLite();
     propModeList = dataProxy->getPropModeList();
 
-    if (configured)
-    {
-      //qDebug() << "MainWindow::MainWindow: configured = true" << endl;
-    }
-    else
-    {
-      //qDebug() << "MainWindow::MainWindow: configured = false" << endl;
-    }
-   //qDebug() << "MainWindow::MainWindow: 5.1" << endl;
+
+
     setupDialog = new SetupDialog(!configured);
-   //qDebug() << "MainWindow::MainWindow: 6" << endl;
+
 
     satTabWidget = new MainWindowSatTab();
    //qDebug() << "MainWindow::MainWindow: 7" << endl;

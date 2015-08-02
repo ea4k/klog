@@ -73,6 +73,7 @@ class LicPage : public QWizardPage
       QTextEdit *licenseBrowser;
       QCheckBox *aceptLicCheckBox;
 };
+/*
 
 class FileOrMemoryPage : public QWizardPage
   {
@@ -87,8 +88,6 @@ class FileOrMemoryPage : public QWizardPage
 private slots:
   void slotRunningModeSelectedFile(bool checked);
   void slotRunningModeSelectedMemory(bool checked);
-
-
 signals:
     void exeInMemory(const bool mem);
 
@@ -104,7 +103,7 @@ signals:
     bool runInMemory;
 
 };
-
+*/
 class CTYPage : public QWizardPage
   {
       Q_OBJECT
