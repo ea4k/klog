@@ -61,20 +61,20 @@ void DataBase::compress()
 
 bool DataBase::createConnection()
 {
-    //qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
+    qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
     QString stringQuery;
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     QSqlQuery query;
 
-    //qDebug() << "DataBase::createConnection: -1" << endl;
+    qDebug() << "DataBase::createConnection: -1" << endl;
     if (inMemoryOnly)
     {
-        //qDebug() << "DataBase::createConnection: Memory" << endl;
+        qDebug() << "DataBase::createConnection: Memory" << endl;
         db.setDatabaseName(":memory:"); // 2m 07s
     }
     else
     {
-        //qDebug() << "DataBase::createConnection: File" << endl;
+        qDebug() << "DataBase::createConnection: File" << endl;
         db.setDatabaseName("logbook.dat");
     }
 
@@ -84,7 +84,7 @@ bool DataBase::createConnection()
     if (!db.open()) {
         QMessageBox::warning(0, QObject::tr("Database Error"),
                              db.lastError().text());
-        //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
+        qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
         return false;
     }
    else
