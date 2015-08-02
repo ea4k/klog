@@ -20,6 +20,7 @@
 - GUI: Added a Propagation Mode Combobox.
 - GUI: Prop_Mode combobox automatically goes to SAT if sat name or sat mode are defined.
 - GUI: Added a Find DX-QSL requested option.
+- Added an auto complete option to auto-complete info (QTH, Locator, Name, QSL Manager & IOTA) from previously worked QSO.
 - Some minor performance improvements.
 
 April-2015 - 0.9.1.1

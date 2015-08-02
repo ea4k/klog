@@ -451,7 +451,7 @@ void SetupDialog::slotOkButtonClicked()
         stream << "SendQSLWhenRec=" << miscPage->getSendQSLWhenRec() << ";" <<  endl;
         stream << "ShowCallsignInSearch=" << miscPage->getShowStationCallSignInSearch() << ";" <<  endl;
         stream << "KeepMyData=" << miscPage->getKeepMyData() << ";" <<  endl;
-
+        stream << "CompleteWithPrevious=" << miscPage->getCompleteWithPrevious() << ";" <<  endl;
 
 
         if ((!(dxClusterPage->getSelectedDxClusterServer()).isNull()) && (  (dxClusterPage->getSelectedDxClusterServer()).length() > 0   ))
@@ -597,6 +597,8 @@ bool SetupDialog::processConfigLine(const QString _line)
         miscPage->setImperial(value.toLower());
     }else if (tab=="KEEPMYDATA"){
         miscPage->setKeepMyData(value.toLower());
+    }else if (tab=="COMPLETEWITHPREVIOUS"){
+        miscPage->setCompleteWithPrevious(value.toLower());
     }else if (tab=="SENDQSLWHENREC"){
         miscPage->setSendQSLWhenRec(value.toLower());
     }

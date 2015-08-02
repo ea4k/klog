@@ -313,6 +313,7 @@ private:
     void qsoToEdit (const int _qso);
     void showInfoFromLocators(const QString _loc1, const QString _loc2);
     void clearInfoFromLocators();
+    void completeWithPreviousQSO(const QString _call);
 
     //void showQRZEntityInfo(const QString _qrz);
     void showEntityInfo(const int _enti);
@@ -508,13 +509,14 @@ private:
 
     QString stx;
     QString srx;
-
-    bool realTime, UTCTime, alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, keepMyData;
+    QPalette palRed, palBlack; // To paint Text in red or black(normal)
+    bool realTime, UTCTime, alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, keepMyData, completeWithPrevious, completedWithPreviousQTH, completedWithPreviousLocator, completedWithPreviousName, completedWithPreviousIOTA, completedWithPreviousQSLVia;
     bool cleaning;
     bool manageMode; // If true, the DXCC and awards will take the mode into consideration to decide if needed or worked. False implies only band is taken into account
     // Station Setup
     bool configured, modify;
     bool needToEnd; // Just to control if the software needs to end.
+    bool qrzAutoChanging; //To stop executing the slotQRZTextChanged just because KLog uppercase a letter
     QString mainQRZ, stationQRZ, operatorQRZ, myLocator, dxLocator;
     QString lastOperatorQRZ, lastStationQRZ, lastMyLocator;
     double myPower, lastPower;
