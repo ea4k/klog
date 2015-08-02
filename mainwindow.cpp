@@ -47,6 +47,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     DBinMemory = false;
     needToEnd = false;
     cleaning = false;
+    qrzAutoChanging = false;
     dxclusterServerToConnect = "dxfun.com";
     dxclusterServerPort = 8000;
     contestMode = NoContest;
@@ -91,6 +92,13 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     realTime=true;
     UTCTime=true;
     keepMyData=true;
+    completeWithPrevious=false;
+    completedWithPreviousQTH=false;
+    completedWithPreviousLocator=false;
+    completedWithPreviousName=false;
+    completedWithPreviousIOTA=false;
+    completedWithPreviousQSLVia=false;
+
     alwaysADIF=false;
     useDefaultLogFileName=false;
     needToSave=false;
@@ -264,7 +272,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     timer->start(1000);
 
     previousQrz = "";
-    qrzLineEdit = new QLineEdit;
+    qrzLineEdit = new QLineEdit;    
     nameLineEdit = new QLineEdit;
     qthLineEdit = new QLineEdit;
     locatorLineEdit = new QLineEdit;
@@ -432,6 +440,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
 
     // </CLUSTER>
+    palRed.setColor(QPalette::Text, Qt::red);
+    palBlack.setColor(QPalette::Text, Qt::black);
 
     // </UI>
 
@@ -2795,14 +2805,20 @@ bool MainWindow::validCharactersInCall(const QString _qrz)
 }
 void MainWindow::slotQRZTextChanged()
 {    
-   //qDebug()() << "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << endl;
+   //qDebug()<< "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << endl;
     if (cleaning)
     {
+        return;
+    }
+    if (qrzAutoChanging)
+    {
+        qrzAutoChanging = false;
         return;
     }
 
     int cursorP = qrzLineEdit->cursorPosition();
     //infoLabel1->clear();    
+    qrzAutoChanging = true;
     qrzLineEdit->setText(((qrzLineEdit->text())).simplified());
     qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
     if (!validCharactersInCall(qrzLineEdit->text()))
@@ -2970,6 +2986,8 @@ void MainWindow::slotQRZTextChanged()
     }
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
     qrzLineEdit->setCursorPosition(cursorP);
+    completeWithPreviousQSO(currentQrz);
+    qrzAutoChanging = false;
     //qDebug() << "MainWindow::slotQRZTextChanged: END" << endl;
 }
 
@@ -3453,11 +3471,10 @@ void MainWindow::slotClearButtonClicked()
             lotwSentComboBox->setCurrentIndex(1);
             lotwRecComboBox->setCurrentIndex(1);
             qslmsgTextEdit->clear();
-            qslViaLineEdit->clear();
-            iotaContinentComboBox->setCurrentIndex(0);
+            qslViaLineEdit->clear();            
             entityNameComboBox->setCurrentIndex(0);
             propModeComboBox->setCurrentIndex(0);
-
+            iotaContinentComboBox->setCurrentIndex(0);
             iotaNumberLineEdit->setText("000");
             continentLabel->setText("");
             prefixLabel->setText("");
@@ -4999,10 +5016,12 @@ bool MainWindow::processConfigLine(const QString _line){
     }
     else if (field=="KEEPMYDATA")
     {
-        //qDebug() << "MainWindow::processConfigLine: UTCTIME: " << value.toUpper() <<endl;
         keepMyData  = trueOrFalse(value);
     }
-
+    else if (field=="COMPLETEWITHPREVIOUS")
+    {
+        completeWithPrevious  = trueOrFalse(value);
+    }
     else if (field=="DXCLUSTERSHOWHF")
     {
         dxClusterShowHF  = trueOrFalse(value);
@@ -8762,3 +8781,135 @@ QString MainWindow::getPropModeFromComboBox()
 }
 
 
+void MainWindow::completeWithPreviousQSO(const QString _call)
+{
+    //qDebug() << "MainWindow::completeWithPreviousQSO" << endl;
+    //This function completes: Name, QTH, Locator, Entity, Iota
+    if ((!completeWithPrevious) || (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
+    //if ( (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
+    {
+        if (completedWithPreviousName)
+        {
+            nameLineEdit->clear();
+            completedWithPreviousName = false;
+            nameLineEdit->setPalette(palBlack);
+        }
+        if (completedWithPreviousQTH)
+        {
+            qthLineEdit->clear();
+            completedWithPreviousQTH = false;
+            qthLineEdit->setPalette(palBlack);
+         }
+        if (completedWithPreviousLocator)
+        {
+            locatorLineEdit->clear();
+            completedWithPreviousLocator = false;
+            locatorLineEdit->setPalette(palBlack);
+        }
+        if (completedWithPreviousIOTA)
+        {
+            iotaContinentComboBox->setCurrentIndex(0);
+            iotaNumberLineEdit->setText("000");
+            completedWithPreviousIOTA = false;
+            iotaNumberLineEdit->setPalette(palBlack);
+        }
+        if (completedWithPreviousQSLVia)
+        {
+            qslViaLineEdit->clear();
+            completedWithPreviousQSLVia = false;
+            qslViaLineEdit->setPalette(palBlack);
+        }
+        return;
+    }
+
+    QString aux = QString();
+
+    aux = dataProxy->getNameFromQRZ(_call);
+    if ((aux.length()>=0) && ((nameLineEdit->text()).length()<=0) )
+    {
+        nameLineEdit->setPalette(palRed);
+        completedWithPreviousName = true;
+        nameLineEdit->setText(aux);
+    }
+    else if (completedWithPreviousName)
+    {
+        nameLineEdit->clear();
+        completedWithPreviousName = false;
+        nameLineEdit->setPalette(palBlack);
+    }
+    else
+    {
+    }
+
+    aux = dataProxy->getQTHFromQRZ(_call);
+    if ((aux.length()>=0) && ((qthLineEdit->text()).length()<=0) )
+    {
+        qthLineEdit->setPalette(palRed);
+        completedWithPreviousQTH = true;
+        qthLineEdit->setText(aux);
+    }
+    else if (completedWithPreviousQTH)
+    {
+        qthLineEdit->clear();
+        completedWithPreviousQTH = false;
+        qthLineEdit->setPalette(palBlack);
+
+    }
+
+    aux = dataProxy->getLocatorFromQRZ(_call);
+    if ((aux.length()>=0) && ((locatorLineEdit->text()).length()<=0) )
+    {
+        locatorLineEdit->setPalette(palRed);
+        locatorLineEdit->setText(aux);
+        completedWithPreviousLocator=true;
+    }
+    else if (completedWithPreviousLocator)
+    {
+        locatorLineEdit->clear();
+        completedWithPreviousLocator = false;
+        locatorLineEdit->setPalette(palBlack);
+    }
+
+    aux = dataProxy->getIOTAFromQRZ(_call);
+    if ((aux.length()>=0) && ((iotaNumberLineEdit->text()).length()<=0) )
+    {
+
+        aux = awards->checkIfValidIOTA(aux);
+
+        if ((aux.length())==6){
+            QStringList values = aux.split("-", QString::SkipEmptyParts);
+            iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(values.at(0) ) );
+            iotaNumberLineEdit->setPalette(palRed);
+            iotaNumberLineEdit->setText(values.at(1));
+            completedWithPreviousIOTA=true;
+        }
+        else if (completedWithPreviousIOTA)
+        {
+            iotaContinentComboBox->setCurrentIndex(0);
+            iotaNumberLineEdit->setPalette(palBlack);
+            iotaNumberLineEdit->setText("000");
+            completedWithPreviousName = false;
+        }
+    }
+    else if (completedWithPreviousIOTA)
+    {
+        iotaContinentComboBox->setCurrentIndex(0);
+        iotaNumberLineEdit->setPalette(palBlack);
+        iotaNumberLineEdit->setText("000");
+        completedWithPreviousIOTA = false;
+    }
+
+    aux = dataProxy->getQSLViaFromQRZ(_call);
+    if ((aux.length()>=0) && ((qslViaLineEdit->text()).length()<=0) )
+    {
+        qslViaLineEdit->setPalette(palRed);
+        qslViaLineEdit->setText(aux);
+        completedWithPreviousQSLVia=true;
+    }
+    else if (completedWithPreviousQSLVia)
+    {
+        qslViaLineEdit->clear();
+        completedWithPreviousQSLVia = false;
+        qslViaLineEdit->setPalette(palBlack);
+    }
+}

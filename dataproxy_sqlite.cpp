@@ -976,12 +976,6 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NOT OK2" << endl;
                 return QStringList();
             }
-
-
-
-
-
-
             return QStringList();
             // NO NEXT
         }
@@ -999,6 +993,167 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
     return QStringList();
 }
 
+QString DataProxy_SQLite::getNameFromQRZ(const QString _call)
+{
+    if (_call.length() <= 0)
+    {
+        qDebug() << "DataProxy_SQLite::getNameFromQRZ return 0" << endl;
+        return QString();
+    }
+
+    QSqlQuery query;
+    QString queryString = QString("SELECT name FROM log WHERE call='%0'").arg(_call);
+
+    bool sqlOk = query.exec(queryString);
+    if (sqlOk)
+    {
+        while (query.next())
+        {
+            if (query.isValid())
+            {
+                if (((query.value(0)).toString()).length()>0)
+                {
+                    qDebug() << "DataProxy_SQLite::getNameFromQRZ: " <<  (query.value(0)).toString() << endl;
+                    return (query.value(0)).toString();
+                }
+            }
+        }
+        qDebug() << "DataProxy_SQLite::getNameFromQRZ return 1" << endl;
+        return QString();
+    }
+    else
+    {
+        qDebug() << "DataProxy_SQLite::getNameFromQRZ return 2" << endl;
+        return QString();
+    }
+    qDebug() << "DataProxy_SQLite::getNameFromQRZ return 3" << endl;
+}
+
+QString DataProxy_SQLite::getQTHFromQRZ(const QString _call)
+{
+    if (_call.length() <= 0)
+    {
+        return QString();
+    }
+    QSqlQuery query;
+    QString queryString = QString("SELECT qth FROM log WHERE call='%0'").arg(_call);
+
+    bool sqlOk = query.exec(queryString);
+    if (sqlOk)
+    {
+        while (query.next())
+        {
+            if (query.isValid())
+            {
+                if (((query.value(0)).toString()).length()>0)
+                {
+                    return (query.value(0)).toString();
+                }
+            }
+        }
+        return QString();
+    }
+    else
+    {
+        return QString();
+    }
+
+}
+
+QString DataProxy_SQLite::getLocatorFromQRZ(const QString _call)
+{
+    if (_call.length() <= 0)
+    {
+        return QString();
+    }
+    QSqlQuery query;
+    QString queryString = QString("SELECT gridsquare FROM log WHERE call='%0'").arg(_call);
+
+    bool sqlOk = query.exec(queryString);
+    if (sqlOk)
+    {
+        while (query.next())
+        {
+            if (query.isValid())
+            {
+                if (((query.value(0)).toString()).length()>0)
+                {
+                    return (query.value(0)).toString();
+                }
+            }
+        }
+        return QString();
+    }
+    else
+    {
+        return QString();
+    }
+
+}
+
+
+QString DataProxy_SQLite::getIOTAFromQRZ(const QString _call)
+{
+    if (_call.length() <= 0)
+    {
+        return QString();
+    }
+    QSqlQuery query;
+    QString queryString = QString("SELECT iota FROM log WHERE call='%0'").arg(_call);
+
+    bool sqlOk = query.exec(queryString);
+    if (sqlOk)
+    {
+        while (query.next())
+        {
+            if (query.isValid())
+            {
+                if (((query.value(0)).toString()).length()>0)
+                {
+                    return (query.value(0)).toString();
+                }
+            }
+        }
+        return QString();
+    }
+    else
+    {
+        return QString();
+    }
+
+}
+
+
+QString DataProxy_SQLite::getQSLViaFromQRZ(const QString _call)
+{
+    if (_call.length() <= 0)
+    {
+        return QString();
+    }
+    QSqlQuery query;
+    QString queryString = QString("SELECT DISTINCT qsl_via FROM log WHERE call='%0'").arg(_call);
+
+    bool sqlOk = query.exec(queryString);
+    if (sqlOk)
+    {
+        while (query.next())
+        {
+            if (query.isValid())
+            {
+                if (((query.value(0)).toString()).length()>0)
+                {
+                    return (query.value(0)).toString();
+                }
+            }
+        }
+        return QString();
+    }
+    else
+    {
+        return QString();
+    }
+}
+
 
 bool DataProxy_SQLite::deleteQSO(const int _qsoId)
 {
@@ -1013,7 +1168,15 @@ int DataProxy_SQLite::isWorkedB4(const QString _qrz, const int _currentLog)
     //qDebug() << "DataProxy_SQLite::isWorkedB4" << endl;
     QSqlQuery query;
     QString queryString;
-    queryString = QString("SELECT id FROM log WHERE call='%1' AND lognumber='%2'").arg(_qrz).arg(_currentLog);
+    if (_currentLog < 0)
+    {
+        queryString = QString("SELECT id FROM log WHERE call='%1'").arg(_qrz);
+    }
+    else
+    {
+        queryString = QString("SELECT id FROM log WHERE call='%1' AND lognumber='%2'").arg(_qrz).arg(_currentLog);
+    }
+
     //queryString = "SELECT id FROM log WHERE call='" + _qrz +"'";
     //qDebug() << "World::checkIfWorkedB4: " << queryString << endl;
     query.exec(queryString);

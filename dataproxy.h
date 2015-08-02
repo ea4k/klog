@@ -62,6 +62,13 @@ public:
 
     virtual QString getCallFromId(const int _qsoId);
     virtual QStringList getClubLogRealTimeFromId(const int _qsoId);
+    // Complete with previous
+    virtual QString getNameFromQRZ(const QString _call);
+    virtual QString getQTHFromQRZ(const QString _call);
+    virtual QString getLocatorFromQRZ(const QString _call);
+    virtual QString getIOTAFromQRZ(const QString _call);
+    virtual QString getQSLViaFromQRZ(const QString _call);
+    // /Complete with previous
 
     virtual QStringList getOperatingYears(const int _currentLog);
     virtual void compressDB();

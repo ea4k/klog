@@ -56,7 +56,8 @@ public:
     void setShowStationCallSignInSearch(const QString t);
     QString getKeepMyData();
     void setKeepMyData(const QString t);
-
+    QString getCompleteWithPrevious();
+    void setCompleteWithPrevious(const QString t);
 
 private slots:
     void slotOpenFileButtonClicked();
@@ -67,7 +68,7 @@ private slots:
 private:
     void createActions();
 
-    QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *dbInMemory, *useDefaultName;
+    QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *dbInMemory, *useDefaultName, *completeWithPreviousCheckBox;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox, *keepMyDataCheckBox;
     QString defaultFileName;
     QLineEdit *defaultFileNameLineEdit;

@@ -208,10 +208,6 @@ SetupEntityDialog::SetupEntityDialog(){
 
     setWindowTitle(tr("Entity Dialog"));
 
-    //slotReadConfigData();
-    //*paletteOrig = cqLineEdit->palette();
-
-    //QPalette::ColorRole QWidget::foregroundRole () const;
     pal = lonLineEdit->palette();
     //qDebug() << "SetupEntityDialog::SetupEntityDialog: END" << endl;
 }

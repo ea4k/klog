@@ -207,6 +207,32 @@ QStringList DataProxy::getClubLogRealTimeFromId(const int _qsoId)
     return QStringList();
 }
 
+QString DataProxy::getNameFromQRZ(const QString _call)
+{
+    return QString();
+}
+
+QString DataProxy::getQTHFromQRZ(const QString _call)
+{
+    return QString();
+}
+
+QString DataProxy::getLocatorFromQRZ(const QString _call)
+{
+    return QString();
+}
+
+QString DataProxy::getIOTAFromQRZ(const QString _call)
+{
+    return QString();
+}
+
+QString DataProxy::getQSLViaFromQRZ(const QString _call)
+{
+    return QString();
+}
+
+
 
 bool DataProxy::deleteQSO(const int _qsoId)
 {

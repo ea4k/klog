@@ -53,6 +53,8 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     alwaysADIFCheckBox = new QCheckBox(tr("&Save ADIF on exit"), this);
     useDefaultName = new QCheckBox(tr("Use this &default filename"), this);
     sendQSLWhenRecCheckBox = new QCheckBox(tr("Mark &QSO to send QSL when QSL is received"), this);
+    completeWithPreviousCheckBox = new QCheckBox(tr("Complete QSO with previous data"));
+
     sendQSLWhenRecCheckBox->setToolTip(tr("QSOs will be marked to be pending to send the QSL if the DX QSL is received and you have not sent your."));
 
     showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station &Callsign used in the search box"), this);
@@ -69,6 +71,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     UTCCheckbox->setToolTip(tr("Select to use UTC time."));
     alwaysADIFCheckBox->setToolTip(tr("Select if you want to save to ADIF on exit."));
     useDefaultName->setToolTip(tr("Select to use the following name for the logfile and not being asked for it anymore."));
+    completeWithPreviousCheckBox->setToolTip(tr("Complete the current QSO with previous QSO data."));
 
     defaultFileNameLineEdit = new QLineEdit;
     defaultFileNameLineEdit->setToolTip(tr("This is the default file where ADIF will be saved."));
@@ -80,6 +83,8 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     alwaysADIFCheckBox->setChecked(true);
     showStationCallWhenSearchCheckBox->setChecked(true);
     keepMyDataCheckBox->setChecked(true);
+
+    completeWithPreviousCheckBox->setChecked(false);
 
     fileNameButton = new QPushButton;
     fileNameButton->setToolTip(tr("Click to change the default ADIF file"));
@@ -100,6 +105,11 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     timeLayout->addWidget(UTCCheckbox);
     timeLayout->addWidget(realTimeCheckbox);
 
+    QHBoxLayout *dataLayout = new QHBoxLayout;
+    dataLayout->addWidget(keepMyDataCheckBox);
+    dataLayout->addWidget(completeWithPreviousCheckBox);
+
+
     //QHBoxLayout *fileOptLayout = new QHBoxLayout;
     //fileOptLayout->addWidget(useDefaultName);
     //fileOptLayout->addWidget(alwaysADIFCheckBox);
@@ -115,7 +125,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     //mainLayout->addWidget(UTCCheckbox);
     mainLayout->addLayout(timeLayout);
     mainLayout->addWidget(imperialCheckBox);
-    mainLayout->addWidget(keepMyDataCheckBox);
+    mainLayout->addLayout(dataLayout);
     mainLayout->addWidget(sendQSLWhenRecCheckBox);
     mainLayout->addWidget(showStationCallWhenSearchCheckBox);
 
@@ -403,4 +413,29 @@ void SetupPageMisc::setKeepMyData(const QString t)
         keepMyDataCheckBox->setChecked(true);
     }
 
+}
+
+QString SetupPageMisc::getCompleteWithPrevious()
+{
+    if (completeWithPreviousCheckBox->isChecked())
+    {
+        return "True";
+    }
+    else
+    {
+        return "False";
+    }
+
+}
+
+void SetupPageMisc::setCompleteWithPrevious(const QString t)
+{
+    if ( (t.toUpper()) == "FALSE")
+    {
+        completeWithPreviousCheckBox->setChecked(false);
+    }
+    else
+    {
+        completeWithPreviousCheckBox->setChecked(true);
+    }
 }

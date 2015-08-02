@@ -61,6 +61,14 @@ public:
 
     QString getCallFromId(const int _qsoId);
     QStringList getClubLogRealTimeFromId(const int _qsoId);
+    // Complete with previous
+    QString getNameFromQRZ(const QString _call);
+    QString getQTHFromQRZ(const QString _call);
+    QString getLocatorFromQRZ(const QString _call);
+    QString getIOTAFromQRZ(const QString _call);
+    QString getQSLViaFromQRZ(const QString _call);
+    // /Complete with previous
+
 
     QStringList getOperatingYears(const int _currentLog);
     void compressDB();
