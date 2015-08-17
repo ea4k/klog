@@ -41,6 +41,7 @@ public:
 
     bool deleteQSO(const int _qsoId);
     int isWorkedB4(const QString _qrz, const int _currentLog);
+    bool isThisQSODuplicated(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode);
     bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);
@@ -69,6 +70,22 @@ public:
     QString getQSLViaFromQRZ(const QString _call);
     // /Complete with previous
 
+    int getContinentIdFromContinentShortName(const QString _n);
+    QString getContinentShortNameFromEntity(const int _n);
+    int getContinentIdFromEntity(const int _n);
+    int getCQzFromPrefix(const QString _p);
+    int getCQzFromEntity(const int _n);
+    int getITUzFromEntity(const int _n);
+    int getITUzFromPrefix(const QString _p);
+    QString getEntityNameFromId(const int _n);
+    QString getEntityMainPrefix(const int _entityN);
+    bool isNewCQz(int _c);
+    bool isNewEntity(int _e);
+    double getLongitudeFromEntity(const int _e);
+    double getLatitudeFromEntity(const int _e);
+    int getDXCCFromPrefix(const QString _p);
+    QString getEntityPrefixes(const int _enti);
+    QStringList getEntitiesNames();
 
     QStringList getOperatingYears(const int _currentLog);
     void compressDB();
@@ -92,7 +109,11 @@ public:
 
     int getHowManyQSOInLog(const int _log);
     int getNumberOfManagedLogs();
+    QStringList getListOfManagedLogs();
+    int getMaxLogNumber();
     QString getStationCallSignFromLog(const int _log);
+    bool addNewLog (const QStringList _qs);
+    bool doesThisLogExist(const int _log);
 
 private:
     bool dbCreated;

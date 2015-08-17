@@ -89,11 +89,15 @@ SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
 
     setLayout(widgetLayout);
 
+    dataProxy = new DataProxy_SQLite();
+
     //connect(newLogPushButton, SIGNAL(clicked ( )), this, SLOT(slotNewButtonClicked() ) );
 
 
     createActions();
     updateSelectedLogs();
+
+
 
 }
 
@@ -420,10 +424,14 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     QStringList newLogq;
     newLogq.clear();
     newLogq << dateString << stationCallsign << _qs.at(4) << comment << _qs.at(12);
-    addNewLog(newLogq);
+    if (dataProxy->addNewLog(newLogq))
+    {
+        logsModel->select();
+        updateSelectedLogs();
+    }
 
 }
-
+/*
 bool SetupPageLogs::addNewLog(const QStringList _qs)
 {
     //qDebug() << "SetupPageLogs::addNewLog: " << _qs.at(2) << endl;
@@ -470,7 +478,7 @@ bool SetupPageLogs::addNewLog(const QStringList _qs)
     }
     return false;
 }
-
+*/
 void SetupPageLogs::updateSelectedLogs()
 {
     //qDebug() << "SetupPageLogs::updateSelectedLogs" << endl;

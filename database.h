@@ -113,7 +113,7 @@ private:
     bool populatePropagationModes();
 
     bool howManyQSOsInLog(const int i);
-    void showError(const QString _errorC);
+    //void showError(const QString _errorC);
 
     bool moveFromModeIdToSubmodeId();
     bool updateModeIdFromSubModeId();

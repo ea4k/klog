@@ -50,6 +50,7 @@
 #include "awards.h"
 #include "mainwindowsattab.h"
 #include "elogclublog.h"
+#include "utilities.h"
 
 class QTimer;
 class QDateTime;
@@ -301,8 +302,7 @@ private:
     bool createConnection();
     void createData();
     bool processConfigLine(const QString _line);
-    void readConfigData();
-    bool trueOrFalse(const QString _s); // reads a String and return true if s.upper()== TRUE :-)
+    void readConfigData();    
     void defineStationCallsign();
 
     void checkIfNewBandOrMode();
@@ -316,7 +316,7 @@ private:
     void completeWithPreviousQSO(const QString _call);
 
     //void showQRZEntityInfo(const QString _qrz);
-    void showEntityInfo(const int _enti);
+    void showEntityInfo(const int _enti, int _cq=-1, int _itu=-1);
     QString getStyleColorToLabelFromBand(const QString _b, const QString _q);
     void showAwards();
     void showDXMarathon(const int _year);
@@ -342,6 +342,7 @@ private:
     FileManager *filemanager;
     Locator *locator;
     Awards *awards;
+    Utilities *util;
     //WorldEditorWidget *worldEditor;
 
     HelpHelpDialog *helpHelpDialog;

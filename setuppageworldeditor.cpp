@@ -4,7 +4,7 @@
 
 SetupPageWorldEditor::SetupPageWorldEditor(QWidget *parent) : QWidget(parent)
 {
-    //qDebug() << "SetupPageWorldEditor::SetupPageWorldEditor"  << endl;
+   //qDebug() << "SetupPageWorldEditor::SetupPageWorldEditor"  << endl;
     //worldPanel = new QWidget;
 
     world = new World();

@@ -29,6 +29,9 @@
 //#include <QtWidgets>
 #include <QtGui>
 #include <QtSql>
+#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
+
 
 #include "setuppagelogsnew.h"
 
@@ -83,7 +86,7 @@ private:
     void createLogsPanel();
     void createLogsModel();
     void createActions();
-    bool addNewLog(const QStringList _qs);
+    //bool addNewLog(const QStringList _qs);
     void updateSelectedLogs();
     void readSelectedLog(const int _i);
     void showError(const QString _errorC);
@@ -120,6 +123,7 @@ private:
     QString stationCallsign, operators, comment, dateString, typeContest;
     int contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands, typeContestN;
 
+    DataProxy *dataProxy;
 };
 
 
