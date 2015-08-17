@@ -41,6 +41,7 @@ public:
 
     virtual bool deleteQSO(const int _qsoId);
     virtual int isWorkedB4(const QString _qrz, const int _currentLog);
+    virtual bool isThisQSODuplicated(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode);
     virtual bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     virtual bool isQSLReceived(const int _qsoId);
     virtual bool isQSLSent(const int _qsoId);
@@ -70,6 +71,24 @@ public:
     virtual QString getQSLViaFromQRZ(const QString _call);
     // /Complete with previous
 
+    virtual int getContinentIdFromContinentShortName(const QString _n);
+    virtual QString getContinentShortNameFromEntity(const int _n);
+    virtual int getContinentIdFromEntity(const int _n);
+    virtual int getCQzFromPrefix(const QString _p);
+    virtual int getCQzFromEntity(const int _n);
+    virtual int getITUzFromEntity(const int _n);
+    virtual int getITUzFromPrefix(const QString _p);
+    virtual QString getEntityNameFromId(const int _n);
+    virtual QString getEntityMainPrefix(const int _entityN);
+    virtual bool isNewCQz(int _c);
+    virtual bool isNewEntity(int _e);
+    virtual double getLongitudeFromEntity(const int _e);
+    virtual double getLatitudeFromEntity(const int _e);
+
+    virtual int getDXCCFromPrefix(const QString _p);
+    virtual QString getEntityPrefixes(const int _enti);
+    virtual QStringList getEntitiesNames();
+
     virtual QStringList getOperatingYears(const int _currentLog);
     virtual void compressDB();
 
@@ -90,7 +109,12 @@ public:
 
     virtual int getHowManyQSOInLog(const int _log);
     virtual int getNumberOfManagedLogs();
+    virtual int getMaxLogNumber();
+    virtual QStringList getListOfManagedLogs();
     virtual QString getStationCallSignFromLog(const int _log);
+    virtual bool addNewLog (const QStringList _qs);
+    virtual bool doesThisLogExist(const int _log);
+
 
 
 

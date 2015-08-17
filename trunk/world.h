@@ -39,6 +39,8 @@
 #include <QtDebug>
 
 #include "locator.h"
+#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 //#include "awards.h"
 
 
@@ -84,8 +86,10 @@ public:
     double getQRZLatitude(const QString _qrz); // Returns the latitude of the Entity
     double getLatitude(const int _enti); // Returns the latitude of the Entity
 
-    int getQRZCqz(const QString _qrz);
+
     int getEntityCqz(const int _enti);
+    int getQRZCqz(const QString _qrz);
+    //int getPrefixCQz(const QString _p);
 
     int getQRZItuz(const QString _qrz);
     int getEntityItuz(const int _enti);
@@ -93,7 +97,7 @@ public:
     int getQRZARRLId(const QString _qrz); //Returns the ARRL id of the Entity from a QRZ & Returns -1 if not found.
     bool isNewCQz(const int _cqz);
     bool isNewEntity(const int _entityN);
-    int getBandIdFromFreq(const QString fr);
+    //int getBandIdFromFreq(const QString fr);
 
     QString getQRZEntityPrefixes(const QString _qrz);
     QString getEntityPrefixes(const int _enti);
@@ -136,6 +140,7 @@ private:
     //QProgressBar *progressBar;
 
     Locator *locator;
+    DataProxy *dataProxy;
     //Awards *awards;
 
 };

@@ -30,10 +30,11 @@
 
 Awards::Awards()
 {
-    //qDebug() << "Awards::Awards"  << endl;
+   //qDebug() << "Awards::Awards"  << endl;
     world = new World();
     dataProxy = new DataProxy_SQLite();
     dxMarathon = new DXMarathon();
+    util = new Utilities();
     //world->create();
 
     //newOneColor = Qt::green;
@@ -703,46 +704,48 @@ QString message = QString();
 switch (_status) {
 
     case 0:
-        message = QObject::tr("0-new One");
+        message = QObject::tr("nNew One, work it!");
+        //message = QObject::tr("0-new One");
     break;
     case 1:
-        message = QObject::tr("1-Needed, work it!");
+        message = QObject::tr("Needed, work it!");
+        //message = QObject::tr("1-Needed, work it!");
     break;
     case 2:
-        message = QObject::tr("2-Needed, work it!");
+        message = QObject::tr("Needed, work it!");
     break;
     case 3:
-        message = QObject::tr("3-Worked but not confirmed");
+        message = QObject::tr("Worked but not confirmed");
     break;
     case 4:
-        message = QObject::tr("4-Needed, work it!");
+        message = QObject::tr("Needed, work it!");
    break;
     case 5:
-        message = QObject::tr("5-Needed, work it!");
+        message = QObject::tr("Needed, work it!");
    break;
     case 6:
-        message = QObject::tr("6-Needed, work it!");
+        message = QObject::tr("Needed, work it!");
    break;
     case 7:
-        message = QObject::tr("7-Needed, work it!");
+        message = QObject::tr("Needed, work it!");
    break;
     case 8:
-        message = QObject::tr("8-Worked but not confirmed");
+        message = QObject::tr("Worked but not confirmed");
    break;
     case 9:
-    message = QObject::tr("9-Needed, work it!");
+    message = QObject::tr("Needed, work it!");
    break;
     case 10:
-        message = QObject::tr("10-Worked but not confirmed");
+        message = QObject::tr("Worked but not confirmed");
    break;
     case 11:
-    message = QObject::tr("11-Needed, work it!");
+    message = QObject::tr("Needed, work it!");
    break;
     case 12:
-        message = QObject::tr("12-Worked but not confirmed");
+        message = QObject::tr("Worked but not confirmed");
    break;
     case 13:
-    message = QObject::tr("13-Confirmed");
+    message = QObject::tr("Confirmed");
    break;
     break;
     default:
@@ -923,7 +926,7 @@ void Awards::recalculateAwards()
         query.next();
         numberOfQsos = query.value(0).toInt();
         //qDebug() << "Awards::recalculateAwards: MAX = " << QString::number(numberOfQsos) << endl;
-        step = getProgresStepForDialog(numberOfQsos);
+        step = util->getProgresStepForDialog(numberOfQsos);
 
     }
     else
@@ -1545,7 +1548,7 @@ bool Awards::setAwardWAZ(const int _cqz, const int _band, const int _mode, const
 }
 
 
-
+/*
 int Awards::getProgresStepForDialog(int totalSteps){
   //qDebug() << "FileManager::getProgresStepForDialog";
     if (totalSteps <=100)
@@ -1563,7 +1566,7 @@ int Awards::getProgresStepForDialog(int totalSteps){
     else
         return 50;
 }
-
+*/
 
 int Awards::setAwardDXCCst(const int _dxcc, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId)
 {

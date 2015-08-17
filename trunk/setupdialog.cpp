@@ -463,9 +463,9 @@ void SetupDialog::slotOkButtonClicked()
         stringList.clear();
         stringList << dxClusterPage->getDxclusterServersComboBox();
 
-        if (stringList.count()>0)
+        if (stringList.size()>0)
         { 
-            for (int i = 0; i < stringList.count(); i++)
+            for (int i = 0; i < stringList.size(); i++)
             {
                  stream << "DXClusterServerPort="<< stringList.at(i) << ";" << endl;
             }
@@ -751,7 +751,7 @@ void SetupDialog::readActiveBands (const QString actives)
     QStringList values = actives.split(", ", QString::SkipEmptyParts);
     QStringList _abands;
 
-    for (int i = 0; i < values.count() ; i++)
+    for (int i = 0; i < values.size() ; i++)
     {
         if (isValidBand(values.at(i)))
         {
@@ -781,7 +781,7 @@ void SetupDialog::readActiveModes (const QString actives)
     QStringList _amodes;
     QStringList values = actives.split(", ", QString::SkipEmptyParts);
 
-    for (int i = 0; i < values.count() ; i++)
+    for (int i = 0; i < values.size() ; i++)
     {
         if (isValidMode(values.at(i)))
         {

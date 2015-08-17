@@ -68,18 +68,20 @@ public:
     bool cabrilloLogExport(const QString& _fileName, const int _contestType, const int logNconst);
     bool modifySetupFile(const QString& _filename, QString _field, const QString _value);
 
+
 private:
     bool adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked = false, bool _qslRequested = false);
     bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);
     bool cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst);
-    bool adifCheckMoreThanOneLog(QFile &_f);
+    //bool adifCheckMoreThanOneLog(QFile &_f);
+    int howManyLogsInFile(QFile & _f);
+    bool fillHashLog(QFile & _f);
+    QStringList getListOfLogsInFile(QFile & _f);
 
 
     QString checkAndFixASCIIinADIF(const QString _data);
 
-    bool processQsoReadingADIF(const QStringList _line, const int logNumber, const int _maxLog, QHash <int, int> &_logs);
-
-    //int getProgresStepForDialog(int totalSteps);
+    bool processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile, QHash <int, int> &_logs);
     void queryPreparation(const int _logN);
 
     bool checkADIFValidFormat(const QStringList _qs);
@@ -105,6 +107,7 @@ private:
     Awards *awards;
 
     QSqlQuery preparedQuery;
+    QHash<int, int> hashLogs;  // to create different logs when importing a ADIF file
 
 };
 #endif // FILEMANAGER_H

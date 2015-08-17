@@ -68,7 +68,7 @@ eLogClubLog::~eLogClubLog()
        //qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = Password Error! = " << QString::number(result)  << endl;
         text = "ClubLog: " + tr("It seems to be a PASSWORD ERROR, check your password");
 
-        int ret = QMessageBox::warning(0, tr("KLog - clublog"),
+        int ret = QMessageBox::warning(0, tr("KLog - ClubLog"),
                                        tr("It seems that your Clublog's password is not correct\n"
                                           "Please check your password in the setup. Clublog uploads will be disabled."),
                                        QMessageBox::Ok);
@@ -374,9 +374,9 @@ QString eLogClubLog::prepareToTranslate(const QString _m)
     {
         return tr("Skipping SWL callsign");
     }
-    else if (_m == "Callsign is your ow call")
+    else if (_m == "Callsign is your own call")
     {
-        return tr("Callsign is your ow call");
+        return tr("Callsign is your own call");
     }
     else if (_m == "Invalid callsign with no DXCC mapping")
     {

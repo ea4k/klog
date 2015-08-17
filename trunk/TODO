@@ -1,3 +1,5 @@
+QUitar de la configutación que pueda ejecutar en memoria
+
 This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
@@ -5,11 +7,9 @@ Feel free to request any roadmap change if you have any suggestion.
 BUG: Check the options that are marked in QSL when rightbutton.
 i.e.: Is myQSL sent marked as requested when it should be the DX-QSL?
 
-BUG: QSL Status is not OK. Data is OK, need to read properly.
-Message is not OK
-Shows 5 - needed should be confirmed (green) but color is ok
 
 BUG: CTY:CSV is not properly updated
+BUG: slotQRZTextChanged: If a string with spaces is copied in the QRZLineEdit, KLog crashes due to the cursorP variable
 
 TODO GUI: To add the CQ/ITU box or make them editable
 
@@ -19,8 +19,6 @@ void MainWindow::slotQRZReturnPressed()
 _x = elogClublog->deleteQSO(clublogPrevQSO);
 _x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSO))
 It runs so fast and not serialized that at the end sometimes the QSO is deleted but not created afterwards
-
-BUG:
 
 
 <CLUBLOG>
@@ -42,12 +40,10 @@ TODO: Define a maximum QSO upload rate to clublog to avoid excesive API usage.
 </CLUBLOG>
 
 KLog 0.9.2
-TODO: When importing an ADIF file with several logs, create automatically the logs as detected.
 TODO: Remove all not needed fields from SetupPageLogNew::gatherAndSend() the type is enough
 TODO: Keep adapting to ADIF 3.0.4
 
 NEXT:
-TODO: Some Entities have more than one CQ zone. Create a way to manage it and allow the user to select (combobox?)
 TODO: Some Entities are not recognized by ARRL (I, IG9, IT9 are the same ARRL id entities but different ones). Maybe I should not be working
       with ARRLid or maybe I should detect special ones and "id+10000" so >10000 ids are special ones.
 TODO: Add a Default band & mode in the setup dialog (MainWindow::slotClearButtonClicked, ...)
@@ -69,8 +65,6 @@ TODO: Support CQ WPX CW (Including Cabrillo Import/Export)
 KLog 0.9.6
 WORLDEDITOR Dialog
 TODO: WorldEditor is not updated when the CTY.CSV file is updated
-TODO: Create a function to check if the ADIF DXCC corresponds with the prefix.
-TODO: Add a ComboBox to change and define a DXCC for each QSO.
 TODO: World Editor: Create a way to add an entity.
 TODO: World Editor: Create a way to remove an entity.
 TODO: World Editor: Create a way to edit an entity.
@@ -95,6 +89,7 @@ TODO: DXCluster: Add flags to the DXCluster widget
 TODO: DXCluster: UI: Modify the DX-Cluster tab to show the data in a table?: DX de/Freq/DX/Comment/Time/Loc
 TODO: DXCluster: Add the DXMarathon information to the spots
 TODO: DXCLuster: Create a band map
+TODO: Working on the dxCluster: Tool to save the DXCluster in a file (for further analysis).
 
 KLog 0.9.12
 TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
@@ -103,9 +98,9 @@ TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
 TODO: Check if the data has been modified (only memory) and save the data!
 TODO BUG: When modifying allow deleting data (as in KLog 0.5.8)
 DONE BUG: Worked DXCC and WAZ are not updated until confirmed :-?
-DONE BUG: When toEdit, the IOTA field is not copied to the UI; IOTA needs to be added always with "6" chars in the BD (AF-001 and not "AF-1" or "AF-001")
 </BUGS>
 
+TODO: When importing an ADIF file with several logs, create automatically the logs as detected.
 TODO: HelpHelpDialog
 TODO: HelpAboutDialog
 
@@ -118,7 +113,7 @@ TODO: Add a default DX Cluster server
 TODO: Make a tool to mark and export QSO from the right button. (i.e. To mark several QSO to print and export the ADIF file with just those QSO)
 
 TODO: Add all the Entity Info to the slotClear to clear everything.
-TODO: Add a list of previous QSO with the same station, if any.
+TODO: Add a list of previous QSO with the same station, if any. (Done in the search box)
 
 TODO: Create something like a void Awards::setAwardsOfAllQSO to read ALL QSO and set the Awards at once instead of adding one QSO per QSO
 
@@ -149,7 +144,6 @@ TODO: DXCLuster: Double click on a spot, add it to log
 TODO: DXCLuster: Add Cluster servers
 DONE: TODO: Colors: Confirmed, Worked, Needed band, New, Default
 
-TODO: Complete with previous QSO (Name, ...)
 TODO: Require mandatory fields in all QSO
 
 TODO: Awards: Add Award
@@ -193,10 +187,8 @@ The following fields may add information, even if the qsl has not been rcvd/sent
 <QSL_RCVD_VIA:1>B <QSL_SENT_VIA:1>B
 
 TODO: showStatusOfDXCC should be executed when band change.
-TODO: bandComboBox is populated with TOO much modes (repeated!).
 
 TODO: Add color support: messages for slotQRZTextChanged
-TODO: Add color support: log?
 
 TODO: SetupPageColors: Check the style in the buttons as the rounds are lost when I change the color!!
 
@@ -204,8 +196,6 @@ TODO: MainWindow::processConfigLine:  add support for the cluster data.
 TODO: Check when to connect the DXCluster and when no, it tries twice or more...
 
 TODO: Awards: make a function to calculate the total.
-
-TODO: Working on the dxCluster: Tool to save the DXCluster in a file (for further analysis).
 
 TODO: Color support: Add needed, worked, confirmed, neutral colors to the configuration dialog.
 TODO: Color support: Support the bar when a QRZ is entered.
@@ -221,7 +211,7 @@ TODO: The confirmed WAZ number is not properly calculated.
 
 TODO: GUI: Add in the input box a combobox to change the CQZ
 TODO: GUI: Add in the input box a combobox to change the ITUZ
-TODO: GUI: Add in the input box a combobox to change the DXCC
+
 
 TODO: In CQWWSSB, when editing QSO the SRX, Points, multiplier, ... are not sent to the edit so after "OK", those data are lost.
 
@@ -229,21 +219,14 @@ TODO: MainWindow::slotQsoDeleteFromLog: Add the CALL to the message before detel
 
 TODO: Search GUI: add multi-selection QSO to do the same actions inmultiple QSO.
 
-
 TODO: When importing ADIF, update the logview sometimes... just to show the progress.
 TODO: When importing ADIF: Only shows the ProgresDialog when the number is low >1000 <14000 investigate
 TODO: Import Cabrillo
 
 
-
-
-TODO: Add the Find QSOs to QSL.
-TODO: Code the DX-Cluster connection.
-
-
 TODO: To check how can I order the columns in the log or in the search QTableView. Now the order depends only on the order of the SQL table.
 
-TODO: When mofiying a cell directly in the log, it is possible to select a mode/band that is not actually active in the configuration.
+TODO: When modifying a cell directly in the log, it is possible to select a mode/band that is not actually active in the configuration.
 
 TODO: Slot: If (only)eqsl/lotw is sent/rec, the QSL_RCVD_VIA should be E
 
@@ -252,8 +235,6 @@ TODO: Code a Tool to get statistcs for the contests, some kind of post contest t
 
 TODO: Be able to send scores to: http://www.cqcontest.ru/help/developers.jsp
 
-
-TODO: Read the IOTA information in the qsoToEdit
 TODO: Create an update CTY.DAT without overwriting the current data. Just Adding and correcting (asking) if data is already there but different.
 TODO: Create an export CTY.DAT file to create a CTY.DAT file with ALL the data in the current "world".
 
@@ -304,5 +285,5 @@ DONE: TODO: When a DX-Spot is selected, the DX-Entity and status should be shown
 DONE: TODO: DXCluster: Connect, disconnect and connect again does not work
 DONE: TODO: Add a field in Mainwindow to manage RX_PWR
 DONE: TODO: slotclearbuttons->Colors to default
+DONE: GUI: Add in the input box a combobox to change the DXCC
 
-TODO: Recalculate DXCC Status when deleting/modiying QSO - void Awards::recalculateAwards()

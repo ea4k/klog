@@ -54,7 +54,7 @@ void DXClusterWidget::initClass()
 DXClusterWidget::DXClusterWidget(const QString &clusterToConnect, const int portToConnect, QWidget *parent)
           : QWidget(parent)
 {
-    //qDebug() << "DXClusterWidget::DXClusterWidget" << clusterToConnect << QString::number(portToConnect) << endl;
+   //qDebug() << "DXClusterWidget::DXClusterWidget" << clusterToConnect << QString::number(portToConnect) << endl;
 
     initClass();
     server = clusterToConnect;
@@ -319,11 +319,11 @@ void DXClusterWidget::slotClusterDataArrived()
             dxFrequency = QString::number( (dxFrequency.toFloat())/1000);
 
             //
-            spotBand = QString::number(world->getBandIdFromFreq(  dxFrequency  ) );
-            dxCall = tokens[4];
+            spotBand = QString::number(dataProxy->getBandIdFromFreq(  dxFrequency.toDouble()  ) );
 
+            dxCall = tokens[4];
             qs.clear();
-            spotBand = QString::number(world->getBandIdFromFreq(  dxFrequency  ) );
+            //spotBand = QString::number(world->getBandIdFromFreq(  dxFrequency  ) );
             qs << dxCall << spotBand << "-1" << QString::number(currentLog) ;
 
             dxSpotColor = awards->getQRZDXStatusColor(qs);
@@ -353,7 +353,7 @@ void DXClusterWidget::slotClusterDataArrived()
             dxFrequency = QString::number( (dxFrequency.toFloat())/1000);
 
             qs.clear();
-            spotBand = QString::number(world->getBandIdFromFreq(  dxFrequency  ) );
+            spotBand = QString::number(dataProxy->getBandIdFromFreq(  dxFrequency.toDouble()  ) );
             qs << dxCall << spotBand << "-1" << QString::number(currentLog) ;
 
 

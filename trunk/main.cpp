@@ -95,21 +95,21 @@ int main(int argc, char *argv[])
 
         if (inMemory == 1)
         {
-           qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in Memory " << endl;
+          //qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in Memory " << endl;
             MainWindow mw(kontestDir, version);
             mw.show();
             return app.exec();
         }
         else if (inMemory == 2)
         {
-            qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in file " << endl;
+           //qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in file " << endl;
             MainWindow mw(kontestDir, version);
             mw.show();
             return app.exec();
         }
         else
         {
-            qDebug() << "MAIN: Wizard cancelled " << QString::number(inMemory) << " ... should close " << endl;
+           //qDebug() << "MAIN: Wizard cancelled " << QString::number(inMemory) << " ... should close " << endl;
 
             QMessageBox msgBox;
             msgBox.setText("Install wizard was cancelled before completing...");

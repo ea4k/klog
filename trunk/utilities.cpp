@@ -21,3 +21,18 @@ int Utilities::getProgresStepForDialog(int totalSteps){
     else
         return 50;
 }
+
+bool Utilities::trueOrFalse(const QString _s)
+{// reads a String and return true if s.upper()== TRUE :-)
+    //qDebug() << "Utilities::trueOrFalse: " << _s << endl;
+
+    if ( (_s.toUpper()) == "TRUE")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    return false;
+}

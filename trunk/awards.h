@@ -41,6 +41,7 @@
 #include "awarddxmarathon.h"
 #include "dataproxy.h"
 #include "dataproxy_sqlite.h"
+#include "utilities.h"
 
 class QProgressDialog;
 
@@ -130,7 +131,7 @@ private:
     _confirmed = 0     Set as Worked
     _confirmed = 1     Set as Confirmed
     */
-    int getProgresStepForDialog(int totalSteps);
+    //int getProgresStepForDialog(int totalSteps);
 
     QColor newOneColor;     //
     QColor neededColor;     //
@@ -141,6 +142,7 @@ private:
     World *world;
     DataProxy *dataProxy;
     DXMarathon *dxMarathon;
+    Utilities *util;
 
 
     typedef QMultiHash<int, int> DXStatus;

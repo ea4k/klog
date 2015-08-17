@@ -103,7 +103,6 @@ double DataProxy::getFreqFromBandId(const int _id)
     return -1.0;
 }
 
-
 int DataProxy::getBandIdFromFreq(const double _n)
 {
     return -1;
@@ -244,6 +243,12 @@ int DataProxy::isWorkedB4(const QString _qrz, const int _currentLog)
     return -1;
 }
 
+bool DataProxy::isThisQSODuplicated(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode)
+{
+    return false;
+}
+
+
 bool DataProxy::isDXCCConfirmed(const int _dxcc, const int _currentLog)
 {
     return false;
@@ -320,6 +325,14 @@ int DataProxy::getNumberOfManagedLogs()
 {
     return -1;
 }
+int DataProxy::getMaxLogNumber()
+{
+    return -1;
+}
+QStringList DataProxy::getListOfManagedLogs()
+{
+    return QStringList();
+}
 
 QString DataProxy::getStationCallSignFromLog(const int _log)
 {
@@ -338,4 +351,94 @@ QStringList DataProxy::getDataFromContestType(const int _n)
 int DataProxy::getHowManyQSOInLog(const int _log)
 {
     return 0;
+}
+
+bool DataProxy::addNewLog (const QStringList _qs)
+{
+    return false;
+}
+
+bool DataProxy::doesThisLogExist(const int _log)
+{
+    return false;
+}
+
+int DataProxy::getContinentIdFromContinentShortName(const QString _n)
+{
+    return -1;
+}
+
+QString DataProxy::getContinentShortNameFromEntity(const int _n)
+{
+    return QString();
+}
+
+int DataProxy::getContinentIdFromEntity(const int _n)
+{
+    return -1;
+}
+
+int DataProxy::getCQzFromPrefix(const QString _p)
+{
+    return -1;
+}
+
+int DataProxy::getITUzFromPrefix(const QString _p)
+{
+    return -1;
+}
+
+int DataProxy::getCQzFromEntity(const int _n)
+{
+    return -1;
+}
+
+int DataProxy::getITUzFromEntity(const int _n)
+{
+    return -1;
+}
+
+QString DataProxy::getEntityNameFromId(const int _n)
+{
+    return QString();
+}
+
+QString DataProxy::getEntityMainPrefix(const int _entityN)
+{
+    return QString();
+}
+
+int DataProxy::getDXCCFromPrefix(const QString _p)
+{
+    return -1;
+}
+
+bool DataProxy::isNewCQz(int _c)
+{
+    return false;
+}
+
+bool DataProxy::isNewEntity(int _e)
+{
+    return false;
+}
+
+double DataProxy::getLongitudeFromEntity(const int _e)
+{
+    return 0.0;
+}
+
+double DataProxy::getLatitudeFromEntity(const int _e)
+{
+    return 0.0;
+}
+
+QString DataProxy::getEntityPrefixes(const int _enti)
+{
+    return QString();
+}
+
+QStringList DataProxy::getEntitiesNames()
+{
+    return QStringList();
 }

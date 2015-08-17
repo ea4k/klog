@@ -824,8 +824,6 @@ int DataBase::getBandIdFromFreq(const QString fr)
         //qDebug() << "DataBase::getBandIdFromFreq: Query NOK" << endl;
        return -1;
     }
-
-
     return -1;
 }
 

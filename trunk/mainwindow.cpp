@@ -43,7 +43,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     // <ui>
     doc = new QTextDocument;
-
+    util = new Utilities;
 
     needToEnd = false;
     cleaning = false;
@@ -205,15 +205,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     DBinMemory = false;
     db = new DataBase(softwareVersion, DBinMemory);
-
-  //qDebug() << "MainWindow::MainWindow: 1 " << endl;
     world = new World(kontestDir, softwareVersion);
-
-   //qDebug() << "MainWindow::MainWindow: 2" << endl;
-
-
-    //readConfigData();
-    //qDebug() << "MainWindow::MainWindow: 3" << endl;
 
     if (!db->createConnection())
     {
@@ -223,11 +215,9 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     else
     {
         db->updateIfNeeded(); // Check if we need to update the DB
-
-      //qDebug() << "MainWindow::MainWindow: 5" << endl;
         if (!existingData)
         {
-          //qDebug() << "MainWindow::MainWindow: !existingData" << endl;
+           //qDebug() << "MainWindow::MainWindow: !existingData" << endl;
             world->create(kontestDir);
             entitiesList = world->getEntitiesNames();
 
@@ -244,11 +234,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     dataProxy = new DataProxy_SQLite();
     propModeList = dataProxy->getPropModeList();
 
-
-
     setupDialog = new SetupDialog(!configured);
-
-
     satTabWidget = new MainWindowSatTab();
    //qDebug() << "MainWindow::MainWindow: 7" << endl;
     filemanager = new FileManager(kontestDir, softwareVersion, *db);
@@ -505,6 +491,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         else
         {
             operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
+            operatingYearsComboBox->setCurrentIndex(operatingYearsComboBox->findText((dataProxy->getOperatingYears(currentLog)).last()));
         }
 
         updateQSLRecAndSent();
@@ -1019,12 +1006,17 @@ QString MainWindow::readDataFromUIDX()
     {
         aux2 = iotaContinentComboBox->currentText() + "-" + aux1;
         aux1 = awards->checkIfValidIOTA(aux2);
-        //qDebug() << "MainWindow::qsoToEdit: IOTA-CheckIfValidIOTA-1 " << aux2 << endl;
-        //qDebug() << "MainWindow::qsoToEdit: IOTA-CheckIfValidIOTA-2 " << aux1 << endl;
-        if (aux1.length() != 6) // EU-001
+       //qDebug() << "MainWindow::readDataFromUIDX: pre-IOTA-CheckIfValidIOTA-1: " << aux2 << endl;
+       //qDebug() << "MainWindow::readDataFromUIDX: post-IOTA-CheckIfValidIOTA-2: " << aux1 << endl;
+        if (aux1.length() == 6) // EU-001
         {
+           //qDebug() << "MainWindow::readDataFromUIDX: IOTA to be saved!" << endl;
             stringFields = stringFields + ", iota";
             stringData = stringData + ", '" + aux1 + "'";
+        }
+        else
+        {
+           //qDebug() << "MainWindow::readDataFromUIDX: IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
         }
     }
     // EQSL-SENT
@@ -1717,14 +1709,20 @@ WHERE [condition];
     }
 
     aux1 = iotaNumberLineEdit->text();
+   //qDebug() << "MainWindow::readDataFromUIDX: Modifityng IOTA: aux1: " << aux1 << endl;
     if ( (aux1.toInt()) > 0 )
     {
+       //qDebug() << "MainWindow::readDataFromUIDX: Modifityng IOTA: aux1toInt >0 "  << endl;
         aux2 = iotaContinentComboBox->currentText() + "-" + aux1;
         aux1 = awards->checkIfValidIOTA(aux2);
-        if (aux1.length() != 6) // EU-001
+        if (aux1.length() == 6) // EU-001
         {
             updateString = updateString + "iota = '";
             updateString = updateString + aux1 + "', ";
+        }
+        else
+        {
+           //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
         }
     }
 
@@ -2789,7 +2787,7 @@ bool MainWindow::validCharactersInCall(const QString _qrz)
 {
     for (int i = 0; i<_qrz.size();i++)
     {
-        if (!( ((_qrz.at(i)).isLetterOrNumber()) || (_qrz.at(i)=='\\')  || (_qrz.at(i)=='/') ))
+        if (!( ((_qrz.at(i)).isLetterOrNumber()) || (_qrz.at(i)=='\\')  || (_qrz.at(i)=='/')  ))
         {
             return false;
         }
@@ -2797,11 +2795,11 @@ bool MainWindow::validCharactersInCall(const QString _qrz)
     }
 
     return true;
-
 }
+
 void MainWindow::slotQRZTextChanged()
 {    
-   //qDebug()<< "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << endl;
+  //qDebug()<< "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######" << endl;
     if (cleaning)
     {
         return;
@@ -2812,24 +2810,25 @@ void MainWindow::slotQRZTextChanged()
         return;
     }
 
-    int cursorP = qrzLineEdit->cursorPosition();
-    //infoLabel1->clear();    
     qrzAutoChanging = true;
+
+    int cursorP = qrzLineEdit->cursorPosition();
+
+    if ( (qrzLineEdit->text()).endsWith(' ') )
+    {/*Remove the space and moves the focus to SRX to write the RX exchange*/
+        previousQrz = (qrzLineEdit->text()).simplified();
+        qrzLineEdit->setText(previousQrz);
+        SRXLineEdit->setFocus();
+    }
     qrzLineEdit->setText(((qrzLineEdit->text())).simplified());
     qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
+
     if (!validCharactersInCall(qrzLineEdit->text()))
     {
         infoLabel1->setText(tr("Not valid characters in the QRZ box"));
         InValidCharsInPrevCall = true;
         return;
     }
-    //if (!world->checkQRZValidFormat(qrzLineEdit->text()))
-    //{
-    //qDebug() << "MainWindow::slotQRZTextChanged: NOT valid QRZ Format" << endl;
-    //    return;
-    //}
-
-
     if (((qrzLineEdit->text()).length() < 1))
     { // If QRZ box is blank, Information labels should be cleared.
         infoLabel1->clear();
@@ -2837,6 +2836,7 @@ void MainWindow::slotQRZTextChanged()
         slotClearButtonClicked();
         return;
     }
+
     if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
     {
         //qDebug() << "MainWindow::slotQRZTextChanged: MODIFY or Lenght < 1" << endl;
@@ -2847,33 +2847,33 @@ void MainWindow::slotQRZTextChanged()
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
     int i;    
     int dx_CQz = -1;
+    int dxE_CQz = -1;
     int dx_ITUz = -1;
-
+    int dxE_ITUz = -1;
 
     currentQrz = qrzLineEdit->text();
-
-    //TODO: <DELETE>
-   // QString aaaa;
-    //aaaa = world->getQRZEntityPrefixes(currentQrz);
-    //qDebug() << "MainWindow::slotQRZTextChanged: - ALL PREFIXES" << aaaa << endl;
-    //TODO: </DELETE>
 
     if ((currentQrz).count('\\')){ // Replaces \ by / to ease operation.
         currentQrz.replace(QChar('\\'), QChar('/'));
         qrzLineEdit->setText(currentQrz);
     }
+qDebug()<< "MainWindow::slotQRZTextChanged: 14-" << qrzLineEdit->text() << "- " << QString::number(qrzLineEdit->cursorPosition()) << endl;
 
     currentQrz = qrzLineEdit->text();
+
+
+qDebug()<< "MainWindow::slotQRZTextChanged: 14.1-" << qrzLineEdit->text() << "- " << QString::number(cursorP) << endl;
     if ((currentQrz.at(cursorP-1)).isSpace())
     {
+qDebug()<< "MainWindow::slotQRZTextChanged: 14.2-" << qrzLineEdit->text() << "- " << QString::number(qrzLineEdit->cursorPosition()) << endl;
         previousQrz = currentQrz.remove(cursorP-1, 1);
         cursorP--;
         qrzLineEdit->setText(previousQrz);
     }
 
+qDebug()<< "MainWindow::slotQRZTextChanged: 15-" << qrzLineEdit->text() << "- " << QString::number(qrzLineEdit->cursorPosition()) << endl;
     if ( currentQrz.endsWith(' ') )
     {/*Remove the space and moves the focus to SRX to write the RX exchange*/
-
         previousQrz = currentQrz.simplified();
         qrzLineEdit->setText(previousQrz);
         SRXLineEdit->setFocus();
@@ -2883,17 +2883,27 @@ void MainWindow::slotQRZTextChanged()
     currentEntity = world->getQRZARRLId(currentQrz);
     selectCorrectComboBoxEntity(currentEntity);
 
-    //qDebug() << "MainWindow::slotQRZTextChanged: Entity: " << QString::number(currentEntity) << endl;
+   //qDebug() << "MainWindow::slotQRZTextChanged: Entity: " << QString::number(currentEntity) << endl;
 
-    dx_CQz = world->getEntityCqz(currentEntity);
-    dx_ITUz = world->getEntityItuz(currentEntity);
+    dxE_CQz = world->getEntityCqz(currentEntity);
+    dx_CQz = world->getQRZCqz(currentQrz);
+    dx_ITUz = world->getQRZItuz(currentQrz);
+    dxE_ITUz = world->getEntityItuz(currentEntity);
+   //qDebug()<< "MainWindow::slotQRZTextChanged: CQ: " << QString::number(dx_CQz) << endl;
+   //qDebug()<< "MainWindow::slotQRZTextChanged: CQe: " << QString::number(dxE_CQz) << endl;
+   //qDebug()<< "MainWindow::slotQRZTextChanged: ITU: " << QString::number(dx_ITUz) << endl;
+   //qDebug()<< "MainWindow::slotQRZTextChanged: ITUe: " << QString::number(dxE_ITUz) << endl;
 
-    if (my_CQz <= 0)
+    if (dx_CQz == dxE_CQz)
     {
-        my_CQz = world->getEntityCqz(currentEntity);
-        STXLineEdit->setText(QString::number(my_CQz));  // My Own CQZ
-
+        dx_CQz = dxE_CQz;
     }
+
+    if (dx_ITUz == dxE_ITUz)
+    {
+        dx_ITUz = dxE_ITUz;
+    }
+
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
@@ -2906,18 +2916,14 @@ void MainWindow::slotQRZTextChanged()
         _qs << currentQrz << QString::number(currentBand) << "-1" << QString::number(currentLog);
     }
 
-
-
-
    // NOW ONLY SPECIFIC ACTIONS DEPENDING ON THE RUNNING MODE
 
     switch (contestMode) {
 
         case CQ_WW_SSB:
             //qDebug() << "MainWindow::slotQRZTextChanged: CQ-WW-SSB:" << endl;
+
             STXLineEdit->setText(QString::number(my_CQz));  // My Own CQZ
-
-
             if (dx_CQz > 0)
             {
                 //if(QString::number(world->getQRZCqz(qrzLineEdit->text())) > 0 ){
@@ -2925,24 +2931,15 @@ void MainWindow::slotQRZTextChanged()
             }else{
                 //qDebug() << "MainWindow::checkContest  CQZ < 0"<< endl;
             }
-
-            //i = currentEntity;
-
             if (currentEntity>0){
-                updateStatusBar(world->getEntityName(currentEntity) + "  -  CQ: " + QString::number(dx_CQz) + "  -  ITU: " + QString::number(dx_ITUz));
-                //statusBar()->showMessage();
-                //updateStatusBar(world->getEntityName(currentEntity) + "  -  CQ: " + QString::number(dx_CQz) + "  -  ITU: " + QString::number(dx_ITUz));
+                updateStatusBar(world->getEntityName(currentEntity) + "  -  CQ: " + QString::number(dx_CQz) + "  -  ITU: " + QString::number(dx_ITUz));             
             }
             else
             {
                 updateStatusBar(tr("Ready..."));
-                //statusBar()->showMessage();
-                //updateStatusBar(tr("Ready..."));
             }
-
             i = checkIfWorkedB4(currentQrz);
             checkContest();
-
         break;
         case CQ_WW_CW:
             //qDebug() << "MainWindow::slotQRZTextChanged: CQ-WW-CW:" << endl;
@@ -2950,21 +2947,16 @@ void MainWindow::slotQRZTextChanged()
         default:
             //qDebug() << "MainWindow::slotQRZTextChanged: Default:" << endl;
             //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
-        if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) )
-            {
+        if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
+        {
             //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << endl;
                 previousEntity = currentEntity;
                 InValidCharsInPrevCall = false;
-                showEntityInfo(currentEntity);
+                showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
                 showStatusOfDXCC(_qs);
-
                 showDXMarathonNeeded(currentEntity, dx_CQz, dateEdit->date().year(), currentLog);
-
-
                 i = (world->getContinentNumber(currentEntity));
-
                 if (  i > 0 )
-
                 {
                     iotaContinentComboBox->setCurrentIndex( i - 1 );
                 }
@@ -2972,10 +2964,14 @@ void MainWindow::slotQRZTextChanged()
                 {
                     iotaContinentComboBox->setCurrentIndex( 0 );
                 }
-            }
+        }
+        else if ((dx_CQz == dxE_CQz) || (dx_ITUz = dxE_ITUz))
+        {
+            showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
+        }
         else
         {
-            //qDebug() << "MainWindow::slotQRZTextChanged: Default: else" << endl;
+                //qDebug() << "MainWindow::slotQRZTextChanged: Default: else" << endl;
         }
 
         break;
@@ -3192,7 +3188,8 @@ void MainWindow::slotSearchBoxTextChanged()
             //nameCol = rec.indexOf("bandid");
             //_freq = (query.value(nameCol)).toString();
             _freq = (query.value(3)).toString();
-            _band = db->getBandNameFromID2( _freq.toInt() );
+            //_band = db->getBandNameFromID2( _freq.toInt() );
+            _band = dataProxy->getNameFromBandId((query.value(3)).toInt());
 
             _mode = query.value(4).toString();
             //qDebug() << "MainWindow::slotSearchBoxTextChanged: mode: :  " << _mode << endl;
@@ -3302,7 +3299,7 @@ void MainWindow::slotSearchBoxSelectionChanged()
  // The button to clear selection
     //qDebug() << "MainWindow::slotSearchBoxSelectionChanged: "  << endl;
 
-    if ((searchResultsTreeWidget->selectedItems()).count() > 0 )
+    if ((searchResultsTreeWidget->selectedItems()).size() > 0 )
     {
         searchBoxSelectAllButton->setText(tr("&Clear selection"));
         searchSelectAllClicked = true;
@@ -4946,14 +4943,14 @@ bool MainWindow::processConfigLine(const QString _line){
     }else if (field=="REALTIME"){
         //qDebug() << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
 
-        realTime = trueOrFalse(value);
+        realTime = util->trueOrFalse(value);
 
     }
     else if (field=="INMEMORY")
     {
     //qDebug() << "MainWindow::processConfigLine: INMEMORY: " << value.toUpper() << endl;
 
-         DBinMemory = trueOrFalse(value);
+         DBinMemory = util->trueOrFalse(value);
 
     }
     else if (field =="DXCLUSTERSERVERTOUSE"){
@@ -4984,80 +4981,80 @@ bool MainWindow::processConfigLine(const QString _line){
     }
     else if (field=="USEDEFAULTNAME")
     {
-         useDefaultLogFileName = trueOrFalse(value);
+         useDefaultLogFileName = util->trueOrFalse(value);
     }
 
     else if (field=="IMPERIALSYSTEM")
     {
-        imperialSystem = trueOrFalse(value);
+        imperialSystem = util->trueOrFalse(value);
     }
     else if (field=="SENDQSLWHENREC")
     {
-        sendQSLWhenRec = trueOrFalse(value);
+        sendQSLWhenRec = util->trueOrFalse(value);
     }
 
     else if (field=="SHOWCALLSIGNINSEARCH")
     {
-        stationCallSignShownInSearch = trueOrFalse(value);
+        stationCallSignShownInSearch = util->trueOrFalse(value);
     }
 
     else if (field=="ALWAYSADIF")
     {
-        alwaysADIF = trueOrFalse(value);
+        alwaysADIF = util->trueOrFalse(value);
     }
     else if (field=="UTCTIME")
     {
         //qDebug() << "MainWindow::processConfigLine: UTCTIME: " << value.toUpper() <<endl;
-        UTCTime = trueOrFalse(value);
+        UTCTime = util->trueOrFalse(value);
     }
     else if (field=="KEEPMYDATA")
     {
-        keepMyData  = trueOrFalse(value);
+        keepMyData  = util->trueOrFalse(value);
     }
     else if (field=="COMPLETEWITHPREVIOUS")
     {
-        completeWithPrevious  = trueOrFalse(value);
+        completeWithPrevious  = util->trueOrFalse(value);
     }
     else if (field=="DXCLUSTERSHOWHF")
     {
-        dxClusterShowHF  = trueOrFalse(value);
+        dxClusterShowHF  = util->trueOrFalse(value);
     }
 
     else if (field=="DXCLUSTERSHOWVHF")
     {
-        dxClusterShowVHF = trueOrFalse(value);
+        dxClusterShowVHF = util->trueOrFalse(value);
     }
 
     else if (field=="DXCLUSTERSHOWWARC")
     {
-        dxClusterShowWARC  = trueOrFalse(value);
+        dxClusterShowWARC  = util->trueOrFalse(value);
     }
 
     else if (field=="DXCLUSTERSHOWWORKED")
     {
-        dxClusterShowWorked = trueOrFalse(value);
+        dxClusterShowWorked = util->trueOrFalse(value);
     }
 
     else if (field=="DXCLUSTERSHOWCONFIRMED")
     {
-        dxClusterShowConfirmed = trueOrFalse(value);
+        dxClusterShowConfirmed = util->trueOrFalse(value);
     }
 
     else if (field=="DXCLUSTERSHOWANN")
     {
-        dxClusterShowAnn = trueOrFalse(value);
+        dxClusterShowAnn = util->trueOrFalse(value);
     }
 
 
     else if (field=="DXCLUSTERSHOWWWV")
     {
-        dxClusterShowWWV = trueOrFalse(value);
+        dxClusterShowWWV = util->trueOrFalse(value);
     }
 
 
     else if (field=="DXCLUSTERSHOWWCY")
     {
-        dxClusterShowWCY = trueOrFalse(value);
+        dxClusterShowWCY = util->trueOrFalse(value);
     }
 
     else if (field=="DEFAULTADIFFILE")
@@ -5100,12 +5097,12 @@ bool MainWindow::processConfigLine(const QString _line){
     }else if(field=="CLUBLOGACTIVE")
     {
       //qDebug() << "MainWindow::processConfigLine: clublogActive: " << value << endl;
-        clublogActive = trueOrFalse(value);
+        clublogActive = util->trueOrFalse(value);
     }
     else if(field=="CLUBLOGREALTIME")
     {
        //qDebug() << "MainWindow::processConfigLine: clublogRealTime: " << value << endl;
-        clublogRealTime = trueOrFalse(value);
+        clublogRealTime = util->trueOrFalse(value);
     }
     else if(field=="CLUBLOGCALL")
     {
@@ -5162,7 +5159,6 @@ void MainWindow::checkIfNewBandOrMode()
     bands.clear();
     bands << set.toList();
 
-qDebug() << "MainWindow::checkIfNewBandOrMode: Modes1: " << modes.join(" - ") << endl;
     set.clear();
     modes << modesInLog;
     set = modes.toSet();
@@ -5171,15 +5167,12 @@ qDebug() << "MainWindow::checkIfNewBandOrMode: Modes1: " << modes.join(" - ") <<
     modes.clear();
     modes << set.toList();
     modes.sort();
-qDebug() << "MainWindow::checkIfNewBandOrMode: Modes2: " << modes.join(" - ") << endl;
+
     bandComboBox->clear();
     bandComboBox->addItems(bands);
     modeComboBox->clear();
     modeComboBox->addItems(modes);
 
-    qDebug() << "MainWindow::checkIfNewBandOrMode: Bands: " << bands.join(" - ") << endl;
-    qDebug() << "MainWindow::checkIfNewBandOrMode: Modes: " << modes.join(" - ") << endl;
-    //qDebug() << "MainWindow::checkIfNewBandOrMode-END" << endl;
 }
 
 /*********************************************************************
@@ -5200,7 +5193,7 @@ void MainWindow::readActiveBands (const QStringList actives)
     //QStringList values = actives;
     //QStringList values = actives.split(", ", QString::SkipEmptyParts);
 
-    for (int i = 0; i < actives.count() ; i++)
+    for (int i = 0; i < actives.size() ; i++)
     {
         if (db->isValidBand(actives.at(i)))
         {
@@ -5233,7 +5226,7 @@ void MainWindow::readActiveModes (const QStringList actives)
 
     //QStringList values = actives.split(", ", QString::SkipEmptyParts);
 
-    for (int i = 0; i < actives.count() ; i++)
+    for (int i = 0; i < actives.size() ; i++)
     {
         if (db->isValidMode(actives.at(i)))
         {
@@ -5512,13 +5505,13 @@ void MainWindow::createUIDX()
     QSLViaLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
     //entityNameComboBox = new QComboBox;entitiesList
-    if (entitiesList.count()>1)
+    if (entitiesList.size()>1)
     {
         entitiesList.prepend("00-Not Identified (000)");
         entityNameComboBox->addItems(entitiesList);
     }
 
-    if (propModeList.count()>1)
+    if (propModeList.size()>1)
     {
         propModeList.prepend("00 - Not - Not Identified");
         propModeComboBox->addItems(propModeList);
@@ -6421,7 +6414,9 @@ void MainWindow::slotADIFImport(){
             case CQ_WW_CW:
             break;
             default:
-                operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
+                operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));                
+//bandComboBox->setCurrentIndex(bandComboBox->findText(aux1));
+
                 awards->recalculateAwards();
                 showAwards();
             break;
@@ -6437,7 +6432,7 @@ void MainWindow::slotADIFImport(){
 void  MainWindow::initialContestModeConfiguration()
 {
 
-    //qDebug() << "MainWindow::initialContestModeConfiguration: - 0" << endl;
+   //qDebug() << "MainWindow::initialContestModeConfiguration: - 0" << endl;
 
      if (!configured){
          //qDebug() << "MainWindow::initialContestModeConfiguration: - 01" << endl;
@@ -7508,7 +7503,7 @@ void MainWindow::clearInfoFromLocators()
     distLongLabel->setText( "0" );
 }
 
-void MainWindow::showEntityInfo(const int _enti)
+void MainWindow::showEntityInfo(const int _enti, int _cq, int _itu)
 {
    //qDebug()() << "MainWindow::showEntityInfo" << QString::number(_enti) << endl;
 
@@ -7532,27 +7527,46 @@ void MainWindow::showEntityInfo(const int _enti)
 
     showInfoFromLocators (myLocator, dxLocator);
 
-    int i = world->getEntityCqz(_enti);
+    int i = -1;
 
-
-    if( i > 0 )
+    if ((_cq>0) && (_cq<41))
     {
-        cqzLabel->setText( QString::number(i) );
+        cqzLabel->setText( QString::number(_cq) );
     }
     else
     {
-        cqzLabel->setText("0");
+        i = world->getEntityCqz(_enti);
+        if( i > 0 )
+        {
+            cqzLabel->setText( QString::number(i) );
+        }
+        else
+        {
+            cqzLabel->setText("0");
+        }
     }
-    i = world->getEntityItuz(_enti);
 
-    if ( i > 0  )
+    if (_itu>0)
     {
-        ituzLabel->setText( QString::number(i) );
+        ituzLabel->setText( QString::number(_itu) );
     }
     else
     {
-        ituzLabel->setText("0");
+        i = world->getEntityItuz(_enti);
+        if ( i > 0  )
+        {
+            ituzLabel->setText( QString::number(i) );
+        }
+        else
+        {
+            ituzLabel->setText("0");
+        }
     }
+
+
+
+
+
 }
 
 void MainWindow::showStatusOfDXCC(const QStringList _qs)
@@ -7699,7 +7713,7 @@ void MainWindow::showDXMarathon(const int _year)
 }
 void MainWindow::fillQSOData()
 { // Updates all QSO with the dxcc, CQZ, ... if empty.
-    //qDebug() << "MainWindow::fillQSOData" << endl;
+   //qDebug() << "MainWindow::fillQSOData" << endl;
 
     QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, time_on, lognumber, confirmed, id, cqz, ituz, dxcc FROM log WHERE lognumber='%1'").arg(currentLog);
 
@@ -8087,14 +8101,14 @@ bool MainWindow::downloadCtyDatFile()
     request.setUrl(url);
     QNetworkReply *reply= manager.get(request);
 
-    qDebug() << "MainWindow::downloadCtyDatFile - END" << endl;
+   //qDebug() << "MainWindow::downloadCtyDatFile - END" << endl;
 
     return true;
 }
 
 void MainWindow::slotDownloadFinished(QNetworkReply *reply)
 {
-    qDebug() << "MainWindow::downloadFinished" << endl;
+   //qDebug() << "MainWindow::downloadFinished" << endl;
     QMessageBox::StandardButton ret;
 
     //QMessageBox msgBox;
@@ -8214,7 +8228,7 @@ QString MainWindow::saveFileName(const QUrl &url)
 
 void MainWindow::slotToolSearchNeededQSLToSend()
 {
-    //qDebug() << "MainWindow::slotToolSearchQSLToSend - TO PREPARE THE QUERY and optimize the function" << endl;
+   //qDebug() << "MainWindow::slotToolSearchQSLToSend - TO PREPARE THE QUERY and optimize the function" << endl;
     slotToolSearchQSL(0);
  /*
     return;
@@ -8346,7 +8360,7 @@ void MainWindow::slotToolSearchNeededQSLRequested()
 
 void MainWindow::slotToolSearchQSL(const int actionQSL)
 {
-    //qDebug() << "MainWindow::slotToolSearchQSL: " << QString::number(actionQSL) << endl;
+    //qDebug() << "MainWindow::slotToolSearchQSL: " << QString::number(actionQSL) << " - LogNumber: " << QString::number(currentLog) << endl;
     // 2 means QSL_RCVD = 'R'
     QString stringQuery = QString();
     QString message = QString();
@@ -8358,24 +8372,29 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
     {
         case 0://void slotToolSearchNeededQSLToSend();
          //aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
-         stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R' AND log.lognumber='%1');").arg(currentLog);
+         //qDebug() << "MainWindow::slotToolSearchQSL: CASE 0" << endl;
+         stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R' AND log.lognumber='%1'").arg(currentLog);
             message = tr("Needed QSO to send the QSL");
             qslingNeeded = true;
             dxUpRightTab->setCurrentIndex(2);
         break;
         case 1://void slotToolSearchRequestedQSLToSend();
+        //qDebug() << "MainWindow::slotToolSearchQSL: CASE 1" << endl;
             stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, id FROM log  WHERE qsl_sent=='R' AND lognumber='%1'").arg(currentLog);
             message = tr("My QSL requested to be sent");
         break;
         case 2://void slotToolSearchNeededQSLPendingToReceive();
+        //qDebug() << "MainWindow::slotToolSearchQSL: CASE 2" << endl;
         stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log WHERE lognumber='%1' AND ( (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R')").arg(currentLog);
             message = tr("DX QSL pending to be received");
         break;
     case 3://void slotToolSearchNeededQSLRequested()
-    stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log WHERE lognumber='%1' AND  qsl_rcvd='R'").arg(currentLog);
+        //qDebug() << "MainWindow::slotToolSearchQSL: CASE 3" << endl;
+        stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log WHERE lognumber='%1' AND  qsl_rcvd='R'").arg(currentLog);
         message = tr("DX QSL pending to be received");
     break;
         default:
+        //qDebug() << "MainWindow::slotToolSearchQSL: CASE DEFAULT" << endl;
         // should never be reached
             return;
         break;
@@ -8394,6 +8413,7 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
 
     if (!query.exec())
     {
+       //qDebug() << "MainWindow::slotToolSearchQSL: Query ERROR" << endl;
     //TODO: Control the error!!
     }
     else
@@ -8429,10 +8449,7 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
             nameCol = rec.indexOf("modeid");
             _mode = dataProxy->getSubModeFromId((query.value(nameCol)).toInt());
 
-            //nameCol = rec.indexOf("modeid");
-            //_mode = db->getModeNameFromNumber( (query.value(nameCol)).toInt() );
-
-
+            //qDebug() << "MainWindow::slotToolSearchQSL: Mode: " << _mode << endl;
             //qDebug() << "MainWindow::slotToolSearchQSL: mode " << QString::number((query.value(nameCol)).toInt()) << endl;
 
             nameCol = rec.indexOf("qsl_sent");
@@ -8463,10 +8480,6 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
                     _stationcallsign.clear();
                 }
 
-                //if (_stationcallsign.length()<3)
-                //{
-                //    _stationcallsign = stationQRZ;
-                //}
             }
 
             nameCol = rec.indexOf("id");
@@ -8475,10 +8488,14 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
             q.clear();
             if (!manageMode)
             {
-                _mode = "-1";
+                q << _call << _freq << "-1" << QString::number(currentLog);
+            }
+            else
+            {
+                q << _call << _freq << _mode << QString::number(currentLog);
             }
 
-            q << _call << _freq << _mode << QString::number(currentLog);
+
 
             color = awards->getQRZDXStatusColor(q);
 
@@ -8541,7 +8558,7 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
             // db.getBandFromFreq expects a MHz!
             //(ql.at(1)).toDouble()
 
-            qls << ql.at(0) << QString::number(db->getBandIdFromFreq(QString::number((ql.at(1).toDouble()/1000)))) << _mode <<  QString::number(currentLog);
+            qls << ql.at(0) << QString::number(dataProxy->getBandIdFromFreq((ql.at(1).toDouble()/1000))) << _mode <<  QString::number(currentLog);
             // We use a mode = -1 because we don't know the mode info from the DXCluster spot
 
             // TODO: Check if we can know the mode and replace the "-1" in previous sentence
@@ -8590,7 +8607,7 @@ void MainWindow::clusterSpotToLog(const QString _call, const QString _freq)
 
     //qDebug() << "MainWindow::clusterSpotToLog - Freq: " << _aux << endl;
 
-    int _bandi = db->getBandIdFromFreq(_aux);
+    int _bandi = dataProxy->getBandIdFromFreq(_aux.toDouble());
     //qDebug() << "MainWindow::clusterSpotToLog - Bandi: " << QString::number(_bandi) << endl;
     _aux = QString::number(_bandi);
     _aux = QString("SELECT name FROM band WHERE id ='%1'").arg(_aux);
@@ -8717,10 +8734,10 @@ void MainWindow::slotOperatingYearComboBoxChanged()
 void MainWindow::defineStationCallsign()
 {
 
-    //qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << endl;
+   //qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << endl;
     QString logQRZ;
     logQRZ = dataProxy->getStationCallSignFromLog(currentLog);
-    //qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ << endl;
+   //qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ << endl;
 
     if (world->checkQRZValidFormat(logQRZ))
     {
@@ -8735,7 +8752,7 @@ void MainWindow::defineStationCallsign()
     //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << endl;
 
 }
-
+/*
 bool MainWindow::trueOrFalse(const QString _s)
 {// reads a String and return true if s.upper()== TRUE :-)
     //qDebug() << "MainWindow::trueOrFalse: " << _s << endl;
@@ -8750,7 +8767,7 @@ bool MainWindow::trueOrFalse(const QString _s)
     }
     return false;
 }
-
+*/
 void MainWindow::slotSetPropMode(const QString _p)
 {
     //qDebug() << "MainWindow::slotSetPropMode: " << _p << endl;
