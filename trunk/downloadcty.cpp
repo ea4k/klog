@@ -94,6 +94,7 @@ int DownLoadCTY::download()
     QNetworkReply *reply= manager.get(request);
 
     QObject::connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(slotDownloadProgress(qint64,qint64)));
+    QObject::connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(slotErrorManagement(QNetworkReply::NetworkError)), Qt::QueuedConnection);
     //qDebug() << "DownLoadCTY::download: " << QString::number(result) << endl;
     return 1;
 }
