@@ -2082,6 +2082,7 @@ bool DataProxy_SQLite::doesThisLogExist(const int _log)
     {
         return false;
     }
+    return false;
 }
 
 int DataProxy_SQLite::getContinentIdFromContinentShortName(const QString _n)

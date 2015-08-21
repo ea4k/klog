@@ -64,12 +64,12 @@ public:
 
 
 private:
-  bool valid;
+  //bool valid;
   QString myLocator;
   QString testLocator;
   QString otherLocator;
   QChar theChar;
-  double my_lon, my_lat, other_lon, other_lat, beam, testNumb;
+  //double my_lon, my_lat, other_lon, other_lat, beam, testNumb;
   int ideg, imin, isec;
 
 

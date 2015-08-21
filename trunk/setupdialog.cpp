@@ -883,6 +883,15 @@ bool SetupDialog::haveAtleastOneLog()
 
 void SetupDialog::setClubLogActive(const bool _b)
 {
-    clubLogPage->setClubLog("False");
+    if (_b == true)
+    {
+        clubLogPage->setClubLog("True");
+    }
+    else
+    {
+        clubLogPage->setClubLog("False");
+    }
+
+
 
 }

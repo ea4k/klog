@@ -65,7 +65,7 @@ void Awards::setAwardDXCC(const int _qsoId)
     //qDebug() << "Awards::setAwardDXCC: _qsoId: " << QString::number(_qsoId) << endl;
     QString stringQuery;
     QSqlQuery query;
-    int nameCol;
+    //int nameCol;
     QString _ln;
     bool sqlOK;
     //bool __confirmed = dataProxy->isQSLReceived(_qsoId);
@@ -330,7 +330,7 @@ int Awards::getDXStatus (const QStringList _qs)
         return -1;
     }
 
-    int errorCode = 0;
+    //int errorCode = 0;
 
     int _band = _qs.at(1).toInt();
     int _mode = _qs.at(2).toInt();
@@ -913,9 +913,11 @@ void Awards::recalculateAwards()
     bool DXCCknown = false;
     bool DXCCknownBefore = false;
     bool queryOk = false;
-    bool queryOkcq = false;
+    //bool queryOkcq = false;
     int errorCode = -1;
-    int nameCol, _id, _dxcc, _band, _mode, _cqz, _logNumber, _confirmed;
+    int nameCol, _id;
+    int _dxcc, _band, _mode, _cqz, _logNumber;
+    int _confirmed;
 
 
     int i = 0;

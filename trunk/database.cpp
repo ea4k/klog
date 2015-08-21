@@ -326,7 +326,7 @@ bool DataBase::createTableLog(bool temp)
 bool DataBase::createDataBase()
 {
     //qDebug() << "DataBase::createDataBase"  << endl;
-    bool qres;
+    //bool qres;
        //http://www.sqlite.org/
     //http://www.sqlite.org/datatype3.html
     //qDebug() << "DataBase::createData"  << endl;
@@ -1452,6 +1452,7 @@ bool DataBase::updateLog()
     //qDebug() << "DataBase::updateLog"  << endl;
     QSqlQuery query;
     bool sqlOk = false;
+    return sqlOk;
 }
 
 bool DataBase::createTableLogs()
