@@ -207,7 +207,7 @@ bool DXClusterWidget::checkIfNeedsToBePrinted(const QString _dxCall, int const _
     QStringList qs;
     qs.clear();
     qs << _dxCall << QString::number(_band) << QString::number(_mode)  << QString::number(currentLog);
-    bool isConfirmed = false;
+    //bool isConfirmed = false;
     bool status = awards->isThisSpotConfirmed (qs);
 
    //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: Status: " << _dxCall << "/" << QString::number(status);
@@ -254,9 +254,7 @@ bool DXClusterWidget::checkIfNeedsToBePrinted(const QString _dxCall, int const _
         else
         {
            //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is NOT WARC" << endl;
-
         }
-
     }
 
     if (!showvhf)
@@ -270,11 +268,8 @@ bool DXClusterWidget::checkIfNeedsToBePrinted(const QString _dxCall, int const _
         else
         {
             //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: is NOT VHF " << endl;
-
         }
     }
-
-
     //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: returns TRUE and will be printed: " << _dxCall << "/" << dataProxy->getNameFromBandId(_band) << QString::number(_mode)<< endl;
     return true;
 }

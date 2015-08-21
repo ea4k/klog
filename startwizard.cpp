@@ -1008,13 +1008,7 @@ qDebug() << "CTYPage::slotDownloadFinished: (another result): " << QString::numb
 
 
 }
-/*
-bool CTYPage::isComplete()
-{
-    //tengo que reimpliementar esta funcion
-    return completed;
-}
-*/
+
 void CTYPage::slotDownloadError(const int ret)
 {
     //qDebug() << "CTYPage::slotDownloadError: " << QString::number(ret) << endl;
@@ -1022,7 +1016,6 @@ void CTYPage::slotDownloadError(const int ret)
     int i;
     progressBar->setValue(0);
     progressBar->setEnabled(false);
-
 
     if(errorCode == QNetworkReply::NoError)
     {
@@ -1046,7 +1039,7 @@ void CTYPage::slotDownloadError(const int ret)
     }
     else
     {
-
+        //TODO: Add a message showing the error that has occur. errorString()?
     }
 
 }

@@ -179,7 +179,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     //bool noMoreQso = false;
     int step = 1;
     bool propsat=false; // Just to check if we have added the prop_mode needed by LOTW when SAT QSO
-    bool bandOK = false; // Just to check if the band is properly defined
+    //bool bandOK = false; // Just to check if the band is properly defined
     bool exportAll = false;
     if (_logN <=0)
     {
@@ -2168,7 +2168,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
     //int n = 0;
     QSqlDatabase db = QSqlDatabase::database();
-    int maxLogs = dataProxy->getNumberOfManagedLogs(); // To manage several logs
+    //int maxLogs = dataProxy->getNumberOfManagedLogs(); // To manage several logs
 
 
     bool sqlOK = true;
@@ -2743,7 +2743,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
    //qDebug() << "FileManager::processQsoReadingADIF: log: " << _line.at(0) << endl;
     //qDebug() << "FileManager::processQsoReadingADIF: " << _line.join("/") << endl;
 
-    QHash<int, int> &hashLogs = _logs;
+    //QHash<int, int> &hashLogs = _logs;
 
     //QFile &file = _f;
 
@@ -3892,6 +3892,7 @@ bool FileManager::modifySetupFile(const QString& _filename, QString _field, cons
             in << line << endl;
         }
     }
+    return true;
 }
 
 int FileManager::howManyLogsInFile(QFile& _f)
@@ -4002,7 +4003,7 @@ bool FileManager::fillHashLog(QFile &_f)
     {
         //qDebug() << "FileManager::fillHashLog: (" << QString::number(hashLogs.value(i)) << "/" << QString::number(i) << ")" << endl;
     }
-
+    return true;
 }
 
 QStringList FileManager::getListOfLogsInFile(QFile& _f)
