@@ -704,7 +704,7 @@ QString message = QString();
 switch (_status) {
 
     case 0:
-        message = QObject::tr("nNew One, work it!");
+        message = QObject::tr("New One, work it!");
         //message = QObject::tr("0-new One");
     break;
     case 1:

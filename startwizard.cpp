@@ -972,7 +972,7 @@ void CTYPage::slotUpdateDownloadProgress(qint64 received, qint64 total)
 
 void CTYPage::slotDownloadButtonClicked()
 {
-     qDebug() << "CTYPage::slotDownloadButtonClicked" << endl;
+     //qDebug() << "CTYPage::slotDownloadButtonClicked" << endl;
      progressBar->setEnabled(true);
      dl->download();
      //completed = true;
@@ -990,7 +990,7 @@ void CTYPage::slotIgnoreDownloadButtonClicked()
 
 void CTYPage::slotDownloadFinished(const int ret)
 {
-    qDebug() << "CTYPage::slotDownloadFinished: " << QString::number(ret) << endl;
+    //qDebug() << "CTYPage::slotDownloadFinished: " << QString::number(ret) << endl;
      if (ret == QNetworkReply::NoError) // No error
      {
          progressBar->setValue(progressBar->maximum());
@@ -999,7 +999,7 @@ qDebug() << "CTYPage::slotDownloadFinished: (no error): " << QString::number(ret
      }
      else if (ret == -1) // File could not be created!
      {
-        qDebug() << "CTYPage::slotDownloadFinished: (file could not be created): " << QString::number(ret) << endl;
+        //qDebug() << "CTYPage::slotDownloadFinished: (file could not be created): " << QString::number(ret) << endl;
      }
      else
      {
@@ -1017,7 +1017,7 @@ bool CTYPage::isComplete()
 */
 void CTYPage::slotDownloadError(const int ret)
 {
-     qDebug() << "CTYPage::slotDownloadError: " << QString::number(ret) << endl;
+    //qDebug() << "CTYPage::slotDownloadError: " << QString::number(ret) << endl;
     int errorCode = ret;
     int i;
     progressBar->setValue(0);
