@@ -19,15 +19,19 @@ private:
     void setTarget(const QString& t);
 
     QNetworkAccessManager manager;
-    QNetworkReply* reply;
+    //QNetworkReply *reply;
+    QNetworkRequest request;
+
 
     QString target;
     int result; // enum QNetworkReply::NetworkError
     QString kontestDir;
+    QString urld;
+    QUrl url;
 
 private slots:
-    void downloadFinished(QNetworkReply* data);
-    void downloadProgress(qint64 received, qint64 total);
+    void slotDownloadFinished(QNetworkReply* data);
+    void slotDownloadProgress(qint64 received, qint64 total);
     void slotErrorManagement(QNetworkReply::NetworkError networkError);
 
 

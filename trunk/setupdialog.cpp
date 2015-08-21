@@ -441,7 +441,7 @@ void SetupDialog::slotOkButtonClicked()
         stream << "Bands=" << bandsModesPage->getBands() << ";" <<  endl;
         stream << "Modes=" << bandsModesPage->getModes() << ";" <<  endl;
 
-        stream << "InMemory=" << miscPage->getInMemory() << ";" <<  endl;
+        //stream << "InMemory=" << miscPage->getInMemory() << ";" <<  endl;
         stream << "RealTime=" << miscPage->getRealTime() << ";" <<  endl;
         stream << "UTCTime=" << miscPage->getUTCTime() << ";" <<  endl;
         stream << "AlwaysADIF=" << miscPage->getAlwaysADIF() << ";" <<  endl;
@@ -581,8 +581,8 @@ bool SetupDialog::processConfigLine(const QString _line)
     }else if (tab=="BANDS"){
         readActiveBands(value);
         bandsModesPage->setActiveBands(bands);
-    }else if (tab=="INMEMORY"){
-        miscPage->setInMemory(value);
+    //}else if (tab=="INMEMORY"){
+    //    miscPage->setInMemory(value);
     }else if (tab=="REALTIME"){
         miscPage->setRealTime(value);
     }else if (tab=="UTCTIME"){
@@ -828,7 +828,7 @@ bool SetupDialog::isValidMode (const QString b)
 void SetupDialog::setDefaults()
 {
     //qDebug() << "SetupDialog::setDefaults" << endl;
-    miscPage->setInMemory("TRUE");
+    //miscPage->setInMemory("TRUE");
     miscPage->setRealTime("TRUE");
     miscPage->setUTCTime("TRUE");
     miscPage->setImperial("FALSE"); //Metric system is the default

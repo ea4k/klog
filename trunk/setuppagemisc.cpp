@@ -47,7 +47,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
 
 
     imperialCheckBox = new QCheckBox(tr("&Imperial system"), this);
-    dbInMemory = new QCheckBox(tr("DB in &Memory"), this);
+    //dbInMemory = new QCheckBox(tr("DB in &Memory"), this);
     realTimeCheckbox = new QCheckBox(tr("&Log in real time"), this);
     UTCCheckbox = new QCheckBox(tr("&Time in UTC"), this);
     alwaysADIFCheckBox = new QCheckBox(tr("&Save ADIF on exit"), this);
@@ -66,7 +66,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
 
 
     imperialCheckBox ->setToolTip(tr("Check it for Imperial system (Miles instead of Kilometres)."));
-    dbInMemory->setToolTip(tr("Working in memory (vs in file) is much quicker but you will need to save the ADIF file each time you exit KLog."));
+    //dbInMemory->setToolTip(tr("Working in memory (vs in file) is much quicker but you will need to save the ADIF file each time you exit KLog."));
     realTimeCheckbox->setToolTip(tr("Select to use real time."));
     UTCCheckbox->setToolTip(tr("Select to use UTC time."));
     alwaysADIFCheckBox->setToolTip(tr("Select if you want to save to ADIF on exit."));
@@ -116,7 +116,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
 
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(dbInMemory);
+    //mainLayout->addWidget(dbInMemory);
     mainLayout->addLayout(fileLayout);
     mainLayout->addWidget(alwaysADIFCheckBox);
     //mainLayout->addWidget(useDefaultName);
@@ -238,6 +238,7 @@ void SetupPageMisc::slotOpenFileButtonClicked()
 
 }
 
+/*
 QString SetupPageMisc::getInMemory()
 {
     if (dbInMemory->isChecked())
@@ -251,6 +252,7 @@ QString SetupPageMisc::getInMemory()
 
 }
 
+
 void SetupPageMisc::setInMemory(const QString t)
 {
 
@@ -263,7 +265,7 @@ void SetupPageMisc::setInMemory(const QString t)
         dbInMemory->setChecked(true);
     }
 }
-
+*/
 
 QString SetupPageMisc::getUseDefaultName()
 {

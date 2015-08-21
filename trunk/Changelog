@@ -1,4 +1,4 @@
--- 0.9.2
+August-2015 - 0.9.2
 - Bugfix: An ADIF file with one blank line and one QSO used to froze KLog.
 - Bugfix: Minor bugfix in the definition of propagation modes.
 - BugFix: When editing a QSO the name was not shown.
@@ -8,6 +8,7 @@
 - BugFix: DXCluster: Fixed a bug that caused the colors to appear always as new one.
 - BugFix: DXCluster: The option to show only not confirmed was not working correcty.
 - BugFix: IOTA reference was not saved when entering a QSO.
+- BugFix: BIGCTY.DAT was not properly download in KLog first start.
 - GUI: Added some shortcuts in the preference widget.
 - GUI: DXCluster: Add a suggestion to hit enter if no password is expected for the cluster. (tnx AA5VI)
 - GUI: DXCluster: Warns you if the spot is needed for the current year DX-Marathon
