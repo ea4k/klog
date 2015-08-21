@@ -2811,7 +2811,6 @@ void MainWindow::slotQRZTextChanged()
     }
 
     qrzAutoChanging = true;
-
     int cursorP = qrzLineEdit->cursorPosition();
 
     if ( (qrzLineEdit->text()).endsWith(' ') )
@@ -2819,8 +2818,11 @@ void MainWindow::slotQRZTextChanged()
         previousQrz = (qrzLineEdit->text()).simplified();
         qrzLineEdit->setText(previousQrz);
         SRXLineEdit->setFocus();
+    // qDebug()<< "MainWindow::slotQRZTextChanged: Space detected" << endl;
     }
-    qrzLineEdit->setText(((qrzLineEdit->text())).simplified());
+
+    qrzLineEdit->setText(((qrzLineEdit->text())).simplified());    
+    qrzLineEdit->setText((qrzLineEdit->text()).remove(" "));
     qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
 
     if (!validCharactersInCall(qrzLineEdit->text()))
@@ -2857,27 +2859,24 @@ void MainWindow::slotQRZTextChanged()
         currentQrz.replace(QChar('\\'), QChar('/'));
         qrzLineEdit->setText(currentQrz);
     }
-qDebug()<< "MainWindow::slotQRZTextChanged: 14-" << qrzLineEdit->text() << "- " << QString::number(qrzLineEdit->cursorPosition()) << endl;
 
     currentQrz = qrzLineEdit->text();
 
-
-qDebug()<< "MainWindow::slotQRZTextChanged: 14.1-" << qrzLineEdit->text() << "- " << QString::number(cursorP) << endl;
-    if ((currentQrz.at(cursorP-1)).isSpace())
+    if (cursorP>currentQrz.length())
+    {// A Space that has been removed without updating the cursor
+        //qDebug()<< "MainWindow::slotQRZTextChanged: cursorP > currentQRZ.length" << endl;
+    }
+    else
     {
-qDebug()<< "MainWindow::slotQRZTextChanged: 14.2-" << qrzLineEdit->text() << "- " << QString::number(qrzLineEdit->cursorPosition()) << endl;
-        previousQrz = currentQrz.remove(cursorP-1, 1);
-        cursorP--;
-        qrzLineEdit->setText(previousQrz);
+        if ((currentQrz.at(cursorP-1)).isSpace())
+        {
+            previousQrz = currentQrz.remove(cursorP-1, 1);
+            cursorP--;
+            qrzLineEdit->setText(previousQrz);
+        }
     }
 
-qDebug()<< "MainWindow::slotQRZTextChanged: 15-" << qrzLineEdit->text() << "- " << QString::number(qrzLineEdit->cursorPosition()) << endl;
-    if ( currentQrz.endsWith(' ') )
-    {/*Remove the space and moves the focus to SRX to write the RX exchange*/
-        previousQrz = currentQrz.simplified();
-        qrzLineEdit->setText(previousQrz);
-        SRXLineEdit->setFocus();
-    }
+
 
     currentQrz = qrzLineEdit->text();
     currentEntity = world->getQRZARRLId(currentQrz);
@@ -2977,7 +2976,7 @@ qDebug()<< "MainWindow::slotQRZTextChanged: 15-" << qrzLineEdit->text() << "- " 
         break;
     }
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
-    qrzLineEdit->setCursorPosition(cursorP);
+    qrzLineEdit->setCursorPosition(cursorP);    
     completeWithPreviousQSO(currentQrz);
     qrzAutoChanging = false;
     //qDebug() << "MainWindow::slotQRZTextChanged: END" << endl;
@@ -5726,12 +5725,6 @@ void MainWindow::createUIDX()
     upLeftSplitter->addWidget(dxUpLeftTab);
     upLeftSplitter->setOrientation(Qt::Vertical);
 
-
-    //QVBoxLayout *dxUpLeftLayout = new QVBoxLayout;
-    //dxUpLeftLayout->addWidget(dxUpLeftInputFrame);
-    //dxUpLeftLayout->addWidget(dxUpLeftTab);
-
-
     QVBoxLayout *dxUpRightFixLayout = new QVBoxLayout;
     dxUpRightFixLayout->addWidget(infoLabel1);
     dxUpRightFixLayout->addWidget(infoLabel2);
@@ -5774,34 +5767,18 @@ void MainWindow::createUIDX()
     QLabel *shortLabelN = new QLabel(tr("Short Path"));
     shortLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
-
     QLabel *longLabelN = new QLabel(tr("Long Path"));
     longLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
     QLabel *gradShortLabelN = new QLabel(tr("Grad"));
-    gradShortLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    gradShortLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);    
     gradShortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-    //QLabel *distShortLabelN = new QLabel();
-    //QLabel *distLongLabelN = new QLabel();
-/*
-    if (imperialSystem)
-    {
-        distShortLabelN->setText(tr("Miles"));
-        distLongLabelN->setText(tr("Miles"));
-    }
-    else
-    {
-        distShortLabelN->setText(tr("Km"));
-        distLongLabelN->setText(tr("Km"));
-    }
-*/
     distShortLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
     QLabel *gradLongLabelN = new QLabel(tr("Grad"));
     gradLongLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    gradLongLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     distShortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
 
     distLongLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     distLongLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
@@ -8056,7 +8033,7 @@ void MainWindow::slotFilePrint()
 
 bool MainWindow::downloadCTYFile()
 {
-    //qDebug() << "MainWindow::downloadCTYFile" << endl;
+    qDebug() << "MainWindow::downloadCTYFile" << endl;
 
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Question);
@@ -8082,7 +8059,7 @@ bool MainWindow::downloadCTYFile()
 
 bool MainWindow::downloadCtyDatFile()
 {
-    //qDebug() << "MainWindow::downloadCtyDatFile" << endl;
+    qDebug() << "MainWindow::downloadCtyDatFile" << endl;
     //http://www.country-files.com/cty/cty.csv
     QString urld = QString();
     switch (contestMode)
@@ -8101,17 +8078,17 @@ bool MainWindow::downloadCtyDatFile()
     request.setUrl(url);
     QNetworkReply *reply= manager.get(request);
 
-   //qDebug() << "MainWindow::downloadCtyDatFile - END" << endl;
+   qDebug() << "MainWindow::downloadCtyDatFile - END" << endl;
 
     return true;
 }
 
 void MainWindow::slotDownloadFinished(QNetworkReply *reply)
 {
-   //qDebug() << "MainWindow::downloadFinished" << endl;
+   qDebug() << "MainWindow::downloadFinished" << endl;
     QMessageBox::StandardButton ret;
 
-    //QMessageBox msgBox;
+
     QUrl url = reply->url();
     if (reply->error()) {
 

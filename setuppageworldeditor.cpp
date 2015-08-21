@@ -178,7 +178,7 @@ void SetupPageWorldEditor::createWorldModel()
 
     nameCol = rec.indexOf("sincedate");
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Since Date"));
-    nameCol = rec.indexOf("deleted");
+    nameCol = rec.indexOf("todate");
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("To Date"));
 
     worldModel->select();

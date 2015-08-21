@@ -46,8 +46,8 @@ public:
     void setUseDefaultName(const QString t);
     QString getUseDefaultName();
     void setDefaultFileName(const QString t);
-    QString getInMemory();
-    void setInMemory(const QString t);
+    //QString getInMemory();
+    //void setInMemory(const QString t);
     QString getImperial();
     void setImperial(const QString t);
     QString getSendQSLWhenRec();
@@ -68,7 +68,7 @@ private slots:
 private:
     void createActions();
 
-    QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *dbInMemory, *useDefaultName, *completeWithPreviousCheckBox;
+    QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox, *keepMyDataCheckBox;
     QString defaultFileName;
     QLineEdit *defaultFileNameLineEdit;
