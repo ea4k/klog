@@ -1,0 +1,250 @@
+This is a file to read if you want to join the KLog development team.
+
+This document will explain the KLog architecture, requirements, tips and important to know
+things to take into account when joining the KLog development team.
+
+
+
+CONTENT:
+1 - BEFORE CODING
+2 - KLOG ARCHITECTURE
+3 - BEFORE CODING
+4 - CODING
+5 - AFTER CODING
+6 - GUI
+7 - DOCUMENTATION
+8 - TRANSLATIONS
+9 - DEPLOYING
+
+
+
+
+
+0 - MISSION AND OBJECTIVE
+
+The objective of KLog is to provide a free software that runs in Linux, OSX and Windows.
+KLog will provide hamradio contest and DX logging support.
+
+0.1 - REQUIREMENTS
+
+- Able to run in Linux, OSX and Windows.
+- Easy to use.
+- Able to localize to any language.
+- Any data can be exportable into ADIF (http://www.adif.org).
+- Can import standard ADIF.
+- Can export to Cabrillo (http://www.kkn.net/~trey/cabrillo/).
+
+- Provides a user manual / documentation.
+
+
+
+1 - BEFORE CODING:
+
+Read this document.
+
+Join the KLog mailing list and send a "Hello that's me and I am here" message:
+http//MAILINGLIST
+
+Interesting links:
+http://www.qtcentre.org/wiki/index.php?title=Keeping_the_GUI_Responsive
+Packer: http://upx.sourceforge.net/
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+2 - KLOG ARCHITECTURE
+
+KLog is intended to be a MODULAR software with the requirement to be modular ;-) so it is easy to
+add new features (mainly contests and awards support).
+
+2.1 IMPORTANT THINGS TO HAVE IN MIND
+
+- KLog version number is using the following system:
+   Release versions: The Decimal par of the version number will always use even numbers like 0, 1.2, 2.20, ...
+   while the decimal part of the development or Release Candidate versions will always be an odd number ie 0.1, 1.3, ...
+   The release number is defined in the "main.cpp" file.
+
+- KLog should manage several logs. The "log" table of the DB has a column called "lognumber".
+   ALL QSO has a lognumber id that identifies the log it belongs to.
+   Each lognumber will have associated a Name and/or ID (TBD) so the user is able to "open" just
+   that log. It is important that all the QSO operations are aware of this lognumber id.
+
+- The log table has a "marked" column. This column is to allow mass operations. Changing this column has
+  to be done with care and leave it "unmarked" once the desired operation is finished.
+  KLog should unmark(N) all QSO when starts and exits. Mark = 'X', unmark='N' or other.
+  Marked column should not be saved.
+
+- Any change to the DB architecture must be communicated and agreed with the development team before
+  commiting to the SVN and following the 2.4 DB UPDATES area in this document.
+
+
+
+2.2 CONTEST SUPPORT
+
+The "Contest" class (in contest.h) is a base class and all the contest should inherit it.
+The "Contest" class has several virtual functions that should re-implemented in all derived classes.
+
+2.2.1 ADDING A NEW CONTEST
+
+To add a new contest, a new class, inheriting the "Contest" class should be created.
+
+The new contest file should be named: "contest_nameofthecontest.h" and "contest_nameofthecontest.cpp"
+and should be included in the mainwindow.h
+
+A new contest must include:
+ - Import/Export Cabrillo file
+
+
+
+2.3 AWARD SUPPORT
+
+2.4 DB UPDATES
+
+A DB update consist on:
+
+- All the intended changes.
+- Update the softwarecontrol TABLE on the DB
+
+To update the DB structure there are several things to have in mind:
+
+- The current version of the DB is defined in database.h
+    const float DBVersionf = 0.003;
+
+- All the actions to update the DB to the new structure are done here:
+    DataBase::updateIfNeeded
+
+- After making any update
+
+
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+3 - BEFORE CODING
+
+Update your sources from the SVN: Remember that other developer may has done a commit.
+
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+4 - CODING
+
+- The development language is English.
+- All Strings to be shown to the user must be translatable. i.e. tr("String")
+
+4.1 - STYLE
+4.2 - ADIF SUPPORT
+
+KLog is using some application defined ADIF fields: APP_{PROGRAMID}_{FIELDNAME}
+
+Header fields:
+    APP_KLOG_LOG_DATE_EXPORT: The date and time (in UTC) when the log was exported.
+    APP_KLOG_QSOS: The number of QSOs in the log.
+    DEPRECATED: APP_KLOG_RELEASE: Release of KLog used to export the log file. CHANGED TO PROGRAMVERSION (ADIF standard)
+
+QSO fields:
+    APP_KLOG_POINTS: Points given by the QSO.
+    APP_KLOG_MULTIPLIER: Information about the multiplier status of the QSO.
+    APP_KLOG_LOGN: Lognumber if the ADIF file contains several logs.
+
+
+KLog is also importing other application defined ADIF fields:
+    APP_N1MM_POINTS: That is imported into the points column in the log table.
+
+4.3 SHORTCUTS
+
+Before adding or modifying any shortcut:
+ - It should be agreed in the devel mailing list.
+ - It should be as standard as possible, reuse the same shortcuts of main/popular contest software.
+ - It should be checked and added to a list below.
+
+
+
+4.4 DATA BASE
+
+- The DB version has to be checked and modified after a DB schema modification.
+- Any modification to the DB has to be provided with the code to update from any previous version.
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+5 - AFTER CODING
+
+Test that your code compiles and does not break the previous code.
+
+Document your changes and close/update the tasks/bugs you have worked on.
+
+Remember to commit your code to the SVN.
+
+Try to do "atomic" commits. That is to commit updates that may be disabled as a block.
+i.e. A new function or a modification to a function. Don't commit several things at once
+if you can avoid it.
+This is just a recommendation to avoid big commits that, in case of a problem are difficult to
+trace.
+
+Document your commits: ALWAYS add a clear comment to the commits so it is easy to know what is it about.
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+6 - GUI
+
+6.1 CONTEST GUI
+
+- The GUI should only have the data fields that are needed for that contest, keeping the GUI simple
+  and easy to use.
+
+
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+7 - DOCUMENTATION
+
+- One feature will not be considered completed until it is not added to the user manual.
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+9 - TRANSLATIONS
+
+9.1 ADDING TRANSLATIONS
+
+To add a new translation add the new language file to the klog.pro file following the sintax:
+
+TRANSLATIONS = KLog_es.ts \
+    klog_fr.ts
+
+Being es, fr, the ISO codes naming the language.
+
+9.2 TRANSLATING
+
+Translators should work in the *.ts files.
+
+9.2 UPDATING TRANSLATIONS
+
+Update translations:
+  Run: lupdate -verbose klog.pro
+  in the klog directory to update the language files
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+9 - DEPLOYING
+
+Before deploying, translations should be updated.
+
+
+9.1 DEPLOYING ON LINUX
+
+9.2 DEPLOYING ON OSX
+
+    Build KLog with QTCreator
+
+    Run the following command from the build directory:
+        mv klog.app KLog.app
+        create new folder in KLog.app/Contents/PlugIns/sqldrivers
+        copy $QT_DIR/plugins/sqldrivers/libqsqlite.dylib to the new folder (/Developer/Applications/Qt/plugins/)
+        macdeployqt KLog.app/ -dmg
+        mv KLog.dmg KLog-[VERSION].dmg
+
+9.3 DEPLOYING ON WINDOWS
+    Currently using an Open Source Licence of: BitRock InstallBuilder
+
+
+Installer:
+http://en.wikipedia.org/wiki/List_of_installation_software
+

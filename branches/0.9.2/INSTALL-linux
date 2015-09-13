@@ -1,0 +1,18 @@
+Follow these steps to build KLog.
+
+1. Check if you have the necessary include files to compile QT5 applications.
+	- Qt 	- http://qt-project.org/
+	- CMake - http://wiki.qtcentre.org/index.php?title=Compiling%5FQt4%5Fapps%5Fwith%5FCMake
+
+2.- Generate the Makefile
+ 
+    qmake PREFIX=/usr/local klog.pro
+
+5. Make everything.
+
+    make 
+
+5.5 (JUST FOR INFORMATION)
+
+    You will find the klog executable in the sources folder.
+
