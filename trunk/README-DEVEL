@@ -232,10 +232,14 @@ Before deploying, translations should be updated.
 
 9.2 DEPLOYING ON OSX
 
-  Run the following command from the sources directory:
+    Build KLog with QTCreator
 
-       macdeployqt KLog.app/ -dmg
-       mv KLog.dmg KLog-[VERSION].dmg
+    Run the following command from the build directory:
+        mv klog.app KLog.app
+        create new folder in KLog.app/Contents/PlugIns/sqldrivers
+        copy $QT_DIR/plugins/sqldrivers/libqsqlite.dylib to the new folder (/Developer/Applications/Qt/plugins/)
+        macdeployqt KLog.app/ -dmg
+        mv KLog.dmg KLog-[VERSION].dmg
 
 9.3 DEPLOYING ON WINDOWS
     Currently using an Open Source Licence of: BitRock InstallBuilder
