@@ -1,5 +1,3 @@
-TODO: Add a Default band & mode in the setup dialog (MainWindow::slotClearButtonClicked, ...)
-
 This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
@@ -45,7 +43,7 @@ TODO: Remove all not needed fields from SetupPageLogNew::gatherAndSend() the typ
 NEXT:
 TODO: Some Entities are not recognized by ARRL (I, IG9, IT9 are the same ARRL id entities but different ones). Maybe I should not be working
       with ARRLid or maybe I should detect special ones and "id+10000" so >10000 ids are special ones.
-
+TODO: Add a Default band & mode in the setup dialog (MainWindow::slotClearButtonClicked, ...)
 TODO: Add another tab in the botton to list the DXCC status.
 TODO: checkIfNewBandOrMode() is not being used. Code should be removed...
 
@@ -89,6 +87,8 @@ TODO: DXCluster: UI: Modify the DX-Cluster tab to show the data in a table?: DX 
 TODO: DXCluster: Add the DXMarathon information to the spots
 TODO: DXCLuster: Create a band map (including a "to-be-worked")
 TODO: Working on the dxCluster: Tool to save the DXCluster in a file (for further analysis).
+TODO: DXCluster: Lines that are not a DX should not be in another color than default.
+TODO: Add a default DX Cluster server
 
 KLog 0.9.12
 TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
@@ -106,8 +106,6 @@ TODO: HelpAboutDialog
 TODO: setuppagelogs.cpp
 TODO: Remove references to DataBase from all classes except DataProxySQLite
 
-TODO: DXCluster: Lines that are not a DX should not be in another color than default.
-TODO: Add a default DX Cluster server
 
 TODO: Make a tool to mark and export QSO from the right button. (i.e. To mark several QSO to print and export the ADIF file with just those QSO)
 
@@ -121,7 +119,6 @@ KLOG TODO:
 TODO: To create a function tha runs the log and marks "N" if QSL has not been sent or received.
 TODO: Create a setup page to configure a default prop_mode per band (ie 6m = ES)
 
-TODO: CTY.DAT update
 TODO: Award tabs: center/bold tabs
 TODO: Add export to cabrillo to the logfile
 
