@@ -1053,6 +1053,8 @@ int DataBase::getBandIDFromName2(const QString b)
     */
 
     //qDebug() << "DataBase::getBandIDFromName2: " << b << endl;
+    return getBandIdFromName(b);
+    /*
     if (b.length()<1)
     {
         return -3;
@@ -1070,11 +1072,14 @@ int DataBase::getBandIDFromName2(const QString b)
     }
      //qDebug() << "DataBase::getBandIDFromName2: Safety exit" << endl;
     return -2;
+    */
 }
 
 int DataBase::getModeIDFromName2(const QString b)
 {
     //qDebug() << "DataBase::getModeIDFromName2: " << b << endl;
+    return getModeIdFromName(b);
+   /*
     if (b.length()<2)
     {
         return -3;
@@ -1092,6 +1097,7 @@ int DataBase::getModeIDFromName2(const QString b)
     }
      //qDebug() << "DataBase::getModeIDFromName2: Safety exit" << endl;
     return -2;
+    */
 }
 
 QString DataBase::getBandNameFromID2(const int _i)
