@@ -102,6 +102,6 @@ OTHER_FILES += TODO \
     AUTHORS \
     README
 TRANSLATIONS = klog_es.ts \
-    klog_fr.ts
+    klog_ca.ts
 CODECFORTR = UTF-8
 FORMS += 
