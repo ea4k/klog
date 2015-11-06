@@ -137,7 +137,7 @@ private:
 
     Utilities *util;
 
-    //QSqlDatabase *db;
+    QSqlDatabase db;
 
 };
 

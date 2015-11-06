@@ -30,7 +30,7 @@
 //
 
 #include <QWidget>
-#include <QtGui>
+#include <QtWidgets>
 
 class MainWindowSatTab : public QWidget
 {

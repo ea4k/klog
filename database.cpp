@@ -29,12 +29,16 @@
 
 
 DataBase::DataBase(const QString _softVersion, bool inmemoryonly){
-    //qDebug() << "DataBase::DataBase: " << _softVersion  << endl;
+   //qDebug() << "DataBase::DataBase: " << _softVersion  << endl;
+    //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
     dbVersion = DBVersionf;
     softVersion = _softVersion;
     inMemoryOnly = inmemoryonly;
     latestReaded = 0.0;
     util = new Utilities();
+    //db = new QSqlDatabase;
+    db = QSqlDatabase::database();
+    createConnection();
 
 }
 
@@ -61,108 +65,123 @@ void DataBase::compress()
 
 bool DataBase::createConnection()
 {
-    //qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
+  //qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
     QString stringQuery;
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+   //qDebug() << "DataBase::createConnection: 0" << endl;
+
     QSqlQuery query;
 
-    //qDebug() << "DataBase::createConnection: -1" << endl;
-    /*
-    if (inMemoryOnly)
+    //rc = sqlite3_open(":memory:", &db);
+
+    if (!db.isOpen())
     {
-        //qDebug() << "DataBase::createConnection: Memory" << endl;
-        db.setDatabaseName(":memory:"); // 2m 07s
+       //qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
+        db = QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName("logbook.dat");
+
+        if (!db.open())
+        {
+            QMessageBox::warning(0, QObject::tr("Database Error"),
+                                 db.lastError().text());
+           //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
+            return false;
+        }
+       else
+       {
+           //qDebug() << "DataBase::createConnection: created?" << endl;
+
+            if (isTheDBCreated())
+            {
+               //qDebug() << "DataBase::createConnection: DB Exists"  << endl;
+
+            }
+            else
+            {
+                //qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
+                createDataBase();
+
+                stringQuery ="PRAGMA main.page_size = 4096;";
+                query.exec(stringQuery);
+                stringQuery ="PRAGMA main.cache_size=10000;";
+                query.exec(stringQuery);
+                stringQuery ="PRAGMA main.locking_mode=EXCLUSIVE;";
+                query.exec(stringQuery);
+                stringQuery ="PRAGMA main.synchronous=NORMAL;";
+                query.exec(stringQuery);
+                stringQuery ="PRAGMA main.journal_mode=WAL;";
+                query.exec(stringQuery);
+                stringQuery ="PRAGMA main.cache_size=5000;";
+                query.exec(stringQuery);
+                stringQuery ="PRAGMA synchronous=OFF;";
+                query.exec(stringQuery);
+                stringQuery ="PRAGMA main.temp_store = MEMORY;";
+                query.exec(stringQuery);
+                //stringQuery="PRAGMA auto_vacuum = FULL;";
+                //query.exec(stringQuery);
+                stringQuery ="PRAGMA case_sensitive_like=OFF;";
+                query.exec(stringQuery);
+
+
+            }
+
+        }
     }
     else
     {
-        //qDebug() << "DataBase::createConnection: File" << endl;
-        db.setDatabaseName("logbook.dat");
+       //qDebug() << "DataBase::createConnection: DB already opened"  << endl;
     }
-    */
-
-    db.setDatabaseName("logbook.dat");
-
-    //qDebug() << "DataBase::createConnection: 0" << endl;
-
-    //rc = sqlite3_open(":memory:", &db);
-    if (!db.open()) {
-        QMessageBox::warning(0, QObject::tr("Database Error"),
-                             db.lastError().text());
-        //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
-        return false;
-    }
-   else
-    {
-        //qDebug() << "DataBase::createConnection: created?" << endl;
-
-
-        if (isTheDBCreated())
-        {
-            //qDebug() << "DataBase::createConnection: DB Exists"  << endl;
-
-        }
-        else
-        {
-            //qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
-            createDataBase();
-
-            stringQuery ="PRAGMA main.page_size = 4096;";
-            query.exec(stringQuery);
-            stringQuery ="PRAGMA main.cache_size=10000;";
-            query.exec(stringQuery);
-            stringQuery ="PRAGMA main.locking_mode=EXCLUSIVE;";
-            query.exec(stringQuery);
-            stringQuery ="PRAGMA main.synchronous=NORMAL;";
-            query.exec(stringQuery);
-            stringQuery ="PRAGMA main.journal_mode=WAL;";
-            query.exec(stringQuery);
-            stringQuery ="PRAGMA main.cache_size=5000;";
-            query.exec(stringQuery);
-            stringQuery ="PRAGMA synchronous=OFF;";
-            query.exec(stringQuery);
-            stringQuery ="PRAGMA main.temp_store = MEMORY;";
-            query.exec(stringQuery);         
-            //stringQuery="PRAGMA auto_vacuum = FULL;";
-            //query.exec(stringQuery);
-            stringQuery ="PRAGMA case_sensitive_like=OFF;";
-            query.exec(stringQuery);
-
-
-        }
     createBandModeMaps();
-    }
+
+  //qDebug() << "DataBase::createConnection: END"  << endl;
     return unMarkAllQSO();
 }
 
 bool DataBase::isTheDBCreated()
 {
-    //qDebug() << "DataBase::isTheDBCreated"  << endl;
+   //qDebug() << "DataBase::isTheDBCreated"  << endl;
     QSqlQuery query;
     int _num = 0;
 
+
     QString stringQuery ("SELECT count(id) FROM softwarecontrol");
-    query.exec(stringQuery);
-    query.next();
-    if (query.isValid())
+    bool sqlOK = query.exec(stringQuery);
+    //En esta ejecución da driver not loaded
+
+    if (sqlOK)
     {
-        //qDebug() << "DataBase::isTheDBCreated - valid"  << endl;
-        _num = (query.value(0)).toInt();
-        if (_num > 0)
+        query.next();
+        if (query.isValid())
         {
-            //qDebug() << "DataBase::isTheDBCreated - DB Exists"  << endl;
-            return true;
+           //qDebug() << "DataBase::isTheDBCreated - valid"  << endl;
+            _num = (query.value(0)).toInt();
+            if (_num > 0)
+            {
+               //qDebug() << "DataBase::isTheDBCreated - DB Exists"  << endl;
+                return true;
+            }
+            else
+            {
+               //qDebug() << "DataBase::isTheDBCreated - DB does not Exist"  << endl;
+                return false;
+            }
         }
         else
         {
-            //qDebug() << "DataBase::isTheDBCreated - DB does not Exist"  << endl;
+           //qDebug() << "DataBase::isTheDBCreated - not valid"  << endl;
+
             return false;
         }
     }
     else
     {
-        //qDebug() << "DataBase::isTheDBCreated - not valid"  << endl;
+       //qDebug() << "DataBase::isTheDBCreated: LastQuery: " << query.lastQuery()  << endl;
+       //qDebug() << "DataBase::isTheDBCreated: LastError-data: " << query.lastError().databaseText()  << endl;
+       //qDebug() << "DataBase::isTheDBCreated: LastError-driver: " << query.lastError().driverText()  << endl;
+       //qDebug() << "DataBase::isTheDBCreated: LastError-n: " << QString::number(query.lastError().number() ) << endl;
         return false;
     }
+
+   //qDebug() << "DataBase::isTheDBCreated: END FALSE" << endl;
     return false;
 }
 
@@ -656,37 +675,38 @@ int DataBase::getBandIdFromName(const QString b)
 
 int DataBase::getModeIdFromName(const QString b)
 {
-    //qDebug() << "DataBase::getModeIdFromName: " << b << endl;
+   //qDebug() << "DataBase::getModeIdFromName: " << b << endl;
     QSqlQuery query;
-    if (isValidBand(b))
+    if (isValidMode(b))
     {
         QString queryString = QString("SELECT id FROM mode WHERE name='%1'").arg(b);
-        //qDebug() << "DataBase::getModeIdFromName: queryString: " << queryString << endl;
+       //qDebug() << "DataBase::getModeIdFromName: queryString: " << queryString << endl;
         query.exec(queryString);
         query.next();
         if ( query.isValid() )
         {
-            //qDebug() << "DataBase::getModeIdFromName: OK" << QString::number((query.value(0)).toInt()) << endl;
+           //qDebug() << "DataBase::getModeIdFromName: OK" << QString::number((query.value(0)).toInt()) << endl;
             return (query.value(0)).toInt();
 
         }
         else
         {
-            //qDebug() << "DataBase::getModeIdFromName: NOK 1" << endl;
+           //qDebug() << "DataBase::getModeIdFromName: NOK 1" << endl;
             return -1;
         }
     }
     else
     {
-        //qDebug() << "DataBase::getModeIdFromName: NOK 2" << endl;
+       //qDebug() << "DataBase::getModeIdFromName: NOK 2" << endl;
         return -1;
     }
-    //qDebug() << "DataBase::getModeIdFromName: NOK 3" << endl;
+   //qDebug() << "DataBase::getModeIdFromName: NOK 3" << endl;
     return -1;
 }
 
 QString DataBase::getBandNameFromNumber(const int _n)
 {
+    //qDebug() << "DataBase::getBandNameFromNumber: " << QString::number(_n) << endl;
     QSqlQuery query;
     QString queryString = QString("SELECT name FROM band WHERE id='%1'").arg(_n);
 
@@ -713,6 +733,7 @@ QString DataBase::getBandNameFromNumber(const int _n)
 
 QString DataBase::getModeNameFromNumber(const int _n)
 {
+    //qDebug() << "DataBase::getModeNameFromNumber: " << QString::number(_n) << endl;
     QSqlQuery query;
     QString queryString = QString("SELECT name FROM mode WHERE id='%1'").arg(_n);
 
@@ -737,6 +758,7 @@ QString DataBase::getModeNameFromNumber(const int _n)
 
 QString DataBase::getSubModeNameFromNumber(const int _n)
 {
+   //qDebug() << "DataBase::getSubModeNameFromNumber: " << QString::number(_n) << endl;
     QSqlQuery query;
     QString queryString = QString("SELECT submode FROM mode WHERE id='%1'").arg(_n);
 
@@ -777,7 +799,7 @@ bool DataBase::isValidMode (const QString b)
     {
         return false;
     }
-    QString stringQuery = QString("SELECT id FROM mode WHERE name='%1'").arg(b);
+    QString stringQuery = QString("SELECT id FROM mode WHERE submode='%1'").arg(b);
     QSqlQuery query(stringQuery);
     query.next();
     return query.isValid();
@@ -954,7 +976,7 @@ bool DataBase::createTheBandQuickReference()
 
 */
 
-    //qDebug() << "DataBase::createTheBandQuickReference: " << endl;
+  //qDebug() << "DataBase::createTheBandQuickReference: " << endl;
 
     QString st = "NULL";
     int in = 0;
@@ -976,7 +998,7 @@ bool DataBase::createTheBandQuickReference()
         }
         else
         {
-           //qDebug() << "DataBase::createTheBandQuickReference: Query not valid" << endl;
+          //qDebug() << "DataBase::createTheBandQuickReference: Query not valid -'RETURN FALSE" << endl;
 
           // QMessageBox::warning(0, QObject::tr("Database Error (DataBase::createTheBandQuickReference)"),
           //                      query.lastError().text());
@@ -1004,10 +1026,10 @@ bool DataBase::createTheModeQuickReference()
         QHash<int, QString> IDModeHash
 
     */
-        //qDebug() << "DataBase::createTheModeQuickReference: " << endl;
+      //qDebug() << "DataBase::createTheModeQuickReference: " << endl;
         QString st = "NULL";
         int in = 0;
-        QSqlQuery query("SELECT id, name FROM mode");
+        QSqlQuery query("SELECT id, submode FROM mode");
         while (query.next())
         {
 
@@ -1054,7 +1076,7 @@ int DataBase::getBandIDFromName2(const QString b)
 
     //qDebug() << "DataBase::getBandIDFromName2: " << b << endl;
     return getBandIdFromName(b);
-    /*
+
     if (b.length()<1)
     {
         return -3;
@@ -1067,19 +1089,19 @@ int DataBase::getBandIDFromName2(const QString b)
     }
     else
     {
-        //qDebug() << "DataBase::getBandIDFromName2: Contains - False" << endl;
+       //qDebug() << "DataBase::getBandIDFromName2: Contains - False" << endl;
         return -1;
     }
-     //qDebug() << "DataBase::getBandIDFromName2: Safety exit" << endl;
+    //qDebug() << "DataBase::getBandIDFromName2: Safety exit" << endl;
     return -2;
-    */
+
 }
 
 int DataBase::getModeIDFromName2(const QString b)
 {
-    //qDebug() << "DataBase::getModeIDFromName2: " << b << endl;
-    return getModeIdFromName(b);
-   /*
+   //qDebug() << "DataBase::getModeIDFromName2: " << b << endl;
+    //return getModeIdFromName(b);
+
     if (b.length()<2)
     {
         return -3;
@@ -1087,22 +1109,23 @@ int DataBase::getModeIDFromName2(const QString b)
 
     if (modeIDHash.contains(b))
     {
-        //qDebug() << "DataBase::getModeIDFromName2: " << b << ":" <<  modeIDHash.value(b) << endl;
+       //qDebug() << "DataBase::getModeIDFromName2: " << b << ":" <<  modeIDHash.value(b) << endl;
         return modeIDHash.value(b);
     }
     else
     {
-        //qDebug() << "DataBase::getModeIDFromName2: Contains - False" << endl;
+       //qDebug() << "DataBase::getModeIDFromName2: Contains - False" << endl;
         return -1;
     }
-     //qDebug() << "DataBase::getModeIDFromName2: Safety exit" << endl;
+    //qDebug() << "DataBase::getModeIDFromName2: Safety exit" << endl;
     return -2;
-    */
+
 }
 
 QString DataBase::getBandNameFromID2(const int _i)
 {
     //qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << endl;
+    //return getBandNameFromNumber(_i);
 
     if (IDBandHash.contains(_i))
     {
@@ -1119,6 +1142,7 @@ QString DataBase::getModeNameFromID2(const int _i)
 {
 
    //qDebug() << "DataBase::getModeNameFromId2: " << QString::number(_i) << endl;
+    //return getSubModeNameFromNumber(_i);
 
     if (IDModeHash.contains(_i))
     {
@@ -1133,17 +1157,19 @@ QString DataBase::getModeNameFromID2(const int _i)
 
 bool DataBase::createBandModeMaps()
 {
-     //qDebug() << "DataBase::createBandModeMaps" << endl;
+    //qDebug() << "DataBase::createBandModeMaps" << endl;
      //bool b = createTheBandQuickReference();
      //bool m = createTheModeQuickReference();
 
      //return (b && m);
     if (isTheDBCreated())
     {
+       //qDebug() << "DataBase::createBandModeMaps - isDbCreated TRUE" << endl;
         return (createTheBandQuickReference() &&  createTheModeQuickReference());
     }
     else
     {
+       //qDebug() << "DataBase::createBandModeMaps - isDbCreated FALSE" << endl;
         return false;
     }
 

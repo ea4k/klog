@@ -1,7 +1,7 @@
 #ifndef HELPABOUTDIALOG_H
 #define HELPABOUTDIALOG_H
 //#include <QtWidgets>
-#include <QtGui>
+#include <QtWidgets>
 #include <QDialog>
  #include <QTextBrowser>
 

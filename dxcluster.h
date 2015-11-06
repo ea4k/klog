@@ -28,7 +28,7 @@ email                : jaime@robles.es
 
 #include <QWidget>
 //#include <QtWidgets>
-#include <QtGui>
+#include <QtWidgets>
 #include <QTcpSocket>
 #include <QObject>
 #include "awards.h"

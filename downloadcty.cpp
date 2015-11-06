@@ -13,7 +13,8 @@ DownLoadCTY::DownLoadCTY(const QString _kontestDir) : QObject(0)
 
     urld = QString("http://www.country-files.com/bigcty/cty.csv").toLocal8Bit();
     //urld = QString("http://www.country-files.com/cty/cty.csv").toLocal8Bit();
-    url.setEncodedUrl(urld.toLocal8Bit());
+    url.setUrl(urld.toLocal8Bit());
+    //url.setEncodedUrl(urld.toLocal8Bit());
     request.setRawHeader( "User-Agent" , "KLog" );
     request.setUrl(url);
 

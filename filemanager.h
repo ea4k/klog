@@ -79,7 +79,7 @@ private:
     QStringList getListOfLogsInFile(QFile & _f);
 
 
-    QString checkAndFixASCIIinADIF(const QString _data);
+    //QString checkAndFixASCIIinADIF(const QString _data);
 
     bool processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile, QHash <int, int> &_logs);
     void queryPreparation(const int _logN);

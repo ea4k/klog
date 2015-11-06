@@ -28,7 +28,7 @@
 
 //#include <QtWidgets>
 //#include <QPalette>
-#include <QtGui>
+#include <QtWidgets>
 
 class SetupPageColors : public QWidget {
     Q_OBJECT

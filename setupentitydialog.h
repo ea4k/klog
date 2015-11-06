@@ -27,7 +27,7 @@
  *****************************************************************************/
 
 //#include <QtWidgets>
-#include <QtGui>
+#include <QtWidgets>
 #include <QDialog>
 #include <QPalette>
 

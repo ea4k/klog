@@ -39,6 +39,7 @@
 #include "setuppageclublog.h"
 
 #include "dataproxy_sqlite.h"
+#include "utilities.h"
 
 
 #include "locator.h"
@@ -118,6 +119,7 @@ private:
     Locator *locator;
     DataProxy *dataProxy;
 
+    Utilities *util;
 };
 
 
