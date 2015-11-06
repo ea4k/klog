@@ -26,8 +26,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include <QtGui>
-//#include <QtWidgets>
+#include <QtWidgets>
 #include <QPrinter>
 #include <QPrintDialog>
 
@@ -191,6 +190,8 @@ private slots:
     void openFile();
     bool saveFile(const QString _fileName);
     bool saveFileAs();
+    bool slotOpenKLogFolder();
+
 
 
     void slotFilePrint();
@@ -385,6 +386,9 @@ private:
     QMenu *setupMenu;
     QMenu *helpMenu;
 
+
+
+    QAction *klogFolderAct;
     QAction *openAct;
     QAction *saveAct;
     QAction *exitAct;

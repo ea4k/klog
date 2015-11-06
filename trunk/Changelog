@@ -1,3 +1,10 @@
+November-2015 - 0.9.2.2
+- BugFix: Aether ADIF files could not be properly imported. (TNX AA5VU)
+- BugFix: QSOs where not properly shown in the search box.
+- Import ADIF functionality is improved to support importing of logs with some missing data.
+- Ported from Qt4 to Qt5.
+- New translation: Catalan by EA3NM (Thank you!)
+
 September-2015 - 0.9.2.1
 -BugFix: Band & Mode information was not properly stored.
 

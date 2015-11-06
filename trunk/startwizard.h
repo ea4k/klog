@@ -3,7 +3,7 @@
 
 #include <QWizard>
 #include <QWizardPage>
-#include <QtGui>
+#include <QtWidgets>
 //#include <QtWidgets>
 
 #include <QTranslator>

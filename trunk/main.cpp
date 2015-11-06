@@ -15,7 +15,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include <QtGui>
+#include <QtWidgets>
 #include <QtSql>
 #include <QTranslator>
 #include <cstdlib>
@@ -27,7 +27,7 @@
 
 int main(int argc, char *argv[])
 {
-    QString version = "0.9.2.1";
+    QString version = "0.9.2.2";
     QDir d1 = QDir();
 
     QApplication app(argc, argv);

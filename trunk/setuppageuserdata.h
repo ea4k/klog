@@ -27,7 +27,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include <QtGui>
+#include <QtWidgets>
 //#include <QtWidgets>
 #include "world.h"
 #include "locator.h"

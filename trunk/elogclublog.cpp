@@ -193,11 +193,14 @@ int eLogClubLog::sendData(const QString _q)
 {
    //qDebug() << "eLogClubLog::sendData: " << _q << endl;
 
+
+    //Posiblemente tenga que usar una de estas: void QUrlQuery::addQueryItem(const QString & key, const QString & value)
+
     QUrl serviceUrl = QUrl("https://secure.clublog.org/realtime.php");
     QByteArray postData;
 
     //QByteArray postData;
-
+/*
     QUrl params;
     params.addQueryItem("email",email);
     params.addQueryItem("password",pass);
@@ -216,6 +219,26 @@ int eLogClubLog::sendData(const QString _q)
     params.addQueryItem("adif",_q);
 
     postData = params.encodedQuery();
+*/
+    QUrlQuery params;
+    params.addQueryItem("email",email);
+    params.addQueryItem("password",pass);
+    if ((useQSOStationCallsign) && (stationCallsign.length()>2))
+    {
+        params.addQueryItem("callsign",stationCallsign);
+       //qDebug() << "eLogClubLog::sendData - callsign 1: " << stationCallsign << endl;
+    }
+    else
+    {
+        params.addQueryItem("callsign",call);
+       //qDebug() << "eLogClubLog::sendData - callsign 2: " << call << endl;
+    }
+
+    params.addQueryItem("api",api);
+    params.addQueryItem("adif",_q);
+
+    postData = params.query(QUrl::FullyEncoded).toUtf8();
+    //postData = params.encodedQuery();
 
     // Call the webservice
     QNetworkAccessManager *networkManager = new QNetworkAccessManager(this);

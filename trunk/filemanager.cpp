@@ -30,11 +30,13 @@
 FileManager::FileManager()
 {
    //qDebug() << "FileManager::FileManager()" << endl;
+    util = new Utilities;
     ignoreUnknownAlways = false;
     world = new World();
     awards = new Awards();
     db = new DataBase(0);
-    db->createBandModeMaps();
+    //db->createConnection();
+    //db->createBandModeMaps();
     kontestVersion="";
     noMoreQso = false;
     dataProxy = new DataProxy_SQLite();
@@ -47,12 +49,13 @@ FileManager::FileManager()
 FileManager::FileManager(const QString _kontestDir)
 {
    //qDebug() << "FileManager::FileManager(): Dir" << _kontestDir << endl;
+    util = new Utilities;
     kontestDir = _kontestDir;
     ignoreUnknownAlways = false;
     world = new World(kontestDir);
     awards = new Awards();
     db = new DataBase(0);
-    db->createBandModeMaps();
+    //db->createBandModeMaps();
     kontestVersion="";
     dataProxy = new DataProxy_SQLite();
     noMoreQso = false;
@@ -65,12 +68,13 @@ FileManager::FileManager(const QString _kontestDir)
 FileManager::FileManager(const QString _kontestDir, const QString _softVersion, DataBase _db)
 {
    //qDebug() << "FileManager::FileManager(): Dir(2)" << _kontestDir << endl;
+    util = new Utilities;
     kontestDir = _kontestDir;
     ignoreUnknownAlways = false;
     world = new World(kontestDir);
     awards = new Awards();
     db = new DataBase(0);
-    db->createBandModeMaps();
+    //db->createBandModeMaps();
     kontestVersion = _softVersion;
     dataProxy = new DataProxy_SQLite();
     noMoreQso = false;
@@ -301,14 +305,15 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     currentQso++;
 
                     nameCol = rec.indexOf("call");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
-                    aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString();
+
+                    aux1 = util->checkAndFixASCIIinADIF(aux1);
                     //qDebug() << "FileManager::adifLogExportToFile: " << QString::number(nameCol) << "/" << aux1 << endl;
                     out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1<< " ";
 
                     nameCol = rec.indexOf("qso_date");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
-                    aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString();
+                    aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length()) == 10){
                         aux1.remove(QChar('-'), Qt::CaseInsensitive);
                         aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -316,8 +321,8 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("qso_date_off");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
-                    aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString();
+                    aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length()) == 10){
                         aux1.remove(QChar('-'), Qt::CaseInsensitive);
                         aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -325,8 +330,8 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("time_on");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
-                    aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString();
+                    aux1 = util->checkAndFixASCIIinADIF(aux1);
                     //qDebug() << "FileManager::adifLogExportToFile-time_on: "  << aux1 << endl;
                     if ( ((aux1.length()) == 5) || ((aux1.length()) == 8) ){
                         aux1.remove(QChar(':'), Qt::CaseInsensitive);
@@ -334,14 +339,16 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("time_off");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString();
+                    aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ( ((aux1.length()) == 5) || ((aux1.length()) == 7) ){
                         aux1.remove(QChar(':'), Qt::CaseInsensitive);
                         out << "<TIME_OFF:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("bandid");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString();
+                    aux1 = util->checkAndFixASCIIinADIF(aux1);
                     aux1 = db->getBandNameFromID2(aux1.toInt());
                     out << "<BAND:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     bandst = aux1;
@@ -357,7 +364,8 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
                     */
                     nameCol = rec.indexOf("band_rx");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString();
+                    aux1 = util->checkAndFixASCIIinADIF(aux1);
 
                     if ( (0 < aux1.toInt()) && (aux1.toInt() < 30) && (aux1.length()>0) )
                     {
@@ -378,7 +386,8 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("modeid");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString();
+                    aux1 = util->checkAndFixASCIIinADIF(aux1);
                     // get SubModeId to check if it is the same or not from modeid
                     aux2 = dataProxy->getSubModeFromId(aux1.toInt());
                     aux1 = db->getModeNameFromID2(aux1.toInt());
@@ -396,170 +405,171 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
 
                     nameCol = rec.indexOf("srx");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString();
+                    aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0)
                     {
                         out << "<SRX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                     nameCol = rec.indexOf("srx_string");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<SRX_STRING:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("stx");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<STX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("stx_string");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<STX_STRING:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("cqz");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ( ((aux1.length())>0) && (0 < aux1.toInt()) && (aux1.toInt() < CQZones+1) ){
                         out << "<CQZ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("ituz");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ( ((aux1.length())>0) && (0 < aux1.toInt()) && (aux1.toInt() < ITUZones+1) ){
                         out << "<ITUZ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("dxcc");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<DXCC:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                         //qDebug() << "FileManager::adifLogExportToFile: DXCC " << aux1 << endl;
                     }
 
                     nameCol = rec.indexOf("address");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<ADDRESS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("age");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<AGE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("cnty");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<CNTY:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("comment");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<COMMENT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("a_index");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<A_INDEX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("ant_az");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<ANT_AZ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("ant_el");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<ANT_EL:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("ant_path");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<ANT_PATH:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("arrl_sect");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<ARRL_SECT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("checkcontest");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<CHECKCONTEST:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("class");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<CLASS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("contacted_op");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<CONTACTED_OP:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("contest_id");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<CONTEST_ID:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("points");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<APP_KLOG_POINTS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("multiplier");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<APP_KLOG_MULTIPLIER:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("country");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<COUNTRY:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("credit_submitted");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<CREDIT_SUBMITTED:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("credit_granted");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<CREDIT_GRANTED:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("distance");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<DISTANCE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("eq_call");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<EQ_CALL:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("email");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         if (aux1.contains("@") && (aux1.contains(".")))
                         {
@@ -569,7 +579,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
 
                     nameCol = rec.indexOf("eqsl_qslrdate");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length()) == 10){
                         aux1.remove(QChar('-'), Qt::CaseInsensitive);
                         aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -577,7 +587,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("eqsl_qslsdate");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length()) == 10){
                         aux1.remove(QChar('-'), Qt::CaseInsensitive);
                         aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -585,23 +595,23 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("eqsl_qsl_rcvd");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if (  ((aux1.length())==1) && (aux1!="N") ) {
                         out << "<EQSL_QSL_RCVD:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                     nameCol = rec.indexOf("eqsl_qsl_sent");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if (  ((aux1.length())==1) && (aux1!="N") ){
                         out << "<EQSL_QSL_SENT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("force_init");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<FORCE_INIT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                     nameCol = rec.indexOf("freq");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
                         if (db->isThisFreqInBand(bandst, aux1))
@@ -611,7 +621,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                     }
                     nameCol = rec.indexOf("freq_rx");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
                         if (db->isThisFreqInBand(bandrxst, aux1))
@@ -621,19 +631,19 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("gridsquare");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<GRIDSQUARE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("my_gridsquare");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_GRIDSQUARE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("iota");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     //qDebug() << "FileManager::adifLogExportToFile (IOTA): " << aux1 << endl;
 
                     if (((aux1.length())>=4) && ((aux1.length())<=6)){
@@ -642,7 +652,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("iota_island_id");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     //qDebug() << "FileManager::adifLogExportToFile (IOTA_ID): " << aux1 << endl;
 
                     if ((aux1.length())>0){
@@ -650,50 +660,50 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("my_iota");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if (((aux1.length())>=4) && ((aux1.length())<=6)){
                     //if ((aux1.length())==6){
                         out << "<MY_IOTA:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                     nameCol = rec.indexOf("my_iota_island_id");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_IOTA_ISLAND_ID:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
 
                     nameCol = rec.indexOf("k_index");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<K_INDEX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("lat");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<LAT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("lon");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<LON:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("my_lat");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_LAT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("my_lon");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_LON:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("lotw_qslrdate");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length()) == 10){
                         aux1.remove(QChar('-'), Qt::CaseInsensitive);
                         aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -701,7 +711,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("lotw_qslsdate");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length()) == 10){
                         aux1.remove(QChar('-'), Qt::CaseInsensitive);
                         aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -709,174 +719,174 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("lotw_qsl_rcvd");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ( ((aux1.length())==1) && (aux1!="N") ) {
                         out << "<LOTW_QSL_RCVD:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                     nameCol = rec.indexOf("lotw_qsl_sent");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ( ((aux1.length())==1)  && (aux1!="N") ){
                         out << "<LOTW_QSL_SENT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                     nameCol = rec.indexOf("clublog_qso_upload_date");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length()) == 10){
                         aux1.remove(QChar('-'), Qt::CaseInsensitive);
                         aux1.remove(QChar('/'), Qt::CaseInsensitive);
                         out << "<CLUBLOG_QSO_UPLOAD_DATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                     nameCol = rec.indexOf("clublog_qso_upload_status");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ( ((aux1.length())==1)  && ((aux1!="Y") || (aux1!="N") || (aux1!="M")) ){
                         out << "<CLUBLOG_QSO_UPLOAD_STATUS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("max_bursts");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MAX_BURSTS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("ms_shower");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MS_SHOWER:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("my_city");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_CITY:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("my_cnty");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_CNTY:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("my_country");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_COUNTRY:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("my_cq_zone");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_CQ_ZONE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("my_name");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_NAME:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("name");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<NAME:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("operator");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<OPERATOR:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("station_callsign");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<STATION_CALLSIGN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                     nameCol = rec.indexOf("owner_callsign");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<OWNER_CALLSIGN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("my_rig");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_RIG:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("my_sig");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_SIG:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("my_sig_info");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_SIG_INFO:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("my_state");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_STATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("state");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<STATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("my_street");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<MY_STREET:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("notes");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         aux1.replace("\n", "---");
                         out << "<NOTES:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("nr_bursts");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<NR_BURSTS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("nr_pings");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<NR_PINGS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("pfx");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<PFX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                     nameCol = rec.indexOf("precedence");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<PRECEDENCE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
 
                     nameCol = rec.indexOf("public_key");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<PUBLIC_KEY:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("qslmsg");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<QSLMSG:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("qslrdate");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length()) == 10){
                         aux1.remove(QChar('-'), Qt::CaseInsensitive);
                         aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -884,7 +894,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("qslsdate");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length()) == 10){
                         aux1.remove(QChar('-'), Qt::CaseInsensitive);
                         aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -892,23 +902,23 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("qsl_rcvd");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if (((aux1.length())==1) && (aux1!="N") ){
                         out << "<QSL_RCVD:" << QString::number(aux1.length()) << ">" << aux1  << " ";
 
                         nameCol = rec.indexOf("qsl_rcvd_via");
-                        aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                        aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                         if ((aux1.length())==1){
                             out << "<QSL_RCVD_VIA:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                         }
                     }
 
                     nameCol = rec.indexOf("qsl_sent");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if (((aux1.length())==1) && (aux1!="N") ){
                         out << "<QSL_SENT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                         nameCol = rec.indexOf("qsl_sent_via");
-                        aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                        aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                         if ((aux1.length())==1)  {
                             out << "<QSL_SENT_VIA:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                         }
@@ -916,55 +926,55 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("qsl_via");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<QSL_VIA:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("qso_complete");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<QSO_COMPLETE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("qso_random");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<QSO_RANDOM:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("qth");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<QTH:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("rst_sent");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<RST_SENT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("rst_rcvd");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<RST_RCVD:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("rx_pwr");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if (((aux1.length())>0) && (aux1.toDouble()>0) ){
                         out << "<RX_PWR:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("tx_pwr");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ( ((aux1.length())>0) && (aux1.toDouble()>0)) {
                         out << "<TX_PWR:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("prop_mode");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>1){
                         out << "<PROP_MODE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                         propsat = true;
@@ -972,13 +982,13 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
 
                     nameCol = rec.indexOf("sat_mode");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<SAT_MODE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("sat_name");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<SAT_NAME:" << QString::number(aux1.length()) << ">" << aux1  << " ";
 
@@ -989,38 +999,38 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                     nameCol = rec.indexOf("sfi");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<SFI:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("sig");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<SIG_INFO:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("swl");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<SWL:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("ten_ten");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<TEN_TEN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("web");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<WEB:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                     if (exportAll)
                     {
                         nameCol = rec.indexOf("lognumber");
-                        aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                        aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                         if ((aux1.length())>0){
                             out << "<APP_KLOG_LOGN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                         }
@@ -1042,7 +1052,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 {
 
                     nameCol = rec.indexOf("qsl_sent");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ( aux1 !="R" )
                     {
                         goto EndOfWhile;
@@ -1052,12 +1062,12 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 currentQso++;
 
                 nameCol = rec.indexOf("call");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 //qDebug() << "FileManager::adifLogExportToFile: " << QString::number(nameCol) << "/" << aux1 << endl;
                 out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1 << " ";
 
                 nameCol = rec.indexOf("qso_date");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length()) == 10){
                     aux1.remove(QChar('-'), Qt::CaseInsensitive);
                     aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -1065,7 +1075,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
                 nameCol = rec.indexOf("qso_date_off");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length()) == 10){
                     aux1.remove(QChar('-'), Qt::CaseInsensitive);
                     aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -1073,7 +1083,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
                 nameCol = rec.indexOf("time_on");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 //qDebug() << "FileManager::adifLogExportToFile-time_on: "  << aux1 << endl;
                 if ( ((aux1.length()) == 5) || ((aux1.length()) == 8) ){
                     aux1.remove(QChar(':'), Qt::CaseInsensitive);
@@ -1081,20 +1091,20 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
                 nameCol = rec.indexOf("time_off");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ( ((aux1.length()) == 5) || ((aux1.length()) == 7) ){
                     aux1.remove(QChar(':'), Qt::CaseInsensitive);
                     out << "<TIME_OFF:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("bandid");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 aux1 = db->getBandNameFromID2(aux1.toInt());
 
                 out << "<BAND:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 bandst = aux1;
                 /*
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 queryString = QString("SELECT name FROM band WHERE id='%1'").arg(aux1);
                 query1.exec(queryString);
                 query1.next();
@@ -1105,7 +1115,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
                 */
                 nameCol = rec.indexOf("band_rx");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
 
                 if ( (0 < aux1.toInt()) && (aux1.toInt() < 30) && (aux1.length()>0) ){
                     aux1 = db->getBandNameFromID2(aux1.toInt());
@@ -1123,7 +1133,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
                 nameCol = rec.indexOf("modeid");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
 
                 // get SubModeId to check if it is the same or not from modeid
                 aux2 = dataProxy->getSubModeFromId(aux1.toInt());
@@ -1144,170 +1154,170 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
 
                 nameCol = rec.indexOf("srx");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<SRX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("srx_string");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<SRX_STRING:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("stx");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<STX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("stx_string");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<STX_STRING:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("cqz");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ( ((aux1.length())>0) && (0 < aux1.toInt()) && (aux1.toInt() < CQZones+1) ){
                     out << "<CQZ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("ituz");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ( ((aux1.length())>0) && (0 < aux1.toInt()) && (aux1.toInt() < ITUZones+1) ){
                     out << "<ITUZ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
 
                 nameCol = rec.indexOf("dxcc");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 //if ((aux1.length())>0){
                 if ( ((aux1.length())>0) && (0 < aux1.toInt()) && (aux1.toInt() < DXCCEntities + 5) ){
                     out << "<DXCC:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("address");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<ADDRESS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("age");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<AGE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("cnty");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<CNTY:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("comment");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<COMMENT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("a_index");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<A_INDEX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("ant_az");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<ANT_AZ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("ant_el");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<ANT_EL:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("ant_path");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<ANT_PATH:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("arrl_sect");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<ARRL_SECT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("checkcontest");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<CHECKCONTEST:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("class");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<CLASS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("contacted_op");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<CONTACTED_OP:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("contest_id");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<CONTEST_ID:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("points");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<APP_KLOG_POINTS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("multiplier");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<APP_KLOG_MULTIPLIER:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("country");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<COUNTRY:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("credit_submitted");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<CREDIT_SUBMITTED:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("credit_granted");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<CREDIT_GRANTED:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("distance");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<DISTANCE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("eq_call");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<EQ_CALL:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("email");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0)
                 {
                     if (aux1.contains("@") && (aux1.contains(".")))
@@ -1319,7 +1329,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
 
                 nameCol = rec.indexOf("eqsl_qslrdate");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length()) == 10){
                     aux1.remove(QChar('-'), Qt::CaseInsensitive);
                     aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -1328,7 +1338,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
 
                 nameCol = rec.indexOf("eqsl_qslsdate");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length()) == 10){
                     aux1.remove(QChar('-'), Qt::CaseInsensitive);
                     aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -1336,23 +1346,23 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
                 nameCol = rec.indexOf("eqsl_qsl_rcvd");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if (  ((aux1.length())==1) && (aux1!="N") ) {
                     out << "<EQSL_QSL_RCVD:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("eqsl_qsl_sent");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if (  ((aux1.length())==1) && (aux1!="N") ){
                     out << "<EQSL_QSL_SENT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("force_init");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<FORCE_INIT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("freq");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     if (db->isThisFreqInBand(bandst, aux1))
                     {
@@ -1361,7 +1371,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                 }
                 nameCol = rec.indexOf("freq_rx");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     if (db->isThisFreqInBand(bandst, aux1))
                     {
@@ -1371,26 +1381,26 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
                 nameCol = rec.indexOf("gridsquare");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<GRIDSQUARE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("my_gridsquare");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_GRIDSQUARE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("iota");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 //qDebug() << "FileManager::adifLogExportToFile (IOTA2): " << aux1 << endl;
                 if (((aux1.length())>=4) && ((aux1.length())<=6)){
                 //if ((aux1.length())==6){
                     out << "<IOTA:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("iota_island_id");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 //qDebug() << "FileManager::adifLogExportToFile (IOTA_ID2): " << aux1 << endl;
 
                 if ((aux1.length())>0){
@@ -1398,50 +1408,50 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
                 nameCol = rec.indexOf("my_iota");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if (((aux1.length())>=4) && ((aux1.length())<=6)){
                 //if ((aux1.length())==6){
                     out << "<MY_IOTA:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("my_iota_island_id");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_IOTA_ISLAND_ID:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
 
                 nameCol = rec.indexOf("k_index");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<K_INDEX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("lat");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<LAT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("lon");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<LON:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("my_lat");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_LAT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("my_lon");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_LON:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("lotw_qslrdate");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length()) == 10){
                     aux1.remove(QChar('-'), Qt::CaseInsensitive);
                     aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -1449,7 +1459,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
                 nameCol = rec.indexOf("lotw_qslsdate");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length()) == 10){
                     aux1.remove(QChar('-'), Qt::CaseInsensitive);
                     aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -1457,177 +1467,177 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
                 nameCol = rec.indexOf("lotw_qsl_rcvd");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ( ((aux1.length())==1) && (aux1!="N") ) {
                     out << "<LOTW_QSL_RCVD:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("lotw_qsl_sent");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ( ((aux1.length())==1)  && (aux1!="N") ){
                     out << "<LOTW_QSL_SENT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("clublog_qso_upload_date");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length()) == 10){
                     aux1.remove(QChar('-'), Qt::CaseInsensitive);
                     aux1.remove(QChar('/'), Qt::CaseInsensitive);
                     out << "<CLUBLOG_QSO_UPLOAD_DATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("clublog_qso_upload_status");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ( ((aux1.length())==1)  && ((aux1!="Y") || (aux1!="N") || (aux1!="M")) ){
                     out << "<CLUBLOG_QSO_UPLOAD_STATUS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("max_bursts");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MAX_BURSTS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("ms_shower");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MS_SHOWER:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("my_city");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_CITY:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("my_cnty");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_CNTY:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("my_country");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_COUNTRY:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("my_cq_zone");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_CQ_ZONE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("my_name");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_NAME:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("name");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<NAME:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("operator");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<OPERATOR:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("station_callsign");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<STATION_CALLSIGN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("owner_callsign");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<OWNER_CALLSIGN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("my_rig");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_RIG:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("my_sig");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_SIG:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("my_sig_info");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_SIG_INFO:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("my_state");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_STATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("state");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<STATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("my_street");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<MY_STREET:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("notes");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<NOTES:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("nr_bursts");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<NR_BURSTS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("nr_pings");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<NR_PINGS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("pfx");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<PFX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("precedence");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<PRECEDENCE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("prop_mode");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>1){
                     out << "<PROP_MODE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("public_key");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<PUBLIC_KEY:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("qslmsg");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<QSLMSG:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("qslrdate");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length()) == 10){
                     aux1.remove(QChar('-'), Qt::CaseInsensitive);
                     aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -1635,7 +1645,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
                 nameCol = rec.indexOf("qslsdate");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length()) == 10){
                     aux1.remove(QChar('-'), Qt::CaseInsensitive);
                     aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -1643,12 +1653,12 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
                 nameCol = rec.indexOf("qsl_rcvd");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if (((aux1.length())==1) && (aux1!="N") ){
                     out << "<QSL_RCVD:" << QString::number(aux1.length()) << ">" << aux1  << " ";
 
                     nameCol = rec.indexOf("qsl_rcvd_via");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())==1){
                         out << "<QSL_RCVD_VIA:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
@@ -1656,11 +1666,11 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
 
                 nameCol = rec.indexOf("qsl_sent");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if (((aux1.length())==1) && (aux1!="N") ){
                     out << "<QSL_SENT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     nameCol = rec.indexOf("qsl_sent_via");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())==1)  {
                         out << "<QSL_SENT_VIA:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
@@ -1668,91 +1678,91 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
                 nameCol = rec.indexOf("qsl_via");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<QSL_VIA:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("qso_complete");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<QSO_COMPLETE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("qso_random");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<QSO_RANDOM:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("qth");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<QTH:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("rst_sent");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<RST_SENT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("rst_rcvd");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<RST_RCVD:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("rx_pwr");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if (((aux1.length())>0) && (aux1.toDouble()>0)){
                     out << "<RX_PWR:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("tx_pwr");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ( ((aux1.length())>0) && (aux1.toDouble()>0)) {
                     out << "<TX_PWR:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("sat_mode");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<SAT_MODE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("sat_name");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<SAT_NAME:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("sfi");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<SFI:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("sig");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<SIG_INFO:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("swl");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<SWL:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("ten_ten");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<TEN_TEN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("web");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<WEB:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
@@ -1760,7 +1770,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 if (exportAll)
                 {
                     nameCol = rec.indexOf("lognumber");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<APP_KLOG_LOGN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
@@ -1953,14 +1963,14 @@ QFile file(_fileName);
             out << "QSO: " << endl;
 
             nameCol = rec.indexOf("freq");
-            aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+            aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
             if ((aux1.length())>0){
                 out << aux1.rightJustified(5, ' ', true) << " ";
             }
             else // if we dont have the freq but the band
             {
                 nameCol = rec.indexOf("bandid");
-                aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 queryString = QString("SELECT cabrillo FROM band WHERE id='%1'").arg(aux1);
                 query1.exec(queryString);
                 query1.next();
@@ -1976,7 +1986,7 @@ QFile file(_fileName);
             }
 
             nameCol = rec.indexOf("modeid");
-            aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+            aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
             queryString = QString("SELECT cabrillo FROM mode WHERE id='%1'").arg(aux1);
             query1.exec(queryString);
             query1.next();
@@ -1992,7 +2002,7 @@ QFile file(_fileName);
 
             //yyyy-mm-dd
             nameCol = rec.indexOf("qso_date");
-            aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+            aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
             if ((aux1.length()) == 10){
                 aux1.replace(QChar('/'), QChar('-'), Qt::CaseInsensitive);
                 out << aux1  << " ";
@@ -2003,7 +2013,7 @@ QFile file(_fileName);
             }
 
             nameCol = rec.indexOf("time_on");
-            aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+            aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
             //qDebug() << "FileManager::adifLogExportToFile-time_on: "  << aux1 << endl;
             if ( ((aux1.length()) == 5) || ((aux1.length()) == 8) ){
                 aux1.remove(QChar(':'), Qt::CaseInsensitive);
@@ -2015,7 +2025,7 @@ QFile file(_fileName);
             }
 
             nameCol = rec.indexOf("station_callsign");
-            aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+            aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
             if ( (0 <= aux1.length()) && (aux1.length() <= 14) )
             {
                 out << aux1.rightJustified(13, ' ', true) << " ";
@@ -2026,13 +2036,13 @@ QFile file(_fileName);
             }
 
             nameCol = rec.indexOf("rst_sent");
-            aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+            aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
             if ((aux1.length())>0){
                 out << aux1.rightJustified(3, ' ', true) << " ";
             }
 
             nameCol = rec.indexOf("call");
-            aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+            aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
 
             if ((0 <= aux1.length()) && (aux1.length() <= 14) )
             {
@@ -2044,13 +2054,13 @@ QFile file(_fileName);
             }
 
             nameCol = rec.indexOf("rst_rcvd");
-            aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+            aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
             if ((aux1.length())>0){
                 out << aux1.rightJustified(3, ' ', true) << " ";
             }
 
             nameCol = rec.indexOf("stx");
-            aux1 = (query.value(nameCol)).toString(); aux1 = checkAndFixASCIIinADIF(aux1);
+            aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
             if ((aux1.length())>0){
                 out << "<STX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
             }
@@ -2256,14 +2266,14 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
     while ( !file.atEnd()   )
     {
-        line = file.readLine();
+        line = (file.readLine()).toUpper();
         numberOfQsos = numberOfQsos + line.count("EOR>");
         if ((line.count("<EOH>")>0) && (!hasEOH))
         {
             hasEOH = true;
         }
     }
-   //qDebug() << "FileManager::adifReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
+  //qDebug() << "FileManager::adifReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
 
     QProgressDialog progress(tr("Reading ADIF file..."), tr("Abort reading"), 0, numberOfQsos, this);
     /*progress.setWindowModality(Qt::WindowModal);*/
@@ -2764,6 +2774,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     int ituz = 0;
     //int i; // Aux value
     QString aux; // Aux string
+    QString aux2, aux3;
     QString qrzCall = "";
     QString submode = QString();
     bool bandRXDef = false;
@@ -2810,7 +2821,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                 i = (qs.at(0)).count(":");
                 field = (oneField.at(0)).trimmed(); // Needs to be cleared FIELD:4:D
                 data = (oneField.at(1)).trimmed();
-                data = checkAndFixASCIIinADIF(data);
+                data = util->checkAndFixASCIIinADIF(data);
 
 
                 if (i == 2)
@@ -2927,6 +2938,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
 
                     preparedQuery.bindValue( ":time_on", (time.fromString(data,"hhmmss")).toString("hh:mm:ss") );
                     haveTime = true;
+                    aux3 = (time.fromString(data,"hhmmss")).toString("hh:mm:ss");
 
                     //qDebug() << "FileManager::bprocessQsoReadingADIF-time_on: " << (time.fromString(data,"hhmmss")).toString("hh:mm:ss") << endl;
                 }
@@ -3504,10 +3516,43 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
    // }
 
     if (!(haveBand && haveCall && haveMode && haveTime && haveDate ))
-    {
+    {        
+        aux2 = tr ("This QSO is not including the minimum data to consider a QSO as valid!.\n\n\nPlease edit the ADIF file and make sure that it include at least:\n\nCALL, QSO_DATE, TIME_ON, BAND and MODE.\n\nThis QSO had:\n");
+
+        if (!haveBand)
+        {
+            aux2 = aux2 + tr(" - The band missing and the following call: ") + qrzCall + ".\n";
+            //aux2 = "Band missing " + qrzCall + " ";
+        }
+        if (!haveCall)
+        {
+            aux2 = aux2 + tr(" - The call missing but was done at this time: ") + aux3 + ".\n";
+            //aux2 = "Call missing " + aux3 + " ";
+        }
+        if (!haveMode)
+        {
+            aux2 = aux2 + tr(" - The mode missing and the following call: ") + qrzCall + ".\n";
+            //aux2 = "Mode missing " + qrzCall + " ";
+        }
+        if (!haveDate)
+        {
+            aux2 = aux2 + tr(" - The date missing and the following call: ") + qrzCall + ".\n";
+            //aux2 = "Date missing " + qrzCall + " ";
+        }
+        if (!haveTime)
+        {
+            aux2 = aux2 + tr(" - The time missing and the following call: ") + qrzCall + ".\n";
+            //aux2 = "Time missing " + qrzCall + " ";
+        }
+
+
+        aux2 = aux2 + tr("\n\nDo you want to continue with the current file?");
+       //qDebug() << "FileManager::processQsoReadingADIF - Missing fields: " << aux2 << endl;
+
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog: Not all required data found!"));
-        msgBox.setText(tr("This QSO is not including the minimum data to consider a QSO as valid!.\n\n\nPlease edit the ADIF file and make sure that it include at least:\n\nCALL, QSO_DATE, TIME_ON, BAND and MODE.\n\nDo you want to continue with the current file?"));
+        //msgBox.setText(tr("This QSO is not including the minimum data to consider a QSO as valid!.\n\n\nPlease edit the ADIF file and make sure that it include at least:\n\nCALL, QSO_DATE, TIME_ON, BAND and MODE.\n\nDo you want to continue with the current file?"));
+        msgBox.setText(aux2);
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Cancel);
         msgBox.setIcon(QMessageBox::Warning);
@@ -3704,33 +3749,6 @@ void FileManager::queryPreparation(const int _logN)
     preparedQuery.bindValue( ":multiplier", "");
 }
 
-QString FileManager::checkAndFixASCIIinADIF(const QString _data)
-{
-    //qDebug() << "FileManager::checkAndFixASCIIinADIF " << _data << endl;
-
-    int asciiVal;
-    QString st = _data;
-    //QString repla = QString();
-    //repla = repla + QChar::fromAscii(13);// + QChar::fromAscii(10) ;
-    //st.replace("\n", "\\n");
-    QString newString;
-    newString.clear();
-    for(int i=0; i < st.length(); i++)
-    {
-    // Get ASCII VALUE into asciiVal
-        asciiVal = st.at(i).toAscii();
-        if( ((32 <= asciiVal ) && (asciiVal <= 126)) || (10 == asciiVal) || (13 == asciiVal) )
-        {
-            newString.append(st.at(i));
-        }
-        //qDebug() << "FileManager::checkAndFixASCIIinADIF: " << st.at(i) <<" = " << QString::number(asciiVal) << endl;
-    }
-
-    // SHow into another lineEdit
-
-
-    return newString;
-}
 
 /*
 bool FileManager::readAdif(const QString& tfileName, const int logN)

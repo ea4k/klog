@@ -36,3 +36,29 @@ bool Utilities::trueOrFalse(const QString _s)
     }
     return false;
 }
+
+QString Utilities::checkAndFixASCIIinADIF(const QString _data)
+{
+    //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << endl;
+// This function is not really working with ASCII but with Unicode
+
+//TODO: this function is also in the FileManager class. Maybe I should call that one and keep just one copy
+    ushort unicodeVal;
+    QString st = _data;
+    QString newString;
+    newString.clear();
+    for(int i=0; i < st.length(); i++)
+    {
+    // Get unicode VALUE into unicodeVal
+        unicodeVal = (st.at(i)).unicode();
+        if ((20 <= unicodeVal ) && (unicodeVal <= 126))
+        {
+            newString.append(st.at(i));
+        }
+        //qDebug() << "SetupDialog::checkAndFixunicodeinADIF: " << st.at(i) <<" = " << QString::number(unicodeVal) << endl;
+    }
+
+    // Show into another lineEdit
+
+    return newString;
+}

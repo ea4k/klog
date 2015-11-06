@@ -32,7 +32,7 @@
 #include "dataproxy_sqlite.h"
 
 #include <QDialog>
-#include <QtGui>
+#include <QtWidgets>
 
 //TODO: Read the data when the user clicks the OK button
 //TODO: Fill the data from the list of logs when the user wants to edit a log

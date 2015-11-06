@@ -37,7 +37,7 @@ To insert a (key, value) pair into the hash, you can use operator[]():
 */
 World::World()
 {
-   //qDebug() << "World::World(0)" << endl;
+  //qDebug() << "World::World(0)" << endl;
 
     worldModel = new QSqlRelationalTableModel(this);
     numberOfEntities = 0;
@@ -54,7 +54,7 @@ World::World()
 
 World::World(const QString _kontestDir)
 {
-   //qDebug() << "World::World(1): Dir" << _kontestDir << endl;
+  //qDebug() << "World::World(1): Dir" << _kontestDir << endl;
     kontestDir = _kontestDir;
     kontestVersion = "";
     worldModel = new QSqlRelationalTableModel(this);
@@ -69,16 +69,19 @@ World::World(const QString _kontestDir)
 
 World::World(const QString _kontestDir, const QString _kontestVer)
 {
-   //qDebug() << "World::World(2): Dir" << _kontestDir << endl;
+  //qDebug() << "World::World(2): Dir" << _kontestDir << endl;
     kontestDir = _kontestDir;
-    kontestVersion = _kontestVer;
+    kontestVersion = _kontestVer;    
     worldModel = new QSqlRelationalTableModel(this);
+   //qDebug() << "World::World(2): 1" << endl;
     numberOfEntities = 0;
     progressBarPosition = 0;
     created = false;
+   //qDebug() << "World::World(2): 2" << endl;
     locator = new Locator();
+   //qDebug() << "World::World(2): 3" << endl;
     dataProxy = new DataProxy_SQLite();
-    //awards = new Awards();
+   //qDebug() << "World::World(2): 4" << endl;
 
 }
 
@@ -89,7 +92,7 @@ World::~World()
 
 bool World::recreate(const QString _kontestDir)
 {
-    //qDebug() << "World::recreate: " << _kontestDir << endl;
+   //qDebug() << "World::recreate: " << _kontestDir << endl;
 
     QSqlQuery query;
     if (query.exec("DELETE FROM entity"))

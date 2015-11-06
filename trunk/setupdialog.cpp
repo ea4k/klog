@@ -35,6 +35,7 @@ This class calls all the othet "Setup..." to manage the configuration
 SetupDialog::SetupDialog(const bool _firstTime)
 {
    //qDebug() << "SetupDialog::SetupDialog 1" << endl;
+    util = new Utilities;
     nolog = true;
     configFileName = "klogrc";
     version = ".";
@@ -127,6 +128,7 @@ SetupDialog::SetupDialog(const bool _firstTime)
 SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
 {
     //qDebug() << "SetupDialog::SetupDialog 2" << endl;
+    util = new Utilities;
     firstTime = _firstTime;
     dataProxy = new DataProxy_SQLite();
     configFileName = _configFile;
@@ -855,19 +857,19 @@ QString SetupDialog::checkAndFixASCIIinADIF(const QString _data)
 {
     //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << endl;
 //TODO: this function is also in the FileManager class. Maybe I should call that one and keep just one copy
-    int asciiVal;
+    ushort unicodeVal;
     QString st = _data;
     QString newString;
     newString.clear();
     for(int i=0; i < st.length(); i++)
     {
-    // Get ASCII VALUE into asciiVal
-        asciiVal = st.at(i).toAscii();
-        if ((32 <= asciiVal ) && (asciiVal <= 126))
+    // Get unicode VALUE into unicodeVal
+        unicodeVal = (st.at(i)).unicode();
+        if ((20 <= unicodeVal ) && (unicodeVal <= 126))
         {
             newString.append(st.at(i));
         }
-        //qDebug() << "SetupDialog::checkAndFixASCIIinADIF: " << st.at(i) <<" = " << QString::number(asciiVal) << endl;
+        //qDebug() << "SetupDialog::checkAndFixunicodeinADIF: " << st.at(i) <<" = " << QString::number(unicodeVal) << endl;
     }
 
     // Show into another lineEdit

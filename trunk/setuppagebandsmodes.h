@@ -27,7 +27,7 @@
  *****************************************************************************/
 
 //#include <QtWidgets>
-#include <QtGui>
+#include <QtWidgets>
 #include <QSqlQuery>
 #include <QStringList>
 #include <QListWidget>
