@@ -108,7 +108,7 @@ class CTYPage : public QWizardPage
   {
       Q_OBJECT
   public:
-    CTYPage(const QString _kontestDir, QWidget *parent = 0);
+    CTYPage(const QString _kontestDir, const QString _version, QWidget *parent = 0);
     void updateProgress (qint64 v,qint64 t);
 
 private slots:

@@ -58,6 +58,7 @@ private slots:
 
 private:
     void createActions();
+    void addBandModeDefaults();
 
     //QWidget *bandsWidget;
     QListWidget *bandsNotActiveListWidget, *bandsActiveListWidget;

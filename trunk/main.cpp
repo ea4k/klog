@@ -31,6 +31,13 @@ int main(int argc, char *argv[])
     QDir d1 = QDir();
 
     QApplication app(argc, argv);
+
+    //QApplication app(argc, argv);
+    app.setApplicationName(QString("KLog"));
+    app.setApplicationVersion(QString(version));
+
+
+
 // Translations begin
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(),

@@ -53,6 +53,8 @@ class DXClusterWidget : public QWidget
     void setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy );
     void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
     void setCurrentLog(const int _log);
+    bool isConnected();
+    //void sendSpotToCluster(const QString _dx, const QString _freq);
 
 
     ~DXClusterWidget();

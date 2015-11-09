@@ -41,7 +41,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
    //qDebug() << "MainWindow::MainWindow: "<<  _kontestDir << " Ver: " << tversion << endl;
 
     upAndRunning = false; // To define some actions that can only be run when starting the software
-    connect(&manager, SIGNAL(finished(QNetworkReply*)), SLOT(slotDownloadFinished(QNetworkReply*))); // To download cty.csv
+    //connect(&manager, SIGNAL(finished(QNetworkReply*)), SLOT(slotDownloadFinished(QNetworkReply*))); // To download cty.csv
 
     // <ui>
     doc = new QTextDocument;
@@ -179,7 +179,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         //kontestDir = QDir::homePath()+"/.kontest";  // We create the ~/.kontest for the logs and data
         configFileName = kontestDir+"/klogrc";
     #endif
-
+    downloadcty = new DownLoadCTY(kontestDir, softwareVersion);
+    connect( downloadcty, SIGNAL(done()), this, SLOT(slotWorldReload()) );
 
    //qDebug() << "MainWindow::MainWindow: logbook: " << QString(kontestDir + "logbook.dat") << endl;
 
@@ -226,8 +227,6 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
           //qDebug() << "MainWindow::MainWindow: !existingData" << endl;
             world->create(kontestDir);
             entitiesList = world->getEntitiesNames();
-
-
             //createData();
         }else
         {
@@ -256,7 +255,6 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     dateTime = new QDateTime();
     selectedYear = (dateTime->currentDateTime()).date().year();
 
-
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
     timer->start(1000);
@@ -277,9 +275,9 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     timeEdit = new QTimeEdit;
 
     OKButton = new QPushButton(tr("&Add"), this);
-    spotItButton = new QPushButton(tr("&Spot"), this);
+    //spotItButton = new QPushButton(tr("&Spot"), this);
+    //spotItButton->setEnabled(false);
     clearButton = new QPushButton(tr("&Clear"), this);
-
 
     // UI DX
     infoLabel1 = new QLabel(tr("Status bar..."));
@@ -436,10 +434,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     // </UI>
 
-
-
 //**************************************************
-
 
     //createDXClusterUI();
     connect( setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
@@ -512,20 +507,16 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     }
 
 
-    //bandComboBox->setCurrentIndex(bandComboBox->findText(_aux));
     currentBandShown = dataProxy->getIdFromBandName(bandComboBox->currentText());
     currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
     currentBand = currentBandShown;
-   //qDebug() << "MainWindow::MainWindow: 3 - currentMode: " << QString::number(currentMode) << endl;
     currentMode = currentModeShown;
-   //qDebug() << "MainWindow::MainWindow: 4 - currentMode: " << QString::number(currentMode) << endl;
-
-   //qDebug() << "MainWindow::MainWindow: 17 - currentBand: " << QString::number(currentBand) << endl;
+  //qDebug() << "MainWindow::MainWindow: 4 - currentMode: " << QString::number(currentMode) << endl;
+  //qDebug() << "MainWindow::MainWindow: 17 - currentBand: " << QString::number(currentBand) << endl;
 
 
     slotClearButtonClicked();
     //logModel->select();
-
 
     upAndRunning = true;
  //qDebug() << "MainWindow::MainWindow: END" << endl;
@@ -2428,6 +2419,7 @@ createlogPanel();
 
 void MainWindow::createUICQWW()
 {
+   //qDebug() << "MainWindow::createUICQWW" << endl;
 /*
     QSqlQuery query("SELECT name FROM band");
     while (query.next()) {
@@ -2442,7 +2434,7 @@ void MainWindow::createUICQWW()
     //bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     //modes << "SSB" << "CW" << "RTTY";
     bandComboBox->addItems(bands);
-   //qDebug() << "MainWindow::createUICQWW - 1-" << QString::number(modes.count()) << endl;
+  //qDebug() << "MainWindow::createUICQWW - 1-" << QString::number(modes.count()) << endl;
     modeComboBox->addItems(modes);
 
     qrzLineEdit->setToolTip(tr("QRZ of the QSO"));
@@ -2457,7 +2449,7 @@ void MainWindow::createUICQWW()
     //statusBar->setToolTip(tr("Misc information"));
     //qsoStatusBar->setToolTip(tr("QSO information"));
     OKButton->setToolTip(tr("Add the QSO to the log"));
-    spotItButton->setToolTip(tr("Spots this QSO to the DX Cluster"));
+    //spotItButton->setToolTip(tr("Spots this QSO to the DX Cluster"));
     clearButton->setToolTip(tr("Clears the box"));
 
     gridGroupBox = new QGroupBox(tr("Input"));
@@ -2530,7 +2522,7 @@ void MainWindow::createUICQWW()
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(OKButton);
-    buttonsLayout->addWidget(spotItButton);
+    //buttonsLayout->addWidget(spotItButton);
     buttonsLayout->addWidget(clearButton);
 
     QDateTimeEdit *dateEdit = new QDateTimeEdit(QDate::currentDate());
@@ -2596,7 +2588,7 @@ void MainWindow::createActionsCommon(){
 
 //Buttons Actions
     connect(OKButton, SIGNAL(clicked()), this, SLOT(slotOKButtonClicked() ) );
-    connect(spotItButton, SIGNAL(clicked()), this, SLOT(slotSpotItButtonClicked() ) );
+    //connect(spotItButton, SIGNAL(clicked()), this, SLOT(slotSpotItButtonClicked() ) );
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked() ) );
 
 //LOG VIEW
@@ -3440,6 +3432,10 @@ void MainWindow::slotrstRXTextChanged()
 
 void MainWindow::slotSpotItButtonClicked()
 {
+    if (!dxClusterWidget->isConnected())
+    {
+        return;
+    }
 
 }
 
@@ -3875,7 +3871,7 @@ void MainWindow::slotScoreWinShow()
 
 void MainWindow::slotSetup(const int _page)
 {
-    //qDebug() << "MainWindow::slotSetup - 01"  << endl;
+   //qDebug() << "MainWindow::slotSetup - 01"  << endl;
 
     if (!needToEnd)
     {
@@ -5010,10 +5006,8 @@ bool MainWindow::processConfigLine(const QString _line){
         }
 
     }else if (field=="MODES"){
-        //qDebug() << "MainWindow::processConfigLine: MODES: " << endl;
         readActiveModes(value.split(", ", QString::SkipEmptyParts));
     }else if (field=="BANDS"){
-        //qDebug() << "MainWindow::processConfigLine: BANDS: " << endl;
         readActiveBands(value.split(", ", QString::SkipEmptyParts));
     }else if (field=="REALTIME"){
         //qDebug() << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
@@ -5221,10 +5215,11 @@ bool MainWindow::processConfigLine(const QString _line){
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
 //that is not currently selected as active
-//qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
+   //qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
 //    modes
 //    bands
 
+    setupDialog->checkIfNewBandOrMode(); // Update the Setup dialog with new bands or modes
 
     QStringList bandsInLog = dataProxy->getBandsInLog(currentLog);
     QStringList modesInLog = dataProxy->getModesInLog(currentLog);
@@ -5234,24 +5229,13 @@ void MainWindow::checkIfNewBandOrMode()
     bands.clear();
     bands << set.toList();
 
+
     set.clear();
 
     modes << modesInLog;
-    for (int ii=0; ii<modesInLog.length(); ii++)
-    {
-       //qDebug() << "MainWindow::checkIfNewBandOrMode - 1-mode: " << modesInLog.at(ii) << endl;
-    }
-
     set = modes.toSet();
     modes.clear();
     modes << set.toList();
-
-    modes.sort();
-
-    for (int ii=0; ii<modes.length(); ii++)
-    {
-       //qDebug() << "MainWindow::checkIfNewBandOrMode - 2-mode: " << modes.at(ii) << endl;
-    }
 
     bandComboBox->clear();
     bandComboBox->addItems(bands);
@@ -5307,11 +5291,11 @@ void MainWindow::readActiveBands (const QStringList actives)
 
 void MainWindow::readActiveModes (const QStringList actives)
 {
-   //qDebug() << "MainWindow::readActiveModes: " << actives << endl;
+  //qDebug() << "MainWindow::readActiveModes: " << actives << endl;
 
     bool atLeastOne = false;
     QString aux;
-    modes.clear();
+
 
     //QStringList values = actives.split(", ", QString::SkipEmptyParts);
 
@@ -5335,6 +5319,7 @@ void MainWindow::readActiveModes (const QStringList actives)
 
     }
     modes.removeDuplicates();
+
 }
 
 
@@ -5393,7 +5378,7 @@ void MainWindow::createUIDX()
     //statusBar->setToolTip(tr("Misc information"));
     //qsoStatusBar->setToolTip(tr("QSO information"));
     OKButton->setToolTip(tr("Add the QSO to the log"));
-    spotItButton->setToolTip(tr("Spots this QSO to the DX Cluster"));
+    //spotItButton->setToolTip(tr("Spots this QSO to the DX Cluster - This function is still not implemented"));
     clearButton->setToolTip(tr("Clears the box"));
     clublogComboBox->setToolTip(tr("Status on ClubLog"));
     eqslSentComboBox->setToolTip(tr("Status of the eQSL sending"));
@@ -5795,7 +5780,7 @@ void MainWindow::createUIDX()
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(OKButton);
-    buttonsLayout->addWidget(spotItButton);
+    //buttonsLayout->addWidget(spotItButton);
     buttonsLayout->addWidget(clearButton);
 
     QDateTimeEdit *dateEdit = new QDateTimeEdit(QDate::currentDate());
@@ -6473,7 +6458,7 @@ void MainWindow::slotADIFImport(){
         filemanager->adifReadLog(fileName, currentLog);
         logModel->select();
 
-        //checkIfNewBandOrMode();
+        checkIfNewBandOrMode();
 
         switch (contestMode) {
 
@@ -7945,13 +7930,16 @@ void MainWindow::fillQSOData()
 
 void MainWindow::slotUpdateCTYDAT()
 {
-    //qDebug() << "MainWindow::slotUpdateCTYDAT" << endl;
-    downloadCTYFile();
-    //TODO: world.recreate returns a boolean, so it is possible to manage the errors
-    world->recreate(kontestDir);
-
+   //qDebug() << "MainWindow::slotUpdateCTYDAT" << endl;
+    downloadcty->download();
 }
 
+void MainWindow::slotWorldReload()
+{
+   //qDebug() << "MainWindow::slotWorldReload" << endl;
+    //TODO: world.recreate returns a boolean, so it is possible to manage the errors
+    world->recreate(kontestDir);
+}
 
 void MainWindow::slotFilePrint()
 {
@@ -8122,168 +8110,7 @@ void MainWindow::slotFilePrint()
 //UPDATE CTY.CSV
 
 
-bool MainWindow::downloadCTYFile()
-{
-   //qDebug() << "MainWindow::downloadCTYFile" << endl;
-
-    QMessageBox msgBox;
-    msgBox.setIcon(QMessageBox::Question);
-    msgBox.setText("You are going to download the last CTY.CVS file. Do you want to proceed?");
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msgBox.setDefaultButton(QMessageBox::Yes);
-    int ret = msgBox.exec();
-    switch (ret) {
-      case QMessageBox::Yes:
-          // Yes was clicked
-            return downloadCtyDatFile();
-          break;
-      case QMessageBox::No:
-          // No Save was clicked
-            return false;
-          break;
-      default:
-          // should never be reached
-          break;
-    }
-    return false;
-}
-
-bool MainWindow::downloadCtyDatFile()
-{
-   //qDebug() << "MainWindow::downloadCtyDatFile" << endl;
-    //http://www.country-files.com/cty/cty.csv
-    QString urld = QString();
-    switch (contestMode)
-    {
-    case NoContest:
-        urld = "http://www.country-files.com/bigcty/cty.csv";
-        break;
-    default: // It is a contest!
-        urld = "http://www.country-files.com/cty/cty.csv";
-        break;
-    }
-    QUrl url ( urld.toLocal8Bit() );
-
-    //QUrl url(  QString("http://www.country-files.com/cty/cty.csv").toLocal8Bit()  );
-
-    request.setUrl(url);
-    QNetworkReply *reply= manager.get(request);
-
-  //qDebug() << "MainWindow::downloadCtyDatFile - END" << endl;
-
-    return true;
-}
-
-void MainWindow::slotDownloadFinished(QNetworkReply *reply)
-{
-  //qDebug() << "MainWindow::downloadFinished" << endl;
-    QMessageBox::StandardButton ret;
-
-
-    QUrl url = reply->url();
-    if (reply->error()) {
-
-    ret = QMessageBox::warning(this, tr("KLog"),
-                          tr("The download failed!.\n"
-                             "Do you want to update the file?"),
-                          QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-
-       // fprintf(stderr, "Download of %s failed: %s\n",
-       //         url.toEncoded().constData(),
-       //         qPrintable(reply->errorString()));
-    } else {
-        QString filename = saveFileName(url);
-
-        if (filename.length()>=1)
-        {
-            if (saveToDisk(filename, reply))
-            //printf("Download of %s succeeded (saved to %s)\n",
-            //       url.toEncoded().constData(), qPrintable(filename));
-            {
-
-                ret = QMessageBox::information(this, tr("KLog"),
-                                               tr("The file has been downloaded!"),
-                                               QMessageBox::Ok,
-                                               QMessageBox::Ok);
-            }
-
-        }
-        else
-        {
-
-        }
-
-    }
-
-    reply->deleteLater();
-
-}
-
-bool MainWindow::saveToDisk(const QString &filename, QIODevice *data)
-{
-    //qDebug() << "MainWindow::saveToDisk" << endl;
-
-    QFile file(filename);
-    if (!file.open(QIODevice::WriteOnly)) {
-        fprintf(stderr, "Could not open %s for writing: %s\n",
-                qPrintable(filename),
-                qPrintable(file.errorString()));
-        return false;
-    }
-
-    file.write(data->readAll());
-    file.close();
-
-    return true;
-}
-
-QString MainWindow::saveFileName(const QUrl &url)
-{
-    //qDebug() << "MainWindow::saveFileName" << endl;
-    QString path = url.path();
-    QString basename = QFileInfo(path).fileName();
-    QMessageBox::StandardButton ret;
-
-    if (basename.isEmpty())
-        basename = "download";
-
-    if (QFile::exists(basename)) {
-
-
-        //qDebug() << "MainWindow::saveFileName: File already exist: " << basename << endl;
-        ret = QMessageBox::warning(this, "KLog",
-                                       tr("The file already exits and needs to be overwritten.\n"
-                                          "Do you want to update the file?"),
-                                       QMessageBox::Yes | QMessageBox::Cancel,
-                                       QMessageBox::Yes);
-        switch (ret) {
-          case QMessageBox::Yes:
-              // Save was clicked
-               return basename;
-              break;
-          case QMessageBox::Cancel:
-              // Cancel was clicked
-                return "";
-              break;
-          default:
-              // should never be reached
-              break;
-        }
-
-      /*
-        // already exists, don't overwrite
-        int i = 0;
-        basename += '.';
-        while (QFile::exists(basename + QString::number(i)))
-            ++i;
-
-        basename += QString::number(i);
-        */
-    }
-
-    return basename;
-}
-///UPDATE CTY.CSV
+//UPDATE CTY.CSV
 
  void MainWindow::slotToolSearchRequestedQSLToSend()
  {
@@ -8994,3 +8821,5 @@ void MainWindow::completeWithPreviousQSO(const QString _call)
         qslViaLineEdit->setPalette(palBlack);
     }
 }
+
+

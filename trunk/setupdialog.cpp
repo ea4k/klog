@@ -186,7 +186,7 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
     {
         tabWidget->setCurrentIndex(logsPageTabN);
     }
-
+    nolog = !(haveAtleastOneLog());
 }
 
 SetupDialog::~SetupDialog()
@@ -196,20 +196,22 @@ SetupDialog::~SetupDialog()
 
 void SetupDialog::setData(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
 {
-   //qDebug() << "SetupDialog::setData: " << QString::number(_page) << endl;
+  //qDebug() << "SetupDialog::setData: " << QString::number(_page) << endl;
+    nolog = !(haveAtleastOneLog());
     firstTime = _firstTime;
     if (firstTime)
     {
-        //qDebug() << "SetupDialog::setData FIRST TIME! " << endl;
+       //qDebug() << "SetupDialog::setData FIRST TIME! " << endl;
     }
     else
     {
-        //qDebug() << "SetupDialog::setData NOT FIRST TIME! " << endl;
+       //qDebug() << "SetupDialog::setData NOT FIRST TIME! " << endl;
     }
 
     setConfigFile(_configFile);
     setSoftVersion(_softwareVersion);
     setPage(_page);
+    //removeBandModeDuplicates();
 
 }
 
@@ -512,18 +514,27 @@ void SetupDialog::slotOkButtonClicked()
 
 void SetupDialog::slotReadConfigData()
 {
-    //qDebug() << "SetupDialog::slotReadConfigData" << endl;
+  //qDebug() << "SetupDialog::slotReadConfigData" << endl;
+    if (firstTime)
+    {
+        setDefaults();
+        bands.removeDuplicates();
+        modes.removeDuplicates();
+        bandsModesPage->setActiveModes(modes);
+        bandsModesPage->setActiveBands(bands);
+    }
+
 
     QFile file(configFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName << endl;
+       //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName << endl;
         //firstTime = true;
         return;
     }
 
     //dxClusterServers.clear();
 
-    setDefaults();
+
 
     while (!file.atEnd()) {
         QByteArray line = file.readLine();
@@ -532,6 +543,23 @@ void SetupDialog::slotReadConfigData()
 
     dxClusterPage->setDxclusterServersComboBox(dxClusterServers);
     dxClusterPage->setSelectedDxClusterServer(dxClusterServerToUse);
+
+    if (modes.isEmpty())
+    {
+        modes << "SSB" << "CW" << "RTTY";
+
+    }
+    if (bands.isEmpty())
+    {
+        bands << "10M" << "12M" << "15M" << "17M" << "20M" << "40M" << "80M" << "160M";
+
+    }
+    int a = modes.removeDuplicates();
+    //qDebug() << "SetupDialog::slotReadConfigData - duplicate modes: " << QString::number(a)  << endl;
+    bandsModesPage->setActiveModes(modes);
+    a = bands.removeDuplicates();
+   //qDebug() << "SetupDialog::slotReadConfigData - duplicate bands: " << QString::number(a)  << endl;
+    bandsModesPage->setActiveBands(bands);
 
 }
 
@@ -579,9 +607,11 @@ bool SetupDialog::processConfigLine(const QString _line)
         //userDataPage->setContest(value);
     }else if (tab=="MODES"){
         readActiveModes(value);
+        modes.removeDuplicates();
         bandsModesPage->setActiveModes(modes);
     }else if (tab=="BANDS"){
         readActiveBands(value);
+        bands.removeDuplicates();
         bandsModesPage->setActiveBands(bands);
     //}else if (tab=="INMEMORY"){
     //    miscPage->setInMemory(value);
@@ -746,7 +776,7 @@ bool SetupDialog::processConfigLine(const QString _line)
 void SetupDialog::readActiveBands (const QString actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
     // bands used in the program
-    //qDebug() << "SetupDialog::readActiveBands: " << actives << endl;
+   //qDebug() << "SetupDialog::readActiveBands: " << actives << endl;
 
     bool atLeastOne = false;
 
@@ -769,10 +799,14 @@ void SetupDialog::readActiveBands (const QString actives)
         }
 
     }
+
     bands.clear();
+    _abands.removeDuplicates();
+
     bands << dataProxy->getBandsInLog(-1);
+
     bands << _abands;
-    bands.removeDuplicates();
+    bands.removeDuplicates();    
 }
 
 void SetupDialog::readActiveModes (const QString actives)
@@ -780,8 +814,11 @@ void SetupDialog::readActiveModes (const QString actives)
     //qDebug() << "SetupDialog::readActiveModes: " << actives << endl;
 
     bool atLeastOne = false;
-    QStringList _amodes;
+    QStringList _amodes;//, _backModes;
+   // _backModes.clear();
+   // _backModes << modes;
     QStringList values = actives.split(", ", QString::SkipEmptyParts);
+    values.removeDuplicates();
 
     for (int i = 0; i < values.size() ; i++)
     {
@@ -802,6 +839,8 @@ void SetupDialog::readActiveModes (const QString actives)
     modes << dataProxy->getModesInLog(-1);
     modes << _amodes;
     modes.removeDuplicates();
+
+
     //qDebug() << "SetupDialog::readActiveModes: " << modes.join(" / ") << endl;
 
 
@@ -851,6 +890,18 @@ void SetupDialog::setDefaults()
     dxClusterServers.append("dxfun.com:8000");
     dxClusterServerToUse = "dxfun.com:8000";
 
+    if (modes.isEmpty())
+    {
+        modes << "SSB" << "CW" << "RTTY";
+        modes.removeDuplicates();
+    }
+
+    if (bands.isEmpty())
+    {
+        bands << "10M" << "12M" << "15M" << "17M" << "20M" << "40M" << "80M" << "160M";
+        bands.removeDuplicates();
+    }
+
 }
 
 QString SetupDialog::checkAndFixASCIIinADIF(const QString _data)
@@ -893,7 +944,24 @@ void SetupDialog::setClubLogActive(const bool _b)
     {
         clubLogPage->setClubLog("False");
     }
+}
 
 
+void SetupDialog::checkIfNewBandOrMode()
+{
+   //qDebug() << "SetupDialog::checkIfNewBandOrMode " << endl;
+    QStringList _items;
+
+    _items.clear();
+    _items << dataProxy->getBandsInLog(-1);
+    _items << (bandsModesPage->getBands()).split(", ", QString::SkipEmptyParts);
+    _items.removeDuplicates();
+    bandsModesPage->setActiveBands(_items);
+
+    _items.clear();
+    _items << dataProxy->getModesInLog(-1);
+    _items << (bandsModesPage->getModes()).split(", ", QString::SkipEmptyParts);
+    _items.removeDuplicates();
+    bandsModesPage->setActiveModes(_items);
 
 }
