@@ -1,5 +1,3 @@
-TODO: Add a Default band & mode in the setup dialog (MainWindow::slotClearButtonClicked, ...)
-
 This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
@@ -8,7 +6,7 @@ BUG: Check the options that are marked in QSL when rightbutton.
 i.e.: Is myQSL sent marked as requested when it should be the DX-QSL?
 
 
-BUG: CTY:CSV is not properly updated
+
 
 
 TODO GUI: To add the CQ/ITU box or make them editable

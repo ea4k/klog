@@ -39,8 +39,8 @@ SetupPageBandsModes::SetupPageBandsModes(QWidget *parent) : QWidget(parent){
     bandsNotActiveListWidget = new QListWidget(this);
     bandsActiveListWidget = new QListWidget(this);
     modesNotActiveListWidget = new QListWidget(this);
-
     modesActiveListWidget = new QListWidget(this);
+
     bandsNotActiveListWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
     bandsActiveListWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
     modesNotActiveListWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -82,12 +82,9 @@ SetupPageBandsModes::SetupPageBandsModes(QWidget *parent) : QWidget(parent){
 
     bands.clear();
     bands << dataProxy->getBands();
-
-   //qDebug() << "SetupPageBandsModes::SetupPageBandsModes -3.1" << endl;
-
     modes << dataProxy->getModes();
-    bandsNotActiveListWidget->addItems(bands);
 
+    bandsNotActiveListWidget->addItems(bands);
     modesNotActiveListWidget->addItems(modes);
 
     setLayout(bandsModesWidgetLayout);
@@ -115,13 +112,17 @@ void SetupPageBandsModes::createActions(){
 void SetupPageBandsModes::slotBandActiveItemDoubleClicked ( QListWidgetItem * item ){
     //qDebug() << "SetupPageBandsModes::slotBandActiveItemDoubleClicked" << item->text() << endl;
 
+
     bandsActiveListWidget->addItem(item->text());
-    //bandsActiveListWidget->removeItemWidget(item->cur);
+    bandsNotActiveListWidget->removeItemWidget(item);
 
 }
 
 void SetupPageBandsModes::slotBandNotActiveItemDoubleClicked ( QListWidgetItem * item ){
     //qDebug() << "SetupPageBandsModes::slotBandNotActiveItemDoubleClicked" << item->text() << endl;
+
+    bandsNotActiveListWidget->addItem(item->text());
+    bandsActiveListWidget->removeItemWidget(item);
 
     //bandsNotActiveListWidget->addItem(itemitem->text());
     //bandsNotActiveListWidget->removeItemWidget(item);
@@ -188,8 +189,6 @@ void SetupPageBandsModes::slotModeSelButtonClicked(){
         {
         }
     }
-
-
 };
 
 void SetupPageBandsModes::slotModeUnSelButtonClicked(){
@@ -275,8 +274,10 @@ QString SetupPageBandsModes::getModes()
 
 void SetupPageBandsModes::setActiveBands(QStringList q)
 {
+   //qDebug() << "SetupPageBandsModes::setActiveBands "  << endl;
     QListWidgetItem *it, *itn;
-
+    bandsActiveListWidget->clear();
+    q.removeDuplicates();
     bandsActiveListWidget->addItems(q);
 
     for (int i = 0; i < bandsActiveListWidget->count(); i++)
@@ -298,8 +299,12 @@ void SetupPageBandsModes::setActiveBands(QStringList q)
 
 void SetupPageBandsModes::setActiveModes(QStringList q)
 {
+     //qDebug() << "SetupPageBandsModes::setActiveModes "  << endl;
     QListWidgetItem *it, *itn;
-
+    modesActiveListWidget->clear();
+    int a = q.removeDuplicates();
+    //QStringList a;
+    //q.removeDuplicates();
     modesActiveListWidget->addItems(q);
 
     for (int i = 0; i < modesActiveListWidget->count(); i++)
@@ -319,3 +324,7 @@ void SetupPageBandsModes::setActiveModes(QStringList q)
 
 }
 
+void SetupPageBandsModes::addBandModeDefaults()
+{
+
+}

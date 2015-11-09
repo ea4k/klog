@@ -260,7 +260,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     //step = getProgresStepForDialog(numberOfQsos);
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQsos, this);
     progress.setMaximum(numberOfQsos);
-    progress.setWindowModality(Qt::WindowModal);
+    progress.setWindowModality(Qt::ApplicationModal);
 
     out << "ADIF v2.2.7 Export from KLog\nhttp://jaime.robles.es/klog\n<PROGRAMVERSION:" << QString::number(kontestVersion.length()) << ">" << kontestVersion << "\n<PROGRAMID:7>KLOG" << endl;
     out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
@@ -1806,6 +1806,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     {
     //TODO: Remove the file (_fileName)
         file.remove();
+
         return true;
     }
     else
@@ -2145,8 +2146,8 @@ bool FileManager::adifCheckMoreThanOneLog(QFile& _f)
                 {
                     data.clear();
                     data << aux.split('>');
-                    qDebug() << "FileManager::adifCheckMoreThanOneLog: data.0: " << data.at(0) << endl;
-                    qDebug() << "FileManager::adifCheckMoreThanOneLog: data.1: " << data.at(1) << endl;
+                    //qDebug() << "FileManager::adifCheckMoreThanOneLog: data.0: " << data.at(0) << endl;
+                    //qDebug() << "FileManager::adifCheckMoreThanOneLog: data.1: " << data.at(1) << endl;
                     if (firstLog)
                     {
                         log1 = (data.at(1)).toInt();
@@ -3478,11 +3479,11 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
 /*
                     if (dataProxy->doesThisLogExist(data.toInt()))
                     {
-                        qDebug() << "FileManager::processQsoReadingADIF - The Log exist (" << data <<")" << endl;
+                       //qDebug() << "FileManager::processQsoReadingADIF - The Log exist (" << data <<")" << endl;
                     }
                     else
                     {
-                        qDebug() << "FileManager::processQsoReadingADIF - The Log does NOT exist (" << data <<")" << endl;
+                       //qDebug() << "FileManager::processQsoReadingADIF - The Log does NOT exist (" << data <<")" << endl;
                     }
 
 */

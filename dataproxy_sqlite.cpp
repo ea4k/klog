@@ -306,9 +306,7 @@ QStringList DataProxy_SQLite::getModes()
         if (query.isValid()){
             modes << query.value(0).toString();
         }
-
     }
-
     return modes;
 }
 

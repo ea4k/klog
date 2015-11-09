@@ -3,36 +3,48 @@
 #include <QObject>
 #include <QString>
 #include <QProgressDialog>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
+#include <QFile>
+#include <QFileInfo>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QSslError>
+#include <QTimer>
+#include <QUrl>
+#include <QMessageBox>
 
+class QSslError;
+
+QT_USE_NAMESPACE
 
 class DownLoadCTY : public QObject {
     Q_OBJECT
 public:
-    explicit DownLoadCTY(const QString _kontestDir);
+    explicit DownLoadCTY(const QString _kontestDir, const QString _klogVersion);
     ~DownLoadCTY();
     int download();
 
 private:
 
-    void setTarget(const QString& t);
+    //void setTarget(const QString& t);
+    bool saveToDisk(const QString &filename, QIODevice *data);
+    QString saveFileName(const QUrl &url);
 
-    QNetworkAccessManager manager;
-    //QNetworkReply *reply;
-    QNetworkRequest request;
+    QNetworkAccessManager *manager;
+    QNetworkRequest *request;
 
 
-    QString target;
+    //QString target;
     int result; // enum QNetworkReply::NetworkError
     QString kontestDir;
     QString urld;
-    QUrl url;
+    QUrl *url;
 
 private slots:
-    void slotDownloadFinished(QNetworkReply* data);
+    void slotDownloadFinished(QNetworkReply* reply);
     void slotDownloadProgress(qint64 received, qint64 total);
     void slotErrorManagement(QNetworkReply::NetworkError networkError);
+
 
 
 signals:
