@@ -1348,20 +1348,24 @@ QStringList DataProxy_SQLite::getOperatingYears(const int _currentLog)
     bool sqlOk = query.exec(queryString);
     if (sqlOk)
     {
+        //qDebug() << "DataProxy_SQLite::getYearsOperating: sqlOk = true" << endl;
         while (query.next())
         {
             if (query.isValid())
             {
                 year = (query.value(0)).toString();
+
                 years << year;
                 year.clear();
             }
         }
+        //qDebug() << "DataProxy_SQLite::getYearsOperating: END OK - " << QString::number(years.size())<< endl;
         return years;
         //return years.sort();
     }
     else
     {
+        //qDebug() << "DataProxy_SQLite::getYearsOperating: sqlOk = false" << endl;
         return years;
     }
 

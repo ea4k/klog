@@ -39,9 +39,9 @@
 
 class QSqlRelationalTableModel;
 
-// Last db update 0.0.6
-// Previous db update 0.0.5
-const float DBVersionf = 0.006;
+// Last db update 0.0.7
+// Previous db update 0.0.6
+const float DBVersionf = 0.007;
 
 class DataBase
 {
@@ -55,15 +55,16 @@ public:
     //bool beginTransaction();
 
     bool isValidBand (const QString b);
-    bool isValidMode (const QString b);
+    bool isValidMode (const QString b, const bool _tmp);
     bool isValidBandNumber (const int b);
     bool isValidModeNumber (const int b);
     QString getBandNameFromNumber(const int _n);
-    QString getModeNameFromNumber(const int _n);
-    QString getSubModeNameFromNumber(const int _n);
+    QString getModeNameFromNumber(const int _n, const bool _tmp);
+    QString getSubModeNameFromNumber(const int _n, const bool _tmp);
 
     int getBandIdFromName(const QString b);
     int getModeIdFromName(const QString b);
+    int getModeIdFromSubMode(const QString b, const bool _tmp);
 
     bool createBandModeMaps();
     int getBandIDFromName2(const QString b);
@@ -90,6 +91,7 @@ private:
     bool updateTo004();
     bool updateTo005();
     bool updateTo006();
+    bool updateTo007();
     bool updateTableLog(const int _v);
 
 

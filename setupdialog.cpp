@@ -570,7 +570,7 @@ bool SetupDialog::processConfigLine(const QString _line)
 
     QString line = _line.simplified();
     //line.simplified();
-
+    int i = 0; //aux variable
     QStringList values = line.split("=", QString::SkipEmptyParts);
     QString tab = QString();
 
@@ -742,8 +742,21 @@ bool SetupDialog::processConfigLine(const QString _line)
         colorsPage->setConfirmedColor(value);
     }else if(tab =="DEFAULTCOLOR"){
         colorsPage->setDefaultColor(value);
-    }else if(tab =="SELECTEDLOG"){
-        logsPage->setSelectedLog(value.toInt());
+    }else if(tab =="SELECTEDLOG"){        
+        i = value.toInt();
+        if (dataProxy->doesThisLogExist(i))
+        {
+        }
+        else
+        {
+            i = 1;
+            while(!dataProxy->doesThisLogExist(i))
+            {
+                i++;
+            }
+        }
+        logsPage->setSelectedLog(i);
+
     }else if(tab =="CLUBLOGACTIVE"){
         clubLogPage->setClubLog(value);
     }
@@ -953,15 +966,21 @@ void SetupDialog::checkIfNewBandOrMode()
     QStringList _items;
 
     _items.clear();
+    //qDebug() << "SetupDialog::checkIfNewBandOrMode -1" << endl;
     _items << dataProxy->getBandsInLog(-1);
+    //qDebug() << "SetupDialog::checkIfNewBandOrMode -2" << endl;
     _items << (bandsModesPage->getBands()).split(", ", QString::SkipEmptyParts);
+    //qDebug() << "SetupDialog::checkIfNewBandOrMode -3" << endl;
     _items.removeDuplicates();
+    //qDebug() << "SetupDialog::checkIfNewBandOrMode -4" << endl;
     bandsModesPage->setActiveBands(_items);
+    //qDebug() << "SetupDialog::checkIfNewBandOrMode -5" << endl;
 
     _items.clear();
     _items << dataProxy->getModesInLog(-1);
     _items << (bandsModesPage->getModes()).split(", ", QString::SkipEmptyParts);
     _items.removeDuplicates();
     bandsModesPage->setActiveModes(_items);
+    //qDebug() << "SetupDialog::checkIfNewBandOrMode END" << endl;
 
 }
