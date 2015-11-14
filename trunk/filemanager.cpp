@@ -611,7 +611,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                         out << "<FORCE_INIT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                     nameCol = rec.indexOf("freq");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
+                    aux1 = (query.value(nameCol)).toString();
+                    //qDebug() << "FileManager::adifLogExportToFile FREQ1: "  << aux1 << endl;
+                    aux1 = util->checkAndFixASCIIinADIF(aux1);
+
                     if ((aux1.length())>0){
                         //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
                         if (db->isThisFreqInBand(bandst, aux1))
@@ -1361,8 +1364,14 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 if ((aux1.length())>0){
                     out << "<FORCE_INIT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
+
+
+
                 nameCol = rec.indexOf("freq");
-                aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
+                aux1 = (query.value(nameCol)).toString();
+                qDebug() << "FileManager::adifLogExportToFile FREQ1: "  << aux1 << endl;
+                aux1 = util->checkAndFixASCIIinADIF(aux1);
+                qDebug() << "FileManager::adifLogExportToFile FREQ2: "  << aux1 << endl;
                 if ((aux1.length())>0){
                     if (db->isThisFreqInBand(bandst, aux1))
                     {
@@ -1370,6 +1379,9 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
 
                 }
+
+
+
                 nameCol = rec.indexOf("freq_rx");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
@@ -3121,6 +3133,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                 }
                 else if (field == "FREQ")
                 {
+                    qDebug() << "FileManager::processQsoReadingADIF  -FREQ: " << QString::number(data.toDouble()) << endl;
                     preparedQuery.bindValue( ":freq", data.toDouble() );
                     if (haveBand)
                     {

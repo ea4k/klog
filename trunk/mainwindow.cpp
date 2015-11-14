@@ -222,6 +222,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     else
     {
         db->updateIfNeeded(); // Check if we need to update the DB
+        //qDebug() << "MainWindow::MainWindow: DB Updated" << endl;
         if (!existingData)
         {
           //qDebug() << "MainWindow::MainWindow: !existingData" << endl;
@@ -478,48 +479,58 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         slotSetup(6);
        //qDebug() << "MainWindow::MainWindow: 16.2" << endl;
     }
-   //qDebug() << "MainWindow::MainWindow: 17" << endl;
+    //qDebug() << "MainWindow::MainWindow: 17" << endl;
     checkIfNewBandOrMode();
-
+    //qDebug() << "MainWindow::MainWindow: 18" << endl;
     if ( (contestMode == CQ_WW_SSB) || (contestMode == CQ_WW_CW) )
     {
-
+        //qDebug() << "MainWindow::MainWindow: 18.1" << endl;
     }
     else if ( (contestMode == CQ_WPX_SSB) || (contestMode == CQ_WPX_CW) )
     {
-
-    } else
+        //qDebug() << "MainWindow::MainWindow: 18.2" << endl;
+    }
+    else
     {
+        //qDebug() << "MainWindow::MainWindow: 18.3" << endl;
         if (dataProxy->getLastQSOid()<=1)
         {
+            //qDebug() << "MainWindow::MainWindow: 18.4" << endl;
             operatingYearsComboBox->addItem(QString::number(selectedYear));
         }
         else
         {
+            //qDebug() << "MainWindow::MainWindow: 18.5 - currentLog: " << QString::number(currentLog) << endl;
             operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
+            //qDebug() << "MainWindow::MainWindow: 18.5.1 - currentLog: " << QString::number(currentLog) << endl;
             operatingYearsComboBox->setCurrentIndex(operatingYearsComboBox->findText((dataProxy->getOperatingYears(currentLog)).last()));
+            //qDebug() << "MainWindow::MainWindow: 18.5.2" << endl;
         }
-
+        //qDebug() << "MainWindow::MainWindow: 18.6." << endl;
         updateQSLRecAndSent();
+        //qDebug() << "MainWindow::MainWindow: 18.7" << endl;
         awards->recalculateAwards();
+        //qDebug() << "MainWindow::MainWindow: 18.8" << endl;
         showAwards();
+        //qDebug() << "MainWindow::MainWindow: 18.9" << endl;
         dxClusterWidget->setCurrentLog(currentLog);
+        //qDebug() << "MainWindow::MainWindow: 18.10" << endl;
     }
 
-
+    //qDebug() << "MainWindow::MainWindow: 19" << endl;
     currentBandShown = dataProxy->getIdFromBandName(bandComboBox->currentText());
     currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
     currentBand = currentBandShown;
     currentMode = currentModeShown;
-  //qDebug() << "MainWindow::MainWindow: 4 - currentMode: " << QString::number(currentMode) << endl;
-  //qDebug() << "MainWindow::MainWindow: 17 - currentBand: " << QString::number(currentBand) << endl;
+   //qDebug() << "MainWindow::MainWindow: 4 - currentMode: " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::MainWindow: 17 - currentBand: " << QString::number(currentBand) << endl;
 
 
     slotClearButtonClicked();
     //logModel->select();
 
     upAndRunning = true;
- //qDebug() << "MainWindow::MainWindow: END" << endl;
+   //qDebug() << "MainWindow::MainWindow: END" << endl;
 
 }
 
@@ -5161,6 +5172,19 @@ bool MainWindow::processConfigLine(const QString _line){
     }else if(field=="SELECTEDLOG")
     {
         currentLog = value.toInt();
+
+        if (dataProxy->doesThisLogExist(currentLog))
+        {
+
+        }
+        else
+        {
+            currentLog = 1;
+            while(!dataProxy->doesThisLogExist(currentLog))
+            {
+                currentLog++;
+            }
+        }
         dxClusterWidget->setCurrentLog(currentLog);
         //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
     }else if(field=="CLUBLOGACTIVE")
@@ -5220,7 +5244,7 @@ void MainWindow::checkIfNewBandOrMode()
 //    bands
 
     setupDialog->checkIfNewBandOrMode(); // Update the Setup dialog with new bands or modes
-
+    //qDebug() << "MainWindow::checkIfNewBandOrMode after setupDialog" << endl;
     QStringList bandsInLog = dataProxy->getBandsInLog(currentLog);
     QStringList modesInLog = dataProxy->getModesInLog(currentLog);
 
@@ -5241,10 +5265,10 @@ void MainWindow::checkIfNewBandOrMode()
     bandComboBox->addItems(bands);
     modeComboBox->clear();
 
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - 1-" << QString::number(modeComboBox->count()) << endl;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - 1-" << QString::number(modeComboBox->count()) << endl;
     modeComboBox->addItems(modes);
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - 2-" << QString::number(modeComboBox->count()) << endl;
-
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - 2-" << QString::number(modeComboBox->count()) << endl;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode END" << endl;
 }
 
 /*********************************************************************
@@ -5301,7 +5325,7 @@ void MainWindow::readActiveModes (const QStringList actives)
 
     for (int i = 0; i < actives.size() ; i++)
     {
-        if (db->isValidMode(actives.at(i)))
+        if (db->isValidMode(actives.at(i), false))
         {
             if (!atLeastOne)
             {
@@ -8490,8 +8514,8 @@ void MainWindow::clusterSpotToLog(const QString _call, const QString _freq)
 {
     //qDebug() << "MainWindow::clusterSpotToLog: " << _call <<"/" << _freq << endl;
 
-    QString _aux;
-    double _freqN = (_freq.toFloat()) / 1000;
+    QString _aux;    
+    double _freqN = (_freq.toDouble()) / 1000;
     qrzLineEdit->setText(_call);
     //qrzLineEdit->setText(_qs.at(0));
 
