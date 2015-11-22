@@ -26,7 +26,8 @@
  *                                                                           *
  *****************************************************************************/
 
-#include <QtWidgets>
+#include <QtGui>
+//#include <QtWidgets>
 #include <QPrinter>
 #include <QPrintDialog>
 
@@ -50,7 +51,6 @@
 #include "mainwindowsattab.h"
 #include "elogclublog.h"
 #include "utilities.h"
-#include "downloadcty.h"
 
 class QTimer;
 class QDateTime;
@@ -175,7 +175,6 @@ private slots:
     void slotSetPropMode(const QString _p);
 
     void slotUpdateCTYDAT();
-    void slotWorldReload();
     void slotToolSearchNeededQSLToSend();
     void slotToolSearchRequestedQSLToSend();
     void slotToolSearchNeededQSLPendingToReceive();
@@ -184,7 +183,7 @@ private slots:
 
     void slotExitFromSlotDialog(const int exitID);
 
-    //void slotDownloadFinished(QNetworkReply *reply);
+    void slotDownloadFinished(QNetworkReply *reply);
 
     void fillQSOData();
 
@@ -192,8 +191,6 @@ private slots:
     void openFile();
     bool saveFile(const QString _fileName);
     bool saveFileAs();
-    bool slotOpenKLogFolder();
-
 
 
     void slotFilePrint();
@@ -227,26 +224,20 @@ private slots:
 
 
 private:
-    bool maybeSave();
-
     //UPDATE CTY.DAT
-/*
+
     bool downloadCTYFile();
     bool downloadCtyDatFile();
     bool saveToDisk(const QString &filename, QIODevice *data);
-
+    bool maybeSave();
 
 
     QString saveFileName(const QUrl &url);
 
     QNetworkAccessManager manager;
     QNetworkRequest request;
-*/
-       // NEW
-    DownLoadCTY *downloadcty;
 
     //</UPDATE CTY.DAT>
-
     void createStatusBar();
     void createUI();
     void createUICQWW();
@@ -394,9 +385,6 @@ private:
     QMenu *setupMenu;
     QMenu *helpMenu;
 
-
-
-    QAction *klogFolderAct;
     QAction *openAct;
     QAction *saveAct;
     QAction *exitAct;

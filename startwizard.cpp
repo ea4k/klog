@@ -11,7 +11,7 @@
     inMemory = true;
 
     //fileOrMemoryPage = new FileOrMemoryPage();
-    ctyPage = new CTYPage(kontestDir, version);
+    ctyPage = new CTYPage(kontestDir);
 
     setWizardStyle(QWizard::AeroStyle);
     setPage(Page_Intro, new IntroPage);
@@ -201,7 +201,7 @@
            "<h3> GNU GENERAL PUBLIC LICENSE</h3>"
            "<p style=text-align: center;>Version 3, 29 June 2007</p>"
 
-           "<p>Copyright (c) 2007 Free Software Foundation, Inc.</p>"
+           "<p>Copyright © 2007 Free Software Foundation, Inc.</p>"
            "<p>Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.</p>"
 
            "<h3></a>Preamble</h3>"
@@ -906,11 +906,11 @@ int FileOrMemoryPage::nextId() const
 }
 */
 
-CTYPage::CTYPage(const QString _kontestDir, const QString _version, QWidget *parent) : QWizardPage(parent)
+CTYPage::CTYPage(const QString _kontestDir, QWidget *parent) : QWizardPage(parent)
 {
     //completed = false;
 
-    dl = new DownLoadCTY(_kontestDir, _version);
+    dl = new DownLoadCTY(_kontestDir);
     QObject::connect(dl, SIGNAL(actionReturnDownload(int)), this, SLOT(slotDownloadFinished(int)));
     QObject::connect(dl, SIGNAL(actionShowProgres(qint64,qint64)), this, SLOT(slotUpdateDownloadProgress(qint64,qint64)));
     QObject::connect(dl, SIGNAL(actionError(int)), this, SLOT(slotDownloadError(int)));
@@ -993,11 +993,9 @@ void CTYPage::slotDownloadFinished(const int ret)
     //qDebug() << "CTYPage::slotDownloadFinished: " << QString::number(ret) << endl;
      if (ret == QNetworkReply::NoError) // No error
      {
-         hiddenCheckBox->setChecked(true);
-         progressBar->setEnabled(false);
          progressBar->setValue(progressBar->maximum());
-         //hiddenCheckBox->setChecked(true);
-    //qDebug() << "CTYPage::slotDownloadFinished: (no error): " << QString::number(ret) << endl;
+         hiddenCheckBox->setChecked(true);
+qDebug() << "CTYPage::slotDownloadFinished: (no error): " << QString::number(ret) << endl;
      }
      else if (ret == -1) // File could not be created!
      {
@@ -1005,7 +1003,7 @@ void CTYPage::slotDownloadFinished(const int ret)
      }
      else
      {
-    //qDebug() << "CTYPage::slotDownloadFinished: (another result): " << QString::number(ret) << endl;
+qDebug() << "CTYPage::slotDownloadFinished: (another result): " << QString::number(ret) << endl;
      }
 
 

@@ -8,8 +8,6 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 
-#include <QUrlQuery>
-
 
 class eLogClubLog : public QObject {
     Q_OBJECT

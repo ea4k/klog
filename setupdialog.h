@@ -39,7 +39,6 @@
 #include "setuppageclublog.h"
 
 #include "dataproxy_sqlite.h"
-#include "utilities.h"
 
 
 #include "locator.h"
@@ -60,7 +59,6 @@ public:
 
     void setData(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime=true);
     void setClubLogActive(const bool _b);
-    void checkIfNewBandOrMode();
 
 public slots:
 
@@ -89,7 +87,6 @@ private:
     void readActiveModes (const QString actives);
     bool isValidBand (const QString b);
     bool isValidMode (const QString b);
-
     QString checkAndFixASCIIinADIF(const QString _data);
     bool haveAtleastOneLog();
 
@@ -121,7 +118,6 @@ private:
     Locator *locator;
     DataProxy *dataProxy;
 
-    Utilities *util;
 };
 
 

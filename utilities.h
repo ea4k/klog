@@ -39,7 +39,6 @@ public:
     Utilities();
     int getProgresStepForDialog(int totalSteps);
     bool trueOrFalse(const QString _s); // reads a String and return true if s.upper()== TRUE :-)
-    QString checkAndFixASCIIinADIF(const QString _data);
 
 
 };

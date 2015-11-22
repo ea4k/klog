@@ -28,7 +28,7 @@
  *****************************************************************************/
 
 //#include <QtWidgets>
-#include <QtWidgets>
+#include <QtGui>
 #include <QtSql>
 #include <QDialog>
 #include "world.h"

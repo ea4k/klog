@@ -293,7 +293,7 @@ bool Awards::isThisSpotConfirmed(const QStringList _qs)
 int Awards::getDXStatus (const QStringList _qs)
 {
 
-    //qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
+//qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
 // Receives:  QStringList _qs;
 //_qs << QRZ << BandId << << ModeId << lognumber;
 
@@ -570,7 +570,7 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
        //qDebug() << "Awards::dxccStatusBandMode: return - -1" << endl;
         return -1;
     }
-    //qDebug() << "Awards::dxccStatusBandMode: return - 0-4" << endl;
+qDebug() << "Awards::dxccStatusBandMode: return - 0-4" << endl;
     return 0;
 }
 
@@ -1062,7 +1062,7 @@ void Awards::recalculateAwards()
                 awardsQList << QString::number(_id);
                 awardsQList << QString::number(_logNumber);
             }
-    // awardsQList << _dxcc / _cqz / _band / _mode / confirmed / id / logNumber
+// awardsQList << _dxcc / _cqz / _band / _mode / confirmed / id / logNumber
             if ((DXCCknown) && (!DXCCknownBefore))
             { //I should update the DXCC in the log as it was not known before and now it is!
                 errorCode = setDXCCToQSO(_dxcc, _id);
@@ -1913,25 +1913,29 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
                 {
                     if(query.value(0).toInt() == 1)         // Confirmed
                     {
-
+                       //qDebug() << "Awards::dxccStatusBand: return - 2" << endl;
                         return 2;
                     }
                     else if(query.value(0).toInt() == 0)    // Worked
                     {
+                       //qDebug() << "Awards::dxccStatusBand: return - 1" << endl;
                         return 1;
                     }
                     else                                    // Not worked
                     {
+                       //qDebug() << "Awards::dxccStatusBand: return - 0" << endl;
                         return 0;
                     }
                 }                                           // Not present => Not worked
                 else
                 {
+                   //qDebug() << "Awards::dxccStatusBand: return - 0.1" << endl;
                     return 0;
                 }
             }
             else                                            // Not present => Not worked
             { // No value => Not Worked
+               //qDebug() << "Awards::dxccStatusBand: return - 0.2" << endl;
                 return 0;
             }
 
@@ -1939,9 +1943,10 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
         else
         { // The query fails...
           //TODO: Manage the query error
+           //qDebug() << "Awards::dxccStatusBand: return - -1" << endl;
             return -1;
         }
-    //qDebug() << "Awards::dxccStatusBand: return - 0.3" << endl;
+qDebug() << "Awards::dxccStatusBand: return - 0.3" << endl;
         return 0;                                       // if arrives to here decision => not worked
 }
 
@@ -1954,6 +1959,7 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
         QString queryString = QString();
         if (_mode == -1)
         {
+           //qDebug() << "Awards::dxccStatusMode: return - -1" << endl;
             return -1;
         }
 
@@ -1968,24 +1974,29 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
                 {
                     if(query.value(0).toInt() == 1)         // Confirmed
                     {
+                       //qDebug() << "Awards::dxccStatusMode: return - 2" << endl;
                         return 2;
                     }
                     else if(query.value(0).toInt() == 0)    // Worked
                     {
+                       //qDebug() << "Awards::dxccStatusMode: return - 1" << endl;
                         return 1;
                     }
                     else                                    // Not worked
                     {
+                       //qDebug() << "Awards::dxccStatusMode: return - 0" << endl;
                         return 0;
                     }
                 }                                           // Not present => Not worked
                 else
                 {
+                   //qDebug() << "Awards::dxccStatusMode: return - 0.1" << endl;
                     return 0;
                 }
             }
             else                                            // Not present => Not worked
             { // No value => Not Worked
+               //qDebug() << "Awards::dxccStatusMode: return - 0.2" << endl;
                 return 0;
             }
 
@@ -1993,8 +2004,10 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
         else
         { // The query fails...
           //TODO: Manage the query error
+           //qDebug() << "Awards::dxccStatusMode: return - -1" << endl;
             return -1;
         }
+qDebug() << "Awards::dxccStatusMode: return - 0.3" << endl;
         return 0;                                       // if arrives to here decision => not worked
 }
 

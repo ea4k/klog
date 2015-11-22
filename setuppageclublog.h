@@ -27,7 +27,7 @@
  *****************************************************************************/
 
 
-#include <QtWidgets>
+#include <QtGui>
 
 class SetupPageClubLog : public QWidget {
     Q_OBJECT

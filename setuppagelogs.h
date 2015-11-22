@@ -27,7 +27,7 @@
  *****************************************************************************/
 
 //#include <QtWidgets>
-#include <QtWidgets>
+#include <QtGui>
 #include <QtSql>
 #include "dataproxy.h"
 #include "dataproxy_sqlite.h"

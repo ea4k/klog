@@ -37,7 +37,7 @@ To insert a (key, value) pair into the hash, you can use operator[]():
 */
 World::World()
 {
-  //qDebug() << "World::World(0)" << endl;
+   //qDebug() << "World::World(0)" << endl;
 
     worldModel = new QSqlRelationalTableModel(this);
     numberOfEntities = 0;
@@ -54,7 +54,7 @@ World::World()
 
 World::World(const QString _kontestDir)
 {
-  //qDebug() << "World::World(1): Dir" << _kontestDir << endl;
+   //qDebug() << "World::World(1): Dir" << _kontestDir << endl;
     kontestDir = _kontestDir;
     kontestVersion = "";
     worldModel = new QSqlRelationalTableModel(this);
@@ -69,19 +69,16 @@ World::World(const QString _kontestDir)
 
 World::World(const QString _kontestDir, const QString _kontestVer)
 {
-  //qDebug() << "World::World(2): Dir" << _kontestDir << endl;
+   //qDebug() << "World::World(2): Dir" << _kontestDir << endl;
     kontestDir = _kontestDir;
-    kontestVersion = _kontestVer;    
+    kontestVersion = _kontestVer;
     worldModel = new QSqlRelationalTableModel(this);
-   //qDebug() << "World::World(2): 1" << endl;
     numberOfEntities = 0;
     progressBarPosition = 0;
     created = false;
-   //qDebug() << "World::World(2): 2" << endl;
     locator = new Locator();
-   //qDebug() << "World::World(2): 3" << endl;
     dataProxy = new DataProxy_SQLite();
-   //qDebug() << "World::World(2): 4" << endl;
+    //awards = new Awards();
 
 }
 
@@ -92,47 +89,42 @@ World::~World()
 
 bool World::recreate(const QString _kontestDir)
 {
-  //qDebug() << "World::recreate: " << _kontestDir << endl;
+    //qDebug() << "World::recreate: " << _kontestDir << endl;
 
     QSqlQuery query;
     if (query.exec("DELETE FROM entity"))
     {
-       //qDebug() << "World::recreate: BORRADO entity"  << endl;
         if (query.exec("DELETE FROM prefixesofentity"))
         {
-           //qDebug() << "World::recreate: BORRADO prefixesofentity"  << endl;
              return create(_kontestDir);
         }
         else
         {//TODO: Manage the query error
-           //qDebug() << "World::recreate: FALLO AL BORRAR prefixesofentity"  << endl;
             return false;
         }
     }
     else
     {//TODO: Manage the query error
-       //qDebug() << "World::recreate: FALLO AL BORRAR entity"  << endl;
         return false;
     }
-   //qDebug() << "World::recreate: FIN..."  << endl;
     return false;
 }
 
 bool World::create(const QString _kontestDir)
 {
-   //qDebug() << "World::create: " << _kontestDir << endl;
+    //qDebug() << "World::create: " << _kontestDir << endl;
     kontestDir = _kontestDir;
     //qDebug() << "World::create: 2 " <<  kontestDir << endl;
     //if (readCTYDAT())
     if (readCTYCSV())
     {
         created = true;
-       //qDebug() << "World::create: TRUE"  << endl;
+        //qDebug() << "World::create: TRUE"  << endl;
 
     }else
     {
         created = false;
-       //qDebug() << "World::create: FALSE"  << endl;
+        //qDebug() << "World::create: FALSE"  << endl;
 
     }
     return created;
@@ -1340,7 +1332,7 @@ bool World::readCTYDAT()
 
 bool World::readCTYCSV()
 {
-   //qDebug() << "World::readCTYCSV(): " << kontestDir << endl;
+    //qDebug() << "World::readCTYCSV(): " << kontestDir << endl;
 
     QString tq;
     QString fileName;

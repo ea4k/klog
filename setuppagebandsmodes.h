@@ -27,7 +27,7 @@
  *****************************************************************************/
 
 //#include <QtWidgets>
-#include <QtWidgets>
+#include <QtGui>
 #include <QSqlQuery>
 #include <QStringList>
 #include <QListWidget>
@@ -58,7 +58,6 @@ private slots:
 
 private:
     void createActions();
-    void addBandModeDefaults();
 
     //QWidget *bandsWidget;
     QListWidget *bandsNotActiveListWidget, *bandsActiveListWidget;

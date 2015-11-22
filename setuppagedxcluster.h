@@ -31,7 +31,7 @@
 //#include <QSqlQuery>
 //#include <QStringList>
 //#include <QListWidget>
-#include <QtWidgets>
+#include <QtGui>
 
 
 class SetupPageDxCluster : public QWidget {

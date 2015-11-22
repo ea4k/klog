@@ -29,12 +29,9 @@
 
 DataProxy_SQLite::DataProxy_SQLite()
 {
-   //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << endl;
+    //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << endl;
     db = new DataBase(0);
-   //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1" << endl;
-    //dbCreated = db->createConnection();
     //dbCreated = db->createBandModeMaps();
-   //qDebug() << "DataProxy_SQLite::DataProxy_SQLite - END" << endl;
 
 
 }
@@ -53,7 +50,7 @@ void DataProxy_SQLite::createLogPanel(){
 
 int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
 {
-   //qDebug() << "DataProxy_SQLite::getIdFromModeName: " << _modeName << "/" << QString::number(db->getModeIDFromName2(_modeName)) << endl;
+    //qDebug() << "DataProxy_SQLite::getIdFromModeName: " << _modeName << "/" << QString::number(db->getModeIDFromName2(_modeName)) << endl;
     if (_modeName.length()<2)
     {
         return -3;
@@ -172,18 +169,14 @@ QString DataProxy_SQLite::getNameFromBandId (const int _id)
 
 QString DataProxy_SQLite::getNameFromModeId (const int _id)
 {
-   //qDebug() << "DataProxy_SQLite::getNameFromModeId" << endl;
-    //return db->getSubModeNameFromNumber(_id);
+    //qDebug() << "DataProxy_SQLite::getNameFromModeId" << endl;
     return db->getModeNameFromID2(_id);
 }
 
 QString DataProxy_SQLite::getNameFromSubModeId (const int _id)
 {
-   //qDebug() << "DataProxy_SQLite::getNameFromSubModeId: " << QString::number(_id) << endl;
-    return db->getModeNameFromID2(_id);
-
     QSqlQuery query;
-    QString stringQuery = QString("SELECT submode, name, deprecated FROM mode WHERE id='%1'").arg(_id);
+    QString stringQuery = QString("SELECT submode, mode, deprecated FROM mode WHERE id='%1'").arg(_id);
     query.exec(stringQuery);
     query.next();
     if (query.isValid())
@@ -225,7 +218,7 @@ QString DataProxy_SQLite::getSubModeFromId (const int _id)
 QString DataProxy_SQLite::getNameFromSubMode (const QString _sm)
 {
     QSqlQuery query;
-    QString stringQuery = QString("SELECT name, deprecated FROM mode WHERE submode='%1'").arg(_sm.toUpper());
+    QString stringQuery = QString("SELECT mode, deprecated FROM mode WHERE submode='%1'").arg(_sm.toUpper());
     query.exec(stringQuery);
     query.next();
     if (query.isValid())
@@ -306,7 +299,9 @@ QStringList DataProxy_SQLite::getModes()
         if (query.isValid()){
             modes << query.value(0).toString();
         }
+
     }
+
     return modes;
 }
 
@@ -334,7 +329,6 @@ QStringList DataProxy_SQLite::getBandsInLog(const int _log)
 
 QStringList DataProxy_SQLite::getModesInLog(const int _log)
 {
-  //qDebug() << "DataProxy_SQLite::getModesInLog: " << endl;
     QStringList modes = QStringList();
     QString stringQuery = QString();
     if (_log <=0 )
@@ -353,10 +347,9 @@ QStringList DataProxy_SQLite::getModesInLog(const int _log)
             modes << query.value(1).toString();
         }
     }
-   //qDebug() << "DataProxy_SQLite::getModesInLog: " << modes.join(" - ") << endl;
+    //qDebug() << "DataProxy_SQLite::getModesInLog: " << modes.join(" - ") << endl;
     return modes;
 }
-
 
 
 int DataProxy_SQLite::getLastQSOid()
@@ -1348,24 +1341,20 @@ QStringList DataProxy_SQLite::getOperatingYears(const int _currentLog)
     bool sqlOk = query.exec(queryString);
     if (sqlOk)
     {
-        //qDebug() << "DataProxy_SQLite::getYearsOperating: sqlOk = true" << endl;
         while (query.next())
         {
             if (query.isValid())
             {
                 year = (query.value(0)).toString();
-
                 years << year;
                 year.clear();
             }
         }
-        //qDebug() << "DataProxy_SQLite::getYearsOperating: END OK - " << QString::number(years.size())<< endl;
         return years;
         //return years.sort();
     }
     else
     {
-        //qDebug() << "DataProxy_SQLite::getYearsOperating: sqlOk = false" << endl;
         return years;
     }
 

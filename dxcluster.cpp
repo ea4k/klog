@@ -581,10 +581,6 @@ void DXClusterWidget::slotClusterDXClusterWidgetItemEntered( QListWidgetItem * i
 }
 
 
-bool DXClusterWidget::isConnected()
-{
-    return dxClusterConnected;
-}
 
 QStringList DXClusterWidget::readItem(QListWidgetItem * item)
 {

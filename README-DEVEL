@@ -181,30 +181,6 @@ trace.
 
 Document your commits: ALWAYS add a clear comment to the commits so it is easy to know what is it about.
 
-5.1 TEST CHECKLIST
-
-Here is the list of tests to be done before releasing new software:
-
- - Install in a new installation of Windows/OSX
- - Upgrade from a previous version
-
- - Create a new log
- - Add a new QSO
- - Edit a QSO from log
- - Edit a QSO from searchs
- - Remove a QSO
-
- - Connect to the DXCLuster
- - Click on a spot on the DXCLuster
-
- - Export an ADIF file
- - Import an ADIF file
-
- - Remove KLog in Windows
-
-
-
-
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 6 - GUI

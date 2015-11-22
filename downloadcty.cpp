@@ -5,101 +5,101 @@
 #include <QFile>
 #include <QDebug>
 
-DownLoadCTY::DownLoadCTY(const QString _kontestDir, const QString _klogVersion) : QObject(0)
+DownLoadCTY::DownLoadCTY(const QString _kontestDir) : QObject(0)
 {    
-   //qDebug() << "DownLoadCTY::DownLoadCTY(): " << _kontestDir << endl;
-    url = new QUrl;
     kontestDir = _kontestDir;
-    result = -1;  // Error unknown
+   //qDebug() << "DownLoadCTY::DownLoadCTY(): " << kontestDir << endl;
+    result = -1;  // Error unknown        
 
-    manager = new QNetworkAccessManager;
-    request = new QNetworkRequest;
-    //request->setUrl(QUrl("http://www.country-files.com/cty/cty.csv"));
-    request->setUrl(QUrl("http://www.country-files.com/bigcty/cty.csv"));
-    QString ver = "KLog"+_klogVersion;
-    QByteArray str;
-    str.clear();
-    str.append(ver);
-    //str.append(_klogVersion);
+    urld = QString("http://www.country-files.com/bigcty/cty.csv").toLocal8Bit();
+    //urld = QString("http://www.country-files.com/cty/cty.csv").toLocal8Bit();
+    url.setEncodedUrl(urld.toLocal8Bit());
+    request.setRawHeader( "User-Agent" , "KLog" );
+    request.setUrl(url);
 
-    //request.setUrl(QUrl("http://qt.nokia.com"));
-    request->setRawHeader("User-Agent", str);
-    //request->setHeader(QNetworkRequest::UserAgentHeader, str);
-
-    //qDebug() << "DownLoadCTY::DownLoadCTY() - UserAgent: " <<  request->rawHeader("QNetworkRequest::UserAgentHeader") << endl;
-
-    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
+    QObject::connect(&manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
 
 }
 
 DownLoadCTY::~DownLoadCTY()
 {
-  //qDebug() << "DownLoadCTY::~DownLoadCTY"  << endl;
+   //qDebug() << "DownLoadCTY::~DownLoadCTY"  << endl;
+}
+
+
+void DownLoadCTY::setTarget(const QString &t){
+   //qDebug() << "DownLoadCTY::setTarget: " << t << endl;
+    this->target = t;
 }
 
 
 
- void DownLoadCTY::slotDownloadFinished(QNetworkReply *reply)
+ void DownLoadCTY::slotDownloadFinished(QNetworkReply *data)
 {
-  //qDebug() << "DownLoadCTY::slotDownloadFinished"  << endl;
+   //qDebug() << "DownLoadCTY::downloadFinished"  << endl;
 
-   QUrl url = reply->url();
-  //qDebug() << "DownLoadCTY::slotDownloadFinished - URL: " << url.toString()  << endl;
+    QFile localFile("cty.csv");
 
-   QMessageBox msgBox;
-   QString aux;
-   aux.clear();
+   //qDebug() << "DownLoadCTY::downloadFinished - error: " << data->errorString() << endl;
 
-   if (reply->error()) {
+    result = data->error();
+   //qDebug() << "DownLoadCTY::downloadFinished - Result = " << QString::number(result) << endl;
 
-       //fprintf(stderr, "Download of %s failed: %s\n",
-       //        url.toEncoded().constData(),
-       //        qPrintable(reply->errorString()));
+    if (result == QNetworkReply::NoError)
+    {
+        if (!localFile.open(QIODevice::WriteOnly))
+        {
+           //qDebug() << "DownLoadCTY::downloadFinished: CTY file could not be created!" << endl;
+            emit actionReturnDownload(-1);
+            //return;
+        }
+        else
+        {
+            const QByteArray sdata = data->readAll();
+            localFile.write(sdata);
+           //qDebug() << sdata;
+            if (localFile.flush())
+            {
+             //qDebug() << "DownLoadCTY::downloadFinished: CTY file Flushed 100%!" << endl;
+
+            }
+            else
+            {
+             //qDebug() << "DownLoadCTY::downloadFinished: CTY file NOT flushed 100%!" << endl;
+            }
+            localFile.close();
 
 
-       //errorCode = query.lastError().number();
+           //qDebug() << "DownLoadCTY::downloadFinished: and CTY file created!" << endl;
+            emit actionReturnDownload(result);
+        }
+    }
+    else
+    {
+       //qDebug() << "DownLoadCTY::downloadFinished - Result = UNDEFINED = " << QString::number(result)  << endl;
+    }
 
-       msgBox.setIcon(QMessageBox::Warning);
-       aux = tr("Download of the CTY.CSV failed with the following error code: ");
-       msgBox.setText(aux + reply->errorString());
-       msgBox.setStandardButtons(QMessageBox::Ok);
-       msgBox.setDefaultButton(QMessageBox::Ok);
-       int ret = msgBox.exec();
+    //TODO: Check if the cty.csv file is already existing.
 
+    //qDebug() << "DownLoadCTY::downloadFinished - Result = " << QString::number(result) << endl;
+    emit done();
 
-   } else {
-       QString filename = saveFileName(url);
-       if (saveToDisk(filename, reply))
-       {
-           msgBox.setIcon(QMessageBox::Information);
-           aux = tr("Download of the CTY.CSV done.");
-           msgBox.setText(aux);
-           msgBox.setStandardButtons(QMessageBox::Ok);
-           msgBox.setDefaultButton(QMessageBox::Ok);
-           int ret = msgBox.exec();
-           emit actionReturnDownload(QNetworkReply::NoError);
-       }
-           //printf("Download of %s succeeded (saved to %s)\n",
-           //       url.toEncoded().constData(), qPrintable(filename));
-   }
-
-   reply->deleteLater();
-
-   emit done();
 
 }
 
 int DownLoadCTY::download()
 {
-  //qDebug() << "DownLoadCTY::download..." << endl;
+   //qDebug() << "DownLoadCTY::download " << endl;
 
-    manager->get(*request);
+    QNetworkReply *reply= manager.get(request);
+
+    QObject::connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(slotDownloadProgress(qint64,qint64)));
+    QObject::connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(slotErrorManagement(QNetworkReply::NetworkError)), Qt::QueuedConnection);
+    //qDebug() << "DownLoadCTY::download: " << QString::number(result) << endl;
     return 1;
 }
 
 void DownLoadCTY::slotDownloadProgress(qint64 received, qint64 total) {
-  //qDebug() << "DownLoadCTY::slotDownloadProgress: " << endl;
-
    //qDebug() << "DownLoadCTY::downloadProgress: " << QString::number(received) << "/" << QString::number(total) << endl;
     //qDebug() << received << total;
 
@@ -108,7 +108,7 @@ void DownLoadCTY::slotDownloadProgress(qint64 received, qint64 total) {
 
 void DownLoadCTY::slotErrorManagement(QNetworkReply::NetworkError networkError)
 {
-   //qDebug() << "DownLoadCTY::slotErrorManagement: " << QString::number(networkError) << endl;
+    //qDebug() << "DownLoadCTY::slotErrorManagement: " << QString::number(networkError) << endl;
 
     result = networkError;
 
@@ -127,68 +127,3 @@ void DownLoadCTY::slotErrorManagement(QNetworkReply::NetworkError networkError)
 
     actionError(result);
 }
-
-QString DownLoadCTY::saveFileName(const QUrl &url)
-{
-   //qDebug() << "DownLoadCTY::saveFileName" << endl;
-    QString path = url.path();
-    QString basename = QFileInfo(path).fileName();
-    QMessageBox msgBox;
-    QString aux;
-    aux.clear();
-
-    if (basename.isEmpty())
-        basename = "download";
-
-    if (QFile::exists(basename)) {
-
-        msgBox.setIcon(QMessageBox::Warning);
-        aux = tr("There is already a CTY.CSV file in the folder but it will be replaced with the new one.");
-        msgBox.setText(aux);
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
-
-
-
-        // already exists, don't overwrite
-        //int i = 0;
-        //basename += '.';
-        //while (QFile::exists(basename + QString::number(i)))
-        //    ++i;
-
-        //basename += QString::number(i);
-    }
-
-    return basename;
-}
-
-bool DownLoadCTY::saveToDisk(const QString &filename, QIODevice *data)
-{
-    //qDebug() << "DownLoadCTY::saveToDisk: " << filename << endl;
-    QFile file(filename);
-    QMessageBox msgBox;
-    QString aux;
-    aux.clear();
-    if (!file.open(QIODevice::WriteOnly)) {
-
-        msgBox.setIcon(QMessageBox::Warning);
-        aux = tr("Could not open ") + filename + tr(" for writing.");
-        msgBox.setText(aux);
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
-
-
-        //fprintf(stderr, "Could not open %s for writing: %s\n",
-         //       qPrintable(filename),
-         //       qPrintable(file.errorString()));
-        return false;
-    }
-
-    file.write(data->readAll());
-    file.close();
-
-    return true;
-}
-

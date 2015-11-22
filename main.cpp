@@ -15,7 +15,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include <QtWidgets>
+#include <QtGui>
 #include <QtSql>
 #include <QTranslator>
 #include <cstdlib>
@@ -27,17 +27,10 @@
 
 int main(int argc, char *argv[])
 {
-    QString version = "0.9.2.2";
+    QString version = "0.9.2.1";
     QDir d1 = QDir();
 
     QApplication app(argc, argv);
-
-    //QApplication app(argc, argv);
-    app.setApplicationName(QString("KLog"));
-    app.setApplicationVersion(QString(version));
-
-
-
 // Translations begin
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(),

@@ -4,8 +4,7 @@
 QT += core \
     gui \
     sql \
-    network \
-    widgets
+    network
 greaterThan(QT_MAJOR_VERSION, 4) { 
     QT *= printsupport
     QT += widgets
@@ -103,7 +102,6 @@ OTHER_FILES += TODO \
     AUTHORS \
     README
 TRANSLATIONS = klog_es.ts \
-    klog_ca.ts
+    klog_fr.ts
 CODECFORTR = UTF-8
 FORMS += 
-
