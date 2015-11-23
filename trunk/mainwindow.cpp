@@ -273,6 +273,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     modeComboBox = new QComboBox;
 
     dateEdit = new QDateEdit;
+    dateEdit->setDisplayFormat("dd/MM/yyyy");
     timeEdit = new QTimeEdit;
 
     OKButton = new QPushButton(tr("&Add"), this);

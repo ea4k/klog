@@ -34,7 +34,7 @@ public:
     QString getModeFromSubMode (const QString _sm);
     bool isModeDeprecated (const QString _sm);
 
-    double getFreqFromBandId(const int _id);
+    QString getFreqFromBandId(const int _id);
     int getBandIdFromFreq(const double _n);
 
     int getLastQSOid();

@@ -29,7 +29,7 @@ public:
     virtual QString getModeFromSubMode (const QString _sm);
     virtual bool isModeDeprecated (const QString _sm);
 
-    virtual double getFreqFromBandId(const int _id);
+    virtual QString getFreqFromBandId(const int _id);
     virtual int getBandIdFromFreq(const double _n);
     virtual QStringList getBands();
     virtual QStringList getModes();

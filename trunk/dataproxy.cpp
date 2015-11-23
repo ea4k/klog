@@ -98,9 +98,9 @@ QString DataProxy::getNameFromSubMode (const QString _sm)
 }
 
 
-double DataProxy::getFreqFromBandId(const int _id)
+QString DataProxy::getFreqFromBandId(const int _id)
 {
-    return -1.0;
+    return "";
 }
 
 int DataProxy::getBandIdFromFreq(const double _n)

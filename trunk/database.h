@@ -9,20 +9,20 @@
  ***************************************************************************/
 
 /*****************************************************************************
- * This file is part of KLog.                                             *
+ * This file is part of KLog.                                                *
  *                                                                           *
- *    KLog is free software: you can redistribute it and/or modify         *
+ *    KLog is free software: you can redistribute it and/or modify           *
  *    it under the terms of the GNU General Public License as published by   *
  *    the Free Software Foundation, either version 3 of the License, or      *
  *    (at your option) any later version.                                    *
  *                                                                           *
- *    KLog is distributed in the hope that it will be useful,             *
+ *    KLog is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -75,7 +75,7 @@ public:
     int getBandIdFromFreq(const QString fr); //Freq should be in MHz
     bool isThisFreqInBand(const QString b, const QString fr); //Freq should be in MHz
 
-    double getFreqFromBandId(const int _i);
+    QString getFreqFromBandId(const int _i);
 
     bool unMarkAllQSO();
     bool updateIfNeeded();
@@ -132,7 +132,7 @@ private:
     QHash<QString, int> modeIDHash;
     QHash<int, QString> IDBandHash;
     QHash<int, QString> IDModeHash;
-    QHash<int, double> freqBandIdHash;
+    QHash<int, QString> freqBandIdHash;
 
     QMap<QString, int> bandQMap;
     QMap<QString, int> modeQMap;
