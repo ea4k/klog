@@ -1369,9 +1369,9 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                 nameCol = rec.indexOf("freq");
                 aux1 = (query.value(nameCol)).toString();
-                qDebug() << "FileManager::adifLogExportToFile FREQ1: "  << aux1 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile FREQ1: "  << aux1 << endl;
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                qDebug() << "FileManager::adifLogExportToFile FREQ2: "  << aux1 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile FREQ2: "  << aux1 << endl;
                 if ((aux1.length())>0){
                     if (db->isThisFreqInBand(bandst, aux1))
                     {

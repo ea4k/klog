@@ -6,6 +6,7 @@ November-2015 - 0.9.2.2
 - BugFix: When started for the first time, no modes were shown as default.
 - BugFix: CTY.CSV was not properly updated.
 - BugFix: When upgrading the mode information in database some modes where not properly updated.
+- GUI: Changed the year to show the full number to avoid problems with old QSO.
 - Import ADIF functionality is improved to support importing of logs with some missing data.
 - Removed the Spot button until its functionality is implemented.
 

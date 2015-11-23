@@ -243,8 +243,8 @@ bool DataBase::createTableLog(bool temp)
              "eqsl_qsl_rcvd VARCHAR(1), "
              "eqsl_qsl_sent VARCHAR(1), "
              "force_init INTEGER, "
-             "freq REAL, "
-             "freq_rx REAL, "
+             "freq VARCHAR, "
+             "freq_rx VARCHAR, "
              "gridsquare VARCHAR, "
              "iota VARCHAR(6), "
              "iota_island_id VARCHAR, "
@@ -1081,7 +1081,7 @@ bool DataBase::createTheBandQuickReference()
     QHash<QString, int> modeIDHash;
     QHash<int, QString> IDBandHash;
     QHash<int, QString> IDModeHash
-    QHash<double, int> freqBandIdHash;
+    QHash<int, QString> freqBandIdHash;
 
 */
 
@@ -1089,7 +1089,7 @@ bool DataBase::createTheBandQuickReference()
 
     QString st = "NULL";
     int in = 0;
-    double fr = 0;
+    QString fr = 0;
     bandIDHash.clear();
     IDBandHash.clear();
     QSqlQuery query("SELECT id, name, lower FROM band");
@@ -1100,7 +1100,7 @@ bool DataBase::createTheBandQuickReference()
         {
             st = (query.value(1)).toString();
             in = (query.value(0)).toInt();
-            fr = (query.value(2)).toDouble();
+            fr = (query.value(2)).toString();
             bandIDHash.insert(st, in );
             IDBandHash.insert(in, st);
             freqBandIdHash.insert(in, fr);
@@ -1288,7 +1288,7 @@ bool DataBase::createBandModeMaps()
 
 }
 
-double DataBase::getFreqFromBandId(const int _i)
+QString DataBase::getFreqFromBandId(const int _i)
 {
 
     if (freqBandIdHash.contains(_i))
@@ -1297,9 +1297,9 @@ double DataBase::getFreqFromBandId(const int _i)
     }
     else
     {
-        return -1.0;
+        return "-1.0";
     }
-    return -2.0;
+    return "-2.0";
 
 
 }
