@@ -262,6 +262,8 @@ Before deploying, translations should be updated.
         mv klog.app KLog.app
         create new folder in KLog.app/Contents/PlugIns/sqldrivers
         copy $QT_DIR/plugins/sqldrivers/libqsqlite.dylib to the new folder (/Developer/Applications/Qt/plugins/)
+        create new folder: KLog.app/Contents/MacOs/translations
+        copy the *.qm (translation) files into KLog.app/Contents/MacOS/translations
         macdeployqt KLog.app/ -dmg
         mv KLog.dmg KLog-[VERSION].dmg
 

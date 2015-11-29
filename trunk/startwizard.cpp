@@ -943,15 +943,15 @@ CTYPage::CTYPage(const QString _kontestDir, const QString _version, QWidget *par
     ctyBrowser = new QTextEdit;
     ctyBrowser->setReadOnly(true);
 
-    QString gplLic = "<html><head>"
-            "<title>Country data needed</title>"
-            "</head><body>"
-            "<p>KLog uses the CTY.CSV file (from http://www.country-files.com/) to get the DXCC information.</p>"
-            "<p>You need to download the cty.csv file if you want KLog to show you the countries, locator, ... of the QSO you do.</p>"
-
-            "<p>Click on Download to download just now.</p>"
-            "</body></html>";
-
+    QString st = tr("Country data needed");
+    QString gplLic = "<html><head><title>";
+    gplLic = gplLic+st+"</title></head><body><p>";
+    st = tr("KLog uses the CTY.CSV file (from http://www.country-files.com/) to get the DXCC information.");
+    gplLic = gplLic + st + "</p><p>";
+    st = tr("You need to download the cty.csv file if you want KLog to show you the countries, locator, ... of the QSO you do.");
+    gplLic = gplLic + st + "</p><p>";
+    st = tr("Click on Download to download just now.");
+    gplLic = gplLic+st+"</p></body></html>";
 
    ctyBrowser->setHtml(gplLic);
 

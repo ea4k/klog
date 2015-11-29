@@ -19,7 +19,7 @@
 #include <QtSql>
 #include <QTranslator>
 #include <cstdlib>
-//#include <QDebug>
+#include <QDebug>
 
 #include "startwizard.h"
 #include "mainwindow.h"
@@ -36,16 +36,31 @@ int main(int argc, char *argv[])
     app.setApplicationName(QString("KLog"));
     app.setApplicationVersion(QString(version));
 
+    // Translations begin
+        QTranslator qtTranslator;
+        qtTranslator.load("qt_" + QLocale::system().name(),
+                QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+        app.installTranslator(&qtTranslator);
+        QTranslator myappTranslator;
+
+#ifdef Q_OS_WIN
+        myappTranslator.load("translations/klog_" + (QLocale::system().name()));
+#elif defined(Q_OS_OSX)
+        myappTranslator.load("translations/klog_" + (QLocale::system().name()));
+#else
+        myappTranslator.load("klog_" + (QLocale::system().name()));
+#endif
 
 
-// Translations begin
-    QTranslator qtTranslator;
-    qtTranslator.load("qt_" + QLocale::system().name(),
-            QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    app.installTranslator(&qtTranslator);
 
-    QTranslator myappTranslator;
-    myappTranslator.load("klog_" + QLocale::system().name());
+
+
+    //myappTranslator.load("klog_" + (QLocale::system().name()).left(2));
+    //qDebug() << "KLog locale: " << QLocale::system().name() << endl;
+    //qDebug() << "KLog locale2: " << (QLocale().name()).left(2) << endl;
+    //qDebug() << "KLog language: " << QLocale::system().language() << endl;
+    //qDebug() << "KLog AppPath: " << QCoreApplication::applicationDirPath() << endl;
+
     app.installTranslator(&myappTranslator);
 // Translations end
 

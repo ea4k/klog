@@ -3133,7 +3133,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                 }
                 else if (field == "FREQ")
                 {
-                    qDebug() << "FileManager::processQsoReadingADIF  -FREQ: " << QString::number(data.toDouble()) << endl;
+                    //qDebug() << "FileManager::processQsoReadingADIF  -FREQ: " << QString::number(data.toDouble()) << endl;
                     preparedQuery.bindValue( ":freq", data.toDouble() );
                     if (haveBand)
                     {
