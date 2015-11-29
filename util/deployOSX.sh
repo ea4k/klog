@@ -16,7 +16,7 @@ mv klog.app KLog.app
 mkdir -p KLog.app/Contents/PlugIns/sqldrivers
 cp $QTDIRi/plugins/sqldrivers/libqsqlite.dylib KLog.app/Contents/PlugIns/sqldrivers
 mkdir -p KLog.app/Contents/MacOS/translations
-cp $KLOG_SOURCES/*.qm KLog.app/Contents/MacOS/translations/
+cp $KLOG_SOURCES/translations/*.qm KLog.app/Contents/MacOS/translations/
 macdeployqt KLog.app/ -dmg
 mv KLog.dmg KLog-$KLOG_VERSION.dmg
 echo "You can find the dmg file in this folder... enjoy KLog!"

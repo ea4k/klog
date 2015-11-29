@@ -55,6 +55,7 @@ enum
 class World : public QWidget
 {
     //friend class Awards;
+    Q_OBJECT
 
 public:
     World();
