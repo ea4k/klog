@@ -55,6 +55,7 @@ enum
 
 class FileManager : public QWidget
 {
+    Q_OBJECT
 public:
     FileManager();
     FileManager(const QString _kontestDir);
