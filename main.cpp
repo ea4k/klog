@@ -43,12 +43,23 @@ int main(int argc, char *argv[])
         app.installTranslator(&qtTranslator);
         QTranslator myappTranslator;
 
-#ifdef Q_OS_WIN
-        myappTranslator.load("translations/klog_" + (QLocale::system().name()));
+#if defined(Q_OS_WIN)
+        myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()));
+       // qDebug() << "KLog WIN " << endl;
+       // qDebug() << "KLog: " << QLocale::system().name() << endl;
+        //qDebug() << "KLog trans: " <<  QLibraryInfo::location(QLibraryInfo::TranslationsPath) << endl;
+        //qDebug() << "KLog currentPath: " <<  QDir::currentPath() << endl;
 #elif defined(Q_OS_OSX)
-        myappTranslator.load("translations/klog_" + (QLocale::system().name()));
+        myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()));
+        //myappTranslator.load("translations/klog_" + (QLocale::system().name()));
+        //qDebug() << "KLog OSX " << endl;
+        //qDebug() << "KLog: " << QLocale::system().name() << endl;
+        //qDebug() << "KLog trans: " <<  QLibraryInfo::location(QLibraryInfo::TranslationsPath) << endl;
+        //qDebug() << "KLog currentPath: " <<  QDir::currentPath() << endl;
+
 #else
         myappTranslator.load("klog_" + (QLocale::system().name()));
+        //qDebug() << "KLog OTHER OS " << endl;
 #endif
 
 
