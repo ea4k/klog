@@ -27,7 +27,7 @@
 
 int main(int argc, char *argv[])
 {
-    QString version = "0.9.2.2";
+    QString version = "0.9.2.3";
     QDir d1 = QDir();
 
     QApplication app(argc, argv);
@@ -42,25 +42,87 @@ int main(int argc, char *argv[])
                 QLibraryInfo::location(QLibraryInfo::TranslationsPath));
         app.installTranslator(&qtTranslator);
         QTranslator myappTranslator;
-
 #if defined(Q_OS_WIN)
         myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()));
-       // qDebug() << "KLog WIN " << endl;
-       // qDebug() << "KLog: " << QLocale::system().name() << endl;
+       //qDebug() << "KLog WIN " << endl;
+       ////qDebug() << "KLog: " << QLocale::system().name() << endl;
         //qDebug() << "KLog trans: " <<  QLibraryInfo::location(QLibraryInfo::TranslationsPath) << endl;
         //qDebug() << "KLog currentPath: " <<  QDir::currentPath() << endl;
 #elif defined(Q_OS_OSX)
         myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()));
-        //myappTranslator.load("translations/klog_" + (QLocale::system().name()));
         //qDebug() << "KLog OSX " << endl;
+        //myappTranslator.load("translations/klog_" + (QLocale::system().name()));
+
         //qDebug() << "KLog: " << QLocale::system().name() << endl;
         //qDebug() << "KLog trans: " <<  QLibraryInfo::location(QLibraryInfo::TranslationsPath) << endl;
         //qDebug() << "KLog currentPath: " <<  QDir::currentPath() << endl;
 
 #else
-        myappTranslator.load("klog_" + (QLocale::system().name()));
-        //qDebug() << "KLog OTHER OS " << endl;
+       //qDebug() << "KLog OTHER " << endl;
+        if (QFile::exists("klog_" + (QLocale::system().name()).left(2) + ".qm") )
+        {
+           //qDebug() << "KLog OTHER -1: " << "klog_" + (QLocale::system().name()).left(2) << endl;
+            myappTranslator.load("klog_" + (QLocale::system().name()).left(2));
+        }
+        else if (QFile::exists("/usr/share/klog/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") )
+        {
+           //qDebug() << "KLog OTHER -2: " << "/usr/share/klog/klog_" + (QLocale::system().name()).left(2) << endl;
+            myappTranslator.load("/usr/share/klog/translations/klog_" + (QLocale::system().name()));
+        }
+        else if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"))
+        {
+                //qDebug() << "KLog OTHER -3: " << QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) << endl;
+            myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()));
+        }
+        else
+        {
+            QMessageBox msgBox;
+            QString msg = QString();
+            msg = QString("No translation files for your language have been found so KLog will be shown in English.\n\n") +
+                   QString( "If you have the klog_") + (QLocale::system().name()).left(2) + QString(".qm file for your language, you can copy it in the ");
+
+         #ifdef Q_OS_WIN
+            if (QFile::exists(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()).left(2)+ ".qm") )
+            {
+
+               //qDebug() << "KLog OTHER -4: " << QDir::homePath()+"/klog/klog_" + (QLocale::system().name()).left(2) << endl;
+                 myappTranslator.load(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()));
+            }
+            else
+            {
+
+                msg = msg + QDir::homePath()+ "/klog/ folder and restart KLog again.\n\n If you want to help to translate KLog into your language, please contact the author.";
+                msgBox.setText(msg);
+                msgBox.setInformativeText("Do you want to remove the KLog dir from your disk?");
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+                msgBox.setDefaultButton(QMessageBox::Yes);
+                msgBox.exec();
+            }
+
+
+         #else
+
+           //qDebug() << "KLog OTHER -5: " << QDir::homePath()+"/.klog/klog_" + (QLocale::system().name()).left(2)<< endl;
+
+            if (QFile::exists(QDir::homePath()+"/.klog/klog_" + (QLocale::system().name()).left(2)+ ".qm") )
+            {
+               //qDebug() << "KLog OTHER -4: " << QDir::homePath()+"/.klog/klog_" + (QLocale::system().name()).left(2) << endl;
+                 myappTranslator.load(QDir::homePath()+"/.klog/klog_" + (QLocale::system().name()));
+            }
+            else
+            {
+                msg = msg + QDir::homePath()+"/.klog/ folder and restart KLog again.\n\n If you want to help to translate KLog into your language, please contact the author.";
+                msgBox.setText(msg);
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+                msgBox.exec();
+            }
+
+         #endif
+
+        }
 #endif
+
 
 
 
