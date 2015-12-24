@@ -1,5 +1,6 @@
 TBD - 0.9.2.3
-- Improved the way translations are managed (Specially in Linux)
+- Improved the way translations are managed (Specially in Linux).
+- Icon application is now shown in OSX.
 
 November-2015 - 0.9.2.2
 - Translations are now working properly in Windows & OSX.

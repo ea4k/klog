@@ -57,7 +57,8 @@ SOURCES += main.cpp \
     setuppagelogsnew.cpp \
     setuppageclublog.cpp \
     elogclublog.cpp \
-    utilities.cpp
+    utilities.cpp \
+    dxccstatuswidget.cpp
 HEADERS += setupdialog.h \
     mainwindow.h \
     world.h \
@@ -88,7 +89,8 @@ HEADERS += setupdialog.h \
     setuppagelogsnew.h \
     setuppageclublog.h \
     elogclublog.h \
-    utilities.h
+    utilities.h \
+    dxccstatuswidget.h
 OTHER_FILES += TODO \
     README-DEVEL \
     tips-for-devel.txt \
@@ -106,4 +108,6 @@ TRANSLATIONS = translations/klog_es.ts \
     translations/klog_ca.ts
 CODECFORTR = UTF-8
 FORMS += 
+RC_FILE = klog.rc
+ICON = klog.icns
 
