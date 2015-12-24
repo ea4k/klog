@@ -270,6 +270,9 @@ Before deploying, translations should be updated.
 9.3 DEPLOYING ON WINDOWS
     Currently using an Open Source Licence of: BitRock InstallBuilder
 
+9.4 ICON
+    Follow this link for all the OS:
+    http://doc.qt.io/qt-5/appicon.html
 
 Installer:
 http://en.wikipedia.org/wiki/List_of_installation_software
