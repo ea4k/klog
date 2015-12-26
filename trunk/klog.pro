@@ -10,14 +10,20 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     QT *= printsupport
     QT += widgets
 }
-unix { 
-    macx:TARGET = KLog
-    
-    # QMAKE_LFLAGS += -F/Library/Frameworks
-    # LIBS += -framework TheFramework
-    # SOURCES += windowinfo_mac.cpp
-    else:# SOURCES += windowinfo_x11.cpp
+
+
+unix:!macx {
     TARGET = klog
+}
+
+macx {
+   ICON = klog.icns
+   TARGET = KLog
+}
+
+win32 {
+ RC_ICONS = klog.ico
+ TARGET = klog
 }
 else:TARGET = klog
 
@@ -108,6 +114,5 @@ TRANSLATIONS = translations/klog_es.ts \
     translations/klog_ca.ts
 CODECFORTR = UTF-8
 FORMS += 
-RC_FILE = klog.rc
-ICON = klog.icns
+
 
