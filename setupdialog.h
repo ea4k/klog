@@ -55,7 +55,7 @@ class SetupDialog : public QDialog
 
 public:
     SetupDialog(const bool _firstTime=true);
-    SetupDialog(const QString _configFile, const QString _softwareVersion, const int _page=0, const bool _firstTime = true);
+    SetupDialog(const QString _configFile, const QString _softwareVersion, const int _page=0, const bool _firstTime = true);    
     ~SetupDialog();
 
     void setData(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime=true);
