@@ -78,8 +78,8 @@ int main(int argc, char *argv[])
         {
             QMessageBox msgBox;
             QString msg = QString();
-            msg = QString("No translation files for your language have been found so KLog will be shown in English.\n\n") +
-                   QString( "If you have the klog_") + (QLocale::system().name()).left(2) + QString(".qm file for your language, you can copy it in the ");
+            msg = QString(QObject::tr("No translation files for your language have been found so KLog will be shown in English.\n\n") +
+                   QString(QObject::tr("If you have the klog_")) + (QLocale::system().name()).left(2) + QString(QObject::tr(".qm file for your language, you can copy it in the "));
 
          #ifdef Q_OS_WIN
             if (QFile::exists(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()).left(2)+ ".qm") )
@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
             else
             {
 
-                msg = msg + QDir::homePath()+ "/klog/ folder and restart KLog again.\n\n If you want to help to translate KLog into your language, please contact the author.";
+                msg = msg + QDir::homePath()+ QObject::tr("/klog/ folder and restart KLog again.\n\n If you want to help to translate KLog into your language, please contact the author.");
                 msgBox.setText(msg);
                 msgBox.setInformativeText("Do you want to remove the KLog dir from your disk?");
                 msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
             }
             else
             {
-                msg = msg + QDir::homePath()+"/.klog/ folder and restart KLog again.\n\n If you want to help to translate KLog into your language, please contact the author.";
+                msg = msg + QDir::homePath()+"/.klog/ " + QObject::tr("folder and restart KLog again.\n\n If you want to help to translate KLog into your language, please contact the author.");
                 msgBox.setText(msg);
                 msgBox.setStandardButtons(QMessageBox::Ok);
                 msgBox.setDefaultButton(QMessageBox::Ok);
@@ -207,8 +207,8 @@ int main(int argc, char *argv[])
            //qDebug() << "MAIN: Wizard cancelled " << QString::number(inMemory) << " ... should close " << endl;
 
             QMessageBox msgBox;
-            msgBox.setText("Install wizard was cancelled before completing...");
-            msgBox.setInformativeText("Do you want to remove the KLog dir from your disk?");
+            msgBox.setText(QObject::tr("Install wizard was cancelled before completing..."));
+            msgBox.setInformativeText(QObject::tr("Do you want to remove the KLog dir from your disk?"));
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
             msgBox.setDefaultButton(QMessageBox::Yes);
             int ret = msgBox.exec();
@@ -221,26 +221,26 @@ int main(int argc, char *argv[])
                     if (d1.remove(kontestDir))
                     {
                         QMessageBox msgBox;
-                        msgBox.setText("Your KLog dir has been removed\n\nThank you for running KLog!.");
+                        msgBox.setText(QObject::tr("Your KLog dir has been removed\n\nThank you for running KLog!."));
                         msgBox.exec();
                     }
                     else
                     {
                         QMessageBox msgBox;
-                        msgBox.setText("I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.\n\nThank you for running KLog!.");
+                        msgBox.setText(QObject::tr("I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.\n\nThank you for running KLog!."));
                         msgBox.exec();
                     }
                 }
                 else
                 {
                     QMessageBox msgBox;
-                    msgBox.setText("Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.\n\nThank you for running KLog!.");
+                    msgBox.setText(QObject::tr("Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.\n\nThank you for running KLog!."));
                     msgBox.exec();
                 }
             break;
             case QMessageBox::No:
                 QMessageBox msgBox;
-                msgBox.setText("Remember that your KLog dir is in your system...\n\nThank you for running KLog!.");
+                msgBox.setText(QObject::tr("Remember that your KLog dir is in your system...\n\nThank you for running KLog!."));
                 msgBox.exec();
             break;
             }

@@ -239,7 +239,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     propModeList = dataProxy->getPropModeList();
 
    //qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
-    setupDialog = new SetupDialog(!configured);
+    //setupDialog = new SetupDialog(!configured);
+    setupDialog = new SetupDialog(configFileName, softwareVersion, 0, !configured);
    //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab();
   //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
@@ -5445,7 +5446,8 @@ void MainWindow::createUIDX()
 
     entityPrimDivComboBox->setToolTip(tr("Select the primary division for this QSO"));
     entitySecDivComboBox->setToolTip(tr("Select the secondary division for this QSO"));
-    entityNameComboBox->setToolTip(tr("Select the propagation mode for this current QSO"));
+    //entityNameComboBox->setToolTip(tr("Select the propagation mode for this current QSO"));
+    propModeComboBox->setToolTip(tr("Select the propagation mode for this current QSO"));
 
     //QGridLayout *layout = new QGridLayout;
 
@@ -5465,14 +5467,14 @@ void MainWindow::createUIDX()
     QWidget *qsoInputTabWidget = new QWidget;
     //QFormLayout *qsoInputTabWidgetLayout = new QFormLayout;
     QLabel *nameLabel = new QLabel(qsoInputTabWidget);
-    nameLabel->setText("Name");
+    nameLabel->setText(tr("Name"));
     nameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
     QLabel *qthLabel = new QLabel(qsoInputTabWidget);
-    qthLabel->setText("QTH");
+    qthLabel->setText(tr("QTH"));
     qthLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     QLabel *locLabel = new QLabel(qsoInputTabWidget);
-    locLabel->setText("Locator");
+    locLabel->setText(tr("Locator"));
     locLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
     QLabel *rxPowerSpinBoxLabelN = new QLabel(tr("Power(rx)"));
