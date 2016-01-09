@@ -39,9 +39,9 @@
 
 class QSqlRelationalTableModel;
 
-// Last db update 0.0.7
-// Previous db update 0.0.6
-const float DBVersionf = 0.007;
+// Last db update 0.0.6
+// Previous db update 0.0.7
+const float DBVersionf = 0.008;
 
 class DataBase
 {
@@ -92,6 +92,7 @@ private:
     bool updateTo005();
     bool updateTo006();
     bool updateTo007();
+    bool updateTo008();
     bool updateTableLog(const int _v);
 
 
@@ -104,8 +105,11 @@ private:
     bool createTablePropModes();
     bool createTableClubLogStatus();
     bool populateTableClubLogStatus();
+
     bool createTableMode(const bool NoTmp);
     bool populateTableMode(const bool NoTmp);
+    bool updateTheModeTableAndSyncLog();
+
     bool createTableBand(const bool NoTmp);
     bool populateTableBand(const bool NoTmp);
 

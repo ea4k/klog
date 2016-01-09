@@ -63,6 +63,8 @@ private:
 
     QLineEdit *satNameLineEdit, *satModeLineEdit;
     QRadioButton *keepThisDataForNextQSORadiobutton;
+    //QComboBox *satNameComboBox;
+    //QPushButton *satNamePushButon;
     //QComboBox *satNameComboBox, *satModeComboBox;
 
     QStringList satNames, satModes;

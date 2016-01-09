@@ -1312,7 +1312,7 @@ bool DataBase::updateToLatest()
  *
  */
     //qDebug() << "DataBase::updateToLatest-006 " << endl;
-    return updateTo007();
+    return updateTo008();
 }
 
 bool DataBase::updateTo003()
@@ -1775,6 +1775,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4F', 'JT4', 'NO', '1')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4G', 'JT4', 'NO', '1')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT6M', 'JT6M', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9', 'JT9', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-1', 'JT9', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-2', 'JT9', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-5', 'JT9', 'NO', '0')").arg(tableName));
@@ -1892,9 +1893,32 @@ bool DataBase::createTableBand(const bool NoTmp)
                                             "name VARCHAR(40) NOT NULL, "
                                             "UNIQUE (lower, upper, cabrillo, name) )");
     return  query.exec(stringQuery);
-
-
 }
+/*
+bool DataBase::createTableSatellites(const bool NoTmp)
+{ // NoTmp = false => TMP data table to operate and be deleted afterwards
+
+    QString stringQuery = QString();
+    QSqlQuery query;
+    if (NoTmp)
+    {
+        stringQuery = "CREATE TABLE satellites" ;
+    }
+    else
+    {
+        stringQuery = "CREATE TABLE satellitestemp" ;
+    }
+
+        stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                            "satarrlid VARCHAR, "
+                                            "satname VARCHAR, "
+                                            "satmode VARCHAR, "
+ESTOY CREANDO LA TABLA DE SATS PARA METER LOS DATOS DE LA ARRL
+                                            https://lotw.arrl.org/lotw-help/frequently-asked-questions/#sats
+                                            "UNIQUE (lower, upper, cabrillo, name) )");
+    return  query.exec(stringQuery);
+}
+*/
 
 bool DataBase::populateTableBand(const bool NoTmp)
 {
@@ -2201,7 +2225,7 @@ bool DataBase::updateTableLog(const int _v)
     QString queryString;
     switch (_v)
     {
-    case 6:
+    case 6: // If 6, we copy in logtemp the full data coming from the old log. This way, the structure of the log table is updated without any data loss.
         queryString = QString ("INSERT INTO logtemp (qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber) SELECT qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber FROM log");
     break;
     default:
@@ -3193,5 +3217,96 @@ bool DataBase::updateTo007()
 }
 
 
+
+bool DataBase::updateTo008()
+{// Updates the DB to 0.0.8
+
+    //qDebug() << "DataBase::updateTo008" << endl;
+    bool IAmIn008 = false;
+    bool IAmIn007 = false;
+    bool ErrorUpdating = false;
+    QString stringQuery = QString();
+    QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+    QSqlQuery query;
+
+    bool sqlOk = false;
+
+    if (latestReaded >= 0.008)
+    {
+        //qDebug() << "DataBase::updateTo008: - I am in 008" << endl;
+        return true;
+    }
+    else
+    {
+        //qDebug() << "DataBase::updateTo008: - I am not in 008" << endl;
+        IAmIn008 = false;
+    }
+
+
+    while (!IAmIn008 && !ErrorUpdating)
+    {
+        while (!IAmIn007 && !ErrorUpdating)
+        {
+            //qDebug() << "DataBase::updateTo008: - And I am not in 007" << endl;
+            IAmIn007 = updateTo007();
+
+        }
+        if (ErrorUpdating)
+        {
+            return false;
+        }
+        sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+        if (sqlOk)
+        { // Version updated
+            //IAmIn008 = updateTableLog(6);
+        }
+        else
+        { // Version not updated
+
+        }
+        //DO ALL THE TASKS TO BE IN 0.008 from 0.007 HERE and set ErrorUpdating if it is not possible.
+
+        IAmIn008 = updateTheModeTableAndSyncLog();
+
+        //IAmIn008 = true;
+    }
+    return IAmIn008;
+}
+
+
+
+
+bool DataBase::updateTheModeTableAndSyncLog()
+{
+    QSqlQuery query;
+
+    createTableMode(false);         // Create modetemp
+    populateTableMode(false);       // Populate modetemp
+
+    updateModeIdFromSubModeId();    // Updates the log with the new mode IDs in each QSO
+    //updateModeIdTableAward(1); //DXCC
+    //updateModeIdTableAward(2); // WAZ
+
+    if (query.exec("DROP TABLE mode"))
+    {
+        if (query.exec("ALTER TABLE modetemp RENAME TO mode"))
+        {
+            return true;
+        }
+        else
+        {
+           //qDebug() << "DataBase::updateTheModeTableAndSyncLog - ERROR - modetemp not renamed" << endl;
+            return false;
+        }
+    }
+    else
+    {
+       //qDebug() << "DataBase::updateTheModeTableAndSyncLog - ERROR - modetemp not dropped" << endl;
+        return false;
+    }
+
+    return true;
+
+}
 
 
