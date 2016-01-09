@@ -43,6 +43,7 @@ void MainWindowSatTab::createUI()
     connect(satNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(satNameTextChanged() ) );
     connect(satModeLineEdit, SIGNAL(textChanged(QString)), this, SLOT(satModeTextChanged() ) );
 
+
     QLabel *keepLabel = new QLabel();
     keepLabel->setText(tr("Keep this data"));
     keepLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);

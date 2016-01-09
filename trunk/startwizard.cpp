@@ -64,7 +64,7 @@
 */
  void StartWizard::slotCancelWizard()
  {
-     if( QMessageBox::question( this, trUtf8( "Quit Setup" ), trUtf8( "Setup is not complete yet. Are you sure you want to quit setup?" ), QMessageBox::Yes, QMessageBox::No ) == QMessageBox::Yes )
+     if( QMessageBox::question( this, tr("Quit Setup"), tr("Setup is not complete yet. Are you sure you want to quit setup?"), QMessageBox::Yes, QMessageBox::No ) == QMessageBox::Yes )
      {
          // allow cancel
          reject();

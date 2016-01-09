@@ -2471,8 +2471,8 @@ void MainWindow::createUICQWW()
     //updateStatusBar(tr("Ready"));
     //updateQSOStatusBar(tr("Ready"));
 
-    rstTXLineEdit->setInputMask("990");
-    rstRXLineEdit->setInputMask("990");
+    rstTXLineEdit->setInputMask("#990");
+    rstRXLineEdit->setInputMask("#990");
     rstTXLineEdit->setText("59");
     rstRXLineEdit->setText("59");
     rstTXLineEdit->setMaxLength(3);
@@ -5487,8 +5487,8 @@ void MainWindow::createUIDX()
     QLabel *rstRxLabelN = new QLabel(tr("RST(rx)"));
     rstRxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
-    rstTXLineEdit->setInputMask("990");
-    rstRXLineEdit->setInputMask("990");
+    rstTXLineEdit->setInputMask("#990");
+    rstRXLineEdit->setInputMask("#990");
     rstTXLineEdit->setText("59");
     rstRXLineEdit->setText("59");
     rstTXLineEdit->setMaxLength(3);
@@ -6648,6 +6648,7 @@ void MainWindow::qsoToEdit (const int _qso)
     nameCol = rec.indexOf("rst_sent");
     aux1 = (query.value(nameCol)).toString();
     rstTXLineEdit->setText(aux1);
+    //qDebug() << "MainWindow::qsoToEdit: - RST_SENT: " << aux1  << endl;
 
     nameCol = rec.indexOf("rst_rcvd");
     aux1 = (query.value(nameCol)).toString();
