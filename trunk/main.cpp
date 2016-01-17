@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
         {
             QMessageBox msgBox;
             QString msg = QString();
-            msg = QString(QObject::tr("No translation files for your language have been found so KLog will be shown in English.\n\n") +
+            msg = QString(QObject::tr("No translation files for your language have been found so KLog will be shown in English.\n\n")) +
                    QString(QObject::tr("If you have the klog_")) + (QLocale::system().name()).left(2) + QString(QObject::tr(".qm file for your language, you can copy it in the "));
 
          #ifdef Q_OS_WIN
