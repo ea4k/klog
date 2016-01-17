@@ -2235,7 +2235,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
     bool keepLogsInFile = false;
 
-    //qDebug() << "FileManager::adifReadLog: Logs: " << QString::number(howManyLogs) << endl;
+   //qDebug() << "FileManager::adifReadLog: Logs: " << QString::number(howManyLogs) << endl;
 
     if (howManyLogs>1)
     {
@@ -2270,7 +2270,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        //qDebug() << "FileManager::adifReadLog File not found" << fileName << endl;
+       //qDebug() << "FileManager::adifReadLog File not found" << fileName << endl;
         return false;
     }
 
@@ -2286,7 +2286,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             hasEOH = true;
         }
     }
-  //qDebug() << "FileManager::adifReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
+ //qDebug() << "FileManager::adifReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
 
     QProgressDialog progress(tr("Reading ADIF file..."), tr("Abort reading"), 0, numberOfQsos, this);
     /*progress.setWindowModality(Qt::WindowModal);*/
@@ -2311,11 +2311,18 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     The first < after <eoh> is the start of the first field of the first data record in the file.
     */
 
+    //qDebug() << "FileManager::adifReadLog: Going to read the HEADER" << endl;
     //Read HEADER
     line = file.readLine().trimmed().toUpper();
+    //qDebug() << "FileManager::adifReadLog: " << line << endl;
 
     if ( (!(line.startsWith('<'))) && (inHeader) )
     { // The file has a header
+
+        if (line.contains("<EOH>")) // To check if the first line contains the EOR but not alone in the line.
+        {
+            inHeader = false;
+        }
 
         line.clear(); // We should finish the if with real data in "line" or a clear one.
         while ( inHeader && hasEOH)
