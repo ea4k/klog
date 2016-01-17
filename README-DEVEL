@@ -191,7 +191,7 @@ Here is the list of tests to be done before releasing new software:
  - Create a new log
  - Add a new QSO
  - Edit a QSO from log
- - Edit a QSO from searchs
+ - Edit a QSO from the search box
  - Remove a QSO
 
  - Connect to the DXCLuster

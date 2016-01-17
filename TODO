@@ -1,8 +1,12 @@
-TODO: Add the tr() in the startwizard.cpp to the QString gplLic about the CTY download
-
 This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
+
+
+BUG: If logbook.dat is not existing but klogrc it is, KLog does not start.
+
+Working in:
+TODO: bool DataBase::createTableSatellites(const bool NoTmp)
 
 
 BUG: Check the options that are marked in QSL when rightbutton.
@@ -37,7 +41,7 @@ TODO: Upload a logfile to clublog
 TODO: Define a maximum QSO upload rate to clublog to avoid excesive API usage.
 </CLUBLOG>
 
-KLog 0.9.2
+KLog 0.9.4
 TODO: Remove all not needed fields from SetupPageLogNew::gatherAndSend() the type is enough
 
 NEXT:
