@@ -1,3 +1,7 @@
+-0.9.2.4
+- Improved some Spanish translations.
+- When selecting an entity, different from the proposed on country file, KLog asks the user which one to use.
+
 January 2016 - 0.9.2.3
 - Improved the way translations are managed (Specially in Linux).
 - Icon application is now shown in OSX & Windows.
