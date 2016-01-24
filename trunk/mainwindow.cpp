@@ -873,13 +873,17 @@ QString MainWindow::readDataFromUIDX()
         QString dxccn2 = world->getEntityName(dxcc2);
 
         QMessageBox::StandardButton ret;
-        ret = QMessageBox::warning(this, tr("KLog"),
-                                   tr("You have selected an entity")+"("+dxccn2+")\n"+tr("that is different from the KLog proposed entity")+ "("+dxccn1+")\n"
-                    +tr("Push Apply to apply your selection."),
-                 QMessageBox::Apply | QMessageBox::Discard);
-        if (ret == QMessageBox::Apply)
+        ret = QMessageBox::question(this, tr("KLog"),
+                                   tr("You have selected an entity [1]-")+"("+dxccn2+")\n"+tr("that is different from the KLog proposed entity [2]-")+ "("+dxccn1+")\n"
+                    +tr("Push Yes to apply your selection[1] and No to apply [2]."),
+                 QMessageBox::Yes | QMessageBox::No);
+        if (ret == QMessageBox::Yes)
         {
             dxcc = dxcc2;
+        }
+        else
+        {
+
         }
 
     }
@@ -1590,9 +1594,9 @@ WHERE [condition];
         QMessageBox::StandardButton ret;
         ret = QMessageBox::warning(this, tr("KLog"),
                                    tr("You have selected an entity: ")+"("+dxccn2+")\n"+tr("that is different from the\nKLog proposed entity: ")+ "("+dxccn1+")\n\n"
-                    +tr("Push Apply to apply your selection."),
-                 QMessageBox::Apply | QMessageBox::Discard);
-        if (ret == QMessageBox::Apply)
+                    +tr("Push Yes to keep your selection or No to use the KLog proposal."),
+                 QMessageBox::Yes | QMessageBox::No);
+        if (ret == QMessageBox::Yes)
         {
             dxcc = dxcc2;
         }
