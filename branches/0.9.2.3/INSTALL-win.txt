@@ -1,0 +1,3 @@
+Installing KLog on a Windows system is easy.
+
+Just double-click on the installer and follow the steps.
