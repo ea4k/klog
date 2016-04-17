@@ -170,6 +170,8 @@ private slots:
     void slotQSLSentComboBoxChanged();
     void sloteQSLRecvComboBoxChanged();
     void sloteQSLSentComboBoxChanged();
+    void slotlotwRecvComboBoxChanged();
+    void slotlotwSentComboBoxChanged();
     void slotQSLViaTextChanged();
 
     void slotSetPropMode(const QString _p);
