@@ -858,8 +858,19 @@ QString MainWindow::readDataFromUIDX()
     int tband = currentBand;
     int tmode = currentMode;
 
-    QString tdate = (dateEdit->date()).toString("yyyy/MM/dd");
-    QString ttime = (timeEdit->time()).toString("hh:mm:ss");
+    QString tdate, ttime;
+    if (UTCTime)
+    {
+        tdate = (dateEdit->date()).toString("yyyy/MM/dd");
+        ttime = (timeEdit->time()).toString("hh:mm:ss");
+    }
+    else
+    {
+        dateTime->setDate(dateEdit->date());
+        dateTime->setTime(timeEdit->time());
+        tdate = (dateTime->toUTC()).toString("yyyy/MM/dd");
+        ttime = (dateTime->toUTC()).toString("hh:mm:ss");
+    }
 
     QString trsttx = rstTXLineEdit->text();
     QString trstrx = rstRXLineEdit->text();
@@ -1571,8 +1582,19 @@ WHERE [condition];
     int tband = currentBand;
     int tmode = currentMode;
 
-    QString tdate = (dateEdit->date()).toString("yyyy/MM/dd");
-    QString ttime = (timeEdit->time()).toString("hh:mm:ss");
+    QString tdate, ttime;
+    if (UTCTime)
+    {
+        tdate = (dateEdit->date()).toString("yyyy/MM/dd");
+        ttime = (timeEdit->time()).toString("hh:mm:ss");
+    }
+    else
+    {
+        dateTime->setDate(dateEdit->date());
+        dateTime->setTime(timeEdit->time());
+        tdate = (dateTime->toUTC()).toString("yyyy/MM/dd");
+        ttime = (dateTime->toUTC()).toString("hh:mm:ss");
+    }
 
     QString trsttx = rstTXLineEdit->text();
     QString trstrx = rstRXLineEdit->text();
@@ -3221,13 +3243,32 @@ void MainWindow::slotSearchBoxTextChanged()
             //nameCol = rec.indexOf("call");
             //_call= (query.value(0)).toString();
 
-            nameCol = rec.indexOf("qso_date");
-            _dateTime = (query.value(nameCol)).toString();
-            //_dateTime = (query.value(1)).toString();
+            if (UTCTime)
+            {
+                nameCol = rec.indexOf("qso_date");
+                _dateTime = (query.value(nameCol)).toString();
+                //_dateTime = (query.value(1)).toString();
 
-            nameCol = rec.indexOf("time_on");
-            _dateTime = _dateTime + "-" +(query.value(nameCol)).toString();
-            //_dateTime = _dateTime + "-" +(query.value(2)).toString();
+                nameCol = rec.indexOf("time_on");
+                _dateTime = _dateTime + "-" +(query.value(nameCol)).toString();
+                //_dateTime = _dateTime + "-" +(query.value(2)).toString();
+            }
+            else
+            {
+                QDateTime conv;
+                nameCol = rec.indexOf("qso_date");
+                _dateTime = (query.value(nameCol)).toString();
+                conv.setDate(QDate::fromString(_dateTime, "yyyy/MM/dd"));
+
+                nameCol = rec.indexOf("time_on");
+                _dateTime = (query.value(nameCol)).toString();
+                conv.setTime(QTime::fromString(_dateTime, "hh:mm:ss"));
+
+                conv.setTimeSpec(Qt::UTC);
+                _dateTime = (conv.toLocalTime()).date().toString("yyyy/MM/dd");
+                _dateTime = _dateTime + "-";
+                _dateTime = _dateTime + (conv.toLocalTime()).time().toString("hh:mm:ss");
+            }
 
             nameCol = rec.indexOf("bandid");
             _bandid = (query.value(nameCol)).toString();
@@ -3592,15 +3633,14 @@ void MainWindow::slotUpdateTime()
 
         //dateTime->currentDateTime();
 
-        dateEdit->setDate((dateTime->currentDateTime()).date());
-
-
         if (UTCTime)
         {
-            timeEdit->setTime((dateTime->currentDateTime().toUTC()).time());
+            dateEdit->setDate((dateTime->currentDateTimeUtc()).date());
+            timeEdit->setTime((dateTime->currentDateTimeUtc()).time());
         }
         else
         {
+            dateEdit->setDate((dateTime->currentDateTime()).date());
             timeEdit->setTime((dateTime->currentDateTime()).time());
         }
     }
@@ -6610,14 +6650,31 @@ void MainWindow::qsoToEdit (const int _qso)
     currentQrz = aux1;
     currentEntity = world->getQRZARRLId(currentQrz);
 
+    if (UTCTime)
+    {
+        nameCol = rec.indexOf("qso_date");
+        aux1 = (query.value(nameCol)).toString();
+        dateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
 
-    nameCol = rec.indexOf("qso_date");
-    aux1 = (query.value(nameCol)).toString();
-    dateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+        nameCol = rec.indexOf("time_on");
+        aux1 = (query.value(nameCol)).toString();
+        timeEdit->setTime(QTime::fromString(aux1, "hh:mm:ss"));
+    }
+    else
+    {
+        QDateTime conv;
+        nameCol = rec.indexOf("qso_date");
+        aux1 = (query.value(nameCol)).toString();
+        conv.setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
 
-    nameCol = rec.indexOf("time_on");
-    aux1 = (query.value(nameCol)).toString();
-    timeEdit->setTime(QTime::fromString(aux1, "hh:mm:ss"));
+        nameCol = rec.indexOf("time_on");
+        aux1 = (query.value(nameCol)).toString();
+        conv.setTime(QTime::fromString(aux1, "hh:mm:ss"));
+
+        conv.setTimeSpec(Qt::UTC);
+        dateEdit->setDate((conv.toLocalTime()).date());
+        timeEdit->setTime((conv.toLocalTime()).time());
+    }
 
     nameCol = rec.indexOf("bandid");
     aux1 = (query.value(nameCol)).toString();
@@ -8141,13 +8198,35 @@ void MainWindow::slotFilePrint()
                 cursor = textTable->cellAt(row, 0).firstCursorPosition();
                 cursor.insertText((query.value(nameCol)).toString());
 
-                nameCol = rec.indexOf("qso_date");
-                cursor = textTable->cellAt(row, 1).firstCursorPosition();
-                cursor.insertText((query.value(nameCol)).toString());
+                if (UTCTime)
+                {
+                    nameCol = rec.indexOf("qso_date");
+                    cursor = textTable->cellAt(row, 1).firstCursorPosition();
+                    cursor.insertText((query.value(nameCol)).toString());
 
-                nameCol = rec.indexOf("time_on");
-                cursor = textTable->cellAt(row, 2).firstCursorPosition();
-                cursor.insertText((query.value(nameCol)).toString());
+                    nameCol = rec.indexOf("time_on");
+                    cursor = textTable->cellAt(row, 2).firstCursorPosition();
+                    cursor.insertText((query.value(nameCol)).toString());
+                }
+                else
+                {
+                    QDateTime conv;
+                    QString _dateTime;
+
+                    nameCol = rec.indexOf("qso_date");
+                    _dateTime = (query.value(nameCol)).toString();
+                    conv.setDate(QDate::fromString(_dateTime, "yyyy/MM/dd"));
+
+                    nameCol = rec.indexOf("time_on");
+                    _dateTime = (query.value(nameCol)).toString();
+                    conv.setTime(QTime::fromString(_dateTime, "hh:mm:ss"));
+
+                    conv.setTimeSpec(Qt::UTC);
+                    cursor = textTable->cellAt(row, 1).firstCursorPosition();
+                    cursor.insertText((conv.toLocalTime()).date().toString("yyyy/MM/dd"));
+                    cursor = textTable->cellAt(row, 2).firstCursorPosition();
+                    cursor.insertText((conv.toLocalTime()).time().toString("hh:mm:ss"));
+               }
 
                 nameCol = rec.indexOf("call");
                 cursor = textTable->cellAt(row, 3).firstCursorPosition();
@@ -8436,11 +8515,29 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
 
             nameCol = rec.indexOf("call");
             _call= (query.value(nameCol)).toString();
-            nameCol = rec.indexOf("qso_date");
-            _dateTime = (query.value(nameCol)).toString();
-            nameCol = rec.indexOf("time_on");
-            _dateTime = _dateTime + "-" +(query.value(nameCol)).toString();
+            if (UTCTime)
+            {
+                nameCol = rec.indexOf("qso_date");
+                _dateTime = (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("time_on");
+                _dateTime = _dateTime + "-" +(query.value(nameCol)).toString();
+            }
+            else
+            {
+                QDateTime conv;
+                nameCol = rec.indexOf("qso_date");
+                _dateTime = (query.value(nameCol)).toString();
+                conv.setDate(QDate::fromString(_dateTime, "yyyy/MM/dd"));
 
+                nameCol = rec.indexOf("time_on");
+                _dateTime = (query.value(nameCol)).toString();
+                conv.setTime(QTime::fromString(_dateTime, "hh:mm:ss"));
+
+                conv.setTimeSpec(Qt::UTC);
+                _dateTime = (conv.toLocalTime()).date().toString("yyyy/MM/dd");
+                _dateTime = _dateTime + "-";
+                _dateTime = _dateTime + (conv.toLocalTime()).time().toString("hh:mm:ss");
+           }
             nameCol = rec.indexOf("bandid");
             _freq = (query.value(nameCol)).toString();
             _band = db->getBandNameFromNumber( _freq.toInt() );
