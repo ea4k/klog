@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- vim: set expandtab tabstop=2 softtabstop=2 shiftwidth=2 : -->
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN
+"
+"/usr/share/xml/docbook/schema/dtd/4.4/docbookx.dtd
+">
+<book>
+  <bookinfo>
+    <title>KLog Handbook</title>
+    <date>2016-03-05</date>
+    <copyright>
+      <year>2016</year>
+      <holder>Jaime Robles</holder>
+    </copyright>
+    <legalnotice>
+      <para>
+        This book is free documentation: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 2 of the License, or (at
+        your option) any later version.
+      </para>
+      <para>
+        This book is distributed in the hope that it will be useful, but
+        WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+        General Public License for more details.
+      </para>
+      <para>
+        You should have received a copy of the GNU General Public License along
+        with this program.  If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.
+      </para>
+    </legalnotice>
+    <authorgroup>
+      <author>
+        <firstname>Jaime</firstname>
+        <surname>Robles</surname>
+      </author>
+    </authorgroup>
+    <abstract>
+      <para>
+        The KLog Handbook aims to show all the features and how to use them.
+      </para>
+    </abstract>
+    <keywordset>
+      <keyword>amateur radio</keyword>
+      <keyword>hamradio</keyword>
+      <keyword>klog</keyword>
+      <keyword>hamradio</keyword>
+      <keyword>user guide</keyword>
+    </keywordset>
+  </bookinfo>
+
+    <chapter>
+    <title>Welcome to KLog</title>
+    <para>Hello</para>
+    
+    <section>
+    	<title>Introduction</title>
+    	<para>
+    	KLog is a hamradio logging program that intends to provide all the
+    	tools and features needed for the efficient and confortable
+    	management of the QSO / contacts in an amateur radio station.</para>
+    	<para>
+    	KLog is the first multiplatform hamradio logging program that runs
+    	natively on Linux, Windows and OSX.
+    	</para>
+    	<para>
+    	KLog is <ulink
+    	url="https://en.wikipedia.org/wiki/Free_software">free software</ulink> and the
+    	licence is the GPL V.3. You can find the<ulink
+    	url="http://www.gnu.org/licenses/gpl.html">http://www.gnu.org/licenses/gpl.html</ulink>.
+    	</para>
+    </section>
+    
+    
+    <section>
+    	<title>Computer requirements</title>
+    	<para>
+	There are not many requirements to run KLog. You will need a normal
+    	computer/laptop running your preferred operating system of the list
+    	(Linux, Windows or OSX).
+    	</para>
+    	<para>
+    	A Computer able to run the latest versions of Debian, Ubuntu,
+    	Windows or OSX will be more than enough of running KLog. Older
+    	computers may also work.
+    	</para>
+    	<para>
+    	If you intend to download the sources, compile and install, you will
+    	need to pay an extra attention to the <xref linkend="installation" endterm="installation.title" /> section.
+    	</para>
+    </section>
+</chapter>
+
+<chapter>
+    <title>Downloading and Installing</title>
+    <para>Hello</para>
+
+    <section>
+    	<title>Downloading KLog</title>
+    	<para>
+    	You can download KLog from the <ulink
+    	url="http://savannah.nongnu.org/projects/klog">KLog's download page</ulink>
+    	in Savannah.
+    	</para>
+    	<para>
+    	In the previousl link you will find the sources but also the
+    	binaries for Windows and OSX.
+    	</para>
+    	<para>
+    	You can also download the binaries for Debian (linux) from <ulink
+    	url="https://packages.qa.debian.org/k/klog.html">https://packages.qa.debian.org/k/klog.html</ulink>
+    	or <ulink
+    	url="https://tracker.debian.org/pkg/klog">https://tracker.debian.org/pkg/klog</ulink>
+    	</para>
+    </section>
+    
+        <section id="installation">
+    	<title id="installation.title">Installation</title>
+    	<para>
+    	Bla
+    	</para>
+    	
+    		<section id="install-linux">
+    	<title>Linux Installation</title>
+    	<para>
+    	This section will only cover the installation of the sources. We
+    	will not explain how to install the packages of the main Linux
+    	distributions, i.e. <ulink url="http://www.debian.org"><citetitle>Debian</citetitle></ulink>, 
+    	<ulink
+    	url="http://www.ubuntu.com"><citetitle>Ubuntu</citetitle></ulink>,
+    	<ulink url="http://www.redhat.com"><citetitle>Redhat</citetitle></ulink>, ... as it is done
+    	following the normal ways to install the <quote>KLog</quote> package.
+    	</para>
+    	
+    	<para>
+    	The steps to build KLog from the sources are the following
+    	</para>
+    	<procedure>
+    		<title>Installation from the sources</title>
+    		<step>
+		<para>
+		Check if you have the necessary include files to compile QT5 applications: 
+		</para>
+	                <itemizedlist>
+        	                <listitem>
+        	                <para>
+                                	QT - http://qt-project.org/
+                                </para></listitem>
+                                <listitem>
+	                        <para>        CMake - http://wiki.qtcentre.org/index.php?title=Compiling%5FQt4%5Fapps%5Fwith%5FCMake
+        	                </para></listitem>
+                	</itemizedlist>
+		</step>
+		<step>
+		<para>
+		Generate the Makefile
+		</para>
+		<screen>
+		qmake PREFIX=/usr/locaAl klog.pro
+		</screen>
+		</step>
+		<step>
+		<para>
+		Make everything
+		</para>
+		<screen>
+		make
+		</screen>
+		</step>
+		<step>
+		<para>
+		If everything goes ok, You will find the klog executable in
+		the sources folder.
+		</para>
+		</step>
+		
+  	</procedure>
+    	                
+    	                         
+    	
+	</section>	
+
+	<section id="install-osx">
+    	<title>OSX Installation</title>
+    	<para>
+    	The installation on OSX is quite simple, simply open the DMG file
+    	and <remark>drag & drop</remark> the <remark>KLog</remark> application into the Applications folder.
+    	</para>
+	</section>	
+
+	<section id="install-windows">
+    	<title>Windows Installation</title>
+    	<para>
+    	To install the Windows package, simply execute the installer and
+    	follow the wizard. Clicking on the default values for everything
+    	would do the job.
+    	</para>
+	</section>	
+    	
+	</section>
+	
+  </chapter>
+  
+  
+  <chapter>
+    <title>Configuring KLog</title>
+    <para>This chapter will explain how to configure KLog</para>
+    <section>
+    	<title>First execution and initial configuration</title>
+    	    	<para>
+    	When you run KLog for the first time, there are some things that
+    	must be configured in order to be able to run. There are some simple
+    	steps to be done.
+    	</para>
+    	<section>
+    	<title>First execution</title>
+    	<para>
+    	A wizard will guide you through the first execution process...
+    	</para>
+    	<para>
+    	If your installation does not have any translation file, KLog will
+    	use English as a default language.
+    	</para>
+	
+	<figure><title>First wizard screen</title>
+    	<screenshot>
+    		<screeninfo>350x209x256</screeninfo>
+    		<graphic fileref="img/001.png"></graphic>
+    	</screenshot>
+    	</figure>
+    	<para>
+    	Just click <userinput>OK</userinput> to continue.
+    	</para>
+    	<para>The wizard will show you another screen with a brief welcome
+    	to KLog. You will be able to skip that by clicking on
+    	<userinput>Next</userinput>.
+    	</para>
+	<figure><title>Welcome to KLog</title>
+    	<screenshot>
+    		<graphic fileref="img/002.png"></graphic>
+    	</screenshot>
+    	</figure>
+    	
+    	<para>Next step will b eto accept the license. As you probably know,
+    	KLog is free software and it is under the GNU General Public
+    	License. So, just <quote>agree to the terms of license</quote> and
+    	click on <userinput>Next</userinput>.
+    	</para>
+	<figure><title>License agreement</title>
+    	<screenshot>
+    		<graphic fileref="img/003.png"></graphic>
+    	</screenshot>
+    	</figure>
+    	
+   	<para>Now it will be time to download the DXCC information from the
+   	Internet. You can click on <userinput>Download</userinput> to
+   	download the latest information or on <userinput>Ignore</userinput>
+   	to continue without that information.
+   	</para>
+   	<para>
+   	KLog will work without that information but the user experience will
+   	be degraded as KLog will not be able to tell you which DXCC entity
+   	are you contacting and will not be able to show many informations
+   	about your radio acivity.
+   	</para>
+   	<para>
+    	Regardless you prefer to download or ignore, click on <userinput>Next</userinput>
+   	to continue.
+    	</para>
+	<figure><title>DXCC information download</title>
+    	<screenshot>
+    		<graphic fileref="img/008.png"></graphic>
+    	</screenshot>
+    	</figure>
+	</section>
+	<section>    	    	
+	<title>Initial configuration</title>
+	<para>
+	When the wizard has been completed, you will reach to the
+    	<quote>configuration dialog</quote> where you will be able to
+    	configure KLog.
+	</para>
+	<para>
+	In this section we will go to the mandatory settings that must be
+    	done in order to use KLog. All other settings will be explained in
+    	other sections of this handbook.
+	</para>
+	
+	<para>
+	First thing to do is define your callsign and your locator.
+	</para>
+	<para>
+	This is important as KLog will use this information to calculate
+	bearing and distances from your station.
+	</para>
+	<para>
+	You simply need to enter that information in the appropriate fields
+	in the <quote>User Data</quote> tab.
+    	</para>
+	<figure><title>Define your QRZ</title>
+    	<screenshot>
+    		<graphic fileref="img/006.png"></graphic>
+    	</screenshot>
+    	</figure>
+	
+	<para>
+    	KLog needs to have a log created in the database to be able to save
+	your QSOs and will not be possible to continue without creating it.
+	</para>
+	<para>
+	You should go to the <quote>Logs</quote> tab and click on <userinput>New</userinput>
+    	to create a new log.
+	</para>
+	<figure><title>Logs tab</title>
+    	<screenshot>
+    		<graphic fileref="img/009.png"></graphic>
+    	</screenshot>
+    	</figure>
+	<para>
+	Once you click on <userinput>New</userinput> a new dialog will be
+    	open and you will need to enter, at least the callsign used over the
+    	air on the <quote>Station Callsign</quote> field. You will be able
+    	to continue accepting the rest of the default values.
+	</para>
+	<para>
+	Just click on <userinput>OK</userinput> when you are ready.
+	</para>
+	<figure><title>New log</title>
+    	<screenshot>
+    		<graphic fileref="img/004.png"></graphic>
+    	</screenshot>
+    	</figure>
+    	<para>
+    	When you have created the log, you will be able to see it in the <quote>Logs</quote>
+    	tab.
+    	</para>
+	
+	<figure><title>Logs tab with one log</title>
+    	<screenshot>
+    		<graphic fileref="img/005.png"></graphic>
+    	</screenshot>
+    	</figure>
+    	
+    	<para>
+    	Now, you have finished the basic configuration of KLog and you
+    	can click on <userinput>OK</userinput> to close the
+    	<quote>Configuration dialog</quote> and start 
+    	<xref linkend="klog-using" endterm="klog-using.title" />
+    	</para>
+
+	<figure><title>Main KLog window</title>
+    	<screenshot>
+    		<graphic fileref="img/main.png"></graphic>
+    	</screenshot>
+    	</figure>
+    	
+	</section>
+	                                        
+    </section>
+
+    <section>
+    	<title>Configuring KLog</title>
+    	<para>
+    	Bla bla, bla...
+    	</para>
+    	<section id="conf-dxcluster">
+    		<title id="conf-dxcluster.title">DX-Cluster</title>
+    		<para>
+    		Here you will learn how to configure the DX-Cluster
+    		client.
+    		</para>
+    	</section>
+    </section>
+    
+  </chapter>
+  
+    <chapter id="klog-using">
+    <title id="klog-using.title">Using KLog</title>
+    
+    <para>Hello</para>
+    <section>
+    	<title>Working QSO</title>
+    	<para>
+    	Bla bla bla...
+    	</para>
+    </section>
+
+    <section>
+    	<title>Managing QSL</title>
+    	<para>
+    	Bla bla bla...
+    	</para>
+    </section>
+    <section>
+    	<title>DX-Cluster</title>
+    	<para>
+	Before you use this feature you need to make sure that you have
+    	already configured <link linkend='conf-dxcluster' endterm="conf-dxcluster.title" />
+    	</para>
+    </section>
+
+    <section>
+    	<title>The search window</title>
+    	<para>
+    	Bla bla bla...
+    	</para>
+    </section>
+<section>
+    	<title>Using ClubLog</title>
+    	<para>
+    	Bla bla bla...
+    	</para>
+    </section>
+
+    <section>
+    	<title>Updating the DXCC list</title>
+    	<para>
+    	Bla bla bla...
+    	</para>
+    </section>    
+  </chapter>
+  
+  <chapter>
+    <title>Finding help</title>
+    <para>Hello</para>
+    <section>
+    	<title>Documentation</title>
+    	<para>
+		You are reading the main document of KLog.
+    	</para>
+    </section>
+
+    <section>
+    	<title>Mailing lists</title>
+    	<para>
+    	There are two mailing lists about KLog.
+    	</para>
+    	<para>
+    	The language of both mailing
+    	lists is English but in case of need we would create a mailing list
+    	in any language.
+    	</para>
+    	<para>
+    	The main webpage to subscribe and manage your subscription to the mailing lists is the following: 
+    	<ulink url="http://savannah.nongnu.org/mail/?group=klog">http://savannah.nongnu.org/mail/?group=klog</ulink>.
+    	</para>
+    	<section>
+	    	<title>Users mailing list</title>
+	    	<para>
+	    	This mailing list is mainly to discuss about how to use
+	    	KLog. Ask questions, provide answers, giving tips. The
+	    	suggestion is that instead of asking the developers ask in
+	    	this list so all the users can benefit of the knowledge.
+	    	</para>
+	    	<para>
+	    	You can subscribe and manage your subscription to this mailing list here: <ulink
+	    	        url="https://lists.nongnu.org/mailman/listinfo/klog-users">https://lists.nongnu.org/mailman/listinfo/klog-users</ulink>.
+	    	</para>
+    	</section>
+    	
+    	<section>
+	    	<title>Developers mailing list</title>
+	    	<para>
+	    	If you decide to join the developers team, you are
+	    	encouraged to join this mailing list. We will discuss all
+	    	the decisions and problems about KLog's development in this
+	    	list.
+	    	</para>
+	    	<para>
+	    	You can subscribe this mailing list here: <ulink
+	    	        url="https://lists.nongnu.org/mailman/listinfo/klog-devel">https://lists.nongnu.org/mailman/listinfo/klog-devel</ulink>.
+	    	</para>
+    	</section>    	
+    </section>
+    <section>
+    	<title>Tips and Tricks</title>
+    	<para>
+    	Bla bla bla...
+    	</para>
+    </section>
+
+    <section>
+    	<title>Troubleshooting</title>
+    	<para>
+    	Bla bla bla...
+    	</para>
+    </section>
+
+    <section>
+    	<title>Reporting a bug</title>
+    	<para>
+	The best way to report a bug is to contact the development team
+    	throgh the mailing list.
+    	</para>
+    	<para>
+    	Please provide all the information and procedure to repeat the bug.
+    	</para>
+    	<para>
+    	Before you contact the development team, you should gather the
+    	information listed below.
+    	</para>
+	<itemizedlist>
+     		<listitem>
+     		<para>
+     		The version of KLog you are using.
+     		</para>
+     		</listitem>
+     		<listitem>
+     		<para>
+     		Which operating system you are using.
+     		</para>
+     		</listitem>     		
+     		<listitem>
+     		<para>
+     		How can the developers reproduce/repeat the error on their
+     		computers.
+     		</para>
+     		</listitem>
+     		<listitem>
+     		<para>
+     		If it is related with logfile, you may be requested to send
+     		the logfile.
+     		</para>
+     		</listitem>     		
+     		<listitem>
+     		<para>
+     		Get some screenshots of the error or problem.
+     		</para>
+     		</listitem>
+     	</itemizedlist>
+    	<para>
+	Don't worry if you don't know how to get that information, the development team will try to help you if it is
+    	needed.
+    	</para>    	
+    </section>    
+
+    <section>
+    	<title>Asking for new features</title>
+    	<para>
+    	Bla bla bla...
+    	</para>
+    </section>
+
+  </chapter>
+
+  <chapter>
+    <title>Developing KLog</title>
+    <para>Hello</para>
+    <section id="developing-contact">
+    	<title id="developing-contact.title">Contact the development team</title>
+    	<para>
+    	Bla bla bla...
+    	</para>
+    </section>
+    
+    <section>
+    	<title>Joining the development team</title>
+    	<para>
+    	Bla bla bla...
+    	</para>
+    </section>    
+
+    <section>
+    	<title>Getting the sources</title>
+    	<para>
+    	Bla bla bla...
+    	</para>
+    </section>
+    
+    <section>
+    	<title>Translating</title>
+    	<para>
+    	Translations are always welcome by the KLog devlopment team. If you
+    	know how to read English and you feel confortable enough with a
+    	language that is not currently supported by KLog, please <xref linkend="developing-contact" endterm="developing-contact.title" /> to offer your help to add a new language.
+    	
+	</para>
+    	<para>
+	To add a new translation to KLog you need to create the
+<filename class='extension'>klog_xx.ts</filename> being the
+	<quote>xx</quote> the language code of your language.
+    	</para>
+    	
+    	
+    	<para>
+    	The best tool tool to translate KLog into your language is QT
+    	Linguist. Please read the <ulink url="http://doc.qt.io/qt-5/qtlinguist-index.html">QT Linguist manual</ulink>
+    	to learn how to use it.
+    	</para>
+    </section>    
+
+    <section>
+    	<title>Packaging KLog</title>
+    	<para>
+	KLog binaries are distributed for Debian, OSX and Windows operating
+    	systems.
+    	</para>
+    	<para>
+    	In this section you will find the needed information to package KLog
+    	for all of the cases.
+    	</para>
+    	    <section>
+    	<title>Packaging for Debian</title>
+    	<para>
+    	In order to package KLog for Debian you should follow the Debian
+    	packaging instructions.
+    	</para>
+    	<para>
+    	You can find the Debian packaging information here <ulink
+    	url="https://packages.qa.debian.org/k/klog.html">https://packages.qa.debian.org/k/klog.html</ulink>
+    	or <ulink
+    	url="https://tracker.debian.org/pkg/klog">https://tracker.debian.org/pkg/klog</ulink>
+    	</para>
+    </section>    
+
+    <section>
+    	<title>Packaging for OSX</title>
+    	<para>
+    	Bla bla bla...
+    	</para>
+    </section>    
+
+    <section>
+    	<title>Packaging for Windows</title>
+    	<para>
+    	Bla bla bla...
+    	</para>
+    </section>    
+
+    </section>    
+
+    <section>
+    	<title>Maintaining this document</title>
+	<para>
+	This section will enumerate the list of rules to write and maintain
+	this handbook.
+	</para>
+    	<para>
+    	When the handbook includes an screenshot or photo, you will need to
+    	first, include the text or explain the action and afterwards, show
+    	the screenshot so the user knows what the screenshot is about.
+    	</para>
+    </section>    
+    
+  </chapter>
+
+  <appendix>
+    <title>Frequently Asked Questions / FAQ</title>
+    <para>
+	We will add here the most frequently asked questions in order to
+	make it easy to find the most frequently given answers :-)
+    </para>
+  </appendix>
+
+  <appendix>
+    <title>Development team</title>
+    <para>
+    
+    </para>
+	<section>
+	<title>Programmers</title>
+	<para>
+	</para>
+	<itemizedlist>
+	<listitem><para>Jaime Robles, EA4TV - 2001-today</para></listitem>
+	<listitem><para>Aki, JL3OXR - Since 2016</para></listitem>
+	</itemizedlist>	
+	</section>
+	
+	<section>
+	<title>Translators</title>
+	<para>
+	</para>
+	<itemizedlist>
+	<listitem><para>Spanish: Jaime Robles, EA4TV</para></listitem>
+	<listitem><para>Catalan: EA3NM,</para></listitem>
+	<listitem><para>Japanese: JL3OXR</para></listitem>
+	</itemizedlist>
+	
+	</section>
+	
+  </appendix>  
+  
+    <appendix>
+    <title>Contributing to this document</title>
+    <para>
+      This document is currently a work in progress. If you would like to help
+      contributing to this document, you can find information on how you can
+      help at:
+    </para>
+    <para>
+      <ulink url="http://jaime.robles.es/klog">http://jaime.robles.es/klog</ulink>
+    </para>
+  </appendix>  
+</book>
