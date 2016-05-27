@@ -27,7 +27,7 @@
 
 int main(int argc, char *argv[])
 {
-    QString version = "0.9.2.3" ;
+    QString version = "0.9.2.4" ;
     QDir d1 = QDir();
 
     QApplication app(argc, argv);
@@ -221,26 +221,26 @@ int main(int argc, char *argv[])
                     if (d1.remove(kontestDir))
                     {
                         QMessageBox msgBox;
-                        msgBox.setText(QObject::tr("Your KLog dir has been removed\n\nThank you for running KLog!."));
+                        msgBox.setText(QObject::tr("Your KLog dir has been removed\n\nThank you for running KLog!"));
                         msgBox.exec();
                     }
                     else
                     {
                         QMessageBox msgBox;
-                        msgBox.setText(QObject::tr("I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.\n\nThank you for running KLog!."));
+                        msgBox.setText(QObject::tr("I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.\n\nThank you for running KLog!"));
                         msgBox.exec();
                     }
                 }
                 else
                 {
                     QMessageBox msgBox;
-                    msgBox.setText(QObject::tr("Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.\n\nThank you for running KLog!."));
+                    msgBox.setText(QObject::tr("Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.\n\nThank you for running KLog!"));
                     msgBox.exec();
                 }
             break;
             case QMessageBox::No:
                 QMessageBox msgBox;
-                msgBox.setText(QObject::tr("Remember that your KLog dir is in your system...\n\nThank you for running KLog!."));
+                msgBox.setText(QObject::tr("Remember that your KLog dir is in your system...\n\nThank you for running KLog!"));
                 msgBox.exec();
             break;
             }
