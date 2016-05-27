@@ -798,6 +798,7 @@ void MainWindow::slotQRZReturnPressed()
         }
         else   // The QUERY string is NULL
         {
+            return;
             //qDebug() << "MainWindow::slotQRZReturnPressed: queryString-NULL: " << queryString << endl;
         }
 
@@ -870,22 +871,38 @@ QString MainWindow::readDataFromUIDX()
     if (dxcc!=dxcc2)
     {
         QString dxccn1 = world->getEntityName(dxcc);
-        QString dxccn2 = world->getEntityName(dxcc2);
+        dxccn1 = dxccn1 + " - " + world->getEntityMainPrefix(dxcc);
 
-        QMessageBox::StandardButton ret;
-        ret = QMessageBox::question(this, tr("KLog"),
-                                   tr("You have selected an entity [1]-")+"("+dxccn2+")\n"+tr("that is different from the KLog proposed entity [2]-")+ "("+dxccn1+")\n"
-                    +tr("Push Yes to apply your selection[1] and No to apply [2]."),
-                 QMessageBox::Yes | QMessageBox::No);
-        if (ret == QMessageBox::Yes)
+        QString dxccn2 = world->getEntityName(dxcc2);
+        dxccn2 = dxccn2 + " - " + world->getEntityMainPrefix(dxcc2);
+
+        QPushButton *button2 = new QPushButton(this);
+        QPushButton *button1 = new QPushButton(this);
+
+        button1->setText(world->getEntityMainPrefix(dxcc));
+        button2->setText(world->getEntityMainPrefix(dxcc2));
+
+        int ret;
+
+        QMessageBox msgBox;
+        msgBox.setText( tr("You have selected an entity:\n\n")+"- "+dxccn2+"\n\n"+tr("that is different from the KLog proposed entity:\n\n")+ "- "+dxccn1+"\n\n"
+                        +tr("Click on the prefix of the right entity or Cancel to correct."));
+
+        msgBox.addButton(button2, QMessageBox::AcceptRole);
+        msgBox.addButton(button1, QMessageBox::ActionRole);
+        msgBox.addButton(QMessageBox::Cancel);
+        ret = msgBox.exec();
+
+        if (ret == QMessageBox::AcceptRole)
         {
             dxcc = dxcc2;
         }
-        else
+        else if (ret == QMessageBox::Cancel)
         {
-
+            return  "NULL";
         }
-
+        else
+        {}
     }
 
     int cqz = world->getEntityCqz(dxcc);
@@ -896,7 +913,6 @@ QString MainWindow::readDataFromUIDX()
     {
         stringFields = stringFields + ", name";
         stringData = stringData + ", '" + aux1 + "'";
-
     }
 
     aux1 = (locatorLineEdit->text()).toUpper();
@@ -1587,21 +1603,44 @@ WHERE [condition];
     int dxcc2 = getDXCCFromComboBox();
 
     if (dxcc!=dxcc2)
+
     {
         QString dxccn1 = world->getEntityName(dxcc);
-        QString dxccn2 = world->getEntityName(dxcc2);
+        dxccn1 = dxccn1 + " - " + world->getEntityMainPrefix(dxcc);
 
-        QMessageBox::StandardButton ret;
-        ret = QMessageBox::warning(this, tr("KLog"),
-                                   tr("You have selected an entity: ")+"("+dxccn2+")\n"+tr("that is different from the\nKLog proposed entity: ")+ "("+dxccn1+")\n\n"
-                    +tr("Push Yes to keep your selection or No to use the KLog proposal."),
-                 QMessageBox::Yes | QMessageBox::No);
-        if (ret == QMessageBox::Yes)
+        QString dxccn2 = world->getEntityName(dxcc2);
+        dxccn2 = dxccn2 + " - " + world->getEntityMainPrefix(dxcc2);
+
+        QPushButton *button2 = new QPushButton(this);
+        QPushButton *button1 = new QPushButton(this);
+
+        button1->setText(world->getEntityMainPrefix(dxcc));
+        button2->setText(world->getEntityMainPrefix(dxcc2));
+
+        int ret;
+
+        QMessageBox msgBox;
+        msgBox.setText( tr("You have selected an entity:\n\n")+"- "+dxccn2+"\n\n"+tr("that is different from the KLog proposed entity:\n\n")+ "- "+dxccn1+"\n\n"
+                        +tr("Click on the prefix of the right entity or Cancel to correct."));
+
+        msgBox.addButton(button2, QMessageBox::AcceptRole);
+        msgBox.addButton(button1, QMessageBox::ActionRole);
+        msgBox.addButton(QMessageBox::Cancel);
+        ret = msgBox.exec();
+
+        if (ret == QMessageBox::AcceptRole)
         {
             dxcc = dxcc2;
         }
-
+        else if (ret == QMessageBox::Cancel)
+        {
+            return  "NULL";
+        }
+        else
+        {}
     }
+
+
     /**/
 
 
@@ -1697,10 +1736,12 @@ WHERE [condition];
     }
 
     aux1 = QString::number(dxcc);
+    //qDebug() << "MainWindow::readDataFromUIDXModifying: DXCC=" << aux1 << endl;
     if (aux1.length()>0)
     {
         updateString = updateString + "dxcc = '";
         updateString = updateString + aux1 + "', ";
+        //qDebug() << "MainWindow::readDataFromUIDXModifying: Saving DXCC=" << aux1 << endl;
     }
 
     aux1 = QString::number(cqz);
