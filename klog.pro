@@ -112,6 +112,7 @@ OTHER_FILES += TODO \
     README
 TRANSLATIONS = translations/klog_es.ts \
     translations/klog_ca.ts \
+    translations/klog_it.ts \
     translations/klog_ja.ts
 CODECFORTR = UTF-8
 FORMS += 
