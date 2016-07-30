@@ -62,8 +62,8 @@ public:
 private slots:
     void slotOpenFileButtonClicked();
     void slotUseDefaultButtonStateChanged(int state);
-
-
+    //void slotdefaultFileNameChanged();
+    void slotDefaultFileNameLineEditChanged();
 
 private:
     void createActions();
