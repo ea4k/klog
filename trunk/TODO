@@ -2,8 +2,16 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
+BUG: Optimize the KLog start
 
 BUG: If logbook.dat is not existing but klogrc it is, KLog does not start.
+
+Debian:
+Power in Watts:
+https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=654332
+
+Time in UTC: (not to be fixed)
+https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=654325
 
 Working in:
 TODO: bool DataBase::createTableSatellites(const bool NoTmp)

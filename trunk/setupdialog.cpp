@@ -625,6 +625,7 @@ bool SetupDialog::processConfigLine(const QString _line)
         miscPage->setDefaultFileName(value);
     }else if (tab=="DEFAULTADIFFILE"){
         miscPage->setDefaultFileName(value.toLower());
+        //qDebug() << "SetupDialog::processConfigLine: FILE: " << value << endl;
     }else if (tab=="IMPERIALSYSTEM"){
         miscPage->setImperial(value.toLower());
     }else if (tab=="KEEPMYDATA"){

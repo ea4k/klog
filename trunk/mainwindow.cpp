@@ -3736,6 +3736,7 @@ void MainWindow::createMenusCommon()
     fileMenu->addAction(exitAct);
     exitAct->setMenuRole(QAction::QuitRole);
     exitAct->setShortcut(Qt::CTRL + Qt::Key_X);
+    //connect(exitAct, SIGNAL(triggered()), this, SLOT()));
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
     toolMenu = menuBar()->addMenu(tr("&Tools"));
@@ -4953,6 +4954,8 @@ void MainWindow::readConfigData()
         processConfigLine(line);
     }
 
+    //qDebug() << "MainWindow::readConfigData: " << defaultADIFLogFile << endl;
+
     if ((useDefaultLogFileName) && (defaultADIFLogFile.length()>0))
     {
         useDefaultLogFileName = true;
@@ -5187,6 +5190,7 @@ bool MainWindow::processConfigLine(const QString _line){
     else if (field=="DEFAULTADIFFILE")
     {
         defaultADIFLogFile = value.toLower();
+        //qDebug() << "MainWindow::processConfigLine: " << defaultADIFLogFile << endl;
     }
 
     else if (field=="STATIONLOCATOR")

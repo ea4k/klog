@@ -75,7 +75,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
 
     defaultFileNameLineEdit = new QLineEdit;
     defaultFileNameLineEdit->setToolTip(tr("This is the default file where ADIF will be saved."));
-    defaultFileNameLineEdit->setReadOnly(true);
+    defaultFileNameLineEdit->setReadOnly(false);
     defaultFileNameLineEdit->setText(defaultFileName);
     defaultFileNameLineEdit->setEnabled(false);
 
@@ -134,6 +134,9 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
 
     connect(fileNameButton, SIGNAL(clicked () ), this, SLOT(slotOpenFileButtonClicked() ) );
     connect(useDefaultName, SIGNAL(stateChanged (int) ), this, SLOT(slotUseDefaultButtonStateChanged(int) ) );
+    connect(defaultFileNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDefaultFileNameLineEditChanged() ) );
+
+
 }
 
 SetupPageMisc::~SetupPageMisc(){
@@ -227,6 +230,7 @@ QString SetupPageMisc::getDefaultFileName()
 }
 void SetupPageMisc::setDefaultFileName(const QString t)
 {
+    //qDebug() << "SetupPageMisc::setDefaultFileName: " << t << endl;
     defaultFileName = t;
     defaultFileNameLineEdit->setText(defaultFileName);
 }
@@ -236,7 +240,16 @@ void SetupPageMisc::slotOpenFileButtonClicked()
     defaultFileName = QFileDialog::getOpenFileName(this, tr("Open File"), kontestDir, tr("ADIF (*.adi)"));
     defaultFileNameLineEdit->setText(defaultFileName);
 
+
+
 }
+
+ void SetupPageMisc::slotDefaultFileNameLineEditChanged()
+ {
+     //setDefaultFileName();
+     defaultFileName = defaultFileNameLineEdit->text();
+ }
+
 
 /*
 QString SetupPageMisc::getInMemory()
