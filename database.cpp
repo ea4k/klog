@@ -392,6 +392,9 @@ bool DataBase::createDataBase()
     createTableMode(true);
     populateTableMode(true);
 
+    createTableSatellites(true);
+    populateTableSatellites(true);
+
     createTableLog(true);
 
 
@@ -1311,8 +1314,8 @@ bool DataBase::updateToLatest()
  * The updateXXX are recursive calls that calls the previous one.
  *
  */
-    //qDebug() << "DataBase::updateToLatest-006 " << endl;
-    return updateTo008();
+    qDebug() << "DataBase::updateToLatest-006 " << endl;
+    return updateTo009();
 }
 
 bool DataBase::updateTo003()
@@ -1862,41 +1865,11 @@ bool DataBase::populateTableMode(const bool NoTmp)
 }
 
 
-bool DataBase::createTableBand(const bool NoTmp)
-{ // NoTmp = false => TMP data table to operate and be deleted afterwards
-
-    QString stringQuery = QString();
-    QSqlQuery query;
-    if (NoTmp)
-    {
-        stringQuery = "CREATE TABLE band" ;
-    }
-    else
-    {
-        stringQuery = "CREATE TABLE bandtemp" ;
-    }
-
-/*
-    qres = query.exec("CREATE TABLE band ("
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                "lower REAL NOT NULL, "
-                "upper REAL NOT NULL, "
-                "cabrillo VARCHAR(6) NOT NULL, "
-                "name VARCHAR(40) NOT NULL, "
-                "UNIQUE (lower, upper, cabrillo, name) )");
-*/
-
-        stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                                            "lower REAL NOT NULL, "
-                                            "upper REAL NOT NULL, "
-                                            "cabrillo VARCHAR(6) NOT NULL, "
-                                            "name VARCHAR(40) NOT NULL, "
-                                            "UNIQUE (lower, upper, cabrillo, name) )");
-    return  query.exec(stringQuery);
-}
-/*
 bool DataBase::createTableSatellites(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
+    //Creating the Sats DB to be able to include satellites to the LOTW
+
+    qDebug() << "DataBase::createTableSatellites" << endl;
 
     QString stringQuery = QString();
     QSqlQuery query;
@@ -1913,12 +1886,110 @@ bool DataBase::createTableSatellites(const bool NoTmp)
                                             "satarrlid VARCHAR, "
                                             "satname VARCHAR, "
                                             "satmode VARCHAR, "
-ESTOY CREANDO LA TABLA DE SATS PARA METER LOS DATOS DE LA ARRL
-                                            https://lotw.arrl.org/lotw-help/frequently-asked-questions/#sats
+                                            "UNIQUE (satarrlid, satmode) )");
+
+
+
+
+        return  query.exec(stringQuery);
+}
+
+bool DataBase::populateTableSatellites(const bool NoTmp)
+{
+    // Data must come from:
+    // https://lotw.arrl.org/lotw-help/frequently-asked-questions/#sats
+    qDebug() << "DataBase::populateTableSatellites" << endl;
+
+    QSqlQuery query;
+    QString tableName = QString();
+    QString squery = QString();
+    if (NoTmp)
+    {
+        tableName = "satellites";
+    }
+    else
+    {
+        tableName = "satellitestemp";
+    }
+
+
+    //To add a band, just create another line:
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-10', 'AMSAT-OSCAR 10')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-13', 'AMSAT-OSCAR 13')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-16', 'AMSAT-OSCAR 16')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-21', 'OSCAR 21/RS-14')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-24', 'Arsene-OSCAR 24')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-27', 'AMRAD-OSCAR 27')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-3', 'AMSAT-OSCAR 3')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-4', 'AMSAT-OSCAR 4')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-40', 'AMSAT-OSCAR 40')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-51', 'AMSAT-OSCAR 51')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-6', 'AMSAT-OSCAR 6')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-7', 'AMSAT-OSCAR 7')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-73', 'AMSAT-OSCAR 73')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-8', 'AMSAT-OSCAR 8')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('AO-85', 'AMSAT-OSCAR 85 (Fox-1A)')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('ARISS', 'ARISS')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('CAS-3H', 'LilacSat 2')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('DO-64', 'Delfi OSCAR-64')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('FO-12', 'Fuji-OSCAR 12')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('FO-20', 'Fuji-OSCAR 20')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('FO-29', 'Fuji-OSCAR 29')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('HO-68', 'Hope OSCAR 68')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('LO-19', 'Lusat-OSCAR 19')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('LO-78', 'LituanicaSAT-1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('NO-44', 'Navy-OSCAR 44')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('RS-1', 'Radio Sputnik 1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('RS-10', 'Radio Sputnik 10')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('RS-11', 'Radio Sputnik 11')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('RS-12', 'Radio Sputnik 12')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('RS-13', 'Radio Sputnik 13')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('RS-15', 'Radio Sputnik 15')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('RS-2', 'Radio Sputnik 2')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('RS-5', 'Radio Sputnik 5')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('RS-6', 'Radio Sputnik 6')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('RS-7', 'Radio Sputnik 7')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('RS-8', 'Radio Sputnik 8')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('SO-35', 'Sunsat-OSCAR 35')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('SO-41', 'Saudi-OSCAR 41')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('SO-50', 'Saudi-OSCAR 50')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('SO-67', 'Sumbandila OSCAR 67')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('UO-14', 'UOSAT-OSCAR 14')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('VO-52', 'VUsat-OSCAR 52')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('XW-2A', 'Hope 2A')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('XW-2B', 'Hope 2B')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('XW-2C', 'Hope 2C')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('XW-2D', 'Hope 2D')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('XW-2E', 'Hope 2E')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('XW-2F', 'Hope 2F')").arg(tableName));
+
+    return true;
+}
+
+bool DataBase::createTableBand(const bool NoTmp)
+{ // NoTmp = false => TMP data table to operate and be deleted afterwards
+
+    QString stringQuery = QString();
+    QSqlQuery query;
+    if (NoTmp)
+    {
+        stringQuery = "CREATE TABLE band" ;
+    }
+    else
+    {
+        stringQuery = "CREATE TABLE bandtemp" ;
+    }
+
+        stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                            "lower REAL NOT NULL, "
+                                            "upper REAL NOT NULL, "
+                                            "cabrillo VARCHAR(6) NOT NULL, "
+                                            "name VARCHAR(40) NOT NULL, "
                                             "UNIQUE (lower, upper, cabrillo, name) )");
     return  query.exec(stringQuery);
 }
-*/
+
+
 
 bool DataBase::populateTableBand(const bool NoTmp)
 {
@@ -3221,7 +3292,7 @@ bool DataBase::updateTo007()
 bool DataBase::updateTo008()
 {// Updates the DB to 0.0.8
 
-    //qDebug() << "DataBase::updateTo008" << endl;
+    qDebug() << "DataBase::updateTo008" << endl;
     bool IAmIn008 = false;
     bool IAmIn007 = false;
     bool ErrorUpdating = false;
@@ -3274,7 +3345,81 @@ bool DataBase::updateTo008()
 }
 
 
+bool DataBase::updateTo009()
+{// Updates the DB to 0.0.9 - We add the Satellite tables
 
+    qDebug() << "DataBase::updateTo009" << endl;
+    bool IAmIn009 = false;
+    bool IAmIn008 = false;
+    bool ErrorUpdating = false;
+    QString stringQuery = QString();
+    QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+    QSqlQuery query;
+
+    bool sqlOk = false;
+
+    if (latestReaded >= 0.009)
+    {
+        qDebug() << "DataBase::updateTo009: - I am in 009" << endl;
+        return true;
+    }
+    else
+    {
+        qDebug() << "DataBase::updateTo009: - I am not in 009" << endl;
+        IAmIn009 = false;
+    }
+
+
+    while (!IAmIn009 && !ErrorUpdating)
+    {
+        while (!IAmIn008 && !ErrorUpdating)
+        {
+            qDebug() << "DataBase::updateTo009: - And I am not in 008" << endl;
+            IAmIn008 = updateTo008();
+
+        }
+        qDebug() << "DataBase::updateTo009: - And I am already at least in 008" << endl;
+        if (ErrorUpdating)
+        {
+            return false;
+        }
+        sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+        if (sqlOk)
+        { // Version updated
+            qDebug() << "DataBase::updateTo009: - version updated" << endl;
+            //IAmIn009 = updateTableLog(6);
+        }
+        else
+        { // Version not updated
+            qDebug() << "DataBase::updateTo009: - version not updated" << endl;
+        }
+        //DO ALL THE TASKS TO BE IN 0.009 from 0.008 HERE and set ErrorUpdating if it is not possible.
+
+        if (createTableSatellites(true))
+        {
+            qDebug() << "DataBase::updateTo009: - createTableSatellites OK" << endl;
+            if (populateTableSatellites(true))
+            {
+                qDebug() << "DataBase::updateTo009: - populateTableSatellites OK" << endl;
+                IAmIn009 = true;
+            }
+            else
+            {
+                qDebug() << "DataBase::updateTo009: - populateTableSatellites FALSE" << endl;
+                ErrorUpdating = true;
+                IAmIn009 = false;
+            }
+        }
+        else
+        {
+            qDebug() << "DataBase::updateTo009: - createTableSatellites FALSE" << endl;
+            ErrorUpdating = true;
+            IAmIn009 = false;
+        }
+    }
+
+    return IAmIn009;
+}
 
 bool DataBase::updateTheModeTableAndSyncLog()
 {

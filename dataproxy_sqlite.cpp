@@ -1691,6 +1691,36 @@ QStringList DataProxy_SQLite::getPropModeList()
     return qs;
 }
 
+QStringList DataProxy_SQLite::getSatellitesList()
+{
+    //qDebug()  << "DataProxy_SQLite::getSatellitesList"  << endl;
+     QString aux = QString();
+     QStringList qs;
+     qs.clear();
+     QString stringQuery = QString("SELECT satarrlid, satname FROM satellites");
+     QSqlQuery query;
+
+     if (query.exec(stringQuery))
+     {
+         while ( (query.next())) {
+             if (query.isValid())
+             {
+                 aux.clear();
+                 aux = (query.value(0)).toString() + " - " + (query.value(1)).toString();
+                 qs << aux;
+             }
+             else
+             {
+             }
+         }
+
+     }
+     else
+     {
+         return QStringList();
+     }
+     return qs;
+}
 
 QStringList DataProxy_SQLite::getValidCatOptions(const int _currentCat, const int _lowerCat)
 {

@@ -1832,7 +1832,6 @@ bool FileManager::cabrilloLogExport(const QString& _fileName, const int _contest
 {
     //qDebug() << "FileManager::cabrilloLogExport" << endl;
 
-
     return cabrilloLogExportToFile(_fileName, logNconst);
 
 }
@@ -2101,7 +2100,8 @@ bool FileManager::cabrilloLogExportToFile(const QString& _fileName, const int lo
     return false;
 }
 
-bool FileManager::printQs(const QString _q, const QStringList _line){
+bool FileManager::printQs(const QString _q, const QStringList _line)
+{
     QStringList qs = _line;
 
     for (int i = 0; i<qs.size(); i++){

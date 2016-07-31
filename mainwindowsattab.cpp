@@ -25,24 +25,34 @@
  *                                                                           *
  *****************************************************************************/
 #include "mainwindowsattab.h"
-
+/*
+This class implements the Satellite TAB of the MainWindow
+*/
 MainWindowSatTab::MainWindowSatTab(QWidget *parent) :
     QWidget(parent)
 {
+    satNameComboBox = new QComboBox;
     satNameLineEdit = new QLineEdit;
     satModeLineEdit = new QLineEdit;
+    satOtherLabel = new QLabel;
+
     keepThisDataForNextQSORadiobutton = new QRadioButton;
 
+    dataProxy = new DataProxy_SQLite();
+
     createUI();
+    populateSatComboBox();
+    satNameLineEdit->setEnabled(false);
+    satOtherLabel->setEnabled(false);
 }
 
 MainWindowSatTab::~MainWindowSatTab(){}
 
 void MainWindowSatTab::createUI()
 {
-    connect(satNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(satNameTextChanged() ) );
-    connect(satModeLineEdit, SIGNAL(textChanged(QString)), this, SLOT(satModeTextChanged() ) );
-
+    connect(satNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSatNameTextChanged() ) );
+    connect(satModeLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSatModeTextChanged() ) );
+    connect(satNameComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotSatNameComboBoxChanged() ) ) ;
 
     QLabel *keepLabel = new QLabel();
     keepLabel->setText(tr("Keep this data"));
@@ -50,8 +60,9 @@ void MainWindowSatTab::createUI()
     keepLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO"));
 
     keepThisDataForNextQSORadiobutton->setToolTip(tr("Data entered in this tab will be copied into the next QSO"));
-    satNameLineEdit->setToolTip(tr("Name of the Satellite (format like AO-51)"));
+    satNameLineEdit->setToolTip(tr("Name of the Satellite if not in the list (format like AO-51)"));
     satModeLineEdit->setToolTip(tr("Satellite mode used"));
+    satNameComboBox->setToolTip(tr("Select the satellite you are using"));
 
     QLabel *satNameLabel = new QLabel();
     satNameLabel->setText(tr("Satellite"));
@@ -61,11 +72,20 @@ void MainWindowSatTab::createUI()
     satModeLabel->setText(tr("Mode"));
     satModeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
+    //QLabel *satOtherLabel = new QLabel();
+    satOtherLabel->setText(tr("Other"));
+    satOtherLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+
     QGridLayout *tabLayout = new QGridLayout;
-    tabLayout->addWidget(satNameLabel, 0, 0);
-    tabLayout->addWidget(satNameLineEdit, 0, 1);
+    tabLayout->addWidget(satNameLabel, 0, 0);    
+    tabLayout->addWidget(satNameComboBox, 0, 1);
+
     tabLayout->addWidget(satModeLabel, 1, 0);
     tabLayout->addWidget(satModeLineEdit, 1, 1);
+
+    tabLayout->addWidget(satOtherLabel, 2, 0);
+    tabLayout->addWidget(satNameLineEdit, 2, 1);
+
     tabLayout->addWidget(keepLabel, 3, 2);
     tabLayout->addWidget(keepThisDataForNextQSORadiobutton, 3, 3);
 
@@ -73,9 +93,39 @@ void MainWindowSatTab::createUI()
 
 }
 
-void MainWindowSatTab::satNameTextChanged()
+void MainWindowSatTab::slotSatNameComboBoxChanged()
 {
-    //qDebug() << "MainWindowSatTab::satNameTextChanged: " << satNameLineEdit->text() << endl;
+    int i = satNameComboBox->currentIndex();
+   //qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << QString::number(i) << endl;
+    //QString _pm = (((satNameComboBox->currentText()).split(' ')).at(0)).simplified();
+
+    satNameLineEdit->clear();
+
+    if (i == 0)
+    {
+        emit setPropModeSat("Not");
+        satNameLineEdit->setEnabled(false);
+        satOtherLabel->setEnabled(false);
+
+    }
+    else if(i == 1)
+    {
+        emit setPropModeSat("SAT");
+        satNameLineEdit->setEnabled(true);
+        satOtherLabel->setEnabled(true);
+    }
+    else
+    {
+        emit setPropModeSat("SAT");
+        satNameLineEdit->setEnabled(false);
+        satOtherLabel->setEnabled(false);
+    }
+
+}
+
+void MainWindowSatTab::slotSatNameTextChanged()
+{
+   //qDebug() << "MainWindowSatTab::slotSatNameTextChanged: " << satNameLineEdit->text() << endl;
     satNameLineEdit->setText((satNameLineEdit->text()).toUpper());
 
     if ((satNameLineEdit->text()).length()>0)
@@ -89,9 +139,11 @@ void MainWindowSatTab::satNameTextChanged()
 
 }
 
-void MainWindowSatTab::satModeTextChanged()
+
+void MainWindowSatTab::slotSatModeTextChanged()
 {
-    //qDebug() << "MainWindowSatTab::satModeTextChanged: " << satModeLineEdit->text() << endl;
+   //qDebug() << "MainWindowSatTab::slotSatModeTextChanged: " << satModeLineEdit->text() << endl;
+/*
     satModeLineEdit->setText((satModeLineEdit->text()).toUpper());
 
     if ((satModeLineEdit->text()).length()>0)
@@ -102,6 +154,7 @@ void MainWindowSatTab::satModeTextChanged()
     {
         emit setPropModeSat("Not");
     }
+*/
 
 }
 
@@ -110,17 +163,57 @@ QString MainWindowSatTab::getSatName()
     // Sat name must follow the format CC-NN to make it compatible with LOTW
     // C = Character
     // N = Number
-
+/*
     QString satName;
     satName = satNameLineEdit->text();
     //TODO: Check that the format is OK
     return satName;
+ */
+    QString _pm = QString();
+    QString satName = QString();
+
+
+   //qDebug() << "MainWindowSatTab::getSatName:" << satNameComboBox->currentText() << endl;
+    _pm = (((satNameComboBox->currentText()).split(' ')).at(0)).simplified();
+
+    //qDebug() << "MainWindowSatTab::satNameComboBox: " << _pm << endl;
+    if (satNameComboBox->currentIndex() == 0)
+    {
+        return QString();
+    }
+    else if(satNameComboBox->currentIndex() == 1)
+    {
+        satName = satNameLineEdit->text();
+        if (satName.length()>0)
+        {
+            return satName;
+        }
+        else
+        {
+            return QString();
+        }
+    }
+    else
+    {
+        return _pm;
+    }
+
 }
 
 void MainWindowSatTab::setSatName(const QString _t)
 {
      //TODO: Check that the format is OK
-    satNameLineEdit->setText(_t);
+    //satNameLineEdit->setText(_t);
+    if (getSatIndex(_t) > 0)
+    {
+        setSatelliteCombo(_t);
+    }
+    else
+    {
+        satNameComboBox->setCurrentIndex(1);
+        satNameLineEdit->setText(_t);
+    }
+
 }
 
 QString MainWindowSatTab::getSatMode()
@@ -130,7 +223,16 @@ QString MainWindowSatTab::getSatMode()
 
 void MainWindowSatTab::setSatMode(const QString _t)
 {
-    satModeLineEdit->setText(_t);
+
+    if (_t == "-CLEAR-")
+    {
+        satModeLineEdit->clear();
+    }
+    else
+    {
+        satModeLineEdit->setText(_t);
+    }
+
 }
 
 bool MainWindowSatTab::getRepeatThis()
@@ -145,5 +247,80 @@ void MainWindowSatTab::setRepeatThis(const bool _t)
 void MainWindowSatTab::clear()
 {
     satModeLineEdit->clear();
-    satNameLineEdit->clear();
+    //satNameLineEdit->clear();
+    satNameComboBox->setCurrentIndex(0);
+}
+
+void MainWindowSatTab::populateSatComboBox()
+{
+    //qDebug() << "MainWindowSatTab::populateSatComboBox: " << endl;
+
+    QString nosat = tr("Not Sat QSO");
+    QString othersat = tr("Other - Sat not in the list");
+    satellitesList.clear();
+    satellitesList = dataProxy->getSatellitesList();
+    satellitesList.prepend(othersat);
+    satellitesList.prepend("No-SAT - " + nosat);
+
+    if (satellitesList.size()>1)
+    {
+
+        satNameComboBox->addItems(satellitesList);
+    }
+    else
+    {
+        //TODO: Check how to do it better... now I could simply remove the if
+        satNameComboBox->addItems(satellitesList);
+    }
+}
+
+void MainWindowSatTab::setSatelliteCombo(const QString _p)
+{
+    //qDebug() << "MainWindowsatTab::setSatelliteCombo: " << _p << endl;
+    QString aux = QString();
+    int indexC = getSatIndex(_p);
+    //int indexC = satNameComboBox->findText(_p, Qt::MatchContains);
+    //qDebug() << "MainWindowsatTab::setSatelliteCombo: N=" << QString::number(indexC) << endl;
+    if (indexC>0)
+    {
+        satNameComboBox->setCurrentIndex(indexC);
+    }
+    else
+    {
+        satNameComboBox->setCurrentIndex(0);
+        if (_p.length()>0)
+        {
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Warning);
+            aux = tr("A satellite name has been detected but is not on the KLog satellite's names table. Please check that the correct satellite is selected and if the satellite is not in the list, please contact the development team to include it.\n\n");
+            msgBox.setText(aux + tr("The satellite you have in your QSO is: ") + _p + "\n\nPlease know that the satellite name will not be saved if it is not in the list so that information may be lost!");
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            int ret = msgBox.exec();
+            switch (ret)
+            {
+                case QMessageBox::Ok:
+                break;
+                default:
+                // should never be reached
+                break;
+            }
+        }
+    }
+
+}
+
+void MainWindowSatTab::setOtherSatName(const QString _t)
+{
+    satNameLineEdit->setText(_t);
+}
+
+QString MainWindowSatTab::getOtherSatName()
+{
+    return QString();
+}
+
+int MainWindowSatTab::getSatIndex(const QString _p)
+{
+    return satNameComboBox->findText(_p, Qt::MatchContains);
 }

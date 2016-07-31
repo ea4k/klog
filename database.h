@@ -41,7 +41,7 @@ class QSqlRelationalTableModel;
 
 // Last db update 0.0.6
 // Previous db update 0.0.7
-const float DBVersionf = 0.008;
+const float DBVersionf = 0.009;
 
 class DataBase
 {
@@ -93,6 +93,7 @@ private:
     bool updateTo006();
     bool updateTo007();
     bool updateTo008();
+    bool updateTo009(); // Updates DB and add the Satellite tables
     bool updateTableLog(const int _v);
 
 
@@ -112,6 +113,9 @@ private:
 
     bool createTableBand(const bool NoTmp);
     bool populateTableBand(const bool NoTmp);
+
+    bool createTableSatellites(const bool NoTmp);
+    bool populateTableSatellites(const bool NoTmp);
 
     bool recreateContestData();
     bool createTableContest();

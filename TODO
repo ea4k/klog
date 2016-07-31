@@ -158,11 +158,10 @@ TODO: Awards: Remove Award
 
 =====================
 <SATELLITE SUPPORT>
-TODO: Add Satellite support (maybe another Tab) (look this file (below) for details.
-TODO: Satellite name QLineEdit mask "Aaa-900" (check how the ISS is named to see if it would match... does not match!!!)
-TODO: Add satellite input fields (in the others input Tab?)
+TODO: Sats: Create a way to update the list of supported satellites. Maybe another tab in the setup dialog as the World Editor
 TODO: Sats: https://www.eqsl.cc/qslcard/ADIFContentSpecs.cfm
 TODO: Sats: https://lotw.arrl.org/lotw/faq#sats
+
 TODO: Sat Modes:
 http://www.amsat.org/amsat/intro/sats_faq.html#RTFToC5
 http://www.sckans.edu/~sireland/radio/amsat.html
