@@ -1068,22 +1068,30 @@ QString MainWindow::readDataFromUIDX()
     }
     // EQSL-SENT
 
-    aux1 = satTabWidget->getSatName();
+    aux1 = satTabWidget->getSatName(); //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
    //qDebug() << "MainWindow::readDataFromUIDX: SAT1 " << aux1 << endl;
+   stringFields = stringFields + ", sat_name";
+   stringData = stringData + ", '" + aux1 + "'";
+
+   /*
     if (aux1.length()>0)
     {
         stringFields = stringFields + ", sat_name";
         stringData = stringData + ", '" + aux1 + "'";
     }
-
+*/
     aux1 = satTabWidget->getSatMode();
 
+    aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
+    stringFields = stringFields + ", sat_mode";
+    stringData = stringData + ", '" + aux1 + "'";
+/*
     if (aux1.length()>0)
     {
         stringFields = stringFields + ", sat_mode";
         stringData = stringData + ", '" + aux1 + "'";
     }
-
+*/
     keepSatPage = satTabWidget->getRepeatThis();
 
     aux1 = getPropModeFromComboBox();
@@ -1798,25 +1806,27 @@ WHERE [condition];
         }
     }
 
-    aux1 = satTabWidget->getSatName();
-   //qDebug() << "MainWindow::readDataFromUIDX: SAT2 " << aux1 << endl;
+   aux1 = satTabWidget->getSatName();   //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
+   //qDebug() << "MainWindow::readDataFromUIDX: SAT2 modif " << aux1 << endl;
+   updateString = updateString + "sat_name = '";
+   updateString = updateString + aux1 + "', ";
+/*
     if (aux1.length()>0)
     {
         updateString = updateString + "sat_name = '";
         updateString = updateString + aux1 + "', ";
-
-        //updateString = updateString + "prop_mode = '";
-        //updateString = updateString + "SAT', ";
     }
-
-    aux1 = satTabWidget->getSatMode();
-
+*/
+    aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
+    updateString = updateString + "sat_mode = '";
+    updateString = updateString + aux1 + "', ";
+/*
     if (aux1.length()>0)
     {
         updateString = updateString + "sat_mode = '";
         updateString = updateString + aux1 + "', ";
     }
-
+*/
     aux1 = getPropModeFromComboBox();
    //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << endl;
     if ((aux1.length()>0) && (aux1 != "Not"))
@@ -2429,8 +2439,6 @@ the view should present the city's name field to the user.
 
         break;
         default:
-
-
             nameCol = rec.indexOf("bandid");
             logModel->setRelation(nameCol, QSqlRelation("band", "id", "name"));
 
@@ -4108,12 +4116,16 @@ bool MainWindow::slotOpenKLogFolder()
     //configFileName = kontestDir+"/klogrc.cfg";
     QString _aux = "<a href=file://" + kontestDir + ">file://" + kontestDir + "</a>";
     QString _text = tr("You can find the KLog data folder here: ") + _aux;
-
+/*
     int ret = QMessageBox::information(this, tr("KLog"),
                                    _text,
                                    QMessageBox::Ok,
                                    QMessageBox::Ok);
-
+*/
+    QMessageBox::information(this, tr("KLog"),
+                                   _text,
+                                   QMessageBox::Ok,
+                                   QMessageBox::Ok);
     return true;
 
 }
@@ -6721,7 +6733,14 @@ void MainWindow::qsoToEdit (const int _qso)
 
         nameCol = rec.indexOf("qsl_via");
         aux1 = (query.value(nameCol)).toString();
-        qslViaLineEdit->setText(aux1);
+        if (aux1.length()>0)
+        {
+            qslViaLineEdit->setText(aux1);
+        }
+        else
+        {
+            qslViaLineEdit->clear();
+        }
 
         nameCol = rec.indexOf("qslmsg");
         aux1 = (query.value(nameCol)).toString();
@@ -6732,6 +6751,10 @@ void MainWindow::qsoToEdit (const int _qso)
         if (aux1.length()>0)
         {
             commentLineEdit->setText(aux1);
+        }
+        else
+        {
+            commentLineEdit->clear();
         }
 
 
@@ -6745,6 +6768,10 @@ void MainWindow::qsoToEdit (const int _qso)
         if (aux1.length()>0)
         {
             nameLineEdit->setText(aux1);
+        }
+        else
+        {
+            nameLineEdit->clear();
         }
 
         nameCol = rec.indexOf("qth");
@@ -7337,9 +7364,10 @@ void MainWindow::qsoToEdit (const int _qso)
                 {
                     satTabWidget->setSatMode(aux1);
                 }
-
-
-
+                else
+                {
+                    satTabWidget->setSatMode("-CLEAR-");
+                }
 
                 //qDebug() << "MainWindow::qsoToEdit: - in default - 100: " << QString::number(currentEntity)  << endl;
 
@@ -7364,6 +7392,10 @@ void MainWindow::qsoToEdit (const int _qso)
                 {
                     propModeComboBox->setCurrentIndex( propModeComboBox->findText(aux1+" -", Qt::MatchContains));
                    //qDebug() << "MainWindow::qsoToEdit: Prop2: " << aux1 << endl;
+                }
+                else
+                {
+                    propModeComboBox->setCurrentIndex(0);
                 }
 
 

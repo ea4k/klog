@@ -31,6 +31,8 @@
 
 #include <QWidget>
 #include <QtWidgets>
+#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 class MainWindowSatTab : public QWidget
 {
@@ -40,13 +42,16 @@ public:
     ~MainWindowSatTab();
 
     QString getSatName();
-    void setSatName(const QString _t);
+    void setSatName(const QString _t);   
+    void setOtherSatName(const QString _t);
+    QString getOtherSatName();
 
     QString getSatMode();
     void setSatMode(const QString _t);
 
     bool getRepeatThis();
     void setRepeatThis(const bool _t);
+
 
     void clear();
 
@@ -55,19 +60,29 @@ signals:
 
 public slots:
 private slots:
-    void satNameTextChanged();
-    void satModeTextChanged();
+    void slotSatNameTextChanged();
+    void slotSatModeTextChanged();
+    void slotSatNameComboBoxChanged();
 
 private:
     void createUI();
+    void populateSatComboBox();
+    void setSatelliteCombo(const QString _p);
+    int getSatIndex(const QString _p);
 
-    QLineEdit *satNameLineEdit, *satModeLineEdit;
+    QLineEdit *satNameLineEdit;
+    QLineEdit *satModeLineEdit;
+    QLabel *satOtherLabel;
     QRadioButton *keepThisDataForNextQSORadiobutton;
     //QComboBox *satNameComboBox;
     //QPushButton *satNamePushButon;
     //QComboBox *satNameComboBox, *satModeComboBox;
+    QComboBox *satNameComboBox;
 
     QStringList satNames, satModes;
+    QStringList satellitesList;
+
+    DataProxy *dataProxy;
 };
 
 #endif // MAINWINDOWSATTAB_H

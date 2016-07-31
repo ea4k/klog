@@ -104,6 +104,7 @@ public:
 
     QStringList getBandNames();
     QStringList getPropModeList();
+    QStringList getSatellitesList();
 
     QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
