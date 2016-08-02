@@ -32,6 +32,7 @@ LogWindow::LogWindow()
 
 LogWindow::~LogWindow()
 {
+
 }
 
 void LogWindow::createlogPanel()

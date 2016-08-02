@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QTableView>
 
-//Estoy creando el widget que muestra el estado del DXCC
+//TODO: Creating the widget to show the DXCC status
 
 class DXCCStatusWidget : public QWidget
 {

@@ -5,6 +5,7 @@
 - BugFix: Preferences->Misc: It was not possible to edit the default filename. (TNX K6XT).
 - BugFix: Added the Power unit (W) to the power box. Debian bug #654332.
 - BugFix: When editing a QSO in some text boxes text was reused from previous QSO and data could be corrupted.
+- Created a widget to manage all "My Data" and simply the main widget.
 
 January 2016 - 0.9.2.3
 - Improved the way translations are managed (Specially in Linux).

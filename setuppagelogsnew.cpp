@@ -708,7 +708,7 @@ QStringList SetupPageLogsNew::getValidCatOptions(const int _currentCat, const in
 
     //qDebug() << "SetupPageLogsNew::getValidCatOptions: " << QString::number(_currentCat) <<"/"<< QString::number(_higherCat) << endl;
     //return dataProxy->getValidCatOptions(_currentCat, _higherCat);
-
+    return QStringList();
 }
 
 bool SetupPageLogsNew::isThereAnyNotManagedLog()
@@ -735,6 +735,7 @@ bool SetupPageLogsNew::isThereAnyNotManagedLog()
         //qDebug() << "SetupPageLogsNew::isThereAnyNotManagedLog tras el while" << endl;
     }
     //qDebug() << "SetupPageLogsNew::isThereAnyNotManagedLog END" << endl;
+    return false;
 }
 
 void SetupPageLogsNew::setStationCallSign(const QString _st)

@@ -86,8 +86,8 @@ void MainWindowSatTab::createUI()
     tabLayout->addWidget(satOtherLabel, 2, 0);
     tabLayout->addWidget(satNameLineEdit, 2, 1);
 
-    tabLayout->addWidget(keepLabel, 3, 2);
-    tabLayout->addWidget(keepThisDataForNextQSORadiobutton, 3, 3);
+    tabLayout->addWidget(keepLabel, 3, 1);
+    tabLayout->addWidget(keepThisDataForNextQSORadiobutton, 3, 2);
 
     setLayout(tabLayout);
 
@@ -244,11 +244,19 @@ void MainWindowSatTab::setRepeatThis(const bool _t)
 {
     keepThisDataForNextQSORadiobutton->setChecked(_t);
 }
+
 void MainWindowSatTab::clear()
 {
-    satModeLineEdit->clear();
-    //satNameLineEdit->clear();
-    satNameComboBox->setCurrentIndex(0);
+    if (keepThisDataForNextQSORadiobutton->isChecked())
+    {
+        return;
+    }
+    else
+    {
+        satModeLineEdit->clear();
+        satNameComboBox->setCurrentIndex(0);
+    }
+
 }
 
 void MainWindowSatTab::populateSatComboBox()
