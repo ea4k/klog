@@ -1003,9 +1003,9 @@ bool DataBase::updateIfNeeded()
     float aux = 0.0;
 
     int nameCol;
-    int errorCode = -1;
+    //int errorCode = -1;
     bool toBeUpdated = false;
-    bool sqlOK;
+    //bool sqlOK;
     QString dateString;
     QString SQLString, auxs;
     QStringList SQLStrings;
@@ -1504,7 +1504,7 @@ bool DataBase::updateTo005()
                         QString text = (QInputDialog::getText(0, QObject::tr("KLog: Enter Station callsign"),
                                                                   QObject::tr("Enter the station callsign used in this log"), QLineEdit::Normal,
                                                               QObject::tr("Station Callsign"), &ok)).toUpper();
-                        text.toUpper();
+                        text = text.toUpper();
                             if (ok && !text.isEmpty())
                             {
                                 callToUse = text;

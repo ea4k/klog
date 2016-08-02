@@ -64,7 +64,8 @@ SOURCES += main.cpp \
     setuppageclublog.cpp \
     elogclublog.cpp \
     utilities.cpp \
-    dxccstatuswidget.cpp
+    dxccstatuswidget.cpp \
+    mainwindowmydatatab.cpp
 HEADERS += setupdialog.h \
     mainwindow.h \
     world.h \
@@ -96,7 +97,8 @@ HEADERS += setupdialog.h \
     setuppageclublog.h \
     elogclublog.h \
     utilities.h \
-    dxccstatuswidget.h
+    dxccstatuswidget.h \
+    mainwindowmydatatab.h
 OTHER_FILES += TODO \
     README-DEVEL \
     tips-for-devel.txt \

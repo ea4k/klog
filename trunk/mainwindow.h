@@ -48,6 +48,7 @@
 #include "dxcluster.h"
 #include "awards.h"
 #include "mainwindowsattab.h"
+#include "mainwindowmydatatab.h"
 #include "elogclublog.h"
 #include "utilities.h"
 #include "downloadcty.h"
@@ -495,6 +496,7 @@ private:
     bool qslingNeeded;
 
     MainWindowSatTab *satTabWidget;
+    MainWindowMyDataTab *myDataTabWidget;
     bool keepSatPage;
 
     // UI DX

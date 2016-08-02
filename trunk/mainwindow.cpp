@@ -84,10 +84,13 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     myLocator = "";
     dxLocator ="";
     myPower = 0.0;
-    lastPower = myPower;
-    lastOperatorQRZ = operatorQRZ;
-    lastStationQRZ = stationQRZ;
-    lastMyLocator = myLocator;
+
+    //lastPower = myPower;
+    //lastOperatorQRZ = operatorQRZ;
+    //lastStationQRZ = stationQRZ;
+    //lastMyLocator = myLocator;
+
+
 
     entitiesList.clear();
     propModeList.clear();
@@ -243,6 +246,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     setupDialog = new SetupDialog(configFileName, softwareVersion, 0, !configured);
    //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab();
+    myDataTabWidget = new MainWindowMyDataTab();
+
   //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
     filemanager = new FileManager(kontestDir, softwareVersion, *db);
 
@@ -957,27 +962,30 @@ QString MainWindow::readDataFromUIDX()
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-
-    aux1 = operatorLineEdit->text();
+    aux1 = myDataTabWidget->getOperator();
+    //aux1 = operatorLineEdit->text();
     if (aux1.length()>2)
     {
-        lastOperatorQRZ = aux1.toUpper();
+        //lastOperatorQRZ = aux1.toUpper();
         stringFields = stringFields + ", operator";
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-    aux1 = (stationCallSignLineEdit->text()).toUpper();
+    aux1 = myDataTabWidget->getStationQRZ();
+    //aux1 = (stationCallSignLineEdit->text()).toUpper();
     if (aux1.length()>2)
     {
-        lastStationQRZ = aux1.toUpper();
+        //lastStationQRZ = aux1.toUpper();
         stringFields = stringFields + ", station_callsign";
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-    aux1 = myLocatorLineEdit->text();
+    aux1 = myDataTabWidget->getMyLocator();
+    //aux1 = myLocatorLineEdit->text();
     if (aux1.length()>2)
     {                   
-        lastMyLocator = aux1.toUpper();
+
+        //lastMyLocator = aux1.toUpper();
         stringFields = stringFields + ", my_gridsquare";
         stringData = stringData + ", '" + aux1 + "'";
     }
@@ -1033,10 +1041,10 @@ QString MainWindow::readDataFromUIDX()
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-    aux1 = QString::number(myPowerSpinBox->value());
+    aux1 = QString::number(myDataTabWidget->getMyPower());
     if ((aux1.toDouble())>0.0)
     {
-        lastPower = aux1.toDouble();
+        //lastPower = aux1.toDouble();
         stringFields = stringFields + ", tx_pwr";
         stringData = stringData + ", '" + aux1 + "'";
     }
@@ -3583,9 +3591,10 @@ void MainWindow::slotClearButtonClicked()
             prefixLabel->setText("");
             cqzLabel->setText("0");
             ituzLabel->setText("0");
+/*
             if (!keepMyData)
             {
-                myPowerSpinBox->setValue(lastPower);
+                //myPowerSpinBox->setValue(lastPower);
                 operatorLineEdit->setText(lastOperatorQRZ.toUpper());
                 stationCallSignLineEdit->setText(lastStationQRZ.toUpper());
                 myLocatorLineEdit->setText(lastMyLocator);
@@ -3598,10 +3607,10 @@ void MainWindow::slotClearButtonClicked()
                 myLocatorLineEdit->setText(myLocator);
             }
 
-            if (!satTabWidget->getRepeatThis())
-            {
-                satTabWidget->clear();
-            }
+*/
+            satTabWidget->clear();
+            myDataTabWidget->clear(keepMyData);
+            
 
             clearInfoFromLocators();
             clearBandLabels();
@@ -3964,9 +3973,9 @@ void MainWindow::slotSetup(const int _page)
         else
         {
         }
-
     }
     defineStationCallsign();
+
     //checkIfNewBandOrMode();
 }
 
@@ -4993,11 +5002,10 @@ void MainWindow::readConfigData()
     }
     showEntityInfo(currentEntity);
 
-    lastPower = myPower;
-    defineStationCallsign();
-    lastOperatorQRZ = operatorQRZ;
-    lastStationQRZ = stationQRZ;
-    lastMyLocator = myLocator;
+    //lastPower = myPower;
+    //lastOperatorQRZ = operatorQRZ;
+    //lastStationQRZ = stationQRZ;
+    //lastMyLocator = myLocator;
 
     configured = true;
     awards->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
@@ -5829,7 +5837,8 @@ void MainWindow::createUIDX()
     myDataInputTabWidgetLayout->addWidget(myLocatorLineEdit, 3, 1);
 
     myDataInputTabWidget->setLayout(myDataInputTabWidgetLayout);
-    i = dxUpLeftTab->addTab(myDataInputTabWidget, tr("My Data"));
+    //i = dxUpLeftTab->addTab(myDataInputTabWidget, tr("My Data"));
+    i = dxUpLeftTab->addTab(myDataTabWidget, tr("My Data"));
 
   // MyData Tab finishes here
 
@@ -6782,21 +6791,32 @@ void MainWindow::qsoToEdit (const int _qso)
         aux1 = (query.value(nameCol)).toString();
         locatorLineEdit->setText(aux1);
 
+
         nameCol = rec.indexOf("operator");
-        aux1 = (query.value(nameCol)).toString();
-        operatorLineEdit->setText(aux1.toUpper());
+        aux1 = (query.value(nameCol)).toString();      
+        //operatorLineEdit->setText(aux1.toUpper());
+
+        myDataTabWidget->setOperator(aux1);
 
         nameCol = rec.indexOf("station_callsign");
-        aux1 = (query.value(nameCol)).toString();
-        stationCallSignLineEdit->setText(aux1.toUpper());
+        aux1 = (query.value(nameCol)).toString();        
+        //stationCallSignLineEdit->setText(aux1.toUpper());
+
+        myDataTabWidget->setStationQRZ(aux1);
 
         nameCol = rec.indexOf("my_gridsquare");
         aux1 = (query.value(nameCol)).toString();
-        myLocatorLineEdit->setText(aux1);
+        //myLocatorLineEdit->setText(aux1);
+
+        myDataTabWidget->setMyLocator(aux1);
 
         nameCol = rec.indexOf("tx_pwr");        
-        aux1 = (query.value(nameCol)).toString();
-        testValueDouble = aux1.toDouble();
+        //aux1 = (query.value(nameCol)).toString();
+        //testValueDouble = aux1.toDouble();
+
+        myDataTabWidget->setMyPower((query.value(nameCol)).toDouble());
+        myDataTabWidget->show();
+/*
         if (testValueDouble >=0)
         {
             myPowerSpinBox->setValue(testValueDouble);
@@ -6805,7 +6825,7 @@ void MainWindow::qsoToEdit (const int _qso)
         {
             myPowerSpinBox->setValue(0.0);
         }
-
+*/
         nameCol = rec.indexOf("rx_pwr");
         aux1 = (query.value(nameCol)).toString();
         testValueDouble = aux1.toDouble();
@@ -8752,7 +8772,7 @@ void MainWindow::defineStationCallsign()
     {
         stationQRZ = mainQRZ;
     }
-    lastStationQRZ = stationQRZ;
+    myDataTabWidget->setData(myPower, stationQRZ, operatorQRZ, myLocator);
 
     //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << endl;
 
