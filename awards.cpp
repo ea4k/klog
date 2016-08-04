@@ -756,6 +756,51 @@ switch (_status) {
 return message;
 }
 
+QString Awards::getDXCCStatusBand(const int _dxcc, const int _band, const int _logNumber)
+{
+    // Returns -, W or C (Not worked, worked, Confirmed)
+
+    QString stringQuery;
+    if (_logNumber<0)
+    {
+        stringQuery = QString("SELECT confirmed from awarddxcc WHERE dxcc='%1' AND band='%2'").arg(_dxcc).arg(_band);
+    }
+    else
+    {
+        stringQuery = QString("SELECT confirmed from awarddxcc WHERE dxcc='%1' AND band='%2' AND lognumber='%3'").arg(_dxcc).arg(_band).arg(_logNumber);
+    }
+
+    QSqlQuery query;
+    bool sqlOk = query.exec(stringQuery);
+    if (sqlOk)
+    {
+        while (query.next()) {
+            if (query.isValid())
+            {
+                if ((query.value(0)).toInt() == 1)
+                {
+                    return "C";
+                }
+                else if((query.value(0)).toInt() == 0)
+                {
+                    return "W";
+                }
+                else
+                {
+                    return "-";
+                }
+
+            }
+        }
+    }
+    else
+    {
+       return "-";
+    }
+
+    return "-";
+}
+
 
 QString Awards::checkIfValidIOTA(const QString _tiota)
 {
@@ -1252,12 +1297,13 @@ _workedOrConfirmed = 1     Set as Confirmed
     int w = _workedOrConfirmed;
     int l = _logNumber;
     int i = _qsoId;
+    int z = _waz;
     //setAwardDXCC(_dxcc,  _band, _mode, _workedOrConfirmed, _logNumber);
     //
     //bool Awards::setAwardDXCC(const int _dxcc, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId)
 
     setAwardDXCC(d, b, m, w, l, i);
-    setAwardWAZ(d, b, m, w, l, i);
+    setAwardWAZ(z, b, m, w, l, i);
     //setAwardWAZ(_waz,  _band,  _mode,  _workedOrConfirmed, _logNumber);
 
 }
@@ -1272,7 +1318,7 @@ void Awards::setAwards(const int _qsoId)
     int nameCol;
     bool DXCCknown=false;
     bool CQZknown=false;
-    int _dxcc, _cqz, _band, _mode, _logNumber, _alreadyConfirmed;
+    int _dxcc, _cqz, _band, _mode, _logNumber;//, _alreadyConfirmed;
     bool _confirmedB = false;
 
     stringQuery = QString("SELECT dxcc, call, bandid, modeid, qsl_rcvd, lognumber, cqz FROM log WHERE id='%1'").arg(_qsoId);

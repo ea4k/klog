@@ -108,12 +108,26 @@ int DataProxy::getBandIdFromFreq(const double _n)
     return -1;
 }
 
+double DataProxy::getLowLimitBandFromBandName(const QString _sm)
+{
+    return -1.0;
+}
+
 QStringList DataProxy::getBands()
 {
     return QStringList();
 }
 
 QStringList DataProxy::getModes()
+{
+    return QStringList();
+}
+QStringList DataProxy::getBandIDs()
+{
+    return QStringList();
+}
+
+QStringList DataProxy::getModesIDs()
 {
     return QStringList();
 }
@@ -446,4 +460,9 @@ QString DataProxy::getEntityPrefixes(const int _enti)
 QStringList DataProxy::getEntitiesNames()
 {
     return QStringList();
+}
+
+int DataProxy::getHowManyEntities()
+{
+    return -1;
 }

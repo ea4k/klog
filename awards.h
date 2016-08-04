@@ -68,6 +68,8 @@ public:
     int getWAZWorked(const int _logNumber);
     int getWAZConfirmed(const int _logNumber);
 
+
+
     int getQSOsInLog(const int _logNumber);
 
     bool getIsDXCCConfirmed(const int _dxcc, const int _logNumber);
@@ -77,6 +79,7 @@ public:
 
     int getDXStatus (const QStringList _qs);
     QString getDXStatusString (const int _status); // Needs to be called with the output of getDXStatus
+    QString getDXCCStatusBand(const int _dxcc, const int _band, const int _logNumber=0); // Returns -, W or C (Not worked, worked, Confirmed)
 
     void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
     QColor getQRZDXStatusColor(const QStringList _qs);

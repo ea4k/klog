@@ -82,7 +82,7 @@ private:
 
     //QString checkAndFixASCIIinADIF(const QString _data);
 
-    bool processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile, QHash <int, int> &_logs);
+    bool processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile);
     void queryPreparation(const int _logN);
 
     bool checkADIFValidFormat(const QStringList _qs);
@@ -95,8 +95,8 @@ private:
     bool rstTXDefault, rstRXDefault; // If true and a log is not including RST, 59 is automatically added
 
 
-
-    bool printQs(const QString _q, const QStringList _line);
+    //bool printQs(const QString _q, const QStringList _line);
+    bool printQs(const QStringList _line);
     //int confirmed;
     QString kontestDir;
     QString kontestVersion;

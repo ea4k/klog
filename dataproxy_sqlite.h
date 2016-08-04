@@ -23,6 +23,8 @@ public:
     int getModeIdFromSubModeId(const int _sm);
     QStringList getBands();
     QStringList getModes();
+    QStringList getBandIDs();
+    QStringList getModesIDs();
     QStringList getBandsInLog(const int _log);
     QStringList getModesInLog(const int _log);
 
@@ -36,6 +38,7 @@ public:
 
     QString getFreqFromBandId(const int _id);
     int getBandIdFromFreq(const double _n);
+    double getLowLimitBandFromBandName(const QString _sm);
 
     int getLastQSOid();
 
@@ -59,6 +62,7 @@ public:
     bool isHF(const int _band);
     bool isWARC(const int _band);
     bool isVHF(const int _band);
+
 
     QString getCallFromId(const int _qsoId);
     QStringList getClubLogRealTimeFromId(const int _qsoId);
@@ -86,6 +90,7 @@ public:
     int getDXCCFromPrefix(const QString _p);
     QString getEntityPrefixes(const int _enti);
     QStringList getEntitiesNames();
+    int getHowManyEntities();
 
     QStringList getOperatingYears(const int _currentLog);
     void compressDB();
@@ -117,7 +122,7 @@ public:
     bool doesThisLogExist(const int _log);
 
 private:
-    bool dbCreated;
+    //bool dbCreated;
     DataBase *db;
     //QSqlRelationalTableModel *logModel;
 
