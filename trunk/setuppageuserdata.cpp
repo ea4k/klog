@@ -599,7 +599,7 @@ void SetupPageUserDataPage::slotOperatorsChanged()
     int i = operatorsLineEdit->cursorPosition();
     //QColor defaultColor = (operatorsLineEdit->palette()).color(QPalette::WindowText);
 
-    int ent = -1;
+    //int ent = -1;
 
     //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-00" << endl;
     QString _a = operatorsLineEdit->text();

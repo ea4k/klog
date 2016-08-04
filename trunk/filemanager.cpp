@@ -2100,7 +2100,8 @@ bool FileManager::cabrilloLogExportToFile(const QString& _fileName, const int lo
     return false;
 }
 
-bool FileManager::printQs(const QString _q, const QStringList _line)
+bool FileManager::printQs(const QStringList _line)
+//bool FileManager::printQs(const QString _q, const QStringList _line)
 {
     QStringList qs = _line;
 
@@ -2452,7 +2453,8 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                 {
                      //qDebug() << "FileManager::adifReadLog-W-2.1" << endl;
                     currentQSOfields << fieldToAnalyze;
-                    preparedQBool = processQsoReadingADIF(currentQSOfields, logN, keepLogsInFile, hashLogs);
+                    //preparedQBool = processQsoReadingADIF(currentQSOfields, logN, keepLogsInFile, hashLogs);
+                    preparedQBool = processQsoReadingADIF(currentQSOfields, logN, keepLogsInFile);
                     if (preparedQBool)
                     {
                         //qDebug() << "FileManager::adifReadLog: preparedQBool = true"  << endl;
@@ -2765,8 +2767,8 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     return true;
 
 }
-
-bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile, QHash<int, int> &_logs)
+bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile)
+//bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile, QHash<int, int> &_logs)
 {
 
     //qDebug() << "FileManager::processQsoReadingADIF: log: " << QString::number(logNumber) << endl;

@@ -142,6 +142,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     modes << "SSB" << "CW" << "RTTY";
 
+    dxccStatusWidget = new DXCCStatusWidget;
+
     logModel = new QSqlRelationalTableModel(this);
 
     logView = new QTableView;
@@ -573,6 +575,8 @@ void MainWindow::createUI()
         createActionsDX();
         createMenusCommon();
     }
+
+
 }
 
 void MainWindow::slotModeComboBoxChanged()
@@ -5341,6 +5345,7 @@ void MainWindow::checkIfNewBandOrMode()
     modeComboBox->addItems(modes);
     //qDebug() << "MainWindow::checkIfNewBandOrMode - 2-" << QString::number(modeComboBox->count()) << endl;
     //qDebug() << "MainWindow::checkIfNewBandOrMode END" << endl;
+    dxccStatusWidget->setBands(bands);
 }
 
 /*********************************************************************
@@ -5529,7 +5534,7 @@ void MainWindow::createUIDX()
 
     dxUpLeftTab = new QTabWidget;
     dxUpRightTab = new QTabWidget;
-    dxBottonTab = new QTabWidget; //rename to botton
+    dxBottonTab = new QTabWidget;
 
     dxUpLeftTab->setTabPosition(QTabWidget::North);
     dxUpRightTab->setTabPosition(QTabWidget::South);
@@ -5661,7 +5666,7 @@ void MainWindow::createUIDX()
     QWidget *eqslInputTabWidget = new QWidget;
     QWidget *commentInputTabWidget = new QWidget;
     QWidget *othersInputTabWidget = new QWidget;
-    QWidget *myDataInputTabWidget = new QWidget;
+    //QWidget *myDataInputTabWidget = new QWidget;
 
     int i = dxUpLeftTab->addTab(qsoInputTabWidget, tr("QSO"));
 
@@ -5811,7 +5816,7 @@ void MainWindow::createUIDX()
 
 
 // MyData tab starts here
-
+/*
     QLabel *myPowerSpinBoxLabelN = new QLabel(tr("Power"));
     myPowerSpinBoxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
@@ -5837,7 +5842,8 @@ void MainWindow::createUIDX()
     myDataInputTabWidgetLayout->addWidget(myLocatorLineEdit, 3, 1);
 
     myDataInputTabWidget->setLayout(myDataInputTabWidgetLayout);
-    //i = dxUpLeftTab->addTab(myDataInputTabWidget, tr("My Data"));
+    i = dxUpLeftTab->addTab(myDataInputTabWidget, tr("My Data"));
+*/
     i = dxUpLeftTab->addTab(myDataTabWidget, tr("My Data"));
 
   // MyData Tab finishes here
@@ -6146,6 +6152,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     QWidget *logTabWidget = new QWidget;
     QWidget *dxClusterTabWidget = new QWidget;
 
+
     QHBoxLayout *logTabWidgetLayout = new QHBoxLayout;
     QHBoxLayout *dxClusterTabWidgetLayout = new QHBoxLayout;
 
@@ -6156,8 +6163,10 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxClusterTabWidget->setLayout(dxClusterTabWidgetLayout);
 
 
+
     i = dxBottonTab->addTab(logTabWidget, tr("Log"));
     i = dxBottonTab->addTab(dxClusterTabWidget, tr("DX-Cluster"));
+    i = dxBottonTab->addTab(dxccStatusWidget, tr("DXCC"));
 
 
     QVBoxLayout *dxUpRightLayout = new QVBoxLayout;

@@ -332,7 +332,7 @@ QStringList SetupPageLogs::readLogs()
     QSqlQuery query;
     int nameCol = -1;
     bool sqlOk = false;
-    QDate date = QDate::currentDate();
+    //QDate date = QDate::currentDate();
     aux2.clear();
     aux.clear();
     _logs.clear();

@@ -10,10 +10,6 @@ Debian:
 Time in UTC: (not to be fixed)
 https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=654325
 
-Working in:
-TODO: bool DataBase::createTableSatellites(const bool NoTmp)
-https://lotw.arrl.org/lotw-help/frequently-asked-questions/#sats
-
 
 BUG: Check the options that are marked in QSL when rightbutton.
 i.e.: Is myQSL sent marked as requested when it should be the DX-QSL?

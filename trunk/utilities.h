@@ -42,6 +42,7 @@ public:
     QString checkAndFixASCIIinADIF(const QString _data);
 
 
+
 };
 
 #endif // UTILITIES_H

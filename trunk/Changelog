@@ -1,11 +1,13 @@
 -0.9.2.4
 - Improved some Spanish translations.
-- Created a Satellite list including only LOTW compatible satellites.
+- Created a Satellite list including (up to now) only LOTW compatible satellites.
 - When selecting an entity, different from the proposed on country file, KLog asks the user which one to use.
 - BugFix: Preferences->Misc: It was not possible to edit the default filename. (TNX K6XT).
 - BugFix: Added the Power unit (W) to the power box. Debian bug #654332.
 - BugFix: When editing a QSO in some text boxes text was reused from previous QSO and data could be corrupted.
+- BugFix: Minor bug in WAZ management.
 - Created a widget to manage all "My Data" and simply the main widget.
+- Some cleaning in the code.
 
 January 2016 - 0.9.2.3
 - Improved the way translations are managed (Specially in Linux).

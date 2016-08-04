@@ -31,10 +31,15 @@ public:
 
     virtual QString getFreqFromBandId(const int _id);
     virtual int getBandIdFromFreq(const double _n);
+    virtual double getLowLimitBandFromBandName(const QString _sm);
+
     virtual QStringList getBands();
     virtual QStringList getModes();
+    virtual QStringList getBandIDs();
+    virtual QStringList getModesIDs();
     virtual QStringList getBandsInLog(const int _log);
     virtual QStringList getModesInLog(const int _log);
+
 
     virtual int getLastQSOid();
     virtual bool clearLog();
@@ -60,6 +65,7 @@ public:
     virtual bool isHF(const int _band);
     virtual bool isWARC(const int _band);
     virtual bool isVHF(const int _band);
+
 
     virtual QString getCallFromId(const int _qsoId);
     virtual QStringList getClubLogRealTimeFromId(const int _qsoId);
@@ -88,6 +94,7 @@ public:
     virtual int getDXCCFromPrefix(const QString _p);
     virtual QString getEntityPrefixes(const int _enti);
     virtual QStringList getEntitiesNames();
+    virtual int getHowManyEntities();
 
     virtual QStringList getOperatingYears(const int _currentLog);
     virtual void compressDB();

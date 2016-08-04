@@ -1691,3 +1691,7 @@ QStringList World::getEntitiesNames()
      return dataProxy->getEntitiesNames();
 }
 
+int World::getHowManyEntities()
+{
+    return dataProxy->getHowManyEntities();
+}

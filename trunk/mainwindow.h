@@ -52,6 +52,7 @@
 #include "elogclublog.h"
 #include "utilities.h"
 #include "downloadcty.h"
+#include "dxccstatuswidget.h"
 
 class QTimer;
 class QDateTime;
@@ -365,7 +366,7 @@ private:
     //QLabel distShortLabelN;
     //QLabel distLongLabelN;
 
-
+    DXCCStatusWidget *dxccStatusWidget;
     QSqlRelationalTableModel *logModel;
     QWidget *logPanel;
     QTableView *logView;

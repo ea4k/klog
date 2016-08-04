@@ -284,6 +284,33 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
     return -1;
 }
 
+
+double DataProxy_SQLite::getLowLimitBandFromBandName(const QString _sm)
+{
+    QSqlQuery query;
+    QString stringQuery = QString("SELECT lower FROM band WHERE name='%1'").arg(_sm.toUpper());
+    query.exec(stringQuery);
+    query.next();
+    if (query.isValid())
+    {
+        if ( (query.value(1)).toDouble()<0 )
+        { // DEPRECATED VALUE, return the MODE
+            return -1.0;
+        }
+        else
+        {
+            return (query.value(0)).toDouble();
+        }
+    }
+    else
+    {
+        return -1.0;
+    }
+
+    return -1.0;
+}
+
+
 QStringList DataProxy_SQLite::getBands()
 {
     QStringList bands = QStringList();
@@ -292,9 +319,7 @@ QStringList DataProxy_SQLite::getBands()
         if (query.isValid()){
             bands << query.value(0).toString();
         }
-
     }
-
     return bands;
 }
 
@@ -309,6 +334,32 @@ QStringList DataProxy_SQLite::getModes()
     }
     return modes;
 }
+
+
+QStringList DataProxy_SQLite::getBandIDs()
+{
+    QStringList bands = QStringList();
+    QSqlQuery query("SELECT id FROM band");
+    while (query.next()) {
+        if (query.isValid()){
+            bands << query.value(0).toString();
+        }
+    }
+    return bands;
+}
+
+QStringList DataProxy_SQLite::getModesIDs()
+{
+    QStringList modes = QStringList();
+    QSqlQuery query("SELECT id FROM mode");
+    while (query.next()) {
+        if (query.isValid()){
+            modes << query.value(0).toString();
+        }
+    }
+    return modes;
+}
+
 
 QStringList DataProxy_SQLite::getBandsInLog(const int _log)
 {
@@ -2565,4 +2616,28 @@ QStringList DataProxy_SQLite::getEntitiesNames()
 
     }
     return qs;
+}
+
+int DataProxy_SQLite::getHowManyEntities()
+{
+    QSqlQuery query;
+    QString aux;
+    aux = QString("SELECT count(id) FROM entity");
+    if (query.exec(aux))
+    {
+        query.next();
+        if (query.isValid())
+        {
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            return 0;
+        }
+
+    }
+    else
+    {
+        return 0;
+    }
 }
