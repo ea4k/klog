@@ -142,7 +142,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     modes << "SSB" << "CW" << "RTTY";
 
-    dxccStatusWidget = new DXCCStatusWidget;
+    dxccStatusWidget = new DXCCStatusWidget();
 
     logModel = new QSqlRelationalTableModel(this);
 
@@ -489,7 +489,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         slotSetup(6);
        //qDebug() << "MainWindow::MainWindow: 16.2" << endl;
     }
-    //qDebug() << "MainWindow::MainWindow: 17" << endl;
+    qDebug() << "MainWindow::MainWindow: 17" << endl;
     checkIfNewBandOrMode();
     //qDebug() << "MainWindow::MainWindow: 18" << endl;
     if ( (contestMode == CQ_WW_SSB) || (contestMode == CQ_WW_CW) )
@@ -532,8 +532,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
     currentBand = currentBandShown;
     currentMode = currentModeShown;
-   //qDebug() << "MainWindow::MainWindow: 4 - currentMode: " << QString::number(currentMode) << endl;
-    //qDebug() << "MainWindow::MainWindow: 17 - currentBand: " << QString::number(currentBand) << endl;
+   //qDebug() << "MainWindow::MainWindow: 20 - currentMode: " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::MainWindow: 21 - currentBand: " << QString::number(currentBand) << endl;
 
 
     slotClearButtonClicked();
@@ -3980,7 +3980,6 @@ void MainWindow::slotSetup(const int _page)
     }
     defineStationCallsign();
 
-    //checkIfNewBandOrMode();
 }
 
 void MainWindow::openFile()
@@ -5033,7 +5032,7 @@ void MainWindow::readConfigData()
     {
 
     }
-
+    qDebug() << "MainWindow::readConfigData: calling checkIfNewBandOrMode" << endl;
     checkIfNewBandOrMode();
 
 
@@ -5315,7 +5314,7 @@ bool MainWindow::processConfigLine(const QString _line){
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
 //that is not currently selected as active
-   //qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
+   qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
 //    modes
 //    bands
 
@@ -5326,11 +5325,11 @@ void MainWindow::checkIfNewBandOrMode()
 
     bands << bandsInLog;
     QSet<QString> set = bands.toSet();
-    bands.clear();
-    bands << set.toList();
+    //bands.clear();
+    //bands << set.toList();
 
 
-    set.clear();
+    //set.clear();
 
     modes << modesInLog;
     set = modes.toSet();
@@ -5344,8 +5343,9 @@ void MainWindow::checkIfNewBandOrMode()
     //qDebug() << "MainWindow::checkIfNewBandOrMode - 1-" << QString::number(modeComboBox->count()) << endl;
     modeComboBox->addItems(modes);
     //qDebug() << "MainWindow::checkIfNewBandOrMode - 2-" << QString::number(modeComboBox->count()) << endl;
-    //qDebug() << "MainWindow::checkIfNewBandOrMode END" << endl;
+
     dxccStatusWidget->setBands(bands);
+    //qDebug() << "MainWindow::checkIfNewBandOrMode END" << endl;
 }
 
 /*********************************************************************

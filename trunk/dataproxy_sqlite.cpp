@@ -313,6 +313,7 @@ double DataProxy_SQLite::getLowLimitBandFromBandName(const QString _sm)
 
 QStringList DataProxy_SQLite::getBands()
 {
+    qDebug() << "DataProxy_SQLite::getBands" << endl;
     QStringList bands = QStringList();
     QSqlQuery query("SELECT name FROM band");
     while (query.next()) {
@@ -320,7 +321,8 @@ QStringList DataProxy_SQLite::getBands()
             bands << query.value(0).toString();
         }
     }
-    return bands;
+    //return bands;
+    return sortBandNamesBottonUp(bands);
 }
 
 QStringList DataProxy_SQLite::getModes()
@@ -335,9 +337,34 @@ QStringList DataProxy_SQLite::getModes()
     return modes;
 }
 
+QStringList DataProxy_SQLite::sortBandNamesBottonUp(const QStringList _qs)
+{
+    //Receives a list of band names, sorts it from the lower band to the upper band and returns
+    qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp" << endl;
+    QMap<double, QString> map;
+    QStringList qs;
+    qs.clear();
+
+
+    for (int j=0; j<_qs.count(); j++)
+    {
+        map.insert(getLowLimitBandFromBandName(_qs.at(j)), _qs.at(j));
+    }
+
+    QMap<double, QString>::const_iterator i = map.constBegin();
+
+    while (i != map.constEnd()) {
+        qs << i.value();
+        ++i;
+    }
+
+    return qs;
+}
+
 
 QStringList DataProxy_SQLite::getBandIDs()
 {
+    qDebug() << "DataProxy_SQLite::getBandIDs" << endl;
     QStringList bands = QStringList();
     QSqlQuery query("SELECT id FROM band");
     while (query.next()) {
@@ -345,7 +372,30 @@ QStringList DataProxy_SQLite::getBandIDs()
             bands << query.value(0).toString();
         }
     }
-    return bands;
+    return sortBandIdBottonUp(bands);
+}
+
+QStringList DataProxy_SQLite::sortBandIdBottonUp(const QStringList _qs)
+{
+    //Receives a list of band id, sorts it from the lower band to the upper band and returns
+    QMap<double, QString> map;
+    QStringList qs;
+    qs.clear();
+
+
+    for (int j=0; j<_qs.count(); j++)
+    {
+        map.insert(getLowLimitBandFromBandName(_qs.at(j)), _qs.at(j));
+    }
+
+    QMap<double, QString>::const_iterator i = map.constBegin();
+
+    while (i != map.constEnd()) {
+        qs << i.value();
+        ++i;
+    }
+
+    return qs;
 }
 
 QStringList DataProxy_SQLite::getModesIDs()
@@ -363,6 +413,7 @@ QStringList DataProxy_SQLite::getModesIDs()
 
 QStringList DataProxy_SQLite::getBandsInLog(const int _log)
 {
+    qDebug() << "DataProxy_SQLite::getBandsInLog: " << endl;
     QStringList bands = QStringList();
     QString stringQuery = QString();
     if (_log <= 0)
@@ -380,7 +431,8 @@ QStringList DataProxy_SQLite::getBandsInLog(const int _log)
             bands << query.value(0).toString();
         }
     }
-    return bands;
+    return sortBandNamesBottonUp(bands);
+    //return bands;
 }
 
 QStringList DataProxy_SQLite::getModesInLog(const int _log)
@@ -1701,8 +1753,8 @@ QStringList DataProxy_SQLite::getBandNames()
             }
 
         }
-
-        return bands;
+        return sortBandNamesBottonUp(bands);
+        //return bands;
     }
     else
     {

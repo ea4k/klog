@@ -1962,7 +1962,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('XW-2D', 'Hope 2D')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('XW-2E', 'Hope 2E')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (satarrlid, satname) VALUES ('XW-2F', 'Hope 2F')").arg(tableName));
-
+    qDebug() << "DataBase::populateTableSatellites - END" << endl;
     return true;
 }
 

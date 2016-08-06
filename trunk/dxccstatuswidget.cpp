@@ -9,12 +9,16 @@ TODO: Call the creation of this depending on the bands that the user is using
 */
 DXCCStatusWidget::DXCCStatusWidget(QWidget *parent) : QWidget(parent)
 {
+    qDebug() << "DXCCStatusWidget::DXCCStatusWidget" << endl;
+
     awards = new Awards;
     world = new World;
     dataProxy = new DataProxy_SQLite();
 
     dxccView = new QTableWidget;
     hv = new QHeaderView(Qt::Vertical, this);
+    hh = new QHeaderView(Qt::Horizontal, this);
+
 
     numberOfColumns = 0;
 
@@ -27,7 +31,7 @@ DXCCStatusWidget::DXCCStatusWidget(QWidget *parent) : QWidget(parent)
 
     setDefaultBands();
     createUI();
-    update();
+
 
     
 }
@@ -41,6 +45,12 @@ void DXCCStatusWidget::createUI()
     // We remove the vertical header
     hv = dxccView->verticalHeader();
     hv->hide();
+
+
+    //hh = dxccView->horizontalHeader();
+    //hv->setSectionResizeMode(QHeaderView::Stretch);
+    //hv->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    //hh->setSectionResizeMode(QHeaderView::Stretch);
 
     refreshButton->setText(tr("Update"));
 
@@ -59,6 +69,8 @@ void DXCCStatusWidget::createUI()
     tabLayout->addLayout(bottonLineLayout);
     setLayout(tabLayout);
 
+    dxccView->resizeColumnsToContents();
+
     connect(searchLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchLineEditTextChanged() ) );
     connect(refreshButton, SIGNAL(clicked()), this, SLOT(slotRefreshButtonClicked() ) );
 }
@@ -69,7 +81,7 @@ void DXCCStatusWidget::update()
     int entities = world->getHowManyEntities();
     QStringList list;
     QString aux;
-
+    dxccView->clearContents();
 
     for (int i=1; i<=entities; i++)
     {
@@ -85,14 +97,14 @@ void DXCCStatusWidget::update()
 
 
     //dxccView->resizeColumnsToContents();
-
+/*
      dxccView->resizeColumnToContents(0);
 
     for (int i=2; i<= dxccView->colorCount(); i++)
     {
          dxccView->resizeColumnToContents(i);
     }
-
+*/
     //qDebug() << "DXCCStatusWidget::update END" << endl;
 }
 
@@ -105,6 +117,8 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
         //qDebug() << "DXCCStatusWidget::addEntity: ERROR: in number of columns" << QString::number(_ent.length()) << "/" << QString::number(numberOfColumns) << endl;
         return;
     }
+
+    int status = -1;
 
     int ent = (_ent.at(0)).toInt();
     int bandid = 0;
@@ -122,28 +136,30 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
 
     QTableWidgetItem *newItemID = new QTableWidgetItem(_ent.at(0));
     newItemID->setTextAlignment(Qt::AlignCenter);
-    //newItemID->setFlags(Qt::NoItemFlags);
+    newItemID->setFlags(Qt::NoItemFlags);
     dxccView->setItem(dxccView->rowCount()-1, 0, newItemID);
 
-    QTableWidgetItem *newItemName = new QTableWidgetItem(entName);
-    newItemName->setTextAlignment(Qt::AlignCenter);
-    //newItemName->setFlags(Qt::NoItemFlags);
-    dxccView->setItem(dxccView->rowCount()-1, 1, newItemName);
 
     for (int i=2; i < _ent.length(); i++)
     {
         bandid = dataProxy->getIdFromBandName(_ent.at(i));
         QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand(ent, bandid, -1));
         newItem->setTextAlignment(Qt::AlignCenter);
-        //newItem->setFlags(Qt::NoItemFlags);
+        newItem->setFlags(Qt::NoItemFlags);
+
 
         if (newItem->text()=="C")
         {
             newItem->setTextColor(Qt::blue);
             newItem->setBackgroundColor(Qt::green);
+            status = 1;
         }
         else if (newItem->text()=="W")
         {
+            if (status < 0)
+            {
+                status = 0;
+            }
             newItem->setTextColor(Qt::red);
             newItem->setBackgroundColor(Qt::yellow);
         }
@@ -153,9 +169,36 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
         }
 
         dxccView->setItem(dxccView->rowCount()-1, i, newItem);
+
         //qDebug() << "DXCCStatusWidget::addEntity: rowCount-2:  " << QString::number(dxccView->rowCount()) << "/" << QString::number(i) << " / " << newItem->text() << endl;
 
     }
+
+    QTableWidgetItem *newItemName = new QTableWidgetItem(entName);
+    newItemName->setTextAlignment(Qt::AlignCenter);
+
+    newItemName->setFlags(Qt::NoItemFlags);
+    newItemName->setFlags(Qt::ItemIsUserCheckable);
+
+    if (status == 1)
+    {
+        newItemName->setTextColor(Qt::blue);
+        //newItemName->setTextColor(Qt::blue);
+        //newItemName->setBackgroundColor(Qt::green);
+    }
+    else if (status == 0)
+    {
+        //newItemName->setTextColor(Qt::darkCyan);
+        newItemName->setTextColor(Qt::darkRed);
+        //newItemName->setTextColor(Qt::red);
+        //newItemName->setBackgroundColor(Qt::yellow);
+    }
+    else
+    {
+        newItemName->setTextColor(Qt::red);
+    }
+
+    dxccView->setItem(dxccView->rowCount()-1, 1, newItemName);
     //qDebug() << "DXCCStatusWidget::addEntity: END" << endl;
 
 }
@@ -163,12 +206,12 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
 void DXCCStatusWidget::setBands(QStringList const _ent)
 {// Receives the list of band names
 
-    //qDebug() << "DXCCStatusWidget::setBands: " << QString::number(_ent.length()) << endl;
+    qDebug() << "DXCCStatusWidget::setBands: " << QString::number(_ent.length()) << endl;
 
     QStringList qs;
     qs.clear();
 
-    qs << sortBandNamesBottonUp(_ent);
+    qs << dataProxy->sortBandNamesBottonUp(_ent);
 
     QString testBand;
     testBand.clear();
@@ -219,7 +262,7 @@ void DXCCStatusWidget::setBands(QStringList const _ent)
 
 void DXCCStatusWidget::setDefaultBands()
 {
-     //qDebug() << "DXCCStatusWidget::setDefaultBands" << endl;
+     qDebug() << "DXCCStatusWidget::setDefaultBands" << endl;
     /*
      Default bands:
      160M    80M  40M  30M  20M  17M  15M  12M  10M  6M   4M   2M   70CM
@@ -234,28 +277,6 @@ void DXCCStatusWidget::setDefaultBands()
 }
 
 
-QStringList DXCCStatusWidget::sortBandNamesBottonUp(const QStringList _qs)
-{
-    //Receives a list of band names, shorts it from the lower band to the upper band and returns
-    QMap<double, QString> map;
-    QStringList qs;
-    qs.clear();
-
-
-    for (int j=0; j<_qs.count(); j++)
-    {
-        map.insert(dataProxy->getLowLimitBandFromBandName(_qs.at(j)), _qs.at(j));
-    }
-
-    QMap<double, QString>::const_iterator i = map.constBegin();
-
-    while (i != map.constEnd()) {
-        qs << i.value();
-        ++i;
-    }
-
-    return qs;
-}
 
 void DXCCStatusWidget::slotSearchLineEditTextChanged()
 {
@@ -265,7 +286,10 @@ void DXCCStatusWidget::slotSearchLineEditTextChanged()
 
 void DXCCStatusWidget::slotRefreshButtonClicked()
 {
-    //qDebug() << "DXCCStatusWidget::slotRefreshButtonClicked" << endl;
-    update();
-
+    qDebug() << "DXCCStatusWidget::slotRefreshButtonClicked" << endl;
+    QStringList _bands = bandNames;
+    setBands(_bands);
+    //update();
 }
+
+

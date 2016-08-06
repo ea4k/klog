@@ -35,6 +35,7 @@ public:
 
     virtual QStringList getBands();
     virtual QStringList getModes();
+    virtual QStringList sortBandNamesBottonUp(const QStringList _qs);
     virtual QStringList getBandIDs();
     virtual QStringList getModesIDs();
     virtual QStringList getBandsInLog(const int _log);
@@ -135,7 +136,7 @@ public:
     virtual int getPoints();
 */
 private:
-
+    virtual QStringList sortBandIdBottonUp(const QStringList _qs);
    // int points;
    // int multipliers;
 
