@@ -31,15 +31,14 @@ private:
     void createUI();
     void setDefaultBands();
     void addEntity(QStringList const _ent); // DXCC id, bandid, bandid, ...
-    QStringList sortBandNamesBottonUp(const QStringList _qs);
+    //QStringList sortBandNamesBottonUp(const QStringList _qs);
 
-    //QTableView *dxccView;
     QTableWidget *dxccView;
     Awards *awards;
     World *world;
     DataProxy *dataProxy;
 
-    QHeaderView *hv;
+    QHeaderView *hv, *hh;
     QLineEdit *searchLineEdit;
     QPushButton *refreshButton;
 

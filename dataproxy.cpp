@@ -122,6 +122,18 @@ QStringList DataProxy::getModes()
 {
     return QStringList();
 }
+
+QStringList DataProxy::sortBandNamesBottonUp(const QStringList _qs)
+{
+    return QStringList();
+}
+
+QStringList DataProxy::sortBandIdBottonUp(const QStringList _qs)
+{
+    return QStringList();
+}
+
+
 QStringList DataProxy::getBandIDs()
 {
     return QStringList();

@@ -23,6 +23,7 @@ public:
     int getModeIdFromSubModeId(const int _sm);
     QStringList getBands();
     QStringList getModes();
+    QStringList sortBandNamesBottonUp(const QStringList _qs);
     QStringList getBandIDs();
     QStringList getModesIDs();
     QStringList getBandsInLog(const int _log);
@@ -124,6 +125,7 @@ public:
 private:
     //bool dbCreated;
     DataBase *db;
+    QStringList sortBandIdBottonUp(const QStringList _qs);
     //QSqlRelationalTableModel *logModel;
 
 };
