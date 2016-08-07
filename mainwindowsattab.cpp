@@ -2,8 +2,8 @@
 /***************************************************************************
                           mainwindowsattab.cpp  -  description
                              -------------------
-    begin                : jan 2015
-    copyright            : (C) 2015 by Jaime Robles
+    begin                : Jul 2016
+    copyright            : (C) 2016 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 

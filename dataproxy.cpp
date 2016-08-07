@@ -409,6 +409,16 @@ int DataProxy::getContinentIdFromEntity(const int _n)
     return -1;
 }
 
+QStringList DataProxy::getContinentShortNames()
+{
+    return QStringList();
+}
+
+bool DataProxy::isValidContinentShortName(const QString _n)
+{
+    return false;
+}
+
 int DataProxy::getCQzFromPrefix(const QString _p)
 {
     return -1;

@@ -92,8 +92,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
 
 
-    entitiesList.clear();
-    propModeList.clear();
+    //entitiesList.clear();
+    //propModeList.clear();
     currentEntity = -1; // To optimize the calls to different world methods if the entity does not change. Used in slotQRZTextChanged
     previousEntity = -1;// To optimize the calls to different world methods if the entity does not change.
     realTime=true;
@@ -231,8 +231,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         if (!existingData)
         {
           //qDebug() << "MainWindow::MainWindow: !existingData" << endl;
-            world->create(kontestDir);
-            entitiesList = world->getEntitiesNames();
+            world->create(kontestDir);                       
+            //entitiesList = world->getEntitiesNames();
             //createData();
         }else
         {
@@ -241,7 +241,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     }
    //qDebug() << "MainWindow::MainWindow: proxy to be created" << endl;
     dataProxy = new DataProxy_SQLite();
-    propModeList = dataProxy->getPropModeList();
+    //propModeList = dataProxy->getPropModeList();
 
    //qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
     //setupDialog = new SetupDialog(!configured);
@@ -250,6 +250,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     satTabWidget = new MainWindowSatTab();
     myDataTabWidget = new MainWindowMyDataTab();
     commentTabWidget = new MainWindowInputComment();
+    othersTabWidget = new MainWindowInputOthers();
 
   //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
     filemanager = new FileManager(kontestDir, softwareVersion, *db);
@@ -305,16 +306,16 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     bandLabel10 = new QLabel(tr("17M"));
     bandLabel11 = new QLabel(tr("30M"));
     bandLabel12 = new QLabel(tr("70CM"));
-    entityPrimLabel = new QLabel(tr("Primary Div"));
-    entitySecLabel = new QLabel(tr("Secondary Div"));
-    iotaAwardLabel = new QLabel(tr("IOTA"));
-    entityNameLabel = new QLabel(tr("Entity"));
-    propModeLabel = new QLabel(tr("Propagation mode"));
-    iotaContinentComboBox = new QComboBox;
-    entityPrimDivComboBox = new QComboBox;
-    entitySecDivComboBox = new QComboBox;
-    entityNameComboBox = new QComboBox;
-    propModeComboBox = new QComboBox;
+    //entityPrimLabel = new QLabel(tr("Primary Div"));
+    //entitySecLabel = new QLabel(tr("Secondary Div"));
+    //iotaAwardLabel = new QLabel(tr("IOTA"));
+    //entityNameLabel = new QLabel(tr("Entity"));
+    //propModeLabel = new QLabel(tr("Propagation mode"));
+    //iotaContinentComboBox = new QComboBox;
+    //entityPrimDivComboBox = new QComboBox;
+    //entitySecDivComboBox = new QComboBox;
+    //entityNameComboBox = new QComboBox;
+    //propModeComboBox = new QComboBox;
 
     //notesTextEdit = new QTextEdit;
     //commentLineEdit = new QLineEdit;
@@ -335,9 +336,9 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     stationCallSignLineEdit = new QLineEdit;
     myLocatorLineEdit = new QLineEdit;
 
-    myPowerSpinBox = new QDoubleSpinBox;
-    myPowerSpinBox->setDecimals(2);
-    myPowerSpinBox->setMaximum(9999);
+    //myPowerSpinBox = new QDoubleSpinBox;
+    //myPowerSpinBox->setDecimals(2);
+    //myPowerSpinBox->setMaximum(9999);
 
     rxPowerSpinBox = new QDoubleSpinBox;
     rxPowerSpinBox->setDecimals(2);
@@ -877,7 +878,8 @@ QString MainWindow::readDataFromUIDX()
     QString trstrx = rstRXLineEdit->text();
 
     int dxcc = world->getQRZARRLId(tqrz);
-    int dxcc2 = getDXCCFromComboBox();
+    //int dxcc2 = getDXCCFromComboBox();
+    int dxcc2 = world->getQRZARRLId(othersTabWidget->getEntityPrefix());
 
     if (dxcc!=dxcc2)
     {
@@ -1061,6 +1063,19 @@ QString MainWindow::readDataFromUIDX()
         stringData = stringData + ", '" + aux1 + "'";
     }
 
+    aux1 = othersTabWidget->getIOTA();
+    qDebug() << "MainWindow::readDataFromUIDX: IOTA: " << aux1 << endl;
+    if (aux1.length() == 6) // EU-001
+    {
+       qDebug() << "MainWindow::readDataFromUIDX: IOTA to be saved" << endl;
+        stringFields = stringFields + ", iota";
+        stringData = stringData + ", '" + aux1 + "'";
+    }
+    else
+    {
+       qDebug() << "MainWindow::readDataFromUIDX: IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
+    }
+/*
     aux1 = iotaNumberLineEdit->text();
     if ( (aux1.toInt()) > 0 )
     {
@@ -1079,35 +1094,33 @@ QString MainWindow::readDataFromUIDX()
            //qDebug() << "MainWindow::readDataFromUIDX: IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
         }
     }
+    */
     // EQSL-SENT
 
     aux1 = satTabWidget->getSatName(); //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
    //qDebug() << "MainWindow::readDataFromUIDX: SAT1 " << aux1 << endl;
-   stringFields = stringFields + ", sat_name";
-   stringData = stringData + ", '" + aux1 + "'";
-
-   /*
+   //stringFields = stringFields + ", sat_name";
+   //stringData = stringData + ", '" + aux1 + "'";
     if (aux1.length()>0)
     {
         stringFields = stringFields + ", sat_name";
         stringData = stringData + ", '" + aux1 + "'";
     }
-*/
     aux1 = satTabWidget->getSatMode();
 
     aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
-    stringFields = stringFields + ", sat_mode";
-    stringData = stringData + ", '" + aux1 + "'";
-/*
+    //stringFields = stringFields + ", sat_mode";
+    //stringData = stringData + ", '" + aux1 + "'";
+
     if (aux1.length()>0)
     {
         stringFields = stringFields + ", sat_mode";
         stringData = stringData + ", '" + aux1 + "'";
     }
-*/
+
     keepSatPage = satTabWidget->getRepeatThis();
 
-    aux1 = getPropModeFromComboBox();
+    aux1 = othersTabWidget->getPropModeFromComboBox();
     if ((aux1.length()>0) && (aux1 != "Not"))
     {
         stringFields = stringFields + ", prop_mode";
@@ -1622,7 +1635,8 @@ WHERE [condition];
 
     /**/
 
-    int dxcc2 = getDXCCFromComboBox();
+    //int dxcc2 = getDXCCFromComboBox();
+    int dxcc2 = world->getQRZARRLId(othersTabWidget->getEntityPrefix());
 
     if (dxcc!=dxcc2)
 
@@ -1788,7 +1802,9 @@ WHERE [condition];
         updateString = updateString + aux1 + "', ";
     }
 
-    aux1 = QString::number(myPowerSpinBox->value());
+
+    //aux1 = QString::number(myPowerSpinBox->value());
+    aux1 = QString::number(myDataTabWidget->getMyPower());
     if ((aux1.toDouble())>0.0)
     {
         updateString = updateString + "tx_pwr = '";
@@ -1802,6 +1818,19 @@ WHERE [condition];
         updateString = updateString + aux1 + "', ";
     }
 
+    aux1 = othersTabWidget->getIOTA();
+    qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA: " << aux1 << endl;
+    if (aux1.length() == 6) // EU-001
+    {
+        qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA to be saved! " << endl;
+        updateString = updateString + "iota = '";
+        updateString = updateString + aux1 + "', ";
+    }
+    else
+    {
+       qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
+    }
+/*
     aux1 = iotaNumberLineEdit->text();
    //qDebug() << "MainWindow::readDataFromUIDX: Modifityng IOTA: aux1: " << aux1 << endl;
     if ( (aux1.toInt()) > 0 )
@@ -1809,6 +1838,7 @@ WHERE [condition];
        //qDebug() << "MainWindow::readDataFromUIDX: Modifityng IOTA: aux1toInt >0 "  << endl;
         aux2 = iotaContinentComboBox->currentText() + "-" + aux1;
         aux1 = awards->checkIfValidIOTA(aux2);
+
         if (aux1.length() == 6) // EU-001
         {
             updateString = updateString + "iota = '";
@@ -1819,29 +1849,27 @@ WHERE [condition];
            //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
         }
     }
-
+*/
    aux1 = satTabWidget->getSatName();   //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
    //qDebug() << "MainWindow::readDataFromUIDX: SAT2 modif " << aux1 << endl;
-   updateString = updateString + "sat_name = '";
-   updateString = updateString + aux1 + "', ";
-/*
+   //updateString = updateString + "sat_name = '";
+   //updateString = updateString + aux1 + "', ";
+
     if (aux1.length()>0)
     {
         updateString = updateString + "sat_name = '";
         updateString = updateString + aux1 + "', ";
     }
-*/
+
     aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
-    updateString = updateString + "sat_mode = '";
-    updateString = updateString + aux1 + "', ";
-/*
     if (aux1.length()>0)
     {
         updateString = updateString + "sat_mode = '";
         updateString = updateString + aux1 + "', ";
     }
-*/
-    aux1 = getPropModeFromComboBox();
+
+    aux1 = othersTabWidget->getPropModeFromComboBox();
+    //aux1 = getPropModeFromComboBox();
    //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << endl;
     if ((aux1.length()>0) && (aux1 != "Not"))
     {
@@ -2784,7 +2812,7 @@ void MainWindow::createActionsDX(){
     connect(qthLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(locatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
-    connect(iotaContinentComboBox, SIGNAL(activated ( int)), this, SLOT(slotIOTAComboBoxChanged() ) )  ;
+    //connect(iotaContinentComboBox, SIGNAL(activated ( int)), this, SLOT(slotIOTAComboBoxChanged() ) )  ;
 
     //QSL Actions
     connect(qslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLSentComboBoxChanged() ) )  ;
@@ -2972,11 +3000,10 @@ void MainWindow::slotQRZTextChanged()
         }
     }
 
-
-
     currentQrz = qrzLineEdit->text();
     currentEntity = world->getQRZARRLId(currentQrz);
-    selectCorrectComboBoxEntity(currentEntity);
+    //selectCorrectComboBoxEntity(currentEntity);
+    othersTabWidget->setEntity(currentEntity);
 
    //qDebug() << "MainWindow::slotQRZTextChanged: Entity: " << QString::number(currentEntity) << endl;
 
@@ -3050,6 +3077,8 @@ void MainWindow::slotQRZTextChanged()
                 showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
                 showStatusOfDXCC(_qs);
                 showDXMarathonNeeded(currentEntity, dx_CQz, dateEdit->date().year(), currentLog);
+                othersTabWidget->setIOTAContinentFromEntity(currentEntity);
+/*
                 i = (world->getContinentNumber(currentEntity));
                 if (  i > 0 )
                 {
@@ -3059,6 +3088,7 @@ void MainWindow::slotQRZTextChanged()
                 {
                     iotaContinentComboBox->setCurrentIndex( 0 );
                 }
+*/
         }
         else if ((dx_CQz == dxE_CQz) || (dx_ITUz = dxE_ITUz))
         {
@@ -3589,11 +3619,12 @@ void MainWindow::slotClearButtonClicked()
             lotwSentComboBox->setCurrentIndex(1);
             lotwRecComboBox->setCurrentIndex(1);
             qslmsgTextEdit->clear();
-            qslViaLineEdit->clear();            
-            entityNameComboBox->setCurrentIndex(0);
-            propModeComboBox->setCurrentIndex(0);
-            iotaContinentComboBox->setCurrentIndex(0);
-            iotaNumberLineEdit->setText("000");
+            qslViaLineEdit->clear();
+            othersTabWidget->clear();
+            //entityNameComboBox->setCurrentIndex(0);
+            //propModeComboBox->setCurrentIndex(0);
+            //iotaContinentComboBox->setCurrentIndex(0);
+            //iotaNumberLineEdit->setText("000");
             continentLabel->setText("");
             prefixLabel->setText("");
             cqzLabel->setText("0");
@@ -5434,12 +5465,12 @@ void MainWindow::createData()
 
 }
 
+
 void MainWindow::createUIDX()
 {
     //qDebug() << "MainWindow::createUIDX" << endl;
-
+/*
     QStringList continents;
-
     QSqlQuery query2("SELECT shortname FROM continent");
     while (query2.next()) {
         if (query2.isValid())
@@ -5452,7 +5483,7 @@ void MainWindow::createUIDX()
     iotaNumberLineEdit = new QLineEdit;
     iotaNumberLineEdit->setInputMask("000");
     iotaNumberLineEdit->setText("000");
-
+*/
 
     //bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     //modes << "SSB" << "CW" << "RTTY";
@@ -5461,7 +5492,7 @@ void MainWindow::createUIDX()
     modeComboBox->addItems(modes);
     txFreqSpinBox->setToolTip(tr("TX Frequency in MHz"));
     rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz"));
-    myPowerSpinBox->setToolTip(tr("Power used for the QSO in watts"));
+    //myPowerSpinBox->setToolTip(tr("Power used for the QSO in watts"));
     rxPowerSpinBox->setToolTip(tr("Power used by the DX"));
     operatorLineEdit->setToolTip(tr("Logging operator's callsign"));
     stationCallSignLineEdit->setToolTip(tr("Callsign used over the air"));
@@ -5522,10 +5553,10 @@ void MainWindow::createUIDX()
     infoLabel1->setToolTip(tr("Status of the DX entity"));
     infoLabel2->setToolTip(tr("Name of the DX entity"));
 
-    entityPrimDivComboBox->setToolTip(tr("Select the primary division for this QSO"));
-    entitySecDivComboBox->setToolTip(tr("Select the secondary division for this QSO"));
+    //entityPrimDivComboBox->setToolTip(tr("Select the primary division for this QSO"));
+    //entitySecDivComboBox->setToolTip(tr("Select the secondary division for this QSO"));
     //entityNameComboBox->setToolTip(tr("Select the propagation mode for this current QSO"));
-    propModeComboBox->setToolTip(tr("Select the propagation mode for this current QSO"));
+    //propModeComboBox->setToolTip(tr("Select the propagation mode for this current QSO"));
 
     //QGridLayout *layout = new QGridLayout;
 
@@ -5668,7 +5699,7 @@ void MainWindow::createUIDX()
     QWidget *qslInputTabWidget = new QWidget;
     QWidget *eqslInputTabWidget = new QWidget;
     //QWidget *commentInputTabWidget = new QWidget;
-    QWidget *othersInputTabWidget = new QWidget;
+    //QWidget *othersInputTabWidget = new QWidget;
     //QWidget *myDataInputTabWidget = new QWidget;
 
     int i = dxUpLeftTab->addTab(qsoInputTabWidget, tr("QSO"));
@@ -5684,7 +5715,8 @@ void MainWindow::createUIDX()
     QLabel *QSLViaLabelN = new QLabel(tr("QSL Via"));
     QSLViaLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-    //entityNameComboBox = new QComboBox;entitiesList
+    /*
+    entityNameComboBox = new QComboBox;entitiesList
     if (entitiesList.size()>1)
     {
         entitiesList.prepend("00-Not Identified (000)");
@@ -5697,7 +5729,7 @@ void MainWindow::createUIDX()
         propModeComboBox->addItems(propModeList);
     }
 
-
+*/
     QGridLayout *QSLLayout = new QGridLayout;
     QSLLayout->addWidget(QSLSentLabelN, 0, 0);
     QSLLayout->addWidget(QSLRecLabelN, 1, 0);
@@ -5793,18 +5825,17 @@ void MainWindow::createUIDX()
     //commentInputTabWidget->setLayout(commentInputTabWidgetLayout);
     //i = dxUpLeftTab->addTab(commentInputTabWidget, tr("Comment"));
 
-    entityPrimLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    entitySecLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    iotaAwardLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    entityNameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    propModeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    //entityPrimLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    //entitySecLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    //iotaAwardLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    //entityNameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    //propModeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
 // Others Tab starts here
-
+/*
     QGridLayout *othersInputTabWidgetLayout = new QGridLayout;
     othersInputTabWidgetLayout->addWidget(entityNameLabel, 0, 0);
     othersInputTabWidgetLayout->addWidget(entityNameComboBox, 0, 1, 1, 2);
-
 
     othersInputTabWidgetLayout->addWidget(entityPrimLabel, 1, 0);
     othersInputTabWidgetLayout->addWidget(entityPrimDivComboBox, 1, 1, 1, 2);
@@ -5815,9 +5846,13 @@ void MainWindow::createUIDX()
     othersInputTabWidgetLayout->addWidget(iotaNumberLineEdit, 3, 2);
     othersInputTabWidgetLayout->addWidget(propModeLabel, 4, 0);
     othersInputTabWidgetLayout->addWidget(propModeComboBox, 4, 1, 1, 2);
-
     othersInputTabWidget->setLayout(othersInputTabWidgetLayout);
-    i = dxUpLeftTab->addTab(othersInputTabWidget, tr("Others"));
+*/
+    //i = dxUpLeftTab->addTab(othersInputTabWidget, tr("Others"));
+    othersTabWidget->setEntitiesList(world->getEntitiesNames());
+    i = dxUpLeftTab->addTab(othersTabWidget, tr("Others"));
+
+
 
 
 // MyData tab starts here
@@ -6238,10 +6273,10 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     qslRecViaComboBox->setEnabled(false);
     //qslmsgTextEdit->setEnabled(false);
     //qslViaLineEdit->setEnabled(false);
-    entityPrimDivComboBox->setEnabled(false);
-    entitySecDivComboBox->setEnabled(false);
-    entityNameComboBox->setEnabled(true);
-    propModeComboBox->setEnabled(true);
+    //entityPrimDivComboBox->setEnabled(false);
+    //entitySecDivComboBox->setEnabled(false);
+    //entityNameComboBox->setEnabled(true);
+    //propModeComboBox->setEnabled(true);
 
 //qDebug() << "MainWindow::createUIDX - OS DETECTION"  << endl;
 
@@ -7374,7 +7409,8 @@ void MainWindow::qsoToEdit (const int _qso)
                 aux1 = (query.value(nameCol)).toString();
 
                 aux1 = awards->checkIfValidIOTA(aux1);
-
+                othersTabWidget->setIOTA(aux1);
+/*
                 //qDebug() << "MainWindow::qsoToEdit: IOTA-CheckIfValidIOTA-1 " << aux1 << endl;
                 if ((aux1.length())==6){
                     QStringList values = aux1.split("-", QString::SkipEmptyParts);
@@ -7384,7 +7420,7 @@ void MainWindow::qsoToEdit (const int _qso)
                     iotaNumberLineEdit->setText(values.at(1));
 
                 }
-
+*/
                 nameCol = rec.indexOf("sat_name");
                 aux1 = (query.value(nameCol)).toString();
                 if (aux1.length()>0)
@@ -7422,7 +7458,8 @@ void MainWindow::qsoToEdit (const int _qso)
 
                 nameCol = rec.indexOf("prop_mode");
                 aux1  = (query.value(nameCol)).toString();
-
+                othersTabWidget->setPropMode(aux1);
+/*
                 if(( propModeComboBox->findText(aux1+" -", Qt::MatchContains))>0)
                 {
                     propModeComboBox->setCurrentIndex( propModeComboBox->findText(aux1+" -", Qt::MatchContains));
@@ -7432,10 +7469,11 @@ void MainWindow::qsoToEdit (const int _qso)
                 {
                     propModeComboBox->setCurrentIndex(0);
                 }
-
+*/
 
                 showEntityInfo(currentEntity);
-                selectCorrectComboBoxEntity(currentEntity);
+                //selectCorrectComboBoxEntity(currentEntity);
+                othersTabWidget->setEntity(currentEntity);
                 //qDebug() << "MainWindow::qsoToEdit: - in default - 101"  << endl;
 
                 QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
@@ -7466,11 +7504,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
 }
 
-void MainWindow::slotIOTAComboBoxChanged()
-{
-    //qDebug() << "MainWindow::slotIOTAComboBoxChanged" << endl;
-    //iotaNumberLineEdit->setEnabled(true);
-}
+
 
 void MainWindow::slotQSLRecvComboBoxChanged(){
     //qDebug() << "MainWindow::slotQSLRecvComboBoxChanged" << endl;
@@ -8736,7 +8770,7 @@ void MainWindow::updateQSLRecAndSent()
         }
     }
 }
-
+/*
 void MainWindow::selectCorrectComboBoxEntity(const int _ent)
 {// Select the appropriate entity in the ComboBox
     //qDebug() << "MainWindow::selectCorrectEntity: " << QString::number(_ent) << "/" << world->getEntityMainPrefix(_ent)  << endl;
@@ -8759,11 +8793,11 @@ void MainWindow::selectCorrectComboBoxEntity(const int _ent)
 int MainWindow::getDXCCFromComboBox()
 {
     //qDebug() << "MainWindow::getDXCCFromComboBox" << endl;
-    QString pref = (entityNameComboBox->currentText()).split('-').at(0);
+    //QString pref = (entityNameComboBox->currentText()).split('-').at(0);
     //qDebug() << "MainWindow::getDXCCFromComboBox: " << pref << "/" << QString::number(world->getQRZARRLId(pref))<< endl;
-    return world->getQRZARRLId(pref);
+    return world->getQRZARRLId(othersTabWidget->getEntityPrefix());
 }
-
+*/
 void MainWindow::slotOperatingYearComboBoxChanged()
 {
     //qDebug() << "MainWindow::slotOperatingYearComboBoxChanged: " << operatingYearsComboBox->currentText() << endl;
@@ -8815,11 +8849,12 @@ void MainWindow::slotSetPropMode(const QString _p)
     {
         return;
     }
-    int indexC = propModeComboBox->findText(" - " + _p + " - ", Qt::MatchContains);
-    propModeComboBox->setCurrentIndex(indexC);
+    othersTabWidget->setPropMode(_p);
+    //int indexC = propModeComboBox->findText(" - " + _p + " - ", Qt::MatchContains);
+    //propModeComboBox->setCurrentIndex(indexC);
 }
 
-
+/*
 QString MainWindow::getPropModeFromComboBox()
 {
     QString _pm = QString();
@@ -8832,7 +8867,7 @@ QString MainWindow::getPropModeFromComboBox()
     }
     return _pm;
 }
-
+*/
 
 void MainWindow::completeWithPreviousQSO(const QString _call)
 {
@@ -8861,10 +8896,11 @@ void MainWindow::completeWithPreviousQSO(const QString _call)
         }
         if (completedWithPreviousIOTA)
         {
-            iotaContinentComboBox->setCurrentIndex(0);
-            iotaNumberLineEdit->setText("000");
+            othersTabWidget->clearIOTA();
+            //iotaContinentComboBox->setCurrentIndex(0);
+            //iotaNumberLineEdit->setText("000");
             completedWithPreviousIOTA = false;
-            iotaNumberLineEdit->setPalette(palBlack);
+            //iotaNumberLineEdit->setPalette(palBlack);
         }
         if (completedWithPreviousQSLVia)
         {
@@ -8924,31 +8960,37 @@ void MainWindow::completeWithPreviousQSO(const QString _call)
     }
 
     aux = dataProxy->getIOTAFromQRZ(_call);
-    if ((aux.length()>=0) && ((iotaNumberLineEdit->text()).length()<=0) )
+    //othersTabWidget->setIOTA(aux);
+
+    if ((aux.length()>=0) && (othersTabWidget->isIOTAModified()) )
     {
 
         aux = awards->checkIfValidIOTA(aux);
 
-        if ((aux.length())==6){
-            QStringList values = aux.split("-", QString::SkipEmptyParts);
-            iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(values.at(0) ) );
-            iotaNumberLineEdit->setPalette(palRed);
-            iotaNumberLineEdit->setText(values.at(1));
+        if ((aux.length())==6)
+        {
+            othersTabWidget->setIOTA(aux, false);
+            //QStringList values = aux.split("-", QString::SkipEmptyParts);
+            //iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(values.at(0) ) );
+            //iotaNumberLineEdit->setPalette(palRed);
+            //iotaNumberLineEdit->setText(values.at(1));
             completedWithPreviousIOTA=true;
         }
         else if (completedWithPreviousIOTA)
         {
-            iotaContinentComboBox->setCurrentIndex(0);
-            iotaNumberLineEdit->setPalette(palBlack);
-            iotaNumberLineEdit->setText("000");
+            othersTabWidget->clearIOTA();
+            //iotaContinentComboBox->setCurrentIndex(0);
+            //iotaNumberLineEdit->setPalette(palBlack);
+            //iotaNumberLineEdit->setText("000");
             completedWithPreviousName = false;
         }
     }
     else if (completedWithPreviousIOTA)
     {
-        iotaContinentComboBox->setCurrentIndex(0);
-        iotaNumberLineEdit->setPalette(palBlack);
-        iotaNumberLineEdit->setText("000");
+        othersTabWidget->clearIOTA();
+        //iotaContinentComboBox->setCurrentIndex(0);
+        //iotaNumberLineEdit->setPalette(palBlack);
+        //iotaNumberLineEdit->setText("000");
         completedWithPreviousIOTA = false;
     }
 

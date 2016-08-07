@@ -833,10 +833,44 @@ Returns a valid format IOTA if possible and "" in other cases.
         return "";
     }
 
-    //qDebug() << "Awards::checkIfValidIOTA (cont) " << _continent << endl;
-    //qDebug() << "Awards::checkIfValidIOTA (numb): " << _number << endl;
+    qDebug() << "Awards::checkIfValidIOTA (cont) " << _continent << endl;
+    qDebug() << "Awards::checkIfValidIOTA (numb): " << _number << endl;
 
     // Check if continent is valid
+
+    if (dataProxy->isValidContinentShortName(_continent))
+    {
+        if ( (_number.toInt() >0 ) && ((_number.toInt()) < 1000 ))
+        {
+            if ((_number.length()) == 3)
+            {
+                return _continent + "-" + _number ;
+            }
+            else if ((_number.length()) == 2)
+            {
+                return _continent + "-0" + QString::number((_number).toInt());
+            }
+            else if ((_number.length()) == 1)
+            {
+                return _continent + "-00" + QString::number((_number).toInt());
+            }
+            else
+            {
+                return "";
+            }
+        }
+        else
+        {
+            return "";
+        }
+    }
+    else
+    {
+        return QString();
+    }
+    return QString();
+
+ /*
     QString stringQuery = QString("SELECT id FROM continent WHERE shortname ='%1'").arg(_continent);
 
     QSqlQuery query;
@@ -872,6 +906,7 @@ Returns a valid format IOTA if possible and "" in other cases.
         }
     }
     return "";
+*/
 }
 
 

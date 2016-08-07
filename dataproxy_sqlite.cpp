@@ -2304,6 +2304,62 @@ int DataProxy_SQLite::getContinentIdFromEntity(const int _n)
     }
 }
 
+QStringList DataProxy_SQLite::getContinentShortNames()
+{
+
+    QSqlQuery query;
+    QString aux;
+    QStringList continents;
+    continents.clear();
+    aux = QString("SELECT shortname FROM continent");
+    if (query.exec(aux))
+    {
+        while (query.next())
+        {
+            if (query.isValid())
+            {
+                continents << query.value(0).toString();
+            }
+        }
+        return continents;
+    }
+    else
+    {
+        return QStringList();
+    }
+    return QStringList();
+}
+
+bool DataProxy_SQLite::isValidContinentShortName(const QString _n)
+{
+    QString stringQuery = QString("SELECT id FROM continent WHERE shortname ='%1'").arg(_n);
+    QSqlQuery query;
+    if (query.exec(stringQuery))
+    {
+        if (query.next())
+        {
+            if (query.isValid())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+    else
+    {
+        return false;
+    }
+    return false;
+}
+
 int DataProxy_SQLite::getITUzFromPrefix(const QString _p)
 {
     QSqlQuery query;

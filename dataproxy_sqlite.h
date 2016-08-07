@@ -78,6 +78,9 @@ public:
     int getContinentIdFromContinentShortName(const QString _n);
     QString getContinentShortNameFromEntity(const int _n);
     int getContinentIdFromEntity(const int _n);
+    QStringList getContinentShortNames();
+    bool isValidContinentShortName(const QString _n);
+
     int getCQzFromPrefix(const QString _p);
     int getCQzFromEntity(const int _n);
     int getITUzFromEntity(const int _n);

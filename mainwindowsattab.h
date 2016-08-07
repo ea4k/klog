@@ -58,7 +58,6 @@ public:
 signals:
     void setPropModeSat(const QString _p);
 
-public slots:
 private slots:
     void slotSatNameTextChanged();
     void slotSatModeTextChanged();
