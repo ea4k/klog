@@ -75,7 +75,7 @@ public:
     bool getIsDXCCConfirmed(const int _dxcc, const int _logNumber);
     bool isThisSpotConfirmed(const QStringList _qs);
 
-    QString checkIfValidIOTA(const QString _tiota);
+    QString checkIfValidIOTA(const QString _tiota); //TODO: There is an equivalent function in the MainWindowInputOthers class. I should use only one!
 
     int getDXStatus (const QStringList _qs);
     QString getDXStatusString (const int _status); // Needs to be called with the output of getDXStatus

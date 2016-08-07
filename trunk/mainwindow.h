@@ -50,6 +50,7 @@
 #include "mainwindowsattab.h"
 #include "mainwindowmydatatab.h"
 #include "mainwindowinputcomment.h"
+#include "mainwindowinputothers.h"
 #include "elogclublog.h"
 #include "utilities.h"
 #include "downloadcty.h"
@@ -132,7 +133,7 @@ private slots:
 
     void slotModeComboBoxChanged();
     void slotBandComboBoxChanged();
-    void slotIOTAComboBoxChanged();
+    //void slotIOTAComboBoxChanged();
     void slotOperatingYearComboBoxChanged();
     void slotOKButtonClicked();
     void slotSpotItButtonClicked();
@@ -298,8 +299,8 @@ private:
     QString readDataFromUIDX();
     QString readDataFromUIDXModifying();
 
-    int getDXCCFromComboBox();
-    QString getPropModeFromComboBox();
+    //int getDXCCFromComboBox();
+    //QString getPropModeFromComboBox();
 
     //QString readDataFromUICQWW();
 
@@ -335,7 +336,7 @@ private:
     void updateQSLRecAndSent();
     double checkFreqRanges(double _f);
 
-    void selectCorrectComboBoxEntity(const int _ent); // Select the appropriate entity in the ComboBox
+    //void selectCorrectComboBoxEntity(const int _ent); // Select the appropriate entity in the ComboBox
 
     //int Km2Mile(const bool _imperialSystemSelected, const bool _dataInMiles, const int _km);
 
@@ -461,7 +462,7 @@ private:
     QStringList entitiesList, propModeList;
 
     // UI DX
-    QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
+    //QLabel *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel; //entityPrimLabel
     QLabel *infoLabel1, *infoLabel2;
     QLabel *bandLabel1, *bandLabel2, *bandLabel3, *bandLabel4;
     QLabel *bandLabel5, *bandLabel6, *bandLabel7, *bandLabel8;
@@ -470,11 +471,11 @@ private:
     QLabel *gradShortLabel, *distShortLabel;
     QLabel *gradLongLabel, *distLongLabel;
 
-    QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
+    //QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
     QComboBox *operatingYearsComboBox;
-    QLineEdit *iotaNumberLineEdit, *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit;//, *commentLineEdit;
+    QLineEdit *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit;//, *commentLineEdit, *iotaNumberLineEdit;
     QTextEdit *notesTextEdit;
-    QDoubleSpinBox *myPowerSpinBox, *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox;
+    QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox; //*myPowerSpinBox,
     QLCDNumber *freqQLCDNumber;
     QLCDNumber *dxccConfirmedQLCDNumber, *dxccWorkedQLCDNumber,
                 *wazConfirmedQLCDNumber, *wazWorkedQLCDNumber,
@@ -500,6 +501,7 @@ private:
     MainWindowSatTab *satTabWidget;
     MainWindowMyDataTab *myDataTabWidget;
     MainWindowInputComment *commentTabWidget;
+    MainWindowInputOthers *othersTabWidget;
     bool keepSatPage;
 
     // UI DX

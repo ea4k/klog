@@ -81,6 +81,9 @@ public:
     virtual int getContinentIdFromContinentShortName(const QString _n);
     virtual QString getContinentShortNameFromEntity(const int _n);
     virtual int getContinentIdFromEntity(const int _n);
+    virtual QStringList getContinentShortNames();
+    virtual bool isValidContinentShortName(const QString _n);
+
     virtual int getCQzFromPrefix(const QString _p);
     virtual int getCQzFromEntity(const int _n);
     virtual int getITUzFromEntity(const int _n);

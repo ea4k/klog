@@ -66,7 +66,8 @@ SOURCES += main.cpp \
     utilities.cpp \
     dxccstatuswidget.cpp \
     mainwindowmydatatab.cpp \
-    mainwindowinputcomment.cpp
+    mainwindowinputcomment.cpp \
+    mainwindowinputothers.cpp
 HEADERS += setupdialog.h \
     mainwindow.h \
     world.h \
@@ -100,7 +101,8 @@ HEADERS += setupdialog.h \
     utilities.h \
     dxccstatuswidget.h \
     mainwindowmydatatab.h \
-    mainwindowinputcomment.h
+    mainwindowinputcomment.h \
+    mainwindowinputothers.h
 OTHER_FILES += TODO \
     README-DEVEL \
     tips-for-devel.txt \
