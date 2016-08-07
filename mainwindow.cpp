@@ -249,6 +249,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
    //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab();
     myDataTabWidget = new MainWindowMyDataTab();
+    commentTabWidget = new MainWindowInputComment();
 
   //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
     filemanager = new FileManager(kontestDir, softwareVersion, *db);
@@ -316,7 +317,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     propModeComboBox = new QComboBox;
 
     //notesTextEdit = new QTextEdit;
-    commentLineEdit = new QLineEdit;
+    //commentLineEdit = new QLineEdit;
     continentLabel = new QLabel;
     prefixLabel = new QLabel;
     cqzLabel = new QLabel;
@@ -489,7 +490,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         slotSetup(6);
        //qDebug() << "MainWindow::MainWindow: 16.2" << endl;
     }
-    qDebug() << "MainWindow::MainWindow: 17" << endl;
+    //qDebug() << "MainWindow::MainWindow: 17" << endl;
     checkIfNewBandOrMode();
     //qDebug() << "MainWindow::MainWindow: 18" << endl;
     if ( (contestMode == CQ_WW_SSB) || (contestMode == CQ_WW_CW) )
@@ -993,8 +994,8 @@ QString MainWindow::readDataFromUIDX()
         stringFields = stringFields + ", my_gridsquare";
         stringData = stringData + ", '" + aux1 + "'";
     }
-
-    aux1 = commentLineEdit->text();
+    aux1 = commentTabWidget->getComment();
+    //aux1 = commentLineEdit->text();
     if (aux1.length()>0)
     {
         stringFields = stringFields + ", comment";
@@ -1734,7 +1735,8 @@ WHERE [condition];
         updateString = updateString + aux1 + "', ";
     }
 
-    aux1 = commentLineEdit->text();
+    aux1 = commentTabWidget->getComment();
+    //aux1 = commentLineEdit->text();
     if (aux1.length()>0)
     {
         updateString = updateString + "comment = '";
@@ -3568,7 +3570,8 @@ void MainWindow::slotClearButtonClicked()
             rxFreqSpinBox->setValue(0);
             //freqQLCDNumber->display(0);
             //notesTextEdit->clear();
-            commentLineEdit->clear();
+            commentTabWidget->clear();
+            //commentLineEdit->clear();
             infoLabel1->clear();
             infoLabel2->clear();
 
@@ -5032,7 +5035,7 @@ void MainWindow::readConfigData()
     {
 
     }
-    qDebug() << "MainWindow::readConfigData: calling checkIfNewBandOrMode" << endl;
+    //qDebug() << "MainWindow::readConfigData: calling checkIfNewBandOrMode" << endl;
     checkIfNewBandOrMode();
 
 
@@ -5314,7 +5317,7 @@ bool MainWindow::processConfigLine(const QString _line){
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
 //that is not currently selected as active
-   qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
+//qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
 //    modes
 //    bands
 
@@ -5664,7 +5667,7 @@ void MainWindow::createUIDX()
 
     QWidget *qslInputTabWidget = new QWidget;
     QWidget *eqslInputTabWidget = new QWidget;
-    QWidget *commentInputTabWidget = new QWidget;
+    //QWidget *commentInputTabWidget = new QWidget;
     QWidget *othersInputTabWidget = new QWidget;
     //QWidget *myDataInputTabWidget = new QWidget;
 
@@ -5782,11 +5785,13 @@ void MainWindow::createUIDX()
     i = dxUpLeftTab->addTab(notesInputTabWidget, tr("Notes"));
 */
     // COMMENT tab starts here
-    QGridLayout *commentInputTabWidgetLayout = new QGridLayout;
-    commentInputTabWidgetLayout->addWidget(commentLineEdit, 0, 0);
-    commentInputTabWidget->setLayout(commentInputTabWidgetLayout);
-    i = dxUpLeftTab->addTab(commentInputTabWidget, tr("Comment"));
 
+    i = dxUpLeftTab->addTab(commentTabWidget, tr("Comment"));
+
+    //QGridLayout *commentInputTabWidgetLayout = new QGridLayout;
+    //commentInputTabWidgetLayout->addWidget(commentLineEdit, 0, 0);
+    //commentInputTabWidget->setLayout(commentInputTabWidgetLayout);
+    //i = dxUpLeftTab->addTab(commentInputTabWidget, tr("Comment"));
 
     entityPrimLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     entitySecLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
@@ -5845,7 +5850,6 @@ void MainWindow::createUIDX()
     i = dxUpLeftTab->addTab(myDataInputTabWidget, tr("My Data"));
 */
     i = dxUpLeftTab->addTab(myDataTabWidget, tr("My Data"));
-
   // MyData Tab finishes here
 
     // Sat Tab starts hre
@@ -6768,11 +6772,13 @@ void MainWindow::qsoToEdit (const int _qso)
         aux1 = (query.value(nameCol)).toString();
         if (aux1.length()>0)
         {
-            commentLineEdit->setText(aux1);
+            commentTabWidget->setData(aux1);
+            //commentLineEdit->setText(aux1);
         }
         else
         {
-            commentLineEdit->clear();
+            commentTabWidget->clear();
+            //commentLineEdit->clear();
         }
 
 
