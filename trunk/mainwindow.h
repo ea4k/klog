@@ -49,6 +49,7 @@
 #include "awards.h"
 #include "mainwindowsattab.h"
 #include "mainwindowmydatatab.h"
+#include "mainwindowinputcomment.h"
 #include "elogclublog.h"
 #include "utilities.h"
 #include "downloadcty.h"
@@ -471,7 +472,7 @@ private:
 
     QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
     QComboBox *operatingYearsComboBox;
-    QLineEdit *iotaNumberLineEdit, *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit, *commentLineEdit;
+    QLineEdit *iotaNumberLineEdit, *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit;//, *commentLineEdit;
     QTextEdit *notesTextEdit;
     QDoubleSpinBox *myPowerSpinBox, *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox;
     QLCDNumber *freqQLCDNumber;
@@ -498,6 +499,7 @@ private:
 
     MainWindowSatTab *satTabWidget;
     MainWindowMyDataTab *myDataTabWidget;
+    MainWindowInputComment *commentTabWidget;
     bool keepSatPage;
 
     // UI DX

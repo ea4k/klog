@@ -9,7 +9,7 @@ TODO: Call the creation of this depending on the bands that the user is using
 */
 DXCCStatusWidget::DXCCStatusWidget(QWidget *parent) : QWidget(parent)
 {
-    qDebug() << "DXCCStatusWidget::DXCCStatusWidget" << endl;
+    //qDebug() << "DXCCStatusWidget::DXCCStatusWidget" << endl;
 
     awards = new Awards;
     world = new World;
@@ -206,7 +206,7 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
 void DXCCStatusWidget::setBands(QStringList const _ent)
 {// Receives the list of band names
 
-    qDebug() << "DXCCStatusWidget::setBands: " << QString::number(_ent.length()) << endl;
+    //qDebug() << "DXCCStatusWidget::setBands: " << QString::number(_ent.length()) << endl;
 
     QStringList qs;
     qs.clear();
@@ -262,7 +262,7 @@ void DXCCStatusWidget::setBands(QStringList const _ent)
 
 void DXCCStatusWidget::setDefaultBands()
 {
-     qDebug() << "DXCCStatusWidget::setDefaultBands" << endl;
+     //qDebug() << "DXCCStatusWidget::setDefaultBands" << endl;
     /*
      Default bands:
      160M    80M  40M  30M  20M  17M  15M  12M  10M  6M   4M   2M   70CM
