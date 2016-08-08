@@ -125,6 +125,9 @@ public:
     bool addNewLog (const QStringList _qs);
     bool doesThisLogExist(const int _log);
 
+    bool updateISONames(); // Update the entities ISO names for the flags
+    QString getISOName(const int _n);
+
 private:
     //bool dbCreated;
     DataBase *db;

@@ -61,8 +61,10 @@ World::World(const QString _kontestDir)
     numberOfEntities = 0;
     progressBarPosition = 0;
     created = false;
+    flagsDir=":/flags/";
     locator = new Locator();
     dataProxy = new DataProxy_SQLite();
+    //identifyOS();
     //awards = new Awards();
 
 }
@@ -77,11 +79,15 @@ World::World(const QString _kontestDir, const QString _kontestVer)
     numberOfEntities = 0;
     progressBarPosition = 0;
     created = false;
+    //appDir = QString();
+    flagsDir=":/flags/";
    //qDebug() << "World::World(2): 2" << endl;
     locator = new Locator();
    //qDebug() << "World::World(2): 3" << endl;
     dataProxy = new DataProxy_SQLite();
+
    //qDebug() << "World::World(2): 4" << endl;
+    //identifyOS();
 
 }
 
@@ -89,6 +95,41 @@ World::~World()
 {
    //qDebug() << "World::~World" << endl;
 }
+
+/*
+void World::identifyOS()
+{
+    qDebug() << "World::identifyOS" << endl;
+    appDir =  QCoreApplication::applicationDirPath();
+    flagsDir=":/flags/";
+    QFile flag;
+    flag.setFileName(flagsDir + "es.png");
+    if (flag.exists())
+    {
+        qDebug() << "World::identifyOS - flag exists" << endl;
+    }
+    else
+    {
+        qDebug() << "World::identifyOS - flag does not exist" << endl;
+    }
+
+
+#if defined(Q_OS_WIN)
+        qDebug() << "World::identifyOS - Win detected!" << endl;
+        //flagsDir = appDir + "/flags/";
+
+#elif defined(Q_OS_OSX)
+        qDebug() << "World::identifyOS - OSX detected!" << endl;
+
+#elif defined(Q_OS_LINUX)
+        qDebug() << "World::identifyOS - Linux detected!" << endl;
+        //TODO: Look for the flags in different dirs...
+#else
+        qDebug() << "World::identifyOS - other OS detected!" << endl;
+        //TODO: Look for the flags in different dirs...
+#endif
+}
+*/
 
 bool World::recreate(const QString _kontestDir)
 {
@@ -1335,6 +1376,7 @@ bool World::readCTYDAT()
     QSqlDatabase::database().commit();
 
     progress.setValue(numberOfLines);
+    dataProxy->updateISONames();
     return true;
 }
 
@@ -1531,7 +1573,6 @@ bool World::readCTYCSV()
 
          }
 
-
         //qDebug()  << "World::readCTYCSV() tq: " << tq << endl;
         progress.setLabelText("Reading cty.csv ... \nNow reading " + currentPrefix + " data");
         //qDebug() << "World::readCTYCSV() - progressBarPosition: " << QString::number(progressBarPosition) << endl;
@@ -1540,6 +1581,8 @@ bool World::readCTYCSV()
     QSqlDatabase::database().commit();
 
     progress.setValue(numberOfLines);
+    dataProxy->updateISONames();
+
     return true;
 
 }

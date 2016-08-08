@@ -112,6 +112,7 @@ private slots:
 
 
 private:
+    //void identifyOS();
     int getPrefixId(const QString _qrz);
     bool readCTYDAT();
     bool readCTYCSV();
@@ -136,7 +137,7 @@ private:
     double lat, lon, utc;
     //QString line;
     //bool readingDataOfAnEntity;
-    int nullValue;
+    int nullValue;    
 
     QSqlRelationalTableModel *worldModel;
     //QProgressBar *progressBar;
@@ -144,6 +145,9 @@ private:
     Locator *locator;
     DataProxy *dataProxy;
     //Awards *awards;
+    //FLAGS
+    QString flagsDir;
+    //FLAGS-END
 
 };
 

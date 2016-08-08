@@ -2749,3 +2749,53 @@ int DataProxy_SQLite::getHowManyEntities()
         return 0;
     }
 }
+
+bool DataProxy_SQLite::updateISONames()
+{
+    qDebug()  << "DataProxy_SQLite::updateISONames"  << endl;
+    return db->updateTheEntityTableISONames();
+}
+
+QString DataProxy_SQLite::getISOName(const int _n)
+{
+    //qDebug()  << "DataProxy_SQLite::updateISONames: " << QString::number(_n)  << endl;
+    if (_n <= 0 )
+    {
+        return "nu"; // When no flag is known, we return the UN flag
+    }
+
+    QString queryString, aux;
+    QSqlQuery query;
+    aux.clear();
+    queryString = QString("SELECT isoname FROM entity WHERE dxcc='%1'").arg(_n);
+    if (!query.exec(queryString))
+    {
+        qDebug()  << "DataProxy_SQLite::updateISONames: Query error"  << endl;
+        return "nu"; // When no flag is known, we return the UN flag
+    }
+    else
+    {
+        query.next();
+
+        if (query.isValid()){
+            //qDebug()  << "DataProxy_SQLite::updateISONames: ISO Name: " << (query.value(0)).toString() << endl;
+            aux = (query.value(0)).toString();
+            if (aux.length()>1)
+            {
+                return aux;
+            }
+            else
+            {
+                return "un"; // When no flag is known, we return the UN flag
+            }
+
+        }
+        else
+        {
+             //qDebug()  << "DataProxy_SQLite::updateISONames: NO ISO Name: "  << endl;
+            return "un"; // When no flag is known, we return the UN flag
+        }
+    }
+    qDebug()  << "DataProxy_SQLite::updateISONames: NO ISO Name: default"  << endl;
+    return "un"; // When no flag is known, we return the UN flag
+}

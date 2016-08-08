@@ -127,7 +127,8 @@ public:
     virtual bool addNewLog (const QStringList _qs);
     virtual bool doesThisLogExist(const int _log);
 
-
+    virtual bool updateISONames(); // Update the entities ISO names for the flags
+    virtual QString getISOName(const int _n);
 
 
 /*

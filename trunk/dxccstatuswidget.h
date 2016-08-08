@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtWidgets>
+#include <QString>
 //#include <QTableView>
 #include "awards.h"
 #include "world.h"
@@ -42,8 +43,11 @@ private:
     QLineEdit *searchLineEdit;
     QPushButton *refreshButton;
 
+
     int numberOfColumns; // Columns will be number Of Bands + 2 (Id + Name)
     QStringList bandNames, validBands;
+
+   QString flagDir;
 };
 
 #endif // DXCCSTATUSWIDGET_H
