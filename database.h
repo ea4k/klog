@@ -81,7 +81,7 @@ public:
     bool updateIfNeeded();
     void compress();
 
-
+    bool updateTheEntityTableISONames();
 
 private:
     bool createDataBase();
@@ -96,13 +96,15 @@ private:
     bool updateTo009(); // Updates DB and add the Satellite tables
     bool updateTableLog(const int _v);
 
-
     bool createTheBandQuickReference();
     bool createTheModeQuickReference();
 
     bool updateLog(); // Updates the log table
     bool createTableLog(bool temp = false); // false creates the prouction DB. True a temporal one.
     bool createTableLogs();
+
+    bool createTableEntity(const bool NoTmp);
+
     bool createTablePropModes();
     bool createTableClubLogStatus();
     bool populateTableClubLogStatus();

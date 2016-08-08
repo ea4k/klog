@@ -28,12 +28,11 @@ DXCCStatusWidget::DXCCStatusWidget(QWidget *parent) : QWidget(parent)
 
     bandNames.clear();
     validBands.clear();
+    flagDir.clear();
 
     setDefaultBands();
     createUI();
 
-
-    
 }
 
 DXCCStatusWidget::~DXCCStatusWidget(){}
@@ -130,7 +129,25 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
         //qDebug() << "DXCCStatusWidget::addEntity: ERROR: entname too short!" << endl;
         return;
     }
-   
+
+    QString flagSt;
+    flagSt.clear();
+    QString aux;
+    aux = dataProxy->getISOName(ent);
+    if (aux.length()>1)
+    {
+        flagSt = ":/" + aux + ".png";
+    }
+    else
+    {
+        flagSt.clear();
+    }
+
+    flagSt = ":/flags/" + dataProxy->getISOName(ent) + ".png";
+    QIcon flagIcon(flagSt);
+
+    //qDebug() << "DXCCStatusWidget::addEntity: Flag: " << flagSt << endl;
+
     dxccView->insertRow(dxccView->rowCount());
     //qDebug() << "DXCCStatusWidget::addEntity: rowCount:  " << QString::number(dxccView->rowCount()) << endl;
 
@@ -138,6 +155,9 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
     newItemID->setTextAlignment(Qt::AlignCenter);
     newItemID->setFlags(Qt::NoItemFlags);
     dxccView->setItem(dxccView->rowCount()-1, 0, newItemID);
+
+ //QTableWidgetItem::QTableWidgetItem(const QIcon & icon, const QString & text, int type = Type)
+   // QTableWidgetItem *newItemFlag = new QTableWidgetItem(QIcon(flagSt), "T", 0);
 
 
     for (int i=2; i < _ent.length(); i++)
@@ -175,10 +195,11 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
     }
 
     QTableWidgetItem *newItemName = new QTableWidgetItem(entName);
-    newItemName->setTextAlignment(Qt::AlignCenter);
+    newItemName->setTextAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 
-    newItemName->setFlags(Qt::NoItemFlags);
-    newItemName->setFlags(Qt::ItemIsUserCheckable);
+    newItemName->setFlags(Qt::ItemIsEnabled);
+    //newItemName->setFlags(Qt::ItemIsUserCheckable);
+    newItemName->setIcon(flagIcon);
 
     if (status == 1)
     {
@@ -252,7 +273,7 @@ void DXCCStatusWidget::setBands(QStringList const _ent)
 
     QStringList headerqs;
     headerqs.clear();
-    headerqs << "Id" << "Entity" << bandNames;
+    headerqs << tr("Id") << tr("Entity") << bandNames;
     dxccView->setHorizontalHeaderLabels(headerqs);
     update();
     //qDebug() << "DXCCStatusWidget::setBands: END" << endl;

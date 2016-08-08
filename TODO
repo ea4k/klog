@@ -5,6 +5,9 @@ Feel free to request any roadmap change if you have any suggestion.
 BUG: Optimize the KLog start
 BUG: If logbook.dat is not existing but klogrc it is, KLog does not start.
 
+
+TODO: Add the flags to the DXCC (and maybe the DXCluster)
+TODO: Click on an Entity name will select all the QSO of that Entity on the search box
 Debian:
 
 Time in UTC: (not to be fixed)
@@ -13,7 +16,6 @@ https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=654325
 
 BUG: Check the options that are marked in QSL when rightbutton.
 i.e.: Is myQSL sent marked as requested when it should be the DX-QSL?
-
 
 TODO GUI: To add the CQ/ITU box or make them editable
 

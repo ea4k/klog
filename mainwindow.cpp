@@ -3005,6 +3005,9 @@ void MainWindow::slotQRZTextChanged()
     //selectCorrectComboBoxEntity(currentEntity);
     othersTabWidget->setEntity(currentEntity);
 
+
+    qDebug() << "MainWindow::slotQRZTextChanged: DXCC/ISOname: " << QString::number(currentEntity) << "/" << dataProxy->getISOName(currentEntity) << endl;
+
    //qDebug() << "MainWindow::slotQRZTextChanged: Entity: " << QString::number(currentEntity) << endl;
 
     dxE_CQz = world->getEntityCqz(currentEntity);

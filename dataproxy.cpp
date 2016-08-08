@@ -488,3 +488,13 @@ int DataProxy::getHowManyEntities()
 {
     return -1;
 }
+
+bool DataProxy::updateISONames()
+{
+    return false;
+}
+
+QString DataProxy::getISOName(const int _n)
+{
+    return QString();
+}

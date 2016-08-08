@@ -32,6 +32,7 @@ else:TARGET = klog
 CONFIG += app_bundle
 CONFIG += static
 TEMPLATE = app
+RESOURCES = klog.qrc
 SOURCES += main.cpp \
     setupdialog.cpp \
     mainwindow.cpp \
