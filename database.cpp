@@ -3445,7 +3445,7 @@ bool DataBase::updateTo009()
 
 bool DataBase::updateTheModeTableAndSyncLog()
 {
-    qDebug() << "updateTheModeTableAndSyncLog" << endl;
+    qDebug() << "DataBase::updateTheModeTableAndSyncLog" << endl;
     QSqlQuery query;
 
     createTableMode(false);         // Create modetemp
@@ -3477,7 +3477,7 @@ bool DataBase::updateTheModeTableAndSyncLog()
 
 bool DataBase::updateTheEntityTableISONames()
 {
-    qDebug() << "updateTheEntityTableISONames" << endl;
+    qDebug() << "DataBase::updateTheEntityTableISONames" << endl;
     QSqlQuery query;
     QString sq;
     bool sqlOK;
@@ -3592,6 +3592,8 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
+    qDebug() << "DataBase::updateTheEntityTableISONames-10" << endl;
+
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='289'");  // UN HQ
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -3684,6 +3686,8 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
+    qDebug() << "DataBase::updateTheEntityTableISONames-20" << endl;
+
     sq = QString ("UPDATE entity SET isoname='mw' WHERE dxcc='440'");  // Malawi
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -3744,7 +3748,7 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    sq = QString ("UPDATE entity SET isoname='my' WHERE dxcc=''299");  // West Malaysia
+    sq = QString ("UPDATE entity SET isoname='my' WHERE dxcc='299'");  // West Malaysia
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
@@ -3774,6 +3778,8 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
+    qDebug() << "DataBase::updateTheEntityTableISONames-30" << endl;
+
     sq = QString ("UPDATE entity SET isoname='rw' WHERE dxcc='454'");  // Rwanda
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -3794,7 +3800,7 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    sq = QString ("UPDATE entity SET isoname='om' WHERE dxcc=370''");  // Oman
+    sq = QString ("UPDATE entity SET isoname='om' WHERE dxcc='370'");  // Oman
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
@@ -3823,6 +3829,8 @@ bool DataBase::updateTheEntityTableISONames()
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
+
+    qDebug() << "DataBase::updateTheEntityTableISONames-30-10" << endl;
 
     sq = QString ("UPDATE entity SET isoname='tw' WHERE dxcc='386'");  // Taiwan
     sqlOK = query.exec(sq);
@@ -3874,6 +3882,8 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
+    qDebug() << "DataBase::updateTheEntityTableISONames-30-20" << endl;
+
     sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='47'");  // Easter Is
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -3924,6 +3934,8 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
+    qDebug() << "DataBase::updateTheEntityTableISONames-30-30" << endl;
+
     sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='252'");  // St Paul is
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -3944,7 +3956,7 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    sq = QString ("UPDATE entity SET isoname=de'' WHERE dxcc='230'");  // Fed Rep Germany
+    sq = QString ("UPDATE entity SET isoname='de' WHERE dxcc='230'");  // Fed Rep Germany
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
@@ -3974,10 +3986,14 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
+    qDebug() << "DataBase::updateTheEntityTableISONames-30-40" << endl;
+
     sq = QString ("UPDATE entity SET isoname='nu' WHERE dxcc='188'");  // Niue
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
+
+    qDebug() << "DataBase::updateTheEntityTableISONames-40" << endl;
 
     sq = QString ("UPDATE entity SET isoname='ba' WHERE dxcc='501'");  // Bosnia
     sqlOK = query.exec(sq);
@@ -3989,7 +4005,7 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    sq = QString ("UPDATE entity SET isoname='canary' WHERE dxcc=''");  // Canary Is
+    sq = QString ("UPDATE entity SET isoname='canary' WHERE dxcc='29'");  // Canary Is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
@@ -4014,1046 +4030,771 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
+    sq = QString ("UPDATE entity SET isoname='ir' WHERE dxcc='330'");  // Iran
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='mv' WHERE dxcc='179'");  // Moldova
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='ee' WHERE dxcc='52'");  //  Estonia
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='et' WHERE dxcc='53'");  // Ethiopia
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='by' WHERE dxcc='27'");  // Belarus
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='kg' WHERE dxcc='135'");  // Kyrgyzstan
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='tm' WHERE dxcc='262'");  // Turkmenistan
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='227'");  // France
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='79'");  // Guadeloupe
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='yt' WHERE dxcc='169'");  // Mayotte
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='516'");  // St Barthelemy
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='nc' WHERE dxcc='162'");  // New Caledonia
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='nc' WHERE dxcc='512'");  // Chesterfield Is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='mq' WHERE dxcc='84'");  // Martinique
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='pf' WHERE dxcc='175'");  // French Polynesia
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='pf' WHERE dxcc='508'");  // Austral Is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='pm' WHERE dxcc='277'");  //  St Pierre & Miquelon
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='re' WHERE dxcc='453'");  //Reunion Is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='213'");  // St Marteen
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='99'");  // Glorioso is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='124'");  // Juan de nova, Europa
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='276'");  //  Tromelin - TODO: Add the wikipedia flag
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='41'");  // Crozet
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+
+    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='131'");  // Kerguelen
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag http://es.wikipedia.org/wiki/Tierras_Australes_y_Ant%C3%A1rticas_Francesas
+
+    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='10'");  //Amsterdam & St Paul is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='wf' WHERE dxcc='298'");  // Wallis & Futuna is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='gf' WHERE dxcc='63'");  // French Guiana
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='england' WHERE dxcc='223'");  // England
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='114'");  //Isle of Man
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='northernireland' WHERE dxcc='265'");  // Northern Ireland
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    qDebug() << "DataBase::updateTheEntityTableISONames-50" << endl;
+
+    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='122'");  // Jersey
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='scotland' WHERE dxcc='279'");  //  Scotland & Shetland is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='106'");  // Guernsey
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='wales' WHERE dxcc='294'");  // Wales
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='sb' WHERE dxcc='185'");  // Solomon
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='sb' WHERE dxcc='507'");  // Temotu Province
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='hu' WHERE dxcc='239'");  // Hungary
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='ch' WHERE dxcc='287'");  // Switzerland
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='li' WHERE dxcc='251'");   // Liechtenstein
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='ec' WHERE dxcc='120'");  // Ecuador
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='ec' WHERE dxcc='71'");  // Galapagos Is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='ht' WHERE dxcc='78'");  // Haiti
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='do' WHERE dxcc='72'");  // Dominican Rep
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='116'");  // Colombia
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='216'");  // San Andres & Providencia
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='161'");  // Malpelo
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='kr' WHERE dxcc='137'");  // Rep Korea
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='pa' WHERE dxcc='88'");  // Panama
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='hn' WHERE dxcc='80'");  // Honduras
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='th' WHERE dxcc='387'");  // Thailand
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='va' WHERE dxcc='295'");  // Vatican City
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='sa' WHERE dxcc='378'");  // Saudi Arabia
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='248'");  // Italy
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='dj' WHERE dxcc='382'");  // Djibouti
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    qDebug() << "DataBase::updateTheEntityTableISONames-60" << endl;
+
+    sq = QString ("UPDATE entity SET isoname='gd' WHERE dxcc='77'");  // Grenada
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='gw' WHERE dxcc='109'");  // Guinea-Bissau
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='lc' WHERE dxcc='97'");  // St Lucia
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='dm' WHERE dxcc='95'");  // Dominica
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='vc' WHERE dxcc='98'");  // St Vicent
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='339'");  // Japan
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='177'");  // Minami Torishima
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='192'");  // Ogasawara
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='mn' WHERE dxcc='363'");  // Mongolia
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='sj' WHERE dxcc='259'");  // Svalbard
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='sj' WHERE dxcc='118'");  // Jan Mayen
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='jo' WHERE dxcc='342'");  // Jordan
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='291'");  // United States
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='105'");  // Guantanamo Bay
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='mp' WHERE dxcc='166'");  //  Mariana is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='20'");  // Baker & Howland is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='gu' WHERE dxcc='103'");  // Guam
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='123'");  // Johnston is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='174'");  // Midway is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='197'");  // Palmyra & Jarbis is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='134'");  // Kingman Reef
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='110'");  // Hawaii
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='138'");  // Kure is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='as' WHERE dxcc='9'");  // American Samoa
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='as' WHERE dxcc='515'");  // Swains is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='297'");  // Wake is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='6'");  // Alaska
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='182'");  // Navassa Is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='vi' WHERE dxcc='285'");  // Us Virgin is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='pr' WHERE dxcc='202'");  // Puerto Rico
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='43'");  // Desecheo Is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='no' WHERE dxcc='266'");  // Norway
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='ar' WHERE dxcc='100'");  // Argentina
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='lu' WHERE dxcc='254'");  // Luxembourg
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='lt' WHERE dxcc='146'");  // Lithuania
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='bg' WHERE dxcc='212'");  // Bulgaria
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='pe' WHERE dxcc='136'");  // Peru
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='lb' WHERE dxcc='354'");  // Lebanon
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='at' WHERE dxcc='206'");  // Austria & Viena Intl HQ
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='224'");  // Findland
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='5'");  // Aland is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='167'");  // Market Reef
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='cz' WHERE dxcc='503'");  // Czech Rep
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='sk' WHERE dxcc='504'");  // Slovak Rep
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='be' WHERE dxcc='209'");  // Belgium
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='gl' WHERE dxcc='237'");  // Greenland
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='dk' WHERE dxcc='222'");  // Faroe is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='dk' WHERE dxcc='221'");  // Denmark
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='pg' WHERE dxcc='163'");  // Papua New Guinea
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    qDebug() << "DataBase::updateTheEntityTableISONames-70" << endl;
+
+    sq = QString ("UPDATE entity SET isoname='aw' WHERE dxcc='91'");  // Aruba
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='kp' WHERE dxcc='344'");  //Dpr Korea
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='nl' WHERE dxcc='263'");  // Netherlands
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='cw' WHERE dxcc='517'");  // Curacao
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='bq' WHERE dxcc='520'");  // Bonaire
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='nl' WHERE dxcc='519'");  // Saba & St Eustatius
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='shm' WHERE dxcc='518'");  // Sint Marteen
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='108'");  // Brazil
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='56'");  // Fernando de Noronha
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='253'");  //  St Peter & St Paul
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='273'");  // Trindade & Martim Vaz
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='sr' WHERE dxcc='140'");  // Suriname
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='61'");  // Franz Josef Land
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='eh' WHERE dxcc='302'");  // Western Sahara
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='bd' WHERE dxcc='305'");  // Bangladesh
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='si' WHERE dxcc='499'");  // Slovenia
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='sc' WHERE dxcc='379'");  // Seychelles
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='st' WHERE dxcc='219'");  // Sao Tome & Principe
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='se' WHERE dxcc='284'");  // Sweden
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='pl' WHERE dxcc='269'");  // Poland
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='sd' WHERE dxcc='466'");  // Sudan
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='eg' WHERE dxcc='479'");  // Egypt
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='236'");  // Greece
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='180'");  // Mount Athos
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='45'");  // Dodecanese
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='40'");  // Crete
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='tv' WHERE dxcc='282'");  // Tuvalu
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='301'");  // Western Kiribati
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='31'");  // Central Kiribati
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='48'");  // Eastern Kiribati
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='490'");  // Banaba is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='so' WHERE dxcc='232'");  // Somalia
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='sm' WHERE dxcc='278'");  // San Marino
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='pw' WHERE dxcc='22'");  // Palau
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+
+    sq = QString ("UPDATE entity SET isoname='tr' WHERE dxcc='390'");  // Turkey
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='is' WHERE dxcc='242'");  // Iceland
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='gt' WHERE dxcc='76'");  // Guatemala
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    //TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='cr' WHERE dxcc='308'");  // Costa Rica
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='cr' WHERE dxcc='37'");  // Coco is
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='cm' WHERE dxcc='406'");  // Cameroon
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='214'");  // Corsica
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+    // TODO: Add the wikipedia flag
+
+    sq = QString ("UPDATE entity SET isoname='cf' WHERE dxcc='408'");  // Central African Rep
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='cg' WHERE dxcc='412'");  // Rep of Congo
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+
+    sq = QString ("UPDATE entity SET isoname='ga' WHERE dxcc='420'");  // Gabon
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='td' WHERE dxcc='410'");  // Chad
+    sqlOK = query.exec(sq);
+    if (!sqlOK)
+    {return false;}
+
 /*
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 330:   // Iran
-        return "ir";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 179:   //Moldova
-        return "mv";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 52:    // Estonia
-        return "ee";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 53:    //Ethiopia
-        return "et";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 27:    //Belarus
-        return "by";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 135:   //Kyrgyzstan
-        return "kg";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 262:   // Turkmenistan
-        return "tm";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 227:   // France
-        return "fr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 79:    // Guadeloupe
-        return "fr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 169:   // Mayotte
-        return "yt";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 516:   // St Barthelemy
-        return "fr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 162:   // New Caledonia
-        return "nc";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 512:   // Chesterfield Is
-        return "nc";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 84:    // Martinique
-        return "mq";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 175:   // French Polynesia
-        return "pf";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 508:   //Austral Is
-        return "pf";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 277:   // St Pierre & Miquelon
-        return "pm";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 453: //Reunion Is
-        return "re";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 213:   // St Marteen
-        return "fr";//TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 99:    // Glorioso is
-        return "fr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 124:   // Juan de nova, Europa
-        return "fr"; //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 276:   // Tromelin
-        return "fr";//TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 41:    //Crozet
-        return "fr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 131:   //Kerguelen
-        return "fr"; //TODO: Add the wikipedia flag http://es.wikipedia.org/wiki/Tierras_Australes_y_Ant%C3%A1rticas_Francesas
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 10:    // Amsterdam & St Paul is
-        return "fr";    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 298:   // Wallis & Futuna is
-        return "wf";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 63:    // French Guiana
-        return "gf";    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 223:   // England
-        return "england";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 114:   //Isle of Man
-        return "gb";    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 265:   // Northern Ireland
-        return "northernireland";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 122:   //Jersey
-        return "gb";    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 279:   // Scotland & Shetland is
-        return "scotland";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 106:   // Guernsey
-        return "gb";  //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 294:   // Wales
-        return "wales";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 185:   // Solomon
-        return "sb";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 507:   // Temotu Province
-        return "sb";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 239:   // Hungary
-        return "hu";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 287:   // Switzerland
-        return "ch";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 251:   // Liechtenstein
-        return "li";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 120:   // Ecuador
-        return "ec";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 71:    // Galapagos Is
-        return "ec";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 78:    // Haiti
-        return "ht";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 72:    // Dominican Rep
-        return "do";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 116:   // Colombia
-        return "co";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 216:   // San Andres & Providencia
-        return "co";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 161:   // Malpelo
-        return "co";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 137:   // Rep Korea
-        return "kr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 88:    // Panama
-        return "pa";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 80:    // Honduras
-        return "hn";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 387:   // Thailand
-        return "th";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 295:   // Vatican City
-        return "va";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 378:   // Saudi Arabia
-        return "sa";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 248:   //Italy
-        return "it";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 382:   // Djibouti
-        return "dj";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 77:    // Grenada
-        return "gd";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 109:   // Guinea-Bissau
-        return "gw";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 97:    // St Lucia
-        return "lc";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 95:    // Dominica
-        return "dm";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 98:    // St Vicent
-        return "vc";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 339:   // Japan
-        return "jp";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 177:   // Minami Torishima
-        return "jp";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 192:   // Ogasawara
-        return "jp";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 363:   //Mongolia
-        return "mn";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 259:   // Svalbard
-        return "sj";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 118:   // Jan Mayen
-        return "sj";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 342:   // Jordan
-        return "jo";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 291:   // United States
-        return "us";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 105:   //Guantanamo Bay
-        return "us";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 166:   // Mariana is
-        return "mp";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 20:    // Baker & Howland is
-        return "us";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 103:   // Guam
-        return "gu";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 123:   // Johnston is
-        return "us";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 174:   // Midway is
-        return "us";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 197:   // Palmyra & Jarbis is
-        return "us";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 134:   // Kingman Reef
-        return "us";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 110:   // Hawaii
-        return "us";        //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 138:   // Kure is
-        return "us";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 9:     // American Samoa
-        return "as";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 515:   // Swains is
-        return "as";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 297:   // Wake is
-        return "us";           //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 6:     //Alaska
-        return "us";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 182:   // Navassa Is
-        return "us";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 285:   // Us Virgin is
-        return "vi";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 202:   // Puerto Rico
-        return "pr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 43:    // Desecheo Is
-        return "us";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 266:   // Norway
-        return "no";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 100:   // Argentina
-        return "ar";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 254:   // Luxembourg
-        return "lu";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 146:   // Lithuania
-        return "lt";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 212:   // Bulgaria
-        return "bg";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 136:   // Peru
-        return "pe";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 354:   // Lebanon
-        return "lb";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 206:   // Austria & Viena Intl HQ
-        return "at";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 224:   // Findland
-        return "fi";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 5:     // Aland is
-        return "fi";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 167:   // Market Reef
-        return "fi";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 503:   // Czech Rep
-        return "cz";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 504:   // Slovak Rep
-        return "sk";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 209:   // Belgium
-        return "be";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 237:   // Greenland
-        return "gl";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 222:   // Faroe is
-        return "dk";            //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 221:   // Denmark
-        return "dk";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 163:   // Papua New Guinea
-        return "pg";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 91:    // Aruba
-        return "aw";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 344:   //Dpr Korea
-        return "kp";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 263:   // Netherlands
-        return "nl";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 517:   // Curacao
-        return "cw";          //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 520:   // Bonaire
-        return "bq";          //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 519:   // Saba & St Eustatius
-        return "nl";          //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 518:   // Sint Marteen
-        return "shm";      //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 108:   // Brazil
-        return "br";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 56:    // Fernando de Noronha
-        return "br";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 253:   // St Peter & St Paul
-        return "br";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 273:   //Trindade & Martim Vaz
-        return "br";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 140:   // Suriname
-        return "sr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 61:    // Franz Josef Land
-        return "ru";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 302:   // Western Sahara
-        return "eh";        //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 305:   // Bangladesh
-        return "bd";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 499:   // Slovenia
-        return "si";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 379:   // Seychelles
-        return "sc";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 219:   // Sao Tome & Principe
-        return "st";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 284:   // Sweden
-        return "se";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 269:   // Poland
-        return "pl";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 466:   // Sudan
-        return "sd";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 479:   // Egypt
-        return "eg";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 236:   // Greece
-        return "gr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 180:   // Mount Athos
-        return "gr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 45:    // Dodecanese
-        return "gr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 40:    // Crete
-        return "gr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 282:   // Tuvalu
-        return "tv";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 301:   // Western Kiribati
-        return "ki";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 31:    // Central Kiribati
-        return "ki";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 48:    // Eastern Kiribati
-        return "ki";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 490:   // Banaba is
-        return "ki";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 232:   // Somalia
-        return "so";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 278:   // San Marino
-        return "sm";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 22:    //Palau
-        return "pw";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 390:   // Turkey
-        return "tr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 242:    // Iceland
-        return "is";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 76:    // Guatemala
-        return "gt";            //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 308:   // Costa Rica
-        return "cr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 37:    //Coco is
-        return "cr";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 406:   // Cameroon
-        return "cm";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 214:   // Corsica
-        return "fr";            // TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 408:   // Central African Rep
-        return "cf";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 412:   // Rep of Congo
-        return "cg";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 420:   // Gabon
-        return "ga";
-
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
-    sqlOK = query.exec(sq);
-    if (!sqlOK)
-    {return false;}
-    case 410:   // Chad
-        return "td";
-
     sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -5397,7 +5138,7 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    sq = QString ("UPDATE entity SET isoname='id' WHERE dxcc=327''");  // Indonesia
+    sq = QString ("UPDATE entity SET isoname='id' WHERE dxcc='327'");  // Indonesia
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
@@ -5407,7 +5148,9 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    sq = QString ("UPDATE entity SET isoname='vu' WHERE dxcc=158''");  // Vanuatu
+    qDebug() << "DataBase::updateTheEntityTableISONames-80" << endl;
+
+    sq = QString ("UPDATE entity SET isoname='vu' WHERE dxcc='158'");  // Vanuatu
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
@@ -5512,6 +5255,8 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
+    qDebug() << "DataBase::updateTheEntityTableISONames-90" << endl;
+
     sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='34'");  // Chatham Is
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -5542,7 +5287,7 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-
+qDebug() << "DataBase::updateTheEntityTableISONames-100" << endl;
 
 // Countries without flag or controversial - Data is added just to keep the DB filled-up
     sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='506'");  // Scarboroug Reef
@@ -5555,5 +5300,6 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    return false;
+    qDebug() << "DataBase::updateTheEntityTableISONames-END" << endl;
+    return true;
 }
