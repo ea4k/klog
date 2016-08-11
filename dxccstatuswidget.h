@@ -21,7 +21,7 @@ public:
     ~DXCCStatusWidget();
     
     void update();    
-    void setBands(QStringList const _ent); // Receives the list of bandIDs
+    void setBands(QStringList const _ent, const bool _creating = false); // Receives the list of bandIDs
 
 signals:
 
@@ -47,7 +47,6 @@ private:
     int numberOfColumns; // Columns will be number Of Bands + 2 (Id + Name)
     QStringList bandNames, validBands;
 
-   QString flagDir;
 };
 
 #endif // DXCCSTATUSWIDGET_H

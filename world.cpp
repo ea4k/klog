@@ -61,7 +61,7 @@ World::World(const QString _kontestDir)
     numberOfEntities = 0;
     progressBarPosition = 0;
     created = false;
-    flagsDir=":/flags/";
+    //flagsDir=":/flags/";
     locator = new Locator();
     dataProxy = new DataProxy_SQLite();
     //identifyOS();
@@ -80,7 +80,7 @@ World::World(const QString _kontestDir, const QString _kontestVer)
     progressBarPosition = 0;
     created = false;
     //appDir = QString();
-    flagsDir=":/flags/";
+    //flagsDir=":/flags/";
    //qDebug() << "World::World(2): 2" << endl;
     locator = new Locator();
    //qDebug() << "World::World(2): 3" << endl;
@@ -138,10 +138,10 @@ bool World::recreate(const QString _kontestDir)
     QSqlQuery query;
     if (query.exec("DELETE FROM entity"))
     {
-       //qDebug() << "World::recreate: BORRADO entity"  << endl;
+       //qDebug() << "World::recreate: DELETED entity"  << endl;
         if (query.exec("DELETE FROM prefixesofentity"))
         {
-           //qDebug() << "World::recreate: BORRADO prefixesofentity"  << endl;
+           //qDebug() << "World::recreate: DELETED prefixesofentity"  << endl;
              return create(_kontestDir);
         }
         else
@@ -175,6 +175,10 @@ bool World::create(const QString _kontestDir)
         created = false;
        //qDebug() << "World::create: FALSE"  << endl;
 
+    }
+    if (created)
+    {
+        dataProxy->updateISONames();
     }
     return created;
 }
@@ -1581,7 +1585,11 @@ bool World::readCTYCSV()
     QSqlDatabase::database().commit();
 
     progress.setValue(numberOfLines);
-    dataProxy->updateISONames();
+    if (created)
+    {
+        dataProxy->updateISONames();
+    }
+
 
     return true;
 

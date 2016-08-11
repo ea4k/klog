@@ -146,7 +146,7 @@ private:
     DataProxy *dataProxy;
     //Awards *awards;
     //FLAGS
-    QString flagsDir;
+    //QString flagsDir;
     //FLAGS-END
 
 };

@@ -44,6 +44,8 @@ SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
     contestBands = -1;
     typeContestN = -1;
 
+    //setupD = new SetupDialog();
+
     currentLogs = new QComboBox();
     logsAvailable.clear();
 
@@ -92,6 +94,8 @@ SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
     dataProxy = new DataProxy_SQLite();
 
     //connect(newLogPushButton, SIGNAL(clicked ( )), this, SLOT(slotNewButtonClicked() ) );
+    //QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
+    //connect(setupD, SIGNAL(newLogRequested(true)), this, slotNewButtonClicked() )
 
 
     createActions();

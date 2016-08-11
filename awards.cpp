@@ -818,7 +818,7 @@ Returns a valid format IOTA if possible and "" in other cases.
 
 ************************************/
     //qDebug() << "Awards::checkIfValidIOTA: " << _tiota << endl;
-    bool _valid = false;
+    //bool _valid = false;
     QString _continent;
     QString _number;
 
@@ -833,8 +833,8 @@ Returns a valid format IOTA if possible and "" in other cases.
         return "";
     }
 
-    qDebug() << "Awards::checkIfValidIOTA (cont) " << _continent << endl;
-    qDebug() << "Awards::checkIfValidIOTA (numb): " << _number << endl;
+    //qDebug() << "Awards::checkIfValidIOTA (cont) " << _continent << endl;
+    //qDebug() << "Awards::checkIfValidIOTA (numb): " << _number << endl;
 
     // Check if continent is valid
 

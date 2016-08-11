@@ -65,7 +65,8 @@ FileManager::FileManager(const QString _kontestDir)
 
 }
 
-FileManager::FileManager(const QString _kontestDir, const QString _softVersion, DataBase _db)
+FileManager::FileManager(const QString _kontestDir, const QString _softVersion)
+//FileManager::FileManager(const QString _kontestDir, const QString _softVersion, DataBase _db)
 {
    //qDebug() << "FileManager::FileManager(): Dir(2)" << _kontestDir << endl;
     util = new Utilities;
@@ -2092,6 +2093,8 @@ bool FileManager::cabrilloLogExportToFile(const QString& _fileName, const int lo
 {
     //qDebug() << "FileManager::cabrilloLogExportToFile" << endl;
 
+    QString fn = _fileName;
+
     //TODO: Message "You must select a proper file format
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog: Cabrillo Log Export not implemented"));
@@ -2230,8 +2233,8 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     //bool moreThanOneLog = adifCheckMoreThanOneLog(file);
     int howManyLogs = howManyLogsInFile(file);
     fillHashLog(file);
-    //Estoy creado varios logscuando importo u fichero
-    //Tengo que rellenar el hashLog para luego procesarlo en el processLog lo que sea
+    //I am creating several logs when importing a file
+    //We need to fill the hashLog to process then in processLog
 
 
     bool keepLogsInFile = false;
@@ -2697,6 +2700,8 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     if (noMoreQso)
     {
         //qDebug() << "FileManager::adifReadLog: noMoreQso = true" << endl;
+        progress.setValue(numberOfQsos);
+
     }
     else
     {
@@ -2779,7 +2784,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
 
     //QFile &file = _f;
 
-
+    bool keepLogsInF = _keepLogsInFile; //TODO: Check if needed or remove it completely. This line is just to remove a warning
     int i = -1;
     QDate date;
     QTime time;

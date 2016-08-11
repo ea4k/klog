@@ -289,6 +289,7 @@ void DXClusterWidget::slotClusterDataArrived()
     QString spotBand;
     spotBand = "-1";
     bool isADXSpot = false;
+    int dxEntity = -1;
 
     while ( tcpSocket->canReadLine() ) {
         dxClusterString =  tcpSocket->readLine();
@@ -312,7 +313,7 @@ void DXClusterWidget::slotClusterDataArrived()
             // Convert KHz to MHz...
             //dxFrequency = QString::number(abs (dxFrequency.toFloat())/1000);
             dxFrequency = QString::number( (dxFrequency.toFloat())/1000);
-
+            dxEntity = world->getQRZARRLId(dxCall);
             //
             spotBand = QString::number(dataProxy->getBandIdFromFreq(  dxFrequency.toDouble()  ) );
 
@@ -323,7 +324,7 @@ void DXClusterWidget::slotClusterDataArrived()
 
             dxSpotColor = awards->getQRZDXStatusColor(qs);
 
-            if (awards->isDXMarathonNeed(world->getQRZARRLId(dxCall), world->getQRZCqz(dxCall), QDateTime::currentDateTime().date().year(), currentLog))
+            if (awards->isDXMarathonNeed(dxEntity, world->getQRZCqz(dxCall), QDateTime::currentDateTime().date().year(), currentLog))
             {
                 dxClusterString = dxClusterString + "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
             }
@@ -350,10 +351,10 @@ void DXClusterWidget::slotClusterDataArrived()
             qs.clear();
             spotBand = QString::number(dataProxy->getBandIdFromFreq(  dxFrequency.toDouble()  ) );
             qs << dxCall << spotBand << "-1" << QString::number(currentLog) ;
-
+            dxEntity = world->getQRZARRLId(dxCall);
 
             dxSpotColor = awards->getQRZDXStatusColor(qs);
-            if (awards->isDXMarathonNeed(world->getQRZARRLId(dxCall), world->getQRZCqz(dxCall), QDateTime::currentDateTime().date().year(), currentLog))
+            if (awards->isDXMarathonNeed(dxEntity, world->getQRZCqz(dxCall), QDateTime::currentDateTime().date().year(), currentLog))
             {
                 dxClusterString = dxClusterString + "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
             }
@@ -378,9 +379,33 @@ void DXClusterWidget::slotClusterDataArrived()
             return;
         }
 
+//        QString flagSt;
+//        QString aux;
+
         QListWidgetItem *item = new QListWidgetItem();
         item->setForeground(QBrush(dxSpotColor));
         item->setText(dxClusterString);
+/*
+        if (dxEntity>0)
+        {
+            flagSt.clear();
+
+            aux = dataProxy->getISOName(dxEntity);
+            if (aux.length()>1)
+            {
+                flagSt = ":/" + aux + ".png";
+            }
+            else
+            {
+                flagSt.clear();
+            }
+
+            flagSt = ":/flags/" + dataProxy->getISOName(dxEntity) + ".png";
+            QIcon flagIcon(flagSt);
+            item->setIcon(flagIcon);
+
+        }
+*/
         dxClusterListWidget->insertItem(0,item);
 
         //dxClusterListWidget->insertItem(0,item);

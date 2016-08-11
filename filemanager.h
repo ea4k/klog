@@ -59,7 +59,7 @@ class FileManager : public QWidget
 public:
     FileManager();
     FileManager(const QString _kontestDir);
-    FileManager(const QString _kontestDir, const QString _softVersion, DataBase _db);
+    FileManager(const QString _kontestDir, const QString _softVersion);
     ~FileManager();
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);

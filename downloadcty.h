@@ -15,8 +15,6 @@
 
 class QSslError;
 
-QT_USE_NAMESPACE
-
 class DownLoadCTY : public QObject {
     Q_OBJECT
 public:

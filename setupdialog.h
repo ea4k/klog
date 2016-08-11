@@ -66,6 +66,7 @@ public slots:
 
 signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
+    //void newLogRequested(const bool _s); // true show new log
 
 private slots:
     void changePage(QListWidgetItem *current, QListWidgetItem *previous);

@@ -2753,15 +2753,20 @@ int DataProxy_SQLite::getHowManyEntities()
 bool DataProxy_SQLite::updateISONames()
 {
     qDebug()  << "DataProxy_SQLite::updateISONames"  << endl;
-    return db->updateTheEntityTableISONames();
+    bool result;
+    result = db->updateTheEntityTableISONames();
+
+
+
+    return result;
 }
 
 QString DataProxy_SQLite::getISOName(const int _n)
 {
-    //qDebug()  << "DataProxy_SQLite::updateISONames: " << QString::number(_n)  << endl;
+    //qDebug()  << "DataProxy_SQLite::getISONames: " << QString::number(_n)  << endl;
     if (_n <= 0 )
     {
-        return "nu"; // When no flag is known, we return the UN flag
+        return "un"; // When no flag is known, we return the UN flag
     }
 
     QString queryString, aux;
@@ -2770,7 +2775,7 @@ QString DataProxy_SQLite::getISOName(const int _n)
     queryString = QString("SELECT isoname FROM entity WHERE dxcc='%1'").arg(_n);
     if (!query.exec(queryString))
     {
-        qDebug()  << "DataProxy_SQLite::updateISONames: Query error"  << endl;
+        qDebug()  << "DataProxy_SQLite::getISOName: Query error"  << endl;
         return "nu"; // When no flag is known, we return the UN flag
     }
     else
@@ -2778,7 +2783,7 @@ QString DataProxy_SQLite::getISOName(const int _n)
         query.next();
 
         if (query.isValid()){
-            //qDebug()  << "DataProxy_SQLite::updateISONames: ISO Name: " << (query.value(0)).toString() << endl;
+            //qDebug()  << "DataProxy_SQLite::getISOName: ISO Name: " << (query.value(0)).toString() << endl;
             aux = (query.value(0)).toString();
             if (aux.length()>1)
             {
@@ -2792,10 +2797,10 @@ QString DataProxy_SQLite::getISOName(const int _n)
         }
         else
         {
-             //qDebug()  << "DataProxy_SQLite::updateISONames: NO ISO Name: "  << endl;
+             //qDebug()  << "DataProxy_SQLite::getISOName: NO ISO Name: "  << endl;
             return "un"; // When no flag is known, we return the UN flag
         }
     }
-    qDebug()  << "DataProxy_SQLite::updateISONames: NO ISO Name: default"  << endl;
+    qDebug()  << "DataProxy_SQLite::getISOName: NO ISO Name: default"  << endl;
     return "un"; // When no flag is known, we return the UN flag
 }

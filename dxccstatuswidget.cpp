@@ -7,6 +7,7 @@ TODO: Add some color to the texts depending on C, W or -
 TODO: Call the creation of this depending on the bands that the user is using
 
 */
+
 DXCCStatusWidget::DXCCStatusWidget(QWidget *parent) : QWidget(parent)
 {
     //qDebug() << "DXCCStatusWidget::DXCCStatusWidget" << endl;
@@ -28,7 +29,7 @@ DXCCStatusWidget::DXCCStatusWidget(QWidget *parent) : QWidget(parent)
 
     bandNames.clear();
     validBands.clear();
-    flagDir.clear();
+
 
     setDefaultBands();
     createUI();
@@ -76,7 +77,7 @@ void DXCCStatusWidget::createUI()
 
 void DXCCStatusWidget::update()
 {
-    //qDebug() << "DXCCStatusWidget::update " << endl;
+    qDebug() << "DXCCStatusWidget::update " << endl;
     int entities = world->getHowManyEntities();
     QStringList list;
     QString aux;
@@ -133,6 +134,7 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
     QString flagSt;
     flagSt.clear();
     QString aux;
+
     aux = dataProxy->getISOName(ent);
     if (aux.length()>1)
     {
@@ -143,7 +145,7 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
         flagSt.clear();
     }
 
-    flagSt = ":/flags/" + dataProxy->getISOName(ent) + ".png";
+    flagSt = ":/flags/" + aux + ".png";
     QIcon flagIcon(flagSt);
 
     //qDebug() << "DXCCStatusWidget::addEntity: Flag: " << flagSt << endl;
@@ -166,7 +168,6 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
         QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand(ent, bandid, -1));
         newItem->setTextAlignment(Qt::AlignCenter);
         newItem->setFlags(Qt::NoItemFlags);
-
 
         if (newItem->text()=="C")
         {
@@ -191,7 +192,6 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
         dxccView->setItem(dxccView->rowCount()-1, i, newItem);
 
         //qDebug() << "DXCCStatusWidget::addEntity: rowCount-2:  " << QString::number(dxccView->rowCount()) << "/" << QString::number(i) << " / " << newItem->text() << endl;
-
     }
 
     QTableWidgetItem *newItemName = new QTableWidgetItem(entName);
@@ -224,15 +224,29 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
 
 }
 
-void DXCCStatusWidget::setBands(QStringList const _ent)
+void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
 {// Receives the list of band names
 
-    //qDebug() << "DXCCStatusWidget::setBands: " << QString::number(_ent.length()) << endl;
+    qDebug() << "DXCCStatusWidget::setBands: " << QString::number(_ent.length()) << endl;
+    if (_creating)
+    {
+        //qDebug() << "DXCCStatusWidget::setBands (creating true) " << QString::number(_ent.length()) << endl;
+    }
+    else
+    {
+        //qDebug() << "DXCCStatusWidget::setBands (creating false) " << QString::number(_ent.length()) << endl;
+    }
 
     QStringList qs;
     qs.clear();
 
     qs << dataProxy->sortBandNamesBottonUp(_ent);
+
+    if (qs.length()<0)
+    {
+        //qDebug() << "DXCCStatusWidget::setBands no bands received here " << endl;
+        return;
+    }
 
     QString testBand;
     testBand.clear();
@@ -263,7 +277,7 @@ void DXCCStatusWidget::setBands(QStringList const _ent)
         }
         else
         {
-          qDebug() << "DXCCStatusWidget::setBands: Not valid band: " << testBand << endl;
+          //qDebug() << "DXCCStatusWidget::setBands: Not valid band: " << testBand << endl;
         }
     }
 
@@ -275,15 +289,20 @@ void DXCCStatusWidget::setBands(QStringList const _ent)
     headerqs.clear();
     headerqs << tr("Id") << tr("Entity") << bandNames;
     dxccView->setHorizontalHeaderLabels(headerqs);
-    update();
-    //qDebug() << "DXCCStatusWidget::setBands: END" << endl;
+    //qDebug() << "DXCCStatusWidget::setBands: PRE-END" << endl;
+    if (!_creating)
+    {
+        update();
+    }
+
+    qDebug() << "DXCCStatusWidget::setBands: END" << endl;
 
 
 }
 
 void DXCCStatusWidget::setDefaultBands()
 {
-     //qDebug() << "DXCCStatusWidget::setDefaultBands" << endl;
+     qDebug() << "DXCCStatusWidget::setDefaultBands" << endl;
     /*
      Default bands:
      160M    80M  40M  30M  20M  17M  15M  12M  10M  6M   4M   2M   70CM
@@ -293,7 +312,7 @@ void DXCCStatusWidget::setDefaultBands()
     bandNames.clear();
     bandNames << "160M" << "80M" << "40M" << "30M" << "20M" << "17M" << "15M" << "12M" << "10M" << "6M" << "4M" << "2M" << "70CM";
 
-    setBands(bandNames);
+    setBands(bandNames, true);
 
 }
 
