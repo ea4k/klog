@@ -34,7 +34,7 @@ This class calls all the othet "Setup..." to manage the configuration
 
 SetupDialog::SetupDialog(const bool _firstTime)
 {
-   //qDebug() << "SetupDialog::SetupDialog 1" << endl;
+    qDebug() << "SetupDialog::SetupDialog 1" << endl;
     util = new Utilities;
     nolog = true;
     configFileName = "klogrc";
@@ -120,14 +120,14 @@ SetupDialog::SetupDialog(const bool _firstTime)
         tabWidget->setCurrentIndex(logsPageTabN);
     }
     nolog = !(haveAtleastOneLog());
-   //qDebug() << "SetupDialog::SetupDialog END" << endl;
+   qDebug() << "SetupDialog::SetupDialog 1 END" << endl;
 }
 
 
 
 SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
 {
-    //qDebug() << "SetupDialog::SetupDialog 2" << endl;
+    qDebug() << "SetupDialog::SetupDialog 2" << endl;
     util = new Utilities;
     firstTime = _firstTime;
     dataProxy = new DataProxy_SQLite();
@@ -187,6 +187,7 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
         tabWidget->setCurrentIndex(logsPageTabN);
     }
     nolog = !(haveAtleastOneLog());
+     qDebug() << "SetupDialog::SetupDialog 2  - END" << endl;
 }
 
 SetupDialog::~SetupDialog()
@@ -336,13 +337,17 @@ void SetupDialog::slotOkButtonClicked()
 
     if (!haveAtleastOneLog())
     {
-        //qDebug() << "SetupDialog::slotOkButonClicked - NO LOG!" << endl;
+        qDebug() << "SetupDialog::slotOkButonClicked - NO LOG!" << endl;
 
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You have not selected the kind of log you want.\nYou will be redirected to the Log tab.\nPlease add and select the kind of log you want to use."));
         msgBox.exec();
-        tabWidget->setCurrentIndex(logsPageTabN);
+
+        tabWidget->setCurrentIndex(tabWidget->indexOf(logsPage));
+        //emit newLogRequested(true); // Signal to be catched by logsPage true show new log
+
+
         return;
     }
 

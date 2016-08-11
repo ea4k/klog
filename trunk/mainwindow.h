@@ -464,6 +464,7 @@ private:
     // UI DX
     //QLabel *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel; //entityPrimLabel
     QLabel *infoLabel1, *infoLabel2;
+    //QPushButton *flagIcon; // To paint a flag of the worked entity
     QLabel *bandLabel1, *bandLabel2, *bandLabel3, *bandLabel4;
     QLabel *bandLabel5, *bandLabel6, *bandLabel7, *bandLabel8;
     QLabel *bandLabel9, *bandLabel10, *bandLabel11, *bandLabel12;

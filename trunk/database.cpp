@@ -27,18 +27,19 @@
 #include "database.h"
 //#include <qDebug>
 
-
-DataBase::DataBase(const QString _softVersion, bool inmemoryonly){
-   //qDebug() << "DataBase::DataBase: " << _softVersion  << endl;
+DataBase::DataBase(const QString _softVersion){
+   qDebug() << "DataBase::DataBase: " << _softVersion  << endl;
     //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
     dbVersion = DBVersionf;
     softVersion = _softVersion;
-    inMemoryOnly = inmemoryonly;
+    //inMemoryOnly = inmemoryonly;
     latestReaded = 0.0;
     util = new Utilities();
     //db = new QSqlDatabase;
     db = QSqlDatabase::database();
+    //created = false;
     createConnection();
+    qDebug() << "DataBase::DataBase: END"  << endl;
 
 }
 
@@ -65,7 +66,7 @@ void DataBase::compress()
 
 bool DataBase::createConnection()
 {
-  //qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
+  qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
     QString stringQuery;
    //qDebug() << "DataBase::createConnection: 0" << endl;
 
@@ -88,12 +89,11 @@ bool DataBase::createConnection()
         }
        else
        {
-           //qDebug() << "DataBase::createConnection: created?" << endl;
+           qDebug() << "DataBase::createConnection: created?" << endl;
 
             if (isTheDBCreated())
             {
                //qDebug() << "DataBase::createConnection: DB Exists"  << endl;
-
             }
             else
             {
@@ -120,10 +120,7 @@ bool DataBase::createConnection()
                 //query.exec(stringQuery);
                 stringQuery ="PRAGMA case_sensitive_like=OFF;";
                 query.exec(stringQuery);
-
-
             }
-
         }
     }
     else
@@ -132,13 +129,17 @@ bool DataBase::createConnection()
     }
     createBandModeMaps();
 
-  //qDebug() << "DataBase::createConnection: END"  << endl;
+  qDebug() << "DataBase::createConnection: END"  << endl;
+    //created = true;
     return unMarkAllQSO();
 }
 
 bool DataBase::isTheDBCreated()
 {
-   //qDebug() << "DataBase::isTheDBCreated"  << endl;
+   qDebug() << "DataBase::isTheDBCreated"  << endl;
+    //return created;
+    //return hasTheTableData("softwarecontrol");
+
     QSqlQuery query;
     int _num = 0;
 
@@ -183,6 +184,7 @@ bool DataBase::isTheDBCreated()
 
    //qDebug() << "DataBase::isTheDBCreated: END FALSE" << endl;
     return false;
+
 }
 
 bool DataBase::createTableLog(bool temp)
@@ -970,12 +972,13 @@ bool DataBase::unMarkAllQSO()
     //qDebug() << "MainWindow::slotQSLSentViaBureauFromLog: " << stringQuery << endl;
     //query.exec(stringQuery);
     //TODO: Check if the execution of this query is OK or NOK (should return false)
+    qDebug() << "DataBase::unMarkAllQSO: END "  << endl;
     return true;
 }
 
 bool DataBase::updateIfNeeded()
 {
-    //qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << endl;
+    qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << endl;
 
     /**************************************************************************************
      * This function should call to bool updateToXXX () being XXX dbVersion and
@@ -1070,7 +1073,7 @@ bool DataBase::createTheBandQuickReference()
 
 */
 
-  //qDebug() << "DataBase::createTheBandQuickReference: " << endl;
+    //qDebug() << "DataBase::createTheBandQuickReference: " << endl;
 
     QString st = "NULL";
     int in = 0;
@@ -1102,6 +1105,7 @@ bool DataBase::createTheBandQuickReference()
            //TODO: Manage this error, in case the query is NOK.
 
         }
+         //qDebug() << "DataBase::createTheBandQuickReference: Go for the next one!" << endl;
     }
 /*
     QHashIterator<QString, int> i(bandIDHash);
@@ -1110,7 +1114,7 @@ bool DataBase::createTheBandQuickReference()
         //qDebug() << i.key() << ": " << QString::number(i.value()) << endl;
     }
 */
-
+    //qDebug() << "DataBase::createTheBandQuickReference: END" << endl;
     return true;
 }
 
@@ -1122,7 +1126,7 @@ bool DataBase::createTheModeQuickReference()
         QHash<int, QString> IDModeHash
 
     */
-      //qDebug() << "DataBase::createTheModeQuickReference: " << endl;
+      qDebug() << "DataBase::createTheModeQuickReference: " << endl;
         QString st = "NULL";
         int in = 0;
         modeIDHash.clear();
@@ -1158,6 +1162,7 @@ bool DataBase::createTheModeQuickReference()
         }
 
 */
+        qDebug() << "DataBase::createTheModeQuickReference: END" << endl;
         return true;
 }
 
@@ -1255,22 +1260,23 @@ QString DataBase::getModeNameFromID2(const int _i)
 
 bool DataBase::createBandModeMaps()
 {
-    //qDebug() << "DataBase::createBandModeMaps" << endl;
+    qDebug() << "DataBase::createBandModeMaps" << endl;
      //bool b = createTheBandQuickReference();
      //bool m = createTheModeQuickReference();
 
      //return (b && m);
     if (isTheDBCreated())
     {
-       //qDebug() << "DataBase::createBandModeMaps - isDbCreated TRUE" << endl;
+       qDebug() << "DataBase::createBandModeMaps - isDbCreated TRUE" << endl;
         return (createTheBandQuickReference() &&  createTheModeQuickReference());
     }
     else
     {
-       //qDebug() << "DataBase::createBandModeMaps - isDbCreated FALSE" << endl;
+       qDebug() << "DataBase::createBandModeMaps - isDbCreated FALSE" << endl;
         return false;
     }
 
+    qDebug() << "DataBase::createBandModeMaps END" << endl;
 }
 
 QString DataBase::getFreqFromBandId(const int _i)
@@ -1296,7 +1302,7 @@ bool DataBase::updateToLatest()
  * The updateXXX are recursive calls that calls the previous one.
  *
  */
-    qDebug() << "DataBase::updateToLatest-006 " << endl;
+    qDebug() << "DataBase::updateToLatest " << endl;
     return updateTo009();
 }
 
@@ -1564,7 +1570,7 @@ bool DataBase::recreateContestData()
     return false;
 
 }
-
+/*
 bool DataBase::updateLog()
 {
     //qDebug() << "DataBase::updateLog"  << endl;
@@ -1572,7 +1578,7 @@ bool DataBase::updateLog()
     bool sqlOk = false;
     return sqlOk;
 }
-
+*/
 bool DataBase::createTableLogs()
 {
     QSqlQuery query;
@@ -1950,6 +1956,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
 
 bool DataBase::createTableEntity(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
+    qDebug() << "DataBase::createTableEntity" << endl;
 
     QString stringQuery = QString();
     QSqlQuery query;
@@ -1978,6 +1985,8 @@ bool DataBase::createTableEntity(const bool NoTmp)
                                              "isoname VARCHAR(10), "
                                              "UNIQUE (dxcc, mainprefix), "
                                              "FOREIGN KEY (continent) REFERENCES continent(shortname) )");
+
+
     return  query.exec(stringQuery);
 
     //TODO: To add some columns in this the table to mark if worked/confirmed/band/Mode
@@ -2378,11 +2387,72 @@ bool DataBase::populateTableClubLogStatus()
         }
     }
     return false;
-
 }
-
+/*
 bool DataBase::moveFromModeIdToSubmodeId()
 {
+    return false;
+}
+*/
+
+bool DataBase::updateTableEntity()
+{
+    qDebug() << "DataBase::updateTableEntity" << endl;
+    bool result = false;
+    QString stringQuery;
+    QSqlQuery query;
+    bool sqlOk;
+
+    result = createTableEntity(false);  // Now we have a temp entity table with the correct format
+    if (result)
+    {
+        qDebug() << "DataBase::updateTableEntity: Table entitytemp created!" << endl;
+        // Now we need to move all the data from the old to the temp entity table.
+
+        stringQuery = QString("INSERT INTO entitytemp (name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate) SELECT name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate FROM entity");
+
+        sqlOk = query.exec(stringQuery);
+
+        if (sqlOk)
+        {
+            qDebug() << "DataBase::updateTableEntity: Data copied from entity to entitytemp!" << endl;
+
+            if (query.exec("DROP TABLE entity"))
+            {
+                qDebug() << "DataBase::updateTableEntity: Table entity DELETED" << endl;
+
+                if (query.exec("ALTER TABLE entitytemp RENAME TO entity"))
+                {
+                    qDebug() << "DataBase::updateTableEntity: Table entitytemp renamed" << endl;
+                    return true;
+                }
+                else
+                {
+                   qDebug() << "DataBase::updateTableEntity: Table entitytemp NOT renamed" << endl;
+                   return false;
+                }
+
+            }
+            else
+            {
+               qDebug() << "DataBase::updateTableEntity: Table entity NOT DELETED" << endl;
+               return false;
+            }
+
+        }
+        else
+        {
+            qDebug() << "DataBase::updateTableEntity: Data NOT copied from entity to entitytemp!" << endl;
+            //TODO: If it fails, we should manage errors...
+            return false;
+        }
+
+    }
+    else
+    {
+        qDebug() << "DataBase::updateTableEntity: Table entitytemp NOT created!" << endl;
+        return false;
+    }
 
     return false;
 }
@@ -2467,7 +2537,7 @@ bool DataBase::updateModeIdFromSubModeId()
                         {
                             modeFound = query2.value(0).toInt();
 
-    sq = QString ("UPDATE log SET modeid='%1' WHERE id='%2'").arg(modeFound).arg(id);           // STEP-4
+                            sq = QString ("UPDATE log SET modeid='%1' WHERE id='%2'").arg(modeFound).arg(id);           // STEP-4
                             sqlOk3 = query3.exec(sq);
                             if (sqlOk3)
                             {
@@ -3417,13 +3487,37 @@ bool DataBase::updateTo009()
         }
         //DO ALL THE TASKS TO BE IN 0.009 from 0.008 HERE and set ErrorUpdating if it is not possible.
 
+
+
+
         if (createTableSatellites(true))
         {
             qDebug() << "DataBase::updateTo009: - createTableSatellites OK" << endl;
             if (populateTableSatellites(true))
             {
                 qDebug() << "DataBase::updateTo009: - populateTableSatellites OK" << endl;
-                IAmIn009 = true;
+                if (updateTableEntity())
+                {
+                   qDebug() << "DataBase::updateTo009: - updateTableEntity OK" << endl;
+                   if (updateTheEntityTableISONames())
+                   {
+                      qDebug() << "DataBase::updateTo009: - isonames updated" << endl;
+                      IAmIn009 = true;
+                   }
+
+                   else
+                   {
+                      qDebug() << "DataBase::updateTo009: - isonames NOT updated" << endl;
+                      IAmIn009 = false;
+                   }
+                }
+                else
+                {
+
+                   ErrorUpdating = true;
+                   IAmIn009 = false;
+                }
+
             }
             else
             {
@@ -3482,10 +3576,19 @@ bool DataBase::updateTheEntityTableISONames()
     QString sq;
     bool sqlOK;
 
+    //First of all we will check if the entity table does contain data. We can't update something non existent!
+    if (!hasTheTableData("entity"))
+    {
+        qDebug() << "DataBase::updateTheEntityTableISONames: Entity has NO data" << endl;
+        return false;
+    }
+
+    qDebug() << "DataBase::updateTheEntityTableISONames-1" << endl;
     sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='246'");  //Sovereign Order of Malta
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
+    qDebug() << "DataBase::updateTheEntityTableISONames-2" << endl;
 
     sq = QString ("UPDATE entity SET isoname='247' WHERE dxcc='un'");  //Spratly
     sqlOK = query.exec(sq);
@@ -3592,8 +3695,6 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    qDebug() << "DataBase::updateTheEntityTableISONames-10" << endl;
-
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='289'");  // UN HQ
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -3686,8 +3787,6 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    qDebug() << "DataBase::updateTheEntityTableISONames-20" << endl;
-
     sq = QString ("UPDATE entity SET isoname='mw' WHERE dxcc='440'");  // Malawi
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -3778,8 +3877,6 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    qDebug() << "DataBase::updateTheEntityTableISONames-30" << endl;
-
     sq = QString ("UPDATE entity SET isoname='rw' WHERE dxcc='454'");  // Rwanda
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -3829,8 +3926,6 @@ bool DataBase::updateTheEntityTableISONames()
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-
-    qDebug() << "DataBase::updateTheEntityTableISONames-30-10" << endl;
 
     sq = QString ("UPDATE entity SET isoname='tw' WHERE dxcc='386'");  // Taiwan
     sqlOK = query.exec(sq);
@@ -3882,8 +3977,6 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    qDebug() << "DataBase::updateTheEntityTableISONames-30-20" << endl;
-
     sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='47'");  // Easter Is
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -3933,8 +4026,6 @@ bool DataBase::updateTheEntityTableISONames()
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-
-    qDebug() << "DataBase::updateTheEntityTableISONames-30-30" << endl;
 
     sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='252'");  // St Paul is
     sqlOK = query.exec(sq);
@@ -3986,14 +4077,10 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    qDebug() << "DataBase::updateTheEntityTableISONames-30-40" << endl;
-
     sq = QString ("UPDATE entity SET isoname='nu' WHERE dxcc='188'");  // Niue
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-
-    qDebug() << "DataBase::updateTheEntityTableISONames-40" << endl;
 
     sq = QString ("UPDATE entity SET isoname='ba' WHERE dxcc='501'");  // Bosnia
     sqlOK = query.exec(sq);
@@ -4185,8 +4272,6 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    qDebug() << "DataBase::updateTheEntityTableISONames-50" << endl;
-
     sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='122'");  // Jersey
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -4307,8 +4392,6 @@ bool DataBase::updateTheEntityTableISONames()
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-
-    qDebug() << "DataBase::updateTheEntityTableISONames-60" << endl;
 
     sq = QString ("UPDATE entity SET isoname='gd' WHERE dxcc='77'");  // Grenada
     sqlOK = query.exec(sq);
@@ -4558,8 +4641,6 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    qDebug() << "DataBase::updateTheEntityTableISONames-70" << endl;
-
     sq = QString ("UPDATE entity SET isoname='aw' WHERE dxcc='91'");  // Aruba
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -4794,315 +4875,225 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-/*
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='ci' WHERE dxcc='428'");  // Cote d'Ivoire
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 428:   // Cote d'Ivoire
-        return "ci";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='bj' WHERE dxcc='416'");  // Benin
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 416:   // Benin
-        return "bj";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='ml' WHERE dxcc='442'");  // Mali
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 442:   // Mali
-        return "ml";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='54'");  // European Rusia
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 54:    // European Rusia
-        return "ru";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='126'");  // Kaliningrad
     sqlOK = query.exec(sq);
     if (!sqlOK)
-    {return false;}
-    case 126:   // Kaliningrad
-        return "ru";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='15'");  // Asiatic Rusia
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 15:    //Asiatic Rusia
-        return "ru";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='uz' WHERE dxcc='292'");  // Uzbekistan
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 292:   // Uzbekistan
-        return "uz";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='kz' WHERE dxcc='130'");  // Kazakhstan
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 130:   // Kazakhstan
-        return "kz";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='ua' WHERE dxcc='288'");  // Ukraine
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 288:   //Ukraine
-        return "ua";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='ag' WHERE dxcc='94'");  // Antigua & Barbuda
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 94:    // Antigua & Barbuda
-        return "ag";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='bz' WHERE dxcc='66'");  // Belize
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 66:    //Belize
-        return "bz";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='kn' WHERE dxcc='249'");  // St Kitts & Nevis
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 249:   // St Kitts & Nevis
-        return "kn";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='na' WHERE dxcc='464'");  // Namibia
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 464:   // Namibia
-        return "na";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='fm' WHERE dxcc='173'");  // Micronesia
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 173:   // Micronesia
-        return "fm";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='fm' WHERE dxcc='168'");  // Marshall Is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 168:   // Marshall Is
-        return "fm";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='bn' WHERE dxcc='345'");  // Brunei Darusalam
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 345: // Brunei Darusalam
-        return "bn";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='1'");  // Canada
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 1: //Canada
-        return "ca";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='150'");  // Australia
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 150:   //Australia
-        return "au";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='hm' WHERE dxcc='111'");  // Heard Is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 111:   // Heard Is
-        return "hm";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='153'");  // Macquarie is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 153:   // Macquarie is
-        return "au";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='cc' WHERE dxcc='38'");  //  Cocos / Keeling is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 38:    // Cocos / Keeling is
-        return "cc";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='147'");  //  Lord Howe is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 147:   // Lord Howe is
-        return "au";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='171'");  // Mellish Reed
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 171:   // Mellish Reed
-        return "au";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='nf' WHERE dxcc='189'");  // Norkfolk is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 189:   // Norkfolk is
-        return "nf";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='303'");  // Willis Is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 303:   // Willis Is
-        return "au";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='cx' WHERE dxcc='35'");  // Christmas is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 35:    // Christmas is
-        return "cx";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='ai' WHERE dxcc='12'");  //  Anguilla
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 12:    // Anguilla
-        return "ai";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='ms' WHERE dxcc='96'");  // Montserrat
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 96:    // Montserrat
-        return "ms";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='vg' WHERE dxcc='65'");  // British is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 65:    // British is
-        return "vg";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='tc' WHERE dxcc='89'");  // Turks & Caicos is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 89:    // Turks & Caicos is
-        return "tc";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='pn' WHERE dxcc='172'");  // Pitcairn
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 172:   // Pitcairn
-        return "pn";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='513'");  // Ducie is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 513:   // Ducie is
-        return "gb";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='fk' WHERE dxcc='141'");  // Falkland is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 141:   // Falkland is
-        return "fk";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='gs' WHERE dxcc='235'");  // South Georgia is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 235:   // South Georgia is
-        return "gs";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='241'");  // South Shetland is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 241:   // South Shetland is
-        return "un";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='238'");  // South Orkney is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 238:   // South Orkney is
-        return "un";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='gs' WHERE dxcc='240'");  // South Sandwich Is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 240:   // South Sandwich Is
-        return "gs";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='bm' WHERE dxcc='64'");  // Bermuda
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 64:    // Bermuda
-        return "bm";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='io' WHERE dxcc='33'");  // Chagos is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 33:    // Chagos is
-        return "io";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='hk' WHERE dxcc='321'");  // Hong Kong
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 321:   // Hong Kong
-        return "hk";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='324'");  // India
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 324:   // India
-        return "in";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='11'");  // Andaman & Nicobar
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 11:    // Andaman & Nicobar
-        return "in";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='142'");  // Lakshadweep Is
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 142:   // Lakshadweep Is
-        return "in";
 
-    sq = QString ("UPDATE entity SET isoname='' WHERE dxcc=''");  //
+    sq = QString ("UPDATE entity SET isoname='mx' WHERE dxcc='50'");  // Mexico
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-    case 50:    // Mexico
-        return "mx";
-*/
+
     sq = QString ("UPDATE entity SET isoname='mx' WHERE dxcc='204'");  // Revilagigedo
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -5147,8 +5138,6 @@ bool DataBase::updateTheEntityTableISONames()
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
-
-    qDebug() << "DataBase::updateTheEntityTableISONames-80" << endl;
 
     sq = QString ("UPDATE entity SET isoname='vu' WHERE dxcc='158'");  // Vanuatu
     sqlOK = query.exec(sq);
@@ -5255,8 +5244,6 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    qDebug() << "DataBase::updateTheEntityTableISONames-90" << endl;
-
     sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='34'");  // Chatham Is
     sqlOK = query.exec(sq);
     if (!sqlOK)
@@ -5287,8 +5274,6 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-qDebug() << "DataBase::updateTheEntityTableISONames-100" << endl;
-
 // Countries without flag or controversial - Data is added just to keep the DB filled-up
     sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='506'");  // Scarboroug Reef
     sqlOK = query.exec(sq);
@@ -5302,4 +5287,51 @@ qDebug() << "DataBase::updateTheEntityTableISONames-100" << endl;
 
     qDebug() << "DataBase::updateTheEntityTableISONames-END" << endl;
     return true;
+}
+
+bool DataBase::hasTheTableData(const QString _tableName)
+{
+   qDebug() << "DataBase::hasTheTableData" << _tableName << endl;
+    QSqlQuery query;
+    int _num = 0;
+
+    QString stringQuery = QString("SELECT count(id) FROM %1").arg(_tableName);
+    bool sqlOK = query.exec(stringQuery);
+
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+           //qDebug() << "DataBase::hasTheTableData - valid"  << endl;
+            _num = (query.value(0)).toInt();
+            if (_num > 0)
+            {
+               //qDebug() << "DataBase::hasTheTableData - DB Exists"  << endl;
+                return true;
+            }
+            else
+            {
+               //qDebug() << "DataBase::hasTheTableData - DB does not Exist"  << endl;
+                return false;
+            }
+        }
+        else
+        {
+           //qDebug() << "DataBase::hasTheTableData - not valid"  << endl;
+
+            return false;
+        }
+    }
+    else
+    {
+       //qDebug() << "DataBase::hasTheTableData: LastQuery: " << query.lastQuery()  << endl;
+       //qDebug() << "DataBase::hasTheTableData: LastError-data: " << query.lastError().databaseText()  << endl;
+       //qDebug() << "DataBase::hasTheTableData: LastError-driver: " << query.lastError().driverText()  << endl;
+       //qDebug() << "DataBase::hasTheTableData LastError-n: " << QString::number(query.lastError().number() ) << endl;
+        return false;
+    }
+
+   //qDebug() << "DataBase::isTheDBCreated: END FALSE" << endl;
+    return false;
 }

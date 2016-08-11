@@ -31,9 +31,8 @@
 #include <QtSql>
 #include "dataproxy.h"
 #include "dataproxy_sqlite.h"
-
-
 #include "setuppagelogsnew.h"
+
 
 const int CONTEST_DX = 0;
 const int CONTEST_CQ_WW_SSB = 1;
@@ -124,6 +123,8 @@ private:
     int contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands, typeContestN;
 
     DataProxy *dataProxy;
+
+
 };
 
 

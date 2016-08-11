@@ -42,6 +42,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     upAndRunning = false; // To define some actions that can only be run when starting the software
     //connect(&manager, SIGNAL(finished(QNetworkReply*)), SLOT(slotDownloadFinished(QNetworkReply*))); // To download cty.csv
+    //flagIcon = new QPushButton; // To paint a flag of the worked entity
 
     // <ui>
     doc = new QTextDocument;
@@ -211,58 +212,60 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         }
     }
 
-   //qDebug() << "MainWindow::MainWindow: 3" << endl;
+   qDebug() << "MainWindow::MainWindow: 3" << endl;
 
 
     DBinMemory = false;
-    db = new DataBase(softwareVersion, DBinMemory);
-   //qDebug() << "MainWindow::MainWindow: 4" << endl;
+    //db = new DataBase(softwareVersion, DBinMemory);
+    db = new DataBase(softwareVersion);
+   qDebug() << "MainWindow::MainWindow: 4" << endl;
     world = new World(kontestDir, softwareVersion);
-   //qDebug() << "MainWindow::MainWindow: 5" << endl;
+   qDebug() << "MainWindow::MainWindow: 5" << endl;
     if (!db->createConnection())
     {
-      //qDebug() << "MainWindow::MainWindow: Conection not created" << endl;
+      qDebug() << "MainWindow::MainWindow: Conection not created" << endl;
         return;
     }
     else
     {
         db->updateIfNeeded(); // Check if we need to update the DB
-        //qDebug() << "MainWindow::MainWindow: DB Updated" << endl;
+        qDebug() << "MainWindow::MainWindow: DB Updated" << endl;
         if (!existingData)
         {
-          //qDebug() << "MainWindow::MainWindow: !existingData" << endl;
+          qDebug() << "MainWindow::MainWindow: !existingData" << endl;
             world->create(kontestDir);                       
             //entitiesList = world->getEntitiesNames();
             //createData();
         }else
         {
-         //qDebug() << "MainWindow::MainWindow: existingData" << endl;
+         qDebug() << "MainWindow::MainWindow: existingData" << endl;
         }
     }
-   //qDebug() << "MainWindow::MainWindow: proxy to be created" << endl;
+   qDebug() << "MainWindow::MainWindow: proxy to be created" << endl;
     dataProxy = new DataProxy_SQLite();
     //propModeList = dataProxy->getPropModeList();
 
-   //qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
+   qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
     //setupDialog = new SetupDialog(!configured);
     setupDialog = new SetupDialog(configFileName, softwareVersion, 0, !configured);
-   //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
+   qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab();
     myDataTabWidget = new MainWindowMyDataTab();
     commentTabWidget = new MainWindowInputComment();
     othersTabWidget = new MainWindowInputOthers();
 
-  //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
-    filemanager = new FileManager(kontestDir, softwareVersion, *db);
+    qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
+    //filemanager = new FileManager(kontestDir, softwareVersion, *db);
+    filemanager = new FileManager(kontestDir, softwareVersion);
 
-   //qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
+   qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
     locator = new Locator();
-   //qDebug() << "MainWindow::MainWindow: awards to be created" << endl;
+   qDebug() << "MainWindow::MainWindow: awards to be created" << endl;
     awards = new Awards();
 
     mainWidget = new QWidget(this);
     setCentralWidget(mainWidget);
-   //qDebug() << "MainWindow::MainWindow: 8" << endl;
+   qDebug() << "MainWindow::MainWindow: 8" << endl;
     dateTime = new QDateTime();
     selectedYear = (dateTime->currentDateTime()).date().year();
 
@@ -437,7 +440,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     // UI DX
 
     // CLUSTER
-   //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
+   qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
     dxClusterWidget = new DXClusterWidget(dxclusterServerToConnect , dxclusterServerPort, this);
 
 
@@ -452,19 +455,19 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     //createDXClusterUI();
     connect( setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
 
-   //qDebug() << "MainWindow::MainWindow:  reconfigdata" << endl;
+   qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
     readConfigData();
     if (needToEnd)
     {
         //QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
         db->compress();
-       //qDebug() << "MainWindow::MainWindow: 12.5" << endl;
+       qDebug() << "MainWindow::MainWindow: 12.5" << endl;
        exit(0);
     }
 
-   //qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
+    qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
     createUI();
-  //qDebug() << "MainWindow::MainWindow: logmodel to be created" << endl;
+    qDebug() << "MainWindow::MainWindow: logmodel to be created" << endl;
     createlogModel(currentLog);
 
     createSearchResultsPanel();
@@ -484,16 +487,16 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     logView->setCurrentIndex(logModel->index(0, 0));
     //searchResultsTreeWidget->setCurrentIndex(logModel->index(0, 0));
 
-   //qDebug() << "MainWindow::MainWindow: 16" << endl;
+   qDebug() << "MainWindow::MainWindow: 16" << endl;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
-       //qDebug() << "MainWindow::MainWindow: 16.1" << endl;
+       qDebug() << "MainWindow::MainWindow: 16.1" << endl;
         slotSetup(6);
        //qDebug() << "MainWindow::MainWindow: 16.2" << endl;
     }
-    //qDebug() << "MainWindow::MainWindow: 17" << endl;
+    qDebug() << "MainWindow::MainWindow: 17" << endl;
     checkIfNewBandOrMode();
-    //qDebug() << "MainWindow::MainWindow: 18" << endl;
+    qDebug() << "MainWindow::MainWindow: 18" << endl;
     if ( (contestMode == CQ_WW_SSB) || (contestMode == CQ_WW_CW) )
     {
         //qDebug() << "MainWindow::MainWindow: 18.1" << endl;
@@ -504,10 +507,10 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     }
     else
     {
-        //qDebug() << "MainWindow::MainWindow: 18.3" << endl;
+        qDebug() << "MainWindow::MainWindow: 18.3" << endl;
         if (dataProxy->getLastQSOid()<=1)
         {
-            //qDebug() << "MainWindow::MainWindow: 18.4" << endl;
+            qDebug() << "MainWindow::MainWindow: 18.4" << endl;
             operatingYearsComboBox->addItem(QString::number(selectedYear));
         }
         else
@@ -529,12 +532,12 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         //qDebug() << "MainWindow::MainWindow: 18.10" << endl;
     }
 
-    //qDebug() << "MainWindow::MainWindow: 19" << endl;
+    qDebug() << "MainWindow::MainWindow: 19" << endl;
     currentBandShown = dataProxy->getIdFromBandName(bandComboBox->currentText());
     currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
     currentBand = currentBandShown;
     currentMode = currentModeShown;
-   //qDebug() << "MainWindow::MainWindow: 20 - currentMode: " << QString::number(currentMode) << endl;
+   qDebug() << "MainWindow::MainWindow: 20 - currentMode: " << QString::number(currentMode) << endl;
     //qDebug() << "MainWindow::MainWindow: 21 - currentBand: " << QString::number(currentBand) << endl;
 
 
@@ -542,7 +545,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     //logModel->select();
 
     upAndRunning = true;
-   //qDebug() << "MainWindow::MainWindow: END" << endl;
+   qDebug() << "MainWindow::MainWindow: END" << endl;
 
 }
 
@@ -5947,9 +5950,14 @@ void MainWindow::createUIDX()
     upLeftSplitter->addWidget(dxUpLeftTab);
     upLeftSplitter->setOrientation(Qt::Vertical);
 
+    //QHBoxLayout *line2Layout = new QHBoxLayout;
+    //line2Layout->addWidget(flagIcon);
+    //line2Layout->addWidget(infoLabel2);
+
     QVBoxLayout *dxUpRightFixLayout = new QVBoxLayout;
     dxUpRightFixLayout->addWidget(infoLabel1);
     dxUpRightFixLayout->addWidget(infoLabel2);
+    //dxUpRightFixLayout->addLayout(line2Layout);
 
 
     infoLabel1->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
@@ -6609,6 +6617,7 @@ void MainWindow::slotADIFImport(){
 
         checkIfNewBandOrMode();
 
+
         switch (contestMode) {
 
             case CQ_WW_SSB:
@@ -6621,13 +6630,13 @@ void MainWindow::slotADIFImport(){
 
                 awards->recalculateAwards();
                 showAwards();
+                dxccStatusWidget->setBands(bands);
+                dxccStatusWidget->update();
             break;
 
         }
         //qDebug() << "MainWindow::slotADIFImport-7" << endl;
     }
-
-
 
 }
 
@@ -7747,6 +7756,24 @@ void MainWindow::showEntityInfo(const int _enti, int _cq, int _itu)
         return;
     }
 
+/* TO paint a flag of the Worked entity
+    QString flagSt;
+    flagSt.clear();
+    QString aux;
+    aux = dataProxy->getISOName(_enti);
+    if (aux.length()>1)
+    {
+        flagSt = ":/" + aux + ".png";
+    }
+    else
+    {
+        flagSt.clear();
+    }
+
+    flagSt = ":/flags/" + dataProxy->getISOName(_enti) + ".png";
+    flagIcon->setIcon(QIcon(flagSt));
+*/
+
     infoLabel2->setText(world->getEntityName(_enti));
     continentLabel->setText( world->getContinentShortName(_enti) );
     prefixLabel->setText( world->getEntityMainPrefix(_enti));
@@ -7797,10 +7824,6 @@ void MainWindow::showEntityInfo(const int _enti, int _cq, int _itu)
             ituzLabel->setText("0");
         }
     }
-
-
-
-
 
 }
 

@@ -48,7 +48,8 @@ class DataBase
 
 public:
     DataBase();
-    DataBase(const QString _softVersion, bool  inmemoryonly = false);
+    //DataBase(const QString _softVersion, bool  inmemoryonly = false);
+    DataBase(const QString _softVersion);
     ~DataBase();
     bool createConnection();
 
@@ -86,6 +87,7 @@ public:
 private:
     bool createDataBase();
     bool isTheDBCreated();
+    bool hasTheTableData(const QString _tableName);
     bool updateToLatest();
     bool updateTo003(); // Updates the DB to 0.0.3
     bool updateTo004();
@@ -99,11 +101,12 @@ private:
     bool createTheBandQuickReference();
     bool createTheModeQuickReference();
 
-    bool updateLog(); // Updates the log table
+    //bool updateLog(); // Updates the log table
     bool createTableLog(bool temp = false); // false creates the prouction DB. True a temporal one.
     bool createTableLogs();
 
     bool createTableEntity(const bool NoTmp);
+    bool updateTableEntity();
 
     bool createTablePropModes();
     bool createTableClubLogStatus();
@@ -125,14 +128,15 @@ private:
     bool populatePropagationModes();
 
     bool howManyQSOsInLog(const int i);
-    //void showError(const QString _errorC);
+    void showError();
 
-    bool moveFromModeIdToSubmodeId();
+    //bool moveFromModeIdToSubmodeId();
     bool updateModeIdFromSubModeId();
     bool updateBandIdTableLogToNewOnes();
     bool updateBandIdTableAward(const int _db);
     bool updateModeIdTableAward(const int _db);
 
+    bool created;
     float dbVersion;    // The current version of the DB. May differ from latestReaded if we are updating the DB!
     QString softVersion;
     float latestReaded; // The latest version of DB readed in the DB itself
