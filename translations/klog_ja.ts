@@ -61,17 +61,17 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="54"/>
         <source>Update</source>
-        <translation type="unfinished"></translation>
+        <translation>更新</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="276"/>
         <source>Id</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="276"/>
         <source>Entity</source>
-        <translation type="unfinished">エンティティ</translation>
+        <translation>エンティティ</translation>
     </message>
 </context>
 <context>
@@ -642,7 +642,7 @@ If you select NO, the QSO may not be imported.</source>
     <message>
         <location filename="../mainwindow.cpp" line="346"/>
         <source>W</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="351"/>
@@ -1031,7 +1031,7 @@ KLog proposed entity: </source>
     <message>
         <location filename="../mainwindow.cpp" line="2564"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>入力</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2600"/>
@@ -1056,7 +1056,7 @@ KLog proposed entity: </source>
     <message>
         <location filename="../mainwindow.cpp" line="3064"/>
         <source>Ready...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3157"/>
@@ -1249,7 +1249,7 @@ Do you want to save your changes?</source>
         <location filename="../mainwindow.cpp" line="902"/>
         <location filename="../mainwindow.cpp" line="1660"/>
         <source>Click on the prefix of the right entity or Cancel to correct.</source>
-        <translation type="unfinished"></translation>
+        <translation>正しい方のエンティティのプリッフィックスをクリックしてください。または修正をキャンセルしてください。</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3858"/>
@@ -1316,7 +1316,7 @@ Do you want to save your changes?</source>
         <location filename="../mainwindow.cpp" line="4296"/>
         <location filename="../mainwindow.cpp" line="4386"/>
         <source>QSL Send</source>
-        <translation type="unfinished"></translation>
+        <translation>QSLカードの送付</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4414"/>
@@ -1369,7 +1369,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="4435"/>
         <source>&amp;Request my QSL</source>
-        <translation type="unfinished"></translation>
+        <translation>自分のQSLカードがリクエストされた (&amp;R)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4437"/>
@@ -1379,7 +1379,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="4440"/>
         <source>Via Direct &amp;&amp; mark DX QSL as requested</source>
-        <translation type="unfinished"></translation>
+        <translation>ダイレクトで送付、相手局にリクエスト</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4441"/>
@@ -1389,7 +1389,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="4444"/>
         <source>Via Bureau &amp;&amp; mark DX QSL as requested</source>
-        <translation type="unfinished"></translation>
+        <translation>ビューロー経由で送付、相手局にリクエスト</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4445"/>
@@ -1399,7 +1399,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="4449"/>
         <source>&amp;Request the QSL</source>
-        <translation type="unfinished"></translation>
+        <translation>QSLカードがリクエストされた (&amp;R)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4451"/>
@@ -1434,7 +1434,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="4464"/>
         <source>Direc&amp;t &amp;&amp; mark as my QSL requested</source>
-        <translation type="unfinished"></translation>
+        <translation>ダイレクトを受領、QSLカードがリクエストされた (&amp;t)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4465"/>
@@ -1731,7 +1731,9 @@ Do you want to save your changes?</source>
         <source>You have selected an entity:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>次のエンティティを選択しています：
+
+</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="901"/>
@@ -1739,7 +1741,9 @@ Do you want to save your changes?</source>
         <source>that is different from the KLog proposed entity:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>これはKLogが推測する次のエンティティと異なっています：
+
+</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5592"/>
@@ -1930,7 +1934,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="6099"/>
         <source>QSOs</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO総数</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6148"/>
@@ -2006,7 +2010,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="8163"/>
         <source>Number</source>
-        <translation type="unfinished"></translation>
+        <translation>番号</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8192"/>
@@ -2049,18 +2053,18 @@ Do you want to update the file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="8454"/>
         <source>Needed QSO to send the QSL</source>
-        <translation type="unfinished"></translation>
+        <translation>QSLカード送付の必要があるQSO</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8461"/>
         <source>My QSL requested to be sent</source>
-        <translation type="unfinished"></translation>
+        <translation>自分のQSLカードがリクエストされている</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8466"/>
         <location filename="../mainwindow.cpp" line="8471"/>
         <source>DX QSL pending to be received</source>
-        <translation type="unfinished"></translation>
+        <translation>相手局のQSLカードをまだ受け取っていない</translation>
     </message>
 </context>
 <context>
@@ -2068,7 +2072,7 @@ Do you want to update the file?</source>
     <message>
         <location filename="../mainwindowinputcomment.cpp" line="44"/>
         <source>Add a comment for this QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>このQSOの備考を入力してください</translation>
     </message>
 </context>
 <context>
@@ -2086,43 +2090,43 @@ Do you want to update the file?</source>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="67"/>
         <source>IOTA</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="68"/>
         <source>Entity</source>
-        <translation type="unfinished">エンティティ</translation>
+        <translation>エンティティ</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="69"/>
         <source>Propagation mode</source>
-        <translation type="unfinished">伝播モード</translation>
+        <translation>伝播モード</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="77"/>
         <source>Select the primary division for this QSO</source>
-        <translation type="unfinished">このQSO相手局の</translation>
+        <translation>このQSO相手局のPrimary Divisionを選択してください</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="78"/>
         <source>Select the secondary division for this QSO</source>
-        <translation type="unfinished">このQSO相手局の</translation>
+        <translation>このQSO相手局のSecondary Divisionを選択してください</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="79"/>
         <location filename="../mainwindowinputothers.cpp" line="80"/>
         <source>Select the propagation mode for this current QSO</source>
-        <translation type="unfinished">このQSOの伝播モードを選択してください.</translation>
+        <translation>このQSOの伝播モードを選択してください</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="81"/>
         <source>Select the IOTA continent for this current QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>このQSO相手局のIOTA大陸略称を選択してください</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="82"/>
         <source>Select the IOTA reference number for this current QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>このQSO相手局のIOTAリファレンス番号を選択してください</translation>
     </message>
 </context>
 <context>
@@ -2130,53 +2134,53 @@ Do you want to update the file?</source>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="61"/>
         <source>Keep this data</source>
-        <translation type="unfinished">このデータを保持</translation>
+        <translation>このデータを保持</translation>
     </message>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="63"/>
         <location filename="../mainwindowmydatatab.cpp" line="65"/>
         <source>Data entered in this tab will be copied into the next QSO</source>
-        <translation type="unfinished">このタブに入力されたデータは次の交信にもコピーされます</translation>
+        <translation>このタブに入力されたデータは次の交信にもコピーされます</translation>
     </message>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="67"/>
         <source>Power used for the QSO in watts</source>
-        <translation type="unfinished">QSOに用いた送信出力をワットの単位で表示</translation>
+        <translation>QSOに用いた送信出力をワットの単位で表示</translation>
     </message>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="68"/>
         <source>Logging operator&apos;s callsign</source>
-        <translation type="unfinished">ログを記入したオペレーターのコールサイン</translation>
+        <translation>ログを記入したオペレーターのコールサイン</translation>
     </message>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="69"/>
         <source>Callsign used over the air</source>
-        <translation type="unfinished">交信に用いたコールサイン</translation>
+        <translation>交信に用いたコールサイン</translation>
     </message>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="70"/>
         <source>My QTH locator</source>
-        <translation type="unfinished">自局QTHのグリッドロケーター</translation>
+        <translation>自局QTHのグリッドロケーター</translation>
     </message>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="72"/>
         <source>Power</source>
-        <translation type="unfinished">送信出力</translation>
+        <translation>送信出力</translation>
     </message>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="75"/>
         <source>Operator</source>
-        <translation type="unfinished">オペレーター</translation>
+        <translation>オペレーター</translation>
     </message>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="77"/>
         <source>Station Callsign</source>
-        <translation type="unfinished">無線局のコールサイン</translation>
+        <translation>無線局のコールサイン</translation>
     </message>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="80"/>
         <source>My Locator</source>
-        <translation type="unfinished">自局のグリッドロケーター</translation>
+        <translation>自局のグリッドロケーター</translation>
     </message>
 </context>
 <context>
@@ -2200,7 +2204,7 @@ Do you want to update the file?</source>
     <message>
         <location filename="../mainwindowsattab.cpp" line="63"/>
         <source>Name of the Satellite if not in the list (format like AO-51)</source>
-        <translation type="unfinished"></translation>
+        <translation>リストにない場合、衛星の名前 (入力例：AO-51)</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="64"/>
@@ -2210,7 +2214,7 @@ Do you want to update the file?</source>
     <message>
         <location filename="../mainwindowsattab.cpp" line="65"/>
         <source>Select the satellite you are using</source>
-        <translation type="unfinished"></translation>
+        <translation>使用している衛星を選択してください</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="68"/>
@@ -2225,29 +2229,40 @@ Do you want to update the file?</source>
     <message>
         <location filename="../mainwindowsattab.cpp" line="76"/>
         <source>Other</source>
-        <translation type="unfinished"></translation>
+        <translation>その他</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="266"/>
         <source>Not Sat QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>衛星QSOではない</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="267"/>
         <source>Other - Sat not in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>その他、リストにない衛星</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="303"/>
         <source>A satellite name has been detected but is not on the KLog satellite&apos;s names table. Please check that the correct satellite is selected and if the satellite is not in the list, please contact the development team to include it.
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>衛星の名称が入力されているのを発見しましたが、この衛星名はKLogの衛星名リストに見当たりません。正しい衛星が選択されていることを確認してください。衛星がリストに見当たらないならば、開発チームにこの衛星を加えるよう連絡してください。
+
+</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="304"/>
         <source>The satellite you have in your QSO is: </source>
-        <translation type="unfinished"></translation>
+        <translation>QSO情報に記録された衛星の名称は以下のものです: </translation>
+    </message>
+    <message>
+        <location filename="../mainwindowsattab.cpp" line="304"/>
+        <source>
+
+Please know that the satellite name will not be saved if it is not in the list so that information may be lost!</source>
+        <translation>
+
+リストにない衛星の名称は保存できません。したがって情報が失われてしまうことをご承知おきください。</translation>
     </message>
 </context>
 <context>
@@ -2440,28 +2455,36 @@ KLogをあなたの言語に翻訳する作業をお手伝いいただけるな�
         <source>Your KLog dir has been removed
 
 Thank you for running KLog!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog ディレクトリーは削除されました
+
+KLogを使用してくださりありがとうございます!</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="230"/>
         <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.
 
 Thank you for running KLog!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog ディレクトリーを削除することができませんでした. ディスクドライブから削除したいならば、手動で操作をお願いします.
+
+KLogを使用してくださりありがとうございます!</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="237"/>
         <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.
 
 Thank you for running KLog!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog ディレクトリーを削除することができませんでした. ディスクドライブから削除したいならば、手動で操作をお願いします.
+
+KLogを使用してくださりありがとうございます!</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="243"/>
         <source>Remember that your KLog dir is in your system...
 
 Thank you for running KLog!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog ディレクトリーはシステム中に残ったままです...
+
+KLogを使用してくださりありがとうございます!</translation>
     </message>
     <message>
         <source>Your KLog dir has been removed
