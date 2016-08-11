@@ -2411,6 +2411,13 @@ proposada per KLog: </translation>
         <source>The satellite you have in your QSO is: </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../mainwindowsattab.cpp" line="304"/>
+        <source>
+
+Please know that the satellite name will not be saved if it is not in the list so that information may be lost!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
