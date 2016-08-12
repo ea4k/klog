@@ -110,12 +110,17 @@ SetupPageLogs::~SetupPageLogs(){
 }
 
 
+void SetupPageLogs::createNewLog()
+{
+    qDebug() << "SetupPageLogs::createNewLog" << endl;
+    newLog->exec();
+}
 
 void SetupPageLogs::slotNewButtonClicked()
 {
     //qDebug() << "SetupPageLogs::slotNewButtonClicked" << endl;
 
-    newLog->exec();
+    createNewLog();
 }
 
 void SetupPageLogs::slotEditButtonClicked()

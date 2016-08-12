@@ -46,6 +46,11 @@ public:
 
     void setData(const double _power, const QString _stationQRZ, const QString _operator, const QString _myLocator);
 
+    void setSetupMyPower(const double _power);
+    void setSetupOperator(const QString _op);
+    void setSetupStationQRZ(const QString _op);
+    void setSetupMyLocator(const QString _op);
+
     void setMyPower(const double _power);
     double getMyPower();    
     //double getLastPower();

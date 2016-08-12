@@ -48,6 +48,7 @@ public:
     ~SetupPageLogs();
     int getSelectedLog();
     void setSelectedLog(const int _i);
+    void createNewLog();
 /*
     QString getBands(); // 10m, 12m, 15m
     QString getModes(); //ssb, CW
