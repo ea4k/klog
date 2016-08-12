@@ -345,6 +345,7 @@ void SetupDialog::slotOkButtonClicked()
         msgBox.exec();
 
         tabWidget->setCurrentIndex(tabWidget->indexOf(logsPage));
+        logsPage->createNewLog();
         //emit newLogRequested(true); // Signal to be catched by logsPage true show new log
 
 

@@ -805,9 +805,6 @@ void MainWindow::slotQRZReturnPressed()
 
                 logModel->select();
 
-
-
-
                 slotClearButtonClicked();
             }
         }
@@ -860,6 +857,9 @@ QString MainWindow::readDataFromUI()
 
 QString MainWindow::readDataFromUIDX()
 {
+/*
+If you make any change here, please update also readDataFromUIDXModifying to keep data integrity!
+*/
     //qDebug() << "MainWindow::readDataFromUIDX:" << endl;
 
     QString tqrz = (qrzLineEdit->text()).toUpper();
@@ -953,9 +953,6 @@ QString MainWindow::readDataFromUIDX()
         {
             //qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND NOK" << endl;
         }
-
-
-
     }
 
     if ( (rxFreqSpinBox->value()) > 0  )
@@ -1006,16 +1003,7 @@ QString MainWindow::readDataFromUIDX()
         stringFields = stringFields + ", comment";
         stringData = stringData + ", '" + aux1 + "'";
     }
- /*
-    aux1 = notesTextEdit->toPlainText();
 
-    if (aux1.length()>3)
-    {
-        //qDebug() << "MainWindow::readDataFromUIDX - Notes: " << aux1 << endl;
-        stringFields = stringFields + ", notes";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-*/
     aux1 = qslmsgTextEdit->toPlainText();
     if (aux1.length()>0)
     {
@@ -1109,7 +1097,7 @@ QString MainWindow::readDataFromUIDX()
         stringFields = stringFields + ", sat_name";
         stringData = stringData + ", '" + aux1 + "'";
     }
-    aux1 = satTabWidget->getSatMode();
+   // aux1 = satTabWidget->getSatMode();
 
     aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
     //stringFields = stringFields + ", sat_mode";
@@ -1731,21 +1719,24 @@ WHERE [condition];
         updateString = updateString + aux1 + "', ";
     }
 
-    aux1 = operatorLineEdit->text();
+    aux1 = myDataTabWidget->getOperator();
+    //aux1 = operatorLineEdit->text();
     if (aux1.length()>2)
     {
         updateString = updateString + "operator = '";
         updateString = updateString + aux1 + "', ";
     }
 
-    aux1 = (stationCallSignLineEdit->text()).toUpper();
+    aux1 = myDataTabWidget->getStationQRZ();
+    //aux1 = (stationCallSignLineEdit->text()).toUpper();
     if (aux1.length()>2)
     {
         updateString = updateString + "station_callsign = '";
         updateString = updateString + aux1 + "', ";
     }
 
-    aux1 = myLocatorLineEdit->text();
+    aux1 = myDataTabWidget->getMyLocator();
+    //aux1 = myLocatorLineEdit->text();
     if (aux1.length()>2)
     {
         updateString = updateString + "my_gridsquare = '";
@@ -1760,14 +1751,6 @@ WHERE [condition];
         updateString = updateString + aux1 + "', ";
     }
 
-    /*
-    aux1 = notesTextEdit->toPlainText();
-    if (aux1.length()>3)
-    {
-        updateString = updateString + "notes = '";
-        updateString = updateString + aux1 + "', ";
-    }
-*/
     aux1 = qslmsgTextEdit->toPlainText();
     if (aux1.length()>0)
     {
@@ -1805,7 +1788,6 @@ WHERE [condition];
         updateString = updateString + aux1 + "', ";
     }
 
-
     //aux1 = QString::number(myPowerSpinBox->value());
     aux1 = QString::number(myDataTabWidget->getMyPower());
     if ((aux1.toDouble())>0.0)
@@ -1833,26 +1815,7 @@ WHERE [condition];
     {
        qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
     }
-/*
-    aux1 = iotaNumberLineEdit->text();
-   //qDebug() << "MainWindow::readDataFromUIDX: Modifityng IOTA: aux1: " << aux1 << endl;
-    if ( (aux1.toInt()) > 0 )
-    {
-       //qDebug() << "MainWindow::readDataFromUIDX: Modifityng IOTA: aux1toInt >0 "  << endl;
-        aux2 = iotaContinentComboBox->currentText() + "-" + aux1;
-        aux1 = awards->checkIfValidIOTA(aux2);
 
-        if (aux1.length() == 6) // EU-001
-        {
-            updateString = updateString + "iota = '";
-            updateString = updateString + aux1 + "', ";
-        }
-        else
-        {
-           //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
-        }
-    }
-*/
    aux1 = satTabWidget->getSatName();   //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
    //qDebug() << "MainWindow::readDataFromUIDX: SAT2 modif " << aux1 << endl;
    //updateString = updateString + "sat_name = '";
@@ -6853,31 +6816,26 @@ void MainWindow::qsoToEdit (const int _qso)
         aux1 = (query.value(nameCol)).toString();
         locatorLineEdit->setText(aux1);
 
-
         nameCol = rec.indexOf("operator");
         aux1 = (query.value(nameCol)).toString();      
         //operatorLineEdit->setText(aux1.toUpper());
-
         myDataTabWidget->setOperator(aux1);
 
         nameCol = rec.indexOf("station_callsign");
         aux1 = (query.value(nameCol)).toString();        
         //stationCallSignLineEdit->setText(aux1.toUpper());
-
         myDataTabWidget->setStationQRZ(aux1);
 
         nameCol = rec.indexOf("my_gridsquare");
         aux1 = (query.value(nameCol)).toString();
         //myLocatorLineEdit->setText(aux1);
-
         myDataTabWidget->setMyLocator(aux1);
 
         nameCol = rec.indexOf("tx_pwr");        
         //aux1 = (query.value(nameCol)).toString();
         //testValueDouble = aux1.toDouble();
-
         myDataTabWidget->setMyPower((query.value(nameCol)).toDouble());
-        myDataTabWidget->show();
+
 /*
         if (testValueDouble >=0)
         {

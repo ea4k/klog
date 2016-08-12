@@ -35,13 +35,13 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     myLocatorLineEdit = new QLineEdit;
     keepThisDataForNextQSORadiobutton = new QRadioButton;
 
-    lastOperatorQRZ = QString();
-    lastStationQRZ = QString();
-    lastMyLocator = QString();
+    lastOperatorQRZ = QString();    // Last QRZ used by the user, will remain if the button is checked and removed if not
+    lastStationQRZ = QString();     // Last QRZ used by the user, will remain if the button is checked and removed if not
+    lastMyLocator = QString();      // Last locator used by the user, will remain if the button is checked and removed if not
 
-    stationQRZ = QString();
-    operatorQRZ = QString();
-    myLocator = QString();
+    stationQRZ = QString();         // Defined in the configuration by the user, will be used if the user configured so in the setup
+    operatorQRZ = QString();        // Defined in the configuration by the user, will be used if the user configured so in the setup
+    myLocator = QString();          // Defined in the configuration by the user, will be used if the user configured so in the setup
 
     createUI();
 
@@ -103,12 +103,31 @@ void MainWindowMyDataTab::createUI()
 
 void MainWindowMyDataTab::clear(const bool _keepMyData)
 {
-
-    if (!_keepMyData)
+    // _keepMyData comes from the setup
+    if (_keepMyData)
     {
-        if (keepThisDataForNextQSORadiobutton->isChecked())
+        qDebug() << "MainWindowMyDataTab::clear:  TRUE"  << endl;
+    }
+    else
+    {
+        qDebug() << "MainWindowMyDataTab::clear:  FALSE"  << endl;
+    }
+
+    if (keepThisDataForNextQSORadiobutton->isChecked())
+    {
+        myPowerSpinBox->setValue(lastPower);
+        operatorLineEdit->setText(lastOperatorQRZ.toUpper());
+        stationCallSignLineEdit->setText(lastStationQRZ.toUpper());
+        myLocatorLineEdit->setText(lastMyLocator);
+    }
+    else
+    {
+        if (_keepMyData)
         {
-            return;
+            myPowerSpinBox->setValue(myPower);
+            operatorLineEdit->setText(operatorQRZ.toUpper());
+            stationCallSignLineEdit->setText(stationQRZ.toUpper());
+            myLocatorLineEdit->setText(myLocator);
         }
         else
         {
@@ -117,13 +136,6 @@ void MainWindowMyDataTab::clear(const bool _keepMyData)
             stationCallSignLineEdit->clear();
             myLocatorLineEdit->clear();
         }
-    }
-    else
-    {
-        myPowerSpinBox->setValue(myPower);
-        operatorLineEdit->setText(operatorQRZ.toUpper());
-        stationCallSignLineEdit->setText(stationQRZ.toUpper());
-        myLocatorLineEdit->setText(myLocator);
     }
 }
 
@@ -137,11 +149,30 @@ void MainWindowMyDataTab::show()
     myLocatorLineEdit->setText(myLocator);
 }
 
+void MainWindowMyDataTab::setSetupMyPower(const double _power)
+{
+    myPower = _power;
+}
+
+void MainWindowMyDataTab::setSetupOperator(const QString _op)
+{
+    operatorQRZ = _op.toUpper();
+}
+
+void MainWindowMyDataTab::setSetupStationQRZ(const QString _op)
+{
+    stationQRZ = _op.toUpper();
+}
+
+void MainWindowMyDataTab::setSetupMyLocator(const QString _op)
+{
+    myLocator = _op.toUpper();
+}
+
 void MainWindowMyDataTab::setMyPower(const double _power)
 {
     qDebug() << "MainWindowMyDataTab::setMyPower: " << QString::number(_power) << endl;
-    myPower = _power;
-    //myPowerSpinBox->setValue(_power);
+    myPowerSpinBox->setValue(_power);
 }
 
 double MainWindowMyDataTab::getMyPower()
@@ -159,23 +190,10 @@ double MainWindowMyDataTab::getMyPower()
     //return myPowerSpinBox->value();
 }
 
-/*
- * void MainWindowMyDataTab::setLastPower(const double _power)
-{
-    lastPower = _power;
-}
-
-
-double MainWindowMyDataTab::getLastPower()
-{
-    return lastPower;
-}
-*/
 void MainWindowMyDataTab::setOperator(const QString _op)
 {
-    //qDebug() << "MainWindowMyDataTab::setOperator: " << _op << endl;
-    operatorQRZ = _op.toUpper();
-    //operatorLineEdit->setText(_op);
+    qDebug() << "MainWindowMyDataTab::setOperator: " << _op << endl;
+    operatorLineEdit->setText(_op);
 }
 
 QString MainWindowMyDataTab::getOperator()
@@ -184,23 +202,11 @@ QString MainWindowMyDataTab::getOperator()
     return lastOperatorQRZ;
 }
 
-/*
-void MainWindowMyDataTab::setLastOperator(const QString _op)
-{
-    lastOperatorQRZ = _op.toUpper();
-}
-
-
-QString MainWindowMyDataTab::getLastOperator()
-{
-   return lastOperatorQRZ.toUpper();
-}
-*/
 
 void MainWindowMyDataTab::setStationQRZ(const QString _op)
 {
-    stationQRZ = _op.toUpper();
-    //stationCallSignLineEdit->setText(_op);
+    qDebug() << "MainWindowMyDataTab::setStationQRZ: " << _op << endl;
+    stationCallSignLineEdit->setText(_op);
 }
 
 QString MainWindowMyDataTab::getStationQRZ()
@@ -209,21 +215,9 @@ QString MainWindowMyDataTab::getStationQRZ()
     return lastStationQRZ.toUpper();
 }
 
-/*
-void MainWindowMyDataTab::setLastStationQRZ(const QString _op)
-{
-    lastStationQRZ = _op;
-}
-
-QString MainWindowMyDataTab::getLastStationQRZ()
-{
-    return lastStationQRZ.toUpper();
-}
-*/
 void MainWindowMyDataTab::setMyLocator(const QString _op)
 {
-    myLocator = _op.toUpper();
-    //myLocatorLineEdit->setText(_op);
+    myLocatorLineEdit->setText(_op);
 }
 
 QString MainWindowMyDataTab::getMyLocator()
@@ -232,18 +226,7 @@ QString MainWindowMyDataTab::getMyLocator()
     return lastMyLocator.toUpper();
 }
 
-/*
- void MainWindowMyDataTab::setLastMyLocator(const QString _op)
-{
-    lastMyLocator = _op;
-}
 
-
-QString MainWindowMyDataTab::getLastMyLocator()
-{
-    return lastMyLocator.toUpper();
-}
-*/
 void MainWindowMyDataTab::setData(const double _power, const QString _stationQRZ, const QString _operator, const QString _myLocator)
 {
     if (_power > 0.0)

@@ -3,6 +3,7 @@
 - GUI: Created a Satellite list including (up to now) only LOTW compatible satellites.
 - GUI: Created a widget to manage all "My Data" and simply the main widget.
 - GUI: Bands in the combobox are always shown correctly ordered (botton-up).
+- When starting KLog for the first time, the setup guidance has been improved.
 - When selecting an entity, different from the proposed on country file, KLog asks the user which one to use.
 - BugFix: Preferences->Misc: It was not possible to edit the default filename. (TNX K6XT).
 - BugFix: Added the Power unit (W) to the power box. Debian bug #654332.

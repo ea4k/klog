@@ -29,12 +29,12 @@
 
 DataProxy_SQLite::DataProxy_SQLite()
 {
-   //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << endl;
+   qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << endl;
     db = new DataBase(0);
    //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1" << endl;
     //dbCreated = db->createConnection();
     //dbCreated = db->createBandModeMaps();
-   //qDebug() << "DataProxy_SQLite::DataProxy_SQLite - END" << endl;
+   qDebug() << "DataProxy_SQLite::DataProxy_SQLite - END" << endl;
 
 
 }

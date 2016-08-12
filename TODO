@@ -2,12 +2,25 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
+
+BUG:
+StationQRZ, operators, Locator are not defined clearly in the setup:
+    StationQRZ should come from each log
+    operator should come from each log, if there is only one. If there are more than one: TBD
+    Power & locator from main setup (unless decided oherway)
+
+BUG:
+    When editing a log and the call is changed, the log is not edited but a new one is created
+
+O bien no se guardan o no se van a toEdit los campos station, operator & mylocator
+
+
 BUG: Optimize the KLog start
 BUG: If logbook.dat is not existing but klogrc it is, KLog does not start.
 
 TODO: Add a tip on the DXCC Status showing some info.
 TODO: Add a link or action on DXCCStatus items to doubleclick and search the QSOs that provide such status.
-TODO: Show the flag of the worked QRZ on the top right,close to the ENtity Name
+TODO: Show the flag of the worked QRZ on the top right,close to the Entity Name
 
 TODO: Add the flags to the DXCC (and maybe the DXCluster)
 TODO: Click on an Entity name will select all the QSO of that Entity on the search box
