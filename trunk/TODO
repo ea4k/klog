@@ -2,15 +2,25 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
+BUG: (TNX JL3OXR)
+The DB is not storing if the time is stored in UTC or local so that info is lost.
+If a user changes the configuration from time to time, the user will loose the real time when the QSO was made.
+Solution:
+ - Consider the DB is only storing UTC QSO.
+ - Read config from user (or simply ask) and convert all the DB to UTC if needed (only one time when new version is installed to upgrade the DB)
+ Always:
+ - When entering data from the UI, check the user config and store only UTC time.
+ - TODO: Think how to show the data in the log or search box as data is stored in UTC and showed directly (specially log widget)
+    - Solution: Maybe changing the header to UTC may solve this and provide the info to the user that UTC is being used for storage
+        It may be weird for the user to see the log in UTC when working in local time... in the rest of the functions...
+
 
 BUG:
 StationQRZ, operators, Locator are not defined clearly in the setup:
     StationQRZ should come from each log
     operator should come from each log, if there is only one. If there are more than one: TBD
-    Power & locator from main setup (unless decided oherway)
+    Power & locator from main setup (unless decided other way)
 
-BUG:
-    When editing a log and the call is changed, the log is not edited but a new one is created
 
 O bien no se guardan o no se van a toEdit los campos station, operator & mylocator
 
