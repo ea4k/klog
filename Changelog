@@ -9,6 +9,7 @@
 - BugFix: Added the Power unit (W) to the power box. Debian bug #654332.
 - BugFix: When editing a QSO in some text boxes text was reused from previous QSO and data could be corrupted.
 - BugFix: Minor bug in WAZ management.
+- BugFix: When managing logs in the setup is was not possible to edit the log data as a new log was always created.
 - Some cleaning in the code.
 
 January 2016 - 0.9.2.3

@@ -2148,13 +2148,13 @@ int DataProxy_SQLite::getHowManyQSOInLog(const int _log)
 
 bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 {
-    //qDebug() << "SetupPageLogs::addNewLog: " << _qs.at(2) << endl;
+    qDebug() << "SetupPageLogs::addNewLog: " << _qs.at(2) << "/" << _qs.at(5) << "/" << _qs.at(6) << endl;
 
     //_qs << dateString << stationCallsign << _qs.at(4) << comment << _qs.at(12);
     //qDebug() << "SetupPageLogs::slotAnalyzeNewLogData:  " << _qs.at(4) << "/" << _qs.at(12) << endl;
     // Date/Call/"DX"/comment/"1"
 
-    if (_qs.size()!=5)
+    if (_qs.size()!=7)
     {
         return false;
     }
@@ -2166,27 +2166,54 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
     QString _stationCallsign = _qs.at(1);
     QString _typeContest = _qs.at(2);
     QString _comment = _qs.at(3);
-    QString _typeContestN = _qs.at(4);
+    QString _typeContestN = _qs.at(4);    
+    QString id = _qs.at(5);
+    QString editing = _qs.at(6);
 
+    QString queryString;
+    QSqlQuery query;
+    bool sqlOK;
 
-    QString queryString = QString("SELECT * FROM logs WHERE logdate='%1' AND stationcall='%2' AND logtype='%3' AND logtypen='%4'").arg(_dateString).arg(_stationCallsign).arg(_typeContest).arg(_typeContestN);
+    if (editing == "1")
+    { // We are editing
+        qDebug() << "SetupPageLogs::addNewLog: We are editing!" << endl;
+        queryString = QString("UPDATE logs SET logdate = '%1', stationcall = '%2', comment = '%3',  logtype = '%4', logtypen = '%5' WHERE id = '%6'").arg(_dateString).arg(_stationCallsign).arg(_comment).arg(_typeContest).arg(_typeContestN).arg(id);
+        sqlOK = query.exec(queryString);
+        if (sqlOK)
+        {
+            qDebug() << "SetupPageLogs::addNewLog: Editing OK!" << endl;
+            return true;
+        }
+        else
+        {
+            qDebug() << "SetupPageLogs::addNewLog: Editing NOK!" << endl;
+            return false;
+        }
+        return false;
+    }
+
+    qDebug() << "SetupPageLogs::addNewLog: We are adding a new log" << endl;
+
+    // First we check if the log is already there
+    queryString = QString("SELECT id FROM logs WHERE logdate='%1' AND stationcall='%2' AND logtype='%3' AND logtypen='%4'").arg(_dateString).arg(_stationCallsign).arg(_typeContest).arg(_typeContestN);
     //"logs"
     //"id, logdate, stationcall, comment, logtype"
     //qDebug() << "SetupPageLogs::addNewLog query1: " << queryString << endl;
-    QSqlQuery query;
 
-    bool sqlOK = query.exec(queryString);
+    sqlOK = query.exec(queryString);
     QSqlRecord rec = query.record(); // Number of columns
 
-    while ( (query.next()) && (query.isValid()) )
+    if ( (query.next()) && (query.isValid()) )
     {
-        nameCol = rec.indexOf("id");
-        aux = (query.value(nameCol)).toString();
+        //nameCol = rec.indexOf("id");
+        //aux = (query.value(nameCol)).toString();
         //qDebug() << "SetupPageLogs::addNewLog: id = " << aux << endl;
         return false;
     }
-    queryString = QString("INSERT INTO logs (logdate, stationcall, comment, logtype, logtypen) values('%1','%2','%3','%4', '%5')").arg(_dateString).arg(_stationCallsign).arg(_comment).arg(_typeContest).arg(_typeContestN);
 
+    //Now we add the new log
+
+    queryString = QString("INSERT INTO logs (logdate, stationcall, comment, logtype, logtypen) values('%1','%2','%3','%4', '%5')").arg(_dateString).arg(_stationCallsign).arg(_comment).arg(_typeContest).arg(_typeContestN);
     //qDebug() << "SetupPageLogs::addNewLog query1: " << queryString << endl;
     sqlOK = query.exec(queryString);
     if (sqlOK)
@@ -2199,6 +2226,8 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
     }
     return false;
 }
+
+
 
 bool DataProxy_SQLite::doesThisLogExist(const int _log)
 {

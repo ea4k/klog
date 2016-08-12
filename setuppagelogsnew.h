@@ -80,6 +80,7 @@ private slots:
 
 signals:
     void newLogData(const QStringList _qs); //
+    void cancelled(const bool _c); // Cancel button is clicked
 
 private:
 
