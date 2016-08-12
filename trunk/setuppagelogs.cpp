@@ -44,6 +44,8 @@ SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
     contestBands = -1;
     typeContestN = -1;
 
+    selectedLog = -1;
+
     //setupD = new SetupDialog();
 
     currentLogs = new QComboBox();
@@ -113,6 +115,8 @@ SetupPageLogs::~SetupPageLogs(){
 void SetupPageLogs::createNewLog()
 {
     qDebug() << "SetupPageLogs::createNewLog" << endl;
+    selectedLog = -1;
+    newLog->setEditing(false);
     newLog->exec();
 }
 
@@ -129,7 +133,7 @@ void SetupPageLogs::slotEditButtonClicked()
     QSqlQuery query;
     int nameCol = -1;
 
-    int selectedLog = getSelectedLog();
+    selectedLog = getSelectedLog();
     //qDebug() << "SetupPageLogs::slotEditButtonClicked-1 (selectedlog: " << QString::number(selectedLog) << ")" << endl;
     QString stringQuery = QString("SELECT * FROM logs WHERE id='%1'").arg(selectedLog);
     //qDebug() << "SetupPageLogs::slotEditButtonClicked -2" << endl;
@@ -163,6 +167,11 @@ void SetupPageLogs::slotEditButtonClicked()
         }
 
     }
+}
+
+void SetupPageLogs::slotLogsCancelled(const bool _q)
+{
+    selectedLog = -1;
 }
 
 void SetupPageLogs::slotRemoveButtonClicked()
@@ -396,7 +405,7 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
 {
     //qDebug() << "SetupPageLogs::slotAnalyzeNewLogData (length=" << QString::number(_qs.length()) << ")" << endl;
 
-    if (_qs.length()!=13)
+    if (_qs.length()!=14)
     {
         return;
     }
@@ -412,6 +421,7 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
             << QString::number(contestBands)
             << QString::number(contestCatOverlay)
             << QString::number(typeContest);
+            << editing (1/0)
 
 
 */
@@ -427,18 +437,27 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     contestCatBands  = (_qs.at(9)).toInt();
     contestBands  = (_qs.at(10)).toInt();
     typeContestN = (_qs.at(12)).toInt();
+    bool editing;
+    if ( (_qs.at(13)).toInt() == 1)
+    {
+        editing = true;
+    }
+    else
+    {
+        editing = false;
+    }
     //OVERLAY = 11
 
 
     QStringList newLogq;
     newLogq.clear();
-    newLogq << dateString << stationCallsign << _qs.at(4) << comment << _qs.at(12);
-    if (dataProxy->addNewLog(newLogq))
-    {
-        logsModel->select();
-        updateSelectedLogs();
-    }
-
+    //If qs.at(12) == 1 then we are editing, any other value is a new log
+    newLogq << dateString << stationCallsign << _qs.at(4) << comment << _qs.at(12) << QString::number(selectedLog) << _qs.at(13) ;
+        if (dataProxy->addNewLog(newLogq))
+        {
+            logsModel->select();
+            updateSelectedLogs();
+        }
 }
 /*
 bool SetupPageLogs::addNewLog(const QStringList _qs)

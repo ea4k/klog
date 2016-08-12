@@ -546,7 +546,6 @@ void SetupPageLogsNew::slotOKButtonClicked()
         return;
     }
 
-
     operators = operatorsLineEdit->text();
     comment = commentLineEdit->text();    
     dateString = dateEdit->date().toString("yyyy/MM/dd");
@@ -565,7 +564,6 @@ void SetupPageLogsNew::slotOKButtonClicked()
         //qDebug() << "SetupPageLogsNew::slotOkButtonClicked NOT ENA: type" << endl;
         typeContestSelected = 0;
         typeConteststr = QString();
-
     }
 
     if (contestCatModeComboBox->isEnabled())
@@ -681,6 +679,16 @@ void SetupPageLogsNew::gatherAndSend()
             << QString::number(contestBands)
             << QString::number(contestCatOverlay)
             << QString::number(typeContest);
+
+    if (editing)
+    {
+        logData << "1";
+        editing = false;
+    }
+    else
+    {
+        logData << "0";
+    }
     //logData << QString::number(typeContest)
     // Update the SetupPageLogs::slotAnalyzeNewLogData if you add or remove any field (Today 12)
     emit newLogData(logData);
@@ -691,6 +699,7 @@ void SetupPageLogsNew::slotCancelButtonClicked()
 {
     //qDebug() << "SetupPageLogsNew::slotCancelButtonClicked" << endl;
     logData.clear();
+    emit cancelled(true);
     close();
 }
 

@@ -72,6 +72,7 @@ private slots:
     void slotAnalyzeNewLogData(const QStringList _qs);
     void slotLogSelected(const QModelIndex & index);
     void slotLogDoubleClicked(const QModelIndex & index);
+    void slotLogsCancelled(const bool _q);
 
     //void slotCreateLog();
 
@@ -124,6 +125,7 @@ private:
     int contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands, typeContestN;
 
     DataProxy *dataProxy;
+    int selectedLog;
 
 
 };
