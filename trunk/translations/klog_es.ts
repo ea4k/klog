@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.1" language="es_ES">
 <context>
     <name>CTYPage</name>
     <message>
@@ -391,7 +391,7 @@ Please edit the ADIF file and make sure that it include at least:
 CALL, QSO_DATE, TIME_ON, BAND and MODE.
 
 Do you want to continue with the current file?</source>
-        <translation>Este QSO no incluye los datos mínimos para ser considerado válido.
+        <translation type="vanished">Este QSO no incluye los datos mínimos para ser considerado válido.
 
 Por favor, edite el fichero ADIF y asegúrese de que todos los QSO incluyen al menos:
 
@@ -505,7 +505,7 @@ Si pulsa NO, el QSO puede no ser importado.</translation>
     <message>
         <source>&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2015&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLog is a free logging software for hamradio operators.&lt;br&gt;&lt;br&gt;&lt;b&gt;Please know that this is an BETA release and it may contain many bugs.&lt;br&gt;Backup your data before using this software!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, OSX &amp; Windows) and provide new functionalities that KLog was not providing. &lt;br&gt;&lt;br&gt;Find more information and latest release at&lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;&lt;br&gt;&lt;br&gt;Author: Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</source>
         <oldsource>&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2014&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLog is a free logging software for hamradio operators.&lt;br&gt;&lt;br&gt;&lt;b&gt;Please know that this is an BETA release and it may contain many bugs.&lt;br&gt;Backup your data before using this software!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, OSX &amp; Windows) and provide new functionalities that KLog was not providing. &lt;br&gt;&lt;br&gt;Find more information and latest release at&lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;&lt;br&gt;&lt;br&gt;Author: Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</oldsource>
-        <translation>&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2015&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLog es software libre de log para radioaficionados.&lt;br&gt;&lt;br&gt;&lt;b&gt;Tenga en cuenta que esta es una versión BETA y puede tener muchos errores.&lt;br&gt;¡Haga una copia de seguridad de sus datos antes de usar este programa!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLog ha sido completamente reescrito desde su versión 0.6.2 para proporcionar una aplicación multiplataforma capaz de correr en los sistemas operativos principales (Linux, OSX &amp; Windows) y soporta nuevas funcionalidades que KLog no proporcionaba. &lt;br&gt;&lt;br&gt;Encuentre más información en &lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;&lt;br&gt;&lt;br&gt;Autor: Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</translation>
+        <translation type="vanished">&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2015&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLog es software libre de log para radioaficionados.&lt;br&gt;&lt;br&gt;&lt;b&gt;Tenga en cuenta que esta es una versión BETA y puede tener muchos errores.&lt;br&gt;¡Haga una copia de seguridad de sus datos antes de usar este programa!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLog ha sido completamente reescrito desde su versión 0.6.2 para proporcionar una aplicación multiplataforma capaz de correr en los sistemas operativos principales (Linux, OSX &amp; Windows) y soporta nuevas funcionalidades que KLog no proporcionaba. &lt;br&gt;&lt;br&gt;Encuentre más información en &lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;&lt;br&gt;&lt;br&gt;Autor: Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../helphelpdialog.cpp" line="12"/>
@@ -628,7 +628,7 @@ Si pulsa NO, el QSO puede no ser importado.</translation>
     </message>
     <message>
         <source>&amp;Spot</source>
-        <translation>An&amp;unciar</translation>
+        <translation type="vanished">An&amp;unciar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="301"/>
@@ -868,7 +868,7 @@ Si pulsa NO, el QSO puede no ser importado.</translation>
     </message>
     <message>
         <source>Push Yes to keep your selection or No to use the KLog proposal.</source>
-        <translation>Pulse Si para mantener su selección o No para usar la propuesta de KLog.</translation>
+        <translation type="vanished">Pulse Si para mantener su selección o No para usar la propuesta de KLog.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2283"/>
@@ -1070,7 +1070,7 @@ Si pulsa NO, el QSO puede no ser importado.</translation>
     </message>
     <message>
         <source>Spots this QSO to the DX Cluster</source>
-        <translation>Envía el QSO al DX-Cluster</translation>
+        <translation type="vanished">Envía el QSO al DX-Cluster</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2546"/>
@@ -1412,7 +1412,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Power used for the QSO in watts</source>
-        <translation>Potencia usada para el QSO en vatios</translation>
+        <translation type="vanished">Potencia usada para el QSO en vatios</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5534"/>
@@ -1611,11 +1611,11 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Select the primary division for this QSO</source>
-        <translation>Seleccione la división principal de este QSO</translation>
+        <translation type="vanished">Seleccione la división principal de este QSO</translation>
     </message>
     <message>
         <source>Select the secondary division for this QSO</source>
-        <translation>Seleccione la división secundaria de este QSO</translation>
+        <translation type="vanished">Seleccione la división secundaria de este QSO</translation>
     </message>
     <message>
         <source>Select the correct entity of the current QSO</source>
@@ -1699,17 +1699,17 @@ Do you want to save your changes?</source>
     <message>
         <source>The download failed!.
 Do you want to update the file?</source>
-        <translation>Descarga fallida.
+        <translation type="vanished">Descarga fallida.
 ¿Quiere actualizar el fichero?</translation>
     </message>
     <message>
         <source>The file has been downloaded!</source>
-        <translation>¡Se ha descargado el fichero!</translation>
+        <translation type="vanished">¡Se ha descargado el fichero!</translation>
     </message>
     <message>
         <source>The file already exits and needs to be overwritten.
 Do you want to update the file?</source>
-        <translation>El fichero ya existe y debe ser sobreescrito.
+        <translation type="vanished">El fichero ya existe y debe ser sobreescrito.
 ¿Quiere actualizar el fichero?</translation>
     </message>
     <message>
@@ -1739,11 +1739,11 @@ Do you want to update the file?</source>
     </message>
     <message>
         <source>Power</source>
-        <translation>Potencia</translation>
+        <translation type="vanished">Potencia</translation>
     </message>
     <message>
         <source>Operator</source>
-        <translation>Operador</translation>
+        <translation type="vanished">Operador</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2366"/>
@@ -1757,19 +1757,19 @@ Do you want to update the file?</source>
     </message>
     <message>
         <source>You have selected an entity [1]-</source>
-        <translation>Ha seleccionado una entidad [1]-</translation>
+        <translation type="vanished">Ha seleccionado una entidad [1]-</translation>
     </message>
     <message>
         <source>that is different from the KLog proposed entity [2]-</source>
-        <translation>que es diferente de la entidad que propone KLog [2]-</translation>
+        <translation type="vanished">que es diferente de la entidad que propone KLog [2]-</translation>
     </message>
     <message>
         <source>Push Yes to apply your selection[1] and No to apply [2].</source>
-        <translation>Pulse Si para aplicar su selección ([1]) y No para aplicar ([2]).</translation>
+        <translation type="vanished">Pulse Si para aplicar su selección ([1]) y No para aplicar ([2]).</translation>
     </message>
     <message>
         <source>Push Yes to keep your selection or No use the KLog proposal.</source>
-        <translation>Pulse Si para mantener su selección o No para usar la propuesta de KLog.</translation>
+        <translation type="vanished">Pulse Si para mantener su selección o No para usar la propuesta de KLog.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3754"/>
@@ -1843,7 +1843,7 @@ Do you want to update the file?</source>
     </message>
     <message>
         <source>Select the propagation mode for this current QSO</source>
-        <translation>Seleccione el modo de propagación para este QSO</translation>
+        <translation type="vanished">Seleccione el modo de propagación para este QSO</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5617"/>
@@ -1867,7 +1867,7 @@ Do you want to update the file?</source>
     </message>
     <message>
         <source>My Locator</source>
-        <translation>Mi locator</translation>
+        <translation type="vanished">Mi locator</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5925"/>
@@ -1933,11 +1933,11 @@ Do you want to update the file?</source>
     </message>
     <message>
         <source>IOTA</source>
-        <translation>IOTA</translation>
+        <translation type="vanished">IOTA</translation>
     </message>
     <message>
         <source>Entity</source>
-        <translation>Entidad</translation>
+        <translation type="vanished">Entidad</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="489"/>
@@ -2031,36 +2031,36 @@ Do you want to update the file?</source>
     </message>
     <message>
         <source>Primary Div</source>
-        <translation>Div principal</translation>
+        <translation type="vanished">Div principal</translation>
     </message>
     <message>
         <source>Secondary Div</source>
-        <translation>Div secundaria</translation>
+        <translation type="vanished">Div secundaria</translation>
     </message>
     <message>
         <source>Propagation mode</source>
-        <translation>Modo de propagación</translation>
+        <translation type="vanished">Modo de propagación</translation>
     </message>
     <message>
         <source>You have selected an entity</source>
-        <translation>Ha seleccionado una entidad</translation>
+        <translation type="vanished">Ha seleccionado una entidad</translation>
     </message>
     <message>
         <source>that is different from the KLog proposed entity</source>
-        <translation>que es distinta de la entidad propuesta por KLog</translation>
+        <translation type="vanished">que es distinta de la entidad propuesta por KLog</translation>
     </message>
     <message>
         <source>Push Apply to apply your selection.</source>
-        <translation>Pulse Aplicar para aplicar la selección.</translation>
+        <translation type="vanished">Pulse Aplicar para aplicar la selección.</translation>
     </message>
     <message>
         <source>You have selected an entity: </source>
-        <translation>Ha seleccionado una entidad: </translation>
+        <translation type="vanished">Ha seleccionado una entidad: </translation>
     </message>
     <message>
         <source>that is different from the
 KLog proposed entity: </source>
-        <translation>que es diferente de la entidad
+        <translation type="vanished">que es diferente de la entidad
 que KLog propone: </translation>
     </message>
     <message>
@@ -2408,7 +2408,7 @@ que KLog propone: </translation>
     <message>
         <source>Name of the Satellite (format like AO-51)</source>
         <oldsource>Name of the Satellite</oldsource>
-        <translation>Nombre del satélite (formato como AO-51)</translation>
+        <translation type="vanished">Nombre del satélite (formato como AO-51)</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="69"/>
@@ -2748,7 +2748,7 @@ Thank you for running KLog!</source>
         <source>Your KLog dir has been removed
 
 Thank you for running KLog!.</source>
-        <translation>Su carpeta de KLog ha sido eliminada.
+        <translation type="vanished">Su carpeta de KLog ha sido eliminada.
 
 ¡Gracias por usar KLog!</translation>
     </message>
@@ -2756,7 +2756,7 @@ Thank you for running KLog!.</source>
         <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.
 
 Thank you for running KLog!.</source>
-        <translation>No pude eliminar su carpeta de KLog. Puede eliminarla manualmente si quiere eliminarla de su disco duro.
+        <translation type="vanished">No pude eliminar su carpeta de KLog. Puede eliminarla manualmente si quiere eliminarla de su disco duro.
 
 ¡Gracias por usar KLog!</translation>
     </message>
@@ -2764,7 +2764,7 @@ Thank you for running KLog!.</source>
         <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.
 
 Thank you for running KLog!.</source>
-        <translation>No pudo eliminarse su carpeta de KLog. Puede eliminarla manualmente si quiere eliminarla de su disco duro.
+        <translation type="vanished">No pudo eliminarse su carpeta de KLog. Puede eliminarla manualmente si quiere eliminarla de su disco duro.
 
 ¡Gracias por usar KLog!</translation>
     </message>
@@ -2772,7 +2772,7 @@ Thank you for running KLog!.</source>
         <source>Remember that your KLog dir is in your system...
 
 Thank you for running KLog!.</source>
-        <translation>Recuerde que la carpeta de KLog está en su sistema...
+        <translation type="vanished">Recuerde que la carpeta de KLog está en su sistema...
 
 ¡Gracias por usar KLog!</translation>
     </message>
@@ -3673,7 +3673,7 @@ The log will not be opened.</oldsource>
     <message>
         <source>DB in &amp;Memory</source>
         <oldsource>DB in Memory</oldsource>
-        <translation>BD en &amp;memoria</translation>
+        <translation type="vanished">BD en &amp;memoria</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="51"/>
@@ -3753,7 +3753,7 @@ The log will not be opened.</oldsource>
     <message>
         <source>Working in memory (vs in file) is much quicker but you will need to save the ADIF file each time you exit KLog.</source>
         <oldsource>Working in memory (vs in file) is much quicker but you will need to save the ADIF file each time you exit KLog.</oldsource>
-        <translation>Trabajar en memoria (en vez de fichero) es más rápido pero deberá salvar el fichero ADIF cada vez que salga de KLog.</translation>
+        <translation type="vanished">Trabajar en memoria (en vez de fichero) es más rápido pero deberá salvar el fichero ADIF cada vez que salga de KLog.</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="70"/>
