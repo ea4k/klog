@@ -102,6 +102,26 @@ SetupPageLogsNew::SetupPageLogsNew(QWidget *parent)
 
 }
 
+void SetupPageLogsNew::clear()
+{
+    stationCallsignLineEdit->clear();
+    operatorsLineEdit->clear();
+    dateEdit->setDate(QDate::currentDate ());
+
+
+    typeComboBox->setCurrentIndex(0);
+    contestCatModeComboBox->setCurrentIndex(0);
+    contestCatOperatorsComboBox->setCurrentIndex(0);
+    contestCatAssistedComboBox->setCurrentIndex(0);
+    contestCatPowerComboBox->setCurrentIndex(0);
+    contestCatBandsComboBox->setCurrentIndex(0);
+    contestBandsComboBox->setCurrentIndex(0);
+    contestCatOverlayComboBox->setCurrentIndex(0);
+    contestCatModeComboBox->setCurrentIndex(0);
+
+
+}
+
 void SetupPageLogsNew::createWidget()
 {
     //qDebug() << "SetupPageLogsNew::createWidget" << endl;
@@ -547,6 +567,7 @@ void SetupPageLogsNew::slotOKButtonClicked()
     }
 
     operators = operatorsLineEdit->text();
+    //TODO: Check if operators is really including a comma separated list of QRZ
     comment = commentLineEdit->text();    
     dateString = dateEdit->date().toString("yyyy/MM/dd");
 
@@ -827,6 +848,11 @@ void SetupPageLogsNew::setCOverlay(const int _n)
 void SetupPageLogsNew::setEditing(const bool b)
 {
     editing = b;
+    if (!editing)
+    {
+        clear();
+    }
+
 }
 
 int SetupPageLogsNew::getSelectedTypeContest()

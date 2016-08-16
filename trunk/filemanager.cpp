@@ -29,7 +29,7 @@
 
 FileManager::FileManager()
 {
-   //qDebug() << "FileManager::FileManager()" << endl;
+   //qDebug() << "FileManager::FileManager()-1" << endl;
     util = new Utilities;
     ignoreUnknownAlways = false;
     world = new World();
@@ -48,7 +48,7 @@ FileManager::FileManager()
 
 FileManager::FileManager(const QString _kontestDir)
 {
-   //qDebug() << "FileManager::FileManager(): Dir" << _kontestDir << endl;
+  //qDebug() << "FileManager::FileManager()-2: Dir" << _kontestDir << endl;
     util = new Utilities;
     kontestDir = _kontestDir;
     ignoreUnknownAlways = false;
@@ -1804,7 +1804,24 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
         if ( progress.wasCanceled() )
         {
-            noMoreQso = true;
+            QMessageBox msgBox;
+            QString aux = QString(tr("You have cancelled the file export. The file will be removed and no data will be exported.\nDo you want to continue?"));
+            msgBox.setText(aux);
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            msgBox.setDefaultButton(QMessageBox::No);
+            int ret = msgBox.exec();
+            switch (ret) {
+              case QMessageBox::Yes:
+                  // Yes was clicked
+                    noMoreQso = true;
+                  break;
+              case QMessageBox::No:
+                    // No Save was clicked
+                  break;
+              default:
+                    // should never be reached
+                  break;
+            }
 
         }
         else
@@ -2527,7 +2544,25 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
             if ( progress.wasCanceled() )
             {
-                noMoreQso = true;
+
+                QMessageBox msgBox;
+                aux = QString(tr("You have cancelled the file export. The file will be removed and no data will be exported.\nDo you want to continue?"));
+                msgBox.setText(aux);
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                msgBox.setDefaultButton(QMessageBox::No);
+                int ret = msgBox.exec();
+                switch (ret) {
+                  case QMessageBox::Yes:
+                      // Yes was clicked
+                        noMoreQso = true;
+                      break;
+                  case QMessageBox::No:
+                        // No Save was clicked
+                      break;
+                  default:
+                        // should never be reached
+                      break;
+                }
             }
             else
             {}
@@ -2784,7 +2819,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
 
     //QFile &file = _f;
 
-    bool keepLogsInF = _keepLogsInFile; //TODO: Check if needed or remove it completely. This line is just to remove a warning
+    bool keepLogsInF;// = _keepLogsInFile; //TODO: Check if needed or remove it completely. This line is just to remove a warning
     int i = -1;
     QDate date;
     QTime time;

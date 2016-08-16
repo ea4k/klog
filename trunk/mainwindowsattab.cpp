@@ -60,7 +60,12 @@ void MainWindowSatTab::createUI()
     keepLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO"));
 
     keepThisDataForNextQSORadiobutton->setToolTip(tr("Data entered in this tab will be copied into the next QSO"));
-    satNameLineEdit->setToolTip(tr("Name of the Satellite if not in the list (format like AO-51)"));
+    QString othersat = tr("Other - Sat not in the list");
+    QString aux;
+    aux.clear();
+    aux = QString(tr("Name of the Satellite if not in the list. Select: \"")) + othersat + QString(tr("\" to enable this box. (format like AO-51)"));
+    satNameLineEdit->setToolTip(aux);
+    //satNameLineEdit->setToolTip(tr("Name of the Satellite if not in the list. Select Other Sat (format like AO-51)"));
     satModeLineEdit->setToolTip(tr("Satellite mode used"));
     satNameComboBox->setToolTip(tr("Select the satellite you are using"));
 

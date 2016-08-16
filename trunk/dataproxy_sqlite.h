@@ -40,6 +40,7 @@ public:
     QString getFreqFromBandId(const int _id);
     int getBandIdFromFreq(const double _n);
     double getLowLimitBandFromBandName(const QString _sm);
+    double getLowLimitBandFromBandId(const QString _sm);
 
     int getLastQSOid();
 
@@ -129,7 +130,7 @@ public:
     QString getISOName(const int _n);
 
 private:
-    //bool dbCreated;
+    bool dbCreated;
     DataBase *db;
     QStringList sortBandIdBottonUp(const QStringList _qs);
     //QSqlRelationalTableModel *logModel;

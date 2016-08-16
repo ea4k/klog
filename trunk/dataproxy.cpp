@@ -113,6 +113,12 @@ double DataProxy::getLowLimitBandFromBandName(const QString _sm)
     return -1.0;
 }
 
+double DataProxy::getLowLimitBandFromBandId(const QString _sm)
+{
+    return -1.0;
+}
+
+
 QStringList DataProxy::getBands()
 {
     return QStringList();

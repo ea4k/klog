@@ -22,9 +22,12 @@ DXCCStatusWidget::DXCCStatusWidget(QWidget *parent) : QWidget(parent)
 
 
     numberOfColumns = 0;
+    logNumber = -1; // -1 means that ALL the logs will be used (if showAllLogsButton is not checked)
+    tempLog = -1;   // -1 means that ALL the logs will be used
 
     searchLineEdit = new QLineEdit;
     refreshButton = new QPushButton;    
+    showAllLogsButton = new QRadioButton;
 
 
     bandNames.clear();
@@ -53,6 +56,7 @@ void DXCCStatusWidget::createUI()
     //hh->setSectionResizeMode(QHeaderView::Stretch);
 
     refreshButton->setText(tr("Update"));
+    showAllLogsButton->setText("All logs");
 
     dxccView->setContextMenuPolicy(Qt::CustomContextMenu);
     dxccView->setSortingEnabled(true);
@@ -63,6 +67,7 @@ void DXCCStatusWidget::createUI()
     QHBoxLayout *bottonLineLayout = new QHBoxLayout;
     bottonLineLayout->addWidget(searchLineEdit);
     bottonLineLayout->addWidget(refreshButton);
+    bottonLineLayout->addWidget(showAllLogsButton);
 
     QVBoxLayout *tabLayout = new QVBoxLayout;
     tabLayout->addWidget(dxccView);
@@ -73,15 +78,27 @@ void DXCCStatusWidget::createUI()
 
     connect(searchLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchLineEditTextChanged() ) );
     connect(refreshButton, SIGNAL(clicked()), this, SLOT(slotRefreshButtonClicked() ) );
+
+
+    showAllLogsButton->setToolTip(tr("Select to show the status taking into account all the logs not just the selected one."));
 }
 
 void DXCCStatusWidget::update()
 {
-    qDebug() << "DXCCStatusWidget::update " << endl;
+   //qDebug() << "DXCCStatusWidget::update " << endl;
     int entities = world->getHowManyEntities();
     QStringList list;
     QString aux;
     dxccView->clearContents();
+
+    if (showAllLogsButton->isChecked())
+    {
+        tempLog = logNumber;
+    }
+    else
+    {
+        tempLog = -1;
+    }
 
     for (int i=1; i<=entities; i++)
     {
@@ -117,6 +134,7 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
         //qDebug() << "DXCCStatusWidget::addEntity: ERROR: in number of columns" << QString::number(_ent.length()) << "/" << QString::number(numberOfColumns) << endl;
         return;
     }
+
 
     int status = -1;
 
@@ -165,7 +183,7 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
     for (int i=2; i < _ent.length(); i++)
     {
         bandid = dataProxy->getIdFromBandName(_ent.at(i));
-        QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand(ent, bandid, -1));
+        QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand(ent, bandid, tempLog));
         newItem->setTextAlignment(Qt::AlignCenter);
         newItem->setFlags(Qt::NoItemFlags);
 
@@ -227,7 +245,7 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
 void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
 {// Receives the list of band names
 
-    qDebug() << "DXCCStatusWidget::setBands: " << QString::number(_ent.length()) << endl;
+   //qDebug() << "DXCCStatusWidget::setBands: " << QString::number(_ent.length()) << endl;
     if (_creating)
     {
         //qDebug() << "DXCCStatusWidget::setBands (creating true) " << QString::number(_ent.length()) << endl;
@@ -239,9 +257,9 @@ void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
 
     QStringList qs;
     qs.clear();
-
+    //qDebug() << "DXCCStatusWidget::setBands - 1 " << endl;
     qs << dataProxy->sortBandNamesBottonUp(_ent);
-
+    //qDebug() << "DXCCStatusWidget::setBands - 2 " << endl;
     if (qs.length()<0)
     {
         //qDebug() << "DXCCStatusWidget::setBands no bands received here " << endl;
@@ -254,9 +272,11 @@ void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
     bandNames.clear();
     //bandNames << "Id" << "Entity";
 
+   //qDebug() << "DXCCStatusWidget::setBands - 3 " << endl;
     validBands.clear();
-    validBands << dataProxy->getBands();
-
+    //validBands << dataProxy->getBands();
+    validBands << dataProxy->getBandNames();
+    //qDebug() << "DXCCStatusWidget::setBands - 4 " << endl;
     dxccView->clearContents();    
    // for (int x = 0; x < dxccView->columnCount(); x++)
    // {
@@ -273,13 +293,14 @@ void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
         if (validBands.contains(qs.at(i)))
         {
             bandNames.append(testBand);
-            //qDebug() << "DXCCStatusWidget::setBands-2: Added: " << bandNames.last()  << endl;
+           //qDebug() << "DXCCStatusWidget::setBands-2: Added: " << bandNames.last()  << endl;
         }
         else
         {
-          //qDebug() << "DXCCStatusWidget::setBands: Not valid band: " << testBand << endl;
+         //qDebug() << "DXCCStatusWidget::setBands: Not valid band: " << testBand << endl;
         }
     }
+   //qDebug() << "DXCCStatusWidget::setBands - 5 " << endl;
 
     numberOfColumns = 2 + bandNames.length();
     dxccView->setColumnCount(numberOfColumns);  
@@ -289,20 +310,20 @@ void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
     headerqs.clear();
     headerqs << tr("Id") << tr("Entity") << bandNames;
     dxccView->setHorizontalHeaderLabels(headerqs);
-    //qDebug() << "DXCCStatusWidget::setBands: PRE-END" << endl;
+   //qDebug() << "DXCCStatusWidget::setBands: PRE-END" << endl;
     if (!_creating)
     {
         update();
     }
 
-    qDebug() << "DXCCStatusWidget::setBands: END" << endl;
+   //qDebug() << "DXCCStatusWidget::setBands: END" << endl;
 
 
 }
 
 void DXCCStatusWidget::setDefaultBands()
 {
-     qDebug() << "DXCCStatusWidget::setDefaultBands" << endl;
+    //qDebug() << "DXCCStatusWidget::setDefaultBands" << endl;
     /*
      Default bands:
      160M    80M  40M  30M  20M  17M  15M  12M  10M  6M   4M   2M   70CM
@@ -326,10 +347,22 @@ void DXCCStatusWidget::slotSearchLineEditTextChanged()
 
 void DXCCStatusWidget::slotRefreshButtonClicked()
 {
-    qDebug() << "DXCCStatusWidget::slotRefreshButtonClicked" << endl;
+   //qDebug() << "DXCCStatusWidget::slotRefreshButtonClicked" << endl;
+    //TODO: Define a way to show the status of the selected log or all the logs in the DB
     QStringList _bands = bandNames;
     setBands(_bands);
     //update();
 }
 
 
+ void DXCCStatusWidget::setCurrentLog(const int _logN)
+ {
+     if (dataProxy->doesThisLogExist(_logN))
+     {
+         logNumber = _logN;
+     }
+     else
+     {
+         logNumber = -1;
+     }
+ }

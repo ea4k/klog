@@ -34,7 +34,7 @@ This class calls all the othet "Setup..." to manage the configuration
 
 SetupDialog::SetupDialog(const bool _firstTime)
 {
-    qDebug() << "SetupDialog::SetupDialog 1" << endl;
+   //qDebug() << "SetupDialog::SetupDialog 1" << endl;
     util = new Utilities;
     nolog = true;
     configFileName = "klogrc";
@@ -95,7 +95,9 @@ SetupDialog::SetupDialog(const bool _firstTime)
     QPushButton *okButton = new QPushButton(tr("OK"));
 
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
-    connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
+    connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));       
+    connect (logsPage, SIGNAL(newLogData(QStringList)), this, SLOT(slotAnalyzeNewLogData(QStringList)));
+
 
     QHBoxLayout *horizontalLayout = new QHBoxLayout;
     horizontalLayout->addWidget(tabWidget);
@@ -120,14 +122,14 @@ SetupDialog::SetupDialog(const bool _firstTime)
         tabWidget->setCurrentIndex(logsPageTabN);
     }
     nolog = !(haveAtleastOneLog());
-   qDebug() << "SetupDialog::SetupDialog 1 END" << endl;
+  //qDebug() << "SetupDialog::SetupDialog 1 END" << endl;
 }
 
 
 
 SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
 {
-    qDebug() << "SetupDialog::SetupDialog 2" << endl;
+   //qDebug() << "SetupDialog::SetupDialog 2" << endl;
     util = new Utilities;
     firstTime = _firstTime;
     dataProxy = new DataProxy_SQLite();
@@ -187,7 +189,7 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
         tabWidget->setCurrentIndex(logsPageTabN);
     }
     nolog = !(haveAtleastOneLog());
-     qDebug() << "SetupDialog::SetupDialog 2  - END" << endl;
+    //qDebug() << "SetupDialog::SetupDialog 2  - END" << endl;
 }
 
 SetupDialog::~SetupDialog()
@@ -337,7 +339,7 @@ void SetupDialog::slotOkButtonClicked()
 
     if (!haveAtleastOneLog())
     {
-        qDebug() << "SetupDialog::slotOkButonClicked - NO LOG!" << endl;
+       //qDebug() << "SetupDialog::slotOkButonClicked - NO LOG!" << endl;
 
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
@@ -990,4 +992,18 @@ void SetupDialog::checkIfNewBandOrMode()
     bandsModesPage->setActiveModes(_items);
     //qDebug() << "SetupDialog::checkIfNewBandOrMode END" << endl;
 
+}
+
+
+void SetupDialog::slotAnalyzeNewLogData(const QStringList _qs)
+{
+   //qDebug() << "SetupDialog::slotAnalyzeNewLogData (length=" << QString::number(_qs.length()) << ")" << endl;
+    //qDebug() << "SetupDialog::slotAnalyzeNewLogData" << endl;
+ // We receive the station callsign and operators from the logs tab
+    if (_qs.length()!=2)
+    {
+        return;
+    }
+    userDataPage->setStationQrz(_qs.at(0));
+    userDataPage->setOperators(_qs.at(1));
 }

@@ -29,12 +29,12 @@
 
 DataProxy_SQLite::DataProxy_SQLite()
 {
-   qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << endl;
+  //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << endl;
     db = new DataBase(0);
    //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1" << endl;
-    //dbCreated = db->createConnection();
-    //dbCreated = db->createBandModeMaps();
-   qDebug() << "DataProxy_SQLite::DataProxy_SQLite - END" << endl;
+    dbCreated = db->createConnection();
+    dbCreated = db->createBandModeMaps();
+  //qDebug() << "DataProxy_SQLite::DataProxy_SQLite - END" << endl;
 
 
 }
@@ -156,7 +156,7 @@ bool DataProxy_SQLite::isModeDeprecated (const QString _sm)
 
 int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
 {
-    //qDebug() << "DataProxy_SQLite::getIdFromBandName: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
+   //qDebug() << "DataProxy_SQLite::getIdFromBandName: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
     if (_bandName.length()<1)
     {
         return -3;
@@ -287,6 +287,7 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
 
 double DataProxy_SQLite::getLowLimitBandFromBandName(const QString _sm)
 {
+    //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName" << endl;
     QSqlQuery query;
     QString stringQuery = QString("SELECT lower FROM band WHERE name='%1'").arg(_sm.toUpper());
     query.exec(stringQuery);
@@ -294,27 +295,65 @@ double DataProxy_SQLite::getLowLimitBandFromBandName(const QString _sm)
     if (query.isValid())
     {
         if ( (query.value(1)).toDouble()<0 )
-        { // DEPRECATED VALUE, return the MODE
+        {
+            //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-1" << endl;
             return -1.0;
         }
         else
         {
+            //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: " << QString::number((query.value(0)).toDouble()) << endl;
             return (query.value(0)).toDouble();
         }
     }
     else
     {
+        //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-2" << endl;
         return -1.0;
     }
 
+    //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-3" << endl;
     return -1.0;
 }
 
 
+double DataProxy_SQLite::getLowLimitBandFromBandId(const QString _sm)
+{
+    //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandId" << endl;
+    QSqlQuery query;
+    QString stringQuery = QString("SELECT lower FROM band WHERE id='%1'").arg(_sm.toUpper());
+    query.exec(stringQuery);
+    query.next();
+    if (query.isValid())
+    {
+        if ( (query.value(1)).toDouble()<0 )
+        {
+            //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandId: -1.0-1" << endl;
+            return -1.0;
+        }
+        else
+        {
+            //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandId: " << QString::number((query.value(0)).toDouble()) << endl;
+            return (query.value(0)).toDouble();
+        }
+    }
+    else
+    {
+        //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandId: -1.0-2" << endl;
+        return -1.0;
+    }
+
+    //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandId: -1.0-3" << endl;
+    return -1.0;
+}
+
 QStringList DataProxy_SQLite::getBands()
 {
-   //qDebug() << "DataProxy_SQLite::getBands" << endl;
-    QStringList bands = QStringList();
+  //qDebug() << "DataProxy_SQLite::getBands - DEPRECATED please use getBandNames - TODO: Remove this function and change the calls" << endl;
+    return getBandNames();
+
+
+/*
+   QStringList bands = QStringList();
     QSqlQuery query("SELECT name FROM band");
     while (query.next()) {
         if (query.isValid()){
@@ -323,6 +362,40 @@ QStringList DataProxy_SQLite::getBands()
     }
     //return bands;
     return sortBandNamesBottonUp(bands);
+*/
+}
+
+QStringList DataProxy_SQLite::getBandNames()
+{
+   //qDebug() << "DataProxy_SQLite::getBandNames" << endl;
+    QStringList bands = QStringList();
+    QSqlQuery query;
+    QString stringQuery;
+    bool sqlOK;
+    stringQuery = QString("SELECT DISTINCT name from band");
+    sqlOK = query.exec(stringQuery);
+    if (sqlOK)
+    {
+        while(query.next())
+        {
+            if (query.isValid())
+            {
+                stringQuery = (query.value(0)).toString();
+                bands.append(stringQuery);
+            }
+            else
+            {
+                return QStringList();
+            }
+
+        }
+        return sortBandNamesBottonUp(bands);
+        //return bands;
+    }
+    else
+    {
+         return QStringList();
+    }
 }
 
 QStringList DataProxy_SQLite::getModes()
@@ -340,7 +413,15 @@ QStringList DataProxy_SQLite::getModes()
 QStringList DataProxy_SQLite::sortBandNamesBottonUp(const QStringList _qs)
 {
     //Receives a list of band names, sorts it from the lower band to the upper band and returns
-   //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp" << endl;
+  //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp" << endl;
+
+   //Next lines to be commented out
+   for (int i=0; i<_qs.length();i++)
+   {
+       //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp - band: " << _qs.at(i) << endl;
+   }
+   //Previous lines to be commented out
+
     QMap<double, QString> map;
     QStringList qs;
     qs.clear();
@@ -358,6 +439,8 @@ QStringList DataProxy_SQLite::sortBandNamesBottonUp(const QStringList _qs)
         ++i;
     }
 
+   //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp - END -lengh = " << QString::number(qs.length()) << endl;
+    //qs.removeDuplicates();
     return qs;
 }
 
@@ -385,7 +468,7 @@ QStringList DataProxy_SQLite::sortBandIdBottonUp(const QStringList _qs)
 
     for (int j=0; j<_qs.count(); j++)
     {
-        map.insert(getLowLimitBandFromBandName(_qs.at(j)), _qs.at(j));
+        map.insert(getLowLimitBandFromBandId(_qs.at(j)), _qs.at(j));
     }
 
     QMap<double, QString>::const_iterator i = map.constBegin();
@@ -1729,40 +1812,6 @@ QStringList DataProxy_SQLite::getContestOverlays()
     return QStringList();
 }
 
-QStringList DataProxy_SQLite::getBandNames()
-{
-
-    QStringList bands = QStringList();
-    QSqlQuery query;
-    QString stringQuery;
-    bool sqlOK;
-    stringQuery = QString("SELECT DISTINCT name from band");
-    sqlOK = query.exec(stringQuery);
-    if (sqlOK)
-    {
-        while(query.next())
-        {
-            if (query.isValid())
-            {
-                stringQuery = (query.value(0)).toString();
-                bands.append(stringQuery);
-            }
-            else
-            {
-                return QStringList();
-            }
-
-        }
-        return sortBandNamesBottonUp(bands);
-        //return bands;
-    }
-    else
-    {
-         return QStringList();
-    }
-}
-
-
 QStringList DataProxy_SQLite::getPropModeList()
 {
    //qDebug()  << "DataProxy_SQLite::getPropModeLists"  << endl;
@@ -2148,27 +2197,33 @@ int DataProxy_SQLite::getHowManyQSOInLog(const int _log)
 
 bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 {
-    qDebug() << "SetupPageLogs::addNewLog: " << _qs.at(2) << "/" << _qs.at(5) << "/" << _qs.at(6) << endl;
+   //qDebug() << "SetupPageLogs::addNewLog: " << _qs.at(2) << "/" << _qs.at(5) << "/" << _qs.at(6) << endl;
 
     //_qs << dateString << stationCallsign << _qs.at(4) << comment << _qs.at(12);
     //qDebug() << "SetupPageLogs::slotAnalyzeNewLogData:  " << _qs.at(4) << "/" << _qs.at(12) << endl;
-    // Date/Call/"DX"/comment/"1"
+    // Date/Call/Operators/"DX"/comment/"1"
 
-    if (_qs.size()!=7)
+    if (_qs.size()!=8)
     {
+       //qDebug() << "SetupPageLogs::addNewLog: != 8"  << endl;
         return false;
     }
+   //qDebug() << "SetupPageLogs::addNewLog: Has the appropriate length"  << endl;
 
     QString aux = QString();
     int nameCol = -1;
 
     QString _dateString = _qs.at(0);
-    QString _stationCallsign = _qs.at(1);
-    QString _typeContest = _qs.at(2);
-    QString _comment = _qs.at(3);
-    QString _typeContestN = _qs.at(4);    
-    QString id = _qs.at(5);
-    QString editing = _qs.at(6);
+    QString _stationCallsign = _qs.at(1);    
+    QString _operators = _qs.at(2);
+
+    //_operators.clear();
+    //_operators << (_qs.at(2)).split(',', QString::SkipEmptyParts);
+    QString _typeContest = _qs.at(3);
+    QString _comment = _qs.at(4);
+    QString _typeContestN = _qs.at(5);
+    QString id = _qs.at(6);
+    QString editing = _qs.at(7);
 
     QString queryString;
     QSqlQuery query;
@@ -2176,23 +2231,23 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 
     if (editing == "1")
     { // We are editing
-        qDebug() << "SetupPageLogs::addNewLog: We are editing!" << endl;
-        queryString = QString("UPDATE logs SET logdate = '%1', stationcall = '%2', comment = '%3',  logtype = '%4', logtypen = '%5' WHERE id = '%6'").arg(_dateString).arg(_stationCallsign).arg(_comment).arg(_typeContest).arg(_typeContestN).arg(id);
+       //qDebug() << "SetupPageLogs::addNewLog: We are editing!" << endl;
+        queryString = QString("UPDATE logs SET logdate = '%1', stationcall = '%2', operators = '%3', comment = '%4',  logtype = '%5', logtypen = '%6' WHERE id = '%7'").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment).arg(_typeContest).arg(_typeContestN).arg(id);
         sqlOK = query.exec(queryString);
         if (sqlOK)
         {
-            qDebug() << "SetupPageLogs::addNewLog: Editing OK!" << endl;
+           //qDebug() << "SetupPageLogs::addNewLog: Editing OK!" << endl;
             return true;
         }
         else
         {
-            qDebug() << "SetupPageLogs::addNewLog: Editing NOK!" << endl;
+           //qDebug() << "SetupPageLogs::addNewLog: Editing NOK!" << endl;
             return false;
         }
         return false;
     }
 
-    qDebug() << "SetupPageLogs::addNewLog: We are adding a new log" << endl;
+   //qDebug() << "SetupPageLogs::addNewLog: We are adding a new log" << endl;
 
     // First we check if the log is already there
     queryString = QString("SELECT id FROM logs WHERE logdate='%1' AND stationcall='%2' AND logtype='%3' AND logtypen='%4'").arg(_dateString).arg(_stationCallsign).arg(_typeContest).arg(_typeContestN);
@@ -2201,6 +2256,7 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
     //qDebug() << "SetupPageLogs::addNewLog query1: " << queryString << endl;
 
     sqlOK = query.exec(queryString);
+
     QSqlRecord rec = query.record(); // Number of columns
 
     if ( (query.next()) && (query.isValid()) )
@@ -2213,7 +2269,7 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 
     //Now we add the new log
 
-    queryString = QString("INSERT INTO logs (logdate, stationcall, comment, logtype, logtypen) values('%1','%2','%3','%4', '%5')").arg(_dateString).arg(_stationCallsign).arg(_comment).arg(_typeContest).arg(_typeContestN);
+    queryString = QString("INSERT INTO logs (logdate, stationcall, operators, comment, logtype, logtypen) values('%1','%2','%3','%4', '%5', '%6')").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment).arg(_typeContest).arg(_typeContestN);
     //qDebug() << "SetupPageLogs::addNewLog query1: " << queryString << endl;
     sqlOK = query.exec(queryString);
     if (sqlOK)
@@ -2781,7 +2837,7 @@ int DataProxy_SQLite::getHowManyEntities()
 
 bool DataProxy_SQLite::updateISONames()
 {
-    qDebug()  << "DataProxy_SQLite::updateISONames"  << endl;
+   //qDebug()  << "DataProxy_SQLite::updateISONames"  << endl;
     bool result;
     result = db->updateTheEntityTableISONames();
 
@@ -2804,7 +2860,7 @@ QString DataProxy_SQLite::getISOName(const int _n)
     queryString = QString("SELECT isoname FROM entity WHERE dxcc='%1'").arg(_n);
     if (!query.exec(queryString))
     {
-        qDebug()  << "DataProxy_SQLite::getISOName: Query error"  << endl;
+       //qDebug()  << "DataProxy_SQLite::getISOName: Query error"  << endl;
         return "nu"; // When no flag is known, we return the UN flag
     }
     else
@@ -2830,6 +2886,6 @@ QString DataProxy_SQLite::getISOName(const int _n)
             return "un"; // When no flag is known, we return the UN flag
         }
     }
-    qDebug()  << "DataProxy_SQLite::getISOName: NO ISO Name: default"  << endl;
+   //qDebug()  << "DataProxy_SQLite::getISOName: NO ISO Name: default"  << endl;
     return "un"; // When no flag is known, we return the UN flag
 }

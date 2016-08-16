@@ -62,6 +62,7 @@ public:
     void setCOverlay(const int _n);
 
 
+
 private slots:
     void slotOKButtonClicked();
     void slotCancelButtonClicked();
@@ -93,6 +94,7 @@ private:
     void updateAllCats();
     void showOK();
     void showNOK();
+    void clear();
 
 
     DataProxy *dataProxy;
