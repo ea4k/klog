@@ -73,6 +73,7 @@ private slots:
     void slotReadConfigData();
     void slotOkButtonClicked();
     void slotCancelButtonClicked();
+    void slotAnalyzeNewLogData(const QStringList _qs); // We receive the station callsign and operators from the logs tab
 
 private:
 

@@ -62,3 +62,18 @@ QString Utilities::checkAndFixASCIIinADIF(const QString _data)
 
     return newString;
 }
+
+void Utilities::printQString(const QStringList _qs)
+{
+   //qDebug() << "Utilities::printQString: COMMENT THIS CALL BEFORE RELEASING" << endl;
+    if (_qs.length()<1)
+    {
+       //qDebug() << "Utilities::printQString: EMPTY QStringList received!!" << endl;
+        return;
+    }
+    for (int i=0; i<_qs.length()-1;i++)
+    {
+       //qDebug() << _qs.at(i) << "/" ;
+    }
+   //qDebug() << _qs.at(_qs.length()-1) << endl;
+}

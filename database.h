@@ -83,6 +83,7 @@ public:
     void compress();
 
     bool updateTheEntityTableISONames();
+    bool updateTableLogs();
 
 private:
     bool createDataBase();
@@ -102,8 +103,8 @@ private:
     bool createTheModeQuickReference();
 
     //bool updateLog(); // Updates the log table
-    bool createTableLog(bool temp = false); // false creates the prouction DB. True a temporal one.
-    bool createTableLogs();
+    bool createTableLog(bool temp = false); // false creates the production DB. True a temporal one.
+    bool createTableLogs(const bool real=true); // real = true creates the production DB. False a temporal one.
 
     bool createTableEntity(const bool NoTmp);
     bool updateTableEntity();

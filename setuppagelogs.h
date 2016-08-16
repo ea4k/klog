@@ -79,6 +79,7 @@ private slots:
         //
 signals:
    //void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
+    void newLogData(const QStringList _qs); // Station QRZ + Operators to be shown in the main tab
 
 private:
     //void createActions();

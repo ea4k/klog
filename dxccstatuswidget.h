@@ -21,7 +21,8 @@ public:
     ~DXCCStatusWidget();
     
     void update();    
-    void setBands(QStringList const _ent, const bool _creating = false); // Receives the list of bandIDs
+    void setBands(const QStringList _ent, const bool _creating = false); // Receives the list of bandIDs
+    void setCurrentLog(const int _logN);
 
 signals:
 
@@ -42,10 +43,12 @@ private:
     QHeaderView *hv, *hh;
     QLineEdit *searchLineEdit;
     QPushButton *refreshButton;
+    QRadioButton *showAllLogsButton;
 
 
     int numberOfColumns; // Columns will be number Of Bands + 2 (Id + Name)
     QStringList bandNames, validBands;
+    int logNumber, tempLog; // log in use in the log / log to be used in the widget
 
 };
 

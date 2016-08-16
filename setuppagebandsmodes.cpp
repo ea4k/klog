@@ -81,7 +81,8 @@ SetupPageBandsModes::SetupPageBandsModes(QWidget *parent) : QWidget(parent){
     bandsModesWidgetLayout->addLayout(modesButtonsLayout);
 
     bands.clear();
-    bands << dataProxy->getBands();
+    //bands << dataProxy->getBands();
+    bands << dataProxy->getBandNames();
     modes << dataProxy->getModes();
 
     bandsNotActiveListWidget->addItems(bands);

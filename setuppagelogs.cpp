@@ -114,8 +114,9 @@ SetupPageLogs::~SetupPageLogs(){
 
 void SetupPageLogs::createNewLog()
 {
-    qDebug() << "SetupPageLogs::createNewLog" << endl;
+   //qDebug() << "SetupPageLogs::createNewLog" << endl;
     selectedLog = -1;
+    //newLog->clear();
     newLog->setEditing(false);
     newLog->exec();
 }
@@ -152,6 +153,9 @@ void SetupPageLogs::slotEditButtonClicked()
 
             nameCol = rec.indexOf("stationcall");
             newLog->setStationCallSign((query.value(nameCol)).toString());
+
+            nameCol = rec.indexOf("operators");
+            newLog->setOperators((query.value(nameCol)).toString());
 
             nameCol = rec.indexOf("comment");
             newLog->setComment((query.value(nameCol)).toString());
@@ -452,12 +456,18 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     QStringList newLogq;
     newLogq.clear();
     //If qs.at(12) == 1 then we are editing, any other value is a new log
-    newLogq << dateString << stationCallsign << _qs.at(4) << comment << _qs.at(12) << QString::number(selectedLog) << _qs.at(13) ;
-        if (dataProxy->addNewLog(newLogq))
-        {
-            logsModel->select();
-            updateSelectedLogs();
-        }
+    newLogq << dateString << stationCallsign << operators << _qs.at(4) << comment << _qs.at(12) << QString::number(selectedLog) << _qs.at(13) ;
+    if (dataProxy->addNewLog(newLogq))
+    {
+        logsModel->select();
+        updateSelectedLogs();
+    }
+
+    // We send the data to the main tab
+    QStringList logData;
+    logData.clear();
+    logData << stationCallsign << operators;
+    emit newLogData(logData);
 }
 /*
 bool SetupPageLogs::addNewLog(const QStringList _qs)

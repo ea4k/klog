@@ -99,33 +99,33 @@ World::~World()
 /*
 void World::identifyOS()
 {
-    qDebug() << "World::identifyOS" << endl;
+   //qDebug() << "World::identifyOS" << endl;
     appDir =  QCoreApplication::applicationDirPath();
     flagsDir=":/flags/";
     QFile flag;
     flag.setFileName(flagsDir + "es.png");
     if (flag.exists())
     {
-        qDebug() << "World::identifyOS - flag exists" << endl;
+       //qDebug() << "World::identifyOS - flag exists" << endl;
     }
     else
     {
-        qDebug() << "World::identifyOS - flag does not exist" << endl;
+       //qDebug() << "World::identifyOS - flag does not exist" << endl;
     }
 
 
 #if defined(Q_OS_WIN)
-        qDebug() << "World::identifyOS - Win detected!" << endl;
+       //qDebug() << "World::identifyOS - Win detected!" << endl;
         //flagsDir = appDir + "/flags/";
 
 #elif defined(Q_OS_OSX)
-        qDebug() << "World::identifyOS - OSX detected!" << endl;
+       //qDebug() << "World::identifyOS - OSX detected!" << endl;
 
 #elif defined(Q_OS_LINUX)
-        qDebug() << "World::identifyOS - Linux detected!" << endl;
+       //qDebug() << "World::identifyOS - Linux detected!" << endl;
         //TODO: Look for the flags in different dirs...
 #else
-        qDebug() << "World::identifyOS - other OS detected!" << endl;
+       //qDebug() << "World::identifyOS - other OS detected!" << endl;
         //TODO: Look for the flags in different dirs...
 #endif
 }

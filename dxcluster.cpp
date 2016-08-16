@@ -276,7 +276,15 @@ bool DXClusterWidget::checkIfNeedsToBePrinted(const QString _dxCall, int const _
 
 void DXClusterWidget::setCurrentLog(const int _log)
 {
-    currentLog = _log;
+    if (dataProxy->doesThisLogExist(_log))
+    {
+        currentLog = _log;
+    }
+    else
+    {
+        currentLog = -1;
+    }
+
 }
 
 void DXClusterWidget::slotClusterDataArrived()

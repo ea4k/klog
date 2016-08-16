@@ -38,7 +38,10 @@
 
 MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 {
-   //qDebug() << "MainWindow::MainWindow: "<<  _kontestDir << " Ver: " << tversion << endl;
+  //qDebug() << "MainWindow::MainWindow: "<<  _kontestDir << " Ver: " << tversion << endl;
+   QTime start;
+   start = QTime::currentTime();
+  //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
     upAndRunning = false; // To define some actions that can only be run when starting the software
     //connect(&manager, SIGNAL(finished(QNetworkReply*)), SLOT(slotDownloadFinished(QNetworkReply*))); // To download cty.csv
@@ -212,60 +215,60 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         }
     }
 
-   qDebug() << "MainWindow::MainWindow: 3" << endl;
+  //qDebug() << "MainWindow::MainWindow: 3" << endl;
 
 
     DBinMemory = false;
     //db = new DataBase(softwareVersion, DBinMemory);
     db = new DataBase(softwareVersion);
-   qDebug() << "MainWindow::MainWindow: 4" << endl;
+  //qDebug() << "MainWindow::MainWindow: 4" << endl;
     world = new World(kontestDir, softwareVersion);
-   qDebug() << "MainWindow::MainWindow: 5" << endl;
+  //qDebug() << "MainWindow::MainWindow: 5" << endl;
     if (!db->createConnection())
     {
-      qDebug() << "MainWindow::MainWindow: Conection not created" << endl;
+     //qDebug() << "MainWindow::MainWindow: Conection not created" << endl;
         return;
     }
     else
     {
         db->updateIfNeeded(); // Check if we need to update the DB
-        qDebug() << "MainWindow::MainWindow: DB Updated" << endl;
+       //qDebug() << "MainWindow::MainWindow: DB Updated" << endl;
         if (!existingData)
         {
-          qDebug() << "MainWindow::MainWindow: !existingData" << endl;
+         //qDebug() << "MainWindow::MainWindow: !existingData" << endl;
             world->create(kontestDir);                       
             //entitiesList = world->getEntitiesNames();
             //createData();
         }else
         {
-         qDebug() << "MainWindow::MainWindow: existingData" << endl;
+        //qDebug() << "MainWindow::MainWindow: existingData" << endl;
         }
     }
-   qDebug() << "MainWindow::MainWindow: proxy to be created" << endl;
+  //qDebug() << "MainWindow::MainWindow: proxy to be created" << endl;
     dataProxy = new DataProxy_SQLite();
     //propModeList = dataProxy->getPropModeList();
 
-   qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
+  //qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
     //setupDialog = new SetupDialog(!configured);
     setupDialog = new SetupDialog(configFileName, softwareVersion, 0, !configured);
-   qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
+  //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab();
     myDataTabWidget = new MainWindowMyDataTab();
     commentTabWidget = new MainWindowInputComment();
     othersTabWidget = new MainWindowInputOthers();
 
-    qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
     //filemanager = new FileManager(kontestDir, softwareVersion, *db);
     filemanager = new FileManager(kontestDir, softwareVersion);
 
-   qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
+  //qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
     locator = new Locator();
-   qDebug() << "MainWindow::MainWindow: awards to be created" << endl;
+  //qDebug() << "MainWindow::MainWindow: awards to be created" << endl;
     awards = new Awards();
 
     mainWidget = new QWidget(this);
     setCentralWidget(mainWidget);
-   qDebug() << "MainWindow::MainWindow: 8" << endl;
+  //qDebug() << "MainWindow::MainWindow: 8" << endl;
     dateTime = new QDateTime();
     selectedYear = (dateTime->currentDateTime()).date().year();
 
@@ -440,7 +443,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     // UI DX
 
     // CLUSTER
-   qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
+  //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
     dxClusterWidget = new DXClusterWidget(dxclusterServerToConnect , dxclusterServerPort, this);
 
 
@@ -455,19 +458,19 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     //createDXClusterUI();
     connect( setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
 
-   qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
+  //qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
     readConfigData();
     if (needToEnd)
     {
         //QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
         db->compress();
-       qDebug() << "MainWindow::MainWindow: 12.5" << endl;
+      //qDebug() << "MainWindow::MainWindow: 12.5" << endl;
        exit(0);
     }
 
-    qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
     createUI();
-    qDebug() << "MainWindow::MainWindow: logmodel to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow: logmodel to be created" << endl;
     createlogModel(currentLog);
 
     createSearchResultsPanel();
@@ -487,16 +490,16 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     logView->setCurrentIndex(logModel->index(0, 0));
     //searchResultsTreeWidget->setCurrentIndex(logModel->index(0, 0));
 
-   qDebug() << "MainWindow::MainWindow: 16" << endl;
+  //qDebug() << "MainWindow::MainWindow: 16" << endl;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
-       qDebug() << "MainWindow::MainWindow: 16.1" << endl;
+      //qDebug() << "MainWindow::MainWindow: 16.1" << endl;
         slotSetup(6);
        //qDebug() << "MainWindow::MainWindow: 16.2" << endl;
     }
-    qDebug() << "MainWindow::MainWindow: 17" << endl;
+   //qDebug() << "MainWindow::MainWindow: 17" << endl;
     checkIfNewBandOrMode();
-    qDebug() << "MainWindow::MainWindow: 18" << endl;
+   //qDebug() << "MainWindow::MainWindow: 18" << endl;
     if ( (contestMode == CQ_WW_SSB) || (contestMode == CQ_WW_CW) )
     {
         //qDebug() << "MainWindow::MainWindow: 18.1" << endl;
@@ -507,10 +510,10 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     }
     else
     {
-        qDebug() << "MainWindow::MainWindow: 18.3" << endl;
+       //qDebug() << "MainWindow::MainWindow: 18.3" << endl;
         if (dataProxy->getLastQSOid()<=1)
         {
-            qDebug() << "MainWindow::MainWindow: 18.4" << endl;
+           //qDebug() << "MainWindow::MainWindow: 18.4" << endl;
             operatingYearsComboBox->addItem(QString::number(selectedYear));
         }
         else
@@ -532,20 +535,25 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
         //qDebug() << "MainWindow::MainWindow: 18.10" << endl;
     }
 
-    qDebug() << "MainWindow::MainWindow: 19" << endl;
+   //qDebug() << "MainWindow::MainWindow: 19" << endl;
     currentBandShown = dataProxy->getIdFromBandName(bandComboBox->currentText());
     currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
     currentBand = currentBandShown;
     currentMode = currentModeShown;
-   qDebug() << "MainWindow::MainWindow: 20 - currentMode: " << QString::number(currentMode) << endl;
-    //qDebug() << "MainWindow::MainWindow: 21 - currentBand: " << QString::number(currentBand) << endl;
+   //qDebug() << "MainWindow::MainWindow: 20 - currentMode: " << QString::number(currentMode) << endl;
+   //qDebug() << "MainWindow::MainWindow: 21 - currentBand: " << QString::number(currentBand) << endl;
+   //qDebug() << "MainWindow::MainWindow: 21.1 - currentModeShown: " << QString::number(currentModeShown) << endl;
+   //qDebug() << "MainWindow::MainWindow: 21.2 - currentBandShown: " << QString::number(currentBandShown) << endl;
 
 
     slotClearButtonClicked();
     //logModel->select();
 
     upAndRunning = true;
-   qDebug() << "MainWindow::MainWindow: END" << endl;
+
+    //qDebug() << "MainWindow::MainWindow: END: "<<  (QTime::currentTime() - start).toString("hhmmsszzz")<< endl;
+   //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
+  //qDebug() << "MainWindow::MainWindow: END" << endl;
 
 }
 
@@ -606,6 +614,10 @@ void MainWindow::slotModeComboBoxChanged()
    //qDebug() << "MainWindow::MainWindow: 7 - currentMode: " << QString::number(currentMode) << endl;
     currentMode = currentModeShown;
    //qDebug() << "MainWindow::MainWindow: 8 - currentMode: " << QString::number(currentMode) << endl;
+   //qDebug() << "MainWindow::MainWindow: 8.1 - currentBand: " << QString::number(currentBand) << endl;
+   //qDebug() << "MainWindow::MainWindow: 8.2 - currentModeShown: " << QString::number(currentModeShown) << endl;
+   //qDebug() << "MainWindow::MainWindow: 8.3 - currentBandShown: " << QString::number(currentBandShown) << endl;
+
     //currentBandShown = bandComboBox->currentIndex();
     //currentModeShown = modeComboBox->currentIndex();
     i = checkIfWorkedB4(currentQrz);
@@ -625,7 +637,7 @@ void MainWindow::slotModeComboBoxChanged()
 }
 
 void MainWindow::slotBandComboBoxChanged(){
-  //qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << endl;
+   //qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << endl;
     int i;
     i = dataProxy->getIdFromBandName(bandComboBox->currentText());
     if (i>=0)
@@ -641,7 +653,13 @@ void MainWindow::slotBandComboBoxChanged(){
     currentBand = currentBandShown;
    //qDebug() << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
     currentMode = currentModeShown;
-   //qDebug() << "MainWindow::MainWindow: 10 - currentMode: " << QString::number(currentMode) << endl;
+   //qDebug() << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
+   //qDebug() << "MainWindow::MainWindow: 9.1 - currentMode: " << QString::number(currentMode) << endl;
+   //qDebug() << "MainWindow::MainWindow: 9.2 - currentBand: " << QString::number(currentBand) << endl;
+   //qDebug() << "MainWindow::MainWindow: 9.3 - currentModeShown: " << QString::number(currentModeShown) << endl;
+   //qDebug() << "MainWindow::MainWindow: 9.4 - currentBandShown: " << QString::number(currentBandShown) << endl;
+
+
        //currentModeShown = modeComboBox->currentIndex();
     i = checkIfWorkedB4(currentQrz);
 
@@ -662,7 +680,7 @@ void MainWindow::slotBandComboBoxChanged(){
 
 void MainWindow::slotQRZReturnPressed()
 {
-    //qDebug() << "MainWindow::slotQRZReturnPressed: " << qrzLineEdit->text() << " - " << QString::number(bandComboBox->currentIndex()) << "/" << QString::number(modeComboBox->currentIndex()) << endl;
+   //qDebug() << "MainWindow::slotQRZReturnPressed: " << qrzLineEdit->text() << " - " << QString::number(bandComboBox->currentIndex()) << "/" << QString::number(modeComboBox->currentIndex()) << endl;
     //int newId = -1;
     int lastId = -1;
     int errorCode = 0;
@@ -688,7 +706,7 @@ void MainWindow::slotQRZReturnPressed()
             //qDebug() << "MainWindow::slotQRZReturnPressed: CQ-WW-CW:" << endl;
         break;
         default:
-            //qDebug() << "MainWindow::slotQRZReturnPressed: Default:" << endl;
+          //qDebug() << "MainWindow::slotQRZReturnPressed: Default:" << endl;
         break;
 
         }
@@ -700,7 +718,7 @@ void MainWindow::slotQRZReturnPressed()
         QSqlQuery query;
         QString queryString = readDataFromUI();
 
-        //qDebug() << "MainWindow::slotQRZReturnPressed: queryString: " << queryString << endl;
+       //qDebug() << "MainWindow::slotQRZReturnPressed: queryString: " << queryString << endl;
 
         if (queryString != "NULL") {
             if (!query.exec(queryString))
@@ -729,12 +747,12 @@ void MainWindow::slotQRZReturnPressed()
             {
                 //TODO: To move the following lines to this part to properly manage the query result!!
                 //ret = true;
-               //qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
+              //qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
 
                 needToSave = true;
                 if (modify)
                 {
-                   //qDebug() << "MainWindow::slotQRZReturnPressed: Modifying! " << endl;
+                  //qDebug() << "MainWindow::slotQRZReturnPressed: Modifying! " << endl;
 
                     if(modifyingQSO>0)
                     {
@@ -761,11 +779,11 @@ void MainWindow::slotQRZReturnPressed()
                 }
                 else
                 {
-                   //qDebug() << "MainWindow::slotQRZReturnPressed: Not Modifying " << endl;
+                  //qDebug() << "MainWindow::slotQRZReturnPressed: Not Modifying " << endl;
                     lastId = dataProxy->getLastQSOid();
                     if (lastId>=0)
                     {
-                       //qDebug() << "MainWindow::slotQRZReturnPressed: Lastid: "<< QString::number(lastId) << endl;
+                      //qDebug() << "MainWindow::slotQRZReturnPressed: Lastid: "<< QString::number(lastId) << endl;
                         awards->setAwards(lastId);   //Update the DXCC award status
 
                         // Send to CLUBLOG if enabled
@@ -811,7 +829,7 @@ void MainWindow::slotQRZReturnPressed()
         else   // The QUERY string is NULL
         {
             return;
-            //qDebug() << "MainWindow::slotQRZReturnPressed: queryString-NULL: " << queryString << endl;
+           //qDebug() << "MainWindow::slotQRZReturnPressed: queryString-NULL: " << queryString << endl;
         }
 
 
@@ -1055,16 +1073,16 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     aux1 = othersTabWidget->getIOTA();
-    qDebug() << "MainWindow::readDataFromUIDX: IOTA: " << aux1 << endl;
+   //qDebug() << "MainWindow::readDataFromUIDX: IOTA: " << aux1 << endl;
     if (aux1.length() == 6) // EU-001
     {
-       qDebug() << "MainWindow::readDataFromUIDX: IOTA to be saved" << endl;
+      //qDebug() << "MainWindow::readDataFromUIDX: IOTA to be saved" << endl;
         stringFields = stringFields + ", iota";
         stringData = stringData + ", '" + aux1 + "'";
     }
     else
     {
-       qDebug() << "MainWindow::readDataFromUIDX: IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
+      //qDebug() << "MainWindow::readDataFromUIDX: IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
     }
 /*
     aux1 = iotaNumberLineEdit->text();
@@ -1804,16 +1822,16 @@ WHERE [condition];
     }
 
     aux1 = othersTabWidget->getIOTA();
-    qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA: " << aux1 << endl;
+   //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA: " << aux1 << endl;
     if (aux1.length() == 6) // EU-001
     {
-        qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA to be saved! " << endl;
+       //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA to be saved! " << endl;
         updateString = updateString + "iota = '";
         updateString = updateString + aux1 + "', ";
     }
     else
     {
-       qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
+      //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
     }
 
    aux1 = satTabWidget->getSatName();   //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
@@ -2972,7 +2990,7 @@ void MainWindow::slotQRZTextChanged()
     othersTabWidget->setEntity(currentEntity);
 
 
-    qDebug() << "MainWindow::slotQRZTextChanged: DXCC/ISOname: " << QString::number(currentEntity) << "/" << dataProxy->getISOName(currentEntity) << endl;
+   //qDebug() << "MainWindow::slotQRZTextChanged: DXCC/ISOname: " << QString::number(currentEntity) << "/" << dataProxy->getISOName(currentEntity) << endl;
 
    //qDebug() << "MainWindow::slotQRZTextChanged: Entity: " << QString::number(currentEntity) << endl;
 
@@ -4953,7 +4971,7 @@ int MainWindow::checkIfWorkedB4(const QString _qrz)
 
 void MainWindow::readConfigData()
 {
-    //qDebug() << "MainWindow::slotReadConfigData - 01" << endl;
+   //qDebug() << "MainWindow::slotReadConfigData - 01" << endl;
 
 
 
@@ -4964,7 +4982,7 @@ void MainWindow::readConfigData()
     QFile file(configFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         //qDebug() << "MainWindow::slotReadConfigData: File not found" << configFileName << endl;
-        if (configured )
+        if (configured)
         {
             //qDebug() << "MainWindow::readConfigData: configured = true" << endl;
         }
@@ -4973,7 +4991,7 @@ void MainWindow::readConfigData()
             //qDebug() << "MainWindow::readConfigDataw: configured = false" << endl;
         }
         slotSetup();
-        defineStationCallsign();
+
         return;
     }
 
@@ -4981,6 +4999,7 @@ void MainWindow::readConfigData()
         QByteArray line = file.readLine();
         processConfigLine(line);
     }
+    defineStationCallsign();
 
     //qDebug() << "MainWindow::readConfigData: " << defaultADIFLogFile << endl;
 
@@ -5096,6 +5115,7 @@ bool MainWindow::processConfigLine(const QString _line){
     }else if (field=="MODES"){
         readActiveModes(value.split(", ", QString::SkipEmptyParts));
     }else if (field=="BANDS"){
+       //qDebug() << "MainWindow::processConfigLine: BANDS: " << value << endl;
         readActiveBands(value.split(", ", QString::SkipEmptyParts));
     }else if (field=="REALTIME"){
         //qDebug() << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
@@ -5264,6 +5284,7 @@ bool MainWindow::processConfigLine(const QString _line){
             }
         }
         dxClusterWidget->setCurrentLog(currentLog);
+        dxccStatusWidget->setCurrentLog(currentLog);
         //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
     }else if(field=="CLUBLOGACTIVE")
     {
@@ -5317,38 +5338,83 @@ bool MainWindow::processConfigLine(const QString _line){
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
 //that is not currently selected as active
-//qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
 //    modes
 //    bands
 
     setupDialog->checkIfNewBandOrMode(); // Update the Setup dialog with new bands or modes
     //qDebug() << "MainWindow::checkIfNewBandOrMode after setupDialog" << endl;
-    QStringList bandsInLog = dataProxy->getBandsInLog(currentLog);
-    QStringList modesInLog = dataProxy->getModesInLog(currentLog);
 
+   //qDebug() << "MainWindow::checkIfNewBandOrMode - bands: " << endl;
+    util->printQString(bands);
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - modes: " << endl;
+    util->printQString(modes);
+
+    QStringList bandsInLog = dataProxy->getBandsInLog(currentLog);
+   //qDebug() << "MainWindow::checkIfNewBandOrMode - bandsInLog-1: " << endl;
+    util->printQString(bandsInLog);
+   //qDebug() << "MainWindow::checkIfNewBandOrMode - bandsInLog-2: " << endl;
+    QStringList modesInLog = dataProxy->getModesInLog(currentLog);
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - modesInLog: " << endl;
+    //util->printQString(modesInLog);
+
+    //if (bandsInLog.length()>0)
+    //{
+        //bands.clear();
+
+    //}
+    QStringList qsTemp;
+    qsTemp.clear();
     bands << bandsInLog;
-    QSet<QString> set = bands.toSet();
+    qsTemp << dataProxy->sortBandNamesBottonUp(bands);
+    bands.clear();
+    bands << qsTemp;
+
+    //QSet<QString> set = bands.toSet();
+    QSet<QString> set;
     //bands.clear();
     //bands << set.toList();
 
 
     //set.clear();
+    if (modesInLog.length()>0)
+    {
+       modes << modesInLog;
+    }
 
-    modes << modesInLog;
     set = modes.toSet();
     modes.clear();
     modes << set.toList();
 
+
+/*
+    if (bands.length()<1)
+    {
+        //Default band/modes
+        bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
+        modes << "SSB" << "CW" << "RTTY";
+    }
+*/
+   //qDebug() << "MainWindow::checkIfNewBandOrMode - bands -" << QString::number(bands.length()) << endl;
     bandComboBox->clear();
     bandComboBox->addItems(bands);
+
+   //qDebug() << "MainWindow::checkIfNewBandOrMode - modes -" << QString::number(modes.length()) << endl;
     modeComboBox->clear();
-
-    //qDebug() << "MainWindow::checkIfNewBandOrMode - 1-" << QString::number(modeComboBox->count()) << endl;
+   //qDebug() << "MainWindow::checkIfNewBandOrMode - 1-" << QString::number(modeComboBox->count()) << endl;
     modeComboBox->addItems(modes);
-    //qDebug() << "MainWindow::checkIfNewBandOrMode - 2-" << QString::number(modeComboBox->count()) << endl;
+   //qDebug() << "MainWindow::checkIfNewBandOrMode - 2-" << QString::number(modeComboBox->count()) << endl;
 
+   //qDebug() << "MainWindow::checkIfNewBandOrMode - CurrentBand/CurrentBandShown: " << QString::number(currentBand) << "/" << QString::number(currentBandShown) << endl;
     dxccStatusWidget->setBands(bands);
-    //qDebug() << "MainWindow::checkIfNewBandOrMode END" << endl;
+
+
+   //qDebug() << "MainWindow::checkIfNewBandOrMode - bands2: " << endl;
+    util->printQString(bands);
+   //qDebug() << "MainWindow::checkIfNewBandOrMode - modes2: " << endl;
+    util->printQString(modes);
+
+   //qDebug() << "MainWindow::checkIfNewBandOrMode END" << endl;
 }
 
 /*********************************************************************
@@ -5363,7 +5429,9 @@ void MainWindow::checkIfNewBandOrMode()
 void MainWindow::readActiveBands (const QStringList actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
     // bands used in the program
-    //qDebug() << "MainWindow::readActiveBands: " << actives << endl;
+   //qDebug() << "MainWindow::readActiveBands: "  << endl;
+    util->printQString(actives);
+
     QString aux;
     bool atLeastOne = false;
     //QStringList values = actives;
@@ -5375,7 +5443,7 @@ void MainWindow::readActiveBands (const QStringList actives)
         {
             if (!atLeastOne)
             {
-                //qDebug() << "MainWindow::readActiveBands (at least One!): " << values.at(i) << endl;
+               //qDebug() << "MainWindow::readActiveBands (at least One!): " << actives.at(i) << endl;
                 atLeastOne = true;
                 bands.clear();
             }
@@ -5386,11 +5454,12 @@ void MainWindow::readActiveBands (const QStringList actives)
             }
             //bands << actives.at(i);
 
-            //qDebug() << "MainWindow::readActiveBands: " << values.at(i) << endl;
+           //qDebug() << "MainWindow::readActiveBands: " << actives.at(i) << endl;
         }
 
     }
     bands.removeDuplicates();
+   //qDebug() << "MainWindow::readActiveBands - END"  << endl;
 }
 
 void MainWindow::readActiveModes (const QStringList actives)
