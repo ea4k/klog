@@ -66,12 +66,12 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="85"/>
         <source>Select to show the status taking into account all the logs not just the selected one.</source>
-        <translation type="unfinished"></translation>
+        <translation>選択されたログだけでなく、すべてのログファイルの内容を計算にいれたステータスを表示します。</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="86"/>
         <source>Click to update the status.</source>
-        <translation type="unfinished"></translation>
+        <translation>ステータスを更新するためにクリックしてください。</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="314"/>
@@ -253,7 +253,8 @@ Do you want to try again?</source>
         <location filename="../filemanager.cpp" line="2549"/>
         <source>You have cancelled the file export. The file will be removed and no data will be exported.
 Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイルのエクスポート中止が選択されました。ファイルは削除され、データはエクスポートされません。
+本当に継続しますか？</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1951"/>
@@ -462,7 +463,7 @@ If you select NO, the QSO may not be imported.</source>
     <message>
         <location filename="../helphelpdialog.cpp" line="12"/>
         <source>&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2016&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLog is a free logging software for hamradio operators.&lt;br&gt;&lt;br&gt;&lt;b&gt;Please know that this is an BETA release and it may contain many bugs.&lt;br&gt;Backup your data before using this software!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, OSX &amp; Windows) and provide new functionalities that KLog was not providing. &lt;br&gt;&lt;br&gt;Find more information and latest release at&lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;&lt;br&gt;&lt;br&gt;Author: Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</source>
-        <translation type="unfinished">&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2015&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLogはアマチュア無線家のためのフリーなロギングソフトウェアです。&lt;br&gt;&lt;br&gt;&lt;b&gt;このリリースはまだベータバージョンで、多くのバグを含んでいる可能性があります。&lt;br&gt;このソフトウェアを使い始める前に、まずデータのバックアップを取ってください!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLogは主要なオペレーティングシステム (Linux OSX &amp; Windows)上でクロスプラットフォーム実行が可能なように、また以前のKLogに備わっていなかった新機能を提供するために、バージョン0.6.2以降、大幅に書き換えられました。&lt;br&gt;&lt;br&gt;より詳しい情報や、最新のリリースは&lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;で入手できます。&lt;br&gt;&lt;br&gt;作者：　Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt; {2&gt;?} {4&gt;?} {4T?} {2002-2016&lt;?} {4&gt;?} {0.6.2 ?} {4T?}</translation>
+        <translation>&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2016&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLogはアマチュア無線家のためのフリーなロギングソフトウェアです。&lt;br&gt;&lt;br&gt;&lt;b&gt;このリリースはまだベータバージョンで、多くのバグを含んでいる可能性があります。&lt;br&gt;このソフトウェアを使い始める前に、まずデータのバックアップを取ってください!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLogは主要なオペレーティングシステム (Linux OSX &amp; Windows)上でクロスプラットフォーム実行が可能なように、また以前のKLogに備わっていなかった新機能を提供するために、バージョン0.6.2以降、大幅に書き換えられました。&lt;br&gt;&lt;br&gt;より詳しい情報や、最新のリリースは&lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;で入手できます。&lt;br&gt;&lt;br&gt;作者：　Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt; </translation>
     </message>
     <message>
         <location filename="../helphelpdialog.cpp" line="20"/>
@@ -815,7 +816,7 @@ If you select NO, the QSO may not be imported.</source>
     <message>
         <location filename="../mainwindow.cpp" line="562"/>
         <source>Ready</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="730"/>
@@ -2265,12 +2266,12 @@ Do you want to update the file?</source>
     <message>
         <location filename="../mainwindowsattab.cpp" line="66"/>
         <source>Name of the Satellite if not in the list. Select: &quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>リストに衛星の名前がない場合、&quot;</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="66"/>
         <source>&quot; to enable this box. (format like AO-51)</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;を選択して、この入力ボックスを有効にしてください。 (入力例：AO-51)</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="308"/>
