@@ -58,8 +58,8 @@ add new features (mainly contests and awards support).
 
 2.1 IMPORTANT THINGS TO HAVE IN MIND
 
-- KLog version number is using the following system:
-   Release versions: The Decimal par of the version number will always use even numbers like 0, 1.2, 2.20, ...
+DEPRECATED - KLog version number is using the following system:
+   Release versions: The Decimal part of the version number will always use even numbers like 0, 1.2, 2.20, ...
    while the decimal part of the development or Release Candidate versions will always be an odd number ie 0.1, 1.3, ...
    The release number is defined in the "main.cpp" file.
 
@@ -90,9 +90,9 @@ To add a new contest, a new class, inheriting the "Contest" class should be crea
 The new contest file should be named: "contest_nameofthecontest.h" and "contest_nameofthecontest.cpp"
 and should be included in the mainwindow.h
 
-A new contest must include:
- - Import/Export Cabrillo file
+All the calls to the contest class should be implemented in the virtual class.
 
+A new contest must include the implementation of all the functions of the virtual class.
 
 
 2.3 AWARD SUPPORT
@@ -148,6 +148,8 @@ QSO fields:
 
 KLog is also importing other application defined ADIF fields:
     APP_N1MM_POINTS: That is imported into the points column in the log table.
+
+KLog should not export any ADIF header that comming from other application without renaming it to APP_KLOG_
 
 4.3 SHORTCUTS
 
@@ -221,6 +223,7 @@ Here is the list of tests to be done before releasing new software:
 7 - DOCUMENTATION
 
 - One feature will not be considered completed until it is not added to the user manual.
+  Please document in the klog-handbook.xml your feature so the user knows how to use it.
 
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 

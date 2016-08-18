@@ -17,17 +17,17 @@ DXCCStatusWidget::DXCCStatusWidget(QWidget *parent) : QWidget(parent)
     dataProxy = new DataProxy_SQLite();
 
     dxccView = new QTableWidget;
-    hv = new QHeaderView(Qt::Vertical, this);
-    hh = new QHeaderView(Qt::Horizontal, this);
+    //hv = new QHeaderView(Qt::Vertical, dxccView);
+    //hh = new QHeaderView(Qt::Horizontal, this);
 
 
     numberOfColumns = 0;
     logNumber = -1; // -1 means that ALL the logs will be used (if showAllLogsButton is not checked)
     tempLog = -1;   // -1 means that ALL the logs will be used
 
-    searchLineEdit = new QLineEdit;
+    //searchLineEdit = new QLineEdit;
     refreshButton = new QPushButton;    
-    showAllLogsButton = new QRadioButton;
+    //showAllLogsButton = new QRadioButton;
 
 
     bandNames.clear();
@@ -48,6 +48,10 @@ void DXCCStatusWidget::createUI()
     // We remove the vertical header
     hv = dxccView->verticalHeader();
     hv->hide();
+    hv->setStretchLastSection(true);
+    hh = dxccView->horizontalHeader();
+    //hh->hide();
+
 
 
     //hh = dxccView->horizontalHeader();
@@ -56,7 +60,7 @@ void DXCCStatusWidget::createUI()
     //hh->setSectionResizeMode(QHeaderView::Stretch);
 
     refreshButton->setText(tr("Update"));
-    showAllLogsButton->setText("All logs");
+    //showAllLogsButton->setText("All logs");
 
     dxccView->setContextMenuPolicy(Qt::CustomContextMenu);
     dxccView->setSortingEnabled(true);
@@ -65,9 +69,10 @@ void DXCCStatusWidget::createUI()
     dxccView->setRowCount(0);
 
     QHBoxLayout *bottonLineLayout = new QHBoxLayout;
-    bottonLineLayout->addWidget(searchLineEdit);
+    bottonLineLayout->addSpacerItem(new QSpacerItem(10,0,QSizePolicy::Expanding,QSizePolicy::Maximum));
+    //bottonLineLayout->addWidget(searchLineEdit);
     bottonLineLayout->addWidget(refreshButton);
-    bottonLineLayout->addWidget(showAllLogsButton);
+    //bottonLineLayout->addWidget(showAllLogsButton);
 
     QVBoxLayout *tabLayout = new QVBoxLayout;
     tabLayout->addWidget(dxccView);
@@ -75,12 +80,13 @@ void DXCCStatusWidget::createUI()
     setLayout(tabLayout);
 
     dxccView->resizeColumnsToContents();
+    dxccView->resizeRowsToContents();
 
-    connect(searchLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchLineEditTextChanged() ) );
+    //connect(searchLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchLineEditTextChanged() ) );
     connect(refreshButton, SIGNAL(clicked()), this, SLOT(slotRefreshButtonClicked() ) );
 
 
-    showAllLogsButton->setToolTip(tr("Select to show the status taking into account all the logs not just the selected one."));
+    //showAllLogsButton->setToolTip(tr("Select to show the status taking into account all the logs not just the selected one."));
 }
 
 void DXCCStatusWidget::update()
@@ -90,7 +96,7 @@ void DXCCStatusWidget::update()
     QStringList list;
     QString aux;
     dxccView->clearContents();
-
+/*
     if (showAllLogsButton->isChecked())
     {
         tempLog = logNumber;
@@ -99,7 +105,8 @@ void DXCCStatusWidget::update()
     {
         tempLog = -1;
     }
-
+*/
+    tempLog = -1;
     for (int i=1; i<=entities; i++)
     {
         aux = world->getEntityName(i);
@@ -113,7 +120,7 @@ void DXCCStatusWidget::update()
     }
 
 
-    //dxccView->resizeColumnsToContents();
+    //dxccView->eColumnsToContents();
 /*
      dxccView->resizeColumnToContents(0);
 
@@ -179,6 +186,8 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
  //QTableWidgetItem::QTableWidgetItem(const QIcon & icon, const QString & text, int type = Type)
    // QTableWidgetItem *newItemFlag = new QTableWidgetItem(QIcon(flagSt), "T", 0);
 
+    //QFont font;                                 // To show smaller letters "W" and "C" in the table
+    //font.setStretch(QFont::UltraCondensed);
 
     for (int i=2; i < _ent.length(); i++)
     {
@@ -186,6 +195,7 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
         QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand(ent, bandid, tempLog));
         newItem->setTextAlignment(Qt::AlignCenter);
         newItem->setFlags(Qt::NoItemFlags);
+        //newItem->setFont(font);
 
         if (newItem->text()=="C")
         {
@@ -208,7 +218,6 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
         }
 
         dxccView->setItem(dxccView->rowCount()-1, i, newItem);
-
         //qDebug() << "DXCCStatusWidget::addEntity: rowCount-2:  " << QString::number(dxccView->rowCount()) << "/" << QString::number(i) << " / " << newItem->text() << endl;
     }
 
@@ -289,7 +298,6 @@ void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
         //qDebug() << "DXCCStatusWidget::setBands-1: " << qs.at(i) << endl;
         testBand = qs.at(i);
 
-
         if (validBands.contains(qs.at(i)))
         {
             bandNames.append(testBand);
@@ -311,6 +319,7 @@ void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
     headerqs << tr("Id") << tr("Entity") << bandNames;
     dxccView->setHorizontalHeaderLabels(headerqs);
    //qDebug() << "DXCCStatusWidget::setBands: PRE-END" << endl;
+
     if (!_creating)
     {
         update();
@@ -338,12 +347,13 @@ void DXCCStatusWidget::setDefaultBands()
 }
 
 
-
+/*
 void DXCCStatusWidget::slotSearchLineEditTextChanged()
 {
     //qDebug() << "DXCCStatusWidget::slotSearchLineEditTextChanged: " << searchLineEdit->text() << endl;
 
 }
+*/
 
 void DXCCStatusWidget::slotRefreshButtonClicked()
 {

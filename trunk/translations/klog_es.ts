@@ -68,27 +68,25 @@ Do you want to try again?</source>
 <context>
     <name>DXCCStatusWidget</name>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="58"/>
+        <location filename="../dxccstatuswidget.cpp" line="62"/>
         <source>Update</source>
         <translation>Actualizar</translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="85"/>
         <source>Select to show the status taking into account all the logs not just the selected one.</source>
-        <translation>Seleccionar para mostrar el estado teniendo en cuenta todos los logs y no solo el actual.</translation>
+        <translation type="vanished">Seleccionar para mostrar el estado teniendo en cuenta todos los logs y no solo el actual.</translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="86"/>
         <source>Click to update the status.</source>
-        <translation>Pulsar para actualizar el estado.</translation>
+        <translation type="vanished">Pulsar para actualizar el estado.</translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="314"/>
+        <location filename="../dxccstatuswidget.cpp" line="319"/>
         <source>Id</source>
         <translation>Id</translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="314"/>
+        <location filename="../dxccstatuswidget.cpp" line="319"/>
         <source>Entity</source>
         <translation>Entidad</translation>
     </message>
@@ -97,33 +95,33 @@ Do you want to try again?</source>
     <name>DXClusterWidget</name>
     <message>
         <location filename="../dxcluster.cpp" line="86"/>
-        <location filename="../dxcluster.cpp" line="476"/>
+        <location filename="../dxcluster.cpp" line="474"/>
         <source>Connect</source>
         <translation>Conectar</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="87"/>
-        <location filename="../dxcluster.cpp" line="455"/>
-        <location filename="../dxcluster.cpp" line="534"/>
-        <location filename="../dxcluster.cpp" line="539"/>
+        <location filename="../dxcluster.cpp" line="453"/>
+        <location filename="../dxcluster.cpp" line="532"/>
+        <location filename="../dxcluster.cpp" line="537"/>
         <source>Clear</source>
         <translation>Limpiar</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="119"/>
+        <location filename="../dxcluster.cpp" line="117"/>
         <source>Click on connect to connect to the DX-Cluster</source>
         <translation>Pulse en conectar para conectar al DX-Cluster</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="173"/>
+        <location filename="../dxcluster.cpp" line="171"/>
         <source>Trying to connect to the server
 </source>
         <translation>Intentando conectar con el servidor</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="184"/>
-        <location filename="../dxcluster.cpp" line="190"/>
-        <location filename="../dxcluster.cpp" line="197"/>
+        <location filename="../dxcluster.cpp" line="182"/>
+        <location filename="../dxcluster.cpp" line="188"/>
+        <location filename="../dxcluster.cpp" line="195"/>
         <source>KLog DXCluster</source>
         <oldsource>Kontest DXCluster</oldsource>
         <translation>DXCluster de KLog</translation>
@@ -134,12 +132,12 @@ Do you want to try again?</source>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="82"/>
-        <location filename="../dxcluster.cpp" line="478"/>
+        <location filename="../dxcluster.cpp" line="476"/>
         <source>Click on Connect to connect to the DX-Cluster server</source>
         <translation>Pulse en Conectar para conectar al servidor de DX-Cluster</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="185"/>
+        <location filename="../dxcluster.cpp" line="183"/>
         <source>The host was not found. Please check:
 
 - your network connection;
@@ -150,34 +148,34 @@ Do you want to try again?</source>
 - el nombre y puerto de la máquina.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="191"/>
+        <location filename="../dxcluster.cpp" line="189"/>
         <source>The connection was refused by the peer. Make sure the DXCluster server is running, and check that the host name and port settings are correct.</source>
         <translation>La conexióon fue rechazada por el servidor. Asegúrese de que el servidor de DXCluster estáa ejecutáandose y compruebe el nombre de máquina y puerto.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="198"/>
+        <location filename="../dxcluster.cpp" line="196"/>
         <source>The following error occurred: %1.</source>
         <translation>El siguiente error ha tenido lugar: %1.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="438"/>
+        <location filename="../dxcluster.cpp" line="436"/>
         <source>Connected to server</source>
         <translation>Conectado al servidor</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="448"/>
-        <location filename="../dxcluster.cpp" line="449"/>
+        <location filename="../dxcluster.cpp" line="446"/>
+        <location filename="../dxcluster.cpp" line="447"/>
         <source>KLog message</source>
         <oldsource>Kontest message</oldsource>
         <translation>Mensaje de KLog</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="448"/>
+        <location filename="../dxcluster.cpp" line="446"/>
         <source>Enter your callsign to connect to the cluster:</source>
         <translation>Introduzca su indicativo para conectar al cluster:</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="449"/>
+        <location filename="../dxcluster.cpp" line="447"/>
         <source>Enter your password to connect to the cluster:
 (Just hit enter for no password)</source>
         <translation>Introduzca su contraseña para conectar al cluster:
@@ -188,28 +186,28 @@ Do you want to try again?</source>
         <translation type="obsolete">Introduzca su contraseña para conectar al cluster:</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="454"/>
-        <location filename="../dxcluster.cpp" line="533"/>
+        <location filename="../dxcluster.cpp" line="452"/>
+        <location filename="../dxcluster.cpp" line="531"/>
         <source>Disconnect</source>
         <translation>Desconectar</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="458"/>
+        <location filename="../dxcluster.cpp" line="456"/>
         <source>Not logged on, you may to enter your callsign again.</source>
         <translation>No identificado, puede introducir su contraseña de nuevo.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="462"/>
+        <location filename="../dxcluster.cpp" line="460"/>
         <source>Enter here the commands to be sent to the DX-Cluster server</source>
         <translation>Introduzca aquí los comandos a enviar al servidor de DX-Cluster</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="472"/>
+        <location filename="../dxcluster.cpp" line="470"/>
         <source>Connection closed by the server</source>
         <translation>Conexión cerrada por el servidor</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="538"/>
+        <location filename="../dxcluster.cpp" line="536"/>
         <source>Send</source>
         <translation>Enviar</translation>
     </message>

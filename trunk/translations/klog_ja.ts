@@ -59,27 +59,25 @@ Do you want to try again?</source>
 <context>
     <name>DXCCStatusWidget</name>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="58"/>
+        <location filename="../dxccstatuswidget.cpp" line="62"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="85"/>
         <source>Select to show the status taking into account all the logs not just the selected one.</source>
-        <translation>選択されたログだけでなく、すべてのログファイルの内容を計算にいれたステータスを表示します。</translation>
+        <translation type="vanished">選択されたログだけでなく、すべてのログファイルの内容を計算にいれたステータスを表示します。</translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="86"/>
         <source>Click to update the status.</source>
-        <translation>ステータスを更新するためにクリックしてください。</translation>
+        <translation type="vanished">ステータスを更新するためにクリックしてください。</translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="314"/>
+        <location filename="../dxccstatuswidget.cpp" line="319"/>
         <source>Id</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="314"/>
+        <location filename="../dxccstatuswidget.cpp" line="319"/>
         <source>Entity</source>
         <translation>エンティティ</translation>
     </message>
@@ -88,45 +86,45 @@ Do you want to try again?</source>
     <name>DXClusterWidget</name>
     <message>
         <location filename="../dxcluster.cpp" line="82"/>
-        <location filename="../dxcluster.cpp" line="478"/>
+        <location filename="../dxcluster.cpp" line="476"/>
         <source>Click on Connect to connect to the DX-Cluster server</source>
         <translation>接続ボタンをクリックするとDXクラスターに接続します。</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="86"/>
-        <location filename="../dxcluster.cpp" line="476"/>
+        <location filename="../dxcluster.cpp" line="474"/>
         <source>Connect</source>
         <translation>接続</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="87"/>
-        <location filename="../dxcluster.cpp" line="455"/>
-        <location filename="../dxcluster.cpp" line="534"/>
-        <location filename="../dxcluster.cpp" line="539"/>
+        <location filename="../dxcluster.cpp" line="453"/>
+        <location filename="../dxcluster.cpp" line="532"/>
+        <location filename="../dxcluster.cpp" line="537"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="119"/>
+        <location filename="../dxcluster.cpp" line="117"/>
         <source>Click on connect to connect to the DX-Cluster</source>
         <translation>接続ボタンをクリックするとDXクラスターに接続します。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="173"/>
+        <location filename="../dxcluster.cpp" line="171"/>
         <source>Trying to connect to the server
 </source>
         <translation>サーバーに接続しています。
 </translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="184"/>
-        <location filename="../dxcluster.cpp" line="190"/>
-        <location filename="../dxcluster.cpp" line="197"/>
+        <location filename="../dxcluster.cpp" line="182"/>
+        <location filename="../dxcluster.cpp" line="188"/>
+        <location filename="../dxcluster.cpp" line="195"/>
         <source>KLog DXCluster</source>
         <translation>KLog DXクラスター</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="185"/>
+        <location filename="../dxcluster.cpp" line="183"/>
         <source>The host was not found. Please check:
 
 - your network connection;
@@ -137,33 +135,33 @@ Do you want to try again?</source>
 ホスト名、ポート番号の設定が正しいことを確認してください。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="191"/>
+        <location filename="../dxcluster.cpp" line="189"/>
         <source>The connection was refused by the peer. Make sure the DXCluster server is running, and check that the host name and port settings are correct.</source>
         <translation>接続できませんでした。DXクラスターが稼働していることを確かめてください。また、ホスト名、ポート番号の設定が正しいことを確認してください。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="198"/>
+        <location filename="../dxcluster.cpp" line="196"/>
         <source>The following error occurred: %1.</source>
         <translation>次のエラーが発生しました: %1</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="438"/>
+        <location filename="../dxcluster.cpp" line="436"/>
         <source>Connected to server</source>
         <translation>サーバーに接続しました。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="448"/>
-        <location filename="../dxcluster.cpp" line="449"/>
+        <location filename="../dxcluster.cpp" line="446"/>
+        <location filename="../dxcluster.cpp" line="447"/>
         <source>KLog message</source>
         <translation>KLog メッセージ</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="448"/>
+        <location filename="../dxcluster.cpp" line="446"/>
         <source>Enter your callsign to connect to the cluster:</source>
         <translation>DXクラスターに接続するためのコールサインを入力してください。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="449"/>
+        <location filename="../dxcluster.cpp" line="447"/>
         <source>Enter your password to connect to the cluster:
 (Just hit enter for no password)</source>
         <translation>DXクラスターに接続するためのパスワードを入力してください。
@@ -174,28 +172,28 @@ Do you want to try again?</source>
         <translation type="vanished">DXクラスターに接続するためのパスワードを入力してください。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="454"/>
-        <location filename="../dxcluster.cpp" line="533"/>
+        <location filename="../dxcluster.cpp" line="452"/>
+        <location filename="../dxcluster.cpp" line="531"/>
         <source>Disconnect</source>
         <translation>切断</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="458"/>
+        <location filename="../dxcluster.cpp" line="456"/>
         <source>Not logged on, you may to enter your callsign again.</source>
         <translation>ログオンしていません。もう一度、コールサインを入力してみてください。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="462"/>
+        <location filename="../dxcluster.cpp" line="460"/>
         <source>Enter here the commands to be sent to the DX-Cluster server</source>
         <translation>DXクラスターに送信するコマンドをここに入力します。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="472"/>
+        <location filename="../dxcluster.cpp" line="470"/>
         <source>Connection closed by the server</source>
         <translation>サーバーによって接続が切られました。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="538"/>
+        <location filename="../dxcluster.cpp" line="536"/>
         <source>Send</source>
         <translation>送信</translation>
     </message>

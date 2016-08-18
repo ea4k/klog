@@ -27,7 +27,7 @@ public:
 signals:
 
 public slots:
-    void slotSearchLineEditTextChanged();
+    //void slotSearchLineEditTextChanged();
     void slotRefreshButtonClicked();
 private:
     void createUI();
@@ -41,9 +41,9 @@ private:
     DataProxy *dataProxy;
 
     QHeaderView *hv, *hh;
-    QLineEdit *searchLineEdit;
+    //QLineEdit *searchLineEdit;
     QPushButton *refreshButton;
-    QRadioButton *showAllLogsButton;
+    //QRadioButton *showAllLogsButton;
 
 
     int numberOfColumns; // Columns will be number Of Bands + 2 (Id + Name)
