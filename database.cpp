@@ -627,7 +627,7 @@ query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('N', 
 query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('NIL', 'Not heard')");
 query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('?', 'Uncertain')");
 
-qDebug() << "DataBase::createDataBase ------------------------------------- END"  << endl;
+    //qDebug() << "DataBase::createDataBase ------------------------------------- END"  << endl;
 return true;
 
 
@@ -1762,7 +1762,7 @@ bool DataBase::createTableContest()
     query.exec("INSERT INTO contestcatmode (id, name) VALUES ('2', 'CW')");
     query.exec("INSERT INTO contestcatmode (id, name) VALUES ('3', 'MIXED')");
 
-qDebug() << "DataBase::createTableContest END" << endl;
+    //qDebug() << "DataBase::createTableContest END" << endl;
     return true;
 
 }
@@ -1961,7 +1961,7 @@ bool DataBase::createTableSatellites(const bool NoTmp)
 
 
 
-qDebug() << "DataBase::createTableSatellites END" << endl;
+    //qDebug() << "DataBase::createTableSatellites END" << endl;
         return  query.exec(stringQuery);
 }
 
@@ -2069,7 +2069,7 @@ bool DataBase::createTableEntity(const bool NoTmp)
                                              "UNIQUE (dxcc, mainprefix), "
                                              "FOREIGN KEY (continent) REFERENCES continent(shortname) )");
 
-qDebug() << "DataBase::createTableEntity END" << endl;
+    //qDebug() << "DataBase::createTableEntity END" << endl;
     return  query.exec(stringQuery);
 
     //TODO: To add some columns in this the table to mark if worked/confirmed/band/Mode
@@ -3144,7 +3144,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
        //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-4"  << endl;
         return false;
     }
-qDebug() << "DataBase::updateBandIdTableAward: CHECK IF SEEN END"  << endl;
+    //qDebug() << "DataBase::updateBandIdTableAward: CHECK IF SEEN END"  << endl;
 }
 
 bool DataBase::updateModeIdTableAward(const int _db)

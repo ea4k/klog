@@ -15,14 +15,18 @@ Solution:
         It may be weird for the user to see the log in UTC when working in local time... in the rest of the functions...
 
 
+TODO: void DXCCStatusWidget::slotRefreshButtonClicked()//TODO: Define a way to show the status of the selected log or all the logs in the DB
+
+
 BUG:
 StationQRZ, operators, Locator are not defined clearly in the setup:
     StationQRZ should come from each log
     operator should come from each log, if there is only one. If there are more than one: TBD
     Power & locator from main setup (unless decided other way)
 
+The data is not readed on the start but if you enter in the preferences it is.
+(except the operator)
 
-O bien no se guardan o no se van a toEdit los campos station, operator & mylocator
 
 
 BUG: Optimize the KLog start
@@ -30,6 +34,7 @@ BUG: If logbook.dat is not existing but klogrc it is, KLog does not start.
 
 TODO: Add a tip on the DXCC Status showing some info.
 TODO: Add a link or action on DXCCStatus items to doubleclick and search the QSOs that provide such status.
+
 TODO: Show the flag of the worked QRZ on the top right,close to the Entity Name
 
 TODO: Add the flags to the DXCC (and maybe the DXCluster)
