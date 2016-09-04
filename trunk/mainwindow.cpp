@@ -2804,7 +2804,6 @@ void MainWindow::createActionsDX(){
 
     connect(eqslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLSentComboBoxChanged() ) )  ;
     connect(eqslRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLRecvComboBoxChanged() ) ) ;
-
     connect(lotwSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLotwSentComboBoxChanged() ) )  ;
     connect(lotwRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLotwRecvComboBoxChanged() ) ) ;
 
@@ -7469,6 +7468,10 @@ void MainWindow::qsoToEdit (const int _qso)
                 {
                     satTabWidget->setSatName(aux1);
                 }
+                else
+                {
+                    satTabWidget->clear();
+                }
 
 
                 nameCol = rec.indexOf("sat_mode");
@@ -7589,6 +7592,76 @@ void MainWindow::slotQSLRecvComboBoxChanged(){
 }
 
 
+void MainWindow::slotLotwRecvComboBoxChanged(){
+    //qDebug() << "MainWindow::slotLotwRecvComboBoxChanged" << endl;
+
+//QSLRDATE (only valid if QSL_RCVD is Y-0, I-3, or V-4)
+//Y-Yes-0
+//N-No-1
+//R-Requested-2
+//I-Ignore-3
+//V-Verified-4
+
+    int i = lotwRecComboBox->currentIndex();
+
+    switch (i)
+    {
+        case 0:
+            lotwRecQDateEdit->setEnabled(true);
+            lotwRecQDateEdit->setDate((dateTime->currentDateTime()).date());
+
+        break;
+        case 2:
+        break;
+        case 3:
+            lotwRecQDateEdit->setEnabled(true);
+        break;
+        case 4:
+            lotwRecQDateEdit->setEnabled(true);
+        break;
+        default: //NO
+            lotwRecQDateEdit->setEnabled(false);
+        break;
+
+
+    }
+
+}
+
+
+void MainWindow::slotLotwSentComboBoxChanged(){
+    //qDebug() << "MainWindow::slotLotwSentComboBoxChanged" << endl;
+
+    int i = lotwSentComboBox->currentIndex();
+//{Y, N, R, I, V}
+    //(QSLSDATE is only valid if QSL_SENT is Y-0, Q-3, or I-4)
+    // Y-Yes = 0
+    // N-No = 1
+    // R-Requested = 2
+    // Q-Queued = 3
+    // I-Ignore = 4
+    switch (i)
+    {
+        case 0:
+            lotwSentQDateEdit->setEnabled(true);
+            lotwSentQDateEdit->setDate((dateTime->currentDateTime()).date());
+
+        break;
+        case 2:
+        break;
+        case 3:
+            lotwSentQDateEdit->setEnabled(true);
+        break;
+        case 4:
+            lotwSentQDateEdit->setEnabled(true);
+        break;
+
+        default: //NO
+            lotwSentQDateEdit->setEnabled(false);
+        break;
+    }
+}
+
 void MainWindow::slotQSLSentComboBoxChanged(){
     //qDebug() << "MainWindow::slotQSLSentComboBoxChanged" << endl;
 
@@ -7691,77 +7764,6 @@ void MainWindow::sloteQSLSentComboBoxChanged(){
 
         default: //NO
             eqslSentQDateEdit->setEnabled(false);
-        break;
-    }
-}
-
-
-void MainWindow::slotLotwRecvComboBoxChanged(){
-    //qDebug() << "MainWindow::slotLotwRecvComboBoxChanged" << endl;
-
-//QSLRDATE (only valid if QSL_RCVD is Y-0, I-3, or V-4)
-//Y-Yes-0
-//N-No-1
-//R-Requested-2
-//I-Ignore-3
-//V-Verified-4
-
-    int i = lotwRecComboBox->currentIndex();
-
-    switch (i)
-    {
-        case 0:
-            lotwRecQDateEdit->setEnabled(true);
-            lotwRecQDateEdit->setDate((dateTime->currentDateTime()).date());
-
-        break;
-        case 2:
-        break;
-        case 3:
-            lotwRecQDateEdit->setEnabled(true);
-        break;
-        case 4:
-            lotwRecQDateEdit->setEnabled(true);
-        break;
-        default: //NO
-            lotwRecQDateEdit->setEnabled(false);
-        break;
-
-
-    }
-
-}
-
-
-void MainWindow::slotLotwSentComboBoxChanged(){
-    //qDebug() << "MainWindow::slotLotwSentComboBoxChanged" << endl;
-
-    int i = lotwSentComboBox->currentIndex();
-//{Y, N, R, I, V}
-    //(QSLSDATE is only valid if QSL_SENT is Y-0, Q-3, or I-4)
-    // Y-Yes = 0
-    // N-No = 1
-    // R-Requested = 2
-    // Q-Queued = 3
-    // I-Ignore = 4
-    switch (i)
-    {
-        case 0:
-            lotwSentQDateEdit->setEnabled(true);
-            lotwSentQDateEdit->setDate((dateTime->currentDateTime()).date());
-
-        break;
-        case 2:
-        break;
-        case 3:
-            lotwSentQDateEdit->setEnabled(true);
-        break;
-        case 4:
-            lotwSentQDateEdit->setEnabled(true);
-        break;
-
-        default: //NO
-            lotwSentQDateEdit->setEnabled(false);
         break;
     }
 }
@@ -8972,10 +8974,10 @@ bool MainWindow::trueOrFalse(const QString _s)
 void MainWindow::slotSetPropMode(const QString _p)
 {
     //qDebug() << "MainWindow::slotSetPropMode: " << _p << endl;
-    if(modify)
-    {
-        return;
-    }
+    //if(modify)
+    //{
+    //    return;
+    //}
     othersTabWidget->setPropMode(_p);
     //int indexC = propModeComboBox->findText(" - " + _p + " - ", Qt::MatchContains);
     //propModeComboBox->setCurrentIndex(indexC);
