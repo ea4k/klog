@@ -2,8 +2,11 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
+
+
+
 RC-BUGS
-If there is a sat seleted, the prop-mode should be satellite!
+
 
 BUG: (TNX JL3OXR)
 The DB is not storing if the time is stored in UTC or local so that info is lost.

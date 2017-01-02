@@ -144,7 +144,7 @@ bool DataBase::createConnection()
 
 bool DataBase::isTheDBCreated()
 {
-  //qDebug() << "DataBase::isTheDBCreated"  << endl;
+ //qDebug() << "DataBase::isTheDBCreated"  << endl;
     //return created;
     //return hasTheTableData("softwarecontrol");
 
@@ -161,25 +161,25 @@ bool DataBase::isTheDBCreated()
         query.next();
         if (query.isValid())
         {
-           //qDebug() << "DataBase::isTheDBCreated - valid"  << endl;
+          //qDebug() << "DataBase::isTheDBCreated - valid"  << endl;
             _num = (query.value(0)).toInt();
             if (_num > 0)
             {
-               //qDebug() << "DataBase::isTheDBCreated - DB Exists"  << endl;
-               //qDebugzw22222() << "DataBase::isTheDBCreated: ------------------------------------------------- END TRUE" << endl;
+              //qDebug() << "DataBase::isTheDBCreated - DB Exists"  << endl;
+              //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END TRUE" << endl;
                 return true;
             }
             else
             {
-               //qDebug() << "DataBase::isTheDBCreated - DB does not Exist"  << endl;
-               //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-1" << endl;
+              //qDebug() << "DataBase::isTheDBCreated - DB does not Exist"  << endl;
+              //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-1" << endl;
                 return false;
             }
         }
         else
         {
-           //qDebug() << "DataBase::isTheDBCreated - not valid"  << endl;
-           //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-2" << endl;
+          //qDebug() << "DataBase::isTheDBCreated - not valid"  << endl;
+          //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-2" << endl;
 
             return false;
         }
@@ -190,11 +190,11 @@ bool DataBase::isTheDBCreated()
        //qDebug() << "DataBase::isTheDBCreated: LastError-data: " << query.lastError().databaseText()  << endl;
        //qDebug() << "DataBase::isTheDBCreated: LastError-driver: " << query.lastError().driverText()  << endl;
        //qDebug() << "DataBase::isTheDBCreated: LastError-n: " << QString::number(query.lastError().number() ) << endl;
-       //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-3" << endl;
+      //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-3" << endl;
         return false;
     }
 
-  //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-X" << endl;
+ //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-X" << endl;
     return false;
 
 }
@@ -1100,6 +1100,7 @@ bool DataBase::createTheBandQuickReference()
     bandIDHash.clear();
     IDBandHash.clear();
     QSqlQuery query("SELECT id, name, lower FROM band");
+    //qDebug() << "DataBase::createTheBandQuickReference: Starting the query..." << endl;
     while (query.next())
     {
 
@@ -1128,12 +1129,16 @@ bool DataBase::createTheBandQuickReference()
     }
 /*
     QHashIterator<QString, int> i(bandIDHash);
+    i.toFront();
     while (i.hasNext()) {
         i.next();
-        //qDebug() << i.key() << ": " << QString::number(i.value()) << endl;
+       //qDebug() << "DataBase::createTheBandQuickReference: Checking: " << i.key() << ": " << QString::number(i.value()) << endl;
     }
 */
    //qDebug() << "DataBase::createTheBandQuickReference: END" << endl;
+
+
+
     return true;
 }
 
@@ -1151,6 +1156,7 @@ bool DataBase::createTheModeQuickReference()
         modeIDHash.clear();
         IDModeHash.clear();
         QSqlQuery query("SELECT id, submode FROM mode");
+        //qDebug() << "DataBase::createTheModeQuickReference: Starting the query..." << endl;
         while (query.next())
         {
 
@@ -1172,16 +1178,18 @@ bool DataBase::createTheModeQuickReference()
                //TODO: Manage this error, in case the query is NOK.
 
             }
+           //qDebug() << "DataBase::createTheModeQuickReference: Go for the next one!" << endl;
         }
 /*
         QHashIterator<QString, int> i(modeIDHash);
+        i.toFront();
         while (i.hasNext()) {
             i.next();
-            //qDebug() << i.key() << ": " << QString::number(i.value()) << endl;
+           //qDebug() << "DataBase::createTheModeQuickReference: CHECKING " << i.key() << ": " << QString::number(i.value()) << endl;
         }
 
 */
-       //qDebug() << "DataBase::createTheModeQuickReference: END" << endl;
+      //qDebug() << "DataBase::createTheModeQuickReference: END" << endl;
         return true;
 }
 
@@ -1250,40 +1258,51 @@ int DataBase::getModeIDFromName2(const QString b)
 
 QString DataBase::getBandNameFromID2(const int _i)
 {
-   //qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << endl;
-    //return getBandNameFromNumber(_i);
+  //qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << endl;
+  //qDebug() << "DataBase::getBandNameFromid2: Data from getBandNameFromNumber: " << getBandNameFromNumber(_i) << endl;
+
+//    return getBandNameFromNumber(_i);
 
     if (IDBandHash.contains(_i))
     {
        //qDebug() << "DataBase::getBandNameFromid2: END OK"  << endl;
+       //qDebug() << "DataBase::getBandNameFromid2: Data from Normal exec(1): " << IDBandHash.value(_i) << endl;
         return IDBandHash.value(_i);
     }
     else
     {
        //qDebug() << "DataBase::getBandNameFromid2: END-1"  << endl;
+        //qDebug() << "DataBase::getBandNameFromid2: Data from Normal exec(2): -1 "  << endl;
         return "-1";
     }
    //qDebug() << "DataBase::getBandNameFromid2: END-2"  << endl;
+    //qDebug() << "DataBase::getBandNameFromid2: Data from Normal exec(3): -2 "  << endl;
     return "-2";
+    //return getBandNameFromNumber(_i);
 
 }
 QString DataBase::getModeNameFromID2(const int _i)
 {
-  //qDebug() << "DataBase::getModeNameFromId2: " << QString::number(_i) << endl;
-    //return getSubModeNameFromNumber(_i);
+ //qDebug() << "DataBase::getModeNameFromId2: " << QString::number(_i) << endl;
+ //qDebug() << "DataBase::getModeNameFromId2: Data from getSubModeFromNumber: " << getSubModeNameFromNumber(_i, false) << endl;
+    //return getSubModeNameFromNumber(_i, false);
 
     if (IDModeHash.contains(_i))
     {
        //qDebug() << "DataBase::getModeNameFromId2: END OK" << endl;
+       //qDebug() << "DataBase::getModeNameFromId2: Data from Normal exec(1): " << IDModeHash.value(_i) << endl;
         return IDModeHash.value(_i);
     }
     else
     {
         //qDebug() << "DataBase::getModeNameFromId2: END-1" << endl;
+        //qDebug() << "DataBase::getModeNameFromId2: Data from Normal exec(2): -1" << endl;
         return "-1";
     }
     //qDebug() << "DataBase::getModeNameFromId2: END-2" << endl;
+    //qDebug() << "DataBase::getModeNameFromId2: Data from Normal exec(3): -2" << endl;
     return "-2";
+     //return getSubModeNameFromNumber(_i, false);
 }
 
 bool DataBase::createBandModeMaps()
@@ -1295,12 +1314,12 @@ bool DataBase::createBandModeMaps()
      //return (b && m);
     if (isTheDBCreated())
     {
-      //qDebug() << "DataBase::createBandModeMaps - isDbCreated TRUE" << endl;
+     //qDebug() << "DataBase::createBandModeMaps - isDbCreated TRUE... creating the Quick References" << endl;
         return (createTheBandQuickReference() &&  createTheModeQuickReference());
     }
     else
     {
-      //qDebug() << "DataBase::createBandModeMaps - isDbCreated FALSE" << endl;
+     //qDebug() << "DataBase::createBandModeMaps - isDbCreated FALSE" << endl;
         return false;
     }
 
@@ -5527,6 +5546,6 @@ bool DataBase::hasTheTableData(const QString _tableName)
         return false;
     }
 
-   //qDebug() << "DataBase::isTheDBCreated: END FALSE" << endl;
+
     return false;
 }
