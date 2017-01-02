@@ -1805,7 +1805,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         if ( progress.wasCanceled() )
         {
             QMessageBox msgBox;
-            QString aux = QString(tr("You have cancelled the file export. The file will be removed and no data will be exported.\nDo you want to continue?"));
+            QString aux = QString(tr("You have cancelled the file export. The file will be removed and no data will be exported.\nDo you still want to cancel?"));
             msgBox.setText(aux);
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
             msgBox.setDefaultButton(QMessageBox::No);
@@ -2546,7 +2546,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             {
 
                 QMessageBox msgBox;
-                aux = QString(tr("You have cancelled the file export. The file will be removed and no data will be exported.\nDo you want to continue?"));
+                aux = QString(tr("You have cancelled the file export. The file will be removed and no data will be exported.\nDo you still want to cancel?"));
                 msgBox.setText(aux);
                 msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                 msgBox.setDefaultButton(QMessageBox::No);

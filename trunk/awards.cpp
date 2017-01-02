@@ -1473,6 +1473,7 @@ bool Awards::setAwardDXCC(const int _dxcc, const int _band, const int _mode, con
    bool isOK1 = false;
    bool isOK2 = false;
    QString stringQuery;
+   QString aux;
    if (_dxcc<=0)
    {
        //qDebug() << "Awards::setAwardDXCC: DXCC < 0" << endl;
@@ -1518,7 +1519,10 @@ bool Awards::setAwardDXCC(const int _dxcc, const int _band, const int _mode, con
 
 // Second phase, the memory storage.
 //TODO: Choose whether I use a DB or memory but both may not be optimal.
-    int value = (QString::number(_band) + QString::number(_mode)).toInt();
+    aux = QString::number(_band) + QString::number(_mode);
+    int value = aux.toInt();
+    //int value = ( QString::number(_band) + QString::number(_mode) ).toInt();
+    //qDebug() << "Awards::setAwardDXCC: " << QString::number(value) << endl;
 
     if (_workedOrConfirmed == -1)
     {
@@ -1558,6 +1562,7 @@ bool Awards::setAwardDXCC(const int _dxcc, const int _band, const int _mode, con
 bool Awards::setAwardWAZ(const int _cqz, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId)
 {
     //qDebug() << "Awards::setAwardWAZ: " << QString::number(_band) + QString::number(_mode) << endl;
+    QString aux;
    bool isOK1 = false;
     bool isOK2 = false;
 /*
@@ -1595,7 +1600,10 @@ bool Awards::setAwardWAZ(const int _cqz, const int _band, const int _mode, const
 
 // Second phase, the memory storage.
 //TODO: Choose whether I use a DB or memory but both may not be optimal.
-    int value = (QString::number(_band) + QString::number(_mode)).toInt();
+    aux = QString::number(_band) + QString::number(_mode);
+    int value = aux.toInt();
+    //int value = (QString::number(_band) + QString::number(_mode)).toInt();
+   //qDebug() << "Awards::setAwardWAZ: " << QString::number(value) << endl;
 
     if (_workedOrConfirmed == -1)
     {

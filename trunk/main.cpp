@@ -27,7 +27,8 @@
 
 int main(int argc, char *argv[])
 {
-    QString version = "0.9.2.4" ;
+    //qDebug() << "KLog Main starting...."  << endl;
+    QString version = "0.9.2.6" ;
     QDir d1 = QDir();
 
     QApplication app(argc, argv);
