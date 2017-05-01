@@ -36,8 +36,8 @@
 
 #include "database.h"
 #include "setupdialog.h"
-#include "helpaboutdialog.h"
-#include "helphelpdialog.h"
+//#include "helpaboutdialog.h"
+#include "aboutdialog.h"
 #include "world.h"
 #include "filemanager.h"
 #include "contest.h"
@@ -55,6 +55,7 @@
 #include "utilities.h"
 #include "downloadcty.h"
 #include "dxccstatuswidget.h"
+#include "softwareupdate.h"
 
 class QTimer;
 class QDateTime;
@@ -205,8 +206,9 @@ private slots:
     void slotFilePrint();
     //void slotFileClose();
 
-    void slotHelpHelpAction();
+    //void slotHelpHelpAction();
     void slotHelpAboutAction();
+    void slotHelpCheckUpdatesAction();
     void slotAboutQt();
        
 
@@ -231,6 +233,7 @@ private slots:
     void slotElogClubLogDisable(const bool _b);
     //CLUBLOG
 
+    void slotShowSoftUpdateResults(const bool _b);   // Software Update: Receives the signal to see if it is needed or not to update
 
 private:
     bool maybeSave();
@@ -360,8 +363,9 @@ private:
     Utilities *util;
     //WorldEditorWidget *worldEditor;
 
-    HelpHelpDialog *helpHelpDialog;
-    HelpAboutDialog *helpAboutDialog;
+    //HelpHelpDialog *helpHelpDialog;
+    //HelpAboutDialog *helpAboutDialog;
+    AboutDialog *aboutDialog;
 
     QPushButton *addButton;
     QLabel *distShortLabelN;
@@ -415,6 +419,7 @@ private:
     QAction *helpAct;
     QAction *aboutAct;
     QAction *aboutQtAct;
+    QAction *updateAct;
 
     QAction *scoreWinAct;
     QAction *scoreeWinAct;
@@ -499,6 +504,11 @@ private:
     QRadioButton *searchAllRadioButton;
     QPushButton *recalculateAwardsButton;
     bool searchSelectAllClicked, stationCallSignShownInSearch;
+
+    bool checkNewVersions, reportInfo; // Selected in the Setup->Misc to check if new versions and report info back to KLog's servers
+
+
+
     bool qslingNeeded;
 
     MainWindowSatTab *satTabWidget;
@@ -523,7 +533,7 @@ private:
     QTimer *timer;
     QDateTime *dateTime;
 
-    QString kontestDir, defaultADIFLogFile, configFileName;
+    QString kontestDir, ctyDatFile, defaultADIFLogFile, configFileName;
     QString softwareVersion;
 
 
@@ -582,6 +592,8 @@ private:
 
     QTextDocument *doc;
 
+    SoftwareUpdate *softUpdate;
+    bool callingUpdate;
 
 protected:
     void keyPressEvent(QKeyEvent *event);

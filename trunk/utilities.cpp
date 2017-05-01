@@ -77,3 +77,103 @@ void Utilities::printQString(const QStringList _qs)
     }
    //qDebug() << _qs.at(_qs.length()-1) << endl;
 }
+
+QString Utilities::getAgent(const QString _klogversion)
+{
+    QString version;
+    version = _klogversion;
+
+#if defined(Q_OS_WIN32)
+    return "KLog-Win32-" + version;
+#elif defined(Q_OS_WIN64)
+    return "KLog-Win64-" + version;
+#elif defined(Q_OS_LINUX)
+    return "KLog-Linux-" + version;
+#elif defined(Q_OS_WIN)
+    return "KLog-Win-"+ version;
+#elif defined(Q_OS_OSX)
+    return "KLog-OSX-" + version;
+#elif defined(Q_OS_MAC)
+    return "KLog-MAC-" + version;
+    //return "KLog-Linux-" + version;
+#else
+    return "KLog-Other-" + version;
+#endif
+
+    //return "KLog-Unknown-" + version;
+}
+
+QString Utilities::getHomeDir()
+{
+//TODO: To be removed when the defaultDir is saved in the config file
+#ifdef Q_OS_WIN
+    //qDebug() << "WINDOWS DETECTED!"  << endl;
+    return QDir::homePath()+"/klog";  // We create the \klog for the logs and data
+
+#else
+    //qDebug() << "NO WINDOWS DETECTED!"  << endl;
+    return QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs and data
+
+#endif
+
+}
+
+QString Utilities::getKLogDatabaseFile()
+{
+//TODO: To be removed when the defaultDir is saved in the config file
+#ifdef Q_OS_WIN
+    //qDebug() << "WINDOWS DETECTED!"  << endl;
+    return getHomeDir() + "\logbook.dat";
+
+#else
+    //qDebug() << "NO WINDOWS DETECTED!"  << endl;
+    return getHomeDir() + "/logbook.dat";
+
+#endif
+
+}
+
+
+
+
+QString Utilities::getCfgFile()
+{
+//TODO: To be removed when the defaultDir is saved in the config file
+#ifdef Q_OS_WIN
+    qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "\klogrc.cfg"  << endl;
+    return getHomeDir() + "\klogrc.cfg";
+
+#else
+    qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
+    return getHomeDir() + "/klogrc";
+
+#endif
+
+}
+
+QString Utilities::getCTYFile()
+{
+//TODO: To be removed when the defaultDir is saved in the config file
+#ifdef Q_OS_WIN
+    //qDebug() << "WINDOWS DETECTED!"  << endl;
+    return getHomeDir() + "\cty.csv";
+
+#else
+    //qDebug() << "NO WINDOWS DETECTED!"  << endl;
+    return getHomeDir() + "/cty.csv";
+
+#endif
+
+}
+
+int Utilities::getNormalizedDXCCValue(const int _dxcc)
+{
+    if (_dxcc >1000)
+    {
+        return ((QString::number(_dxcc)).right(3)).toInt();
+    }
+    else
+    {
+        return _dxcc;
+    }
+}

@@ -97,6 +97,7 @@ int DataProxy_SQLite::getModeIdFromSubModeId(const int _sm)
 
 QString DataProxy_SQLite::getModeFromSubMode (const QString _sm)
 {
+   //qDebug() << "DataProxy_SQLite::getModeFromSubMode: " << _sm << endl;
     if (_sm.length()<2)
     {
         return "";
@@ -108,10 +109,13 @@ QString DataProxy_SQLite::getModeFromSubMode (const QString _sm)
         query.next();
         if (query.isValid())
         {
+           //qDebug() << "DataProxy_SQLite::getModeFromSubMode: Query OK"  << endl;
             return (query.value(0)).toString();
         }
         else
         {
+
+           //qDebug() << "DataProxy_SQLite::getModeFromSubMode: Query error"  << endl;
             return "";
         }
     }
@@ -2070,35 +2074,35 @@ QString DataProxy_SQLite::getStationCallSignFromLog(const int _log)
 
 int DataProxy_SQLite::getContestTypeN(const int _co, const int _catop, const int _catas, const int _catpo, const int _catba, const int _catov, const int _catmo)
 {//typeContestSelected, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestCatOverlay, contestCatMode
-    //qDebug() << "DataProxy_SQLite::getContestTypeN: " << endl;
+   //qDebug() << "DataProxy_SQLite::getContestTypeN: " << endl;
     QSqlQuery query;
     QString st = QString("SELECT id FROM contest WHERE contest='%1' AND catoperator='%2' AND catassisted='%3' AND catpower='%4' AND catoverlay='%5' AND catmode='%6' AND catband='%7'").arg(_co).arg(_catop).arg(_catas).arg(_catpo).arg(_catov).arg(_catmo).arg(_catba);
 
-    //qDebug() << "DataProxy_SQLite::getContestTypeN: " << st << endl;
+   //qDebug() << "DataProxy_SQLite::getContestTypeN: " << st << endl;
 
     if (query.exec(st))
     {
-        //qDebug() << "DataProxy_SQLite::getContestTypeN: (OK) LastQuery: " << query.lastQuery()  << endl;
+       //qDebug() << "DataProxy_SQLite::getContestTypeN: (OK) LastQuery: " << query.lastQuery()  << endl;
         query.next();
         if (query.isValid())
         {
-            //qDebug() << "DataProxy_SQLite::getContestTypeN: " <<  (query.value(0)).toString() << endl;
+           //qDebug() << "DataProxy_SQLite::getContestTypeN: " <<  (query.value(0)).toString() << endl;
             return (query.value(0)).toInt();
         }
         else
         {
-            //qDebug() << "DataProxy_SQLite::getContestTypeN: Not valid (-1)" << endl;
+           //qDebug() << "DataProxy_SQLite::getContestTypeN: Not valid (-1)" << endl;
             return -1;
         }
     }
     else
     {
-        //qDebug() << "DataProxy_SQLite::getContestTypeN: (ERROR) LastQuery: " << query.lastQuery()  << endl;
-        //qDebug() << "DataProxy_SQLite::getContestTypeN: query failed (-1)" << endl;
+       //qDebug() << "DataProxy_SQLite::getContestTypeN: (ERROR) LastQuery: " << query.lastQuery()  << endl;
+       //qDebug() << "DataProxy_SQLite::getContestTypeN: query failed (-1)" << endl;
         return -1;
     }
 
-    //qDebug() << "DataProxy_SQLite::getContestTypeN: END (-1)" << endl;
+   //qDebug() << "DataProxy_SQLite::getContestTypeN: END (-1)" << endl;
     return -1;
 
 }
@@ -2345,7 +2349,8 @@ QString DataProxy_SQLite::getContinentShortNameFromEntity(const int _n)
 {
     QSqlQuery query;
     QString aux;
-    aux = QString("SELECT continent.shortname FROM entity JOIN continent ON entity.continent=continent.shortname WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_n);
+    //aux = QString("SELECT continent.shortname FROM entity JOIN continent ON entity.continent=continent.shortname WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_n);
+    aux = QString("SELECT continent.shortname FROM entity JOIN continent ON entity.continent=continent.shortname WHERE dxcc='%1'").arg(_n);
     if (query.exec(aux))
     {
         query.next();
@@ -2369,7 +2374,8 @@ int DataProxy_SQLite::getContinentIdFromEntity(const int _n)
 {
     QSqlQuery query;
     QString aux;
-    aux = QString("SELECT continent.id FROM entity JOIN continent ON entity.continent=continent.shortname WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_n);
+    aux = QString("SELECT continent.id FROM entity JOIN continent ON entity.continent=continent.shortname WHERE dxcc='%1'").arg(_n);
+    //aux = QString("SELECT continent.id FROM entity JOIN continent ON entity.continent=continent.shortname WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_n);
     if (query.exec(aux))
     {
         query.next();
@@ -2543,14 +2549,40 @@ QString DataProxy_SQLite::getEntityNameFromId(const int _n)
     //qDebug() << "DataProxy_SQLite::getEntityNameFromId:" << endl;
 
     QSqlQuery query;
-    QString stQuery = QString("SELECT name FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_n);
+    //QString stQuery = QString("SELECT name FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_n);
+    QString stQuery = QString("SELECT name FROM entity WHERE dxcc='%1'").arg(_n);
+    QString motherEntName = QString();
+
+    if (_n > 1000)
+    {
+        QString aux = (QString::number(_n)).right(3);
+        QString stQuery2 = QString("SELECT name FROM entity WHERE dxcc='%1'").arg(aux);
+        if (query.exec(stQuery2))
+        {
+            if (query.next())
+            {
+                if (query.isValid())
+                {
+                    motherEntName = (query.value(0)).toString();
+                }
+            }
+        }
+    }
+
     if (query.exec(stQuery))
     {
         if (query.next())
         {
             if (query.isValid())
             {
-                return (query.value(0)).toString();
+                if (_n>1000)
+                {
+                    return (query.value(0)).toString() + " (" + motherEntName + ")";
+                }
+                else
+                {
+                    return (query.value(0)).toString();
+                }
             }
             else
             {
@@ -2572,6 +2604,8 @@ QString DataProxy_SQLite::getEntityNameFromId(const int _n)
 
 QString DataProxy_SQLite::getEntityMainPrefix(const int _entityN)
 {
+   //qDebug() << "DataProxy_SQLite::getEntityMainPrefix:" << QString::number(_entityN) << endl;
+
     if (_entityN <= 0 )
     {
         return QString();
@@ -2580,7 +2614,8 @@ QString DataProxy_SQLite::getEntityMainPrefix(const int _entityN)
     QString queryString;
     QSqlQuery query;
 
-    queryString = QString("SELECT mainprefix FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_entityN);
+    //queryString = QString("SELECT mainprefix FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_entityN);
+    queryString = QString("SELECT mainprefix FROM entity WHERE dxcc='%1'").arg(_entityN);
     //queryString = "SELECT prefix FROM prefixesofentity WHERE dxcc=='" + QString::number(i) +"'";
     if (!query.exec(queryString))
     {
@@ -2793,10 +2828,13 @@ QStringList DataProxy_SQLite::getEntitiesNames()
         while ( (query.next())) {
             if (query.isValid())
             {
-                aux.clear();
-                aux = (query.value(0)).toString() + "-" + (query.value(1)).toString()+" ("+(query.value(2)).toString()+")";
-                //result = result + ", " + (query.value(0)).toString();
-                qs << aux;
+                if (query.value(2).toInt()<1000)
+                {
+                    aux.clear();
+                    aux = (query.value(0)).toString() + "-" + (query.value(1)).toString()+" ("+(query.value(2)).toString()+")";
+                    //result = result + ", " + (query.value(0)).toString();
+                    qs << aux;
+                }
             }
             else
             {
@@ -2810,6 +2848,82 @@ QStringList DataProxy_SQLite::getEntitiesNames()
     }
     return qs;
 }
+
+/*
+ * The following code was showing in the Entities prefixes and entities like Sicily, African Italy... and they are not officially an entity in the DXCC
+QStringList DataProxy_SQLite::getEntitiesNames()
+{
+    qDebug()  << "DataProxy_SQLite::getEntitiesNames"  << endl;
+    QString aux = QString();
+    QStringList qs;
+    qs.clear();
+    QString stringQuery = QString("SELECT mainprefix, name, dxcc FROM entity");
+    QSqlQuery query,query2;
+    int dxcc = -1;
+    QString aux2 = QString();
+
+    if (query.exec(stringQuery))
+    {
+        while ( (query.next())) {
+            if (query.isValid())
+            {
+                dxcc = query.value(2).toInt();
+                qDebug()  << "DataProxy_SQLite::getEntitiesNames - DXCC: " <<  QString::number(dxcc) << endl;
+                if (dxcc > 1000)
+                {
+                    qDebug()  << "DataProxy_SQLite::getEntitiesNames - DXCC>1000 going in details: " << endl;
+
+                    aux2 = QString::number(dxcc);
+                    aux2 = aux2.right(3);
+                    qDebug()  << "DataProxy_SQLite::getEntitiesNames - aux2: " <<  aux2 << endl;
+
+                    stringQuery = QString("SELECT mainprefix, name FROM entity WHERE dxcc ='%1'").arg(aux2);
+                    if (query2.exec(stringQuery))
+                    {
+                        if (query2.next())
+                        {
+                            if (query2.isValid())
+                            {
+                                //aux2 = (query2.value(1)).toString();
+
+                                aux.clear();
+                                aux = (query.value(0)).toString() + "-" + (query.value(1)).toString()+" (" + (query2.value(0)).toString() + "-" + (query2.value(1)).toString() + " - " + aux2 + ")" ;
+
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        //TODO: Manage the error
+                    }
+
+                }
+                else
+                {
+                    qDebug()  << "DataProxy_SQLite::getEntitiesNames - DXCC<1000 quick! " << endl;
+                    aux.clear();
+                    aux = (query.value(0)).toString() + "-" + (query.value(1)).toString()+" ("+QString::number(dxcc)+")";
+
+                }
+
+                    qDebug()  << "DataProxy_SQLite::getEntitiesNames - AUX: " << aux << endl;
+                //result = result + ", " + (query.value(0)).toString();
+                qs << aux;
+            }
+            else
+            {
+                //TODO: Manage the error
+            }
+        }
+    }
+    else
+    {
+                //TODO: Manage the error
+    }
+    return qs;
+}
+*/
 
 int DataProxy_SQLite::getHowManyEntities()
 {
@@ -2837,11 +2951,9 @@ int DataProxy_SQLite::getHowManyEntities()
 
 bool DataProxy_SQLite::updateISONames()
 {
-   //qDebug()  << "DataProxy_SQLite::updateISONames"  << endl;
+   qDebug()  << "DataProxy_SQLite::updateISONames"  << endl;
     bool result;
     result = db->updateTheEntityTableISONames();
-
-
 
     return result;
 }

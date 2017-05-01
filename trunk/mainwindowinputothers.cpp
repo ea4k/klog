@@ -153,11 +153,17 @@ void MainWindowInputOthers::setEntitiesList(const QStringList _qs)
 
 void MainWindowInputOthers::setEntity(const int _ent)
 {// Select the appropriate entity in the ComboBox
-   //qDebug() << "MainWindowInputOthers::setEntity: " << QString::number(_ent) << endl;
+    qDebug() << "MainWindowInputOthers::setEntity: " << QString::number(_ent) << endl;
     if (_ent<=0)
     {
         entityNameComboBox->setCurrentIndex(0);
         return;
+    }
+    QString aux = QString();
+    aux = QString::number(_ent);
+    if (_ent > 1000)
+    {
+        aux = (QString::number(_ent)).right(3);
     }
     QString pref = QString();
 
@@ -167,8 +173,8 @@ void MainWindowInputOthers::setEntity(const int _ent)
 
     //int indexC = entityNameComboBox->findText(pref, Qt::MatchContains);
 
-    int indexC = entityNameComboBox->findText("("+QString::number(_ent)+")", Qt::MatchContains);
-    //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC) << endl;
+    int indexC = entityNameComboBox->findText(aux + ")", Qt::MatchContains);
+    qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC) << endl;
     entityNameComboBox->setCurrentIndex(indexC);
     setIOTAContinentFromEntity(_ent);
 

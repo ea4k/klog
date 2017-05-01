@@ -58,18 +58,24 @@ public:
     void setKeepMyData(const QString t);
     QString getCompleteWithPrevious();
     void setCompleteWithPrevious(const QString t);
+    QString getCheckNewVersions();
+    void setCheckNewVersions(const QString t);
+    QString getReportInfo();
+    void setReportInfo(const QString t);
 
 private slots:
     void slotOpenFileButtonClicked();
     void slotUseDefaultButtonStateChanged(int state);
     //void slotdefaultFileNameChanged();
     void slotDefaultFileNameLineEditChanged();
+    void slotcheckNewVersionCheckBoxClicked();
 
 private:
     void createActions();
 
     QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox, *keepMyDataCheckBox;
+    QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox;
     QString defaultFileName;
     QLineEdit *defaultFileNameLineEdit;
     QPushButton *fileNameButton;

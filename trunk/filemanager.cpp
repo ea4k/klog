@@ -153,7 +153,7 @@ bool FileManager::checkADIFValidFormat(const QStringList _qs)
 
 bool FileManager::adifLogExport(const QString& _fileName, const int _logN)
 {
-    //qDebug() << "FileManager::adifLogExport" << endl;
+    qDebug() << "FileManager::adifLogExport" << endl;
 
 
     return adifLogExportToFile(_fileName, _logN, false, false);
@@ -163,7 +163,7 @@ bool FileManager::adifLogExport(const QString& _fileName, const int _logN)
 bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested )
 {
     // If _logN = 0, then we will export ALL the logs.
-    //qDebug() << "FileManager::adifLogExportToFile: " << _fileName << endl;
+    qDebug() << "FileManager::adifLogExportToFile: " << _fileName << endl;
 
     bool exportJustMarkedQSO = justMarked;
     bool marked = false;
@@ -392,6 +392,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     // get SubModeId to check if it is the same or not from modeid
                     aux2 = dataProxy->getSubModeFromId(aux1.toInt());
                     aux1 = db->getModeNameFromID2(aux1.toInt());
+
+                    qDebug() << "FileManager::adifLogExportToFile - MODE aux2:  " << aux2 << endl;
+                    qDebug() << "FileManager::adifLogExportToFile - MODE aux1:  " << aux1 << endl;
+
                     if (aux1.length()>1)
                     {
                         haveMode = true;
@@ -442,12 +446,15 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                         out << "<ITUZ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
+                    qDebug() << "FileManager::adifLogExportToFile: DXCC - Now..."  << endl;
+
                     nameCol = rec.indexOf("dxcc");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<DXCC:" << QString::number(aux1.length()) << ">" << aux1  << " ";
-                        //qDebug() << "FileManager::adifLogExportToFile: DXCC " << aux1 << endl;
+                        qDebug() << "FileManager::adifLogExportToFile: DXCC " << aux1 << endl;
                     }
+                    qDebug() << "FileManager::adifLogExportToFile: DXCC - Exported!"  << endl;
 
                     nameCol = rec.indexOf("address");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
@@ -1103,7 +1110,14 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                 nameCol = rec.indexOf("bandid");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                aux1 = db->getBandNameFromID2(aux1.toInt());
+                qDebug() << "FileManager::adifLogExportToFile - BAND2 aux1-1:  " << aux1 << endl;
+
+                //aux1 = db->getBandNameFromID2(aux1.toInt());
+                aux1 = dataProxy->getNameFromBandId(aux1.toInt());
+
+                qDebug() << "FileManager::adifLogExportToFile - BAND2 aux1-2:  " << aux1 << endl;
+
+
 
                 out << "<BAND:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 bandst = aux1;
@@ -1141,8 +1155,12 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                 // get SubModeId to check if it is the same or not from modeid
                 aux2 = dataProxy->getSubModeFromId(aux1.toInt());
+                aux1 = dataProxy->getModeFromSubMode(aux2);
+                //aux1 = db->getModeNameFromID2(aux1.toInt());
 
-                aux1 = db->getModeNameFromID2(aux1.toInt());
+                //qDebug() << "FileManager::adifLogExportToFile - MODE2 aux2:  " << aux2 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile - MODE2 aux1:  " << aux1 << endl;
+
                 if (aux1.length()>1)
                 {
                     out << "<MODE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
@@ -1192,13 +1210,16 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     out << "<ITUZ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
-
+                qDebug() << "FileManager::adifLogExportToFile - DXCC to be exported:  " << endl;
                 nameCol = rec.indexOf("dxcc");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
+                qDebug() << "FileManager::adifLogExportToFile - DXCC: " << aux1 << endl;
                 //if ((aux1.length())>0){
                 if ( ((aux1.length())>0) && (0 < aux1.toInt()) && (aux1.toInt() < DXCCEntities + 5) ){
                     out << "<DXCC:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                    qDebug() << "FileManager::adifLogExportToFile - DXCC  in the if"  << endl;
                 }
+                qDebug() << "FileManager::adifLogExportToFile - DXCC alreadyexported:  "  << endl;
 
                 nameCol = rec.indexOf("address");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
@@ -1805,7 +1826,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         if ( progress.wasCanceled() )
         {
             QMessageBox msgBox;
-            QString aux = QString(tr("You have cancelled the file export. The file will be removed and no data will be exported.\nDo you still want to cancel?"));
+            QString aux = QString(tr("You have cancelled the file export. The file will be removed and no data will be exported.\nDo you want to continue?"));
             msgBox.setText(aux);
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
             msgBox.setDefaultButton(QMessageBox::No);
@@ -2546,7 +2567,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             {
 
                 QMessageBox msgBox;
-                aux = QString(tr("You have cancelled the file export. The file will be removed and no data will be exported.\nDo you still want to cancel?"));
+                aux = QString(tr("You have cancelled the file export. The file will be removed and no data will be exported.\nDo you want to continue?"));
                 msgBox.setText(aux);
                 msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                 msgBox.setDefaultButton(QMessageBox::No);

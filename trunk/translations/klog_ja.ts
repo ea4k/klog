@@ -2,6 +2,101 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ja_JP">
 <context>
+    <name>AboutDialog</name>
+    <message>
+        <location filename="../aboutdialog.cpp" line="27"/>
+        <source>About KLog</source>
+        <translation type="unfinished">KLogについて</translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="34"/>
+        <source>&lt;/h2&gt;&lt;h4&gt;By &lt;a href=&quot;https://www.qrz.com/db/ea4tv&quot;&gt;EA4TV&lt;/a&gt; - 2002-2017&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLog is a free logging software for hamradio operators.&lt;br&gt;&lt;br&gt;&lt;b&gt;Please know that this is an BETA release and it may contain many bugs.&lt;br&gt;Backup your data before using this software!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, OSX &amp; Windows) and provide new functionalities that KLog was not providing. &lt;br&gt;&lt;br&gt;Find more information and latest release at&lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;&lt;br&gt;&lt;br&gt;Author: Jaime Robles, &lt;a href=&quot;https://www.qrz.com/db/ea4tv&quot;&gt;EA4TV&lt;/a&gt;&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="57"/>
+        <source>&lt;td&gt;(2002-today) Main developer&lt;/td&gt;&lt;/tr&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="58"/>
+        <source>&lt;td&gt;(2016)&lt;/td&gt;&lt;/tr&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="59"/>
+        <source>&lt;td&gt;(2009-2010)&lt;/td&gt;&lt;/tr&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="61"/>
+        <source>KLog is developed by a very small team and you are invited to join!&lt;br&gt;&lt;br&gt;If you want to support you can join the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog&apos;s development mailing list&lt;/a&gt; and you will be welcome!&lt;br&gt;&lt;br&gt;You can also help us sending bug reports or small code contributions, ideas or whatever you think it may improve KLog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="62"/>
+        <location filename="../aboutdialog.cpp" line="135"/>
+        <source>Authors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="70"/>
+        <source>Translators bring KLog into your language. They are really an important part of the KLog development team.&lt;br&gt;&lt;br&gt;If KLog is still not in your language and you want to help us, please contact us through the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog&apos;s development mailing list&lt;/a&gt; and you will be welcome!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="71"/>
+        <location filename="../aboutdialog.cpp" line="136"/>
+        <source>Translators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="90"/>
+        <source>Privacy advisory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="91"/>
+        <source>KLog developers have included a feature that reports to KLog&apos;s server some data of the user with the only purpose to identify the number of installed versions to focus the development in one or other direction taking into account the user&apos;s need.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="92"/>
+        <source>Today, the data that is provided is the following:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="93"/>
+        <source>Callsign</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="93"/>
+        <source>KLog version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="93"/>
+        <source>Operating system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="94"/>
+        <source>Please know that you can enable/disable this feature from the Misc tab in the Setup page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="134"/>
+        <source>KLog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="137"/>
+        <source>Privacy</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CTYPage</name>
     <message>
         <location filename="../startwizard.cpp" line="918"/>
@@ -85,46 +180,46 @@ Do you want to try again?</source>
 <context>
     <name>DXClusterWidget</name>
     <message>
-        <location filename="../dxcluster.cpp" line="82"/>
-        <location filename="../dxcluster.cpp" line="476"/>
+        <location filename="../dxcluster.cpp" line="83"/>
+        <location filename="../dxcluster.cpp" line="484"/>
         <source>Click on Connect to connect to the DX-Cluster server</source>
         <translation>接続ボタンをクリックするとDXクラスターに接続します。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="86"/>
-        <location filename="../dxcluster.cpp" line="474"/>
+        <location filename="../dxcluster.cpp" line="87"/>
+        <location filename="../dxcluster.cpp" line="482"/>
         <source>Connect</source>
         <translation>接続</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="87"/>
-        <location filename="../dxcluster.cpp" line="453"/>
-        <location filename="../dxcluster.cpp" line="532"/>
-        <location filename="../dxcluster.cpp" line="537"/>
+        <location filename="../dxcluster.cpp" line="88"/>
+        <location filename="../dxcluster.cpp" line="461"/>
+        <location filename="../dxcluster.cpp" line="540"/>
+        <location filename="../dxcluster.cpp" line="545"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="117"/>
+        <location filename="../dxcluster.cpp" line="120"/>
         <source>Click on connect to connect to the DX-Cluster</source>
         <translation>接続ボタンをクリックするとDXクラスターに接続します。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="171"/>
+        <location filename="../dxcluster.cpp" line="178"/>
         <source>Trying to connect to the server
 </source>
         <translation>サーバーに接続しています。
 </translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="182"/>
-        <location filename="../dxcluster.cpp" line="188"/>
+        <location filename="../dxcluster.cpp" line="189"/>
         <location filename="../dxcluster.cpp" line="195"/>
+        <location filename="../dxcluster.cpp" line="202"/>
         <source>KLog DXCluster</source>
         <translation>KLog DXクラスター</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="183"/>
+        <location filename="../dxcluster.cpp" line="190"/>
         <source>The host was not found. Please check:
 
 - your network connection;
@@ -135,33 +230,33 @@ Do you want to try again?</source>
 ホスト名、ポート番号の設定が正しいことを確認してください。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="189"/>
+        <location filename="../dxcluster.cpp" line="196"/>
         <source>The connection was refused by the peer. Make sure the DXCluster server is running, and check that the host name and port settings are correct.</source>
         <translation>接続できませんでした。DXクラスターが稼働していることを確かめてください。また、ホスト名、ポート番号の設定が正しいことを確認してください。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="196"/>
+        <location filename="../dxcluster.cpp" line="203"/>
         <source>The following error occurred: %1.</source>
         <translation>次のエラーが発生しました: %1</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="436"/>
+        <location filename="../dxcluster.cpp" line="444"/>
         <source>Connected to server</source>
         <translation>サーバーに接続しました。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="446"/>
-        <location filename="../dxcluster.cpp" line="447"/>
+        <location filename="../dxcluster.cpp" line="454"/>
+        <location filename="../dxcluster.cpp" line="455"/>
         <source>KLog message</source>
         <translation>KLog メッセージ</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="446"/>
+        <location filename="../dxcluster.cpp" line="454"/>
         <source>Enter your callsign to connect to the cluster:</source>
         <translation>DXクラスターに接続するためのコールサインを入力してください。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="447"/>
+        <location filename="../dxcluster.cpp" line="455"/>
         <source>Enter your password to connect to the cluster:
 (Just hit enter for no password)</source>
         <translation>DXクラスターに接続するためのパスワードを入力してください。
@@ -172,28 +267,28 @@ Do you want to try again?</source>
         <translation type="vanished">DXクラスターに接続するためのパスワードを入力してください。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="452"/>
-        <location filename="../dxcluster.cpp" line="531"/>
+        <location filename="../dxcluster.cpp" line="460"/>
+        <location filename="../dxcluster.cpp" line="539"/>
         <source>Disconnect</source>
         <translation>切断</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="456"/>
+        <location filename="../dxcluster.cpp" line="464"/>
         <source>Not logged on, you may to enter your callsign again.</source>
         <translation>ログオンしていません。もう一度、コールサインを入力してみてください。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="460"/>
+        <location filename="../dxcluster.cpp" line="468"/>
         <source>Enter here the commands to be sent to the DX-Cluster server</source>
         <translation>DXクラスターに送信するコマンドをここに入力します。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="470"/>
+        <location filename="../dxcluster.cpp" line="478"/>
         <source>Connection closed by the server</source>
         <translation>サーバーによって接続が切られました。</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="536"/>
+        <location filename="../dxcluster.cpp" line="544"/>
         <source>Send</source>
         <translation>送信</translation>
     </message>
@@ -201,27 +296,27 @@ Do you want to try again?</source>
 <context>
     <name>DownLoadCTY</name>
     <message>
-        <location filename="../downloadcty.cpp" line="63"/>
+        <location filename="../downloadcty.cpp" line="64"/>
         <source>Download of the CTY.CSV failed with the following error code: </source>
         <translation>CTY.CSVのダウンロード、失敗. エラーコード: </translation>
     </message>
     <message>
-        <location filename="../downloadcty.cpp" line="75"/>
+        <location filename="../downloadcty.cpp" line="76"/>
         <source>Download of the CTY.CSV done.</source>
         <translation>CTY.CSVのダウンロード、完了.</translation>
     </message>
     <message>
-        <location filename="../downloadcty.cpp" line="146"/>
+        <location filename="../downloadcty.cpp" line="147"/>
         <source>There is already a CTY.CSV file in the folder but it will be replaced with the new one.</source>
         <translation>フォルダーにすでにCTY.CSVファイルがありますが、最新のもので置き換えます.</translation>
     </message>
     <message>
-        <location filename="../downloadcty.cpp" line="176"/>
+        <location filename="../downloadcty.cpp" line="177"/>
         <source>Could not open </source>
         <translation>次のファイルを開けません: </translation>
     </message>
     <message>
-        <location filename="../downloadcty.cpp" line="176"/>
+        <location filename="../downloadcty.cpp" line="177"/>
         <source> for writing.</source>
         <translation>(書き込み用)</translation>
     </message>
@@ -235,47 +330,42 @@ Do you want to try again?</source>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="262"/>
-        <location filename="../filemanager.cpp" line="1951"/>
+        <location filename="../filemanager.cpp" line="1972"/>
         <source>Abort writing</source>
         <translation>書込みの中止</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="1800"/>
+        <location filename="../filemanager.cpp" line="1821"/>
         <source>Writing ADIF file...
  QSO: </source>
         <translation>ADIFファイルを書き込んでいます...
  QSO: </translation>
     </message>
     <message>
+        <location filename="../filemanager.cpp" line="1829"/>
+        <location filename="../filemanager.cpp" line="2570"/>
         <source>You have cancelled the file export. The file will be removed and no data will be exported.
 Do you want to continue?</source>
-        <translation type="vanished">ファイルのエクスポート中止が選択されました。ファイルは削除され、データはエクスポートされません。
+        <translation>ファイルのエクスポート中止が選択されました。ファイルは削除され、データはエクスポートされません。
 本当に継続しますか？</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="1808"/>
-        <location filename="../filemanager.cpp" line="2549"/>
-        <source>You have cancelled the file export. The file will be removed and no data will be exported.
-Do you still want to cancel?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="1951"/>
+        <location filename="../filemanager.cpp" line="1972"/>
         <source>Writing Cabrillo file...</source>
         <translation>Cabrilloファイルを書き込んでいます...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="2117"/>
+        <location filename="../filemanager.cpp" line="2138"/>
         <source>KLog: Cabrillo Log Export not implemented</source>
         <translation>KLog: Cabrillo Log Exportは未実装</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="2118"/>
+        <location filename="../filemanager.cpp" line="2139"/>
         <source>I am sorry but the Cabrillo Export To File feature has still not been implemented.</source>
         <translation>申し訳ありません. Cabrillo形式ログのエクスポート機能はまだ実装されていません.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="2265"/>
+        <location filename="../filemanager.cpp" line="2286"/>
         <source>There are more than one log in this logfile.
 All logs will be imported in the current log.
 Do you want to continue?</source>
@@ -284,29 +374,29 @@ Do you want to continue?</source>
 続けますか？</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="2312"/>
+        <location filename="../filemanager.cpp" line="2333"/>
         <source>Reading ADIF file...</source>
         <translation>ADIFファイルを読みこんでいます...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="2312"/>
+        <location filename="../filemanager.cpp" line="2333"/>
         <source>Abort reading</source>
         <translation>読込みの中止</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="2533"/>
+        <location filename="../filemanager.cpp" line="2554"/>
         <source>Importing ADIF file...
  QSO: </source>
         <translation>ADIFファイルをインポートしています...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="2592"/>
+        <location filename="../filemanager.cpp" line="2613"/>
         <source>It seems that there are some QSO duplicated in the ADIF file you are importing. Do you want to continue? (Duped QSO will not be imported)</source>
         <translation>インポート中のADIFファイルに重複するQSOがあります. 継続しますか? (重複したQSOはインポートされません)</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3583"/>
+        <location filename="../filemanager.cpp" line="3604"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!.
 
 
@@ -327,32 +417,32 @@ CALL, QSO_DATE, TIME_ON, BAND, MODE.
 </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3587"/>
+        <location filename="../filemanager.cpp" line="3608"/>
         <source> - The band missing and the following call: </source>
         <translation> - バンド情報が含まれていません. 問題のあったコールサインは次のとおりです: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3592"/>
+        <location filename="../filemanager.cpp" line="3613"/>
         <source> - The call missing but was done at this time: </source>
         <translation> - コールサインが含まれていません. 今回は次のコールサインで処理しました: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3597"/>
+        <location filename="../filemanager.cpp" line="3618"/>
         <source> - The mode missing and the following call: </source>
         <translation> - モードが含まれていません. 問題のあったコールサインは次のとおりです: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3602"/>
+        <location filename="../filemanager.cpp" line="3623"/>
         <source> - The date missing and the following call: </source>
         <translation> - 日付が含まれていません. 問題のあったコールサインは次のとおりです: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3607"/>
+        <location filename="../filemanager.cpp" line="3628"/>
         <source> - The time missing and the following call: </source>
         <translation> - 時刻が含まれていません. 問題のあったコールサインは次のとおりです: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3612"/>
+        <location filename="../filemanager.cpp" line="3633"/>
         <source>
 
 Do you want to continue with the current file?</source>
@@ -361,12 +451,12 @@ Do you want to continue with the current file?</source>
 このファイルの処理を継続しますか？</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3616"/>
+        <location filename="../filemanager.cpp" line="3637"/>
         <source>KLog: Not all required data found!</source>
         <translation>KLog; データの不足が見つかりました!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3641"/>
+        <location filename="../filemanager.cpp" line="3662"/>
         <source>This log seems to lack of RST-TX information.
 
 Click on Yes to add a default 59 to all QSO with a similar problem.
@@ -379,12 +469,12 @@ If you select NO, the QSO may not be imported.</source>
 「いいえ」をクリックすると、このQSOをインポートしません.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3642"/>
+        <location filename="../filemanager.cpp" line="3663"/>
         <source>KLog: No RST TX found!</source>
         <translation>KLog: RST TXが見つかりません!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3663"/>
+        <location filename="../filemanager.cpp" line="3684"/>
         <source>This log seems to lack of RST-RX information.
 
 Click on Yes to add a default 59 to all QSO with a similar problem.
@@ -397,7 +487,7 @@ If you select NO, the QSO may not be imported.</source>
 「いいえ」をクリックすると、このQSOをインポートしません.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3665"/>
+        <location filename="../filemanager.cpp" line="3686"/>
         <source>KLog: No RST RX found!</source>
         <translation>KLog: RST RXが見つかりません!</translation>
     </message>
@@ -406,13 +496,13 @@ If you select NO, the QSO may not be imported.</source>
         <translation type="vanished">インポート中のADIFファイルに重複するQSOがあります。継続しますか? (重複したQSOはインポートされません)</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="2637"/>
+        <location filename="../filemanager.cpp" line="2658"/>
         <source>An unexpected error ocurred while importing. Please send this code to the developer for analysis: </source>
         <translation>インポート中に予期しないエラーが発生しました. 原因究明のため開発者に次のコードを連絡してください: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="2680"/>
-        <location filename="../filemanager.cpp" line="2764"/>
+        <location filename="../filemanager.cpp" line="2701"/>
+        <location filename="../filemanager.cpp" line="2785"/>
         <source>An error ocurred while importing. No data will be imported. Please send this code to the developer for analysis: </source>
         <translation>インポート中にエラーが発生しました. データはインポートされません. 原因究明のため開発者に次のコードを連絡してください: </translation>
     </message>
@@ -447,14 +537,8 @@ If you select NO, the QSO may not be imported.</source>
 <context>
     <name>HelpAboutDialog</name>
     <message>
-        <location filename="../helpaboutdialog.cpp" line="18"/>
-        <source>Ok</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../helpaboutdialog.cpp" line="36"/>
         <source>About KLog</source>
-        <translation>KLogについて</translation>
+        <translation type="vanished">KLogについて</translation>
     </message>
 </context>
 <context>
@@ -464,19 +548,12 @@ If you select NO, the QSO may not be imported.</source>
         <translation type="vanished">&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2015&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLogはアマチュア無線家のためのフリーなロギングソフトウェアです。&lt;br&gt;&lt;br&gt;&lt;b&gt;このリリースはまだベータバージョンで、多くのバグを含んでいる可能性があります。&lt;br&gt;このソフトウェアを使い始める前に、まずデータのバックアップを取ってください!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLogは主要なオペレーティングシステム (Linux OSX &amp; Windows)上でクロスプラットフォーム実行が可能なように、また以前のKLogに備わっていなかった新機能を提供するために、バージョン0.6.2以降、大幅に書き換えられました。&lt;br&gt;&lt;br&gt;より詳しい情報や、最新のリリースは&lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;で入手できます。&lt;br&gt;&lt;br&gt;作者：　Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../helphelpdialog.cpp" line="12"/>
         <source>&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2016&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLog is a free logging software for hamradio operators.&lt;br&gt;&lt;br&gt;&lt;b&gt;Please know that this is an BETA release and it may contain many bugs.&lt;br&gt;Backup your data before using this software!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, OSX &amp; Windows) and provide new functionalities that KLog was not providing. &lt;br&gt;&lt;br&gt;Find more information and latest release at&lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;&lt;br&gt;&lt;br&gt;Author: Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt;</source>
-        <translation>&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2016&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLogはアマチュア無線家のためのフリーなロギングソフトウェアです。&lt;br&gt;&lt;br&gt;&lt;b&gt;このリリースはまだベータバージョンで、多くのバグを含んでいる可能性があります。&lt;br&gt;このソフトウェアを使い始める前に、まずデータのバックアップを取ってください!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLogは主要なオペレーティングシステム (Linux OSX &amp; Windows)上でクロスプラットフォーム実行が可能なように、また以前のKLogに備わっていなかった新機能を提供するために、バージョン0.6.2以降、大幅に書き換えられました。&lt;br&gt;&lt;br&gt;より詳しい情報や、最新のリリースは&lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;で入手できます。&lt;br&gt;&lt;br&gt;作者：　Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt; </translation>
+        <translation type="vanished">&lt;/h2&gt;&lt;h4&gt;By EA4TV - 2002-2016&lt;/h4&gt;&lt;/center&gt;&lt;br&gt;KLogはアマチュア無線家のためのフリーなロギングソフトウェアです。&lt;br&gt;&lt;br&gt;&lt;b&gt;このリリースはまだベータバージョンで、多くのバグを含んでいる可能性があります。&lt;br&gt;このソフトウェアを使い始める前に、まずデータのバックアップを取ってください!&lt;/b&gt;&lt;br&gt;&lt;br&gt;KLogは主要なオペレーティングシステム (Linux OSX &amp; Windows)上でクロスプラットフォーム実行が可能なように、また以前のKLogに備わっていなかった新機能を提供するために、バージョン0.6.2以降、大幅に書き換えられました。&lt;br&gt;&lt;br&gt;より詳しい情報や、最新のリリースは&lt;br&gt;&lt;a href=http://jaime.robles.es/klog&gt;http://jaime.robles.es/klog&lt;/a&gt;で入手できます。&lt;br&gt;&lt;br&gt;作者：　Jaime Robles, EA4TV&lt;br&gt;&lt;a href=mailto:jaime@robles.es&gt;jaime@robles.es&lt;/a&gt; </translation>
     </message>
     <message>
-        <location filename="../helphelpdialog.cpp" line="20"/>
-        <source>Ok</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../helphelpdialog.cpp" line="39"/>
         <source>Help</source>
-        <translation>ヘルプ</translation>
+        <translation type="vanished">ヘルプ</translation>
     </message>
 </context>
 <context>
@@ -523,52 +600,52 @@ If you select NO, the QSO may not be imported.</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="167"/>
-        <location filename="../mainwindow.cpp" line="298"/>
+        <location filename="../mainwindow.cpp" line="176"/>
+        <location filename="../mainwindow.cpp" line="315"/>
         <source>&amp;Clear</source>
         <translation>クリア(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="168"/>
+        <location filename="../mainwindow.cpp" line="177"/>
         <source>&amp;Export Highlited</source>
         <translation>選択した項目をエクスポート(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="169"/>
-        <location filename="../mainwindow.cpp" line="3134"/>
-        <location filename="../mainwindow.cpp" line="3450"/>
+        <location filename="../mainwindow.cpp" line="178"/>
+        <location filename="../mainwindow.cpp" line="3178"/>
+        <location filename="../mainwindow.cpp" line="3494"/>
         <source>&amp;Select All</source>
         <translation>すべて選択(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="170"/>
+        <location filename="../mainwindow.cpp" line="179"/>
         <source>&amp;Search</source>
         <translation>検索(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="171"/>
+        <location filename="../mainwindow.cpp" line="180"/>
         <source>All</source>
         <translation>すべてのログ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="174"/>
+        <location filename="../mainwindow.cpp" line="185"/>
         <source>Recalculate</source>
         <translation>再計算</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="175"/>
+        <location filename="../mainwindow.cpp" line="186"/>
         <source>Click to recalculate the award status</source>
         <translation>クリックするとアワードの現在の集計を再計算します</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="208"/>
+        <location filename="../mainwindow.cpp" line="224"/>
         <source>Starting KLog</source>
         <translation>KLogを起動しています</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="295"/>
-        <location filename="../mainwindow.cpp" line="838"/>
-        <location filename="../mainwindow.cpp" line="3547"/>
+        <location filename="../mainwindow.cpp" line="312"/>
+        <location filename="../mainwindow.cpp" line="874"/>
+        <location filename="../mainwindow.cpp" line="3591"/>
         <source>&amp;Add</source>
         <translation>追加(&amp;A)</translation>
     </message>
@@ -577,72 +654,72 @@ If you select NO, the QSO may not be imported.</source>
         <translation type="vanished">スポット(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="301"/>
+        <location filename="../mainwindow.cpp" line="318"/>
         <source>Status bar...</source>
         <translation>ステータスバー...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="302"/>
+        <location filename="../mainwindow.cpp" line="319"/>
         <source>DX Entity</source>
         <translation>DXエンティティ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="303"/>
+        <location filename="../mainwindow.cpp" line="320"/>
         <source>10M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="304"/>
+        <location filename="../mainwindow.cpp" line="321"/>
         <source>15M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="305"/>
+        <location filename="../mainwindow.cpp" line="322"/>
         <source>20M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="306"/>
+        <location filename="../mainwindow.cpp" line="323"/>
         <source>40M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="307"/>
+        <location filename="../mainwindow.cpp" line="324"/>
         <source>80M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="308"/>
+        <location filename="../mainwindow.cpp" line="325"/>
         <source>160M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="309"/>
+        <location filename="../mainwindow.cpp" line="326"/>
         <source>2M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="310"/>
+        <location filename="../mainwindow.cpp" line="327"/>
         <source>6M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="311"/>
+        <location filename="../mainwindow.cpp" line="328"/>
         <source>12M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="312"/>
+        <location filename="../mainwindow.cpp" line="329"/>
         <source>17M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="313"/>
+        <location filename="../mainwindow.cpp" line="330"/>
         <source>30M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="314"/>
+        <location filename="../mainwindow.cpp" line="331"/>
         <source>70CM</source>
         <translation></translation>
     </message>
@@ -655,169 +732,174 @@ If you select NO, the QSO may not be imported.</source>
         <translation type="vanished">伝播モード</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="337"/>
+        <location filename="../mainwindow.cpp" line="354"/>
         <source>&amp;Log Window</source>
         <translation>ログウィンドウ(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="338"/>
+        <location filename="../mainwindow.cpp" line="355"/>
         <source>&amp;Score Window</source>
         <translation>スコアウィンドウ(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="357"/>
-        <location filename="../mainwindow.cpp" line="362"/>
+        <location filename="../mainwindow.cpp" line="369"/>
+        <source>W</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="374"/>
+        <location filename="../mainwindow.cpp" line="379"/>
         <source>MHz</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="390"/>
-        <location filename="../mainwindow.cpp" line="395"/>
-        <location filename="../mainwindow.cpp" line="401"/>
-        <location filename="../mainwindow.cpp" line="6981"/>
-        <location filename="../mainwindow.cpp" line="7067"/>
-        <location filename="../mainwindow.cpp" line="7196"/>
-        <location filename="../mainwindow.cpp" line="7263"/>
-        <location filename="../mainwindow.cpp" line="7326"/>
-        <location filename="../mainwindow.cpp" line="7393"/>
+        <location filename="../mainwindow.cpp" line="407"/>
+        <location filename="../mainwindow.cpp" line="412"/>
+        <location filename="../mainwindow.cpp" line="418"/>
+        <location filename="../mainwindow.cpp" line="7072"/>
+        <location filename="../mainwindow.cpp" line="7158"/>
+        <location filename="../mainwindow.cpp" line="7287"/>
+        <location filename="../mainwindow.cpp" line="7354"/>
+        <location filename="../mainwindow.cpp" line="7417"/>
+        <location filename="../mainwindow.cpp" line="7484"/>
         <source>Y-Yes</source>
         <translatorcomment>送付に対しては「する」だけど、受領に対しては「した」となる。したがってY-Yesのままが自然かも。</translatorcomment>
         <translation>Y-はい</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="390"/>
-        <location filename="../mainwindow.cpp" line="395"/>
-        <location filename="../mainwindow.cpp" line="401"/>
-        <location filename="../mainwindow.cpp" line="6994"/>
-        <location filename="../mainwindow.cpp" line="7030"/>
-        <location filename="../mainwindow.cpp" line="7080"/>
-        <location filename="../mainwindow.cpp" line="7118"/>
-        <location filename="../mainwindow.cpp" line="7180"/>
+        <location filename="../mainwindow.cpp" line="407"/>
+        <location filename="../mainwindow.cpp" line="412"/>
+        <location filename="../mainwindow.cpp" line="418"/>
+        <location filename="../mainwindow.cpp" line="7085"/>
+        <location filename="../mainwindow.cpp" line="7121"/>
+        <location filename="../mainwindow.cpp" line="7171"/>
         <location filename="../mainwindow.cpp" line="7209"/>
-        <location filename="../mainwindow.cpp" line="7247"/>
-        <location filename="../mainwindow.cpp" line="7276"/>
-        <location filename="../mainwindow.cpp" line="7314"/>
-        <location filename="../mainwindow.cpp" line="7339"/>
-        <location filename="../mainwindow.cpp" line="7377"/>
-        <location filename="../mainwindow.cpp" line="7406"/>
-        <location filename="../mainwindow.cpp" line="7444"/>
+        <location filename="../mainwindow.cpp" line="7271"/>
+        <location filename="../mainwindow.cpp" line="7300"/>
+        <location filename="../mainwindow.cpp" line="7338"/>
+        <location filename="../mainwindow.cpp" line="7367"/>
+        <location filename="../mainwindow.cpp" line="7405"/>
+        <location filename="../mainwindow.cpp" line="7430"/>
+        <location filename="../mainwindow.cpp" line="7468"/>
+        <location filename="../mainwindow.cpp" line="7497"/>
+        <location filename="../mainwindow.cpp" line="7535"/>
         <source>N-No</source>
         <translatorcomment>送付に対しては「しない」だけど、受領に対しては「（まだ）していない」となる。したがってN-Noのままが自然かも。</translatorcomment>
         <translation>N-いいえ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="390"/>
-        <location filename="../mainwindow.cpp" line="395"/>
-        <location filename="../mainwindow.cpp" line="401"/>
-        <location filename="../mainwindow.cpp" line="6998"/>
-        <location filename="../mainwindow.cpp" line="7085"/>
-        <location filename="../mainwindow.cpp" line="7214"/>
-        <location filename="../mainwindow.cpp" line="7281"/>
-        <location filename="../mainwindow.cpp" line="7344"/>
-        <location filename="../mainwindow.cpp" line="7411"/>
+        <location filename="../mainwindow.cpp" line="407"/>
+        <location filename="../mainwindow.cpp" line="412"/>
+        <location filename="../mainwindow.cpp" line="418"/>
+        <location filename="../mainwindow.cpp" line="7089"/>
+        <location filename="../mainwindow.cpp" line="7176"/>
+        <location filename="../mainwindow.cpp" line="7305"/>
+        <location filename="../mainwindow.cpp" line="7372"/>
+        <location filename="../mainwindow.cpp" line="7435"/>
+        <location filename="../mainwindow.cpp" line="7502"/>
         <source>R-Requested</source>
         <translatorcomment>送付に対しては「リクエストされている」だけど、受領に対しては「リクエストした」となる。</translatorcomment>
         <translation>R-リクエスト中</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="390"/>
-        <location filename="../mainwindow.cpp" line="395"/>
-        <location filename="../mainwindow.cpp" line="401"/>
-        <location filename="../mainwindow.cpp" line="7016"/>
-        <location filename="../mainwindow.cpp" line="7090"/>
-        <location filename="../mainwindow.cpp" line="7233"/>
-        <location filename="../mainwindow.cpp" line="7286"/>
-        <location filename="../mainwindow.cpp" line="7363"/>
-        <location filename="../mainwindow.cpp" line="7416"/>
+        <location filename="../mainwindow.cpp" line="407"/>
+        <location filename="../mainwindow.cpp" line="412"/>
+        <location filename="../mainwindow.cpp" line="418"/>
+        <location filename="../mainwindow.cpp" line="7107"/>
+        <location filename="../mainwindow.cpp" line="7181"/>
+        <location filename="../mainwindow.cpp" line="7324"/>
+        <location filename="../mainwindow.cpp" line="7377"/>
+        <location filename="../mainwindow.cpp" line="7454"/>
+        <location filename="../mainwindow.cpp" line="7507"/>
         <source>I-Ignore</source>
         <translation>I-無視する</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="390"/>
+        <location filename="../mainwindow.cpp" line="407"/>
         <source>V-Validated</source>
         <translatorcomment>QSL欄はverifiedで、e-QSL, LoTW欄はvalidated</translatorcomment>
         <translation>V-認証済</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="395"/>
-        <location filename="../mainwindow.cpp" line="7002"/>
-        <location filename="../mainwindow.cpp" line="7219"/>
-        <location filename="../mainwindow.cpp" line="7349"/>
+        <location filename="../mainwindow.cpp" line="412"/>
+        <location filename="../mainwindow.cpp" line="7093"/>
+        <location filename="../mainwindow.cpp" line="7310"/>
+        <location filename="../mainwindow.cpp" line="7440"/>
         <source>Q-Queued</source>
         <translatorcomment>発送欄にしか現れない（いまのところは）</translatorcomment>
         <translation>Q-発送待ち</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="401"/>
-        <location filename="../mainwindow.cpp" line="7104"/>
-        <location filename="../mainwindow.cpp" line="7300"/>
-        <location filename="../mainwindow.cpp" line="7430"/>
+        <location filename="../mainwindow.cpp" line="418"/>
+        <location filename="../mainwindow.cpp" line="7195"/>
+        <location filename="../mainwindow.cpp" line="7391"/>
+        <location filename="../mainwindow.cpp" line="7521"/>
         <source>V-Verified</source>
         <translatorcomment>QSL欄はverifiedで、e-QSL, LoTW欄はvalidated</translatorcomment>
         <translation>V-照合済</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="405"/>
-        <location filename="../mainwindow.cpp" line="7152"/>
+        <location filename="../mainwindow.cpp" line="422"/>
+        <location filename="../mainwindow.cpp" line="7243"/>
         <source>Y-Uploaded</source>
         <translation>Y-アップロード済</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="405"/>
-        <location filename="../mainwindow.cpp" line="7164"/>
+        <location filename="../mainwindow.cpp" line="422"/>
+        <location filename="../mainwindow.cpp" line="7255"/>
         <source>N-Do not upload</source>
         <translation>N-アップロードしない</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="405"/>
-        <location filename="../mainwindow.cpp" line="7168"/>
+        <location filename="../mainwindow.cpp" line="422"/>
+        <location filename="../mainwindow.cpp" line="7259"/>
         <source>M-Modified</source>
         <translation>M-変更済</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="412"/>
-        <location filename="../mainwindow.cpp" line="7038"/>
-        <location filename="../mainwindow.cpp" line="7052"/>
-        <location filename="../mainwindow.cpp" line="7126"/>
-        <location filename="../mainwindow.cpp" line="7140"/>
+        <location filename="../mainwindow.cpp" line="429"/>
+        <location filename="../mainwindow.cpp" line="7129"/>
+        <location filename="../mainwindow.cpp" line="7143"/>
+        <location filename="../mainwindow.cpp" line="7217"/>
+        <location filename="../mainwindow.cpp" line="7231"/>
         <source>B-Bureau</source>
         <translation>B-ビューロー経由</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="412"/>
-        <location filename="../mainwindow.cpp" line="7042"/>
-        <location filename="../mainwindow.cpp" line="7130"/>
+        <location filename="../mainwindow.cpp" line="429"/>
+        <location filename="../mainwindow.cpp" line="7133"/>
+        <location filename="../mainwindow.cpp" line="7221"/>
         <source>D-Direct</source>
         <translation>D-ダイレクト</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="412"/>
-        <location filename="../mainwindow.cpp" line="7045"/>
-        <location filename="../mainwindow.cpp" line="7133"/>
+        <location filename="../mainwindow.cpp" line="429"/>
+        <location filename="../mainwindow.cpp" line="7136"/>
+        <location filename="../mainwindow.cpp" line="7224"/>
         <source>E-Electronic</source>
         <translation>E-電子QSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="412"/>
-        <location filename="../mainwindow.cpp" line="7048"/>
-        <location filename="../mainwindow.cpp" line="7136"/>
+        <location filename="../mainwindow.cpp" line="429"/>
+        <location filename="../mainwindow.cpp" line="7139"/>
+        <location filename="../mainwindow.cpp" line="7227"/>
         <source>M-Manager</source>
         <translation>M-マネージャー経由</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="489"/>
-        <location filename="../mainwindow.cpp" line="3721"/>
-        <location filename="../mainwindow.cpp" line="4160"/>
+        <location filename="../mainwindow.cpp" line="506"/>
+        <location filename="../mainwindow.cpp" line="3765"/>
+        <location filename="../mainwindow.cpp" line="4242"/>
         <source>KLog</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="562"/>
+        <location filename="../mainwindow.cpp" line="597"/>
         <source>Ready</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="730"/>
+        <location filename="../mainwindow.cpp" line="766"/>
         <source>An unexpected error ocurred when trying to add the QSO to your log. If the problem persists, please contact the developer for analysis: </source>
         <translation>ログにQSOデータを追加中に予期しないエラーが発生しました. 問題が何度も起こるようであれば、原因究明のため開発者に連絡をお願いします: </translation>
     </message>
@@ -843,198 +925,198 @@ KLog proposed entity: </source>
         <translation type="vanished">これはKLogが推測する次のエンティティと異なっています：</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2283"/>
-        <location filename="../mainwindow.cpp" line="6251"/>
+        <location filename="../mainwindow.cpp" line="2327"/>
+        <location filename="../mainwindow.cpp" line="6341"/>
         <source>Log</source>
         <translation>ログ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2354"/>
+        <location filename="../mainwindow.cpp" line="2398"/>
         <source>Clear the searchs</source>
         <translation>検索結果をクリアします</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2355"/>
+        <location filename="../mainwindow.cpp" line="2399"/>
         <source>Export the search result to an ADIF file</source>
         <translation>検索結果をADIFファイルにエクスポートします</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2356"/>
+        <location filename="../mainwindow.cpp" line="2400"/>
         <source>Select/Unselect all the QSO of the box</source>
         <translation>検索結果のQSOすべてを選択・非選択します</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2357"/>
+        <location filename="../mainwindow.cpp" line="2401"/>
         <source>Search in the log</source>
         <translation>ログを検索します</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2358"/>
+        <location filename="../mainwindow.cpp" line="2402"/>
         <source>Search in all logs</source>
         <translation>すべてのログを検索します</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2360"/>
+        <location filename="../mainwindow.cpp" line="2404"/>
         <source>Enter the QRZ to search</source>
         <translation>検索するコールサインを入力してください</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2361"/>
+        <location filename="../mainwindow.cpp" line="2405"/>
         <source>Search results</source>
         <translation>検索結果</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2366"/>
-        <location filename="../mainwindow.cpp" line="2371"/>
-        <location filename="../mainwindow.cpp" line="2485"/>
-        <location filename="../mainwindow.cpp" line="2577"/>
-        <location filename="../mainwindow.cpp" line="3573"/>
-        <location filename="../mainwindow.cpp" line="3579"/>
-        <location filename="../mainwindow.cpp" line="4951"/>
-        <location filename="../mainwindow.cpp" line="4961"/>
-        <location filename="../mainwindow.cpp" line="5950"/>
-        <location filename="../mainwindow.cpp" line="8295"/>
+        <location filename="../mainwindow.cpp" line="2410"/>
+        <location filename="../mainwindow.cpp" line="2415"/>
+        <location filename="../mainwindow.cpp" line="2529"/>
+        <location filename="../mainwindow.cpp" line="2621"/>
+        <location filename="../mainwindow.cpp" line="3617"/>
+        <location filename="../mainwindow.cpp" line="3623"/>
+        <location filename="../mainwindow.cpp" line="5033"/>
+        <location filename="../mainwindow.cpp" line="5043"/>
+        <location filename="../mainwindow.cpp" line="6040"/>
+        <location filename="../mainwindow.cpp" line="8399"/>
         <source>QRZ</source>
         <translation>コールサイン</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2366"/>
-        <location filename="../mainwindow.cpp" line="2371"/>
+        <location filename="../mainwindow.cpp" line="2410"/>
+        <location filename="../mainwindow.cpp" line="2415"/>
         <source>Date/Time</source>
         <translation>日付/時刻</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2366"/>
-        <location filename="../mainwindow.cpp" line="2371"/>
-        <location filename="../mainwindow.cpp" line="2488"/>
-        <location filename="../mainwindow.cpp" line="8301"/>
+        <location filename="../mainwindow.cpp" line="2410"/>
+        <location filename="../mainwindow.cpp" line="2415"/>
+        <location filename="../mainwindow.cpp" line="2532"/>
+        <location filename="../mainwindow.cpp" line="8405"/>
         <source>Band</source>
         <translation>バンド</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2366"/>
-        <location filename="../mainwindow.cpp" line="2371"/>
-        <location filename="../mainwindow.cpp" line="2491"/>
-        <location filename="../mainwindow.cpp" line="8303"/>
+        <location filename="../mainwindow.cpp" line="2410"/>
+        <location filename="../mainwindow.cpp" line="2415"/>
+        <location filename="../mainwindow.cpp" line="2535"/>
+        <location filename="../mainwindow.cpp" line="8407"/>
         <source>Mode</source>
         <translation>モード</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2366"/>
-        <location filename="../mainwindow.cpp" line="2371"/>
-        <location filename="../mainwindow.cpp" line="5749"/>
+        <location filename="../mainwindow.cpp" line="2410"/>
+        <location filename="../mainwindow.cpp" line="2415"/>
+        <location filename="../mainwindow.cpp" line="5839"/>
         <source>QSL Sent</source>
         <translation>QSL送付</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2366"/>
-        <location filename="../mainwindow.cpp" line="2371"/>
-        <location filename="../mainwindow.cpp" line="4307"/>
-        <location filename="../mainwindow.cpp" line="4384"/>
+        <location filename="../mainwindow.cpp" line="2410"/>
+        <location filename="../mainwindow.cpp" line="2415"/>
+        <location filename="../mainwindow.cpp" line="4389"/>
+        <location filename="../mainwindow.cpp" line="4466"/>
         <source>QSL Rcvd</source>
         <translation>QSL受領状況</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2366"/>
+        <location filename="../mainwindow.cpp" line="2410"/>
         <source>Station Callsign</source>
         <translation>無線局のコールサイン</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2366"/>
-        <location filename="../mainwindow.cpp" line="2371"/>
+        <location filename="../mainwindow.cpp" line="2410"/>
+        <location filename="../mainwindow.cpp" line="2415"/>
         <source>Id</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2479"/>
-        <location filename="../mainwindow.cpp" line="8291"/>
+        <location filename="../mainwindow.cpp" line="2523"/>
+        <location filename="../mainwindow.cpp" line="8395"/>
         <source>Date</source>
         <translation>日付</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2482"/>
-        <location filename="../mainwindow.cpp" line="8293"/>
+        <location filename="../mainwindow.cpp" line="2526"/>
+        <location filename="../mainwindow.cpp" line="8397"/>
         <source>Time</source>
         <translation>時刻</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2494"/>
-        <location filename="../mainwindow.cpp" line="2568"/>
-        <location filename="../mainwindow.cpp" line="8297"/>
+        <location filename="../mainwindow.cpp" line="2538"/>
+        <location filename="../mainwindow.cpp" line="2612"/>
+        <location filename="../mainwindow.cpp" line="8401"/>
         <source>RSTtx</source>
         <translation>送信RST</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2497"/>
-        <location filename="../mainwindow.cpp" line="2561"/>
-        <location filename="../mainwindow.cpp" line="8299"/>
+        <location filename="../mainwindow.cpp" line="2541"/>
+        <location filename="../mainwindow.cpp" line="2605"/>
+        <location filename="../mainwindow.cpp" line="8403"/>
         <source>RSTrx</source>
         <translation>受信RST</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2500"/>
-        <location filename="../mainwindow.cpp" line="5861"/>
-        <location filename="../mainwindow.cpp" line="8305"/>
+        <location filename="../mainwindow.cpp" line="2544"/>
+        <location filename="../mainwindow.cpp" line="5951"/>
+        <location filename="../mainwindow.cpp" line="8409"/>
         <source>Comment</source>
         <translation>コメント</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2533"/>
-        <location filename="../mainwindow.cpp" line="5544"/>
+        <location filename="../mainwindow.cpp" line="2577"/>
+        <location filename="../mainwindow.cpp" line="5634"/>
         <source>QRZ of the QSO</source>
         <translation>相手局のコールサイン</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2534"/>
-        <location filename="../mainwindow.cpp" line="5545"/>
+        <location filename="../mainwindow.cpp" line="2578"/>
+        <location filename="../mainwindow.cpp" line="5635"/>
         <source>TX RST</source>
         <translation>相手局に送ったRST</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2535"/>
-        <location filename="../mainwindow.cpp" line="5546"/>
+        <location filename="../mainwindow.cpp" line="2579"/>
+        <location filename="../mainwindow.cpp" line="5636"/>
         <source>RX RST</source>
         <translation>相手局から送られてきたRST</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2536"/>
-        <location filename="../mainwindow.cpp" line="5547"/>
+        <location filename="../mainwindow.cpp" line="2580"/>
+        <location filename="../mainwindow.cpp" line="5637"/>
         <source>TX Exchange</source>
         <translation>相手局に送ったコンテストナンバー</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2537"/>
-        <location filename="../mainwindow.cpp" line="5548"/>
+        <location filename="../mainwindow.cpp" line="2581"/>
+        <location filename="../mainwindow.cpp" line="5638"/>
         <source>RX Exchange</source>
         <translation>相手局から送られてきたコンテストナンバー</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2538"/>
-        <location filename="../mainwindow.cpp" line="5549"/>
+        <location filename="../mainwindow.cpp" line="2582"/>
+        <location filename="../mainwindow.cpp" line="5639"/>
         <source>Band of the QSO</source>
         <translation>このQSOのバンド</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2539"/>
-        <location filename="../mainwindow.cpp" line="5550"/>
+        <location filename="../mainwindow.cpp" line="2583"/>
+        <location filename="../mainwindow.cpp" line="5640"/>
         <source>Mode of the QSO</source>
         <translation>このQSOのモード</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2540"/>
-        <location filename="../mainwindow.cpp" line="5551"/>
+        <location filename="../mainwindow.cpp" line="2584"/>
+        <location filename="../mainwindow.cpp" line="5641"/>
         <source>Date of the QSO</source>
         <translation>このQSOの日付</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2541"/>
-        <location filename="../mainwindow.cpp" line="5552"/>
+        <location filename="../mainwindow.cpp" line="2585"/>
+        <location filename="../mainwindow.cpp" line="5642"/>
         <source>Time of the QSO</source>
         <translation>このQSOの時刻</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2544"/>
-        <location filename="../mainwindow.cpp" line="5555"/>
+        <location filename="../mainwindow.cpp" line="2588"/>
+        <location filename="../mainwindow.cpp" line="5645"/>
         <source>Add the QSO to the log</source>
         <translation>このQSOをログに追加します</translation>
     </message>
@@ -1043,191 +1125,209 @@ KLog proposed entity: </source>
         <translation type="vanished">このQSOをDXクラスターにスポット情報として流します</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2546"/>
-        <location filename="../mainwindow.cpp" line="5557"/>
+        <location filename="../mainwindow.cpp" line="2590"/>
+        <location filename="../mainwindow.cpp" line="5647"/>
         <source>Clears the box</source>
         <translation>入力内容をクリアします</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2548"/>
+        <location filename="../mainwindow.cpp" line="2592"/>
         <source>Input</source>
         <translation>入力</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2584"/>
+        <location filename="../mainwindow.cpp" line="2628"/>
         <source>STX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2591"/>
+        <location filename="../mainwindow.cpp" line="2635"/>
         <source>SRX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2841"/>
+        <location filename="../mainwindow.cpp" line="2885"/>
         <source>NEW MULT</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2940"/>
+        <location filename="../mainwindow.cpp" line="2984"/>
         <source>Not valid characters in the QRZ box</source>
         <translation>コールサインの入力欄に正しくない文字が入力されています</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3050"/>
+        <location filename="../mainwindow.cpp" line="3094"/>
         <source>Ready...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3143"/>
-        <location filename="../mainwindow.cpp" line="3443"/>
+        <location filename="../mainwindow.cpp" line="3187"/>
+        <location filename="../mainwindow.cpp" line="3487"/>
         <source>&amp;Clear selection</source>
         <translation>選択をクリア(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3205"/>
-        <location filename="../mainwindow.cpp" line="4076"/>
+        <location filename="../mainwindow.cpp" line="3249"/>
+        <location filename="../mainwindow.cpp" line="4158"/>
         <source>Save File</source>
         <translation>ファイルに保存</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3207"/>
-        <location filename="../mainwindow.cpp" line="6598"/>
-        <location filename="../mainwindow.cpp" line="6608"/>
-        <location filename="../mainwindow.cpp" line="6618"/>
-        <location filename="../mainwindow.cpp" line="6643"/>
+        <location filename="../mainwindow.cpp" line="3251"/>
+        <location filename="../mainwindow.cpp" line="6688"/>
+        <location filename="../mainwindow.cpp" line="6698"/>
+        <location filename="../mainwindow.cpp" line="6708"/>
+        <location filename="../mainwindow.cpp" line="6733"/>
         <source>ADIF (*.adi *.adif)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3722"/>
+        <location filename="../mainwindow.cpp" line="3766"/>
         <source>The logfile has been modified.
 Do you want to save your changes?</source>
         <translation>ログファイルの内容は変更されています。
 変更結果を保存しますか？</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3749"/>
+        <location filename="../mainwindow.cpp" line="3793"/>
         <source>&amp;File</source>
         <translation>ファイル(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3751"/>
+        <location filename="../mainwindow.cpp" line="3795"/>
         <source>&amp;New...</source>
         <translation>新規...(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3756"/>
+        <location filename="../mainwindow.cpp" line="3800"/>
         <source>KLog folder</source>
         <translation>KLogフォルダー</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3760"/>
+        <location filename="../mainwindow.cpp" line="3804"/>
         <source>&amp;Open...</source>
         <translation>開く...(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3766"/>
+        <location filename="../mainwindow.cpp" line="3810"/>
         <source>&amp;Save As...</source>
         <translation>名前を付けて保存...(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3773"/>
+        <location filename="../mainwindow.cpp" line="3817"/>
         <source>&amp;Print Log...</source>
         <translation>ログを印刷...(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3780"/>
+        <location filename="../mainwindow.cpp" line="3824"/>
         <source>E&amp;xit</source>
         <translation>終了(&amp;x)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3787"/>
+        <location filename="../mainwindow.cpp" line="3831"/>
         <source>&amp;Tools</source>
         <translation>ツール(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3790"/>
+        <location filename="../mainwindow.cpp" line="3834"/>
         <source>&amp;Export to ADIF...</source>
         <translation>ADIF形式にエクスポート...(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3794"/>
+        <location filename="../mainwindow.cpp" line="3838"/>
         <source>Export the current log to an ADIF logfile</source>
         <translation>現在のログファイルをADIF形式にエクスポートします</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3796"/>
+        <location filename="../mainwindow.cpp" line="3840"/>
         <source>&amp;Export all logs to ADIF...</source>
         <translation>すべてのログをADIF形式にエクスポート...(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3800"/>
+        <location filename="../mainwindow.cpp" line="3844"/>
         <source>Export ALL the QSO coming from ALL the logs in the same logfile. QSOs will be mixed up in the same ADIF file.</source>
         <translation>すべてのログファイルに含まれるQSOレコードをひとつのログファイルにエクスポートします. QSOレコードはひとつのADIFファイルの中でごちゃまぜになります.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3802"/>
+        <location filename="../mainwindow.cpp" line="3846"/>
         <source>&amp;Import from ADIF...</source>
         <translation>ADIF形式からインポート...(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3806"/>
+        <location filename="../mainwindow.cpp" line="3850"/>
         <source>Import an ADIF file in the current log</source>
         <translation>ADIFファイルから現在、開いているログファイルへインポートします.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3810"/>
+        <location filename="../mainwindow.cpp" line="3854"/>
         <source>Fill QSO data</source>
         <translation>QSOデータの埋め込み</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3814"/>
+        <location filename="../mainwindow.cpp" line="3858"/>
         <source>Run the log reusing previous QSO to reuse and fill missing information in other QSO</source>
         <translation>以前のQSOの情報を使って、他のQSOデータに欠けているものがあれば埋込みを行います.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3818"/>
+        <location filename="../mainwindow.cpp" line="3862"/>
         <source>&amp;Find QSO to QSL</source>
         <translation>QSLカードの必要なQSOを検索(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3822"/>
+        <location filename="../mainwindow.cpp" line="3866"/>
         <source>Shows QSO that are needed and you should send your QSL and request the DX-QSL</source>
         <translation>こちらからQSLカードを送り、相手のQSLカードをリクエストすべきであるQSOを表示します.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3824"/>
+        <location filename="../mainwindow.cpp" line="3868"/>
         <source>Find &amp;requested MY-QSL</source>
         <translation>自分のQSLカードがリクエストされているQSOを検索(&amp;r)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3828"/>
+        <location filename="../mainwindow.cpp" line="3872"/>
         <source>Shows the QSO that have requested my QSL to be sent and is still pending. You should keep this queue empty!</source>
         <translation>QSLカードがリクエストされていて、まだ発送していないQSOを表示します. この項目はカラになるように努めましょうね!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3830"/>
+        <location filename="../mainwindow.cpp" line="3874"/>
         <source>&amp;Find pending to receive DX-QSL</source>
         <translation>相手のQSLカードをまだ受領していないQSOを検索(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3833"/>
+        <location filename="../mainwindow.cpp" line="3877"/>
         <source>Shows the DX-QSL that has been requested or simply my QSL has been sent with no answer</source>
         <translation>相手のQSLカードをリクエスト中、またはこちらからQSLカードを送ったがまだ返答のないQSOを表示します.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3835"/>
+        <location filename="../mainwindow.cpp" line="3879"/>
         <source>&amp;Find requested DX-QSL</source>
         <translation>相手のQSLカードをリクエスト中であるQSOを検索(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3838"/>
+        <location filename="../mainwindow.cpp" line="3882"/>
         <source>Shows the DX-QSL that has been requested</source>
         <translation>相手のQSLカードをリクエスト中のQSOを表示します.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4153"/>
+        <location filename="../mainwindow.cpp" line="3909"/>
+        <source>&amp;Check updates...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3986"/>
+        <source>KLog update checking result</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3987"/>
+        <source>Congratulations!
+
+Your KLog is updated.
+You already have the latest version.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4235"/>
         <source>You can find the KLog data folder here: </source>
         <translation>KLog 用データフォルダーはこちらです; </translation>
     </message>
@@ -1236,208 +1336,202 @@ Do you want to save your changes?</source>
         <translation type="vanished">このQSOの伝播モードを選択してください.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5619"/>
+        <location filename="../mainwindow.cpp" line="5709"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5623"/>
+        <location filename="../mainwindow.cpp" line="5713"/>
         <source>QTH</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5626"/>
+        <location filename="../mainwindow.cpp" line="5716"/>
         <source>Locator</source>
         <translation>グリッドロケーター</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7953"/>
+        <location filename="../mainwindow.cpp" line="8057"/>
         <source>--</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8003"/>
+        <location filename="../mainwindow.cpp" line="8107"/>
         <source> - Needed for DXMarathon</source>
         <translation> - DXマラソンのために必要</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3841"/>
+        <location filename="../mainwindow.cpp" line="3885"/>
         <source>&amp;Export Requested QSL to ADIF...</source>
         <translation>QSLカードがリクエストされているQSOをADIFにエクスポート...(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="352"/>
-        <source>Watt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="923"/>
-        <location filename="../mainwindow.cpp" line="1669"/>
+        <location filename="../mainwindow.cpp" line="963"/>
+        <location filename="../mainwindow.cpp" line="1713"/>
         <source>Click on the prefix of the right entity or Cancel to correct.</source>
         <translation>正しい方のエンティティのプリッフィックスをクリックしてください。または修正をキャンセルしてください。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3844"/>
+        <location filename="../mainwindow.cpp" line="3888"/>
         <source>Export all requested My-QSL QSO to an ADIF file (i.e. to import it in a QSL tag printing software)</source>
         <translation>自分のQSLカードをリクエストされているQSOデータをADIFファイルにエクスポートします. (つまりQSLカードのタグシール印刷ソフトなどにインポートできます)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3847"/>
+        <location filename="../mainwindow.cpp" line="3891"/>
         <source>&amp;Update CTY.CSV</source>
         <translation>CTY.CSVを更新(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3851"/>
+        <location filename="../mainwindow.cpp" line="3895"/>
         <source>Update the country file to have updated DX-Entity data</source>
         <translation>最新のDXエンティティ情報を取得するため、CTY.CSVファイルを更新します.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3864"/>
+        <location filename="../mainwindow.cpp" line="3899"/>
         <source>&amp;Setup</source>
         <translation>設定(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3866"/>
+        <location filename="../mainwindow.cpp" line="3901"/>
         <source>&amp;Setup...</source>
         <translation>設定...(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3872"/>
+        <location filename="../mainwindow.cpp" line="3907"/>
         <source>&amp;Help</source>
         <translation>ヘルプ(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3874"/>
         <source>&amp;Help...</source>
-        <translation>ヘルプ...(&amp;H)</translation>
+        <translation type="vanished">ヘルプ...(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3878"/>
+        <location filename="../mainwindow.cpp" line="3914"/>
         <source>&amp;About...</source>
         <translation>このプログラムについて...(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3883"/>
+        <location filename="../mainwindow.cpp" line="3919"/>
         <source>About Qt...</source>
         <translation>Qtについて...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3893"/>
+        <location filename="../mainwindow.cpp" line="3930"/>
         <source>About...</source>
         <translation>このプログラムについて...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4048"/>
-        <location filename="../mainwindow.cpp" line="4098"/>
+        <location filename="../mainwindow.cpp" line="4130"/>
+        <location filename="../mainwindow.cpp" line="4180"/>
         <source>Nothing has been saved. You have to select a valid file type.</source>
         <translation>保存は実行されません。適切なファイル形式を指定してください。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4078"/>
+        <location filename="../mainwindow.cpp" line="4160"/>
         <source>ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)</source>
         <translation>ADIF ファイル (*.adi *.adif);;Cabrillo ファイル (*.log);;すべてのファイル (*.*)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4282"/>
-        <location filename="../mainwindow.cpp" line="4372"/>
+        <location filename="../mainwindow.cpp" line="4364"/>
+        <location filename="../mainwindow.cpp" line="4454"/>
         <source>QSL Send</source>
         <translation>QSLカードの送付</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4400"/>
-        <location filename="../mainwindow.cpp" line="4466"/>
+        <location filename="../mainwindow.cpp" line="4482"/>
+        <location filename="../mainwindow.cpp" line="4548"/>
         <source>&amp;Delete</source>
         <translation>削除(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4402"/>
-        <location filename="../mainwindow.cpp" line="4468"/>
+        <location filename="../mainwindow.cpp" line="4484"/>
+        <location filename="../mainwindow.cpp" line="4550"/>
         <source>Delete a QSO</source>
         <translation>QSOのレコードを削除します</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4405"/>
-        <location filename="../mainwindow.cpp" line="4481"/>
+        <location filename="../mainwindow.cpp" line="4487"/>
+        <location filename="../mainwindow.cpp" line="4563"/>
         <source>&amp;Edit QSO</source>
         <translation>QSOの編集(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4407"/>
-        <location filename="../mainwindow.cpp" line="4483"/>
+        <location filename="../mainwindow.cpp" line="4489"/>
+        <location filename="../mainwindow.cpp" line="4565"/>
         <source>Edit this QSO</source>
         <translation>QSOのレコードを編集します</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4410"/>
-        <location filename="../mainwindow.cpp" line="4486"/>
+        <location filename="../mainwindow.cpp" line="4492"/>
+        <location filename="../mainwindow.cpp" line="4568"/>
         <source>Via &amp;bureau</source>
         <translation>ビューロー経由(&amp;b)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4412"/>
-        <location filename="../mainwindow.cpp" line="4488"/>
+        <location filename="../mainwindow.cpp" line="4494"/>
+        <location filename="../mainwindow.cpp" line="4570"/>
         <source>Send this QSL via bureau</source>
         <translation>QSLカードをニューロー経由で送ります</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4415"/>
-        <location filename="../mainwindow.cpp" line="4491"/>
+        <location filename="../mainwindow.cpp" line="4497"/>
+        <location filename="../mainwindow.cpp" line="4573"/>
         <source>D&amp;irect</source>
         <translation>ダイレクト(&amp;i)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4417"/>
-        <location filename="../mainwindow.cpp" line="4493"/>
+        <location filename="../mainwindow.cpp" line="4499"/>
+        <location filename="../mainwindow.cpp" line="4575"/>
         <source>Send this QSL via direct</source>
         <translation>QSLカードをダイレクトで送ります</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4421"/>
+        <location filename="../mainwindow.cpp" line="4503"/>
         <source>&amp;Request my QSL</source>
         <translation>自分のQSLカードがリクエストされた (&amp;R)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4423"/>
+        <location filename="../mainwindow.cpp" line="4505"/>
         <source>Mark my QSL as requested</source>
         <translation>QSLカードがリクエストされているとマークします</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4426"/>
+        <location filename="../mainwindow.cpp" line="4508"/>
         <source>Via Direct &amp;&amp; mark DX QSL as requested</source>
         <translation>ダイレクトで送付、相手局にリクエスト</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4427"/>
+        <location filename="../mainwindow.cpp" line="4509"/>
         <source>Send this QSL via direct &amp; mark DX QSL as requested</source>
         <translation>QSLカードをダイレクトで送ったこと、および相手のQSLカードにリクエストのマークをします</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4430"/>
+        <location filename="../mainwindow.cpp" line="4512"/>
         <source>Via Bureau &amp;&amp; mark DX QSL as requested</source>
         <translation>ビューロー経由で送付、相手局にリクエスト</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4431"/>
+        <location filename="../mainwindow.cpp" line="4513"/>
         <source>Send this QSL via bureau &amp; mark DX QSL as requested</source>
         <translation>QSLカードをビューロー経由で送ったこと、および相手のQSLカードにリクエストのマークをします</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4435"/>
+        <location filename="../mainwindow.cpp" line="4517"/>
         <source>&amp;Request the QSL</source>
         <translation>QSLカードがリクエストされた (&amp;R)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4437"/>
+        <location filename="../mainwindow.cpp" line="4519"/>
         <source>Mark the QSL as requested</source>
         <translation>QSLカードがリクエストされていることをマークします</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4441"/>
+        <location filename="../mainwindow.cpp" line="4523"/>
         <source>Via bureau &amp;&amp; mark my QSL as requested</source>
         <translation>ビューロー経由で受領 &amp;&amp; 自分のQSLはリクエスト</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4442"/>
+        <location filename="../mainwindow.cpp" line="4524"/>
         <source>QSL received via bureau &amp; mark my QSL as requested</source>
         <translation>QSLカードをビューロー経由で受け取ったこと、および自分のQSLカードがリクエストされていることをマークします</translation>
     </message>
@@ -1446,82 +1540,82 @@ Do you want to save your changes?</source>
         <translation type="vanished">QSLカードをビューロー経由で受け取ったこと、および自分のQSLカードがリクエストされていることをマークします</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4445"/>
-        <location filename="../mainwindow.cpp" line="4496"/>
+        <location filename="../mainwindow.cpp" line="4527"/>
+        <location filename="../mainwindow.cpp" line="4578"/>
         <source>Via bureau</source>
         <translation>ビューロー経由</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4446"/>
+        <location filename="../mainwindow.cpp" line="4528"/>
         <source>QSL received via bureau</source>
         <translation>QSLカードをビューロー経由で受け取りました</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4450"/>
+        <location filename="../mainwindow.cpp" line="4532"/>
         <source>Direc&amp;t &amp;&amp; mark as my QSL requested</source>
         <translation>ダイレクトを受領、QSLカードがリクエストされた (&amp;t)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4451"/>
+        <location filename="../mainwindow.cpp" line="4533"/>
         <source>QSL received via direct &amp; mark my QSL as requested</source>
         <translation>QSLカードをダイレクトで受け取ったこと、および自分のQSLカードがリクエストされていることをマークします</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4454"/>
+        <location filename="../mainwindow.cpp" line="4536"/>
         <source>Direc&amp;t</source>
         <translation>ダイレクト(&amp;t)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4455"/>
+        <location filename="../mainwindow.cpp" line="4537"/>
         <source>QSL received via direct</source>
         <translation>QSLカードをダイレクトで受け取りました</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4498"/>
+        <location filename="../mainwindow.cpp" line="4580"/>
         <source>QSL &amp;received via bureau</source>
         <translation>QSLカードをビューロー経由で受け取りました。(&amp;r)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4501"/>
+        <location filename="../mainwindow.cpp" line="4583"/>
         <source>Direct</source>
         <translation>ダイレクト</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4503"/>
+        <location filename="../mainwindow.cpp" line="4585"/>
         <source>QSL received via direc&amp;t</source>
         <translation>QSLカードをダイレクトで受け取りました。(&amp;t)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4809"/>
+        <location filename="../mainwindow.cpp" line="4891"/>
         <source>You have requested to delete this QSO.</source>
         <translation>このQSOを削除しようとしています。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4810"/>
-        <location filename="../mainwindow.cpp" line="4858"/>
+        <location filename="../mainwindow.cpp" line="4892"/>
+        <location filename="../mainwindow.cpp" line="4940"/>
         <source>Are you sure?</source>
         <translation>本当に削除しますか？</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4853"/>
+        <location filename="../mainwindow.cpp" line="4935"/>
         <source>You have requested to delete the QSO with: %1</source>
         <translation>%1 とのQSOを削除しようとしています.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4947"/>
-        <location filename="../mainwindow.cpp" line="4957"/>
+        <location filename="../mainwindow.cpp" line="5029"/>
+        <location filename="../mainwindow.cpp" line="5039"/>
         <source>DUPE</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5020"/>
-        <location filename="../mainwindow.cpp" line="5021"/>
+        <location filename="../mainwindow.cpp" line="5102"/>
+        <location filename="../mainwindow.cpp" line="5103"/>
         <source>Miles</source>
         <translation>マイル</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5027"/>
-        <location filename="../mainwindow.cpp" line="5028"/>
+        <location filename="../mainwindow.cpp" line="5109"/>
+        <location filename="../mainwindow.cpp" line="5110"/>
         <source>Km</source>
         <translation></translation>
     </message>
@@ -1530,12 +1624,12 @@ Do you want to save your changes?</source>
         <translation type="vanished">ログ中の新しい周波数帯およびモードを検索中に予期しないエラーが発生しました。問題が何度も起こるようであれば、原因究明のため開発者に連絡をお願いします。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5533"/>
+        <location filename="../mainwindow.cpp" line="5623"/>
         <source>TX Frequency in MHz</source>
         <translation>送信周波数をMHzの単位で表示</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5534"/>
+        <location filename="../mainwindow.cpp" line="5624"/>
         <source>RX Frequency in MHz</source>
         <translation>受信周波数をMHzの単位で表示</translation>
     </message>
@@ -1544,197 +1638,197 @@ Do you want to save your changes?</source>
         <translation type="vanished">QSOに用いた送信出力をワットの単位で表示</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5536"/>
+        <location filename="../mainwindow.cpp" line="5626"/>
         <source>Power used by the DX</source>
         <translation>相手局が用いた送信出力</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5537"/>
+        <location filename="../mainwindow.cpp" line="5627"/>
         <source>Logging operator&apos;s callsign</source>
         <translation>ログを記入したオペレーターのコールサイン</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5538"/>
+        <location filename="../mainwindow.cpp" line="5628"/>
         <source>Callsign used over the air</source>
         <translation>交信に用いたコールサイン</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5539"/>
+        <location filename="../mainwindow.cpp" line="5629"/>
         <source>My QTH locator</source>
         <translation>自局QTHのグリッドロケーター</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5540"/>
+        <location filename="../mainwindow.cpp" line="5630"/>
         <source>Name of the DX</source>
         <translation>相手局の名前</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5541"/>
+        <location filename="../mainwindow.cpp" line="5631"/>
         <source>QTH of the DX</source>
         <translation>相手局のQTH</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5542"/>
+        <location filename="../mainwindow.cpp" line="5632"/>
         <source>Locator of the DX</source>
         <translation>相手局のグリッドロケーター</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5558"/>
+        <location filename="../mainwindow.cpp" line="5648"/>
         <source>Status on ClubLog</source>
         <translation>ClubLogの状況</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5559"/>
+        <location filename="../mainwindow.cpp" line="5649"/>
         <source>Status of the eQSL sending</source>
         <translation>eQSLの送付状況</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5560"/>
+        <location filename="../mainwindow.cpp" line="5650"/>
         <source>Status of the eQSL reception</source>
         <translation>eQSLの受領状況</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5561"/>
+        <location filename="../mainwindow.cpp" line="5651"/>
         <source>Status of the LotW sending</source>
         <translation>LotWの送付状況</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5562"/>
+        <location filename="../mainwindow.cpp" line="5652"/>
         <source>Status of the LotW reception</source>
         <translation>LotWの受領状況</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5564"/>
+        <location filename="../mainwindow.cpp" line="5654"/>
         <source>Date of the ClubLog upload</source>
         <translation>ClubLogにアップロードした日付</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5565"/>
+        <location filename="../mainwindow.cpp" line="5655"/>
         <source>Date of the eQSL sending</source>
         <translation>eQSLを送付した日付</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5566"/>
+        <location filename="../mainwindow.cpp" line="5656"/>
         <source>Date of the eQSL reception</source>
         <translation>eQSLを受領した日付</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5567"/>
+        <location filename="../mainwindow.cpp" line="5657"/>
         <source>Date of the LotW sending</source>
         <translation>LotWを送付した日付</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5568"/>
+        <location filename="../mainwindow.cpp" line="5658"/>
         <source>Date of the LotW reception</source>
         <translation>LotWを受領した日付</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5570"/>
+        <location filename="../mainwindow.cpp" line="5660"/>
         <source>Status of the QSL sending</source>
         <translation>QSLカードの送付状況</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5571"/>
+        <location filename="../mainwindow.cpp" line="5661"/>
         <source>Status of the QSL reception</source>
         <translation>QSLカードの受領状況</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5572"/>
+        <location filename="../mainwindow.cpp" line="5662"/>
         <source>QSL sending information</source>
         <translation>QSLカードの送付先の情報</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5573"/>
+        <location filename="../mainwindow.cpp" line="5663"/>
         <source>QSL reception information</source>
         <translation>QSLカードの受領元の情報</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5575"/>
+        <location filename="../mainwindow.cpp" line="5665"/>
         <source>Date of the QSL sending</source>
         <translation>QSLカードを送付した日付</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5576"/>
+        <location filename="../mainwindow.cpp" line="5666"/>
         <source>Date of the QSL reception</source>
         <translation>QSLカードを受領した日付</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5577"/>
+        <location filename="../mainwindow.cpp" line="5667"/>
         <source>Message of the QSL</source>
         <translation>QSLカードのメッセージ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5578"/>
+        <location filename="../mainwindow.cpp" line="5668"/>
         <source>QSL via information</source>
         <translation>QSLカード経由先などの情報</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5580"/>
+        <location filename="../mainwindow.cpp" line="5670"/>
         <source>Number of confirmed DXCC entities</source>
         <translation>コンファームしたDXエンティティの数</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5581"/>
+        <location filename="../mainwindow.cpp" line="5671"/>
         <source>Number of worked DXCC entities</source>
         <translation>交信したDXCCエンティティの数</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5582"/>
+        <location filename="../mainwindow.cpp" line="5672"/>
         <source>Number of confirmed WAZ zones</source>
         <translation>コンファームしたWAZゾーンの数</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5583"/>
+        <location filename="../mainwindow.cpp" line="5673"/>
         <source>Number of worked  WAZ zones</source>
         <translation>交信したWAZゾーンの数</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5584"/>
+        <location filename="../mainwindow.cpp" line="5674"/>
         <source>Number of confirmed local references</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5585"/>
+        <location filename="../mainwindow.cpp" line="5675"/>
         <source>Number of worked local references</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5586"/>
+        <location filename="../mainwindow.cpp" line="5676"/>
         <source>Number of confirmed QSO</source>
         <translation>コンファームしたQSOの数</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5587"/>
+        <location filename="../mainwindow.cpp" line="5677"/>
         <source>Number of worked QSO</source>
         <translation>交信したQSOの数</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5588"/>
+        <location filename="../mainwindow.cpp" line="5678"/>
         <source>Number of DXCC worked on the selected year</source>
         <translation>選択した年に交信したDXCCエンティティの数</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5589"/>
+        <location filename="../mainwindow.cpp" line="5679"/>
         <source>Number of CQ Zones worked on the selected year</source>
         <translation>選択した年に交信したCQゾーンの数</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5590"/>
+        <location filename="../mainwindow.cpp" line="5680"/>
         <source>Score for the DXMarathon on the selected year</source>
         <translation>選択した年のDXマラソンのスコア</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5591"/>
+        <location filename="../mainwindow.cpp" line="5681"/>
         <source>Select the year you want to check</source>
         <translation>確認したい年を選択してください</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5593"/>
+        <location filename="../mainwindow.cpp" line="5683"/>
         <source>Status of the DX entity</source>
         <translation>DXエンティティの状況</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5594"/>
+        <location filename="../mainwindow.cpp" line="5684"/>
         <source>Name of the DX entity</source>
         <translation>DXエンティティの名称</translation>
     </message>
@@ -1751,8 +1845,8 @@ Do you want to save your changes?</source>
         <translation type="vanished">このQSO相手局の正しいエンティティを選択してください</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="922"/>
-        <location filename="../mainwindow.cpp" line="1668"/>
+        <location filename="../mainwindow.cpp" line="962"/>
+        <location filename="../mainwindow.cpp" line="1712"/>
         <source>You have selected an entity:
 
 </source>
@@ -1761,8 +1855,8 @@ Do you want to save your changes?</source>
 </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="922"/>
-        <location filename="../mainwindow.cpp" line="1668"/>
+        <location filename="../mainwindow.cpp" line="962"/>
+        <location filename="../mainwindow.cpp" line="1712"/>
         <source>that is different from the KLog proposed entity:
 
 </source>
@@ -1771,82 +1865,82 @@ Do you want to save your changes?</source>
 </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5629"/>
+        <location filename="../mainwindow.cpp" line="5719"/>
         <source>Power(rx)</source>
         <translation>相手局の出力</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5633"/>
+        <location filename="../mainwindow.cpp" line="5723"/>
         <source>RST(tx)</source>
         <translation>RST(送信)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5636"/>
+        <location filename="../mainwindow.cpp" line="5726"/>
         <source>RST(rx)</source>
         <translation>RST(受信)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5669"/>
+        <location filename="../mainwindow.cpp" line="5759"/>
         <source>Freq TX</source>
         <translation>送信周波数</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5671"/>
+        <location filename="../mainwindow.cpp" line="5761"/>
         <source>Freq RX</source>
         <translation>受信周波数</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5745"/>
+        <location filename="../mainwindow.cpp" line="5835"/>
         <source>QSO</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5752"/>
+        <location filename="../mainwindow.cpp" line="5842"/>
         <source>QSL Rec</source>
         <translation>QSL受領</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5755"/>
+        <location filename="../mainwindow.cpp" line="5845"/>
         <source>QSL Via</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5789"/>
+        <location filename="../mainwindow.cpp" line="5879"/>
         <source>QSL</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5794"/>
+        <location filename="../mainwindow.cpp" line="5884"/>
         <source>ClubLog</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5797"/>
+        <location filename="../mainwindow.cpp" line="5887"/>
         <source>eQSL Sent</source>
         <translation>eQSL送付</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5800"/>
+        <location filename="../mainwindow.cpp" line="5890"/>
         <source>eQSL Rec</source>
         <translation>eQSL受領</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5803"/>
+        <location filename="../mainwindow.cpp" line="5893"/>
         <source>LotW Sent</source>
         <translation>LotW送付</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5806"/>
+        <location filename="../mainwindow.cpp" line="5896"/>
         <source>LotW Rec</source>
         <translation>LotW受領</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5851"/>
+        <location filename="../mainwindow.cpp" line="5941"/>
         <source>eQSL</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5893"/>
+        <location filename="../mainwindow.cpp" line="5983"/>
         <source>Others</source>
         <translation>その他</translation>
     </message>
@@ -1863,143 +1957,143 @@ Do you want to save your changes?</source>
         <translation type="vanished">自局のグリッドロケーター</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5927"/>
+        <location filename="../mainwindow.cpp" line="6017"/>
         <source>My Data</source>
         <translation>自局のデータ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5931"/>
+        <location filename="../mainwindow.cpp" line="6021"/>
         <source>Satellite</source>
         <translation>サテライト通信</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6014"/>
+        <location filename="../mainwindow.cpp" line="6104"/>
         <source>Continent</source>
         <translation>大陸名</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6018"/>
+        <location filename="../mainwindow.cpp" line="6108"/>
         <source>Prefix</source>
         <translation>プリフィクス</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6022"/>
-        <location filename="../mainwindow.cpp" line="6107"/>
+        <location filename="../mainwindow.cpp" line="6112"/>
+        <location filename="../mainwindow.cpp" line="6197"/>
         <source>CQ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6026"/>
+        <location filename="../mainwindow.cpp" line="6116"/>
         <source>ITU</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6031"/>
+        <location filename="../mainwindow.cpp" line="6121"/>
         <source>Short Path</source>
         <translation>ショートパス</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6034"/>
+        <location filename="../mainwindow.cpp" line="6124"/>
         <source>Long Path</source>
         <translation>ロングパス</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6037"/>
-        <location filename="../mainwindow.cpp" line="6042"/>
+        <location filename="../mainwindow.cpp" line="6127"/>
+        <location filename="../mainwindow.cpp" line="6132"/>
         <source>Grad</source>
         <translation>方位</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6106"/>
-        <location filename="../mainwindow.cpp" line="6130"/>
-        <location filename="../mainwindow.cpp" line="6253"/>
+        <location filename="../mainwindow.cpp" line="6196"/>
+        <location filename="../mainwindow.cpp" line="6220"/>
+        <location filename="../mainwindow.cpp" line="6343"/>
         <source>DXCC</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6108"/>
+        <location filename="../mainwindow.cpp" line="6198"/>
         <source>Score</source>
         <translation>スコア</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6109"/>
+        <location filename="../mainwindow.cpp" line="6199"/>
         <source>DX-Marathon</source>
         <translation>DXマラソン</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6117"/>
+        <location filename="../mainwindow.cpp" line="6207"/>
         <source>Info</source>
         <translation>情報</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6121"/>
+        <location filename="../mainwindow.cpp" line="6211"/>
         <source>Award</source>
         <translation>アワード</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6124"/>
+        <location filename="../mainwindow.cpp" line="6214"/>
         <source>Confirmed</source>
         <translation>コンファーム済</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6127"/>
+        <location filename="../mainwindow.cpp" line="6217"/>
         <source>Worked</source>
         <translation>交信済</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6135"/>
+        <location filename="../mainwindow.cpp" line="6225"/>
         <source>WAZ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6138"/>
+        <location filename="../mainwindow.cpp" line="6228"/>
         <source>Local</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6141"/>
+        <location filename="../mainwindow.cpp" line="6231"/>
         <source>QSOs</source>
         <translation>QSO総数</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6190"/>
+        <location filename="../mainwindow.cpp" line="6280"/>
         <source>Awards</source>
         <translation>アワード</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6234"/>
+        <location filename="../mainwindow.cpp" line="6324"/>
         <source>Search</source>
         <translation>検索</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6252"/>
+        <location filename="../mainwindow.cpp" line="6342"/>
         <source>DX-Cluster</source>
         <translation>DXクラスター</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6596"/>
-        <location filename="../mainwindow.cpp" line="6606"/>
-        <location filename="../mainwindow.cpp" line="6616"/>
+        <location filename="../mainwindow.cpp" line="6686"/>
+        <location filename="../mainwindow.cpp" line="6696"/>
+        <location filename="../mainwindow.cpp" line="6706"/>
         <source>Save ADIF File</source>
         <translation>ADIFファイルに保存</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6629"/>
+        <location filename="../mainwindow.cpp" line="6719"/>
         <source>Save Cabrillo File</source>
         <translation>Cabrilloファイルに保存</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6631"/>
+        <location filename="../mainwindow.cpp" line="6721"/>
         <source>Cabrillo (*.log)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6641"/>
+        <location filename="../mainwindow.cpp" line="6731"/>
         <source>Open File</source>
         <translation>ファイルを開く</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6743"/>
+        <location filename="../mainwindow.cpp" line="6833"/>
         <source>&amp;Modify</source>
         <translation>変更(&amp;M)</translation>
     </message>
@@ -2016,44 +2110,44 @@ Do you want to save your changes?</source>
         <translation type="vanished">交信済だけど未コンファーム!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8108"/>
+        <location filename="../mainwindow.cpp" line="8212"/>
         <source>Filling QSOs...</source>
         <translation>QSOデータを埋込んでいます...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8108"/>
+        <location filename="../mainwindow.cpp" line="8212"/>
         <source>Abort filling</source>
         <translation>埋込みの中止</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8225"/>
+        <location filename="../mainwindow.cpp" line="8329"/>
         <source>Filling QSOs...
  QSO: </source>
         <translation>QSOデータを埋込んでいます...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8289"/>
+        <location filename="../mainwindow.cpp" line="8393"/>
         <source>Number</source>
         <translation>番号</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8318"/>
+        <location filename="../mainwindow.cpp" line="8422"/>
         <source>Print Log</source>
         <translation>ログの印刷</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8323"/>
+        <location filename="../mainwindow.cpp" line="8427"/>
         <source>Printing the log...</source>
         <translation>ログを印刷しています…</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8323"/>
+        <location filename="../mainwindow.cpp" line="8427"/>
         <source>Abort printing</source>
         <translation>印刷の中止</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8340"/>
+        <location filename="../mainwindow.cpp" line="8444"/>
         <source>Printing the log...
  QSO: </source>
         <translation>ログを印刷しています…
@@ -2076,18 +2170,18 @@ Do you want to update the file?</source>
 ファイルの更新を行いますか?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8580"/>
+        <location filename="../mainwindow.cpp" line="8684"/>
         <source>Needed QSO to send the QSL</source>
         <translation>QSLカード送付の必要があるQSO</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8587"/>
+        <location filename="../mainwindow.cpp" line="8691"/>
         <source>My QSL requested to be sent</source>
         <translation>自分のQSLカードがリクエストされている</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8592"/>
-        <location filename="../mainwindow.cpp" line="8597"/>
+        <location filename="../mainwindow.cpp" line="8696"/>
+        <location filename="../mainwindow.cpp" line="8701"/>
         <source>DX QSL pending to be received</source>
         <translation>相手局のQSLカードをまだ受け取っていない</translation>
     </message>
@@ -2438,7 +2532,7 @@ DBを更新しないとKLogは正しく動作しない可能性があります</
         <translation>不明</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="81"/>
+        <location filename="../main.cpp" line="154"/>
         <source>No translation files for your language have been found so KLog will be shown in English.
 
 </source>
@@ -2447,45 +2541,53 @@ DBを更新しないとKLogは正しく動作しない可能性があります</
 </translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="82"/>
+        <location filename="../main.cpp" line="155"/>
         <source>If you have the klog_</source>
         <translation>もし、あなたの言語用の klog_</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="82"/>
+        <location filename="../main.cpp" line="155"/>
         <source>.qm file for your language, you can copy it in the </source>
         <translation>.qm ファイルをお持ちでしたら、そのファイルを</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="94"/>
         <source>/klog/ folder and restart KLog again.
 
  If you want to help to translate KLog into your language, please contact the author.</source>
-        <translation>/klog/ フォルダーにコピーして、KLogを再起動してください.
+        <translation type="vanished">/klog/ フォルダーにコピーして、KLogを再起動してください.
 
 KLogをあなたの言語に翻訳する作業をお手伝いいただけるなら、作者にご連絡ください.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="114"/>
         <source>folder and restart KLog again.
 
  If you want to help to translate KLog into your language, please contact the author.</source>
-        <translation>フォルダーにコピーして、KLogを再起動してください.
+        <translation type="vanished">フォルダーにコピーして、KLogを再起動してください.
 
 KLogをあなたの言語に翻訳する作業をお手伝いいただけるなら、作者にご連絡ください.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="210"/>
+        <location filename="../main.cpp" line="164"/>
+        <source>folder and restart KLog again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="164"/>
+        <source>If you want to help to translate KLog into your language, please contact the author.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="296"/>
         <source>Install wizard was cancelled before completing...</source>
         <translation>インストールウィザードは操作完了前に中断されました...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="211"/>
+        <location filename="../main.cpp" line="297"/>
         <source>Do you want to remove the KLog dir from your disk?</source>
         <translation>KLog ディレクトリーをディスクドライブから削除しますか?</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="224"/>
+        <location filename="../main.cpp" line="310"/>
         <source>Your KLog dir has been removed
 
 Thank you for running KLog!</source>
@@ -2494,7 +2596,7 @@ Thank you for running KLog!</source>
 KLogを使用してくださりありがとうございます!</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="230"/>
+        <location filename="../main.cpp" line="316"/>
         <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.
 
 Thank you for running KLog!</source>
@@ -2503,7 +2605,7 @@ Thank you for running KLog!</source>
 KLogを使用してくださりありがとうございます!</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="237"/>
+        <location filename="../main.cpp" line="323"/>
         <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.
 
 Thank you for running KLog!</source>
@@ -2512,7 +2614,7 @@ Thank you for running KLog!</source>
 KLogを使用してくださりありがとうございます!</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="243"/>
+        <location filename="../main.cpp" line="329"/>
         <source>Remember that your KLog dir is in your system...
 
 Thank you for running KLog!</source>
@@ -2562,96 +2664,96 @@ KLogを使用してくださりありがとうございます!</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="86"/>
-        <location filename="../setupdialog.cpp" line="155"/>
-        <location filename="../setupdialog.cpp" line="283"/>
+        <location filename="../setupdialog.cpp" line="156"/>
+        <location filename="../setupdialog.cpp" line="293"/>
         <source>Bands/Modes</source>
         <translation>バンドとモード</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="87"/>
-        <location filename="../setupdialog.cpp" line="289"/>
+        <location filename="../setupdialog.cpp" line="299"/>
         <source>DX-Cluster</source>
         <translation>DXクラスター</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="88"/>
-        <location filename="../setupdialog.cpp" line="157"/>
-        <location filename="../setupdialog.cpp" line="295"/>
+        <location filename="../setupdialog.cpp" line="158"/>
+        <location filename="../setupdialog.cpp" line="305"/>
         <source>Colors</source>
         <translation>表示色</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="89"/>
-        <location filename="../setupdialog.cpp" line="158"/>
-        <location filename="../setupdialog.cpp" line="301"/>
+        <location filename="../setupdialog.cpp" line="159"/>
+        <location filename="../setupdialog.cpp" line="311"/>
         <source>Misc</source>
         <translation>その他</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="90"/>
-        <location filename="../setupdialog.cpp" line="159"/>
+        <location filename="../setupdialog.cpp" line="160"/>
         <source>World Editor</source>
         <translation>ワールドエディター</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="91"/>
-        <location filename="../setupdialog.cpp" line="160"/>
-        <location filename="../setupdialog.cpp" line="277"/>
+        <location filename="../setupdialog.cpp" line="161"/>
+        <location filename="../setupdialog.cpp" line="287"/>
         <source>Logs</source>
         <translation>ログ</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="92"/>
-        <location filename="../setupdialog.cpp" line="161"/>
+        <location filename="../setupdialog.cpp" line="162"/>
         <source>ClubLog</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="94"/>
-        <location filename="../setupdialog.cpp" line="163"/>
+        <location filename="../setupdialog.cpp" line="166"/>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="95"/>
-        <location filename="../setupdialog.cpp" line="164"/>
+        <location filename="../setupdialog.cpp" line="167"/>
         <source>OK</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="116"/>
-        <location filename="../setupdialog.cpp" line="183"/>
+        <location filename="../setupdialog.cpp" line="188"/>
         <source>Config Dialog</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="154"/>
-        <location filename="../setupdialog.cpp" line="271"/>
+        <location filename="../setupdialog.cpp" line="155"/>
+        <location filename="../setupdialog.cpp" line="281"/>
         <source>User data</source>
         <translation>ユーザー情報</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="156"/>
+        <location filename="../setupdialog.cpp" line="157"/>
         <source>D&amp;X-Cluster</source>
         <translation>D&amp;Xクラスター</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="255"/>
+        <location filename="../setupdialog.cpp" line="265"/>
         <source>You need to enter at least one log in the Log&apos;s tab.</source>
         <translation>「ログ」タブで少なくともひとつログを入力してください</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="307"/>
+        <location filename="../setupdialog.cpp" line="317"/>
         <source>World</source>
         <translation>ワールド</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="335"/>
+        <location filename="../setupdialog.cpp" line="345"/>
         <source>You need to enter at least a valid QRZ.</source>
         <translation>少なくともひとつ適切なコールサインを入力してください</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="346"/>
+        <location filename="../setupdialog.cpp" line="356"/>
         <source>You have not selected the kind of log you want.
 You will be redirected to the Log tab.
 Please add and select the kind of log you want to use.</source>
@@ -3192,7 +3294,7 @@ All the QSO from this log will be also deleted...</source>
         <translation>キャンセル(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="145"/>
+        <location filename="../setuppagelogsnew.cpp" line="153"/>
         <source>Select categories</source>
         <translation>カテゴリーの選択</translation>
     </message>
@@ -3209,22 +3311,22 @@ All the QSO from this log will be also deleted...</source>
         <translation type="vanished">コメント</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="149"/>
+        <location filename="../setuppagelogsnew.cpp" line="157"/>
         <source>Callsign used for this log</source>
         <translation>このログで交信に用いたコールサイン</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="150"/>
+        <location filename="../setuppagelogsnew.cpp" line="158"/>
         <source>Comma separated list of operators: callsign1, callsign2</source>
         <translation>コンマで区切られたオペレーターのリスト: callsign1, callsign2</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="152"/>
+        <location filename="../setuppagelogsnew.cpp" line="160"/>
         <source>Start date of this log</source>
         <translation>このログの開始の日付</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="153"/>
+        <location filename="../setuppagelogsnew.cpp" line="161"/>
         <source>Add a comment about this log</source>
         <translation>このログにコメントを追加します</translation>
     </message>
@@ -3241,7 +3343,7 @@ All the QSO from this log will be also deleted...</source>
         <translation type="vanished">日付</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="163"/>
+        <location filename="../setuppagelogsnew.cpp" line="170"/>
         <source>Select the kind of operation for this log</source>
         <translation>このログの運用のタイプを選択してください</translation>
     </message>
@@ -3250,7 +3352,7 @@ All the QSO from this log will be also deleted...</source>
         <translation type="vanished">モードカテゴリー</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="172"/>
+        <location filename="../setuppagelogsnew.cpp" line="179"/>
         <source>Select the mode category</source>
         <translation>モードのカテゴリーを選択してください</translation>
     </message>
@@ -3259,7 +3361,7 @@ All the QSO from this log will be also deleted...</source>
         <translation type="vanished">オペレーターカテゴリー</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="180"/>
+        <location filename="../setuppagelogsnew.cpp" line="187"/>
         <source>Select the operators category</source>
         <translation>オペレーターのカテゴリーを選択してください</translation>
     </message>
@@ -3268,7 +3370,7 @@ All the QSO from this log will be also deleted...</source>
         <translation type="vanished">アシステッドカテゴリー</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="187"/>
+        <location filename="../setuppagelogsnew.cpp" line="194"/>
         <source>Select the assisted category</source>
         <translation>アシストのカテゴリーを選択してください</translation>
     </message>
@@ -3277,7 +3379,7 @@ All the QSO from this log will be also deleted...</source>
         <translation type="vanished">送信出力カテゴリー</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="195"/>
+        <location filename="../setuppagelogsnew.cpp" line="202"/>
         <source>Select the power category</source>
         <translation>送信出力のカテゴリーを選択してください</translation>
     </message>
@@ -3286,7 +3388,7 @@ All the QSO from this log will be also deleted...</source>
         <translation type="vanished">周波数帯カテゴリー</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="203"/>
+        <location filename="../setuppagelogsnew.cpp" line="210"/>
         <source>Select the bands category</source>
         <translation>バンドのカテゴリーを選択してください</translation>
     </message>
@@ -3315,67 +3417,67 @@ All the QSO from this log will be also deleted...</source>
         <translation>コメント(&amp;e)</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="155"/>
+        <location filename="../setuppagelogsnew.cpp" line="163"/>
         <source>&amp;Type of Operation</source>
         <translation>運用のタイプ(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="170"/>
+        <location filename="../setuppagelogsnew.cpp" line="177"/>
         <source>&amp;Mode Category</source>
         <translation>モードカテゴリー(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="178"/>
+        <location filename="../setuppagelogsnew.cpp" line="185"/>
         <source>O&amp;perators Category</source>
         <translation>オペレーターカテゴリー(&amp;p)</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="185"/>
+        <location filename="../setuppagelogsnew.cpp" line="192"/>
         <source>&amp;Assisted Category</source>
         <translation>アシステッドカテゴリー(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="193"/>
+        <location filename="../setuppagelogsnew.cpp" line="200"/>
         <source>Po&amp;wer Category</source>
         <translation>送信出力カテゴリー(&amp;w)</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="201"/>
+        <location filename="../setuppagelogsnew.cpp" line="208"/>
         <source>&amp;Bands Category</source>
         <translation>バンドカテゴリー(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="208"/>
+        <location filename="../setuppagelogsnew.cpp" line="215"/>
         <source>O&amp;verlay</source>
         <translation>オーバーレイ(&amp;v)</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="210"/>
+        <location filename="../setuppagelogsnew.cpp" line="217"/>
         <source>Select the Overlay category</source>
         <translation>オーバーレイカテゴリーを選択してください</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="367"/>
-        <location filename="../setuppagelogsnew.cpp" line="930"/>
+        <location filename="../setuppagelogsnew.cpp" line="375"/>
+        <location filename="../setuppagelogsnew.cpp" line="938"/>
         <source>Categories not OK</source>
         <translation>不適切なカテゴリー選択</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="564"/>
+        <location filename="../setuppagelogsnew.cpp" line="572"/>
         <source>You need to enter a valid QRZ in the Station Callsign box.
 The log will not be opened.</source>
         <translation>無線局のコールサイン欄に適切なコールサインを入力してください。
 ログは作成されません。</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="675"/>
+        <location filename="../setuppagelogsnew.cpp" line="683"/>
         <source>You selected an invalid combination.
 The log will not be opened.</source>
         <translation>適切な組み合わせが選択されていません。
 ログは作成されません。</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="922"/>
+        <location filename="../setuppagelogsnew.cpp" line="930"/>
         <source>Categories OK</source>
         <translation>適切なカテゴリー選択</translation>
     </message>
@@ -3452,7 +3554,7 @@ The log will not be opened.</source>
         <translation>チェックすれば自局のデータ欄の情報で上書きします。チェックしなければ直前のQSOのときの情報を保持します。</translation>
     </message>
     <message>
-        <location filename="../setuppagemisc.cpp" line="68"/>
+        <location filename="../setuppagemisc.cpp" line="73"/>
         <source>Check it for Imperial system (Miles instead of Kilometres).</source>
         <translation>インチ・ヤード表記（キロメートルのかわりにマイル）を使いたいときはチェックをいれてください</translation>
     </message>
@@ -3471,47 +3573,72 @@ The log will not be opened.</source>
         <translation>QSOに用いた送信出力をワットの単位で表示(&amp;R)</translation>
     </message>
     <message>
+        <location filename="../setuppagemisc.cpp" line="67"/>
+        <source>&amp;Check for new versions automatically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagemisc.cpp" line="68"/>
+        <source>Check if there is a new release of KLog available every time you start KLog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../setuppagemisc.cpp" line="70"/>
+        <source>&amp;Provide Info for statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagemisc.cpp" line="71"/>
+        <source>If new versions checking is selected, KLog will send to developer the callsign, KLog version &amp; Operating system to help improving KLog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagemisc.cpp" line="75"/>
         <source>Select to use real time.</source>
         <translation>現在時刻のログ記入を行う場合、チェックをいれてください</translation>
     </message>
     <message>
-        <location filename="../setuppagemisc.cpp" line="71"/>
+        <location filename="../setuppagemisc.cpp" line="76"/>
         <source>Select to use UTC time.</source>
         <translation>時刻のUTC表記を行う場合、チェックを入れてください</translation>
     </message>
     <message>
-        <location filename="../setuppagemisc.cpp" line="72"/>
+        <location filename="../setuppagemisc.cpp" line="77"/>
         <source>Select if you want to save to ADIF on exit.</source>
         <translation>終了時にADIF形式で保存したい場合、チェックをいれてください</translation>
     </message>
     <message>
-        <location filename="../setuppagemisc.cpp" line="73"/>
+        <location filename="../setuppagemisc.cpp" line="78"/>
         <source>Select to use the following name for the logfile and not being asked for it anymore.</source>
         <translation>ログファイルには次のファイル名を用い、以後、聞かれないようにするには、チェックをいれてください</translation>
     </message>
     <message>
-        <location filename="../setuppagemisc.cpp" line="74"/>
+        <location filename="../setuppagemisc.cpp" line="79"/>
         <source>Complete the current QSO with previous QSO data.</source>
         <translation>現在のQSOの各項目を埋めるのに、以前のQSOのデータを使用します.</translation>
     </message>
     <message>
-        <location filename="../setuppagemisc.cpp" line="77"/>
+        <location filename="../setuppagemisc.cpp" line="82"/>
         <source>This is the default file where ADIF will be saved.</source>
         <translation>ADIF形式でファイルを保存するときのデフォルトのファイル名</translation>
     </message>
     <message>
-        <location filename="../setuppagemisc.cpp" line="90"/>
+        <location filename="../setuppagemisc.cpp" line="95"/>
+        <source>Browse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagemisc.cpp" line="96"/>
         <source>Click to change the default ADIF file</source>
         <translation>デフォルトのADIFファイル名を変更するにはここをクリックしてください</translation>
     </message>
     <message>
-        <location filename="../setuppagemisc.cpp" line="240"/>
+        <location filename="../setuppagemisc.cpp" line="256"/>
         <source>Open File</source>
         <translation>ファイルを開く</translation>
     </message>
     <message>
-        <location filename="../setuppagemisc.cpp" line="240"/>
+        <location filename="../setuppagemisc.cpp" line="256"/>
         <source>ADIF (*.adi)</source>
         <translation></translation>
     </message>
@@ -3783,64 +3910,97 @@ The log will not be opened.</source>
 <context>
     <name>SetupPageWorldEditor</name>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="158"/>
+        <location filename="../setuppageworldeditor.cpp" line="159"/>
         <source>Prefix</source>
         <translation>プリフィクス</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="160"/>
+        <location filename="../setuppageworldeditor.cpp" line="161"/>
         <source>Entity</source>
         <translation>エンティティ</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="162"/>
+        <location filename="../setuppageworldeditor.cpp" line="163"/>
         <source>ARRL id</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="164"/>
+        <location filename="../setuppageworldeditor.cpp" line="165"/>
         <source>Continent</source>
         <translation>大陸名</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="166"/>
+        <location filename="../setuppageworldeditor.cpp" line="167"/>
         <source>CQ Zone</source>
         <translation>CQゾーン</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="168"/>
+        <location filename="../setuppageworldeditor.cpp" line="169"/>
         <source>ITU Zone</source>
         <translation>ITUゾーン</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="170"/>
+        <location filename="../setuppageworldeditor.cpp" line="171"/>
         <source>UTC</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="172"/>
+        <location filename="../setuppageworldeditor.cpp" line="173"/>
         <source>Latitude</source>
         <translation>緯度</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="174"/>
+        <location filename="../setuppageworldeditor.cpp" line="175"/>
         <source>Longitude</source>
         <translation>経度</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="177"/>
+        <location filename="../setuppageworldeditor.cpp" line="178"/>
         <source>Deleted</source>
         <translation>消滅</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="180"/>
+        <location filename="../setuppageworldeditor.cpp" line="181"/>
         <source>Since Date</source>
         <translation>交信有効期間はじめ</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="182"/>
+        <location filename="../setuppageworldeditor.cpp" line="183"/>
         <source>To Date</source>
         <translation>交信有効期間おわり</translation>
+    </message>
+    <message>
+        <location filename="../setuppageworldeditor.cpp" line="266"/>
+        <source>Open File</source>
+        <translation type="unfinished">ファイルを開く</translation>
+    </message>
+    <message>
+        <location filename="../setuppageworldeditor.cpp" line="266"/>
+        <source>BigCTY (*.csv)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppageworldeditor.cpp" line="273"/>
+        <source>Entities information has been updated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppageworldeditor.cpp" line="278"/>
+        <source>Entities information has not been updated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SoftwareUpdateDialog</name>
+    <message>
+        <location filename="../softwareupdatedialog.cpp" line="15"/>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../softwareupdatedialog.cpp" line="33"/>
+        <source>KLog update</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3864,28 +4024,26 @@ The log will not be opened.</source>
 <context>
     <name>World</name>
     <message>
-        <location filename="../world.cpp" line="192"/>
+        <location filename="../world.cpp" line="161"/>
         <source>Entity</source>
         <translation>エンティティ</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="193"/>
+        <location filename="../world.cpp" line="162"/>
         <source>Continent</source>
         <translation>大陸名</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1248"/>
         <source>Reading cty.dat...</source>
-        <translation>cty.datを読みこんでいます…</translation>
+        <translation type="vanished">cty.datを読みこんでいます…</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1248"/>
-        <location filename="../world.cpp" line="1438"/>
+        <location filename="../world.cpp" line="1211"/>
         <source>Abort reading</source>
         <translation>読込みの中止</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1438"/>
+        <location filename="../world.cpp" line="1211"/>
         <source>Reading cty.csv...</source>
         <translation>cty.csvを読みこんでいます…</translation>
     </message>

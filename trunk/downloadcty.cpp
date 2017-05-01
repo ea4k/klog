@@ -8,6 +8,7 @@
 DownLoadCTY::DownLoadCTY(const QString _kontestDir, const QString _klogVersion) : QObject(0)
 {    
    //qDebug() << "DownLoadCTY::DownLoadCTY(): " << _kontestDir << endl;
+    util = new Utilities;
     url = new QUrl;
     kontestDir = _kontestDir;
     result = -1;  // Error unknown
@@ -19,7 +20,7 @@ DownLoadCTY::DownLoadCTY(const QString _kontestDir, const QString _klogVersion) 
     QString ver = "KLog"+_klogVersion;
     QByteArray str;
     str.clear();
-    str.append(ver);
+    str.append(util->getAgent(_klogVersion));
     //str.append(_klogVersion);
 
     //request.setUrl(QUrl("http://qt.nokia.com"));
