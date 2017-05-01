@@ -64,6 +64,11 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSO"), this);
     keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
 
+    checkNewVersionCheckBox = new QCheckBox(tr("&Check for new versions automatically"), this);
+    checkNewVersionCheckBox->setToolTip(tr("Check if there is a new release of KLog available every time you start KLog."));
+
+    provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
+    provideCallCheckBox->setToolTip(tr("If new versions checking is selected, KLog will send to developer the callsign, KLog version & Operating system to help improving KLog."));
 
     imperialCheckBox ->setToolTip(tr("Check it for Imperial system (Miles instead of Kilometres)."));
     //dbInMemory->setToolTip(tr("Working in memory (vs in file) is much quicker but you will need to save the ADIF file each time you exit KLog."));
@@ -82,11 +87,12 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     useDefaultName->setChecked(true);
     alwaysADIFCheckBox->setChecked(true);
     showStationCallWhenSearchCheckBox->setChecked(true);
+
     keepMyDataCheckBox->setChecked(true);
 
     completeWithPreviousCheckBox->setChecked(false);
 
-    fileNameButton = new QPushButton;
+    fileNameButton = new QPushButton (tr("Browse"));
     fileNameButton->setToolTip(tr("Click to change the default ADIF file"));
     //TODO: Add an icon "open" to this pushbutton
 
@@ -101,40 +107,50 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     realTimeCheckbox->setChecked(true);
     //showStationCallWhenSearchCheckBox->setChecked(true);
 
-    QHBoxLayout *timeLayout = new QHBoxLayout;
-    timeLayout->addWidget(UTCCheckbox);
-    timeLayout->addWidget(realTimeCheckbox);
+    //QHBoxLayout *timeLayout = new QHBoxLayout;
+    //timeLayout->addWidget(UTCCheckbox);
+    //timeLayout->addWidget(realTimeCheckbox);
 
-    QHBoxLayout *dataLayout = new QHBoxLayout;
-    dataLayout->addWidget(keepMyDataCheckBox);
-    dataLayout->addWidget(completeWithPreviousCheckBox);
-
+    //QHBoxLayout *dataLayout = new QHBoxLayout;
+    //dataLayout->addWidget(keepMyDataCheckBox);
+    //dataLayout->addWidget(completeWithPreviousCheckBox);
 
     //QHBoxLayout *fileOptLayout = new QHBoxLayout;
     //fileOptLayout->addWidget(useDefaultName);
     //fileOptLayout->addWidget(alwaysADIFCheckBox);
 
+    QGridLayout *mainLayou1 = new QGridLayout;
+    mainLayou1->addLayout(fileLayout, 0, 0, 1, -1);
+    mainLayou1->addWidget(alwaysADIFCheckBox, 1, 0, 1, 1);
+    //mainLayou1->addLayout(timeLayout, 2, 0, -1, 1);
+    mainLayou1->addWidget(UTCCheckbox, 2, 0, 1, 1);
+    mainLayou1->addWidget(realTimeCheckbox, 2, 1, 1, 1);
+    mainLayou1->addWidget(imperialCheckBox, 3, 0, 1, 1);
+    mainLayou1->addWidget(keepMyDataCheckBox, 4, 0, 1, 1);
+    mainLayou1->addWidget(completeWithPreviousCheckBox, 4, 1, 1, 1);
+    //mainLayou1->addLayout(dataLayout, 4, 0, -1, 1);
+    mainLayou1->addWidget(sendQSLWhenRecCheckBox, 5, 0, 1, 1);
+    mainLayou1->addWidget(checkNewVersionCheckBox, 5, 1, 1, 1);
+    mainLayou1->addWidget(showStationCallWhenSearchCheckBox, 6, 0, 1, 1);
+    mainLayou1->addWidget(provideCallCheckBox, 6, 1, 1, 1);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    //mainLayout->addWidget(dbInMemory);
-    mainLayout->addLayout(fileLayout);
-    mainLayout->addWidget(alwaysADIFCheckBox);
-    //mainLayout->addWidget(useDefaultName);
-    //mainLayout->addLayout(fileOptLayout);
-    //mainLayout->addWidget(realTimeCheckbox);
-    //mainLayout->addWidget(UTCCheckbox);
-    mainLayout->addLayout(timeLayout);
-    mainLayout->addWidget(imperialCheckBox);
-    mainLayout->addLayout(dataLayout);
-    mainLayout->addWidget(sendQSLWhenRecCheckBox);
-    mainLayout->addWidget(showStationCallWhenSearchCheckBox);
+    //QVBoxLayout *mainLayout = new QVBoxLayout;
+    //mainLayout->addLayout(fileLayout);
+    //mainLayout->addWidget(alwaysADIFCheckBox);
+    //mainLayout->addLayout(mainLayou1);
+    //mainLayout->addLayout(timeLayout);
+    //mainLayout->addWidget(imperialCheckBox);
+    //mainLayout->addLayout(dataLayout);
+    //mainLayout->addWidget(sendQSLWhenRecCheckBox);
+    //mainLayout->addWidget(showStationCallWhenSearchCheckBox);
 
 
-    setLayout(mainLayout);
+    setLayout(mainLayou1);
 
     connect(fileNameButton, SIGNAL(clicked () ), this, SLOT(slotOpenFileButtonClicked() ) );
     connect(useDefaultName, SIGNAL(stateChanged (int) ), this, SLOT(slotUseDefaultButtonStateChanged(int) ) );
     connect(defaultFileNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDefaultFileNameLineEditChanged() ) );
+    connect(checkNewVersionCheckBox, SIGNAL(clicked () ), this, SLOT(slotcheckNewVersionCheckBoxClicked() ) );
 
 
 }
@@ -454,3 +470,72 @@ void SetupPageMisc::setCompleteWithPrevious(const QString t)
         completeWithPreviousCheckBox->setChecked(true);
     }
 }
+
+void SetupPageMisc::slotcheckNewVersionCheckBoxClicked()
+{
+    if (checkNewVersionCheckBox->isChecked())
+    {
+        provideCallCheckBox->setEnabled(true);
+    }
+    else
+    {
+        provideCallCheckBox->setEnabled(false);
+        provideCallCheckBox->setChecked(false);
+    }
+}
+
+QString SetupPageMisc::getCheckNewVersions()
+{
+    if (checkNewVersionCheckBox->isChecked())
+    {
+        return "True";
+    }
+    else
+    {
+        return "False";
+    }
+}
+
+void SetupPageMisc::setCheckNewVersions(const QString t)
+{
+    if ( (t.toUpper()) == "FALSE")
+    {
+        checkNewVersionCheckBox->setChecked(false);
+    }
+    else
+    {
+        checkNewVersionCheckBox->setChecked(true);
+    }
+}
+
+QString SetupPageMisc::getReportInfo()
+{
+    if (checkNewVersionCheckBox->isChecked())
+    {
+        if (provideCallCheckBox->isChecked())
+        {
+            return "True";
+        }
+        else
+        {
+            return "False";
+        }
+    }
+    else
+    {
+        return "False";
+    }
+}
+
+void SetupPageMisc::setReportInfo(const QString t)
+{
+    if ( (t.toUpper()) == "FALSE")
+    {
+        provideCallCheckBox->setChecked(false);
+    }
+    else
+    {
+        provideCallCheckBox->setChecked(true);
+    }
+}
+

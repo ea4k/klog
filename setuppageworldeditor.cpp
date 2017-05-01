@@ -8,6 +8,7 @@ SetupPageWorldEditor::SetupPageWorldEditor(QWidget *parent) : QWidget(parent)
     //worldPanel = new QWidget;
 
     world = new World();
+    util = new Utilities();
 
     setupEntityDialog = new SetupEntityDialog();
 
@@ -44,9 +45,9 @@ SetupPageWorldEditor::SetupPageWorldEditor(QWidget *parent) : QWidget(parent)
     editEntityPushButton->setToolTip("Still not implemented.");
 
     exportWorldPushButton->setEnabled(false);
-    loadWorldPushButton->setEnabled(false);
+    loadWorldPushButton->setEnabled(true);
     exportWorldPushButton->setToolTip("Still not implemented.");
-    loadWorldPushButton->setToolTip("Still not implemented.");
+    loadWorldPushButton->setToolTip("Import a new CTY.CSV file");
 
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
@@ -191,6 +192,11 @@ void SetupPageWorldEditor::createActions()
     connect(delEntityPushButton, SIGNAL(clicked()), this, SLOT(slotDelButtonClicked()) );
     connect(editEntityPushButton, SIGNAL(clicked()), this, SLOT(slotEditButtonClicked()) );
 
+    connect(loadWorldPushButton, SIGNAL(clicked()), this, SLOT(slotImportWorldButtonClicked()) );
+
+
+
+
     connect(worldView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickEntity( const QModelIndex& ) ) );
 
     //SIGNAL received from the setupEntityDialog
@@ -248,8 +254,33 @@ void SetupPageWorldEditor::slotDoubleClickEntity( const QModelIndex & index)
 
     //qDebug() << "SetupPageWorldEditor::slotDoubleClickEntity: ARRLid: " << QString::number((worldModel->index(row, 8)).data(0).toInt()) << endl;
 
+}
+
+void SetupPageWorldEditor::slotImportWorldButtonClicked()
+{
+    qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked" << endl;
+    QString klogDir;
+    klogDir = util->getHomeDir();
+    QString worldFile;
+    worldFile.clear();
+    worldFile = QFileDialog::getOpenFileName(this, tr("Open File"), klogDir, tr("BigCTY (*.csv)"));
+
+    QMessageBox msgBox;
+
+    if (world->recreate(worldFile) )
+    {
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setText(tr("Entities information has been updated."));
+    }
+    else
+    {
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText(tr("Entities information has not been updated."));
+    }
 
 
+    msgBox.exec();
+    qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked - END" << endl;
 }
 
 

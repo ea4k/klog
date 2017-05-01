@@ -33,6 +33,7 @@
 #include <QDialog>
 #include "world.h"
 #include "setupentitydialog.h"
+#include "utilities.h"
 
 enum
 {
@@ -58,9 +59,12 @@ private slots:
     void slotDoubleClickEntity( const QModelIndex & index);
     void slotAnalyzeEntityAddedSignal(const QStringList _qs);
 
+    void slotImportWorldButtonClicked();
+
 private:
 
     World *world;
+    Utilities *util;
 
     void createWorldPanel();
     void createWorldModel();

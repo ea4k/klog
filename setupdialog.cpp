@@ -34,13 +34,13 @@ This class calls all the othet "Setup..." to manage the configuration
 
 SetupDialog::SetupDialog(const bool _firstTime)
 {
-   //qDebug() << "SetupDialog::SetupDialog 1" << endl;
+  //qDebug() << "SetupDialog::SetupDialog 1" << endl;
     util = new Utilities;
     nolog = true;
     configFileName = "klogrc";
     version = ".";
     pageRequested = 0;
-   //qDebug() << "SetupDialog::SetupDialog 2" << endl;
+  //qDebug() << "SetupDialog::SetupDialog 2" << endl;
     dataProxy = new DataProxy_SQLite();
    //qDebug() << "SetupDialog::SetupDialog 3" << endl;
 
@@ -129,7 +129,7 @@ SetupDialog::SetupDialog(const bool _firstTime)
 
 SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
 {
-   //qDebug() << "SetupDialog::SetupDialog 2" << endl;
+  //qDebug() << "SetupDialog::SetupDialog 2" << endl;
     util = new Utilities;
     firstTime = _firstTime;
     dataProxy = new DataProxy_SQLite();
@@ -137,6 +137,7 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
     version = _softwareVersion;
     pageRequested = _page;
     int logsPageTabN=-1;
+    //qDebug() << "SetupDialog::SetupDialog 01" << endl;
 
     locator = new Locator();
 
@@ -150,7 +151,7 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
     worldEditorPage = new SetupPageWorldEditor (this);
     logsPage = new SetupPageLogs(this);
     clubLogPage = new SetupPageClubLog(this);
-
+    //qDebug() << "SetupDialog::SetupDialog 02" << endl;
     tabWidget->addTab(userDataPage, tr("User data"));
     tabWidget->addTab(bandsModesPage, tr("Bands/Modes"));
     tabWidget->addTab(dxClusterPage, tr("D&X-Cluster"));
@@ -159,6 +160,8 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
     tabWidget->addTab(worldEditorPage, tr("World Editor"));
     logsPageTabN = tabWidget->addTab(logsPage, tr("Logs"));
     tabWidget->addTab(clubLogPage, tr("ClubLog"));
+
+    //qDebug() << "SetupDialog::SetupDialog 03" << endl;
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
     QPushButton *okButton = new QPushButton(tr("OK"));
@@ -178,18 +181,25 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
     mainLayout->addLayout(horizontalLayout);
     mainLayout->addLayout(buttonsLayout);
 
+    //qDebug() << "SetupDialog::SetupDialog 04" << endl;
+
     setLayout(mainLayout);
 
     setWindowTitle(tr("Config Dialog"));
 
+    //qDebug() << "SetupDialog::SetupDialog 05" << endl;
+
     slotReadConfigData();
+    //qDebug() << "SetupDialog::SetupDialog 05.1" << endl;
 
     if ((pageRequested==6) && (logsPageTabN>0))// The user is opening a new log
     {
+       //qDebug() << "SetupDialog::SetupDialog 05.2" << endl;
         tabWidget->setCurrentIndex(logsPageTabN);
     }
+   //qDebug() << "SetupDialog::SetupDialog 05.3" << endl;
     nolog = !(haveAtleastOneLog());
-    //qDebug() << "SetupDialog::SetupDialog 2  - END" << endl;
+   //qDebug() << "SetupDialog::SetupDialog 2  - END" << endl;
 }
 
 SetupDialog::~SetupDialog()
@@ -464,6 +474,12 @@ void SetupDialog::slotOkButtonClicked()
         stream << "ShowCallsignInSearch=" << miscPage->getShowStationCallSignInSearch() << ";" <<  endl;
         stream << "KeepMyData=" << miscPage->getKeepMyData() << ";" <<  endl;
         stream << "CompleteWithPrevious=" << miscPage->getCompleteWithPrevious() << ";" <<  endl;
+        stream << "CheckNewVersions=" << miscPage->getCheckNewVersions() << ";" <<  endl;
+
+        if ((miscPage->getReportInfo()).toUpper() == "TRUE")
+        {
+            stream << "ProvideInfo=True;"  <<  endl;
+        }
 
 
         if ((!(dxClusterPage->getSelectedDxClusterServer()).isNull()) && (  (dxClusterPage->getSelectedDxClusterServer()).length() > 0   ))
@@ -522,7 +538,7 @@ void SetupDialog::slotOkButtonClicked()
 
 void SetupDialog::slotReadConfigData()
 {
-  //qDebug() << "SetupDialog::slotReadConfigData" << endl;
+ //qDebug() << "SetupDialog::slotReadConfigData" << endl;
     if (firstTime)
     {
         setDefaults();
@@ -532,22 +548,25 @@ void SetupDialog::slotReadConfigData()
         bandsModesPage->setActiveBands(bands);
     }
 
+    //qDebug() << "SetupDialog::slotReadConfigData - 1" << endl;
 
     QFile file(configFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-       //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName << endl;
+      //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName << endl;
         //firstTime = true;
         return;
     }
-
+    //qDebug() << "SetupDialog::slotReadConfigData - 2" << endl;
     //dxClusterServers.clear();
 
 
 
     while (!file.atEnd()) {
         QByteArray line = file.readLine();
-        processConfigLine(line);
+        processConfigLine(line);        
+       //qDebug() << "SetupDialog::slotReadConfigData - in the while" << endl;
     }
+    //qDebug() << "SetupDialog::slotReadConfigData - 3" << endl;
 
     dxClusterPage->setDxclusterServersComboBox(dxClusterServers);
     dxClusterPage->setSelectedDxClusterServer(dxClusterServerToUse);
@@ -566,15 +585,16 @@ void SetupDialog::slotReadConfigData()
     //qDebug() << "SetupDialog::slotReadConfigData - duplicate modes: " << QString::number(a)  << endl;
     bandsModesPage->setActiveModes(modes);
     a = bands.removeDuplicates();
-   //qDebug() << "SetupDialog::slotReadConfigData - duplicate bands: " << QString::number(a)  << endl;
+  //qDebug() << "SetupDialog::slotReadConfigData - duplicate bands: " << QString::number(a)  << endl;
     bandsModesPage->setActiveBands(bands);
+   //qDebug() << "SetupDialog::slotReadConfigData - END" << endl;
 
 }
 
 bool SetupDialog::processConfigLine(const QString _line)
 {
 
-    //qDebug() << "SetupDialog::processConfigLine: " << _line << endl;
+   //qDebug() << "SetupDialog::processConfigLine: " << _line << endl;
 
     QString line = _line.simplified();
     //line.simplified();
@@ -645,6 +665,12 @@ bool SetupDialog::processConfigLine(const QString _line)
     }
     else if (tab=="SHOWCALLSIGNINSEARCH"){
         miscPage->setShowStationCallSignInSearch(value.toLower());
+    }
+    else if (tab=="CHECKNEWVERSIONS"){
+        miscPage->setCheckNewVersions(value);
+    }
+    else if (tab=="PROVIDEINFO"){
+        miscPage->setReportInfo(value);
     }
     else if (tab =="NAME")
     {
@@ -789,7 +815,7 @@ bool SetupDialog::processConfigLine(const QString _line)
 
     // Lines are: Option = value;
 
-
+    //qDebug() << "SetupDialog::processConfigLine: END "  << endl;
     return true;
 
 
@@ -899,6 +925,8 @@ void SetupDialog::setDefaults()
     miscPage->setSendQSLWhenRec("TRUE");
     miscPage->setShowStationCallSignInSearch("TRUE");
     miscPage->setKeepMyData("TRUE");
+    miscPage->setCheckNewVersions("TRUE");
+    miscPage->setReportInfo("FALSE");
 
     dxClusterPage->setShowHFRadiobutton("TRUE");
     dxClusterPage->setShowVHFRadiobutton("TRUE");

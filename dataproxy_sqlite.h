@@ -21,6 +21,7 @@ public:
     int getIdFromBandName(const QString& _bandName);
     int getSubModeIdFromSubMode(const QString _subModeName);
     int getModeIdFromSubModeId(const int _sm);
+
     QStringList getBands();
     QStringList getModes();
     QStringList sortBandNamesBottonUp(const QStringList _qs);

@@ -28,10 +28,11 @@ email                : jaime@robles.es
 DXClusterWidget::DXClusterWidget(QWidget *parent)
           : QWidget(parent)
 {
-    //qDebug() << "DXClusterWidget::DXClusterWidget" << endl;
+    qDebug() << "DXClusterWidget::DXClusterWidget" << endl;
     awards = new Awards();
     dataProxy = new DataProxy();
     initClass();
+    //TESTADDSPOT();
 }
 
 void DXClusterWidget::initClass()
@@ -110,6 +111,8 @@ DXClusterWidget::DXClusterWidget(const QString &clusterToConnect, const int port
     // TO BE DELETED
     addData();
 
+     //TESTADDSPOT();
+
 }
 void DXClusterWidget::addData()
 {
@@ -126,7 +129,7 @@ DXClusterWidget::~DXClusterWidget()
 
 void DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetItem * item )
 {
-   //qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: "  << endl;
+   qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: " << item->text() << endl;
 
     QStringList ql;
     ql.clear();
@@ -134,17 +137,21 @@ void DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetIt
     if (item)
     {
         ql = readItem(item);
+        qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: Length: " << QString::number(ql.length())  << endl;
         if (ql.length()==2)
         {
             ql << "double";
+            qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: EMMITED"  << endl;
             emit dxspotclicked(ql);
         }
         else
         {
+            qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: NOT EMMITED-1"  << endl;
         }
     }
     else
     {
+        qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: NOT EMMITED-2 (no item)"  << endl;
     }
 
 }
@@ -391,6 +398,7 @@ void DXClusterWidget::slotClusterDataArrived()
         QListWidgetItem *item = new QListWidgetItem();
         item->setForeground(QBrush(dxSpotColor));
         item->setText(dxClusterString);
+
 /*
         if (dxEntity>0)
         {
@@ -619,7 +627,7 @@ bool DXClusterWidget::isConnected()
 
 QStringList DXClusterWidget::readItem(QListWidgetItem * item)
 {
-    //qDebug() << "DXClusterWidget::readItem" << endl;
+    qDebug() << "DXClusterWidget::readItem" << endl;
 
     QStringList fields;
     QString dxClusterString;
@@ -700,6 +708,17 @@ void DXClusterWidget::setDXClusterServer(const QString &clusterToConnect, const 
     //qDebug() << "DXClusterWidget::setDXClusterServer: " << server << ":"<< QString::number(port)  << endl;
 }
 
+/*
+void DXClusterWidget::TESTADDSPOT()
+{
+    qDebug() << "DXClusterWidget::TESTADDSPOT "   << endl;
+    ; // Just a test spot
+    QListWidgetItem *item = new QListWidgetItem();
+    item->setForeground(QBrush(dxSpotColor));
+    item->setText("DX de SP0TTER 14.000 DX1CALL");
+    dxClusterListWidget->insertItem(0,item);
+}
+*/
 /***************************************************************************
 ** This is an auxiliary class intended to provide color to the DX-Cluster **
 ** spots.                                                                 **

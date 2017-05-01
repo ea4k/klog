@@ -23,19 +23,89 @@
 
 #include "startwizard.h"
 #include "mainwindow.h"
+#include "utilities.h"
 
 
 int main(int argc, char *argv[])
 {
-    //qDebug() << "KLog Main starting...."  << endl;
     QString version = "0.9.2.6" ;
     QDir d1 = QDir();
+    Utilities util = Utilities();
+    QStringList arguments;
 
     QApplication app(argc, argv);
+
+    QString iconSt;
+    iconSt = ":/img/klog.ico";
+    QIcon KLogIcon(iconSt);
+    QApplication::setWindowIcon(KLogIcon);
+
 
     //QApplication app(argc, argv);
     app.setApplicationName(QString("KLog"));
     app.setApplicationVersion(QString(version));
+
+
+    // Now we check if the user is executing from the command line
+    arguments.clear();
+    arguments << app.arguments();
+    if (arguments.length()>1)
+    {
+        if (arguments.contains("-h"))
+        {
+
+
+
+            qDebug() << "Usage: klog [OPTION]... [FILE]..." ;
+            qDebug() << "Options:" ;
+            qDebug() << "     -?           Display this help";
+            qDebug() << "     -h           Display this help";
+            qDebug() << "     -v           Display program version";
+            //qDebug() << "     -e <file>    Export Adif file <file>";
+        }
+        else if (arguments.contains("-?"))
+        {
+            qDebug() << "Usage: klog [OPTION]... [FILE]..." ;
+            qDebug() << "Options:";
+            qDebug() << "     -?           Display this help";
+            qDebug() << "     -h           Display this help";
+            qDebug() << "     -v           Display program version";
+            //qDebug() << "     -e <file>    Export Adif file <file>";
+        }
+        /*
+        else if (arguments.contains("-e"))
+        {
+            qDebug() << "KLog::main: EXPORT ADIF";
+        }
+        else if (arguments.contains("-u"))
+        {
+            qDebug() << "KLog::main: UPDATE CTY";
+        }
+        */
+        else if (arguments.contains("-v"))
+        {
+            qDebug() << "Version: KLog-" << app.applicationVersion();
+        }
+        else
+        {
+            qDebug() << "Usage: klog [OPTION]... [FILE]..." ;
+            qDebug() << "Options:";
+            qDebug() << "     -?           Display this help";
+            qDebug() << "     -h           Display this help";
+            qDebug() << "     -v           Display program version";
+            qDebug() << "     -e <file>    Export Adif file <file>";
+        }
+
+        app.quit();
+        return 0;
+
+    }
+
+    //for (int i=0; i<(app.arguments().length()); i++)
+    //{
+    //  qDebug() << "KLog::main: Arguments: " << arguments.at(i) << endl;
+    //}
+
 
     // Translations begin
         QTranslator qtTranslator;
@@ -46,7 +116,7 @@ int main(int argc, char *argv[])
 #if defined(Q_OS_WIN)
         myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()));
        //qDebug() << "KLog WIN " << endl;
-       ////qDebug() << "KLog: " << QLocale::system().name() << endl;
+       //qDebug() << "KLog: " << QLocale::system().name() << endl;
         //qDebug() << "KLog trans: " <<  QLibraryInfo::location(QLibraryInfo::TranslationsPath) << endl;
         //qDebug() << "KLog currentPath: " <<  QDir::currentPath() << endl;
 #elif defined(Q_OS_OSX)
@@ -78,11 +148,23 @@ int main(int argc, char *argv[])
         else
         {
             QMessageBox msgBox;
+            QString urlTranslate = QString();
+            urlTranslate = "<p><a href=\"https://translate.google.com/?sl=auto&tl=auto#en/auto/No%20translation%20files%20for%20your%20language%20have%20been%20found%20so%20KLog%20will%20be%20shown%20in%20English.%0A%0AIf%20you%20have%20the%20klog_en.qm%20file%20for%20your%20language%2C%20you%20can%20copy%20it%20in%20the%20%2Fhome%2Fdevel%2F.klog%2F%20folder%20and%20restart%20KLog%20again.%0A%0A%20If%20you%20want%20to%20help%20to%20translate%20KLog%20into%20your%20language%2C%20please%20contact%20the%20author.\">TRANSLATE</a></p>";
             QString msg = QString();
-            msg = QString(QObject::tr("No translation files for your language have been found so KLog will be shown in English.\n\n")) +
+            msg = QString(QObject::tr("No translation files for your language have been found so KLog will be shown in English.\n\n")) + "<p>" +
                    QString(QObject::tr("If you have the klog_")) + (QLocale::system().name()).left(2) + QString(QObject::tr(".qm file for your language, you can copy it in the "));
+            msgBox.setWindowTitle("KLog");
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setTextFormat(Qt::RichText);
+// The following URL links to google translator
+//URL: https://translate.google.com/?sl=auto&tl=auto#en/auto/No%20translation%20files%20for%20your%20language%20have%20been%20found%20so%20KLog%20will%20be%20shown%20in%20English.%0A%0AIf%20you%20have%20the%20klog_en.qm%20file%20for%20your%20language%2C%20you%20can%20copy%20it%20in%20the%20%2Fhome%2Fdevel%2F.klog%2F%20folder%20and%20restart%20KLog%20again.%0A%0A%20If%20you%20want%20to%20help%20to%20translate%20KLog%20into%20your%20language%2C%20please%20contact%20the%20author.
 
-         #ifdef Q_OS_WIN
+            QString msg2;
+            msg2 = QString();
+            msg2 = QObject::tr("folder and restart KLog again.") + "</p><p>" + QObject::tr("If you want to help to translate KLog into your language, please contact the author.</p>") + urlTranslate;
+
+            #ifdef Q_OS_WIN
+
             if (QFile::exists(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()).left(2)+ ".qm") )
             {
 
@@ -92,8 +174,8 @@ int main(int argc, char *argv[])
             else
             {
 
-                msg = msg + QDir::homePath()+ QObject::tr("/klog/ folder and restart KLog again.\n\n If you want to help to translate KLog into your language, please contact the author.");
-                msgBox.setText(msg);
+                msg = msg + QDir::homePath()+ "/klog/" + msg2;
+                msgBox.setText(msg);                
                 msgBox.setInformativeText("Do you want to remove the KLog dir from your disk?");
                 msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
                 msgBox.setDefaultButton(QMessageBox::Yes);
@@ -112,7 +194,8 @@ int main(int argc, char *argv[])
             }
             else
             {
-                msg = msg + QDir::homePath()+"/.klog/ " + QObject::tr("folder and restart KLog again.\n\n If you want to help to translate KLog into your language, please contact the author.");
+                //msg = msg + QDir::homePath()+"/.klog/ " + QObject::tr("folder and restart KLog again.\n\n If you want to help to translate KLog into your language, please contact the author.")  + urlTranslate;
+                msg = msg + QDir::homePath()+"/.klog/ " + msg2;
                 msgBox.setText(msg);
                 msgBox.setStandardButtons(QMessageBox::Ok);
                 msgBox.setDefaultButton(QMessageBox::Ok);
@@ -124,10 +207,7 @@ int main(int argc, char *argv[])
         }
 #endif
 
-
-
-
-
+    //qDebug() << "KLog Main-1" << endl;
 
     //myappTranslator.load("klog_" + (QLocale::system().name()).left(2));
     //qDebug() << "KLog locale: " << QLocale::system().name() << endl;
@@ -142,20 +222,25 @@ int main(int argc, char *argv[])
     int inMemory;
     //bool dbInMemory = true;
 
-#ifdef Q_OS_WIN
+    kontestDir = util.getHomeDir();
+    configFileName = util.getCfgFile();
+
+//#ifdef Q_OS_WIN
     //qDebug() << "WINDOWS DETECTED!"  << endl;
-    kontestDir = QDir::homePath()+"/klog";  // We create the \klog for the logs and data
-    configFileName = kontestDir+"/klogrc.cfg";
-#else
+    //kontestDir = QDir::homePath()+"/klog";  // We create the \klog for the logs and data
+//    configFileName = kontestDir+"/klogrc.cfg";
+//#else
     //qDebug() << "NO WINDOWS DETECTED!"  << endl;
-    kontestDir = QDir::homePath()+"/.klog";  // We create the ~/.kontest for the logs and data
-    configFileName = kontestDir+"/klogrc";
-#endif
+    //kontestDir = QDir::homePath()+"/.klog";  // We create the ~/.kontest for the logs and data
+//    configFileName = kontestDir+"/klogrc";
+//#endif
+
+   //qDebug() << "KLog Main-10" << endl;
 
     //if (!QDir::setCurrent (kontestDir) )
     if (!QDir::setCurrent (kontestDir) )
     {
-        //qDebug() << "MAIN:  KLogDir does not exist.... creating " << endl;
+        qDebug() << "MAIN:  KLogDir does not exist.... creating " << endl;
         //QDir d1(kontestDir);
         //d1.setCurrent()
         if (d1.mkdir(kontestDir))
@@ -183,7 +268,7 @@ int main(int argc, char *argv[])
 
     if(!QFile::exists(configFileName))
     {
-        //qDebug() << "MAIN:  Starting wizard... " << endl;
+        qDebug() << "MAIN:  Starting wizard... " << endl;
 
         StartWizard *wizard = new StartWizard(kontestDir, version);        
         wizard->setModal(true);
@@ -250,12 +335,18 @@ int main(int argc, char *argv[])
     }
     else
     {
+       //qDebug() << "KLog Main-100" << endl;
         MainWindow mw(kontestDir, version);
+       //qDebug() << "KLog Main-101" << endl;
         mw.show();
+       //qDebug() << "KLog Main-102" << endl;
 
         return app.exec();
+       //qDebug() << "KLog Main-103" << endl;
     }
-
+    qDebug() << "KLog Main-END" << endl;
     //return app.exec();
 }
+
+
 

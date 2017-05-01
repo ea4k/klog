@@ -78,6 +78,8 @@ signals:
 
 private:
 
+    //void TESTADDSPOT(); // Just a test spot
+
     void initClass();
     void connectToDXCluster();
     QStringList readItem(QListWidgetItem * item);

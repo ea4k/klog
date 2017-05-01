@@ -3,10 +3,25 @@ It is not fixed... new features may be prioritized or not added without any noti
 Feel free to request any roadmap change if you have any suggestion.
 
 
+Working on
 
 
-RC-BUGS
 
+
+RC-BUGS: None identified today.
+
+
+TODO: To add the possibility to move the DB to another path, with the idea to use dropbox or whatever.
+
+TODO:
+The softwateupdate class can also be used to track how many KLog installations are around the world.
+    It can't add a privacy concern for the users so a configuration tab must be created.
+    Information will go in the user agent.
+    The user will be able to:
+            disable at all
+            Select what data to provide: call, operating system, version
+            Call will be used to track the number of users are usin KLog
+    Connection will be done on KLog start.
 
 BUG: (TNX JL3OXR)
 The DB is not storing if the time is stored in UTC or local so that info is lost.
@@ -45,6 +60,7 @@ TODO: Show the flag of the worked QRZ on the top right,close to the Entity Name
 
 TODO: Add the flags to the DXCC (and maybe the DXCluster)
 TODO: Click on an Entity name will select all the QSO of that Entity on the search box
+
 Debian:
 
 Time in UTC: (not to be fixed)

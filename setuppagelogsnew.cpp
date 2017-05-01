@@ -118,7 +118,15 @@ void SetupPageLogsNew::clear()
     contestBandsComboBox->setCurrentIndex(0);
     contestCatOverlayComboBox->setCurrentIndex(0);
     contestCatModeComboBox->setCurrentIndex(0);
-
+    typeContest = 0;
+    contestCatMode = 0;
+    contestCatOperators = 0;
+    contestCatAssisted = 0;
+    contestCatPower = 0;
+    contestCatBands = 0;
+    contestBands = 0;
+    contestCatOverlay = 0;
+    typeContestSelected = 0;
 
 }
 
@@ -157,7 +165,6 @@ void SetupPageLogsNew::createWidget()
 
     //nameLabel->setWordWrap(true);
     dateLabel->setWordWrap(true);
-
 
 
     typeComboBox->setToolTip(tr("Select the kind of operation for this log"));
@@ -278,6 +285,7 @@ void SetupPageLogsNew::createWidget()
     mainLayout->addLayout(buttonsLayout);
 
     setLayout(mainLayout);
+    clear();
     //page->setLayout(callsLayout);
 
 }
@@ -857,10 +865,10 @@ void SetupPageLogsNew::setEditing(const bool b)
 
 int SetupPageLogsNew::getSelectedTypeContest()
 {
-    //qDebug() << "SetupPageLogsNew::getSelectedTypeContest: " << endl;
+    qDebug() << "SetupPageLogsNew::getSelectedTypeContest: " << endl;
     //is/contest/catoperator/catassisted/catpower/catband/catoverlay/catmode
     int i = dataProxy->getContestTypeN(typeContestSelected, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestCatOverlay, contestCatMode);
-    //qDebug() << "SetupPageLogsNew::getSelectedTypeContest: " << QString::number(i) << endl;
+    qDebug() << "SetupPageLogsNew::getSelectedTypeContest: " << QString::number(i) << endl;
     return i;
 
 }

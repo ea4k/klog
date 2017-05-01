@@ -31,7 +31,9 @@
     classes should be here
 
 */
+#include <QtGlobal>
 #include <QString>
+#include <QtWidgets>
 #include <QtDebug>
 
 class Utilities
@@ -41,11 +43,14 @@ public:
     int getProgresStepForDialog(int totalSteps);
     bool trueOrFalse(const QString _s); // reads a String and return true if s.upper()== TRUE :-)
     QString checkAndFixASCIIinADIF(const QString _data);
-
+    QString getAgent(const QString _klogversion);
     //Devel or debug functions - Not adding any feature to the user
     void printQString(const QStringList _qs);
-
-
+    QString getKLogDatabaseFile();
+    QString getHomeDir();
+    QString getCfgFile();
+    QString getCTYFile();
+    int getNormalizedDXCCValue(const int _dxcc);
 
 };
 

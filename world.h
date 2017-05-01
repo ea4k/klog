@@ -63,8 +63,8 @@ public:
     World(const QString _kontestDir, const QString _kontestVer);
 
     ~World();
-    bool create(const QString _kontestDir);
-    bool recreate(const QString _kontestDir);
+    bool create(const QString _worldFile);
+    bool recreate(const QString _worldFile);
 
     QString getQRZEntityName(const QString _qrz);
     QString getEntityName(const int _entityN);
@@ -114,8 +114,8 @@ private slots:
 private:
     //void identifyOS();
     int getPrefixId(const QString _qrz);
-    bool readCTYDAT();
-    bool readCTYCSV();
+    //bool readCTYDAT();
+    bool readCTYCSV(const QString _worldFile);
     QStringList processLine(const QString _line);
     QStringList processLineP(const QString _line, const int _processingEntity);
     void createWorldModel();

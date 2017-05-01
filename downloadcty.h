@@ -12,6 +12,7 @@
 #include <QTimer>
 #include <QUrl>
 #include <QMessageBox>
+#include "utilities.h"
 
 class QSslError;
 
@@ -23,6 +24,7 @@ public:
     int download();
 
 private:
+    Utilities *util;
 
     //void setTarget(const QString& t);
     bool saveToDisk(const QString &filename, QIODevice *data);
