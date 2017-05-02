@@ -7,7 +7,12 @@ DEPENDPATH += $$PWD
 VPATH += $$PWD
 
 # ls -1 *.ts | tr '\n' ' '
-TRANSLATIONS += klog_ca.ts klog_es.ts klog_it.ts klog_ja.ts
+TRANSLATIONS = klog_ca.ts \
+  klog_es.ts \
+  klog_hr.ts \
+  klog_it.ts \
+  klog_ja.ts
+
 isEmpty(QMAKE_LRELEASE) {
     win32:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe
     else:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease

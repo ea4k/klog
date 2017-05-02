@@ -366,7 +366,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     rxPowerSpinBox = new QDoubleSpinBox;
     rxPowerSpinBox->setDecimals(2);
     rxPowerSpinBox->setMaximum(9999);
-    rxPowerSpinBox->setSuffix(tr("W"));
+    rxPowerSpinBox->setSuffix(tr("Watt"));
 
     txFreqSpinBox = new QDoubleSpinBox;
     txFreqSpinBox->setDecimals(3);
