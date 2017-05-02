@@ -1473,6 +1473,7 @@ bool Awards::setAwardDXCC(const int _dxcc, const int _band, const int _mode, con
    bool isOK1 = false;
    bool isOK2 = false;
    QString stringQuery;
+   QString aux;
    if (_dxcc<=0)
    {
        //qDebug() << "Awards::setAwardDXCC: DXCC < 0" << endl;
@@ -1518,7 +1519,9 @@ bool Awards::setAwardDXCC(const int _dxcc, const int _band, const int _mode, con
 
 // Second phase, the memory storage.
 //TODO: Choose whether I use a DB or memory but both may not be optimal.
-    int value = (QString::number(_band) + QString::number(_mode)).toInt();
+    //int value = (QString::number(_band) + QString::number(_mode)).toInt();
+    aux = QString::number(_band) + QString::number(_mode);
+    int value = aux.toInt();
 
     if (_workedOrConfirmed == -1)
     {
@@ -1560,6 +1563,7 @@ bool Awards::setAwardWAZ(const int _cqz, const int _band, const int _mode, const
     //qDebug() << "Awards::setAwardWAZ: " << QString::number(_band) + QString::number(_mode) << endl;
    bool isOK1 = false;
     bool isOK2 = false;
+    QString aux;
 /*
 
      "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -1595,7 +1599,9 @@ bool Awards::setAwardWAZ(const int _cqz, const int _band, const int _mode, const
 
 // Second phase, the memory storage.
 //TODO: Choose whether I use a DB or memory but both may not be optimal.
-    int value = (QString::number(_band) + QString::number(_mode)).toInt();
+    //int value = (QString::number(_band) + QString::number(_mode)).toInt();
+    aux = QString::number(_band) + QString::number(_mode);
+    int value = aux.toInt();
 
     if (_workedOrConfirmed == -1)
     {
