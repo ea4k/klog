@@ -295,6 +295,9 @@ void SetupPageUserDataPage::slotQRZTextChanged()
 
     qrzLineEdit->setCursorPosition(i);
 
+    emit stationCallSignal(qrzLineEdit->text());
+    //emit stationCallSignal("TEST");
+
     /*
      if (!locator->isValidLocator(myLocatorLineEdit->text()) )
     {
@@ -648,6 +651,8 @@ void SetupPageUserDataPage::slotOperatorsChanged()
         //QColor defaultColor = (operatorsLineEdit->palette()).color(QPalette::WindowText);
 
         operatorsLineEdit->setPalette(*defaultPalette);
+
+        emit operatorsSignal(operatorsLineEdit->text());
 
     }
     else

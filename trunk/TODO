@@ -4,19 +4,18 @@ Feel free to request any roadmap change if you have any suggestion.
 
 
 Check:
-         If there is a sat seleted, the prop-mode should be satellite!
-
+Test and release!
 
 Working on
-
-
 
 
 RC-BUGS: None identified today.
 
 
+TODO: Change the Setup band/mode selection to checklist instead of the current widget. It will be easier.
 TODO: To add the possibility to move the DB to another path, with the idea to use dropbox or whatever.
-
+TODO: Define band limits for CW/SSB/RTTY... so when a click on the cluster is done, the right mode is proposed.
+TODO: Add some "returnPressed" actions to some qlineedit to make usage quicker.
 TODO:
 The softwateupdate class can also be used to track how many KLog installations are around the world.
     It can't add a privacy concern for the users so a configuration tab must be created.
@@ -26,6 +25,12 @@ The softwateupdate class can also be used to track how many KLog installations a
             Select what data to provide: call, operating system, version
             Call will be used to track the number of users are usin KLog
     Connection will be done on KLog start.
+
+BUG: Potential bug
+Double click on a QSO in the log on the Mode/Band... you can modifify the value. As it is a double click, the QSO goes to edit and ...
+Check if:
+  - Only selected modes can be shown there.
+  - If double click on the log we only "quick modify" directly in the log, without editing.
 
 BUG: (TNX JL3OXR)
 The DB is not storing if the time is stored in UTC or local so that info is lost.

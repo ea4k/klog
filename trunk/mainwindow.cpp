@@ -655,7 +655,7 @@ void MainWindow::slotModeComboBoxChanged()
 
     //currentBandShown = bandComboBox->currentIndex();
     //currentModeShown = modeComboBox->currentIndex();
-    i = checkIfWorkedB4(currentQrz);
+    checkIfWorkedB4(currentQrz);
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
@@ -696,7 +696,7 @@ void MainWindow::slotBandComboBoxChanged(){
 
 
        //currentModeShown = modeComboBox->currentIndex();
-    i = checkIfWorkedB4(currentQrz);
+    checkIfWorkedB4(currentQrz);
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
@@ -720,7 +720,7 @@ void MainWindow::slotQRZReturnPressed()
     int lastId = -1;
     int errorCode = 0;
     QString aux;
-    int _x; //for clublog management
+    //int _x; //for clublog management
 
     //bool ret = false;
     QString tqrz = qrzLineEdit->text();
@@ -798,9 +798,9 @@ void MainWindow::slotQRZReturnPressed()
                         {
                            //qDebug() << "MainWindow::slotQRZReturnPressed: (Modifiying ClubLog) Lastid: "<< QString::number(lastId) << endl;
                             // Delete QSO in CLubLog
-                            _x = elogClublog->deleteQSO(clublogPrevQSO);
+                            elogClublog->deleteQSO(clublogPrevQSO);
                             // Add modified QSO in ClubLog
-                            _x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSO));
+                            elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSO));
 
                         }
                         else
@@ -845,7 +845,7 @@ void MainWindow::slotQRZReturnPressed()
                         if ((clublogActive) & (clublogRealTime))
                         {
                            //qDebug() << "MainWindow::slotQRZReturnPressed: (Sending ClubLog) Lastid: "<< QString::number(lastId) << endl;
-                            _x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(lastId));
+                            elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(lastId));
 
                         }
                         else
@@ -858,6 +858,7 @@ void MainWindow::slotQRZReturnPressed()
 
 
                 logModel->select();
+                dxccStatusWidget->refresh();
 
                 slotClearButtonClicked();
             }
@@ -914,7 +915,7 @@ QString MainWindow::readDataFromUIDX()
 /*
 If you make any change here, please update also readDataFromUIDXModifying to keep data integrity!
 */
-    qDebug() << "MainWindow::readDataFromUIDX:" << endl;
+   //qDebug() << "MainWindow::readDataFromUIDX:" << endl;
 
     QString tqrz = (qrzLineEdit->text()).toUpper();
     if (tqrz.length()<3)
@@ -937,8 +938,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     int dxcc = world->getQRZARRLId(tqrz);
     //int dxcc2 = getDXCCFromComboBox();
     int dxcc2 = world->getQRZARRLId(othersTabWidget->getEntityPrefix());
-    qDebug() << "MainWindow::readDataFromUIDX - DXCC: " << QString::number(dxcc) << endl;
-    qDebug() << "MainWindow::readDataFromUIDX - DXCC2: " << QString::number(dxcc2) << endl;
+   //qDebug() << "MainWindow::readDataFromUIDX - DXCC: " << QString::number(dxcc) << endl;
+   //qDebug() << "MainWindow::readDataFromUIDX - DXCC2: " << QString::number(dxcc2) << endl;
     dxcc = util->getNormalizedDXCCValue(dxcc);
     dxcc2 = util->getNormalizedDXCCValue(dxcc2);
 
@@ -1686,8 +1687,8 @@ WHERE [condition];
 
     //int dxcc2 = getDXCCFromComboBox();
     int dxcc2 = world->getQRZARRLId(othersTabWidget->getEntityPrefix());
-    qDebug() << "MainWindow::readDataFromUIDXModifying - DXCC: " << QString::number(dxcc) << endl;
-    qDebug() << "MainWindow::readDataFromUIDXModifying- DXCC2: " << QString::number(dxcc2) << endl;
+   //qDebug() << "MainWindow::readDataFromUIDXModifying - DXCC: " << QString::number(dxcc) << endl;
+   //qDebug() << "MainWindow::readDataFromUIDXModifying- DXCC2: " << QString::number(dxcc2) << endl;
     dxcc = util->getNormalizedDXCCValue(dxcc);
     dxcc2 = util->getNormalizedDXCCValue(dxcc2);
 
@@ -3001,7 +3002,7 @@ void MainWindow::slotQRZTextChanged()
     }
 
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
-    int i;    
+    //int i;
     int dx_CQz = -1;
     int dxE_CQz = -1;
     int dx_ITUz = -1;
@@ -3033,6 +3034,7 @@ void MainWindow::slotQRZTextChanged()
     currentQrz = qrzLineEdit->text();
     currentEntity = world->getQRZARRLId(currentQrz);
     //selectCorrectComboBoxEntity(currentEntity);
+   //qDebug() << "MainWindow::slotQRZTextChanged: " << QString::number(currentEntity) << endl;
     othersTabWidget->setEntity(currentEntity);
 
 
@@ -3093,7 +3095,7 @@ void MainWindow::slotQRZTextChanged()
             {
                 updateStatusBar(tr("Ready..."));
             }
-            i = checkIfWorkedB4(currentQrz);
+            checkIfWorkedB4(currentQrz); // Has the QSO id if worked before
             checkContest();
         break;
         case CQ_WW_CW:
@@ -4909,6 +4911,7 @@ void MainWindow::slotQsoDeleteFromLog()
     //qDebug() << "MainWindow::slotQsoDeleteFromLog (id):-3 " << endl;
           slotSearchBoxTextChanged();
           awards->recalculateAwards();
+          dxccStatusWidget->refresh();
           showAwards();
           break;
       case QMessageBox::No:
@@ -4926,7 +4929,7 @@ void MainWindow::slotQsoDeleteFromSearch()
 
     //qDebug() << "MainWindow::slotQsoDeleteFromSearch: " << QString::number((logModel->index((delQSOFromSearchAct->data(6)).toInt(), 0)).data(0).toInt()) << endl;
     int QSOid = (delQSOFromSearchAct->data()).toInt();
-    int x = -1;
+    //int x = -1;
 
     QString _qrz = dataProxy->getCallFromId(QSOid);
     if (_qrz.length()>=3)
@@ -4945,7 +4948,7 @@ void MainWindow::slotQsoDeleteFromSearch()
         switch (ret)
         {
             case QMessageBox::Yes:
-            x = elogClublog->deleteQSO(dataProxy->getClubLogRealTimeFromId(QSOid));
+            elogClublog->deleteQSO(dataProxy->getClubLogRealTimeFromId(QSOid));
             if(dataProxy->deleteQSO(QSOid))
             {
 
@@ -4959,6 +4962,7 @@ void MainWindow::slotQsoDeleteFromSearch()
                 {
                     slotSearchBoxTextChanged();
                 }
+                dxccStatusWidget->refresh();
                 awards->recalculateAwards();
                 showAwards();
 
@@ -5015,11 +5019,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
     }
 }
 
-int MainWindow::checkIfWorkedB4(const QString _qrz)
+void MainWindow::checkIfWorkedB4(const QString _qrz)
 {
     //qDebug() << "MainWindow::checkIfWorkedB4: " << _qrz << endl;
 
-    int i = dataProxy->isWorkedB4(_qrz, currentLog);
+    int i = dataProxy->isWorkedB4(_qrz, currentLog); // Gets the QSO id if worked before
 
     switch (contestMode) {
 
@@ -5044,12 +5048,16 @@ int MainWindow::checkIfWorkedB4(const QString _qrz)
             }
         break;
         default:
+            //if (i>=0)
+            //{
+                //TODO: Change colors?
+            //}
 
         break;
 
     }
 
-    return i;
+    //return i;
 }
 
 
@@ -5120,6 +5128,7 @@ void MainWindow::readConfigData()
     awards->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     dxClusterWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     dxClusterWidget->setDXClusterSpotConfig(dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY );
+    dxClusterWidget->setMyQRZ(stationQRZ);
 
     initialContestModeConfiguration();
 
@@ -5832,7 +5841,7 @@ void MainWindow::createUIDX()
     //QWidget *othersInputTabWidget = new QWidget;
     //QWidget *myDataInputTabWidget = new QWidget;
 
-    int i = dxUpLeftTab->addTab(qsoInputTabWidget, tr("QSO"));
+    dxUpLeftTab->addTab(qsoInputTabWidget, tr("QSO"));
 
     // QSL Tab definition starts here
 
@@ -5876,7 +5885,7 @@ void MainWindow::createUIDX()
 
 
     qslInputTabWidget->setLayout(QSLLayout);
-    i = dxUpLeftTab->addTab(qslInputTabWidget, tr("QSL"));
+    dxUpLeftTab->addTab(qslInputTabWidget, tr("QSL"));
 
 
     // eQSL Tab definition starts here
@@ -5938,7 +5947,7 @@ void MainWindow::createUIDX()
 
     eqslInputTabWidget->setLayout(eqslInputTabWidgetLayout);
 
-    i = dxUpLeftTab->addTab(eqslInputTabWidget, tr("eQSL"));
+    dxUpLeftTab->addTab(eqslInputTabWidget, tr("eQSL"));
 /*
     // NOTES tab starts here
     QGridLayout *notesInputTabWidgetLayout = new QGridLayout;
@@ -5948,7 +5957,7 @@ void MainWindow::createUIDX()
 */
     // COMMENT tab starts here
 
-    i = dxUpLeftTab->addTab(commentTabWidget, tr("Comment"));
+    dxUpLeftTab->addTab(commentTabWidget, tr("Comment"));
 
     //QGridLayout *commentInputTabWidgetLayout = new QGridLayout;
     //commentInputTabWidgetLayout->addWidget(commentLineEdit, 0, 0);
@@ -5980,7 +5989,7 @@ void MainWindow::createUIDX()
 */
     //i = dxUpLeftTab->addTab(othersInputTabWidget, tr("Others"));
     othersTabWidget->setEntitiesList(world->getEntitiesNames());
-    i = dxUpLeftTab->addTab(othersTabWidget, tr("Others"));
+    dxUpLeftTab->addTab(othersTabWidget, tr("Others"));
 
 
 
@@ -6014,11 +6023,11 @@ void MainWindow::createUIDX()
     myDataInputTabWidget->setLayout(myDataInputTabWidgetLayout);
     i = dxUpLeftTab->addTab(myDataInputTabWidget, tr("My Data"));
 */
-    i = dxUpLeftTab->addTab(myDataTabWidget, tr("My Data"));
+    dxUpLeftTab->addTab(myDataTabWidget, tr("My Data"));
   // MyData Tab finishes here
 
     // Sat Tab starts hre
-    i = dxUpLeftTab->addTab(satTabWidget, tr("Satellite"));
+    dxUpLeftTab->addTab(satTabWidget, tr("Satellite"));
 
 
     // Sat Tab finishes here
@@ -6204,7 +6213,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxMarathonLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
 
     QWidget *searchTabWidget = new QWidget;
-    i = dxUpRightTab->addTab(infoTabWidget, tr("Info"));
+    dxUpRightTab->addTab(infoTabWidget, tr("Info"));
 
     QWidget *awardsTabWidget = new QWidget;
 
@@ -6277,7 +6286,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
 
     awardsTabWidget->setLayout(dxUpRightAwardsTabLayout);
 
-    i = dxUpRightTab->addTab(awardsTabWidget, tr("Awards"));
+    dxUpRightTab->addTab(awardsTabWidget, tr("Awards"));
 
 /*
     searchgroupBox = new QGroupBox(tr("Search"));
@@ -6321,7 +6330,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
 
     //searchTabWidget->setLayout(dxUpRightSearchALLLayout);
 
-    i = dxUpRightTab->addTab(searchTabWidget, tr("Search"));
+    dxUpRightTab->addTab(searchTabWidget, tr("Search"));
 
     QWidget *logTabWidget = new QWidget;
     QWidget *dxClusterTabWidget = new QWidget;
@@ -6338,9 +6347,9 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
 
 
 
-    i = dxBottonTab->addTab(logTabWidget, tr("Log"));
-    i = dxBottonTab->addTab(dxClusterTabWidget, tr("DX-Cluster"));
-    i = dxBottonTab->addTab(dxccStatusWidget, tr("DXCC"));
+    dxBottonTab->addTab(logTabWidget, tr("Log"));
+    dxBottonTab->addTab(dxClusterTabWidget, tr("DX-Cluster"));
+    dxBottonTab->addTab(dxccStatusWidget, tr("DXCC"));
 
 
     QVBoxLayout *dxUpRightLayout = new QVBoxLayout;
@@ -6726,7 +6735,7 @@ void MainWindow::slotCabrilloExport()
 }
 
 void MainWindow::slotADIFImport(){
-    //qDebug() << "MainWindow::slotADIFImport " << endl;
+   //qDebug() << "MainWindow::slotADIFImport " << endl;
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                      kontestDir,
@@ -6736,32 +6745,42 @@ void MainWindow::slotADIFImport(){
     }
     else
     {
+       //qDebug() << "MainWindow::slotADIFImport -1" << endl;
         filemanager->adifReadLog(fileName, currentLog);
+       //qDebug() << "MainWindow::slotADIFImport -2" << endl;
         logModel->select();
-
+   //qDebug() << "MainWindow::slotADIFImport -3" << endl;
         checkIfNewBandOrMode();
-
+   //qDebug() << "MainWindow::slotADIFImport -4" << endl;
 
         switch (contestMode) {
 
             case CQ_WW_SSB:
+
             break;
             case CQ_WW_CW:
+
             break;
             default:
-                operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));                
-//bandComboBox->setCurrentIndex(bandComboBox->findText(aux1));
 
+                operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));                
+
+//bandComboBox->setCurrentIndex(bandComboBox->findText(aux1));
+   //qDebug() << "MainWindow::slotADIFImport -31" << endl;
                 awards->recalculateAwards();
+               //qDebug() << "MainWindow::slotADIFImport -32" << endl;
                 showAwards();
+               //qDebug() << "MainWindow::slotADIFImport -33" << endl;
                 dxccStatusWidget->setBands(bands);
-                dxccStatusWidget->update();
+               //qDebug() << "MainWindow::slotADIFImport -34" << endl;
+                dxccStatusWidget->refresh();
+               //qDebug() << "MainWindow::slotADIFImport -35" << endl;
             break;
 
         }
-        //qDebug() << "MainWindow::slotADIFImport-7" << endl;
+       //qDebug() << "MainWindow::slotADIFImport-7" << endl;
     }
-
+   //qDebug() << "MainWindow::slotADIFImport-END" << endl;
 }
 
 void  MainWindow::initialContestModeConfiguration()
@@ -6821,7 +6840,7 @@ void  MainWindow::initialContestModeConfiguration()
 
 void MainWindow::qsoToEdit (const int _qso)
 {
-    qDebug() << "MainWindow::qsoToEdit: " << QString::number(_qso) << endl;
+   //qDebug() << "MainWindow::qsoToEdit: " << QString::number(_qso) << endl;
 
 
     int nameCol;
@@ -6858,7 +6877,7 @@ void MainWindow::qsoToEdit (const int _qso)
     currentQrz = aux1;
     currentEntity = world->getQRZARRLId(currentQrz);
 
-    qDebug() << "MainWindow::qsoToEdit - currentEntity " << QString::number(currentEntity) << endl;
+   //qDebug() << "MainWindow::qsoToEdit - currentEntity " << QString::number(currentEntity) << endl;
 
     nameCol = rec.indexOf("qso_date");
     aux1 = (query.value(nameCol)).toString();
@@ -7576,12 +7595,12 @@ void MainWindow::qsoToEdit (const int _qso)
                     satTabWidget->setSatMode("-CLEAR-");
                 }
 
-                qDebug() << "MainWindow::qsoToEdit: - in default - 100: " << QString::number(currentEntity)  << endl;
+               //qDebug() << "MainWindow::qsoToEdit: - in default - 100: " << QString::number(currentEntity)  << endl;
 
                 nameCol = rec.indexOf("dxcc");
                 aux1  = (query.value(nameCol)).toString();
 
-                qDebug() << "MainWindow::qsoToEdit: Checking DXCC: " << aux1 << " - " << world->getEntityName(aux1.toInt()) << endl;
+               //qDebug() << "MainWindow::qsoToEdit: Checking DXCC: " << aux1 << " - " << world->getEntityName(aux1.toInt()) << endl;
 
                 if (aux1.toInt()>=1)
                 {
@@ -7595,15 +7614,15 @@ void MainWindow::qsoToEdit (const int _qso)
                         currentEntity = aux1.toInt();
                     }
 
-                    qDebug() << "MainWindow::qsoToEdit: - in default - 101: " << QString::number(currentEntity)  << endl;
+                   //qDebug() << "MainWindow::qsoToEdit: - in default - 101: " << QString::number(currentEntity)  << endl;
                 }
                 else
                 {
                     currentEntity = world->getQRZARRLId(currentQrz);
-                    qDebug() << "MainWindow::qsoToEdit: - in default - 103: " << QString::number(currentEntity)  << endl;
+                   //qDebug() << "MainWindow::qsoToEdit: - in default - 103: " << QString::number(currentEntity)  << endl;
 
                 }
-                qDebug() << "MainWindow::qsoToEdit: - in default - 104: " << QString::number(currentEntity)  << endl;
+               //qDebug() << "MainWindow::qsoToEdit: - in default - 104: " << QString::number(currentEntity)  << endl;
 
                 nameCol = rec.indexOf("prop_mode");
                 aux1  = (query.value(nameCol)).toString();
@@ -7622,6 +7641,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
                 showEntityInfo(currentEntity);
                 //selectCorrectComboBoxEntity(currentEntity);
+               //qDebug() << "MainWindow::qsoToEdit: " << QString::number(currentEntity) << endl;
                 othersTabWidget->setEntity(currentEntity);
                 //qDebug() << "MainWindow::qsoToEdit: - in default - 101"  << endl;
 
@@ -7956,7 +7976,7 @@ void MainWindow::clearInfoFromLocators()
 
 void MainWindow::showEntityInfo(const int _enti, int _cq, int _itu)
 {
-   qDebug() << "MainWindow::showEntityInfo" << QString::number(_enti) << endl;
+  //qDebug() << "MainWindow::showEntityInfo" << QString::number(_enti) << endl;
 
     if (_enti<=0)
     {

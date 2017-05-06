@@ -131,7 +131,12 @@ RCC_DIR = build/rcc/
 # Tell Qt Linguist that we use UTF-8 strings in our sources
 CODECFORTR = UTF-8
 CODECFORSRC = UTF-8
-include(translations/translations.pri)
+#include(translations/translations.pri)
+TRANSLATIONS = translations/klog_es.ts \
+    translations/klog_ca.ts \
+    translations/klog_hr.ts \
+    translations/klog_it.ts \
+    translations/klog_ja.ts
 
 # deploy
 DISTFILES += CHANGES COPYING

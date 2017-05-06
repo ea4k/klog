@@ -23,6 +23,7 @@ public:
     void update();    
     void setBands(const QStringList _ent, const bool _creating = false); // Receives the list of bandIDs
     void setCurrentLog(const int _logN);
+    void refresh();
 
 signals:
 

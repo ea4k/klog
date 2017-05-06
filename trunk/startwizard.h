@@ -10,7 +10,6 @@
 #include <QLocale>
 #include <QLibraryInfo>
 #include <QProgressDialog>
-
 #include "downloadcty.h"
 
 
@@ -35,10 +34,8 @@ class CTYPage;
     void slotRunInMemory(bool checked);
     void slotButtonFinishedClicked();
 
-    //void fin();
 
  private:
-
 
    FileOrMemoryPage *fileOrMemoryPage;
    CTYPage *ctyPage;
@@ -73,6 +70,7 @@ class LicPage : public QWizardPage
       QTextEdit *licenseBrowser;
       QCheckBox *aceptLicCheckBox;
 };
+
 /*
 
 class FileOrMemoryPage : public QWizardPage

@@ -1,11 +1,15 @@
-TBD - 0.9.2.6
+May 2017 - 0.9.2.6
 - Check updates feature added. On start or when user desires KLog checks if there is one updated version available.
-- The user can select to help KLog team sending his call to developers when cheking for updates.
+- Simplified the way new logs are added, importing the general StationCallsign & Operators as default for new logs.
+- Improved the way first start was managed when no entity information was loaded.
 - GUI: Application icon is now shown in the application windows.
+- GUI: Updated some messages & tips.
+- GUI: DXCluster offers the Station Callsign as default value to connect.
 - Changed the World class to be able to import files from any folder.
 - Changed how some non ARRL valid entities are managed to show the common name (Sicily / Italy)
-- BugFix: Bands & Modes where not properly exported.
-- Several minor changes on source code to optimize and improve.
+- BugFix: When manually importing a new CTY.CSV, although data was updated, it was not shown until next KLog start.
+- BugFix: In the others tab, the DXCC was sometime not correctly identified.
+- Some minor changes on source code to optimize and improve.
 
 November 2016 - 0.9.2.5
 - BugFix: ADIF export function was not exporting the correct BAND & MODE data.

@@ -76,6 +76,31 @@ SetupPageWorldEditor::SetupPageWorldEditor(QWidget *parent) : QWidget(parent)
 
     createActions();
 
+    if (isWorldEmpty())
+    {
+        QString ctyfile = util->getCTYFile();
+
+        QMessageBox msgBox;
+        if (QFile::exists(ctyfile))
+        {
+
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setText(tr("An entities information file (CTY.CSV) has been detected in your KLog folder and will be loaded."));
+            msgBox.exec();
+            world->recreate(ctyfile);
+            worldModel->select();
+            //slotImportWorldButtonClicked();
+        }
+        else
+        {
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("No entities information file (CTY.CSV) has been detected in your KLog folder."));
+            msgBox.setInformativeText(tr("KLog will not be able to show entities information."));
+            msgBox.exec();
+        }
+
+    }
+
 }
 
 SetupPageWorldEditor::~SetupPageWorldEditor()
@@ -223,6 +248,20 @@ void SetupPageWorldEditor::slotAnalyzeEntityAddedSignal(const QStringList _qs)
                 */
 }
 
+bool SetupPageWorldEditor::isWorldEmpty()
+{
+    // I need to check if the world is empty and I have the CTY.CSV file
+    if (world->getHowManyEntities()<1)
+    {
+        return true;
+    }
+    else
+    {
+       return false;
+    }
+    return true;
+}
+
 void SetupPageWorldEditor::slotAddButtonClicked()
 {
     //qDebug() << "SetupPageWorldEditor::slotAddButtonClicked" << endl;
@@ -258,7 +297,7 @@ void SetupPageWorldEditor::slotDoubleClickEntity( const QModelIndex & index)
 
 void SetupPageWorldEditor::slotImportWorldButtonClicked()
 {
-    qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked" << endl;
+    //qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked" << endl;
     QString klogDir;
     klogDir = util->getHomeDir();
     QString worldFile;
@@ -266,11 +305,14 @@ void SetupPageWorldEditor::slotImportWorldButtonClicked()
     worldFile = QFileDialog::getOpenFileName(this, tr("Open File"), klogDir, tr("BigCTY (*.csv)"));
 
     QMessageBox msgBox;
+    //qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked: " << worldFile << endl;
 
     if (world->recreate(worldFile) )
     {
+
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("Entities information has been updated."));
+        worldModel->select();
     }
     else
     {
@@ -280,7 +322,7 @@ void SetupPageWorldEditor::slotImportWorldButtonClicked()
 
 
     msgBox.exec();
-    qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked - END" << endl;
+    //qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked - END" << endl;
 }
 
 

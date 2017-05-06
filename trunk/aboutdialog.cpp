@@ -31,7 +31,7 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
 
     const QString br = QLatin1String("<br/>");
 
-    const QString description = "<center><h2>KLog " + tversion + "</h2><h4>" +tr("By")+ "<a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a> - 2002-2017</h4></center><br>" + tr("KLog is a free logging software for hamradio operators.<br><br><b>Please know that this is an BETA release and it may contain many bugs.<br>Backup your data before using this software!</b><br><br>KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, OSX & Windows) and provide new functionalities that KLog was not providing. <br><br>Find more information and latest release at<br>") + "<a href=http://jaime.robles.es/klog>http://jaime.robles.es/klog</a><br><br>" + tr("Author") + ": Jaime Robles, <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a><br><a href=mailto:jaime@robles.es>jaime@robles.es</a>";
+    const QString description = "<center><h2>KLog " + tversion + "</h2><h4> " +tr("By")+ " <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a> - 2002-2017</h4></center><br>" + tr("KLog is a free logging software for hamradio operators.") +"<br><br><b>" + tr("Please know that this is an BETA release and it may contain many bugs.<br>Backup your data before using this software!") + "</b><br><br>" + tr("KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, OSX & Windows) and provide new functionalities that KLog was not providing.") + "<br><br>" + tr("Find more information and latest release at<br>") + "<a href=http://www.klog.xyz>http://www.klog.xyz</a><br><br>" + tr("Author") + ": <a href=http://jaime.robles.es/klog>Jaime Robles</a>, <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a><br><a href=mailto:jaime@robles.es>jaime@robles.es</a>";
 
 
     QLabel *copyRightLabel = new QLabel(description);
@@ -54,11 +54,11 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
     QLabel *logoLabel4 = new QLabel;
     logoLabel4->setPixmap(pixmap);
 
-    QString author1 = QString("<tr><td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a></td>") + tr("<td>(2002-today) Main developer</td></tr>");
+    QString author1 = QString("<tr><td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a></td>") + "<td>(2002-" + tr("today") +")" +tr("Main developer") + "</td></tr>";
     QString author2 = QString("<tr><td>Akihiro Koda</td>")  + QString("<td><a href=\"https://www.qrz.com/db/jl3oxr\">JL3OXR</a></td>") + tr("<td>(2016)</td></tr>");
     QString author3 = QString("<tr><td>Andrew Goldie</td>") + QString("<td><a href=\"https://www.qrz.com/db/zl2agc\">ZL2ACG</a></td>") + tr("<td>(2009-2010)</td></tr>");
 
-    QString authorText = tr("KLog is developed by a very small team and you are invited to join!<br><br>If you want to support you can join the <a href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog's development mailing list</a> and you will be welcome!<br><br>You can also help us sending bug reports or small code contributions, ideas or whatever you think it may improve KLog.");
+    QString authorText = tr("KLog is developed by a very small team and you are invited to join!") + "<br><br>" + tr("If you want to support you can join the <a href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog's development mailing list</a> and you will be welcome!") + "<br><br>" + tr("You can also help us sending bug reports or small code contributions, ideas or whatever you think it may improve KLog.");
     QString authors = "<center><h2>" + tr("Authors") + "</h2></center><br>" + authorText + "<br><table>" + author1 + author2 + author3 + "</table>";
 
 
@@ -68,15 +68,8 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
     QString translator4 = QString("<tr><td>Spanish</td>") + QString("<td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a></td></tr>");
 
 
-    QString translatorsText = tr("Translators bring KLog into your language. They are really an important part of the KLog development team.<br><br>If KLog is still not in your language and you want to help us, please contact us through the <a href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog's development mailing list</a> and you will be welcome!");
-    QString translators = "<center><h2>" + tr("Translators") + "</h2></center><br>" + translatorsText + "<br><table>" + translator1 + translator2 + translator3 + "</table>";
-
-//<h4><ul><li>" + author1 + "</li><li>"+ author2 + "</li><li>" + author3 + "</li></ul></h4>";
-    //QString authors = "<center><h2>" + tr("Authors") + "</center><br><h4><ul><li>" + author1 + "</li><li>"+ author2 + "</li><li>" + author3 + "</li></ul></h4>";
-
-//Estoy trabajando para poner los autores y traductores
-
-
+    QString translatorsText = tr("Translators bring KLog into your language. They are really an important part of the KLog development team.") + "<br><br>" + tr("If KLog is still not in your language and you want to help us, please contact us through the <a href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog's development mailing list</a> and you will be welcome!");
+    QString translators = "<center><h2>" + tr("Translators") + "</h2></center><br>" + translatorsText + "<br><table>" + translator1 + translator2 + translator3 + translator4 + "</table>";
 
     QLabel *authorsLabel = new QLabel(authors);
     authorsLabel->setWordWrap(true);

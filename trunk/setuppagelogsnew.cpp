@@ -865,10 +865,10 @@ void SetupPageLogsNew::setEditing(const bool b)
 
 int SetupPageLogsNew::getSelectedTypeContest()
 {
-    qDebug() << "SetupPageLogsNew::getSelectedTypeContest: " << endl;
+    //qDebug() << "SetupPageLogsNew::getSelectedTypeContest: " << endl;
     //is/contest/catoperator/catassisted/catpower/catband/catoverlay/catmode
     int i = dataProxy->getContestTypeN(typeContestSelected, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestCatOverlay, contestCatMode);
-    qDebug() << "SetupPageLogsNew::getSelectedTypeContest: " << QString::number(i) << endl;
+    //qDebug() << "SetupPageLogsNew::getSelectedTypeContest: " << QString::number(i) << endl;
     return i;
 
 }

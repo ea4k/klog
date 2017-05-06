@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-//#include <QDebug>
+#include <QDebug>
 
 #include "setuppagelogs.h"
 
@@ -45,6 +45,7 @@ SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
     typeContestN = -1;
 
     selectedLog = -1;
+    defaultStationCallSign.clear();
 
     //setupD = new SetupDialog();
 
@@ -118,6 +119,15 @@ void SetupPageLogs::createNewLog()
     selectedLog = -1;
     //newLog->clear();
     newLog->setEditing(false);
+    if (defaultStationCallSign.length()>2)
+    {
+        newLog->setStationCallSign(defaultStationCallSign);
+    }
+    if (defaultOperators.length()>2)
+    {
+        newLog->setOperators(defaultOperators);
+    }
+
     newLog->exec();
 }
 
@@ -597,5 +607,18 @@ void SetupPageLogs::showError(const QString _errorC)
     int ret = QMessageBox::warning(this, tr("KLog - SetupPageLogs"),
                                    text,
                                    QMessageBox::Ok);
+
+}
+
+void SetupPageLogs::setDefaultStationCallsign(const QString _p)
+{
+    //qDebug() << "SetupPageLogs::setDefaultStationCallsign: " << _p << endl;
+    defaultStationCallSign = _p;
+}
+
+void SetupPageLogs::setDefaultOperators(const QString _p)
+{
+    //qDebug() << "SetupPageLogs::setDefaultOperators: " << _p << endl;
+    defaultOperators = _p;
 
 }

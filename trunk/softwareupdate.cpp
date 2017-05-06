@@ -10,15 +10,16 @@ SoftwareUpdate::SoftwareUpdate(const QString _klogVersion) : QObject(0)
     url = new QUrl;
     //klogDir = _klogDir;
     klogVersion = _klogVersion;
-    latestVersion = klogVersion;
+    //latestVersion = klogVersion;
+    latestVersion = "0.0";
     callsign = QString();
     result = -1;  // Error unknown
     //reply = new QNetworkReply;
     manager = new QNetworkAccessManager(this);
      //request = new QNetworkRequest(this);    
     //request.setUrl(QUrl("http://localhost"));
-    //request.setUrl(QUrl("https://download.savannah.gnu.org/releases/klog/"));
-    request.setUrl(QUrl("http://download.klog.xyz/redirect"));
+    request.setUrl(QUrl("https://download.savannah.gnu.org/releases/klog/"));
+    //request.setUrl(QUrl("http://www.klog.xyz/download"));
 
     setHeader();
 
@@ -54,6 +55,7 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
   aux.clear();
 
   if (reply->error()) {
+      //qDebug() << "SoftwareUpdate::slotDownloadFinished: reply error"  << endl;
 /*
       fprintf(stderr, "Updates %s failed: %s\n",
               url.toEncoded().constData(),
@@ -68,12 +70,14 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
       msgBox.setStandardButtons(QMessageBox::Ok);
       msgBox.setDefaultButton(QMessageBox::Ok);
       int ret = msgBox.exec();
-*/
 
+*/
   } else {
+      //qDebug() << "SoftwareUpdate::slotDownloadFinished: no reply error"  << endl;
       //QString filename = saveFileName(url);
       if (checkUpdates(reply))
       {
+          //qDebug() << "SoftwareUpdate::slotDownloadFinished checkupdates true"  << endl;
           updateDialog->setVersion(latestVersion);
           updateDialog->show();
           latestVersion = klogVersion;
@@ -88,6 +92,7 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
       }
       else
       {
+          //qDebug() << "SoftwareUpdate::slotDownloadFinished:  checkupdates false"  << endl;
 /*
           msgBox.setIcon(QMessageBox::Information);
           aux = tr("You already have the latest version of KLog!");
@@ -104,14 +109,14 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
   reply->deleteLater();
   //manager->deleteResource(request);
 
-
+    //qDebug() << "SoftwareUpdate::slotDownloadFinished end"  << endl;
   //emit done();
 
 }
 
 bool SoftwareUpdate::checkUpdates(QIODevice *data)
 {    
-   //qDebug() << "SoftwareUpdate::checkUpdates: "  << endl;
+   //qDebug() << "SoftwareUpdate::checkUpdates: " << QString::number(data->size()) << endl;
     QString line, release;
     QStringList stringList, klogStringList;
 
@@ -125,13 +130,15 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
     {
        //qDebug() << "SoftwareUpdate::checkUpdates: RX is NOT VALID"<< endl;
     }
-
+    //qDebug() << "SoftwareUpdate::checkUpdates: Before entering the while"<< endl;
     while (!data->atEnd())
     {
+        //qDebug() << "SoftwareUpdate::checkUpdates: In the while"<< endl;
         stringList.clear();
         klogStringList.clear();
         line.clear();
         line = data->readLine();
+        //qDebug() << "SoftwareUpdate::checkUpdates: line: " << line << endl;
         if (line.contains("klog-"))
         {
             stringList << line.split(">", QString::SkipEmptyParts);
@@ -140,7 +147,8 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
             {
                   //qDebug() << "SoftwareUpdate::checkUpdates klog: " << str << endl;
                    if (rx.match(str).hasMatch())
-                   {                      
+                   {
+                       //qDebug() << "SoftwareUpdate::checkUpdates: MATCH: " << str << endl;
                        release = str.section("-",1);                       
                        release = release.section("\.tar.gz", 0, 0);                       
                        updateNeeded(release);
@@ -153,6 +161,7 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
             //qDebug() << "SoftwareUpdate::checkUpdates: " << line << endl;
         }
     }
+    //qDebug() << "SoftwareUpdate::checkUpdates:Latest/Actual: " << latestVersion <<"/" << klogVersion << endl;
     if (latestVersion > klogVersion)
     {
         emit updateNeededSignal (true);

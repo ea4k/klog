@@ -48,6 +48,7 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     myPower = 0;
     lastPower = 0;
 
+
 }
 
 MainWindowMyDataTab::~MainWindowMyDataTab(){}
@@ -56,6 +57,7 @@ void MainWindowMyDataTab::createUI()
 {
     myPowerSpinBox->setDecimals(2);
     myPowerSpinBox->setMaximum(9999);
+    myPowerSpinBox->setSuffix(tr("Watt"));
 
     QLabel *keepLabel = new QLabel();
     keepLabel->setText(tr("Keep this data"));
@@ -98,6 +100,7 @@ void MainWindowMyDataTab::createUI()
 
     //myDataInputTabWidget->setLayout(myDataInputTabWidgetLayout);
    // i = dxUpLeftTab->addTab(myDataInputTabWidget, tr("My Data"));
+    //connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
 }
 

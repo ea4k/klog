@@ -3765,7 +3765,7 @@ bool DataBase::updateTheModeTableAndSyncLog()
 
 bool DataBase::updateTheEntityTableISONames()
 {
-   qDebug() << "DataBase::updateTheEntityTableISONames" << endl;
+  //qDebug() << "DataBase::updateTheEntityTableISONames" << endl;
     QSqlQuery query;
     QString sq;
     bool sqlOK;
