@@ -98,6 +98,10 @@ public:
     bool setAntenna2 (const QString _aux);
     bool setAntenna3 (const QString _aux);
 
+signals:
+    void stationCallSignal (const QString _p);
+    void operatorsSignal (const QString _p);
+
 private slots:
 
     void slotMyLocatorTextChanged();

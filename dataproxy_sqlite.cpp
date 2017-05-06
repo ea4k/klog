@@ -1389,6 +1389,7 @@ bool DataProxy_SQLite::deleteQSO(const int _qsoId)
 int DataProxy_SQLite::isWorkedB4(const QString _qrz, const int _currentLog)
 {
     //qDebug() << "DataProxy_SQLite::isWorkedB4" << endl;
+    //Returns the QSO id
     QSqlQuery query;
     QString queryString;
     if (_currentLog < 0)
@@ -2853,7 +2854,7 @@ QStringList DataProxy_SQLite::getEntitiesNames()
  * The following code was showing in the Entities prefixes and entities like Sicily, African Italy... and they are not officially an entity in the DXCC
 QStringList DataProxy_SQLite::getEntitiesNames()
 {
-    qDebug()  << "DataProxy_SQLite::getEntitiesNames"  << endl;
+   //qDebug()  << "DataProxy_SQLite::getEntitiesNames"  << endl;
     QString aux = QString();
     QStringList qs;
     qs.clear();
@@ -2868,14 +2869,14 @@ QStringList DataProxy_SQLite::getEntitiesNames()
             if (query.isValid())
             {
                 dxcc = query.value(2).toInt();
-                qDebug()  << "DataProxy_SQLite::getEntitiesNames - DXCC: " <<  QString::number(dxcc) << endl;
+               //qDebug()  << "DataProxy_SQLite::getEntitiesNames - DXCC: " <<  QString::number(dxcc) << endl;
                 if (dxcc > 1000)
                 {
-                    qDebug()  << "DataProxy_SQLite::getEntitiesNames - DXCC>1000 going in details: " << endl;
+                   //qDebug()  << "DataProxy_SQLite::getEntitiesNames - DXCC>1000 going in details: " << endl;
 
                     aux2 = QString::number(dxcc);
                     aux2 = aux2.right(3);
-                    qDebug()  << "DataProxy_SQLite::getEntitiesNames - aux2: " <<  aux2 << endl;
+                   //qDebug()  << "DataProxy_SQLite::getEntitiesNames - aux2: " <<  aux2 << endl;
 
                     stringQuery = QString("SELECT mainprefix, name FROM entity WHERE dxcc ='%1'").arg(aux2);
                     if (query2.exec(stringQuery))
@@ -2901,13 +2902,13 @@ QStringList DataProxy_SQLite::getEntitiesNames()
                 }
                 else
                 {
-                    qDebug()  << "DataProxy_SQLite::getEntitiesNames - DXCC<1000 quick! " << endl;
+                   //qDebug()  << "DataProxy_SQLite::getEntitiesNames - DXCC<1000 quick! " << endl;
                     aux.clear();
                     aux = (query.value(0)).toString() + "-" + (query.value(1)).toString()+" ("+QString::number(dxcc)+")";
 
                 }
 
-                    qDebug()  << "DataProxy_SQLite::getEntitiesNames - AUX: " << aux << endl;
+                   //qDebug()  << "DataProxy_SQLite::getEntitiesNames - AUX: " << aux << endl;
                 //result = result + ", " + (query.value(0)).toString();
                 qs << aux;
             }
@@ -2951,7 +2952,7 @@ int DataProxy_SQLite::getHowManyEntities()
 
 bool DataProxy_SQLite::updateISONames()
 {
-   qDebug()  << "DataProxy_SQLite::updateISONames"  << endl;
+  //qDebug()  << "DataProxy_SQLite::updateISONames"  << endl;
     bool result;
     result = db->updateTheEntityTableISONames();
 

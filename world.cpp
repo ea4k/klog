@@ -99,29 +99,29 @@ World::~World()
 
 bool World::recreate(const QString _worldFile)
 {
- qDebug() << "World::recreate: " << _worldFile << endl;
+ //qDebug() << "World::recreate: " << _worldFile << endl;
 
     QSqlQuery query;
     if (query.exec("DELETE FROM entity"))
     {
-       qDebug() << "World::recreate: EMPTY entity"  << endl;
+       //qDebug() << "World::recreate: EMPTY entity"  << endl;
         if (query.exec("DELETE FROM prefixesofentity"))
         {
-          qDebug() << "World::recreate: EMPTY prefixesofentity"  << endl;
+          //qDebug() << "World::recreate: EMPTY prefixesofentity"  << endl;
              return create(_worldFile);
         }
         else
         {//TODO: Manage the query error
-          qDebug() << "World::recreate: FAILED TO EMPTY prefixesofentity"  << endl;
+          //qDebug() << "World::recreate: FAILED TO EMPTY prefixesofentity"  << endl;
             return false;
         }
     }
     else
     {//TODO: Manage the query error
-      qDebug() << "World::recreate: FAILED TO EMPTY entity"  << endl;
+      //qDebug() << "World::recreate: FAILED TO EMPTY entity"  << endl;
         return false;
     }
-  qDebug() << "World::recreate: END..."  << endl;
+  //qDebug() << "World::recreate: END..."  << endl;
     return false;
 }
 
@@ -135,12 +135,12 @@ bool World::create(const QString _worldFile)
     if (readCTYCSV(_worldFile))
     {
         created = true;
-      qDebug() << "World::create: TRUE"  << endl;
+      //qDebug() << "World::create: TRUE"  << endl;
 
     }else
     {
         created = false;
-      qDebug() << "World::create: FALSE"  << endl;
+      //qDebug() << "World::create: FALSE"  << endl;
 
     }
     if (created)
@@ -148,7 +148,7 @@ bool World::create(const QString _worldFile)
         dataProxy->updateISONames();
     }
 
-    qDebug() << "World::create: END"  << endl;
+    //qDebug() << "World::create: END"  << endl;
     return created;
 }
 

@@ -312,7 +312,7 @@ private:
     void setAwardDXCC(const int _qsoId, bool modifying); // Adds or modify the status of a DXCC entity
     // data << dxcc(id) << band(id) << mode(id) << confirmed(0/1) << qsoid(id) << modify(0/1);
 
-    int checkIfWorkedB4(const QString _qrz);
+    void checkIfWorkedB4(const QString _qrz);
     bool checkContest();    
     void showStatusOfDXCC(const QStringList _qs);
     void showDXMarathonNeeded(const int _dxcc, const int _cqz, const int _year, const int _log);

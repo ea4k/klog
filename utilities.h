@@ -50,6 +50,7 @@ public:
     QString getHomeDir();
     QString getCfgFile();
     QString getCTYFile();
+
     int getNormalizedDXCCValue(const int _dxcc);
 
 };

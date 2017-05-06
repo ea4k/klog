@@ -28,9 +28,10 @@ email                : jaime@robles.es
 DXClusterWidget::DXClusterWidget(QWidget *parent)
           : QWidget(parent)
 {
-    qDebug() << "DXClusterWidget::DXClusterWidget" << endl;
+    //qDebug() << "DXClusterWidget::DXClusterWidget" << endl;
     awards = new Awards();
     dataProxy = new DataProxy();
+
     initClass();
     //TESTADDSPOT();
 }
@@ -48,10 +49,18 @@ void DXClusterWidget::initClass()
     showann = true;
     showwwv = true;
     showwcy = true;
-
+    myQrz = QString();
     currentLog = 0;
 }
 
+void DXClusterWidget::setMyQRZ(const QString _qrz)
+{
+    if (_qrz.length()>2)
+    {
+        myQrz = _qrz;
+    }
+
+}
 DXClusterWidget::DXClusterWidget(const QString &clusterToConnect, const int portToConnect, QWidget *parent)
           : QWidget(parent)
 {
@@ -129,7 +138,7 @@ DXClusterWidget::~DXClusterWidget()
 
 void DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetItem * item )
 {
-   qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: " << item->text() << endl;
+   //qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: " << item->text() << endl;
 
     QStringList ql;
     ql.clear();
@@ -137,21 +146,21 @@ void DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetIt
     if (item)
     {
         ql = readItem(item);
-        qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: Length: " << QString::number(ql.length())  << endl;
+        //qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: Length: " << QString::number(ql.length())  << endl;
         if (ql.length()==2)
         {
             ql << "double";
-            qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: EMMITED"  << endl;
+            //qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: EMMITED"  << endl;
             emit dxspotclicked(ql);
         }
         else
         {
-            qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: NOT EMMITED-1"  << endl;
+            //qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: NOT EMMITED-1"  << endl;
         }
     }
     else
     {
-        qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: NOT EMMITED-2 (no item)"  << endl;
+        //qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: NOT EMMITED-2 (no item)"  << endl;
     }
 
 }
@@ -451,7 +460,17 @@ void DXClusterWidget::slotClusterSocketConnected()
 
     if (( dxClusterConnected ) && (!dxClusterAlreadyConnected) ){
         bool ok;
-        QString callsignText = QInputDialog::getText(this, tr("KLog message"), tr("Enter your callsign to connect to the cluster:"), QLineEdit::Normal, "", &ok);
+        QString callsignText;
+        if (myQrz.length()>2)
+        {
+            callsignText = QInputDialog::getText(this, tr("KLog message"), tr("Enter your callsign to connect to the cluster:"), QLineEdit::Normal, myQrz, &ok);
+        }
+        else
+        {
+            callsignText = QInputDialog::getText(this, tr("KLog message"), tr("Enter your callsign to connect to the cluster:"), QLineEdit::Normal, "", &ok);
+        }
+
+        //QString callsignText = QInputDialog::getText(this, tr("KLog message"), tr("Enter your callsign to connect to the cluster:"), QLineEdit::Normal, "", &ok);
         QString passwordText = QInputDialog::getText(this, tr("KLog message"), tr("Enter your password to connect to the cluster:\n(Just hit enter for no password)"), QLineEdit::Normal, "", &ok);
         QTextStream os(tcpSocket);
         if ( callsignText.length() > 2 && ok ) {
@@ -627,7 +646,7 @@ bool DXClusterWidget::isConnected()
 
 QStringList DXClusterWidget::readItem(QListWidgetItem * item)
 {
-    qDebug() << "DXClusterWidget::readItem" << endl;
+    //qDebug() << "DXClusterWidget::readItem" << endl;
 
     QStringList fields;
     QString dxClusterString;
@@ -711,7 +730,7 @@ void DXClusterWidget::setDXClusterServer(const QString &clusterToConnect, const 
 /*
 void DXClusterWidget::TESTADDSPOT()
 {
-    qDebug() << "DXClusterWidget::TESTADDSPOT "   << endl;
+    //qDebug() << "DXClusterWidget::TESTADDSPOT "   << endl;
     ; // Just a test spot
     QListWidgetItem *item = new QListWidgetItem();
     item->setForeground(QBrush(dxSpotColor));

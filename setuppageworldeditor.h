@@ -69,6 +69,7 @@ private:
     void createWorldPanel();
     void createWorldModel();
     void createActions();
+    bool isWorldEmpty();
 
     QSqlRelationalTableModel *worldModel;
     QWidget *worldPanel;    

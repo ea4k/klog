@@ -73,7 +73,9 @@ private slots:
     void slotReadConfigData();
     void slotOkButtonClicked();
     void slotCancelButtonClicked();
-    void slotAnalyzeNewLogData(const QStringList _qs); // We receive the station callsign and operators from the logs tab
+    void slotAnalyzeNewLogData(const QStringList _qs);  // We receive the station callsign and operators from the logs tab
+    void slotSetStationCallSign(const QString _p);      // We receive te station callsign from the userData tab to fill the new log
+    void slotSetOperators(const QString _p);            // We receive te station operators from the userData tab to fill the new log
 
 private:
 
@@ -81,6 +83,7 @@ private:
     void setSoftVersion(const QString _softwareVersion);
     void setConfigured(const bool _configured);
     void setPage(const int _page);
+    void connectActions();
 
     void createIcons();
     bool processConfigLine(const QString _line);

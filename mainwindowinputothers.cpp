@@ -76,10 +76,10 @@ void MainWindowInputOthers::createUI()
 
     entityPrimDivComboBox->setToolTip(tr("Select the primary division for this QSO"));
     entitySecDivComboBox->setToolTip(tr("Select the secondary division for this QSO"));
-    entityNameComboBox->setToolTip(tr("Select the propagation mode for this current QSO"));
-    propModeComboBox->setToolTip(tr("Select the propagation mode for this current QSO"));
-    iotaContinentComboBox->setToolTip(tr("Select the IOTA continent for this current QSO"));
-    iotaNumberLineEdit->setToolTip(tr("Select the IOTA reference number for this current QSO"));
+    entityNameComboBox->setToolTip(tr("Select the entity for this QSO"));
+    propModeComboBox->setToolTip(tr("Select the propagation mode for this QSO"));
+    iotaContinentComboBox->setToolTip(tr("Select the IOTA continent for this QSO"));
+    iotaNumberLineEdit->setToolTip(tr("Select the IOTA reference number for this QSO"));
 
     entityPrimDivComboBox->setEnabled(false);
     entitySecDivComboBox->setEnabled(false);
@@ -153,7 +153,7 @@ void MainWindowInputOthers::setEntitiesList(const QStringList _qs)
 
 void MainWindowInputOthers::setEntity(const int _ent)
 {// Select the appropriate entity in the ComboBox
-    qDebug() << "MainWindowInputOthers::setEntity: " << QString::number(_ent) << endl;
+    //qDebug() << "MainWindowInputOthers::setEntity: " << QString::number(_ent) << endl;
     if (_ent<=0)
     {
         entityNameComboBox->setCurrentIndex(0);
@@ -172,9 +172,11 @@ void MainWindowInputOthers::setEntity(const int _ent)
     pref = dataProxy->getEntityNameFromId(_ent);
 
     //int indexC = entityNameComboBox->findText(pref, Qt::MatchContains);
+    //qDebug() << "MainWindow::selectCorrectEntity: aux to the findText: " << aux << endl;
+    //int indexC = entityNameComboBox->findText("(" + aux + ")", Qt::MatchContains);
+    int indexC = entityNameComboBox->findText("(" + aux + ")", Qt::MatchEndsWith);
 
-    int indexC = entityNameComboBox->findText(aux + ")", Qt::MatchContains);
-    qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC) << endl;
+    //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC) << endl;
     entityNameComboBox->setCurrentIndex(indexC);
     setIOTAContinentFromEntity(_ent);
 

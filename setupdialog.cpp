@@ -96,7 +96,7 @@ SetupDialog::SetupDialog(const bool _firstTime)
 
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));       
-    connect (logsPage, SIGNAL(newLogData(QStringList)), this, SLOT(slotAnalyzeNewLogData(QStringList)));
+    connectActions();
 
 
     QHBoxLayout *horizontalLayout = new QHBoxLayout;
@@ -124,7 +124,6 @@ SetupDialog::SetupDialog(const bool _firstTime)
     nolog = !(haveAtleastOneLog());
   //qDebug() << "SetupDialog::SetupDialog 1 END" << endl;
 }
-
 
 
 SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
@@ -166,8 +165,7 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
     QPushButton *okButton = new QPushButton(tr("OK"));
 
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
-    connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
+
 
     QHBoxLayout *horizontalLayout = new QHBoxLayout;
     horizontalLayout->addWidget(tabWidget);
@@ -200,11 +198,24 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
    //qDebug() << "SetupDialog::SetupDialog 05.3" << endl;
     nolog = !(haveAtleastOneLog());
    //qDebug() << "SetupDialog::SetupDialog 2  - END" << endl;
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
+    connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
+    connectActions();
 }
+
 
 SetupDialog::~SetupDialog()
 {
     //qDebug() << "SetupDialog::~SetupDialog " << endl;
+}
+
+void SetupDialog::connectActions()
+{
+
+    connect (logsPage, SIGNAL(newLogData(QStringList)), this, SLOT(slotAnalyzeNewLogData(QStringList)));
+    connect (userDataPage, SIGNAL(stationCallSignal(QString)), this, SLOT(slotSetStationCallSign(QString)));
+    connect (userDataPage, SIGNAL(operatorsSignal(QString)), this, SLOT(slotSetOperators(QString)));
+
 }
 
 void SetupDialog::setData(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
@@ -343,6 +354,7 @@ void SetupDialog::slotOkButtonClicked()
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You need to enter at least a valid QRZ."));
+        msgBox.setInformativeText(tr("Go to the") + " " + tr("User tab") + " " + tr("and enter valid QRZ."));
         msgBox.exec();
         return;
     }
@@ -353,7 +365,8 @@ void SetupDialog::slotOkButtonClicked()
 
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("You have not selected the kind of log you want.\nYou will be redirected to the Log tab.\nPlease add and select the kind of log you want to use."));
+        msgBox.setText(tr("You have not selected the kind of log you want."));
+        msgBox.setInformativeText(tr("You will be redirected to the Log tab.\nPlease add and select the kind of log you want to use."));
         msgBox.exec();
 
         tabWidget->setCurrentIndex(tabWidget->indexOf(logsPage));
@@ -581,10 +594,10 @@ void SetupDialog::slotReadConfigData()
         bands << "10M" << "12M" << "15M" << "17M" << "20M" << "40M" << "80M" << "160M";
 
     }
-    int a = modes.removeDuplicates();
+    modes.removeDuplicates();
     //qDebug() << "SetupDialog::slotReadConfigData - duplicate modes: " << QString::number(a)  << endl;
     bandsModesPage->setActiveModes(modes);
-    a = bands.removeDuplicates();
+    bands.removeDuplicates();
   //qDebug() << "SetupDialog::slotReadConfigData - duplicate bands: " << QString::number(a)  << endl;
     bandsModesPage->setActiveBands(bands);
    //qDebug() << "SetupDialog::slotReadConfigData - END" << endl;
@@ -1035,3 +1048,16 @@ void SetupDialog::slotAnalyzeNewLogData(const QStringList _qs)
     userDataPage->setStationQrz(_qs.at(0));
     userDataPage->setOperators(_qs.at(1));
 }
+
+void SetupDialog::slotSetStationCallSign(const QString _p)
+{
+    //qDebug() << "SetupDialog::slotSetStationCallSign: " << _p << endl;
+    logsPage->setDefaultStationCallsign(_p);
+}
+
+void SetupDialog::slotSetOperators(const QString _p)
+{
+    //qDebug() << "SetupDialog::slotSetOperators: " << _p << endl;
+    logsPage->setDefaultOperators(_p);
+}
+

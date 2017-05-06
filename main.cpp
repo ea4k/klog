@@ -56,44 +56,44 @@ int main(int argc, char *argv[])
 
 
 
-            qDebug() << "Usage: klog [OPTION]... [FILE]..." ;
-            qDebug() << "Options:" ;
-            qDebug() << "     -?           Display this help";
-            qDebug() << "     -h           Display this help";
-            qDebug() << "     -v           Display program version";
+            //qDebug() << "Usage: klog [OPTION]... [FILE]..." ;
+            //qDebug() << "Options:" ;
+            //qDebug() << "     -?           Display this help";
+            //qDebug() << "     -h           Display this help";
+            //qDebug() << "     -v           Display program version";
             //qDebug() << "     -e <file>    Export Adif file <file>";
         }
         else if (arguments.contains("-?"))
         {
-            qDebug() << "Usage: klog [OPTION]... [FILE]..." ;
-            qDebug() << "Options:";
-            qDebug() << "     -?           Display this help";
-            qDebug() << "     -h           Display this help";
-            qDebug() << "     -v           Display program version";
+            //qDebug() << "Usage: klog [OPTION]... [FILE]..." ;
+            //qDebug() << "Options:";
+            //qDebug() << "     -?           Display this help";
+            //qDebug() << "     -h           Display this help";
+            //qDebug() << "     -v           Display program version";
             //qDebug() << "     -e <file>    Export Adif file <file>";
         }
         /*
         else if (arguments.contains("-e"))
         {
-            qDebug() << "KLog::main: EXPORT ADIF";
+            //qDebug() << "KLog::main: EXPORT ADIF";
         }
         else if (arguments.contains("-u"))
         {
-            qDebug() << "KLog::main: UPDATE CTY";
+            //qDebug() << "KLog::main: UPDATE CTY";
         }
         */
         else if (arguments.contains("-v"))
         {
-            qDebug() << "Version: KLog-" << app.applicationVersion();
+            //qDebug() << "Version: KLog-" << app.applicationVersion();
         }
         else
         {
-            qDebug() << "Usage: klog [OPTION]... [FILE]..." ;
-            qDebug() << "Options:";
-            qDebug() << "     -?           Display this help";
-            qDebug() << "     -h           Display this help";
-            qDebug() << "     -v           Display program version";
-            qDebug() << "     -e <file>    Export Adif file <file>";
+            //qDebug() << "Usage: klog [OPTION]... [FILE]..." ;
+            //qDebug() << "Options:";
+            //qDebug() << "     -?           Display this help";
+            //qDebug() << "     -h           Display this help";
+            //qDebug() << "     -v           Display program version";
+            //qDebug() << "     -e <file>    Export Adif file <file>";
         }
 
         app.quit();
@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 
     //for (int i=0; i<(app.arguments().length()); i++)
     //{
-    //  qDebug() << "KLog::main: Arguments: " << arguments.at(i) << endl;
+    //  //qDebug() << "KLog::main: Arguments: " << arguments.at(i) << endl;
     //}
 
 
@@ -240,7 +240,7 @@ int main(int argc, char *argv[])
     //if (!QDir::setCurrent (kontestDir) )
     if (!QDir::setCurrent (kontestDir) )
     {
-        qDebug() << "MAIN:  KLogDir does not exist.... creating " << endl;
+        //qDebug() << "MAIN:  KLogDir does not exist.... creating " << endl;
         //QDir d1(kontestDir);
         //d1.setCurrent()
         if (d1.mkdir(kontestDir))
@@ -268,7 +268,7 @@ int main(int argc, char *argv[])
 
     if(!QFile::exists(configFileName))
     {
-        qDebug() << "MAIN:  Starting wizard... " << endl;
+        //qDebug() << "MAIN:  Starting wizard... " << endl;
 
         StartWizard *wizard = new StartWizard(kontestDir, version);        
         wizard->setModal(true);
@@ -344,7 +344,7 @@ int main(int argc, char *argv[])
         return app.exec();
        //qDebug() << "KLog Main-103" << endl;
     }
-    qDebug() << "KLog Main-END" << endl;
+    //qDebug() << "KLog Main-END" << endl;
     //return app.exec();
 }
 

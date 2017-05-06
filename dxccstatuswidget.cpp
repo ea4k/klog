@@ -364,6 +364,10 @@ void DXCCStatusWidget::slotRefreshButtonClicked()
     //update();
 }
 
+void DXCCStatusWidget::refresh()
+{
+    slotRefreshButtonClicked();
+}
 
  void DXCCStatusWidget::setCurrentLog(const int _logN)
  {
