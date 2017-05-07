@@ -3920,15 +3920,15 @@ void MainWindow::createMenusCommon()
     
     aboutQtAct = new QAction(tr("About Qt..."), this);
     helpMenu->addAction(aboutQtAct);
-    aboutQtAct->setMenuRole(QAction::AboutRole);
+    aboutQtAct->setMenuRole(QAction::AboutQtRole);
     connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(slotAboutQt()));
     
-
     
  }
 
 void MainWindow::slotAboutQt()
 {
+    //qDebug() << "MainWindow::slotAboutQt"  << endl;
    QMessageBox::aboutQt(this,tr("About..."));
    
 }
