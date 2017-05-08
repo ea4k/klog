@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
         app.installTranslator(&qtTranslator);
         QTranslator myappTranslator;
 #if defined(Q_OS_WIN)
-        myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()));
+        myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm");
        //qDebug() << "KLog WIN " << endl;
        //qDebug() << "KLog: " << QLocale::system().name() << endl;
         //qDebug() << "KLog trans: " <<  QLibraryInfo::location(QLibraryInfo::TranslationsPath) << endl;

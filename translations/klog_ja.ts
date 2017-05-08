@@ -6,139 +6,139 @@
     <message>
         <location filename="../aboutdialog.cpp" line="27"/>
         <source>About KLog</source>
-        <translation type="unfinished">KLogについて</translation>
+        <translation>KLogについて</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="58"/>
         <source>&lt;td&gt;(2016)&lt;/td&gt;&lt;/tr&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="59"/>
         <source>&lt;td&gt;(2009-2010)&lt;/td&gt;&lt;/tr&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="62"/>
         <location filename="../aboutdialog.cpp" line="129"/>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>作者</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="34"/>
         <source>By</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="34"/>
         <source>KLog is a free logging software for hamradio operators.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLogはアマチュア無線家のためのフリーなロギングソフトウェアです.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="34"/>
         <source>Please know that this is an BETA release and it may contain many bugs.&lt;br&gt;Backup your data before using this software!</source>
-        <translation type="unfinished"></translation>
+        <translation>このリリースはまだベータバージョンで、多くのバグを含んでいる可能性があります.&lt;br&gt;このソフトウェアを使い始める前に、まずデータのバックアップを取ってください!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="34"/>
         <source>KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, OSX &amp; Windows) and provide new functionalities that KLog was not providing.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLogは主要なオペレーティングシステム (Linux OSX &amp; Windows)上でクロスプラットフォーム実行が可能なように、また以前のKLogに備わっていなかった新機能を提供するために、バージョン0.6.2以降、大幅に書き換えられました.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="34"/>
         <source>Find more information and latest release at&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>より詳しい情報や、最新のリリースは以下の場所で入手できます.&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="34"/>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>作者</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="57"/>
         <source>today</source>
-        <translation type="unfinished"></translation>
+        <translation>現在</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="57"/>
         <source>Main developer</source>
-        <translation type="unfinished"></translation>
+        <translation>メイン開発者</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="61"/>
         <source>KLog is developed by a very small team and you are invited to join!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLogはとても小さなチームによって開発されており、あなたの参加が望まれています!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="61"/>
         <source>If you want to support you can join the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog&apos;s development mailing list&lt;/a&gt; and you will be welcome!</source>
-        <translation type="unfinished"></translation>
+        <translation>サポートしていただけるなら、&lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog開発者メーリングリスト&lt;/a&gt;に参加してください. 歓迎します!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="61"/>
         <source>You can also help us sending bug reports or small code contributions, ideas or whatever you think it may improve KLog.</source>
-        <translation type="unfinished"></translation>
+        <translation>バグレポートやちょっとしたコードを書いて送ってくれたり、他にもアイデアとか KLog をよりよくするとあなたが思うことを何でも送ってくれることで手助けとなります.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="71"/>
         <source>Translators bring KLog into your language. They are really an important part of the KLog development team.</source>
-        <translation type="unfinished"></translation>
+        <translation>翻訳者はKLogをあなたの言語で使えるようにします. 翻訳者はKLog開発チームの中でもとりわけ重要な役割を担います.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="71"/>
         <source>If KLog is still not in your language and you want to help us, please contact us through the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog&apos;s development mailing list&lt;/a&gt; and you will be welcome!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLogがまだあなたの言語に翻訳されておらず、あなたが手助けをしてくれるなら、&lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog開発者メーリングリスト&lt;/a&gt;を通じて我々にコンタクトしてください. 歓迎します!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="72"/>
         <location filename="../aboutdialog.cpp" line="130"/>
         <source>Translators</source>
-        <translation type="unfinished"></translation>
+        <translation>翻訳者</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="84"/>
         <source>Privacy advisory</source>
-        <translation type="unfinished"></translation>
+        <translation>プライバシーについての勧告</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="85"/>
         <source>KLog developers have included a feature that reports to KLog&apos;s server some data of the user with the only purpose to identify the number of installed versions to focus the development in one or other direction taking into account the user&apos;s need.</source>
-        <translation type="unfinished"></translation>
+        <translation>ユーザーの需要を考慮した開発の方向性を定めるために、どのバージョンがどれくらいインストールされたかを知るという目的に限定してユーザー情報をKLogサーバーに送信する機能が取り込まれました.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="86"/>
         <source>Today, the data that is provided is the following:</source>
-        <translation type="unfinished"></translation>
+        <translation>今のところ、提供いただく情報は以下のものです:</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="87"/>
         <source>Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>コールサイン</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="87"/>
         <source>KLog version</source>
-        <translation type="unfinished"></translation>
+        <translation>KLogのバージョン</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="87"/>
         <source>Operating system</source>
-        <translation type="unfinished"></translation>
+        <translation>OSの情報</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="88"/>
         <source>Please know that you can enable/disable this feature from the Misc tab in the Setup page</source>
-        <translation type="unfinished"></translation>
+        <translation>この機能は「設定」ページの「その他」タブで、有効・無効を切り替えることができます</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="128"/>
         <source>KLog</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="131"/>
         <source>Privacy</source>
-        <translation type="unfinished"></translation>
+        <translation>プライバシー</translation>
     </message>
 </context>
 <context>
@@ -399,7 +399,8 @@ Do you want to continue?</source>
         <location filename="../filemanager.cpp" line="2570"/>
         <source>You have cancelled the file export. The file will be removed and no data will be exported.
 Do you still want to cancel?</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイルのエクスポート中止が選択されました。ファイルは削除され、データはエクスポートされません。
+本当に継続しますか？</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1972"/>
@@ -1358,12 +1359,12 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3911"/>
         <source>&amp;Check updates...</source>
-        <translation type="unfinished"></translation>
+        <translation>更新のチェック...(&amp;C)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3988"/>
         <source>KLog update checking result</source>
-        <translation type="unfinished"></translation>
+        <translation>KLogの更新チェックの結果</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3989"/>
@@ -1371,7 +1372,10 @@ Do you want to save your changes?</source>
 
 Your KLog is updated.
 You already have the latest version.</source>
-        <translation type="unfinished"></translation>
+        <translation>おめでとう！
+
+KLogは更新されました.
+あなたのKLogは最新版です.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4237"/>
@@ -1415,7 +1419,7 @@ You already have the latest version.</source>
     <message>
         <location filename="../mainwindow.cpp" line="369"/>
         <source>Watt</source>
-        <translation type="unfinished"></translation>
+        <translation>W</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="964"/>
@@ -2286,22 +2290,22 @@ Do you want to update the file?</source>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="79"/>
         <source>Select the entity for this QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>このQSO相手局のエンティティを選択してください</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="80"/>
         <source>Select the propagation mode for this QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>このQSOの伝播モードを選択してください</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="81"/>
         <source>Select the IOTA continent for this QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>このQSO相手局のIOTA大陸略称を選択してください</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="82"/>
         <source>Select the IOTA reference number for this QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>このQSO相手局のIOTAリファレンス番号を選択してください</translation>
     </message>
     <message>
         <source>Select the propagation mode for this current QSO</source>
@@ -2321,7 +2325,7 @@ Do you want to update the file?</source>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="60"/>
         <source>Watt</source>
-        <translation type="unfinished"></translation>
+        <translation>W</translation>
     </message>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="63"/>
@@ -2477,14 +2481,14 @@ Please know that the satellite name will not be saved if it is not in the list s
     <message>
         <location filename="../database.cpp" line="1050"/>
         <source>KLog DB needs to be upgraded.</source>
-        <translation>KLog DBを更新する必要があります</translation>
+        <translation>KLog DBを更新する必要があります.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="1051"/>
         <source>Do you want to upgrade it now?
 If DB is not upgraded KLog may not work properly.</source>
         <translation>いま更新しますか?
-DBを更新しないとKLogは正しく動作しない可能性があります</translation>
+DBを更新しないとKLogは正しく動作しない可能性があります.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="1501"/>
@@ -2642,12 +2646,12 @@ KLogをあなたの言語に翻訳する作業をお手伝いいただけるな�
     <message>
         <location filename="../main.cpp" line="164"/>
         <source>folder and restart KLog again.</source>
-        <translation type="unfinished"></translation>
+        <translation>フォルダーにコピーして、KLogを再起動してください.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="164"/>
         <source>If you want to help to translate KLog into your language, please contact the author.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>KLogをあなたの言語に翻訳する作業をお手伝いいただけるなら、作者にご連絡ください.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="296"/>
@@ -2813,7 +2817,7 @@ KLogを使用してくださりありがとうございます!</translation>
     <message>
         <location filename="../setupdialog.cpp" line="276"/>
         <source>You need to enter at least one log in the Log&apos;s tab.</source>
-        <translation>「ログ」タブで少なくともひとつログを入力してください</translation>
+        <translation>「ログ」タブで少なくともひとつログを入力してください.</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="328"/>
@@ -2823,33 +2827,34 @@ KLogを使用してくださりありがとうございます!</translation>
     <message>
         <location filename="../setupdialog.cpp" line="356"/>
         <source>You need to enter at least a valid QRZ.</source>
-        <translation>少なくともひとつ適切なコールサインを入力してください</translation>
+        <translation>少なくともひとつ適切なコールサインを入力してください.</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="357"/>
         <source>Go to the</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="357"/>
         <source>User tab</source>
-        <translation type="unfinished"></translation>
+        <translation>「ユーザー情報」タブ</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="357"/>
         <source>and enter valid QRZ.</source>
-        <translation type="unfinished"></translation>
+        <translation>に移動し、適切なコールサインを入力してください.</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="368"/>
         <source>You have not selected the kind of log you want.</source>
-        <translation type="unfinished"></translation>
+        <translation>ログの種類が選択されていません.</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="369"/>
         <source>You will be redirected to the Log tab.
 Please add and select the kind of log you want to use.</source>
-        <translation type="unfinished"></translation>
+        <translation>この後、「ログ」タブに誘導されます.
+使用したいログの種類を選択・追加してください.</translation>
     </message>
     <message>
         <source>You have not selected the kind of log you want.
@@ -3673,22 +3678,22 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppagemisc.cpp" line="67"/>
         <source>&amp;Check for new versions automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>新しいバージョンを自動でチェックする (&amp;C)</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="68"/>
         <source>Check if there is a new release of KLog available every time you start KLog.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLogの起動時に新しいバージョンがリリースされているかをチェックします.</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="70"/>
         <source>&amp;Provide Info for statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>統計情報を提供する (&amp;P)</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="71"/>
         <source>If new versions checking is selected, KLog will send to developer the callsign, KLog version &amp; Operating system to help improving KLog.</source>
-        <translation type="unfinished"></translation>
+        <translation>新しいバージョンのチェックを選択している場合、KLogは改良の手助けとなる情報（コールサイン、KLogのバージョン、OSの種類）を開発者に送信します.</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="75"/>
@@ -3723,7 +3728,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppagemisc.cpp" line="95"/>
         <source>Browse</source>
-        <translation type="unfinished"></translation>
+        <translation>参照</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="96"/>
@@ -4010,17 +4015,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="88"/>
         <source>An entities information file (CTY.CSV) has been detected in your KLog folder and will be loaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC情報取得のファイル (CTY.CSV) がKLogフォルダーに見つかりました. ファイルをロードします.</translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="97"/>
         <source>No entities information file (CTY.CSV) has been detected in your KLog folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC情報取得のファイル (CTY.CSV) がKLogフォルダーに見つかりません.</translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="98"/>
         <source>KLog will not be able to show entities information.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLogはDXCC情報の表示ができません.</translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="184"/>
@@ -4085,22 +4090,22 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="305"/>
         <source>Open File</source>
-        <translation type="unfinished">ファイルを開く</translation>
+        <translation>ファイルを開く</translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="305"/>
         <source>BigCTY (*.csv)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="314"/>
         <source>Entities information has been updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC情報が更新されました.</translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="320"/>
         <source>Entities information has not been updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC情報が更新されませんでした.</translation>
     </message>
 </context>
 <context>
@@ -4108,12 +4113,12 @@ The log will not be opened.</source>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="15"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="33"/>
         <source>KLog update</source>
-        <translation type="unfinished"></translation>
+        <translation>KLogの更新</translation>
     </message>
 </context>
 <context>
