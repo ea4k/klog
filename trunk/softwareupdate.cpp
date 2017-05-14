@@ -18,13 +18,20 @@ SoftwareUpdate::SoftwareUpdate(const QString _klogVersion) : QObject(0)
     manager = new QNetworkAccessManager(this);
      //request = new QNetworkRequest(this);    
     //request.setUrl(QUrl("http://localhost"));
-    request.setUrl(QUrl("https://download.savannah.gnu.org/releases/klog/"));
+    //request.setUrl(QUrl("https://download.savannah.gnu.org/releases/klog/"));
     //request.setUrl(QUrl("http://www.klog.xyz/download"));
+    setTheURL("http://www.klog.xyz/download");
+    //request.setUrl(QUrl("http://download.klog.xyz"));
 
     setHeader();
 
 }
 
+void SoftwareUpdate::setTheURL(QString _url)
+{
+   //qDebug() << "SoftwareUpdate::setTheURL: " << _url << endl;
+ request.setUrl(QUrl(_url));
+}
 
 
 SoftwareUpdate::~SoftwareUpdate()
@@ -53,6 +60,7 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
   QMessageBox msgBox;
   QString aux;
   aux.clear();
+  QVariant redirectionTarget = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
   if (reply->error()) {
       //qDebug() << "SoftwareUpdate::slotDownloadFinished: reply error"  << endl;
@@ -72,6 +80,17 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
       int ret = msgBox.exec();
 
 */
+
+  } else if (!redirectionTarget.isNull()) {
+         QUrl newUrl = url.resolved(redirectionTarget.toUrl());
+     //qDebug() << "SoftwareUpdate::slotDownloadFinished: Redirect: " << newUrl.toString() << endl;
+               url = newUrl;
+               reply->deleteLater();
+               //file->open(QIODevice::WriteOnly);
+               //file->resize(0);
+               setTheURL(url.toString());
+               needToUpdate();
+               return;
   } else {
       //qDebug() << "SoftwareUpdate::slotDownloadFinished: no reply error"  << endl;
       //QString filename = saveFileName(url);
@@ -114,6 +133,8 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
 
 }
 
+
+
 bool SoftwareUpdate::checkUpdates(QIODevice *data)
 {    
    //qDebug() << "SoftwareUpdate::checkUpdates: " << QString::number(data->size()) << endl;
@@ -128,40 +149,41 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
     }
     else
     {
-       //qDebug() << "SoftwareUpdate::checkUpdates: RX is NOT VALID"<< endl;
+      //qDebug() << "SoftwareUpdate::checkUpdates: RX is NOT VALID"<< endl;
     }
-    //qDebug() << "SoftwareUpdate::checkUpdates: Before entering the while"<< endl;
+   //qDebug() << "SoftwareUpdate::checkUpdates: Before entering the while"<< endl;
+
     while (!data->atEnd())
     {
-        //qDebug() << "SoftwareUpdate::checkUpdates: In the while"<< endl;
+       //qDebug() << "SoftwareUpdate::checkUpdates: In the while"<< endl;
         stringList.clear();
         klogStringList.clear();
         line.clear();
         line = data->readLine();
-        //qDebug() << "SoftwareUpdate::checkUpdates: line: " << line << endl;
+       //qDebug() << "SoftwareUpdate::checkUpdates: line: " << line << endl;
         if (line.contains("klog-"))
         {
             stringList << line.split(">", QString::SkipEmptyParts);
             klogStringList << stringList.filter("klog");
             foreach (const QString &str, klogStringList)
             {
-                  //qDebug() << "SoftwareUpdate::checkUpdates klog: " << str << endl;
+                 //qDebug() << "SoftwareUpdate::checkUpdates klog: " << str << endl;
                    if (rx.match(str).hasMatch())
                    {
-                       //qDebug() << "SoftwareUpdate::checkUpdates: MATCH: " << str << endl;
+                      //qDebug() << "SoftwareUpdate::checkUpdates: MATCH: " << str << endl;
                        release = str.section("-",1);                       
                        release = release.section("\.tar.gz", 0, 0);                       
                        updateNeeded(release);
                    }
                    else
                    {
-                       //qDebug() << "SoftwareUpdate::checkUpdates: DOES NOT MATCH: " << str << endl;
+                      //qDebug() << "SoftwareUpdate::checkUpdates: DOES NOT MATCH: " << str << endl;
                    }
             }
-            //qDebug() << "SoftwareUpdate::checkUpdates: " << line << endl;
+           //qDebug() << "SoftwareUpdate::checkUpdates: " << line << endl;
         }
     }
-    //qDebug() << "SoftwareUpdate::checkUpdates:Latest/Actual: " << latestVersion <<"/" << klogVersion << endl;
+   //qDebug() << "SoftwareUpdate::checkUpdates:Latest/Actual: " << latestVersion <<"/" << klogVersion << endl;
     if (latestVersion > klogVersion)
     {
         emit updateNeededSignal (true);
@@ -203,6 +225,9 @@ void SoftwareUpdate::needToUpdate()
    //qDebug() << "SoftwareUpdate::needToUpdate (current version: " << klogVersion  << ")"  << endl;
 
     QNetworkReply *reply = manager->get(request);
+
+
+
     connect(reply, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
     connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
 

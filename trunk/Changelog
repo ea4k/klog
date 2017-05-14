@@ -10,6 +10,7 @@ May 2017 - 0.9.2.6
 - BugFix: When manually importing a new CTY.CSV, although data was updated, it was not shown until next KLog start.
 - BugFix: In the others tab, the DXCC was sometime not correctly identified.
 - Some minor changes on source code to optimize and improve.
+- Translations updated: Croatian (TNX M0NKC), Japanese (TNX JL3OXR) & Spanish.
 
 November 2016 - 0.9.2.5
 - BugFix: ADIF export function was not exporting the correct BAND & MODE data.
