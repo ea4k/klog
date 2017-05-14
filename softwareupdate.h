@@ -67,6 +67,7 @@ signals:
 private:
     bool checkUpdates(QIODevice *data);
     void updateNeeded(QString _newVer);
+    void setTheURL(QString _url);
     void setHeader();
 
     Utilities *util;
