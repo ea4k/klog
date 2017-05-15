@@ -20,8 +20,8 @@ SoftwareUpdate::SoftwareUpdate(const QString _klogVersion) : QObject(0)
     //request.setUrl(QUrl("http://localhost"));
     //request.setUrl(QUrl("https://download.savannah.gnu.org/releases/klog/"));
     //request.setUrl(QUrl("http://www.klog.xyz/download"));
-    setTheURL("http://www.klog.xyz/download");
-    //request.setUrl(QUrl("http://download.klog.xyz"));
+    //setTheURL("http://www.klog.xyz/download");
+    request.setUrl(QUrl("http://download.klog.xyz"));
 
     setHeader();
 
