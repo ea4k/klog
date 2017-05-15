@@ -5,12 +5,14 @@ May 2017 - 0.9.2.6
 - GUI: Application icon is now shown in the application windows.
 - GUI: Updated some messages & tips.
 - GUI: DXCluster offers the Station Callsign as default value to connect.
+- GUI: Some menu minor reorganization.
+- Console: Added a few commands to the console command.
 - Changed the World class to be able to import files from any folder.
 - Changed how some non ARRL valid entities are managed to show the common name (Sicily / Italy)
 - BugFix: When manually importing a new CTY.CSV, although data was updated, it was not shown until next KLog start.
 - BugFix: In the others tab, the DXCC was sometime not correctly identified.
 - Some minor changes on source code to optimize and improve.
-- Translations updated: Croatian (TNX M0NKC), Japanese (TNX JL3OXR) & Spanish.
+- Translations updated: Croatian (TNX M0NKC), Japanese (TNX JL3OXR) & Spanish (EA4TV).
 
 November 2016 - 0.9.2.5
 - BugFix: ADIF export function was not exporting the correct BAND & MODE data.

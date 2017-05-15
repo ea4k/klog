@@ -19,7 +19,10 @@
 #include <QtSql>
 #include <QTranslator>
 #include <cstdlib>
-#include <QDebug>
+#include <QTextStream>
+
+//#include <QDebug>
+
 
 #include "startwizard.h"
 #include "mainwindow.h"
@@ -32,6 +35,7 @@ int main(int argc, char *argv[])
     QDir d1 = QDir();
     Utilities util = Utilities();
     QStringList arguments;
+    QTextStream cout(stdout);
 
     QApplication app(argc, argv);
 
@@ -53,24 +57,20 @@ int main(int argc, char *argv[])
     {
         if (arguments.contains("-h"))
         {
-
-
-
-            //qDebug() << "Usage: klog [OPTION]... [FILE]..." ;
-            //qDebug() << "Options:" ;
-            //qDebug() << "     -?           Display this help";
-            //qDebug() << "     -h           Display this help";
-            //qDebug() << "     -v           Display program version";
-            //qDebug() << "     -e <file>    Export Adif file <file>";
+            cout << "Usage: klog [OPTION]... [FILE]..." << endl;
+            cout << "Options:" << endl;
+            cout << "     -?           Display this help" << endl;
+            cout << "     -h           Display this help" << endl;
+            cout << "     -v           Display program version" << endl;
+            //cout << "     -e <file>    Export Adif file <file>" << endl;
         }
         else if (arguments.contains("-?"))
         {
-            //qDebug() << "Usage: klog [OPTION]... [FILE]..." ;
-            //qDebug() << "Options:";
-            //qDebug() << "     -?           Display this help";
-            //qDebug() << "     -h           Display this help";
-            //qDebug() << "     -v           Display program version";
-            //qDebug() << "     -e <file>    Export Adif file <file>";
+            cout << "Usage: klog [OPTION]... [FILE]..." << endl;
+            cout << "Options:" << endl;
+            cout << "     -?           Display this help" << endl;
+            cout << "     -h           Display this help" << endl;
+            cout << "     -v           Display program version" << endl;
         }
         /*
         else if (arguments.contains("-e"))
@@ -84,16 +84,15 @@ int main(int argc, char *argv[])
         */
         else if (arguments.contains("-v"))
         {
-            //qDebug() << "Version: KLog-" << app.applicationVersion();
+            cout << "Version: KLog-" << app.applicationVersion() << endl;
         }
         else
         {
-            //qDebug() << "Usage: klog [OPTION]... [FILE]..." ;
-            //qDebug() << "Options:";
-            //qDebug() << "     -?           Display this help";
-            //qDebug() << "     -h           Display this help";
-            //qDebug() << "     -v           Display program version";
-            //qDebug() << "     -e <file>    Export Adif file <file>";
+            cout << "Usage: klog [OPTION]... [FILE]..." << endl;
+            cout << "Options:" << endl;
+            cout << "     -?           Display this help" << endl;
+            cout << "     -h           Display this help" << endl;
+            cout << "     -v           Display program version" << endl;
         }
 
         app.quit();
@@ -218,34 +217,34 @@ int main(int argc, char *argv[])
     app.installTranslator(&myappTranslator);
 // Translations end
 
-    QString configFileName, kontestDir;
+    QString configFileName, klogDir;
     int inMemory;
     //bool dbInMemory = true;
 
-    kontestDir = util.getHomeDir();
+    klogDir = util.getHomeDir();
     configFileName = util.getCfgFile();
 
 //#ifdef Q_OS_WIN
     //qDebug() << "WINDOWS DETECTED!"  << endl;
-    //kontestDir = QDir::homePath()+"/klog";  // We create the \klog for the logs and data
-//    configFileName = kontestDir+"/klogrc.cfg";
+    //klogDir = QDir::homePath()+"/klog";  // We create the \klog for the logs and data
+//    configFileName = klogDir+"/klogrc.cfg";
 //#else
     //qDebug() << "NO WINDOWS DETECTED!"  << endl;
-    //kontestDir = QDir::homePath()+"/.klog";  // We create the ~/.kontest for the logs and data
-//    configFileName = kontestDir+"/klogrc";
+    //klogDir = QDir::homePath()+"/.klog";  // We create the ~/.kontest for the logs and data
+//    configFileName = klogDir+"/klogrc";
 //#endif
 
    //qDebug() << "KLog Main-10" << endl;
 
-    //if (!QDir::setCurrent (kontestDir) )
-    if (!QDir::setCurrent (kontestDir) )
+    //if (!QDir::setCurrent (klogDir) )
+    if (!QDir::setCurrent (klogDir) )
     {
         //qDebug() << "MAIN:  KLogDir does not exist.... creating " << endl;
-        //QDir d1(kontestDir);
+        //QDir d1(klogDir);
         //d1.setCurrent()
-        if (d1.mkdir(kontestDir))
+        if (d1.mkdir(klogDir))
         {
-            if (QDir::setCurrent (kontestDir) )
+            if (QDir::setCurrent (klogDir) )
             {
                 //qDebug() << "MAIN:  KLogDir has just been created and pointed " << endl;
             }
@@ -270,21 +269,21 @@ int main(int argc, char *argv[])
     {
         //qDebug() << "MAIN:  Starting wizard... " << endl;
 
-        StartWizard *wizard = new StartWizard(kontestDir, version);        
+        StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
         inMemory = wizard->exec();
 
         if (inMemory == 1)
         {
           //qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in Memory " << endl;
-            MainWindow mw(kontestDir, version);
+            MainWindow mw(klogDir, version);
             mw.show();
             return app.exec();
         }
         else if (inMemory == 2)
         {
            //qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in file " << endl;
-            MainWindow mw(kontestDir, version);
+            MainWindow mw(klogDir, version);
             mw.show();
             return app.exec();
         }
@@ -304,7 +303,7 @@ int main(int argc, char *argv[])
               case QMessageBox::Yes:
                 if (QDir::setCurrent (QDir::homePath()) )
                 {
-                    if (d1.remove(kontestDir))
+                    if (d1.remove(klogDir))
                     {
                         QMessageBox msgBox;
                         msgBox.setText(QObject::tr("Your KLog dir has been removed\n\nThank you for running KLog!"));
@@ -336,7 +335,7 @@ int main(int argc, char *argv[])
     else
     {
        //qDebug() << "KLog Main-100" << endl;
-        MainWindow mw(kontestDir, version);
+        MainWindow mw(klogDir, version);
        //qDebug() << "KLog Main-101" << endl;
         mw.show();
        //qDebug() << "KLog Main-102" << endl;

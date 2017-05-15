@@ -3799,20 +3799,42 @@ void MainWindow::createMenusCommon()
     //openAct->setShortcut(Qt::CTRL + Qt::Key_N);
     connect(openAct, SIGNAL(triggered()), this, SLOT(newFile()));
 
-    klogFolderAct = new QAction(tr("KLog folder"), this);
-    fileMenu->addAction(klogFolderAct);
-    connect(klogFolderAct, SIGNAL(triggered()), this, SLOT(slotOpenKLogFolder()));
-
     openAct = new QAction(tr("&Open..."), this);
     fileMenu->addAction(openAct);
     openAct->setShortcut(Qt::CTRL + Qt::Key_O);
     connect(openAct, SIGNAL(triggered()), this, SLOT(openFile()));
 
+    ADIFImport = new QAction(tr("&Import from ADIF..."), this);
+    fileMenu->addAction(ADIFImport);
+    //ADIFImport->setMenuRole(QAction::ApplicationSpecificRole);
+    connect(ADIFImport, SIGNAL(triggered()), this, SLOT(slotADIFImport()));
+    ADIFImport->setToolTip(tr("Import an ADIF file in the current log"));
+
+    fileMenu->addSeparator();
 
     saveAct = new QAction(tr("&Save As..."), this);
     fileMenu->addAction(saveAct);
     saveAct->setShortcut(Qt::CTRL + Qt::Key_S);
     connect(saveAct, SIGNAL(triggered()), this, SLOT(saveFileAs()));
+
+    fileMenu->addSeparator();
+
+    ADIFExport = new QAction(tr("&Export to ADIF..."), this);
+    fileMenu->addAction(ADIFExport);
+    //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
+    connect(ADIFExport, SIGNAL(triggered()), this, SLOT(slotADIFExport()));
+    ADIFExport->setToolTip(tr("Export the current log to an ADIF logfile"));
+
+    ADIFExportAll = new QAction(tr("&Export all logs to ADIF..."), this);
+    fileMenu->addAction(ADIFExportAll);
+    //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
+    connect(ADIFExportAll, SIGNAL(triggered()), this, SLOT(slotADIFExportAll()));
+    ADIFExportAll->setToolTip(tr("Export ALL the QSO coming from ALL the logs in the same logfile. QSOs will be mixed up in the same ADIF file."));
+
+    ReqQSLExport = new QAction(tr("&Export Requested QSL to ADIF..."), this);
+    fileMenu->addAction(ReqQSLExport);
+    connect(ReqQSLExport, SIGNAL(triggered()), this, SLOT(slotRQSLExport()));
+    ReqQSLExport->setToolTip(tr("Export all requested My-QSL QSO to an ADIF file (i.e. to import it in a QSL tag printing software)"));
 
     fileMenu->addSeparator();
 
@@ -3823,35 +3845,19 @@ void MainWindow::createMenusCommon()
 
     fileMenu->addSeparator();
 
+    klogFolderAct = new QAction(tr("KLog folder"), this);
+    fileMenu->addAction(klogFolderAct);
+    connect(klogFolderAct, SIGNAL(triggered()), this, SLOT(slotOpenKLogFolder()));
+
+    fileMenu->addSeparator();
+
     exitAct = new QAction(tr("E&xit"), this);
     fileMenu->addAction(exitAct);
     exitAct->setMenuRole(QAction::QuitRole);
     exitAct->setShortcut(Qt::CTRL + Qt::Key_X);
-    //connect(exitAct, SIGNAL(triggered()), this, SLOT()));
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
     toolMenu = menuBar()->addMenu(tr("&Tools"));
-
-
-    ADIFExport = new QAction(tr("&Export to ADIF..."), this);
-    toolMenu->addAction(ADIFExport);
-    //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
-    connect(ADIFExport, SIGNAL(triggered()), this, SLOT(slotADIFExport()));
-    ADIFExport->setToolTip(tr("Export the current log to an ADIF logfile"));
-
-    ADIFExportAll = new QAction(tr("&Export all logs to ADIF..."), this);
-    toolMenu->addAction(ADIFExportAll);
-    //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
-    connect(ADIFExportAll, SIGNAL(triggered()), this, SLOT(slotADIFExportAll()));
-    ADIFExportAll->setToolTip(tr("Export ALL the QSO coming from ALL the logs in the same logfile. QSOs will be mixed up in the same ADIF file."));
-
-    ADIFImport = new QAction(tr("&Import from ADIF..."), this);
-    toolMenu->addAction(ADIFImport);
-    //ADIFImport->setMenuRole(QAction::ApplicationSpecificRole);
-    connect(ADIFImport, SIGNAL(triggered()), this, SLOT(slotADIFImport()));
-    ADIFImport->setToolTip(tr("Import an ADIF file in the current log"));
-
-    toolMenu->addSeparator();
 
     fillQsoAct = new QAction(tr("Fill QSO data"), this);
     toolMenu->addAction(fillQsoAct);
@@ -3883,11 +3889,6 @@ void MainWindow::createMenusCommon()
     connect(findQSLDXRequestedAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLRequested()));
     findQSLDXRequestedAct->setToolTip(tr("Shows the DX-QSL that has been requested"));
 
-
-    ReqQSLExport = new QAction(tr("&Export Requested QSL to ADIF..."), this);
-    toolMenu->addAction(ReqQSLExport);
-    connect(ReqQSLExport, SIGNAL(triggered()), this, SLOT(slotRQSLExport()));
-    ReqQSLExport->setToolTip(tr("Export all requested My-QSL QSO to an ADIF file (i.e. to import it in a QSL tag printing software)"));
     toolMenu->addSeparator();
 
     downloadCTYAct = new QAction (tr("&Update CTY.CSV"), this);
@@ -3908,9 +3909,9 @@ void MainWindow::createMenusCommon()
     //TODO: To be added once the help dialog has been implemented
     helpMenu = menuBar()->addMenu(tr("&Help"));
 
-    updateAct = new QAction(tr("&Check updates..."), this);
+    updateAct = new QAction(tr("Check updates..."), this);
     helpMenu->addAction(updateAct);
-    updateAct->setMenuRole(QAction::AboutRole);
+    updateAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(updateAct, SIGNAL(triggered()), this, SLOT(slotHelpCheckUpdatesAction()));
 
     aboutAct = new QAction(tr("&About..."), this);
@@ -3959,7 +3960,7 @@ void MainWindow::slotHelpCheckUpdatesAction()
 {
    //qDebug() << "MainWindow::slotHelpCheckUpdatesAction" << endl;
     callingUpdate = true;
-
+    softUpdate->addCall(stationQRZ);
     softUpdate->needToUpdate();
     //callingUpdate = false;
 }

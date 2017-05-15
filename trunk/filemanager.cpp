@@ -25,7 +25,7 @@
  *****************************************************************************/
 
 #include "filemanager.h"
-#include <QDebug>
+//#include <QDebug>
 
 FileManager::FileManager()
 {

@@ -1,5 +1,5 @@
 #include "aboutdialog.h"
-#include <QDebug>
+//#include <QDebug>
 //#include "coreicons.h"
 
 //#include <app/app_version.h>

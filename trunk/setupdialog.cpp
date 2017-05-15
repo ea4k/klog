@@ -25,7 +25,7 @@
  *****************************************************************************/
 
 #include "setupdialog.h"
-#include <QDebug>
+//#include <QDebug>
 
 /*
 This class calls all the othet "Setup..." to manage the configuration
