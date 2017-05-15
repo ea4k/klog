@@ -1,4 +1,5 @@
 #include "softwareupdate.h"
+//#include <QDebug>
 
 SoftwareUpdate::SoftwareUpdate(const QString _klogVersion) : QObject(0)
 {
@@ -9,9 +10,9 @@ SoftwareUpdate::SoftwareUpdate(const QString _klogVersion) : QObject(0)
     toUpdate = false;
     url = new QUrl;
     //klogDir = _klogDir;
-    klogVersion = _klogVersion;
-    //latestVersion = klogVersion;
-    latestVersion = "0.0";
+    setVersion(_klogVersion);
+    //klogVersion = _klogVersion;
+    //latestVersion = "0.0";
     callsign = QString();
     result = -1;  // Error unknown
     //reply = new QNetworkReply;
@@ -20,23 +21,29 @@ SoftwareUpdate::SoftwareUpdate(const QString _klogVersion) : QObject(0)
     //request.setUrl(QUrl("http://localhost"));
     //request.setUrl(QUrl("https://download.savannah.gnu.org/releases/klog/"));
     //request.setUrl(QUrl("http://www.klog.xyz/download"));
-    //setTheURL("http://www.klog.xyz/download");
-    request.setUrl(QUrl("http://download.klog.xyz"));
+    setTheURL("http://download.klog.xyz");
+    //request.setUrl(QUrl("http://download.klog.xyz"));
 
     setHeader();
+
+}
+
+SoftwareUpdate::~SoftwareUpdate()
+{
 
 }
 
 void SoftwareUpdate::setTheURL(QString _url)
 {
    //qDebug() << "SoftwareUpdate::setTheURL: " << _url << endl;
- request.setUrl(QUrl(_url));
+    request.setUrl(QUrl(_url));
 }
 
-
-SoftwareUpdate::~SoftwareUpdate()
+void SoftwareUpdate::setVersion(const QString _klogVersion)
 {
-
+    klogVersion = _klogVersion;
+    latestVersion = "0.0";
+    setHeader();
 }
 
 void SoftwareUpdate::slotReadyRead()
@@ -47,7 +54,6 @@ void SoftwareUpdate::slotReadyRead()
 void SoftwareUpdate::slotError(int _p)
 {
     //qDebug() << "SoftwareUpdate::slotError: " << endl;
-
 }
 
 void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
@@ -89,51 +95,30 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
                //file->open(QIODevice::WriteOnly);
                //file->resize(0);
                setTheURL(url.toString());
-               needToUpdate();
+               connectToURL();
                return;
   } else {
       //qDebug() << "SoftwareUpdate::slotDownloadFinished: no reply error"  << endl;
-      //QString filename = saveFileName(url);
       if (checkUpdates(reply))
       {
           //qDebug() << "SoftwareUpdate::slotDownloadFinished checkupdates true"  << endl;
           updateDialog->setVersion(latestVersion);
           updateDialog->show();
           latestVersion = klogVersion;
-/*
-          msgBox.setIcon(QMessageBox::Information);
-          aux = tr("There is a new KLog version, please update!");
-          msgBox.setText(aux);
-          msgBox.setStandardButtons(QMessageBox::Ok);
-          msgBox.setDefaultButton(QMessageBox::Ok);
-          int ret = msgBox.exec();
-*/
+
       }
       else
       {
           //qDebug() << "SoftwareUpdate::slotDownloadFinished:  checkupdates false"  << endl;
-/*
-          msgBox.setIcon(QMessageBox::Information);
-          aux = tr("You already have the latest version of KLog!");
-          msgBox.setText(aux);
-          msgBox.setStandardButtons(QMessageBox::Ok);
-          msgBox.setDefaultButton(QMessageBox::Ok);
-          int ret = msgBox.exec();
-*/
+
       }
           //printf("Download of %s succeeded (saved to %s)\n",
           //       url.toEncoded().constData(), qPrintable(filename));
   }
 
   reply->deleteLater();
-  //manager->deleteResource(request);
-
     //qDebug() << "SoftwareUpdate::slotDownloadFinished end"  << endl;
-  //emit done();
-
 }
-
-
 
 bool SoftwareUpdate::checkUpdates(QIODevice *data)
 {    
@@ -197,8 +182,6 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
 
     emit updateNeededSignal (false);
     return false;
-
-
 }
 
 void SoftwareUpdate::updateNeeded(QString _newVer)
@@ -212,7 +195,6 @@ void SoftwareUpdate::updateNeeded(QString _newVer)
         {
             latestVersion = _newVer;
         }
-
     }
     else
     {
@@ -222,15 +204,26 @@ void SoftwareUpdate::updateNeeded(QString _newVer)
 
 void SoftwareUpdate::needToUpdate()
 {
+    // This is used to connect to the main server URL.
    //qDebug() << "SoftwareUpdate::needToUpdate (current version: " << klogVersion  << ")"  << endl;
+    setVersion(klogVersion);
+    setTheURL("http://download.klog.xyz");
+    connectToURL();
 
+    //QNetworkReply *reply = manager->get(request);
+    //connect(reply, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
+    //connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
+
+}
+
+
+void SoftwareUpdate::connectToURL()
+{
+    // This is where the connection takes place.... so first connection may be the main URL but it launches connection after redirections
     QNetworkReply *reply = manager->get(request);
-
-
 
     connect(reply, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
     connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
-
 }
 
 void SoftwareUpdate::setHeader()
