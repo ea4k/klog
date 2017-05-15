@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include <QDebug>
+//#include <QDebug>
 
 #include "setuppagelogs.h"
 

@@ -3,7 +3,7 @@
 #include <QUrl>
 #include <QNetworkRequest>
 #include <QFile>
-#include <QDebug>
+//#include <QDebug>
 
 
 

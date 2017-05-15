@@ -35,7 +35,7 @@
 //#include <QDirIterator>
 #include <QList>
 #include <QRegularExpression>
-#include <QDebug>
+//#include <QDebug>
 #include "utilities.h"
 #include "softwareupdatedialog.h"
 

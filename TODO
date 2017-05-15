@@ -11,20 +11,10 @@ Working on
 
 RC-BUGS: None identified today.
 
-
-TODO: Change the Setup band/mode selection to checklist instead of the current widget. It will be easier.
 TODO: To add the possibility to move the DB to another path, with the idea to use dropbox or whatever.
 TODO: Define band limits for CW/SSB/RTTY... so when a click on the cluster is done, the right mode is proposed.
 TODO: Add some "returnPressed" actions to some qlineedit to make usage quicker.
-TODO:
-The softwateupdate class can also be used to track how many KLog installations are around the world.
-    It can't add a privacy concern for the users so a configuration tab must be created.
-    Information will go in the user agent.
-    The user will be able to:
-            disable at all
-            Select what data to provide: call, operating system, version
-            Call will be used to track the number of users are usin KLog
-    Connection will be done on KLog start.
+
 
 BUG: Potential bug
 Double click on a QSO in the log on the Mode/Band... you can modifify the value. As it is a double click, the QSO goes to edit and ...
@@ -46,18 +36,6 @@ Solution:
 
 
 TODO: void DXCCStatusWidget::slotRefreshButtonClicked()//TODO: Define a way to show the status of the selected log or all the logs in the DB
-
-
-BUG:
-StationQRZ, operators, Locator are not defined clearly in the setup:
-    StationQRZ should come from each log
-    operator should come from each log, if there is only one. If there are more than one: TBD
-    Power & locator from main setup (unless decided other way)
-
-The data is not readed on the start but if you enter in the preferences it is.
-(except the operator)
-
-
 
 BUG: Optimize the KLog start
 BUG: If logbook.dat is not existing but klogrc it is, KLog does not start.
