@@ -50,8 +50,8 @@ public:
     ~SoftwareUpdate();
 
     void addCall(const QString _call);
-
     void needToUpdate();
+    void setVersion(const QString _klogVersion);
 
 private slots:
     void slotReadyRead();
@@ -65,6 +65,7 @@ signals:
     void updateNeededSignal(const bool _q); // Will be TRUE if updated if needed and FALSE if we already have the latest version
 
 private:
+    void connectToURL();
     bool checkUpdates(QIODevice *data);
     void updateNeeded(QString _newVer);
     void setTheURL(QString _url);
