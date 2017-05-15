@@ -1,4 +1,5 @@
 #include "dxccstatuswidget.h"
+//#include <QDebug>
 
 /*
 
@@ -10,7 +11,7 @@ TODO: Call the creation of this depending on the bands that the user is using
 
 DXCCStatusWidget::DXCCStatusWidget(QWidget *parent) : QWidget(parent)
 {
-    //qDebug() << "DXCCStatusWidget::DXCCStatusWidget" << endl;
+   //qDebug() << "DXCCStatusWidget::DXCCStatusWidget" << endl;
 
     awards = new Awards;
     world = new World;
@@ -43,7 +44,7 @@ DXCCStatusWidget::~DXCCStatusWidget(){}
 
 void DXCCStatusWidget::createUI()
 {
-    //qDebug() << "DXCCStatusWidget::createUI " << endl;
+   //qDebug() << "DXCCStatusWidget::createUI " << endl;
 
     // We remove the vertical header
     hv = dxccView->verticalHeader();
@@ -93,8 +94,10 @@ void DXCCStatusWidget::update()
 {
    //qDebug() << "DXCCStatusWidget::update " << endl;
     int entities = world->getHowManyEntities();
+   //qDebug() << "DXCCStatusWidget::update: " << QString::number(entities) << " entities to update" << endl;
     QStringList list;
     QString aux;
+    dxccView->sortByColumn(1, Qt::AscendingOrder);
     dxccView->clearContents();
 /*
     if (showAllLogsButton->isChecked())
@@ -134,7 +137,7 @@ void DXCCStatusWidget::update()
 
 void DXCCStatusWidget::addEntity(QStringList const _ent)
 {
-    //qDebug() << "DXCCStatusWidget::addEntity: " << _ent.at(1) << " / " << QString::number(_ent.length()) << endl;
+   //qDebug() << "DXCCStatusWidget::addEntity: " << _ent.at(1) << " / " << QString::number(_ent.length()) << endl;
     // DXCC id, Entity Name, bandName1, bandName2, ...
     if (_ent.length() != numberOfColumns)
     {
@@ -183,7 +186,7 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
     newItemID->setFlags(Qt::NoItemFlags);
     dxccView->setItem(dxccView->rowCount()-1, 0, newItemID);
 
- //QTableWidgetItem::QTableWidgetItem(const QIcon & icon, const QString & text, int type = Type)
+    //QTableWidgetItem::QTableWidgetItem(const QIcon & icon, const QString & text, int type = Type)
    // QTableWidgetItem *newItemFlag = new QTableWidgetItem(QIcon(flagSt), "T", 0);
 
     //QFont font;                                 // To show smaller letters "W" and "C" in the table
@@ -254,14 +257,14 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
 void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
 {// Receives the list of band names
 
-   //qDebug() << "DXCCStatusWidget::setBands: " << QString::number(_ent.length()) << endl;
+  //qDebug() << "DXCCStatusWidget::setBands: " << QString::number(_ent.length()) << endl;
     if (_creating)
     {
-        //qDebug() << "DXCCStatusWidget::setBands (creating true) " << QString::number(_ent.length()) << endl;
+       //qDebug() << "DXCCStatusWidget::setBands (creating true) " << QString::number(_ent.length()) << endl;
     }
     else
     {
-        //qDebug() << "DXCCStatusWidget::setBands (creating false) " << QString::number(_ent.length()) << endl;
+       //qDebug() << "DXCCStatusWidget::setBands (creating false) " << QString::number(_ent.length()) << endl;
     }
 
     QStringList qs;
@@ -332,7 +335,7 @@ void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
 
 void DXCCStatusWidget::setDefaultBands()
 {
-    //qDebug() << "DXCCStatusWidget::setDefaultBands" << endl;
+   //qDebug() << "DXCCStatusWidget::setDefaultBands" << endl;
     /*
      Default bands:
      160M    80M  40M  30M  20M  17M  15M  12M  10M  6M   4M   2M   70CM
@@ -357,7 +360,7 @@ void DXCCStatusWidget::slotSearchLineEditTextChanged()
 
 void DXCCStatusWidget::slotRefreshButtonClicked()
 {
-   //qDebug() << "DXCCStatusWidget::slotRefreshButtonClicked" << endl;
+  //qDebug() << "DXCCStatusWidget::slotRefreshButtonClicked" << endl;
     //TODO: Define a way to show the status of the selected log or all the logs in the DB
     QStringList _bands = bandNames;
     setBands(_bands);
@@ -366,11 +369,13 @@ void DXCCStatusWidget::slotRefreshButtonClicked()
 
 void DXCCStatusWidget::refresh()
 {
+   //qDebug() << "DXCCStatusWidget::refresh" << endl;
     slotRefreshButtonClicked();
 }
 
  void DXCCStatusWidget::setCurrentLog(const int _logN)
  {
+    //qDebug() << "DXCCStatusWidget::setCurrentLog: " << QString::number(_logN) << endl;
      if (dataProxy->doesThisLogExist(_logN))
      {
          logNumber = _logN;
