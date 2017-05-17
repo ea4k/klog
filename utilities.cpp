@@ -107,7 +107,7 @@ QString Utilities::getHomeDir()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
 #ifdef Q_OS_WIN
-    //qDebug() << "WINDOWS DETECTED!"  << endl;
+    //qDebug() << "WINDOWS DETECTED!: "  << QDir::homePath() + "/klog" << endl;
     return QDir::homePath()+"/klog";  // We create the \klog for the logs and data
 
 #else
@@ -122,8 +122,8 @@ QString Utilities::getKLogDatabaseFile()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
 #ifdef Q_OS_WIN
-    //qDebug() << "WINDOWS DETECTED!"  << endl;
-    return getHomeDir() + "\logbook.dat";
+    //qDebug() << "WINDOWS DETECTED!: "  << getHomeDir() + "/logbook.dat" << endl;
+    return getHomeDir() + "/logbook.dat";
 
 #else
     //qDebug() << "NO WINDOWS DETECTED!"  << endl;
@@ -140,8 +140,8 @@ QString Utilities::getCfgFile()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
 #ifdef Q_OS_WIN
-    //qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "\klogrc.cfg"  << endl;
-    return getHomeDir() + "\klogrc.cfg";
+    //qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
+    return getHomeDir() + "/klogrc.cfg";
 
 #else
     //qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
@@ -156,7 +156,7 @@ QString Utilities::getCTYFile()
 //TODO: To be removed when the defaultDir is saved in the config file
 #ifdef Q_OS_WIN
     //qDebug() << "WINDOWS DETECTED!"  << endl;
-    return getHomeDir() + "\cty.csv";
+    return getHomeDir() + "/cty.csv";
 
 #else
     //qDebug() << "NO WINDOWS DETECTED!"  << endl;
