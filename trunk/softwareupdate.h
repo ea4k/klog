@@ -50,7 +50,7 @@ public:
     ~SoftwareUpdate();
 
     void addCall(const QString _call);
-    void needToUpdate();
+    void needToUpdate(bool _showWithoutVersion=false);
     void setVersion(const QString _klogVersion);
 
 private slots:
@@ -82,8 +82,10 @@ private:
 
     SoftwareUpdateDialog *updateDialog;
 
-    int result;
-    bool toUpdate;
+    //int result;
+    //bool toUpdate;
+    bool repositoryFound;   // True when the versions have been checked to prevent multiple qmessagebox due to redirections
+    bool messageShown;
 
 };
 

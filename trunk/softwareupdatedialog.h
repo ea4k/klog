@@ -35,7 +35,7 @@ class SoftwareUpdateDialog: public QDialog
 public:
     SoftwareUpdateDialog();
     ~SoftwareUpdateDialog();
-    void setVersion(const QString tversion);
+    void setVersion(const QString tversion, const bool updateNeeded);
 
 private slots:
     void slotAcceptButtonClicked();
