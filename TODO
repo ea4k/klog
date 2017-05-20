@@ -3,13 +3,13 @@ It is not fixed... new features may be prioritized or not added without any noti
 Feel free to request any roadmap change if you have any suggestion.
 
 
-Check:
-Test and release!
-
-Working on
 
 
-RC-BUGS: None identified today.
+RC-BUGS: The ADIF export is not working!!!
+
+
+
+
 
 TODO: To add the possibility to move the DB to another path, with the idea to use dropbox or whatever.
 TODO: Define band limits for CW/SSB/RTTY... so when a click on the cluster is done, the right mode is proposed.

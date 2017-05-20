@@ -12,6 +12,8 @@ May 2017 - 0.9.2.6
 - BugFix: When manually importing a new CTY.CSV, although data was updated, it was not shown until next KLog start.
 - BugFix: In the others tab, the DXCC was sometime not correctly identified.
 - BugFix: Update on the DXCC widget caused no data to be shown if some columns were selected.
+- BugFix: Identification is a band was HF or VHF was not always properly done.
+- BugFix: When importing an ADIF file, if the file was not correct it was not possible to cancel the whole importing process.
 - Some minor changes on source code to optimize and improve.
 - Translations updated: Croatian (TNX M0NKC), Japanese (TNX JL3OXR) & Spanish (EA4TV).
 

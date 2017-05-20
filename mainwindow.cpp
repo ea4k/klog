@@ -573,7 +573,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
     softUpdate = new SoftwareUpdate(softwareVersion);
-    connect(softUpdate, SIGNAL(updateNeededSignal(bool)), this, SLOT(slotShowSoftUpdateResults(bool) ) );
+    //connect(softUpdate, SIGNAL(updateNeededSignal(bool)), this, SLOT(slotShowSoftUpdateResults(bool) ) );
     callingUpdate = false; // to control whether the update is mannually launched or at the begining
 
 
@@ -3961,7 +3961,7 @@ void MainWindow::slotHelpCheckUpdatesAction()
    //qDebug() << "MainWindow::slotHelpCheckUpdatesAction" << endl;
     callingUpdate = true;
     softUpdate->addCall(stationQRZ);
-    softUpdate->needToUpdate();
+    softUpdate->needToUpdate(true);
     //callingUpdate = false;
 }
 

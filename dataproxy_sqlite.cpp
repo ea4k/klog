@@ -1488,7 +1488,7 @@ bool DataProxy_SQLite::isDXCCConfirmed(const int _dxcc, const int _currentLog)
 
 bool DataProxy_SQLite::isHF(const int _band)
 {
-    if ((_band>=18) && (_band<=27))
+    if ( (_band>=getIdFromBandName("10M")) && (_band<=getIdFromBandName("160M")) )
     {
        //qDebug() << "DataProxy_SQLite::isHF: TRUE" << endl;
         return true;
@@ -1502,7 +1502,7 @@ bool DataProxy_SQLite::isHF(const int _band)
 
 bool DataProxy_SQLite::isWARC(const int _band)
 {
-    if ((_band == 19) || (_band==21) ||(_band==23) )
+    if ( (_band==getIdFromBandName("12M")) || (_band==getIdFromBandName("170M")) || ((_band==getIdFromBandName("30M")) ) )
     {
         //qDebug() << "DataProxy_SQLite::isWARC: tRUE" << endl;
         return true;
@@ -1516,7 +1516,7 @@ bool DataProxy_SQLite::isWARC(const int _band)
 
 bool DataProxy_SQLite::isVHF(const int _band)
 {
-    if (_band<=17)
+    if (_band<=getIdFromBandName("6M"))
     {
        //qDebug() << "DataProxy_SQLite::isVHF: TRUE" << endl;
         return true;

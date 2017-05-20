@@ -11,6 +11,8 @@ SoftwareUpdateDialog::SoftwareUpdateDialog()
     textBrowser->setOpenLinks(true);
     textBrowser->setOpenExternalLinks(true);
 
+    //textBrowser->setFrameShadow(QFrame::Raised);
+    //textBrowser->setFrameStyle(QFrame::StyledPanel);
 
     QPushButton *acceptButton = new QPushButton(tr("Ok"));
 
@@ -37,11 +39,19 @@ SoftwareUpdateDialog::SoftwareUpdateDialog()
     connect(acceptButton, SIGNAL(clicked()), this, SLOT(slotAcceptButtonClicked()));
 }
 
-void SoftwareUpdateDialog::setVersion(const QString tversion)
+void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateNeeded)
 {
-    //qDebug() << "SoftwareUpdateDialog::setVersion: " << tversion << endl;
+   //qDebug() << "SoftwareUpdateDialog::setVersion: " << tversion << endl;
     _version = tversion;
-    text = "<center><h2>KLog new version ("+ tversion + ") is available! </h2></center><br>There is a new version of KLog available.<br><br><b>You can get the new version from:<br><br><center><a href=http://jaime.robles.es/klog>http://jaime.robles.es/klog</a></center>";
+    if (updateNeeded)
+    {
+        text = "<center><h2>KLog new version ("+ tversion + ") is available! </h2></center><br>There is a new version of KLog available.<br><br><b>You can get the new version from:<br><br><center><a href=http://www.klog.xyz>http://www.klog.xyz</a></center>";
+    }
+    else
+    {
+        text = "<center><h2>" + tr("Congratulations!") + "</h2></center><br><br>" + tr("Your KLog is updated.") + "<br><br>" + tr("You already have the latest version.") + "<br><center>("+ tversion + ")</center>";
+    }
+
     textBrowser->setHtml(text);
 
 }

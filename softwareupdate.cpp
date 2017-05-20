@@ -6,15 +6,17 @@ SoftwareUpdate::SoftwareUpdate(const QString _klogVersion) : QObject(0)
     //qDebug() << "SoftwareUpdate::SoftwareUpdate(): " << _klogDir << endl;
     util = new Utilities;
     updateDialog = new SoftwareUpdateDialog();
-    updateDialog->setVersion(_klogVersion);
-    toUpdate = false;
+    latestVersion = "0.0";
+    //updateDialog->setVersion(_klogVersion, fale);
+    //toUpdate = false;
+    repositoryFound = false;
     url = new QUrl;
     //klogDir = _klogDir;
     setVersion(_klogVersion);
     //klogVersion = _klogVersion;
     //latestVersion = "0.0";
     callsign = QString();
-    result = -1;  // Error unknown
+    //result = -1;  // Error unknown
     //reply = new QNetworkReply;
     manager = new QNetworkAccessManager(this);
      //request = new QNetworkRequest(this);    
@@ -23,7 +25,7 @@ SoftwareUpdate::SoftwareUpdate(const QString _klogVersion) : QObject(0)
     //request.setUrl(QUrl("http://www.klog.xyz/download"));
     setTheURL("http://download.klog.xyz");
     //request.setUrl(QUrl("http://download.klog.xyz"));
-
+    messageShown = false;
     setHeader();
 
 }
@@ -42,7 +44,7 @@ void SoftwareUpdate::setTheURL(QString _url)
 void SoftwareUpdate::setVersion(const QString _klogVersion)
 {
     klogVersion = _klogVersion;
-    latestVersion = "0.0";
+    //latestVersion = "0.0";
     setHeader();
 }
 
@@ -60,16 +62,17 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
 {
 //qDebug() << "SoftwareUpdate::slotDownloadFinished"  << endl;
 
-  QUrl url = reply->url();
+    QUrl url = reply->url();
  //qDebug() << "SoftwareUpdate::slotDownloadFinished - URL: " << url.toString()  << endl;
 
-  QMessageBox msgBox;
-  QString aux;
-  aux.clear();
-  QVariant redirectionTarget = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
+    //QMessageBox msgBox;
+    //QString aux;
+    //aux.clear();
+    QVariant redirectionTarget = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
-  if (reply->error()) {
-      //qDebug() << "SoftwareUpdate::slotDownloadFinished: reply error"  << endl;
+    if (reply->error())
+    {
+       //qDebug() << "SoftwareUpdate::slotDownloadFinished: reply error"  << endl;
 /*
       fprintf(stderr, "Updates %s failed: %s\n",
               url.toEncoded().constData(),
@@ -87,75 +90,84 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
 
 */
 
-  } else if (!redirectionTarget.isNull()) {
-         QUrl newUrl = url.resolved(redirectionTarget.toUrl());
-     //qDebug() << "SoftwareUpdate::slotDownloadFinished: Redirect: " << newUrl.toString() << endl;
-               url = newUrl;
-               reply->deleteLater();
-               //file->open(QIODevice::WriteOnly);
-               //file->resize(0);
-               setTheURL(url.toString());
-               connectToURL();
-               return;
-  } else {
-      //qDebug() << "SoftwareUpdate::slotDownloadFinished: no reply error"  << endl;
-      if (checkUpdates(reply))
-      {
-          //qDebug() << "SoftwareUpdate::slotDownloadFinished checkupdates true"  << endl;
-          updateDialog->setVersion(latestVersion);
-          updateDialog->show();
-          latestVersion = klogVersion;
+    }
+    else if (!redirectionTarget.isNull())
+    {
+        repositoryFound = false;
+        QUrl newUrl = url.resolved(redirectionTarget.toUrl());
+       //qDebug() << "SoftwareUpdate::slotDownloadFinished: Redirect: " << newUrl.toString() << endl;
+        url = newUrl;
+        reply->deleteLater();
+        setTheURL(url.toString());
+        connectToURL();
+        return;
+    }
+    else
+    {
+        if (checkUpdates(reply))
+        {
+         //qDebug() << "SoftwareUpdate::slotDownloadFinished checkupdates true"  << endl;
+            if (repositoryFound)
+            {
+               //qDebug() << "SoftwareUpdate::slotDownloadFinished repository found"  << endl;
+                if(latestVersion>klogVersion)
+                {
+                   //qDebug() << "SoftwareUpdate::slotDownloadFinished checkupdates should update!"  << endl;
+                    updateDialog->setVersion(latestVersion, true);
+                }
+                updateDialog->show();
+                latestVersion = klogVersion;
+                repositoryFound = false;
+            }
+        }
+        else
+        {
+            if (repositoryFound && messageShown)
+            {
+                updateDialog->setVersion(latestVersion, false);
+                updateDialog->show();
+            }
 
-      }
-      else
-      {
           //qDebug() << "SoftwareUpdate::slotDownloadFinished:  checkupdates false"  << endl;
 
-      }
-          //printf("Download of %s succeeded (saved to %s)\n",
-          //       url.toEncoded().constData(), qPrintable(filename));
-  }
+        }
+    }
 
-  reply->deleteLater();
-    //qDebug() << "SoftwareUpdate::slotDownloadFinished end"  << endl;
+    reply->deleteLater();
+   //qDebug() << "SoftwareUpdate::slotDownloadFinished end"  << endl;
 }
 
 bool SoftwareUpdate::checkUpdates(QIODevice *data)
 {    
-   //qDebug() << "SoftwareUpdate::checkUpdates: " << QString::number(data->size()) << endl;
+    // Checks if there is a new version in the repository
+
+  //qDebug() << "SoftwareUpdate::checkUpdates: " << QString::number(data->size()) << endl;
     QString line, release;
     QStringList stringList, klogStringList;
 
     QRegularExpression rx("href=\"klog-(\\d\\.)+tar.gz");
 
-    if (rx.isValid())
-    {
-       //qDebug() << "SoftwareUpdate::checkUpdates: RX is VALID"<< endl;
-    }
-    else
-    {
-      //qDebug() << "SoftwareUpdate::checkUpdates: RX is NOT VALID"<< endl;
-    }
-   //qDebug() << "SoftwareUpdate::checkUpdates: Before entering the while"<< endl;
+    //qDebug() << "SoftwareUpdate::checkUpdates: Before entering the while"<< endl;
 
     while (!data->atEnd())
     {
-       //qDebug() << "SoftwareUpdate::checkUpdates: In the while"<< endl;
+        //qDebug() << "SoftwareUpdate::checkUpdates: In the while"<< endl;
         stringList.clear();
         klogStringList.clear();
         line.clear();
         line = data->readLine();
-       //qDebug() << "SoftwareUpdate::checkUpdates: line: " << line << endl;
+        //qDebug() << "SoftwareUpdate::checkUpdates: line: " << line << endl;
         if (line.contains("klog-"))
         {
+            repositoryFound = true;
             stringList << line.split(">", QString::SkipEmptyParts);
             klogStringList << stringList.filter("klog");
             foreach (const QString &str, klogStringList)
             {
-                 //qDebug() << "SoftwareUpdate::checkUpdates klog: " << str << endl;
+                //qDebug() << "SoftwareUpdate::checkUpdates klog: " << str << endl;
                    if (rx.match(str).hasMatch())
                    {
-                      //qDebug() << "SoftwareUpdate::checkUpdates: MATCH: " << str << endl;
+                     //qDebug() << "SoftwareUpdate::checkUpdates: MATCH: " << str << endl;
                        release = str.section("-",1);                       
                        release = release.section("\.tar.gz", 0, 0);                       
                        updateNeeded(release);
@@ -165,47 +177,59 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
                       //qDebug() << "SoftwareUpdate::checkUpdates: DOES NOT MATCH: " << str << endl;
                    }
             }
-           //qDebug() << "SoftwareUpdate::checkUpdates: " << line << endl;
+          //qDebug() << "SoftwareUpdate::checkUpdates: " << line << endl;
         }
     }
-   //qDebug() << "SoftwareUpdate::checkUpdates:Latest/Actual: " << latestVersion <<"/" << klogVersion << endl;
+  //qDebug() << "SoftwareUpdate::checkUpdates:Latest/Actual: " << latestVersion << "/" << klogVersion << endl;
     if (latestVersion > klogVersion)
     {
         emit updateNeededSignal (true);
+       //qDebug() << "SoftwareUpdate::checkUpdates: signal  true" << endl;
         return true;
     }
     else
     {
-        emit updateNeededSignal (false);
+        //emit updateNeededSignal (false);
+       //qDebug() << "SoftwareUpdate::checkUpdates: signal  false 1" << endl;
         return false;
     }
 
-    emit updateNeededSignal (false);
+    //emit updateNeededSignal (false);
+   //qDebug() << "SoftwareUpdate::checkUpdates: signal  false 2" << endl;
     return false;
 }
 
 void SoftwareUpdate::updateNeeded(QString _newVer)
 {
-   //qDebug() << "SoftwareUpdate::updateNeeded: " << _newVer  << endl;
+  //qDebug() << "SoftwareUpdate::updateNeeded: " << _newVer  << endl;
 
+    if (latestVersion<_newVer)
+    {
+        latestVersion = _newVer;
+    }
+/*
     if (klogVersion < _newVer)
     {
-       //qDebug() << "SoftwareUpdate::updateNeeded TRUE: " << _newVer  << endl;
-        if (latestVersion < _newVer)
-        {
-            latestVersion = _newVer;
-        }
+      //qDebug() << "SoftwareUpdate::updateNeeded TRUE: " << _newVer  << endl;
+        if
+
     }
     else
     {
-       //qDebug() << "SoftwareUpdate::updateNeeded - FALSE " << _newVer  << endl;
+      //qDebug() << "SoftwareUpdate::updateNeeded - FALSE " << _newVer  << endl;
     }
+*/
+
+   //qDebug() << "SoftwareUpdate::updateNeeded - KLogVersion/latestVersion/newver: "<< klogVersion <<"/"<< latestVersion << "/"<<_newVer  << endl;
 }
 
-void SoftwareUpdate::needToUpdate()
-{
-    // This is used to connect to the main server URL.
+void SoftwareUpdate::needToUpdate(bool _showWithoutVersion)
+{ // This is used to connect to the main server URL.
+  // If _showWithoutVersio is false: We are checking for new versions at KLog start: No message should be shown if no new version is found.
+  // If _showWithoutVersio is true: The user is manually asking to check. A message should is shown if no new version is found.
+
    //qDebug() << "SoftwareUpdate::needToUpdate (current version: " << klogVersion  << ")"  << endl;
+    messageShown = _showWithoutVersion;
     setVersion(klogVersion);
     setTheURL("http://download.klog.xyz");
     connectToURL();

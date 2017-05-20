@@ -2256,7 +2256,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
     bool inHeader = true;
     bool EOR = false;
-    bool noMoreQso = false;
+    noMoreQso = false;
     bool preparedQBool = false;
     qint64 pos; //Position in the file
     int i = 0; //Aunxiliar variable
@@ -3635,7 +3635,6 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
 
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog: Not all required data found!"));
-        //msgBox.setText(tr("This QSO is not including the minimum data to consider a QSO as valid!.\n\n\nPlease edit the ADIF file and make sure that it include at least:\n\nCALL, QSO_DATE, TIME_ON, BAND and MODE.\n\nDo you want to continue with the current file?"));
         msgBox.setText(aux2);
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Cancel);
