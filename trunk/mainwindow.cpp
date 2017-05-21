@@ -4108,7 +4108,7 @@ void MainWindow::openFile()
 
 bool MainWindow::saveFile(const QString _fileName)
 {
-   //qDebug() << "MainWindow::saveFile: " << _fileName  << endl;
+  //qDebug() << "MainWindow::saveFile: " << _fileName  << endl;
 
 
     QString fileName = _fileName;
@@ -4141,7 +4141,7 @@ bool MainWindow::saveFile(const QString _fileName)
 
 bool MainWindow::saveFileAs()
 {
-    //qDebug() << "MainWindow::saveFileAs"  << endl;
+   //qDebug() << "MainWindow::saveFileAs"  << endl;
     //QFileDialog dialog(this);
 
     QStringList filters;
