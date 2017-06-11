@@ -151,7 +151,7 @@
                             <title>Welcome to KLog</title> \
             </head><body> \
             <p>It looks to be the first time you run KLog in this computer.</p> \
-            <p>KLog is a free hamradio logging software that is able to run in Linux, OSX and Windows. It is designed to provide general \
+            <p>KLog is a free hamradio logging software that is able to run in Linux, macOS and Windows. It is designed to provide general \
             purpose, DX logging and contest logging.</p> \
             <p>It support ADIF and Cabrillo file formats import and export, QSL managing support and many other features...</p> \
             <p>Before you can start using KLog, you will be asked to: \
