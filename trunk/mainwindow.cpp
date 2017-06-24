@@ -2029,8 +2029,8 @@ WHERE [condition];
     //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
     //int i = qslSentComboBox->currentIndex();
     //int ii = qslSentViaComboBox->currentIndex();
-    aux1 == QSLTabWidget->getQSLSenStatus();
-    aux2 == QSLTabWidget->getSentVia();
+    aux1 = QSLTabWidget->getQSLSenStatus();
+    aux2 = QSLTabWidget->getSentVia();
 
     if (aux1 == "Y")
     {
@@ -2665,6 +2665,9 @@ void MainWindow::createActionsCommon(){
     connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorTextChanged() ) );
     connect(myLocatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotMyLocatorTextChanged() ) );
 
+    connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged()) ) ;
+    connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqRXChanged()) ) ;
+
 
 //connect(bandComboBox, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 //connect(dateEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
@@ -2723,7 +2726,8 @@ void MainWindow::createActionsCommon(){
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
     connect (elogClublog, SIGNAL (actionReturnDownload(int, int)), this, SLOT (slotElogClubLogProcessAnswer(int, int)));
     connect (elogClublog, SIGNAL (disableClubLogAction(bool)), this, SLOT (slotElogClubLogDisable(bool)));
-
+	// SATELLITE TAB
+    connect (satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
 }
 void MainWindow::slotElogClubLogDisable(const bool _b)
 {
@@ -5468,6 +5472,8 @@ void MainWindow::checkIfNewBandOrMode()
    //qDebug() << "MainWindow::checkIfNewBandOrMode - bands -" << QString::number(bands.length()) << endl;
     bandComboBox->clear();
     bandComboBox->addItems(bands);
+	
+	satTabWidget->addBands(bands);
 
    //qDebug() << "MainWindow::checkIfNewBandOrMode - modes -" << QString::number(modes.length()) << endl;
     modeComboBox->clear();
@@ -9337,6 +9343,40 @@ void MainWindow::completeWithPreviousQSO(const QString _call)
         //completedWithPreviousQSLVia = false;
         //qslViaLineEdit->setPalette(palBlack);
     }
+}
+
+void MainWindow::slotSatBandTXComboBoxChanged(const QString _q)
+{
+    qDebug() << "MainWindow::slotSatBandTXComboBoxChanged" << _q << endl;
+    bandComboBox->setCurrentIndex(bandComboBox->findText(_q));
+}
+
+void MainWindow::slotFreqTXChanged()
+{
+    QString _q;
+    int v = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
+    if (v<0)
+    {
+        return;
+    }
+
+    _q = dataProxy->getNameFromBandId (v);
+    bandComboBox->setCurrentIndex(bandComboBox->findText(_q));
+}
+
+void MainWindow::slotFreqRXChanged()
+{
+    QString _q;
+    int v = dataProxy->getBandIdFromFreq(rxFreqSpinBox->value());
+    int txv = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
+    if ((v<0) || (txv>=0) )
+    {
+        //estoyaqui viendo como le doy prioridad a la TX freq
+        return;
+    }
+
+    _q = dataProxy->getNameFromBandId (v);
+    bandComboBox->setCurrentIndex(bandComboBox->findText(_q));
 }
 
 

@@ -35,6 +35,11 @@ MainWindowSatTab::MainWindowSatTab(QWidget *parent) :
     satNameLineEdit = new QLineEdit;
     satModeLineEdit = new QLineEdit;
     satOtherLabel = new QLabel;
+    satBandTXComboBox = new QComboBox;
+    satBandRXComboBox = new QComboBox;
+    txFreqSpinBox = new QDoubleSpinBox;
+    rxFreqSpinBox = new QDoubleSpinBox;
+
 
     keepThisDataForNextQSORadiobutton = new QRadioButton;
 
@@ -44,6 +49,8 @@ MainWindowSatTab::MainWindowSatTab(QWidget *parent) :
     populateSatComboBox();
     satNameLineEdit->setEnabled(false);
     satOtherLabel->setEnabled(false);
+
+    setDefaultBands(); //TODO: Check how the bands are included not to create an inconsistence with the selected (in the setup) bands
 }
 
 MainWindowSatTab::~MainWindowSatTab(){}
@@ -53,6 +60,12 @@ void MainWindowSatTab::createUI()
     connect(satNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSatNameTextChanged() ) );
     connect(satModeLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSatModeTextChanged() ) );
     connect(satNameComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotSatNameComboBoxChanged() ) ) ;
+    connect(satBandRXComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotSatBandRXComboBoxChanged()) ) ;
+    connect(satBandTXComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotSatBandTXComboBoxChanged()) ) ;
+
+    connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotSatFreqTXChanged()) ) ;
+    connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotSatFreqRXChanged()) ) ;
+
 
     QLabel *keepLabel = new QLabel();
     keepLabel->setText(tr("Keep this data"));
@@ -68,6 +81,16 @@ void MainWindowSatTab::createUI()
     //satNameLineEdit->setToolTip(tr("Name of the Satellite if not in the list. Select Other Sat (format like AO-51)"));
     satModeLineEdit->setToolTip(tr("Satellite mode used"));
     satNameComboBox->setToolTip(tr("Select the satellite you are using"));
+    satBandTXComboBox->setToolTip(tr("UpLink band"));
+    satBandRXComboBox->setToolTip(tr("DownLink band"));
+
+    QLabel *upLinkLabel = new QLabel();
+    upLinkLabel->setText(tr("UpLink"));
+    upLinkLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+
+    QLabel *downLinkLabel = new QLabel();
+    downLinkLabel->setText(tr("DownLink"));
+    downLinkLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
     QLabel *satNameLabel = new QLabel();
     satNameLabel->setText(tr("Satellite"));
@@ -81,6 +104,41 @@ void MainWindowSatTab::createUI()
     satOtherLabel->setText(tr("Other"));
     satOtherLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
+
+    txFreqSpinBox->setDecimals(3);
+    txFreqSpinBox->setMaximum(9999);
+    txFreqSpinBox->setSuffix(tr("MHz"));
+
+    rxFreqSpinBox->setDecimals(3);
+    rxFreqSpinBox->setMaximum(9999);
+    rxFreqSpinBox->setSuffix(tr("MHz"));
+
+    //QHBoxLayout *satNameLayout = new QHBoxLayout;
+    //satNameLayout->addWidget(satNameLabel);
+    //satNameLayout->addWidget(satNameComboBox);
+    //satNameLayout->addWidget(satNameLineEdit);
+
+
+
+    QGridLayout *tabLayout = new QGridLayout;
+
+    tabLayout->addWidget(satNameLabel,0,0);
+    tabLayout->addWidget(upLinkLabel,1,0);
+    tabLayout->addWidget(downLinkLabel,2,0);
+    tabLayout->addWidget(satModeLabel,3,0);
+
+    tabLayout->addWidget(satNameComboBox,0,1);
+    tabLayout->addWidget(satBandTXComboBox,1,1);
+    tabLayout->addWidget(satBandRXComboBox,2,1);
+    tabLayout->addWidget(satModeLineEdit,3,1);
+    //tabLayout->addWidget(satModeLineEdit,3,1,1,-1);
+
+    tabLayout->addWidget(satNameLineEdit,0,2);
+    tabLayout->addWidget(txFreqSpinBox,1,2);
+    tabLayout->addWidget(rxFreqSpinBox,2,2);
+
+
+/*
     QGridLayout *tabLayout = new QGridLayout;
     tabLayout->addWidget(satNameLabel, 0, 0);    
     tabLayout->addWidget(satNameComboBox, 0, 1);
@@ -93,6 +151,11 @@ void MainWindowSatTab::createUI()
 
     tabLayout->addWidget(keepLabel, 3, 1);
     tabLayout->addWidget(keepThisDataForNextQSORadiobutton, 3, 2);
+*/
+    //QVBoxLayout *layout = new QVBoxLayout;
+    //layout->addLayout(satNameLayout);
+    //layout->addLayout(tabLayout);
+
 
     setLayout(tabLayout);
 
@@ -336,4 +399,65 @@ QString MainWindowSatTab::getOtherSatName()
 int MainWindowSatTab::getSatIndex(const QString _p)
 {
     return satNameComboBox->findText(_p, Qt::MatchContains);
+}
+
+
+void MainWindowSatTab::addBands(QStringList _bands)
+{
+    qDebug() << "MainWindowSatTab::addBands: " << QString::number(_bands.length()) << endl;
+    satBandRXComboBox->clear();
+    satBandTXComboBox->clear();
+    satBandTXComboBox->addItems(_bands);
+    satBandRXComboBox->addItems(_bands);
+
+}
+
+void MainWindowSatTab::setDefaultBands()
+{//Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist in the selected bands
+    QStringList _b;
+    _b.clear();
+
+    _b << "10M" << "2M" << "70CM" << "23CM";
+    satBandRXComboBox->addItems(_b);
+    satBandTXComboBox->addItems(_b);
+
+}
+
+void MainWindowSatTab::slotSatBandRXComboBoxChanged()
+{
+    emit satBandRXChanged(satBandRXComboBox->currentText());
+
+}
+
+void MainWindowSatTab::slotSatBandTXComboBoxChanged()
+{
+    emit satBandTXChanged(satBandTXComboBox->currentText());
+}
+
+void MainWindowSatTab::slotSatFreqRXChanged()
+{
+    //bandComboBox->setCurrentIndex(bandComboBox->findText(_q));
+    QString _q;
+    int v = dataProxy->getBandIdFromFreq(rxFreqSpinBox->value());
+    if (v<0)
+    {
+        return;
+    }
+
+    _q = dataProxy->getNameFromBandId (v);
+
+    satBandRXComboBox->setCurrentIndex(satBandRXComboBox->findText(_q));
+}
+void MainWindowSatTab::slotSatFreqTXChanged()
+{
+    QString _q;
+    int v = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
+    if (v<0)
+    {
+        return;
+    }
+
+    _q = dataProxy->getNameFromBandId (v);
+
+    satBandTXComboBox->setCurrentIndex(satBandTXComboBox->findText(_q));
 }

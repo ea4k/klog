@@ -8,6 +8,7 @@ TODO: Review the color management inMainWindowInputOthers::setIOTA (and maybe ot
 TODO: en los widgets de QSL, al obtener los datos, las fechas solo se dan si se deben dar, no siempre?
 TODO: Check if in mainwindow (read formUI and modify the eQSL/LOTW REC/SENT values are correct
 TODO: Add a cheking to the list of bureaus and propose the bureau for QSL via when there is an existing one and propose direct when no bureau is existing.
+TODO: If no QSL sen via or rec via are defined, KLOg shows as direct? It should be bureau
 
 RC-BUGS: The ADIF export is not working!!!
 

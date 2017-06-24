@@ -52,16 +52,26 @@ public:
     bool getRepeatThis();
     void setRepeatThis(const bool _t);
 
+    void addBands(QStringList _bands);
+    void setDefaultBands(); //Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist in the selected bands
+
+
 
     void clear();
 
 signals:
     void setPropModeSat(const QString _p);
+    void satBandTXChanged(const QString _p);
+    void satBandRXChanged(const QString _p);
 
 private slots:
     void slotSatNameTextChanged();
     void slotSatModeTextChanged();
     void slotSatNameComboBoxChanged();
+    void slotSatBandRXComboBoxChanged();
+    void slotSatBandTXComboBoxChanged();
+    void slotSatFreqRXChanged();
+    void slotSatFreqTXChanged();
 
 private:
     void createUI();
@@ -77,10 +87,11 @@ private:
     //QPushButton *satNamePushButon;
     //QComboBox *satNameComboBox, *satModeComboBox;
     QComboBox *satNameComboBox;
-
+    QComboBox *satBandTXComboBox, *satBandRXComboBox;
     QStringList satNames, satModes;
     QStringList satellitesList;
 
+    QDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;
     DataProxy *dataProxy;
 };
 

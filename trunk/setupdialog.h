@@ -110,7 +110,7 @@ private:
     QStackedWidget *pagesWidget;
 
     SetupPageUserDataPage *userDataPage;
-    SetupPageBandsModes *bandsModesPage;
+    SetupPageBandsModes *bandModePage;
     SetupPageDxCluster *dxClusterPage;
     SetupPageMisc *miscPage;
     SetupPageColors *colorsPage;
