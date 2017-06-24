@@ -65,7 +65,7 @@ SetupDialog::SetupDialog(const bool _firstTime)
 
     userDataPage = new SetupPageUserDataPage();
    //qDebug() << "SetupDialog::SetupDialog 3.5" << endl;
-    bandsModesPage = new SetupPageBandsModes(this);
+    bandModePage = new SetupPageBandsModes(this);
    //qDebug() << "SetupDialog::SetupDialog 3.6" << endl;
     dxClusterPage = new SetupPageDxCluster(this);
    //qDebug() << "SetupDialog::SetupDialog 3.7" << endl;
@@ -83,7 +83,7 @@ SetupDialog::SetupDialog(const bool _firstTime)
    //qDebug() << "SetupDialog::SetupDialog 4" << endl;
 
     tabWidget->addTab(userDataPage, tr("My Data"));    
-    tabWidget->addTab(bandsModesPage, tr("Bands/Modes"));
+    tabWidget->addTab(bandModePage, tr("Bands/Modes"));
     tabWidget->addTab(dxClusterPage, tr("DX-Cluster"));
     tabWidget->addTab(colorsPage, tr("Colors"));
     tabWidget->addTab(miscPage, tr("Misc"));
@@ -143,7 +143,7 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
     tabWidget = new QTabWidget;
 
     userDataPage = new SetupPageUserDataPage();
-    bandsModesPage = new SetupPageBandsModes(this);
+    bandModePage = new SetupPageBandsModes(this);
     dxClusterPage = new SetupPageDxCluster(this);
     colorsPage = new SetupPageColors(this);
     miscPage = new SetupPageMisc(this);
@@ -152,7 +152,7 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
     clubLogPage = new SetupPageClubLog(this);
     //qDebug() << "SetupDialog::SetupDialog 02" << endl;
     tabWidget->addTab(userDataPage, tr("User data"));
-    tabWidget->addTab(bandsModesPage, tr("Bands/Modes"));
+    tabWidget->addTab(bandModePage, tr("Bands/Modes"));
     tabWidget->addTab(dxClusterPage, tr("D&X-Cluster"));
     tabWidget->addTab(colorsPage, tr("Colors"));
     tabWidget->addTab(miscPage, tr("Misc"));
@@ -473,8 +473,8 @@ void SetupDialog::slotOkButtonClicked()
         //stream << "locator=" << (MyLocatorkLineEdit->text ()).toUpper () <<  ";" << endl;
         //stream << "CallUsed=" << (UserDataPage.qrzLineEdit).text() <<  ";" << endl;
         //stream << "Operators=" <<  ";" << endl;
-        stream << "Bands=" << bandsModesPage->getBands() << ";" <<  endl;
-        stream << "Modes=" << bandsModesPage->getModes() << ";" <<  endl;
+        stream << "Bands=" << bandModePage->getBands() << ";" <<  endl;
+        stream << "Modes=" << bandModePage->getModes() << ";" <<  endl;
 
         //stream << "InMemory=" << miscPage->getInMemory() << ";" <<  endl;
         stream << "RealTime=" << miscPage->getRealTime() << ";" <<  endl;
@@ -557,8 +557,8 @@ void SetupDialog::slotReadConfigData()
         setDefaults();
         bands.removeDuplicates();
         modes.removeDuplicates();
-        bandsModesPage->setActiveModes(modes);
-        bandsModesPage->setActiveBands(bands);
+        bandModePage->setActiveModes(modes);
+        bandModePage->setActiveBands(bands);
     }
 
     //qDebug() << "SetupDialog::slotReadConfigData - 1" << endl;
@@ -596,10 +596,10 @@ void SetupDialog::slotReadConfigData()
     }
     modes.removeDuplicates();
     //qDebug() << "SetupDialog::slotReadConfigData - duplicate modes: " << QString::number(a)  << endl;
-    bandsModesPage->setActiveModes(modes);
+    bandModePage->setActiveModes(modes);
     bands.removeDuplicates();
   //qDebug() << "SetupDialog::slotReadConfigData - duplicate bands: " << QString::number(a)  << endl;
-    bandsModesPage->setActiveBands(bands);
+    bandModePage->setActiveBands(bands);
    //qDebug() << "SetupDialog::slotReadConfigData - END" << endl;
 
 }
@@ -649,11 +649,11 @@ bool SetupDialog::processConfigLine(const QString _line)
     }else if (tab=="MODES"){
         readActiveModes(value);
         modes.removeDuplicates();
-        bandsModesPage->setActiveModes(modes);
+        bandModePage->setActiveModes(modes);
     }else if (tab=="BANDS"){
         readActiveBands(value);
         bands.removeDuplicates();
-        bandsModesPage->setActiveBands(bands);
+        bandModePage->setActiveBands(bands);
     //}else if (tab=="INMEMORY"){
     //    miscPage->setInMemory(value);
     }else if (tab=="REALTIME"){
@@ -1019,18 +1019,18 @@ void SetupDialog::checkIfNewBandOrMode()
     //qDebug() << "SetupDialog::checkIfNewBandOrMode -1" << endl;
     _items << dataProxy->getBandsInLog(-1);
     //qDebug() << "SetupDialog::checkIfNewBandOrMode -2" << endl;
-    _items << (bandsModesPage->getBands()).split(", ", QString::SkipEmptyParts);
+    _items << (bandModePage->getBands()).split(", ", QString::SkipEmptyParts);
     //qDebug() << "SetupDialog::checkIfNewBandOrMode -3" << endl;
     _items.removeDuplicates();
     //qDebug() << "SetupDialog::checkIfNewBandOrMode -4" << endl;
-    bandsModesPage->setActiveBands(_items);
+    bandModePage->setActiveBands(_items);
     //qDebug() << "SetupDialog::checkIfNewBandOrMode -5" << endl;
 
     _items.clear();
     _items << dataProxy->getModesInLog(-1);
-    _items << (bandsModesPage->getModes()).split(", ", QString::SkipEmptyParts);
+    _items << (bandModePage->getModes()).split(", ", QString::SkipEmptyParts);
     _items.removeDuplicates();
-    bandsModesPage->setActiveModes(_items);
+    bandModePage->setActiveModes(_items);
     //qDebug() << "SetupDialog::checkIfNewBandOrMode END" << endl;
 
 }

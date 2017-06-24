@@ -125,6 +125,8 @@ private slots:
     void slotSTXTextChanged();
     void slotLocatorTextChanged();
     void slotMyLocatorTextChanged();
+    void slotFreqTXChanged();
+    void slotFreqRXChanged();
 
     void slotSearchBoxTextChanged();
     void slotSearchExportButtonClicked();
@@ -241,6 +243,9 @@ private slots:
 
     void slotShowSoftUpdateResults(const bool _b);   // Software Update: Receives the signal to see if it is needed or not to update
 
+    //SATELLITE
+    void slotSatBandTXComboBoxChanged(const QString _q);
+	
 private:
     bool maybeSave();
 
