@@ -57,6 +57,10 @@ public:
     virtual int getBandIdFromFreq(const double _n);
     virtual double getLowLimitBandFromBandName(const QString _sm);
     virtual double getLowLimitBandFromBandId(const QString _sm);
+    
+    virtual bool isHF(const int _band);
+    virtual bool isWARC(const int _band);
+    virtual bool isVHF(const int _band);
 
     virtual QStringList getBands();
     virtual QStringList getModes();
@@ -87,11 +91,6 @@ public:
     virtual bool qslRecViaDirect(const int _qsoId, const QString _updateDate);
     virtual bool qslRecViaDirect(const int _qsoId, const QString _updateDate, const bool _queueSentQSL);
     virtual bool setClubLogSent(const int _qsoId, const QString _st, const QString _updateDate);
-
-    virtual bool isHF(const int _band);
-    virtual bool isWARC(const int _band);
-    virtual bool isVHF(const int _band);
-
 
     virtual QString getCallFromId(const int _qsoId);
     virtual QStringList getClubLogRealTimeFromId(const int _qsoId);
@@ -141,6 +140,10 @@ public:
     virtual QStringList getBandNames();
     virtual QStringList getPropModeList();
     virtual QStringList getSatellitesList();
+    virtual QStringList getQSLRcvdList();
+    virtual QStringList getQSLSentList();
+    virtual QStringList getClubLogStatusList();
+    virtual QStringList getQSLViaList();
 
     virtual QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 

@@ -273,6 +273,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     myDataTabWidget = new MainWindowMyDataTab();
     commentTabWidget = new MainWindowInputComment();
     othersTabWidget = new MainWindowInputOthers();
+    eQSLTabWidget = new MainWindowInputEQSL();
+    QSLTabWidget = new MainWindowInputQSL();
 
   //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
     //filemanager = new FileManager(kontestDir, softwareVersion, *db);
@@ -394,8 +396,11 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     qsoWorkedQLCDNumber->setDigitCount(7);
     qsoConfirmedQLCDNumber->setDigitCount(7);
 
-    qslSentComboBox = new QComboBox;
-    qslRecComboBox = new QComboBox;
+    //qslSentComboBox = new QComboBox;
+    //qslRecComboBox = new QComboBox;
+/*
+    //eQSL
+
     eqslSentComboBox = new QComboBox;
     eqslRecComboBox = new QComboBox;
     lotwSentComboBox = new QComboBox;
@@ -412,6 +417,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
     eqslSentComboBox->addItems(qsAux);
     lotwSentComboBox->addItems(qsAux);
+
     qslSentComboBox->addItems(qsAux);
 
     qsAux.clear();
@@ -421,14 +427,16 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     qsAux.clear();
     qsAux << tr("Y-Uploaded") << tr("N-Do not upload") << tr("M-Modified");
     clublogComboBox->addItems(qsAux);
-
-    qslSentViaComboBox = new QComboBox;
-    qslRecViaComboBox = new QComboBox;
-
+*/
+    //qslSentViaComboBox = new QComboBox;
+    //qslRecViaComboBox = new QComboBox;
+/*
+    QStringList qsAux;
     qsAux.clear();
     qsAux << tr("B-Bureau") << tr("D-Direct") << tr("E-Electronic") << tr("M-Manager");    
     qslSentViaComboBox->addItems(qsAux);
     qslRecViaComboBox->addItems(qsAux);
+
 
     eqslSentQDateEdit = new QDateEdit;
     eqslRecQDateEdit = new QDateEdit;
@@ -440,15 +448,17 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     qslRecQDateEdit = new QDateEdit;
     qslmsgTextEdit = new QTextEdit;
     qslViaLineEdit = new QLineEdit;
+*/
+    //clublogComboBox->setCurrentIndex(1); // Do not upload
 
-    clublogComboBox->setCurrentIndex(1); // Do not upload
-    qslRecComboBox->setCurrentIndex(1); // Not received
-    qslSentComboBox->setCurrentIndex(1); // Not sent
+    //qslRecComboBox->setCurrentIndex(1); // Not received
+    //qslSentComboBox->setCurrentIndex(1); // Not sent
+/*
     eqslSentComboBox->setCurrentIndex(1);
     eqslRecComboBox->setCurrentIndex(1);
     lotwSentComboBox->setCurrentIndex(1);
     lotwRecComboBox->setCurrentIndex(1);
-
+*/
     // Check date & time and set them in the UI at the begining
     dateTime->currentDateTime();
     dateEdit->setDate((dateTime->currentDateTime()).date());
@@ -1063,7 +1073,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-    aux1 = qslmsgTextEdit->toPlainText();
+    aux1 = QSLTabWidget->getQSLMsg();
+    //aux1 = qslmsgTextEdit->toPlainText();
     if (aux1.length()>0)
     {
         stringFields = stringFields + ", qslmsg";
@@ -1091,7 +1102,9 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-    aux1 = qslViaLineEdit->text();
+
+    aux1 = QSLTabWidget->getQSLVia();
+    //aux1 = qslViaLineEdit->text();
     if (aux1.length()>3)
     {
         stringFields = stringFields + ", qsl_via";
@@ -1178,445 +1191,406 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     //CLUBLOG
-    int i = clublogComboBox->currentIndex();
-    //qsAux << tr("Y-Uploaded") << tr("N-Do not upload") << tr("M-Modified");
 
-    clublogQDateEdit->setDate((dateTime->currentDateTime()).date());
-   //qDebug() << "MainWindow::readDataFromUIDX: ClubLogDate: " << (clublogQDateEdit->date()).toString("yyyy/MM/dd") << endl;
-
-    switch (i)
+    aux1 = eQSLTabWidget->getClubLogStatus(); //Y, N, M
+    if (aux1 == "Y")
     {
-        case 0: // Y-Yes
-
-
-            stringFields = stringFields + ", clublog_qso_upload_status";
-            stringData = stringData + ", 'Y'";
-            stringFields = stringFields + ", clublog_qso_upload_date";
-            stringData = stringData + ", '" + (clublogQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        case 1: //N-Do not upload
-            stringFields = stringFields + ", clublog_qso_upload_status";
-            stringData = stringData + ", 'N'";
-        break;
-        case 2: // M-Modified
-
-            stringFields = stringFields + ", clublog_qso_upload_status";
-            stringData = stringData + ", 'M'";
-            stringFields = stringFields + ", clublog_qso_upload_date";
-            stringData = stringData + ", '" + (clublogQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-
-        break;
-        default: //N-No
-        //TODO: Pending to define a default value, if needed
-        break;
+        stringFields = stringFields + ", clublog_qso_upload_status";
+        stringData = stringData + ", 'Y'";
+        stringFields = stringFields + ", clublog_qso_upload_date";
+        stringData = stringData + ", '" + (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd") + "'";
     }
+    else if (aux1 == "N")
+    {
+        stringFields = stringFields + ", clublog_qso_upload_status";
+        stringData = stringData + ", 'N'";
+    }
+    else if (aux1 == "M")
+    {
+        stringFields = stringFields + ", clublog_qso_upload_status";
+        stringData = stringData + ", 'M'";
+        stringFields = stringFields + ", clublog_qso_upload_date";
+        stringData = stringData + ", '" + (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd") + "'";
+    }
+    else //TODO: This should be equivalent to N?
+    {
+        stringFields = stringFields + ", clublog_qso_upload_status";
+        stringData = stringData + ", 'N'";
+    }
+
     //CLUBLOG
 
+    aux1 = eQSLTabWidget->getEQSLSenStatus();
+    if (aux1 == "Y")
+    {
+        stringFields = stringFields + ", eqsl_qsl_sent";
+        stringData = stringData + ", 'Y'";
+        stringFields = stringFields + ", eqsl_qslsdate";
+        stringData = stringData + ", '" + (eQSLTabWidget->getEQSLSenDate()).toString("yyyy/MM/dd") + "'";
+    }
+    else if (aux1 == "R")
+    {
+        stringFields = stringFields + ", eqsl_qsl_sent";
+        stringData = stringData + ", 'R'";
+    }
+    else if (aux1 == "Q")
+    {
+        stringFields = stringFields + ", eqsl_qsl_sent";
+        stringData = stringData + ", 'Q'";
+        stringFields = stringFields + ", eqsl_qslsdate";
+        stringData = stringData + ", '" + (eQSLTabWidget->getEQSLSenDate()).toString("yyyy/MM/dd") + "'";
+    }
+    else if (aux1 == "I")
+    {
+        stringFields = stringFields + ", eqsl_qsl_sent";
+        stringData = stringData + ", 'I'";
+        stringFields = stringFields + ", eqsl_qslsdate";
+        stringData = stringData + ", '" + (eQSLTabWidget->getEQSLSenDate()).toString("yyyy/MM/dd") + "'";
+    }
+    else // N
+    {
+        stringFields = stringFields + ", eqsl_qsl_sent";
+        stringData = stringData + ", 'N'";
+    }
+
+    aux1 = eQSLTabWidget->getEQSLRecStatus();
+    if (aux1 == "Y")
+    {
+        stringFields = stringFields + ", eqsl_qsl_rcvd";
+        stringData = stringData + ", 'Y'";
+        stringFields = stringFields + ", eqsl_qslrdate";
+        stringData = stringData + ", '" + (eQSLTabWidget->getEQSLRecDate()).toString("yyyy/MM/dd") + "'";
+    }
+    else if (aux1 == "R")
+    {
+        stringFields = stringFields + ", eqsl_qsl_rcvd";
+        stringData = stringData + ", 'R'";
+    }
+    else if (aux1 == "Q")
+    {
+        stringFields = stringFields + ", eqsl_qsl_rcvd";
+        stringData = stringData + ", 'Q'";
+        stringFields = stringFields + ", eqsl_qslrdate";
+        stringData = stringData + ", '" + (eQSLTabWidget->getEQSLRecDate()).toString("yyyy/MM/dd") + "'";
+    }
+    else if (aux1 == "I")
+    {
+        stringFields = stringFields + ", eqsl_qsl_rcvd";
+        stringData = stringData + ", 'I'";
+        stringFields = stringFields + ", eqsl_qslrdate";
+        stringData = stringData + ", '" + (eQSLTabWidget->getEQSLRecDate()).toString("yyyy/MM/dd") + "'";
+    }
+    else
+    {
+        stringFields = stringFields + ", eqsl_qsl_rcvd";
+        stringData = stringData + ", 'N'";
+    }
 
 
-    i = eqslSentComboBox->currentIndex();
-    //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
-    switch (i)
-    {
-        case 0: // Y-Yes
-            stringFields = stringFields + ", eqsl_qsl_sent";
-            stringData = stringData + ", 'Y'";
-            stringFields = stringFields + ", eqsl_qslsdate";
-            stringData = stringData + ", '" + (eqslSentQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        case 1: //N-No
-            stringFields = stringFields + ", eqsl_qsl_sent";
-            stringData = stringData + ", 'N'";
-        break;
-        case 2: // R-Requested
-            stringFields = stringFields + ", eqsl_qsl_sent";
-            stringData = stringData + ", 'R'";
-          //stringFields = stringFields + ", eqsl_qslsdate";
-          //stringData = stringData + ", '" + (eqslSentQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        case 3: // Q-Queued
-            stringFields = stringFields + ", eqsl_qsl_sent";
-            stringData = stringData + ", 'Q'";
-            stringFields = stringFields + ", eqsl_qslsdate";
-            stringData = stringData + ", '" + (eqslSentQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        case 4: // I-Ignore
-      //qslSentQDateEdit->setEnabled(true);
-            stringFields = stringFields + ", eqsl_qsl_sent";
-            stringData = stringData + ", 'I'";
-            stringFields = stringFields + ", eqsl_qslsdate";
-            stringData = stringData + ", '" + (eqslSentQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        default: //N-No
-            stringFields = stringFields + ", eqsl_qsl_sent";
-            stringData = stringData + ", 'N'";
-        break;
-    }
-   // EQSL-RECEPTION
-    i = eqslRecComboBox->currentIndex();
-    //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
-    switch (i)
-    {
-        case 0: // Y-Yes
-            stringFields = stringFields + ", eqsl_qsl_rcvd";
-            stringData = stringData + ", 'Y'";
-            stringFields = stringFields + ", eqsl_qslrdate";
-            stringData = stringData + ", '" + (eqslRecQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        case 1: //N-No
-            stringFields = stringFields + ", eqsl_qsl_rcvd";
-            stringData = stringData + ", 'N'";
-        break;
-        case 2: // R-Requested
-            stringFields = stringFields + ", eqsl_qsl_rcvd";
-            stringData = stringData + ", 'R'";
-        break;
-        case 3: // Q-Queued
-            stringFields = stringFields + ", eqsl_qsl_rcvd";
-            stringData = stringData + ", 'Q'";
-            stringFields = stringFields + ", eqsl_qslrdate";
-            stringData = stringData + ", '" + (eqslRecQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        case 4: // I-Ignore
-            stringFields = stringFields + ", eqsl_qsl_rcvd";
-            stringData = stringData + ", 'I'";
-            stringFields = stringFields + ", eqsl_qslrdate";
-            stringData = stringData + ", '" + (eqslRecQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        default: //N-No
-            stringFields = stringFields + ", eqsl_qsl_rcvd";
-            stringData = stringData + ", 'N'";
-        break;
-    }
     // LOTW-SENT
-    i = lotwSentComboBox->currentIndex();
-    //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
-    switch (i)
+
+
+    aux1 = eQSLTabWidget->getLOTWSenStatus();
+    if (aux1 == "Y")
     {
-        case 0: // Y-Yes
-            stringFields = stringFields + ", lotw_qsl_sent";
-            stringData = stringData + ", 'Y'";
-            stringFields = stringFields + ", lotw_qslsdate";
-            stringData = stringData + ", '" + (lotwSentQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        case 1: //N-No
-            stringFields = stringFields + ", lotw_qsl_sent";
-            stringData = stringData + ", 'N'";
-        break;
-        case 2: // R-Requested
-            stringFields = stringFields + ", lotw_qsl_sent";
-            stringData = stringData + ", 'R'";
-        break;
-        case 3: // Q-Queued
-            stringFields = stringFields + ", lotw_qsl_sent";
-            stringData = stringData + ", 'Q'";
-            stringFields = stringFields + ", lotw_qslsdate";
-            stringData = stringData + ", '" + (lotwSentQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        case 4: // I-Ignore
-            stringFields = stringFields + ", lotw_qsl_sent";
-            stringData = stringData + ", 'I'";
-            stringFields = stringFields + ", lotw_qslsdate";
-            stringData = stringData + ", '" + (lotwSentQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        default: //N-No
-            stringFields = stringFields + ", lotw_qsl_sent";
-            stringData = stringData + ", 'N'";
-        break;
+        stringFields = stringFields + ", lotw_qsl_sent";
+        stringData = stringData + ", 'Y'";
+        stringFields = stringFields + ", lotw_qslsdate";
+        stringData = stringData + ", '" + (eQSLTabWidget->getLOTWSenDate()).toString("yyyy/MM/dd") + "'";
     }
-    // LOTW-RECEPTION
+    else if (aux1 == "R")
+    {
+        stringFields = stringFields + ", lotw_qsl_sent";
+        stringData = stringData + ", 'R'";
+    }
+    else if (aux1 == "Q")
+    {
+        stringFields = stringFields + ", lotw_qsl_sent";
+        stringData = stringData + ", 'Q'";
+        stringFields = stringFields + ", lotw_qslsdate";
+        stringData = stringData + ", '" + (eQSLTabWidget->getLOTWSenDate()).toString("yyyy/MM/dd") + "'";
+    }
+    else if (aux1 == "I")
+    {
+        stringFields = stringFields + ", lotw_qsl_sent";
+        stringData = stringData + ", 'I'";
+        stringFields = stringFields + ", lotw_qslsdate";
+        stringData = stringData + ", '" + (eQSLTabWidget->getLOTWSenDate()).toString("yyyy/MM/dd") + "'";
+    }
+    else
+    {
+        stringFields = stringFields + ", lotw_qsl_sent";
+        stringData = stringData + ", 'N'";
+    }
+
+
+    // LOTW-RECEPTION    
     //LOTW_QSLRDATE: (only valid if LOTW_RCVD is Y, I, or V)
-    i = lotwRecComboBox->currentIndex();
-    //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
-    switch (i)
+
+    aux1 = eQSLTabWidget->getLOTWRecStatus();
+    if (aux1 == "Y")
     {
-        case 0: // Y-Yes
             stringFields = stringFields + ", lotw_qsl_rcvd";
             stringData = stringData + ", 'Y'";
             stringFields = stringFields + ", lotw_qslrdate";
-            stringData = stringData + ", '" + (lotwRecQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        case 1: //N-No
-            stringFields = stringFields + ", lotw_qsl_rcvd";
-            stringData = stringData + ", 'N'";
-        break;
-        case 2: // R-Requested
-            stringFields = stringFields + ", lotw_qsl_rcvd";
-            stringData = stringData + ", 'R'";
-        break;
-        case 3: // Q-Queued
-            stringFields = stringFields + ", lotw_qsl_rcvd";
-            stringData = stringData + ", 'Q'";
-            stringFields = stringFields + ", lotw_qslrdate";
-            stringData = stringData + ", '" + (lotwRecQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        case 4: // I-Ignore
-            stringFields = stringFields + ", lotw_qsl_rcvd";
-            stringData = stringData + ", 'I'";
-            stringFields = stringFields + ", lotw_qslrdate";
-            stringData = stringData + ", '" + (lotwRecQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-        break;
-        default: //N-No
-            stringFields = stringFields + ", lotw_qsl_rcvd";
-            stringData = stringData + ", 'N'";
-        break;
+            stringData = stringData + ", '" + (eQSLTabWidget->getLOTWRecDate()).toString("yyyy/MM/dd") + "'";
     }
-    // QSL SENT
-    i = qslSentComboBox->currentIndex();
-    int ii = qslSentViaComboBox->currentIndex();
-    switch (i)
+    else if (aux1 == "R")
     {
-        case 0: // Y-Yes
-            stringFields = stringFields + ", qsl_sent";
-            stringData = stringData + ", 'Y'";
-            stringFields = stringFields + ", qslsdate";
-            stringData = stringData + ", '" + (qslSentQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-            stringFields = stringFields + ", qsl_sent_via";
-            switch (ii)
-            {
-                case 0: //B
-                    stringData = stringData + ", 'B'";
-                break;
-                case 1: //D
-                    stringData = stringData + ", 'D'";
-                break;
-                case 2: //E
-                    stringData = stringData + ", 'E'";
-                break;
-                case 3: //M
-                    stringData = stringData + ", 'M'";
-                break;
-                default:
-                    stringData = stringData + ", 'B'";
-                break;
-            }
-        break;
-        case 1: //N-No
-            stringFields = stringFields + ", qsl_sent";
-            stringData = stringData + ", 'N'";
-            stringFields = stringFields + ", qsl_sent_via";
-            stringData = stringData + ", 'B'";
-        break;
-        case 2: // R-Requested
-            stringFields = stringFields + ", qsl_sent";
-            stringData = stringData + ", 'R'";
-            stringFields = stringFields + ", qsl_sent_via";
-            switch (ii)
-            {
-                case 0: //B
-                    stringData = stringData + ", 'B'";
-                break;
-                case 1: //D
-                    stringData = stringData + ", 'D'";
-                break;
-                case 2: //E
-                    stringData = stringData + ", 'E'";
-                break;
-                case 3: //M
-                    stringData = stringData + ", 'M'";
-                break;
-                default:
-                    stringData = stringData + ", 'B'";
-                break;
-            }
-        break;
-        case 3: // Q-Queued
-            stringFields = stringFields + ", qsl_sent";
-            stringData = stringData + ", 'Q'";
-            stringFields = stringFields + ", qslsdate";
-            stringData = stringData + ", '" + (qslSentQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-            stringFields = stringFields + ", qsl_sent_via";
-            switch (ii)
-            {
-                case 0: //B
-                    stringData = stringData + ", 'B'";
-                break;
-                case 1: //D
-                    stringData = stringData + ", 'D'";
-                break;
-                case 2: //E
-                    stringData = stringData + ", 'E'";
-                break;
-                case 3: //M
-                    stringData = stringData + ", 'M'";
-                break;
-                default:
-                    stringData = stringData + ", 'B'";
-                break;
-            }
-        break;
-        case 4: // I-Ignore
-            stringFields = stringFields + ", qsl_sent";
-            stringData = stringData + ", 'I'";
-            stringFields = stringFields + ", qslsdate";
-            stringData = stringData + ", '" + (qslSentQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-            stringFields = stringFields + ", qsl_sent_via";
-            switch (ii)
-            {
-                case 0: //B
-                    stringData = stringData + ", 'B'";
-                break;
-                case 1: //D
-                    stringData = stringData + ", 'D'";
-                break;
-                case 2: //E
-                    stringData = stringData + ", 'E'";
-                break;
-                case 3: //M
-                    stringData = stringData + ", 'M'";
-                break;
-                default:
-                    stringData = stringData + ", 'B'";
-                break;
-            }
-        break;
-        default: //N-No
-            stringFields = stringFields + ", qsl_sent";
-            stringData = stringData + ", 'N'";
-            stringFields = stringFields + ", qsl_sent_via";
-            stringData = stringData + ", 'B'";
-        break;
+        stringFields = stringFields + ", lotw_qsl_rcvd";
+        stringData = stringData + ", 'R'";
     }
+    else if (aux1 == "V")
+    {
+        stringFields = stringFields + ", lotw_qsl_rcvd";
+        stringData = stringData + ", 'V'";
+        stringFields = stringFields + ", lotw_qslrdate";
+        stringData = stringData + ", '" + (eQSLTabWidget->getLOTWRecDate()).toString("yyyy/MM/dd") + "'";
+    }
+    else if (aux1 == "I")
+    {
+        stringFields = stringFields + ", lotw_qsl_rcvd";
+        stringData = stringData + ", 'I'";
+        stringFields = stringFields + ", lotw_qslrdate";
+        stringData = stringData + ", '" + (eQSLTabWidget->getLOTWRecDate()).toString("yyyy/MM/dd") + "'";
+    }
+    else
+    {
+        stringFields = stringFields + ", lotw_qsl_rcvd";
+        stringData = stringData + ", 'N'";
+    }
+
+
+    //QSLTABWidget
+
+    // QSL SENT: Y/N/R/Q/I
+    // QSL_VIA: B/D/E/M
+
+    aux1 = QSLTabWidget->getQSLSenStatus();
+    aux2 = QSLTabWidget->getSentVia();
+
+    //TODO: the aux2 switch is repeated and could be improved
+
+
+    if (aux1=="Y")
+    {
+        stringFields = stringFields + ", qsl_sent";
+        stringData = stringData + ", 'Y'";
+        stringFields = stringFields + ", qslsdate";
+        stringData = stringData + ", '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "'";
+        stringFields = stringFields + ", qsl_sent_via";
+        if (aux2 == "D")
+        {
+            stringData = stringData + ", 'D'";
+        }
+        else if (aux2 == "E")
+        {
+            stringData = stringData + ", 'E'";
+        }
+        else if (aux2 == "M")
+        {
+            stringData = stringData + ", 'M'";
+        }
+        else
+        {
+         stringData = stringData + ", 'B'";
+        }
+    }
+    else if (aux1 == "R")
+    {
+        stringFields = stringFields + ", qsl_sent";
+        stringData = stringData + ", 'R'";
+        stringFields = stringFields + ", qsl_sent_via";
+        if (aux2 == "D")
+        {
+            stringData = stringData + ", 'D'";
+        }
+        else if (aux2 == "E")
+        {
+            stringData = stringData + ", 'E'";
+        }
+        else if (aux2 == "M")
+        {
+            stringData = stringData + ", 'M'";
+        }
+        else
+        {
+         stringData = stringData + ", 'B'";
+        }
+    }
+    else if (aux1 == "Q")
+    {
+        stringFields = stringFields + ", qsl_sent";
+        stringData = stringData + ", 'Q'";
+        stringFields = stringFields + ", qslsdate";
+        stringData = stringData + ", '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "'";
+        stringFields = stringFields + ", qsl_sent_via";
+        if (aux2 == "D")
+        {
+            stringData = stringData + ", 'D'";
+        }
+        else if (aux2 == "E")
+        {
+            stringData = stringData + ", 'E'";
+        }
+        else if (aux2 == "M")
+        {
+            stringData = stringData + ", 'M'";
+        }
+        else
+        {
+         stringData = stringData + ", 'B'";
+        }
+    }
+    else if (aux1 == "I")
+    {
+        stringFields = stringFields + ", qsl_sent";
+        stringData = stringData + ", 'I'";
+        stringFields = stringFields + ", qslsdate";
+        stringData = stringData + ", '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "'";
+        stringFields = stringFields + ", qsl_sent_via";
+        if (aux2 == "D")
+        {
+            stringData = stringData + ", 'D'";
+        }
+        else if (aux2 == "E")
+        {
+            stringData = stringData + ", 'E'";
+        }
+        else if (aux2 == "M")
+        {
+            stringData = stringData + ", 'M'";
+        }
+        else
+        {
+         stringData = stringData + ", 'B'";
+        }
+    }
+    else
+    {
+        stringFields = stringFields + ", qsl_sent";
+        stringData = stringData + ", 'N'";
+        stringFields = stringFields + ", qsl_sent_via";
+        stringData = stringData + ", 'B'";
+    }
+
 
      // QSL RECEPTION
-    i = qslRecComboBox->currentIndex();
-    ii = qslRecViaComboBox->currentIndex();
+    //i = qslRecComboBox->currentIndex();
+    //ii = qslRecViaComboBox->currentIndex();
+    aux1 = QSLTabWidget->getQSLRecStatus(); // Y/N/R/I/V
+    aux2 = QSLTabWidget->getRecVia();       // B/D/E/M
 
-    switch (i)
-    { // tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Verified");
-        case 0: // Y-Yes
-        //QSL received date: {Y, N, R, I, V}
-        //(only valid if QSL_RCVD is Y, I, or V)
-            stringFields = stringFields + ", qsl_rcvd";
-            stringData = stringData + ", 'Y'";
-            stringFields = stringFields + ", qslrdate";
-            stringData = stringData + ", '" + (qslRecQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-            stringFields = stringFields + ", confirmed";
-            stringData = stringData + ", '1'";
-            stringFields = stringFields + ", qsl_rcvd_via";
-            switch (ii)
-            {
-                case 0: //B
-                    stringData = stringData + ", 'B'";
-                break;
-                case 1: //D
-                    stringData = stringData + ", 'D'";
-                break;
-                case 2: //E
-                    stringData = stringData + ", 'E'";
-                break;
-                case 3: //M
-                    stringData = stringData + ", 'M'";
-                break;
-                default:
-                    stringData = stringData + ", 'B'";
-                break;
-            }
-        break;
-        case 1: //N-No
-            stringFields = stringFields + ", qsl_rcvd";
-            stringData = stringData + ", 'N'";
-            stringFields = stringFields + ", qsl_rcvd_via";
-            stringData = stringData + ", 'B'";
-            //stringFields = stringFields + ", confirmed";
-            //stringData = stringData + ", '0'";
-        break;
-        case 2: // R-Requested
-        //QSL received date
-        //(only valid if QSL_RCVD is Y, I, or V)
-            stringFields = stringFields + ", qsl_rcvd";
-            stringData = stringData + ", 'R'";
-            //stringFields = stringFields + ", confirmed";
-            //stringData = stringData + ", '0'";
-            stringFields = stringFields + ", qsl_rcvd_via";
-            switch (ii)
-            {
-                case 0: //B
-                    stringData = stringData + ", 'B'";
-                break;
-                case 1: //D
-                    stringData = stringData + ", 'D'";
-                break;
-                case 2: //E
-                    stringData = stringData + ", 'E'";
-                break;
-                case 3: //M
-                    stringData = stringData + ", 'M'";
-                break;
-                default:
-                    stringData = stringData + ", 'B'";
-                break;
-            }
-        break;
-        case 3: // I-Ignore
-        //QSL received date
-        //(only valid if QSL_RCVD is Y, I, or V)
-            stringFields = stringFields + ", qsl_rcvd";
-            stringData = stringData + ", 'I'";
-            stringFields = stringFields + ", qslrdate";
-            stringData = stringData + ", '" + (qslRecQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-            //stringFields = stringFields + ", confirmed";
-            //stringData = stringData + ", '0'";
-            stringFields = stringFields + ", qsl_rcvd_via";
-            switch (ii)
-            {
-                case 0: //B
-                    stringData = stringData + ", 'B'";
-                break;
-                case 1: //D
-                    stringData = stringData + ", 'D'";
-                break;
-                case 2: //E
-                    stringData = stringData + ", 'E'";
-                break;
-                case 3: //M
-                    stringData = stringData + ", 'M'";
-                break;
-                default:
-                    stringData = stringData + ", 'B'";
-                break;
-            }
-        break;
-        case 4: // V-Verified
-        //QSL received date
-        //(only valid if QSL_RCVD is Y, I, or V)
-            stringFields = stringFields + ", qsl_rcvd";
-            stringData = stringData + ", 'V'";
-            stringFields = stringFields + ", qslrdate";
-            stringData = stringData + ", '" + (qslRecQDateEdit->date()).toString("yyyy/MM/dd") + "'";
-            //TODO: Check if the QSL has been received or not as this "V" could mask a received QSL as a Worked (0)
-            //stringFields = stringFields + ", confirmed";
-            //stringData = stringData + ", '0'";
-            stringFields = stringFields + ", qsl_rcvd_via";
-            switch (ii)
-            {
-                case 0: //B
-                    stringData = stringData + ", 'B'";
-                break;
-                case 1: //D
-                    stringData = stringData + ", 'D'";
-                break;
-                case 2: //E
-                    stringData = stringData + ", 'E'";
-                break;
-                case 3: //M
-                    stringData = stringData + ", 'M'";
-                break;
-                default:
-                    stringData = stringData + ", 'B'";
-                break;
-            }
-        break;
-        default: //N-No
-            stringFields = stringFields + ", qsl_rcvd";
-            stringData = stringData + ", 'N'";
-            stringFields = stringFields + ", qsl_rcvd_via";
-            stringData = stringData + ", 'B'";
-            //stringFields = stringFields + ", confirmed";
-            //stringData = stringData + ", '0'";
-        break;
+    if (aux1 == "Y")
+    {
+        stringFields = stringFields + ", qsl_rcvd";
+        stringData = stringData + ", 'Y'";
+        stringFields = stringFields + ", qslrdate";
+        stringData = stringData + ", '" + (QSLTabWidget->getQSLRecDate()).toString("yyyy/MM/dd") + "'";
+        stringFields = stringFields + ", confirmed";
+        stringData = stringData + ", '1'";
+        stringFields = stringFields + ", qsl_rcvd_via";
+        if (aux2 == "D")
+        {
+            stringData = stringData + ", 'D'";
+        }
+        else if (aux2 == "E")
+        {
+            stringData = stringData + ", 'E'";
+        }
+        else if (aux2 == "M")
+        {
+            stringData = stringData + ", 'M'";
+        }
+        else
+        {
+         stringData = stringData + ", 'B'";
+        }
     }
-
+    else if (aux1 =="R")
+    {
+        stringFields = stringFields + ", qsl_rcvd";
+        stringData = stringData + ", 'R'";
+        //stringFields = stringFields + ", confirmed";
+        //stringData = stringData + ", '0'";
+        stringFields = stringFields + ", qsl_rcvd_via";
+        if (aux2=="D")
+        {
+            stringData = stringData + ", 'D'";
+        }
+        else if (aux2=="E")
+        {
+            stringData = stringData + ", 'E'";
+        }
+        else if (aux2=="M")
+        {
+            stringData = stringData + ", 'M'";
+        }
+        else
+        {
+            stringData = stringData + ", 'B'";
+        }
+    }
+    else if (aux1=="I")
+    {
+        stringFields = stringFields + ", qsl_rcvd";
+        stringData = stringData + ", 'I'";
+        stringFields = stringFields + ", qslrdate";
+        stringData = stringData + ", '" + (QSLTabWidget->getQSLRecDate()).toString("yyyy/MM/dd") + "'";
+        //stringFields = stringFields + ", confirmed";
+        //stringData = stringData + ", '0'";
+        stringFields = stringFields + ", qsl_rcvd_via";
+        if (aux2=="D")
+        {
+            stringData = stringData + ", 'D'";
+        }
+        else if (aux2=="E")
+        {
+            stringData = stringData + ", 'E'";
+        }
+        else if (aux2=="M")
+        {
+            stringData = stringData + ", 'M'";
+        }
+        else
+        {
+            stringData = stringData + ", 'B'";
+        }
+    }
+    else if (aux1=="V")
+    {
+        stringFields = stringFields + ", qsl_rcvd";
+        stringData = stringData + ", 'V'";
+        stringFields = stringFields + ", qslrdate";
+        stringData = stringData + ", '" + (QSLTabWidget->getQSLRecDate()).toString("yyyy/MM/dd") + "'";
+        //TODO: Check if the QSL has been received or not as this "V" could mask a received QSL as a Worked (0)
+        //stringFields = stringFields + ", confirmed";
+        //stringData = stringData + ", '0'";
+        stringFields = stringFields + ", qsl_rcvd_via";
+        if (aux2=="D")
+        {
+            stringData = stringData + ", 'D'";
+        }
+        else if (aux2=="E")
+        {
+            stringData = stringData + ", 'E'";
+        }
+        else if (aux2=="M")
+        {
+            stringData = stringData + ", 'M'";
+        }
+        else
+        {
+            stringData = stringData + ", 'B'";
+        }
+    }
+    else
+    {
+        stringFields = stringFields + ", qsl_rcvd";
+        stringData = stringData + ", 'N'";
+        stringFields = stringFields + ", qsl_rcvd_via";
+        stringData = stringData + ", 'B'";
+    }
 
     // The data reading finish here. Now, we prepare the data to insert into the DB
 
@@ -1814,7 +1788,8 @@ WHERE [condition];
         updateString = updateString + aux1 + "', ";
     }
 
-    aux1 = qslmsgTextEdit->toPlainText();
+    aux1 = QSLTabWidget->getQSLMsg();
+    //aux1 = qslmsgTextEdit->toPlainText();
     if (aux1.length()>0)
     {
         updateString = updateString + "qslmsg = '";
@@ -1844,7 +1819,8 @@ WHERE [condition];
         updateString = updateString + aux1 + "', ";
     }
 
-    aux1 = qslViaLineEdit->text();
+    aux1 = QSLTabWidget->getQSLVia();
+    //aux1 = qslViaLineEdit->text();
     if (aux1.length()>3)
     {
         updateString = updateString + "qsl_via = '";
@@ -1918,366 +1894,347 @@ WHERE [condition];
     }
 
     //CLUBLOG
-    int i = clublogComboBox->currentIndex();
-    //qsAux << tr("Y-Uploaded") << tr("N-Do not upload") << tr("M-Modified");
-    switch (i)
+
+    aux1 = eQSLTabWidget->getClubLogStatus(); //Y, N, M
+    if (aux1 == "Y")
     {
-        case 0: // Y-Yes
-            updateString = updateString + "clublog_qso_upload_status = 'Y', ";
-            updateString = updateString + "clublog_qso_upload_date = '" + (clublogQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        case 1: //N-Do not upload
-            updateString = updateString + "clublog_qso_upload_status = 'N', ";
-        break;
-        case 2: // M-Modified
-            updateString = updateString + "clublog_qso_upload_status = 'M', ";
-            updateString = updateString + "clublog_qso_upload_date = '" + (clublogQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        default: //N-No
-        //TODO: Pending to define a default value, if needed
-        break;
+        updateString = updateString + "clublog_qso_upload_status = 'Y', ";
+        updateString = updateString + "clublog_qso_upload_date = '" + (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd") + "', ";
     }
-    //CLUBLOG
+    else if (aux1 == "N")
+    {
+        updateString = updateString + "clublog_qso_upload_status = 'N', ";
+    }
+    else if (aux1 == "M")
+    {
+        updateString = updateString + "clublog_qso_upload_status = 'M', ";
+        updateString = updateString + "clublog_qso_upload_date = '" + (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd") + "', ";
+    }
+    else //TODO: This should be equivalent to N?
+    {
+        updateString = updateString + "clublog_qso_upload_status = 'N', ";
+    }
+//CLUBLOG
+
+
+
     // EQSL-SENT
-
-    i = eqslSentComboBox->currentIndex();
-    //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
-    switch (i)
+    aux1 = eQSLTabWidget->getEQSLSenStatus();
+    if (aux1 == "Y")
     {
-        case 0: // Y-Yes
-            updateString = updateString + "eqsl_qsl_sent = 'Y', ";
-            updateString = updateString + "eqsl_qslsdate = '" + (eqslSentQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        case 1: //N-No
-            updateString = updateString + "eqsl_qsl_sent = 'N', ";
-        break;
-        case 2: // R-Requested
-            updateString = updateString + "eqsl_qsl_sent = 'R', ";
-        break;
-        case 3: // Q-Queued
-            updateString = updateString + "eqsl_qsl_sent = 'Q', ";
-            updateString = updateString + "eqsl_qslsdate = '" + (eqslSentQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        case 4: // I-Ignore
-            updateString = updateString + "eqsl_qsl_sent = 'I', ";
-            updateString = updateString + "eqsl_qslsdate = '" + (eqslSentQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        default: //N-No
-            updateString = updateString + "eqsl_qsl_sent = 'N', ";
-        break;
+        updateString = updateString + "eqsl_qsl_sent = 'Y', ";
+        updateString = updateString + "eqsl_qslsdate = '" + (eQSLTabWidget->getEQSLSenDate()).toString("yyyy/MM/dd") + "', ";
     }
+    else if (aux1 == "R")
+    {
+        updateString = updateString + "eqsl_qsl_sent = 'R', ";
+    }
+    else if (aux1 == "Q")
+    {
+        updateString = updateString + "eqsl_qsl_sent = 'Q', ";
+        updateString = updateString + "eqsl_qslsdate = '" + (eQSLTabWidget->getEQSLSenDate()).toString("yyyy/MM/dd") + "', ";
+    }
+    else if (aux1 == "I")
+    {
+        updateString = updateString + "eqsl_qsl_sent = 'I', ";
+        updateString = updateString + "eqsl_qslsdate = '" + (eQSLTabWidget->getEQSLSenDate()).toString("yyyy/MM/dd") + "', ";
+    }
+    else // N
+    {
+        updateString = updateString + "eqsl_qsl_sent = 'N', ";
+    }
+
+
    // EQSL-RECEPTION
-    i = eqslRecComboBox->currentIndex();
-    //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Validated");
-    switch (i)
+    aux1 = eQSLTabWidget->getEQSLRecStatus();
+    if (aux1 == "Y")
     {
-        case 0: // Y-Yes
-            updateString = updateString + "eqsl_qsl_rcvd = 'Y', ";
-            updateString = updateString + "eqsl_qslrdate = '" + (eqslRecQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        case 1: //N-No
-            updateString = updateString + "eqsl_qsl_rcvd = 'N', ";
-        break;
-        case 2: // R-Requested
-            updateString = updateString + "eqsl_qsl_rcvd = 'R', ";
-        break;
-        case 3: // Q-Queued
-            updateString = updateString + "eqsl_qsl_rcvd = 'I', ";
-            updateString = updateString + "eqsl_qslrdate = '" + (eqslRecQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        case 4: // I-Ignore
-            updateString = updateString + "eqsl_qsl_rcvd = 'V', ";
-            updateString = updateString + "eqsl_qslrdate = '" + (eqslRecQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        default: //N-No
-            updateString = updateString + "eqsl_qsl_rcvd = 'N', ";
-        break;
-
-        }
-    // LOTW-SENT
-
-    i = lotwSentComboBox->currentIndex();
-    //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
-    switch (i)
-    {
-        case 0: // Y-Yes
-            updateString = updateString + "lotw_qsl_sent = 'Y', ";
-            updateString = updateString + "lotw_qslsdate = '" + (lotwSentQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        case 1: //N-No
-            updateString = updateString + "lotw_qsl_sent = 'N', ";
-        break;
-        case 2: // R-Requested
-            updateString = updateString + "lotw_qsl_sent = 'R', ";
-        break;
-        case 3: // Q-Queued
-            updateString = updateString + "lotw_qsl_sent = 'Q', ";
-            updateString = updateString + "lotw_qslsdate = '" + (lotwSentQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        case 4: // I-Ignore
-            updateString = updateString + "lotw_qsl_sent = 'I', ";
-
-            updateString = updateString + "lotw_qslsdate = '" + (lotwSentQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        default: //N-No
-            updateString = updateString + "lotw_qsl_sent = 'N', ";
-        break;
+        updateString = updateString + "eqsl_qsl_rcvd = 'Y', ";
+        updateString = updateString + "eqsl_qslrdate = '" + (eQSLTabWidget->getEQSLRecDate()).toString("yyyy/MM/dd") + "', ";
     }
+    else if (aux1 == "R")
+    {
+        updateString = updateString + "eqsl_qsl_rcvd = 'R', ";
+    }
+    else if (aux1 == "I")
+    {
+        updateString = updateString + "eqsl_qsl_rcvd = 'I', ";
+    }
+    else if (aux1 == "V")
+    {
+        updateString = updateString + "eqsl_qsl_rcvd = 'V', ";
+        updateString = updateString + "eqsl_qslrdate = '" + (eQSLTabWidget->getEQSLRecDate()).toString("yyyy/MM/dd") + "', ";
+    }
+    else
+    {
+        updateString = updateString + "eqsl_qsl_rcvd = 'N', ";
+    }
+
+
+    // LOTW-SENT
+    aux1 = eQSLTabWidget->getLOTWSenStatus();
+    if (aux1 == "Y")
+    {
+        updateString = updateString + "lotw_qsl_sent = 'Y', ";
+        updateString = updateString + "lotw_qslsdate = '" + (eQSLTabWidget->getLOTWSenDate()).toString("yyyy/MM/dd") + "', ";
+    }
+    else if (aux1 == "R")
+    {
+        updateString = updateString + "lotw_qsl_sent = 'R', ";
+    }
+    else if (aux1 == "Q")
+    {
+        updateString = updateString + "lotw_qsl_sent = 'Q', ";
+        updateString = updateString + "lotw_qslsdate = '" + (eQSLTabWidget->getLOTWSenDate()).toString("yyyy/MM/dd") + "', ";
+    }
+    else if (aux1 == "I")
+    {
+        updateString = updateString + "lotw_qsl_sent = 'I', ";
+        updateString = updateString + "lotw_qslsdate = '" + (eQSLTabWidget->getLOTWSenDate()).toString("yyyy/MM/dd") + "', ";
+    }
+    else
+    {
+        updateString = updateString + "lotw_qsl_sent = 'N', ";
+    }
+
 
     // LOTW-RECEPTION
     //LOTW_QSLRDATE: (only valid if LOTW_RCVD is Y, I, or V)
-    i = lotwRecComboBox->currentIndex();
-    //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Validated");
-    switch (i)
+    aux1 = eQSLTabWidget->getLOTWRecStatus();
+    if (aux1 == "Y")
     {
-        case 0: // Y-Yes
-            updateString = updateString + "lotw_qsl_rcvd = 'Y', ";
-            updateString = updateString + "lotw_qslrdate = '" + (lotwRecQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        case 1: //N-No
-            updateString = updateString + "lotw_qsl_rcvd = 'N', ";
-        break;
-        case 2: // R-Requested
-            updateString = updateString + "lotw_qsl_rcvd = 'R', ";
-        break;
-        case 3: // Q-Queued
-            updateString = updateString + "lotw_qsl_rcvd = 'I', ";
-            updateString = updateString + "lotw_qslrdate = '" + (lotwRecQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        case 4: // I-Ignore
-            updateString = updateString + "lotw_qsl_rcvd = 'V', ";
-
-            updateString = updateString + "lotw_qslrdate = '" + (lotwRecQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-        break;
-        default: //N-No
-            updateString = updateString + "lotw_qsl_rcvd = 'N', ";
-        break;
+        updateString = updateString + "lotw_qsl_rcvd = 'Y', ";
+        updateString = updateString + "lotw_qslrdate = '" + (eQSLTabWidget->getLOTWRecDate()).toString("yyyy/MM/dd") + "', ";
     }
+    else if (aux1 == "R")
+    {
+        updateString = updateString + "lotw_qsl_rcvd = 'R', ";
+    }
+    else if (aux1 == "V")
+    {
+        updateString = updateString + "lotw_qsl_rcvd = 'V', ";
+        updateString = updateString + "lotw_qslrdate = '" + (eQSLTabWidget->getLOTWRecDate()).toString("yyyy/MM/dd") + "', ";
+    }
+    else if (aux1 == "I")
+    {
+        updateString = updateString + "lotw_qsl_rcvd = 'I', ";
+        updateString = updateString + "lotw_qslrdate = '" + (eQSLTabWidget->getLOTWRecDate()).toString("yyyy/MM/dd") + "', ";
+    }
+    else
+    {
+        updateString = updateString + "lotw_qsl_rcvd = 'N', ";
+    }
+
     // QSL SENT
     //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
-    i = qslSentComboBox->currentIndex();
-    int ii = qslSentViaComboBox->currentIndex();
+    //int i = qslSentComboBox->currentIndex();
+    //int ii = qslSentViaComboBox->currentIndex();
+    aux1 == QSLTabWidget->getQSLSenStatus();
+    aux2 == QSLTabWidget->getSentVia();
 
-    switch (i)
+    if (aux1 == "Y")
     {
-        case 0: // Y-Yes
-            updateString = updateString + "qsl_sent = 'Y', ";
-            updateString = updateString + "qslsdate = '" + (qslSentQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "qsl_sent = 'Y', ";
+        updateString = updateString + "qslsdate = '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "', ";
 
-            switch (ii)
-            {
-                case 0: //B
-                    updateString = updateString + "qsl_sent_via = 'B', ";
-                break;
-                case 1: //D
-                    updateString = updateString + "qsl_sent_via = 'D', ";
-                break;
-                case 2: //E
-                    updateString = updateString + "qsl_sent_via = 'E', ";
-                break;
-                case 3: //M
-                    updateString = updateString + "qsl_sent_via = 'M', ";
-                break;
-                default:
-                    updateString = updateString + "qsl_sent_via = 'B', ";
-                break;
-            }
-        break;
-        case 1: //N-No
-            updateString = updateString + "qsl_sent = 'N', ";
+        if (aux2 == "D")
+        {
+            updateString = updateString + "qsl_sent_via = 'D', ";
+        }
+        else if (aux2 == "E")
+        {
+            updateString = updateString + "qsl_sent_via = 'E', ";
+        }
+        else if (aux2 == "M")
+        {
+            updateString = updateString + "qsl_sent_via = 'M', ";
+        }
+        else
+        {
             updateString = updateString + "qsl_sent_via = 'B', ";
-        break;
-        case 2: // R-Requested
-            updateString = updateString + "qsl_sent = 'R', ";
-            switch (ii)
-            {
-                case 0: //B
-                    updateString = updateString + "qsl_sent_via = 'B', ";
-                break;
-                case 1: //D
-                    updateString = updateString + "qsl_sent_via = 'D', ";
-                break;
-                case 2: //E
-                    updateString = updateString + "qsl_sent_via = 'E', ";
-                break;
-                case 3: //M
-                    updateString = updateString + "qsl_sent_via = 'M', ";
-                break;
-                default:
-                    updateString = updateString + "qsl_sent_via = 'B', ";
-                break;
-            }
-        break;
-        case 3: // Q-Queued
-            updateString = updateString + "qsl_sent = 'Q', ";
-            updateString = updateString + "qslsdate = '" + (qslSentQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-            switch (ii)
-            {
-                case 0: //B
-                    updateString = updateString + "qsl_sent_via = 'B', ";
-                break;
-                case 1: //D
-                    updateString = updateString + "qsl_sent_via = 'D', ";
-                break;
-                case 2: //E
-                    updateString = updateString + "qsl_sent_via = 'E', ";
-                break;
-                case 3: //M
-                    updateString = updateString + "qsl_sent_via = 'M', ";
-                break;
-                default:
-                    updateString = updateString + "qsl_sent_via = 'B', ";
-                break;
-            }
-        break;
-        case 4: // I-Ignore
-            updateString = updateString + "qsl_sent = 'I', ";
-            updateString = updateString + "qslsdate = '" + (qslSentQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-            switch (ii)
-            {
-                case 0: //B
-                    updateString = updateString + "qsl_sent_via = 'B', ";
-                break;
-                case 1: //D
-                    updateString = updateString + "qsl_sent_via = 'D', ";
-                break;
-                case 2: //E
-                    updateString = updateString + "qsl_sent_via = 'E', ";
-                break;
-                case 3: //M
-                    updateString = updateString + "qsl_sent_via = 'M', ";
-                break;
-                default:
-                    updateString = updateString + "qsl_sent_via = 'B', ";
-                break;
-            }
-        break;
-        default: //N-No
-            updateString = updateString + "qsl_sent = 'N', ";
+        }
+
+
+    }
+    else if (aux1 == "R")
+    {
+        updateString = updateString + "qsl_sent = 'R', ";
+        //updateString = updateString + "qslsdate = '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "', ";
+        if (aux2 == "D")
+        {
+            updateString = updateString + "qsl_sent_via = 'D', ";
+        }
+        else if (aux2 == "E")
+        {
+            updateString = updateString + "qsl_sent_via = 'E', ";
+        }
+        else if (aux2 == "M")
+        {
+            updateString = updateString + "qsl_sent_via = 'M', ";
+        }
+        else
+        {
             updateString = updateString + "qsl_sent_via = 'B', ";
-        break;
+        }
+    }
+    else if (aux1 == "Q")
+    {
+        updateString = updateString + "qsl_sent = 'Q', ";
+        updateString = updateString + "qslsdate = '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "', ";
+        if (aux2 == "D")
+        {
+            updateString = updateString + "qsl_sent_via = 'D', ";
+        }
+        else if (aux2 == "E")
+        {
+            updateString = updateString + "qsl_sent_via = 'E', ";
+        }
+        else if (aux2 == "M")
+        {
+            updateString = updateString + "qsl_sent_via = 'M', ";
+        }
+        else
+        {
+            updateString = updateString + "qsl_sent_via = 'B', ";
+        }
+    }
+    else if (aux1 == "I")
+    {
+        updateString = updateString + "qsl_sent = 'I', ";
+        updateString = updateString + "qslsdate = '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "', ";
+        if (aux2 == "D")
+        {
+            updateString = updateString + "qsl_sent_via = 'D', ";
+        }
+        else if (aux2 == "E")
+        {
+            updateString = updateString + "qsl_sent_via = 'E', ";
+        }
+        else if (aux2 == "M")
+        {
+            updateString = updateString + "qsl_sent_via = 'M', ";
+        }
+        else
+        {
+            updateString = updateString + "qsl_sent_via = 'B', ";
+        }
+    }
+    else
+    {
+        updateString = updateString + "qsl_sent = 'N', ";
+        updateString = updateString + "qsl_sent_via = 'B', ";
     }
 
+
      // QSL RECEPTION
-    i = qslRecComboBox->currentIndex();
-    ii = qslRecViaComboBox->currentIndex();
+    //i = qslRecComboBox->currentIndex();
+    //ii = qslRecViaComboBox->currentIndex();
+    aux1 = QSLTabWidget->getQSLRecStatus();
+    aux2 = QSLTabWidget->getRecVia();
 
-    switch (i)
-    { //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Validated");
-        case 0: // Y-Yes
-        //QSL received date: {Y, N, R, I, V}
-        //(only valid if QSL_RCVD is Y, I, or V)
-            updateString = updateString + "qsl_rcvd = 'Y', ";
-            updateString = updateString + "qslrdate = '" + (qslRecQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
-            //updateString = updateString + "confirmed = '1', ";
+    if (aux1 == "Y")
+    {
+        updateString = updateString + "qsl_rcvd = 'Y', ";
+        updateString = updateString + "qslrdate = '" + (QSLTabWidget->getQSLRecDate()).toString("yyyy/MM/dd") + "', ";
+        //updateString = updateString + "confirmed = '1', ";
 
-            switch (ii)
-            {
-                case 0: //B
-                    updateString = updateString + "qsl_rcvd_via = 'B', ";
-                break;
-                case 1: //D
-                    updateString = updateString + "qsl_rcvd_via = 'D', ";
-                break;
-                case 2: //E
-                    updateString = updateString + "qsl_rcvd_via = 'E', ";
-                break;
-                case 3: //M
-                    updateString = updateString + "qsl_rcvd_via = 'M', ";
-                break;
-                default:
-                    updateString = updateString + "qsl_rcvd_via = 'B', ";
-                break;
-            }
-        break;
-        case 1: //N-No
-            updateString = updateString + "qsl_rcvd = 'N', ";
-            updateString = updateString + "qsl_rcvd_via = 'B', ";
-            //updateString = updateString + "confirmed = '0', ";
-        break;
-        case 2: // R-Requested
+        if (aux2 == "D")
+        {
+            updateString = updateString + "qsl_sent_via = 'D', ";
+        }
+        else if (aux2 == "E")
+        {
+            updateString = updateString + "qsl_sent_via = 'E', ";
+        }
+        else if (aux2 == "M")
+        {
+            updateString = updateString + "qsl_sent_via = 'M', ";
+        }
+        else
+        {
+            updateString = updateString + "qsl_sent_via = 'B', ";
+        }
+
+    }
+    else if (aux1 == "R")
+    {
         //QSL received date
         //(only valid if QSL_RCVD is Y, I, or V)
             updateString = updateString + "qsl_rcvd = 'R', ";
             //updateString = updateString + "confirmed = '0', ";
-
-            switch (ii)
+            if (aux2 == "D")
             {
-                case 0: //B
-                    updateString = updateString + "qsl_rcvd_via = 'B', ";
-                break;
-                case 1: //D
-                    updateString = updateString + "qsl_rcvd_via = 'D', ";
-                break;
-                case 2: //E
-                    updateString = updateString + "qsl_rcvd_via = 'E', ";
-                break;
-                case 3: //M
-                    updateString = updateString + "qsl_rcvd_via = 'M', ";
-                break;
-                default:
-                    updateString = updateString + "qsl_rcvd_via = 'B', ";
-                break;
+                updateString = updateString + "qsl_sent_via = 'D', ";
             }
-        break;
-        case 3: // I-Ignore
+            else if (aux2 == "E")
+            {
+                updateString = updateString + "qsl_sent_via = 'E', ";
+            }
+            else if (aux2 == "M")
+            {
+                updateString = updateString + "qsl_sent_via = 'M', ";
+            }
+            else
+            {
+                updateString = updateString + "qsl_sent_via = 'B', ";
+            }
+    }
+    else if (aux1 == "I")
+    {
         //QSL received date
         //(only valid if QSL_RCVD is Y, I, or V)
             updateString = updateString + "qsl_rcvd = 'I', ";
+            updateString = updateString + "qslrdate = '" + (QSLTabWidget->getQSLRecDate()).toString("yyyy/MM/dd") + "', ";
             //updateString = updateString + "confirmed = '0', ";
 
-            switch (ii)
+            if (aux2 == "D")
             {
-                case 0: //B
-                    updateString = updateString + "qsl_rcvd_via = 'B', ";
-                break;
-                case 1: //D
-                    updateString = updateString + "qsl_rcvd_via = 'D', ";
-                break;
-                case 2: //E
-                    updateString = updateString + "qsl_rcvd_via = 'E', ";
-                break;
-                case 3: //M
-                    updateString = updateString + "qsl_rcvd_via = 'M', ";
-                break;
-                default:
-                    updateString = updateString + "qsl_rcvd_via = 'B', ";
-                break;
+                updateString = updateString + "qsl_sent_via = 'D', ";
             }
-        break;
-        case 4: // V-Verified
+            else if (aux2 == "E")
+            {
+                updateString = updateString + "qsl_sent_via = 'E', ";
+            }
+            else if (aux2 == "M")
+            {
+                updateString = updateString + "qsl_sent_via = 'M', ";
+            }
+            else
+            {
+                updateString = updateString + "qsl_sent_via = 'B', ";
+            }
+    }
+    else if (aux1 == "V")
+    {
         //QSL received date
         //(only valid if QSL_RCVD is Y, I, or V)
             updateString = updateString + "qsl_rcvd = 'V', ";
-            updateString = updateString + "qslrdate = '" + (qslRecQDateEdit->date()).toString("yyyy/MM/dd") + "', ";
+            updateString = updateString + "qslrdate = '" + (QSLTabWidget->getQSLRecDate()).toString("yyyy/MM/dd") + "', ";
             //updateString = updateString + "confirmed = '1', ";
 
-            switch (ii)
+            if (aux2 == "D")
             {
-                case 0: //B
-                    updateString = updateString + "qsl_rcvd_via = 'B', ";
-                break;
-                case 1: //D
-                    updateString = updateString + "qsl_rcvd_via = 'D', ";
-                break;
-                case 2: //E
-                    updateString = updateString + "qsl_rcvd_via = 'E', ";
-                break;
-                case 3: //M
-                    updateString = updateString + "qsl_rcvd_via = 'M', ";
-                break;
-                default:
-                    updateString = updateString + "qsl_rcvd_via = 'B', ";
-                break;
+                updateString = updateString + "qsl_sent_via = 'D', ";
             }
-        break;
-        default: //N-No
-            updateString = updateString + "qsl_rcvd = 'N', ";
-            updateString = updateString + "qsl_rcvd_via = 'B', ";
-            //updateString = updateString + "confirmed = '0', ";
+            else if (aux2 == "E")
+            {
+                updateString = updateString + "qsl_sent_via = 'E', ";
+            }
+            else if (aux2 == "M")
+            {
+                updateString = updateString + "qsl_sent_via = 'M', ";
+            }
+            else
+            {
+                updateString = updateString + "qsl_sent_via = 'B', ";
+            }
+    }
 
-        break;
-    }    
+    else
+    {
+        updateString = updateString + "qsl_rcvd = 'N', ";
+        updateString = updateString + "qsl_rcvd_via = 'B', ";
+    }
 
 
     keepSatPage = satTabWidget->getRepeatThis();
@@ -2687,6 +2644,8 @@ void MainWindow::slotOKButtonClicked(){
 
 void MainWindow::createActionsCommon(){
 // Functional widgets connections
+//TODO: Reimplement the possibility to enter a QSO with enter inthe following widgets:
+    //connect(qslViaLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
 // Return pressed = QSO ENTRY
     connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
@@ -2696,7 +2655,7 @@ void MainWindow::createActionsCommon(){
     connect(rstRXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(operatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );    
-    connect(qslViaLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+
     connect(myLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(locatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
@@ -2718,7 +2677,7 @@ void MainWindow::createActionsCommon(){
     connect(rstTXLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotrstTXTextChanged() ) );
     connect(rstRXLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotrstRXTextChanged() ) );
 
-    connect(qslViaLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQSLViaTextChanged() ) );
+    //connect(qslViaLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQSLViaTextChanged() ) );
 
     connect(bandComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotBandComboBoxChanged() ) ) ;
     connect(modeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotModeComboBoxChanged() ) ) ;
@@ -2800,11 +2759,12 @@ void MainWindow::slotElogClubLogProcessAnswer(const int _i, const int _qID)
 
     if (clublogAnswer == 0) // NO ERROR
     {
-        dataProxy->setClubLogSent(_qID, "Y", (clublogQDateEdit->date()).toString("yyyy/MM/dd"));
+
+        dataProxy->setClubLogSent(_qID, "Y", (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd"));
     }
     else
     {
-        dataProxy->setClubLogSent(_qID, "M", (clublogQDateEdit->date()).toString("yyyy/MM/dd"));
+        dataProxy->setClubLogSent(_qID, "M", (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd"));
     }
 
 
@@ -2844,13 +2804,14 @@ void MainWindow::createActionsDX(){
     //connect(iotaContinentComboBox, SIGNAL(activated ( int)), this, SLOT(slotIOTAComboBoxChanged() ) )  ;
 
     //QSL Actions
-    connect(qslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLSentComboBoxChanged() ) )  ;
-    connect(qslRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLRecvComboBoxChanged() ) ) ;
+    //connect(qslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLSentComboBoxChanged() ) )  ;
+    //connect(qslRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLRecvComboBoxChanged() ) ) ;
 
-    connect(eqslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLSentComboBoxChanged() ) )  ;
-    connect(eqslRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLRecvComboBoxChanged() ) ) ;
-    connect(lotwSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLotwSentComboBoxChanged() ) )  ;
-    connect(lotwRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLotwRecvComboBoxChanged() ) ) ;
+//TODO REMOVE EQSL
+    //connect(eqslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLSentComboBoxChanged() ) )  ;
+    //connect(eqslRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLRecvComboBoxChanged() ) ) ;
+    //connect(lotwSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLotwSentComboBoxChanged() ) )  ;
+    //connect(lotwRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLotwRecvComboBoxChanged() ) ) ;
 
     connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
 
@@ -2931,12 +2892,13 @@ bool MainWindow::checkContest(){
 
     return false;
 }
-
+/*
 void MainWindow::slotQSLViaTextChanged()
 {
     //qDebug() << "MainWindow::slotQSLViaTextChanged: " << qslViaLineEdit->text() << " / Length: " << QString::number((qslViaLineEdit->text()).size()) << endl;
     qslViaLineEdit->setText((qslViaLineEdit->text()).toUpper());
 }
+*/
 
 bool MainWindow::validCharactersInCall(const QString _qrz)
 {
@@ -3642,19 +3604,25 @@ void MainWindow::slotClearButtonClicked()
 
             rxPowerSpinBox->setValue(0);
 
-            clublogComboBox->setCurrentIndex(1);
-            qslSentViaComboBox->setCurrentIndex(0); // has to be changed before the qslSentComboBox to avoid calling the slot
-            qslRecViaComboBox->setCurrentIndex(0); // has to be changed before the qslRecComboBox to avoid calling the slot
+            //eQSL
 
-            qslSentComboBox->setCurrentIndex(0);    // has to be changed before the qslSentComboBox to avoid calling the slot
-            qslRecComboBox->setCurrentIndex(1); // Not received
-            qslSentComboBox->setCurrentIndex(1); // Not sent
-            eqslSentComboBox->setCurrentIndex(1);
-            eqslRecComboBox->setCurrentIndex(1);
-            lotwSentComboBox->setCurrentIndex(1);
-            lotwRecComboBox->setCurrentIndex(1);
-            qslmsgTextEdit->clear();
-            qslViaLineEdit->clear();
+            //clublogComboBox->setCurrentIndex(1);
+            //qslSentViaComboBox->setCurrentIndex(0); // has to be changed before the qslSentComboBox to avoid calling the slot
+            //qslRecViaComboBox->setCurrentIndex(0); // has to be changed before the qslRecComboBox to avoid calling the slot
+
+            //qslSentComboBox->setCurrentIndex(0);    // has to be changed before the qslSentComboBox to avoid calling the slot
+            //qslRecComboBox->setCurrentIndex(1); // Not received
+            //qslSentComboBox->setCurrentIndex(1); // Not sent
+            //eqslSentComboBox->setCurrentIndex(1);
+            //eqslRecComboBox->setCurrentIndex(1);
+            //lotwSentComboBox->setCurrentIndex(1);
+            //lotwRecComboBox->setCurrentIndex(1);
+
+            //qslmsgTextEdit->clear();
+            //qslViaLineEdit->clear();
+
+            eQSLTabWidget->clear();
+            QSLTabWidget->clear();
             othersTabWidget->clear();
             //entityNameComboBox->setCurrentIndex(0);
             //propModeComboBox->setCurrentIndex(0);
@@ -5655,12 +5623,14 @@ void MainWindow::createUIDX()
     OKButton->setToolTip(tr("Add the QSO to the log"));
     //spotItButton->setToolTip(tr("Spots this QSO to the DX Cluster - This function is still not implemented"));
     clearButton->setToolTip(tr("Clears the box"));
+
+//TODO REMOVE eQSL
+/*
     clublogComboBox->setToolTip(tr("Status on ClubLog"));
     eqslSentComboBox->setToolTip(tr("Status of the eQSL sending"));
     eqslRecComboBox->setToolTip(tr("Status of the eQSL reception"));
     lotwSentComboBox->setToolTip(tr("Status of the LotW sending"));
     lotwRecComboBox->setToolTip(tr("Status of the LotW reception"));
-
     clublogQDateEdit->setToolTip(tr("Date of the ClubLog upload"));
     eqslSentQDateEdit->setToolTip(tr("Date of the eQSL sending"));
     eqslRecQDateEdit->setToolTip(tr("Date of the eQSL reception"));
@@ -5676,7 +5646,7 @@ void MainWindow::createUIDX()
     qslRecQDateEdit->setToolTip(tr("Date of the QSL reception"));
     qslmsgTextEdit->setToolTip(tr("Message of the QSL"));
     qslViaLineEdit->setToolTip(tr("QSL via information"));
-
+*/
     dxccConfirmedQLCDNumber->setToolTip(tr("Number of confirmed DXCC entities"));
     dxccWorkedQLCDNumber->setToolTip(tr("Number of worked DXCC entities"));
     wazConfirmedQLCDNumber->setToolTip(tr("Number of confirmed WAZ zones"));
@@ -5836,8 +5806,8 @@ void MainWindow::createUIDX()
 
     qsoInputTabWidget->setLayout(qsoInputTabWidgetMainLayout);
 
-    QWidget *qslInputTabWidget = new QWidget;
-    QWidget *eqslInputTabWidget = new QWidget;
+    //QWidget *qslInputTabWidget = new QWidget;
+    //QWidget *eqslInputTabWidget = new QWidget;
     //QWidget *commentInputTabWidget = new QWidget;
     //QWidget *othersInputTabWidget = new QWidget;
     //QWidget *myDataInputTabWidget = new QWidget;
@@ -5869,7 +5839,7 @@ void MainWindow::createUIDX()
         propModeComboBox->addItems(propModeList);
     }
 
-*/
+
     QGridLayout *QSLLayout = new QGridLayout;
     QSLLayout->addWidget(QSLSentLabelN, 0, 0);
     QSLLayout->addWidget(QSLRecLabelN, 1, 0);
@@ -5886,8 +5856,8 @@ void MainWindow::createUIDX()
 
 
     qslInputTabWidget->setLayout(QSLLayout);
-    dxUpLeftTab->addTab(qslInputTabWidget, tr("QSL"));
-
+*/
+/*
 
     // eQSL Tab definition starts here
 
@@ -5906,7 +5876,7 @@ void MainWindow::createUIDX()
     QLabel *lotWRecLabelN = new QLabel(tr("LotW Rec"));
     lotWRecLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-/*
+
     QHBoxLayout *eqslSentLayout = new QHBoxLayout;
     eqslSentLayout->addWidget(eqslSentComboBox);
     eqslSentLayout->addWidget(eqslSentQDateEdit);
@@ -5927,6 +5897,7 @@ void MainWindow::createUIDX()
     eqslInputTabWidgetLayout->addRow(lotWSentLabelN, lotwSentLayout);
     eqslInputTabWidgetLayout->addRow(lotWRecLabelN, lotwRecLayout);
 */
+/*
     QGridLayout *eqslInputTabWidgetLayout = new QGridLayout;
     eqslInputTabWidgetLayout->addWidget(clublogLabelN, 0, 0);
     eqslInputTabWidgetLayout->addWidget(eQSLSentLabelN, 1, 0);
@@ -5948,7 +5919,8 @@ void MainWindow::createUIDX()
 
     eqslInputTabWidget->setLayout(eqslInputTabWidgetLayout);
 
-    dxUpLeftTab->addTab(eqslInputTabWidget, tr("eQSL"));
+    dxUpLeftTab->addTab(eqslInputTabWidget, tr("eQSL-old"));
+*/
 /*
     // NOTES tab starts here
     QGridLayout *notesInputTabWidgetLayout = new QGridLayout;
@@ -5956,7 +5928,12 @@ void MainWindow::createUIDX()
     notesInputTabWidget->setLayout(notesInputTabWidgetLayout);
     i = dxUpLeftTab->addTab(notesInputTabWidget, tr("Notes"));
 */
+    //dxUpLeftTab->addTab(qslInputTabWidget, tr("QSL"));
+    dxUpLeftTab->addTab(QSLTabWidget, tr("QSL"));
+    dxUpLeftTab->addTab(eQSLTabWidget, tr("eQSL"));
+
     // COMMENT tab starts here
+
 
     dxUpLeftTab->addTab(commentTabWidget, tr("Comment"));
 
@@ -6404,18 +6381,18 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     //lotwSentComboBox->setEnabled(false);
     //lotwRecComboBox->setEnabled(false);
 
-    eqslSentQDateEdit->setEnabled(false);
-    eqslRecQDateEdit->setEnabled(false);
-    lotwSentQDateEdit->setEnabled(false);
-    lotwRecQDateEdit->setEnabled(false);
+    //eqslSentQDateEdit->setEnabled(false);
+    //eqslRecQDateEdit->setEnabled(false);
+    //lotwSentQDateEdit->setEnabled(false);
+    //lotwRecQDateEdit->setEnabled(false);
 
     //qslSentCheckBox->setEnabled(false);
     //qslRecCheckBox->setEnabled(false);
-    qslSentQDateEdit->setEnabled(false);
-    qslRecQDateEdit->setEnabled(false);
+    //qslSentQDateEdit->setEnabled(false);
+    //qslRecQDateEdit->setEnabled(false);
 
-    qslSentViaComboBox->setEnabled(false);
-    qslRecViaComboBox->setEnabled(false);
+    //qslSentViaComboBox->setEnabled(false);
+    //qslRecViaComboBox->setEnabled(false);
     //qslmsgTextEdit->setEnabled(false);
     //qslViaLineEdit->setEnabled(false);
     //entityPrimDivComboBox->setEnabled(false);
@@ -6947,18 +6924,23 @@ void MainWindow::qsoToEdit (const int _qso)
 
         nameCol = rec.indexOf("qsl_via");
         aux1 = (query.value(nameCol)).toString();
+        QSLTabWidget->setQSLVia(aux1);
+        /*
         if (aux1.length()>0)
         {
-            qslViaLineEdit->setText(aux1);
+
+            //qslViaLineEdit->setText(aux1);
         }
         else
         {
             qslViaLineEdit->clear();
         }
-
+        */
         nameCol = rec.indexOf("qslmsg");
         aux1 = (query.value(nameCol)).toString();
-        qslmsgTextEdit->setText(aux1);
+        QSLTabWidget->setQSLMsg(aux1);
+
+        //qslmsgTextEdit->setText(aux1);
 
         nameCol = rec.indexOf("comment");
         aux1 = (query.value(nameCol)).toString();
@@ -7086,6 +7068,17 @@ void MainWindow::qsoToEdit (const int _qso)
         nameCol = rec.indexOf("qsl_sent");
         aux1 = (query.value(nameCol)).toString();
 
+        QSLTabWidget->setQSLSenStatus(aux1);
+        //TODO: Depending on the Value a date should or not exist.
+        //      This code may be importing dates when they should not exist.
+        nameCol = rec.indexOf("qslsdate");
+        aux1 = (query.value(nameCol)).toString();
+        if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+        {
+            QSLTabWidget->setQSLSenDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+        }
+
+ /*
         if (  (aux1.toUpper()) == "Y" )
         {
             //qDebug() << "MainWindow::qsoToEdit: - QSL Sent "  << endl;
@@ -7140,10 +7133,11 @@ void MainWindow::qsoToEdit (const int _qso)
         {
             qslSentComboBox->setCurrentIndex( qslSentComboBox->findText(tr("N-No") ) );
         }
-
+*/
         nameCol = rec.indexOf("qsl_sent_via");
         aux1 = (query.value(nameCol)).toString();
-
+        QSLTabWidget->setQSLSenVia(aux1);
+/*
         if (  (aux1.toUpper()) == "B" )
         {
              qslSentViaComboBox->setCurrentIndex( qslSentViaComboBox->findText(tr("B-Bureau"))) ;
@@ -7162,7 +7156,7 @@ void MainWindow::qsoToEdit (const int _qso)
         {
             qslSentViaComboBox->setCurrentIndex( qslSentViaComboBox->findText(tr("B-Bureau"))) ;
         }
-
+*/
     //QSL RECEPTION
 
         // tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Verified");
@@ -7172,6 +7166,17 @@ void MainWindow::qsoToEdit (const int _qso)
 
         nameCol = rec.indexOf("qsl_rcvd");
         aux1 = (query.value(nameCol)).toString();
+        QSLTabWidget->setQSLRecStatus(aux1);
+        //TODO: Depending on the Value a date should or not exist.
+        //      This code may be importing dates when they should not exist.
+        nameCol = rec.indexOf("qslrdate");
+        aux1 = (query.value(nameCol)).toString();
+        if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+        {
+            QSLTabWidget->setQSLRecDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+        }
+
+ /*
 
         if (  (aux1.toUpper()) == "Y" )
         {
@@ -7228,9 +7233,12 @@ void MainWindow::qsoToEdit (const int _qso)
         {
             qslRecComboBox->setCurrentIndex( qslRecComboBox->findText(tr("N-No") ) );
         }
-
+*/
         nameCol = rec.indexOf("qsl_rcvd_via");
         aux1 = (query.value(nameCol)).toString();
+        QSLTabWidget->setQSLRecVia(aux1);
+
+ /*
 
         if (  (aux1.toUpper()) == "B" )
         {
@@ -7251,12 +7259,26 @@ void MainWindow::qsoToEdit (const int _qso)
             qslRecViaComboBox->setCurrentIndex( qslRecViaComboBox->findText(tr("B-Bureau"))) ;
         }
 
-
+*/
     //TODO: BUG: When something is selected while modifying the QSL is deleted???
 
         //CLUBLOG
         nameCol = rec.indexOf("clublog_qso_upload_status");
         aux1 = (query.value(nameCol)).toString();
+        eQSLTabWidget->setClubLogStatus(aux1.toUpper());
+
+        //TODO: Depending on the Value a date should or not exist.
+        //      This code may be importing dates when they should not exist.
+        nameCol = rec.indexOf("clublog_qso_upload_date");
+        aux1 = (query.value(nameCol)).toString();
+        if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+        {
+            eQSLTabWidget->setClubLogDate((QDate::fromString(aux1, "yyyy/MM/dd")));
+        }
+
+
+
+/*
 
         if (  (aux1.toUpper()) == "Y" )
         {
@@ -7291,7 +7313,7 @@ void MainWindow::qsoToEdit (const int _qso)
             eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(tr("N-No") ) );
         }
 
-
+*/
         //CLUBLOG
 
 
@@ -7301,7 +7323,17 @@ void MainWindow::qsoToEdit (const int _qso)
 
         nameCol = rec.indexOf("eqsl_qsl_sent");
         aux1 = (query.value(nameCol)).toString();
+        eQSLTabWidget->setEQSLSenStatus(aux1.toUpper());
 
+        //TODO: Depending on the Value a date should or not exist.
+        //      This code may be importing dates when they should not exist.
+        nameCol = rec.indexOf("eqsl_qslsdate");
+        aux1 = (query.value(nameCol)).toString();
+        if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+        {
+            eQSLTabWidget->setEQSLSenDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+        }
+/*
         if (  (aux1.toUpper()) == "Y" )
         {
             eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(tr("Y-Yes")) );
@@ -7357,7 +7389,7 @@ void MainWindow::qsoToEdit (const int _qso)
         {
             eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(tr("N-No") ) );
         }
-
+*/
 
         //E-QSL RECEPTION
 
@@ -7368,7 +7400,18 @@ void MainWindow::qsoToEdit (const int _qso)
 
             nameCol = rec.indexOf("eqsl_qsl_rcvd");
             aux1 = (query.value(nameCol)).toString();
+            eQSLTabWidget->setEQSLRecStatus(aux1.toUpper());
 
+            //TODO: Depending on the Value a date should or not exist.
+            //      This code may be importing dates when they should not exist.
+            nameCol = rec.indexOf("eqsl_qslrdate");
+            aux1 = (query.value(nameCol)).toString();
+            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid() )
+            {
+                eQSLTabWidget->setEQSLRecDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+            }
+
+/*
             if (  (aux1.toUpper()) == "Y" )
             {
                 eqslRecComboBox->setCurrentIndex( eqslRecComboBox->findText(tr("Y-Yes")) );
@@ -7424,13 +7467,25 @@ void MainWindow::qsoToEdit (const int _qso)
             {
                 eqslRecComboBox->setCurrentIndex( eqslRecComboBox->findText(tr("N-No") ) );
             }
-
+*/
             //LOTW_QSL_SENT: {Y, N, R, Q, I}
             // tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
            //LOTW_QSLSDATE (only valid if LOTW_SENT is Y, Q, or I)
 
             nameCol = rec.indexOf("lotw_qsl_sent");
             aux1 = (query.value(nameCol)).toString();
+            eQSLTabWidget->setLOTWSenStatus(aux1.toUpper());
+
+            //TODO: Depending on the Value a date should or not exist.
+            //      This code may be importing dates when they should not exist.
+            nameCol = rec.indexOf("lotw_qslsdate");
+            aux1 = (query.value(nameCol)).toString();
+            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+            {
+                eQSLTabWidget->setLOTWSenDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+            }
+
+/*
 
             if (  (aux1.toUpper()) == "Y" )
             {
@@ -7488,7 +7543,7 @@ void MainWindow::qsoToEdit (const int _qso)
                 lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText(tr("N-No") ) );
             }
 
-
+*/
             //E-QSL RECEPTION
 
                 // tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Verified");
@@ -7498,6 +7553,18 @@ void MainWindow::qsoToEdit (const int _qso)
 
                 nameCol = rec.indexOf("lotw_qsl_rcvd");
                 aux1 = (query.value(nameCol)).toString();
+                eQSLTabWidget->setLOTWRecStatus(aux1.toUpper());
+
+                //TODO: Depending on the Value a date should or not exist.
+                //      This code may be importing dates when they should not exist.
+                nameCol = rec.indexOf("lotw_qslrdate");
+                aux1 = (query.value(nameCol)).toString();
+                if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+                {
+                    eQSLTabWidget->setLOTWRecDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+                }
+
+/*
 
                 if (  (aux1.toUpper()) == "Y" )
                 {
@@ -7554,7 +7621,7 @@ void MainWindow::qsoToEdit (const int _qso)
                 {
                     lotwRecComboBox->setCurrentIndex( lotwRecComboBox->findText(tr("N-No") ) );
                 }
-
+*/
                 //qDebug() << "MainWindow::qsoToEdit: - just before IOTA"  << endl;
 
                 nameCol = rec.indexOf("iota");
@@ -7674,8 +7741,8 @@ void MainWindow::qsoToEdit (const int _qso)
 
 }
 
-
-
+/*
+//TODO: TO BE REMOVED EQSL
 void MainWindow::slotQSLRecvComboBoxChanged(){
     //qDebug() << "MainWindow::slotQSLRecvComboBoxChanged" << endl;
 
@@ -7787,6 +7854,7 @@ void MainWindow::slotLotwSentComboBoxChanged(){
     }
 }
 
+
 void MainWindow::slotQSLSentComboBoxChanged(){
     //qDebug() << "MainWindow::slotQSLSentComboBoxChanged" << endl;
 
@@ -7821,8 +7889,8 @@ void MainWindow::slotQSLSentComboBoxChanged(){
         break;
     }
 }
-
-
+*/
+/*
 void MainWindow::sloteQSLRecvComboBoxChanged(){
     //qDebug() << "MainWindow::sloteQSLRecvComboBoxChanged" << endl;
 
@@ -7858,8 +7926,9 @@ void MainWindow::sloteQSLRecvComboBoxChanged(){
     }
 
 }
+*/
 
-
+/*
 void MainWindow::sloteQSLSentComboBoxChanged(){
     //qDebug() << "MainWindow::sloteQSLSentComboBoxChanged" << endl;
 
@@ -7892,7 +7961,7 @@ void MainWindow::sloteQSLSentComboBoxChanged(){
         break;
     }
 }
-
+*/
 
 void MainWindow::showInfoFromLocators(const QString _loc1, const QString _loc2)
 {// Local / DX
@@ -9158,9 +9227,11 @@ void MainWindow::completeWithPreviousQSO(const QString _call)
         }
         if (completedWithPreviousQSLVia)
         {
-            qslViaLineEdit->clear();
+            QSLTabWidget->setQSLVia("");
+
+            //qslViaLineEdit->clear();
             completedWithPreviousQSLVia = false;
-            qslViaLineEdit->setPalette(palBlack);
+            //qslViaLineEdit->setPalette(palBlack);
         }
         return;
     }
@@ -9224,6 +9295,7 @@ void MainWindow::completeWithPreviousQSO(const QString _call)
         if ((aux.length())==6)
         {
             othersTabWidget->setIOTA(aux, false);
+            //TODO: Decide if it is better this way or like in : void MainWindowInputQSL::setQSLVia(const QString _qs, QColor qColor)
             //QStringList values = aux.split("-", QString::SkipEmptyParts);
             //iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(values.at(0) ) );
             //iotaNumberLineEdit->setPalette(palRed);
@@ -9249,17 +9321,21 @@ void MainWindow::completeWithPreviousQSO(const QString _call)
     }
 
     aux = dataProxy->getQSLViaFromQRZ(_call);
-    if ((aux.length()>=0) && ((qslViaLineEdit->text()).length()<=0) )
+    if ((aux.length()>=0) && ((QSLTabWidget->getQSLVia()).length()<=0) )
     {
-        qslViaLineEdit->setPalette(palRed);
-        qslViaLineEdit->setText(aux);
+
+        QSLTabWidget->setQSLVia(aux, Qt::red);
+
+        //qslViaLineEdit->setPalette(palRed);
+        //qslViaLineEdit->setText(aux);
         completedWithPreviousQSLVia=true;
     }
     else if (completedWithPreviousQSLVia)
     {
-        qslViaLineEdit->clear();
-        completedWithPreviousQSLVia = false;
-        qslViaLineEdit->setPalette(palBlack);
+        QSLTabWidget->setQSLVia("");
+        //qslViaLineEdit->clear();
+        //completedWithPreviousQSLVia = false;
+        //qslViaLineEdit->setPalette(palBlack);
     }
 }
 
