@@ -2,12 +2,14 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
-
-
+TODO: Think if it is possible to create a function in the Widgets(i.e. MainWindowInputQSL) to read the data and enter it in the DB automatically when the user clicks on "enter"
+        It would help to "isolate" it and make it more "independant"
+TODO: Review the color management inMainWindowInputOthers::setIOTA (and maybe others) (completewithPrevious of MainWindow)
+TODO: en los widgets de QSL, al obtener los datos, las fechas solo se dan si se deben dar, no siempre?
+TODO: Check if in mainwindow (read formUI and modify the eQSL/LOTW REC/SENT values are correct
+TODO: Add a cheking to the list of bureaus and propose the bureau for QSL via when there is an existing one and propose direct when no bureau is existing.
 
 RC-BUGS: The ADIF export is not working!!!
-
-
 
 
 

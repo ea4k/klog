@@ -353,6 +353,26 @@ QStringList DataProxy::getSatellitesList()
     return QStringList();
 }
 
+QStringList DataProxy::getQSLRcvdList()
+{
+    return QStringList();
+}
+
+QStringList DataProxy::getQSLSentList()
+{
+    return QStringList();
+}
+
+QStringList DataProxy::getClubLogStatusList()
+{
+    return QStringList();
+}
+
+QStringList DataProxy::getQSLViaList()
+{
+    return QStringList();
+}
+
 QStringList DataProxy::getValidCatOptions(const int _currentCat, const int _lowerCa)
 {
     return QStringList();

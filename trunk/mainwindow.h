@@ -51,6 +51,8 @@
 #include "mainwindowmydatatab.h"
 #include "mainwindowinputcomment.h"
 #include "mainwindowinputothers.h"
+#include "mainwindowinputeqsl.h"
+#include "mainwindowinputqsl.h"
 #include "elogclublog.h"
 #include "utilities.h"
 #include "downloadcty.h"
@@ -171,13 +173,17 @@ private slots:
     void slotADIFImport();
     void slotRQSLExport();
     void slotCabrilloExport();
-    void slotQSLRecvComboBoxChanged();
-    void slotQSLSentComboBoxChanged();
-    void sloteQSLRecvComboBoxChanged();
-    void sloteQSLSentComboBoxChanged();
-    void slotLotwRecvComboBoxChanged();
-    void slotLotwSentComboBoxChanged();
-    void slotQSLViaTextChanged();
+    //void slotQSLViaTextChanged();
+
+
+//TODO: REMOVE EQSL
+    //void slotQSLRecvComboBoxChanged();
+    //void slotQSLSentComboBoxChanged();
+    //void sloteQSLRecvComboBoxChanged();
+    //void sloteQSLSentComboBoxChanged();
+    //void slotLotwRecvComboBoxChanged();
+    //void slotLotwSentComboBoxChanged();
+
 
     void slotSetPropMode(const QString _p);
 
@@ -490,13 +496,14 @@ private:
                 *localConfirmedQLCDNumber, *localWorkedQLCDNumber,
                 *qsoConfirmedQLCDNumber, *qsoWorkedQLCDNumber,
                 *dxMarathonDXCCQLCDNumber, *dxMarathonCQQLCDNumber, *dxMarathonPointsQLCDNumber;
-    QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox;
-    QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit, *clublogQDateEdit;
+    //eQSL
+    //QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox;
+    //QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit, *clublogQDateEdit;
 
-    QComboBox *qslSentComboBox, *qslRecComboBox, *qslSentViaComboBox, *qslRecViaComboBox;
-    QDateEdit *qslSentQDateEdit, *qslRecQDateEdit;
-    QTextEdit *qslmsgTextEdit;
-    QLineEdit *qslViaLineEdit;
+    //QComboBox *qslSentComboBox, *qslRecComboBox, *qslSentViaComboBox, *qslRecViaComboBox;
+    //QDateEdit *qslSentQDateEdit, *qslRecQDateEdit;
+    //QTextEdit *qslmsgTextEdit;
+    //QLineEdit *qslViaLineEdit;
 
 
     QLineEdit *searchBoxLineEdit;
@@ -515,6 +522,9 @@ private:
     MainWindowMyDataTab *myDataTabWidget;
     MainWindowInputComment *commentTabWidget;
     MainWindowInputOthers *othersTabWidget;
+    MainWindowInputEQSL *eQSLTabWidget;
+    MainWindowInputQSL *QSLTabWidget;
+
     bool keepSatPage;
 
     // UI DX

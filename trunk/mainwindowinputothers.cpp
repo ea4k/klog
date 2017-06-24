@@ -237,7 +237,9 @@ bool MainWindowInputOthers::isIOTAModified()
 }
 
 void MainWindowInputOthers::setIOTA(const QString _qs, const bool _black)
-{
+{//TODO: Seems to be better to send the color info like in: (it is much more flexible as I can send any color!)
+
+    //void MainWindowInputQSL::setQSLVia(const QString _qs, QColor qColor)
    //qDebug() << "MainWindow::setIOTA: " << _qs << endl;
     if ( (checkIfValidIOTA(_qs)).length() !=6 )
     {

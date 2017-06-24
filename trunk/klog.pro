@@ -67,7 +67,9 @@ HEADERS += setupdialog.h \
     dxccstatuswidget.h \
     mainwindowmydatatab.h \
     mainwindowinputcomment.h \
-    mainwindowinputothers.h   
+    mainwindowinputothers.h \   
+    mainwindowinputeqsl.h \
+    mainwindowinputqsl.h
 SOURCES += main.cpp \
     aboutdialog.cpp \
     setupdialog.cpp \
@@ -104,7 +106,9 @@ SOURCES += main.cpp \
     dxccstatuswidget.cpp \
     mainwindowmydatatab.cpp \
     mainwindowinputcomment.cpp \
-    mainwindowinputothers.cpp   
+    mainwindowinputothers.cpp \   
+    mainwindowinputeqsl.cpp \
+    mainwindowinputqsl.cpp
 
 OTHER_FILES += \
     README-DEVEL \

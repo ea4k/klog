@@ -31,7 +31,7 @@
 
 int main(int argc, char *argv[])
 {
-    QString version = "0.9.2.6" ;
+    QString version = "0.9.2.7b" ;
     QDir d1 = QDir();
     Utilities util = Utilities();
     QStringList arguments;

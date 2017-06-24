@@ -1487,7 +1487,7 @@ bool DataProxy_SQLite::isDXCCConfirmed(const int _dxcc, const int _currentLog)
 }
 
 bool DataProxy_SQLite::isHF(const int _band)
-{
+{// 160M is considered as HF
     if ( (_band>=getIdFromBandName("10M")) && (_band<=getIdFromBandName("160M")) )
     {
        //qDebug() << "DataProxy_SQLite::isHF: TRUE" << endl;
@@ -1502,7 +1502,7 @@ bool DataProxy_SQLite::isHF(const int _band)
 
 bool DataProxy_SQLite::isWARC(const int _band)
 {
-    if ( (_band==getIdFromBandName("12M")) || (_band==getIdFromBandName("170M")) || ((_band==getIdFromBandName("30M")) ) )
+    if ( (_band==getIdFromBandName("12M")) || (_band==getIdFromBandName("17M")) || ((_band==getIdFromBandName("30M")) ) )
     {
         //qDebug() << "DataProxy_SQLite::isWARC: tRUE" << endl;
         return true;
@@ -1855,6 +1855,131 @@ QStringList DataProxy_SQLite::getSatellitesList()
      QStringList qs;
      qs.clear();
      QString stringQuery = QString("SELECT satarrlid, satname FROM satellites");
+     QSqlQuery query;
+
+     if (query.exec(stringQuery))
+     {
+         while ( (query.next())) {
+             if (query.isValid())
+             {
+                 aux.clear();
+                 aux = (query.value(0)).toString() + " - " + (query.value(1)).toString();
+                 qs << aux;
+             }
+             else
+             {
+             }
+         }
+
+     }
+     else
+     {
+         return QStringList();
+     }
+     return qs;
+}
+
+QStringList DataProxy_SQLite::getQSLRcvdList()
+{
+    //qDebug()  << "DataProxy_SQLite::getQSLRcvdList"  << endl;
+     QString aux = QString();
+     QStringList qs;
+     qs.clear();
+     QString stringQuery = QString("SELECT shortname, name FROM qsl_rec_status");
+     QSqlQuery query;
+
+     if (query.exec(stringQuery))
+     {
+         while ( (query.next())) {
+             if (query.isValid())
+             {
+                 aux.clear();
+                 aux = (query.value(0)).toString() + " - " + (query.value(1)).toString();
+                 qs << aux;
+             }
+             else
+             {
+             }
+         }
+
+     }
+     else
+     {
+         return QStringList();
+     }
+     return qs;
+}
+
+QStringList DataProxy_SQLite::getQSLSentList()
+{
+    //qDebug()  << "DataProxy_SQLite::getQSLSentList"  << endl;
+     QString aux = QString();
+     QStringList qs;
+     qs.clear();
+     QString stringQuery = QString("SELECT shortname, name FROM qsl_sent_status");
+     QSqlQuery query;
+
+     if (query.exec(stringQuery))
+     {
+         while ( (query.next())) {
+             if (query.isValid())
+             {
+                 aux.clear();
+                 aux = (query.value(0)).toString() + " - " + (query.value(1)).toString();
+                 qs << aux;
+             }
+             else
+             {
+             }
+         }
+
+     }
+     else
+     {
+         return QStringList();
+     }
+     return qs;
+}
+
+
+QStringList DataProxy_SQLite::getClubLogStatusList()
+{
+    //qDebug()  << "DataProxy_SQLite::getClubLogStatusList"  << endl;
+     QString aux = QString();
+     QStringList qs;
+     qs.clear();
+     QString stringQuery = QString("SELECT shortname, name FROM clublog_status");
+     QSqlQuery query;
+
+     if (query.exec(stringQuery))
+     {
+         while ( (query.next())) {
+             if (query.isValid())
+             {
+                 aux.clear();
+                 aux = (query.value(0)).toString() + " - " + (query.value(1)).toString();
+                 qs << aux;
+             }
+             else
+             {
+             }
+         }
+
+     }
+     else
+     {
+         return QStringList();
+     }
+     return qs;
+}
+
+QStringList DataProxy_SQLite::getQSLViaList()
+{
+    //qDebug()  << "DataProxy_SQLite::getQSLViaList"  << endl;
+     QString aux = QString();
+     QStringList qs;
+     qs.clear();
+     QString stringQuery = QString("SELECT shortname, name FROM qsl_via");
      QSqlQuery query;
 
      if (query.exec(stringQuery))

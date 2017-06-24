@@ -140,6 +140,10 @@ public:
     QStringList getBandNames();
     QStringList getPropModeList();
     QStringList getSatellitesList();
+    QStringList getQSLRcvdList();
+    QStringList getQSLSentList();
+    QStringList getClubLogStatusList();
+    QStringList getQSLViaList();
 
     QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
