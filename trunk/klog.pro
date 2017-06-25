@@ -2,7 +2,7 @@ CONFIG += app_bundle
 CONFIG += static
 #CONFIG += release
 TEMPLATE = app
-VERSION = 0.9.2.6
+VERSION = 0.9.2.7
 DEFINES += APP_VERSION="$$VERSION"
 
 APP_NAME = KLog
@@ -40,7 +40,6 @@ HEADERS += setupdialog.h \
     filemanager.h \
     contest.h \
     database.h \
-    setuppagebandsmodes.h \
     setuppagemisc.h \
     locator.h \
     dxcluster.h \
@@ -69,7 +68,8 @@ HEADERS += setupdialog.h \
     mainwindowinputcomment.h \
     mainwindowinputothers.h \   
     mainwindowinputeqsl.h \
-    mainwindowinputqsl.h
+    mainwindowinputqsl.h \
+    setuppagebandmode.h
 SOURCES += main.cpp \
     aboutdialog.cpp \
     setupdialog.cpp \
@@ -84,7 +84,6 @@ SOURCES += main.cpp \
     dataproxy_sqlite.cpp \
     downloadcty.cpp \
     dxcluster.cpp \  
-    setuppagebandsmodes.cpp \
     setuppagemisc.cpp \
     locator.cpp \
     awards.cpp \ 
@@ -108,7 +107,8 @@ SOURCES += main.cpp \
     mainwindowinputcomment.cpp \
     mainwindowinputothers.cpp \   
     mainwindowinputeqsl.cpp \
-    mainwindowinputqsl.cpp
+    mainwindowinputqsl.cpp \
+    setuppagebandmode.cpp
 
 OTHER_FILES += \
     README-DEVEL \
