@@ -30,7 +30,7 @@
 #include <QDialog>
 
 #include "setuppageuserdata.h"
-#include "setuppagebandsmodes.h"
+#include "setuppagebandmode.h"
 #include "setuppagemisc.h"
 #include "setuppagedxcluster.h"
 #include "setuppagecolors.h"
@@ -110,7 +110,7 @@ private:
     QStackedWidget *pagesWidget;
 
     SetupPageUserDataPage *userDataPage;
-    SetupPageBandsModes *bandModePage;
+    SetupPageBandMode *bandModePage;
     SetupPageDxCluster *dxClusterPage;
     SetupPageMisc *miscPage;
     SetupPageColors *colorsPage;

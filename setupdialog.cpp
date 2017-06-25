@@ -65,7 +65,7 @@ SetupDialog::SetupDialog(const bool _firstTime)
 
     userDataPage = new SetupPageUserDataPage();
    //qDebug() << "SetupDialog::SetupDialog 3.5" << endl;
-    bandModePage = new SetupPageBandsModes(this);
+    bandModePage = new SetupPageBandMode(this);
    //qDebug() << "SetupDialog::SetupDialog 3.6" << endl;
     dxClusterPage = new SetupPageDxCluster(this);
    //qDebug() << "SetupDialog::SetupDialog 3.7" << endl;
@@ -143,7 +143,7 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
     tabWidget = new QTabWidget;
 
     userDataPage = new SetupPageUserDataPage();
-    bandModePage = new SetupPageBandsModes(this);
+    bandModePage = new SetupPageBandMode(this);
     dxClusterPage = new SetupPageDxCluster(this);
     colorsPage = new SetupPageColors(this);
     miscPage = new SetupPageMisc(this);
