@@ -291,21 +291,21 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
 
 double DataProxy_SQLite::getLowLimitBandFromBandName(const QString _sm)
 {
-    //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName" << endl;
+    //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: " << _sm << endl;
     QSqlQuery query;
-    QString stringQuery = QString("SELECT lower FROM band WHERE name='%1'").arg(_sm.toUpper());
+    QString stringQuery = QString("SELECT lower FROM band WHERE name='%1' or name='%2'").arg(_sm).arg(_sm.toUpper());
     query.exec(stringQuery);
     query.next();
     if (query.isValid())
     {
-        if ( (query.value(1)).toDouble()<0 )
+        if ( (query.value(0)).toDouble()<0 )
         {
             //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-1" << endl;
             return -1.0;
         }
         else
         {
-            //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: " << QString::number((query.value(0)).toDouble()) << endl;
+            //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName(else): " << QString::number((query.value(0)).toDouble()) << endl;
             return (query.value(0)).toDouble();
         }
     }
@@ -371,7 +371,7 @@ QStringList DataProxy_SQLite::getBands()
 
 QStringList DataProxy_SQLite::getBandNames()
 {
-   //qDebug() << "DataProxy_SQLite::getBandNames" << endl;
+   qDebug() << "DataProxy_SQLite::getBandNames" << endl;
     QStringList bands = QStringList();
     QSqlQuery query;
     QString stringQuery;
@@ -385,6 +385,7 @@ QStringList DataProxy_SQLite::getBandNames()
             if (query.isValid())
             {
                 stringQuery = (query.value(0)).toString();
+                qDebug() << "DataProxy_SQLite::getBandNames: " << stringQuery << endl;
                 bands.append(stringQuery);
             }
             else
