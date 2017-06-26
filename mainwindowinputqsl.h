@@ -67,12 +67,14 @@ public:
 
 
 signals:
-
+    void returnPressed();
 private slots:
 
     void slotQSLViaTextChanged();
     void slotQSLSentComboBoxChanged();
     void slotQSLRecvComboBoxChanged();
+    void slotQSLViaLineEditReturnPressed();
+
 /*
     void sloteQSLRecvComboBoxChanged();
     void sloteQSLSentComboBoxChanged();

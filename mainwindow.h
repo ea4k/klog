@@ -287,7 +287,7 @@ private:
 
     void initialContestModeConfiguration();
 
-    void createKeyEvents();
+    //void createKeyEvents();
     void updateStatusBar(const QString statusm);
 
     bool readCtyFile();
@@ -609,6 +609,12 @@ private:
 
     SoftwareUpdate *softUpdate;
     bool callingUpdate;
+
+    //LOGVIEW
+    //QString bandOld, modeOld;
+    //LOGVIEW
+
+
 
 protected:
     void keyPressEvent(QKeyEvent *event);

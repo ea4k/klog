@@ -371,7 +371,7 @@ QStringList DataProxy_SQLite::getBands()
 
 QStringList DataProxy_SQLite::getBandNames()
 {
-   qDebug() << "DataProxy_SQLite::getBandNames" << endl;
+   //qDebug() << "DataProxy_SQLite::getBandNames" << endl;
     QStringList bands = QStringList();
     QSqlQuery query;
     QString stringQuery;
@@ -385,7 +385,7 @@ QStringList DataProxy_SQLite::getBandNames()
             if (query.isValid())
             {
                 stringQuery = (query.value(0)).toString();
-                qDebug() << "DataProxy_SQLite::getBandNames: " << stringQuery << endl;
+                //qDebug() << "DataProxy_SQLite::getBandNames: " << stringQuery << endl;
                 bands.append(stringQuery);
             }
             else

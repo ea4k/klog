@@ -113,6 +113,7 @@ void MainWindowInputQSL::createUI()
     connect(qslViaLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQSLViaTextChanged() ) )  ;
     connect(qslRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLRecvComboBoxChanged() ) )  ;
     connect(qslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLSentComboBoxChanged() ) )  ;
+    connect(qslViaLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQSLViaLineEditReturnPressed() ) );
 
 
 }
@@ -371,4 +372,10 @@ void MainWindowInputQSL::slotQSLRecvComboBoxChanged(){
             qslRecQDateEdit->setEnabled(false);
         break;
     }
+}
+
+
+void MainWindowInputQSL::slotQSLViaLineEditReturnPressed()
+{
+    emit returnPressed();
 }
