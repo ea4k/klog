@@ -404,7 +404,7 @@ int MainWindowSatTab::getSatIndex(const QString _p)
 
 void MainWindowSatTab::addBands(QStringList _bands)
 {
-    qDebug() << "MainWindowSatTab::addBands: " << QString::number(_bands.length()) << endl;
+    //qDebug() << "MainWindowSatTab::addBands: " << QString::number(_bands.length()) << endl;
     satBandRXComboBox->clear();
     satBandTXComboBox->clear();
     satBandTXComboBox->addItems(_bands);

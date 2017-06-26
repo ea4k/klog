@@ -2,10 +2,11 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
-TODO: Think if it is possible to create a function in the Widgets(i.e. MainWindowInputQSL) to read the data and enter it in the DB automatically when the user clicks on "enter"
+TODO: Think if it is possible to create a function in the Widgets(i.e. MainWindowInputQSL) to read the data and
+        enter it in the DB automatically when the user clicks on "enter"
         It would help to "isolate" it and make it more "independant"
-TODO: Review the color management inMainWindowInputOthers::setIOTA (and maybe others) (completewithPrevious of MainWindow)
-TODO: en los widgets de QSL, al obtener los datos, las fechas solo se dan si se deben dar, no siempre?
+TODO: Review the color management in MainWindowInputOthers::setIOTA (and maybe others) (completewithPrevious of MainWindow)
+TODO: In the QSL widgets, when obtaining the data, the dates should be always given or only when needed?
 TODO: Check if in mainwindow (read formUI and modify the eQSL/LOTW REC/SENT values are correct
 
 TODO: If no QSL sen via or rec via are defined, KLog shows as direct? It should be bureau
@@ -17,7 +18,6 @@ TODO: Add a cheking to the list of bureaus and propose the bureau for QSL via wh
       (http://www.iaru.org/qsl-bureaus.html)
 TODO: To add the possibility to move the DB to another path, with the idea to use dropbox or whatever.
 TODO: Define band limits for CW/SSB/RTTY... so when a click on the cluster is done, the right mode is proposed.
-TODO: Add some "returnPressed" actions to some qlineedit to make usage quicker.
 
 
 BUG: Potential bug
@@ -90,7 +90,6 @@ TODO: Define a maximum QSO upload rate to clublog to avoid excesive API usage.
 </CLUBLOG>
 
 KLog 0.9.4
-TODO: Remove all not needed fields from SetupPageLogNew::gatherAndSend() the type is enough
 
 NEXT:
 TODO: Some Entities are not recognized by ARRL (I, IG9, IT9 are the same ARRL id entities but different ones). Maybe I should not be working

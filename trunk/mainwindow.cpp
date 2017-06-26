@@ -2505,8 +2505,8 @@ the view should present the city's name field to the user.
     }
 
 
-logModel->select();
-createlogPanel();
+    logModel->select();
+    createlogPanel();
 
 }
 
@@ -2728,6 +2728,10 @@ void MainWindow::createActionsCommon(){
     connect (elogClublog, SIGNAL (disableClubLogAction(bool)), this, SLOT (slotElogClubLogDisable(bool)));
 	// SATELLITE TAB
     connect (satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
+    // QSL TAB
+
+    connect(QSLTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
+
 }
 void MainWindow::slotElogClubLogDisable(const bool _b)
 {
@@ -3575,6 +3579,10 @@ void MainWindow::slotClearButtonClicked()
     qsoMultiplier = 0;
     clublogAnswer = -1;
     clublogPrevQSO.clear();
+    //Logview
+    //bandOld.clear();
+    //modeOld.clear();
+    //Logview
 
     switch (contestMode) {
 
@@ -4239,12 +4247,42 @@ bool MainWindow::readCtyFile()
 
 void MainWindow::slotDoubleClickLog(const QModelIndex & index)
 {
-    //qDebug() << "MainWindow::slotDoubleClickLog"  << endl;
+    //qDebug() << "MainWindow::slotDoubleClickLog: Row: " << QString::number(index.row()) << "Column: " << QString::number(index.column()) << endl;
+    //qDebug() << "MainWindow::slotDoubleClickLog: " << (logModel->headerData(index.column(), Qt::Horizontal, Qt::DisplayRole)).toString() << endl;
 
    // QSqlQuery query;
     //QString queryString;
     int row = index.row();
     qsoToEdit((logModel->index(row, 0)).data(0).toInt());
+/*
+   // bandOld = (logModel->index(row, 6)).data(0).toString();
+    //modeOld = (logModel->index(row, 7)).data(0).toString();
+
+    //qDebug() << "MainWindow::slotDoubleClickLog: Band: " << bandOld << endl;
+    //qDebug() << "MainWindow::slotDoubleClickLog: Mode: " << modeOld << endl;
+
+    if (index.column() == 6) // The user is potentially changing the band, directly from the Log.
+    {   // keep the band of the QSO and check after finish editing. If the new band is not in the currently used bands, the active bands
+        // will need to be refreshed.
+
+
+    }
+    else if(index.column() == 7) // Mode
+    {
+
+    }
+
+    if ((logModel->headerData(index.column(), Qt::Horizontal, Qt::DisplayRole)).toString() == "Band") // 6
+    {
+
+    }
+    else if ((logModel->headerData(index.column(), Qt::Horizontal, Qt::DisplayRole)).toString() == tr("Mode")) // 7
+    {
+
+    }
+
+*/
+
 }
 
 void MainWindow::slotDoubleClickSearch(QTreeWidgetItem * item, int)
@@ -9347,7 +9385,7 @@ void MainWindow::completeWithPreviousQSO(const QString _call)
 
 void MainWindow::slotSatBandTXComboBoxChanged(const QString _q)
 {
-    qDebug() << "MainWindow::slotSatBandTXComboBoxChanged" << _q << endl;
+    //qDebug() << "MainWindow::slotSatBandTXComboBoxChanged" << _q << endl;
     bandComboBox->setCurrentIndex(bandComboBox->findText(_q));
 }
 

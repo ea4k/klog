@@ -26,8 +26,17 @@
 
 #include "logwindow.h"
 
-LogWindow::LogWindow()
+
+LogWindow::LogWindow(QWidget *parent) :
+    QWidget(parent)
 {
+    //logModel = new QSqlRelationalTableModel(this);
+    logView = new QTableView;
+
+    createUI();
+    setDefaultData();
+
+
 }
 
 LogWindow::~LogWindow()
@@ -35,10 +44,27 @@ LogWindow::~LogWindow()
 
 }
 
-void LogWindow::createlogPanel()
+
+void LogWindow::clear()
 {
 
+}
+
+void LogWindow::createUI()
+{
+    logView->setContextMenuPolicy(Qt::CustomContextMenu);
+    logView->setSortingEnabled(true);
+    //logView->setCurrentIndex(logModel->index(0, 0));
+
+}
+
+void LogWindow::setDefaultData()
+{
 
 
 }
 
+void LogWindow::createLogModel()
+{
+
+}
