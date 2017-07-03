@@ -136,6 +136,9 @@ public:
     virtual QStringList getContestOverlays();
     virtual int getContestTypeN(const int _co, const int _catop, const int _catas, const int _catpo, const int _catba, const int _catov, const int _catmo);
     virtual QStringList getDataFromContestType(const int _n);
+    virtual int getLogTypeNumber(const QString _logType);   // Returns the number of the type of log name
+    virtual QString getLogTypeName(const int _logType);     // Returns the name of the type of log number
+    virtual int getLogTypeOfUserLog(const int _logN);       // Returns the type of log of a specific log
 
     virtual QStringList getBandNames();
     virtual QStringList getPropModeList();

@@ -27,15 +27,16 @@
 #include "logwindow.h"
 
 
-LogWindow::LogWindow(QWidget *parent) :
-    QWidget(parent)
+LogWindow::LogWindow(QWidget *parent) : QTableView(parent)
 {
+   //qDebug() << "LogWindow::LogWindow: "  << endl;
     //logModel = new QSqlRelationalTableModel(this);
-    logView = new QTableView;
+    //logView = new QTableView;
+
+    dataProxy = new DataProxy_SQLite();
 
     createUI();
     setDefaultData();
-
 
 }
 
@@ -47,24 +48,93 @@ LogWindow::~LogWindow()
 
 void LogWindow::clear()
 {
-
+   //qDebug() << "LogWindow::clear "  << endl;
 }
 
 void LogWindow::createUI()
 {
-    logView->setContextMenuPolicy(Qt::CustomContextMenu);
-    logView->setSortingEnabled(true);
-    //logView->setCurrentIndex(logModel->index(0, 0));
+   //qDebug() << "LogWindow::createUI"  << endl;
+    setContextMenuPolicy(Qt::CustomContextMenu);
+    setSortingEnabled(true);
 
+
+    //QVBoxLayout *layout = new QVBoxLayout;
+    //layout->addWidget(logView);
+
+    //setLayout(layout);
 }
 
 void LogWindow::setDefaultData()
 {
 
+    //qDebug() << "LogWindow::setDefaultData"  << endl;
+}
+
+
+void LogWindow::createlogPanel(const int _contestID)
+{
+   //qDebug() << "LogWindow::createlogPanel: " << QString::number(_contestID) << endl;
+
+    int contestMode = dataProxy->getLogTypeOfUserLog(_contestID);
+
+    if (contestMode == dataProxy->getLogTypeNumber("DX"))
+    {
+        //qDebug() << "LogWindow::createlogPanel: DX"  << endl;
+        setColumnsToDX();
+    }
+    else if (contestMode == dataProxy->getLogTypeNumber("CQ_WW_SSB"))
+    {
+
+    }
+    else if (contestMode == dataProxy->getLogTypeNumber("CQ_WW_CW"))
+    {
+
+    }
+    else
+    {
+        //qDebug() << "LogWindow::createlogPanel: Default"  << endl;
+        setColumnsToDX();
+    }
+
+    setItemDelegate(new QSqlRelationalDelegate(this));
+    setSelectionMode( QAbstractItemView::SingleSelection);
+    setSelectionBehavior(QAbstractItemView::SelectRows);
+    resizeColumnsToContents();
+    horizontalHeader()->setStretchLastSection(true);
 
 }
 
-void LogWindow::createLogModel()
+void LogWindow::setColumnsToDX()
 {
+   //qDebug() << "LogWindow::setColumnsToDX"  << endl;
+    QString stringQuery;
+    stringQuery = QString("SELECT * FROM log LIMIT 1");
+    QSqlQuery query;
+    query.exec(stringQuery);
+    QSqlRecord rec;
+    rec = query.record(); // Number of columns
+    int columns = rec.count();
 
+
+    for (int i=0; i < columns; i++)
+    {
+        setColumnHidden(i, true);
+    }
+
+    columns = rec.indexOf("qso_date");
+    setColumnHidden(columns, false);
+    columns = rec.indexOf("time_on");
+    setColumnHidden(columns, false);
+    columns = rec.indexOf("call");
+    setColumnHidden(columns, false);
+    columns = rec.indexOf("rst_sent");
+    setColumnHidden(columns, false);
+    columns = rec.indexOf("rst_rcvd");
+    setColumnHidden(columns, false);
+    columns = rec.indexOf("bandid");
+    setColumnHidden(columns, false);
+    columns = rec.indexOf("modeid");
+    setColumnHidden(columns, false);
+    columns = rec.indexOf("comment");
+    setColumnHidden(columns, false);
 }

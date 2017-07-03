@@ -58,6 +58,8 @@
 #include "downloadcty.h"
 #include "dxccstatuswidget.h"
 #include "softwareupdate.h"
+#include "logmodel.h"
+#include "logwindow.h"
 
 class QTimer;
 class QDateTime;
@@ -100,6 +102,7 @@ enum
 
 enum
 {
+    DX = 0,
     NoContest = 0,
     CQ_WW_SSB = 1,
     CQ_WW_CW = 2,
@@ -279,8 +282,8 @@ private:
     void createActionsCommon();
     void createActionsCQWW();
     void createActionsDX();
-    void createlogPanel();
-    void createlogModel(const int _i);
+    //void createlogPanel();
+    //void createlogModel(const int _i);
 
     void createScorePanel();
     void createSearchResultsPanel();
@@ -386,14 +389,17 @@ private:
     //QLabel distLongLabelN;
 
     DXCCStatusWidget *dxccStatusWidget;
-    QSqlRelationalTableModel *logModel;
-    QWidget *logPanel;
-    QTableView *logView;
+    //QSqlRelationalTableModel *logModel;
+    //QWidget *logPanel;
+    //QTableView *logView;
     QTreeWidget *searchResultsTreeWidget;
     QLabel *logLabel;
 
     QWidget *scoreWindow; //, dxWindow;
     QTextEdit *scoreTextEdit;
+
+    LogModel *logModel;
+    LogWindow *logWindow;
 
     // <UI>
     QGroupBox *gridGroupBox, *qrzgroupBox, *searchgroupBox;

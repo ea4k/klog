@@ -136,6 +136,9 @@ public:
     QStringList getContestOverlays();
     int getContestTypeN(const int _co, const int _catop, const int _catas, const int _catpo, const int _catba, const int _catov, const int _catmo);
     QStringList getDataFromContestType(const int _n);
+    int getLogTypeNumber(const QString _logType);
+    QString getLogTypeName(const int _logType);
+    int getLogTypeOfUserLog(const int _logN);
 
     QStringList getBandNames();
     QStringList getPropModeList();

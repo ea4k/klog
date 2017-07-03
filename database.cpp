@@ -755,13 +755,13 @@ QString DataBase::getBandNameFromNumber(const int _n)
         else
         {
            //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-1" << endl;
-            return "";
+            return QString();
         }
     }
     else
     {
        //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-2" << endl;
-        return "";
+        return QString();
     }
 }
 
@@ -801,7 +801,7 @@ QString DataBase::getModeNameFromNumber(const int _n, const bool _tmp)
         else
         {
             //qDebug() << "DataBase::getModeNameFromNumber - Not Valid Mode: " << (query.value(0)).toString()  << endl;
-            return "";
+            return QString();
         }
         */
     }
@@ -809,7 +809,7 @@ QString DataBase::getModeNameFromNumber(const int _n, const bool _tmp)
     {
         //qDebug() << "DataBase::getModeNameFromNumber - Not Valid record"  << endl;
        //qDebug() << "DataBase::getModeNameFromNumber: ------ END-2" << endl;
-        return "";
+        return QString();
     }
 }
 
@@ -845,20 +845,20 @@ QString DataBase::getSubModeNameFromNumber(const int _n, const bool _tmp)
                 else
                 {
                    //qDebug() << "DataBase::getSubModeNameFromNumber: NO valid mode - END" << endl;
-                    return "";
+                    return QString();
                 }
             }
             else
             {
                //qDebug() << "DataBase::getSubModeNameFromNumber: query not valid - END" << endl;
-                return "";
+                return QString();
             }
 
         }
         else
         {
            //qDebug() << "DataBase::getSubModeNameFromNumber: query not next - END" << endl;
-            return "";
+            return QString();
         }
 
 
@@ -866,10 +866,10 @@ QString DataBase::getSubModeNameFromNumber(const int _n, const bool _tmp)
     else
     {
        //qDebug() << "DataBase::getSubModeNameFromNumber: SQL FALSE - END" << endl;
-        return "";
+        return QString();
     }
    //qDebug() << "DataBase::getSubModeNameFromNumber: - END-X" << endl;
-    return "";
+    return QString();
 }
 
 bool DataBase::isValidBand (const QString b)
@@ -1323,8 +1323,42 @@ QString DataBase::getFreqFromBandId(const int _i)
     }
    //qDebug() << "DataBase::getFreqFromBandId END-2" << endl;
     return "-2.0";
+}
 
+int DataBase::getLogTypeNumber(const QString _logType)
+{
+    //qDebug() << "DataBase::getLogTypeNumber: " << QString::number(_logType) << endl;
+     QSqlQuery query;
+     QString queryString = QString("SELECT id FROM supportedcontests WHERE name='%1'").arg(_logType);
 
+     query.exec(queryString);
+     query.next();
+     if ( query.isValid() )
+     {
+        return (query.value(0)).toInt();
+     }
+     else
+     {
+         return -1;
+     }
+}
+
+QString DataBase::getLogTypeName(const int _logType)
+{
+    //qDebug() << "DataBase::getLogTypeName: " << QString::number(_logType) << endl;
+     QSqlQuery query;
+     QString queryString = QString("SELECT name FROM supportedcontests WHERE id='%1'").arg(_logType);
+
+     query.exec(queryString);
+     query.next();
+     if ( query.isValid() )
+     {
+        return (query.value(0)).toString();
+     }
+     else
+     {
+         return QString();
+     }
 }
 
 bool DataBase::updateToLatest()
@@ -1335,7 +1369,7 @@ bool DataBase::updateToLatest()
  *
  */
    //qDebug() << "DataBase::updateToLatest " << endl;
-    return updateTo009();
+    return updateTo010();
 }
 
 bool DataBase::updateTo003()
@@ -1601,7 +1635,22 @@ bool DataBase::recreateContestData()
         }
     }
     return false;
+}
 
+bool DataBase::recreateSupportedContest()
+{
+   //qDebug() << "DataBase::recreateSupportedContest"  << endl;
+    QSqlQuery query;
+    bool sqlOk = false;
+    sqlOk = query.exec("DROP TABLE supportedcontests");
+    if (sqlOk)
+    {
+        if (createTableSupportedContest())
+        {
+            return populateTableSupportedContest();
+        }
+    }
+    return false;
 }
 /*
 bool DataBase::updateLog()
@@ -1675,6 +1724,16 @@ bool DataBase::createTablePropModes()
     return query.exec("CREATE TABLE prop_mode_enumeration (id INTEGER PRIMARY KEY AUTOINCREMENT, shortname VARCHAR(8), name VARCHAR(55) )");
 }
 
+bool DataBase::createTableSupportedContest()
+{
+    //qDebug() << "DataBase::createTableSupportedContest" << endl;
+    QSqlQuery query;
+    return query.exec("CREATE TABLE supportedcontests ("
+                   "id INTEGER PRIMARY KEY, "
+                   "longname VARCHAR,"
+                   "name VARCHAR)");
+
+}
 
 bool DataBase::createTableContest()
 {
@@ -1698,10 +1757,7 @@ bool DataBase::createTableContest()
                "FOREIGN KEY (catoverlay) REFERENCES contestcatoverlay(id), "
                "FOREIGN KEY (catmode) REFERENCES contestcatmode(id))");
 
-    query.exec("CREATE TABLE supportedcontests ("
-                   "id INTEGER PRIMARY KEY, "
-                   "longname VARCHAR,"
-                   "name VARCHAR)");
+    createTableSupportedContest();
 
     query.exec("CREATE TABLE contestcatoperator ("
                    "id INTEGER PRIMARY KEY, "
@@ -1727,11 +1783,7 @@ bool DataBase::createTableContest()
                    "id INTEGER PRIMARY KEY, "
                    "name VARCHAR)");
 
-    // ADDING ALL THE CATEGORIES OPTIONS
-
-    query.exec("INSERT INTO supportedcontests (id, longname, name) VALUES ('0', 'Normal log', 'DX')");
-
-   // query.exec("INSERT INTO supportedcontests (id, longname, name) VALUES ('1', 'CQ WW DX Contest(SSB)', 'CQ-WW-SSB')");
+    populateTableSupportedContest();
 
     query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('0', 'N/A')");
     query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('1', 'Single-Operator')");
@@ -1765,6 +1817,16 @@ bool DataBase::createTableContest()
     //qDebug() << "DataBase::createTableContest END" << endl;
     return true;
 
+}
+
+bool DataBase::populateTableSupportedContest()
+{
+    // ADDING ALL THE CATEGORIES OPTIONS
+    QSqlQuery query;
+    return query.exec("INSERT INTO supportedcontests (longname, name) VALUES ('Normal log', 'DX')");
+
+   // query.exec("INSERT INTO supportedcontests (id, longname, name) VALUES ('1', 'CQ WW DX Contest(SSB)', 'CQ-WW-SSB')");
+    //return true;
 }
 
 bool DataBase::createTableMode(const bool NoTmp)
@@ -2421,7 +2483,8 @@ bool DataBase::updateTableLog(const int _v)
     QString queryString;
     switch (_v)
     {
-    case 6: // If 6, we copy in logtemp the full data coming from the old log. This way, the structure of the log table is updated without any data loss.
+    case 6:     // If 6, we copy in logtemp the full data coming from the old log. This way, the structure of
+                // the log table is updated without any data loss.
         queryString = QString ("INSERT INTO logtemp (qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber) SELECT qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber FROM log");
     break;
     default:
@@ -2669,7 +2732,7 @@ bool DataBase::updateModeIdFromSubModeId()
     {
         while (query.next())
         {
-            modetxt = "";
+            modetxt = QString();
             modeFound = -1;
 
             if (query.isValid())
@@ -2835,7 +2898,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     {
         while (query.next() && (!cancel) )
         {
-            bandtxt = "";
+            bandtxt = QString();
             bandFound = -1;
 
             if (query.isValid())
@@ -3029,7 +3092,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
     {
         while (query.next() && (!cancel) )
         {
-            bandtxt = "";
+            bandtxt = QString();
             bandFound = -1;
 
             if (query.isValid())
@@ -3220,7 +3283,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
     {
         while (query.next() && (!cancel) )
         {
-            bandtxt = "";
+            bandtxt = QString();
             bandFound = -1;
 
             if (query.isValid())
@@ -3390,7 +3453,7 @@ bool DataBase::updateModeIdTableLogToNewOnes()
     {
         while (query.next() && (!cancel) )
         {
-            bandtxt = "";
+            bandtxt = QString();
             bandFound = -1;
 
             if (query.isValid())
@@ -3644,7 +3707,6 @@ bool DataBase::updateTo009()
         IAmIn009 = false;
     }
 
-
     while (!IAmIn009 && !ErrorUpdating)
     {
         while (!IAmIn008 && !ErrorUpdating)
@@ -3669,9 +3731,6 @@ bool DataBase::updateTo009()
            //qDebug() << "DataBase::updateTo009: - version not updated" << endl;
         }
         //DO ALL THE TASKS TO BE IN 0.009 from 0.008 HERE and set ErrorUpdating if it is not possible.
-
-
-
 
         if (createTableSatellites(true))
         {
@@ -3699,7 +3758,6 @@ bool DataBase::updateTo009()
                           ErrorUpdating = true;
                       }
                    }
-
                    else
                    {
                      //qDebug() << "DataBase::updateTo009: - isonames NOT updated" << endl;
@@ -3729,6 +3787,52 @@ bool DataBase::updateTo009()
     }
    //qDebug() << "DataBase::updateTo009: - END" << endl;
     return IAmIn009;
+}
+
+
+bool DataBase::updateTo010()
+{ // Updates the DB to 010
+  // Updates DB and recreates the supportedcontest table
+ /*
+  * This function should be used as a template to create the all the update functions implementing the needed changes
+  * in the dB to update from one version to the following one.
+  *
+  * // dbVersion shows the DB version that is being deployed
+  * // latestReaded shows the DB version that is currently deployed.
+  *i.e.:
+  *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
+  *
+  */
+   //qDebug() << "DataBase::updateTo003" << endl;
+    bool IAmIn010 = false;
+    bool IAmIn009 = false;
+    bool ErrorUpdating = false;
+
+    if (latestReaded >= 0.010)
+    {
+        //IAmIn010 = true;
+        return true;
+    }
+    else
+    {
+        IAmIn010 = false;
+    }
+
+    while (!IAmIn010 && !ErrorUpdating)
+    {
+        while (!IAmIn009 && !ErrorUpdating)
+        {
+            IAmIn009 = true;
+        }
+        if (ErrorUpdating)
+        {
+            return false;
+        }
+        //DO ALL THE TASKS TO BE IN 0.010 from 0.009 HERE and set ErrorUpdating if it is not possible.
+
+        IAmIn010 = recreateSupportedContest();
+    }
+    return IAmIn010;
 }
 
 bool DataBase::updateTheModeTableAndSyncLog()
