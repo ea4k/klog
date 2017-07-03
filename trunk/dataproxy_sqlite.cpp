@@ -2301,6 +2301,39 @@ QStringList DataProxy_SQLite::getDataFromContestType(const int _n)
     }
 }
 
+int DataProxy_SQLite::getLogTypeNumber(const QString _logType)
+{
+    return db->getLogTypeNumber(_logType);
+}
+
+QString DataProxy_SQLite::getLogTypeName(const int _logType)
+{
+    return db->getLogTypeName(_logType);
+}
+
+int DataProxy_SQLite::getLogTypeOfUserLog(const int _logN)
+{
+    QSqlQuery query;
+    QString aux;
+    aux = QString("SELECT logtypen FROM logs WHERE id='%1'").arg(_logN);
+    if (query.exec(aux))
+    {
+        query.next();
+        if (query.isValid())
+        {
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            return -1;
+        }
+
+    }
+    else
+    {
+        return -1;
+    }
+}
 
 int DataProxy_SQLite::getHowManyQSOInLog(const int _log)
 {

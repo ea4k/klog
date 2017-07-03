@@ -2,6 +2,12 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
+RC-BUGS: The ADIF export is not working!!!
+As I have changed the supportedcontest table and removed the "0" value for DX logs, I should rebuild that table
+before releasing to ensure coherence of all the data in the DB
+
+
+
 TODO: Think if it is possible to create a function in the Widgets(i.e. MainWindowInputQSL) to read the data and
         enter it in the DB automatically when the user clicks on "enter"
         It would help to "isolate" it and make it more "independant"
@@ -11,7 +17,7 @@ TODO: Check if in mainwindow (read formUI and modify the eQSL/LOTW REC/SENT valu
 
 TODO: If no QSL sen via or rec via are defined, KLog shows as direct? It should be bureau
 
-RC-BUGS: The ADIF export is not working!!!
+
 
 
 TODO: Add a cheking to the list of bureaus and propose the bureau for QSL via when there is an existing one and propose direct when no bureau is existing.

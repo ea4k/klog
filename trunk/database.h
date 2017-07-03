@@ -39,9 +39,8 @@
 
 class QSqlRelationalTableModel;
 
-// Last db update 0.0.6
-// Previous db update 0.0.7
-const float DBVersionf = 0.009;
+// Previous db update 0.009
+const float DBVersionf = 0.010;
 
 class DataBase
 {
@@ -78,6 +77,9 @@ public:
 
     QString getFreqFromBandId(const int _i);
 
+    int getLogTypeNumber(const QString _logType);
+    QString getLogTypeName(const int _logType);
+
     bool unMarkAllQSO();
     bool updateIfNeeded();
     void compress();
@@ -97,6 +99,7 @@ private:
     bool updateTo007();
     bool updateTo008();
     bool updateTo009(); // Updates DB and add the Satellite tables
+    bool updateTo010(); // Updates DB and recreates the supportedcontest table
     bool updateTableLog(const int _v);
 
     bool createTheBandQuickReference();
@@ -124,9 +127,12 @@ private:
     bool populateTableSatellites(const bool NoTmp);
 
     bool recreateContestData();
+    bool recreateSupportedContest();
     bool createTableContest();
+    bool createTableSupportedContest();
     bool populateContestData();
     bool populatePropagationModes();
+    bool populateTableSupportedContest();
 
     bool howManyQSOsInLog(const int i);
     void showError();

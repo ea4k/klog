@@ -51,13 +51,14 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     // <ui>
     doc = new QTextDocument;
     util = new Utilities;
+    logModel = new LogModel(this);
 
     needToEnd = false;
     cleaning = false;
     qrzAutoChanging = false;
     dxclusterServerToConnect = "dxfun.com";
     dxclusterServerPort = 8000;
-    contestMode = NoContest;
+    contestMode = DX;
 
     defaultADIFLogFile = "klog.adi";
     softwareVersion = tversion;
@@ -153,11 +154,15 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
     dxccStatusWidget = new DXCCStatusWidget();
 
-    logModel = new QSqlRelationalTableModel(this);
+    //logModel = new QSqlRelationalTableModel(this);
 
-    logView = new QTableView;
-    logView->setContextMenuPolicy(Qt::CustomContextMenu);
-    logView->setSortingEnabled(true);
+    //logView = new QTableView;
+    //logView->setContextMenuPolicy(Qt::CustomContextMenu);
+    //logView->setSortingEnabled(true);
+
+    logModel = new LogModel(this);
+    logWindow = new LogWindow(this);
+
    //qDebug() << "MainWindow::MainWindow: 0009" << endl;
 
     //helpHelpDialog = new HelpHelpDialog(softwareVersion);
@@ -352,7 +357,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     distShortLabel = new QLabel;
     gradLongLabel = new QLabel;
     distLongLabel = new QLabel;    
-    logPanel = new QWidget;
+    //logPanel = new QWidget;
     loggWinAct = new QAction(tr("&Log Window"), this);
     scoreeWinAct = new QAction(tr("&Score Window"), this);
 
@@ -495,10 +500,21 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
        exit(0);
     }
 
-  //qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
+    //createlogModel(currentLog);
+
+    //qDebug() << "MainWindow::MainWindow: logmodel to be created-1" << endl;
+    logModel->createlogModel(currentLog);
+
+    logWindow->setModel(logModel);
+    logWindow->setCurrentIndex(logModel->index(0, 0));
+
+    logWindow->createlogPanel(currentLog);
+
     createUI();
   //qDebug() << "MainWindow::MainWindow: logmodel to be created" << endl;
-    createlogModel(currentLog);
+
+
 
     createSearchResultsPanel();
     loggWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
@@ -514,7 +530,8 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     createScorePanel();
 
     setWindowTitle(tr("KLog"));
-    logView->setCurrentIndex(logModel->index(0, 0));
+    //logView->setCurrentIndex(logModel->index(0, 0));
+    logWindow->setCurrentIndex(logModel->index(0, 0));
     //searchResultsTreeWidget->setCurrentIndex(logModel->index(0, 0));
 
  //qDebug() << "MainWindow::MainWindow: 16" << endl;
@@ -574,7 +591,6 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
 
 
     slotClearButtonClicked();
-    //logModel->select();
 
     upAndRunning = true;
 
@@ -867,6 +883,7 @@ void MainWindow::slotQRZReturnPressed()
                 }
 
 
+                //logModel->select();
                 logModel->select();
                 dxccStatusWidget->refresh();
 
@@ -2255,11 +2272,14 @@ WHERE [condition];
     return stringQuery;
 }
 
-
+/*
 void MainWindow::createlogPanel()
 {
+
    // //qDebug() << "MainWindow::createlogPanel: "  << endl;
     logView->setModel(logModel);
+
+
     QString stringQuery;
     stringQuery = QString("SELECT * FROM log LIMIT 1");
 
@@ -2348,7 +2368,7 @@ void MainWindow::createlogPanel()
 
 }
 
-
+*/
 
 void MainWindow::createSearchResultsPanel()
 {
@@ -2413,10 +2433,10 @@ void MainWindow::createScorePanel()
 
 }
 
-
+/*
 void MainWindow::createlogModel(const int _i)
 {
-/*
+
     Log_Id = 0,
     Log_Name = 1,
     Log_BandId = 2,
@@ -2435,8 +2455,8 @@ the view should present the city's name field to the user.
 
 */
 
-
-   //qDebug() << "MainWindow::createlogModel: " << QString::number(_i) << endl;
+/*
+   qDebug() << "MainWindow::createlogModel: " << QString::number(_i) << endl;
     QSqlQuery q;
     QString stringQuery = QString("SELECT * from log LIMIT 1");
     QSqlRecord rec; // = q.record();
@@ -2446,12 +2466,13 @@ the view should present the city's name field to the user.
     q.exec(stringQuery);
     q.next();
     rec = q.record(); // Number of columns
-   //qDebug() << "MainWindow::createlogModel - columns: " << QString::number(rec.count()) << endl;
+   qDebug() << "MainWindow::createlogModel - columns: " << QString::number(rec.count()) << endl;
 
     logModel = new QSqlRelationalTableModel(this);
 
+
     stringQuery = QString("lognumber='%1'").arg(_i);
-   //qDebug() << "MainWindow::createlogModel - filter: " << stringQuery << endl;
+   qDebug() << "MainWindow::createlogModel - filter: " << stringQuery << endl;
     QSqlQuery query(stringQuery);
     logModel->setTable("log");
     logModel->setFilter(stringQuery);
@@ -2505,12 +2526,13 @@ the view should present the city's name field to the user.
     }
 
 
-    logModel->select();
+    logModel->select();    
     createlogPanel();
+
 
 }
 
-
+*/
 
 void MainWindow::createUICQWW()
 {
@@ -2692,8 +2714,8 @@ void MainWindow::createActionsCommon(){
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked() ) );
 
 //LOG VIEW
-    connect(logView, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonFromLog( const QPoint& ) ) );
-    connect(logView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickLog( const QModelIndex& ) ) );
+    connect(logWindow, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonFromLog( const QPoint& ) ) );
+    connect(logWindow, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickLog( const QModelIndex& ) ) );
 
 
 // SEARCH BOX VIEW
@@ -3579,10 +3601,7 @@ void MainWindow::slotClearButtonClicked()
     qsoMultiplier = 0;
     clublogAnswer = -1;
     clublogPrevQSO.clear();
-    //Logview
-    //bandOld.clear();
-    //modeOld.clear();
-    //Logview
+
 
     switch (contestMode) {
 
@@ -4010,16 +4029,17 @@ void MainWindow::slotLogWinShow()
 {
     //qDebug() << "MainWindow::slotLogWinShow: "  << endl;
 
-    if (!(logPanel->isVisible()) )
+    if (!(logWindow->isVisible()) )
     {
         logWinAct->setChecked ( true );
-        logPanel->show();
+        logWindow->show();
 
     }else
     {
         logWinAct->setChecked ( false );
-        logPanel->hide();
+        logWindow->hide();
     }
+
 }
 
 void MainWindow::slotScoreWinShow()
@@ -4056,15 +4076,14 @@ void MainWindow::slotSetup(const int _page)
             readConfigData();
         }
 
-        createlogModel(currentLog);
+        //createlogModel(currentLog);
+        qDebug() << "MainWindow::MainWindow: logmodel to be created-2" << endl;
+        logModel->createlogModel(currentLog);
+        logWindow->setModel(logModel);
+        logWindow->setCurrentIndex(logModel->index(0, 0));
+        logWindow->createlogPanel(currentLog);
 
 
-        if (configured)
-        {
-        }
-        else
-        {
-        }
     }
     defineStationCallsign();
 
@@ -4082,6 +4101,7 @@ void MainWindow::openFile()
         return;
     }
 
+    //logModel->select();
     logModel->select();
 
 }
@@ -4189,6 +4209,7 @@ void MainWindow::newFile()
     multipliers = 0;
     qsoPoints = 0;
     qsoMultiplier = 0;
+    //logModel->select();
     logModel->select();
     slotClearButtonClicked();
     searchResultsTreeWidget->clear();
@@ -4253,6 +4274,7 @@ void MainWindow::slotDoubleClickLog(const QModelIndex & index)
    // QSqlQuery query;
     //QString queryString;
     int row = index.row();
+    //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
     qsoToEdit((logModel->index(row, 0)).data(0).toInt());
 /*
    // bandOld = (logModel->index(row, 6)).data(0).toString();
@@ -4431,10 +4453,11 @@ void MainWindow::righButtonSearchMenu(const int trow)
 void MainWindow::slotRighButtonFromLog(const QPoint& pos)
 {
     //qDebug() << "MainWindow::slotshowRighButtonFromLog"  << endl;
-    int row = (logView->indexAt(pos)).row();
+    int row = (logWindow->indexAt(pos)).row();
     showMenuRightButtonFromLogCreateActions();
     righButtonFromLogMenu(row);
 }
+
 
 void MainWindow::righButtonFromLogMenu(const int trow)
 {
@@ -4678,7 +4701,7 @@ void MainWindow::slotQSLSentViaDirectFromSearch()
 void MainWindow::slotQSLSentViaBureauFromLog()
 {
    //qDebug() << "MainWindow::slotQSLSentViaBureauFromLog: " << (qslSentViaBureauFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
-    int _qsoId = ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());    
+    int _qsoId = ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslSentViaBureau(_qsoId);
 
 }
@@ -4821,6 +4844,7 @@ void MainWindow::qslRecViaBureau(const int _qsoId)
     dataProxy->qslRecViaBureau(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"), false);
     awards->setAwards(_qsoId);   //Update the DXCC award status
 
+    //logModel->select();
     logModel->select();
     showAwards();
 
@@ -4845,6 +4869,7 @@ void MainWindow::qslRecViaBureauMarkReq(const int _qsoId)
     dataProxy->qslRecViaBureau(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"), true);
     awards->setAwards(_qsoId);   //Update the DXCC award status
 
+    //logModel->select();
     logModel->select();
     showAwards();
 
@@ -4879,7 +4904,6 @@ bool MainWindow::isQSLSent(const int _qsoId)
 void MainWindow::slotQSOToEditFromLog()
 {
     //qDebug() << "slotQSOToEditFromLog: " << (qsoToEditFromLogAct->data()).toString() << endl;
-
 
     qsoToEdit((logModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0).toInt());
 
@@ -4917,6 +4941,7 @@ void MainWindow::slotQsoDeleteFromLog()
         elogClublog->deleteQSO(dataProxy->getClubLogRealTimeFromId(QSOid));
        //qDebug() << "MainWindow::slotQsoDeleteFromLog (id): -2"<< endl;
         logModel->removeRow((delQSOFromLogAct->data()).toInt());
+        logModel->select();
 
 
     //qDebug() << "MainWindow::slotQsoDeleteFromLog (id):-3 " << endl;
@@ -4964,6 +4989,7 @@ void MainWindow::slotQsoDeleteFromSearch()
             {
 
 
+                //logModel->select();
                 logModel->select();
                 if(qslingNeeded)
                 {
@@ -5213,7 +5239,7 @@ bool MainWindow::processConfigLine(const QString _line){
         } else if (value=="CQ-WPX-RTTY"){
             contestMode = CQ_WPX_RTTY;
         } else{
-            contestMode = NoContest;
+            contestMode = DX;
         }
 
     }else if (field=="MODES"){
@@ -6358,20 +6384,26 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     QWidget *dxClusterTabWidget = new QWidget;
 
 
-    QHBoxLayout *logTabWidgetLayout = new QHBoxLayout;
+    //QHBoxLayout *logTabWidgetLayout = new QHBoxLayout;
     QHBoxLayout *dxClusterTabWidgetLayout = new QHBoxLayout;
 
-    logTabWidgetLayout->addWidget(logView);//
-    logTabWidget->setLayout(logTabWidgetLayout);
+
+    //logTabWidgetLayout->addWidget(logView);//
+    //logTabWidget->setLayout(logTabWidgetLayout);
 
     dxClusterTabWidgetLayout->addWidget(dxClusterWidget);
     dxClusterTabWidget->setLayout(dxClusterTabWidgetLayout);
 
+    QWidget *logWTabWidget = new QWidget;
+    QHBoxLayout *logWTabWidgetLayout = new QHBoxLayout;
+    logWTabWidgetLayout->addWidget(logWindow);
+    logWTabWidget->setLayout(logWTabWidgetLayout);
 
-
-    dxBottonTab->addTab(logTabWidget, tr("Log"));
+    dxBottonTab->addTab(logWTabWidget, tr("Log"));
+    //dxBottonTab->addTab(logTabWidget, tr("Log-old"));
     dxBottonTab->addTab(dxClusterTabWidget, tr("DX-Cluster"));
     dxBottonTab->addTab(dxccStatusWidget, tr("DXCC"));
+    //dxBottonTab->addTab(logWindow, tr("Log"));
 
 
     QVBoxLayout *dxUpRightLayout = new QVBoxLayout;
@@ -6770,6 +6802,7 @@ void MainWindow::slotADIFImport(){
        //qDebug() << "MainWindow::slotADIFImport -1" << endl;
         filemanager->adifReadLog(fileName, currentLog);
        //qDebug() << "MainWindow::slotADIFImport -2" << endl;
+        //logModel->select();
         logModel->select();
    //qDebug() << "MainWindow::slotADIFImport -3" << endl;
         checkIfNewBandOrMode();

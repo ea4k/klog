@@ -27,32 +27,39 @@
  *                                                                           *
  *****************************************************************************/
 
-//#include <QtWidgets>
+#include <QtWidgets>
 #include <QWidget>
-#include <QSqlRelationalTableModel>
+//#include <QSqlRelationalTableModel>
 #include <QTableView>
 #include <QAction>
+#include <QSqlQuery>
+#include <QSqlRecord>
+#include <QSqlRelationalDelegate>
+#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 
 
-class LogWindow : public  QWidget
+class LogWindow : public  QTableView
 {
     Q_OBJECT
 
 public:
     explicit LogWindow(QWidget *parent = 0);
     ~LogWindow();
-
+    void createlogPanel(const int _contestID);
     void clear();
 
 private:    
     void createUI();
     void setDefaultData();
+    void setColumnsToDX();
 
-    void createLogModel();
-
+    //void createLogModel();
+    DataProxy *dataProxy;
     //QSqlRelationalTableModel *logModel;
     QTableView *logView;
+    QLabel *logLabel;
 
 };
 

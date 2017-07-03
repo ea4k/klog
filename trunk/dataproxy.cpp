@@ -405,6 +405,21 @@ QStringList DataProxy::getDataFromContestType(const int _n)
     return QStringList();
 }
 
+int DataProxy::getLogTypeNumber(const QString _logType)
+{
+    return -1;
+}
+
+QString DataProxy::getLogTypeName(const int _logType)
+{
+    return QString();
+}
+
+int DataProxy::getLogTypeOfUserLog(const int _logN)
+{
+    return -1;
+}
+
 int DataProxy::getHowManyQSOInLog(const int _log)
 {
     return 0;
