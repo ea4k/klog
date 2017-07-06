@@ -2,6 +2,7 @@
 
 Utilities::Utilities()
 {
+    //dbPath = getKLogDBFile();
 }
 
 int Utilities::getProgresStepForDialog(int totalSteps){
@@ -168,7 +169,7 @@ QString Utilities::getHomeDir()
 
 }
 
-QString Utilities::getKLogDatabaseFile()
+QString Utilities::getKLogDefaultDatabaseFile()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
 #ifdef Q_OS_WIN
@@ -180,6 +181,23 @@ QString Utilities::getKLogDatabaseFile()
     return getHomeDir() + "/logbook.dat";
 
 #endif
+
+}
+
+
+QString Utilities::getKLogDatabaseFile(const QString _file)
+{
+
+    if ( QFile::exists(_file + "/logbook.dat") )
+    {
+        qDebug() << "Exists!"  << endl;
+        return _file + "/logbook.dat";
+    }
+    else
+    {
+        qDebug() << "Does not exist!"  << endl;
+        return QString();
+    }
 
 }
 
@@ -227,3 +245,60 @@ int Utilities::getNormalizedDXCCValue(const int _dxcc)
         return _dxcc;
     }
 }
+QString Utilities::getKLogDBFile()
+{
+    qDebug() << "Utilities::getKLogDBFile: " << endl;
+
+    QFile file(getCfgFile());
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+
+        return QString();
+    }
+
+    while (!file.atEnd()) {
+        QByteArray line = file.readLine();
+        processConfigLine(line);
+    }
+
+    if (dbPath.length()<1)
+    {
+        dbPath = getKLogDefaultDatabaseFile();
+    }
+
+    qDebug() << "Utilities::getKLogDBFile: DB to use: " << dbPath << endl;
+    return dbPath;
+
+}
+
+bool Utilities::processConfigLine(const QString _line){
+        //qDebug() << "Utilities::processConfigLine: " << _line << endl;
+
+        QString line = _line.simplified();
+        //line.simplified();
+        //QString aux;
+
+        QStringList values = line.split("=", QString::SkipEmptyParts);
+
+
+        if (line.startsWith('#')){
+            //qDebug() << "MainWindow::processConfigLine: notes Line!" << endl;
+            return true;
+        }
+        if (!( (line.contains('=')) && (line.contains(';')))){
+            //qDebug() << "MainWindow::processConfigLine: Wrong Line!" << endl;
+            return false;
+        }
+        QString field = (values.at(0)).toUpper();
+        QString value = values.at(1);
+
+        int endValue = value.indexOf(';');
+        if (endValue>-1){
+
+            value = value.left(value.length() - (value.length() - endValue));
+        }
+
+
+        if (field == "DBPATH"){
+            dbPath = value;
+        }
+    }

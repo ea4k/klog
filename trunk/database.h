@@ -51,6 +51,8 @@ public:
     DataBase(const QString _softVersion);
     ~DataBase();
     bool createConnection();
+    bool reConnect();
+    bool setDir(const QString _dir);
 
     //bool beginTransaction();
 
@@ -101,6 +103,7 @@ private:
     bool updateTo009(); // Updates DB and add the Satellite tables
     bool updateTo010(); // Updates DB and recreates the supportedcontest table
     bool updateTableLog(const int _v);
+    bool updateDBVersion();
 
     bool createTheBandQuickReference();
     bool createTheModeQuickReference();
@@ -123,6 +126,7 @@ private:
     bool createTableBand(const bool NoTmp);
     bool populateTableBand(const bool NoTmp);
 
+    bool recreateSatelliteData();
     bool createTableSatellites(const bool NoTmp);
     bool populateTableSatellites(const bool NoTmp);
 
@@ -148,7 +152,7 @@ private:
     QString softVersion;
     float latestReaded; // The latest version of DB readed in the DB itself
     bool inMemoryOnly; // The DB is to be created in memory, no file support... Faster but less safe!
-    QDateTime date;
+    //QDateTime date;
     QHash<QString, int> bandIDHash;
     QHash<QString, int> modeIDHash;
     QHash<int, QString> IDBandHash;
@@ -161,6 +165,7 @@ private:
     Utilities *util;
 
     QSqlDatabase db;
+    QString dbDir;
 
 };
 

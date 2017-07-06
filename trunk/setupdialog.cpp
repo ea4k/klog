@@ -482,6 +482,7 @@ void SetupDialog::slotOkButtonClicked()
         stream << "AlwaysADIF=" << miscPage->getAlwaysADIF() << ";" <<  endl;
         stream << "UseDefaultName=" << miscPage->getUseDefaultName() << ";" <<  endl;
         stream << "DefaultADIFFile=" << miscPage->getDefaultFileName() << ";" <<  endl;
+        stream << "DBPath=" << miscPage->getDefaultDBPath() << ";" <<  endl;
         stream << "ImperialSystem=" << miscPage->getImperial() << ";" <<  endl;
         stream << "SendQSLWhenRec=" << miscPage->getSendQSLWhenRec() << ";" <<  endl;
         stream << "ShowCallsignInSearch=" << miscPage->getShowStationCallSignInSearch() << ";" <<  endl;
@@ -664,6 +665,8 @@ bool SetupDialog::processConfigLine(const QString _line)
         miscPage->setAlwaysADIF(value);
     }else if (tab=="USEDEFAULTNAME"){
         miscPage->setDefaultFileName(value);
+    }else if (tab=="DBPATH"){
+        miscPage->setUseDefaultDBPath(value);
     }else if (tab=="DEFAULTADIFFILE"){
         miscPage->setDefaultFileName(value.toLower());
         //qDebug() << "SetupDialog::processConfigLine: FILE: " << value << endl;

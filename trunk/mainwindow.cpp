@@ -51,7 +51,6 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     // <ui>
     doc = new QTextDocument;
     util = new Utilities;
-    logModel = new LogModel(this);
 
     needToEnd = false;
     cleaning = false;
@@ -153,14 +152,6 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     modes << "SSB" << "CW" << "RTTY";
 
     dxccStatusWidget = new DXCCStatusWidget();
-
-    //logModel = new QSqlRelationalTableModel(this);
-
-    //logView = new QTableView;
-    //logView->setContextMenuPolicy(Qt::CustomContextMenu);
-    //logView->setSortingEnabled(true);
-
-    logModel = new LogModel(this);
     logWindow = new LogWindow(this);
 
    //qDebug() << "MainWindow::MainWindow: 0009" << endl;
@@ -212,18 +203,18 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     downloadcty = new DownLoadCTY(kontestDir, softwareVersion);
     connect( downloadcty, SIGNAL(done()), this, SLOT(slotWorldReload()) );
 
-    //qDebug() << "MainWindow::MainWindow: logbook: " << QString(util->getKLogDatabaseFile()) << endl;
+    qDebug() << "MainWindow::MainWindow: logbook: " << QString(util->getKLogDBFile()) << endl;
 
-        bool existingData = QFile::exists(util->getKLogDatabaseFile());
+        bool existingData = QFile::exists(util->getKLogDBFile());
 
         if (existingData)
         {
-          //qDebug() << "MainWindow::MainWindow: existing data" << endl;
+          qDebug() << "MainWindow::MainWindow: existing data" << endl;
            //configured= false;
         }
         else
         {
-           //qDebug() << "MainWindow::MainWindow: NOT existing data" << endl;
+           qDebug() << "MainWindow::MainWindow: NOT existing data" << endl;
         }
 
     statusBarMessage = tr("Starting KLog");
@@ -501,19 +492,11 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     }
 
     //qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
-    //createlogModel(currentLog);
 
-    //qDebug() << "MainWindow::MainWindow: logmodel to be created-1" << endl;
-    logModel->createlogModel(currentLog);
-
-    logWindow->setModel(logModel);
-    logWindow->setCurrentIndex(logModel->index(0, 0));
 
     logWindow->createlogPanel(currentLog);
 
     createUI();
-  //qDebug() << "MainWindow::MainWindow: logmodel to be created" << endl;
-
 
 
     createSearchResultsPanel();
@@ -530,9 +513,7 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     createScorePanel();
 
     setWindowTitle(tr("KLog"));
-    //logView->setCurrentIndex(logModel->index(0, 0));
-    logWindow->setCurrentIndex(logModel->index(0, 0));
-    //searchResultsTreeWidget->setCurrentIndex(logModel->index(0, 0));
+
 
  //qDebug() << "MainWindow::MainWindow: 16" << endl;
     if (dataProxy->getNumberOfManagedLogs()<1)
@@ -882,9 +863,8 @@ void MainWindow::slotQRZReturnPressed()
                     }
                 }
 
+                logWindow->refresh();
 
-                //logModel->select();
-                logModel->select();
                 dxccStatusWidget->refresh();
 
                 slotClearButtonClicked();
@@ -2272,103 +2252,6 @@ WHERE [condition];
     return stringQuery;
 }
 
-/*
-void MainWindow::createlogPanel()
-{
-
-   // //qDebug() << "MainWindow::createlogPanel: "  << endl;
-    logView->setModel(logModel);
-
-
-    QString stringQuery;
-    stringQuery = QString("SELECT * FROM log LIMIT 1");
-
-    QSqlQuery query;
-    query.exec(stringQuery);
-    QSqlRecord rec;
-    rec = query.record(); // Number of columns
-    int columns = rec.count();
-
-
-    for (int i=0; i < columns; i++)
-    {
-        logView->setColumnHidden(i, true);
-    }
-
-    QVBoxLayout *layout = new QVBoxLayout;
-
-    switch (contestMode) {
-
-        case CQ_WW_SSB:
-
-
-            logLabel = new QLabel(tr("Log"));
-            logLabel->setBuddy(logView);
-
-            layout->addWidget(logLabel);
-            layout->addWidget(logView);
-            logPanel->setLayout(layout);
-
-            logPanel->addAction(loggWinAct);
-            logPanel->addAction(scoreeWinAct);
-
-            columns = rec.indexOf("call");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("qso_date");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("time_on");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("bandid");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("modeid");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("rst_sent");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("stx");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("srx");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("rst_rcvd");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("points");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("multiplier");
-            logView->setColumnHidden(columns, false);
-
-        break;
-        case CQ_WW_CW:
-
-        break;
-        default:
-            columns = rec.indexOf("qso_date");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("time_on");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("call");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("rst_sent");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("rst_rcvd");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("bandid");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("modeid");
-            logView->setColumnHidden(columns, false);
-            columns = rec.indexOf("comment");
-            logView->setColumnHidden(columns, false);
-
-        break;
-    }
-
-    logView->setItemDelegate(new QSqlRelationalDelegate(this));
-    logView->setSelectionMode( QAbstractItemView::SingleSelection);
-    logView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    logView->resizeColumnsToContents();
-    logView->horizontalHeader()->setStretchLastSection(true);
-
-}
-
-*/
 
 void MainWindow::createSearchResultsPanel()
 {
@@ -2433,106 +2316,6 @@ void MainWindow::createScorePanel()
 
 }
 
-/*
-void MainWindow::createlogModel(const int _i)
-{
-
-    Log_Id = 0,
-    Log_Name = 1,
-    Log_BandId = 2,
-    Log_ModeId = 3,
-    Log_DateId = 4,
-    Log_TimeId = 5
-
-setRelation ( int column, const QSqlRelation & relation )
-
-    model->setTable("employee");
-    model->setRelation(2, QSqlRelation("city", "id", "name"));
-
-The setRelation() call specifies that column 2 in table employee
-is a foreign key that maps with field id of table city, and that
-the view should present the city's name field to the user.
-
-*/
-
-/*
-   qDebug() << "MainWindow::createlogModel: " << QString::number(_i) << endl;
-    QSqlQuery q;
-    QString stringQuery = QString("SELECT * from log LIMIT 1");
-    QSqlRecord rec; // = q.record();
-
-    int nameCol;
-
-    q.exec(stringQuery);
-    q.next();
-    rec = q.record(); // Number of columns
-   qDebug() << "MainWindow::createlogModel - columns: " << QString::number(rec.count()) << endl;
-
-    logModel = new QSqlRelationalTableModel(this);
-
-
-    stringQuery = QString("lognumber='%1'").arg(_i);
-   qDebug() << "MainWindow::createlogModel - filter: " << stringQuery << endl;
-    QSqlQuery query(stringQuery);
-    logModel->setTable("log");
-    logModel->setFilter(stringQuery);
-
-
-    switch (contestMode) {
-
-        case CQ_WW_SSB:
-
-
-        break;
-        case CQ_WW_CW:
-
-        break;
-        default:
-            nameCol = rec.indexOf("bandid");
-            logModel->setRelation(nameCol, QSqlRelation("band", "id", "name"));
-
-            nameCol = rec.indexOf("modeid");
-            //logModel->setRelation(nameCol, QSqlRelation("mode", "id", "name"));
-            logModel->setRelation(nameCol, QSqlRelation("mode", "id", "submode"));
-
-            nameCol = rec.indexOf("id");
-            logModel->setSort(nameCol, Qt::AscendingOrder);
-
-            nameCol = rec.indexOf("qso_date");
-            logModel->setHeaderData(nameCol, Qt::Horizontal, tr("Date"));
-
-            nameCol = rec.indexOf("time_on");
-            logModel->setHeaderData(nameCol, Qt::Horizontal, tr("Time"));
-
-            nameCol = rec.indexOf("call");
-            logModel->setHeaderData(nameCol, Qt::Horizontal,tr("QRZ"));
-
-            nameCol = rec.indexOf("bandid");
-            logModel->setHeaderData(nameCol, Qt::Horizontal, tr("Band"));
-
-            nameCol = rec.indexOf("modeid");
-            logModel->setHeaderData(nameCol, Qt::Horizontal, tr("Mode"));
-
-            nameCol = rec.indexOf("rst_sent");
-            logModel->setHeaderData(nameCol, Qt::Horizontal, tr("RSTtx"));
-
-            nameCol = rec.indexOf("rst_rcvd");
-            logModel->setHeaderData(nameCol, Qt::Horizontal, tr("RSTrx"));
-
-            nameCol = rec.indexOf("comment");
-            logModel->setHeaderData(nameCol, Qt::Horizontal, tr("Comment"));
-
-        break;
-    }
-
-
-    logModel->select();    
-    createlogPanel();
-
-
-}
-
-*/
 
 void MainWindow::createUICQWW()
 {
@@ -2713,14 +2496,13 @@ void MainWindow::createActionsCommon(){
     //connect(spotItButton, SIGNAL(clicked()), this, SLOT(slotSpotItButtonClicked() ) );
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked() ) );
 
-//LOG VIEW
-    connect(logWindow, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonFromLog( const QPoint& ) ) );
-    connect(logWindow, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickLog( const QModelIndex& ) ) );
-
 
 // SEARCH BOX VIEW
 
     connect(searchBoxLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchBoxTextChanged() ) );
+
+
+
     connect(searchAllRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotSearchBoxSelectAllButtonClicked() ) );
 
     connect(searchResultsTreeWidget, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonSearch( const QPoint& ) ) );
@@ -2737,14 +2519,17 @@ void MainWindow::createActionsCommon(){
     connect(operatingYearsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotOperatingYearComboBoxChanged() ) ) ;
     connect(recalculateAwardsButton, SIGNAL(clicked()), this, SLOT(slotRecalculateAwardsButtonClicked() ) );
 
-//connect(searchResultsTreeWidget, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickSearch( const QModelIndex& ) ) );
+    // LOGVIEW
+    connect(logWindow, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
+    connect(logWindow, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
+    connect(logWindow, SIGNAL(updateSearchText()), this, SLOT(slotSearchBoxTextChanged() ) ); //When a QSO is deleted
 
-//CLUSTER
-//void clusterSpotToLog(const QStringList _qs);
-//SIGNAL dxspotclicked(const QStringList _qs)
+    //CLUSTER
+    //void clusterSpotToLog(const QStringList _qs);
+    //SIGNAL dxspotclicked(const QStringList _qs)
     connect(dxClusterWidget, SIGNAL(dxspotclicked(QStringList)), this, SLOT(slotAnalyzeDxClusterSignal(QStringList) ) );
 
-// CLUBLOG
+    // CLUBLOG
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
     connect (elogClublog, SIGNAL (actionReturnDownload(int, int)), this, SLOT (slotElogClubLogProcessAnswer(int, int)));
     connect (elogClublog, SIGNAL (disableClubLogAction(bool)), this, SLOT (slotElogClubLogDisable(bool)));
@@ -2755,6 +2540,7 @@ void MainWindow::createActionsCommon(){
     connect(QSLTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
 
 }
+
 void MainWindow::slotElogClubLogDisable(const bool _b)
 {
    //qDebug() << "MainWindow::slotElogClubLogDisable: " << endl;
@@ -4076,16 +3862,14 @@ void MainWindow::slotSetup(const int _page)
             readConfigData();
         }
 
-        //createlogModel(currentLog);
-        qDebug() << "MainWindow::MainWindow: logmodel to be created-2" << endl;
-        logModel->createlogModel(currentLog);
-        logWindow->setModel(logModel);
-        logWindow->setCurrentIndex(logModel->index(0, 0));
-        logWindow->createlogPanel(currentLog);
 
+        qDebug() << "MainWindow::MainWindow: logmodel to be created-2" << endl;
+        logWindow->createlogPanel(currentLog);
 
     }
     defineStationCallsign();
+
+    db->reConnect();
 
 }
 
@@ -4101,8 +3885,7 @@ void MainWindow::openFile()
         return;
     }
 
-    //logModel->select();
-    logModel->select();
+    logWindow->refresh();
 
 }
 
@@ -4209,8 +3992,7 @@ void MainWindow::newFile()
     multipliers = 0;
     qsoPoints = 0;
     qsoMultiplier = 0;
-    //logModel->select();
-    logModel->select();
+    logWindow->refresh();
     slotClearButtonClicked();
     searchResultsTreeWidget->clear();
 
@@ -4266,45 +4048,15 @@ bool MainWindow::readCtyFile()
     return false;
 }
 
-void MainWindow::slotDoubleClickLog(const QModelIndex & index)
+void MainWindow::slotDoubleClickLog(const int _qsoID)
 {
-    //qDebug() << "MainWindow::slotDoubleClickLog: Row: " << QString::number(index.row()) << "Column: " << QString::number(index.column()) << endl;
-    //qDebug() << "MainWindow::slotDoubleClickLog: " << (logModel->headerData(index.column(), Qt::Horizontal, Qt::DisplayRole)).toString() << endl;
+    qDebug() << "MainWindow::slotDoubleClickLog: QSOid: " << QString::number(_qsoID) << endl;
 
-   // QSqlQuery query;
-    //QString queryString;
-    int row = index.row();
+    //int row = _qsoID.row();
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
-    qsoToEdit((logModel->index(row, 0)).data(0).toInt());
-/*
-   // bandOld = (logModel->index(row, 6)).data(0).toString();
-    //modeOld = (logModel->index(row, 7)).data(0).toString();
+    qsoToEdit(_qsoID);
 
-    //qDebug() << "MainWindow::slotDoubleClickLog: Band: " << bandOld << endl;
-    //qDebug() << "MainWindow::slotDoubleClickLog: Mode: " << modeOld << endl;
-
-    if (index.column() == 6) // The user is potentially changing the band, directly from the Log.
-    {   // keep the band of the QSO and check after finish editing. If the new band is not in the currently used bands, the active bands
-        // will need to be refreshed.
-
-
-    }
-    else if(index.column() == 7) // Mode
-    {
-
-    }
-
-    if ((logModel->headerData(index.column(), Qt::Horizontal, Qt::DisplayRole)).toString() == "Band") // 6
-    {
-
-    }
-    else if ((logModel->headerData(index.column(), Qt::Horizontal, Qt::DisplayRole)).toString() == tr("Mode")) // 7
-    {
-
-    }
-
-*/
-
+    //TODO: To be added to the logWindow and create an action that emist the QSO id to be edited
 }
 
 void MainWindow::slotDoubleClickSearch(QTreeWidgetItem * item, int)
@@ -4372,8 +4124,9 @@ void MainWindow::righButtonSearchMenu(const int trow)
 {
     //qDebug() << "MainWindow::slotshowRighButtonSearchMenu:  " << QString::number(trow) << endl;
 
-    bool qslReceived = isQSLReceived(trow);
-    bool qslSent = isQSLSent(trow);
+
+    bool qslReceived = logWindow->isQSLReceived(trow);
+    bool qslSent = logWindow->isQSLSent(trow);
 
     QMenu menu(this);
 
@@ -4450,66 +4203,6 @@ void MainWindow::righButtonSearchMenu(const int trow)
     //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -END"  << endl;
 }
 
-void MainWindow::slotRighButtonFromLog(const QPoint& pos)
-{
-    //qDebug() << "MainWindow::slotshowRighButtonFromLog"  << endl;
-    int row = (logWindow->indexAt(pos)).row();
-    showMenuRightButtonFromLogCreateActions();
-    righButtonFromLogMenu(row);
-}
-
-
-void MainWindow::righButtonFromLogMenu(const int trow)
-{
-    //qDebug() << "MainWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << endl;
-    int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
-    bool qslReceived = isQSLReceived(_qsoID);
-    bool qslSent = isQSLSent(_qsoID);
-    QMenu menu(this);
-
-    menu.addAction(delQSOFromLogAct);
-    delQSOFromLogAct->setData(trow);
-    menu.addAction(qsoToEditFromLogAct);
-    qsoToEditFromLogAct->setData(trow);
-
-    switch (contestMode) {
-
-        case CQ_WW_SSB:
-
-        break;
-        case CQ_WW_CW:
-
-        break;
-        default:
-            menu.addSeparator();
-            if (qslSent)
-            {
-            }
-            else
-            {
-                QMenu *menuSentQsl = menu.addMenu(tr("QSL Send"));
-                menuSentQsl->addAction(qslSentViaBureauFromLogAct);
-                menuSentQsl->addAction(qslSentViaDirectFromLogAct);
-                qslSentViaBureauFromLogAct->setData(trow);
-                qslSentViaDirectFromLogAct->setData(trow);
-            }
-
-            if (qslReceived)
-            {
-            }
-            else
-            {
-                QMenu *menuRecQsl = menu.addMenu(tr("QSL Rcvd"));
-                menuRecQsl->addAction(qslRecViaBureauFromLogAct);
-                menuRecQsl->addAction(qslRecViaDirectFromLogAct);
-                qslRecViaBureauFromLogAct->setData(trow);
-                qslRecViaDirectFromLogAct->setData(trow);
-            }
-        break;
-    }
-    menu.exec(QCursor::pos());
-}
-
 
 void MainWindow::showMenuRightButtonSearchCreateActions()
 {
@@ -4576,52 +4269,8 @@ void MainWindow::showMenuRightButtonSearchCreateActions()
 }
 
 
-void MainWindow::showMenuRightButtonFromLogCreateActions()
-{
-//qDebug() << "MainWindow::showMenuRightButtonFromLogCreateActions" << endl;
 
-//TODO: Add the shortcut ( QAction::setShorCut()  )
-  delQSOFromLogAct = new QAction(tr("&Delete"), this);
-  delQSOFromLogAct->setShortcut(Qt::CTRL + Qt::Key_D);
-  delQSOFromLogAct->setStatusTip(tr("Delete a QSO"));
-  connect(delQSOFromLogAct, SIGNAL(triggered()), this, SLOT(slotQsoDeleteFromLog()));
 
-  //qslSentFromLogAct = new QAction(tr("&Send via bureay"), this);
-  //qslSentFromLogAct->setShortcut(Qt::CTRL + Qt::Key_S);
-  //qslSentFromLogAct->setStatusTip(tr("Send the QSL"));
-  //connect(qslSentFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSLSentFromLog()));
-
-  //qslRecFromLogAct = new QAction(tr("QSL &Received"), this);
-  //qslRecFromLogAct->setShortcut(Qt::CTRL + Qt::Key_R);
-  //qslRecFromLogAct->setStatusTip(tr("QSL Received"));
-  //connect(qslRecFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSLRecFromLog()));
-
-  qsoToEditFromLogAct = new QAction(tr("&Edit QSO"), this);
-  qsoToEditFromLogAct->setShortcut(Qt::CTRL + Qt::Key_E);
-  qsoToEditFromLogAct->setStatusTip(tr("Edit this QSO"));
-  connect(qsoToEditFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOToEditFromLog()));
-
-  qslSentViaBureauFromLogAct = new QAction(tr("Via &bureau"), this);
-  qslSentViaBureauFromLogAct->setShortcut(Qt::CTRL + Qt::Key_B);
-  qslSentViaBureauFromLogAct->setStatusTip(tr("Send this QSL via bureau"));
-  connect(qslSentViaBureauFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaBureauFromLog() ));
-
-  qslSentViaDirectFromLogAct = new QAction(tr("D&irect"), this);
-  qslSentViaDirectFromLogAct->setShortcut(Qt::CTRL + Qt::Key_I);
-  qslSentViaDirectFromLogAct->setStatusTip(tr("Send this QSL via direct"));
-  connect(qslSentViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaDirectFromLog()   ));
-
-  qslRecViaBureauFromLogAct = new QAction(tr("Via bureau"), this);
-  qslRecViaBureauFromLogAct->setShortcut(Qt::CTRL + Qt::Key_R);
-  qslRecViaBureauFromLogAct->setStatusTip(tr("QSL &received via bureau"));
-  connect(qslRecViaBureauFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaBureauFromLog() ));
-
-  qslRecViaDirectFromLogAct = new QAction(tr("Direct"), this);
-  qslRecViaDirectFromLogAct->setShortcut(Qt::CTRL + Qt::Key_T);
-  qslRecViaDirectFromLogAct->setStatusTip(tr("QSL received via direc&t"));
-  connect(qslRecViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectFromLog() ));
-
-}
 void MainWindow::slotQSLSentViaBureuMarkDXReqFromSearch()
 {
     //qDebug() << "slotQSLSentViaBureuMarkDXReqFromSearch: " << (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
@@ -4667,7 +4316,9 @@ void MainWindow::slotQSLSentViaBureauFromSearch()
 {
    // //qDebug() << "MainWindow::slotQSLSentViaBureauFromSearch: " << (qslSentViaBureauFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
     int _qsoId = (qslSentViaBureauFromSearchAct->data()).toInt();
-    qslSentViaBureau(_qsoId);
+
+    logWindow->qslSentViaBureau(_qsoId);
+    //qslSentViaBureau(_qsoId);
     if(qslingNeeded)
     {
         slotToolSearchNeededQSLToSend();
@@ -4692,35 +4343,12 @@ void MainWindow::slotQSLSentViaDirectFromSearch()
         slotSearchBoxTextChanged();
     }
 
-
-
     //qslSentViaDirect(_qsoId);
 
 }
 
-void MainWindow::slotQSLSentViaBureauFromLog()
-{
-   //qDebug() << "MainWindow::slotQSLSentViaBureauFromLog: " << (qslSentViaBureauFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
-    int _qsoId = ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
-    qslSentViaBureau(_qsoId);
 
-}
 
-void MainWindow::slotQSLSentViaDirectFromLog()
-{    
-    //qDebug() << "MainWindow::slotQSLSentViaDirectFromLog: " << (qslSentViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
-    int _qsoId = ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
-    dataProxy->qslSentViaDirect(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
-
-}
-
-void MainWindow::qslSentViaBureau(const int _qsoId)
-{
-    //qDebug() << "MainWindow::qslSentViaBureau: " << QString::number(_qsoId) << endl;
-
-    dataProxy->qslSentViaBureau(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
-
-}
 
 void MainWindow::slotQSLSentMarkAsRequested()
 {
@@ -4754,28 +4382,14 @@ void MainWindow::slotQSLRecMarkAsRequested()
 }
 
 
-void MainWindow::slotQSLRecViaBureauFromLog()
-{
-   //qDebug() << "MainWindow::slotQSLRecViaBureauFromLog: " << (qslRecViaBureauAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaBureauAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
 
-    int _qsoId = ((logModel->index( ( (qslRecViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
-    qslRecViaBureau(_qsoId);
-}
-
-void MainWindow::slotQSLRecViaDirectFromLog()
-{
-    //qDebug() << "MainWindow::slotQSLRecViaDirectFromLog: " << (qslRecViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
-    int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
-    qslRecViaDirect(_qsoId);
-    // Mark Sent, Bureau, date, update log.
-}
 
 void MainWindow::slotQSLRecViaBureauFromSearch()
 {
     //qDebug() << "MainWindow::slotQSLRecViaBureauFromLog: " << "- Id = " << QString::number( ((logModel->index( ( (qslRecViaBureauFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
 
     int _qsoId = (qslRecViaBureauFromSearchAct->data()).toInt();
-    qslRecViaBureau(_qsoId);
+    logWindow->qslRecViaBureau(_qsoId);
     if(qslingNeeded)
     {
         slotToolSearchNeededQSLToSend();
@@ -4809,7 +4423,7 @@ void MainWindow::slotQSLRecViaDirectFromSearch()
 {
     //qDebug() << "MainWindow::slotQSLRecViaDirectFromLog: " << (qslRecViaDirectFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
     int _qsoId = (qslRecViaDirectFromSearchAct->data()).toInt();
-    qslRecViaDirect(_qsoId);
+    logWindow->qslRecViaDirect(_qsoId);
     if(qslingNeeded)
     {
         slotToolSearchNeededQSLToSend();
@@ -4837,30 +4451,10 @@ void MainWindow::slotQSLRecViaDirectMarkReqFromSearch()
     // Mark Sent, Bureau, date, update log.
 }
 
-void MainWindow::qslRecViaBureau(const int _qsoId)
-{
-   // //qDebug() << "MainWindow::qslRecViaBureau: " << QString::number(_qsoId) << "/" << (dateTime->currentDateTime()).toString("yyyy/MM/dd") << endl;
-    //setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed);
-    dataProxy->qslRecViaBureau(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"), false);
-    awards->setAwards(_qsoId);   //Update the DXCC award status
-
-    //logModel->select();
-    logModel->select();
-    showAwards();
-
-}
 
 
-void MainWindow::qslRecViaDirect(const int _qsoId)
-{
-    //qDebug() << "MainWindow::qslRecViaDirect: " << QString::number(_qsoId) << endl;
 
-    dataProxy->qslRecViaDirect(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"), false);
-    awards->setAwards(_qsoId);
-    //setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed);
 
-    showAwards();
-}
 
 void MainWindow::qslRecViaBureauMarkReq(const int _qsoId)
 {
@@ -4869,8 +4463,7 @@ void MainWindow::qslRecViaBureauMarkReq(const int _qsoId)
     dataProxy->qslRecViaBureau(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"), true);
     awards->setAwards(_qsoId);   //Update the DXCC award status
 
-    //logModel->select();
-    logModel->select();
+    logWindow->refresh();
     showAwards();
 
 }
@@ -4887,27 +4480,7 @@ void MainWindow::qslRecViaDirectMarkReq(const int _qsoId)
     showAwards();
 }
 
-bool MainWindow::isQSLReceived(const int _qsoId)
-{
-    //qDebug() << "MainWindow::isQSLReceived: " << QString::number(_qsoId) << endl;
-    return dataProxy->isQSLReceived(_qsoId);
-}
 
-bool MainWindow::isQSLSent(const int _qsoId)
-{
-    //qDebug() << "MainWindow::isQSLSent: " << QString::number(_qsoId) << endl;
-
-    return dataProxy->isQSLSent(_qsoId);
-}
-
-
-void MainWindow::slotQSOToEditFromLog()
-{
-    //qDebug() << "slotQSOToEditFromLog: " << (qsoToEditFromLogAct->data()).toString() << endl;
-
-    qsoToEdit((logModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0).toInt());
-
-}
 
 void MainWindow::slotQSOToEditFromSearch()
 {
@@ -4917,53 +4490,11 @@ void MainWindow::slotQSOToEditFromSearch()
 
 }
 
-
-void MainWindow::slotQsoDeleteFromLog()
-{
-   //qDebug() << "MainWindow::slotQsoDeleteFromLog: " << (delQSOFromLogAct->data()).toString() << endl;
-
-
-    QMessageBox msgBox;
-    msgBox.setIcon(QMessageBox::Information);
-    msgBox.setText(tr("You have requested to delete this QSO."));
-    msgBox.setInformativeText(tr("Are you sure?"));
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msgBox.setDefaultButton(QMessageBox::No);
-    int ret = msgBox.exec();
-
-    int QSOid = ((logModel->index((delQSOFromLogAct->data()).toInt(), 0)).data(0)).toInt();
-
-   //qDebug() << "MainWindow::slotQsoDeleteFromLog (id): " << QString::number(QSOid) << endl;
-
-    switch (ret) {
-      case QMessageBox::Yes:
-       //qDebug() << "MainWindow::slotQsoDeleteFromLog (id): -1" << endl;
-        elogClublog->deleteQSO(dataProxy->getClubLogRealTimeFromId(QSOid));
-       //qDebug() << "MainWindow::slotQsoDeleteFromLog (id): -2"<< endl;
-        logModel->removeRow((delQSOFromLogAct->data()).toInt());
-        logModel->select();
-
-
-    //qDebug() << "MainWindow::slotQsoDeleteFromLog (id):-3 " << endl;
-          slotSearchBoxTextChanged();
-          awards->recalculateAwards();
-          dxccStatusWidget->refresh();
-          showAwards();
-          break;
-      case QMessageBox::No:
-          // No was clicked
-          break;
-      default:
-          // should never be reached
-          break;
-    }
-}
-
 void MainWindow::slotQsoDeleteFromSearch()
 {
     //qDebug() << "MainWindow::slotQsoDeleteFromSearch: " << (delQSOFromSearchAct->data()).toString() << endl;
 
-    //qDebug() << "MainWindow::slotQsoDeleteFromSearch: " << QString::number((logModel->index((delQSOFromSearchAct->data(6)).toInt(), 0)).data(0).toInt()) << endl;
+
     int QSOid = (delQSOFromSearchAct->data()).toInt();
     //int x = -1;
 
@@ -4988,9 +4519,7 @@ void MainWindow::slotQsoDeleteFromSearch()
             if(dataProxy->deleteQSO(QSOid))
             {
 
-
-                //logModel->select();
-                logModel->select();
+                logWindow->refresh();
                 if(qslingNeeded)
                 {
                     slotToolSearchNeededQSLToSend();
@@ -5128,6 +4657,7 @@ void MainWindow::readConfigData()
         QByteArray line = file.readLine();
         processConfigLine(line);
     }
+
     defineStationCallsign();
 
     //qDebug() << "MainWindow::readConfigData: " << defaultADIFLogFile << endl;
@@ -6384,26 +5914,26 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     QWidget *dxClusterTabWidget = new QWidget;
 
 
-    //QHBoxLayout *logTabWidgetLayout = new QHBoxLayout;
+
     QHBoxLayout *dxClusterTabWidgetLayout = new QHBoxLayout;
 
-
-    //logTabWidgetLayout->addWidget(logView);//
-    //logTabWidget->setLayout(logTabWidgetLayout);
+    QHBoxLayout *logTabWidgetLayout = new QHBoxLayout;
+    logTabWidgetLayout->addWidget(logWindow);//
+    logTabWidget->setLayout(logTabWidgetLayout);
 
     dxClusterTabWidgetLayout->addWidget(dxClusterWidget);
     dxClusterTabWidget->setLayout(dxClusterTabWidgetLayout);
 
-    QWidget *logWTabWidget = new QWidget;
-    QHBoxLayout *logWTabWidgetLayout = new QHBoxLayout;
-    logWTabWidgetLayout->addWidget(logWindow);
-    logWTabWidget->setLayout(logWTabWidgetLayout);
+    //QWidget *logWTabWidget = new QWidget;
+    //QHBoxLayout *logWTabWidgetLayout = new QHBoxLayout;
+    //logWTabWidgetLayout->addWidget(logWindow);
+    //logWTabWidget->setLayout(logWTabWidgetLayout);
 
-    dxBottonTab->addTab(logWTabWidget, tr("Log"));
+    dxBottonTab->addTab(logTabWidget, tr("Log"));
     //dxBottonTab->addTab(logTabWidget, tr("Log-old"));
     dxBottonTab->addTab(dxClusterTabWidget, tr("DX-Cluster"));
     dxBottonTab->addTab(dxccStatusWidget, tr("DXCC"));
-    //dxBottonTab->addTab(logWindow, tr("Log"));
+
 
 
     QVBoxLayout *dxUpRightLayout = new QVBoxLayout;
@@ -6802,8 +6332,8 @@ void MainWindow::slotADIFImport(){
        //qDebug() << "MainWindow::slotADIFImport -1" << endl;
         filemanager->adifReadLog(fileName, currentLog);
        //qDebug() << "MainWindow::slotADIFImport -2" << endl;
-        //logModel->select();
-        logModel->select();
+
+        logWindow->refresh();
    //qDebug() << "MainWindow::slotADIFImport -3" << endl;
         checkIfNewBandOrMode();
    //qDebug() << "MainWindow::slotADIFImport -4" << endl;
@@ -8273,6 +7803,10 @@ void MainWindow::showDXMarathonNeeded(const int _dxcc, const int _cqz, const int
     {        
         infoLabel1->setText(infoLabel1->text()+ tr(" - Needed for DXMarathon"));
     }
+}
+void MainWindow::slotShowAwards()
+{ //To be called from the logWindow
+    showAwards();
 }
 
 void MainWindow::showAwards()

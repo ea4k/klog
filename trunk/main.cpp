@@ -31,7 +31,7 @@
 
 int main(int argc, char *argv[])
 {
-    QString version = "0.9.2.7b" ;
+    QString version = "0.9.2.7" ;
     QDir d1 = QDir();
     Utilities util = Utilities();
     QStringList arguments;
@@ -143,6 +143,11 @@ int main(int argc, char *argv[])
         {
                 //qDebug() << "KLog OTHER -3: " << QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) << endl;
             myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()));
+        }
+        else if (((QLocale::system().name()).left(2)) == "en")
+        { // If language is English, it will execute without showing message
+            //qDebug() << "KLog Long Language: " <<  (QLocale::system().name()) << endl;
+            //qDebug() << "KLog Language: " <<  (QLocale::system().name()).left(2) << endl;
         }
         else
         {

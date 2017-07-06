@@ -27,15 +27,21 @@
 #include "logwindow.h"
 
 
-LogWindow::LogWindow(QWidget *parent) : QTableView(parent)
+LogWindow::LogWindow(QWidget *parent) : QWidget(parent)
 {
    //qDebug() << "LogWindow::LogWindow: "  << endl;
-    //logModel = new QSqlRelationalTableModel(this);
-    //logView = new QTableView;
+    logModel = new LogModel(this);
+    logView = new QTableView;
+    dxccStatusWidget = new DXCCStatusWidget();
+    elogClublog = new eLogClubLog();
+
+    currentLog = -1;
 
     dataProxy = new DataProxy_SQLite();
+    awards = new Awards();
 
     createUI();
+    createActions();
     setDefaultData();
 
 }
@@ -54,14 +60,13 @@ void LogWindow::clear()
 void LogWindow::createUI()
 {
    //qDebug() << "LogWindow::createUI"  << endl;
-    setContextMenuPolicy(Qt::CustomContextMenu);
-    setSortingEnabled(true);
 
+    logView->setContextMenuPolicy(Qt::CustomContextMenu);
+    logView->setSortingEnabled(true);
 
-    //QVBoxLayout *layout = new QVBoxLayout;
-    //layout->addWidget(logView);
-
-    //setLayout(layout);
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(logView);
+    setLayout(layout);
 }
 
 void LogWindow::setDefaultData()
@@ -71,11 +76,17 @@ void LogWindow::setDefaultData()
 }
 
 
-void LogWindow::createlogPanel(const int _contestID)
+void LogWindow::createlogPanel(const int _currentLog)
 {
    //qDebug() << "LogWindow::createlogPanel: " << QString::number(_contestID) << endl;
+    currentLog = _currentLog;
+    logModel->createlogModel(currentLog);
+    logView->setModel(logModel);
+    logView->setCurrentIndex(logModel->index(0, 0));
 
-    int contestMode = dataProxy->getLogTypeOfUserLog(_contestID);
+
+
+    int contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
 
     if (contestMode == dataProxy->getLogTypeNumber("DX"))
     {
@@ -92,15 +103,15 @@ void LogWindow::createlogPanel(const int _contestID)
     }
     else
     {
-        //qDebug() << "LogWindow::createlogPanel: Default"  << endl;
-        setColumnsToDX();
+        // THIS POINT SHOULD NOT BE REACHED. It means that there is a kind of contest not supported.
+        // Maybe the way should be to move ALL the actions from DX here.
     }
 
-    setItemDelegate(new QSqlRelationalDelegate(this));
-    setSelectionMode( QAbstractItemView::SingleSelection);
-    setSelectionBehavior(QAbstractItemView::SelectRows);
-    resizeColumnsToContents();
-    horizontalHeader()->setStretchLastSection(true);
+    logView->setItemDelegate(new QSqlRelationalDelegate(this));
+    logView->setSelectionMode( QAbstractItemView::SingleSelection);
+    logView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    logView->resizeColumnsToContents();
+    logView->horizontalHeader()->setStretchLastSection(true);
 
 }
 
@@ -118,23 +129,308 @@ void LogWindow::setColumnsToDX()
 
     for (int i=0; i < columns; i++)
     {
-        setColumnHidden(i, true);
+        logView->setColumnHidden(i, true);
     }
 
     columns = rec.indexOf("qso_date");
-    setColumnHidden(columns, false);
+    logView->setColumnHidden(columns, false);
     columns = rec.indexOf("time_on");
-    setColumnHidden(columns, false);
+    logView->setColumnHidden(columns, false);
     columns = rec.indexOf("call");
-    setColumnHidden(columns, false);
+    logView->setColumnHidden(columns, false);
     columns = rec.indexOf("rst_sent");
-    setColumnHidden(columns, false);
+    logView->setColumnHidden(columns, false);
     columns = rec.indexOf("rst_rcvd");
-    setColumnHidden(columns, false);
+    logView->setColumnHidden(columns, false);
     columns = rec.indexOf("bandid");
-    setColumnHidden(columns, false);
+    logView->setColumnHidden(columns, false);
     columns = rec.indexOf("modeid");
-    setColumnHidden(columns, false);
+    logView->setColumnHidden(columns, false);
     columns = rec.indexOf("comment");
-    setColumnHidden(columns, false);
+    logView->setColumnHidden(columns, false);
 }
+
+void LogWindow::refresh()
+{
+    logModel->select();
+}
+;
+void LogWindow::createActions()
+{
+    createActionsCommon();
+}
+
+void LogWindow::createActionsCommon()
+{
+    //LOG VIEW
+
+        connect(logView, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonFromLog( const QPoint& ) ) );
+        connect(logView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickLog( const QModelIndex& ) ) );
+
+}
+
+void LogWindow::slotRighButtonFromLog(const QPoint& pos)
+{
+    qDebug() << "LogWindow::slotshowRighButtonFromLog"  << endl;
+    int row = (logView->indexAt(pos)).row();
+    showMenuRightButtonFromLogCreateActions();
+    righButtonFromLogMenu(row);
+    //TODO: To be added to the logWindow and create an action that emist the QSO id
+}
+
+void LogWindow::righButtonFromLogMenu(const int trow)
+{
+    qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << endl;
+
+    int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
+    qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID) << endl;
+    bool qslReceived = isQSLReceived(_qsoID);
+    bool qslSent = isQSLSent(_qsoID);
+    QMenu menu(this);
+
+    menu.addAction(delQSOFromLogAct);
+    delQSOFromLogAct->setData(trow);
+    menu.addAction(qsoToEditFromLogAct);
+    qsoToEditFromLogAct->setData(trow);
+
+    int contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
+
+    if (contestMode == dataProxy->getLogTypeNumber("DX"))
+    {
+        menu.addSeparator();
+        if (qslSent)
+        {
+        }
+        else
+        {
+            QMenu *menuSentQsl = menu.addMenu(tr("QSL Send"));
+            menuSentQsl->addAction(qslSentViaBureauFromLogAct);
+            menuSentQsl->addAction(qslSentViaDirectFromLogAct);
+            qslSentViaBureauFromLogAct->setData(trow);
+            qslSentViaDirectFromLogAct->setData(trow);
+        }
+
+        if (qslReceived)
+        {
+        }
+        else
+        {
+            QMenu *menuRecQsl = menu.addMenu(tr("QSL Rcvd"));
+            menuRecQsl->addAction(qslRecViaBureauFromLogAct);
+            menuRecQsl->addAction(qslRecViaDirectFromLogAct);
+            qslRecViaBureauFromLogAct->setData(trow);
+            qslRecViaDirectFromLogAct->setData(trow);
+        }
+    }
+    else if (contestMode == dataProxy->getLogTypeNumber("CQ_WW_SSB"))
+    {
+
+    }
+    else if (contestMode == dataProxy->getLogTypeNumber("CQ_WW_CW"))
+    {
+
+    }
+    else
+    {
+        // THIS POINT SHOULD NOT BE REACHED. It means that there is a kind of contest not supported.
+        // Maybe the way should be to move ALL the actions from DX here.
+    }
+
+    menu.exec(QCursor::pos());
+}
+
+void LogWindow::slotDoubleClickLog(const QModelIndex & index)
+{
+    //qDebug() << "LogWindow::slotDoubleClickLog: Row: " << QString::number(index.row()) << "Column: " << QString::number(index.column()) << endl;
+
+    int row = index.row();
+    //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
+    emit actionQSODoubleClicked((logModel->index(row, 0)).data(0).toInt());
+    //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
+
+    //TODO: To be added to the logWindow and create an action that emist the QSO id to be edited
+}
+
+bool LogWindow::isQSLReceived(const int _qsoId)
+{
+    //qDebug() << "LogWindow::isQSLReceived: " << QString::number(_qsoId) << endl;
+    return dataProxy->isQSLReceived(_qsoId);
+}
+
+bool LogWindow::isQSLSent(const int _qsoId)
+{
+    //qDebug() << "LogWindow::isQSLSent: " << QString::number(_qsoId) << endl;
+
+    return dataProxy->isQSLSent(_qsoId);
+}
+
+void LogWindow::showMenuRightButtonFromLogCreateActions()
+{
+//qDebug() << "LogWindow::showMenuRightButtonFromLogCreateActions" << endl;
+
+
+  delQSOFromLogAct = new QAction(tr("&Delete"), this);
+  delQSOFromLogAct->setShortcut(Qt::CTRL + Qt::Key_D);
+  delQSOFromLogAct->setStatusTip(tr("Delete a QSO"));
+  connect(delQSOFromLogAct, SIGNAL(triggered()), this, SLOT(slotQsoDeleteFromLog()));
+
+  qsoToEditFromLogAct = new QAction(tr("&Edit QSO"), this);
+  qsoToEditFromLogAct->setShortcut(Qt::CTRL + Qt::Key_E);
+  qsoToEditFromLogAct->setStatusTip(tr("Edit this QSO"));
+  connect(qsoToEditFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOToEditFromLog()));
+
+  qslSentViaBureauFromLogAct = new QAction(tr("Via &bureau"), this);
+  qslSentViaBureauFromLogAct->setShortcut(Qt::CTRL + Qt::Key_B);
+  qslSentViaBureauFromLogAct->setStatusTip(tr("Send this QSL via bureau"));
+  connect(qslSentViaBureauFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaBureauFromLog() ));
+
+  qslSentViaDirectFromLogAct = new QAction(tr("D&irect"), this);
+  qslSentViaDirectFromLogAct->setShortcut(Qt::CTRL + Qt::Key_I);
+  qslSentViaDirectFromLogAct->setStatusTip(tr("Send this QSL via direct"));
+  connect(qslSentViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaDirectFromLog()   ));
+
+  qslRecViaBureauFromLogAct = new QAction(tr("Via bureau"), this);
+  qslRecViaBureauFromLogAct->setShortcut(Qt::CTRL + Qt::Key_R);
+  qslRecViaBureauFromLogAct->setStatusTip(tr("QSL &received via bureau"));
+  connect(qslRecViaBureauFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaBureauFromLog() ));
+
+  qslRecViaDirectFromLogAct = new QAction(tr("Direct"), this);
+  qslRecViaDirectFromLogAct->setShortcut(Qt::CTRL + Qt::Key_T);
+  qslRecViaDirectFromLogAct->setStatusTip(tr("QSL received via direc&t"));
+  connect(qslRecViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectFromLog() ));
+
+}
+
+
+
+void LogWindow::slotQSLSentViaBureauFromLog()
+{
+   //qDebug() << "LogWindow::slotQSLSentViaBureauFromLog: " << (qslSentViaBureauFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+    int _qsoId = ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
+    qslSentViaBureau(_qsoId);
+
+}
+
+void LogWindow::slotQSLSentViaDirectFromLog()
+{
+    //qDebug() << "LogWindow::slotQSLSentViaDirectFromLog: " << (qslSentViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+    int _qsoId = ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
+    dataProxy->qslSentViaDirect(_qsoId, (QDateTime::currentDateTime()).toString("yyyy/MM/dd"));
+
+}
+
+void LogWindow::slotQSLRecViaBureauFromLog()
+{
+   //qDebug() << "LogWindow::slotQSLRecViaBureauFromLog: " << (qslRecViaBureauAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaBureauAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+
+    int _qsoId = ((logModel->index( ( (qslRecViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
+    qslRecViaBureau(_qsoId);
+    //TODO: To be added to the logWindow and create an action that emist the QSO id
+}
+
+void LogWindow::slotQSLRecViaDirectFromLog()
+{
+    //qDebug() << "LogWindow::slotQSLRecViaDirectFromLog: " << (qslRecViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+    int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
+    qslRecViaDirect(_qsoId);
+    // Mark Sent, Bureau, date, update log.
+    //TODO: To be added to the logWindow and create an action that emist the QSO id
+}
+
+void LogWindow::slotQSOToEditFromLog()
+{
+    //qDebug() << "slotQSOToEditFromLog: " << (qsoToEditFromLogAct->data()).toString() << endl;
+
+    //qsoToEdit((logModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0).toInt());
+    int QSOid = ((logModel->index((delQSOFromLogAct->data()).toInt(), 0)).data(0)).toInt();
+
+    //int row = index.row();
+    //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
+    emit actionQSODoubleClicked(QSOid);
+
+
+
+    //TODO: To be added to the logWindow and create an action that emist the QSO id
+}
+
+
+
+void LogWindow::deleteQSO(const int _qsoID)
+{
+    //qDebug() << "LogWindow::deleteQSO: " << QString::number(_qsoID) << endl;
+    elogClublog->deleteQSO(dataProxy->getClubLogRealTimeFromId(_qsoID));
+
+    dataProxy->deleteQSO(_qsoID);
+
+    //logModel->removeRow((delQSOFromLogAct->data()).toInt()); //TODO: This has been replaced by the previous line
+    refresh();
+
+    awards->recalculateAwards();
+    dxccStatusWidget->refresh();
+    emit updateAwards();
+    emit updateSearchText();
+
+}
+
+void LogWindow::slotQsoDeleteFromLog()
+{
+   //qDebug() << "LogWindow::slotQsoDeleteFromLog: " << (delQSOFromLogAct->data()).toString() << endl;
+    //TODO: To be added to the logWindow and create an action that emist the QSO id
+
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.setText(tr("You have requested to delete this QSO."));
+    msgBox.setInformativeText(tr("Are you sure?"));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    int ret = msgBox.exec();
+
+    int QSOid = ((logModel->index((delQSOFromLogAct->data()).toInt(), 0)).data(0)).toInt();
+
+   //qDebug() << "LogWindow::slotQsoDeleteFromLog (id): " << QString::number(QSOid) << endl;
+
+    switch (ret) {
+      case QMessageBox::Yes:
+       //qDebug() << "LogWindow::slotQsoDeleteFromLog (id): -1" << endl;
+        deleteQSO(QSOid);
+
+          break;
+      case QMessageBox::No:
+          // No was clicked
+          break;
+      default:
+          // should never be reached
+          break;
+    }
+}
+
+void LogWindow::qslSentViaBureau(const int _qsoId)
+{
+    //qDebug() << "LogWindow::qslSentViaBureau: " << QString::number(_qsoId) << endl;
+
+    dataProxy->qslSentViaBureau(_qsoId, (QDateTime::currentDateTime()).toString("yyyy/MM/dd"));
+}
+
+void LogWindow::qslRecViaBureau(const int _qsoId)
+{
+   // //qDebug() << "LogWindow::qslRecViaBureau: " << QString::number(_qsoId) << "/" << (dateTime->currentDateTime()).toString("yyyy/MM/dd") << endl;
+    dataProxy->qslRecViaBureau(_qsoId, (QDateTime::currentDateTime()).toString("yyyy/MM/dd"), false);
+    awards->setAwards(_qsoId);   //Update the DXCC award status
+
+    refresh();
+    emit updateAwards();
+}
+
+
+void LogWindow::qslRecViaDirect(const int _qsoId)
+{
+    //qDebug() << "LogWindow::qslRecViaDirect: " << QString::number(_qsoId) << endl;
+
+    dataProxy->qslRecViaDirect(_qsoId, (QDateTime::currentDateTime()).toString("yyyy/MM/dd"), false);
+    awards->setAwards(_qsoId);
+
+    refresh();
+    emit updateAwards();
+}
+
+
