@@ -46,13 +46,18 @@ public:
     QString getAgent(const QString _klogversion);
     //Devel or debug functions - Not adding any feature to the user
     void printQString(const QStringList _qs);
-    QString getKLogDatabaseFile();
+    QString getKLogDBFile();
+    QString getKLogDefaultDatabaseFile();
+    QString getKLogDatabaseFile(const QString _file);
     QString getHomeDir();
     QString getCfgFile();
     QString getCTYFile();
 
-    int getNormalizedDXCCValue(const int _dxcc);
 
+    int getNormalizedDXCCValue(const int _dxcc);
+private:
+    bool processConfigLine(const QString _line);
+    QString dbPath;
 
 
 };

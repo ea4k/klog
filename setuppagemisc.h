@@ -28,6 +28,8 @@
 
 //#include <QtWidgets>
 #include <QtWidgets>
+#include "utilities.h"
+
 class SetupPageMisc : public QWidget {
     Q_OBJECT
 
@@ -43,7 +45,9 @@ public:
     QString getAlwaysADIF();
     void setAlwaysADIF(const QString t);
     QString getDefaultFileName();
-    void setUseDefaultName(const QString t);
+    void setUseDefaultName(const QString t);    
+    QString getDefaultDBPath();
+    void setUseDefaultDBPath(const QString t);
     QString getUseDefaultName();
     void setDefaultFileName(const QString t);
     //QString getInMemory();
@@ -69,18 +73,26 @@ private slots:
     //void slotdefaultFileNameChanged();
     void slotDefaultFileNameLineEditChanged();
     void slotcheckNewVersionCheckBoxClicked();
+    void slotDBButtonClicked();
+    void slotDBLineEditChanged();
+    void slotMoveDBButtonClicked();
+
 
 private:
     void createActions();
+    void createUI();
+
+    Utilities *util;
 
     QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox, *keepMyDataCheckBox;
     QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox;
     QString defaultFileName;
-    QLineEdit *defaultFileNameLineEdit;
-    QPushButton *fileNameButton;
+    QLineEdit *defaultFileNameLineEdit, *dbPathLineEdit;
+    QPushButton *fileNameButton, *dbPushButton, *moveDBPushButton;
 
-    QString kontestDir; //TODO: To be removed when the defaultDir is saved in the config file
+    QString kontestDir, dbDir, dbDirCurrent; //TODO: To be removed when the defaultDir is saved in the config file
+    QPalette palRight, palWrong; // To paint Text in red or black(normal)
 
     //QWidget *bandsWidget;
 

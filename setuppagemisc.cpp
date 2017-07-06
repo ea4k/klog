@@ -32,69 +32,87 @@
 
 SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
 //qDebug() << "SetupPageMisc::SetupPageMisc" << endl;
-   // bandsWidget = new QWidget;
 
-//TODO: To be removed when the defaultDir is saved in the config file
-#ifdef Q_OS_WIN
-    //qDebug() << "WINDOWS DETECTED!"  << endl;
-    kontestDir = QDir::homePath()+"/klog";  // We create the \klog for the logs and data
-    defaultFileName = kontestDir+"/klog.adi";
-#else
-    //qDebug() << "NO WINDOWS DETECTED!"  << endl;
-    kontestDir = QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs and data
-    defaultFileName = kontestDir+"/klog.adi";
-#endif
-
+    util = new Utilities;
 
     imperialCheckBox = new QCheckBox(tr("&Imperial system"), this);
-    //dbInMemory = new QCheckBox(tr("DB in &Memory"), this);
     realTimeCheckbox = new QCheckBox(tr("&Log in real time"), this);
     UTCCheckbox = new QCheckBox(tr("&Time in UTC"), this);
     alwaysADIFCheckBox = new QCheckBox(tr("&Save ADIF on exit"), this);
     useDefaultName = new QCheckBox(tr("Use this &default filename"), this);
     sendQSLWhenRecCheckBox = new QCheckBox(tr("Mark &QSO to send QSL when QSL is received"), this);
     completeWithPreviousCheckBox = new QCheckBox(tr("Complete QSO with previous data"));
+    showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station &Callsign used in the search box"), this);  
+    keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSO"), this);    
+    checkNewVersionCheckBox = new QCheckBox(tr("&Check for new versions automatically"), this);
+    provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
+
+    defaultFileNameLineEdit = new QLineEdit;
+    dbPathLineEdit = new QLineEdit;
+
+    fileNameButton = new QPushButton (tr("Browse"));
+    dbPushButton = new QPushButton (tr("Browse"));
+    moveDBPushButton = new QPushButton(tr("Move DB"));
+
+
+    createUI();
+    createActions();
+
+}
+
+SetupPageMisc::~SetupPageMisc(){
+    //qDebug() << "SetupPageMisc::~SetupPageMisc" << endl;
+}
+
+void SetupPageMisc::createUI()
+{
+
+    palWrong.setColor(QPalette::Text, Qt::red);
+    palRight.setColor(QPalette::Text, Qt::black);
+
+    //TODO: To be removed when the defaultDir is saved in the config file
+    #ifdef Q_OS_WIN
+    //qDebug() << "WINDOWS DETECTED!"  << endl;
+    kontestDir = util->getHomeDir();  // We create the \klog for the logs and data
+    defaultFileName = kontestDir+"/klog.adi";
+    #else
+    //qDebug() << "NO WINDOWS DETECTED!"  << endl;
+    kontestDir = util->getHomeDir();  // We create the ~/.klog for the logs and data
+    defaultFileName = kontestDir+"/klog.adi";
+    #endif
+    dbDir = kontestDir;
+    dbDirCurrent = dbDir;
+
+    defaultFileNameLineEdit->setReadOnly(false);
+    defaultFileNameLineEdit->setText(defaultFileName);
+    defaultFileNameLineEdit->setEnabled(false);
+
+    dbPathLineEdit->setReadOnly(false);
+    dbPathLineEdit->setText(dbDir);
+    dbPathLineEdit->setEnabled(true);
+
+    useDefaultName->setChecked(true);
+    alwaysADIFCheckBox->setChecked(true);
+    showStationCallWhenSearchCheckBox->setChecked(true);
+    keepMyDataCheckBox->setChecked(true);
+    completeWithPreviousCheckBox->setChecked(false);
 
     sendQSLWhenRecCheckBox->setToolTip(tr("QSOs will be marked to be pending to send the QSL if the DX QSL is received and you have not sent your."));
-
-    showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station &Callsign used in the search box"), this);
     showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will show also the callsign on the air to do the QSO."));
-
-
-    keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSO"), this);
     keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
-
-    checkNewVersionCheckBox = new QCheckBox(tr("&Check for new versions automatically"), this);
     checkNewVersionCheckBox->setToolTip(tr("Check if there is a new release of KLog available every time you start KLog."));
-
-    provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
     provideCallCheckBox->setToolTip(tr("If new versions checking is selected, KLog will send to developer the callsign, KLog version & Operating system to help improving KLog."));
-
     imperialCheckBox ->setToolTip(tr("Check it for Imperial system (Miles instead of Kilometres)."));
-    //dbInMemory->setToolTip(tr("Working in memory (vs in file) is much quicker but you will need to save the ADIF file each time you exit KLog."));
     realTimeCheckbox->setToolTip(tr("Select to use real time."));
     UTCCheckbox->setToolTip(tr("Select to use UTC time."));
     alwaysADIFCheckBox->setToolTip(tr("Select if you want to save to ADIF on exit."));
     useDefaultName->setToolTip(tr("Select to use the following name for the logfile and not being asked for it anymore."));
     completeWithPreviousCheckBox->setToolTip(tr("Complete the current QSO with previous QSO data."));
-
-    defaultFileNameLineEdit = new QLineEdit;
     defaultFileNameLineEdit->setToolTip(tr("This is the default file where ADIF will be saved."));
-    defaultFileNameLineEdit->setReadOnly(false);
-    defaultFileNameLineEdit->setText(defaultFileName);
-    defaultFileNameLineEdit->setEnabled(false);
-
-    useDefaultName->setChecked(true);
-    alwaysADIFCheckBox->setChecked(true);
-    showStationCallWhenSearchCheckBox->setChecked(true);
-
-    keepMyDataCheckBox->setChecked(true);
-
-    completeWithPreviousCheckBox->setChecked(false);
-
-    fileNameButton = new QPushButton (tr("Browse"));
+    dbPathLineEdit->setToolTip(tr("This is the directory where DB (logbook.dat) will be saved."));
     fileNameButton->setToolTip(tr("Click to change the default ADIF file"));
-    //TODO: Add an icon "open" to this pushbutton
+    dbPushButton->setToolTip(tr("Click to change the path of the data base"));
+    moveDBPushButton->setToolTip(tr("Click to move teh DB to the new directory"));
 
     QHBoxLayout *fileLayout = new QHBoxLayout;
     fileLayout->addWidget(useDefaultName);
@@ -103,65 +121,43 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     defaultFileNameLineEdit->setEnabled(true);
     fileNameButton->setEnabled(true);
 
+    QHBoxLayout *dbLayout = new QHBoxLayout;
+
+    dbLayout->addWidget(dbPathLineEdit);
+    dbLayout->addWidget(dbPushButton);
+    dbLayout->addWidget(moveDBPushButton);
+
     UTCCheckbox->setChecked(true);
     realTimeCheckbox->setChecked(true);
-    //showStationCallWhenSearchCheckBox->setChecked(true);
-
-    //QHBoxLayout *timeLayout = new QHBoxLayout;
-    //timeLayout->addWidget(UTCCheckbox);
-    //timeLayout->addWidget(realTimeCheckbox);
-
-    //QHBoxLayout *dataLayout = new QHBoxLayout;
-    //dataLayout->addWidget(keepMyDataCheckBox);
-    //dataLayout->addWidget(completeWithPreviousCheckBox);
-
-    //QHBoxLayout *fileOptLayout = new QHBoxLayout;
-    //fileOptLayout->addWidget(useDefaultName);
-    //fileOptLayout->addWidget(alwaysADIFCheckBox);
 
     QGridLayout *mainLayou1 = new QGridLayout;
     mainLayou1->addLayout(fileLayout, 0, 0, 1, -1);
-    mainLayou1->addWidget(alwaysADIFCheckBox, 1, 0, 1, 1);
-    //mainLayou1->addLayout(timeLayout, 2, 0, -1, 1);
-    mainLayou1->addWidget(UTCCheckbox, 2, 0, 1, 1);
-    mainLayou1->addWidget(realTimeCheckbox, 2, 1, 1, 1);
-    mainLayou1->addWidget(imperialCheckBox, 3, 0, 1, 1);
-    mainLayou1->addWidget(keepMyDataCheckBox, 4, 0, 1, 1);
-    mainLayou1->addWidget(completeWithPreviousCheckBox, 4, 1, 1, 1);
-    //mainLayou1->addLayout(dataLayout, 4, 0, -1, 1);
-    mainLayou1->addWidget(sendQSLWhenRecCheckBox, 5, 0, 1, 1);
-    mainLayou1->addWidget(checkNewVersionCheckBox, 5, 1, 1, 1);
-    mainLayou1->addWidget(showStationCallWhenSearchCheckBox, 6, 0, 1, 1);
-    mainLayou1->addWidget(provideCallCheckBox, 6, 1, 1, 1);
-
-    //QVBoxLayout *mainLayout = new QVBoxLayout;
-    //mainLayout->addLayout(fileLayout);
-    //mainLayout->addWidget(alwaysADIFCheckBox);
-    //mainLayout->addLayout(mainLayou1);
-    //mainLayout->addLayout(timeLayout);
-    //mainLayout->addWidget(imperialCheckBox);
-    //mainLayout->addLayout(dataLayout);
-    //mainLayout->addWidget(sendQSLWhenRecCheckBox);
-    //mainLayout->addWidget(showStationCallWhenSearchCheckBox);
-
+    mainLayou1->addLayout(dbLayout, 1, 0, 1, -1);
+    mainLayou1->addWidget(alwaysADIFCheckBox, 2, 0, 1, 1);
+    mainLayou1->addWidget(UTCCheckbox, 3, 0, 1, 1);
+    mainLayou1->addWidget(realTimeCheckbox, 3, 1, 1, 1);
+    mainLayou1->addWidget(imperialCheckBox, 4, 0, 1, 1);
+    mainLayou1->addWidget(keepMyDataCheckBox, 5, 0, 1, 1);
+    mainLayou1->addWidget(completeWithPreviousCheckBox, 5, 1, 1, 1);
+    mainLayou1->addWidget(sendQSLWhenRecCheckBox,6, 0, 1, 1);
+    mainLayou1->addWidget(showStationCallWhenSearchCheckBox, 6, 1, 1, 1);
+    mainLayou1->addWidget(checkNewVersionCheckBox, 7, 0, 1, 1);
+    mainLayou1->addWidget(provideCallCheckBox, 7, 1, 1, 1);
 
     setLayout(mainLayou1);
 
-    connect(fileNameButton, SIGNAL(clicked () ), this, SLOT(slotOpenFileButtonClicked() ) );
-    connect(useDefaultName, SIGNAL(stateChanged (int) ), this, SLOT(slotUseDefaultButtonStateChanged(int) ) );
-    connect(defaultFileNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDefaultFileNameLineEditChanged() ) );
-    connect(checkNewVersionCheckBox, SIGNAL(clicked () ), this, SLOT(slotcheckNewVersionCheckBoxClicked() ) );
-
-
-}
-
-SetupPageMisc::~SetupPageMisc(){
-    //qDebug() << "SetupPageMisc::~SetupPageMisc" << endl;
 }
 
 void SetupPageMisc::createActions(){
 //void	itemDoubleClicked ( QListWidgetItem * item )
 
+    connect(fileNameButton, SIGNAL(clicked () ), this, SLOT(slotOpenFileButtonClicked() ) );
+    connect(useDefaultName, SIGNAL(stateChanged (int) ), this, SLOT(slotUseDefaultButtonStateChanged(int) ) );
+    connect(defaultFileNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDefaultFileNameLineEditChanged() ) );
+    connect(checkNewVersionCheckBox, SIGNAL(clicked () ), this, SLOT(slotcheckNewVersionCheckBoxClicked() ) );
+    connect(dbPushButton, SIGNAL(clicked () ), this, SLOT(slotDBButtonClicked() ) );
+    connect(dbPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDBLineEditChanged() ) );
+    connect(moveDBPushButton, SIGNAL(clicked () ), this, SLOT(slotMoveDBButtonClicked() ) );
 
 }
 
@@ -255,9 +251,6 @@ void SetupPageMisc::slotOpenFileButtonClicked()
 {
     defaultFileName = QFileDialog::getOpenFileName(this, tr("Open File"), kontestDir, tr("ADIF (*.adi)"));
     defaultFileNameLineEdit->setText(defaultFileName);
-
-
-
 }
 
  void SetupPageMisc::slotDefaultFileNameLineEditChanged()
@@ -539,3 +532,103 @@ void SetupPageMisc::setReportInfo(const QString t)
     }
 }
 
+QString SetupPageMisc::getDefaultDBPath()
+{    
+    return dbDir;
+}
+
+void SetupPageMisc::setUseDefaultDBPath(const QString t)
+{
+    dbDir = t;
+    dbPathLineEdit->setText(dbDir);
+}
+
+void SetupPageMisc::slotDBButtonClicked()
+{
+//    QString dbDirBack = dbDir;
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Select Directory"),
+                                                    dbDir,
+                                                    QFileDialog::ShowDirsOnly
+                                                    | QFileDialog::DontResolveSymlinks);
+
+    if (dir.length()>=1)
+    {
+        dbDir = dir;
+    }
+
+
+    setUseDefaultDBPath(dbDir);
+
+}
+
+void SetupPageMisc::slotDBLineEditChanged()
+{
+    dbDir = dbPathLineEdit->text();
+
+   if ( QFile::exists(dbDir) )
+   {
+       dbPathLineEdit->setToolTip(tr("This is the directory where DB (logbook.dat) will be saved."));
+       dbPathLineEdit->setPalette(palRight);
+       dbDir = dbPathLineEdit->text();
+   }
+   else
+   {
+        dbPathLineEdit->setToolTip(tr("Please add an existing directory where DB (logbook.dat) will be saved."));
+        dbPathLineEdit->setPalette(palWrong);
+   }
+
+}
+
+void SetupPageMisc::slotMoveDBButtonClicked()
+{
+    QString source = dbDirCurrent + "/logbook.dat";
+    QString target = dbDir + "/logbook.dat";
+    QMessageBox msgBox;
+
+    qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source << endl;
+    qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target << endl;
+    if ( QFile::exists(dbDir) )
+    {
+        //dbDirCurrent
+        //dbDir
+        if (QFile::copy(source, target))
+        {
+
+            dbDirCurrent = dbDir;
+            if (QFile::remove(source))
+            {
+                msgBox.setIcon(QMessageBox::Warning);
+                msgBox.setText(tr("File moved"));
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+                msgBox.exec();
+            }
+            else
+            {
+                msgBox.setIcon(QMessageBox::Warning);
+                msgBox.setText(tr("File copied"));
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+                msgBox.exec();
+            }
+        }
+        else
+        {
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("File NOT copied"));
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.exec();
+        }
+
+
+    }
+    else
+    {
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText(tr("The target directory does not exist. Please select an existing directory."));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        int ret = msgBox.exec();
+    }
+}

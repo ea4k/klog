@@ -2,7 +2,7 @@
 
 LogModel::LogModel(QObject *parent):QSqlRelationalTableModel(parent)
 {
-    qDebug() << "LogModel::LogModel: "  << endl;
+    //qDebug() << "LogModel::LogModel "  << endl;
     //logModel = new QSqlRelationalTableModel(this);
     dataProxy = new DataProxy_SQLite();
     setTable("log");
@@ -59,7 +59,8 @@ This should be coherent with the logview
    }
    else
    {
-       setColumnsToDX();
+       // THIS POINT SHOULD NOT BE REACHED. It means that there is a kind of contest not supported.
+       // Maybe the way should be to move ALL the actions from DX here.
    }
 
 

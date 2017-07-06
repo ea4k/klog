@@ -3,10 +3,9 @@ It is not fixed... new features may be prioritized or not added without any noti
 Feel free to request any roadmap change if you have any suggestion.
 
 RC-BUGS: The ADIF export is not working!!!
-As I have changed the supportedcontest table and removed the "0" value for DX logs, I should rebuild that table
-before releasing to ensure coherence of all the data in the DB
 
 
+TODO: When doubleclicking on a
 
 TODO: Think if it is possible to create a function in the Widgets(i.e. MainWindowInputQSL) to read the data and
         enter it in the DB automatically when the user clicks on "enter"

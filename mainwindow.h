@@ -149,14 +149,13 @@ private slots:
     void slotUpdateTime();
     void slotLogWinShow();
     void slotScoreWinShow();
-    void slotSetup(const int _page=0);
-    void slotQsoDeleteFromLog();
-    void slotQSLSentViaBureauFromLog();
-    void slotQSLSentViaDirectFromLog();
-    void slotQSLRecViaDirectFromLog();
-    void slotQSLRecViaBureauFromLog();
-    void slotQSOToEditFromLog();
 
+    void slotShowAwards();
+
+    void slotSetup(const int _page=0);
+
+
+    //void slotQsoDeleteFromLog();
     void slotQsoDeleteFromSearch();
     void slotQSLSentViaBureauFromSearch();
     void slotQSLSentViaDirectFromSearch();
@@ -224,8 +223,10 @@ private slots:
        
 
     // logpanel
-    void slotRighButtonFromLog( const QPoint& pos);
-    void slotDoubleClickLog( const QModelIndex & index);
+    //void slotRighButtonFromLog( const QPoint& pos);
+    void slotDoubleClickLog( const int _qsoID);
+    //void slotDoubleClickLog( const QModelIndex & index);
+
     void slotDoubleClickSearch( QTreeWidgetItem* item, int); // Double click on a QSO in the search box
 
     void slotRecalculateAwardsButtonClicked();
@@ -296,16 +297,16 @@ private:
     bool readCtyFile();
 
 
-    void showMenuRightButtonFromLogCreateActions();
-    void righButtonFromLogMenu(const int trow);
+
+    //void righButtonFromLogMenu(const int trow);
 
     void showMenuRightButtonSearchCreateActions();
     void righButtonSearchMenu(const int trow);
 
-    void qslSentViaBureau(const int _qsoId);
+    //void qslSentViaBureau(const int _qsoId);
     //void qslSentViaDirect(const int _qsoId);
-    void qslRecViaBureau(const int _qsoId);
-    void qslRecViaDirect(const int _qsoId);
+    //void qslRecViaBureau(const int _qsoId);
+
 
     void qslRecViaBureauMarkReq(const int _qsoId);
     void qslRecViaDirectMarkReq(const int _qsoId);
@@ -455,13 +456,14 @@ private:
 
 
     QAction *loggWinAct;
-
+/*
     QAction *delQSOFromLogAct;
     QAction *qsoToEditFromLogAct; 
     QAction *qslSentViaBureauFromLogAct;
     QAction *qslSentViaDirectFromLogAct;
     QAction *qslRecViaBureauFromLogAct;
     QAction *qslRecViaDirectFromLogAct;
+*/
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
 

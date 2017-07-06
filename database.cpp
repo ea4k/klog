@@ -36,6 +36,9 @@ DataBase::DataBase(const QString _softVersion){
     //inMemoryOnly = inmemoryonly;
     latestReaded = 0.0;
     util = new Utilities();
+    dbDir = util->getKLogDBFile();
+    qDebug() << "DataBase::DataBase: DB: " << dbDir << endl;
+
     //db = new QSqlDatabase;
     db = QSqlDatabase::database();
     //created = false;
@@ -44,7 +47,7 @@ DataBase::DataBase(const QString _softVersion){
         createConnection();
     }
 
-   //qDebug() << "DataBase::DataBase: END"  << endl;
+   qDebug() << "DataBase::DataBase: END"  << endl;
 
 }
 
@@ -53,6 +56,12 @@ DataBase::DataBase(const QString _softVersion){
 DataBase::~DataBase()
 {
     //qDebug() << "DataBase::~DataBase"  << endl;
+}
+
+bool DataBase::setDir(const QString _dir)
+{
+    dbDir = _dir;
+    return true;
 }
 
 void DataBase::compress()
@@ -71,9 +80,21 @@ void DataBase::compress()
 
 }
 
+bool DataBase::reConnect()
+{
+    qDebug() << "DataBase::reConnect:"  << endl;
+    db.close();
+    qDebug() << "DataBase::reConnect: DB closed"  << endl;
+    dbDir = util->getKLogDBFile();
+    qDebug() << "DataBase::reConnect: DB: " << dbDir  << endl;
+    return createConnection();
+    qDebug() << "DataBase::reConnect: END"  << endl;
+
+}
+
 bool DataBase::createConnection()
 {
- //qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
+ qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
     QString stringQuery;
    //qDebug() << "DataBase::createConnection: 0" << endl;
 
@@ -85,26 +106,31 @@ bool DataBase::createConnection()
     {
        //qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
         db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("logbook.dat");
+        //QString backDir = QDir::currentPath();
+        //QDir::setCurrent(dbDir);
+        QString dbName = dbDir+"/logbook.dat";
+        db.setDatabaseName(dbName);
+        //QDir::setCurrent(backDir);
+        qDebug() << "DataBase::createConnection - dataBaseName: " << db.databaseName() << endl;
 
         if (!db.open())
         {
             QMessageBox::warning(0, QObject::tr("Database Error"),
                                  db.lastError().text());
-           //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
+           qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
             return false;
         }
        else
        {
-           //qDebug() << "DataBase::createConnection: created?" << endl;
+           qDebug() << "DataBase::createConnection: created?" << endl;
 
             if (isTheDBCreated())
             {
-               //qDebug() << "DataBase::createConnection: DB Exists"  << endl;
+               qDebug() << "DataBase::createConnection: DB Exists"  << endl;
             }
             else
             {
-                //qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
+                qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
                 createDataBase();
 
                 stringQuery ="PRAGMA main.page_size = 4096;";
@@ -132,7 +158,7 @@ bool DataBase::createConnection()
     }
     else
     {
-       //qDebug() << "DataBase::createConnection: DB already opened"  << endl;
+       qDebug() << "DataBase::createConnection: DB already opened"  << endl;
     }
     createBandModeMaps(); //TODO: I have commented out thi line because createBandModeMaps is also called from isThe
 
@@ -186,6 +212,9 @@ bool DataBase::isTheDBCreated()
     }
     else
     {
+
+
+
        //qDebug() << "DataBase::isTheDBCreated: LastQuery: " << query.lastQuery()  << endl;
        //qDebug() << "DataBase::isTheDBCreated: LastError-data: " << query.lastError().databaseText()  << endl;
        //qDebug() << "DataBase::isTheDBCreated: LastError-driver: " << query.lastError().driverText()  << endl;
@@ -365,7 +394,7 @@ bool DataBase::createDataBase()
     //qDebug() << "DataBase::createData"  << endl;
     //int softDB = dbVersion;
     //QString softV = _softVersion;
-    QString dateString;
+    //QString dateString;
 
     QSqlQuery query;
     query.exec("DROP TABLE log");
@@ -383,9 +412,10 @@ bool DataBase::createDataBase()
                 "softversion REAL NOT NULL, "
                 "dbversion REAL NOT NULL)");
 
-    dateString = (date.currentDateTime()).toString("yyyyMMdd");
+    //dateString = (date.currentDateTime()).toString("yyyyMMdd");
 
-    query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+    updateDBVersion();
+    //query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
 
 
 
@@ -995,7 +1025,7 @@ bool DataBase::unMarkAllQSO()
 
 bool DataBase::updateIfNeeded()
 {
-   //qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << endl;
+   qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << endl;
 
     /**************************************************************************************
      * This function should call to bool updateToXXX () being XXX dbVersion and
@@ -1006,7 +1036,7 @@ bool DataBase::updateIfNeeded()
 
     int nameCol;
     //int errorCode = -1;
-    bool toBeUpdated = false;
+    //bool toBeUpdated = false;
     //bool sqlOK;
     QString dateString;
     QString SQLString, auxs;
@@ -1022,7 +1052,7 @@ bool DataBase::updateIfNeeded()
             nameCol = rec.indexOf("dbversion");
             aux = (query.value(nameCol)).toFloat();
 
-            //qDebug() << "DataBase::updateIfNeeded - Version found: " << QString::number(aux) << endl;
+            qDebug() << "DataBase::updateIfNeeded - Version found: " << QString::number(aux) << endl;
             if (aux > latestReaded)
             {
                 latestReaded = aux;
@@ -1035,17 +1065,18 @@ bool DataBase::updateIfNeeded()
         {
         }
     }
+    qDebug() << "DataBase::updateIfNeeded - latestReaded: " << QString::number(aux) << endl;
 
     if (latestReaded >= dbVersion)
     { // DB is updated, no update is needed
-        //qDebug() << "DataBase::updateIfNeeded - DB updated (no need to update anything!) " << endl;
-        toBeUpdated = false;
+        qDebug() << "DataBase::updateIfNeeded - DB updated (no need to update anything!) " << endl;
+        //toBeUpdated = false;
        //qDebug() << "DataBase::updateIfNeeded - TRUE - END "  << endl;
         return true;
     }
     else
     { // DB is outdated. We need to update!!
-        //qDebug() << "DataBase::updateIfNeeded - DB outdated... upgrade starts now! " << endl;
+        qDebug() << "DataBase::updateIfNeeded - DB outdated... upgrade starts now! " << endl;
         QMessageBox msgBox;
         msgBox.setText( QObject::tr("KLog DB needs to be upgraded."));
         msgBox.setInformativeText( QObject::tr("Do you want to upgrade it now?\nIf DB is not upgraded KLog may not work properly."));
@@ -1065,7 +1096,7 @@ bool DataBase::updateIfNeeded()
             break;
             default:
             // should never be reached
-           //qDebug() << "DataBase::updateIfNeeded - FALSE - CHECK IF SEEN, shoud not be here! - END "  << endl;
+           qDebug() << "DataBase::updateIfNeeded - FALSE - CHECK IF SEEN, shoud not be here! - END "  << endl;
                 return false;
             break;
         }
@@ -1076,7 +1107,7 @@ bool DataBase::updateIfNeeded()
 
     // If the DB needs to be updated... we update it! :-)
 
- //qDebug() << "DataBase::updateIfNeeded - END!" << endl;
+ qDebug() << "DataBase::updateIfNeeded - END!" << endl;
     return true;
 }
 
@@ -1368,7 +1399,7 @@ bool DataBase::updateToLatest()
  * The updateXXX are recursive calls that calls the previous one.
  *
  */
-   //qDebug() << "DataBase::updateToLatest " << endl;
+   qDebug() << "DataBase::updateToLatest " << endl;
     return updateTo010();
 }
 
@@ -1425,7 +1456,7 @@ bool DataBase::updateTo004()
     bool IAmIn003 = false;
     bool ErrorUpdating = false;
     QString stringQuery = QString();
-    QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+    //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
     QSqlQuery query;
 
     bool sqlOk = false;
@@ -1454,7 +1485,8 @@ bool DataBase::updateTo004()
         {
             return false;
         }
-        sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+        sqlOk = updateDBVersion();
+        //sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
         if (sqlOk)
         { // Version updated
             sqlOk = query.exec("DROP TABLE award_enumeration");
@@ -1478,7 +1510,7 @@ bool DataBase::updateTo005()
        bool IAmIn004 = false;
        bool ErrorUpdating = false;
        QString stringQuery = QString();
-       QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+       //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
        QSqlQuery query;
        QMessageBox msgBox;
        msgBox.setIcon(QMessageBox::Information);
@@ -1512,7 +1544,8 @@ bool DataBase::updateTo005()
                //qDebug() << "DataBase::updateTo005 - 005 update false2" << endl;
                return false;
            }
-           sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+           sqlOk = updateDBVersion();
+           //sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
            if (sqlOk)
            { // Version updated
                if (recreateContestData())
@@ -1621,6 +1654,22 @@ bool DataBase::updateTo005()
        return IAmIn005;
 }
 
+bool DataBase::recreateSatelliteData()
+{
+   //qDebug() << "DataBase::recreateSatelliteData"  << endl;
+    QSqlQuery query;
+    bool sqlOk = false;
+    sqlOk = query.exec("DROP TABLE satellites");
+    if (sqlOk)
+    {
+        if (createTableSatellites(true))
+        {
+            return populateTableSatellites(true);
+        }
+    }
+    return false;
+}
+
 bool DataBase::recreateContestData()
 {
    //qDebug() << "DataBase::recreateContestData"  << endl;
@@ -1639,47 +1688,38 @@ bool DataBase::recreateContestData()
 
 bool DataBase::recreateSupportedContest()
 {
-   //qDebug() << "DataBase::recreateSupportedContest"  << endl;
+   qDebug() << "DataBase::recreateSupportedContest"  << endl;
     QSqlQuery query;
     bool sqlOk = false;
     sqlOk = query.exec("DROP TABLE supportedcontests");
     if (sqlOk)
     {
+        qDebug() << "DataBase::recreateSupportedContest SQLOK"  << endl;
         if (createTableSupportedContest())
         {
-            return populateTableSupportedContest();
+            qDebug() << "DataBase::recreateSupportedContest - createTable OK"  << endl;
+            //return populateTableSupportedContest();
+            if (populateTableSupportedContest())
+            {
+                qDebug() << "DataBase::recreateSupportedContest - populateTableSupportedContest OK"  << endl;
+                return true;
+            }
+            else
+            {
+                qDebug() << "DataBase::recreateSupportedContest - populateTableSupportedContest NOK"  << endl;
+                return false;
+            }
+        }
+        else
+        {
+            qDebug() << "DataBase::recreateSupportedContest createTableSupportContest FALSE"  << endl;
         }
     }
+    qDebug() << "DataBase::recreateSupportedContest - FALSE end"  << endl;
     return false;
 }
-/*
-bool DataBase::updateLog()
-{
-    //qDebug() << "DataBase::updateLog"  << endl;
-    QSqlQuery query;
-    bool sqlOk = false;
-    return sqlOk;
-}
 
 
-bool DataBase::createTableLogs()
-{
-    createTable
-
-    QSqlQuery query;
-    return query.exec("CREATE TABLE logs ("
-               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-               "logdate VARCHAR(10), "
-               "stationcall VARCHAR(15) NOT NULL, "
-               "comment VARCHAR, "
-               "logtype VARCHAR, "
-               "logtypen INTEGER, "
-               "FOREIGN KEY (logtypen) REFERENCES supportedcontests(id),"
-
-                      "FOREIGN KEY (logtype) REFERENCES supportedcontests(name))");
-
-}
-*/
 
 bool DataBase::createTableLogs(const bool real)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
@@ -1821,6 +1861,7 @@ bool DataBase::createTableContest()
 
 bool DataBase::populateTableSupportedContest()
 {
+    qDebug() << "DataBase::populateTableSupportedContest" << endl;
     // ADDING ALL THE CATEGORIES OPTIONS
     QSqlQuery query;
     return query.exec("INSERT INTO supportedcontests (longname, name) VALUES ('Normal log', 'DX')");
@@ -2003,7 +2044,8 @@ bool DataBase::createTableSatellites(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
     //Creating the Sats DB to be able to include satellites to the LOTW
 
-   //qDebug() << "DataBase::createTableSatellites" << endl;
+   qDebug() << "DataBase::createTableSatellites" << endl;
+
 
     QString stringQuery = QString();
     QSqlQuery query;
@@ -2022,10 +2064,30 @@ bool DataBase::createTableSatellites(const bool NoTmp)
                                             "satmode VARCHAR, "
                                             "UNIQUE (satarrlid, satmode) )");
 
+    bool sqlOK = query.exec(stringQuery);
+    int errorCode = -1;
+
+    if (!sqlOK)
+    {
+        QMessageBox::warning(0, QObject::tr("Database Error"),
+                             db.lastError().text());
+
+        qDebug() << "DataBase::createTableSatellites: Log deleted FAILED" << endl;
+        errorCode = query.lastError().number();
+        qDebug() << "DataBase::createTableSatellites: - query error: " << QString::number(errorCode) << endl;
+        qDebug() << "DataBase::createTableSatellites: LastQuery: " << query.lastQuery()  << endl;
+        qDebug() << "DataBase::createTableSatellites: LastError-data: " << query.lastError().databaseText()  << endl;
+        qDebug() << "DataBase::createTableSatellites: LastError-driver: " << query.lastError().driverText()  << endl;
+        qDebug() << "DataBase::createTableSatellites: LastError-n: " << QString::number(query.lastError().number() ) << endl;
+
+    }
 
 
-    //qDebug() << "DataBase::createTableSatellites END" << endl;
-        return  query.exec(stringQuery);
+    qDebug() << "DataBase::createTableSatellites END" << endl;
+    return sqlOK;
+
+
+        //return  query.exec(stringQuery);
 }
 
 bool DataBase::populateTableSatellites(const bool NoTmp)
@@ -2358,7 +2420,7 @@ bool DataBase::updateTo006()
     bool IAmIn005 = false;
     bool ErrorUpdating = false;
     QString stringQuery = QString();
-    QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+    //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
     QSqlQuery query;
 
     bool sqlOk = false;
@@ -2386,7 +2448,8 @@ bool DataBase::updateTo006()
         {
             return false;
         }
-        sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+        sqlOk = updateDBVersion();
+        //sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
         if (sqlOk)
         { // Version updated
             sqlOk = query.exec("DROP TABLE prop_mode_enumeration");
@@ -3581,7 +3644,7 @@ bool DataBase::updateTo007()
     bool IAmIn006 = false;
     bool ErrorUpdating = false;
     QString stringQuery = QString();
-    QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+    //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
     QSqlQuery query;
 
     bool sqlOk = false;
@@ -3610,7 +3673,8 @@ bool DataBase::updateTo007()
         {
             return false;
         }
-        sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+        sqlOk = updateDBVersion();
+        //sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
         if (sqlOk)
         { // Version updated
             IAmIn007 = updateTableLog(6);
@@ -3635,7 +3699,7 @@ bool DataBase::updateTo008()
     bool IAmIn007 = false;
     bool ErrorUpdating = false;
     QString stringQuery = QString();
-    QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+    //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
     QSqlQuery query;
 
     bool sqlOk = false;
@@ -3664,7 +3728,8 @@ bool DataBase::updateTo008()
         {
             return false;
         }
-        sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+        sqlOk = updateDBVersion();
+        //sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
         if (sqlOk)
         { // Version updated
             //IAmIn008 = updateTableLog(6);
@@ -3686,81 +3751,87 @@ bool DataBase::updateTo008()
 bool DataBase::updateTo009()
 {// Updates the DB to 0.0.9 - We add the Satellite tables
 
-   //qDebug() << "DataBase::updateTo009" << endl;
+    qDebug() << "DataBase::updateTo009: latestRead: " << QString::number(latestReaded) << endl;
     bool IAmIn009 = false;
     bool IAmIn008 = false;
     bool ErrorUpdating = false;
     QString stringQuery = QString();
-    QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+    //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
     QSqlQuery query;
 
     bool sqlOk = false;
 
+    //if (latestReaded >= 0.009)
+    qDebug() << "DataBase::updateTo009: Checking:" << QString::number(latestReaded) << ":" << endl;
+//    if (0.009 <= latestReaded)
     if (latestReaded >= 0.009)
     {
-       //qDebug() << "DataBase::updateTo009: - I am in 009" << endl;
+        qDebug() << "DataBase::updateTo009: - I am in 009" << endl;
+        IAmIn009 = true;
         return true;
     }
     else
     {
-       //qDebug() << "DataBase::updateTo009: - I am not in 009" << endl;
+       qDebug() << "DataBase::updateTo009: - I am not in 009 I am in: " << QString::number(latestReaded)<< endl;
         IAmIn009 = false;
     }
-
+    qDebug() << "DataBase::updateTo009: compared latestRead: " << QString::number(latestReaded) << endl;
     while (!IAmIn009 && !ErrorUpdating)
     {
         while (!IAmIn008 && !ErrorUpdating)
         {
-           //qDebug() << "DataBase::updateTo009: - And I am not in 008" << endl;
+           qDebug() << "DataBase::updateTo009: - And I am not in 008" << endl;
             IAmIn008 = updateTo008();
 
         }
-       //qDebug() << "DataBase::updateTo009: - And I am already at least in 008" << endl;
+       qDebug() << "DataBase::updateTo009: - And I am already at least in 008" << endl;
         if (ErrorUpdating)
         {
             return false;
         }
-        sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+        sqlOk = updateDBVersion();
+        //sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
         if (sqlOk)
         { // Version updated
-           //qDebug() << "DataBase::updateTo009: - version updated" << endl;
+           qDebug() << "DataBase::updateTo009: - version updated" << endl;
             //IAmIn009 = updateTableLog(6);
         }
         else
         { // Version not updated
-           //qDebug() << "DataBase::updateTo009: - version not updated" << endl;
+           qDebug() << "DataBase::updateTo009: - version not updated" << endl;
         }
         //DO ALL THE TASKS TO BE IN 0.009 from 0.008 HERE and set ErrorUpdating if it is not possible.
-
-        if (createTableSatellites(true))
+        if (recreateSatelliteData())
+        //if (createTableSatellites(true))
         {
-           //qDebug() << "DataBase::updateTo009: - createTableSatellites OK" << endl;
-            if (populateTableSatellites(true))
+           qDebug() << "DataBase::updateTo009: - createTableSatellites OK" << endl;
+            //if (populateTableSatellites(true))
+            if (true)
             {
-               //qDebug() << "DataBase::updateTo009: - populateTableSatellites OK" << endl;
+               qDebug() << "DataBase::updateTo009: - populateTableSatellites OK" << endl;
                 if (updateTableEntity())
                 {
-                  //qDebug() << "DataBase::updateTo009: - updateTableEntity OK" << endl;
+                  qDebug() << "DataBase::updateTo009: - updateTableEntity OK" << endl;
                    if (updateTheEntityTableISONames())
                    {
-                     //qDebug() << "DataBase::updateTo009: - isonames updated" << endl;
+                     qDebug() << "DataBase::updateTo009: - isonames updated" << endl;
                       // Now I need to update the logs table
 
                       if (updateTableLogs())
                       {
-                         //qDebug() << "DataBase::updateTo009: - logs updated and Function finished successfuly!!" << endl;
+                         qDebug() << "DataBase::updateTo009: - logs updated and Function finished successfuly!!" << endl;
                           IAmIn009 = true;
                       }
                       else
                       {
-                         //qDebug() << "DataBase::updateTo009: - logs NOT updated" << endl;
+                         qDebug() << "DataBase::updateTo009: - logs NOT updated" << endl;
                           IAmIn009 = false;
                           ErrorUpdating = true;
                       }
                    }
                    else
                    {
-                     //qDebug() << "DataBase::updateTo009: - isonames NOT updated" << endl;
+                     qDebug() << "DataBase::updateTo009: - isonames NOT updated" << endl;
                       IAmIn009 = false;
                       ErrorUpdating = true;
                    }
@@ -3773,19 +3844,19 @@ bool DataBase::updateTo009()
             }
             else
             {
-               //qDebug() << "DataBase::updateTo009: - populateTableSatellites FALSE" << endl;
+               qDebug() << "DataBase::updateTo009: - populateTableSatellites FALSE" << endl;
                 ErrorUpdating = true;
                 IAmIn009 = false;
             }
         }
         else
         {
-           //qDebug() << "DataBase::updateTo009: - createTableSatellites FALSE" << endl;
+           qDebug() << "DataBase::updateTo009: - createTableSatellites FALSE" << endl;
             ErrorUpdating = true;
             IAmIn009 = false;
         }
     }
-   //qDebug() << "DataBase::updateTo009: - END" << endl;
+   qDebug() << "DataBase::updateTo009: - END" << endl;
     return IAmIn009;
 }
 
@@ -3803,37 +3874,71 @@ bool DataBase::updateTo010()
   *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
   *
   */
-   //qDebug() << "DataBase::updateTo003" << endl;
-    bool IAmIn010 = false;
-    bool IAmIn009 = false;
-    bool ErrorUpdating = false;
+   qDebug() << "DataBase::updateTo010" << endl;
 
-    if (latestReaded >= 0.010)
-    {
-        //IAmIn010 = true;
-        return true;
-    }
-    else
-    {
-        IAmIn010 = false;
-    }
+     bool IAmIn010 = false;
+     bool IAmIn009 = false;
+     bool ErrorUpdating = false;
+     QString stringQuery = QString();
+     //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+     QSqlQuery query;
 
-    while (!IAmIn010 && !ErrorUpdating)
-    {
-        while (!IAmIn009 && !ErrorUpdating)
-        {
-            IAmIn009 = true;
-        }
-        if (ErrorUpdating)
-        {
-            return false;
-        }
-        //DO ALL THE TASKS TO BE IN 0.010 from 0.009 HERE and set ErrorUpdating if it is not possible.
+     bool sqlOk = false;
 
-        IAmIn010 = recreateSupportedContest();
-    }
-    return IAmIn010;
+     if (latestReaded >= 0.01)
+     {
+         qDebug() << "DataBase::updateTo010: - I am in 010" << endl;
+         return true;
+     }
+     else
+     {
+         qDebug() << "DataBase::updateTo010: - I am not in 010" << endl;
+         IAmIn010 = false;
+     }
+
+
+     while (!IAmIn010 && !ErrorUpdating)
+     {
+         while (!IAmIn009 && !ErrorUpdating)
+         {
+             qDebug() << "DataBase::updateTo010: - And I am not in 009" << endl;
+             IAmIn009 = updateTo009();
+
+         }
+         if (ErrorUpdating)
+         {
+             qDebug() << "DataBase::updateTo010: - Error updating" << endl;
+             return false;
+         }
+
+         sqlOk = updateDBVersion();
+
+         if (sqlOk)
+         { // Version updated
+             qDebug() << "DataBase::updateTo010: - sqlOK" << endl;
+             IAmIn010 = recreateSupportedContest();
+         }
+         else
+         { // Version not updated
+            qDebug() << "DataBase::updateTo010: - NOT sqlOK" << endl;
+         }
+         //DO ALL THE TASKS TO BE IN 0.010 from 0.009 HERE and set ErrorUpdating if it is not possible.
+         qDebug() << "DataBase::updateTo010: - IAmIn010" << endl;
+         IAmIn010 = true;
+     }
+     qDebug() << "DataBase::updateTo010: - END" << endl;
+     return IAmIn010;
+
 }
+bool DataBase::updateDBVersion()
+{
+    QString dateString = (QDate::currentDate()).toString("yyyyMMdd");
+
+    qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << softVersion << "/" << QString::number(dbVersion) << endl;
+    QSqlQuery query;
+    return query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+}
+
 
 bool DataBase::updateTheModeTableAndSyncLog()
 {
