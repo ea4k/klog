@@ -33,6 +33,7 @@
 #include <QWidget>
 #include "dataproxy.h"
 #include "dataproxy_sqlite.h"
+#include "utilities.h"
 
 class MainWindowInputEQSL : public QWidget
 {
@@ -74,7 +75,7 @@ public:
 signals:
 
 private slots:
-
+    void slotClubLogComboBoxChanged();
     void sloteQSLRecvComboBoxChanged();
     void sloteQSLSentComboBoxChanged();
     void slotLotwRecvComboBoxChanged();
@@ -89,6 +90,7 @@ private:
 
 
     DataProxy *dataProxy;
+    Utilities *util;
 
     QStringList qslSentStatusList, qslRcvdStatusList, clubLogStatusList;
 

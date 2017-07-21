@@ -188,17 +188,25 @@ QString Utilities::getKLogDefaultDatabaseFile()
 QString Utilities::getKLogDatabaseFile(const QString _file)
 {
 
-    if ( QFile::exists(_file + "/logbook.dat") )
+
+#ifdef Q_OS_WIN
+
+    if ( QFile::exists(_file + "\logbook.dat") )
     {
-        qDebug() << "Exists!"  << endl;
-        return _file + "/logbook.dat";
-    }
-    else
-    {
-        qDebug() << "Does not exist!"  << endl;
-        return QString();
+       //qDebug() << "Utilities::getKLogDatabaseFile: Exists! (Win)"  << endl;
+        return _file + "\logbook.dat";
     }
 
+#else
+    if ( QFile::exists(_file + "/logbook.dat") )
+    {
+       //qDebug() << "Utilities::getKLogDatabaseFile: Exists! (no WIN)"  << endl;
+        return _file + "/logbook.dat";
+    }
+#endif
+
+    //qDebug() << "Utilities::getKLogDatabaseFile: Does not exist so default: " <<  getKLogDefaultDatabaseFile() << endl;
+        return getKLogDefaultDatabaseFile();
 }
 
 
@@ -247,12 +255,14 @@ int Utilities::getNormalizedDXCCValue(const int _dxcc)
 }
 QString Utilities::getKLogDBFile()
 {
-    qDebug() << "Utilities::getKLogDBFile: " << endl;
+   //qDebug() << "Utilities::getKLogDBFile: start " << endl;
 
     QFile file(getCfgFile());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
 
-        return QString();
+        dbPath = getKLogDefaultDatabaseFile();
+        //qDebug() << "Utilities::getKLogDBFile: return1: " << getKLogDatabaseFile(dbPath) << endl;
+        return getKLogDatabaseFile(dbPath);
     }
 
     while (!file.atEnd()) {
@@ -265,8 +275,9 @@ QString Utilities::getKLogDBFile()
         dbPath = getKLogDefaultDatabaseFile();
     }
 
-    qDebug() << "Utilities::getKLogDBFile: DB to use: " << dbPath << endl;
-    return dbPath;
+   //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << endl;
+    //qDebug() << "Utilities::getKLogDBFile: return2: " << getKLogDatabaseFile(dbPath) << endl;
+    return getKLogDatabaseFile(dbPath);
 
 }
 
@@ -281,11 +292,11 @@ bool Utilities::processConfigLine(const QString _line){
 
 
         if (line.startsWith('#')){
-            //qDebug() << "MainWindow::processConfigLine: notes Line!" << endl;
+            //qDebug() << "Utilities::processConfigLine: notes Line!" << endl;
             return true;
         }
         if (!( (line.contains('=')) && (line.contains(';')))){
-            //qDebug() << "MainWindow::processConfigLine: Wrong Line!" << endl;
+            //qDebug() << "Utilities::processConfigLine: Wrong Line!" << endl;
             return false;
         }
         QString field = (values.at(0)).toUpper();
@@ -298,7 +309,63 @@ bool Utilities::processConfigLine(const QString _line){
         }
 
 
-        if (field == "DBPATH"){
+        if (field == "DBPATH")
+        {
+             //qDebug() << "Utilities::processConfigLine: dbPATH found: " << value << endl;
             dbPath = value;
         }
+        return true;
     }
+
+QDate Utilities::getDefaultDate()
+{
+    return QDate::fromString("18000101", "yyyyMMdd");
+}
+
+bool Utilities::isValidDate(const QDate _d)
+{
+    if (_d.isValid())
+    {
+        if (_d>QDate::fromString("18500101", "yyyyMMdd"))
+        {
+            return true;
+        }
+
+    }
+    return false;
+
+}
+
+bool Utilities::isDBFileExisting()
+{
+    //qDebug() << "Utilities::isDBFileExisting: " << getKLogDBFile() << endl;
+
+    if (QFile::exists(getKLogDBFile()))
+    {
+        //qDebug() << "Utilities::isDBFileExisting - true" << endl;
+        return true;
+    }
+    else
+    {
+        //qDebug() << "Utilities::isDBFileExisting - false" << endl;
+        return false;
+    }
+    return false;
+}
+
+bool Utilities::isDBFileExisting(const QString _file)
+{
+    //qDebug() << "Utilities::isDBFileExisting2: " << _file << endl;
+
+    if (QFile::exists(_file))
+    {
+        //qDebug() << "Utilities::isDBFileExisting2 - true" << endl;
+        return true;
+    }
+    else
+    {
+        //qDebug() << "Utilities::isDBFileExisting2 - false" << endl;
+        return false;
+    }
+    return false;
+}

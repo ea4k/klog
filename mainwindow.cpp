@@ -203,18 +203,18 @@ MainWindow::MainWindow(const QString _kontestDir, const QString tversion)
     downloadcty = new DownLoadCTY(kontestDir, softwareVersion);
     connect( downloadcty, SIGNAL(done()), this, SLOT(slotWorldReload()) );
 
-    qDebug() << "MainWindow::MainWindow: logbook: " << QString(util->getKLogDBFile()) << endl;
+   //qDebug() << "MainWindow::MainWindow: logbook: " << QString(util->getKLogDBFile()) << endl;
 
         bool existingData = QFile::exists(util->getKLogDBFile());
 
         if (existingData)
         {
-          qDebug() << "MainWindow::MainWindow: existing data" << endl;
+         //qDebug() << "MainWindow::MainWindow: existing data" << endl;
            //configured= false;
         }
         else
         {
-           qDebug() << "MainWindow::MainWindow: NOT existing data" << endl;
+          //qDebug() << "MainWindow::MainWindow: NOT existing data" << endl;
         }
 
     statusBarMessage = tr("Starting KLog");
@@ -1365,6 +1365,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
 
     aux1 = QSLTabWidget->getQSLSenStatus();
     aux2 = QSLTabWidget->getSentVia();
+   //qDebug() << "MainWindow::readDataFromUIDX: aux1: " << aux1 << " / aux2: " << aux2 << endl;
 
     //TODO: the aux2 switch is repeated and could be improved
 
@@ -2028,6 +2029,7 @@ WHERE [condition];
     //int ii = qslSentViaComboBox->currentIndex();
     aux1 = QSLTabWidget->getQSLSenStatus();
     aux2 = QSLTabWidget->getSentVia();
+   //qDebug() << "MainWindow::readDataFromUIDXModifying: aux1: " << aux1 << " / aux2: " << aux2 << endl;
 
     if (aux1 == "Y")
     {
@@ -2137,19 +2139,19 @@ WHERE [condition];
 
         if (aux2 == "D")
         {
-            updateString = updateString + "qsl_sent_via = 'D', ";
+            updateString = updateString + "qsl_rcvd_via = 'D', ";
         }
         else if (aux2 == "E")
         {
-            updateString = updateString + "qsl_sent_via = 'E', ";
+            updateString = updateString + "qsl_rcvd_via = 'E', ";
         }
         else if (aux2 == "M")
         {
-            updateString = updateString + "qsl_sent_via = 'M', ";
+            updateString = updateString + "qsl_rcvd_via = 'M', ";
         }
         else
         {
-            updateString = updateString + "qsl_sent_via = 'B', ";
+            updateString = updateString + "qsl_rcvd_via = 'B', ";
         }
 
     }
@@ -2161,19 +2163,19 @@ WHERE [condition];
             //updateString = updateString + "confirmed = '0', ";
             if (aux2 == "D")
             {
-                updateString = updateString + "qsl_sent_via = 'D', ";
+                updateString = updateString + "qsl_rcvd_via = 'D', ";
             }
             else if (aux2 == "E")
             {
-                updateString = updateString + "qsl_sent_via = 'E', ";
+                updateString = updateString + "qsl_rcvd_via = 'E', ";
             }
             else if (aux2 == "M")
             {
-                updateString = updateString + "qsl_sent_via = 'M', ";
+                updateString = updateString + "qsl_rcvd_via = 'M', ";
             }
             else
             {
-                updateString = updateString + "qsl_sent_via = 'B', ";
+                updateString = updateString + "qsl_rcvd_via = 'B', ";
             }
     }
     else if (aux1 == "I")
@@ -2186,19 +2188,19 @@ WHERE [condition];
 
             if (aux2 == "D")
             {
-                updateString = updateString + "qsl_sent_via = 'D', ";
+                updateString = updateString + "qsl_rcvd_via = 'D', ";
             }
             else if (aux2 == "E")
             {
-                updateString = updateString + "qsl_sent_via = 'E', ";
+                updateString = updateString + "qsl_rcvd_via = 'E', ";
             }
             else if (aux2 == "M")
             {
-                updateString = updateString + "qsl_sent_via = 'M', ";
+                updateString = updateString + "qsl_rcvd_via = 'M', ";
             }
             else
             {
-                updateString = updateString + "qsl_sent_via = 'B', ";
+                updateString = updateString + "qsl_rcvd_via = 'B', ";
             }
     }
     else if (aux1 == "V")
@@ -2211,19 +2213,19 @@ WHERE [condition];
 
             if (aux2 == "D")
             {
-                updateString = updateString + "qsl_sent_via = 'D', ";
+                updateString = updateString + "qsl_rcvd_via = 'D', ";
             }
             else if (aux2 == "E")
             {
-                updateString = updateString + "qsl_sent_via = 'E', ";
+                updateString = updateString + "qsl_rcvd_via = 'E', ";
             }
             else if (aux2 == "M")
             {
-                updateString = updateString + "qsl_sent_via = 'M', ";
+                updateString = updateString + "qsl_rcvd_via = 'M', ";
             }
             else
             {
-                updateString = updateString + "qsl_sent_via = 'B', ";
+                updateString = updateString + "qsl_rcvd_via = 'B', ";
             }
     }
 
@@ -3863,7 +3865,7 @@ void MainWindow::slotSetup(const int _page)
         }
 
 
-        qDebug() << "MainWindow::MainWindow: logmodel to be created-2" << endl;
+       //qDebug() << "MainWindow::MainWindow: logmodel to be created-2" << endl;
         logWindow->createlogPanel(currentLog);
 
     }
@@ -4050,7 +4052,7 @@ bool MainWindow::readCtyFile()
 
 void MainWindow::slotDoubleClickLog(const int _qsoID)
 {
-    qDebug() << "MainWindow::slotDoubleClickLog: QSOid: " << QString::number(_qsoID) << endl;
+   //qDebug() << "MainWindow::slotDoubleClickLog: QSOid: " << QString::number(_qsoID) << endl;
 
     //int row = _qsoID.row();
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
@@ -6685,62 +6687,7 @@ void MainWindow::qsoToEdit (const int _qso)
             QSLTabWidget->setQSLSenDate(QDate::fromString(aux1, "yyyy/MM/dd"));
         }
 
- /*
-        if (  (aux1.toUpper()) == "Y" )
-        {
-            //qDebug() << "MainWindow::qsoToEdit: - QSL Sent "  << endl;
-            qslSentComboBox->setCurrentIndex( qslSentComboBox->findText(tr("Y-Yes")) );
 
-            nameCol = rec.indexOf("qslsdate");
-            aux1 = (query.value(nameCol)).toString();
-            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-            {
-                qslSentQDateEdit->setEnabled(true);
-                //qslSentViaComboBox->setEnabled(true);
-                qslSentQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-            }
-        }
-              else if ( (aux1.toUpper()) == "N")
-        {
-            qslSentComboBox->setCurrentIndex( qslSentComboBox->findText(tr("N-No") ) );
-        }
-        else if ((aux1.toUpper()) == "R")
-        {
-            qslSentComboBox->setCurrentIndex( qslSentComboBox->findText(tr("R-Requested") ) );
-        }
-        else if ((aux1.toUpper()) == "Q")
-        {
-            qslSentComboBox->setCurrentIndex( qslSentComboBox->findText(tr("Q-Queued")) );
-
-            nameCol = rec.indexOf("qslsdate");
-            aux1 = (query.value(nameCol)).toString();
-            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-            {
-                qslSentQDateEdit->setEnabled(true);
-                //qslSentViaComboBox->setEnabled(true);
-                qslSentQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-            }
-        }
-        else if ((aux1.toUpper()) =="I")
-        {
-
-            qslSentComboBox->setCurrentIndex( qslSentComboBox->findText(tr("I-Ignore")) );
-
-            nameCol = rec.indexOf("qslsdate");
-            aux1 = (query.value(nameCol)).toString();
-            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-            {
-                qslSentQDateEdit->setEnabled(true);
-                //qslSentViaComboBox->setEnabled(true);
-                qslSentQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-            }
-
-        }
-        else
-        {
-            qslSentComboBox->setCurrentIndex( qslSentComboBox->findText(tr("N-No") ) );
-        }
-*/
         nameCol = rec.indexOf("qsl_sent_via");
         aux1 = (query.value(nameCol)).toString();
         QSLTabWidget->setQSLSenVia(aux1);

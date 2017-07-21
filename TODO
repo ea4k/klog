@@ -4,24 +4,25 @@ Feel free to request any roadmap change if you have any suggestion.
 
 RC-BUGS: The ADIF export is not working!!!
 
-
-TODO: When doubleclicking on a
+TODO: Isolate the QSO input tab and create a widget with it.
+TODO: Isolate the Info tab and create a widget with it.
+TODO: Isolate the Awards tab and create a widget with it.
+TODO: Isolate the Search tab and create a widget with it.
+TODO: Isolate the Main QRZ box and create a widget with it.
 
 TODO: Think if it is possible to create a function in the Widgets(i.e. MainWindowInputQSL) to read the data and
         enter it in the DB automatically when the user clicks on "enter"
         It would help to "isolate" it and make it more "independant"
 TODO: Review the color management in MainWindowInputOthers::setIOTA (and maybe others) (completewithPrevious of MainWindow)
-TODO: In the QSL widgets, when obtaining the data, the dates should be always given or only when needed?
 TODO: Check if in mainwindow (read formUI and modify the eQSL/LOTW REC/SENT values are correct
 
 TODO: If no QSL sen via or rec via are defined, KLog shows as direct? It should be bureau
 
 
 
-
 TODO: Add a cheking to the list of bureaus and propose the bureau for QSL via when there is an existing one and propose direct when no bureau is existing.
       (http://www.iaru.org/qsl-bureaus.html)
-TODO: To add the possibility to move the DB to another path, with the idea to use dropbox or whatever.
+
 TODO: Define band limits for CW/SSB/RTTY... so when a click on the cluster is done, the right mode is proposed.
 
 
@@ -49,12 +50,12 @@ TODO: void DXCCStatusWidget::slotRefreshButtonClicked()//TODO: Define a way to s
 BUG: Optimize the KLog start
 BUG: If logbook.dat is not existing but klogrc it is, KLog does not start.
 
-TODO: Add a tip on the DXCC Status showing some info.
+TODO: Add a tip on the DXCC Status showing some info: bearing, DXCC status (worked or not...)
 TODO: Add a link or action on DXCCStatus items to doubleclick and search the QSOs that provide such status.
 
 TODO: Show the flag of the worked QRZ on the top right,close to the Entity Name
 
-TODO: Add the flags to the DXCC (and maybe the DXCluster)
+TODO: Add the flags to the DXCluster
 TODO: Click on an Entity name will select all the QSO of that Entity on the search box
 
 Debian:
@@ -67,6 +68,7 @@ BUG: Check the options that are marked in QSL when rightbutton.
 i.e.: Is myQSL sent marked as requested when it should be the DX-QSL?
 
 TODO GUI: To add the CQ/ITU box or make them editable
+TODO: checkIfNewBandOrMode() is not being used. Code should be removed...
 
 BUG:
 Clublog:
@@ -94,14 +96,10 @@ TODO: Upload a logfile to clublog
 TODO: Define a maximum QSO upload rate to clublog to avoid excesive API usage.
 </CLUBLOG>
 
-KLog 0.9.4
 
-NEXT:
+KLog 0.9.4
 TODO: Some Entities are not recognized by ARRL (I, IG9, IT9 are the same ARRL id entities but different ones). Maybe I should not be working
       with ARRLid or maybe I should detect special ones and "id+10000" so >10000 ids are special ones.
-
-TODO: Add another tab in the botton to list the DXCC status.
-TODO: checkIfNewBandOrMode() is not being used. Code should be removed...
 
 
 KLog 0.9.3
@@ -125,7 +123,6 @@ TODO: World Editor: Create a way to edit an entity.
 KLog 0.9.7
 TODO: Integrate with www.clublog.org (http://www.clublog.org/docs/pages/viewpage.action?pageId=1638482)
 
-
 KLog 0.9.8
 TODO: Integrate with eqsl.cc
 https://www.eqsl.cc/qslcard/ADIFContentSpecs.cfm
@@ -146,6 +143,9 @@ TODO: Working on the dxCluster: Tool to save the DXCluster in a file (for furthe
 
 KLog 0.9.12
 TODO: Add the awards functionality (to manage awa files, TPEA, WAS, ...)
+
+KLog 0.9.13
+TODO: Mobile interface. Create a mobile UI.
 
 <BUGS>
 TODO: Check if the data has been modified (only memory) and save the data!

@@ -54,10 +54,19 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     dbPushButton = new QPushButton (tr("Browse"));
     moveDBPushButton = new QPushButton(tr("Move DB"));
 
+    dbPathApplied = true;
 
     createUI();
     createActions();
 
+    if (areDBPathChangesApplied())
+    {
+        moveDBPushButton->setEnabled(false);
+    }
+    else
+    {
+        moveDBPushButton->setEnabled(true);
+    }
 }
 
 SetupPageMisc::~SetupPageMisc(){
@@ -80,15 +89,15 @@ void SetupPageMisc::createUI()
     kontestDir = util->getHomeDir();  // We create the ~/.klog for the logs and data
     defaultFileName = kontestDir+"/klog.adi";
     #endif
-    dbDir = kontestDir;
-    dbDirCurrent = dbDir;
+    dbDirNew = kontestDir;     // The new path where the DB is to be moved
+    dbDirCurrent = dbDirNew;       // The path where the DB is hosted
 
     defaultFileNameLineEdit->setReadOnly(false);
     defaultFileNameLineEdit->setText(defaultFileName);
     defaultFileNameLineEdit->setEnabled(false);
 
     dbPathLineEdit->setReadOnly(false);
-    dbPathLineEdit->setText(dbDir);
+    dbPathLineEdit->setText(dbDirCurrent);
     dbPathLineEdit->setEnabled(true);
 
     useDefaultName->setChecked(true);
@@ -110,9 +119,9 @@ void SetupPageMisc::createUI()
     completeWithPreviousCheckBox->setToolTip(tr("Complete the current QSO with previous QSO data."));
     defaultFileNameLineEdit->setToolTip(tr("This is the default file where ADIF will be saved."));
     dbPathLineEdit->setToolTip(tr("This is the directory where DB (logbook.dat) will be saved."));
-    fileNameButton->setToolTip(tr("Click to change the default ADIF file"));
-    dbPushButton->setToolTip(tr("Click to change the path of the data base"));
-    moveDBPushButton->setToolTip(tr("Click to move teh DB to the new directory"));
+    fileNameButton->setToolTip(tr("Click to change the default ADIF file."));
+    dbPushButton->setToolTip(tr("Click to change the path of the data base."));
+    moveDBPushButton->setToolTip(tr("Click to move the DB to the new directory."));
 
     QHBoxLayout *fileLayout = new QHBoxLayout;
     fileLayout->addWidget(useDefaultName);
@@ -120,6 +129,7 @@ void SetupPageMisc::createUI()
     fileLayout->addWidget(fileNameButton);
     defaultFileNameLineEdit->setEnabled(true);
     fileNameButton->setEnabled(true);
+
 
     QHBoxLayout *dbLayout = new QHBoxLayout;
 
@@ -145,6 +155,7 @@ void SetupPageMisc::createUI()
     mainLayou1->addWidget(provideCallCheckBox, 7, 1, 1, 1);
 
     setLayout(mainLayou1);
+
 
 }
 
@@ -349,13 +360,13 @@ void SetupPageMisc::slotUseDefaultButtonStateChanged(int state)
     if (state)
     {
         defaultFileNameLineEdit->setEnabled(true);
-        fileNameButton->setEnabled(true);
+        moveDBPushButton->setEnabled(true);
 
     }
     else
     {
         defaultFileNameLineEdit->setEnabled(false);
-        fileNameButton->setEnabled(false);
+        moveDBPushButton->setEnabled(false);
     }
 }
 
@@ -534,42 +545,54 @@ void SetupPageMisc::setReportInfo(const QString t)
 
 QString SetupPageMisc::getDefaultDBPath()
 {    
-    return dbDir;
+    return dbDirCurrent;
 }
+
 
 void SetupPageMisc::setUseDefaultDBPath(const QString t)
 {
-    dbDir = t;
-    dbPathLineEdit->setText(dbDir);
+    dbDirCurrent = t;
+    dbPathLineEdit->setText(dbDirCurrent);
+
 }
 
 void SetupPageMisc::slotDBButtonClicked()
 {
 //    QString dbDirBack = dbDir;
     QString dir = QFileDialog::getExistingDirectory(this, tr("Select Directory"),
-                                                    dbDir,
+                                                    dbDirCurrent,
                                                     QFileDialog::ShowDirsOnly
                                                     | QFileDialog::DontResolveSymlinks);
-
     if (dir.length()>=1)
     {
-        dbDir = dir;
+        dbDirNew = dir;
     }
 
-
-    setUseDefaultDBPath(dbDir);
+    dbPathLineEdit->setText(dbDirNew);
+    if (dbDirCurrent == dbDirNew)
+    {
+        dbPathApplied = true;
+    }
+    else
+    {
+        dbPathApplied = false;
+        moveDBPushButton->setEnabled(true);
+    }
+    //setUseDefaultDBPath(dbDirNew);
 
 }
 
 void SetupPageMisc::slotDBLineEditChanged()
 {
-    dbDir = dbPathLineEdit->text();
+    qDebug() << "SetupPageMisc::slotDBLineEditChanged: " << dbPathLineEdit->text() << endl;
+    QString aux;
+    aux = dbPathLineEdit->text();
 
-   if ( QFile::exists(dbDir) )
+   if ( QFile::exists(aux) )
    {
        dbPathLineEdit->setToolTip(tr("This is the directory where DB (logbook.dat) will be saved."));
        dbPathLineEdit->setPalette(palRight);
-       dbDir = dbPathLineEdit->text();
+       dbDirNew = dbPathLineEdit->text();
    }
    else
    {
@@ -577,24 +600,34 @@ void SetupPageMisc::slotDBLineEditChanged()
         dbPathLineEdit->setPalette(palWrong);
    }
 
+   if (dbDirCurrent == dbDirNew)
+   {
+       dbPathApplied = true;
+       moveDBPushButton->setEnabled(false);
+   }
+   else
+   {
+       dbPathApplied = false;
+       moveDBPushButton->setEnabled(true);
+   }
 }
 
 void SetupPageMisc::slotMoveDBButtonClicked()
 {
     QString source = dbDirCurrent + "/logbook.dat";
-    QString target = dbDir + "/logbook.dat";
+    QString target = dbDirNew + "/logbook.dat";
     QMessageBox msgBox;
 
     qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source << endl;
     qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target << endl;
-    if ( QFile::exists(dbDir) )
+    if ( QFile::exists(dbDirNew) )
     {
         //dbDirCurrent
         //dbDir
         if (QFile::copy(source, target))
         {
 
-            dbDirCurrent = dbDir;
+            dbDirCurrent = dbDirNew;
             if (QFile::remove(source))
             {
                 msgBox.setIcon(QMessageBox::Warning);
@@ -602,6 +635,8 @@ void SetupPageMisc::slotMoveDBButtonClicked()
                 msgBox.setStandardButtons(QMessageBox::Ok);
                 msgBox.setDefaultButton(QMessageBox::Ok);
                 msgBox.exec();
+                dbPathApplied = true;
+
             }
             else
             {
@@ -610,6 +645,7 @@ void SetupPageMisc::slotMoveDBButtonClicked()
                 msgBox.setStandardButtons(QMessageBox::Ok);
                 msgBox.setDefaultButton(QMessageBox::Ok);
                 msgBox.exec();
+                dbPathApplied = true;
             }
         }
         else
@@ -619,6 +655,8 @@ void SetupPageMisc::slotMoveDBButtonClicked()
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
             msgBox.exec();
+            dbPathApplied = false;
+            moveDBPushButton->setEnabled(true);
         }
 
 
@@ -629,6 +667,13 @@ void SetupPageMisc::slotMoveDBButtonClicked()
         msgBox.setText(tr("The target directory does not exist. Please select an existing directory."));
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
+        msgBox.exec();
+        dbPathApplied = false;
+        moveDBPushButton->setEnabled(true);
     }
+}
+
+bool SetupPageMisc::areDBPathChangesApplied()
+{
+    return dbPathApplied;
 }

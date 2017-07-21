@@ -67,6 +67,8 @@ public:
     QString getReportInfo();
     void setReportInfo(const QString t);
 
+    bool areDBPathChangesApplied();
+
 private slots:
     void slotOpenFileButtonClicked();
     void slotUseDefaultButtonStateChanged(int state);
@@ -91,8 +93,10 @@ private:
     QLineEdit *defaultFileNameLineEdit, *dbPathLineEdit;
     QPushButton *fileNameButton, *dbPushButton, *moveDBPushButton;
 
-    QString kontestDir, dbDir, dbDirCurrent; //TODO: To be removed when the defaultDir is saved in the config file
+    QString kontestDir, dbDirNew, dbDirCurrent; //TODO: To be removed when the defaultDir is saved in the config file
     QPalette palRight, palWrong; // To paint Text in red or black(normal)
+
+    bool dbPathApplied;
 
     //QWidget *bandsWidget;
 
