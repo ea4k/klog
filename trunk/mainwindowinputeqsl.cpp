@@ -3,6 +3,7 @@
 MainWindowInputEQSL::MainWindowInputEQSL(QWidget *parent) :
     QWidget(parent)
 {
+    util = new Utilities;
     qslSentStatusList.clear();
     qslRcvdStatusList.clear();
     clubLogStatusList.clear();
@@ -110,6 +111,7 @@ void MainWindowInputEQSL::createUI()
 
     setLayout(eqslInputTabWidgetLayout);
 
+    connect(clublogComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotClubLogComboBoxChanged() ) )  ;
     connect(eqslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLSentComboBoxChanged() ) )  ;
     connect(eqslRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLRecvComboBoxChanged() ) ) ;
     connect(lotwSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLotwSentComboBoxChanged() ) )  ;
@@ -155,13 +157,19 @@ void MainWindowInputEQSL::clear()
     lotwRecComboBox->setCurrentIndex(1);
 
     //dateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-    QString date;
-    date = "18000101";
-    eqslSentQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
-    eqslRecQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
-    lotwSentQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
-    lotwRecQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
-    clublogQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
+    //QString date;
+    //date = "18000101";
+    //eqslSentQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
+    //eqslRecQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
+    //lotwSentQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
+    //lotwRecQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
+    //clublogQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
+
+    eqslSentQDateEdit->setDate(util->getDefaultDate());
+    eqslRecQDateEdit->setDate(util->getDefaultDate());
+    lotwSentQDateEdit->setDate(util->getDefaultDate());
+    lotwRecQDateEdit->setDate(util->getDefaultDate());
+    clublogQDateEdit->setDate(util->getDefaultDate());
 
 }
 
@@ -440,6 +448,30 @@ void MainWindowInputEQSL::sloteQSLSentComboBoxChanged(){
 
         default: //NO
             eqslSentQDateEdit->setEnabled(false);
+        break;
+    }
+}
+
+void MainWindowInputEQSL::slotClubLogComboBoxChanged()
+{
+    int i = clublogComboBox->currentIndex();
+    //{Y, N, M}
+    // Y-Yes = 0
+    // N-No = 1
+    // M-Modified = 2
+
+    switch (i)
+    {
+        case 0:
+            clublogQDateEdit->setEnabled(true);
+            clublogQDateEdit->setDate((QDateTime::currentDateTime()).date());
+        break;
+        case 2:
+            clublogQDateEdit->setEnabled(true);
+            clublogQDateEdit->setDate((QDateTime::currentDateTime()).date());
+        break;
+        default: //NO
+            clublogQDateEdit->setEnabled(false);
         break;
     }
 }

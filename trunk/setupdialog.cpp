@@ -230,6 +230,8 @@ void SetupDialog::setData(const QString _configFile, const QString _softwareVers
     else
     {
        //qDebug() << "SetupDialog::setData NOT FIRST TIME! " << endl;
+
+        miscPage->setUseDefaultDBPath(miscPage->getDefaultDBPath());
     }
 
     setConfigFile(_configFile);
@@ -348,7 +350,17 @@ void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous
 
 void SetupDialog::slotOkButtonClicked()
 {
-//qDebug() << "SetupDialog::slotOkButonClicked" << endl;
+qDebug() << "SetupDialog::slotOkButonClicked" << endl;
+
+    if (!miscPage->areDBPathChangesApplied())
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText(tr("DB is not moved to new path"));
+        msgBox.setInformativeText(tr("Go to the") + " " + tr("Misc tab") + " " + tr("and click on") + " " + tr("Move DB") + "\n" + "or the DB will not be moved to the new location.");
+        msgBox.exec();
+        return;
+    }
 
     if ((userDataPage->getStationQrz()).length() < 3){ // There are no valid calls with less than 3 Chars
         QMessageBox msgBox;

@@ -50,7 +50,9 @@ public:
     //DataBase(const QString _softVersion, bool  inmemoryonly = false);
     DataBase(const QString _softVersion);
     ~DataBase();
-    bool createConnection();
+    bool createConnection(bool newDB=false);    // If true that means that we are creating the DB,
+                                                // not just connecting to an existing one.
+                                                // That will be done in the default path
     bool reConnect();
     bool setDir(const QString _dir);
 

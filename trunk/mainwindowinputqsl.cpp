@@ -32,7 +32,7 @@
 MainWindowInputQSL::MainWindowInputQSL(QWidget *parent) :
     QWidget(parent)
 {
-
+    util = new Utilities;
     qslSentComboBox = new QComboBox;
     qslRecComboBox = new QComboBox;
     qslSentViaComboBox = new QComboBox;
@@ -45,17 +45,10 @@ MainWindowInputQSL::MainWindowInputQSL(QWidget *parent) :
 
     dataProxy = new DataProxy_SQLite();
 
-    qslSentQDateEdit->setDisplayFormat("dd/MM/yyyy");
-    qslRecQDateEdit->setDisplayFormat("dd/MM/yyyy");
 
 
-    qslSentStatusList.clear();
-    qslRcvdStatusList.clear();
-    qslViaList.clear();
 
-    qslSentStatusList = dataProxy->getQSLSentList();
-    qslRcvdStatusList = dataProxy->getQSLRcvdList();
-    qslViaList = dataProxy->getQSLViaList();
+
 
 
     createUI();
@@ -69,6 +62,9 @@ MainWindowInputQSL::~MainWindowInputQSL(){}
 void MainWindowInputQSL::createUI()
 {
     // QSL Tab definition starts here
+
+    qslSentQDateEdit->setDisplayFormat("dd/MM/yyyy");
+    qslRecQDateEdit->setDisplayFormat("dd/MM/yyyy");
 
     QLabel *QSLSentLabelN = new QLabel(tr("QSL Sent"));
     QSLSentLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
@@ -115,16 +111,27 @@ void MainWindowInputQSL::createUI()
     connect(qslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLSentComboBoxChanged() ) )  ;
     connect(qslViaLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQSLViaLineEditReturnPressed() ) );
 
-
 }
 
 
 void MainWindowInputQSL::setDefaultData()
-{
+{    
+
+    qslSentStatusList.clear();
+    qslRcvdStatusList.clear();
+    qslViaList.clear();
+
+    qslSentStatusList = dataProxy->getQSLSentList();
+    qslRcvdStatusList = dataProxy->getQSLRcvdList();
+    qslViaList = dataProxy->getQSLViaList();
+
     qslSentComboBox->addItems(qslSentStatusList);
     qslRecComboBox->addItems(qslRcvdStatusList);
     qslRecViaComboBox->addItems(qslViaList);
     qslSentViaComboBox->addItems(qslViaList);
+
+    qslSentQDateEdit->setDate(util->getDefaultDate());
+    qslRecQDateEdit->setDate(util->getDefaultDate());
 
 
 }
@@ -135,10 +142,8 @@ void MainWindowInputQSL::clear()
     qslRecViaComboBox->setCurrentIndex(0);
     qslSentViaComboBox->setCurrentIndex(0);
 
-    QString date;
-    date = "18000101";
-    qslSentQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
-    qslRecQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
+    qslSentQDateEdit->setDate(util->getDefaultDate());
+    qslRecQDateEdit->setDate(util->getDefaultDate());
 
     qslmsgTextEdit->clear();
     qslViaLineEdit->clear();
@@ -168,6 +173,7 @@ QString MainWindowInputQSL::getSentVia()
 {
     QString _pm = QString();
     _pm = (((qslSentViaComboBox->currentText()).split('-')).at(0)).simplified();
+    qDebug() << "MainWindow::getSentVia: " << _pm << endl;
      return _pm;
 }
 
@@ -175,6 +181,7 @@ QString MainWindowInputQSL::getRecVia()
 {
     QString _pm = QString();
     _pm = (((qslRecViaComboBox->currentText()).split('-')).at(0)).simplified();
+    qDebug() << "MainWindowInputQSL::getRecVia: " << _pm << endl;
      return _pm;
 }
 
@@ -221,19 +228,20 @@ void MainWindowInputQSL::setQSLRecVia(const QString _qs)
     }
     else
     {
-        qslRecViaComboBox->setCurrentIndex(1);
+        qslRecViaComboBox->setCurrentIndex(0);  // bureau by default
     }
 }
 
 void MainWindowInputQSL::setQSLSenVia(const QString _qs)
 {
+    qDebug() << "MainWindowInputQSL::setQSLSenVia: " << _qs << endl;
     if(( qslSentViaComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
     {
         qslSentViaComboBox->setCurrentIndex( qslSentViaComboBox->findText(_qs+" -", Qt::MatchStartsWith));
     }
     else
     {
-        qslSentViaComboBox->setCurrentIndex(1);
+        qslSentViaComboBox->setCurrentIndex(0); // bureau by default
     }
 }
 

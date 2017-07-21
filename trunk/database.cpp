@@ -29,7 +29,7 @@
 
 
 DataBase::DataBase(const QString _softVersion){
-  //qDebug() << "DataBase::DataBase: " << _softVersion  << endl;
+    //qDebug() << "DataBase::DataBase: " << _softVersion  << endl;
     //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
     dbVersion = DBVersionf;
     softVersion = _softVersion;
@@ -37,7 +37,7 @@ DataBase::DataBase(const QString _softVersion){
     latestReaded = 0.0;
     util = new Utilities();
     dbDir = util->getKLogDBFile();
-    qDebug() << "DataBase::DataBase: DB: " << dbDir << endl;
+    //qDebug() << "DataBase::DataBase: DB: " << dbDir << endl;
 
     //db = new QSqlDatabase;
     db = QSqlDatabase::database();
@@ -47,7 +47,7 @@ DataBase::DataBase(const QString _softVersion){
         createConnection();
     }
 
-   qDebug() << "DataBase::DataBase: END"  << endl;
+    //qDebug() << "DataBase::DataBase: END"  << endl;
 
 }
 
@@ -82,22 +82,21 @@ void DataBase::compress()
 
 bool DataBase::reConnect()
 {
-    qDebug() << "DataBase::reConnect:"  << endl;
+   //qDebug() << "DataBase::reConnect:"  << endl;
     db.close();
-    qDebug() << "DataBase::reConnect: DB closed"  << endl;
+   //qDebug() << "DataBase::reConnect: DB closed"  << endl;
     dbDir = util->getKLogDBFile();
-    qDebug() << "DataBase::reConnect: DB: " << dbDir  << endl;
+   //qDebug() << "DataBase::reConnect: DB: " << dbDir  << endl;
     return createConnection();
-    qDebug() << "DataBase::reConnect: END"  << endl;
+   //qDebug() << "DataBase::reConnect: END"  << endl;
 
 }
 
-bool DataBase::createConnection()
+bool DataBase::createConnection(bool newDB)
 {
- qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
-    QString stringQuery;
-   //qDebug() << "DataBase::createConnection: 0" << endl;
+    //qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
 
+    QString stringQuery;
     QSqlQuery query;
 
     //rc = sqlite3_open(":memory:", &db);
@@ -108,29 +107,41 @@ bool DataBase::createConnection()
         db = QSqlDatabase::addDatabase("QSQLITE");
         //QString backDir = QDir::currentPath();
         //QDir::setCurrent(dbDir);
-        QString dbName = dbDir+"/logbook.dat";
+        QString dbName;
+        dbName = util->getKLogDBFile();
+        //qDebug() << "DataBase::createConnection: DB: " << dbName << endl;
+
+        if (util->isDBFileExisting(dbName))
+        {
+              //qDebug() << "DataBase::createConnection: DB is existing!!!!!! " << endl;
+        }
+        else
+        {
+            //qDebug() << "DataBase::createConnection: DB is NOT existing!!!!!! " << endl;
+        }
+
         db.setDatabaseName(dbName);
         //QDir::setCurrent(backDir);
-        qDebug() << "DataBase::createConnection - dataBaseName: " << db.databaseName() << endl;
+        //qDebug() << "DataBase::createConnection - dataBaseName: " << db.databaseName() << endl;
 
         if (!db.open())
         {
             QMessageBox::warning(0, QObject::tr("Database Error"),
                                  db.lastError().text());
-           qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
+           //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
             return false;
         }
-       else
-       {
-           qDebug() << "DataBase::createConnection: created?" << endl;
+        else
+        {
+           //qDebug() << "DataBase::createConnection: created?" << endl;
 
             if (isTheDBCreated())
             {
-               qDebug() << "DataBase::createConnection: DB Exists"  << endl;
+                //qDebug() << "DataBase::createConnection: DB Exists"  << endl;
             }
             else
             {
-                qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
+                //qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
                 createDataBase();
 
                 stringQuery ="PRAGMA main.page_size = 4096;";
@@ -158,19 +169,27 @@ bool DataBase::createConnection()
     }
     else
     {
-       qDebug() << "DataBase::createConnection: DB already opened"  << endl;
+        //qDebug() << "DataBase::createConnection: DB already opened"  << endl;
     }
-    createBandModeMaps(); //TODO: I have commented out thi line because createBandModeMaps is also called from isThe
+    //createBandModeMaps(); //TODO: I have commented out thi line because createBandModeMaps is also called from isThe
 
+    if (createBandModeMaps())
+    {
+        //qDebug() << "DataBase::createConnection: createBandModeMaps true" << endl;
+    }
+    else
+    {
+        //qDebug() << "DataBase::createConnection: createBandModeMaps false SSSSSSSSSSSSSSSTOOOOOOOOOOOOOOOOOOOOOPPPPPPPPPPPPPPPPPPPP" << endl;
+    }
 
     //created = true;
- //qDebug() << "DataBase::createConnection -------------------------------------------- END" << endl;
+    //qDebug() << "DataBase::createConnection -------------------------------------------- END" << endl;
     return unMarkAllQSO();
 }
 
 bool DataBase::isTheDBCreated()
 {
-  //qDebug() << "DataBase::isTheDBCreated"  << endl;
+    //qDebug() << "DataBase::isTheDBCreated"  << endl;
     //return created;
     //return hasTheTableData("softwarecontrol");
 
@@ -180,24 +199,25 @@ bool DataBase::isTheDBCreated()
 
     QString stringQuery ("SELECT count(id) FROM softwarecontrol");
     bool sqlOK = query.exec(stringQuery);
-    //En esta ejecución da driver not loaded
+
 
     if (sqlOK)
     {
         query.next();
         if (query.isValid())
         {
-           //qDebug() << "DataBase::isTheDBCreated - valid"  << endl;
+            //qDebug() << "DataBase::isTheDBCreated - valid"  << endl;
             _num = (query.value(0)).toInt();
             if (_num > 0)
             {
                //qDebug() << "DataBase::isTheDBCreated - DB Exists"  << endl;
-               //qDebugzw22222() << "DataBase::isTheDBCreated: ------------------------------------------------- END TRUE" << endl;
+               //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END TRUE" << endl;
                 return true;
             }
             else
             {
                //qDebug() << "DataBase::isTheDBCreated - DB does not Exist"  << endl;
+
                //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-1" << endl;
                 return false;
             }
@@ -387,7 +407,7 @@ bool DataBase::createTableLog(bool temp)
 
 bool DataBase::createDataBase()
 {
-   //qDebug() << "DataBase::createDataBase ------------------------------------- START"  << endl;
+    //qDebug() << "DataBase::createDataBase ------------------------------------- START"  << endl;
     //bool qres;
        //http://www.sqlite.org/
     //http://www.sqlite.org/datatype3.html
@@ -632,34 +652,33 @@ confirmed = 1     Set as Confirmed
       populatePropagationModes();
 
 
-query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('G', 'GrayLine')");
-query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('O', 'Other')");
-query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('S', 'ShortPath')");
-query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('L', 'LongPath')");
+    query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('G', 'GrayLine')");
+    query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('O', 'Other')");
+    query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('S', 'ShortPath')");
+    query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('L', 'LongPath')");
 
-query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AL', 'Alabama')");
-
-
-query.exec("INSERT INTO award_enumeration (name) VALUES ('AJA')");
-query.exec("INSERT INTO award_enumeration (name) VALUES ('CQDX')");
-query.exec("INSERT INTO award_enumeration (name) VALUES (CQDXFIELD')");
-query.exec("INSERT INTO award_enumeration (name) VALUES (DXCC')");
-query.exec("INSERT INTO award_enumeration (name) VALUES (TPEA')");
+    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AL', 'Alabama')");
 
 
-query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('B', 'Bureau')");
-query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('D', 'Direct')");
-query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('E', 'Electronic')");
-query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('M', 'Manager')");
+    query.exec("INSERT INTO award_enumeration (name) VALUES ('AJA')");
+    query.exec("INSERT INTO award_enumeration (name) VALUES ('CQDX')");
+    query.exec("INSERT INTO award_enumeration (name) VALUES (CQDXFIELD')");
+    query.exec("INSERT INTO award_enumeration (name) VALUES (DXCC')");
+    query.exec("INSERT INTO award_enumeration (name) VALUES (TPEA')");
 
-query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('Y', 'Yes')");
-query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('N', 'No')");
-query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('NIL', 'Not heard')");
-query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('?', 'Uncertain')");
+
+    query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('B', 'Bureau')");
+    query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('D', 'Direct')");
+    query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('E', 'Electronic')");
+    query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('M', 'Manager')");
+
+    query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('Y', 'Yes')");
+    query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('N', 'No')");
+    query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('NIL', 'Not heard')");
+    query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('?', 'Uncertain')");
 
     //qDebug() << "DataBase::createDataBase ------------------------------------- END"  << endl;
-return true;
-
+    return true;
 
 }
 
@@ -1025,7 +1044,7 @@ bool DataBase::unMarkAllQSO()
 
 bool DataBase::updateIfNeeded()
 {
-   qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << endl;
+  //qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << endl;
 
     /**************************************************************************************
      * This function should call to bool updateToXXX () being XXX dbVersion and
@@ -1052,7 +1071,7 @@ bool DataBase::updateIfNeeded()
             nameCol = rec.indexOf("dbversion");
             aux = (query.value(nameCol)).toFloat();
 
-            qDebug() << "DataBase::updateIfNeeded - Version found: " << QString::number(aux) << endl;
+           //qDebug() << "DataBase::updateIfNeeded - Version found: " << QString::number(aux) << endl;
             if (aux > latestReaded)
             {
                 latestReaded = aux;
@@ -1065,18 +1084,18 @@ bool DataBase::updateIfNeeded()
         {
         }
     }
-    qDebug() << "DataBase::updateIfNeeded - latestReaded: " << QString::number(aux) << endl;
+   //qDebug() << "DataBase::updateIfNeeded - latestReaded: " << QString::number(aux) << endl;
 
     if (latestReaded >= dbVersion)
     { // DB is updated, no update is needed
-        qDebug() << "DataBase::updateIfNeeded - DB updated (no need to update anything!) " << endl;
+       //qDebug() << "DataBase::updateIfNeeded - DB updated (no need to update anything!) " << endl;
         //toBeUpdated = false;
        //qDebug() << "DataBase::updateIfNeeded - TRUE - END "  << endl;
         return true;
     }
     else
     { // DB is outdated. We need to update!!
-        qDebug() << "DataBase::updateIfNeeded - DB outdated... upgrade starts now! " << endl;
+       //qDebug() << "DataBase::updateIfNeeded - DB outdated... upgrade starts now! " << endl;
         QMessageBox msgBox;
         msgBox.setText( QObject::tr("KLog DB needs to be upgraded."));
         msgBox.setInformativeText( QObject::tr("Do you want to upgrade it now?\nIf DB is not upgraded KLog may not work properly."));
@@ -1096,7 +1115,7 @@ bool DataBase::updateIfNeeded()
             break;
             default:
             // should never be reached
-           qDebug() << "DataBase::updateIfNeeded - FALSE - CHECK IF SEEN, shoud not be here! - END "  << endl;
+          //qDebug() << "DataBase::updateIfNeeded - FALSE - CHECK IF SEEN, shoud not be here! - END "  << endl;
                 return false;
             break;
         }
@@ -1107,7 +1126,7 @@ bool DataBase::updateIfNeeded()
 
     // If the DB needs to be updated... we update it! :-)
 
- qDebug() << "DataBase::updateIfNeeded - END!" << endl;
+//qDebug() << "DataBase::updateIfNeeded - END!" << endl;
     return true;
 }
 
@@ -1319,19 +1338,19 @@ QString DataBase::getModeNameFromID2(const int _i)
 
 bool DataBase::createBandModeMaps()
 {
-   //qDebug() << "DataBase::createBandModeMaps" << endl;
+    //qDebug() << "DataBase::createBandModeMaps" << endl;
      //bool b = createTheBandQuickReference();
      //bool m = createTheModeQuickReference();
 
      //return (b && m);
     if (isTheDBCreated())
     {
-      //qDebug() << "DataBase::createBandModeMaps - isDbCreated TRUE" << endl;
+        //qDebug() << "DataBase::createBandModeMaps - isDbCreated TRUE" << endl;
         return (createTheBandQuickReference() &&  createTheModeQuickReference());
     }
     else
     {
-      //qDebug() << "DataBase::createBandModeMaps - isDbCreated FALSE" << endl;
+        //qDebug() << "DataBase::createBandModeMaps - isDbCreated FALSE" << endl;
         return false;
     }
 
@@ -1399,7 +1418,7 @@ bool DataBase::updateToLatest()
  * The updateXXX are recursive calls that calls the previous one.
  *
  */
-   qDebug() << "DataBase::updateToLatest " << endl;
+  //qDebug() << "DataBase::updateToLatest " << endl;
     return updateTo010();
 }
 
@@ -1688,34 +1707,34 @@ bool DataBase::recreateContestData()
 
 bool DataBase::recreateSupportedContest()
 {
-   qDebug() << "DataBase::recreateSupportedContest"  << endl;
+  //qDebug() << "DataBase::recreateSupportedContest"  << endl;
     QSqlQuery query;
     bool sqlOk = false;
     sqlOk = query.exec("DROP TABLE supportedcontests");
     if (sqlOk)
     {
-        qDebug() << "DataBase::recreateSupportedContest SQLOK"  << endl;
+       //qDebug() << "DataBase::recreateSupportedContest SQLOK"  << endl;
         if (createTableSupportedContest())
         {
-            qDebug() << "DataBase::recreateSupportedContest - createTable OK"  << endl;
+           //qDebug() << "DataBase::recreateSupportedContest - createTable OK"  << endl;
             //return populateTableSupportedContest();
             if (populateTableSupportedContest())
             {
-                qDebug() << "DataBase::recreateSupportedContest - populateTableSupportedContest OK"  << endl;
+               //qDebug() << "DataBase::recreateSupportedContest - populateTableSupportedContest OK"  << endl;
                 return true;
             }
             else
             {
-                qDebug() << "DataBase::recreateSupportedContest - populateTableSupportedContest NOK"  << endl;
+               //qDebug() << "DataBase::recreateSupportedContest - populateTableSupportedContest NOK"  << endl;
                 return false;
             }
         }
         else
         {
-            qDebug() << "DataBase::recreateSupportedContest createTableSupportContest FALSE"  << endl;
+           //qDebug() << "DataBase::recreateSupportedContest createTableSupportContest FALSE"  << endl;
         }
     }
-    qDebug() << "DataBase::recreateSupportedContest - FALSE end"  << endl;
+   //qDebug() << "DataBase::recreateSupportedContest - FALSE end"  << endl;
     return false;
 }
 
@@ -1861,7 +1880,7 @@ bool DataBase::createTableContest()
 
 bool DataBase::populateTableSupportedContest()
 {
-    qDebug() << "DataBase::populateTableSupportedContest" << endl;
+   //qDebug() << "DataBase::populateTableSupportedContest" << endl;
     // ADDING ALL THE CATEGORIES OPTIONS
     QSqlQuery query;
     return query.exec("INSERT INTO supportedcontests (longname, name) VALUES ('Normal log', 'DX')");
@@ -2044,7 +2063,7 @@ bool DataBase::createTableSatellites(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
     //Creating the Sats DB to be able to include satellites to the LOTW
 
-   qDebug() << "DataBase::createTableSatellites" << endl;
+  //qDebug() << "DataBase::createTableSatellites" << endl;
 
 
     QString stringQuery = QString();
@@ -2072,18 +2091,18 @@ bool DataBase::createTableSatellites(const bool NoTmp)
         QMessageBox::warning(0, QObject::tr("Database Error"),
                              db.lastError().text());
 
-        qDebug() << "DataBase::createTableSatellites: Log deleted FAILED" << endl;
+       //qDebug() << "DataBase::createTableSatellites: Log deleted FAILED" << endl;
         errorCode = query.lastError().number();
-        qDebug() << "DataBase::createTableSatellites: - query error: " << QString::number(errorCode) << endl;
-        qDebug() << "DataBase::createTableSatellites: LastQuery: " << query.lastQuery()  << endl;
-        qDebug() << "DataBase::createTableSatellites: LastError-data: " << query.lastError().databaseText()  << endl;
-        qDebug() << "DataBase::createTableSatellites: LastError-driver: " << query.lastError().driverText()  << endl;
-        qDebug() << "DataBase::createTableSatellites: LastError-n: " << QString::number(query.lastError().number() ) << endl;
+       //qDebug() << "DataBase::createTableSatellites: - query error: " << QString::number(errorCode) << endl;
+       //qDebug() << "DataBase::createTableSatellites: LastQuery: " << query.lastQuery()  << endl;
+       //qDebug() << "DataBase::createTableSatellites: LastError-data: " << query.lastError().databaseText()  << endl;
+       //qDebug() << "DataBase::createTableSatellites: LastError-driver: " << query.lastError().driverText()  << endl;
+       //qDebug() << "DataBase::createTableSatellites: LastError-n: " << QString::number(query.lastError().number() ) << endl;
 
     }
 
 
-    qDebug() << "DataBase::createTableSatellites END" << endl;
+   //qDebug() << "DataBase::createTableSatellites END" << endl;
     return sqlOK;
 
 
@@ -3751,7 +3770,7 @@ bool DataBase::updateTo008()
 bool DataBase::updateTo009()
 {// Updates the DB to 0.0.9 - We add the Satellite tables
 
-    qDebug() << "DataBase::updateTo009: latestRead: " << QString::number(latestReaded) << endl;
+   //qDebug() << "DataBase::updateTo009: latestRead: " << QString::number(latestReaded) << endl;
     bool IAmIn009 = false;
     bool IAmIn008 = false;
     bool ErrorUpdating = false;
@@ -3762,29 +3781,29 @@ bool DataBase::updateTo009()
     bool sqlOk = false;
 
     //if (latestReaded >= 0.009)
-    qDebug() << "DataBase::updateTo009: Checking:" << QString::number(latestReaded) << ":" << endl;
+   //qDebug() << "DataBase::updateTo009: Checking:" << QString::number(latestReaded) << ":" << endl;
 //    if (0.009 <= latestReaded)
     if (latestReaded >= 0.009)
     {
-        qDebug() << "DataBase::updateTo009: - I am in 009" << endl;
+       //qDebug() << "DataBase::updateTo009: - I am in 009" << endl;
         IAmIn009 = true;
         return true;
     }
     else
     {
-       qDebug() << "DataBase::updateTo009: - I am not in 009 I am in: " << QString::number(latestReaded)<< endl;
+      //qDebug() << "DataBase::updateTo009: - I am not in 009 I am in: " << QString::number(latestReaded)<< endl;
         IAmIn009 = false;
     }
-    qDebug() << "DataBase::updateTo009: compared latestRead: " << QString::number(latestReaded) << endl;
+   //qDebug() << "DataBase::updateTo009: compared latestRead: " << QString::number(latestReaded) << endl;
     while (!IAmIn009 && !ErrorUpdating)
     {
         while (!IAmIn008 && !ErrorUpdating)
         {
-           qDebug() << "DataBase::updateTo009: - And I am not in 008" << endl;
+          //qDebug() << "DataBase::updateTo009: - And I am not in 008" << endl;
             IAmIn008 = updateTo008();
 
         }
-       qDebug() << "DataBase::updateTo009: - And I am already at least in 008" << endl;
+      //qDebug() << "DataBase::updateTo009: - And I am already at least in 008" << endl;
         if (ErrorUpdating)
         {
             return false;
@@ -3793,45 +3812,45 @@ bool DataBase::updateTo009()
         //sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
         if (sqlOk)
         { // Version updated
-           qDebug() << "DataBase::updateTo009: - version updated" << endl;
+          //qDebug() << "DataBase::updateTo009: - version updated" << endl;
             //IAmIn009 = updateTableLog(6);
         }
         else
         { // Version not updated
-           qDebug() << "DataBase::updateTo009: - version not updated" << endl;
+          //qDebug() << "DataBase::updateTo009: - version not updated" << endl;
         }
         //DO ALL THE TASKS TO BE IN 0.009 from 0.008 HERE and set ErrorUpdating if it is not possible.
         if (recreateSatelliteData())
         //if (createTableSatellites(true))
         {
-           qDebug() << "DataBase::updateTo009: - createTableSatellites OK" << endl;
+          //qDebug() << "DataBase::updateTo009: - createTableSatellites OK" << endl;
             //if (populateTableSatellites(true))
             if (true)
             {
-               qDebug() << "DataBase::updateTo009: - populateTableSatellites OK" << endl;
+              //qDebug() << "DataBase::updateTo009: - populateTableSatellites OK" << endl;
                 if (updateTableEntity())
                 {
-                  qDebug() << "DataBase::updateTo009: - updateTableEntity OK" << endl;
+                 //qDebug() << "DataBase::updateTo009: - updateTableEntity OK" << endl;
                    if (updateTheEntityTableISONames())
                    {
-                     qDebug() << "DataBase::updateTo009: - isonames updated" << endl;
+                    //qDebug() << "DataBase::updateTo009: - isonames updated" << endl;
                       // Now I need to update the logs table
 
                       if (updateTableLogs())
                       {
-                         qDebug() << "DataBase::updateTo009: - logs updated and Function finished successfuly!!" << endl;
+                        //qDebug() << "DataBase::updateTo009: - logs updated and Function finished successfuly!!" << endl;
                           IAmIn009 = true;
                       }
                       else
                       {
-                         qDebug() << "DataBase::updateTo009: - logs NOT updated" << endl;
+                        //qDebug() << "DataBase::updateTo009: - logs NOT updated" << endl;
                           IAmIn009 = false;
                           ErrorUpdating = true;
                       }
                    }
                    else
                    {
-                     qDebug() << "DataBase::updateTo009: - isonames NOT updated" << endl;
+                    //qDebug() << "DataBase::updateTo009: - isonames NOT updated" << endl;
                       IAmIn009 = false;
                       ErrorUpdating = true;
                    }
@@ -3844,19 +3863,19 @@ bool DataBase::updateTo009()
             }
             else
             {
-               qDebug() << "DataBase::updateTo009: - populateTableSatellites FALSE" << endl;
+              //qDebug() << "DataBase::updateTo009: - populateTableSatellites FALSE" << endl;
                 ErrorUpdating = true;
                 IAmIn009 = false;
             }
         }
         else
         {
-           qDebug() << "DataBase::updateTo009: - createTableSatellites FALSE" << endl;
+          //qDebug() << "DataBase::updateTo009: - createTableSatellites FALSE" << endl;
             ErrorUpdating = true;
             IAmIn009 = false;
         }
     }
-   qDebug() << "DataBase::updateTo009: - END" << endl;
+  //qDebug() << "DataBase::updateTo009: - END" << endl;
     return IAmIn009;
 }
 
@@ -3874,7 +3893,7 @@ bool DataBase::updateTo010()
   *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
   *
   */
-   qDebug() << "DataBase::updateTo010" << endl;
+  //qDebug() << "DataBase::updateTo010" << endl;
 
      bool IAmIn010 = false;
      bool IAmIn009 = false;
@@ -3887,12 +3906,12 @@ bool DataBase::updateTo010()
 
      if (latestReaded >= 0.01)
      {
-         qDebug() << "DataBase::updateTo010: - I am in 010" << endl;
+        //qDebug() << "DataBase::updateTo010: - I am in 010" << endl;
          return true;
      }
      else
      {
-         qDebug() << "DataBase::updateTo010: - I am not in 010" << endl;
+        //qDebug() << "DataBase::updateTo010: - I am not in 010" << endl;
          IAmIn010 = false;
      }
 
@@ -3901,13 +3920,13 @@ bool DataBase::updateTo010()
      {
          while (!IAmIn009 && !ErrorUpdating)
          {
-             qDebug() << "DataBase::updateTo010: - And I am not in 009" << endl;
+            //qDebug() << "DataBase::updateTo010: - And I am not in 009" << endl;
              IAmIn009 = updateTo009();
 
          }
          if (ErrorUpdating)
          {
-             qDebug() << "DataBase::updateTo010: - Error updating" << endl;
+            //qDebug() << "DataBase::updateTo010: - Error updating" << endl;
              return false;
          }
 
@@ -3915,18 +3934,18 @@ bool DataBase::updateTo010()
 
          if (sqlOk)
          { // Version updated
-             qDebug() << "DataBase::updateTo010: - sqlOK" << endl;
+            //qDebug() << "DataBase::updateTo010: - sqlOK" << endl;
              IAmIn010 = recreateSupportedContest();
          }
          else
          { // Version not updated
-            qDebug() << "DataBase::updateTo010: - NOT sqlOK" << endl;
+           //qDebug() << "DataBase::updateTo010: - NOT sqlOK" << endl;
          }
          //DO ALL THE TASKS TO BE IN 0.010 from 0.009 HERE and set ErrorUpdating if it is not possible.
-         qDebug() << "DataBase::updateTo010: - IAmIn010" << endl;
+        //qDebug() << "DataBase::updateTo010: - IAmIn010" << endl;
          IAmIn010 = true;
      }
-     qDebug() << "DataBase::updateTo010: - END" << endl;
+    //qDebug() << "DataBase::updateTo010: - END" << endl;
      return IAmIn010;
 
 }
@@ -3934,7 +3953,7 @@ bool DataBase::updateDBVersion()
 {
     QString dateString = (QDate::currentDate()).toString("yyyyMMdd");
 
-    qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << softVersion << "/" << QString::number(dbVersion) << endl;
+   //qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << softVersion << "/" << QString::number(dbVersion) << endl;
     QSqlQuery query;
     return query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
 }

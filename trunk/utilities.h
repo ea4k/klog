@@ -49,9 +49,15 @@ public:
     QString getKLogDBFile();
     QString getKLogDefaultDatabaseFile();
     QString getKLogDatabaseFile(const QString _file);
+    bool isDBFileExisting();
+    bool isDBFileExisting(const QString _file);
+
     QString getHomeDir();
     QString getCfgFile();
     QString getCTYFile();
+
+    QDate getDefaultDate();
+    bool isValidDate(const QDate _d);
 
 
     int getNormalizedDXCCValue(const int _dxcc);

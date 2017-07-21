@@ -34,6 +34,7 @@
 #include <QWidget>
 #include "dataproxy.h"
 #include "dataproxy_sqlite.h"
+#include "utilities.h"
 
 class MainWindowInputQSL : public QWidget
 {
@@ -92,6 +93,7 @@ private:
     QLineEdit *qslViaLineEdit;
 
     DataProxy *dataProxy;
+    Utilities *util;
 
     QStringList qslSentStatusList, qslRcvdStatusList, qslViaList;
 
