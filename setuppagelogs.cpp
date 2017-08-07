@@ -603,8 +603,8 @@ contestBands  = (_qs.at(10)).toInt();
 
 void SetupPageLogs::showError(const QString _errorC)
 {
-    QString text = QString(tr("An error has ocurred showing the following error code:\n'%1'")).arg(_errorC);
-    int ret = QMessageBox::warning(this, tr("KLog - SetupPageLogs"),
+    QString text = QString(tr("An error has ocurred showing the following error code:\n'%1'")).arg(_errorC);    
+    QMessageBox::warning(this, tr("KLog - SetupPageLogs"),
                                    text,
                                    QMessageBox::Ok);
 

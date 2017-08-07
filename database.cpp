@@ -46,9 +46,7 @@ DataBase::DataBase(const QString _softVersion){
     {
         createConnection();
     }
-
     //qDebug() << "DataBase::DataBase: END"  << endl;
-
 }
 
 

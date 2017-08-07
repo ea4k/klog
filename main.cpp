@@ -339,10 +339,14 @@ int main(int argc, char *argv[])
     }
     else
     {
+        QPixmap pixmap(":img/klog_512x512.png");
+        QSplashScreen splash(pixmap);
+        splash.show();
        //qDebug() << "KLog Main-100" << endl;
         MainWindow mw(klogDir, version);
        //qDebug() << "KLog Main-101" << endl;
         mw.show();
+        splash.finish(&mw);
        //qDebug() << "KLog Main-102" << endl;
 
         return app.exec();

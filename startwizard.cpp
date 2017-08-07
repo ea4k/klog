@@ -1,17 +1,17 @@
 #include "startwizard.h"
 //#include <QDebug>
 
- StartWizard::StartWizard(const QString _kontestDir, const QString _softVersion, QWidget *parent)
+ StartWizard::StartWizard(const QString _klogDir, const QString _softVersion, QWidget *parent)
      : QWizard(parent)
  {
      //qDebug() << "StartWizard::StartWizard: v=" << QString::number(_softVersion) << endl;
     //licAcepted = false;
     version = _softVersion;
-    kontestDir = _kontestDir;
+    klogDir = _klogDir;
     inMemory = true;
 
     //fileOrMemoryPage = new FileOrMemoryPage();
-    ctyPage = new CTYPage(kontestDir, version);
+    ctyPage = new CTYPage(klogDir, version);
 
     setWizardStyle(QWizard::AeroStyle);
     setPage(Page_Intro, new IntroPage);
@@ -906,11 +906,11 @@ int FileOrMemoryPage::nextId() const
 }
 */
 
-CTYPage::CTYPage(const QString _kontestDir, const QString _version, QWidget *parent) : QWizardPage(parent)
+CTYPage::CTYPage(const QString _klogDir, const QString _version, QWidget *parent) : QWizardPage(parent)
 {
     //completed = false;
 
-    dl = new DownLoadCTY(_kontestDir, _version);
+    dl = new DownLoadCTY(_klogDir, _version);
     QObject::connect(dl, SIGNAL(actionReturnDownload(int)), this, SLOT(slotDownloadFinished(int)));
     QObject::connect(dl, SIGNAL(actionShowProgres(qint64,qint64)), this, SLOT(slotUpdateDownloadProgress(qint64,qint64)));
     QObject::connect(dl, SIGNAL(actionError(int)), this, SLOT(slotDownloadError(int)));

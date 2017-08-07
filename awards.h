@@ -59,7 +59,7 @@ public:
     _workedOrConfirmed = 0     Set as Worked
     _workedOrConfirmed = 1     Set as Confirmed
     */
-
+    void setManageModes(const bool _manageModes=false);   // Defines if the mode is to be taken into account when calculating an award
 
     void recalculateAwards();
     //void setAwards(const int _qsoId, bool modify);
@@ -151,6 +151,7 @@ private:
     typedef QMultiHash<int, int> DXStatus;
 
     DXStatus dxccWorked, dxccConfirmed, wazWorked, wazConfirmed;
+    bool manageModes;
 
 
 };

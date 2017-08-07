@@ -288,7 +288,7 @@ void SetupPageWorldEditor::slotDoubleClickEntity( const QModelIndex & index)
 
     QSqlQuery query;
     QString queryString;
-    int row = index.row();
+    //int row = index.row();
 
 
     //qDebug() << "SetupPageWorldEditor::slotDoubleClickEntity: ARRLid: " << QString::number((worldModel->index(row, 8)).data(0).toInt()) << endl;

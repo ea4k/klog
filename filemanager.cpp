@@ -37,7 +37,7 @@ FileManager::FileManager()
     db = new DataBase(0);
     //db->createConnection();
     //db->createBandModeMaps();
-    kontestVersion="";
+    klogVersion= util->getVersion();
     noMoreQso = false;
     dataProxy = new DataProxy_SQLite();
     util = new Utilities();
@@ -46,37 +46,40 @@ FileManager::FileManager()
 
 }
 
-FileManager::FileManager(const QString _kontestDir)
+
+FileManager::FileManager(const QString _klogDir)
 {
-  //qDebug() << "FileManager::FileManager()-2: Dir" << _kontestDir << endl;
+  //qDebug() << "FileManager::FileManager()-2: Dir" << _klogDir << endl;
     util = new Utilities;
-    kontestDir = _kontestDir;
     ignoreUnknownAlways = false;
-    world = new World(kontestDir);
+    world = new World(klogDir);
     awards = new Awards();
     db = new DataBase(0);
-    //db->createBandModeMaps();
-    kontestVersion="";
     dataProxy = new DataProxy_SQLite();
+
+    //db->createBandModeMaps();
+    util->setVersion(_klogDir);
+    klogVersion = util->getVersion();
     noMoreQso = false;
-    util = new Utilities();
     hashLogs.clear();
+    klogDir = util->getHomeDir();
 //preparedQuery = new QSqlQuery;
 
 }
 
-FileManager::FileManager(const QString _kontestDir, const QString _softVersion)
-//FileManager::FileManager(const QString _kontestDir, const QString _softVersion, DataBase _db)
+FileManager::FileManager(const QString _klogDir, const QString _softVersion)
+//FileManager::FileManager(const QString _klogDir, const QString _softVersion, DataBase _db)
 {
-   //qDebug() << "FileManager::FileManager(): Dir(2)" << _kontestDir << endl;
+   //qDebug() << "FileManager::FileManager(): Dir(2)" << _klogDir << endl;
     util = new Utilities;
-    kontestDir = _kontestDir;
+    util->setVersion(_softVersion);
+    klogDir = util->getHomeDir();
     ignoreUnknownAlways = false;
-    world = new World(kontestDir);
+    world = new World(klogDir);
     awards = new Awards();
     db = new DataBase(0);
     //db->createBandModeMaps();
-    kontestVersion = _softVersion;
+    klogVersion = _softVersion;
     dataProxy = new DataProxy_SQLite();
     noMoreQso = false;
     util = new Utilities();
@@ -263,7 +266,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     progress.setMaximum(numberOfQsos);
     progress.setWindowModality(Qt::ApplicationModal);
 
-    out << "ADIF v2.2.7 Export from KLog\nhttp://jaime.robles.es/klog\n<PROGRAMVERSION:" << QString::number(kontestVersion.length()) << ">" << kontestVersion << "\n<PROGRAMID:7>KLOG" << endl;
+    out << "ADIF v2.2.7 Export from KLog\nhttp://jaime.robles.es/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
     out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
 
     QDateTime dateTime = (QDateTime::currentDateTime()).toUTC();
@@ -2281,8 +2284,8 @@ bool FileManager::printQs(const QStringList _line)
 
 
 bool FileManager::adifLogExportMarked(const QString& _fileName)
-{
-    return adifLogExportToFile(_fileName, true, false);
+{    
+    return adifLogExportToFile(_fileName, 0, true, false);
 }
 
 /*
@@ -3971,7 +3974,6 @@ bool FileManager::readAdif(const QString& tfileName, const int logN)
     QStringList fields = QStringList(); // Data extracted from a log file line
     QStringList currentQSOfields = QStringList(); // All the data of ONE QSO
 
-
     bool noMoreQso = false;
     bool EOR = false; // If we find the EOR, it means that the current QSO is ready to go!
     //int i = 0; // Index to run the fields
@@ -4012,7 +4014,6 @@ bool FileManager::readAdif(const QString& tfileName, const int logN)
         //    3.- Last line of one QSO includes data of the next one
 
         inHeader = false;
-
     }
 
     fields.clear();
@@ -4026,14 +4027,11 @@ bool FileManager::readAdif(const QString& tfileName, const int logN)
         //qDebug() << "FileManager::readAdif-line:" << line << endl;
         //fields.clear(); //TODO: Check if I should clear fields... I think I should not because I could loose data if a line contains data after an <EOR>
 
-
         fields << line.split("<", QString::SkipEmptyParts);
-
 
 
         while ( (!EOR) && (!fields.isEmpty()) )
         {
-
             fieldToAnalyze = (fields.takeFirst());
 
             if ( fieldToAnalyze.contains("EOR>") )
@@ -4045,7 +4043,6 @@ bool FileManager::readAdif(const QString& tfileName, const int logN)
                 currentQSOfields.clear();
 
                 EOR = true;
-
             }
             else
             {
@@ -4057,23 +4054,18 @@ bool FileManager::readAdif(const QString& tfileName, const int logN)
                     auxString = auxString + "\n" + fieldToAnalyze;
 
                     fieldToAnalyze = auxString;
-
                 }
                 currentQSOfields << fieldToAnalyze;
             }
         }
-
-
     }
-
     return true;
-
 }
 */
 
 bool FileManager::adifReqQSLExport(const QString& _fileName)
 {
-    return adifLogExportToFile(_fileName, false, true);
+    return adifLogExportToFile(_fileName, 0, false, true);
 }
 
 
@@ -4298,4 +4290,9 @@ QStringList FileManager::getListOfLogsInFile(QFile& _f)
     file.close();
 
     return logs;
+}
+
+void FileManager::setVersion(const QString _version)
+{
+    util->setVersion(_version);
 }

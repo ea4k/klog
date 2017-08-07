@@ -59,8 +59,8 @@ class World : public QWidget
 
 public:
     World();
-    World(const QString _kontestDir);
-    World(const QString _kontestDir, const QString _kontestVer);
+    World(const QString _klogDir);
+    World(const QString _klogDir, const QString _kontestVer);
 
     ~World();
     bool create(const QString _worldFile);
@@ -125,7 +125,7 @@ private:
     int progressBarPosition;
 
     bool created;
-    QString kontestDir, kontestVersion;
+    QString klogDir, kontestVersion;
     int cqz, ituz, numberOfEntities;
     QString entityName;
     QString currentPrefix; // Used in the progressBar
