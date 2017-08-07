@@ -45,6 +45,8 @@ public:
     void setCurrentLog(const int _log);
     void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
     void setVersion (const QString _version); // Defines the KLog version to be written in the exported logs
+    void setShowCallInSearch(const bool _sh);
+    void clear();
 
 public slots:
     //void slotQsoFound(QStringList _qso);

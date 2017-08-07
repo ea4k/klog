@@ -12,8 +12,7 @@ SearchWidget::SearchWidget(QWidget *parent) :
     world = new World;
 
     currentLog = -1;
-    qslingNeeded = false; // If I am searching I am not longer looking for QSO to QSL
-    
+
    //qDebug() << "SearchWidget::SearchWidget: 00092" << endl;
 
     searchResultsTreeWidget = new QTreeWidget;
@@ -28,13 +27,27 @@ SearchWidget::SearchWidget(QWidget *parent) :
     searchBoxSelectAllButton  = new QPushButton(tr("&Select All"), this);
     searchBoxReSearchButton = new QPushButton(tr("&Search"), this);
     searchAllRadioButton = new QRadioButton (tr("All"), this);
-    searchSelectAllClicked = false;
+
     stationCallSignShownInSearch = true;
 
+    clear();
 
     createUI();
 //    setDefaultData();
 //    clear();
+}
+
+void SearchWidget::clear()
+{
+    searchBoxLineEdit->clear();
+    searchResultsTreeWidget->clear();
+    qslingNeeded = false;
+    searchSelectAllClicked = false;
+}
+
+void SearchWidget::setShowCallInSearch(const bool _sh)
+{
+    stationCallSignShownInSearch = _sh;
 }
 
 void SearchWidget::setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default)
@@ -1032,7 +1045,7 @@ void SearchWidget::slotQsoDeleteFromSearch()
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::No);
         int ret = msgBox.exec();
-Acabo de implementar el delete fromsearch pero está sin probar
+
         switch (ret)
         {
             case QMessageBox::Yes:

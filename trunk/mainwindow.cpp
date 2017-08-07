@@ -66,7 +66,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
 
     InValidCharsInPrevCall = false;
-    stationCallSignShownInSearch = true;
+    //stationCallSignShownInSearch = true;
     checkNewVersions = true;
     reportInfo = false;
     configured = false;
@@ -162,11 +162,10 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //helpAboutDialog = new HelpAboutDialog(softwareVersion);
     aboutDialog = new AboutDialog(softwareVersion);
    //qDebug() << "MainWindow::MainWindow: 00092" << endl;
-
+/*
     searchResultsTreeWidget = new QTreeWidget;
     searchResultsTreeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
-    searchResultsTreeWidget->setSortingEnabled(true);
-    //searchResultsTreeWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    searchResultsTreeWidget->setSortingEnabled(true);    
     searchResultsTreeWidget->setSelectionMode(QAbstractItemView::MultiSelection);
     searchResultsTreeWidget->setMouseTracking(true);
 
@@ -176,7 +175,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     searchBoxReSearchButton = new QPushButton(tr("&Search"), this);
     searchAllRadioButton = new QRadioButton (tr("All"), this);
     searchSelectAllClicked = false;
-
+*/
    //qDebug() << "MainWindow::MainWindow: 0010" << endl;
 
     recalculateAwardsButton = new QPushButton(tr("Recalculate"), this);
@@ -463,7 +462,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     timeEdit->setTime((dateTime->currentDateTime()).time());
 
     //Search tab
-    searchBoxLineEdit = new QLineEdit;
+    //searchBoxLineEdit = new QLineEdit;
 
     // UI DX
 
@@ -501,7 +500,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     createUI();
 
 
-    createSearchResultsPanel();
+    //createSearchResultsPanel();
     loggWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
     connect(loggWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
 
@@ -2240,7 +2239,7 @@ WHERE [condition];
     return stringQuery;
 }
 
-
+/*
 void MainWindow::createSearchResultsPanel()
 {
 
@@ -2291,6 +2290,8 @@ void MainWindow::createSearchResultsPanel()
 
 }
 
+
+*/
 
 void MainWindow::createScorePanel()
 {
@@ -2487,20 +2488,18 @@ void MainWindow::createActionsCommon(){
 
 // SEARCH BOX VIEW
 
-    connect(searchBoxLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchBoxTextChanged() ) );
+    //connect(searchBoxLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchBoxTextChanged() ) );
 
-    connect(searchAllRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotSearchBoxSelectAllButtonClicked() ) );
+    //connect(searchAllRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotSearchBoxSelectAllButtonClicked() ) );
 
-    connect(searchResultsTreeWidget, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonSearch( const QPoint& ) ) );
-    connect(searchResultsTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotDoubleClickSearch(QTreeWidgetItem *, int)));
-    connect(searchResultsTreeWidget, SIGNAL(itemSelectionChanged( ) ), this, SLOT(slotSearchBoxSelectionChanged( ) ) );
+    //connect(searchResultsTreeWidget, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonSearch( const QPoint& ) ) );
+    //connect(searchResultsTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotDoubleClickSearch(QTreeWidgetItem *, int)));
+    //connect(searchResultsTreeWidget, SIGNAL(itemSelectionChanged( ) ), this, SLOT(slotSearchBoxSelectionChanged( ) ) );
 
-    //connect(searchResultsTreeWidget, SIGNAL(itemEntered ( QTreeWidgetItem *, int) ), this, SLOT(slotSearchBoxOnItemChanged( QTreeWidgetItem *, int) ) );
-
-    connect(searchBoxExportButton, SIGNAL(clicked()), this, SLOT(slotSearchExportButtonClicked() ) );
-    connect(searchBoxClearButton, SIGNAL(clicked()), this, SLOT(slotSearchClearButtonClicked() ) );
-    connect(searchBoxSelectAllButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxSelectAllButtonClicked() ) );
-    connect(searchBoxReSearchButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxReSearchButtonClicked() ) );
+    //connect(searchBoxExportButton, SIGNAL(clicked()), this, SLOT(slotSearchExportButtonClicked() ) );
+    //connect(searchBoxClearButton, SIGNAL(clicked()), this, SLOT(slotSearchClearButtonClicked() ) );
+    //connect(searchBoxSelectAllButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxSelectAllButtonClicked() ) );
+    //connect(searchBoxReSearchButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxReSearchButtonClicked() ) );
 
     connect(operatingYearsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotOperatingYearComboBoxChanged() ) ) ;
     connect(recalculateAwardsButton, SIGNAL(clicked()), this, SLOT(slotRecalculateAwardsButtonClicked() ) );
@@ -2925,13 +2924,13 @@ void MainWindow::slotQRZTextChanged()
 }
 
 
-
+/*
 void MainWindow::slotSearchBoxReSearchButtonClicked()
 {
     slotSearchBoxTextChanged();
 }
 
-/*
+
 void MainWindow::slotSearchBoxOnItemChanged( QTreeWidgetItem * item, int column)
 {
     //qDebug() << "MainWindow::slotSearchBoxOnItemChanged: " << (item->data (0, Qt::DisplayRole)).toString() << QString::number(column) << endl;
@@ -2941,6 +2940,7 @@ void MainWindow::slotSearchBoxOnItemChanged( QTreeWidgetItem * item, int column)
 }
 */
 
+/*
 void MainWindow::slotSearchClearButtonClicked()
 {
     //qDebug() << "MainWindow::slotSearchClearButtonClicked: " << endl;
@@ -2949,6 +2949,7 @@ void MainWindow::slotSearchClearButtonClicked()
     searchSelectAllClicked = false;
     qslingNeeded = false;
 }
+
 
 void MainWindow::slotSearchBoxSelectAllButtonClicked()
 {
@@ -2972,6 +2973,7 @@ void MainWindow::slotSearchBoxSelectAllButtonClicked()
     }
 
 }
+
 
 void MainWindow::slotSearchExportButtonClicked()
 {
@@ -3036,32 +3038,12 @@ void MainWindow::slotSearchExportButtonClicked()
     //qDebug() << "MainWindow::slotSearchExportButtonClicked: to call save file" << endl;
     filemanager->adifLogExportMarked(fileName);
     //qDebug() << "MainWindow::slotSearchExportButtonClicked: unmarking..." << endl;
-    //db->unMarkAllQSO();
-
-    //RECORRER EL CUADRO, MARCANDO TODOS LOS QSO EN EL LOG. DESPUES LLAMAR AL METODO QUE LO EXPORTA A UN
-      //      FICHERO
-        //    DESMARCAR.
-
-/*
-    QTreeWidgetItem *item = searchResultsTreeWidget->itemAt(pos);
-    int _qsoID;
-
-    if (item)
-    {
-        // 6 is the column in the searchResultsTreeWidget where the id is saved
-        _qsoID = ((item)->text(6)).toInt();
-
-
-    QString stringQuery = QString("UPDATE log SET marked = 'N' WHERE 1");
-    QSqlQuery query(stringQuery);
-    //qDebug() << "MainWindow::slotQSLSentViaBureauFromLog: " << stringQuery << endl;
-    query.exec(stringQuery);
-*/
-
 
 }
 
+*/
 
+/*
 void MainWindow::slotSearchBoxTextChanged()
 {
 
@@ -3200,11 +3182,7 @@ void MainWindow::slotSearchBoxTextChanged()
                 color =  awards->getQRZDXStatusColor(q);
                 //_mode = dataProxy->getSubModeFromId(_mode.toInt());
                 //_mode = db->getModeNameFromNumber(_mode.toInt());
-/*
-    awards.getQRZDXStatusColor(const QStringList _qs);
-    // Receives:  QStringList _qs;
-    //_qs << QRZ << BandId << lognumber;
-*/
+
                 QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
                 i = world->getQRZARRLId(_call);
                 aux = world->getEntityName(i) + " - CQ: " + QString::number(world->getEntityCqz(i));
@@ -3242,20 +3220,16 @@ void MainWindow::slotSearchBoxTextChanged()
         } // Closes if next.isValid
     } // Closes While
     (searchResultsTreeWidget->header())->resizeSections(QHeaderView::ResizeToContents);
-/*
-    if (((theCall.at(cursorP-1)).isSpace()) && (cursorP>1))
-    {
-        ->setText(theCall.remove(cursorP-1, 1));
-        cursorP--;
-    }
-    */
+
 
     searchBoxLineEdit->setCursorPosition(cursorP);
 
-
 }
+*/
 
-void MainWindow::slotSearchBoxSelectionChanged()
+
+/*
+ * void MainWindow::slotSearchBoxSelectionChanged()
 {// Detects when a selection has been done in the search box and changes
  // The button to clear selection
     //qDebug() << "MainWindow::slotSearchBoxSelectionChanged: "  << endl;
@@ -3264,42 +3238,15 @@ void MainWindow::slotSearchBoxSelectionChanged()
     {
         searchBoxSelectAllButton->setText(tr("&Clear selection"));
         searchSelectAllClicked = true;
-
-
     }
     else
     {
         searchBoxSelectAllButton->setText(tr("&Select All"));
         searchSelectAllClicked = false;
-
     }
-
-
-
-/*
-
-    if (searchSelectAllClicked)
-    {
-        //qDebug() << "MainWindow::slotSearchBoxSelectAllButtonClicked: UN-SELECTING" << endl;
-        searchSelectAllClicked = false;
-        searchResultsTreeWidget->clearSelection();
-        searchBoxSelectAllButton->setText(tr("&Select All"));
-
-
-    }
-    else
-    {
-        //qDebug() << "MainWindow::slotSearchBoxSelectAllButtonClicked: SELECTING" << endl;
-        searchSelectAllClicked = true;
-        searchResultsTreeWidget->selectAll();
-        searchBoxSelectAllButton->setText(tr("&Clear selection"));
-
-    }
-
-*/
-
 }
 
+*/
 void MainWindow::slotQRZSpacePressed()
 {
      //qDebug() << "MainWindow::slotQRZSpacePressed: "  << endl;
@@ -3989,7 +3936,8 @@ void MainWindow::newFile()
     qsoMultiplier = 0;
     logWindow->refresh();
     slotClearButtonClicked();
-    searchResultsTreeWidget->clear();
+    searchWidget->clear();
+    //searchResultsTreeWidget->clear();
 
 
 /*
@@ -4054,6 +4002,7 @@ void MainWindow::slotDoubleClickLog(const int _qsoID)
     //TODO: To be added to the logWindow and create an action that emist the QSO id to be edited
 }
 
+/*
 void MainWindow::slotDoubleClickSearch(QTreeWidgetItem * item, int)
 {
     //qDebug() << "MainWindow::slotDoubleClickSearch"  << endl;
@@ -4075,7 +4024,8 @@ void MainWindow::slotDoubleClickSearch(QTreeWidgetItem * item, int)
     {}
 }
 
-
+*/
+/*
 void MainWindow::slotRighButtonSearch(const QPoint& pos)
 {
     //qDebug() << "MainWindow::slotRighButtonSearch"  << endl;
@@ -4115,6 +4065,9 @@ void MainWindow::slotRighButtonSearch(const QPoint& pos)
 
 }
 
+*/
+
+/*
 void MainWindow::righButtonSearchMenu(const int trow)
 {
     //qDebug() << "MainWindow::slotshowRighButtonSearchMenu:  " << QString::number(trow) << endl;
@@ -4199,6 +4152,7 @@ void MainWindow::righButtonSearchMenu(const int trow)
 }
 
 
+
 void MainWindow::showMenuRightButtonSearchCreateActions()
 {
  //qDebug() << "MainWindow::showMenuRightButtonSearchCreateActions" << endl;
@@ -4262,6 +4216,7 @@ void MainWindow::showMenuRightButtonSearchCreateActions()
     connect(qslRecViaDirectFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectFromSearch() ));
 }
 
+
 void MainWindow::slotQSLSentViaBureuMarkDXReqFromSearch()
 {
     //qDebug() << "slotQSLSentViaBureuMarkDXReqFromSearch: " << (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
@@ -4282,6 +4237,7 @@ void MainWindow::slotQSLSentViaBureuMarkDXReqFromSearch()
     // Mark Sent, Bureau, date, update log.
 
 }
+
 
 void MainWindow::slotQSLSentViaDirectMarkDXReqFromSearch()
 {
@@ -4304,6 +4260,7 @@ void MainWindow::slotQSLSentViaDirectMarkDXReqFromSearch()
     // Mark Sent, Bureau, date, update log.
 }
 
+
 void MainWindow::slotQSLSentViaBureauFromSearch()
 {
    // //qDebug() << "MainWindow::slotQSLSentViaBureauFromSearch: " << (qslSentViaBureauFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
@@ -4320,6 +4277,7 @@ void MainWindow::slotQSLSentViaBureauFromSearch()
         slotSearchBoxTextChanged();
     }
 }
+
 
 void MainWindow::slotQSLSentViaDirectFromSearch()
 {
@@ -4339,6 +4297,7 @@ void MainWindow::slotQSLSentViaDirectFromSearch()
 
 }
 
+
 void MainWindow::slotQSLSentMarkAsRequested()
 {
    // bool qslSentAsRequested(const int _qsoId, const QString _updateDate);  
@@ -4354,6 +4313,7 @@ void MainWindow::slotQSLSentMarkAsRequested()
         slotSearchBoxTextChanged();
     }
 }
+
 
 void MainWindow::slotQSLRecMarkAsRequested()
 {
@@ -4386,6 +4346,7 @@ void MainWindow::slotQSLRecViaBureauFromSearch()
     }
 
 }
+
 
 void MainWindow::slotQSLRecViaBureauMarkReqFromSearch()
 {
@@ -4421,6 +4382,7 @@ void MainWindow::slotQSLRecViaDirectFromSearch()
     // Mark Sent, Bureau, date, update log.
 }
 
+
 void MainWindow::slotQSLRecViaDirectMarkReqFromSearch()
 {
     //qDebug() << "MainWindow::slotQSLRecViaDirectFromLog: " << (qslRecViaDirectFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
@@ -4437,11 +4399,7 @@ void MainWindow::slotQSLRecViaDirectMarkReqFromSearch()
     // Mark Sent, Bureau, date, update log.
 }
 
-
-
-
-
-
+*/
 void MainWindow::qslRecViaBureauMarkReq(const int _qsoId)
 {
    // //qDebug() << "MainWindow::qslRecViaBureau: " << QString::number(_qsoId) << "/" << (dateTime->currentDateTime()).toString("yyyy/MM/dd") << endl;
@@ -4467,8 +4425,7 @@ void MainWindow::qslRecViaDirectMarkReq(const int _qsoId)
     showAwards();
 }
 
-
-
+/*
 void MainWindow::slotQSOToEditFromSearch()
 {
     //qDebug() << "slotQSOToEditFromSearch: " << (qsoToEditFromSearchAct->data()).toString() << endl;
@@ -4542,7 +4499,7 @@ void MainWindow::slotQsoDeleteFromSearch()
 
 }
 
-
+*/
 
 
 
@@ -4689,7 +4646,7 @@ void MainWindow::readConfigData()
     if (upAndRunning)
     { // Next actions will not be executed in the first run
         slotClearButtonClicked();
-        createSearchResultsPanel();
+        //createSearchResultsPanel();
     }
 
     // I need to init the CLUBLOG
@@ -4822,7 +4779,8 @@ bool MainWindow::processConfigLine(const QString _line){
 
     else if (field=="SHOWCALLSIGNINSEARCH")
     {
-        stationCallSignShownInSearch = util->trueOrFalse(value);
+        searchWidget->setShowCallInSearch(util->trueOrFalse(value));
+        //stationCallSignShownInSearch = util->trueOrFalse(value);
     }
 
     else if (field=="CHECKNEWVERSIONS"){
@@ -5780,7 +5738,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxMarathonTopScoreLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
     dxMarathonLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
 
-    QWidget *searchTabWidget = new QWidget;
+    //QWidget *searchTabWidget = new QWidget;
     dxUpRightTab->addTab(infoTabWidget, tr("Info"));
 
     QWidget *awardsTabWidget = new QWidget;
@@ -5864,14 +5822,13 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     searchvbox->addStretch(1);
     searchgroupBox->setLayout(searchvbox);
 */
-
+/*
     QHBoxLayout *dxUpRightButtonsLayout = new QHBoxLayout;
-    //dxUpRightLineAndButtonsLayout->addWidget(searchBoxLineEdit);
-
     dxUpRightButtonsLayout->addWidget(searchBoxReSearchButton);
     dxUpRightButtonsLayout->addWidget(searchBoxClearButton);
     dxUpRightButtonsLayout->addWidget(searchBoxSelectAllButton);
     dxUpRightButtonsLayout->addWidget(searchBoxExportButton);
+*/
 /*
     QGridLayout *dxUpRightSearchTabLayout = new QGridLayout;
     //dxUpRightSearchTabLayout->addWidget(searchgroupBox, 0, 0 );
@@ -5881,7 +5838,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxUpRightSearchTabLayout->addWidget(searchResultsTreeWidget, 2, 0, -1, 0 );
 */
 
-
+/*
     QHBoxLayout *dxUpRightSearchTopLayout = new QHBoxLayout;
     dxUpRightSearchTopLayout->addWidget(searchBoxLineEdit);
     dxUpRightSearchTopLayout->addWidget(searchAllRadioButton);
@@ -5891,38 +5848,38 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     //dxUpRightSearchTabLayout->addLayout(dxUpRightLineAndButtonsLayout, 0, 1 );
     //dxUpRightSearchTabLayout->addWidget(searchBoxLineEdit);
     dxUpRightSearchTabLayout->addLayout(dxUpRightSearchTopLayout);
-    dxUpRightSearchTabLayout->addLayout(dxUpRightButtonsLayout);
+    //dxUpRightSearchTabLayout->addLayout(dxUpRightButtonsLayout);
     dxUpRightSearchTabLayout->addWidget(searchResultsTreeWidget);
 
     searchTabWidget->setLayout(dxUpRightSearchTabLayout);
-
+*/
     //searchTabWidget->setLayout(dxUpRightSearchALLLayout);
 
-    dxUpRightTab->addTab(searchTabWidget, tr("Search-Old"));
-    dxUpRightTab->addTab(searchWidget, tr("Search-NEW"));
+    //dxUpRightTab->addTab(searchTabWidget, tr("Search-Old"));
+    dxUpRightTab->addTab(searchWidget, tr("Search"));
 
-    QWidget *logTabWidget = new QWidget;
-    QWidget *dxClusterTabWidget = new QWidget;
+    //QWidget *logTabWidget = new QWidget;
+    //QWidget *dxClusterTabWidget = new QWidget;
 
 
 
-    QHBoxLayout *dxClusterTabWidgetLayout = new QHBoxLayout;
+    //QHBoxLayout *dxClusterTabWidgetLayout = new QHBoxLayout;
 
-    QHBoxLayout *logTabWidgetLayout = new QHBoxLayout;
-    logTabWidgetLayout->addWidget(logWindow);//
-    logTabWidget->setLayout(logTabWidgetLayout);
+    //QHBoxLayout *logTabWidgetLayout = new QHBoxLayout;
+    //logTabWidgetLayout->addWidget(logWindow);//
+    //logTabWidget->setLayout(logTabWidgetLayout);
 
-    dxClusterTabWidgetLayout->addWidget(dxClusterWidget);
-    dxClusterTabWidget->setLayout(dxClusterTabWidgetLayout);
+    //dxClusterTabWidgetLayout->addWidget(dxClusterWidget);
+    //dxClusterTabWidget->setLayout(dxClusterTabWidgetLayout);
 
     //QWidget *logWTabWidget = new QWidget;
     //QHBoxLayout *logWTabWidgetLayout = new QHBoxLayout;
     //logWTabWidgetLayout->addWidget(logWindow);
     //logWTabWidget->setLayout(logWTabWidgetLayout);
 
-    dxBottonTab->addTab(logTabWidget, tr("Log"));
+    dxBottonTab->addTab(logWindow, tr("Log"));
     //dxBottonTab->addTab(logTabWidget, tr("Log-old"));
-    dxBottonTab->addTab(dxClusterTabWidget, tr("DX-Cluster"));
+    dxBottonTab->addTab(dxClusterWidget, tr("DX-Cluster"));
     dxBottonTab->addTab(dxccStatusWidget, tr("DXCC"));
 
 
@@ -8159,7 +8116,7 @@ void MainWindow::slotFilePrint()
 
 
 //UPDATE CTY.CSV
-
+/*
  void MainWindow::slotToolSearchRequestedQSLToSend()
  {
 
@@ -8351,6 +8308,7 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
     }
 }
 
+*/
 //DX-CLUSTER - DXCLUSTER
 
 void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
