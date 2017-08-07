@@ -42,7 +42,7 @@ World::World()
     worldModel = new QSqlRelationalTableModel(this);
     numberOfEntities = 0;
     progressBarPosition = 0;
-    kontestDir = "";
+    klogDir = "";
     kontestVersion = "";
     locator = new Locator();
     created = false;
@@ -52,10 +52,10 @@ World::World()
 }
 
 
-World::World(const QString _kontestDir)
+World::World(const QString _klogDir)
 {
-  //qDebug() << "World::World(1): Dir" << _kontestDir << endl;
-    kontestDir = _kontestDir;
+  //qDebug() << "World::World(1): Dir" << _klogDir << endl;
+    klogDir = _klogDir;
     kontestVersion = "";
     worldModel = new QSqlRelationalTableModel(this);
     numberOfEntities = 0;
@@ -69,10 +69,10 @@ World::World(const QString _kontestDir)
 
 }
 
-World::World(const QString _kontestDir, const QString _kontestVer)
+World::World(const QString _klogDir, const QString _kontestVer)
 {
-  //qDebug() << "World::World(2): Dir" << _kontestDir << endl;
-    kontestDir = _kontestDir;
+  //qDebug() << "World::World(2): Dir" << _klogDir << endl;
+    klogDir = _klogDir;
     kontestVersion = _kontestVer;    
     worldModel = new QSqlRelationalTableModel(this);
    //qDebug() << "World::World(2): 1" << endl;
@@ -128,8 +128,8 @@ bool World::recreate(const QString _worldFile)
 bool World::create(const QString _worldFile)
 {
     //qDebug() << "World::create: " << _worldFile << endl;
-    //kontestDir = _worldFile;
-    //qDebug() << "World::create: 2 " <<  kontestDir << endl;
+    //klogDir = _worldFile;
+    //qDebug() << "World::create: 2 " <<  klogDir << endl;
 
 
     if (readCTYCSV(_worldFile))

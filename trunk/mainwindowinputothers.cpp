@@ -306,7 +306,7 @@ Returns a valid format IOTA if possible and "" in other cases.
 
 ************************************/
    //qDebug() << "MainWindowInputOthers::checkIfValidIOTA: " << _tiota << endl;
-    bool _valid = false;
+    //bool _valid = false;
     QString _continent;
     QString _number;
 

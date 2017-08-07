@@ -3,7 +3,19 @@
 Utilities::Utilities()
 {
     //dbPath = getKLogDBFile();
+    softwareVersion = "0.0";
 }
+
+void Utilities::setVersion(const QString _file)
+{
+    softwareVersion = _file;
+}
+
+QString Utilities::getVersion()
+{
+    return softwareVersion;
+}
+
 
 int Utilities::getProgresStepForDialog(int totalSteps){
   //qDebug() << "Utilities::getProgresStepForDialog";

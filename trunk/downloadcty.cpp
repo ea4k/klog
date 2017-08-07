@@ -5,12 +5,12 @@
 #include <QFile>
 //#include <QDebug>
 
-DownLoadCTY::DownLoadCTY(const QString _kontestDir, const QString _klogVersion) : QObject(0)
+DownLoadCTY::DownLoadCTY(const QString _klogDir, const QString _klogVersion) : QObject(0)
 {    
-   //qDebug() << "DownLoadCTY::DownLoadCTY(): " << _kontestDir << endl;
+   //qDebug() << "DownLoadCTY::DownLoadCTY(): " << _klogDir << endl;
     util = new Utilities;
     url = new QUrl;
-    kontestDir = _kontestDir;
+    klogDir = _klogDir;
     result = -1;  // Error unknown
 
     manager = new QNetworkAccessManager;

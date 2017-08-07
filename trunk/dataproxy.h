@@ -27,9 +27,11 @@
  *****************************************************************************/
 #include <QString>
 #include <QStringList>
+#include <QObject>
 
-class DataProxy
-{
+class DataProxy : public QObject
+{    
+    Q_OBJECT
 public:
     DataProxy();
    // DataProxy(const QStringList _qs);
@@ -126,6 +128,7 @@ public:
 
     virtual QStringList getOperatingYears(const int _currentLog);
     virtual void compressDB();
+    virtual bool unMarkAllQSO();            // Unmarks all the marked QSO
 
     virtual int getDXCConYear(const int _year, const int _logNumber);
     virtual int getCQzonYear(const int _year, const int _logNumber);
@@ -139,6 +142,7 @@ public:
     virtual int getLogTypeNumber(const QString _logType);   // Returns the number of the type of log name
     virtual QString getLogTypeName(const int _logType);     // Returns the name of the type of log number
     virtual int getLogTypeOfUserLog(const int _logN);       // Returns the type of log of a specific log
+    virtual int getLogNumberFromQSOId(const int _qsoId);    // Returns the log where the QSO id was added
 
     virtual QStringList getBandNames();
     virtual QStringList getPropModeList();
@@ -151,6 +155,7 @@ public:
     virtual QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
     virtual int getHowManyQSOInLog(const int _log);
+    virtual int getHowManyConfirmedQSLInLog(const int _log);
     virtual int getNumberOfManagedLogs();
     virtual int getMaxLogNumber();
     virtual QStringList getListOfManagedLogs();
@@ -161,6 +166,7 @@ public:
     virtual bool updateISONames(); // Update the entities ISO names for the flags
     virtual QString getISOName(const int _n);
 
+    virtual void getFoundInLog(const QString _txt, const int _log=-1);
 
 /*
     virtual bool isMultiplier(const QStringList _qs);
@@ -174,6 +180,9 @@ private:
     virtual QStringList sortBandIdBottonUp(const QStringList _qs);
    // int points;
    // int multipliers;
+
+signals:
+    void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
 
 };
 #endif // DATAPROXY_H

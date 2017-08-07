@@ -48,7 +48,7 @@ class CTYPage;
  public:
      enum { Page_Intro, Page_Lic, Page_Mem, Page_CTY };
 
-    StartWizard(const QString _kontestDir, const QString _softVersion, QWidget *parent = 0);
+    StartWizard(const QString _klogDir, const QString _softVersion, QWidget *parent = 0);
     void setVersion(QString tversion);
     //~StartWizard();
 
@@ -66,7 +66,7 @@ class CTYPage;
    CTYPage *ctyPage;
    QString version;
    bool inMemory;
-   QString kontestDir;
+   QString klogDir;
 
 };
 
@@ -131,7 +131,7 @@ class CTYPage : public QWizardPage
   {
       Q_OBJECT
   public:
-    CTYPage(const QString _kontestDir, const QString _version, QWidget *parent = 0);
+    CTYPage(const QString _klogDir, const QString _version, QWidget *parent = 0);
     void updateProgress (qint64 v,qint64 t);
 
 private slots:
@@ -158,7 +158,7 @@ signals:
     //bool isComplete();
     bool downloadCTYFile, CTYFileDownloaded;
     int downloadValueResult;
-    //QString kontestDir;
+    //QString klogDir;
     int total;
     //bool completed;
 

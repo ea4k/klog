@@ -27,11 +27,16 @@
  *****************************************************************************/
 #include <QString>
 #include <QStringList>
+#include <QObject>
 
 #include "dataproxy.h"
 #include "database.h"
 
+
+
+
 class DataProxy_SQLite : public DataProxy {
+    Q_OBJECT
 
 public:
     DataProxy_SQLite();
@@ -90,7 +95,6 @@ public:
     bool isWARC(const int _band);
     bool isVHF(const int _band);
 
-
     QString getCallFromId(const int _qsoId);
     QStringList getClubLogRealTimeFromId(const int _qsoId);
     // Complete with previous
@@ -124,6 +128,7 @@ public:
 
     QStringList getOperatingYears(const int _currentLog);
     void compressDB();
+    bool unMarkAllQSO();            // Unmarks all the marked QSO
 
     bool clearLog();
 
@@ -139,6 +144,7 @@ public:
     int getLogTypeNumber(const QString _logType);
     QString getLogTypeName(const int _logType);
     int getLogTypeOfUserLog(const int _logN);
+    int getLogNumberFromQSOId(const int _qsoId);
 
     QStringList getBandNames();
     QStringList getPropModeList();
@@ -151,6 +157,7 @@ public:
     QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
     int getHowManyQSOInLog(const int _log);
+    int getHowManyConfirmedQSLInLog(const int _log);
     int getNumberOfManagedLogs();
     QStringList getListOfManagedLogs();
     int getMaxLogNumber();
@@ -161,11 +168,19 @@ public:
     bool updateISONames(); // Update the entities ISO names for the flags
     QString getISOName(const int _n);
 
+    void getFoundInLog(const QString _txt, const int _log=-1);
+
+
 private:
     bool dbCreated;
     DataBase *db;
     QStringList sortBandIdBottonUp(const QStringList _qs);
+    bool searching;
+    int executionN;
     //QSqlRelationalTableModel *logModel;
+
+signals:
+    void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
 
 };
 

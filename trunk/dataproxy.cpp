@@ -33,7 +33,6 @@ DataProxy::DataProxy()
    //qDebug() << "DataProxy::DataProxy"  << endl;
 }
 
-
 DataProxy::~DataProxy()
 {
 }
@@ -311,6 +310,11 @@ void DataProxy::compressDB()
 
 }
 
+bool DataProxy::unMarkAllQSO()
+{
+    return false;
+}
+
 int DataProxy::getDXCConYear(const int _year, const int _logNumber)
 {
     return -1;
@@ -420,7 +424,17 @@ int DataProxy::getLogTypeOfUserLog(const int _logN)
     return -1;
 }
 
+int DataProxy::getLogNumberFromQSOId(const int _qsoId)
+{
+    return -1;
+}
+
 int DataProxy::getHowManyQSOInLog(const int _log)
+{
+    return 0;
+}
+
+int DataProxy::getHowManyConfirmedQSLInLog(const int _log)
 {
     return 0;
 }
@@ -538,4 +552,9 @@ bool DataProxy::updateISONames()
 QString DataProxy::getISOName(const int _n)
 {
     return QString();
+}
+
+void DataProxy::getFoundInLog(const QString _txt, const int _log)
+{
+    //return false;
 }

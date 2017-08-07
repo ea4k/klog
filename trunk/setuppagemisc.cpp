@@ -82,14 +82,14 @@ void SetupPageMisc::createUI()
     //TODO: To be removed when the defaultDir is saved in the config file
     #ifdef Q_OS_WIN
     //qDebug() << "WINDOWS DETECTED!"  << endl;
-    kontestDir = util->getHomeDir();  // We create the \klog for the logs and data
-    defaultFileName = kontestDir+"/klog.adi";
+    klogDir = util->getHomeDir();  // We create the \klog for the logs and data
+    defaultFileName = klogDir+"/klog.adi";
     #else
     //qDebug() << "NO WINDOWS DETECTED!"  << endl;
-    kontestDir = util->getHomeDir();  // We create the ~/.klog for the logs and data
-    defaultFileName = kontestDir+"/klog.adi";
+    klogDir = util->getHomeDir();  // We create the ~/.klog for the logs and data
+    defaultFileName = klogDir+"/klog.adi";
     #endif
-    dbDirNew = kontestDir;     // The new path where the DB is to be moved
+    dbDirNew = klogDir;     // The new path where the DB is to be moved
     dbDirCurrent = dbDirNew;       // The path where the DB is hosted
 
     defaultFileNameLineEdit->setReadOnly(false);
@@ -260,7 +260,7 @@ void SetupPageMisc::setDefaultFileName(const QString t)
 
 void SetupPageMisc::slotOpenFileButtonClicked()
 {
-    defaultFileName = QFileDialog::getOpenFileName(this, tr("Open File"), kontestDir, tr("ADIF (*.adi)"));
+    defaultFileName = QFileDialog::getOpenFileName(this, tr("Open File"), klogDir, tr("ADIF (*.adi)"));
     defaultFileNameLineEdit->setText(defaultFileName);
 }
 

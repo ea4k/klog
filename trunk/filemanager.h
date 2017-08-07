@@ -58,8 +58,8 @@ class FileManager : public QWidget
     Q_OBJECT
 public:
     FileManager();
-    FileManager(const QString _kontestDir);
-    FileManager(const QString _kontestDir, const QString _softVersion);
+    FileManager(const QString _klogDir);
+    FileManager(const QString _klogDir, const QString _softVersion);
     ~FileManager();
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
@@ -68,10 +68,11 @@ public:
     bool adifReqQSLExport(const QString& _fileName);
     bool cabrilloLogExport(const QString& _fileName, const int _contestType, const int logNconst);
     bool modifySetupFile(const QString& _filename, QString _field, const QString _value);
+    void setVersion(const QString _version);
 
 
 private:
-    bool adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked = false, bool _qslRequested = false);
+    bool adifLogExportToFile(const QString& _fileName, const int _logN=0, bool justMarked = false, bool _qslRequested = false);
     bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);
     bool cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst);
     //bool adifCheckMoreThanOneLog(QFile &_f);
@@ -98,8 +99,8 @@ private:
     //bool printQs(const QString _q, const QStringList _line);
     bool printQs(const QStringList _line);
     //int confirmed;
-    QString kontestDir;
-    QString kontestVersion;
+    QString klogDir;
+    QString klogVersion;
     //QProgressBar *progressBar;
     bool ignoreUnknownAlways;   // When importing ADIF, ignore all unknown fields.
     bool noMoreQso;

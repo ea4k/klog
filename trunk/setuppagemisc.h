@@ -79,7 +79,6 @@ private slots:
     void slotDBLineEditChanged();
     void slotMoveDBButtonClicked();
 
-
 private:
     void createActions();
     void createUI();
@@ -93,7 +92,7 @@ private:
     QLineEdit *defaultFileNameLineEdit, *dbPathLineEdit;
     QPushButton *fileNameButton, *dbPushButton, *moveDBPushButton;
 
-    QString kontestDir, dbDirNew, dbDirCurrent; //TODO: To be removed when the defaultDir is saved in the config file
+    QString klogDir, dbDirNew, dbDirCurrent; //TODO: To be removed when the defaultDir is saved in the config file
     QPalette palRight, palWrong; // To paint Text in red or black(normal)
 
     bool dbPathApplied;

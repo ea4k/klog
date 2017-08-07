@@ -53,6 +53,7 @@ Awards::Awards()
     dxccConfirmed.clear();
     wazWorked.clear();
     wazConfirmed.clear();
+    manageModes = false;
 }
 
 Awards::~Awards()
@@ -345,7 +346,7 @@ int Awards::getDXStatus (const QStringList _qs)
 
 
     bool checkingMode = true;
-    if (_mode==-1)
+    if ( (_mode==-1) || (manageModes==false))
     {
         checkingMode = false;
        //qDebug() << "Awards::getDXStatus: checkingMode = FALSE" << endl;
@@ -2085,3 +2086,7 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
         return 0;                                       // if arrives to here decision => not worked
 }
 
+void Awards::setManageModes(const bool _manageModes)
+{
+    manageModes = _manageModes;
+}

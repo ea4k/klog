@@ -60,6 +60,7 @@
 #include "softwareupdate.h"
 #include "logmodel.h"
 #include "logwindow.h"
+#include "searchwidget.h"
 
 class QTimer;
 class QDateTime;
@@ -117,7 +118,7 @@ class MainWindow : public  QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(const QString _kontestDir, const QString tversion);
+    MainWindow(const QString _klogDir, const QString tversion);
 
 private slots:
 
@@ -137,7 +138,9 @@ private slots:
     void slotSearchClearButtonClicked();
     void slotSearchBoxSelectionChanged();
     void slotSearchBoxReSearchButtonClicked();
-    //void slotSearchBoxOnItemChanged( QTreeWidgetItem * item, int column);
+
+    void showMenuRightButtonSearchCreateActions();
+    void righButtonSearchMenu(const int trow);
 
     void slotModeComboBoxChanged();
     void slotBandComboBoxChanged();
@@ -148,9 +151,12 @@ private slots:
     void slotClearButtonClicked();
     void slotUpdateTime();
     void slotLogWinShow();
+    void slotLogRefresh();
     void slotScoreWinShow();
+    void slotQSODelete(const int _id);
 
     void slotShowAwards();
+    void slotUpdateStatusBar(const QString statusm);
 
     void slotSetup(const int _page=0);
 
@@ -193,11 +199,7 @@ private slots:
 
     void slotUpdateCTYDAT();
     void slotWorldReload();
-    void slotToolSearchNeededQSLToSend();
-    void slotToolSearchRequestedQSLToSend();
-    void slotToolSearchNeededQSLPendingToReceive();
-    void slotToolSearchNeededQSLRequested();
-    void slotToolSearchQSL(const int actionQSL);
+
 
     void slotExitFromSlotDialog(const int exitID);
 
@@ -230,9 +232,15 @@ private slots:
     void slotDoubleClickSearch( QTreeWidgetItem* item, int); // Double click on a QSO in the search box
 
     void slotRecalculateAwardsButtonClicked();
+    void slotShowSearchWidget();                // The SearchWidget request being shown
 
     //SEARCH
     void slotRighButtonSearch(const QPoint& pos);
+    void slotToolSearchNeededQSLToSend();
+    void slotToolSearchRequestedQSLToSend();
+    void slotToolSearchNeededQSLPendingToReceive();
+    void slotToolSearchNeededQSLRequested();
+    void slotToolSearchQSL(const int actionQSL);
     ///SEARCH
 
     // CLUSTER
@@ -292,21 +300,13 @@ private:
     void initialContestModeConfiguration();
 
     //void createKeyEvents();
-    void updateStatusBar(const QString statusm);
+
 
     bool readCtyFile();
 
 
 
     //void righButtonFromLogMenu(const int trow);
-
-    void showMenuRightButtonSearchCreateActions();
-    void righButtonSearchMenu(const int trow);
-
-    //void qslSentViaBureau(const int _qsoId);
-    //void qslSentViaDirect(const int _qsoId);
-    //void qslRecViaBureau(const int _qsoId);
-
 
     void qslRecViaBureauMarkReq(const int _qsoId);
     void qslRecViaDirectMarkReq(const int _qsoId);
@@ -538,6 +538,8 @@ private:
     MainWindowInputEQSL *eQSLTabWidget;
     MainWindowInputQSL *QSLTabWidget;
 
+    SearchWidget *searchWidget;
+
     bool keepSatPage;
 
     // UI DX
@@ -556,7 +558,7 @@ private:
     QTimer *timer;
     QDateTime *dateTime;
 
-    QString kontestDir, ctyDatFile, defaultADIFLogFile, configFileName;
+    QString klogDir, ctyDatFile, defaultADIFLogFile, configFileName;
     QString softwareVersion;
 
 

@@ -119,7 +119,7 @@ private:
     SetupPageClubLog *clubLogPage;
 
     int pageRequested; // The page on the Dialog that is requested to be shown when you call it
-    //QString kontestDir;
+    //QString klogDir;
     QString configFileName, version;
 
     QStringList bands, modes;

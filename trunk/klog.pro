@@ -70,7 +70,8 @@ HEADERS += setupdialog.h \
     mainwindowinputeqsl.h \
     mainwindowinputqsl.h \
     setuppagebandmode.h \
-    logmodel.h
+    logmodel.h \
+    searchwidget.h
 SOURCES += main.cpp \
     aboutdialog.cpp \
     setupdialog.cpp \
@@ -110,7 +111,8 @@ SOURCES += main.cpp \
     mainwindowinputeqsl.cpp \
     mainwindowinputqsl.cpp \
     setuppagebandmode.cpp \
-    logmodel.cpp
+    logmodel.cpp \
+    searchwidget.cpp
 
 OTHER_FILES += \
     README-DEVEL \
