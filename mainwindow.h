@@ -132,15 +132,15 @@ private slots:
     void slotFreqTXChanged();
     void slotFreqRXChanged();
 
-    void slotSearchBoxTextChanged();
-    void slotSearchExportButtonClicked();
-    void slotSearchBoxSelectAllButtonClicked();
-    void slotSearchClearButtonClicked();
-    void slotSearchBoxSelectionChanged();
-    void slotSearchBoxReSearchButtonClicked();
+    //void slotSearchBoxTextChanged();
+    //void slotSearchExportButtonClicked();
+    //void slotSearchBoxSelectAllButtonClicked();
+    //void slotSearchClearButtonClicked();
+    //void slotSearchBoxSelectionChanged();
+    //void slotSearchBoxReSearchButtonClicked();
 
-    void showMenuRightButtonSearchCreateActions();
-    void righButtonSearchMenu(const int trow);
+    //void showMenuRightButtonSearchCreateActions();
+    //void righButtonSearchMenu(const int trow);
 
     void slotModeComboBoxChanged();
     void slotBandComboBoxChanged();
@@ -160,21 +160,19 @@ private slots:
 
     void slotSetup(const int _page=0);
 
+    //void slotQsoDeleteFromSearch();
+    //void slotQSLSentViaBureauFromSearch();
+    //void slotQSLSentViaDirectFromSearch();
+    //void slotQSLSentViaDirectMarkDXReqFromSearch();
 
-    //void slotQsoDeleteFromLog();
-    void slotQsoDeleteFromSearch();
-    void slotQSLSentViaBureauFromSearch();
-    void slotQSLSentViaDirectFromSearch();
-    void slotQSLSentViaDirectMarkDXReqFromSearch();
-
-    void slotQSLSentViaBureuMarkDXReqFromSearch();
-    void slotQSLRecViaDirectFromSearch();
-    void slotQSLRecViaBureauFromSearch();
-    void slotQSLRecViaDirectMarkReqFromSearch();
-    void slotQSLRecViaBureauMarkReqFromSearch();
-    void slotQSLSentMarkAsRequested();
-    void slotQSLRecMarkAsRequested();
-    void slotQSOToEditFromSearch();
+    //void slotQSLSentViaBureuMarkDXReqFromSearch();
+    //void slotQSLRecViaDirectFromSearch();
+    //void slotQSLRecViaBureauFromSearch();
+    //void slotQSLRecViaDirectMarkReqFromSearch();
+    //void slotQSLRecViaBureauMarkReqFromSearch();
+    //void slotQSLSentMarkAsRequested();
+    //void slotQSLRecMarkAsRequested();
+    //void slotQSOToEditFromSearch();
 
     void slotrstTXTextChanged();
     void slotrstRXTextChanged();
@@ -223,25 +221,24 @@ private slots:
     void slotHelpCheckUpdatesAction();
     void slotAboutQt();
        
+    void slotRecalculateAwardsButtonClicked();
 
     // logpanel
     //void slotRighButtonFromLog( const QPoint& pos);
     void slotDoubleClickLog( const int _qsoID);
     //void slotDoubleClickLog( const QModelIndex & index);
 
-    void slotDoubleClickSearch( QTreeWidgetItem* item, int); // Double click on a QSO in the search box
 
-    void slotRecalculateAwardsButtonClicked();
+    //SEARCH    
     void slotShowSearchWidget();                // The SearchWidget request being shown
-
+    //void slotDoubleClickSearch( QTreeWidgetItem* item, int); // Double click on a QSO in the search box
+    //void slotRighButtonSearch(const QPoint& pos);
+    //void slotToolSearchNeededQSLToSend();
+    //void slotToolSearchRequestedQSLToSend();
+    //void slotToolSearchNeededQSLPendingToReceive();
+    //void slotToolSearchNeededQSLRequested();
+    //void slotToolSearchQSL(const int actionQSL);
     //SEARCH
-    void slotRighButtonSearch(const QPoint& pos);
-    void slotToolSearchNeededQSLToSend();
-    void slotToolSearchRequestedQSLToSend();
-    void slotToolSearchNeededQSLPendingToReceive();
-    void slotToolSearchNeededQSLRequested();
-    void slotToolSearchQSL(const int actionQSL);
-    ///SEARCH
 
     // CLUSTER
     void slotAnalyzeDxClusterSignal(const QStringList _qs);
@@ -295,7 +292,7 @@ private:
     //void createlogModel(const int _i);
 
     void createScorePanel();
-    void createSearchResultsPanel();
+    //void createSearchResultsPanel();
 
     void initialContestModeConfiguration();
 
@@ -370,7 +367,7 @@ private:
 
 
     QWidget *mainWidget;
-    QWidget *dxClusterTabWidget, *searchTabWidget;
+    //QWidget *dxClusterTabWidget;//, *searchTabWidget;
     World *world;
     FileManager *filemanager;
     Locator *locator;
@@ -393,7 +390,7 @@ private:
     //QSqlRelationalTableModel *logModel;
     //QWidget *logPanel;
     //QTableView *logView;
-    QTreeWidget *searchResultsTreeWidget;
+    //QTreeWidget *searchResultsTreeWidget;
     QLabel *logLabel;
 
     QWidget *scoreWindow; //, dxWindow;
@@ -403,7 +400,7 @@ private:
     LogWindow *logWindow;
 
     // <UI>
-    QGroupBox *gridGroupBox, *qrzgroupBox, *searchgroupBox;
+    QGroupBox *gridGroupBox, *qrzgroupBox;//, *searchgroupBox;
     QFrame *dxUpLeftInputFrame;//, *dxUpRightOutputFrame;
 
     QLineEdit *qrzLineEdit, *nameLineEdit, *qthLineEdit, *locatorLineEdit;
@@ -467,16 +464,16 @@ private:
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
 
-    QAction *delQSOFromSearchAct;
-    QAction *qsoToEditFromSearchAct;
-    QAction *qslSentViaBureauFromSearchAct;
-    QAction *qslSentViaDirectFromSearchAct;
-    QAction *qslSentViaDirectMarkRcvReqFromSearchAct;
-    QAction *qslSentViaBureauMarkRcvReqFromSearchAct;
-    QAction *qslRecViaBureauFromSearchAct;
-    QAction *qslRecViaDirectFromSearchAct;
-    QAction *qslRecViaBureauMarkReqFromSearchAct;
-    QAction *qslRecViaDirectMarkReqFromSearchAct;
+    //QAction *delQSOFromSearchAct;
+    //QAction *qsoToEditFromSearchAct;
+    //QAction *qslSentViaBureauFromSearchAct;
+    //QAction *qslSentViaDirectFromSearchAct;
+    //QAction *qslSentViaDirectMarkRcvReqFromSearchAct;
+    //QAction *qslSentViaBureauMarkRcvReqFromSearchAct;
+    //QAction *qslRecViaBureauFromSearchAct;
+    //QAction *qslRecViaDirectFromSearchAct;
+    //QAction *qslRecViaBureauMarkReqFromSearchAct;
+    //QAction *qslRecViaDirectMarkReqFromSearchAct;
 
     QLineEdit *rstTXLineEdit;
     QLineEdit *rstRXLineEdit;
@@ -519,11 +516,11 @@ private:
     //QLineEdit *qslViaLineEdit;
 
 
-    QLineEdit *searchBoxLineEdit;
-    QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
-    QRadioButton *searchAllRadioButton;
+    //QLineEdit *searchBoxLineEdit;
+    //QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
+    //QRadioButton *searchAllRadioButton;
     QPushButton *recalculateAwardsButton;
-    bool searchSelectAllClicked, stationCallSignShownInSearch;
+    //bool searchSelectAllClicked, stationCallSignShownInSearch;
 
     bool checkNewVersions, reportInfo; // Selected in the Setup->Misc to check if new versions and report info back to KLog's servers
 

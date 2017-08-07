@@ -126,6 +126,21 @@ DXClusterWidget::DXClusterWidget(const QString &clusterToConnect, const int port
 void DXClusterWidget::addData()
 {
     //qDebug() << "DXClusterWidget::addData " << endl;
+
+    /*
+                QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
+                i = world->getQRZARRLId(_call);
+                aux = world->getEntityName(i) + " - CQ: " + QString::number(world->getEntityCqz(i));
+                item->setToolTip(0, aux);
+                item->setToolTip(1, aux);
+                item->setToolTip(2, aux);
+                item->setToolTip(3, aux);
+                item->setToolTip(4, aux);
+                item->setToolTip(5, aux);
+                item->setToolTip(6, aux);
+*/
+
+
     dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Click on connect to connect to the DX-Cluster"), awards->getDefaultColor());
 
 }
