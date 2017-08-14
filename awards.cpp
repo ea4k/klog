@@ -36,12 +36,15 @@ Awards::Awards()
     dxMarathon = new DXMarathon();
     util = new Utilities();
     //world->create();
-
-    //newOneColor = Qt::green;
-    //neededColor = Qt::darkGreen;
-    //workedColor = Qt::magenta;
-    //confirmedColor = Qt::red;
-    //defaultColor = Qt::gray;
+/*
+    newOneColor.setNamedColor("#ff0000");
+    neededColor.setNamedColor("#ff8c00");
+    workedColor.setNamedColor("#ffd700");
+    confirmedColor.setNamedColor("#32cd32");
+    defaultColor.setNamedColor("#00bfff");
+*/
+    //"Awards::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << endl;
+    //Awards::setColors:  "#ff0000" / "#ff8c00" / "#ffd700" / "#32cd32" / "#00bfff"
 
     newOneColor = Qt::black;
     neededColor = Qt::black;
@@ -291,12 +294,13 @@ bool Awards::isThisSpotConfirmed(const QStringList _qs)
     }
 
 }
+
 int Awards::getDXStatus (const QStringList _qs)
 {
 
-    //qDebug() << "Awards::getDXStatus: Call: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
+    //qDebug() << "Awards::getDXStatus: Entity: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
 // Receives:  QStringList _qs;
-//_qs << QRZ << BandId << << ModeId << lognumber;
+//_qs << Entity << BandId << << ModeId << lognumber;
 
 /*                                                                                                                  Not mode
     -1 - Error.                                                                                     - ERROR     - ERROR
@@ -336,7 +340,8 @@ int Awards::getDXStatus (const QStringList _qs)
     int _band = _qs.at(1).toInt();
     int _mode = _qs.at(2).toInt();
     int _logNumber = _qs.at(3).toInt();
-    int dxccEntity = world->getQRZARRLId(_qs.at(0) );
+    int dxccEntity = (_qs.at(0)).toInt();
+    //int dxccEntity = world->getQRZARRLId(_qs.at(0) );
     if (dxccEntity<=0)
     {
         return -1;
@@ -508,7 +513,6 @@ int Awards::getDXStatus (const QStringList _qs)
     }   // END OF SWITCH
 
     return -1;
-
 }
 
 
@@ -615,9 +619,12 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
     return 0;
 }
 
+
+
 QColor Awards::getQRZDXStatusColor(const QStringList _qs)
 {
     //qs << dxCall << spotBand << "-1" << QString::number(currentLog) ;
+    //qs << Entity << spotBand << "-1" << QString::number(currentLog) ;
 
 
     //qDebug() << "Awards::getQRZDXStatusColor qs.length: " << QString::number(_qs.length()) << endl;
@@ -627,7 +634,7 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
 
    //qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3) << endl;
     // Receives:  QStringList _qs;
-    //_qs << QRZ << BandID << ModeId << lognumber;
+    //_qs << Entity << BandID << ModeId << lognumber;
 
     /*
     0 - New One
@@ -914,7 +921,7 @@ Returns a valid format IOTA if possible and "" in other cases.
 void Awards::setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default)
 //void Awards::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
 {
-    //qDebug() << "Awards::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << endl;
+    qDebug() << "Awards::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << endl;
 
     defaultColor = QColor(_default.toUpper());
     neededColor = QColor(_needed.toUpper());

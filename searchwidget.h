@@ -48,11 +48,19 @@ public:
     void setShowCallInSearch(const bool _sh);
     void clear();
 
+    void searchToolNeededQSLToSend();
+
 public slots:
     //void slotQsoFound(QStringList _qso);
+    void slotSearchBoxTextChanged();
+    void slotToolSearchQSL(const int actionQSL);
+
+    void slotToolSearchRequestedQSLToSend();
+    void slotToolSearchNeededQSLPendingToReceive();
+    void slotToolSearchNeededQSLRequested();
 
 private slots:
-    void slotSearchBoxTextChanged();
+
     void slotDoubleClickSearch( QTreeWidgetItem* item, int); // Double click on a QSO in the search box
 
     void slotSearchExportButtonClicked();
@@ -80,11 +88,6 @@ private slots:
     void qslRecViaBureauMarkReq(const int _qsoId);
     void qslRecViaDirectMarkReq(const int _qsoId);
 
-     void slotToolSearchQSL(const int actionQSL);
-     void slotToolSearchNeededQSLToSend();
-     void slotToolSearchRequestedQSLToSend();
-     void slotToolSearchNeededQSLPendingToReceive();
-     void slotToolSearchNeededQSLRequested();
 
 signals:
     void actionQSODoubleClicked(const int _qsoid);

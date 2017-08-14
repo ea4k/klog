@@ -154,6 +154,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     dxccStatusWidget = new DXCCStatusWidget();
     logWindow = new LogWindow(this);
     searchWidget = new SearchWidget (this);
+    infoWidget = new InfoWidget(this);
 
    //qDebug() << "MainWindow::MainWindow: 0009" << endl;
 
@@ -183,8 +184,8 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     scoreTextEdit = new QTextEdit;
 
-    distShortLabelN = new QLabel;
-    distLongLabelN = new QLabel;
+    //distShortLabelN = new QLabel;
+    //distLongLabelN = new QLabel;
 
     configFileName = util->getCfgFile();
     ctyDatFile = util->getCTYFile();
@@ -316,6 +317,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     // UI DX
     infoLabel1 = new QLabel(tr("Status bar..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
+/*
     bandLabel1 = new QLabel(tr("10M"));
     bandLabel2 = new QLabel(tr("15M"));
     bandLabel3 = new QLabel(tr("20M"));
@@ -328,19 +330,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     bandLabel10 = new QLabel(tr("17M"));
     bandLabel11 = new QLabel(tr("30M"));
     bandLabel12 = new QLabel(tr("70CM"));
-    //entityPrimLabel = new QLabel(tr("Primary Div"));
-    //entitySecLabel = new QLabel(tr("Secondary Div"));
-    //iotaAwardLabel = new QLabel(tr("IOTA"));
-    //entityNameLabel = new QLabel(tr("Entity"));
-    //propModeLabel = new QLabel(tr("Propagation mode"));
-    //iotaContinentComboBox = new QComboBox;
-    //entityPrimDivComboBox = new QComboBox;
-    //entitySecDivComboBox = new QComboBox;
-    //entityNameComboBox = new QComboBox;
-    //propModeComboBox = new QComboBox;
 
-    //notesTextEdit = new QTextEdit;
-    //commentLineEdit = new QLineEdit;
     continentLabel = new QLabel;
     prefixLabel = new QLabel;
     cqzLabel = new QLabel;
@@ -348,7 +338,8 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     gradShortLabel = new QLabel;
     distShortLabel = new QLabel;
     gradLongLabel = new QLabel;
-    distLongLabel = new QLabel;    
+    distLongLabel = new QLabel;
+*/
     //logPanel = new QWidget;
     loggWinAct = new QAction(tr("&Log Window"), this);
     scoreeWinAct = new QAction(tr("&Score Window"), this);
@@ -667,7 +658,7 @@ void MainWindow::slotModeComboBoxChanged()
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
-    _qs << currentQrz << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
+    _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
     showStatusOfDXCC(_qs);
 }
 
@@ -700,7 +691,7 @@ void MainWindow::slotBandComboBoxChanged(){
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
-    _qs << currentQrz << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
+    _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
 
 
     showStatusOfDXCC(_qs);
@@ -2529,8 +2520,11 @@ void MainWindow::createActionsCommon(){
     connect(searchWidget, SIGNAL(toStatusBar(QString) ), this, SLOT(slotUpdateStatusBar(QString) ) );
     connect(searchWidget, SIGNAL(requestBeingShown() ), this, SLOT(slotShowSearchWidget() ) );
     connect(searchWidget, SIGNAL(actionQSODelete( int ) ), this, SLOT(slotQSODelete(int) ) );
+}
 
-
+void MainWindow::slotSearchBoxTextChanged()
+{
+    searchWidget->slotSearchBoxTextChanged();
 }
 
 void MainWindow::slotQSODelete(const int _id)
@@ -2540,7 +2534,9 @@ void MainWindow::slotQSODelete(const int _id)
 
 void MainWindow::slotShowSearchWidget()
 {
-    dxUpRightTab->setCurrentIndex(2);
+    //dxUpRightTab->addTab(searchWidget, tr("Search"));
+
+    dxUpRightTab->setCurrentIndex(dxUpRightTab->indexOf(searchWidget));
 }
 
 void MainWindow::slotLogRefresh()
@@ -2740,13 +2736,17 @@ bool MainWindow::validCharactersInCall(const QString _qrz)
 
 void MainWindow::slotQRZTextChanged()
 {    
-  //qDebug()<< "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######" << endl;
+  qDebug()<< "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######" << endl;
+  qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
     if (cleaning)
     {
+        qDebug()<< "MainWindow::slotQRZTextChanged: Cleaning" << endl;
         return;
     }
+
     if (qrzAutoChanging)
     {
+        qDebug()<< "MainWindow::slotQRZTextChanged: qrzAutoChanging" << endl;
         qrzAutoChanging = false;
         return;
     }
@@ -2759,12 +2759,13 @@ void MainWindow::slotQRZTextChanged()
         previousQrz = (qrzLineEdit->text()).simplified();
         qrzLineEdit->setText(previousQrz);
         SRXLineEdit->setFocus();
-    //qDebug()<< "MainWindow::slotQRZTextChanged: Space detected" << endl;
+        qDebug()<< "MainWindow::slotQRZTextChanged: Space detected" << endl;
     }
 
+    qDebug()<< "MainWindow::slotQRZTextChanged: Simplifiying & Capitalizing" << endl;
     qrzLineEdit->setText(((qrzLineEdit->text())).simplified());    
     qrzLineEdit->setText((qrzLineEdit->text()).remove(" "));
-    qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
+    //qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
 
     if (!validCharactersInCall(qrzLineEdit->text()))
     {
@@ -2850,8 +2851,16 @@ void MainWindow::slotQRZTextChanged()
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
-    _qs << currentQrz << QString::number(currentBand) << QString::number(currentMode) << QString::number(currentLog);
+    _qs << QString::number(currentEntity) << QString::number(currentBand) << QString::number(currentMode) << QString::number(currentLog);
 
+    if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) )
+    {
+        dxLocator = (locatorLineEdit->text()).toUpper();
+    }
+    else
+    {
+        dxLocator = world->getLocator(currentEntity);
+    }
 
    // NOW ONLY SPECIFIC ACTIONS DEPENDING ON THE RUNNING MODE
 
@@ -2889,7 +2898,12 @@ void MainWindow::slotQRZTextChanged()
             //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << endl;
                 previousEntity = currentEntity;
                 InValidCharsInPrevCall = false;
-                showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
+                infoLabel2->setText(world->getEntityName(currentEntity));
+                infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
+                infoWidget->showDistanceAndBearing(myLocator, dxLocator);
+
+
+
                 showStatusOfDXCC(_qs);
                 showDXMarathonNeeded(currentEntity, dx_CQz, dateEdit->date().year(), currentLog);
                 othersTabWidget->setIOTAContinentFromEntity(currentEntity);
@@ -2907,7 +2921,9 @@ void MainWindow::slotQRZTextChanged()
         }
         else if ((dx_CQz == dxE_CQz) || (dx_ITUz = dxE_ITUz))
         {
-            showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
+            infoLabel2->setText(world->getEntityName(currentEntity));            
+
+            infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
         }
         else
         {
@@ -3390,10 +3406,10 @@ void MainWindow::slotClearButtonClicked()
             //propModeComboBox->setCurrentIndex(0);
             //iotaContinentComboBox->setCurrentIndex(0);
             //iotaNumberLineEdit->setText("000");
-            continentLabel->setText("");
-            prefixLabel->setText("");
-            cqzLabel->setText("0");
-            ituzLabel->setText("0");
+            //continentLabel->setText("");
+            //prefixLabel->setText("");
+            //cqzLabel->setText("0");
+            //ituzLabel->setText("0");
 /*
             if (!keepMyData)
             {
@@ -3414,15 +3430,16 @@ void MainWindow::slotClearButtonClicked()
             satTabWidget->clear();
             myDataTabWidget->clear(keepMyData);
             
-
-            clearInfoFromLocators();
-            clearBandLabels();
+            infoWidget->clear();
+            //infoWidget->clearInfoFromLocators();
+            //infoWidget->clearBandLabels();
         break;
     }
     statusBar()->clearMessage();
     cleaning = false;
 }
 
+/*
 void MainWindow::clearBandLabels()
 {
     bandLabel1->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
@@ -3438,6 +3455,8 @@ void MainWindow::clearBandLabels()
     bandLabel11->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
     bandLabel12->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
 }
+*/
+
 void MainWindow::slotUpdateTime()
 {
    // //qDebug() << "MainWindow::slotUpdateTime: " << (dateTime->currentDateTime()).toString("yyyy-MM-dd - hh:mm:ss") << endl;
@@ -3599,7 +3618,8 @@ void MainWindow::createMenusCommon()
     findQSO2QSLAct = new QAction(tr("&Find QSO to QSL"), this);
     toolMenu->addAction(findQSO2QSLAct);
     //findQSO2QSLAct->setMenuRole(QAction::ApplicationSpecificRole);
-    connect(findQSO2QSLAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLToSend()));
+
+    connect(findQSO2QSLAct, SIGNAL(triggered()), this, SLOT(slotSearchToolNeededQSLToSend()));
     findQSO2QSLAct->setToolTip(tr("Shows QSO that are needed and you should send your QSL and request the DX-QSL"));
 
     findRequestedQSLAct = new QAction(tr("Find &requested MY-QSL"), this);
@@ -3655,6 +3675,26 @@ void MainWindow::createMenusCommon()
     
     
  }
+
+void MainWindow::slotSearchToolNeededQSLToSend()
+{
+    searchWidget->searchToolNeededQSLToSend();
+}
+
+void MainWindow::slotToolSearchRequestedQSLToSend()
+{
+    searchWidget->slotToolSearchRequestedQSLToSend();
+}
+
+void MainWindow::slotToolSearchNeededQSLPendingToReceive()
+{
+    searchWidget->slotToolSearchNeededQSLPendingToReceive();
+}
+
+void MainWindow::slotToolSearchNeededQSLRequested()
+{
+    searchWidget->slotToolSearchNeededQSLRequested();
+}
 
 void MainWindow::slotAboutQt()
 {
@@ -4228,7 +4268,7 @@ void MainWindow::slotQSLSentViaBureuMarkDXReqFromSearch()
 
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -4251,7 +4291,7 @@ void MainWindow::slotQSLSentViaDirectMarkDXReqFromSearch()
 
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -4270,7 +4310,7 @@ void MainWindow::slotQSLSentViaBureauFromSearch()
     //qslSentViaBureau(_qsoId);
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -4286,7 +4326,7 @@ void MainWindow::slotQSLSentViaDirectFromSearch()
     dataProxy->qslSentViaDirect(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -4306,7 +4346,7 @@ void MainWindow::slotQSLSentMarkAsRequested()
     dataProxy->qslSentAsRequested(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -4321,7 +4361,7 @@ void MainWindow::slotQSLRecMarkAsRequested()
     dataProxy->qslRecAsRequested(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -4338,7 +4378,7 @@ void MainWindow::slotQSLRecViaBureauFromSearch()
     logWindow->qslRecViaBureau(_qsoId);
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -4356,7 +4396,7 @@ void MainWindow::slotQSLRecViaBureauMarkReqFromSearch()
     qslRecViaBureauMarkReq(_qsoId);
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -4373,7 +4413,7 @@ void MainWindow::slotQSLRecViaDirectFromSearch()
     logWindow->qslRecViaDirect(_qsoId);
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -4390,7 +4430,7 @@ void MainWindow::slotQSLRecViaDirectMarkReqFromSearch()
     qslRecViaDirectMarkReq(_qsoId);
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -4464,7 +4504,7 @@ void MainWindow::slotQsoDeleteFromSearch()
             {
                 if(qslingNeeded)
                 {
-                    slotToolSearchNeededQSLToSend();
+                    searchToolNeededQSLToSend();
                 }
                 else
                 {
@@ -4615,7 +4655,8 @@ void MainWindow::readConfigData()
         useDefaultLogFileName = false;
     }
 
-
+    infoWidget->setImperialSystem(imperialSystem);
+/*
     if (imperialSystem)
     {
         distShortLabelN->setText(tr("Miles"));
@@ -4628,7 +4669,9 @@ void MainWindow::readConfigData()
         distShortLabelN->setText(tr("Km"));
         distLongLabelN->setText(tr("Km"));
     }
-    showEntityInfo(currentEntity);
+    */
+    infoLabel2->setText(world->getEntityName(currentEntity));
+    infoWidget->showEntityInfo(currentEntity);
 
     //lastPower = myPower;
     //lastOperatorQRZ = operatorQRZ;
@@ -4663,7 +4706,9 @@ void MainWindow::readConfigData()
     util->setVersion(softwareVersion);
     searchWidget->setVersion(softwareVersion);
     searchWidget->setCurrentLog(currentLog);
+    infoWidget->setCurrentLog(currentLog);
     searchWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
+    infoWidget->setColors(newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
 
 //qDebug() << "MainWindow::slotReadConfigData - END" << endl;
 
@@ -5622,7 +5667,7 @@ void MainWindow::createUIDX()
     infoLabel1->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     infoLabel2->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
-
+/*
     bandLabel1->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     bandLabel2->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     bandLabel3->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
@@ -5699,9 +5744,10 @@ void MainWindow::createUIDX()
     QHBoxLayout *dxUpRightInfoTabmini4Layout = new QHBoxLayout;
     dxUpRightInfoTabmini4Layout->addLayout(dxUpRightInfoTabmini2Layout);
     dxUpRightInfoTabmini4Layout->addLayout(dxUpRightInfoTabmini3Layout);
+*/
 
-    QWidget *infoTabWidget = new QWidget;
-
+    //QWidget *infoTabWidget = new QWidget;
+/*
     QGridLayout *dxUpRightInfoBandsTabLayout = new QGridLayout;
     dxUpRightInfoBandsTabLayout->addWidget(bandLabel1, 0, 0);
     dxUpRightInfoBandsTabLayout->addWidget(bandLabel2, 0, 1);
@@ -5723,6 +5769,7 @@ void MainWindow::createUIDX()
 
 
     infoTabWidget->setLayout(dxUpRightInfoTabLayout);
+*/
 /*
 addLayout ( QLayout * layout, int row, int column,
 int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
@@ -5739,7 +5786,9 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxMarathonLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
 
     //QWidget *searchTabWidget = new QWidget;
-    dxUpRightTab->addTab(infoTabWidget, tr("Info"));
+   // dxUpRightTab->addTab(infoTabWidget, tr("Info-Old"));
+    dxUpRightTab->addTab(infoWidget, tr("Info"));
+
 
     QWidget *awardsTabWidget = new QWidget;
 
@@ -6149,6 +6198,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxMarathonTopScoreLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     dxMarathonLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
 
+    /*
     continentLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     continentLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     prefixLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
@@ -6181,6 +6231,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     bandLabel10->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     bandLabel11->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     bandLabel12->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
+*/
     infoLabel1->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     infoLabel2->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
 
@@ -7207,8 +7258,8 @@ void MainWindow::qsoToEdit (const int _qso)
                     propModeComboBox->setCurrentIndex(0);
                 }
 */
-
-                showEntityInfo(currentEntity);
+                infoLabel2->setText(world->getEntityName(currentEntity));
+                infoWidget->showEntityInfo(currentEntity);
                 //selectCorrectComboBoxEntity(currentEntity);
                //qDebug() << "MainWindow::qsoToEdit: " << QString::number(currentEntity) << endl;
                 othersTabWidget->setEntity(currentEntity);
@@ -7218,7 +7269,7 @@ void MainWindow::qsoToEdit (const int _qso)
                 _qs.clear();
                 //TODO: The band sometimes fails here. Check
 
-                _qs << currentQrz << QString::number(dataProxy->getIdFromBandName(bandComboBox->currentText())) << QString::number(dataProxy->getIdFromBandName(modeComboBox->currentText()))  << QString::number(currentLog);
+                _qs << QString::number(currentEntity) << QString::number(dataProxy->getIdFromBandName(bandComboBox->currentText())) << QString::number(dataProxy->getIdFromBandName(modeComboBox->currentText()))  << QString::number(currentLog);
 
 
                 //qDebug() << "MainWindow::qsoToEdit: - in default - 104"  << endl;
@@ -7457,6 +7508,7 @@ void MainWindow::sloteQSLSentComboBoxChanged(){
 }
 */
 
+/*
 void MainWindow::showInfoFromLocators(const QString _loc1, const QString _loc2)
 {// Local / DX
     //qDebug() << "MainWindow::showInfoFromLocators: " << _loc1 << "/" << _loc2 << endl;
@@ -7487,24 +7539,28 @@ void MainWindow::showInfoFromLocators(const QString _loc1, const QString _loc2)
         }
         else
         {
-            clearInfoFromLocators();
+            infoWidget->clear();
+            //infoWidget->clearInfoFromLocators();
             return;
         }
     }
     else
     {
-        clearInfoFromLocators();
+        infoWidget->clear();
+        //infoWidget->clearInfoFromLocators();
         return ;
     }
 }
 
+*/
 void MainWindow::slotLocatorTextChanged()
-{
+{//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
     //qDebug() << "MainWindow::slotLocatorTextChanged: " << locatorLineEdit->text() << endl;
     if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) )
     {
         dxLocator = (locatorLineEdit->text()).toUpper();
-        showInfoFromLocators(myLocator, dxLocator);
+        infoWidget->showDistanceAndBearing(myLocator, dxLocator);
+        //showInfoFromLocators(myLocator, dxLocator);
     }
     else
     {
@@ -7528,7 +7584,7 @@ void MainWindow::slotMyLocatorTextChanged()
     }
 }
 
-
+/*
 void MainWindow::clearInfoFromLocators()
 {
     //qDebug() << "MainWindow::clearInfoFromLocators" << endl;
@@ -7538,6 +7594,9 @@ void MainWindow::clearInfoFromLocators()
     distLongLabel->setText( "0" );
 }
 
+*/
+
+/*
 void MainWindow::showEntityInfo(const int _enti, int _cq, int _itu)
 {
   //qDebug() << "MainWindow::showEntityInfo" << QString::number(_enti) << endl;
@@ -7546,24 +7605,6 @@ void MainWindow::showEntityInfo(const int _enti, int _cq, int _itu)
     {
         return;
     }
-
-/* TO paint a flag of the Worked entity
-    QString flagSt;
-    flagSt.clear();
-    QString aux;
-    aux = dataProxy->getISOName(_enti);
-    if (aux.length()>1)
-    {
-        flagSt = ":/" + aux + ".png";
-    }
-    else
-    {
-        flagSt.clear();
-    }
-
-    flagSt = ":/flags/" + dataProxy->getISOName(_enti) + ".png";
-    flagIcon->setIcon(QIcon(flagSt));
-*/
 
     infoLabel2->setText(world->getEntityName(_enti));
     continentLabel->setText( world->getContinentShortName(_enti) );
@@ -7578,7 +7619,7 @@ void MainWindow::showEntityInfo(const int _enti, int _cq, int _itu)
         dxLocator = world->getLocator(_enti);
     }
 
-    showInfoFromLocators (myLocator, dxLocator);
+    infoWidget->showDistanceAndBearing (myLocator, dxLocator);
 
     int i = -1;
 
@@ -7617,6 +7658,7 @@ void MainWindow::showEntityInfo(const int _enti, int _cq, int _itu)
     }
 
 }
+*/
 
 void MainWindow::showStatusOfDXCC(const QStringList _qs)
 {
@@ -7637,7 +7679,7 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
 
     if ((_qs.length() != 4) || (_qs.at(1) == "-1")) // is the qs valid?
     {
-        clearBandLabels();
+        infoWidget->clear();
         infoLabel1->setText(tr("--"));
         return;
     }
@@ -7649,33 +7691,7 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
 
     message = awards->getDXStatusString(status);
     infoLabel1->setText(message);
-
-    //Run all the bandLabel1-12 to set the appropriate color
-    // qs.at(0) = QRZ
-    bandLabel1->setStyleSheet(getStyleColorToLabelFromBand(bandLabel1->text(), _qs.at(0)));    
-    bandLabel2->setStyleSheet(getStyleColorToLabelFromBand(bandLabel2->text(), _qs.at(0)));
-    bandLabel3->setStyleSheet(getStyleColorToLabelFromBand(bandLabel3->text(), _qs.at(0)));
-    bandLabel4->setStyleSheet(getStyleColorToLabelFromBand(bandLabel4->text(), _qs.at(0)));
-    bandLabel5->setStyleSheet(getStyleColorToLabelFromBand(bandLabel5->text(), _qs.at(0)));
-    bandLabel6->setStyleSheet(getStyleColorToLabelFromBand(bandLabel6->text(), _qs.at(0)));
-    bandLabel7->setStyleSheet(getStyleColorToLabelFromBand(bandLabel7->text(), _qs.at(0)));
-    bandLabel8->setStyleSheet(getStyleColorToLabelFromBand(bandLabel8->text(), _qs.at(0)));
-    bandLabel9->setStyleSheet(getStyleColorToLabelFromBand(bandLabel9->text(), _qs.at(0)));
-    bandLabel10->setStyleSheet(getStyleColorToLabelFromBand(bandLabel10->text(), _qs.at(0)));
-    bandLabel11->setStyleSheet(getStyleColorToLabelFromBand(bandLabel11->text(), _qs.at(0)));
-    bandLabel12->setStyleSheet(getStyleColorToLabelFromBand(bandLabel12->text(), _qs.at(0)));
-}
-
-QString MainWindow::getStyleColorToLabelFromBand(const QString _b, const QString _q)
-{
-    //qDebug() << "MainWindow::getStyleColorToLabelFromBand: " << _b << "/" << _q << endl;
-   QStringList _qs;
-    _qs.clear();
-    _qs << _q << QString::number(db->getBandIdFromName(_b)) << QString::number(-1) << QString::number(currentLog);
-    //TODO: Check if we can know the mode and replace the -1
-    //qDebug() << "MainWindow::getStyleColorToLabelFromBand (Band/background-color): " << _b << (awards->getQRZDXStatusColor(_qs)).name()  << endl;
-    return "* { background-color: " + (awards->getQRZDXStatusColor(_qs)).name() + "; }";
-
+    infoWidget->showInfo((_qs.at(0)).toInt(), (_qs.at(1)).toInt(), (_qs.at(2)).toInt(), (_qs.at(3)).toInt() );
 }
 
 
@@ -8125,7 +8141,7 @@ void MainWindow::slotFilePrint()
      //return;
  }
 
-void MainWindow::slotToolSearchNeededQSLToSend()
+void MainWindow::searchToolNeededQSLToSend()
 {
    //qDebug() << "MainWindow::slotToolSearchQSLToSend - TO PREPARE THE QUERY and optimize the function" << endl;
     slotToolSearchQSL(0);
@@ -8159,7 +8175,7 @@ void MainWindow::slotToolSearchQSL(const int actionQSL)
 
     switch (actionQSL)
     {
-        case 0://void slotToolSearchNeededQSLToSend();
+        case 0://void searchToolNeededQSLToSend();
          //aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
          //qDebug() << "MainWindow::slotToolSearchQSL: CASE 0" << endl;
          stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R' AND log.lognumber='%1'").arg(currentLog);
@@ -8315,6 +8331,7 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
 {
    //qDebug() << "MainWindow::slotAnalyzeDxClusterSignal: 1: " << ql.at(0) <<"/1: " << ql.at(1) << "/2: " << ql.at(2) << endl;
     QStringList qls;
+    int _entity = world->getQRZARRLId(ql.at(0));
     qls.clear();
     QString _mode = "-1";
     if (!manageMode)
@@ -8330,13 +8347,15 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
         }
         else if ((ql.at(2)) == "selected")
         {
-            showEntityInfo(   world->getQRZARRLId(ql.at(0))  );
+            infoLabel2->setText(world->getEntityName(_entity));            
+
+            infoWidget->showEntityInfo( _entity );
 
             // Becareful, he Frecuency arrives in KHz instead of bandid!!
             // db.getBandFromFreq expects a MHz!
             //(ql.at(1)).toDouble()
 
-            qls << ql.at(0) << QString::number(dataProxy->getBandIdFromFreq((ql.at(1).toDouble()/1000))) << _mode <<  QString::number(currentLog);
+            qls << QString::number(_entity) << QString::number(dataProxy->getBandIdFromFreq((ql.at(1).toDouble()/1000))) << _mode <<  QString::number(currentLog);
             // We use a mode = -1 because we don't know the mode info from the DXCluster spot
 
             // TODO: Check if we can know the mode and replace the "-1" in previous sentence
