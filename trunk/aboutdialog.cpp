@@ -31,7 +31,18 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
 
     const QString br = QLatin1String("<br/>");
 
-    const QString description = "<center><h2>KLog " + tversion + "</h2><h4> " +tr("By")+ " <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a> - 2002-2017</h4></center><br>" + tr("KLog is a free logging software for hamradio operators.") +"<br><br><b>" + tr("Please know that this is an BETA release and it may contain many bugs.<br>Backup your data before using this software!") + "</b><br><br>" + tr("KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, macOS & Windows) and provide new functionalities that KLog was not providing.") + "<br><br>" + tr("Find more information and latest release at<br>") + "<a href=http://www.klog.xyz>http://www.klog.xyz</a><br><br>" + tr("Author") + ": <a href=http://jaime.robles.es/klog>Jaime Robles</a>, <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a><br><a href=mailto:jaime@robles.es>jaime@robles.es</a>";
+    const QString description = "<center><h2>KLog " + tversion + "</h2><h4> " +tr("By") +
+            " <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a> - 2002-2017</h4></center><br>" +
+            tr("KLog is a free logging software for hamradio operators.") +"<br><br><b>" +
+            tr("Please know that this is an BETA release and it may contain many bugs.<br>Backup your data before using this software!") +
+            "</b><br><br>" +
+            tr("KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, macOS & Windows) and provide new functionalities that KLog was not providing.") +
+            "<br><br>" +
+            tr("Please provide your review in KLog's eHam review page:") +
+            "<bR>" +
+            "<a href=http://www.eham.net/reviews/detail/3118>http://www.eham.net/reviews/detail/3118</a><br><br>" +
+            tr("Find more information and latest release at<br>") + "<a href=http://www.klog.xyz>http://www.klog.xyz</a><br><br>" +
+            tr("Author") + ": <a href=http://jaime.robles.es/klog>Jaime Robles</a>, <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a><br><a href=mailto:jaime@robles.es>jaime@robles.es</a>";
 
 
     QLabel *copyRightLabel = new QLabel(description);

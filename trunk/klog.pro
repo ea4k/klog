@@ -71,7 +71,8 @@ HEADERS += setupdialog.h \
     mainwindowinputqsl.h \
     setuppagebandmode.h \
     logmodel.h \
-    searchwidget.h
+    searchwidget.h \
+    infowidget.h
 SOURCES += main.cpp \
     aboutdialog.cpp \
     setupdialog.cpp \
@@ -112,7 +113,8 @@ SOURCES += main.cpp \
     mainwindowinputqsl.cpp \
     setuppagebandmode.cpp \
     logmodel.cpp \
-    searchwidget.cpp
+    searchwidget.cpp \
+    infowidget.cpp
 
 OTHER_FILES += \
     README-DEVEL \
@@ -144,6 +146,8 @@ TRANSLATIONS = translations/klog_es.ts \
     translations/klog_ca.ts \
     translations/klog_hr.ts \
     translations/klog_it.ts \
+    translations/klog_pl.ts \
+    translations/klog_template.ts \
     translations/klog_ja.ts
 
 # deploy

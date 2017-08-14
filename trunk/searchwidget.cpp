@@ -818,7 +818,7 @@ void SearchWidget::slotQSLSentViaBureuMarkDXReqFromSearch()
 
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -840,7 +840,7 @@ void SearchWidget::slotQSLSentViaDirectMarkDXReqFromSearch()
 
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -860,7 +860,7 @@ void SearchWidget::slotQSLSentViaBureauFromSearch()
     //qslSentViaBureau(_qsoId);
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -875,7 +875,7 @@ void SearchWidget::slotQSLSentViaDirectFromSearch()
     dataProxy->qslSentViaDirect(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -895,7 +895,7 @@ void SearchWidget::slotQSLSentMarkAsRequested()
     dataProxy->qslSentAsRequested(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -909,7 +909,7 @@ void SearchWidget::slotQSLRecMarkAsRequested()
     dataProxy->qslRecAsRequested(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -928,7 +928,7 @@ void SearchWidget::slotQSLRecViaBureauFromSearch()
 
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -944,7 +944,7 @@ void SearchWidget::slotQSLRecViaBureauMarkReqFromSearch()
     qslRecViaBureauMarkReq(_qsoId);
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -962,7 +962,7 @@ void SearchWidget::slotQSLRecViaDirectFromSearch()
     dataProxy->qslRecViaDirect(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -978,7 +978,7 @@ void SearchWidget::slotQSLRecViaDirectMarkReqFromSearch()
     qslRecViaDirectMarkReq(_qsoId);
     if(qslingNeeded)
     {
-        slotToolSearchNeededQSLToSend();
+        searchToolNeededQSLToSend();
     }
     else
     {
@@ -1057,7 +1057,7 @@ void SearchWidget::slotQsoDeleteFromSearch()
                 emit logRefresh();
                 if(qslingNeeded)
                 {
-                    slotToolSearchNeededQSLToSend();
+                    searchToolNeededQSLToSend();
                 }
                 else
                 {
@@ -1101,7 +1101,7 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
 
     switch (actionQSL)
     {
-        case 0://void slotToolSearchNeededQSLToSend();
+        case 0://void searchToolNeededQSLToSend();
          //aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
          //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 0" << endl;
          stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R' AND log.lognumber='%1'").arg(currentLog);
@@ -1253,7 +1253,7 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
     }
 }
 
-void SearchWidget::slotToolSearchNeededQSLToSend()
+void SearchWidget::searchToolNeededQSLToSend()
 {
    //qDebug() << "SearchWidget::slotToolSearchQSLToSend - TO PREPARE THE QUERY and optimize the function" << endl;
     slotToolSearchQSL(0);

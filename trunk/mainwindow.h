@@ -61,6 +61,7 @@
 #include "logmodel.h"
 #include "logwindow.h"
 #include "searchwidget.h"
+#include "infowidget.h"
 
 class QTimer;
 class QDateTime;
@@ -132,7 +133,11 @@ private slots:
     void slotFreqTXChanged();
     void slotFreqRXChanged();
 
-    //void slotSearchBoxTextChanged();
+    void slotSearchBoxTextChanged();
+    void slotSearchToolNeededQSLToSend();
+    void slotToolSearchRequestedQSLToSend();
+    void slotToolSearchNeededQSLPendingToReceive();
+    void slotToolSearchNeededQSLRequested();
     //void slotSearchExportButtonClicked();
     //void slotSearchBoxSelectAllButtonClicked();
     //void slotSearchClearButtonClicked();
@@ -192,12 +197,9 @@ private slots:
     //void slotLotwRecvComboBoxChanged();
     //void slotLotwSentComboBoxChanged();
 
-
     void slotSetPropMode(const QString _p);
-
     void slotUpdateCTYDAT();
     void slotWorldReload();
-
 
     void slotExitFromSlotDialog(const int exitID);
 
@@ -210,8 +212,6 @@ private slots:
     bool saveFile(const QString _fileName);
     bool saveFileAs();
     bool slotOpenKLogFolder();
-
-
 
     void slotFilePrint();
     //void slotFileClose();
@@ -228,13 +228,11 @@ private slots:
     void slotDoubleClickLog( const int _qsoID);
     //void slotDoubleClickLog( const QModelIndex & index);
 
-
     //SEARCH    
     void slotShowSearchWidget();                // The SearchWidget request being shown
     //void slotDoubleClickSearch( QTreeWidgetItem* item, int); // Double click on a QSO in the search box
     //void slotRighButtonSearch(const QPoint& pos);
     //void slotToolSearchNeededQSLToSend();
-    //void slotToolSearchRequestedQSLToSend();
     //void slotToolSearchNeededQSLPendingToReceive();
     //void slotToolSearchNeededQSLRequested();
     //void slotToolSearchQSL(const int actionQSL);
@@ -339,15 +337,14 @@ private:
     void readActiveBands (const QStringList actives);
     void readActiveModes (const QStringList actives);
 
-
     void qsoToEdit (const int _qso);
-    void showInfoFromLocators(const QString _loc1, const QString _loc2);
-    void clearInfoFromLocators();
+    //void showInfoFromLocators(const QString _loc1, const QString _loc2);
+    //void clearInfoFromLocators();
     void completeWithPreviousQSO(const QString _call);
 
     //void showQRZEntityInfo(const QString _qrz);
-    void showEntityInfo(const int _enti, int _cq=-1, int _itu=-1);
-    QString getStyleColorToLabelFromBand(const QString _b, const QString _q);
+    //void showEntityInfo(const int _enti, int _cq=-1, int _itu=-1);
+    //QString getStyleColorToLabelFromBand(const QString _b, const QString _q);   // Band, Entity
     void showAwards();
     void showDXMarathon(const int _year);
     void updateQSLRecAndSent();
@@ -380,11 +377,8 @@ private:
     AboutDialog *aboutDialog;
 
     QPushButton *addButton;
-    QLabel *distShortLabelN;
-    QLabel *distLongLabelN;
-
-    //QLabel distShortLabelN;
-    //QLabel distLongLabelN;
+    //QLabel *distShortLabelN;
+    //QLabel *distLongLabelN;
 
     DXCCStatusWidget *dxccStatusWidget;
     //QSqlRelationalTableModel *logModel;
@@ -412,14 +406,11 @@ private:
 
     QTabWidget *dxBottonTab, *dxUpLeftTab, *dxUpRightTab;
 
-
     QMenu *fileMenu;
     QMenu *toolMenu;
     QMenu *viewMenu;
     QMenu *setupMenu;
     QMenu *helpMenu;
-
-
 
     QAction *klogFolderAct;
     QAction *openAct;
@@ -450,7 +441,6 @@ private:
     QAction *findQSLDXRequestedAct;
 
     QAction *downloadCTYAct;
-
 
     QAction *loggWinAct;
 /*
@@ -488,12 +478,12 @@ private:
     //QLabel *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel; //entityPrimLabel
     QLabel *infoLabel1, *infoLabel2;
     //QPushButton *flagIcon; // To paint a flag of the worked entity
-    QLabel *bandLabel1, *bandLabel2, *bandLabel3, *bandLabel4;
-    QLabel *bandLabel5, *bandLabel6, *bandLabel7, *bandLabel8;
-    QLabel *bandLabel9, *bandLabel10, *bandLabel11, *bandLabel12;
-    QLabel *continentLabel, *prefixLabel, *cqzLabel, *ituzLabel;
-    QLabel *gradShortLabel, *distShortLabel;
-    QLabel *gradLongLabel, *distLongLabel;
+    //QLabel *bandLabel1, *bandLabel2, *bandLabel3, *bandLabel4;
+    //QLabel *bandLabel5, *bandLabel6, *bandLabel7, *bandLabel8;
+    //QLabel *bandLabel9, *bandLabel10, *bandLabel11, *bandLabel12;
+    //QLabel *continentLabel, *prefixLabel, *cqzLabel, *ituzLabel;
+    //QLabel *gradShortLabel, *distShortLabel;
+    //QLabel *gradLongLabel, *distLongLabel;
 
     //QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
     QComboBox *operatingYearsComboBox;
@@ -524,8 +514,6 @@ private:
 
     bool checkNewVersions, reportInfo; // Selected in the Setup->Misc to check if new versions and report info back to KLog's servers
 
-
-
     bool qslingNeeded;
 
     MainWindowSatTab *satTabWidget;
@@ -536,6 +524,7 @@ private:
     MainWindowInputQSL *QSLTabWidget;
 
     SearchWidget *searchWidget;
+    InfoWidget *infoWidget;
 
     bool keepSatPage;
 
