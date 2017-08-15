@@ -60,16 +60,6 @@ msgctxt "AboutDialog|"
 msgid "Main developer"
 msgstr ""
 
-#: ../aboutdialog.cpp:69
-msgctxt "AboutDialog|"
-msgid "<td>(2016)</td></tr>"
-msgstr ""
-
-#: ../aboutdialog.cpp:70
-msgctxt "AboutDialog|"
-msgid "<td>(2009-2010)</td></tr>"
-msgstr ""
-
 #: ../aboutdialog.cpp:72
 msgctxt "AboutDialog|"
 msgid "KLog is developed by a very small team and you are invited to join!"
@@ -629,12 +619,12 @@ msgctxt "InfoWidget|"
 msgid "Grad"
 msgstr ""
 
-#: ../infowidget.cpp:310 ../infowidget.cpp:311
+#: ../infowidget.cpp:312 ../infowidget.cpp:313
 msgctxt "InfoWidget|"
 msgid "Miles"
 msgstr ""
 
-#: ../infowidget.cpp:317 ../infowidget.cpp:318
+#: ../infowidget.cpp:319 ../infowidget.cpp:320
 msgctxt "InfoWidget|"
 msgid "Km"
 msgstr ""

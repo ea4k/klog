@@ -9,16 +9,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="69"/>
-        <source>&lt;td&gt;(2016)&lt;/td&gt;&lt;/tr&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../aboutdialog.cpp" line="70"/>
-        <source>&lt;td&gt;(2009-2010)&lt;/td&gt;&lt;/tr&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../aboutdialog.cpp" line="73"/>
         <location filename="../aboutdialog.cpp" line="140"/>
         <source>Authors</source>
@@ -613,14 +603,14 @@ If you select NO, the QSO may not be imported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../infowidget.cpp" line="310"/>
-        <location filename="../infowidget.cpp" line="311"/>
+        <location filename="../infowidget.cpp" line="312"/>
+        <location filename="../infowidget.cpp" line="313"/>
         <source>Miles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../infowidget.cpp" line="317"/>
-        <location filename="../infowidget.cpp" line="318"/>
+        <location filename="../infowidget.cpp" line="319"/>
+        <location filename="../infowidget.cpp" line="320"/>
         <source>Km</source>
         <translation type="unfinished"></translation>
     </message>
