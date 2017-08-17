@@ -6041,6 +6041,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxMarathonTopScoreLabelN->setFrameStyle(QFrame::StyledPanel);
     dxMarathonLabelN->setFrameStyle(QFrame::StyledPanel);
 
+    /*
     continentLabel->setFrameShadow(QFrame::Raised);
     continentLabel->setFrameStyle(QFrame::StyledPanel);
     continentLabelN->setFrameShadow(QFrame::Raised);
@@ -6106,6 +6107,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     bandLabel11->setFrameStyle(QFrame::StyledPanel);
     bandLabel12->setFrameShadow(QFrame::Raised);
     bandLabel12->setFrameStyle(QFrame::StyledPanel);
+*/
 
     infoLabel1->setFrameShadow(QFrame::Raised);
     infoLabel1->setFrameStyle(QFrame::StyledPanel);
