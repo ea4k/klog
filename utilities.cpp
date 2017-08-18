@@ -98,7 +98,7 @@ QString Utilities::getAgent(const QString _klogversion)
     
 #if defined(Q_OS_WIN32)
     return "KLog-Win32-" + version;
-elif defined(Q_OS_WIN64)
+#elif defined(Q_OS_WIN64)
     return "KLog-Win64-" + version;
 #elif defined(Q_OS_LINUX)
     return "KLog-Linux-" + version;
