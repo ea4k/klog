@@ -185,7 +185,7 @@ void SetupPageWorldEditor::createWorldModel()
     nameCol = rec.indexOf("name");
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Entity"));
     nameCol = rec.indexOf("dxcc");
-    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("ARRL id"));
+    worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("ARRL ID"));
     nameCol = rec.indexOf("continent");
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Continent"));
     nameCol = rec.indexOf("cqz");

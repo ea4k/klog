@@ -98,14 +98,24 @@ QString Utilities::getAgent(const QString _klogversion)
     
 #if defined(Q_OS_WIN32)
     return "KLog-Win32-" + version;
-#elif defined(Q_OS_WIN64)
+elif defined(Q_OS_WIN64)
     return "KLog-Win64-" + version;
+#elif defined(Q_OS_LINUX)
+    return "KLog-Linux-" + version;
+#elif defined(Q_OS_WIN)
+    return "KLog-Win-"+ version;
+#elif defined(Q_OS_MACOS)
+    return "KLog-macOS-" + version;
+#elif defined(Q_OS_OSX)
+    return "KLog-OSX-" + version;
+#elif defined(Q_OS_MAC)
+    return "KLog-MAC-" + version;
 #elif defined(Q_OS_AIX)
     return "KLog-aix-" + version;    
 #elif defined(Q_OS_ANDROID)
     return "KLog-android-" + version;    
-#elif defined(Q_OS_BSD4)
-    return "KLog-bsd4-" + version;    
+//#elif defined(Q_OS_BSD4)
+//    return "KLog-bsd4-" + version;
 #elif defined(Q_OS_BSDI)
     return "KLog-bsdi-" + version;    
 #elif defined(Q_OS_CYGWIN)
@@ -148,17 +158,6 @@ QString Utilities::getAgent(const QString _klogversion)
     return "KLog-whatchos-" + version;    
 #elif defined(Q_OS_WINRT)
     return "KLog-winrt-" + version;    
-#elif defined(Q_OS_LINUX)
-    return "KLog-Linux-" + version;
-#elif defined(Q_OS_WIN)
-    return "KLog-Win-"+ version;
-#elif defined(Q_OS_MACOS)
-    return "KLog-macOS-" + version;    
-#elif defined(Q_OS_OSX)
-    return "KLog-OSX-" + version;
-#elif defined(Q_OS_MAC)
-    return "KLog-MAC-" + version;
-    //return "KLog-Linux-" + version;
 #else
     return "KLog-Other-" + version;
 #endif

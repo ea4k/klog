@@ -61,7 +61,7 @@ DownLoadCTY::~DownLoadCTY()
        //errorCode = query.lastError().number();
 
        msgBox.setIcon(QMessageBox::Warning);
-       aux = tr("Download of the CTY.CSV failed with the following error code: ");
+       aux = tr("Download of cty.csv failed with the following error code: ");
        msgBox.setText(aux + reply->errorString());
        msgBox.setStandardButtons(QMessageBox::Ok);
        msgBox.setDefaultButton(QMessageBox::Ok);
@@ -73,7 +73,7 @@ DownLoadCTY::~DownLoadCTY()
        if (saveToDisk(filename, reply))
        {
            msgBox.setIcon(QMessageBox::Information);
-           aux = tr("Download of the CTY.CSV done.");
+           aux = tr("Download of cty.csv done.");
            msgBox.setText(aux);
            msgBox.setStandardButtons(QMessageBox::Ok);
            msgBox.setDefaultButton(QMessageBox::Ok);
@@ -144,7 +144,7 @@ QString DownLoadCTY::saveFileName(const QUrl &url)
     if (QFile::exists(basename)) {
 
         msgBox.setIcon(QMessageBox::Warning);
-        aux = tr("There is already a CTY.CSV file in the folder but it will be replaced with the new one.");
+        aux = tr("There is already a cty.csv file in the folder but it will be replaced with the new one.");
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);

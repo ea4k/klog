@@ -66,10 +66,10 @@ eLogClubLog::~eLogClubLog()
     else if (result == 202)
     {
        //qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = Password Error! = " << QString::number(result)  << endl;
-        text = "ClubLog: " + tr("It seems to be a PASSWORD ERROR, check your password");
+        text = "ClubLog: " + tr("It seems to be a PASSWORD ERROR; check your password");
 
         int ret = QMessageBox::warning(0, tr("KLog - ClubLog"),
-                                       tr("It seems that your Clublog's password is not correct\n"
+                                       tr("It seems that your Clublog password is not correct\n"
                                           "Please check your password in the setup. Clublog uploads will be disabled."),
                                        QMessageBox::Ok);
         emit disableClubLogAction(true);
@@ -421,9 +421,9 @@ QString eLogClubLog::prepareToTranslate(const QString _m)
     {
         return tr("Test mode - parameters ok, no action taken");
     }
-    else if (_m == "Excesive API Usage")
+    else if (_m == "Excessive API Usage")
     {
-        return tr("Excesive API Usage");
+        return tr("Excessive API Usage");
     }
     else if (_m == "Internal Error")
     {

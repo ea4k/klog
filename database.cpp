@@ -1664,7 +1664,7 @@ bool DataBase::updateTo005()
        //TODO: Delete the table and recreate it
        if (IAmIn005)
        {
-            msgBox.setText(QObject::tr("All the data was migrated correctly. You should now to go to Setup->Preferences->Logs to check that everything is OK."));
+            msgBox.setText(QObject::tr("All the data was migrated correctly. You should now go to Setup->Preferences->Logs to check that everything is OK."));
             msgBox.exec();
        }
         //qDebug() << "DataBase::updateTo005 - I am in 005 already!! " << endl;
@@ -2892,7 +2892,7 @@ bool DataBase::updateModeIdFromSubModeId()
                     alreadyCancelled = true;
 
                     QMessageBox msgBox;
-                    aux = QObject::tr("Cancelling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
+                    aux = QObject::tr("Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                     msgBox.setDefaultButton(QMessageBox::No);
@@ -3058,7 +3058,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                     alreadyCancelled = true;
 
                     QMessageBox msgBox;
-                    aux = QObject::tr("Cancelling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
+                    aux = QObject::tr("Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                     msgBox.setDefaultButton(QMessageBox::No);
@@ -3251,7 +3251,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
                     alreadyCancelled = true;
 
                     QMessageBox msgBox;
-                    aux = QObject::tr("Cancelling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
+                    aux = QObject::tr("Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                     msgBox.setDefaultButton(QMessageBox::No);
@@ -3450,7 +3450,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
                     alreadyCancelled = true;
 
                     QMessageBox msgBox;
-                    aux = QObject::tr("Cancelling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
+                    aux = QObject::tr("Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                     msgBox.setDefaultButton(QMessageBox::No);
@@ -3613,7 +3613,7 @@ bool DataBase::updateModeIdTableLogToNewOnes()
                     alreadyCancelled = true;
 
                     QMessageBox msgBox;
-                    aux = QObject::tr("Cancelling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
+                    aux = QObject::tr("Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                     msgBox.setDefaultButton(QMessageBox::No);

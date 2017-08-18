@@ -49,7 +49,7 @@ void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateN
     }
     else
     {
-        text = "<center><h2>" + tr("Congratulations!") + "</h2></center><br><br>" + tr("Your KLog is updated.") + "<br><br>" + tr("You already have the latest version.") + "<br><center>("+ tversion + ")</center>";
+        text = "<center><h2>" + tr("Congratulations!") + "</h2></center><br><br>" + tr("Your KLog has been updated.") + "<br><br>" + tr("You already have the latest version.") + "<br><center>("+ tversion + ")</center>";
     }
 
     textBrowser->setHtml(text);

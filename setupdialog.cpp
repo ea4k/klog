@@ -275,7 +275,7 @@ void SetupDialog::slotCancelButtonClicked()
         {
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Information);
-            msgBox.setText(tr("You need to enter at least one log in the Log's tab."));
+            msgBox.setText(tr("You need to enter at least one log in the Log tab."));
             msgBox.exec();
             return;
         }
@@ -356,8 +356,8 @@ qDebug() << "SetupDialog::slotOkButonClicked" << endl;
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText(tr("DB is not moved to new path"));
-        msgBox.setInformativeText(tr("Go to the") + " " + tr("Misc tab") + " " + tr("and click on") + " " + tr("Move DB") + "\n" + tr("or the DB will not be moved to the new location."));
+        msgBox.setText(tr("DB has not been moved to new path"));
+        msgBox.setInformativeText(tr("Go to the") + " " + tr("Misc tab") + " " + tr("and click on") + " " + tr("Move DB") + "\n" + "or the DB will not be moved to the new location.");
         msgBox.exec();
         return;
     }

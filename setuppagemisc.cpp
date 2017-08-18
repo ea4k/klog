@@ -43,7 +43,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     sendQSLWhenRecCheckBox = new QCheckBox(tr("Mark &QSO to send QSL when QSL is received"), this);
     completeWithPreviousCheckBox = new QCheckBox(tr("Complete QSO with previous data"));
     showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station &Callsign used in the search box"), this);  
-    keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSO"), this);    
+    keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSOs"), this);
     checkNewVersionCheckBox = new QCheckBox(tr("&Check for new versions automatically"), this);
     provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
 
@@ -106,21 +106,21 @@ void SetupPageMisc::createUI()
     keepMyDataCheckBox->setChecked(true);
     completeWithPreviousCheckBox->setChecked(false);
 
-    sendQSLWhenRecCheckBox->setToolTip(tr("QSOs will be marked to be pending to send the QSL if the DX QSL is received and you have not sent your."));
+    sendQSLWhenRecCheckBox->setToolTip(tr("QSOs will be marked as pending to send a QSL if you receive the DX QSL and have not sent yours."));
     showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will show also the callsign on the air to do the QSO."));
     keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
     checkNewVersionCheckBox->setToolTip(tr("Check if there is a new release of KLog available every time you start KLog."));
-    provideCallCheckBox->setToolTip(tr("If new versions checking is selected, KLog will send to developer the callsign, KLog version & Operating system to help improving KLog."));
+    provideCallCheckBox->setToolTip(tr("If new version checking is selected, KLog will send the developer your callsign, KLog version & Operating system to help in improving KLog."));
     imperialCheckBox ->setToolTip(tr("Check it for Imperial system (Miles instead of Kilometres)."));
     realTimeCheckbox->setToolTip(tr("Select to use real time."));
     UTCCheckbox->setToolTip(tr("Select to use UTC time."));
-    alwaysADIFCheckBox->setToolTip(tr("Select if you want to save to ADIF on exit."));
-    useDefaultName->setToolTip(tr("Select to use the following name for the logfile and not being asked for it anymore."));
+    alwaysADIFCheckBox->setToolTip(tr("Select if you want to save to ADIF on exit."));    
+    useDefaultName->setToolTip(tr("Select to use the following name for the logfile without being asked for it again."));
     completeWithPreviousCheckBox->setToolTip(tr("Complete the current QSO with previous QSO data."));
     defaultFileNameLineEdit->setToolTip(tr("This is the default file where ADIF will be saved."));
-    dbPathLineEdit->setToolTip(tr("This is the directory where DB (logbook.dat) will be saved."));
+    dbPathLineEdit->setToolTip(tr("This is the directory where the database (logbook.dat) will be saved."));
     fileNameButton->setToolTip(tr("Click to change the default ADIF file."));
-    dbPushButton->setToolTip(tr("Click to change the path of the data base."));
+    dbPushButton->setToolTip(tr("Click to change the path of the database."));
     moveDBPushButton->setToolTip(tr("Click to move the DB to the new directory."));
 
     QHBoxLayout *fileLayout = new QHBoxLayout;
@@ -596,7 +596,7 @@ void SetupPageMisc::slotDBLineEditChanged()
    }
    else
    {
-        dbPathLineEdit->setToolTip(tr("Please add an existing directory where DB (logbook.dat) will be saved."));
+        dbPathLineEdit->setToolTip(tr("Please specify an existing directory where the database (logbook.dat) will be saved."));
         dbPathLineEdit->setPalette(palWrong);
    }
 

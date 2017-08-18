@@ -495,7 +495,7 @@ void DXClusterWidget::slotClusterSocketConnected()
             clearButton->setText(tr("Clear"));
             dxClusterAlreadyConnected = true;
         } else {
-            os << tr("Not logged on, you may to enter your callsign again.") << "\n";
+            os << tr("Not logged on, you may need to enter your callsign again.") << "\n";
             dxClusterAlreadyConnected = false;
         }
         inputCommand->setEnabled(true);
