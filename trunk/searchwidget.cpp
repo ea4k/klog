@@ -64,7 +64,7 @@ void SearchWidget::createUI()
 {
     searchBoxClearButton->setToolTip(tr("Clear the searches"));
     searchBoxExportButton->setToolTip(tr("Export the search result to an ADIF file"));
-    searchBoxSelectAllButton->setToolTip(tr("Select/Unselect all the QSO of the box"));
+    searchBoxSelectAllButton->setToolTip(tr("Select/Unselect all the QSOs shown"));
     searchBoxReSearchButton->setToolTip(tr("Search in the log"));
     searchAllRadioButton->setToolTip(tr("Search in all logs"));
     searchBoxLineEdit->setToolTip(tr("Enter the QRZ to search for"));

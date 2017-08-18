@@ -140,7 +140,7 @@
      setTitle(tr("Welcome to KLog!"));
 
      topLabel = new QLabel(tr("Welcome to KLog! "
-                              "The GPL is the License of this software"));
+                              "- brought to you under the terms of the GPL!"));
      topLabel->setWordWrap(true);
 
 
@@ -182,7 +182,7 @@
      //setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/watermark.png"));
 
      topLabel = new QLabel(tr("Welcome to KLog!"
-                              "The GPL is the License of this software:"));
+                              "- brought to you under the terms of the GPL!"));
      topLabel->setWordWrap(true);
 
 
@@ -822,7 +822,7 @@
            "</body></html>";
 
     licenseBrowser->setHtml(gplLic);
-    aceptLicCheckBox = new QCheckBox(tr("Ok, let's continue"));
+    aceptLicCheckBox = new QCheckBox(tr("Acknowledge"));
     aceptLicCheckBox->setToolTip(tr("Be aware that KLog is free software."));
 
     registerField("licAgreement*", aceptLicCheckBox);

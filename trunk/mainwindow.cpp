@@ -3577,7 +3577,7 @@ void MainWindow::createMenusCommon()
     fileMenu->addAction(ADIFExportAll);
     //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
     connect(ADIFExportAll, SIGNAL(triggered()), this, SLOT(slotADIFExportAll()));
-    ADIFExportAll->setToolTip(tr("Export ALL the QSO coming from ALL the logs in the same logfile. QSOs will be mixed up in the same ADIF file."));
+    ADIFExportAll->setToolTip(tr("Export ALL the QSOs into one ADIF file, merging QSOs from all the logs."));
 
     ReqQSLExport = new QAction(tr("&Export Requested QSL to ADIF..."), this);
     fileMenu->addAction(ReqQSLExport);
@@ -3607,7 +3607,7 @@ void MainWindow::createMenusCommon()
 
     toolMenu = menuBar()->addMenu(tr("&Tools"));
 
-    fillQsoAct = new QAction(tr("Fill QSO data"), this);
+    fillQsoAct = new QAction(tr("Fill in QSO data"), this);
     toolMenu->addAction(fillQsoAct);
     //fillQsoAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(fillQsoAct, SIGNAL(triggered()), this, SLOT(fillQSOData()));
@@ -3623,18 +3623,18 @@ void MainWindow::createMenusCommon()
     findQSO2QSLAct->setToolTip(tr("Shows QSOs for which you should send your QSL and request the DX QSL"));
 
 
-    findRequestedQSLAct = new QAction(tr("Find &requested MY-QSL"), this);
+    findRequestedQSLAct = new QAction(tr("Find My-QSLs pending to send"), this);
     toolMenu->addAction(findRequestedQSLAct);
     //findQSO2QSLAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(findRequestedQSLAct, SIGNAL(triggered()), this, SLOT(slotToolSearchRequestedQSLToSend()));
     findRequestedQSLAct->setToolTip(tr("Shows the QSOs with pending requests to send QSLs. You should keep this queue empty!"));
 
-    findQSLPendingToReceiveAct = new QAction(tr("&Find DX-QSLs pending to arrive"), this);
+    findQSLPendingToReceiveAct = new QAction(tr("&Find DX-QSLs pending to receive"), this);
     toolMenu->addAction(findQSLPendingToReceiveAct);
     connect(findQSLPendingToReceiveAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
     findQSLPendingToReceiveAct->setToolTip(tr("Shows the DX-QSL that has been requested or QSLs has been sent with no answer"));
 
-    findQSLDXRequestedAct = new QAction(tr("&Find requested DX-QSL"), this);
+    findQSLDXRequestedAct = new QAction(tr("&Find requested pending to receive"), this);
     toolMenu->addAction(findQSLDXRequestedAct);
     connect(findQSLDXRequestedAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLRequested()));
     findQSLDXRequestedAct->setToolTip(tr("Shows the DX-QSL that has been requested"));
@@ -3645,7 +3645,7 @@ void MainWindow::createMenusCommon()
     toolMenu->addAction(downloadCTYAct);
     //downloadCTYAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(downloadCTYAct, SIGNAL(triggered()), this, SLOT(slotUpdateCTYDAT()));
-    downloadCTYAct->setToolTip(tr("For updated DX-Entity data, update ct.csv"));
+    downloadCTYAct->setToolTip(tr("For updated DX-Entity data, update cty.csv"));
 
     toolMenu->addSeparator();
 
@@ -5249,9 +5249,9 @@ void MainWindow::createUIDX()
     localWorkedQLCDNumber->setToolTip(tr("Number of worked local references"));
     qsoConfirmedQLCDNumber->setToolTip(tr("Number of confirmed QSOs"));
     qsoWorkedQLCDNumber->setToolTip(tr("Number of worked QSOs"));
-    dxMarathonDXCCQLCDNumber->setToolTip(tr("Number of DXCC worked in the selected year"));
-    dxMarathonCQQLCDNumber->setToolTip(tr("Number of CQ Zones worked in the selected year"));
-    dxMarathonPointsQLCDNumber->setToolTip(tr("Score for the DXMarathon in the selected year"));
+    dxMarathonDXCCQLCDNumber->setToolTip(tr("Number of DXCC worked on the selected year"));
+    dxMarathonCQQLCDNumber->setToolTip(tr("Number of CQ Zones worked on the selected year"));
+    dxMarathonPointsQLCDNumber->setToolTip(tr("Score for the DXMarathon on the selected year"));
     operatingYearsComboBox->setToolTip(tr("Select the year you want to check"));
 
     infoLabel1->setToolTip(tr("Status of the DX entity"));

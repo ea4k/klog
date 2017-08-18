@@ -40,11 +40,6 @@ msgctxt "AboutDialog|"
 msgid "KLog is a free logbook for hamradio operators."
 msgstr ""
 
-#: ../aboutdialog.cpp:44
-msgctxt "AboutDialog|"
-msgid "Find more information and the latest release at<br>"
-msgstr ""
-
 #: ../aboutdialog.cpp:45
 msgctxt "AboutDialog|"
 msgid "Author"
@@ -68,25 +63,8 @@ msgstr ""
 #: ../aboutdialog.cpp:72
 msgctxt "AboutDialog|"
 msgid ""
-"If you want to provide support you are welcome to join the <a "
-"href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog "
-"development mailing list</a>!"
-msgstr ""
-
-#: ../aboutdialog.cpp:72
-msgctxt "AboutDialog|"
-msgid ""
 "You can also help us by sending bug reports or small code contributions, "
 "ideas or whatever you think may improve KLog."
-msgstr ""
-
-#: ../aboutdialog.cpp:82
-msgctxt "AboutDialog|"
-msgid ""
-"If KLog is still not in your language and you want to help us, you are "
-"welcome to contact us through the <a "
-"href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog "
-"development mailing list</a>!"
 msgstr ""
 
 #: ../aboutdialog.cpp:96
@@ -115,11 +93,38 @@ msgctxt "AboutDialog|"
 msgid "Authors"
 msgstr ""
 
+#: ../aboutdialog.cpp:44
+msgctxt "AboutDialog|"
+msgid "Find more information and the latest release at"
+msgstr ""
+
+#: ../aboutdialog.cpp:72
+msgctxt "AboutDialog|"
+msgid "If you want to provide support you are welcome to join the"
+msgstr ""
+
+#: ../aboutdialog.cpp:72 ../aboutdialog.cpp:82
+msgctxt "AboutDialog|"
+msgid "KLog development mailing list"
+msgstr ""
+
+#: ../aboutdialog.cpp:72 ../aboutdialog.cpp:82
+msgctxt "AboutDialog|"
+msgid "!"
+msgstr ""
+
 #: ../aboutdialog.cpp:82
 msgctxt "AboutDialog|"
 msgid ""
 "Translators bring KLog into your language. They are really an important part "
 "of the KLog development team."
+msgstr ""
+
+#: ../aboutdialog.cpp:82
+msgctxt "AboutDialog|"
+msgid ""
+"If KLog is still not in your language and you want to help us, you are "
+"welcome to contact us through the"
 msgstr ""
 
 #: ../aboutdialog.cpp:83 ../aboutdialog.cpp:141
@@ -251,7 +256,7 @@ msgstr ""
 
 #: ../dxcluster.cpp:202
 msgctxt "DXClusterWidget|"
-msgid "Trying to connect to the server\n"
+msgid "Trying to connect to the server"
 msgstr ""
 
 #: ../dxcluster.cpp:213 ../dxcluster.cpp:219 ../dxcluster.cpp:226
@@ -372,30 +377,6 @@ msgid ""
 " QSO: "
 msgstr ""
 
-#: ../filemanager.cpp:1950
-msgctxt "FileManager|"
-msgid ""
-"You have canceled the file export. The file will be removed and no data will "
-"be exported.\n"
-"Do you still want to cancel?"
-msgstr ""
-
-#: ../filemanager.cpp:2415
-msgctxt "FileManager|"
-msgid ""
-"There is more than one log in this logfile.\n"
-"All logs will be imported into the current log.\n"
-"Do you want to continue?"
-msgstr ""
-
-#: ../filemanager.cpp:2699
-msgctxt "FileManager|"
-msgid ""
-"You have cancelled the file export. The file will be removed and no data "
-"will be exported.\n"
-"Do you still want to cancel?"
-msgstr ""
-
 #: ../filemanager.cpp:2742
 msgctxt "FileManager|"
 msgid ""
@@ -403,57 +384,98 @@ msgid ""
 "importing. Do you want to continue? (Duped QSOs will not be imported)"
 msgstr ""
 
-#: ../filemanager.cpp:3733
+#: ../filemanager.cpp:1950
 msgctxt "FileManager|"
 msgid ""
-"This QSO does not include the minimum data required for it to be valid!.\n"
-"\n"
-"\n"
-"Please edit the ADIF file and make sure that it includes at least:\n"
-"\n"
-"CALL, QSO_DATE, TIME_ON, BAND and MODE.\n"
-"\n"
-"This QSO had:\n"
+"You have canceled the file export. The file will be removed and no data will "
+"be exported."
+msgstr ""
+
+#: ../filemanager.cpp:1950 ../filemanager.cpp:2699
+msgctxt "FileManager|"
+msgid "Do you still want to cancel?"
+msgstr ""
+
+#: ../filemanager.cpp:2415
+msgctxt "FileManager|"
+msgid "There is more than one log in this logfile."
+msgstr ""
+
+#: ../filemanager.cpp:2415
+msgctxt "FileManager|"
+msgid "All logs will be imported into the current log."
+msgstr ""
+
+#: ../filemanager.cpp:2415
+msgctxt "FileManager|"
+msgid "Do you want to continue?"
+msgstr ""
+
+#: ../filemanager.cpp:2683
+msgctxt "FileManager|"
+msgid "Importing ADIF file..."
+msgstr ""
+
+#: ../filemanager.cpp:2683
+msgctxt "FileManager|"
+msgid " QSO: "
+msgstr ""
+
+#: ../filemanager.cpp:2699
+msgctxt "FileManager|"
+msgid ""
+"You have cancelled the file export. The file will be removed and no data "
+"will be exported."
+msgstr ""
+
+#: ../filemanager.cpp:3733
+msgctxt "FileManager|"
+msgid "This QSO does not include the minimum data required for it to be valid!"
+msgstr ""
+
+#: ../filemanager.cpp:3733
+msgctxt "FileManager|"
+msgid "Please edit the ADIF file and make sure that it includes at least:"
+msgstr ""
+
+#: ../filemanager.cpp:3733
+msgctxt "FileManager|"
+msgid "CALL, QSO_DATE, TIME_ON, BAND and MODE."
+msgstr ""
+
+#: ../filemanager.cpp:3733
+msgctxt "FileManager|"
+msgid "This QSO had:"
 msgstr ""
 
 #: ../filemanager.cpp:3737
 msgctxt "FileManager|"
-msgid " - The band missing for the following call: "
+msgid " - The band was missing for the following callsign: "
+msgstr ""
+
+#: ../filemanager.cpp:3742
+msgctxt "FileManager|"
+msgid " - The callsign was missing for a QSO at this time: "
 msgstr ""
 
 #: ../filemanager.cpp:3747
 msgctxt "FileManager|"
-msgid " - The mode missing for the following call: "
+msgid " - The mode was missing for the following callsign: "
 msgstr ""
 
 #: ../filemanager.cpp:3752
 msgctxt "FileManager|"
-msgid " - The date missing for the following call: "
+msgid " - The date was missing for the following callsign: "
 msgstr ""
 
 #: ../filemanager.cpp:3757
 msgctxt "FileManager|"
-msgid " - The time missing for the following call: "
+msgid " - The time was missing for the following callsign: "
 msgstr ""
 
-#: ../filemanager.cpp:3790
+#: ../filemanager.cpp:3762
 msgctxt "FileManager|"
-msgid ""
-"This log seems to lack RST-TX information.\n"
-"\n"
-"Click on Yes to add a default 59 to all QSOs with a similar problem.\n"
-"\n"
-"If you select NO, it will not be possible to import the QSO."
-msgstr ""
-
-#: ../filemanager.cpp:3812
-msgctxt "FileManager|"
-msgid ""
-"This log seems to lack RST-RX information.\n"
-"\n"
-"Click on Yes to add a default 59 to all QSOs with a similar problem.\n"
-"\n"
-"If you select NO, it will not be possible to import the QSO."
+msgid "Do you want to continue with the current file?"
 msgstr ""
 
 #: ../filemanager.cpp:2095
@@ -483,13 +505,6 @@ msgctxt "FileManager|"
 msgid "Abort reading"
 msgstr ""
 
-#: ../filemanager.cpp:2683
-msgctxt "FileManager|"
-msgid ""
-"Importing ADIF file...\n"
-" QSO: "
-msgstr ""
-
 #: ../filemanager.cpp:2787
 msgctxt "FileManager|"
 msgid ""
@@ -504,27 +519,34 @@ msgid ""
 "code to the developer for analysis: "
 msgstr ""
 
-#: ../filemanager.cpp:3742
-msgctxt "FileManager|"
-msgid " - The call missing but was done at this time: "
-msgstr ""
-
-#: ../filemanager.cpp:3762
-msgctxt "FileManager|"
-msgid ""
-"\n"
-"\n"
-"Do you want to continue with the current file?"
-msgstr ""
-
 #: ../filemanager.cpp:3766
 msgctxt "FileManager|"
 msgid "KLog: Not all required data found!"
 msgstr ""
 
+#: ../filemanager.cpp:3790
+msgctxt "FileManager|"
+msgid "This log seems to lack RST-TX information."
+msgstr ""
+
+#: ../filemanager.cpp:3790 ../filemanager.cpp:3812
+msgctxt "FileManager|"
+msgid "Click on Yes to add a default 59 to all QSOs with a similar problem."
+msgstr ""
+
+#: ../filemanager.cpp:3790 ../filemanager.cpp:3812
+msgctxt "FileManager|"
+msgid "If you select NO, it will not be possible to import the QSO."
+msgstr ""
+
 #: ../filemanager.cpp:3791
 msgctxt "FileManager|"
 msgid "KLog: No RST TX found!"
+msgstr ""
+
+#: ../filemanager.cpp:3812
+msgctxt "FileManager|"
+msgid "This log seems to lack RST-RX information."
 msgstr ""
 
 #: ../filemanager.cpp:3814
@@ -644,7 +666,7 @@ msgstr ""
 
 #: ../startwizard.cpp:142
 msgctxt "IntroPage|"
-msgid "Welcome to KLog! The GPL is the License of this software"
+msgid "Welcome to KLog! - brought to you under the terms of the GPL!"
 msgstr ""
 
 #: ../startwizard.cpp:150
@@ -712,12 +734,12 @@ msgstr ""
 
 #: ../startwizard.cpp:184
 msgctxt "LicPage|"
-msgid "Welcome to KLog!The GPL is the License of this software:"
+msgid "Welcome to KLog!- brought to you under the terms of the GPL!"
 msgstr ""
 
 #: ../startwizard.cpp:825
 msgctxt "LicPage|"
-msgid "Ok, let's continue"
+msgid "Acknowledge"
 msgstr ""
 
 #: ../startwizard.cpp:826
@@ -1075,13 +1097,6 @@ msgctxt "MainWindow|"
 msgid "&Export all logs to ADIF..."
 msgstr ""
 
-#: ../mainwindow.cpp:3580
-msgctxt "MainWindow|"
-msgid ""
-"Export ALL the QSO coming from ALL the logs in the same logfile. QSOs will "
-"be mixed up in the same ADIF file."
-msgstr ""
-
 #: ../mainwindow.cpp:3582
 msgctxt "MainWindow|"
 msgid "&Export Requested QSL to ADIF..."
@@ -1107,24 +1122,9 @@ msgctxt "MainWindow|"
 msgid "&Tools"
 msgstr ""
 
-#: ../mainwindow.cpp:3610
-msgctxt "MainWindow|"
-msgid "Fill QSO data"
-msgstr ""
-
 #: ../mainwindow.cpp:3618
 msgctxt "MainWindow|"
 msgid "&Find QSO to QSL"
-msgstr ""
-
-#: ../mainwindow.cpp:3626
-msgctxt "MainWindow|"
-msgid "Find &requested MY-QSL"
-msgstr ""
-
-#: ../mainwindow.cpp:3637
-msgctxt "MainWindow|"
-msgid "&Find requested DX-QSL"
 msgstr ""
 
 #: ../mainwindow.cpp:3640
@@ -1212,6 +1212,36 @@ msgctxt "MainWindow|"
 msgid "TX Frequency in MHz"
 msgstr ""
 
+#: ../mainwindow.cpp:3580
+msgctxt "MainWindow|"
+msgid "Export ALL the QSOs into one ADIF file, merging QSOs from all the logs."
+msgstr ""
+
+#: ../mainwindow.cpp:3610
+msgctxt "MainWindow|"
+msgid "Fill in QSO data"
+msgstr ""
+
+#: ../mainwindow.cpp:3626
+msgctxt "MainWindow|"
+msgid "Find My-QSLs pending to send"
+msgstr ""
+
+#: ../mainwindow.cpp:3632
+msgctxt "MainWindow|"
+msgid "&Find DX-QSLs pending to receive"
+msgstr ""
+
+#: ../mainwindow.cpp:3637
+msgctxt "MainWindow|"
+msgid "&Find requested pending to receive"
+msgstr ""
+
+#: ../mainwindow.cpp:3648
+msgctxt "MainWindow|"
+msgid "For updated DX-Entity data, update cty.csv"
+msgstr ""
+
 #: ../mainwindow.cpp:5196
 msgctxt "MainWindow|"
 msgid "RX Frequency in MHz"
@@ -1275,6 +1305,21 @@ msgstr ""
 #: ../mainwindow.cpp:5249
 msgctxt "MainWindow|"
 msgid "Number of worked local references"
+msgstr ""
+
+#: ../mainwindow.cpp:5252
+msgctxt "MainWindow|"
+msgid "Number of DXCC worked on the selected year"
+msgstr ""
+
+#: ../mainwindow.cpp:5253
+msgctxt "MainWindow|"
+msgid "Number of CQ Zones worked on the selected year"
+msgstr ""
+
+#: ../mainwindow.cpp:5254
+msgctxt "MainWindow|"
+msgid "Score for the DXMarathon on the selected year"
 msgstr ""
 
 #: ../mainwindow.cpp:5255
@@ -1444,20 +1489,10 @@ msgid ""
 "queue empty!"
 msgstr ""
 
-#: ../mainwindow.cpp:3632
-msgctxt "MainWindow|"
-msgid "&Find DX-QSLs pending to arrive"
-msgstr ""
-
 #: ../mainwindow.cpp:3635
 msgctxt "MainWindow|"
 msgid ""
 "Shows the DX-QSL that has been requested or QSLs has been sent with no answer"
-msgstr ""
-
-#: ../mainwindow.cpp:3648
-msgctxt "MainWindow|"
-msgid "For updated DX-Entity data, update ct.csv"
 msgstr ""
 
 #: ../mainwindow.cpp:3760
@@ -1481,21 +1516,6 @@ msgstr ""
 #: ../mainwindow.cpp:5251
 msgctxt "MainWindow|"
 msgid "Number of worked QSOs"
-msgstr ""
-
-#: ../mainwindow.cpp:5252
-msgctxt "MainWindow|"
-msgid "Number of DXCC worked in the selected year"
-msgstr ""
-
-#: ../mainwindow.cpp:5253
-msgctxt "MainWindow|"
-msgid "Number of CQ Zones worked in the selected year"
-msgstr ""
-
-#: ../mainwindow.cpp:5254
-msgctxt "MainWindow|"
-msgid "Score for the DXMarathon in the selected year"
 msgstr ""
 
 #: ../mainwindow.cpp:5781
@@ -1996,11 +2016,17 @@ msgstr ""
 #: ../mainwindowsattab.cpp:371
 msgctxt "MainWindowSatTab|"
 msgid ""
-"A satellite name has been detected but is not on the KLog satellite's names "
-"table. Please check that the correct satellite is selected and if the "
-"satellite is not in the list, please contact the development team to include "
-"it.\n"
-"\n"
+"KLog has detected a satellite name that it does not recognise. If it should "
+"use one of the names of known satellites instead, please select it from the "
+"list. Alternatively, please contact the development team to add the new "
+"satellite name."
+msgstr ""
+
+#: ../mainwindowsattab.cpp:372
+msgctxt "MainWindowSatTab|"
+msgid ""
+"Please know that the satellite name will not be saved if it is not in the "
+"list so that information may be lost!"
 msgstr ""
 
 #: ../mainwindowsattab.cpp:372
@@ -2044,13 +2070,6 @@ msgctxt "QObject|"
 msgid "KLog DB needs to be upgraded."
 msgstr ""
 
-#: ../database.cpp:1099
-msgctxt "QObject|"
-msgid ""
-"Do you want to upgrade it now?\n"
-"If DB is not upgraded KLog may not work properly."
-msgstr ""
-
 #: ../database.cpp:1585
 msgctxt "QObject|"
 msgid ""
@@ -2080,6 +2099,11 @@ msgid ""
 "Setup->Preferences->Logs to check that everything is OK."
 msgstr ""
 
+#: ../database.cpp:2825 ../database.cpp:2990
+msgctxt "QObject|"
+msgid "QSO: "
+msgstr ""
+
 #: ../database.cpp:2895 ../database.cpp:3061 ../database.cpp:3254
 #: ../database.cpp:3453
 msgctxt "QObject|"
@@ -2088,9 +2112,24 @@ msgid ""
 "loss. Do you still want to cancel?"
 msgstr ""
 
-#: ../database.cpp:2806
+#: ../database.cpp:3184 ../database.cpp:3375
+msgctxt "QObject|"
+msgid "Progress: "
+msgstr ""
+
+#: ../database.cpp:2806 ../database.cpp:2825
 msgctxt "QObject|"
 msgid "Updating mode information..."
+msgstr ""
+
+#: ../database.cpp:1099
+msgctxt "QObject|"
+msgid "Do you want to upgrade it now?"
+msgstr ""
+
+#: ../database.cpp:1099
+msgctxt "QObject|"
+msgid "If DB is not upgraded KLog may not work properly."
 msgstr ""
 
 #: ../database.cpp:2806 ../database.cpp:2972 ../database.cpp:3163
@@ -2099,36 +2138,16 @@ msgctxt "QObject|"
 msgid "Abort updating"
 msgstr ""
 
-#: ../database.cpp:2825
-msgctxt "QObject|"
-msgid ""
-"Updating mode information...\n"
-" QSO: "
-msgstr ""
-
-#: ../database.cpp:2972
+#: ../database.cpp:2972 ../database.cpp:2990 ../database.cpp:3184
+#: ../database.cpp:3375
 msgctxt "QObject|"
 msgid "Updating bands information..."
-msgstr ""
-
-#: ../database.cpp:2990
-msgctxt "QObject|"
-msgid ""
-"Updating bands information...\n"
-" QSO: "
 msgstr ""
 
 #: ../database.cpp:3161
 #, qt-format
 msgctxt "QObject|"
 msgid "Updating bands information in %1 status..."
-msgstr ""
-
-#: ../database.cpp:3184 ../database.cpp:3375
-msgctxt "QObject|"
-msgid ""
-"Updating bands information...\n"
-" Progress: "
 msgstr ""
 
 #: ../database.cpp:3351
@@ -2236,11 +2255,6 @@ msgctxt "SearchWidget|"
 msgid "Export the search result to an ADIF file"
 msgstr ""
 
-#: ../searchwidget.cpp:67
-msgctxt "SearchWidget|"
-msgid "Select/Unselect all the QSO of the box"
-msgstr ""
-
 #: ../searchwidget.cpp:68
 msgctxt "SearchWidget|"
 msgid "Search in the log"
@@ -2259,6 +2273,11 @@ msgstr ""
 #: ../searchwidget.cpp:65
 msgctxt "SearchWidget|"
 msgid "Clear the searches"
+msgstr ""
+
+#: ../searchwidget.cpp:67
+msgctxt "SearchWidget|"
+msgid "Select/Unselect all the QSOs shown"
 msgstr ""
 
 #: ../searchwidget.cpp:70
@@ -2542,11 +2561,6 @@ msgctxt "SetupDialog|"
 msgid "D&X-Cluster"
 msgstr ""
 
-#: ../setupdialog.cpp:278
-msgctxt "SetupDialog|"
-msgid "You need to enter at least one log in the Log tab."
-msgstr ""
-
 #: ../setupdialog.cpp:359
 msgctxt "SetupDialog|"
 msgid "DB has not been moved to new path"
@@ -2555,6 +2569,11 @@ msgstr ""
 #: ../setupdialog.cpp:330
 msgctxt "SetupDialog|"
 msgid "World"
+msgstr ""
+
+#: ../setupdialog.cpp:278
+msgctxt "SetupDialog|"
+msgid "You need to enter at least one log in the Logs tab."
 msgstr ""
 
 #: ../setupdialog.cpp:360 ../setupdialog.cpp:369
@@ -3200,6 +3219,11 @@ msgid ""
 "again."
 msgstr ""
 
+#: ../setuppagemisc.cpp:120
+msgctxt "SetupPageMisc|"
+msgid "This is the default file where ADIF data will be saved."
+msgstr ""
+
 #: ../setuppagemisc.cpp:599
 msgctxt "SetupPageMisc|"
 msgid ""
@@ -3268,11 +3292,6 @@ msgstr ""
 #: ../setuppagemisc.cpp:119
 msgctxt "SetupPageMisc|"
 msgid "Complete the current QSO with previous QSO data."
-msgstr ""
-
-#: ../setuppagemisc.cpp:120
-msgctxt "SetupPageMisc|"
-msgid "This is the default file where ADIF will be saved."
 msgstr ""
 
 #: ../setuppagemisc.cpp:121
@@ -3421,34 +3440,23 @@ msgctxt "SetupPageUserDataPage|"
 msgid "Countr&y"
 msgstr ""
 
-#: ../setuppageuserdata.cpp:137
-msgctxt "SetupPageUserDataPage|"
-msgid "Enter your rig #1 information"
-msgstr ""
-
-#: ../setuppageuserdata.cpp:138
-msgctxt "SetupPageUserDataPage|"
-msgid "Enter your rig #2 information"
-msgstr ""
-
+#: ../setuppageuserdata.cpp:137 ../setuppageuserdata.cpp:138
 #: ../setuppageuserdata.cpp:139
 msgctxt "SetupPageUserDataPage|"
-msgid "Enter your rig #3 information"
+msgid "Enter your information for rig"
 msgstr ""
 
-#: ../setuppageuserdata.cpp:140
-msgctxt "SetupPageUserDataPage|"
-msgid "Enter your antenna #1 information"
-msgstr ""
-
-#: ../setuppageuserdata.cpp:141
-msgctxt "SetupPageUserDataPage|"
-msgid "Enter your antenna #2 information"
-msgstr ""
-
+#: ../setuppageuserdata.cpp:140 ../setuppageuserdata.cpp:141
 #: ../setuppageuserdata.cpp:142
 msgctxt "SetupPageUserDataPage|"
-msgid "Enter your antenna #3 information"
+msgid "Enter your information for antenna"
+msgstr ""
+
+#: ../setuppageuserdata.cpp:186
+msgctxt "SetupPageUserDataPage|"
+msgid ""
+"Enter the locator of your station. Alternatively, KLog can use an "
+"approximate locator based on your callsign."
 msgstr ""
 
 #: ../setuppageuserdata.cpp:143
@@ -3499,13 +3507,6 @@ msgstr ""
 #: ../setuppageuserdata.cpp:185
 msgctxt "SetupPageUserDataPage|"
 msgid "Enter the operators (comma separated if more than one)."
-msgstr ""
-
-#: ../setuppageuserdata.cpp:186
-msgctxt "SetupPageUserDataPage|"
-msgid ""
-"Enter the locator of your station. KLog will propose one locator based on "
-"your callsign"
 msgstr ""
 
 #: ../setuppageuserdata.cpp:189
