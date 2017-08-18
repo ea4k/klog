@@ -1096,7 +1096,7 @@ bool DataBase::updateIfNeeded()
        //qDebug() << "DataBase::updateIfNeeded - DB outdated... upgrade starts now! " << endl;
         QMessageBox msgBox;
         msgBox.setText( QObject::tr("KLog DB needs to be upgraded."));
-        msgBox.setInformativeText( QObject::tr("Do you want to upgrade it now?\nIf DB is not upgraded KLog may not work properly."));
+        msgBox.setInformativeText( QObject::tr("Do you want to upgrade it now?") + "\n"+ QObject::tr("If DB is not upgraded KLog may not work properly."));
         msgBox.setStandardButtons(QMessageBox::Apply | QMessageBox::Discard);
         msgBox.setDefaultButton(QMessageBox::Apply);
 
@@ -2822,7 +2822,7 @@ bool DataBase::updateModeIdFromSubModeId()
 
                 if (( (i % step )== 0) )
                 { // To update the speed I will only show the progress once each X QSOs
-                    aux = QObject::tr("Updating mode information...\n QSO: ")  + QString::number(i) + "/" + QString::number(qsos);
+                    aux = QObject::tr("Updating mode information...") + "\n" + QObject::tr("QSO: ")  + QString::number(i) + "/" + QString::number(qsos);
                     progress.setLabelText(aux);
                     progress.setValue(i);
                 }
@@ -2987,7 +2987,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
 
                 if (( (i % step )== 0) )
                 { // To update the speed I will only show the progress once each X QSOs
-                    aux = QObject::tr("Updating bands information...\n QSO: ")  + QString::number(i) + "/" + QString::number(qsos);
+                    aux = QObject::tr("Updating bands information...") + "\n" + QObject::tr("QSO: ")  + QString::number(i) + "/" + QString::number(qsos);
                     progress.setLabelText(aux);
                     progress.setValue(i);
                 }
@@ -3181,7 +3181,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
 
                 if (( (i % step )== 0) )
                 { // To update the speed I will only show the progress once each X QSOs
-                    aux = QObject::tr("Updating bands information...\n Progress: ")  + QString::number(i) + "/" + QString::number(qsos);
+                    aux = QObject::tr("Updating bands information...") + "\n" + QObject::tr("Progress: ")  + QString::number(i) + "/" + QString::number(qsos);
                     progress.setLabelText(aux);
                     progress.setValue(i);
                 }
@@ -3372,7 +3372,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
 
                 if (( (i % step )== 0) )
                 { // To update the speed I will only show the progress once each X QSOs
-                    aux = QObject::tr("Updating bands information...\n Progress: ")  + QString::number(i) + "/" + QString::number(qsos);
+                    aux = QObject::tr("Updating bands information...") + "\n" + QObject::tr("Progress: ")  + QString::number(i) + "/" + QString::number(qsos);
                     progress.setLabelText(aux);
                     progress.setValue(i);
                 }

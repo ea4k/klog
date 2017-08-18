@@ -275,7 +275,7 @@ void SetupDialog::slotCancelButtonClicked()
         {
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Information);
-            msgBox.setText(tr("You need to enter at least one log in the Log tab."));
+            msgBox.setText(tr("You need to enter at least one log in the Logs tab."));
             msgBox.exec();
             return;
         }

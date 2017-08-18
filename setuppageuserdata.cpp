@@ -134,12 +134,12 @@ SetupPageUserDataPage::SetupPageUserDataPage(QWidget *parent) : QWidget(parent){
    myPowerSpinBox->setDecimals(2);
    myPowerSpinBox->setMaximum(9999);
 
-   rig1LineEdit->setToolTip(tr("Enter your rig #1 information"));
-   rig2LineEdit->setToolTip(tr("Enter your rig #2 information"));
-   rig3LineEdit->setToolTip(tr("Enter your rig #3 information"));
-   ant1LineEdit->setToolTip(tr("Enter your antenna #1 information"));
-   ant2LineEdit->setToolTip(tr("Enter your antenna #2 information"));
-   ant3LineEdit->setToolTip(tr("Enter your antenna #3 information"));
+   rig1LineEdit->setToolTip(tr("Enter your information for rig") + " #1");
+   rig2LineEdit->setToolTip(tr("Enter your information for rig") + " #2");
+   rig3LineEdit->setToolTip(tr("Enter your information for rig") + " #3");
+   ant1LineEdit->setToolTip(tr("Enter your information for antenna") + " #1");
+   ant2LineEdit->setToolTip(tr("Enter your information for antenna") + " #2");
+   ant3LineEdit->setToolTip(tr("Enter your information for antenna") + " #3");
    myPowerSpinBox->setToolTip(tr("Enter your power information"));
 
    QLabel *rig1Label = new QLabel(tr("&Rig 1"));
@@ -183,7 +183,7 @@ SetupPageUserDataPage::SetupPageUserDataPage(QWidget *parent) : QWidget(parent){
     //TODO:Defining ALL the tooltips
     qrzLineEdit->setToolTip(tr("Enter the station callsign that will be used for logging"));
     operatorsLineEdit->setToolTip(tr("Enter the operators (comma separated if more than one)."));
-    myLocatorLineEdit->setToolTip(tr("Enter the locator of your station. KLog will propose one locator based on your callsign"));
+    myLocatorLineEdit->setToolTip(tr("Enter the locator of your station. Alternatively, KLog can use an approximate locator based on your callsign."));
 
 
     QLabel *qrzLabel = new QLabel(tr("&QRZ"));

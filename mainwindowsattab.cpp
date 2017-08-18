@@ -368,8 +368,8 @@ void MainWindowSatTab::setSatelliteCombo(const QString _p)
         {
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Warning);
-            aux = tr("A satellite name has been detected but is not on the KLog satellite's names table. Please check that the correct satellite is selected and if the satellite is not in the list, please contact the development team to include it.\n\n");
-            msgBox.setText(aux + tr("The satellite you have in your QSO is: ") + _p + "\n\nPlease know that the satellite name will not be saved if it is not in the list so that information may be lost!");
+            aux = tr("KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.") + "\n\n";
+            msgBox.setText(aux + tr("The satellite you have in your QSO is: ") + _p + "\n\n" + tr("Please know that the satellite name will not be saved if it is not in the list so that information may be lost!"));
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
             int ret = msgBox.exec();

@@ -117,7 +117,7 @@ void SetupPageMisc::createUI()
     alwaysADIFCheckBox->setToolTip(tr("Select if you want to save to ADIF on exit."));    
     useDefaultName->setToolTip(tr("Select to use the following name for the logfile without being asked for it again."));
     completeWithPreviousCheckBox->setToolTip(tr("Complete the current QSO with previous QSO data."));
-    defaultFileNameLineEdit->setToolTip(tr("This is the default file where ADIF will be saved."));
+    defaultFileNameLineEdit->setToolTip(tr("This is the default file where ADIF data will be saved."));
     dbPathLineEdit->setToolTip(tr("This is the directory where the database (logbook.dat) will be saved."));
     fileNameButton->setToolTip(tr("Click to change the default ADIF file."));
     dbPushButton->setToolTip(tr("Click to change the path of the database."));
