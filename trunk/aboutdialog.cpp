@@ -33,7 +33,7 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
 
     const QString description = "<center><h2>KLog " + tversion + "</h2><h4> " +tr("By") +
             " <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a> - 2002-2017</h4></center><br>" +
-            tr("KLog is a free logging software for hamradio operators.") +"<br><br><b>" +
+            tr("KLog is a free logbook for hamradio operators.") +"<br><br><b>" +
             tr("Please know that this is an BETA release and it may contain many bugs.<br>Backup your data before using this software!") +
             "</b><br><br>" +
             tr("KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, macOS & Windows) and provide new functionalities that KLog was not providing.") +
@@ -41,7 +41,7 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
             tr("Please provide your review in KLog's eHam review page:") +
             "<bR>" +
             "<a href=http://www.eham.net/reviews/detail/3118>http://www.eham.net/reviews/detail/3118</a><br><br>" +
-            tr("Find more information and latest release at<br>") + "<a href=http://www.klog.xyz>http://www.klog.xyz</a><br><br>" +
+            tr("Find more information and the latest release at<br>") + "<a href=http://www.klog.xyz>http://www.klog.xyz</a><br><br>" +
             tr("Author") + ": <a href=http://jaime.robles.es/klog>Jaime Robles</a>, <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a><br><a href=mailto:jaime@robles.es>jaime@robles.es</a>";
 
 
@@ -69,7 +69,7 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
     QString author2 = QString("<tr><td>Akihiro Koda</td>")  + QString("<td><a href=\"https://www.qrz.com/db/jl3oxr\">JL3OXR</a></td>") + "<td>(2016)</td></tr>";
     QString author3 = QString("<tr><td>Andrew Goldie</td>") + QString("<td><a href=\"https://www.qrz.com/db/zl2agc\">ZL2ACG</a></td>") + "<td>(2009-2010)</td></tr>";
 
-    QString authorText = tr("KLog is developed by a very small team and you are invited to join!") + "<br><br>" + tr("If you want to support you can join the <a href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog's development mailing list</a> and you will be welcome!") + "<br><br>" + tr("You can also help us sending bug reports or small code contributions, ideas or whatever you think it may improve KLog.");
+    QString authorText = tr("KLog is developed by a very small team and you are invited to join!") + "<br><br>" + tr("If you want to provide support you are welcome to join the <a href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog development mailing list</a>!") + "<br><br>" + tr("You can also help us by sending bug reports or small code contributions, ideas or whatever you think may improve KLog.");
     QString authors = "<center><h2>" + tr("Authors") + "</h2></center><br>" + authorText + "<br><table>" + author1 + author2 + author3 + "</table>";
 
 
@@ -79,7 +79,7 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
     QString translator4 = QString("<tr><td>Spanish</td>") + QString("<td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a></td></tr>");
 
 
-    QString translatorsText = tr("Translators bring KLog into your language. They are really an important part of the KLog development team.") + "<br><br>" + tr("If KLog is still not in your language and you want to help us, please contact us through the <a href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog's development mailing list</a> and you will be welcome!");
+    QString translatorsText = tr("Translators bring KLog into your language. They are really an important part of the KLog development team.") + "<br><br>" + tr("If KLog is still not in your language and you want to help us, you are welcome to contact us through the <a href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog development mailing list</a>!");
     QString translators = "<center><h2>" + tr("Translators") + "</h2></center><br>" + translatorsText + "<br><table>" + translator1 + translator2 + translator3 + translator4 + "</table>";
 
     QLabel *authorsLabel = new QLabel(authors);
@@ -93,10 +93,10 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
     translatorsLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
     QString privacy = "<center><h2>" + tr("Privacy advisory") + "</h2></h4></center><br>" +
-            tr("KLog developers have included a feature that reports to KLog's server some data of the user with the only purpose to identify the number of installed versions to focus the development in one or other direction taking into account the user's need.") +
-            "<br><br>" + tr("Today, the data that is provided is the following:") +
+            tr("KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account user's needs") +
+            "<br><br>" + tr("At present, the data that is provided is the following:") +
             "<ul><li>" + tr("Callsign") + "</li><li>" + tr("KLog version") + "</li><li>" + tr("Operating system") + "</li></ul><br><br><b>" +
-            tr("Please know that you can enable/disable this feature from the Misc tab in the Setup page") + ".</b>";
+            tr("Be aware that you can enable/disable this feature from the Misc tab in the Setup page") + ".</b>";
 
     QLabel *privacyLabel = new QLabel(privacy);
     privacyLabel->setWordWrap(true);

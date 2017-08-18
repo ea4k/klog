@@ -40,7 +40,7 @@
 
 
 
-    setWindowTitle(tr("KLog - The free hamradio logging software"));
+    setWindowTitle(tr("KLog - The free hamradio logging program"));
 
  }
 
@@ -140,30 +140,25 @@
      setTitle(tr("Welcome to KLog!"));
 
      topLabel = new QLabel(tr("Welcome to KLog! "
-                              "You need to agree the License before starting using this software"));
+                              "The GPL is the License of this software"));
      topLabel->setWordWrap(true);
 
 
      welcomeBrowser = new QTextEdit;
      welcomeBrowser->setReadOnly(true);
 
-    QString welcometxt = tr("<html><head> \
-                            <title>Welcome to KLog</title> \
-            </head><body> \
-            <p>It looks to be the first time you run KLog in this computer.</p> \
-            <p>KLog is a free hamradio logging software that is able to run in Linux, macOS and Windows. It is designed to provide general \
-            purpose, DX logging and contest logging.</p> \
-            <p>It support ADIF and Cabrillo file formats import and export, QSL managing support and many other features...</p> \
-            <p>Before you can start using KLog, you will be asked to: \
-            <ul> \
-            <li>Agree the terms of the license</li> \
-            <li>Define how do you prefer to run KLog</li> \
-            <li>Enter your call, CQ zone, ... and main configuration.</li> \
-            </ul> \
-            </p> \
-            <p>Enjoy KLog and contact the development team if you have any suggestion!</p> \
-            <p><h3>73 de EA4TV</h3></p> \
-            </body></html>");
+    QString welcometxt = "<html><head><title>" + tr("Welcome to KLog") + "</title></head><body>" +
+                            "<p>" + tr("This looks like it's the first time you've run KLog on this computer.") + "</p>" +
+                            "<p>" + tr("KLog is a free hamradio logging program that can run on Linux macOS and Windows.") +
+                            tr("It is designed to provide general purpose, DX and contest logging.") + "</p>" +
+                            "<p>" + tr("It supports QSL management, import and export of ADIF ") +
+                            tr("and Cabrillo file formats and many other features...") + "</p><p>" +
+                            tr("Before you can start using KLog, you will be asked to:") + "</p><ul>" +
+                            "<li>" + tr("Agree to the terms of the license") + "</li>";
+                            "<li>" + tr("<li>Define how you would prefer to run KLog") + "</li>" +
+                            "<li>" + tr("Enter your callsign, CQ zone, etc. and main configuration.") + "</li></ul>" +
+                            "<p>" + tr("Enjoy KLog and contact the development team if you have any suggestions!") + "</p>" +
+                            "<h3>73 de EA4TV</h3></body></html>";
 
     welcomeBrowser->setHtml(welcometxt);
 
@@ -183,11 +178,11 @@
  LicPage::LicPage(QWidget *parent)
      : QWizardPage(parent)
  {
-     setTitle(tr("KLog License agreement"));
+     setTitle(tr("KLog License information"));
      //setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/watermark.png"));
 
      topLabel = new QLabel(tr("Welcome to KLog!"
-                              "You need to agree the License before starting using this software"));
+                              "The GPL is the License of this software:"));
      topLabel->setWordWrap(true);
 
 
@@ -827,8 +822,8 @@
            "</body></html>";
 
     licenseBrowser->setHtml(gplLic);
-    aceptLicCheckBox = new QCheckBox(tr("I agree to the terms of the license"));
-    aceptLicCheckBox->setToolTip(tr("You need to accept the terms of the license before using KLog"));
+    aceptLicCheckBox = new QCheckBox(tr("Ok, let's continue"));
+    aceptLicCheckBox->setToolTip(tr("Be aware that KLog is free software."));
 
     registerField("licAgreement*", aceptLicCheckBox);
 
@@ -918,7 +913,7 @@ CTYPage::CTYPage(const QString _klogDir, const QString _version, QWidget *parent
     setTitle(tr("Country data download"));
 
 
-    topLabel = new QLabel(tr("KLog needs the country data..."));
+    topLabel = new QLabel(tr("KLog needs country data..."));
     topLabel->setWordWrap(true);
     progressBar = new QProgressBar;
     progressBar->setEnabled(false);
@@ -946,11 +941,11 @@ CTYPage::CTYPage(const QString _klogDir, const QString _version, QWidget *parent
     QString st = tr("Country data needed");
     QString gplLic = "<html><head><title>";
     gplLic = gplLic+st+"</title></head><body><p>";
-    st = tr("KLog uses the CTY.CSV file (from http://www.country-files.com/) to get the DXCC information.");
+    st = tr("KLog uses the cty.csv file from http://www.country-files.com/ to get DXCC information.");
     gplLic = gplLic + st + "</p><p>";
-    st = tr("You need to download the cty.csv file if you want KLog to show you the countries, locator, ... of the QSO you do.");
+    st = tr("You need to download the cty.csv file if you want KLog to show you the countries, locator, ... of the QSOs you do.");
     gplLic = gplLic + st + "</p><p>";
-    st = tr("Click on Download to download just now.");
+    st = tr("Click on Download to download now.");
     gplLic = gplLic+st+"</p></body></html>";
 
    ctyBrowser->setHtml(gplLic);

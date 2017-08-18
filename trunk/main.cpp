@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
             urlTranslate = "<p><a href=\"https://translate.google.com/?sl=auto&tl=auto#en/auto/No%20translation%20files%20for%20your%20language%20have%20been%20found%20so%20KLog%20will%20be%20shown%20in%20English.%0A%0AIf%20you%20have%20the%20klog_en.qm%20file%20for%20your%20language%2C%20you%20can%20copy%20it%20in%20the%20%2Fhome%2Fdevel%2F.klog%2F%20folder%20and%20restart%20KLog%20again.%0A%0A%20If%20you%20want%20to%20help%20to%20translate%20KLog%20into%20your%20language%2C%20please%20contact%20the%20author.\">TRANSLATE</a></p>";
             QString msg = QString();
             msg = QString(QObject::tr("No translation files for your language have been found so KLog will be shown in English.\n\n")) + "<p>" +
-                   QString(QObject::tr("If you have the klog_")) + (QLocale::system().name()).left(2) + QString(QObject::tr(".qm file for your language, you can copy it in the "));
+                   QString(QObject::tr("If you have the klog_")) + (QLocale::system().name()).left(2) + QString(QObject::tr(".qm file for your language, you can copy it into the "));
             msgBox.setWindowTitle("KLog");
             msgBox.setIcon(QMessageBox::Warning);
             msgBox.setTextFormat(Qt::RichText);
@@ -165,7 +165,7 @@ int main(int argc, char *argv[])
 
             QString msg2;
             msg2 = QString();
-            msg2 = QObject::tr("folder and restart KLog again.") + "</p><p>" + QObject::tr("If you want to help to translate KLog into your language, please contact the author.</p>") + urlTranslate;
+            msg2 = QObject::tr("folder and restart KLog.") + "</p><p>" + QObject::tr("If you want to help to translate KLog into your language, please contact the author.</p>") + urlTranslate;
 
             #ifdef Q_OS_WIN
 
@@ -297,7 +297,7 @@ int main(int argc, char *argv[])
            //qDebug() << "MAIN: Wizard cancelled " << QString::number(inMemory) << " ... should close " << endl;
 
             QMessageBox msgBox;
-            msgBox.setText(QObject::tr("Install wizard was cancelled before completing..."));
+            msgBox.setText(QObject::tr("Install wizard was canceled before completing..."));
             msgBox.setInformativeText(QObject::tr("Do you want to remove the KLog dir from your disk?"));
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
             msgBox.setDefaultButton(QMessageBox::Yes);
@@ -330,7 +330,7 @@ int main(int argc, char *argv[])
             break;
             case QMessageBox::No:
                 QMessageBox msgBox;
-                msgBox.setText(QObject::tr("Remember that your KLog dir is in your system...\n\nThank you for running KLog!"));
+                msgBox.setText(QObject::tr("Remember that your KLog dir is on your system...\n\nThank you for running KLog!"));
                 msgBox.exec();
             break;
             }

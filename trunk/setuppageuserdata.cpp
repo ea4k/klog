@@ -68,8 +68,8 @@ SetupPageUserDataPage::SetupPageUserDataPage(QWidget *parent) : QWidget(parent){
    nameLineEdit->setToolTip(tr("Enter your name"));
    address1LineEdit->setToolTip(tr("Enter your address - 1st line"));
    address2LineEdit->setToolTip(tr("Enter your address - 2nd line"));
-   address3LineEdit->setToolTip(tr("Enter your address - 3st line"));
-   address4LineEdit->setToolTip(tr("Enter your address - 4nd line"));
+   address3LineEdit->setToolTip(tr("Enter your address - 3rd line"));
+   address4LineEdit->setToolTip(tr("Enter your address - 4th line"));
    cityLineEdit->setToolTip(tr("Enter your city"));
    zipLineEdit->setToolTip(tr("Enter your zip code"));
    provinceLineEdit->setToolTip(tr("Enter your province or state"));

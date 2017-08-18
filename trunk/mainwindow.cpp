@@ -171,7 +171,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     searchResultsTreeWidget->setMouseTracking(true);
 
     searchBoxClearButton = new QPushButton(tr("&Clear"), this);
-    searchBoxExportButton  = new QPushButton(tr("&Export Highlited"), this);
+    searchBoxExportButton  = new QPushButton(tr("&Export Highlighted), this);
     searchBoxSelectAllButton  = new QPushButton(tr("&Select All"), this);
     searchBoxReSearchButton = new QPushButton(tr("&Search"), this);
     searchAllRadioButton = new QRadioButton (tr("All"), this);
@@ -356,7 +356,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     rxPowerSpinBox = new QDoubleSpinBox;
     rxPowerSpinBox->setDecimals(2);
     rxPowerSpinBox->setMaximum(9999);
-    rxPowerSpinBox->setSuffix(tr("Watt"));
+    rxPowerSpinBox->setSuffix(tr("Watts"));
 
     txFreqSpinBox = new QDoubleSpinBox;
     txFreqSpinBox->setDecimals(3);
@@ -944,7 +944,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
 
         QMessageBox msgBox;
         msgBox.setText( tr("You have selected an entity:\n\n")+"- "+dxccn2+"\n\n"+tr("that is different from the KLog proposed entity:\n\n")+ "- "+dxccn1+"\n\n"
-                        +tr("Click on the prefix of the right entity or Cancel to correct."));
+                        +tr("Click on the prefix of the correct entity or Cancel to edit the QSO again."));
 
         msgBox.addButton(button2, QMessageBox::AcceptRole);
         msgBox.addButton(button1, QMessageBox::ActionRole);
@@ -2330,7 +2330,7 @@ void MainWindow::createUICQWW()
     //qsoStatusBar->setToolTip(tr("QSO information"));
     OKButton->setToolTip(tr("Add the QSO to the log"));
     //spotItButton->setToolTip(tr("Spots this QSO to the DX Cluster"));
-    clearButton->setToolTip(tr("Clears the box"));
+    clearButton->setToolTip(tr("Clear the box"));
 
     gridGroupBox = new QGroupBox(tr("Input"));
     QGridLayout *layout = new QGridLayout;
@@ -2769,7 +2769,7 @@ void MainWindow::slotQRZTextChanged()
 
     if (!validCharactersInCall(qrzLineEdit->text()))
     {
-        infoLabel1->setText(tr("Not valid characters in the QRZ box"));
+        infoLabel1->setText(tr("Invalid characters used in the QRZ"));
         InValidCharsInPrevCall = true;
         return;
     }
@@ -3556,7 +3556,7 @@ void MainWindow::createMenusCommon()
     fileMenu->addAction(ADIFImport);
     //ADIFImport->setMenuRole(QAction::ApplicationSpecificRole);
     connect(ADIFImport, SIGNAL(triggered()), this, SLOT(slotADIFImport()));
-    ADIFImport->setToolTip(tr("Import an ADIF file in the current log"));
+    ADIFImport->setToolTip(tr("Import an ADIF file into the current log"));
 
     fileMenu->addSeparator();
 
@@ -3582,7 +3582,7 @@ void MainWindow::createMenusCommon()
     ReqQSLExport = new QAction(tr("&Export Requested QSL to ADIF..."), this);
     fileMenu->addAction(ReqQSLExport);
     connect(ReqQSLExport, SIGNAL(triggered()), this, SLOT(slotRQSLExport()));
-    ReqQSLExport->setToolTip(tr("Export all requested My-QSL QSO to an ADIF file (i.e. to import it in a QSL tag printing software)"));
+    ReqQSLExport->setToolTip(tr("Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program"));
 
     fileMenu->addSeparator();
 
@@ -3611,7 +3611,7 @@ void MainWindow::createMenusCommon()
     toolMenu->addAction(fillQsoAct);
     //fillQsoAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(fillQsoAct, SIGNAL(triggered()), this, SLOT(fillQSOData()));
-    fillQsoAct->setToolTip(tr("Run the log reusing previous QSO to reuse and fill missing information in other QSO"));
+    fillQsoAct->setToolTip(tr("Go through the log reusing previous QSOs to fill missing information in other QSOs"));
 
     toolMenu->addSeparator();
 
@@ -3620,18 +3620,19 @@ void MainWindow::createMenusCommon()
     //findQSO2QSLAct->setMenuRole(QAction::ApplicationSpecificRole);
 
     connect(findQSO2QSLAct, SIGNAL(triggered()), this, SLOT(slotSearchToolNeededQSLToSend()));
-    findQSO2QSLAct->setToolTip(tr("Shows QSO that are needed and you should send your QSL and request the DX-QSL"));
+    findQSO2QSLAct->setToolTip(tr("Shows QSOs for which you should send your QSL and request the DX QSL"));
+
 
     findRequestedQSLAct = new QAction(tr("Find &requested MY-QSL"), this);
     toolMenu->addAction(findRequestedQSLAct);
     //findQSO2QSLAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(findRequestedQSLAct, SIGNAL(triggered()), this, SLOT(slotToolSearchRequestedQSLToSend()));
-    findRequestedQSLAct->setToolTip(tr("Shows the QSO that have requested my QSL to be sent and is still pending. You should keep this queue empty!"));
+    findRequestedQSLAct->setToolTip(tr("Shows the QSOs with pending requests to send QSLs. You should keep this queue empty!"));
 
-    findQSLPendingToReceiveAct = new QAction(tr("&Find pending to receive DX-QSL"), this);
+    findQSLPendingToReceiveAct = new QAction(tr("&Find DX-QSLs pending to arrive"), this);
     toolMenu->addAction(findQSLPendingToReceiveAct);
     connect(findQSLPendingToReceiveAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
-    findQSLPendingToReceiveAct->setToolTip(tr("Shows the DX-QSL that has been requested or simply my QSL has been sent with no answer"));
+    findQSLPendingToReceiveAct->setToolTip(tr("Shows the DX-QSL that has been requested or QSLs has been sent with no answer"));
 
     findQSLDXRequestedAct = new QAction(tr("&Find requested DX-QSL"), this);
     toolMenu->addAction(findQSLDXRequestedAct);
@@ -3644,7 +3645,7 @@ void MainWindow::createMenusCommon()
     toolMenu->addAction(downloadCTYAct);
     //downloadCTYAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(downloadCTYAct, SIGNAL(triggered()), this, SLOT(slotUpdateCTYDAT()));
-    downloadCTYAct->setToolTip(tr("Update the country file to have updated DX-Entity data"));
+    downloadCTYAct->setToolTip(tr("For updated DX-Entity data, update ct.csv"));
 
     toolMenu->addSeparator();
 
@@ -3756,7 +3757,7 @@ void MainWindow::slotShowSoftUpdateResults(const bool _b)
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setWindowTitle(tr("KLog update checking result"));
-            msgBox.setText(tr("Congratulations!\n\nYour KLog is updated.\nYou already have the latest version."));
+            msgBox.setText(tr("Congratulations!\n\nYou already have the latest version."));
             msgBox.exec();
         }
         else
@@ -5243,14 +5244,14 @@ void MainWindow::createUIDX()
     dxccConfirmedQLCDNumber->setToolTip(tr("Number of confirmed DXCC entities"));
     dxccWorkedQLCDNumber->setToolTip(tr("Number of worked DXCC entities"));
     wazConfirmedQLCDNumber->setToolTip(tr("Number of confirmed WAZ zones"));
-    wazWorkedQLCDNumber->setToolTip(tr("Number of worked  WAZ zones"));
+    wazWorkedQLCDNumber->setToolTip(tr("Number of worked WAZ zones"));
     localConfirmedQLCDNumber->setToolTip(tr("Number of confirmed local references"));
     localWorkedQLCDNumber->setToolTip(tr("Number of worked local references"));
-    qsoConfirmedQLCDNumber->setToolTip(tr("Number of confirmed QSO"));
-    qsoWorkedQLCDNumber->setToolTip(tr("Number of worked QSO"));
-    dxMarathonDXCCQLCDNumber->setToolTip(tr("Number of DXCC worked on the selected year"));
-    dxMarathonCQQLCDNumber->setToolTip(tr("Number of CQ Zones worked on the selected year"));
-    dxMarathonPointsQLCDNumber->setToolTip(tr("Score for the DXMarathon on the selected year"));
+    qsoConfirmedQLCDNumber->setToolTip(tr("Number of confirmed QSOs"));
+    qsoWorkedQLCDNumber->setToolTip(tr("Number of worked QSOs"));
+    dxMarathonDXCCQLCDNumber->setToolTip(tr("Number of DXCC worked in the selected year"));
+    dxMarathonCQQLCDNumber->setToolTip(tr("Number of CQ Zones worked in the selected year"));
+    dxMarathonPointsQLCDNumber->setToolTip(tr("Score for the DXMarathon in the selected year"));
     operatingYearsComboBox->setToolTip(tr("Select the year you want to check"));
 
     infoLabel1->setToolTip(tr("Status of the DX entity"));
@@ -6041,7 +6042,6 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxMarathonTopScoreLabelN->setFrameStyle(QFrame::StyledPanel);
     dxMarathonLabelN->setFrameStyle(QFrame::StyledPanel);
 
-    /*
     continentLabel->setFrameShadow(QFrame::Raised);
     continentLabel->setFrameStyle(QFrame::StyledPanel);
     continentLabelN->setFrameShadow(QFrame::Raised);
@@ -6107,7 +6107,6 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     bandLabel11->setFrameStyle(QFrame::StyledPanel);
     bandLabel12->setFrameShadow(QFrame::Raised);
     bandLabel12->setFrameStyle(QFrame::StyledPanel);
-*/
 
     infoLabel1->setFrameShadow(QFrame::Raised);
     infoLabel1->setFrameStyle(QFrame::StyledPanel);

@@ -23,7 +23,7 @@ SearchWidget::SearchWidget(QWidget *parent) :
     searchResultsTreeWidget->setMouseTracking(true);
 
     searchBoxClearButton = new QPushButton(tr("&Clear"), this);
-    searchBoxExportButton  = new QPushButton(tr("&Export Highlited"), this);
+    searchBoxExportButton  = new QPushButton(tr("&Export Highlighted"), this);
     searchBoxSelectAllButton  = new QPushButton(tr("&Select All"), this);
     searchBoxReSearchButton = new QPushButton(tr("&Search"), this);
     searchAllRadioButton = new QRadioButton (tr("All"), this);
@@ -62,12 +62,12 @@ void SearchWidget::setVersion (const QString _version)
 
 void SearchWidget::createUI()
 {
-    searchBoxClearButton->setToolTip(tr("Clear the searchs"));
+    searchBoxClearButton->setToolTip(tr("Clear the searches"));
     searchBoxExportButton->setToolTip(tr("Export the search result to an ADIF file"));
     searchBoxSelectAllButton->setToolTip(tr("Select/Unselect all the QSO of the box"));
     searchBoxReSearchButton->setToolTip(tr("Search in the log"));
     searchAllRadioButton->setToolTip(tr("Search in all logs"));
-    searchBoxLineEdit->setToolTip(tr("Enter the QRZ to search"));
+    searchBoxLineEdit->setToolTip(tr("Enter the QRZ to search for"));
     searchResultsTreeWidget->setToolTip(tr("Search results"));
 
 

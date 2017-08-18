@@ -100,9 +100,9 @@ SetupEntityDialog::SetupEntityDialog(){
 
     //qDebug() << "SetupEntityDialog::SetupEntityDialog -  1" << endl;
 
-    QLabel *arrlidLabel = new QLabel(tr("ARRL Id"));
+    QLabel *arrlidLabel = new QLabel(tr("ARRL ID"));
     arrlidLineEdit = new QLineEdit;
-    arrlidLineEdit->setToolTip(tr("ARRL id"));
+    arrlidLineEdit->setToolTip(tr("ARRL ID"));
 
     //QLabel *deletedLabel = new QLabel(tr("Deleted"));
     //deletedLineEdit = new QLineEdit;
@@ -110,7 +110,7 @@ SetupEntityDialog::SetupEntityDialog(){
 
     QLabel *prefLabel = new QLabel(tr("Prefixes"));
     prefLineEdit  = new QLineEdit;
-    prefLineEdit->setToolTip(tr("Comma separated possible prefixes. ie. EA1, EA2, ..."));
+    prefLineEdit->setToolTip(tr("Comma separated possible prefixes, e.g. EA1, EA2, ..."));
 
     delQDateEdit = new QDateEdit;
     delQDateEdit->setToolTip(tr("Date of the deletion"));

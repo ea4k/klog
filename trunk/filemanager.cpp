@@ -1947,7 +1947,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         if ( progress.wasCanceled() )
         {
             QMessageBox msgBox;
-            QString aux = QString(tr("You have cancelled the file export. The file will be removed and no data will be exported.\nDo you still want to cancel?"));
+            QString aux = QString(tr("You have canceled the file export. The file will be removed and no data will be exported.\nDo you still want to cancel?"));
             msgBox.setText(aux);
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
             msgBox.setDefaultButton(QMessageBox::No);
@@ -2412,7 +2412,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     {
 
         QMessageBox msgBox;
-        aux = QString(tr("There are more than one log in this logfile.\nAll logs will be imported in the current log.\nDo you want to continue?"));
+        aux = QString(tr("There is more than one log in this logfile.\nAll logs will be imported into the current log.\nDo you want to continue?"));
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::No);
@@ -2739,7 +2739,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                 if ((errorCode == 19) && (!ignoreErrorCode19))
                 { // There are some repeated QSO
                     QMessageBox msgBox;
-                    aux = tr("It seems that there are some QSO duplicated in the ADIF file you are importing. Do you want to continue? (Duped QSO will not be imported)");
+                    aux = tr("It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No);
                     msgBox.setDefaultButton(QMessageBox::Yes);
@@ -3730,11 +3730,11 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
 
     if (!(haveBand && haveCall && haveMode && haveTime && haveDate ))
     {        
-        aux2 = tr ("This QSO is not including the minimum data to consider a QSO as valid!.\n\n\nPlease edit the ADIF file and make sure that it include at least:\n\nCALL, QSO_DATE, TIME_ON, BAND and MODE.\n\nThis QSO had:\n");
+        aux2 = tr ("This QSO does not include the minimum data required for it to be valid!.\n\n\nPlease edit the ADIF file and make sure that it includes at least:\n\nCALL, QSO_DATE, TIME_ON, BAND and MODE.\n\nThis QSO had:\n");
 
         if (!haveBand)
         {
-            aux2 = aux2 + tr(" - The band missing and the following call: ") + qrzCall + ".\n";
+            aux2 = aux2 + tr(" - The band missing for the following call: ") + qrzCall + ".\n";
             //aux2 = "Band missing " + qrzCall + " ";
         }
         if (!haveCall)
@@ -3744,17 +3744,17 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
         }
         if (!haveMode)
         {
-            aux2 = aux2 + tr(" - The mode missing and the following call: ") + qrzCall + ".\n";
+            aux2 = aux2 + tr(" - The mode missing for the following call: ") + qrzCall + ".\n";
             //aux2 = "Mode missing " + qrzCall + " ";
         }
         if (!haveDate)
         {
-            aux2 = aux2 + tr(" - The date missing and the following call: ") + qrzCall + ".\n";
+            aux2 = aux2 + tr(" - The date missing for the following call: ") + qrzCall + ".\n";
             //aux2 = "Date missing " + qrzCall + " ";
         }
         if (!haveTime)
         {
-            aux2 = aux2 + tr(" - The time missing and the following call: ") + qrzCall + ".\n";
+            aux2 = aux2 + tr(" - The time missing for the following call: ") + qrzCall + ".\n";
             //aux2 = "Time missing " + qrzCall + " ";
         }
 
@@ -3787,7 +3787,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     if ((!rstTXr) && (!rstTXDefault))
     {
         QMessageBox msgBox;
-        aux = tr("This log seems to lack of RST-TX information.\n\nClick on Yes to add a default 59 to all QSO with a similar problem.\n\nIf you select NO, the QSO may not be imported.");
+        aux = tr("This log seems to lack RST-TX information.\n\nClick on Yes to add a default 59 to all QSOs with a similar problem.\n\nIf you select NO, it will not be possible to import the QSO.");
         msgBox.setWindowTitle(tr("KLog: No RST TX found!"));
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
@@ -3809,7 +3809,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     if ((!rstRXr) && (!rstRXDefault))
     {
         QMessageBox msgBox;
-        aux = tr("This log seems to lack of RST-RX information.\n\nClick on Yes to add a default 59 to all QSO with a similar problem.\n\nIf you select NO, the QSO may not be imported.");
+        aux = tr("This log seems to lack RST-RX information.\n\nClick on Yes to add a default 59 to all QSOs with a similar problem.\n\nIf you select NO, it will not be possible to import the QSO.");
         msgBox.setText(aux);
         msgBox.setWindowTitle(tr("KLog: No RST RX found!"));
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);

@@ -319,7 +319,7 @@ void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
 
     QStringList headerqs;
     headerqs.clear();
-    headerqs << tr("Id") << tr("Entity") << bandNames;
+    headerqs << tr("ID") << tr("Entity") << bandNames;
     dxccView->setHorizontalHeaderLabels(headerqs);
    //qDebug() << "DXCCStatusWidget::setBands: PRE-END" << endl;
 

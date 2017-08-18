@@ -253,6 +253,8 @@ void SoftwareUpdate::connectToURL()
 void SoftwareUpdate::setHeader()
 {
     QString ver = util->getAgent(klogVersion);
+
+
     if (callsign.length()>2)
     {
         ver = ver + "-" + callsign;
@@ -261,6 +263,7 @@ void SoftwareUpdate::setHeader()
     str.clear();
     str.append(ver);
 
+    qDebug() << "SoftwareUpdate::setHeader: " << str << endl;
     request.setRawHeader("User-Agent", str);
 }
 
