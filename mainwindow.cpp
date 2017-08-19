@@ -3641,7 +3641,7 @@ void MainWindow::createMenusCommon()
 
     toolMenu->addSeparator();
 
-    downloadCTYAct = new QAction (tr("&Update CTY.CSV"), this);
+    downloadCTYAct = new QAction (tr("&Update cty.csv"), this);
     toolMenu->addAction(downloadCTYAct);
     //downloadCTYAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(downloadCTYAct, SIGNAL(triggered()), this, SLOT(slotUpdateCTYDAT()));

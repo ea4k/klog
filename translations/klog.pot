@@ -1132,11 +1132,6 @@ msgctxt "MainWindow|"
 msgid "Shows the DX-QSL that has been requested"
 msgstr ""
 
-#: ../mainwindow.cpp:3644
-msgctxt "MainWindow|"
-msgid "&Update CTY.CSV"
-msgstr ""
-
 #: ../mainwindow.cpp:3652
 msgctxt "MainWindow|"
 msgid "&Setup"
@@ -1493,6 +1488,11 @@ msgstr ""
 msgctxt "MainWindow|"
 msgid ""
 "Shows the DX-QSL that has been requested or QSLs has been sent with no answer"
+msgstr ""
+
+#: ../mainwindow.cpp:3644
+msgctxt "MainWindow|"
+msgid "&Update cty.csv"
 msgstr ""
 
 #: ../mainwindow.cpp:3760
@@ -3542,14 +3542,14 @@ msgstr ""
 #: ../setuppageworldeditor.cpp:88
 msgctxt "SetupPageWorldEditor|"
 msgid ""
-"An entities information file (CTY.CSV) has been detected in your KLog folder "
+"An entities information file (cty.csv) has been detected in your KLog folder "
 "and will be loaded."
 msgstr ""
 
 #: ../setuppageworldeditor.cpp:97
 msgctxt "SetupPageWorldEditor|"
 msgid ""
-"No entities information file (CTY.CSV) has been detected in your KLog folder."
+"No entities information file (cty.csv) has been detected in your KLog folder."
 msgstr ""
 
 #: ../setuppageworldeditor.cpp:98

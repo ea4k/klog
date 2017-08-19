@@ -413,7 +413,7 @@ void MainWindowSatTab::addBands(QStringList _bands)
 }
 
 void MainWindowSatTab::setDefaultBands()
-{//Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist in the selected bands
+{//Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist on the selected bands
     QStringList _b;
     _b.clear();
 

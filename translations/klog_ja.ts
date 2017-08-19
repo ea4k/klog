@@ -1750,9 +1750,8 @@ KLogは更新されました.
         <translation type="vanished">自分のQSLカードをリクエストされているQSOデータをADIFファイルにエクスポートします. (つまりQSLカードのタグシール印刷ソフトなどにインポートできます)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3644"/>
         <source>&amp;Update CTY.CSV</source>
-        <translation>CTY.CSVを更新(&amp;U)</translation>
+        <translation type="vanished">CTY.CSVを更新(&amp;U)</translation>
     </message>
     <message>
         <source>Update the country file to have updated DX-Entity data</source>
@@ -2223,6 +2222,11 @@ KLogは更新されました.
     <message>
         <location filename="../mainwindow.cpp" line="3635"/>
         <source>Shows the DX-QSL that has been requested or QSLs has been sent with no answer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3644"/>
+        <source>&amp;Update cty.csv</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4986,14 +4990,22 @@ The log will not be opened.</source>
 <context>
     <name>SetupPageWorldEditor</name>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="88"/>
         <source>An entities information file (CTY.CSV) has been detected in your KLog folder and will be loaded.</source>
-        <translation>DXCC情報取得のファイル (CTY.CSV) がKLogフォルダーに見つかりました. ファイルをロードします.</translation>
+        <translation type="vanished">DXCC情報取得のファイル (CTY.CSV) がKLogフォルダーに見つかりました. ファイルをロードします.</translation>
+    </message>
+    <message>
+        <source>No entities information file (CTY.CSV) has been detected in your KLog folder.</source>
+        <translation type="vanished">DXCC情報取得のファイル (CTY.CSV) がKLogフォルダーに見つかりません.</translation>
+    </message>
+    <message>
+        <location filename="../setuppageworldeditor.cpp" line="88"/>
+        <source>An entities information file (cty.csv) has been detected in your KLog folder and will be loaded.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="97"/>
-        <source>No entities information file (CTY.CSV) has been detected in your KLog folder.</source>
-        <translation>DXCC情報取得のファイル (CTY.CSV) がKLogフォルダーに見つかりません.</translation>
+        <source>No entities information file (cty.csv) has been detected in your KLog folder.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="98"/>

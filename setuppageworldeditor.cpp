@@ -47,7 +47,7 @@ SetupPageWorldEditor::SetupPageWorldEditor(QWidget *parent) : QWidget(parent)
     exportWorldPushButton->setEnabled(false);
     loadWorldPushButton->setEnabled(true);
     exportWorldPushButton->setToolTip("Still not implemented.");
-    loadWorldPushButton->setToolTip("Import a new CTY.CSV file");
+    loadWorldPushButton->setToolTip("Import a new cty.csv file");
 
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
@@ -85,7 +85,7 @@ SetupPageWorldEditor::SetupPageWorldEditor(QWidget *parent) : QWidget(parent)
         {
 
             msgBox.setIcon(QMessageBox::Information);
-            msgBox.setText(tr("An entities information file (CTY.CSV) has been detected in your KLog folder and will be loaded."));
+            msgBox.setText(tr("An entities information file (cty.csv) has been detected in your KLog folder and will be loaded."));
             msgBox.exec();
             world->recreate(ctyfile);
             worldModel->select();
@@ -94,7 +94,7 @@ SetupPageWorldEditor::SetupPageWorldEditor(QWidget *parent) : QWidget(parent)
         else
         {
             msgBox.setIcon(QMessageBox::Warning);
-            msgBox.setText(tr("No entities information file (CTY.CSV) has been detected in your KLog folder."));
+            msgBox.setText(tr("No entities information file (cty.csv) has been detected in your KLog folder."));
             msgBox.setInformativeText(tr("KLog will not be able to show entities information."));
             msgBox.exec();
         }
