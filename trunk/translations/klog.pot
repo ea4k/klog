@@ -2566,6 +2566,13 @@ msgctxt "SetupDialog|"
 msgid "DB has not been moved to new path"
 msgstr ""
 
+#: ../setupdialog.cpp:381
+msgctxt "SetupDialog|"
+msgid ""
+"You will be redirected to the Logs tab.\n"
+"Please add and select the kind of log you want to use."
+msgstr ""
+
 #: ../setupdialog.cpp:330
 msgctxt "SetupDialog|"
 msgid "World"
@@ -2614,13 +2621,6 @@ msgstr ""
 #: ../setupdialog.cpp:380
 msgctxt "SetupDialog|"
 msgid "You have not selected the kind of log you want."
-msgstr ""
-
-#: ../setupdialog.cpp:381
-msgctxt "SetupDialog|"
-msgid ""
-"You will be redirected to the Log tab.\n"
-"Please add and select the kind of log you want to use."
 msgstr ""
 
 #: ../setupentitydialog.cpp:69

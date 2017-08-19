@@ -2647,6 +2647,12 @@ Thank you for running KLog!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../setupdialog.cpp" line="381"/>
+        <source>You will be redirected to the Logs tab.
+Please add and select the kind of log you want to use.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../setupdialog.cpp" line="330"/>
         <source>World</source>
         <translation type="unfinished"></translation>
@@ -2695,12 +2701,6 @@ Thank you for running KLog!</source>
     <message>
         <location filename="../setupdialog.cpp" line="380"/>
         <source>You have not selected the kind of log you want.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../setupdialog.cpp" line="381"/>
-        <source>You will be redirected to the Log tab.
-Please add and select the kind of log you want to use.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

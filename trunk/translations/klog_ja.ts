@@ -3651,6 +3651,12 @@ KLogを使用してくださりありがとうございます!</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../setupdialog.cpp" line="381"/>
+        <source>You will be redirected to the Logs tab.
+Please add and select the kind of log you want to use.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>You need to enter at least one log in the Log&apos;s tab.</source>
         <translation type="vanished">「ログ」タブで少なくともひとつログを入力してください.</translation>
     </message>
@@ -3706,10 +3712,9 @@ KLogを使用してくださりありがとうございます!</translation>
         <translation>ログの種類が選択されていません.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="381"/>
         <source>You will be redirected to the Log tab.
 Please add and select the kind of log you want to use.</source>
-        <translation>この後、「ログ」タブに誘導されます.
+        <translation type="vanished">この後、「ログ」タブに誘導されます.
 使用したいログの種類を選択・追加してください.</translation>
     </message>
     <message>
