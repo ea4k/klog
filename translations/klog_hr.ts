@@ -3873,6 +3873,12 @@ Hvala što koristite KLog!</translation>
         <translation>Trebate unijeti barem važeći QRZ.</translation>
     </message>
     <message>
+        <location filename="../setupdialog.cpp" line="381"/>
+        <source>You will be redirected to the Logs tab.
+Please add and select the kind of log you want to use.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../setupdialog.cpp" line="360"/>
         <location filename="../setupdialog.cpp" line="369"/>
         <source>Go to the</source>
@@ -3899,10 +3905,9 @@ Hvala što koristite KLog!</translation>
         <translation>Niste izabrali kakvu vrstu dnevnika želite.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="381"/>
         <source>You will be redirected to the Log tab.
 Please add and select the kind of log you want to use.</source>
-        <translation>Bit ćete preusmjereni na karticu Dnevnici.
+        <translation type="vanished">Bit ćete preusmjereni na karticu Dnevnici.
 Izaberite vrstu dnevnika kakvu želite koristiti.</translation>
     </message>
     <message>
