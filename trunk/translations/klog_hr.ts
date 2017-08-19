@@ -2363,9 +2363,8 @@ Već imate najnoviju inačicu.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3644"/>
         <source>&amp;Update CTY.CSV</source>
-        <translation>Až&amp;uriraj CTY.CSV</translation>
+        <translation type="vanished">Až&amp;uriraj CTY.CSV</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3648"/>
@@ -2723,6 +2722,11 @@ que KLog propone: </translation>
     <message>
         <location filename="../mainwindow.cpp" line="3635"/>
         <source>Shows the DX-QSL that has been requested or QSLs has been sent with no answer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3644"/>
+        <source>&amp;Update cty.csv</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5272,14 +5276,12 @@ The log will not be opened.</oldsource>
 <context>
     <name>SetupPageWorldEditor</name>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="88"/>
         <source>An entities information file (CTY.CSV) has been detected in your KLog folder and will be loaded.</source>
-        <translation>Datoteka sa informacijom o entitetima (CTY.CSV) je pronađena u vašoj KLog mapi i bit će izbrisana.</translation>
+        <translation type="vanished">Datoteka sa informacijom o entitetima (CTY.CSV) je pronađena u vašoj KLog mapi i bit će izbrisana.</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="97"/>
         <source>No entities information file (CTY.CSV) has been detected in your KLog folder.</source>
-        <translation>Nema datoteke s informacijom o entitetima (CTY.CSV) u vašoj KLog mapi.</translation>
+        <translation type="vanished">Nema datoteke s informacijom o entitetima (CTY.CSV) u vašoj KLog mapi.</translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="98"/>
@@ -5299,6 +5301,16 @@ The log will not be opened.</oldsource>
     <message>
         <source>ARRL id</source>
         <translation type="vanished">ARRL id</translation>
+    </message>
+    <message>
+        <location filename="../setuppageworldeditor.cpp" line="88"/>
+        <source>An entities information file (cty.csv) has been detected in your KLog folder and will be loaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppageworldeditor.cpp" line="97"/>
+        <source>No entities information file (cty.csv) has been detected in your KLog folder.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="188"/>

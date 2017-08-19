@@ -1235,11 +1235,6 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3644"/>
-        <source>&amp;Update CTY.CSV</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3648"/>
         <source>For updated DX-Entity data, update cty.csv</source>
         <translation type="unfinished"></translation>
@@ -1546,6 +1541,11 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3635"/>
         <source>Shows the DX-QSL that has been requested or QSLs has been sent with no answer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3644"/>
+        <source>&amp;Update cty.csv</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3635,12 +3635,12 @@ The log will not be opened.</source>
     <name>SetupPageWorldEditor</name>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="88"/>
-        <source>An entities information file (CTY.CSV) has been detected in your KLog folder and will be loaded.</source>
+        <source>An entities information file (cty.csv) has been detected in your KLog folder and will be loaded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="97"/>
-        <source>No entities information file (CTY.CSV) has been detected in your KLog folder.</source>
+        <source>No entities information file (cty.csv) has been detected in your KLog folder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -12,6 +12,7 @@ TBD - 0.9.2.7
 - BugFix: Higher bands where not shown to be selected in the preferences.
 - BugFix: DB updating function (009) blocked the execution of KLog the first time it was executed.
 - BugFix: Language message if English is the System language is no shown anymore.
+- Translations updated: Original Ennglish (TNX JustinBRye, from Debian-10n-english) Spanish (EA4TV).
 
 May 2017 - 0.9.2.6
 - Check updates feature added. On start or when user desires KLog checks if there is one updated version available.

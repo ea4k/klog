@@ -2347,9 +2347,8 @@ Desitja actualitzar el fitxer?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3644"/>
         <source>&amp;Update CTY.CSV</source>
-        <translation>Act&amp;ualitzar CTY.CSV</translation>
+        <translation type="vanished">Act&amp;ualitzar CTY.CSV</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3662"/>
@@ -2653,6 +2652,11 @@ proposada per KLog: </translation>
     <message>
         <location filename="../mainwindow.cpp" line="3637"/>
         <source>&amp;Find requested pending to receive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3644"/>
+        <source>&amp;Update cty.csv</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5157,16 +5161,6 @@ The log will not be opened.</oldsource>
 <context>
     <name>SetupPageWorldEditor</name>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="88"/>
-        <source>An entities information file (CTY.CSV) has been detected in your KLog folder and will be loaded.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../setuppageworldeditor.cpp" line="97"/>
-        <source>No entities information file (CTY.CSV) has been detected in your KLog folder.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../setuppageworldeditor.cpp" line="98"/>
         <source>KLog will not be able to show entities information.</source>
         <translation type="unfinished"></translation>
@@ -5184,6 +5178,16 @@ The log will not be opened.</oldsource>
     <message>
         <source>ARRL id</source>
         <translation type="vanished">Id ARRL</translation>
+    </message>
+    <message>
+        <location filename="../setuppageworldeditor.cpp" line="88"/>
+        <source>An entities information file (cty.csv) has been detected in your KLog folder and will be loaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppageworldeditor.cpp" line="97"/>
+        <source>No entities information file (cty.csv) has been detected in your KLog folder.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="188"/>
