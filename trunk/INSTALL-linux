@@ -62,6 +62,11 @@ If qt5 is still not there, check your instalallation as one of the previous pack
 
 If everything goes OK, you should have the klog executable in the folder.
 
-Just execute klog and enjoy!
+6.- To install KLog, execute the following from the root account.
+
+    make install
+
+Now you are done. Just execute klog and enjoy!
+
 
 73
