@@ -1,29 +1,67 @@
 Follow these steps to build KLog.
 
-1. Check if you have the necessary include files to compile QT5 applications.
-	- Qt 	- http://qt-project.org/
-	- CMake - http://wiki.qtcentre.org/index.php?title=Compiling%5FQt4%5Fapps%5Fwith%5FCMake
+KLog requires Qt5 to be built.
 
-2. Double-check your Qt configuration to ensure that Qt5 is being used. You can check it with:
+Currently, many distributions are still distributing Qt4 as a default Qt
+version so it may be needed that you install Qt5 to be able to build KLog in
+your system.
 
-	qtchooser -print-env
+install may depend on your distribution, however, check for similar names &
+versions and it will probably work :-)
 
-On a Debian system, the output would be something like:
-	QT_SELECT="default"
-	QTTOOLDIR="/usr/lib/i386-linux-gnu/qt5/bin"
-	QTLIBDIR="/usr/lib/i386-linux-gnu"
+If you have any suggestion for this file, please contact me. (Contact
+details in the AUTHORS file).
 
-In your system it may be different but ensure you are not using Qt4 to build.
 
-3.- Generate the Makefile
+1. Install the KLog dependencies
+
+	- Install g++, qt5-qmake, qtbase5-dev & qttools5-dev packages
+
+In Debian it is done with: apt-get install g++ qt5-qmake qtbase5-dev qttools5-dev
+
+In your distribution, you should know how to install new packages :-)
+
+
+Make sure you have qt5 available. You can do it with the qtchooser command.
+The output should be something like:
+
+	user@debian:~$ qtchooser -l
+	4
+	5
+	default
+	qt4-i386-linux-gnu
+	qt4
+	qt5-i386-linux-gnu
+	qt5
+	user@debian:~$
+
+
+It should return the list of qt versions available, qt5 must be one of them. 
+If qt5 is still not there, check your instalallation as one of the previous packages may be missing.
+
+2.- Select the appropriate Qt version (Qt5)
+
+    export QT_SELECT=qt5
+
+3.- Untar klog
+
+    tar xyzf klog-version.tar.gz
+
+    enter the KLog directory
+
+    cd klog-version
+
+
+4.- Generate the Makefile
  
     qmake PREFIX=/usr/local klog.pro
 
-4. Make everything.
+5. Make everything.
 
     make 
 
-5 (JUST FOR INFORMATION)
+If everything goes OK, you should have the klog executable in the folder.
 
-    You will find the klog executable in the sources folder.
+Just execute klog and enjoy!
 
+73
