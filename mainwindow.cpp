@@ -3582,7 +3582,7 @@ void MainWindow::createMenusCommon()
     ReqQSLExport = new QAction(tr("&Export Requested QSL to ADIF..."), this);
     fileMenu->addAction(ReqQSLExport);
     connect(ReqQSLExport, SIGNAL(triggered()), this, SLOT(slotRQSLExport()));
-    ReqQSLExport->setToolTip(tr("Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program"));
+    ReqQSLExport->setToolTip(tr("Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program)"));
 
     fileMenu->addSeparator();
 
@@ -3757,7 +3757,7 @@ void MainWindow::slotShowSoftUpdateResults(const bool _b)
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setWindowTitle(tr("KLog update checking result"));
-            msgBox.setText(tr("Congratulations!\n\nYou already have the latest version."));
+            msgBox.setText(tr("Congratulations!") + "\n\n" + tr("You already have the latest version."));
             msgBox.exec();
         }
         else
@@ -5192,31 +5192,31 @@ void MainWindow::createUIDX()
     bandComboBox->addItems(bands);
    //qDebug() << "MainWindow::createUIDX - 1-" << QString::number(modes.count()) << endl;
     modeComboBox->addItems(modes);
-    txFreqSpinBox->setToolTip(tr("TX Frequency in MHz"));
-    rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz"));
+    txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
+    rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
     //myPowerSpinBox->setToolTip(tr("Power used for the QSO in watts"));
-    rxPowerSpinBox->setToolTip(tr("Power used by the DX"));
-    operatorLineEdit->setToolTip(tr("Logging operator's callsign"));
-    stationCallSignLineEdit->setToolTip(tr("Callsign used over the air"));
-    myLocatorLineEdit->setToolTip(tr("My QTH locator"));
-    nameLineEdit->setToolTip(tr("Name of the DX"));
-    qthLineEdit->setToolTip(tr("QTH of the DX"));
-    locatorLineEdit->setToolTip(tr("Locator of the DX"));
+    rxPowerSpinBox->setToolTip(tr("Power used by the DX."));
+    operatorLineEdit->setToolTip(tr("Logging operator's callsign."));
+    stationCallSignLineEdit->setToolTip(tr("Callsign used over the air."));
+    myLocatorLineEdit->setToolTip(tr("My QTH locator."));
+    nameLineEdit->setToolTip(tr("Name of the DX."));
+    qthLineEdit->setToolTip(tr("QTH of the DX."));
+    locatorLineEdit->setToolTip(tr("Locator of the DX."));
     //freqQLCDNumber->setToolTip(tr("Frequency of the QSO"));
-    qrzLineEdit->setToolTip(tr("QRZ of the QSO"));
-    rstTXLineEdit->setToolTip(tr("TX RST"));
-    rstRXLineEdit->setToolTip(tr("RX RST"));
-    STXLineEdit->setToolTip(tr("TX Exchange"));
-    SRXLineEdit->setToolTip(tr("RX Exchange"));
-    bandComboBox->setToolTip(tr("Band of the QSO"));
-    modeComboBox->setToolTip(tr("Mode of the QSO"));
-    dateEdit->setToolTip(tr("Date of the QSO"));
-    timeEdit->setToolTip(tr("Time of the QSO"));
+    qrzLineEdit->setToolTip(tr("QRZ of the QSO."));
+    rstTXLineEdit->setToolTip(tr("TX RST."));
+    rstRXLineEdit->setToolTip(tr("RX RST."));
+    STXLineEdit->setToolTip(tr("TX Exchange."));
+    SRXLineEdit->setToolTip(tr("RX Exchange."));
+    bandComboBox->setToolTip(tr("Band of the QSO."));
+    modeComboBox->setToolTip(tr("Mode of the QSO."));
+    dateEdit->setToolTip(tr("Date of the QSO."));
+    timeEdit->setToolTip(tr("Time of the QSO."));
     //statusBar->setToolTip(tr("Misc information"));
     //qsoStatusBar->setToolTip(tr("QSO information"));
-    OKButton->setToolTip(tr("Add the QSO to the log"));
+    OKButton->setToolTip(tr("Add the QSO to the log."));
     //spotItButton->setToolTip(tr("Spots this QSO to the DX Cluster - This function is still not implemented"));
-    clearButton->setToolTip(tr("Clears the box"));
+    clearButton->setToolTip(tr("Clears the QSO entry."));
 
 //TODO REMOVE eQSL
 /*
@@ -5241,21 +5241,21 @@ void MainWindow::createUIDX()
     qslmsgTextEdit->setToolTip(tr("Message of the QSL"));
     qslViaLineEdit->setToolTip(tr("QSL via information"));
 */
-    dxccConfirmedQLCDNumber->setToolTip(tr("Number of confirmed DXCC entities"));
-    dxccWorkedQLCDNumber->setToolTip(tr("Number of worked DXCC entities"));
-    wazConfirmedQLCDNumber->setToolTip(tr("Number of confirmed WAZ zones"));
-    wazWorkedQLCDNumber->setToolTip(tr("Number of worked WAZ zones"));
-    localConfirmedQLCDNumber->setToolTip(tr("Number of confirmed local references"));
-    localWorkedQLCDNumber->setToolTip(tr("Number of worked local references"));
-    qsoConfirmedQLCDNumber->setToolTip(tr("Number of confirmed QSOs"));
-    qsoWorkedQLCDNumber->setToolTip(tr("Number of worked QSOs"));
-    dxMarathonDXCCQLCDNumber->setToolTip(tr("Number of DXCC worked on the selected year"));
-    dxMarathonCQQLCDNumber->setToolTip(tr("Number of CQ Zones worked on the selected year"));
-    dxMarathonPointsQLCDNumber->setToolTip(tr("Score for the DXMarathon on the selected year"));
-    operatingYearsComboBox->setToolTip(tr("Select the year you want to check"));
+    dxccConfirmedQLCDNumber->setToolTip(tr("Number of confirmed DXCC entities."));
+    dxccWorkedQLCDNumber->setToolTip(tr("Number of worked DXCC entities."));
+    wazConfirmedQLCDNumber->setToolTip(tr("Number of confirmed WAZ zones."));
+    wazWorkedQLCDNumber->setToolTip(tr("Number of worked WAZ zones."));
+    localConfirmedQLCDNumber->setToolTip(tr("Number of confirmed local references."));
+    localWorkedQLCDNumber->setToolTip(tr("Number of worked local references."));
+    qsoConfirmedQLCDNumber->setToolTip(tr("Number of confirmed QSOs."));
+    qsoWorkedQLCDNumber->setToolTip(tr("Number of worked QSOs."));
+    dxMarathonDXCCQLCDNumber->setToolTip(tr("Number of DXCC worked on the selected year."));
+    dxMarathonCQQLCDNumber->setToolTip(tr("Number of CQ Zones worked on the selected year."));
+    dxMarathonPointsQLCDNumber->setToolTip(tr("Score for the DXMarathon on the selected year."));
+    operatingYearsComboBox->setToolTip(tr("Select the year you want to check."));
 
-    infoLabel1->setToolTip(tr("Status of the DX entity"));
-    infoLabel2->setToolTip(tr("Name of the DX entity"));
+    infoLabel1->setToolTip(tr("Status of the DX entity."));
+    infoLabel2->setToolTip(tr("Name of the DX entity."));
 
     //entityPrimDivComboBox->setToolTip(tr("Select the primary division for this QSO"));
     //entitySecDivComboBox->setToolTip(tr("Select the secondary division for this QSO"));

@@ -78,15 +78,15 @@ void MainWindowInputQSL::createUI()
     QLabel *QSLMsgLabelN = new QLabel(tr("QSL Msg"));
     QSLMsgLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-    qslSentComboBox->setToolTip(tr("Status of the QSL sending"));
-    qslRecComboBox->setToolTip(tr("Status of the QSL reception"));
-    qslSentViaComboBox->setToolTip(tr("QSL sending information"));
-    qslRecViaComboBox->setToolTip(tr("QSL reception information"));
+    qslSentComboBox->setToolTip(tr("Status of the QSL sending."));
+    qslRecComboBox->setToolTip(tr("Status of the QSL reception."));
+    qslSentViaComboBox->setToolTip(tr("QSL sending information."));
+    qslRecViaComboBox->setToolTip(tr("QSL reception information."));
 
-    qslSentQDateEdit->setToolTip(tr("Date of the QSL sending"));
-    qslRecQDateEdit->setToolTip(tr("Date of the QSL reception"));
-    qslmsgTextEdit->setToolTip(tr("Message of the QSL"));
-    qslViaLineEdit->setToolTip(tr("QSL via information"));
+    qslSentQDateEdit->setToolTip(tr("Date of the QSL sending."));
+    qslRecQDateEdit->setToolTip(tr("Date of the QSL reception."));
+    qslmsgTextEdit->setToolTip(tr("Message of the QSL."));
+    qslViaLineEdit->setToolTip(tr("QSL via information."));
 
     QGridLayout *QSLLayout = new QGridLayout;
     QSLLayout->addWidget(QSLSentLabelN, 0, 0);
