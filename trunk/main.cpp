@@ -330,7 +330,7 @@ int main(int argc, char *argv[])
             break;
             case QMessageBox::No:
                 QMessageBox msgBox;
-                msgBox.setText(QObject::tr("Remember that your KLog dir is on your system...\n\nThank you for running KLog!"));
+                msgBox.setText(QObject::tr("Remember that your KLog dir is on your system...") + "\n\n" + QObject::tr("Thank you for running KLog!"));
                 msgBox.exec();
             break;
             }

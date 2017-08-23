@@ -357,7 +357,7 @@ qDebug() << "SetupDialog::slotOkButonClicked" << endl;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText(tr("DB has not been moved to new path"));
-        msgBox.setInformativeText(tr("Go to the") + " " + tr("Misc tab") + " " + tr("and click on") + " " + tr("Move DB") + "\n" + "or the DB will not be moved to the new location.");
+        msgBox.setInformativeText(tr("Go to the") + " " + tr("Misc tab") + " " + tr("and click on") + " " + tr("Move DB") + "\n" + tr("or the DB will not be moved to the new location."));
         msgBox.exec();
         return;
     }

@@ -3787,7 +3787,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     if ((!rstTXr) && (!rstTXDefault))
     {
         QMessageBox msgBox;
-        aux = tr("This log seems to lack RST-TX information.") + "\n\n" + tr("Click on Yes to add a default 59 to all QSOs with a similar problem.") + "\n\n" + tr("If you select NO, it will not be possible to import the QSO.");
+        aux = tr("This log seems to lack RST-TX information.") + "\n\n" + tr("Click on Yes to add a default 59 to all QSOs with a similar problem.") + "\n\n" + tr("If you select No, it will not be possible to import the QSO.");
         msgBox.setWindowTitle(tr("KLog: No RST TX found!"));
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
@@ -3809,7 +3809,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     if ((!rstRXr) && (!rstRXDefault))
     {
         QMessageBox msgBox;
-        aux = tr("This log seems to lack RST-RX information.") + "\n\n" + tr("Click on Yes to add a default 59 to all QSOs with a similar problem.") + "\n\n" + tr("If you select NO, it will not be possible to import the QSO.");
+        aux = tr("This log seems to lack RST-RX information.") + "\n\n" + tr("Click on Yes to add a default 59 to all QSOs with a similar problem.") + "\n\n" + tr("If you select No, it will not be possible to import the QSO.");
         msgBox.setText(aux);
         msgBox.setWindowTitle(tr("KLog: No RST RX found!"));
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);

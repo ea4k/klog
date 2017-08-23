@@ -62,24 +62,24 @@ void SearchWidget::setVersion (const QString _version)
 
 void SearchWidget::createUI()
 {
-    searchBoxClearButton->setToolTip(tr("Clear the searches"));
-    searchBoxExportButton->setToolTip(tr("Export the search result to an ADIF file"));
-    searchBoxSelectAllButton->setToolTip(tr("Select/Unselect all the QSOs shown"));
-    searchBoxReSearchButton->setToolTip(tr("Search in the log"));
-    searchAllRadioButton->setToolTip(tr("Search in all logs"));
-    searchBoxLineEdit->setToolTip(tr("Enter the QRZ to search for"));
-    searchResultsTreeWidget->setToolTip(tr("Search results"));
+    searchBoxClearButton->setToolTip(tr("Clear the searches."));
+    searchBoxExportButton->setToolTip(tr("Export the search result to an ADIF file."));
+    searchBoxSelectAllButton->setToolTip(tr("Select/Unselect all the QSOs shown."));
+    searchBoxReSearchButton->setToolTip(tr("Search in the log."));
+    searchAllRadioButton->setToolTip(tr("Search in all logs."));
+    searchBoxLineEdit->setToolTip(tr("Enter the QRZ to search for."));
+    searchResultsTreeWidget->setToolTip(tr("Search results."));
 
 
     QStringList labels;
     if (stationCallSignShownInSearch)
     {
-        labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("Station Callsign") << tr("Id") ;
+        labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("Station Callsign") << tr("ID") ;
         searchResultsTreeWidget->setColumnCount(8);
     }
     else
     {
-       labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("Id") ;
+       labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("ID") ;
        searchResultsTreeWidget->setColumnCount(7);
     }
 
@@ -593,7 +593,7 @@ void SearchWidget::slotSearchExportButtonClicked()
         qDebug() << "SearchWidget::slotSearchExportButtonClicked: to Ask filename" << endl;
         QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
                                    util->getHomeDir(),
-                                   tr("ADIF (*.adi *.adif)"));
+                                   "ADIF (*.adi *.adif)");
         filemanager->adifLogExportMarked(fileName);
         //qDebug() << "SearchWidget::slotSearchExportButtonClicked: to call save file" << endl;
         dataProxy->unMarkAllQSO();
@@ -1036,7 +1036,7 @@ void SearchWidget::slotQsoDeleteFromSearch()
     if (_qrz.length()>=3)
     {
 
-        QString message = QString(tr("You have requested to delete the QSO with: %1")).arg(_qrz);
+        QString message = QString(tr("You have requested to delete the QSO with:") + (" %1")).arg(_qrz);
 
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Question);

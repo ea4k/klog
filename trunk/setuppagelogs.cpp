@@ -195,8 +195,8 @@ void SetupPageLogs::slotRemoveButtonClicked()
 
     QMessageBox::StandardButton ret;
     ret = QMessageBox::warning(this, tr("KLog"),
-             tr("Do you really want to remove this log?\n"
-                "All the QSOs from this log will be also deleted..."),
+             tr("Do you really want to remove this log?") + "\n" +
+                tr("All the QSOs from this log will be also deleted..."),
              QMessageBox::Yes | QMessageBox::No);
     if (ret == QMessageBox::Yes)
     {
@@ -603,7 +603,9 @@ contestBands  = (_qs.at(10)).toInt();
 
 void SetupPageLogs::showError(const QString _errorC)
 {
-    QString text = QString(tr("An error has occurred showing the following error code:\n'%1'")).arg(_errorC);
+    QString text = QString(tr("An error has occurred showing the following error code:") + "\n'%1'").arg(_errorC);
+
+
     QMessageBox::warning(this, tr("KLog - SetupPageLogs"),
                                    text,
                                    QMessageBox::Ok);
