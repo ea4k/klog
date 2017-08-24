@@ -921,7 +921,7 @@ Returns a valid format IOTA if possible and "" in other cases.
 void Awards::setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default)
 //void Awards::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
 {
-    qDebug() << "Awards::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << endl;
+    //qDebug() << "Awards::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << endl;
 
     defaultColor = QColor(_default.toUpper());
     neededColor = QColor(_needed.toUpper());

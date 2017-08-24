@@ -173,7 +173,7 @@ QString MainWindowInputQSL::getSentVia()
 {
     QString _pm = QString();
     _pm = (((qslSentViaComboBox->currentText()).split('-')).at(0)).simplified();
-    qDebug() << "MainWindow::getSentVia: " << _pm << endl;
+    //qDebug() << "MainWindow::getSentVia: " << _pm << endl;
      return _pm;
 }
 
@@ -181,7 +181,7 @@ QString MainWindowInputQSL::getRecVia()
 {
     QString _pm = QString();
     _pm = (((qslRecViaComboBox->currentText()).split('-')).at(0)).simplified();
-    qDebug() << "MainWindowInputQSL::getRecVia: " << _pm << endl;
+    //qDebug() << "MainWindowInputQSL::getRecVia: " << _pm << endl;
      return _pm;
 }
 
@@ -234,7 +234,7 @@ void MainWindowInputQSL::setQSLRecVia(const QString _qs)
 
 void MainWindowInputQSL::setQSLSenVia(const QString _qs)
 {
-    qDebug() << "MainWindowInputQSL::setQSLSenVia: " << _qs << endl;
+    //qDebug() << "MainWindowInputQSL::setQSLSenVia: " << _qs << endl;
     if(( qslSentViaComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
     {
         qslSentViaComboBox->setCurrentIndex( qslSentViaComboBox->findText(_qs+" -", Qt::MatchStartsWith));

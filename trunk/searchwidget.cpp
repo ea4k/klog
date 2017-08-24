@@ -150,7 +150,7 @@ void SearchWidget::slotDoubleClickSearch(QTreeWidgetItem * item, int)
 
 void SearchWidget::slotSearchBoxTextChanged()
 {
-    qDebug() << "SearchWidget::slotSearchBoxTextChanged: "  << searchBoxLineEdit->text() << endl;
+    //qDebug() << "SearchWidget::slotSearchBoxTextChanged: "  << searchBoxLineEdit->text() << endl;
 
     QString _id, _call, _dateTime, _band, _bandid, _mode, _qsltx, _qslrx, _stationcallsign;
     QStringList q;
@@ -459,7 +459,7 @@ void SearchWidget::setCurrentLog(const int _log)
 
 void SearchWidget::slotSearchClearButtonClicked()
 {
-    qDebug() << "SearchWidget::slotSearchClearButtonClicked: " << endl;
+    //qDebug() << "SearchWidget::slotSearchClearButtonClicked: " << endl;
     searchResultsTreeWidget->clear();
     searchBoxLineEdit->clear();
     searchSelectAllClicked = false;
@@ -468,7 +468,7 @@ void SearchWidget::slotSearchClearButtonClicked()
 
 void SearchWidget::slotSearchBoxSelectAllButtonClicked()
 {
-    qDebug() << "SearchWidget::slotSearchBoxSelectAllButtonClicked: " << endl;
+    //qDebug() << "SearchWidget::slotSearchBoxSelectAllButtonClicked: " << endl;
     if (searchSelectAllClicked)
     {
         //qDebug() << "SearchWidget::slotSearchBoxSelectAllButtonClicked: UN-SELECTING" << endl;
@@ -491,14 +491,14 @@ void SearchWidget::slotSearchBoxSelectAllButtonClicked()
 
 void SearchWidget::slotSearchBoxReSearchButtonClicked()
 {
-    qDebug() << "SearchWidget::slotSearchBoxReSearchButtonClicked: "  << endl;
+    //qDebug() << "SearchWidget::slotSearchBoxReSearchButtonClicked: "  << endl;
     slotSearchBoxTextChanged();
 }
 
 void SearchWidget::slotSearchBoxSelectionChanged()
 {// Detects when a selection has been done in the search box and changes
  // The button to clear selection
-    qDebug() << "SearchWidget::slotSearchBoxSelectionChanged: "  << endl;
+    //qDebug() << "SearchWidget::slotSearchBoxSelectionChanged: "  << endl;
 
     if ((searchResultsTreeWidget->selectedItems()).size() > 0 )
     {
@@ -537,7 +537,7 @@ void SearchWidget::slotSearchBoxSelectionChanged()
 
 void SearchWidget::slotSearchExportButtonClicked()
 {
-    qDebug() << "SearchWidget::slotSearchExportButtonClicked: " << endl;
+    //qDebug() << "SearchWidget::slotSearchExportButtonClicked: " << endl;
     // MARK QSOs
     // SAVE MARKED QSOs TO FILE
     // UNMARK QSOs
@@ -575,7 +575,7 @@ void SearchWidget::slotSearchExportButtonClicked()
                 itemsSelected = true;
                 //TODO: Prepare this while/query execution
                 i++;
-                qDebug() << "SearchWidget::slotSearchExportButtonClicked: ITEM MARKED: " << QString::number(_qsoId) << endl;
+                //qDebug() << "SearchWidget::slotSearchExportButtonClicked: ITEM MARKED: " << QString::number(_qsoId) << endl;
             }
             else
             {
@@ -583,14 +583,14 @@ void SearchWidget::slotSearchExportButtonClicked()
                 query.exec(stringQuery);
                 //TODO: Prepare this while/query execution
                 i++;
-                qDebug() << "SearchWidget::slotSearchExportButtonClicked: ITEM NOT MARKED: " << QString::number(_qsoId) << endl;
+                //qDebug() << "SearchWidget::slotSearchExportButtonClicked: ITEM NOT MARKED: " << QString::number(_qsoId) << endl;
             }
         }
     }
 
     if (itemsSelected)
     {
-        qDebug() << "SearchWidget::slotSearchExportButtonClicked: to Ask filename" << endl;
+        //qDebug() << "SearchWidget::slotSearchExportButtonClicked: to Ask filename" << endl;
         QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
                                    util->getHomeDir(),
                                    "ADIF (*.adi *.adif)");
@@ -603,7 +603,7 @@ void SearchWidget::slotSearchExportButtonClicked()
         //No items were selected
     }
 
-    qDebug() << "SearchWidget::slotSearchExportButtonClicked: unmarking..." << endl;
+    //qDebug() << "SearchWidget::slotSearchExportButtonClicked: unmarking..." << endl;
 
 }
 
@@ -623,7 +623,7 @@ void SearchWidget::slotSearchExportButtonClicked()
 
 void SearchWidget::slotRighButtonSearch(const QPoint& pos)
 {
-    qDebug() << "SearchWidget::slotRighButtonSearch"  << endl;
+    //qDebug() << "SearchWidget::slotRighButtonSearch"  << endl;
 
     QTreeWidgetItem *item = searchResultsTreeWidget->itemAt(pos);
     int _qsoID = 0;

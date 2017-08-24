@@ -2736,17 +2736,17 @@ bool MainWindow::validCharactersInCall(const QString _qrz)
 
 void MainWindow::slotQRZTextChanged()
 {    
-  qDebug()<< "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######" << endl;
+  //qDebug()<< "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######" << endl;
   qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
     if (cleaning)
     {
-        qDebug()<< "MainWindow::slotQRZTextChanged: Cleaning" << endl;
+        //qDebug()<< "MainWindow::slotQRZTextChanged: Cleaning" << endl;
         return;
     }
 
     if (qrzAutoChanging)
     {
-        qDebug()<< "MainWindow::slotQRZTextChanged: qrzAutoChanging" << endl;
+        //qDebug()<< "MainWindow::slotQRZTextChanged: qrzAutoChanging" << endl;
         qrzAutoChanging = false;
         return;
     }
@@ -2759,10 +2759,10 @@ void MainWindow::slotQRZTextChanged()
         previousQrz = (qrzLineEdit->text()).simplified();
         qrzLineEdit->setText(previousQrz);
         SRXLineEdit->setFocus();
-        qDebug()<< "MainWindow::slotQRZTextChanged: Space detected" << endl;
+        //qDebug()<< "MainWindow::slotQRZTextChanged: Space detected" << endl;
     }
 
-    qDebug()<< "MainWindow::slotQRZTextChanged: Simplifiying & Capitalizing" << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: Simplifiying & Capitalizing" << endl;
     qrzLineEdit->setText(((qrzLineEdit->text())).simplified());    
     qrzLineEdit->setText((qrzLineEdit->text()).remove(" "));
     //qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
@@ -5410,14 +5410,14 @@ void MainWindow::createUIDX()
 
     // QSL Tab definition starts here
 
-    QLabel *QSLSentLabelN = new QLabel(tr("QSL Sent"));
-    QSLSentLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    //QLabel *QSLSentLabelN = new QLabel(tr("QSL Sent"));
+    //QSLSentLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-    QLabel *QSLRecLabelN = new QLabel(tr("QSL Rec"));
-    QSLRecLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    //QLabel *QSLRecLabelN = new QLabel(tr("QSL Rec"));
+    //QSLRecLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-    QLabel *QSLViaLabelN = new QLabel(tr("QSL Via"));
-    QSLViaLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    //QLabel *QSLViaLabelN = new QLabel(tr("QSL Via"));
+    //QSLViaLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
     /*
     entityNameComboBox = new QComboBox;entitiesList
@@ -5525,84 +5525,14 @@ void MainWindow::createUIDX()
     //dxUpLeftTab->addTab(qslInputTabWidget, tr("QSL"));
     dxUpLeftTab->addTab(QSLTabWidget, tr("QSL"));
     dxUpLeftTab->addTab(eQSLTabWidget, tr("eQSL"));
-
-    // COMMENT tab starts here
-
-
     dxUpLeftTab->addTab(commentTabWidget, tr("Comment"));
 
-    //QGridLayout *commentInputTabWidgetLayout = new QGridLayout;
-    //commentInputTabWidgetLayout->addWidget(commentLineEdit, 0, 0);
-    //commentInputTabWidget->setLayout(commentInputTabWidgetLayout);
-    //i = dxUpLeftTab->addTab(commentInputTabWidget, tr("Comment"));
-
-    //entityPrimLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    //entitySecLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    //iotaAwardLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    //entityNameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    //propModeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-
-// Others Tab starts here
-/*
-    QGridLayout *othersInputTabWidgetLayout = new QGridLayout;
-    othersInputTabWidgetLayout->addWidget(entityNameLabel, 0, 0);
-    othersInputTabWidgetLayout->addWidget(entityNameComboBox, 0, 1, 1, 2);
-
-    othersInputTabWidgetLayout->addWidget(entityPrimLabel, 1, 0);
-    othersInputTabWidgetLayout->addWidget(entityPrimDivComboBox, 1, 1, 1, 2);
-    othersInputTabWidgetLayout->addWidget(entitySecLabel, 2, 0);
-    othersInputTabWidgetLayout->addWidget(entitySecDivComboBox, 2, 1, 1, 2);
-    othersInputTabWidgetLayout->addWidget(iotaAwardLabel, 3, 0);
-    othersInputTabWidgetLayout->addWidget(iotaContinentComboBox, 3, 1);
-    othersInputTabWidgetLayout->addWidget(iotaNumberLineEdit, 3, 2);
-    othersInputTabWidgetLayout->addWidget(propModeLabel, 4, 0);
-    othersInputTabWidgetLayout->addWidget(propModeComboBox, 4, 1, 1, 2);
-    othersInputTabWidget->setLayout(othersInputTabWidgetLayout);
-*/
-    //i = dxUpLeftTab->addTab(othersInputTabWidget, tr("Others"));
     othersTabWidget->setEntitiesList(world->getEntitiesNames());
     dxUpLeftTab->addTab(othersTabWidget, tr("Others"));
 
-
-
-
-// MyData tab starts here
-/*
-    QLabel *myPowerSpinBoxLabelN = new QLabel(tr("Power"));
-    myPowerSpinBoxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-
-    QLabel *operatorLabelN = new QLabel(tr("Operator"));
-
-    operatorLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    QLabel *stationCallSignLabelN = new QLabel(tr("Station Callsign"));
-
-    stationCallSignLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    QLabel *myLocatorLabelN = new QLabel(tr("My Locator"));
-
-    myLocatorLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-
-    QGridLayout *myDataInputTabWidgetLayout = new QGridLayout;
-    myDataInputTabWidgetLayout->addWidget(myPowerSpinBoxLabelN, 0, 0);
-    myDataInputTabWidgetLayout->addWidget(operatorLabelN, 1, 0);
-    myDataInputTabWidgetLayout->addWidget(stationCallSignLabelN, 2, 0);
-    myDataInputTabWidgetLayout->addWidget(myLocatorLabelN, 3, 0);
-
-    myDataInputTabWidgetLayout->addWidget(myPowerSpinBox, 0, 1);
-    myDataInputTabWidgetLayout->addWidget(operatorLineEdit, 1, 1);
-    myDataInputTabWidgetLayout->addWidget(stationCallSignLineEdit, 2, 1);
-    myDataInputTabWidgetLayout->addWidget(myLocatorLineEdit, 3, 1);
-
-    myDataInputTabWidget->setLayout(myDataInputTabWidgetLayout);
-    i = dxUpLeftTab->addTab(myDataInputTabWidget, tr("My Data"));
-*/
     dxUpLeftTab->addTab(myDataTabWidget, tr("My Data"));
-  // MyData Tab finishes here
-
-    // Sat Tab starts hre
     dxUpLeftTab->addTab(satTabWidget, tr("Satellite"));
 
-
-    // Sat Tab finishes here
 
 
     QHBoxLayout *TimeLayout = new QHBoxLayout;
@@ -5621,20 +5551,13 @@ void MainWindow::createUIDX()
     qrzgroupBox = new QGroupBox(tr("QRZ"));
     qrzgroupBox->setFlat(true);
     QVBoxLayout *qrzvbox = new QVBoxLayout;
-    //qrzvbox->addWidget(qrzLineEdit);
     qrzvbox->addLayout(QrzBandModeLayout);
-    //qrzvbox->addLayout(BandModeLayout);
     qrzvbox->addStretch(1);
     qrzgroupBox->setLayout(qrzvbox);
 
 
-    //QHBoxLayout *statusBarLayout = new QHBoxLayout;
-    //statusBarLayout->addWidget(statusBar);
-    //statusBarLayout->addWidget(qsoStatusBar);
-
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(OKButton);
-    //buttonsLayout->addWidget(spotItButton);
     buttonsLayout->addWidget(clearButton);
 
     QDateTimeEdit *dateEdit = new QDateTimeEdit(QDate::currentDate());
@@ -5645,7 +5568,6 @@ void MainWindow::createUIDX()
     QGridLayout *dxUpLeftInputFrameLayout = new QGridLayout;
     dxUpLeftInputFrameLayout->addWidget(qrzgroupBox, 0, 0, 1, 0);
     dxUpLeftInputFrameLayout->addLayout(TimeLayout, 1, 0);
-    //dxUpLeftInputFrameLayout->addLayout(BandModeLayout, 1, 1);
     dxUpLeftInputFrameLayout->addLayout(buttonsLayout,1, 1);
 
     dxUpLeftInputFrame->setLayout(dxUpLeftInputFrameLayout);
@@ -5655,126 +5577,13 @@ void MainWindow::createUIDX()
     upLeftSplitter->addWidget(dxUpLeftTab);
     upLeftSplitter->setOrientation(Qt::Vertical);
 
-    //QHBoxLayout *line2Layout = new QHBoxLayout;
-    //line2Layout->addWidget(flagIcon);
-    //line2Layout->addWidget(infoLabel2);
 
     QVBoxLayout *dxUpRightFixLayout = new QVBoxLayout;
     dxUpRightFixLayout->addWidget(infoLabel1);
     dxUpRightFixLayout->addWidget(infoLabel2);
-    //dxUpRightFixLayout->addLayout(line2Layout);
-
 
     infoLabel1->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     infoLabel2->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-/*
-    bandLabel1->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel2->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel3->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel4->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel5->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel6->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel7->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel8->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel9->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel10->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel11->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel12->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-    QLabel *continentLabelN = new QLabel(tr("Continent"));
-    continentLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-    continentLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-    QLabel *prefixLabelN = new QLabel(tr("Prefix"));
-    prefixLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    prefixLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-    QLabel *cqzLabelN = new QLabel(tr("CQ"));
-    cqzLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    cqzLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-    QLabel *ituzLabelN = new QLabel(tr("ITU"));
-    ituzLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    ituzLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-
-    QLabel *shortLabelN = new QLabel(tr("Short Path"));
-    shortLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-    QLabel *longLabelN = new QLabel(tr("Long Path"));
-    longLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-    QLabel *gradShortLabelN = new QLabel(tr("Grad"));
-    gradShortLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);    
-    gradShortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    distShortLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-    QLabel *gradLongLabelN = new QLabel(tr("Grad"));
-    gradLongLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    gradLongLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    distShortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-    distLongLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    distLongLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-    QGridLayout *dxUpRightInfoTabmini1Layout = new QGridLayout;
-    dxUpRightInfoTabmini1Layout->addWidget(continentLabelN, 0, 0);
-    dxUpRightInfoTabmini1Layout->addWidget(continentLabel, 1, 0);
-    dxUpRightInfoTabmini1Layout->addWidget(prefixLabelN, 0, 1);
-    dxUpRightInfoTabmini1Layout->addWidget(prefixLabel, 1, 1);
-    dxUpRightInfoTabmini1Layout->addWidget(cqzLabelN, 0, 2);
-    dxUpRightInfoTabmini1Layout->addWidget(cqzLabel, 1, 2);
-    dxUpRightInfoTabmini1Layout->addWidget(ituzLabelN, 0, 3);
-    dxUpRightInfoTabmini1Layout->addWidget(ituzLabel, 1, 3);
-
-    QGridLayout *dxUpRightInfoTabmini2Layout = new QGridLayout;
-    dxUpRightInfoTabmini2Layout->addWidget(shortLabelN, 0, 0, 1, 0);
-    dxUpRightInfoTabmini2Layout->addWidget(gradShortLabelN, 1, 0);
-    dxUpRightInfoTabmini2Layout->addWidget(gradShortLabel, 1, 1);
-    dxUpRightInfoTabmini2Layout->addWidget(distShortLabelN, 1, 2);
-    dxUpRightInfoTabmini2Layout->addWidget(distShortLabel, 1, 3);
-
-    QGridLayout *dxUpRightInfoTabmini3Layout = new QGridLayout;
-    dxUpRightInfoTabmini3Layout->addWidget(longLabelN, 0, 0, 1, 0);
-    dxUpRightInfoTabmini3Layout->addWidget(gradLongLabelN, 1, 0);
-    dxUpRightInfoTabmini3Layout->addWidget(gradLongLabel, 1, 1);
-    dxUpRightInfoTabmini3Layout->addWidget(distLongLabelN, 1, 2);
-    dxUpRightInfoTabmini3Layout->addWidget(distLongLabel, 1, 3);
-
-    QHBoxLayout *dxUpRightInfoTabmini4Layout = new QHBoxLayout;
-    dxUpRightInfoTabmini4Layout->addLayout(dxUpRightInfoTabmini2Layout);
-    dxUpRightInfoTabmini4Layout->addLayout(dxUpRightInfoTabmini3Layout);
-*/
-
-    //QWidget *infoTabWidget = new QWidget;
-/*
-    QGridLayout *dxUpRightInfoBandsTabLayout = new QGridLayout;
-    dxUpRightInfoBandsTabLayout->addWidget(bandLabel1, 0, 0);
-    dxUpRightInfoBandsTabLayout->addWidget(bandLabel2, 0, 1);
-    dxUpRightInfoBandsTabLayout->addWidget(bandLabel3, 0, 2);
-    dxUpRightInfoBandsTabLayout->addWidget(bandLabel4, 0, 3);
-    dxUpRightInfoBandsTabLayout->addWidget(bandLabel5, 0, 4);
-    dxUpRightInfoBandsTabLayout->addWidget(bandLabel6, 0, 5);
-    dxUpRightInfoBandsTabLayout->addWidget(bandLabel7, 1, 0);
-    dxUpRightInfoBandsTabLayout->addWidget(bandLabel8, 1, 1);
-    dxUpRightInfoBandsTabLayout->addWidget(bandLabel9, 1, 2);
-    dxUpRightInfoBandsTabLayout->addWidget(bandLabel10, 1, 3);
-    dxUpRightInfoBandsTabLayout->addWidget(bandLabel11, 1, 4);
-    dxUpRightInfoBandsTabLayout->addWidget(bandLabel12, 1, 5);
-
-    QVBoxLayout *dxUpRightInfoTabLayout = new QVBoxLayout;
-    dxUpRightInfoTabLayout->addLayout(dxUpRightInfoBandsTabLayout);
-    dxUpRightInfoTabLayout->addLayout(dxUpRightInfoTabmini1Layout);
-    dxUpRightInfoTabLayout->addLayout(dxUpRightInfoTabmini4Layout);
-
-
-    infoTabWidget->setLayout(dxUpRightInfoTabLayout);
-*/
-/*
-addLayout ( QLayout * layout, int row, int column,
-int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
-*/
 
     QLabel *dxMarathonTopDXCCLabelN = new QLabel(tr("DXCC"));
     QLabel *dxMarathonTopCQLabelN = new QLabel(tr("CQ"));
@@ -5786,8 +5595,7 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxMarathonTopScoreLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
     dxMarathonLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
 
-    //QWidget *searchTabWidget = new QWidget;
-   // dxUpRightTab->addTab(infoTabWidget, tr("Info-Old"));
+
     dxUpRightTab->addTab(infoWidget, tr("Info"));
 
 
@@ -5803,8 +5611,6 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     workedLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
 
     QLabel *dxccLabelN = new QLabel(tr("DXCC"));
-
-    //dxccLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     dxccLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
 
     QLabel *wazLabelN = new QLabel(tr("WAZ"));    
@@ -5816,18 +5622,8 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     QLabel *qsoNLabelN = new QLabel(tr("QSOs"));
     qsoNLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
 
-    //QVBoxLayout *dxMarathonTLayout = new QVBoxLayout;
-    //dxMarathonTLayout->addWidget();
-    //dxMarathonTLayout->addWidget();
     QGridLayout *dxMarathonDLayout = new QGridLayout;
-/*
-    dxMarathonDLayout->addWidget(dxMarathonTopDXCCLabelN, 0, 0);
-    dxMarathonDLayout->addWidget(dxMarathonTopCQLabelN, 0, 1);
-    dxMarathonDLayout->addWidget(dxMarathonTopScoreLabelN, 0, 2);
-    dxMarathonDLayout->addWidget(dxMarathonDXCC, 1, 0);
-    dxMarathonDLayout->addWidget(dxMarathonCQ, 1, 1);
-    dxMarathonDLayout->addWidget(dxMarathonPoints, 1, 2);
-*/
+
     dxMarathonDLayout->addWidget(dxMarathonTopDXCCLabelN, 0, 0);
     dxMarathonDLayout->addWidget(dxMarathonTopCQLabelN, 0, 1);
     dxMarathonDLayout->addWidget(dxMarathonTopScoreLabelN, 0, 2);
@@ -5863,76 +5659,12 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     awardsTabWidget->setLayout(dxUpRightAwardsTabLayout);
 
     dxUpRightTab->addTab(awardsTabWidget, tr("Awards"));
-
-/*
-    searchgroupBox = new QGroupBox(tr("Search"));
-    searchgroupBox->setFlat(true);
-    QVBoxLayout *searchvbox = new QVBoxLayout;
-    searchvbox->addWidget(searchBoxLineEdit);
-    searchvbox->addStretch(1);
-    searchgroupBox->setLayout(searchvbox);
-*/
-/*
-    QHBoxLayout *dxUpRightButtonsLayout = new QHBoxLayout;
-    dxUpRightButtonsLayout->addWidget(searchBoxReSearchButton);
-    dxUpRightButtonsLayout->addWidget(searchBoxClearButton);
-    dxUpRightButtonsLayout->addWidget(searchBoxSelectAllButton);
-    dxUpRightButtonsLayout->addWidget(searchBoxExportButton);
-*/
-/*
-    QGridLayout *dxUpRightSearchTabLayout = new QGridLayout;
-    //dxUpRightSearchTabLayout->addWidget(searchgroupBox, 0, 0 );
-    //dxUpRightSearchTabLayout->addLayout(dxUpRightLineAndButtonsLayout, 0, 1 );
-    dxUpRightSearchTabLayout->addWidget(searchBoxLineEdit, 0, 0, -1, 0);
-    dxUpRightSearchTabLayout->addLayout(dxUpRightButtonsLayout, 1, 0, -1, 0);
-    dxUpRightSearchTabLayout->addWidget(searchResultsTreeWidget, 2, 0, -1, 0 );
-*/
-
-/*
-    QHBoxLayout *dxUpRightSearchTopLayout = new QHBoxLayout;
-    dxUpRightSearchTopLayout->addWidget(searchBoxLineEdit);
-    dxUpRightSearchTopLayout->addWidget(searchAllRadioButton);
-
-    QVBoxLayout *dxUpRightSearchTabLayout = new QVBoxLayout;
-    //dxUpRightSearchTabLayout->addWidget(searchgroupBox, 0, 0 );
-    //dxUpRightSearchTabLayout->addLayout(dxUpRightLineAndButtonsLayout, 0, 1 );
-    //dxUpRightSearchTabLayout->addWidget(searchBoxLineEdit);
-    dxUpRightSearchTabLayout->addLayout(dxUpRightSearchTopLayout);
-    //dxUpRightSearchTabLayout->addLayout(dxUpRightButtonsLayout);
-    dxUpRightSearchTabLayout->addWidget(searchResultsTreeWidget);
-
-    searchTabWidget->setLayout(dxUpRightSearchTabLayout);
-*/
-    //searchTabWidget->setLayout(dxUpRightSearchALLLayout);
-
-    //dxUpRightTab->addTab(searchTabWidget, tr("Search-Old"));
     dxUpRightTab->addTab(searchWidget, tr("Search"));
 
-    //QWidget *logTabWidget = new QWidget;
-    //QWidget *dxClusterTabWidget = new QWidget;
-
-
-
-    //QHBoxLayout *dxClusterTabWidgetLayout = new QHBoxLayout;
-
-    //QHBoxLayout *logTabWidgetLayout = new QHBoxLayout;
-    //logTabWidgetLayout->addWidget(logWindow);//
-    //logTabWidget->setLayout(logTabWidgetLayout);
-
-    //dxClusterTabWidgetLayout->addWidget(dxClusterWidget);
-    //dxClusterTabWidget->setLayout(dxClusterTabWidgetLayout);
-
-    //QWidget *logWTabWidget = new QWidget;
-    //QHBoxLayout *logWTabWidgetLayout = new QHBoxLayout;
-    //logWTabWidgetLayout->addWidget(logWindow);
-    //logWTabWidget->setLayout(logWTabWidgetLayout);
-
     dxBottonTab->addTab(logWindow, tr("Log"));
-    //dxBottonTab->addTab(logTabWidget, tr("Log-old"));
+
     dxBottonTab->addTab(dxClusterWidget, tr("DX-Cluster"));
     dxBottonTab->addTab(dxccStatusWidget, tr("DXCC"));
-
-
 
     QVBoxLayout *dxUpRightLayout = new QVBoxLayout;
     dxUpRightLayout->addLayout(dxUpRightFixLayout);
@@ -5941,22 +5673,9 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     QWidget *upRightWidget = new QWidget;
     upRightWidget->setLayout(dxUpRightLayout);
 
-    //QWidget *upLeftWidget = new QWidget;
-    //upLeftWidget->setLayout(dxUpLeftLayout);
-
-    ////////////
     QSplitter *upSplitter = new QSplitter (this);
-    //upSplitter->addWidget(upLeftWidget);
     upSplitter->addWidget(upLeftSplitter);
     upSplitter->addWidget(upRightWidget);
-
-
-    //QHBoxLayout *upperLayout = new QHBoxLayout;
-    //upperLayout->addLayout(dxUpLeftLayout);
-    //upperLayout->addLayout(dxUpRightLayout);
-
-    //QWidget *upper = new QWidget;
-    //upper->setLayout(upperLayout);
 
     QSplitter *splitter = new QSplitter(this);
     splitter->addWidget(upSplitter);
@@ -5968,52 +5687,11 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
 
     mainWidget->setLayout(mLayout);
 
-    //layout->addLayout(dxUpLeftLayout, 0, 0);
-    //layout->addLayout(dxUpRightLayout, 0, 1);
-    //layout->addWidget(dxBottonTab, 1, 0, 1, 2);
-
-    //mainWidget->setLayout(layout);
-
-    // Disabled widgets to be enabled as functionality is deployed
-    //iotaContinentComboBox->setEnabled(false);
-    //iotaNumberLineEdit->setEnabled(false);
-    //myPowerSpinBox->setEnabled(false);
-
-    //locatorLineEdit->setEnabled(false);
-    //eqslSentComboBox->setEnabled(false);
-    //eqslRecComboBox->setEnabled(false);
-    //lotwSentComboBox->setEnabled(false);
-    //lotwRecComboBox->setEnabled(false);
-
-    //eqslSentQDateEdit->setEnabled(false);
-    //eqslRecQDateEdit->setEnabled(false);
-    //lotwSentQDateEdit->setEnabled(false);
-    //lotwRecQDateEdit->setEnabled(false);
-
-    //qslSentCheckBox->setEnabled(false);
-    //qslRecCheckBox->setEnabled(false);
-    //qslSentQDateEdit->setEnabled(false);
-    //qslRecQDateEdit->setEnabled(false);
-
-    //qslSentViaComboBox->setEnabled(false);
-    //qslRecViaComboBox->setEnabled(false);
-    //qslmsgTextEdit->setEnabled(false);
-    //qslViaLineEdit->setEnabled(false);
-    //entityPrimDivComboBox->setEnabled(false);
-    //entitySecDivComboBox->setEnabled(false);
-    //entityNameComboBox->setEnabled(true);
-    //propModeComboBox->setEnabled(true);
 
 //qDebug() << "MainWindow::createUIDX - OS DETECTION"  << endl;
 
 #ifdef Q_OS_WIN
     //qDebug() << "MainWindow::createUIDX - WINDOWS DETECTED!"  << endl;
-
-    //txFreqSpinBox->setFrame(true);
-    //txFreqSpinBox->setFrameShadow(QFrame::Raised);
-    //txFreqSpinBox->setFrameStyle(QFrame::StyledPanel);
-    //rxFreqSpinBox->setFrameShadow(QFrame::Raised);
-    //rxFreqSpinBox->setFrameStyle(QFrame::StyledPanel);
 
     dxUpLeftInputFrame->setFrameShadow(QFrame::Raised);
     dxUpLeftInputFrame->setFrameStyle(QFrame::StyledPanel);
@@ -6041,145 +5719,11 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxMarathonTopCQLabelN->setFrameStyle(QFrame::StyledPanel);
     dxMarathonTopScoreLabelN->setFrameStyle(QFrame::StyledPanel);
     dxMarathonLabelN->setFrameStyle(QFrame::StyledPanel);
-/*
-    continentLabel->setFrameShadow(QFrame::Raised);
-    continentLabel->setFrameStyle(QFrame::StyledPanel);
-    continentLabelN->setFrameShadow(QFrame::Raised);
-    continentLabelN->setFrameStyle(QFrame::StyledPanel);
-    prefixLabelN->setFrameShadow(QFrame::Raised);
-    prefixLabelN->setFrameStyle(QFrame::StyledPanel);
-    prefixLabel->setFrameShadow(QFrame::Raised);
-    prefixLabel->setFrameStyle(QFrame::StyledPanel);
-    cqzLabelN->setFrameShadow(QFrame::Raised);
-    cqzLabelN->setFrameStyle(QFrame::StyledPanel);
-    cqzLabel->setFrameShadow(QFrame::Raised);
-    cqzLabel->setFrameStyle(QFrame::StyledPanel);
-    ituzLabel->setFrameShadow(QFrame::Raised);
-    ituzLabel->setFrameStyle(QFrame::StyledPanel);
-    ituzLabelN->setFrameShadow(QFrame::Raised);
-    ituzLabelN->setFrameStyle(QFrame::StyledPanel);    
-    shortLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    shortLabelN->setFrameShadow(QFrame::Raised);
-    shortLabelN->setFrameStyle(QFrame::StyledPanel);
 
-    longLabelN->setFrameShadow(QFrame::Raised);
-    longLabelN->setFrameStyle(QFrame::StyledPanel);
-    gradShortLabelN->setFrameShadow(QFrame::Raised);
-    gradShortLabelN->setFrameStyle(QFrame::StyledPanel);
-    gradShortLabel->setFrameShadow(QFrame::Raised);
-    gradShortLabel->setFrameStyle(QFrame::StyledPanel);
-    distShortLabelN->setFrameShadow(QFrame::Raised);
-    distShortLabelN->setFrameStyle(QFrame::StyledPanel);
-    distShortLabel->setFrameShadow(QFrame::Raised);
-    distShortLabel->setFrameStyle(QFrame::StyledPanel);
-    gradLongLabelN->setFrameShadow(QFrame::Raised);
-    gradLongLabelN->setFrameStyle(QFrame::StyledPanel);
-    gradLongLabel->setFrameShadow(QFrame::Raised);
-    gradLongLabel->setFrameStyle(QFrame::StyledPanel);
-    distLongLabelN->setFrameShadow(QFrame::Raised);
-    distLongLabelN->setFrameStyle(QFrame::StyledPanel);
-    distLongLabel->setFrameShadow(QFrame::Raised);
-    distLongLabel->setFrameStyle(QFrame::StyledPanel);
-
-
-    bandLabel1->setFrameShadow(QFrame::Raised);
-    bandLabel1->setFrameStyle(QFrame::StyledPanel);
-    bandLabel2->setFrameShadow(QFrame::Raised);
-    bandLabel2->setFrameStyle(QFrame::StyledPanel);
-    bandLabel3->setFrameShadow(QFrame::Raised);
-    bandLabel3->setFrameStyle(QFrame::StyledPanel);
-    bandLabel4->setFrameShadow(QFrame::Raised);
-    bandLabel4->setFrameStyle(QFrame::StyledPanel);
-    bandLabel5->setFrameShadow(QFrame::Raised);
-    bandLabel5->setFrameStyle(QFrame::StyledPanel);
-    bandLabel6->setFrameShadow(QFrame::Raised);
-    bandLabel6->setFrameStyle(QFrame::StyledPanel);
-
-    bandLabel7->setFrameShadow(QFrame::Raised);
-    bandLabel7->setFrameStyle(QFrame::StyledPanel);
-    bandLabel8->setFrameShadow(QFrame::Raised);
-    bandLabel8->setFrameStyle(QFrame::StyledPanel);
-    bandLabel9->setFrameShadow(QFrame::Raised);
-    bandLabel9->setFrameStyle(QFrame::StyledPanel);
-    bandLabel10->setFrameShadow(QFrame::Raised);
-    bandLabel10->setFrameStyle(QFrame::StyledPanel);
-    bandLabel11->setFrameShadow(QFrame::Raised);
-    bandLabel11->setFrameStyle(QFrame::StyledPanel);
-    bandLabel12->setFrameShadow(QFrame::Raised);
-    bandLabel12->setFrameStyle(QFrame::StyledPanel);
-*/
     infoLabel1->setFrameShadow(QFrame::Raised);
     infoLabel1->setFrameStyle(QFrame::StyledPanel);
     infoLabel2->setFrameShadow(QFrame::Raised);
     infoLabel2->setFrameStyle(QFrame::StyledPanel);
-/*
-    QSLViaLabelN->setFrameShadow(QFrame::Raised);
-    QSLViaLabelN->setFrameStyle(QFrame::StyledPanel);
-    QSLSentLabelN->setFrameShadow(QFrame::Raised);
-    QSLSentLabelN->setFrameStyle(QFrame::StyledPanel);
-    QSLRecLabelN->setFrameShadow(QFrame::Raised);
-    QSLRecLabelN->setFrameStyle(QFrame::StyledPanel);
-    eQSLSentLabelN->setFrameShadow(QFrame::Raised);
-    eQSLSentLabelN->setFrameStyle(QFrame::StyledPanel);
-    eQSLRecLabelN->setFrameShadow(QFrame::Raised);
-    eQSLRecLabelN->setFrameStyle(QFrame::StyledPanel);
-    lotWSentLabelN->setFrameShadow(QFrame::Raised);
-    lotWSentLabelN->setFrameStyle(QFrame::StyledPanel);
-    myPowerSpinBoxLabelN->setFrameShadow(QFrame::Raised);
-    myPowerSpinBoxLabelN->setFrameStyle(QFrame::StyledPanel);
-    rxPowerSpinBoxLabelN->setFrameShadow(QFrame::Raised);
-    rxPowerSpinBoxLabelN->setFrameStyle(QFrame::StyledPanel);
-    operatorLabelN->setFrameShadow(QFrame::Raised);
-    operatorLabelN->setFrameStyle(QFrame::StyledPanel);
-    stationCallSignLabelN->setFrameShadow(QFrame::Raised);
-    stationCallSignLabelN->setFrameStyle(QFrame::StyledPanel);
-    myLocatorLabelN->setFrameShadow(QFrame::Raised);
-    myLocatorLabelN->setFrameStyle(QFrame::StyledPanel);
-    lotWRecLabelN->setFrameShadow(QFrame::Raised);
-    lotWRecLabelN->setFrameStyle(QFrame::StyledPanel);
-*/
-    //nameLabel->setFrameShape(QFrame::StyledPanel);
-
-    //nameLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-    //nameLineEdit->setFrameShadow(QFrame::Raised);
-    //nameLineEdit->setFrameStyle(QFrame::StyledPanel);
-    //qthLabel->setFrameShape(QFrame::Box);
-    //qthLabel->setFrameShadow(QFrame::Raised);
-    //qthLabel->setFrameStyle(QFrame::StyledPanel);
-
-    //qthLineEdit->setFrameShadow(QFrame::Raised);
-    //qthLineEdit->setFrameStyle(QFrame::StyledPanel);
-
-    //locLabel->setFrameShadow(QFrame::Raised);
-    //locLabel->setFrameStyle(QFrame::StyledPanel);
-
-    //locatorLineEdit->setFrameShadow(QFrame::Raised);
-    //locatorLineEdit->setFrameStyle(QFrame::StyledPanel);
-
-    //rxPowerLayout->setFrameShadow(QFrame::Raised);
-    //rxPowerLayout->setFrameStyle(QFrame::StyledPanel);
-
-    //txfreqLabelN->setFrameShadow(QFrame::Raised);
-    //txfreqLabelN->setFrameStyle(QFrame::StyledPanel);
-    //rxfreqLabelN->setFrameShadow(QFrame::Raised);
-    //rxfreqLabelN->setFrameStyle(QFrame::StyledPanel);
-
-
-
-    //freqLabelN->setFrameShadow(QFrame::Raised);
-    //freqLabelN->setFrameStyle(QFrame::StyledPanel);
-/*
-    nameLabel->setFrameShadow(QFrame::Raised);
-    nameLabel->setFrameStyle(QFrame::StyledPanel);
-    qthLabel->setFrameShadow(QFrame::Raised);
-    qthLabel->setFrameStyle(QFrame::StyledPanel);
-    locLabel->setFrameShadow(QFrame::Raised);
-    locLabel->setFrameStyle(QFrame::StyledPanel);
-    rstRxLabelN->setFrameShadow(QFrame::Raised);
-    rstRxLabelN->setFrameStyle(QFrame::StyledPanel);
-    rstTxLabelN->setFrameShadow(QFrame::Raised);
-    rstTxLabelN->setFrameStyle(QFrame::StyledPanel);
-*/
 
 
 #else
@@ -6199,73 +5743,8 @@ int rowSpan, int columnSpan, Qt::Alignment alignment = 0 )
     dxMarathonTopScoreLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     dxMarathonLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
 
-    /*
-    continentLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    continentLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    prefixLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    prefixLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    cqzLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    cqzLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    ituzLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    ituzLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    shortLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    longLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    gradShortLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    gradShortLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    distShortLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    distShortLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    gradLongLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    distLongLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    distLongLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    gradLongLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-
-
-    bandLabel1->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    bandLabel2->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    bandLabel3->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    bandLabel4->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    bandLabel5->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    bandLabel6->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    bandLabel7->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    bandLabel8->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    bandLabel9->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    bandLabel10->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    bandLabel11->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    bandLabel12->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-*/
     infoLabel1->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     infoLabel2->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-
-
-    //QSLViaLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //QSLSentLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //QSLRecLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //eQSLSentLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //eQSLRecLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //lotWSentLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //myPowerSpinBoxLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //rxPowerSpinBoxLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //operatorLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //stationCallSignLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //myLocatorLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //lotWRecLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-
-    //nameLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //nameLineEdit->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //qthLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //qthLineEdit->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //locLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //locatorLineEdit->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //rxPowerLayout->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-
-
-    //txfreqLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //rxfreqLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //rstRxLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //rstTxLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //nameLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //qthLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    //locLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
 
 
 #endif
@@ -6350,16 +5829,6 @@ void MainWindow::slotADIFImport(){
 
                 operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));                
 
-//bandComboBox->setCurrentIndex(bandComboBox->findText(aux1));
-   //qDebug() << "MainWindow::slotADIFImport -31" << endl;
-                //awards->recalculateAwards();
-               //qDebug() << "MainWindow::slotADIFImport -32" << endl;
-                //showAwards();
-               //qDebug() << "MainWindow::slotADIFImport -33" << endl;
-                //dxccStatusWidget->setBands(bands);
-               //qDebug() << "MainWindow::slotADIFImport -34" << endl;
-                //dxccStatusWidget->refresh();
-               //qDebug() << "MainWindow::slotADIFImport -35" << endl;
                 slotShowAwards();
             break;
 
@@ -6384,15 +5853,6 @@ void  MainWindow::initialContestModeConfiguration()
     QSqlQuery query;
     QStringList contestQS;
 
-     /*
-
-    QSqlQuery query("SELECT id FROM log");
-    QSqlRecord rec = query.record();
-    int nameCol;
-
-    while (query.next()) {
-        nameCol = rec.indexOf("call");
-*/
     //qDebug() << "MainWindow::initialContestModeConfiguration: - 04" << endl;
     switch (contestMode) {
 
@@ -6563,11 +6023,6 @@ void MainWindow::qsoToEdit (const int _qso)
             //commentLineEdit->clear();
         }
 
-
-        //nameCol = rec.indexOf("notes");
-        //aux1 = (query.value(nameCol)).toString();
-        //notesTextEdit->setText(aux1);
-
         nameCol = rec.indexOf("name");
         aux1 = (query.value(nameCol)).toString();
         //qDebug() << "MainWindow::qsoToEdit: - NAME: " << aux1  << endl;
@@ -6590,34 +6045,19 @@ void MainWindow::qsoToEdit (const int _qso)
 
         nameCol = rec.indexOf("operator");
         aux1 = (query.value(nameCol)).toString();      
-        //operatorLineEdit->setText(aux1.toUpper());
         myDataTabWidget->setOperator(aux1);
 
         nameCol = rec.indexOf("station_callsign");
         aux1 = (query.value(nameCol)).toString();        
-        //stationCallSignLineEdit->setText(aux1.toUpper());
         myDataTabWidget->setStationQRZ(aux1);
 
         nameCol = rec.indexOf("my_gridsquare");
         aux1 = (query.value(nameCol)).toString();
-        //myLocatorLineEdit->setText(aux1);
         myDataTabWidget->setMyLocator(aux1);
 
         nameCol = rec.indexOf("tx_pwr");        
-        //aux1 = (query.value(nameCol)).toString();
-        //testValueDouble = aux1.toDouble();
         myDataTabWidget->setMyPower((query.value(nameCol)).toDouble());
 
-/*
-        if (testValueDouble >=0)
-        {
-            myPowerSpinBox->setValue(testValueDouble);
-        }
-        else
-        {
-            myPowerSpinBox->setValue(0.0);
-        }
-*/
         nameCol = rec.indexOf("rx_pwr");
         aux1 = (query.value(nameCol)).toString();
         testValueDouble = aux1.toDouble();
@@ -6641,7 +6081,6 @@ void MainWindow::qsoToEdit (const int _qso)
             txFreqSpinBox->setValue(testValueDouble);
             //qDebug() << "MainWindow::qsoToEdit: Freq - OverFlow "  << endl;
 
-            //freqQLCDNumber->display(testValueDouble);
         }
         else
         {
@@ -6660,16 +6099,12 @@ void MainWindow::qsoToEdit (const int _qso)
         {
             rxFreqSpinBox->setValue(testValueDouble);
             //qDebug() << "MainWindow::qsoToEdit: Freq_RX - OverFlow "  << endl;
-
-            //freqQLCDNumber->display(testValueDouble);
         }
         else
         {
             //qDebug() << "MainWindow::qsoToEdit: Freq_RX - OK "  << endl;
             rxFreqSpinBox->setValue(0);
         }
-
-       // myPowerSpinBox->setValue(aux1.toDouble());
 
         //QSL SENT
 
@@ -6690,27 +6125,9 @@ void MainWindow::qsoToEdit (const int _qso)
         nameCol = rec.indexOf("qsl_sent_via");
         aux1 = (query.value(nameCol)).toString();
         QSLTabWidget->setQSLSenVia(aux1);
-/*
-        if (  (aux1.toUpper()) == "B" )
-        {
-             qslSentViaComboBox->setCurrentIndex( qslSentViaComboBox->findText(tr("B-Bureau"))) ;
 
-        }
-        else if (  (aux1.toUpper()) == "D" ){
-            qslSentViaComboBox->setCurrentIndex( qslSentViaComboBox->findText(tr("D-Direct"))) ;
-        }
-        else if (  (aux1.toUpper()) == "E" ){
-            qslSentViaComboBox->setCurrentIndex( qslSentViaComboBox->findText(tr("E-Electronic"))) ;
-        }
-        else if (  (aux1.toUpper()) == "M" ){
-            qslSentViaComboBox->setCurrentIndex( qslSentViaComboBox->findText(tr("M-Manager"))) ;
-        }
-        else
-        {
-            qslSentViaComboBox->setCurrentIndex( qslSentViaComboBox->findText(tr("B-Bureau"))) ;
-        }
-*/
-    //QSL RECEPTION
+
+        //QSL RECEPTION
 
         // tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Verified");
         // tr("B-Bureau") << tr("D-Direct") << tr("E-Electronic") << tr("M-Manager");
@@ -6729,91 +6146,11 @@ void MainWindow::qsoToEdit (const int _qso)
             QSLTabWidget->setQSLRecDate(QDate::fromString(aux1, "yyyy/MM/dd"));
         }
 
- /*
-
-        if (  (aux1.toUpper()) == "Y" )
-        {
-            qslRecComboBox->setCurrentIndex( qslRecComboBox->findText(tr("Y-Yes")) );
-
-            nameCol = rec.indexOf("qslrdate");
-            aux1 = (query.value(nameCol)).toString();
-            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-            {
-                qslRecQDateEdit->setEnabled(true);
-                qslRecQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-            }
-        }
-
-        else if ( (aux1.toUpper()) == "N")
-        {
-            qslRecComboBox->setCurrentIndex( qslRecComboBox->findText(tr("N-No") ) );
-        }
-
-        else if ((aux1.toUpper()) == "R")
-        {
-            qslRecComboBox->setCurrentIndex( qslRecComboBox->findText(tr("R-Requested") ) );
-        }
-
-        else if ((aux1.toUpper()) =="I")
-        {
-            qslRecComboBox->setCurrentIndex( qslRecComboBox->findText(tr("I-Ignore")) );
-
-            nameCol = rec.indexOf("qslrdate");
-            aux1 = (query.value(nameCol)).toString();
-            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-            {
-                qslRecQDateEdit->setEnabled(true);
-                qslRecQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-            }
-
-        }
-
-        else if ((aux1.toUpper()) == "V")
-        {
-            qslRecComboBox->setCurrentIndex( qslRecComboBox->findText(tr("V-Verified") ) );
-
-            nameCol = rec.indexOf("qslrdate");
-            aux1 = (query.value(nameCol)).toString();
-            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-            {
-                qslRecQDateEdit->setEnabled(true);
-                qslRecQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-            }
-        }
-
-
-        else
-        {
-            qslRecComboBox->setCurrentIndex( qslRecComboBox->findText(tr("N-No") ) );
-        }
-*/
-        nameCol = rec.indexOf("qsl_rcvd_via");
+         nameCol = rec.indexOf("qsl_rcvd_via");
         aux1 = (query.value(nameCol)).toString();
         QSLTabWidget->setQSLRecVia(aux1);
 
- /*
-
-        if (  (aux1.toUpper()) == "B" )
-        {
-             qslRecViaComboBox->setCurrentIndex( qslRecViaComboBox->findText(tr("B-Bureau"))) ;
-
-        }
-        else if (  (aux1.toUpper()) == "D" ){
-            qslRecViaComboBox->setCurrentIndex( qslRecViaComboBox->findText(tr("D-Direct"))) ;
-        }
-        else if (  (aux1.toUpper()) == "E" ){
-            qslRecViaComboBox->setCurrentIndex( qslRecViaComboBox->findText(tr("E-Electronic"))) ;
-        }
-        else if (  (aux1.toUpper()) == "M" ){
-            qslRecViaComboBox->setCurrentIndex( qslRecViaComboBox->findText(tr("M-Manager"))) ;
-        }
-        else
-        {
-            qslRecViaComboBox->setCurrentIndex( qslRecViaComboBox->findText(tr("B-Bureau"))) ;
-        }
-
-*/
-    //TODO: BUG: When something is selected while modifying the QSL is deleted???
+     //TODO: BUG: When something is selected while modifying the QSL is deleted???
 
         //CLUBLOG
         nameCol = rec.indexOf("clublog_qso_upload_status");
@@ -6829,44 +6166,6 @@ void MainWindow::qsoToEdit (const int _qso)
             eQSLTabWidget->setClubLogDate((QDate::fromString(aux1, "yyyy/MM/dd")));
         }
 
-
-
-/*
-
-        if (  (aux1.toUpper()) == "Y" )
-        {
-            clublogComboBox->setCurrentIndex( clublogComboBox->findText(tr("Y-Uploaded")) );
-            nameCol = rec.indexOf("clublog_qso_upload_date");
-            aux1 = (query.value(nameCol)).toString();
-            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-            {
-                clublogQDateEdit->setEnabled(true);
-                clublogQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-            }
-        }
-
-        else if ( (aux1.toUpper()) == "N")
-        {
-            clublogComboBox->setCurrentIndex( clublogComboBox->findText(tr("N-Do not upload")) );
-        }
-        else if ( (aux1.toUpper()) == "M")
-        {
-            clublogComboBox->setCurrentIndex( clublogComboBox->findText(tr("M-Modified")) );
-
-            nameCol = rec.indexOf("clublog_qso_upload_date");
-            aux1 = (query.value(nameCol)).toString();
-            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-            {
-                clublogQDateEdit->setEnabled(true);
-                clublogQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-            }
-        }
-        else
-        {
-            eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(tr("N-No") ) );
-        }
-
-*/
         //CLUBLOG
 
 
@@ -6886,63 +6185,7 @@ void MainWindow::qsoToEdit (const int _qso)
         {
             eQSLTabWidget->setEQSLSenDate(QDate::fromString(aux1, "yyyy/MM/dd"));
         }
-/*
-        if (  (aux1.toUpper()) == "Y" )
-        {
-            eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(tr("Y-Yes")) );
 
-            nameCol = rec.indexOf("eqsl_qslsdate");
-            aux1 = (query.value(nameCol)).toString();
-            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-            {
-                eqslSentQDateEdit->setEnabled(true);
-                eqslSentQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-            }
-        }
-
-        else if ( (aux1.toUpper()) == "N")
-        {
-            eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(tr("N-No") ) );
-        }
-
-        else if ((aux1.toUpper()) == "R")
-        {
-            eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(tr("R-Requested") ) );
-        }
-
-        else if ((aux1.toUpper()) =="Q")
-        {
-            eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(tr("Q-Queued")) );
-
-            nameCol = rec.indexOf("eqsl_qslsdate");
-            aux1 = (query.value(nameCol)).toString();
-            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-            {
-                eqslSentQDateEdit->setEnabled(true);
-                eqslSentQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-            }
-
-        }
-
-        else if ((aux1.toUpper()) == "I")
-        {
-            eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(tr("I-Ignore") ) );
-
-            nameCol = rec.indexOf("eqsl_qslsdate");
-            aux1 = (query.value(nameCol)).toString();
-            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-            {
-                eqslSentQDateEdit->setEnabled(true);
-                eqslSentQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-            }
-        }
-
-
-        else
-        {
-            eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(tr("N-No") ) );
-        }
-*/
 
         //E-QSL RECEPTION
 
@@ -6964,63 +6207,6 @@ void MainWindow::qsoToEdit (const int _qso)
                 eQSLTabWidget->setEQSLRecDate(QDate::fromString(aux1, "yyyy/MM/dd"));
             }
 
-/*
-            if (  (aux1.toUpper()) == "Y" )
-            {
-                eqslRecComboBox->setCurrentIndex( eqslRecComboBox->findText(tr("Y-Yes")) );
-
-                nameCol = rec.indexOf("eqsl_qslrdate");
-                aux1 = (query.value(nameCol)).toString();
-                if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-                {
-                    eqslRecQDateEdit->setEnabled(true);
-                    eqslRecQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-                }
-            }
-
-            else if ( (aux1.toUpper()) == "N")
-            {
-                eqslRecComboBox->setCurrentIndex( eqslRecComboBox->findText(tr("N-No") ) );
-            }
-
-            else if ((aux1.toUpper()) == "R")
-            {
-                eqslRecComboBox->setCurrentIndex( eqslRecComboBox->findText(tr("R-Requested") ) );
-            }
-
-            else if ((aux1.toUpper()) =="I")
-            {
-                eqslRecComboBox->setCurrentIndex( eqslRecComboBox->findText(tr("I-Ignore")) );
-
-                nameCol = rec.indexOf("eqsl_qslrdate");
-                aux1 = (query.value(nameCol)).toString();
-                if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-                {
-                    eqslRecQDateEdit->setEnabled(true);
-                    eqslRecQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-                }
-
-            }
-
-            else if ((aux1.toUpper()) == "V")
-            {
-                eqslRecComboBox->setCurrentIndex( eqslRecComboBox->findText(tr("V-Verified") ) );
-
-                nameCol = rec.indexOf("eqsl_qslrdate");
-                aux1 = (query.value(nameCol)).toString();
-                if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-                {
-                    eqslRecQDateEdit->setEnabled(true);
-                    eqslRecQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-                }
-            }
-
-
-            else
-            {
-                eqslRecComboBox->setCurrentIndex( eqslRecComboBox->findText(tr("N-No") ) );
-            }
-*/
             //LOTW_QSL_SENT: {Y, N, R, Q, I}
             // tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("Q-Queued") << tr("I-Ignore");
            //LOTW_QSLSDATE (only valid if LOTW_SENT is Y, Q, or I)
@@ -7038,65 +6224,6 @@ void MainWindow::qsoToEdit (const int _qso)
                 eQSLTabWidget->setLOTWSenDate(QDate::fromString(aux1, "yyyy/MM/dd"));
             }
 
-/*
-
-            if (  (aux1.toUpper()) == "Y" )
-            {
-                lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText(tr("Y-Yes")) );
-
-                nameCol = rec.indexOf("lotw_qslsdate");
-                aux1 = (query.value(nameCol)).toString();
-                if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-                {
-                    lotwSentQDateEdit->setEnabled(true);
-                    lotwSentQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-                }
-            }
-
-            else if ( (aux1.toUpper()) == "N")
-            {
-                lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText(tr("N-No") ) );
-            }
-
-            else if ((aux1.toUpper()) == "R")
-            {
-                lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText(tr("R-Requested") ) );
-            }
-
-            else if ((aux1.toUpper()) =="Q")
-            {
-                lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText(tr("Q-Queued")) );
-
-                nameCol = rec.indexOf("lotw_qslsdate");
-                aux1 = (query.value(nameCol)).toString();
-                if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-                {
-                    lotwSentQDateEdit->setEnabled(true);
-                    lotwSentQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-                }
-
-            }
-
-            else if ((aux1.toUpper()) == "I")
-            {
-                lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText(tr("I-Ignore") ) );
-
-                nameCol = rec.indexOf("lotw_qslsdate");
-                aux1 = (query.value(nameCol)).toString();
-                if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-                {
-                    lotwSentQDateEdit->setEnabled(true);
-                    lotwSentQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-                }
-            }
-
-
-            else
-            {
-                lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText(tr("N-No") ) );
-            }
-
-*/
             //E-QSL RECEPTION
 
                 // tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Verified");
@@ -7117,82 +6244,14 @@ void MainWindow::qsoToEdit (const int _qso)
                     eQSLTabWidget->setLOTWRecDate(QDate::fromString(aux1, "yyyy/MM/dd"));
                 }
 
-/*
-
-                if (  (aux1.toUpper()) == "Y" )
-                {
-                    lotwRecComboBox->setCurrentIndex( lotwRecComboBox->findText(tr("Y-Yes")) );
-
-                    nameCol = rec.indexOf("lotw_qslrdate");
-                    aux1 = (query.value(nameCol)).toString();
-                    if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-                    {
-                        lotwRecQDateEdit->setEnabled(true);
-                        lotwRecQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-                    }
-                }
-
-                else if ( (aux1.toUpper()) == "N")
-                {
-                    lotwRecComboBox->setCurrentIndex( lotwRecComboBox->findText(tr("N-No") ) );
-                }
-
-                else if ((aux1.toUpper()) == "R")
-                {
-                    lotwRecComboBox->setCurrentIndex( lotwRecComboBox->findText(tr("R-Requested") ) );
-                }
-
-                else if ((aux1.toUpper()) =="I")
-                {
-                    lotwRecComboBox->setCurrentIndex( lotwRecComboBox->findText(tr("I-Ignore")) );
-
-                    nameCol = rec.indexOf("lotw_qslrdate");
-                    aux1 = (query.value(nameCol)).toString();
-                    if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-                    {
-                        lotwRecQDateEdit->setEnabled(true);
-                        lotwRecQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-                    }
-
-                }
-
-                else if ((aux1.toUpper()) == "V")
-                {
-                    lotwRecComboBox->setCurrentIndex( lotwRecComboBox->findText(tr("V-Verified") ) );
-
-                    nameCol = rec.indexOf("lotw_qslrdate");
-                    aux1 = (query.value(nameCol)).toString();
-                    if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
-                    {
-                        lotwRecQDateEdit->setEnabled(true);
-                        lotwRecQDateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-                    }
-                }
-
-
-                else
-                {
-                    lotwRecComboBox->setCurrentIndex( lotwRecComboBox->findText(tr("N-No") ) );
-                }
-*/
-                //qDebug() << "MainWindow::qsoToEdit: - just before IOTA"  << endl;
+    //qDebug() << "MainWindow::qsoToEdit: - just before IOTA"  << endl;
 
                 nameCol = rec.indexOf("iota");
                 aux1 = (query.value(nameCol)).toString();
 
                 aux1 = awards->checkIfValidIOTA(aux1);
                 othersTabWidget->setIOTA(aux1);
-/*
-                //qDebug() << "MainWindow::qsoToEdit: IOTA-CheckIfValidIOTA-1 " << aux1 << endl;
-                if ((aux1.length())==6){
-                    QStringList values = aux1.split("-", QString::SkipEmptyParts);
-                    //qDebug() << "MainWindow::qsoToEdit: IOTA " << aux1 << endl;
 
-                    iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(values.at(0) ) );
-                    iotaNumberLineEdit->setText(values.at(1));
-
-                }
-*/
                 nameCol = rec.indexOf("sat_name");
                 aux1 = (query.value(nameCol)).toString();
                 if (aux1.length()>0)
@@ -7248,17 +6307,7 @@ void MainWindow::qsoToEdit (const int _qso)
                 nameCol = rec.indexOf("prop_mode");
                 aux1  = (query.value(nameCol)).toString();
                 othersTabWidget->setPropMode(aux1);
-/*
-                if(( propModeComboBox->findText(aux1+" -", Qt::MatchContains))>0)
-                {
-                    propModeComboBox->setCurrentIndex( propModeComboBox->findText(aux1+" -", Qt::MatchContains));
-                   //qDebug() << "MainWindow::qsoToEdit: Prop2: " << aux1 << endl;
-                }
-                else
-                {
-                    propModeComboBox->setCurrentIndex(0);
-                }
-*/
+
                 infoLabel2->setText(world->getEntityName(currentEntity));
                 infoWidget->showEntityInfo(currentEntity);
                 //selectCorrectComboBoxEntity(currentEntity);
@@ -7287,273 +6336,6 @@ void MainWindow::qsoToEdit (const int _qso)
 
 }
 
-/*
-//TODO: TO BE REMOVED EQSL
-void MainWindow::slotQSLRecvComboBoxChanged(){
-    //qDebug() << "MainWindow::slotQSLRecvComboBoxChanged" << endl;
-
-//QSLRDATE (only valid if QSL_RCVD is Y-0, I-3, or V-4)
-//Y-Yes-0
-//N-No-1
-//R-Requested-2
-//I-Ignore-3
-//V-Verified-4
-
-    int i = qslRecComboBox->currentIndex();
-
-    switch (i)
-    {
-        case 0:
-            qslRecQDateEdit->setEnabled(true);
-            qslRecViaComboBox->setEnabled(true);
-            qslRecQDateEdit->setDate((dateTime->currentDateTime()).date());
-
-        break;
-        case 2:
-        break;
-        case 3:
-            qslRecQDateEdit->setEnabled(true);
-        break;
-        case 4:
-            qslRecQDateEdit->setEnabled(true);
-        break;
-        default: //NO
-            qslRecQDateEdit->setEnabled(false);
-            qslRecViaComboBox->setEnabled(false);
-
-
-        break;
-
-
-    }
-
-}
-
-
-void MainWindow::slotLotwRecvComboBoxChanged(){
-    //qDebug() << "MainWindow::slotLotwRecvComboBoxChanged" << endl;
-
-//QSLRDATE (only valid if QSL_RCVD is Y-0, I-3, or V-4)
-//Y-Yes-0
-//N-No-1
-//R-Requested-2
-//I-Ignore-3
-//V-Verified-4
-
-    int i = lotwRecComboBox->currentIndex();
-
-    switch (i)
-    {
-        case 0:
-            lotwRecQDateEdit->setEnabled(true);
-            lotwRecQDateEdit->setDate((dateTime->currentDateTime()).date());
-
-        break;
-        case 2:
-        break;
-        case 3:
-            lotwRecQDateEdit->setEnabled(true);
-        break;
-        case 4:
-            lotwRecQDateEdit->setEnabled(true);
-        break;
-        default: //NO
-            lotwRecQDateEdit->setEnabled(false);
-        break;
-
-
-    }
-
-}
-
-
-void MainWindow::slotLotwSentComboBoxChanged(){
-    //qDebug() << "MainWindow::slotLotwSentComboBoxChanged" << endl;
-
-    int i = lotwSentComboBox->currentIndex();
-//{Y, N, R, I, V}
-    //(QSLSDATE is only valid if QSL_SENT is Y-0, Q-3, or I-4)
-    // Y-Yes = 0
-    // N-No = 1
-    // R-Requested = 2
-    // Q-Queued = 3
-    // I-Ignore = 4
-    switch (i)
-    {
-        case 0:
-            lotwSentQDateEdit->setEnabled(true);
-            lotwSentQDateEdit->setDate((dateTime->currentDateTime()).date());
-
-        break;
-        case 2:
-        break;
-        case 3:
-            lotwSentQDateEdit->setEnabled(true);
-        break;
-        case 4:
-            lotwSentQDateEdit->setEnabled(true);
-        break;
-
-        default: //NO
-            lotwSentQDateEdit->setEnabled(false);
-        break;
-    }
-}
-
-
-void MainWindow::slotQSLSentComboBoxChanged(){
-    //qDebug() << "MainWindow::slotQSLSentComboBoxChanged" << endl;
-
-    int i = qslSentComboBox->currentIndex();
-//{Y, N, R, I, V}
-    //(QSLSDATE is only valid if QSL_SENT is Y-0, Q-3, or I-4)
-    // Y-Yes = 0
-    // N-No = 1
-    // R-Requested = 2
-    // Q-Queued = 3
-    // I-Ignore = 4
-    switch (i)
-    {
-        case 0:
-            qslSentQDateEdit->setEnabled(true);
-            qslSentViaComboBox->setEnabled(true);
-            qslSentQDateEdit->setDate((dateTime->currentDateTime()).date());
-
-        break;
-        case 2:
-        break;
-        case 3:
-            qslSentQDateEdit->setEnabled(true);
-        break;
-        case 4:
-            qslSentQDateEdit->setEnabled(true);
-        break;
-
-        default: //NO
-            qslSentQDateEdit->setEnabled(false);
-            qslSentViaComboBox->setEnabled(false);
-        break;
-    }
-}
-*/
-/*
-void MainWindow::sloteQSLRecvComboBoxChanged(){
-    //qDebug() << "MainWindow::sloteQSLRecvComboBoxChanged" << endl;
-
-//QSLRDATE (only valid if QSL_RCVD is Y-0, I-3, or V-4)
-//Y-Yes-0
-//N-No-1
-//R-Requested-2
-//I-Ignore-3
-//V-Verified-4
-
-    int i = eqslRecComboBox->currentIndex();
-
-    switch (i)
-    {
-        case 0:
-            eqslRecQDateEdit->setEnabled(true);
-            eqslRecQDateEdit->setDate((dateTime->currentDateTime()).date());
-
-        break;
-        case 2:
-        break;
-        case 3:
-            eqslRecQDateEdit->setEnabled(true);
-        break;
-        case 4:
-            eqslRecQDateEdit->setEnabled(true);
-        break;
-        default: //NO
-            eqslRecQDateEdit->setEnabled(false);
-        break;
-
-
-    }
-
-}
-*/
-
-/*
-void MainWindow::sloteQSLSentComboBoxChanged(){
-    //qDebug() << "MainWindow::sloteQSLSentComboBoxChanged" << endl;
-
-    int i = eqslSentComboBox->currentIndex();
-//{Y, N, R, I, V}
-    //(QSLSDATE is only valid if QSL_SENT is Y-0, Q-3, or I-4)
-    // Y-Yes = 0
-    // N-No = 1
-    // R-Requested = 2
-    // Q-Queued = 3
-    // I-Ignore = 4
-    switch (i)
-    {
-        case 0:
-            eqslSentQDateEdit->setEnabled(true);
-            eqslSentQDateEdit->setDate((dateTime->currentDateTime()).date());
-
-        break;
-        case 2:
-        break;
-        case 3:
-            eqslSentQDateEdit->setEnabled(true);
-        break;
-        case 4:
-            eqslSentQDateEdit->setEnabled(true);
-        break;
-
-        default: //NO
-            eqslSentQDateEdit->setEnabled(false);
-        break;
-    }
-}
-*/
-
-/*
-void MainWindow::showInfoFromLocators(const QString _loc1, const QString _loc2)
-{// Local / DX
-    //qDebug() << "MainWindow::showInfoFromLocators: " << _loc1 << "/" << _loc2 << endl;
-    QString lloc = _loc1.toUpper();
-    QString ldx = _loc2.toUpper();
-
-    if ( locator->isValidLocator(lloc)  )
-    {
-        if ( locator->isValidLocator(ldx)  )
-        {
-
-            int beam = locator->getBeamBetweenLocators(lloc, ldx);
-
-
-            gradShortLabel->setText( QString::number(beam) );
-
-             if (beam >= 180)
-             {
-                   gradLongLabel->setText( QString::number(beam -180 ) );
-             }
-             else
-             {
-                 gradLongLabel->setText( QString::number(beam + 180 ) );
-             }
-
-             distShortLabel->setText( QString::number( locator->getDistanceBetweenLocators(lloc, ldx, imperialSystem) ) );
-             distLongLabel->setText( QString::number( 40000 - locator->getDistanceBetweenLocators(lloc, ldx, imperialSystem) ) );
-        }
-        else
-        {
-            infoWidget->clear();
-            //infoWidget->clearInfoFromLocators();
-            return;
-        }
-    }
-    else
-    {
-        infoWidget->clear();
-        //infoWidget->clearInfoFromLocators();
-        return ;
-    }
-}
-
-*/
 void MainWindow::slotLocatorTextChanged()
 {//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
     //qDebug() << "MainWindow::slotLocatorTextChanged: " << locatorLineEdit->text() << endl;
@@ -7584,82 +6366,6 @@ void MainWindow::slotMyLocatorTextChanged()
         return;
     }
 }
-
-/*
-void MainWindow::clearInfoFromLocators()
-{
-    //qDebug() << "MainWindow::clearInfoFromLocators" << endl;
-    gradShortLabel->setText( "0" );
-    gradLongLabel->setText( "0" );
-    distShortLabel->setText( "0" );
-    distLongLabel->setText( "0" );
-}
-
-*/
-
-/*
-void MainWindow::showEntityInfo(const int _enti, int _cq, int _itu)
-{
-  //qDebug() << "MainWindow::showEntityInfo" << QString::number(_enti) << endl;
-
-    if (_enti<=0)
-    {
-        return;
-    }
-
-    infoLabel2->setText(world->getEntityName(_enti));
-    continentLabel->setText( world->getContinentShortName(_enti) );
-    prefixLabel->setText( world->getEntityMainPrefix(_enti));
-
-    if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) )
-    {
-        dxLocator = (locatorLineEdit->text()).toUpper();
-    }
-    else
-    {
-        dxLocator = world->getLocator(_enti);
-    }
-
-    infoWidget->showDistanceAndBearing (myLocator, dxLocator);
-
-    int i = -1;
-
-    if ((_cq>0) && (_cq<41))
-    {
-        cqzLabel->setText( QString::number(_cq) );
-    }
-    else
-    {
-        i = world->getEntityCqz(_enti);
-        if( i > 0 )
-        {
-            cqzLabel->setText( QString::number(i) );
-        }
-        else
-        {
-            cqzLabel->setText("0");
-        }
-    }
-
-    if (_itu>0)
-    {
-        ituzLabel->setText( QString::number(_itu) );
-    }
-    else
-    {
-        i = world->getEntityItuz(_enti);
-        if ( i > 0  )
-        {
-            ituzLabel->setText( QString::number(i) );
-        }
-        else
-        {
-            ituzLabel->setText("0");
-        }
-    }
-
-}
-*/
 
 void MainWindow::showStatusOfDXCC(const QStringList _qs)
 {
@@ -7742,14 +6448,7 @@ void MainWindow::showAwards()
     qsoWorkedQLCDNumber->display(_num);
 
     _num = dataProxy->getHowManyConfirmedQSLInLog(currentLog);
-    //_num = 0;
-    //aux = QString("SELECT count(id) FROM log WHERE qsl_rcvd='Y' AND lognumber='%1'").arg(currentLog);
-    //query.exec(aux);
-    //query.next();
-    //if (query.isValid())
-    //{
-    //    _num = (query.value(0)).toInt();
-    //}
+
     qsoConfirmedQLCDNumber->display(_num);
     _num = 0;
 
@@ -7805,16 +6504,7 @@ void MainWindow::fillQSOData()
 
     int numberOfQsos = 0;
     int i = 0;
-/*
-    aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
-    //aux = "SELECT count(id) FROM log";
-    query1.exec(aux);
-    query1.next();
-    if (query1.isValid())
-    {
-        numberOfQsos = (query1.value(0)).toInt();
-    }
-*/
+
     numberOfQsos = dataProxy->getHowManyQSOInLog(currentLog);
 
     //int progressBarPosition = 0;
@@ -7892,7 +6582,7 @@ void MainWindow::fillQSOData()
             }
             else
             {}
-//qDebug() << "MainWindow::fillQSOData: DXCC" << endl;
+    //qDebug() << "MainWindow::fillQSOData: DXCC" << endl;
             nameCol = rec.indexOf("dxcc");
             if (( (query.value(nameCol)).toString()).length() < 1 )
             {
@@ -7972,16 +6662,7 @@ void MainWindow::slotFilePrint()
     int row = 0;
     int _numberOfQsos = 0;
     bool cancelPrinting = false;
-/*
-    aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
-    //aux = "SELECT count(id) FROM log";
-    query.exec(aux);
-    query.next();
-    if (query.isValid())
-    {
-        _numberOfQsos = (query.value(0)).toInt();
-    }
-*/
+
     _numberOfQsos = dataProxy->getHowManyQSOInLog(currentLog);
 
 
@@ -8099,15 +6780,6 @@ void MainWindow::slotFilePrint()
                     cursor.insertText((query1.value(0)).toString());
                 }
 
-                //stringQuery = QString("SELECT name FROM mode WHERE id='%1'").arg(aux);
-                //query1.exec(stringQuery);
-                //query1.next();
-                //if (query1.isValid())
-                //{
-                //    cursor = textTable->cellAt(row, 7).firstCursorPosition();
-                //    cursor.insertText((query1.value(0)).toString());
-                //}
-
                 nameCol = rec.indexOf("comment");
                 aux = (query.value(nameCol)).toString();
                 if ((aux.length())>0)
@@ -8129,203 +6801,7 @@ void MainWindow::slotFilePrint()
     }
 
 }
-//UPDATE CTY.CSV
 
-
-//UPDATE CTY.CSV
-/*
- void MainWindow::slotToolSearchRequestedQSLToSend()
- {
-
-    //qDebug() << "MainWindow::slotToolSearchRequestedQSLToSend" << endl;
-     slotToolSearchQSL(1);
-     //return;
- }
-
-void MainWindow::searchToolNeededQSLToSend()
-{
-   //qDebug() << "MainWindow::slotToolSearchQSLToSend - TO PREPARE THE QUERY and optimize the function" << endl;
-    slotToolSearchQSL(0);
-}
-
-void MainWindow::slotToolSearchNeededQSLPendingToReceive()
-{
-    //qDebug() << "MainWindow::slotToolSearchNeededQSLPendingToReceive "  << endl;
-    // QSL RCVD requested or
-    // QSL Sent Y and qsl_rcvd!=Y AND qsl_rcvd!=I
-    //select call from log where (qsl_sent='Y' and qsl_rcvd!='Y' and qsl_rcvd!='I') OR
-    //QString stringQuery = QString("SELECT call FROM log where (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R'");
-    slotToolSearchQSL(2);
-}
-
-void MainWindow::slotToolSearchNeededQSLRequested()
-{ // Requested DX QSL
-    slotToolSearchQSL(3);
-}
-
-
-void MainWindow::slotToolSearchQSL(const int actionQSL)
-{
-    //qDebug() << "MainWindow::slotToolSearchQSL: " << QString::number(actionQSL) << " - LogNumber: " << QString::number(currentLog) << endl;
-    // 2 means QSL_RCVD = 'R'
-    QString stringQuery = QString();
-    QString message = QString();
-    QString aux = QString();
-    int i = -1;
-
-
-    switch (actionQSL)
-    {
-        case 0://void searchToolNeededQSLToSend();
-         //aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
-         //qDebug() << "MainWindow::slotToolSearchQSL: CASE 0" << endl;
-         stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R' AND log.lognumber='%1'").arg(currentLog);
-            message = tr("Needed QSO to send the QSL");
-            qslingNeeded = true;
-            dxUpRightTab->setCurrentIndex(2);
-        break;
-        case 1://void slotToolSearchRequestedQSLToSend();
-        //qDebug() << "MainWindow::slotToolSearchQSL: CASE 1" << endl;
-            stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, id FROM log  WHERE qsl_sent=='R' AND lognumber='%1'").arg(currentLog);
-            message = tr("My QSL requested to be sent");
-        break;
-        case 2://void slotToolSearchNeededQSLPendingToReceive();
-        //qDebug() << "MainWindow::slotToolSearchQSL: CASE 2" << endl;
-        stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log WHERE lognumber='%1' AND ( (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R')").arg(currentLog);
-            message = tr("DX QSL pending to be received");
-        break;
-    case 3://void slotToolSearchNeededQSLRequested()
-        //qDebug() << "MainWindow::slotToolSearchQSL: CASE 3" << endl;
-        stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log WHERE lognumber='%1' AND  qsl_rcvd='R'").arg(currentLog);
-        message = tr("DX QSL pending to be received");
-    break;
-        default:
-        //qDebug() << "MainWindow::slotToolSearchQSL: CASE DEFAULT" << endl;
-        // should never be reached
-            return;
-        break;
-    }
-
-    int nameCol = -1;
-    QString _call, _dateTime, _band, _mode, _freq, _qsltx, _qslrx, _id, _stationcallsign;
-    QFont font;
-    font.setBold(true);
-    QColor color;
-    QStringList q;
-
-    searchResultsTreeWidget->clear();
-    QSqlQuery query(stringQuery);
-    QSqlRecord rec = query.record();
-
-    if (!query.exec())
-    {
-       //qDebug() << "MainWindow::slotToolSearchQSL: Query ERROR" << endl;
-    //TODO: Control the error!!
-    }
-    else
-    {
-        slotUpdateStatusBar(message); // updating the status bar
-        while(query.next())
-        {
-        if (query.isValid())
-        {
-            QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
-            //aux = world->getQRZEntityName(_call);
-            i = world->getQRZARRLId(_call);
-            aux = world->getEntityName(i) + " - CQ: " + QString::number(world->getEntityCqz(i));
-            item->setToolTip(0, aux);
-            item->setToolTip(1, aux);
-            item->setToolTip(2, aux);
-            item->setToolTip(3, aux);
-            item->setToolTip(4, aux);
-            item->setToolTip(5, aux);
-            item->setToolTip(6, aux);
-
-            nameCol = rec.indexOf("call");
-            _call= (query.value(nameCol)).toString();
-            nameCol = rec.indexOf("qso_date");
-            _dateTime = (query.value(nameCol)).toString();
-            nameCol = rec.indexOf("time_on");
-            _dateTime = _dateTime + "-" +(query.value(nameCol)).toString();
-
-            nameCol = rec.indexOf("bandid");
-            _freq = (query.value(nameCol)).toString();
-            _band = db->getBandNameFromNumber( _freq.toInt() );
-
-            nameCol = rec.indexOf("modeid");
-            _mode = dataProxy->getSubModeFromId((query.value(nameCol)).toInt());
-
-            //qDebug() << "MainWindow::slotToolSearchQSL: Mode: " << _mode << endl;
-            //qDebug() << "MainWindow::slotToolSearchQSL: mode " << QString::number((query.value(nameCol)).toInt()) << endl;
-
-            nameCol = rec.indexOf("qsl_sent");
-            _qsltx = (query.value(nameCol)).toString();
-            if (_qsltx.length()<1)
-            {
-                _qsltx = "N";
-            }
-
-            nameCol = rec.indexOf("qsl_rcvd");
-            _qslrx = (query.value(nameCol)).toString();
-            if (_qslrx.length()<1)
-            {
-                _qslrx = "N";
-            }
-
-            if (stationCallSignShownInSearch)
-            {
-                //qDebug() << "MainWindow::slotToolSearchQSL: stationCallSign "<< endl;
-
-                nameCol = rec.indexOf("station_callsign");
-                if (((query.value(nameCol)).toString()).length()>=3)
-                {
-                    _stationcallsign = (query.value(nameCol)).toString();
-                }
-                else
-                {
-                    _stationcallsign.clear();
-                }
-
-            }
-
-            nameCol = rec.indexOf("id");
-            _id= (query.value(nameCol)).toString();
-
-            q.clear();
-            q << _call << _freq << _mode << QString::number(currentLog);
-
-            color = awards->getQRZDXStatusColor(q);
-
-            item->setText(0, _call);
-            item->setText(1, _dateTime);
-            item->setText(2, _band);
-            item->setText(3, _mode);
-            item->setText(4, _qsltx);
-            item->setText(5, _qslrx);
-            if (stationCallSignShownInSearch)
-            {
-                item->setText(6, _stationcallsign);
-                item->setText(7, _id);
-                item->setToolTip(7, aux);
-            }
-            else
-            {
-                item->setText(6, _id);
-            }
-
-            item->setForeground(0, QBrush(color));
-        }
-        else
-        {
-        //TODO: Check what is happening here!
-        }
-    }
-        //qslingNeeded = true;
-        dxUpRightTab->setCurrentIndex(2);
-    }
-}
-
-*/
 //DX-CLUSTER - DXCLUSTER
 
 void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
@@ -8494,34 +6970,7 @@ void MainWindow::updateQSLRecAndSent()
         }
     }
 }
-/*
-void MainWindow::selectCorrectComboBoxEntity(const int _ent)
-{// Select the appropriate entity in the ComboBox
-    //qDebug() << "MainWindow::selectCorrectEntity: " << QString::number(_ent) << "/" << world->getEntityMainPrefix(_ent)  << endl;
-    if (_ent<=0)
-    {
-        entityNameComboBox->setCurrentIndex(0);
-        return;
-    }
-    QString pref = QString();
-    //pref = world->getEntityMainPrefix(_ent);
-    pref = world->getEntityName(_ent);
 
-    //int indexC = entityNameComboBox->findText(pref, Qt::MatchContains);
-    int indexC = entityNameComboBox->findText("("+QString::number(_ent)+")", Qt::MatchContains);
-    //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC) << endl;
-    entityNameComboBox->setCurrentIndex(indexC);
-
-}
-
-int MainWindow::getDXCCFromComboBox()
-{
-    //qDebug() << "MainWindow::getDXCCFromComboBox" << endl;
-    //QString pref = (entityNameComboBox->currentText()).split('-').at(0);
-    //qDebug() << "MainWindow::getDXCCFromComboBox: " << pref << "/" << QString::number(world->getQRZARRLId(pref))<< endl;
-    return world->getQRZARRLId(othersTabWidget->getEntityPrefix());
-}
-*/
 void MainWindow::slotOperatingYearComboBoxChanged()
 {
     //qDebug() << "MainWindow::slotOperatingYearComboBoxChanged: " << operatingYearsComboBox->currentText() << endl;
@@ -8550,22 +6999,7 @@ void MainWindow::defineStationCallsign()
     //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << endl;
 
 }
-/*
-bool MainWindow::trueOrFalse(const QString _s)
-{// reads a String and return true if s.upper()== TRUE :-)
-    //qDebug() << "MainWindow::trueOrFalse: " << _s << endl;
 
-    if ( (_s.toUpper()) == "TRUE")
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-    return false;
-}
-*/
 void MainWindow::slotSetPropMode(const QString _p)
 {
     //qDebug() << "MainWindow::slotSetPropMode: " << _p << endl;
@@ -8578,20 +7012,7 @@ void MainWindow::slotSetPropMode(const QString _p)
     //propModeComboBox->setCurrentIndex(indexC);
 }
 
-/*
-QString MainWindow::getPropModeFromComboBox()
-{
-    QString _pm = QString();
-   //qDebug() << "MainWindow::getPropModeFromComboBox:" << propModeComboBox->currentText() << endl;
-    _pm = (((propModeComboBox->currentText()).split('-')).at(1)).simplified();
-   //qDebug() << "MainWindow::getPropModeFromComboBox: " << _pm << endl;
-    if (_pm == "Not")
-    {
-        return QString();
-    }
-    return _pm;
-}
-*/
+
 
 void MainWindow::completeWithPreviousQSO(const QString _call)
 {
@@ -8706,18 +7127,12 @@ void MainWindow::completeWithPreviousQSO(const QString _call)
         else if (completedWithPreviousIOTA)
         {
             othersTabWidget->clearIOTA();
-            //iotaContinentComboBox->setCurrentIndex(0);
-            //iotaNumberLineEdit->setPalette(palBlack);
-            //iotaNumberLineEdit->setText("000");
             completedWithPreviousName = false;
         }
     }
     else if (completedWithPreviousIOTA)
     {
         othersTabWidget->clearIOTA();
-        //iotaContinentComboBox->setCurrentIndex(0);
-        //iotaNumberLineEdit->setPalette(palBlack);
-        //iotaNumberLineEdit->setText("000");
         completedWithPreviousIOTA = false;
     }
 
@@ -8726,17 +7141,11 @@ void MainWindow::completeWithPreviousQSO(const QString _call)
     {
 
         QSLTabWidget->setQSLVia(aux, Qt::red);
-
-        //qslViaLineEdit->setPalette(palRed);
-        //qslViaLineEdit->setText(aux);
         completedWithPreviousQSLVia=true;
     }
     else if (completedWithPreviousQSLVia)
     {
         QSLTabWidget->setQSLVia("");
-        //qslViaLineEdit->clear();
-        //completedWithPreviousQSLVia = false;
-        //qslViaLineEdit->setPalette(palBlack);
     }
 }
 

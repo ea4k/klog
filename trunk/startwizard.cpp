@@ -154,7 +154,8 @@
                             "<p>" + tr("It supports QSL management, import and export of ADIF ") +
                             tr("and Cabrillo file formats and many other features...") + "</p><p>" +
                             tr("Before you can start using KLog, you will be asked to:") + "</p><ul>" +
-                            "<li>" + tr("Acknowledge to the terms of the license") + "</li>";
+                            "<li>" + tr("Acknowledge to the terms of the license.") + "</li>" +
+                            "<li>" + tr("Download the DX entities information.") + "</li>" +
                             "<li>" + tr("Enter your callsign, CQ zone, etc. and main configuration.") + "</li></ul>" +
                             "<p>" + tr("Enjoy KLog and contact the development team if you have any suggestions!") + "</p>" +
                             "<h3>73 de EA4TV</h3></body></html>";
