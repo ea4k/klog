@@ -263,7 +263,7 @@ void SoftwareUpdate::setHeader()
     str.clear();
     str.append(ver);
 
-    qDebug() << "SoftwareUpdate::setHeader: " << str << endl;
+    //qDebug() << "SoftwareUpdate::setHeader: " << str << endl;
     request.setRawHeader("User-Agent", str);
 }
 

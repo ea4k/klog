@@ -1,3 +1,8 @@
+RC-BUGS:
+ - The ADIF export is not working!!!
+ - There is some problem with the connection to the DB and QSOs are not added!
+
+
 Working:
 TODO: ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing
 Aqui pongo la info de bearing, short / Long path
@@ -15,19 +20,18 @@ Feel free to request any roadmap change if you have any suggestion.
 
 
 
-RC-BUGS: The ADIF export is not working!!!
 
 
 
 TODO: Isolate the QSO input tab and create a widget with it.
 TODO: Isolate the Main QRZ box and create a widget with it.
-TODO: Isolate the Info tab and create a widget with it.
 TODO: Isolate the Awards tab and create a widget with it.
 
 
 TODO: Think if it is possible to create a function in the Widgets(i.e. MainWindowInputQSL) to read the data and
         enter it in the DB automatically when the user clicks on "enter"
         It would help to "isolate" it and make it more "independant"
+
 TODO: Review the color management in MainWindowInputOthers::setIOTA (and maybe others) (completewithPrevious of MainWindow)
 TODO: Check if in mainwindow (read formUI and modify the eQSL/LOTW REC/SENT values are correct
 

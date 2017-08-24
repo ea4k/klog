@@ -43,16 +43,16 @@ SetupPageClubLog::SetupPageClubLog(QWidget *parent) : QWidget(parent)
 
 
     callLabel = new QLabel(tr("&Callsign"));
-    passwordLabel = new QLabel(tr("Clublog &password"));
-    emailLabel = new QLabel(tr("Clublog &email"));
+    passwordLabel = new QLabel(tr("ClubLog &password"));
+    emailLabel = new QLabel(tr("ClubLog &email"));
 
     callLabel->setBuddy(callLineEdit);
     passwordLabel->setBuddy(passwordLineEdit);
     emailLabel->setBuddy(emailLineEdit);
 
-    emailLineEdit->setToolTip(tr("Enter the email you used to register in clublog"));
-    callLineEdit->setToolTip(tr("Enter the callsign you used to register in clublog"));
-    passwordLineEdit->setToolTip(tr("Enter your password in clublog"));
+    emailLineEdit->setToolTip(tr("Enter the email you used to register in ClubLog."));
+    callLineEdit->setToolTip(tr("Enter the callsign you used to register in ClubLog."));
+    passwordLineEdit->setToolTip(tr("Enter your password in ClubLog."));
 
 
     //passwordLineEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);

@@ -66,11 +66,11 @@ eLogClubLog::~eLogClubLog()
     else if (result == 202)
     {
        //qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = Password Error! = " << QString::number(result)  << endl;
-        text = "ClubLog: " + tr("It seems to be a PASSWORD ERROR; check your password");
+        text = "ClubLog: " + tr("It seems to be a PASSWORD ERROR; check your password.");
 
         int ret = QMessageBox::warning(0, tr("KLog - ClubLog"),
-                                       tr("It seems that your Clublog password is not correct") + "\n" +
-                                          tr("Please check your password in the setup. Clublog uploads will be disabled."),
+                                       tr("It seems that your ClubLog password is not correct.") + "\n" +
+                                          tr("Please check your password in the setup. ClubLog uploads will be disabled."),
                                        QMessageBox::Ok);
         emit disableClubLogAction(true);
         //TODO: Mark the previous QSO as not sent to clublog

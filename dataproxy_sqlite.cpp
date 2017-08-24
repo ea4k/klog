@@ -3225,7 +3225,7 @@ QString DataProxy_SQLite::getISOName(const int _n)
 
 void DataProxy_SQLite::getFoundInLog(const QString _txt, const int _log)
 {
-    qDebug()  << "DataProxy_SQLite::getFoundInLog: " << _txt << "/" << QString::number(_log)  << endl;
+    //qDebug()  << "DataProxy_SQLite::getFoundInLog: " << _txt << "/" << QString::number(_log)  << endl;
 /*
     searching = true;
     executionN++;
@@ -3237,12 +3237,12 @@ void DataProxy_SQLite::getFoundInLog(const QString _txt, const int _log)
     qsoDataFound.clear();
     if (_txt.length()<2)
     {
-        qDebug()  << "DataProxy_SQLite::getFoundInLog: lengh shorter than 2"  << endl;
+        //qDebug()  << "DataProxy_SQLite::getFoundInLog: lengh shorter than 2"  << endl;
         searching = false;
         return;
     }
 
-    qDebug()  << "DataProxy_SQLite::getFoundInLog: let's go searching!"  << endl;
+    //qDebug()  << "DataProxy_SQLite::getFoundInLog: let's go searching!"  << endl;
     if (_log <= 0)
     {
         queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%%1%'").arg(_txt);
@@ -3264,7 +3264,7 @@ void DataProxy_SQLite::getFoundInLog(const QString _txt, const int _log)
             if (query.isValid())
             {
                 counter++;
-                qDebug()  << "DataProxy_SQLite::getFoundInLog: Data found: - "  << QString::number(counter) << endl;
+                //qDebug()  << "DataProxy_SQLite::getFoundInLog: Data found: - "  << QString::number(counter) << endl;
                 qsoDataFound.clear();
 
                 nameCol = rec.indexOf("call");
@@ -3307,11 +3307,11 @@ void DataProxy_SQLite::getFoundInLog(const QString _txt, const int _log)
                 if (qsoDataFound.length()>1)
                 {
                  emit qsoFound(qsoDataFound);
-                 qDebug()  << "DataProxy_SQLite::getFoundInLog: Emitting qsoDataFound... (exec: "<< QString::number(executionN) << ") Call-id: " << qsoDataFound.at(0)  << "-" << qsoDataFound.at(8) << endl;
+                 //qDebug()  << "DataProxy_SQLite::getFoundInLog: Emitting qsoDataFound... (exec: "<< QString::number(executionN) << ") Call-id: " << qsoDataFound.at(0)  << "-" << qsoDataFound.at(8) << endl;
                 }
                 else
                 {
-                    qDebug()  << "DataProxy_SQLite::getFoundInLog: NOT emitting qsoDataFound... (exec: "<< QString::number(executionN) << ")" << endl;
+                    //qDebug()  << "DataProxy_SQLite::getFoundInLog: NOT emitting qsoDataFound... (exec: "<< QString::number(executionN) << ")" << endl;
                     //qDebug()  << "DataProxy_SQLite::getFoundInLog: NOT Emitting qsoDataFound..."  << endl;
                 }
 

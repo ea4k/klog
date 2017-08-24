@@ -336,7 +336,7 @@ QString InfoWidget::getStyleColorToLabelFromBand(const QString _b, const QString
 
 void InfoWidget::showInfo(const int _entity, const int _bandid, const int _modeid, const int _log)
 { // Default values of _modeid & _log = -1
-    qDebug() << "InfoWidget::showInfo: " << QString::number(_entity) << "/" << QString::number(_bandid) << "/"<< QString::number(_modeid) << "/" << QString::number(_log) << endl;
+    //qDebug() << "InfoWidget::showInfo: " << QString::number(_entity) << "/" << QString::number(_bandid) << "/"<< QString::number(_modeid) << "/" << QString::number(_log) << endl;
  //QColor getQRZDXStatusColor(const QStringList _qs); // Receives Entity, band, mode & log
 
     bandLabel1->setStyleSheet(getStyleColorToLabelFromBand(bandLabel1->text(), QString::number(_entity)));
@@ -437,7 +437,7 @@ void InfoWidget::showEntityInfo(const int _enti, int _cq, int _itu)
 
 void InfoWidget::showDistanceAndBearing(const QString _locLocal, const QString _locDX)
 {// Local / DX
-    qDebug() << "InfoWidget::showDistanceAndBearing: " << _locLocal << "/" << _locDX << endl;
+    //qDebug() << "InfoWidget::showDistanceAndBearing: " << _locLocal << "/" << _locDX << endl;
     QString lloc = _locLocal.toUpper();
     QString ldx = _locDX.toUpper();
 

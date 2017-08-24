@@ -171,7 +171,7 @@ void LogWindow::createActionsCommon()
 
 void LogWindow::slotRighButtonFromLog(const QPoint& pos)
 {
-    qDebug() << "LogWindow::slotshowRighButtonFromLog"  << endl;
+    //qDebug() << "LogWindow::slotshowRighButtonFromLog"  << endl;
     int row = (logView->indexAt(pos)).row();
     showMenuRightButtonFromLogCreateActions();
     righButtonFromLogMenu(row);
@@ -180,10 +180,10 @@ void LogWindow::slotRighButtonFromLog(const QPoint& pos)
 
 void LogWindow::righButtonFromLogMenu(const int trow)
 {
-    qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << endl;
+    //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << endl;
 
     int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
-    qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID) << endl;
+    //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID) << endl;
     bool qslReceived = isQSLReceived(_qsoID);
     bool qslSent = isQSLSent(_qsoID);
     QMenu menu(this);

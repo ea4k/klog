@@ -584,7 +584,7 @@ void SetupPageMisc::slotDBButtonClicked()
 
 void SetupPageMisc::slotDBLineEditChanged()
 {
-    qDebug() << "SetupPageMisc::slotDBLineEditChanged: " << dbPathLineEdit->text() << endl;
+    //qDebug() << "SetupPageMisc::slotDBLineEditChanged: " << dbPathLineEdit->text() << endl;
     QString aux;
     aux = dbPathLineEdit->text();
 
@@ -618,8 +618,8 @@ void SetupPageMisc::slotMoveDBButtonClicked()
     QString target = dbDirNew + "/logbook.dat";
     QMessageBox msgBox;
 
-    qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source << endl;
-    qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target << endl;
+    //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source << endl;
+    //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target << endl;
     if ( QFile::exists(dbDirNew) )
     {
         //dbDirCurrent
