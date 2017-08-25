@@ -958,7 +958,7 @@ If you select NO, the QSO may not be imported.</source>
     <message>
         <location filename="../startwizard.cpp" line="157"/>
         <source>Acknowledge to the terms of the license.</source>
-        <translation type="unfinished"></translation>
+        <translation>ライセンス条項への同意.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="158"/>
@@ -4167,12 +4167,12 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setuppageclublog.cpp" line="46"/>
         <source>ClubLog &amp;password</source>
-        <translation type="unfinished"></translation>
+        <translation>ClubLogパスワード(&amp;p)</translation>
     </message>
     <message>
         <location filename="../setuppageclublog.cpp" line="47"/>
         <source>ClubLog &amp;email</source>
-        <translation type="unfinished"></translation>
+        <translation>ClubLog &amp;email</translation>
     </message>
     <message>
         <source>Enter the email you used to register in clublog</source>
@@ -4189,17 +4189,17 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setuppageclublog.cpp" line="53"/>
         <source>Enter the email you used to register in ClubLog.</source>
-        <translation type="unfinished"></translation>
+        <translation>ClubLogに登録したemailを入力してください.</translation>
     </message>
     <message>
         <location filename="../setuppageclublog.cpp" line="54"/>
         <source>Enter the callsign you used to register in ClubLog.</source>
-        <translation type="unfinished"></translation>
+        <translation>ClubLogに登録したコールサインを入力してください.</translation>
     </message>
     <message>
         <location filename="../setuppageclublog.cpp" line="55"/>
         <source>Enter your password in ClubLog.</source>
-        <translation type="unfinished"></translation>
+        <translation>ClubLogのパスワードを入力してください.</translation>
     </message>
     <message>
         <location filename="../setuppageclublog.cpp" line="60"/>
@@ -5584,7 +5584,7 @@ Please check your password in the setup. Clublog uploads will be disabled.</sour
     <message>
         <location filename="../elogclublog.cpp" line="69"/>
         <source>It seems to be a PASSWORD ERROR; check your password.</source>
-        <translation type="unfinished"></translation>
+        <translation>パスワードがエラーのようです. パスワードを再確認してください.</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="72"/>
