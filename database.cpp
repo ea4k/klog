@@ -4005,23 +4005,23 @@ bool DataBase::updateTheEntityTableISONames()
     }
 
    //qDebug() << "DataBase::updateTheEntityTableISONames-1" << endl;
-    sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='246'");  //Sovereign Order of Malta
+    sq = QString ("UPDATE entity SET isoname='mt' WHERE dxcc='246'");  //Sovereign Order of Malta
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
    //qDebug() << "DataBase::updateTheEntityTableISONames-2" << endl;
 
-    sq = QString ("UPDATE entity SET isoname='247' WHERE dxcc='un'");  //Spratly
+    sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='247'");  //Spratly
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
 
-    sq = QString ("UPDATE entity SET isoname='260' WHERE dxcc='mc'");  //Monaco
+    sq = QString ("UPDATE entity SET isoname='mc' WHERE dxcc='260'");  //Monaco
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}
 
-    sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc=''");  // Agalega
+    sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc='4'");  // Agalega
     sqlOK = query.exec(sq);
     if (!sqlOK)
     {return false;}

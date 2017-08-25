@@ -107,11 +107,11 @@ void MainWindowSatTab::createUI()
 
     txFreqSpinBox->setDecimals(3);
     txFreqSpinBox->setMaximum(9999);
-    txFreqSpinBox->setSuffix(tr("MHz"));
+    txFreqSpinBox->setSuffix(" " + tr("MHz"));
 
     rxFreqSpinBox->setDecimals(3);
     rxFreqSpinBox->setMaximum(9999);
-    rxFreqSpinBox->setSuffix(tr("MHz"));
+    rxFreqSpinBox->setSuffix(" " + tr("MHz"));
 
     //QHBoxLayout *satNameLayout = new QHBoxLayout;
     //satNameLayout->addWidget(satNameLabel);

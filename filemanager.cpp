@@ -266,7 +266,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     progress.setMaximum(numberOfQsos);
     progress.setWindowModality(Qt::ApplicationModal);
 
-    out << "ADIF v2.2.7 Export from KLog\nhttp://jaime.robles.es/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
+    out << "ADIF v2.2.7 Export from KLog\nhttp://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
     out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
 
     QDateTime dateTime = (QDateTime::currentDateTime()).toUTC();
