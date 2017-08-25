@@ -317,29 +317,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     // UI DX
     infoLabel1 = new QLabel(tr("Status bar..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
-/*
-    bandLabel1 = new QLabel(tr("10M"));
-    bandLabel2 = new QLabel(tr("15M"));
-    bandLabel3 = new QLabel(tr("20M"));
-    bandLabel4 = new QLabel(tr("40M"));
-    bandLabel5 = new QLabel(tr("80M"));
-    bandLabel6 = new QLabel(tr("160M"));
-    bandLabel7 = new QLabel(tr("2M"));
-    bandLabel8 = new QLabel(tr("6M"));
-    bandLabel9 = new QLabel(tr("12M"));
-    bandLabel10 = new QLabel(tr("17M"));
-    bandLabel11 = new QLabel(tr("30M"));
-    bandLabel12 = new QLabel(tr("70CM"));
 
-    continentLabel = new QLabel;
-    prefixLabel = new QLabel;
-    cqzLabel = new QLabel;
-    ituzLabel = new QLabel;
-    gradShortLabel = new QLabel;
-    distShortLabel = new QLabel;
-    gradLongLabel = new QLabel;
-    distLongLabel = new QLabel;
-*/
     //logPanel = new QWidget;
     loggWinAct = new QAction(tr("&Log Window"), this);
     scoreeWinAct = new QAction(tr("&Score Window"), this);
@@ -356,17 +334,17 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     rxPowerSpinBox = new QDoubleSpinBox;
     rxPowerSpinBox->setDecimals(2);
     rxPowerSpinBox->setMaximum(9999);
-    rxPowerSpinBox->setSuffix(tr("Watts"));
+    rxPowerSpinBox->setSuffix(" " + tr("Watts"));
 
     txFreqSpinBox = new QDoubleSpinBox;
     txFreqSpinBox->setDecimals(3);
     txFreqSpinBox->setMaximum(9999);
-    txFreqSpinBox->setSuffix(tr("MHz"));
+    txFreqSpinBox->setSuffix(" " + tr("MHz"));
 
     rxFreqSpinBox = new QDoubleSpinBox;
     rxFreqSpinBox->setDecimals(3);
     rxFreqSpinBox->setMaximum(9999);
-    rxFreqSpinBox->setSuffix(tr("MHz"));
+    rxFreqSpinBox->setSuffix(" " + tr("MHz"));
 
     dxccConfirmedQLCDNumber = new QLCDNumber;
     dxccWorkedQLCDNumber = new QLCDNumber;
@@ -2825,7 +2803,7 @@ void MainWindow::slotQRZTextChanged()
     othersTabWidget->setEntity(currentEntity);
 
 
-   //qDebug() << "MainWindow::slotQRZTextChanged: DXCC/ISOname: " << QString::number(currentEntity) << "/" << dataProxy->getISOName(currentEntity) << endl;
+   qDebug() << "MainWindow::slotQRZTextChanged: DXCC/ISOname: " << QString::number(currentEntity) << "/" << dataProxy->getISOName(currentEntity) << endl;
 
    //qDebug() << "MainWindow::slotQRZTextChanged: Entity: " << QString::number(currentEntity) << endl;
 

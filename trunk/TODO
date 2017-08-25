@@ -1,12 +1,8 @@
 RC-BUGS:
- - The ADIF export is not working!!!
- - There is some problem with the connection to the DB and QSOs are not added!
 
 
 Working:
 TODO: ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing
-Aqui pongo la info de bearing, short / Long path
-Continent, prefix, CQ & ITU
 
 
 Working on the InfoWidget to isolate the full Into tab to another widget
@@ -17,9 +13,6 @@ Working on the InfoWidget to isolate the full Into tab to another widget
 This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
-
-
-
 
 
 

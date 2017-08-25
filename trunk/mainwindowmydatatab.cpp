@@ -57,7 +57,7 @@ void MainWindowMyDataTab::createUI()
 {
     myPowerSpinBox->setDecimals(2);
     myPowerSpinBox->setMaximum(9999);
-    myPowerSpinBox->setSuffix(tr("Watt"));
+    myPowerSpinBox->setSuffix(" " + tr("Watt"));
 
     QLabel *keepLabel = new QLabel();
     keepLabel->setText(tr("Keep this data"));
