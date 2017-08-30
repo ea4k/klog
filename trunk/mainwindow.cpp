@@ -921,7 +921,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         int ret;
 
         QMessageBox msgBox;
-        msgBox.setText( tr("You have selected an entity:\n\n")+"- "+dxccn2+"\n\n"+tr("that is different from the KLog proposed entity:\n\n")+ "- "+dxccn1+"\n\n"
+        msgBox.setText( tr("You have selected an entity:") + "\n\n"+"- "+dxccn2+"\n\n"+tr("that is different from the KLog proposed entity:") + "\n\n"+ "- "+dxccn1+"\n\n"
                         +tr("Click on the prefix of the correct entity or Cancel to edit the QSO again."));
 
         msgBox.addButton(button2, QMessageBox::AcceptRole);
@@ -1636,7 +1636,7 @@ WHERE [condition];
         int ret;
 
         QMessageBox msgBox;
-        msgBox.setText( tr("You have selected an entity:\n\n")+"- "+dxccn2+"\n\n"+tr("that is different from the KLog proposed entity:\n\n")+ "- "+dxccn1+"\n\n"
+        msgBox.setText( tr("You have selected an entity:") + "\n\n"+"- "+dxccn2+"\n\n"+tr("that is different from the KLog proposed entity:") + "\n\n- "+dxccn1+"\n\n"
                         +tr("Click on the prefix of the right entity or Cancel to correct."));
 
         msgBox.addButton(button2, QMessageBox::AcceptRole);
