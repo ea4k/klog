@@ -155,8 +155,8 @@ int main(int argc, char *argv[])
             QString urlTranslate = QString();
             urlTranslate = "<p><a href=\"https://translate.google.com/?sl=auto&tl=auto#en/auto/No%20translation%20files%20for%20your%20language%20have%20been%20found%20so%20KLog%20will%20be%20shown%20in%20English.%0A%0AIf%20you%20have%20the%20klog_en.qm%20file%20for%20your%20language%2C%20you%20can%20copy%20it%20in%20the%20%2Fhome%2Fdevel%2F.klog%2F%20folder%20and%20restart%20KLog%20again.%0A%0A%20If%20you%20want%20to%20help%20to%20translate%20KLog%20into%20your%20language%2C%20please%20contact%20the%20author.\">TRANSLATE</a></p>";
             QString msg = QString();
-            msg = QString(QObject::tr("No translation files for your language have been found so KLog will be shown in English.\n\n")) + "<p>" +
-                   QString(QObject::tr("If you have the klog_")) + (QLocale::system().name()).left(2) + QString(QObject::tr(".qm file for your language, you can copy it into the "));
+            msg = QString("No translation files for your language have been found so KLog will be shown in English.") + "\n\n<p>" +
+                   QString("If you have the klog_") + (QLocale::system().name()).left(2) + QString(".qm file for your language, you can copy it into the ");
             msgBox.setWindowTitle("KLog");
             msgBox.setIcon(QMessageBox::Warning);
             msgBox.setTextFormat(Qt::RichText);
@@ -311,20 +311,20 @@ int main(int argc, char *argv[])
                     if (d1.remove(klogDir))
                     {
                         QMessageBox msgBox;
-                        msgBox.setText(QObject::tr("Your KLog dir has been removed\n\nThank you for running KLog!"));
+                        msgBox.setText(QObject::tr("Your KLog dir has been removed") + "\n\n" + QObject::tr("Thank you for running KLog!"));
                         msgBox.exec();
                     }
                     else
                     {
                         QMessageBox msgBox;
-                        msgBox.setText(QObject::tr("I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.\n\nThank you for running KLog!"));
+                        msgBox.setText(QObject::tr("I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.") + "\n\n" + QObject::tr("Thank you for running KLog!"));
                         msgBox.exec();
                     }
                 }
                 else
                 {
                     QMessageBox msgBox;
-                    msgBox.setText(QObject::tr("Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.\n\nThank you for running KLog!"));
+                    msgBox.setText(QObject::tr("Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.") + "\n\n" + QObject::tr("Thank you for running KLog!"));
                     msgBox.exec();
                 }
             break;

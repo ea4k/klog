@@ -14,10 +14,6 @@
         <translation>Przez</translation>
     </message>
     <message>
-        <source>KLog is a free logging software for hamradio operators.</source>
-        <translation type="vanished">KLOG jest darmowym programem logującym dla radioamatorów.</translation>
-    </message>
-    <message>
         <location filename="../aboutdialog.cpp" line="36"/>
         <source>KLog is a free logbook for hamradio operators.</source>
         <translation type="unfinished"></translation>
@@ -85,11 +81,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Find more information and latest release at&lt;br&gt;</source>
-        <translatorcomment>Więcej informacji na temat najnowszej wersji można znaleźć na </translatorcomment>
-        <translation type="vanished">Więcej informacji na temat najnowszej wersji na</translation>
-    </message>
-    <message>
         <location filename="../aboutdialog.cpp" line="45"/>
         <source>Author</source>
         <translation>Autor</translation>
@@ -105,25 +96,9 @@
         <translation>Główny twórca</translation>
     </message>
     <message>
-        <source>&lt;td&gt;(2016)&lt;/td&gt;&lt;/tr&gt;</source>
-        <translation type="vanished">&lt;td&gt;(2016)&lt;/td&gt;&lt;/tr&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;td&gt;(2009-2010)&lt;/td&gt;&lt;/tr&gt;</source>
-        <translation type="vanished">&lt;td&gt;(2009-2010)&lt;/td&gt;&lt;/tr&gt;</translation>
-    </message>
-    <message>
         <location filename="../aboutdialog.cpp" line="72"/>
         <source>KLog is developed by a very small team and you are invited to join!</source>
         <translation>KLOG Jest tworzony przez bardzo małe grono entuzjastów. Dołącz do nas!</translation>
-    </message>
-    <message>
-        <source>If you want to support you can join the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog&apos;s development mailing list&lt;/a&gt; and you will be welcome!</source>
-        <translation type="vanished">Jeśli chciałbyś pomóc dołącz do &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt; Lista mailingowa twórców KLOG &lt;/a&gt;Serdecznie zapraszamy!</translation>
-    </message>
-    <message>
-        <source>You can also help us sending bug reports or small code contributions, ideas or whatever you think it may improve KLog.</source>
-        <translation type="vanished">Możesz również pomóc przesyłając do nas raporty o błędach jak i poprawki w kodzie źródłowym, również pomysły oraz cokolwiek co mogłoby poprawić KLOG.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="73"/>
@@ -137,10 +112,6 @@
         <translation>Tłumacze przełożli KLOG na Twój język. Tłumacze są naprawdę ważną częścią grupy rozwojowej KLOG. </translation>
     </message>
     <message>
-        <source>If KLog is still not in your language and you want to help us, please contact us through the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog&apos;s development mailing list&lt;/a&gt; and you will be welcome!</source>
-        <translation type="vanished">If KLog is still not in your language and you want to help us, please contact us through the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog&apos;s development mailing list&lt;/a&gt; and you will be welcome!</translation>
-    </message>
-    <message>
         <location filename="../aboutdialog.cpp" line="83"/>
         <location filename="../aboutdialog.cpp" line="141"/>
         <source>Translators</source>
@@ -150,14 +121,6 @@
         <location filename="../aboutdialog.cpp" line="95"/>
         <source>Privacy advisory</source>
         <translation>Postanowienia prawne</translation>
-    </message>
-    <message>
-        <source>KLog developers have included a feature that reports to KLog&apos;s server some data of the user with the only purpose to identify the number of installed versions to focus the development in one or other direction taking into account the user&apos;s need.</source>
-        <translation type="vanished">Twórcy programu KLOG umieścili mechanizm przesyłający niwielkie ilości danych użytkownika dotychczacych zainstalowanych wersji, ma to pomóc grupie rozwojowej KLOG  na ciągłym unowecześnianiu oprogramowaniu oraz skupieniu na potrzebach użytkownika końcowego.</translation>
-    </message>
-    <message>
-        <source>Today, the data that is provided is the following:</source>
-        <translation type="vanished">Dzisiaj,dane które są dostarczone zawierają: </translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="98"/>
@@ -173,10 +136,6 @@
         <location filename="../aboutdialog.cpp" line="98"/>
         <source>Operating system</source>
         <translation>System operacyjny</translation>
-    </message>
-    <message>
-        <source>Please know that you can enable/disable this feature from the Misc tab in the Setup page</source>
-        <translation type="vanished">Proszę zwrócić uwagę na to iż możliwe jest włączenie/wyłączenie tej funkcji w zakładce Inne w panelu konfigurancyjnym </translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="139"/>
@@ -195,10 +154,6 @@
         <location filename="../startwizard.cpp" line="913"/>
         <source>Country data download</source>
         <translation>Lista krajów została pobran</translation>
-    </message>
-    <message>
-        <source>KLog needs the country data...</source>
-        <translation type="vanished">KLog wymaga pobrania listy krajów...</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="916"/>
@@ -236,18 +191,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>KLog uses the CTY.CSV file (from http://www.country-files.com/) to get the DXCC information.</source>
-        <translation type="vanished">KLog wykorzystuje plik CTY.CSV ( z http://www.country-files.com/) aby pobrać listę DXCC.</translation>
-    </message>
-    <message>
-        <source>You need to download the cty.csv file if you want KLog to show you the countries, locator, ... of the QSO you do.</source>
-        <translation type="vanished">Musisz pobrać plik CTY.CSV jeśli chcesz aby KLog mógł pokazywać kraje oraz lokatory z którymi prowadzisz QSO.</translation>
-    </message>
-    <message>
-        <source>Click on Download to download just now.</source>
-        <translation type="vanished">Naciśnij Pobierz aby rozpocząć pobieranie.</translation>
-    </message>
-    <message>
         <location filename="../startwizard.cpp" line="1024"/>
         <source>KLog</source>
         <translation>Klog</translation>
@@ -271,10 +214,6 @@ Czy chciałbyś spróbować ponownie?</translation>
         <location filename="../dxccstatuswidget.cpp" line="322"/>
         <source>ID</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation type="vanished">Id</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="322"/>
@@ -308,11 +247,6 @@ Czy chciałbyś spróbować ponownie?</translation>
         <location filename="../dxcluster.cpp" line="144"/>
         <source>Click on connect to connect to the DX-Cluster</source>
         <translation>Naciśnij na Połącz aby połączyć z DX-Cluster</translation>
-    </message>
-    <message>
-        <source>Trying to connect to the server
-</source>
-        <translation type="vanished">Próbuję połączyć z serwerem</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="202"/>
@@ -384,10 +318,6 @@ Czy chciałbyś spróbować ponownie?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Not logged on, you may to enter your callsign again.</source>
-        <translation type="vanished">Nie zalogowano, wprowadź swój znak ponownie.</translation>
-    </message>
-    <message>
         <location filename="../dxcluster.cpp" line="502"/>
         <source>Enter here the commands to be sent to the DX-Cluster server</source>
         <translation>Wprowadź swoje hasło aby połączyć się z DX- Clusterem:
@@ -406,18 +336,6 @@ Czy chciałbyś spróbować ponownie?</translation>
 </context>
 <context>
     <name>DownLoadCTY</name>
-    <message>
-        <source>Download of the CTY.CSV failed with the following error code: </source>
-        <translation type="vanished">Pobieranie pliku CTY.CSV nie powiodło się z powodu tego błedu:</translation>
-    </message>
-    <message>
-        <source>Download of the CTY.CSV done.</source>
-        <translation type="vanished">Pobieranie pliku CTY.CSV zakończone.</translation>
-    </message>
-    <message>
-        <source>There is already a CTY.CSV file in the folder but it will be replaced with the new one.</source>
-        <translation type="vanished">Plik CTY.CSV był wcześniej pobrany , ale zostanie wymieniony na nowy.</translation>
-    </message>
     <message>
         <location filename="../downloadcty.cpp" line="64"/>
         <source>Download of cty.csv failed with the following error code: </source>
@@ -1036,17 +954,13 @@ Czy chciałbyś spróbować ponownie?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="924"/>
         <location filename="../mainwindow.cpp" line="1639"/>
-        <source>You have selected an entity:
-
-</source>
+        <source>You have selected an entity:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="924"/>
         <location filename="../mainwindow.cpp" line="1639"/>
-        <source>that is different from the KLog proposed entity:
-
-</source>
+        <source>that is different from the KLog proposed entity:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2330,25 +2244,8 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="158"/>
-        <source>No translation files for your language have been found so KLog will be shown in English.
-
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main.cpp" line="159"/>
-        <source>If you have the klog_</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../main.cpp" line="168"/>
         <source>If you want to help to translate KLog into your language, please contact the author.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main.cpp" line="159"/>
-        <source>.qm file for your language, you can copy it into the </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2368,23 +2265,17 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <location filename="../main.cpp" line="314"/>
-        <source>Your KLog dir has been removed
-
-Thank you for running KLog!</source>
+        <source>Your KLog dir has been removed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../main.cpp" line="320"/>
-        <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.
-
-Thank you for running KLog!</source>
+        <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../main.cpp" line="327"/>
-        <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.
-
-Thank you for running KLog!</source>
+        <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2393,6 +2284,9 @@ Thank you for running KLog!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../main.cpp" line="314"/>
+        <location filename="../main.cpp" line="320"/>
+        <location filename="../main.cpp" line="327"/>
         <location filename="../main.cpp" line="333"/>
         <source>Thank you for running KLog!</source>
         <translation type="unfinished"></translation>
@@ -2503,10 +2397,6 @@ Thank you for running KLog!</source>
         <location filename="../searchwidget.cpp" line="77"/>
         <source>Station Callsign</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation type="obsolete">Id</translation>
     </message>
     <message>
         <location filename="../searchwidget.cpp" line="77"/>
@@ -3904,22 +3794,22 @@ The log will not be opened.</source>
 <context>
     <name>World</name>
     <message>
-        <location filename="../world.cpp" line="161"/>
+        <location filename="../world.cpp" line="169"/>
         <source>Entity</source>
         <translation type="unfinished">Jednostka</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="162"/>
+        <location filename="../world.cpp" line="170"/>
         <source>Continent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1211"/>
+        <location filename="../world.cpp" line="1219"/>
         <source>Reading cty.csv...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1211"/>
+        <location filename="../world.cpp" line="1219"/>
         <source>Abort reading</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3939,19 +3829,9 @@ The log will not be opened.</source>
         <translation>Przekroczony został limit czasu!</translation>
     </message>
     <message>
-        <source>It seems to be a PASSWORD ERROR, check your password</source>
-        <translation type="vanished">Wygląda na to że HASŁO JEST NIEPOPRAWNE, sprawdź swoje hasło</translation>
-    </message>
-    <message>
         <location filename="../elogclublog.cpp" line="71"/>
         <source>KLog - ClubLog</source>
         <translation>Klog -ClubLog</translation>
-    </message>
-    <message>
-        <source>It seems that your Clublog&apos;s password is not correct
-Please check your password in the setup. Clublog uploads will be disabled.</source>
-        <translation type="vanished">Wygląda na to że Twoje hasło do Clublog jest niepoprawne
-Proszę sprawdzić hasło w ustwieniach. Aktualizacja będzie wyłączona</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="83"/>
