@@ -495,7 +495,7 @@ private:
                 *wazConfirmedQLCDNumber, *wazWorkedQLCDNumber,
                 *localConfirmedQLCDNumber, *localWorkedQLCDNumber,
                 *qsoConfirmedQLCDNumber, *qsoWorkedQLCDNumber,
-                *dxMarathonDXCCQLCDNumber, *dxMarathonCQQLCDNumber, *dxMarathonPointsQLCDNumber;
+                *dxMarathonQSOLCDNumber, *dxMarathonDXCCQLCDNumber, *dxMarathonCQQLCDNumber, *dxMarathonPointsQLCDNumber;
     //eQSL
     //QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox;
     //QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit, *clublogQDateEdit;

@@ -130,6 +130,7 @@ public:
     virtual void compressDB();
     virtual bool unMarkAllQSO();            // Unmarks all the marked QSO
 
+    virtual int getQSOonYear(const int _year, const int _logNumber);
     virtual int getDXCConYear(const int _year, const int _logNumber);
     virtual int getCQzonYear(const int _year, const int _logNumber);
     virtual bool newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber);

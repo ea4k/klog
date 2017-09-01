@@ -1575,6 +1575,38 @@ bool DataProxy_SQLite::unMarkAllQSO()
     return db->unMarkAllQSO();
 }
 
+int DataProxy_SQLite::getQSOonYear(const int _year, const int _logNumber)
+{
+    //qDebug() << "DataProxy_SQLite::getQSOonYear: " << QString::number(_year) << "/" << QString::number(_logNumber) << endl;
+
+    QSqlQuery query;
+    QString stringQuery;
+    bool sqlOK;
+    stringQuery = QString("SELECT count (id) from (SELECT DISTINCT id FROM log WHERE lognumber='%1' AND qso_date LIKE '%2%')").arg(_logNumber).arg(_year);
+
+    sqlOK = query.exec(stringQuery);
+    //qDebug() << "DataProxy_SQLite::getQSOonYear: stringQuery: " << stringQuery << endl;
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            //qDebug() << "DataProxy_SQLite::getQSOonYear: " << QString::number((query.value(0)).toInt()) << endl;
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            //qDebug() << "DataProxy_SQLite::getQSOonYear: 0" << endl;
+            return 0;
+        }
+    }
+    else
+    {
+        //qDebug() << "DataProxy_SQLite::getDXCConYear: Query error" << endl;
+        return 0;
+    }
+}
+
 int DataProxy_SQLite::getDXCConYear(const int _year, const int _logNumber)
 {
     //qDebug() << "DataProxy_SQLite::getDXCConYear: " << QString::number(_year) << "/" << QString::number(_logNumber) << endl;

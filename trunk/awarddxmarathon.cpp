@@ -31,6 +31,12 @@ DXMarathon::DXMarathon()
 }
 
 
+int DXMarathon::getDXMarathonQSO(const int _year, const int _logNumber)
+{
+    //qDebug() << "DXMarathon::getDXMarathonQSO: " << QString::number(_year) << endl;
+    return dataProxy->getQSOonYear(_year, _logNumber);
+}
+
 int DXMarathon::getDXMarathonDXCC(const int _year, const int _logNumber)
 {
     //qDebug() << "DXMarathon::getDXMarathonDXCC: " << QString::number(_year) << endl;

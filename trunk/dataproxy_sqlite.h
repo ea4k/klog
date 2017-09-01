@@ -132,6 +132,7 @@ public:
 
     bool clearLog();
 
+    int getQSOonYear(const int _year, const int _logNumber);
     int getDXCConYear(const int _year, const int _logNumber);
     int getCQzonYear(const int _year, const int _logNumber);
     bool newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber);

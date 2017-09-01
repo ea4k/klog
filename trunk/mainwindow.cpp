@@ -354,6 +354,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     localWorkedQLCDNumber = new QLCDNumber;
     qsoConfirmedQLCDNumber = new QLCDNumber;
     qsoWorkedQLCDNumber = new QLCDNumber;
+    dxMarathonQSOLCDNumber = new QLCDNumber;
     dxMarathonDXCCQLCDNumber = new QLCDNumber;
     dxMarathonCQQLCDNumber = new QLCDNumber;
     dxMarathonPointsQLCDNumber = new QLCDNumber;
@@ -3979,7 +3980,8 @@ bool MainWindow::slotOpenKLogFolder()
    //qDebug() << "MainWindow::slotOpenKLogFolder: " << configFileName << endl;
 
     //configFileName = klogDir+"/klogrc.cfg";
-    QString _aux = "<a href=file://" + util->getHomeDir() + ">file://" + util->getHomeDir() + "</a>";
+    QString _aux = "<ul><li><a href=file://" + util->getHomeDir() + ">file://" + util->getHomeDir() + "</a></li>" +
+                    "<li><a href=file://" + util->getKLogDBFile() + ">file://" + util->getKLogDBFile() + "</a></i></ul>" ;
     QString _text = tr("You can find the KLog data folder here: ") + _aux;
 /*
     int ret = QMessageBox::information(this, tr("KLog"),
@@ -5227,6 +5229,7 @@ void MainWindow::createUIDX()
     localWorkedQLCDNumber->setToolTip(tr("Number of worked local references."));
     qsoConfirmedQLCDNumber->setToolTip(tr("Number of confirmed QSOs."));
     qsoWorkedQLCDNumber->setToolTip(tr("Number of worked QSOs."));
+    dxMarathonQSOLCDNumber->setToolTip(tr("Number of QSOs worked on the selected year."));
     dxMarathonDXCCQLCDNumber->setToolTip(tr("Number of DXCC worked on the selected year."));
     dxMarathonCQQLCDNumber->setToolTip(tr("Number of CQ Zones worked on the selected year."));
     dxMarathonPointsQLCDNumber->setToolTip(tr("Score for the DXMarathon on the selected year."));
@@ -5563,11 +5566,13 @@ void MainWindow::createUIDX()
     infoLabel1->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     infoLabel2->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
+    QLabel *dxMarathonTopQSOsLabelN = new QLabel(tr("QSOs"));
     QLabel *dxMarathonTopDXCCLabelN = new QLabel(tr("DXCC"));
     QLabel *dxMarathonTopCQLabelN = new QLabel(tr("CQ"));
     QLabel *dxMarathonTopScoreLabelN = new QLabel(tr("Score"));
     QLabel *dxMarathonLabelN = new QLabel(tr("DX-Marathon"));
 
+    dxMarathonTopQSOsLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
     dxMarathonTopDXCCLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
     dxMarathonTopCQLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
     dxMarathonTopScoreLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
@@ -5602,12 +5607,14 @@ void MainWindow::createUIDX()
 
     QGridLayout *dxMarathonDLayout = new QGridLayout;
 
-    dxMarathonDLayout->addWidget(dxMarathonTopDXCCLabelN, 0, 0);
-    dxMarathonDLayout->addWidget(dxMarathonTopCQLabelN, 0, 1);
-    dxMarathonDLayout->addWidget(dxMarathonTopScoreLabelN, 0, 2);
-    dxMarathonDLayout->addWidget(dxMarathonDXCCQLCDNumber, 1, 0);
-    dxMarathonDLayout->addWidget(dxMarathonCQQLCDNumber, 1, 1);
-    dxMarathonDLayout->addWidget(dxMarathonPointsQLCDNumber, 1, 2);
+    dxMarathonDLayout->addWidget(dxMarathonTopQSOsLabelN, 0, 0);
+    dxMarathonDLayout->addWidget(dxMarathonTopDXCCLabelN, 0, 1);
+    dxMarathonDLayout->addWidget(dxMarathonTopCQLabelN, 0, 2);
+    dxMarathonDLayout->addWidget(dxMarathonTopScoreLabelN, 0, 3);
+    dxMarathonDLayout->addWidget(dxMarathonQSOLCDNumber, 1, 0);
+    dxMarathonDLayout->addWidget(dxMarathonDXCCQLCDNumber, 1, 1);
+    dxMarathonDLayout->addWidget(dxMarathonCQQLCDNumber, 1, 2);
+    dxMarathonDLayout->addWidget(dxMarathonPointsQLCDNumber, 1, 3);
 
     QVBoxLayout *dxMarathonTLayout = new QVBoxLayout;
     dxMarathonTLayout->addWidget(dxMarathonLabelN);
@@ -5689,10 +5696,13 @@ void MainWindow::createUIDX()
     awardLabelN->setFrameShadow(QFrame::Raised);
     awardLabelN->setFrameStyle(QFrame::StyledPanel);
 
+    dxMarathonTopQSOsLabelN->setFrameShadow(QFrame::Raised);
     dxMarathonTopDXCCLabelN->setFrameShadow(QFrame::Raised);
     dxMarathonTopCQLabelN->setFrameShadow(QFrame::Raised);
     dxMarathonTopScoreLabelN->setFrameShadow(QFrame::Raised);
     dxMarathonLabelN->setFrameShadow(QFrame::Raised);
+
+    dxMarathonTopQSOsLabelN->setFrameStyle(QFrame::StyledPanel);
     dxMarathonTopDXCCLabelN->setFrameStyle(QFrame::StyledPanel);
     dxMarathonTopCQLabelN->setFrameStyle(QFrame::StyledPanel);
     dxMarathonTopScoreLabelN->setFrameStyle(QFrame::StyledPanel);
@@ -5716,6 +5726,7 @@ void MainWindow::createUIDX()
     workedLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     confirmedLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     awardLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
+    dxMarathonTopQSOsLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     dxMarathonTopDXCCLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     dxMarathonTopCQLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     dxMarathonTopScoreLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
@@ -6451,6 +6462,10 @@ void MainWindow::showDXMarathon(const int _year)
     //qDebug() << "MainWindow::MainWindow::showDXMarathon: Year: " << QString::number(_year) << endl;
     int i = 0;
 
+    i = awards->getDXMarathonQSO(_year, currentLog);
+    //qDebug() << "MainWindow::MainWindow::showDXMarathon: QSO: " << QString::number(i) << endl;
+    dxMarathonQSOLCDNumber->display(i);
+
     i = awards->getDXMarathonDXCC(_year, currentLog);
     //qDebug() << "MainWindow::MainWindow::showDXMarathon: DXCC: " << QString::number(i) << endl;
     dxMarathonDXCCQLCDNumber->display(i);
@@ -6463,6 +6478,7 @@ void MainWindow::showDXMarathon(const int _year)
     dxMarathonPointsQLCDNumber->display(i);
     //qDebug() << "MainWindow::MainWindow::showDXMarathon: Score: " << QString::number(i) << endl;
 }
+
 void MainWindow::fillQSOData()
 { // Updates all QSO with the dxcc, CQZ, ... if empty.
    //qDebug() << "MainWindow::fillQSOData" << endl;

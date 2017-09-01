@@ -1963,6 +1963,13 @@ bool Awards::getIsDXCCConfirmed(const int _dxcc, const int _logNumber)
 
 }
 
+int Awards::getDXMarathonQSO(const int _year, const int _logNumber)
+{
+    //qDebug() << "Awards::getDXMarathonQSO: " << QString::number(_year) << endl;
+
+    return dxMarathon->getDXMarathonQSO(_year, _logNumber);
+}
+
 int Awards::getDXMarathonDXCC(const int _year, const int _logNumber)
 {
     //qDebug() << "Awards::getDXMarathonDXCC: " << QString::number(_year) << endl;

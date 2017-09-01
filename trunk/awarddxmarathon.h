@@ -33,6 +33,8 @@ class DXMarathon
 {
 public:
     DXMarathon();
+
+    int getDXMarathonQSO(const int _year, const int _logNumber);
     int getDXMarathonDXCC(const int _year, const int _logNumber);
     int getDXMarathonCQ(const int _year, const int _logNumber);
     int getDXMarathonScore(const int _year, const int _logNumber);
