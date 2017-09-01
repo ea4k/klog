@@ -2,6 +2,7 @@ TBD - 0.9.2.7
 - KLog offers the possibility to move the DB to another path (maybe a DropBox folder!)
 - New Operating systems recognized in runtime.
 - Updated the references to macOS from OSX.
+- GUI: Added the QSO information done in a year on the DX-Marathon area.
 - GUI: Simplified the way active bands/modes are selected.
 - GUI: Satellite tab is redesigned.
 - GUI: Created a widget to manage all "eQSL" simplifying implementation of the main widget.
@@ -12,7 +13,7 @@ TBD - 0.9.2.7
 - BugFix: Higher bands where not shown to be selected in the preferences.
 - BugFix: DB updating function (009) blocked the execution of KLog the first time it was executed.
 - BugFix: Language message if English is the System language is no shown anymore.
-- Translations updated: Original Ennglish (TNX JustinBRye, from Debian-10n-english) ,Spanish (EA4TV).
+- Translations updated: Original English (TNX JustinBRye, from Debian-10n-english), Spanish (EA4TV), Japanese (TNX JL3OXR).
 
 May 2017 - 0.9.2.6
 - Check updates feature added. On start or when user desires KLog checks if there is one updated version available.

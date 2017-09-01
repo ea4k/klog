@@ -86,6 +86,7 @@ public:
     QColor getQRZDXStatusColor(const QStringList _qs); // Receives Entity, band, mode & log
     QColor getDefaultColor();
 
+    int getDXMarathonQSO(const int _year, const int _logNumber);
     int getDXMarathonDXCC(const int _year, const int _logNumber);
     int getDXMarathonCQ(const int _year, const int _logNumber);
     int getDXMarathonScore(const int _year, const int _logNumber);

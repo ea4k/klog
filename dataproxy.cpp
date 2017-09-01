@@ -315,10 +315,17 @@ bool DataProxy::unMarkAllQSO()
     return false;
 }
 
+
+int DataProxy::getQSOonYear(const int _year, const int _logNumber)
+{
+    return -1;
+}
+
 int DataProxy::getDXCConYear(const int _year, const int _logNumber)
 {
     return -1;
 }
+
 int DataProxy::getCQzonYear(const int _year, const int _logNumber)
 {
     return -1;

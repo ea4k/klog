@@ -250,12 +250,11 @@ void SetupPageLogsNew::createWidget()
     callsLayout->addWidget(stationCallsignLineEdit, 0, 1);
     callsLayout->addWidget(dateLabel, 1, 0);
     callsLayout->addWidget(dateEdit, 1, 1);
+
     callsLayout->addWidget(operatorsLabel, 2, 0);
     callsLayout->addWidget(operatorsLineEdit, 2, 1);
-/*
     callsLayout->addWidget(typeLabel, 3, 0);
     callsLayout->addWidget(typeComboBox, 3, 1);
-
     callsLayout->addWidget(catModeLabel, 4, 0);
     callsLayout->addWidget(contestCatModeComboBox, 4, 1);
     callsLayout->addWidget(catOpLabel, 5, 0);
@@ -274,10 +273,9 @@ void SetupPageLogsNew::createWidget()
 
     callsLayout->addWidget(overlayLabel, 10, 0);
     callsLayout->addWidget(contestCatOverlayComboBox, 10, 1);
-*/
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
-    //buttonsLayout->addWidget(validCats);
+    buttonsLayout->addWidget(validCats);
     buttonsLayout->addSpacerItem(new QSpacerItem(10,0,QSizePolicy::Expanding,QSizePolicy::Maximum));
     buttonsLayout->addWidget(okButton);
     buttonsLayout->addWidget(cancelButton);

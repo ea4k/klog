@@ -100,9 +100,12 @@ int main(int argc, char *argv[])
 
     }
 
+    //for (int i=0; i<(app.arguments().length()); i++)
+    //{
+    //  //qDebug() << "KLog::main: Arguments: " << arguments.at(i) << endl;
+    //}
 
-    qDebug() << "KLog Main: Start of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << endl;
-    qDebug() << "KLog Main: Detected language: " << (QLocale::system().name()) << endl;
+
     // Translations begin
         QTranslator qtTranslator;
         qtTranslator.load("qt_" + QLocale::system().name(),
@@ -110,50 +113,26 @@ int main(int argc, char *argv[])
         app.installTranslator(&qtTranslator);
         QTranslator myappTranslator;
 
-        bool missingTranslation = false;
-        //QString msgOSFilePath = QString();        // The OS depending part of the message to be printed if no translation is found.
+#if defined(Q_OS_WIN)
+        myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm");
+       //qDebug() << "KLog WIN " << endl;
+       //qDebug() << "KLog: " << QLocale::system().name() << endl;
+       //qDebug() << "KLog trans: " <<  QLibraryInfo::location(QLibraryInfo::TranslationsPath) << endl;
+       //qDebug() << "KLog currentPath: " <<  QDir::currentPath() << endl;
+#elif defined(Q_OS_OSX)
+        myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()));
+        //qDebug() << "KLog OSX " << endl;
+        //myappTranslator.load("translations/klog_" + (QLocale::system().name()));
 
+        //qDebug() << "KLog: " << QLocale::system().name() << endl;
+        //qDebug() << "KLog trans: " <<  QLibraryInfo::location(QLibraryInfo::TranslationsPath) << endl;
+        //qDebug() << "KLog currentPath: " <<  QDir::currentPath() << endl;
 
-    #if defined(Q_OS_WIN)
-        qDebug() << "KLog WIN " << endl;
-        if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") )
-        {
-            myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm");
-        }
-        else if (QFile::exists(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()).left(2)+ ".qm") )
-        {
-            myappTranslator.load(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()));
-        }
-        else if (((QLocale::system().name()).left(2)) == "en")
-        { // If language is English, it will execute without showing message
-
-        }
-        else
-        {
-            missingTranslation = true;
-            //msgOSFilePath = QCoreApplication::applicationDirPath() + "/translations/" ;
-        }
-
-    #elif defined(Q_OS_OSX)
-        qDebug() << "KLog OSX " << endl;
-        if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()) )
-        {
-            myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()));
-        }
-        else if (((QLocale::system().name()).left(2)) == "en")
-        { // If language is English, it will execute without showing message
-
-        }
-        else
-        {
-            missingTranslation = true;
-            //msgOSFilePath = QCoreApplication::applicationDirPath() + "/translations/" ;
-        }
-
-    #else
-       qDebug() << "KLog OTHER OS" << endl;
+#else
+       //qDebug() << "KLog OTHER " << endl;
         if (QFile::exists("klog_" + (QLocale::system().name()).left(2) + ".qm") )
         {
+           //qDebug() << "KLog OTHER -1: " << "klog_" + (QLocale::system().name()).left(2) << endl;
             myappTranslator.load("klog_" + (QLocale::system().name()).left(2));
         }
         else if (QFile::exists("/usr/share/klog/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") )
@@ -166,58 +145,94 @@ int main(int argc, char *argv[])
                 //qDebug() << "KLog OTHER -3: " << QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) << endl;
             myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()));
         }
-
         else if (((QLocale::system().name()).left(2)) == "en")
         { // If language is English, it will execute without showing message
-
+            //qDebug() << "KLog Long Language: " <<  (QLocale::system().name()) << endl;
+            //qDebug() << "KLog Language: " <<  (QLocale::system().name()).left(2) << endl;
         }
         else
-        {
-            missingTranslation = true;
-            //sgOSFilePath = QCoreApplication::applicationDirPath() + "/translations/" ;
-        }
-
-    #endif
-
-        if (missingTranslation)
         {
             QMessageBox msgBox;
             QString urlTranslate = QString();
             urlTranslate = "<p><a href=\"https://translate.google.com/?sl=auto&tl=auto#en/auto/No%20translation%20files%20for%20your%20language%20have%20been%20found%20so%20KLog%20will%20be%20shown%20in%20English.%0A%0AIf%20you%20have%20the%20klog_en.qm%20file%20for%20your%20language%2C%20you%20can%20copy%20it%20in%20the%20%2Fhome%2Fdevel%2F.klog%2F%20folder%20and%20restart%20KLog%20again.%0A%0A%20If%20you%20want%20to%20help%20to%20translate%20KLog%20into%20your%20language%2C%20please%20contact%20the%20author.\">TRANSLATE</a></p>";
-
             QString msg = QString();
-
+            msg = QString(QObject::tr("No translation files for your language have been found so KLog will be shown in English.\n\n")) + "<p>" +
+                   QString(QObject::tr("If you have the klog_")) + (QLocale::system().name()).left(2) + QString(QObject::tr(".qm file for your language, you can copy it into the "));
             msgBox.setWindowTitle("KLog");
             msgBox.setIcon(QMessageBox::Warning);
             msgBox.setTextFormat(Qt::RichText);
+// The following URL links to google translator
+//URL: https://translate.google.com/?sl=auto&tl=auto#en/auto/No%20translation%20files%20for%20your%20language%20have%20been%20found%20so%20KLog%20will%20be%20shown%20in%20English.%0A%0AIf%20you%20have%20the%20klog_en.qm%20file%20for%20your%20language%2C%20you%20can%20copy%20it%20in%20the%20%2Fhome%2Fdevel%2F.klog%2F%20folder%20and%20restart%20KLog%20again.%0A%0A%20If%20you%20want%20to%20help%20to%20translate%20KLog%20into%20your%20language%2C%20please%20contact%20the%20author.
 
-            msg = QString("No translation files for your language have been found so KLog will be shown in English. <p>") +
-                  QString("If you have the klog_") + (QLocale::system().name()).left(2) +
-                  QString(".qm file for your language, you can copy it into the ") +
-                  QCoreApplication::applicationDirPath() + "/translations/" +
-                  QString("folder and restart KLog.</p><p>If you want to help to translate KLog into your language, please contact the author.</p>") +
-                  urlTranslate;
+            QString msg2;
+            msg2 = QString();
+            msg2 = QObject::tr("folder and restart KLog.") + "</p><p>" + QObject::tr("If you want to help to translate KLog into your language, please contact the author.</p>") + urlTranslate;
 
-            msgBox.setText(msg);
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
-            msgBox.exec();
+            #ifdef Q_OS_WIN
+
+            if (QFile::exists(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()).left(2)+ ".qm") )
+            {
+
+               //qDebug() << "KLog OTHER -4: " << QDir::homePath()+"/klog/klog_" + (QLocale::system().name()).left(2) << endl;
+                 myappTranslator.load(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()));
+            }
+            else
+            {
+
+                msg = msg + QDir::homePath()+ "/klog/" + msg2;
+                msgBox.setText(msg);                
+                msgBox.setInformativeText("Do you want to remove the KLog dir from your disk?");
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+                msgBox.setDefaultButton(QMessageBox::Yes);
+                msgBox.exec();
+            }
+
+
+         #else
+
+           //qDebug() << "KLog OTHER -5: " << QDir::homePath()+"/.klog/klog_" + (QLocale::system().name()).left(2)<< endl;
+
+            if (QFile::exists(QDir::homePath()+"/.klog/klog_" + (QLocale::system().name()).left(2)+ ".qm") )
+            {
+               //qDebug() << "KLog OTHER -4: " << QDir::homePath()+"/.klog/klog_" + (QLocale::system().name()).left(2) << endl;
+                 myappTranslator.load(QDir::homePath()+"/.klog/klog_" + (QLocale::system().name()));
+            }
+            else
+            {
+                //msg = msg + QDir::homePath()+"/.klog/ " + QObject::tr("folder and restart KLog again.\n\n If you want to help to translate KLog into your language, please contact the author.")  + urlTranslate;
+                msg = msg + QDir::homePath()+"/.klog/ " + msg2;
+                msgBox.setText(msg);
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+                msgBox.exec();
+            }
+
+         #endif
+
         }
+#endif
 
-    qDebug() << "KLog Main-1" << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
+    //qDebug() << "KLog Main-1" << endl;
+
+    //myappTranslator.load("klog_" + (QLocale::system().name()).left(2));
+    //qDebug() << "KLog locale: " << QLocale::system().name() << endl;
+    //qDebug() << "KLog locale2: " << (QLocale().name()).left(2) << endl;
+    //qDebug() << "KLog language: " << QLocale::system().language() << endl;
+    //qDebug() << "KLog AppPath: " << QCoreApplication::applicationDirPath() << endl;
 
     app.installTranslator(&myappTranslator);
-    qDebug() << "KLog Main: End of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << endl;
     // Traslations end
 
     QString configFileName, klogDir;
+    int inMemory;
+    //bool dbInMemory = true;
 
     klogDir = util.getHomeDir();
     configFileName = util.getCfgFile();
 
    qDebug() << "KLog Main-10" << endl;
 
-    qDebug() << "KLog Main: Setting klog dir: " << (QTime::currentTime()).toString("HH:mm:ss")<< endl;;
+    qDebug() << "KLog Main: Setting klog dir" << endl;
     if (!QDir::setCurrent (klogDir) )
     {
         //qDebug() << "MAIN:  KLogDir does not exist.... creating " << endl;
@@ -241,17 +256,15 @@ int main(int argc, char *argv[])
     {
         //qDebug() << "MAIN:  KLogDir already existed!! " << endl;
     }
-    qDebug() << "KLog Main: Setting klog dir - finished: " << (QTime::currentTime()).toString("HH:mm:ss") << endl;
 
-    qDebug() << "KLog Main: Setting config file: " << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
+    qDebug() << "KLog Main: Setting config file" << endl;
     if(!QFile::exists(configFileName))
     {
-        qDebug() << "MAIN:  Starting wizard... " << endl;
+        //qDebug() << "MAIN:  Starting wizard... " << endl;
 
         StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
-        int inMemory = wizard->exec();
-        qDebug() << "MAIN: Wizard inMemory: " << QString::number(inMemory) << endl;
+        inMemory = wizard->exec();
 
         if (inMemory == 1)
         {
@@ -286,20 +299,20 @@ int main(int argc, char *argv[])
                     if (d1.remove(klogDir))
                     {
                         QMessageBox msgBox;
-                        msgBox.setText(QObject::tr("Your KLog dir has been removed") +"\n\n" + QObject::tr("Thank you for running KLog!"));
+                        msgBox.setText(QObject::tr("Your KLog dir has been removed\n\nThank you for running KLog!"));
                         msgBox.exec();
                     }
                     else
                     {
                         QMessageBox msgBox;
-                        msgBox.setText(QObject::tr("I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.") +"\n\n" + QObject::tr("Thank you for running KLog!"));
+                        msgBox.setText(QObject::tr("I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.\n\nThank you for running KLog!"));
                         msgBox.exec();
                     }
                 }
                 else
                 {
                     QMessageBox msgBox;
-                    msgBox.setText(QObject::tr("Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.") +"\n\n" + QObject::tr("Thank you for running KLog!"));
+                    msgBox.setText(QObject::tr("Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.\n\nThank you for running KLog!"));
                     msgBox.exec();
                 }
             break;
@@ -314,23 +327,20 @@ int main(int argc, char *argv[])
     }
     else
     {
-        qDebug() << "KLog Main-50" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         QPixmap pixmap(":img/klog_512x512.png");
-        qDebug() << "KLog Main-51" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         QSplashScreen splash(pixmap);
-        qDebug() << "KLog Main-52" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         splash.show();
-        qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+       //qDebug() << "KLog Main-100" << endl;
         MainWindow mw(klogDir, version);
-        qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+       //qDebug() << "KLog Main-101" << endl;
         mw.show();
         splash.finish(&mw);
-       qDebug() << "KLog Main-102" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+       //qDebug() << "KLog Main-102" << endl;
 
         return app.exec();
-       qDebug() << "KLog Main-103" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+       //qDebug() << "KLog Main-103" << endl;
     }
-    qDebug() << "KLog Main-END: " << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
+    qDebug() << "KLog Main-END" << endl;
 
     //return app.exec();
 }
