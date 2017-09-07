@@ -75,12 +75,13 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
 
     QString translator1 = QString("<tr><td>Catalan</td>")  + QString("<td>Luis</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea3nm\">EA3NM</a></td></tr>");
     QString translator2 = QString("<tr><td>Croatian</td>")  + QString("<td>Kristijan Conkas</td>") + QString("<td><a href=\"https://www.qrz.com/db/m0nkc\">M0NKC</a></td></tr>");
-    QString translator3 = QString("<tr><td>Japanese</td>")  + QString("<td>Akihiro Koda</td>") + QString("<td><a href=\"https://www.qrz.com/db/jl3oxr\">JL3OXR</a></td></tr>");
-    QString translator4 = QString("<tr><td>Spanish</td>") + QString("<td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a></td></tr>");
+    QString translator3 = QString("<tr><td>Italian</td>")  + QString("<td>Simona Pisano</td>") + QString("<td><a href=\"https://www.qrz.com/db/iu5hiu\">IU5HIU</a></td></tr>");
+    QString translator4 = QString("<tr><td>Japanese</td>")  + QString("<td>Akihiro Koda</td>") + QString("<td><a href=\"https://www.qrz.com/db/jl3oxr\">JL3OXR</a></td></tr>");
+    QString translator5 = QString("<tr><td>Spanish</td>") + QString("<td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a></td></tr>");
 
 
     QString translatorsText = tr("Translators bring KLog into your language. They are really an important part of the KLog development team.") + "<br><br>" + tr("If KLog is still not in your language and you want to help us, you are welcome to contact us through the") + " <a href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">" + tr("KLog development mailing list") + "</a>" + tr("!");
-    QString translators = "<center><h2>" + tr("Translators") + "</h2></center><br>" + translatorsText + "<br><table>" + translator1 + translator2 + translator3 + translator4 + "</table>";
+    QString translators = "<center><h2>" + tr("Translators") + "</h2></center><br>" + translatorsText + "<br><table>" + translator1 + translator2 + translator3 + translator4 + translator5 + "</table>";
 
     QLabel *authorsLabel = new QLabel(authors);
     authorsLabel->setWordWrap(true);

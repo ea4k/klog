@@ -104,13 +104,13 @@ void MainWindowInputOthers::createUI()
 
     if (entitiesList.size()>1)
     {
-        entitiesList.prepend("00-Not Identified (000)");
+        entitiesList.prepend("00-" + tr("Not Identified") + " (000)");
         entityNameComboBox->addItems(entitiesList);
     }
 
     if (propModeList.size()>1)
     {
-        propModeList.prepend("00 - Not - Not Identified");
+        propModeList.prepend("00 - " + tr("Not - Not Identified"));
         propModeComboBox->addItems(propModeList);
     }
 /*
@@ -146,7 +146,8 @@ void MainWindowInputOthers::setEntitiesList(const QStringList _qs)
     entitiesList << _qs;
     if (entitiesList.size()>1)
     {
-        entitiesList.prepend("00-Not Identified (000)");
+        entitiesList.prepend("00-" + tr("Not Identified") + " (000)");
+        //entitiesList.prepend("00-Not Identified (000)");
         entityNameComboBox->addItems(entitiesList);
     }
 }

@@ -20,24 +20,24 @@
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="72"/>
-        <location filename="../aboutdialog.cpp" line="82"/>
+        <location filename="../aboutdialog.cpp" line="83"/>
         <source>KLog development mailing list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="72"/>
-        <location filename="../aboutdialog.cpp" line="82"/>
+        <location filename="../aboutdialog.cpp" line="83"/>
         <source>!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="73"/>
-        <location filename="../aboutdialog.cpp" line="140"/>
+        <location filename="../aboutdialog.cpp" line="141"/>
         <source>Authors</source>
         <translation>Autori</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="82"/>
+        <location filename="../aboutdialog.cpp" line="83"/>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the</source>
         <translation type="unfinished"></translation>
     </message>
@@ -92,58 +92,58 @@
         <translation>Klog razvija vrlo mali tim i pozvani ste da se pridružite!</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="96"/>
+        <location filename="../aboutdialog.cpp" line="97"/>
         <source>KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account user&apos;s needs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="97"/>
+        <location filename="../aboutdialog.cpp" line="98"/>
         <source>At present, the data that is provided is the following:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="99"/>
+        <location filename="../aboutdialog.cpp" line="100"/>
         <source>Be aware that you can enable/disable this feature from the Misc tab in the Setup page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="82"/>
+        <location filename="../aboutdialog.cpp" line="83"/>
         <source>Translators bring KLog into your language. They are really an important part of the KLog development team.</source>
         <translation>Prevoditelji donose KLog u vaš jezik. Oni su važan dio tima koji razvija KLog.</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="83"/>
-        <location filename="../aboutdialog.cpp" line="141"/>
+        <location filename="../aboutdialog.cpp" line="84"/>
+        <location filename="../aboutdialog.cpp" line="142"/>
         <source>Translators</source>
         <translation>Prevoditelji</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="95"/>
+        <location filename="../aboutdialog.cpp" line="96"/>
         <source>Privacy advisory</source>
         <translation>Upozorenje o privatnosti</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="98"/>
+        <location filename="../aboutdialog.cpp" line="99"/>
         <source>Callsign</source>
         <translation>Pozivni znak</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="98"/>
+        <location filename="../aboutdialog.cpp" line="99"/>
         <source>KLog version</source>
         <translation>Inačica KLoga</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="98"/>
+        <location filename="../aboutdialog.cpp" line="99"/>
         <source>Operating system</source>
         <translation>Operacijski sustav</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="139"/>
+        <location filename="../aboutdialog.cpp" line="140"/>
         <source>KLog</source>
         <translation>KLog</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="142"/>
+        <location filename="../aboutdialog.cpp" line="143"/>
         <source>Privacy</source>
         <translation>Privatnost</translation>
     </message>
@@ -1896,6 +1896,17 @@ Do you want to save your changes?</source>
         <location filename="../mainwindowinputothers.cpp" line="82"/>
         <source>Select the IOTA reference number for this QSO</source>
         <translation>Izaberite IOTA referentni broj za ovaj QSO</translation>
+    </message>
+    <message>
+        <location filename="../mainwindowinputothers.cpp" line="107"/>
+        <location filename="../mainwindowinputothers.cpp" line="149"/>
+        <source>Not Identified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindowinputothers.cpp" line="113"/>
+        <source>Not - Not Identified</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

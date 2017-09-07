@@ -13,6 +13,7 @@ TBD - 0.9.2.7
 - BugFix: Higher bands where not shown to be selected in the preferences.
 - BugFix: DB updating function (009) blocked the execution of KLog the first time it was executed.
 - BugFix: Language message if English is the System language is no shown anymore.
+- New translation: Italian by IU5HIU (Thank you!).
 - Translations updated: Original English (TNX JustinBRye, from Debian-10n-english), Spanish (EA4TV), Japanese (TNX JL3OXR).
 
 May 2017 - 0.9.2.6

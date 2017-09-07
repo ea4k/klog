@@ -30,7 +30,7 @@ DXClusterWidget::DXClusterWidget(QWidget *parent)
 {
     //qDebug() << "DXClusterWidget::DXClusterWidget" << endl;
     awards = new Awards();
-    dataProxy = new DataProxy();
+    dataProxy = new DataProxy_SQLite();
 
     initClass();
     //TESTADDSPOT();
