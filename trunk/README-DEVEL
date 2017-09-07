@@ -242,6 +242,8 @@ TRANSLATIONS = KLog_es.ts \
 
 Being es, fr, the ISO codes naming the language.
 
+After a translation is added, you also need to update the aboutdialog.cpp to include a new Translator line.
+
 9.2 TRANSLATING
 
 Translators should work in the *.ts files.

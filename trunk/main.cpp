@@ -324,6 +324,7 @@ int main(int argc, char *argv[])
         MainWindow mw(klogDir, version);
         qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         mw.show();
+        qDebug() << "KLog Main-101.5" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         splash.finish(&mw);
        qDebug() << "KLog Main-102" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
 

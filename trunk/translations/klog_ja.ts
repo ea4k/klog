@@ -20,24 +20,24 @@
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="72"/>
-        <location filename="../aboutdialog.cpp" line="82"/>
+        <location filename="../aboutdialog.cpp" line="83"/>
         <source>KLog development mailing list</source>
         <translation>KLog 開発者メーリングリスト</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="72"/>
-        <location filename="../aboutdialog.cpp" line="82"/>
+        <location filename="../aboutdialog.cpp" line="83"/>
         <source>!</source>
         <translation>歓迎します!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="73"/>
-        <location filename="../aboutdialog.cpp" line="140"/>
+        <location filename="../aboutdialog.cpp" line="141"/>
         <source>Authors</source>
         <translation>作者</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="82"/>
+        <location filename="../aboutdialog.cpp" line="83"/>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the</source>
         <translation>まだ KLog があなたの言語に翻訳されておらず、翻訳をお手伝いいただけるなら、次のメーリングリストを通じてご連絡ください.</translation>
     </message>
@@ -92,58 +92,58 @@
         <translation>KLogはとても小さなチームによって開発されており、あなたの参加が望まれています!</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="96"/>
+        <location filename="../aboutdialog.cpp" line="97"/>
         <source>KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account user&apos;s needs</source>
         <translation>ユーザーの需要を考慮した開発の方向性を定めるために、どのバージョンがどれくらいインストールされたかを知るという目的に限定してユーザー情報をKLogサーバーに送信する機能が取り込まれました.</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="97"/>
+        <location filename="../aboutdialog.cpp" line="98"/>
         <source>At present, the data that is provided is the following:</source>
         <translation>今のところ、提供いただく情報は以下のものです:</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="99"/>
+        <location filename="../aboutdialog.cpp" line="100"/>
         <source>Be aware that you can enable/disable this feature from the Misc tab in the Setup page</source>
         <translation>この機能は「設定」ページの「その他」タブで、有効・無効を切り替えることができます</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="82"/>
+        <location filename="../aboutdialog.cpp" line="83"/>
         <source>Translators bring KLog into your language. They are really an important part of the KLog development team.</source>
         <translation>翻訳者はKLogをあなたの言語で使えるようにします. 翻訳者はKLog開発チームの中でもとりわけ重要な役割を担います.</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="83"/>
-        <location filename="../aboutdialog.cpp" line="141"/>
+        <location filename="../aboutdialog.cpp" line="84"/>
+        <location filename="../aboutdialog.cpp" line="142"/>
         <source>Translators</source>
         <translation>翻訳者</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="95"/>
+        <location filename="../aboutdialog.cpp" line="96"/>
         <source>Privacy advisory</source>
         <translation>プライバシーについての勧告</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="98"/>
+        <location filename="../aboutdialog.cpp" line="99"/>
         <source>Callsign</source>
         <translation>コールサイン</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="98"/>
+        <location filename="../aboutdialog.cpp" line="99"/>
         <source>KLog version</source>
         <translation>KLogのバージョン</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="98"/>
+        <location filename="../aboutdialog.cpp" line="99"/>
         <source>Operating system</source>
         <translation>OSの情報</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="139"/>
+        <location filename="../aboutdialog.cpp" line="140"/>
         <source>KLog</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="142"/>
+        <location filename="../aboutdialog.cpp" line="143"/>
         <source>Privacy</source>
         <translation>プライバシー</translation>
     </message>
@@ -1892,6 +1892,17 @@ Do you want to save your changes?</source>
         <location filename="../mainwindowinputothers.cpp" line="82"/>
         <source>Select the IOTA reference number for this QSO</source>
         <translation>このQSO相手局のIOTAリファレンス番号を選択してください</translation>
+    </message>
+    <message>
+        <location filename="../mainwindowinputothers.cpp" line="107"/>
+        <location filename="../mainwindowinputothers.cpp" line="149"/>
+        <source>Not Identified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindowinputothers.cpp" line="113"/>
+        <source>Not - Not Identified</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

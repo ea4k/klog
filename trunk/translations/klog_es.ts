@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="73"/>
-        <location filename="../aboutdialog.cpp" line="140"/>
+        <location filename="../aboutdialog.cpp" line="141"/>
         <source>Authors</source>
         <translation>Autores</translation>
     </message>
@@ -56,18 +56,18 @@
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="72"/>
-        <location filename="../aboutdialog.cpp" line="82"/>
+        <location filename="../aboutdialog.cpp" line="83"/>
         <source>KLog development mailing list</source>
         <translation>la lista de desarrollo de KLog</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="72"/>
-        <location filename="../aboutdialog.cpp" line="82"/>
+        <location filename="../aboutdialog.cpp" line="83"/>
         <source>!</source>
         <translation>!</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="82"/>
+        <location filename="../aboutdialog.cpp" line="83"/>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the</source>
         <translation>Si KLog aun no está en su idioma y quiere ayudarnos, es bienvenido a contactar con nosotros a través de la</translation>
     </message>
@@ -92,58 +92,58 @@
         <translation>Puedes ayudarnos reportando errores o pequeñas contribuciones de código, ideas o cualquier otra cosa que creas que pueda mejorar KLog.</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="96"/>
+        <location filename="../aboutdialog.cpp" line="97"/>
         <source>KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account user&apos;s needs</source>
         <translation>Los desarrolladores de KLog han incluido una función que reporta algunos datos del usuario al servidor de KLog con el único objetivo de saber el número de versiones instaladas y poder centrar el desarrollo en una u otra dirección en función de las necesidades de los usuarios.</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="97"/>
+        <location filename="../aboutdialog.cpp" line="98"/>
         <source>At present, the data that is provided is the following:</source>
         <translation>Hoy, los datos que se proporcionan son los siguientes:</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="99"/>
+        <location filename="../aboutdialog.cpp" line="100"/>
         <source>Be aware that you can enable/disable this feature from the Misc tab in the Setup page</source>
         <translation>Sepa que puede habilitar/deshabilitar esta función en la pestaña de Varios de la página de configuración</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="82"/>
+        <location filename="../aboutdialog.cpp" line="83"/>
         <source>Translators bring KLog into your language. They are really an important part of the KLog development team.</source>
         <translation>Los traductores traen KLog a tu idioma. Son una parte realmente importante del equipo de desarrollo de KLog.</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="83"/>
-        <location filename="../aboutdialog.cpp" line="141"/>
+        <location filename="../aboutdialog.cpp" line="84"/>
+        <location filename="../aboutdialog.cpp" line="142"/>
         <source>Translators</source>
         <translation>Traductores</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="95"/>
+        <location filename="../aboutdialog.cpp" line="96"/>
         <source>Privacy advisory</source>
         <translation>Aviso de privacidad</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="98"/>
+        <location filename="../aboutdialog.cpp" line="99"/>
         <source>Callsign</source>
         <translation>Indicativo</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="98"/>
+        <location filename="../aboutdialog.cpp" line="99"/>
         <source>KLog version</source>
         <translation>Versión de KLog</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="98"/>
+        <location filename="../aboutdialog.cpp" line="99"/>
         <source>Operating system</source>
         <translation>Sistema operativo</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="139"/>
+        <location filename="../aboutdialog.cpp" line="140"/>
         <source>KLog</source>
         <translation>KLog</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="142"/>
+        <location filename="../aboutdialog.cpp" line="143"/>
         <source>Privacy</source>
         <translation>Privacidad</translation>
     </message>
@@ -1896,6 +1896,17 @@ Do you want to save your changes?</source>
         <location filename="../mainwindowinputothers.cpp" line="82"/>
         <source>Select the IOTA reference number for this QSO</source>
         <translation>Seleccione la referencia IOTA para este QSO</translation>
+    </message>
+    <message>
+        <location filename="../mainwindowinputothers.cpp" line="107"/>
+        <location filename="../mainwindowinputothers.cpp" line="149"/>
+        <source>Not Identified</source>
+        <translation>Sin identificar</translation>
+    </message>
+    <message>
+        <location filename="../mainwindowinputothers.cpp" line="113"/>
+        <source>Not - Not Identified</source>
+        <translation>No - Sin identificar</translation>
     </message>
 </context>
 <context>
