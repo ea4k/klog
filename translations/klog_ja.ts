@@ -998,13 +998,13 @@ Do you want to try again?</source>
         <location filename="../mainwindow.cpp" line="925"/>
         <location filename="../mainwindow.cpp" line="1640"/>
         <source>You have selected an entity:</source>
-        <translation type="unfinished"></translation>
+        <translation>次のエンティティが指定されています:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="925"/>
         <location filename="../mainwindow.cpp" line="1640"/>
         <source>that is different from the KLog proposed entity:</source>
-        <translation type="unfinished"></translation>
+        <translation>しかし、これは KLog が推定したエンティティと異なります:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2327"/>
@@ -1548,7 +1548,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="5232"/>
         <source>Number of QSOs worked on the selected year.</source>
-        <translation type="unfinished"></translation>
+        <translation>選択した年の交信数</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5274"/>
@@ -1897,12 +1897,12 @@ Do you want to save your changes?</source>
         <location filename="../mainwindowinputothers.cpp" line="107"/>
         <location filename="../mainwindowinputothers.cpp" line="149"/>
         <source>Not Identified</source>
-        <translation type="unfinished"></translation>
+        <translation>不明</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="113"/>
         <source>Not - Not Identified</source>
-        <translation type="unfinished"></translation>
+        <translation>Not - 不明</translation>
     </message>
 </context>
 <context>
@@ -2277,17 +2277,17 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../main.cpp" line="289"/>
         <source>Your KLog dir has been removed</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog ディレクトリは削除されました</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="295"/>
         <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog ディレクトリーが削除できませんでした. ハードディスクから削除したい場合は手動で削除してください.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="302"/>
         <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog ディレクトリーが削除できませんでした. ハードディスクから削除したい場合は手動で削除してください.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="308"/>
