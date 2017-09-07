@@ -1019,13 +1019,13 @@ Vuoi fare un ulteriore tentativo?</translation>
         <location filename="../mainwindow.cpp" line="925"/>
         <location filename="../mainwindow.cpp" line="1640"/>
         <source>You have selected an entity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Hai selezionato il commegamento:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="925"/>
         <location filename="../mainwindow.cpp" line="1640"/>
         <source>that is different from the KLog proposed entity:</source>
-        <translation type="unfinished"></translation>
+        <translation>questo è diverso dal collegamento proposto da KLog:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2300"/>
@@ -1896,12 +1896,12 @@ Vuoi salvare i cambiamenti?</translation>
         <location filename="../mainwindowinputothers.cpp" line="107"/>
         <location filename="../mainwindowinputothers.cpp" line="149"/>
         <source>Not Identified</source>
-        <translation type="unfinished"></translation>
+        <translation>Non identificato</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="113"/>
         <source>Not - Not Identified</source>
-        <translation type="unfinished"></translation>
+        <translation>No - Non identificato</translation>
     </message>
 </context>
 <context>
@@ -2276,17 +2276,17 @@ Vuoi salvare i cambiamenti?</translation>
     <message>
         <location filename="../main.cpp" line="289"/>
         <source>Your KLog dir has been removed</source>
-        <translation type="unfinished"></translation>
+        <translation>La tua cartella di KLog è stata eliminata</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="295"/>
         <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>Non sono riuscito ad eliminare la tua cartella KLog. Dovrai eliminarla a mano dal tuo hard disk.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="302"/>
         <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>Non sono riuscito a rimuovere la cartella di KLog. Dovrai eliminarla a mano dal disco.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="308"/>
@@ -2911,7 +2911,7 @@ Per favore aggiungi e scegli il tipo di log che vuoi utilizzare.</translation>
     <message>
         <location filename="../setuppageclublog.cpp" line="65"/>
         <source>Use the Station Callsign defined in each QSO instead of the one defined here</source>
-        <translation>Usa il nominativo di stazione definito inogni QSL invece di quello qua definito</translation>
+        <translation>Usa il nominativo di stazione definito in ogni QSL invece di quello qui riportato</translation>
     </message>
 </context>
 <context>
@@ -3426,7 +3426,7 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="46"/>
         <source>&amp;Reset to My Data for all QSOs</source>
-        <translation>&amp;Resetta ai miei dati su tutti i QSO</translation>
+        <translation>&amp;Reimposta ai miei dati su tutti i QSO</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="109"/>
@@ -3588,17 +3588,17 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../setuppageuserdata.cpp" line="145"/>
         <source>&amp;Rig 1</source>
-        <translation>&amp;Rig 1</translation>
+        <translation>&amp;Impianto 1</translation>
     </message>
     <message>
         <location filename="../setuppageuserdata.cpp" line="146"/>
         <source>R&amp;ig 2</source>
-        <translation>&amp;Rig 1</translation>
+        <translation>&amp;Impianto 1</translation>
     </message>
     <message>
         <location filename="../setuppageuserdata.cpp" line="147"/>
         <source>Ri&amp;g 3</source>
-        <translation>&amp;Rig 1</translation>
+        <translation>&amp;Impianto 1</translation>
     </message>
     <message>
         <location filename="../setuppageuserdata.cpp" line="148"/>
@@ -3968,7 +3968,7 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../elogclublog.cpp" line="466"/>
         <source>Dropped QSO</source>
-        <translation>QSO dropped</translation>
+        <translation>QSO interrotto</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="470"/>
