@@ -1418,6 +1418,10 @@ Do you want to save your changes?</source>
         <translation>&amp;Exportar a ADIF todos los logs...</translation>
     </message>
     <message>
+        <source>ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)</source>
+        <translation type="vanished">Ficheros ADIF (*.adi *.adif);;Ficheros Cabrillo (*.log);;Cuaquier fichero (*.*)</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="3611"/>
         <source>&amp;Find DX-QSLs pending to receive</source>
         <translation>B&amp;uscar QSL DX pendientes de recibir</translation>
@@ -1437,6 +1441,10 @@ Do you want to save your changes?</source>
         <location filename="../mainwindow.cpp" line="3623"/>
         <source>&amp;Update cty.csv</source>
         <translation>Act&amp;ualizar cty.csv</translation>
+    </message>
+    <message>
+        <source>For updated DX-Entity data, update cty.csv</source>
+        <translation type="vanished">Para obtener datos actualizados de entidades DX, actualice el cty.csv.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3739"/>
@@ -2270,6 +2278,14 @@ Do you want to save your changes?</source>
         <location filename="../awards.cpp" line="760"/>
         <source>Not identified</source>
         <translation>No identificado</translation>
+    </message>
+    <message>
+        <source>If you want to help to translate KLog into your language, please contact the author.&lt;/p&gt;</source>
+        <translation type="vanished">Si quiere ayudar a traducir KLog a su idioma, por favor, contacte con el autor.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>folder and restart KLog.</source>
+        <translation type="vanished">carpeta de KLog y reiniciar el programa.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="276"/>
@@ -3498,6 +3514,10 @@ The log will not be opened.</oldsource>
         <location filename="../setuppagemisc.cpp" line="263"/>
         <source>Open File</source>
         <translation>Abrir fichero</translation>
+    </message>
+    <message>
+        <source>ADIF (*.adi)</source>
+        <translation type="vanished">ADIF (*.adi)</translation>
     </message>
 </context>
 <context>

@@ -44,7 +44,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="34"/>
         <source>By</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="37"/>
@@ -140,7 +140,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="140"/>
         <source>KLog</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="143"/>
@@ -193,7 +193,7 @@
     <message>
         <location filename="../startwizard.cpp" line="1024"/>
         <source>KLog</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="1025"/>
@@ -213,7 +213,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="322"/>
         <source>ID</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="322"/>
@@ -435,7 +435,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../filemanager.cpp" line="2683"/>
         <source> QSO: </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2699"/>
@@ -556,62 +556,62 @@ Do you want to try again?</source>
     <message>
         <location filename="../infowidget.cpp" line="45"/>
         <source>10M</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="46"/>
         <source>15M</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="47"/>
         <source>20M</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="48"/>
         <source>40M</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="49"/>
         <source>80M</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="50"/>
         <source>160M</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="51"/>
         <source>2M</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="52"/>
         <source>6M</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="53"/>
         <source>12M</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="54"/>
         <source>17M</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="55"/>
         <source>30M</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="56"/>
         <source>70CM</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="72"/>
@@ -626,12 +626,12 @@ Do you want to try again?</source>
     <message>
         <location filename="../infowidget.cpp" line="80"/>
         <source>CQ</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="84"/>
         <source>ITU</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="88"/>
@@ -659,7 +659,7 @@ Do you want to try again?</source>
         <location filename="../infowidget.cpp" line="319"/>
         <location filename="../infowidget.cpp" line="320"/>
         <source>Km</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -677,8 +677,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../startwizard.cpp" line="150"/>
         <source>Welcome to KLog</source>
-        <translatorcomment>KLog にようこそ
-</translatorcomment>
+        <translatorcomment>KLog にようこそ</translatorcomment>
         <translation>&lt;html&gt;&lt;head&gt;                             &lt;title&gt;KLogにようこそ&lt;/title&gt;             &lt;/head&gt;&lt;body&gt;             &lt;p&gt;このコンピューターでKLogを実行するのは初めてのようです.&lt;/p&gt;             &lt;p&gt;KLogは、Linux, mac OSやWindowsで実行可能なフリーなアマチュア無線用ロギングソフトウェアです. DXやコンテストでのロギングなど、一般的な使用方法でお使いいただけるようデザインされています.&lt;/p&gt;             &lt;p&gt;ADIF形式やCabrillo形式でのデータのインポート、エクスポート、またQSLカードの管理など、多くの機能をサポートしています.&lt;/p&gt;             &lt;p&gt;KLogをスタートする前に、以下の質問にお答えください.             &lt;ul&gt;             &lt;li&gt;ライセンス条項への同意&lt;/li&gt;             &lt;li&gt;KLogの実行方法の設定&lt;/li&gt;             &lt;li&gt;コールサイン、CQゾーン、その他、多くの設定項目&lt;/li&gt;             &lt;/ul&gt;             &lt;/p&gt;             &lt;p&gt;KLogをお楽しみください. ご提案などがあれば、開発チームにご連絡ください.&lt;/p&gt;             &lt;p&gt;&lt;h3&gt;73 de EA4TV&lt;/h3&gt;&lt;/p&gt;             &lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
@@ -934,19 +933,19 @@ Do you want to try again?</source>
         <location filename="../mainwindow.cpp" line="342"/>
         <location filename="../mainwindow.cpp" line="347"/>
         <source>MHz</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="486"/>
         <location filename="../mainwindow.cpp" line="3494"/>
         <location filename="../mainwindow.cpp" line="3992"/>
         <source>KLog</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="575"/>
         <source>Ready</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="730"/>
@@ -1027,6 +1026,10 @@ Do you want to try again?</source>
         <location filename="../mainwindow.cpp" line="3616"/>
         <source>&amp;Find requested pending to receive</source>
         <translation>相手のQSLカードをまだ受領しておらずリクエストとマークしたQSOを検索(&amp;F)</translation>
+    </message>
+    <message>
+        <source>For updated DX-Entity data, update cty.csv</source>
+        <translation type="vanished">最新のDXエンティティ情報を取得するため、cty.csvファイルを更新します.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3739"/>
@@ -1302,12 +1305,12 @@ Do you want to try again?</source>
     <message>
         <location filename="../mainwindow.cpp" line="2646"/>
         <source>NEW MULT</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2864"/>
         <source>Ready...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3906"/>
@@ -1409,7 +1412,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="5268"/>
         <source>QTH</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5271"/>
@@ -1419,7 +1422,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="6379"/>
         <source>--</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6403"/>
@@ -1473,10 +1476,14 @@ Do you want to save your changes?</source>
         <translation>保存は実行されません。適切なファイル形式を指定してください。</translation>
     </message>
     <message>
+        <source>ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)</source>
+        <translation type="vanished">ADIF ファイル (*.adi *.adif);;Cabrillo ファイル (*.log);;すべてのファイル (*.*)</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="4564"/>
         <location filename="../mainwindow.cpp" line="4574"/>
         <source>DUPE</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="926"/>
@@ -1581,17 +1588,17 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="5390"/>
         <source>QSO</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5507"/>
         <source>QSL</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5508"/>
         <source>eQSL</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5512"/>
@@ -1611,14 +1618,14 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="5571"/>
         <source>CQ</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5570"/>
         <location filename="../mainwindow.cpp" line="5596"/>
         <location filename="../mainwindow.cpp" line="5652"/>
         <source>DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5572"/>
@@ -1653,7 +1660,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="5599"/>
         <source>WAZ</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5602"/>
@@ -1696,7 +1703,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="5782"/>
         <source>Cabrillo (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5792"/>
@@ -1811,12 +1818,12 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="52"/>
         <source>Status of the LotW reception.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="56"/>
         <source>ClubLog</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="59"/>
@@ -1854,7 +1861,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="67"/>
         <source>IOTA</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="68"/>
@@ -1923,12 +1930,12 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="75"/>
         <source>QSL Via</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="78"/>
         <source>QSL Msg</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="81"/>
@@ -2092,7 +2099,7 @@ Do you want to save your changes?</source>
         <location filename="../mainwindowsattab.cpp" line="110"/>
         <location filename="../mainwindowsattab.cpp" line="114"/>
         <source>MHz</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="334"/>
@@ -2184,7 +2191,7 @@ Do you want to save your changes?</source>
         <location filename="../database.cpp" line="2825"/>
         <location filename="../database.cpp" line="2990"/>
         <source>QSO: </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../database.cpp" line="2895"/>
@@ -2416,7 +2423,7 @@ Do you want to save your changes?</source>
         <location filename="../searchwidget.cpp" line="77"/>
         <location filename="../searchwidget.cpp" line="82"/>
         <source>ID</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../searchwidget.cpp" line="486"/>
@@ -2632,7 +2639,7 @@ Do you want to save your changes?</source>
         <location filename="../setupdialog.cpp" line="92"/>
         <location filename="../setupdialog.cpp" line="161"/>
         <source>ClubLog</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="94"/>
@@ -2644,7 +2651,7 @@ Do you want to save your changes?</source>
         <location filename="../setupdialog.cpp" line="95"/>
         <location filename="../setupdialog.cpp" line="166"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="116"/>
@@ -2747,7 +2754,7 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setupentitydialog.cpp" line="73"/>
         <source>CQ</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setupentitydialog.cpp" line="75"/>
@@ -2757,7 +2764,7 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setupentitydialog.cpp" line="77"/>
         <source>ITU</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setupentitydialog.cpp" line="79"/>
@@ -2783,7 +2790,7 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setupentitydialog.cpp" line="93"/>
         <source>UTC</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setupentitydialog.cpp" line="95"/>
@@ -2804,7 +2811,7 @@ Please add and select the kind of log you want to use.</source>
         <location filename="../setupentitydialog.cpp" line="103"/>
         <location filename="../setupentitydialog.cpp" line="105"/>
         <source>ARRL ID</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setupentitydialog.cpp" line="113"/>
@@ -2834,7 +2841,7 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setupentitydialog.cpp" line="121"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setupentitydialog.cpp" line="209"/>
@@ -2923,7 +2930,7 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setuppagecolors.cpp" line="42"/>
         <source>New One</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="43"/>
@@ -3077,7 +3084,7 @@ If no port is specified, 41112 will be used by default:</source>
     <message>
         <location filename="../setuppagelogs.cpp" line="197"/>
         <source>KLog</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setuppagelogs.cpp" line="198"/>
@@ -3112,7 +3119,7 @@ If no port is specified, 41112 will be used by default:</source>
     <message>
         <location filename="../setuppagelogs.cpp" line="609"/>
         <source>KLog - SetupPageLogs</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setuppagelogs.cpp" line="309"/>
@@ -3122,7 +3129,7 @@ If no port is specified, 41112 will be used by default:</source>
     <message>
         <location filename="../setuppagelogs.cpp" line="306"/>
         <source>ID</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setuppagelogs.cpp" line="312"/>
@@ -3145,7 +3152,7 @@ If no port is specified, 41112 will be used by default:</source>
     <message>
         <location filename="../setuppagelogsnew.cpp" line="96"/>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setuppagelogsnew.cpp" line="97"/>
@@ -3541,8 +3548,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppageuserdata.cpp" line="75"/>
         <source>Enter your province or state</source>
-        <translatorcomment>厳密にはProv/Stateじゃないですけど
-</translatorcomment>
+        <translatorcomment>厳密にはProv/Stateじゃないですけど</translatorcomment>
         <translation>都道府県名を入力してください</translation>
     </message>
     <message>
@@ -3578,8 +3584,7 @@ The log will not be opened.</source>
         <location filename="../setuppageuserdata.cpp" line="82"/>
         <source>Pro&amp;v/State</source>
         <oldsource>Prov/State</oldsource>
-        <translatorcomment>厳密にはProv/Stateじゃないですけど
-</translatorcomment>
+        <translatorcomment>厳密にはProv/Stateじゃないですけど</translatorcomment>
         <translation>都道府県(&amp;v)</translation>
     </message>
     <message>
@@ -3719,7 +3724,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="188"/>
         <source>ARRL ID</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="190"/>
@@ -3739,7 +3744,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="196"/>
         <source>UTC</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="198"/>
@@ -3774,7 +3779,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="305"/>
         <source>BigCTY (*.csv)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../setuppageworldeditor.cpp" line="314"/>
@@ -3792,7 +3797,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="17"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="35"/>
@@ -3873,7 +3878,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogclublog.cpp" line="71"/>
         <source>KLog - ClubLog</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="83"/>
@@ -3974,7 +3979,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogclublog.cpp" line="450"/>
         <source>QSO OK</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="454"/>
@@ -4000,7 +4005,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogclublog.cpp" line="470"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="474"/>
