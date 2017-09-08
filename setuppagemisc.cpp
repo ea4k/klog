@@ -260,7 +260,7 @@ void SetupPageMisc::setDefaultFileName(const QString t)
 
 void SetupPageMisc::slotOpenFileButtonClicked()
 {
-    defaultFileName = QFileDialog::getOpenFileName(this, tr("Open File"), klogDir, tr("ADIF (*.adi)"));
+    defaultFileName = QFileDialog::getOpenFileName(this, tr("Open File"), klogDir, "ADIF (*.adi)");
     defaultFileNameLineEdit->setText(defaultFileName);
 }
 

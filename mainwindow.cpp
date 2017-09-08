@@ -2804,7 +2804,7 @@ void MainWindow::slotQRZTextChanged()
     othersTabWidget->setEntity(currentEntity);
 
 
-   qDebug() << "MainWindow::slotQRZTextChanged: DXCC/ISOname: " << QString::number(currentEntity) << "/" << dataProxy->getISOName(currentEntity) << endl;
+   //qDebug() << "MainWindow::slotQRZTextChanged: DXCC/ISOname: " << QString::number(currentEntity) << "/" << dataProxy->getISOName(currentEntity) << endl;
 
    //qDebug() << "MainWindow::slotQRZTextChanged: Entity: " << QString::number(currentEntity) << endl;
 
@@ -3624,7 +3624,7 @@ void MainWindow::createMenusCommon()
     toolMenu->addAction(downloadCTYAct);
     //downloadCTYAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(downloadCTYAct, SIGNAL(triggered()), this, SLOT(slotUpdateCTYDAT()));
-    downloadCTYAct->setToolTip(tr("For updated DX-Entity data, update cty.csv"));
+    downloadCTYAct->setToolTip(tr("For updated DX-Entity data, update cty.csv."));
 
     toolMenu->addSeparator();
 
@@ -3905,7 +3905,7 @@ bool MainWindow::saveFileAs()
    // klogDir+"/"+defaultADIFLogFile,
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
                                                    util->getHomeDir(),
-                        tr("ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)"));
+                        tr("ADIF file") + "(*.adi *.adif);;" + tr("Cabrillo files") + "(*.log);;" + tr("Any file") + "(*.*)");
 
     if ( (fileName.endsWith(".adi", Qt::CaseInsensitive)) || (fileName.endsWith(".log", Qt::CaseInsensitive)) )
     {
@@ -5746,7 +5746,7 @@ void MainWindow::slotADIFExport(){
 
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"),
                                util->getHomeDir(),
-                               tr("ADIF (*.adi *.adif)"));
+                               "ADIF (*.adi *.adif)");
 
     filemanager->adifLogExport(fileName, currentLog);
 
@@ -5756,7 +5756,7 @@ void MainWindow::slotADIFExportAll(){
     //qDebug() << "MainWindow::slotADIFExportAll " << endl;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"),
                                util->getHomeDir(),
-                               tr("ADIF (*.adi *.adif)"));
+                               "ADIF (*.adi *.adif)");
 
     filemanager->adifLogExport(fileName, 0);
 
@@ -5766,7 +5766,7 @@ void MainWindow::slotRQSLExport()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"),
                                util->getHomeDir(),
-                               tr("ADIF (*.adi *.adif)"));
+                               "ADIF (*.adi *.adif)");
 
 
     filemanager->adifReqQSLExport(fileName);
@@ -5791,7 +5791,7 @@ void MainWindow::slotADIFImport(){
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                      util->getHomeDir(),
-                                                     tr("ADIF (*.adi *.adif)"));
+                                                     "ADIF (*.adi *.adif)");
     if (fileName.isNull())
     {
     }

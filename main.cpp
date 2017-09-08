@@ -101,8 +101,8 @@ int main(int argc, char *argv[])
     }
 
 
-    qDebug() << "KLog Main: Start of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << endl;
-    qDebug() << "KLog Main: Detected language: " << (QLocale::system().name()) << endl;
+    //qDebug() << "KLog Main: Start of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << endl;
+    //qDebug() << "KLog Main: Detected language: " << (QLocale::system().name()) << endl;
     // Translations begin
         QTranslator qtTranslator;
         qtTranslator.load("qt_" + QLocale::system().name(),
@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
 
 
     #if defined(Q_OS_WIN)
-        qDebug() << "KLog WIN " << endl;
+        //qDebug() << "KLog WIN " << endl;
         if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") )
         {
             myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm");
@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
         }
 
     #elif defined(Q_OS_OSX)
-        qDebug() << "KLog OSX " << endl;
+        //qDebug() << "KLog OSX " << endl;
         if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()) )
         {
             myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()));
@@ -151,7 +151,7 @@ int main(int argc, char *argv[])
         }
 
     #else
-       qDebug() << "KLog OTHER OS" << endl;
+       //qDebug() << "KLog OTHER OS" << endl;
         if (QFile::exists("klog_" + (QLocale::system().name()).left(2) + ".qm") )
         {
             myappTranslator.load("klog_" + (QLocale::system().name()).left(2));
@@ -200,14 +200,15 @@ int main(int argc, char *argv[])
 
             msgBox.setText(msg);
             msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.setDefaultButton(QMessageBox::Ok);            
             msgBox.exec();
+
         }
 
-    qDebug() << "KLog Main-1" << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
+    //qDebug() << "KLog Main-1" << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
 
     app.installTranslator(&myappTranslator);
-    qDebug() << "KLog Main: End of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << endl;
+    //qDebug() << "KLog Main: End of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << endl;
     // Traslations end
 
     QString configFileName, klogDir;
@@ -215,9 +216,9 @@ int main(int argc, char *argv[])
     klogDir = util.getHomeDir();
     configFileName = util.getCfgFile();
 
-   qDebug() << "KLog Main-10" << endl;
+   //qDebug() << "KLog Main-10" << endl;
 
-    qDebug() << "KLog Main: Setting klog dir: " << (QTime::currentTime()).toString("HH:mm:ss")<< endl;;
+    //qDebug() << "KLog Main: Setting klog dir: " << (QTime::currentTime()).toString("HH:mm:ss")<< endl;;
     if (!QDir::setCurrent (klogDir) )
     {
         //qDebug() << "MAIN:  KLogDir does not exist.... creating " << endl;
@@ -241,17 +242,17 @@ int main(int argc, char *argv[])
     {
         //qDebug() << "MAIN:  KLogDir already existed!! " << endl;
     }
-    qDebug() << "KLog Main: Setting klog dir - finished: " << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+    //qDebug() << "KLog Main: Setting klog dir - finished: " << (QTime::currentTime()).toString("HH:mm:ss") << endl;
 
-    qDebug() << "KLog Main: Setting config file: " << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
+    //qDebug() << "KLog Main: Setting config file: " << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
     if(!QFile::exists(configFileName))
     {
-        qDebug() << "MAIN:  Starting wizard... " << endl;
+        //qDebug() << "MAIN:  Starting wizard... " << endl;
 
         StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
         int inMemory = wizard->exec();
-        qDebug() << "MAIN: Wizard inMemory: " << QString::number(inMemory) << endl;
+        //qDebug() << "MAIN: Wizard inMemory: " << QString::number(inMemory) << endl;
 
         if (inMemory == 1)
         {
@@ -314,24 +315,24 @@ int main(int argc, char *argv[])
     }
     else
     {
-        qDebug() << "KLog Main-50" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+        //qDebug() << "KLog Main-50" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         QPixmap pixmap(":img/klog_512x512.png");
-        qDebug() << "KLog Main-51" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+        //qDebug() << "KLog Main-51" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         QSplashScreen splash(pixmap);
-        qDebug() << "KLog Main-52" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+        //qDebug() << "KLog Main-52" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         splash.show();
-        qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+        //qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         MainWindow mw(klogDir, version);
-        qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+        //qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         mw.show();
-        qDebug() << "KLog Main-101.5" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+        //qDebug() << "KLog Main-101.5" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         splash.finish(&mw);
-       qDebug() << "KLog Main-102" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+       //qDebug() << "KLog Main-102" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
 
         return app.exec();
-       qDebug() << "KLog Main-103" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+       //qDebug() << "KLog Main-103" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
     }
-    qDebug() << "KLog Main-END: " << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
+    //qDebug() << "KLog Main-END: " << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
 
     //return app.exec();
 }

@@ -958,6 +958,26 @@ Vol tornar-ho a intentar?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="3627"/>
+        <source>For updated DX-Entity data, update cty.csv.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3908"/>
+        <source>ADIF file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3908"/>
+        <source>Cabrillo files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3908"/>
+        <source>Any file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="5175"/>
         <source>TX Frequency in MHz.</source>
         <translation type="unfinished"></translation>
@@ -1564,14 +1584,6 @@ Vol guardar els canvis?</translation>
         <translation>DXCC</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5749"/>
-        <location filename="../mainwindow.cpp" line="5759"/>
-        <location filename="../mainwindow.cpp" line="5769"/>
-        <location filename="../mainwindow.cpp" line="5794"/>
-        <source>ADIF (*.adi *.adif)</source>
-        <translation>ADIF (*.adi *.adif)</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3553"/>
         <source>Export the current log to an ADIF logfile</source>
         <translation>Exportar el log actual a un fitxer ADIF</translation>
@@ -1580,11 +1592,6 @@ Vol guardar els canvis?</translation>
         <location filename="../mainwindow.cpp" line="3555"/>
         <source>&amp;Export all logs to ADIF...</source>
         <translation>&amp;Exportar a ADIF tots els logs...</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3908"/>
-        <source>ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)</source>
-        <translation>Fitxers ADIF (*.adi *.adif);;Fitxers Cabrillo (*.log);;Qualsevol fitxer (*.*)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5572"/>
@@ -1715,11 +1722,6 @@ Vol guardar els canvis?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3623"/>
         <source>&amp;Update cty.csv</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3627"/>
-        <source>For updated DX-Entity data, update cty.csv</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2270,40 +2272,40 @@ Vol guardar els canvis?</translation>
         <translation>No identificat</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="275"/>
+        <location filename="../main.cpp" line="276"/>
         <source>Install wizard was canceled before completing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="276"/>
+        <location filename="../main.cpp" line="277"/>
         <source>Do you want to remove the KLog dir from your disk?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="289"/>
+        <location filename="../main.cpp" line="290"/>
         <source>Your KLog dir has been removed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="295"/>
+        <location filename="../main.cpp" line="296"/>
         <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="302"/>
+        <location filename="../main.cpp" line="303"/>
         <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="308"/>
+        <location filename="../main.cpp" line="309"/>
         <source>Remember that your KLog dir is on your system...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="289"/>
-        <location filename="../main.cpp" line="295"/>
-        <location filename="../main.cpp" line="302"/>
-        <location filename="../main.cpp" line="308"/>
+        <location filename="../main.cpp" line="290"/>
+        <location filename="../main.cpp" line="296"/>
+        <location filename="../main.cpp" line="303"/>
+        <location filename="../main.cpp" line="309"/>
         <source>Thank you for running KLog!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3495,11 +3497,6 @@ The log will not be opened.</oldsource>
         <location filename="../setuppagemisc.cpp" line="263"/>
         <source>Open File</source>
         <translation>Obrir fitxer</translation>
-    </message>
-    <message>
-        <location filename="../setuppagemisc.cpp" line="263"/>
-        <source>ADIF (*.adi)</source>
-        <translation>ADIF (*.adi)</translation>
     </message>
 </context>
 <context>
