@@ -1,4 +1,5 @@
 #!/bin/sh
+SVN="../svn" 
 SOURCES="../klog"
 TARGET="../target"
 TRANSLATIONS="../klog/translations"

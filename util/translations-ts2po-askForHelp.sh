@@ -10,9 +10,12 @@ while true; do
  esac
 done
                   
-SOURCES="../klog"
+SVN="../svn" 
+SOURCES="../klog" 
+TARGET="../target"
 TRANSLATIONS="../klog/translations"
 POFILES="../po"
+
 lupdate -no-obsolete $SOURCES/klog.pro
 
 for file in $TRANSLATIONS/*.ts

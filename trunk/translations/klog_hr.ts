@@ -1554,10 +1554,6 @@ Do you want to save your changes?</source>
         <translation>Izv&amp;esti sve dnevnike u ADIF...</translation>
     </message>
     <message>
-        <source>ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)</source>
-        <translation type="vanished">ADIF datoteke (*.adi *.adif);;Cabrillo datoteke (*.log);;Bilo koja datoteka (*.*)</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="5264"/>
         <source>Name</source>
         <translation>Ime</translation>
@@ -2274,10 +2270,6 @@ Do you want to save your changes?</source>
         <location filename="../awards.cpp" line="760"/>
         <source>Not identified</source>
         <translation>Nije identificiran</translation>
-    </message>
-    <message>
-        <source>If you want to help to translate KLog into your language, please contact the author.&lt;/p&gt;</source>
-        <translation type="vanished">Želite li pomoći prevesti KLog na vaš jezik, molim kontaktirajte autora.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="276"/>
@@ -3507,10 +3499,6 @@ The log will not be opened.</oldsource>
         <location filename="../setuppagemisc.cpp" line="263"/>
         <source>Open File</source>
         <translation>Otvori datoteku</translation>
-    </message>
-    <message>
-        <source>ADIF (*.adi)</source>
-        <translation type="vanished">ADIF (*.adi)</translation>
     </message>
 </context>
 <context>

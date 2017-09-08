@@ -9,10 +9,14 @@ while true; do
     * ) echo "Please answer yes or no.";;
  esac
 done
-                  
+
+SVN="../svn"
 SOURCES="../klog"
+TARGET="../target"
 TRANSLATIONS="../klog/translations"
-POFILES="../po"
+POFILES="../svn/po"
+
+
 lupdate -no-obsolete $SOURCES/klog.pro
 
 for file in $TRANSLATIONS/*.ts
@@ -23,6 +27,7 @@ for file in $TRANSLATIONS/*.ts
   lconvert -if ts -of po -i $file -o ${NEWNAME%.ts}.po
   mv ${NEWNAME%.ts}.po $POFILES
  done
+
 mv $POFILES/klog_template.po $POFILES/klog.pot
 
 # Removing the actively TS maintained files:

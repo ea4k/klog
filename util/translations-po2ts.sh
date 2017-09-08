@@ -10,8 +10,9 @@ while true; do
     * ) echo "Please answer yes or no.";;
   esac
 done
-
-SOURCES="../klog"
+SVN="../svn" 
+SOURCES="../klog" 
+TARGET="../target"
 TRANSLATIONS="../klog/translations"
 POFILES="../po"
 

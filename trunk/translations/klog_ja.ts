@@ -1028,10 +1028,6 @@ Do you want to try again?</source>
         <translation>相手のQSLカードをまだ受領しておらずリクエストとマークしたQSOを検索(&amp;F)</translation>
     </message>
     <message>
-        <source>For updated DX-Entity data, update cty.csv</source>
-        <translation type="vanished">最新のDXエンティティ情報を取得するため、cty.csvファイルを更新します.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3739"/>
         <source>Congratulations!</source>
         <translation>おめでとうございます!</translation>
@@ -1474,10 +1470,6 @@ Do you want to save your changes?</source>
         <location filename="../mainwindow.cpp" line="3928"/>
         <source>Nothing has been saved. You have to select a valid file type.</source>
         <translation>保存は実行されません。適切なファイル形式を指定してください。</translation>
-    </message>
-    <message>
-        <source>ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)</source>
-        <translation type="vanished">ADIF ファイル (*.adi *.adif);;Cabrillo ファイル (*.log);;すべてのファイル (*.*)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4564"/>

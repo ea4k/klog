@@ -1,34 +1,33 @@
 #!/bin/sh
-SOURCES="../klog"
-TARGET="../svn"
+SVN="../svn" 
+SOURCES="../klog" 
+TARGET="../target"
 TRANSLATIONS="../klog/translations"
-POFILES="../po"
-
-mkdir -p $TARGET
-mkdir -p $TARGET/po
-mkdir -p $TARGET/src
+POFILES="../svn/po"
 
 echo "Preparing the sources to be sent to SVN..."
 
-rm -rf $TARGET/*
-mkdir -p $TARGET/po
-mkdir -p $TARGET/src
-cp -r $SOURCES/* ./$TARGET/src/
+rm -rf $SVN/*
+
+mkdir -p $SVN/src
+mkdir -p $SVN/po
+
+cp -r $SOURCES/* $SVN/src
 
 # Cleaning ...
 echo "Cleaning and preparing the sources to be packaged"
-rm -f $TARGET/src/klog.pro.user
-rm -f $TARGET/src/translations/klog_template*
-rm -f $TARGET/src/translations/*.qm
-rm -f $TARGET/src/*~
-rm -f $TARGET/src/translations/*~
+rm -f $SVN/src/klog.pro.user
+rm -f $SVN/src/translations/klog_template*
+rm -f $SVN/src/translations/*.qm
+rm -f $SVN/src/*~
+rm -f $SVN/src/translations/*~
 
 echo "Updating and releasing translation files"
-lupdate -no-obsolete $TARGET/klog.pro
+
+lupdate -no-obsolete $SVN/src/klog.pro
 
 ./translations-ts2po.sh
-cp $POFILES/*.po $TARGET/po/
-cp $POFILES/*.pot $TARGET/po/
 
-echo "Your sources are ready to be sent to SVN in the $TARGET folder"
+
+echo "Your sources are ready to be sent to SVN in the $SVN folder"
 
