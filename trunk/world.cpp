@@ -127,7 +127,7 @@ bool World::recreate(const QString _worldFile)
 
 bool World::create(const QString _worldFile)
 {
-    qDebug() << "World::create: " << _worldFile << endl;
+    //qDebug() << "World::create: " << _worldFile << endl;
     //klogDir = _worldFile;
     //qDebug() << "World::create: 2 " <<  klogDir << endl;
 
@@ -148,11 +148,11 @@ bool World::create(const QString _worldFile)
         //dataProxy->updateISONames();
         if (dataProxy->updateISONames())
         {
-            qDebug() << "World::create: updateISONames TRUE"  << endl;
+            //qDebug() << "World::create: updateISONames TRUE"  << endl;
         }
         else
         {
-            qDebug() << "World::create: updateISONames FALSE"  << endl;
+            //qDebug() << "World::create: updateISONames FALSE"  << endl;
         }
     }
 

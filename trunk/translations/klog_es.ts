@@ -1172,6 +1172,11 @@ Do you want to save your changes?</source>
         <translation>Buscar QSO a enviar &amp;QSL</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="3627"/>
+        <source>For updated DX-Entity data, update cty.csv.</source>
+        <translation>Para obtener datos actualizados de entidades DX, actualice el cty.csv.</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="3631"/>
         <source>&amp;Setup</source>
         <translation>&amp;Configurar</translation>
@@ -1403,14 +1408,6 @@ Do you want to save your changes?</source>
         <translation>DXCC</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5749"/>
-        <location filename="../mainwindow.cpp" line="5759"/>
-        <location filename="../mainwindow.cpp" line="5769"/>
-        <location filename="../mainwindow.cpp" line="5794"/>
-        <source>ADIF (*.adi *.adif)</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3553"/>
         <source>Export the current log to an ADIF logfile</source>
         <translation>Exportar el log actual a un fichero ADIF</translation>
@@ -1419,11 +1416,6 @@ Do you want to save your changes?</source>
         <location filename="../mainwindow.cpp" line="3555"/>
         <source>&amp;Export all logs to ADIF...</source>
         <translation>&amp;Exportar a ADIF todos los logs...</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3908"/>
-        <source>ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)</source>
-        <translation>Ficheros ADIF (*.adi *.adif);;Ficheros Cabrillo (*.log);;Cuaquier fichero (*.*)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3611"/>
@@ -1447,11 +1439,6 @@ Do you want to save your changes?</source>
         <translation>Act&amp;ualizar cty.csv</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3627"/>
-        <source>For updated DX-Entity data, update cty.csv</source>
-        <translation>Para obtener datos actualizados de entidades DX, actualice el cty.csv.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3739"/>
         <source>Congratulations!</source>
         <translation>¡Enhorabuena!</translation>
@@ -1460,6 +1447,21 @@ Do you want to save your changes?</source>
         <location filename="../mainwindow.cpp" line="3739"/>
         <source>You already have the latest version.</source>
         <translation>Ya cuenta con la última versión.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3908"/>
+        <source>ADIF file</source>
+        <translation>Ficheros ADIF</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3908"/>
+        <source>Cabrillo files</source>
+        <translation>Ficheros Cabrillo</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3908"/>
+        <source>Any file</source>
+        <translation>Cualquier fichero</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5175"/>
@@ -2270,40 +2272,40 @@ Do you want to save your changes?</source>
         <translation>No identificado</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="275"/>
+        <location filename="../main.cpp" line="276"/>
         <source>Install wizard was canceled before completing...</source>
         <translation>El asistente de instalación fué cancelado antes de terminar...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="276"/>
+        <location filename="../main.cpp" line="277"/>
         <source>Do you want to remove the KLog dir from your disk?</source>
         <translation>¿Quiere eliminar la carpeta de KLog de su disco?</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="289"/>
+        <location filename="../main.cpp" line="290"/>
         <source>Your KLog dir has been removed</source>
         <translation>Su directorio de KLog ha sido eliminado</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="295"/>
+        <location filename="../main.cpp" line="296"/>
         <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.</source>
         <translation>No se pudo eliminar su directorio de KLog. Debería eliminarlo manualmente si no lo quiere en su disco duro.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="302"/>
+        <location filename="../main.cpp" line="303"/>
         <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.</source>
         <translation>No se pudo eliminar su directorio de KLog. Debería eliminarlo manualmente si no lo quiere en su disco duro.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="308"/>
+        <location filename="../main.cpp" line="309"/>
         <source>Remember that your KLog dir is on your system...</source>
         <translation>Recuerde que la carpeta de KLog está en su sistema...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="289"/>
-        <location filename="../main.cpp" line="295"/>
-        <location filename="../main.cpp" line="302"/>
-        <location filename="../main.cpp" line="308"/>
+        <location filename="../main.cpp" line="290"/>
+        <location filename="../main.cpp" line="296"/>
+        <location filename="../main.cpp" line="303"/>
+        <location filename="../main.cpp" line="309"/>
         <source>Thank you for running KLog!</source>
         <translation>¡Gracias por usar KLog!</translation>
     </message>
@@ -3048,7 +3050,7 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
     <message>
         <location filename="../setuppagelogs.cpp" line="318"/>
         <source>Type</source>
-        <translation></translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="../setuppagelogs.cpp" line="69"/>
@@ -3496,11 +3498,6 @@ The log will not be opened.</oldsource>
         <location filename="../setuppagemisc.cpp" line="263"/>
         <source>Open File</source>
         <translation>Abrir fichero</translation>
-    </message>
-    <message>
-        <location filename="../setuppagemisc.cpp" line="263"/>
-        <source>ADIF (*.adi)</source>
-        <translation>ADIF (*.adi)</translation>
     </message>
 </context>
 <context>

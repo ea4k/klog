@@ -1004,12 +1004,12 @@ msgstr "送信RST"
 #: ../mainwindow.cpp:925 ../mainwindow.cpp:1640
 msgctxt "MainWindow|"
 msgid "You have selected an entity:"
-msgstr ""
+msgstr "次のエンティティが指定されています:"
 
 #: ../mainwindow.cpp:925 ../mainwindow.cpp:1640
 msgctxt "MainWindow|"
 msgid "that is different from the KLog proposed entity:"
-msgstr ""
+msgstr "しかし、これは KLog が推定したエンティティと異なります:"
 
 #: ../mainwindow.cpp:2327 ../mainwindow.cpp:6688
 msgctxt "MainWindow|"
@@ -1035,11 +1035,6 @@ msgctxt "MainWindow|"
 msgid "&Find requested pending to receive"
 msgstr "相手のQSLカードをまだ受領しておらずリクエストとマークしたQSOを検索(&F)"
 
-#: ../mainwindow.cpp:3627
-msgctxt "MainWindow|"
-msgid "For updated DX-Entity data, update cty.csv"
-msgstr "最新のDXエンティティ情報を取得するため、cty.csvファイルを更新します."
-
 #: ../mainwindow.cpp:3739
 msgctxt "MainWindow|"
 msgid "Congratulations!"
@@ -1049,6 +1044,21 @@ msgstr "おめでとうございます!"
 msgctxt "MainWindow|"
 msgid "You already have the latest version."
 msgstr "最新のバージョンを入手しました."
+
+#: ../mainwindow.cpp:3908
+msgctxt "MainWindow|"
+msgid "ADIF file"
+msgstr ""
+
+#: ../mainwindow.cpp:3908
+msgctxt "MainWindow|"
+msgid "Cabrillo files"
+msgstr ""
+
+#: ../mainwindow.cpp:3908
+msgctxt "MainWindow|"
+msgid "Any file"
+msgstr ""
 
 #: ../mainwindow.cpp:5175
 msgctxt "MainWindow|"
@@ -1310,12 +1320,6 @@ msgctxt "MainWindow|"
 msgid "Save File"
 msgstr "ファイルに保存"
 
-#: ../mainwindow.cpp:5749 ../mainwindow.cpp:5759 ../mainwindow.cpp:5769
-#: ../mainwindow.cpp:5794
-msgctxt "MainWindow|"
-msgid "ADIF (*.adi *.adif)"
-msgstr ""
-
 #: ../mainwindow.cpp:3495
 msgctxt "MainWindow|"
 msgid ""
@@ -1475,11 +1479,6 @@ msgctxt "MainWindow|"
 msgid "Nothing has been saved. You have to select a valid file type."
 msgstr "保存は実行されません。適切なファイル形式を指定してください。"
 
-#: ../mainwindow.cpp:3908
-msgctxt "MainWindow|"
-msgid "ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)"
-msgstr "ADIF ファイル (*.adi *.adif);;Cabrillo ファイル (*.log);;すべてのファイル (*.*)"
-
 #: ../mainwindow.cpp:4564 ../mainwindow.cpp:4574
 msgctxt "MainWindow|"
 msgid "DUPE"
@@ -1551,6 +1550,11 @@ msgctxt "MainWindow|"
 msgid "&Update cty.csv"
 msgstr "cty.csv を更新(&U)"
 
+#: ../mainwindow.cpp:3627
+msgctxt "MainWindow|"
+msgid "For updated DX-Entity data, update cty.csv."
+msgstr ""
+
 #: ../mainwindow.cpp:3641
 msgctxt "MainWindow|"
 msgid "Check updates..."
@@ -1559,7 +1563,7 @@ msgstr "更新のチェック..."
 #: ../mainwindow.cpp:5232
 msgctxt "MainWindow|"
 msgid "Number of QSOs worked on the selected year."
-msgstr ""
+msgstr "選択した年の交信数"
 
 #: ../mainwindow.cpp:5274
 msgctxt "MainWindow|"
@@ -1897,12 +1901,12 @@ msgstr "このQSO相手局のIOTAリファレンス番号を選択してくだ�
 #: ../mainwindowinputothers.cpp:107 ../mainwindowinputothers.cpp:149
 msgctxt "MainWindowInputOthers|"
 msgid "Not Identified"
-msgstr ""
+msgstr "不明"
 
 #: ../mainwindowinputothers.cpp:113
 msgctxt "MainWindowInputOthers|"
 msgid "Not - Not Identified"
-msgstr ""
+msgstr "Not - 不明"
 
 #: ../mainwindowinputqsl.cpp:69
 msgctxt "MainWindowInputQSL|"
@@ -2244,41 +2248,41 @@ msgctxt "QObject|"
 msgid "Not identified"
 msgstr "不明"
 
-#: ../main.cpp:275
+#: ../main.cpp:276
 msgctxt "QObject|"
 msgid "Install wizard was canceled before completing..."
 msgstr "インストールウィザードは操作完了前に中断されました..."
 
-#: ../main.cpp:276
+#: ../main.cpp:277
 msgctxt "QObject|"
 msgid "Do you want to remove the KLog dir from your disk?"
 msgstr "KLog ディレクトリーをディスクドライブから削除しますか?"
 
-#: ../main.cpp:289
+#: ../main.cpp:290
 msgctxt "QObject|"
 msgid "Your KLog dir has been removed"
-msgstr ""
+msgstr "KLog ディレクトリは削除されました"
 
-#: ../main.cpp:295
+#: ../main.cpp:296
 msgctxt "QObject|"
 msgid ""
 "I could not remove your KLog dir. You should do it manually if you want it "
 "removed from your hard disk."
-msgstr ""
+msgstr "KLog ディレクトリーが削除できませんでした. ハードディスクから削除したい場合は手動で削除してください."
 
-#: ../main.cpp:302
+#: ../main.cpp:303
 msgctxt "QObject|"
 msgid ""
 "Your KLog dir could not be removed. You should do it manually if you want it "
 "removed from your hard disk."
-msgstr ""
+msgstr "KLog ディレクトリーが削除できませんでした. ハードディスクから削除したい場合は手動で削除してください."
 
-#: ../main.cpp:308
+#: ../main.cpp:309
 msgctxt "QObject|"
 msgid "Remember that your KLog dir is on your system..."
 msgstr "KLog ディレクトリーはシステム中に残ったままです..."
 
-#: ../main.cpp:289 ../main.cpp:295 ../main.cpp:302 ../main.cpp:308
+#: ../main.cpp:290 ../main.cpp:296 ../main.cpp:303 ../main.cpp:309
 msgctxt "QObject|"
 msgid "Thank you for running KLog!"
 msgstr "KLogを使用してくださりありがとうございます!"
@@ -3426,11 +3430,6 @@ msgstr "参照"
 msgctxt "SetupPageMisc|"
 msgid "Open File"
 msgstr "ファイルを開く"
-
-#: ../setuppagemisc.cpp:263
-msgctxt "SetupPageMisc|"
-msgid "ADIF (*.adi)"
-msgstr ""
 
 #: ../setuppageuserdata.cpp:38
 #| msgid "Personal data"

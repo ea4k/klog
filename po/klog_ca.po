@@ -1015,6 +1015,26 @@ msgctxt "MainWindow|"
 msgid "that is different from the KLog proposed entity:"
 msgstr ""
 
+#: ../mainwindow.cpp:3627
+msgctxt "MainWindow|"
+msgid "For updated DX-Entity data, update cty.csv."
+msgstr ""
+
+#: ../mainwindow.cpp:3908
+msgctxt "MainWindow|"
+msgid "ADIF file"
+msgstr ""
+
+#: ../mainwindow.cpp:3908
+msgctxt "MainWindow|"
+msgid "Cabrillo files"
+msgstr ""
+
+#: ../mainwindow.cpp:3908
+msgctxt "MainWindow|"
+msgid "Any file"
+msgstr ""
+
 #: ../mainwindow.cpp:5175
 msgctxt "MainWindow|"
 msgid "TX Frequency in MHz."
@@ -1619,12 +1639,6 @@ msgctxt "MainWindow|"
 msgid "DXCC"
 msgstr "DXCC"
 
-#: ../mainwindow.cpp:5749 ../mainwindow.cpp:5759 ../mainwindow.cpp:5769
-#: ../mainwindow.cpp:5794
-msgctxt "MainWindow|"
-msgid "ADIF (*.adi *.adif)"
-msgstr "ADIF (*.adi *.adif)"
-
 #: ../mainwindow.cpp:3553
 msgctxt "MainWindow|"
 msgid "Export the current log to an ADIF logfile"
@@ -1634,12 +1648,6 @@ msgstr "Exportar el log actual a un fitxer ADIF"
 msgctxt "MainWindow|"
 msgid "&Export all logs to ADIF..."
 msgstr "&Exportar a ADIF tots els logs..."
-
-#: ../mainwindow.cpp:3908
-msgctxt "MainWindow|"
-msgid "ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)"
-msgstr ""
-"Fitxers ADIF (*.adi *.adif);;Fitxers Cabrillo (*.log);;Qualsevol fitxer (*.*)"
 
 #: ../mainwindow.cpp:5572
 msgctxt "MainWindow|"
@@ -1770,11 +1778,6 @@ msgstr ""
 #: ../mainwindow.cpp:3623
 msgctxt "MainWindow|"
 msgid "&Update cty.csv"
-msgstr ""
-
-#: ../mainwindow.cpp:3627
-msgctxt "MainWindow|"
-msgid "For updated DX-Entity data, update cty.csv"
 msgstr ""
 
 #: ../mainwindow.cpp:3739
@@ -2322,41 +2325,41 @@ msgctxt "QObject|"
 msgid "Not identified"
 msgstr "No identificat"
 
-#: ../main.cpp:275
+#: ../main.cpp:276
 msgctxt "QObject|"
 msgid "Install wizard was canceled before completing..."
 msgstr ""
 
-#: ../main.cpp:276
+#: ../main.cpp:277
 msgctxt "QObject|"
 msgid "Do you want to remove the KLog dir from your disk?"
 msgstr ""
 
-#: ../main.cpp:289
+#: ../main.cpp:290
 msgctxt "QObject|"
 msgid "Your KLog dir has been removed"
 msgstr ""
 
-#: ../main.cpp:295
+#: ../main.cpp:296
 msgctxt "QObject|"
 msgid ""
 "I could not remove your KLog dir. You should do it manually if you want it "
 "removed from your hard disk."
 msgstr ""
 
-#: ../main.cpp:302
+#: ../main.cpp:303
 msgctxt "QObject|"
 msgid ""
 "Your KLog dir could not be removed. You should do it manually if you want it "
 "removed from your hard disk."
 msgstr ""
 
-#: ../main.cpp:308
+#: ../main.cpp:309
 msgctxt "QObject|"
 msgid "Remember that your KLog dir is on your system..."
 msgstr ""
 
-#: ../main.cpp:289 ../main.cpp:295 ../main.cpp:302 ../main.cpp:308
+#: ../main.cpp:290 ../main.cpp:296 ../main.cpp:303 ../main.cpp:309
 msgctxt "QObject|"
 msgid "Thank you for running KLog!"
 msgstr ""
@@ -3563,11 +3566,6 @@ msgstr ""
 msgctxt "SetupPageMisc|"
 msgid "Open File"
 msgstr "Obrir fitxer"
-
-#: ../setuppagemisc.cpp:263
-msgctxt "SetupPageMisc|"
-msgid "ADIF (*.adi)"
-msgstr "ADIF (*.adi)"
 
 #: ../setuppageuserdata.cpp:38
 #| msgid "Personal data"

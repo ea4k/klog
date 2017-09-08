@@ -1218,6 +1218,11 @@ msgctxt "MainWindow|"
 msgid "&Find QSO to QSL"
 msgstr "Buscar QSO a enviar &QSL"
 
+#: ../mainwindow.cpp:3627
+msgctxt "MainWindow|"
+msgid "For updated DX-Entity data, update cty.csv."
+msgstr "Para obtener datos actualizados de entidades DX, actualice el cty.csv."
+
 #: ../mainwindow.cpp:3631
 msgctxt "MainWindow|"
 msgid "&Setup"
@@ -1458,12 +1463,6 @@ msgctxt "MainWindow|"
 msgid "DXCC"
 msgstr "DXCC"
 
-#: ../mainwindow.cpp:5749 ../mainwindow.cpp:5759 ../mainwindow.cpp:5769
-#: ../mainwindow.cpp:5794
-msgctxt "MainWindow|"
-msgid "ADIF (*.adi *.adif)"
-msgstr ""
-
 #: ../mainwindow.cpp:3553
 msgctxt "MainWindow|"
 msgid "Export the current log to an ADIF logfile"
@@ -1473,13 +1472,6 @@ msgstr "Exportar el log actual a un fichero ADIF"
 msgctxt "MainWindow|"
 msgid "&Export all logs to ADIF..."
 msgstr "&Exportar a ADIF todos los logs..."
-
-#: ../mainwindow.cpp:3908
-msgctxt "MainWindow|"
-msgid "ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)"
-msgstr ""
-"Ficheros ADIF (*.adi *.adif);;Ficheros Cabrillo (*.log);;Cuaquier fichero "
-"(*.*)"
 
 #: ../mainwindow.cpp:3611
 msgctxt "MainWindow|"
@@ -1501,11 +1493,6 @@ msgctxt "MainWindow|"
 msgid "&Update cty.csv"
 msgstr "Act&ualizar cty.csv"
 
-#: ../mainwindow.cpp:3627
-msgctxt "MainWindow|"
-msgid "For updated DX-Entity data, update cty.csv"
-msgstr "Para obtener datos actualizados de entidades DX, actualice el cty.csv."
-
 #: ../mainwindow.cpp:3739
 msgctxt "MainWindow|"
 msgid "Congratulations!"
@@ -1515,6 +1502,21 @@ msgstr "¡Enhorabuena!"
 msgctxt "MainWindow|"
 msgid "You already have the latest version."
 msgstr "Ya cuenta con la última versión."
+
+#: ../mainwindow.cpp:3908
+msgctxt "MainWindow|"
+msgid "ADIF file"
+msgstr "Ficheros ADIF"
+
+#: ../mainwindow.cpp:3908
+msgctxt "MainWindow|"
+msgid "Cabrillo files"
+msgstr "Ficheros Cabrillo"
+
+#: ../mainwindow.cpp:3908
+msgctxt "MainWindow|"
+msgid "Any file"
+msgstr "Cualquier fichero"
 
 #: ../mainwindow.cpp:5175
 msgctxt "MainWindow|"
@@ -2305,22 +2307,22 @@ msgctxt "QObject|"
 msgid "Not identified"
 msgstr "No identificado"
 
-#: ../main.cpp:275
+#: ../main.cpp:276
 msgctxt "QObject|"
 msgid "Install wizard was canceled before completing..."
 msgstr "El asistente de instalación fué cancelado antes de terminar..."
 
-#: ../main.cpp:276
+#: ../main.cpp:277
 msgctxt "QObject|"
 msgid "Do you want to remove the KLog dir from your disk?"
 msgstr "¿Quiere eliminar la carpeta de KLog de su disco?"
 
-#: ../main.cpp:289
+#: ../main.cpp:290
 msgctxt "QObject|"
 msgid "Your KLog dir has been removed"
 msgstr "Su directorio de KLog ha sido eliminado"
 
-#: ../main.cpp:295
+#: ../main.cpp:296
 msgctxt "QObject|"
 msgid ""
 "I could not remove your KLog dir. You should do it manually if you want it "
@@ -2329,7 +2331,7 @@ msgstr ""
 "No se pudo eliminar su directorio de KLog. Debería eliminarlo manualmente si "
 "no lo quiere en su disco duro."
 
-#: ../main.cpp:302
+#: ../main.cpp:303
 msgctxt "QObject|"
 msgid ""
 "Your KLog dir could not be removed. You should do it manually if you want it "
@@ -2338,12 +2340,12 @@ msgstr ""
 "No se pudo eliminar su directorio de KLog. Debería eliminarlo manualmente si "
 "no lo quiere en su disco duro."
 
-#: ../main.cpp:308
+#: ../main.cpp:309
 msgctxt "QObject|"
 msgid "Remember that your KLog dir is on your system..."
 msgstr "Recuerde que la carpeta de KLog está en su sistema..."
 
-#: ../main.cpp:289 ../main.cpp:295 ../main.cpp:302 ../main.cpp:308
+#: ../main.cpp:290 ../main.cpp:296 ../main.cpp:303 ../main.cpp:309
 msgctxt "QObject|"
 msgid "Thank you for running KLog!"
 msgstr "¡Gracias por usar KLog!"
@@ -3046,7 +3048,7 @@ msgstr ""
 #: ../setuppagelogs.cpp:318
 msgctxt "SetupPageLogs|"
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: ../setuppagelogs.cpp:69
 #| msgid "New"
@@ -3524,11 +3526,6 @@ msgstr "Buscar"
 msgctxt "SetupPageMisc|"
 msgid "Open File"
 msgstr "Abrir fichero"
-
-#: ../setuppagemisc.cpp:263
-msgctxt "SetupPageMisc|"
-msgid "ADIF (*.adi)"
-msgstr "ADIF (*.adi)"
 
 #: ../setuppageuserdata.cpp:38
 #| msgid "Personal data"

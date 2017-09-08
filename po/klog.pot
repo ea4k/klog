@@ -1130,6 +1130,11 @@ msgctxt "MainWindow|"
 msgid "Shows the DX-QSL that has been requested"
 msgstr ""
 
+#: ../mainwindow.cpp:3627
+msgctxt "MainWindow|"
+msgid "For updated DX-Entity data, update cty.csv."
+msgstr ""
+
 #: ../mainwindow.cpp:3631
 msgctxt "MainWindow|"
 msgid "&Setup"
@@ -1188,11 +1193,6 @@ msgstr ""
 #: ../mainwindow.cpp:3906
 msgctxt "MainWindow|"
 msgid "Save File"
-msgstr ""
-
-#: ../mainwindow.cpp:3908
-msgctxt "MainWindow|"
-msgid "ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)"
 msgstr ""
 
 #: ../mainwindow.cpp:3985
@@ -1405,9 +1405,19 @@ msgctxt "MainWindow|"
 msgid "&Find requested pending to receive"
 msgstr ""
 
-#: ../mainwindow.cpp:3627
+#: ../mainwindow.cpp:3908
 msgctxt "MainWindow|"
-msgid "For updated DX-Entity data, update cty.csv"
+msgid "ADIF file"
+msgstr ""
+
+#: ../mainwindow.cpp:3908
+msgctxt "MainWindow|"
+msgid "Cabrillo files"
+msgstr ""
+
+#: ../mainwindow.cpp:3908
+msgctxt "MainWindow|"
+msgid "Any file"
 msgstr ""
 
 #: ../mainwindow.cpp:5264
@@ -1619,12 +1629,6 @@ msgstr ""
 #: ../mainwindow.cpp:5747 ../mainwindow.cpp:5757 ../mainwindow.cpp:5767
 msgctxt "MainWindow|"
 msgid "Save ADIF File"
-msgstr ""
-
-#: ../mainwindow.cpp:5749 ../mainwindow.cpp:5759 ../mainwindow.cpp:5769
-#: ../mainwindow.cpp:5794
-msgctxt "MainWindow|"
-msgid "ADIF (*.adi *.adif)"
 msgstr ""
 
 #: ../mainwindow.cpp:5780
@@ -2204,41 +2208,41 @@ msgctxt "QObject|"
 msgid "Updating mode information in %1 status..."
 msgstr ""
 
-#: ../main.cpp:275
+#: ../main.cpp:276
 msgctxt "QObject|"
 msgid "Install wizard was canceled before completing..."
 msgstr ""
 
-#: ../main.cpp:276
+#: ../main.cpp:277
 msgctxt "QObject|"
 msgid "Do you want to remove the KLog dir from your disk?"
 msgstr ""
 
-#: ../main.cpp:289
+#: ../main.cpp:290
 msgctxt "QObject|"
 msgid "Your KLog dir has been removed"
 msgstr ""
 
-#: ../main.cpp:295
+#: ../main.cpp:296
 msgctxt "QObject|"
 msgid ""
 "I could not remove your KLog dir. You should do it manually if you want it "
 "removed from your hard disk."
 msgstr ""
 
-#: ../main.cpp:302
+#: ../main.cpp:303
 msgctxt "QObject|"
 msgid ""
 "Your KLog dir could not be removed. You should do it manually if you want it "
 "removed from your hard disk."
 msgstr ""
 
-#: ../main.cpp:308
+#: ../main.cpp:309
 msgctxt "QObject|"
 msgid "Remember that your KLog dir is on your system..."
 msgstr ""
 
-#: ../main.cpp:289 ../main.cpp:295 ../main.cpp:302 ../main.cpp:308
+#: ../main.cpp:290 ../main.cpp:296 ../main.cpp:303 ../main.cpp:309
 msgctxt "QObject|"
 msgid "Thank you for running KLog!"
 msgstr ""
@@ -3334,11 +3338,6 @@ msgstr ""
 #: ../setuppagemisc.cpp:263
 msgctxt "SetupPageMisc|"
 msgid "Open File"
-msgstr ""
-
-#: ../setuppagemisc.cpp:263
-msgctxt "SetupPageMisc|"
-msgid "ADIF (*.adi)"
 msgstr ""
 
 #: ../setuppagemisc.cpp:562

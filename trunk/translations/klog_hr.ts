@@ -958,6 +958,26 @@ Do you want to try again?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="3627"/>
+        <source>For updated DX-Entity data, update cty.csv.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3908"/>
+        <source>ADIF file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3908"/>
+        <source>Cabrillo files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3908"/>
+        <source>Any file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="5175"/>
         <source>TX Frequency in MHz.</source>
         <translation type="unfinished"></translation>
@@ -1466,11 +1486,6 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3627"/>
-        <source>For updated DX-Entity data, update cty.csv</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3641"/>
         <source>Check updates...</source>
         <translation type="unfinished"></translation>
@@ -1529,14 +1544,6 @@ Do you want to save your changes?</source>
         <translation>DXCC</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5749"/>
-        <location filename="../mainwindow.cpp" line="5759"/>
-        <location filename="../mainwindow.cpp" line="5769"/>
-        <location filename="../mainwindow.cpp" line="5794"/>
-        <source>ADIF (*.adi *.adif)</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3553"/>
         <source>Export the current log to an ADIF logfile</source>
         <translation>Izvesti trenutni dnevnik u ADIF</translation>
@@ -1547,11 +1554,6 @@ Do you want to save your changes?</source>
         <translation>Izv&amp;esti sve dnevnike u ADIF...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3908"/>
-        <source>ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)</source>
-        <translation>ADIF datoteke (*.adi *.adif);;Cabrillo datoteke (*.log);;Bilo koja datoteka (*.*)</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="5264"/>
         <source>Name</source>
         <translation>Ime</translation>
@@ -1559,7 +1561,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="5268"/>
         <source>QTH</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5271"/>
@@ -2270,40 +2272,40 @@ Do you want to save your changes?</source>
         <translation>Nije identificiran</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="275"/>
+        <location filename="../main.cpp" line="276"/>
         <source>Install wizard was canceled before completing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="276"/>
+        <location filename="../main.cpp" line="277"/>
         <source>Do you want to remove the KLog dir from your disk?</source>
         <translation>Želite li izbrisati KLog mapu s vašeg diska?</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="289"/>
+        <location filename="../main.cpp" line="290"/>
         <source>Your KLog dir has been removed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="295"/>
+        <location filename="../main.cpp" line="296"/>
         <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="302"/>
+        <location filename="../main.cpp" line="303"/>
         <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="308"/>
+        <location filename="../main.cpp" line="309"/>
         <source>Remember that your KLog dir is on your system...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="289"/>
-        <location filename="../main.cpp" line="295"/>
-        <location filename="../main.cpp" line="302"/>
-        <location filename="../main.cpp" line="308"/>
+        <location filename="../main.cpp" line="290"/>
+        <location filename="../main.cpp" line="296"/>
+        <location filename="../main.cpp" line="303"/>
+        <location filename="../main.cpp" line="309"/>
         <source>Thank you for running KLog!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3464,7 +3466,8 @@ The log will not be opened.</oldsource>
     <message>
         <location filename="../setuppagemisc.cpp" line="114"/>
         <source>Check it for Imperial system (Miles instead of Kilometres).</source>
-        <translatorcomment>Označiti za Imperijalni sustav (milje umjesto kilometara)</translatorcomment>
+        <translatorcomment>Označiti za Imperijalni sustav (milje umjesto kilometara)
+</translatorcomment>
         <translation>Marcar si quiere usar sistema imperial (Millas en vez de Kilómetros).</translation>
     </message>
     <message>
@@ -3497,11 +3500,6 @@ The log will not be opened.</oldsource>
         <location filename="../setuppagemisc.cpp" line="263"/>
         <source>Open File</source>
         <translation>Otvori datoteku</translation>
-    </message>
-    <message>
-        <location filename="../setuppagemisc.cpp" line="263"/>
-        <source>ADIF (*.adi)</source>
-        <translation>ADIF (*.adi)</translation>
     </message>
 </context>
 <context>
@@ -3968,7 +3966,8 @@ The log will not be opened.</oldsource>
     <message>
         <location filename="../elogclublog.cpp" line="434"/>
         <source>Rejected</source>
-        <translatorcomment>I am not sure about the context, this is the masculine version of &quot;rejected&quot;</translatorcomment>
+        <translatorcomment>I am not sure about the context, this is the masculine version of &quot;rejected&quot;
+</translatorcomment>
         <translation>Odbačen</translation>
     </message>
     <message>
