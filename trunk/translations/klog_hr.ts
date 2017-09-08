@@ -1554,6 +1554,10 @@ Do you want to save your changes?</source>
         <translation>Izv&amp;esti sve dnevnike u ADIF...</translation>
     </message>
     <message>
+        <source>ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)</source>
+        <translation type="vanished">ADIF datoteke (*.adi *.adif);;Cabrillo datoteke (*.log);;Bilo koja datoteka (*.*)</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="5264"/>
         <source>Name</source>
         <translation>Ime</translation>
@@ -1561,7 +1565,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="5268"/>
         <source>QTH</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5271"/>
@@ -2270,6 +2274,10 @@ Do you want to save your changes?</source>
         <location filename="../awards.cpp" line="760"/>
         <source>Not identified</source>
         <translation>Nije identificiran</translation>
+    </message>
+    <message>
+        <source>If you want to help to translate KLog into your language, please contact the author.&lt;/p&gt;</source>
+        <translation type="vanished">Želite li pomoći prevesti KLog na vaš jezik, molim kontaktirajte autora.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="276"/>
@@ -3466,8 +3474,7 @@ The log will not be opened.</oldsource>
     <message>
         <location filename="../setuppagemisc.cpp" line="114"/>
         <source>Check it for Imperial system (Miles instead of Kilometres).</source>
-        <translatorcomment>Označiti za Imperijalni sustav (milje umjesto kilometara)
-</translatorcomment>
+        <translatorcomment>Označiti za Imperijalni sustav (milje umjesto kilometara)</translatorcomment>
         <translation>Marcar si quiere usar sistema imperial (Millas en vez de Kilómetros).</translation>
     </message>
     <message>
@@ -3500,6 +3507,10 @@ The log will not be opened.</oldsource>
         <location filename="../setuppagemisc.cpp" line="263"/>
         <source>Open File</source>
         <translation>Otvori datoteku</translation>
+    </message>
+    <message>
+        <source>ADIF (*.adi)</source>
+        <translation type="vanished">ADIF (*.adi)</translation>
     </message>
 </context>
 <context>
@@ -3966,8 +3977,7 @@ The log will not be opened.</oldsource>
     <message>
         <location filename="../elogclublog.cpp" line="434"/>
         <source>Rejected</source>
-        <translatorcomment>I am not sure about the context, this is the masculine version of &quot;rejected&quot;
-</translatorcomment>
+        <translatorcomment>I am not sure about the context, this is the masculine version of &quot;rejected&quot;</translatorcomment>
         <translation>Odbačen</translation>
     </message>
     <message>

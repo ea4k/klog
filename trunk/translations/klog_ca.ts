@@ -1584,6 +1584,10 @@ Vol guardar els canvis?</translation>
         <translation>DXCC</translation>
     </message>
     <message>
+        <source>ADIF (*.adi *.adif)</source>
+        <translation type="vanished">ADIF (*.adi *.adif)</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="3553"/>
         <source>Export the current log to an ADIF logfile</source>
         <translation>Exportar el log actual a un fitxer ADIF</translation>
@@ -1592,6 +1596,10 @@ Vol guardar els canvis?</translation>
         <location filename="../mainwindow.cpp" line="3555"/>
         <source>&amp;Export all logs to ADIF...</source>
         <translation>&amp;Exportar a ADIF tots els logs...</translation>
+    </message>
+    <message>
+        <source>ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)</source>
+        <translation type="vanished">Fitxers ADIF (*.adi *.adif);;Fitxers Cabrillo (*.log);;Qualsevol fitxer (*.*)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5572"/>
@@ -3497,6 +3505,10 @@ The log will not be opened.</oldsource>
         <location filename="../setuppagemisc.cpp" line="263"/>
         <source>Open File</source>
         <translation>Obrir fitxer</translation>
+    </message>
+    <message>
+        <source>ADIF (*.adi)</source>
+        <translation type="vanished">ADIF (*.adi)</translation>
     </message>
 </context>
 <context>
