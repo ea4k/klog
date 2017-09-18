@@ -2201,7 +2201,7 @@ msgctxt "QObject|"
 msgid "Not identified"
 msgstr "Non identificato"
 
-#: ../database.cpp:71 ../database.cpp:127 ../database.cpp:2089
+#: ../database.cpp:71 ../database.cpp:127 ../database.cpp:2112
 msgctxt "QObject|"
 msgid "Database Error"
 msgstr "Errore nel database"
@@ -2244,13 +2244,13 @@ msgstr ""
 "Tutti i dati sono stati copiati correttamente. Adesso dovresti andare su "
 "Configurazione > Preferenze >Logs per controllare che sia tutto OK."
 
-#: ../database.cpp:2825 ../database.cpp:2990
+#: ../database.cpp:2850 ../database.cpp:3015
 msgctxt "QObject|"
 msgid "QSO: "
 msgstr "QSO: "
 
-#: ../database.cpp:2895 ../database.cpp:3061 ../database.cpp:3254
-#: ../database.cpp:3453
+#: ../database.cpp:2920 ../database.cpp:3086 ../database.cpp:3279
+#: ../database.cpp:3478
 msgctxt "QObject|"
 msgid ""
 "Canceling this update will cause data inconsistencies and possibly data "
@@ -2259,12 +2259,12 @@ msgstr ""
 "Annullare questo aggiornamento può causare inconsistenza dei dati caricati e "
 "perdite di dati. Ancora vuoi effettuare l'annullamento?"
 
-#: ../database.cpp:3184 ../database.cpp:3375
+#: ../database.cpp:3209 ../database.cpp:3400
 msgctxt "QObject|"
 msgid "Progress: "
 msgstr "Progresso: "
 
-#: ../database.cpp:2806 ../database.cpp:2825
+#: ../database.cpp:2831 ../database.cpp:2850
 msgctxt "QObject|"
 msgid "Updating mode information..."
 msgstr "Aggiornamento informazioni modi..."
@@ -2279,25 +2279,25 @@ msgctxt "QObject|"
 msgid "If DB is not upgraded KLog may not work properly."
 msgstr "Se il DB non è aggiornato KLog potrebbe non funzionare correttamente."
 
-#: ../database.cpp:2806 ../database.cpp:2972 ../database.cpp:3163
-#: ../database.cpp:3353
+#: ../database.cpp:2831 ../database.cpp:2997 ../database.cpp:3188
+#: ../database.cpp:3378
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "Annulla aggiornamento"
 
-#: ../database.cpp:2972 ../database.cpp:2990 ../database.cpp:3184
-#: ../database.cpp:3375
+#: ../database.cpp:2997 ../database.cpp:3015 ../database.cpp:3209
+#: ../database.cpp:3400
 msgctxt "QObject|"
 msgid "Updating bands information..."
 msgstr "Aggiornamento informazione bande..."
 
-#: ../database.cpp:3161
+#: ../database.cpp:3186
 #, qt-format
 msgctxt "QObject|"
 msgid "Updating bands information in %1 status..."
 msgstr "Aggiornamento informazione bande %1 stato..."
 
-#: ../database.cpp:3351
+#: ../database.cpp:3376
 #, qt-format
 msgctxt "QObject|"
 msgid "Updating mode information in %1 status..."

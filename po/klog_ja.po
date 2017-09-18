@@ -2126,7 +2126,7 @@ msgctxt "MainWindowSatTab|"
 msgid "The satellite you have in your QSO is: "
 msgstr "QSO情報に記録された衛星の名称は以下のものです: "
 
-#: ../database.cpp:71 ../database.cpp:127 ../database.cpp:2089
+#: ../database.cpp:71 ../database.cpp:127 ../database.cpp:2112
 msgctxt "QObject|"
 msgid "Database Error"
 msgstr "データベース　エラー"
@@ -2175,48 +2175,48 @@ msgid ""
 "Setup->Preferences->Logs to check that everything is OK."
 msgstr "すべてのデータが正しく移行できました. メニューのSetup->Preferences->Logsから、問題ないことを確認してください."
 
-#: ../database.cpp:2825 ../database.cpp:2990
+#: ../database.cpp:2850 ../database.cpp:3015
 msgctxt "QObject|"
 msgid "QSO: "
 msgstr ""
 
-#: ../database.cpp:2895 ../database.cpp:3061 ../database.cpp:3254
-#: ../database.cpp:3453
+#: ../database.cpp:2920 ../database.cpp:3086 ../database.cpp:3279
+#: ../database.cpp:3478
 msgctxt "QObject|"
 msgid ""
 "Canceling this update will cause data inconsistencies and possibly data "
 "loss. Do you still want to cancel?"
 msgstr "更新を中止するとデータに矛盾が生じたり、データが失われる可能性があります. 　更新を中止しますか？"
 
-#: ../database.cpp:3184 ../database.cpp:3375
+#: ../database.cpp:3209 ../database.cpp:3400
 msgctxt "QObject|"
 msgid "Progress: "
 msgstr "進捗状況: "
 
-#: ../database.cpp:2806 ../database.cpp:2825
+#: ../database.cpp:2831 ../database.cpp:2850
 msgctxt "QObject|"
 msgid "Updating mode information..."
 msgstr "モードの情報を更新しています..."
 
-#: ../database.cpp:2806 ../database.cpp:2972 ../database.cpp:3163
-#: ../database.cpp:3353
+#: ../database.cpp:2831 ../database.cpp:2997 ../database.cpp:3188
+#: ../database.cpp:3378
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "更新の中止"
 
-#: ../database.cpp:2972 ../database.cpp:2990 ../database.cpp:3184
-#: ../database.cpp:3375
+#: ../database.cpp:2997 ../database.cpp:3015 ../database.cpp:3209
+#: ../database.cpp:3400
 msgctxt "QObject|"
 msgid "Updating bands information..."
 msgstr "バンドの情報を更新しています..."
 
-#: ../database.cpp:3161
+#: ../database.cpp:3186
 #, qt-format
 msgctxt "QObject|"
 msgid "Updating bands information in %1 status..."
 msgstr "%1 用のバンドの情報を更新しています..."
 
-#: ../database.cpp:3351
+#: ../database.cpp:3376
 #, qt-format
 msgctxt "QObject|"
 msgid "Updating mode information in %1 status..."
