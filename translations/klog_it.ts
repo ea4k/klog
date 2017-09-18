@@ -2169,7 +2169,7 @@ Vuoi salvare i cambiamenti?</translation>
     <message>
         <location filename="../database.cpp" line="71"/>
         <location filename="../database.cpp" line="127"/>
-        <location filename="../database.cpp" line="2089"/>
+        <location filename="../database.cpp" line="2112"/>
         <source>Database Error</source>
         <translation>Errore nel database</translation>
     </message>
@@ -2204,28 +2204,28 @@ Vuoi salvare i cambiamenti?</translation>
         <translation>Tutti i dati sono stati copiati correttamente. Adesso dovresti andare su Configurazione &gt; Preferenze &gt;Logs per controllare che sia tutto OK.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2825"/>
-        <location filename="../database.cpp" line="2990"/>
+        <location filename="../database.cpp" line="2850"/>
+        <location filename="../database.cpp" line="3015"/>
         <source>QSO: </source>
         <translation>QSO: </translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2895"/>
-        <location filename="../database.cpp" line="3061"/>
-        <location filename="../database.cpp" line="3254"/>
-        <location filename="../database.cpp" line="3453"/>
+        <location filename="../database.cpp" line="2920"/>
+        <location filename="../database.cpp" line="3086"/>
+        <location filename="../database.cpp" line="3279"/>
+        <location filename="../database.cpp" line="3478"/>
         <source>Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?</source>
         <translation>Annullare questo aggiornamento può causare inconsistenza dei dati caricati e perdite di dati. Ancora vuoi effettuare l&apos;annullamento?</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3184"/>
-        <location filename="../database.cpp" line="3375"/>
+        <location filename="../database.cpp" line="3209"/>
+        <location filename="../database.cpp" line="3400"/>
         <source>Progress: </source>
         <translation>Progresso: </translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2806"/>
-        <location filename="../database.cpp" line="2825"/>
+        <location filename="../database.cpp" line="2831"/>
+        <location filename="../database.cpp" line="2850"/>
         <source>Updating mode information...</source>
         <translation>Aggiornamento informazioni modi...</translation>
     </message>
@@ -2240,28 +2240,28 @@ Vuoi salvare i cambiamenti?</translation>
         <translation>Se il DB non è aggiornato KLog potrebbe non funzionare correttamente.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2806"/>
-        <location filename="../database.cpp" line="2972"/>
-        <location filename="../database.cpp" line="3163"/>
-        <location filename="../database.cpp" line="3353"/>
+        <location filename="../database.cpp" line="2831"/>
+        <location filename="../database.cpp" line="2997"/>
+        <location filename="../database.cpp" line="3188"/>
+        <location filename="../database.cpp" line="3378"/>
         <source>Abort updating</source>
         <translation>Annulla aggiornamento</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2972"/>
-        <location filename="../database.cpp" line="2990"/>
-        <location filename="../database.cpp" line="3184"/>
-        <location filename="../database.cpp" line="3375"/>
+        <location filename="../database.cpp" line="2997"/>
+        <location filename="../database.cpp" line="3015"/>
+        <location filename="../database.cpp" line="3209"/>
+        <location filename="../database.cpp" line="3400"/>
         <source>Updating bands information...</source>
         <translation>Aggiornamento informazione bande...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3161"/>
+        <location filename="../database.cpp" line="3186"/>
         <source>Updating bands information in %1 status...</source>
         <translation>Aggiornamento informazione bande %1 stato...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3351"/>
+        <location filename="../database.cpp" line="3376"/>
         <source>Updating mode information in %1 status...</source>
         <translation>Aggiornamento informazioni modi %1 stato...</translation>
     </message>

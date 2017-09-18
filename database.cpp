@@ -1931,10 +1931,11 @@ bool DataBase::populateTableMode(const bool NoTmp)
 
     //query.exec("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('AM', 'AM', 'PH', '0')");
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('AM', 'AM', 'PH', '0')").arg(tableName));
-
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ARDOP', 'ARDOP', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('AMTORFEC', 'TOR', 'NO', '1')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ASCI', 'RTTY', 'NO', '1')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ATV', 'ATV', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('C4FM', 'C4FM', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP', 'CHIP', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP64', 'CHIP', 'NO', '1')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP128', 'CHIP', 'NO', '1')").arg(tableName));
@@ -1949,9 +1950,11 @@ bool DataBase::populateTableMode(const bool NoTmp)
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FAX', 'FAX', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FM', 'FM', 'PH', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FMHELL', 'HELL', 'NO', '1')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FT8', 'FT8', 'NO', '1')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSK31', 'PSK', 'NO', '1')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSK441', 'FSK441', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSKHELL', 'HELL', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSQCALL', 'MFSK', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('GTOR', 'TOR', 'NO', '1')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HELL', 'HELL', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HELL80', 'HELL', 'NO', '1')").arg(tableName));
@@ -1974,6 +1977,18 @@ bool DataBase::populateTableMode(const bool NoTmp)
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-5', 'JT9', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-10', 'JT9', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-30', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9A', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9B', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9C', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9D', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9E', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9E FAST', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9F', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9F FAST', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9G', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9G FAST', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9H', 'JT9', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9H FAST', 'JT9', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT44', 'JT44', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65', 'JT65', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65A', 'JT65', 'NO', '1')").arg(tableName));
@@ -1991,7 +2006,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK32', 'MFSK', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK64', 'MFSK', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK128', 'MFSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '1')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MT63', 'MT63', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA', 'OLIVIA', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 4/125', 'OLIVIA', 'NO', '0')").arg(tableName));
@@ -2010,7 +2025,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC4', 'PAC', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAX', 'PAX', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAX2', 'PAX', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PCW', 'CW', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PCW', 'CW', 'NO', '1')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PKT', 'PKT', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK', 'PSK', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK10', 'PSK', 'NO', '1')").arg(tableName));
@@ -2033,6 +2048,12 @@ bool DataBase::populateTableMode(const bool NoTmp)
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK125', 'PSK', 'NO', '1')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK250', 'PSK', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK500', 'PSK', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64', 'QRA64', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64A', 'QRA64', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64B', 'QRA64', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64C', 'QRA64', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64D', 'QRA64', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64E', 'QRA64', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS', 'ROS', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-EME', 'ROS', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-HF', 'ROS', 'NO', '0')").arg(tableName));
@@ -2042,7 +2063,9 @@ bool DataBase::populateTableMode(const bool NoTmp)
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SSB', 'SSB', 'PH', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('LSB', 'SSB', 'PH', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('USB', 'SSB', 'PH', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SIM31', 'PSK', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SSTV', 'SSTV', 'NO', '0')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('T10', 'T10', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THRB', 'THRB', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THRBX', 'THRB', 'NO', '1')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR', 'THOR', 'NO', '0')").arg(tableName));
@@ -2466,7 +2489,7 @@ bool DataBase::updateTo006()
             return false;
         }
         sqlOk = updateDBVersion();
-        //sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+
         if (sqlOk)
         { // Version updated
             sqlOk = query.exec("DROP TABLE prop_mode_enumeration");
@@ -2514,7 +2537,7 @@ bool DataBase::updateTo006()
             {
                //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not dropped" << endl;
             }
-
+            /*
 
             createTableMode(false);         // Create modetemp
             populateTableMode(false);       // Populate modetemp
@@ -2539,6 +2562,8 @@ bool DataBase::updateTo006()
             {
                //qDebug() << "DataBase::updateTo006 - ERROR - modetemp not dropped" << endl;
             }
+            */
+            updateTheModeTableAndSyncLog();
 
             createTableClubLogStatus();
             populateTableClubLogStatus();
@@ -3934,10 +3959,31 @@ bool DataBase::updateTo010()
          { // Version updated
             //qDebug() << "DataBase::updateTo010: - sqlOK" << endl;
              IAmIn010 = recreateSupportedContest();
+
+             sqlOk = recreateSupportedContest();
+             if (sqlOk)
+             {
+                sqlOk = updateTheModeTableAndSyncLog();
+                if (sqlOk)
+                {
+                    IAmIn010 = true;
+                }
+                else
+                {
+                    IAmIn010 = false;
+                }
+
+             }
+             else
+             {
+                 IAmIn010 = false;
+             }
+
          }
          else
          { // Version not updated
            //qDebug() << "DataBase::updateTo010: - NOT sqlOK" << endl;
+             IAmIn010 = false;
          }
          //DO ALL THE TASKS TO BE IN 0.010 from 0.009 HERE and set ErrorUpdating if it is not possible.
         //qDebug() << "DataBase::updateTo010: - IAmIn010" << endl;
@@ -5710,6 +5756,8 @@ bool DataBase::updateTheEntityTableISONames()
     return true;
 }
 
+
+
 bool DataBase::hasTheTableData(const QString _tableName)
 {
   //qDebug() << "DataBase::hasTheTableData" << _tableName << endl;
@@ -5757,3 +5805,4 @@ bool DataBase::hasTheTableData(const QString _tableName)
    //qDebug() << "DataBase::isTheDBCreated: END FALSE" << endl;
     return false;
 }
+

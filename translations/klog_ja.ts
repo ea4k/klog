@@ -2135,7 +2135,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../database.cpp" line="71"/>
         <location filename="../database.cpp" line="127"/>
-        <location filename="../database.cpp" line="2089"/>
+        <location filename="../database.cpp" line="2112"/>
         <source>Database Error</source>
         <translation>データベース　エラー</translation>
     </message>
@@ -2180,54 +2180,54 @@ Do you want to save your changes?</source>
         <translation>すべてのデータが正しく移行できました. メニューのSetup-&gt;Preferences-&gt;Logsから、問題ないことを確認してください.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2825"/>
-        <location filename="../database.cpp" line="2990"/>
+        <location filename="../database.cpp" line="2850"/>
+        <location filename="../database.cpp" line="3015"/>
         <source>QSO: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2895"/>
-        <location filename="../database.cpp" line="3061"/>
-        <location filename="../database.cpp" line="3254"/>
-        <location filename="../database.cpp" line="3453"/>
+        <location filename="../database.cpp" line="2920"/>
+        <location filename="../database.cpp" line="3086"/>
+        <location filename="../database.cpp" line="3279"/>
+        <location filename="../database.cpp" line="3478"/>
         <source>Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?</source>
         <translation>更新を中止するとデータに矛盾が生じたり、データが失われる可能性があります. 　更新を中止しますか？</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3184"/>
-        <location filename="../database.cpp" line="3375"/>
+        <location filename="../database.cpp" line="3209"/>
+        <location filename="../database.cpp" line="3400"/>
         <source>Progress: </source>
         <translation>進捗状況: </translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2806"/>
-        <location filename="../database.cpp" line="2825"/>
+        <location filename="../database.cpp" line="2831"/>
+        <location filename="../database.cpp" line="2850"/>
         <source>Updating mode information...</source>
         <translation>モードの情報を更新しています...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2806"/>
-        <location filename="../database.cpp" line="2972"/>
-        <location filename="../database.cpp" line="3163"/>
-        <location filename="../database.cpp" line="3353"/>
+        <location filename="../database.cpp" line="2831"/>
+        <location filename="../database.cpp" line="2997"/>
+        <location filename="../database.cpp" line="3188"/>
+        <location filename="../database.cpp" line="3378"/>
         <source>Abort updating</source>
         <translation>更新の中止</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2972"/>
-        <location filename="../database.cpp" line="2990"/>
-        <location filename="../database.cpp" line="3184"/>
-        <location filename="../database.cpp" line="3375"/>
+        <location filename="../database.cpp" line="2997"/>
+        <location filename="../database.cpp" line="3015"/>
+        <location filename="../database.cpp" line="3209"/>
+        <location filename="../database.cpp" line="3400"/>
         <source>Updating bands information...</source>
         <translation>バンドの情報を更新しています...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3161"/>
+        <location filename="../database.cpp" line="3186"/>
         <source>Updating bands information in %1 status...</source>
         <translation>%1 用のバンドの情報を更新しています...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3351"/>
+        <location filename="../database.cpp" line="3376"/>
         <source>Updating mode information in %1 status...</source>
         <translation>%1 用のモードの情報を更新しています...</translation>
     </message>

@@ -2,6 +2,7 @@ TBD - 0.9.2.7
 - KLog offers the possibility to move the DB to another path (maybe a DropBox folder!)
 - New Operating systems recognized in runtime.
 - Updated the references to macOS from OSX.
+- Updated the list of valid modes up to ADIF 3.0.6.
 - GUI: Added the QSO information done in a year on the DX-Marathon area.
 - GUI: Simplified the way active bands/modes are selected.
 - GUI: Satellite tab is redesigned.
