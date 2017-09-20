@@ -964,39 +964,39 @@ msgid ""
 "problem persists, please contact the developer for analysis: "
 msgstr "ログにQSOデータを追加中に予期しないエラーが発生しました. 問題が何度も起こるようであれば、原因究明のため開発者に連絡をお願いします: "
 
-#: ../mainwindow.cpp:5649
+#: ../mainwindow.cpp:5648
 msgctxt "MainWindow|"
 msgid "Log"
 msgstr "ログ"
 
 #: ../mainwindow.cpp:2343 ../mainwindow.cpp:3338 ../mainwindow.cpp:3344
-#: ../mainwindow.cpp:4568 ../mainwindow.cpp:4578 ../mainwindow.cpp:5532
-#: ../mainwindow.cpp:6684
+#: ../mainwindow.cpp:4568 ../mainwindow.cpp:4578 ../mainwindow.cpp:5531
+#: ../mainwindow.cpp:6683
 msgctxt "MainWindow|"
 msgid "QRZ"
 msgstr "コールサイン"
 
-#: ../mainwindow.cpp:6690
+#: ../mainwindow.cpp:6689
 msgctxt "MainWindow|"
 msgid "Band"
 msgstr "バンド"
 
-#: ../mainwindow.cpp:6692
+#: ../mainwindow.cpp:6691
 msgctxt "MainWindow|"
 msgid "Mode"
 msgstr "モード"
 
-#: ../mainwindow.cpp:6680
+#: ../mainwindow.cpp:6679
 msgctxt "MainWindow|"
 msgid "Date"
 msgstr "日付"
 
-#: ../mainwindow.cpp:6682
+#: ../mainwindow.cpp:6681
 msgctxt "MainWindow|"
 msgid "Time"
 msgstr "時刻"
 
-#: ../mainwindow.cpp:2334 ../mainwindow.cpp:6686
+#: ../mainwindow.cpp:2334 ../mainwindow.cpp:6685
 msgctxt "MainWindow|"
 msgid "RSTtx"
 msgstr "送信RST"
@@ -1011,7 +1011,7 @@ msgctxt "MainWindow|"
 msgid "that is different from the KLog proposed entity:"
 msgstr "しかし、これは KLog が推定したエンティティと異なります:"
 
-#: ../mainwindow.cpp:2327 ../mainwindow.cpp:6688
+#: ../mainwindow.cpp:2327 ../mainwindow.cpp:6687
 msgctxt "MainWindow|"
 msgid "RSTrx"
 msgstr "受信RST"
@@ -1060,177 +1060,177 @@ msgctxt "MainWindow|"
 msgid "Any file"
 msgstr ""
 
-#: ../mainwindow.cpp:5175
+#: ../mainwindow.cpp:5174
 msgctxt "MainWindow|"
 msgid "TX Frequency in MHz."
 msgstr "送信周波数をMHzの単位で表示"
 
-#: ../mainwindow.cpp:5176
+#: ../mainwindow.cpp:5175
 msgctxt "MainWindow|"
 msgid "RX Frequency in MHz."
 msgstr "受信周波数をMHzの単位で表示"
 
-#: ../mainwindow.cpp:5178
+#: ../mainwindow.cpp:5177
 msgctxt "MainWindow|"
 msgid "Power used by the DX."
 msgstr "相手局が用いた送信出力"
 
-#: ../mainwindow.cpp:5179
+#: ../mainwindow.cpp:5178
 msgctxt "MainWindow|"
 msgid "Logging operator's callsign."
 msgstr "ログを記入したオペレーターのコールサイン"
 
-#: ../mainwindow.cpp:5180
+#: ../mainwindow.cpp:5179
 msgctxt "MainWindow|"
 msgid "Callsign used over the air."
 msgstr "交信に用いたコールサイン"
 
-#: ../mainwindow.cpp:5181
+#: ../mainwindow.cpp:5180
 msgctxt "MainWindow|"
 msgid "My QTH locator."
 msgstr "自局QTHのグリッドロケーター"
 
-#: ../mainwindow.cpp:5182
+#: ../mainwindow.cpp:5181
 msgctxt "MainWindow|"
 msgid "Name of the DX."
 msgstr "相手局の名前"
 
-#: ../mainwindow.cpp:5183
+#: ../mainwindow.cpp:5182
 msgctxt "MainWindow|"
 msgid "QTH of the DX."
 msgstr "相手局のQTH"
 
-#: ../mainwindow.cpp:5184
+#: ../mainwindow.cpp:5183
 msgctxt "MainWindow|"
 msgid "Locator of the DX."
 msgstr "相手局のグリッドロケーター"
 
-#: ../mainwindow.cpp:5186
+#: ../mainwindow.cpp:5185
 msgctxt "MainWindow|"
 msgid "QRZ of the QSO."
 msgstr "相手局のコールサイン"
 
-#: ../mainwindow.cpp:5187
+#: ../mainwindow.cpp:5186
 msgctxt "MainWindow|"
 msgid "TX RST."
 msgstr "相手局に送ったRST"
 
-#: ../mainwindow.cpp:5188
+#: ../mainwindow.cpp:5187
 msgctxt "MainWindow|"
 msgid "RX RST."
 msgstr "相手局から送られてきたRST"
 
-#: ../mainwindow.cpp:5189
+#: ../mainwindow.cpp:5188
 msgctxt "MainWindow|"
 msgid "TX Exchange."
 msgstr "相手局に送ったコンテストナンバー"
 
-#: ../mainwindow.cpp:5190
+#: ../mainwindow.cpp:5189
 msgctxt "MainWindow|"
 msgid "RX Exchange."
 msgstr "相手局から送られてきたコンテストナンバー"
 
-#: ../mainwindow.cpp:5191
+#: ../mainwindow.cpp:5190
 msgctxt "MainWindow|"
 msgid "Band of the QSO."
 msgstr "このQSOのバンド"
 
-#: ../mainwindow.cpp:5192
+#: ../mainwindow.cpp:5191
 msgctxt "MainWindow|"
 msgid "Mode of the QSO."
 msgstr "このQSOのモード"
 
-#: ../mainwindow.cpp:5193
+#: ../mainwindow.cpp:5192
 msgctxt "MainWindow|"
 msgid "Date of the QSO."
 msgstr "このQSOの日付"
 
-#: ../mainwindow.cpp:5194
+#: ../mainwindow.cpp:5193
 msgctxt "MainWindow|"
 msgid "Time of the QSO."
 msgstr "このQSOの時刻"
 
-#: ../mainwindow.cpp:5197
+#: ../mainwindow.cpp:5196
 msgctxt "MainWindow|"
 msgid "Add the QSO to the log."
 msgstr "このQSOをログに追加します."
 
-#: ../mainwindow.cpp:5199
+#: ../mainwindow.cpp:5198
 msgctxt "MainWindow|"
 msgid "Clears the QSO entry."
 msgstr "入力内容をクリアします."
 
-#: ../mainwindow.cpp:5224
+#: ../mainwindow.cpp:5223
 msgctxt "MainWindow|"
 msgid "Number of confirmed DXCC entities."
 msgstr "コンファームしたDXエンティティの数"
 
-#: ../mainwindow.cpp:5225
+#: ../mainwindow.cpp:5224
 msgctxt "MainWindow|"
 msgid "Number of worked DXCC entities."
 msgstr "交信したDXCCエンティティの数"
 
-#: ../mainwindow.cpp:5226
+#: ../mainwindow.cpp:5225
 msgctxt "MainWindow|"
 msgid "Number of confirmed WAZ zones."
 msgstr "コンファームしたWAZゾーンの数"
 
-#: ../mainwindow.cpp:5227
+#: ../mainwindow.cpp:5226
 msgctxt "MainWindow|"
 msgid "Number of worked WAZ zones."
 msgstr "交信したWAZゾーンの数"
 
-#: ../mainwindow.cpp:5228
+#: ../mainwindow.cpp:5227
 msgctxt "MainWindow|"
 msgid "Number of confirmed local references."
 msgstr ""
 
-#: ../mainwindow.cpp:5229
+#: ../mainwindow.cpp:5228
 msgctxt "MainWindow|"
 msgid "Number of worked local references."
 msgstr ""
 
-#: ../mainwindow.cpp:5230
+#: ../mainwindow.cpp:5229
 msgctxt "MainWindow|"
 msgid "Number of confirmed QSOs."
 msgstr "コンファームしたQSOの数"
 
-#: ../mainwindow.cpp:5231
+#: ../mainwindow.cpp:5230
 msgctxt "MainWindow|"
 msgid "Number of worked QSOs."
 msgstr "交信したQSOの数"
 
-#: ../mainwindow.cpp:5233
+#: ../mainwindow.cpp:5232
 msgctxt "MainWindow|"
 msgid "Number of DXCC worked on the selected year."
 msgstr "選択した年に交信したDXCCエンティティの数"
 
-#: ../mainwindow.cpp:5234
+#: ../mainwindow.cpp:5233
 msgctxt "MainWindow|"
 msgid "Number of CQ Zones worked on the selected year."
 msgstr "選択した年に交信したCQゾーンの数"
 
-#: ../mainwindow.cpp:5235
+#: ../mainwindow.cpp:5234
 msgctxt "MainWindow|"
 msgid "Score for the DXMarathon on the selected year."
 msgstr "選択した年のDXマラソンのスコア"
 
-#: ../mainwindow.cpp:5236
+#: ../mainwindow.cpp:5235
 msgctxt "MainWindow|"
 msgid "Select the year you want to check."
 msgstr "確認したい年を選択してください."
 
-#: ../mainwindow.cpp:5238
+#: ../mainwindow.cpp:5237
 msgctxt "MainWindow|"
 msgid "Status of the DX entity."
 msgstr "DXエンティティの状況"
 
-#: ../mainwindow.cpp:5239
+#: ../mainwindow.cpp:5238
 msgctxt "MainWindow|"
 msgid "Name of the DX entity."
 msgstr "DXエンティティの名称"
 
-#: ../mainwindow.cpp:5509 ../mainwindow.cpp:6694
+#: ../mainwindow.cpp:5508 ../mainwindow.cpp:6693
 msgctxt "MainWindow|"
 msgid "Comment"
 msgstr "コメント"
@@ -1409,27 +1409,27 @@ msgctxt "MainWindow|"
 msgid "You can find the KLog data folder here: "
 msgstr "KLog 用データフォルダーはこちらです; "
 
-#: ../mainwindow.cpp:5264
+#: ../mainwindow.cpp:5263
 msgctxt "MainWindow|"
 msgid "Name"
 msgstr "名前"
 
-#: ../mainwindow.cpp:5268
+#: ../mainwindow.cpp:5267
 msgctxt "MainWindow|"
 msgid "QTH"
 msgstr ""
 
-#: ../mainwindow.cpp:5271
+#: ../mainwindow.cpp:5270
 msgctxt "MainWindow|"
 msgid "Locator"
 msgstr "グリッドロケーター"
 
-#: ../mainwindow.cpp:6379
+#: ../mainwindow.cpp:6378
 msgctxt "MainWindow|"
 msgid "--"
 msgstr ""
 
-#: ../mainwindow.cpp:6403
+#: ../mainwindow.cpp:6402
 msgctxt "MainWindow|"
 msgid " - Needed for DXMarathon"
 msgstr " - DXマラソンのために必要"
@@ -1560,172 +1560,172 @@ msgctxt "MainWindow|"
 msgid "Check updates..."
 msgstr "更新のチェック..."
 
-#: ../mainwindow.cpp:5232
+#: ../mainwindow.cpp:5231
 msgctxt "MainWindow|"
 msgid "Number of QSOs worked on the selected year."
 msgstr "選択した年の交信数"
 
-#: ../mainwindow.cpp:5274
+#: ../mainwindow.cpp:5273
 msgctxt "MainWindow|"
 msgid "Power(rx)"
 msgstr "相手局の出力"
 
-#: ../mainwindow.cpp:5278
+#: ../mainwindow.cpp:5277
 msgctxt "MainWindow|"
 msgid "RST(tx)"
 msgstr "RST(送信)"
 
-#: ../mainwindow.cpp:5281
+#: ../mainwindow.cpp:5280
 msgctxt "MainWindow|"
 msgid "RST(rx)"
 msgstr "RST(受信)"
 
-#: ../mainwindow.cpp:5314
+#: ../mainwindow.cpp:5313
 msgctxt "MainWindow|"
 msgid "Freq TX"
 msgstr "送信周波数"
 
-#: ../mainwindow.cpp:5316
+#: ../mainwindow.cpp:5315
 msgctxt "MainWindow|"
 msgid "Freq RX"
 msgstr "受信周波数"
 
-#: ../mainwindow.cpp:5390
+#: ../mainwindow.cpp:5389
 msgctxt "MainWindow|"
 msgid "QSO"
 msgstr ""
 
-#: ../mainwindow.cpp:5507
+#: ../mainwindow.cpp:5506
 msgctxt "MainWindow|"
 msgid "QSL"
 msgstr ""
 
-#: ../mainwindow.cpp:5508
+#: ../mainwindow.cpp:5507
 msgctxt "MainWindow|"
 msgid "eQSL"
 msgstr ""
 
-#: ../mainwindow.cpp:5512
+#: ../mainwindow.cpp:5511
 msgctxt "MainWindow|"
 msgid "Others"
 msgstr "その他"
 
-#: ../mainwindow.cpp:5514
+#: ../mainwindow.cpp:5513
 msgctxt "MainWindow|"
 msgid "My Data"
 msgstr "自局のデータ"
 
-#: ../mainwindow.cpp:5515
+#: ../mainwindow.cpp:5514
 msgctxt "MainWindow|"
 msgid "Satellite"
 msgstr "サテライト通信"
 
-#: ../mainwindow.cpp:5571
+#: ../mainwindow.cpp:5570
 msgctxt "MainWindow|"
 msgid "CQ"
 msgstr ""
 
-#: ../mainwindow.cpp:5570 ../mainwindow.cpp:5596 ../mainwindow.cpp:5652
+#: ../mainwindow.cpp:5569 ../mainwindow.cpp:5595 ../mainwindow.cpp:5651
 msgctxt "MainWindow|"
 msgid "DXCC"
 msgstr ""
 
-#: ../mainwindow.cpp:5572
+#: ../mainwindow.cpp:5571
 msgctxt "MainWindow|"
 msgid "Score"
 msgstr "スコア"
 
-#: ../mainwindow.cpp:5573
+#: ../mainwindow.cpp:5572
 msgctxt "MainWindow|"
 msgid "DX-Marathon"
 msgstr "DXマラソン"
 
-#: ../mainwindow.cpp:5582
+#: ../mainwindow.cpp:5581
 msgctxt "MainWindow|"
 msgid "Info"
 msgstr "情報"
 
-#: ../mainwindow.cpp:5587
+#: ../mainwindow.cpp:5586
 msgctxt "MainWindow|"
 msgid "Award"
 msgstr "アワード"
 
-#: ../mainwindow.cpp:5590
+#: ../mainwindow.cpp:5589
 msgctxt "MainWindow|"
 msgid "Confirmed"
 msgstr "コンファーム済"
 
-#: ../mainwindow.cpp:5593
+#: ../mainwindow.cpp:5592
 msgctxt "MainWindow|"
 msgid "Worked"
 msgstr "交信済"
 
-#: ../mainwindow.cpp:5599
+#: ../mainwindow.cpp:5598
 msgctxt "MainWindow|"
 msgid "WAZ"
 msgstr ""
 
-#: ../mainwindow.cpp:5602
+#: ../mainwindow.cpp:5601
 msgctxt "MainWindow|"
 msgid "Local"
 msgstr ""
 
-#: ../mainwindow.cpp:5569 ../mainwindow.cpp:5605
+#: ../mainwindow.cpp:5568 ../mainwindow.cpp:5604
 msgctxt "MainWindow|"
 msgid "QSOs"
 msgstr "QSO総数"
 
-#: ../mainwindow.cpp:5646
+#: ../mainwindow.cpp:5645
 msgctxt "MainWindow|"
 msgid "Awards"
 msgstr "アワード"
 
-#: ../mainwindow.cpp:5647
+#: ../mainwindow.cpp:5646
 msgctxt "MainWindow|"
 msgid "Search"
 msgstr "検索"
 
-#: ../mainwindow.cpp:5651
+#: ../mainwindow.cpp:5650
 msgctxt "MainWindow|"
 msgid "DX-Cluster"
 msgstr "DXクラスター"
 
-#: ../mainwindow.cpp:5747 ../mainwindow.cpp:5757 ../mainwindow.cpp:5767
+#: ../mainwindow.cpp:5746 ../mainwindow.cpp:5756 ../mainwindow.cpp:5766
 msgctxt "MainWindow|"
 msgid "Save ADIF File"
 msgstr "ADIFファイルに保存"
 
-#: ../mainwindow.cpp:5780
+#: ../mainwindow.cpp:5779
 msgctxt "MainWindow|"
 msgid "Save Cabrillo File"
 msgstr "Cabrilloファイルに保存"
 
-#: ../mainwindow.cpp:5782
+#: ../mainwindow.cpp:5781
 msgctxt "MainWindow|"
 msgid "Cabrillo (*.log)"
 msgstr ""
 
-#: ../mainwindow.cpp:5792
+#: ../mainwindow.cpp:5791
 msgctxt "MainWindow|"
 msgid "Open File"
 msgstr "ファイルを開く"
 
-#: ../mainwindow.cpp:5887
+#: ../mainwindow.cpp:5886
 msgctxt "MainWindow|"
 msgid "&Modify"
 msgstr "変更(&M)"
 
-#: ../mainwindow.cpp:6506
+#: ../mainwindow.cpp:6505
 msgctxt "MainWindow|"
 msgid "Filling QSOs..."
 msgstr "QSOデータを埋込んでいます..."
 
-#: ../mainwindow.cpp:6506
+#: ../mainwindow.cpp:6505
 msgctxt "MainWindow|"
 msgid "Abort filling"
 msgstr "埋込みの中止"
 
-#: ../mainwindow.cpp:6623
+#: ../mainwindow.cpp:6622
 msgctxt "MainWindow|"
 msgid ""
 "Filling QSOs...\n"
@@ -1734,27 +1734,27 @@ msgstr ""
 "QSOデータを埋込んでいます...\n"
 " QSO: "
 
-#: ../mainwindow.cpp:6678
+#: ../mainwindow.cpp:6677
 msgctxt "MainWindow|"
 msgid "Number"
 msgstr "番号"
 
-#: ../mainwindow.cpp:6707
+#: ../mainwindow.cpp:6706
 msgctxt "MainWindow|"
 msgid "Print Log"
 msgstr "ログの印刷"
 
-#: ../mainwindow.cpp:6712
+#: ../mainwindow.cpp:6711
 msgctxt "MainWindow|"
 msgid "Printing the log..."
 msgstr "ログを印刷しています…"
 
-#: ../mainwindow.cpp:6712
+#: ../mainwindow.cpp:6711
 msgctxt "MainWindow|"
 msgid "Abort printing"
 msgstr "印刷の中止"
 
-#: ../mainwindow.cpp:6729
+#: ../mainwindow.cpp:6728
 msgctxt "MainWindow|"
 msgid ""
 "Printing the log...\n"
@@ -2126,97 +2126,97 @@ msgctxt "MainWindowSatTab|"
 msgid "The satellite you have in your QSO is: "
 msgstr "QSO情報に記録された衛星の名称は以下のものです: "
 
-#: ../database.cpp:71 ../database.cpp:127 ../database.cpp:2112
+#: ../database.cpp:71 ../database.cpp:127 ../database.cpp:2107
 msgctxt "QObject|"
 msgid "Database Error"
 msgstr "データベース　エラー"
 
-#: ../database.cpp:1098
+#: ../database.cpp:1061
 msgctxt "QObject|"
 msgid "KLog DB needs to be upgraded."
 msgstr "KLog DBを更新する必要があります."
 
-#: ../database.cpp:1099
+#: ../database.cpp:1062
 msgctxt "QObject|"
 msgid "Do you want to upgrade it now?"
 msgstr "いま更新しますか?"
 
-#: ../database.cpp:1099
+#: ../database.cpp:1062
 msgctxt "QObject|"
 msgid "If DB is not upgraded KLog may not work properly."
 msgstr "DBを更新しないとKLogは正しく動作しない可能性があります."
 
-#: ../database.cpp:1585
+#: ../database.cpp:1548
 msgctxt "QObject|"
 msgid ""
 "KLog has detected a previous log in the DB. All data will be migrated to a "
 "newly created DX type log for you."
 msgstr "DBの中に以前のバージョンのログを発見しました。すべてのデータを新しく作成されるDXタイプのログに移行します。"
 
-#: ../database.cpp:1608
+#: ../database.cpp:1571
 msgctxt "QObject|"
 msgid "KLog: Enter Station callsign"
 msgstr "KLog: 無線局のコールサインを入力してください"
 
-#: ../database.cpp:1609
+#: ../database.cpp:1572
 msgctxt "QObject|"
 msgid "Enter the station callsign used in this log"
 msgstr "このログで使用する無線局のコールサインを入力してください"
 
-#: ../database.cpp:1610
+#: ../database.cpp:1573
 msgctxt "QObject|"
 msgid "Station Callsign"
 msgstr "無線局のコールサイン"
 
-#: ../database.cpp:1667
+#: ../database.cpp:1630
 msgctxt "QObject|"
 msgid ""
 "All the data was migrated correctly. You should now go to "
 "Setup->Preferences->Logs to check that everything is OK."
 msgstr "すべてのデータが正しく移行できました. メニューのSetup->Preferences->Logsから、問題ないことを確認してください."
 
-#: ../database.cpp:2850 ../database.cpp:3015
+#: ../database.cpp:2827 ../database.cpp:2992
 msgctxt "QObject|"
 msgid "QSO: "
 msgstr ""
 
-#: ../database.cpp:2920 ../database.cpp:3086 ../database.cpp:3279
-#: ../database.cpp:3478
+#: ../database.cpp:2897 ../database.cpp:3063 ../database.cpp:3256
+#: ../database.cpp:3455
 msgctxt "QObject|"
 msgid ""
 "Canceling this update will cause data inconsistencies and possibly data "
 "loss. Do you still want to cancel?"
 msgstr "更新を中止するとデータに矛盾が生じたり、データが失われる可能性があります. 　更新を中止しますか？"
 
-#: ../database.cpp:3209 ../database.cpp:3400
+#: ../database.cpp:3186 ../database.cpp:3377
 msgctxt "QObject|"
 msgid "Progress: "
 msgstr "進捗状況: "
 
-#: ../database.cpp:2831 ../database.cpp:2850
+#: ../database.cpp:2808 ../database.cpp:2827
 msgctxt "QObject|"
 msgid "Updating mode information..."
 msgstr "モードの情報を更新しています..."
 
-#: ../database.cpp:2831 ../database.cpp:2997 ../database.cpp:3188
-#: ../database.cpp:3378
+#: ../database.cpp:2808 ../database.cpp:2974 ../database.cpp:3165
+#: ../database.cpp:3355
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "更新の中止"
 
-#: ../database.cpp:2997 ../database.cpp:3015 ../database.cpp:3209
-#: ../database.cpp:3400
+#: ../database.cpp:2974 ../database.cpp:2992 ../database.cpp:3186
+#: ../database.cpp:3377
 msgctxt "QObject|"
 msgid "Updating bands information..."
 msgstr "バンドの情報を更新しています..."
 
-#: ../database.cpp:3186
+#: ../database.cpp:3163
 #, qt-format
 msgctxt "QObject|"
 msgid "Updating bands information in %1 status..."
 msgstr "%1 用のバンドの情報を更新しています..."
 
-#: ../database.cpp:3376
+#: ../database.cpp:3353
 #, qt-format
 msgctxt "QObject|"
 msgid "Updating mode information in %1 status..."
