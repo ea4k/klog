@@ -136,7 +136,7 @@ int main(int argc, char *argv[])
 
     #elif defined(Q_OS_OSX)
         //qDebug() << "KLog OSX " << endl;
-        if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()) )
+        if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()) ) )
         {
             myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()));
         }
