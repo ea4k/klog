@@ -506,7 +506,6 @@ bool DataBase::createDataBase()
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "name VARCHAR(15) NOT NULL)");
 
-
       query.exec("CREATE TABLE prefixesofentity ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "prefix VARCHAR(15) NOT NULL,"
@@ -580,50 +579,6 @@ confirmed = 1     Set as Confirmed
       createTableClubLogStatus();
       populateTableClubLogStatus();
 
-      /*
-      query.exec("CREATE TABLE sat_modes ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "name VARCHAR(15) NOT NULL,"
-                 "uplink INTEGER NOT NULL,"
-                 "downlink INTEGER NOT NULL,"
-                 "FOREIGN KEY (uplink) REFERENCES band, "
-                 "FOREIGN KEY (downlink) REFERENCES band)");
-    //http://en.wikipedia.org/wiki/OSCAR#Mode_designators
-
-      //query.exec("INSERT INTO sat_modes (name, uplink, downlink) VALUES ('H', '15M', '148', '144')");
-
-
-      query.exec("CREATE TABLE sat_modes ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "shortname VARCHAR(8) NOT NULL, "
-                 "uplink VARCHAR(8) NOT NULL, "
-                 "downlink VARCHAR(55) NOT NULL)");
-
-      query.exec("CREATE TABLE sat_modes ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "name VARCHAR(15) NOT NULL,"
-                 "uplink INTEGER NOT NULL,"
-                 "downlink INTEGER NOT NULL,"
-                 "FOREIGN KEY (uplink) REFERENCES band, "
-                 "FOREIGN KEY (downlink) REFERENCES band)");
-*/
-/*
-      qry.prepare( "INSERT INTO names (id, firstname, lastname) VALUES (:id, :firstname, :lastname)" );
-       qry.bindValue( ":id", 9 );
-       qry.bindValue( ":firstname", "Ralph" );
-       qry.bindValue( ":lastname", "Roe" );
-
-       query.prepare("INSERT INTO qsl_sent_status (shortname, name) VALUES (:shortname, :name)");
-       query.bindValue(":shortname", "Y");
-       query.bindValue(":name", "Yes");
-
-       query.prepare("INSERT INTO qsl_sent_status (shortname, name) VALUES (:shortname, :name)");
-       query.bindValue(":shortname", "N");
-       query.bindValue(":name", "No");
-
-       query.exec();
-*/
-
     query.exec("INSERT INTO qsl_sent_status (shortname, name) VALUES ('Y', 'Yes')");
     query.exec("INSERT INTO qsl_sent_status (shortname, name) VALUES ('N', 'No')");
     query.exec("INSERT INTO qsl_sent_status (shortname, name) VALUES ('R', 'Requested')");
@@ -656,13 +611,21 @@ confirmed = 1     Set as Confirmed
     query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('L', 'LongPath')");
 
     query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AL', 'Alabama')");
+/*
+    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AK', 'Alaska')");
+    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AB', 'Alberta')");
+    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AR', 'Arkansas')");
+    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AZ', 'Arizona')");
+    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('BC', 'British Columbia')");
+    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('CO', 'Colorado')");
+*/
 
-
+    //TODO: Awards are deprecated
     query.exec("INSERT INTO award_enumeration (name) VALUES ('AJA')");
     query.exec("INSERT INTO award_enumeration (name) VALUES ('CQDX')");
-    query.exec("INSERT INTO award_enumeration (name) VALUES (CQDXFIELD')");
-    query.exec("INSERT INTO award_enumeration (name) VALUES (DXCC')");
-    query.exec("INSERT INTO award_enumeration (name) VALUES (TPEA')");
+    query.exec("INSERT INTO award_enumeration (name) VALUES ('CQDXFIELD')");
+    query.exec("INSERT INTO award_enumeration (name) VALUES ('DXCC')");
+
 
 
     query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('B', 'Bureau')");
@@ -1009,7 +972,7 @@ int DataBase::getBandIdFromFreq(const QString fr)
 
 bool DataBase::isThisFreqInBand(const QString b, const QString fr)
 {//Freq should be in MHz
-  //qDebug() << "DataBase::isThisFreqInBand: " << b << "/" << fr << endl;
+   //qDebug() << "DataBase::isThisFreqInBand: " << b << "/" << fr << endl;
     int bandNf = getBandIdFromFreq(fr);
     int bandN = getBandIDFromName2(b);
     //qDebug() << "DataBase::isThisFreqInBand: (b/f)" << QString::number(bandN) << "/" << QString::number(bandNf) << endl;
@@ -1737,6 +1700,38 @@ bool DataBase::recreateSupportedContest()
 }
 
 
+bool DataBase::recreatePropModes()
+{
+  //qDebug() << "DataBase::recreatePropModes"  << endl;
+    QSqlQuery query;
+    bool sqlOk = false;
+    sqlOk = query.exec("DROP TABLE prop_mode_enumeration");
+    if (sqlOk)
+    {
+       //qDebug() << "DataBase::recreatePropModes SQLOK"  << endl;
+        if (createTablePropModes())
+        {
+           //qDebug() << "DataBase::recreatePropModes - createTable OK"  << endl;
+            if (populatePropagationModes())
+            {
+               //qDebug() << "DataBase::recreatePropModes - populateTableSupportedContest OK"  << endl;
+                return true;
+            }
+            else
+            {
+               //qDebug() << "DataBase::recreatePropModes - populateTableSupportedContest NOK"  << endl;
+                return false;
+            }
+        }
+        else
+        {
+           //qDebug() << "DataBase::recreatePropModes createTableSupportContest FALSE"  << endl;
+        }
+    }
+   //qDebug() << "DataBase::recreatePropModes - FALSE end"  << endl;
+    return false;
+}
+
 
 bool DataBase::createTableLogs(const bool real)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
@@ -2320,7 +2315,7 @@ bool DataBase::populateTableBand(const bool NoTmp)
     query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('160M', '1.8', '2.0', '1800')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('560M', '0.501', '0.504', '560M')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('630M', '0.472', '0.479', '630M')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2190M', '0.136', '0.137', '2190M')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2190M', '0.1357', '0.1378', '2190M')").arg(tableName));
     createTheBandQuickReference();
 
    //qDebug() << "DataBase::populateTableBand END" << endl;
@@ -2334,10 +2329,10 @@ bool DataBase::populatePropagationModes()
     QSqlQuery query;
 
     //query.exec("INSERT INTO prop_mode_enumeration (id, shortname, name) VALUES ('0', Not', 'Not Identified')");
+    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AS', 'Aircraft Scatter')");
     query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AUR', 'Aurora')");
     query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AUE', 'Aurora-E')");
     query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('BS', 'Back scatter')");
-
     query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('ECH', 'EchoLink')");
     query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('EME', 'Earth-Moon-Earth')");
     query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('ES', 'Sporadic E')");
@@ -2474,7 +2469,6 @@ bool DataBase::updateTo006()
         IAmIn006 = false;
     }
 
-
     while (!IAmIn006 && !ErrorUpdating)
     {
         //qDebug() << "DataBase::updateTo006: - Still not in 006" << endl;
@@ -2488,31 +2482,31 @@ bool DataBase::updateTo006()
         {
             return false;
         }
+
         sqlOk = updateDBVersion();
 
-        if (sqlOk)
-        { // Version updated
-            sqlOk = query.exec("DROP TABLE prop_mode_enumeration");
-        if (!sqlOk)
+        if(sqlOk)
+        {
+            sqlOk = recreatePropModes();
+
+            if(sqlOk)
             {
-               //qDebug() << "DataBase::updateTo006 - prop_mode_enumeration NOT DROPED" << endl;
+                sqlOk = updateTableLog(6); // We copy the log into logtemp
+            }
+            else
+            {
+                ErrorUpdating = true;
+                IAmIn006 = false;
+                return false;
             }
 
-            sqlOk = createTablePropModes();
-        if (!sqlOk)
-            {
-               //qDebug() << "DataBase::updateTo006 - createTablePropModes FALSE" << endl;
-            }
-            sqlOk = populatePropagationModes();
-        if (!sqlOk)
-            {
-               //qDebug() << "DataBase::updateTo006 - populatePropagationModes FALSE" << endl;
-            }
-            sqlOk = updateTableLog(6); // We copy the log into logtemp
 
-        if (!sqlOk)
+            if (!sqlOk)
             {
-               //qDebug() << "DataBase::updateTo006 - prop_mode table do not created" << endl;
+                ErrorUpdating = true;
+                IAmIn006 = false;
+                return false;
+                   //qDebug() << "DataBase::updateTo006 - prop_mode table do not created" << endl;
             }
 
             createTableBand(false);             // We create the bandTemp
@@ -2529,55 +2523,38 @@ bool DataBase::updateTo006()
                 }
                 else
                 {
-                   //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not renamed" << endl;
+                       //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not renamed" << endl;
+                    ErrorUpdating = true;
+                    IAmIn006 = false;
+                    return false;
                 }
 
             }
             else
             {
-               //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not dropped" << endl;
+                //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not dropped" << endl;
+                ErrorUpdating = true;
+                IAmIn006 = false;
+                return false;
             }
-            /*
 
-            createTableMode(false);         // Create modetemp
-            populateTableMode(false);       // Populate modetemp
-
-            updateModeIdFromSubModeId();    // Updates the log with the new mode IDs in each QSO
-            //updateModeIdTableAward(1); //DXCC
-            //updateModeIdTableAward(2); // WAZ
-
-            if (query.exec("DROP TABLE mode"))
-            {
-                if (query.exec("ALTER TABLE modetemp RENAME TO mode"))
-                {
-
-                }
-                else
-                {
-                   //qDebug() << "DataBase::updateTo006 - ERROR - modetemp not renamed" << endl;
-                }
-
-            }
-            else
-            {
-               //qDebug() << "DataBase::updateTo006 - ERROR - modetemp not dropped" << endl;
-            }
-            */
             updateTheModeTableAndSyncLog();
-
             createTableClubLogStatus();
             populateTableClubLogStatus();
-
         }
         else
-        { // Version not updated
-
+        {// Version not updated
+            ErrorUpdating = true;
+            IAmIn006 = false;
+            return false;
         }
+
+    }
         //DO ALL THE TASKS TO BE IN 0.006 from 0.005 HERE and set ErrorUpdating if it is not possible.
         //qDebug() << "DataBase::updateTo006 - I am in 006 " << endl;
-        IAmIn006 = true;
-    }
+    IAmIn006 = true;
     //qDebug() << "DataBase::updateTo006 - END " << endl;
+
     return IAmIn006;
 }
 
@@ -3958,8 +3935,6 @@ bool DataBase::updateTo010()
          if (sqlOk)
          { // Version updated
             //qDebug() << "DataBase::updateTo010: - sqlOK" << endl;
-             IAmIn010 = recreateSupportedContest();
-
              sqlOk = recreateSupportedContest();
              if (sqlOk)
              {
@@ -3987,7 +3962,7 @@ bool DataBase::updateTo010()
          }
          //DO ALL THE TASKS TO BE IN 0.010 from 0.009 HERE and set ErrorUpdating if it is not possible.
         //qDebug() << "DataBase::updateTo010: - IAmIn010" << endl;
-         IAmIn010 = true;
+         //IAmIn010 = true;
      }
     //qDebug() << "DataBase::updateTo010: - END" << endl;
      return IAmIn010;
@@ -4033,6 +4008,35 @@ bool DataBase::updateTheModeTableAndSyncLog()
         return false;
     }
    //qDebug() << "DataBase::updateTheModeTableAndSyncLog END" << endl;
+    return true;
+}
+
+bool DataBase::updateTheBandTableAndSyncLog()
+{
+   //qDebug() << "DataBase::updateTheBandTableAndSyncLog" << endl;
+    QSqlQuery query;
+
+    createTableBand(false);         // Create modetemp
+    populateTableBand(false);       // Populate modetemp
+
+    if (query.exec("DROP TABLE band"))
+    {
+        if (query.exec("ALTER TABLE bandtemp RENAME TO mode"))
+        {
+            return true;
+        }
+        else
+        {
+           //qDebug() << "DataBase::updateTheBandTableAndSyncLog - ERROR - bandtemp not renamed" << endl;
+            return false;
+        }
+    }
+    else
+    {
+       //qDebug() << "DataBase::updateTheBandTableAndSyncLog - ERROR - bandtemp not dropped" << endl;
+        return false;
+    }
+   //qDebug() << "DataBase::updateTheBandTableAndSyncLog END" << endl;
     return true;
 }
 

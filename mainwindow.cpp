@@ -4988,13 +4988,13 @@ void MainWindow::checkIfNewBandOrMode()
     //qDebug() << "MainWindow::checkIfNewBandOrMode after setupDialog" << endl;
 
    //qDebug() << "MainWindow::checkIfNewBandOrMode - bands: " << endl;
-    util->printQString(bands);
+    //util->printQString(bands);
     //qDebug() << "MainWindow::checkIfNewBandOrMode - modes: " << endl;
-    util->printQString(modes);
+    //util->printQString(modes);
 
     QStringList bandsInLog = dataProxy->getBandsInLog(currentLog);
    //qDebug() << "MainWindow::checkIfNewBandOrMode - bandsInLog-1: " << endl;
-    util->printQString(bandsInLog);
+    //util->printQString(bandsInLog);
    //qDebug() << "MainWindow::checkIfNewBandOrMode - bandsInLog-2: " << endl;
     QStringList modesInLog = dataProxy->getModesInLog(currentLog);
     //qDebug() << "MainWindow::checkIfNewBandOrMode - modesInLog: " << endl;
@@ -5040,8 +5040,7 @@ void MainWindow::checkIfNewBandOrMode()
    //qDebug() << "MainWindow::checkIfNewBandOrMode - bands -" << QString::number(bands.length()) << endl;
     bandComboBox->clear();
     bandComboBox->addItems(bands);
-	
-	satTabWidget->addBands(bands);
+    satTabWidget->addBands(bands);
 
    //qDebug() << "MainWindow::checkIfNewBandOrMode - modes -" << QString::number(modes.length()) << endl;
     modeComboBox->clear();
@@ -5054,9 +5053,9 @@ void MainWindow::checkIfNewBandOrMode()
 
 
    //qDebug() << "MainWindow::checkIfNewBandOrMode - bands2: " << endl;
-    util->printQString(bands);
+   // util->printQString(bands);
    //qDebug() << "MainWindow::checkIfNewBandOrMode - modes2: " << endl;
-    util->printQString(modes);
+   // util->printQString(modes);
 
    //qDebug() << "MainWindow::checkIfNewBandOrMode END" << endl;
 }
@@ -5074,7 +5073,7 @@ void MainWindow::readActiveBands (const QStringList actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
     // bands used in the program
    //qDebug() << "MainWindow::readActiveBands: "  << endl;
-    util->printQString(actives);
+    //util->printQString(actives);
 
     QString aux;
     bool atLeastOne = false;
@@ -7151,6 +7150,8 @@ void MainWindow::slotSatBandTXComboBoxChanged(const QString _q)
 
 void MainWindow::slotFreqTXChanged()
 {
+    //qDebug() << "MainWindow::slotFreqTXChanged" << QString::number(txFreqSpinBox->value()) << endl;
+
     QString _q;
     int v = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
     if (v<0)
@@ -7159,7 +7160,34 @@ void MainWindow::slotFreqTXChanged()
     }
 
     _q = dataProxy->getNameFromBandId (v);
+    if (bandComboBox->findText(_q) < 0)
+    {// The selected frequency is of a band that is not currently selected
+        //qDebug() << "MainWindow::slotFreqTXChanged - New band found: " << _q << endl;
+        if (dataProxy->getIdFromBandName(_q) > 1)
+        {// Not affected if 0 (light) is the frequency
+         // In this case the user should select the band in the setup
+            //qDebug() << "MainWindow::slotFreqTXChanged - Band is valid: " << _q << endl;
+            QStringList qsTemp;
+            qsTemp.clear();
+            qsTemp << bands;
+            qsTemp << _q;
+            bands.clear();
+            bands << dataProxy->sortBandNamesBottonUp(qsTemp);
+            bandComboBox->clear();
+            bandComboBox->addItems(bands);
+            dxccStatusWidget->setBands(bands);
+            satTabWidget->addBands(bands);
+
+            //qDebug() << "MainWindow::slotFreqTXChanged - Band has been added!" << endl;
+        }
+        else
+        {
+            //qDebug() << "MainWindow::slotFreqTXChanged - Band is NOT  valid: " << _q << endl;
+            return;
+        }
+    }
     bandComboBox->setCurrentIndex(bandComboBox->findText(_q));
+
 }
 
 void MainWindow::slotFreqRXChanged()

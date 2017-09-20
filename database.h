@@ -117,7 +117,6 @@ private:
     bool createTableEntity(const bool NoTmp);
     bool updateTableEntity();
 
-    bool createTablePropModes();
     bool createTableClubLogStatus();
     bool populateTableClubLogStatus();
 
@@ -127,17 +126,22 @@ private:
 
     bool createTableBand(const bool NoTmp);
     bool populateTableBand(const bool NoTmp);
+    bool updateTheBandTableAndSyncLog();
 
     bool recreateSatelliteData();
     bool createTableSatellites(const bool NoTmp);
     bool populateTableSatellites(const bool NoTmp);
+
+    bool recreatePropModes();
+    bool createTablePropModes();
+    bool populatePropagationModes();
 
     bool recreateContestData();
     bool recreateSupportedContest();
     bool createTableContest();
     bool createTableSupportedContest();
     bool populateContestData();
-    bool populatePropagationModes();
+
     bool populateTableSupportedContest();
 
     bool howManyQSOsInLog(const int i);

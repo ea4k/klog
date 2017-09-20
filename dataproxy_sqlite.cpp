@@ -259,7 +259,7 @@ QString DataProxy_SQLite::getFreqFromBandId(const int _id)
 
 int DataProxy_SQLite::getBandIdFromFreq(const double _n)
 {
-     //qDebug() << "DataProxy_SQLite::getBandIdFromFreq: " << fr << endl;
+     //qDebug() << "DataProxy_SQLite::getBandIdFromFreq: " << QString::number(_n) << endl;
     //Freq should be in MHz
      bool sqlOk = false;
     QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(_n).arg(_n);
