@@ -2248,41 +2248,41 @@ msgctxt "QObject|"
 msgid "Not identified"
 msgstr "不明"
 
-#: ../main.cpp:276
+#: ../main.cpp:277
 msgctxt "QObject|"
 msgid "Install wizard was canceled before completing..."
 msgstr "インストールウィザードは操作完了前に中断されました..."
 
-#: ../main.cpp:277
+#: ../main.cpp:278
 msgctxt "QObject|"
 msgid "Do you want to remove the KLog dir from your disk?"
 msgstr "KLog ディレクトリーをディスクドライブから削除しますか?"
 
-#: ../main.cpp:290
+#: ../main.cpp:291
 msgctxt "QObject|"
 msgid "Your KLog dir has been removed"
 msgstr "KLog ディレクトリは削除されました"
 
-#: ../main.cpp:296
+#: ../main.cpp:297
 msgctxt "QObject|"
 msgid ""
 "I could not remove your KLog dir. You should do it manually if you want it "
 "removed from your hard disk."
 msgstr "KLog ディレクトリーが削除できませんでした. ハードディスクから削除したい場合は手動で削除してください."
 
-#: ../main.cpp:303
+#: ../main.cpp:304
 msgctxt "QObject|"
 msgid ""
 "Your KLog dir could not be removed. You should do it manually if you want it "
 "removed from your hard disk."
 msgstr "KLog ディレクトリーが削除できませんでした. ハードディスクから削除したい場合は手動で削除してください."
 
-#: ../main.cpp:309
+#: ../main.cpp:310
 msgctxt "QObject|"
 msgid "Remember that your KLog dir is on your system..."
 msgstr "KLog ディレクトリーはシステム中に残ったままです..."
 
-#: ../main.cpp:290 ../main.cpp:296 ../main.cpp:303 ../main.cpp:309
+#: ../main.cpp:291 ../main.cpp:297 ../main.cpp:304 ../main.cpp:310
 msgctxt "QObject|"
 msgid "Thank you for running KLog!"
 msgstr "KLogを使用してくださりありがとうございます!"
@@ -2973,103 +2973,108 @@ msgstr ""
 "例: dxfun.com: 8000\n"
 "ポート番号の指定がないときは、デフォルトで41112を使用"
 
-#: ../setuppagelogs.cpp:69
+#: ../setuppagelogs.cpp:70
 #| msgid "New"
 msgctxt "SetupPageLogs|"
 msgid "&New"
 msgstr "新規ログ(&N)"
 
-#: ../setuppagelogs.cpp:70
+#: ../setuppagelogs.cpp:71
 msgctxt "SetupPageLogs|"
 msgid "&Edit"
 msgstr "編集(&E)"
 
-#: ../setuppagelogs.cpp:71
+#: ../setuppagelogs.cpp:72
 msgctxt "SetupPageLogs|"
 msgid "&Remove"
 msgstr "削除(&R)"
 
-#: ../setuppagelogs.cpp:74
+#: ../setuppagelogs.cpp:75
 msgctxt "SetupPageLogs|"
 msgid "Add a new log"
 msgstr "新しくログを追加"
 
-#: ../setuppagelogs.cpp:78
+#: ../setuppagelogs.cpp:79
 msgctxt "SetupPageLogs|"
 msgid "Edit the selected log"
 msgstr "選択したログを編集"
 
-#: ../setuppagelogs.cpp:79
+#: ../setuppagelogs.cpp:80
 msgctxt "SetupPageLogs|"
 msgid "Remove the selected log"
 msgstr "選択したログを削除"
 
-#: ../setuppagelogs.cpp:81
+#: ../setuppagelogs.cpp:82
 msgctxt "SetupPageLogs|"
 msgid "Select the log you want to open"
 msgstr "開きたいログを選択してください"
 
-#: ../setuppagelogs.cpp:197
+#: ../setuppagelogs.cpp:200
 msgctxt "SetupPageLogs|"
 msgid "KLog"
 msgstr ""
 
-#: ../setuppagelogs.cpp:198
+#: ../setuppagelogs.cpp:201
 msgctxt "SetupPageLogs|"
 msgid "Do you really want to remove this log?"
 msgstr "このログを本当に削除しますか?"
 
-#: ../setuppagelogs.cpp:199
+#: ../setuppagelogs.cpp:202
 msgctxt "SetupPageLogs|"
 msgid "All the QSOs from this log will be also deleted..."
 msgstr "このログに含まれるすべてのQSOデータが削除されます..."
 
-#: ../setuppagelogs.cpp:606
+#: ../setuppagelogs.cpp:320
+msgctxt "SetupPageLogs|"
+msgid "Operators"
+msgstr ""
+
+#: ../setuppagelogs.cpp:630
 msgctxt "SetupPageLogs|"
 msgid "An error has occurred showing the following error code:"
 msgstr "次のエラーコードが発生しました:"
 
-#: ../setuppagelogs.cpp:231
+#: ../setuppagelogs.cpp:234
 msgctxt "SetupPageLogs|"
 msgid "Log has not been removed. (#3)"
 msgstr "ログが削除されませんでした(#3)"
 
-#: ../setuppagelogs.cpp:239
+#: ../setuppagelogs.cpp:242
 msgctxt "SetupPageLogs|"
 msgid "Log has not been removed. (#2)"
 msgstr "ログが削除されませんでした(#2)"
 
-#: ../setuppagelogs.cpp:245
+#: ../setuppagelogs.cpp:248
 msgctxt "SetupPageLogs|"
 msgid "Log has not been removed. (#1)"
 msgstr "ログが削除されませんでした(#1)"
 
-#: ../setuppagelogs.cpp:609
+#: ../setuppagelogs.cpp:633
 msgctxt "SetupPageLogs|"
 msgid "KLog - SetupPageLogs"
 msgstr ""
 
-#: ../setuppagelogs.cpp:309
+#: ../setuppagelogs.cpp:314
 msgctxt "SetupPageLogs|"
 msgid "Date"
 msgstr "日付"
 
-#: ../setuppagelogs.cpp:306
+#: ../setuppagelogs.cpp:311
 msgctxt "SetupPageLogs|"
 msgid "ID"
 msgstr ""
 
-#: ../setuppagelogs.cpp:312
+#: ../setuppagelogs.cpp:317
 msgctxt "SetupPageLogs|"
 msgid "Station Callsign"
 msgstr "無線局のコールサイン"
 
-#: ../setuppagelogs.cpp:315
+#: ../setuppagelogs.cpp:323
 msgctxt "SetupPageLogs|"
 msgid "Comments"
 msgstr "コメント"
 
-#: ../setuppagelogs.cpp:318
+#: ../setuppagelogs.cpp:326
 msgctxt "SetupPageLogs|"
 msgid "Type"
 msgstr "タイプ"
@@ -3199,12 +3204,12 @@ msgctxt "SetupPageLogsNew|"
 msgid "Select the Overlay category"
 msgstr "オーバーレイカテゴリーを選択してください"
 
-#: ../setuppagelogsnew.cpp:377 ../setuppagelogsnew.cpp:940
+#: ../setuppagelogsnew.cpp:378 ../setuppagelogsnew.cpp:960
 msgctxt "SetupPageLogsNew|"
 msgid "Categories not OK"
 msgstr "不適切なカテゴリー選択"
 
-#: ../setuppagelogsnew.cpp:574
+#: ../setuppagelogsnew.cpp:575
 msgctxt "SetupPageLogsNew|"
 msgid ""
 "You need to enter a valid QRZ in the Station Callsign box.\n"
@@ -3213,7 +3218,7 @@ msgstr ""
 "無線局のコールサイン欄に適切なコールサインを入力してください。\n"
 "ログは作成されません。"
 
-#: ../setuppagelogsnew.cpp:685
+#: ../setuppagelogsnew.cpp:686
 msgctxt "SetupPageLogsNew|"
 msgid ""
 "You selected an invalid combination.\n"
@@ -3222,7 +3227,7 @@ msgstr ""
 "適切な組み合わせが選択されていません。\n"
 "ログは作成されません。"
 
-#: ../setuppagelogsnew.cpp:932
+#: ../setuppagelogsnew.cpp:952
 msgctxt "SetupPageLogsNew|"
 msgid "Categories OK"
 msgstr "適切なカテゴリー選択"

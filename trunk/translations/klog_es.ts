@@ -2272,40 +2272,40 @@ Do you want to save your changes?</source>
         <translation>No identificado</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="276"/>
+        <location filename="../main.cpp" line="277"/>
         <source>Install wizard was canceled before completing...</source>
         <translation>El asistente de instalación fué cancelado antes de terminar...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="277"/>
+        <location filename="../main.cpp" line="278"/>
         <source>Do you want to remove the KLog dir from your disk?</source>
         <translation>¿Quiere eliminar la carpeta de KLog de su disco?</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="290"/>
+        <location filename="../main.cpp" line="291"/>
         <source>Your KLog dir has been removed</source>
         <translation>Su directorio de KLog ha sido eliminado</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="296"/>
+        <location filename="../main.cpp" line="297"/>
         <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.</source>
         <translation>No se pudo eliminar su directorio de KLog. Debería eliminarlo manualmente si no lo quiere en su disco duro.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="303"/>
+        <location filename="../main.cpp" line="304"/>
         <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.</source>
         <translation>No se pudo eliminar su directorio de KLog. Debería eliminarlo manualmente si no lo quiere en su disco duro.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="309"/>
+        <location filename="../main.cpp" line="310"/>
         <source>Remember that your KLog dir is on your system...</source>
         <translation>Recuerde que la carpeta de KLog está en su sistema...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="290"/>
-        <location filename="../main.cpp" line="296"/>
-        <location filename="../main.cpp" line="303"/>
-        <location filename="../main.cpp" line="309"/>
+        <location filename="../main.cpp" line="291"/>
+        <location filename="../main.cpp" line="297"/>
+        <location filename="../main.cpp" line="304"/>
+        <location filename="../main.cpp" line="310"/>
         <source>Thank you for running KLog!</source>
         <translation>¡Gracias por usar KLog!</translation>
     </message>
@@ -3048,103 +3048,108 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
 <context>
     <name>SetupPageLogs</name>
     <message>
-        <location filename="../setuppagelogs.cpp" line="318"/>
+        <location filename="../setuppagelogs.cpp" line="326"/>
         <source>Type</source>
         <translation>Tipo</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="69"/>
+        <location filename="../setuppagelogs.cpp" line="70"/>
         <source>&amp;New</source>
         <oldsource>New</oldsource>
         <translation>&amp;Nuevo</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="70"/>
+        <location filename="../setuppagelogs.cpp" line="71"/>
         <source>&amp;Edit</source>
         <translation>&amp;Editar</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="71"/>
+        <location filename="../setuppagelogs.cpp" line="72"/>
         <source>&amp;Remove</source>
         <translation>Elimina&amp;r</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="74"/>
+        <location filename="../setuppagelogs.cpp" line="75"/>
         <source>Add a new log</source>
         <translation>Añadir nuevo log</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="81"/>
+        <location filename="../setuppagelogs.cpp" line="82"/>
         <source>Select the log you want to open</source>
         <translation>Seleccione el log a abrir</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="197"/>
+        <location filename="../setuppagelogs.cpp" line="200"/>
         <source>KLog</source>
         <translation>KLog</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="198"/>
+        <location filename="../setuppagelogs.cpp" line="201"/>
         <source>Do you really want to remove this log?</source>
         <translation>¿Realmente quiere eliminar este log?</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="199"/>
+        <location filename="../setuppagelogs.cpp" line="202"/>
         <source>All the QSOs from this log will be also deleted...</source>
         <translation>Todos los QSOs de este log también se eliminarán...</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="606"/>
+        <location filename="../setuppagelogs.cpp" line="320"/>
+        <source>Operators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagelogs.cpp" line="630"/>
         <source>An error has occurred showing the following error code:</source>
         <translation>Ha ocurrido un error que muestra el siguiente código de error:</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="231"/>
+        <location filename="../setuppagelogs.cpp" line="234"/>
         <source>Log has not been removed. (#3)</source>
         <translation>Log no eliminado (#3)</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="239"/>
+        <location filename="../setuppagelogs.cpp" line="242"/>
         <source>Log has not been removed. (#2)</source>
         <translation>Log no eliminado (#2)</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="245"/>
+        <location filename="../setuppagelogs.cpp" line="248"/>
         <source>Log has not been removed. (#1)</source>
         <translation>Log no eliminado (#1)</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="609"/>
+        <location filename="../setuppagelogs.cpp" line="633"/>
         <source>KLog - SetupPageLogs</source>
         <translation>KLog - SetupPageLogs</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="78"/>
+        <location filename="../setuppagelogs.cpp" line="79"/>
         <source>Edit the selected log</source>
         <translation>Editar el log selecionado</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="79"/>
+        <location filename="../setuppagelogs.cpp" line="80"/>
         <source>Remove the selected log</source>
         <translation>Eliminar el log seleccionado</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="306"/>
+        <location filename="../setuppagelogs.cpp" line="311"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="312"/>
+        <location filename="../setuppagelogs.cpp" line="317"/>
         <source>Station Callsign</source>
         <translation>Indicativo de la estación</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="315"/>
+        <location filename="../setuppagelogs.cpp" line="323"/>
         <source>Comments</source>
         <translation>Comentarios</translation>
     </message>
     <message>
-        <location filename="../setuppagelogs.cpp" line="309"/>
+        <location filename="../setuppagelogs.cpp" line="314"/>
         <source>Date</source>
         <translation>Fecha</translation>
     </message>
@@ -3277,13 +3282,13 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
         <translation>Seleccione la categoría de overlay</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="377"/>
-        <location filename="../setuppagelogsnew.cpp" line="940"/>
+        <location filename="../setuppagelogsnew.cpp" line="378"/>
+        <location filename="../setuppagelogsnew.cpp" line="960"/>
         <source>Categories not OK</source>
         <translation>Categorías no OK</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="574"/>
+        <location filename="../setuppagelogsnew.cpp" line="575"/>
         <source>You need to enter a valid QRZ in the Station Callsign box.
 The log will not be opened.</source>
         <oldsource>You need to enter a valid QRZ in the Station Callsign box
@@ -3292,7 +3297,7 @@ The log will not be opened.</oldsource>
 El log no se abrirá.</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="685"/>
+        <location filename="../setuppagelogsnew.cpp" line="686"/>
         <source>You selected an invalid combination.
 The log will not be opened.</source>
         <oldsource>You selected an invalid combination
@@ -3300,7 +3305,7 @@ The log will not be opened.</oldsource>
         <translation>Ha seleccionado una categoría no válida. El log no se abrirá.</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="932"/>
+        <location filename="../setuppagelogsnew.cpp" line="952"/>
         <source>Categories OK</source>
         <translation>Categorías OK</translation>
     </message>

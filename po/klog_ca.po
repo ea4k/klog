@@ -2325,41 +2325,41 @@ msgctxt "QObject|"
 msgid "Not identified"
 msgstr "No identificat"
 
-#: ../main.cpp:276
+#: ../main.cpp:277
 msgctxt "QObject|"
 msgid "Install wizard was canceled before completing..."
 msgstr ""
 
-#: ../main.cpp:277
+#: ../main.cpp:278
 msgctxt "QObject|"
 msgid "Do you want to remove the KLog dir from your disk?"
 msgstr ""
 
-#: ../main.cpp:290
+#: ../main.cpp:291
 msgctxt "QObject|"
 msgid "Your KLog dir has been removed"
 msgstr ""
 
-#: ../main.cpp:296
+#: ../main.cpp:297
 msgctxt "QObject|"
 msgid ""
 "I could not remove your KLog dir. You should do it manually if you want it "
 "removed from your hard disk."
 msgstr ""
 
-#: ../main.cpp:303
+#: ../main.cpp:304
 msgctxt "QObject|"
 msgid ""
 "Your KLog dir could not be removed. You should do it manually if you want it "
 "removed from your hard disk."
 msgstr ""
 
-#: ../main.cpp:309
+#: ../main.cpp:310
 msgctxt "QObject|"
 msgid "Remember that your KLog dir is on your system..."
 msgstr ""
 
-#: ../main.cpp:290 ../main.cpp:296 ../main.cpp:303 ../main.cpp:309
+#: ../main.cpp:291 ../main.cpp:297 ../main.cpp:304 ../main.cpp:310
 msgctxt "QObject|"
 msgid "Thank you for running KLog!"
 msgstr ""
@@ -3101,103 +3101,108 @@ msgstr ""
 "Exemple: dxfun.com:8000\n"
 "Si no s'especifica port s'usarà 41112 de forma predeterminada:"
 
-#: ../setuppagelogs.cpp:318
+#: ../setuppagelogs.cpp:326
 msgctxt "SetupPageLogs|"
 msgid "Type"
 msgstr "Tipus"
 
-#: ../setuppagelogs.cpp:69
+#: ../setuppagelogs.cpp:70
 #| msgid "New"
 msgctxt "SetupPageLogs|"
 msgid "&New"
 msgstr "&Nou"
 
-#: ../setuppagelogs.cpp:70
+#: ../setuppagelogs.cpp:71
 msgctxt "SetupPageLogs|"
 msgid "&Edit"
 msgstr "&Editar"
 
-#: ../setuppagelogs.cpp:71
+#: ../setuppagelogs.cpp:72
 msgctxt "SetupPageLogs|"
 msgid "&Remove"
 msgstr "Elimina&r"
 
-#: ../setuppagelogs.cpp:74
+#: ../setuppagelogs.cpp:75
 msgctxt "SetupPageLogs|"
 msgid "Add a new log"
 msgstr "Afegir nou log"
 
-#: ../setuppagelogs.cpp:81
+#: ../setuppagelogs.cpp:82
 msgctxt "SetupPageLogs|"
 msgid "Select the log you want to open"
 msgstr "Seleccioni el log a obrir"
 
-#: ../setuppagelogs.cpp:197
+#: ../setuppagelogs.cpp:200
 msgctxt "SetupPageLogs|"
 msgid "KLog"
 msgstr "KLog"
 
-#: ../setuppagelogs.cpp:198
+#: ../setuppagelogs.cpp:201
 msgctxt "SetupPageLogs|"
 msgid "Do you really want to remove this log?"
 msgstr ""
 
-#: ../setuppagelogs.cpp:199
+#: ../setuppagelogs.cpp:202
 msgctxt "SetupPageLogs|"
 msgid "All the QSOs from this log will be also deleted..."
 msgstr ""
 
-#: ../setuppagelogs.cpp:606
+#: ../setuppagelogs.cpp:320
+msgctxt "SetupPageLogs|"
+msgid "Operators"
+msgstr ""
+
+#: ../setuppagelogs.cpp:630
 msgctxt "SetupPageLogs|"
 msgid "An error has occurred showing the following error code:"
 msgstr ""
 
-#: ../setuppagelogs.cpp:231
+#: ../setuppagelogs.cpp:234
 msgctxt "SetupPageLogs|"
 msgid "Log has not been removed. (#3)"
 msgstr "Log no eliminat (#3)"
 
-#: ../setuppagelogs.cpp:239
+#: ../setuppagelogs.cpp:242
 msgctxt "SetupPageLogs|"
 msgid "Log has not been removed. (#2)"
 msgstr "Log no eliminat (#2)"
 
-#: ../setuppagelogs.cpp:245
+#: ../setuppagelogs.cpp:248
 msgctxt "SetupPageLogs|"
 msgid "Log has not been removed. (#1)"
 msgstr "Log no eliminat (#1)"
 
-#: ../setuppagelogs.cpp:609
+#: ../setuppagelogs.cpp:633
 msgctxt "SetupPageLogs|"
 msgid "KLog - SetupPageLogs"
 msgstr "KLog - SetupPageLogs"
 
-#: ../setuppagelogs.cpp:78
+#: ../setuppagelogs.cpp:79
 msgctxt "SetupPageLogs|"
 msgid "Edit the selected log"
 msgstr "Editar el log selecionat"
 
-#: ../setuppagelogs.cpp:79
+#: ../setuppagelogs.cpp:80
 msgctxt "SetupPageLogs|"
 msgid "Remove the selected log"
 msgstr "Esborrar el log seleccionat"
 
-#: ../setuppagelogs.cpp:306
+#: ../setuppagelogs.cpp:311
 msgctxt "SetupPageLogs|"
 msgid "ID"
 msgstr "ID"
 
-#: ../setuppagelogs.cpp:312
+#: ../setuppagelogs.cpp:317
 msgctxt "SetupPageLogs|"
 msgid "Station Callsign"
 msgstr "Indicatiu de l''estació"
 
-#: ../setuppagelogs.cpp:315
+#: ../setuppagelogs.cpp:323
 msgctxt "SetupPageLogs|"
 msgid "Comments"
 msgstr "Comentaris"
 
-#: ../setuppagelogs.cpp:309
+#: ../setuppagelogs.cpp:314
 msgctxt "SetupPageLogs|"
 msgid "Date"
 msgstr "Data"
@@ -3327,12 +3332,12 @@ msgctxt "SetupPageLogsNew|"
 msgid "Select the Overlay category"
 msgstr "Seleccioni la categoria de Overlay"
 
-#: ../setuppagelogsnew.cpp:377 ../setuppagelogsnew.cpp:940
+#: ../setuppagelogsnew.cpp:378 ../setuppagelogsnew.cpp:960
 msgctxt "SetupPageLogsNew|"
 msgid "Categories not OK"
 msgstr "Categories no OK"
 
-#: ../setuppagelogsnew.cpp:574
+#: ../setuppagelogsnew.cpp:575
 #| msgid ""
 #| "You need to enter a valid QRZ in the Station Callsign box\n"
 #| "The log will not be opened."
@@ -3344,7 +3349,7 @@ msgstr ""
 "Necessita introduir un indicatiu vàlid en el camp d'Indicatiu.\n"
 "El log no s''obrirà."
 
-#: ../setuppagelogsnew.cpp:685
+#: ../setuppagelogsnew.cpp:686
 #| msgid ""
 #| "You selected an invalid combination\n"
 #| "The log will not be opened."
@@ -3354,7 +3359,7 @@ msgid ""
 "The log will not be opened."
 msgstr "Ha seleccionat una categoria no vàlida. El log no s''obrirà."
 
-#: ../setuppagelogsnew.cpp:932
+#: ../setuppagelogsnew.cpp:952
 msgctxt "SetupPageLogsNew|"
 msgid "Categories OK"
 msgstr "Categories OK"

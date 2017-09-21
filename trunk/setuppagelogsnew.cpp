@@ -252,6 +252,8 @@ void SetupPageLogsNew::createWidget()
     callsLayout->addWidget(dateEdit, 1, 1);
     callsLayout->addWidget(operatorsLabel, 2, 0);
     callsLayout->addWidget(operatorsLineEdit, 2, 1);
+    callsLayout->addWidget(commentLabel, 3, 0);
+    callsLayout->addWidget(commentLineEdit, 3, 1);
 /*
     callsLayout->addWidget(typeLabel, 3, 0);
     callsLayout->addWidget(typeComboBox, 3, 1);
@@ -269,8 +271,7 @@ void SetupPageLogsNew::createWidget()
     callsLayout->addWidget(catBandsLabel, 8, 0);
     callsLayout->addWidget(contestCatBandsComboBox, 8, 1);
     callsLayout->addWidget(contestBandsComboBox, 8, 2);
-    callsLayout->addWidget(commentLabel, 9, 0);
-    callsLayout->addWidget(commentLineEdit, 9, 1);
+
 
     callsLayout->addWidget(overlayLabel, 10, 0);
     callsLayout->addWidget(contestCatOverlayComboBox, 10, 1);
@@ -698,6 +699,19 @@ void SetupPageLogsNew::slotOKButtonClicked()
 void SetupPageLogsNew::gatherAndSend()
 {
      //qDebug() << "SetupPageLogsNew::gatherAndSend: " << typeConteststr << endl;
+
+    // The following lines will be removed once more contest types have been added
+    contestCatMode = contestCatModeComboBox->currentIndex();
+    contestCatBands = contestCatBandsComboBox->currentIndex();
+    contestCatPower = contestCatPowerComboBox->currentIndex();
+    contestCatOperators = contestCatOperatorsComboBox->currentIndex();
+    contestCatAssisted = contestCatAssistedComboBox->currentIndex();
+    typeContestSelected = typeComboBox->currentIndex();
+    contestCatOverlay = contestCatOverlayComboBox->currentIndex();
+    typeContest = getSelectedTypeContest();
+
+    // The previous lines will be removed once more contest types have been added
+
     logData.clear();
 
     logData << stationCallsign << operators << comment << dateString
@@ -722,6 +736,12 @@ void SetupPageLogsNew::gatherAndSend()
     }
     //logData << QString::number(typeContest)
     // Update the SetupPageLogs::slotAnalyzeNewLogData if you add or remove any field (Today 12)
+
+    //for (int i=0;i<logData.length();i++)
+    //{
+    //qDebug() << "SetupPageLogsNew::gatherAndSend: " << logData.at(i) << endl;
+    //}
+    //qDebug() << "SetupPageLogsNew::gatherAndSend: EMITED" << endl;
     emit newLogData(logData);
 
 }

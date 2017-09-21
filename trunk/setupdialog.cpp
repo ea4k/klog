@@ -1062,6 +1062,7 @@ void SetupDialog::slotAnalyzeNewLogData(const QStringList _qs)
     }
     userDataPage->setStationQrz(_qs.at(0));
     userDataPage->setOperators(_qs.at(1));
+
 }
 
 void SetupDialog::slotSetStationCallSign(const QString _p)
