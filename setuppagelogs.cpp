@@ -34,6 +34,7 @@ SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
     stationCallsign = QString();
     operators = QString();
     comment = QString();
+    //dateString = QDate::currentDate().toString("yyyy/MM/dd");
     dateString = QString();
     typeContest = QString();
     contestCatMode = -1;
@@ -127,6 +128,8 @@ void SetupPageLogs::createNewLog()
     {
         newLog->setOperators(defaultOperators);
     }
+    newLog->setDateString(QDate::currentDate().toString("yyyy/MM/dd"));
+    newLog->setComment("");
 
     newLog->exec();
 }
@@ -275,6 +278,8 @@ void SetupPageLogs::createLogsPanel()
     logsView->setColumnHidden(columns, false);
     columns = rec.indexOf("stationcall");
     logsView->setColumnHidden(columns, false);
+    columns = rec.indexOf("operators");
+    logsView->setColumnHidden(columns, false);
     columns = rec.indexOf("comment");
     logsView->setColumnHidden(columns, false);
     columns = rec.indexOf("logtype");
@@ -310,6 +315,9 @@ void SetupPageLogs::createLogsModel()
 
         nameCol = rec.indexOf("stationcall");
         logsModel->setHeaderData(nameCol, Qt::Horizontal, tr("Station Callsign"));
+
+        nameCol = rec.indexOf("operators");
+        logsModel->setHeaderData(nameCol, Qt::Horizontal, tr("Operators"));
 
         nameCol = rec.indexOf("comment");
         logsModel->setHeaderData(nameCol, Qt::Horizontal, tr("Comments"));
@@ -384,10 +392,6 @@ QStringList SetupPageLogs::readLogs()
             nameCol = rec.indexOf("id");
             aux2 = (query.value(nameCol)).toString();
 
-            nameCol = rec.indexOf("logdate");
-            aux2 = aux2.append("--");
-            aux2.append((query.value(nameCol)).toString());
-
             nameCol = rec.indexOf("stationcall");
             aux2 = aux2.append("-");
             aux2.append((query.value(nameCol)).toString());
@@ -395,6 +399,11 @@ QStringList SetupPageLogs::readLogs()
             nameCol = rec.indexOf("logtype");
             aux2 = aux2.append("-");
             aux2.append((query.value(nameCol)).toString());
+
+            nameCol = rec.indexOf("logdate");
+            aux2 = aux2.append(" (");
+            aux2.append((query.value(nameCol)).toString());
+            aux2 = aux2.append(")");
 
             _logs.append(aux2);
 
@@ -419,11 +428,12 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
 {
     //qDebug() << "SetupPageLogs::slotAnalyzeNewLogData (length=" << QString::number(_qs.length()) << ")" << endl;
 
+
     if (_qs.length()!=14)
     {
         return;
     }
-/* From SetupPageLogsNew::gatherAndSend()
+/*     From SetupPageLogsNew::gatherAndSend()
     logData.clear();
     logData << stationCallsign << operators << comment << dateString
             << typeConteststr
@@ -444,6 +454,7 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     comment = _qs.at(2);
     dateString = _qs.at(3);
     typeContest  = _qs.at(4);
+/*
     contestCatMode  = (_qs.at(5)).toInt();
     contestCatOperators  = (_qs.at(6)).toInt();
     contestCatAssisted  = (_qs.at(7)).toInt();
@@ -451,6 +462,7 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     contestCatBands  = (_qs.at(9)).toInt();
     contestBands  = (_qs.at(10)).toInt();
     typeContestN = (_qs.at(12)).toInt();
+*/
     bool editing;
     if ( (_qs.at(13)).toInt() == 1)
     {
@@ -461,12 +473,24 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
         editing = false;
     }
     //OVERLAY = 11
+/*
+    QString _dateString = _qs.at(0);
+    QString _stationCallsign = _qs.at(1);
+    QString _operators = _qs.at(2);
 
+    QString _typeContest = _qs.at(3);
+    QString _comment = _qs.at(4);
+    QString _typeContestN = _qs.at(5);
+    QString id = _qs.at(6);
+    QString editing = _qs.at(7);
+*/
 
     QStringList newLogq;
     newLogq.clear();
     //If qs.at(12) == 1 then we are editing, any other value is a new log
-    newLogq << dateString << stationCallsign << operators << _qs.at(4) << comment << _qs.at(12) << QString::number(selectedLog) << _qs.at(13) ;
+    //Date/Call/Operators/"DX"/comment/"1"
+    newLogq << dateString << stationCallsign << operators << typeContest << comment << "1" << QString::number(selectedLog) << _qs.at(13) ;
+
     if (dataProxy->addNewLog(newLogq))
     {
         logsModel->select();
@@ -476,7 +500,7 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     // We send the data to the main tab
     QStringList logData;
     logData.clear();
-    logData << stationCallsign << operators;
+    logData << stationCallsign << operators  ;
     emit newLogData(logData);
 }
 /*

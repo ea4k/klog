@@ -13,6 +13,7 @@ TBD - 0.9.2.7
 - GUI: Created a widget to manage the Search, simplifying implementation of the main widget.
 - GUI: Added a SplashScreen on KLog start to show the user the starting process.
 - GUI: If the user adds a frequency in the TX Freq box that is not a currently used band, it is automatically added to the band seletion widget.
+- BugFix: Fixed how new logs were added to the DB.
 - BugFix: Identification is a band was HF or VHF was not always properly done.
 - BugFix: Higher bands where not shown to be selected in the preferences.
 - BugFix: DB updating function (009) blocked the execution of KLog the first time it was executed.
