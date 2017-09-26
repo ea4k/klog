@@ -31,7 +31,7 @@
 
 SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
 {
-//qDebug() << "SetupPageDxCluster::SetupPageDxCluster" << endl;
+    //qDebug() << "SetupPageDxCluster::SetupPageDxCluster" << endl;
 
     //xClusterServers = new QStringList;
     //dxClusterServers << "dxfun.com:8000";

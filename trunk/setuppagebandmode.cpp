@@ -2,6 +2,7 @@
 
 SetupPageBandMode::SetupPageBandMode(QWidget *parent) : QWidget(parent)
 {
+     //qDebug() << "SetupPageBandMode::SetupPageBandMode"   << endl;
     dataProxy = new DataProxy_SQLite();
 
     bandsListWidget = new QListWidget;

@@ -3,6 +3,7 @@
 MainWindowInputEQSL::MainWindowInputEQSL(QWidget *parent) :
     QWidget(parent)
 {
+     //qDebug() << "MainWindowInputEQSL::MainWindowInputEQSL"   << endl;
     util = new Utilities;
     qslSentStatusList.clear();
     qslRcvdStatusList.clear();

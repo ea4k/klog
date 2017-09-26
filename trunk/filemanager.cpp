@@ -2696,7 +2696,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             {
 
                 QMessageBox msgBox;
-                aux = QString(tr("You have cancelled the file export. The file will be removed and no data will be exported.") + "\n" + tr("Do you still want to cancel?"));
+                aux = QString(tr("You have cancelled the file import. The file will be removed and no data will be imported.") + "\n" + tr("Do you still want to cancel?"));
                 msgBox.setText(aux);
                 msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                 msgBox.setDefaultButton(QMessageBox::No);

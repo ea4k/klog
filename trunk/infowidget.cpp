@@ -3,6 +3,7 @@
 InfoWidget::InfoWidget(QWidget *parent) :
     QWidget(parent)
 {
+    //qDebug() << "InfoWidget::InfoWidget: "   << endl;
     awards = new Awards; //Just to know colors
     dataProxy = new DataProxy_SQLite;
     locator = new Locator();

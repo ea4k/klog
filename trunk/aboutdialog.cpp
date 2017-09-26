@@ -15,6 +15,7 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QPushButton>
+#include <QDebug>
 
 AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
     : QDialog(parent)

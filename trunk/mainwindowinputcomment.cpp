@@ -30,6 +30,7 @@
 MainWindowInputComment::MainWindowInputComment(QWidget *parent) :
     QWidget(parent)
 {
+    //qDebug() << "MainWindowInputComment::MainWindowInputComment"   << endl;
     commentLineEdit = new QLineEdit();
     comment.clear();
     createUI();

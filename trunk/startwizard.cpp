@@ -4,7 +4,7 @@
  StartWizard::StartWizard(const QString _klogDir, const QString _softVersion, QWidget *parent)
      : QWizard(parent)
  {
-     //qDebug() << "StartWizard::StartWizard: v=" << QString::number(_softVersion) << endl;
+     //qDebug() << "StartWizard::StartWizard: v=" << _softVersion << endl;
     //licAcepted = false;
     version = _softVersion;
     klogDir = _klogDir;

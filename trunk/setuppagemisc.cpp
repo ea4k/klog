@@ -31,7 +31,7 @@
 //      instead. It is easy to change but the code would not be so clear... Think about this. :-)
 
 SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
-//qDebug() << "SetupPageMisc::SetupPageMisc" << endl;
+    //qDebug() << "SetupPageMisc::SetupPageMisc" << endl;
 
     util = new Utilities;
 

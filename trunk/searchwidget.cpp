@@ -3,6 +3,7 @@
 SearchWidget::SearchWidget(QWidget *parent) :
     QWidget(parent)
 {
+    //qDebug() << "SearchWidget::SearchWidget"   << endl;
     searchBoxLineEdit = new QLineEdit;
     dataProxy = new DataProxy_SQLite;
     awards = new Awards;

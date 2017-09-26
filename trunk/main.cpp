@@ -16,7 +16,7 @@
  *****************************************************************************/
 
 #include <QtWidgets>
-#include <QtSql>
+//#include <QtSql>
 #include <QTranslator>
 #include <cstdlib>
 #include <QTextStream>
@@ -72,16 +72,7 @@ int main(int argc, char *argv[])
             cout << "     -h           Display this help" << endl;
             cout << "     -v           Display program version" << endl;
         }
-        /*
-        else if (arguments.contains("-e"))
-        {
-            //qDebug() << "KLog::main: EXPORT ADIF";
-        }
-        else if (arguments.contains("-u"))
-        {
-            //qDebug() << "KLog::main: UPDATE CTY";
-        }
-        */
+
         else if (arguments.contains("-v"))
         {
             cout << "Version: KLog-" << app.applicationVersion() << endl;
@@ -102,7 +93,7 @@ int main(int argc, char *argv[])
 
 
     //qDebug() << "KLog Main: Start of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << endl;
-    //qDebug() << "KLog Main: Detected language: " << (QLocale::system().name()) << endl;
+    //qDebug() << "KLog Main: Detected language: " << (QLocale::system().name()).left(2) << ".qm" << endl;
     // Translations begin
         QTranslator qtTranslator;
         qtTranslator.load("qt_" + QLocale::system().name(),
@@ -112,7 +103,6 @@ int main(int argc, char *argv[])
 
         bool missingTranslation = false;
         //QString msgOSFilePath = QString();        // The OS depending part of the message to be printed if no translation is found.
-
 
     #if defined(Q_OS_WIN)
         //qDebug() << "KLog WIN " << endl;
@@ -126,7 +116,6 @@ int main(int argc, char *argv[])
         }
         else if (((QLocale::system().name()).left(2)) == "en")
         { // If language is English, it will execute without showing message
-
         }
         else
         {
@@ -141,6 +130,7 @@ int main(int argc, char *argv[])
         {
             myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm");
         }
+
         else if (((QLocale::system().name()).left(2)) == "en")
         { // If language is English, it will execute without showing message
 
@@ -182,6 +172,7 @@ int main(int argc, char *argv[])
 
         if (missingTranslation)
         {
+            //qDebug() << "KLog Main: Translation missing! " << endl;
             QMessageBox msgBox;
             QString urlTranslate = QString();
             urlTranslate = "<p><a href=\"https://translate.google.com/?sl=auto&tl=auto#en/auto/No%20translation%20files%20for%20your%20language%20have%20been%20found%20so%20KLog%20will%20be%20shown%20in%20English.%0A%0AIf%20you%20have%20the%20klog_en.qm%20file%20for%20your%20language%2C%20you%20can%20copy%20it%20in%20the%20%2Fhome%2Fdevel%2F.klog%2F%20folder%20and%20restart%20KLog%20again.%0A%0A%20If%20you%20want%20to%20help%20to%20translate%20KLog%20into%20your%20language%2C%20please%20contact%20the%20author.\">TRANSLATE</a></p>";
@@ -314,8 +305,24 @@ int main(int argc, char *argv[])
             return 0;
         }
     }
+
     else
     {
+        //qDebug() << "Main: Start of DB Activities" << endl;
+        DataBase *db = new DataBase(version);
+        if (!db->createConnection())
+        {
+            //qDebug() << "Main: Conection not created" << endl;
+            return -1; // Exits with an error; no DB has been created
+        }
+        else
+        {
+            db->updateIfNeeded(); // Check if we need to update the DB
+            //qDebug() << "Main: DB Updated" << endl;
+        }
+        db->~DataBase();
+        //qDebug() << "Main: End of DB Activities" << endl;
+
         //qDebug() << "KLog Main-50" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         QPixmap pixmap(":img/klog_512x512.png");
         //qDebug() << "KLog Main-51" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
@@ -337,6 +344,5 @@ int main(int argc, char *argv[])
 
     //return app.exec();
 }
-
 
 

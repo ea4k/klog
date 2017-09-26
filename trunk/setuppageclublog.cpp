@@ -31,7 +31,7 @@
 
 SetupPageClubLog::SetupPageClubLog(QWidget *parent) : QWidget(parent)
 {
-//Debug() << "SetupPageClubLog::SetupPageClubLog" << endl;
+    //qDebug() << "SetupPageClubLog::SetupPageClubLog" << endl;
     clubLogActive = false;
     call = QString();
     email = QString();

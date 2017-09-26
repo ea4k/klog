@@ -32,6 +32,7 @@
 MainWindowInputQSL::MainWindowInputQSL(QWidget *parent) :
     QWidget(parent)
 {
+    //qDebug() << "MainWindowInputQSL::MainWindowInputQSL"   << endl;
     util = new Utilities;
     qslSentComboBox = new QComboBox;
     qslRecComboBox = new QComboBox;
