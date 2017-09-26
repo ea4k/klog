@@ -32,6 +32,7 @@
 
 SetupPageLogsNew::SetupPageLogsNew(QWidget *parent)
 {
+    //qDebug() << "SetupPageLogsNew::SetupPageLogsNew"   << endl;
     dataProxy = new DataProxy_SQLite();
     editing = false;
     checking = false;

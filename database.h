@@ -40,7 +40,8 @@
 class QSqlRelationalTableModel;
 
 // Previous db update 0.009
-const float DBVersionf = 0.010;
+const float DBVersionf = 0.010; // When bug on DB update is fixed
+//const float DBVersionf = 0.009;
 
 class DataBase
 {
@@ -126,7 +127,7 @@ private:
 
     bool createTableBand(const bool NoTmp);
     bool populateTableBand(const bool NoTmp);
-    bool updateTheBandTableAndSyncLog();
+    bool recreateTableBand();
 
     bool recreateSatelliteData();
     bool createTableSatellites(const bool NoTmp);

@@ -31,7 +31,7 @@
 
 SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
 {
-//qDebug() << "SetupPageColors::SetupPageColors" << endl;
+    //qDebug() << "SetupPageColors::SetupPageColors" << endl;
 
     newOneColorButton = new QPushButton;
     neededColorButton = new QPushButton;

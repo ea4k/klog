@@ -2,6 +2,7 @@
 
 Utilities::Utilities()
 {
+    //qDebug() << "Utilities::Utilities"  << endl;
     //dbPath = getKLogDBFile();
     softwareVersion = "0.0";
 }

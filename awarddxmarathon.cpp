@@ -27,6 +27,7 @@
 
 DXMarathon::DXMarathon()
 {
+    //qDebug() << "DXMarathon::DXMarathon"  << endl;
     dataProxy = new DataProxy_SQLite();
 }
 

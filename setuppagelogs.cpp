@@ -29,7 +29,7 @@
 #include "setuppagelogs.h"
 
 SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
-//qDebug() << "SetupPageLogs::SetupPageLogs" << endl;
+    //qDebug() << "SetupPageLogs::SetupPageLogs" << endl;
 
     stationCallsign = QString();
     operators = QString();

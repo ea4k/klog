@@ -3,7 +3,7 @@
 
 SoftwareUpdate::SoftwareUpdate(const QString _klogVersion) : QObject(0)
 {
-    //qDebug() << "SoftwareUpdate::SoftwareUpdate(): " << _klogDir << endl;
+    //qDebug() << "SoftwareUpdate::SoftwareUpdate(): " << _klogVersion << endl;
     util = new Utilities;
     updateDialog = new SoftwareUpdateDialog();
     latestVersion = "0.0";

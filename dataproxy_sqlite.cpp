@@ -1533,10 +1533,11 @@ bool DataProxy_SQLite::isVHF(const int _band)
 
 QStringList DataProxy_SQLite::getOperatingYears(const int _currentLog)
 {
-    //qDebug() << "DataProxy_SQLite::getYearsOperating: " << QString::number(_currentLog) << endl;
+    qDebug() << "DataProxy_SQLite::getYearsOperating: " << QString::number(_currentLog) << endl;
     QStringList years = QStringList();
     QSqlQuery query;
-    QString queryString = QString("SELECT DISTINCT (substr (qso_date, 0, 5)) FROM log WHERE lognumber='%0'").arg(_currentLog);
+
+    QString queryString = QString("SELECT DISTINCT (substr (qso_date, 0, 5)) FROM log WHERE lognumber='%0' ORDER BY 'qso_date'").arg(_currentLog);
     QString year = QString();
 
     bool sqlOk = query.exec(queryString);

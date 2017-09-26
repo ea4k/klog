@@ -31,6 +31,7 @@ This class implements the Satellite TAB of the MainWindow
 MainWindowSatTab::MainWindowSatTab(QWidget *parent) :
     QWidget(parent)
 {
+     //qDebug() << "MainWindowSatTab::MainWindowSatTab"   << endl;
     satNameComboBox = new QComboBox;
     satNameLineEdit = new QLineEdit;
     satModeLineEdit = new QLineEdit;
