@@ -957,27 +957,27 @@ Do you want to try again?</source>
         <location filename="../mainwindow.cpp" line="4573"/>
         <location filename="../mainwindow.cpp" line="4583"/>
         <location filename="../mainwindow.cpp" line="5537"/>
-        <location filename="../mainwindow.cpp" line="6689"/>
+        <location filename="../mainwindow.cpp" line="6690"/>
         <source>QRZ</source>
         <translation>QRZ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6695"/>
+        <location filename="../mainwindow.cpp" line="6696"/>
         <source>Band</source>
         <translation>Banda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6697"/>
+        <location filename="../mainwindow.cpp" line="6698"/>
         <source>Mode</source>
         <translation>Modo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6685"/>
+        <location filename="../mainwindow.cpp" line="6686"/>
         <source>Date</source>
         <translation>Fecha</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6687"/>
+        <location filename="../mainwindow.cpp" line="6688"/>
         <source>Time</source>
         <translation>Hora</translation>
     </message>
@@ -1004,7 +1004,7 @@ Do you want to try again?</source>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2339"/>
-        <location filename="../mainwindow.cpp" line="6691"/>
+        <location filename="../mainwindow.cpp" line="6692"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
@@ -1015,7 +1015,7 @@ Do you want to try again?</source>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2332"/>
-        <location filename="../mainwindow.cpp" line="6693"/>
+        <location filename="../mainwindow.cpp" line="6694"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
@@ -1719,13 +1719,13 @@ Do you want to save your changes?</source>
  QSO:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6683"/>
+        <location filename="../mainwindow.cpp" line="6684"/>
         <source>Number</source>
         <translation>Número</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5514"/>
-        <location filename="../mainwindow.cpp" line="6699"/>
+        <location filename="../mainwindow.cpp" line="6700"/>
         <source>Comment</source>
         <translation>Comentario</translation>
     </message>
@@ -1735,22 +1735,23 @@ Do you want to save your changes?</source>
         <translation>Comprobar actualizaciones...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6712"/>
+        <location filename="../mainwindow.cpp" line="6713"/>
         <source>Print Log</source>
         <translation>Imprimir log</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6717"/>
+        <location filename="../mainwindow.cpp" line="6718"/>
         <source>Printing the log...</source>
         <translation>Imprimiendo el log...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6717"/>
+        <location filename="../mainwindow.cpp" line="6718"/>
         <source>Abort printing</source>
         <translation>Cancelar impresión</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6734"/>
+        <location filename="../mainwindow.cpp" line="6727"/>
+        <location filename="../mainwindow.cpp" line="6742"/>
         <source>Printing the log...
  QSO: </source>
         <translation>Imprimiendo el log ...QSO:</translation>

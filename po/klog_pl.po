@@ -1028,19 +1028,19 @@ msgctxt "MainWindow|"
 msgid "Input"
 msgstr ""
 
-#: ../mainwindow.cpp:2332 ../mainwindow.cpp:6693
+#: ../mainwindow.cpp:2332 ../mainwindow.cpp:6694
 msgctxt "MainWindow|"
 msgid "RSTrx"
 msgstr ""
 
-#: ../mainwindow.cpp:2339 ../mainwindow.cpp:6691
+#: ../mainwindow.cpp:2339 ../mainwindow.cpp:6692
 msgctxt "MainWindow|"
 msgid "RSTtx"
 msgstr ""
 
 #: ../mainwindow.cpp:2348 ../mainwindow.cpp:3343 ../mainwindow.cpp:3349
 #: ../mainwindow.cpp:4573 ../mainwindow.cpp:4583 ../mainwindow.cpp:5537
-#: ../mainwindow.cpp:6689
+#: ../mainwindow.cpp:6690
 msgctxt "MainWindow|"
 msgid "QRZ"
 msgstr ""
@@ -1499,7 +1499,7 @@ msgctxt "MainWindow|"
 msgid "eQSL"
 msgstr ""
 
-#: ../mainwindow.cpp:5514 ../mainwindow.cpp:6699
+#: ../mainwindow.cpp:5514 ../mainwindow.cpp:6700
 msgctxt "MainWindow|"
 msgid "Comment"
 msgstr ""
@@ -1702,47 +1702,47 @@ msgid ""
 " QSO: "
 msgstr ""
 
-#: ../mainwindow.cpp:6683
+#: ../mainwindow.cpp:6684
 msgctxt "MainWindow|"
 msgid "Number"
 msgstr ""
 
-#: ../mainwindow.cpp:6685
+#: ../mainwindow.cpp:6686
 msgctxt "MainWindow|"
 msgid "Date"
 msgstr ""
 
-#: ../mainwindow.cpp:6687
+#: ../mainwindow.cpp:6688
 msgctxt "MainWindow|"
 msgid "Time"
 msgstr ""
 
-#: ../mainwindow.cpp:6695
+#: ../mainwindow.cpp:6696
 msgctxt "MainWindow|"
 msgid "Band"
 msgstr ""
 
-#: ../mainwindow.cpp:6697
+#: ../mainwindow.cpp:6698
 msgctxt "MainWindow|"
 msgid "Mode"
 msgstr ""
 
-#: ../mainwindow.cpp:6712
+#: ../mainwindow.cpp:6713
 msgctxt "MainWindow|"
 msgid "Print Log"
 msgstr ""
 
-#: ../mainwindow.cpp:6717
+#: ../mainwindow.cpp:6718
 msgctxt "MainWindow|"
 msgid "Printing the log..."
 msgstr ""
 
-#: ../mainwindow.cpp:6717
+#: ../mainwindow.cpp:6718
 msgctxt "MainWindow|"
 msgid "Abort printing"
 msgstr ""
 
-#: ../mainwindow.cpp:6734
+#: ../mainwindow.cpp:6727 ../mainwindow.cpp:6742
 msgctxt "MainWindow|"
 msgid ""
 "Printing the log...\n"
