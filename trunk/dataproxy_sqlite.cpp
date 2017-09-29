@@ -408,7 +408,7 @@ QStringList DataProxy_SQLite::getBandNames()
 QStringList DataProxy_SQLite::getModes()
 {
     QStringList modes = QStringList();
-    QSqlQuery query("SELECT submode FROM mode");
+    QSqlQuery query("SELECT submode FROM mode ORDER BY submode");
     while (query.next()) {
         if (query.isValid()){
             modes << query.value(0).toString();
@@ -1533,7 +1533,7 @@ bool DataProxy_SQLite::isVHF(const int _band)
 
 QStringList DataProxy_SQLite::getOperatingYears(const int _currentLog)
 {
-    qDebug() << "DataProxy_SQLite::getYearsOperating: " << QString::number(_currentLog) << endl;
+    //qDebug() << "DataProxy_SQLite::getYearsOperating: " << QString::number(_currentLog) << endl;
     QStringList years = QStringList();
     QSqlQuery query;
 
@@ -1864,7 +1864,8 @@ QStringList DataProxy_SQLite::getPropModeList()
     QString aux = QString();
     QStringList qs;
     qs.clear();
-    QString stringQuery = QString("SELECT id, shortname, name FROM prop_mode_enumeration");
+
+    QString stringQuery = QString("SELECT id, shortname, name FROM prop_mode_enumeration ORDER BY name");
     QSqlQuery query;
 
     if (query.exec(stringQuery))

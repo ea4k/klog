@@ -174,6 +174,7 @@ private:
     QSqlDatabase db;
     QString dbDir;
 
+
 };
 
 #endif // DATABASE_H
