@@ -6663,6 +6663,7 @@ void MainWindow::slotFilePrint()
     bool cancelPrinting = false;
 
     _numberOfQsos = dataProxy->getHowManyQSOInLog(currentLog);
+    int step = util->getProgresStepForDialog(_numberOfQsos);
 
 
     QTextCursor cursor(doc);
@@ -6723,6 +6724,10 @@ void MainWindow::slotFilePrint()
         query.exec(stringQuery);
         QSqlRecord rec = query.record();
 
+        aux = tr("Printing the log...\n QSO: ")  + QString::number(_qsos) + "/" + QString::number(_numberOfQsos);
+        progress.setLabelText(aux);
+        progress.setValue(_qsos);
+
         while ((query.next()) && (!cancelPrinting))
         {
             if (query.isValid())
@@ -6731,9 +6736,15 @@ void MainWindow::slotFilePrint()
                 textTable->appendRows(1);
                 row++;
                 _qsos++;
-                aux = tr("Printing the log...\n QSO: ")  + QString::number(_qsos) + "/" + QString::number(_numberOfQsos);
-                progress.setLabelText(aux);
-                progress.setValue(_qsos);
+                //qDebug() << "MainWindow::slotFilePrint: QSO: " << QString::number(_qsos) << " - Step: " << QString::number(step) << " - Div: " << QString::number(_qsos % step)<< endl;
+                if (( (_qsos % step )== 0) )
+                { // To update the speed I will only show the progress once each X QSOs
+                    aux = tr("Printing the log...\n QSO: ")  + QString::number(_qsos) + "/" + QString::number(_numberOfQsos);
+                    progress.setLabelText(aux);
+                    progress.setValue(_qsos);
+
+                }
+
 
                 nameCol = rec.indexOf("id");
                 cursor = textTable->cellAt(row, 0).firstCursorPosition();
@@ -6792,6 +6803,8 @@ void MainWindow::slotFilePrint()
                     cancelPrinting = true;
             }
         }
+
+
         progress.setValue(_numberOfQsos);
         if (!cancelPrinting)
         {

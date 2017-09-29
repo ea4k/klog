@@ -5,6 +5,7 @@ September 2017 - 0.9.2.7
 - Updated the list of valid modes up to ADIF 3.0.6.
 - Updated the list of valid propagation modes up to ADIF 3.0.6.
 - Update the 136KHz band limits to the new US licenses.
+- Optimized the speed of printing the log.
 - GUI: Added the QSO information done in a year on the DX-Marathon area.
 - GUI: Simplified the way active bands/modes are selected.
 - GUI: Satellite tab is redesigned.
