@@ -144,7 +144,7 @@ public:
     QStringList getDataFromContestType(const int _n);
     int getLogTypeNumber(const QString _logType);
     QString getLogTypeName(const int _logType);
-    int getLogTypeOfUserLog(const int _logN);
+    QString getLogTypeOfUserLog(const int _logN);
     int getLogNumberFromQSOId(const int _qsoId);
 
     QStringList getBandNames();
@@ -182,6 +182,7 @@ private:
 
 signals:
     void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
+    //void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
 
 };
 

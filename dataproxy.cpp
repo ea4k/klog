@@ -426,9 +426,9 @@ QString DataProxy::getLogTypeName(const int _logType)
     return QString();
 }
 
-int DataProxy::getLogTypeOfUserLog(const int _logN)
+QString DataProxy::getLogTypeOfUserLog(const int _logN)
 {
-    return -1;
+    return QString();
 }
 
 int DataProxy::getLogNumberFromQSOId(const int _qsoId)

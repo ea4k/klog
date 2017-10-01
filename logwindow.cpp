@@ -86,25 +86,23 @@ void LogWindow::createlogPanel(const int _currentLog)
 
 
 
-    int contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
+    QString contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
 
-    if (contestMode == dataProxy->getLogTypeNumber("DX"))
+    if (contestMode == "DX")
     {
-        //qDebug() << "LogWindow::createlogPanel: DX"  << endl;
+        qDebug() << "LogWindow::createlogPanel: DX"  << endl;
         setColumnsToDX();
     }
-    else if (contestMode == dataProxy->getLogTypeNumber("CQ_WW_SSB"))
+    else if (contestMode == "CQ-WW-SSB")
     {
-
+        qDebug() << "LogWindow::createlogPanel: CQ-WW-SSB"  << endl;
     }
-    else if (contestMode == dataProxy->getLogTypeNumber("CQ_WW_CW"))
-    {
 
-    }
     else
     {
         // THIS POINT SHOULD NOT BE REACHED. It means that there is a kind of contest not supported.
         // Maybe the way should be to move ALL the actions from DX here.
+        qDebug() << "LogWindow::createlogPanel: No log type found!"  << endl;
     }
 
     logView->setItemDelegate(new QSqlRelationalDelegate(this));
@@ -193,9 +191,9 @@ void LogWindow::righButtonFromLogMenu(const int trow)
     menu.addAction(qsoToEditFromLogAct);
     qsoToEditFromLogAct->setData(trow);
 
-    int contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
+    QString contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
 
-    if (contestMode == dataProxy->getLogTypeNumber("DX"))
+    if (contestMode == "DX")
     {
         menu.addSeparator();
         if (qslSent)
@@ -222,14 +220,11 @@ void LogWindow::righButtonFromLogMenu(const int trow)
             qslRecViaDirectFromLogAct->setData(trow);
         }
     }
-    else if (contestMode == dataProxy->getLogTypeNumber("CQ_WW_SSB"))
+    else if (contestMode == "CQ-WW-SSB")
     {
 
     }
-    else if (contestMode == dataProxy->getLogTypeNumber("CQ_WW_CW"))
-    {
 
-    }
     else
     {
         // THIS POINT SHOULD NOT BE REACHED. It means that there is a kind of contest not supported.

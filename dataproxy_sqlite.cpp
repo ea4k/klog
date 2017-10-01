@@ -285,6 +285,7 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
     else
     {
         //qDebug() << "DataProxy_SQLite::getBandIdFromFreq: Query NOK" << endl;
+        //emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
        return -1;
     }
     return -1;
@@ -2352,27 +2353,34 @@ QString DataProxy_SQLite::getLogTypeName(const int _logType)
     return db->getLogTypeName(_logType);
 }
 
-int DataProxy_SQLite::getLogTypeOfUserLog(const int _logN)
+QString DataProxy_SQLite::getLogTypeOfUserLog(const int _logN)
 {
+/*
+ *  Returns the type of log (DX, CQ-WW-SSB, ...) or DX as default if nothing found
+*/
+    qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: " << QString::number(_logN) << endl;
     QSqlQuery query;
     QString aux;
-    aux = QString("SELECT logtypen FROM logs WHERE id='%1'").arg(_logN);
+    aux = QString("SELECT logtype FROM logs WHERE id='%1'").arg(_logN);
     if (query.exec(aux))
     {
         query.next();
         if (query.isValid())
         {
-            return (query.value(0)).toInt();
+            qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: found: " << (query.value(0)).toString() << endl;
+            return (query.value(0)).toString();
         }
         else
         {
-            return -1;
+            qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: NOT found: returning DX"  << endl;
+            return "DX";
         }
 
     }
     else
     {
-        return -1;
+        qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: Query error: returning DX"  << endl;
+        return "DX";
     }
 }
 

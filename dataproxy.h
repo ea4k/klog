@@ -142,7 +142,7 @@ public:
     virtual QStringList getDataFromContestType(const int _n);
     virtual int getLogTypeNumber(const QString _logType);   // Returns the number of the type of log name
     virtual QString getLogTypeName(const int _logType);     // Returns the name of the type of log number
-    virtual int getLogTypeOfUserLog(const int _logN);       // Returns the type of log of a specific log
+    virtual QString getLogTypeOfUserLog(const int _logN);       // Returns the type of log of a specific log
     virtual int getLogNumberFromQSOId(const int _qsoId);    // Returns the log where the QSO id was added
 
     virtual QStringList getBandNames();

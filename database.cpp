@@ -253,7 +253,7 @@ bool DataBase::isTheDBCreated()
         }
     }
     else
-    {
+    { //ERROR in Query execution
 
 
 
