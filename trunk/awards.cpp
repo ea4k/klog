@@ -299,8 +299,8 @@ int Awards::getDXStatus (const QStringList _qs)
 {
 
     //qDebug() << "Awards::getDXStatus: Entity: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
-// Receives:  QStringList _qs;
-//_qs << Entity << BandId << << ModeId << lognumber;
+    // Receives:  QStringList _qs;
+    //_qs << Entity << BandId << << ModeId << lognumber;
 
 /*                                                                                                                  Not mode
     -1 - Error.                                                                                     - ERROR     - ERROR
@@ -342,12 +342,13 @@ int Awards::getDXStatus (const QStringList _qs)
     int _logNumber = _qs.at(3).toInt();
     int dxccEntity = (_qs.at(0)).toInt();
     //int dxccEntity = world->getQRZARRLId(_qs.at(0) );
+    //qDebug() << "Awards::getDXStatus: dxccEntity: " << QString::number(dxccEntity) << endl;
     if (dxccEntity<=0)
     {
         return -1;
     }
 
-   //qDebug() << "Awards::getDXStatus: dxccEntity: " << QString::number(dxccEntity) << endl;
+
 
 
     bool checkingMode = true;
@@ -623,7 +624,6 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
 
 QColor Awards::getQRZDXStatusColor(const QStringList _qs)
 {
-    //qs << dxCall << spotBand << "-1" << QString::number(currentLog) ;
     //qs << Entity << spotBand << "-1" << QString::number(currentLog) ;
 
 
@@ -647,9 +647,9 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
 
     int status = getDXStatus(_qs);
 
-   //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << "/" << getDXStatusString(status) << endl;
-
+    //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << "/" << getDXStatusString(status) << endl;
     //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << endl;
+
     switch (status) {
         case 0:
             returnedColor = newOneColor;

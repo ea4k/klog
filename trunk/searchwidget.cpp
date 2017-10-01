@@ -153,7 +153,7 @@ void SearchWidget::slotSearchBoxTextChanged()
 {
     //qDebug() << "SearchWidget::slotSearchBoxTextChanged: "  << searchBoxLineEdit->text() << endl;
 
-    QString _id, _call, _dateTime, _band, _bandid, _mode, _qsltx, _qslrx, _stationcallsign;
+    QString _id, _call, _dateTime, _band, _bandid, _mode, _qsltx, _qslrx, _stationcallsign, _dxcc;
     QStringList q;
     bool searchAll = searchAllRadioButton->isChecked();
     int i = -1;
@@ -177,11 +177,11 @@ void SearchWidget::slotSearchBoxTextChanged()
 
     if (searchAll)
     {
-        queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%%1%'").arg(theCall);
+        queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%%1%'").arg(theCall);
     }
     else
     {
-        queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%%1%' AND lognumber='%2'").arg(theCall).arg(currentLog);
+        queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%%1%' AND lognumber='%2'").arg(theCall).arg(currentLog);
     }
 
 
@@ -230,6 +230,9 @@ void SearchWidget::slotSearchBoxTextChanged()
             //_mode = dataProxy->getNameFromModeId((query.value(4)).toInt());
             _mode = dataProxy->getNameFromSubModeId((query.value(nameCol)).toInt());
 
+            nameCol = rec.indexOf("dxcc");
+            _dxcc= (query.value(nameCol)).toString();
+
             //_mode = query.value(4).toString();
 
             //qDebug() << "SearchWidget::slotSearchBoxTextChanged: mode(b) :  " << _mode << endl;
@@ -244,8 +247,6 @@ void SearchWidget::slotSearchBoxTextChanged()
                 _qsltx = "N";
             }
 
-            //nameCol = rec.indexOf("qsl_rcvd");
-            //_qslrx = (query.value(nameCol)).toString();
             nameCol = rec.indexOf("qsl_sent");
             _qslrx = (query.value(nameCol)).toString();
             if (_qslrx.length()<1)
@@ -271,7 +272,7 @@ void SearchWidget::slotSearchBoxTextChanged()
             }
 
                 q.clear();
-                q << _call << _bandid << _mode << QString::number(currentLog);
+                q << _dxcc << _bandid << _mode << QString::number(currentLog);
 
 
 
@@ -1113,17 +1114,17 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
         break;
         case 1:
         //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 1" << endl;
-            stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, id FROM log  WHERE qsl_sent=='R' AND lognumber='%1'").arg(currentLog);
+            stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, dxcc, station_callsign, id FROM log  WHERE qsl_sent=='R' AND lognumber='%1'").arg(currentLog);
             message = tr("My QSL requested to be sent");
         break;
         case 2://void slotToolSearchNeededQSLPendingToReceive();
         //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 2" << endl;
-        stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log WHERE lognumber='%1' AND ( (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R')").arg(currentLog);
+        stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, dxcc, station_callsign, log.id FROM log WHERE lognumber='%1' AND ( (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R')").arg(currentLog);
             message = tr("DX QSL pending to be received");
         break;
     case 3://void slotToolSearchNeededQSLRequested()
         //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 3" << endl;
-        stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log WHERE lognumber='%1' AND  qsl_rcvd='R'").arg(currentLog);
+        stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, dxcc, station_callsign, log.id FROM log WHERE lognumber='%1' AND  qsl_rcvd='R'").arg(currentLog);
         message = tr("DX QSL pending to be received");
     break;
         default:
@@ -1134,7 +1135,7 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
     }
 
     int nameCol = -1;
-    QString _call, _dateTime, _band, _mode, _freq, _qsltx, _qslrx, _id, _stationcallsign;
+    QString _call, _dateTime, _band, _mode, _freq, _qsltx, _qslrx, _id, _stationcallsign, _dxcc;
     QFont font;
     font.setBold(true);
     QColor color;
@@ -1183,6 +1184,9 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
             nameCol = rec.indexOf("modeid");
             _mode = dataProxy->getSubModeFromId((query.value(nameCol)).toInt());
 
+            nameCol = rec.indexOf("dxcc");
+            _dxcc= (query.value(nameCol)).toString();
+
             //qDebug() << "SearchWidget::slotToolSearchQSL: Mode: " << _mode << endl;
             //qDebug() << "SearchWidget::slotToolSearchQSL: mode " << QString::number((query.value(nameCol)).toInt()) << endl;
 
@@ -1220,7 +1224,7 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
             _id= (query.value(nameCol)).toString();
 
             q.clear();
-            q << _call << _freq << _mode << QString::number(currentLog);
+            q << _dxcc << _freq << _mode << QString::number(currentLog);
 
             color = awards->getQRZDXStatusColor(q);
 

@@ -84,7 +84,7 @@ private:
     void initClass();
     void connectToDXCluster();
     QStringList readItem(QListWidgetItem * item);
-    bool checkIfNeedsToBePrinted(const QString _dxCall, const int _band, const int _mode);
+    bool checkIfNeedsToBePrinted(const QString _DXEntity, const int _band, const int _mode);
 
     void addData(); //TO BE DELETED, JUST FOR TESTING PURPOSES
 

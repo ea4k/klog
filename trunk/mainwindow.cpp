@@ -6363,9 +6363,9 @@ void MainWindow::slotMyLocatorTextChanged()
 
 void MainWindow::showStatusOfDXCC(const QStringList _qs)
 {
-    //qDebug() << "MainWindow::showStatusOfDXC: QRZ: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) << endl;
+    //qDebug() << "MainWindow::showStatusOfDXC: Entity: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) << endl;
     // Receives:  QStringList _qs;
-    //_qs << QRZ << BandId << ModeId << lognumber;
+    //_qs << Entity << BandId << ModeId << lognumber;
 
     // Check if new one, needed, worked, confirmed
     // Print the infoLabel1
