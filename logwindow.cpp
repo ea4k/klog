@@ -90,19 +90,19 @@ void LogWindow::createlogPanel(const int _currentLog)
 
     if (contestMode == "DX")
     {
-        qDebug() << "LogWindow::createlogPanel: DX"  << endl;
+        //qDebug() << "LogWindow::createlogPanel: DX"  << endl;
         setColumnsToDX();
     }
     else if (contestMode == "CQ-WW-SSB")
     {
-        qDebug() << "LogWindow::createlogPanel: CQ-WW-SSB"  << endl;
+        //qDebug() << "LogWindow::createlogPanel: CQ-WW-SSB"  << endl;
     }
 
     else
     {
         // THIS POINT SHOULD NOT BE REACHED. It means that there is a kind of contest not supported.
         // Maybe the way should be to move ALL the actions from DX here.
-        qDebug() << "LogWindow::createlogPanel: No log type found!"  << endl;
+        //qDebug() << "LogWindow::createlogPanel: No log type found!"  << endl;
     }
 
     logView->setItemDelegate(new QSqlRelationalDelegate(this));

@@ -14,7 +14,7 @@ Feel free to request any roadmap change if you have any suggestion.
 TODO: Isolate the QSO input tab and create a widget with it.
 TODO: Isolate the Main QRZ box and create a widget with it.
 TODO: Isolate the Awards tab and create a widget with it.
-
+TODO: Add an option to save the DXCluster data to a file (file based on name or so)
 
 TODO: Think if it is possible to create a function in the Widgets(i.e. MainWindowInputQSL) to read the data and
         enter it in the DB automatically when the user clicks on "enter"

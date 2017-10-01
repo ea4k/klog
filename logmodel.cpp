@@ -35,10 +35,10 @@ the view should present the city's name field to the user.
 This should be coherent with the logview
 */
 
-   qDebug() << "LogModel::createlogModel: log: " << QString::number(_i) << endl;
+   //qDebug() << "LogModel::createlogModel: log: " << QString::number(_i) << endl;
 
    QString contestMode = dataProxy->getLogTypeOfUserLog(_i);
-   qDebug() << "LogModel::createlogModel - contestMode: " << contestMode << endl;
+   //qDebug() << "LogModel::createlogModel - contestMode: " << contestMode << endl;
 
    QString stringQuery = QString("lognumber='%1'").arg(_i);
    QSqlQuery query(stringQuery);
@@ -48,18 +48,18 @@ This should be coherent with the logview
    //if (contestMode.compare("DX"))
     if (contestMode == "DX")
    {
-       qDebug() << "LogModel::createlogModel: found type DX" << endl;
+       //qDebug() << "LogModel::createlogModel: found type DX" << endl;
        setColumnsToDX();
    }
    else if (contestMode == "CQ-WW-SSB")
    {
-       qDebug() << "LogModel::createlogModel: found type CQ-WW-SSB" << endl;
+       //qDebug() << "LogModel::createlogModel: found type CQ-WW-SSB" << endl;
    }
    else
    {
        // THIS POINT SHOULD NOT BE REACHED. It means that there is a kind of contest not supported.
        // Maybe the way should be to move ALL the actions from DX here.
-       qDebug() << "LogModel::createlogModel: log type NOT found" << endl;
+       //qDebug() << "LogModel::createlogModel: log type NOT found" << endl;
    }
 
 

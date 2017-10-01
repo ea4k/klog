@@ -230,12 +230,12 @@ void DXClusterWidget::slotClusterDisplayError(QAbstractSocket::SocketError socke
 
  }
 
-bool DXClusterWidget::checkIfNeedsToBePrinted(const QString _dxCall, int const _band, const int _mode)
+bool DXClusterWidget::checkIfNeedsToBePrinted(const QString _DXEntity, int const _band, const int _mode)
 {
     //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: " << _dxCall << "/" << dataProxy->getNameFromBandId(_band) << QString::number(_mode)<< endl;
     QStringList qs;
     qs.clear();
-    qs << _dxCall << QString::number(_band) << QString::number(_mode)  << QString::number(currentLog);
+    qs << _DXEntity << QString::number(_band) << QString::number(_mode)  << QString::number(currentLog);
     //bool isConfirmed = false;
     bool status = awards->isThisSpotConfirmed (qs);
 
@@ -350,15 +350,16 @@ void DXClusterWidget::slotClusterDataArrived()
             // Convert KHz to MHz...
             //dxFrequency = QString::number(abs (dxFrequency.toFloat())/1000);
             dxFrequency = QString::number( (dxFrequency.toFloat())/1000);
+            dxCall = tokens[4];
             dxEntity = world->getQRZARRLId(dxCall);
             //
             spotBand = QString::number(dataProxy->getBandIdFromFreq(  dxFrequency.toDouble()  ) );
 
-            dxCall = tokens[4];
+
             qs.clear();
             //spotBand = QString::number(world->getBandIdFromFreq(  dxFrequency  ) );
-            qs << dxCall << spotBand << "-1" << QString::number(currentLog) ;
-
+            qs << QString::number(dxEntity) << spotBand << "-1" << QString::number(currentLog) ;
+            //qDebug() << "DXClusterWidget::slotClusterDataArrived: Calling-2: " << QString::number(dxEntity) << endl;
             dxSpotColor = awards->getQRZDXStatusColor(qs);
 
             if (awards->isDXMarathonNeed(dxEntity, world->getQRZCqz(dxCall), QDateTime::currentDateTime().date().year(), currentLog))
@@ -387,10 +388,11 @@ void DXClusterWidget::slotClusterDataArrived()
 
             qs.clear();
             spotBand = QString::number(dataProxy->getBandIdFromFreq(  dxFrequency.toDouble()  ) );
-            qs << dxCall << spotBand << "-1" << QString::number(currentLog) ;
             dxEntity = world->getQRZARRLId(dxCall);
-
+            //qDebug() << "DXClusterWidget::slotClusterDataArrived: Calling-1: " << QString::number(dxEntity) << endl;
+            qs << QString::number(dxEntity) << spotBand << "-1" << QString::number(currentLog) ;
             dxSpotColor = awards->getQRZDXStatusColor(qs);
+
             if (awards->isDXMarathonNeed(dxEntity, world->getQRZCqz(dxCall), QDateTime::currentDateTime().date().year(), currentLog))
             {
                 dxClusterString = dxClusterString + "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
@@ -410,7 +412,7 @@ void DXClusterWidget::slotClusterDataArrived()
         //qDebug() << "DXClusterWidget::slotClusterDataArrived: Call/dxSpotColor: " << dxCall <<"/"<< dxSpotColor.name() << endl;
         //dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, dxClusterString, dxSpotColor);
         //TODO: Change the "-1" by the mode
-        if (!checkIfNeedsToBePrinted(dxCall, spotBand.toInt(), -1))
+        if (!checkIfNeedsToBePrinted(QString::number(dxEntity), spotBand.toInt(), -1))
         {
            //qDebug() << "DXClusterWidget::slotClusterDataArrived - Not to be printed!: " << dxCall << endl;
             return;

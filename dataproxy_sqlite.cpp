@@ -2358,7 +2358,7 @@ QString DataProxy_SQLite::getLogTypeOfUserLog(const int _logN)
 /*
  *  Returns the type of log (DX, CQ-WW-SSB, ...) or DX as default if nothing found
 */
-    qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: " << QString::number(_logN) << endl;
+    //qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: " << QString::number(_logN) << endl;
     QSqlQuery query;
     QString aux;
     aux = QString("SELECT logtype FROM logs WHERE id='%1'").arg(_logN);
@@ -2367,19 +2367,19 @@ QString DataProxy_SQLite::getLogTypeOfUserLog(const int _logN)
         query.next();
         if (query.isValid())
         {
-            qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: found: " << (query.value(0)).toString() << endl;
+            //qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: found: " << (query.value(0)).toString() << endl;
             return (query.value(0)).toString();
         }
         else
         {
-            qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: NOT found: returning DX"  << endl;
+            //qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: NOT found: returning DX"  << endl;
             return "DX";
         }
 
     }
     else
     {
-        qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: Query error: returning DX"  << endl;
+        //qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: Query error: returning DX"  << endl;
         return "DX";
     }
 }
