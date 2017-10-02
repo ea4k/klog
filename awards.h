@@ -36,8 +36,6 @@
 #include <QStringList>
 #include <QProgressDialog>
 #include <QMultiHash>
-#include <QObject>
-#include <QtGlobal>
 
 #include "world.h"
 #include "awarddxmarathon.h"
@@ -47,9 +45,9 @@
 
 class QProgressDialog;
 
-
-class Awards : public QObject {
-     Q_OBJECT
+class Awards
+{
+     //Q_OBJECT
     //friend class World;
 
 public:
@@ -157,8 +155,6 @@ private:
     DXStatus dxccWorked, dxccConfirmed, wazWorked, wazConfirmed;
     bool manageModes;
 
-signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
 
 };
 #endif // AWARDS_H

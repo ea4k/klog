@@ -557,9 +557,8 @@ qDebug() << "SetupDialog::slotOkButonClicked" << endl;
 
         file.close ();
     }
-    //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving" << endl;
+
     QDialog::accept();
-    //qDebug() << "SetupDialog::slotOkButtonClicked - END" << endl;
     //close();
 }
 

@@ -32,7 +32,6 @@
 #include <QFileDialog>
 #include <QFile>
 #include <QTextStream>
-#include <QtGlobal>
 
 #include "contest.h"
 
@@ -57,11 +56,6 @@ public:
     int getPoints();
 
 // NA in the constructor is North America for scoring purposes
-
-
-signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
-
 
 private:
 

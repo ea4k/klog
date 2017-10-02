@@ -43,7 +43,8 @@ class QSqlRelationalTableModel;
 const float DBVersionf = 0.010; // When bug on DB update is fixed
 //const float DBVersionf = 0.009;
 
-class DataBase{
+class DataBase
+{
 
 public:
     DataBase();
@@ -172,9 +173,6 @@ private:
 
     QSqlDatabase db;
     QString dbDir;
-
-signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
 
 
 };

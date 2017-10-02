@@ -28,7 +28,6 @@
 #include <QString>
 #include <QStringList>
 #include <QObject>
-//#include <QtGlobal>
 
 #include "dataproxy.h"
 #include "database.h"
@@ -183,7 +182,7 @@ private:
 
 signals:
     void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
+    //void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
 
 };
 

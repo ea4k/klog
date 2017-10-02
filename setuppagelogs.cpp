@@ -184,10 +184,6 @@ void SetupPageLogs::slotEditButtonClicked()
         }
 
     }
-    else
-    {
-
-    }
 }
 
 void SetupPageLogs::slotLogsCancelled(const bool _q)

@@ -78,11 +78,7 @@ This should be coherent with the logview
 
      int nameCol;
 
-     bool sqlOK = q.exec(stringQuery);
-     if (!sqlOK)
-     {
-         emit queryError(Q_FUNC_INFO, q.lastError().databaseText(), q.lastError().number());
-     }
+     q.exec(stringQuery);
      q.next();
      rec = q.record(); // Number of columns
 
