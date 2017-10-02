@@ -186,7 +186,11 @@ void SearchWidget::slotSearchBoxTextChanged()
 
 
     //qDebug() << "SearchWidget::slotSearchBoxTextChanged: queryString"  << queryString << endl;
-    query.exec(queryString);
+    bool sqlOK = query.exec(queryString);
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+    }
 
     QSqlRecord rec = query.record();
     int nameCol = -1;
@@ -549,7 +553,7 @@ void SearchWidget::slotSearchExportButtonClicked()
     QString stringQuery;
     QSqlQuery query;
     QTreeWidgetItem *item = searchResultsTreeWidget->topLevelItem(i);
-
+    bool sqlOK;
 
     while (i <= searchResultsTreeWidget->topLevelItemCount() )
     {
@@ -573,7 +577,11 @@ void SearchWidget::slotSearchExportButtonClicked()
             if ((item)->isSelected())
             {
                 stringQuery = QString("UPDATE log SET marked = 'X' WHERE id='%1'").arg(_qsoId);
-                query.exec(stringQuery);
+                sqlOK = query.exec(stringQuery);
+                if (!sqlOK)
+                {
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+                }
                 itemsSelected = true;
                 //TODO: Prepare this while/query execution
                 i++;
@@ -582,7 +590,11 @@ void SearchWidget::slotSearchExportButtonClicked()
             else
             {
                 stringQuery = QString("UPDATE log SET marked = 'N' WHERE id='%1'").arg(_qsoId);
-                query.exec(stringQuery);
+                sqlOK = query.exec(stringQuery);
+                if (!sqlOK)
+                {
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+                }
                 //TODO: Prepare this while/query execution
                 i++;
                 //qDebug() << "SearchWidget::slotSearchExportButtonClicked: ITEM NOT MARKED: " << QString::number(_qsoId) << endl;
@@ -1147,9 +1159,11 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
 
     if (!query.exec())
     {
-       //qDebug() << "SearchWidget::slotToolSearchQSL: Query ERROR" << endl;
-    //TODO: Control the error!!
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        //qDebug() << "SearchWidget::slotToolSearchQSL: Query ERROR" << endl;
+     //TODO: Control the error!!
     }
+
     else
     {
         emit toStatusBar(message); // updating the status bar

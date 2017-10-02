@@ -111,5 +111,9 @@ private:
     QSqlQuery preparedQuery;
     QHash<int, int> hashLogs;  // to create different logs when importing a ADIF file
 
+
+signals:
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
+
 };
 #endif // FILEMANAGER_H

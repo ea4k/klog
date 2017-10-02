@@ -122,7 +122,7 @@ public:
     MainWindow(const QString _klogDir, const QString tversion);
 
 private slots:
-
+    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN);
     void slotQRZReturnPressed();
     void slotQRZSpacePressed();
     void slotQRZTextChanged();
@@ -610,6 +610,8 @@ private:
     //QString bandOld, modeOld;
     //LOGVIEW
 
+signals:
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
 
 
 protected:

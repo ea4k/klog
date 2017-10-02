@@ -1,0 +1,72 @@
+Follow these steps to build KLog.
+
+KLog requires Qt5 to be built.
+
+Currently, many distributions are still distributing Qt4 as a default Qt
+version so it may be needed that you install Qt5 to be able to build KLog in
+your system.
+
+install may depend on your distribution, however, check for similar names &
+versions and it will probably work :-)
+
+If you have any suggestion for this file, please contact me. (Contact
+details in the AUTHORS file).
+
+
+1. Install the KLog dependencies
+
+	- Install g++, qt5-qmake, qtbase5-dev & qttools5-dev packages
+
+In Debian it is done with: apt-get install g++ qt5-qmake qtbase5-dev qttools5-dev
+
+In your distribution, you should know how to install new packages :-)
+
+
+Make sure you have qt5 available. You can do it with the qtchooser command.
+The output should be something like:
+
+	user@debian:~$ qtchooser -l
+	4
+	5
+	default
+	qt4-i386-linux-gnu
+	qt4
+	qt5-i386-linux-gnu
+	qt5
+	user@debian:~$
+
+
+It should return the list of qt versions available, qt5 must be one of them. 
+If qt5 is still not there, check your instalallation as one of the previous packages may be missing.
+
+2.- Select the appropriate Qt version (Qt5)
+
+    export QT_SELECT=qt5
+
+3.- Untar klog
+
+    tar xyzf klog-version.tar.gz
+
+    enter the KLog directory
+
+    cd klog-version
+
+
+4.- Generate the Makefile
+ 
+    qmake PREFIX=/usr/local klog.pro
+
+5. Make everything.
+
+    make 
+
+If everything goes OK, you should have the klog executable in the folder.
+
+6.- To install KLog, execute the following from the root account.
+
+    make install
+
+Now you are done. Just execute klog and enjoy!
+
+
+73

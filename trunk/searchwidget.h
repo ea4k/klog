@@ -96,6 +96,8 @@ signals:
     void toStatusBar(const QString statusm);
     void requestBeingShown();
     void actionQSODelete(const int _qsoid);
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
+
 
 private:
     void createUI();

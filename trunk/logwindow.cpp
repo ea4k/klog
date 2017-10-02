@@ -31,6 +31,7 @@ LogWindow::LogWindow(QWidget *parent) : QWidget(parent)
 {
    //qDebug() << "LogWindow::LogWindow: "  << endl;
     logModel = new LogModel(this);
+    connect(logModel, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
     logView = new QTableView;
     dxccStatusWidget = new DXCCStatusWidget();
     elogClublog = new eLogClubLog();
@@ -119,7 +120,11 @@ void LogWindow::setColumnsToDX()
     QString stringQuery;
     stringQuery = QString("SELECT * FROM log LIMIT 1");
     QSqlQuery query;
-    query.exec(stringQuery);
+    bool sqlOK = query.exec(stringQuery);
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+    }
     QSqlRecord rec;
     rec = query.record(); // Number of columns
     int columns = rec.count();
@@ -428,4 +433,9 @@ void LogWindow::qslRecViaDirect(const int _qsoId)
     emit updateAwards();
 }
 
+
+void LogWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN)
+{
+    emit queryError(functionFailed, errorCodeS, errorCodeN);
+}
 
