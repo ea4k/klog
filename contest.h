@@ -29,10 +29,13 @@
 #include <QString>
 #include <QStringList>
 #include <QTextEdit>
-//#include <QtWidgets>
+#include <QObject>
 
-class Contest
-{
+
+class Contest : public QObject {
+
+      Q_OBJECT
+
 public:
 
 

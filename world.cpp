@@ -113,12 +113,14 @@ bool World::recreate(const QString _worldFile)
         else
         {//TODO: Manage the query error
           //qDebug() << "World::recreate: FAILED TO EMPTY prefixesofentity"  << endl;
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
             return false;
         }
     }
     else
     {//TODO: Manage the query error
       //qDebug() << "World::recreate: FAILED TO EMPTY entity"  << endl;
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
         return false;
     }
   //qDebug() << "World::recreate: END..."  << endl;
@@ -1315,9 +1317,12 @@ bool World::readCTYCSV(const QString _worldFile)
                 //qDebug()  << "World::readCTYDAT(): Entity data added"  << endl;
             }
             else if (errorCode == 19)
-            {}
+            {
+                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+            }
             else
             {
+                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
                 errorCode = query.lastError().number();
 
 
@@ -1375,6 +1380,7 @@ bool World::readCTYCSV(const QString _worldFile)
                     {}
                     else
                     {
+                        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
                         errorCode = query.lastError().number();
 
                        //qDebug() << "World::readCTYCSV(): Prefix data NOT added"  << endl;

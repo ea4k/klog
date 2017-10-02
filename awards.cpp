@@ -59,10 +59,7 @@ Awards::Awards()
     manageModes = false;
 }
 
-Awards::~Awards()
-{
-
-}
+Awards::~Awards() {}
 
 void Awards::setAwardDXCC(const int _qsoId)
 {
@@ -84,6 +81,8 @@ void Awards::setAwardDXCC(const int _qsoId)
     sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        return;
         //qDebug() << "Awards::setAwardDXCC: 1 exec NOK: " << stringQuery << endl;
     }
 
@@ -106,7 +105,12 @@ void Awards::setAwardWAZ(const int _qsoId)
     stringQuery = QString("SELECT cqz, bandid, modeid, qsl_rcvd, lognumber FROM log WHERE id='%1'").arg(_qsoid);
     //qDebug() << "Awards::setAwardWAZ: stringQuery-0: " << stringQuery << endl;
 
-    query.exec(stringQuery);
+    bool sqlOK = query.exec(stringQuery);
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        return;
+    }
     query.next();
     QSqlRecord rec = query.record();
 
@@ -137,7 +141,11 @@ void Awards::setAwardWAZ(const int _qsoId)
 
     stringQuery = QString("SELECT id, confirmed FROM awardwaz WHERE cqz='%1' AND band='%2' AND mode='%3' AND lognumber='%4'").arg(_cqz).arg(_band).arg(_mode).arg(_ln);
     //qDebug() << "Awards::setAwardWAZ: stringQuery:-1 " << stringQuery << endl;
-    query.exec(stringQuery);
+    sqlOK = query.exec(stringQuery);
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+    }
     query.next();
     rec = query.record();
 
@@ -158,7 +166,11 @@ void Awards::setAwardWAZ(const int _qsoId)
             {
                 stringQuery = QString("UPDATE awardwaz SET cqz='%1', band='%2', mode='%3', confirmed='%4', qsoid='%5' WHERE id='%6'").arg(_cqz).arg(_band).arg(_mode).arg(_confirmed).arg(_qsoid).arg(_refid );
                 //qDebug() << "Awards::setAwardWAZ: stringQuery:-2 " << stringQuery << endl;
-                query.exec(stringQuery);
+                sqlOK = query.exec(stringQuery);
+                if (!sqlOK)
+                {
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+                }
             }
             else
             {
@@ -169,7 +181,11 @@ void Awards::setAwardWAZ(const int _qsoId)
     {
         stringQuery = QString("INSERT INTO awardwaz (cqz, band, mode, confirmed, lognumber, qsoid) values('%1','%2','%3','%4','%5','%6')").arg(_cqz).arg(_band).arg(_mode).arg(_confirmed).arg(_ln).arg(_qsoid);
         //qDebug() << "Awards::setAwardWAZ: stringQuery:-3 " << stringQuery << endl;
-        query.exec(stringQuery);
+        sqlOK = query.exec(stringQuery);
+        if (!sqlOK)
+        {
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        }
     }
 }
 
@@ -199,6 +215,7 @@ int Awards::getDXCCWorked(const int _logNumber)
     }
     else
     {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
         //qDebug() << "Awards::getDXCCWorked: Query error" << endl;
         return 0;
     }
@@ -231,6 +248,7 @@ int Awards::getDXCCConfirmed(const int _logNumber)
     }
     else
     {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
         //qDebug() << "Awards::getDXCCConfirmed: query error" << endl;
       return 0;
     }
@@ -246,17 +264,26 @@ int Awards::getWAZWorked(const int _logNumber)
     //stringQuery = QString("SELECT count (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND qsl_rcvd='Y' AND lognumber='%1')").arg(_logNumber);
     stringQuery = QString("SELECT count (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND lognumber='%1')").arg(_logNumber);
     //stringQuery = QString("SELECT count (cqz) from  (SELECT DISTINCT cqz FROM awardwaz WHERE lognumber='%1' AND cqz <> '')").arg(_logNumber);
-    query.exec(stringQuery);
-
-    query.next();
-    if (query.isValid())
+    bool sqlOK = query.exec(stringQuery);
+    if (sqlOK)
     {
-        return (query.value(0)).toInt();
+        query.next();
+        if (query.isValid())
+        {
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            return 0;
+        }
     }
     else
     {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
         return 0;
     }
+
+
 }
 
 int Awards::getWAZConfirmed(const int _logNumber)
@@ -268,17 +295,26 @@ int Awards::getWAZConfirmed(const int _logNumber)
     //Usar la siguiente para el confirmed
     stringQuery = QString("SELECT count (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND qsl_rcvd='Y' AND lognumber='%1')").arg(_logNumber);
     //stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM awardwaz WHERE lognumber='%1' AND confirmed='1' AND cqz <> '')").arg(_logNumber);
-    query.exec(stringQuery);
-
-    query.next();
-    if (query.isValid())
+    bool sqlOK = query.exec(stringQuery);
+    if (sqlOK)
     {
-        return (query.value(0)).toInt();
+        query.next();
+        if (query.isValid())
+        {
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            return 0;
+        }
+
     }
     else
     {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
         return 0;
     }
+
 }
 
 bool Awards::isThisSpotConfirmed(const QStringList _qs)

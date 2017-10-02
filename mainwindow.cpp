@@ -43,6 +43,8 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 {
 
     //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
+    //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
+
    QTime start;
    start = QTime::currentTime();
   //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
@@ -170,7 +172,9 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     dxccStatusWidget = new DXCCStatusWidget();
     logWindow = new LogWindow(this);
+    connect(logWindow, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
     searchWidget = new SearchWidget (this);
+    connect(searchWidget, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
     infoWidget = new InfoWidget(this);
 
    //qDebug() << "MainWindow::MainWindow: 0009" << endl;
@@ -253,6 +257,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     //qDebug() << "MainWindow::MainWindow: 4" << endl;
     world = new World(klogDir, softwareVersion);
+    connect(world, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
 
     if (!existingData)
     {
@@ -266,6 +271,10 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     }
     //qDebug() << "MainWindow::MainWindow: proxy to be created" << endl;
     dataProxy = new DataProxy_SQLite();
+
+    connect(dataProxy, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
+    connect(this, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
+
     //propModeList = dataProxy->getPropModeList();
 
     //qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
@@ -282,12 +291,14 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
     //filemanager = new FileManager(klogDir, softwareVersion, *db);
     filemanager = new FileManager(klogDir, softwareVersion);
+    connect(filemanager, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
 
     //qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
     locator = new Locator();
     //qDebug() << "MainWindow::MainWindow: awards to be created" << endl;
     awards = new Awards();
     awards->setManageModes(manageMode);
+    connect(awards, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
     //qDebug() << "MainWindow::MainWindow: awards already created" << endl;
     mainWidget = new QWidget(this);
     setCentralWidget(mainWidget);
@@ -728,6 +739,7 @@ void MainWindow::slotQRZReturnPressed()
         if (queryString != "NULL") {
             if (!query.exec(queryString))
             {
+                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
                //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
                 errorCode = query.lastError().number();
                 QMessageBox msgBox;
@@ -749,7 +761,7 @@ void MainWindow::slotQRZReturnPressed()
                 return;
             }
             else
-            {
+            {                
                 //TODO: To move the following lines to this part to properly manage the query result!!
                 //ret = true;
               //qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
@@ -3819,6 +3831,7 @@ void MainWindow::slotSetup(const int _page)
     {
         setupDialog->setData(configFileName, softwareVersion, _page, !configured);
         setupDialog->exec();
+        //qDebug() << "MainWindow::slotSetup - JUst after setupDialog->exec"  << endl;
 
         if (needToEnd)
         {
@@ -3826,17 +3839,21 @@ void MainWindow::slotSetup(const int _page)
         }
         else
         {
+            //qDebug() << "MainWindow::slotSetup - Just before readConfigData"  << endl;
             readConfigData();
+            //qDebug() << "MainWindow::slotSetup - Just after readConfigData"  << endl;
         }
 
 
-       //qDebug() << "MainWindow::MainWindow: logmodel to be created-2" << endl;
+        //qDebug() << "MainWindow::MainWindow: logmodel to be created-2" << endl;
         logWindow->createlogPanel(currentLog);
+        //qDebug() << "MainWindow::MainWindow: logmodel has been created-2" << endl;
 
     }
     defineStationCallsign();
-
+    //qDebug() << "MainWindow::MainWindow: before db->reConnect" << endl;
     db->reConnect();
+    //qDebug() << "MainWindow::MainWindow: after db->reConnect" << endl;
 
 }
 
@@ -5896,7 +5913,12 @@ void MainWindow::qsoToEdit (const int _qso)
     //qDebug() << "MainWindow::qsoToEdit: " << stringQuery << endl;
 
 
-    QSqlQuery query(stringQuery);
+    QSqlQuery query;
+    bool sqlOK = query.exec(stringQuery);
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+    }
 
     query.next();
     if (query.isValid())
@@ -5931,34 +5953,51 @@ void MainWindow::qsoToEdit (const int _qso)
     aux1 = (query.value(nameCol)).toString();
     stringQuery = QString("SELECT name FROM band WHERE id ='%1'").arg(aux1);
     QSqlQuery queryAux(stringQuery);
-    queryAux.next();
-    if (queryAux.isValid())
+    sqlOK = queryAux.exec();
+    if (sqlOK)
     {
-        aux1 = (queryAux.value(0)).toString();
-        bandComboBox->setCurrentIndex(bandComboBox->findText(aux1));
+        queryAux.next();
+        if (queryAux.isValid())
+        {
+            aux1 = (queryAux.value(0)).toString();
+            bandComboBox->setCurrentIndex(bandComboBox->findText(aux1));
+        }
+        else
+        {
+            bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand)));
+            //bandComboBox->setCurrentIndex(defaultBand);
+        }
+
     }
     else
     {
-        bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand)));
-        //bandComboBox->setCurrentIndex(defaultBand);
+        emit queryError(Q_FUNC_INFO, queryAux.lastError().databaseText(), queryAux.lastError().number());
     }
 
     nameCol = rec.indexOf("modeid");
     aux1 = (query.value(nameCol)).toString();
 
     stringQuery = QString("SELECT submode FROM mode WHERE id ='%1'").arg(aux1);
-    queryAux.exec(stringQuery);
-    queryAux.next();
-    if (queryAux.isValid())
+    sqlOK = queryAux.exec(stringQuery);
+    if (sqlOK)
     {
-        aux1 = (queryAux.value(0)).toString();
-        modeComboBox->setCurrentIndex(modeComboBox->findText(aux1));
+        queryAux.next();
+        if (queryAux.isValid())
+        {
+            aux1 = (queryAux.value(0)).toString();
+            modeComboBox->setCurrentIndex(modeComboBox->findText(aux1));
+        }
+        else
+        {
+            modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromSubModeId(defaultMode)));
+            //modeComboBox->setCurrentIndex(defaultMode);
+        }
     }
     else
     {
-        modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromSubModeId(defaultMode)));
-        //modeComboBox->setCurrentIndex(defaultMode);
+        emit queryError(Q_FUNC_INFO, queryAux.lastError().databaseText(), queryAux.lastError().number());
     }
+
 
     nameCol = rec.indexOf("rst_sent");
     aux1 = (query.value(nameCol)).toString();
@@ -5987,22 +6026,10 @@ void MainWindow::qsoToEdit (const int _qso)
         nameCol = rec.indexOf("qsl_via");
         aux1 = (query.value(nameCol)).toString();
         QSLTabWidget->setQSLVia(aux1);
-        /*
-        if (aux1.length()>0)
-        {
 
-            //qslViaLineEdit->setText(aux1);
-        }
-        else
-        {
-            qslViaLineEdit->clear();
-        }
-        */
         nameCol = rec.indexOf("qslmsg");
         aux1 = (query.value(nameCol)).toString();
         QSLTabWidget->setQSLMsg(aux1);
-
-        //qslmsgTextEdit->setText(aux1);
 
         nameCol = rec.indexOf("comment");
         aux1 = (query.value(nameCol)).toString();
@@ -6144,7 +6171,7 @@ void MainWindow::qsoToEdit (const int _qso)
         aux1 = (query.value(nameCol)).toString();
         QSLTabWidget->setQSLRecVia(aux1);
 
-     //TODO: BUG: When something is selected while modifying the QSL is deleted???
+        //TODO: BUG: When something is selected while modifying the QSL is deleted???
 
         //CLUBLOG
         nameCol = rec.indexOf("clublog_qso_upload_status");
@@ -6491,15 +6518,19 @@ void MainWindow::fillQSOData()
     QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, time_on, lognumber, confirmed, id, cqz, ituz, dxcc FROM log WHERE lognumber='%1'").arg(currentLog);
 
     QSqlQuery query;
-    query.exec(stringQuery);
+    bool sqlOK = query.exec(stringQuery);
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+    }
+
     QSqlQuery query1;
     QSqlRecord rec = query.record();
     int nameCol;
     QString aux, queryString;
     QString _call, _bandid, _modeid, _tdate, _ttime, _lognumber, _id, aux1, updateString, _confirmed;
     bool toModify = false;
-    bool noMoreQso = false;
-    bool sqlOK;
+    bool noMoreQso = false;    
 
     int numberOfQsos = 0;
     int i = 0;
@@ -6616,6 +6647,7 @@ void MainWindow::fillQSOData()
                 }
                 else
                 {
+                    emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
                     //qDebug() << "MainWindow::fillQSOData: sqlOK=False" << endl;
                 }
 
@@ -6661,7 +6693,7 @@ void MainWindow::slotFilePrint()
     int row = 0;
     int _numberOfQsos = 0;
     bool cancelPrinting = false;
-
+    bool sqlOK;
     _numberOfQsos = dataProxy->getHowManyQSOInLog(currentLog);
     int step = util->getProgresStepForDialog(_numberOfQsos);
 
@@ -6721,7 +6753,13 @@ void MainWindow::slotFilePrint()
 
 
         QString stringQuery = QString("SELECT id, qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, comment FROM log WHERE lognumber='%1'").arg(currentLog);
-        query.exec(stringQuery);
+        sqlOK = query.exec(stringQuery);
+        if (!sqlOK)
+        {
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+            return;
+            //TODO: Print a message showing an error and exit.
+        }
         QSqlRecord rec = query.record();
 
         aux = tr("Printing the log...\n QSO: ")  + QString::number(_qsos) + "/" + QString::number(_numberOfQsos);
@@ -6773,13 +6811,21 @@ void MainWindow::slotFilePrint()
                 nameCol = rec.indexOf("bandid");
                 aux = (query.value(nameCol)).toString();
                 stringQuery = QString("SELECT name FROM band WHERE id='%1'").arg(aux);
-                query1.exec(stringQuery);
-                query1.next();
-                if (query1.isValid())
+                sqlOK = query1.exec(stringQuery);
+                if (sqlOK)
                 {
-                    cursor = textTable->cellAt(row, 6).firstCursorPosition();
-                    cursor.insertText((query1.value(0)).toString());
+                    query1.next();
+                    if (query1.isValid())
+                    {
+                        cursor = textTable->cellAt(row, 6).firstCursorPosition();
+                        cursor.insertText((query1.value(0)).toString());
+                    }
                 }
+                else
+                {
+                    emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+                }
+
 
                 nameCol = rec.indexOf("modeid");
                 aux = (query.value(nameCol)).toString();
@@ -6926,7 +6972,11 @@ void MainWindow::updateQSLRecAndSent()
 
     queryString = QString("SELECT id, qsl_rcvd, qsl_sent FROM log WHERE lognumber='%1'").arg(currentLog);
 
-    query.exec(queryString);
+    bool sqlOK = query.exec(queryString);
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+    }
 
     QSqlRecord rec = query.record();
 
@@ -6950,13 +7000,19 @@ void MainWindow::updateQSLRecAndSent()
 
                 if ( (aux != "Y") && (aux != "N") && (aux != "R") && (aux != "Q") && (aux != "I") )
                 {//QSL_SENT
-                    queryString = QString("UPDATE log SET qsl_rcvd='N' qsl_sent='N' WHERE id='%1'").arg(idT);
-                    query1.exec(queryString);
+                    queryString = QString("UPDATE log SET qsl_rcvd='N', qsl_sent='N' WHERE id='%1'").arg(idT);
+                    if (!query1.exec(queryString))
+                    {
+                        emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+                    }
                 }
                 else
                 {
                     queryString = QString("UPDATE log SET qsl_rcvd='N' WHERE id='%1'").arg(idT);
-                    query1.exec(queryString);
+                    if(!query1.exec(queryString))
+                    {
+                        emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+                    }
 
                 }
 
@@ -6972,7 +7028,10 @@ void MainWindow::updateQSLRecAndSent()
                 if ( (aux != "Y") && (aux != "N") && (aux != "R") && (aux != "Q") && (aux != "I") )
                 {//QSL_SENT
                     queryString = QString("UPDATE log SET qsl_sent='N' WHERE id='%1'").arg(idT);
-                    query1.exec(queryString);
+                    if(!query1.exec(queryString))
+                    {
+                        emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+                    }
                 }
                 else
                 {
@@ -7224,4 +7283,9 @@ void MainWindow::slotFreqRXChanged()
     bandComboBox->setCurrentIndex(bandComboBox->findText(_q));
 }
 
-
+void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN)
+{
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << endl;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
+}

@@ -24,6 +24,7 @@
  *****************************************************************************/
 
 #include "contest_cqwwdxssb.h"
+#include <QSqlError>
 
 //#include <QDebug>
 /*
@@ -175,7 +176,12 @@ for (int i = 0; i<_qs.length(); i++){
     QSqlQuery query;
     queryString = QString("SELECT id FROM log WHERE bandid='%1' AND stx='%2'").arg(dxBand).arg(dxCQz);
     //qDebug() << "ContestCQWWDXSSB::isMultiplier-1: " << queryString << endl;
-    query.exec(queryString);
+    bool sqlOK = query.exec(queryString);
+    if (!sqlOK)
+    {
+
+        //emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+    }
     query.next();
 
     if (!(query.isValid())){
@@ -187,7 +193,11 @@ for (int i = 0; i<_qs.length(); i++){
 //        A multiplier of one (1) for each different country contacted on each band.    
     queryString = QString("SELECT id FROM log WHERE bandid='%1' AND dxcc='%2'").arg(dxBand).arg(dxEntity);
     //qDebug() << "ContestCQWWDXSSB::isMultiplier-2: " << queryString << endl;
-    query.exec(queryString);
+    sqlOK = query.exec(queryString);
+    if (!sqlOK)
+    {
+        //emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+    }
 
     query.next();
 
@@ -331,7 +341,11 @@ END-OF-LOG:
                 nameCol = rec.indexOf("bandid");
                 aux1 = (query.value(nameCol)).toString();
                 queryString = QString("SELECT cabrillo FROM band WHERE id='%1'").arg(aux1);
-                query1.exec(queryString);
+                bool sqlOK = query1.exec(queryString);
+                if (!sqlOK)
+                {
+                    //emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+                }
                 query1.next();
 
                 if (query1.isValid())
@@ -353,7 +367,11 @@ END-OF-LOG:
             nameCol = rec.indexOf("modeid");
             aux1 = (query.value(nameCol)).toString();
             queryString = QString("SELECT name FROM mode WHERE id='%1'").arg(aux1);
-            query1.exec(queryString);
+            bool sqlOK = query1.exec(queryString);
+            if (!sqlOK)
+            {
+                //emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+            }
             query1.next();
 
             if (query1.isValid())

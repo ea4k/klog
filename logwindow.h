@@ -66,7 +66,9 @@ public:
 signals:
     void actionQSODoubleClicked(const int _qsoid);
     void updateAwards();
-    void updateSearchText();
+    void updateSearchText();   
+    //void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
 
 private slots:
 
@@ -81,6 +83,7 @@ private slots:
     void slotQSLRecViaBureauFromLog();
     void slotQsoDeleteFromLog();
     void slotQSOToEditFromLog();
+    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN);
 
 
 private:    

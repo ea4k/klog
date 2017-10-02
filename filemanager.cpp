@@ -215,7 +215,11 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
             queryString = QString("SELECT marked FROM log WHERE lognumber='%1'").arg(_logN);
         }
 
-        query.exec(queryString);
+        bool sqlOK = query.exec(queryString);
+        if (!sqlOK)
+        {
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        }
         QSqlRecord rec = query.record();
 
         while ( (query.next())) {
@@ -248,7 +252,11 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
             aux1 = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(_logN);
         }
 
-        query1.exec(aux1);
+        bool sqlOK = query1.exec(aux1);
+        if (!sqlOK)
+        {
+            emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+        }
         query1.next();
 
         if (query1.isValid())
@@ -286,7 +294,11 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     }
 
     QSqlQuery query;
-    query.exec(queryString);
+    bool sqlOK = query.exec(queryString);
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+    }
 
     //QSqlQuery query("SELECT * FROM log");
     QSqlRecord rec = query.record();
@@ -2085,7 +2097,11 @@ QFile file(_fileName);
     noMoreQso = false;
 
     queryString = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
-    query.exec(queryString);
+    bool sqlOK = query.exec(queryString);
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+    }
     query.next();
     if (query.isValid())
     {
@@ -2117,7 +2133,11 @@ QFile file(_fileName);
 
     //TODO: When the software supports several log, this should be taken into account in the following query.
     queryString = "SELECT freq, bandid, modeid, qso_date, time_on, station_callsign, rst_sent, rst_rcvd, call, stx FROM log";
-    query.exec(queryString);
+    sqlOK = query.exec(queryString);
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+    }
     QSqlRecord rec = query.record();
 
 
@@ -2146,7 +2166,11 @@ QFile file(_fileName);
                 nameCol = rec.indexOf("bandid");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 queryString = QString("SELECT cabrillo FROM band WHERE id='%1'").arg(aux1);
-                query1.exec(queryString);
+                sqlOK = query1.exec(queryString);
+                if (!sqlOK)
+                {
+                    emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+                }
                 query1.next();
                 if (query1.isValid())
                 {
@@ -2162,7 +2186,11 @@ QFile file(_fileName);
             nameCol = rec.indexOf("modeid");
             aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
             queryString = QString("SELECT cabrillo FROM mode WHERE id='%1'").arg(aux1);
-            query1.exec(queryString);
+            sqlOK = query1.exec(queryString);
+            if (!sqlOK)
+            {
+                emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+            }
             query1.next();
             if (query1.isValid())
             {
@@ -2658,7 +2686,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
             if (!sqlOK)
             {
-
+                emit queryError(Q_FUNC_INFO, preparedQuery.lastError().databaseText(), preparedQuery.lastError().number());
                //qDebug() << "FileManager::adifReadLog: (0) LastQuery: " << preparedQuery.lastQuery()  << endl;
                //qDebug() << "FileManager::adifReadLog: (0) LastError-data: " << preparedQuery.lastError().databaseText()  << endl;
                //qDebug() << "FileManager::adifReadLog: (0) LastError-driver: " << preparedQuery.lastError().driverText()  << endl;

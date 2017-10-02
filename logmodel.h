@@ -44,6 +44,10 @@ private:
     void setColumnsToDX();
     //QSqlRelationalTableModel *logModel;
     DataProxy *dataProxy;
+
+signals:
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
+
 };
 
 #endif // LOGMODEL_H
