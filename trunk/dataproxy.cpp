@@ -280,6 +280,11 @@ bool DataProxy::isThisQSODuplicated(const QString _qrz, const QString _date, con
 }
 
 
+int DataProxy::getDuplicatedQSOId(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode)
+{
+    return -1;
+}
+
 bool DataProxy::isDXCCConfirmed(const int _dxcc, const int _currentLog)
 {
     return false;

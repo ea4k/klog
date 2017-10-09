@@ -99,7 +99,7 @@ World::~World()
 
 bool World::recreate(const QString _worldFile)
 {
- //qDebug() << "World::recreate: " << _worldFile << endl;
+  qDebug() << "World::recreate: " << _worldFile << endl;
 
     QSqlQuery query;
     if (query.exec("DELETE FROM entity"))

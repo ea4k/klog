@@ -63,6 +63,7 @@ public:
     QString getNameFromBandId (const int _id);
     QString getNameFromModeId (const int _id);
     QString getNameFromSubModeId (const int _id);
+
     QString getSubModeFromId (const int _id);
     QString getNameFromSubMode (const QString _sm); // Checks if a submode is deprecated TODO: CHeck if really needed
     QString getModeFromSubMode (const QString _sm);
@@ -78,6 +79,7 @@ public:
     bool deleteQSO(const int _qsoId);
     int isWorkedB4(const QString _qrz, const int _currentLog);
     bool isThisQSODuplicated(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode);
+    int getDuplicatedQSOId(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode);
     bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);
@@ -105,6 +107,11 @@ public:
     QString getIOTAFromQRZ(const QString _call);
     QString getQSLViaFromQRZ(const QString _call);
     // /Complete with previous
+
+    //LOTW
+
+
+    //LOTW
 
     int getContinentIdFromContinentShortName(const QString _n);
     QString getContinentShortNameFromEntity(const int _n);

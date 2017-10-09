@@ -63,8 +63,8 @@ public:
     bool isValidBandNumber (const int b);
     bool isValidModeNumber (const int b);
     QString getBandNameFromNumber(const int _n);
-    QString getModeNameFromNumber(const int _n, const bool _tmp);
-    QString getSubModeNameFromNumber(const int _n, const bool _tmp);
+    QString getModeNameFromNumber(const int _n, bool _tmp=false);
+    QString getSubModeNameFromNumber(const int _n, bool _tmp=false);
 
     int getBandIdFromName(const QString b);
     int getModeIdFromName(const QString b);
@@ -73,8 +73,11 @@ public:
     bool createBandModeMaps();
     int getBandIDFromName2(const QString b);
     int getModeIDFromName2(const QString b);
+    int getSubModeIDFromName2(const QString b);
+
     QString getBandNameFromID2(const int _i);
     QString getModeNameFromID2(const int _i);
+    QString getSubModeNameFromID2(const int _i);
 
     int getBandIdFromFreq(const QString fr); //Freq should be in MHz
     bool isThisFreqInBand(const QString b, const QString fr); //Freq should be in MHz
@@ -161,8 +164,10 @@ private:
     //QDateTime date;
     QHash<QString, int> bandIDHash;
     QHash<QString, int> modeIDHash;
+    QHash<QString, int> subModeIDHash;
     QHash<int, QString> IDBandHash;
     QHash<int, QString> IDModeHash;
+    QHash<int, QString> IDSubModeHash;
     QHash<int, QString> freqBandIdHash;
 
     QMap<QString, int> bandQMap;
