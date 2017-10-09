@@ -33,7 +33,7 @@ DataProxy_SQLite::DataProxy_SQLite()
     db = new DataBase(0);
    //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1" << endl;
     dbCreated = db->createConnection();
-    dbCreated = db->createBandModeMaps();
+    //dbCreated = db->createBandModeMaps();
   //qDebug() << "DataProxy_SQLite::DataProxy_SQLite - END" << endl;
     searching = false;
     executionN = 0;
@@ -181,16 +181,18 @@ QString DataProxy_SQLite::getNameFromBandId (const int _id)
 
 QString DataProxy_SQLite::getNameFromModeId (const int _id)
 {
-   //qDebug() << "DataProxy_SQLite::getNameFromModeId" << endl;
-    //return db->getSubModeNameFromNumber(_id);
-    return db->getModeNameFromID2(_id);
+    //qDebug() << "DataProxy_SQLite::getNameFromModeId" << endl;
+    //return db->getModeNameFromID2(_id);
+
+    return db->getModeNameFromNumber(_id);
 }
 
 QString DataProxy_SQLite::getNameFromSubModeId (const int _id)
 {
-   //qDebug() << "DataProxy_SQLite::getNameFromSubModeId: " << QString::number(_id) << endl;
-    return db->getModeNameFromID2(_id);
+   //qDebug() << "DataProxy_SQLite::getNameFromSubModeId: " << QString::number(_id) << "DB: " << db->getModeNameFromID2(_id) << endl;
+    return db->getSubModeNameFromID2(_id);
 
+/*
     QSqlQuery query;
     QString stringQuery = QString("SELECT submode, name, deprecated FROM mode WHERE id='%1'").arg(_id);
     bool sqlOK = query.exec(stringQuery);
@@ -218,7 +220,7 @@ QString DataProxy_SQLite::getNameFromSubModeId (const int _id)
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
         return QString();
     }
-
+*/
 }
 
 QString DataProxy_SQLite::getSubModeFromId (const int _id)
@@ -252,14 +254,17 @@ QString DataProxy_SQLite::getSubModeFromId (const int _id)
 QString DataProxy_SQLite::getNameFromSubMode (const QString _sm)
 {
     QSqlQuery query;
-    QString stringQuery = QString("SELECT name, deprecated FROM mode WHERE submode='%1'").arg(_sm.toUpper());
+    QString stringQuery = QString("SELECT name FROM mode WHERE submode='%1'").arg(_sm.toUpper());
+    //QString stringQuery = QString("SELECT name, deprecated FROM mode WHERE submode='%1'").arg(_sm.toUpper());
     bool sqlOK = query.exec(stringQuery);
     if (sqlOK)
     {
         query.next();
         if (query.isValid())
         {
-            if ( (query.value(1)).toInt()<0 )
+            return (query.value(0)).toString();
+            /*
+            if ( (query.value(1)).toInt()>0 )
             { // DEPRECATED VALUE, return the MODE
                 return (query.value(0)).toString();
             }
@@ -267,6 +272,7 @@ QString DataProxy_SQLite::getNameFromSubMode (const QString _sm)
             {
                 return _sm.toUpper();
             }
+            */
         }
         else
         {
@@ -1588,6 +1594,46 @@ bool DataProxy_SQLite::isThisQSODuplicated(const QString _qrz, const QString _da
     }
 
     return false;
+}
+
+
+int DataProxy_SQLite::getDuplicatedQSOId(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode)
+{
+    //qDebug() << "DataProxy_SQLite::isThisQSODuplicated" << endl;
+     QSqlQuery query;
+     QString queryString;
+     int qsoId = -1;
+
+     queryString = QString("SELECT id FROM log WHERE call='%1' AND qso_date='%2' AND time_on='%3' AND bandid='%4' AND modeid='%5'").arg(_qrz).arg(_date).arg(_time).arg(_band).arg(_mode);
+
+     bool sqlOK = query.exec(queryString);
+     if (sqlOK)
+     {
+         query.next();
+         if (query.isValid())
+         {
+             qsoId = (query.value(0)).toInt();
+             if (qsoId)
+             {
+                 return qsoId;
+             }
+             else
+             {
+                 return -1;
+             }
+         }
+         else
+         {
+             return -1;
+         }
+     }
+     else
+     {
+         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+         return -1;
+     }
+
+    return -1;
 }
 
 bool DataProxy_SQLite::isDXCCConfirmed(const int _dxcc, const int _currentLog)

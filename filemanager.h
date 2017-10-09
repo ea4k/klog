@@ -63,16 +63,18 @@ public:
     ~FileManager();
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
+    bool adifLoTWReadLog(const QString& tfileName);
+    bool adifLoTWLogExport(const QString& _fileName, const int _logN);
     bool adifLogExport(const QString& _fileName, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);
     bool adifReqQSLExport(const QString& _fileName);
-    bool cabrilloLogExport(const QString& _fileName, const int _contestType, const int logNconst);
+    bool cabrilloLogExport(const QString& _fileName, const QString _contestType, const int logNconst);
     bool modifySetupFile(const QString& _filename, QString _field, const QString _value);
     void setVersion(const QString _version);
 
 
 private:
-    bool adifLogExportToFile(const QString& _fileName, const int _logN=0, bool justMarked = false, bool _qslRequested = false);
+    bool adifLogExportToFile(const QString& _fileName, const int _logN=0, bool justMarked = false, bool _qslRequested = false, bool _lotw=false);
     bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);
     bool cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst);
     //bool adifCheckMoreThanOneLog(QFile &_f);
@@ -87,6 +89,8 @@ private:
     void queryPreparation(const int _logN);
 
     bool checkADIFValidFormat(const QStringList _qs);
+
+    QStringList readAdifField (const QString _field);
 
     DataBase *db;
     //float softwareVersion;

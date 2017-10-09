@@ -79,6 +79,7 @@ public:
     virtual bool deleteQSO(const int _qsoId);
     virtual int isWorkedB4(const QString _qrz, const int _currentLog);
     virtual bool isThisQSODuplicated(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode);
+    virtual int getDuplicatedQSOId(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode);
     virtual bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     virtual bool isQSLReceived(const int _qsoId);
     virtual bool isQSLSent(const int _qsoId);

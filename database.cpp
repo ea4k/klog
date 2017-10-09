@@ -195,6 +195,7 @@ bool DataBase::createConnection(bool newDB)
     }
     //createBandModeMaps(); //TODO: I have commented out thi line because createBandModeMaps is also called from isThe
 
+    //qDebug() << "DataBase::createConnection: Going to run - createBandModeMaps " << endl;
     if (createBandModeMaps())
     {
         //qDebug() << "DataBase::createConnection: createBandModeMaps true" << endl;
@@ -802,7 +803,7 @@ QString DataBase::getBandNameFromNumber(const int _n)
 
 
 
-QString DataBase::getModeNameFromNumber(const int _n, const bool _tmp)
+QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
 {
     //TODO May fail to identify the sumbode(mode/modetemp... (Review STEP-2 o 3)
    //qDebug() << "DataBase::getModeNameFromNumber: " << QString::number(_n) << endl;
@@ -848,7 +849,7 @@ QString DataBase::getModeNameFromNumber(const int _n, const bool _tmp)
     }
 }
 
-QString DataBase::getSubModeNameFromNumber(const int _n, const bool _tmp)
+QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
 {
   //qDebug() << "DataBase::getSubModeNameFromNumber: " << QString::number(_n) << endl;
     QSqlQuery query;
@@ -1141,10 +1142,17 @@ bool DataBase::createTheBandQuickReference()
 
     QString st = "NULL";
     int in = 0;
-    QString fr = 0;
+    QString queryST("SELECT id, name, lower FROM band");
+    QString fr = QString();
     bandIDHash.clear();
     IDBandHash.clear();
-    QSqlQuery query("SELECT id, name, lower FROM band");
+    QSqlQuery query;
+    bool sqlOK = query.exec(queryST);
+    if (!sqlOK)
+    {
+        return false;
+    }
+
     while (query.next())
     {
 
@@ -1171,19 +1179,15 @@ bool DataBase::createTheBandQuickReference()
         }
          //qDebug() << "DataBase::createTheBandQuickReference: Go for the next one!" << endl;
     }
-/*
-    QHashIterator<QString, int> i(bandIDHash);
-    while (i.hasNext()) {
-        i.next();
-        //qDebug() << i.key() << ": " << QString::number(i.value()) << endl;
-    }
-*/
+
    //qDebug() << "DataBase::createTheBandQuickReference: END" << endl;
     return true;
 }
 
+
 bool DataBase::createTheModeQuickReference()
 {
+
     /*
               KEY      Value
         QHash<QString, int> modeIDHash;
@@ -1191,20 +1195,33 @@ bool DataBase::createTheModeQuickReference()
 
     */
      //qDebug() << "DataBase::createTheModeQuickReference: " << endl;
-        QString st = "NULL";
+        QString st = QString();
+        QString sm = QString();
         int in = 0;
         modeIDHash.clear();
         IDModeHash.clear();
-        QSqlQuery query("SELECT id, submode FROM mode");
+        subModeIDHash.clear();
+        IDSubModeHash.clear();
+        QString str = QString("SELECT id, name, submode FROM mode");
+        QSqlQuery query;
+        bool sqlOK = query.exec(str);
+        if (!sqlOK)
+        {
+            return false;
+        }
         while (query.next())
         {
 
             if (query.isValid())
             {
-                st = (query.value(1)).toString();
                 in = (query.value(0)).toInt();
+                st = (query.value(1)).toString();
+                sm = (query.value(2)).toString();
+
                 modeIDHash.insert(st, in );
                 IDModeHash.insert(in, st);
+                subModeIDHash.insert(sm, in );
+                IDSubModeHash.insert(in, sm);
                 //qDebug() << "DataBase::createTheModeQuickReference: " << st <<"/" << QString::number(in)<< endl;
             }
             else
@@ -1218,17 +1235,10 @@ bool DataBase::createTheModeQuickReference()
 
             }
         }
-/*
-        QHashIterator<QString, int> i(modeIDHash);
-        while (i.hasNext()) {
-            i.next();
-            //qDebug() << i.key() << ": " << QString::number(i.value()) << endl;
-        }
-
-*/
        //qDebug() << "DataBase::createTheModeQuickReference: END" << endl;
         return true;
 }
+
 
 int DataBase::getBandIDFromName2(const QString b)
 {//KEY, value
@@ -1293,6 +1303,33 @@ int DataBase::getModeIDFromName2(const QString b)
 
 }
 
+
+int DataBase::getSubModeIDFromName2(const QString b)
+{
+  //qDebug() << "DataBase::getSubModeIDFromName2: " << b << endl;
+    //return getModeIdFromName(b);
+
+    if (b.length()<2)
+    {
+       //qDebug() << "DataBase::getSubModeIDFromName2: END -3" << endl;
+        return -3;
+    }
+
+    if (subModeIDHash.contains(b))
+    {
+      //qDebug() << "DataBase::getSubModeIDFromName2: END - " << b << ":" <<  modeIDHash.value(b) << endl;
+        return subModeIDHash.value(b);
+    }
+    else
+    {
+      //qDebug() << "DataBase::getSubModeIDFromName2: Contains - False - END" << endl;
+        return -1;
+    }
+   //qDebug() << "DataBase::getSubModeIDFromName2: Safety exit - END" << endl;
+    return -2;
+
+}
+
 QString DataBase::getBandNameFromID2(const int _i)
 {
    //qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << endl;
@@ -1314,12 +1351,12 @@ QString DataBase::getBandNameFromID2(const int _i)
 }
 QString DataBase::getModeNameFromID2(const int _i)
 {
-  //qDebug() << "DataBase::getModeNameFromId2: " << QString::number(_i) << endl;
+    //qDebug() << "DataBase::getModeNameFromId2: " << QString::number(_i) << endl;
     //return getSubModeNameFromNumber(_i);
 
     if (IDModeHash.contains(_i))
     {
-       //qDebug() << "DataBase::getModeNameFromId2: END OK" << endl;
+       //qDebug() << "DataBase::getModeNameFromId2: END OK - " << IDModeHash.value(_i) << endl;
         return IDModeHash.value(_i);
     }
     else
@@ -1331,24 +1368,62 @@ QString DataBase::getModeNameFromID2(const int _i)
     return "-2";
 }
 
+QString DataBase::getSubModeNameFromID2(const int _i)
+{
+    //qDebug() << "DataBase::getSubModeNameFromId2: " << QString::number(_i) << endl;
+    //return getSubModeNameFromNumber(_i);
+
+    if (IDSubModeHash.contains(_i))
+    {
+       //qDebug() << "DataBase::getSubModeNameFromId2: END OK - " << IDModeHash.value(_i) << endl;
+        return IDSubModeHash.value(_i);
+    }
+    else
+    {
+        //qDebug() << "DataBase::getSubModeNameFromId2: END-1" << endl;
+        return "-1";
+    }
+    //qDebug() << "DataBase::getSubModeNameFromId2: END-2" << endl;
+    return "-2";
+}
+
 bool DataBase::createBandModeMaps()
 {
     //qDebug() << "DataBase::createBandModeMaps" << endl;
-     //bool b = createTheBandQuickReference();
-     //bool m = createTheModeQuickReference();
+    bool b;
+    bool m;
+    if (b)
+    {
+        //qDebug() << "DataBase::createBandModeMaps B = true" << endl;
+    }
+    else
+    {
+        //qDebug() << "DataBase::createBandModeMaps B = false" << endl;
+    }
+    if (m)
+    {
+        //qDebug() << "DataBase::createBandModeMaps M = true" << endl;
+    }
+    else
+    {
+    //qDebug() << "DataBase::createBandModeMaps M = false" << endl;
+    }
 
      //return (b && m);
     if (isTheDBCreated())
     {
+        b = createTheBandQuickReference();
+        m = createTheModeQuickReference();
+
         //qDebug() << "DataBase::createBandModeMaps - isDbCreated TRUE" << endl;
-        return (createTheBandQuickReference() &&  createTheModeQuickReference());
+        return (b && m);
     }
     else
     {
         //qDebug() << "DataBase::createBandModeMaps - isDbCreated FALSE" << endl;
         return false;
     }
-
+    return false;
    //qDebug() << "DataBase::createBandModeMaps END" << endl;
 }
 

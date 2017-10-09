@@ -182,6 +182,8 @@ private slots:
     void slotrstTXTextChanged();
     void slotrstRXTextChanged();
     void slotADIFExport();
+    void slotLoTWImport();
+    void slotLoTWExport();
     void slotADIFExportAll();
     void slotADIFImport();
     void slotRQSLExport();
@@ -432,6 +434,8 @@ private:
     QAction *ADIFExport;
     QAction *ADIFExportAll;
     QAction *ADIFImport;
+    QAction *LoTWExport;
+    QAction *LoTWImport;
     QAction *ReqQSLExport;
     QAction *CabrilloExport;
     QAction *fillQsoAct;
@@ -592,8 +596,8 @@ private:
     //</CLUBLOG>
 
     // Contest
-    int contestMode, points, qsoPoints, multipliers, qsoMultiplier;
-
+    int points, qsoPoints, multipliers, qsoMultiplier;
+    QString contestMode;
     Contest *contest;
     // Contest
     DataProxy *dataProxy;
