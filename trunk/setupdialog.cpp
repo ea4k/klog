@@ -34,7 +34,7 @@ This class calls all the othet "Setup..." to manage the configuration
 
 SetupDialog::SetupDialog(const bool _firstTime)
 {
-  //qDebug() << "SetupDialog::SetupDialog 1" << endl;
+    //qDebug() << "SetupDialog::SetupDialog 1" << endl;
     util = new Utilities;
     nolog = true;
     configFileName = "klogrc";

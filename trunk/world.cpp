@@ -37,7 +37,7 @@ To insert a (key, value) pair into the hash, you can use operator[]():
 */
 World::World()
 {
-  //qDebug() << "World::World(0)" << endl;
+    //qDebug() << "World::World(0)" << endl;
 
     worldModel = new QSqlRelationalTableModel(this);
     numberOfEntities = 0;
@@ -54,7 +54,7 @@ World::World()
 
 World::World(const QString _klogDir)
 {
-  //qDebug() << "World::World(1): Dir" << _klogDir << endl;
+    //qDebug() << "World::World(1): Dir" << _klogDir << endl;
     klogDir = _klogDir;
     kontestVersion = "";
     worldModel = new QSqlRelationalTableModel(this);
@@ -71,7 +71,7 @@ World::World(const QString _klogDir)
 
 World::World(const QString _klogDir, const QString _kontestVer)
 {
-  //qDebug() << "World::World(2): Dir" << _klogDir << endl;
+    //qDebug() << "World::World(2): Dir" << _klogDir << endl;
     klogDir = _klogDir;
     kontestVersion = _kontestVer;    
     worldModel = new QSqlRelationalTableModel(this);
@@ -99,7 +99,7 @@ World::~World()
 
 bool World::recreate(const QString _worldFile)
 {
-  qDebug() << "World::recreate: " << _worldFile << endl;
+  //qDebug() << "World::recreate: " << _worldFile << endl;
 
     QSqlQuery query;
     if (query.exec("DELETE FROM entity"))

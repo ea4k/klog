@@ -68,7 +68,7 @@ public:
 
     int getBandIdFromName(const QString b);
     int getModeIdFromName(const QString b);
-    int getModeIdFromSubMode(const QString b, const bool _tmp);
+    int getModeIdFromSubMode(const QString b);
 
     bool createBandModeMaps();
     int getBandIDFromName2(const QString b);

@@ -7,20 +7,20 @@
  ***************************************************************************/
 
 /*****************************************************************************
- * This file is part of KLog.                                             *
+ * This file is part of KLog.                                                *
  *                                                                           *
- *    KLog is free software: you can redistribute it and/or modify        *
+ *    KLog is free software: you can redistribute it and/or modify           *
  *    it under the terms of the GNU General Public License as published by   *
  *    the Free Software Foundation, either version 3 of the License, or      *
  *    (at your option) any later version.                                    *
  *                                                                           *
- *    KLog is distributed in the hope that it will be useful,             *
+ *    KLog is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -181,7 +181,7 @@ bool FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
     QTextStream out(&file);
     int numberOfQsos = dataProxy->getHowManyQSOInLog(_logN);
     int step = util->getProgresStepForDialog(numberOfQsos);
-
+    int i = 0;
 
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQsos, this);
     progress.setMaximum(numberOfQsos);
@@ -218,6 +218,7 @@ bool FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
         //qDebug() << "FileManager::adifLoTWLogExport: Start of While"  << endl;
         if (query.isValid())
         {
+
             //qDebug() << "FileManager::adifLoTWLogExport: Start of isValid"  << endl;
             propsat = false;    // Reset the QSO in case it is a Satellite QSO
 
@@ -257,11 +258,12 @@ bool FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
 
             nameCol = rec.indexOf("bandid");
             aux = (query.value(nameCol)).toString();
-
-
+            //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-1: "  << aux << endl;
             aux = util->checkAndFixASCIIinADIF(aux);
-
-            aux = db->getBandNameFromID2(aux.toInt());
+            //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-2: "  << aux << endl;
+            //aux = db->getBandNameFromID2(aux.toInt());
+            aux = dataProxy->getNameFromBandId(aux.toInt());
+            //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-3: "  << aux << endl;
 
 
             if (dataProxy->getIdFromBandName(aux)>=0)
@@ -273,16 +275,14 @@ bool FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
             nameCol = rec.indexOf("band_rx");
             aux = (query.value(nameCol)).toString();
             aux = util->checkAndFixASCIIinADIF(aux);
+            aux = dataProxy->getNameFromBandId(aux.toInt());
 
-            if ( (0 < aux.toInt()) && (aux.toInt() < 30) && (aux.length()>0) && (dataProxy->getIdFromBandName(aux)>=0))
-            {
-                aux = db->getBandNameFromID2(aux.toInt());
+            if ( dataProxy->getIdFromBandName(aux)>=0)
+            {                
                 out << "<BAND_RX:" << QString::number(aux.length()) << ">" << aux  << " ";
                 QString bandrxst = aux;
             }
             //qDebug() << "FileManager::adifLoTWLogExport: BAND_RX"  << endl;
-
-
 
             nameCol = rec.indexOf("modeid");
             aux = (query.value(nameCol)).toString();
@@ -307,52 +307,6 @@ bool FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
                 out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
             }
 
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-
-            nameCol = rec.indexOf("modeid");
-            aux = (query.value(nameCol)).toString();
-            //qDebug() << "FileManager::adifLoTWLogExport: MODE1 (int): " << aux  << endl;
-            //aux = util->checkAndFixASCIIinADIF(aux);
-            //qDebug() << "FileManager::adifLoTWLogExport: MODE2: " << aux  << endl;
-            // get SubModeId to check if it is the same or not from modeid
-            aux2 = dataProxy->getNameFromSubModeId(aux.toInt());
-            //aux2 = dataProxy->getSubModeFromId(aux.toInt());
-            //qDebug() << "FileManager::adifLoTWLogExport: MODE3 (submode): " << aux2  << endl;
-            aux = db->getModeNameFromID2(aux.toInt());
-            //qDebug() << "FileManager::adifLoTWLogExport: MODE4: " << aux  << endl;
-
-            //qDebug() << "FileManager::adifLoTWLogExportToFile - MODE aux2:  " << aux2 << endl;
-            //qDebug() << "FileManager::adifLoTWLogExportToFile - MODE aux1:  " << aux1 << endl;
-
-
-            if ((aux.length()>1) && (dataProxy->getIdFromModeName(aux)>=0))
-            {
-                //haveMode = true;
-                //qDebug() << "FileManager::adifLoTWLogExport: printing mode MODE: " << aux  << endl;
-                out << "<MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
-            }
-            //qDebug() << "FileManager::adifLoTWLogExport: After printing MODE: " << aux  << endl;
-
-            if ((aux != aux2) && (aux2.length()>1) && (dataProxy->getSubModeIdFromSubMode(aux2)>=0) )
-            {
-                //haveMode = true;
-                //qDebug() << "FileManager::adifLoTWLogExport: Printing SUBMODE: " << aux2  << endl;
-                out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
-            }
-*/
             //qDebug() << "FileManager::adifLoTWLogExport: SUBMODE: " << aux2  << endl;
 
             nameCol = rec.indexOf("freq");
@@ -405,6 +359,24 @@ bool FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
             //qDebug() << "FileManager::adifLoTWLogExport: SAT_NAME"  << endl;
 
             out << "<EOR> " << endl;
+
+            i++;
+            if (( (i % step ) == 0) )
+            { // To update the speed I will only show the progress once each X QSOs
+               //qDebug() << "FileManager::adifLoTWLogExport: MOD 0 - i = " << QString::number(i)  << endl;
+
+                aux = tr("Exporting LoTW ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
+
+               progress.setLabelText(aux);
+               progress.setValue(i);
+
+            }
+            else
+            {
+               //qDebug() << "FileManager::adifLoTWLogExport: Mod: "<< QString::number(i) << " mod " << QString::number(step) << " = " << QString::number(i % step) << endl;
+
+            }
+
 
         }
         //qDebug() << "FileManager::adifLoTWLogExport: End Of Valid"  << endl;
@@ -1482,7 +1454,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                 // get SubModeId to check if it is the same or not from modeid
                 aux2 = dataProxy->getSubModeFromId(aux1.toInt());
-                aux1 = dataProxy->getModeFromSubMode(aux2);
+                aux1 = dataProxy->getNameFromSubMode(aux2);
                 //aux1 = db->getModeNameFromID2(aux1.toInt());
 
                 //qDebug() << "FileManager::adifLogExportToFile - MODE2 aux2:  " << aux2 << endl;
@@ -4215,7 +4187,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
    // if ((haveSubMode) && (!haveMode))
    // { // We can guess the mode from a submode!
 
-   //     preparedQuery.bindValue( ":mode", dataProxy->getIdFromModeName(dataProxy->getModeFromSubMode(submode)) );
+   //     preparedQuery.bindValue( ":mode", dataProxy->getIdFromModeName(dataProxy->getNameFromSubMode(submode)) );
    //     haveMode  = true;
    // }
 

@@ -33,7 +33,7 @@
 #include <QNetworkAccessManager>
 //#include <QFile>
 //#include <QDirIterator>
-#include <QList>
+//#include <QList>
 #include <QRegularExpression>
 //#include <QDebug>
 #include "utilities.h"

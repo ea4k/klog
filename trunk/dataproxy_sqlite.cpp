@@ -94,40 +94,10 @@ int DataProxy_SQLite::getSubModeIdFromSubMode(const QString _subModeName)
 
 int DataProxy_SQLite::getModeIdFromSubModeId(const int _sm)
 {
-    return getIdFromModeName(getModeFromSubMode(getSubModeFromId(_sm)));
+    return getIdFromModeName(getNameFromSubMode(getSubModeFromId(_sm)));
 
 }
 
-QString DataProxy_SQLite::getModeFromSubMode (const QString _sm)
-{
-   //qDebug() << "DataProxy_SQLite::getModeFromSubMode: " << _sm << endl;
-    if (_sm.length()<2)
-    {
-        return "";
-    }
-    QSqlQuery query;
-    QString stQuery = QString("SELECT name FROM mode WHERE submode='%1'").arg(_sm);
-    if (query.exec(stQuery))
-    {
-        query.next();
-        if (query.isValid())
-        {
-           //qDebug() << "DataProxy_SQLite::getModeFromSubMode: Query OK"  << endl;
-            return (query.value(0)).toString();
-        }
-        else
-        {
-
-           //qDebug() << "DataProxy_SQLite::getModeFromSubMode: Query error"  << endl;
-            return QString();
-        }
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
-        return "";
-    }
-}
 
 bool DataProxy_SQLite::isModeDeprecated (const QString _sm)
 {
@@ -263,16 +233,7 @@ QString DataProxy_SQLite::getNameFromSubMode (const QString _sm)
         if (query.isValid())
         {
             return (query.value(0)).toString();
-            /*
-            if ( (query.value(1)).toInt()>0 )
-            { // DEPRECATED VALUE, return the MODE
-                return (query.value(0)).toString();
-            }
-            else
-            {
-                return _sm.toUpper();
-            }
-            */
+
         }
         else
         {
@@ -285,7 +246,6 @@ QString DataProxy_SQLite::getNameFromSubMode (const QString _sm)
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
         return QString();
     }
-
 }
 
 QString DataProxy_SQLite::getFreqFromBandId(const int _id)
@@ -607,6 +567,72 @@ QStringList DataProxy_SQLite::getModesInLog(const int _log)
     return modes;
 }
 
+int DataProxy_SQLite::getMostUsedBand(const int _log)
+{
+    //qDebug() << "DataProxy_SQLite::getMostUsedBand: " << endl;
+
+    QString stringQuery = QString();
+    if (_log <=0 )
+    {
+        stringQuery = QString("SELECT band.id, band.name, COUNT (band.name) FROM log, band WHERE band.id = log.bandid GROUP BY band.id  ORDER BY count (band.id) DESC LIMIT 1");
+    }
+    else
+    {
+        stringQuery = QString("SELECT band.id, band.name, COUNT (band.name) FROM log, band WHERE band.id = log.bandid AND log.lognumber='%1' GROUP BY band.id  ORDER BY count (band.id) DESC LIMIT 1").arg(_log);
+    }
+    QSqlQuery query;
+    bool sqlOK = query.exec(stringQuery);
+    if (sqlOK)
+    {
+        if (query.next())
+        {
+            if (query.isValid())
+            {
+                return query.value(0).toInt();
+            }
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        return -1;
+    }
+    return -1;
+}
+
+int DataProxy_SQLite::getMostUsedMode(const int _log)
+{
+    //qDebug() << "DataProxy_SQLite::getMostUsedMode: " << endl;
+
+    QString stringQuery = QString();
+    if (_log <=0 )
+    {
+        stringQuery = QString("SELECT mode.id, mode.submode, COUNT (mode.submode) FROM log, mode WHERE mode.id = log.modeid GROUP BY mode.submode  ORDER BY count (mode.submode) DESC LIMIT 1");
+    }
+    else
+    {
+        stringQuery = QString("SELECT mode.id, mode.submode, COUNT (mode.submode) FROM log, mode WHERE mode.id = log.modeid AND log.lognumber='%1' GROUP BY mode.submode  ORDER BY count (mode.submode) DESC LIMIT 1").arg(_log);
+    }
+    QSqlQuery query;
+    bool sqlOK = query.exec(stringQuery);
+    if (sqlOK)
+    {
+        if (query.next())
+        {
+            if (query.isValid())
+            {
+                return query.value(0).toInt();
+            }
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        return -1;
+    }
+    return -1;
+
+}
 
 
 int DataProxy_SQLite::getLastQSOid()

@@ -76,13 +76,14 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     reportInfo = false;
     configured = false;
     modify = false;
+    noMoreErrorShown = false;
     qslingNeeded = false; // When clicking on Find QSO to QSL
     manageMode = false;
     selectedYear = 0;
     defaultMode = 0;
     defaultBand = 0;
   //qDebug() << "MainWindow::MainWindow: 1 - currentMode: " << QString::number(currentMode) << endl;
-    currentMode = 0;
+    currentMode = 1;
    //qDebug() << "MainWindow::MainWindow: 2 - currentMode: " << QString::number(currentMode) << endl;
     currentModeShown = currentMode;
     currentBand = 0;
@@ -650,7 +651,8 @@ void MainWindow::createUI()
 void MainWindow::slotModeComboBoxChanged()
 {
    //qDebug() << "MainWindow::slotModeComboBoxChanged: " << QString::number(modeComboBox->currentIndex()) << endl;
-
+   //qDebug() << "MainWindow::slotModeComboBoxChanged: " << modeComboBox->currentText() << endl;
+/*
     int i;
     i = dataProxy->getSubModeIdFromSubMode(modeComboBox->currentText());
     if (i>=0)
@@ -659,6 +661,7 @@ void MainWindow::slotModeComboBoxChanged()
         currentMode = i;
        //qDebug() << "MainWindow::MainWindow: 6 - currentMode: " << QString::number(currentMode) << endl;
     }
+*/
    //qDebug() << "MainWindow::slotModeComboBoxChanged: i: " << QString::number(i) << endl;
    //qDebug() << "MainWindow::slotModeComboBoxChanged: currentMode: " << QString::number(currentMode) << endl;
 
@@ -681,10 +684,14 @@ void MainWindow::slotModeComboBoxChanged()
     _qs.clear();
     _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
     showStatusOfDXCC(_qs);
+
+
+    //qDebug() << "MainWindow::slotModeComboBoxChanged2: " << modeComboBox->currentText() << endl;
 }
 
 void MainWindow::slotBandComboBoxChanged(){
    //qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << endl;
+/*
     int i;
     i = dataProxy->getIdFromBandName(bandComboBox->currentText());
     if (i>=0)
@@ -692,15 +699,15 @@ void MainWindow::slotBandComboBoxChanged(){
         currentBand = i;
         //txFreqSpinBox->setValue(dataProxy->getFreqFromBandId(i));
     }
-
+*/
     //qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << "/" << QString::number(currentBand) << endl;
 
     currentBandShown = dataProxy->getIdFromBandName(bandComboBox->currentText());
     currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
     currentBand = currentBandShown;
-   //qDebug() << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
     currentMode = currentModeShown;
-   //qDebug() << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
    //qDebug() << "MainWindow::MainWindow: 9.1 - currentMode: " << QString::number(currentMode) << endl;
    //qDebug() << "MainWindow::MainWindow: 9.2 - currentBand: " << QString::number(currentBand) << endl;
    //qDebug() << "MainWindow::MainWindow: 9.3 - currentModeShown: " << QString::number(currentModeShown) << endl;
@@ -3033,7 +3040,8 @@ void MainWindow::slotSpotItButtonClicked()
 
 void MainWindow::slotClearButtonClicked()
 {
-   //qDebug()() << "MainWindow::slotClearButtonClicked" << endl;
+   //qDebug() << "MainWindow::slotClearButtonClicked - START" << endl;
+   //qDebug() << "MainWindow::slotClearButtonClicked: " << modeComboBox->currentText() << endl;
     cleaning = true;
     modify = false;
     OKButton->setText(tr("&Add"));
@@ -3046,10 +3054,22 @@ void MainWindow::slotClearButtonClicked()
     qthLineEdit->clear();
 
    //qDebug() << "MainWindow::slotClearButtonClicked: - band: " << QString::number(currentBand) << endl;
-   //qDebug() << "MainWindow::slotClearButtonClicked: - mode: " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::slotClearButtonClicked: - mode: " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::slotClearButtonClicked: - defaultMode: " << QString::number(defaultMode) << endl;
+    if (currentBand < 0)
+    {
+        currentBand = defaultBand;
+    }
     bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(currentBand)));
-   //qDebug() << "MainWindow::MainWindow: 12 - currentMode: " << QString::number(currentMode) << endl;
-    modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromSubModeId(currentMode)));
+
+    //qDebug() << "MainWindow::MainWindow: 12 - currentMode: " << QString::number(currentMode) << endl;
+    if (currentMode < 0)
+    {
+        currentMode = defaultMode;
+    }
+
+    modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getSubModeFromId(currentMode)));
+    //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromSubModeId(currentMode)));
 
     qsoPoints = 0;
     qsoMultiplier = 0;
@@ -3132,6 +3152,9 @@ void MainWindow::slotClearButtonClicked()
 
     statusBar()->clearMessage();
     cleaning = false;
+    //qDebug() << "MainWindow::slotClearButtonClicked: " << modeComboBox->currentText() << endl;
+    //qDebug() << "MainWindow::slotClearButtonClicked - currentMode = " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::slotClearButtonClicked - END" << endl;
 }
 
 /*
@@ -4693,8 +4716,6 @@ void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
 //that is not currently selected as active
     //qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
-//    modes
-//    bands
 
     setupDialog->checkIfNewBandOrMode(); // Update the Setup dialog with new bands or modes
     //qDebug() << "MainWindow::checkIfNewBandOrMode after setupDialog" << endl;
@@ -4707,33 +4728,35 @@ void MainWindow::checkIfNewBandOrMode()
     QStringList bandsInLog = dataProxy->getBandsInLog(currentLog);
    //qDebug() << "MainWindow::checkIfNewBandOrMode - bandsInLog-1: " << endl;
     //util->printQString(bandsInLog);
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - bandsInLog-2: " << endl;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - bandsInLog-2: " << endl;
     QStringList modesInLog = dataProxy->getModesInLog(currentLog);
     //qDebug() << "MainWindow::checkIfNewBandOrMode - modesInLog: " << endl;
     //util->printQString(modesInLog);
 
     QStringList qsTemp;
     qsTemp.clear();
+
     bands << bandsInLog;
     qsTemp << dataProxy->sortBandNamesBottonUp(bands);
     bands.clear();
     bands << qsTemp;
 
     //QSet<QString> set = bands.toSet();
-    QSet<QString> set;
+    //QSet<QString> set;
     //bands.clear();
     //bands << set.toList();
 
 
-    //set.clear();
+
     if (modesInLog.length()>0)
     {
-       modes << modesInLog;
+        modes.clear();
+        modes << modesInLog;
     }
 
-    set = modes.toSet();
-    modes.clear();
-    modes << set.toList();
+    //set = modes.toSet();
+    //modes.clear();
+    //modes << set.toList();
 
 
 /*
@@ -5569,7 +5592,7 @@ void MainWindow::slotADIFImport(){
 void  MainWindow::initialContestModeConfiguration()
 {
 
-   //qDebug() << "MainWindow::initialContestModeConfiguration: - 0" << endl;
+    //qDebug() << "MainWindow::initialContestModeConfiguration: - 0" << endl;
 
      if (!configured){
          //qDebug() << "MainWindow::initialContestModeConfiguration: - 01" << endl;
@@ -5584,7 +5607,10 @@ void  MainWindow::initialContestModeConfiguration()
     //qDebug() << "MainWindow::initialContestModeConfiguration: - 04" << endl;
 
     if (contestMode == "DX")
-    {}
+    {
+        defaultMode = dataProxy->getMostUsedMode(currentLog);
+        defaultBand = dataProxy->getMostUsedBand(currentLog);
+    }
     else if (contestMode == "CQ-WW-SSB")
     {
         //qDebug() << "MainWindow::initialContestModeConfiguration: - 05" << endl;
@@ -5602,7 +5628,10 @@ void  MainWindow::initialContestModeConfiguration()
         contestQS << QString::number(world->getQRZARRLId(stationQRZ)) << QString::number(world->getQRZCqz(stationQRZ)) << world->getQRZContinentNumber(stationQRZ) <<  world->getQRZContinentNumber("K");
     }
     else
-    {}
+    {
+        defaultMode = dataProxy->getMostUsedMode(currentLog);
+        defaultBand = dataProxy->getMostUsedBand(currentLog);
+    }
 
 }
 
@@ -5680,6 +5709,7 @@ void MainWindow::qsoToEdit (const int _qso)
     {
         aux1 = (queryAux.value(0)).toString();
         bandComboBox->setCurrentIndex(bandComboBox->findText(aux1));
+
     }
     else
     {
@@ -5687,8 +5717,10 @@ void MainWindow::qsoToEdit (const int _qso)
         //bandComboBox->setCurrentIndex(defaultBand);
     }
 
+    //qDebug() << "MainWindow::qsoToEdit: Check mode " <<  endl;
     nameCol = rec.indexOf("modeid");
     aux1 = (query.value(nameCol)).toString();
+    //qDebug() << "MainWindow::qsoToEdit: (aux1)-1: " << aux1 << endl;
 
     stringQuery = QString("SELECT submode FROM mode WHERE id ='%1'").arg(aux1);
     sqlOK = queryAux.exec(stringQuery);
@@ -5702,13 +5734,35 @@ void MainWindow::qsoToEdit (const int _qso)
     if (queryAux.isValid())
     {
         aux1 = (queryAux.value(0)).toString();
-        modeComboBox->setCurrentIndex(modeComboBox->findText(aux1));
+        //qDebug() << "MainWindow::qsoToEdit: Mode query valid: -" << aux1 << "-Length: " << QString::number(aux1.length()) << endl;
+        if (modeComboBox->findText(aux1)>=0)
+        {
+            //qDebug() << "MainWindow::qsoToEdit: Mode in the Combobox: " << aux1 << " - Result: " << QString::number(modeComboBox->findText(aux1)) << endl;
+            modeComboBox->setCurrentIndex(modeComboBox->findText(aux1));
+        }
+        else
+        {
+            //TODO: Add this mode to the list modes in use
+            //qDebug() << "MainWindow::qsoToEdit: Mode query valid but not in comboBox: " << aux1 << endl;
+            /*
+            for (int i = 0; i < (modeComboBox->count()); i++)
+            {
+                //qDebug() << "MainWindow::qsoToEdit: Mode: " << modeComboBox->itemText(i) << endl;
+
+            }
+            */
+        }
+        //qDebug() << "MainWindow::qsoToEdit: After Mode IF" << endl;
+
     }
     else
     {
+        //qDebug() << "MainWindow::qsoToEdit: Mode query not valid" << endl;
         modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromSubModeId(defaultMode)));
         //modeComboBox->setCurrentIndex(defaultMode);
     }
+
+    //qDebug() << "MainWindow::qsoToEdit: After ALL Mode actions" << endl;
 
     nameCol = rec.indexOf("rst_sent");
     aux1 = (query.value(nameCol)).toString();
@@ -6999,10 +7053,12 @@ void MainWindow::slotFreqRXChanged()
 
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN)
 {
-    qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << endl;
-    qDebug() << "MainWindow::slotQueryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
-    qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << endl;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
 
+    if (noMoreErrorShown)
+    {return;}
     // TODO: An error on DB has been detected.
     // KLog should suggest to export ALL the data to an ADIF file to prevent any log lose
 
@@ -7023,6 +7079,25 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
     {
         case QMessageBox::Ok:
         break;
+        default:
+        // should never be reached
+        break;
+    }
+
+    msgBox.setIcon(QMessageBox::Question);
+    aux = tr("Do you want to keep showing errors?");
+    msgBox.setText(aux);
+    msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Ok );
+
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    ret = msgBox.exec();
+    switch (ret)
+    {
+        case QMessageBox::Ok:
+        break;
+        case QMessageBox::No:
+            noMoreErrorShown = true;
+            break;
         default:
         // should never be reached
         break;

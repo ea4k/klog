@@ -6,6 +6,7 @@ LogModel::LogModel(QObject *parent):QSqlRelationalTableModel(parent)
     //logModel = new QSqlRelationalTableModel(this);
     dataProxy = new DataProxy_SQLite();
     setTable("log");
+    setEditStrategy(QSqlTableModel::OnFieldChange);
 
 }
 
@@ -93,8 +94,7 @@ This should be coherent with the logview
      nameCol = rec.indexOf("bandid");
      setRelation(nameCol, QSqlRelation("band", "id", "name"));
 
-     nameCol = rec.indexOf("modeid");
-     //setRelation(nameCol, QSqlRelation("mode", "id", "name"));
+     nameCol = rec.indexOf("modeid");     
      setRelation(nameCol, QSqlRelation("mode", "id", "submode"));
 
      nameCol = rec.indexOf("id");

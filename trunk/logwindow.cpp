@@ -245,10 +245,16 @@ void LogWindow::slotDoubleClickLog(const QModelIndex & index)
 
     int row = index.row();
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
-    emit actionQSODoubleClicked((logModel->index(row, 0)).data(0).toInt());
+    int qsoID = ((logModel->index(row, Qt::DisplayRole)).data(0)).toInt();
+
+    //qDebug() << "LogWindow::slotDoubleClickLog: n: " << QString::number (logModel->data(index, Qt::DisplayRole).toInt()) << endl;
+    //qDebug() << "LogWindow::slotDoubleClickLog: emitted: " << QString::number (((logModel->index(row, Qt::DisplayRole)).data(0)).toInt()) << endl;
+
+    emit actionQSODoubleClicked(qsoID);
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
 
     //TODO: To be added to the logWindow and create an action that emist the QSO id to be edited
+    logModel->select();
 }
 
 bool LogWindow::isQSLReceived(const int _qsoId)
@@ -342,7 +348,7 @@ void LogWindow::slotQSOToEditFromLog()
     //qDebug() << "slotQSOToEditFromLog: " << (qsoToEditFromLogAct->data()).toString() << endl;
 
     //qsoToEdit((logModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0).toInt());
-    int QSOid = ((logModel->index((delQSOFromLogAct->data()).toInt(), 0)).data(0)).toInt();
+    int QSOid = ((logModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0)).toInt();
 
     //int row = index.row();
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());

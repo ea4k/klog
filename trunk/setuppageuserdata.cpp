@@ -27,7 +27,7 @@
 #include "setuppageuserdata.h"
 
 SetupPageUserDataPage::SetupPageUserDataPage(QWidget *parent) : QWidget(parent){
-    //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage" << endl;
+   //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage" << endl;
    locator = new Locator();
    operatorOK = false;
    operatorsOK = false;
