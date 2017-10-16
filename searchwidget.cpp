@@ -174,15 +174,28 @@ void SearchWidget::slotSearchBoxTextChanged()
 
     QSqlQuery query;
     QString queryString, aux;
+    aux.clear();
 
-    if (searchAll)
-    {
-        queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%%1%'").arg(theCall);
+    if ((theCall.startsWith("1")) || (theCall.startsWith("2")))
+    {   // Fix a bug (or my knowledge of SQLite) to search Strings begining with 1 or 2
+        // sqlite does not understand statements like SELECT call FROM log WHERE call LIKE '%1A%'
+        aux = theCall + "%";
+
     }
     else
     {
-        queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%%1%' AND lognumber='%2'").arg(theCall).arg(currentLog);
+        aux = "%" + theCall + "%";
     }
+
+    if (searchAll)
+    {
+        queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%1'").arg(aux);
+    }
+    else
+    {
+        queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%1' AND lognumber='%2'").arg(aux).arg(currentLog);
+    }
+    aux.clear();
 
 
     //qDebug() << "SearchWidget::slotSearchBoxTextChanged: queryString"  << queryString << endl;
@@ -208,8 +221,6 @@ void SearchWidget::slotSearchBoxTextChanged()
     {
         if (query.isValid())
         {
-
-
             nameCol = rec.indexOf("call");
             _call= (query.value(nameCol)).toString();
             //nameCol = rec.indexOf("call");

@@ -4,6 +4,9 @@ RC-BUGS:
 Working:
 TODO: ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing
 
+BUG: It seems that Sqlite can't manage statements like
+    SELECT call FROM log WHERE call LIKE '%1A%'
+    without confusing it so it is not possible to search for calls like 1A0XX
 
 This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
@@ -31,7 +34,7 @@ TODO: Add a cheking to the list of bureaus and propose the bureau for QSL via wh
       (http://www.iaru.org/qsl-bureaus.html)
 
 TODO: Define band limits for CW/SSB/RTTY... so when a click on the cluster is done, the right mode is proposed.
-
+TODO: Add in the setup/Band/mode a combobox showing all the active band/modes so the user can select the default band/mode from that list.
 
 BUG: Potential bug
 Double click on a QSO in the log on the Mode/Band... you can modifify the value. As it is a double click, the QSO goes to edit and ...

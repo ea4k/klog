@@ -61,10 +61,6 @@ int DataProxy::getModeIdFromSubModeId(const int _sm)
     return -1;
 }
 
-QString DataProxy::getModeFromSubMode (const QString _sm)
-{
-    return "";
-}
 
 bool DataProxy::isModeDeprecated (const QString _sm)
 {
@@ -158,6 +154,17 @@ QStringList DataProxy::getModesInLog(const int _log)
 {
     return QStringList();
 }
+
+int DataProxy::getMostUsedBand(const int _log)
+{
+    return -1;
+}
+
+int DataProxy::getMostUsedMode(const int _log)
+{
+    return -1;
+}
+
 
 int DataProxy::getLastQSOid()
 {

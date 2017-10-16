@@ -33,10 +33,9 @@
     //connect(fileOrMemoryPage, SIGNAL(exeInMemory(bool)), this, SLOT(slotRunInMemory(bool) ) );
     //connect(ctyPage, SIGNAL(downloadTheFileSignal(bool)), this, SLOT(slotDownloadCTY(bool) ) );
 
-  QList<QWizard::WizardButton> layout;
-     layout << QWizard::Stretch << QWizard::BackButton << QWizard::CancelButton
-            << QWizard::NextButton << QWizard::FinishButton;
-     setButtonLayout(layout);
+    QList<QWizard::WizardButton> layout;
+    layout << QWizard::Stretch << QWizard::BackButton << QWizard::CancelButton << QWizard::NextButton << QWizard::FinishButton;
+    setButtonLayout(layout);
 
 
 

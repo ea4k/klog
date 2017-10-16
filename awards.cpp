@@ -33,7 +33,9 @@ Awards::Awards()
    //qDebug() << "Awards::Awards"  << endl;
     world = new World();
     dataProxy = new DataProxy_SQLite();
+    //qDebug() << "Awards::Awards - Before DXMarathon"  << endl;
     dxMarathon = new DXMarathon();
+    //qDebug() << "Awards::Awards - After DXMarathon"  << endl;
     util = new Utilities();
     //world->create();
 /*

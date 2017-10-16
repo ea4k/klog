@@ -19,7 +19,7 @@ QString Utilities::getVersion()
 
 
 int Utilities::getProgresStepForDialog(int totalSteps){
-  //qDebug() << "Utilities::getProgresStepForDialog";
+    //qDebug() << "Utilities::getProgresStepForDialog";
     if (totalSteps <=100)
         return 1;
     else if (totalSteps <=1000)
@@ -38,7 +38,7 @@ int Utilities::getProgresStepForDialog(int totalSteps){
 
 bool Utilities::trueOrFalse(const QString _s)
 {// reads a String and return true if s.upper()== TRUE :-)
-    //qDebug() << "Utilities::trueOrFalse: " << _s << endl;
+      //qDebug() << "Utilities::trueOrFalse: " << _s << endl;
 
     if ( (_s.toUpper()) == "TRUE")
     {
@@ -53,7 +53,7 @@ bool Utilities::trueOrFalse(const QString _s)
 
 QString Utilities::checkAndFixASCIIinADIF(const QString _data)
 {
-    //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << endl;
+      //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << endl;
 // This function is not really working with ASCII but with Unicode
 
 //TODO: this function is also in the FileManager class. Maybe I should call that one and keep just one copy
@@ -69,7 +69,7 @@ QString Utilities::checkAndFixASCIIinADIF(const QString _data)
         {
             newString.append(st.at(i));
         }
-        //qDebug() << "SetupDialog::checkAndFixunicodeinADIF: " << st.at(i) <<" = " << QString::number(unicodeVal) << endl;
+          //qDebug() << "SetupDialog::checkAndFixunicodeinADIF: " << st.at(i) <<" = " << QString::number(unicodeVal) << endl;
     }
 
     // Show into another lineEdit
@@ -79,17 +79,17 @@ QString Utilities::checkAndFixASCIIinADIF(const QString _data)
 
 void Utilities::printQString(const QStringList _qs)
 {
-   //qDebug() << "Utilities::printQString: COMMENT THIS CALL BEFORE RELEASING" << endl;
+     //qDebug() << "Utilities::printQString: COMMENT THIS CALL BEFORE RELEASING" << endl;
     if (_qs.length()<1)
     {
-       //qDebug() << "Utilities::printQString: EMPTY QStringList received!!" << endl;
+         //qDebug() << "Utilities::printQString: EMPTY QStringList received!!" << endl;
         return;
     }
     for (int i=0; i<_qs.length()-1;i++)
     {
-       //qDebug() << _qs.at(i) << "/" ;
+         //qDebug() << _qs.at(i) << "/" ;
     }
-   //qDebug() << _qs.at(_qs.length()-1) << endl;
+     //qDebug() << _qs.at(_qs.length()-1) << endl;
 }
 
 QString Utilities::getAgent(const QString _klogversion)
@@ -170,11 +170,11 @@ QString Utilities::getHomeDir()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
 #ifdef Q_OS_WIN
-    //qDebug() << "WINDOWS DETECTED!: "  << QDir::homePath() + "/klog" << endl;
+      //qDebug() << "WINDOWS DETECTED!: "  << QDir::homePath() + "/klog" << endl;
     return QDir::homePath()+"/klog";  // We create the \klog for the logs and data
 
 #else
-    //qDebug() << "NO WINDOWS DETECTED!"  << endl;
+      //qDebug() << "NO WINDOWS DETECTED!"  << endl;
     return QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs and data
 
 #endif
@@ -184,40 +184,20 @@ QString Utilities::getHomeDir()
 QString Utilities::getKLogDefaultDatabaseFile()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
-#ifdef Q_OS_WIN
-    //qDebug() << "WINDOWS DETECTED!: "  << getHomeDir() + "/logbook.dat" << endl;
     return getHomeDir() + "/logbook.dat";
-
-#else
-    //qDebug() << "NO WINDOWS DETECTED!"  << endl;
-    return getHomeDir() + "/logbook.dat";
-
-#endif
-
 }
 
 
 QString Utilities::getKLogDatabaseFile(const QString _file)
 {
-
-
-#ifdef Q_OS_WIN
-
-    if ( QFile::exists(_file + "\logbook.dat") )
-    {
-       //qDebug() << "Utilities::getKLogDatabaseFile: Exists! (Win)"  << endl;
-        return _file + "\logbook.dat";
-    }
-
-#else
     if ( QFile::exists(_file + "/logbook.dat") )
     {
-       //qDebug() << "Utilities::getKLogDatabaseFile: Exists! (no WIN)"  << endl;
         return _file + "/logbook.dat";
     }
-#endif
+    else
+    {}
 
-    //qDebug() << "Utilities::getKLogDatabaseFile: Does not exist so default: " <<  getKLogDefaultDatabaseFile() << endl;
+      //qDebug() << "Utilities::getKLogDatabaseFile: Does not exist so default: " <<  getKLogDefaultDatabaseFile() << endl;
         return getKLogDefaultDatabaseFile();
 }
 
@@ -228,11 +208,11 @@ QString Utilities::getCfgFile()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
 #ifdef Q_OS_WIN
-    //qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
+      //qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
     return getHomeDir() + "/klogrc.cfg";
 
 #else
-    //qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
+      //qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
     return getHomeDir() + "/klogrc";
 
 #endif
@@ -241,17 +221,7 @@ QString Utilities::getCfgFile()
 
 QString Utilities::getCTYFile()
 {
-//TODO: To be removed when the defaultDir is saved in the config file
-#ifdef Q_OS_WIN
-    //qDebug() << "WINDOWS DETECTED!"  << endl;
     return getHomeDir() + "/cty.csv";
-
-#else
-    //qDebug() << "NO WINDOWS DETECTED!"  << endl;
-    return getHomeDir() + "/cty.csv";
-
-#endif
-
 }
 
 int Utilities::getNormalizedDXCCValue(const int _dxcc)
@@ -267,13 +237,13 @@ int Utilities::getNormalizedDXCCValue(const int _dxcc)
 }
 QString Utilities::getKLogDBFile()
 {
-   //qDebug() << "Utilities::getKLogDBFile: start " << endl;
+     //qDebug() << "Utilities::getKLogDBFile: start " << endl;
 
     QFile file(getCfgFile());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
 
         dbPath = getKLogDefaultDatabaseFile();
-        //qDebug() << "Utilities::getKLogDBFile: return1: " << getKLogDatabaseFile(dbPath) << endl;
+          //qDebug() << "Utilities::getKLogDBFile: return1: " << getKLogDatabaseFile(dbPath) << endl;
         return getKLogDatabaseFile(dbPath);
     }
 
@@ -287,14 +257,14 @@ QString Utilities::getKLogDBFile()
         dbPath = getKLogDefaultDatabaseFile();
     }
 
-   //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << endl;
-    //qDebug() << "Utilities::getKLogDBFile: return2: " << getKLogDatabaseFile(dbPath) << endl;
+     //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << endl;
+      //qDebug() << "Utilities::getKLogDBFile: return2: " << getKLogDatabaseFile(dbPath) << endl;
     return getKLogDatabaseFile(dbPath);
 
 }
 
 bool Utilities::processConfigLine(const QString _line){
-        //qDebug() << "Utilities::processConfigLine: " << _line << endl;
+          //qDebug() << "Utilities::processConfigLine: " << _line << endl;
 
         QString line = _line.simplified();
         //line.simplified();
@@ -304,11 +274,11 @@ bool Utilities::processConfigLine(const QString _line){
 
 
         if (line.startsWith('#')){
-            //qDebug() << "Utilities::processConfigLine: notes Line!" << endl;
+              //qDebug() << "Utilities::processConfigLine: notes Line!" << endl;
             return true;
         }
         if (!( (line.contains('=')) && (line.contains(';')))){
-            //qDebug() << "Utilities::processConfigLine: Wrong Line!" << endl;
+              //qDebug() << "Utilities::processConfigLine: Wrong Line!" << endl;
             return false;
         }
         QString field = (values.at(0)).toUpper();
@@ -323,7 +293,7 @@ bool Utilities::processConfigLine(const QString _line){
 
         if (field == "DBPATH")
         {
-             //qDebug() << "Utilities::processConfigLine: dbPATH found: " << value << endl;
+               //qDebug() << "Utilities::processConfigLine: dbPATH found: " << value << endl;
             dbPath = value;
         }
         return true;
@@ -350,16 +320,16 @@ bool Utilities::isValidDate(const QDate _d)
 
 bool Utilities::isDBFileExisting()
 {
-    //qDebug() << "Utilities::isDBFileExisting: " << getKLogDBFile() << endl;
+      //qDebug() << "Utilities::isDBFileExisting: " << getKLogDBFile() << endl;
 
     if (QFile::exists(getKLogDBFile()))
     {
-        //qDebug() << "Utilities::isDBFileExisting - true" << endl;
+          //qDebug() << "Utilities::isDBFileExisting - true" << endl;
         return true;
     }
     else
     {
-        //qDebug() << "Utilities::isDBFileExisting - false" << endl;
+          //qDebug() << "Utilities::isDBFileExisting - false" << endl;
         return false;
     }
     return false;
@@ -367,16 +337,16 @@ bool Utilities::isDBFileExisting()
 
 bool Utilities::isDBFileExisting(const QString _file)
 {
-    //qDebug() << "Utilities::isDBFileExisting2: " << _file << endl;
+      //qDebug() << "Utilities::isDBFileExisting2: " << _file << endl;
 
     if (QFile::exists(_file))
     {
-        //qDebug() << "Utilities::isDBFileExisting2 - true" << endl;
+          //qDebug() << "Utilities::isDBFileExisting2 - true" << endl;
         return true;
     }
     else
     {
-        //qDebug() << "Utilities::isDBFileExisting2 - false" << endl;
+          //qDebug() << "Utilities::isDBFileExisting2 - false" << endl;
         return false;
     }
     return false;

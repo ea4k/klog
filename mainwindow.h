@@ -519,7 +519,7 @@ private:
     bool checkNewVersions, reportInfo; // Selected in the Setup->Misc to check if new versions and report info back to KLog's servers
 
     bool qslingNeeded;
-
+    bool noMoreErrorShown;              // If true, the errors shown in slotQueryErrorManagement will not be shown anymore in that KLog execution
     MainWindowSatTab *satTabWidget;
     MainWindowMyDataTab *myDataTabWidget;
     MainWindowInputComment *commentTabWidget;

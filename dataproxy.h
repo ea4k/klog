@@ -52,7 +52,7 @@ public:
     virtual QString getNameFromSubModeId (const int _id);
     virtual QString getSubModeFromId (const int _id);
     virtual QString getNameFromSubMode (const QString _sm); // Checks if a submode is deprecated //TODO: Check if really needed
-    virtual QString getModeFromSubMode (const QString _sm);
+    //virtual QString getModeFromSubMode (const QString _sm);
     virtual bool isModeDeprecated (const QString _sm);
 
     virtual QString getFreqFromBandId(const int _id);
@@ -71,7 +71,8 @@ public:
     virtual QStringList getModesIDs();
     virtual QStringList getBandsInLog(const int _log);
     virtual QStringList getModesInLog(const int _log);
-
+    virtual int getMostUsedBand(const int _log);
+    virtual int getMostUsedMode(const int _log);
 
     virtual int getLastQSOid();
     virtual bool clearLog();

@@ -59,6 +59,8 @@ public:
     QStringList getModesIDs();
     QStringList getBandsInLog(const int _log);
     QStringList getModesInLog(const int _log);
+    int getMostUsedBand(const int _log);
+    int getMostUsedMode(const int _log);
 
     QString getNameFromBandId (const int _id);
     QString getNameFromModeId (const int _id);
@@ -66,7 +68,7 @@ public:
 
     QString getSubModeFromId (const int _id);
     QString getNameFromSubMode (const QString _sm); // Checks if a submode is deprecated TODO: CHeck if really needed
-    QString getModeFromSubMode (const QString _sm);
+    //QString getNameFromSubMode (const QString _sm); // DEPRECATED
     bool isModeDeprecated (const QString _sm);
 
     QString getFreqFromBandId(const int _id);

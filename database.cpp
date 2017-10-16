@@ -732,11 +732,12 @@ int DataBase::getModeIdFromName(const QString b)
 }
 
 
-int DataBase::getModeIdFromSubMode(const QString b, const bool _tmp)
+int DataBase::getModeIdFromSubMode(const QString b)
 {
    //qDebug() << "DataBase::getModeIdFromSubMode: " << b << endl;
      QSqlQuery query;
-     QString queryString;
+     QString queryString = QString("SELECT id FROM modetemp WHERE submode='%1'").arg(b);
+/*
      if (_tmp)
      {
          queryString = QString("SELECT id FROM modetemp WHERE submode='%1'").arg(b);
@@ -745,31 +746,30 @@ int DataBase::getModeIdFromSubMode(const QString b, const bool _tmp)
      {
          queryString = QString("SELECT id FROM mode WHERE submode='%1'").arg(b);
      }
-
-     if (isValidMode(b, _tmp))
+*/
+     bool sqlOK = query.exec(queryString);
+     if (sqlOK)
      {
-         //queryString = QString("SELECT id FROM mode WHERE name='%1'").arg(b);
-        //qDebug() << "DataBase::getModeIdFromName: queryString: " << queryString << endl;
-         query.exec(queryString);
          query.next();
-         if ( query.isValid() )
+         if (query.isValid())
          {
-           //qDebug() << "DataBase::getModeIdFromName: OK" << QString::number((query.value(0)).toInt()) << "-------- END" << endl;
+             //qDebug() << "DataBase::getModeIdFromName: OK - Mode: " << b << " - " << (query.value(0)).toString() << endl;
              return (query.value(0)).toInt();
-
          }
          else
          {
-           //qDebug() << "DataBase::getModeIdFromName: NOK 1" << "-------- END"<< endl;
+             //qDebug() << "DataBase::getModeIdFromName: NOK 1" << "-------- END"<< endl;
              return -1;
          }
      }
      else
      {
-       //qDebug() << "DataBase::getModeIdFromName: NOK 2" << "-------- END"<< endl;
+         //qDebug() << "DataBase::getModeIdFromName: NOK 2" << "-------- END"<< endl;
          return -1;
      }
-   //qDebug() << "DataBase::getModeIdFromName: NOK 3" << "-------- END"<< endl;
+
+
+    //qDebug() << "DataBase::getModeIdFromName: NOK 3" << "-------- END"<< endl;
      return -1;
 }
 
@@ -1280,7 +1280,7 @@ int DataBase::getBandIDFromName2(const QString b)
 int DataBase::getModeIDFromName2(const QString b)
 {
   //qDebug() << "DataBase::getModeIDFromName2: " << b << endl;
-    //return getModeIdFromName(b);
+    return getModeIdFromName(b);
 
     if (b.length()<2)
     {
@@ -1307,6 +1307,10 @@ int DataBase::getModeIDFromName2(const QString b)
 int DataBase::getSubModeIDFromName2(const QString b)
 {
   //qDebug() << "DataBase::getSubModeIDFromName2: " << b << endl;
+
+
+    return getModeIdFromSubMode(b);
+
     //return getModeIdFromName(b);
 
     if (b.length()<2)
@@ -1371,7 +1375,7 @@ QString DataBase::getModeNameFromID2(const int _i)
 QString DataBase::getSubModeNameFromID2(const int _i)
 {
     //qDebug() << "DataBase::getSubModeNameFromId2: " << QString::number(_i) << endl;
-    //return getSubModeNameFromNumber(_i);
+    return getSubModeNameFromNumber(_i);
 
     if (IDSubModeHash.contains(_i))
     {

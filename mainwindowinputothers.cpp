@@ -30,7 +30,7 @@
 MainWindowInputOthers::MainWindowInputOthers(QWidget *parent) :
     QWidget(parent)
 {
-   //qDebug() << "MainWindowInputOthers::MainWindowInputOthers" << endl;
+    //qDebug() << "MainWindowInputOthers::MainWindowInputOthers" << endl;
     entitiesList.clear();
     propModeList.clear();
 
