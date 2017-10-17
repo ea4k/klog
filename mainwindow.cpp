@@ -713,7 +713,7 @@ void MainWindow::slotBandComboBoxChanged(){
    //qDebug() << "MainWindow::MainWindow: 9.3 - currentModeShown: " << QString::number(currentModeShown) << endl;
    //qDebug() << "MainWindow::MainWindow: 9.4 - currentBandShown: " << QString::number(currentBandShown) << endl;
 
-
+    satTabWidget->setUpLink(bandComboBox->currentText());
        //currentModeShown = modeComboBox->currentIndex();
     checkIfWorkedB4(currentQrz);
 
@@ -4647,23 +4647,41 @@ bool MainWindow::processConfigLine(const QString _line){
     }else if(field=="SELECTEDLOG")
     {
         currentLog = value.toInt();
+        //qDebug() << "MainWindow::processConfigLine: currentLog - SelectedLog: " << QString::number(currentLog) << endl;
 
-        if (dataProxy->doesThisLogExist(currentLog))
+        if ( ((dataProxy->doesThisLogExist(currentLog))  && (dataProxy->getHowManyQSOInLog(currentLog) > 0)) || (currentLog==1) )
         {
 
         }
         else
         {
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Warning);
+            QString aux = tr("The selected log is not existing or it is empty.\n\nKLog will select another log with data. Please remove the empty log from the Setup page.");
+            msgBox.setText(aux);
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            int ret = msgBox.exec();
+            switch (ret)
+            {
+                case QMessageBox::Ok:
+                break;
+                default:
+                // should never be reached
+                break;
+            }
             currentLog = 1;
             while(!dataProxy->doesThisLogExist(currentLog))
             {
                 currentLog++;
             }
+
         }
         dxClusterWidget->setCurrentLog(currentLog);
         dxccStatusWidget->setCurrentLog(currentLog);
         //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
-    }else if(field=="CLUBLOGACTIVE")
+    }
+        else if(field=="CLUBLOGACTIVE")
     {
       //qDebug() << "MainWindow::processConfigLine: clublogActive: " << value << endl;
         clublogActive = util->trueOrFalse(value);

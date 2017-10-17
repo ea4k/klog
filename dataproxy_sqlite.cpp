@@ -1742,6 +1742,20 @@ bool DataProxy_SQLite::isVHF(const int _band)
     }
 }
 
+bool DataProxy_SQLite::isUHF(const int _band)
+{
+    if (_band<=getIdFromBandName("70CM"))
+    {
+       //qDebug() << "DataProxy_SQLite::isUHF: TRUE" << endl;
+        return true;
+    }
+    else
+    {
+       //qDebug() << "DataProxy_SQLite::isUHF: FALSE" << endl;
+        return false;
+    }
+}
+
 QStringList DataProxy_SQLite::getOperatingYears(const int _currentLog)
 {
     //qDebug() << "DataProxy_SQLite::getYearsOperating: " << QString::number(_currentLog) << endl;
@@ -2139,6 +2153,53 @@ QStringList DataProxy_SQLite::getSatellitesList()
          emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
          return QStringList();
      }
+     return qs;
+}
+
+QStringList DataProxy_SQLite::getSatelliteBandsList(const QString _sat)
+{
+    qDebug()  << "DataProxy_SQLite::getSatelliteBandsList: " << _sat  << endl;
+     QString aux = QString();
+     QStringList qs, qsTmp;
+     qs.clear();
+     QString stringQuery = QString("SELECT satmode FROM satellites WHERE satarrlid='%1'").arg(_sat);
+
+     QSqlQuery query;
+
+     if (query.exec(stringQuery))
+     {
+         query.next();
+         if (query.isValid())
+         {
+             if (((query.value(0)).toString()).length()<0)
+             {
+                 return QStringList();
+             }
+             else
+             {
+                 qsTmp.clear();
+                 aux.clear();
+                 //2M/10M-SSB;2M/10M-CW;2M/70CM-SSB;2M/70CM-CW
+                 qsTmp << ((query.value(0)).toString()).split(';', QString::SkipEmptyParts);
+                 for (int i=0;i<qsTmp.length();i++)
+                 {
+                     aux = (qsTmp.at(i)).section("-",0,0);
+                     qs << aux;
+                 }
+             }
+
+         }
+         else
+         {
+            return QStringList();
+         }
+     }
+     else
+     {
+         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+         return QStringList();
+     }
+     qs.removeDuplicates();
      return qs;
 }
 
