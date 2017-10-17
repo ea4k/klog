@@ -63,6 +63,7 @@ public:
     virtual bool isHF(const int _band);
     virtual bool isWARC(const int _band);
     virtual bool isVHF(const int _band);
+    virtual bool isUHF(const int _band);
 
     virtual QStringList getBands();
     virtual QStringList getModes();
@@ -150,6 +151,7 @@ public:
     virtual QStringList getBandNames();
     virtual QStringList getPropModeList();
     virtual QStringList getSatellitesList();
+    virtual QStringList getSatelliteBandsList(const QString _sat);
     virtual QStringList getQSLRcvdList();
     virtual QStringList getQSLSentList();
     virtual QStringList getClubLogStatusList();

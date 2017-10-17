@@ -312,6 +312,12 @@ bool DataProxy::isVHF(const int _band)
     return false;
 }
 
+bool DataProxy::isUHF(const int _band)
+{
+    return false;
+}
+
+
 QStringList DataProxy::getOperatingYears(const int _currentLog)
 {
     return QStringList();
@@ -372,6 +378,11 @@ QStringList DataProxy::getPropModeList()
 }
 
 QStringList DataProxy::getSatellitesList()
+{
+    return QStringList();
+}
+
+QStringList DataProxy::getSatelliteBandsList(const QString _sat)
 {
     return QStringList();
 }

@@ -39,9 +39,9 @@
 
 class QSqlRelationalTableModel;
 
-// Previous db update 0.009
-const float DBVersionf = 0.010; // When bug on DB update is fixed
-//const float DBVersionf = 0.009;
+// Previous db update 0.010
+const float DBVersionf = 0.011; // TODO:
+
 
 class DataBase{
 
@@ -107,6 +107,7 @@ private:
     bool updateTo008();
     bool updateTo009(); // Updates DB and add the Satellite tables
     bool updateTo010(); // Updates DB and recreates the supportedcontest table
+    bool updateTo011(); // Updates DB and recreates Satellite data
     bool updateTableLog(const int _v);
     bool updateDBVersion();
 
@@ -155,6 +156,8 @@ private:
     bool updateBandIdTableLogToNewOnes();
     bool updateBandIdTableAward(const int _db);
     bool updateModeIdTableAward(const int _db);
+    void queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN);
+
 
     bool created;
     float dbVersion;    // The current version of the DB. May differ from latestReaded if we are updating the DB!

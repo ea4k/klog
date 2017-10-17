@@ -165,7 +165,7 @@ void MainWindowSatTab::createUI()
 void MainWindowSatTab::slotSatNameComboBoxChanged()
 {
     int i = satNameComboBox->currentIndex();
-   //qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << QString::number(i) << endl;
+   qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << QString::number(i) << endl;
     //QString _pm = (((satNameComboBox->currentText()).split(' ')).at(0)).simplified();
 
     satNameLineEdit->clear();
@@ -188,6 +188,7 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
         emit setPropModeSat("SAT");
         satNameLineEdit->setEnabled(false);
         satOtherLabel->setEnabled(false);
+        setBandsOfSat(satNameComboBox->currentText());
     }
 
 }
@@ -461,4 +462,67 @@ void MainWindowSatTab::slotSatFreqTXChanged()
     _q = dataProxy->getNameFromBandId (v);
 
     satBandTXComboBox->setCurrentIndex(satBandTXComboBox->findText(_q));
+}
+
+void MainWindowSatTab::setUpLink(const QString _t)
+{
+    int index = satBandTXComboBox->findText(_t, Qt::MatchCaseSensitive);
+    int indexRX;
+    if (index>=0)
+    {
+        satBandTXComboBox->setCurrentIndex(index);
+        //if ((dataProxy->isVHF(dataProxy->getIdFromBandName(_t))) && !(dataProxy->isUHF(dataProxy->getIdFromBandName(_t))) )
+        if ( dataProxy->getIdFromBandName("2M") ==  dataProxy->getIdFromBandName(_t) )
+        {
+            //qDebug() << satNameComboBox->currentText() << endl;
+            if (satNameComboBox->findText("AO-7 - AMSAT-OSCAT 7", Qt::MatchCaseSensitive))
+            {
+                indexRX = satBandRXComboBox->findText("10M", Qt::MatchCaseSensitive);
+            }
+            else
+            {
+                indexRX = satBandRXComboBox->findText("70CM", Qt::MatchCaseSensitive);
+            }
+
+            satBandRXComboBox->setCurrentIndex(indexRX);
+        }
+        //else if(dataProxy->isUHF(dataProxy->getIdFromBandName(_t)))
+        else if ( dataProxy->getIdFromBandName("70CM") ==  dataProxy->getIdFromBandName(_t) )
+        //else
+        {
+            indexRX = satBandRXComboBox->findText("2M", Qt::MatchCaseSensitive);
+            satBandRXComboBox->setCurrentIndex(indexRX);
+        }
+
+    }
+
+}
+
+void MainWindowSatTab::setBandsOfSat(const QString _p)
+{
+    // Until the data is in the DB, this function tries to solve data of active sats from: http://www.amsat.org/status/
+    qDebug() << "MainWindowSatTab::setBandsOfSat: " << _p << " - Short: " << _p.section(' ', 0, 0) << endl;
+    //"AO-7 - AMSAT-OSCAT 7"
+    //2M/10M << 2M/70CM
+
+    QStringList bands;
+    bands.clear();
+    bands << dataProxy->getSatelliteBandsList(_p.section(' ', 0, 0));
+    if (bands.isEmpty())
+    {
+        return;
+    }
+
+    QString upLink = (bands.at(0)).section('/', 0, 0);
+    QString downLink = (bands.at(0)).section('/', 1, 1);
+    int indexTX = satBandTXComboBox->findText(upLink, Qt::MatchCaseSensitive);
+    int indexRX = satBandRXComboBox->findText(downLink, Qt::MatchCaseSensitive);
+    if (indexRX>=0)
+    {
+        satBandRXComboBox->setCurrentIndex(indexRX);
+    }
+    if (indexTX>=0)
+    {
+        satBandTXComboBox->setCurrentIndex(indexTX);
+    }
 }

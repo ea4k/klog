@@ -55,7 +55,7 @@ public:
     void addBands(QStringList _bands);
     void setDefaultBands(); //Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist on the selected bands
 
-
+    void setUpLink(const QString _t);
 
     void clear();
 
@@ -78,6 +78,7 @@ private:
     void populateSatComboBox();
     void setSatelliteCombo(const QString _p);
     int getSatIndex(const QString _p);
+    void setBandsOfSat(const QString _p);
 
     QLineEdit *satNameLineEdit;
     QLineEdit *satModeLineEdit;

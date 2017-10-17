@@ -99,6 +99,7 @@ public:
     bool isHF(const int _band);
     bool isWARC(const int _band);
     bool isVHF(const int _band);
+    bool isUHF(const int _band);
 
     QString getCallFromId(const int _qsoId);
     QStringList getClubLogRealTimeFromId(const int _qsoId);
@@ -160,6 +161,7 @@ public:
     QStringList getBandNames();
     QStringList getPropModeList();
     QStringList getSatellitesList();
+    QStringList getSatelliteBandsList(const QString _sat);
     QStringList getQSLRcvdList();
     QStringList getQSLSentList();
     QStringList getClubLogStatusList();
