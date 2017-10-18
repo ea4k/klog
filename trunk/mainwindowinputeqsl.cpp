@@ -1,6 +1,6 @@
 #include "mainwindowinputeqsl.h"
 
-MainWindowInputEQSL::MainWindowInputEQSL(QWidget *parent) :
+MainWindowInputEQSL::MainWindowInputEQSL(DataProxy *dp, QWidget *parent) :
     QWidget(parent)
 {
     //qDebug() << "MainWindowInputEQSL::MainWindowInputEQSL"   << endl;
@@ -9,7 +9,7 @@ MainWindowInputEQSL::MainWindowInputEQSL(QWidget *parent) :
     qslRcvdStatusList.clear();
     clubLogStatusList.clear();
 
-    dataProxy = new DataProxy_SQLite();
+    dataProxy = dp;
 
     qslSentStatusList = dataProxy->getQSLSentList();
     qslRcvdStatusList = dataProxy->getQSLRcvdList();

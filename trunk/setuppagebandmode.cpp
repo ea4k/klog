@@ -1,9 +1,9 @@
 #include "setuppagebandmode.h"
 
-SetupPageBandMode::SetupPageBandMode(QWidget *parent) : QWidget(parent)
+SetupPageBandMode::SetupPageBandMode(DataProxy *dp, QWidget *parent) : QWidget(parent)
 {
     //qDebug() << "SetupPageBandMode::SetupPageBandMode"   << endl;
-    dataProxy = new DataProxy_SQLite();
+    dataProxy = dp;
 
     bandsListWidget = new QListWidget;
     modesListWidget = new QListWidget;

@@ -32,13 +32,12 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "dataproxy.h"
-#include "dataproxy_sqlite.h"
 
 class MainWindowSatTab : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainWindowSatTab(QWidget *parent = 0);
+    explicit MainWindowSatTab(DataProxy *dp, QWidget *parent = 0);
     ~MainWindowSatTab();
 
     QString getSatName();

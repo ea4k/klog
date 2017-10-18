@@ -9,13 +9,13 @@ TODO: Call the creation of this depending on the bands that the user is using
 
 */
 
-DXCCStatusWidget::DXCCStatusWidget(QWidget *parent) : QWidget(parent)
+DXCCStatusWidget::DXCCStatusWidget(DataProxy *dp, QWidget *parent) : QWidget(parent)
 {
    //qDebug() << "DXCCStatusWidget::DXCCStatusWidget" << endl;
+    dataProxy = dp;
+    awards = new Awards(dataProxy);
+    world = new World(dataProxy);
 
-    awards = new Awards;
-    world = new World;
-    dataProxy = new DataProxy_SQLite();
 
     dxccView = new QTableWidget;
     //hv = new QHeaderView(Qt::Vertical, dxccView);

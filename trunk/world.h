@@ -40,7 +40,6 @@
 
 #include "locator.h"
 #include "dataproxy.h"
-#include "dataproxy_sqlite.h"
 //#include "awards.h"
 
 
@@ -58,9 +57,9 @@ class World : public QWidget
     Q_OBJECT
 
 public:
-    World();
-    World(const QString _klogDir);
-    World(const QString _klogDir, const QString _kontestVer);
+    World(DataProxy *dp);
+    World(DataProxy *dp, const QString _klogDir);
+    World(DataProxy *dp, const QString _klogDir, const QString _kontestVer);
 
     ~World();
     bool create(const QString _worldFile);

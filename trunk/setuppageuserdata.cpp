@@ -26,9 +26,11 @@
 
 #include "setuppageuserdata.h"
 
-SetupPageUserDataPage::SetupPageUserDataPage(QWidget *parent) : QWidget(parent){
+SetupPageUserDataPage::SetupPageUserDataPage(DataProxy *dp, QWidget *parent) : QWidget(parent){
    //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage" << endl;
    locator = new Locator();
+   dataProxy = dp;
+   world = new World(dataProxy);
    operatorOK = false;
    operatorsOK = false;
    tabWidget = new QTabWidget;
@@ -262,7 +264,7 @@ SetupPageUserDataPage::~SetupPageUserDataPage()
 
 QString SetupPageUserDataPage::getStationQrz()
 {
-    operatorOK = world.checkQRZValidFormat(qrzLineEdit->text());
+    operatorOK = world->checkQRZValidFormat(qrzLineEdit->text());
     if (operatorOK)
     {
         return qrzLineEdit->text();
@@ -289,9 +291,9 @@ void SetupPageUserDataPage::slotQRZTextChanged()
     qrzLineEdit->setText(((qrzLineEdit->text())).simplified());
     qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
 
-    cqzLineEdit->setText(QString::number(world.getQRZCqz(qrzLineEdit->text())));
-    ituzLineEdit->setText(QString::number(world.getQRZItuz(qrzLineEdit->text())));
-    myLocatorLineEdit->setText(world.getQRZLocator(qrzLineEdit->text()));
+    cqzLineEdit->setText(QString::number(world->getQRZCqz(qrzLineEdit->text())));
+    ituzLineEdit->setText(QString::number(world->getQRZItuz(qrzLineEdit->text())));
+    myLocatorLineEdit->setText(world->getQRZLocator(qrzLineEdit->text()));
 
     qrzLineEdit->setCursorPosition(i);
 
@@ -301,7 +303,7 @@ void SetupPageUserDataPage::slotQRZTextChanged()
     /*
      if (!locator->isValidLocator(myLocatorLineEdit->text()) )
     {
-        myLocatorLineEdit->setText(world.getQRZLocator(qrzLineEdit->text()));
+        myLocatorLineEdit->setText(world->getQRZLocator(qrzLineEdit->text()));
     }
     */
 }
@@ -628,9 +630,9 @@ void SetupPageUserDataPage::slotOperatorsChanged()
     {
         //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-03 - " << QString::number(ii) << endl;
 
-        operatorsOK = world.checkQRZValidFormat(operators.at(ii));
+        operatorsOK = world->checkQRZValidFormat(operators.at(ii));
 
-        //ent = world.getQRZARRLId(operators.at(ii));
+        //ent = world->getQRZARRLId(operators.at(ii));
 
         if (operatorsOK)
         {
@@ -663,9 +665,9 @@ void SetupPageUserDataPage::slotOperatorsChanged()
     //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-05" << endl;
 
  /*
-    cqzLineEdit->setText(QString::number(world.getQRZCqz(qrzLineEdit->text())));
-    ituzLineEdit->setText(QString::number(world.getQRZItuz(qrzLineEdit->text())));
-    myLocatorLineEdit->setText(world.getQRZLocator(qrzLineEdit->text()));
+    cqzLineEdit->setText(QString::number(world->getQRZCqz(qrzLineEdit->text())));
+    ituzLineEdit->setText(QString::number(world->getQRZItuz(qrzLineEdit->text())));
+    myLocatorLineEdit->setText(world->getQRZLocator(qrzLineEdit->text()));
 
 
   */
@@ -703,7 +705,7 @@ bool  SetupPageUserDataPage::checkOperatorsLineQString(const QString _auxLine)
     QStringList _aux = _auxLine.split(',');
     for (int ii = 0; ii < _aux.size(); ++ii)
     {
-        operatorsOK = world.checkQRZValidFormat(_aux.at(ii));
+        operatorsOK = world->checkQRZValidFormat(_aux.at(ii));
         if (!operatorsOK)
             return operatorsOK;
 

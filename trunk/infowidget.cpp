@@ -1,13 +1,14 @@
 #include "infowidget.h"
 
-InfoWidget::InfoWidget(QWidget *parent) :
+InfoWidget::InfoWidget(DataProxy *dp, QWidget *parent) :
     QWidget(parent)
 {
     //qDebug() << "InfoWidget::InfoWidget: "   << endl;
-    awards = new Awards; //Just to know colors
-    dataProxy = new DataProxy_SQLite;
+    dataProxy = dp;
+    awards = new Awards(dataProxy); //Just to know colors
+
     locator = new Locator();
-    world = new World;
+    world = new World(dataProxy);
 
     bandLabel1 = new QLabel;
     bandLabel2 = new QLabel;
@@ -335,7 +336,8 @@ QString InfoWidget::getStyleColorToLabelFromBand(const QString _b, const QString
 }
 
 
-void InfoWidget::showInfo(const int _entity, const int _bandid, const int _modeid, const int _log)
+//void InfoWidget::showInfo(const int _entity, const int _bandid, const int _modeid, const int _log)
+void InfoWidget::showInfo(const int _entity)
 { // Default values of _modeid & _log = -1
     //qDebug() << "InfoWidget::showInfo: " << QString::number(_entity) << "/" << QString::number(_bandid) << "/"<< QString::number(_modeid) << "/" << QString::number(_log) << endl;
  //QColor getQRZDXStatusColor(const QStringList _qs); // Receives Entity, band, mode & log

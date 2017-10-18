@@ -31,14 +31,13 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "dataproxy.h"
-#include "dataproxy_sqlite.h"
 
 class MainWindowInputOthers : public QWidget
 {
     Q_OBJECT
 
 public:
-    MainWindowInputOthers(QWidget *parent = 0);
+    MainWindowInputOthers(DataProxy *dp, QWidget *parent = 0);
     ~MainWindowInputOthers();
 
     void setEntitiesList(const QStringList _qs);

@@ -34,7 +34,6 @@ email                : jaime@robles.es
 #include "awards.h"
 #include "world.h"
 #include "dataproxy.h"
-#include "dataproxy_sqlite.h"
 
 class QWidget;
 class QTcpSocket;
@@ -44,10 +43,10 @@ class DXClusterWidget : public QWidget
      Q_OBJECT
 
  public:
-    DXClusterWidget(QWidget *parent );
+    DXClusterWidget(DataProxy *dp, QWidget *parent );
 
     //DXClusterWidget(QWidget *parent);
-    DXClusterWidget(const QString &clusterToConnect, const int portToConnect, QWidget *parent );
+    DXClusterWidget(DataProxy *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent );
 
     void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
     void setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy );

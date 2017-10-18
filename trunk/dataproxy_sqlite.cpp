@@ -1101,8 +1101,9 @@ bool DataProxy_SQLite::isQSLSent(const int _qsoId)
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        return false;
     }
-
+    return false;
 }
 
 QString DataProxy_SQLite::getCallFromId(const int _qsoId)
@@ -2158,7 +2159,7 @@ QStringList DataProxy_SQLite::getSatellitesList()
 
 QStringList DataProxy_SQLite::getSatelliteBandsList(const QString _sat)
 {
-    qDebug()  << "DataProxy_SQLite::getSatelliteBandsList: " << _sat  << endl;
+    //qDebug()  << "DataProxy_SQLite::getSatelliteBandsList: " << _sat  << endl;
      QString aux = QString();
      QStringList qs, qsTmp;
      qs.clear();
@@ -3672,3 +3673,4 @@ void DataProxy_SQLite::getFoundInLog(const QString _txt, const int _log)
     return;
     */
 }
+

@@ -28,13 +28,14 @@
 
 //#include <QDebug>
 
-Awards::Awards()
+Awards::Awards(DataProxy *dp)
 {
    //qDebug() << "Awards::Awards"  << endl;
-    world = new World();
-    dataProxy = new DataProxy_SQLite();
+    dataProxy = dp;
+    world = new World(dp);
+
     //qDebug() << "Awards::Awards - Before DXMarathon"  << endl;
-    dxMarathon = new DXMarathon();
+    dxMarathon = new DXMarathon(dataProxy);
     //qDebug() << "Awards::Awards - After DXMarathon"  << endl;
     util = new Utilities();
     //world->create();

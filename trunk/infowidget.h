@@ -42,13 +42,13 @@ class InfoWidget : public QWidget
 {
     Q_OBJECT
 public:
-    InfoWidget(QWidget *parent = 0);
+    InfoWidget(DataProxy *dp, QWidget *parent = 0);
     void createUI();
     void clear();
     void setCurrentLog(const int _log);
     void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
     void setImperialSystem (const  bool _imp);
-    void showInfo(const int _entity, const int _bandid, const int _modeid = -1, const int _log=-1);
+    void showInfo(const int _entity);
     void showDistanceAndBearing(const QString _locLocal, const QString _loc2);
     void showEntityInfo(const int _enti, int _cq=-1, int _itu=-1);
     void setLocalLocator(const QString _loc);   //MAYBE NOT NEEDED
@@ -69,7 +69,7 @@ private:
     QLabel *distLongLabelN;
 
     Awards *awards;
-    DataProxy_SQLite *dataProxy;
+    DataProxy *dataProxy;
     Locator *locator;
     World *world;
 

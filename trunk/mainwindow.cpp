@@ -54,6 +54,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //flagIcon = new QPushButton; // To paint a flag of the worked entity
 
     // <ui>
+    dataProxy = new DataProxy_SQLite();
     doc = new QTextDocument;
     util = new Utilities;
 
@@ -171,12 +172,12 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     modes << "SSB" << "CW" << "RTTY";
 
-    dxccStatusWidget = new DXCCStatusWidget();
-    logWindow = new LogWindow(this);
+    dxccStatusWidget = new DXCCStatusWidget(dataProxy);
+    logWindow = new LogWindow(dataProxy, this);
     connect(logWindow, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
-    searchWidget = new SearchWidget (this);
+    searchWidget = new SearchWidget (dataProxy, this);
     connect(searchWidget, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
-    infoWidget = new InfoWidget(this);
+    infoWidget = new InfoWidget(dataProxy, this);
 
    //qDebug() << "MainWindow::MainWindow: 0009" << endl;
 
@@ -257,7 +258,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //db = new DataBase(softwareVersion, DBinMemory);
 
     //qDebug() << "MainWindow::MainWindow: 4" << endl;
-    world = new World(klogDir, softwareVersion);
+    world = new World(dataProxy, klogDir, softwareVersion);
     connect(world, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
 
     if (!existingData)
@@ -271,7 +272,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
         //qDebug() << "MainWindow::MainWindow: existingData" << endl;
     }
     //qDebug() << "MainWindow::MainWindow: proxy to be created" << endl;
-    dataProxy = new DataProxy_SQLite();
+
 
     connect(dataProxy, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
     connect(this, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
@@ -280,24 +281,25 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     //qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
     //setupDialog = new SetupDialog(!configured);
-    setupDialog = new SetupDialog(configFileName, softwareVersion, 0, !configured);
+    setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured);
+    connect(setupDialog, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
     //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
-    satTabWidget = new MainWindowSatTab();
+    satTabWidget = new MainWindowSatTab(dataProxy);
     myDataTabWidget = new MainWindowMyDataTab();
     commentTabWidget = new MainWindowInputComment();
-    othersTabWidget = new MainWindowInputOthers();
-    eQSLTabWidget = new MainWindowInputEQSL();
-    QSLTabWidget = new MainWindowInputQSL();
+    othersTabWidget = new MainWindowInputOthers(dataProxy);
+    eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
+    QSLTabWidget = new MainWindowInputQSL(dataProxy);
 
     //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
     //filemanager = new FileManager(klogDir, softwareVersion, *db);
-    filemanager = new FileManager(klogDir, softwareVersion);
+    filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
     connect(filemanager, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
 
     //qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
     locator = new Locator();
     //qDebug() << "MainWindow::MainWindow: awards to be created" << endl;
-    awards = new Awards();
+    awards = new Awards(dataProxy);
     awards->setManageModes(manageMode);
     connect(awards, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
     //qDebug() << "MainWindow::MainWindow: awards already created" << endl;
@@ -456,7 +458,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     // CLUSTER
     //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
-    dxClusterWidget = new DXClusterWidget(dxclusterServerToConnect , dxclusterServerPort, this);
+    dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
 
 
     // </CLUSTER>
@@ -6205,7 +6207,8 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
 
     message = awards->getDXStatusString(status);
     infoLabel1->setText(message);
-    infoWidget->showInfo((_qs.at(0)).toInt(), (_qs.at(1)).toInt(), (_qs.at(2)).toInt(), (_qs.at(3)).toInt() );
+    //infoWidget->showInfo((_qs.at(0)).toInt(), (_qs.at(1)).toInt(), (_qs.at(2)).toInt(), (_qs.at(3)).toInt() );
+    infoWidget->showInfo((_qs.at(0)).toInt());
 }
 
 
