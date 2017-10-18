@@ -29,8 +29,8 @@
 //#include <QtWidgets>
 #include <QtWidgets>
 #include <QtSql>
+#include <QSqlQuery>
 #include "dataproxy.h"
-#include "dataproxy_sqlite.h"
 #include "setuppagelogsnew.h"
 
 
@@ -44,7 +44,7 @@ class SetupPageLogs : public QWidget {
     Q_OBJECT
 
 public:
-    SetupPageLogs(QWidget *parent=0);
+    SetupPageLogs(DataProxy *dp, QWidget *parent=0);
     ~SetupPageLogs();
     int getSelectedLog();
     void setSelectedLog(const int _i);

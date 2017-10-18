@@ -27,19 +27,20 @@
 #include "logwindow.h"
 
 
-LogWindow::LogWindow(QWidget *parent) : QWidget(parent)
+LogWindow::LogWindow(DataProxy *dp, QWidget *parent) : QWidget(parent)
 {
    //qDebug() << "LogWindow::LogWindow: "  << endl;
-    logModel = new LogModel(this);
+    dataProxy = dp;
+    logModel = new LogModel(dataProxy, this);
     connect(logModel, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
     logView = new QTableView;
-    dxccStatusWidget = new DXCCStatusWidget();
+    dxccStatusWidget = new DXCCStatusWidget(dataProxy);
     elogClublog = new eLogClubLog();
 
     currentLog = -1;
 
-    dataProxy = new DataProxy_SQLite();
-    awards = new Awards();
+
+    awards = new Awards(dataProxy);
 
     createUI();
     createActions();

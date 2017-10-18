@@ -32,7 +32,6 @@
 #include "awards.h"
 #include "world.h"
 #include "dataproxy.h"
-#include "dataproxy_sqlite.h"
 
 
 //TODO: Creating the widget to show the DXCC status
@@ -41,7 +40,7 @@ class DXCCStatusWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit DXCCStatusWidget(QWidget *parent = 0);
+    explicit DXCCStatusWidget(DataProxy *dp, QWidget *parent = 0);
     ~DXCCStatusWidget();
     
     void update();    

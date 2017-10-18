@@ -28,9 +28,9 @@
 
 #include "setuppagelogs.h"
 
-SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
+SetupPageLogs::SetupPageLogs(DataProxy *dp, QWidget *parent) : QWidget(parent){
     //qDebug() << "SetupPageLogs::SetupPageLogs" << endl;
-
+    dataProxy = dp;
     stationCallsign = QString();
     operators = QString();
     comment = QString();
@@ -53,7 +53,7 @@ SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
     currentLogs = new QComboBox();
     logsAvailable.clear();
 
-    newLog = new SetupPageLogsNew();
+    newLog = new SetupPageLogsNew(dataProxy);
     logsModel = new QSqlRelationalTableModel(this);
     logsView = new QTableView;
     logsView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -95,7 +95,7 @@ SetupPageLogs::SetupPageLogs(QWidget *parent) : QWidget(parent){
 
     setLayout(widgetLayout);
 
-    dataProxy = new DataProxy_SQLite();
+
 
     //connect(newLogPushButton, SIGNAL(clicked ( )), this, SLOT(slotNewButtonClicked() ) );
     //QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
@@ -186,7 +186,7 @@ void SetupPageLogs::slotEditButtonClicked()
     }
     else
     {
-
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
     }
 }
 
@@ -235,6 +235,7 @@ void SetupPageLogs::slotRemoveButtonClicked()
                 }
                 else
                 {
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
                     showError(tr("Log has not been removed. (#3)"));
                     //qDebug() << "SetupPageLogs::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedLog) << ")" << endl;
                 }
@@ -249,12 +250,12 @@ void SetupPageLogs::slotRemoveButtonClicked()
         }
         else
         {
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
             showError(tr("Log has not been removed. (#1)"));
             //qDebug() << "SetupPageLogs::slotRemoveButtonClicked (NOT REMOVED: " << QString::number(selectedLog) << ")" << endl;
         }
 
     }
-
 
 
     //ASK FOR A CONFIRMATION
@@ -416,6 +417,7 @@ QStringList SetupPageLogs::readLogs()
     }
     else
     {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
         return _logs;
     }
 

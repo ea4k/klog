@@ -32,7 +32,7 @@ This class calls all the othet "Setup..." to manage the configuration
 
 */
 
-SetupDialog::SetupDialog(const bool _firstTime)
+SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
 {
     //qDebug() << "SetupDialog::SetupDialog 1" << endl;
     util = new Utilities;
@@ -41,7 +41,7 @@ SetupDialog::SetupDialog(const bool _firstTime)
     version = ".";
     pageRequested = 0;
   //qDebug() << "SetupDialog::SetupDialog 2" << endl;
-    dataProxy = new DataProxy_SQLite();
+    dataProxy = dp;
    //qDebug() << "SetupDialog::SetupDialog 3" << endl;
 
     firstTime = _firstTime;
@@ -63,9 +63,9 @@ SetupDialog::SetupDialog(const bool _firstTime)
    //qDebug() << "SetupDialog::SetupDialog 3.4" << endl;
 
 
-    userDataPage = new SetupPageUserDataPage();
+    userDataPage = new SetupPageUserDataPage(dataProxy);
    //qDebug() << "SetupDialog::SetupDialog 3.5" << endl;
-    bandModePage = new SetupPageBandMode(this);
+    bandModePage = new SetupPageBandMode(dataProxy, this);
    //qDebug() << "SetupDialog::SetupDialog 3.6" << endl;
     dxClusterPage = new SetupPageDxCluster(this);
    //qDebug() << "SetupDialog::SetupDialog 3.7" << endl;
@@ -73,9 +73,9 @@ SetupDialog::SetupDialog(const bool _firstTime)
    //qDebug() << "SetupDialog::SetupDialog 3.8" << endl;
     miscPage = new SetupPageMisc(this);
    //qDebug() << "SetupDialog::SetupDialog 3.9" << endl;
-    worldEditorPage = new SetupPageWorldEditor (this);
+    worldEditorPage = new SetupPageWorldEditor (dataProxy, this);
    //qDebug() << "SetupDialog::SetupDialog 3.10" << endl;
-    logsPage = new SetupPageLogs(this);
+    logsPage = new SetupPageLogs(dataProxy, this);
    //qDebug() << "SetupDialog::SetupDialog 3.11" << endl;
     clubLogPage = new SetupPageClubLog(this);
    //qDebug() << "SetupDialog::SetupDialog 3.12" << endl;
@@ -96,6 +96,7 @@ SetupDialog::SetupDialog(const bool _firstTime)
 
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));       
+    connect(logsPage, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
     connectActions();
 
 
@@ -126,12 +127,12 @@ SetupDialog::SetupDialog(const bool _firstTime)
 }
 
 
-SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
+SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
 {
   //qDebug() << "SetupDialog::SetupDialog 2" << endl;
     util = new Utilities;
     firstTime = _firstTime;
-    dataProxy = new DataProxy_SQLite();
+    dataProxy = dp;
     configFileName = _configFile;
     version = _softwareVersion;
     pageRequested = _page;
@@ -142,13 +143,13 @@ SetupDialog::SetupDialog(const QString _configFile, const QString _softwareVersi
 
     tabWidget = new QTabWidget;
 
-    userDataPage = new SetupPageUserDataPage();
-    bandModePage = new SetupPageBandMode(this);
+    userDataPage = new SetupPageUserDataPage(dataProxy);
+    bandModePage = new SetupPageBandMode(dataProxy, this);
     dxClusterPage = new SetupPageDxCluster(this);
     colorsPage = new SetupPageColors(this);
     miscPage = new SetupPageMisc(this);
-    worldEditorPage = new SetupPageWorldEditor (this);
-    logsPage = new SetupPageLogs(this);
+    worldEditorPage = new SetupPageWorldEditor (dataProxy, this);
+    logsPage = new SetupPageLogs(dataProxy, this);
     clubLogPage = new SetupPageClubLog(this);
     //qDebug() << "SetupDialog::SetupDialog 02" << endl;
     tabWidget->addTab(userDataPage, tr("User data"));
@@ -1078,3 +1079,7 @@ void SetupDialog::slotSetOperators(const QString _p)
     logsPage->setDefaultOperators(_p);
 }
 
+void SetupDialog::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN)
+{
+    emit queryError(functionFailed, errorCodeS, errorCodeN);
+}

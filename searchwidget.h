@@ -31,7 +31,6 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "dataproxy.h"
-#include "dataproxy_sqlite.h"
 #include "awards.h"
 #include "world.h"
 #include "utilities.h"
@@ -41,7 +40,7 @@ class SearchWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SearchWidget(QWidget *parent = 0);
+    explicit SearchWidget(DataProxy *dp, QWidget *parent = 0);
     void setCurrentLog(const int _log);
     void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
     void setVersion (const QString _version); // Defines the KLog version to be written in the exported logs

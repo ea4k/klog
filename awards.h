@@ -42,7 +42,6 @@
 #include "world.h"
 #include "awarddxmarathon.h"
 #include "dataproxy.h"
-#include "dataproxy_sqlite.h"
 #include "utilities.h"
 
 class QProgressDialog;
@@ -53,7 +52,7 @@ class Awards : public QObject {
     //friend class World;
 
 public:
-    Awards();
+    Awards(DataProxy *dp);
     ~Awards();
     void setAwards(const int _qsoId);
     void setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId);

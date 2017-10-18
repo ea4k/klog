@@ -30,14 +30,13 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include "dataproxy.h"
-#include "dataproxy_sqlite.h"
 
 
 class LogModel : public QSqlRelationalTableModel
 {
     Q_OBJECT
 public:
-    LogModel(QObject *parent);
+    LogModel(DataProxy *dp, QObject *parent);
     void createlogModel(const int _i);
 
 private:

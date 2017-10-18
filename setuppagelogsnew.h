@@ -29,10 +29,10 @@
 // This class implements the Dialog to add a new log
 //
 #include "dataproxy.h"
-#include "dataproxy_sqlite.h"
 
 #include <QDialog>
 #include <QtWidgets>
+#include <QSqlQuery>
 
 //TODO: Read the data when the user clicks the OK button
 //TODO: Fill the data from the list of logs when the user wants to edit a log
@@ -43,7 +43,7 @@ class SetupPageLogsNew : public QDialog
 
 public:
     //SetupPageLogsNew(QWidget *parent = 0);
-    SetupPageLogsNew(QWidget *parent = 0);
+    SetupPageLogsNew(DataProxy *dp, QWidget *parent = 0);
 
     void setEditing(const bool b);
     void setStationCallSign(const QString _st);
@@ -85,7 +85,7 @@ signals:
 
 private:
 
-    bool isThereAnyNotManagedLog();
+    //bool isThereAnyNotManagedLog();
     void createWidget();
     void gatherAndSend();
     QStringList getValidCatOptions(const int _currentCat, const int _higherCat);

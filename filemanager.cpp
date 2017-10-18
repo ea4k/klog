@@ -27,19 +27,20 @@
 #include "filemanager.h"
 //#include <QDebug>
 
-FileManager::FileManager()
+FileManager::FileManager(DataProxy *dp)
 {
    //qDebug() << "FileManager::FileManager()-1" << endl;
+    dataProxy = dp;
     util = new Utilities;
     ignoreUnknownAlways = false;
-    world = new World();
-    awards = new Awards();
+    world = new World(dataProxy);
+    awards = new Awards(dataProxy);
     db = new DataBase(0);
     //db->createConnection();
     //db->createBandModeMaps();
     klogVersion= util->getVersion();
     noMoreQso = false;
-    dataProxy = new DataProxy_SQLite();
+
     util = new Utilities();
     hashLogs.clear();
    // preparedQuery = new QSqlQuery;
@@ -47,15 +48,16 @@ FileManager::FileManager()
 }
 
 
-FileManager::FileManager(const QString _klogDir)
+FileManager::FileManager(DataProxy *dp, const QString _klogDir)
 {
   //qDebug() << "FileManager::FileManager()-2: Dir" << _klogDir << endl;
+    dataProxy = dp;
     util = new Utilities;
     ignoreUnknownAlways = false;
-    world = new World(klogDir);
-    awards = new Awards();
+    world = new World(dataProxy, klogDir);
+    awards = new Awards(dataProxy);
     db = new DataBase(0);
-    dataProxy = new DataProxy_SQLite();
+
 
     //db->createBandModeMaps();
     util->setVersion(_klogDir);
@@ -67,20 +69,21 @@ FileManager::FileManager(const QString _klogDir)
 
 }
 
-FileManager::FileManager(const QString _klogDir, const QString _softVersion)
+FileManager::FileManager(DataProxy *dp, const QString _klogDir, const QString _softVersion)
 //FileManager::FileManager(const QString _klogDir, const QString _softVersion, DataBase _db)
 {
    //qDebug() << "FileManager::FileManager(): Dir(2)" << _klogDir << endl;
+    dataProxy = dp;
     util = new Utilities;
     util->setVersion(_softVersion);
     klogDir = util->getHomeDir();
     ignoreUnknownAlways = false;
-    world = new World(klogDir);
-    awards = new Awards();
+    world = new World(dataProxy, klogDir);
+    awards = new Awards(dataProxy);
     db = new DataBase(0);
     //db->createBandModeMaps();
     klogVersion = _softVersion;
-    dataProxy = new DataProxy_SQLite();
+
     noMoreQso = false;
     util = new Utilities();
     hashLogs.clear();

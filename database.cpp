@@ -6294,7 +6294,7 @@ bool DataBase::updateTo011()
 
 void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN)
 {
-    qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << endl;
-    qDebug() << "DataBase::queryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
-    qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
+    //qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << endl;
+    //qDebug() << "DataBase::queryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
+    //qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
 }

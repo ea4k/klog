@@ -28,7 +28,7 @@
 /*
 This class implements the Satellite TAB of the MainWindow
 */
-MainWindowSatTab::MainWindowSatTab(QWidget *parent) :
+MainWindowSatTab::MainWindowSatTab(DataProxy *dp, QWidget *parent) :
     QWidget(parent)
 {
     //qDebug() << "MainWindowSatTab::MainWindowSatTab"   << endl;
@@ -44,7 +44,7 @@ MainWindowSatTab::MainWindowSatTab(QWidget *parent) :
 
     keepThisDataForNextQSORadiobutton = new QRadioButton;
 
-    dataProxy = new DataProxy_SQLite();
+    dataProxy = dp;
 
     createUI();
     populateSatComboBox();
@@ -165,7 +165,7 @@ void MainWindowSatTab::createUI()
 void MainWindowSatTab::slotSatNameComboBoxChanged()
 {
     int i = satNameComboBox->currentIndex();
-   qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << QString::number(i) << endl;
+   //qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << QString::number(i) << endl;
     //QString _pm = (((satNameComboBox->currentText()).split(' ')).at(0)).simplified();
 
     satNameLineEdit->clear();
@@ -501,7 +501,7 @@ void MainWindowSatTab::setUpLink(const QString _t)
 void MainWindowSatTab::setBandsOfSat(const QString _p)
 {
     // Until the data is in the DB, this function tries to solve data of active sats from: http://www.amsat.org/status/
-    qDebug() << "MainWindowSatTab::setBandsOfSat: " << _p << " - Short: " << _p.section(' ', 0, 0) << endl;
+    //qDebug() << "MainWindowSatTab::setBandsOfSat: " << _p << " - Short: " << _p.section(' ', 0, 0) << endl;
     //"AO-7 - AMSAT-OSCAT 7"
     //2M/10M << 2M/70CM
 

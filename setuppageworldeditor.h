@@ -32,6 +32,7 @@
 #include <QtSql>
 #include <QDialog>
 #include "world.h"
+#include "dataproxy.h"
 #include "setupentitydialog.h"
 #include "utilities.h"
 
@@ -49,7 +50,7 @@ class SetupPageWorldEditor : public QWidget {
     Q_OBJECT
 
 public:    
-    SetupPageWorldEditor(QWidget *parent=0);
+    SetupPageWorldEditor(DataProxy *dp, QWidget *parent=0);
     ~SetupPageWorldEditor();
 
 private slots:
@@ -65,6 +66,7 @@ private:
 
     World *world;
     Utilities *util;
+    DataProxy *dataProxy;
 
     void createWorldPanel();
     void createWorldModel();

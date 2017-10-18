@@ -27,14 +27,14 @@
 
 #include "mainwindowinputothers.h"
 
-MainWindowInputOthers::MainWindowInputOthers(QWidget *parent) :
+MainWindowInputOthers::MainWindowInputOthers(DataProxy *dp, QWidget *parent) :
     QWidget(parent)
 {
     //qDebug() << "MainWindowInputOthers::MainWindowInputOthers" << endl;
     entitiesList.clear();
     propModeList.clear();
 
-    dataProxy = new DataProxy_SQLite();
+    dataProxy = dp;
     propModeList = dataProxy->getPropModeList();
 
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;

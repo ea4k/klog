@@ -29,7 +29,7 @@
 
 #include "mainwindowinputqsl.h"
 
-MainWindowInputQSL::MainWindowInputQSL(QWidget *parent) :
+MainWindowInputQSL::MainWindowInputQSL(DataProxy *dp, QWidget *parent) :
     QWidget(parent)
 {
     //qDebug() << "MainWindowInputQSL::MainWindowInputQSL"   << endl;
@@ -44,12 +44,7 @@ MainWindowInputQSL::MainWindowInputQSL(QWidget *parent) :
     qslViaLineEdit = new QLineEdit;
     qslmsgTextEdit = new QTextEdit;
 
-    dataProxy = new DataProxy_SQLite();
-
-
-
-
-
+    dataProxy = dp;
 
 
     createUI();

@@ -1,16 +1,16 @@
 #include "searchwidget.h"
 
-SearchWidget::SearchWidget(QWidget *parent) :
+SearchWidget::SearchWidget(DataProxy *dp, QWidget *parent) :
     QWidget(parent)
 {
     //qDebug() << "SearchWidget::SearchWidget"   << endl;
     searchBoxLineEdit = new QLineEdit;
-    dataProxy = new DataProxy_SQLite;
-    awards = new Awards;
+    dataProxy = dp;
+    awards = new Awards(dataProxy);
     util = new Utilities;
-    filemanager = new FileManager;
+    filemanager = new FileManager(dataProxy);
 
-    world = new World;
+    world = new World(dataProxy);
 
     currentLog = -1;
 

@@ -35,7 +35,7 @@ To insert a (key, value) pair into the hash, you can use operator[]():
  hash["EA8"] = 132;
 
 */
-World::World()
+World::World(DataProxy *dp)
 {
     //qDebug() << "World::World(0)" << endl;
 
@@ -46,13 +46,13 @@ World::World()
     kontestVersion = "";
     locator = new Locator();
     created = false;
-    dataProxy = new DataProxy_SQLite();
+    dataProxy = dp;
     //awards = new Awards();
 
 }
 
 
-World::World(const QString _klogDir)
+World::World(DataProxy *dp, const QString _klogDir)
 {
     //qDebug() << "World::World(1): Dir" << _klogDir << endl;
     klogDir = _klogDir;
@@ -63,13 +63,13 @@ World::World(const QString _klogDir)
     created = false;
     //flagsDir=":/flags/";
     locator = new Locator();
-    dataProxy = new DataProxy_SQLite();
+    dataProxy = dp;
     //identifyOS();
     //awards = new Awards();
 
 }
 
-World::World(const QString _klogDir, const QString _kontestVer)
+World::World(DataProxy *dp, const QString _klogDir, const QString _kontestVer)
 {
     //qDebug() << "World::World(2): Dir" << _klogDir << endl;
     klogDir = _klogDir;
@@ -84,7 +84,7 @@ World::World(const QString _klogDir, const QString _kontestVer)
    //qDebug() << "World::World(2): 2" << endl;
     locator = new Locator();
    //qDebug() << "World::World(2): 3" << endl;
-    dataProxy = new DataProxy_SQLite();
+    dataProxy = dp;
 
    //qDebug() << "World::World(2): 4" << endl;
     //identifyOS();

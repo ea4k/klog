@@ -1,10 +1,10 @@
 #include "logmodel.h"
 
-LogModel::LogModel(QObject *parent):QSqlRelationalTableModel(parent)
+LogModel::LogModel(DataProxy *dp, QObject *parent):QSqlRelationalTableModel(parent)
 {
     //qDebug() << "LogModel::LogModel "  << endl;
     //logModel = new QSqlRelationalTableModel(this);
-    dataProxy = new DataProxy_SQLite();
+    dataProxy = dp;
     setTable("log");
     setEditStrategy(QSqlTableModel::OnFieldChange);
 
@@ -82,7 +82,8 @@ This should be coherent with the logview
      bool sqlOK = q.exec(stringQuery);
      if (!sqlOK)
      {
-         emit queryError(Q_FUNC_INFO, q.lastError().databaseText(), q.lastError().number());
+         //emit queryError(Q_FUNC_INFO, q.lastError().databaseText(), q.lastError().number());
+
      }
      q.next();
      rec = q.record(); // Number of columns

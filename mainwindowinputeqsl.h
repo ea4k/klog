@@ -32,14 +32,13 @@
 #include <QtWidgets>
 #include <QWidget>
 #include "dataproxy.h"
-#include "dataproxy_sqlite.h"
 #include "utilities.h"
 
 class MainWindowInputEQSL : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainWindowInputEQSL(QWidget *parent = 0);
+    explicit MainWindowInputEQSL(DataProxy *dp, QWidget *parent = 0);
     //~MainWindowInputEQSL();
 
     //void setData(const QString _comment);

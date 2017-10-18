@@ -25,12 +25,13 @@ email                : jaime@robles.es
 *****************************************************************************/
 #include "dxcluster.h"
 
-DXClusterWidget::DXClusterWidget(QWidget *parent)
+DXClusterWidget::DXClusterWidget(DataProxy *dp, QWidget *parent)
           : QWidget(parent)
 {
     //qDebug() << "DXClusterWidget::DXClusterWidget" << endl;
-    awards = new Awards();
-    dataProxy = new DataProxy_SQLite();
+    dataProxy = dp;
+    awards = new Awards(dataProxy);
+
 
     initClass();
     //TESTADDSPOT();
@@ -61,7 +62,7 @@ void DXClusterWidget::setMyQRZ(const QString _qrz)
     }
 
 }
-DXClusterWidget::DXClusterWidget(const QString &clusterToConnect, const int portToConnect, QWidget *parent)
+DXClusterWidget::DXClusterWidget(DataProxy *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent)
           : QWidget(parent)
 {
    //qDebug() << "DXClusterWidget::DXClusterWidget" << clusterToConnect << QString::number(portToConnect) << endl;
@@ -76,10 +77,10 @@ DXClusterWidget::DXClusterWidget(const QString &clusterToConnect, const int port
     //workedColor.setNamedColor("slategrey");
     //confirmedColor.setNamedColor("slategrey");
     //newOneColor.setNamedColor("slategrey");
+    dataProxy = dp;
+    world = new World(dataProxy);
+    awards = new Awards(dataProxy);
 
-    world = new World();
-    awards = new Awards();
-    dataProxy = new DataProxy_SQLite();
 
     tcpSocket = new QTcpSocket(this);
 

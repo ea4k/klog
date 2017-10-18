@@ -6,14 +6,13 @@
 #include <QStringList>
 #include <QListWidget>
 #include "dataproxy.h"
-#include "dataproxy_sqlite.h"
 
 
 class SetupPageBandMode : public QWidget
 {
     Q_OBJECT
 public:
-    SetupPageBandMode(QWidget *parent=0);
+    SetupPageBandMode(DataProxy *dp, QWidget *parent=0);
     ~SetupPageBandMode();
 
 

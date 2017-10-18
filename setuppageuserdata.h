@@ -31,13 +31,14 @@
 //#include <QtWidgets>
 #include "world.h"
 #include "locator.h"
+#include "dataproxy.h"
 
 
 class SetupPageUserDataPage : public QWidget {
     Q_OBJECT
 
 public:
-    SetupPageUserDataPage(QWidget *parent=0);
+    SetupPageUserDataPage(DataProxy *dp, QWidget *parent=0);
     ~SetupPageUserDataPage();
 
     QString getStationQrz();
@@ -149,7 +150,8 @@ private:
     QColor redColor;
 
     Locator *locator;
-    World world;
+    World *world;
+    DataProxy *dataProxy;
 
     bool operatorsOK;
     bool operatorOK;

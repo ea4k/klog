@@ -40,7 +40,7 @@ class MainWindowInputQSL : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainWindowInputQSL(QWidget *parent = 0);
+    explicit MainWindowInputQSL(DataProxy *dp, QWidget *parent = 0);
     ~MainWindowInputQSL();
 
     QString getQSLRecStatus();
