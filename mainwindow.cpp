@@ -285,6 +285,10 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     connect(setupDialog, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
     //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab(dataProxy);
+    connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
+    connect(satTabWidget, SIGNAL(rxFreqChanged(QString)), this, SLOT(slotChangeRXFreq(QString)) );
+    connect(satTabWidget, SIGNAL(txFreqChanged(QString)), this, SLOT(slotChangeTXFreq(QString)) );
+
     myDataTabWidget = new MainWindowMyDataTab();
     commentTabWidget = new MainWindowInputComment();
     othersTabWidget = new MainWindowInputOthers(dataProxy);
@@ -4810,14 +4814,25 @@ void MainWindow::checkIfNewBandOrMode()
    //qDebug() << "MainWindow::checkIfNewBandOrMode END" << endl;
 }
 
-/*********************************************************************
- **********************************************************************
- **********************************************************************
- **********************************************************************
- **********************************************************************
- **********************************************************************
- **********************************************************************
-**********************************************************************/
+
+void MainWindow::slotDefineNewBands (const QStringList _bands)
+{
+    //qDebug() << "MainWindow::defineNewBands: "  << endl;
+    QStringList qsTemp;
+    qsTemp.clear();
+
+
+    //qsTemp << _bands;
+    //qsTemp.removeDuplicates();
+
+    qsTemp << dataProxy->sortBandNamesBottonUp(_bands);
+    bands.clear();
+    bands << qsTemp;
+
+    bandComboBox->clear();
+    bandComboBox->addItems(bands);
+    satTabWidget->addBands(bands);
+}
 
 void MainWindow::readActiveBands (const QStringList actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
@@ -7123,4 +7138,14 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
         // should never be reached
         break;
     }
+}
+
+void MainWindow::slotChangeRXFreq(const QString _f)
+{
+    rxFreqSpinBox->setValue(_f.toDouble());
+}
+
+void MainWindow::slotChangeTXFreq(const QString _f)
+{
+    txFreqSpinBox->setValue(_f.toDouble());
 }

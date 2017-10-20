@@ -505,24 +505,87 @@ void MainWindowSatTab::setBandsOfSat(const QString _p)
     //"AO-7 - AMSAT-OSCAT 7"
     //2M/10M << 2M/70CM
 
-    QStringList bands;
-    bands.clear();
-    bands << dataProxy->getSatelliteBandsList(_p.section(' ', 0, 0));
-    if (bands.isEmpty())
-    {
-        return;
-    }
 
-    QString upLink = (bands.at(0)).section('/', 0, 0);
-    QString downLink = (bands.at(0)).section('/', 1, 1);
-    int indexTX = satBandTXComboBox->findText(upLink, Qt::MatchCaseSensitive);
-    int indexRX = satBandRXComboBox->findText(downLink, Qt::MatchCaseSensitive);
-    if (indexRX>=0)
+    QString upLink;
+    upLink.clear();
+    upLink = dataProxy->getSatelliteUplink(_p.section(' ', 0, 0));
+
+    QString downLink;
+    downLink.clear();
+    downLink = dataProxy->getSatelliteDownlink(_p.section(' ', 0, 0));
+
+    emit txFreqChanged(upLink);
+    emit rxFreqChanged(downLink);
+
+    txFreqSpinBox->setValue(upLink.toDouble());
+    rxFreqSpinBox->setValue(downLink.toDouble());
+
+
+    QString upLinkBand = dataProxy->getBandNameFromFreq(upLink.toDouble());
+    QString downLinkBand = dataProxy->getBandNameFromFreq(downLink.toDouble());
+
+    //qDebug() << "MainWindowSatTab::setBandsOfSat: UpLink: " << upLink << endl;
+    //qDebug() << "MainWindowSatTab::setBandsOfSat: UpLinkBand: " << upLinkBand << endl;
+    //qDebug() << "MainWindowSatTab::setBandsOfSat: DownLink: " << downLink << endl;
+    //qDebug() << "MainWindowSatTab::setBandsOfSat: DownLinkBand: " << downLinkBand << endl;
+
+
+    int indexRX = satBandRXComboBox->findText(downLinkBand, Qt::MatchCaseSensitive);
+
+    if (indexRX>0)
     {
         satBandRXComboBox->setCurrentIndex(indexRX);
     }
-    if (indexTX>=0)
+    else
     {
+        addNewBand(downLinkBand);
+        indexRX = satBandRXComboBox->findText(downLinkBand, Qt::MatchCaseSensitive);
+        satBandRXComboBox->setCurrentIndex(indexRX);
+    }
+
+    int indexTX = satBandTXComboBox->findText(upLinkBand, Qt::MatchCaseSensitive);
+    if (indexTX>0)
+    {
+        satBandTXComboBox->setCurrentIndex(indexTX);        
+    }
+    else
+    {
+        addNewBand(upLinkBand);
+        indexTX = satBandTXComboBox->findText(upLinkBand, Qt::MatchCaseSensitive);
         satBandTXComboBox->setCurrentIndex(indexTX);
     }
+}
+
+void MainWindowSatTab::addNewBand(const QString _p)
+{
+    //qDebug() << "MainWindowSatTab::addNewBand: " << _p << endl;
+    if (dataProxy->getIdFromBandName(_p)<0)
+    {
+        //qDebug() << "MainWindowSatTab::addNewBand: Id: " <<  QString::number(dataProxy->getIdFromBandName(_p)) << endl;
+        return;
+    }
+    QStringList bands;
+    bands.clear();
+
+    //qDebug() << "MainWindowSatTab::addNewBand: RX Id: " <<  QString::number(satBandRXComboBox->count()) << endl;
+    //qDebug() << "MainWindowSatTab::addNewBand: TX Id: " <<  QString::number(satBandTXComboBox->count()) << endl;
+
+    for (int i = 0; i < satBandTXComboBox->count(); i++)
+    {
+        bands << satBandTXComboBox->itemText(i);
+        for (int ii = 0; ii < satBandRXComboBox->count(); ii++)
+        {
+            bands << satBandRXComboBox->itemText(ii);
+        }
+    }
+
+
+    bands << _p;
+    //bands.removeDuplicates();
+
+    emit newBandsToBeAdded(bands);
+    //addBands(bands);
+    //qDebug() << "MainWindowSatTab::addNewBand: 2 RX Id: " <<  QString::number(satBandRXComboBox->count()) << endl;
+    //qDebug() << "MainWindowSatTab::addNewBand: 2 TX Id: " <<  QString::number(satBandTXComboBox->count()) << endl;
+
 }

@@ -254,6 +254,10 @@ private slots:
 
     //SATELLITE
     void slotSatBandTXComboBoxChanged(const QString _q);
+
+    void slotDefineNewBands(const QStringList _bands);
+    void slotChangeRXFreq(const QString _f);
+    void slotChangeTXFreq(const QString _f);
 	
 private:
     bool maybeSave();
@@ -338,6 +342,7 @@ private:
     void checkIfNewBandOrMode();
     void readActiveBands (const QStringList actives);
     void readActiveModes (const QStringList actives);
+
 
     void qsoToEdit (const int _qso);
     //void showInfoFromLocators(const QString _loc1, const QString _loc2);

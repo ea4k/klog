@@ -73,6 +73,7 @@ public:
 
     QString getFreqFromBandId(const int _id);
     int getBandIdFromFreq(const double _n);
+    QString getBandNameFromFreq(const double _n);
     double getLowLimitBandFromBandName(const QString _sm);
     double getLowLimitBandFromBandId(const QString _sm);
 
@@ -160,8 +161,9 @@ public:
 
     QStringList getBandNames();
     QStringList getPropModeList();
-    QStringList getSatellitesList();
-    QStringList getSatelliteBandsList(const QString _sat);
+    QStringList getSatellitesList();   
+    QString getSatelliteUplink(const QString _sat);
+    QString getSatelliteDownlink(const QString _sat);
     QStringList getQSLRcvdList();
     QStringList getQSLSentList();
     QStringList getClubLogStatusList();
@@ -188,6 +190,7 @@ private:
     bool dbCreated;
     DataBase *db;
     QStringList sortBandIdBottonUp(const QStringList _qs);
+    double getFreqFromRange(QString _fr); //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
     bool searching;
     int executionN;
     //QSqlRelationalTableModel *logModel;

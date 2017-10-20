@@ -57,6 +57,7 @@ public:
 
     virtual QString getFreqFromBandId(const int _id);
     virtual int getBandIdFromFreq(const double _n);
+    virtual QString getBandNameFromFreq(const double _n);
     virtual double getLowLimitBandFromBandName(const QString _sm);
     virtual double getLowLimitBandFromBandId(const QString _sm);
     
@@ -151,7 +152,8 @@ public:
     virtual QStringList getBandNames();
     virtual QStringList getPropModeList();
     virtual QStringList getSatellitesList();
-    virtual QStringList getSatelliteBandsList(const QString _sat);
+    virtual QString getSatelliteUplink(const QString _sat);
+    virtual QString getSatelliteDownlink(const QString _sat);
     virtual QStringList getQSLRcvdList();
     virtual QStringList getQSLSentList();
     virtual QStringList getClubLogStatusList();
