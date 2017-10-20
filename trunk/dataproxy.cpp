@@ -103,6 +103,11 @@ int DataProxy::getBandIdFromFreq(const double _n)
     return -1;
 }
 
+QString DataProxy::getBandNameFromFreq(const double _n)
+{
+    return QString();
+}
+
 double DataProxy::getLowLimitBandFromBandName(const QString _sm)
 {
     return -1.0;
@@ -382,9 +387,14 @@ QStringList DataProxy::getSatellitesList()
     return QStringList();
 }
 
-QStringList DataProxy::getSatelliteBandsList(const QString _sat)
+QString DataProxy::getSatelliteUplink(const QString _sat)
 {
-    return QStringList();
+    return QString();
+}
+
+QString DataProxy::getSatelliteDownlink(const QString _sat)
+{
+    return QString();
 }
 
 QStringList DataProxy::getQSLRcvdList()

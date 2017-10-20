@@ -287,6 +287,10 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
     return -1;
 }
 
+QString DataProxy_SQLite::getBandNameFromFreq(const double _n)
+{
+    return getNameFromBandId(getBandIdFromFreq(_n));
+}
 
 double DataProxy_SQLite::getLowLimitBandFromBandName(const QString _sm)
 {
@@ -464,7 +468,7 @@ QStringList DataProxy_SQLite::sortBandNamesBottonUp(const QStringList _qs)
     }
 
    //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp - END -lengh = " << QString::number(qs.length()) << endl;
-    //qs.removeDuplicates();
+    qs.removeDuplicates();
     return qs;
 }
 
@@ -2157,51 +2161,122 @@ QStringList DataProxy_SQLite::getSatellitesList()
      return qs;
 }
 
-QStringList DataProxy_SQLite::getSatelliteBandsList(const QString _sat)
+
+QString DataProxy_SQLite::getSatelliteUplink(const QString _sat)
 {
-    //qDebug()  << "DataProxy_SQLite::getSatelliteBandsList: " << _sat  << endl;
-     QString aux = QString();
-     QStringList qs, qsTmp;
-     qs.clear();
-     QString stringQuery = QString("SELECT satmode FROM satellites WHERE satarrlid='%1'").arg(_sat);
+    //qDebug()  << "DataProxy_SQLite::getSatelliteUplink: " << _sat << endl;
+    QString aux = QString();
+    QString aux2 = QString();
+    double fr1, fr2, fr;
+    QString stringQuery = QString("SELECT uplink FROM satellites WHERE satarrlid='%1'").arg(_sat);
+    QSqlQuery query;
 
-     QSqlQuery query;
+    if (query.exec(stringQuery))
+    {
+        query.next();
+        if (query.isValid())
+        {
+            aux = query.value(0).toString();
+            aux = QString::number(getFreqFromRange(aux));
+        }
+        else
+        {
+            //qDebug()  << "DataProxy_SQLite::getSatelliteUplink:  query not valid"  << endl;
+            return QString();
+        }
+    }
+    else
+    {
+        //qDebug()  << "DataProxy_SQLite::getSatelliteUplink:  query failed: " << query.lastQuery()  << endl;
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        return QString();
+    }
 
-     if (query.exec(stringQuery))
-     {
-         query.next();
-         if (query.isValid())
-         {
-             if (((query.value(0)).toString()).length()<0)
-             {
-                 return QStringList();
-             }
-             else
-             {
-                 qsTmp.clear();
-                 aux.clear();
-                 //2M/10M-SSB;2M/10M-CW;2M/70CM-SSB;2M/70CM-CW
-                 qsTmp << ((query.value(0)).toString()).split(';', QString::SkipEmptyParts);
-                 for (int i=0;i<qsTmp.length();i++)
-                 {
-                     aux = (qsTmp.at(i)).section("-",0,0);
-                     qs << aux;
-                 }
-             }
+    //qDebug()  << "DataProxy_SQLite::getSatelliteUplink: final: " << aux << endl;
+    return aux;
+}
 
-         }
-         else
-         {
-            return QStringList();
-         }
-     }
-     else
-     {
-         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
-         return QStringList();
-     }
-     qs.removeDuplicates();
-     return qs;
+
+QString DataProxy_SQLite::getSatelliteDownlink(const QString _sat)
+{
+    //qDebug()  << "DataProxy_SQLite::getSatelliteDownlink: " << _sat << endl;
+    QString aux = QString();
+    QString aux2 = QString();
+    double fr1, fr2, fr;
+    QString stringQuery = QString("SELECT downlink FROM satellites WHERE satarrlid='%1'").arg(_sat);
+    QSqlQuery query;
+
+    if (query.exec(stringQuery))
+    {
+        query.next();
+        if (query.isValid())
+        {
+            aux = query.value(0).toString();
+            aux = QString::number(getFreqFromRange(aux));
+        }
+        else
+        {
+            //qDebug()  << "DataProxy_SQLite::getSatelliteDownlink:  query not valid"  << endl;
+            return QString();
+        }
+    }
+    else
+    {
+        //qDebug()  << "DataProxy_SQLite::getSatelliteDownlink:  query failed: " << query.lastQuery()  << endl;
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        return QString();
+    }
+
+    //qDebug()  << "DataProxy_SQLite::getSatelliteDownlink: final: " << aux << endl;
+    return aux;
+}
+
+double DataProxy_SQLite::getFreqFromRange(QString _fr)
+{ //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
+    //qDebug()  << "DataProxy_SQLite::getFreqFromRange: " << _fr << endl;
+
+    QString fr1, fr2, aux;
+    double f1, f2;
+    fr1.clear();
+    fr2.clear();
+    f1 = 0.0;
+    f2 = 0.0;
+
+    aux.clear();
+    aux = _fr;
+
+    if (aux.contains(','))
+    {   // Potentially somethink like: 435.030-435.456,146.180
+        // We select the  first range
+
+        //qDebug()  << "DataProxy_SQLite::getFreqFromRange: has several freqs: " << aux << endl;
+        aux = aux.section(',', 0, 0);   // We select the first package
+
+    }
+    if (aux.contains('-'))          // Potentially somethink like: 435.030-435.456
+    {
+        //qDebug()  << "DataProxy_SQLite::getFreqFromRange: has several freqs: " << aux << endl;
+        fr2 = aux.section('-', 1, 1);   // We select the second freq
+        fr1 = aux.section('-', 0, 0);   // We select the first freq
+
+        //qDebug()  << "DataProxy_SQLite::getFreqFromRange: fr1: " << fr1 << endl;
+        //qDebug()  << "DataProxy_SQLite::getFreqFromRange: fr2: " << fr2 << endl;
+        f1 = fr1.toDouble();
+        f2 = fr2.toDouble();
+        //qDebug()  << "DataProxy_SQLite::getFreqFromRange: f1: " << QString::number(f1) << endl;
+        //qDebug()  << "DataProxy_SQLite::getFreqFromRange: f2: " << QString::number(f2) << endl;
+
+        f1 = (f2 + f1)/2;
+
+        //qDebug()  << "DataProxy_SQLite::getFreqFromRange: f1 after calc: " << QString::number(f1) << endl;
+    }
+    else
+    {   // It is only one freq 145.950 so this is what must be returned
+        f1 = aux.toDouble();
+    }
+
+    //qDebug()  << "DataProxy_SQLite::getFreqFromRange: Return: " << QString::number(f1) << endl;
+    return f1;
 }
 
 QStringList DataProxy_SQLite::getQSLRcvdList()

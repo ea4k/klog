@@ -62,6 +62,9 @@ signals:
     void setPropModeSat(const QString _p);
     void satBandTXChanged(const QString _p);
     void satBandRXChanged(const QString _p);
+    void newBandsToBeAdded(const QStringList _p);
+    void txFreqChanged(const QString _p);
+    void rxFreqChanged(const QString _p);
 
 private slots:
     void slotSatNameTextChanged();
@@ -78,6 +81,7 @@ private:
     void setSatelliteCombo(const QString _p);
     int getSatIndex(const QString _p);
     void setBandsOfSat(const QString _p);
+    void addNewBand(const QString _p);
 
     QLineEdit *satNameLineEdit;
     QLineEdit *satModeLineEdit;

@@ -2325,8 +2325,25 @@ bool DataBase::createTableSatellites(const bool NoTmp)
         stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
                                             "satarrlid VARCHAR, "
                                             "satname VARCHAR, "
+                                            "uplink VARCHAR,"
+                                            "downlink VARCHAR,"
                                             "satmode VARCHAR, "
-                                            "UNIQUE (satarrlid, satmode) )");
+                                            "UNIQUE (satarrlid) )");
+/*
+ *
+ *  uplink/downlink format is the following:
+ *      Single frecuency: 145.950
+ *      Segment: 145.950-145.975
+ *      Several freqs: 145.950,435.950
+ *      Several segments: 145.950-145.975,435.950-435.975
+ *
+ *  satmode format:
+ *      Single mode: FM
+ *      Modes complex Up/Downlink: USB/LSB
+ *      Several modes (one per uplink/downlink pair): FM,SSB
+ *      Several complex modes (one per uplink/downlink pair): USB/LSB,LSB/USB,FM
+ *
+ */
 
     bool sqlOK = query.exec(stringQuery);    
 
@@ -2365,59 +2382,59 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     // being mode "SSB, CW, ... and other ADIF modes
     //To add a band, just create another line:
     QSqlDatabase::database().transaction();
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-10', 'AMSAT-OSCAR 10', '70CM/2M-SSB;70CM/2M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-13', 'AMSAT-OSCAR 13', '70CM/2M-SSB;70CM/2M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-16', 'AMSAT-OSCAR 16', '2M/70CM-SSB;2M/70CM-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-21', 'OSCAR 21/RS-14', '0/2M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-24', 'Arsene-OSCAR 24', '0/2M-PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-27', 'AMRAD-OSCAR 27', '2M/70CM-FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-3', 'AMSAT-OSCAR 3', '2M/2M-SSB;2M/2M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-4', 'AMSAT-OSCAR 4', '70CM/2M-SSB;70CM/2M-CW')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-10', 'AMSAT-OSCAR 10', '435.030,146.180', '145.81', 'SSB,CW')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-13', 'AMSAT-OSCAR 13', '435.423-435.573', '145.975-145.825', 'SSB,CW')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-16', 'AMSAT-OSCAR 16', '145.92', '437.026', 'FM/USB')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-21', 'OSCAR 21/RS-14', '', '145.8', 'CW')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-24', 'Arsene-OSCAR 24', '', '145.975', 'PKT')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-27', 'AMRAD-OSCAR 27', '145.85', '436.795' 'FM')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-3', 'AMSAT-OSCAR 3', '145.975-146.025', '144.325-144.375', 'SSB,CW')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-4', 'AMSAT-OSCAR 4', '432.145-432.155', '144.300-144.310', 'SSB,CW')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-40', 'AMSAT-OSCAR 40', '70CM-13CM;23CM/13CM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-51', 'AMSAT-OSCAR 51', '2M/70CM-FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-6', 'AMSAT-OSCAR 6', '2M/10M-SSB;2M/10M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-7', 'AMSAT-OSCAR 7', '2M/10M-SSB;70CM-2M-SSB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-73', 'AMSAT-OSCAR 73', '70CM/2M-SSB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-8', 'AMSAT-OSCAR 8', '2M/10M-SSB;2M/10M-CW;2M/70CM-SSB;2M/70CM-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('AO-85', 'AMSAT-OSCAR 85 (Fox-1A)', '70CM/2M-FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('ARISS', 'ARISS', '2M/2M-FM;2M/70CM-PKT;70CM/2M-PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('BY70-1', 'Bayi Kepu Weixing 1', '')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('CAS-3H', 'LilacSat 2', '2M/70CM-PKT'").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('DO-64', 'Delfi OSCAR-64', '70CM/2M-SSB;70CM/2M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('EO-88', 'Emirates OSCAR 88 (Nayif-1)', '70CM-2M-SSB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('FO-12', 'Fuji-OSCAR 12', '2M/70CM-SSB;2M/70CM-CW;2M/70CM-PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('FO-20', 'Fuji-OSCAR 20', '2M/70CM-SSB;2M/70CM-CW;2M/70CM-PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('FO-29', 'Fuji-OSCAR 29', '2M/70CM-SSB;2M/70CM-CW;2M/70CM-PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('HO-68', 'Hope OSCAR 68', '2M/70CM-SSB;2M/70CM-FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('IO-86', 'Indonesia OSCAR 86 (LAPAN-ORARI)', '70CM/2M-PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('LO-19', 'Lusat-OSCAR 19', '2M/70CM-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('LO-78', 'LituanicaSAT-1', '2M/70CM-FM;2M/70CM-PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('MIREX', 'Mir packet digipeater', '2M/2M-PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('NO-44', 'Navy-OSCAR 44', '2M/2M-PKT;70CM/2M-PKT')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-51', 'AMSAT-OSCAR 51', '145.92', '435.3', 'FM')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-6', 'AMSAT-OSCAR 6', '145.900-146.000', '29.450-29.550', 'SSB,CW')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-7', 'AMSAT-OSCAR 7', '145.850-145.950,432.180-432.120', '29.400-29.500,145.920-145.980', 'USB,LSB/USB')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-73', 'AMSAT-OSCAR 73', '435.150-435.130', '145.950-145.970', 'LSB/USB')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-8', 'AMSAT-OSCAR 8', '145.850-145.900,145.900-146.000', '29.400-29.500,435.200-435.100', 'SSB,CW')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-85', 'AMSAT-OSCAR 85 (Fox-1A)', '435.170', '145.980', 'FM')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('ARISS', 'ARISS', '145.200,144.490', '145.800,145.800', 'FM')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('BY70-1', 'Bayi Kepu Weixing 1', '145.92', '436.2', 'FM')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('CAS-3H', 'LilacSat 2', '144.350', '437.200', 'FM'").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('DO-64', 'Delfi OSCAR-64', '', '145.870', 'CW')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('EO-88', 'Emirates OSCAR 88 (Nayif-1)', '435.045-435.015', '145.960-145.990', 'LSB/USB')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FO-12', 'Fuji-OSCAR 12', '145.900-146.000, 145.85', '435.900-435.800, 435.91', 'SSB,PKT')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FO-20', 'Fuji-OSCAR 20', '145.900-146.000', '435.900-435.800', 'SSB')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FO-29', 'Fuji-OSCAR 29', '145.900-145.999', '435.900-435.800', 'LSB/USB,CW')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('HO-68', 'Hope OSCAR 68', '145.925-145.975,145.825', '435.765-435.715,435.675', 'LSB/USB,FM')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('IO-86', 'Indonesia OSCAR 86 (LAPAN-ORARI)', '435.880', '145.880', 'FM')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-19', 'Lusat-OSCAR 19', '145.840-145.900', '437.125-437.150', 'CW')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-78', 'LituanicaSAT-1', '145.95,145.85', '435.1755,437.543', 'FM,PKT')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('MIREX', 'Mir packet digipeater', '145.985', '145.985', 'PKT')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('NO-44', 'Navy-OSCAR 44', '145.827', '145.827', 'PKT')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-1', 'Radio Sputnik 1', '')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-10', 'Radio Sputnik 10', '0/10M')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-11', 'Radio Sputnik 11', '0/10M')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-12', 'Radio Sputnik 12', '15M/10M-SSB;15M/10M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-13', 'Radio Sputnik 13', '15M/2M-SSB;15M/2M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-15', 'Radio Sputnik 15', '0/10M')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-10', 'Radio Sputnik 10', '','29.357,29.403', '')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-11', 'Radio Sputnik 11', '','29.357,29.403', '')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-12', 'Radio Sputnik 12', '21.210-21.250', '29.410-29.450', 'SSB')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-13', 'Radio Sputnik 13', '21.260-21.300', '145.860-145.900', 'SSB')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-15', 'Radio Sputnik 15', '', '29.3525-29.3987', '')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-2', 'Radio Sputnik 2', '')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-5', 'Radio Sputnik 5', '')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-6', 'Radio Sputnik 6', '')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-7', 'Radio Sputnik 7', '')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-8', 'Radio Sputnik 8', '')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('SAREX', 'Shuttle Amateur Radio Experiment packet digipeater', '')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('SO-35', 'Sunsat-OSCAR 35', '70CM/2M/PSK')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('SO-41', 'Saudi-OSCAR 41', '0/70CM-PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('SO-50', 'Saudi-OSCAR 50', '2M/70CM-FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('SO-67', 'Sumbandila OSCAR 67', '2M/70CM-FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('UO-14', 'UOSAT-OSCAR 14', '2M/70CM-FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('VO-52', 'VUsat-OSCAR 52', '70CM/2M-SSB;70CM/2M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('XW-2A', 'Hope 2A', '70CM/2M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('XW-2B', 'Hope 2B', '70CM/2M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('XW-2C', 'Hope 2C', '70CM/2M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('XW-2D', 'Hope 2D', '70CM/2M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('XW-2E', 'Hope 2E', '70CM/2M-CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('XW-2F', 'Hope 2F', '70CM/2M-CW')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-35', 'Sunsat-OSCAR 35', '436.291', '145.825', 'FM')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-41', 'Saudi-OSCAR 41', '145.850', '436.775', 'CW')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-50', 'Saudi-OSCAR 50', '145.850, '436.795', 'FM')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-67', 'Sumbandila OSCAR 67', '145.875', '435.345', 'FM')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('UO-14', 'UOSAT-OSCAR 14', '145.975', '435.07', 'FM')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('VO-52', 'VUsat-OSCAR 52', '435.220-435.280,435.225-435.275', '145.930-145.870,145.925-145.875', 'LSB/USB')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2A', 'Hope 2A', '435.030-435.050', '145.665-145.685', 'LSB/USB')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2B', 'Hope 2B', '435.090-435.110', '145.730-145.750', 'LSB/USB')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2C', 'Hope 2C', '435.150-435.170', '145.795-145.815', 'LSB/USB')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2D', 'Hope 2D', '435.210-435.230', '145.860-145.880', 'LSB/USB')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2E', 'Hope 2E', '435.270-435.290', '145.915-145.935', 'LSB/USB')").arg(tableName));
+    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2F', 'Hope 2F', '435.330-435.350', '145.980-145.999', 'LSB/USB')").arg(tableName));
     QSqlDatabase::database().commit();
    //qDebug() << "DataBase::populateTableSatellites - END" << endl;
     return true;
@@ -6202,6 +6219,7 @@ bool DataBase::updateTo011()
 
     }
 
+    query.exec(QString("ALTER TABLE satellites ADD COLUMN uplink"));
     query.exec(QString("UPDATE satellites SET satmode='70CM/2M-SSB;70CM/2M-CW' WHERE satarrlid='AO-10'"));
     query.exec(QString("UPDATE satellites SET satmode='70CM/2M-SSB;70CM/2M-CW' WHERE satarrlid='AO-13'"));
     query.exec(QString("UPDATE satellites SET satmode='2M/70CM-SSB;2M/70CM-CW' WHERE satarrlid='AO-16'"));

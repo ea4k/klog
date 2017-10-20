@@ -16,11 +16,9 @@ DXCCStatusWidget::DXCCStatusWidget(DataProxy *dp, QWidget *parent) : QWidget(par
     awards = new Awards(dataProxy);
     world = new World(dataProxy);
 
-
     dxccView = new QTableWidget;
     //hv = new QHeaderView(Qt::Vertical, dxccView);
     //hh = new QHeaderView(Qt::Horizontal, this);
-
 
     numberOfColumns = 0;
     logNumber = -1; // -1 means that ALL the logs will be used (if showAllLogsButton is not checked)
@@ -29,7 +27,6 @@ DXCCStatusWidget::DXCCStatusWidget(DataProxy *dp, QWidget *parent) : QWidget(par
     //searchLineEdit = new QLineEdit;
     refreshButton = new QPushButton;    
     //showAllLogsButton = new QRadioButton;
-
 
     bandNames.clear();
     validBands.clear();
@@ -51,29 +48,20 @@ void DXCCStatusWidget::createUI()
     hv->hide();
     hv->setStretchLastSection(true);
     hh = dxccView->horizontalHeader();
-    //hh->hide();
 
-
-
-    //hh = dxccView->horizontalHeader();
-    //hv->setSectionResizeMode(QHeaderView::Stretch);
-    //hv->setSectionResizeMode(0, QHeaderView::ResizeToContents);
-    //hh->setSectionResizeMode(QHeaderView::Stretch);
 
     refreshButton->setText(tr("Update"));
     //showAllLogsButton->setText("All logs");
 
     dxccView->setContextMenuPolicy(Qt::CustomContextMenu);
     dxccView->setSortingEnabled(true);
-
+    dxccView->horizontalHeader()->setStretchLastSection(true);
     dxccView->setColumnCount(numberOfColumns);
     dxccView->setRowCount(0);
 
     QHBoxLayout *bottonLineLayout = new QHBoxLayout;
     bottonLineLayout->addSpacerItem(new QSpacerItem(10,0,QSizePolicy::Expanding,QSizePolicy::Maximum));
-    //bottonLineLayout->addWidget(searchLineEdit);
     bottonLineLayout->addWidget(refreshButton);
-    //bottonLineLayout->addWidget(showAllLogsButton);
 
     QVBoxLayout *tabLayout = new QVBoxLayout;
     tabLayout->addWidget(dxccView);
@@ -83,11 +71,8 @@ void DXCCStatusWidget::createUI()
     dxccView->resizeColumnsToContents();
     dxccView->resizeRowsToContents();
 
-    //connect(searchLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchLineEditTextChanged() ) );
+
     connect(refreshButton, SIGNAL(clicked()), this, SLOT(slotRefreshButtonClicked() ) );
-
-
-    //showAllLogsButton->setToolTip(tr("Select to show the status taking into account all the logs not just the selected one."));
 }
 
 void DXCCStatusWidget::update()
@@ -99,16 +84,7 @@ void DXCCStatusWidget::update()
     QString aux;
     dxccView->sortByColumn(1, Qt::AscendingOrder);
     dxccView->clearContents();
-/*
-    if (showAllLogsButton->isChecked())
-    {
-        tempLog = logNumber;
-    }
-    else
-    {
-        tempLog = -1;
-    }
-*/
+
     tempLog = -1;
     for (int i=1; i<=entities; i++)
     {
@@ -119,19 +95,7 @@ void DXCCStatusWidget::update()
             list << QString::number(i) << aux  << bandNames;
             addEntity(list);
         }
-
     }
-
-
-    //dxccView->eColumnsToContents();
-/*
-     dxccView->resizeColumnToContents(0);
-
-    for (int i=2; i<= dxccView->colorCount(); i++)
-    {
-         dxccView->resizeColumnToContents(i);
-    }
-*/
     //qDebug() << "DXCCStatusWidget::update END" << endl;
 }
 
@@ -239,10 +203,7 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
     }
     else if (status == 0)
     {
-        //newItemName->setTextColor(Qt::darkCyan);
         newItemName->setTextColor(Qt::darkRed);
-        //newItemName->setTextColor(Qt::red);
-        //newItemName->setBackgroundColor(Qt::yellow);
     }
     else
     {
@@ -283,7 +244,6 @@ void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
 
     bandNames.clear();
     //bandNames << "Id" << "Entity";
-
    //qDebug() << "DXCCStatusWidget::setBands - 3 " << endl;
     validBands.clear();
     //validBands << dataProxy->getBands();
@@ -321,6 +281,7 @@ void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
     headerqs.clear();
     headerqs << tr("ID") << tr("Entity") << bandNames;
     dxccView->setHorizontalHeaderLabels(headerqs);
+
    //qDebug() << "DXCCStatusWidget::setBands: PRE-END" << endl;
 
     if (!_creating)
