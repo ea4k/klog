@@ -1,9 +1,10 @@
-#ifndef LOGMODEL_H
-#define LOGMODEL_H
+#ifndef SHOWERRORDIALOG_H
+#define SHOWERRORDIALOG_H
+
 /***************************************************************************
-                          logmodel.h  -  description
+                          showerrordialog.h  -  description
                              -------------------
-    begin                : june 2017
+    begin                : oct 2017
     copyright            : (C) 2017 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
@@ -25,42 +26,28 @@
  *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
-#include <QDebug>
-#include <QSqlRelationalTableModel>
-#include <QSqlQuery>
-#include <QSqlRecord>
-#include <QSqlError>
-#include "dataproxy.h"
+#include <QtWidgets>
+#include <QDialog>
+#include <QTextBrowser>
 
-
-class LogModel : public QSqlRelationalTableModel
+class ShowErrorDialog: public QDialog
 {
     Q_OBJECT
 public:
-    LogModel(DataProxy *dp, QObject *parent);
-    void createlogModel(const int _i);
+    ShowErrorDialog();
+    ~ShowErrorDialog();
+    void setText(const QString txt);
+
+private slots:
+    void slotAcceptButtonClicked();
 
 private:
-    void setColumnsToDX();
-    //QSqlRelationalTableModel *logModel;
-    DataProxy *dataProxy;
-
-signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
+    void keyPressEvent(QKeyEvent *event);
+     QTextBrowser *textBrowser;
+     QString text;
+     QLabel *txtLabel;
 
 };
 
-#endif // LOGMODEL_H
 
-
-/*
-class MyModel : public QAbstractTableModel
-{
-    Q_OBJECT
-public:
-    MyModel(QObject *parent);
-    int rowCount(const QModelIndex &parent = QModelIndex()) const ;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-};
-*/
+#endif // SHOWERRORDIALOG_H

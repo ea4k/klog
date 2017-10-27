@@ -82,7 +82,7 @@ This should be coherent with the logview
      bool sqlOK = q.exec(stringQuery);
      if (!sqlOK)
      {
-         //emit queryError(Q_FUNC_INFO, q.lastError().databaseText(), q.lastError().number());
+         emit queryError(Q_FUNC_INFO, q.lastError().databaseText(), q.lastError().number());
 
      }
      q.next();

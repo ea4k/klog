@@ -440,6 +440,27 @@ QString DataProxy::getStationCallSignFromLog(const int _log)
     return QString();
 }
 
+QString DataProxy::getOperatorsFromLog(const int _log)
+{
+    return QString();
+}
+
+QString DataProxy::getCommentsFromLog(const int _log)
+{
+    return QString();
+}
+
+QString DataProxy::getLogDateFromLog(const int _log)
+{
+    return QString();
+}
+
+QString DataProxy::getLogTypeNFromLog(const int _log)
+{
+    return QString();
+}
+
+
 int DataProxy::getContestTypeN(const int _co, const int _catop, const int _catas, const int _catpo, const int _catba, const int _catov, const int _catmo)
 {
     return -1;

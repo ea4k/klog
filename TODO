@@ -1,12 +1,15 @@
 RC-BUGS:
 
 
+For next release:
+TODO: Import LOTW (MainWindow::slotADIFImport)
+TODO: Ensure that FileManager::adifLoTWLogExport exports all the needed fields
+TODO: Remove the Querys from void SetupPageLogs::
+
 Working:
 TODO: ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing
 
-BUG: It seems that Sqlite can't manage statements like
-    SELECT call FROM log WHERE call LIKE '%1A%'
-    without confusing it so it is not possible to search for calls like 1A0XX
+
 
 This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
