@@ -62,6 +62,9 @@
 #include "logwindow.h"
 #include "searchwidget.h"
 #include "infowidget.h"
+#include "showerrordialog.h"
+
+
 
 class QTimer;
 class QDateTime;
@@ -399,6 +402,8 @@ private:
 
     LogModel *logModel;
     LogWindow *logWindow;
+
+    ShowErrorDialog *showErrorDialog;
 
     // <UI>
     QGroupBox *gridGroupBox, *qrzgroupBox;//, *searchgroupBox;

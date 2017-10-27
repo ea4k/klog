@@ -144,10 +144,22 @@ void SetupPageLogs::slotNewButtonClicked()
 void SetupPageLogs::slotEditButtonClicked()
 {
     //qDebug() << "SetupPageLogs::slotEditButtonClicked" << endl;
-    QSqlQuery query;
+    //QSqlQuery query;
     int nameCol = -1;
 
     selectedLog = getSelectedLog();
+
+    QString getStationCallSignFromLog(const int _log);
+
+    newLog->setEditing(true);
+
+    newLog->setStationCallSign(dataProxy->getStationCallSignFromLog(selectedLog));
+    newLog->setOperators(dataProxy->getOperatorsFromLog(selectedLog));
+    newLog->setComment(dataProxy->getCommentsFromLog(selectedLog));
+    newLog->setDateString(dataProxy->getLogDateFromLog(selectedLog));
+    newLog->setTypeN(dataProxy->getLogTypeNFromLog(selectedLog).toInt());
+
+/*
     //qDebug() << "SetupPageLogs::slotEditButtonClicked-1 (selectedlog: " << QString::number(selectedLog) << ")" << endl;
     QString stringQuery = QString("SELECT * FROM logs WHERE id='%1'").arg(selectedLog);
     //qDebug() << "SetupPageLogs::slotEditButtonClicked -2" << endl;
@@ -162,23 +174,25 @@ void SetupPageLogs::slotEditButtonClicked()
         {//id/logdate/stationcall/comment/logtype/logtypeid
             //qDebug() << "SetupPageLogs::slotEditButtonClicked Query Valid" << endl;
 
-            newLog->setEditing(true);
 
-            nameCol = rec.indexOf("stationcall");
-            newLog->setStationCallSign((query.value(nameCol)).toString());
 
-            nameCol = rec.indexOf("operators");
-            newLog->setOperators((query.value(nameCol)).toString());
+            //nameCol = rec.indexOf("stationcall");
+            //newLog->setStationCallSign((query.value(nameCol)).toString());
+            //nameCol = rec.indexOf("operators");
+            //newLog->setOperators((query.value(nameCol)).toString());
 
-            nameCol = rec.indexOf("comment");
-            newLog->setComment((query.value(nameCol)).toString());
 
-            nameCol = rec.indexOf("logdate");
-            newLog->setDateString((query.value(nameCol)).toString());
 
-            nameCol = rec.indexOf("logtypen");
+
+            //nameCol = rec.indexOf("comment");
+            //newLog->setComment((query.value(nameCol)).toString());
+
+            //nameCol = rec.indexOf("logdate");
+            //newLog->setDateString((query.value(nameCol)).toString());
+
+            //nameCol = rec.indexOf("logtypen");
             //qDebug() << "SetupPageLogs::slotEditButtonClicked -3" << endl;
-            newLog->setTypeN((query.value(nameCol)).toInt());
+            //newLog->setTypeN((query.value(nameCol)).toInt());
 
             newLog->exec();
         }
@@ -188,6 +202,7 @@ void SetupPageLogs::slotEditButtonClicked()
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
     }
+    */
 }
 
 void SetupPageLogs::slotLogsCancelled(const bool _q)
@@ -231,7 +246,6 @@ void SetupPageLogs::slotRemoveButtonClicked()
                 if (sqlOk)
                 {
                     //qDebug() << "SetupPageLogs::slotRemoveButtonClicked (AWARDDXCC REMOVED: " << QString::number(selectedLog) << ")" << endl;
-
                 }
                 else
                 {
@@ -239,7 +253,6 @@ void SetupPageLogs::slotRemoveButtonClicked()
                     showError(tr("Log has not been removed. (#3)"));
                     //qDebug() << "SetupPageLogs::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedLog) << ")" << endl;
                 }
-
 
             }
             else
@@ -254,9 +267,7 @@ void SetupPageLogs::slotRemoveButtonClicked()
             showError(tr("Log has not been removed. (#1)"));
             //qDebug() << "SetupPageLogs::slotRemoveButtonClicked (NOT REMOVED: " << QString::number(selectedLog) << ")" << endl;
         }
-
     }
-
 
     //ASK FOR A CONFIRMATION
 

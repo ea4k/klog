@@ -119,7 +119,9 @@ void MainWindowSatTab::createUI()
     //satNameLayout->addWidget(satNameComboBox);
     //satNameLayout->addWidget(satNameLineEdit);
 
-
+    QHBoxLayout *keepLayout = new QHBoxLayout;
+    keepLayout->addWidget(keepLabel);
+    keepLayout->addWidget(keepThisDataForNextQSORadiobutton);
 
     QGridLayout *tabLayout = new QGridLayout;
 
@@ -138,25 +140,7 @@ void MainWindowSatTab::createUI()
     tabLayout->addWidget(txFreqSpinBox,1,2);
     tabLayout->addWidget(rxFreqSpinBox,2,2);
 
-
-/*
-    QGridLayout *tabLayout = new QGridLayout;
-    tabLayout->addWidget(satNameLabel, 0, 0);    
-    tabLayout->addWidget(satNameComboBox, 0, 1);
-
-    tabLayout->addWidget(satModeLabel, 1, 0);
-    tabLayout->addWidget(satModeLineEdit, 1, 1);
-
-    tabLayout->addWidget(satOtherLabel, 2, 0);
-    tabLayout->addWidget(satNameLineEdit, 2, 1);
-
-    tabLayout->addWidget(keepLabel, 3, 1);
-    tabLayout->addWidget(keepThisDataForNextQSORadiobutton, 3, 2);
-*/
-    //QVBoxLayout *layout = new QVBoxLayout;
-    //layout->addLayout(satNameLayout);
-    //layout->addLayout(tabLayout);
-
+    tabLayout->addLayout(keepLayout,3,2);
 
     setLayout(tabLayout);
 
@@ -325,6 +309,12 @@ void MainWindowSatTab::clear()
     {
         satModeLineEdit->clear();
         satNameComboBox->setCurrentIndex(0);
+        satNameLineEdit->clear();
+        txFreqSpinBox->setValue(0);
+        rxFreqSpinBox->setValue(0);
+        satBandRXComboBox->setCurrentIndex(0);
+        satBandTXComboBox->setCurrentIndex(0);
+
     }
 
 }
@@ -514,46 +504,67 @@ void MainWindowSatTab::setBandsOfSat(const QString _p)
     downLink.clear();
     downLink = dataProxy->getSatelliteDownlink(_p.section(' ', 0, 0));
 
-    emit txFreqChanged(upLink);
-    emit rxFreqChanged(downLink);
+    //qDebug() << "MainWindowSatTab::setBandsOfSat upLink: " << upLink << endl;
 
+    emit txFreqChanged(upLink);
     txFreqSpinBox->setValue(upLink.toDouble());
+
+
+    if (upLink.toDouble()>0)
+    {
+        QString upLinkBand = dataProxy->getBandNameFromFreq(upLink.toDouble());
+
+        int indexTX = satBandTXComboBox->findText(upLinkBand, Qt::MatchCaseSensitive);
+        if (indexTX>0)
+        {
+            satBandTXComboBox->setCurrentIndex(indexTX);
+        }
+        else
+        {
+            addNewBand(upLinkBand);
+            indexTX = satBandTXComboBox->findText(upLinkBand, Qt::MatchCaseSensitive);
+            satBandTXComboBox->setCurrentIndex(indexTX);
+        }
+    }
+    else
+    {
+        satBandTXComboBox->setCurrentIndex(0);
+    }
+
+
+    emit rxFreqChanged(downLink);
     rxFreqSpinBox->setValue(downLink.toDouble());
 
-
-    QString upLinkBand = dataProxy->getBandNameFromFreq(upLink.toDouble());
-    QString downLinkBand = dataProxy->getBandNameFromFreq(downLink.toDouble());
-
-    //qDebug() << "MainWindowSatTab::setBandsOfSat: UpLink: " << upLink << endl;
-    //qDebug() << "MainWindowSatTab::setBandsOfSat: UpLinkBand: " << upLinkBand << endl;
-    //qDebug() << "MainWindowSatTab::setBandsOfSat: DownLink: " << downLink << endl;
-    //qDebug() << "MainWindowSatTab::setBandsOfSat: DownLinkBand: " << downLinkBand << endl;
-
-
-    int indexRX = satBandRXComboBox->findText(downLinkBand, Qt::MatchCaseSensitive);
-
-    if (indexRX>0)
+    if (downLink.toDouble()>0)
     {
-        satBandRXComboBox->setCurrentIndex(indexRX);
+
+        QString downLinkBand = dataProxy->getBandNameFromFreq(downLink.toDouble());
+
+        int indexRX = satBandRXComboBox->findText(downLinkBand, Qt::MatchCaseSensitive);
+
+        if (indexRX>0)
+        {
+            satBandRXComboBox->setCurrentIndex(indexRX);
+        }
+        else
+        {
+            addNewBand(downLinkBand);
+            indexRX = satBandRXComboBox->findText(downLinkBand, Qt::MatchCaseSensitive);
+            satBandRXComboBox->setCurrentIndex(indexRX);
+        }
+
     }
     else
     {
-        addNewBand(downLinkBand);
-        indexRX = satBandRXComboBox->findText(downLinkBand, Qt::MatchCaseSensitive);
-        satBandRXComboBox->setCurrentIndex(indexRX);
+        satBandRXComboBox->setCurrentIndex(0);
     }
 
-    int indexTX = satBandTXComboBox->findText(upLinkBand, Qt::MatchCaseSensitive);
-    if (indexTX>0)
-    {
-        satBandTXComboBox->setCurrentIndex(indexTX);        
-    }
-    else
-    {
-        addNewBand(upLinkBand);
-        indexTX = satBandTXComboBox->findText(upLinkBand, Qt::MatchCaseSensitive);
-        satBandTXComboBox->setCurrentIndex(indexTX);
-    }
+
+
+
+
+
+
 }
 
 void MainWindowSatTab::addNewBand(const QString _p)

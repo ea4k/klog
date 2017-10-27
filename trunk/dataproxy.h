@@ -167,6 +167,10 @@ public:
     virtual int getMaxLogNumber();
     virtual QStringList getListOfManagedLogs();
     virtual QString getStationCallSignFromLog(const int _log);
+    virtual QString getOperatorsFromLog(const int _log);
+    virtual QString getCommentsFromLog(const int _log);
+    virtual QString getLogDateFromLog(const int _log);
+    virtual QString getLogTypeNFromLog(const int _log);
     virtual bool addNewLog (const QStringList _qs);
     virtual bool doesThisLogExist(const int _log);
 

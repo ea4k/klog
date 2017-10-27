@@ -44,7 +44,6 @@ public:
     void setSatName(const QString _t);   
     void setOtherSatName(const QString _t);
     QString getOtherSatName();
-
     QString getSatMode();
     void setSatMode(const QString _t);
 

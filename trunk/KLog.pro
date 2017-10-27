@@ -72,7 +72,8 @@ HEADERS += setupdialog.h \
     setuppagebandmode.h \
     logmodel.h \
     searchwidget.h \
-    infowidget.h
+    infowidget.h \
+    showerrordialog.h
 SOURCES += main.cpp \
     aboutdialog.cpp \
     setupdialog.cpp \
@@ -114,7 +115,8 @@ SOURCES += main.cpp \
     setuppagebandmode.cpp \
     logmodel.cpp \
     searchwidget.cpp \
-    infowidget.cpp
+    infowidget.cpp \
+    showerrordialog.cpp
 
 OTHER_FILES += \
     README-DEVEL \

@@ -26,7 +26,7 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
 
 
     setWindowTitle(tr("About KLog"));
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    setWindowFlags(windowFlags() & Qt::WindowContextHelpButtonHint);
     QGridLayout *layout = new QGridLayout(this);
     layout->setSizeConstraint(QLayout::SetFixedSize);
 
