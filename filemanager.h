@@ -116,7 +116,7 @@ private:
 
 
 signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
 };
 #endif // FILEMANAGER_H

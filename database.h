@@ -56,7 +56,6 @@ public:
     bool reConnect();
     bool setDir(const QString _dir);
 
-    //bool beginTransaction();
 
     bool isValidBand (const QString b);
     bool isValidMode (const QString b, const bool _tmp);
@@ -95,6 +94,10 @@ public:
     bool updateTableLogs();
 
 private:
+    bool beginTransaction();
+    bool commitTransaction();
+    bool execQuery(const QString function, const QString stringQuery);
+
     bool createDataBase();
     bool isTheDBCreated();
     bool hasTheTableData(const QString _tableName);
@@ -156,7 +159,7 @@ private:
     bool updateBandIdTableLogToNewOnes();
     bool updateBandIdTableAward(const int _db);
     bool updateModeIdTableAward(const int _db);
-    void queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN);
+    void queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
 
 
     bool created;
@@ -182,7 +185,7 @@ private:
     QString dbDir;
 
 signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
 
 };

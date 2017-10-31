@@ -175,9 +175,9 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     dxccStatusWidget = new DXCCStatusWidget(dataProxy);
     logWindow = new LogWindow(dataProxy, this);
-    connect(logWindow, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
+    connect(logWindow, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     searchWidget = new SearchWidget (dataProxy, this);
-    connect(searchWidget, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
+    connect(searchWidget, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     infoWidget = new InfoWidget(dataProxy, this);
 
       //qDebug() << "MainWindow::MainWindow: 0009" << endl;
@@ -185,22 +185,8 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //helpHelpDialog = new HelpHelpDialog(softwareVersion);
       //qDebug() << "MainWindow::MainWindow: 00091" << endl;
     //helpAboutDialog = new HelpAboutDialog(softwareVersion);
-    aboutDialog = new AboutDialog(softwareVersion);
-      //qDebug() << "MainWindow::MainWindow: 00092" << endl;
-/*
-    searchResultsTreeWidget = new QTreeWidget;
-    searchResultsTreeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
-    searchResultsTreeWidget->setSortingEnabled(true);    
-    searchResultsTreeWidget->setSelectionMode(QAbstractItemView::MultiSelection);
-    searchResultsTreeWidget->setMouseTracking(true);
+    aboutDialog = new AboutDialog(softwareVersion);      
 
-    searchBoxClearButton = new QPushButton(tr("&Clear"), this);
-    searchBoxExportButton  = new QPushButton(tr("&Export Highlighted), this);
-    searchBoxSelectAllButton  = new QPushButton(tr("&Select All"), this);
-    searchBoxReSearchButton = new QPushButton(tr("&Search"), this);
-    searchAllRadioButton = new QRadioButton (tr("All"), this);
-    searchSelectAllClicked = false;
-*/
       //qDebug() << "MainWindow::MainWindow: 0010" << endl;
 
     recalculateAwardsButton = new QPushButton(tr("Recalculate"), this);
@@ -213,17 +199,6 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     configFileName = util->getCfgFile();
     ctyDatFile = util->getCTYFile();
-    //#ifdef Q_OS_WIN
-           //qDebug() << "WINDOWS DETECTED!"  << endl;
-        //klogDir = QDir::homePath()+"/kontest";  // We create the \kontest for the logs and data
-    //    configFileName = klogDir+"/klogrc.cfg";
-    //    ctyDatFile = klogDir+"/cty.csv";
-    //#else
-          //qDebug() << "NO WINDOWS DETECTED!"  << endl;
-        //klogDir = QDir::homePath()+"/.kontest";  // We create the ~/.kontest for the logs and data
- //       configFileName = klogDir+"/klogrc";
- //       ctyDatFile = klogDir+"/cty.csv";
-  //  #endif
 
     downloadcty = new DownLoadCTY(klogDir, softwareVersion);
     connect( downloadcty, SIGNAL(done()), this, SLOT(slotWorldReload()) );
@@ -260,7 +235,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
        //qDebug() << "MainWindow::MainWindow: 4" << endl;
     world = new World(dataProxy, klogDir, softwareVersion);
-    connect(world, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
+    connect(world, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
 
     if (!existingData)
     {
@@ -275,15 +250,15 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
        //qDebug() << "MainWindow::MainWindow: proxy to be created" << endl;
 
 
-    connect(dataProxy, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
-    connect(this, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
+    connect(dataProxy, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    connect(this, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
 
     //propModeList = dataProxy->getPropModeList();
 
        //qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
     //setupDialog = new SetupDialog(!configured);
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured);
-    connect(setupDialog, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
+    connect(setupDialog, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
        //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab(dataProxy);
     connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
@@ -299,14 +274,14 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
        //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
     //filemanager = new FileManager(klogDir, softwareVersion, *db);
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
-    connect(filemanager, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
+    connect(filemanager, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
 
        //qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
     locator = new Locator();
        //qDebug() << "MainWindow::MainWindow: awards to be created" << endl;
     awards = new Awards(dataProxy);
     awards->setManageModes(manageMode);
-    connect(awards, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
+    connect(awards, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
        //qDebug() << "MainWindow::MainWindow: awards already created" << endl;
     mainWidget = new QWidget(this);
     setCentralWidget(mainWidget);
@@ -554,6 +529,89 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //splash.finish();
 }
 
+MainWindow::~MainWindow()
+{
+    /*
+    doc->~QTextDocument();
+    recalculateAwardsButton->~QPushButton();
+    scoreTextEdit->~QTextEdit();
+    mainWidget->~QWidget();
+    dateTime->~QDateTime();
+    timer->~QTimer();
+    qrzLineEdit->~QLineEdit();
+    nameLineEdit->~QLineEdit();
+    qthLineEdit->~QLineEdit();
+    locatorLineEdit->~QLineEdit();
+    rstTXLineEdit->~QLineEdit();
+    rstRXLineEdit->~QLineEdit();
+    STXLineEdit->~QLineEdit();
+    SRXLineEdit->~QLineEdit();
+    bandComboBox->~QComboBox();
+    modeComboBox->~QComboBox();
+
+    dateEdit->~QDateEdit();
+    timeEdit->~QTimeEdit();
+
+    OKButton->~QPushButton();
+    clearButton->~QPushButton();
+
+    infoLabel1->~QLabel();
+    infoLabel2->~QLabel();
+
+    loggWinAct->~QAction();
+    scoreeWinAct->~QAction();
+
+    scoreWindow->~QWidget();
+    operatorLineEdit->~QLineEdit();
+    stationCallSignLineEdit->~QLineEdit();
+    myLocatorLineEdit->~QLineEdit();
+
+
+    rxPowerSpinBox->~QDoubleSpinBox();
+    txFreqSpinBox->~QDoubleSpinBox();
+    rxFreqSpinBox->~QDoubleSpinBox();
+
+    dxccConfirmedQLCDNumber->~QLCDNumber();
+    dxccWorkedQLCDNumber->~QLCDNumber();
+    wazConfirmedQLCDNumber->~QLCDNumber();
+    wazWorkedQLCDNumber->~QLCDNumber();
+    localConfirmedQLCDNumber->~QLCDNumber();
+    localWorkedQLCDNumber->~QLCDNumber();
+    qsoConfirmedQLCDNumber->~QLCDNumber();
+    qsoWorkedQLCDNumber->~QLCDNumber();
+    dxMarathonQSOLCDNumber->~QLCDNumber();
+    dxMarathonDXCCQLCDNumber->~QLCDNumber();
+    dxMarathonCQQLCDNumber->~QLCDNumber();
+    dxMarathonPointsQLCDNumber->~QLCDNumber();
+    operatingYearsComboBox->~QComboBox();
+
+    showErrorDialog->~ShowErrorDialog();
+    dataProxy->~DataProxy();
+    db->~DataBase();
+    util->~Utilities();
+    elogClublog->~eLogClubLog();
+    dxccStatusWidget->~DXCCStatusWidget();
+    logWindow->~LogWindow();
+    searchWidget->~SearchWidget();
+    aboutDialog->~AboutDialog();
+    infoWidget->~QWidget();
+    downloadcty->~DownLoadCTY();
+    world->~World();
+    setupDialog->~SetupDialog();
+    satTabWidget->~MainWindowSatTab();
+    myDataTabWidget->~MainWindowMyDataTab();
+    commentTabWidget->~MainWindowInputComment();
+    othersTabWidget->~MainWindowInputOthers();
+    eQSLTabWidget->~QWidget();
+    QSLTabWidget->~MainWindowInputQSL();
+    filemanager->~FileManager();
+    locator->~Locator();
+    awards->~Awards();
+    dxClusterWidget->~DXClusterWidget();
+    softUpdate->~SoftwareUpdate();
+    */
+}
+
 void MainWindow::createStatusBar()
 {
     statusBar()->showMessage(tr("Ready"));
@@ -711,7 +769,7 @@ void MainWindow::slotQRZReturnPressed()
         if (queryString != "NULL") {
             if (!query.exec(queryString))
             {
-                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                   //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
                 errorCode = query.lastError().number();
                 QMessageBox msgBox;
@@ -5712,7 +5770,7 @@ void MainWindow::qsoToEdit (const int _qso)
     bool sqlOK = query.exec();
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
     query.next();
@@ -5752,7 +5810,7 @@ void MainWindow::qsoToEdit (const int _qso)
     sqlOK = queryAux.exec();
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, queryAux.lastError().databaseText(), queryAux.lastError().number());
+        emit queryError(Q_FUNC_INFO, queryAux.lastError().databaseText(), queryAux.lastError().number(), queryAux.lastQuery());
     }
 
     queryAux.next();
@@ -5781,7 +5839,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, queryAux.lastError().databaseText(), queryAux.lastError().number());
+        emit queryError(Q_FUNC_INFO, queryAux.lastError().databaseText(), queryAux.lastError().number(), queryAux.lastQuery());
     }
 
     queryAux.next();
@@ -6344,7 +6402,7 @@ void MainWindow::fillQSOData()
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
     QSqlQuery query1;
@@ -6470,7 +6528,7 @@ void MainWindow::fillQSOData()
                 }
                 else
                 {
-                    emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+                    emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number(), query1.lastQuery());
                        //qDebug() << "MainWindow::fillQSOData: sqlOK=False" << endl;
                 }
 
@@ -6579,7 +6637,7 @@ void MainWindow::slotFilePrint()
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             return;
             //TODO: Print a message showing an error and exit.
         }
@@ -6646,7 +6704,7 @@ void MainWindow::slotFilePrint()
                 }
                 else
                 {
-                    emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+                    emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number(), query1.lastQuery());
                 }
 
 
@@ -6798,7 +6856,7 @@ void MainWindow::updateQSLRecAndSent()
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
     QSqlRecord rec = query.record();
@@ -6826,7 +6884,7 @@ void MainWindow::updateQSLRecAndSent()
                     queryString = QString("UPDATE log SET qsl_rcvd='N', qsl_sent='N' WHERE id='%1'").arg(idT);
                     if (!query1.exec(queryString))
                     {
-                        emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+                        emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number(), query1.lastQuery());
                     }
                 }
                 else
@@ -6834,7 +6892,7 @@ void MainWindow::updateQSLRecAndSent()
                     queryString = QString("UPDATE log SET qsl_rcvd='N' WHERE id='%1'").arg(idT);
                     if(!query1.exec(queryString))
                     {
-                        emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+                        emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number(), query1.lastQuery());
                     }
 
                 }
@@ -6853,7 +6911,7 @@ void MainWindow::updateQSLRecAndSent()
                     queryString = QString("UPDATE log SET qsl_sent='N' WHERE id='%1'").arg(idT);
                     if(!query1.exec(queryString))
                     {
-                        emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+                        emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number(), query1.lastQuery());
                     }
                 }
                 else
@@ -7123,7 +7181,7 @@ void MainWindow::slotFreqRXChanged()
     //qDebug() << "MainWindow::slotFreqRXChanged: END" << endl;
 }
 
-void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN)
+void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed)
 {
      //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << endl;
      //qDebug() << "MainWindow::slotQueryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
@@ -7140,6 +7198,7 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
                         "<li><b>" + tr("Error in function") + ":</b> " + functionFailed + "</li>" +
                         "<li><b>" + tr("Error code") +":</b> " + QString::number(errorCodeN) + "</li>" +
                         "<li><b>" + tr("Error text") + ":</b> " + errorCodeS + "</li>" +
+                        "<li><b>" + tr("Failed query") + ":</b> " + queryFailed + "</li>" +
                         "</ul><br>"
                         "<b>Recomendation:</b> Export your data to ADIF to prevent a potential data loss.<br>";
 

@@ -123,9 +123,11 @@ class MainWindow : public  QMainWindow
 
 public:
     MainWindow(const QString _klogDir, const QString tversion);
+     ~MainWindow();
 
 private slots:
-    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN);
+    //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed);
     void slotQRZReturnPressed();
     void slotQRZSpacePressed();
     void slotQRZTextChanged();
@@ -625,7 +627,7 @@ private:
     //LOGVIEW
 
 signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
 
 protected:

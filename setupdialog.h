@@ -64,7 +64,7 @@ public slots:
 
 signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
     //void newLogRequested(const bool _s); // true show new log
 
 private slots:
@@ -75,7 +75,7 @@ private slots:
     void slotAnalyzeNewLogData(const QStringList _qs);  // We receive the station callsign and operators from the logs tab
     void slotSetStationCallSign(const QString _p);      // We receive te station callsign from the userData tab to fill the new log
     void slotSetOperators(const QString _p);            // We receive te station operators from the userData tab to fill the new log
-    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN);
+    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
 
 private:
 

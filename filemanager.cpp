@@ -207,7 +207,7 @@ bool FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
     if (!sqlOK)
     {
         //qDebug() << "FileManager::adifLoTWLogExport: Query Error"  << endl;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;
     }
 
@@ -447,7 +447,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         bool sqlOK = query.exec(queryString);
         if (!sqlOK)
         {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         }
         QSqlRecord rec = query.record();
 
@@ -484,7 +484,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         bool sqlOK = query1.exec(aux1);
         if (!sqlOK)
         {
-            emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+            emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number(), query1.lastQuery());
         }
         query1.next();
 
@@ -526,7 +526,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
     //QSqlQuery query("SELECT * FROM log");
@@ -2308,7 +2308,7 @@ QFile file(_fileName);
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
     query.next();
     if (query.isValid())
@@ -2344,7 +2344,7 @@ QFile file(_fileName);
     sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
     QSqlRecord rec = query.record();
 
@@ -2377,7 +2377,7 @@ QFile file(_fileName);
                 sqlOK = query1.exec(queryString);
                 if (!sqlOK)
                 {
-                    emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+                    emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number(), query1.lastQuery());
                 }
                 query1.next();
                 if (query1.isValid())
@@ -2397,7 +2397,7 @@ QFile file(_fileName);
             sqlOK = query1.exec(queryString);
             if (!sqlOK)
             {
-                emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number());
+                emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number(), query1.lastQuery());
             }
             query1.next();
             if (query1.isValid())
@@ -2828,6 +2828,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
       //qDebug() << "FileManager::adifReadLog:" << tfileName << endl;
 
     //int n = 0;
+
     QSqlDatabase db = QSqlDatabase::database();
     //int maxLogs = dataProxy->getNumberOfManagedLogs(); // To manage several logs
 
@@ -3127,7 +3128,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
             if (!sqlOK)
             {
-                emit queryError(Q_FUNC_INFO, preparedQuery.lastError().databaseText(), preparedQuery.lastError().number());
+                emit queryError(Q_FUNC_INFO, preparedQuery.lastError().databaseText(), preparedQuery.lastError().number(), preparedQuery.lastQuery());
                  //qDebug() << "FileManager::adifReadLog: (0) LastQuery: " << preparedQuery.lastQuery()  << endl;
                  //qDebug() << "FileManager::adifReadLog: (0) LastError-data: " << preparedQuery.lastError().databaseText()  << endl;
                  //qDebug() << "FileManager::adifReadLog: (0) LastError-driver: " << preparedQuery.lastError().driverText()  << endl;
@@ -3198,7 +3199,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             }
             else
             {
-                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 errorCode = preparedQuery.lastError().number();
                   //qDebug() << "FileManager::adifReadLog: QSO DUPE" << endl;
 
