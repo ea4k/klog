@@ -88,7 +88,7 @@ int DataProxy_SQLite::getSubModeIdFromSubMode(const QString _subModeName)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return -2;
     }
 }
@@ -129,7 +129,7 @@ bool DataProxy_SQLite::isModeDeprecated (const QString _sm)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;   // In case we can't check, we don't state it as deprecated
     }
 }
@@ -188,7 +188,7 @@ QString DataProxy_SQLite::getNameFromSubModeId (const int _id)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QString();
     }
 */
@@ -214,7 +214,7 @@ QString DataProxy_SQLite::getSubModeFromId (const int _id)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QString();
     }
 
@@ -244,7 +244,7 @@ QString DataProxy_SQLite::getNameFromSubMode (const QString _sm)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QString();
     }
 }
@@ -282,7 +282,7 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
     else
     {
           //qDebug() << "DataProxy_SQLite::getBandIdFromFreq: Query NOK" << endl;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
        return -1;
     }
     return -1;
@@ -326,7 +326,7 @@ double DataProxy_SQLite::getLowLimitBandFromBandName(const QString _sm)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return -1.0;
     }
     return -1.0;
@@ -366,7 +366,7 @@ double DataProxy_SQLite::getLowLimitBandFromBandId(const QString _sm)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return -1.0;
     }
     return -1.0;
@@ -422,7 +422,7 @@ QStringList DataProxy_SQLite::getBandNames()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          return QStringList();
     }
 }
@@ -599,7 +599,7 @@ int DataProxy_SQLite::getMostUsedBand(const int _log)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return -1;
     }
     return -1;
@@ -632,7 +632,7 @@ int DataProxy_SQLite::getMostUsedMode(const int _log)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return -1;
     }
     return -1;
@@ -658,7 +658,7 @@ int DataProxy_SQLite::getLastQSOid()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return -1;
     }
 
@@ -675,7 +675,7 @@ bool DataProxy_SQLite::clearLog()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
           //qDebug() << "DataProxy_SQLite::clearLog: Log deleted FAILED" << endl;
         //errorCode = query.lastError().number();
           //qDebug() << "DataProxy_SQLite::clearLog - query error: " << QString::number(errorCode) << endl;
@@ -691,7 +691,7 @@ bool DataProxy_SQLite::clearLog()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
           //qDebug() << "DataProxy_SQLite::clearLog: Awarddxcc deletedFAILED" << endl;
         //errorCode = query.lastError().number();
           //qDebug() << "DataProxy_SQLite::clearLog - query error: " << QString::number(errorCode) << endl;
@@ -707,7 +707,7 @@ bool DataProxy_SQLite::clearLog()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
           //qDebug() << "DataProxy_SQLite::clearLog: Awardwaz deleted FAILED" << endl;
         //errorCode = query.lastError().number();
           //qDebug() << "DataProxy_SQLite::clearLog - query error: " << QString::number(errorCode) << endl;
@@ -739,7 +739,7 @@ bool DataProxy_SQLite::clearLog()
         }
         else
         {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
               //qDebug() << "DataProxy_SQLite::clearLog: VACUUM FAILED" << endl;
             //errorCode = query.lastError().number();
               //qDebug() << "DataProxy_SQLite::clearLog - query error: " << QString::number(errorCode) << endl;
@@ -765,7 +765,7 @@ bool DataProxy_SQLite::qslSentViaDirect(const int _qsoId, const QString _updateD
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
     return false;
@@ -785,7 +785,7 @@ bool DataProxy_SQLite::qslSentViaBureau(const int _qsoId, const QString _updateD
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
     return false;
@@ -806,7 +806,7 @@ bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString _updateDa
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
       //qDebug() << "DataProxy_SQLite:: FALSE" << endl;
@@ -861,7 +861,7 @@ bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString _updateDa
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         requestQSL = false;
         stringQuery = QString("UPDATE log SET qsl_rcvd = 'Y', qsl_rcvd_via = 'B', qslrdate = '%1' WHERE id = '%2'").arg(_updateDate).arg(_qsoId);
     }
@@ -875,7 +875,7 @@ bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString _updateDa
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
       //qDebug() << "DataProxy_SQLite::qslRecViaBureau FALSE" << endl;
@@ -895,7 +895,7 @@ bool DataProxy_SQLite::qslRecViaDirect(const int _qsoId, const QString _updateDa
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
     return false;
@@ -936,7 +936,7 @@ bool DataProxy_SQLite::qslRecViaDirect(const int _qsoId, const QString _updateDa
         }
         else
         {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
               //qDebug() << "DataProxy_SQLite::qslRecViaDirect: Request QSL-3" << endl;
             stringQuery = QString("UPDATE log SET qsl_rcvd = 'Y', qsl_rcvd_via = 'D', qsl_sent='R', qslrdate = '%1' WHERE id = '%2'").arg(_updateDate).arg(_qsoId);
         }
@@ -956,7 +956,7 @@ bool DataProxy_SQLite::qslRecViaDirect(const int _qsoId, const QString _updateDa
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
       //qDebug() << "DataProxy_SQLite::qslRecViaDirect FALSE" << endl;
@@ -980,7 +980,7 @@ bool DataProxy_SQLite::qslSentAsRequested(const int _qsoId, const QString _updat
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
     return false;
@@ -1002,7 +1002,7 @@ bool DataProxy_SQLite::qslRecAsRequested(const int _qsoId, const QString _update
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
     return false;
@@ -1023,7 +1023,7 @@ bool DataProxy_SQLite::setClubLogSent(const int _qsoId, const QString _st, const
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
       //qDebug() << "DataProxy_SQLite::setClubLogSent - FALSE" << endl;
 
@@ -1065,7 +1065,7 @@ bool DataProxy_SQLite::isQSLReceived(const int _qsoId)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
     return false;
 
@@ -1105,7 +1105,7 @@ bool DataProxy_SQLite::isQSLSent(const int _qsoId)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;
     }
     return false;
@@ -1131,7 +1131,7 @@ QString DataProxy_SQLite::getCallFromId(const int _qsoId)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
     return QString();
 }
@@ -1368,7 +1368,7 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
          //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-data: " << query.lastError().databaseText()  << endl;
          //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-driver: " << query.lastError().driverText()  << endl;
          //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-n: " << QString::number(query.lastError().number() ) << endl;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QStringList();
     }
      //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId END NOT OK" << endl;
@@ -1404,7 +1404,7 @@ QString DataProxy_SQLite::getNameFromQRZ(const QString _call)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QString();
     }
 }
@@ -1435,7 +1435,7 @@ QString DataProxy_SQLite::getQTHFromQRZ(const QString _call)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QString();
     }
 
@@ -1467,7 +1467,7 @@ QString DataProxy_SQLite::getLocatorFromQRZ(const QString _call)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QString();
     }
 
@@ -1500,7 +1500,7 @@ QString DataProxy_SQLite::getIOTAFromQRZ(const QString _call)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QString();
     }
 
@@ -1533,7 +1533,7 @@ QString DataProxy_SQLite::getQSLViaFromQRZ(const QString _call)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QString();
     }
 }
@@ -1550,7 +1550,7 @@ bool DataProxy_SQLite::deleteQSO(const int _qsoId)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;
     }
 }
@@ -1585,7 +1585,7 @@ int DataProxy_SQLite::isWorkedB4(const QString _qrz, const int _currentLog)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return -1;
     }
 
@@ -1621,7 +1621,7 @@ bool DataProxy_SQLite::isThisQSODuplicated(const QString _qrz, const QString _da
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;
     }
 
@@ -1661,7 +1661,7 @@ int DataProxy_SQLite::getDuplicatedQSOId(const QString _qrz, const QString _date
      }
      else
      {
-         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          return -1;
      }
 
@@ -1698,7 +1698,7 @@ bool DataProxy_SQLite::isDXCCConfirmed(const int _dxcc, const int _currentLog)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          //qDebug() << "DataProxy_SQLite::isDXCCConfrmed: FALSE3" << endl;
         return false;
     }
@@ -1790,7 +1790,7 @@ QStringList DataProxy_SQLite::getOperatingYears(const int _currentLog)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
           //qDebug() << "DataProxy_SQLite::getYearsOperating: sqlOk = false" << endl;
         return years;
     }
@@ -1834,7 +1834,7 @@ int DataProxy_SQLite::getQSOonYear(const int _year, const int _logNumber)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
           //qDebug() << "DataProxy_SQLite::getDXCConYear: Query error" << endl;
         return 0;
     }
@@ -1867,7 +1867,7 @@ int DataProxy_SQLite::getDXCConYear(const int _year, const int _logNumber)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
           //qDebug() << "DataProxy_SQLite::getDXCConYear: Query error" << endl;
         return 0;
     }
@@ -1900,7 +1900,7 @@ int DataProxy_SQLite::getCQzonYear(const int _year, const int _logNumber)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
           //qDebug() << "DataProxy_SQLite::getCQzonYear: Query error" << endl;
         return 0;
     }
@@ -1951,7 +1951,7 @@ bool DataProxy_SQLite::newDXMarathon(const int _dxcc, const int _cq, const int _
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          //qDebug() << "DataProxy_SQLite::newDXMarathon - TRUE2" << endl;
          return true;   // It is an error inthe query but Work First Worry Later, let us work that QSO.
     }
@@ -1990,7 +1990,7 @@ QStringList DataProxy_SQLite::getContestNames()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QStringList();
     }
 
@@ -2049,7 +2049,7 @@ QStringList DataProxy_SQLite::getContestCat(const int _catn)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QStringList();
     }
     return QStringList();
@@ -2089,7 +2089,7 @@ QStringList DataProxy_SQLite::getContestOverlays()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QStringList();
     }
 
@@ -2123,7 +2123,7 @@ QStringList DataProxy_SQLite::getPropModeList()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QStringList();
     }
     return qs;
@@ -2155,7 +2155,7 @@ QStringList DataProxy_SQLite::getSatellitesList()
      }
      else
      {
-         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          return QStringList();
      }
      return qs;
@@ -2188,7 +2188,7 @@ QString DataProxy_SQLite::getSatelliteUplink(const QString _sat)
     else
     {
           //qDebug()  << "DataProxy_SQLite::getSatelliteUplink:  query failed: " << query.lastQuery()  << endl;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QString();
     }
 
@@ -2223,7 +2223,7 @@ QString DataProxy_SQLite::getSatelliteDownlink(const QString _sat)
     else
     {
           //qDebug()  << "DataProxy_SQLite::getSatelliteDownlink:  query failed: " << query.lastQuery()  << endl;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QString();
     }
 
@@ -2305,7 +2305,7 @@ QStringList DataProxy_SQLite::getQSLRcvdList()
      }
      else
      {
-         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          return QStringList();
      }
      return qs;
@@ -2337,7 +2337,7 @@ QStringList DataProxy_SQLite::getQSLSentList()
      }
      else
      {
-         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          return QStringList();
      }
      return qs;
@@ -2370,7 +2370,7 @@ QStringList DataProxy_SQLite::getClubLogStatusList()
      }
      else
      {
-         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          return QStringList();
      }
      return qs;
@@ -2402,7 +2402,7 @@ QStringList DataProxy_SQLite::getQSLViaList()
      }
      else
      {
-         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          return QStringList();
      }
      return qs;
@@ -2464,7 +2464,7 @@ QStringList DataProxy_SQLite::getValidCatOptions(const int _currentCat, const in
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QStringList();
     }
 }
@@ -2496,7 +2496,7 @@ bool DataProxy_SQLite::haveAtLeastOneLog()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;
     }
     return false;
@@ -2520,7 +2520,7 @@ int DataProxy_SQLite::getNumberOfManagedLogs()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return -1;
     }
     return -1;
@@ -2544,7 +2544,7 @@ int DataProxy_SQLite::getMaxLogNumber()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return -1;
     }
     return -1;
@@ -2571,7 +2571,7 @@ QStringList DataProxy_SQLite::getListOfManagedLogs()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         qs.clear();
     }
     return qs;
@@ -2598,7 +2598,7 @@ QString DataProxy_SQLite::getStationCallSignFromLog(const int _log)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
           //qDebug() << "DataProxy_SQLite::getStationCallSignFromLog: query failed" << endl;
         return QString();
     }
@@ -2629,7 +2629,7 @@ QString DataProxy_SQLite::getOperatorsFromLog(const int _log)
   }
   else
   {
-      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         //qDebug() << "DataProxy_SQLite::getOperatorsFromLog: query failed" << endl;
       return QString();
   }
@@ -2659,7 +2659,7 @@ QString DataProxy_SQLite::getCommentsFromLog(const int _log)
   }
   else
   {
-      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         //qDebug() << "DataProxy_SQLite::getLogDateFromLog: query failed" << endl;
       return QString();
   }
@@ -2689,7 +2689,7 @@ QString DataProxy_SQLite::getLogDateFromLog(const int _log)
   }
   else
   {
-      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         //qDebug() << "DataProxy_SQLite::getLogDateFromLog: query failed" << endl;
       return QString();
   }
@@ -2719,7 +2719,7 @@ QString DataProxy_SQLite::getLogTypeNFromLog(const int _log)
   }
   else
   {
-      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         //qDebug() << "DataProxy_SQLite::getLogTypeNFromLog: query failed" << endl;
       return QString();
   }
@@ -2753,7 +2753,7 @@ int DataProxy_SQLite::getContestTypeN(const int _co, const int _catop, const int
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          //qDebug() << "DataProxy_SQLite::getContestTypeN: (ERROR) LastQuery: " << query.lastQuery()  << endl;
          //qDebug() << "DataProxy_SQLite::getContestTypeN: query failed (-1)" << endl;
         return -1;
@@ -2826,7 +2826,7 @@ QStringList DataProxy_SQLite::getDataFromContestType(const int _n)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
           //qDebug() << "DataProxy_SQLite::getDataFromContestType: Query not OK" << endl;
          return QStringList();
     }
@@ -2868,7 +2868,7 @@ QString DataProxy_SQLite::getLogTypeOfUserLog(const int _logN)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
           //qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: Query error: returning DX"  << endl;
         return "DX";
     }
@@ -3506,7 +3506,7 @@ double DataProxy_SQLite::getLatitudeFromEntity(const int _e)
 
     if (!query.exec(queryString))
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return 0.0;
     }
     else
@@ -3540,7 +3540,7 @@ QString DataProxy_SQLite::getEntityPrefixes(const int _enti)
 
     if (!query.exec(queryString))
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return QString();
     }
     else
@@ -3599,7 +3599,7 @@ QStringList DataProxy_SQLite::getEntitiesNames()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
     return qs;
 }
@@ -3700,7 +3700,7 @@ int DataProxy_SQLite::getHowManyEntities()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return 0;
     }
 }
@@ -3729,7 +3729,7 @@ QString DataProxy_SQLite::getISOName(const int _n)
     queryString = QString("SELECT isoname FROM entity WHERE dxcc='%1'").arg(_n);
     if (!query.exec(queryString))
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          //qDebug()  << "DataProxy_SQLite::getISOName: Query error - UN"  << endl;
         return "nu"; // When no flag is known, we return the UN flag
     }

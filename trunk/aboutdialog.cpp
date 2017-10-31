@@ -151,6 +151,10 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
     //qDebug() << "AboutDialog::AboutDialog - END" << endl;
 
 }
+AboutDialog::~AboutDialog()
+{
+
+}
 
 bool AboutDialog::event(QEvent *event)
 {

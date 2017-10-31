@@ -41,6 +41,7 @@ class SearchWidget : public QWidget
     Q_OBJECT
 public:
     explicit SearchWidget(DataProxy *dp, QWidget *parent = 0);
+    ~SearchWidget();
     void setCurrentLog(const int _log);
     void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
     void setVersion (const QString _version); // Defines the KLog version to be written in the exported logs
@@ -95,7 +96,7 @@ signals:
     void toStatusBar(const QString statusm);
     void requestBeingShown();
     void actionQSODelete(const int _qsoid);
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
 
 private:

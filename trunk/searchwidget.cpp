@@ -37,6 +37,10 @@ SearchWidget::SearchWidget(DataProxy *dp, QWidget *parent) :
 //    setDefaultData();
 //    clear();
 }
+SearchWidget::~SearchWidget()
+{
+
+}
 
 void SearchWidget::clear()
 {
@@ -202,7 +206,7 @@ void SearchWidget::slotSearchBoxTextChanged()
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
     QSqlRecord rec = query.record();
@@ -591,7 +595,7 @@ void SearchWidget::slotSearchExportButtonClicked()
                 sqlOK = query.exec(stringQuery);
                 if (!sqlOK)
                 {
-                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 }
                 itemsSelected = true;
                 //TODO: Prepare this while/query execution
@@ -604,7 +608,7 @@ void SearchWidget::slotSearchExportButtonClicked()
                 sqlOK = query.exec(stringQuery);
                 if (!sqlOK)
                 {
-                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 }
                 //TODO: Prepare this while/query execution
                 i++;
@@ -1170,7 +1174,7 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
 
     if (!query.exec())
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         //qDebug() << "SearchWidget::slotToolSearchQSL: Query ERROR" << endl;
      //TODO: Control the error!!
     }

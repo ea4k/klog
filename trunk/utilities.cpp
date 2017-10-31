@@ -6,7 +6,10 @@ Utilities::Utilities()
     //dbPath = getKLogDBFile();
     softwareVersion = "0.0";
 }
+Utilities::~Utilities()
+{
 
+}
 void Utilities::setVersion(const QString _file)
 {
     softwareVersion = _file;

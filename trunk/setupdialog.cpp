@@ -96,7 +96,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
 
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));       
-    connect(logsPage, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
+    connect(logsPage, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     connectActions();
 
 
@@ -1079,7 +1079,7 @@ void SetupDialog::slotSetOperators(const QString _p)
     logsPage->setDefaultOperators(_p);
 }
 
-void SetupDialog::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN)
+void SetupDialog::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery)
 {
-    emit queryError(functionFailed, errorCodeS, errorCodeN);
+    emit queryError(functionFailed, errorCodeS, errorCodeN, failedQuery);
 }

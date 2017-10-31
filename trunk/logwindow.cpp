@@ -32,7 +32,7 @@ LogWindow::LogWindow(DataProxy *dp, QWidget *parent) : QWidget(parent)
    //qDebug() << "LogWindow::LogWindow: "  << endl;
     dataProxy = dp;
     logModel = new LogModel(dataProxy, this);
-    connect(logModel, SIGNAL(queryError(QString, QString, int)), this, SLOT(slotQueryErrorManagement(QString, QString, int)) );
+    connect(logModel, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     logView = new QTableView;
     dxccStatusWidget = new DXCCStatusWidget(dataProxy);
     elogClublog = new eLogClubLog();
@@ -124,7 +124,7 @@ void LogWindow::setColumnsToDX()
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
     QSqlRecord rec;
     rec = query.record(); // Number of columns
@@ -441,8 +441,8 @@ void LogWindow::qslRecViaDirect(const int _qsoId)
 }
 
 
-void LogWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN)
+void LogWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery)
 {
-    emit queryError(functionFailed, errorCodeS, errorCodeN);
+    emit queryError(functionFailed, errorCodeS, errorCodeN, failedQuery);
 }
 

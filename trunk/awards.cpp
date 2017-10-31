@@ -84,7 +84,7 @@ void Awards::setAwardDXCC(const int _qsoId)
     sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return;
         //qDebug() << "Awards::setAwardDXCC: 1 exec NOK: " << stringQuery << endl;
     }
@@ -111,7 +111,7 @@ void Awards::setAwardWAZ(const int _qsoId)
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return;
     }
     query.next();
@@ -147,7 +147,7 @@ void Awards::setAwardWAZ(const int _qsoId)
     sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
     query.next();
     rec = query.record();
@@ -172,7 +172,7 @@ void Awards::setAwardWAZ(const int _qsoId)
                 sqlOK = query.exec(stringQuery);
                 if (!sqlOK)
                 {
-                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 }
             }
             else
@@ -187,7 +187,7 @@ void Awards::setAwardWAZ(const int _qsoId)
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         }
     }
 }
@@ -218,7 +218,7 @@ int Awards::getDXCCWorked(const int _logNumber)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         //qDebug() << "Awards::getDXCCWorked: Query error" << endl;
         return 0;
     }
@@ -251,7 +251,7 @@ int Awards::getDXCCConfirmed(const int _logNumber)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         //qDebug() << "Awards::getDXCCConfirmed: query error" << endl;
       return 0;
     }
@@ -282,7 +282,7 @@ int Awards::getWAZWorked(const int _logNumber)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return 0;
     }
 
@@ -314,7 +314,7 @@ int Awards::getWAZConfirmed(const int _logNumber)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return 0;
     }
 
@@ -611,8 +611,9 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
     }
     else
     { // The query fails...
-      //TODO: Manage the query error
        //qDebug() << "Awards::dxccStatusBandMode: return - -1" << endl;
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+
         return -1;
     }
     //qDebug() << "Awards::dxccStatusBandMode: return - 0-4" << endl;
@@ -651,8 +652,8 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
     }
     else
     { // The query fails...
-      //TODO: Manage the query error
        //qDebug() << "Awards::dxccStatus: return -1"  << endl;
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return -1;
     }
    //qDebug() << "Awards::dxccStatus: return 0"  << endl;
@@ -842,7 +843,8 @@ QString Awards::getDXCCStatusBand(const int _dxcc, const int _band, const int _l
     }
     else
     {
-       return "-";
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        return "-";
     }
 
     return "-";
@@ -1034,7 +1036,8 @@ void Awards::recalculateAwards()
     //1.- Delete ALL the data in awarddxcc and awardwaz
     QSqlQuery query, queryInsert, queryCQZ, queryUpdate;
     QString queryString, aux, _call, _qslStatus;
-    bool cancelPressed = false;
+    bool cancelPressed;
+    cancelPressed = false;
     bool CQZknown = false;
     bool CQZknownBefore = false;
     bool DXCCknown = false;
@@ -1045,12 +1048,14 @@ void Awards::recalculateAwards()
     int nameCol, _id;
     int _dxcc, _band, _mode, _cqz, _logNumber;
     int _confirmed;
-
+    _dxcc = -1;
+    _cqz = -1;
 
     int i = 0;
     int step = 1;
     int numberOfQsos = 0;
-    if (query.exec("SELECT MAX(id) FROM log"))
+    bool sqlOK = query.exec("SELECT MAX(id) FROM log");
+    if (sqlOK)
     {
         query.next();
         numberOfQsos = query.value(0).toInt();
@@ -1060,25 +1065,56 @@ void Awards::recalculateAwards()
     }
     else
     {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         //qDebug() << "Awards::recalculateAwards: Query FAILED so MAX = " << QString::number(numberOfQsos) << endl;
     }
 
 
-    query.exec("DELETE FROM awarddxcc");
-    query.exec("DELETE FROM awardwaz");
+    sqlOK = query.exec("DELETE FROM awarddxcc");;
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        qDebug() << "Awards::recalculateAwards: Query FAILED: DELETE FROM awarddxcc" << endl;
+        return;
+    }
 
-    QProgressDialog progress("Updating the award status... " + QString::number(numberOfQsos) + " QSOs", "Abort Update", 0, numberOfQsos);
+
+    sqlOK = query.exec("DELETE FROM awardwaz");
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        qDebug() << "Awards::recalculateAwards: Query FAILED: DELETE FROM awardwaz" << endl;
+        return;
+    }
+
+    //QProgressDialog(QWidget * parent = 0, Qt::WindowFlags f = 0)
+    //QProgressDialog(const QString & labelText, const QString & cancelButtonText, int minimum, int maximum, QWidget * parent = 0, Qt::WindowFlags f = 0)
+
+    QString txt = QString(tr("Updating the award status %1 QSOs")).arg(numberOfQsos);
+    QString cancelTxt = QString(tr("Abort update"));
+
+    QProgressDialog progress(txt, cancelTxt, 0, numberOfQsos);
+    //QProgressDialog progress;
+    //progress.setLabelText(txt);
+    //progress.setCancelButtonText(cancelTxt);
+    //progress.setMinimum(0);
+    //progress.setMaximum(numberOfQsos);
+    //QProgressDialog progress("Updating the award status... " + QString::number(numberOfQsos) + " QSOs", "Abort Update", 0, numberOfQsos, Qt::WindowModal);
     progress.setWindowModality(Qt::WindowModal);
 
     queryString = QString("SELECT dxcc, call, bandid, modeid, qsl_rcvd, lognumber, cqz, id FROM log");
-    if (query.exec(queryString))
+    sqlOK = query.exec(queryString);
+    if (sqlOK)
     {
         QSqlRecord rec = query.record();
 
-        db.transaction();
-
-        while ( (query.next()) && (!cancelPressed))
+        //db.transaction();
+        int bAux = query.next();
+        //while ( (query.next()) && (!cancelPressed))
+        progress.setValue(i);
+        while ( bAux && (!cancelPressed))
         {
+            bAux = query.next();
             i++;
             DXCCknownBefore = false;
             CQZknownBefore = false;
@@ -1217,9 +1253,10 @@ void Awards::recalculateAwards()
             {
                 cancelPressed = true;
             }
+            i++;
 
         } // END of While
-        db.commit();
+        //db.commit();
 
         query.prepare( "INSERT INTO awarddxcc (dxcc, band, mode, confirmed, lognumber, qsoid) VALUES (:dxcc, :band, :mode, :confirmed, :lognumber, :qsoid)" );
         queryCQZ.prepare( "INSERT INTO awardwaz (cqz, band, mode, confirmed, lognumber, qsoid) VALUES (:cqz, :band, :mode, :confirmed, :lognumber, :qsoid)" );
@@ -1284,14 +1321,14 @@ void Awards::recalculateAwards()
 
             queryOk = query.exec(); // Add a DXCC
 
-
             if (queryOk)
             {// New worked QSO inserted in AwardDXCC
                 //qDebug() << "Awards::recalculateAwards: queryOK!" << endl;
             }
             else
             {// Something happened while adding the new worked DXCC (may be already worked/confirmed or simply something went wrong)
-                //qDebug() << "Awards::recalculateAwards: queryOK = False" << endl;
+
+                qDebug() << "Awards::recalculateAwards: queryOK = False" << endl;
                 errorCode = query.lastError().number();
                 if (errorCode == 19)
                 { // More than probably the SET band/mode/DXCC is already in the DB
@@ -1306,13 +1343,14 @@ void Awards::recalculateAwards()
                     else
                     {
                         //qDebug() << "Awards::recalculateAwards: queryOK = False - errorCode 19 & _confirmed = false, no need to update anything: " << _id << endl;
-                        //No consigo que se mantenga cuando se ha confirmado un pais
+
                     }
 
 
                 }
                 else
                 {
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                     //qDebug() << "Awards::recalculateAwards: LastQuery-2: " << query.lastQuery()  << endl;
                     //qDebug() << "Awards::recalculateAwards: LastError-data-2: " << query.lastError().databaseText()  << endl;
                     //qDebug() << "Awards::recalculateAwards: LastError-driver-2: " << query.lastError().driverText()  << endl;
@@ -1325,11 +1363,28 @@ void Awards::recalculateAwards()
 
         }
 
+        sqlOK = queryCQZ.exec();
+        if (!sqlOK)
+        {
+            qDebug() << "Awards::recalculateAwards: queryOK - CQZ = False" << endl;
+            errorCode = query.lastError().number();
+            if (errorCode == 19)
+            { // More than probably the SET band/mode/CQZis already in the DB
+
+            }
+            else
+            {
+                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                qDebug() << "Awards::recalculateAwards: LastQuery-2 CQZ: " << query.lastQuery()  << endl;
+            }
+        }
+
         db.commit();
 
     }
     else
     {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return;
     }
 
@@ -1348,6 +1403,7 @@ int Awards::getQSOsInLog(const int _logNumber)
 
     if( !query.exec(queryString) )
     {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return -1;
     }
     else
@@ -1488,6 +1544,7 @@ void Awards::setAwards(const int _qsoId)
 
     else
     {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         //qDebug() << "Awards::setAwards: ERROR IN First Select: " << QString::number(_qsoId) << endl;
         //qDebug() << "Awards::setAwardDXCC: ERROR IFS: " << QString::number(_qsoId) << endl;
         //qDebug() << "Awards::setAwardDXCC: ERROR IFS Driver-error: " <<query.lastError().driverText() << endl;
@@ -1549,6 +1606,7 @@ bool Awards::setAwardDXCC(const int _dxcc, const int _band, const int _mode, con
         }
         else
         {
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             //qDebug() << "Awards::setAwardDXCC: NOK DXCC _qsoId: " << QString::number(_qsoId) << endl;
             //qDebug() << "Awards::setAwardDXCC: NOK DXCC Driver-error: " <<query.lastError().driverText() << endl;
             //qDebug() << "Awards::setAwardDXCC: NOK DXCC DB-error: " <<query.lastError().databaseText() << endl;
@@ -1633,6 +1691,7 @@ bool Awards::setAwardWAZ(const int _cqz, const int _band, const int _mode, const
         }
         else
         {
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
            //qDebug() << "Awards::setAwardWAZ: NOK CQZ _qsoId: " << QString::number(_qsoId) << endl;
             return false;
         }
@@ -1786,6 +1845,7 @@ int Awards::setAwardDXCCst(const int _dxcc, const int _band, const int _mode, co
             }
             else
             { // Something failed. Trace it!
+                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 errorCode = query.lastError().number();
                 //qDebug() << "Awards::setAwardDXCCst(INSERT): LastQuery: " << query.lastQuery()  << endl;
                 //qDebug() << "Awards::setAwardDXCCst(INSERT): LastError-data: " << query.lastError().databaseText()  << endl;
@@ -1799,7 +1859,8 @@ int Awards::setAwardDXCCst(const int _dxcc, const int _band, const int _mode, co
 
     }
     else
-    { // Trave the error... what may be happening???
+    { // Trace the error... what may be happening???
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         errorCode = query.lastError().number();
         //qDebug() << "Awards::setAwardDXCCst(SELECT): LastQuery: " << query.lastQuery()  << endl;
         //qDebug() << "Awards::setAwardDXCCst(SELECT): LastError-data: " << query.lastError().databaseText()  << endl;
@@ -1863,6 +1924,7 @@ int Awards::setAwardWAZst(const int _cqz, const int _band, const int _mode, cons
         }
         else
         {
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             //qDebug() << "Awards::setAwardWAZst: _qsoId: " << QString::number(_qsoId) << "- sqlOK ERROR: "  << endl;
             errorCode = query.lastError().number();
             //qDebug() << "Awards::setAwardWAZst: LastQuery: " << query.lastQuery()  << endl;
@@ -1912,6 +1974,7 @@ int Awards::setAwardDXCCConfirmed(const int _band, const int _mode, const int _d
                 }
                 else
                 { // UPDATE failed
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                     errorCode = query.lastError().number();
                     //qDebug() << "Awards::setAwardDXCCConfirmed-Update: LastQuery: " << query.lastQuery()  << endl;
                     //qDebug() << "Awards::setAwardDXCCConfirmed-Update: LastError-data: " << query.lastError().databaseText()  << endl;
@@ -1937,6 +2000,7 @@ int Awards::setAwardDXCCConfirmed(const int _band, const int _mode, const int _d
     }
     else
     { //
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         errorCode = query.lastError().number();
         //qDebug() << "Awards::setAwardDXCCConfirmed: LastQuery: " << query.lastQuery()  << endl;
         //qDebug() << "Awards::setAwardDXCCConfirmed: LastError-data: " << query.lastError().databaseText()  << endl;
@@ -1962,6 +2026,7 @@ int Awards::setDXCCToQSO(const int _dxcc, const int _qsoid) // Defines the DXCC 
     }
     else
     {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         //qDebug() << "Awards::setDXCCToQSO: DXCC Updated in Log but failed...." << endl;
         errorCode = query.lastError().number();
         //qDebug() << "Awards::setDXCCToQSO: LastQuery: " << query.lastQuery()  << endl;
@@ -1985,6 +2050,7 @@ int Awards::setCQToQSO(const int _cqz, const int _qsoid) // Defines the CQ in a 
     }
     else
     {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         //qDebug() << "Awards::setCQToQSO: DXCC Updated in Log but failed...." << endl;
         errorCode = query.lastError().number();
         //qDebug() << "Awards::setCQToQSO: LastQuery: " << query.lastQuery()  << endl;
@@ -2080,6 +2146,7 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
         else
         { // The query fails...
           //TODO: Manage the query error
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             return -1;
         }
     //qDebug() << "Awards::dxccStatusBand: return - 0.3" << endl;
@@ -2133,6 +2200,7 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
         }
         else
         { // The query fails...
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
           //TODO: Manage the query error
             return -1;
         }
