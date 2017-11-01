@@ -199,7 +199,7 @@ bool FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
 
     out << "<EOH>" << endl;
 
-    QString queryString = QString("SELECT call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name  FROM log WHERE lognumber='%1'").arg(_logN);
+    QString queryString = QString("SELECT call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent  FROM log WHERE lognumber='%1'").arg(_logN);
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
@@ -221,164 +221,173 @@ bool FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
         //qDebug() << "FileManager::adifLoTWLogExport: Start of While"  << endl;
         if (query.isValid())
         {
-
-            //qDebug() << "FileManager::adifLoTWLogExport: Start of isValid"  << endl;
-            propsat = false;    // Reset the QSO in case it is a Satellite QSO
-
-            nameCol = rec.indexOf("call");
+            nameCol = rec.indexOf("lotw_qsl_sent");
             aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            //qDebug() << "FileManager::adifLoTWLogExport: " << QString::number(nameCol) << "/" << aux1 << endl;
-            if (aux.length()>0)
+            if (aux != "Y")
             {
-                out << "<CALL:" << QString::number(aux.length()) << ">" << aux<< " ";
-            }
-            //qDebug() << "FileManager::adifLoTWLogExport: CALL"  << endl;
 
-            nameCol = rec.indexOf("qso_date");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            if ((aux.length()) == 10){
-                aux.remove(QChar('-'), Qt::CaseInsensitive);
-                aux.remove(QChar('/'), Qt::CaseInsensitive);
-                QDate date = QDate::fromString(aux, "yyyyMMdd");
+                //qDebug() << "FileManager::adifLoTWLogExport: Start of isValid"  << endl;
+                propsat = false;    // Reset the QSO in case it is a Satellite QSO
 
-                if (util->isValidDate(date))
+                nameCol = rec.indexOf("call");
+                aux = (query.value(nameCol)).toString();
+                aux = util->checkAndFixASCIIinADIF(aux);
+                //qDebug() << "FileManager::adifLoTWLogExport: " << QString::number(nameCol) << "/" << aux1 << endl;
+                if (aux.length()>0)
                 {
-                    out << "<QSO_DATE:" << QString::number(aux.length()) << ">" << aux  << " ";
+                    out << "<CALL:" << QString::number(aux.length()) << ">" << aux<< " ";
                 }
-            }
+                //qDebug() << "FileManager::adifLoTWLogExport: CALL"  << endl;
 
-            nameCol = rec.indexOf("time_on");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            //qDebug() << "FileManager::adifLoTWLogExportToFile-time_on: "  << aux1 << endl;
-            if ( ((aux.length()) == 5) || ((aux.length()) == 8) ){
-                aux.remove(QChar(':'), Qt::CaseInsensitive);
+                nameCol = rec.indexOf("qso_date");
+                aux = (query.value(nameCol)).toString();
+                aux = util->checkAndFixASCIIinADIF(aux);
+                if ((aux.length()) == 10){
+                    aux.remove(QChar('-'), Qt::CaseInsensitive);
+                    aux.remove(QChar('/'), Qt::CaseInsensitive);
+                    QDate date = QDate::fromString(aux, "yyyyMMdd");
 
-                out << "<TIME_ON:" << QString::number(aux.length()) << ">" << aux  << " ";
-            }
-
-            nameCol = rec.indexOf("bandid");
-            aux = (query.value(nameCol)).toString();
-            //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-1: "  << aux << endl;
-            aux = util->checkAndFixASCIIinADIF(aux);
-            //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-2: "  << aux << endl;
-            //aux = db->getBandNameFromID2(aux.toInt());
-            aux = dataProxy->getNameFromBandId(aux.toInt());
-            //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-3: "  << aux << endl;
-
-
-            if (dataProxy->getIdFromBandName(aux)>=0)
-            {
-                out << "<BAND:" << QString::number(aux.length()) << ">" << aux  << " ";
-                bandst = aux;
-            }
-
-            nameCol = rec.indexOf("band_rx");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            aux = dataProxy->getNameFromBandId(aux.toInt());
-
-            if ( dataProxy->getIdFromBandName(aux)>=0)
-            {                
-                out << "<BAND_RX:" << QString::number(aux.length()) << ">" << aux  << " ";
-                QString bandrxst = aux;
-            }
-            //qDebug() << "FileManager::adifLoTWLogExport: BAND_RX"  << endl;
-
-            nameCol = rec.indexOf("modeid");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            // get SubModeId to check if it is the same or not from modeid
-            aux2 = dataProxy->getSubModeFromId(aux.toInt());
-            //aux = db->getModeNameFromID2(aux.toInt());
-            aux = dataProxy->getNameFromSubMode(aux2);
-
-            //qDebug() << "FileManager::adifLoTWLogExportToFile - MODE aux2:  " << aux2 << endl;
-            //qDebug() << "FileManager::adifLoTWLogExportToFile - MODE aux:  " << aux << endl;
-
-            if ((aux.length()>1) && (dataProxy->getIdFromModeName(aux)>=0))
-            {
-                //haveMode = true;
-                out << "<MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
-            }
-
-            if ((aux != aux2) && (aux.length()>1) && (dataProxy->getSubModeIdFromSubMode(aux2)>=0) )
-            {
-                //haveMode = true;
-                out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
-            }
-
-            //qDebug() << "FileManager::adifLoTWLogExport: SUBMODE: " << aux2  << endl;
-
-            nameCol = rec.indexOf("freq");
-            aux = (query.value(nameCol)).toString();
-            //qDebug() << "FileManager::adifLoTWLogExportToFile FREQ1: "  << aux1 << endl;
-            aux = util->checkAndFixASCIIinADIF(aux);
-
-            if ((aux.length())>0){
-                //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
-                if (db->isThisFreqInBand(bandst, aux))
-                {
-                   out << "<FREQ:" << QString::number(aux.length()) << ">" << aux  << " ";
+                    if (util->isValidDate(date))
+                    {
+                        out << "<QSO_DATE:" << QString::number(aux.length()) << ">" << aux  << " ";
+                    }
                 }
 
-            }
-            //qDebug() << "FileManager::adifLoTWLogExport: FREQ"  << endl;
-            nameCol = rec.indexOf("freq_rx");
-            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-            if ((aux.length())>0){
-                //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
-                if (db->isThisFreqInBand(bandrxst, aux))
-                {
-                   out << "<FREQ_RX:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-            }
-            //qDebug() << "FileManager::adifLoTWLogExport: FREQ_RX"  << endl;
+                nameCol = rec.indexOf("time_on");
+                aux = (query.value(nameCol)).toString();
+                aux = util->checkAndFixASCIIinADIF(aux);
+                //qDebug() << "FileManager::adifLoTWLogExportToFile-time_on: "  << aux1 << endl;
+                if ( ((aux.length()) == 5) || ((aux.length()) == 8) ){
+                    aux.remove(QChar(':'), Qt::CaseInsensitive);
 
-            nameCol = rec.indexOf("prop_mode");
-            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-            if ((aux.length())>1){
-                out << "<PROP_MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                if (aux == "SAT")
-                {
-                    propsat = true;
+                    out << "<TIME_ON:" << QString::number(aux.length()) << ">" << aux  << " ";
                 }
 
-            }
-            //qDebug() << "FileManager::adifLoTWLogExport: PROP_MODE"  << endl;
+                nameCol = rec.indexOf("bandid");
+                aux = (query.value(nameCol)).toString();
+                //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-1: "  << aux << endl;
+                aux = util->checkAndFixASCIIinADIF(aux);
+                //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-2: "  << aux << endl;
+                //aux = db->getBandNameFromID2(aux.toInt());
+                aux = dataProxy->getNameFromBandId(aux.toInt());
+                //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-3: "  << aux << endl;
 
-            nameCol = rec.indexOf("sat_name");
-            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-            if ((aux.length())>0){
-                out << "<SAT_NAME:" << QString::number(aux.length()) << ">" << aux  << " ";
 
-                if (!propsat)
+                if (dataProxy->getIdFromBandName(aux)>=0)
                 {
-                     out << "<PROP_MODE:3>SAT ";
+                    out << "<BAND:" << QString::number(aux.length()) << ">" << aux  << " ";
+                    bandst = aux;
                 }
+
+                nameCol = rec.indexOf("band_rx");
+                aux = (query.value(nameCol)).toString();
+                aux = util->checkAndFixASCIIinADIF(aux);
+                aux = dataProxy->getNameFromBandId(aux.toInt());
+
+                if ( dataProxy->getIdFromBandName(aux)>=0)
+                {
+                    out << "<BAND_RX:" << QString::number(aux.length()) << ">" << aux  << " ";
+                    QString bandrxst = aux;
+                }
+                //qDebug() << "FileManager::adifLoTWLogExport: BAND_RX"  << endl;
+
+                nameCol = rec.indexOf("modeid");
+                aux = (query.value(nameCol)).toString();
+                aux = util->checkAndFixASCIIinADIF(aux);
+                // get SubModeId to check if it is the same or not from modeid
+                aux2 = dataProxy->getSubModeFromId(aux.toInt());
+                //aux = db->getModeNameFromID2(aux.toInt());
+                aux = dataProxy->getNameFromSubMode(aux2);
+
+                //qDebug() << "FileManager::adifLoTWLogExportToFile - MODE aux2:  " << aux2 << endl;
+                //qDebug() << "FileManager::adifLoTWLogExportToFile - MODE aux:  " << aux << endl;
+
+                if ((aux.length()>1) && (dataProxy->getIdFromModeName(aux)>=0))
+                {
+                    //haveMode = true;
+                    out << "<MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
+                }
+
+                if ((aux != aux2) && (aux.length()>1) && (dataProxy->getSubModeIdFromSubMode(aux2)>=0) )
+                {
+                    //haveMode = true;
+                    out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
+                }
+
+                //qDebug() << "FileManager::adifLoTWLogExport: SUBMODE: " << aux2  << endl;
+
+                nameCol = rec.indexOf("freq");
+                aux = (query.value(nameCol)).toString();
+                //qDebug() << "FileManager::adifLoTWLogExportToFile FREQ1: "  << aux1 << endl;
+                aux = util->checkAndFixASCIIinADIF(aux);
+
+                if ((aux.length())>0){
+                    //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
+                    if (db->isThisFreqInBand(bandst, aux))
+                    {
+                       out << "<FREQ:" << QString::number(aux.length()) << ">" << aux  << " ";
+                    }
+
+                }
+                //qDebug() << "FileManager::adifLoTWLogExport: FREQ"  << endl;
+                nameCol = rec.indexOf("freq_rx");
+                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+                if ((aux.length())>0){
+                    //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
+                    if (db->isThisFreqInBand(bandrxst, aux))
+                    {
+                       out << "<FREQ_RX:" << QString::number(aux.length()) << ">" << aux  << " ";
+                    }
+                }
+                //qDebug() << "FileManager::adifLoTWLogExport: FREQ_RX"  << endl;
+
+                nameCol = rec.indexOf("prop_mode");
+                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+                if ((aux.length())>1){
+                    out << "<PROP_MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
+                    if (aux == "SAT")
+                    {
+                        propsat = true;
+                    }
+
+                }
+                //qDebug() << "FileManager::adifLoTWLogExport: PROP_MODE"  << endl;
+
+                nameCol = rec.indexOf("sat_name");
+                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+                if ((aux.length())>0){
+                    out << "<SAT_NAME:" << QString::number(aux.length()) << ">" << aux  << " ";
+
+                    if (!propsat)
+                    {
+                         out << "<PROP_MODE:3>SAT ";
+                    }
+                }
+                //qDebug() << "FileManager::adifLoTWLogExport: SAT_NAME"  << endl;
+
+                out << "<EOR> " << endl;
+
+                i++;
+                if (( (i % step ) == 0) )
+                { // To update the speed I will only show the progress once each X QSOs
+                   //qDebug() << "FileManager::adifLoTWLogExport: MOD 0 - i = " << QString::number(i)  << endl;
+
+                    aux = tr("Exporting LoTW ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
+
+                   progress.setLabelText(aux);
+                   progress.setValue(i);
+
+                }
+                else
+                {
+                   //qDebug() << "FileManager::adifLoTWLogExport: Mod: "<< QString::number(i) << " mod " << QString::number(step) << " = " << QString::number(i % step) << endl;
+
+                }
+
+
+
             }
-            //qDebug() << "FileManager::adifLoTWLogExport: SAT_NAME"  << endl;
 
-            out << "<EOR> " << endl;
-
-            i++;
-            if (( (i % step ) == 0) )
-            { // To update the speed I will only show the progress once each X QSOs
-               //qDebug() << "FileManager::adifLoTWLogExport: MOD 0 - i = " << QString::number(i)  << endl;
-
-                aux = tr("Exporting LoTW ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
-
-               progress.setLabelText(aux);
-               progress.setValue(i);
-
-            }
-            else
-            {
-               //qDebug() << "FileManager::adifLoTWLogExport: Mod: "<< QString::number(i) << " mod " << QString::number(step) << " = " << QString::number(i % step) << endl;
-
-            }
 
 
         }
@@ -3698,8 +3707,13 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                 }
                 else if (field == "DXCC")
                 {
-                    dxcc = data.toInt();
-                    preparedQuery.bindValue( ":dxcc", data.toInt() );
+                    qDebug() << "FileManager::processQsoReadingADIF-DXCC: " << data << endl;
+                    if ((data.toInt()>0) && (data.toInt()<dataProxy->getMaxEntityID()))
+                    {
+                        preparedQuery.bindValue( ":dxcc", data );
+                    }
+
+
 
                 }
                 else if (field == "ADDRESS")

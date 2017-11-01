@@ -605,6 +605,11 @@ int DataProxy::getHowManyEntities()
     return -1;
 }
 
+int DataProxy::getMaxEntityID()
+{
+    return -1;
+}
+
 bool DataProxy::updateISONames()
 {
     return false;

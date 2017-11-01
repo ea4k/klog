@@ -1074,7 +1074,7 @@ void Awards::recalculateAwards()
     if (!sqlOK)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        qDebug() << "Awards::recalculateAwards: Query FAILED: DELETE FROM awarddxcc" << endl;
+        //qDebug()<< "Awards::recalculateAwards: Query FAILED: DELETE FROM awarddxcc" << endl;
         return;
     }
 
@@ -1083,7 +1083,7 @@ void Awards::recalculateAwards()
     if (!sqlOK)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        qDebug() << "Awards::recalculateAwards: Query FAILED: DELETE FROM awardwaz" << endl;
+        //qDebug()<< "Awards::recalculateAwards: Query FAILED: DELETE FROM awardwaz" << endl;
         return;
     }
 
@@ -1328,7 +1328,7 @@ void Awards::recalculateAwards()
             else
             {// Something happened while adding the new worked DXCC (may be already worked/confirmed or simply something went wrong)
 
-                qDebug() << "Awards::recalculateAwards: queryOK = False" << endl;
+                //qDebug()<< "Awards::recalculateAwards: queryOK = False" << endl;
                 errorCode = query.lastError().number();
                 if (errorCode == 19)
                 { // More than probably the SET band/mode/DXCC is already in the DB
@@ -1366,7 +1366,7 @@ void Awards::recalculateAwards()
         sqlOK = queryCQZ.exec();
         if (!sqlOK)
         {
-            qDebug() << "Awards::recalculateAwards: queryOK - CQZ = False" << endl;
+            //qDebug()<< "Awards::recalculateAwards: queryOK - CQZ = False" << endl;
             errorCode = query.lastError().number();
             if (errorCode == 19)
             { // More than probably the SET band/mode/CQZis already in the DB
@@ -1375,7 +1375,7 @@ void Awards::recalculateAwards()
             else
             {
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                qDebug() << "Awards::recalculateAwards: LastQuery-2 CQZ: " << query.lastQuery()  << endl;
+                //qDebug()<< "Awards::recalculateAwards: LastQuery-2 CQZ: " << query.lastQuery()  << endl;
             }
         }
 
