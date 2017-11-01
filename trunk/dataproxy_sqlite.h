@@ -137,6 +137,7 @@ public:
     QString getEntityPrefixes(const int _enti);
     QStringList getEntitiesNames();
     int getHowManyEntities();
+    int getMaxEntityID();
 
     QStringList getOperatingYears(const int _currentLog);
     void compressDB();

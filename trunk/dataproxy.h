@@ -129,6 +129,7 @@ public:
     virtual QString getEntityPrefixes(const int _enti);
     virtual QStringList getEntitiesNames();
     virtual int getHowManyEntities();
+    virtual int getMaxEntityID();
 
     virtual QStringList getOperatingYears(const int _currentLog);
     virtual void compressDB();

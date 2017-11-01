@@ -160,32 +160,34 @@ bool DataBase::createConnection(bool newDB)
 
 
                 stringQuery ="PRAGMA synchronous = OFF;";
-                query.exec(stringQuery);
+                execQuery(Q_FUNC_INFO, stringQuery);
+
+                execQuery(Q_FUNC_INFO, stringQuery);
 
                 stringQuery ="PRAGMA journal_mode = MEMORY;";
-                query.exec(stringQuery);
+                execQuery(Q_FUNC_INFO, stringQuery);
 
 
                 stringQuery ="PRAGMA main.page_size = 4096;";
-                query.exec(stringQuery);
+                execQuery(Q_FUNC_INFO, stringQuery);
                 stringQuery ="PRAGMA main.cache_size=10000;";
-                query.exec(stringQuery);
+                execQuery(Q_FUNC_INFO, stringQuery);
                 stringQuery ="PRAGMA main.locking_mode=EXCLUSIVE;";
-                query.exec(stringQuery);
+                execQuery(Q_FUNC_INFO, stringQuery);
                 stringQuery ="PRAGMA main.synchronous=NORMAL;";
-                query.exec(stringQuery);
+                execQuery(Q_FUNC_INFO, stringQuery);
                 stringQuery ="PRAGMA main.journal_mode=WAL;";
-                query.exec(stringQuery);
+                execQuery(Q_FUNC_INFO, stringQuery);
                 stringQuery ="PRAGMA main.cache_size=5000;";
-                query.exec(stringQuery);
+                execQuery(Q_FUNC_INFO, stringQuery);
                 stringQuery ="PRAGMA synchronous=OFF;";
-                query.exec(stringQuery);
+                execQuery(Q_FUNC_INFO, stringQuery);
                 stringQuery ="PRAGMA main.temp_store = MEMORY;";
-                query.exec(stringQuery);
+                execQuery(Q_FUNC_INFO, stringQuery);
                 //stringQuery="PRAGMA auto_vacuum = FULL;";
-                //query.exec(stringQuery);
+                //execQuery(Q_FUNC_INFO, stringQuery);
                 stringQuery ="PRAGMA case_sensitive_like=OFF;";
-                query.exec(stringQuery);
+                execQuery(Q_FUNC_INFO, stringQuery);
             }
         }
     }
@@ -442,7 +444,7 @@ bool DataBase::createDataBase()
     //QString dateString;
 
     QSqlQuery query;
-    QSqlDatabase::database().transaction();
+
     query.exec("DROP TABLE log");
     query.exec("DROP TABLE band");
     query.exec("DROP TABLE mode");
@@ -460,7 +462,7 @@ bool DataBase::createDataBase()
                 "dbversion REAL NOT NULL)");
 
     //dateString = (date.currentDateTime()).toString("yyyyMMdd");
-    QSqlDatabase::database().commit();
+
     updateDBVersion();
     //query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
 
@@ -1021,12 +1023,13 @@ bool DataBase::unMarkAllQSO()
 {
      //qDebug() << "DataBase::unMarkAllQSO" << endl;
     QString stringQuery = QString("UPDATE log SET marked = 'N' WHERE 1");
-    QSqlQuery query(stringQuery);
+    return execQuery(Q_FUNC_INFO, stringQuery);
+    //QSqlQuery query(stringQuery);
       //qDebug() << "MainWindow::slotQSLSentViaBureauFromLog: " << stringQuery << endl;
     //query.exec(stringQuery);
     //TODO: Check if the execution of this query is OK or NOK (should return false)
      //qDebug() << "DataBase::unMarkAllQSO: END "  << endl;
-    return true;
+    //return true;
 }
 
 bool DataBase::updateIfNeeded()
@@ -2091,7 +2094,7 @@ bool DataBase::createTableMode(const bool NoTmp)
 
          //qDebug() << "DataBase::createTableMode END" << endl;
 
-        bool sqlOK = query.exec(stringQuery);
+        bool sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
         int errorCode = -1;
         if (!sqlOK)
         {
@@ -2130,7 +2133,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
         tableName = "modetemp";
     }
 
-    QSqlDatabase::database().transaction();
+
     bool sqlOK = query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('AM', 'AM', 'PH', '0')").arg(tableName));
 
     int errorCode = -1;
@@ -2294,7 +2297,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VOI', 'VOI', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('WINMOR', 'WINMOR', 'NO', '0')").arg(tableName));
     query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('WSPR', 'WSPR', 'NO', '0')").arg(tableName));
-    QSqlDatabase::database().commit();
+
 
     createTheModeQuickReference();
       //qDebug() << "DataBase::populateTableMode END" << endl;
@@ -2349,7 +2352,7 @@ bool DataBase::createTableSatellites(const bool NoTmp)
 
     return execQuery(Q_FUNC_INFO, stringQuery);
 /*
-    bool sqlOK = query.exec(stringQuery);    
+    bool sqlOK = query.exec(stringQuery);
 
     if (!sqlOK)
     {
@@ -2385,62 +2388,63 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     // Initially I will implement Up/Down only but KLog should be prepared to work with "-mode" also
     // being mode "SSB, CW, ... and other ADIF modes
     //To add a band, just create another line:
-    QSqlDatabase::database().transaction();
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-10', 'AMSAT-OSCAR 10', '435.030,146.180', '145.81', 'SSB,CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-13', 'AMSAT-OSCAR 13', '435.423-435.573', '145.975-145.825', 'SSB,CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-16', 'AMSAT-OSCAR 16', '145.92', '437.026', 'FM/USB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-21', 'OSCAR 21/RS-14', '', '145.8', 'CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-24', 'Arsene-OSCAR 24', '', '145.975', 'PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-27', 'AMRAD-OSCAR 27', '145.85', '436.795' 'FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-3', 'AMSAT-OSCAR 3', '145.975-146.025', '144.325-144.375', 'SSB,CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-4', 'AMSAT-OSCAR 4', '432.145-432.155', '144.300-144.310', 'SSB,CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-40', 'AMSAT-OSCAR 40','145.840-145.990,435.790-435.520', '2401.2225-2401.475', 'SSB,CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-51', 'AMSAT-OSCAR 51', '145.92', '435.3', 'FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-6', 'AMSAT-OSCAR 6', '145.900-146.000', '29.450-29.550', 'SSB,CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-7', 'AMSAT-OSCAR 7', '145.850-145.950,432.180-432.120', '29.400-29.500,145.920-145.980', 'USB,LSB/USB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-73', 'AMSAT-OSCAR 73', '435.150-435.130', '145.950-145.970', 'LSB/USB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-8', 'AMSAT-OSCAR 8', '145.850-145.900,145.900-146.000', '29.400-29.500,435.200-435.100', 'SSB,CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-85', 'AMSAT-OSCAR 85 (Fox-1A)', '435.170', '145.980', 'FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('ARISS', 'ARISS', '145.200,144.490', '145.800,145.800', 'FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('BY70-1', 'Bayi Kepu Weixing 1', '145.92', '436.2', 'FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('CAS-3H', 'LilacSat 2', '144.350', '437.200', 'FM'").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('DO-64', 'Delfi OSCAR-64', '', '145.870', 'CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('EO-88', 'Emirates OSCAR 88 (Nayif-1)', '435.045-435.015', '145.960-145.990', 'LSB/USB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FO-12', 'Fuji-OSCAR 12', '145.900-146.000,145.85', '435.900-435.800,435.91', 'SSB,PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FO-20', 'Fuji-OSCAR 20', '145.900-146.000', '435.900-435.800', 'SSB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FO-29', 'Fuji-OSCAR 29', '145.900-145.999', '435.900-435.800', 'LSB/USB,CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('HO-68', 'Hope OSCAR 68', '145.925-145.975,145.825', '435.765-435.715,435.675', 'LSB/USB,FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('IO-86', 'Indonesia OSCAR 86 (LAPAN-ORARI)', '435.880', '145.880', 'FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-19', 'Lusat-OSCAR 19', '145.840-145.900', '437.125-437.150', 'CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-78', 'LituanicaSAT-1', '145.95,145.85', '435.1755,437.543', 'FM,PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('MIREX', 'Mir packet digipeater', '145.985', '145.985', 'PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('NO-44', 'Navy-OSCAR 44', '145.827', '145.827', 'PKT')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('145', '29', RS-1', 'Radio Sputnik 1', '')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-10', 'Radio Sputnik 10', '','29.357,29.403', '')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-11', 'Radio Sputnik 11', '','29.357,29.403', '')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-12', 'Radio Sputnik 12', '21.210-21.250', '29.410-29.450', 'SSB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-13', 'Radio Sputnik 13', '21.260-21.300', '145.860-145.900', 'SSB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-15', 'Radio Sputnik 15', '', '29.3525-29.3987', '')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('145', '29', RS-2', 'Radio Sputnik 2', '')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-5', 'Radio Sputnik 5', 'CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-6', 'Radio Sputnik 6', '')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-7', 'Radio Sputnik 7', 'CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-8', 'Radio Sputnik 8', '')").arg(tableName));   
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SAREX', 'Shuttle Amateur Radio Experiment packet digipeater', '144.80,144.49', '144.55', 'FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-35', 'Sunsat-OSCAR 35', '436.291', '145.825', 'FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-41', 'Saudi-OSCAR 41', '145.850', '436.775', 'CW')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-50', 'Saudi-OSCAR 50', '145.850, '436.795', 'FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-67', 'Sumbandila OSCAR 67', '145.875', '435.345', 'FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('UO-14', 'UOSAT-OSCAR 14', '145.975', '435.07', 'FM')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('VO-52', 'VUsat-OSCAR 52', '435.220-435.280,435.225-435.275', '145.930-145.870,145.925-145.875', 'LSB/USB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2A', 'Hope 2A', '435.030-435.050', '145.665-145.685', 'LSB/USB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2B', 'Hope 2B', '435.090-435.110', '145.730-145.750', 'LSB/USB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2C', 'Hope 2C', '435.150-435.170', '145.795-145.815', 'LSB/USB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2D', 'Hope 2D', '435.210-435.230', '145.860-145.880', 'LSB/USB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2E', 'Hope 2E', '435.270-435.290', '145.915-145.935', 'LSB/USB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2F', 'Hope 2F', '435.330-435.350', '145.980-145.999', 'LSB/USB')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-90', 'LilacSat-OSCAR 90 (LilacSat-1), '145.985', '436.510', 'FM')").arg(tableName));
-    QSqlDatabase::database().commit();
+
+
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-10', 'AMSAT-OSCAR 10', '435.030,146.180', '145.81', 'SSB,CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-13', 'AMSAT-OSCAR 13', '435.423-435.573', '145.975-145.825', 'SSB,CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-16', 'AMSAT-OSCAR 16', '145.92', '437.026', 'FM/USB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-21', 'OSCAR 21/RS-14', '', '145.8', 'CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-24', 'Arsene-OSCAR 24', '', '145.975', 'PKT')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-27', 'AMRAD-OSCAR 27', '145.85', '436.795' 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-3', 'AMSAT-OSCAR 3', '145.975-146.025', '144.325-144.375', 'SSB,CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-4', 'AMSAT-OSCAR 4', '432.145-432.155', '144.300-144.310', 'SSB,CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-40', 'AMSAT-OSCAR 40','145.840-145.990,435.790-435.520', '2401.2225-2401.475', 'SSB,CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-51', 'AMSAT-OSCAR 51', '145.92', '435.3', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-6', 'AMSAT-OSCAR 6', '145.900-146.000', '29.450-29.550', 'SSB,CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-7', 'AMSAT-OSCAR 7', '145.850-145.950,432.180-432.120', '29.400-29.500,145.920-145.980', 'USB,LSB/USB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-73', 'AMSAT-OSCAR 73', '435.150-435.130', '145.950-145.970', 'LSB/USB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-8', 'AMSAT-OSCAR 8', '145.850-145.900,145.900-146.000', '29.400-29.500,435.200-435.100', 'SSB,CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-85', 'AMSAT-OSCAR 85 (Fox-1A)', '435.170', '145.980', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('ARISS', 'ARISS', '145.200,144.490', '145.800,145.800', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('BY70-1', 'Bayi Kepu Weixing 1', '145.92', '436.2', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('CAS-3H', 'LilacSat 2', '144.350', '437.200', 'FM'").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('DO-64', 'Delfi OSCAR-64', '', '145.870', 'CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('EO-88', 'Emirates OSCAR 88 (Nayif-1)', '435.045-435.015', '145.960-145.990', 'LSB/USB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FO-12', 'Fuji-OSCAR 12', '145.900-146.000,145.85', '435.900-435.800,435.91', 'SSB,PKT')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FO-20', 'Fuji-OSCAR 20', '145.900-146.000', '435.900-435.800', 'SSB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FO-29', 'Fuji-OSCAR 29', '145.900-145.999', '435.900-435.800', 'LSB/USB,CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('HO-68', 'Hope OSCAR 68', '145.925-145.975,145.825', '435.765-435.715,435.675', 'LSB/USB,FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('IO-86', 'Indonesia OSCAR 86 (LAPAN-ORARI)', '435.880', '145.880', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-19', 'Lusat-OSCAR 19', '145.840-145.900', '437.125-437.150', 'CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-78', 'LituanicaSAT-1', '145.95,145.85', '435.1755,437.543', 'FM,PKT')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('MIREX', 'Mir packet digipeater', '145.985', '145.985', 'PKT')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('NO-44', 'Navy-OSCAR 44', '145.827', '145.827', 'PKT')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('145', '29', RS-1', 'Radio Sputnik 1', '')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-10', 'Radio Sputnik 10', '','29.357,29.403', '')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-11', 'Radio Sputnik 11', '','29.357,29.403', '')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-12', 'Radio Sputnik 12', '21.210-21.250', '29.410-29.450', 'SSB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-13', 'Radio Sputnik 13', '21.260-21.300', '145.860-145.900', 'SSB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-15', 'Radio Sputnik 15', '', '29.3525-29.3987', '')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('145', '29', RS-2', 'Radio Sputnik 2', '')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-5', 'Radio Sputnik 5', 'CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-6', 'Radio Sputnik 6', '')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-7', 'Radio Sputnik 7', 'CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-8', 'Radio Sputnik 8', '')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SAREX', 'Shuttle Amateur Radio Experiment packet digipeater', '144.80,144.49', '144.55', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-35', 'Sunsat-OSCAR 35', '436.291', '145.825', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-41', 'Saudi-OSCAR 41', '145.850', '436.775', 'CW')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-50', 'Saudi-OSCAR 50', '145.850, '436.795', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-67', 'Sumbandila OSCAR 67', '145.875', '435.345', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('UO-14', 'UOSAT-OSCAR 14', '145.975', '435.07', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('VO-52', 'VUsat-OSCAR 52', '435.220-435.280,435.225-435.275', '145.930-145.870,145.925-145.875', 'LSB/USB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2A', 'Hope 2A', '435.030-435.050', '145.665-145.685', 'LSB/USB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2B', 'Hope 2B', '435.090-435.110', '145.730-145.750', 'LSB/USB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2C', 'Hope 2C', '435.150-435.170', '145.795-145.815', 'LSB/USB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2D', 'Hope 2D', '435.210-435.230', '145.860-145.880', 'LSB/USB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2E', 'Hope 2E', '435.270-435.290', '145.915-145.935', 'LSB/USB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2F', 'Hope 2F', '435.330-435.350', '145.980-145.999', 'LSB/USB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-90', 'LilacSat-OSCAR 90 (LilacSat-1), '145.985', '436.510', 'FM')").arg(tableName));
+
      //qDebug() << "DataBase::populateTableSatellites - END" << endl;
     return true;
 }
@@ -2478,15 +2482,8 @@ bool DataBase::createTableEntity(const bool NoTmp)
                                              "FOREIGN KEY (continent) REFERENCES continent(shortname) )");
 
       //qDebug() << "DataBase::createTableEntity END" << endl;
-    if (query.exec(stringQuery))
-    {
-        return true;
-    }
-    else
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        return false;
-    }
+    return execQuery(Q_FUNC_INFO, stringQuery);
+
 
     //TODO: To add some columns in this the table to mark if worked/confirmed/band/Mode
     //query.exec("INSERT INTO entity (name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate) VALUES ('Canada', '0', '0', '0', '0', '0', '0', '0', 'VE', 'q', 'sincedate', 'todate')");
@@ -2516,15 +2513,7 @@ bool DataBase::createTableBand(const bool NoTmp)
                                             "UNIQUE (lower, upper, cabrillo, name) )");
 
      //qDebug() << "DataBase::createTableBand END" << endl;
-    if (query.exec(stringQuery))
-    {
-        return true;
-    }
-    else
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        return false;
-    }
+    return execQuery(Q_FUNC_INFO, stringQuery);
 
 }
 
@@ -2536,7 +2525,7 @@ bool DataBase::populateTableBand(const bool NoTmp)
 
      //qDebug() << "DataBase::populateTableBand" << endl;
 
-    QSqlQuery query;
+
     QString tableName = QString();
     QString squery = QString();
     if (NoTmp)
@@ -2548,40 +2537,40 @@ bool DataBase::populateTableBand(const bool NoTmp)
         tableName = "bandtemp";
     }
 
-    QSqlDatabase::database().transaction();
+
     //To add a band, just create another line:
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('0', '0', '0', 'Light')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('1mm', '241000', '250000', '241G')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2mm', '142000', '149000', '142G')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2.5mm', '119980', '120020', '119G')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('4mm', '75500', '81000', '75G')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('6mm', '47000', '47200', '47G')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('1.25CM', '24000', '24250', '24G')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('3CM', '10000', '10500', '10G')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('6CM', '5650', '5925', '5.7G')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('9CM', '3300', '3500', '3.4G')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('13CM', '2340', '2450', '2.3G')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('23CM', '1240', '1300', '1.2G')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('33CM', '902', '928', '902')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('70CM', '420', '450', '432')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('1.25M', '222', '225', '222')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2M', '144', '148', '144')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('4M', '70', '71', '4M')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('6M', '50', '54', '50')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('10M', '28.0', '29.7', '28000')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('12M', '24.89', '24.99', '24000')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('15M', '21.0', '21.45', '21000')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('17M', '18.068', '18.168', '18100')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('20M', '14.0', '14.35', '14000')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('30M', '10.0', '10.15', '10000')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('40M', '7.0', '7.3', '7000')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('60M', '5.102', '5.404', '5100')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('80M', '3.5', '4.0', '3500')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('160M', '1.8', '2.0', '1800')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('560M', '0.501', '0.504', '560M')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('630M', '0.472', '0.479', '630M')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2190M', '0.1357', '0.1378', '2190M')").arg(tableName));
-    QSqlDatabase::database().commit();
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('0', '0', '0', 'Light')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('1mm', '241000', '250000', '241G')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2mm', '142000', '149000', '142G')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2.5mm', '119980', '120020', '119G')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('4mm', '75500', '81000', '75G')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('6mm', '47000', '47200', '47G')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('1.25CM', '24000', '24250', '24G')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('3CM', '10000', '10500', '10G')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('6CM', '5650', '5925', '5.7G')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('9CM', '3300', '3500', '3.4G')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('13CM', '2340', '2450', '2.3G')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('23CM', '1240', '1300', '1.2G')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('33CM', '902', '928', '902')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('70CM', '420', '450', '432')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('1.25M', '222', '225', '222')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2M', '144', '148', '144')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('4M', '70', '71', '4M')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('6M', '50', '54', '50')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('10M', '28.0', '29.7', '28000')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('12M', '24.89', '24.99', '24000')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('15M', '21.0', '21.45', '21000')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('17M', '18.068', '18.168', '18100')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('20M', '14.0', '14.35', '14000')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('30M', '10.0', '10.15', '10000')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('40M', '7.0', '7.3', '7000')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('60M', '5.102', '5.404', '5100')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('80M', '3.5', '4.0', '3500')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('160M', '1.8', '2.0', '1800')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('560M', '0.501', '0.504', '560M')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('630M', '0.472', '0.479', '630M')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2190M', '0.1357', '0.1378', '2190M')").arg(tableName));
+
     createTheBandQuickReference();
 
      //qDebug() << "DataBase::populateTableBand END" << endl;
@@ -2591,28 +2580,29 @@ bool DataBase::populateTableBand(const bool NoTmp)
 
 bool DataBase::populatePropagationModes()
 {
+
      //qDebug() << "DataBase::populatePropagationModes" << endl;
     QSqlQuery query;
-    QSqlDatabase::database().transaction();
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AS', 'Aircraft Scatter')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AUR', 'Aurora')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AUE', 'Aurora-E')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('BS', 'Back scatter')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('ECH', 'EchoLink')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('EME', 'Earth-Moon-Earth')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('ES', 'Sporadic E')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('FAI', 'Field Aligned Irregularities')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('F2', 'F2 Reflection')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('INTERNET', 'Internet-assisted')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('ION', 'Ionoscatter')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('IRL', 'IRLP')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('MS', 'Meteor scatter')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('RPT', 'Terrestrial or atmospheric repeater or transponder')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('RS', 'Rain scatter')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('SAT', 'Satellite')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('TEP', 'Trans-equatorial')");
-    query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('TR', 'Tropospheric ducting')");
-    QSqlDatabase::database().commit();
+
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AS', 'Aircraft Scatter')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AUR', 'Aurora')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AUE', 'Aurora-E')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('BS', 'Back scatter')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('ECH', 'EchoLink')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('EME', 'Earth-Moon-Earth')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('ES', 'Sporadic E')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('FAI', 'Field Aligned Irregularities')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('F2', 'F2 Reflection')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('INTERNET', 'Internet-assisted')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('ION', 'Ionoscatter')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('IRL', 'IRLP')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('MS', 'Meteor scatter')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('RPT', 'Terrestrial or atmospheric repeater or transponder')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('RS', 'Rain scatter')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('SAT', 'Satellite')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('TEP', 'Trans-equatorial')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('TR', 'Tropospheric ducting')"));
+
      //qDebug() << "DataBase::populatePropagationModes END" << endl;
     return true;
 }
@@ -2621,13 +2611,14 @@ bool DataBase::populatePropagationModes()
 bool DataBase::populateContestData()
 {
      //qDebug() << "DataBase::populateContestData" << endl;
-    QSqlQuery query;
+
 
     
     // CONTEST DEFINITIONS START HERE
 
     // DX
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (0, 0, 0, 0, 0, 0, 0)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (0, 0, 0, 0, 0, 0, 0)");
+
     // DX START
 /*
     // CQ WW DX SSB START
@@ -2722,7 +2713,6 @@ bool DataBase::updateTo006()
     bool ErrorUpdating = false;
     QString stringQuery = QString();
     //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
-    QSqlQuery query;
 
     bool sqlOk = false;
 
@@ -2781,15 +2771,13 @@ bool DataBase::updateTo006()
             updateBandIdTableAward(1); // DXCC
             updateBandIdTableAward(2); // WAZ
 
-            if (query.exec("DROP TABLE band"))
+            if (execQuery(Q_FUNC_INFO, "DROP TABLE band"))
             {
-                if (query.exec("ALTER TABLE bandtemp RENAME TO band"))
+                if (execQuery(Q_FUNC_INFO, "ALTER TABLE bandtemp RENAME TO band"))
                 {
-
                 }
                 else
-                {
-                    queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                {       
                          //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not renamed" << endl;
                     ErrorUpdating = true;
                     IAmIn006 = false;
@@ -2842,31 +2830,27 @@ bool DataBase::updateTableLog(const int _v)
     break;
     }
 
-
-    QSqlQuery query;
-    if (query.exec(queryString))
+    if (execQuery(Q_FUNC_INFO, queryString))
     {
          //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Query executed" << endl;
         queryString = "DROP TABLE log";
-        if (query.exec(queryString))
+        if (execQuery(Q_FUNC_INFO, queryString))
         {
              //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Table log dropped" << endl;
 
             queryString = "ALTER TABLE logtemp RENAME TO log" ;
-            if (query.exec(queryString))
+            if (execQuery(Q_FUNC_INFO, queryString))
             {
                 //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - tmp renamed - END" << endl;
                 return true;
             }
             else
-            {
-                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            {                
                  //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Renaming failed" << endl;
             }
         }
         else
         {
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
              //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Table log Not dropped" << endl;
         }
     }
@@ -2882,40 +2866,33 @@ bool DataBase::updateTableLog(const int _v)
 bool DataBase::createTableClubLogStatus()
 {
      //qDebug() << "createTableClubLogStatus" << endl;
-    QSqlQuery query;
-    bool sqlOK = query.exec("CREATE TABLE clublog_status ("
+
+    QString queryString = QString("CREATE TABLE clublog_status ("
                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                "shortname VARCHAR(1) NOT NULL, "
                "name VARCHAR(15) NOT NULL)");
-    if (!sqlOK)
-    { queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());}
-    return sqlOK;
+
+    return execQuery(Q_FUNC_INFO, queryString);
+
 }
 
 bool DataBase::populateTableClubLogStatus()
 {
      //qDebug() << "populateTableClubLogStatus" << endl;
-    QSqlQuery query;
 
-    if (query.exec("INSERT INTO clublog_status (shortname, name) VALUES ('Y', 'Uploaded')"))
+    QString queryString = "INSERT INTO clublog_status (shortname, name) VALUES ('Y', 'Uploaded')";
+
+
+    if (execQuery(Q_FUNC_INFO, queryString))
     {
-        if (query.exec("INSERT INTO clublog_status (shortname, name) VALUES ('N', 'Do not upload')"))
+        queryString = "INSERT INTO clublog_status (shortname, name) VALUES ('N', 'Do not upload')";
+        if (execQuery(Q_FUNC_INFO, queryString))
         {
+            queryString = "INSERT INTO clublog_status (shortname, name) VALUES ('M', 'Modified')";
              //qDebug() << "populateTableClubLogStatus END" << endl;
-            if (query.exec("INSERT INTO clublog_status (shortname, name) VALUES ('M', 'Modified')"))
-            {
-                return true;
-            }
-            else
-            {
-                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                return false;
-            }
+            return execQuery(Q_FUNC_INFO, queryString);
         }
-        else
-        {
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        }
+
     }
      //qDebug() << "populateTableClubLogStatus FALSE END" << endl;
     return false;
@@ -2932,7 +2909,6 @@ bool DataBase::updateTableEntity()
      //qDebug() << "DataBase::updateTableEntity" << endl;
     bool result = false;
     QString stringQuery;
-    QSqlQuery query;
     bool sqlOk;
 
     result = createTableEntity(false);  // Now we have a temp entity table with the correct format
@@ -2943,40 +2919,27 @@ bool DataBase::updateTableEntity()
 
         stringQuery = QString("INSERT INTO entitytemp (name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate) SELECT name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate FROM entity");
 
-        sqlOk = query.exec(stringQuery);
+        sqlOk = execQuery(Q_FUNC_INFO, stringQuery);
 
         if (sqlOk)
         {
              //qDebug() << "DataBase::updateTableEntity: Data copied from entity to entitytemp!" << endl;
-
-            if (query.exec("DROP TABLE entity"))
+            stringQuery = "DROP TABLE entity";
+            if (execQuery(Q_FUNC_INFO, stringQuery))
             {
                  //qDebug() << "DataBase::updateTableEntity: Table entity DELETED" << endl;
-
-                if (query.exec("ALTER TABLE entitytemp RENAME TO entity"))
-                {
-                     //qDebug() << "DataBase::updateTableEntity: Table entitytemp renamed" << endl;
-                    return true;
-                }
-                else
-                {
-                    queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                    //qDebug() << "DataBase::updateTableEntity: Table entitytemp NOT renamed" << endl;
-                   return false;
-                }
+                stringQuery = "ALTER TABLE entitytemp RENAME TO entity";
+                return execQuery(Q_FUNC_INFO, stringQuery);
 
             }
             else
             {
-                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                //qDebug() << "DataBase::updateTableEntity: Table entity NOT DELETED" << endl;
                return false;
             }
 
         }
         else
         {
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
              //qDebug() << "DataBase::updateTableEntity: Data NOT copied from entity to entitytemp!" << endl;
             //TODO: If it fails, we should manage errors...
             return false;
@@ -2997,7 +2960,6 @@ bool DataBase::updateTableLogs()
      //qDebug() << "DataBase::updateTableLogs" << endl;
     bool result = false;
     QString stringQuery;
-    QSqlQuery query;
     bool sqlOk;
 
     result = createTableLogs(false);  // Now we have a temp entity table with the correct format
@@ -3009,32 +2971,21 @@ bool DataBase::updateTableLogs()
 
         stringQuery = QString("INSERT INTO logstemp (logdate, stationcall, comment, logtype, logtypen) SELECT logdate, stationcall, comment, logtype, logtypen FROM logs");
 
-        sqlOk = query.exec(stringQuery);
+        sqlOk = execQuery(Q_FUNC_INFO, stringQuery);
 
         if (sqlOk)
         {
              //qDebug() << "DataBase::updateTableLogs: data copied" << endl;
 
-            if (query.exec("DROP TABLE logs"))
+            stringQuery = "DROP TABLE logs";
+            if (execQuery(Q_FUNC_INFO, stringQuery))
             {
                  //qDebug() << "DataBase::updateTableLogs: Table logs DELETED" << endl;
-
-                if (query.exec("ALTER TABLE logstemp RENAME TO logs"))
-                {
-                     //qDebug() << "DataBase::updateTableLogs: Table logstemp renamed" << endl;
-                    return true;
-                }
-                else
-                {
-                    queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                    //qDebug() << "DataBase::updateTableLogs: Table logstemp NOT renamed" << endl;
-                   return false;
-                }
-
+                stringQuery = "ALTER TABLE logstemp RENAME TO logs";
+                return execQuery(Q_FUNC_INFO, stringQuery);
             }
             else
-            {
-                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            {                
                 //qDebug() << "DataBase::updateTableLogs: Table logs NOT DELETED" << endl;
                return false;
             }
@@ -3042,7 +2993,7 @@ bool DataBase::updateTableLogs()
         }
         else
         {
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
              //qDebug() << "DataBase::updateTableLogs: data NOT copied" << endl;
             //TODO: If it fails, we should manage errors...
             return false;
@@ -3080,7 +3031,7 @@ bool DataBase::updateModeIdFromSubModeId()
     int qsos;
     int i = 0;
     QString aux;
-    QSqlQuery query, query2, query3;
+    QSqlQuery query, query2;
     bool sqlOk = query.exec("SELECT COUNT (*) FROM log");
     if (sqlOk)
     {
@@ -3145,7 +3096,8 @@ bool DataBase::updateModeIdFromSubModeId()
                             modeFound = query2.value(0).toInt();
 
                             sq = QString ("UPDATE log SET modeid='%1' WHERE id='%2'").arg(modeFound).arg(id);           // STEP-4
-                            sqlOk3 = query3.exec(sq);
+
+                            sqlOk3 = execQuery(Q_FUNC_INFO, sq);
                             if (sqlOk3)
                             {
 
@@ -3154,7 +3106,7 @@ bool DataBase::updateModeIdFromSubModeId()
                             }
                             else
                             {
-                                queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().number(), query3.lastQuery());
+                                //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().number(), query3.lastQuery());
                                   //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " NOT updated-2"  << endl;
                             }
                         }
@@ -3177,7 +3129,6 @@ bool DataBase::updateModeIdFromSubModeId()
                 }
 
             }
-
 
             if ( progress.wasCanceled() )
             {
@@ -3265,7 +3216,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     int qsos;
     int i = 0;
     QString aux;
-    QSqlQuery query, query2, query3;
+    QSqlQuery query, query2;
     bool sqlOk = query.exec("SELECT COUNT (*) FROM log");
     if (sqlOk)
     {
@@ -3322,18 +3273,17 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                             bandFound = query2.value(0).toInt();
 
                             sq = QString ("UPDATE log SET bandid='%1' WHERE id='%2'").arg(bandFound).arg(id);
-                            sqlOk3 = query3.exec(sq);
+                            sqlOk3 = execQuery(Q_FUNC_INFO, sq);
                             if (sqlOk3)
                             {
                                   //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << endl;
                             }
                             else
                             {
-                                queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().number(), query3.lastQuery());
+                                //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().number(), query3.lastQuery());
                                   //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  << endl;
                                  //qDebug() << "DataBase::updateBandIdTableLogToNewOnes - QSOs not updated to main log" << endl;
                             }
-
                         }
                         else
                         {
@@ -3513,14 +3463,14 @@ bool DataBase::updateBandIdTableAward(const int _db)
                             bandFound = query2.value(0).toInt();
 
                             sq = QString ("UPDATE %1 SET %2='%3' WHERE id='%4'").arg(table).arg(field).arg(bandFound).arg(id);
-                            sqlOk3 = query3.exec(sq);
+                            sqlOk3 = execQuery(Q_FUNC_INFO, sq);
                             if (sqlOk3)
                             {
                                   //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << endl;
                             }
                             else
                             {
-                                queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().number(), query3.lastQuery());
+                                //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().number(), query3.lastQuery());
                                  //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " NOT updated-2"  << endl;
 
                                  //qDebug() << "DataBase::updateBandIdTableAward - QSOs not updated to main log" << endl;
@@ -3708,7 +3658,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
                             bandFound = query2.value(0).toInt();
 
                             sq = QString ("UPDATE %1 SET %2='%3' WHERE id='%4'").arg(table).arg(field).arg(bandFound).arg(id);
-                            sqlOk3 = query3.exec(sq);
+                            sqlOk3 = execQuery(Q_FUNC_INFO, sq);
                               //qDebug() << "DataBase::updateModeIdTableAward (query3 update): " << query3.lastQuery()  << endl;
                             if (sqlOk3)
                             {
@@ -3716,7 +3666,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
                             }
                             else
                             {
-                                queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().number(), query3.lastQuery());
+                                //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().number(), query3.lastQuery());
                                  //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " NOT updated-2"  << endl;
 
                                  //qDebug() << "DataBase::updateModeIdTableAward - QSOs not updated to main log" << endl;
@@ -3996,7 +3946,7 @@ bool DataBase::updateTo007()
             return false;
         }
         sqlOk = updateDBVersion();
-        //sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+
         if (sqlOk)
         { // Version updated
             IAmIn007 = updateTableLog(6);
@@ -4247,28 +4197,9 @@ bool DataBase::updateTo010()
     }
 
 
-    sqlOk = query.exec(QString("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('FT8', 'FT8', 'NO', '0')"));
-    if (sqlOk)
-    {
-          //qDebug() << "DataBase::updateTo010: - Mode update OK" << endl;
-    }
-    else
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-          //qDebug() << "DataBase::updateTo010: - Mode update NOK" << endl;
-    }
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('FT8', 'FT8', 'NO', '0')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AS', 'Aircraft Scatter')"));
 
-
-    sqlOk = query.exec("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AS', 'Aircraft Scatter')");
-    if (sqlOk)
-    {
-          //qDebug() << "DataBase::updateTo010: - Propagation update OK" << endl;
-    }
-    else
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-          //qDebug() << "DataBase::updateTo010: - Propagation update NOK" << endl;
-    }
 
     if (updateDBVersion())
     {
@@ -4290,6 +4221,9 @@ bool DataBase::updateDBVersion()
     QString dateString = (QDate::currentDate()).toString("yyyyMMdd");
 
       //qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << softVersion << "/" << QString::number(dbVersion) << endl;
+    QString st = "INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')";
+    return execQuery(Q_FUNC_INFO, st);
+/*
     QSqlQuery query;
     QSqlDatabase::database().transaction();
     bool sqlOK = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
@@ -4306,6 +4240,7 @@ bool DataBase::updateDBVersion()
     }
 
     return sqlOK;    
+*/
 }
 
 
@@ -4322,28 +4257,19 @@ bool DataBase::updateTheModeTableAndSyncLog()
     //updateModeIdTableAward(2); // WAZ
     bool sqlOK;
     //QSqlDatabase::database().commit();
-    sqlOK = query.exec("DROP TABLE mode");
+
+    sqlOK = execQuery(Q_FUNC_INFO, "DROP TABLE mode");
     if (sqlOK)
     {
         //QSqlDatabase::database().commit();
           //qDebug() << "DataBase::updateTheModeTableAndSyncLog - OK - mode was dropped" << endl;
-        if (query.exec("ALTER TABLE modetemp RENAME TO mode"))
-        {
-              //qDebug() << "DataBase::updateTheModeTableAndSyncLog - OK - modetemp was dropped" << endl;
-            //QSqlDatabase::database().commit();
-            return true;
-        }
-        else
-        {
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-              //qDebug() << "DataBase::updateTheModeTableAndSyncLog - ERROR - modetemp not renamed" << endl;
 
-            return false;
-        }
+        return execQuery(Q_FUNC_INFO, "ALTER TABLE modetemp RENAME TO mode");
+
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          //qDebug() << "DataBase::updateTheModeTableAndSyncLog - ERROR - modetemp not dropped" << endl;
         return false;
     }
@@ -4359,22 +4285,13 @@ bool DataBase::recreateTableBand()
     createTableBand(false);         // Create modetemp
     populateTableBand(false);       // Populate modetemp
 
-    if (query.exec("DROP TABLE band"))
+    if (execQuery(Q_FUNC_INFO, "DROP TABLE band"))
     {
-        if (query.exec("ALTER TABLE bandtemp RENAME TO mode"))
-        {
-            return true;
-        }
-        else
-        {
-             //qDebug() << "DataBase::recreateTableBand - ERROR - bandtemp not renamed" << endl;
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-            return false;
-        }
+        return execQuery(Q_FUNC_INFO, "ALTER TABLE bandtemp RENAME TO mode");
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          //qDebug() << "DataBase::recreateTableBand - ERROR - bandtemp not dropped" << endl;
         return false;
     }
@@ -4398,7 +4315,8 @@ bool DataBase::updateTheEntityTableISONames()
 
      //qDebug() << "DataBase::updateTheEntityTableISONames-1" << endl;
     sq = QString ("UPDATE entity SET isoname='mt' WHERE dxcc='246'");  //Sovereign Order of Malta
-    sqlOK = query.exec(sq);
+
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
@@ -4407,7 +4325,7 @@ bool DataBase::updateTheEntityTableISONames()
      //qDebug() << "DataBase::updateTheEntityTableISONames-2" << endl;
 
     sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='247'");  //Spratly
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
@@ -4415,1692 +4333,1692 @@ bool DataBase::updateTheEntityTableISONames()
     }
 
     sq = QString ("UPDATE entity SET isoname='mc' WHERE dxcc='260'");  //Monaco
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc='4'");  // Agalega
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc='165'");  //Mauricio
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc='207'");  //Rodriguez
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gq' WHERE dxcc='49'");  // Equatorial Guinea
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fj' WHERE dxcc='176'");  //Fidji
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gq' WHERE dxcc='195'");  //Annobon
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fj' WHERE dxcc='489'");  // Conway reef
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fj' WHERE dxcc='460'");  // Rotuma
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sz' WHERE dxcc='468'");  // Swaziland
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='tn' WHERE dxcc='474'");  // Tunisia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='vn' WHERE dxcc='293'");  // Vietnam
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gn' WHERE dxcc='107'");  // Guinea
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bv' WHERE dxcc='24'");  // Bouvet
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='no' WHERE dxcc='199'");  // Peter 1 Is"
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='az' WHERE dxcc='18'");  // Azerbaijan
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ge' WHERE dxcc='75'");  // Georgia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='me' WHERE dxcc='514'");  // Montenegro
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='lk' WHERE dxcc='315'");  // Sri lanka
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ch' WHERE dxcc='117'");  // ITU HQ
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='289'");  // UN HQ
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='tl' WHERE dxcc='511'");  // Timor Leste
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='il' WHERE dxcc='336'");  // Israel
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ly' WHERE dxcc='436'");  // Libya
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cy' WHERE dxcc='215'");  // Cyprus
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='tz' WHERE dxcc='470'");  // Tanzania
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ng' WHERE dxcc='450'");  // Nigeria
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mg' WHERE dxcc='438'");  // Madagascar
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mr' WHERE dxcc='444'");  // Mauritania
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ne' WHERE dxcc='187'");  // Niger
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='tg' WHERE dxcc='483'");  // Togo
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ws' WHERE dxcc='190'");  // Samoa
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ug' WHERE dxcc='286'");  // Uganda
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ke' WHERE dxcc='430'");  // Kenya
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sn' WHERE dxcc='456'");  // Senegal
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='jm' WHERE dxcc='82'");  // Jamaica
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='es' WHERE dxcc='281'");  // Spain
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ls' WHERE dxcc='432'");  //Lesotho
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mw' WHERE dxcc='440'");  // Malawi
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='dz' WHERE dxcc='400'");  // Algeria
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ye' WHERE dxcc='492'");  // Yemen
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bb' WHERE dxcc='62'");  // Barbados
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mv' WHERE dxcc='159'");  // Maldives
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gy' WHERE dxcc='129'");  // Guyana
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='hr' WHERE dxcc='497'");  // Croatia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gh' WHERE dxcc='424'");  // Ghana
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mt' WHERE dxcc='257'");  // Malta
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='zm' WHERE dxcc='482'");  // Zambia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='kw' WHERE dxcc='348'");  // Kuwait
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sl' WHERE dxcc='458'");  // Sierra Leone
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='my' WHERE dxcc='299'");  // West Malaysia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='my' WHERE dxcc='46'");  // East Malaysia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='np' WHERE dxcc='369'");  // Nepal
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cd' WHERE dxcc='414'");  // Dem Rep Congo
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bi' WHERE dxcc='404'");  // Burundi
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sg' WHERE dxcc='381'");  // Singapore
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='rw' WHERE dxcc='454'");  // Rwanda
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='tt' WHERE dxcc='90'");  // Trinidad & Tobago
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bw' WHERE dxcc='402'");  // Botswana
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='to' WHERE dxcc='160'");  //  Tonga
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='om' WHERE dxcc='370'");  // Oman
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bt' WHERE dxcc='306'");  // Bhutan
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ae' WHERE dxcc='391'");  // Un Arab Emirates
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='qa' WHERE dxcc='376'");  // Qatar
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bh' WHERE dxcc='304'");  // Bahrain
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pk' WHERE dxcc='372'");  // Pakistan
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='tw' WHERE dxcc='386'");  // Taiwan
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='tw' WHERE dxcc='505'");  // Pratas Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cn' WHERE dxcc='318'");  // China
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='nr' WHERE dxcc='157'");  //  Nauru
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ad' WHERE dxcc='203'");  // Andorra
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gm' WHERE dxcc='422'");  // Gambia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bs' WHERE dxcc='60'");  // Bahamas
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mz' WHERE dxcc='181'");  // Mozambique
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='112'");  // Chile
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='217'");  // San Felix
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='47'");  // Easter Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='125'");  //  Juan Fernandez is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cu' WHERE dxcc='70'");  // Cuba
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ma' WHERE dxcc='446'");  // Morocco
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bo' WHERE dxcc='104'");  // Bolivia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pt' WHERE dxcc='272'");  // Portugal
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pt' WHERE dxcc='256'");  // Madeira
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pt' WHERE dxcc='149'");  // Azores
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='uy' WHERE dxcc='144'");  // Uruguay
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='211'");  // Sable Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='252'");  // St Paul is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ao' WHERE dxcc='401'");  // Angola
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cv' WHERE dxcc='409'");  // Cape Verde
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='km' WHERE dxcc='411'");  // Comoros
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='de' WHERE dxcc='230'");  // Fed Rep Germany
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ph' WHERE dxcc='375'");  //Philippines
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='er' WHERE dxcc='51'");  // Eritrea
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ps' WHERE dxcc='510'");  // Palestine
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ck' WHERE dxcc='191'");  // North Cook
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ck' WHERE dxcc='234'");  // South Cook
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='nu' WHERE dxcc='188'");  // Niue
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ba' WHERE dxcc='501'");  // Bosnia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='es' WHERE dxcc='21'");  // Balearic is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='canary' WHERE dxcc='29'");  // Canary Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='es' WHERE dxcc='32'");  // Ceuta & Melilla
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ie' WHERE dxcc='245'");  // Ireland
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='am' WHERE dxcc='14'");  // Armenia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='lr' WHERE dxcc='434'");  // Liberia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ir' WHERE dxcc='330'");  // Iran
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mv' WHERE dxcc='179'");  // Moldova
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ee' WHERE dxcc='52'");  //  Estonia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='et' WHERE dxcc='53'");  // Ethiopia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='by' WHERE dxcc='27'");  // Belarus
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='kg' WHERE dxcc='135'");  // Kyrgyzstan
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='tm' WHERE dxcc='262'");  // Turkmenistan
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='227'");  // France
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='79'");  // Guadeloupe
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='yt' WHERE dxcc='169'");  // Mayotte
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='516'");  // St Barthelemy
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='nc' WHERE dxcc='162'");  // New Caledonia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='nc' WHERE dxcc='512'");  // Chesterfield Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mq' WHERE dxcc='84'");  // Martinique
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pf' WHERE dxcc='175'");  // French Polynesia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pf' WHERE dxcc='508'");  // Austral Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pm' WHERE dxcc='277'");  //  St Pierre & Miquelon
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='re' WHERE dxcc='453'");  //Reunion Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='213'");  // St Marteen
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='99'");  // Glorioso is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='124'");  // Juan de nova, Europa
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='276'");  //  Tromelin - TODO: Add the wikipedia flag
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='41'");  // Crozet
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='131'");  // Kerguelen
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag http://es.wikipedia.org/wiki/Tierras_Australes_y_Ant%C3%A1rticas_Francesas
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='10'");  //Amsterdam & St Paul is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='wf' WHERE dxcc='298'");  // Wallis & Futuna is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gf' WHERE dxcc='63'");  // French Guiana
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='england' WHERE dxcc='223'");  // England
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='114'");  //Isle of Man
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='northernireland' WHERE dxcc='265'");  // Northern Ireland
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='122'");  // Jersey
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='scotland' WHERE dxcc='279'");  //  Scotland & Shetland is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='106'");  // Guernsey
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='wales' WHERE dxcc='294'");  // Wales
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sb' WHERE dxcc='185'");  // Solomon
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sb' WHERE dxcc='507'");  // Temotu Province
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='hu' WHERE dxcc='239'");  // Hungary
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ch' WHERE dxcc='287'");  // Switzerland
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='li' WHERE dxcc='251'");   // Liechtenstein
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ec' WHERE dxcc='120'");  // Ecuador
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ec' WHERE dxcc='71'");  // Galapagos Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ht' WHERE dxcc='78'");  // Haiti
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='do' WHERE dxcc='72'");  // Dominican Rep
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='116'");  // Colombia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='216'");  // San Andres & Providencia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='161'");  // Malpelo
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='kr' WHERE dxcc='137'");  // Rep Korea
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pa' WHERE dxcc='88'");  // Panama
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='hn' WHERE dxcc='80'");  // Honduras
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='th' WHERE dxcc='387'");  // Thailand
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='va' WHERE dxcc='295'");  // Vatican City
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sa' WHERE dxcc='378'");  // Saudi Arabia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='248'");  // Italy
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='dj' WHERE dxcc='382'");  // Djibouti
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gd' WHERE dxcc='77'");  // Grenada
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gw' WHERE dxcc='109'");  // Guinea-Bissau
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='lc' WHERE dxcc='97'");  // St Lucia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='dm' WHERE dxcc='95'");  // Dominica
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='vc' WHERE dxcc='98'");  // St Vicent
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='339'");  // Japan
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='177'");  // Minami Torishima
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='192'");  // Ogasawara
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mn' WHERE dxcc='363'");  // Mongolia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sj' WHERE dxcc='259'");  // Svalbard
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sj' WHERE dxcc='118'");  // Jan Mayen
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='jo' WHERE dxcc='342'");  // Jordan
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='291'");  // United States
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='105'");  // Guantanamo Bay
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mp' WHERE dxcc='166'");  //  Mariana is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='20'");  // Baker & Howland is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gu' WHERE dxcc='103'");  // Guam
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='123'");  // Johnston is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='174'");  // Midway is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='197'");  // Palmyra & Jarbis is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='134'");  // Kingman Reef
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='110'");  // Hawaii
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='138'");  // Kure is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='as' WHERE dxcc='9'");  // American Samoa
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='as' WHERE dxcc='515'");  // Swains is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='297'");  // Wake is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='6'");  // Alaska
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='182'");  // Navassa Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='vi' WHERE dxcc='285'");  // Us Virgin is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pr' WHERE dxcc='202'");  // Puerto Rico
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='43'");  // Desecheo Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='no' WHERE dxcc='266'");  // Norway
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ar' WHERE dxcc='100'");  // Argentina
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='lu' WHERE dxcc='254'");  // Luxembourg
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='lt' WHERE dxcc='146'");  // Lithuania
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bg' WHERE dxcc='212'");  // Bulgaria
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pe' WHERE dxcc='136'");  // Peru
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='lb' WHERE dxcc='354'");  // Lebanon
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='at' WHERE dxcc='206'");  // Austria & Viena Intl HQ
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='224'");  // Findland
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='5'");  // Aland is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='167'");  // Market Reef
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cz' WHERE dxcc='503'");  // Czech Rep
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sk' WHERE dxcc='504'");  // Slovak Rep
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='be' WHERE dxcc='209'");  // Belgium
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gl' WHERE dxcc='237'");  // Greenland
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='dk' WHERE dxcc='222'");  // Faroe is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='dk' WHERE dxcc='221'");  // Denmark
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pg' WHERE dxcc='163'");  // Papua New Guinea
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='aw' WHERE dxcc='91'");  // Aruba
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='kp' WHERE dxcc='344'");  //Dpr Korea
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='nl' WHERE dxcc='263'");  // Netherlands
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cw' WHERE dxcc='517'");  // Curacao
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='bq' WHERE dxcc='520'");  // Bonaire
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='nl' WHERE dxcc='519'");  // Saba & St Eustatius
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='shm' WHERE dxcc='518'");  // Sint Marteen
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='108'");  // Brazil
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='56'");  // Fernando de Noronha
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='253'");  //  St Peter & St Paul
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='273'");  // Trindade & Martim Vaz
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sr' WHERE dxcc='140'");  // Suriname
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='61'");  // Franz Josef Land
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='eh' WHERE dxcc='302'");  // Western Sahara
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='bd' WHERE dxcc='305'");  // Bangladesh
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='si' WHERE dxcc='499'");  // Slovenia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sc' WHERE dxcc='379'");  // Seychelles
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='st' WHERE dxcc='219'");  // Sao Tome & Principe
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='se' WHERE dxcc='284'");  // Sweden
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pl' WHERE dxcc='269'");  // Poland
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sd' WHERE dxcc='466'");  // Sudan
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='eg' WHERE dxcc='479'");  // Egypt
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='236'");  // Greece
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='180'");  // Mount Athos
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='45'");  // Dodecanese
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='40'");  // Crete
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='tv' WHERE dxcc='282'");  // Tuvalu
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='301'");  // Western Kiribati
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='31'");  // Central Kiribati
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='48'");  // Eastern Kiribati
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='490'");  // Banaba is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='so' WHERE dxcc='232'");  // Somalia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sm' WHERE dxcc='278'");  // San Marino
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pw' WHERE dxcc='22'");  // Palau
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
 
     sq = QString ("UPDATE entity SET isoname='tr' WHERE dxcc='390'");  // Turkey
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='is' WHERE dxcc='242'");  // Iceland
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gt' WHERE dxcc='76'");  // Guatemala
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='cr' WHERE dxcc='308'");  // Costa Rica
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cr' WHERE dxcc='37'");  // Coco is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cm' WHERE dxcc='406'");  // Cameroon
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='214'");  // Corsica
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
     // TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='cf' WHERE dxcc='408'");  // Central African Rep
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cg' WHERE dxcc='412'");  // Rep of Congo
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
 
     sq = QString ("UPDATE entity SET isoname='ga' WHERE dxcc='420'");  // Gabon
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='td' WHERE dxcc='410'");  // Chad
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ci' WHERE dxcc='428'");  // Cote d'Ivoire
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bj' WHERE dxcc='416'");  // Benin
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ml' WHERE dxcc='442'");  // Mali
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='54'");  // European Rusia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='126'");  // Kaliningrad
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
 
     sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='15'");  // Asiatic Rusia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='uz' WHERE dxcc='292'");  // Uzbekistan
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='kz' WHERE dxcc='130'");  // Kazakhstan
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ua' WHERE dxcc='288'");  // Ukraine
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ag' WHERE dxcc='94'");  // Antigua & Barbuda
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bz' WHERE dxcc='66'");  // Belize
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='kn' WHERE dxcc='249'");  // St Kitts & Nevis
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='na' WHERE dxcc='464'");  // Namibia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fm' WHERE dxcc='173'");  // Micronesia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fm' WHERE dxcc='168'");  // Marshall Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bn' WHERE dxcc='345'");  // Brunei Darusalam
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='1'");  // Canada
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='150'");  // Australia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='hm' WHERE dxcc='111'");  // Heard Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='153'");  // Macquarie is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cc' WHERE dxcc='38'");  //  Cocos / Keeling is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='147'");  //  Lord Howe is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='171'");  // Mellish Reed
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='nf' WHERE dxcc='189'");  // Norkfolk is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='303'");  // Willis Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='cx' WHERE dxcc='35'");  // Christmas is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ai' WHERE dxcc='12'");  //  Anguilla
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ms' WHERE dxcc='96'");  // Montserrat
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='vg' WHERE dxcc='65'");  // British is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='tc' WHERE dxcc='89'");  // Turks & Caicos is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='pn' WHERE dxcc='172'");  // Pitcairn
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='513'");  // Ducie is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='fk' WHERE dxcc='141'");  // Falkland is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gs' WHERE dxcc='235'");  // South Georgia is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='241'");  // South Shetland is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='238'");  // South Orkney is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gs' WHERE dxcc='240'");  // South Sandwich Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bm' WHERE dxcc='64'");  // Bermuda
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='io' WHERE dxcc='33'");  // Chagos is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='hk' WHERE dxcc='321'");  // Hong Kong
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='324'");  // India
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='11'");  // Andaman & Nicobar
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='142'");  // Lakshadweep Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mx' WHERE dxcc='50'");  // Mexico
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mx' WHERE dxcc='204'");  // Revilagigedo
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='bf' WHERE dxcc='480'");  // Burkina Faso
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='kh' WHERE dxcc='312'");  //  Cambodia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='la' WHERE dxcc='143'");  // Laos
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mo' WHERE dxcc='152'");  // Macao
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mm' WHERE dxcc='309'");  // Myanmar
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='af' WHERE dxcc='3'");  // Afganistan
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='id' WHERE dxcc='327'");  // Indonesia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='iq' WHERE dxcc='333'");  // Iraq
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='vu' WHERE dxcc='158'");  // Vanuatu
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sy' WHERE dxcc='384'");  // Syria
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='lv' WHERE dxcc='145'");  // Latvia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ni' WHERE dxcc='86'");  //  Nicaragua
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ro' WHERE dxcc='275'");  // Romania
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sv' WHERE dxcc='74'");  // El Salvador
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='rs' WHERE dxcc='296'");  // Serbia && Kosovo
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ve' WHERE dxcc='148'");  // Venezuela
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ve' WHERE dxcc='17'");  // Aves Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='zw' WHERE dxcc='452'");  // Zimbabwe
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='mk' WHERE dxcc='502'");  // Macedonia
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ss' WHERE dxcc='521'");  //Rep South Sudan
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='al' WHERE dxcc='7'");  // Albania
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gi' WHERE dxcc='233'");  // Gibraltar
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='283'");  // UK Base Aereas Cyprus
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sh' WHERE dxcc='250'");  // St Helena
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sh' WHERE dxcc='205'");  // Ascension is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='sh' WHERE dxcc='274'");  // Tristan da Cunha & Gough is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='ky' WHERE dxcc='69'");  // Cayman Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='tk' WHERE dxcc='270'");  // Tokelau Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='170'");  // New Zeland
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='34'");  // Chatham Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='133'");  // Kermadec is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='16'");  // Auckland & Campbell is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='py' WHERE dxcc='132'");  // Paraguay
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='za' WHERE dxcc='462'");  // South Africa
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='za' WHERE dxcc='201'");  // Pr Edward & Marion Is
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
 // Countries without flag or controversial - Data is added just to keep the DB filled-up
     sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='506'");  // Scarboroug Reef
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
     sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='13'");  //  Antartica
-    sqlOK = query.exec(sq);
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());return false;}
+    {return false;}
 
      //qDebug() << "DataBase::updateTheEntityTableISONames-END" << endl;
     return true;
@@ -6206,15 +6124,11 @@ bool DataBase::updateTo011()
 
     }
 
-    //recreateSatelliteData();
+    recreateSatelliteData();
 
     execQuery(Q_FUNC_INFO, "ALTER TABLE satellites ADD COLUMN uplink");
     execQuery(Q_FUNC_INFO, "ALTER TABLE satellites ADD COLUMN downlink");
-
-    //qDebug() << "DataBase::updateTo011: - 01 " << endl;
-    //query.exec(QString("ALTER TABLE satellites ADD COLUMN uplink"));
-    //qDebug() << "DataBase::updateTo011: - 02 " << endl;
-    //query.exec(QString("ALTER TABLE satellites ADD COLUMN downlink"));
+/*
 
     //qDebug() << "DataBase::updateTo011: - 03 " << endl;
     if (!execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.030,146.180', downlink='145.81', satmode='SSB,CW' WHERE satarrlid='AO-10'"))
@@ -6226,100 +6140,94 @@ bool DataBase::updateTo011()
 
     //qDebug() << "DataBase::updateTo011: - 11 - Sat data OK" << endl;
 
-    query.exec(QString("UPDATE satellites SET uplink='435.423-435.573', downlink='145.975-145.825', satmode='SSB,CW' WHERE satarrlid='AO-13'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.92', downlink='437.026', satmode='FM/USB' WHERE satarrlid='AO-16'"));
-    query.exec(QString("UPDATE satellites SET downlink='145.8', satmode='CW' WHERE satarrlid='AO-21'"));
-    query.exec(QString("UPDATE satellites SET downlink='145.975', satmode='PKT' WHERE satarrlid='AO-24'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.85', downlink='436.795', satmode='FM' WHERE satarrlid='AO-27'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.975-146.025', downlink='144.325-144.375', satmode='SSB,CW' WHERE satarrlid='AO-3'"));
-    query.exec(QString("UPDATE satellites SET uplink='432.145-432.155', downlink='144.300-144.310', satmode='SSB,CW' WHERE satarrlid='AO-4'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.840-145.990,435.790-435.520', downlink='2401.2225-2401.475', satmode='SSB,CW' WHERE satarrlid='AO-40'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.92', downlink='435.3', satmode='FM' WHERE satarrlid='AO-51'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.900-146.000', downlink='29.450-29.550', satmode='SSB,CW' WHERE satarrlid='AO-6'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.850-145.950,432.180-432.120', downlink='29.400-29.500,145.920-145.980', satmode='USB,LSB/USB' WHERE satarrlid='AO-7'"));
-    query.exec(QString("UPDATE satellites SET uplink='435.150-435.130', downlink='145.950-145.970', satmode='LSB/USB' WHERE satarrlid='AO-73'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.850-145.900,145.900-146.000', downlink='29.400-29.500,435.200-435.10', satmode='SSB,CW' WHERE satarrlid='AO-8'"));
-    query.exec(QString("UPDATE satellites SET uplink='435.170', downlink='145.980', satmode='FM' WHERE satarrlid='AO-85'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.200,144.490', downlink='145.800,145.800', satmode='FM' WHERE satarrlid='ARISS'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.92', downlink='436.2', satmode='FM' WHERE satarrlid='BY70-1'"));
-    query.exec(QString("UPDATE satellites SET uplink='144.350', downlink='437.200', satmode='FM' WHERE satarrlid='CAS-3H'"));
-    query.exec(QString("UPDATE satellites SET downlink='145.870', satmode='CW' WHERE satarrlid='DO-64'"));
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.423-435.573', downlink='145.975-145.825', satmode='SSB,CW' WHERE satarrlid='AO-13'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.92', downlink='437.026', satmode='FM/USB' WHERE satarrlid='AO-16'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET downlink='145.8', satmode='CW' WHERE satarrlid='AO-21'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET downlink='145.975', satmode='PKT' WHERE satarrlid='AO-24'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.85', downlink='436.795', satmode='FM' WHERE satarrlid='AO-27'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.975-146.025', downlink='144.325-144.375', satmode='SSB,CW' WHERE satarrlid='AO-3'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='432.145-432.155', downlink='144.300-144.310', satmode='SSB,CW' WHERE satarrlid='AO-4'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.840-145.990,435.790-435.520', downlink='2401.2225-2401.475', satmode='SSB,CW' WHERE satarrlid='AO-40'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.92', downlink='435.3', satmode='FM' WHERE satarrlid='AO-51'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.900-146.000', downlink='29.450-29.550', satmode='SSB,CW' WHERE satarrlid='AO-6'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.850-145.950,432.180-432.120', downlink='29.400-29.500,145.920-145.980', satmode='USB,LSB/USB' WHERE satarrlid='AO-7'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.150-435.130', downlink='145.950-145.970', satmode='LSB/USB' WHERE satarrlid='AO-73'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.850-145.900,145.900-146.000', downlink='29.400-29.500,435.200-435.10', satmode='SSB,CW' WHERE satarrlid='AO-8'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.170', downlink='145.980', satmode='FM' WHERE satarrlid='AO-85'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.200,144.490', downlink='145.800,145.800', satmode='FM' WHERE satarrlid='ARISS'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.92', downlink='436.2', satmode='FM' WHERE satarrlid='BY70-1'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='144.350', downlink='437.200', satmode='FM' WHERE satarrlid='CAS-3H'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET downlink='145.870', satmode='CW' WHERE satarrlid='DO-64'");
 
-    query.exec(QString("UPDATE satellites SET uplink='145.900-146.000,145.85', downlink='435.900-435.800,435.91', satmode='SSB,PKT' WHERE satarrlid='FO-12'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.900-146.000', downlink='435.900-435.800', satmode='SSB' WHERE satarrlid='FO-20'"));
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.900-146.000,145.85', downlink='435.900-435.800,435.91', satmode='SSB,PKT' WHERE satarrlid='FO-12'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.900-146.000', downlink='435.900-435.800', satmode='SSB' WHERE satarrlid='FO-20'");
 
-    query.exec(QString("UPDATE satellites SET uplink='145.900-145.999', downlink='435.900-435.800', satmode='LSB/USB,CW' WHERE satarrlid='FO-29'"));
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.900-145.999', downlink='435.900-435.800', satmode='LSB/USB,CW' WHERE satarrlid='FO-29'");
 
-    query.exec(QString("UPDATE satellites SET uplink='145.925-145.975,145.825', downlink='435.765-435.715,435.675', satmode='LSB/USB,FM' WHERE satarrlid='HO-68'"));
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.925-145.975,145.825', downlink='435.765-435.715,435.675', satmode='LSB/USB,FM' WHERE satarrlid='HO-68'");
 
-    query.exec(QString("UPDATE satellites SET uplink='145.840-145.900', downlink='437.125-437.150', satmode='CW' WHERE satarrlid='LO-19'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.95,145.85', downlink='435.1755,437.543', satmode='FM,PKT' WHERE satarrlid='LO-78'"));
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.840-145.900', downlink='437.125-437.150', satmode='CW' WHERE satarrlid='LO-19'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.95,145.85', downlink='435.1755,437.543', satmode='FM,PKT' WHERE satarrlid='LO-78'");
 
-    query.exec(QString("UPDATE satellites SET uplink='145.827', downlink='145.827', satmode='PKT' WHERE satarrlid='NO-44'"));
-    query.exec(QString("UPDATE satellites SET uplink='145', downlink='29' WHERE satarrlid='RS-1'"));
-    query.exec(QString("UPDATE satellites SET downlink='29.357,29.403' WHERE satarrlid='RS-10'"));
-    query.exec(QString("UPDATE satellites SET downlink='29.357,29.403' WHERE satarrlid='RS-11'"));
-    query.exec(QString("UPDATE satellites SET uplink='21.210-21.250', downlink='29.410-29.450', satmode='SSB' WHERE satarrlid='RS-12'"));
-    query.exec(QString("UPDATE satellites SET uplink='21.260-21.300', downlink='145.860-145.900', satmode='SSB' WHERE satarrlid='RS-13'"));
-    query.exec(QString("UPDATE satellites SET downlink='29.3525-29.3987' WHERE satarrlid='RS-15'"));
-    query.exec(QString("UPDATE satellites SET satmode='CW' WHERE satarrlid='RS-5'"));
-    query.exec(QString("UPDATE satellites SET satmode='CW' WHERE satarrlid='RS-7'"));
-    query.exec(QString("UPDATE satellites SET uplink='145', downlink='29' WHERE satarrlid='RS-2'"));
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.827', downlink='145.827', satmode='PKT' WHERE satarrlid='NO-44'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145', downlink='29' WHERE satarrlid='RS-1'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET downlink='29.357,29.403' WHERE satarrlid='RS-10'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET downlink='29.357,29.403' WHERE satarrlid='RS-11'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='21.210-21.250', downlink='29.410-29.450', satmode='SSB' WHERE satarrlid='RS-12'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='21.260-21.300', downlink='145.860-145.900', satmode='SSB' WHERE satarrlid='RS-13'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET downlink='29.3525-29.3987' WHERE satarrlid='RS-15'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET satmode='CW' WHERE satarrlid='RS-5'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET satmode='CW' WHERE satarrlid='RS-7'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145', downlink='29' WHERE satarrlid='RS-2'");
 
-    query.exec(QString("UPDATE satellites SET uplink='436.291', downlink='145.825', satmode='FM' WHERE satarrlid='SO-35'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.850', downlink='436.775', satmode='CW' WHERE satarrlid='SO-41'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.850', downlink='436.795', satmode='FM' WHERE satarrlid='SO-50'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.875', downlink='435.345', satmode='FM' WHERE satarrlid='SO-67'"));
-    query.exec(QString("UPDATE satellites SET uplink='145.975', downlink='435.07', satmode='FM' WHERE satarrlid='UO-14'"));
-    query.exec(QString("UPDATE satellites SET uplink='435.220-435.280,435.225-435.275', downlink='145.930-145.870,145.925-145.875', satmode='LSB/USB' WHERE satarrlid='VO-52'"));
-    query.exec(QString("UPDATE satellites SET uplink='435.030-435.050', downlink='145.665-145.685', satmode='LSB/USB' WHERE satarrlid='XW-2A'"));
-    query.exec(QString("UPDATE satellites SET uplink='435.090-435.110', downlink='145.730-145.750', satmode='LSB/USB' WHERE satarrlid='XW-2B'"));
-    query.exec(QString("UPDATE satellites SET uplink='435.150-435.170', downlink='145.795-145.815', satmode='LSB/USB' WHERE satarrlid='XW-2C'"));
-    query.exec(QString("UPDATE satellites SET uplink='435.210-435.230', downlink='145.860-145.880', satmode='LSB/USB' WHERE satarrlid='XW-2D'"));
-    query.exec(QString("UPDATE satellites SET uplink='435.270-435.290', downlink='145.915-145.935', satmode='LSB/USB' WHERE satarrlid='XW-2E'"));
-    query.exec(QString("UPDATE satellites SET uplink='435.330-435.350', downlink='145.980-145.999', satmode='LSB/USB' WHERE satarrlid='XW-2F'"));
-    query.exec(QString("INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-90', 'LilacSat-OSCAR 90 (LilacSat-1)', '145.985', '436.510', 'FM')"));
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='436.291', downlink='145.825', satmode='FM' WHERE satarrlid='SO-35'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.850', downlink='436.775', satmode='CW' WHERE satarrlid='SO-41'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.850', downlink='436.795', satmode='FM' WHERE satarrlid='SO-50'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.875', downlink='435.345', satmode='FM' WHERE satarrlid='SO-67'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.975', downlink='435.07', satmode='FM' WHERE satarrlid='UO-14'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.220-435.280,435.225-435.275', downlink='145.930-145.870,145.925-145.875', satmode='LSB/USB' WHERE satarrlid='VO-52'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.030-435.050', downlink='145.665-145.685', satmode='LSB/USB' WHERE satarrlid='XW-2A'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.090-435.110', downlink='145.730-145.750', satmode='LSB/USB' WHERE satarrlid='XW-2B'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.150-435.170', downlink='145.795-145.815', satmode='LSB/USB' WHERE satarrlid='XW-2C'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.210-435.230', downlink='145.860-145.880', satmode='LSB/USB' WHERE satarrlid='XW-2D'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.270-435.290', downlink='145.915-145.935', satmode='LSB/USB' WHERE satarrlid='XW-2E'");
+    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.330-435.350', downlink='145.980-145.999', satmode='LSB/USB' WHERE satarrlid='XW-2F'");
+    execQuery(Q_FUNC_INFO, "INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-90', 'LilacSat-OSCAR 90 (LilacSat-1)', '145.985', '436.510', 'FM')");
 
     //qDebug() << "DataBase::updateTo011: - 01 " << endl;
-    if (!query.exec(QString("INSERT INTO satellites (satarrlid, satname) VALUES ('BY70-1', 'Bayi Kepu Weixing 1')")))
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO satellites (satarrlid, satname) VALUES ('BY70-1', 'Bayi Kepu Weixing 1')"))
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;
     }
     //qDebug() << "DataBase::updateTo011: - 02 " << endl;
-    if (!query.exec(QString("INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('EO-88', 'Emirates OSCAR 88 (Nayif-1)', '435.045-435.015', '145.960-145.990', 'LSB/USB')")))
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('EO-88', 'Emirates OSCAR 88 (Nayif-1)', '435.045-435.015', '145.960-145.990', 'LSB/USB')"))
     {        
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;
     }
     //qDebug() << "DataBase::updateTo011: - 03 " << endl;
 
-    if(!query.exec(QString("INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('IO-86', 'Indonesia OSCAR 86 (LAPAN-ORARI)', '435.880', '145.880', 'FM')")))
+    if(!execQuery(Q_FUNC_INFO, "INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('IO-86', 'Indonesia OSCAR 86 (LAPAN-ORARI)', '435.880', '145.880', 'FM')"))
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;
     }
     //qDebug() << "DataBase::updateTo011: - 04 " << endl;
 
-    if(!query.exec(QString("INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('MIREX', 'Mir packet digipeater', '145.985', '145.985', 'PKT')")))
+    if(!execQuery(Q_FUNC_INFO, "INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('MIREX', 'Mir packet digipeater', '145.985', '145.985', 'PKT')"))
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;
     }
     //qDebug() << "DataBase::updateTo011: - 5 " << endl;
-    if(!query.exec(QString("INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('SAREX', 'Shuttle Amateur Radio Experiment packet digipeater', '144.80,144.49', '144.55', 'FM')")))
-
+    if(!execQuery(Q_FUNC_INFO, "INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('SAREX', 'Shuttle Amateur Radio Experiment packet digipeater', '144.80,144.49', '144.55', 'FM')"))
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;
     }
     //qDebug() << "DataBase::updateTo011: - 06 " << endl;
 
+*/
 
-    if(!query.exec(QString("INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '0')")))
+    if(!execQuery(Q_FUNC_INFO, "INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '0')"))
     {
         //qDebug() << "DataBase::updateTo011: - MSK NOK " << endl;
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;
     }
     else
@@ -6370,8 +6278,15 @@ void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, 
      qDebug() << "DataBase::execQuery: " << function << " : " << stringQuery << endl;
     QSqlQuery query;
 
+
     if (query.exec(stringQuery))
     {
+        while (query.isActive())
+        {
+            qDebug() << "DataBase::execQuery: Still active... " << endl;
+            query.finish();
+        }
+        qDebug() << "DataBase::execQuery: No longer active... " << endl;
         return true;
     }
     else

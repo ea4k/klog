@@ -3705,6 +3705,34 @@ int DataProxy_SQLite::getHowManyEntities()
     }
 }
 
+
+int DataProxy_SQLite::getMaxEntityID()
+{
+    //SELECT MAX (dxcc) FROM entity WHERE dxcc<1000
+    QSqlQuery query;
+    QString aux;
+    aux = QString("SELECT MAX (dxcc) FROM entity WHERE dxcc<1000");
+    if (query.exec(aux))
+    {
+        query.next();
+        if (query.isValid())
+        {
+            return (query.value(0)).toInt();
+        }
+        else
+        {
+            return -1;
+        }
+
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        return -1;
+    }
+
+}
+
 bool DataProxy_SQLite::updateISONames()
 {
     //qDebug()  << "DataProxy_SQLite::updateISONames"  << endl;

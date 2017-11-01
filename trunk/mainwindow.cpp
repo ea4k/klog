@@ -3274,10 +3274,10 @@ void MainWindow::createMenusCommon()
     openAct->setShortcut(Qt::CTRL + Qt::Key_O);
     connect(openAct, SIGNAL(triggered()), this, SLOT(openFile()));
 
-    //ADIFImport = new QAction(tr("&Import from ADIF..."), this);
-    //fileMenu->addAction(ADIFImport);
-    //connect(ADIFImport, SIGNAL(triggered()), this, SLOT(slotADIFImport()));
-    //ADIFImport->setToolTip(tr("Import an ADIF file into the current log"));
+    ADIFImport = new QAction(tr("&Import from ADIF..."), this);
+    fileMenu->addAction(ADIFImport);
+    connect(ADIFImport, SIGNAL(triggered()), this, SLOT(slotADIFImport()));
+    ADIFImport->setToolTip(tr("Import an ADIF file into the current log"));
 
     LoTWImport = new QAction(tr("&Import from LoTW..."), this);
     fileMenu->addAction(LoTWImport);
