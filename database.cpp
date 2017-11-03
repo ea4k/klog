@@ -123,7 +123,7 @@ bool DataBase::createConnection(bool newDB)
         //QDir::setCurrent(dbDir);
         QString dbName;
         dbName = util->getKLogDBFile();
-          //qDebug() << "DataBase::createConnection: DB: " << dbName << endl;
+        //qDebug() << "DataBase::createConnection: DB: " << dbName << endl;
 
         if (util->isDBFileExisting(dbName))
         {
@@ -136,18 +136,18 @@ bool DataBase::createConnection(bool newDB)
 
         db.setDatabaseName(dbName);
         //QDir::setCurrent(backDir);
-          //qDebug() << "DataBase::createConnection - dataBaseName: " << db.databaseName() << endl;
+        //qDebug() << "DataBase::createConnection - dataBaseName: " << db.databaseName() << endl;
 
         if (!db.open())
         {
             QMessageBox::warning(0, QObject::tr("Database Error"),
                                  db.lastError().text());
-             //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
+            //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
             return false;
         }
         else
         {
-             //qDebug() << "DataBase::createConnection: created?" << endl;
+            //qDebug() << "DataBase::createConnection: File is opened: Is the DB created?" << endl;
 
             if (isTheDBCreated())
             {
@@ -155,7 +155,7 @@ bool DataBase::createConnection(bool newDB)
             }
             else
             {
-                  //qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
+                //qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
                 createDataBase();
 
 
@@ -189,6 +189,7 @@ bool DataBase::createConnection(bool newDB)
                 stringQuery ="PRAGMA case_sensitive_like=OFF;";
                 execQuery(Q_FUNC_INFO, stringQuery);
             }
+            //qDebug() << "DataBase::createConnection: DB not opened END"  << endl;
         }
     }
     else
@@ -214,13 +215,10 @@ bool DataBase::createConnection(bool newDB)
 
 bool DataBase::isTheDBCreated()
 {
-      //qDebug() << "DataBase::isTheDBCreated"  << endl;
-    //return created;
-    //return hasTheTableData("softwarecontrol");
+    //qDebug() << "DataBase::isTheDBCreated"  << endl;
 
     QSqlQuery query;
     int _num = 0;
-
 
     QString stringQuery ("SELECT count(id) FROM softwarecontrol");
     bool sqlOK = query.exec(stringQuery);
@@ -228,39 +226,45 @@ bool DataBase::isTheDBCreated()
 
     if (sqlOK)
     {
+        //qDebug() << "DataBase::isTheDBCreated - SQL OK"  << endl;
         query.next();
         if (query.isValid())
         {
-              //qDebug() << "DataBase::isTheDBCreated - valid"  << endl;
+
+             //qDebug() << "DataBase::isTheDBCreated - valid"  << endl;
             _num = (query.value(0)).toInt();
             if (_num > 0)
             {
                  //qDebug() << "DataBase::isTheDBCreated - DB Exists"  << endl;
                  //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END TRUE" << endl;
+                 query.finish();
                 return true;
             }
             else
             {
                  //qDebug() << "DataBase::isTheDBCreated - DB does not Exist"  << endl;
-
                  //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-1" << endl;
+                 query.finish();
                 return false;
             }
         }
         else
         {
+
              //qDebug() << "DataBase::isTheDBCreated - not valid"  << endl;
              //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-2" << endl;
-
+             query.finish();
             return false;
         }
     }
     else
     { //ERROR in Query execution
+        //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------ ERROR IN QUERY EXECUTION" << endl;
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
         return false;
     }
-
+    query.finish();
     //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-X" << endl;
     return false;
 
@@ -419,8 +423,10 @@ bool DataBase::createTableLog(bool temp)
              "FOREIGN KEY (bandid) REFERENCES band)");
 
       //qDebug() << "DataBase::createTableLog: " << stringQuery  << endl;
-
-    if (query.exec(stringQuery))
+    bool sqlOK = query.exec(stringQuery);
+    while (query.isActive())
+    {query.finish();}
+    if (sqlOK)
     {
         return true;
     }
@@ -444,27 +450,23 @@ bool DataBase::createDataBase()
     //QString dateString;
 
     QSqlQuery query;
+    execQuery(Q_FUNC_INFO, "DROP TABLE log");
+    execQuery(Q_FUNC_INFO, "DROP TABLE band");
+    execQuery(Q_FUNC_INFO, "DROP TABLE mode");
+    execQuery(Q_FUNC_INFO, "DROP TABLE prefixesofentity");
+    execQuery(Q_FUNC_INFO, "DROP TABLE continent");
+    execQuery(Q_FUNC_INFO, "DROP TABLE entity");
 
-    query.exec("DROP TABLE log");
-    query.exec("DROP TABLE band");
-    query.exec("DROP TABLE mode");
-    //query.exec("DROP TABLE mode");
-    query.exec("DROP TABLE prefixesofentity");
-    query.exec("DROP TABLE continent");
-    query.exec("DROP TABLE entity");
-
-
-
-    query.exec("CREATE TABLE softwarecontrol ("
+    QString stringQuery = QString ("CREATE TABLE softwarecontrol ("
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 "dateupgrade VARCHAR(10) NOT NULL, "
                 "softversion REAL NOT NULL, "
                 "dbversion REAL NOT NULL)");
 
+    execQuery(Q_FUNC_INFO, stringQuery);
     //dateString = (date.currentDateTime()).toString("yyyyMMdd");
 
     updateDBVersion();
-    //query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
 
     createTableBand(true);
     populateTableBand(true);
@@ -491,40 +493,40 @@ bool DataBase::createDataBase()
       */
 
 
-      query.exec("CREATE TABLE continent ("
+      stringQuery = QString("CREATE TABLE continent ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(2) NOT NULL, "
                  "name VARCHAR(15) NOT NULL)");
-
-      query.exec("CREATE TABLE ant_path_enumeration ("
+    execQuery(Q_FUNC_INFO, stringQuery);
+      stringQuery = QString("CREATE TABLE ant_path_enumeration ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(1) NOT NULL, "
                  "name VARCHAR(15) NOT NULL)");
-
-      query.exec("CREATE TABLE arrl_sect_enumeration ("
+    execQuery(Q_FUNC_INFO, stringQuery);
+      stringQuery = QString("CREATE TABLE arrl_sect_enumeration ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(2) NOT NULL, "
                  "name VARCHAR(30) NOT NULL)");
 
-
-      query.exec("CREATE TABLE qso_complete_enumeration ("
+    execQuery(Q_FUNC_INFO, stringQuery);
+      stringQuery = QString("CREATE TABLE qso_complete_enumeration ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(3) NOT NULL, "
                  "name VARCHAR(10) NOT NULL)");
-
+    execQuery(Q_FUNC_INFO, stringQuery);
 
       createTableContest();
 
-      query.exec("CREATE TABLE contestcategory ("
+      stringQuery = QString("CREATE TABLE contestcategory ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(20) NOT NULL, "
                  "name VARCHAR(40) NOT NULL");
-
-      query.exec("CREATE TABLE award_enumeration ("
+    execQuery(Q_FUNC_INFO, stringQuery);
+      stringQuery = QString("CREATE TABLE award_enumeration ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "name VARCHAR(15) NOT NULL)");
-
-      query.exec("CREATE TABLE prefixesofentity ("
+    execQuery(Q_FUNC_INFO, stringQuery);
+      stringQuery = QString("CREATE TABLE prefixesofentity ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "prefix VARCHAR(15) NOT NULL,"
                  "dxcc INTEGER NOT NULL,"
@@ -532,10 +534,10 @@ bool DataBase::createDataBase()
                  "ituz INTEGER NOT NULL,"
                  "UNIQUE (prefix, dxcc), "
                  "FOREIGN KEY (dxcc) REFERENCES entity)");
+    execQuery(Q_FUNC_INFO, stringQuery);
 
 
-
-      query.exec("CREATE TABLE awarddxcc ("
+      stringQuery = QString("CREATE TABLE awarddxcc ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "dxcc INTEGER NOT NULL,"
                  "band INTEGER NOT NULL, "
@@ -548,6 +550,7 @@ bool DataBase::createDataBase()
                  "FOREIGN KEY (band) REFERENCES band, "
                  "FOREIGN KEY (mode) REFERENCES mode, "
                  "FOREIGN KEY (qsoid) REFERENCES log)");
+        execQuery(Q_FUNC_INFO, stringQuery);
 
 /*
 In awarddxcc confirmed means:
@@ -558,7 +561,7 @@ confirmed = 1     Set as Confirmed
 
 
 
-      query.exec("CREATE TABLE awardwaz ("
+      stringQuery = QString("CREATE TABLE awardwaz ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "cqz INTEGER NOT NULL,"
                  "band INTEGER NOT NULL, "
@@ -570,91 +573,95 @@ confirmed = 1     Set as Confirmed
                  "FOREIGN KEY (band) REFERENCES band, "
                  "FOREIGN KEY (mode) REFERENCES mode, "
                  "FOREIGN KEY (qsoid) REFERENCES log)");
+      execQuery(Q_FUNC_INFO, stringQuery);
       /*
       In awardwaz confirmed means:
       confirmed = 0     Set as Worked
       confirmed = 1     Set as Confirmed
       */
 
-      query.exec("CREATE TABLE qsl_rec_status ("
+      stringQuery = QString("CREATE TABLE qsl_rec_status ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(1) NOT NULL, "
                  "name VARCHAR(15) NOT NULL)");
+      execQuery(Q_FUNC_INFO, stringQuery);
 
-      query.exec("CREATE TABLE qsl_sent_status ("
+      stringQuery = QString("CREATE TABLE qsl_sent_status ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(1) NOT NULL, "
                  "name VARCHAR(15) NOT NULL)");
+      execQuery(Q_FUNC_INFO, stringQuery);
 
 
-      query.exec("CREATE TABLE qsl_via ("
+      stringQuery = QString("CREATE TABLE qsl_via ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(1) NOT NULL, "
                  "name VARCHAR(15) NOT NULL)");
+      execQuery(Q_FUNC_INFO, stringQuery);
 
       createTablePropModes();
       createTableLogs(true);
       createTableClubLogStatus();
       populateTableClubLogStatus();
 
-    query.exec("INSERT INTO qsl_sent_status (shortname, name) VALUES ('Y', 'Yes')");
-    query.exec("INSERT INTO qsl_sent_status (shortname, name) VALUES ('N', 'No')");
-    query.exec("INSERT INTO qsl_sent_status (shortname, name) VALUES ('R', 'Requested')");
-    query.exec("INSERT INTO qsl_sent_status (shortname, name) VALUES ('Q', 'Queued')");
-    query.exec("INSERT INTO qsl_sent_status (shortname, name) VALUES ('I', 'Ignore/Invalid')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('Y', 'Yes')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('N', 'No')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('R', 'Requested')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('Q', 'Queued')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('I', 'Ignore/Invalid')");
 
 
-    query.exec("INSERT INTO qsl_rec_status (shortname, name) VALUES ('Y', 'Yes')");
-    query.exec("INSERT INTO qsl_rec_status (shortname, name) VALUES ('N', 'No')");
-    query.exec("INSERT INTO qsl_rec_status (shortname, name) VALUES ('R', 'Requested')");
-    query.exec("INSERT INTO qsl_rec_status (shortname, name) VALUES ('I', 'Ignore/Invalid')");
-    query.exec("INSERT INTO qsl_rec_status (shortname, name) VALUES ('V', 'Validated')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('Y', 'Yes')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('N', 'No')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('R', 'Requested')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('I', 'Ignore/Invalid')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('V', 'Validated')");
 
 
-      query.exec("INSERT INTO continent (shortname, name) VALUES ('AF', 'Africa')");
-      query.exec("INSERT INTO continent (shortname, name) VALUES ('AS', 'Asia')");
-      query.exec("INSERT INTO continent (shortname, name) VALUES ('EU', 'Europe')");
-      query.exec("INSERT INTO continent (shortname, name) VALUES ('NA', 'North America')");
-      query.exec("INSERT INTO continent (shortname, name) VALUES ('OC', 'Oceania')");
-      query.exec("INSERT INTO continent (shortname, name) VALUES ('SA', 'South America')");
-      query.exec("INSERT INTO continent (shortname, name) VALUES ('AN', 'Antartica')");
+      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('AF', 'Africa')");
+      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('AS', 'Asia')");
+      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('EU', 'Europe')");
+      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('NA', 'North America')");
+      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('OC', 'Oceania')");
+      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('SA', 'South America')");
+      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('AN', 'Antartica')");
 
       populateContestData();
       populatePropagationModes();
 
 
-    query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('G', 'GrayLine')");
-    query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('O', 'Other')");
-    query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('S', 'ShortPath')");
-    query.exec("INSERT INTO ant_path_enumeration (shortname, name) VALUES ('L', 'LongPath')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('G', 'GrayLine')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('O', 'Other')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('S', 'ShortPath')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('L', 'LongPath')");
 
-    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AL', 'Alabama')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AL', 'Alabama')");
 /*
-    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AK', 'Alaska')");
-    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AB', 'Alberta')");
-    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AR', 'Arkansas')");
-    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AZ', 'Arizona')");
-    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('BC', 'British Columbia')");
-    query.exec("INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('CO', 'Colorado')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AK', 'Alaska')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AB', 'Alberta')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AR', 'Arkansas')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AZ', 'Arizona')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('BC', 'British Columbia')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('CO', 'Colorado')");
 */
 
     //TODO: Awards are deprecated
-    query.exec("INSERT INTO award_enumeration (name) VALUES ('AJA')");
-    query.exec("INSERT INTO award_enumeration (name) VALUES ('CQDX')");
-    query.exec("INSERT INTO award_enumeration (name) VALUES ('CQDXFIELD')");
-    query.exec("INSERT INTO award_enumeration (name) VALUES ('DXCC')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('AJA')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('CQDX')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('CQDXFIELD')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('DXCC')");
 
 
 
-    query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('B', 'Bureau')");
-    query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('D', 'Direct')");
-    query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('E', 'Electronic')");
-    query.exec("INSERT INTO qsl_via (shortname, name) VALUES ('M', 'Manager')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_via (shortname, name) VALUES ('B', 'Bureau')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_via (shortname, name) VALUES ('D', 'Direct')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_via (shortname, name) VALUES ('E', 'Electronic')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_via (shortname, name) VALUES ('M', 'Manager')");
 
-    query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('Y', 'Yes')");
-    query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('N', 'No')");
-    query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('NIL', 'Not heard')");
-    query.exec("INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('?', 'Uncertain')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('Y', 'Yes')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('N', 'No')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('NIL', 'Not heard')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('?', 'Uncertain')");
 
       //qDebug() << "DataBase::createDataBase ------------------------------------- END"  << endl;
     return true;
@@ -663,32 +670,45 @@ confirmed = 1     Set as Confirmed
 
 int DataBase::getBandIdFromName(const QString b)
 {
-      //qDebug() << "DataBase::getBandIdFromName: " << b << endl;
+    //qDebug() << "DataBase::getBandIdFromName: " << b << endl;
     QSqlQuery query;
     if (isValidBand(b))
     {
         QString queryString = QString("SELECT id FROM band WHERE name='%1'").arg(b);
 
-        query.exec(queryString);
-        query.next();
-        if ( query.isValid() )
-        {
-              //qDebug() << "DataBase::getBandIdFromName: OK" << QString::number((query.value(0)).toInt()) << endl;
-            return (query.value(0)).toInt();
+        bool sqlOK = query.exec(queryString);
 
+        if (sqlOK)
+        {
+            query.next();
+            if ( query.isValid() )
+            {
+                  //qDebug() << "DataBase::getBandIdFromName: OK" << QString::number((query.value(0)).toInt()) << endl;
+                int v = (query.value(0)).toInt();
+                query.finish();
+                return v;
+
+            }
+            else
+            {
+                  //qDebug() << "DataBase::getBandIdFromName: NOK 1" << endl;
+                query.finish();
+                return -1;
+            }
         }
         else
         {
-              //qDebug() << "DataBase::getBandIdFromName: NOK 1" << endl;
+            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            query.finish();
             return -1;
         }
+          //qDebug() << "DataBase::getBandIdFromName: NOK 3" << endl;
     }
     else
     {
-          //qDebug() << "DataBase::getBandIdFromName: NOK 2" << endl;
-        return -1;
+        //qDebug() << "DataBase::getBandIdFromName: BAND NOT VALID: " << b << endl;
     }
-      //qDebug() << "DataBase::getBandIdFromName: NOK 3" << endl;
+    query.finish();
     return -1;
 }
 
@@ -700,26 +720,34 @@ int DataBase::getModeIdFromName(const QString b)
     {
         QString queryString = QString("SELECT id FROM mode WHERE name='%1'").arg(b);
          //qDebug() << "DataBase::getModeIdFromName: queryString: " << queryString << endl;
-        query.exec(queryString);
-        query.next();
-        if ( query.isValid() )
-        {
-             //qDebug() << "DataBase::getModeIdFromName: OK" << QString::number((query.value(0)).toInt()) << endl;
-            return (query.value(0)).toInt();
+        bool sqlOK = query.exec(queryString);
 
+        if (sqlOK)
+        {
+            query.next();
+            if ( query.isValid() )
+            {
+                 //qDebug() << "DataBase::getModeIdFromName: OK" << QString::number((query.value(0)).toInt()) << endl;
+                return (query.value(0)).toInt();
+
+            }
+            else
+            {
+                 //qDebug() << "DataBase::getModeIdFromName: NOK 1" << endl;
+                query.finish();
+                return -1;
+            }
         }
         else
         {
-             //qDebug() << "DataBase::getModeIdFromName: NOK 1" << endl;
-            return -1;
+            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            query.finish();
         }
     }
-    else
-    {
-         //qDebug() << "DataBase::getModeIdFromName: NOK 2" << endl;
-        return -1;
-    }
+
+
      //qDebug() << "DataBase::getModeIdFromName: NOK 3" << endl;
+    query.finish();
     return -1;
 }
 
@@ -740,6 +768,8 @@ int DataBase::getModeIdFromSubMode(const QString b)
      }
 */
      bool sqlOK = query.exec(queryString);
+
+
      if (sqlOK)
      {
          query.next();
@@ -751,6 +781,7 @@ int DataBase::getModeIdFromSubMode(const QString b)
          else
          {
                //qDebug() << "DataBase::getModeIdFromName: NOK 1" << "-------- END"<< endl;
+             query.finish();
              return -1;
          }
      }
@@ -758,11 +789,13 @@ int DataBase::getModeIdFromSubMode(const QString b)
      {
            //qDebug() << "DataBase::getModeIdFromName: NOK 2" << "-------- END"<< endl;
          queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+         query.finish();
          return -1;
      }
 
 
       //qDebug() << "DataBase::getModeIdFromName: NOK 3" << "-------- END"<< endl;
+     query.finish();
      return -1;
 }
 
@@ -772,26 +805,39 @@ QString DataBase::getBandNameFromNumber(const int _n)
     QSqlQuery query;
     QString queryString = QString("SELECT name FROM band WHERE id='%1'").arg(_n);
 
-    query.exec(queryString);
-    query.next();
-    if ( query.isValid() )
+    bool sqlOK = query.exec(queryString);
+
+    if (sqlOK)
     {
-        if ( isValidBand((query.value(0)).toString())  )
+        query.next();
+        if ( query.isValid() )
         {
-             //qDebug() << "DataBase::getBandNameFromNumber: " << (query.value(0)).toString() << "-------- END" << endl;
-            return (query.value(0)).toString();
+            if ( isValidBand((query.value(0)).toString())  )
+            {
+                 //qDebug() << "DataBase::getBandNameFromNumber: " << (query.value(0)).toString() << "-------- END" << endl;
+                return (query.value(0)).toString();
+            }
+            else
+            {
+                 //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-1" << endl;
+                query.finish();
+                return QString();
+            }
         }
         else
         {
-             //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-1" << endl;
+             //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-2" << endl;
+            query.finish();
             return QString();
         }
     }
     else
     {
-         //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-2" << endl;
-        return QString();
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
+    query.finish();
+    return QString();
+
 }
 
 
@@ -811,10 +857,13 @@ QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
         queryString = QString("SELECT name FROM mode WHERE id='%1'").arg(_n);
     }
 
+    bool sqlOK = query.exec(queryString);
 
-    if (!query.exec(queryString))
+
+    if (!sqlOK)
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
     }
     query.next();
       //qDebug() << "DataBase::getModeNameFromNumber: " << QString::number(_n) <<" - " <<  isValidMode((query.value(0)).toString(), _tmp) << endl;
@@ -841,6 +890,7 @@ QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
     {
           //qDebug() << "DataBase::getModeNameFromNumber - Not Valid record"  << endl;
          //qDebug() << "DataBase::getModeNameFromNumber: ------ END-2" << endl;
+        query.finish();
         return QString();
     }
 }
@@ -861,6 +911,7 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
 
 
     bool sqlOk = query.exec(queryString);
+
       //qDebug() << "DataBase::getSubModeNameFromNumber - query: " << query.lastQuery() << endl;
 
     if (sqlOk)
@@ -877,12 +928,14 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
                 else
                 {
                      //qDebug() << "DataBase::getSubModeNameFromNumber: NO valid mode - END" << endl;
+                    query.finish();
                     return QString();
                 }
             }
             else
             {
                  //qDebug() << "DataBase::getSubModeNameFromNumber: query not valid - END" << endl;
+                query.finish();
                 return QString();
             }
 
@@ -890,6 +943,7 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
         else
         {
              //qDebug() << "DataBase::getSubModeNameFromNumber: query not next - END" << endl;
+            query.finish();
             return QString();
         }
 
@@ -899,9 +953,11 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          //qDebug() << "DataBase::getSubModeNameFromNumber: SQL FALSE - END" << endl;
+        query.finish();
         return QString();
     }
      //qDebug() << "DataBase::getSubModeNameFromNumber: - END-X" << endl;
+    query.finish();
     return QString();
 }
 
@@ -912,10 +968,32 @@ bool DataBase::isValidBand (const QString b)
     {
         return false;
     }
+    QSqlQuery query;
     QString stringQuery = QString("SELECT id FROM band WHERE name='%1'").arg(b);
-    QSqlQuery query(stringQuery);
-    query.next();
-    return query.isValid();
+    bool sqlOK = query.exec(stringQuery);
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            query.finish();
+            return true;
+        }
+        else
+        {
+            query.finish();
+            return false;
+        }
+
+    }
+    else
+    {
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+    }
+    return false;
+
+
 }
 
 bool DataBase::isValidMode (const QString b, const bool _tmp)
@@ -939,9 +1017,12 @@ bool DataBase::isValidMode (const QString b, const bool _tmp)
 
     stringQuery = QString("SELECT id FROM mode WHERE submode='%1'").arg(b);
     QSqlQuery query;
-    if (!query.exec(stringQuery))
+    bool sqlOK = query.exec(stringQuery);
+
+    if (!sqlOK)
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
     }
     query.next();
     return query.isValid();
@@ -967,8 +1048,10 @@ int DataBase::getBandIdFromFreq(const QString fr)
      bool sqlOk = false;
     QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(fr).arg(fr);
 
-    QSqlQuery query(queryString);
-    sqlOk = query.exec();
+    QSqlQuery query;
+
+    bool sqlOK = query.exec(queryString);
+
       //qDebug() << "DataBase::getBandIdFromFreq: Query: " << query.lastQuery() << endl;
     if (sqlOk)
     {
@@ -984,6 +1067,7 @@ int DataBase::getBandIdFromFreq(const QString fr)
         else
         {
              //qDebug() << "DataBase::getBandIdFromFreq: Valid NOK - END" << endl;
+            query.finish();
             return -1;
         }
     }
@@ -991,9 +1075,11 @@ int DataBase::getBandIdFromFreq(const QString fr)
     {
          //qDebug() << "DataBase::getBandIdFromFreq: Query NOK" << endl;
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
        return -1;
     }
      //qDebug() << "DataBase::getBandIdFromFreq: END-X" << endl;
+    query.finish();
     return -1;
 }
 
@@ -1047,41 +1133,31 @@ bool DataBase::updateIfNeeded()
     //int errorCode = -1;
     //bool toBeUpdated = false;
     //bool sqlOK;
-    QString dateString;
-    QString SQLString, auxs;
-    QStringList SQLStrings;
-    SQLStrings.clear();
-    QSqlQuery query("SELECT MAX (dbversion) FROM softwarecontrol");
+
+    QSqlQuery query;
+    QString stringQuery = QString("SELECT MAX (dbversion) FROM softwarecontrol");
+    bool sqlOK = query.exec(stringQuery);
+
+    if (sqlOK)
+    {
+        query.next();
+        latestReaded = (query.value(0)).toFloat();
+    }
+    else
+    {
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return false;
+    }
+
     //QSqlQuery query("SELECT dbversion FROM softwarecontrol");
     //QSqlRecord rec = query.record();
-    query.next();
-    latestReaded = (query.value(0)).toFloat();
+    //query.next();
+    //latestReaded = (query.value(0)).toFloat();
+    query.finish();
       //qDebug() << "DataBase::updateIfNeeded - LatestReaded: " << QString::number(latestReaded) << endl;
 
-/*
-    while ( (query.next())) { // We run the DB to find what is the latest DB version updated.
-        if (query.isValid())
-        {
-            nameCol = rec.indexOf("dbversion");
-            aux = (query.value(nameCol)).toFloat();
 
-             //qDebug() << "DataBase::updateIfNeeded - Version found: " << QString::number(aux) << endl;
-            if (aux > latestReaded)
-            {
-                latestReaded = aux;
-            }
-            else
-            {
-            }
-        }
-        else
-        {
-        }
-
-    }
-    */
-     //qDebug() << "DataBase::updateIfNeeded - dbVersion: " << QString::number(dbVersion) << endl;
-     //qDebug() << "DataBase::updateIfNeeded - latestReaded: " << QString::number(latestReaded) << endl;
 
     if (latestReaded >= dbVersion)
     { // DB is updated, no update is needed
@@ -1145,15 +1221,18 @@ bool DataBase::createTheBandQuickReference()
 
     QString st = "NULL";
     int in = 0;
-    QString queryST("SELECT id, name, lower FROM band");
+
+    QString stringQuery = QString("SELECT id, name, lower FROM band");
     QString fr = QString();
     bandIDHash.clear();
     IDBandHash.clear();
     QSqlQuery query;
-    bool sqlOK = query.exec(queryST);
+    bool sqlOK = query.exec(stringQuery);
+
     if (!sqlOK)
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
         return false;
     }
 
@@ -1177,13 +1256,14 @@ bool DataBase::createTheBandQuickReference()
 
           // QMessageBox::warning(0, QObject::tr("Database Error (DataBase::createTheBandQuickReference)"),
           //                      query.lastError().text());
+            query.finish();
            return false;
            //TODO: Manage this error, in case the query is NOK.
 
         }
            //qDebug() << "DataBase::createTheBandQuickReference: Go for the next one!" << endl;
     }
-
+    query.finish();
      //qDebug() << "DataBase::createTheBandQuickReference: END" << endl;
     return true;
 }
@@ -1206,12 +1286,15 @@ bool DataBase::createTheModeQuickReference()
         IDModeHash.clear();
         subModeIDHash.clear();
         IDSubModeHash.clear();
-        QString str = QString("SELECT id, name, submode FROM mode");
+        QString stringQuery = QString("SELECT id, name, submode FROM mode");
         QSqlQuery query;
-        bool sqlOK = query.exec(str);
+
+        bool sqlOK = query.exec(stringQuery);
+
         if (!sqlOK)
         {
             queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            query.finish();
             return false;
         }
         while (query.next())
@@ -1235,11 +1318,13 @@ bool DataBase::createTheModeQuickReference()
 
                //QMessageBox::warning(0, QObject::tr("Database Error (DataBase::createTheModeQuickReference)"),
                //                     query.lastError().text());
+                query.finish();
                return false;
                //TODO: Manage this error, in case the query is NOK.
 
             }
         }
+        query.finish();
          //qDebug() << "DataBase::createTheModeQuickReference: END" << endl;
         return true;
 }
@@ -1398,7 +1483,7 @@ QString DataBase::getSubModeNameFromID2(const int _i)
 
 bool DataBase::createBandModeMaps()
 {
-      //qDebug() << "DataBase::createBandModeMaps" << endl;
+    //qDebug() << "DataBase::createBandModeMaps" << endl;
     bool b = false;
     bool m = false;
 
@@ -1409,12 +1494,12 @@ bool DataBase::createBandModeMaps()
         b = createTheBandQuickReference();
         m = createTheModeQuickReference();
 
-          //qDebug() << "DataBase::createBandModeMaps - isDbCreated TRUE" << endl;
+          //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated TRUE" << endl;
         return (b && m);
     }
     else
     {
-          //qDebug() << "DataBase::createBandModeMaps - isDbCreated FALSE" << endl;
+          //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated FALSE" << endl;
         return false;
     }
     return false;
@@ -1445,9 +1530,13 @@ int DataBase::getLogTypeNumber(const QString _logType)
      QSqlQuery query;
      QString queryString = QString("SELECT id FROM supportedcontests WHERE name='%1'").arg(_logType);
 
-     if(!query.exec(queryString))
+     bool sqlOK = query.exec(queryString);
+
+
+     if(!sqlOK)
      {
          queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+         query.finish();
      }
      query.next();
      if ( query.isValid() )
@@ -1456,8 +1545,10 @@ int DataBase::getLogTypeNumber(const QString _logType)
      }
      else
      {
+         query.finish();
          return -1;
      }
+     query.finish();
 }
 
 QString DataBase::getLogTypeName(const int _logType)
@@ -1465,10 +1556,12 @@ QString DataBase::getLogTypeName(const int _logType)
       //qDebug() << "DataBase::getLogTypeName: " << QString::number(_logType) << endl;
      QSqlQuery query;
      QString queryString = QString("SELECT name FROM supportedcontests WHERE id='%1'").arg(_logType);
+     bool sqlOK = query.exec(queryString);
 
-     if(!query.exec(queryString))
+     if(!sqlOK)
      {
          queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+         query.finish();
      }
      query.next();
      if ( query.isValid() )
@@ -1477,8 +1570,10 @@ QString DataBase::getLogTypeName(const int _logType)
      }
      else
      {
+         query.finish();
          return QString();
      }
+     query.finish();
 }
 
 bool DataBase::updateToLatest()
@@ -1576,10 +1671,10 @@ bool DataBase::updateTo004()
             return false;
         }
         sqlOk = updateDBVersion();
-        //sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+
         if (sqlOk)
         { // Version updated
-            sqlOk = query.exec("DROP TABLE award_enumeration");
+            sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE award_enumeration");
         }
         else
         { // Version not updated
@@ -1635,17 +1730,19 @@ bool DataBase::updateTo005()
                return false;
            }
            sqlOk = updateDBVersion();
-           //sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+
            if (sqlOk)
            { // Version updated
                if (recreateContestData())
                {
                      //qDebug() << "DataBase::updateTo005 - recreateContestData OK" << endl;
-                   sqlOk = query.exec ("DROP table logs");
+
+                   sqlOk = execQuery(Q_FUNC_INFO, "DROP table logs");
+
                    sqlOk = createTableLogs(true);
                     if (!sqlOk)
                     {
-                        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                          //qDebug() << "DataBase::updateTo005 - logs table do not created" << endl;
                     }
 
@@ -1659,11 +1756,11 @@ bool DataBase::updateTo005()
                        msgBox.setText(QObject::tr("KLog has detected a previous log in the DB. All data will be migrated to a newly created DX type log for you."));
                        msgBox.exec();
 
-                        if (query.exec("UPDATE log SET lognumber='1' WHERE lognumber='0'"))
+                        if (execQuery(Q_FUNC_INFO, "UPDATE log SET lognumber='1' WHERE lognumber='0'"))
                         {}
                         else
                         {
-                            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                             //showError(QObject::tr("QSOs not updated to main log"));
                               //qDebug() << "DataBase::updateTo005 - QSOs not updated to main log" << endl;
                         }
@@ -1687,17 +1784,17 @@ bool DataBase::updateTo005()
                                 callToUse = "N0CALL";
                             }
 
-
-
-
                         stringQuery = QString("INSERT INTO logs (logdate, stationcall, logtype, logtypen) values('%1','%2','DX', '1')").arg(dateString).arg(callToUse);
-                        if (query.exec(stringQuery))
+                        sqlOk = execQuery(Q_FUNC_INFO, stringQuery);
+
+
+                        if (sqlOk)
                         {
 
                         }
                         else
                         {
-                            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                             //showError(QObject::tr("New Log not created"));
                               //qDebug() << "DataBase::updateTo005 - New Log not created" << endl;
                               //qDebug() << "DataProxy_SQLite::clearLog: Log deleted FAILED" << endl;
@@ -1746,29 +1843,7 @@ bool DataBase::recreateSatelliteData()
        // commitTransaction();
         if (createTableSatellites(true))
         {
-             qDebug() << "DataBase::recreateSatelliteData SAT table created"  << endl;
-            return populateTableSatellites(true);
-        }
-        else
-        {
-              qDebug() << "DataBase::recreateSatelliteData SAT table NOT created"  << endl;
-        }
-    }
-    else
-    {
-        //commitTransaction();
-        qDebug() << "DataBase::recreateSatelliteData execQuery FAILED"  << endl;
-    }
-
-
-    /*
-    sqlOk = query.exec("DROP TABLE satellites");
-    if (sqlOk)
-    {
-          //qDebug() << "DataBase::recreateSatelliteData SAT table dropped"  << endl;
-        if (createTableSatellites(true))
-        {
-              //qDebug() << "DataBase::recreateSatelliteData SAT table created"  << endl;
+             //qDebug() << "DataBase::recreateSatelliteData SAT table created"  << endl;
             return populateTableSatellites(true);
         }
         else
@@ -1778,12 +1853,12 @@ bool DataBase::recreateSatelliteData()
     }
     else
     {
-          //qDebug() << "DataBase::recreateContestData: " << query.lastError().databaseText() << endl;
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-
-          //qDebug() << "DataBase::recreateSatelliteData SAT table NOT dropped"  << endl;
+        //commitTransaction();
+        //qDebug() << "DataBase::recreateSatelliteData execQuery FAILED"  << endl;
     }
-    */
+
+
+
       //qDebug() << "DataBase::recreateSatelliteData END FALSE"  << endl;
     return false;
 }
@@ -1793,7 +1868,7 @@ bool DataBase::recreateContestData()
      //qDebug() << "DataBase::recreateContestData"  << endl;
     QSqlQuery query;
     bool sqlOk = false;
-    sqlOk = query.exec("DROP TABLE contest");
+    sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE contest");
     if (sqlOk)
     {
         if (createTableContest())
@@ -1810,7 +1885,7 @@ bool DataBase::recreateSupportedContest()
     //qDebug() << "DataBase::recreateSupportedContest"  << endl;
     QSqlQuery query;
     bool sqlOk = false;
-    sqlOk = query.exec("DROP TABLE supportedcontests");
+    sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE supportedcontests");
     if (sqlOk)
     {
          //qDebug() << "DataBase::recreateSupportedContest SQLOK"  << endl;
@@ -1828,7 +1903,7 @@ bool DataBase::recreateSupportedContest()
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
      //qDebug() << "DataBase::recreateSupportedContest - FALSE end"  << endl;
     return false;
@@ -1838,10 +1913,10 @@ bool DataBase::recreateSupportedContest()
 bool DataBase::recreatePropModes()
 {
       //qDebug() << "DataBase::recreatePropModes"  << endl;
-    QSqlQuery query;
+    //QSqlQuery query;
     bool sqlOk = false;
 
-    sqlOk = query.exec("DROP TABLE prop_mode_enumeration");
+    sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE prop_mode_enumeration");
 
     if (sqlOk)
     {
@@ -1867,7 +1942,7 @@ bool DataBase::recreatePropModes()
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
           //qDebug() << "DataBase::recreatePropModes - prop_mode_enumeration table has not been dropped"  << endl;
 
           //qDebug() << "DataBase::recreatePropModes : Table creation FAILED" << endl;
@@ -1885,7 +1960,7 @@ bool DataBase::createTableLogs(const bool real)
      //qDebug() << "DataBase::createTableLogs" << endl;
 
     QString stringQuery = QString();
-    QSqlQuery query;
+    //QSqlQuery query;
     if (real)
     {
          //qDebug() << "DataBase::createTableLogs - logs" << endl;
@@ -1910,31 +1985,18 @@ bool DataBase::createTableLogs(const bool real)
 
 
          //qDebug() << "DataBase::createTableLogs - END" << endl;
-        if (query.exec(stringQuery))
-        {
-            return true;
-        }
-        else
-        {
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-            return false;
-        }
+
+        return execQuery(Q_FUNC_INFO, stringQuery);
+
+
 }
 
 
 bool DataBase::createTablePropModes()
 {
      //qDebug() << "DataBase::createTablePropModes" << endl;
-    QSqlQuery query;
-    if (query.exec("CREATE TABLE prop_mode_enumeration (id INTEGER PRIMARY KEY AUTOINCREMENT, shortname VARCHAR(8), name VARCHAR(55) )"))
-    {
-        return true;
-    }
-    else
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        return false;
-    }
+    return execQuery(Q_FUNC_INFO, "CREATE TABLE prop_mode_enumeration (id INTEGER PRIMARY KEY AUTOINCREMENT, shortname VARCHAR(8), name VARCHAR(55) )");
+
 }
 
 bool DataBase::createTableSupportedContest()
@@ -1947,33 +2009,15 @@ bool DataBase::createTableSupportedContest()
                          "name VARCHAR)");
     return execQuery(Q_FUNC_INFO, st);
 
-    //execQuery(Q_FUNC_INFO, "");
-    /*
-    QSqlQuery query;
-    bool sqlOK = query.exec("CREATE TABLE supportedcontests ("
-                   "id INTEGER PRIMARY KEY, "
-                   "longname VARCHAR,"
-                   "name VARCHAR)");
-    if (sqlOK)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-    }
-    return false;
-    */
 
 }
 
 bool DataBase::createTableContest()
 {
      //qDebug() << "DataBase::createTableContest" << endl;
-    QSqlQuery query;
+    //QSqlQuery query;
 
-    query.exec("CREATE TABLE contest ("
+    execQuery(Q_FUNC_INFO, "CREATE TABLE contest ("
                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                "contest INTEGER NOT NULL,"
                "catoperator INTEGER NOT NULL,"
@@ -1992,60 +2036,60 @@ bool DataBase::createTableContest()
 
     createTableSupportedContest();
 
-    query.exec("CREATE TABLE contestcatoperator ("
+    execQuery(Q_FUNC_INFO, "CREATE TABLE contestcatoperator ("
                    "id INTEGER PRIMARY KEY, "
                    "name VARCHAR)");
     
-    query.exec("CREATE TABLE contestcatassisted ("
+    execQuery(Q_FUNC_INFO, "CREATE TABLE contestcatassisted ("
                    "id INTEGER PRIMARY KEY, "
                    "name VARCHAR)");
     
-    query.exec("CREATE TABLE contestcatpower ("
+    execQuery(Q_FUNC_INFO, "CREATE TABLE contestcatpower ("
                    "id INTEGER PRIMARY KEY, "
                    "name VARCHAR)");
     
-    query.exec("CREATE TABLE contestcatband ("
+    execQuery(Q_FUNC_INFO, "CREATE TABLE contestcatband ("
                    "id INTEGER PRIMARY KEY, "
                    "name VARCHAR)");
     
-    query.exec("CREATE TABLE contestcatoverlay ("
+    execQuery(Q_FUNC_INFO, "CREATE TABLE contestcatoverlay ("
                    "id INTEGER PRIMARY KEY, "
                    "name VARCHAR)");
     
-    query.exec("CREATE TABLE contestcatmode ("
+    execQuery(Q_FUNC_INFO, "CREATE TABLE contestcatmode ("
                    "id INTEGER PRIMARY KEY, "
                    "name VARCHAR)");
 
     populateTableSupportedContest();
 
-    query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('0', 'N/A')");
-    query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('1', 'Single-Operator')");
-    query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('2', 'Multi-One')");
-    query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('3', 'Multi-Two')");
-    query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('4', 'Multi-Unlimited')");
-    query.exec("INSERT INTO contestcatoperator (id, name) VALUES ('5', 'CheckLog')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatoperator (id, name) VALUES ('0', 'N/A')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatoperator (id, name) VALUES ('1', 'Single-Operator')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatoperator (id, name) VALUES ('2', 'Multi-One')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatoperator (id, name) VALUES ('3', 'Multi-Two')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatoperator (id, name) VALUES ('4', 'Multi-Unlimited')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatoperator (id, name) VALUES ('5', 'CheckLog')");
 
-    query.exec("INSERT INTO contestcatassisted (id, name) VALUES ('0', 'N/A')");
-    query.exec("INSERT INTO contestcatassisted (id, name) VALUES ('1', 'Non-Assisted')");
-    query.exec("INSERT INTO contestcatassisted (id, name) VALUES ('2', 'Assisted')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatassisted (id, name) VALUES ('0', 'N/A')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatassisted (id, name) VALUES ('1', 'Non-Assisted')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatassisted (id, name) VALUES ('2', 'Assisted')");
 
-    query.exec("INSERT INTO contestcatpower (id, name) VALUES ('0', 'N/A')");
-    query.exec("INSERT INTO contestcatpower (id, name) VALUES ('1', 'High-Power')");
-    query.exec("INSERT INTO contestcatpower (id, name) VALUES ('2', 'Low-Power')");
-    query.exec("INSERT INTO contestcatpower (id, name) VALUES ('3', 'QRP')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatpower (id, name) VALUES ('0', 'N/A')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatpower (id, name) VALUES ('1', 'High-Power')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatpower (id, name) VALUES ('2', 'Low-Power')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatpower (id, name) VALUES ('3', 'QRP')");
 
-    query.exec("INSERT INTO contestcatband (id, name) VALUES ('0', 'N/A')");
-    query.exec("INSERT INTO contestcatband (id, name) VALUES ('1', 'All-Band')");
-    query.exec("INSERT INTO contestcatband (id, name) VALUES ('2', 'Single-Band')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatband (id, name) VALUES ('0', 'N/A')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatband (id, name) VALUES ('1', 'All-Band')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatband (id, name) VALUES ('2', 'Single-Band')");
 
-    query.exec("INSERT INTO contestcatoverlay (id, name) VALUES ('0', 'N/A')");
-    query.exec("INSERT INTO contestcatoverlay (id, name) VALUES ('1', 'Classic')");
-    query.exec("INSERT INTO contestcatoverlay (id, name) VALUES ('2', 'Rookie')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatoverlay (id, name) VALUES ('0', 'N/A')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatoverlay (id, name) VALUES ('1', 'Classic')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatoverlay (id, name) VALUES ('2', 'Rookie')");
 
-    query.exec("INSERT INTO contestcatmode (id, name) VALUES ('0', 'N/A')");
-    query.exec("INSERT INTO contestcatmode (id, name) VALUES ('1', 'SSB')");
-    query.exec("INSERT INTO contestcatmode (id, name) VALUES ('2', 'CW')");
-    query.exec("INSERT INTO contestcatmode (id, name) VALUES ('3', 'MIXED')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatmode (id, name) VALUES ('0', 'N/A')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatmode (id, name) VALUES ('1', 'SSB')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatmode (id, name) VALUES ('2', 'CW')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contestcatmode (id, name) VALUES ('3', 'MIXED')");
 
       //qDebug() << "DataBase::createTableContest END" << endl;
     return true;
@@ -2056,19 +2100,8 @@ bool DataBase::populateTableSupportedContest()
 {
      //qDebug() << "DataBase::populateTableSupportedContest" << endl;
     // ADDING ALL THE CATEGORIES OPTIONS
-    QSqlQuery query;
-    if(query.exec("INSERT INTO supportedcontests (id, longname, name) VALUES ('0', 'Normal log', 'DX')"))
-    {
-        return true;
-    }
-    else
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        return false;
-    }
+    return execQuery(Q_FUNC_INFO, "INSERT INTO supportedcontests (id, longname, name) VALUES ('0', 'Normal log', 'DX')");
 
-   // query.exec("INSERT INTO supportedcontests (id, longname, name) VALUES ('1', 'CQ WW DX Contest(SSB)', 'CQ-WW-SSB')");
-    //return true;
 }
 
 bool DataBase::createTableMode(const bool NoTmp)
@@ -2094,34 +2127,14 @@ bool DataBase::createTableMode(const bool NoTmp)
 
          //qDebug() << "DataBase::createTableMode END" << endl;
 
-        bool sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
-        int errorCode = -1;
-        if (!sqlOK)
-        {
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-              //qDebug() << "DataBase::createTableMode: Table creation FAILED" << endl;
-            //errorCode = query.lastError().number();
-              //qDebug() << "DataBase::createTableMode: - query error: " << QString::number(errorCode) << endl;
-              //qDebug() << "DataBase::createTableMode: LastQuery: " << query.lastQuery()  << endl;
-              //qDebug() << "DataBase::createTableMode: LastError-data: " << query.lastError().databaseText()  << endl;
-              //qDebug() << "DataBase::createTableMode: LastError-driver: " << query.lastError().driverText()  << endl;
-              //qDebug() << "DataBase::createTableMode: LastError-n: " << QString::number(query.lastError().number() ) << endl;
-
-        }
-        else
-        {
-              //qDebug() << "DataBase::createTableMode: Table creation OK" << endl;
-        }
-          //qDebug() << "DataBase::createTableMode: END" << endl;
-
-        return sqlOK;
+        return execQuery(Q_FUNC_INFO, stringQuery);
 
 }
 
 bool DataBase::populateTableMode(const bool NoTmp)
 {
       //qDebug() << "DataBase::populateTableMode" << endl;
-    QSqlQuery query;
+    //QSqlQuery query;
     QString tableName = QString();
     QString squery = QString();
     if (NoTmp)
@@ -2134,12 +2147,12 @@ bool DataBase::populateTableMode(const bool NoTmp)
     }
 
 
-    bool sqlOK = query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('AM', 'AM', 'PH', '0')").arg(tableName));
+    bool sqlOK = execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('AM', 'AM', 'PH', '0')").arg(tableName));
 
     int errorCode = -1;
     if (!sqlOK)
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
           //qDebug() << "DataBase::populateTableMode: Mode table population FAILED" << endl;
         //errorCode = query.lastError().number();
           //qDebug() << "DataBase::populateTableMode: - query error: " << QString::number(errorCode) << endl;
@@ -2154,149 +2167,149 @@ bool DataBase::populateTableMode(const bool NoTmp)
           //qDebug() << "DataBase::populateTableMode: Mode table population  OK" << endl;
     }
 
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ARDOP', 'ARDOP', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('AMTORFEC', 'TOR', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ASCI', 'RTTY', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ATV', 'ATV', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('C4FM', 'C4FM', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP', 'CHIP', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP64', 'CHIP', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP128', 'CHIP', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CLO', 'CLO', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CONTESTI', 'CONTESTI', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CW', 'CW', 'CW', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DIGITALVOICE', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DSTAR', 'DSTAR', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINO', 'DOMINO', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINOEX', 'DOMINO', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINOF', 'DOMINO', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FAX', 'FAX', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FM', 'FM', 'PH', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FMHELL', 'HELL', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FT8', 'FT8', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSK31', 'PSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSK441', 'FSK441', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSKHELL', 'HELL', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSQCALL', 'MFSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('GTOR', 'TOR', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HELL', 'HELL', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HELL80', 'HELL', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HFSK', 'HELL', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT', 'ISCAT', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT-A', 'ISCAT', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT-B', 'ISCAT', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4', 'JT4', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4A', 'JT4', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4B', 'JT4', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4C', 'JT4', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4D', 'JT4', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4E', 'JT4', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4F', 'JT4', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4G', 'JT4', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT6M', 'JT6M', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-1', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-2', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-5', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-10', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-30', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9A', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9B', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9C', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9D', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9E', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9E FAST', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9F', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9F FAST', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9G', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9G FAST', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9H', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9H FAST', 'JT9', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT44', 'JT44', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65', 'JT65', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65A', 'JT65', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65B', 'JT65', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65B2', 'JT65', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65C', 'JT65', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65C2', 'JT65', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK', 'MFSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK4', 'MFSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK8', 'MFSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK11', 'MFSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK16', 'MFSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK22', 'MFSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK31', 'MFSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK32', 'MFSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK64', 'MFSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK128', 'MFSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MT63', 'MT63', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA', 'OLIVIA', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 4/125', 'OLIVIA', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 4/250', 'OLIVIA', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 8/250', 'OLIVIA', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 8/500', 'OLIVIA', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 16/500', 'OLIVIA', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 16/1000', 'OLIVIA', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 32/1000', 'OLIVIA', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OPERA', 'OPERA', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OPERA-BEACON', 'OPERA', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OPERA-QSO', 'OPERA', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC', 'PAC', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC2', 'PAC', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC3', 'PAC', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC4', 'PAC', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAX', 'PAX', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAX2', 'PAX', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PCW', 'CW', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PKT', 'PKT', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK', 'PSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK10', 'PSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK31', 'PSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK63', 'PSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK63F', 'PSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK125', 'PSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK250', 'PSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK500', 'PSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK1000', 'PSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKAM10', 'PSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKAM31', 'PSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKAM50', 'PSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKFEC31', 'PSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK2K', 'PSK2K', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKHELL', 'HELL', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('Q15', 'Q15', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK31', 'PSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK63', 'PSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK125', 'PSK', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK250', 'PSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK500', 'PSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64', 'QRA64', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64A', 'QRA64', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64B', 'QRA64', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64C', 'QRA64', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64D', 'QRA64', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64E', 'QRA64', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS', 'ROS', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-EME', 'ROS', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-HF', 'ROS', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-MF', 'ROS', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('RTTY', 'RTTY', 'RY', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('RTTYM', 'RTTYM', 'RY', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SSB', 'SSB', 'PH', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('LSB', 'SSB', 'PH', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('USB', 'SSB', 'PH', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SIM31', 'PSK', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SSTV', 'SSTV', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('T10', 'T10', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THRB', 'THRB', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THRBX', 'THRB', 'NO', '1')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR', 'THOR', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('TOR', 'TOR', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('V4', 'V4', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VOI', 'VOI', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('WINMOR', 'WINMOR', 'NO', '0')").arg(tableName));
-    query.exec(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('WSPR', 'WSPR', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ARDOP', 'ARDOP', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('AMTORFEC', 'TOR', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ASCI', 'RTTY', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ATV', 'ATV', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('C4FM', 'C4FM', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP', 'CHIP', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP64', 'CHIP', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP128', 'CHIP', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CLO', 'CLO', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CONTESTI', 'CONTESTI', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CW', 'CW', 'CW', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DIGITALVOICE', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DSTAR', 'DSTAR', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINO', 'DOMINO', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINOEX', 'DOMINO', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINOF', 'DOMINO', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FAX', 'FAX', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FM', 'FM', 'PH', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FMHELL', 'HELL', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FT8', 'FT8', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSK31', 'PSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSK441', 'FSK441', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSKHELL', 'HELL', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSQCALL', 'MFSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('GTOR', 'TOR', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HELL', 'HELL', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HELL80', 'HELL', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HFSK', 'HELL', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT', 'ISCAT', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT-A', 'ISCAT', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT-B', 'ISCAT', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4', 'JT4', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4A', 'JT4', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4B', 'JT4', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4C', 'JT4', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4D', 'JT4', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4E', 'JT4', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4F', 'JT4', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4G', 'JT4', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT6M', 'JT6M', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-1', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-2', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-5', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-10', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-30', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9A', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9B', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9C', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9D', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9E', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9E FAST', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9F', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9F FAST', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9G', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9G FAST', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9H', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9H FAST', 'JT9', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT44', 'JT44', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65', 'JT65', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65A', 'JT65', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65B', 'JT65', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65B2', 'JT65', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65C', 'JT65', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65C2', 'JT65', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK', 'MFSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK4', 'MFSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK8', 'MFSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK11', 'MFSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK16', 'MFSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK22', 'MFSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK31', 'MFSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK32', 'MFSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK64', 'MFSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK128', 'MFSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MT63', 'MT63', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA', 'OLIVIA', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 4/125', 'OLIVIA', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 4/250', 'OLIVIA', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 8/250', 'OLIVIA', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 8/500', 'OLIVIA', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 16/500', 'OLIVIA', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 16/1000', 'OLIVIA', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 32/1000', 'OLIVIA', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OPERA', 'OPERA', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OPERA-BEACON', 'OPERA', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OPERA-QSO', 'OPERA', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC', 'PAC', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC2', 'PAC', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC3', 'PAC', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC4', 'PAC', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAX', 'PAX', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAX2', 'PAX', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PCW', 'CW', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PKT', 'PKT', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK', 'PSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK10', 'PSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK31', 'PSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK63', 'PSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK63F', 'PSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK125', 'PSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK250', 'PSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK500', 'PSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK1000', 'PSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKAM10', 'PSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKAM31', 'PSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKAM50', 'PSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKFEC31', 'PSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK2K', 'PSK2K', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKHELL', 'HELL', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('Q15', 'Q15', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK31', 'PSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK63', 'PSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK125', 'PSK', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK250', 'PSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QPSK500', 'PSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64', 'QRA64', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64A', 'QRA64', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64B', 'QRA64', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64C', 'QRA64', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64D', 'QRA64', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64E', 'QRA64', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS', 'ROS', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-EME', 'ROS', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-HF', 'ROS', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-MF', 'ROS', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('RTTY', 'RTTY', 'RY', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('RTTYM', 'RTTYM', 'RY', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SSB', 'SSB', 'PH', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('LSB', 'SSB', 'PH', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('USB', 'SSB', 'PH', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SIM31', 'PSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SSTV', 'SSTV', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('T10', 'T10', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THRB', 'THRB', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THRBX', 'THRB', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR', 'THOR', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('TOR', 'TOR', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('V4', 'V4', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VOI', 'VOI', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('WINMOR', 'WINMOR', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('WSPR', 'WSPR', 'NO', '0')").arg(tableName));
 
 
     createTheModeQuickReference();
@@ -2371,7 +2384,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     // https://lotw.arrl.org/lotw-help/frequently-asked-questions/#sats
      //qDebug() << "DataBase::populateTableSatellites" << endl;
 
-    QSqlQuery query;
+    //QSqlQuery query;
     QString tableName = QString();
     QString squery = QString();
     if (NoTmp)
@@ -2395,7 +2408,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-16', 'AMSAT-OSCAR 16', '145.92', '437.026', 'FM/USB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-21', 'OSCAR 21/RS-14', '', '145.8', 'CW')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-24', 'Arsene-OSCAR 24', '', '145.975', 'PKT')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-27', 'AMRAD-OSCAR 27', '145.85', '436.795' 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-27', 'AMRAD-OSCAR 27', '145.85', '436.795', 'FM')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-3', 'AMSAT-OSCAR 3', '145.975-146.025', '144.325-144.375', 'SSB,CW')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-4', 'AMSAT-OSCAR 4', '432.145-432.155', '144.300-144.310', 'SSB,CW')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-40', 'AMSAT-OSCAR 40','145.840-145.990,435.790-435.520', '2401.2225-2401.475', 'SSB,CW')").arg(tableName));
@@ -2407,7 +2420,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-85', 'AMSAT-OSCAR 85 (Fox-1A)', '435.170', '145.980', 'FM')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('ARISS', 'ARISS', '145.200,144.490', '145.800,145.800', 'FM')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('BY70-1', 'Bayi Kepu Weixing 1', '145.92', '436.2', 'FM')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('CAS-3H', 'LilacSat 2', '144.350', '437.200', 'FM'").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('CAS-3H', 'LilacSat 2', '144.350', '437.200', 'FM')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('DO-64', 'Delfi OSCAR-64', '', '145.870', 'CW')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('EO-88', 'Emirates OSCAR 88 (Nayif-1)', '435.045-435.015', '145.960-145.990', 'LSB/USB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FO-12', 'Fuji-OSCAR 12', '145.900-146.000,145.85', '435.900-435.800,435.91', 'SSB,PKT')").arg(tableName));
@@ -2419,13 +2432,13 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-78', 'LituanicaSAT-1', '145.95,145.85', '435.1755,437.543', 'FM,PKT')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('MIREX', 'Mir packet digipeater', '145.985', '145.985', 'PKT')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('NO-44', 'Navy-OSCAR 44', '145.827', '145.827', 'PKT')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('145', '29', RS-1', 'Radio Sputnik 1', '')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-1',  'Radio Sputnik 1', '145', '29', '')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-10', 'Radio Sputnik 10', '','29.357,29.403', '')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-11', 'Radio Sputnik 11', '','29.357,29.403', '')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-12', 'Radio Sputnik 12', '21.210-21.250', '29.410-29.450', 'SSB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-13', 'Radio Sputnik 13', '21.260-21.300', '145.860-145.900', 'SSB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-15', 'Radio Sputnik 15', '', '29.3525-29.3987', '')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('145', '29', RS-2', 'Radio Sputnik 2', '')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-2',  'Radio Sputnik 2', '145', '29', '')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-5', 'Radio Sputnik 5', 'CW')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-6', 'Radio Sputnik 6', '')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-7', 'Radio Sputnik 7', 'CW')").arg(tableName));
@@ -2433,7 +2446,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SAREX', 'Shuttle Amateur Radio Experiment packet digipeater', '144.80,144.49', '144.55', 'FM')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-35', 'Sunsat-OSCAR 35', '436.291', '145.825', 'FM')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-41', 'Saudi-OSCAR 41', '145.850', '436.775', 'CW')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-50', 'Saudi-OSCAR 50', '145.850, '436.795', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-50', 'Saudi-OSCAR 50', '145.850', '436.795', 'FM')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('SO-67', 'Sumbandila OSCAR 67', '145.875', '435.345', 'FM')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('UO-14', 'UOSAT-OSCAR 14', '145.975', '435.07', 'FM')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('VO-52', 'VUsat-OSCAR 52', '435.220-435.280,435.225-435.275', '145.930-145.870,145.925-145.875', 'LSB/USB')").arg(tableName));
@@ -2443,7 +2456,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2D', 'Hope 2D', '435.210-435.230', '145.860-145.880', 'LSB/USB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2E', 'Hope 2E', '435.270-435.290', '145.915-145.935', 'LSB/USB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2F', 'Hope 2F', '435.330-435.350', '145.980-145.999', 'LSB/USB')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-90', 'LilacSat-OSCAR 90 (LilacSat-1), '145.985', '436.510', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-90', 'LilacSat-OSCAR 90 (LilacSat-1)', '145.985', '436.510', 'FM')").arg(tableName));
 
      //qDebug() << "DataBase::populateTableSatellites - END" << endl;
     return true;
@@ -2454,7 +2467,7 @@ bool DataBase::createTableEntity(const bool NoTmp)
      //qDebug() << "DataBase::createTableEntity" << endl;
 
     QString stringQuery = QString();
-    QSqlQuery query;
+    //QSqlQuery query;
     if (NoTmp)
     {
         stringQuery = "CREATE TABLE entity" ;
@@ -2486,7 +2499,7 @@ bool DataBase::createTableEntity(const bool NoTmp)
 
 
     //TODO: To add some columns in this the table to mark if worked/confirmed/band/Mode
-    //query.exec("INSERT INTO entity (name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate) VALUES ('Canada', '0', '0', '0', '0', '0', '0', '0', 'VE', 'q', 'sincedate', 'todate')");
+
 }
 
 
@@ -2495,7 +2508,7 @@ bool DataBase::createTableBand(const bool NoTmp)
 
      //qDebug() << "DataBase::createTableBand" << endl;
     QString stringQuery = QString();
-    QSqlQuery query;
+    //QSqlQuery query;
     if (NoTmp)
     {
         stringQuery = "CREATE TABLE band" ;
@@ -2582,7 +2595,7 @@ bool DataBase::populatePropagationModes()
 {
 
      //qDebug() << "DataBase::populatePropagationModes" << endl;
-    QSqlQuery query;
+    //QSqlQuery query;
 
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AS', 'Aircraft Scatter')"));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AUR', 'Aurora')"));
@@ -2622,52 +2635,52 @@ bool DataBase::populateContestData()
     // DX START
 /*
     // CQ WW DX SSB START
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 1, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 2, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 1, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 2, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 1, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 2, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 1, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 2, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 1, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 2, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 1, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 2, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 1, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 2, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 1, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 2, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 1, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 2, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 1, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 2, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 1, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 2, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 1, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 2, 0, 1)");
 
 
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 1, 1, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 2, 1, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 1, 1, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 2, 1, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 1, 1, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 2, 1, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 1, 1, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 2, 1, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 1, 1, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 2, 1, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 1, 1, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 2, 1, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 1, 1, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 2, 1, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 1, 1, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 2, 1, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 1, 1, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 2, 1, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 1, 1, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 2, 1, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 1, 1, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 2, 1, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 1, 1, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 2, 1, 1)");
 
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 1, 2, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 2, 2, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 1, 2, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 2, 2, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 1, 2, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 2, 2, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 1, 2, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 2, 2, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 1, 2, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 2, 2, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 1, 2, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 2, 2, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 1, 2, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 2, 2, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 1, 2, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 2, 2, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 1, 2, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 2, 2, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 1, 2, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 2, 2, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 1, 2, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 2, 2, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 1, 2, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 2, 2, 1)");
 
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 2, 0, 1, 1, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 2, 0, 2, 1, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 3, 0, 1, 1, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 3, 0, 2, 1, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 4, 0, 1, 1, 0, 1)");
-    query.exec("INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 5, 0, 0, 0, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 2, 0, 1, 1, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 2, 0, 2, 1, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 3, 0, 1, 1, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 3, 0, 2, 1, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 4, 0, 1, 1, 0, 1)");
+    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 5, 0, 0, 0, 0, 1)");
     // CQ WW DX SSB END
 */
 
@@ -2681,8 +2694,9 @@ bool DataBase::howManyQSOsInLog(const int i)
 
     QSqlQuery query;
     QString sqlQueryString = QString("SELECT COUNT(id) from log WHERE lognumber='%1'").arg(i);
+    bool sqlOK = query.exec(sqlQueryString);
 
-    if (query.exec(sqlQueryString))
+    if (sqlOK)
     {
         query.next();
         if (query.isValid())
@@ -2693,15 +2707,18 @@ bool DataBase::howManyQSOsInLog(const int i)
         else
         {
              //qDebug() << "DataBase::howManyQSOsInLog END-1" << endl;
+            query.finish();
             return -1;
         }
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
          //qDebug() << "DataBase::howManyQSOsInLog END-2" << endl;
         return -1;
     }
+    query.finish();
 }
 
 bool DataBase::updateTo006()
@@ -3033,15 +3050,18 @@ bool DataBase::updateModeIdFromSubModeId()
     QString aux;
     QSqlQuery query, query2;
     bool sqlOk = query.exec("SELECT COUNT (*) FROM log");
+
     if (sqlOk)
     {
         //QSqlDatabase::database().commit();
         query.next();
         qsos = (query.value(0)).toInt();
+        query.finish();
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
           //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END"  << endl;
         return false;
     }
@@ -3053,6 +3073,7 @@ bool DataBase::updateModeIdFromSubModeId()
     progress.setWindowModality(Qt::WindowModal);
 
     sqlOk = query.exec("SELECT modeid, id FROM log ORDER BY modeid");                                                   // STEP-1
+
     if (sqlOk)
     {
 
@@ -3085,6 +3106,7 @@ bool DataBase::updateModeIdFromSubModeId()
 
                 sq = QString("SELECT id FROM modetemp WHERE submode='%1'").arg(modetxt);                                // STEP-3              
                 sqlOk2 = query2.exec(sq);
+
                 if (sqlOk2)
                 {
 
@@ -3094,10 +3116,10 @@ bool DataBase::updateModeIdFromSubModeId()
                         if (query2.isValid())
                         {
                             modeFound = query2.value(0).toInt();
-
+                            query2.finish();
                             sq = QString ("UPDATE log SET modeid='%1' WHERE id='%2'").arg(modeFound).arg(id);           // STEP-4
-
                             sqlOk3 = execQuery(Q_FUNC_INFO, sq);
+
                             if (sqlOk3)
                             {
 
@@ -3112,19 +3134,20 @@ bool DataBase::updateModeIdFromSubModeId()
                         }
                         else
                         {
+                            query2.finish();
                               //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-3) query2 not valid "   << endl;
                         }
                     }
                     else
                     {
-                        queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
                        //qDebug() << "DataBase::updateModeIdFromSubModeId: query2 not next "   << endl;
                     }
 
                 }
                 else
                 {
-                    queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                    queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
+                    query2.finish();
                       //qDebug() << "DataBase::updateModeIdFromSubModeId: ID: " << QString::number(id) << " NOT updated-1"  << endl;
                 }
 
@@ -3167,33 +3190,28 @@ bool DataBase::updateModeIdFromSubModeId()
 
 
         }
+        query.finish();
         if (cancel && (!alreadyCancelled))
         {
              //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END 2"  << endl;
-
+            query.finish();
             return false;
         }
 
          //qDebug() << "DataBase::updateModeIdFromSubModeId: END"  << endl;
-       if (query.isActive())
-       {
-             //qDebug() << "DataBase::updateModeIdFromSubModeId: query is Still Active"  << endl;
-       }
-       else
-       {
-             //qDebug() << "DataBase::updateModeIdFromSubModeId: query is no longer Active"  << endl;
-           //QSqlDatabase::database().commit();
-       }
 
+        query.finish();
         return true;
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END 3"  << endl;
+        query.finish();
         return false;
     }
      //qDebug() << "DataBase::updateModeIdFromSubModeId: CHECK IF this is seen - END"  << endl;
+    query.finish();
    return false;
 }
 
@@ -3218,15 +3236,18 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     QString aux;
     QSqlQuery query, query2;
     bool sqlOk = query.exec("SELECT COUNT (*) FROM log");
+
     if (sqlOk)
     {
         query.next();
         qsos = (query.value(0)).toInt();
+        query.finish();
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
      //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END"  << endl;
+        query.finish();
         return false;
     }
 
@@ -3237,6 +3258,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     progress.setWindowModality(Qt::WindowModal);
 
     sqlOk = query.exec("SELECT bandid, id FROM log ORDER BY bandid DESC");
+
     if (sqlOk)
     {
         while (query.next() && (!cancel) )
@@ -3264,6 +3286,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
 
                 sq = QString("SELECT id FROM bandtemp WHERE name='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
+
                 if (sqlOk2)
                 {
                     if (query2.next())
@@ -3272,7 +3295,8 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                         {
                             bandFound = query2.value(0).toInt();
 
-                            sq = QString ("UPDATE log SET bandid='%1' WHERE id='%2'").arg(bandFound).arg(id);
+                            sq = QString ("UPDATE log SET bandid='%1' WHERE id='%2'").arg(bandFound).arg(id);                            
+                            query.finish();
                             sqlOk3 = execQuery(Q_FUNC_INFO, sq);
                             if (sqlOk3)
                             {
@@ -3294,11 +3318,13 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                     {
                        //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not next "   << endl;
                     }
+                    query2.finish();
 
                 }
                 else
                 {
                     queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
+                    query2.finish();
                       //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-1"  << endl;
                 }
 
@@ -3340,6 +3366,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
             }
 
         }
+        query.finish();
         if (cancel && (!alreadyCancelled))
         {
              //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END 2"  << endl;
@@ -3351,6 +3378,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
          //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END 3"  << endl;
         return false;
     }
@@ -3398,20 +3426,23 @@ bool DataBase::updateBandIdTableAward(const int _db)
     int qsos;
     int i = 0;
     QString aux;
-    QSqlQuery query, query2, query3;
+    QSqlQuery query, query2;
 
 
     sq = QString("SELECT COUNT (*) FROM %1").arg(table);
 
     bool sqlOk = query.exec(sq);
+
     if (sqlOk)
     {
         query.next();
         qsos = (query.value(0)).toInt();
+        query.finish();
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
          //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-2"  << endl;
         return false;
     }
@@ -3427,6 +3458,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
     sq = QString("SELECT %1, id FROM %2 ORDER BY %3 DESC").arg(field).arg(table).arg(field);
 
     sqlOk = query.exec(sq);
+
     if (sqlOk)
     {
         while (query.next() && (!cancel) )
@@ -3454,6 +3486,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
 
                 sq = QString("SELECT id FROM bandtemp WHERE name='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
+
                 if (sqlOk2)
                 {
                     if (query2.next())
@@ -3461,8 +3494,9 @@ bool DataBase::updateBandIdTableAward(const int _db)
                         if (query2.isValid())
                         {
                             bandFound = query2.value(0).toInt();
-
+                            query2.finish();
                             sq = QString ("UPDATE %1 SET %2='%3' WHERE id='%4'").arg(table).arg(field).arg(bandFound).arg(id);
+
                             sqlOk3 = execQuery(Q_FUNC_INFO, sq);
                             if (sqlOk3)
                             {
@@ -3485,11 +3519,13 @@ bool DataBase::updateBandIdTableAward(const int _db)
                     {
                        //qDebug() << "DataBase::updateBandIdTableAward: query2 not next "   << endl;
                     }
+                    query2.finish();
 
                 }
                 else
                 {
                     queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
+                    query2.finish();
                       //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " NOT updated-1"  << endl;
                 }
 
@@ -3533,18 +3569,22 @@ bool DataBase::updateBandIdTableAward(const int _db)
         if (cancel && (!alreadyCancelled))
         {
              //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-3"  << endl;
+            query.finish();
             return false;
         }
         //qDebug() << "DataBase::updateBandIdTableAward: END OK"  << endl;
+        query.finish();
         return true;
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-4"  << endl;
+        query.finish();
         return false;
     }
       //qDebug() << "DataBase::updateBandIdTableAward: CHECK IF SEEN END"  << endl;
+    query.finish();
       return false;
 }
 
@@ -3587,21 +3627,24 @@ bool DataBase::updateModeIdTableAward(const int _db)
     int qsos;
     int i = 0;
     QString aux;
-    QSqlQuery query, query2, query3;
+    QSqlQuery query, query2;
 
 
     sq = QString("SELECT COUNT (*) FROM %1").arg(table);
 
     bool sqlOk = query.exec(sq);
+
     if (sqlOk)
     {
         query.next();
         qsos = (query.value(0)).toInt();
+        query.finish();
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-2"   << endl;
+        query.finish();
         return false;
     }
 
@@ -3616,6 +3659,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
     sq = QString("SELECT %1, id FROM %2 ORDER BY %3 DESC").arg(field).arg(table).arg(field);
 
     sqlOk = query.exec(sq);
+
        //qDebug() << "DataBase::updateModeIdTableAward (query): " << query.lastQuery()  << endl;
     if (sqlOk)
     {
@@ -3648,6 +3692,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
                 sq = QString("SELECT id FROM modetemp WHERE submode='%1'").arg(bandtxt);                
                 sqlOk2 = query2.exec(sq);
 
+
                   //qDebug() << "DataBase::updateModeIdTableAward (query2): " << query2.lastQuery()  << endl;
                 if (sqlOk2)
                 {
@@ -3656,6 +3701,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
                         if (query2.isValid())
                         {
                             bandFound = query2.value(0).toInt();
+                            query2.finish();
 
                             sq = QString ("UPDATE %1 SET %2='%3' WHERE id='%4'").arg(table).arg(field).arg(bandFound).arg(id);
                             sqlOk3 = execQuery(Q_FUNC_INFO, sq);
@@ -3687,6 +3733,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
                 else
                 {
                     queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
+                    query2.finish();
                       //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " NOT updated-1"  << endl;
                 }
 
@@ -3730,18 +3777,22 @@ bool DataBase::updateModeIdTableAward(const int _db)
         if (cancel && (!alreadyCancelled))
         {
              //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-3"   << endl;
+            query.finish();
             return false;
         }
         //qDebug() << "DataBase::updateModeIdTableAward: END OK"  << endl;
+        query.finish();
         return true;
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
          //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-4"   << endl;
+        query.finish();
         return false;
     }
      //qDebug() << "DataBase::updateModeIdTableAward: Checkif seen END"   << endl;
+    query.finish();
      return false;
 }
 
@@ -4001,7 +4052,7 @@ bool DataBase::updateTo008()
             return false;
         }
         sqlOk = updateDBVersion();
-        //sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+
         if (sqlOk)
         { // Version updated
             //IAmIn008 = updateTableLog(6);
@@ -4063,7 +4114,7 @@ bool DataBase::updateTo009()
             return false;
         }
         sqlOk = updateDBVersion();
-        //sqlOk = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
+
         if (sqlOk)
         { // Version updated
             //qDebug() << "DataBase::updateTo009: - version updated" << endl;
@@ -4185,7 +4236,7 @@ bool DataBase::updateTo010()
     }
 
 
-    sqlOk = query.exec("UPDATE band SET lower = '0.1357', upper = '0.1378' WHERE name='2190M'");
+    sqlOk = execQuery(Q_FUNC_INFO, "UPDATE band SET lower = '0.1357', upper = '0.1378' WHERE name='2190M'");
     if (sqlOk)
     {
           //qDebug() << "DataBase::updateTo010: - Band update OK" << endl;
@@ -4221,26 +4272,9 @@ bool DataBase::updateDBVersion()
     QString dateString = (QDate::currentDate()).toString("yyyyMMdd");
 
       //qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << softVersion << "/" << QString::number(dbVersion) << endl;
-    QString st = "INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')";
-    return execQuery(Q_FUNC_INFO, st);
-/*
-    QSqlQuery query;
-    QSqlDatabase::database().transaction();
-    bool sqlOK = query.exec("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')");
-    QSqlDatabase::database().commit();
-      //qDebug() << "DataBase::updateDBVersion: " << query.lastQuery() << endl;
-    if (sqlOK)
-    {
-          //qDebug() << "DataBase::updateDBVersion: OK"  << endl;
-    }
-    else
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-          //qDebug() << "DataBase::updateDBVersion: NOK"  << endl;
-    }
+    QString stringQuery = "INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + softVersion + "', '" + QString::number(dbVersion) + "')";
+    return execQuery(Q_FUNC_INFO, stringQuery);
 
-    return sqlOK;    
-*/
 }
 
 
@@ -5551,7 +5585,6 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-
     sq = QString ("UPDATE entity SET isoname='tr' WHERE dxcc='390'");  // Turkey
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
@@ -6042,6 +6075,7 @@ bool DataBase::hasTheTableData(const QString _tableName)
         {
              //qDebug() << "DataBase::hasTheTableData - valid"  << endl;
             _num = (query.value(0)).toInt();
+            query.finish();
             if (_num > 0)
             {
                  //qDebug() << "DataBase::hasTheTableData - DB Exists"  << endl;
@@ -6056,7 +6090,7 @@ bool DataBase::hasTheTableData(const QString _tableName)
         else
         {
              //qDebug() << "DataBase::hasTheTableData - not valid"  << endl;
-
+            query.finish();
             return false;
         }
     }
@@ -6067,10 +6101,13 @@ bool DataBase::hasTheTableData(const QString _tableName)
          //qDebug() << "DataBase::hasTheTableData: LastError-driver: " << query.lastError().driverText()  << endl;
          //qDebug() << "DataBase::hasTheTableData LastError-n: " << QString::number(query.lastError().number() ) << endl;
          //qDebug() << "DataBase::updateTheEntityTableISONames" << endl;
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
         return false;
     }
 
      //qDebug() << "DataBase::isTheDBCreated: END FALSE" << endl;
+    query.finish();
     return false;
 }
 
@@ -6085,11 +6122,11 @@ bool DataBase::updateTo011()
     bool IAmIn010 = false;
     bool ErrorUpdating = false;
     QString stringQuery = QString();
-    QSqlQuery query;
+    //QSqlQuery query;
 
     //bool sqlOk = false;
 
-     //qDebug() << "DataBase::updateTo011: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << endl;
+    //qDebug() << "DataBase::updateTo011: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << endl;
     if (latestReaded >= float(0.011))
     {
         //qDebug() << "DataBase::updateTo011: - I am in 011" << endl;
@@ -6126,8 +6163,8 @@ bool DataBase::updateTo011()
 
     recreateSatelliteData();
 
-    execQuery(Q_FUNC_INFO, "ALTER TABLE satellites ADD COLUMN uplink");
-    execQuery(Q_FUNC_INFO, "ALTER TABLE satellites ADD COLUMN downlink");
+    //execQuery(Q_FUNC_INFO, "ALTER TABLE satellites ADD COLUMN uplink");
+    //execQuery(Q_FUNC_INFO, "ALTER TABLE satellites ADD COLUMN downlink");
 /*
 
     //qDebug() << "DataBase::updateTo011: - 03 " << endl;
@@ -6253,14 +6290,15 @@ bool DataBase::updateTo011()
 
 void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery)
 {
-      qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << endl;
-      qDebug() << "DataBase::queryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
-      qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
+      //qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << endl;
+      //qDebug() << "DataBase::queryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
+      //qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
+      //qDebug() << "DataBase::queryErrorManagement: Query failed: " << failedQuery << endl;
 }
 
  bool DataBase::beginTransaction()
  {
-     qDebug() << "DataBase::beginTransaction: " << endl;
+     //qDebug() << "DataBase::beginTransaction: " << endl;
      QSqlDatabase db = QSqlDatabase::database();
      return execQuery(Q_FUNC_INFO, "BEGIN IMMEDIATE TRANSACTION");
  }
@@ -6268,25 +6306,26 @@ void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, 
 
  bool DataBase::commitTransaction()
  {
-     qDebug() << "DataBase::commitTransaction: " << endl;
+     //qDebug() << "DataBase::commitTransaction: " << endl;
      return db.commit();
  }
 
 
  bool DataBase::execQuery(const QString function, const QString stringQuery)
  {
-     qDebug() << "DataBase::execQuery: " << function << " : " << stringQuery << endl;
+    //qDebug() << "DataBase::execQuery: " << function << " : " << stringQuery << endl;
     QSqlQuery query;
+
 
 
     if (query.exec(stringQuery))
     {
         while (query.isActive())
         {
-            qDebug() << "DataBase::execQuery: Still active... " << endl;
+            //qDebug() << "DataBase::execQuery: Still active... " << endl;
             query.finish();
         }
-        qDebug() << "DataBase::execQuery: No longer active... " << endl;
+        //qDebug() << "DataBase::execQuery: No longer active... " << endl;
         return true;
     }
     else

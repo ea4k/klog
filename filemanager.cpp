@@ -3707,7 +3707,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                 }
                 else if (field == "DXCC")
                 {
-                    qDebug() << "FileManager::processQsoReadingADIF-DXCC: " << data << endl;
+                    //qDebug() << "FileManager::processQsoReadingADIF-DXCC: " << data << endl;
                     if ((data.toInt()>0) && (data.toInt()<dataProxy->getMaxEntityID()))
                     {
                         preparedQuery.bindValue( ":dxcc", data );
