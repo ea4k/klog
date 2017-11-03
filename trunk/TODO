@@ -1,5 +1,7 @@
 RC-BUGS:
 
+REVIEW: bool DataProxy_SQLite::qslRecViaBureau - Check this function flow
+
 
 For next release:
 TODO: Import LOTW (MainWindow::slotADIFImport)
