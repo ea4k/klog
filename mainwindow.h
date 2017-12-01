@@ -66,6 +66,7 @@
 
 
 
+
 class QTimer;
 class QDateTime;
 
@@ -143,6 +144,10 @@ private slots:
     void slotToolSearchRequestedQSLToSend();
     void slotToolSearchNeededQSLPendingToReceive();
     void slotToolSearchNeededQSLRequested();
+    void slotToolLoTWMarkAllQueuedThisLog();
+    void slotToolLoTWMarkAllQueued();
+    void slotToolLoTWMarkAllYesThisLog();
+    void slotToolLoTWMarkAllYes();
     //void slotSearchExportButtonClicked();
     //void slotSearchBoxSelectAllButtonClicked();
     //void slotSearchClearButtonClicked();
@@ -407,6 +412,7 @@ private:
 
     ShowErrorDialog *showErrorDialog;
 
+
     // <UI>
     QGroupBox *gridGroupBox, *qrzgroupBox;//, *searchgroupBox;
     QFrame *dxUpLeftInputFrame;//, *dxUpRightOutputFrame;
@@ -422,6 +428,10 @@ private:
 
     QMenu *fileMenu;
     QMenu *toolMenu;
+    QMenu *qslToolMenu;
+    QMenu *lotwToolMenu;
+    //QMenu *lotwMarkAllAsQueuedMenu;
+    //QMenu *lotwMarkAllInThisLogAsQueuedMenu;
     QMenu *viewMenu;
     QMenu *setupMenu;
     QMenu *helpMenu;
@@ -455,6 +465,10 @@ private:
     QAction *findRequestedQSLAct;
     QAction *findQSLPendingToReceiveAct;
     QAction *findQSLDXRequestedAct;
+    QAction *lotwMarkSentQueuedThisLogAct;
+    QAction *lotwMarkSentQueuedAct;
+    QAction *lotwMarkSentYesThisLogAct;
+    QAction *lotwMarkSentYesAct;
 
     QAction *downloadCTYAct;
 

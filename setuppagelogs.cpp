@@ -480,6 +480,7 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     contestBands  = (_qs.at(10)).toInt();
     typeContestN = (_qs.at(12)).toInt();
 */
+/*
     bool editing;
     if ( (_qs.at(13)).toInt() == 1)
     {
@@ -489,6 +490,7 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     {
         editing = false;
     }
+*/
     //OVERLAY = 11
 /*
     QString _dateString = _qs.at(0);

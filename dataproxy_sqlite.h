@@ -40,12 +40,18 @@ class DataProxy_SQLite : public DataProxy {
     Q_OBJECT
 
 public:
-    DataProxy_SQLite();
+    DataProxy_SQLite(const QString _softVersion);
     ~DataProxy_SQLite();
+
+    QString getSoftVersion();
+    QString getDBVersion();
 
     void createLogModel();
     void createLogPanel();
     bool haveAtLeastOneLog();
+
+    QStringList getColumnNamesFromTableLog();
+
 
     int getIdFromModeName(const QString& _modeName);
     int getIdFromBandName(const QString& _bandName);
@@ -114,9 +120,6 @@ public:
 
     //LOTW
 
-
-    //LOTW
-
     int getContinentIdFromContinentShortName(const QString _n);
     QString getContinentShortNameFromEntity(const int _n);
     int getContinentIdFromEntity(const int _n);
@@ -142,6 +145,8 @@ public:
     QStringList getOperatingYears(const int _currentLog);
     void compressDB();
     bool unMarkAllQSO();            // Unmarks all the marked QSO
+    bool lotwSentQueue(const QString _updateDate, const int _currentLog);          // Mark LOTW QSL SENT as Q (Queued)
+    bool lotwSentYes(const QString _updateDate, const int _currentLog);         // Updat LOTW QSL SENT marked as Q as Y (Queued)
 
     bool clearLog();
 
@@ -178,6 +183,7 @@ public:
     QStringList getListOfManagedLogs();
     int getMaxLogNumber();
     QString getStationCallSignFromLog(const int _log);
+    QStringList getStationCallSignsFromLog(const int _log);
     QString getOperatorsFromLog(const int _log);
     QString getCommentsFromLog(const int _log);
     QString getLogDateFromLog(const int _log);
@@ -190,14 +196,19 @@ public:
 
     void getFoundInLog(const QString _txt, const int _log=-1);
 
+    bool queryPrepare(const QString _query);
+    bool queryBind(const QString _field, const QString value);
+    bool queryExec();
 
 private:
     bool dbCreated;
     DataBase *db;
     QStringList sortBandIdBottonUp(const QStringList _qs);
     double getFreqFromRange(QString _fr); //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
+    QStringList getColumnNamesFromTable(const QString _tableName);
     bool searching;
     int executionN;
+    QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;
 
 signals:

@@ -29,40 +29,112 @@
 
 DataBase::DataBase()
 {
-      //qDebug() << "DataBase::DataBase: PLAIN" << endl;
+    qDebug() << "DataBase::DataBase: PLAIN" << endl;
+
+    db = QSqlDatabase::database();
+
+    createConnection();
+    qDebug() << "DataBase::DataBase: PLAIN - connection Name: " << dbConnectionName << endl;
+    qDebug() << "DataBase::DataBase: PLAIN - DB Name: " << db.databaseName() << endl;
+    insertPreparedQueries.clear();
+    insertQueryFields.clear();
 
 }
 
 DataBase::DataBase(const QString _softVersion){
-      //qDebug() << "DataBase::DataBase: " << _softVersion  << endl;
+    qDebug() << "DataBase::DataBase: " << _softVersion  << endl;
     //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
     dbVersion = DBVersionf;
     softVersion = _softVersion;
     //inMemoryOnly = inmemoryonly;
     latestReaded = 0.0;
     util = new Utilities();
-    dbDir = util->getKLogDBFile();
-      //qDebug() << "DataBase::DataBase: DB: " << dbDir << endl;
+    util->setVersion(softVersion);
 
-    //db = new QSqlDatabase;
+    dbName = util->getKLogDBFile();
+    dbDir = dbName;
+    qDebug() << "DataBase::DataBase: DB(string): " << dbName << endl;
+
+
     db = QSqlDatabase::database();
-    //created = false;
-    if (softVersion>0)
+
+    if (util->getVersionDouble()>0)
     {
         createConnection();
     }
 
-/*
-    QSqlQuery query;
-    query.prepare("VACUUM");
-    if(!query.exec())
-    {
-      //qDebug() << "DataBase::DataBase: ERROR I CAN'T COMPRESS"  << endl;
-    }
-    */
-      //qDebug() << "DataBase::DataBase: END"  << endl;
+    qDebug() << "DataBase::DataBase: - connection Name: " << dbConnectionName << endl;
+    qDebug() << "DataBase::DataBase: - DB Name: " << db.databaseName() << endl;
+
+    insertPreparedQueries.clear();
+    insertQueryFields.clear();
+
+    qDebug() << "DataBase::DataBase: END"  << endl;
 
 }
+
+
+
+
+bool DataBase::queryAddField(const QString _field, const QString value)
+{
+    //QStringList insertPreparedQueries, insertQueryFields;
+    insertQueryFields << _field << value;
+
+}
+
+
+bool DataBase::queryPrepare()
+{
+    //insertPreparedQueries.clear();
+    //insertQueryFields.clear();
+    for (int i = 0; i < insertQueryFields.size(); ++i)
+    {
+        if (insertQueryFields.at(i) != "EOR")
+        {
+            insertPreparedQueries << insertQueryFields.at(i) << insertQueryFields.at(i+1);
+        }
+        else
+        {
+            insertPreparedQueries << "EOR";
+            return true;
+        }
+    }
+    return true;
+
+}
+
+
+bool DataBase::queryExec()
+{
+    qDebug()  << "DataBase::queryExec  "  << endl;
+    bool sqlOK;
+    //insertQueryFields.clear();
+    //insertPreparedQueries.clear();
+    //bool sqlOK = preparedQuery.exec();
+    QSqlQuery preparedQuery;
+    //Prepare the Query
+    for (int i = 0; i < insertPreparedQueries.size(); ++i)
+    {
+        preparedQuery.bindValue(insertPreparedQueries.at(i), insertPreparedQueries.at(i+1));
+    }
+
+
+
+    if (!sqlOK)
+    {
+        queryErrorManagement("DataBase::queryExec", preparedQuery.lastError().databaseText(), preparedQuery.lastError().number(), preparedQuery.lastQuery());
+        //emit queryError(Q_FUNC_INFO, preparedQuery.lastError().databaseText(), preparedQuery.lastError().number(), preparedQuery.lastQuery());
+        qDebug()  << "DataBase::queryExec - FAILED execution: "  << preparedQuery.lastQuery() << endl;
+    }
+    else
+    {
+        qDebug()  << "DataBase::queryExec - executed: "  << preparedQuery.lastQuery() << endl;
+    }
+    return sqlOK;
+}
+
+
 
 
 
@@ -71,10 +143,113 @@ DataBase::~DataBase()
       //qDebug() << "DataBase::~DataBase"  << endl;
 }
 
+QString DataBase::getSoftVersion()
+{
+    QSqlQuery query;
+
+    QString stringQuery ("SELECT MAX (dbversion) FROM softwarecontrol");
+    bool sqlOK = query.exec(stringQuery);
+
+
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+
+            return (query.value(0)).toString();
+
+        }
+        else
+        {
+
+             query.finish();
+            return QString();
+        }
+    }
+    else
+    { //ERROR in Query execution
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return QString();
+    }
+    return QString();
+
+}
+
+QString DataBase::getDBVersion()
+{
+    QSqlQuery query;
+
+    QString stringQuery ("SELECT MAX (softversion) FROM softwarecontrol");
+    bool sqlOK = query.exec(stringQuery);
+
+
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            return (query.value(0)).toString();
+        }
+        else
+        {
+             query.finish();
+            return QString();
+        }
+    }
+    else
+    { //ERROR in Query execution
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return QString();
+    }
+    return QString();
+}
+
 bool DataBase::setDir(const QString _dir)
 {
     dbDir = _dir;
     return true;
+}
+
+QStringList DataBase::getColumnNamesFromTable(const QString _tableName)
+{
+
+   //qDebug() << "DataBase::getColumnNamesFromTable: " << _tableName << endl;
+   QSqlQuery query;
+
+   QString queryString = QString("PRAGMA table_info('%1')").arg(_tableName);
+
+   bool sqlOK = query.exec(queryString);
+   QStringList list;
+   list.clear();
+    QString aux;
+   if (sqlOK)
+   {
+       //qDebug() << "DataBase::getColumnNamesFromTable: OK" << endl;
+       while(query.next())
+       {
+           if (query.isValid())
+           {
+                aux = (query.value(1)).toString();
+               if (( aux.toUpper() != "ID" ) && (aux.length()>0))
+               {
+                   list << aux;
+                   //qDebug() << "DataBase::getColumnNamesFromTable: " << (query.value(1)).toString() << endl;
+               }
+           }
+       }
+       query.finish();
+    }
+    else
+    {
+       queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+    }
+    query.finish();
+    //qDebug() << "DataBase::getColumnNamesFromTable: " << QString::number(list.size()) << endl;
+    return list;
+
 }
 
 void DataBase::compress()
@@ -98,7 +273,7 @@ bool DataBase::reConnect()
      //qDebug() << "DataBase::reConnect:"  << endl;
     db.close();
      //qDebug() << "DataBase::reConnect: DB closed"  << endl;
-    dbDir = util->getKLogDBFile();
+    dbName = util->getKLogDBFile();
      //qDebug() << "DataBase::reConnect: DB: " << dbDir  << endl;
     return createConnection();
      //qDebug() << "DataBase::reConnect: END"  << endl;
@@ -107,36 +282,119 @@ bool DataBase::reConnect()
 
 bool DataBase::createConnection(bool newDB)
 {
-      //qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
-
+    qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
     QString stringQuery;
     QSqlQuery query;
 
-    //rc = sqlite3_open(":memory:", &db);
 
     if (!db.isOpen())
+        {
+           //qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
+            db = QSqlDatabase::addDatabase("QSQLITE");
+            db.setDatabaseName("logbook.dat");
+
+            if (!db.open())
+            {
+                QMessageBox::warning(0, QObject::tr("Database Error"),
+                                     db.lastError().text());
+               //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
+                return false;
+            }
+           else
+           {
+               //qDebug() << "DataBase::createConnection: created?" << endl;
+
+                if (isTheDBCreated())
+                {
+                   //qDebug() << "DataBase::createConnection: DB Exists"  << endl;
+                }
+                else
+                {
+                    //qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
+                    createDataBase();
+
+                    stringQuery ="PRAGMA main.page_size = 4096;";
+                    query.exec(stringQuery);
+                    stringQuery ="PRAGMA main.cache_size=10000;";
+                    query.exec(stringQuery);
+                    stringQuery ="PRAGMA main.locking_mode=EXCLUSIVE;";
+                    query.exec(stringQuery);
+                    stringQuery ="PRAGMA main.synchronous=NORMAL;";
+                    query.exec(stringQuery);
+                    stringQuery ="PRAGMA main.journal_mode=WAL;";
+                    query.exec(stringQuery);
+                    stringQuery ="PRAGMA main.cache_size=5000;";
+                    query.exec(stringQuery);
+                    stringQuery ="PRAGMA synchronous=OFF;";
+                    query.exec(stringQuery);
+                    stringQuery ="PRAGMA main.temp_store = MEMORY;";
+                    query.exec(stringQuery);
+                    //stringQuery="PRAGMA auto_vacuum = FULL;";
+                    //query.exec(stringQuery);
+                    stringQuery ="PRAGMA case_sensitive_like=OFF;";
+                    query.exec(stringQuery);
+                }
+            }
+        }
+        else
+        {
+           //qDebug() << "DataBase::createConnection: DB already opened"  << endl;
+        }
+
+
+    /*
+    if (!db.isOpen())
     {
-         //qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
-        db = QSqlDatabase::addDatabase("QSQLITE");
+         qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
+         qDebug() << "DataBase::createConnection: - connection Name: " << dbConnectionName << endl;
+         qDebug() << "DataBase::createConnection: - DB Name: " << db.databaseName() << endl;
+
+        if ((db.connectionName() != dbConnectionName) && !((db.connectionName()).isEmpty()))
+        {
+            db = QSqlDatabase::addDatabase("QSQLITE");
+            db.setDatabaseName(dbName);
+            dbConnectionName = db.connectionName();
+            qDebug() << "DataBase::createConnection 0: ADDED1" << endl;
+            qDebug() << "DataBase::createConnection 0: - connection Name: " << db.connectionName() << endl;
+            qDebug() << "DataBase::createConnection 0: - DB Name: " << db.databaseName() << endl;
+
+        }
+        qDebug() << "DataBase::createConnection 01: ADDED2" << endl;
+        qDebug() << "DataBase::createConnection 01: - connection Name: " << dbConnectionName << endl;
+        qDebug() << "DataBase::createConnection 01: - DB Name: " << db.databaseName() << endl;
+
         //db.setConnectOptions("QSQLITE_BUSY_TIMEOUT");
         //QString backDir = QDir::currentPath();
         //QDir::setCurrent(dbDir);
         QString dbName;
         dbName = util->getKLogDBFile();
-        //qDebug() << "DataBase::createConnection: DB: " << dbName << endl;
+        qDebug() << "DataBase::createConnection: DB (string): " << dbName << endl;
 
         if (util->isDBFileExisting(dbName))
         {
-                //qDebug() << "DataBase::createConnection: DB is existing!!!!!! " << endl;
+                qDebug() << "DataBase::createConnection: DB is existing!!!!!! " << endl;
         }
         else
         {
-              //qDebug() << "DataBase::createConnection: DB is NOT existing!!!!!! " << endl;
+              qDebug() << "DataBase::createConnection: DB is NOT existing!!!!!! " << endl;
         }
 
+        qDebug() << "DataBase::createConnection1: - connection Name: " << dbConnectionName << endl;
+        qDebug() << "DataBase::createConnection1: - DB Name: " << db.databaseName() << endl;
         db.setDatabaseName(dbName);
+        qDebug() << "DataBase::createConnection2: - connection Name: " << dbConnectionName << endl;
+        qDebug() << "DataBase::createConnection2: - DB Name: " << db.databaseName() << endl;
         //QDir::setCurrent(backDir);
         //qDebug() << "DataBase::createConnection - dataBaseName: " << db.databaseName() << endl;
+
+
+        if (!db.isValid())
+        {
+            QMessageBox::warning(0, QObject::tr("Database Error"),
+                                 db.lastError().text());
+            qDebug() << "DataBase::createConnection: DB not valid!"  << endl;
+            return false;
+        }
 
         if (!db.open())
         {
@@ -151,11 +409,11 @@ bool DataBase::createConnection(bool newDB)
 
             if (isTheDBCreated())
             {
-                  //qDebug() << "DataBase::createConnection: DB Exists"  << endl;
+                  qDebug() << "DataBase::createConnection: isTheDBCreated TRUE"  << endl;
             }
             else
             {
-                //qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
+                qDebug() << "DataBase::createConnection: isTheDBCreated FALSE"  << endl;
                 createDataBase();
 
 
@@ -197,7 +455,7 @@ bool DataBase::createConnection(bool newDB)
           //qDebug() << "DataBase::createConnection: DB already opened"  << endl;
     }
     //createBandModeMaps(); //TODO: I have commented out thi line because createBandModeMaps is also called from isThe
-
+*/
       //qDebug() << "DataBase::createConnection: Going to run - createBandModeMaps " << endl;
     if (createBandModeMaps())
     {
@@ -270,6 +528,56 @@ bool DataBase::isTheDBCreated()
 
 }
 
+bool DataBase::recreateTableLog()
+{
+    qDebug() << "DataBase::recreateTableLog" << endl;
+
+    createTableLog(false);         // Create modetemp
+
+    QString queryString;
+    queryString.clear();
+    QStringList columns;
+    columns.clear();
+    columns << getColumnNamesFromTable("log");
+
+    queryString =  columns.first();
+
+    for (int i=1;i<columns.size()-1;i++)
+    {
+        queryString = queryString + ", " + columns.at(i);
+    }
+
+    queryString = "INSERT INTO logtemp (" + queryString + ", " + columns.last() + ") SELECT " + queryString + ", " + columns.last() + " FROM log";
+
+
+    if (execQuery(Q_FUNC_INFO, queryString))
+    {
+        if (execQuery(Q_FUNC_INFO, "DROP table log"))
+        {
+            if (execQuery(Q_FUNC_INFO, "ALTER TABLE logtemp RENAME TO log"))
+            {
+                return true;
+            }
+            else
+            {
+                qDebug() << "recreateTableLog ERROR - logTemp not renamed" << endl;
+                return false;
+            }
+        }
+        else
+        {
+            qDebug() << "recreateTableLog ERROR - log table not dropped" << endl;
+        }
+    }
+    else
+    {
+        qDebug() << "recreateTableLog ERROR - Data not moved" << endl;
+        return false;
+    }
+    qDebug() << "recreateTableLog END" << endl;
+    return true;
+}
+
 bool DataBase::createTableLog(bool temp)
 { //Creates a temporal table or the normal one.
 
@@ -312,14 +620,18 @@ bool DataBase::createTableLog(bool temp)
              "ant_el INTEGER, "
              "ant_path INTEGER, "
              "arrl_sect INTEGER, "
+             "award_submitted VARCHAR, "
+             "award_granted VARCHAR, "
              "band_rx INTEGER, "
              "checkcontest VARCHAR, "
              "class VARCHAR, "
+             "cont VARCHAR(2), "
              "contacted_op VARCHAR(40), "
              "contest_id VARCHAR, "
              "country VARCHAR, "
              "credit_submitted VARCHAR, "
              "credit_granted VARCHAR, "
+             "darc_dok VARCHAR,"
              "distance INTEGER, "
              "email VARCHAR, "
              "eq_call VARCHAR, "
@@ -327,10 +639,15 @@ bool DataBase::createTableLog(bool temp)
              "eqsl_qslsdate VARCHAR(10), "
              "eqsl_qsl_rcvd VARCHAR(1), "
              "eqsl_qsl_sent VARCHAR(1), "
+             "fists INTEGER, "
+             "fists_cc INTEGER, "
              "force_init INTEGER, "
              "freq VARCHAR, "
              "freq_rx VARCHAR, "
              "gridsquare VARCHAR, "
+             "guest_op VARCHAR,"
+             "hrdlog_qso_upload_date VARCHAR(10), "
+             "hrdlog_qso_upload_status  VARCHAR(1), "
              "iota VARCHAR(6), "
              "iota_island_id VARCHAR, "
              "k_index INTEGER, "
@@ -344,21 +661,29 @@ bool DataBase::createTableLog(bool temp)
              "clublog_qso_upload_status VARCHAR(1), "
              "max_bursts INTEGER, "
              "ms_shower VARCHAR, "
+             "my_antenna VARCHAR,"
              "my_city VARCHAR, "
              "my_cnty VARCHAR, "
              "my_country INTEGER, "
              "my_cq_zone INTEGER, "
+             "my_dxcc INTEGER, "
+             //"my_fists INTEGER, "
              "my_gridsquare VARCHAR, "
              "my_iota VARCHAR(6), "
              "my_iota_island_id VARCHAR, "
+             "my_itu_zone INTEGER ,"
              "my_lat VARCHAR(11), "
              "my_lon VARCHAR(11), "
              "my_name VARCHAR, "
+             "my_postal_code VARCHAR ,"
              "my_rig VARCHAR, "
              "my_sig VARCHAR, "
              "my_sig_info VARCHAR, "
+             "my_sota_ref VARCHAR, "
              "my_state VARCHAR, "
              "my_street VARCHAR, "
+             "my_usaca_counties VARCHAR, "
+             "my_vucc_grids VARCHAR, "
              "name VARCHAR, "
              "notes VARCHAR, "
              "nr_bursts INTEGER, "
@@ -369,6 +694,8 @@ bool DataBase::createTableLog(bool temp)
              "precedence VARCHAR, "
              "prop_mode VARCHAR, "
              "public_key VARCHAR, "
+             "qrzcom_qso_upload_date VARCHAR(10), "
+             "qrzcom_qso_upload_status VARCHAR(1), "
              "qslmsg VARCHAR, "
              "qslrdate VARCHAR(10), "
              "qslsdate VARCHAR(10), "
@@ -380,17 +707,26 @@ bool DataBase::createTableLog(bool temp)
              "qso_complete VARCHAR(1), "
              "qso_random INTEGER, "
              "qth VARCHAR, "
+             "region VARCHAR, "
+             "rig VARCHAR, "
              "rx_pwr REAL, "
              "sat_mode VARCHAR, "
              "sat_name VARCHAR, "
              "sfi INTEGER, "
              "sig VARCHAR, "
              "sig_info VARCHAR, "
+             "silent_key VARCHAR(1), "
+             "skcc VARCHAR, "
+             "sota_ref VARCHAR, "
              "srx_string VARCHAR, "
              "stx_string VARCHAR, "
              "state VARCHAR, "
              "station_callsign VARCHAR, "
              "swl INTEGER, "
+             "uksmg INTEGER, "
+             "usaca_counties VARCHAR, "
+             "ve_prov VARCHAR, "
+             "vucc_grids VARCHAR, "
              "ten_ten INTEGER, "
              "tx_pwr REAL, "
              "web VARCHAR, "
@@ -423,7 +759,18 @@ bool DataBase::createTableLog(bool temp)
              "FOREIGN KEY (bandid) REFERENCES band)");
 
       //qDebug() << "DataBase::createTableLog: " << stringQuery  << endl;
+
+    if (execQuery(Q_FUNC_INFO, stringQuery))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+/*
     bool sqlOK = query.exec(stringQuery);
+
     while (query.isActive())
     {query.finish();}
     if (sqlOK)
@@ -435,7 +782,7 @@ bool DataBase::createTableLog(bool temp)
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;
     }
-
+*/
 }
 
 bool DataBase::createDataBase()
@@ -1110,12 +1457,6 @@ bool DataBase::unMarkAllQSO()
      //qDebug() << "DataBase::unMarkAllQSO" << endl;
     QString stringQuery = QString("UPDATE log SET marked = 'N' WHERE 1");
     return execQuery(Q_FUNC_INFO, stringQuery);
-    //QSqlQuery query(stringQuery);
-      //qDebug() << "MainWindow::slotQSLSentViaBureauFromLog: " << stringQuery << endl;
-    //query.exec(stringQuery);
-    //TODO: Check if the execution of this query is OK or NOK (should return false)
-     //qDebug() << "DataBase::unMarkAllQSO: END "  << endl;
-    //return true;
 }
 
 bool DataBase::updateIfNeeded()
@@ -1549,6 +1890,7 @@ int DataBase::getLogTypeNumber(const QString _logType)
          return -1;
      }
      query.finish();
+     return -2;
 }
 
 QString DataBase::getLogTypeName(const int _logType)
@@ -1574,6 +1916,7 @@ QString DataBase::getLogTypeName(const int _logType)
          return QString();
      }
      query.finish();
+     return QString();
 }
 
 bool DataBase::updateToLatest()
@@ -1797,7 +2140,7 @@ bool DataBase::updateTo005()
                             //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                             //showError(QObject::tr("New Log not created"));
                               //qDebug() << "DataBase::updateTo005 - New Log not created" << endl;
-                              //qDebug() << "DataProxy_SQLite::clearLog: Log deleted FAILED" << endl;
+                              //qDebug() << "DataBase::clearLog: Log deleted FAILED" << endl;
                         }
                    }
                    else
@@ -1835,7 +2178,7 @@ bool DataBase::recreateSatelliteData()
 {
      //qDebug() << "DataBase::recreateSatelliteData"  << endl;
     QSqlQuery query;
-    bool sqlOk = false;
+    //bool sqlOk = false;
     //beginTransaction();
 
     if (execQuery(Q_FUNC_INFO, "DROP TABLE satellites"))
@@ -2457,6 +2800,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2E', 'Hope 2E', '435.270-435.290', '145.915-145.935', 'LSB/USB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2F', 'Hope 2F', '435.330-435.350', '145.980-145.999', 'LSB/USB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-90', 'LilacSat-OSCAR 90 (LilacSat-1)', '145.985', '436.510', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-91', 'RadFxSat (Fox-1B)', '435.250', '145.960', 'FM')").arg(tableName));
 
      //qDebug() << "DataBase::populateTableSatellites - END" << endl;
     return true;
@@ -2719,6 +3063,7 @@ bool DataBase::howManyQSOsInLog(const int i)
         return -1;
     }
     query.finish();
+    return -2;
 }
 
 bool DataBase::updateTo006()
@@ -6272,6 +6617,11 @@ bool DataBase::updateTo011()
         //qDebug() << "DataBase::updateTo011: - MSK OK " << endl;
     }
 
+    if (!recreateTableLog())
+    {
+        qDebug() << "DataBase::updateTo011: -Failed to recreate Table Log " << endl;
+        return false;
+    }
 
     if (updateDBVersion())
     {
@@ -6290,16 +6640,17 @@ bool DataBase::updateTo011()
 
 void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery)
 {
-      //qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << endl;
-      //qDebug() << "DataBase::queryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
-      //qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
-      //qDebug() << "DataBase::queryErrorManagement: Query failed: " << failedQuery << endl;
+      qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << endl;
+      qDebug() << "DataBase::queryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
+      qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
+      qDebug() << "DataBase::queryErrorManagement: Query failed: " << failedQuery << endl;
 }
 
  bool DataBase::beginTransaction()
  {
      //qDebug() << "DataBase::beginTransaction: " << endl;
-     QSqlDatabase db = QSqlDatabase::database();
+     QSqlDatabase db = QSqlDatabase::database("QSQLITE");
+     db.setDatabaseName(dbName);
      return execQuery(Q_FUNC_INFO, "BEGIN IMMEDIATE TRANSACTION");
  }
 

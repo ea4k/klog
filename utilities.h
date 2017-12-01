@@ -57,12 +57,15 @@ public:
     QString getCfgFile();
     QString getCTYFile();
 
-    void setVersion(const QString _file);
+    void setVersion(const QString _v);
     QString getVersion();
+    double getVersionDouble();
 
     QDate getDefaultDate();
     bool isValidDate(const QDate _d);
     int getNormalizedDXCCValue(const int _dxcc);
+
+
 
 private:
     bool processConfigLine(const QString _line);

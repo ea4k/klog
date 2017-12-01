@@ -36,9 +36,15 @@ public:
     DataProxy();
    // DataProxy(const QStringList _qs);
     ~DataProxy();
+
+    virtual QString getSoftVersion();
+    virtual QString getDBVersion();
+
     virtual void createLogModel();
     virtual void createLogPanel();
     virtual bool haveAtLeastOneLog();
+
+    virtual QStringList getColumnNamesFromTableLog();
 
 
     //UI functions
@@ -133,7 +139,9 @@ public:
 
     virtual QStringList getOperatingYears(const int _currentLog);
     virtual void compressDB();
-    virtual bool unMarkAllQSO();            // Unmarks all the marked QSO
+    virtual bool unMarkAllQSO();                                // Unmarks all the marked QSO
+    virtual bool lotwSentQueue(const QString _updateDate, const int _currentLog);          // Mark LOTW QSL SENT as Q (Queued)
+    virtual bool lotwSentYes(const QString _updateDate, const int _currentLog);         // Updat LOTW QSL SENT marked as Q as Y (Queued)
 
     virtual int getQSOonYear(const int _year, const int _logNumber);
     virtual int getDXCConYear(const int _year, const int _logNumber);
@@ -168,6 +176,7 @@ public:
     virtual int getMaxLogNumber();
     virtual QStringList getListOfManagedLogs();
     virtual QString getStationCallSignFromLog(const int _log);
+    virtual QStringList getStationCallSignsFromLog(const int _log);
     virtual QString getOperatorsFromLog(const int _log);
     virtual QString getCommentsFromLog(const int _log);
     virtual QString getLogDateFromLog(const int _log);
@@ -180,6 +189,11 @@ public:
 
     virtual void getFoundInLog(const QString _txt, const int _log=-1);
 
+
+    virtual bool queryPrepare(const QString _query);
+    virtual bool queryBind(const QString _field, const QString value);
+    virtual bool queryExec();
+
 /*
     virtual bool isMultiplier(const QStringList _qs);
     virtual int getQSOPoints(const QStringList _qs);
@@ -190,6 +204,7 @@ public:
 */
 private:
     virtual QStringList sortBandIdBottonUp(const QStringList _qs);
+    virtual QStringList getColumnNamesFromTable(const QString _tableName);
    // int points;
    // int multipliers;
 

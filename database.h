@@ -39,8 +39,8 @@
 
 class QSqlRelationalTableModel;
 
-// Previous db update 0.010
-const float DBVersionf = 0.011; // TODO:
+// Previous db update 0.011
+const float DBVersionf = 0.012; // TODO:
 
 
 class DataBase{
@@ -50,11 +50,15 @@ public:
     //DataBase(const QString _softVersion, bool  inmemoryonly = false);
     DataBase(const QString _softVersion);
     ~DataBase();
+    QString getSoftVersion();
+    QString getDBVersion();
+
     bool createConnection(bool newDB=false);    // If true that means that we are creating the DB,
                                                 // not just connecting to an existing one.
                                                 // That will be done in the default path
     bool reConnect();
     bool setDir(const QString _dir);
+    QStringList getColumnNamesFromTable(const QString _tableName);
 
 
     bool isValidBand (const QString b);
@@ -93,6 +97,15 @@ public:
     bool updateTheEntityTableISONames();
     bool updateTableLogs();
 
+    bool queryAddField(const QString _field, const QString value);
+    bool queryPrepare();
+    bool queryExec();
+
+    bool queryPrepare(const QString _query);
+    bool queryBind(const QString _field, const QString value);
+
+
+
 private:
     bool beginTransaction();
     bool commitTransaction();
@@ -118,6 +131,7 @@ private:
     bool createTheModeQuickReference();
 
     //bool updateLog(); // Updates the log table
+    bool recreateTableLog();
     bool createTableLog(bool temp = false); // false creates the production DB. True a temporal one.
     bool createTableLogs(const bool real=true); // real = true creates the production DB. False a temporal one.
 
@@ -152,7 +166,9 @@ private:
     bool populateTableSupportedContest();
 
     bool howManyQSOsInLog(const int i);
-    void showError();
+    //void showError();
+
+
 
     //bool moveFromModeIdToSubmodeId();
     bool updateModeIdFromSubModeId();
@@ -164,6 +180,7 @@ private:
 
     bool created;
     float dbVersion;    // The current version of the DB. May differ from latestReaded if we are updating the DB!
+    QString dbConnectionName;
     QString softVersion;
     float latestReaded; // The latest version of DB readed in the DB itself
     bool inMemoryOnly; // The DB is to be created in memory, no file support... Faster but less safe!
@@ -182,7 +199,10 @@ private:
     Utilities *util;
 
     QSqlDatabase db;
-    QString dbDir;
+    QString dbDir, dbName;
+
+    QStringList insertPreparedQueries, insertQueryFields;
+    QSqlQuery preparedQuery;
 
 signals:
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution

@@ -36,32 +36,6 @@ ShowErrorDialog::ShowErrorDialog()
 
     setLayout(layout);
 
-
-/*
-    textBrowser = new QTextBrowser;
-    textBrowser->setOpenLinks(true);
-    textBrowser->setOpenExternalLinks(true);
-
-
-    QPushButton *acceptButton = new QPushButton(tr("Ok"));
-
-
-    textBrowser->setOpenExternalLinks(true);
-
-    QHBoxLayout *buttonsLayout = new QHBoxLayout;
-    buttonsLayout->addWidget(acceptButton);
-
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(textBrowser);
-    mainLayout->addLayout(buttonsLayout);
-
-    connect(acceptButton, SIGNAL(clicked()), this, SLOT(slotAcceptButtonClicked()));
-*/
-
-
-
-
-
 }
 
 void ShowErrorDialog::setText(const QString txt)
