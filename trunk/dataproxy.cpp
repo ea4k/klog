@@ -37,9 +37,21 @@ DataProxy::~DataProxy()
 {
 }
 
+QString DataProxy::getSoftVersion()
+{
+    return QString();
+}
+
+QString DataProxy::getDBVersion()
+{
+    return QString();
+}
+
 void DataProxy::createLogModel(){}
 void DataProxy::createLogPanel(){}
 bool DataProxy::haveAtLeastOneLog(){return true;}
+QStringList DataProxy::getColumnNamesFromTable(const QString _tableName){return QStringList();}
+QStringList DataProxy::getColumnNamesFromTableLog(){return QStringList();}
 
 int DataProxy::getIdFromModeName(const QString& _modeName)
 {
@@ -338,6 +350,15 @@ bool DataProxy::unMarkAllQSO()
     return false;
 }
 
+bool DataProxy::lotwSentQueue(const QString _updateDate, const int _currentLog)
+{// Mark LOTW QSL SENT as Q (Queued)
+    return false;
+}
+
+bool DataProxy::lotwSentYes(const QString _updateDate, const int _currentLog)
+{
+    return false;
+}
 
 int DataProxy::getQSOonYear(const int _year, const int _logNumber)
 {
@@ -438,6 +459,11 @@ QStringList DataProxy::getListOfManagedLogs()
 QString DataProxy::getStationCallSignFromLog(const int _log)
 {
     return QString();
+}
+
+QStringList DataProxy::getStationCallSignsFromLog(const int _log)
+{
+    return QStringList();
 }
 
 QString DataProxy::getOperatorsFromLog(const int _log)
@@ -623,4 +649,19 @@ QString DataProxy::getISOName(const int _n)
 void DataProxy::getFoundInLog(const QString _txt, const int _log)
 {
     //return false;
+}
+
+bool DataProxy::queryPrepare(const QString _query)
+{
+    return false;
+}
+
+bool DataProxy::queryBind(const QString _field, const QString value)
+{
+    return false;
+}
+
+bool DataProxy::queryExec()
+{
+    return false;
 }

@@ -1,7 +1,20 @@
 RC-BUGS:
+TODO: Review the ADIF specification and add ALL the fields to the DB definition.
+TODO: Review the ADIF specification and add ALL the fields to the import ADIF in filemanager
+TODO: Review the ADIF specification and add ALL the fields to the export ADIF in filemanager
+TODO-BUG: ADDRESS is not imported/exported to ADIF
+TODO-BUG: LOTW_QSLSDATE is not Exported to ADIF
+
+
 
 REVIEW: bool DataProxy_SQLite::qslRecViaBureau - Check this function flow
-
+TODO: After a LOTW log has been exported, the user is supposed to upload that log to LOTW outside KLog. Find a way to set LOTW_QSL_SENT=Y
+    easily for the user.
+TODO: The bool FileManager::adifReadLog needs a DB and not a "general" DB
+TODO: void SearchWidget::slotToolSearchQSL(const int actionQSL) (opción 0)
+    Cause: awarddxcc table is empty
+FIX: Awards::recalculateAwards it is not working
+FIX: void Awards::setAwardDXCC(const int _qsoId) is not done
 
 For next release:
 TODO: Import LOTW (MainWindow::slotADIFImport)
@@ -17,8 +30,36 @@ This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)
 Feel free to request any roadmap change if you have any suggestion.
 
+TODO: To add the support to import/export the following ADIF fields that are already existing in DB
+    AWARD_SUBMITTED
+    AWARD_GRANTED
+    DARC_DOK
+    FISTS
+    FISTS_CC
+    GUEST_OP
+    "hrdlog_qso_upload_date VARCHAR(10),"
+    "hrdlog_qso_upload_status  VARCHAR(1),"
+    "my_antenna VARCHAR,"
+    "my_dxcc INTEGER, "
+    "my_fists INTEGER, "
+    "my_itu_zone INTEGER ,"
+    "my_postal_code VARCHAR ,"
+    "my_sota_ref VARCHAR, "
+    "my_usaca_counties VARCHAR, "
+    "my_vucc_grids VARCHAR, "
+    "silent_key VARCHAR(1), "
+    "region VARCHAR, "
+    "qrzcom_qso_upload_date VARCHAR(10), "
+    "qrzcom_qso_upload_status VARCHAR(1), "
+    "skcc VARCHAR, "
+    "sota_ref VARCHAR, "
+    "uksmg INTEGER, "
+    "usaca_counties VARCHAR, "
+    "ve_prov VARCHAR, "
+    "vucc_grids VARCHAR, "
 
 
+TODO: Create a function to look for QSO without a DXCC and ask the user to confirm the DXCC.
 TODO: Isolate the QSO input tab and create a widget with it.
 TODO: Isolate the Main QRZ box and create a widget with it.
 TODO: Isolate the Awards tab and create a widget with it.

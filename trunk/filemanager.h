@@ -43,7 +43,10 @@
 #include "awards.h"
 #include "database.h"
 #include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "utilities.h"
+
+
 
 enum
 {
@@ -63,7 +66,7 @@ public:
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
     bool adifLoTWReadLog(const QString& tfileName);
-    bool adifLoTWLogExport(const QString& _fileName, const int _logN);
+    int adifLoTWLogExport(const QString& _fileName, const int _logN);
     bool adifLogExport(const QString& _fileName, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);
     bool adifReqQSLExport(const QString& _fileName);
@@ -90,11 +93,16 @@ private:
     bool checkADIFValidFormat(const QStringList _qs);
 
     QStringList readAdifField (const QString _field);
+    QString prepareStringLog();
 
+
+    bool dbCreated;
     DataBase *db;
     //float softwareVersion;
-    DataProxy *dataProxy;
-    Utilities *util;
+    //DataProxy_SQLite *dataProxy;
+    DataProxy *dataProxy, *dataProxyPrepared;
+
+    Utilities *util;    
 
     bool rstTXDefault, rstRXDefault; // If true and a log is not including RST, 59 is automatically added
 
@@ -110,9 +118,11 @@ private:
 
     World *world;
     Awards *awards;
+    //QSqlDatabase db;
+
+    QHash<int, int> hashLogs;  // to create different logs when importing a ADIF file
 
     QSqlQuery preparedQuery;
-    QHash<int, int> hashLogs;  // to create different logs when importing a ADIF file
 
 
 signals:

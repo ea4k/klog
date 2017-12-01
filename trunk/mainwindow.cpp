@@ -55,7 +55,8 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //flagIcon = new QPushButton; // To paint a flag of the worked entity
 
     // <ui>
-    dataProxy = new DataProxy_SQLite();
+    softwareVersion = tversion;
+    dataProxy = new DataProxy_SQLite(softwareVersion);
     doc = new QTextDocument;
     util = new Utilities;
 
@@ -67,7 +68,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     contestMode = "DX";
 
     defaultADIFLogFile = "klog.adi";
-    softwareVersion = tversion;
+
 
     klogDir = _klogDir;
 
@@ -84,7 +85,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     selectedYear = 0;
     defaultMode = 0;
     defaultBand = 0;
-     //qDebug() << "MainWindow::MainWindow: 1 - currentMode: " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::MainWindow: 1 - currentMode: " << QString::number(currentMode) << endl;
     currentMode = 1;
       //qDebug() << "MainWindow::MainWindow: 2 - currentMode: " << QString::number(currentMode) << endl;
     currentModeShown = currentMode;
@@ -140,7 +141,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     dxClusterShowWCY=true;
 
     keepSatPage = false;
-      //qDebug() << "MainWindow::MainWindow: 0008" << endl;
+    //qDebug() << "MainWindow::MainWindow: 0008" << endl;
     clublogActive = false;
     clublogRealTime = false;
     clublogUser = QString();
@@ -180,7 +181,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     connect(searchWidget, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     infoWidget = new InfoWidget(dataProxy, this);
 
-      //qDebug() << "MainWindow::MainWindow: 0009" << endl;
+    //qDebug() << "MainWindow::MainWindow: 0009" << endl;
 
     //helpHelpDialog = new HelpHelpDialog(softwareVersion);
       //qDebug() << "MainWindow::MainWindow: 00091" << endl;
@@ -203,7 +204,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     downloadcty = new DownLoadCTY(klogDir, softwareVersion);
     connect( downloadcty, SIGNAL(done()), this, SLOT(slotWorldReload()) );
 
-      //qDebug() << "MainWindow::MainWindow: logbook: " << QString(util->getKLogDBFile()) << endl;
+    //qDebug() << "MainWindow::MainWindow: logbook: " << QString(util->getKLogDBFile()) << endl;
 
         bool existingData = QFile::exists(util->getKLogDBFile());
 
@@ -233,7 +234,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     DBinMemory = false;
     //db = new DataBase(softwareVersion, DBinMemory);
 
-       //qDebug() << "MainWindow::MainWindow: 4" << endl;
+    //qDebug() << "MainWindow::MainWindow: 4" << endl;
     world = new World(dataProxy, klogDir, softwareVersion);
     connect(world, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
 
@@ -271,7 +272,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
     QSLTabWidget = new MainWindowInputQSL(dataProxy);
 
-       //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
     //filemanager = new FileManager(klogDir, softwareVersion, *db);
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
     connect(filemanager, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
@@ -285,7 +286,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
        //qDebug() << "MainWindow::MainWindow: awards already created" << endl;
     mainWidget = new QWidget(this);
     setCentralWidget(mainWidget);
-       //qDebug() << "MainWindow::MainWindow: 8" << endl;
+    //qDebug() << "MainWindow::MainWindow: 8" << endl;
     dateTime = new QDateTime();
     selectedYear = (dateTime->currentDateTime()).date().year();
 
@@ -375,7 +376,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     // UI DX
 
     // CLUSTER
-       //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
     dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
 
 
@@ -390,17 +391,18 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //createDXClusterUI();
     connect( setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
 
-       //qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
+    qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
     readConfigData();
+    qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
     if (needToEnd)
     {
         //QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db->compress();
-         //qDebug() << "MainWindow::MainWindow: 12.5" << endl;
+      //db->compress();
+       qDebug() << "MainWindow::MainWindow: 12.5" << endl;
        exit(0);
     }
 
-           //qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
+    qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
 
 
     logWindow->createlogPanel(currentLog);
@@ -424,41 +426,52 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     setWindowTitle(tr("KLog"));
 
 
-       //qDebug() << "MainWindow::MainWindow: 16" << endl;
+    //qDebug() << "MainWindow::MainWindow: 16" << endl;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
-           //qDebug() << "MainWindow::MainWindow: 16.1" << endl;
+        //qDebug() << "MainWindow::MainWindow: 16.1" << endl;
         slotSetup(6);
-           //qDebug() << "MainWindow::MainWindow: 16.2" << endl;
+        //qDebug() << "MainWindow::MainWindow: 16.2" << endl;
     }
-       //qDebug() << "MainWindow::MainWindow: 17" << endl;
+    //qDebug() << "MainWindow::MainWindow: 17" << endl;
     checkIfNewBandOrMode();
-       //qDebug() << "MainWindow::MainWindow: 18" << endl;
+    //qDebug() << "MainWindow::MainWindow: 18" << endl;
     if (contestMode == "DX")
     {
-           //qDebug() << "MainWindow::MainWindow: DX! 18.3" << endl;
+        //qDebug() << "MainWindow::MainWindow: DX! 18.3" << endl;
         if (dataProxy->getLastQSOid()<=1)
         {
-               //qDebug() << "MainWindow::MainWindow: 18.4" << endl;
+           //qDebug() << "MainWindow::MainWindow: 18.4" << endl;
             operatingYearsComboBox->addItem(QString::number(selectedYear));
         }
         else
         {
-               //qDebug() << "MainWindow::MainWindow: 18.5 - currentLog: " << QString::number(currentLog) << endl;
+            //qDebug() << "MainWindow::MainWindow: 18.5 - currentLog: " << QString::number(currentLog) << endl;
             operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
-               //qDebug() << "MainWindow::MainWindow: 18.5.1 - currentLog: " << QString::number(currentLog) << endl;
-            operatingYearsComboBox->setCurrentIndex(operatingYearsComboBox->findText((dataProxy->getOperatingYears(currentLog)).last(), Qt::MatchCaseSensitive));
-               //qDebug() << "MainWindow::MainWindow: 18.5.2" << endl;
-        }
-               //qDebug() << "MainWindow::MainWindow: 18.6." << endl;
+            //qDebug() << "MainWindow::MainWindow: 18.5.1 - currentLog: " << QString::number(currentLog) << endl;
 
-               //qDebug() << "MainWindow::MainWindow: 18.7" << endl;
+            QStringList a;
+            a.clear();
+            a << dataProxy->getOperatingYears(currentLog);
+            //qDebug() << "MainWindow::MainWindow: 18.5.1.1 - currentLog: " << QString::number(currentLog) << endl;
+            if (!a.isEmpty())
+            {
+                //qDebug() << "MainWindow::MainWindow: 18.5.1.2 - currentLog: " << QString::number(currentLog) << endl;
+                operatingYearsComboBox->setCurrentIndex(operatingYearsComboBox->findText(a.last(), Qt::MatchCaseSensitive));
+                //qDebug() << "MainWindow::MainWindow: 18.5.1.3 - currentLog: " << QString::number(currentLog) << endl;
+            }
+
+
+            //qDebug() << "MainWindow::MainWindow: 18.5.2" << endl;
+        }
+        //qDebug() << "MainWindow::MainWindow: 18.6." << endl;
+
         awards->recalculateAwards();
-               //qDebug() << "MainWindow::MainWindow: 18.8" << endl;
+        //qDebug() << "MainWindow::MainWindow: 18.8" << endl;
         showAwards();
-           //qDebug() << "MainWindow::MainWindow: 18.9" << endl;
+        //qDebug() << "MainWindow::MainWindow: 18.9" << endl;
         dxClusterWidget->setCurrentLog(currentLog);
-           //qDebug() << "MainWindow::MainWindow: 18.10" << endl;
+        //qDebug() << "MainWindow::MainWindow: 18.10" << endl;
     }
     else if ((contestMode == "CQ-WW-SSB") || (contestMode == "CQ-WW-CW"))
     {}
@@ -491,7 +504,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     }
 
-       //qDebug() << "MainWindow::MainWindow: 19" << endl;
+    //qDebug() << "MainWindow::MainWindow: 19" << endl;
     currentBandShown = dataProxy->getIdFromBandName(bandComboBox->currentText());
     currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
     currentBand = currentBandShown;
@@ -499,7 +512,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
        //qDebug() << "MainWindow::MainWindow: 20 - currentMode: " << QString::number(currentMode) << endl;
       //qDebug() << "MainWindow::MainWindow: 21 - currentBand: " << QString::number(currentBand) << endl;
       //qDebug() << "MainWindow::MainWindow: 21.1 - currentModeShown: " << QString::number(currentModeShown) << endl;
-      //qDebug() << "MainWindow::MainWindow: 21.2 - currentBandShown: " << QString::number(currentBandShown) << endl;
+    //qDebug() << "MainWindow::MainWindow: 21.2 - currentBandShown: " << QString::number(currentBandShown) << endl;
 
 
     slotClearButtonClicked();
@@ -508,7 +521,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
        //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
-       //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
     softUpdate = new SoftwareUpdate(softwareVersion);
     //connect(softUpdate, SIGNAL(updateNeededSignal(bool)), this, SLOT(slotShowSoftUpdateResults(bool) ) );
     callingUpdate = false; // to control whether the update is mannually launched or at the begining
@@ -525,7 +538,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
         softUpdate->needToUpdate();
     }
 
-       //qDebug() << "MainWindow::MainWindow: END" << endl;
+    //qDebug() << "MainWindow::MainWindow: END" << endl;
     //splash.finish();
 }
 
@@ -761,8 +774,8 @@ void MainWindow::slotQRZReturnPressed()
       //http://www.sqlite.org/autoinc.html
         // NULL = is the keyword for the autoincrement to generate next value
 
-        QSqlQuery query;
-        QString queryString = readDataFromUI();
+    QSqlQuery query;
+    QString queryString = readDataFromUI();
 
           //qDebug() << "MainWindow::slotQRZReturnPressed: queryString: " << queryString << endl;
 
@@ -770,6 +783,7 @@ void MainWindow::slotQRZReturnPressed()
             if (!query.exec(queryString))
             {
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                query.finish();
                   //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
                 errorCode = query.lastError().number();
                 QMessageBox msgBox;
@@ -791,7 +805,8 @@ void MainWindow::slotQRZReturnPressed()
                 return;
             }
             else
-            {                
+            {
+                query.finish();
                 //TODO: To move the following lines to this part to properly manage the query result!!
                 //ret = true;
                  //qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
@@ -826,7 +841,7 @@ void MainWindow::slotQRZReturnPressed()
                 }
                 else
                 {
-                     //qDebug() << "MainWindow::slotQRZReturnPressed: Not Modifying " << endl;
+                    qDebug() << "MainWindow::slotQRZReturnPressed: Not Modifying " << endl;
                     lastId = dataProxy->getLastQSOid();
                     if (lastId>=0)
                     {
@@ -3044,7 +3059,7 @@ void MainWindow::slotSpotItButtonClicked()
 
 void MainWindow::slotClearButtonClicked()
 {
-      //qDebug() << "MainWindow::slotClearButtonClicked - START" << endl;
+    qDebug() << "MainWindow::slotClearButtonClicked - START" << endl;
       //qDebug() << "MainWindow::slotClearButtonClicked: " << modeComboBox->currentText() << endl;
     cleaning = true;
     modify = false;
@@ -3279,10 +3294,10 @@ void MainWindow::createMenusCommon()
     connect(ADIFImport, SIGNAL(triggered()), this, SLOT(slotADIFImport()));
     ADIFImport->setToolTip(tr("Import an ADIF file into the current log"));
 
-    LoTWImport = new QAction(tr("&Import from LoTW..."), this);
-    fileMenu->addAction(LoTWImport);
-    connect(LoTWImport, SIGNAL(triggered()), this, SLOT(slotLoTWImport()));
-    LoTWImport->setToolTip(tr("Import an LoTW file into the current log"));
+    //LoTWImport = new QAction(tr("&Import from LoTW..."), this);
+    //fileMenu->addAction(LoTWImport);
+    //connect(LoTWImport, SIGNAL(triggered()), this, SLOT(slotLoTWImport()));
+    //LoTWImport->setToolTip(tr("Import an LoTW file into the current log"));
 
 
 
@@ -3347,30 +3362,60 @@ void MainWindow::createMenusCommon()
     fillQsoAct->setToolTip(tr("Go through the log reusing previous QSOs to fill missing information in other QSOs"));
 
     toolMenu->addSeparator();
+    qslToolMenu = toolMenu->addMenu(tr("QSL tools..."));
+
+    //findQSO2QSLAct = new QAction(tr("&Find QSO to QSL"), this);
+    //toolMenu->addAction(findQSO2QSLAct);
+    //connect(findQSO2QSLAct, SIGNAL(triggered()), this, SLOT(slotSearchToolNeededQSLToSend()));
+    //findQSO2QSLAct->setToolTip(tr("Shows QSOs for which you should send your QSL and request the DX QSL"));
 
     findQSO2QSLAct = new QAction(tr("&Find QSO to QSL"), this);
-    toolMenu->addAction(findQSO2QSLAct);
-    //findQSO2QSLAct->setMenuRole(QAction::ApplicationSpecificRole);
-
+    qslToolMenu->addAction(findQSO2QSLAct);
     connect(findQSO2QSLAct, SIGNAL(triggered()), this, SLOT(slotSearchToolNeededQSLToSend()));
     findQSO2QSLAct->setToolTip(tr("Shows QSOs for which you should send your QSL and request the DX QSL"));
 
-
     findRequestedQSLAct = new QAction(tr("Find My-QSLs pending to send"), this);
-    toolMenu->addAction(findRequestedQSLAct);
+    qslToolMenu->addAction(findRequestedQSLAct);
     //findQSO2QSLAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(findRequestedQSLAct, SIGNAL(triggered()), this, SLOT(slotToolSearchRequestedQSLToSend()));
     findRequestedQSLAct->setToolTip(tr("Shows the QSOs with pending requests to send QSLs. You should keep this queue empty!"));
 
     findQSLPendingToReceiveAct = new QAction(tr("&Find DX-QSLs pending to receive"), this);
-    toolMenu->addAction(findQSLPendingToReceiveAct);
+    qslToolMenu->addAction(findQSLPendingToReceiveAct);
     connect(findQSLPendingToReceiveAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
     findQSLPendingToReceiveAct->setToolTip(tr("Shows the DX-QSL that has been requested or QSLs has been sent with no answer"));
 
     findQSLDXRequestedAct = new QAction(tr("&Find requested pending to receive"), this);
-    toolMenu->addAction(findQSLDXRequestedAct);
+    qslToolMenu->addAction(findQSLDXRequestedAct);
     connect(findQSLDXRequestedAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLRequested()));
     findQSLDXRequestedAct->setToolTip(tr("Shows the DX-QSL that has been requested"));
+
+    toolMenu->addSeparator();
+    lotwToolMenu = toolMenu->addMenu(tr("LoTW tools..."));
+
+    lotwMarkSentQueuedThisLogAct = new QAction(tr("Queue all QSO of this log"), this);
+    lotwToolMenu->addAction(lotwMarkSentQueuedThisLogAct);
+    connect(lotwMarkSentQueuedThisLogAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllQueuedThisLog()));
+    lotwMarkSentQueuedThisLogAct->setToolTip(tr("Mark all non sent QSOs in this log as queued to be uploaded."));
+
+    lotwMarkSentQueuedAct = new QAction(tr("Queue all QSO"), this);
+    lotwToolMenu ->addAction(lotwMarkSentQueuedAct);
+    connect(lotwMarkSentQueuedAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllQueued()));
+    lotwMarkSentQueuedAct->setToolTip(tr("Mark all non sent QSOs as queued to be uploaded."));
+
+    lotwToolMenu->addSeparator();
+
+    lotwMarkSentYesThisLogAct = new QAction(tr("Mark as sent all queued QSO of this log"), this);
+    lotwToolMenu->addAction(lotwMarkSentYesThisLogAct);
+    connect(lotwMarkSentYesThisLogAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllYesThisLog()));
+    lotwMarkSentYesThisLogAct->setToolTip(tr("Mark all queued QSOs in this log as sent to LoTW."));
+
+    lotwMarkSentYesAct = new QAction(tr("Mark all queued QSO as sent"), this);
+    lotwToolMenu ->addAction(lotwMarkSentYesAct);
+    connect(lotwMarkSentYesAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllYes()));
+    lotwMarkSentYesAct->setToolTip(tr("ark all queued QSOs as sent to LoTW."));
+
+
 
     toolMenu->addSeparator();
 
@@ -3428,6 +3473,100 @@ void MainWindow::slotToolSearchNeededQSLPendingToReceive()
 void MainWindow::slotToolSearchNeededQSLRequested()
 {
     searchWidget->slotToolSearchNeededQSLRequested();
+}
+
+void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
+{
+    //qDebug() << "MainWindow::slotToolLoTWMarkAllQueuedThisLog"  << endl;
+    QString tdate = (dateEdit->date()).toString("yyyy/MM/dd");
+
+    if(dataProxy->lotwSentQueue(tdate, currentLog))
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setWindowTitle(tr("KLog LoTW"));
+        msgBox.setText(tr("All pending QSO of this log has been marked as queued for LoTW!") );
+        msgBox.exec();
+
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog LoTW"));
+        msgBox.setText(tr("There was a problem to mark all pending QSO of this log as queued for LoTW!") );
+        msgBox.exec();
+    }
+}
+
+void MainWindow::slotToolLoTWMarkAllQueued()
+{
+    //qDebug() << "MainWindow::slotToolLoTWMarkAllQueued"  << endl;
+    QString tdate = (dateEdit->date()).toString("yyyy/MM/dd");
+    if (dataProxy->lotwSentQueue(tdate, -1))
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setWindowTitle(tr("KLog LoTW"));
+        msgBox.setText(tr("All pending QSO has been marked as queued for LoTW!") );
+        msgBox.exec();
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog LoTW"));
+        msgBox.setText(tr("There was a problem to mark all pending QSO of this log as queued for LoTW!") );
+        msgBox.exec();
+
+    }
+
+}
+
+void MainWindow::slotToolLoTWMarkAllYesThisLog()
+{
+    //qDebug() << "MainWindow::slotToolLoTWMarkAllYesThisLog"  << endl;
+    QString tdate = (dateEdit->date()).toString("yyyy/MM/dd");
+
+    if(dataProxy->lotwSentQueue(tdate, currentLog))
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setWindowTitle(tr("KLog LoTW"));
+        msgBox.setText(tr("All queued QSO of this log has been marked as sent for LoTW!") );
+        msgBox.exec();
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog LoTW"));
+        msgBox.setText(tr("There was a problem to mark all queued QSO of this log as sent for LoTW!") );
+        msgBox.exec();
+    }
+}
+
+void MainWindow::slotToolLoTWMarkAllYes()
+{
+    //qDebug() << "MainWindow::slotToolLoTWMarkAllYes"  << endl;
+    QString tdate = (dateEdit->date()).toString("yyyy/MM/dd");
+    if (dataProxy->lotwSentYes(tdate, -1))
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setWindowTitle(tr("KLog LoTW"));
+        msgBox.setText(tr("All queued QSO has been marked as sent to LoTW!") );
+        msgBox.exec();
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog LoTW"));
+        msgBox.setText(tr("There was a problem to mark all queued QSO of this log as sent to LoTW!") );
+        msgBox.exec();
+
+    }
 }
 
 void MainWindow::slotAboutQt()
@@ -4339,7 +4478,7 @@ void MainWindow::checkIfWorkedB4(const QString _qrz)
 
 void MainWindow::readConfigData()
 {
-      //qDebug() << "MainWindow::slotReadConfigData - 01" << endl;
+    //qDebug() << "MainWindow::readConfigData - 01" << endl;
 
 
 
@@ -4349,7 +4488,7 @@ void MainWindow::readConfigData()
     }
     QFile file(configFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-           //qDebug() << "MainWindow::slotReadConfigData: File not found" << configFileName << endl;
+           //qDebug() << "MainWindow::readConfigData: File not found" << configFileName << endl;
         if (configured)
         {
                //qDebug() << "MainWindow::readConfigData: configured = true" << endl;
@@ -4367,10 +4506,10 @@ void MainWindow::readConfigData()
         QByteArray line = file.readLine();
         processConfigLine(line);
     }
-
+    //qDebug() << "MainWindow::readConfigData: After processConfigLine "  << endl;
     defineStationCallsign();
 
-       //qDebug() << "MainWindow::readConfigData: " << defaultADIFLogFile << endl;
+    //qDebug() << "MainWindow::readConfigData: " << defaultADIFLogFile << endl;
 
     if ((useDefaultLogFileName) && (defaultADIFLogFile.length()>0))
     {
@@ -4427,22 +4566,22 @@ void MainWindow::readConfigData()
     {
 
     }
-       //qDebug() << "MainWindow::readConfigData: calling checkIfNewBandOrMode" << endl;
+    //qDebug() << "MainWindow::readConfigData: calling checkIfNewBandOrMode" << endl;
     checkIfNewBandOrMode();
 
-       //qDebug() << "MainWindow::readConfigData: 100" << endl;
+    //qDebug() << "MainWindow::readConfigData: 100" << endl;
     util->setVersion(softwareVersion);
-       //qDebug() << "MainWindow::readConfigData: 101" << endl;
+    //qDebug() << "MainWindow::readConfigData: 101" << endl;
     searchWidget->setVersion(softwareVersion);
-       //qDebug() << "MainWindow::readConfigData: 102" << endl;
+    //qDebug() << "MainWindow::readConfigData: 102" << endl;
     searchWidget->setCurrentLog(currentLog);
-       //qDebug() << "MainWindow::readConfigData: 103" << endl;
+    //qDebug() << "MainWindow::readConfigData: 103" << endl;
     infoWidget->setCurrentLog(currentLog);
-       //qDebug() << "MainWindow::readConfigData: 104" << endl;
+    //qDebug() << "MainWindow::readConfigData: 104" << endl;
     searchWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     infoWidget->setColors(newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
 
-       //qDebug() << "MainWindow::slotReadConfigData - END" << endl;
+    //qDebug() << "MainWindow::readConfigData - END" << endl;
 
 }
 
@@ -4648,7 +4787,8 @@ bool MainWindow::processConfigLine(const QString _line){
     else if(field=="DEFAULTCOLOR")
     {
         defaultColor.setNamedColor(value);
-    }else if(field=="SELECTEDLOG")
+    }
+    else if(field=="SELECTEDLOG")
     {
         currentLog = value.toInt();
          //qDebug() << "MainWindow::processConfigLine: currentLog - SelectedLog: " << QString::number(currentLog) << endl;
@@ -4659,67 +4799,81 @@ bool MainWindow::processConfigLine(const QString _line){
         }
         else
         {
+            int _howManyQSOMax = -1;     // NUmber of QSO of the log with more QSO
+            int _howManyQSOMaxT = 0;    // Number of QSO in ine specific log
+            QStringList logs = QStringList();
+
              //qDebug() << "MainWindow::processConfigLine: currentLog - Log without QSO - SelectedLog: " << QString::number(currentLog) << endl;
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Warning);
-            QString aux = tr("The selected log is not existing or it is empty.\n\nKLog will select another log with data and modify the config file acordingly.");
+            QString aux = tr("The selected log is not existing or it is still empty.") + "\n\n" + tr("Click Yes and KLog will open an empty log.") + "\n" +
+                    tr("Click No and KLog will select another log with data.") + "\n\n" +
+                    tr("You can modify the config file accordingly, if needed.");
             msgBox.setText(aux);
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            msgBox.setDefaultButton(QMessageBox::Yes);
             int ret = msgBox.exec();
             switch (ret)
             {
-                case QMessageBox::Ok:
+                case QMessageBox::Yes:
                 break;
-                default:
+
+                    case QMessageBox::No:
+
+
+
+
+                    logs << dataProxy->getListOfManagedLogs();
+                    qDebug() << "MainWindow::processConfigLine: logs: " << QString::number(logs.size()) << endl;
+                    for (int i = 0;i<logs.length();i++)
+                {
+                    _howManyQSOMaxT = dataProxy->getHowManyQSOInLog(i);
+                     qDebug() << "MainWindow::processConfigLine: SelectedLog-x: " << QString::number(i) << " - QSOs: " << QString::number(_howManyQSOMaxT) << endl;
+                    if (_howManyQSOMax < _howManyQSOMaxT)
+                    {
+                         //qDebug() << "MainWindow::processConfigLine: Found log with more QSO: " << logs.at(i) << endl;
+                        _howManyQSOMax = _howManyQSOMaxT;
+                        _logWithMoreQSOs = (logs.at(i)).toInt();
+                    }
+                }
+                    if (_logWithMoreQSOs>0)
+                {
+                    currentLog = _logWithMoreQSOs;
+                    filemanager->modifySetupFile(configFileName, "SelectedLog", QString::number(currentLog));
+                }
+                    else
+                {
+                    msgBox.setIcon(QMessageBox::Critical);
+                    QString aux = tr("It seems that there are no QSO in the database.\n\nIf you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.");
+                    msgBox.setText(aux);
+                    msgBox.setStandardButtons(QMessageBox::Ok);
+                    msgBox.setDefaultButton(QMessageBox::Ok);
+                    int ret = msgBox.exec();
+                    switch (ret)
+                    {
+                        case QMessageBox::Ok:
+                        break;
+                        default:
+                        // should never be reached
+                        break;
+                    }
+                }
+
+
+                break;
+
+            default:
                 // should never be reached
-                break;
+            break;
             }
 
-            QStringList logs = QStringList();
 
-            int _howManyQSOMax = -1;     // NUmber of QSO of the log with more QSO
-            int _howManyQSOMaxT = 0;    // Number of QSO in ine specific log
-            logs << dataProxy->getListOfManagedLogs();
-            for (int i = 0;i<logs.length();i++)
-            {
-                _howManyQSOMaxT = dataProxy->getHowManyQSOInLog(i);
-                 //qDebug() << "MainWindow::processConfigLine: SelectedLog-x: " << QString::number(i) << " - QSOs: " << QString::number(_howManyQSOMaxT) << endl;
-                if (_howManyQSOMax < _howManyQSOMaxT)
-                {
-                     //qDebug() << "MainWindow::processConfigLine: Found log with more QSO: " << logs.at(i) << endl;
-                    _howManyQSOMax = _howManyQSOMaxT;
-                    _logWithMoreQSOs = (logs.at(i)).toInt();
-                }
-            }
-            if (_logWithMoreQSOs>0)
-            {
-                currentLog = _logWithMoreQSOs;
-                filemanager->modifySetupFile(configFileName, "SelectedLog", QString::number(currentLog));
-            }
-            else
-            {
-                msgBox.setIcon(QMessageBox::Critical);
-                QString aux = tr("It seems that there are no QSO in the database.\n\nIf you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.");
-                msgBox.setText(aux);
-                msgBox.setStandardButtons(QMessageBox::Ok);
-                msgBox.setDefaultButton(QMessageBox::Ok);
-                int ret = msgBox.exec();
-                switch (ret)
-                {
-                    case QMessageBox::Ok:
-                    break;
-                    default:
-                    // should never be reached
-                    break;
-                }
-            }
 
 
         }
         dxClusterWidget->setCurrentLog(currentLog);
         dxccStatusWidget->setCurrentLog(currentLog);
-         //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
+        //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
     }
         else if(field=="CLUBLOGACTIVE")
     {
@@ -5556,12 +5710,13 @@ void MainWindow::slotLoTWExport(){
                                util->getHomeDir(),
                                "ADIF (*.adi *.adif)");
 
-    if (filemanager->adifLoTWLogExport(fileName, currentLog))
+    int exportedQSO = filemanager->adifLoTWLogExport(fileName, currentLog) ;
+    //qDebug() << "MainWindow::slotLoTWExport - exported: " << QString::number(exportedQSO) << endl;
+    if (exportedQSO > 0)
     {
         QMessageBox msgBox;
-
         msgBox.setIcon(QMessageBox::Information);
-        aux = tr("Remember to sign the LoTW log before you upload it!");
+        aux = tr("LoTW logfile has been properly exported!") + "\n\n" + tr("Remember to sign the LoTW log before you upload it!");
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok );
 
@@ -5575,6 +5730,26 @@ void MainWindow::slotLoTWExport(){
             // should never be reached
             break;
         }
+    }
+    else if (exportedQSO == 0)
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Information);
+        aux = tr("There was no QSO to be exported.") + "\n\n" + tr("If you think that some QSO should have been exported, please look for them and ensure that the eQSL LoTW QSL sent box is marked as:") + "\n\n " + tr("Q - Queued") + "." ;
+        msgBox.setText(aux);
+        msgBox.setStandardButtons(QMessageBox::Ok );
+
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        int ret = msgBox.exec();
+        switch (ret)
+        {
+            case QMessageBox::Ok:
+            break;
+            default:
+            // should never be reached
+            break;
+        }
+
     }
     else
     {
@@ -5675,12 +5850,12 @@ void MainWindow::slotADIFImport(){
         updateQSLRecAndSent();
 
 
-          //qDebug() << "MainWindow::slotADIFImport -2" << endl;
+        qDebug() << "MainWindow::slotADIFImport -2" << endl;
 
         logWindow->refresh();
-      //qDebug() << "MainWindow::slotADIFImport -3" << endl;
+        qDebug() << "MainWindow::slotADIFImport -3" << endl;
         checkIfNewBandOrMode();
-      //qDebug() << "MainWindow::slotADIFImport -4" << endl;
+        qDebug() << "MainWindow::slotADIFImport -4" << endl;
 
         if (contestMode == "DX")
         {
@@ -5697,7 +5872,7 @@ void MainWindow::slotADIFImport(){
 
           //qDebug() << "MainWindow::slotADIFImport-7" << endl;
     }
-      //qDebug() << "MainWindow::slotADIFImport-END" << endl;
+    qDebug() << "MainWindow::slotADIFImport-END" << endl;
 }
 
 void  MainWindow::initialContestModeConfiguration()
@@ -6845,13 +7020,16 @@ void MainWindow::clusterSpotToLog(const QString _call, const QString _freq)
 
 void MainWindow::updateQSLRecAndSent()
 {
-    //qDebug() << "MainWindow::updateQSLRecAndSent "  << endl;
+    qDebug() << "MainWindow::updateQSLRecAndSent "  << endl;
     // Checks the log to fill all the qsl_rcvd and qsl_sent
     QSqlQuery query, query1;
     QString queryString, aux, idT;
     int nameCol=0;
 
-    queryString = QString("SELECT id, qsl_rcvd, qsl_sent FROM log WHERE lognumber='%1'").arg(currentLog);
+    //queryString = QString("SELECT id, qsl_rcvd, qsl_sent FROM log WHERE lognumber='%1'").arg(currentLog);
+    //queryString = QString("SELECT id, qsl_rcvd, qsl_sent FROM log WHERE qsl_rcvd !='Y' AND qsl_rcvd !='N' AND qsl_rcvd !='R' AND qsl_rcvd !='I' AND qsl_rcvd !='V' AND lognumber='%1'").arg(currentLog);
+    //queryString = QString("SELECT id, qsl_rcvd, qsl_sent FROM log WHERE qsl_rcvd ='' OR qsl_sent ='' AND lognumber='%1'").arg(currentLog);
+    queryString = QString("UPDATE log SET qsl_rcvd='N' WHERE qsl_rcvd ='' AND lognumber='%1'").arg(currentLog);
 
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
@@ -6859,12 +7037,33 @@ void MainWindow::updateQSLRecAndSent()
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
+    queryString = QString("UPDATE log SET qsl_sent='N' WHERE qsl_sent ='' AND lognumber='%1'").arg(currentLog);
+
+    sqlOK = query.exec(queryString);
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+    }
+
+  /*
+
+
     QSqlRecord rec = query.record();
+    int numberOfQsos = 0;
+    int i = 0;
+
+    numberOfQsos = dataProxy->getHowManyQSOInLog(currentLog);
+    int step = util->getProgresStepForDialog(numberOfQsos);
+
+    QProgressDialog progress(tr("Updating QSL status..."), tr("Abort updating"), 0, numberOfQsos, this);
+    progress.setWindowModality(Qt::WindowModal);
 
     while (query.next())
     {
+
         if (query.isValid())
         {
+            i++;
             nameCol = rec.indexOf("id");
             idT = (query.value(nameCol)).toString();
             //qDebug() << "MainWindow::updateQSLRecAndSent: " << idT  << endl;
@@ -6920,7 +7119,25 @@ void MainWindow::updateQSLRecAndSent()
                 }
             }
         }
+
+        if (( (i % step )== 0) )
+        { // To update the speed I will only show the progress once each X QSOs
+            aux = tr("Updating QSLs...\n QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
+            progress.setLabelText(aux);
+            progress.setValue(i);
+
+        }
+
+
+        if ( progress.wasCanceled() )
+        {
+            return;
+        }
+
+
     }
+    */
+    qDebug() << "MainWindow::updateQSLRecAndSent - END"  << endl;
 }
 
 void MainWindow::slotOperatingYearComboBoxChanged()
@@ -6933,7 +7150,7 @@ void MainWindow::slotOperatingYearComboBoxChanged()
 void MainWindow::defineStationCallsign()
 {
 
-      //qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << endl;
+    //qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << endl;
     QString logQRZ;
     logQRZ = dataProxy->getStationCallSignFromLog(currentLog);
       //qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ << endl;
@@ -6948,7 +7165,7 @@ void MainWindow::defineStationCallsign()
     }
     myDataTabWidget->setData(myPower, stationQRZ, operatorQRZ, myLocator);
 
-       //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << endl;
+    qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << " - END" << endl;
 
 }
 

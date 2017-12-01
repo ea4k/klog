@@ -2,9 +2,11 @@ TBD - 0.9.2.8
 
 
 - Important Optimization on KLog speed on start and general use.
+- New satellite (AO-91) added.
 - GUI: Implemented an error reporting for the users for main errors
 - GUI: When a satellite is selected the main bands are automatically proposed.
 - GUI: QSO band is now linked to the uplink & downlink bands in the satellite tab.
+- Bugfix: Some ADIF fields were not properly imported/exported.
 - Bugfix: When searching calls like 1A0XX, 2E0XX, ... no results were found but there are with 3D0XXX
 - Bugfix: If an empty log was selected on config file, on next KLog start KLog crashed.
 - Bugfix: Doubleclicking on the log to edit was sometimes causing the band/mode data to be shown as a number instead of the human readable name.

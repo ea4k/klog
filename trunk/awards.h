@@ -63,6 +63,7 @@ public:
     void setManageModes(const bool _manageModes=false);   // Defines if the mode is to be taken into account when calculating an award
 
     void recalculateAwards();
+    //void recalculateDXCC(const int _logNumber);
     //void setAwards(const int _qsoId, bool modify);
     int getDXCCWorked(const int _logNumber);
     int getDXCCConfirmed(const int _logNumber);

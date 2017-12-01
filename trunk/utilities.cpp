@@ -10,14 +10,35 @@ Utilities::~Utilities()
 {
 
 }
-void Utilities::setVersion(const QString _file)
+void Utilities::setVersion(const QString _v)
 {
-    softwareVersion = _file;
+    //qDebug() << "Utilities::setVersion: " << _v << endl;
+    softwareVersion = _v;
 }
 
 QString Utilities::getVersion()
 {
     return softwareVersion;
+}
+
+double Utilities::getVersionDouble()
+{
+    //qDebug() << "Utilities::getVersionDouble: " << softwareVersion << endl;
+
+    if (softwareVersion.count('.')>1)
+    {
+        QString first = softwareVersion.section('.', 0, 0);
+        int pos = softwareVersion.indexOf('.');
+
+        QString decimals = softwareVersion.section('.', pos, -1);
+        decimals.remove('.');
+        first = first + "." + decimals;
+        //qDebug() << "Utilities::getVersionDouble - returning: "  << first << endl;
+        return first.toDouble();
+
+    }
+    //qDebug() << "Utilities::getVersionDouble: no points detected" << endl;
+    return softwareVersion.toDouble();
 }
 
 
@@ -193,8 +214,10 @@ QString Utilities::getKLogDefaultDatabaseFile()
 
 QString Utilities::getKLogDatabaseFile(const QString _file)
 {
+    //qDebug() << "Utilities::getKLogDatabaseFile:" << _file << endl;
     if ( QFile::exists(_file + "/logbook.dat") )
     {
+        //qDebug() << "Utilities::getKLogDatabaseFile:returning: " <<  _file + "/logbook.dat" << endl;
         return _file + "/logbook.dat";
     }
     else
@@ -246,7 +269,7 @@ QString Utilities::getKLogDBFile()
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
 
         dbPath = getKLogDefaultDatabaseFile();
-          //qDebug() << "Utilities::getKLogDBFile: return1: " << getKLogDatabaseFile(dbPath) << endl;
+         //qDebug() << "Utilities::getKLogDBFile: return1: " << getKLogDatabaseFile(dbPath) << endl;
         return getKLogDatabaseFile(dbPath);
     }
 
@@ -261,7 +284,7 @@ QString Utilities::getKLogDBFile()
     }
 
      //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << endl;
-      //qDebug() << "Utilities::getKLogDBFile: return2: " << getKLogDatabaseFile(dbPath) << endl;
+    //qDebug() << "Utilities::getKLogDBFile: return2: " << getKLogDatabaseFile(dbPath) << endl;
     return getKLogDatabaseFile(dbPath);
 
 }

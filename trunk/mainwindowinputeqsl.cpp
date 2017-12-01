@@ -43,14 +43,14 @@ void MainWindowInputEQSL::createUI()
     clublogQDateEdit->setToolTip(tr("Date of the ClubLog upload."));
     eqslSentQDateEdit->setToolTip(tr("Date of the eQSL sending."));
     eqslRecQDateEdit->setToolTip(tr("Date of the eQSL reception."));
-    lotwSentQDateEdit->setToolTip(tr("Date of the LotW sending."));
-    lotwRecQDateEdit->setToolTip(tr("Date of the LotW reception."));
+    lotwSentQDateEdit->setToolTip(tr("Date of the LoTW sending."));
+    lotwRecQDateEdit->setToolTip(tr("Date of the LoTW reception."));
 
     clublogComboBox->setToolTip(tr("Status on ClubLog."));
     eqslSentComboBox->setToolTip(tr("Status of the eQSL sending."));
     eqslRecComboBox->setToolTip(tr("Status of the eQSL reception."));
-    lotwSentComboBox->setToolTip(tr("Status of the LotW sending."));
-    lotwRecComboBox->setToolTip(tr("Status of the LotW reception."));
+    lotwSentComboBox->setToolTip(tr("Status of the LoTW sending."));
+    lotwRecComboBox->setToolTip(tr("Status of the LoTW reception."));
 
     // eQSL Tab definition starts here
 
@@ -63,10 +63,10 @@ void MainWindowInputEQSL::createUI()
     QLabel *eQSLRecLabelN = new QLabel(tr("eQSL Rec"));
     eQSLRecLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-    QLabel *lotWSentLabelN = new QLabel(tr("LotW Sent"));
+    QLabel *lotWSentLabelN = new QLabel(tr("LoTW Sent"));
     lotWSentLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-    QLabel *lotWRecLabelN = new QLabel(tr("LotW Rec"));
+    QLabel *lotWRecLabelN = new QLabel(tr("LoTW Rec"));
     lotWRecLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
 /*
