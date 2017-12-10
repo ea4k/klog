@@ -29,7 +29,7 @@
 
 DataProxy_SQLite::DataProxy_SQLite(const QString _softVersion)
 {
-    qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << endl;
+    //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << endl;
     db = new DataBase(_softVersion);
     //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1" << endl;
     dbCreated = db->createConnection();
@@ -60,7 +60,7 @@ QString DataProxy_SQLite::getSoftVersion()
         {
             QString v = (query.value(0)).toString();
             query.finish();
-            qDebug() << "DataProxy_SQLite::getSoftVersion: DATA: " << v << endl;
+            //qDebug() << "DataProxy_SQLite::getSoftVersion: DATA: " << v << endl;
             if (v.length()<1)
             {
                 //The following is not a query error but if the softwareversion value is lower than 0 or empty
@@ -71,7 +71,7 @@ QString DataProxy_SQLite::getSoftVersion()
         else
         {
             query.finish();
-            qDebug() << "DataProxy_SQLite::getSoftVersion: version empty-1"  << endl;
+            //qDebug() << "DataProxy_SQLite::getSoftVersion: version empty-1"  << endl;
             return QString();
         }
     }
@@ -79,7 +79,7 @@ QString DataProxy_SQLite::getSoftVersion()
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
-        qDebug() << "DataProxy_SQLite::getSoftVersion: version empty-1 - ERROR"  << endl;
+        //qDebug() << "DataProxy_SQLite::getSoftVersion: version empty-1 - ERROR"  << endl;
         return QString();
     }
 }
@@ -2063,7 +2063,7 @@ bool DataProxy_SQLite::lotwSentQueue(const QString _updateDate, const int _curre
 {// Mark LOTW QSL SENT as Q (Queued)
     // If currentLog <0 ALL the QSO of the log will be queued
 
-    qDebug() << "DataProxy_SQLite::lotwSentQueue: " << QString::number(_currentLog) << endl;
+    //qDebug() << "DataProxy_SQLite::lotwSentQueue: " << QString::number(_currentLog) << endl;
     QString queryString;
 
     if (_currentLog<1)
@@ -2095,7 +2095,7 @@ bool DataProxy_SQLite::lotwSentYes(const QString _updateDate, const int _current
 {// Mark LOTW QSL SENT as Q (Queued)
     // If currentLog <0 ALL the QSO of the log will be queued
 
-    qDebug() << "DataProxy_SQLite::lotwSentQueue: " << QString::number(_currentLog) << endl;
+    //qDebug() << "DataProxy_SQLite::lotwSentQueue: " << QString::number(_currentLog) << endl;
     QString queryString;
 
     if (_currentLog<1)
@@ -4601,7 +4601,7 @@ void DataProxy_SQLite::getFoundInLog(const QString _txt, const int _log)
 
 bool DataProxy_SQLite::queryPrepare(const QString _query)
 {
-    qDebug()  << "DataProxy_SQLite::queryPrepare: " << _query << endl;
+    //qDebug()  << "DataProxy_SQLite::queryPrepare: " << _query << endl;
     //return preparedQuery.prepare( _query );
     //return preparedQuery.prepare("INSERT INTO log (call, qso_date, bandid, modeid, time_on, time_off, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_state, state, my_street, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, swl, ten_ten, web, points, multiplier, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :time_on, :time_off, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_state, :state, :my_street, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :swl, :ten_ten, :web, :points, :multiplier, :lognumber)");
 
@@ -4611,7 +4611,7 @@ bool DataProxy_SQLite::queryPrepare(const QString _query)
 
 bool DataProxy_SQLite::queryBind(const QString _field, const QString value)
 {
-    qDebug()  << "DataProxy_SQLite::queryBind: " << _field << "/" << value << endl;
+    //qDebug()  << "DataProxy_SQLite::queryBind: " << _field << "/" << value << endl;
     //preparedQuery.bindValue( _field, value );
     //db->queryBind(_field, value);
 
@@ -4622,15 +4622,15 @@ bool DataProxy_SQLite::queryBind(const QString _field, const QString value)
 
 bool DataProxy_SQLite::queryExec()
 {
-    qDebug()  << "DataProxy_SQLite::queryExec  "  << endl;
+    //qDebug()  << "DataProxy_SQLite::queryExec  "  << endl;
 
 
     /*
     QMapIterator<QString, QVariant> i(preparedQuery.boundValues());
-    qDebug()  << "DataProxy_SQLite::queryExec -" << i.value()  << endl;
+    //qDebug()  << "DataProxy_SQLite::queryExec -" << i.value()  << endl;
       while (i.hasNext()) {
           i.next();
-         qDebug()  << "DataProxy_SQLite::queryExec: "  << i.key().toUtf8().data() << ": "
+         //qDebug()  << "DataProxy_SQLite::queryExec: "  << i.key().toUtf8().data() << ": "
                << i.value().toString().toUtf8().data() << endl;
       }
 */
@@ -4641,11 +4641,11 @@ bool DataProxy_SQLite::queryExec()
     if (!sqlOK)
     {
         //emit queryError(Q_FUNC_INFO, preparedQuery.lastError().databaseText(), preparedQuery.lastError().number(), preparedQuery.lastQuery());
-        qDebug()  << "DataProxy_SQLite::queryExec - FAILED execution "   << endl;
+        //qDebug()  << "DataProxy_SQLite::queryExec - FAILED execution "   << endl;
     }
     else
     {
-        qDebug()  << "DataProxy_SQLite::queryExec - executed "  << endl;
+        //qDebug()  << "DataProxy_SQLite::queryExec - executed "  << endl;
     }
     return sqlOK;
 }

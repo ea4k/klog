@@ -391,18 +391,18 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //createDXClusterUI();
     connect( setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
 
-    qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
+    //qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
     readConfigData();
-    qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
+    //qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
     if (needToEnd)
     {
         //QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
       //db->compress();
-       qDebug() << "MainWindow::MainWindow: 12.5" << endl;
+       //qDebug() << "MainWindow::MainWindow: 12.5" << endl;
        exit(0);
     }
 
-    qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
 
 
     logWindow->createlogPanel(currentLog);
@@ -841,7 +841,7 @@ void MainWindow::slotQRZReturnPressed()
                 }
                 else
                 {
-                    qDebug() << "MainWindow::slotQRZReturnPressed: Not Modifying " << endl;
+                    //qDebug() << "MainWindow::slotQRZReturnPressed: Not Modifying " << endl;
                     lastId = dataProxy->getLastQSOid();
                     if (lastId>=0)
                     {
@@ -3059,7 +3059,7 @@ void MainWindow::slotSpotItButtonClicked()
 
 void MainWindow::slotClearButtonClicked()
 {
-    qDebug() << "MainWindow::slotClearButtonClicked - START" << endl;
+    //qDebug() << "MainWindow::slotClearButtonClicked - START" << endl;
       //qDebug() << "MainWindow::slotClearButtonClicked: " << modeComboBox->currentText() << endl;
     cleaning = true;
     modify = false;
@@ -4824,11 +4824,11 @@ bool MainWindow::processConfigLine(const QString _line){
 
 
                     logs << dataProxy->getListOfManagedLogs();
-                    qDebug() << "MainWindow::processConfigLine: logs: " << QString::number(logs.size()) << endl;
+                    //qDebug() << "MainWindow::processConfigLine: logs: " << QString::number(logs.size()) << endl;
                     for (int i = 0;i<logs.length();i++)
                 {
                     _howManyQSOMaxT = dataProxy->getHowManyQSOInLog(i);
-                     qDebug() << "MainWindow::processConfigLine: SelectedLog-x: " << QString::number(i) << " - QSOs: " << QString::number(_howManyQSOMaxT) << endl;
+                     //qDebug() << "MainWindow::processConfigLine: SelectedLog-x: " << QString::number(i) << " - QSOs: " << QString::number(_howManyQSOMaxT) << endl;
                     if (_howManyQSOMax < _howManyQSOMaxT)
                     {
                          //qDebug() << "MainWindow::processConfigLine: Found log with more QSO: " << logs.at(i) << endl;
@@ -5850,12 +5850,12 @@ void MainWindow::slotADIFImport(){
         updateQSLRecAndSent();
 
 
-        qDebug() << "MainWindow::slotADIFImport -2" << endl;
+        //qDebug() << "MainWindow::slotADIFImport -2" << endl;
 
         logWindow->refresh();
-        qDebug() << "MainWindow::slotADIFImport -3" << endl;
+        //qDebug() << "MainWindow::slotADIFImport -3" << endl;
         checkIfNewBandOrMode();
-        qDebug() << "MainWindow::slotADIFImport -4" << endl;
+        //qDebug() << "MainWindow::slotADIFImport -4" << endl;
 
         if (contestMode == "DX")
         {
@@ -5872,7 +5872,7 @@ void MainWindow::slotADIFImport(){
 
           //qDebug() << "MainWindow::slotADIFImport-7" << endl;
     }
-    qDebug() << "MainWindow::slotADIFImport-END" << endl;
+    //qDebug() << "MainWindow::slotADIFImport-END" << endl;
 }
 
 void  MainWindow::initialContestModeConfiguration()
@@ -7020,7 +7020,7 @@ void MainWindow::clusterSpotToLog(const QString _call, const QString _freq)
 
 void MainWindow::updateQSLRecAndSent()
 {
-    qDebug() << "MainWindow::updateQSLRecAndSent "  << endl;
+    //qDebug() << "MainWindow::updateQSLRecAndSent "  << endl;
     // Checks the log to fill all the qsl_rcvd and qsl_sent
     QSqlQuery query, query1;
     QString queryString, aux, idT;
@@ -7137,7 +7137,7 @@ void MainWindow::updateQSLRecAndSent()
 
     }
     */
-    qDebug() << "MainWindow::updateQSLRecAndSent - END"  << endl;
+    //qDebug() << "MainWindow::updateQSLRecAndSent - END"  << endl;
 }
 
 void MainWindow::slotOperatingYearComboBoxChanged()
@@ -7165,7 +7165,7 @@ void MainWindow::defineStationCallsign()
     }
     myDataTabWidget->setData(myPower, stationQRZ, operatorQRZ, myLocator);
 
-    qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << " - END" << endl;
+    //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << " - END" << endl;
 
 }
 
