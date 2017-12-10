@@ -1619,7 +1619,7 @@ _workedOrConfirmed = 1     Set as Confirmed
 
 void Awards::setAwards(const int _qsoId)
 {
-    qDebug() << "Awards::setAwards: _qsoId: " << QString::number(_qsoId) << endl;
+    //qDebug() << "Awards::setAwards: _qsoId: " << QString::number(_qsoId) << endl;
 
     QString stringQuery, _confirmed, _call;
     QSqlQuery query;
@@ -1730,7 +1730,7 @@ void Awards::setAwards(const int _qsoId)
         //int setAwardDXCCst(const int _dxcc, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
         // int _dxcc, _cqz, _band, _mode, _logNumber,
         nameCol = setAwardDXCCst(_dxcc, _band,  _mode, _confirmedB, _logNumber,  _qsoId);
-        qDebug() << "Awards::setAwards: OutPutDXCC: " << QString::number(_qsoId) << " = " << QString::number(nameCol) << endl;
+        //qDebug() << "Awards::setAwards: OutPutDXCC: " << QString::number(_qsoId) << " = " << QString::number(nameCol) << endl;
     }
 
     if (CQZknown)
@@ -1745,7 +1745,7 @@ void Awards::setAwards(const int _qsoId)
 
 bool Awards::setAwardDXCC(const int _dxcc, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId)
 {
-   qDebug() << "Awards::setAwardDXCC(DXCC/BAND/MODE/WORKED/log/qsoid): " << QString::number(_dxcc) << "/" << QString::number(_band) << "/" << QString::number(_mode) << "/"<<  QString::number(_workedOrConfirmed) << "/" << QString::number(_logNumber) << "/" << QString::number(_qsoId) << endl;
+   //qDebug() << "Awards::setAwardDXCC(DXCC/BAND/MODE/WORKED/log/qsoid): " << QString::number(_dxcc) << "/" << QString::number(_band) << "/" << QString::number(_mode) << "/"<<  QString::number(_workedOrConfirmed) << "/" << QString::number(_logNumber) << "/" << QString::number(_qsoId) << endl;
    bool isOK1 = false;
    bool isOK2 = false;
    QString stringQuery;
@@ -1772,7 +1772,7 @@ bool Awards::setAwardDXCC(const int _dxcc, const int _band, const int _mode, con
         stringQuery = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, lognumber, qsoid) values('%1','%2','%3','%4','%5','%6')").arg(_dxcc).arg(_band).arg(_mode).arg(_workedOrConfirmed).arg(_logNumber).arg(_qsoId);
         if (query.exec(stringQuery) )
         {
-           qDebug() << "Awards::setAwardDXCC: OK DXCC _qsoId: " << QString::number(_qsoId) << endl;
+           //qDebug() << "Awards::setAwardDXCC: OK DXCC _qsoId: " << QString::number(_qsoId) << endl;
             query.finish();
            isOK1 = true;
 
@@ -1783,7 +1783,7 @@ bool Awards::setAwardDXCC(const int _dxcc, const int _band, const int _mode, con
             //qDebug() << "Awards::setAwardDXCC: NOK DXCC _qsoId: " << QString::number(_qsoId) << endl;
             //qDebug() << "Awards::setAwardDXCC: NOK DXCC Driver-error: " <<query.lastError().driverText() << endl;
             //qDebug() << "Awards::setAwardDXCC: NOK DXCC DB-error: " <<query.lastError().databaseText() << endl;
-            qDebug() << "Awards::setAwardDXCC: NOK DXCC lastQuery: " <<query.lastQuery() << endl;
+            //qDebug() << "Awards::setAwardDXCC: NOK DXCC lastQuery: " <<query.lastQuery() << endl;
             query.finish();
             return false;
         }
@@ -1919,29 +1919,9 @@ bool Awards::setAwardWAZ(const int _cqz, const int _band, const int _mode, const
 }
 
 
-/*
-int Awards::getProgresStepForDialog(int totalSteps){
-  //qDebug() << "FileManager::getProgresStepForDialog";
-    if (totalSteps <=100)
-        return 1;
-    else if (totalSteps <=1000)
-        return 5;
-    else if (totalSteps <=4000)
-        return 10;
-    else if (totalSteps <=5000)
-        return 15;
-    else if (totalSteps <=7000)
-        return 20;
-    else if (totalSteps <=9999)
-        return 25;
-    else
-        return 50;
-}
-*/
-
 int Awards::setAwardDXCCst(const int _dxcc, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId)
 {
-    qDebug() << "Awards::setAwardDXCCst-0: " << QString::number(_dxcc) << "/" << QString::number(_band) << "/" << QString::number(_mode) << "/" << QString::number(_logNumber) << "/" << QString::number(_qsoId) << endl;
+    //qDebug() << "Awards::setAwardDXCCst-0: " << QString::number(_dxcc) << "/" << QString::number(_band) << "/" << QString::number(_mode) << "/" << QString::number(_logNumber) << "/" << QString::number(_qsoId) << endl;
     int nameCol=-1;
     QString _refid = QString();
     /*

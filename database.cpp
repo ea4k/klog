@@ -29,20 +29,20 @@
 
 DataBase::DataBase()
 {
-    qDebug() << "DataBase::DataBase: PLAIN" << endl;
+    //qDebug() << "DataBase::DataBase: PLAIN" << endl;
 
     db = QSqlDatabase::database();
-
+    dbVersion = DBVersionf;
     createConnection();
-    qDebug() << "DataBase::DataBase: PLAIN - connection Name: " << dbConnectionName << endl;
-    qDebug() << "DataBase::DataBase: PLAIN - DB Name: " << db.databaseName() << endl;
+    //qDebug() << "DataBase::DataBase: PLAIN - connection Name: " << dbConnectionName << endl;
+    //qDebug() << "DataBase::DataBase: PLAIN - DB Name: " << db.databaseName() << endl;
     insertPreparedQueries.clear();
     insertQueryFields.clear();
 
 }
 
 DataBase::DataBase(const QString _softVersion){
-    qDebug() << "DataBase::DataBase: " << _softVersion  << endl;
+    //qDebug() << "DataBase::DataBase: " << _softVersion  << endl;
     //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
     dbVersion = DBVersionf;
     softVersion = _softVersion;
@@ -53,7 +53,7 @@ DataBase::DataBase(const QString _softVersion){
 
     dbName = util->getKLogDBFile();
     dbDir = dbName;
-    qDebug() << "DataBase::DataBase: DB(string): " << dbName << endl;
+    //qDebug() << "DataBase::DataBase: DB(string): " << dbName << endl;
 
 
     db = QSqlDatabase::database();
@@ -63,13 +63,13 @@ DataBase::DataBase(const QString _softVersion){
         createConnection();
     }
 
-    qDebug() << "DataBase::DataBase: - connection Name: " << dbConnectionName << endl;
-    qDebug() << "DataBase::DataBase: - DB Name: " << db.databaseName() << endl;
+    //qDebug() << "DataBase::DataBase: - connection Name: " << dbConnectionName << endl;
+    //qDebug() << "DataBase::DataBase: - DB Name: " << db.databaseName() << endl;
 
     insertPreparedQueries.clear();
     insertQueryFields.clear();
 
-    qDebug() << "DataBase::DataBase: END"  << endl;
+    //qDebug() << "DataBase::DataBase: END"  << endl;
 
 }
 
@@ -107,7 +107,7 @@ bool DataBase::queryPrepare()
 
 bool DataBase::queryExec()
 {
-    qDebug()  << "DataBase::queryExec  "  << endl;
+    //qDebug()  << "DataBase::queryExec  "  << endl;
     bool sqlOK;
     //insertQueryFields.clear();
     //insertPreparedQueries.clear();
@@ -125,11 +125,11 @@ bool DataBase::queryExec()
     {
         queryErrorManagement("DataBase::queryExec", preparedQuery.lastError().databaseText(), preparedQuery.lastError().number(), preparedQuery.lastQuery());
         //emit queryError(Q_FUNC_INFO, preparedQuery.lastError().databaseText(), preparedQuery.lastError().number(), preparedQuery.lastQuery());
-        qDebug()  << "DataBase::queryExec - FAILED execution: "  << preparedQuery.lastQuery() << endl;
+        //qDebug()  << "DataBase::queryExec - FAILED execution: "  << preparedQuery.lastQuery() << endl;
     }
     else
     {
-        qDebug()  << "DataBase::queryExec - executed: "  << preparedQuery.lastQuery() << endl;
+        //qDebug()  << "DataBase::queryExec - executed: "  << preparedQuery.lastQuery() << endl;
     }
     return sqlOK;
 }
@@ -147,7 +147,7 @@ QString DataBase::getSoftVersion()
 {
     QSqlQuery query;
 
-    QString stringQuery ("SELECT MAX (dbversion) FROM softwarecontrol");
+    QString stringQuery ("SELECT MAX (softversion) FROM softwarecontrol");
     bool sqlOK = query.exec(stringQuery);
 
 
@@ -156,14 +156,11 @@ QString DataBase::getSoftVersion()
         query.next();
         if (query.isValid())
         {
-
             return (query.value(0)).toString();
-
         }
         else
         {
-
-             query.finish();
+            query.finish();
             return QString();
         }
     }
@@ -181,7 +178,7 @@ QString DataBase::getDBVersion()
 {
     QSqlQuery query;
 
-    QString stringQuery ("SELECT MAX (softversion) FROM softwarecontrol");
+    QString stringQuery ("SELECT MAX (dbversion) FROM softwarecontrol");
     bool sqlOK = query.exec(stringQuery);
 
 
@@ -282,7 +279,7 @@ bool DataBase::reConnect()
 
 bool DataBase::createConnection(bool newDB)
 {
-    qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
+    //qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
     QString stringQuery;
     QSqlQuery query;
 
@@ -345,45 +342,45 @@ bool DataBase::createConnection(bool newDB)
     /*
     if (!db.isOpen())
     {
-         qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
-         qDebug() << "DataBase::createConnection: - connection Name: " << dbConnectionName << endl;
-         qDebug() << "DataBase::createConnection: - DB Name: " << db.databaseName() << endl;
+         //qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
+         //qDebug() << "DataBase::createConnection: - connection Name: " << dbConnectionName << endl;
+         //qDebug() << "DataBase::createConnection: - DB Name: " << db.databaseName() << endl;
 
         if ((db.connectionName() != dbConnectionName) && !((db.connectionName()).isEmpty()))
         {
             db = QSqlDatabase::addDatabase("QSQLITE");
             db.setDatabaseName(dbName);
             dbConnectionName = db.connectionName();
-            qDebug() << "DataBase::createConnection 0: ADDED1" << endl;
-            qDebug() << "DataBase::createConnection 0: - connection Name: " << db.connectionName() << endl;
-            qDebug() << "DataBase::createConnection 0: - DB Name: " << db.databaseName() << endl;
+            //qDebug() << "DataBase::createConnection 0: ADDED1" << endl;
+            //qDebug() << "DataBase::createConnection 0: - connection Name: " << db.connectionName() << endl;
+            //qDebug() << "DataBase::createConnection 0: - DB Name: " << db.databaseName() << endl;
 
         }
-        qDebug() << "DataBase::createConnection 01: ADDED2" << endl;
-        qDebug() << "DataBase::createConnection 01: - connection Name: " << dbConnectionName << endl;
-        qDebug() << "DataBase::createConnection 01: - DB Name: " << db.databaseName() << endl;
+        //qDebug() << "DataBase::createConnection 01: ADDED2" << endl;
+        //qDebug() << "DataBase::createConnection 01: - connection Name: " << dbConnectionName << endl;
+        //qDebug() << "DataBase::createConnection 01: - DB Name: " << db.databaseName() << endl;
 
         //db.setConnectOptions("QSQLITE_BUSY_TIMEOUT");
         //QString backDir = QDir::currentPath();
         //QDir::setCurrent(dbDir);
         QString dbName;
         dbName = util->getKLogDBFile();
-        qDebug() << "DataBase::createConnection: DB (string): " << dbName << endl;
+        //qDebug() << "DataBase::createConnection: DB (string): " << dbName << endl;
 
         if (util->isDBFileExisting(dbName))
         {
-                qDebug() << "DataBase::createConnection: DB is existing!!!!!! " << endl;
+                //qDebug() << "DataBase::createConnection: DB is existing!!!!!! " << endl;
         }
         else
         {
-              qDebug() << "DataBase::createConnection: DB is NOT existing!!!!!! " << endl;
+              //qDebug() << "DataBase::createConnection: DB is NOT existing!!!!!! " << endl;
         }
 
-        qDebug() << "DataBase::createConnection1: - connection Name: " << dbConnectionName << endl;
-        qDebug() << "DataBase::createConnection1: - DB Name: " << db.databaseName() << endl;
+        //qDebug() << "DataBase::createConnection1: - connection Name: " << dbConnectionName << endl;
+        //qDebug() << "DataBase::createConnection1: - DB Name: " << db.databaseName() << endl;
         db.setDatabaseName(dbName);
-        qDebug() << "DataBase::createConnection2: - connection Name: " << dbConnectionName << endl;
-        qDebug() << "DataBase::createConnection2: - DB Name: " << db.databaseName() << endl;
+        //qDebug() << "DataBase::createConnection2: - connection Name: " << dbConnectionName << endl;
+        //qDebug() << "DataBase::createConnection2: - DB Name: " << db.databaseName() << endl;
         //QDir::setCurrent(backDir);
         //qDebug() << "DataBase::createConnection - dataBaseName: " << db.databaseName() << endl;
 
@@ -392,7 +389,7 @@ bool DataBase::createConnection(bool newDB)
         {
             QMessageBox::warning(0, QObject::tr("Database Error"),
                                  db.lastError().text());
-            qDebug() << "DataBase::createConnection: DB not valid!"  << endl;
+            //qDebug() << "DataBase::createConnection: DB not valid!"  << endl;
             return false;
         }
 
@@ -409,11 +406,11 @@ bool DataBase::createConnection(bool newDB)
 
             if (isTheDBCreated())
             {
-                  qDebug() << "DataBase::createConnection: isTheDBCreated TRUE"  << endl;
+                  //qDebug() << "DataBase::createConnection: isTheDBCreated TRUE"  << endl;
             }
             else
             {
-                qDebug() << "DataBase::createConnection: isTheDBCreated FALSE"  << endl;
+                //qDebug() << "DataBase::createConnection: isTheDBCreated FALSE"  << endl;
                 createDataBase();
 
 
@@ -530,7 +527,7 @@ bool DataBase::isTheDBCreated()
 
 bool DataBase::recreateTableLog()
 {
-    qDebug() << "DataBase::recreateTableLog" << endl;
+    //qDebug() << "DataBase::recreateTableLog" << endl;
 
     createTableLog(false);         // Create modetemp
 
@@ -560,21 +557,21 @@ bool DataBase::recreateTableLog()
             }
             else
             {
-                qDebug() << "recreateTableLog ERROR - logTemp not renamed" << endl;
+                //qDebug() << "recreateTableLog ERROR - logTemp not renamed" << endl;
                 return false;
             }
         }
         else
         {
-            qDebug() << "recreateTableLog ERROR - log table not dropped" << endl;
+            //qDebug() << "recreateTableLog ERROR - log table not dropped" << endl;
         }
     }
     else
     {
-        qDebug() << "recreateTableLog ERROR - Data not moved" << endl;
+        //qDebug() << "recreateTableLog ERROR - Data not moved" << endl;
         return false;
     }
-    qDebug() << "recreateTableLog END" << endl;
+    //qDebug() << "recreateTableLog END" << endl;
     return true;
 }
 
@@ -667,7 +664,7 @@ bool DataBase::createTableLog(bool temp)
              "my_country INTEGER, "
              "my_cq_zone INTEGER, "
              "my_dxcc INTEGER, "
-             //"my_fists INTEGER, "
+             "my_fists INTEGER, "
              "my_gridsquare VARCHAR, "
              "my_iota VARCHAR(6), "
              "my_iota_island_id VARCHAR, "
@@ -722,6 +719,7 @@ bool DataBase::createTableLog(bool temp)
              "stx_string VARCHAR, "
              "state VARCHAR, "
              "station_callsign VARCHAR, "
+             "submode VARCHAR"
              "swl INTEGER, "
              "uksmg INTEGER, "
              "usaca_counties VARCHAR, "
@@ -755,6 +753,7 @@ bool DataBase::createTableLog(bool temp)
              "FOREIGN KEY (arrl_sect) REFERENCES arrl_sect_enumeration, "
              "FOREIGN KEY (band_rx) REFERENCES band, "
              "FOREIGN KEY (modeid) REFERENCES mode, "
+             "FOREIGN KEY (submode) REFERENCES mode, "
              "FOREIGN KEY (dxcc) REFERENCES entity, "
              "FOREIGN KEY (bandid) REFERENCES band)");
 
@@ -1458,6 +1457,7 @@ bool DataBase::unMarkAllQSO()
     QString stringQuery = QString("UPDATE log SET marked = 'N' WHERE 1");
     return execQuery(Q_FUNC_INFO, stringQuery);
 }
+
 
 bool DataBase::updateIfNeeded()
 {
@@ -6619,7 +6619,7 @@ bool DataBase::updateTo011()
 
     if (!recreateTableLog())
     {
-        qDebug() << "DataBase::updateTo011: -Failed to recreate Table Log " << endl;
+        //qDebug() << "DataBase::updateTo011: -Failed to recreate Table Log " << endl;
         return false;
     }
 
@@ -6640,10 +6640,10 @@ bool DataBase::updateTo011()
 
 void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery)
 {
-      qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << endl;
-      qDebug() << "DataBase::queryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
-      qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
-      qDebug() << "DataBase::queryErrorManagement: Query failed: " << failedQuery << endl;
+      //qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << endl;
+      //qDebug() << "DataBase::queryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
+      //qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
+      //qDebug() << "DataBase::queryErrorManagement: Query failed: " << failedQuery << endl;
 }
 
  bool DataBase::beginTransaction()

@@ -60,8 +60,9 @@ class FileManager : public QWidget
     Q_OBJECT
 public:
     FileManager(DataProxy *dp);
-    FileManager(DataProxy *dp, const QString _klogDir);
+    //FileManager(DataProxy *dp, const QString _klogDir);
     FileManager(DataProxy *dp, const QString _klogDir, const QString _softVersion);
+    //FileManager(DataProxy *dp, const QString _softVersion);
     ~FileManager();
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);

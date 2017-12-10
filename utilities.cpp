@@ -200,7 +200,6 @@ QString Utilities::getHomeDir()
 #else
       //qDebug() << "NO WINDOWS DETECTED!"  << endl;
     return QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs and data
-
 #endif
 
 }

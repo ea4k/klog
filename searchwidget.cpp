@@ -1289,7 +1289,7 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
 
 void SearchWidget::searchToolNeededQSLToSend()
 {
-    qDebug() << "SearchWidget::slotToolSearchQSLToSend - TO PREPARE THE QUERY and optimize the function" << endl;
+    //qDebug() << "SearchWidget::slotToolSearchQSLToSend - TO PREPARE THE QUERY and optimize the function" << endl;
     slotToolSearchQSL(0);
 }
 

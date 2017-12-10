@@ -1,9 +1,6 @@
 RC-BUGS:
-TODO: Review the ADIF specification and add ALL the fields to the DB definition.
-TODO: Review the ADIF specification and add ALL the fields to the import ADIF in filemanager
-TODO: Review the ADIF specification and add ALL the fields to the export ADIF in filemanager
-TODO-BUG: ADDRESS is not imported/exported to ADIF
-TODO-BUG: LOTW_QSLSDATE is not Exported to ADIF
+BUG?: It seems that needs to update the DB everytime it starts
+CHECK: FileManager constructors and the klodir
 
 
 
