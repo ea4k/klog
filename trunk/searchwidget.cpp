@@ -88,11 +88,9 @@ void SearchWidget::createUI()
        searchResultsTreeWidget->setColumnCount(7);
     }
 
-
     searchResultsTreeWidget->setHeaderLabels(labels);
     //QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
    (searchResultsTreeWidget->header())->resizeSections(QHeaderView::ResizeToContents);
-
 
     searchResultsTreeWidget->clear();
     //searchResultsTreeWidget->collapseAll();
@@ -116,7 +114,6 @@ void SearchWidget::createUI()
     dxUpRightSearchTabLayout->addWidget(searchResultsTreeWidget);
 
     setLayout(dxUpRightSearchTabLayout);
-
 
     //connect(dataProxy, SIGNAL(qsoFound(QStringList)), this, SLOT(slotQsoFound(QStringList)) );
 
@@ -184,7 +181,6 @@ void SearchWidget::slotSearchBoxTextChanged()
     {   // Fix a bug (or my knowledge of SQLite) to search Strings begining with 1 or 2
         // sqlite does not understand statements like SELECT call FROM log WHERE call LIKE '%1A%'
         aux = theCall + "%";
-
     }
     else
     {
@@ -211,8 +207,6 @@ void SearchWidget::slotSearchBoxTextChanged()
 
     QSqlRecord rec = query.record();
     int nameCol = -1;
-
-
 
     //qDebug() << "SearchWidget::slotSearchBoxTextChanged: queryString EXECUTED!"  << endl;
     QColor color;
@@ -252,14 +246,7 @@ void SearchWidget::slotSearchBoxTextChanged()
             nameCol = rec.indexOf("dxcc");
             _dxcc= (query.value(nameCol)).toString();
 
-            //_mode = query.value(4).toString();
-
-            //qDebug() << "SearchWidget::slotSearchBoxTextChanged: mode(b) :  " << _mode << endl;
-
-            //nameCol = rec.indexOf("qsl_sent");
-            //_qsltx = (query.value(nameCol)).toString();
             nameCol = rec.indexOf("qsl_rcvd");
-
             _qsltx = (query.value(nameCol)).toString();
             if (_qsltx.length()<1)
             {
@@ -355,9 +342,6 @@ void SearchWidget::slotSearchBoxTextChanged()
     searchBoxLineEdit->setCursorPosition(cursorP);
 
 
-
-
-
 /*  // The following is a new implementation. It is still not used because it is toooo slow.
 
     int cursorP = searchBoxLineEdit->cursorPosition();
@@ -390,89 +374,6 @@ void SearchWidget::slotSearchBoxTextChanged()
 
 }
 
-/*
-//void SearchWidget::slotQsoFound(const QStringList _qso)
-{
-    // Each time a QSO is found in DataProxy emits a QStringList with the following format and this
-    // function is just reading the data and adding that QSO to the Search treewidget
-    // Format: QString: "field:value" |"field:value" |"field:value" |"field:value" |
-    // Data arriving in _qso with the format:
-    // call << qso_date << time_on << bandid << modeid << qsl_rcvd << qsl_sent << station_calsign << id
-
-    //qDebug() << "SearchWidget::slotQsoFound: "  <<  _qso.at(0) << endl;
-
-
-    QString _id, _call, _dateTime, _bandid, _modeid, _qsltx, _qslrx, _stationcallsign;
-    QFont font;
-    QStringList q;
-    font.setBold(true);
-    QString aux;
-    //TODO: Check if the fields that are coming are correct (call, date, ...)
-
-    aux = _qso.at(8);
-    _id = aux.section(':', 1, 1);
-    aux = _qso.at(0);
-    _call = aux.section(':', 1, 1);;
-    aux = _qso.at(1);
-    _dateTime = aux.section(':', 1, 1);
-    aux = _qso.at(2);
-    _dateTime = _dateTime + "-" + aux.section(':', 1, 3); // the time has a ':' included so we nee dto take three sections
-    aux = _qso.at(3);
-    _bandid = aux.section(':', 1, 1);
-    aux = _qso.at(4);
-    _modeid = aux.section(':', 1, 1);
-    aux = _qso.at(5);
-    _qslrx = aux.section(':', 1, 1);
-    aux = _qso.at(5);
-    _qsltx = aux.section(':', 1, 1);
-    aux = _qso.at(7);
-    _stationcallsign = aux.section(':', 1, 1);
-
-
-    q.clear();
-    q << _call << _bandid << _modeid << QString::number(dataProxy->getLogNumberFromQSOId(_id.toInt()));
-    //qDebug() << "SearchWidget::slotQsoFound: Calculated log"  <<  QString::number(dataProxy->getLogNumberFromQSOId(_id.toInt())) << endl;
-    //qDebug() << "SearchWidget::slotQsoFound: Fixed log"  <<  currentLog << endl;
-    QColor color =  awards->getQRZDXStatusColor(q);
-    //qDebug() << "SearchWidget::slotQsoFound: Color1: "  <<  color.name() << endl;
-
-
-    QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
-    int i = world->getQRZARRLId(_call);
-    aux = world->getEntityName(i) + " - CQ: " + QString::number(world->getEntityCqz(i));
-    item->setToolTip(0, aux);
-    item->setToolTip(1, aux);
-    item->setToolTip(2, aux);
-    item->setToolTip(3, aux);
-    item->setToolTip(4, aux);
-    item->setToolTip(5, aux);
-    item->setToolTip(6, aux);
-
-    item->setText(0, _call);
-    item->setFont(0, font);
-    item->setText(1, _dateTime);
-    item->setText(2, dataProxy->getNameFromBandId(_bandid.toInt()));
-   //qDebug() << "SearchWidget::slotSearchBoxTextChanged: mode(c) :  " << _mode << endl;
-    item->setText(3, dataProxy->getNameFromModeId(_modeid.toInt()));
-    item->setText(4, _qslrx);
-    item->setText(5, _qsltx);
-    if (stationCallSignShownInSearch)
-    {
-        item->setText(6, _stationcallsign);
-        item->setText(7, _id);
-        item->setToolTip(7, aux);
-
-    }
-    else
-    {
-        item->setText(6, _id);
-    }
-
-    (searchResultsTreeWidget->header())->resizeSections(QHeaderView::ResizeToContents);
-    item->setForeground(0, QBrush(color));
-    //qDebug() << "SearchWidget::slotQsoFound: Color2: "  <<  color.name() << endl;
-}
-*/
 void SearchWidget::setCurrentLog(const int _log)
 {
     currentLog = _log;
@@ -496,7 +397,6 @@ void SearchWidget::slotSearchBoxSelectAllButtonClicked()
         searchSelectAllClicked = false;
         searchResultsTreeWidget->clearSelection();
         searchBoxSelectAllButton->setText(tr("&Select All"));
-
 
     }
     else
@@ -531,28 +431,6 @@ void SearchWidget::slotSearchBoxSelectionChanged()
         searchBoxSelectAllButton->setText(tr("&Select All"));
         searchSelectAllClicked = false;
     }
-
-/*
-
-    if (searchSelectAllClicked)
-    {
-        //qDebug() << "SearchWidget::slotSearchBoxSelectAllButtonClicked: UN-SELECTING" << endl;
-        searchSelectAllClicked = false;
-        searchResultsTreeWidget->clearSelection();
-        searchBoxSelectAllButton->setText(tr("&Select All"));
-
-
-    }
-    else
-    {
-        //qDebug() << "SearchWidget::slotSearchBoxSelectAllButtonClicked: SELECTING" << endl;
-        searchSelectAllClicked = true;
-        searchResultsTreeWidget->selectAll();
-        searchBoxSelectAllButton->setText(tr("&Clear selection"));
-
-    }
-
-*/
 
 }
 
@@ -637,19 +515,6 @@ void SearchWidget::slotSearchExportButtonClicked()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 void SearchWidget::slotRighButtonSearch(const QPoint& pos)
 {
     //qDebug() << "SearchWidget::slotRighButtonSearch"  << endl;
@@ -683,7 +548,6 @@ void SearchWidget::slotRighButtonSearch(const QPoint& pos)
         //qDebug() << "SearchWidget::slotRighButtonSearch ITEM=false"  << endl;
         return;
     }
-
     //qDebug() << "SearchWidget::slotRighButtonSearch: "  << QString::number(_qsoID) << endl;
 
 }
@@ -979,7 +843,6 @@ void SearchWidget::slotQSLRecViaBureauMarkReqFromSearch()
     {
         slotSearchBoxTextChanged();
     }
-
 }
 
 
@@ -1017,17 +880,13 @@ void SearchWidget::slotQSLRecViaDirectMarkReqFromSearch()
 }
 
 
-
-
-
-
 void SearchWidget::qslRecViaBureauMarkReq(const int _qsoId)
 {
    // //qDebug() << "SearchWidget::qslRecViaBureau: " << QString::number(_qsoId) << "/" << (QDate::currentDate()).toString("yyyy/MM/dd") << endl;
     //setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed);
     dataProxy->qslRecViaBureau(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"), true);
-    awards->setAwards(_qsoId);   //Update the DXCC award status
-    emit logRefresh();
+    //awards->setAwards(_qsoId);   //Update the DXCC award status
+    //emit logRefresh();
     emit updateAwards();
 
 }
@@ -1038,18 +897,16 @@ void SearchWidget::qslRecViaDirectMarkReq(const int _qsoId)
     //qDebug() << "SearchWidget::qslRecViaDirect: " << QString::number(_qsoId) << endl;
 
     dataProxy->qslRecViaDirect(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"), true);
-    awards->setAwards(_qsoId);
+    //awards->setAwards(_qsoId);
     //setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed);
 
     emit updateAwards();
 }
 
 
-
 void SearchWidget::slotQSOToEditFromSearch()
 {
     //qDebug() << "slotQSOToEditFromSearch: " << (qsoToEditFromSearchAct->data()).toString() << endl;
-
     actionQSODoubleClicked((qsoToEditFromSearchAct->data()).toInt());
 }
 
@@ -1127,13 +984,12 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
     QString aux = QString();
     int i = -1;
 
-
     switch (actionQSL)
     {
         case 0://void searchToolNeededQSLToSend();
          //aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
          //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 0" << endl;
-         stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R' AND log.lognumber='%1'").arg(currentLog);
+            stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R' AND log.lognumber='%1'").arg(currentLog);
             message = tr("Needed QSO to send the QSL");
             qslingNeeded = true;
             requestBeingShown();

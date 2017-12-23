@@ -319,8 +319,8 @@ private:
 
     //void righButtonFromLogMenu(const int trow);
 
-    void qslRecViaBureauMarkReq(const int _qsoId);
-    void qslRecViaDirectMarkReq(const int _qsoId);
+    //void qslRecViaBureauMarkReq(const int _qsoId);
+    //void qslRecViaDirectMarkReq(const int _qsoId);
 
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);

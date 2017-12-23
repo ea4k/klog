@@ -57,7 +57,6 @@ void InfoWidget::createUI()
     bandLabel11->setText(tr("30M"));
     bandLabel12->setText(tr("70CM"));
 
-
     bandLabel1->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     bandLabel2->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     bandLabel3->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);

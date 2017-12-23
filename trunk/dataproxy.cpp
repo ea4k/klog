@@ -52,6 +52,7 @@ void DataProxy::createLogPanel(){}
 bool DataProxy::haveAtLeastOneLog(){return true;}
 QStringList DataProxy::getColumnNamesFromTable(const QString _tableName){return QStringList();}
 QStringList DataProxy::getColumnNamesFromTableLog(){return QStringList();}
+bool DataProxy::setDXCCAwardStatus(const int _qsoId){return false;}
 
 int DataProxy::getIdFromModeName(const QString& _modeName)
 {
@@ -251,6 +252,21 @@ bool DataProxy::isQSLSent(const int _qsoId)
     return false;
 }
 
+int DataProxy::getBandFromId(const int _qsoId)
+{
+    return -1;
+}
+
+int DataProxy::getModeFromId(const int _qsoId)
+{
+    return -1;
+}
+
+int DataProxy::getDXCCFromId(const int _qsoId)
+{
+    return -1;
+}
+
 QString DataProxy::getCallFromId(const int _qsoId)
 {
     return "";
@@ -286,7 +302,10 @@ QString DataProxy::getQSLViaFromQRZ(const QString _call)
     return QString();
 }
 
-
+bool DataProxy::updateAwardDXCC()
+{
+    return false;
+}
 
 bool DataProxy::deleteQSO(const int _qsoId)
 {
@@ -650,7 +669,7 @@ void DataProxy::getFoundInLog(const QString _txt, const int _log)
 {
     //return false;
 }
-
+/*
 bool DataProxy::queryPrepare(const QString _query)
 {
     return false;
@@ -661,7 +680,9 @@ bool DataProxy::queryBind(const QString _field, const QString value)
     return false;
 }
 
-bool DataProxy::queryExec()
+
+ bool DataProxy::queryExec()
 {
     return false;
 }
+*/

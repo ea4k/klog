@@ -414,24 +414,13 @@ int World::getPrefixId(const QString _qrz)
     //TODO: Instead of going from long to short, identify prefixes from the begining:
     // character(may be number) + number
 
-    //int errorCode;
-
     if (_qrz.length() < 1)
     {
         return -1;
     }
     int entityID = 0;
-    //int iaux1, iaux2;
-
-    //QString prefixl, prefixr;
-    //QString queryString;
-    //QSqlQuery query;
 
     QString aux = changeSlashAndFindPrefix((_qrz).toUpper());
-
-    //query.prepare("SELECT dxcc FROM prefixesofentity WHERE prefix==:prefix");
-
-    //QSqlDatabase::database().transaction();
 
     while ((entityID <= 0) && (aux.length()>=1) )
     {
@@ -444,8 +433,6 @@ int World::getPrefixId(const QString _qrz)
          }
 
     }
-
-    //QSqlDatabase::database().commit();
      //qDebug() << "World::getPrefixId: " <<  _qrz << QString::number(entityID) << endl;
     return entityID;
 }
@@ -639,9 +626,6 @@ int World::getQRZARRLId(const QString _qrz)
     {
         return -1;
     }
-
-    //QSqlQuery query;
-    //QString queryString;
 
     int prefixIdNumber = getPrefixId(_qrz);
     return prefixIdNumber;

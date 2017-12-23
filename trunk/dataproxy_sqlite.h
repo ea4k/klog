@@ -40,7 +40,7 @@ class DataProxy_SQLite : public DataProxy {
     Q_OBJECT
 
 public:
-    DataProxy_SQLite(const QString _softVersion);
+    DataProxy_SQLite(const QString _softVersion, const QString _parentFunction);
     ~DataProxy_SQLite();
 
     QString getSoftVersion();
@@ -108,6 +108,9 @@ public:
     bool isVHF(const int _band);
     bool isUHF(const int _band);
 
+    int getBandFromId(const int _qsoId);
+    int getModeFromId(const int _qsoId);
+    int getDXCCFromId(const int _qsoId);
     QString getCallFromId(const int _qsoId);
     QStringList getClubLogRealTimeFromId(const int _qsoId);
     // Complete with previous
@@ -117,6 +120,9 @@ public:
     QString getIOTAFromQRZ(const QString _call);
     QString getQSLViaFromQRZ(const QString _call);
     // /Complete with previous
+
+    bool updateAwardDXCC();
+
 
     //LOTW
 
@@ -193,12 +199,14 @@ public:
 
     bool updateISONames(); // Update the entities ISO names for the flags
     QString getISOName(const int _n);
+    bool setDXCCAwardStatus(const int _qsoId);
+
 
     void getFoundInLog(const QString _txt, const int _log=-1);
 
-    bool queryPrepare(const QString _query);
-    bool queryBind(const QString _field, const QString value);
-    bool queryExec();
+    //bool queryPrepare(const QString _query);
+    //bool queryBind(const QString _field, const QString value);
+    //bool queryExec();
 
 private:
     bool dbCreated;
@@ -206,9 +214,11 @@ private:
     QStringList sortBandIdBottonUp(const QStringList _qs);
     double getFreqFromRange(QString _fr); //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
     QStringList getColumnNamesFromTable(const QString _tableName);
+
+
     bool searching;
     int executionN;
-    QSqlQuery preparedQuery;
+    //QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;
 
 signals:

@@ -27,9 +27,9 @@
 #include "database.h"
 //#include <qDebug>
 
-DataBase::DataBase()
+DataBase::DataBase(const QString _parentClass)
 {
-    //qDebug() << "DataBase::DataBase: PLAIN" << endl;
+    //qDebug() << "DataBase::DataBase: PLAIN: " << _parentClass << endl;
 
     db = QSqlDatabase::database();
     dbVersion = DBVersionf;
@@ -41,8 +41,8 @@ DataBase::DataBase()
 
 }
 
-DataBase::DataBase(const QString _softVersion){
-    //qDebug() << "DataBase::DataBase: " << _softVersion  << endl;
+DataBase::DataBase(const QString _softVersion, const QString _parentClass){
+    //qDebug() << "DataBase::DataBase: " << _softVersion <<"/" << _parentClass << endl;
     //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
     dbVersion = DBVersionf;
     softVersion = _softVersion;
@@ -57,6 +57,7 @@ DataBase::DataBase(const QString _softVersion){
 
 
     db = QSqlDatabase::database();
+    //createConnection();
 
     if (util->getVersionDouble()>0)
     {
@@ -75,7 +76,7 @@ DataBase::DataBase(const QString _softVersion){
 
 
 
-
+/*
 bool DataBase::queryAddField(const QString _field, const QString value)
 {
     //QStringList insertPreparedQueries, insertQueryFields;
@@ -134,7 +135,7 @@ bool DataBase::queryExec()
     return sqlOK;
 }
 
-
+*/
 
 
 
@@ -529,7 +530,11 @@ bool DataBase::recreateTableLog()
 {
     //qDebug() << "DataBase::recreateTableLog" << endl;
 
-    createTableLog(false);         // Create modetemp
+    if (!createTableLog(false))         // Create modetemp
+    {
+        //qDebug() << "DataBase::recreateTableLog: CreateTableLog returned false" << endl;
+        return false;
+    }
 
     QString queryString;
     queryString.clear();
@@ -605,9 +610,9 @@ bool DataBase::createTableLog(bool temp)
              "stx VARCHAR(10), "
              "points INTEGER,"
              "multiplier INTEGER,"
-             "cqz INTEGER,"
-             "ituz INTEGER,"
-             "dxcc INTEGER,"
+             "cqz INTEGER, "
+             "ituz INTEGER, "
+             "dxcc INTEGER, "
              "address VARCHAR, "
              "age INTEGER, "
              "cnty VARCHAR, "
@@ -719,7 +724,7 @@ bool DataBase::createTableLog(bool temp)
              "stx_string VARCHAR, "
              "state VARCHAR, "
              "station_callsign VARCHAR, "
-             "submode VARCHAR"
+             "submode VARCHAR,"
              "swl INTEGER, "
              "uksmg INTEGER, "
              "usaca_counties VARCHAR, "
@@ -1468,9 +1473,9 @@ bool DataBase::updateIfNeeded()
      *
      */
 
-    float aux = 0.0;
+    //float aux = 0.0;
 
-    int nameCol;
+    int nameCol = -1;
     //int errorCode = -1;
     //bool toBeUpdated = false;
     //bool sqlOK;
@@ -1929,6 +1934,7 @@ bool DataBase::updateToLatest()
     //qDebug() << "DataBase::updateToLatest " << endl;
     //return updateTo010();
     return updateTo011();
+
 }
 
 bool DataBase::updateTo003()
@@ -6472,7 +6478,7 @@ bool DataBase::updateTo011()
     //bool sqlOk = false;
 
     //qDebug() << "DataBase::updateTo011: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << endl;
-    if (latestReaded >= float(0.011))
+    if (latestReaded >= float(0.012))
     {
         //qDebug() << "DataBase::updateTo011: - I am in 011" << endl;
         IAmIn011 = true;
@@ -6480,7 +6486,7 @@ bool DataBase::updateTo011()
     }
     else
     {
-        //qDebug() << "DataBase::updateTo011: - I am not in 011 I am in: " << QString::number(latestReaded)<< endl;
+        //qDebug() << "DataBase::updateTo011: - I am not in 0.012 I am in: " << QString::number(latestReaded)<< endl;
 
         while (!IAmIn010 && !ErrorUpdating)
         {
@@ -6506,126 +6512,28 @@ bool DataBase::updateTo011()
 
     }
 
-    recreateSatelliteData();
-
-    //execQuery(Q_FUNC_INFO, "ALTER TABLE satellites ADD COLUMN uplink");
-    //execQuery(Q_FUNC_INFO, "ALTER TABLE satellites ADD COLUMN downlink");
-/*
-
-    //qDebug() << "DataBase::updateTo011: - 03 " << endl;
-    if (!execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.030,146.180', downlink='145.81', satmode='SSB,CW' WHERE satarrlid='AO-10'"))
+    if (!recreateSatelliteData())
     {
+        //qDebug() << "DataBase::updateTo011: - Sats update NOK " << endl;
         return false;
     }
-
-
-
-    //qDebug() << "DataBase::updateTo011: - 11 - Sat data OK" << endl;
-
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.423-435.573', downlink='145.975-145.825', satmode='SSB,CW' WHERE satarrlid='AO-13'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.92', downlink='437.026', satmode='FM/USB' WHERE satarrlid='AO-16'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET downlink='145.8', satmode='CW' WHERE satarrlid='AO-21'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET downlink='145.975', satmode='PKT' WHERE satarrlid='AO-24'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.85', downlink='436.795', satmode='FM' WHERE satarrlid='AO-27'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.975-146.025', downlink='144.325-144.375', satmode='SSB,CW' WHERE satarrlid='AO-3'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='432.145-432.155', downlink='144.300-144.310', satmode='SSB,CW' WHERE satarrlid='AO-4'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.840-145.990,435.790-435.520', downlink='2401.2225-2401.475', satmode='SSB,CW' WHERE satarrlid='AO-40'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.92', downlink='435.3', satmode='FM' WHERE satarrlid='AO-51'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.900-146.000', downlink='29.450-29.550', satmode='SSB,CW' WHERE satarrlid='AO-6'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.850-145.950,432.180-432.120', downlink='29.400-29.500,145.920-145.980', satmode='USB,LSB/USB' WHERE satarrlid='AO-7'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.150-435.130', downlink='145.950-145.970', satmode='LSB/USB' WHERE satarrlid='AO-73'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.850-145.900,145.900-146.000', downlink='29.400-29.500,435.200-435.10', satmode='SSB,CW' WHERE satarrlid='AO-8'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.170', downlink='145.980', satmode='FM' WHERE satarrlid='AO-85'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.200,144.490', downlink='145.800,145.800', satmode='FM' WHERE satarrlid='ARISS'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.92', downlink='436.2', satmode='FM' WHERE satarrlid='BY70-1'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='144.350', downlink='437.200', satmode='FM' WHERE satarrlid='CAS-3H'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET downlink='145.870', satmode='CW' WHERE satarrlid='DO-64'");
-
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.900-146.000,145.85', downlink='435.900-435.800,435.91', satmode='SSB,PKT' WHERE satarrlid='FO-12'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.900-146.000', downlink='435.900-435.800', satmode='SSB' WHERE satarrlid='FO-20'");
-
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.900-145.999', downlink='435.900-435.800', satmode='LSB/USB,CW' WHERE satarrlid='FO-29'");
-
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.925-145.975,145.825', downlink='435.765-435.715,435.675', satmode='LSB/USB,FM' WHERE satarrlid='HO-68'");
-
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.840-145.900', downlink='437.125-437.150', satmode='CW' WHERE satarrlid='LO-19'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.95,145.85', downlink='435.1755,437.543', satmode='FM,PKT' WHERE satarrlid='LO-78'");
-
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.827', downlink='145.827', satmode='PKT' WHERE satarrlid='NO-44'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145', downlink='29' WHERE satarrlid='RS-1'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET downlink='29.357,29.403' WHERE satarrlid='RS-10'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET downlink='29.357,29.403' WHERE satarrlid='RS-11'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='21.210-21.250', downlink='29.410-29.450', satmode='SSB' WHERE satarrlid='RS-12'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='21.260-21.300', downlink='145.860-145.900', satmode='SSB' WHERE satarrlid='RS-13'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET downlink='29.3525-29.3987' WHERE satarrlid='RS-15'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET satmode='CW' WHERE satarrlid='RS-5'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET satmode='CW' WHERE satarrlid='RS-7'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145', downlink='29' WHERE satarrlid='RS-2'");
-
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='436.291', downlink='145.825', satmode='FM' WHERE satarrlid='SO-35'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.850', downlink='436.775', satmode='CW' WHERE satarrlid='SO-41'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.850', downlink='436.795', satmode='FM' WHERE satarrlid='SO-50'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.875', downlink='435.345', satmode='FM' WHERE satarrlid='SO-67'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='145.975', downlink='435.07', satmode='FM' WHERE satarrlid='UO-14'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.220-435.280,435.225-435.275', downlink='145.930-145.870,145.925-145.875', satmode='LSB/USB' WHERE satarrlid='VO-52'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.030-435.050', downlink='145.665-145.685', satmode='LSB/USB' WHERE satarrlid='XW-2A'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.090-435.110', downlink='145.730-145.750', satmode='LSB/USB' WHERE satarrlid='XW-2B'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.150-435.170', downlink='145.795-145.815', satmode='LSB/USB' WHERE satarrlid='XW-2C'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.210-435.230', downlink='145.860-145.880', satmode='LSB/USB' WHERE satarrlid='XW-2D'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.270-435.290', downlink='145.915-145.935', satmode='LSB/USB' WHERE satarrlid='XW-2E'");
-    execQuery(Q_FUNC_INFO, "UPDATE satellites SET uplink='435.330-435.350', downlink='145.980-145.999', satmode='LSB/USB' WHERE satarrlid='XW-2F'");
-    execQuery(Q_FUNC_INFO, "INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-90', 'LilacSat-OSCAR 90 (LilacSat-1)', '145.985', '436.510', 'FM')");
-
-    //qDebug() << "DataBase::updateTo011: - 01 " << endl;
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO satellites (satarrlid, satname) VALUES ('BY70-1', 'Bayi Kepu Weixing 1')"))
-    {
-        return false;
-    }
-    //qDebug() << "DataBase::updateTo011: - 02 " << endl;
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('EO-88', 'Emirates OSCAR 88 (Nayif-1)', '435.045-435.015', '145.960-145.990', 'LSB/USB')"))
-    {        
-        return false;
-    }
-    //qDebug() << "DataBase::updateTo011: - 03 " << endl;
-
-    if(!execQuery(Q_FUNC_INFO, "INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('IO-86', 'Indonesia OSCAR 86 (LAPAN-ORARI)', '435.880', '145.880', 'FM')"))
-    {
-        return false;
-    }
-    //qDebug() << "DataBase::updateTo011: - 04 " << endl;
-
-    if(!execQuery(Q_FUNC_INFO, "INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('MIREX', 'Mir packet digipeater', '145.985', '145.985', 'PKT')"))
-    {
-        return false;
-    }
-    //qDebug() << "DataBase::updateTo011: - 5 " << endl;
-    if(!execQuery(Q_FUNC_INFO, "INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('SAREX', 'Shuttle Amateur Radio Experiment packet digipeater', '144.80,144.49', '144.55', 'FM')"))
-    {
-        return false;
-    }
-    //qDebug() << "DataBase::updateTo011: - 06 " << endl;
-
-*/
 
     if(!execQuery(Q_FUNC_INFO, "INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '0')"))
     {
         //qDebug() << "DataBase::updateTo011: - MSK NOK " << endl;
         return false;
     }
-    else
-    {
-        //qDebug() << "DataBase::updateTo011: - MSK OK " << endl;
-    }
+
 
     if (!recreateTableLog())
     {
-        //qDebug() << "DataBase::updateTo011: -Failed to recreate Table Log " << endl;
+        //qDebug() << "DataBase::updateTo011: - Failed to recreate Table Log " << endl;
         return false;
     }
 
     if (updateDBVersion())
     {
-          //qDebug() << "DataBase::updateTo011: - We are in 011! " << endl;
+        //qDebug() << "DataBase::updateTo011: - We are in 011! " << endl;
         IAmIn011 = true;
     }
     else
@@ -6634,8 +6542,263 @@ bool DataBase::updateTo011()
         IAmIn011 = false;
     }
 
-      //qDebug() << "DataBase::updateTo011: - END" << endl;
+    //qDebug() << "DataBase::updateTo011: - END" << endl;
+    updateAwardDXCCTable();
     return IAmIn011;
+}
+
+bool DataBase::updateAwardDXCCTable()
+{
+    //qDebug() << "DataBase::updateAwardDXCCTable" << endl;
+
+    QList<AwarddxccEntry> dxccStatusList;
+    //QList<AwarddxccEntryCheck> dxccStatusListCheck;
+    dxccStatusList.clear();
+    //dxccStatusListCheck.clear();
+
+    AwarddxccEntry awardEntry;
+    awardEntry.dxcc = QString();
+    awardEntry.band = QString();
+    awardEntry.status = QString();
+    awardEntry.logNumber = QString();
+    awardEntry.qsoID = QString();
+
+    //AwarddxccEntryCheck awardEntryCheck;
+    //awardEntryCheck.dxcc = QString();
+    //awardEntryCheck.band = QString();
+    //awardEntryCheck.status = QString();
+
+
+    QString stringQuery = QString("SELECT id, bandid, modeid, dxcc, qsl_rcvd, lognumber FROM log ORDER BY dxcc");
+    QSqlQuery query;//, query2;
+
+    bool sqlOK = query.exec(stringQuery);
+    QSqlRecord rec = query.record();
+    if (!sqlOK)
+    {
+
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return false;
+    }
+    QStringList dxccStatus = QStringList(); //dxcc, band, mode, confirmed, lognumber, qsoid (per award set)
+    QStringList dxccStatusCheck = QStringList(); //dxcc, band, mode, confirmed, lognumber (per award set) just to check
+    int nameCol = -1;
+
+    QString _aux = QString();
+
+    //qDebug() << "DataBase::updateAwardDXCCTable before the while" << endl;
+    while (query.next())
+    {
+        if (query.isValid())
+        {
+            awardEntry.dxcc.clear();
+            awardEntry.band.clear();
+            awardEntry.status.clear();
+            awardEntry.logNumber.clear();
+            awardEntry.qsoID.clear();
+
+            //qDebug() << "DataBase::updateAwardDXCCTable in the while" << endl;
+            nameCol = rec.indexOf("qsl_rcvd");
+            awardEntry.status = (query.value(nameCol)).toString();
+            //qDebug() << "DataBase::updateAwardDXCCTable - status" << awardEntry.status << endl;
+            if ((awardEntry.status == "Y") || (awardEntry.status == "N"))
+            {
+                nameCol = rec.indexOf("dxcc");
+                awardEntry.dxcc = (query.value(nameCol)).toString();
+
+                if ((awardEntry.dxcc).toInt()>0)
+                {
+                    nameCol = rec.indexOf("bandid");
+                    awardEntry.band = (query.value(nameCol)).toString();
+
+                    nameCol = rec.indexOf("modeid");
+                    awardEntry.mode = (query.value(nameCol)).toString();
+
+                    nameCol = rec.indexOf("id");
+                    awardEntry.qsoID = (query.value(nameCol)).toString();
+
+                    nameCol = rec.indexOf("lognumber");
+                    awardEntry.logNumber = (query.value(nameCol)).toString();
+
+                    //qDebug() << "DataBase::updateAwardDXCCTable: Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID << endl;
+                    dxccStatusList.append(awardEntry);
+
+
+                }
+            } // END OF IF VALID
+        }
+    } // END OF  WHILE
+
+    //qDebug() << "DataBase::updateAwardDXCCTable - END OF WHILE" << endl;
+
+    query.finish();
+
+
+    //qDebug() << "DataBase::updateAwardDXCCTable: Log analized... let's clean the table!" << endl;
+
+    stringQuery = QString("DELETE FROM awarddxcc");
+
+    sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+
+
+    //qDebug() << "DataBase::updateAwardDXCCTable: Now we start writing the table!!" << endl;
+
+    //int i = 0;
+    _aux.clear();
+
+    int qsos = dxccStatusList.length();
+    int step = util->getProgresStepForDialog(qsos);
+
+    QProgressDialog progress(QObject::tr("Updating DXCC award information..."), QObject::tr("Abort updating"), 0, qsos);
+    progress.setMaximum(qsos);
+    progress.setWindowModality(Qt::WindowModal);
+
+
+    for (int j=0;j<dxccStatusList.length();j++)
+    {
+        if (dxccStatusList.at(j).dxcc == "212")
+        {
+            //qDebug() << "DataBase::updateAwardDXCCTable: Bulgaria: " << dxccStatusList.at(j).band << "/" << dxccStatusList.at(j).mode << "/"  << dxccStatusList.at(j).status << endl;
+        }
+
+        stringQuery = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, lognumber, qsoid) VALUES ('%1', '%2', '%3', '%4', '%5', '%6') ").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode).arg(dxccStatusList.at(j).status).arg(dxccStatusList.at(j).logNumber).arg(dxccStatusList.at(j).qsoID);
+        //sqlOK = query.exec(Q_FUNC_INFO, stringQuery);
+        sqlOK = query.exec(stringQuery);
+        if (!sqlOK)
+        {
+            if (dxccStatusList.at(j).dxcc == "212")
+            {
+                //qDebug() << "DataBase::updateAwardDXCCTable: BULGARIA: " << query.lastError().databaseText() << endl;
+                //qDebug() << "DataBase::updateAwardDXCCTable: BULGARIA: " << QString::number(query.lastError().number()) << endl;
+                //qDebug() << "DataBase::updateAwardDXCCTable: BULGARIA: " << query.lastQuery() << endl;
+            }
+            //qDebug() << "DataBase::updateAwardDXCCTable: Error: " << QString::number(query.lastError().number()) << endl;
+            if (query.lastError().number() == 19)
+            { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
+              // We should only take into account if N or Y
+                if (dxccStatusList.at(j).status!="Y")
+                { // If tne new status is not confirmed, no change. DO NOTHING
+                    //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but DO NOTHING as new status is not Confirmed!!!" << endl;
+                }
+                else
+                {
+                    //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but NOW is confirmed!!!" << endl;
+                    stringQuery = QString("SELECT confirmed, lognumber, qsoid FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND mode='%3'").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode);
+                    QSqlQuery query2;//, query2;
+
+                    sqlOK = query2.exec(stringQuery);
+                    QSqlRecord rec = query2.record();
+                    if (!sqlOK)
+                    {
+                        queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
+                        query2.finish();
+                        return false;
+                    }
+                    else
+                    {
+                        query2.next();
+                        if (query2.isValid())
+                        {
+
+                            nameCol = rec.indexOf("confirmed");
+                            stringQuery = (query2.value(nameCol)).toString();
+                            QString _qsoid = QString();
+                            nameCol = rec.indexOf("qsoid");
+                            _qsoid = (query2.value(nameCol)).toString();
+
+                            if ((stringQuery == "N") && (dxccStatusList.at(j).status == "Y"))
+                            {
+                                query2.finish();
+                                stringQuery = QString ("UPDATE awarddxcc SET confirmed = 'Y', qsoid = '%1' WHERE qsoid='%2'").arg(dxccStatusList.at(j).qsoID).arg(_qsoid);
+                                if (execQuery(Q_FUNC_INFO, stringQuery))
+                                {
+
+                                }
+                                else
+                                {
+                                    //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but UPDATE IS NOT DONE" << endl;
+                                }
+
+                            }
+                            else
+                            {
+                                //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but UPDATE NOT NEEDED" << endl;
+                            }
+                        }
+                        else
+                        {
+                            //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated SELECT query is not Valid" << endl;
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+                //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated!" << endl;
+
+
+            }
+            else
+            {
+                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                query.finish();
+                return false;
+            }
+        }
+        query.finish();
+
+        if (( (j % step )== 0) )
+        { // To update the speed I will only show the progress once each X QSOs
+            _aux = QObject::tr("Updating DXCC Award information...") + "\n" + QObject::tr("QSO: ")  + QString::number(j) + "/" + QString::number(qsos);
+            progress.setLabelText(_aux);
+            progress.setValue(j);
+        }
+        if ( progress.wasCanceled() )
+        {
+               //qDebug() << "MainWindow::fillQSOData3: " << endl;
+            return true;
+        }
+    }
+
+    progress.setValue(qsos);
+    return true;
+}
+
+int DataBase::getNumberOfQsos(const int _logNumber)
+{
+    QString stringQuery = QString();
+    if (_logNumber<1)
+    {
+        stringQuery = QString("SELECT COUNT (*) FROM log");
+    }
+    else
+    {
+        stringQuery = QString("SELECT COUNT (*) FROM log WHERE lognumber='%1'").arg(_logNumber);
+    }
+    QSqlQuery query;
+    bool sqlOK = query.exec(stringQuery);
+    int qsos = 0;
+
+    if (sqlOK)
+    {
+        //QSqlDatabase::database().commit();
+        query.next();
+        qsos = (query.value(0)).toInt();
+    }
+    else
+    {
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+
+    }
+    query.finish();
+    return qsos;
 }
 
 void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery)
@@ -6649,7 +6812,7 @@ void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, 
  bool DataBase::beginTransaction()
  {
      //qDebug() << "DataBase::beginTransaction: " << endl;
-     QSqlDatabase db = QSqlDatabase::database("QSQLITE");
+     QSqlDatabase db = QSqlDatabase::database();
      db.setDatabaseName(dbName);
      return execQuery(Q_FUNC_INFO, "BEGIN IMMEDIATE TRANSACTION");
  }
@@ -6680,8 +6843,10 @@ void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, 
         return true;
     }
     else
-    {
+    {        
+
         queryErrorManagement(function, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
         return false;
     }
  }
