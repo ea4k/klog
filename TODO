@@ -1,15 +1,12 @@
 RC-BUGS:
-BUG?: It seems that needs to update the DB everytime it starts
-CHECK: FileManager constructors and the klodir
 
 
 
 REVIEW: bool DataProxy_SQLite::qslRecViaBureau - Check this function flow
 TODO: After a LOTW log has been exported, the user is supposed to upload that log to LOTW outside KLog. Find a way to set LOTW_QSL_SENT=Y
     easily for the user.
-TODO: The bool FileManager::adifReadLog needs a DB and not a "general" DB
-TODO: void SearchWidget::slotToolSearchQSL(const int actionQSL) (opción 0)
-    Cause: awarddxcc table is empty
+
+
 FIX: Awards::recalculateAwards it is not working
 FIX: void Awards::setAwardDXCC(const int _qsoId) is not done
 

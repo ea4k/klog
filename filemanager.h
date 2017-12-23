@@ -101,7 +101,7 @@ private:
     DataBase *db;
     //float softwareVersion;
     //DataProxy_SQLite *dataProxy;
-    DataProxy *dataProxy, *dataProxyPrepared;
+    DataProxy *dataProxy;//, *dataProxyPrepared;
 
     Utilities *util;    
 

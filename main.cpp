@@ -309,7 +309,7 @@ int main(int argc, char *argv[])
     else
     {
         //qDebug() << "Main: Start of DB Activities" << endl;
-        DataBase *db = new DataBase(version);
+        DataBase *db = new DataBase(version, Q_FUNC_INFO);
         if (!db->createConnection())
         {
             //qDebug() << "Main: Conection not created" << endl;

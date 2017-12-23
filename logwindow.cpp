@@ -366,13 +366,11 @@ void LogWindow::deleteQSO(const int _qsoID)
 {
     //qDebug() << "LogWindow::deleteQSO: " << QString::number(_qsoID) << endl;
     elogClublog->deleteQSO(dataProxy->getClubLogRealTimeFromId(_qsoID));
-
     dataProxy->deleteQSO(_qsoID);
 
     //logModel->removeRow((delQSOFromLogAct->data()).toInt()); //TODO: This has been replaced by the previous line
-    refresh();
-
     awards->recalculateAwards();
+    refresh();       
     dxccStatusWidget->refresh();
     emit updateAwards();
     emit updateSearchText();

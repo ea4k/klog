@@ -42,13 +42,32 @@ class QSqlRelationalTableModel;
 // Previous db update 0.011
 const float DBVersionf = 0.012; // TODO:
 
+struct AwarddxccEntry
+{ // Information to update the awarddxcc table
+    QString dxcc;
+    QString band;
+    QString mode;
+    QString status;
+    QString logNumber;
+    QString qsoID;
+};
 
-class DataBase{
+struct AwarddxccEntryCheck
+{ // Information to update the awarddxcc table
+    QString dxcc;
+    QString band;
+    QString mode;
+    QString status;
+    QString logNumber;
+};
+
+class DataBase
+{
 
 public:
-    DataBase();
+    DataBase(const QString _parentClass);
     //DataBase(const QString _softVersion, bool  inmemoryonly = false);
-    DataBase(const QString _softVersion);
+    DataBase(const QString _softVersion, const QString _parentClass);
     ~DataBase();
     QString getSoftVersion();
     QString getDBVersion();
@@ -98,12 +117,13 @@ public:
     bool updateTableLogs();
 
     bool queryAddField(const QString _field, const QString value);
-    bool queryPrepare();
-    bool queryExec();
+    //bool queryPrepare();
+    //bool queryExec();
 
     bool queryPrepare(const QString _query);
     bool queryBind(const QString _field, const QString value);
-
+    bool updateAwardDXCCTable();
+    int getNumberOfQsos(const int _logNumber);
 
 
 private:
@@ -175,6 +195,7 @@ private:
     bool updateBandIdTableLogToNewOnes();
     bool updateBandIdTableAward(const int _db);
     bool updateModeIdTableAward(const int _db);
+
     void queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
 
 

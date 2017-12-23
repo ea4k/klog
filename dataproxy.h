@@ -104,6 +104,9 @@ public:
     virtual bool qslRecViaDirect(const int _qsoId, const QString _updateDate, const bool _queueSentQSL);
     virtual bool setClubLogSent(const int _qsoId, const QString _st, const QString _updateDate);
 
+    virtual int getBandFromId(const int _qsoId);
+    virtual int getModeFromId(const int _qsoId);
+    virtual int getDXCCFromId(const int _qsoId);
     virtual QString getCallFromId(const int _qsoId);
     virtual QStringList getClubLogRealTimeFromId(const int _qsoId);
     // Complete with previous
@@ -113,6 +116,9 @@ public:
     virtual QString getIOTAFromQRZ(const QString _call);
     virtual QString getQSLViaFromQRZ(const QString _call);
     // /Complete with previous
+
+    virtual bool updateAwardDXCC();
+
 
     virtual int getContinentIdFromContinentShortName(const QString _n);
     virtual QString getContinentShortNameFromEntity(const int _n);
@@ -188,11 +194,11 @@ public:
     virtual QString getISOName(const int _n);
 
     virtual void getFoundInLog(const QString _txt, const int _log=-1);
+    virtual bool setDXCCAwardStatus(const int _qsoId);
 
-
-    virtual bool queryPrepare(const QString _query);
-    virtual bool queryBind(const QString _field, const QString value);
-    virtual bool queryExec();
+    //virtual bool queryPrepare(const QString _query);
+    //virtual bool queryBind(const QString _field, const QString value);
+    //virtual bool queryExec();
 
 /*
     virtual bool isMultiplier(const QStringList _qs);
@@ -205,6 +211,7 @@ public:
 private:
     virtual QStringList sortBandIdBottonUp(const QStringList _qs);
     virtual QStringList getColumnNamesFromTable(const QString _tableName);
+
    // int points;
    // int multipliers;
 

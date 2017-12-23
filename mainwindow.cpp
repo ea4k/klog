@@ -56,7 +56,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     // <ui>
     softwareVersion = tversion;
-    dataProxy = new DataProxy_SQLite(softwareVersion);
+    dataProxy = new DataProxy_SQLite(softwareVersion, Q_FUNC_INFO);
     doc = new QTextDocument;
     util = new Utilities;
 
@@ -148,7 +148,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     clublogPass = QString();
     clublogEmail = QString();
 
-    db = new DataBase(softwareVersion);
+    db = new DataBase(softwareVersion, Q_FUNC_INFO);
     if (!db->createConnection())
     {
            //qDebug() << "MainWindow::MainWindow: Conection not created" << endl;
@@ -466,7 +466,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
         }
         //qDebug() << "MainWindow::MainWindow: 18.6." << endl;
 
-        awards->recalculateAwards();
+        //awards->recalculateAwards();
         //qDebug() << "MainWindow::MainWindow: 18.8" << endl;
         showAwards();
         //qDebug() << "MainWindow::MainWindow: 18.9" << endl;
@@ -540,6 +540,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     //qDebug() << "MainWindow::MainWindow: END" << endl;
     //splash.finish();
+    int xx = dataProxy->getLastQSOid();
 }
 
 MainWindow::~MainWindow()
@@ -838,6 +839,8 @@ void MainWindow::slotQRZReturnPressed()
                     }
 
                     // CHECK WHAT WAS THE QSOID to add the awards, if needed
+                    awards->setAwards(modifyingQSO);   //Update the DXCC award status
+
                 }
                 else
                 {
@@ -882,6 +885,7 @@ void MainWindow::slotQRZReturnPressed()
                     }
                 }
                 //slotShowAwards();
+
                 logWindow->refresh();
                 dxccStatusWidget->refresh();
                 slotClearButtonClicked();
@@ -2470,7 +2474,7 @@ void MainWindow::createUICQWW()
 
 void MainWindow::slotOKButtonClicked(){
      //qDebug() << "MainWindow::slotOKButtonClicked: "  << endl;
-  slotQRZReturnPressed();
+    slotQRZReturnPressed();
 }
 
 void MainWindow::createActionsCommon(){
@@ -2575,7 +2579,9 @@ void MainWindow::slotSearchBoxTextChanged()
 
 void MainWindow::slotQSODelete(const int _id)
 {
+
     elogClublog->deleteQSO(dataProxy->getClubLogRealTimeFromId(_id));
+    //awards->recalculateAwards();
 }
 
 void MainWindow::slotShowSearchWidget()
@@ -4318,7 +4324,7 @@ void MainWindow::slotQSLRecViaDirectMarkReqFromSearch()
     // Mark Sent, Bureau, date, update log.
 }
 
-*/
+
 void MainWindow::qslRecViaBureauMarkReq(const int _qsoId)
 {
    //    //qDebug() << "MainWindow::qslRecViaBureau: " << QString::number(_qsoId) << "/" << (dateTime->currentDateTime()).toString("yyyy/MM/dd") << endl;
@@ -4343,7 +4349,7 @@ void MainWindow::qslRecViaDirectMarkReq(const int _qsoId)
     logWindow->refresh();
     showAwards();
 }
-
+*/
 /*
 void MainWindow::slotQSOToEditFromSearch()
 {
@@ -6494,8 +6500,8 @@ void MainWindow::showDXMarathonNeeded(const int _dxcc, const int _cqz, const int
 void MainWindow::slotShowAwards()
 { //To be called from the logWindow & searchWidget
 
-    logWindow->refresh();
     awards->recalculateAwards();
+    logWindow->refresh();
     showAwards();
     dxccStatusWidget->refresh();
 
@@ -7024,7 +7030,7 @@ void MainWindow::updateQSLRecAndSent()
     // Checks the log to fill all the qsl_rcvd and qsl_sent
     QSqlQuery query, query1;
     QString queryString, aux, idT;
-    int nameCol=0;
+    //int nameCol=0;
 
     //queryString = QString("SELECT id, qsl_rcvd, qsl_sent FROM log WHERE lognumber='%1'").arg(currentLog);
     //queryString = QString("SELECT id, qsl_rcvd, qsl_sent FROM log WHERE qsl_rcvd !='Y' AND qsl_rcvd !='N' AND qsl_rcvd !='R' AND qsl_rcvd !='I' AND qsl_rcvd !='V' AND lognumber='%1'").arg(currentLog);

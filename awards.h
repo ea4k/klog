@@ -110,7 +110,7 @@ public:
 private:
 
     void setAwardDXCC(const int _qsoId);
-    bool setAwardDXCC(const int _dxcc, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId);
+    //bool setAwardDXCC(const int _dxcc, const int _band, const int _mode, const QString _workedOrConfirmed, const int _logNumber, const int _qsoId);
     int setAwardDXCCst(const int _dxcc, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
 
     int setAwardDXCCConfirmed(const int _band, const int _mode, const int _dxcc, const int _newQSOid); // Changes the status of a DXCC from worked to confirmed
@@ -132,7 +132,7 @@ private:
     /**/
 
     void setAwardWAZ(const int _qsoId);
-    bool setAwardWAZ(const int _cqz, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId);
+    //bool setAwardWAZ(const int _cqz, const int _band, const int _mode, const QString _workedOrConfirmed, const int _logNumber, const int _qsoId);
     int setAwardWAZst(const int _cqz, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
     /*
     _confirmed = 0     Set as Worked
@@ -159,6 +159,7 @@ private:
 
 signals:
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void awardDXCCUpdated();
 
 };
 #endif // AWARDS_H
