@@ -412,11 +412,6 @@ Vuoi fare un ulteriore tentativo?</translation>
         <translation> QSO: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="192"/>
-        <source>NONE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../filemanager.cpp" line="198"/>
         <source>The log that you have selected contains more than just one station callsign.</source>
         <translation type="unfinished"></translation>
@@ -444,11 +439,6 @@ Vuoi fare un ulteriore tentativo?</translation>
     <message>
         <location filename="../filemanager.cpp" line="218"/>
         <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="232"/>
-        <source>No station callsign has been selected and threfore no log will be exported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -523,6 +513,11 @@ If you select NO, the QSO may not be imported.</source>
         <location filename="../filemanager.cpp" line="3391"/>
         <source>Abort reading</source>
         <translation>About su lettura</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="232"/>
+        <source>No station callsign has been selected and therefore no log will be exported</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3778"/>

@@ -340,12 +340,12 @@ Do you want to try again?</source>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="67"/>
         <source>Software version in DB is null</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">La versión de software de la BBDD es nulo</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="67"/>
         <source>No query failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No falló ninguna query</translation>
     </message>
 </context>
 <context>
@@ -390,44 +390,38 @@ Do you want to try again?</source>
         <translation>Cancelar lectura</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="192"/>
-        <source>NONE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../filemanager.cpp" line="198"/>
         <source>The log that you have selected contains more than just one station callsign.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">El log que ha seleccionado contiene más de un sólo indicativo de estación.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="198"/>
         <source>Please select the station callsing you want to export the log from:</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor seleccione el indicativo de estación del que quiere exportar el log:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="201"/>
         <source>Station Callsign:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Indicativo de la estación:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="217"/>
         <source>Define Station Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Definir indicativo de estación</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="218"/>
         <source>You have selected no callsign. KLog will export QSOs without a station callsign defined and those with the call you are entering here.</source>
-        <translation type="unfinished"></translation>
+        <translation>No ha seleccionado indicativo. KLog exportará los QSOs sin un indicativo de estación definido y aquellos con el indicativo que está seleccionando aquí.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="218"/>
         <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduzca el indicativo de estación para usar en este log o déjelo vacío para poner un QSO sin un indicativo de estación definido:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="232"/>
         <source>No station callsign has been selected and threfore no log will be exported</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">No se ha seleccionado indicativo de estación por lo que no se exportará ningún log</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="257"/>
@@ -445,7 +439,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../filemanager.cpp" line="449"/>
         <source>Exporting LoTW ADIF file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportando fichero ADIF de LoTW...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2630"/>
@@ -473,26 +467,30 @@ Do you want to try again?</source>
     <message>
         <location filename="../filemanager.cpp" line="3104"/>
         <source>Reading LoTW file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Leyendo fichero LoTW...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3343"/>
         <source>There are more than one log in this logfile.
 All logs will be imported in the current log.
 Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Hay más de un log en este fichero.
+Todos los logs se importarán al log actual.
+¿Quiere continuar?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3629"/>
         <source>Importing ADIF file...
  QSO: </source>
-        <translation type="unfinished"></translation>
+        <translation>Importando fichero ADIF...
+ QSO: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3645"/>
         <source>You have cancelled the file export. The file will be removed and no data will be exported.
 Do you still want to cancel?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ha cancelado la exportación del fichero. El fichero se eliminará y no se exportará ningún dato.
+¿Quiere cancelar?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4802"/>
@@ -505,39 +503,44 @@ CALL, QSO_DATE, TIME_ON, BAND and MODE.
 
 This QSO had:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Edite el fichero ADIF y asegúrese de que incluye al menos: 
+
+CALL, QSO_DATE, TIME_ON, BAND y MODE.
+
+Este QSO tenía:
+</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4806"/>
         <source> - The band missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation> - La banda inexistente pero el siguiente indicativo: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4811"/>
         <source> - The call missing but was done at this time: </source>
-        <translation type="unfinished"></translation>
+        <translation> - El indicativo inexistente pero la siguiente hora: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4816"/>
         <source> - The mode missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation> - El modo inexistente pero el siguiente indicativo: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4821"/>
         <source> - The date missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation> - La fecha inexistente pero el siguiente indicativo: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4826"/>
         <source> - The time missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation> - La hora inexistente pero el siguiente indicativo: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4831"/>
         <source>
 
 Do you want to continue with the current file?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Quiere continuar con el fichero actual?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2638"/>
@@ -555,6 +558,11 @@ Do you want to continue with the current file?</source>
         <translation> QSO: </translation>
     </message>
     <message>
+        <location filename="../filemanager.cpp" line="232"/>
+        <source>No station callsign has been selected and therefore no log will be exported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../filemanager.cpp" line="4835"/>
         <source>KLog: Not all required data found!</source>
         <translation>KLog: ¡No se encontraron todos los datos necesarios!</translation>
@@ -566,7 +574,11 @@ Do you want to continue with the current file?</source>
 Click on Yes to add a default 59 to all QSO with a similar problem.
 
 If you select NO, the QSO may not be imported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este log parece que no tiene la información de RST TX.
+
+Pulse en Si para añadir 59 de forma predeterminada a todos los QSO con un problema similar.
+
+Siselecciona NO, el QSO puede que no se importe.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4860"/>
@@ -580,7 +592,11 @@ If you select NO, the QSO may not be imported.</source>
 Click on Yes to add a default 59 to all QSO with a similar problem.
 
 If you select NO, the QSO may not be imported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este log parece que no tiene la información de RST RX.
+
+Pulse en Si para añadir 59 de forma predeterminada a todos los QSO con un problema similar.
+
+Siselecciona NO, el QSO puede que no se importe.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4883"/>
@@ -1282,22 +1298,22 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="5725"/>
         <source>LoTW logfile has been properly exported!</source>
-        <translation type="unfinished"></translation>
+        <translation>El log de LoTW se ha exportado correctamente.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5725"/>
         <source>Remember to sign the LoTW log before you upload it!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Recuerde firmar el log de LoTW antes de subirlo!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5744"/>
         <source>There was no QSO to be exported.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se encontró ningún QSO a exportar.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5744"/>
         <source>If you think that some QSO should have been exported, please look for them and ensure that the eQSL LoTW QSL sent box is marked as:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Si piensa que algún QSO debería haber sido exportado, por favor búsquelo y asegúrese de que el cuadro de el envío de eQSL LoTW QSL está marcado:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5744"/>
