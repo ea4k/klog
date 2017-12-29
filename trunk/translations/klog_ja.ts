@@ -417,6 +417,11 @@ Do you want to try again?</source>
         <translation>ファイルのエクスポートが中断されました. 出力先のファイルは削除され、データはエクスポートされません.</translation>
     </message>
     <message>
+        <location filename="../filemanager.cpp" line="232"/>
+        <source>No station callsign has been selected and therefore no log will be exported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../filemanager.cpp" line="2638"/>
         <source>Do you still want to cancel?</source>
         <translation>本当に中止しますか?</translation>
@@ -436,11 +441,6 @@ Do you want to try again?</source>
         <location filename="../filemanager.cpp" line="3391"/>
         <source>Abort reading</source>
         <translation>読込みの中止</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="192"/>
-        <source>NONE</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="198"/>
@@ -470,11 +470,6 @@ Do you want to try again?</source>
     <message>
         <location filename="../filemanager.cpp" line="218"/>
         <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="232"/>
-        <source>No station callsign has been selected and threfore no log will be exported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

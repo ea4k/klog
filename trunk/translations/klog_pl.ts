@@ -477,11 +477,6 @@ QSO: </translation>
         <translation type="vanished">Czy nadal chcesz kontynuować z obecnym plikiem?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="192"/>
-        <source>NONE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../filemanager.cpp" line="198"/>
         <source>The log that you have selected contains more than just one station callsign.</source>
         <translation type="unfinished"></translation>
@@ -513,7 +508,7 @@ QSO: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="232"/>
-        <source>No station callsign has been selected and threfore no log will be exported</source>
+        <source>No station callsign has been selected and therefore no log will be exported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -189,7 +189,7 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
     QString stationCallToUse = QString();
     QStringList stationCallSigns;
     stationCallSigns.clear();
-    stationCallSigns << tr("NONE");
+    stationCallSigns << "NONE";
     stationCallSigns << dataProxy->getStationCallSignsFromLog(_logN);
     bool callsignTyped = false;
 
@@ -229,7 +229,7 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
                  QMessageBox msgBox;
                  msgBox.setIcon(QMessageBox::Warning);
 
-                 QString aux = QString(tr("No station callsign has been selected and threfore no log will be exported") );
+                 QString aux = QString(tr("No station callsign has been selected and therefore no log will be exported") );
                  msgBox.setText(aux);
                  msgBox.setStandardButtons(QMessageBox::Ok);
                  int ret = msgBox.exec();
