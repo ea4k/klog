@@ -164,6 +164,7 @@ private slots:
     void slotOKButtonClicked();
     void slotSpotItButtonClicked();
     void slotClearButtonClicked();
+    void slotRefreshDXCCWidget();
     void slotUpdateTime();
     void slotLogWinShow();
     void slotLogRefresh();
@@ -210,6 +211,7 @@ private slots:
     //void slotLotwSentComboBoxChanged();
 
     void slotSetPropMode(const QString _p);
+    void slotFillEmptyDXCCInTheLog();
     void slotUpdateCTYDAT();
     void slotWorldReload();
 
@@ -461,6 +463,7 @@ private:
     QAction *ReqQSLExport;
     QAction *CabrilloExport;
     QAction *fillQsoAct;
+    QAction *fillDXCCAct;
     QAction *findQSO2QSLAct;
     QAction *findRequestedQSLAct;
     QAction *findQSLPendingToReceiveAct;

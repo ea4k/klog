@@ -17,6 +17,7 @@ eLogClubLog::eLogClubLog() : QObject(0)
     currentQSO = -1;
     useQSOStationCallsign = false;
     stationCallsign = QString();
+    //qDebug() << "eLogClubLog::eLogClubLog - END"  << endl;
 }
 
 eLogClubLog::~eLogClubLog()

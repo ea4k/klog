@@ -40,6 +40,7 @@ InfoWidget::InfoWidget(DataProxy *dp, QWidget *parent) :
 
     createUI();
     clearBandLabels();
+    //qDebug() << "InfoWidget::InfoWidget: - END"   << endl;
 }
 
 void InfoWidget::createUI()

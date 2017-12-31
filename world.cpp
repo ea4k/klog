@@ -38,6 +38,7 @@ To insert a (key, value) pair into the hash, you can use operator[]():
 World::World(DataProxy *dp)
 {
     //qDebug() << "World::World(0)" << endl;
+    constrid = 1;
 
     worldModel = new QSqlRelationalTableModel(this);
     numberOfEntities = 0;
@@ -48,13 +49,14 @@ World::World(DataProxy *dp)
     created = false;
     dataProxy = dp;
     //awards = new Awards();
-
+    //qDebug() << "World::World(0) - END" << endl;
 }
 
 
 World::World(DataProxy *dp, const QString _klogDir)
 {
     //qDebug() << "World::World(1): Dir" << _klogDir << endl;
+    constrid = 2;
     klogDir = _klogDir;
     kontestVersion = "";
     worldModel = new QSqlRelationalTableModel(this);
@@ -64,14 +66,14 @@ World::World(DataProxy *dp, const QString _klogDir)
     //flagsDir=":/flags/";
     locator = new Locator();
     dataProxy = dp;
-    //identifyOS();
-    //awards = new Awards();
+    //qDebug() << "World::World(1): - END"  << endl;
 
 }
 
 World::World(DataProxy *dp, const QString _klogDir, const QString _kontestVer)
 {
     //qDebug() << "World::World(2): Dir" << _klogDir << endl;
+    constrid = 3;
     klogDir = _klogDir;
     kontestVersion = _kontestVer;    
     worldModel = new QSqlRelationalTableModel(this);
@@ -85,9 +87,7 @@ World::World(DataProxy *dp, const QString _klogDir, const QString _kontestVer)
     locator = new Locator();
    //qDebug() << "World::World(2): 3" << endl;
     dataProxy = dp;
-
-   //qDebug() << "World::World(2): 4" << endl;
-    //identifyOS();
+    //qDebug() << "World::World(2): - END" << endl;
 
 }
 

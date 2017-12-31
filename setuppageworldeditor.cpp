@@ -100,7 +100,7 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy *dp, QWidget *parent) : QWi
         }
 
     }
-
+    //qDebug() << "SetupPageWorldEditor::SetupPageWorldEditor - END"  << endl;
 }
 
 SetupPageWorldEditor::~SetupPageWorldEditor()

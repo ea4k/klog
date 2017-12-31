@@ -34,6 +34,7 @@ DXCCStatusWidget::DXCCStatusWidget(DataProxy *dp, QWidget *parent) : QWidget(par
 
     setDefaultBands();
     createUI();
+    //qDebug() << "DXCCStatusWidget::DXCCStatusWidget - END" << endl;
 
 }
 

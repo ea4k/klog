@@ -127,7 +127,7 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
 
     createActions();
 
-
+    //qDebug() << "SetupPageDxCluster::SetupPageDxCluster - END" << endl;
 }
 
 SetupPageDxCluster::~SetupPageDxCluster()

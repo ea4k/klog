@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-
+#include <QDebug>
 #include "dataproxy.h"
 
 
@@ -50,9 +50,12 @@ QString DataProxy::getDBVersion()
 void DataProxy::createLogModel(){}
 void DataProxy::createLogPanel(){}
 bool DataProxy::haveAtLeastOneLog(){return true;}
-QStringList DataProxy::getColumnNamesFromTable(const QString _tableName){return QStringList();}
+//QStringList DataProxy::getColumnNamesFromTable(const QString _tableName){return QStringList();}
 QStringList DataProxy::getColumnNamesFromTableLog(){return QStringList();}
+
 bool DataProxy::setDXCCAwardStatus(const int _qsoId){return false;}
+
+bool DataProxy::setWAZAwardStatus(const int _qsoId){return false;}
 
 int DataProxy::getIdFromModeName(const QString& _modeName)
 {
@@ -267,6 +270,11 @@ int DataProxy::getDXCCFromId(const int _qsoId)
     return -1;
 }
 
+int DataProxy::getCQZFromId(const int _qsoId)
+{
+    return -1;
+}
+
 QString DataProxy::getCallFromId(const int _qsoId)
 {
     return "";
@@ -307,6 +315,10 @@ bool DataProxy::updateAwardDXCC()
     return false;
 }
 
+bool DataProxy::updateAwardWAZ()
+{
+    return false;
+}
 bool DataProxy::deleteQSO(const int _qsoId)
 {
     return false;
@@ -533,6 +545,11 @@ QString DataProxy::getLogTypeOfUserLog(const int _logN)
 int DataProxy::getLogNumberFromQSOId(const int _qsoId)
 {
     return -1;
+}
+
+bool DataProxy::fillEmptyDXCCInTheLog()
+{
+    return false;
 }
 
 int DataProxy::getHowManyQSOInLog(const int _log)

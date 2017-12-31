@@ -24,15 +24,17 @@
  *****************************************************************************/
 
 #include "contest.h"
-//#include <QDebug>
+#include <QDebug>
 Contest::Contest()
 {
-    //qDebug() << "Contest::Contest"  << endl;
+    constrid = 1;
+    //qDebug() << "Contest::Contest - START:END"  << endl;
 }
 
 Contest::Contest(const QStringList _qs)
 {
-    //qDebug() << "Contest::Contest (_qs)"  << endl;
+    constrid = 2;
+    //qDebug() << "Contest::Contest (_qs) - START:END"  << endl;
 }
 
 Contest::~Contest()

@@ -30,7 +30,7 @@ DownLoadCTY::DownLoadCTY(const QString _klogDir, const QString _klogVersion) : Q
     //qDebug() << "DownLoadCTY::DownLoadCTY() - UserAgent: " <<  request->rawHeader("QNetworkRequest::UserAgentHeader") << endl;
 
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
-
+    //qDebug() << "DownLoadCTY::DownLoadCTY(): - END"  << endl;
 }
 
 DownLoadCTY::~DownLoadCTY()

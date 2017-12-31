@@ -101,6 +101,7 @@ SetupPageLogsNew::SetupPageLogsNew(DataProxy *dp, QWidget *parent)
 
     okButton->setEnabled(false);
 
+    //qDebug() << "SetupPageLogsNew::SetupPageLogsNew - END"   << endl;
 }
 
 void SetupPageLogsNew::clear()

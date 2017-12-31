@@ -106,7 +106,7 @@ SetupPageLogs::SetupPageLogs(DataProxy *dp, QWidget *parent) : QWidget(parent){
     updateSelectedLogs();
 
 
-
+    //qDebug() << "SetupPageLogs::SetupPageLogs - END" << endl;
 }
 
 SetupPageLogs::~SetupPageLogs(){

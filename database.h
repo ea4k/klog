@@ -43,7 +43,7 @@ class QSqlRelationalTableModel;
 const float DBVersionf = 0.012; // TODO:
 
 struct AwarddxccEntry
-{ // Information to update the awarddxcc table
+{ // Information to update the awarddxcc table; For other Award tables, the DXCC is just the ID of the award element
     QString dxcc;
     QString band;
     QString mode;
@@ -53,7 +53,7 @@ struct AwarddxccEntry
 };
 
 struct AwarddxccEntryCheck
-{ // Information to update the awarddxcc table
+{ // Information to update the awarddxcc table; For other Award tables, the DXCC is just the ID of the award element
     QString dxcc;
     QString band;
     QString mode;
@@ -123,6 +123,7 @@ public:
     bool queryPrepare(const QString _query);
     bool queryBind(const QString _field, const QString value);
     bool updateAwardDXCCTable();
+    bool updateAwardWAZTable();
     int getNumberOfQsos(const int _logNumber);
 
 
@@ -168,6 +169,11 @@ private:
     bool createTableBand(const bool NoTmp);
     bool populateTableBand(const bool NoTmp);
     bool recreateTableBand();
+
+    bool recreateTableDXCC();
+    bool createTableAwardDXCC();
+    bool recreateTableWAZ();
+    bool createTableAwardWAZ();
 
     bool recreateSatelliteData();
     bool createTableSatellites(const bool NoTmp);
@@ -224,6 +230,8 @@ private:
 
     QStringList insertPreparedQueries, insertQueryFields;
     QSqlQuery preparedQuery;
+
+    int constrid; // Just an id for the constructor to check who is being executed at one specific time
 
 signals:
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution

@@ -48,7 +48,7 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
 
     myPower = 0;
     lastPower = 0;
-
+    //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab - END"   << endl;
 
 }
 

@@ -35,7 +35,7 @@ SetupPageBandMode::SetupPageBandMode(DataProxy *dp, QWidget *parent) : QWidget(p
     //layout->addWidget(modesListWidget);
 
     setLayout(layout);
-
+    //qDebug() << "SetupPageBandMode::SetupPageBandMode - END"   << endl;
 }
 
 SetupPageBandMode::~SetupPageBandMode()

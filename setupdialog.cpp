@@ -36,6 +36,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
 {
     //qDebug() << "SetupDialog::SetupDialog 1" << endl;
     util = new Utilities;
+    constrid = 1;
     nolog = true;
     configFileName = "klogrc";
     version = ".";
@@ -95,8 +96,9 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
     QPushButton *okButton = new QPushButton(tr("OK"));
 
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
+
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));       
-    connect(logsPage, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    connect(logsPage, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );    
     connectActions();
 
 
@@ -129,7 +131,8 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
 
 SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
 {
-  //qDebug() << "SetupDialog::SetupDialog 2" << endl;
+    //qDebug() << "SetupDialog::SetupDialog 2" << endl;
+    constrid = 2;
     util = new Utilities;
     firstTime = _firstTime;
     dataProxy = dp;
@@ -198,10 +201,12 @@ SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString
     }
    //qDebug() << "SetupDialog::SetupDialog 05.3" << endl;
     nolog = !(haveAtleastOneLog());
-   //qDebug() << "SetupDialog::SetupDialog 2  - END" << endl;
+
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
     connectActions();
+
+    //qDebug() << "SetupDialog::SetupDialog 2  - END" << endl;
 }
 
 
@@ -216,6 +221,7 @@ void SetupDialog::connectActions()
     connect (logsPage, SIGNAL(newLogData(QStringList)), this, SLOT(slotAnalyzeNewLogData(QStringList)));
     connect (userDataPage, SIGNAL(stationCallSignal(QString)), this, SLOT(slotSetStationCallSign(QString)));
     connect (userDataPage, SIGNAL(operatorsSignal(QString)), this, SLOT(slotSetOperators(QString)));
+    connect (userDataPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
 
 }
 
@@ -351,7 +357,7 @@ void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous
 
 void SetupDialog::slotOkButtonClicked()
 {
-qDebug() << "SetupDialog::slotOkButonClicked" << endl;
+qDebug() << "SetupDialog::slotOkButtonClicked" << endl;
 
     if (!miscPage->areDBPathChangesApplied())
     {
@@ -374,7 +380,7 @@ qDebug() << "SetupDialog::slotOkButonClicked" << endl;
 
     if (!haveAtleastOneLog())
     {
-       //qDebug() << "SetupDialog::slotOkButonClicked - NO LOG!" << endl;
+       //qDebug() << "SetupDialog::slotOkButtonClicked - NO LOG!" << endl;
 
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);

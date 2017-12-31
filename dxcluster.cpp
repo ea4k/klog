@@ -30,42 +30,19 @@ DXClusterWidget::DXClusterWidget(DataProxy *dp, QWidget *parent)
 {
     //qDebug() << "DXClusterWidget::DXClusterWidget" << endl;
     dataProxy = dp;
+    constrid = 1;
     awards = new Awards(dataProxy);
 
 
     initClass();
-    //TESTADDSPOT();
+    //qDebug() << "DXClusterWidget::DXClusterWidget - END" << endl;
 }
 
-void DXClusterWidget::initClass()
-{
-    dxClusterConnected = false;
-    dxClusterAlreadyConnected = false;
-
-    showhf = true;
-    showvhf = true;
-    showwarc = true;
-    showworked = true;
-    showconfirmed = true;
-    showann = true;
-    showwwv = true;
-    showwcy = true;
-    myQrz = QString();
-    currentLog = 0;
-}
-
-void DXClusterWidget::setMyQRZ(const QString _qrz)
-{
-    if (_qrz.length()>2)
-    {
-        myQrz = _qrz;
-    }
-
-}
 DXClusterWidget::DXClusterWidget(DataProxy *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent)
           : QWidget(parent)
 {
-   //qDebug() << "DXClusterWidget::DXClusterWidget" << clusterToConnect << QString::number(portToConnect) << endl;
+   //qDebug() << "DXClusterWidget::DXClusterWidget2" << clusterToConnect << QString::number(portToConnect) << endl;
+   constrid = 2;
 
     initClass();
     server = clusterToConnect;
@@ -122,8 +99,36 @@ DXClusterWidget::DXClusterWidget(DataProxy *dp, const QString &clusterToConnect,
     addData();
 
      //TESTADDSPOT();
+    //qDebug() << "DXClusterWidget::DXClusterWidget2 - END"  << endl;
 
 }
+
+void DXClusterWidget::initClass()
+{
+    dxClusterConnected = false;
+    dxClusterAlreadyConnected = false;
+
+    showhf = true;
+    showvhf = true;
+    showwarc = true;
+    showworked = true;
+    showconfirmed = true;
+    showann = true;
+    showwwv = true;
+    showwcy = true;
+    myQrz = QString();
+    currentLog = 0;
+}
+
+void DXClusterWidget::setMyQRZ(const QString _qrz)
+{
+    if (_qrz.length()>2)
+    {
+        myQrz = _qrz;
+    }
+
+}
+
 void DXClusterWidget::addData()
 {
     //qDebug() << "DXClusterWidget::addData " << endl;
@@ -143,6 +148,7 @@ void DXClusterWidget::addData()
 
 
     dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Click on connect to connect to the DX-Cluster"), awards->getDefaultColor());
+
 
 }
 

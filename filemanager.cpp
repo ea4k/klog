@@ -33,7 +33,7 @@
 FileManager::FileManager(DataProxy *dp)
 {
     //qDebug() << "FileManager::FileManager()-1" << endl;
-
+    constrid = 1;
     dataProxy = dp;
 
     db = new DataBase(0);
@@ -50,6 +50,7 @@ FileManager::FileManager(DataProxy *dp)
 
     util = new Utilities();
     hashLogs.clear();
+    //qDebug() << "FileManager::FileManager()-1  - END" << endl;
 
 }
 
@@ -78,6 +79,7 @@ FileManager::FileManager(DataProxy *dp, const QString _klogDir, const QString _s
 //FileManager::FileManager(const QString _klogDir, const QString _softVersion, DataBase _db)
 {
     //qDebug() << "FileManager::FileManager()-3: Dir(2)" << _klogDir << endl;
+    constrid = 2;
     dataProxy = dp;
     db = new DataBase(0);
 
@@ -292,7 +294,6 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
             nameCol = rec.indexOf("station_callsign");
             aux = (query.value(nameCol)).toString();
             if ( ( (stationCallToUse == "NONE") && (aux.length() <3) ) || (aux == stationCallToUse)  )
-            //if ( (aux.length()>2) || ((aux == stationCallToUse) && callsignTyped)  )
             { // We are only exporting the QSO from the appropriate station callsign or with empty stationcallsigns but we will add the one entered by the user.
                 nameCol = rec.indexOf("lotw_qsl_sent");
                 aux = (query.value(nameCol)).toString();
@@ -463,9 +464,6 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
         //qDebug() << "FileManager::adifLoTWLogExport: End Of Valid"  << endl;
     }
     //qDebug() << "FileManager::adifLoTWLogExport: End of While " << endl;
-
-
-
 
     return i;
 }
@@ -3286,7 +3284,7 @@ bool FileManager::adifLoTWReadLog(const QString& tfileName)
 
 bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 {
-    //qDebug() << "FileManager::adifReadLog:" << tfileName << endl;
+    //qDebug() << "FileManager::adifReadLog:" << tfileName << "Called from: " << QString::number(constrid)  << endl;
 
     //int n = 0;
     QSqlDatabase db = QSqlDatabase::database("QSQLITE");
@@ -3319,9 +3317,9 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     int i = 0; //Aunxiliar variable
     int numberOfQsos = 0;
     int step = 1;
-    int errorCode = -1;
-    int qsosInTransaction = 0;
-    bool ignoreErrorCode19 = false;
+    //int errorCode = -1;
+    //int qsosInTransaction = 0;
+    //bool ignoreErrorCode19 = false;
 
     QFile file( fileName );
 
@@ -3613,6 +3611,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             }
             else
             {
+                currentQSOfields.clear();
                 //qDebug() << "FileManager::adifReadLog: preparedQuery executed with NO ERROR "  << endl;
             }
 
@@ -3668,90 +3667,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
             i++;
 
-            if (sqlOK)
-            {
-                currentQSOfields.clear();
-                //qDebug() << "FileManager::adifReadLog: (1) in While sqlOK (QSO added) = TRUE"  << endl;
-            }
-            else
-            {
-                /*
-                //errorCode = preparedQuery.lastError().number();
-                //qDebug() << "FileManager::adifReadLog: QSO DUPE" << endl;
-
-                //qDebug() << "FileManager::adifReadLog: (1) LastQuery: " << preparedQuery.lastQuery()  << endl;
-                //qDebug() << "FileManager::adifReadLog: (1) LastError-data: " << preparedQuery.lastError().databaseText()  << endl;
-                //qDebug() << "FileManager::adifReadLog: (1) LastError-driver: " << preparedQuery.lastError().driverText()  << endl;
-                //qDebug() << "FileManager::adifReadLog: (1) LastError-n: " << QString::number(preparedQuery.lastError().number() ) << endl;
-                if ((errorCode == 19) && (!ignoreErrorCode19))
-                { // There are some repeated QSO
-                    QMessageBox msgBox;
-                    aux = tr("It seems that there are some QSO duplicated in the ADIF file you are importing. Do you want to continue? (Duped QSO will not be imported)");
-                    msgBox.setText(aux);
-                    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No);
-                    msgBox.setDefaultButton(QMessageBox::Yes);
-                    int ret = msgBox.exec();
-                    switch (ret) {
-                      case QMessageBox::Yes:
-                          // Yes was clicked
-                            //qDebug() << "FileManager::adifReadLog: (1) clicked YES" << endl;
-                            sqlOK = true;
-                          break;
-                    case QMessageBox::YesToAll:
-                        // Yes was clicked
-                            //qDebug() << "FileManager::adifReadLog: (1) clicked YES to ALL" << endl;
-                            ignoreErrorCode19 = true;
-                            sqlOK = true;
-                        break;
-                      case QMessageBox::No:
-                          // No Save was clicked
-                            //qDebug() << "FileManager::adifReadLog: (1) clicked NO" << endl;
-                             sqlOK = false;
-                          break;
-                      default:
-                          // should never be reached
-                            sqlOK = true;
-                            //qDebug() << "FileManager::adifReadLog: (1) default" << endl;
-                          break;
-                    }
-                    //;
-
-                }
-                else if((errorCode == 19) && (ignoreErrorCode19))
-                {
-                  sqlOK = true;
-                 //qDebug() << "FileManager::adifReadLog: errorCode=19 && ignoreErrorCode19" << endl;
-
-                }
-                else
-                {
-                    //qDebug() << "FileManager::adifReadLog: (2) LastQuery: " << preparedQuery.lastQuery()  << endl;
-                    //qDebug() << "FileManager::adifReadLog: (2) LastError-data: " << preparedQuery.lastError().databaseText()  << endl;
-                    //qDebug() << "FileManager::adifReadLog: (2) LastError-driver: " << preparedQuery.lastError().driverText()  << endl;
-                    //qDebug() << "FileManager::adifReadLog: (2) LastError-n: " << QString::number(preparedQuery.lastError().number() ) << endl;
-
-                    QMessageBox msgBox;
-                    aux = tr("An unexpected error ocurred while importing. Please send this code to the developer for analysis: ");
-                    msgBox.setText(aux + "FM-1 #" + QString::number(errorCode) );
-                    msgBox.setStandardButtons(QMessageBox::Ok);
-                    msgBox.setDefaultButton(QMessageBox::Ok);
-                    int ret = msgBox.exec();
-                    switch (ret) {
-                      case QMessageBox::Ok:
-                          // Yes was clicked
-                            sqlOK = false;
-                            //qDebug() << "FileManager::adifReadLog: (2) I have just set sqlOK=False (1)" << endl;
-                          break;
-                      default:
-                          // should never be reached
-                            sqlOK = false;
-                            //qDebug() << "FileManager::adifReadLog: (2) I have just set sqlOK=False (2)" << endl;
-                          break;
-                    }
-                }
-            */
-            }
-
+/*
             //qDebug() << "FileManager::adifReadLog: qsosInTransaction: " <<  QString::number(qsosInTransaction)   << endl;
             if ((qsosInTransaction>=step*10) && (qsosInTransaction>200) )
             {
@@ -3812,7 +3728,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             {
                 qsosInTransaction++;
             }
-
+*/
 
         } // END of  if (fields.contains("EOR>")) // We are going to add a QSO to the log... !
         else

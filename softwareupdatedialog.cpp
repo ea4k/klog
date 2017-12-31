@@ -37,6 +37,7 @@ SoftwareUpdateDialog::SoftwareUpdateDialog()
     ///
 
     connect(acceptButton, SIGNAL(clicked()), this, SLOT(slotAcceptButtonClicked()));
+    //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog - END"  << endl;
 }
 
 void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateNeeded)

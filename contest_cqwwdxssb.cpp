@@ -26,7 +26,7 @@
 #include "contest_cqwwdxssb.h"
 #include <QSqlError>
 
-//#include <QDebug>
+#include <QDebug>
 /*
 V. MULTIPLIER: Two types of multiplier will be used.
 
@@ -55,7 +55,8 @@ Example: 1000 QSO points × 100 multiplier (30 Zones + 70 Countries) = 100,000 (f
 
 ContestCQWWDXSSB::ContestCQWWDXSSB()
 {
-    //qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB"  << endl;
+    qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB2"  << endl;
+    constrid = 1;
     myEntity = "";
     myCQz = "";
     myContinent = "";
@@ -71,7 +72,7 @@ ContestCQWWDXSSB::ContestCQWWDXSSB()
     thiscontest = "";
     club = "";
     createdby = "";
-
+    qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB1"  << endl;
 }
 
 ContestCQWWDXSSB::ContestCQWWDXSSB(const QStringList _qs)
@@ -79,6 +80,8 @@ ContestCQWWDXSSB::ContestCQWWDXSSB(const QStringList _qs)
 
     // Receives:  QStringList _qs;
     //_qs << myEntity << myCQz << myContinent << NA-id;
+    qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB- 2:" << endl;
+    constrid = 2;
     myEntity = _qs.at(0);
     myCQz = _qs.at(1);
     myContinent = _qs.at(2);
@@ -134,7 +137,8 @@ ContestCQWWDXSSB::ContestCQWWDXSSB(const QStringList _qs)
 
 
 
-    //qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB: " << myEntity << "/" << myCQz << "/" << myContinent << "/" << NA << endl;
+    qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB: " << myEntity << "/" << myCQz << "/" << myContinent << "/" << NA << endl;
+    qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB- 2: - END" << endl;
 }
 
 ContestCQWWDXSSB::~ContestCQWWDXSSB(){

@@ -67,6 +67,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     {
         moveDBPushButton->setEnabled(true);
     }
+    //qDebug() << "SetupPageMisc::SetupPageMisc - END" << endl;
 }
 
 SetupPageMisc::~SetupPageMisc(){

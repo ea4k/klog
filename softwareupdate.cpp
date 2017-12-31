@@ -27,6 +27,7 @@ SoftwareUpdate::SoftwareUpdate(const QString _klogVersion) : QObject(0)
     //request.setUrl(QUrl("http://download.klog.xyz"));
     messageShown = false;
     setHeader();
+    //qDebug() << "SoftwareUpdate::SoftwareUpdate(): - END"  << endl;
 
 }
 

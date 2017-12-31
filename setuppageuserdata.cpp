@@ -250,10 +250,28 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy *dp, QWidget *parent) : Q
     //mainLayout->addStretch(1);
 
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
+    connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(operatorsLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(cqzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(ituzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(myLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+
+    connect(address1LineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(address2LineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(address3LineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(address4LineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(cityLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(zipLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(provinceLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(countryLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+
     connect(myLocatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotMyLocatorTextChanged() ) );
     connect(operatorsLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotOperatorsChanged() ) );
 
     setLayout(mainLayout);
+
+    //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage - END" << endl;
 }
 
 
@@ -276,6 +294,11 @@ QString SetupPageUserDataPage::getStationQrz()
 }
 
 
+
+void SetupPageUserDataPage::slotEnterKeyPressed()
+{
+    emit enterKey();
+}
 
 void SetupPageUserDataPage::slotQRZTextChanged()
 {

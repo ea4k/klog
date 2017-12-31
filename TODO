@@ -11,6 +11,7 @@ FIX: Awards::recalculateAwards it is not working
 FIX: void Awards::setAwardDXCC(const int _qsoId) is not done
 
 For next release:
+TODO: Create a function that runs the log adding a DXCC to any QSO without a DXCC.
 TODO: Import LOTW (MainWindow::slotADIFImport)
 TODO: Ensure that FileManager::adifLoTWLogExport exports all the needed fields
 TODO: Remove the Querys from void SetupPageLogs::
@@ -53,6 +54,7 @@ TODO: To add the support to import/export the following ADIF fields that are alr
     "vucc_grids VARCHAR, "
 
 
+TODO: Add a warning or periodically ADIF export so data is backup
 TODO: Create a function to look for QSO without a DXCC and ask the user to confirm the DXCC.
 TODO: Isolate the QSO input tab and create a widget with it.
 TODO: Isolate the Main QRZ box and create a widget with it.

@@ -30,7 +30,7 @@
 DataBase::DataBase(const QString _parentClass)
 {
     //qDebug() << "DataBase::DataBase: PLAIN: " << _parentClass << endl;
-
+    constrid = 1;
     db = QSqlDatabase::database();
     dbVersion = DBVersionf;
     createConnection();
@@ -38,12 +38,13 @@ DataBase::DataBase(const QString _parentClass)
     //qDebug() << "DataBase::DataBase: PLAIN - DB Name: " << db.databaseName() << endl;
     insertPreparedQueries.clear();
     insertQueryFields.clear();
-
+    //qDebug() << "DataBase::DataBase: PLAIN: - END" << endl;
 }
 
 DataBase::DataBase(const QString _softVersion, const QString _parentClass){
-    //qDebug() << "DataBase::DataBase: " << _softVersion <<"/" << _parentClass << endl;
+    //qDebug() << "DataBase::DataBase2: " << _softVersion <<"/" << _parentClass << endl;
     //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
+    constrid = 2;
     dbVersion = DBVersionf;
     softVersion = _softVersion;
     //inMemoryOnly = inmemoryonly;
@@ -70,7 +71,7 @@ DataBase::DataBase(const QString _softVersion, const QString _parentClass){
     insertPreparedQueries.clear();
     insertQueryFields.clear();
 
-    //qDebug() << "DataBase::DataBase: END"  << endl;
+    //qDebug() << "DataBase::DataBase2: END"  << endl;
 
 }
 
@@ -471,7 +472,7 @@ bool DataBase::createConnection(bool newDB)
 
 bool DataBase::isTheDBCreated()
 {
-    //qDebug() << "DataBase::isTheDBCreated"  << endl;
+    //qDebug() << "DataBase::isTheDBCreated: Called from: " << QString::number(constrid)  << endl;
 
     QSqlQuery query;
     int _num = 0;
@@ -791,7 +792,7 @@ bool DataBase::createTableLog(bool temp)
 
 bool DataBase::createDataBase()
 {
-      //qDebug() << "DataBase::createDataBase ------------------------------------- START"  << endl;
+      //qDebug() << "DataBase::createDataBase ------------------------------------- START" << QString::number(constrid)  << endl;
     //bool qres;
        //http://www.sqlite.org/
     //http://www.sqlite.org/datatype3.html
@@ -871,7 +872,7 @@ bool DataBase::createDataBase()
       stringQuery = QString("CREATE TABLE contestcategory ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(20) NOT NULL, "
-                 "name VARCHAR(40) NOT NULL");
+                 "name VARCHAR(40) NOT NULL)");
     execQuery(Q_FUNC_INFO, stringQuery);
       stringQuery = QString("CREATE TABLE award_enumeration ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -887,49 +888,8 @@ bool DataBase::createDataBase()
                  "FOREIGN KEY (dxcc) REFERENCES entity)");
     execQuery(Q_FUNC_INFO, stringQuery);
 
-
-      stringQuery = QString("CREATE TABLE awarddxcc ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "dxcc INTEGER NOT NULL,"
-                 "band INTEGER NOT NULL, "
-                 "mode INTEGER NOT NULL, "
-                 "confirmed INTEGER, "
-                 "qsoid INTEGER NOT NULL, "
-                 "lognumber INTEGER, "
-                 "UNIQUE (dxcc, band, mode, lognumber), "
-                 "FOREIGN KEY (dxcc) REFERENCES entity, "
-                 "FOREIGN KEY (band) REFERENCES band, "
-                 "FOREIGN KEY (mode) REFERENCES mode, "
-                 "FOREIGN KEY (qsoid) REFERENCES log)");
-        execQuery(Q_FUNC_INFO, stringQuery);
-
-/*
-In awarddxcc confirmed means:
-confirmed = 0     Set as Worked
-confirmed = 1     Set as Confirmed
-*/
-
-
-
-
-      stringQuery = QString("CREATE TABLE awardwaz ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "cqz INTEGER NOT NULL,"
-                 "band INTEGER NOT NULL, "
-                 "mode INTEGER NOT NULL, "
-                 "confirmed INTEGER, "
-                 "qsoid INTEGER NOT NULL, "
-                 "lognumber INTEGER, "
-                 "UNIQUE (cqz, band, mode, confirmed, lognumber), "
-                 "FOREIGN KEY (band) REFERENCES band, "
-                 "FOREIGN KEY (mode) REFERENCES mode, "
-                 "FOREIGN KEY (qsoid) REFERENCES log)");
-      execQuery(Q_FUNC_INFO, stringQuery);
-      /*
-      In awardwaz confirmed means:
-      confirmed = 0     Set as Worked
-      confirmed = 1     Set as Confirmed
-      */
+    createTableAwardDXCC();
+    createTableAwardWAZ();
 
       stringQuery = QString("CREATE TABLE qsl_rec_status ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -1018,6 +978,77 @@ confirmed = 1     Set as Confirmed
     return true;
 
 }
+
+bool DataBase::recreateTableDXCC()
+{
+    QSqlQuery query;
+
+    if (execQuery(Q_FUNC_INFO, "DROP TABLE awarddxcc"))
+    {
+        return createTableAwardDXCC();
+    }
+    return true;
+}
+
+bool DataBase::createTableAwardDXCC()
+{
+      return execQuery(Q_FUNC_INFO, "CREATE TABLE awarddxcc ("
+                             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                             "dxcc INTEGER NOT NULL,"
+                             "band INTEGER NOT NULL, "
+                             "mode INTEGER NOT NULL, "
+                             "confirmed INTEGER, "
+                             "qsoid INTEGER NOT NULL, "
+                             "lognumber INTEGER, "
+                             "UNIQUE (dxcc, band, mode, lognumber), "
+                             "FOREIGN KEY (dxcc) REFERENCES entity, "
+                             "FOREIGN KEY (band) REFERENCES band, "
+                             "FOREIGN KEY (mode) REFERENCES mode, "
+                             "FOREIGN KEY (qsoid) REFERENCES log)");
+
+    /*
+    In awarddxcc confirmed means:
+    confirmed = 0     Set as Worked
+    confirmed = 1     Set as Confirmed
+    */
+}
+
+bool DataBase::recreateTableWAZ()
+{
+    QSqlQuery query;
+
+    if (execQuery(Q_FUNC_INFO, "DROP TABLE awardwaz"))
+    {
+        return createTableAwardWAZ();
+    }
+    return true;
+}
+
+bool DataBase::createTableAwardWAZ()
+{
+
+    return execQuery(Q_FUNC_INFO, "CREATE TABLE awardwaz ("
+                           "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                           "cqz INTEGER NOT NULL,"
+                           "band INTEGER NOT NULL, "
+                           "mode INTEGER NOT NULL, "
+                           "confirmed INTEGER, "
+                           "qsoid INTEGER NOT NULL, "
+                           "lognumber INTEGER, "
+                           "UNIQUE (cqz, band, mode, lognumber), "
+                           "FOREIGN KEY (band) REFERENCES band, "
+                           "FOREIGN KEY (mode) REFERENCES mode, "
+                           "FOREIGN KEY (qsoid) REFERENCES log)");
+    /*
+    In awardwaz confirmed means:
+    confirmed = 0     Set as Worked
+    confirmed = 1     Set as Confirmed
+    */
+}
+
+
+
+
 
 int DataBase::getBandIdFromName(const QString b)
 {
@@ -6518,6 +6549,16 @@ bool DataBase::updateTo011()
         return false;
     }
 
+    if (!recreateTableDXCC())
+    {
+        return false;
+    }
+
+    if (!recreateTableWAZ())
+    {
+        return false;
+    }
+
     if(!execQuery(Q_FUNC_INFO, "INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '0')"))
     {
         //qDebug() << "DataBase::updateTo011: - MSK NOK " << endl;
@@ -6544,6 +6585,7 @@ bool DataBase::updateTo011()
 
     //qDebug() << "DataBase::updateTo011: - END" << endl;
     updateAwardDXCCTable();
+    updateAwardWAZTable();
     return IAmIn011;
 }
 
@@ -6581,6 +6623,10 @@ bool DataBase::updateAwardDXCCTable()
         query.finish();
         return false;
     }
+    else
+    {
+        //qDebug() << "DataBase::updateAwardDXCCTable SELECT when OK" << endl;
+    }
     QStringList dxccStatus = QStringList(); //dxcc, band, mode, confirmed, lognumber, qsoid (per award set)
     QStringList dxccStatusCheck = QStringList(); //dxcc, band, mode, confirmed, lognumber (per award set) just to check
     int nameCol = -1;
@@ -6590,8 +6636,10 @@ bool DataBase::updateAwardDXCCTable()
     //qDebug() << "DataBase::updateAwardDXCCTable before the while" << endl;
     while (query.next())
     {
+        //qDebug() << "DataBase::updateAwardDXCCTable IN the while" << endl;
         if (query.isValid())
         {
+            //qDebug() << "DataBase::updateAwardDXCCTable VALID" << endl;
             awardEntry.dxcc.clear();
             awardEntry.band.clear();
             awardEntry.status.clear();
@@ -6600,10 +6648,19 @@ bool DataBase::updateAwardDXCCTable()
 
             //qDebug() << "DataBase::updateAwardDXCCTable in the while" << endl;
             nameCol = rec.indexOf("qsl_rcvd");
-            awardEntry.status = (query.value(nameCol)).toString();
-            //qDebug() << "DataBase::updateAwardDXCCTable - status" << awardEntry.status << endl;
-            if ((awardEntry.status == "Y") || (awardEntry.status == "N"))
+
+            if ((query.value(nameCol)).toString() == "Y")
             {
+              awardEntry.status = "1";
+            }
+            else
+            {
+                awardEntry.status = "0";
+            }
+            //qDebug() << "DataBase::updateAwardDXCCTable - status" << awardEntry.status << endl;
+            if ((awardEntry.status == "1") || (awardEntry.status == "0") )
+            {
+
                 nameCol = rec.indexOf("dxcc");
                 awardEntry.dxcc = (query.value(nameCol)).toString();
 
@@ -6624,7 +6681,6 @@ bool DataBase::updateAwardDXCCTable()
                     //qDebug() << "DataBase::updateAwardDXCCTable: Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID << endl;
                     dxccStatusList.append(awardEntry);
 
-
                 }
             } // END OF IF VALID
         }
@@ -6642,6 +6698,8 @@ bool DataBase::updateAwardDXCCTable()
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
     {return false;}
+    else
+    {qDebug() << "DataBase::updateAwardDXCCTable: awarddxcc table DELETED" << endl;}
 
 
     //qDebug() << "DataBase::updateAwardDXCCTable: Now we start writing the table!!" << endl;
@@ -6656,30 +6714,22 @@ bool DataBase::updateAwardDXCCTable()
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
 
+    //qDebug() << "DataBase::updateAwardDXCCTable: INSERTING: " << QString::number(qsos) << " QSOS..." << endl;
 
     for (int j=0;j<dxccStatusList.length();j++)
     {
-        if (dxccStatusList.at(j).dxcc == "212")
-        {
-            //qDebug() << "DataBase::updateAwardDXCCTable: Bulgaria: " << dxccStatusList.at(j).band << "/" << dxccStatusList.at(j).mode << "/"  << dxccStatusList.at(j).status << endl;
-        }
 
         stringQuery = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, lognumber, qsoid) VALUES ('%1', '%2', '%3', '%4', '%5', '%6') ").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode).arg(dxccStatusList.at(j).status).arg(dxccStatusList.at(j).logNumber).arg(dxccStatusList.at(j).qsoID);
         //sqlOK = query.exec(Q_FUNC_INFO, stringQuery);
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
-            if (dxccStatusList.at(j).dxcc == "212")
-            {
-                //qDebug() << "DataBase::updateAwardDXCCTable: BULGARIA: " << query.lastError().databaseText() << endl;
-                //qDebug() << "DataBase::updateAwardDXCCTable: BULGARIA: " << QString::number(query.lastError().number()) << endl;
-                //qDebug() << "DataBase::updateAwardDXCCTable: BULGARIA: " << query.lastQuery() << endl;
-            }
+
             //qDebug() << "DataBase::updateAwardDXCCTable: Error: " << QString::number(query.lastError().number()) << endl;
             if (query.lastError().number() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
               // We should only take into account if N or Y
-                if (dxccStatusList.at(j).status!="Y")
+                if (dxccStatusList.at(j).status!="1")
                 { // If tne new status is not confirmed, no change. DO NOTHING
                     //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but DO NOTHING as new status is not Confirmed!!!" << endl;
                 }
@@ -6702,17 +6752,16 @@ bool DataBase::updateAwardDXCCTable()
                         query2.next();
                         if (query2.isValid())
                         {
-
                             nameCol = rec.indexOf("confirmed");
                             stringQuery = (query2.value(nameCol)).toString();
                             QString _qsoid = QString();
                             nameCol = rec.indexOf("qsoid");
                             _qsoid = (query2.value(nameCol)).toString();
 
-                            if ((stringQuery == "N") && (dxccStatusList.at(j).status == "Y"))
+                            if ((stringQuery == "0") && (dxccStatusList.at(j).status == "1"))
                             {
                                 query2.finish();
-                                stringQuery = QString ("UPDATE awarddxcc SET confirmed = 'Y', qsoid = '%1' WHERE qsoid='%2'").arg(dxccStatusList.at(j).qsoID).arg(_qsoid);
+                                stringQuery = QString ("UPDATE awarddxcc SET confirmed = '1', qsoid = '%1' WHERE qsoid='%2'").arg(dxccStatusList.at(j).qsoID).arg(_qsoid);
                                 if (execQuery(Q_FUNC_INFO, stringQuery))
                                 {
 
@@ -6731,19 +6780,11 @@ bool DataBase::updateAwardDXCCTable()
                         else
                         {
                             //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated SELECT query is not Valid" << endl;
-
-
                         }
-
-
                     }
-
-
                 }
 
                 //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated!" << endl;
-
-
             }
             else
             {
@@ -6752,8 +6793,13 @@ bool DataBase::updateAwardDXCCTable()
                 return false;
             }
         }
-        query.finish();
+        else
+        {
+            //qDebug() << "DataBase::updateAwardDXCCTable: INSERT OK: " << endl;
+        }
 
+        query.finish();
+        //qDebug() << "DataBase::updateAwardDXCCTable: Checking steps " << endl;
         if (( (j % step )== 0) )
         { // To update the speed I will only show the progress once each X QSOs
             _aux = QObject::tr("Updating DXCC Award information...") + "\n" + QObject::tr("QSO: ")  + QString::number(j) + "/" + QString::number(qsos);
@@ -6762,14 +6808,240 @@ bool DataBase::updateAwardDXCCTable()
         }
         if ( progress.wasCanceled() )
         {
-               //qDebug() << "MainWindow::fillQSOData3: " << endl;
+               //qDebug() << "DataBase::updateAwardDXCCTable: progress canceled" << endl;
             return true;
         }
     }
 
     progress.setValue(qsos);
+    //qDebug() << "DataBase::updateAwardDXCCTable: LAST END OK " << endl;
     return true;
 }
+
+bool DataBase::updateAwardWAZTable()
+{    
+    //qDebug() << "DataBase::updateAwardWAZTable" << endl;
+    QList<AwarddxccEntry> dxccStatusList;
+    //QList<AwarddxccEntryCheck> dxccStatusListCheck;
+    dxccStatusList.clear();
+    //dxccStatusListCheck.clear();
+
+    AwarddxccEntry awardEntry;
+    awardEntry.dxcc = QString();
+    awardEntry.band = QString();
+    awardEntry.status = QString();
+    awardEntry.logNumber = QString();
+    awardEntry.qsoID = QString();
+
+    QString stringQuery = QString("SELECT id, bandid, modeid, cqz, qsl_rcvd, lognumber FROM log ORDER BY cqz");
+    QSqlQuery query;//, query2;
+
+    bool sqlOK = query.exec(stringQuery);
+    QSqlRecord rec = query.record();
+    if (!sqlOK)
+    {
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return false;
+    }
+    else
+    {
+        //qDebug() << "DataBase::updateAwardWAZTable SELECT when OK" << endl;
+    }
+    QStringList dxccStatus = QStringList(); //cqz, band, mode, confirmed, lognumber, qsoid (per award set)
+    QStringList dxccStatusCheck = QStringList(); //cqz, band, mode, confirmed, lognumber (per award set) just to check
+    int nameCol = -1;
+
+    QString _aux = QString();
+
+    //qDebug() << "DataBase::updateAwardWAZTable before the while" << endl;
+    while (query.next())
+    {
+        //qDebug() << "DataBase::updateAwardWAZTable IN the while" << endl;
+        if (query.isValid())
+        {
+            //qDebug() << "DataBase::updateAwardWAZTable VALID" << endl;
+            awardEntry.dxcc.clear();
+            awardEntry.band.clear();
+            awardEntry.status.clear();
+            awardEntry.logNumber.clear();
+            awardEntry.qsoID.clear();
+
+            //qDebug() << "DataBase::updateAwardWAZTable in the while" << endl;
+            nameCol = rec.indexOf("qsl_rcvd");
+
+            if ((query.value(nameCol)).toString() == "Y")
+            {
+              awardEntry.status = "1";
+            }
+            else
+            {
+                awardEntry.status = "0";
+            }
+            //qDebug() << "DataBase::updateAwardWAZTable - status" << awardEntry.status << endl;
+            if ((awardEntry.status == "1") || (awardEntry.status == "0") )
+            {
+
+                nameCol = rec.indexOf("cqz");
+                awardEntry.dxcc = (query.value(nameCol)).toString();
+
+                if ((awardEntry.dxcc).toInt()>0)
+                {
+                    nameCol = rec.indexOf("bandid");
+                    awardEntry.band = (query.value(nameCol)).toString();
+
+                    nameCol = rec.indexOf("modeid");
+                    awardEntry.mode = (query.value(nameCol)).toString();
+
+                    nameCol = rec.indexOf("id");
+                    awardEntry.qsoID = (query.value(nameCol)).toString();
+
+                    nameCol = rec.indexOf("lognumber");
+                    awardEntry.logNumber = (query.value(nameCol)).toString();
+
+                    //qDebug() << "DataBase::updateAwardWAZTable: Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID << endl;
+                    dxccStatusList.append(awardEntry);
+
+                }
+            } // END OF IF VALID
+        }
+    } // END OF  WHILE
+
+    //qDebug() << "DataBase::updateAwardWAZTable - END OF WHILE" << endl;
+
+    query.finish();
+
+
+    //qDebug() << "DataBase::updateAwardWAZTable: Log analized... let's clean the table!" << endl;
+
+    stringQuery = QString("DELETE FROM awardwaz");
+
+    sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+    else
+    {qDebug() << "DataBase::updateAwardWAZTable: awardwaz table DELETED" << endl;}
+
+
+    //qDebug() << "DataBase::updateAwardWAZTable: Now we start writing the table!!" << endl;
+
+    //int i = 0;
+    _aux.clear();
+
+    int qsos = dxccStatusList.length();
+    int step = util->getProgresStepForDialog(qsos);
+
+    QProgressDialog progress(QObject::tr("Updating WAZ award information..."), QObject::tr("Abort updating"), 0, qsos);
+    progress.setMaximum(qsos);
+    progress.setWindowModality(Qt::WindowModal);
+
+    //qDebug() << "DataBase::updateAwardWAZTable: INSERTING: " << QString::number(qsos) << " QSOS..." << endl;
+
+    for (int j=0;j<dxccStatusList.length();j++)
+    {
+
+        stringQuery = QString("INSERT INTO awardwaz (cqz, band, mode, confirmed, lognumber, qsoid) VALUES ('%1', '%2', '%3', '%4', '%5', '%6') ").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode).arg(dxccStatusList.at(j).status).arg(dxccStatusList.at(j).logNumber).arg(dxccStatusList.at(j).qsoID);
+        //sqlOK = query.exec(Q_FUNC_INFO, stringQuery);
+        sqlOK = query.exec(stringQuery);
+        if (!sqlOK)
+        {
+
+            //qDebug() << "DataBase::updateAwardWAZTable: Error: " << QString::number(query.lastError().number()) << endl;
+            if (query.lastError().number() == 19)
+            { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
+              // We should only take into account if N or Y
+                if (dxccStatusList.at(j).status!="1")
+                { // If tne new status is not confirmed, no change. DO NOTHING
+                    //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but DO NOTHING as new status is not Confirmed!!!" << endl;
+                }
+                else
+                {
+                    //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but NOW is confirmed!!!" << endl;
+                    stringQuery = QString("SELECT confirmed, lognumber, qsoid FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND mode='%3'").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode);
+                    QSqlQuery query2;//, query2;
+
+                    sqlOK = query2.exec(stringQuery);
+                    QSqlRecord rec = query2.record();
+                    if (!sqlOK)
+                    {
+                        queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
+                        query2.finish();
+                        return false;
+                    }
+                    else
+                    {
+                        query2.next();
+                        if (query2.isValid())
+                        {
+                            nameCol = rec.indexOf("confirmed");
+                            stringQuery = (query2.value(nameCol)).toString();
+                            QString _qsoid = QString();
+                            nameCol = rec.indexOf("qsoid");
+                            _qsoid = (query2.value(nameCol)).toString();
+
+                            if ((stringQuery == "0") && (dxccStatusList.at(j).status == "1"))
+                            {
+                                query2.finish();
+                                stringQuery = QString ("UPDATE awardwaz SET confirmed = '1', qsoid = '%1' WHERE qsoid='%2'").arg(dxccStatusList.at(j).qsoID).arg(_qsoid);
+                                if (execQuery(Q_FUNC_INFO, stringQuery))
+                                {
+
+                                }
+                                else
+                                {
+                                    //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but UPDATE IS NOT DONE" << endl;
+                                }
+
+                            }
+                            else
+                            {
+                                //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but UPDATE NOT NEEDED" << endl;
+                            }
+                        }
+                        else
+                        {
+                            //qDebug() << "DataBase::updateAwardWAZTable: Duplicated SELECT query is not Valid" << endl;
+                        }
+                    }
+                }
+
+                //qDebug() << "DataBase::updateAwardWAZTable: Duplicated!" << endl;
+            }
+            else
+            {
+                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                query.finish();
+                return false;
+            }
+        }
+        else
+        {
+            //qDebug() << "DataBase::updateAwardWAZTable: INSERT OK: " << endl;
+        }
+
+        query.finish();
+        //qDebug() << "DataBase::updateAwardWAZTable: Checking steps " << endl;
+        if (( (j % step )== 0) )
+        { // To update the speed I will only show the progress once each X QSOs
+            _aux = QObject::tr("Updating DXCC Award information...") + "\n" + QObject::tr("QSO: ")  + QString::number(j) + "/" + QString::number(qsos);
+            progress.setLabelText(_aux);
+            progress.setValue(j);
+        }
+        if ( progress.wasCanceled() )
+        {
+               //qDebug() << "DataBase::updateAwardWAZTable: progress canceled" << endl;
+            return true;
+        }
+    }
+
+    progress.setValue(qsos);
+    //qDebug() << "DataBase::updateAwardWAZTable: LAST END OK " << endl;
+    return true;
+
+
+
+}
+
 
 int DataBase::getNumberOfQsos(const int _logNumber)
 {
@@ -6803,6 +7075,7 @@ int DataBase::getNumberOfQsos(const int _logNumber)
 
 void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery)
 {
+    //qDebug() << "DataBase::queryErrorManagement: constid - " << QString::number(constrid) << endl;
       //qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << endl;
       //qDebug() << "DataBase::queryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
       //qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << endl;

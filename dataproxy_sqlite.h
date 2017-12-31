@@ -34,8 +34,6 @@
 #include "database.h"
 
 
-
-
 class DataProxy_SQLite : public DataProxy {
     Q_OBJECT
 
@@ -51,7 +49,6 @@ public:
     bool haveAtLeastOneLog();
 
     QStringList getColumnNamesFromTableLog();
-
 
     int getIdFromModeName(const QString& _modeName);
     int getIdFromBandName(const QString& _bandName);
@@ -111,6 +108,7 @@ public:
     int getBandFromId(const int _qsoId);
     int getModeFromId(const int _qsoId);
     int getDXCCFromId(const int _qsoId);
+    int getCQZFromId(const int _qsoId);
     QString getCallFromId(const int _qsoId);
     QStringList getClubLogRealTimeFromId(const int _qsoId);
     // Complete with previous
@@ -122,6 +120,7 @@ public:
     // /Complete with previous
 
     bool updateAwardDXCC();
+    bool updateAwardWAZ();
 
 
     //LOTW
@@ -183,6 +182,7 @@ public:
 
     QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
+    bool fillEmptyDXCCInTheLog();
     int getHowManyQSOInLog(const int _log);
     int getHowManyConfirmedQSLInLog(const int _log);
     int getNumberOfManagedLogs();
@@ -200,6 +200,8 @@ public:
     bool updateISONames(); // Update the entities ISO names for the flags
     QString getISOName(const int _n);
     bool setDXCCAwardStatus(const int _qsoId);
+    bool setWAZAwardStatus(const int _qsoId);
+
 
 
     void getFoundInLog(const QString _txt, const int _log=-1);
@@ -215,9 +217,12 @@ private:
     double getFreqFromRange(QString _fr); //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
     QStringList getColumnNamesFromTable(const QString _tableName);
 
+    int getPrefixId(const QString _qrz);
+    QString changeSlashAndFindPrefix(const QString _qrz);
 
     bool searching;
     int executionN;
+    Utilities *util;
     //QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;
 

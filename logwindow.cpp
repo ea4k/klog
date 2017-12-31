@@ -45,6 +45,7 @@ LogWindow::LogWindow(DataProxy *dp, QWidget *parent) : QWidget(parent)
     createUI();
     createActions();
     setDefaultData();
+    //qDebug() << "LogWindow::LogWindow: - END"  << endl;
 
 }
 
@@ -420,7 +421,7 @@ void LogWindow::qslRecViaBureau(const int _qsoId)
 {
    // //qDebug() << "LogWindow::qslRecViaBureau: " << QString::number(_qsoId) << "/" << (dateTime->currentDateTime()).toString("yyyy/MM/dd") << endl;
     dataProxy->qslRecViaBureau(_qsoId, (QDateTime::currentDateTime()).toString("yyyy/MM/dd"), false);
-    awards->setAwards(_qsoId);   //Update the DXCC award status
+    awards->setAwards(_qsoId);   //Update the Award status
 
     refresh();
     emit updateAwards();

@@ -94,6 +94,7 @@ SetupPageClubLog::SetupPageClubLog(QWidget *parent) : QWidget(parent)
     connect(useQSOStationCallCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotUseStationCall(bool)));
     //connect(sendInRealTimeCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotClubLogActive(bool)));
     slotClubLogActive(clubLogActive);
+    //qDebug() << "SetupPageClubLog::SetupPageClubLog - END" << endl;
 
 }
 

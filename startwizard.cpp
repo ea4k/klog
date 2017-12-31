@@ -41,6 +41,8 @@
 
     setWindowTitle(tr("KLog - The free hamradio logging program"));
 
+    //qDebug() << "StartWizard::StartWizard: - END" << endl;
+
  }
 
  void StartWizard::setVersion(QString tversion)

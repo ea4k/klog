@@ -102,11 +102,13 @@ public:
 signals:
     void stationCallSignal (const QString _p);
     void operatorsSignal (const QString _p);
+    void enterKey();
 
 private slots:
 
     void slotMyLocatorTextChanged();
     void slotOperatorsChanged();
+    void slotEnterKeyPressed();
 
 
     void slotQRZTextChanged();

@@ -125,6 +125,8 @@ private:
 
     QSqlQuery preparedQuery;
 
+    int constrid; // Just an id for the constructor to check who is being executed at one specific time
+
 
 signals:
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
