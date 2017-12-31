@@ -107,6 +107,7 @@ public:
     virtual int getBandFromId(const int _qsoId);
     virtual int getModeFromId(const int _qsoId);
     virtual int getDXCCFromId(const int _qsoId);
+    virtual int getCQZFromId(const int _qsoId);
     virtual QString getCallFromId(const int _qsoId);
     virtual QStringList getClubLogRealTimeFromId(const int _qsoId);
     // Complete with previous
@@ -118,7 +119,7 @@ public:
     // /Complete with previous
 
     virtual bool updateAwardDXCC();
-
+    virtual bool updateAwardWAZ();
 
     virtual int getContinentIdFromContinentShortName(const QString _n);
     virtual QString getContinentShortNameFromEntity(const int _n);
@@ -176,6 +177,7 @@ public:
 
     virtual QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
+    virtual bool fillEmptyDXCCInTheLog();
     virtual int getHowManyQSOInLog(const int _log);
     virtual int getHowManyConfirmedQSLInLog(const int _log);
     virtual int getNumberOfManagedLogs();
@@ -195,6 +197,7 @@ public:
 
     virtual void getFoundInLog(const QString _txt, const int _log=-1);
     virtual bool setDXCCAwardStatus(const int _qsoId);
+    virtual bool setWAZAwardStatus(const int _qsoId);
 
     //virtual bool queryPrepare(const QString _query);
     //virtual bool queryBind(const QString _field, const QString value);
@@ -210,7 +213,7 @@ public:
 */
 private:
     virtual QStringList sortBandIdBottonUp(const QStringList _qs);
-    virtual QStringList getColumnNamesFromTable(const QString _tableName);
+    //virtual QStringList getColumnNamesFromTable(const QString _tableName);
 
    // int points;
    // int multipliers;

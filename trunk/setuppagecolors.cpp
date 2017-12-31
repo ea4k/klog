@@ -68,6 +68,7 @@ SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
     setConfirmedColor("#32CD32");
     setDefaultColor("#00BFFF");
 
+    //qDebug() << "SetupPageColors::SetupPageColors - END" << endl;
 }
 
 SetupPageColors::~SetupPageColors()

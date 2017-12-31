@@ -42,7 +42,7 @@
 MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 {
 
-       //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
+    //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
        //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
 
    QTime start;
@@ -274,15 +274,12 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
     //filemanager = new FileManager(klogDir, softwareVersion, *db);
-    filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
-    connect(filemanager, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
 
        //qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
     locator = new Locator();
        //qDebug() << "MainWindow::MainWindow: awards to be created" << endl;
-    awards = new Awards(dataProxy);
-    awards->setManageModes(manageMode);
-    connect(awards, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+
+
        //qDebug() << "MainWindow::MainWindow: awards already created" << endl;
     mainWidget = new QWidget(this);
     setCentralWidget(mainWidget);
@@ -384,6 +381,8 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
 
+    awards = new Awards(dataProxy);
+    awards->setManageModes(manageMode);
     // </UI>
 
 //**************************************************
@@ -425,7 +424,6 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     setWindowTitle(tr("KLog"));
 
-
     //qDebug() << "MainWindow::MainWindow: 16" << endl;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
@@ -436,6 +434,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //qDebug() << "MainWindow::MainWindow: 17" << endl;
     checkIfNewBandOrMode();
     //qDebug() << "MainWindow::MainWindow: 18" << endl;
+
     if (contestMode == "DX")
     {
         //qDebug() << "MainWindow::MainWindow: DX! 18.3" << endl;
@@ -538,9 +537,13 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
         softUpdate->needToUpdate();
     }
 
+    connect(awards, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    connect(awards, SIGNAL(awardDXCCUpdated()), this, SLOT(slotRefreshDXCCWidget()) );
+
+    filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
+    connect(filemanager, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+
     //qDebug() << "MainWindow::MainWindow: END" << endl;
-    //splash.finish();
-    int xx = dataProxy->getLastQSOid();
 }
 
 MainWindow::~MainWindow()
@@ -3200,6 +3203,13 @@ void MainWindow::clearBandLabels()
 }
 */
 
+void MainWindow::slotRefreshDXCCWidget()
+{
+    dxccStatusWidget->slotRefreshButtonClicked();
+}
+
+
+
 void MainWindow::slotUpdateTime()
 {
    //    //qDebug() << "MainWindow::slotUpdateTime: " << (dateTime->currentDateTime()).toString("yyyy-MM-dd - hh:mm:ss") << endl;
@@ -3298,14 +3308,12 @@ void MainWindow::createMenusCommon()
     ADIFImport = new QAction(tr("&Import from ADIF..."), this);
     fileMenu->addAction(ADIFImport);
     connect(ADIFImport, SIGNAL(triggered()), this, SLOT(slotADIFImport()));
-    ADIFImport->setToolTip(tr("Import an ADIF file into the current log"));
+    ADIFImport->setToolTip(tr("Import an ADIF file into the current log."));
 
     //LoTWImport = new QAction(tr("&Import from LoTW..."), this);
     //fileMenu->addAction(LoTWImport);
     //connect(LoTWImport, SIGNAL(triggered()), this, SLOT(slotLoTWImport()));
     //LoTWImport->setToolTip(tr("Import an LoTW file into the current log"));
-
-
 
     fileMenu->addSeparator();
 
@@ -3320,7 +3328,7 @@ void MainWindow::createMenusCommon()
     fileMenu->addAction(ADIFExport);
     //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
     connect(ADIFExport, SIGNAL(triggered()), this, SLOT(slotADIFExport()));
-    ADIFExport->setToolTip(tr("Export the current log to an ADIF logfile"));
+    ADIFExport->setToolTip(tr("Export the current log to an ADIF logfile."));
 
     ADIFExportAll = new QAction(tr("&Export all logs to ADIF..."), this);
     fileMenu->addAction(ADIFExportAll);
@@ -3331,7 +3339,7 @@ void MainWindow::createMenusCommon()
     ReqQSLExport = new QAction(tr("&Export Requested QSL to ADIF..."), this);
     fileMenu->addAction(ReqQSLExport);
     connect(ReqQSLExport, SIGNAL(triggered()), this, SLOT(slotRQSLExport()));
-    ReqQSLExport->setToolTip(tr("Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program)"));
+    ReqQSLExport->setToolTip(tr("Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program)."));
 
     LoTWExport = new QAction(tr("&Export ADIF for LoTW..."), this);
     fileMenu->addAction(LoTWExport);
@@ -3343,12 +3351,14 @@ void MainWindow::createMenusCommon()
     printLogAct = new QAction(tr("&Print Log..."), this);
     fileMenu->addAction(printLogAct);
     printLogAct->setShortcut(Qt::CTRL + Qt::Key_P);
+    printLogAct->setToolTip(tr("Print your log."));
     connect(printLogAct, SIGNAL(triggered()), this, SLOT(slotFilePrint()));
 
     fileMenu->addSeparator();
 
     klogFolderAct = new QAction(tr("KLog folder"), this);
     fileMenu->addAction(klogFolderAct);
+    printLogAct->setToolTip(tr("Opens the data folder of KLog."));
     connect(klogFolderAct, SIGNAL(triggered()), this, SLOT(slotOpenKLogFolder()));
 
     fileMenu->addSeparator();
@@ -3365,7 +3375,15 @@ void MainWindow::createMenusCommon()
     toolMenu->addAction(fillQsoAct);
     //fillQsoAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(fillQsoAct, SIGNAL(triggered()), this, SLOT(fillQSOData()));
-    fillQsoAct->setToolTip(tr("Go through the log reusing previous QSOs to fill missing information in other QSOs"));
+    fillQsoAct->setToolTip(tr("Go through the log reusing previous QSOs to fill missing information in other QSOs."));
+
+    fillDXCCAct = new QAction(tr("Fill in DXCC data"), this);
+    toolMenu->addAction(fillDXCCAct);
+    connect(fillDXCCAct, SIGNAL(triggered()), this, SLOT(slotFillEmptyDXCCInTheLog()));
+    fillDXCCAct->setToolTip(tr("Go through the log filling QSOs without a DXCC defined."));
+
+
+
 
     toolMenu->addSeparator();
     qslToolMenu = toolMenu->addMenu(tr("QSL tools..."));
@@ -3378,7 +3396,7 @@ void MainWindow::createMenusCommon()
     findQSO2QSLAct = new QAction(tr("&Find QSO to QSL"), this);
     qslToolMenu->addAction(findQSO2QSLAct);
     connect(findQSO2QSLAct, SIGNAL(triggered()), this, SLOT(slotSearchToolNeededQSLToSend()));
-    findQSO2QSLAct->setToolTip(tr("Shows QSOs for which you should send your QSL and request the DX QSL"));
+    findQSO2QSLAct->setToolTip(tr("Shows QSOs for which you should send your QSL and request the DX QSL."));
 
     findRequestedQSLAct = new QAction(tr("Find My-QSLs pending to send"), this);
     qslToolMenu->addAction(findRequestedQSLAct);
@@ -3389,12 +3407,12 @@ void MainWindow::createMenusCommon()
     findQSLPendingToReceiveAct = new QAction(tr("&Find DX-QSLs pending to receive"), this);
     qslToolMenu->addAction(findQSLPendingToReceiveAct);
     connect(findQSLPendingToReceiveAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
-    findQSLPendingToReceiveAct->setToolTip(tr("Shows the DX-QSL that has been requested or QSLs has been sent with no answer"));
+    findQSLPendingToReceiveAct->setToolTip(tr("Shows the DX-QSL that has been requested or QSLs has been sent with no answer."));
 
     findQSLDXRequestedAct = new QAction(tr("&Find requested pending to receive"), this);
     qslToolMenu->addAction(findQSLDXRequestedAct);
     connect(findQSLDXRequestedAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLRequested()));
-    findQSLDXRequestedAct->setToolTip(tr("Shows the DX-QSL that has been requested"));
+    findQSLDXRequestedAct->setToolTip(tr("Shows the DX-QSL that has been requested."));
 
     toolMenu->addSeparator();
     lotwToolMenu = toolMenu->addMenu(tr("LoTW tools..."));
@@ -3422,7 +3440,6 @@ void MainWindow::createMenusCommon()
     lotwMarkSentYesAct->setToolTip(tr("ark all queued QSOs as sent to LoTW."));
 
 
-
     toolMenu->addSeparator();
 
     downloadCTYAct = new QAction (tr("&Update cty.csv"), this);
@@ -3432,6 +3449,7 @@ void MainWindow::createMenusCommon()
     downloadCTYAct->setToolTip(tr("For updated DX-Entity data, update cty.csv."));
 
     toolMenu->addSeparator();
+
 
     setupMenu = menuBar()->addMenu(tr("&Setup"));
 
@@ -3480,6 +3498,7 @@ void MainWindow::slotToolSearchNeededQSLRequested()
 {
     searchWidget->slotToolSearchNeededQSLRequested();
 }
+
 
 void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
 {
@@ -6732,6 +6751,10 @@ void MainWindow::fillQSOData()
     } // Closes the While
 }
 
+void MainWindow::slotFillEmptyDXCCInTheLog()
+{
+    dataProxy->fillEmptyDXCCInTheLog();
+}
 
 void MainWindow::slotUpdateCTYDAT()
 {
@@ -7423,7 +7446,7 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
                         "<li><b>" + tr("Error text") + ":</b> " + errorCodeS + "</li>" +
                         "<li><b>" + tr("Failed query") + ":</b> " + queryFailed + "</li>" +
                         "</ul><br>"
-                        "<b>Recomendation:</b> Export your data to ADIF to prevent a potential data loss.<br>";
+                        "<b>Recomendation:</b> Export, periodically, your data to ADIF to prevent a potential data loss.<br>";
 
     showErrorDialog->setText(aux + errorMSG);
     //showErrorDialog->setModal(true);

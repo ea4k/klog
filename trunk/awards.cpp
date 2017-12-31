@@ -61,119 +61,21 @@ Awards::Awards(DataProxy *dp)
     wazWorked.clear();
     wazConfirmed.clear();
     manageModes = false;
+    //qDebug() << "Awards::Awards - END"  << endl;
 }
 
 Awards::~Awards() {}
 
 void Awards::setAwardDXCC(const int _qsoId)
 {
-
     //qDebug() << "Awards::setAwardDXCC: _qsoId: " << QString::number(_qsoId) << endl;
     dataProxy->setDXCCAwardStatus(_qsoId);
-
 }
 
 void Awards::setAwardWAZ(const int _qsoId)
 {
     //qDebug() << "Awards::setAwardWAZ: _qsoId: " << QString::number(_qsoId) << endl;
-    QString stringQuery;
-    QSqlQuery query;
-    int nameCol;
-    QString _ln;
-
-    QString _cqz, _band, _mode, _confirmed, _qsoid, _refid, _refcon;
-    _qsoid = QString::number(_qsoId);
-
-    stringQuery = QString("SELECT cqz, bandid, modeid, qsl_rcvd, lognumber FROM log WHERE id='%1'").arg(_qsoid);
-    //qDebug() << "Awards::setAwardWAZ: stringQuery-0: " << stringQuery << endl;
-
-    bool sqlOK = query.exec(stringQuery);
-    if (!sqlOK)
-    {
-        query.finish();
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        return;
-    }
-    query.next();
-    QSqlRecord rec = query.record();
-
-
-    if ( query.isValid()  )
-    {
-        nameCol = rec.indexOf("cqz");
-        _cqz = (query.value(nameCol)).toString();
-        nameCol = rec.indexOf("bandid");
-        _band = (query.value(nameCol)).toString();
-        nameCol = rec.indexOf("modeid");
-        _mode = (query.value(nameCol)).toString();
-        nameCol = rec.indexOf("qsl_rcvd");
-        _confirmed = (query.value(nameCol)).toString();
-        nameCol = rec.indexOf("lognumber");
-        _ln = (query.value(nameCol)).toString();
-
-        if (_confirmed == "Y")
-        {
-            _confirmed = "1" ;
-        }
-        else
-        {
-            _confirmed = "0";
-        }
-    }
-   //qDebug() << "Awards::setAwardWAZ: " << _cqz << "/" << _band << "/" << _mode  << "/" << _confirmed << endl;
-    query.finish();
-    stringQuery = QString("SELECT id, confirmed FROM awardwaz WHERE cqz='%1' AND band='%2' AND mode='%3' AND lognumber='%4'").arg(_cqz).arg(_band).arg(_mode).arg(_ln);
-    //qDebug() << "Awards::setAwardWAZ: stringQuery:-1 " << stringQuery << endl;
-    sqlOK = query.exec(stringQuery);
-    if (!sqlOK)
-    {
-        query.finish();
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-    }
-    query.next();
-    rec = query.record();
-
-    if (query.isValid())
-    {
-        nameCol = rec.indexOf("id");
-        _refid = query.value(nameCol).toString();
-        nameCol = rec.indexOf("confirmed");
-        _refcon = (query.value(nameCol)).toString();
-
-        if ( _refcon == "1")
-        {
-            // NOP -> Everything is already saved
-        }
-        else
-        { // TODO: We need to modify the registry to save the confirmed status of the pair.
-            if (_confirmed=="1")
-            {
-                stringQuery = QString("UPDATE awardwaz SET cqz='%1', band='%2', mode='%3', confirmed='%4', qsoid='%5' WHERE id='%6'").arg(_cqz).arg(_band).arg(_mode).arg(_confirmed).arg(_qsoid).arg(_refid );
-                //qDebug() << "Awards::setAwardWAZ: stringQuery:-2 " << stringQuery << endl;
-                sqlOK = query.exec(stringQuery);
-                query.finish();
-                if (!sqlOK)
-                {                    
-                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                }
-            }
-            else
-            {
-            }
-        }
-    }
-    else
-    {
-        stringQuery = QString("INSERT INTO awardwaz (cqz, band, mode, confirmed, lognumber, qsoid) values('%1','%2','%3','%4','%5','%6')").arg(_cqz).arg(_band).arg(_mode).arg(_confirmed).arg(_ln).arg(_qsoid);
-        //qDebug() << "Awards::setAwardWAZ: stringQuery:-3 " << stringQuery << endl;
-        sqlOK = query.exec(stringQuery);
-        query.finish();
-        if (!sqlOK)
-        {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-
-        }
-    }
+    dataProxy->setWAZAwardStatus(_qsoId);
 }
 
 int Awards::getDXCCWorked(const int _logNumber)
@@ -577,13 +479,13 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
         {
             if ( query.isValid() )
             {
-                if(query.value(0).toString() == "Y")
+                if(query.value(0).toString() == "1")
                 {
                    //qDebug() << "Awards::dxccStatusBandMode: return - 2" << endl;
                     query.finish();
                     return 2;
                 }
-                else if(query.value(0).toString() == "N")
+                else if(query.value(0).toString() == "0")
                 {
                    //qDebug() << "Awards::dxccStatusBandMode: return - 1" << endl;
                     query.finish();
@@ -639,12 +541,12 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
         {
             if ( query.isValid() )
             {
-                if(query.value(0).toString() == "Y")
+                if(query.value(0).toString() == "1")
                 {
                     query.finish();
                     return 2;
                 }
-                else if(query.value(0).toString() == "N")
+                else if(query.value(0).toString() == "0")
                 {
                     query.finish();
                     worked = 1;
@@ -832,12 +734,12 @@ QString Awards::getDXCCStatusBand(const int _dxcc, const int _band, const int _l
         while (query.next()) {
             if (query.isValid())
             {
-                if ((query.value(0)).toString() == "Y")
+                if ((query.value(0)).toString() == "1")
                 {
                     query.finish();
                     return "C";
                 }
-                else if ((query.value(0)).toString() == "N")
+                else if ((query.value(0)).toString() == "0")
                 {
                     query.finish();
                     return "W";
@@ -1037,10 +939,10 @@ void Awards::recalculateAwards()
     Should go in a transaction
 */
 
-
     //qDebug() << "Awards::recalculateAwards" << endl;
     dataProxy->updateAwardDXCC();
     emit awardDXCCUpdated();
+    dataProxy->updateAwardWAZ();
     //qDebug() << "Awards::recalculateAwards - END" << endl;
 }
 
@@ -1081,7 +983,7 @@ int Awards::getQSOsInLog(const int _logNumber)
 void Awards::setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId)
 {
     //qDebug() << "Awards::setAwards: " << QString::number(_dxcc) << endl;
-/*
+
     //_workedOrConfirmed = -1     Remove this pair
     //_workedOrConfirmed = 0     Set as Worked
     //_workedOrConfirmed = 1     Set as Confirmed
@@ -1105,298 +1007,19 @@ void Awards::setAwards(const int _dxcc, const int _waz, const int _band, const i
 void Awards::setAwards(const int _qsoId)
 {
     //qDebug() << "Awards::setAwards: _qsoId: " << QString::number(_qsoId) << endl;
-
-    QString stringQuery, _confirmed, _call;
-    QSqlQuery query;
-    int nameCol;
-    bool DXCCknown=false;
-    bool CQZknown=false;
-    int _dxcc, _cqz, _band, _mode, _logNumber;//, _alreadyConfirmed;
-    bool _confirmedB = false;
-
-    stringQuery = QString("SELECT dxcc, call, bandid, modeid, qsl_rcvd, lognumber, cqz FROM log WHERE id='%1'").arg(_qsoId);
-
-    if (query.exec(stringQuery))
-    {
-
-        query.next();
-        QSqlRecord rec = query.record();
-
-        nameCol = rec.indexOf("call");
-        _call = (query.value(nameCol)).toString();
-
-        nameCol = rec.indexOf("dxcc");
-        _dxcc = (query.value(nameCol)).toInt();
-
-        nameCol = rec.indexOf("cqz");
-        _cqz = (query.value(nameCol)).toInt();
-
-        nameCol = rec.indexOf("bandid");
-        _band = (query.value(nameCol)).toInt();
-
-        nameCol = rec.indexOf("modeid");
-        _mode = (query.value(nameCol)).toInt();
-
-        nameCol = rec.indexOf("qsl_rcvd");
-        _confirmed = (query.value(nameCol)).toString();
-
-        nameCol = rec.indexOf("lognumber");
-        _logNumber = (query.value(nameCol)).toInt();
-
-        if (_dxcc <= 0)
-        {
-            _dxcc = world->getQRZARRLId(_call);
-            if (_dxcc > 0)
-            {
-                DXCCknown = true;
-            }
-            else
-            {
-                DXCCknown = false;
-            }
-        }
-        else
-        {
-            DXCCknown = true;
-        }
-
-        if ( (_cqz <= 0) && (DXCCknown) )
-        {
-            _cqz = world->getEntityCqz(_dxcc);
-            if (_cqz > 0)
-            {
-                CQZknown = true;
-            }
-            else
-            {
-                CQZknown = false;
-            }
-        }
-        else if (_cqz > 0)
-        {
-            CQZknown = true;
-        }
-        else
-        {
-            CQZknown = false;
-        }
-
-
-        if (_confirmed == "Y")
-        {
-            //qDebug() << "Awards::setAwards: QSO is CONFIRMED: " << QString::number(_qsoId)  << " = " << QString::number(_dxcc) << endl;
-            _confirmed = "1" ;
-            _confirmedB = true;
-        }
-        else
-        {
-            //qDebug() << "Awards::setAwards: QSO is only WORKED: " << QString::number(_qsoId)  << " = " << QString::number(_dxcc) << endl;
-            _confirmed = "0";
-            _confirmedB = false;
-        }
-
-        query.finish();
-    }
-
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        query.finish();
-        return;
-    }
-
-    if (DXCCknown)
-    {
-        //int setAwardDXCCst(const int _dxcc, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
-        // int _dxcc, _cqz, _band, _mode, _logNumber,
-        nameCol = setAwardDXCCst(_dxcc, _band,  _mode, _confirmedB, _logNumber,  _qsoId);
-        //qDebug() << "Awards::setAwards: OutPutDXCC: " << QString::number(_qsoId) << " = " << QString::number(nameCol) << endl;
-    }
-
-    if (CQZknown)
-    {
-        nameCol = setAwardWAZst(_cqz, _band,  _mode, _confirmedB, _logNumber,  _qsoId);
-        //qDebug() << "Awards::setAwards: OutPut (WAZ): " << QString::number(_qsoId) << " = " << QString::number(nameCol) << endl;
-    }
-
+    dataProxy->setDXCCAwardStatus(_qsoId);
+    dataProxy->setWAZAwardStatus(_qsoId);
 }
-
 /*
-
-bool Awards::setAwardDXCC(const int _dxcc, const int _band, const int _mode, const QString _workedOrConfirmed, const int _logNumber, const int _qsoId)
-{
-   //qDebug() << "Awards::setAwardDXCC(DXCC/BAND/MODE/WORKED/log/qsoid): " << QString::number(_dxcc) << "/" << QString::number(_band) << "/" << QString::number(_mode) << "/"<<  QString::number(_workedOrConfirmed) << "/" << QString::number(_logNumber) << "/" << QString::number(_qsoId) << endl;
-    // Accepts Y=Confirmed /N=Worked / R=To be removed
-    if ((_workedOrConfirmed!="Y") || (_workedOrConfirmed!="N")  || (_workedOrConfirmed!="R"))
-
-    {
-        return false;
-    }
-    if (_dxcc<=0)
-    {
-        //qDebug() << "Awards::setAwardDXCC: DXCC < 0" << endl;
-        return false;
-    }
-
-   bool isOK1 = false;
-   bool isOK2 = false;
-   QString stringQuery;
-   QString aux;
-
-    QSqlQuery query;
-    if (_dxcc>0)
-    {
-        stringQuery = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, lognumber, qsoid) values('%1','%2','%3','%4','%5','%6')").arg(_dxcc).arg(_band).arg(_mode).arg(_workedOrConfirmed).arg(_logNumber).arg(_qsoId);
-        if (query.exec(stringQuery) )
-        {
-           //qDebug() << "Awards::setAwardDXCC: OK DXCC _qsoId: " << QString::number(_qsoId) << endl;
-            query.finish();
-           isOK1 = true;
-
-        }
-        else
-        {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-            query.finish();
-            return false;
-        }
-
-    }
-    else
-    {
-        query.finish();
-        return false;
-    }
-
-
-    // Second phase, the memory storage.
-    //TODO: Choose whether I use a DB or memory but both may not be optimal.
-    //int value = (QString::number(_band) + QString::number(_mode)).toInt();
-    aux = QString::number(_band) + QString::number(_mode);
-    int value = aux.toInt();
-
-    if (_workedOrConfirmed == -1)
-    {
-        dxccWorked.remove(_dxcc, value);
-        dxccConfirmed.remove(_dxcc, value);
-        isOK2 = true;
-    }
-
-    if ( dxccConfirmed.contains(_dxcc, value) )
-    { // Already confirmed, nothing to do
-        isOK2 = true;
-    }
-    else
-    {
-        if (dxccWorked.contains(_dxcc, value))
-        { //It is worked
-            if (_workedOrConfirmed == 1)
-            {
-                dxccConfirmed.insert(_dxcc, value);
-                isOK2 = true;
-            }
-            else
-            {
-            }
-        }
-        else
-        { // It is not worked!
-            dxccWorked.insert(_dxcc, value);
-            isOK2 = true;
-        }
-    }
-    return (isOK1 && isOK2);
-}
-
-
-
-bool Awards::setAwardWAZ(const int _cqz, const int _band, const int _mode, const QString _workedOrConfirmed, const int _logNumber, const int _qsoId)
-{
-    //qDebug() << "Awards::setAwardWAZ: " << QString::number(_band) + QString::number(_mode) << endl;
-   bool isOK1 = false;
-    bool isOK2 = false;
-    QString aux;
-
-    if ((_workedOrConfirmed!="Y") || (_workedOrConfirmed!="N"))
-    {
-        return false;
-    }
-    QSqlQuery query;
-    if (_cqz>0)
-    {
-        QString stringQuery = QString("INSERT INTO awardwaz (cqz, band, mode, confirmed, lognumber, qsoid) values('%1','%2','%3','%4','%5','%6')").arg(_cqz).arg(_band).arg(_mode).arg(_workedOrConfirmed).arg(_logNumber).arg(_qsoId);
-        if (query.exec(stringQuery) )
-        {
-           //qDebug() << "Awards::setAwardWAZ: OK CQZ _qsoId: " << QString::number(_qsoId) << endl;
-            query.finish();
-           isOK1 = true;
-
-        }
-        else
-        {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-            query.finish();
-           //qDebug() << "Awards::setAwardWAZ: NOK CQZ _qsoId: " << QString::number(_qsoId) << endl;
-            return false;
-        }
-
-    }
-    else
-    {
-        return false;
-    }
-
-
-// Second phase, the memory storage.
-//TODO: Choose whether I use a DB or memory but both may not be optimal.
-    //int value = (QString::number(_band) + QString::number(_mode)).toInt();
-    aux = QString::number(_band) + QString::number(_mode);
-    int value = aux.toInt();
-
-    if (_workedOrConfirmed == -1)
-    {
-        wazWorked.remove(_cqz, value);
-        wazConfirmed.remove(_cqz, value);
-        isOK2 = true;
-    }
-
-    if ( wazConfirmed.contains(_cqz, value) )
-    { // Already confirmed, nothing to do
-        isOK2 = true;
-    }
-    else
-    {
-        if (wazWorked.contains(_cqz, value))
-        { //It is worked
-            if (_workedOrConfirmed == 1)
-            {
-                wazConfirmed.insert(_cqz, value);
-                isOK2 = true;
-            }
-            else
-            {
-            }
-        }
-        else
-        { // It is not worked!
-            wazWorked.insert(_cqz, value);
-            isOK2 = true;
-        }
-    }
-    return (isOK1 && isOK2);
-}
-
-*/
 int Awards::setAwardDXCCst(const int _dxcc, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId)
 {
     //qDebug() << "Awards::setAwardDXCCst-0: " << QString::number(_dxcc) << "/" << QString::number(_band) << "/" << QString::number(_mode) << "/" << QString::number(_logNumber) << "/" << QString::number(_qsoId) << endl;
     int nameCol=-1;
     QString _refid = QString();
-    /*
-    _confirmedQSO == false QSO is just worked
-    _confirmedQSO == true QSO is confirmed
 
-    */
+    // _confirmedQSO == false QSO is just worked
+    // _confirmedQSO == true QSO is confirmed
+
     //TODO: Fix the way we check for data validity for this function
     if (!( (_dxcc>=0) && (_band >=0) && (_mode>=0) && (_logNumber>=0) && (_qsoId >=0) ))
     {
@@ -1436,7 +1059,7 @@ int Awards::setAwardDXCCst(const int _dxcc, const int _band, const int _mode, co
             //qDebug() << "Awards::setAwardDXCCst: We have some data, we neer to update" << endl;
             nameCol = rec.indexOf("id");
             _refid = query.value(nameCol).toString();
-            stringQuery = QString("UPDATE awarddxcc SET confirmed='Y', qsoid='%1' WHERE id='%2'").arg(_qsoId).arg(_refid);
+            stringQuery = QString("UPDATE awarddxcc SET confirmed='1', qsoid='%1' WHERE id='%2'").arg(_qsoId).arg(_refid);
             //qDebug() << "Awards::setAwardDXCCst: (UPDATE): " << stringQuery << endl;
             if (sqlOK)
             { // Set of data updated
@@ -1490,15 +1113,18 @@ int Awards::setAwardDXCCst(const int _dxcc, const int _band, const int _mode, co
 
 }
 
+*/
+
+/*
 int Awards::setAwardWAZst(const int _cqz, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId)
 {
    //qDebug() << "Awards::setAwardWAZst(CQZ/BAND/MODE/WORKED/log/qsoid): " << QString::number(_cqz) << "/" << QString::number(_band) << "/" << QString::number(_mode) << "/" << QString::number(_logNumber) << "/" << QString::number(_qsoId) << endl;
 
-/*
-    _confirmed == false QSO is just worked
-    _confirmed == true QSO is confirmed
 
-*/
+    // _confirmed == false QSO is just worked
+    // _confirmed == true QSO is confirmed
+
+
 
    //TODO: Fix the way we check for data validity for this function
     if (!( (_cqz>=0) && (_band >=0) && (_mode>=0) && (_logNumber>=0) && (_qsoId >=0) ))
@@ -1556,16 +1182,13 @@ int Awards::setAwardWAZst(const int _cqz, const int _band, const int _mode, cons
         return -1;
 }
 
+*/
+
+/*
 int Awards::setAwardDXCCConfirmed(const int _band, const int _mode, const int _dxcc, const int _newQSOid) // Changes the status of a DXCC from worked to confirmed
 {
     //qDebug() << "Awards::setAwardDXCCConfirmed: " << QString::number(_band) << "/" << QString::number(_mode) << "/" << QString::number(_dxcc)<< "/" << QString::number(_newQSOid)<< endl;
 
-/*
- * Check if the DXCC is worked
- * If worked, change the qsoid and set is confirmed
- * If not worked (or _prev=0), add the DXCC as confimed
- *
- */
 
     QString stringQuery;
     QSqlQuery query = QSqlQuery();
@@ -1586,7 +1209,7 @@ int Awards::setAwardDXCCConfirmed(const int _band, const int _mode, const int _d
                 nameCol = rec.indexOf("qsoid");
                 aux = (query.value(nameCol)).toString();
                 query.finish();
-                stringQuery = QString("UPDATE awarddxcc SET confirmed='Y', qsoid='%1' WHERE qsoid='%2'").arg(_newQSOid).arg(aux);
+                stringQuery = QString("UPDATE awarddxcc SET confirmed='1', qsoid='%1' WHERE qsoid='%2'").arg(_newQSOid).arg(aux);
                 sqlOK = query.exec(stringQuery);
                 if (sqlOK)
                 {
@@ -1635,6 +1258,7 @@ int Awards::setAwardDXCCConfirmed(const int _band, const int _mode, const int _d
     return 1;
 }
 
+*/
 
 int Awards::setDXCCToQSO(const int _dxcc, const int _qsoid) // Defines the DXCC in a QSO
 {
@@ -1745,13 +1369,13 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
             {
                 if ( query.isValid() )
                 {
-                    if(query.value(0).toString() == "Y")         // Confirmed
+                    if(query.value(0).toString() == "1")         // Confirmed
                     {
 
                         query.finish();
                         return 2;
                     }
-                    else if(query.value(0).toString() == "N")    // Worked
+                    else if(query.value(0).toString() == "0")    // Worked
                     {
                         query.finish();
                         return 1;
@@ -1807,12 +1431,12 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
             {
                 if ( query.isValid() )
                 {
-                    if(query.value(0).toString() == "Y")         // Confirmed
+                    if(query.value(0).toString() == "1")         // Confirmed
                     {
                         query.finish();
                         return 2;
                     }
-                    else if(query.value(0).toString() == "N")    // Worked
+                    else if(query.value(0).toString() == "0")    // Worked
                     {
                         query.finish();
                         return 1;

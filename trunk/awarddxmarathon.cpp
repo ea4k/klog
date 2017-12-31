@@ -24,11 +24,13 @@
  *                                                                           *
  *****************************************************************************/
 #include "awarddxmarathon.h"
+#include <QDebug>
 
 DXMarathon::DXMarathon(DataProxy *dp)
 {
     //qDebug() << "DXMarathon::DXMarathon"  << endl;
     dataProxy = dp;
+    //qDebug() << "DXMarathon::DXMarathon - END"  << endl;
 }
 
 

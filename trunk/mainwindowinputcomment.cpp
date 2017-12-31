@@ -34,6 +34,7 @@ MainWindowInputComment::MainWindowInputComment(QWidget *parent) :
     commentLineEdit = new QLineEdit();
     comment.clear();
     createUI();
+    //qDebug() << "MainWindowInputComment::MainWindowInputComment - END"   << endl;
 }
 
 

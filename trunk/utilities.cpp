@@ -5,6 +5,7 @@ Utilities::Utilities()
     //qDebug() << "Utilities::Utilities"  << endl;
     //dbPath = getKLogDBFile();
     softwareVersion = "0.0";
+    //qDebug() << "Utilities::Utilities - END"  << endl;
 }
 Utilities::~Utilities()
 {
@@ -201,7 +202,6 @@ QString Utilities::getHomeDir()
       //qDebug() << "NO WINDOWS DETECTED!"  << endl;
     return QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs and data
 #endif
-
 }
 
 QString Utilities::getKLogDefaultDatabaseFile()
@@ -221,7 +221,6 @@ QString Utilities::getKLogDatabaseFile(const QString _file)
     }
     else
     {}
-
       //qDebug() << "Utilities::getKLogDatabaseFile: Does not exist so default: " <<  getKLogDefaultDatabaseFile() << endl;
         return getKLogDefaultDatabaseFile();
 }
@@ -337,10 +336,8 @@ bool Utilities::isValidDate(const QDate _d)
         {
             return true;
         }
-
     }
     return false;
-
 }
 
 bool Utilities::isDBFileExisting()

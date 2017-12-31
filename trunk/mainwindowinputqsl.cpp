@@ -50,6 +50,7 @@ MainWindowInputQSL::MainWindowInputQSL(DataProxy *dp, QWidget *parent) :
     createUI();
     setDefaultData();
     clear();
+    //qDebug() << "MainWindowInputQSL::MainWindowInputQSL - END"   << endl;
 
 }
 

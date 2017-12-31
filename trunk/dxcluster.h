@@ -44,8 +44,6 @@ class DXClusterWidget : public QWidget
 
  public:
     DXClusterWidget(DataProxy *dp, QWidget *parent );
-
-    //DXClusterWidget(QWidget *parent);
     DXClusterWidget(DataProxy *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent );
 
     void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
@@ -110,6 +108,7 @@ private:
     QString myQrz;
     int currentLog;
 
+    int constrid; // Just an id for the constructor to check who is being executed at one specific time
  };
 
 class dxClusterSpotItem : public QListWidgetItem {

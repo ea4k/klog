@@ -52,6 +52,7 @@ MainWindowSatTab::MainWindowSatTab(DataProxy *dp, QWidget *parent) :
     satOtherLabel->setEnabled(false);
 
     setDefaultBands(); //TODO: Check how the bands are included not to create an inconsistence with the selected (in the setup) bands
+    //qDebug() << "MainWindowSatTab::MainWindowSatTab - END"   << endl;
 }
 
 MainWindowSatTab::~MainWindowSatTab(){}

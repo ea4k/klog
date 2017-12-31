@@ -7,7 +7,7 @@ LogModel::LogModel(DataProxy *dp, QObject *parent):QSqlRelationalTableModel(pare
     dataProxy = dp;
     setTable("log");
     setEditStrategy(QSqlTableModel::OnFieldChange);
-
+    //qDebug() << "LogModel::LogModel - END"  << endl;
 }
 
 

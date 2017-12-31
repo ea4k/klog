@@ -36,6 +36,7 @@ MainWindowInputEQSL::MainWindowInputEQSL(DataProxy *dp, QWidget *parent) :
     createUI();
     setDefaultData();
     clear();
+    //qDebug() << "MainWindowInputEQSL::MainWindowInputEQSL - END"   << endl;
 }
 
 void MainWindowInputEQSL::createUI()

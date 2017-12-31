@@ -32,11 +32,10 @@ SearchWidget::SearchWidget(DataProxy *dp, QWidget *parent) :
     stationCallSignShownInSearch = true;
 
     clear();
-
     createUI();
-//    setDefaultData();
-//    clear();
+    //qDebug() << "SearchWidget::SearchWidget - END"   << endl;
 }
+
 SearchWidget::~SearchWidget()
 {
 

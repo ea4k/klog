@@ -35,7 +35,7 @@ ShowErrorDialog::ShowErrorDialog()
     layout->addLayout(buttonsLayout);
 
     setLayout(layout);
-
+    //qDebug() << "ShowErrorDialog::ShowErrorDialog - END"  << endl;
 }
 
 void ShowErrorDialog::setText(const QString txt)

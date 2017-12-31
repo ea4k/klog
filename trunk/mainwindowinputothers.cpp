@@ -51,6 +51,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy *dp, QWidget *parent) :
 
 
     createUI();
+    //qDebug() << "MainWindowInputOthers::MainWindowInputOthers - END" << endl;
 }
 
 MainWindowInputOthers::~MainWindowInputOthers(){}
