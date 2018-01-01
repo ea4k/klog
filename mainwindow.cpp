@@ -3437,7 +3437,7 @@ void MainWindow::createMenusCommon()
     lotwMarkSentYesAct = new QAction(tr("Mark all queued QSO as sent"), this);
     lotwToolMenu ->addAction(lotwMarkSentYesAct);
     connect(lotwMarkSentYesAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllYes()));
-    lotwMarkSentYesAct->setToolTip(tr("ark all queued QSOs as sent to LoTW."));
+    lotwMarkSentYesAct->setToolTip(tr("Mark all queued QSOs as sent to LoTW."));
 
 
     toolMenu->addSeparator();

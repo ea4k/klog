@@ -1111,11 +1111,6 @@ If you select NO, the QSO may not be imported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3440"/>
-        <source>ark all queued QSOs as sent to LoTW.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3449"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
         <translation type="unfinished"></translation>
@@ -1628,6 +1623,11 @@ Vol guardar els canvis?</translation>
         <location filename="../mainwindow.cpp" line="3396"/>
         <source>&amp;Find QSO to QSL</source>
         <translation>Cercar QSO a enviar &amp;QSL</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3440"/>
+        <source>Mark all queued QSOs as sent to LoTW.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3454"/>

@@ -1331,7 +1331,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3440"/>
-        <source>ark all queued QSOs as sent to LoTW.</source>
+        <source>Mark all queued QSOs as sent to LoTW.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

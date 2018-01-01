@@ -1164,11 +1164,6 @@ If you select NO, the QSO may not be imported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3440"/>
-        <source>ark all queued QSOs as sent to LoTW.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3512"/>
         <location filename="../mainwindow.cpp" line="3521"/>
         <location filename="../mainwindow.cpp" line="3535"/>
@@ -1927,6 +1922,11 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3342"/>
         <source>Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3440"/>
+        <source>Mark all queued QSOs as sent to LoTW.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

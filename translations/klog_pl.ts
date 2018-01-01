@@ -1338,11 +1338,6 @@ Czy chcesz zapisać zmiany?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3440"/>
-        <source>ark all queued QSOs as sent to LoTW.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3449"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
         <translation type="unfinished"></translation>
@@ -2010,6 +2005,11 @@ If you are sure that the database contains QSOs and KLog is not able to find the
     <message>
         <location filename="../mainwindow.cpp" line="3415"/>
         <source>Shows the DX-QSL that has been requested.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3440"/>
+        <source>Mark all queued QSOs as sent to LoTW.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
