@@ -28,8 +28,6 @@
 //#include <QDebug>
 
 
-
-
 FileManager::FileManager(DataProxy *dp)
 {
     //qDebug() << "FileManager::FileManager()-1" << endl;
@@ -260,7 +258,7 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
     progress.setMaximum(numberOfQsos);
     progress.setWindowModality(Qt::ApplicationModal);
 
-    out << "ADIF v2.2.7 Export from KLog\nhttp://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
+    out << "ADIF v3.0.7 Export from KLog\nhttp://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
     out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
 
     QDateTime dateTime = (QDateTime::currentDateTime()).toUTC();
@@ -463,6 +461,7 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
         }
         //qDebug() << "FileManager::adifLoTWLogExport: End Of Valid"  << endl;
     }
+
     //qDebug() << "FileManager::adifLoTWLogExport: End of While " << endl;
 
     return i;
@@ -579,7 +578,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     progress.setMaximum(numberOfQsos);
     progress.setWindowModality(Qt::ApplicationModal);
 
-    out << "ADIF v2.2.7 Export from KLog\nhttp://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
+    out << "ADIF v3.0.7 Export from KLog\nhttp://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
     out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
 
     QDateTime dateTime = (QDateTime::currentDateTime()).toUTC();
@@ -4715,7 +4714,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
 
     if (!(haveBand && haveCall && haveMode && haveTime && haveDate ))
     {
-        aux2 = tr ("This QSO is not including the minimum data to consider a QSO as valid!.\n\n\nPlease edit the ADIF file and make sure that it include at least:\n\nCALL, QSO_DATE, TIME_ON, BAND and MODE.\n\nThis QSO had:\n");
+        aux2 = tr ("This QSO is not including the minimum data to consider a QSO as valid!.") + "\n\n\n" + tr("Please edit the ADIF file and make sure that it include at least:") + "\n\nCALL, QSO_DATE, TIME_ON, BAND "+ tr("and") +" MODE.\n\n" + tr("This QSO had:") + "\n";
 
         if (!haveBand)
         {
@@ -4744,7 +4743,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
         }
 
 
-        aux2 = aux2 + tr("\n\nDo you want to continue with the current file?");
+        aux2 = aux2 + "\n\n" + tr("Do you want to continue with the current file?");
        //qDebug() << "FileManager::processQsoReadingADIF - Missing fields: " << aux2 << endl;
 
         QMessageBox msgBox;
@@ -4772,7 +4771,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     if ((!rstTXr) && (!rstTXDefault))
     {
         QMessageBox msgBox;
-        aux = tr("This log seems to lack of RST-TX information.\n\nClick on Yes to add a default 59 to all QSO with a similar problem.\n\nIf you select NO, the QSO may not be imported.");
+        aux = tr("This log seems to lack of RST-TX information.") + "\n\n" + tr("Click on Yes to add a default 59 to all QSO with a similar problem.") + "\n\n" + tr("If you select NO, the QSO may not be imported.");
         msgBox.setWindowTitle(tr("KLog: No RST TX found!"));
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
@@ -4794,7 +4793,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     if ((!rstRXr) && (!rstRXDefault))
     {
         QMessageBox msgBox;
-        aux = tr("This log seems to lack of RST-RX information.\n\nClick on Yes to add a default 59 to all QSO with a similar problem.\n\nIf you select NO, the QSO may not be imported.");
+        aux = tr("This log seems to lack of RST-RX information.") + "\n\n" + tr("Click on Yes to add a default 59 to all QSO with a similar problem.") + "\n\n" + tr("If you select NO, the QSO may not be imported.");
         msgBox.setText(aux);
         msgBox.setWindowTitle(tr("KLog: No RST RX found!"));
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);

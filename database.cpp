@@ -2838,6 +2838,8 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('XW-2F', 'Hope 2F', '435.330-435.350', '145.980-145.999', 'LSB/USB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-90', 'LilacSat-OSCAR 90 (LilacSat-1)', '145.985', '436.510', 'FM')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-91', 'RadFxSat (Fox-1B)', '435.250', '145.960', 'FM')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FS-3', 'FalconSat-3', '435.103', '145.840', 'PKT')").arg(tableName));
+
 
      //qDebug() << "DataBase::populateTableSatellites - END" << endl;
     return true;
