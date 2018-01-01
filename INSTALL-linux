@@ -15,9 +15,9 @@ details in the AUTHORS file).
 
 1. Install the KLog dependencies
 
-	- Install g++, qt5-qmake, qtbase5-dev & qttools5-dev packages
+	- Install g++, make, qt5-qmake, qtbase5-dev & qttools5-dev packages
 
-In Debian it is done with: apt-get install g++ qt5-qmake qtbase5-dev qttools5-dev
+In Debian it is done with: apt-get install g++ make qt5-qmake qtbase5-dev qttools5-dev
 
 In your distribution, you should know how to install new packages :-)
 
