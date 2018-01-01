@@ -1111,11 +1111,6 @@ If you select NO, the QSO may not be imported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3440"/>
-        <source>ark all queued QSOs as sent to LoTW.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3449"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
         <translation type="unfinished"></translation>
@@ -1968,6 +1963,11 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3405"/>
         <source>Shows the QSOs with pending requests to send QSLs. You should keep this queue empty!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3440"/>
+        <source>Mark all queued QSOs as sent to LoTW.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
