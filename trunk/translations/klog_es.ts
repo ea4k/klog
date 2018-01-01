@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.1" language="es_ES">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -262,12 +262,11 @@ Do you want to try again?</source>
         <translation>Intentando conectar con el servidor</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="221"/>
         <source>The host was not found. Please check:
 
 - your network connection;
 - the host name and port settings.</source>
-        <translation>Máquina no encontrada. Por favor revise:
+        <translation type="vanished">Máquina no encontrada. Por favor revise:
 
 - la conexión de red
 - el nombre y puerto de la máquina.</translation>
@@ -318,6 +317,17 @@ Do you want to try again?</source>
         <location filename="../dxcluster.cpp" line="582"/>
         <source>Disconnect</source>
         <translation>Desconectar</translation>
+    </message>
+    <message>
+        <location filename="../dxcluster.cpp" line="221"/>
+        <source>The host was not found. Please check:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dxcluster.cpp" line="222"/>
+        <source>- your network connection;
+- the host name and port settings.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="511"/>
@@ -431,7 +441,7 @@ Do you want to try again?</source>
     </message>
     <message>
         <source>No station callsign has been selected and threfore no log will be exported</source>
-        <translation>No se ha seleccionado indicativo de estación por lo que no se exportará ningún log</translation>
+        <translation type="vanished">No se ha seleccionado indicativo de estación por lo que no se exportará ningún log</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="259"/>
@@ -503,7 +513,33 @@ Do you still want to cancel?</source>
 ¿Quiere cancelar?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4718"/>
+        <location filename="../filemanager.cpp" line="4747"/>
+        <source>Do you want to continue with the current file?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4775"/>
+        <source>This log seems to lack of RST-TX information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4775"/>
+        <location filename="../filemanager.cpp" line="4797"/>
+        <source>Click on Yes to add a default 59 to all QSO with a similar problem.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4775"/>
+        <location filename="../filemanager.cpp" line="4797"/>
+        <source>If you select NO, the QSO may not be imported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4797"/>
+        <source>This log seems to lack of RST-RX information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This QSO is not including the minimum data to consider a QSO as valid!.
 
 
@@ -513,7 +549,7 @@ CALL, QSO_DATE, TIME_ON, BAND and MODE.
 
 This QSO had:
 </source>
-        <translation>Edite el fichero ADIF y asegúrese de que incluye al menos: 
+        <translation type="vanished">Edite el fichero ADIF y asegúrese de que incluye al menos: 
 
 CALL, QSO_DATE, TIME_ON, BAND y MODE.
 
@@ -546,11 +582,10 @@ Este QSO tenía:
         <translation> - La hora inexistente pero el siguiente indicativo: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4747"/>
         <source>
 
 Do you want to continue with the current file?</source>
-        <translation>¿Quiere continuar con el fichero actual?</translation>
+        <translation type="vanished">¿Quiere continuar con el fichero actual?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2636"/>
@@ -573,18 +608,37 @@ Do you want to continue with the current file?</source>
         <translation>No se ha seleccionado indicativo de estación por lo que no se exportará ningún log</translation>
     </message>
     <message>
+        <location filename="../filemanager.cpp" line="4718"/>
+        <source>This QSO is not including the minimum data to consider a QSO as valid!.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4718"/>
+        <source>Please edit the ADIF file and make sure that it include at least:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4718"/>
+        <source>and</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4718"/>
+        <source>This QSO had:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../filemanager.cpp" line="4751"/>
         <source>KLog: Not all required data found!</source>
         <translation>KLog: ¡No se encontraron todos los datos necesarios!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4775"/>
         <source>This log seems to lack of RST-TX information.
 
 Click on Yes to add a default 59 to all QSO with a similar problem.
 
 If you select NO, the QSO may not be imported.</source>
-        <translation>Este log parece que no tiene la información de RST TX.
+        <translation type="vanished">Este log parece que no tiene la información de RST TX.
 
 Pulse en Si para añadir 59 de forma predeterminada a todos los QSO con un problema similar.
 
@@ -596,13 +650,12 @@ Siselecciona NO, el QSO puede que no se importe.</translation>
         <translation>KLog: ¡No se encontró RST TX!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4797"/>
         <source>This log seems to lack of RST-RX information.
 
 Click on Yes to add a default 59 to all QSO with a similar problem.
 
 If you select NO, the QSO may not be imported.</source>
-        <translation>Este log parece que no tiene la información de RST RX.
+        <translation type="vanished">Este log parece que no tiene la información de RST RX.
 
 Pulse en Si para añadir 59 de forma predeterminada a todos los QSO con un problema similar.
 
@@ -616,7 +669,7 @@ Siselecciona NO, el QSO puede que no se importe.</translation>
     <message>
         <source>An error ocurred while importing. No data will be imported. Please send this code to the developer for analysis: </source>
         <oldsource>An error ocurred while MID-importing. No data will be imported. Please send this code to the developer for analysis: </oldsource>
-        <translation>Ha ocurrido un error al importar. No se importará ningún dato. Por favor envíe este código al desarrollador para su análisis: </translation>
+        <translation type="vanished">Ha ocurrido un error al importar. No se importará ningún dato. Por favor envíe este código al desarrollador para su análisis: </translation>
     </message>
 </context>
 <context>
@@ -1186,7 +1239,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Import an ADIF file into the current log</source>
-        <translation>Importar fichero ADIF al log actual</translation>
+        <translation type="vanished">Importar fichero ADIF al log actual</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3320"/>
@@ -1267,6 +1320,16 @@ Do you want to save your changes?</source>
         <location filename="../mainwindow.cpp" line="4490"/>
         <source>DUPE</source>
         <translation>DUPLICADO</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4872"/>
+        <source>It seems that there are no QSO in the database.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4872"/>
+        <source>If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5208"/>
@@ -1360,7 +1423,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Shows the DX-QSL that has been requested</source>
-        <translation>Muestra QSL-DX que han sido solicitadas</translation>
+        <translation type="vanished">Muestra QSL-DX que han sido solicitadas</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3656"/>
@@ -1426,7 +1489,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program)</source>
-        <translation>Exportar todos los QSOs que solicitan mi QSL a un fichero ADIF (ej. para importarlo a un programa de impresión de etiquetas QSL)</translation>
+        <translation type="vanished">Exportar todos los QSOs que solicitan mi QSL a un fichero ADIF (ej. para importarlo a un programa de impresión de etiquetas QSL)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3374"/>
@@ -1435,11 +1498,11 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Go through the log reusing previous QSOs to fill missing information in other QSOs</source>
-        <translation>Recorrer el log reutilizando QSO anteriores para rellenar información en otros QSO</translation>
+        <translation type="vanished">Recorrer el log reutilizando QSO anteriores para rellenar información en otros QSO</translation>
     </message>
     <message>
         <source>Shows QSOs for which you should send your QSL and request the DX QSL</source>
-        <translation>Muestra QSO necesarios, para los que debería enviar su QSL y solicitar la del DX</translation>
+        <translation type="vanished">Muestra QSO necesarios, para los que debería enviar su QSL y solicitar la del DX</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3401"/>
@@ -1453,7 +1516,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Shows the DX-QSL that has been requested or QSLs has been sent with no answer</source>
-        <translation>Muestra QSL-DX que han sido solicitadas o cuya QSL ha sido enviada sin respuesta</translation>
+        <translation type="vanished">Muestra QSL-DX que han sido solicitadas o cuya QSL ha sido enviada sin respuesta</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3474"/>
@@ -1500,7 +1563,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Export the current log to an ADIF logfile</source>
-        <translation>Exportar el log actual a un fichero ADIF</translation>
+        <translation type="vanished">Exportar el log actual a un fichero ADIF</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3333"/>
@@ -1732,11 +1795,10 @@ Do you want to save your changes?</source>
         <translation>Puede modificar el fichero de configuración, si es necesario.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4872"/>
         <source>It seems that there are no QSO in the database.
 
 If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.</source>
-        <translation>Parece que no hay QSOs en la base de datos.
+        <translation type="vanished">Parece que no hay QSOs en la base de datos.
 
 Si está seguro de que la base de datos contiene QSO y KLog no es capaz de encontrarlos, por favor, contacte con los desarrolladores (mire en Acerca de KLog).</translation>
     </message>

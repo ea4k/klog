@@ -266,9 +266,12 @@ msgstr ""
 
 #: ../dxcluster.cpp:221
 msgctxt "DXClusterWidget|"
+msgid "The host was not found. Please check:"
+msgstr ""
+
+#: ../dxcluster.cpp:222
+msgctxt "DXClusterWidget|"
 msgid ""
-"The host was not found. Please check:\n"
-"\n"
 "- your network connection;\n"
 "- the host name and port settings."
 msgstr ""
@@ -494,19 +497,6 @@ msgid ""
 "Do you still want to cancel?"
 msgstr ""
 
-#: ../filemanager.cpp:4718
-msgctxt "FileManager|"
-msgid ""
-"This QSO is not including the minimum data to consider a QSO as valid!.\n"
-"\n"
-"\n"
-"Please edit the ADIF file and make sure that it include at least:\n"
-"\n"
-"CALL, QSO_DATE, TIME_ON, BAND and MODE.\n"
-"\n"
-"This QSO had:\n"
-msgstr ""
-
 #: ../filemanager.cpp:4722
 msgctxt "FileManager|"
 msgid " - The band missing and the following call: "
@@ -532,34 +522,6 @@ msgctxt "FileManager|"
 msgid " - The time missing and the following call: "
 msgstr ""
 
-#: ../filemanager.cpp:4747
-msgctxt "FileManager|"
-msgid ""
-"\n"
-"\n"
-"Do you want to continue with the current file?"
-msgstr ""
-
-#: ../filemanager.cpp:4775
-msgctxt "FileManager|"
-msgid ""
-"This log seems to lack of RST-TX information.\n"
-"\n"
-"Click on Yes to add a default 59 to all QSO with a similar problem.\n"
-"\n"
-"If you select NO, the QSO may not be imported."
-msgstr ""
-
-#: ../filemanager.cpp:4797
-msgctxt "FileManager|"
-msgid ""
-"This log seems to lack of RST-RX information.\n"
-"\n"
-"Click on Yes to add a default 59 to all QSO with a similar problem.\n"
-"\n"
-"If you select NO, the QSO may not be imported."
-msgstr ""
-
 #: ../filemanager.cpp:3389
 msgctxt "FileManager|"
 msgid "Reading ADIF file..."
@@ -581,14 +543,59 @@ msgid ""
 "No station callsign has been selected and therefore no log will be exported"
 msgstr ""
 
+#: ../filemanager.cpp:4718
+msgctxt "FileManager|"
+msgid "This QSO is not including the minimum data to consider a QSO as valid!."
+msgstr ""
+
+#: ../filemanager.cpp:4718
+msgctxt "FileManager|"
+msgid "Please edit the ADIF file and make sure that it include at least:"
+msgstr ""
+
+#: ../filemanager.cpp:4718
+msgctxt "FileManager|"
+msgid "and"
+msgstr ""
+
+#: ../filemanager.cpp:4718
+msgctxt "FileManager|"
+msgid "This QSO had:"
+msgstr ""
+
+#: ../filemanager.cpp:4747
+msgctxt "FileManager|"
+msgid "Do you want to continue with the current file?"
+msgstr ""
+
 #: ../filemanager.cpp:4751
 msgctxt "FileManager|"
 msgid "KLog: Not all required data found!"
 msgstr ""
 
+#: ../filemanager.cpp:4775
+msgctxt "FileManager|"
+msgid "This log seems to lack of RST-TX information."
+msgstr ""
+
+#: ../filemanager.cpp:4775 ../filemanager.cpp:4797
+msgctxt "FileManager|"
+msgid "Click on Yes to add a default 59 to all QSO with a similar problem."
+msgstr ""
+
+#: ../filemanager.cpp:4775 ../filemanager.cpp:4797
+msgctxt "FileManager|"
+msgid "If you select NO, the QSO may not be imported."
+msgstr ""
+
 #: ../filemanager.cpp:4776
 msgctxt "FileManager|"
 msgid "KLog: No RST TX found!"
+msgstr ""
+
+#: ../filemanager.cpp:4797
+msgctxt "FileManager|"
+msgid "This log seems to lack of RST-RX information."
 msgstr ""
 
 #: ../filemanager.cpp:4799
@@ -1327,7 +1334,7 @@ msgstr ""
 
 #: ../mainwindow.cpp:3440
 msgctxt "MainWindow|"
-msgid "ark all queued QSOs as sent to LoTW."
+msgid "Mark all queued QSOs as sent to LoTW."
 msgstr ""
 
 #: ../mainwindow.cpp:3445
@@ -1491,9 +1498,12 @@ msgstr ""
 
 #: ../mainwindow.cpp:4872
 msgctxt "MainWindow|"
+msgid "It seems that there are no QSO in the database."
+msgstr ""
+
+#: ../mainwindow.cpp:4872
+msgctxt "MainWindow|"
 msgid ""
-"It seems that there are no QSO in the database.\n"
-"\n"
 "If you are sure that the database contains QSOs and KLog is not able to find "
 "them, please contact the developers (see About KLog) for help."
 msgstr ""
