@@ -25,7 +25,7 @@
  *****************************************************************************/
 
 #include "dataproxy_sqlite.h"
-#include "util.h"
+#include "utilities.h"
 //#include <QDebug>
 
 DataProxy_SQLite::DataProxy_SQLite(const QString _softVersion, const QString _parentFunction)
