@@ -4869,7 +4869,7 @@ bool MainWindow::processConfigLine(const QString _line){
                     else
                 {
                     msgBox.setIcon(QMessageBox::Critical);
-                    QString aux = tr("It seems that there are no QSO in the database.\n\nIf you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.");
+                    QString aux = tr("It seems that there are no QSO in the database.") + "\n\n" + tr("If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Ok);
                     msgBox.setDefaultButton(QMessageBox::Ok);
@@ -5741,7 +5741,9 @@ void MainWindow::slotLoTWExport(){
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        aux = tr("LoTW logfile has been properly exported!") + "\n\n" + tr("Remember to sign the LoTW log before you upload it!");
+        aux = tr("LoTW logfile has been properly exported!") + "\n\n" + tr("Remember to:") + "\n\n-" + tr("Before uploading: sign the LoTW log; and") + "\n-" + tr("After uploading: mark as sent all the queued QSO (LoTW Tools).");
+
+
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok );
 
@@ -6118,6 +6120,7 @@ void MainWindow::qsoToEdit (const int _qso)
         nameCol = rec.indexOf("name");
         aux1 = (query.value(nameCol)).toString();
            //qDebug() << "MainWindow::qsoToEdit: - NAME: " << aux1  << endl;
+
         if (aux1.length()>0)
         {
             nameLineEdit->setText(aux1);
@@ -6306,6 +6309,7 @@ void MainWindow::qsoToEdit (const int _qso)
             nameCol = rec.indexOf("lotw_qsl_sent");
             aux1 = (query.value(nameCol)).toString();
             eQSLTabWidget->setLOTWSenStatus(aux1.toUpper());
+            //qDebug() << "MainWindow::qsoToEdit: - LoTW Sent Status: " << aux1  << endl;
 
             //TODO: Depending on the Value a date should or not exist.
             //      This code may be importing dates when they should not exist.

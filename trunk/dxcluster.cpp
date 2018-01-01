@@ -218,8 +218,8 @@ void DXClusterWidget::slotClusterDisplayError(QAbstractSocket::SocketError socke
          break;
      case QAbstractSocket::HostNotFoundError:
          QMessageBox::warning(this, tr("KLog DXCluster"),
-                                  tr("The host was not found. Please check:\n\n"
-                                     "- your network connection;\n"
+                                  tr("The host was not found. Please check:") + "\n\n" +
+                                     tr ("- your network connection;\n"
                                      "- the host name and port settings."));
          break;
      case QAbstractSocket::ConnectionRefusedError:
