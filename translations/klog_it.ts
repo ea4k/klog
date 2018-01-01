@@ -261,15 +261,25 @@ Vuoi fare un ulteriore tentativo?</translation>
         <translation>KLog DXCluster</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="221"/>
         <source>The host was not found. Please check:
 
 - your network connection;
 - the host name and port settings.</source>
-        <translation>Il server host non risulta raggiungibile. Per favore verifica:
+        <translation type="vanished">Il server host non risulta raggiungibile. Per favore verifica:
 
 - la tua connessione di rete;
 - il nome del server host e la configurazione delle porte.</translation>
+    </message>
+    <message>
+        <location filename="../dxcluster.cpp" line="221"/>
+        <source>The host was not found. Please check:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dxcluster.cpp" line="222"/>
+        <source>- your network connection;
+- the host name and port settings.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="227"/>
@@ -501,21 +511,23 @@ Do you still want to cancel?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4775"/>
-        <source>This log seems to lack of RST-TX information.
-
-Click on Yes to add a default 59 to all QSO with a similar problem.
-
-If you select NO, the QSO may not be imported.</source>
+        <location filename="../filemanager.cpp" line="4718"/>
+        <source>This QSO is not including the minimum data to consider a QSO as valid!.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4797"/>
-        <source>This log seems to lack of RST-RX information.
-
-Click on Yes to add a default 59 to all QSO with a similar problem.
-
-If you select NO, the QSO may not be imported.</source>
+        <location filename="../filemanager.cpp" line="4718"/>
+        <source>Please edit the ADIF file and make sure that it include at least:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4718"/>
+        <source>and</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4718"/>
+        <source>This QSO had:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -532,19 +544,6 @@ If you select NO, the QSO may not be imported.</source>
     <message>
         <source>An error ocurred while importing. No data will be imported. Please send this code to the developer for analysis: </source>
         <translation type="vanished">Si è verificato un errore durante l&apos;import. Nessun dato è stato importato. Per favore comunica questo codice agli sviluppatori: </translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="4718"/>
-        <source>This QSO is not including the minimum data to consider a QSO as valid!.
-
-
-Please edit the ADIF file and make sure that it include at least:
-
-CALL, QSO_DATE, TIME_ON, BAND and MODE.
-
-This QSO had:
-</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4722"/>
@@ -573,9 +572,7 @@ This QSO had:
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4747"/>
-        <source>
-
-Do you want to continue with the current file?</source>
+        <source>Do you want to continue with the current file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -584,9 +581,31 @@ Do you want to continue with the current file?</source>
         <translation>KLOg: Dati necessari mancanti!</translation>
     </message>
     <message>
+        <location filename="../filemanager.cpp" line="4775"/>
+        <source>This log seems to lack of RST-TX information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4775"/>
+        <location filename="../filemanager.cpp" line="4797"/>
+        <source>Click on Yes to add a default 59 to all QSO with a similar problem.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4775"/>
+        <location filename="../filemanager.cpp" line="4797"/>
+        <source>If you select NO, the QSO may not be imported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../filemanager.cpp" line="4776"/>
         <source>KLog: No RST TX found!</source>
         <translation>KLog: Non trovato RST TX!</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4797"/>
+        <source>This log seems to lack of RST-RX information.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4799"/>
@@ -1343,13 +1362,6 @@ Do you want to continue with the current file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4872"/>
-        <source>It seems that there are no QSO in the database.
-
-If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="5151"/>
         <source>TX Frequency in MHz.</source>
         <translation>Frequenza TX in MHz.</translation>
@@ -1743,6 +1755,16 @@ Vuoi salvare i cambiamenti?</translation>
         <location filename="../mainwindow.cpp" line="4490"/>
         <source>DUPE</source>
         <translation>DUPLICA</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4872"/>
+        <source>It seems that there are no QSO in the database.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4872"/>
+        <source>If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5240"/>
