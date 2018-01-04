@@ -146,6 +146,7 @@ CODECFORSRC = UTF-8
 #include(translations/translations.pri)
 TRANSLATIONS = translations/klog_es.ts \
     translations/klog_ca.ts \
+    translations/klog_da.ts \
     translations/klog_hr.ts \
     translations/klog_it.ts \
     translations/klog_pl.ts \
