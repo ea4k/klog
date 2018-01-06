@@ -1,5 +1,5 @@
 RC-BUGS:
-
+Crash: When marking queued as sent and selecting a call
 
 
 REVIEW: bool DataProxy_SQLite::qslRecViaBureau - Check this function flow
