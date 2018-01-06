@@ -207,18 +207,9 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
         }
         else
         {
-
-            //getText(QWidget * parent,
-            //        const QString & title, const QString & label, QLineEdit::EchoMode mode = QLineEdit::Normal,
-            //        const QString & text = QString(), bool * ok = 0, Qt::WindowFlags flags = 0,
-            //        Qt::InputMethodHints inputMethodHints = Qt::ImhNone) [static]
-
-
             stationCallToUse = (QInputDialog::getText(this, tr("Define Station Callsign"),
                                                      tr("You have selected no callsign. KLog will export QSOs without a station callsign defined and those with the call you are entering here.") + "\n\n" + tr("Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:"), QLineEdit::Normal,
                                                      "", &ok)).toUpper();
-
-
              if (ok)
              {
                 callsignTyped = true;

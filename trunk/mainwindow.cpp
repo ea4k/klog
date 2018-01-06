@@ -3417,12 +3417,12 @@ void MainWindow::createMenusCommon()
     toolMenu->addSeparator();
     lotwToolMenu = toolMenu->addMenu(tr("LoTW tools..."));
 
-    lotwMarkSentQueuedThisLogAct = new QAction(tr("Queue all QSO of this log"), this);
+    lotwMarkSentQueuedThisLogAct = new QAction(tr("Queue all QSL to be sent of this log"), this);
     lotwToolMenu->addAction(lotwMarkSentQueuedThisLogAct);
     connect(lotwMarkSentQueuedThisLogAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllQueuedThisLog()));
     lotwMarkSentQueuedThisLogAct->setToolTip(tr("Mark all non sent QSOs in this log as queued to be uploaded."));
 
-    lotwMarkSentQueuedAct = new QAction(tr("Queue all QSO"), this);
+    lotwMarkSentQueuedAct = new QAction(tr("Queue all QSL to be sent"), this);
     lotwToolMenu ->addAction(lotwMarkSentQueuedAct);
     connect(lotwMarkSentQueuedAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllQueued()));
     lotwMarkSentQueuedAct->setToolTip(tr("Mark all non sent QSOs as queued to be uploaded."));
@@ -3571,11 +3571,70 @@ void MainWindow::slotToolLoTWMarkAllYesThisLog()
     }
 }
 
+QString MainWindow::selectStationCallsign()
+{
+    QString stationCallToUse = QString();
+    QStringList stationCallSigns;
+    stationCallSigns.clear();
+    stationCallSigns << "NONE";
+    stationCallSigns << dataProxy->getStationCallSignsFromLog(-1);
+    bool callsignTyped = false;
+
+    if (stationCallSigns.length()>1)
+    {
+        QString msg = QString(tr("The log that you have selected contains more than just one station callsign.") + "\n\n" + tr("Please select the station callsing you want to mark as sent to LoTW:"));
+
+        bool ok;
+        stationCallToUse = QInputDialog::getItem(this, tr("Station Callsign:"),
+                                             msg, stationCallSigns, 0, false, &ok);
+
+        if (ok && !stationCallToUse.isEmpty())
+        {
+
+        }
+        else
+        {
+            stationCallToUse = (QInputDialog::getText(this, tr("Define Station Callsign"),
+                                                     tr("You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.") + "\n\n" + tr("Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:"), QLineEdit::Normal,
+                                                     "", &ok)).toUpper();
+             if (ok)
+             {
+                callsignTyped = true;
+
+             }
+             else
+             {
+                 QMessageBox msgBox;
+                 msgBox.setIcon(QMessageBox::Warning);
+
+                 QString aux = QString(tr("No station callsign has been selected and therefore no log will be marked") );
+                 msgBox.setText(aux);
+                 msgBox.setStandardButtons(QMessageBox::Ok);
+                 int ret = msgBox.exec();
+                 switch (ret) {
+                   case QMessageBox::Ok:
+                       // Ok was clicked
+                         //return ;
+                       break;
+                   default:
+                         // should never be reached
+                       break;
+                 }
+
+             }
+        }
+    }
+}
+
 void MainWindow::slotToolLoTWMarkAllYes()
 {
     //qDebug() << "MainWindow::slotToolLoTWMarkAllYes"  << endl;
+
+
+    QString stationCallToUse = selectStationCallsign();
+
     QString tdate = (dateEdit->date()).toString("yyyy/MM/dd");
-    if (dataProxy->lotwSentYes(tdate, -1))
+    if (dataProxy->lotwSentYes(tdate, -1, stationCallToUse))
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);

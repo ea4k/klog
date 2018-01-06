@@ -386,7 +386,7 @@ bool DataProxy::lotwSentQueue(const QString _updateDate, const int _currentLog)
     return false;
 }
 
-bool DataProxy::lotwSentYes(const QString _updateDate, const int _currentLog)
+bool DataProxy::lotwSentYes(const QString _updateDate, const int _currentLog, const QString _station)
 {
     return false;
 }

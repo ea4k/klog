@@ -350,6 +350,7 @@ private:
     bool processConfigLine(const QString _line);
     void readConfigData();    
     void defineStationCallsign();
+    QString selectStationCallsign();
 
     void checkIfNewBandOrMode();
     void readActiveBands (const QStringList actives);

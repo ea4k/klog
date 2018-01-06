@@ -148,7 +148,7 @@ public:
     virtual void compressDB();
     virtual bool unMarkAllQSO();                                // Unmarks all the marked QSO
     virtual bool lotwSentQueue(const QString _updateDate, const int _currentLog);          // Mark LOTW QSL SENT as Q (Queued)
-    virtual bool lotwSentYes(const QString _updateDate, const int _currentLog);         // Updat LOTW QSL SENT marked as Q as Y (Queued)
+    virtual bool lotwSentYes(const QString _updateDate, const int _currentLog, const QString _station);         // Updat LOTW QSL SENT marked as Q as Y (Queued)
 
     virtual int getQSOonYear(const int _year, const int _logNumber);
     virtual int getDXCConYear(const int _year, const int _logNumber);
