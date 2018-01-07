@@ -10,7 +10,10 @@ TBD - 0.9.2.8
 - Bugfix: If an empty log was selected on config file, on next KLog start KLog crashed.
 - Bugfix: Doubleclicking on the log to edit was sometimes causing the band/mode data to be shown as a number instead of the human readable name.
 - Bugfix: Windows version did not detected the DB movement correctly.
-- Improved the type of contest (changed int to QString).
+- New translation: Polish by LA7RRA (Thank you!).
+- New translation: Danish by Joe (Thank you!).
+- Updated translations: Croatian (TNX M0NKC), Italian (TNX IU5HIU), Spanish (EA4TV)
+- Several internal updates.
 
 September 2017 - 0.9.2.7
 - KLog offers the possibility to move the DB to another path (maybe a DropBox folder!)
