@@ -2203,7 +2203,7 @@ bool DataProxy_SQLite::lotwSentQueue(const QString _updateDate, const int _curre
 {// Mark LOTW QSL SENT as Q (Queued)
     // If currentLog <0 ALL the QSO of the log will be queued
 
-    //qDebug() << "DataProxy_SQLite::lotwSentQueue: " << QString::number(_currentLog) << endl;
+    //qDebug() << "DataProxy_SQLite::lotwSentQueue: Date:" << _updateDate << " /" << QString::number(_currentLog) << endl;
     QString queryString;
 
     if (_currentLog<1)
@@ -2239,15 +2239,31 @@ bool DataProxy_SQLite::lotwSentYes(const QString _updateDate, const int _current
     QString queryString;
 
 
-
-
     if (_currentLog<1)
     {
-        queryString = QString("UPDATE log SET lotw_qsl_sent = 'Y', lotw_qslsdate = '%1' WHERE lotw_qsl_sent == 'Q' AND stationcallsign='%2'").arg(_updateDate).arg(_station);
+        if (_station == "ALL")
+        {
+            queryString = QString("UPDATE log SET lotw_qsl_sent = 'Y', lotw_qslsdate = '%1' WHERE lotw_qsl_sent == 'Q'");
+        }
+        else
+        {
+            queryString = QString("UPDATE log SET lotw_qsl_sent = 'Y', lotw_qslsdate = '%1' WHERE lotw_qsl_sent == 'Q' AND station_callsign='%2'").arg(_updateDate).arg(_station);
+        }
+
+
     }
     else
     {
-        queryString = QString("UPDATE log SET lotw_qsl_sent = 'Y', lotw_qslsdate = '%1' WHERE lognumber = '%2' AND lotw_qsl_sent == 'Q' AND stationcallsign='%3'").arg(_updateDate).arg(_currentLog).arg(_station);
+        if (_station == "ALL")
+        {
+            queryString = QString("UPDATE log SET lotw_qsl_sent = 'Y', lotw_qslsdate = '%1' WHERE lognumber = '%2' AND lotw_qsl_sent == 'Q'").arg(_updateDate).arg(_currentLog);
+        }
+        else
+        {
+            queryString = QString("UPDATE log SET lotw_qsl_sent = 'Y', lotw_qslsdate = '%1' WHERE lognumber = '%2' AND lotw_qsl_sent == 'Q' AND station_callsign='%3'").arg(_updateDate).arg(_currentLog).arg(_station);
+        }
+
+
     }
 
     QSqlQuery query;
