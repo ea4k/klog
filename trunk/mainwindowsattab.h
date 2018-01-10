@@ -32,6 +32,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "dataproxy.h"
+#include "locator.h"
 
 class MainWindowSatTab : public QWidget
 {
@@ -54,6 +55,7 @@ public:
     void setDefaultBands(); //Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist on the selected bands
 
     void setUpLink(const QString _t);
+    void setLocator(const QString _t);
 
     void clear();
 
@@ -64,10 +66,12 @@ signals:
     void newBandsToBeAdded(const QStringList _p);
     void txFreqChanged(const QString _p);
     void rxFreqChanged(const QString _p);
+    void dxLocatorChanged(const QString _p);
 
 private slots:
     void slotSatNameTextChanged();
     void slotSatModeTextChanged();
+    void slotSatDXLocTextChanged();
     void slotSatNameComboBoxChanged();
     void slotSatBandRXComboBoxChanged();
     void slotSatBandTXComboBoxChanged();
@@ -84,6 +88,7 @@ private:
 
     QLineEdit *satNameLineEdit;
     QLineEdit *satModeLineEdit;
+    QLineEdit *satDXLocatorLineEdit;
     QLabel *satOtherLabel;
     QRadioButton *keepThisDataForNextQSORadiobutton;
     //QComboBox *satNameComboBox;
@@ -96,6 +101,7 @@ private:
 
     QDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;
     DataProxy *dataProxy;
+    Locator *locator;
 };
 
 #endif // MAINWINDOWSATTAB_H

@@ -56,6 +56,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     // <ui>
     softwareVersion = tversion;
+    itIsANewversion = false;
     dataProxy = new DataProxy_SQLite(softwareVersion, Q_FUNC_INFO);
     doc = new QTextDocument;
     util = new Utilities;
@@ -265,6 +266,9 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
     connect(satTabWidget, SIGNAL(rxFreqChanged(QString)), this, SLOT(slotChangeRXFreq(QString)) );
     connect(satTabWidget, SIGNAL(txFreqChanged(QString)), this, SLOT(slotChangeTXFreq(QString)) );
+    connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
+
+
 
     myDataTabWidget = new MainWindowMyDataTab();
     commentTabWidget = new MainWindowInputComment();
@@ -392,6 +396,10 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     //qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
     readConfigData();
+    if (itIsANewversion)
+    {
+        slotSetup();
+    }
     //qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
     if (needToEnd)
     {
@@ -733,7 +741,7 @@ void MainWindow::slotBandComboBoxChanged(){
       //qDebug() << "MainWindow::MainWindow: 9.2 - currentBand: " << QString::number(currentBand) << endl;
       //qDebug() << "MainWindow::MainWindow: 9.3 - currentModeShown: " << QString::number(currentModeShown) << endl;
       //qDebug() << "MainWindow::MainWindow: 9.4 - currentBandShown: " << QString::number(currentBandShown) << endl;
-
+    //qDebug() << "MainWindow::MainWindow: Going to update the UpLink with: " << bandComboBox->currentText() << endl;
     satTabWidget->setUpLink(bandComboBox->currentText());
        //currentModeShown = modeComboBox->currentIndex();
     checkIfWorkedB4(currentQrz);
@@ -3510,7 +3518,7 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("All pending QSO of this log has been marked as queued for LoTW!") );
+        msgBox.setText(tr("All pending QSO of this log has been marked as queued for LoTW!") + "\n\n" + tr("Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW."));
         msgBox.exec();
 
     }
@@ -3533,7 +3541,7 @@ void MainWindow::slotToolLoTWMarkAllQueued()
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("All pending QSO has been marked as queued for LoTW!") );
+        msgBox.setText(tr("All pending QSO has been marked as queued for LoTW!") + "\n\n" +  tr("Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW."));
         msgBox.exec();
     }
     else
@@ -3548,28 +3556,6 @@ void MainWindow::slotToolLoTWMarkAllQueued()
 
 }
 
-void MainWindow::slotToolLoTWMarkAllYesThisLog()
-{
-    //qDebug() << "MainWindow::slotToolLoTWMarkAllYesThisLog"  << endl;
-    QString tdate = (dateEdit->date()).toString("yyyy/MM/dd");
-
-    if(dataProxy->lotwSentQueue(tdate, currentLog))
-    {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Information);
-        msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("All queued QSO of this log has been marked as sent for LoTW!") );
-        msgBox.exec();
-    }
-    else
-    {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("There was a problem to mark all queued QSO of this log as sent for LoTW!") );
-        msgBox.exec();
-    }
-}
 
 QString MainWindow::selectStationCallsign()
 {
@@ -3578,7 +3564,7 @@ QString MainWindow::selectStationCallsign()
     stationCallSigns.clear();
     stationCallSigns << "NONE";
     stationCallSigns << dataProxy->getStationCallSignsFromLog(-1);
-    bool callsignTyped = false;
+    //bool callsignTyped = false;
 
     if (stationCallSigns.length()>1)
     {
@@ -3590,7 +3576,7 @@ QString MainWindow::selectStationCallsign()
 
         if (ok && !stationCallToUse.isEmpty())
         {
-
+            return stationCallToUse;
         }
         else
         {
@@ -3599,7 +3585,8 @@ QString MainWindow::selectStationCallsign()
                                                      "", &ok)).toUpper();
              if (ok)
              {
-                callsignTyped = true;
+                //callsignTyped = true;
+                return stationCallToUse;
 
              }
              else
@@ -3620,9 +3607,32 @@ QString MainWindow::selectStationCallsign()
                          // should never be reached
                        break;
                  }
-
              }
         }
+    }
+    return QString();
+}
+
+void MainWindow::slotToolLoTWMarkAllYesThisLog()
+{
+    //qDebug() << "MainWindow::slotToolLoTWMarkAllYesThisLog"  << endl;
+    QString tdate = (dateEdit->date()).toString("yyyy/MM/dd");
+
+    if(dataProxy->lotwSentYes(tdate, currentLog, "ALL"))
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setWindowTitle(tr("KLog LoTW"));
+        msgBox.setText(tr("All queued QSO of this log has been marked as sent for LoTW!")  );
+        msgBox.exec();
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog LoTW"));
+        msgBox.setText(tr("There was a problem to mark all queued QSO of this log as sent for LoTW!") );
+        msgBox.exec();
     }
 }
 
@@ -3786,7 +3796,7 @@ void MainWindow::slotScoreWinShow()
 void MainWindow::slotSetup(const int _page)
 {
       //qDebug() << "MainWindow::slotSetup - 01"  << endl;
-
+    itIsANewversion = false;
     if (!needToEnd)
     {
         setupDialog->setData(configFileName, softwareVersion, _page, !configured);
@@ -4981,6 +4991,13 @@ bool MainWindow::processConfigLine(const QString _line){
     else if(field=="CLUBLOGEMAIL")
     {
         clublogEmail = value;
+    }
+    else if(field=="VERSION")
+    {
+        if (softwareVersion!=value)
+        {
+            itIsANewversion = true;
+        }
     }
     else
     {
@@ -6196,6 +6213,8 @@ void MainWindow::qsoToEdit (const int _qso)
         nameCol = rec.indexOf("gridsquare");
         aux1 = (query.value(nameCol)).toString();
         locatorLineEdit->setText(aux1);
+        satTabWidget->setLocator(aux1);
+
 
         nameCol = rec.indexOf("operator");
         aux1 = (query.value(nameCol)).toString();
@@ -6507,6 +6526,7 @@ void MainWindow::slotLocatorTextChanged()
     {
         dxLocator = (locatorLineEdit->text()).toUpper();
         infoWidget->showDistanceAndBearing(myLocator, dxLocator);
+        satTabWidget->setLocator(dxLocator);
         //showInfoFromLocators(myLocator, dxLocator);
     }
     else
@@ -7545,4 +7565,9 @@ void MainWindow::slotChangeRXFreq(const QString _f)
 void MainWindow::slotChangeTXFreq(const QString _f)
 {
     txFreqSpinBox->setValue(_f.toDouble());
+}
+
+void MainWindow::slotUpdateLocator(QString _loc)
+{
+    locatorLineEdit->setText(_loc.toUpper());
 }

@@ -134,6 +134,7 @@ private slots:
     void slotQRZTextChanged();
     void slotSRXTextChanged();
     void slotSTXTextChanged();
+    void slotUpdateLocator(QString _loc);
     void slotLocatorTextChanged();
     void slotMyLocatorTextChanged();
     void slotFreqTXChanged();
@@ -580,6 +581,7 @@ private:
 
     QString klogDir, ctyDatFile, defaultADIFLogFile, configFileName;
     QString softwareVersion;
+    bool itIsANewversion;
 
 
     QString currentQrz;
