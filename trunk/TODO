@@ -1,5 +1,4 @@
 RC-BUGS:
-Crash: When marking queued as sent and selecting a call
 
 
 REVIEW: bool DataProxy_SQLite::qslRecViaBureau - Check this function flow
@@ -10,7 +9,6 @@ TODO: After a LOTW log has been exported, the user is supposed to upload that lo
 For next release:
 TODO: Create a function that runs the log adding a DXCC to any QSO without a DXCC.
 TODO: Import LOTW (MainWindow::slotADIFImport)
-TODO: Ensure that FileManager::adifLoTWLogExport exports all the needed fields
 TODO: Remove the Querys from void SetupPageLogs::
 
 Working:

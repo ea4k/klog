@@ -191,7 +191,7 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
     stationCallSigns.clear();
     stationCallSigns << "NONE";
     stationCallSigns << dataProxy->getStationCallSignsFromLog(_logN);
-    bool callsignTyped = false;
+    //bool callsignTyped = false;
 
     if (stationCallSigns.length()>1)
     {
@@ -212,7 +212,7 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
                                                      "", &ok)).toUpper();
              if (ok)
              {
-                callsignTyped = true;
+                //callsignTyped = true;
 
              }
              else
@@ -464,7 +464,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
   //qDebug() << "FileManager::adifLogExportToFile: " << _fileName << endl;
 
     bool exportJustMarkedQSO = justMarked;
-    bool marked = false;
+    //bool marked = false;
     bool exportOnlyQSLRequested = _qslRequested;
     //bool haveMode = false;
     noMoreQso = false;
@@ -602,7 +602,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
    //qDebug() << "FileManager::adifLogExportToFile -  before the While" << endl;
     while ( (query.next()) && (!noMoreQso) )
     {
-        marked = false;
+        //marked = false;
 
         if (query.isValid())
         {
@@ -3072,7 +3072,7 @@ bool FileManager::adifLoTWReadLog(const QString& tfileName)
     pos = file.pos();
     fields.clear();
     qsToPass.clear();
-    int step = 1;
+    //int step = 1;
 
 
     while ( !file.atEnd()   )
@@ -3095,7 +3095,7 @@ bool FileManager::adifLoTWReadLog(const QString& tfileName)
     progress.setValue(0);
     progress.setMaximum(numberOfQsos);
 
-    step = util->getProgresStepForDialog(numberOfQsos);
+    //step = util->getProgresStepForDialog(numberOfQsos);
 
     //qDebug() << "FileManager::adifLoTWReadLog (STEP)/Number: " << QString::number(step) << "/" << QString::number(numberOfQsos) << endl;
     //qDebug() << "FileManager::adifLoTWReadLog (number & step: " << QString::number(numberOfQsos % step) << endl;
@@ -3842,9 +3842,9 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
 
     QString queryString, stringFields, stringData;
     //int lastId;
-    int dxcc = 0;
-    int cqz = 0;
-    int ituz = 0;
+    //int dxcc = 0;
+    //int cqz = 0;
+    //int ituz = 0;
     //int i; // Aux value
     QString aux; // Aux string
     QString aux2, aux3;
@@ -3865,7 +3865,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     bool haveDate = false;
 
     //bool ret;
-    int lenght = 0;
+    //int lenght = 0;
     //int currentLog = logNumber;
 
     //qDebug() << "FileManager::processQsoReadingADIF" << QString::number(qs.size()) << "/" << QString::number(logNumber) << endl;
@@ -3899,12 +3899,12 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
 
                 if (i == 2)
                 { // DATE:8:D / 20141020
-                    lenght = (field.section(':', 1, 1)).toInt();
+                    //lenght = (field.section(':', 1, 1)).toInt();
                     field = field.section(':', 0, 0);
                 }
                 else if (i == 1)
                 { // DATE:8 / 20141020
-                    lenght = (field.section(':', 1, 1)).toInt();
+                    //lenght = (field.section(':', 1, 1)).toInt();
                     field = field.section(':', 0, 0);
                 }
                 else
@@ -4079,17 +4079,17 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                 else if (field == "CQZ")
                 {
                     preparedQuery.bindValue( ":cqz", data );
-                    cqz = data.toInt();
+                    //cqz = data.toInt();
 
                 }
                 else if (field == "ITUZ")
                 {
                     preparedQuery.bindValue( ":ituz", data );
-                    ituz = data.toInt();
+                    //ituz = data.toInt();
                 }
                 else if (field == "DXCC")
                 {
-                    dxcc = data.toInt();
+                    //dxcc = data.toInt();
                     preparedQuery.bindValue( ":dxcc", data );
 
                 }
@@ -4917,7 +4917,7 @@ int FileManager::howManyLogsInFile(QFile& _f)
 {
    //qDebug() << "FileManager::howManyLogsInFile:" << endl;
     QFile &file = _f;
-    qint64 pos; //Position in the file
+    //qint64 pos; //Position in the file
     QString line = QString();
     QStringList fields = QStringList();
     QStringList logs = QStringList();
@@ -4931,7 +4931,7 @@ int FileManager::howManyLogsInFile(QFile& _f)
         return false;
     }
 
-    pos = file.pos();
+    //pos = file.pos();
 
     while ( !file.atEnd()   )
     {
@@ -5035,7 +5035,7 @@ QStringList FileManager::getListOfLogsInFile(QFile& _f)
     QStringList logs = QStringList();
     QString aux = QString();
     QStringList data = QStringList();
-    bool atLeastOneLog = false;
+    //bool atLeastOneLog = false;
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -5078,7 +5078,7 @@ QStringList FileManager::getListOfLogsInFile(QFile& _f)
         }
         else if (line.contains("EOR"))
         {
-            atLeastOneLog = true;
+            //atLeastOneLog = true;
         }
         else
         {

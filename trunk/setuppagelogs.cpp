@@ -145,7 +145,7 @@ void SetupPageLogs::slotEditButtonClicked()
 {
     //qDebug() << "SetupPageLogs::slotEditButtonClicked" << endl;
     //QSqlQuery query;
-    int nameCol = -1;
+    //int nameCol = -1;
 
     selectedLog = getSelectedLog();
 
