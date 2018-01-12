@@ -972,7 +972,7 @@ bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString _updateDa
       //qDebug() << "DataProxy_SQLite::qslRecViaBureau: " << _updateDate << endl;
     QSqlQuery query;
     QString queryString;
-    bool requestQSL = false;
+    //bool requestQSL = false;
     bool sqlOK;
 
     if  (_queueSentQSL)
@@ -992,13 +992,13 @@ bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString _updateDa
                 {
                     // NO ACTION REQUIRED, QSL IS ALREADY SENT
                        //qDebug() << "DataProxy_SQLite::qslRecViaBureau: QSL already requested" << endl;
-                     requestQSL = false;
+                     //requestQSL = false;
                      queryString = QString("UPDATE log SET qsl_rcvd = 'Y', qsl_rcvd_via = 'B', qslrdate = '%1' WHERE id = '%2'").arg(_updateDate).arg(_qsoId);
                 }
                 else
                 {
                       //qDebug() << "DataProxy_SQLite::qslRecViaBureau: Request QSL-1" << endl;
-                    requestQSL = true;
+                    //requestQSL = true;
                     queryString = QString("UPDATE log SET qsl_rcvd = 'Y', qsl_rcvd_via = 'B', qsl_sent='R', qslrdate = '%1' WHERE id = '%2'").arg(_updateDate).arg(_qsoId);
                 }
             }
@@ -1006,7 +1006,7 @@ bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString _updateDa
             {
                   //qDebug() << "DataProxy_SQLite::qslRecViaBureau: Request QSL-2" << endl;
                 queryString = QString("UPDATE log SET qsl_rcvd = 'Y', qsl_rcvd_via = 'B', qsl_sent='R', qslrdate = '%1' WHERE id = '%2'").arg(_updateDate).arg(_qsoId);
-                requestQSL = true;
+                //requestQSL = true;
             }
         }
         else
@@ -1014,14 +1014,14 @@ bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString _updateDa
               //qDebug() << "DataProxy_SQLite::qslRecViaBureau: Request QSL-3" << endl;
             emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             queryString = QString("UPDATE log SET qsl_rcvd = 'Y', qsl_rcvd_via = 'B', qsl_sent='R', qslrdate = '%1' WHERE id = '%2'").arg(_updateDate).arg(_qsoId);
-            requestQSL = true;
+            //requestQSL = true;
         }
 
     }
     else
     {
 
-        requestQSL = false;
+        //requestQSL = false;
         queryString = QString("UPDATE log SET qsl_rcvd = 'Y', qsl_rcvd_via = 'B', qslrdate = '%1' WHERE id = '%2'").arg(_updateDate).arg(_qsoId);
     }
     query.finish();
@@ -2726,7 +2726,7 @@ QString DataProxy_SQLite::getSatelliteDownlink(const QString _sat)
       //qDebug()  << "DataProxy_SQLite::getSatelliteDownlink: " << _sat << endl;
     QString aux = QString();
     QString aux2 = QString();
-    double fr1, fr2, fr;
+    //double fr1, fr2, fr;
     QString queryString = QString("SELECT downlink FROM satellites WHERE satarrlid='%1'").arg(_sat);
     QSqlQuery query;
 
@@ -3146,7 +3146,7 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
                 else
                 { // #3 - If the band/mode/log is already worked and status confirmed: Update and Return true
                     nameCol = rec.indexOf("qsoid");
-                    int __qsoid = (query.value(nameCol)).toInt();
+                    //int __qsoid = (query.value(nameCol)).toInt();
                     queryString = QString("UPDATE awarddxcc SET confirmed = '1', qsoid = '%1' WHERE id = '%2'").arg(_qsoId).arg(__id);
                 }
             }
@@ -3277,7 +3277,7 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
                 else
                 { // #3 - If the band/mode/log is already worked and status confirmed: Update and Return true
                     nameCol = rec.indexOf("qsoid");
-                    int __qsoid = (query.value(nameCol)).toInt();
+                    //int __qsoid = (query.value(nameCol)).toInt();
                     queryString = QString("UPDATE awardcqz SET confirmed = '1', qsoid = '%1' WHERE id = '%2'").arg(_qsoId).arg(__id);
                 }
             }

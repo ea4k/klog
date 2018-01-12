@@ -170,7 +170,9 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
                    {
                      //qDebug() << "SoftwareUpdate::checkUpdates: MATCH: " << str << endl;
                        release = str.section("-",1);                       
-                       release = release.section("\.tar.gz", 0, 0);                       
+                       //release = release.section("\.tar.gz", 0, 0);
+                       //release = release.section("^.*([.]tar[.]gz)", 0, 0);
+                       release = release.section("^.*\\.(tar.gz)?", 0, 0);
                        updateNeeded(release);
                    }
                    else

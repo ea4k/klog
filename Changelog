@@ -1,7 +1,8 @@
-TBD - 0.9.2.8
+January - 0.9.2.8
 - Important Optimization on KLog speed on start and general use.
 - New satellite (AO-91) added.
 - Added ALL the ADIF 3.0.7 fields (except the _INTL ones).
+- New feature: New menus to export ADIF files for LoTW and manage LoTW status.
 - GUI: Implemented an error reporting for the users for main errors
 - GUI: When a satellite is selected the main bands are automatically proposed.
 - GUI: QSO band is now linked to the uplink & downlink bands in the satellite tab.

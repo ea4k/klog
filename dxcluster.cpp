@@ -332,7 +332,7 @@ void DXClusterWidget::slotClusterDataArrived()
     QString dxFrequency;
     QString spotBand;
     spotBand = "-1";
-    bool isADXSpot = false;
+    //bool isADXSpot = false;
     int dxEntity = -1;
 
     while ( tcpSocket->canReadLine() ) {
@@ -350,7 +350,7 @@ void DXClusterWidget::slotClusterDataArrived()
         if ((tokens[0] == "DX") && (tokens[1] == "de"))
         {
            //qDebug() << "******************** DXClusterWidget::slotClusterDataArrived: DX DE" << endl;
-            isADXSpot = true;
+            //isADXSpot = true;
             QString spotter = tokens[2];
             spotter.truncate(spotter.size() - 1);
             dxFrequency = tokens[3];
@@ -388,7 +388,7 @@ void DXClusterWidget::slotClusterDataArrived()
           //qDebug() << "DXClusterWidget::slotClusterDataArrived: LENGTH >= 5" << endl;
           //qDebug() << "DXClusterWidget::slotClusterDataArrived: token0=" << tokens[0] << " / token1=" << tokens[1] << endl;
 
-            isADXSpot = true;
+            //isADXSpot = true;
             dxCall = tokens[1];
             dxFrequency = tokens[0];
             dxFrequency = QString::number( (dxFrequency.toFloat())/1000);
