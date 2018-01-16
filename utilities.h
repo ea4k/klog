@@ -48,8 +48,8 @@ public:
     //Devel or debug functions - Not adding any feature to the user
     void printQString(const QStringList _qs);
     QString getKLogDBFile();
-    QString getKLogDefaultDatabaseFile();
-    QString getKLogDatabaseFile(const QString _file);
+
+    //QString getKLogDatabaseFile(const QString _file);
     bool isDBFileExisting();
     bool isDBFileExisting(const QString _file);
 
@@ -69,6 +69,7 @@ public:
 
 private:
     bool processConfigLine(const QString _line);
+    QString getKLogDefaultDatabaseFile();
     QString dbPath;
     QString softwareVersion;
 

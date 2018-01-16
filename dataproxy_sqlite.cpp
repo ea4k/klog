@@ -31,15 +31,19 @@
 DataProxy_SQLite::DataProxy_SQLite(const QString _softVersion, const QString _parentFunction)
 {
     //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << _softVersion << _parentFunction << endl;
-    db = new DataBase(_softVersion, Q_FUNC_INFO);
+
     //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1" << endl;
+    util = new Utilities();
+    util->setVersion(_softVersion);
+
+    db = new DataBase(Q_FUNC_INFO, _softVersion, util->getKLogDBFile());
+    //db = new DataBase(Q_FUNC_INFO, util->getKLogDBFile());
     dbCreated = db->createConnection();
     //dbCreated = db->createBandModeMaps();
     //qDebug() << "DataProxy_SQLite::DataProxy_SQLite - END" << endl;
     searching = false;
     executionN = 0;
-    util = new Utilities();
-    util->setVersion(_softVersion);
+
     //preparedQuery = new QSqlQuery;
     //db = new DataBase(0);
     //dataProxy = new DataProxy_SQLite();
@@ -115,6 +119,11 @@ QString DataProxy_SQLite::getDBVersion()
     }
 }
 
+bool DataProxy_SQLite::reconnectDB()
+{
+    return db->reConnect(util->getKLogDBFile());
+}
+
 void DataProxy_SQLite::createLogModel(){
       //qDebug() << "DataProxy_SQLite::createLogModel" << endl;
 }
@@ -128,7 +137,7 @@ int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
      //qDebug() << "DataProxy_SQLite::getIdFromModeName: " << _modeName << "/" << QString::number(db->getModeIDFromName2(_modeName)) << endl;
     if (_modeName.length()<2)
     {
-        return -3;
+        return -4;
     }
     return db->getModeIDFromName2(_modeName);
 
@@ -220,7 +229,7 @@ int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
      //qDebug() << "DataProxy_SQLite::getIdFromBandName: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
     if (_bandName.length()<1)
     {
-        return -3;
+        return -4;
     }
     return db->getBandIDFromName2(_bandName);
 }
@@ -482,6 +491,11 @@ double DataProxy_SQLite::getLowLimitBandFromBandId(const QString _sm)
     }
     return -1.0;
 
+}
+
+bool DataProxy_SQLite::isThisFreqInBand(const QString b, const QString fr)
+{
+    return db->isThisFreqInBand(b, fr);
 }
 
 QStringList DataProxy_SQLite::getBands()
@@ -4013,18 +4027,18 @@ int DataProxy_SQLite::getHowManyConfirmedQSLInLog(const int _log)
 
 bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 {
-     //qDebug() << "SetupPageLogs::addNewLog: " << _qs.at(2) << "/" << _qs.at(5) << "/" << _qs.at(6) << endl;
+     //qDebug() << "DataProxy_SQLite::addNewLog: " << _qs.at(2) << "/" << _qs.at(5) << "/" << _qs.at(6) << endl;
 
     //_qs << dateString << stationCallsign << _qs.at(4) << comment << _qs.at(12);
-      //qDebug() << "SetupPageLogs::slotAnalyzeNewLogData:  " << _qs.at(4) << "/" << _qs.at(12) << endl;
+      //qDebug() << "DataProxy_SQLite::slotAnalyzeNewLogData:  " << _qs.at(4) << "/" << _qs.at(12) << endl;
     // Date/Call/Operators/"DX"/comment/"1"
 
     if (_qs.size()!=8)
     {
-         //qDebug() << "SetupPageLogs::addNewLog: != 8"  << endl;
+         //qDebug() << "DataProxy_SQLite::addNewLog: != 8"  << endl;
         return false;
     }
-     //qDebug() << "SetupPageLogs::addNewLog: Has the appropriate length"  << endl;
+     //qDebug() << "DataProxy_SQLite::addNewLog: Has the appropriate length"  << endl;
 
     QString aux = QString();
     //int nameCol = -1;
@@ -4047,19 +4061,19 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 
     if (editing == "1")
     { // We are editing
-         //qDebug() << "SetupPageLogs::addNewLog: We are editing!" << endl;
+         //qDebug() << "DataProxy_SQLite::addNewLog: We are editing!" << endl;
         queryString = QString("UPDATE logs SET logdate = '%1', stationcall = '%2', operators = '%3', comment = '%4',  logtype = '%5', logtypen = '%6' WHERE id = '%7'").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment).arg(_typeContest).arg(_typeContestN).arg(id);
         sqlOK = query.exec(queryString);
 
         if (sqlOK)
         {
-             //qDebug() << "SetupPageLogs::addNewLog: Editing OK!" << endl;
+             //qDebug() << "DataProxy_SQLite::addNewLog: Editing OK!" << endl;
             query.finish();
             return true;
         }
         else
         {
-             //qDebug() << "SetupPageLogs::addNewLog: Editing NOK!" << endl;
+             //qDebug() << "DataProxy_SQLite::addNewLog: Editing NOK!" << endl;
             emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             query.finish();
             return false;
@@ -4067,13 +4081,13 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
         return false;
     }
 
-     //qDebug() << "SetupPageLogs::addNewLog: We are adding a new log" << endl;
+     //qDebug() << "DataProxy_SQLite::addNewLog: We are adding a new log" << endl;
 
     // First we check if the log is already there
     queryString = QString("SELECT id FROM logs WHERE logdate='%1' AND stationcall='%2' AND logtype='%3' AND logtypen='%4'").arg(_dateString).arg(_stationCallsign).arg(_typeContest).arg(_typeContestN);
     //"logs"
     //"id, logdate, stationcall, comment, logtype"
-      //qDebug() << "SetupPageLogs::addNewLog query1: " << queryString << endl;
+      //qDebug() << "DataProxy_SQLite::addNewLog query1: " << queryString << endl;
 
     sqlOK = query.exec(queryString);
     if (sqlOK)
@@ -4099,7 +4113,7 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
     //Now we add the new log
 
     queryString = QString("INSERT INTO logs (logdate, stationcall, operators, comment, logtype, logtypen) values('%1','%2','%3','%4', '%5', '%6')").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment).arg(_typeContest).arg(_typeContestN);
-      //qDebug() << "SetupPageLogs::addNewLog query1: " << queryString << endl;
+      //qDebug() << "DataProxy_SQLite::addNewLog query1: " << queryString << endl;
     sqlOK = query.exec(queryString);
 
 
@@ -4120,38 +4134,51 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 
 
 bool DataProxy_SQLite::doesThisLogExist(const int _log)
-{
+{    
+    //qDebug() << "DataProxy_SQLite::doesThisLogExist: " << QString::number(_log) << endl;
+    //qDebug() << "DataProxy_SQLite::doesThisLogExist - Name:" << db->getDBName() << endl;
     QSqlQuery query;
-    QString queryString = QString("SELECT count(id) FROM logs WHERE id='%1'").arg(_log);
+
+    QString queryString = QString("SELECT id FROM logs WHERE id='%1'").arg(_log);
     bool sqlOK = query.exec(queryString);
+
+    //qDebug() << "DataProxy_SQLite::doesThisLogExist: query: " << query.lastQuery()  << endl;
 
     if (sqlOK)
     {
-        query.next();
-        if (query.isValid())
+        if (query.next())
         {
-            if ( query.value(0).toInt()>0)
-            {
+            if (query.isValid())
+            {                
                 query.finish();
+                //qDebug() << "DataProxy_SQLite::doesThisLogExist: END TRUE"  << endl;
                 return true;
             }
-
+            else
+            {
+                query.finish();
+                //qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 1"  << endl;
+                return false;
+            }
         }
         else
         {
             query.finish();
+            //qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 2"  << endl;
             return false;
         }
-
     }
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
+        //qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 3"  << endl;
         return false;
     }
+    //qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 4"  << endl;
     return false;
 }
+
 
 int DataProxy_SQLite::getContinentIdFromContinentShortName(const QString _n)
 {

@@ -1,11 +1,6 @@
 RC-BUGS:
 
 
-REVIEW: bool DataProxy_SQLite::qslRecViaBureau - Check this function flow
-TODO: After a LOTW log has been exported, the user is supposed to upload that log to LOTW outside KLog. Find a way to set LOTW_QSL_SENT=Y
-    easily for the user.
-
-
 For next release:
 TODO: Create a function that runs the log adding a DXCC to any QSO without a DXCC.
 TODO: Import LOTW (MainWindow::slotADIFImport)
