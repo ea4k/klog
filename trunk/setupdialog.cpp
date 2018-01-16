@@ -572,7 +572,7 @@ qDebug() << "SetupDialog::slotOkButtonClicked" << endl;
 
 void SetupDialog::slotReadConfigData()
 {
- //qDebug() << "SetupDialog::slotReadConfigData" << endl;
+    //qDebug() << "SetupDialog::slotReadConfigData" << endl;
     if (firstTime)
     {
         setDefaults();
@@ -582,11 +582,11 @@ void SetupDialog::slotReadConfigData()
         bandModePage->setActiveBands(bands);
     }
 
-    //qDebug() << "SetupDialog::slotReadConfigData - 1" << endl;
+        //qDebug() << "SetupDialog::slotReadConfigData - 1" << endl;
 
     QFile file(configFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-      //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName << endl;
+        //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName << endl;
         //firstTime = true;
         return;
     }
@@ -813,20 +813,25 @@ bool SetupDialog::processConfigLine(const QString _line)
         colorsPage->setConfirmedColor(value);
     }else if(tab =="DEFAULTCOLOR"){
         colorsPage->setDefaultColor(value);
-    }else if(tab =="SELECTEDLOG"){        
+    }else if(tab =="SELECTEDLOG"){
+        //qDebug() << "SetupDialog::processConfigLine: SELECTEDLOG: " << value << endl;
         i = value.toInt();
+
         if (dataProxy->doesThisLogExist(i))
         {
+            //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist TRUE" << endl;
         }
         else
         {
-            i = 1;
+            //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist FALSE" << endl;
+            i = 0;
             while(!dataProxy->doesThisLogExist(i))
             {
                 i++;
             }
         }
         logsPage->setSelectedLog(i);
+        //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist END" << endl;
 
     }else if(tab =="CLUBLOGACTIVE"){
         clubLogPage->setClubLog(value);

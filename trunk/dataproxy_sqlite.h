@@ -43,6 +43,7 @@ public:
 
     QString getSoftVersion();
     QString getDBVersion();
+    bool reconnectDB();
 
     void createLogModel();
     void createLogPanel();
@@ -79,6 +80,7 @@ public:
     QString getBandNameFromFreq(const double _n);
     double getLowLimitBandFromBandName(const QString _sm);
     double getLowLimitBandFromBandId(const QString _sm);
+    bool isThisFreqInBand(const QString b, const QString fr);
 
     int getLastQSOid();
 

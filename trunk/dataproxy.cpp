@@ -41,6 +41,10 @@ QString DataProxy::getSoftVersion()
 {
     return QString();
 }
+bool DataProxy::reconnectDB()
+{
+    return false;
+}
 
 QString DataProxy::getDBVersion()
 {
@@ -134,6 +138,10 @@ double DataProxy::getLowLimitBandFromBandId(const QString _sm)
     return -1.0;
 }
 
+bool DataProxy::isThisFreqInBand(const QString b, const QString fr)
+{
+    return false;
+}
 
 QStringList DataProxy::getBands()
 {

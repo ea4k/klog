@@ -65,23 +65,24 @@ class DataBase
 {
 
 public:
-    DataBase(const QString _parentClass);
+    DataBase(const QString _parentClass, const QString _DBName);
     //DataBase(const QString _softVersion, bool  inmemoryonly = false);
-    DataBase(const QString _softVersion, const QString _parentClass);
+    DataBase(const QString _parentClass, const QString _softVersion, const QString _DBName);
     ~DataBase();
     QString getSoftVersion();
     QString getDBVersion();
+    QString getDBName();
 
     bool createConnection(bool newDB=false);    // If true that means that we are creating the DB,
                                                 // not just connecting to an existing one.
                                                 // That will be done in the default path
-    bool reConnect();
-    bool setDir(const QString _dir);
+    bool reConnect(const QString _DBName);
+    //bool setDir(const QString _dir);
     QStringList getColumnNamesFromTable(const QString _tableName);
 
 
     bool isValidBand (const QString b);
-    bool isValidMode (const QString b, const bool _tmp);
+    bool isValidMode (const QString b, const bool _tmp=false);
     bool isValidBandNumber (const int b);
     bool isValidModeNumber (const int b);
     QString getBandNameFromNumber(const int _n);
@@ -210,7 +211,7 @@ private:
     QString dbConnectionName;
     QString softVersion;
     float latestReaded; // The latest version of DB readed in the DB itself
-    bool inMemoryOnly; // The DB is to be created in memory, no file support... Faster but less safe!
+    //bool inMemoryOnly; // The DB is to be created in memory, no file support... Faster but less safe!
     //QDateTime date;
     QHash<QString, int> bandIDHash;
     QHash<QString, int> modeIDHash;

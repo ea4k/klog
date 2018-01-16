@@ -39,6 +39,7 @@ public:
 
     virtual QString getSoftVersion();
     virtual QString getDBVersion();
+    virtual bool reconnectDB();
 
     virtual void createLogModel();
     virtual void createLogPanel();
@@ -66,6 +67,7 @@ public:
     virtual QString getBandNameFromFreq(const double _n);
     virtual double getLowLimitBandFromBandName(const QString _sm);
     virtual double getLowLimitBandFromBandId(const QString _sm);
+    virtual bool isThisFreqInBand(const QString b, const QString fr);
     
     virtual bool isHF(const int _band);
     virtual bool isWARC(const int _band);

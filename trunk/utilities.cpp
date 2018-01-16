@@ -207,10 +207,77 @@ QString Utilities::getHomeDir()
 QString Utilities::getKLogDefaultDatabaseFile()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
-    return getHomeDir() + "/logbook.dat";
+    return getHomeDir() ;
 }
 
+QString Utilities::getKLogDBFile()
+{
+     //qDebug() << "Utilities::getKLogDBFile: start " << endl;
 
+    dbPath = getKLogDefaultDatabaseFile();
+    QFile file(getCfgFile());
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+         //qDebug() << "Utilities::getKLogDBFile: return1: " << getKLogDatabaseFile(dbPath) << endl;
+        //return dbPath;
+        //return getKLogDatabaseFile(dbPath);
+    }
+    else
+    {
+        while (!file.atEnd()) {
+            QByteArray line = file.readLine();
+            processConfigLine(line);
+        }
+
+        if (dbPath.length()<1)
+        {
+            dbPath = getKLogDefaultDatabaseFile();
+        }
+
+    }
+
+    //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << endl;
+
+    return dbPath + "/logbook.dat";
+}
+
+bool Utilities::processConfigLine(const QString _line)
+{
+          //qDebug() << "Utilities::processConfigLine: " << _line << endl;
+
+        QString line = _line.simplified();
+        //line.simplified();
+        //QString aux;
+
+        QStringList values = line.split("=", QString::SkipEmptyParts);
+
+
+        if (line.startsWith('#')){
+              //qDebug() << "Utilities::processConfigLine: notes Line!" << endl;
+            return true;
+        }
+        if (!( (line.contains('=')) && (line.contains(';')))){
+              //qDebug() << "Utilities::processConfigLine: Wrong Line!" << endl;
+            return false;
+        }
+        QString field = (values.at(0)).toUpper();
+        QString value = values.at(1);
+
+        int endValue = value.indexOf(';');
+        if (endValue>-1){
+
+            value = value.left(value.length() - (value.length() - endValue));
+        }
+
+        if (field == "DBPATH")
+        {
+               //qDebug() << "Utilities::processConfigLine: dbPATH found: " << value << endl;
+            dbPath = value;
+        }
+        return true;
+}
+
+/*
 QString Utilities::getKLogDatabaseFile(const QString _file)
 {
     //qDebug() << "Utilities::getKLogDatabaseFile:" << _file << endl;
@@ -224,7 +291,7 @@ QString Utilities::getKLogDatabaseFile(const QString _file)
       //qDebug() << "Utilities::getKLogDatabaseFile: Does not exist so default: " <<  getKLogDefaultDatabaseFile() << endl;
         return getKLogDefaultDatabaseFile();
 }
-
+*/
 
 
 
@@ -259,69 +326,7 @@ int Utilities::getNormalizedDXCCValue(const int _dxcc)
         return _dxcc;
     }
 }
-QString Utilities::getKLogDBFile()
-{
-     //qDebug() << "Utilities::getKLogDBFile: start " << endl;
 
-    QFile file(getCfgFile());
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-
-        dbPath = getKLogDefaultDatabaseFile();
-         //qDebug() << "Utilities::getKLogDBFile: return1: " << getKLogDatabaseFile(dbPath) << endl;
-        return getKLogDatabaseFile(dbPath);
-    }
-
-    while (!file.atEnd()) {
-        QByteArray line = file.readLine();
-        processConfigLine(line);
-    }
-
-    if (dbPath.length()<1)
-    {
-        dbPath = getKLogDefaultDatabaseFile();
-    }
-
-     //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << endl;
-    //qDebug() << "Utilities::getKLogDBFile: return2: " << getKLogDatabaseFile(dbPath) << endl;
-    return getKLogDatabaseFile(dbPath);
-
-}
-
-bool Utilities::processConfigLine(const QString _line){
-          //qDebug() << "Utilities::processConfigLine: " << _line << endl;
-
-        QString line = _line.simplified();
-        //line.simplified();
-        //QString aux;
-
-        QStringList values = line.split("=", QString::SkipEmptyParts);
-
-
-        if (line.startsWith('#')){
-              //qDebug() << "Utilities::processConfigLine: notes Line!" << endl;
-            return true;
-        }
-        if (!( (line.contains('=')) && (line.contains(';')))){
-              //qDebug() << "Utilities::processConfigLine: Wrong Line!" << endl;
-            return false;
-        }
-        QString field = (values.at(0)).toUpper();
-        QString value = values.at(1);
-
-        int endValue = value.indexOf(';');
-        if (endValue>-1){
-
-            value = value.left(value.length() - (value.length() - endValue));
-        }
-
-
-        if (field == "DBPATH")
-        {
-               //qDebug() << "Utilities::processConfigLine: dbPATH found: " << value << endl;
-            dbPath = value;
-        }
-        return true;
-    }
 
 QDate Utilities::getDefaultDate()
 {

@@ -34,19 +34,21 @@ FileManager::FileManager(DataProxy *dp)
     constrid = 1;
     dataProxy = dp;
 
-    db = new DataBase(0);
     util = new Utilities;
+    klogVersion = util->getVersion();
+    db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
+
     ignoreUnknownAlways = false;
     world = new World(dataProxy);
     awards = new Awards(dataProxy);
 
 
-    klogVersion = util->getVersion();
+
     //dataProxyPrepared = new DataProxy_SQLite(klogVersion);
 
     noMoreQso = false;
 
-    util = new Utilities();
+
     hashLogs.clear();
     //qDebug() << "FileManager::FileManager()-1  - END" << endl;
 
@@ -79,12 +81,13 @@ FileManager::FileManager(DataProxy *dp, const QString _klogDir, const QString _s
     //qDebug() << "FileManager::FileManager()-3: Dir(2)" << _klogDir << endl;
     constrid = 2;
     dataProxy = dp;
-    db = new DataBase(0);
+    util = new Utilities;
+    util->setVersion(klogVersion);
+
+    db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
 
     klogVersion = _softVersion;
     //dataProxyPrepared = new DataProxy_SQLite(klogVersion);
-    util = new Utilities;
-    util->setVersion(klogVersion);
 
     klogDir = _klogDir;
     ignoreUnknownAlways = false;
@@ -93,7 +96,7 @@ FileManager::FileManager(DataProxy *dp, const QString _klogDir, const QString _s
 
     noMoreQso = false;  
     hashLogs.clear();
-
+    //qDebug() << "FileManager::FileManager()-3: Dir(2) - END"  << endl;
 }
 
 FileManager::~FileManager()

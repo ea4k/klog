@@ -148,8 +148,8 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     clublogUser = QString();
     clublogPass = QString();
     clublogEmail = QString();
-
-    db = new DataBase(softwareVersion, Q_FUNC_INFO);
+/*
+    db = new DataBase(Q_FUNC_INFO, softwareVersion, util->getKLogDBFile());
     if (!db->createConnection())
     {
            //qDebug() << "MainWindow::MainWindow: Conection not created" << endl;
@@ -161,7 +161,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
            //qDebug() << "MainWindow::MainWindow: DB updated was checked here" << endl;
     }
 
-
+*/
     elogClublog = new eLogClubLog();
     clublogAnswer = -1;
 
@@ -207,7 +207,9 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     //qDebug() << "MainWindow::MainWindow: logbook: " << QString(util->getKLogDBFile()) << endl;
 
+        //qDebug() << "MainWindow::MainWindow: Before existing Data" << endl;
         bool existingData = QFile::exists(util->getKLogDBFile());
+        //qDebug() << "MainWindow::MainWindow: After existing Data" << endl;
 
         if (existingData)
         {
@@ -229,7 +231,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
         }
     }
 
-       //qDebug() << "MainWindow::MainWindow: 3" << endl;
+    //qDebug() << "MainWindow::MainWindow: 3" << endl;
 
 
     DBinMemory = false;
@@ -249,19 +251,18 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     {
            //qDebug() << "MainWindow::MainWindow: existingData" << endl;
     }
-       //qDebug() << "MainWindow::MainWindow: proxy to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow: proxy to be created" << endl;
 
 
     connect(dataProxy, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     connect(this, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
 
-    //propModeList = dataProxy->getPropModeList();
 
-       //qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
     //setupDialog = new SetupDialog(!configured);
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured);
     connect(setupDialog, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
-       //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab(dataProxy);
     connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
     connect(satTabWidget, SIGNAL(rxFreqChanged(QString)), this, SLOT(slotChangeRXFreq(QString)) );
@@ -1046,7 +1047,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     {
         aux1 = QString::number(txFreqSpinBox->value());
 
-        if (db->isThisFreqInBand(db->getBandNameFromID2(tband), aux1) )
+        if (dataProxy->isThisFreqInBand(dataProxy->getNameFromBandId(tband), aux1) )
         {
             stringFields = stringFields + ", freq";
             stringData = stringData + ", '" + aux1 + "'";
@@ -1764,7 +1765,8 @@ WHERE [condition];
     {
         aux1 = QString::number(txFreqSpinBox->value());
 
-        if (db->isThisFreqInBand(db->getBandNameFromID2(tband), aux1) )
+        if (dataProxy->isThisFreqInBand(dataProxy->getNameFromBandId(tband), aux1) )
+        //if (db->isThisFreqInBand(db->getBandNameFromID2(tband), aux1) )
         {
 
             updateString = updateString + "freq = '";
@@ -3250,7 +3252,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
     if (maybeSave())
     {
-        db->unMarkAllQSO();
+        dataProxy->unMarkAllQSO();
         //slotFileClose();
         dataProxy->compressDB();
         //db->compress();
@@ -3822,7 +3824,8 @@ void MainWindow::slotSetup(const int _page)
     }
     defineStationCallsign();
        //qDebug() << "MainWindow::MainWindow: before db->reConnect" << endl;
-    db->reConnect();
+    dataProxy->reconnectDB();
+    //db->reConnect();
        //qDebug() << "MainWindow::MainWindow: after db->reConnect" << endl;
 
 }
@@ -3969,7 +3972,7 @@ void MainWindow::newFile()
 
 bool MainWindow::slotOpenKLogFolder()
 {
-      //qDebug() << "MainWindow::slotOpenKLogFolder: " << configFileName << endl;
+    //qDebug() << "MainWindow::slotOpenKLogFolder: " << configFileName << endl;
 
     //configFileName = klogDir+"/klogrc.cfg";
     QString _aux = "<ul><li><a href=file://" + util->getHomeDir() + ">file://" + util->getHomeDir() + "</a></li>" +
@@ -3985,6 +3988,7 @@ bool MainWindow::slotOpenKLogFolder()
                                    _text,
                                    QMessageBox::Ok,
                                    QMessageBox::Ok);
+    //qDebug() << "MainWindow::slotOpenKLogFolder: END"  << endl;
     return true;
 
 }
@@ -5125,7 +5129,7 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
 void MainWindow::readActiveBands (const QStringList actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
     // bands used in the program
-      //qDebug() << "MainWindow::readActiveBands: "  << endl;
+    //qDebug() << "MainWindow::readActiveBands: "  << endl;
     //util->printQString(actives);
 
     QString aux;
@@ -5135,7 +5139,8 @@ void MainWindow::readActiveBands (const QStringList actives)
 
     for (int i = 0; i < actives.size() ; i++)
     {
-        if (db->isValidBand(actives.at(i)))
+        if (dataProxy->getIdFromBandName(actives.at(i)) < 0)
+        //if (db->isValidBand(actives.at(i)))
         {
             if (!atLeastOne)
             {
@@ -5155,12 +5160,12 @@ void MainWindow::readActiveBands (const QStringList actives)
 
     }
     bands.removeDuplicates();
-      //qDebug() << "MainWindow::readActiveBands - END"  << endl;
+    //qDebug() << "MainWindow::readActiveBands - END"  << endl;
 }
 
 void MainWindow::readActiveModes (const QStringList actives)
 {
-     //qDebug() << "MainWindow::readActiveModes: " << actives << endl;
+    //qDebug() << "MainWindow::readActiveModes: " << actives << endl;
 
     bool atLeastOne = false;
     QString aux;
@@ -5170,7 +5175,8 @@ void MainWindow::readActiveModes (const QStringList actives)
 
     for (int i = 0; i < actives.size() ; i++)
     {
-        if (db->isValidMode(actives.at(i), false))
+        if (dataProxy->getIdFromModeName(actives.at(i)) < 0)
+        //if (db->isValidMode(actives.at(i), false))
         {
             if (!atLeastOne)
             {
@@ -5188,7 +5194,7 @@ void MainWindow::readActiveModes (const QStringList actives)
 
     }
     modes.removeDuplicates();
-
+    //qDebug() << "MainWindow::readActiveModes - END" << endl;
 }
 
 
