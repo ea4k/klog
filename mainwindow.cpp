@@ -3334,24 +3334,24 @@ void MainWindow::createMenusCommon()
 
     fileMenu->addSeparator();
 
-    ADIFExport = new QAction(tr("&Export to ADIF..."), this);
+    ADIFExport = new QAction(tr("Export to ADIF..."), this);
     fileMenu->addAction(ADIFExport);
     //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
     connect(ADIFExport, SIGNAL(triggered()), this, SLOT(slotADIFExport()));
     ADIFExport->setToolTip(tr("Export the current log to an ADIF logfile."));
 
-    ADIFExportAll = new QAction(tr("&Export all logs to ADIF..."), this);
+    ADIFExportAll = new QAction(tr("Export all logs to ADIF..."), this);
     fileMenu->addAction(ADIFExportAll);
     //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
     connect(ADIFExportAll, SIGNAL(triggered()), this, SLOT(slotADIFExportAll()));
     ADIFExportAll->setToolTip(tr("Export ALL the QSOs into one ADIF file, merging QSOs from all the logs."));
 
-    ReqQSLExport = new QAction(tr("&Export Requested QSL to ADIF..."), this);
+    ReqQSLExport = new QAction(tr("Export Requested QSL to ADIF..."), this);
     fileMenu->addAction(ReqQSLExport);
     connect(ReqQSLExport, SIGNAL(triggered()), this, SLOT(slotRQSLExport()));
     ReqQSLExport->setToolTip(tr("Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program)."));
 
-    LoTWExport = new QAction(tr("&Export ADIF for LoTW..."), this);
+    LoTWExport = new QAction(tr("Export ADIF for LoTW..."), this);
     fileMenu->addAction(LoTWExport);
     connect(LoTWExport, SIGNAL(triggered()), this, SLOT(slotLoTWExport()));
     LoTWExport->setToolTip(tr("Export an ADIF file to be sent to LoTW. Remember to sign it with TQSL before uploading to LoTW!"));
