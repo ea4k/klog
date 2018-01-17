@@ -93,12 +93,12 @@ void InfoWidget::createUI()
     QLabel *longLabelN = new QLabel(tr("Long Path"));
     longLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
-    QLabel *gradShortLabelN = new QLabel(tr("Grad"));
+    QLabel *gradShortLabelN = new QLabel(tr("Degree"));
     gradShortLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     gradShortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     distShortLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
-    QLabel *gradLongLabelN = new QLabel(tr("Grad"));
+    QLabel *gradLongLabelN = new QLabel(tr("Degree"));
     gradLongLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     gradLongLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     distShortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
