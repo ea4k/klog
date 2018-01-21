@@ -433,13 +433,13 @@ Do you want to try again?</source>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2629"/>
-        <location filename="../filemanager.cpp" line="3618"/>
+        <location filename="../filemanager.cpp" line="3753"/>
         <source>Do you still want to cancel?</source>
         <translation>本当に中止しますか?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="442"/>
-        <location filename="../filemanager.cpp" line="3602"/>
+        <location filename="../filemanager.cpp" line="3587"/>
         <source> QSO: </source>
         <translation></translation>
     </message>
@@ -495,54 +495,54 @@ Do you want to try again?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4769"/>
+        <location filename="../filemanager.cpp" line="4759"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4769"/>
+        <location filename="../filemanager.cpp" line="4759"/>
         <source>Please edit the ADIF file and make sure that it include at least:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4769"/>
+        <location filename="../filemanager.cpp" line="4759"/>
         <source>and</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4769"/>
+        <location filename="../filemanager.cpp" line="4759"/>
         <source>This QSO had:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4798"/>
+        <location filename="../filemanager.cpp" line="4788"/>
         <source>Do you want to continue with the current file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4826"/>
+        <location filename="../filemanager.cpp" line="4816"/>
         <source>This log seems to lack of RST-TX information.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4826"/>
-        <location filename="../filemanager.cpp" line="4848"/>
+        <location filename="../filemanager.cpp" line="4816"/>
+        <location filename="../filemanager.cpp" line="4838"/>
         <source>Click on Yes to add a default 59 to all QSO with a similar problem.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4826"/>
-        <location filename="../filemanager.cpp" line="4848"/>
+        <location filename="../filemanager.cpp" line="4816"/>
+        <location filename="../filemanager.cpp" line="4838"/>
         <source>If you select NO, the QSO may not be imported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4848"/>
+        <location filename="../filemanager.cpp" line="4838"/>
         <source>This log seems to lack of RST-RX information.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4773"/>
+        <location filename="../filemanager.cpp" line="4763"/>
         <source> - The band missing and the following call: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -562,63 +562,52 @@ Do you want to try again?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3602"/>
+        <location filename="../filemanager.cpp" line="3587"/>
         <source>Importing ADIF file...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3618"/>
+        <location filename="../filemanager.cpp" line="3753"/>
         <source>You have cancelled the file import. The file will be removed and no data will be imported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3661"/>
+        <location filename="../filemanager.cpp" line="3614"/>
         <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3706"/>
-        <source>An unexpected error ocurred while importing. Please send this code to the developer for analysis: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="3749"/>
-        <location filename="../filemanager.cpp" line="3833"/>
-        <source>An error ocurred while importing. No data will be imported. Please send this code to the developer for analysis: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="4778"/>
+        <location filename="../filemanager.cpp" line="4768"/>
         <source> - The call missing but was done at this time: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4783"/>
+        <location filename="../filemanager.cpp" line="4773"/>
         <source> - The mode missing and the following call: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4788"/>
+        <location filename="../filemanager.cpp" line="4778"/>
         <source> - The date missing and the following call: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4793"/>
+        <location filename="../filemanager.cpp" line="4783"/>
         <source> - The time missing and the following call: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4802"/>
+        <location filename="../filemanager.cpp" line="4792"/>
         <source>KLog: Not all required data found!</source>
         <translation>KLog; データの不足が見つかりました!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4827"/>
+        <location filename="../filemanager.cpp" line="4817"/>
         <source>KLog: No RST TX found!</source>
         <translation>KLog: RST TXが見つかりません!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4850"/>
+        <location filename="../filemanager.cpp" line="4840"/>
         <source>KLog: No RST RX found!</source>
         <translation>KLog: RST RXが見つかりません!</translation>
     </message>
