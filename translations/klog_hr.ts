@@ -391,13 +391,13 @@ Do you want to try again?</source>
 <context>
     <name>FileManager</name>
     <message>
-        <location filename="../filemanager.cpp" line="3382"/>
+        <location filename="../filemanager.cpp" line="3381"/>
         <source>Reading ADIF file...</source>
         <translation>Čitam ADIF datoteku...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3095"/>
-        <location filename="../filemanager.cpp" line="3382"/>
+        <location filename="../filemanager.cpp" line="3381"/>
         <source>Abort reading</source>
         <translation>Prekini čitanje</translation>
     </message>
@@ -463,77 +463,74 @@ Do you want to try again?</source>
         <translation>Čitam LoTW datoteku...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3334"/>
         <source>There are more than one log in this logfile.
 All logs will be imported in the current log.
 Do you want to continue?</source>
-        <translation>Postoji više od jednog dnevnika u ovoj datoteci.
+        <translation type="vanished">Postoji više od jednog dnevnika u ovoj datoteci.
 Svi dnevnici bit će uvezeni u trenutan dnevnik.
 Želite li nastaviti?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3621"/>
         <source>Importing ADIF file...
  QSO: </source>
-        <translation>Uvozim ADIF datoteku...
+        <translation type="vanished">Uvozim ADIF datoteku...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3637"/>
         <source>You have cancelled the file export. The file will be removed and no data will be exported.
 Do you still want to cancel?</source>
-        <translation>Prekinuli ste izvoz datoteke. Datoteka će biti izbrisana i podatci neće biti izvezeni.
+        <translation type="vanished">Prekinuli ste izvoz datoteke. Datoteka će biti izbrisana i podatci neće biti izvezeni.
 Želite li još uvijek prekinuti?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4740"/>
+        <location filename="../filemanager.cpp" line="4798"/>
         <source>Do you want to continue with the current file?</source>
         <translation>Želite li nastaviti s trenutnom datotekom?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4768"/>
+        <location filename="../filemanager.cpp" line="4826"/>
         <source>This log seems to lack of RST-TX information.</source>
         <translation>Izgleda da u ovoj datoteci nedostaje RST-TX informacija.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4768"/>
-        <location filename="../filemanager.cpp" line="4790"/>
+        <location filename="../filemanager.cpp" line="4826"/>
+        <location filename="../filemanager.cpp" line="4848"/>
         <source>Click on Yes to add a default 59 to all QSO with a similar problem.</source>
         <translation>Kliknite na Da kako bi primjenili uobičajeni 59 na sve QSOe sa sličnim problemom.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4768"/>
-        <location filename="../filemanager.cpp" line="4790"/>
+        <location filename="../filemanager.cpp" line="4826"/>
+        <location filename="../filemanager.cpp" line="4848"/>
         <source>If you select NO, the QSO may not be imported.</source>
         <translation>Ako izaberete Ne, QSO možda neće biti uvezen.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4790"/>
+        <location filename="../filemanager.cpp" line="4848"/>
         <source>This log seems to lack of RST-RX information.</source>
         <translation>Izgleda da u ovoj datoteci nedostaje RST-RX informacija.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4715"/>
+        <location filename="../filemanager.cpp" line="4773"/>
         <source> - The band missing and the following call: </source>
         <translation> - Frekvencijski pojas nedostaje i sljedeći pozivni znak: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4720"/>
+        <location filename="../filemanager.cpp" line="4778"/>
         <source> - The call missing but was done at this time: </source>
         <translation> - Pozivni znak nedostaje ali je urađen sada: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4725"/>
+        <location filename="../filemanager.cpp" line="4783"/>
         <source> - The mode missing and the following call: </source>
         <translation> - Način rada nedostaje i sljedeći pozivni znak: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4730"/>
+        <location filename="../filemanager.cpp" line="4788"/>
         <source> - The date missing and the following call: </source>
         <translation> - Datum nedostaje i sljedeći pozivni znak: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4735"/>
+        <location filename="../filemanager.cpp" line="4793"/>
         <source> - The time missing and the following call: </source>
         <translation> - Vrijeme nedostaje i sljedeći pozivni znak: </translation>
     </message>
@@ -544,11 +541,13 @@ Do you still want to cancel?</source>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2629"/>
+        <location filename="../filemanager.cpp" line="3618"/>
         <source>Do you still want to cancel?</source>
         <translation>Želite li još uvijek prekinuti?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="442"/>
+        <location filename="../filemanager.cpp" line="3602"/>
         <source> QSO: </source>
         <translation> QSO: </translation>
     </message>
@@ -574,37 +573,78 @@ Do you still want to cancel?</source>
         <translation>Na žalost izvoz Cabrillo dnevnika u datoteku još nije implementiran.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4711"/>
+        <location filename="../filemanager.cpp" line="3334"/>
+        <source>There is more than one log in this logfile.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3334"/>
+        <source>All logs will be imported into the current log.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3334"/>
+        <source>Do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3602"/>
+        <source>Importing ADIF file...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3618"/>
+        <source>You have cancelled the file import. The file will be removed and no data will be imported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3661"/>
+        <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3706"/>
+        <source>An unexpected error ocurred while importing. Please send this code to the developer for analysis: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3749"/>
+        <location filename="../filemanager.cpp" line="3833"/>
+        <source>An error ocurred while importing. No data will be imported. Please send this code to the developer for analysis: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4769"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!.</source>
         <translation>Ovaj QSO ne sadrži minimalne podatke za valjan QSO!.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4711"/>
+        <location filename="../filemanager.cpp" line="4769"/>
         <source>Please edit the ADIF file and make sure that it include at least:</source>
         <translation>Molim uredite ADIF datoteku tako da uključuje barem:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4711"/>
+        <location filename="../filemanager.cpp" line="4769"/>
         <source>and</source>
         <translation>i</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4711"/>
+        <location filename="../filemanager.cpp" line="4769"/>
         <source>This QSO had:</source>
         <translation>Ovaj QSO je imao:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4744"/>
+        <location filename="../filemanager.cpp" line="4802"/>
         <source>KLog: Not all required data found!</source>
         <translation>KLog: Nisu pronađeni svi obavezni podatci!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4769"/>
+        <location filename="../filemanager.cpp" line="4827"/>
         <source>KLog: No RST TX found!</source>
         <translation>KLog: Nije nađen RST TX!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4792"/>
+        <location filename="../filemanager.cpp" line="4850"/>
         <source>KLog: No RST RX found!</source>
         <translation>KLog: Nije nađen RST RX!</translation>
     </message>
@@ -704,9 +744,13 @@ Do you still want to cancel?</source>
     <message>
         <location filename="../infowidget.cpp" line="96"/>
         <location filename="../infowidget.cpp" line="101"/>
+        <source>Degree</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Grad</source>
         <translatorcomment>Is this &quot;grad&quot; as in &quot;deg/rad/grad&quot;?</translatorcomment>
-        <translation type="unfinished">Grad</translation>
+        <translation type="obsolete">Grad</translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="314"/>
@@ -1028,9 +1072,8 @@ Do you still want to cancel?</source>
         <translation>Izvezi sve QSOe koji traže QSLe u ADIF datoteku (npr. za uvažanje u program za ispit QSL naljepnica).</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3354"/>
         <source>&amp;Export ADIF for LoTW...</source>
-        <translation>&amp;Izvezi ADIF za LoTW...</translation>
+        <translation type="vanished">&amp;Izvezi ADIF za LoTW...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3357"/>
@@ -1159,6 +1202,26 @@ Do you still want to cancel?</source>
         <location filename="../mainwindow.cpp" line="3573"/>
         <source>The log that you have selected contains more than just one station callsign.</source>
         <translation type="unfinished">Dnevnik koji ste izabrali sadrži više od jednog pozivnog znaka.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3337"/>
+        <source>Export to ADIF...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3343"/>
+        <source>Export all logs to ADIF...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3349"/>
+        <source>Export Requested QSL to ADIF...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3354"/>
+        <source>Export ADIF for LoTW...</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3523"/>
@@ -1626,9 +1689,8 @@ Do you want to save your changes?</source>
         <translation>&amp;Alati</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3337"/>
         <source>&amp;Export to ADIF...</source>
-        <translation>&amp;Izvezi u ADIF ...</translation>
+        <translation type="vanished">&amp;Izvezi u ADIF ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3318"/>
@@ -1763,9 +1825,8 @@ Do you want to save your changes?</source>
         <translation>KLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3349"/>
         <source>&amp;Export Requested QSL to ADIF...</source>
-        <translation>Izv&amp;ezi tražene QSLe u ADIF...</translation>
+        <translation type="vanished">Izv&amp;ezi tražene QSLe u ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3417"/>
@@ -1836,9 +1897,8 @@ Do you want to save your changes?</source>
         <translation>DXCC</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3343"/>
         <source>&amp;Export all logs to ADIF...</source>
-        <translation>Izv&amp;esti sve dnevnike u ADIF...</translation>
+        <translation type="vanished">Izv&amp;esti sve dnevnike u ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5322"/>

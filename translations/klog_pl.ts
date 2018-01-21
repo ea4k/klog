@@ -414,21 +414,23 @@ QSO: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2629"/>
+        <location filename="../filemanager.cpp" line="3618"/>
         <source>Do you still want to cancel?</source>
         <translation>Czy nadal chcesz anulować?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="442"/>
+        <location filename="../filemanager.cpp" line="3602"/>
         <source> QSO: </source>
         <translation>QSO:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4711"/>
+        <location filename="../filemanager.cpp" line="4769"/>
         <source>This QSO had:</source>
         <translation>To QSO miało:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4740"/>
+        <location filename="../filemanager.cpp" line="4798"/>
         <source>Do you want to continue with the current file?</source>
         <translation>Czy nadal chcesz kontynuować z obecnym plikiem?</translation>
     </message>
@@ -493,109 +495,131 @@ QSO: </translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3334"/>
-        <source>There are more than one log in this logfile.
-All logs will be imported in the current log.
-Do you want to continue?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="3382"/>
+        <location filename="../filemanager.cpp" line="3381"/>
         <source>Reading ADIF file...</source>
         <translation>Wczytywanie pliku ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3621"/>
-        <source>Importing ADIF file...
- QSO: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="3637"/>
-        <source>You have cancelled the file export. The file will be removed and no data will be exported.
-Do you still want to cancel?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="4711"/>
+        <location filename="../filemanager.cpp" line="4769"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4711"/>
+        <location filename="../filemanager.cpp" line="4769"/>
         <source>Please edit the ADIF file and make sure that it include at least:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4711"/>
+        <location filename="../filemanager.cpp" line="4769"/>
         <source>and</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4768"/>
+        <location filename="../filemanager.cpp" line="4826"/>
         <source>This log seems to lack of RST-TX information.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4768"/>
-        <location filename="../filemanager.cpp" line="4790"/>
+        <location filename="../filemanager.cpp" line="4826"/>
+        <location filename="../filemanager.cpp" line="4848"/>
         <source>Click on Yes to add a default 59 to all QSO with a similar problem.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4768"/>
-        <location filename="../filemanager.cpp" line="4790"/>
+        <location filename="../filemanager.cpp" line="4826"/>
+        <location filename="../filemanager.cpp" line="4848"/>
         <source>If you select NO, the QSO may not be imported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4790"/>
+        <location filename="../filemanager.cpp" line="4848"/>
         <source>This log seems to lack of RST-RX information.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3095"/>
-        <location filename="../filemanager.cpp" line="3382"/>
+        <location filename="../filemanager.cpp" line="3381"/>
         <source>Abort reading</source>
         <translation>Przerwij wczytywanie</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4715"/>
+        <location filename="../filemanager.cpp" line="3334"/>
+        <source>There is more than one log in this logfile.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3334"/>
+        <source>All logs will be imported into the current log.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3334"/>
+        <source>Do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3602"/>
+        <source>Importing ADIF file...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3618"/>
+        <source>You have cancelled the file import. The file will be removed and no data will be imported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3661"/>
+        <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3706"/>
+        <source>An unexpected error ocurred while importing. Please send this code to the developer for analysis: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3749"/>
+        <location filename="../filemanager.cpp" line="3833"/>
+        <source>An error ocurred while importing. No data will be imported. Please send this code to the developer for analysis: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4773"/>
         <source> - The band missing and the following call: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4720"/>
+        <location filename="../filemanager.cpp" line="4778"/>
         <source> - The call missing but was done at this time: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4725"/>
+        <location filename="../filemanager.cpp" line="4783"/>
         <source> - The mode missing and the following call: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4730"/>
+        <location filename="../filemanager.cpp" line="4788"/>
         <source> - The date missing and the following call: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4735"/>
+        <location filename="../filemanager.cpp" line="4793"/>
         <source> - The time missing and the following call: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4744"/>
+        <location filename="../filemanager.cpp" line="4802"/>
         <source>KLog: Not all required data found!</source>
         <translation>KLog: Nie wszystkie wymagane dane zostały znalezione!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4769"/>
+        <location filename="../filemanager.cpp" line="4827"/>
         <source>KLog: No RST TX found!</source>
         <translation>Klog: Nie znaleziono RST-TX!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4792"/>
+        <location filename="../filemanager.cpp" line="4850"/>
         <source>KLog: No RST RX found!</source>
         <translation>Klog: Nie znaleziono odebranych raportów RST-RX!</translation>
     </message>
@@ -695,8 +719,12 @@ Do you still want to cancel?</source>
     <message>
         <location filename="../infowidget.cpp" line="96"/>
         <location filename="../infowidget.cpp" line="101"/>
+        <source>Degree</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Grad</source>
-        <translation>Stopień</translation>
+        <translation type="vanished">Stopień</translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="314"/>
@@ -1152,24 +1180,16 @@ Czy chcesz zapisać zmiany?</translation>
         <translation>&amp;Save As...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3337"/>
         <source>&amp;Export to ADIF...</source>
-        <translation>&amp;Export to ADIF...</translation>
+        <translation type="vanished">&amp;Export to ADIF...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3343"/>
         <source>&amp;Export all logs to ADIF...</source>
-        <translation>&amp;Export all logs to ADIF...</translation>
+        <translation type="vanished">&amp;Export all logs to ADIF...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3349"/>
         <source>&amp;Export Requested QSL to ADIF...</source>
-        <translation>&amp;Export Requested QSL to ADIF...</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3354"/>
-        <source>&amp;Export ADIF for LoTW...</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">&amp;Export Requested QSL to ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3357"/>
@@ -1485,6 +1505,26 @@ Czy chcesz zapisać zmiany?</translation>
         <location filename="../mainwindow.cpp" line="3980"/>
         <source>You can find the KLog data folder here: </source>
         <translation>Moższ znaleźć folder KLog tutaj:</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3337"/>
+        <source>Export to ADIF...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3343"/>
+        <source>Export all logs to ADIF...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3349"/>
+        <source>Export Requested QSL to ADIF...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3354"/>
+        <source>Export ADIF for LoTW...</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4563"/>
