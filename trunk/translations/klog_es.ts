@@ -497,54 +497,54 @@ Do you still want to cancel?</source>
 ¿Quiere cancelar?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4798"/>
+        <location filename="../filemanager.cpp" line="4788"/>
         <source>Do you want to continue with the current file?</source>
         <translation>¿Quiere continuar con elfichero actual?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4826"/>
+        <location filename="../filemanager.cpp" line="4816"/>
         <source>This log seems to lack of RST-TX information.</source>
         <translation>Este log parece que no tiene la información de RST-TX.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4826"/>
-        <location filename="../filemanager.cpp" line="4848"/>
+        <location filename="../filemanager.cpp" line="4816"/>
+        <location filename="../filemanager.cpp" line="4838"/>
         <source>Click on Yes to add a default 59 to all QSO with a similar problem.</source>
         <translation>Pulse en Si para añadir 59 de forma predeterminada a todoslos QSO con un problema similar.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4826"/>
-        <location filename="../filemanager.cpp" line="4848"/>
+        <location filename="../filemanager.cpp" line="4816"/>
+        <location filename="../filemanager.cpp" line="4838"/>
         <source>If you select NO, the QSO may not be imported.</source>
         <translation>Si selecciona No, el QSO puede no ser importado.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4848"/>
+        <location filename="../filemanager.cpp" line="4838"/>
         <source>This log seems to lack of RST-RX information.</source>
         <translation>Este log parece que no tiene la información de RST-RX.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4773"/>
+        <location filename="../filemanager.cpp" line="4763"/>
         <source> - The band missing and the following call: </source>
         <translation> - La banda inexistente pero el siguiente indicativo: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4778"/>
+        <location filename="../filemanager.cpp" line="4768"/>
         <source> - The call missing but was done at this time: </source>
         <translation> - El indicativo inexistente pero la siguiente hora: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4783"/>
+        <location filename="../filemanager.cpp" line="4773"/>
         <source> - The mode missing and the following call: </source>
         <translation> - El modo inexistente pero el siguiente indicativo: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4788"/>
+        <location filename="../filemanager.cpp" line="4778"/>
         <source> - The date missing and the following call: </source>
         <translation> - La fecha inexistente pero el siguiente indicativo: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4793"/>
+        <location filename="../filemanager.cpp" line="4783"/>
         <source> - The time missing and the following call: </source>
         <translation> - La hora inexistente pero el siguiente indicativo: </translation>
     </message>
@@ -555,13 +555,13 @@ Do you still want to cancel?</source>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2629"/>
-        <location filename="../filemanager.cpp" line="3618"/>
+        <location filename="../filemanager.cpp" line="3753"/>
         <source>Do you still want to cancel?</source>
         <translation>¿Aun quiere cancelar?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="442"/>
-        <location filename="../filemanager.cpp" line="3602"/>
+        <location filename="../filemanager.cpp" line="3587"/>
         <source> QSO: </source>
         <translation> QSO: </translation>
     </message>
@@ -586,63 +586,60 @@ Do you still want to cancel?</source>
         <translation>¿Quiere continuar?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3602"/>
+        <location filename="../filemanager.cpp" line="3587"/>
         <source>Importing ADIF file...</source>
         <translation>Importando fichero ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3618"/>
+        <location filename="../filemanager.cpp" line="3753"/>
         <source>You have cancelled the file import. The file will be removed and no data will be imported.</source>
         <translation>Has cancelado la importación del fichero. El fichero se eliminará y no se importará ningún dato.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3661"/>
+        <location filename="../filemanager.cpp" line="3614"/>
         <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
         <translation>Parece que hay algunos QSO duplicados en el fichero ADIF que está importando. ¿Quiere continuar? (los QSO duplicados no se importarán)</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3706"/>
         <source>An unexpected error ocurred while importing. Please send this code to the developer for analysis: </source>
         <translation>Ha ocurrido un error inesperado al importar. Por favor, envía este códido a los desarrolladores para que lo analicen: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3749"/>
-        <location filename="../filemanager.cpp" line="3833"/>
         <source>An error ocurred while importing. No data will be imported. Please send this code to the developer for analysis: </source>
         <translation>Ha ocurrido un errot al importar. No se importarán datos. Por favor envíe este código a los desarrolladores para que lo analicen: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4769"/>
+        <location filename="../filemanager.cpp" line="4759"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!.</source>
         <translation>¡Este QSO no incluye la información mínima para considerarse un QSO válido!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4769"/>
+        <location filename="../filemanager.cpp" line="4759"/>
         <source>Please edit the ADIF file and make sure that it include at least:</source>
         <translation>Por favor, edite el fichero ADIF y asegúrese de que incluye al menos:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4769"/>
+        <location filename="../filemanager.cpp" line="4759"/>
         <source>and</source>
         <translation>y</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4769"/>
+        <location filename="../filemanager.cpp" line="4759"/>
         <source>This QSO had:</source>
         <translation>Este QSO tenía:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4802"/>
+        <location filename="../filemanager.cpp" line="4792"/>
         <source>KLog: Not all required data found!</source>
         <translation>KLog: ¡No se encontraron todos los datos necesarios!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4827"/>
+        <location filename="../filemanager.cpp" line="4817"/>
         <source>KLog: No RST TX found!</source>
         <translation>KLog: ¡No se encontró RST TX!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4850"/>
+        <location filename="../filemanager.cpp" line="4840"/>
         <source>KLog: No RST RX found!</source>
         <translation>KLog: ¡No se encontró RST RX!</translation>
     </message>
