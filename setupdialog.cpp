@@ -507,8 +507,6 @@ qDebug() << "SetupDialog::slotOkButtonClicked" << endl;
         stream << "ShowCallsignInSearch=" << miscPage->getShowStationCallSignInSearch() << ";" <<  endl;
         stream << "KeepMyData=" << miscPage->getKeepMyData() << ";" <<  endl;
         stream << "CompleteWithPrevious=" << miscPage->getCompleteWithPrevious() << ";" <<  endl;
-	stream << "UDPServer=" << miscPage->getUDPServer() << ";" <<  endl;
-        stream << "UDPServerPort=" << miscPage->getUDPServerPort() << ";" <<  endl;
         stream << "CheckNewVersions=" << miscPage->getCheckNewVersions() << ";" <<  endl;
 
         if ((miscPage->getReportInfo()).toUpper() == "TRUE")
@@ -709,12 +707,6 @@ bool SetupDialog::processConfigLine(const QString _line)
     }
     else if (tab=="PROVIDEINFO"){
         miscPage->setReportInfo(value);
-    }
-    else if (tab=="UDPSERVER"){
-        miscPage->setUDPServer(value);
-    }
-    else if (tab=="UDPSERVERPORT"){
-        miscPage->setUDPServerPort(value);
     }
     else if (tab =="NAME")
     {
@@ -976,8 +968,6 @@ void SetupDialog::setDefaults()
     miscPage->setKeepMyData("TRUE");
     miscPage->setCheckNewVersions("TRUE");
     miscPage->setReportInfo("FALSE");
-    miscPage->setUDPServer("TRUE");
-    miscPage->setUDPServerPort("2237");
 
     dxClusterPage->setShowHFRadiobutton("TRUE");
     dxClusterPage->setShowVHFRadiobutton("TRUE");

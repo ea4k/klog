@@ -50,7 +50,6 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
      //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
     showErrorDialog = new ShowErrorDialog();
-    UDPLogServer = new UDPServer();
     upAndRunning = false; // To define some actions that can only be run when starting the software
     //connect(&manager, SIGNAL(finished(QNetworkReply*)), SLOT(slotDownloadFinished(QNetworkReply*))); // To download cty.csv
     //flagIcon = new QPushButton; // To paint a flag of the worked entity
@@ -104,7 +103,6 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     myLocator = "";
     dxLocator ="";
     myPower = 0.0;
-    UDPServerStart = true;   // By default the UDP server is started
 
     //lastPower = myPower;
     //lastOperatorQRZ = operatorQRZ;
@@ -2585,10 +2583,6 @@ void MainWindow::createActionsCommon(){
     connect(searchWidget, SIGNAL(toStatusBar(QString) ), this, SLOT(slotUpdateStatusBar(QString) ) );
     connect(searchWidget, SIGNAL(requestBeingShown() ), this, SLOT(slotShowSearchWidget() ) );
     connect(searchWidget, SIGNAL(actionQSODelete( int ) ), this, SLOT(slotQSODelete(int) ) );
-
-    //DXCCWIDGET TAB
-    connect(dxccStatusWidget, SIGNAL(showQso(int)), this, SLOT(slotShowQSOFromDXCCWidget(int) ) );
-
 }
 
 void MainWindow::slotSearchBoxTextChanged()
@@ -4025,6 +4019,506 @@ void MainWindow::slotDoubleClickLog(const int _qsoID)
     //TODO: To be added to the logWindow and create an action that emist the QSO id to be edited
 }
 
+/*
+void MainWindow::slotDoubleClickSearch(QTreeWidgetItem * item, int)
+{
+       //qDebug() << "MainWindow::slotDoubleClickSearch"  << endl;
+    int number = -1;
+    if (item){
+        if (stationCallSignShownInSearch)
+        {
+            number = (item->text(7)).toInt();
+        }
+        else
+        {
+            number = (item->text(6)).toInt();
+        }
+
+
+        qsoToEdit(number);
+    }
+    else
+    {}
+}
+
+*/
+/*
+void MainWindow::slotRighButtonSearch(const QPoint& pos)
+{
+       //qDebug() << "MainWindow::slotRighButtonSearch"  << endl;
+
+
+    QTreeWidgetItem *item = searchResultsTreeWidget->itemAt(pos);
+    int _qsoID = 0;
+
+    if (item)
+    {
+           //qDebug() << "MainWindow::slotRighButtonSearch ITEM=true"  << endl;
+        // 6 is the column in the searchResultsTreeWidget where the id is saved
+        if (stationCallSignShownInSearch)
+        {
+               //qDebug() << "MainWindow::slotRighButtonSearch stationCallSignShownInSearch = true"  << endl;
+            _qsoID = ((item)->text(7)).toInt();
+               //qDebug() << "MainWindow::slotRighButtonSearch QSO1: " << QString::number(_qsoID)  << endl;
+        }
+        else
+        {
+               //qDebug() << "MainWindow::slotRighButtonSearch stationCallSignShownInSearch = false"  << endl;
+            _qsoID = ((item)->text(6)).toInt();
+               //qDebug() << "MainWindow::slotRighButtonSearch QSO2: " << QString::number(_qsoID)  << endl;
+        }
+           //qDebug() << "MainWindow::slotRighButtonSearch QSO: " << QString::number(_qsoID)  << endl;
+        showMenuRightButtonSearchCreateActions();
+           //qDebug() << "MainWindow::slotRighButtonSearch -05"   << endl;
+        righButtonSearchMenu(_qsoID);
+           //qDebug() << "MainWindow::slotRighButtonSearch -06"   << endl;
+    }else
+    {
+           //qDebug() << "MainWindow::slotRighButtonSearch ITEM=false"  << endl;
+        return;
+    }
+
+       //qDebug() << "MainWindow::slotRighButtonSearch: "  << QString::number(_qsoID) << endl;
+
+}
+
+*/
+
+/*
+void MainWindow::righButtonSearchMenu(const int trow)
+{
+       //qDebug() << "MainWindow::slotshowRighButtonSearchMenu:  " << QString::number(trow) << endl;
+
+
+    bool qslReceived = logWindow->isQSLReceived(trow);
+    bool qslSent = logWindow->isQSLSent(trow);
+
+    QMenu menu(this);
+
+    menu.addAction(delQSOFromSearchAct);
+       //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -03"  << endl;
+    delQSOFromSearchAct->setData(trow);
+       //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -04"  << endl;
+
+    menu.addAction(qsoToEditFromSearchAct);
+       //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -05"  << endl;
+    qsoToEditFromSearchAct->setData(trow);
+       //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -06"  << endl;
+
+    menu.addSeparator();
+       //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -07"  << endl;
+    if (qslSent)
+    {
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSLSent"  << endl;
+    }
+    else
+    {
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Sent"  << endl;
+        QMenu *menuSentQsl = menu.addMenu(tr("QSL Send"));
+        menuSentQsl->addAction(qslSentViaBureauFromSearchAct);
+        menuSentQsl->addAction(qslSentViaDirectFromSearchAct);
+        menuSentQsl->addAction(qslSentRequestedAct);
+        if (!qslReceived)
+        {
+            menuSentQsl->addAction(qslSentViaBureauMarkRcvReqFromSearchAct);
+            menuSentQsl->addAction(qslSentViaDirectMarkRcvReqFromSearchAct);
+            qslSentViaBureauMarkRcvReqFromSearchAct->setData(trow);
+            qslSentViaDirectMarkRcvReqFromSearchAct->setData(trow);
+        }
+        qslSentViaBureauFromSearchAct->setData(trow);
+        qslSentViaDirectFromSearchAct->setData(trow);
+        qslSentRequestedAct->setData(trow);
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -end qsl not sent"  << endl;
+
+    }
+
+    if (qslReceived)
+    {
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSLRec"  << endl;
+    }
+    else
+    {
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec"  << endl;
+        QMenu *menuRecQsl = menu.addMenu(tr("QSL Rcvd"));
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 01"  << endl;
+        menuRecQsl->addAction(qslRecViaBureauFromSearchAct);
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 02"  << endl;
+        menuRecQsl->addAction(qslRecViaBureauMarkReqFromSearchAct);
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 03"  << endl;
+        menuRecQsl->addAction(qslRecViaDirectFromSearchAct);
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 04"  << endl;
+        menuRecQsl->addAction(qslRecViaDirectMarkReqFromSearchAct);
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 05"  << endl;
+        menuRecQsl->addAction(qslRecRequestedAct);
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 06"  << endl;
+        
+        qslRecViaBureauFromSearchAct->setData(trow);
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 07"  << endl;
+        qslRecViaBureauMarkReqFromSearchAct->setData(trow);
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 08"  << endl;
+        qslRecViaDirectFromSearchAct->setData(trow);
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 09"  << endl;
+        qslRecViaDirectMarkReqFromSearchAct->setData(trow);
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -QSL Not Rec - 10"  << endl;
+        qslRecRequestedAct->setData(trow);
+           //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -end qsl not rec"  << endl;
+    }
+       //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -end qsl"  << endl;
+    menu.exec(QCursor::pos());
+       //qDebug() << "MainWindow::slotshowRighButtonSearchMenu: -END"  << endl;
+}
+
+
+
+void MainWindow::showMenuRightButtonSearchCreateActions()
+{
+    //qDebug() << "MainWindow::showMenuRightButtonSearchCreateActions" << endl;
+
+    delQSOFromSearchAct = new QAction(tr("&Delete"), this);
+    delQSOFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_D);
+    delQSOFromSearchAct->setStatusTip(tr("Delete a QSO"));
+    connect(delQSOFromSearchAct, SIGNAL(triggered()), this, SLOT(slotQsoDeleteFromSearch()));
+
+    qsoToEditFromSearchAct = new QAction(tr("&Edit QSO"), this);
+    qsoToEditFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_E);
+    qsoToEditFromSearchAct->setStatusTip(tr("Edit this QSO"));
+    connect(qsoToEditFromSearchAct, SIGNAL(triggered()), this, SLOT(slotQSOToEditFromSearch()));
+
+    qslSentViaBureauFromSearchAct = new QAction(tr("Via &bureau"), this);
+    qslSentViaBureauFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_B);
+    qslSentViaBureauFromSearchAct->setStatusTip(tr("Send this QSL via bureau"));
+    connect(qslSentViaBureauFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaBureauFromSearch() ));
+
+    qslSentViaDirectFromSearchAct = new QAction(tr("D&irect"), this);
+    qslSentViaDirectFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_I);
+    qslSentViaDirectFromSearchAct->setStatusTip(tr("Send this QSL via direct"));
+    connect(qslSentViaDirectFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaDirectFromSearch()   ));
+
+
+    qslSentRequestedAct = new QAction(tr("&Request my QSL"), this);
+    qslSentRequestedAct->setShortcut(Qt::CTRL + Qt::Key_R);
+    qslSentRequestedAct->setStatusTip(tr("Mark my QSL as requested"));
+    connect(qslSentRequestedAct, SIGNAL(triggered()), this, SLOT( slotQSLSentMarkAsRequested()   ));
+
+    qslSentViaDirectMarkRcvReqFromSearchAct = new QAction(tr("Via Direct && mark DX QSL as requested"), this);
+    qslSentViaDirectMarkRcvReqFromSearchAct->setStatusTip(tr("Send this QSL via direct & mark DX QSL as requested"));
+    connect(qslSentViaDirectMarkRcvReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaDirectMarkDXReqFromSearch() ));
+
+    qslSentViaBureauMarkRcvReqFromSearchAct = new QAction(tr("Via Bureau && mark DX QSL as requested"), this);
+    qslSentViaBureauMarkRcvReqFromSearchAct->setStatusTip(tr("Send this QSL via bureau & mark DX QSL as requested"));
+    connect(qslSentViaBureauMarkRcvReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaBureuMarkDXReqFromSearch() ));
+
+
+    qslRecRequestedAct = new QAction(tr("&Request the QSL"), this);
+    qslRecRequestedAct->setStatusTip(tr("Mark the QSL as requested"));
+    connect(qslRecRequestedAct, SIGNAL(triggered()), this, SLOT( slotQSLRecMarkAsRequested()   ));
+
+
+    qslRecViaBureauMarkReqFromSearchAct = new QAction(tr("Via bureau && mark my QSL as requested"), this);
+    qslRecViaBureauMarkReqFromSearchAct->setStatusTip(tr("QSL received via bureau & mark my QSL as requested"));
+    connect(qslRecViaBureauMarkReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaBureauMarkReqFromSearch() ));
+
+    qslRecViaBureauFromSearchAct = new QAction(tr("Via bureau"), this);
+    qslRecViaBureauFromSearchAct->setStatusTip(tr("QSL received via bureau"));
+    //qslRecViaBureauFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_R);
+    connect(qslRecViaBureauFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaBureauFromSearch() ));
+
+    qslRecViaDirectMarkReqFromSearchAct = new QAction(tr("Direc&t && mark as my QSL requested"), this);
+    qslRecViaDirectMarkReqFromSearchAct->setStatusTip(tr("QSL received via direct & mark my QSL as requested"));
+    connect(qslRecViaDirectMarkReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectMarkReqFromSearch() ));
+
+    qslRecViaDirectFromSearchAct = new QAction(tr("Direc&t"), this);
+    qslRecViaBureauFromSearchAct->setStatusTip(tr("QSL received via direct"));
+    //qslRecViaDirectFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_T);
+    connect(qslRecViaDirectFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectFromSearch() ));
+}
+
+
+void MainWindow::slotQSLSentViaBureuMarkDXReqFromSearch()
+{
+       //qDebug() << "slotQSLSentViaBureuMarkDXReqFromSearch: " << (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+    int _qsoId = (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt();
+
+    dataProxy->qslSentViaBureau(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
+    dataProxy->qslRecAsRequested(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
+
+
+    if(qslingNeeded)
+    {
+        searchToolNeededQSLToSend();
+    }
+    else
+    {
+        slotSearchBoxTextChanged();
+    }
+    // Mark Sent, Bureau, date, update log.
+
+}
+
+
+void MainWindow::slotQSLSentViaDirectMarkDXReqFromSearch()
+{
+       //qDebug() << "slotQSLSentViaDirectMarkDXReqFromSearch: " << (qslSentViaDirectMarkRcvReqFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectMarkRcvReqFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+
+    int _qsoId = (qslSentViaDirectMarkRcvReqFromSearchAct->data()).toInt();
+
+    dataProxy->qslSentViaDirect(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
+    dataProxy->qslRecAsRequested(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
+
+
+    if(qslingNeeded)
+    {
+        searchToolNeededQSLToSend();
+    }
+    else
+    {
+        slotSearchBoxTextChanged();
+    }
+    // Mark Sent, Bureau, date, update log.
+}
+
+
+void MainWindow::slotQSLSentViaBureauFromSearch()
+{
+   //    //qDebug() << "MainWindow::slotQSLSentViaBureauFromSearch: " << (qslSentViaBureauFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+    int _qsoId = (qslSentViaBureauFromSearchAct->data()).toInt();
+
+    logWindow->qslSentViaBureau(_qsoId);
+    //qslSentViaBureau(_qsoId);
+    if(qslingNeeded)
+    {
+        searchToolNeededQSLToSend();
+    }
+    else
+    {
+        slotSearchBoxTextChanged();
+    }
+}
+
+
+void MainWindow::slotQSLSentViaDirectFromSearch()
+{
+       //qDebug() << "MainWindow::slotQSLSentViaDirectFromSearch: " << (qslSentViaDirectFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+    int _qsoId = ((qslSentViaDirectFromSearchAct->data()).toInt());
+    dataProxy->qslSentViaDirect(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
+    if(qslingNeeded)
+    {
+        searchToolNeededQSLToSend();
+    }
+    else
+    {
+        slotSearchBoxTextChanged();
+    }
+
+    //qslSentViaDirect(_qsoId);
+
+}
+
+
+void MainWindow::slotQSLSentMarkAsRequested()
+{
+   // bool qslSentAsRequested(const int _qsoId, const QString _updateDate);  
+
+    int _qsoId = (qslSentRequestedAct->data()).toInt();
+    dataProxy->qslSentAsRequested(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
+    if(qslingNeeded)
+    {
+        searchToolNeededQSLToSend();
+    }
+    else
+    {
+        slotSearchBoxTextChanged();
+    }
+}
+
+
+void MainWindow::slotQSLRecMarkAsRequested()
+{
+    int _qsoId = (qslRecRequestedAct->data()).toInt();
+    dataProxy->qslRecAsRequested(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"));
+    if(qslingNeeded)
+    {
+        searchToolNeededQSLToSend();
+    }
+    else
+    {
+        slotSearchBoxTextChanged();
+    }
+}
+
+
+void MainWindow::slotQSLRecViaBureauFromSearch()
+{
+       //qDebug() << "MainWindow::slotQSLRecViaBureauFromLog: " << "- Id = " << QString::number( ((logModel->index( ( (qslRecViaBureauFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+
+    int _qsoId = (qslRecViaBureauFromSearchAct->data()).toInt();
+    logWindow->qslRecViaBureau(_qsoId);
+    if(qslingNeeded)
+    {
+        searchToolNeededQSLToSend();
+    }
+    else
+    {
+        slotSearchBoxTextChanged();
+    }
+
+}
+
+
+void MainWindow::slotQSLRecViaBureauMarkReqFromSearch()
+{
+       //qDebug() << "MainWindow::slotQSLRecViaBureauMarkReqFromLog: " << "- Id = " << QString::number( ((logModel->index( ( (qslRecViaBureauFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+
+    int _qsoId = (qslRecViaBureauMarkReqFromSearchAct->data()).toInt();
+    qslRecViaBureauMarkReq(_qsoId);
+    if(qslingNeeded)
+    {
+        searchToolNeededQSLToSend();
+    }
+    else
+    {
+        slotSearchBoxTextChanged();
+    }
+
+}
+
+
+void MainWindow::slotQSLRecViaDirectFromSearch()
+{
+       //qDebug() << "MainWindow::slotQSLRecViaDirectFromLog: " << (qslRecViaDirectFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+    int _qsoId = (qslRecViaDirectFromSearchAct->data()).toInt();
+    logWindow->qslRecViaDirect(_qsoId);
+    if(qslingNeeded)
+    {
+        searchToolNeededQSLToSend();
+    }
+    else
+    {
+        slotSearchBoxTextChanged();
+    }
+    // Mark Sent, Bureau, date, update log.
+}
+
+
+void MainWindow::slotQSLRecViaDirectMarkReqFromSearch()
+{
+       //qDebug() << "MainWindow::slotQSLRecViaDirectFromLog: " << (qslRecViaDirectFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+    int _qsoId = (qslRecViaDirectMarkReqFromSearchAct->data()).toInt();
+    qslRecViaDirectMarkReq(_qsoId);
+    if(qslingNeeded)
+    {
+        searchToolNeededQSLToSend();
+    }
+    else
+    {
+        slotSearchBoxTextChanged();
+    }
+    // Mark Sent, Bureau, date, update log.
+}
+
+
+void MainWindow::qslRecViaBureauMarkReq(const int _qsoId)
+{
+   //    //qDebug() << "MainWindow::qslRecViaBureau: " << QString::number(_qsoId) << "/" << (dateTime->currentDateTime()).toString("yyyy/MM/dd") << endl;
+    //setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed);
+    dataProxy->qslRecViaBureau(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"), true);
+    awards->setAwards(_qsoId);   //Update the DXCC award status
+
+    logWindow->refresh();
+    showAwards();
+
+}
+
+
+void MainWindow::qslRecViaDirectMarkReq(const int _qsoId)
+{
+       //qDebug() << "MainWindow::qslRecViaDirect: " << QString::number(_qsoId) << endl;
+
+    dataProxy->qslRecViaDirect(_qsoId, (dateTime->currentDateTime()).toString("yyyy/MM/dd"), true);
+    awards->setAwards(_qsoId);
+    //setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed);
+
+    logWindow->refresh();
+    showAwards();
+}
+*/
+/*
+void MainWindow::slotQSOToEditFromSearch()
+{
+       //qDebug() << "slotQSOToEditFromSearch: " << (qsoToEditFromSearchAct->data()).toString() << endl;
+
+    qsoToEdit((qsoToEditFromSearchAct->data()).toInt());
+
+}
+
+void MainWindow::slotQsoDeleteFromSearch()
+{
+       //qDebug() << "MainWindow::slotQsoDeleteFromSearch: " << (delQSOFromSearchAct->data()).toString() << endl;
+
+
+    int QSOid = (delQSOFromSearchAct->data()).toInt();
+    //int x = -1;
+
+    QString _qrz = dataProxy->getCallFromId(QSOid);
+    if (_qrz.length()>=3)
+    {
+
+        QString message = QString(tr("You have requested to delete the QSO with: %1")).arg(_qrz);
+
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setText(message);
+        msgBox.setInformativeText(tr("Are you sure?"));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+        int ret = msgBox.exec();
+
+        switch (ret)
+        {
+            case QMessageBox::Yes:
+            elogClublog->deleteQSO(dataProxy->getClubLogRealTimeFromId(QSOid));
+            if(dataProxy->deleteQSO(QSOid))
+            {
+                if(qslingNeeded)
+                {
+                    searchToolNeededQSLToSend();
+                }
+                else
+                {
+                    slotSearchBoxTextChanged();
+                }
+                slotShowAwards();
+                //dxccStatusWidget->refresh();
+                //awards->recalculateAwards();
+                //logWindow->refresh();
+                //showAwards();
+
+            }
+            else
+            {
+                //TODO: The QSO could not be removed...
+            }
+
+            break;
+            case QMessageBox::No:
+              // No was clicked
+            break;
+            default:
+              // should never be reached
+            break;
+        }
+
+    }
+    else
+    {
+         // TODO: The QSO to be removed was not found in the log
+    }
+
+}
+
+*/
+
+
 
 void MainWindow::keyPressEvent(QKeyEvent *event){
 
@@ -4185,29 +4679,6 @@ void MainWindow::readConfigData()
     searchWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     infoWidget->setColors(newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
 
-    QString aux = tr("UDP Server error") + "</b><br>" + tr("The UDP server failed to ");
-    QString errorMSG;
-    //QString aux1 = "<br><b>" + tr("UDP Server error");
-
-    if (UDPServerStart)
-    {
-        if (!UDPLogServer->start())
-        {
-            errorMSG =  tr("start");
-            showErrorDialog->setText(aux + errorMSG + ".");
-            showErrorDialog->exec();
-        }
-    }
-    else
-    {
-        if (!UDPLogServer->stop())
-        {
-            errorMSG =  tr("stop");
-            showErrorDialog->setText(aux + errorMSG + ".");
-            showErrorDialog->exec();
-        }
-    }
-    
     //qDebug() << "MainWindow::readConfigData - END" << endl;
 
 }
@@ -4414,12 +4885,6 @@ bool MainWindow::processConfigLine(const QString _line){
     else if(field=="DEFAULTCOLOR")
     {
         defaultColor.setNamedColor(value);
-    }
-    else if (field=="UDPSERVER"){
-        UDPServerStart = true;
-    }
-    else if (field=="UDPSERVERPORT"){
-        UDPLogServer->setPort(value.toInt());
     }
     else if(field=="SELECTEDLOG")
     {
@@ -4744,6 +5209,21 @@ void MainWindow::createData()
 void MainWindow::createUIDX()
 {
        //qDebug() << "MainWindow::createUIDX" << endl;
+/*
+    QStringList continents;
+    QSqlQuery query2("SELECT shortname FROM continent");
+    while (query2.next()) {
+        if (query2.isValid())
+        {
+            continents << query2.value(0).toString();
+        }
+    }
+
+    iotaContinentComboBox->addItems(continents);
+    iotaNumberLineEdit = new QLineEdit;
+    iotaNumberLineEdit->setInputMask("000");
+    iotaNumberLineEdit->setText("000");
+*/
 
     //bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     //modes << "SSB" << "CW" << "RTTY";
@@ -4776,6 +5256,29 @@ void MainWindow::createUIDX()
     //spotItButton->setToolTip(tr("Spots this QSO to the DX Cluster - This function is still not implemented"));
     clearButton->setToolTip(tr("Clears the QSO entry."));
 
+//TODO REMOVE eQSL
+/*
+    clublogComboBox->setToolTip(tr("Status on ClubLog"));
+    eqslSentComboBox->setToolTip(tr("Status of the eQSL sending"));
+    eqslRecComboBox->setToolTip(tr("Status of the eQSL reception"));
+    lotwSentComboBox->setToolTip(tr("Status of the LotW sending"));
+    lotwRecComboBox->setToolTip(tr("Status of the LotW reception"));
+    clublogQDateEdit->setToolTip(tr("Date of the ClubLog upload"));
+    eqslSentQDateEdit->setToolTip(tr("Date of the eQSL sending"));
+    eqslRecQDateEdit->setToolTip(tr("Date of the eQSL reception"));
+    lotwSentQDateEdit->setToolTip(tr("Date of the LotW sending"));
+    lotwRecQDateEdit->setToolTip(tr("Date of the LotW reception"));
+
+    qslSentComboBox->setToolTip(tr("Status of the QSL sending"));
+    qslRecComboBox->setToolTip(tr("Status of the QSL reception"));
+    qslSentViaComboBox->setToolTip(tr("QSL sending information"));
+    qslRecViaComboBox->setToolTip(tr("QSL reception information"));
+
+    qslSentQDateEdit->setToolTip(tr("Date of the QSL sending"));
+    qslRecQDateEdit->setToolTip(tr("Date of the QSL reception"));
+    qslmsgTextEdit->setToolTip(tr("Message of the QSL"));
+    qslViaLineEdit->setToolTip(tr("QSL via information"));
+*/
     dxccConfirmedQLCDNumber->setToolTip(tr("Number of confirmed DXCC entities."));
     dxccWorkedQLCDNumber->setToolTip(tr("Number of worked DXCC entities."));
     wazConfirmedQLCDNumber->setToolTip(tr("Number of confirmed WAZ zones."));
@@ -4792,6 +5295,13 @@ void MainWindow::createUIDX()
 
     infoLabel1->setToolTip(tr("Status of the DX entity."));
     infoLabel2->setToolTip(tr("Name of the DX entity."));
+
+    //entityPrimDivComboBox->setToolTip(tr("Select the primary division for this QSO"));
+    //entitySecDivComboBox->setToolTip(tr("Select the secondary division for this QSO"));
+    //entityNameComboBox->setToolTip(tr("Select the propagation mode for this current QSO"));
+    //propModeComboBox->setToolTip(tr("Select the propagation mode for this current QSO"));
+
+    //QGridLayout *layout = new QGridLayout;
 
     dxUpLeftInputFrame = new QFrame;
 
@@ -4929,8 +5439,121 @@ void MainWindow::createUIDX()
 
     qsoInputTabWidget->setLayout(qsoInputTabWidgetMainLayout);
 
+    //QWidget *qslInputTabWidget = new QWidget;
+    //QWidget *eqslInputTabWidget = new QWidget;
+    //QWidget *commentInputTabWidget = new QWidget;
+    //QWidget *othersInputTabWidget = new QWidget;
+    //QWidget *myDataInputTabWidget = new QWidget;
+
     dxUpLeftTab->addTab(qsoInputTabWidget, tr("QSO"));
 
+    // QSL Tab definition starts here
+
+    //QLabel *QSLSentLabelN = new QLabel(tr("QSL Sent"));
+    //QSLSentLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+
+    //QLabel *QSLRecLabelN = new QLabel(tr("QSL Rec"));
+    //QSLRecLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+
+    //QLabel *QSLViaLabelN = new QLabel(tr("QSL Via"));
+    //QSLViaLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+
+    /*
+    entityNameComboBox = new QComboBox;entitiesList
+    if (entitiesList.size()>1)
+    {
+        entitiesList.prepend("00-Not Identified (000)");
+        entityNameComboBox->addItems(entitiesList);
+    }
+
+    if (propModeList.size()>1)
+    {
+        propModeList.prepend("00 - Not - Not Identified");
+        propModeComboBox->addItems(propModeList);
+    }
+
+
+    QGridLayout *QSLLayout = new QGridLayout;
+    QSLLayout->addWidget(QSLSentLabelN, 0, 0);
+    QSLLayout->addWidget(QSLRecLabelN, 1, 0);
+    QSLLayout->addWidget(QSLViaLabelN, 2, 0);
+
+    QSLLayout->addWidget(qslSentComboBox, 0, 1);
+    QSLLayout->addWidget(qslRecComboBox, 1, 1);
+    QSLLayout->addWidget(qslViaLineEdit, 2, 1, 1, -1);
+
+    QSLLayout->addWidget(qslSentQDateEdit, 0, 2);
+    QSLLayout->addWidget(qslRecQDateEdit, 1, 2);
+    QSLLayout->addWidget(qslSentViaComboBox, 0, 3);
+    QSLLayout->addWidget(qslRecViaComboBox, 1, 3);
+
+
+    qslInputTabWidget->setLayout(QSLLayout);
+*/
+/*
+
+    // eQSL Tab definition starts here
+
+    QLabel *clublogLabelN = new QLabel(tr("ClubLog"));
+    clublogLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+
+    QLabel *eQSLSentLabelN = new QLabel(tr("eQSL Sent"));
+    eQSLSentLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+
+    QLabel *eQSLRecLabelN = new QLabel(tr("eQSL Rec"));
+    eQSLRecLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+
+    QLabel *lotWSentLabelN = new QLabel(tr("LotW Sent"));
+    lotWSentLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+
+    QLabel *lotWRecLabelN = new QLabel(tr("LotW Rec"));
+    lotWRecLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+
+
+    QHBoxLayout *eqslSentLayout = new QHBoxLayout;
+    eqslSentLayout->addWidget(eqslSentComboBox);
+    eqslSentLayout->addWidget(eqslSentQDateEdit);
+    QHBoxLayout *eqslRecLayout = new QHBoxLayout;
+    eqslRecLayout->addWidget(eqslRecComboBox);
+    eqslRecLayout->addWidget(eqslRecQDateEdit);
+    QHBoxLayout *lotwSentLayout = new QHBoxLayout;
+    lotwSentLayout->addWidget(lotwSentComboBox);
+    lotwSentLayout->addWidget(lotwSentQDateEdit);
+    QHBoxLayout *lotwRecLayout = new QHBoxLayout;
+    lotwRecLayout->addWidget(lotwRecComboBox);
+    lotwRecLayout->addWidget(lotwRecQDateEdit);
+
+    QFormLayout *eqslInputTabWidgetLayout = new QFormLayout;
+
+    eqslInputTabWidgetLayout->addRow(eQSLSentLabelN, eqslSentLayout);
+    eqslInputTabWidgetLayout->addRow(eQSLRecLabelN, eqslRecLayout);
+    eqslInputTabWidgetLayout->addRow(lotWSentLabelN, lotwSentLayout);
+    eqslInputTabWidgetLayout->addRow(lotWRecLabelN, lotwRecLayout);
+*/
+/*
+    QGridLayout *eqslInputTabWidgetLayout = new QGridLayout;
+    eqslInputTabWidgetLayout->addWidget(clublogLabelN, 0, 0);
+    eqslInputTabWidgetLayout->addWidget(eQSLSentLabelN, 1, 0);
+    eqslInputTabWidgetLayout->addWidget(eQSLRecLabelN, 2, 0);
+    eqslInputTabWidgetLayout->addWidget(lotWSentLabelN, 3, 0);
+    eqslInputTabWidgetLayout->addWidget(lotWRecLabelN, 4, 0);
+
+    eqslInputTabWidgetLayout->addWidget(clublogComboBox, 0, 1);
+    eqslInputTabWidgetLayout->addWidget(eqslSentComboBox, 1, 1);
+    eqslInputTabWidgetLayout->addWidget(eqslRecComboBox, 2, 1);
+    eqslInputTabWidgetLayout->addWidget(lotwSentComboBox, 3, 1);
+    eqslInputTabWidgetLayout->addWidget(lotwRecComboBox, 4, 1);
+
+    eqslInputTabWidgetLayout->addWidget(clublogQDateEdit, 0, 2);
+    eqslInputTabWidgetLayout->addWidget(eqslSentQDateEdit, 1, 2);
+    eqslInputTabWidgetLayout->addWidget(eqslRecQDateEdit, 2, 2);
+    eqslInputTabWidgetLayout->addWidget(lotwSentQDateEdit, 3, 2);
+    eqslInputTabWidgetLayout->addWidget(lotwRecQDateEdit, 4, 2);
+
+    eqslInputTabWidget->setLayout(eqslInputTabWidgetLayout);
+
+    dxUpLeftTab->addTab(eqslInputTabWidget, tr("eQSL-old"));
+*/
 /*
     // NOTES tab starts here
     QGridLayout *notesInputTabWidgetLayout = new QGridLayout;
@@ -4949,6 +5572,8 @@ void MainWindow::createUIDX()
     dxUpLeftTab->addTab(myDataTabWidget, tr("My Data"));
     dxUpLeftTab->addTab(satTabWidget, tr("Satellite"));
 
+
+
     QHBoxLayout *TimeLayout = new QHBoxLayout;
     TimeLayout->addWidget(dateEdit);
     TimeLayout->addWidget(timeEdit);
@@ -4960,6 +5585,7 @@ void MainWindow::createUIDX()
     QHBoxLayout *QrzBandModeLayout = new QHBoxLayout;
     QrzBandModeLayout->addWidget(qrzLineEdit);
     QrzBandModeLayout->addLayout(BandModeLayout);
+
 
     qrzgroupBox = new QGroupBox(tr("QRZ"));
     qrzgroupBox->setFlat(true);
@@ -4976,6 +5602,7 @@ void MainWindow::createUIDX()
     QDateTimeEdit *dateEdit = new QDateTimeEdit(QDate::currentDate());
     dateEdit->setDisplayFormat("yyyy/MM/dd");
     timeEdit->setDisplayFormat("HH:mm:ss");
+
 
     QGridLayout *dxUpLeftInputFrameLayout = new QGridLayout;
     dxUpLeftInputFrameLayout->addWidget(qrzgroupBox, 0, 0, 1, 0);
@@ -5009,7 +5636,9 @@ void MainWindow::createUIDX()
     dxMarathonTopScoreLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
     dxMarathonLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
 
+
     dxUpRightTab->addTab(infoWidget, tr("Info"));
+
 
     QWidget *awardsTabWidget = new QWidget;
 
@@ -5076,6 +5705,7 @@ void MainWindow::createUIDX()
     dxUpRightTab->addTab(searchWidget, tr("Search"));
 
     dxBottonTab->addTab(logWindow, tr("Log"));
+
     dxBottonTab->addTab(dxClusterWidget, tr("DX-Cluster"));
     dxBottonTab->addTab(dxccStatusWidget, tr("DXCC"));
 
@@ -6886,11 +7516,6 @@ void MainWindow::slotFreqRXChanged()
     //qDebug() << "MainWindow::slotFreqRXChanged: END" << endl;
 }
 
-void MainWindow::slotShowQSOFromDXCCWidget(const int _q)
-{
-    qDebug() << "MainWindow::slotShowQSOFromDXCCWidget: " << QString::number(_q)<< endl;
-}
-
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed)
 {
      //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << endl;
@@ -6952,4 +7577,3 @@ void MainWindow::slotUpdateLocator(QString _loc)
 {
     locatorLineEdit->setText(_loc.toUpper());
 }
-
