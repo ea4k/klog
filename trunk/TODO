@@ -2,7 +2,8 @@ RC-BUGS:
 
 
 For next release:
-TODO: Create a function that runs the log adding a DXCC to any QSO without a DXCC.
+TODO: - Check if the save to adif on exit is working properly
+
 TODO: Import LOTW (MainWindow::slotADIFImport)
 TODO: Remove the Querys from void SetupPageLogs::
 
