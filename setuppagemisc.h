@@ -66,6 +66,10 @@ public:
     void setCheckNewVersions(const QString t);
     QString getReportInfo();
     void setReportInfo(const QString t);
+    void setUDPServer(const QString t);
+    QString getUDPServer();
+    void setUDPServerPort(const QString t);
+    QString getUDPServerPort();
 
     bool areDBPathChangesApplied();
 
@@ -78,6 +82,7 @@ private slots:
     void slotDBButtonClicked();
     void slotDBLineEditChanged();
     void slotMoveDBButtonClicked();
+    void slotUDPServerCheckBoxClicked();
 
 private:
     void createActions();
@@ -85,7 +90,7 @@ private:
 
     Utilities *util;
 
-    QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
+    QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox, *UDPServerCheckBox;;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox, *keepMyDataCheckBox;
     QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox;
     QString defaultFileName;
@@ -95,6 +100,7 @@ private:
     QString klogDir, dbDirNew, dbDirCurrent; //TODO: To be removed when the defaultDir is saved in the config file
     QPalette palRight, palWrong; // To paint Text in red or black(normal)
 
+    QSpinBox *UDPServerPortSpinBox;
     bool dbPathApplied;
 
     //QWidget *bandsWidget;

@@ -17,6 +17,7 @@ DXCCStatusWidget::DXCCStatusWidget(DataProxy *dp, QWidget *parent) : QWidget(par
     world = new World(dataProxy);
 
     dxccView = new QTableWidget;
+    dxccView->setMouseTracking(true);
     //hv = new QHeaderView(Qt::Vertical, dxccView);
     //hh = new QHeaderView(Qt::Horizontal, this);
 
@@ -30,6 +31,7 @@ DXCCStatusWidget::DXCCStatusWidget(DataProxy *dp, QWidget *parent) : QWidget(par
 
     bandNames.clear();
     validBands.clear();
+
 
 
     setDefaultBands();
@@ -72,8 +74,11 @@ void DXCCStatusWidget::createUI()
     dxccView->resizeColumnsToContents();
     dxccView->resizeRowsToContents();
 
-
     connect(refreshButton, SIGNAL(clicked()), this, SLOT(slotRefreshButtonClicked() ) );
+    connect(dxccView, SIGNAL(itemEntered(QTableWidgetItem *)), this, SLOT(slotItemEntered(QTableWidgetItem *) ) );
+    //connect(dxccView, SIGNAL(itemDoubleClicked(QTableWidgetItem *)), this, SLOT(slotItemDoubleClicked(QTableWidgetItem *) ) );
+    connect(dxccView, SIGNAL(itemClicked(QTableWidgetItem *)), this, SLOT(slotItemDoubleClicked(QTableWidgetItem *) ) );
+
 }
 
 void DXCCStatusWidget::update()
@@ -109,7 +114,6 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
         //qDebug() << "DXCCStatusWidget::addEntity: ERROR: in number of columns" << QString::number(_ent.length()) << "/" << QString::number(numberOfColumns) << endl;
         return;
     }
-
 
     int status = -1;
 
@@ -150,6 +154,10 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
     newItemID->setTextAlignment(Qt::AlignCenter);
     newItemID->setFlags(Qt::NoItemFlags);
     dxccView->setItem(dxccView->rowCount()-1, 0, newItemID);
+
+    //connect(dxccView, SIGNAL(itemEntered(QTableWidgetItem *)), this, SLOT(slotItemEntered(QTableWidgetItem *) ) );
+    //connect(dxccView, SIGNAL(itemDoubleClicked(QTableWidgetItem *)), this, SLOT(slotItemDoubleClicked(QTableWidgetItem *) ) );
+
 
     //QTableWidgetItem::QTableWidgetItem(const QIcon & icon, const QString & text, int type = Type)
    // QTableWidgetItem *newItemFlag = new QTableWidgetItem(QIcon(flagSt), "T", 0);
@@ -347,3 +355,119 @@ void DXCCStatusWidget::refresh()
          logNumber = -1;
      }
  }
+
+ void DXCCStatusWidget::slotItemEntered(QTableWidgetItem  * item )
+ {
+    //qDebug() << "DXCCStatusWidget::slotItemEntered: " << ((item->data(0)).toString()).simplified() << endl;
+    //qDebug() << "DXCCStatusWidget::slotItemEntered: " << item->text() << endl;
+    QString tip;
+    tip.clear();
+    int row = -1;
+    int column = -1;
+    int bandi = -1;
+    QString band = QString();
+
+    if (item)
+    {
+        row = dxccView->row(item);
+        column = dxccView->column(item);
+
+
+        //qDebug() << "DXCCStatusWidget::slotItemEntered: row: " << QString::number(row) << endl;
+        //qDebug() << "DXCCStatusWidget::slotItemEntered: hrow: " <<  dxccView->verticalHeaderItem(row)->text() << endl;
+        row = (dxccView->item(row,0)->text()).toInt();
+        //qDebug() << "DXCCStatusWidget::slotItemEntered: column: " << QString::number(column) << endl;
+        if (column >= 2)
+        {
+            if (item->text() == "-")
+            {
+                tip = tr("Entity not worked in this band.");
+            }
+            else
+            {
+                band = dxccView->horizontalHeaderItem(column)->text();
+                //qDebug() << "DXCCStatusWidget::slotItemEntered: band: " << band << endl;
+                bandi = dataProxy->getIdFromBandName(band);
+                //qDebug() << "DXCCStatusWidget::slotItemEntered: band: " << QString::number(bandi) << endl;
+                tip = awards->getQSOofAward(row, bandi);
+                //qDebug() << "DXCCStatusWidget::slotItemEntered: tip: " << tip << endl;
+                if (tip.length()>3)
+                {
+                    tip = "QSO: " + tip;
+                }
+                else
+                {
+                    tip = tr("Text TBD.");
+                }
+
+            }
+
+        }
+        else
+        {
+            tip = ""; // TODO define a text to be shown when no band column is selected (maybe Continent & bearing or a link to wikipedia or whatever!)
+        }
+
+        item->setToolTip(tip);
+        //qDebug() << "DXCCStatusWidget::slotItemEntered: tip: " << tip << endl;
+
+
+    }
+    else
+    {}
+
+    //qDebug() << "DXCCStatusWidget::slotItemEntered: END " << endl;
+
+ }
+
+void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
+{
+    //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: " << ((item->data(0)).toString()).simplified() << endl;
+    qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: " << item->text() << endl;
+
+    int row = -1;
+    int column = -1;
+    int qsoId = -1;
+    int bandi = -1;
+    QString band = QString();
+
+    if (item)
+    {
+        row = dxccView->row(item);
+        column = dxccView->column(item);
+
+
+        //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: row: " << QString::number(row) << endl;
+        //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: hrow: " <<  dxccView->verticalHeaderItem(row)->text() << endl;
+        row = (dxccView->item(row,0)->text()).toInt();
+        //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: column: " << QString::number(column) << endl;
+        if (column >= 2)
+        {
+            if (item->text() == "-")
+            {
+                //tip = tr("Entity not worked in this band.");
+            }
+            else
+            {
+                band = dxccView->horizontalHeaderItem(column)->text();
+                //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: band: " << band << endl;
+                bandi = dataProxy->getIdFromBandName(band);
+                //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: band: " << QString::number(bandi) << endl;
+                qsoId = awards->getQSOIdofAward(row, bandi);
+                //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: tip: " << tip << endl;
+                if (qsoId>0)
+                {
+                    emit showQso(qsoId);
+                }
+            }
+        }
+        else
+        {
+            //tip = ""; // TODO define a text to be shown when no band column is selected (maybe Continent & bearing or a link to wikipedia or whatever!)
+        }
+    }
+    else
+    {}
+
+    //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: END " << endl;
+}

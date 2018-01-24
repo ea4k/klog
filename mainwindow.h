@@ -63,6 +63,7 @@
 #include "searchwidget.h"
 #include "infowidget.h"
 #include "showerrordialog.h"
+#include "udpserver.h"
 
 
 
@@ -272,6 +273,9 @@ private slots:
     void slotChangeRXFreq(const QString _f);
     void slotChangeTXFreq(const QString _f);
 	
+    //DXCCWIDGET
+    void slotShowQSOFromDXCCWidget(const int _q);
+
 private:
     bool maybeSave();
 
@@ -413,6 +417,7 @@ private:
 
     LogModel *logModel;
     LogWindow *logWindow;
+    UDPServer *UDPLogServer;
 
     ShowErrorDialog *showErrorDialog;
 
@@ -641,6 +646,8 @@ private:
 
     SoftwareUpdate *softUpdate;
     bool callingUpdate;
+    
+    bool UDPServerStart;
 
     //LOGVIEW
     //QString bandOld, modeOld;
