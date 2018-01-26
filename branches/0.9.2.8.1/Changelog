@@ -1,5 +1,6 @@
 January - 0.9.2.8.1
 - Bugfix: Adding new QSO that implies a DXCC or WAZ status already worked failed.
+- Bugfix: Modes were not properly added from the setup (TNX KB2YSI).
 - UI Change: Freq in the Satellite tab is now not deleted when a new QSO is added.
 - New translation: Catalan by Josep (Thank you!)
 

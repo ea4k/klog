@@ -4722,7 +4722,9 @@ bool MainWindow::processConfigLine(const QString _line){
         contestMode = value;
 
     }else if (field=="MODES"){
+        qDebug() << "MainWindow::processConfigLine: modes1: " << value << endl;
         readActiveModes(value.split(", ", QString::SkipEmptyParts));
+        qDebug() << "MainWindow::processConfigLine: modes2: " << value << endl;
     }else if (field=="BANDS"){
           //qDebug() << "MainWindow::processConfigLine: BANDS: " << value << endl;
         readActiveBands(value.split(", ", QString::SkipEmptyParts));
@@ -5031,7 +5033,7 @@ bool MainWindow::processConfigLine(const QString _line){
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
 //that is not currently selected as active
-       //qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
+    qDebug() << "MainWindow::checkIfNewBandOrMode" << endl;
 
     setupDialog->checkIfNewBandOrMode(); // Update the Setup dialog with new bands or modes
        //qDebug() << "MainWindow::checkIfNewBandOrMode after setupDialog" << endl;
@@ -5057,22 +5059,16 @@ void MainWindow::checkIfNewBandOrMode()
     bands.clear();
     bands << qsTemp;
 
-    //QSet<QString> set = bands.toSet();
-    //QSet<QString> set;
-    //bands.clear();
-    //bands << set.toList();
+
+    modes << modesInLog;
+    modes.removeDuplicates();
 
 
-
-    if (modesInLog.length()>0)
-    {
-        modes.clear();
-        modes << modesInLog;
-    }
-
-    //set = modes.toSet();
-    //modes.clear();
-    //modes << set.toList();
+    //if (modesInLog.length()>0)
+    //{
+    //   modes.clear();
+    //    modes << modesInLog;
+    //}
 
 
 /*
@@ -5166,6 +5162,21 @@ void MainWindow::readActiveBands (const QStringList actives)
 void MainWindow::readActiveModes (const QStringList actives)
 {
     //qDebug() << "MainWindow::readActiveModes: " << actives << endl;
+    qDebug() << "MainWindow::readActiveModes: start"  << endl;
+    for (int i = 0;i<modes.length();i++)
+    {
+        qDebug() << "MainWindow::readActiveModes: " << modes.at(i) << endl;
+
+    }
+    qDebug() << "MainWindow::readActiveModes: start-END"  << endl;
+
+    qDebug() << "MainWindow::readActiveModes: actives start"  << endl;
+    for (int i = 0;i<modes.length();i++)
+    {
+        qDebug() << "MainWindow::readActiveModes: actives: " << actives.at(i) << endl;
+
+    }
+    qDebug() << "MainWindow::readActiveModes: actives start-END"  << endl;
 
     bool atLeastOne = false;
     QString aux;
@@ -5175,7 +5186,7 @@ void MainWindow::readActiveModes (const QStringList actives)
 
     for (int i = 0; i < actives.size() ; i++)
     {
-        if (dataProxy->getIdFromModeName(actives.at(i)) < 0)
+        if (dataProxy->getIdFromModeName(actives.at(i)) > 0)
         //if (db->isValidMode(actives.at(i), false))
         {
             if (!atLeastOne)
@@ -5194,7 +5205,17 @@ void MainWindow::readActiveModes (const QStringList actives)
 
     }
     modes.removeDuplicates();
-    //qDebug() << "MainWindow::readActiveModes - END" << endl;
+    modes.sort();
+
+    qDebug() << "MainWindow::readActiveModes: end"  << endl;
+    for (int i = 0;i<modes.length();i++)
+    {
+        qDebug() << "MainWindow::readActiveModes: " << modes.at(i) << endl;
+
+    }
+    qDebug() << "MainWindow::readActiveModes: end-END"  << endl;
+
+    qDebug() << "MainWindow::readActiveModes - END" << endl;
 }
 
 

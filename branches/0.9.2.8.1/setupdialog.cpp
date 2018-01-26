@@ -600,7 +600,7 @@ void SetupDialog::slotReadConfigData()
         processConfigLine(line);        
        //qDebug() << "SetupDialog::slotReadConfigData - in the while" << endl;
     }
-    //qDebug() << "SetupDialog::slotReadConfigData - 3" << endl;
+    qDebug() << "SetupDialog::slotReadConfigData - 3" << endl;
 
     dxClusterPage->setDxclusterServersComboBox(dxClusterServers);
     dxClusterPage->setSelectedDxClusterServer(dxClusterServerToUse);
@@ -668,9 +668,11 @@ bool SetupDialog::processConfigLine(const QString _line)
     }else if (tab=="CONTEST"){
         //userDataPage->setContest(value);
     }else if (tab=="MODES"){
+        qDebug() << "SetupDialog::processConfigLine: MODES: " << value << endl;
         readActiveModes(value);
         modes.removeDuplicates();
         bandModePage->setActiveModes(modes);
+        qDebug() << "SetupDialog::processConfigLine: MODES-2: " << value << endl;
     }else if (tab=="BANDS"){
         readActiveBands(value);
         bands.removeDuplicates();
@@ -900,7 +902,7 @@ void SetupDialog::readActiveBands (const QString actives)
 
 void SetupDialog::readActiveModes (const QString actives)
 {
-    //qDebug() << "SetupDialog::readActiveModes: " << actives << endl;
+    qDebug() << "SetupDialog::readActiveModes: " << actives << endl;
 
     bool atLeastOne = false;
     QStringList _amodes;//, _backModes;
@@ -918,10 +920,8 @@ void SetupDialog::readActiveModes (const QString actives)
                 atLeastOne = true;
                 _amodes.clear();
             }
-
             _amodes << values.at(i);
         }
-
     }
 
     modes.clear();
@@ -929,10 +929,7 @@ void SetupDialog::readActiveModes (const QString actives)
     modes << _amodes;
     modes.removeDuplicates();
 
-
-    //qDebug() << "SetupDialog::readActiveModes: " << modes.join(" / ") << endl;
-
-
+    qDebug() << "SetupDialog::readActiveModes-end: " << modes.join(" / ") << endl;
 }
 
 bool SetupDialog::isValidBand (const QString b)
