@@ -65,24 +65,24 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+13"/>
+        <location line="+14"/>
         <source>KLog development mailing list</source>
         <translation>KLog kehitystiimin postituslistaan</translation>
     </message>
     <message>
-        <location line="-13"/>
-        <location line="+13"/>
+        <location line="-14"/>
+        <location line="+14"/>
         <source>!</source>
         <translation>!</translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="-14"/>
         <source>You can also help us by sending bug reports or small code contributions, ideas or whatever you think may improve KLog.</source>
         <translation>Voit auttaa meitä myös lähettämällä virheilmoituksia tai ohjelmointiapua, ideoita tai mitä vain, mikä mielestäsi voisi parantaa KLogia.</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+70"/>
+        <location line="+71"/>
         <source>Authors</source>
         <translation>Tekijät</translation>
     </message>

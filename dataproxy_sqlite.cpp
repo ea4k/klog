@@ -3194,9 +3194,14 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
             }
             else
             {
-                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                query.finish();
-                return false;
+                if(query.lastError().number()==19)
+                {}
+                else
+                {
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                    query.finish();
+                    return false;
+                }
             }
         }
 
@@ -3325,9 +3330,14 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
             }
             else
             {
-                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                query.finish();
-                return false;
+                if(query.lastError().number()==19)
+                {}
+                else
+                {
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                    query.finish();
+                    return false;
+                }
             }
         }
 

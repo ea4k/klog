@@ -1,13 +1,9 @@
-TBD - 0.9.2.9
-TODO: - UDP server to receive data from WSJT-X
-TODO: - Several warnings removed from compilation time.
-TODO: - The log can be now updated with a LoTW ADIF file import.
-TODO: - ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing
-TODO: - ADD double clicking o DXCC Widget will show the QSO is providing that status
-TODO: - Add a warning or periodically ADIF export so data is backup
-TODO: - Isolate the Awards tab and create a widget with it.
-TODO: - Update List of DXCC with Kosovo
-TODO: - Updated translations: Spanish (EA4TV)
+January - 0.9.2.9
+- Bugfix: Adding new QSO that implies a DXCC or WAZ status already worked failed.
+- Bugfix: Modes where not properly added from the setup (TNX KB2YSI).
+- UI Change: Freq in the Satellite tab is now not deleted when a new QSO is added.
+- New translation: Catalan by Josep (Thank you!)
+- New translation: Finnish by Kristjan (Thank you!)
 
 January - 0.9.2.8
 - Important Optimization on KLog speed on start and general use.

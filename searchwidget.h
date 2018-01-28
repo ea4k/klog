@@ -47,8 +47,7 @@ public:
     void setVersion (const QString _version); // Defines the KLog version to be written in the exported logs
     void setShowCallInSearch(const bool _sh);
     void clear();
-    void showQSO(const int _q);
-    Tengo que reibir elID y mostrar el QSO
+
     void searchToolNeededQSLToSend();
 
 public slots:
@@ -102,7 +101,6 @@ signals:
 
 private:
     void createUI();
-//    void addQSOToTheList(const int _id);
 
 
     QLineEdit *searchBoxLineEdit;

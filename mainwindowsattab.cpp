@@ -350,10 +350,10 @@ void MainWindowSatTab::clear()
         satNameComboBox->setCurrentIndex(0);
         satNameLineEdit->clear();
 
-        txFreqSpinBox->setValue(0);
-        rxFreqSpinBox->setValue(0);
-        satBandRXComboBox->setCurrentIndex(0);
-        satBandTXComboBox->setCurrentIndex(0);
+        //txFreqSpinBox->setValue(0);
+        //rxFreqSpinBox->setValue(0);
+        //satBandRXComboBox->setCurrentIndex(0);
+        //satBandTXComboBox->setCurrentIndex(0);
 
     }
 

@@ -80,9 +80,6 @@ public:
     QString checkIfValidIOTA(const QString _tiota); //TODO: There is an equivalent function in the MainWindowInputOthers class. I should use only one!
 
     int getEntityDXStatus (const int _enti, const int _bandid, int _modeid = -1, int _log = -1);
-    QString getQSOofAward (const int _enti, const int _bandid);
-    int getQSOIdofAward (const int _enti, const int _bandid);
-
     int getDXStatus (const QStringList _qs);
     QString getDXStatusString (const int _status); // Needs to be called with the output of getDXStatus
     QString getDXCCStatusBand(const int _dxcc, const int _band, const int _logNumber=0); // Returns -, W or C (Not worked, worked, Confirmed)

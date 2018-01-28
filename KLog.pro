@@ -73,8 +73,7 @@ HEADERS += setupdialog.h \
     logmodel.h \
     searchwidget.h \
     infowidget.h \
-    showerrordialog.h \
-    udpserver.h
+    showerrordialog.h
 SOURCES += main.cpp \
     aboutdialog.cpp \
     setupdialog.cpp \
@@ -117,8 +116,7 @@ SOURCES += main.cpp \
     logmodel.cpp \
     searchwidget.cpp \
     infowidget.cpp \
-    showerrordialog.cpp \
-    udpserver.cpp
+    showerrordialog.cpp
 
 OTHER_FILES += \
     README-DEVEL \

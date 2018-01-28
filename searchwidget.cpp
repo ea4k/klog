@@ -1168,8 +1168,3 @@ void SearchWidget::slotToolSearchNeededQSLRequested()
 { // Requested DX QSL
     slotToolSearchQSL(3);
 }
-
-void SearchWidget::showQSO(const int _q)
-{
-    qDebug() << "SearchWidget::showQSO: " << QString::number(_q) << endl;
-}
