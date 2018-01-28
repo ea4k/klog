@@ -346,12 +346,12 @@ msgctxt "DataProxy_SQLite|"
 msgid "No query failed"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:3947
+#: ../dataproxy_sqlite.cpp:3957
 msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:3948
+#: ../dataproxy_sqlite.cpp:3958
 msgctxt "DataProxy_SQLite|"
 msgid "All QSOs have been updated with a DXCC."
 msgstr ""
@@ -439,7 +439,7 @@ msgctxt "FileManager|"
 msgid "Exporting LoTW ADIF file..."
 msgstr ""
 
-#: ../filemanager.cpp:442
+#: ../filemanager.cpp:442 ../filemanager.cpp:3587
 msgctxt "FileManager|"
 msgid " QSO: "
 msgstr ""
@@ -458,7 +458,7 @@ msgid ""
 "be exported."
 msgstr ""
 
-#: ../filemanager.cpp:2629
+#: ../filemanager.cpp:2629 ../filemanager.cpp:3753
 msgctxt "FileManager|"
 msgid "Do you still want to cancel?"
 msgstr ""
@@ -485,120 +485,131 @@ msgctxt "FileManager|"
 msgid "Reading LoTW file..."
 msgstr ""
 
-#: ../filemanager.cpp:3095 ../filemanager.cpp:3382
+#: ../filemanager.cpp:3095 ../filemanager.cpp:3381
 msgctxt "FileManager|"
 msgid "Abort reading"
 msgstr ""
 
 #: ../filemanager.cpp:3334
 msgctxt "FileManager|"
-msgid ""
-"There are more than one log in this logfile.\n"
-"All logs will be imported in the current log.\n"
-"Do you want to continue?"
+msgid "There is more than one log in this logfile."
 msgstr ""
 
-#: ../filemanager.cpp:3382
+#: ../filemanager.cpp:3334
+msgctxt "FileManager|"
+msgid "All logs will be imported into the current log."
+msgstr ""
+
+#: ../filemanager.cpp:3334
+msgctxt "FileManager|"
+msgid "Do you want to continue?"
+msgstr ""
+
+#: ../filemanager.cpp:3587
+msgctxt "FileManager|"
+msgid "Importing ADIF file..."
+msgstr ""
+
+#: ../filemanager.cpp:3753
+msgctxt "FileManager|"
+msgid ""
+"You have cancelled the file import. The file will be removed and no data "
+"will be imported."
+msgstr ""
+
+#: ../filemanager.cpp:3614
+msgctxt "FileManager|"
+msgid ""
+"It seems that there are some duplicated QSOs in the ADIF file you are "
+"importing. Do you want to continue? (Duped QSOs will not be imported)"
+msgstr ""
+
+#: ../filemanager.cpp:3381
 msgctxt "FileManager|"
 msgid "Reading ADIF file..."
 msgstr ""
 
-#: ../filemanager.cpp:3621
-msgctxt "FileManager|"
-msgid ""
-"Importing ADIF file...\n"
-" QSO: "
-msgstr ""
-
-#: ../filemanager.cpp:3637
-msgctxt "FileManager|"
-msgid ""
-"You have cancelled the file export. The file will be removed and no data "
-"will be exported.\n"
-"Do you still want to cancel?"
-msgstr ""
-
-#: ../filemanager.cpp:4711
+#: ../filemanager.cpp:4759
 msgctxt "FileManager|"
 msgid "This QSO is not including the minimum data to consider a QSO as valid!."
 msgstr ""
 
-#: ../filemanager.cpp:4711
+#: ../filemanager.cpp:4759
 msgctxt "FileManager|"
 msgid "Please edit the ADIF file and make sure that it include at least:"
 msgstr ""
 
-#: ../filemanager.cpp:4711
+#: ../filemanager.cpp:4759
 msgctxt "FileManager|"
 msgid "and"
 msgstr ""
 
-#: ../filemanager.cpp:4711
+#: ../filemanager.cpp:4759
 msgctxt "FileManager|"
 msgid "This QSO had:"
 msgstr ""
 
-#: ../filemanager.cpp:4715
+#: ../filemanager.cpp:4763
 msgctxt "FileManager|"
 msgid " - The band missing and the following call: "
 msgstr ""
 
-#: ../filemanager.cpp:4720
+#: ../filemanager.cpp:4768
 msgctxt "FileManager|"
 msgid " - The call missing but was done at this time: "
 msgstr ""
 
-#: ../filemanager.cpp:4725
+#: ../filemanager.cpp:4773
 msgctxt "FileManager|"
 msgid " - The mode missing and the following call: "
 msgstr ""
 
-#: ../filemanager.cpp:4730
+#: ../filemanager.cpp:4778
 msgctxt "FileManager|"
 msgid " - The date missing and the following call: "
 msgstr ""
 
-#: ../filemanager.cpp:4735
+#: ../filemanager.cpp:4783
 msgctxt "FileManager|"
 msgid " - The time missing and the following call: "
 msgstr ""
 
-#: ../filemanager.cpp:4740
+#: ../filemanager.cpp:4788
 msgctxt "FileManager|"
 msgid "Do you want to continue with the current file?"
 msgstr ""
 
-#: ../filemanager.cpp:4744
+#: ../filemanager.cpp:4792
 msgctxt "FileManager|"
 msgid "KLog: Not all required data found!"
 msgstr ""
 
-#: ../filemanager.cpp:4768
+#: ../filemanager.cpp:4816
 msgctxt "FileManager|"
 msgid "This log seems to lack of RST-TX information."
 msgstr ""
 
-#: ../filemanager.cpp:4768 ../filemanager.cpp:4790
+#: ../filemanager.cpp:4816 ../filemanager.cpp:4838
 msgctxt "FileManager|"
 msgid "Click on Yes to add a default 59 to all QSO with a similar problem."
 msgstr ""
 
-#: ../filemanager.cpp:4768 ../filemanager.cpp:4790
+#: ../filemanager.cpp:4816 ../filemanager.cpp:4838
 msgctxt "FileManager|"
 msgid "If you select NO, the QSO may not be imported."
 msgstr ""
 
-#: ../filemanager.cpp:4769
+#: ../filemanager.cpp:4817
 msgctxt "FileManager|"
 msgid "KLog: No RST TX found!"
 msgstr ""
 
-#: ../filemanager.cpp:4790
+#: ../filemanager.cpp:4838
 msgctxt "FileManager|"
 msgid "This log seems to lack of RST-RX information."
 msgstr ""
 
-#: ../filemanager.cpp:4792
+#: ../filemanager.cpp:4840
 msgctxt "FileManager|"
 msgid "KLog: No RST RX found!"
 msgstr ""
@@ -2519,13 +2530,13 @@ msgstr ""
 
 #: ../database.cpp:3352 ../database.cpp:3537 ../database.cpp:3734
 #: ../database.cpp:3935 ../database.cpp:6614 ../database.cpp:6837
-#: ../dataproxy_sqlite.cpp:3891
+#: ../dataproxy_sqlite.cpp:3901
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr ""
 
 #: ../database.cpp:3373 ../database.cpp:3556 ../database.cpp:6706
-#: ../database.cpp:6929 ../dataproxy_sqlite.cpp:3932
+#: ../database.cpp:6929 ../dataproxy_sqlite.cpp:3942
 msgctxt "QObject|"
 msgid "QSO: "
 msgstr ""
@@ -2566,7 +2577,7 @@ msgctxt "QObject|"
 msgid "Updating DXCC award information..."
 msgstr ""
 
-#: ../database.cpp:6706 ../database.cpp:6929 ../dataproxy_sqlite.cpp:3932
+#: ../database.cpp:6706 ../database.cpp:6929 ../dataproxy_sqlite.cpp:3942
 msgctxt "QObject|"
 msgid "Updating DXCC Award information..."
 msgstr ""
@@ -2576,7 +2587,7 @@ msgctxt "QObject|"
 msgid "Updating WAZ award information..."
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:3891
+#: ../dataproxy_sqlite.cpp:3901
 msgctxt "QObject|"
 msgid "Updating DXCC information..."
 msgstr ""
