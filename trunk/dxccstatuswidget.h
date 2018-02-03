@@ -49,10 +49,15 @@ public:
     void refresh();
 
 signals:
+    void showQso(const int _qsoid); // identified QSO double clicking on DXCC
+    //void updateAwards();
 
 public slots:
     //void slotSearchLineEditTextChanged();
     void slotRefreshButtonClicked();
+    void slotItemEntered(QTableWidgetItem  * item );
+    void slotItemDoubleClicked(QTableWidgetItem  * item );
+
 private:
     void createUI();
     void setDefaultBands();

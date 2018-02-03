@@ -1,8 +1,18 @@
 RC-BUGS:
 
 
+In searchwidget:
+void showQSO(const int _q);
+I need to receive the id and show the QSO in the table
+
+
+
+Check-BUG: freq can not be typed
+Check-BUG: band can't be selected (or it always goes back to 160 even if not seected)
+
 For next release:
-TODO: Create a function that runs the log adding a DXCC to any QSO without a DXCC.
+TODO: - Check if the save to adif on exit is working properly
+
 TODO: Import LOTW (MainWindow::slotADIFImport)
 TODO: Remove the Querys from void SetupPageLogs::
 

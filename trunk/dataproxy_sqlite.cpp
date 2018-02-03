@@ -3192,6 +3192,7 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
                 query.finish();
                 return true;
             }
+
             else
             {
                 if(query.lastError().number()==19)
@@ -3201,7 +3202,10 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
                     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                     query.finish();
                     return false;
+
                 }
+
+
             }
         }
 
@@ -3337,6 +3341,7 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
                     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                     query.finish();
                     return false;
+
                 }
             }
         }
@@ -4957,11 +4962,20 @@ int DataProxy_SQLite::getHowManyEntities()
 }
 
 
-int DataProxy_SQLite::getMaxEntityID()
+int DataProxy_SQLite::getMaxEntityID(bool limit)
 {
     //SELECT MAX (dxcc) FROM entity WHERE dxcc<1000
     QSqlQuery query;
-    QString  queryString = QString("SELECT MAX (dxcc) FROM entity WHERE dxcc<1000");
+    QString  queryString;
+    if (limit)
+    {
+        queryString = QString("SELECT MAX (dxcc) FROM entity WHERE dxcc<1000");
+    }
+    else
+    {
+        queryString = QString("SELECT MAX (dxcc) FROM entity");
+    }
+
     bool sqlOK = query.exec(queryString);
 
     if (sqlOK)
@@ -4978,7 +4992,6 @@ int DataProxy_SQLite::getMaxEntityID()
             query.finish();
             return -1;
         }
-
     }
     else
     {
@@ -4986,7 +4999,6 @@ int DataProxy_SQLite::getMaxEntityID()
         query.finish();
         return -1;
     }
-
 }
 
 bool DataProxy_SQLite::updateISONames()

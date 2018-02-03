@@ -146,6 +146,7 @@ private:
     bool updateTo009(); // Updates DB and add the Satellite tables
     bool updateTo010(); // Updates DB and recreates the supportedcontest table
     bool updateTo011(); // Updates DB and recreates Satellite data
+    bool updateTo012(); // Updates the flags and so on.
     bool updateTableLog(const int _v);
     bool updateDBVersion();
 

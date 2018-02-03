@@ -43,7 +43,8 @@ double Utilities::getVersionDouble()
 }
 
 
-int Utilities::getProgresStepForDialog(int totalSteps){
+int Utilities::getProgresStepForDialog(int totalSteps)
+{
     //qDebug() << "Utilities::getProgresStepForDialog";
     if (totalSteps <=100)
         return 1;

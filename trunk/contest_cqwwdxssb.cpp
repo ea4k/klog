@@ -55,7 +55,7 @@ Example: 1000 QSO points × 100 multiplier (30 Zones + 70 Countries) = 100,000 (f
 
 ContestCQWWDXSSB::ContestCQWWDXSSB()
 {
-    //qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB2"  << endl;
+    qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB2"  << endl;
     constrid = 1;
     myEntity = "";
     myCQz = "";
@@ -72,7 +72,7 @@ ContestCQWWDXSSB::ContestCQWWDXSSB()
     thiscontest = "";
     club = "";
     createdby = "";
-    //qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB1"  << endl;
+    qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB1"  << endl;
 }
 
 ContestCQWWDXSSB::ContestCQWWDXSSB(const QStringList _qs)
@@ -80,7 +80,7 @@ ContestCQWWDXSSB::ContestCQWWDXSSB(const QStringList _qs)
 
     // Receives:  QStringList _qs;
     //_qs << myEntity << myCQz << myContinent << NA-id;
-    //qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB- 2:" << endl;
+    qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB- 2:" << endl;
     constrid = 2;
     myEntity = _qs.at(0);
     myCQz = _qs.at(1);
@@ -137,8 +137,8 @@ ContestCQWWDXSSB::ContestCQWWDXSSB(const QStringList _qs)
 
 
 
-    //qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB: " << myEntity << "/" << myCQz << "/" << myContinent << "/" << NA << endl;
-    //qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB- 2: - END" << endl;
+    qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB: " << myEntity << "/" << myCQz << "/" << myContinent << "/" << NA << endl;
+    qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB- 2: - END" << endl;
 }
 
 ContestCQWWDXSSB::~ContestCQWWDXSSB(){

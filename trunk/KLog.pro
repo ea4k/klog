@@ -2,7 +2,7 @@ CONFIG += app_bundle
 CONFIG += static
 #CONFIG += release
 TEMPLATE = app
-VERSION = 0.9.2.9
+VERSION = 0.9.3
 DEFINES += APP_VERSION="$$VERSION"
 
 APP_NAME = KLog
@@ -73,7 +73,8 @@ HEADERS += setupdialog.h \
     logmodel.h \
     searchwidget.h \
     infowidget.h \
-    showerrordialog.h
+    showerrordialog.h \
+    udpserver.h
 SOURCES += main.cpp \
     aboutdialog.cpp \
     setupdialog.cpp \
@@ -116,7 +117,8 @@ SOURCES += main.cpp \
     logmodel.cpp \
     searchwidget.cpp \
     infowidget.cpp \
-    showerrordialog.cpp
+    showerrordialog.cpp \
+    udpserver.cpp
 
 OTHER_FILES += \
     README-DEVEL \
