@@ -1,3 +1,20 @@
+TBD - 0.9.3
+TODO: - UDP server to receive data from WSJT-X
+TODO: - Several warnings removed from compilation time.
+TODO: - The log can be now updated with a LoTW ADIF file import.
+TODO: - ADD double clicking o DXCC Widget will show the QSO is providing that status
+TODO: - Add a warning or periodically ADIF export so data is backup
+TODO: - Isolate the Awards tab and create a widget with it.
+TODO: - Updated translations: Spanish (EA4TV)
+TODO: - ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing
+TODO: - Bugfix: World::readCTYCSV showed a query error if there is no network connection when it is executed.
+TODO: In the dxcc status widget there are some countries that the flag is shown as UN or not shown.
+- Added DXCC support for Kosovo.
+- Bugfix: Fixed the flags of several DXCC entities that were not correctly shown.
+- Bugfix: DXCC Status widget was not listing all the DX entities.
+- Bugfix: Modes & Bands where not always properly updated from the Setup.
+- Bugfix: Adding new QSO that implies a DXCC or WAZ status already worked failed.
+
 January - 0.9.2.9
 - Bugfix: Adding new QSO that implies a DXCC or WAZ status already worked failed.
 - Bugfix: Modes where not properly added from the setup (TNX KB2YSI).

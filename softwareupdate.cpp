@@ -3,8 +3,9 @@
 
 SoftwareUpdate::SoftwareUpdate(const QString _klogVersion) : QObject(0)
 {
-    //qDebug() << "SoftwareUpdate::SoftwareUpdate(): " << _klogVersion << endl;
+    //qDebugg() << "SoftwareUpdate::SoftwareUpdate(): " << _klogVersion << endl;
     util = new Utilities;
+
     updateDialog = new SoftwareUpdateDialog();
     latestVersion = "0.0";
     //updateDialog->setVersion(_klogVersion, fale);
@@ -44,8 +45,11 @@ void SoftwareUpdate::setTheURL(QString _url)
 
 void SoftwareUpdate::setVersion(const QString _klogVersion)
 {
+    //qDebugg() << "SoftwareUpdate::setVersion: " << _klogVersion << endl;
     klogVersion = _klogVersion;
-    //latestVersion = "0.0";
+
+    latestVersion = klogVersion;
+
     setHeader();
 }
 
@@ -74,22 +78,6 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
     if (reply->error())
     {
        //qDebug() << "SoftwareUpdate::slotDownloadFinished: reply error"  << endl;
-/*
-      fprintf(stderr, "Updates %s failed: %s\n",
-              url.toEncoded().constData(),
-              qPrintable(reply->errorString()));
-
-
-      //errorCode = query.lastError().number();
-
-      msgBox.setIcon(QMessageBox::Warning);
-      aux = tr("The following error code was received when trying to check for updates: ");
-      msgBox.setText(aux + reply->errorString());
-      msgBox.setStandardButtons(QMessageBox::Ok);
-      msgBox.setDefaultButton(QMessageBox::Ok);
-      int ret = msgBox.exec();
-
-*/
 
     }
     else if (!redirectionTarget.isNull())
@@ -204,9 +192,10 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
 
 void SoftwareUpdate::updateNeeded(QString _newVer)
 {
-  //qDebug() << "SoftwareUpdate::updateNeeded: " << _newVer  << endl;
+    //qDebug() << "SoftwareUpdate::updateNeeded: new: " << _newVer  << endl;
+    //qDebug() << "SoftwareUpdate::updateNeeded: cur: " << latestVersion  << endl;
 
-    if (latestVersion<_newVer)
+    if (latestVersion< _newVer)
     {
         latestVersion = _newVer;
     }
@@ -228,8 +217,8 @@ void SoftwareUpdate::updateNeeded(QString _newVer)
 
 void SoftwareUpdate::needToUpdate(bool _showWithoutVersion)
 { // This is used to connect to the main server URL.
-  // If _showWithoutVersio is false: We are checking for new versions at KLog start: No message should be shown if no new version is found.
-  // If _showWithoutVersio is true: The user is manually asking to check. A message should is shown if no new version is found.
+  // If _showWithoutVersion is false: We are checking for new versions at KLog start: No message should be shown if no new version is found.
+  // If _showWithoutVersion is true: The user is manually asking to check. A message should is shown if no new version is found.
 
    //qDebug() << "SoftwareUpdate::needToUpdate (current version: " << klogVersion  << ")"  << endl;
     messageShown = _showWithoutVersion;
@@ -256,7 +245,6 @@ void SoftwareUpdate::connectToURL()
 void SoftwareUpdate::setHeader()
 {
     QString ver = util->getAgent(klogVersion);
-
 
     if (callsign.length()>2)
     {

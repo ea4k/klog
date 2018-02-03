@@ -147,7 +147,7 @@ public:
     QString getEntityPrefixes(const int _enti);
     QStringList getEntitiesNames();
     int getHowManyEntities();
-    int getMaxEntityID();
+    int getMaxEntityID(bool limit = true);      // limit = true implies that it will only shouw ARRL valid DXCC (i.e. will not count Sicily)
 
     QStringList getOperatingYears(const int _currentLog);
     void compressDB();
@@ -199,7 +199,7 @@ public:
     bool addNewLog (const QStringList _qs);
     bool doesThisLogExist(const int _log);
 
-    bool updateISONames(); // Update the entities ISO names for the flags
+    bool updateISONames(); // Update the entities ISO 3166names for the flags
     QString getISOName(const int _n);
     bool setDXCCAwardStatus(const int _qsoId);
     bool setWAZAwardStatus(const int _qsoId);

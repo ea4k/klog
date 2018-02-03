@@ -144,7 +144,7 @@ public:
     virtual QString getEntityPrefixes(const int _enti);
     virtual QStringList getEntitiesNames();
     virtual int getHowManyEntities();
-    virtual int getMaxEntityID();
+    virtual int getMaxEntityID(bool limit);                 // limit = true implies that it will only shouw ARRL valid DXCC (i.e. will not count Sicily)
 
     virtual QStringList getOperatingYears(const int _currentLog);
     virtual void compressDB();
@@ -194,7 +194,7 @@ public:
     virtual bool addNewLog (const QStringList _qs);
     virtual bool doesThisLogExist(const int _log);
 
-    virtual bool updateISONames(); // Update the entities ISO names for the flags
+    virtual bool updateISONames(); // Update the entities ISO 3166 names for the flags
     virtual QString getISOName(const int _n);
 
     virtual void getFoundInLog(const QString _txt, const int _log=-1);

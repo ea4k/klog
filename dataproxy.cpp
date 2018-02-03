@@ -675,7 +675,7 @@ int DataProxy::getHowManyEntities()
     return -1;
 }
 
-int DataProxy::getMaxEntityID()
+int DataProxy::getMaxEntityID(bool limit)
 {
     return -1;
 }

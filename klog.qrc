@@ -72,8 +72,11 @@
         <file>flags/eg.png</file>
         <file>flags/eh.png</file>
         <file>flags/england.png</file>
+        <file>flags/southbritish.png</file>
         <file>flags/er.png</file>
         <file>flags/es.png</file>
+        <file>flags/balear.png</file>
+        <file>flags/ceuta.png</file>
         <file>flags/et.png</file>
         <file>flags/europeanunion.png</file>
         <file>flags/fam.png</file>
@@ -142,6 +145,7 @@
         <file>flags/lv.png</file>
         <file>flags/ly.png</file>
         <file>flags/ma.png</file>
+        <file>flags/marquesas.png</file>
         <file>flags/mc.png</file>
         <file>flags/md.png</file>
         <file>flags/me.png</file>
@@ -198,6 +202,7 @@
         <file>flags/ru.png</file>
         <file>flags/rw.png</file>
         <file>flags/sa.png</file>
+        <file>flags/sardinia.png</file>
         <file>flags/sb.png</file>
         <file>flags/sc.png</file>
         <file>flags/scotland.png</file>
@@ -252,6 +257,7 @@
         <file>flags/wales.png</file>
         <file>flags/wf.png</file>
         <file>flags/ws.png</file>
+        <file>flags/xk.png</file>
         <file>flags/ye.png</file>
         <file>flags/yt.png</file>
         <file>flags/za.png</file>
