@@ -19,7 +19,7 @@ void UDPServer::slotReadPendingDatagrams()
         QHostAddress sender;
         quint16 senderPort;
         socketServer->readDatagram(datagram.data(), datagram.size(),&sender, &senderPort);
-        qDebug() << "UDPServer::readPendingDatagrams: RX: " << datagram << endl;
+        //qDebug() << "UDPServer::readPendingDatagrams: RX: " << datagram << endl;
     }
     analyzeData(datagram);
 }
@@ -56,14 +56,14 @@ void UDPServer::analyzeData(const QByteArray _qsoData)
 
     foreach (str, qs)
     {
-        qDebug() << "UDPServer::analyzeData: " << str << endl;
+        //qDebug() << "UDPServer::analyzeData: " << str << endl;
         if ( !( (str.contains(":")) && (str.contains(">")) ) )
         {
-            qDebug() << "UDPServer::analyzeData: NOT (contains : and >): " << str << endl;
+            //qDebug() << "UDPServer::analyzeData: NOT (contains : and >): " << str << endl;
         }
         else
         {
-            qDebug() << "UDPServer::analyzeData: (contains : and >): " << str << endl;
+            //qDebug() << "UDPServer::analyzeData: (contains : and >): " << str << endl;
 
             oneField = str.split(">", QString::SkipEmptyParts);
 
@@ -83,11 +83,11 @@ void UDPServer::analyzeData(const QByteArray _qsoData)
                     _call = data;
                     //haveCall = true;
 
-                    qDebug() << "UDPServer::analyzeData-CALL:" << data << endl;
+                    //qDebug() << "UDPServer::analyzeData-CALL:" << data << endl;
                 }
                 else if (field == "QSO_DATE")
                 {
-                    qDebug() << "UDPServer::analyzeData-QSO_DATE:" << data << endl;
+                    //qDebug() << "UDPServer::analyzeData-QSO_DATE:" << data << endl;
                     _qso_date = data;
                     //haveDate = true;
                 }
@@ -180,19 +180,19 @@ void UDPServer::analyzeData(const QByteArray _qsoData)
 
 bool UDPServer::start()
 {
-    qDebug() << "UDPServer::start "<< endl;
+    //qDebug() << "UDPServer::start "<< endl;
     return socketServer->bind(QHostAddress::LocalHost, port);
 }
 
 bool UDPServer::stop()
 {
-    qDebug() << "UDPServer::stop"<< endl;
+    //qDebug() << "UDPServer::stop"<< endl;
     return false;
 }
 
 void UDPServer::setPort(const int _port)
 {
-    qDebug() << "UDPServer::setPort: " << QString::number(_port) << endl;
+    //qDebug() << "UDPServer::setPort: " << QString::number(_port) << endl;
     if ((_port >= 0) && (_port<=65535))
     {
         port = _port;

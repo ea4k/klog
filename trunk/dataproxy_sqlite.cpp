@@ -3301,7 +3301,7 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
                 { // #3 - If the band/mode/log is already worked and status confirmed: Update and Return true
                     nameCol = rec.indexOf("qsoid");
                     //int __qsoid = (query.value(nameCol)).toInt();
-                    queryString = QString("UPDATE awardcqz SET confirmed = '1', qsoid = '%1' WHERE id = '%2'").arg(_qsoId).arg(__id);
+                    queryString = QString("UPDATE awardwaz SET confirmed = '1', qsoid = '%1' WHERE id = '%2'").arg(_qsoId).arg(__id);
                 }
             }
             else
