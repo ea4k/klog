@@ -2575,6 +2575,9 @@ void MainWindow::createActionsCommon(){
 
     //DXCCWIDGET TAB
     connect(dxccStatusWidget, SIGNAL(showQso(int)), this, SLOT(slotShowQSOFromDXCCWidget(int) ) );
+    connect(dxccStatusWidget, SIGNAL(showQsos(QList<int>)), this, SLOT(slotShowQSOsFromDXCCWidget(QList<int>) ) );
+
+
 
 }
 
@@ -2593,6 +2596,7 @@ void MainWindow::slotQSODelete(const int _id)
 void MainWindow::slotShowSearchWidget()
 {
     //dxUpRightTab->addTab(searchWidget, tr("Search"));
+    //qDebug() << "MainWindow::slotShowSearchWidget: " << QString::number(dxUpRightTab->indexOf(searchWidget)) << endl;
 
     dxUpRightTab->setCurrentIndex(dxUpRightTab->indexOf(searchWidget));
 }
@@ -2788,22 +2792,30 @@ bool MainWindow::validCharactersInCall(const QString _qrz)
 void MainWindow::slotQRZTextChanged()
 {
      //qDebug()<< "MainWindow::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######" << endl;
+
+    if ((qrzLineEdit->text()).length()<1)
+    {
+        return;
+    }
+    int cursorP = qrzLineEdit->cursorPosition();
+    qDebug()<< "MainWindow::slotQRZTextChanged: cursor position: " << QString::number(cursorP) << endl;
   qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
     if (cleaning)
     {
-           //qDebug()<< "MainWindow::slotQRZTextChanged: Cleaning" << endl;
+           qDebug()<< "MainWindow::slotQRZTextChanged: Cleaning" << endl;
         return;
     }
 
     if (qrzAutoChanging)
     {
-           //qDebug()<< "MainWindow::slotQRZTextChanged: qrzAutoChanging" << endl;
+           qDebug()<< "MainWindow::slotQRZTextChanged: qrzAutoChanging" << endl;
         qrzAutoChanging = false;
         return;
     }
 
     qrzAutoChanging = true;
-    int cursorP = qrzLineEdit->cursorPosition();
+
+    qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.1: " << QString::number(cursorP) << endl;
 
     if ( (qrzLineEdit->text()).endsWith(' ') )
     {/*Remove the space and moves the focus to SRX to write the RX exchange*/
@@ -2813,17 +2825,20 @@ void MainWindow::slotQRZTextChanged()
            //qDebug()<< "MainWindow::slotQRZTextChanged: Space detected" << endl;
     }
 
-       //qDebug()<< "MainWindow::slotQRZTextChanged: Simplifiying & Capitalizing" << endl;
+    qDebug()<< "MainWindow::slotQRZTextChanged: Simplifiying & Capitalizing" << endl;
     qrzLineEdit->setText(((qrzLineEdit->text())).simplified());
     qrzLineEdit->setText((qrzLineEdit->text()).remove(" "));
     //qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
 
+    qDebug()<< "MainWindow::slotQRZTextChanged: checking for invalid chars" << endl;
     if (!validCharactersInCall(qrzLineEdit->text()))
     {
         infoLabel1->setText(tr("Invalid characters used in the QRZ"));
         InValidCharsInPrevCall = true;
         return;
     }
+
+    qDebug()<< "MainWindow::slotQRZTextChanged: checking for length" << endl;
     if (((qrzLineEdit->text()).length() < 1))
     { // If QRZ box is blank, Information labels should be cleared.
         infoLabel1->clear();
@@ -2832,13 +2847,16 @@ void MainWindow::slotQRZTextChanged()
         return;
     }
 
-    if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
+    qDebug()<< "MainWindow::slotQRZTextChanged: checking for modify or length<1" << endl;
+    if (((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
+    //if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
     {
            //qDebug() << "MainWindow::slotQRZTextChanged: MODIFY or Lenght < 1" << endl;
         qrzSmallModDontCalculate=false;
         return;
     }
 
+    qDebug()<< "MainWindow::slotQRZTextChanged: running..." << endl;
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
     //int i;
     int dx_CQz = -1;
@@ -2854,17 +2872,24 @@ void MainWindow::slotQRZTextChanged()
     }
 
     currentQrz = qrzLineEdit->text();
-
+    qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.3: " << QString::number(cursorP) << endl;
     if (cursorP>currentQrz.length())
     {// A Space that has been removed without updating the cursor
-           //qDebug()<< "MainWindow::slotQRZTextChanged: cursorP > currentQRZ.length" << endl;
+           qDebug()<< "MainWindow::slotQRZTextChanged: cursorP > currentQRZ.length" << endl;
     }
     else
     {
-        if ((currentQrz.at(cursorP-1)).isSpace())
+        if (cursorP==0)
         {
+
+        }
+        else if ((currentQrz.at(cursorP-1)).isSpace())
+        {
+            qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.5: " << QString::number(cursorP) << endl;
             previousQrz = currentQrz.remove(cursorP-1, 1);
+            qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.6: " << QString::number(cursorP) << endl;
             cursorP--;
+            qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.7: " << QString::number(cursorP) << endl;
             qrzLineEdit->setText(previousQrz);
         }
     }
@@ -2899,7 +2924,6 @@ void MainWindow::slotQRZTextChanged()
         dx_ITUz = dxE_ITUz;
     }
 
-
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
     _qs << QString::number(currentEntity) << QString::number(currentBand) << QString::number(currentMode) << QString::number(currentLog);
@@ -2927,8 +2951,6 @@ void MainWindow::slotQRZTextChanged()
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
             infoWidget->showDistanceAndBearing(myLocator, dxLocator);
-
-
 
             showStatusOfDXCC(_qs);
             showDXMarathonNeeded(currentEntity, dx_CQz, dateEdit->date().year(), currentLog);
@@ -2981,8 +3003,6 @@ void MainWindow::slotQRZTextChanged()
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
             infoWidget->showDistanceAndBearing(myLocator, dxLocator);
 
-
-
             showStatusOfDXCC(_qs);
             showDXMarathonNeeded(currentEntity, dx_CQz, dateEdit->date().year(), currentLog);
             othersTabWidget->setIOTAContinentFromEntity(currentEntity);
@@ -3001,10 +3021,11 @@ void MainWindow::slotQRZTextChanged()
 
 
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
+    qDebug() << "MainWindow::slotQRZTextChanged: cursorP at the end : " << QString::number(cursorP) << endl;
     qrzLineEdit->setCursorPosition(cursorP);
     completeWithPreviousQSO(currentQrz);
     qrzAutoChanging = false;
-       //qDebug() << "MainWindow::slotQRZTextChanged: END" << endl;
+    qDebug() << "MainWindow::slotQRZTextChanged: END" << endl;
 }
 
 
@@ -3484,6 +3505,7 @@ void MainWindow::createMenusCommon()
 
 void MainWindow::slotSearchToolNeededQSLToSend()
 {
+    slotShowSearchWidget();
     searchWidget->searchToolNeededQSLToSend();
 }
 
@@ -6832,6 +6854,14 @@ void MainWindow::slotFreqRXChanged()
 void MainWindow::slotShowQSOFromDXCCWidget(const int _q)
 {
     //qDebug() << "MainWindow::slotShowQSOFromDXCCWidget: " << QString::number(_q)<< endl;
+}
+
+void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
+{
+    //qDebug() << "MainWindow::slotShowQSOsFromDXCCWidget" << endl;
+    slotShowSearchWidget();
+    searchWidget->showQSOs(_qsos);
+
 }
 
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed)

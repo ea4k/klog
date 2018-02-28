@@ -275,6 +275,7 @@ private slots:
 	
     //DXCCWIDGET
     void slotShowQSOFromDXCCWidget(const int _q);
+    void slotShowQSOsFromDXCCWidget(QList<int> _qsos);
 
 private:
     bool maybeSave();

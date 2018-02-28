@@ -153,8 +153,9 @@ void SearchWidget::slotSearchBoxTextChanged()
 {
     //qDebug() << "SearchWidget::slotSearchBoxTextChanged: "  << searchBoxLineEdit->text() << endl;
 
-    QString _id, _call, _dateTime, _band, _bandid, _mode, _qsltx, _qslrx, _stationcallsign, _dxcc;
-    QStringList q;
+    //QString _id, _call, _dateTime, _band, _bandid, _mode, _qsltx, _qslrx, _stationcallsign, _dxcc;
+    //QStringList q;
+    //_stationcallsign = QString();
     bool searchAll = searchAllRadioButton->isChecked();
     int i = -1;
     int cursorP = searchBoxLineEdit->cursorPosition();
@@ -172,8 +173,9 @@ void SearchWidget::slotSearchBoxTextChanged()
 
     QString theCall = searchBoxLineEdit->text();
 
-    QSqlQuery query;
+    //QSqlQuery query;
     QString queryString, aux;
+    //QString aux;
     aux.clear();
 
     if ((theCall.startsWith("1")) || (theCall.startsWith("2")))
@@ -192,12 +194,15 @@ void SearchWidget::slotSearchBoxTextChanged()
     }
     else
     {
-        queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%1' AND lognumber='%2'").arg(aux).arg(currentLog);
+        queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE call LIKE '%1' AND lognumber='%2'").arg(aux).arg(currentLog);                               
     }
-    aux.clear();
+    //aux.clear();
 
 
     //qDebug() << "SearchWidget::slotSearchBoxTextChanged: queryString"  << queryString << endl;
+
+    fillTheList(queryString);
+   /*
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
@@ -288,11 +293,10 @@ void SearchWidget::slotSearchBoxTextChanged()
                 color =  awards->getQRZDXStatusColor(q);
                 //_mode = dataProxy->getSubModeFromId(_mode.toInt());
                 //_mode = db->getModeNameFromNumber(_mode.toInt());
-/*
-    awards.getQRZDXStatusColor(const QStringList _qs);
-    // Receives:  QStringList _qs;
-    //_qs << QRZ << BandId << lognumber;
-*/
+
+                addQSOToSearchList(_call, _dateTime, _band, _mode, _qslrx, _qsltx, _stationcallsign, _id, color);
+
+                /*
                 QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
                 i = world->getQRZARRLId(_call);
                 aux = world->getEntityName(i) + " - CQ: " + QString::number(world->getEntityCqz(i));
@@ -327,9 +331,11 @@ void SearchWidget::slotSearchBoxTextChanged()
 
 
             item->setForeground(0, QBrush(color));
+
         } // Closes if next.isValid
     } // Closes While
     (searchResultsTreeWidget->header())->resizeSections(QHeaderView::ResizeToContents);
+    */
 /*
     if (((theCall.at(cursorP-1)).isSpace()) && (cursorP>1))
     {
@@ -370,6 +376,181 @@ void SearchWidget::slotSearchBoxTextChanged()
     searchBoxLineEdit->setCursorPosition(cursorP);
 */
 
+
+}
+
+bool SearchWidget::fillTheList(const QString _query)
+{
+    //qDebug() << "SearchWidget::fillTheList: "  << _query << endl;
+    if (_query.length()<=0)
+    {
+        return false;
+    }
+
+    QString _id, _call, _dateTime, _band, _bandid, _mode, _qsltx, _qslrx, _stationcallsign, _dxcc, aux;
+    QStringList q;
+    q.clear();
+    _stationcallsign = QString();
+
+    QSqlQuery query;
+    bool sqlOK = query.exec(_query);
+
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        return false;
+    }
+
+    QSqlRecord rec = query.record();
+    int nameCol = -1;
+
+    QColor color;
+
+    QFont font;
+    font.setBold(true);
+
+    searchResultsTreeWidget->clear();
+
+    while (query.next())
+    {
+        if (query.isValid())
+        {
+            nameCol = rec.indexOf("call");
+            _call= (query.value(nameCol)).toString();
+
+            nameCol = rec.indexOf("qso_date");
+            _dateTime = (query.value(nameCol)).toString();
+
+            nameCol = rec.indexOf("time_on");
+            _dateTime = _dateTime + "-" +(query.value(nameCol)).toString();
+
+            nameCol = rec.indexOf("bandid");
+            _bandid = (query.value(nameCol)).toString();
+            _band = dataProxy->getNameFromBandId(_bandid.toInt());
+
+            nameCol = rec.indexOf("modeid");
+            _mode = dataProxy->getNameFromSubModeId((query.value(nameCol)).toInt());
+
+            nameCol = rec.indexOf("dxcc");
+            _dxcc= (query.value(nameCol)).toString();
+
+            nameCol = rec.indexOf("qsl_rcvd");
+            _qsltx = (query.value(nameCol)).toString();
+            if (_qsltx.length()<1)
+            {
+                _qsltx = "N";
+            }
+
+            nameCol = rec.indexOf("qsl_sent");
+            _qslrx = (query.value(nameCol)).toString();
+            if (_qslrx.length()<1)
+            {
+                _qslrx = "N";
+            }
+            if (stationCallSignShownInSearch)
+            {
+                nameCol = rec.indexOf("station_callsign");
+
+                _stationcallsign = (query.value(nameCol)).toString();
+                nameCol = rec.indexOf("id");
+                _id = (query.value(nameCol)).toString();
+            }
+            else
+            {
+                nameCol = rec.indexOf("id");
+                _id = (query.value(nameCol)).toString();
+            }
+
+            q.clear();
+            q << _dxcc << _bandid << _mode << QString::number(currentLog);
+
+            //TODO: Optimize the awards->getQRZDXStatusColor because is TOO slow
+            color =  awards->getQRZDXStatusColor(q);
+/*
+    awards.getQRZDXStatusColor(const QStringList _qs);
+    // Receives:  QStringList _qs;
+    //_qs << QRZ << BandId << lognumber;
+*/
+            QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
+            nameCol = world->getQRZARRLId(_call);
+            aux = world->getEntityName(nameCol) + " - CQ: " + QString::number(world->getEntityCqz(nameCol));
+            item->setToolTip(0, aux);
+            item->setToolTip(1, aux);
+            item->setToolTip(2, aux);
+            item->setToolTip(3, aux);
+            item->setToolTip(4, aux);
+            item->setToolTip(5, aux);
+            item->setToolTip(6, aux);
+
+            item->setText(0, _call);
+            item->setFont(0, font);
+            item->setText(1, _dateTime);
+            item->setText(2, _band);
+
+            item->setText(3, _mode);
+            item->setText(4, _qslrx);
+            item->setText(5, _qsltx);
+            if (stationCallSignShownInSearch)
+            {
+                item->setText(6, _stationcallsign);
+                item->setText(7, _id);
+                item->setToolTip(7, aux);
+            }
+            else
+            {
+                item->setText(6, _id);
+            }
+
+            item->setForeground(0, QBrush(color));
+
+        } // Closes if next.isValid
+    } // Closes While
+    (searchResultsTreeWidget->header())->resizeSections(QHeaderView::ResizeToContents);
+    return true;
+}
+
+void SearchWidget::addQSOToSearchList(const QString _call, const QString _dateTime, const QString _band, const QString _mode, const QString _qslrx, const QString _qsltx, const QString _stationcallsign, const QString _id, const QColor _color)
+{
+    //qDebug() << "SearchWidget::addQSOToSearchList: " << _call << endl;
+
+    QFont font;
+    font.setBold(true);
+
+    QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
+    int i = world->getQRZARRLId(_call);
+    QString aux = world->getEntityName(i) + " - CQ: " + QString::number(world->getEntityCqz(i));
+
+    item->setToolTip(0, aux);
+    item->setToolTip(1, aux);
+    item->setToolTip(2, aux);
+    item->setToolTip(3, aux);
+    item->setToolTip(4, aux);
+    item->setToolTip(5, aux);
+    item->setToolTip(6, aux);
+
+    //item->setToolTip(0, world->getQRZEntityName(_call));
+    item->setText(0, _call);
+    item->setFont(0, font);
+    item->setText(1, _dateTime);
+    item->setText(2, _band);
+   //qDebug() << "SearchWidget::slotSearchBoxTextChanged: mode(c) :  " << _mode << endl;
+    item->setText(3, _mode);
+    item->setText(4, _qslrx);
+    item->setText(5, _qsltx);
+    if (_stationcallsign.length()>0)
+    {
+        item->setText(6, _stationcallsign);
+        item->setText(7, _id);
+        item->setToolTip(7, aux);
+
+    }
+    else
+    {
+        item->setText(6, _id);
+    }
+
+
+    item->setForeground(0, QBrush(_color));
 
 }
 
@@ -1016,16 +1197,25 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
         break;
     }
 
-    int nameCol = -1;
-    QString _call, _dateTime, _band, _mode, _freq, _qsltx, _qslrx, _id, _stationcallsign, _dxcc;
-    QFont font;
-    font.setBold(true);
-    QColor color;
-    QStringList q;
+    //int nameCol = -1;
+    //QString _call, _dateTime, _band, _mode, _freq, _qsltx, _qslrx, _id, _stationcallsign, _dxcc;
+//    QFont font;
+//    font.setBold(true);
+//    QColor color;
+//    QStringList q;
 
     searchResultsTreeWidget->clear();
-    QSqlQuery query(stringQuery);
-    QSqlRecord rec = query.record();
+  //  QSqlQuery query(stringQuery);
+//    QSqlRecord rec = query.record();
+
+    if (fillTheList(stringQuery))
+    {
+        requestBeingShown();
+    }
+
+    /*
+    return;
+    //qDebug() << "SearchWidget::slotToolSearchQSL: After the return" << endl;
 
     if (!query.exec())
     {
@@ -1042,7 +1232,7 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
         if (query.isValid())
         {
             QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
-            //aux = world->getQRZEntityName(_call);
+
             i = world->getQRZARRLId(_call);
             aux = world->getEntityName(i) + " - CQ: " + QString::number(world->getEntityCqz(i));
             item->setToolTip(0, aux);
@@ -1140,7 +1330,46 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
         requestBeingShown();
         //dxUpRightTab->setCurrentIndex(2);
     }
+    */
 }
+
+
+void SearchWidget::showQSOs(QList<int> qsoIdList)
+{
+    //qDebug() << "SearchWidget::showQSOs received QSOs: " << QString::number(qsoIdList.length()) << endl;
+
+
+    if (qsoIdList.length()<0)
+    {
+        return;
+    }
+    //QString _call, _dateTime, _band, _mode, _freq, _qsltx, _qslrx, _id, _stationcallsign, _dxcc;
+    //qDebug() << "SearchWidget::showQSOs query: : 01"  << endl;
+    int i = 0;
+    QSqlQuery query;
+    QString queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE ");
+
+
+    while ( (qsoIdList.at(i)<= 0) && (i<qsoIdList.length()) )
+    {
+        i++;
+    }
+    //qDebug() << "SearchWidget::showQSOs query: : 02 - :" << QString::number(i)  << endl;
+    queryString = queryString + QString("id = '%1'").arg(qsoIdList.at(i));
+    i++;
+    //qDebug() << "SearchWidget::showQSOs query: : 03 - :" << QString::number(i)  << endl;
+
+    for (int j=i; j<qsoIdList.length(); ++j)
+    {
+        queryString = queryString + QString(" OR id = '%1'").arg(qsoIdList.at(j));
+    }
+
+    //qDebug() << "SearchWidget::showQSOs query: : " << queryString << endl;
+
+    fillTheList(queryString);
+
+}
+
 
 void SearchWidget::searchToolNeededQSLToSend()
 {
@@ -1171,5 +1400,7 @@ void SearchWidget::slotToolSearchNeededQSLRequested()
 
 void SearchWidget::showQSO(const int _q)
 {
-    qDebug() << "SearchWidget::showQSO: " << QString::number(_q) << endl;
+    //qDebug() << "SearchWidget::showQSO: " << QString::number(_q) << endl;
 }
+
+

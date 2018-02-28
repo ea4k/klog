@@ -1210,8 +1210,7 @@ bool World::readCTYCSV(const QString _worldFile)
     QSqlQuery query;    // Entity information
     QSqlQuery queryP;   // Prefixes information
 
-    query.prepare("INSERT INTO entity (id, name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix)"
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    query.prepare("INSERT INTO entity (id, name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     queryP.prepare("INSERT INTO prefixesofentity (id, prefix, dxcc, cqz, ituz) VALUES (?, ?, ?, ?, ?)");
 
     QSqlDatabase::database().transaction();
@@ -1237,7 +1236,7 @@ bool World::readCTYCSV(const QString _worldFile)
         tq = file.readLine();
         //qDebug()  << "World::readCTYCSV(): Line: " << tq << endl;
         tq = tq.simplified();
-        qDebug()  << "World::readCTYCSV(): Line simplified: " << tq << endl;
+        //qDebug()  << "World::readCTYCSV(): Line simplified: " << tq << endl;
         tq = tq.trimmed();
        //qDebug()  << "World::readCTYCSV(): Line trimmed: " << tq << endl;
         tq.remove(QChar(';'), Qt::CaseInsensitive);
@@ -1245,7 +1244,7 @@ bool World::readCTYCSV(const QString _worldFile)
 
         stringList << tq.split(',');
 
-        qDebug()  << "World::readCTYCSV(): Line stringList-0: " << stringList.at(0) << endl;
+        //qDebug()  << "World::readCTYCSV(): Line stringList-0: " << stringList.at(0) << endl;
 
         if (( stringList.at(0)).contains(QChar('*'), Qt::CaseInsensitive))
         { // This is a special Entity. Not really an ARRL Entity but interesting for the DXer.
@@ -1269,7 +1268,7 @@ bool World::readCTYCSV(const QString _worldFile)
             entityNumber = stringList.at(2);
         }
 
-        qDebug()  << "World::readCTYCSV(): Line stringList Length: " << QString::number(stringList.length()) << endl;
+        //qDebug()  << "World::readCTYCSV(): Line stringList Length: " << QString::number(stringList.length()) << endl;
 
         if (stringList.size()>=8 )
         {
@@ -1288,20 +1287,20 @@ bool World::readCTYCSV(const QString _worldFile)
             query.addBindValue(entityNumber); // dxcc
             query.addBindValue(stringList.at(0)); // Mainprefix
 
-            qDebug()  << "World::readCTYCSV(): Entity name: " << stringList.at(1) << endl;
-            qDebug()  << "World::readCTYCSV(): Entity cqz:  " << stringList.at(4) << endl;
-            qDebug()  << "World::readCTYCSV(): Entity ituz: " << stringList.at(5) << endl;
-            qDebug()  << "World::readCTYCSV(): Entity cont: " << stringList.at(3) << endl;
-            qDebug()  << "World::readCTYCSV(): Entity lat:  " << stringList.at(6) << endl;
-            qDebug()  << "World::readCTYCSV(): Entity lon:  " << stringList.at(7) << endl;
-            qDebug()  << "World::readCTYCSV(): Entity UTC:  " << stringList.at(8) << endl;
-            qDebug()  << "World::readCTYCSV(): Entity ARRL: " << stringList.at(2) << endl;
-            qDebug()  << "World::readCTYCSV(): Entity Pref: " << stringList.at(0) << endl;
+            //qDebug()  << "World::readCTYCSV(): Entity name: " << stringList.at(1) << endl;
+            //qDebug()  << "World::readCTYCSV(): Entity cqz:  " << stringList.at(4) << endl;
+            //qDebug()  << "World::readCTYCSV(): Entity ituz: " << stringList.at(5) << endl;
+            //qDebug()  << "World::readCTYCSV(): Entity cont: " << stringList.at(3) << endl;
+            //qDebug()  << "World::readCTYCSV(): Entity lat:  " << stringList.at(6) << endl;
+            //qDebug()  << "World::readCTYCSV(): Entity lon:  " << stringList.at(7) << endl;
+            //qDebug()  << "World::readCTYCSV(): Entity UTC:  " << stringList.at(8) << endl;
+            //qDebug()  << "World::readCTYCSV(): Entity ARRL: " << stringList.at(2) << endl;
+            //qDebug()  << "World::readCTYCSV(): Entity Pref: " << stringList.at(0) << endl;
 
 
             if (query.exec())
             {
-                qDebug()  << "World::readCTYDAT(): Entity data added: " <<  stringList.at(1)  << endl;
+                //qDebug()  << "World::readCTYDAT(): Entity data added: " <<  stringList.at(1)  << endl;
             }
             else if (errorCode == 19)
             {

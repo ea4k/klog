@@ -1,5 +1,7 @@
 RC-BUGS:
-
+Bug to confirm: TX_freq is not saved on new QSO
+Bug to confirm: TX_freq is not modified when editing a QSO.
+Bug to confirm: TX & RX freq  are not cleased when clear button is clicked.
 
 In searchwidget:
 void showQSO(const int _q);
@@ -20,6 +22,7 @@ Working:
 TODO: ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing
 
 
+SAT DB: https://db.satnogs.org/api/
 
 This is a kind of roadmap for KLog development.
 It is not fixed... new features may be prioritized or not added without any notice ;-)

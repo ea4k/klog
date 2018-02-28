@@ -120,7 +120,7 @@ QString Awards::getQSOofAward (const int _enti, const int _bandid)
 
 int Awards::getQSOIdofAward (const int _enti, const int _bandid)
 {// Returns the QSOid that granted that status in the DXCC
-    qDebug() << "Awards::getQSOIdofAward: " << QString::number(_enti) << "/" << QString::number(_bandid) << endl;
+    //qDebug() << "Awards::getQSOIdofAward: " << QString::number(_enti) << "/" << QString::number(_bandid) << endl;
     QSqlQuery query;
     QString stringQuery = QString();;
     bool sqlOK = false;
@@ -129,14 +129,14 @@ int Awards::getQSOIdofAward (const int _enti, const int _bandid)
     stringQuery = QString("SELECT qsoid from awarddxcc where dxcc='%1' and band='%2'").arg(_enti).arg(_bandid);
 
     sqlOK = query.exec(stringQuery);
-    qDebug() << "Awards::getQSOIdofAward: stringQuery: " << stringQuery << endl;
+    //qDebug() << "Awards::getQSOIdofAward: stringQuery: " << stringQuery << endl;
     if (sqlOK)
     {
         query.next();
         if (query.isValid())
         {
             answer = query.value(0).toInt();
-            qDebug() << "Awards::getQSOIdofAward: answer: " << QString::number(answer) << endl;
+            //qDebug() << "Awards::getQSOIdofAward: answer: " << QString::number(answer) << endl;
             query.finish();
             if (answer>=1)
             {
@@ -151,7 +151,7 @@ int Awards::getQSOIdofAward (const int _enti, const int _bandid)
         else
         {
             query.finish();
-            qDebug() << "Awards::getQSOIdofAward: 0" << endl;
+            //qDebug() << "Awards::getQSOIdofAward: 0" << endl;
             return -2;
         }
     }
@@ -159,7 +159,7 @@ int Awards::getQSOIdofAward (const int _enti, const int _bandid)
     {
         query.finish();
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        qDebug() << "Awards::getQSOIdofAward: Query error" << endl;
+        //qDebug() << "Awards::getQSOIdofAward: Query error" << endl;
         return -3;
     }
 

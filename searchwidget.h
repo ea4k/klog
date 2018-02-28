@@ -48,6 +48,7 @@ public:
     void setShowCallInSearch(const bool _sh);
     void clear();
     void showQSO(const int _q);
+    void showQSOs(QList<int> qsoIdList);
 
     void searchToolNeededQSLToSend();
 
@@ -102,6 +103,9 @@ signals:
 
 private:
     void createUI();
+    // The following  function is adding a line to the search list
+    void addQSOToSearchList(const QString _call, const QString _dateTime, const QString _band, const QString _mode, const QString _qslrx, const QString _qsltx, const QString _stationcallsign, const QString _id, const QColor _color);
+    bool fillTheList(const QString _query);
 //    void addQSOToTheList(const int _id);
 
 

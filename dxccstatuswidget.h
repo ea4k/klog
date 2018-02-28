@@ -50,6 +50,7 @@ public:
 
 signals:
     void showQso(const int _qsoid); // identified QSO double clicking on DXCC
+    void showQsos(QList<int> _qsos);
     //void updateAwards();
 
 public slots:
