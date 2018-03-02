@@ -5337,10 +5337,16 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    sq = QString ("UPDATE entity SET isoname='scotland' WHERE dxcc='279'");  //  Scotland & Shetland is
+    sq = QString ("UPDATE entity SET isoname='scotland' WHERE dxcc='279'");  //  Scotland
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
     {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='scotland' WHERE dxcc='1279'");  //  Shetland is (Scotland)
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
+    if (!sqlOK)
+    {return false;}
+
 
     sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='106'");  // Guernsey
     sqlOK = execQuery(Q_FUNC_INFO, sq);
@@ -5449,6 +5455,11 @@ bool DataBase::updateTheEntityTableISONames()
     {return false;}
 
     sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='1248'");  // African Italy
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='2248'");  // Sicily
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
     {return false;}
@@ -5969,7 +5980,12 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {return false;}
 
-    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='54'");  // European Rusia
+    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='54'");  // European Russia
+    sqlOK = execQuery(Q_FUNC_INFO, sq);
+    if (!sqlOK)
+    {return false;}
+
+    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='15'");  // Asiatic Russia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
     {return false;}

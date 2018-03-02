@@ -2565,8 +2565,8 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../database.cpp" line="3373"/>
         <location filename="../database.cpp" line="3556"/>
-        <location filename="../database.cpp" line="6753"/>
-        <location filename="../database.cpp" line="6976"/>
+        <location filename="../database.cpp" line="6769"/>
+        <location filename="../database.cpp" line="6992"/>
         <location filename="../dataproxy_sqlite.cpp" line="3947"/>
         <source>QSO: </source>
         <translation>QSO: </translation>
@@ -2586,19 +2586,19 @@ Do you want to save your changes?</source>
         <translation>Progreso: </translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="6661"/>
+        <location filename="../database.cpp" line="6677"/>
         <source>Updating DXCC award information...</source>
         <translation>Actualizand la información del diploma DXCC...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="6753"/>
-        <location filename="../database.cpp" line="6976"/>
+        <location filename="../database.cpp" line="6769"/>
+        <location filename="../database.cpp" line="6992"/>
         <location filename="../dataproxy_sqlite.cpp" line="3947"/>
         <source>Updating DXCC Award information...</source>
         <translation>Actualizando la información del diploma DXCC...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="6884"/>
+        <location filename="../database.cpp" line="6900"/>
         <source>Updating WAZ award information...</source>
         <translation>Actualizando la información del diploma WAZ...</translation>
     </message>
@@ -2613,8 +2613,8 @@ Do you want to save your changes?</source>
         <location filename="../database.cpp" line="3537"/>
         <location filename="../database.cpp" line="3734"/>
         <location filename="../database.cpp" line="3935"/>
-        <location filename="../database.cpp" line="6661"/>
-        <location filename="../database.cpp" line="6884"/>
+        <location filename="../database.cpp" line="6677"/>
+        <location filename="../database.cpp" line="6900"/>
         <location filename="../dataproxy_sqlite.cpp" line="3906"/>
         <source>Abort updating</source>
         <translation>Cancelar actualización</translation>

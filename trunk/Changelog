@@ -1,19 +1,19 @@
 TBD - 0.9.3
-BUG: - When updating the CTY file, query errors are shown on world.readCTYCSV function.
-BUG: - Not all DXCC entities are shown in the Others Tab. Only to UA(54).
 
-TODO: - Right-click on search box to mark as receievd a QSL is so slow. An optimization is needed.
+TODO: - Right-click on search box to mark as received a QSL is slow. An optimization is needed.
 TODO: - UDP server to receive data from WSJT-X
 TODO: - Some warnings removed from compilation time.
 TODO: - The log can be now updated with a LoTW ADIF file import.
-TODO: - Add a warning or periodically ADIF export so data is backup
+TODO: - Add a warning or periodically ADIF export so data is backup.
 TODO: - Isolate the Awards tab and create a widget with it.
-TODO: - ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing
-TODO: - Bugfix: World::readCTYCSV showed a query error if there is no network connection when it is executed.
-TODO: In the dxcc status widget there are some countries that the flag is shown as UN or not shown.
+TODO: - ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing.
+
+
 - Updated translations: Spanish (EA4TV).
 - Double clicking on DXCC Widget name of the Entity will show the QSO is providing that status on the Search widget.
 - Added DXCC support for Kosovo.
+- Bugfix: In the dxcc status widget, some countries were showing the UN flag unappropriately.
+- Bugfix: When updating the CTY file, query errors were shown on world.readCTYCSV function.
 - Bugfix: When editing the QRZ, the cursor position was not properly maintained.
 - Bugfix: Fixed the flags of several DXCC entities that were not correctly shown.
 - Bugfix: DXCC Status widget was not listing all the DX entities.
