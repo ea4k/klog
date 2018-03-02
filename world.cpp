@@ -1287,39 +1287,42 @@ bool World::readCTYCSV(const QString _worldFile)
             query.addBindValue(entityNumber); // dxcc
             query.addBindValue(stringList.at(0)); // Mainprefix
 
-            //qDebug()  << "World::readCTYCSV(): Entity name: " << stringList.at(1) << endl;
-            //qDebug()  << "World::readCTYCSV(): Entity cqz:  " << stringList.at(4) << endl;
-            //qDebug()  << "World::readCTYCSV(): Entity ituz: " << stringList.at(5) << endl;
-            //qDebug()  << "World::readCTYCSV(): Entity cont: " << stringList.at(3) << endl;
-            //qDebug()  << "World::readCTYCSV(): Entity lat:  " << stringList.at(6) << endl;
-            //qDebug()  << "World::readCTYCSV(): Entity lon:  " << stringList.at(7) << endl;
-            //qDebug()  << "World::readCTYCSV(): Entity UTC:  " << stringList.at(8) << endl;
-            //qDebug()  << "World::readCTYCSV(): Entity ARRL: " << stringList.at(2) << endl;
-            //qDebug()  << "World::readCTYCSV(): Entity Pref: " << stringList.at(0) << endl;
+            qDebug()  << "World::readCTYCSV(): Entity name: " << stringList.at(1) << endl;
+            qDebug()  << "World::readCTYCSV(): Entity cqz:  " << stringList.at(4) << endl;
+            qDebug()  << "World::readCTYCSV(): Entity ituz: " << stringList.at(5) << endl;
+            qDebug()  << "World::readCTYCSV(): Entity cont: " << stringList.at(3) << endl;
+            qDebug()  << "World::readCTYCSV(): Entity lat:  " << stringList.at(6) << endl;
+            qDebug()  << "World::readCTYCSV(): Entity lon:  " << stringList.at(7) << endl;
+            qDebug()  << "World::readCTYCSV(): Entity UTC:  " << stringList.at(8) << endl;
+            qDebug()  << "World::readCTYCSV(): Entity ARRL: " << stringList.at(2) << endl;
+            qDebug()  << "World::readCTYCSV(): Entity Pref: " << stringList.at(0) << endl;
 
 
             if (query.exec())
             {
-                //qDebug()  << "World::readCTYDAT(): Entity data added: " <<  stringList.at(1)  << endl;
+                qDebug()  << "World::readCTYDAT(): Entity data added: " <<  stringList.at(1)  << endl;
             }
-            else if (errorCode == 19)
+            else if (query.lastError().number() == 19)
             {
+                qDebug()  << "World::readCTYDAT(): Entity data added: error19:  " <<  stringList.at(1)  << endl;
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             }
             else
             {
+                qDebug()  << "World::readCTYDAT(): Entity data added: error else:  " <<  stringList.at(1)  << endl;
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 errorCode = query.lastError().number();
 
 
-               //qDebug() << "World::readCTYCSV(): Entity data NOT added"  << endl;
-               //qDebug() << "World::readCTYCSV(): LastQuery: " << query.lastQuery()  << endl;
-               //qDebug() << "World::readCTYCSV(): LastError-data: " << query.lastError().databaseText()  << endl;
-               //qDebug() << "World::readCTYCSV(): LastError-driver: " << query.lastError().driverText()  << endl;
-               //qDebug() << "World::readCTYCSV(): LastError-n: " << QString::number(query.lastError().number() ) << endl;
+               qDebug() << "World::readCTYCSV(): Entity data NOT added"  << endl;
+               qDebug() << "World::readCTYCSV(): LastQuery: " << query.lastQuery()  << endl;
+               qDebug() << "World::readCTYCSV(): LastError-data: " << query.lastError().databaseText()  << endl;
+               qDebug() << "World::readCTYCSV(): LastError-driver: " << query.lastError().driverText()  << endl;
+               qDebug() << "World::readCTYCSV(): LastError-n: " << QString::number(query.lastError().number() ) << endl;
 
             }
 
+             qDebug()  << "World::readCTYCSV(): Entity ADDED or NOT"  << endl;
             if (stringList.size()>8)
             {
                 tq = stringList.at(9);
@@ -1362,16 +1365,17 @@ bool World::readCTYCSV(const QString _worldFile)
                     {
                         //qDebug()  << "World::readCTYCSV(): Prefix added: " << stringListPrefixes.at(i) << endl;
                     }
-                    else if (errorCode == 19)
+                    else if (queryP.lastError().number() == 19)
                     {}
                     else
                     {
-                        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                        errorCode = query.lastError().number();
+                        errorCode = queryP.lastError().number();
+                        emit queryError(Q_FUNC_INFO, queryP.lastError().databaseText(), queryP.lastError().number(), queryP.lastQuery());
 
-                       //qDebug() << "World::readCTYCSV(): Prefix data NOT added"  << endl;
-                       //qDebug() << "World::readCTYCSV(): Prefix LastQuery: " << query.lastQuery()  << endl;
-                       //qDebug() << "World::readCTYCSV(): Prefix LastError-data: " << query.lastError().databaseText()  << endl;
+
+                       qDebug() << "World::readCTYCSV(): Prefix data NOT added"  << endl;
+                       qDebug() << "World::readCTYCSV(): Prefix LastQuery: " << query.lastQuery()  << endl;
+                       qDebug() << "World::readCTYCSV(): Prefix LastError-data: " << query.lastError().databaseText()  << endl;
                        //qDebug() << "World::readCTYCSV(): Prefix LastError-driver: " << query.lastError().driverText()  << endl;
                        //qDebug() << "World::readCTYCSV(): Prefix LastError-n: " << QString::number(query.lastError().number() ) << endl;
                     }
@@ -1383,7 +1387,7 @@ bool World::readCTYCSV(const QString _worldFile)
 
        //qDebug()  << "World::readCTYCSV() tq: " << tq << endl;
         progress.setLabelText("Reading cty.csv ... \nNow reading " + currentPrefix + " data");
-       //qDebug() << "World::readCTYCSV() - progressBarPosition: " << QString::number(progressBarPosition) << endl;
+       qDebug() << "World::readCTYCSV() - progressBarPosition: " << QString::number(progressBarPosition) << endl;
     }
 
     QSqlDatabase::database().commit();
