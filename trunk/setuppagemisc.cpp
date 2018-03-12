@@ -103,8 +103,10 @@ void SetupPageMisc::createUI()
     dbPathLineEdit->setText(dbDirCurrent);
     dbPathLineEdit->setEnabled(true);
     
-    UDPServerCheckBox->setChecked(true);
-    UDPServerPortSpinBox->setEnabled(true);
+    //UDPServerCheckBox->setChecked(true);
+    //UDPServerPortSpinBox->setEnabled(true);
+    UDPServerCheckBox->setEnabled(false);
+    UDPServerPortSpinBox->setEnabled(false);
 
     useDefaultName->setChecked(true);
     alwaysADIFCheckBox->setChecked(true);
@@ -136,6 +138,7 @@ void SetupPageMisc::createUI()
     QLabel *udpPortLabel = new QLabel(tr("UDP Port"));
     udpPortLabel->setBuddy(UDPServerPortSpinBox);
     udpPortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    udpPortLabel->setEnabled(false);
 
     QHBoxLayout *UDPLayout = new QHBoxLayout;
     UDPLayout->addWidget(UDPServerCheckBox);
@@ -500,11 +503,11 @@ void SetupPageMisc::slotUDPServerCheckBoxClicked()
 {
     if ( UDPServerCheckBox->isChecked())
     {
-        UDPServerPortSpinBox->setEnabled(true);
+        //UDPServerPortSpinBox->setEnabled(true);
     }
     else
     {
-        UDPServerPortSpinBox->setEnabled(false);
+        //UDPServerPortSpinBox->setEnabled(false);
     }
 }
 

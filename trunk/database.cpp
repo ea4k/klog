@@ -1699,8 +1699,8 @@ int DataBase::getSubModeIDFromName2(const QString b)
 
 QString DataBase::getBandNameFromID2(const int _i)
 {
-     //qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << endl;
-    //return getBandNameFromNumber(_i);
+    qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << endl;
+    return getBandNameFromNumber(_i);
 
     if (IDBandHash.contains(_i))
     {
@@ -1719,7 +1719,7 @@ QString DataBase::getBandNameFromID2(const int _i)
 QString DataBase::getModeNameFromID2(const int _i)
 {
       //qDebug() << "DataBase::getModeNameFromId2: " << QString::number(_i) << endl;
-    //return getSubModeNameFromNumber(_i);
+    return getSubModeNameFromNumber(_i);
 
     if (IDModeHash.contains(_i))
     {
@@ -6923,7 +6923,7 @@ bool DataBase::updateAwardWAZTable()
                 else
                 {
                     //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but NOW is confirmed!!!" << endl;
-                    stringQuery = QString("SELECT confirmed, lognumber, qsoid FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND mode='%3'").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode);
+                    stringQuery = QString("SELECT confirmed, lognumber, qsoid FROM awardwaz WHERE cqz='%1' AND band='%2' AND mode='%3'").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode);
                     QSqlQuery query2;//, query2;
 
                     sqlOK = query2.exec(stringQuery);
@@ -6989,7 +6989,7 @@ bool DataBase::updateAwardWAZTable()
         //qDebug() << "DataBase::updateAwardWAZTable: Checking steps " << endl;
         if (( (j % step )== 0) )
         { // To update the speed I will only show the progress once each X QSOs
-            _aux = QObject::tr("Updating DXCC Award information...") + "\n" + QObject::tr("QSO: ")  + QString::number(j) + "/" + QString::number(qsos);
+            _aux = QObject::tr("Updating WAZ Award information...") + "\n" + QObject::tr("QSO: ")  + QString::number(j) + "/" + QString::number(qsos);
             progress.setLabelText(_aux);
             progress.setValue(j);
         }

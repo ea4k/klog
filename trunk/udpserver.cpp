@@ -6,7 +6,6 @@ UDPServer::UDPServer(QObject *parent) :
        //address = QString("127.0.0.1");
        port = 2237;
        socketServer=new QUdpSocket(this);
-
        connect(socketServer,SIGNAL(readyRead()),this,SLOT(slotReadPendingDatagrams()));
 }
 
