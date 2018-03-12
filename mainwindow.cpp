@@ -967,7 +967,7 @@ QString MainWindow::readDataFromUIDX()
 /*
 If you make any change here, please update also readDataFromUIDXModifying to keep data integrity!
 */
-      //qDebug() << "MainWindow::readDataFromUIDX:" << endl;
+    qDebug() << "MainWindow::readDataFromUIDX:" << endl;
 
     QString tqrz = (qrzLineEdit->text()).toUpper();
     if (tqrz.length()<3)
@@ -1050,19 +1050,21 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
+    qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << QString::number(txFreqSpinBox->value()) << endl;
     if ( (txFreqSpinBox->value()) > 0  )
     {
         aux1 = QString::number(txFreqSpinBox->value());
+        qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << aux1 << "/" << tband << endl;
 
         if (dataProxy->isThisFreqInBand(dataProxy->getNameFromBandId(tband), aux1) )
         {
             stringFields = stringFields + ", freq";
             stringData = stringData + ", '" + aux1 + "'";
-               //qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND OK" << endl;
+               qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND OK" << endl;
         }
         else
         {
-               //qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND NOK" << endl;
+               qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND NOK" << endl;
         }
     }
 
@@ -4197,7 +4199,7 @@ void MainWindow::readConfigData()
     QString aux = tr("UDP Server error") + "</b><br>" + tr("The UDP server failed to ");
     QString errorMSG;
     //QString aux1 = "<br><b>" + tr("UDP Server error");
-
+/*
     if (UDPServerStart)
     {
         if (!UDPLogServer->start())
@@ -4216,6 +4218,7 @@ void MainWindow::readConfigData()
             showErrorDialog->exec();
         }
     }
+    */
     
     //qDebug() << "MainWindow::readConfigData - END" << endl;
 
@@ -5281,22 +5284,25 @@ void MainWindow::slotADIFImport(){
     }
     else
     {
-          //qDebug() << "MainWindow::slotADIFImport -1" << endl;
+        qDebug() << "MainWindow::slotADIFImport -1" << endl;
         filemanager->adifReadLog(fileName, currentLog);
         updateQSLRecAndSent();
 
 
-        //qDebug() << "MainWindow::slotADIFImport -2" << endl;
+        qDebug() << "MainWindow::slotADIFImport -2" << endl;
 
         logWindow->refresh();
-        //qDebug() << "MainWindow::slotADIFImport -3" << endl;
+        qDebug() << "MainWindow::slotADIFImport -3" << endl;
         checkIfNewBandOrMode();
-        //qDebug() << "MainWindow::slotADIFImport -4" << endl;
+        qDebug() << "MainWindow::slotADIFImport -4" << endl;
 
         if (contestMode == "DX")
         {
+            qDebug() << "MainWindow::slotADIFImport-DX" << endl;
             operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
+            qDebug() << "MainWindow::slotADIFImport-DX-1" << endl;
             slotShowAwards();
+            qDebug() << "MainWindow::slotADIFImport-DX-1-end" << endl;
         }
         else if (contestMode == "CQ-WW-SSB")
         {}
@@ -5306,9 +5312,9 @@ void MainWindow::slotADIFImport(){
             slotShowAwards();
         }
 
-          //qDebug() << "MainWindow::slotADIFImport-7" << endl;
+        qDebug() << "MainWindow::slotADIFImport-7" << endl;
     }
-    //qDebug() << "MainWindow::slotADIFImport-END" << endl;
+    qDebug() << "MainWindow::slotADIFImport-END" << endl;
 }
 
 void  MainWindow::initialContestModeConfiguration()
@@ -5937,17 +5943,20 @@ void MainWindow::showDXMarathonNeeded(const int _dxcc, const int _cqz, const int
 }
 void MainWindow::slotShowAwards()
 { //To be called from the logWindow & searchWidget
-
+    qDebug() << "MainWindow::slotShowAwards"  << endl;
     awards->recalculateAwards();
+    qDebug() << "MainWindow::slotShowAwards-1"  << endl;
     logWindow->refresh();
+    qDebug() << "MainWindow::slotShowAwards-2"  << endl;
     showAwards();
+    qDebug() << "MainWindow::slotShowAwards-3"  << endl;
     dxccStatusWidget->refresh();
-
+    qDebug() << "MainWindow::slotShowAwards-END"  << endl;
 }
 
 void MainWindow::showAwards()
 { // Updates and show all the award status tab.
-   //qDebug() << "MainWindow::showAwards" << endl;
+   qDebug() << "MainWindow::showAwards" << endl;
 /*
   WAZ
   Local
@@ -5985,7 +5994,7 @@ void MainWindow::showAwards()
     wazConfirmedQLCDNumber->display(awards->getWAZConfirmed(currentLog));
 
     showDXMarathon(selectedYear);
-
+    qDebug() << "MainWindow::showAwards - END" << endl;
 
 }
 

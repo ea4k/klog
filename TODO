@@ -10,13 +10,27 @@ I need to receive the id and show the QSO in the table
 
 
 Check-BUG: freq can not be typed
-Check-BUG: band can't be selected (or it always goes back to 160 even if not seected)
+Check-BUG: band can't be selected (or it always goes back to 160 even if not selected)
+
+For 0.9.4
+TODO: - Right-click on search box to mark as received a QSL is slow. An optimization is needed.
+TODO: - UDP server to receive data from WSJT-X
+TODO: - Some warnings removed from compilation time.
+TODO: - The log can be now updated with a LoTW ADIF file import.
+TODO: - Add a warning or periodically ADIF export so data is backup.
+TODO: - Isolate the Awards tab and create a widget with it.
+TODO: - ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing.
+TODO: Rework the band & mode hash tables to optimize queries (not sql queries)
+TODO: Rework the DXCC & WAZ hash table sto optimize queries (not SQL queries)
 
 For next release:
+TODO: - Add an option to disable DX-Marathon support.
 TODO: - Check if the save to adif on exit is working properly
 
 TODO: Import LOTW (MainWindow::slotADIFImport)
 TODO: Remove the Querys from void SetupPageLogs::
+
+TODO: Create a Widget with the WAZ status (copying the DXCC Status widget)
 
 Working:
 TODO: ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing
