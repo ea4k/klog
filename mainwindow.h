@@ -280,22 +280,9 @@ private slots:
 private:
     bool maybeSave();
 
+
     //UPDATE CTY.DAT
-/*
-    bool downloadCTYFile();
-    bool downloadCtyDatFile();
-    bool saveToDisk(const QString &filename, QIODevice *data);
-
-
-
-    QString saveFileName(const QUrl &url);
-
-    QNetworkAccessManager manager;
-    QNetworkRequest request;
-*/
-       // NEW
     DownLoadCTY *downloadcty;
-
     //</UPDATE CTY.DAT>
 
     void createStatusBar();
@@ -310,25 +297,12 @@ private:
     void createActionsCommon();
     void createActionsCQWW();
     void createActionsDX();
-    //void createlogPanel();
-    //void createlogModel(const int _i);
 
     void createScorePanel();
-    //void createSearchResultsPanel();
-
     void initialContestModeConfiguration();
-
-    //void createKeyEvents();
 
 
     bool readCtyFile();
-
-
-
-    //void righButtonFromLogMenu(const int trow);
-
-    //void qslRecViaBureauMarkReq(const int _qsoId);
-    //void qslRecViaDirectMarkReq(const int _qsoId);
 
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);
@@ -337,11 +311,8 @@ private:
     QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
     QString readDataFromUIDX();
     QString readDataFromUIDXModifying();
-
-    //int getDXCCFromComboBox();
-    //QString getPropModeFromComboBox();
-
-    //QString readDataFromUICQWW();
+    void clearForNextQSO();
+    void clearUIDX(bool full=false); //full= false leaves some data to allow pileup or normal Dx in same band; full removes freqs and everything
 
     void setAwardDXCC(const int _qsoId, bool modifying); // Adds or modify the status of a DXCC entity
     // data << dxcc(id) << band(id) << mode(id) << confirmed(0/1) << qsoid(id) << modify(0/1);
@@ -364,21 +335,13 @@ private:
 
 
     void qsoToEdit (const int _qso);
-    //void showInfoFromLocators(const QString _loc1, const QString _loc2);
-    //void clearInfoFromLocators();
+
     void completeWithPreviousQSO(const QString _call);
 
-    //void showQRZEntityInfo(const QString _qrz);
-    //void showEntityInfo(const int _enti, int _cq=-1, int _itu=-1);
-    //QString getStyleColorToLabelFromBand(const QString _b, const QString _q);   // Band, Entity
     void showAwards();
     void showDXMarathon(const int _year);
     void updateQSLRecAndSent();
     double checkFreqRanges(double _f);
-
-    //void selectCorrectComboBoxEntity(const int _ent); // Select the appropriate entity in the ComboBox
-
-    //int Km2Mile(const bool _imperialSystemSelected, const bool _dataInMiles, const int _km);
 
     // CLUSTER
     void clusterSpotToLog(const QString _call, const QString _freq);
@@ -386,7 +349,6 @@ private:
     QString dxclusterServerToConnect;
     int dxclusterServerPort;
     // CLUSTER
-
 
 
     QWidget *mainWidget;

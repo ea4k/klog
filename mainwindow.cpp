@@ -724,7 +724,7 @@ void MainWindow::slotModeComboBoxChanged()
 }
 
 void MainWindow::slotBandComboBoxChanged(){
-    //qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << endl;
+    qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << endl;
 /*
     int i;
     i = dataProxy->getIdFromBandName(bandComboBox->currentText());
@@ -791,17 +791,15 @@ void MainWindow::slotQRZReturnPressed()
 
     }
 
-      //http://www.sqlite.org/autoinc.html
-        // NULL = is the keyword for the autoincrement to generate next value
-
     QSqlQuery query;
     QString queryString = readDataFromUI();
 
           //qDebug() << "MainWindow::slotQRZReturnPressed: queryString: " << queryString << endl;
 
-        if (queryString != "NULL") {
-            if (!query.exec(queryString))
-            {
+    if (queryString != "NULL")
+    {
+        if (!query.exec(queryString))
+        {
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 query.finish();
                   //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
@@ -907,7 +905,8 @@ void MainWindow::slotQRZReturnPressed()
 
                 logWindow->refresh();
                 dxccStatusWidget->refresh();
-                slotClearButtonClicked();
+                //slotClearButtonClicked();
+                clearForNextQSO();
             }
         }
         else   // The QUERY string is NULL
@@ -967,7 +966,7 @@ QString MainWindow::readDataFromUIDX()
 /*
 If you make any change here, please update also readDataFromUIDXModifying to keep data integrity!
 */
-    qDebug() << "MainWindow::readDataFromUIDX:" << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX:" << endl;
 
     QString tqrz = (qrzLineEdit->text()).toUpper();
     if (tqrz.length()<3)
@@ -1050,21 +1049,22 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-    qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << QString::number(txFreqSpinBox->value()) << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << QString::number(txFreqSpinBox->value()) << endl;
     if ( (txFreqSpinBox->value()) > 0  )
     {
         aux1 = QString::number(txFreqSpinBox->value());
-        qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << aux1 << "/" << tband << endl;
+        //qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << aux1 << "/" << tband << endl;
 
         if (dataProxy->isThisFreqInBand(dataProxy->getNameFromBandId(tband), aux1) )
         {
             stringFields = stringFields + ", freq";
             stringData = stringData + ", '" + aux1 + "'";
-               qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND OK" << endl;
+               //qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND OK" << endl;
         }
         else
         {
-               qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND NOK" << endl;
+
+               //qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND NOK" << endl;
         }
     }
 
@@ -2800,24 +2800,24 @@ void MainWindow::slotQRZTextChanged()
         return;
     }
     int cursorP = qrzLineEdit->cursorPosition();
-    qDebug()<< "MainWindow::slotQRZTextChanged: cursor position: " << QString::number(cursorP) << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: cursor position: " << QString::number(cursorP) << endl;
   qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
     if (cleaning)
     {
-           qDebug()<< "MainWindow::slotQRZTextChanged: Cleaning" << endl;
+           //qDebug()<< "MainWindow::slotQRZTextChanged: Cleaning" << endl;
         return;
     }
 
     if (qrzAutoChanging)
     {
-           qDebug()<< "MainWindow::slotQRZTextChanged: qrzAutoChanging" << endl;
+           //qDebug()<< "MainWindow::slotQRZTextChanged: qrzAutoChanging" << endl;
         qrzAutoChanging = false;
         return;
     }
 
     qrzAutoChanging = true;
 
-    qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.1: " << QString::number(cursorP) << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.1: " << QString::number(cursorP) << endl;
 
     if ( (qrzLineEdit->text()).endsWith(' ') )
     {/*Remove the space and moves the focus to SRX to write the RX exchange*/
@@ -2827,12 +2827,12 @@ void MainWindow::slotQRZTextChanged()
            //qDebug()<< "MainWindow::slotQRZTextChanged: Space detected" << endl;
     }
 
-    qDebug()<< "MainWindow::slotQRZTextChanged: Simplifiying & Capitalizing" << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: Simplifiying & Capitalizing" << endl;
     qrzLineEdit->setText(((qrzLineEdit->text())).simplified());
     qrzLineEdit->setText((qrzLineEdit->text()).remove(" "));
     //qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
 
-    qDebug()<< "MainWindow::slotQRZTextChanged: checking for invalid chars" << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: checking for invalid chars" << endl;
     if (!validCharactersInCall(qrzLineEdit->text()))
     {
         infoLabel1->setText(tr("Invalid characters used in the QRZ"));
@@ -2840,16 +2840,17 @@ void MainWindow::slotQRZTextChanged()
         return;
     }
 
-    qDebug()<< "MainWindow::slotQRZTextChanged: checking for length" << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: checking for length" << endl;
     if (((qrzLineEdit->text()).length() < 1))
     { // If QRZ box is blank, Information labels should be cleared.
         infoLabel1->clear();
         infoLabel2->clear();
-        slotClearButtonClicked();
+        //slotClearButtonClicked();
+        clearForNextQSO();
         return;
     }
 
-    qDebug()<< "MainWindow::slotQRZTextChanged: checking for modify or length<1" << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: checking for modify or length<1" << endl;
     if (((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
     //if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
     {
@@ -2858,7 +2859,7 @@ void MainWindow::slotQRZTextChanged()
         return;
     }
 
-    qDebug()<< "MainWindow::slotQRZTextChanged: running..." << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: running..." << endl;
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
     //int i;
     int dx_CQz = -1;
@@ -2874,10 +2875,10 @@ void MainWindow::slotQRZTextChanged()
     }
 
     currentQrz = qrzLineEdit->text();
-    qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.3: " << QString::number(cursorP) << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.3: " << QString::number(cursorP) << endl;
     if (cursorP>currentQrz.length())
     {// A Space that has been removed without updating the cursor
-           qDebug()<< "MainWindow::slotQRZTextChanged: cursorP > currentQRZ.length" << endl;
+           //qDebug()<< "MainWindow::slotQRZTextChanged: cursorP > currentQRZ.length" << endl;
     }
     else
     {
@@ -2887,11 +2888,11 @@ void MainWindow::slotQRZTextChanged()
         }
         else if ((currentQrz.at(cursorP-1)).isSpace())
         {
-            qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.5: " << QString::number(cursorP) << endl;
+            //qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.5: " << QString::number(cursorP) << endl;
             previousQrz = currentQrz.remove(cursorP-1, 1);
-            qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.6: " << QString::number(cursorP) << endl;
+            //qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.6: " << QString::number(cursorP) << endl;
             cursorP--;
-            qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.7: " << QString::number(cursorP) << endl;
+            //qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.7: " << QString::number(cursorP) << endl;
             qrzLineEdit->setText(previousQrz);
         }
     }
@@ -3023,11 +3024,11 @@ void MainWindow::slotQRZTextChanged()
 
 
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
-    qDebug() << "MainWindow::slotQRZTextChanged: cursorP at the end : " << QString::number(cursorP) << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: cursorP at the end : " << QString::number(cursorP) << endl;
     qrzLineEdit->setCursorPosition(cursorP);
     completeWithPreviousQSO(currentQrz);
     qrzAutoChanging = false;
-    qDebug() << "MainWindow::slotQRZTextChanged: END" << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: END" << endl;
 }
 
 
@@ -3092,6 +3093,68 @@ void MainWindow::slotSpotItButtonClicked()
 
 }
 
+void MainWindow::clearForNextQSO()
+{
+    cleaning = true;
+    modify = false;
+    OKButton->setText(tr("&Add"));
+    modifyingQSO = -1;
+    qrzLineEdit->clear();
+    qrzLineEdit->setFocus(Qt::OtherFocusReason);
+
+    rstTXLineEdit->setText("59");
+    rstRXLineEdit->setText("59");
+    qthLineEdit->clear();
+
+    //qDebug() << "MainWindow::clearForNextQSO: - currentBand: " << QString::number(currentBand) << endl;
+    //qDebug() << "MainWindow::clearForNextQSO: - defaultBand: " << QString::number(defaultBand) << endl;
+    //qDebug() << "MainWindow::clearForNextQSO: - mode: " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::clearForNextQSO: - defaultMode: " << QString::number(defaultMode) << endl;
+
+    //if (currentBand < 0)
+    //{
+    //    currentBand = defaultBand;
+    //}
+
+
+    //qDebug() << "MainWindow::MainWindow: - Changing from: " << bandComboBox->currentText() << endl;
+
+    //bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(currentBand), Qt::MatchCaseSensitive));
+
+    //qDebug() << "MainWindow::MainWindow: - Changing to: " << bandComboBox->currentText() << endl;
+    //qDebug() << "MainWindow::MainWindow: 12 - currentMode: " << QString::number(currentMode) << endl;
+    //if (currentMode < 0)
+    // {
+    //    currentMode = defaultMode;
+    //}
+
+    //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getSubModeFromId(currentMode), Qt::MatchCaseSensitive));
+
+    qsoPoints = 0;
+    qsoMultiplier = 0;
+    clublogAnswer = -1;
+    clublogPrevQSO.clear();
+
+    if (contestMode == "DX")
+    {
+        clearUIDX();
+    }
+    else if (contestMode == "CQ-WW-SSB")
+    {
+
+    }
+    else
+    {
+        clearUIDX();
+    }
+
+    statusBar()->clearMessage();
+    cleaning = false;
+       //qDebug() << "MainWindow::clearForNextQSO: " << modeComboBox->currentText() << endl;
+       //qDebug() << "MainWindow::clearForNextQSO - currentMode = " << QString::number(currentMode) << endl;
+       //qDebug() << "MainWindow::clearForNextQSO - END" << endl;
+}
+
 void MainWindow::slotClearButtonClicked()
 {
     //qDebug() << "MainWindow::slotClearButtonClicked - START" << endl;
@@ -3136,30 +3199,7 @@ void MainWindow::slotClearButtonClicked()
 
     if (contestMode == "DX")
     {
-        SRXLineEdit->setText("59");
-        STXLineEdit->setText("59");
-
-        nameLineEdit->clear();
-        locatorLineEdit->clear();
-        //txFreqSpinBox->setValue(0);
-        //rxFreqSpinBox->setValue(0);
-        //freqQLCDNumber->display(0);
-        //notesTextEdit->clear();
-        commentTabWidget->clear();
-        //commentLineEdit->clear();
-        infoLabel1->clear();
-        infoLabel2->clear();
-
-        rxPowerSpinBox->setValue(0);
-
-        eQSLTabWidget->clear();
-        QSLTabWidget->clear();
-        othersTabWidget->clear();
-
-        satTabWidget->clear();
-        myDataTabWidget->clear(keepMyData);
-
-        infoWidget->clear();
+        clearUIDX(true);
 
     }
     else if (contestMode == "CQ-WW-SSB")
@@ -3177,38 +3217,38 @@ void MainWindow::slotClearButtonClicked()
     }
     else
     {
-        SRXLineEdit->setText("59");
-        STXLineEdit->setText("59");
-
-        nameLineEdit->clear();
-        locatorLineEdit->clear();
-        txFreqSpinBox->setValue(0);
-        rxFreqSpinBox->setValue(0);
-        //freqQLCDNumber->display(0);
-        //notesTextEdit->clear();
-        commentTabWidget->clear();
-        //commentLineEdit->clear();
-        infoLabel1->clear();
-        infoLabel2->clear();
-
-        //rxPowerSpinBox->setValue(0);
-
-
-        eQSLTabWidget->clear();
-        QSLTabWidget->clear();
-        othersTabWidget->clear();
-
-        satTabWidget->clear();
-        myDataTabWidget->clear(keepMyData);
-
-        infoWidget->clear();
-}
+        clearUIDX(true);
+    }
 
     statusBar()->clearMessage();
     cleaning = false;
        //qDebug() << "MainWindow::slotClearButtonClicked: " << modeComboBox->currentText() << endl;
        //qDebug() << "MainWindow::slotClearButtonClicked - currentMode = " << QString::number(currentMode) << endl;
        //qDebug() << "MainWindow::slotClearButtonClicked - END" << endl;
+}
+
+void MainWindow::clearUIDX(bool full)
+{
+    SRXLineEdit->setText("59");
+    STXLineEdit->setText("59");
+    nameLineEdit->clear();
+    locatorLineEdit->clear();
+    commentTabWidget->clear();
+    infoLabel1->clear();
+    infoLabel2->clear();
+    rxPowerSpinBox->setValue(0);
+    eQSLTabWidget->clear();
+    QSLTabWidget->clear();
+    othersTabWidget->clear();
+
+    satTabWidget->clear();
+    myDataTabWidget->clear(keepMyData);
+    if (full)
+    {
+        txFreqSpinBox->setValue(0);
+        rxFreqSpinBox->setValue(0);
+    }
+
 }
 
 /*
@@ -5284,25 +5324,25 @@ void MainWindow::slotADIFImport(){
     }
     else
     {
-        qDebug() << "MainWindow::slotADIFImport -1" << endl;
+        //qDebug() << "MainWindow::slotADIFImport -1" << endl;
         filemanager->adifReadLog(fileName, currentLog);
         updateQSLRecAndSent();
 
 
-        qDebug() << "MainWindow::slotADIFImport -2" << endl;
+        //qDebug() << "MainWindow::slotADIFImport -2" << endl;
 
         logWindow->refresh();
-        qDebug() << "MainWindow::slotADIFImport -3" << endl;
+        //qDebug() << "MainWindow::slotADIFImport -3" << endl;
         checkIfNewBandOrMode();
-        qDebug() << "MainWindow::slotADIFImport -4" << endl;
+        //qDebug() << "MainWindow::slotADIFImport -4" << endl;
 
         if (contestMode == "DX")
         {
-            qDebug() << "MainWindow::slotADIFImport-DX" << endl;
+            //qDebug() << "MainWindow::slotADIFImport-DX" << endl;
             operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
-            qDebug() << "MainWindow::slotADIFImport-DX-1" << endl;
+            //qDebug() << "MainWindow::slotADIFImport-DX-1" << endl;
             slotShowAwards();
-            qDebug() << "MainWindow::slotADIFImport-DX-1-end" << endl;
+            //qDebug() << "MainWindow::slotADIFImport-DX-1-end" << endl;
         }
         else if (contestMode == "CQ-WW-SSB")
         {}
@@ -5312,15 +5352,16 @@ void MainWindow::slotADIFImport(){
             slotShowAwards();
         }
 
-        qDebug() << "MainWindow::slotADIFImport-7" << endl;
+        //qDebug() << "MainWindow::slotADIFImport-7" << endl;
     }
-    qDebug() << "MainWindow::slotADIFImport-END" << endl;
+    //qDebug() << "MainWindow::slotADIFImport-END" << endl;
 }
 
 void  MainWindow::initialContestModeConfiguration()
 {
+    QString aux = QString();
 
-       //qDebug() << "MainWindow::initialContestModeConfiguration: - 0" << endl;
+    qDebug() << "MainWindow::initialContestModeConfiguration: - 0" << endl;
 
      if (!configured){
             //qDebug() << "MainWindow::initialContestModeConfiguration: - 01" << endl;
@@ -5332,12 +5373,20 @@ void  MainWindow::initialContestModeConfiguration()
     QSqlQuery query;
     QStringList contestQS;
 
-       //qDebug() << "MainWindow::initialContestModeConfiguration: - 04" << endl;
+    qDebug() << "MainWindow::initialContestModeConfiguration: - 04" << endl;
 
     if (contestMode == "DX")
     {
         defaultMode = dataProxy->getMostUsedMode(currentLog);
         defaultBand = dataProxy->getMostUsedBand(currentLog);
+        aux = dataProxy->getNameFromBandId(defaultBand);
+        bandComboBox->setCurrentIndex(bandComboBox->findText(aux));
+        //bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand), Qt::MatchCaseSensitive));
+
+        qDebug() << "MainWindow::initialContestModeConfiguration-1: " << QString::number(defaultBand) << endl;
+        qDebug() << "MainWindow::initialContestModeConfiguration-1: " << aux << endl;
+        qDebug() << "MainWindow::initialContestModeConfiguration-1: " << QString::number(bandComboBox->findText(aux, Qt::MatchCaseSensitive)) << endl;
+        qDebug() << "MainWindow::initialContestModeConfiguration-1-index: " << bandComboBox->currentText() << endl;
     }
     else if (contestMode == "CQ-WW-SSB")
     {
@@ -5359,6 +5408,11 @@ void  MainWindow::initialContestModeConfiguration()
     {
         defaultMode = dataProxy->getMostUsedMode(currentLog);
         defaultBand = dataProxy->getMostUsedBand(currentLog);
+        qDebug() << "MainWindow::initialContestModeConfiguration-2: " <<dataProxy->getNameFromBandId(defaultBand) << endl;
+
+        bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand), Qt::MatchCaseSensitive));
+        qDebug() << "MainWindow::initialContestModeConfiguration-2: " << QString::number(defaultBand) << endl;
+        qDebug() << "MainWindow::initialContestModeConfiguration-2-index: " << bandComboBox->currentText() << endl;
     }
 
 }
@@ -5943,20 +5997,20 @@ void MainWindow::showDXMarathonNeeded(const int _dxcc, const int _cqz, const int
 }
 void MainWindow::slotShowAwards()
 { //To be called from the logWindow & searchWidget
-    qDebug() << "MainWindow::slotShowAwards"  << endl;
+    //qDebug() << "MainWindow::slotShowAwards"  << endl;
     awards->recalculateAwards();
-    qDebug() << "MainWindow::slotShowAwards-1"  << endl;
+    //qDebug() << "MainWindow::slotShowAwards-1"  << endl;
     logWindow->refresh();
-    qDebug() << "MainWindow::slotShowAwards-2"  << endl;
+    //qDebug() << "MainWindow::slotShowAwards-2"  << endl;
     showAwards();
-    qDebug() << "MainWindow::slotShowAwards-3"  << endl;
+    //qDebug() << "MainWindow::slotShowAwards-3"  << endl;
     dxccStatusWidget->refresh();
-    qDebug() << "MainWindow::slotShowAwards-END"  << endl;
+    //qDebug() << "MainWindow::slotShowAwards-END"  << endl;
 }
 
 void MainWindow::showAwards()
 { // Updates and show all the award status tab.
-   qDebug() << "MainWindow::showAwards" << endl;
+   //qDebug() << "MainWindow::showAwards" << endl;
 /*
   WAZ
   Local
@@ -5994,7 +6048,7 @@ void MainWindow::showAwards()
     wazConfirmedQLCDNumber->display(awards->getWAZConfirmed(currentLog));
 
     showDXMarathon(selectedYear);
-    qDebug() << "MainWindow::showAwards - END" << endl;
+    //qDebug() << "MainWindow::showAwards - END" << endl;
 
 }
 
