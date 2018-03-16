@@ -1321,19 +1321,18 @@ bool DataBase::isValidModeNumber (const int b)
 
 int DataBase::getBandIdFromFreq(const QString fr)
 {
-      //qDebug() << "DataBase::getBandIdFromFreq: " << fr << endl;
+     //qDebug() << "DataBase::getBandIdFromFreq: " << fr << endl;
     //Freq should be in MHz
-     bool sqlOk = false;
-    QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(fr).arg(fr);
 
+    QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(fr).arg(fr);
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
 
-      //qDebug() << "DataBase::getBandIdFromFreq: Query: " << query.lastQuery() << endl;
-    if (sqlOk)
+     //qDebug() << "DataBase::getBandIdFromFreq: Query: " << query.lastQuery() << endl;
+    if (sqlOK)
     {
-          //qDebug() << "DataBase::getBandIdFromFreq: Query OK" << endl;
+        //qDebug() << "DataBase::getBandIdFromFreq: Query OK" << endl;
         query.next();
 
 
@@ -1351,31 +1350,44 @@ int DataBase::getBandIdFromFreq(const QString fr)
     }
     else
     {
-         //qDebug() << "DataBase::getBandIdFromFreq: Query NOK" << endl;
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        //qDebug() << "DataBase::getBandIdFromFreq: Query NOK" << endl;
+        //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().text() << endl;
+        //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().nativeErrorCode() << endl;
+        if (query.lastError().isValid())
+        {
+            //qDebug() << "DataBase::getBandIdFromFreq: Query NOK - Error VALID" << endl;
+        }
+        else
+        {
+            //qDebug() << "DataBase::getBandIdFromFreq: Query NOK - Error NOT-VALID" << endl;
+        }
+
+
+        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().text(), query.lastError().number(), query.lastQuery());
         query.finish();
-       return -1;
+       return -2;
     }
      //qDebug() << "DataBase::getBandIdFromFreq: END-X" << endl;
     query.finish();
-    return -1;
+    return -3;
 }
 
 
 bool DataBase::isThisFreqInBand(const QString b, const QString fr)
 {//Freq should be in MHz
-     //qDebug() << "DataBase::isThisFreqInBand: " << b << "/" << fr << endl;
+    //qDebug() << "DataBase::isThisFreqInBand: " << b << "/" << fr << endl;
     int bandNf = getBandIdFromFreq(fr);
     int bandN = getBandIDFromName2(b);
-      //qDebug() << "DataBase::isThisFreqInBand: (b/f)" << QString::number(bandN) << "/" << QString::number(bandNf) << endl;
+    //qDebug() << "DataBase::isThisFreqInBand: (b/f)" << QString::number(bandN) << "/" << QString::number(bandNf) << endl;
     if (bandNf == bandN)
     {
-         //qDebug() << "DataBase::isThisFreqInBand: OK " << b << "/" << fr << endl;
+        //qDebug() << "DataBase::isThisFreqInBand: OK " << b << "/" << fr << endl;
         return true;
     }
     else
     {
-         //qDebug() << "DataBase::isThisFreqInBand: NOK " << b << "/" << fr << endl;
+        //qDebug() << "DataBase::isThisFreqInBand: NOK " << b << "/" << fr << endl;
         return false;
     }
      //qDebug() << "DataBase::isThisFreqInBand: END" << endl;
@@ -1699,7 +1711,7 @@ int DataBase::getSubModeIDFromName2(const QString b)
 
 QString DataBase::getBandNameFromID2(const int _i)
 {
-    qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << endl;
+    //qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << endl;
     return getBandNameFromNumber(_i);
 
     if (IDBandHash.contains(_i))
@@ -7041,11 +7053,11 @@ int DataBase::getNumberOfQsos(const int _logNumber)
 
 void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery)
 {
-    //qDebug() << "DataBase::queryErrorManagement: constid - " << QString::number(constrid) << endl;
-      //qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << endl;
-      //qDebug() << "DataBase::queryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
-      //qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
-      //qDebug() << "DataBase::queryErrorManagement: Query failed: " << failedQuery << endl;
+    //qDebug() << "DataBase::queryErrorManagement: constrid - " << QString::number(constrid) << endl;
+    //qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << endl;
+    //qDebug() << "DataBase::queryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
+    //qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
+    //qDebug() << "DataBase::queryErrorManagement: Query failed: " << failedQuery << endl;
 }
 
  bool DataBase::beginTransaction()

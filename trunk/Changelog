@@ -1,10 +1,11 @@
 TBD - 0.9.3
-Check-BUG: freq can not be typed
+
 Check-BUG: band can't be selected (or it always goes back to 160 even if not selected)
 
 - Updated translations: Spanish (EA4TV).
 - Double clicking on DXCC Widget name of the Entity will show the QSO is providing that status on the Search widget.
 - Added DXCC support for Kosovo.
+- Bugfix: TX frequency was not saved.
 - Bugfix: In the dxcc status widget, some countries were showing the UN flag unappropriately.
 - Bugfix: When updating the CTY file, query errors were shown on world.readCTYCSV function.
 - Bugfix: When editing the QRZ, the cursor position was not properly maintained.
