@@ -226,11 +226,13 @@ bool DataProxy_SQLite::isModeDeprecated (const QString _sm)
 
 int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
 {
-     //qDebug() << "DataProxy_SQLite::getIdFromBandName: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
+//     //qDebug() << "DataProxy_SQLite::getIdFromBandName: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
     if (_bandName.length()<1)
     {
+        //qDebug() << "DataProxy_SQLite::getIdFromBandName:-4: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
         return -4;
     }
+
     return db->getBandIDFromName2(_bandName);
 }
 
@@ -713,7 +715,7 @@ QStringList DataProxy_SQLite::getModesInLog(const int _log)
 
 int DataProxy_SQLite::getMostUsedBand(const int _log)
 {
-      //qDebug() << "DataProxy_SQLite::getMostUsedBand: " << endl;
+    //qDebug() << "DataProxy_SQLite::getMostUsedBand: " << endl;
 
     QString queryString = QString();
     if (_log <=0 )
@@ -735,6 +737,7 @@ int DataProxy_SQLite::getMostUsedBand(const int _log)
             {
                 int v = query.value(0).toInt();
                 query.finish();
+                //qDebug() << "DataProxy_SQLite::getMostUsedBand-OK: " << QString::number(v)<< endl;
                 return v;
             }
         }
@@ -743,9 +746,11 @@ int DataProxy_SQLite::getMostUsedBand(const int _log)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
+        //qDebug() << "DataProxy_SQLite::getMostUsedBand-ERROR-1: " << endl;
         return -1;
     }
-    return -1;
+    //qDebug() << "DataProxy_SQLite::getMostUsedBand-ERROR-2: " << endl;
+    return -2;
 }
 
 int DataProxy_SQLite::getMostUsedMode(const int _log)
@@ -968,8 +973,8 @@ bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString _updateDa
     if (sqlOK)
     {
           //qDebug() << "DataProxy_SQLite:: TRUE" << endl;
-        setDXCCAwardStatus(_qsoId);
-        setWAZAwardStatus(_qsoId);
+        //setDXCCAwardStatus(_qsoId);
+        //setWAZAwardStatus(_qsoId);
         return true;
     }
     else
@@ -1046,7 +1051,9 @@ bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString _updateDa
     {
           //qDebug() << "DataProxy_SQLite::qslRecViaBureau TRUE" << endl;
         query.finish();
-        setDXCCAwardStatus(_qsoId);
+        //setDXCCAwardStatus(_qsoId);
+        //setWAZAwardStatus(_qsoId);
+
         return true;
     }
     else
@@ -1070,7 +1077,8 @@ bool DataProxy_SQLite::qslRecViaDirect(const int _qsoId, const QString _updateDa
     if (sqlOK)
     {
         query.finish();
-        setDXCCAwardStatus(_qsoId);
+        //setDXCCAwardStatus(_qsoId);
+        //setWAZAwardStatus(_qsoId);
         return true;
     }
     else
@@ -1137,7 +1145,8 @@ bool DataProxy_SQLite::qslRecViaDirect(const int _qsoId, const QString _updateDa
     {
           //qDebug() << "DataProxy_SQLite::qslRecViaDirect TRUE" << endl;
         query.finish();
-        setDXCCAwardStatus(_qsoId);
+        //setDXCCAwardStatus(_qsoId);
+        //setWAZAwardStatus(_qsoId);
         return true;
     }
     else

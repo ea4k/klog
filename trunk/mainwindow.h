@@ -330,6 +330,8 @@ private:
     QString selectStationCallsign();
 
     void checkIfNewBandOrMode();
+    void selectDefaultBand();
+    void selectDefaultMode();
     void readActiveBands (const QStringList actives);
     void readActiveModes (const QStringList actives);
 

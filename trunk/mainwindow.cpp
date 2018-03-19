@@ -399,6 +399,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     //qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
     readConfigData();
+    //qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
     if (itIsANewversion)
     {
         slotSetup();
@@ -724,7 +725,7 @@ void MainWindow::slotModeComboBoxChanged()
 }
 
 void MainWindow::slotBandComboBoxChanged(){
-    qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << endl;
+    //qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << bandComboBox->currentText()<< endl;
 /*
     int i;
     i = dataProxy->getIdFromBandName(bandComboBox->currentText());
@@ -3171,6 +3172,7 @@ void MainWindow::slotClearButtonClicked()
     qthLineEdit->clear();
 
     //qDebug() << "MainWindow::slotClearButtonClicked: - currentBand: " << QString::number(currentBand) << endl;
+    //qDebug() << "MainWindow::slotClearButtonClicked: - currentBand: " << bandComboBox->currentText() << endl;
     //qDebug() << "MainWindow::slotClearButtonClicked: - defaultBand: " << QString::number(defaultBand) << endl;
        //qDebug() << "MainWindow::slotClearButtonClicked: - mode: " << QString::number(currentMode) << endl;
        //qDebug() << "MainWindow::slotClearButtonClicked: - defaultMode: " << QString::number(defaultMode) << endl;
@@ -3224,7 +3226,7 @@ void MainWindow::slotClearButtonClicked()
     cleaning = false;
        //qDebug() << "MainWindow::slotClearButtonClicked: " << modeComboBox->currentText() << endl;
        //qDebug() << "MainWindow::slotClearButtonClicked - currentMode = " << QString::number(currentMode) << endl;
-       //qDebug() << "MainWindow::slotClearButtonClicked - END" << endl;
+    //qDebug() << "MainWindow::slotClearButtonClicked - END" << endl;
 }
 
 void MainWindow::clearUIDX(bool full)
@@ -3868,9 +3870,9 @@ void MainWindow::slotSetup(const int _page)
         }
         else
         {
-               //qDebug() << "MainWindow::slotSetup - Just before readConfigData"  << endl;
-            readConfigData();
-               //qDebug() << "MainWindow::slotSetup - Just after readConfigData"  << endl;
+            //qDebug() << "MainWindow::slotSetup - Just before readConfigData"  << endl;
+            readConfigData();            
+            //qDebug() << "MainWindow::slotSetup - Just after readConfigData"  << endl;
         }
 
 
@@ -4204,11 +4206,15 @@ void MainWindow::readConfigData()
     dxClusterWidget->setDXClusterSpotConfig(dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY );
     dxClusterWidget->setMyQRZ(stationQRZ);
 
+    checkIfNewBandOrMode();
     initialContestModeConfiguration();
+    //qDebug() << "MainWindow::readConfigData: 99" << endl;
 
     if (upAndRunning)
     { // Next actions will not be executed in the first run
+        //qDebug() << "MainWindow::readConfigData: 99.1" << endl;
         slotClearButtonClicked();
+        //qDebug() << "MainWindow::readConfigData: 99.2" << endl;
         //createSearchResultsPanel();
     }
 
@@ -4222,7 +4228,7 @@ void MainWindow::readConfigData()
 
     }
     //qDebug() << "MainWindow::readConfigData: calling checkIfNewBandOrMode" << endl;
-    checkIfNewBandOrMode();
+
 
     //qDebug() << "MainWindow::readConfigData: 100" << endl;
     util->setVersion(softwareVersion);
@@ -4622,9 +4628,36 @@ void MainWindow::checkIfNewBandOrMode()
 
       //qDebug() << "MainWindow::checkIfNewBandOrMode - CurrentBand/CurrentBandShown: " << QString::number(currentBand) << "/" << QString::number(currentBandShown) << endl;
     dxccStatusWidget->setBands(bands);
-      //qDebug() << "MainWindow::checkIfNewBandOrMode END" << endl;
+
+    selectDefaultBand();
+    selectDefaultMode();
+
+
+    //qDebug() << "MainWindow::checkIfNewBandOrMode END" << endl;
 }
 
+void MainWindow::selectDefaultBand()
+{
+    //qDebug() << "MainWindow::selectDefaultBand" << endl;
+    QString aux;
+    aux = QString();
+    defaultBand = dataProxy->getMostUsedBand(currentLog);
+    aux = dataProxy->getNameFromBandId(defaultBand);
+    bandComboBox->setCurrentIndex(bandComboBox->findText(aux));
+    //qDebug() << "MainWindow::selectDefaultBand_END" << endl;
+}
+
+void MainWindow::selectDefaultMode()
+{
+    //qDebug() << "MainWindow::selectDefaultMode" << endl;
+    QString aux;
+    aux = QString();
+
+    defaultMode = dataProxy->getMostUsedMode(currentLog);
+    aux = dataProxy->getModeFromId(defaultMode);
+    modeComboBox->setCurrentIndex(modeComboBox->findText(aux));
+    //qDebug() << "MainWindow::selectDefaultMode-END" << endl;
+}
 
 void MainWindow::slotDefineNewBands (const QStringList _bands)
 {
@@ -5359,9 +5392,9 @@ void MainWindow::slotADIFImport(){
 
 void  MainWindow::initialContestModeConfiguration()
 {
-    QString aux = QString();
+    //QString aux = QString();
 
-    qDebug() << "MainWindow::initialContestModeConfiguration: - 0" << endl;
+    //qDebug() << "MainWindow::initialContestModeConfiguration: - 0" << endl;
 
      if (!configured){
             //qDebug() << "MainWindow::initialContestModeConfiguration: - 01" << endl;
@@ -5373,20 +5406,23 @@ void  MainWindow::initialContestModeConfiguration()
     QSqlQuery query;
     QStringList contestQS;
 
-    qDebug() << "MainWindow::initialContestModeConfiguration: - 04" << endl;
+    //qDebug() << "MainWindow::initialContestModeConfiguration: - 04" << endl;
 
     if (contestMode == "DX")
     {
-        defaultMode = dataProxy->getMostUsedMode(currentLog);
-        defaultBand = dataProxy->getMostUsedBand(currentLog);
-        aux = dataProxy->getNameFromBandId(defaultBand);
-        bandComboBox->setCurrentIndex(bandComboBox->findText(aux));
+        selectDefaultBand();
+        selectDefaultMode();
+        //defaultMode = dataProxy->getMostUsedMode(currentLog);
+        //defaultBand = dataProxy->getMostUsedBand(currentLog);
+        //aux = dataProxy->getNameFromBandId(defaultBand);
+        //bandComboBox->setCurrentIndex(bandComboBox->findText(aux));
+
         //bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand), Qt::MatchCaseSensitive));
 
-        qDebug() << "MainWindow::initialContestModeConfiguration-1: " << QString::number(defaultBand) << endl;
-        qDebug() << "MainWindow::initialContestModeConfiguration-1: " << aux << endl;
-        qDebug() << "MainWindow::initialContestModeConfiguration-1: " << QString::number(bandComboBox->findText(aux, Qt::MatchCaseSensitive)) << endl;
-        qDebug() << "MainWindow::initialContestModeConfiguration-1-index: " << bandComboBox->currentText() << endl;
+        //qDebug() << "MainWindow::initialContestModeConfiguration-1: " << QString::number(defaultBand) << endl;
+        //qDebug() << "MainWindow::initialContestModeConfiguration-1: " << aux << endl;
+        //qDebug() << "MainWindow::initialContestModeConfiguration-1: " << QString::number(bandComboBox->findText(aux, Qt::MatchCaseSensitive)) << endl;
+        //qDebug() << "MainWindow::initialContestModeConfiguration-1-index: " << bandComboBox->currentText() << endl;
     }
     else if (contestMode == "CQ-WW-SSB")
     {
@@ -5406,15 +5442,18 @@ void  MainWindow::initialContestModeConfiguration()
     }
     else
     {
-        defaultMode = dataProxy->getMostUsedMode(currentLog);
-        defaultBand = dataProxy->getMostUsedBand(currentLog);
-        qDebug() << "MainWindow::initialContestModeConfiguration-2: " <<dataProxy->getNameFromBandId(defaultBand) << endl;
+        selectDefaultBand();
+        selectDefaultMode();
 
-        bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand), Qt::MatchCaseSensitive));
-        qDebug() << "MainWindow::initialContestModeConfiguration-2: " << QString::number(defaultBand) << endl;
-        qDebug() << "MainWindow::initialContestModeConfiguration-2-index: " << bandComboBox->currentText() << endl;
+        //defaultMode = dataProxy->getMostUsedMode(currentLog);
+        //defaultBand = dataProxy->getMostUsedBand(currentLog);
+        //qDebug() << "MainWindow::initialContestModeConfiguration-2: " <<dataProxy->getNameFromBandId(defaultBand) << endl;
+
+        //bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand), Qt::MatchCaseSensitive));
+        //qDebug() << "MainWindow::initialContestModeConfiguration-2: " << QString::number(defaultBand) << endl;
+        //qDebug() << "MainWindow::initialContestModeConfiguration-2-index: " << bandComboBox->currentText() << endl;
     }
-
+    //qDebug() << "MainWindow::initialContestModeConfiguration END: " << bandComboBox->currentText() << endl;
 }
 
 
