@@ -1740,7 +1740,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="4245"/>
         <source>The UDP server failed to </source>
-        <translation type="unfinished">El servidor UDP falló al </translation>
+        <translation>El servidor UDP falló al </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4495"/>
@@ -2591,7 +2591,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../database.cpp" line="7004"/>
         <source>Updating WAZ Award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizando la información del diploma WAZ...</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="3364"/>
@@ -3794,7 +3794,7 @@ The log will not be opened.</oldsource>
     <message>
         <location filename="../setuppagemisc.cpp" line="133"/>
         <source>UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in  in KLog automatically from those programs.</source>
-        <translation type="unfinished">El servidor UDP recibirá los QSO enviados desde otros programas como WSJT-X permitiendo registrar en KLog los contactos automáticamente desde esos programas.</translation>
+        <translation>El servidor UDP recibirá los QSO enviados desde otros programas como WSJT-X permitiendo registrar en KLog los contactos automáticamente desde esos programas.</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="134"/>
