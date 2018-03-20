@@ -2720,8 +2720,8 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <location filename="../searchwidget.cpp" line="28"/>
-        <location filename="../searchwidget.cpp" line="579"/>
-        <location filename="../searchwidget.cpp" line="611"/>
+        <location filename="../searchwidget.cpp" line="577"/>
+        <location filename="../searchwidget.cpp" line="609"/>
         <source>&amp;Select All</source>
         <translation>Označi &amp;sve</translation>
     </message>
@@ -2808,7 +2808,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../searchwidget.cpp" line="81"/>
         <location filename="../searchwidget.cpp" line="86"/>
-        <location filename="../searchwidget.cpp" line="789"/>
+        <location filename="../searchwidget.cpp" line="787"/>
         <source>QSL Rcvd</source>
         <translation>QSL Primljena</translation>
     </message>
@@ -2824,164 +2824,164 @@ Do you want to save your changes?</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="587"/>
-        <location filename="../searchwidget.cpp" line="606"/>
+        <location filename="../searchwidget.cpp" line="585"/>
+        <location filename="../searchwidget.cpp" line="604"/>
         <source>&amp;Clear selection</source>
         <translation>&amp;Izbriši selekciju</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="681"/>
+        <location filename="../searchwidget.cpp" line="679"/>
         <source>Save File</source>
         <translation>Spremi Datoteku</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="764"/>
+        <location filename="../searchwidget.cpp" line="762"/>
         <source>QSL Send</source>
         <translation>Pošalji QSL</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="823"/>
+        <location filename="../searchwidget.cpp" line="821"/>
         <source>&amp;Delete</source>
         <translation>Iz&amp;briši</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="825"/>
+        <location filename="../searchwidget.cpp" line="823"/>
         <source>Delete a QSO</source>
         <translation>Izbriši QSO</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="828"/>
+        <location filename="../searchwidget.cpp" line="826"/>
         <source>&amp;Edit QSO</source>
         <translation>&amp;Uredi QSO</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="830"/>
+        <location filename="../searchwidget.cpp" line="828"/>
         <source>Edit this QSO</source>
         <translation>Uredi ovaj QSO</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="833"/>
+        <location filename="../searchwidget.cpp" line="831"/>
         <source>Via &amp;bureau</source>
         <translation>Preko &amp;biroa</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="835"/>
+        <location filename="../searchwidget.cpp" line="833"/>
         <source>Send this QSL via bureau</source>
         <translation>Pošalji ovu QSL preko ureda</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="838"/>
+        <location filename="../searchwidget.cpp" line="836"/>
         <source>D&amp;irect</source>
         <translation>&amp;Izravno</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="840"/>
+        <location filename="../searchwidget.cpp" line="838"/>
         <source>Send this QSL via direct</source>
         <translation>Pošalji ovu QSL izravno</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="843"/>
+        <location filename="../searchwidget.cpp" line="841"/>
         <source>&amp;Request my QSL</source>
         <translation>Za&amp;traži moju QSL</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="845"/>
+        <location filename="../searchwidget.cpp" line="843"/>
         <source>Mark my QSL as requested</source>
         <translation>Označi moju QSL kao zatraženu</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="848"/>
+        <location filename="../searchwidget.cpp" line="846"/>
         <source>Via Direct &amp;&amp; mark DX QSL as requested</source>
         <translation>Izravno i označi DX QSL kao zatraženu</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="849"/>
+        <location filename="../searchwidget.cpp" line="847"/>
         <source>Send this QSL via direct &amp; mark DX QSL as requested</source>
         <translation>Pošalji ovu QSL izravno i označi DX QSL kao zatraženu</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="852"/>
+        <location filename="../searchwidget.cpp" line="850"/>
         <source>Via Bureau &amp;&amp; mark DX QSL as requested</source>
         <translation>Preko ureda i označi DX QSL kao zatraženu</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="853"/>
+        <location filename="../searchwidget.cpp" line="851"/>
         <source>Send this QSL via bureau &amp; mark DX QSL as requested</source>
         <translation>Pošalji ovu QSL izravno i označi DX QSL kao zatraženu</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="857"/>
+        <location filename="../searchwidget.cpp" line="855"/>
         <source>&amp;Request the QSL</source>
         <translation>Za&amp;traži QSL</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="859"/>
+        <location filename="../searchwidget.cpp" line="857"/>
         <source>Mark the QSL as requested</source>
         <translation>Označi QSL zatraženom</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="863"/>
+        <location filename="../searchwidget.cpp" line="861"/>
         <source>Via bureau &amp;&amp; mark my QSL as requested</source>
         <translation>Preko biroa i označi moju QSL kao zatraženu</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="864"/>
+        <location filename="../searchwidget.cpp" line="862"/>
         <source>QSL received via bureau &amp; mark my QSL as requested</source>
         <translation>QSL primljena izravno i označi moju QSL kao zatraženu</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="867"/>
+        <location filename="../searchwidget.cpp" line="865"/>
         <source>Via bureau</source>
         <translation>Preko biroa</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="868"/>
+        <location filename="../searchwidget.cpp" line="866"/>
         <source>QSL received via bureau</source>
         <translation>QSL primljena preko biroa</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="872"/>
+        <location filename="../searchwidget.cpp" line="870"/>
         <source>Direc&amp;t &amp;&amp; mark as my QSL requested</source>
         <translation>&amp;Izravno &amp; označi moju QSL zatraženom</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="873"/>
+        <location filename="../searchwidget.cpp" line="871"/>
         <source>QSL received via direct &amp; mark my QSL as requested</source>
         <translation>QSL primljena izravno i označi moju QSL kao zatraženu</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="876"/>
+        <location filename="../searchwidget.cpp" line="874"/>
         <source>Direc&amp;t</source>
         <translation>&amp;Izravno</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="877"/>
+        <location filename="../searchwidget.cpp" line="875"/>
         <source>QSL received via direct</source>
         <translation>QSL primljena izravno</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1113"/>
+        <location filename="../searchwidget.cpp" line="1111"/>
         <source>You have requested to delete the QSO with:</source>
         <translation>Zatražili ste brisanje QSOa sa:</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1118"/>
+        <location filename="../searchwidget.cpp" line="1116"/>
         <source>Are you sure?</source>
         <translation>Jeste li sigurni?</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1181"/>
+        <location filename="../searchwidget.cpp" line="1179"/>
         <source>Needed QSO to send the QSL</source>
         <translation>QSO za koji treba poslati QSL</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1189"/>
+        <location filename="../searchwidget.cpp" line="1187"/>
         <source>My QSL requested to be sent</source>
         <translation>Moj QSL zatražen za slanje</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1194"/>
-        <location filename="../searchwidget.cpp" line="1199"/>
+        <location filename="../searchwidget.cpp" line="1192"/>
+        <location filename="../searchwidget.cpp" line="1197"/>
         <source>DX QSL pending to be received</source>
         <translation>Prijem DX QSLa neodlučen</translation>
     </message>

@@ -2718,8 +2718,8 @@ Voleu desar els canvis?</translation>
     </message>
     <message>
         <location filename="../searchwidget.cpp" line="28"/>
-        <location filename="../searchwidget.cpp" line="579"/>
-        <location filename="../searchwidget.cpp" line="611"/>
+        <location filename="../searchwidget.cpp" line="577"/>
+        <location filename="../searchwidget.cpp" line="609"/>
         <source>&amp;Select All</source>
         <translation>&amp;Selecciona-ho tot</translation>
     </message>
@@ -2806,7 +2806,7 @@ Voleu desar els canvis?</translation>
     <message>
         <location filename="../searchwidget.cpp" line="81"/>
         <location filename="../searchwidget.cpp" line="86"/>
-        <location filename="../searchwidget.cpp" line="789"/>
+        <location filename="../searchwidget.cpp" line="787"/>
         <source>QSL Rcvd</source>
         <translation>QSL rebuda</translation>
     </message>
@@ -2822,164 +2822,164 @@ Voleu desar els canvis?</translation>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="587"/>
-        <location filename="../searchwidget.cpp" line="606"/>
+        <location filename="../searchwidget.cpp" line="585"/>
+        <location filename="../searchwidget.cpp" line="604"/>
         <source>&amp;Clear selection</source>
         <translation>&amp;Neteja la selecció</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="681"/>
+        <location filename="../searchwidget.cpp" line="679"/>
         <source>Save File</source>
         <translation>Desa fitxer</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="764"/>
+        <location filename="../searchwidget.cpp" line="762"/>
         <source>QSL Send</source>
         <translation>QSL enviada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="823"/>
+        <location filename="../searchwidget.cpp" line="821"/>
         <source>&amp;Delete</source>
         <translation>&amp;Suprimeix</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="825"/>
+        <location filename="../searchwidget.cpp" line="823"/>
         <source>Delete a QSO</source>
         <translation>Suprimeix un QSO</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="828"/>
+        <location filename="../searchwidget.cpp" line="826"/>
         <source>&amp;Edit QSO</source>
         <translation>&amp;Edita QSO</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="830"/>
+        <location filename="../searchwidget.cpp" line="828"/>
         <source>Edit this QSO</source>
         <translation>Edita aquest QSO</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="833"/>
+        <location filename="../searchwidget.cpp" line="831"/>
         <source>Via &amp;bureau</source>
         <translation>Via &amp;bureau</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="835"/>
+        <location filename="../searchwidget.cpp" line="833"/>
         <source>Send this QSL via bureau</source>
         <translation>Envia aquesta QSL via bureau</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="838"/>
+        <location filename="../searchwidget.cpp" line="836"/>
         <source>D&amp;irect</source>
         <translation>D&amp;irecta</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="840"/>
+        <location filename="../searchwidget.cpp" line="838"/>
         <source>Send this QSL via direct</source>
         <translation>Envia aquesta QSL via directa</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="843"/>
+        <location filename="../searchwidget.cpp" line="841"/>
         <source>&amp;Request my QSL</source>
         <translation>&amp;Sol·licita la meva QSL</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="845"/>
+        <location filename="../searchwidget.cpp" line="843"/>
         <source>Mark my QSL as requested</source>
         <translation>Marca la meva QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="848"/>
+        <location filename="../searchwidget.cpp" line="846"/>
         <source>Via Direct &amp;&amp; mark DX QSL as requested</source>
         <translation>Via directa i marca la QSL DX com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="849"/>
+        <location filename="../searchwidget.cpp" line="847"/>
         <source>Send this QSL via direct &amp; mark DX QSL as requested</source>
         <translation>Envia aquesta QSL via directa i marca la QSL DX com sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="852"/>
+        <location filename="../searchwidget.cpp" line="850"/>
         <source>Via Bureau &amp;&amp; mark DX QSL as requested</source>
         <translation>Via bureau i marca la QSL DX com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="853"/>
+        <location filename="../searchwidget.cpp" line="851"/>
         <source>Send this QSL via bureau &amp; mark DX QSL as requested</source>
         <translation>Envia aquesta QSL via bureau i marca la QSL DX com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="857"/>
+        <location filename="../searchwidget.cpp" line="855"/>
         <source>&amp;Request the QSL</source>
         <translation>&amp;Sol·licita la QSL</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="859"/>
+        <location filename="../searchwidget.cpp" line="857"/>
         <source>Mark the QSL as requested</source>
         <translation>Marca la QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="863"/>
+        <location filename="../searchwidget.cpp" line="861"/>
         <source>Via bureau &amp;&amp; mark my QSL as requested</source>
         <translation>Via bureau i marcar la meva QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="864"/>
+        <location filename="../searchwidget.cpp" line="862"/>
         <source>QSL received via bureau &amp; mark my QSL as requested</source>
         <translation>QSL rebuda via bureau i marca la meva QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="867"/>
+        <location filename="../searchwidget.cpp" line="865"/>
         <source>Via bureau</source>
         <translation>Via bureau</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="868"/>
+        <location filename="../searchwidget.cpp" line="866"/>
         <source>QSL received via bureau</source>
         <translation>QSL rebuda via bureau</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="872"/>
+        <location filename="../searchwidget.cpp" line="870"/>
         <source>Direc&amp;t &amp;&amp; mark as my QSL requested</source>
         <translation>Direc&amp;ta i marca-la com a QSL sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="873"/>
+        <location filename="../searchwidget.cpp" line="871"/>
         <source>QSL received via direct &amp; mark my QSL as requested</source>
         <translation>QSL rebuda via directa i marca la meva QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="876"/>
+        <location filename="../searchwidget.cpp" line="874"/>
         <source>Direc&amp;t</source>
         <translation>Direc&amp;ta</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="877"/>
+        <location filename="../searchwidget.cpp" line="875"/>
         <source>QSL received via direct</source>
         <translation>QSL rebuda via directa</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1113"/>
+        <location filename="../searchwidget.cpp" line="1111"/>
         <source>You have requested to delete the QSO with:</source>
         <translation>Heu sol·licitat suprimir el QSO amb:</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1118"/>
+        <location filename="../searchwidget.cpp" line="1116"/>
         <source>Are you sure?</source>
         <translation>Esteu segur?</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1181"/>
+        <location filename="../searchwidget.cpp" line="1179"/>
         <source>Needed QSO to send the QSL</source>
         <translation>QSO necessari per enviar la QSL</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1189"/>
+        <location filename="../searchwidget.cpp" line="1187"/>
         <source>My QSL requested to be sent</source>
         <translation>La meva QSL sol·licitada per enviar</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1194"/>
-        <location filename="../searchwidget.cpp" line="1199"/>
+        <location filename="../searchwidget.cpp" line="1192"/>
+        <location filename="../searchwidget.cpp" line="1197"/>
         <source>DX QSL pending to be received</source>
         <translation>QSL del DX pendent de rebre</translation>
     </message>
