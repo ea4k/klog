@@ -266,15 +266,26 @@ Czy chciałbyś spróbować ponownie?</translation>
         <translation>Klog DX Cluster</translation>
     </message>
     <message>
+        <source>The host was not found. Please check:
+
+- your network connection;
+- the host name and port settings.</source>
+        <translation type="vanished">Host nie został odnaleziony. Proszę sprawdzić:
+
+- Połączenie sieciowe
+- nazwę hosta oraz ustwienie portów.</translation>
+    </message>
+    <message>
         <location filename="../dxcluster.cpp" line="221"/>
         <source>The host was not found. Please check:</source>
-        <translation type="unfinished"></translation>
+        <translation>Host nie został odnaleziony. Proszę sprawdzić:</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="222"/>
         <source>- your network connection;
 - the host name and port settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>- połączenie sieciowe;
+- nazwa hosta oraz ustawienia portów.</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="227"/>
@@ -344,7 +355,7 @@ Czy chciałbyś spróbować ponownie?</translation>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="74"/>
         <source>Software version in DB is null</source>
-        <translation type="unfinished"></translation>
+        <translation>Wersja oprogramowania w DB jest zero</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="74"/>
@@ -354,12 +365,12 @@ Czy chciałbyś spróbować ponownie?</translation>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="3972"/>
         <source>KLog DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog DXCC</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="3973"/>
         <source>All QSOs have been updated with a DXCC.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wszystkie QSO zostały zaktualizowane wg DXCC.</translation>
     </message>
 </context>
 <context>
@@ -413,6 +424,11 @@ Czy chciałbyś spróbować ponownie?</translation>
 QSO: </translation>
     </message>
     <message>
+        <location filename="../filemanager.cpp" line="3614"/>
+        <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
+        <translation>Wygląda na to że w pliku ADIF który właśnie importujesz znajduje się kilka zduplikowanych QSO. Czy nadal chcesz kontynuować? ( Zduplikowane QSO nie będą zaimportowane )</translation>
+    </message>
+    <message>
         <location filename="../filemanager.cpp" line="2629"/>
         <source>You have canceled the file export. The file will be removed and no data will be exported.</source>
         <translation>Eksport pliku zosał anulowany. Plik zostanie usunięty oraz żadne dane wyeksportowane. </translation>
@@ -424,15 +440,71 @@ QSO: </translation>
         <translation>Czy nadal chcesz anulować?</translation>
     </message>
     <message>
+        <location filename="../filemanager.cpp" line="3334"/>
+        <source>There is more than one log in this logfile.</source>
+        <translation>W tym pliku logu znajduje się więcej niż jeden log.</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3334"/>
+        <source>All logs will be imported into the current log.</source>
+        <translation>Wszystkie logi zostaną zaimportowane do bierzącego logu.</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3334"/>
+        <source>Do you want to continue?</source>
+        <translation>Czy nadal chcesz kontynuować?</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3587"/>
+        <source>Importing ADIF file...</source>
+        <translation>Importowanie pliku ADIF...</translation>
+    </message>
+    <message>
         <location filename="../filemanager.cpp" line="442"/>
         <location filename="../filemanager.cpp" line="3587"/>
         <source> QSO: </source>
         <translation>QSO:</translation>
     </message>
     <message>
+        <source>You have cancelled the file export. The file will be removed and no data will be exported.</source>
+        <translation type="vanished">Eksport pliku zosał anulowany. Plik zostanie usunięty oraz żadne dane wyeksportowane. </translation>
+    </message>
+    <message>
+        <source>This QSO does not include the minimum data required for it to be valid!</source>
+        <translation type="vanished">To QSO nie zawiera wystarczającej ilości danych aby unać je za kompletne! </translation>
+    </message>
+    <message>
+        <source>Please edit the ADIF file and make sure that it includes at least:</source>
+        <translation type="vanished">Proszę sprawdzić plik ADIF oraz upewnić się że zawiera przynajmniej:</translation>
+    </message>
+    <message>
+        <source>CALL, QSO_DATE, TIME_ON, BAND and MODE.</source>
+        <translation type="vanished">ZNAK, QSO_DATA, CZAS_ROZP, PASMO i EMISJA.</translation>
+    </message>
+    <message>
         <location filename="../filemanager.cpp" line="4759"/>
         <source>This QSO had:</source>
         <translation>To QSO miało:</translation>
+    </message>
+    <message>
+        <source> - The band was missing for the following callsign: </source>
+        <translation type="vanished">-Brakuje pasma dla tego znaku:</translation>
+    </message>
+    <message>
+        <source> - The callsign was missing for a QSO at this time: </source>
+        <translation type="vanished">-Brakuje znaku dla tego QSO o tym czasie: </translation>
+    </message>
+    <message>
+        <source> - The mode was missing for the following callsign: </source>
+        <translation type="vanished">-Brakuje rodzaju emisji dla wybranych znaków:</translation>
+    </message>
+    <message>
+        <source> - The date was missing for the following callsign: </source>
+        <translation type="vanished"> - Brakuje daty dla wybranych znaków: </translation>
+    </message>
+    <message>
+        <source> - The time was missing for the following callsign: </source>
+        <translation type="vanished"> - Brakuje czasu dla wybranych znaków: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4788"/>
@@ -442,42 +514,42 @@ QSO: </translation>
     <message>
         <location filename="../filemanager.cpp" line="201"/>
         <source>The log that you have selected contains more than just one station callsign.</source>
-        <translation type="unfinished"></translation>
+        <translation>Log który właśnie został zaznaczony zawiera więcej niż jeden znak stacji.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="201"/>
         <source>Please select the station callsing you want to export the log from:</source>
-        <translation type="unfinished"></translation>
+        <translation>Proszę wybrać który znak stacji chcesz wyeksportować z:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="204"/>
         <source>Station Callsign:</source>
-        <translation type="unfinished"></translation>
+        <translation>Znak Stacji:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="213"/>
         <source>Define Station Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Zdefinuj Znak Stacji</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="214"/>
         <source>You have selected no callsign. KLog will export QSOs without a station callsign defined and those with the call you are entering here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie wybrano żadnego znaku. KLog wyeksportuje wszystkie QSO bez znaku stacji oraz te ze znakiem stacji który wpiszesz tutaj.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="214"/>
         <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wprowadż znak stacji aby używać go z tym Logiem, lub pozostaw puste miejsce dlaQSO bez znaku:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="226"/>
         <source>No station callsign has been selected and therefore no log will be exported</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie wybrano żadnego znaku i dlatego żaden log nie zostanie wyeksportowany</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="442"/>
         <source>Exporting LoTW ADIF file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportowanie pliku ADIF do LOTW...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2778"/>
@@ -497,7 +569,20 @@ QSO: </translation>
     <message>
         <location filename="../filemanager.cpp" line="3095"/>
         <source>Reading LoTW file...</source>
+        <translation>Wczytywanie pliku LOTW...</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="3753"/>
+        <source>You have cancelled the file import. The file will be removed and no data will be imported.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are more than one log in this logfile.
+All logs will be imported in the current log.
+Do you want to continue?</source>
+        <translation type="vanished">W tym pliku Logu znajduje się więcej niż jeden Log.
+Wszystkie Logi zostaną zaimportowane do bierzącego Logu.
+Czy chcesz kontynuować?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3381"/>
@@ -505,41 +590,53 @@ QSO: </translation>
         <translation>Wczytywanie pliku ADIF...</translation>
     </message>
     <message>
+        <source>Importing ADIF file...
+ QSO: </source>
+        <translation type="vanished">Importowanie pliku ADIF...
+ QSO: </translation>
+    </message>
+    <message>
+        <source>You have cancelled the file export. The file will be removed and no data will be exported.
+Do you still want to cancel?</source>
+        <translation type="vanished">Import pliku został wstrzymany. Plik zostanie usunięty oraz żadne dane nie zostaną zaimpportowane.
+Czy nadalch chcesz anulować?</translation>
+    </message>
+    <message>
         <location filename="../filemanager.cpp" line="4759"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!.</source>
-        <translation type="unfinished"></translation>
+        <translation>To QSO nie zawiera minimalnej ilości danych aby uznać je za zaliczone!.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4759"/>
         <source>Please edit the ADIF file and make sure that it include at least:</source>
-        <translation type="unfinished"></translation>
+        <translation>Proszę o sprawdzenie pliku ADIF oraz upewnienie się że zawiera przynajmniej:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4759"/>
         <source>and</source>
-        <translation type="unfinished"></translation>
+        <translation>oraz</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4816"/>
         <source>This log seems to lack of RST-TX information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wygląda na to że w tym Logu brakuje RST TX.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4816"/>
         <location filename="../filemanager.cpp" line="4838"/>
         <source>Click on Yes to add a default 59 to all QSO with a similar problem.</source>
-        <translation type="unfinished"></translation>
+        <translation>Naciśniej Tak aby dodać domyślnie 59 do wszystkich QSO z podobnym problemem.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4816"/>
         <location filename="../filemanager.cpp" line="4838"/>
         <source>If you select NO, the QSO may not be imported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeśli wybierzesz NIE, QSO może nie zostać zaimportowane.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4838"/>
         <source>This log seems to lack of RST-RX information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wygląda na to że w tym Logu brakuje informacji RST TX.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3095"/>
@@ -548,59 +645,37 @@ QSO: </translation>
         <translation>Przerwij wczytywanie</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3334"/>
-        <source>There is more than one log in this logfile.</source>
-        <translation type="unfinished"></translation>
+        <source>An unexpected error ocurred while importing. Please send this code to the developer for analysis: </source>
+        <translation type="vanished">Wystąpił nie oczekiwany błąd w czasie importowanie. Proszę o przesłanie tego kodu błędu do analizy: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3334"/>
-        <source>All logs will be imported into the current log.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="3334"/>
-        <source>Do you want to continue?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="3587"/>
-        <source>Importing ADIF file...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="3753"/>
-        <source>You have cancelled the file import. The file will be removed and no data will be imported.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="3614"/>
-        <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
-        <translation type="unfinished"></translation>
+        <source>An error ocurred while importing. No data will be imported. Please send this code to the developer for analysis: </source>
+        <translation type="vanished">W czasie importu wystąpił błąd. Żadne dane nie zostaną zaimportowane. Proszę o przesłanie tego błędu do autora do analizy: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4763"/>
         <source> - The band missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation> - Brakuje pasma w wybranym QSO: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4768"/>
         <source> - The call missing but was done at this time: </source>
-        <translation type="unfinished"></translation>
+        <translation> - Brakuje Znaku ? </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4773"/>
         <source> - The mode missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation> - Brakuje emisji dla wybranego znaku: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4778"/>
         <source> - The date missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation>- Brakuje daty dla wybranego znaku: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4783"/>
         <source> - The time missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation>- Brakuje czasu dla wybranego znaku: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4792"/>
@@ -608,9 +683,25 @@ QSO: </translation>
         <translation>KLog: Nie wszystkie wymagane dane zostały znalezione!</translation>
     </message>
     <message>
+        <source>This log seems to lack RST-TX information.</source>
+        <translation type="vanished">Wygląda na to że w Logu brakuje RST-TX.</translation>
+    </message>
+    <message>
+        <source>Click on Yes to add a default 59 to all QSOs with a similar problem.</source>
+        <translation type="vanished">Proszę nacisąć Tak aby raport 59 został automatycznie dodany wszystkich QSO z podobnym problemem.</translation>
+    </message>
+    <message>
+        <source>If you select No, it will not be possible to import the QSO.</source>
+        <translation type="vanished">Jeśli naćiśniesz Nie, nie będzie możliwe zaimportowanie QSO.</translation>
+    </message>
+    <message>
         <location filename="../filemanager.cpp" line="4817"/>
         <source>KLog: No RST TX found!</source>
         <translation>Klog: Nie znaleziono RST-TX!</translation>
+    </message>
+    <message>
+        <source>This log seems to lack RST-RX information.</source>
+        <translation type="vanished">Wygląda na to że w tym logu nie znajdują się nadane raporty RST-TX.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4840"/>
@@ -715,6 +806,10 @@ QSO: </translation>
         <location filename="../infowidget.cpp" line="101"/>
         <source>Deg</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grad</source>
+        <translation type="vanished">Stopień</translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="314"/>
@@ -1163,7 +1258,7 @@ Czy chcesz zapisać zmiany?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3379"/>
         <source>Import an ADIF file into the current log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Import pliku ADIF do bieżącego logu.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3388"/>
@@ -1171,9 +1266,33 @@ Czy chcesz zapisać zmiany?</translation>
         <translation>&amp;Save As...</translation>
     </message>
     <message>
+        <source>&amp;Export to ADIF...</source>
+        <translation type="vanished">&amp;Export to ADIF...</translation>
+    </message>
+    <message>
+        <source>Export the current log to an ADIF logfile</source>
+        <translation type="vanished">Eksport bierzącego logu do pliku ADIF</translation>
+    </message>
+    <message>
+        <source>&amp;Export all logs to ADIF...</source>
+        <translation type="vanished">&amp;Export all logs to ADIF...</translation>
+    </message>
+    <message>
+        <source>&amp;Export Requested QSL to ADIF...</source>
+        <translation type="vanished">&amp;Export Requested QSL to ADIF...</translation>
+    </message>
+    <message>
+        <source>Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program)</source>
+        <translation type="vanished">Eksport wszytkich QSO proszących o naszą kartę QSL ( n.p do programu zajmującego się wyfrukiem kart QSL)</translation>
+    </message>
+    <message>
+        <source>&amp;Export ADIF for LoTW...</source>
+        <translation type="vanished">&amp;Export ADIF for LoTW...</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="3415"/>
         <source>Export an ADIF file to be sent to LoTW. Remember to sign it with TQSL before uploading to LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksport pliku ADIF do wysłania do LOTW. Pamiętaj aby podpisać plik korzystając z TQSL zanim plik zostanie wysłany na LOTW</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3419"/>
@@ -1198,7 +1317,7 @@ Czy chcesz zapisać zmiany?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3457"/>
         <source>QSL tools...</source>
-        <translation type="unfinished"></translation>
+        <translation>narzędzia QSL...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3464"/>
@@ -1206,39 +1325,51 @@ Czy chcesz zapisać zmiany?</translation>
         <translation>&amp;Find QSO to QSL</translation>
     </message>
     <message>
+        <source>Shows the DX-QSL that has been requested</source>
+        <translation type="vanished">Pokaż wszystkie karty QSL oczekiwanych stacji DX  </translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="3486"/>
         <source>LoTW tools...</source>
-        <translation type="unfinished"></translation>
+        <translation>Narzędzia LOTW...</translation>
+    </message>
+    <message>
+        <source>Queue all QSO of this log</source>
+        <translation type="vanished">Queue all QSO of this log</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3491"/>
         <source>Mark all non sent QSOs in this log as queued to be uploaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaznacz wszystkie QSO które nie zosyały wysłane jako oczekujące na wysłanie.</translation>
+    </message>
+    <message>
+        <source>Queue all QSO</source>
+        <translation type="vanished">Wszystkie QSO w kolejce</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3496"/>
         <source>Mark all non sent QSOs as queued to be uploaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaznacz wszystkie QSO które nie zostały wysłane jako oczekujące na wysłanie.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3500"/>
         <source>Mark as sent all queued QSO of this log</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaznacz wszystkie oczekujące QSO z tego Logu jako wysłane</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3503"/>
         <source>Mark all queued QSOs in this log as sent to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaznacz wszystkie oczekujące QSO z tego Logu jako wysłane na LOTW</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3505"/>
         <source>Mark all queued QSO as sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaznacz wszystkie oczekujące QSO jako wysłane</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3517"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dla zaktualizowanych jednostek DXCC, uaktualnij cty.csv.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3522"/>
@@ -1280,22 +1411,63 @@ Czy chcesz zapisać zmiany?</translation>
         <location filename="../mainwindow.cpp" line="3712"/>
         <location filename="../mainwindow.cpp" line="3720"/>
         <source>KLog LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog LOTW</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3582"/>
         <source>All pending QSO of this log has been marked as queued for LoTW!</source>
+        <translation>Wszystkie oczekujące QSO w tym logu zostały ustawione w kolejce do LOTW!</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3582"/>
+        <location filename="../mainwindow.cpp" line="3605"/>
+        <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3591"/>
         <location filename="../mainwindow.cpp" line="3613"/>
         <source>There was a problem to mark all pending QSO of this log as queued for LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wystąpił błąd podczas zaznaczania wszystkich oczekujących QSO z tego Logu  </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3605"/>
         <source>All pending QSO has been marked as queued for LoTW!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3632"/>
+        <source>The log that you have selected contains more than just one station callsign.</source>
+        <translation type="unfinished">Log który właśnie został zaznaczony zawiera więcej niż jeden znak stacji.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3632"/>
+        <source>Please select the station callsing you want to mark as sent to LoTW:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3635"/>
+        <source>Station Callsign:</source>
+        <translation type="unfinished">Znak Stacji:</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3644"/>
+        <source>Define Station Callsign</source>
+        <translation type="unfinished">Zdefinuj Znak Stacji</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3645"/>
+        <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3645"/>
+        <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
+        <translation type="unfinished">Wprowadż znak stacji aby używać go z tym Logiem, lub pozostaw puste miejsce dlaQSO bez znaku:</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3658"/>
+        <source>No station callsign has been selected and therefore no log will be marked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1306,47 +1478,6 @@ Czy chcesz zapisać zmiany?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3695"/>
         <source>There was a problem to mark all queued QSO of this log as sent for LoTW!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3632"/>
-        <source>The log that you have selected contains more than just one station callsign.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3582"/>
-        <location filename="../mainwindow.cpp" line="3605"/>
-        <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3632"/>
-        <source>Please select the station callsing you want to mark as sent to LoTW:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3635"/>
-        <source>Station Callsign:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3644"/>
-        <source>Define Station Callsign</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3645"/>
-        <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3645"/>
-        <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3658"/>
-        <source>No station callsign has been selected and therefore no log will be marked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1389,6 +1520,16 @@ Czy chcesz zapisać zmiany?</translation>
         <location filename="../mainwindow.cpp" line="3960"/>
         <source>Save File</source>
         <translation>Zapisz Plik</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4245"/>
+        <source>UDP Server error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4245"/>
+        <source>The UDP server failed to </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4533"/>
@@ -1481,44 +1622,18 @@ Czy chcesz zapisać zmiany?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>ADIF files (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*)</source>
+        <translation type="vanished">Pliki ADIF (*.adi *.adif);;Cabrillo files (*.log);;Any file (*.*) </translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="4039"/>
         <source>You can find the KLog data folder here: </source>
         <translation>Moższ znaleźć folder KLog tutaj:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3395"/>
-        <source>Export to ADIF...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3401"/>
-        <source>Export all logs to ADIF...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3407"/>
-        <source>Export Requested QSL to ADIF...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3412"/>
-        <source>Export ADIF for LoTW...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4122"/>
         <source>DUPE</source>
         <translation>DUPE</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="4245"/>
-        <source>UDP Server error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="4245"/>
-        <source>The UDP server failed to </source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4495"/>
@@ -1742,6 +1857,10 @@ Czy chcesz zapisać zmiany?</translation>
         <translation>&amp;Find Requested pending to recive</translation>
     </message>
     <message>
+        <source>For updated DX-Entity data, update cty.csv</source>
+        <translation type="vanished">Dla zaktualizowanych jednostek DX, zaktualizuj CTY.CSV</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="4845"/>
         <source>Name</source>
         <translation>Imię</translation>
@@ -1832,7 +1951,7 @@ Czy chcesz zapisać zmiany?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="342"/>
         <source>Watts</source>
-        <translation>Waty</translation>
+        <translation>Wat</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1016"/>
@@ -1850,9 +1969,25 @@ Czy chcesz zapisać zmiany?</translation>
         <translation>Nieprawidłowe znaki użyte w polu QRZ </translation>
     </message>
     <message>
+        <source>Import an ADIF file into the current log</source>
+        <translation type="vanished">Zaimportuj plik ADIF do bierzącego logu</translation>
+    </message>
+    <message>
+        <source>Go through the log reusing previous QSOs to fill missing information in other QSOs</source>
+        <translation type="vanished">Sprawdź cały log wykorzystując poprzednie QSO aby wypełnić brakujące informacje w r </translation>
+    </message>
+    <message>
+        <source>Shows QSOs for which you should send your QSL and request the DX QSL</source>
+        <translation type="vanished">Pokazuje QSO za które powinieneś wysłać swoje QSL oraz prosić o potwierdzenie QSL</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="3473"/>
         <source>Shows the QSOs with pending requests to send QSLs. You should keep this queue empty!</source>
         <translation>Pokazuje QSO które oczekują na wysłanie Twojej kart QSL. Tu powinno być pusto!</translation>
+    </message>
+    <message>
+        <source>Shows the DX-QSL that has been requested or QSLs has been sent with no answer</source>
+        <translation type="vanished">Pokazjue które z DX-QSL zostały wysłane i oczekują potwierdzenia, ale pozostają bez odpowiedzi</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3513"/>
@@ -1862,17 +1997,17 @@ Czy chcesz zapisać zmiany?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3962"/>
         <source>ADIF file</source>
-        <translation type="unfinished"></translation>
+        <translation>Plik ADIF</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3962"/>
         <source>Cabrillo files</source>
-        <translation type="unfinished"></translation>
+        <translation>Pliki Cabrillo</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3962"/>
         <source>Any file</source>
-        <translation type="unfinished"></translation>
+        <translation>Jakikolwiek plik</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5036"/>
@@ -1916,49 +2051,69 @@ Czy chcesz zapisać zmiany?</translation>
         <translation>QSOs</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="3395"/>
+        <source>Export to ADIF...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="3399"/>
         <source>Export the current log to an ADIF logfile.</source>
+        <translation>Eksport bieżącego Logu do pliku ADIF.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3401"/>
+        <source>Export all logs to ADIF...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3407"/>
+        <source>Export Requested QSL to ADIF...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3410"/>
         <source>Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program).</source>
+        <translation>Wyeksportuj wszystkie QSO oczekujące QSL do pliku ADIF. ( np. zaimportuj do programu drukującego naklejki ).</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3412"/>
+        <source>Export ADIF for LoTW...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3422"/>
         <source>Print your log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wydrukuj log.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3429"/>
         <source>Opens the data folder of KLog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwiera katalog danych KLog.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3446"/>
         <source>Go through the log reusing previous QSOs to fill missing information in other QSOs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Przejżyj cały Log wykorzystując wcześniejsze QSO aby wypełnić brakujące informacje.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3448"/>
         <source>Fill in DXCC data</source>
-        <translation type="unfinished"></translation>
+        <translation>Wypełnij dane DXCC</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3451"/>
         <source>Go through the log filling QSOs without a DXCC defined.</source>
-        <translation type="unfinished"></translation>
+        <translation>Przejrzyj Log i wypełnij QSOs bez DXCC.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3467"/>
         <source>Shows QSOs for which you should send your QSL and request the DX QSL.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż QSOs dla których powinieś wysłać swoją kartę QSL oraz oczekiwać na kartę QSL DX.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3478"/>
         <source>Shows the DX-QSL that has been requested or QSLs has been sent with no answer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż karty DX QSL do których Twoja karta została wysłana bez odpowiedzi.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3483"/>
@@ -2012,6 +2167,10 @@ Czy chcesz zapisać zmiany?</translation>
         <location filename="../mainwindow.cpp" line="5303"/>
         <source>Save ADIF File</source>
         <translation>Zapisz plik ADIF</translation>
+    </message>
+    <message>
+        <source>ADIF (*.adi *.adif)</source>
+        <translation type="vanished">ADIF (*.adi *.adif)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5317"/>
@@ -2166,6 +2325,14 @@ QSO: </translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Date of the LotW sending.</source>
+        <translation type="vanished">Data wysłania LoTW.</translation>
+    </message>
+    <message>
+        <source>Date of the LotW reception.</source>
+        <translation type="vanished">Data potwierdzenia przez LoTW.</translation>
+    </message>
+    <message>
         <location filename="../mainwindowinputeqsl.cpp" line="50"/>
         <source>Status on ClubLog.</source>
         <translation>Status ClubLog.</translation>
@@ -2181,6 +2348,14 @@ QSO: </translation>
         <translation>Status otrzymywanych eQSL.</translation>
     </message>
     <message>
+        <source>Status of the LotW sending.</source>
+        <translation type="vanished">Status wysłanych potwierdzeń LOTW.</translation>
+    </message>
+    <message>
+        <source>Status of the LotW reception.</source>
+        <translation type="vanished">Status otrzymanych potwierdzeń LOTW.</translation>
+    </message>
+    <message>
         <location filename="../mainwindowinputeqsl.cpp" line="58"/>
         <source>ClubLog</source>
         <translation>ClubLog</translation>
@@ -2194,6 +2369,14 @@ QSO: </translation>
         <location filename="../mainwindowinputeqsl.cpp" line="64"/>
         <source>eQSL Rec</source>
         <translation>eQSL Otrzymane</translation>
+    </message>
+    <message>
+        <source>LotW Sent</source>
+        <translation type="vanished">LOTW Wysłane</translation>
+    </message>
+    <message>
+        <source>LotW Rec</source>
+        <translation type="vanished">LOTW Otrzymane</translation>
     </message>
 </context>
 <context>
@@ -3870,6 +4053,10 @@ Log nie zostanie otwarty.</translation>
         <location filename="../setuppagemisc.cpp" line="287"/>
         <source>Open File</source>
         <translation>Otwórz plik</translation>
+    </message>
+    <message>
+        <source>ADIF (*.adi)</source>
+        <translation type="vanished">ADIF (*.adi)</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="644"/>
