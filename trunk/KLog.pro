@@ -173,7 +173,7 @@ QMAKE_EXTRA_COMPILERS += updateqm
 
 
 # deploy
-DISTFILES += CHANGES COPYING
+DISTFILES += Changelog COPYING
 unix:!mac {
     DEFINES += APP_LINUX
     CONFIG   += c++11

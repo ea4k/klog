@@ -2437,7 +2437,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
 
     bool sqlOK = execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('AM', 'AM', 'PH', '0')").arg(tableName));
 
-    int errorCode = -1;
+    //int errorCode = -1;
     if (!sqlOK)
     {
         //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());

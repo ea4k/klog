@@ -3311,7 +3311,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     int numberOfQsos = 0;
     int step = 1;
     int errorCode = -1;
-    int qsosInTransaction = 0;
+    //int qsosInTransaction = 0;
     bool ignoreErrorCode19 = false;
 
     QFile file( fileName );

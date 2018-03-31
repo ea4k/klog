@@ -1,16 +1,6 @@
 RC-BUGS:
-Bug to confirm: TX_freq is not saved on new QSO
-Bug to confirm: TX_freq is not modified when editing a QSO.
-Bug to confirm: TX & RX freq  are not cleased when clear button is clicked.
 
-In searchwidget:
-void showQSO(const int _q);
-I need to receive the id and show the QSO in the table
-
-
-
-Check-BUG: freq can not be typed
-Check-BUG: band can't be selected (or it always goes back to 160 even if not selected)
+NONE
 
 For 0.9.4
 TODO: - Right-click on search box to mark as received a QSL is slow. An optimization is needed.
