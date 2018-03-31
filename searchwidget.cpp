@@ -157,7 +157,7 @@ void SearchWidget::slotSearchBoxTextChanged()
     //QStringList q;
     //_stationcallsign = QString();
     bool searchAll = searchAllRadioButton->isChecked();
-    int i = -1;
+    //int i = -1;
     int cursorP = searchBoxLineEdit->cursorPosition();
 
     searchBoxLineEdit->setText((searchBoxLineEdit->text()).toUpper());
@@ -296,7 +296,6 @@ void SearchWidget::slotSearchBoxTextChanged()
 
                 addQSOToSearchList(_call, _dateTime, _band, _mode, _qslrx, _qsltx, _stationcallsign, _id, color);
 
-                /*
                 QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
                 i = world->getQRZARRLId(_call);
                 aux = world->getEntityName(i) + " - CQ: " + QString::number(world->getEntityCqz(i));
@@ -335,8 +334,7 @@ void SearchWidget::slotSearchBoxTextChanged()
         } // Closes if next.isValid
     } // Closes While
     (searchResultsTreeWidget->header())->resizeSections(QHeaderView::ResizeToContents);
-    */
-/*
+
     if (((theCall.at(cursorP-1)).isSpace()) && (cursorP>1))
     {
         ->setText(theCall.remove(cursorP-1, 1));
@@ -1170,7 +1168,7 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
     QString stringQuery = QString();
     QString message = QString();
     QString aux = QString();
-    int i = -1;
+    //int i = -1;
 
     switch (actionQSL)
     {

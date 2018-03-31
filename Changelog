@@ -1,5 +1,4 @@
-TBD - 0.9.3
-- Updated translations: Spanish (EA4TV).
+April - 0.9.3
 - Double clicking on DXCC Widget name of the Entity will show the QSO is providing that status on the Search widget.
 - Added DXCC support for Kosovo.
 - Bugfix: Default band & mode are now defined as the most used band and mode.
@@ -12,6 +11,7 @@ TBD - 0.9.3
 - Bugfix: Modes & Bands where not always properly updated from the Setup.
 - Bugfix: Adding new QSO that implies a DXCC or WAZ status already worked failed.
 - Bugfix: Updating the WAZ status was not always possible due to a incorrect DB query.
+- Updated translations: Spanish (EA4TV).
 
 January - 0.9.2.9
 - Bugfix: Adding new QSO that implies a DXCC or WAZ status already worked failed.
