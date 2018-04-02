@@ -198,7 +198,7 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
 
     if (stationCallSigns.length()>1)
     {
-        QString msg = QString(tr("The log that you have selected contains more than just one station callsign.") + "\n\n" + tr("Please select the station callsing you want to export the log from:"));
+        QString msg = QString(tr("The log that you have selected contains more than just one station callsign.") + "\n\n" + tr("Please select the station callsign you want to export the log from:"));
 
         bool ok;
         stationCallToUse = QInputDialog::getItem(this, tr("Station Callsign:"),
