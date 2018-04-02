@@ -398,9 +398,8 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Valitsemasi loki sisältää enemmän kuin vain yhden aseman kutsutunnuksen.</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Please select the station callsing you want to export the log from:</source>
-        <translation>Valitse aseman kutsutunnus, jonka lokin haluat viedä:</translation>
+        <translation type="vanished">Valitse aseman kutsutunnus, jonka lokin haluat viedä:</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -541,7 +540,12 @@ Haluatko varmasti peruuttaa?</translation>
         <translation> QSO: </translation>
     </message>
     <message>
-        <location line="-3361"/>
+        <location line="-3386"/>
+        <source>Please select the station callsign you want to export the log from:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
         <source>No station callsign has been selected and therefore no log will be exported</source>
         <translation>Aseman kutsutunnusta ei ole valittu, joten lokia ei viedä</translation>
     </message>
@@ -1132,28 +1136,28 @@ Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+3930"/>
+        <location line="+3951"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location line="-3923"/>
-        <location line="+3921"/>
+        <location line="-3944"/>
+        <location line="+3942"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
     <message>
-        <location line="-3912"/>
+        <location line="-3933"/>
         <location line="+794"/>
         <location line="+6"/>
         <location line="+908"/>
-        <location line="+871"/>
+        <location line="+892"/>
         <location line="+1331"/>
         <source>QRZ</source>
         <translation>QRZ</translation>
     </message>
     <message>
-        <location line="-3903"/>
+        <location line="-3924"/>
         <source>STX</source>
         <translation>STX</translation>
     </message>
@@ -1499,7 +1503,7 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Please select the station callsing you want to mark as sent to LoTW:</source>
+        <source>Please select the station callsign you want to mark as sent to LoTW:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1644,7 +1648,7 @@ Do you want to save your changes?</translation>
         <translation>Jos olet varma että tietokannassa on QSO:ita ja KLog ei löydä niitä, voit ottaa yhteyttä kehittäjiin (Katso, Tietoja KLogista) apua varten.</translation>
     </message>
     <message>
-        <location line="+253"/>
+        <location line="+274"/>
         <source>TX Frequency in MHz.</source>
         <translation>TX Taajuus MHz:inä.</translation>
     </message>
@@ -2121,7 +2125,7 @@ Do you want to save your changes?</translation>
  QSO: </translation>
     </message>
     <message>
-        <location line="+595"/>
+        <location line="+596"/>
         <source>An unexpected error ocurred!!</source>
         <translation>Odottamaton virhe tapahtui!!</translation>
     </message>
@@ -2489,7 +2493,7 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Locator of the DX station. This box will is syncronized with the Locator box in the QSO tab.</source>
+        <source>Locator of the DX station. This box is syncronized with the Locator box in the QSO tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3893,7 +3897,7 @@ Lokia ei avata.</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in  in KLog automatically from those programs.</source>
+        <source>UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in KLog automatically from those programs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
