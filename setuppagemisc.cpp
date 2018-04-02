@@ -130,7 +130,7 @@ void SetupPageMisc::createUI()
     fileNameButton->setToolTip(tr("Click to change the default ADIF file."));
     dbPushButton->setToolTip(tr("Click to change the path of the database."));
     moveDBPushButton->setToolTip(tr("Click to move the DB to the new directory."));
-    UDPServerCheckBox->setToolTip(tr("UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in  in KLog automatically from those programs."));
+    UDPServerCheckBox->setToolTip(tr("UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in KLog automatically from those programs."));
     UDPServerPortSpinBox->setToolTip(tr("UDP port number where the UDP Server will listen for connections. Make sure it is the same port where the other programs are sending the data to."));
 
     UDPServerPortSpinBox->setMinimum(0);

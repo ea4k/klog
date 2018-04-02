@@ -3629,7 +3629,7 @@ QString MainWindow::selectStationCallsign()
 
     if (stationCallSigns.length()>1)
     {
-        QString msg = QString(tr("The log that you have selected contains more than just one station callsign.") + "\n\n" + tr("Please select the station callsing you want to mark as sent to LoTW:"));
+        QString msg = QString(tr("The log that you have selected contains more than just one station callsign.") + "\n\n" + tr("Please select the station callsign you want to mark as sent to LoTW:"));
 
         bool ok;
         stationCallToUse = QInputDialog::getItem(this, tr("Station Callsign:"),
