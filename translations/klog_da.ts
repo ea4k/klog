@@ -398,10 +398,6 @@ igen. Ønsker du at prøve igen?</translation>
         <translation>Loggen du har valgt indeholder mere end bare et stationskaldesignal.</translation>
     </message>
     <message>
-        <source>Please select the station callsing you want to export the log from:</source>
-        <translation type="vanished">Vælg venligst stationskaldesignalet du ønsker at eksportere loggen fra:</translation>
-    </message>
-    <message>
         <location filename="../filemanager.cpp" line="204"/>
         <source>Station Callsign:</source>
         <translation>Stationskaldesignal:</translation>
@@ -522,7 +518,7 @@ igen. Ønsker du at prøve igen?</translation>
     <message>
         <location filename="../filemanager.cpp" line="201"/>
         <source>Please select the station callsign you want to export the log from:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg venligst stationskaldesignalet du ønsker at eksportere loggen fra:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="226"/>
@@ -620,6 +616,10 @@ igen. Ønsker du at prøve igen?</translation>
         <location filename="../filemanager.cpp" line="4840"/>
         <source>KLog: No RST RX found!</source>
         <translation>KLog: Ingen RST RX fundet!</translation>
+    </message>
+    <message>
+        <source>Please select the station callsing you want to export the log from:</source>
+        <translation type="vanished">Vælg venligst stationskaldesignalet du ønsker at eksportere loggen fra:</translation>
     </message>
 </context>
 <context>
@@ -1425,7 +1425,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3632"/>
         <source>Please select the station callsign you want to mark as sent to LoTW:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg venligst stationskaldesignalet du ønsker at markere som sendt til LoTW:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3687"/>
@@ -1467,12 +1467,6 @@ Do you want to save your changes?</source>
         <location filename="../mainwindow.cpp" line="3605"/>
         <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
         <translation>Nu kan du gå til filmenuen for at eksportere LoTW ADIF-filen og overføre den til LoTW.</translation>
-    </message>
-    <message>
-        <source>Please select the station callsing you want to mark as sent to LoTW:</source>
-        <translatorcomment>engelsk fejl sing -&gt; sign
-</translatorcomment>
-        <translation type="vanished">Vælg venligst stationskaldesignalet du ønsker at markere som sendt til LoTW:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3635"/>
@@ -1960,7 +1954,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="5250"/>
         <source>After uploading: mark as sent all the queued QSO (LoTW Tools).</source>
-        <translation>Efter overførsel: marker hele QSO-køen som sendt (LotW-værktøjer). </translation>
+        <translation>Efter overførsel: marker hele QSO-køen som sendt (LoTW-værktøjer).</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5271"/>
@@ -2446,15 +2440,9 @@ Do you want to save your changes?</source>
         <translation>DownLink-bånd</translation>
     </message>
     <message>
-        <source>Locator of the DX station. This box will is syncronized with the Locator box in the QSO tab.</source>
-        <translatorcomment>engelsk fejl
-</translatorcomment>
-        <translation type="vanished">Lokalisering af DX-stationen. Denne boks vil blive synkroniseret med lokaliseringsboksen i QSO-fanebladet.</translation>
-    </message>
-    <message>
         <location filename="../mainwindowsattab.cpp" line="93"/>
         <source>Locator of the DX station. This box is syncronized with the Locator box in the QSO tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokalisering af DX-stationen. Denne boks bliver synkroniseret med lokaliseringsboksen i QSO-fanebladet.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="96"/>
@@ -3858,13 +3846,7 @@ Loggen vil ikke blive åbnet.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="133"/>
         <source>UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in KLog automatically from those programs.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in  in KLog automatically from those programs.</source>
-        <translatorcomment>engelsk fejl
-</translatorcomment>
-        <translation type="vanished">UDP-server vil modtage QSO&apos;er sendt fra et andet program såsom WSJT-X, som gør at du kan logge ind i KLog automatisk fra disse programmer.</translation>
+        <translation>UDP-server vil modtage QSO&apos;er sendt fra et andet program såsom WSJT-X, som gør at du kan logge ind i KLog automatisk fra disse programmer.</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="134"/>
