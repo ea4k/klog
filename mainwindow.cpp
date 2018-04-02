@@ -4642,20 +4642,41 @@ void MainWindow::selectDefaultBand()
     QString aux;
     aux = QString();
     defaultBand = dataProxy->getMostUsedBand(currentLog);
-    aux = dataProxy->getNameFromBandId(defaultBand);
-    bandComboBox->setCurrentIndex(bandComboBox->findText(aux));
+    if (defaultBand<1)
+    {
+        defaultBand = dataProxy->getIdFromBandName(bandComboBox->itemText(1));
+    }
+        aux = dataProxy->getNameFromBandId(defaultBand);
+        bandComboBox->setCurrentIndex(bandComboBox->findText(aux));
+
     //qDebug() << "MainWindow::selectDefaultBand_END" << endl;
 }
 
 void MainWindow::selectDefaultMode()
 {
     //qDebug() << "MainWindow::selectDefaultMode" << endl;
+
     QString aux;
     aux = QString();
 
     defaultMode = dataProxy->getMostUsedMode(currentLog);
-    aux = dataProxy->getModeFromId(defaultMode);
-    modeComboBox->setCurrentIndex(modeComboBox->findText(aux));
+    //qDebug() << "MainWindow::selectDefaultMode: " << QString::number(defaultMode) << endl;
+
+    if (defaultMode < 1)
+    {
+
+        defaultMode = dataProxy->getSubModeIdFromSubMode((modeComboBox->itemText(0)));
+        //qDebug() << "MainWindow::selectDefaultMode2: " << QString::number(defaultMode) << endl;
+        //qDebug() << "MainWindow::selectDefaultMode2S: " << modeComboBox->itemText(1) << endl;
+
+    }
+        aux = dataProxy->getModeFromId(defaultMode);
+        modeComboBox->setCurrentIndex(modeComboBox->findText(aux));
+
+        //qDebug() << "MainWindow::selectDefaultMode3: " << QString::number(defaultMode) << endl;
+        //qDebug() << "MainWindow::selectDefaultMode3S: " << modeComboBox->itemText(0) << endl;
+
+
     //qDebug() << "MainWindow::selectDefaultMode-END" << endl;
 }
 
@@ -6886,7 +6907,8 @@ void MainWindow::slotFreqTXChanged()
 
     QString _q;
     int v = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
-    if ((v<0) || (modify))
+    //if ((v<0) || (modify))
+    if (v<0)
     {
         return;
     }

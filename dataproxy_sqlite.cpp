@@ -788,7 +788,7 @@ int DataProxy_SQLite::getMostUsedMode(const int _log)
         query.finish();
         return -1;
     }
-    return -1;
+    return -2;
 
 }
 
@@ -3695,24 +3695,24 @@ int DataProxy_SQLite::getContestTypeN(const int _co, const int _catop, const int
     QSqlQuery query;
     QString queryString = QString("SELECT id FROM contest WHERE contest='%1' AND catoperator='%2' AND catassisted='%3' AND catpower='%4' AND catoverlay='%5' AND catmode='%6' AND catband='%7'").arg(_co).arg(_catop).arg(_catas).arg(_catpo).arg(_catov).arg(_catmo).arg(_catba);
 
-     //qDebug() << "DataProxy_SQLite::getContestTypeN: " << st << endl;
+    //qDebug() << "DataProxy_SQLite::getContestTypeN: " << queryString << endl;
 
     bool sqlOK = query.exec(queryString);
 
     if (sqlOK)
     {
-         //qDebug() << "DataProxy_SQLite::getContestTypeN: (OK) LastQuery: " << query.lastQuery()  << endl;
+        //qDebug() << "DataProxy_SQLite::getContestTypeN: (OK) LastQuery: " << query.lastQuery()  << endl;
         query.next();
         if (query.isValid())
         {
-             //qDebug() << "DataProxy_SQLite::getContestTypeN: " <<  (query.value(0)).toString() << endl;
+            //qDebug() << "DataProxy_SQLite::getContestTypeN: " <<  (query.value(0)).toString() << endl;
             int v = (query.value(0)).toInt();
             query.finish();
             return v;
         }
         else
         {
-             //qDebug() << "DataProxy_SQLite::getContestTypeN: Not valid (-1)" << endl;
+            //qDebug() << "DataProxy_SQLite::getContestTypeN: Not valid (-1)" << endl;
             query.finish();
             return -1;
         }
@@ -3726,7 +3726,7 @@ int DataProxy_SQLite::getContestTypeN(const int _co, const int _catop, const int
         return -1;
     }
 
-     //qDebug() << "DataProxy_SQLite::getContestTypeN: END (-1)" << endl;
+    //qDebug() << "DataProxy_SQLite::getContestTypeN: END (-1)" << endl;
     return -1;
 
 }
