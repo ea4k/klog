@@ -38,7 +38,7 @@
 #include "dataproxy.h"
 #include "logmodel.h"
 #include "awards.h"
-#include "dxccstatuswidget.h"
+//#include "dxccstatuswidget.h"
 #include "elogclublog.h"
 
 
@@ -102,7 +102,7 @@ private:
     DataProxy *dataProxy;
     LogModel *logModel;
     Awards *awards;
-    DXCCStatusWidget *dxccStatusWidget;
+    //DXCCStatusWidget *dxccStatusWidget;
     eLogClubLog *elogClublog;
 
     QTableView *logView;

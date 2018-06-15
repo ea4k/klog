@@ -1,3 +1,7 @@
+TBD - 0.9.4
+- Syncronize RX Freq with the satellite downlink combobox.
+- Bugfix: When adding a QSO, if the QSL is marked as received, KLog showed a SQL error.
+
 April - 0.9.3
 - Double clicking on DXCC Widget name of the Entity will show the QSO is providing that status on the Search widget.
 - Added DXCC support for Kosovo.

@@ -1168,10 +1168,7 @@ bool World::readCTYCSV(const QString _worldFile)
     QString fileName;
     qint64 beginingOfFile;
     int numberOfLines = 0;
-    int errorCode = -1;
-    //int ii = 0;
-    //bool ret;
-
+    //int errorCode = -1;
 
     QFile file( _worldFile );
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -1311,7 +1308,7 @@ bool World::readCTYCSV(const QString _worldFile)
             {
                 //qDebug()  << "World::readCTYDAT(): Entity data added: error else:  " <<  stringList.at(1)  << endl;
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                errorCode = query.lastError().number();
+                //errorCode = query.lastError().number();
 
 
                //qDebug() << "World::readCTYCSV(): Entity data NOT added"  << endl;
@@ -1369,7 +1366,7 @@ bool World::readCTYCSV(const QString _worldFile)
                     {}
                     else
                     {
-                        errorCode = queryP.lastError().number();
+                        //errorCode = queryP.lastError().number();
                         emit queryError(Q_FUNC_INFO, queryP.lastError().databaseText(), queryP.lastError().number(), queryP.lastQuery());
 
 
