@@ -39,6 +39,7 @@
 //#include <qDebug>
 
 
+
 MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 {
 
@@ -51,6 +52,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
+
     upAndRunning = false; // To define some actions that can only be run when starting the software
     //connect(&manager, SIGNAL(finished(QNetworkReply*)), SLOT(slotDownloadFinished(QNetworkReply*))); // To download cty.csv
     //flagIcon = new QPushButton; // To paint a flag of the worked entity
@@ -299,7 +301,8 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     timer->start(1000);
 
     previousQrz = "";
-    qrzLineEdit = new QLineEdit;    
+    qrzLineEdit = new QLineEdit;
+
     nameLineEdit = new QLineEdit;
     qthLineEdit = new QLineEdit;
     locatorLineEdit = new QLineEdit;
@@ -309,6 +312,9 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     SRXLineEdit = new QLineEdit;
     bandComboBox = new QComboBox;
     modeComboBox = new QComboBox;
+    //bandComboBox->setObjectName("bandCombo");
+    //modeComboBox->setObjectName("modeCombo");
+    //qrzLineEdit->setObjectName("qrzLine");
 
     dateEdit = new QDateEdit;
     dateEdit->setDisplayFormat("dd/MM/yyyy");
@@ -555,6 +561,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
     connect(filemanager, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
 
+
     //qDebug() << "MainWindow::MainWindow: END" << endl;
 }
 
@@ -640,6 +647,8 @@ MainWindow::~MainWindow()
     softUpdate->~SoftwareUpdate();
     */
 }
+
+
 
 void MainWindow::createStatusBar()
 {
@@ -795,7 +804,7 @@ void MainWindow::slotQRZReturnPressed()
     QSqlQuery query;
     QString queryString = readDataFromUI();
 
-          //qDebug() << "MainWindow::slotQRZReturnPressed: queryString: " << queryString << endl;
+    qDebug() << "MainWindow::slotQRZReturnPressed: queryString: " << queryString << endl;
 
     if (queryString != "NULL")
     {
@@ -803,7 +812,7 @@ void MainWindow::slotQRZReturnPressed()
         {
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 query.finish();
-                  //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
+                qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
                 errorCode = query.lastError().number();
                 QMessageBox msgBox;
                 msgBox.setIcon(QMessageBox::Warning);
@@ -828,7 +837,7 @@ void MainWindow::slotQRZReturnPressed()
                 query.finish();
                 //TODO: To move the following lines to this part to properly manage the query result!!
                 //ret = true;
-                 //qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
+                qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
 
                 needToSave = true;
                 if (modify)
@@ -913,7 +922,7 @@ void MainWindow::slotQRZReturnPressed()
         else   // The QUERY string is NULL
         {
             return;
-              //qDebug() << "MainWindow::slotQRZReturnPressed: queryString-NULL: " << queryString << endl;
+            qDebug() << "MainWindow::slotQRZReturnPressed: queryString-NULL: " << queryString << endl;
         }
 
 
@@ -1514,8 +1523,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", 'Y'";
         stringFields = stringFields + ", qslrdate";
         stringData = stringData + ", '" + (QSLTabWidget->getQSLRecDate()).toString("yyyy/MM/dd") + "'";
-        stringFields = stringFields + ", confirmed";
-        stringData = stringData + ", '1'";
+        //stringFields = stringFields + ", confirmed";
+        //stringData = stringData + ", '1'";
         stringFields = stringFields + ", qsl_rcvd_via";
         if (aux2 == "D")
         {
@@ -2580,9 +2589,15 @@ void MainWindow::createActionsCommon(){
     connect(dxccStatusWidget, SIGNAL(showQso(int)), this, SLOT(slotShowQSOFromDXCCWidget(int) ) );
     connect(dxccStatusWidget, SIGNAL(showQsos(QList<int>)), this, SLOT(slotShowQSOsFromDXCCWidget(QList<int>) ) );
 
+    // UDPLogServer - WSJT-x
+
+    connect(UDPLogServer, SIGNAL(status_update(int , QString, quint64, QString)), this, SLOT(slotStatusFromUDPServer(int , QString, quint64, QString) ) );
+
 
 
 }
+
+
 
 void MainWindow::slotSearchBoxTextChanged()
 {
@@ -4245,7 +4260,7 @@ void MainWindow::readConfigData()
     QString aux = tr("UDP Server error") + "</b><br>" + tr("The UDP server failed to ");
     QString errorMSG;
     //QString aux1 = "<br><b>" + tr("UDP Server error");
-/*
+
     if (UDPServerStart)
     {
         if (!UDPLogServer->start())
@@ -4264,9 +4279,9 @@ void MainWindow::readConfigData()
             showErrorDialog->exec();
         }
     }
-    */
+
     
-    //qDebug() << "MainWindow::readConfigData - END" << endl;
+    qDebug() << "MainWindow::readConfigData - END" << endl;
 
 }
 
@@ -4676,7 +4691,6 @@ void MainWindow::selectDefaultMode()
         //qDebug() << "MainWindow::selectDefaultMode3: " << QString::number(defaultMode) << endl;
         //qDebug() << "MainWindow::selectDefaultMode3S: " << modeComboBox->itemText(0) << endl;
 
-
     //qDebug() << "MainWindow::selectDefaultMode-END" << endl;
 }
 
@@ -4698,6 +4712,7 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
     bandComboBox->addItems(bands);
     satTabWidget->addBands(bands);
 }
+
 
 void MainWindow::readActiveBands (const QStringList actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
@@ -6138,7 +6153,8 @@ void MainWindow::fillQSOData()
 { // Updates all QSO with the dxcc, CQZ, ... if empty.
       //qDebug() << "MainWindow::fillQSOData" << endl;
 
-    QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, time_on, lognumber, confirmed, id, cqz, ituz, dxcc FROM log WHERE lognumber='%1'").arg(currentLog);
+    //QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, time_on, lognumber, confirmed, id, cqz, ituz, dxcc FROM log WHERE lognumber='%1'").arg(currentLog);
+    QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, time_on, lognumber, id, cqz, ituz, dxcc FROM log WHERE lognumber='%1'").arg(currentLog);
 
     QSqlQuery query;
     bool sqlOK = query.exec(stringQuery);
@@ -6151,7 +6167,7 @@ void MainWindow::fillQSOData()
     QSqlRecord rec = query.record();
     int nameCol;
     QString aux, queryString;
-    QString _call, _bandid, _modeid, _tdate, _ttime, _lognumber, _id, aux1, updateString, _confirmed;
+    QString _call, _bandid, _modeid, _tdate, _ttime, _lognumber, _id, aux1, updateString;//, _confirmed;
     bool toModify = false;
     bool noMoreQso = false;    
 
@@ -6201,11 +6217,11 @@ void MainWindow::fillQSOData()
             {
                 _lognumber = (query.value(nameCol)).toString();
             }
-            nameCol = rec.indexOf("confirmed");
-            if ( (query.value(nameCol)).isValid() )
-            {
-                _confirmed = (query.value(nameCol)).toString();
-            }
+            //nameCol = rec.indexOf("confirmed");
+            //if ( (query.value(nameCol)).isValid() )
+            //{
+            //    _confirmed = (query.value(nameCol)).toString();
+            //}
             nameCol = rec.indexOf("id");
             if ( (query.value(nameCol)).isValid() )
             {
@@ -6213,7 +6229,7 @@ void MainWindow::fillQSOData()
             }
                //qDebug() << "MainWindow::fillQSOData: ID: " << _id << endl;
             //TODO: Prepare this query
-            updateString = "UPDATE log SET call = '" + _call + "', bandid = '" + _bandid + "', modeid = '" + _modeid + "', qso_date = '" + _tdate + "', time_on = '" + _ttime + "', lognumber = '" + _lognumber  + "', confirmed = '" + _confirmed + "'";
+            updateString = "UPDATE log SET call = '" + _call + "', bandid = '" + _bandid + "', modeid = '" + _modeid + "', qso_date = '" + _tdate + "', time_on = '" + _ttime + "', lognumber = '" + _lognumber + "'";//  + "', confirmed = '" + _confirmed + "'";
 
             nameCol = rec.indexOf("cqz");
             if (( (query.value(nameCol)).toString()).length() < 1 )
@@ -6985,6 +7001,82 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
     //qDebug() << "MainWindow::slotShowQSOsFromDXCCWidget" << endl;
     slotShowSearchWidget();
     searchWidget->showQSOs(_qsos);
+
+}
+
+void MainWindow::slotStatusFromUDPServer(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode)
+{
+
+    qDebug() << "MainWindow::slotStatusFromUDPServer type: " << QString::number(_type) << endl;
+    qDebug() << "MainWindow::slotStatusFromUDPServer dxcall: " << _dxcall << endl;
+    qDebug() << "MainWindow::slotStatusFromUDPServer freq: " << QString::number(_freq/1000000) << endl;
+    qDebug() << "MainWindow::slotStatusFromUDPServer mode: " << _mode << endl;
+/*
+    bool newMode = false;
+
+    if (modeComboBox->findText(_mode, Qt::MatchCaseSensitive)<0)
+    {
+        newMode = true;
+        if (dataProxy->getSubModeIdFromSubMode(_mode)<0)
+        {// The mode is not existing; it is not an accepted mode for KLog
+         // TODO: Show an error to the user
+
+        }
+        else
+        {
+            //TODO: Add the new mode to the list of active modes
+        }
+    }
+*/
+    switch (_type)
+    {
+        case 0:
+            //MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT/IN - Heartbeat" << endl;
+        break;
+        case 1:
+            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Status" << endl;
+             qrzLineEdit->setText(_dxcall);
+
+             modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
+             txFreqSpinBox->setValue((double)_freq/1000000);
+
+             //bandComboBox->setCurrentIndex(bandComboBox->findText(, Qt::MatchCaseSensitive));
+
+        break;
+        case 2:
+            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Decode" << endl;
+        break;
+        case 3:
+            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Clear" << endl;
+        break;
+        case 4:
+            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - IN - Replay " << endl;
+        break;
+        case 5:
+            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - QSO logged" << endl;
+
+
+        break;
+        case 6:
+            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Close " << endl;
+        break;
+        case 7:
+            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - IN - Replay" << endl;
+        break;
+        case 8:
+            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - IN - Halt TX" << endl;
+        break;
+        case 9:
+            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - IN - Free Text" << endl;
+        break;
+        case 10:
+            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - WSPR Decode" << endl;
+        break;
+        default: //NO
+            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - ERROR on Type" << endl;
+        break;
+    }
+
 
 }
 

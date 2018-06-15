@@ -34,7 +34,7 @@ LogWindow::LogWindow(DataProxy *dp, QWidget *parent) : QWidget(parent)
     logModel = new LogModel(dataProxy, this);
     connect(logModel, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     logView = new QTableView;
-    dxccStatusWidget = new DXCCStatusWidget(dataProxy);
+    //dxccStatusWidget = new DXCCStatusWidget(dataProxy);
     elogClublog = new eLogClubLog();
 
     currentLog = -1;
@@ -86,8 +86,6 @@ void LogWindow::createlogPanel(const int _currentLog)
     logModel->createlogModel(currentLog);
     logView->setModel(logModel);
     logView->setCurrentIndex(logModel->index(0, 0));
-
-
 
     QString contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
 
@@ -157,9 +155,10 @@ void LogWindow::setColumnsToDX()
 
 void LogWindow::refresh()
 {
+    qDebug() << "LogWindow::refresh"  << endl;
     logModel->select();
 }
-;
+
 void LogWindow::createActions()
 {
     createActionsCommon();
@@ -171,7 +170,6 @@ void LogWindow::createActionsCommon()
 
         connect(logView, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonFromLog( const QPoint& ) ) );
         connect(logView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickLog( const QModelIndex& ) ) );
-
 }
 
 void LogWindow::slotRighButtonFromLog(const QPoint& pos)
@@ -372,7 +370,7 @@ void LogWindow::deleteQSO(const int _qsoID)
     //logModel->removeRow((delQSOFromLogAct->data()).toInt()); //TODO: This has been replaced by the previous line
     awards->recalculateAwards();
     refresh();       
-    dxccStatusWidget->refresh();
+    //dxccStatusWidget->refresh();
     emit updateAwards();
     emit updateSearchText();
 

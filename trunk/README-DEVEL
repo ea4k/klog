@@ -193,6 +193,7 @@ Here is the list of tests to be done before releasing new software:
  - Create a new log
  - Add a new QSO
     - Check that the DXCC & IOTA continent make sense
+    - Check if QSO/worked DXCC, ... count changes
  - Edit a QSO from log
     - Modify at least one field in each tab
  - Edit a QSO from the search box

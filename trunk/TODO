@@ -1,5 +1,6 @@
 RC-BUGS:
-
+TODO: Check if dxccStatusWidget in logwindow is useful and remove it if not.
+TODO: When entering a Satellite QSO, when you select the sat, the frecuency is defined but the band is not synchronized.
 NONE
 
 For 0.9.4
