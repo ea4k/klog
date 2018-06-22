@@ -994,7 +994,7 @@ int DataBase::getBandIdFromName(const QString b)
 
 int DataBase::getModeIdFromName(const QString b)
 {
-     //qDebug() << "DataBase::getModeIdFromName: " << b << endl;
+    qDebug() << "DataBase::getModeIdFromName: " << b << endl;
     QSqlQuery query;
     if (isValidMode(b, false))
     {
@@ -1654,7 +1654,7 @@ int DataBase::getBandIDFromName2(const QString b)
 
 int DataBase::getModeIDFromName2(const QString b)
 {
-    //qDebug() << "DataBase::getModeIDFromName2: " << b << endl;
+    qDebug() << "DataBase::getModeIDFromName2: " << b << endl;
     return getModeIdFromName(b);
 
     if (b.length()<2)

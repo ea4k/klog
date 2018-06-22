@@ -398,10 +398,6 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Valitsemasi loki sisältää enemmän kuin vain yhden aseman kutsutunnuksen.</translation>
     </message>
     <message>
-        <source>Please select the station callsing you want to export the log from:</source>
-        <translation type="vanished">Valitse aseman kutsutunnus, jonka lokin haluat viedä:</translation>
-    </message>
-    <message>
         <location line="+3"/>
         <source>Station Callsign:</source>
         <translation>Aseman Kutsutunnus:</translation>
@@ -476,26 +472,6 @@ Haluatko yrittää uudelleen?</translation>
         <location line="+132"/>
         <source>Reading LoTW file...</source>
         <translation>Luetaan LoTW -tiedostoa...</translation>
-    </message>
-    <message>
-        <source>There are more than one log in this logfile.
-All logs will be imported in the current log.
-Do you want to continue?</source>
-        <translation type="vanished">Tässä lokitiedostossa on useampi kuin yksi loki.
-Kaikki lokit tuodaan nykyiseen lokiin.
-Haluatko jatkaa?</translation>
-    </message>
-    <message>
-        <source>Importing ADIF file...
- QSO: </source>
-        <translation type="vanished">Tuodaan ADIF -tiedostoa...
- QSO: </translation>
-    </message>
-    <message>
-        <source>You have cancelled the file export. The file will be removed and no data will be exported.
-Do you still want to cancel?</source>
-        <translation type="vanished">Olet peruuttanut tiedostonviennin. Tiedosto poistetaan eikä tietoja ole viety.
-Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+1668"/>
@@ -741,10 +717,6 @@ Haluatko varmasti peruuttaa?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Grad</source>
-        <translation type="vanished">Suuntima</translation>
-    </message>
-    <message>
         <location line="+213"/>
         <location line="+1"/>
         <source>Miles</source>
@@ -894,7 +866,7 @@ Haluatko varmasti peruuttaa?</translation>
 <context>
     <name>LogWindow</name>
     <message>
-        <location filename="../logwindow.cpp" line="+211"/>
+        <location filename="../logwindow.cpp" line="+209"/>
         <source>QSL Send</source>
         <translation>QSL Lähetys</translation>
     </message>
@@ -977,7 +949,7 @@ Haluatko varmasti peruuttaa?</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="+196"/>
+        <location filename="../mainwindow.cpp" line="+199"/>
         <source>Recalculate</source>
         <translation>Laske uudelleen</translation>
     </message>
@@ -992,15 +964,15 @@ Haluatko varmasti peruuttaa?</translation>
         <translation>Käynnistetään KLog</translation>
     </message>
     <message>
-        <location line="+91"/>
-        <location line="+605"/>
-        <location line="+2179"/>
+        <location line="+95"/>
+        <location line="+608"/>
+        <location line="+2184"/>
         <location line="+64"/>
         <source>&amp;Add</source>
         <translation>&amp;Lisää</translation>
     </message>
     <message>
-        <location line="-2845"/>
+        <location line="-2853"/>
         <source>&amp;Clear</source>
         <translation>T&amp;yhjennä</translation>
     </message>
@@ -1037,13 +1009,13 @@ Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+85"/>
-        <location line="+2899"/>
+        <location line="+2907"/>
         <location line="+710"/>
         <source>KLog</source>
         <translation>KLog</translation>
     </message>
     <message>
-        <location line="-3400"/>
+        <location line="-3405"/>
         <source>Ready</source>
         <translation>Valmis</translation>
     </message>
@@ -1054,23 +1026,23 @@ Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+205"/>
-        <location line="+699"/>
+        <location line="+698"/>
         <source>You have selected an entity:</source>
         <translation>Olet valinnut yksikön:</translation>
     </message>
     <message>
-        <location line="-699"/>
-        <location line="+699"/>
+        <location line="-698"/>
+        <location line="+698"/>
         <source>that is different from the KLog proposed entity:</source>
         <translation>joka eroaa KLog:in ehdotetusta kokoonpanosta:</translation>
     </message>
     <message>
-        <location line="-698"/>
+        <location line="-697"/>
         <source>Click on the prefix of the correct entity or Cancel to edit the QSO again.</source>
         <translation>Napsauta oikean yksikön etuliitettä tai Peruuta, jos haluat muokata QSO:ta uudelleen.</translation>
     </message>
     <message>
-        <location line="+699"/>
+        <location line="+698"/>
         <source>Click on the prefix of the right entity or Cancel to correct.</source>
         <translation>Napsauta oikean yksikön etuliitettä tai paina Peruuta korjataksesi.</translation>
     </message>
@@ -1136,28 +1108,28 @@ Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+3951"/>
+        <location line="+3941"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location line="-3944"/>
-        <location line="+3942"/>
+        <location line="-3934"/>
+        <location line="+3932"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
     <message>
-        <location line="-3933"/>
-        <location line="+794"/>
+        <location line="-3923"/>
+        <location line="+800"/>
         <location line="+6"/>
         <location line="+908"/>
-        <location line="+892"/>
-        <location line="+1331"/>
+        <location line="+875"/>
+        <location line="+1332"/>
         <source>QRZ</source>
         <translation>QRZ</translation>
     </message>
     <message>
-        <location line="-3924"/>
+        <location line="-3914"/>
         <source>STX</source>
         <translation>STX</translation>
     </message>
@@ -1167,7 +1139,7 @@ Haluatko varmasti peruuttaa?</translation>
         <translation>SRX</translation>
     </message>
     <message>
-        <location line="+301"/>
+        <location line="+307"/>
         <source>NEW MULT</source>
         <translation>NEW MULT</translation>
     </message>
@@ -1214,25 +1186,9 @@ Do you want to save your changes?</translation>
         <translation>Tallenna &amp;nimellä...</translation>
     </message>
     <message>
-        <source>&amp;Export to ADIF...</source>
-        <translation type="vanished">&amp;Vie ADIF -tiedostoon...</translation>
-    </message>
-    <message>
-        <source>&amp;Export all logs to ADIF...</source>
-        <translation type="vanished">Vie &amp;kaikki lokit ADIF -tiedostoon...</translation>
-    </message>
-    <message>
         <location line="+17"/>
         <source>Export ALL the QSOs into one ADIF file, merging QSOs from all the logs.</source>
         <translation>Vie kaikki QSO:t yhteen ADIF -tiedostoon, yhdistäen QSO:t kaikista lokeista.</translation>
-    </message>
-    <message>
-        <source>&amp;Export Requested QSL to ADIF...</source>
-        <translation type="vanished">Vie &amp;pyydetty QSL ADIF -tiedostoon...</translation>
-    </message>
-    <message>
-        <source>&amp;Export ADIF for LoTW...</source>
-        <translation type="vanished">Vie ADIF LoTW:iä varten...</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1375,17 +1331,9 @@ Do you want to save your changes?</translation>
         <translation>LoTW työkalut...</translation>
     </message>
     <message>
-        <source>Queue all QSO of this log</source>
-        <translation type="vanished">Aseta jonoon kaikki tämän lokin QSO:t</translation>
-    </message>
-    <message>
         <location line="+5"/>
         <source>Mark all non sent QSOs in this log as queued to be uploaded.</source>
         <translation>Merkitse kaikki tässä lokissa olevat lähettämättömät QSO:t lähetysjonoon.</translation>
-    </message>
-    <message>
-        <source>Queue all QSO</source>
-        <translation type="vanished">Aseta jonoon kaikki QSO:t</translation>
     </message>
     <message>
         <location line="-3"/>
@@ -1608,7 +1556,7 @@ Do you want to save your changes?</translation>
         <translation>DUPE</translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+103"/>
         <source>UDP Server error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1618,7 +1566,17 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+250"/>
+        <location line="+8"/>
+        <source>start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+233"/>
         <source>The selected log is not existing or it is still empty.</source>
         <translation>Valittua lokia ei ole, tai se on vielä tyhjä.</translation>
     </message>
@@ -1648,7 +1606,7 @@ Do you want to save your changes?</translation>
         <translation>Jos olet varma että tietokannassa on QSO:ita ja KLog ei löydä niitä, voit ottaa yhteyttä kehittäjiin (Katso, Tietoja KLogista) apua varten.</translation>
     </message>
     <message>
-        <location line="+274"/>
+        <location line="+277"/>
         <source>TX Frequency in MHz.</source>
         <translation>TX Taajuus MHz:inä.</translation>
     </message>
@@ -1879,12 +1837,12 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+1361"/>
+        <location line="+1362"/>
         <source>Comment</source>
         <translation>Kommentti</translation>
     </message>
     <message>
-        <location line="-1358"/>
+        <location line="-1359"/>
         <source>Others</source>
         <translation>Muut</translation>
     </message>
@@ -2005,10 +1963,6 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Remember to sign the LoTW log before you upload it!</source>
-        <translation type="vanished">Muista kirjata LoTW loki ennen lähetystä!</translation>
-    </message>
-    <message>
         <location line="+21"/>
         <source>There was no QSO to be exported.</source>
         <translation>Vietäviä QSO:ita ei ollut.</translation>
@@ -2060,7 +2014,7 @@ Do you want to save your changes?</translation>
         <translation>- Tarvitaan DXMarathon:iin</translation>
     </message>
     <message>
-        <location line="+110"/>
+        <location line="+111"/>
         <source>Filling QSOs...</source>
         <translation>Täyttää QSO:t...</translation>
     </message>
@@ -2125,7 +2079,22 @@ Do you want to save your changes?</translation>
  QSO: </translation>
     </message>
     <message>
-        <location line="+596"/>
+        <location line="+635"/>
+        <source>A new mode not supported by KLog has been received from an external software:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>If the receiver mode is correct, please contact KLog development team and request support for that mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+154"/>
         <source>An unexpected error ocurred!!</source>
         <translation>Odottamaton virhe tapahtui!!</translation>
     </message>
@@ -4304,7 +4273,7 @@ Lokia ei avata.</translation>
         <translation>Manner</translation>
     </message>
     <message>
-        <location line="+1033"/>
+        <location line="+1030"/>
         <source>Reading cty.csv...</source>
         <translation>Luetaan cty.csv...</translation>
     </message>
