@@ -134,7 +134,7 @@ void DataProxy_SQLite::createLogPanel(){
 
 int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
 {
-     //qDebug() << "DataProxy_SQLite::getIdFromModeName: " << _modeName << "/" << QString::number(db->getModeIDFromName2(_modeName)) << endl;
+    qDebug() << "DataProxy_SQLite::getIdFromModeName: " << _modeName << "/" << QString::number(db->getModeIDFromName2(_modeName)) << endl;
     if (_modeName.length()<2)
     {
         return -4;

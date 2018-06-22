@@ -276,7 +276,17 @@ private slots:
     //DXCCWIDGET
     void slotShowQSOFromDXCCWidget(const int _q);
     void slotShowQSOsFromDXCCWidget(QList<int> _qsos);
-    void slotStatusFromUDPServer(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode);
+
+    //UDP Server (WXJT-x)
+    void slotWSJXstatusFromUDPServer(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
+                                 const QString _report, const QString _de_call, const QString _de_grid,
+                                 const QString _dx_grid, const QString _sub_mode);
+
+
+
+    void slotWSJTXloggedQSO(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
+                             const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
+                             const QString _tx_power, const QString _comments, const QString _name, const QString _time_on);
 
 private:
     bool maybeSave();
@@ -335,7 +345,8 @@ private:
     void selectDefaultMode();
     void readActiveBands (const QStringList actives);
     void readActiveModes (const QStringList actives);
-
+    bool checkIfNewMode(const QString _mode);
+    void addNewValidMode(const QString _mode);
 
     void qsoToEdit (const int _qso);
 
@@ -522,6 +533,7 @@ private:
 
     bool qslingNeeded;
     bool noMoreErrorShown;              // If true, the errors shown in slotQueryErrorManagement will not be shown anymore in that KLog execution
+    bool noMoreModeErrorShown;          // If true, the non-valdi modes received from WSJT-x will not be showed to the user
     MainWindowSatTab *satTabWidget;
     MainWindowMyDataTab *myDataTabWidget;
     MainWindowInputComment *commentTabWidget;

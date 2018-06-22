@@ -31,7 +31,14 @@ private:
     int port;
 
 signals:
-    void status_update (const int _type, const QString _dxcall, const quint64 _freq, const QString _mode);
+    void status_update (const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
+                        const QString report, const QString de_call, const QString de_grid,
+                        const QString dx_grid, const QString sub_mode);
+
+    void logged_qso (const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
+                     const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
+                     const QString _tx_power, const QString _comments, const QString _name, const QString _time_on);
+
 
 
 private slots:

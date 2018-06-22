@@ -66,18 +66,18 @@ void UDPServer::parse(const QByteArray &msg)
 
     QByteArray report;
     QByteArray tx_mode;
-    bool tx_enabled {false};
-    bool transmitting {false};
-    bool decoding {false};
-    qint32 rx_df {-1};
-    qint32 tx_df {-1};
+    bool tx_enabled = false;
+    bool transmitting = false;
+    bool decoding = false;
+    qint32 rx_df = -1;
+    qint32 tx_df = -1;
     QByteArray de_call;
     QByteArray de_grid;
-    bool watchdog_timeout {false};
+    bool watchdog_timeout = false;
     QByteArray sub_mode;
-    bool fast_mode {false};
+    bool fast_mode = false;
 
-    QByteArray msgOut;
+    //QByteArray msgOut;
 
     QDataStream in(msg);
     //QDataStream out(msgOut, QIODevice::ReadWrite);
@@ -86,6 +86,9 @@ void UDPServer::parse(const QByteArray &msg)
     in.setVersion(16);
     in.setByteOrder(QDataStream::BigEndian);
 
+    {
+    //qDebug() << "UDPServer::parse: - Magic GOOD FORMAT = " << QString::number(magic)<< endl;
+    }
     //qDebug() << "UDPServer::parse Version = " << QString::number(in.version())<< endl;
 
     in >> magic >> schema >> type >> id;
@@ -102,9 +105,6 @@ void UDPServer::parse(const QByteArray &msg)
         return;
     }
     else
-    {
-    //qDebug() << "UDPServer::parse: - Magic GOOD FORMAT = " << QString::number(magic)<< endl;
-    }
 
     switch (type)
     {
@@ -115,18 +115,17 @@ void UDPServer::parse(const QByteArray &msg)
             qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Status" << endl;
             // unpack message
 
-
             in >> frequency >> mode >> dx_call >> report >> tx_mode >> tx_enabled >> transmitting >> decoding
                >> rx_df >> tx_df >> de_call >> de_grid >> dx_grid >> watchdog_timeout >> sub_mode
                >> fast_mode;
 
-                msgOut.append(QString::number(type));
+                //msgOut.append(QString::number(type));
                 //+ QString::number(frequency) + QString::fromUtf8 (mode) + QString::fromUtf8 (dx_call)
                 //     + QString::fromUtf8 (report) + QString::fromUtf8 (tx_mode)
                 //     + QString::fromUtf8 (de_call) + QString::fromUtf8 (de_grid)
                 //     + QString::fromUtf8 (dx_grid);
 
-            emit status_update (type, dx_call, frequency, mode);
+            emit status_update (type, dx_call, frequency, mode, report, de_call, de_grid, dx_grid, sub_mode);
 
         break;
         case 2:
@@ -141,8 +140,12 @@ void UDPServer::parse(const QByteArray &msg)
         case 5:
             qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - QSO logged" << endl;
 
-            in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> tx_power >> comments >> name >> time_on;
-            emit status_update (type, dx_call, frequency, mode);
+            in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >> tx_power >> comments >> name >> time_on;
+
+            emit logged_qso (type, dx_call, frequency, mode, dx_grid, time_off.toString("yyyyMMddHHmmss"), report_sent, report_received, tx_power, comments, name, time_on.toString("yyyyMMddHHmmss"));
+
+
+            //emit status_update (type, dx_call, frequency, mode, report, de_call, de_grid, dx_grid, sub_mode)
 
             //out << type;
             //emit status_update (out);

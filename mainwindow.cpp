@@ -84,6 +84,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     configured = false;
     modify = false;
     noMoreErrorShown = false;
+    noMoreModeErrorShown = false;
     qslingNeeded = false; // When clicking on Find QSO to QSL
     manageMode = false;
     selectedYear = 0;
@@ -1073,7 +1074,6 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         }
         else
         {
-
                //qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND NOK" << endl;
         }
     }
@@ -2591,8 +2591,8 @@ void MainWindow::createActionsCommon(){
 
     // UDPLogServer - WSJT-x
 
-    connect(UDPLogServer, SIGNAL(status_update(int , QString, quint64, QString)), this, SLOT(slotStatusFromUDPServer(int , QString, quint64, QString) ) );
-
+   connect(UDPLogServer, SIGNAL(status_update(int, QString, quint64, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, quint64, QString, QString, QString, QString, QString, QString) ) );
+   connect(UDPLogServer, SIGNAL( logged_qso(int,QString,quint64,QString,QString,QString,QString,QString,QString,QString,QString,QString)), this, SLOT(slotWSJTXloggedQSO(int,QString,quint64,QString,QString,QString,QString,QString,QString,QString,QString,QString) ) );
 
 
 }
@@ -4152,8 +4152,6 @@ void MainWindow::readConfigData()
 {
     //qDebug() << "MainWindow::readConfigData - 01" << endl;
 
-
-
     if (needToEnd)
     {
         return;
@@ -4193,27 +4191,9 @@ void MainWindow::readConfigData()
     }
 
     infoWidget->setImperialSystem(imperialSystem);
-/*
-    if (imperialSystem)
-    {
-        distShortLabelN->setText(tr("Miles"));
-        distLongLabelN->setText(tr("Miles"));
-        //distShortLabel->setText( QString::number( Km2Mile(imperialSystem, (distShortLabel->text()).toInt() )) );
-        //distLongLabel->setText( QString::number(Km2Mile(imperialSystem, (distLongLabel->text()).toInt()) ) );
-    }
-    else
-    {
-        distShortLabelN->setText(tr("Km"));
-        distLongLabelN->setText(tr("Km"));
-    }
-    */
+
     infoLabel2->setText(world->getEntityName(currentEntity));
     infoWidget->showEntityInfo(currentEntity);
-
-    //lastPower = myPower;
-    //lastOperatorQRZ = operatorQRZ;
-    //lastStationQRZ = stationQRZ;
-    //lastMyLocator = myLocator;
 
     configured = true;
     awards->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
@@ -4766,8 +4746,9 @@ void MainWindow::readActiveModes (const QStringList actives)
 {
     //qDebug() << "MainWindow::readActiveModes: " << actives << endl;
 
-    bool atLeastOne = false;
+    //bool atLeastOne = false;
     QString aux;
+    aux.clear();
 
     QStringList __modes;
     __modes.clear();
@@ -4779,19 +4760,23 @@ void MainWindow::readActiveModes (const QStringList actives)
 
     for (int i = 0; i < __modes.size() ; i++)
     {
-        if (dataProxy->getIdFromModeName(__modes.at(i)) > 0)
-        //if (db->isValidMode(actives.at(i), false))
+        qDebug() << "MainWindow::readActiveModes: checking: " << __modes.at(i) << endl;
+        if (dataProxy->getIdFromModeName(__modes.at(i)) > 0)        
         {
-            if (!atLeastOne)
-            {
-                atLeastOne = true;
-                //modes.clear();
-            }
+            qDebug() << "MainWindow::readActiveModes: checking-exist: " << __modes.at(i) << endl;
+            //if (!atLeastOne)
+            //{
+            //    atLeastOne = true;
+
+            //}
             aux = __modes.at(i);
+
             if (aux.length()>0)
             {
+               qDebug() << "MainWindow::readActiveModes: adding: " << aux << endl;
                modes << aux;
             }
+
            // modes << actives.at(i);
         }
     }
@@ -4800,8 +4785,6 @@ void MainWindow::readActiveModes (const QStringList actives)
 
     //qDebug() << "MainWindow::readActiveModes - END" << endl;
 }
-
-
 
 void MainWindow::createData()
 {
@@ -7004,30 +6987,150 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 
 }
 
-void MainWindow::slotStatusFromUDPServer(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode)
+void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
+                                              const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
+                                              const QString _tx_power, const QString _comments, const QString _name, const QString _time_on)
 {
+    if (modify)
+    {
+        return;
+        //TODO: SHow a message showing the data received and ask the user if that QSO should be directly logged or discarded
+        // This may require a different approach to log QSO data doing it directly instead of going through te UI
+    }
 
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO type: " << QString::number(_type) << endl;
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO dxcall: " << _dxcall << endl;
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO freq: " << QString::number(_freq/1000000) << endl;
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO mode: " << _mode << endl;
+
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO dx_grid: " << _dx_grid << endl;
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO time_on: " << _time_on << endl;
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO time_off: " << _time_off << endl;
+
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO report_sent: " << _report_sent << endl;
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO report_rec: " << _report_rec << endl;
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO tx_power: " << _tx_power << endl;
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO comments: " << _comments << endl;
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO name: " << _name << endl;
+
+    if (_type == 5)
+    {
+
+        qrzLineEdit->setText(_dxcall);
+        modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
+        txFreqSpinBox->setValue((double)_freq/1000000);
+        slotUpdateLocator(_dx_grid);
+        rstTXLineEdit->setText(_report_sent);
+        rstRXLineEdit->setText(_report_rec);
+        myDataTabWidget->setMyPower(_tx_power.toDouble());
+        slotQRZReturnPressed();
+    }
+}
+
+bool MainWindow::checkIfNewMode(const QString _mode)
+{
+    qDebug() << "MainWindow::checkIfNewMode: " << _mode << endl;
+    if (dataProxy->getSubModeIdFromSubMode(_mode)<0)
+    {// The mode is not existing; it is not an accepted mode for KLog
+     // TODO: Show an error to the user
+        qDebug() << "MainWindow::checkIfNewMode: Mode not valid! - " << _mode << endl;
+
+        QMessageBox msgBox;
+
+        msgBox.setIcon(QMessageBox::Warning);
+        QString aux = tr("A new mode not supported by KLog has been received from an external software:") + "(" + _mode + ")\n\n" + tr("If the receiver mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)");
+        msgBox.setText(aux);
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        int ret = msgBox.exec();
+        switch (ret)
+        {
+            case QMessageBox::Yes:
+                return false;   // The user wants to keepseeing errors
+            break;
+            case QMessageBox::No:
+                return true; //No more error shown
+                break;
+            default:
+            // should never be reached
+            return false;   // The user wants to keepseeing errors
+            break;
+        }
+    }
+    else
+    {
+        //noMoreModeErrorShown = false;
+        //TODO: Add the new mode to the list of active modes
+        qDebug() << "MainWindow::slotStatusFromUDPServer: VALID NEW MODE: Adding... - " << _mode << endl;
+        addNewValidMode(_mode);
+    }
+
+    return false;
+}
+
+void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
+                                             const QString _report, const QString _de_call, const QString _de_grid,
+                                             const QString _dx_grid, const QString _sub_mode)
+{
+    if (modify)
+    {
+        return;
+    }
     qDebug() << "MainWindow::slotStatusFromUDPServer type: " << QString::number(_type) << endl;
     qDebug() << "MainWindow::slotStatusFromUDPServer dxcall: " << _dxcall << endl;
     qDebug() << "MainWindow::slotStatusFromUDPServer freq: " << QString::number(_freq/1000000) << endl;
     qDebug() << "MainWindow::slotStatusFromUDPServer mode: " << _mode << endl;
-/*
-    bool newMode = false;
+    qDebug() << "MainWindow::slotStatusFromUDPServer report: " << _report << endl;
+    qDebug() << "MainWindow::slotStatusFromUDPServer de_call: " << _de_call << endl;
+    qDebug() << "MainWindow::slotStatusFromUDPServer _de_grid: " << _de_grid << endl;
+    qDebug() << "MainWindow::slotStatusFromUDPServer dx_grid: " << _dx_grid << endl;
+    qDebug() << "MainWindow::slotStatusFromUDPServer sub_mode: " << _sub_mode << endl;
 
-    if (modeComboBox->findText(_mode, Qt::MatchCaseSensitive)<0)
+
+    if ((modeComboBox->findText(_mode, Qt::MatchCaseSensitive)<0) && (!noMoreModeErrorShown))
     {
-        newMode = true;
+
+
+        qDebug() << "MainWindow::slotStatusFromUDPServer New mode: " << _mode << endl;
+        noMoreModeErrorShown = checkIfNewMode(_mode);
+/*
         if (dataProxy->getSubModeIdFromSubMode(_mode)<0)
         {// The mode is not existing; it is not an accepted mode for KLog
          // TODO: Show an error to the user
+            qDebug() << "MainWindow::slotStatusFromUDPServer: Mode not valid! - " << _mode << endl;
 
+            QMessageBox msgBox;
+
+            msgBox.setIcon(QMessageBox::Warning);
+            QString aux = tr("A new mode not supported by KLog has been received from an external software:") + "(" + _mode + ")\n\n" + tr("If the receiver mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)");
+            msgBox.setText(aux);
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+
+            msgBox.setDefaultButton(QMessageBox::Yes);
+            int ret = msgBox.exec();
+            switch (ret)
+            {
+                case QMessageBox::Yes:
+                break;
+                case QMessageBox::No:
+                    noMoreModeErrorShown = true;
+                    break;
+                default:
+                // should never be reached
+                break;
+            }
         }
         else
         {
+            //noMoreModeErrorShown = false;
             //TODO: Add the new mode to the list of active modes
+            qDebug() << "MainWindow::slotStatusFromUDPServer: VALID NEW MODE: Adding... - " << _mode << endl;
+            addNewValidMode(_mode);
         }
+    */
     }
-*/
+
     switch (_type)
     {
         case 0:
@@ -7036,48 +7139,45 @@ void MainWindow::slotStatusFromUDPServer(const int _type, const QString _dxcall,
         case 1:
             qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Status" << endl;
              qrzLineEdit->setText(_dxcall);
+             if ((!noMoreModeErrorShown) && (dataProxy->getSubModeIdFromSubMode(_mode)>0) )
+             {
+                modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
+             }
 
-             modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
              txFreqSpinBox->setValue((double)_freq/1000000);
+             slotUpdateLocator(_dx_grid);
+             rstTXLineEdit->setText(_report);
+             myDataTabWidget->setMyLocator(_de_grid);
+
+             //TODO: Check what to do with _de_call -> Check if _de_call == station callsign and update if needed.
+             //TODO: Check what to do with _de_grid -> Check if _de_grid == My Grid and update if needed.
+             //TODO: Check what to do with _submode.
+
 
              //bandComboBox->setCurrentIndex(bandComboBox->findText(, Qt::MatchCaseSensitive));
 
-        break;
-        case 2:
-            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Decode" << endl;
-        break;
-        case 3:
-            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Clear" << endl;
-        break;
-        case 4:
-            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - IN - Replay " << endl;
-        break;
-        case 5:
-            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - QSO logged" << endl;
-
-
-        break;
-        case 6:
-            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Close " << endl;
-        break;
-        case 7:
-            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - IN - Replay" << endl;
-        break;
-        case 8:
-            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - IN - Halt TX" << endl;
-        break;
-        case 9:
-            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - IN - Free Text" << endl;
-        break;
-        case 10:
-            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - WSPR Decode" << endl;
-        break;
         default: //NO
             qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - ERROR on Type" << endl;
         break;
     }
+}
 
 
+
+void MainWindow::addNewValidMode(const QString _mode)
+{
+    qDebug() << "MainWindow::addNewMode: " << _mode << endl;
+    QStringList _newM;
+    _newM.clear();
+    _newM << _mode;
+    for (int i = 0;i < modeComboBox->count(); i++)
+    {
+        _newM << modeComboBox->itemText(i);
+    }
+
+    readActiveModes (_newM);
+    modeComboBox->clear();
+    modeComboBox->addItems(modes);
 }
 
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed)
