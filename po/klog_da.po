@@ -6,6 +6,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Language: da_DK\n"
 "X-Qt-Contexts: true\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: \n"
+"Language: da\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: ../aboutdialog.cpp:28
 msgctxt "AboutDialog|"
@@ -25,8 +32,8 @@ msgstr "KLog er en fri logbog for operatører af amatørradio."
 #: ../aboutdialog.cpp:38
 msgctxt "AboutDialog|"
 msgid ""
-"Please know that this is an BETA release and it may contain many "
-"bugs.<br>Backup your data before using this software!"
+"Please know that this is an BETA release and it may contain many bugs."
+"<br>Backup your data before using this software!"
 msgstr ""
 "Vær opmærksom på, at dette er en BETA-udgivelse og den kan indeholde mange "
 "fejl.<br>Lav en sikkerhedskopi af dine data før du bruger dette program!"
@@ -34,9 +41,9 @@ msgstr ""
 #: ../aboutdialog.cpp:40
 msgctxt "AboutDialog|"
 msgid ""
-"KLog has been fully rewritten from the 0.6.2 to be able to provide a "
-"cross-platform application that runs in the main operating systems (Linux, "
-"macOS & Windows) and provide new functionalities that KLog was not providing."
+"KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-"
+"platform application that runs in the main operating systems (Linux, macOS & "
+"Windows) and provide new functionalities that KLog was not providing."
 msgstr ""
 "KLog er blevet skrevet helt om fra version 0.6.2 for ata kunne tilbyde et "
 "program for flere platforme, som kan afvikles i de vigtigst operativsystemer "
@@ -108,8 +115,8 @@ msgid ""
 "Translators bring KLog into your language. They are really an important part "
 "of the KLog development team."
 msgstr ""
-"Oversættere bringer KLog til dit sprog. De er en vigtig del af "
-"KLog-udviklingsholdet."
+"Oversættere bringer KLog til dit sprog. De er en vigtig del af KLog-"
+"udviklingsholdet."
 
 #: ../aboutdialog.cpp:87
 msgctxt "AboutDialog|"
@@ -428,11 +435,6 @@ msgid ""
 "The log that you have selected contains more than just one station callsign."
 msgstr "Loggen du har valgt indeholder mere end bare et stationskaldesignal."
 
-#~ msgctxt "FileManager|"
-#~ msgid "Please select the station callsing you want to export the log from:"
-#~ msgstr ""
-#~ "Vælg venligst stationskaldesignalet du ønsker at eksportere loggen fra:"
-
 #: ../filemanager.cpp:204
 msgctxt "FileManager|"
 msgid "Station Callsign:"
@@ -567,6 +569,7 @@ msgstr " QSO: "
 msgctxt "FileManager|"
 msgid "Please select the station callsign you want to export the log from:"
 msgstr ""
+"Vælg venligst stationskaldesignalet du ønsker at eksportere loggen fra:"
 
 #: ../filemanager.cpp:226
 msgctxt "FileManager|"
@@ -1480,6 +1483,7 @@ msgstr "Al igangværende QSO er blevet markeret som sat i kø for LoTW!"
 msgctxt "MainWindow|"
 msgid "Please select the station callsign you want to mark as sent to LoTW:"
 msgstr ""
+"Vælg venligst stationskaldesignalet du ønsker at markere som sendt til LoTW:"
 
 #: ../mainwindow.cpp:3687
 msgctxt "MainWindow|"
@@ -1528,13 +1532,6 @@ msgid ""
 msgstr ""
 "Nu kan du gå til filmenuen for at eksportere LoTW ADIF-filen og overføre den "
 "til LoTW."
-
-# engelsk fejl sing -> sign
-#~ msgctxt "MainWindow|"
-#~ msgid "Please select the station callsing you want to mark as sent to LoTW:"
-#~ msgstr ""
-#~ "Vælg venligst stationskaldesignalet du ønsker at markere som sendt til "
-#~ "LoTW:"
 
 #: ../mainwindow.cpp:3635
 msgctxt "MainWindow|"
@@ -2032,7 +2029,7 @@ msgstr "Før overførsel: underskriv LoTW-loggen; og"
 #: ../mainwindow.cpp:5250
 msgctxt "MainWindow|"
 msgid "After uploading: mark as sent all the queued QSO (LoTW Tools)."
-msgstr "Efter overførsel: marker hele QSO-køen som sendt (LotW-værktøjer). "
+msgstr "Efter overførsel: marker hele QSO-køen som sendt (LoTW-værktøjer)."
 
 #: ../mainwindow.cpp:5271
 msgctxt "MainWindow|"
@@ -2504,21 +2501,14 @@ msgctxt "MainWindowSatTab|"
 msgid "DownLink band"
 msgstr "DownLink-bånd"
 
-# engelsk fejl
-#~ msgctxt "MainWindowSatTab|"
-#~ msgid ""
-#~ "Locator of the DX station. This box will is syncronized with the Locator "
-#~ "box in the QSO tab."
-#~ msgstr ""
-#~ "Lokalisering af DX-stationen. Denne boks vil blive synkroniseret med "
-#~ "lokaliseringsboksen i QSO-fanebladet."
-
 #: ../mainwindowsattab.cpp:93
 msgctxt "MainWindowSatTab|"
 msgid ""
 "Locator of the DX station. This box is syncronized with the Locator box in "
 "the QSO tab."
 msgstr ""
+"Lokalisering af DX-stationen. Denne boks bliver synkroniseret med "
+"lokaliseringsboksen i QSO-fanebladet."
 
 #: ../mainwindowsattab.cpp:96
 msgctxt "MainWindowSatTab|"
@@ -2660,11 +2650,11 @@ msgstr "Stationskaldesignal"
 #: ../database.cpp:2115
 msgctxt "QObject|"
 msgid ""
-"All the data was migrated correctly. You should now go to "
-"Setup->Preferences->Logs to check that everything is OK."
+"All the data was migrated correctly. You should now go to Setup->Preferences-"
+">Logs to check that everything is OK."
 msgstr ""
-"Alle dataene blev migreret korrekt. Du skal nu gå til "
-"Opsætning->Præferencer->Logge for at kontrollere at alt er o.k."
+"Alle dataene blev migreret korrekt. Du skal nu gå til Opsætning->Præferencer-"
+">Logge for at kontrollere at alt er o.k."
 
 #: ../database.cpp:3364 ../database.cpp:3385
 msgctxt "QObject|"
@@ -3901,15 +3891,8 @@ msgid ""
 "UDP Server will receive QSOs sent from other programs like WSJT-X allowing "
 "you to log in KLog automatically from those programs."
 msgstr ""
-
-# engelsk fejl
-#~ msgctxt "SetupPageMisc|"
-#~ msgid ""
-#~ "UDP Server will receive QSOs sent from other programs like WSJT-X "
-#~ "allowing you to log in  in KLog automatically from those programs."
-#~ msgstr ""
-#~ "UDP-server vil modtage QSO'er sendt fra et andet program såsom WSJT-X, "
-#~ "som gør at du kan logge ind i KLog automatisk fra disse programmer."
+"UDP-server vil modtage QSO'er sendt fra et andet program såsom WSJT-X, som "
+"gør at du kan logge ind i KLog automatisk fra disse programmer."
 
 #: ../setuppagemisc.cpp:134
 msgctxt "SetupPageMisc|"
@@ -4169,8 +4152,8 @@ msgctxt "SetupPageWorldEditor|"
 msgid ""
 "No entities information file (cty.csv) has been detected in your KLog folder."
 msgstr ""
-"Ingen entitetinformationsfil (cty.csv) er blevet registreret i din "
-"KLog-mappe."
+"Ingen entitetinformationsfil (cty.csv) er blevet registreret i din KLog-"
+"mappe."
 
 #: ../setuppageworldeditor.cpp:98
 msgctxt "SetupPageWorldEditor|"
@@ -4476,3 +4459,8 @@ msgstr "Logind afvist"
 msgctxt "eLogClubLog|"
 msgid "Rejected: Callsign is your own call"
 msgstr "Afvist: Kaldesignal er dit eget kald"
+
+#~ msgctxt "FileManager|"
+#~ msgid "Please select the station callsing you want to export the log from:"
+#~ msgstr ""
+#~ "Vælg venligst stationskaldesignalet du ønsker at eksportere loggen fra:"

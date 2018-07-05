@@ -938,7 +938,7 @@ QString MainWindow::readDataFromUI()
        //qDebug() << "MainWindow::readDataFromUI: " << endl;
 
     QString tqrz = (qrzLineEdit->text()).toUpper();
-    if (tqrz.length()<3)
+    if (!util->isValidCall(tqrz))
     {
         return "NULL";
     }
@@ -980,10 +980,11 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     //qDebug() << "MainWindow::readDataFromUIDX:" << endl;
 
     QString tqrz = (qrzLineEdit->text()).toUpper();
-    if (tqrz.length()<3)
+    if (!util->isValidCall(tqrz))
     {
         return "NULL";
     }
+
 
     QString stringQuery = "NULL";
     QString aux1, aux2, stringFields, stringData;
@@ -1671,10 +1672,11 @@ SET column1 = value1, column2 = value2...., columnN = valueN
 WHERE [condition];
 */
     QString tqrz = (qrzLineEdit->text()).toUpper();
-    if (tqrz.length()<3)
+    if (!util->isValidCall(tqrz))
     {
         return "NULL";
     }
+
 
     QString stringQuery = "NULL";
     QString aux1, aux2;
@@ -6998,6 +7000,10 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
         // This may require a different approach to log QSO data doing it directly instead of going through te UI
     }
 
+
+
+
+
     qDebug() << "MainWindow::slotWSJTX-loggedQSO type: " << QString::number(_type) << endl;
     qDebug() << "MainWindow::slotWSJTX-loggedQSO dxcall: " << _dxcall << endl;
     qDebug() << "MainWindow::slotWSJTX-loggedQSO freq: " << QString::number(_freq/1000000) << endl;
@@ -7016,14 +7022,50 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
     if (_type == 5)
     {
 
-        qrzLineEdit->setText(_dxcall);
-        modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
-        txFreqSpinBox->setValue((double)_freq/1000000);
-        slotUpdateLocator(_dx_grid);
-        rstTXLineEdit->setText(_report_sent);
-        rstRXLineEdit->setText(_report_rec);
-        myDataTabWidget->setMyPower(_tx_power.toDouble());
-        slotQRZReturnPressed();
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setWindowTitle(tr("KLog QSO received"));
+        msgBox.setTextFormat(Qt::RichText);
+        QString aux;
+        aux = tr("The following QSO data has been received from WSJT-X to be logged:") + "\n\n" +
+                "<UL>" +
+                "<LI>" +
+                "<b>" + tr("Call: ") + "</b>" + _dxcall +
+                "</LI>" +
+                "<LI>" +
+                "<b>" + tr("Freq: ") + "</b>" + QString::number(_freq/1000000) +
+                "</LI>" +
+                "<LI>" +
+                "<b>" + tr("Mode: ") + "</b>" + _mode +
+                "</LI>" +
+                "<LI>" +
+                "<b>" + tr("Time On: ") + "</b>" + (QDateTime::fromString(_time_on, "yyyyMMddhhmmss")).toString("yyyy/MM/dd - hh:mm:ss") +
+                "</LI>" +
+                "<LI>" +
+                "<b>" + tr("Time Off: ") + "</b>" + (QDateTime::fromString(_time_off, "yyyyMMddhhmmss")).toString("yyyy/MM/dd - hh:mm:ss") +
+                "</LI>" +
+                "<LI>" +
+                "<b>" + tr("RST TX: ") + "</b>" + _report_sent + " - <b>" + tr("RST RX: ") + "</b>" + _report_rec  +
+                "</LI>" +
+                "<LI>" +
+
+                "<b>" + tr("DX-Grid: ") + "</b>" + _dx_grid  +
+                "</LI>" +
+                "<LI>" +
+                "<b>" + tr("Name: ") + "</b>" + _name  +
+                "</LI>" +
+                "<LI>" +
+                "<b>" + tr("Comments: ") + "</b>" + _comments +
+                "</LI>" +
+                "<LI>" +
+                "<b>" + tr("Power tx: ") + "</b>" + _tx_power +
+                "</LI>" +
+                "</UL>" ;
+
+        msgBox.setText(aux);
+        msgBox.exec();
+
+        dataProxy->addQSOFromWSJTX(_dxcall, _freq,  _mode, _dx_grid, _time_off, _report_sent, _report_rec, _tx_power, _comments, _name, _time_on, currentLog);
     }
 }
 

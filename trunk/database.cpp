@@ -772,9 +772,11 @@ bool DataBase::createDataBase()
                  "shortname VARCHAR(20) NOT NULL, "
                  "name VARCHAR(40) NOT NULL)");
     execQuery(Q_FUNC_INFO, stringQuery);
+
       stringQuery = QString("CREATE TABLE award_enumeration ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "name VARCHAR(15) NOT NULL)");
+
     execQuery(Q_FUNC_INFO, stringQuery);
       stringQuery = QString("CREATE TABLE prefixesofentity ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -994,7 +996,7 @@ int DataBase::getBandIdFromName(const QString b)
 
 int DataBase::getModeIdFromName(const QString b)
 {
-    qDebug() << "DataBase::getModeIdFromName: " << b << endl;
+    //qDebug() << "DataBase::getModeIdFromName: " << b << endl;
     QSqlQuery query;
     if (isValidMode(b, false))
     {
@@ -1081,7 +1083,7 @@ int DataBase::getModeIdFromSubMode(const QString b)
 
 QString DataBase::getBandNameFromNumber(const int _n)
 {
-     //qDebug() << "DataBase::getBandNameFromNumber: " << QString::number(_n) << endl;
+     qDebug() << "DataBase::getBandNameFromNumber: " << QString::number(_n) << endl;
     QSqlQuery query;
     QString queryString = QString("SELECT name FROM band WHERE id='%1'").arg(_n);
 
@@ -1094,19 +1096,19 @@ QString DataBase::getBandNameFromNumber(const int _n)
         {
             if ( isValidBand((query.value(0)).toString())  )
             {
-                 //qDebug() << "DataBase::getBandNameFromNumber: " << (query.value(0)).toString() << "-------- END" << endl;
+                 qDebug() << "DataBase::getBandNameFromNumber: " << (query.value(0)).toString() << "-------- END" << endl;
                 return (query.value(0)).toString();
             }
             else
             {
-                 //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-1" << endl;
+                 qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-1" << endl;
                 query.finish();
                 return QString();
             }
         }
         else
         {
-             //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-2" << endl;
+             qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-2" << endl;
             query.finish();
             return QString();
         }
@@ -1654,7 +1656,7 @@ int DataBase::getBandIDFromName2(const QString b)
 
 int DataBase::getModeIDFromName2(const QString b)
 {
-    qDebug() << "DataBase::getModeIDFromName2: " << b << endl;
+    //qDebug() << "DataBase::getModeIDFromName2: " << b << endl;
     return getModeIdFromName(b);
 
     if (b.length()<2)
@@ -1711,7 +1713,7 @@ int DataBase::getSubModeIDFromName2(const QString b)
 
 QString DataBase::getBandNameFromID2(const int _i)
 {
-    //qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << endl;
+    qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << endl;
     return getBandNameFromNumber(_i);
 
     if (IDBandHash.contains(_i))
