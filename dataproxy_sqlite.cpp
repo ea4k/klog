@@ -2045,7 +2045,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const quint64 _fre
     stringData =  stringData + _comments + "'B', ";
 
     stringFields  = stringFields  + "lognumber";
-    stringData =  stringData + _comments + QString::number(_logN);
+    stringData =  stringData + "'" + QString::number(_logN) + "'";
 
 /*
     if ( stringFields.endsWith(", ") )
@@ -3110,7 +3110,7 @@ QStringList DataProxy_SQLite::getQSLViaList()
      QString aux = QString();
      QStringList qs;
      qs.clear();
-     QString queryString = QString("SELECT shortname, name FROM qsl_via");
+     QString queryString = QString("SELECT shortname, name FROM qsl_via_enumeration");
      QSqlQuery query;
 
      bool sqlOK = query.exec(queryString);
