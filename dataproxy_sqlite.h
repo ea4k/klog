@@ -83,7 +83,9 @@ public:
     bool isThisFreqInBand(const QString b, const QString fr);
 
     int getLastQSOid();
-
+    bool addQSOFromWSJTX(const QString _dxcall, const quint64 _freq, const QString _mode,
+                         const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
+                         const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const int _logN);
     bool deleteQSO(const int _qsoId);
     int isWorkedB4(const QString _qrz, const int _currentLog);
     bool isThisQSODuplicated(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode);

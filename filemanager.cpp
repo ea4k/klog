@@ -285,7 +285,8 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
         {
             nameCol = rec.indexOf("station_callsign");
             aux = (query.value(nameCol)).toString();
-            if ( ( (stationCallToUse == "NONE") && (aux.length() <3) ) || (aux == stationCallToUse)  )
+
+            if ( ( (stationCallToUse == "NONE") && util->isValidCall(aux) ) || (aux == stationCallToUse)  )
             { // We are only exporting the QSO from the appropriate station callsign or with empty stationcallsigns but we will add the one entered by the user.
                 nameCol = rec.indexOf("lotw_qsl_sent");
                 aux = (query.value(nameCol)).toString();
@@ -3974,8 +3975,11 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                 if (field == "CALL")
                 {
                     qrzCall = data;
+                    if (util->isValidCall(qrzCall))
+                    {
+                        preparedQuery.bindValue( ":call", qrzCall );
+                    }
 
-                    preparedQuery.bindValue( ":call", qrzCall );
                     haveCall = true;
 
                     //qDebug() << "FileManager::processQsoReadingADIF-CALL:" << data << endl;
@@ -4484,15 +4488,24 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                 }
                 else if (field == "OPERATOR")
                 {
-                    preparedQuery.bindValue( ":operator", data );
+                    if (util->isValidCall(data))
+                    {
+                        preparedQuery.bindValue( ":operator", data );
+                    }
                 }
                 else if (field == "STATION_CALLSIGN")
                 {
-                    preparedQuery.bindValue( ":station_callsign", data );
+                    if (util->isValidCall(data))
+                    {
+                        preparedQuery.bindValue( ":station_callsign", data );
+                    }
                 }
                 else if (field == "OWNER_CALLSIGN")
                 {
-                    preparedQuery.bindValue( ":owner_callsign", data );
+                    if (util->isValidCall(data))
+                    {
+                        preparedQuery.bindValue( ":owner_callsign", data );
+                    }
                 }
                 else if (field == "MY_RIG")
                 {

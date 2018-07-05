@@ -336,15 +336,146 @@ QDate Utilities::getDefaultDate()
 
 bool Utilities::isValidDate(const QDate _d)
 {
+    qDebug() << "Utilities::isValidDate: " << _d << endl;
     if (_d.isValid())
     {
-        if (_d>QDate::fromString("18500101", "yyyyMMdd"))
+        if ( _d > getDefaultDate())
         {
+            qDebug() << "Utilities::isValidDate: OK" << endl;
             return true;
         }
     }
+    qDebug() << "Utilities::isValidDate: Error" << endl;
     return false;
 }
+
+bool Utilities::isValidDateTime(const QString _d)
+{
+    qDebug() << "Utilities::isValidDateTime: " << _d << endl;
+    QDateTime _dateTime = QDateTime::fromString(_d, "yyyyMMddhhmmss");
+    if ( _dateTime.isValid()  )
+    {
+        qDebug() << "Utilities::isValidDateTime: 1"  << endl;
+        return isValidDate(_dateTime.date());
+    }
+    qDebug() << "Utilities::isValidDateTime: Error" << endl;
+    return false;
+}
+
+
+bool Utilities::isValidCall(const QString _c)
+{
+    if (_c.length()<3)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool Utilities::isValidTime(const QString _t)
+{
+    QTime time = QTime::fromString(_t, "hhmmss");
+    if (time.isValid())
+    {
+        return true;
+    }
+    time = QTime::fromString(_t, "hhmm");
+    if (time.isValid())
+    {
+        return true;
+    }
+    time = QTime::fromString(_t, "hhmm");
+    if (time.isValid())
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool Utilities::isValidBandId(const int _b)
+{
+    if (_b>0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    return false;
+}
+
+
+
+bool Utilities::isValidModeId(const int _m)
+{
+    if (_m>0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    return false;
+}
+
+bool Utilities::isValidFreq(const QString _b)
+{
+    if (_b.toDouble()>0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    return false;
+}
+
+bool Utilities::isValidGrid(const QString _b)
+{
+    Locator locator;
+    return locator.isValidLocator(_b);
+}
+
+bool Utilities::isValidRST(const QString _b)
+{
+    if (_b.length()>0)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Utilities::isValidPower(const QString _b)
+{
+    if (_b.toDouble()>0)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Utilities::isValidComment(const QString _b)
+{
+    if (_b>0)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Utilities::isValidName(const QString _b)
+{
+    if (_b>0)
+    {
+        return true;
+    }
+    return false;
+}
+
 
 bool Utilities::isDBFileExisting()
 {

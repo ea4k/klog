@@ -238,7 +238,7 @@ int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
 
 QString DataProxy_SQLite::getNameFromBandId (const int _id)
 {
-    //qDebug() << "DataProxy_SQLite::getNameFromBandId " << endl;
+    qDebug() << "DataProxy_SQLite::getNameFromBandId: " << QString::number(_id) << endl;
     return db->getBandNameFromID2(_id);
 }
 
@@ -398,6 +398,7 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
 
 QString DataProxy_SQLite::getBandNameFromFreq(const double _n)
 {
+    qDebug() << "DataProxy_SQLite::getBandNameFromFreq: " << QString::number(_n) << endl;
     return getNameFromBandId(getBandIdFromFreq(_n));
 }
 
@@ -1917,6 +1918,169 @@ bool DataProxy_SQLite::updateAwardWAZ()
 {
     //qDebug() << "DataProxy_SQLite::updateAwardWAZ" << endl;
     return db->updateAwardWAZTable();
+}
+
+bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const quint64 _freq, const QString _mode,
+                                       const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
+                                       const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const int _logN)
+{
+    qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << _dxcall << endl;
+
+    //void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
+    //                                              const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
+    //                                              const QString _tx_power, const QString _comments, const QString _name, const QString _time_on)
+
+    //_qso format: Date/TimeOn/call/bandid/modeid/freq/dxgrid/timeOff/rsttx/rstrx/txpower/comments/name
+/*
+    Mandatory data:
+             "qso_date VARCHAR(10) NOT NULL, "
+             "time_on VARCHAR(8) NOT NULL, "
+             "call VARCHAR(40) NOT NULL, "
+             "bandid INTEGER NOT NULL, "
+             "modeid INTEGER NOT NULL, "
+*/
+
+
+    QString stringFields  = QString();
+    QString stringData = QString();
+    QString stringQuery = QString();
+
+    QSqlQuery query;
+
+    if (util->isValidCall(_dxcall))
+    {
+        stringFields   = "call, ";
+        stringData =  "'" + _dxcall + "', ";
+
+    }
+    else
+    {
+        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: call" << endl;
+        return false;
+    }
+
+    if (util->isValidDateTime(_time_on))
+    {
+        stringFields  = stringFields  + "qso_date, time_on, ";
+        stringData =  stringData + "'" + QDateTime::fromString(_time_on, "yyyyMMddhhmmss").toString("yyyy/MM/dd") + "', '" + QDateTime::fromString(_time_on, "yyyyMMddhhmmss").toString("hh:mm:ss") + "', ";
+    }
+    else
+    {
+        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: time-on" << endl;
+        return false;
+    }
+
+
+    QString _band;
+    _band = (_freq);
+    qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << QString::number(_freq) << endl;
+    if (_band.length()>0)
+    {
+            stringFields  = stringFields  + "bandid, " ;
+            stringData =  stringData + "'" + QString::number(getBandIdFromFreq(_freq)) + "', ";
+    }
+    else
+    {
+        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: band" << endl;
+        return false;
+    }
+
+    int _modeid = getSubModeIdFromSubMode(_mode);
+    qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: mode: " << _mode << endl;
+    qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: modeid: " << QString::number(_modeid) << endl;
+    if (util->isValidModeId(_modeid))
+    {
+        stringFields  = stringFields  + "modeid, ";
+        stringData =  stringData + "'" +  QString::number(_modeid) + "', ";
+    }
+    else
+    {
+        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: mode" << endl;
+        return false;
+    }
+
+    if (util->isValidDateTime(_time_off))
+    {
+        stringFields  = stringFields  + "time_off, ";
+        stringData =  stringData + "'" + QDateTime::fromString(_time_off, "yyyyMMddhhmmss").toString("hh:mm:ss") + "', ";
+    }
+
+    if (util->isValidName(_name))
+    {
+        stringFields  = stringFields  + "name, ";
+        stringData =  stringData + "'" + _name + "', ";
+    }
+
+    if (util->isValidRST(_report_sent))
+    {
+        stringFields  = stringFields  + "rst_sent, ";
+        stringData =  stringData + "'" + _report_sent + "', ";
+    }
+
+    if (util->isValidRST(_report_rec))
+    {
+        stringFields   = stringFields   + "rst_rcvd, ";
+        stringData =  stringData + "'" + _report_rec + "', ";
+    }
+
+    if (util->isValidGrid(_dx_grid))
+    {
+        stringFields   = stringFields   + "gridsquare, ";
+        stringData =  stringData + "'" + _dx_grid + "', ";
+    }
+
+    if (util->isValidPower(_tx_power))
+    {
+        stringFields  = stringFields  + "tx_power, ";
+        stringData =  stringData + "'" + _tx_power + "', ";
+    }
+
+    if (util->isValidComment(_comments))
+    {
+        stringFields  = stringFields  + "comment, ";
+        stringData =  stringData + "'" + _comments + "', ";
+    }
+
+    stringFields  = stringFields  + "qsl_via, ";
+    stringData =  stringData + _comments + "'B', ";
+
+    stringFields  = stringFields  + "lognumber";
+    stringData =  stringData + _comments + QString::number(_logN);
+
+/*
+    if ( stringFields.endsWith(", ") )
+    {
+        stringFields.chop(2);
+    }
+
+    if ( stringData.endsWith(", ") )
+    {
+        stringData.chop(2);
+    }
+*/
+    stringQuery = "INSERT INTO log (" + stringFields  + ") values (" + stringData +")" ;
+    qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Query: " << stringQuery << endl;
+
+    qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: SQL: " << endl;
+    bool sqlOK = query.exec(stringQuery);
+
+    if (sqlOK)
+    {
+        query.finish();
+        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: SQL OK" << endl;
+        return true;
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: SQL " << endl;
+        return false;
+    }
+
+//getBandNameFromFreq(const double _n)
+
+    return false;
 }
 
 bool DataProxy_SQLite::deleteQSO(const int _qsoId)

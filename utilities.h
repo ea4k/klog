@@ -34,6 +34,7 @@
 #include <QtGlobal>
 #include <QString>
 #include <QtWidgets>
+#include "locator.h"
 #include <QtDebug>
 
 class Utilities
@@ -61,10 +62,22 @@ public:
     QString getVersion();
     double getVersionDouble();
 
-    QDate getDefaultDate();
-    bool isValidDate(const QDate _d);
+    QDate getDefaultDate();    
     int getNormalizedDXCCValue(const int _dxcc);
 
+    // Validations
+    bool isValidDate(const QDate _d);
+    bool isValidDateTime(const QString _d);
+    bool isValidCall(const QString _c);
+    bool isValidTime(const QString _t);
+    bool isValidBandId(const int _b);
+    bool isValidModeId(const int _m);
+    bool isValidFreq(const QString _b);
+    bool isValidGrid(const QString _b);
+    bool isValidRST(const QString _b);
+    bool isValidPower(const QString _b);
+    bool isValidComment(const QString _b);
+    bool isValidName(const QString _b);
 
 
 private:
@@ -72,6 +85,7 @@ private:
     QString getKLogDefaultDatabaseFile();
     QString dbPath;
     QString softwareVersion;
+
 
 
 

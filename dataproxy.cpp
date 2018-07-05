@@ -327,6 +327,15 @@ bool DataProxy::updateAwardWAZ()
 {
     return false;
 }
+
+bool DataProxy::addQSOFromWSJTX(const QString _dxcall, const quint64 _freq, const QString _mode,
+                                const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
+                                const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const int _logN)
+{
+    return false;
+}
+
+
 bool DataProxy::deleteQSO(const int _qsoId)
 {
     return false;

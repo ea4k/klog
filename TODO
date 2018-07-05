@@ -1,4 +1,5 @@
 RC-BUGS:
+TODO: the log table references to qsl_via_enumeration; but that table is created as qsl_via
 TODO: Check if dxccStatusWidget in logwindow is useful and remove it if not.
 TODO: When entering a Satellite QSO, when you select the sat, the frecuency is defined but the band is not synchronized.
 NONE
