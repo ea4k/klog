@@ -803,12 +803,9 @@ bool DataBase::createDataBase()
                  "name VARCHAR(15) NOT NULL)");
       execQuery(Q_FUNC_INFO, stringQuery);
 
+    createTableQSL_Via_enumeration();
+    populateTableQSL_Via_enumeration();
 
-      stringQuery = QString("CREATE TABLE qsl_via ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "shortname VARCHAR(1) NOT NULL, "
-                 "name VARCHAR(15) NOT NULL)");
-      execQuery(Q_FUNC_INFO, stringQuery);
 
       createTablePropModes();
       createTableLogs(true);
@@ -861,13 +858,6 @@ bool DataBase::createDataBase()
     execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('CQDX')");
     execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('CQDXFIELD')");
     execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('DXCC')");
-
-
-
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_via (shortname, name) VALUES ('B', 'Bureau')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_via (shortname, name) VALUES ('D', 'Direct')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_via (shortname, name) VALUES ('E', 'Electronic')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_via (shortname, name) VALUES ('M', 'Manager')");
 
     execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('Y', 'Yes')");
     execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('N', 'No')");
@@ -1874,7 +1864,7 @@ bool DataBase::updateToLatest()
  */
     //qDebug() << "DataBase::updateToLatest " << endl;
     //return updateTo010();
-    return updateTo012();
+    return updateTo013();
 
 }
 
@@ -2298,8 +2288,6 @@ bool DataBase::createTableSupportedContest()
                          "longname VARCHAR,"
                          "name VARCHAR)");
     return execQuery(Q_FUNC_INFO, st);
-
-
 }
 
 bool DataBase::createTableContest()
@@ -2393,6 +2381,25 @@ bool DataBase::populateTableSupportedContest()
     return execQuery(Q_FUNC_INFO, "INSERT INTO supportedcontests (id, longname, name) VALUES ('0', 'Normal log', 'DX')");
 
 }
+
+bool DataBase::createTableQSL_Via_enumeration()
+{
+    QString st = QString("CREATE TABLE qsl_via_enumeration ("
+                         "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                         "shortname VARCHAR(1) NOT NULL, "
+                         "name VARCHAR(15) NOT NULL)");
+     return execQuery(Q_FUNC_INFO, st);
+}
+
+bool DataBase::populateTableQSL_Via_enumeration()
+{
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_via_enumeration (shortname, name) VALUES ('B', 'Bureau')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_via_enumeration (shortname, name) VALUES ('D', 'Direct')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_via_enumeration (shortname, name) VALUES ('E', 'Electronic')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_via_enumeration (shortname, name) VALUES ('M', 'Manager')");
+    return true;
+}
+
 
 bool DataBase::createTableMode(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
@@ -6563,6 +6570,63 @@ bool DataBase::updateTo012()
 {
     return true;
     return updateTheEntityTableISONames();
+}
+
+bool DataBase::updateTo013()
+{
+    // Updates the DB to 0.013:
+        // Change the table qsl_via to qsl_via_enumeration
+
+
+        qDebug() << "DataBase::updateTo013: latestRead: " << QString::number(latestReaded) << endl;
+        bool IAmIn013 = false;
+        bool IAmIn012 = false;
+        bool ErrorUpdating = false;
+
+        qDebug() << "DataBase::updateTo013: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << endl;
+        if (latestReaded >= float(0.013))
+        {
+            qDebug() << "DataBase::updateTo012: - I am in 012" << endl;
+            IAmIn012 = true;
+            return true;
+        }
+        else
+        {
+            qDebug() << "DataBase::updateTo013: - I am not in 0.013 I am in: " << QString::number(latestReaded)<< endl;
+            while (!IAmIn012 && !ErrorUpdating)
+            {
+                qDebug() << "DataBase::updateTo013: - Check if I am in 012: !" << endl;
+                IAmIn012 = updateTo012();
+
+                if (IAmIn012)
+                {
+                      qDebug() << "DataBase::updateTo013: - updateTo010 returned TRUE - I am in 0.012: " << QString::number(latestReaded) << endl;
+                }
+                else
+                {
+                     qDebug() << "DataBase::updateTo013: - updateTo009 returned FALSE - I am NOT in 0.012: " << QString::number(latestReaded) << endl;
+                    ErrorUpdating = false;
+                }
+            }
+            if (ErrorUpdating)
+            {
+                 qDebug() << "DataBase::updateTo013: - I Could not update to: " << QString::number(dbVersion) << endl;
+                return false;
+            }
+        }
+
+        // Now I am in the previous version and I can update the DB.
+        bool sqlOK = false;
+        sqlOK = execQuery(Q_FUNC_INFO, "DROP TABLE qsl_via");
+        if (sqlOK)
+        {
+            qDebug() << "DataBase::updateTo013: qsl_via table dropped " << endl;
+            if (createTableQSL_Via_enumeration())
+            {
+                return populateTableQSL_Via_enumeration();
+            }
+        }
+        return false;
 }
 
 bool DataBase::updateAwardDXCCTable()
