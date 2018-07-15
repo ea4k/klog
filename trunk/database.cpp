@@ -2207,6 +2207,8 @@ bool DataBase::recreateContestData()
 bool DataBase::recreateSupportedContest()
 {
     //qDebug() << "DataBase::recreateSupportedContest"  << endl;
+    execQuery(Q_FUNC_INFO, "DROP TABLE IF exists supportedcontests");
+
     if (isTheTableExisting("supportedcontests"))
     {
         QSqlQuery query;
@@ -6946,38 +6948,28 @@ bool DataBase::updateTo013()
         bool sqlOK = false;
 
 
-        if (isTheTableExisting("qsl_via"))
+        if (!recreateSupportedContest())
         {
-            sqlOK = execQuery(Q_FUNC_INFO, "DROP TABLE qsl_via");
-            if (sqlOK)
-            {
-                qDebug() << "DataBase::updateTo012: qsl_via table dropped " << endl;
-                if (createTableQSL_Via_enumeration())
-                {
-                    if (!populateTableQSL_Via_enumeration())
-                    {
-                        qDebug() << "DataBase::updateTo012: UPDATED NOK-3!" << endl;
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                qDebug() << "DataBase::updateTo012: UPDATED NOK-4!" << endl;
-                return false;
-            }
+            return false;
         }
-        else
-        {
-            if (createTableQSL_Via_enumeration())
-            {
-                if (!populateTableQSL_Via_enumeration())
-                {
-                    qDebug() << "DataBase::updateTo012: UPDATED NOK-5!" << endl;
-                    return false;
-                }
-            }
-        }
+
+         execQuery(Q_FUNC_INFO, "DROP TABLE IF exists qsl_via");
+         if (createTableQSL_Via_enumeration())
+         {
+             if (populateTableQSL_Via_enumeration())
+             {
+
+             }
+             else
+             {
+                 return false;
+             }
+         }
+         else
+         {
+             return false;
+         }
+
 
         if (updateDBVersion(softVersion, "0.013"))
         {
