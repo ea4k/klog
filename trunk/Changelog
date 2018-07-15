@@ -1,7 +1,9 @@
 TBD - 0.9.4
+- Check bool DataBase::updateTo012() / there is a return true bypassing everything
 - Syncronize RX Freq with the satellite downlink combobox.
-- Bugfix: Updated the DB to fix the name of a table.
+- Update process has been improved.
 - Bugfix: When adding a QSO, if the QSL is marked as received, KLog showed a SQL error.
+- Bugfix: Table qsl_via needed to be renamed (TNX EA6ZS).
 
 April - 0.9.3
 - Double clicking on DXCC Widget name of the Entity will show the QSO is providing that status on the Search widget.
