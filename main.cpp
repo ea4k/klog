@@ -57,7 +57,8 @@ int main(int argc, char *argv[])
     {
         if (arguments.contains("-h"))
         {
-            cout << "Usage: klog [OPTION]... [FILE]..." << endl;
+            //cout << "Usage: klog [OPTION]... [FILE]..." << endl;
+            cout << "Usage: klog [OPTION]..." << endl;
             cout << "Options:" << endl;
             cout << "     -?           Display this help" << endl;
             cout << "     -h           Display this help" << endl;
@@ -66,7 +67,7 @@ int main(int argc, char *argv[])
         }
         else if (arguments.contains("-?"))
         {
-            cout << "Usage: klog [OPTION]... [FILE]..." << endl;
+            cout << "Usage: klog [OPTION]..." << endl;
             cout << "Options:" << endl;
             cout << "     -?           Display this help" << endl;
             cout << "     -h           Display this help" << endl;
@@ -79,7 +80,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            cout << "Usage: klog [OPTION]... [FILE]..." << endl;
+            cout << "Usage: klog [OPTION]..." << endl;
             cout << "Options:" << endl;
             cout << "     -?           Display this help" << endl;
             cout << "     -h           Display this help" << endl;
@@ -332,10 +333,11 @@ int main(int argc, char *argv[])
         splash.show();
         //qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         MainWindow mw(klogDir, version);
+        splash.finish(&mw);
         //qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         mw.show();
         //qDebug() << "KLog Main-101.5" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
-        splash.finish(&mw);
+
        //qDebug() << "KLog Main-102" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
 
         return app.exec();

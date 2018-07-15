@@ -135,6 +135,7 @@ private:
 
     bool createDataBase();
     bool isTheDBCreated();
+    bool isTheTableExisting(const QString _tableName);
     bool hasTheTableData(const QString _tableName);
     bool updateToLatest();
     bool updateTo003(); // Updates the DB to 0.0.3
@@ -149,7 +150,7 @@ private:
     bool updateTo012(); // Updates the flags and so on.
     bool updateTo013(); // Update the qsl_via_enumeration bug caused for calling the table just qsl_via
     bool updateTableLog(const int _v);
-    bool updateDBVersion();
+    bool updateDBVersion(QString _softV, QString _dbV);
 
     bool createTheBandQuickReference();
     bool createTheModeQuickReference();

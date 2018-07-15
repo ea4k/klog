@@ -4482,12 +4482,56 @@ bool MainWindow::processConfigLine(const QString _line){
         }
         else
         {
+
+
             int _howManyQSOMax = -1;     // NUmber of QSO of the log with more QSO
             int _howManyQSOMaxT = 0;    // Number of QSO in ine specific log
             QStringList logs = QStringList();
 
+
+            logs << dataProxy->getListOfManagedLogs();
+            //qDebug() << "MainWindow::processConfigLine: logs: " << QString::number(logs.size()) << endl;
+            for (int i = 0;i<logs.length();i++)
+        {
+            _howManyQSOMaxT = dataProxy->getHowManyQSOInLog(i);
+             //qDebug() << "MainWindow::processConfigLine: SelectedLog-x: " << QString::number(i) << " - QSOs: " << QString::number(_howManyQSOMaxT) << endl;
+            if (_howManyQSOMax < _howManyQSOMaxT)
+            {
+                 //qDebug() << "MainWindow::processConfigLine: Found log with more QSO: " << logs.at(i) << endl;
+                _howManyQSOMax = _howManyQSOMaxT;
+                _logWithMoreQSOs = (logs.at(i)).toInt();
+            }
+        }
+            if (_logWithMoreQSOs>0)
+        {
+            currentLog = _logWithMoreQSOs;
+            filemanager->modifySetupFile(configFileName, "SelectedLog", QString::number(currentLog));
+        }
+            else
+        {
+            QMessageBox msgBox;
+
+            msgBox.setIcon(QMessageBox::Critical);
+            QString aux = tr("It seems that there are no QSO in the database.") + "\n\n" + tr("If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.");
+            msgBox.setText(aux);
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            int ret = msgBox.exec();
+            switch (ret)
+            {
+                case QMessageBox::Ok:
+                break;
+                default:
+                // should never be reached
+                break;
+            }
+        }
+
+
+/*
              //qDebug() << "MainWindow::processConfigLine: currentLog - Log without QSO - SelectedLog: " << QString::number(currentLog) << endl;
             QMessageBox msgBox;
+
             msgBox.setIcon(QMessageBox::Warning);
             QString aux = tr("The selected log is not existing or it is still empty.") + "\n\n" + tr("Click Yes and KLog will open an empty log.") + "\n" +
                     tr("Click No and KLog will select another log with data.") + "\n\n" +
@@ -4502,9 +4546,6 @@ bool MainWindow::processConfigLine(const QString _line){
                 break;
 
                     case QMessageBox::No:
-
-
-
 
                     logs << dataProxy->getListOfManagedLogs();
                     //qDebug() << "MainWindow::processConfigLine: logs: " << QString::number(logs.size()) << endl;
@@ -4547,6 +4588,7 @@ bool MainWindow::processConfigLine(const QString _line){
                 // should never be reached
             break;
             }
+*/
         }
         dxClusterWidget->setCurrentLog(currentLog);
         dxccStatusWidget->setCurrentLog(currentLog);
@@ -4762,10 +4804,10 @@ void MainWindow::readActiveModes (const QStringList actives)
 
     for (int i = 0; i < __modes.size() ; i++)
     {
-        qDebug() << "MainWindow::readActiveModes: checking: " << __modes.at(i) << endl;
+        //qDebug() << "MainWindow::readActiveModes: checking: " << __modes.at(i) << endl;
         if (dataProxy->getIdFromModeName(__modes.at(i)) > 0)        
         {
-            qDebug() << "MainWindow::readActiveModes: checking-exist: " << __modes.at(i) << endl;
+            //qDebug() << "MainWindow::readActiveModes: checking-exist: " << __modes.at(i) << endl;
             //if (!atLeastOne)
             //{
             //    atLeastOne = true;
@@ -4775,7 +4817,7 @@ void MainWindow::readActiveModes (const QStringList actives)
 
             if (aux.length()>0)
             {
-               qDebug() << "MainWindow::readActiveModes: adding: " << aux << endl;
+               //qDebug() << "MainWindow::readActiveModes: adding: " << aux << endl;
                modes << aux;
             }
 
