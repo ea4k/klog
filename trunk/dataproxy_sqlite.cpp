@@ -238,7 +238,7 @@ int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
 
 QString DataProxy_SQLite::getNameFromBandId (const int _id)
 {
-    qDebug() << "DataProxy_SQLite::getNameFromBandId: " << QString::number(_id) << endl;
+    //qDebug() << "DataProxy_SQLite::getNameFromBandId: " << QString::number(_id) << endl;
     return db->getBandNameFromID2(_id);
 }
 
@@ -398,7 +398,7 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
 
 QString DataProxy_SQLite::getBandNameFromFreq(const double _n)
 {
-    qDebug() << "DataProxy_SQLite::getBandNameFromFreq: " << QString::number(_n) << endl;
+    //qDebug() << "DataProxy_SQLite::getBandNameFromFreq: " << QString::number(_n) << endl;
     return getNameFromBandId(getBandIdFromFreq(_n));
 }
 
@@ -1924,7 +1924,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const quint64 _fre
                                        const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
                                        const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const int _logN)
 {
-    qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << _dxcall << endl;
+    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << _dxcall << endl;
 
     //void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
     //                                              const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
@@ -1944,6 +1944,9 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const quint64 _fre
     QString stringFields  = QString();
     QString stringData = QString();
     QString stringQuery = QString();
+    //int dxcc = getPrefixId(_dxcall);
+    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: DXCCid" << QString::number(dxcc) << endl;
+    //getITUzFromEntity()
 
     QSqlQuery query;
 
@@ -1955,7 +1958,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const quint64 _fre
     }
     else
     {
-        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: call" << endl;
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: call" << endl;
         return false;
     }
 
@@ -1966,28 +1969,29 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const quint64 _fre
     }
     else
     {
-        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: time-on" << endl;
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: time-on" << endl;
         return false;
     }
 
 
     QString _band;
-    _band = (_freq);
-    qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << QString::number(_freq) << endl;
+    _band = QString::number(_freq);
+    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: freq: " << QString::number(_freq) << endl;
+    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: freq: " << QString::number(_freq/1000) << endl;
     if (_band.length()>0)
     {
             stringFields  = stringFields  + "bandid, " ;
-            stringData =  stringData + "'" + QString::number(getBandIdFromFreq(_freq)) + "', ";
+            stringData =  stringData + "'" + QString::number(getBandIdFromFreq(_freq/1000)) + "', ";
     }
     else
     {
-        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: band" << endl;
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: band" << endl;
         return false;
     }
 
     int _modeid = getSubModeIdFromSubMode(_mode);
-    qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: mode: " << _mode << endl;
-    qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: modeid: " << QString::number(_modeid) << endl;
+    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: mode: " << _mode << endl;
+    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: modeid: " << QString::number(_modeid) << endl;
     if (util->isValidModeId(_modeid))
     {
         stringFields  = stringFields  + "modeid, ";
@@ -1995,7 +1999,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const quint64 _fre
     }
     else
     {
-        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: mode" << endl;
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: mode" << endl;
         return false;
     }
 
@@ -2031,7 +2035,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const quint64 _fre
 
     if (util->isValidPower(_tx_power))
     {
-        stringFields  = stringFields  + "tx_power, ";
+        stringFields  = stringFields  + "tx_pwr, ";
         stringData =  stringData + "'" + _tx_power + "', ";
     }
 
@@ -2042,7 +2046,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const quint64 _fre
     }
 
     stringFields  = stringFields  + "qsl_via, ";
-    stringData =  stringData + _comments + "'B', ";
+    stringData =  stringData + "'B', ";
 
     stringFields  = stringFields  + "lognumber";
     stringData =  stringData + "'" + QString::number(_logN) + "'";
@@ -2059,22 +2063,23 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const quint64 _fre
     }
 */
     stringQuery = "INSERT INTO log (" + stringFields  + ") values (" + stringData +")" ;
-    qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Query: " << stringQuery << endl;
+    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Query: " << stringQuery << endl;
 
-    qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: SQL: " << endl;
     bool sqlOK = query.exec(stringQuery);
+
+    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: LastQuery: " << query.lastQuery() << endl;
 
     if (sqlOK)
     {
         query.finish();
-        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: SQL OK" << endl;
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: SQL OK" << endl;
         return true;
     }
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
-        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: SQL " << endl;
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: SQL " << endl;
         return false;
     }
 

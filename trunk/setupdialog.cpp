@@ -79,7 +79,9 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
     logsPage = new SetupPageLogs(dataProxy, this);
    //qDebug() << "SetupDialog::SetupDialog 3.11" << endl;
     clubLogPage = new SetupPageClubLog(this);
-   //qDebug() << "SetupDialog::SetupDialog 3.12" << endl;
+    qDebug() << "SetupDialog::SetupDialog 3.12" << endl;
+    UDPPage = new SetupPageUDP(this);
+   qDebug() << "SetupDialog::SetupDialog 3.13" << endl;
 
    //qDebug() << "SetupDialog::SetupDialog 4" << endl;
 
@@ -91,6 +93,8 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
     tabWidget->addTab(worldEditorPage, tr("World Editor"));
     logsPageTabN = tabWidget->addTab(logsPage, tr("Logs"));
     tabWidget->addTab(clubLogPage, tr("ClubLog"));
+    tabWidget->addTab(UDPPage, tr("WSJT-x"));
+
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
     QPushButton *okButton = new QPushButton(tr("OK"));
@@ -131,7 +135,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
 
 SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
 {
-    //qDebug() << "SetupDialog::SetupDialog 2" << endl;
+    qDebug() << "SetupDialog::SetupDialog 2" << endl;
     constrid = 2;
     util = new Utilities;
     firstTime = _firstTime;
@@ -154,6 +158,8 @@ SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString
     worldEditorPage = new SetupPageWorldEditor (dataProxy, this);
     logsPage = new SetupPageLogs(dataProxy, this);
     clubLogPage = new SetupPageClubLog(this);
+    UDPPage = new SetupPageUDP(this);
+
     //qDebug() << "SetupDialog::SetupDialog 02" << endl;
     tabWidget->addTab(userDataPage, tr("User data"));
     tabWidget->addTab(bandModePage, tr("Bands/Modes"));
@@ -163,13 +169,12 @@ SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString
     tabWidget->addTab(worldEditorPage, tr("World Editor"));
     logsPageTabN = tabWidget->addTab(logsPage, tr("Logs"));
     tabWidget->addTab(clubLogPage, tr("ClubLog"));
+    tabWidget->addTab(UDPPage, tr("WSJT-X"));
 
     //qDebug() << "SetupDialog::SetupDialog 03" << endl;
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
     QPushButton *okButton = new QPushButton(tr("OK"));
-
-
 
     QHBoxLayout *horizontalLayout = new QHBoxLayout;
     horizontalLayout->addWidget(tabWidget);
@@ -507,8 +512,6 @@ qDebug() << "SetupDialog::slotOkButtonClicked" << endl;
         stream << "ShowCallsignInSearch=" << miscPage->getShowStationCallSignInSearch() << ";" <<  endl;
         stream << "KeepMyData=" << miscPage->getKeepMyData() << ";" <<  endl;
         stream << "CompleteWithPrevious=" << miscPage->getCompleteWithPrevious() << ";" <<  endl;
-	stream << "UDPServer=" << miscPage->getUDPServer() << ";" <<  endl;
-        stream << "UDPServerPort=" << miscPage->getUDPServerPort() << ";" <<  endl;
         stream << "CheckNewVersions=" << miscPage->getCheckNewVersions() << ";" <<  endl;
 
         if ((miscPage->getReportInfo()).toUpper() == "TRUE")
@@ -563,6 +566,15 @@ qDebug() << "SetupDialog::slotOkButtonClicked" << endl;
         }
 
         // CLUBLOG
+
+        //WSJTX
+        stream << "UDPServer=" << UDPPage->getUDPServer() << ";" <<  endl;
+        stream << "UDPServerPort=" << UDPPage->getUDPServerPort() << ";" <<  endl;
+        stream << "LogFromWSJTX=" << UDPPage->getLogFromWSJTx() << ";" <<  endl;
+        stream << "LogAutoFromWSJTX=" << UDPPage->getAutoLogFromWSJTx() << ";" <<  endl;
+        stream << "RealTimeFromWSJTX=" << UDPPage->getReaDataFromWSJTx() << ";" <<  endl;
+
+        //WSJTX
 
         file.close ();
     }
@@ -711,10 +723,22 @@ bool SetupDialog::processConfigLine(const QString _line)
         miscPage->setReportInfo(value);
     }
     else if (tab=="UDPSERVER"){
-        miscPage->setUDPServer(value);
+        UDPPage->setUDPServer(value);
     }
     else if (tab=="UDPSERVERPORT"){
-        miscPage->setUDPServerPort(value);
+        UDPPage->setUDPServerPort(value);
+    }
+    else if (tab=="LOGFROMWSJTX")
+    {
+        UDPPage->setLogFromWSJTx(value);
+    }
+    else if (tab=="LOGAUTOFROMWSJTX")
+    {
+        UDPPage->setAutoLogFromWSJTx(value);
+    }
+    else if (tab=="REALTIMEFROMWSJTX")
+    {
+        UDPPage->setReaDataFromWSJTx(value);
     }
     else if (tab =="NAME")
     {
@@ -970,8 +994,12 @@ void SetupDialog::setDefaults()
     miscPage->setKeepMyData("TRUE");
     miscPage->setCheckNewVersions("TRUE");
     miscPage->setReportInfo("FALSE");
-    miscPage->setUDPServer("TRUE");
-    miscPage->setUDPServerPort("2237");
+
+    UDPPage->setUDPServer("FALSE");
+    UDPPage->setUDPServerPort("2237");
+    UDPPage->setLogFromWSJTx("FALSE");
+    UDPPage->setReaDataFromWSJTx("FALSE");
+    UDPPage->setAutoLogFromWSJTx("FALSE");
 
     dxClusterPage->setShowHFRadiobutton("TRUE");
     dxClusterPage->setShowVHFRadiobutton("TRUE");

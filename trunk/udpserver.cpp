@@ -9,19 +9,16 @@ UDPServer::UDPServer(QObject *parent) :
        port = 2237;
        socketServer = new QUdpSocket(this);
        //socketServer->bind(QHostAddress::AnyIPv4, port);
-       socketServer->bind(QHostAddress::AnyIPv4, port, QUdpSocket::ShareAddress);
 
-       groupAddress = QHostAddress("127.0.0.1");
-
-       socketServer->joinMulticastGroup(groupAddress);
-
+       logging = false;
+       realtime = false;
 
        connect(socketServer,SIGNAL(readyRead()),this,SLOT(slotReadPendingDatagrams()));
 }
 
 void UDPServer::slotReadPendingDatagrams()
 {
-    //qDebug() << "UDPServer::slotReadPendingDatagrams"  << endl;
+    qDebug() << "UDPServer::slotReadPendingDatagrams"  << endl;
     while (socketServer->hasPendingDatagrams()) {
         QByteArray datagram;
         datagram.resize(socketServer->pendingDatagramSize());
@@ -38,15 +35,24 @@ void UDPServer::slotReadPendingDatagrams()
 bool UDPServer::start()
 {
     qDebug() << "UDPServer::start "<< endl;
-    return true;
+    socketServer->bind(QHostAddress::AnyIPv4, port, QUdpSocket::ShareAddress);
+    groupAddress = QHostAddress("127.0.0.1");
+    socketServer->joinMulticastGroup(groupAddress);
+     return  socketServer->isValid();
+   // return true;
     //return socketServer->bind(QHostAddress::AnyIPv4, port);
     //return socketServer->bind(port, QUdpSocket::ShareAddress);
 
 }
 
+ bool UDPServer::isStarted()
+ {
+     return  socketServer->isValid();
+ }
+
 void UDPServer::parse(const QByteArray &msg)
 {
-    //qDebug() << "UDPServer::parse"<< endl;
+    qDebug() << "UDPServer::parse"<< endl;
     quint32 magic;
     quint32 schema;
     quint32 type;
@@ -114,10 +120,19 @@ void UDPServer::parse(const QByteArray &msg)
         case 1:
             qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Status" << endl;
             // unpack message
+            if (realtime)
+            {
+                in >> frequency >> mode >> dx_call >> report >> tx_mode >> tx_enabled >> transmitting >> decoding
+                   >> rx_df >> tx_df >> de_call >> de_grid >> dx_grid >> watchdog_timeout >> sub_mode
+                   >> fast_mode;
 
-            in >> frequency >> mode >> dx_call >> report >> tx_mode >> tx_enabled >> transmitting >> decoding
-               >> rx_df >> tx_df >> de_call >> de_grid >> dx_grid >> watchdog_timeout >> sub_mode
-               >> fast_mode;
+                emit status_update (type, dx_call, frequency, mode, report, de_call, de_grid, dx_grid, sub_mode);
+            }
+            else
+            {
+                qDebug() << "UDPServer::parse: realtime = FALSE" << endl;
+            }
+
 
                 //msgOut.append(QString::number(type));
                 //+ QString::number(frequency) + QString::fromUtf8 (mode) + QString::fromUtf8 (dx_call)
@@ -125,7 +140,9 @@ void UDPServer::parse(const QByteArray &msg)
                 //     + QString::fromUtf8 (de_call) + QString::fromUtf8 (de_grid)
                 //     + QString::fromUtf8 (dx_grid);
 
-            emit status_update (type, dx_call, frequency, mode, report, de_call, de_grid, dx_grid, sub_mode);
+
+
+
 
         break;
         case 2:
@@ -139,27 +156,33 @@ void UDPServer::parse(const QByteArray &msg)
         break;
         case 5:
             qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - QSO logged" << endl;
+            if (logging)
+            {
+                in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >> tx_power >> comments >> name >> time_on;
+                emit logged_qso (type, dx_call, frequency, mode, dx_grid, time_off.toString("yyyyMMddHHmmss"), report_sent, report_received, tx_power, comments, name, time_on.toString("yyyyMMddHHmmss"));
 
-            in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >> tx_power >> comments >> name >> time_on;
-
-            emit logged_qso (type, dx_call, frequency, mode, dx_grid, time_off.toString("yyyyMMddHHmmss"), report_sent, report_received, tx_power, comments, name, time_on.toString("yyyyMMddHHmmss"));
+            }
+            else
+            {
+                qDebug() << "UDPServer::parse: logging = FALSE" << endl;
+            }
 
 
             //emit status_update (type, dx_call, frequency, mode, report, de_call, de_grid, dx_grid, sub_mode)
 
             //out << type;
             //emit status_update (out);
-/*
+
             qDebug() << "UDPServer::parse: -   DXCall = " << dx_call << endl;
             qDebug() << "UDPServer::parse: -   Grid = " << dx_grid << endl;
-            qDebug() << "UDPServer::parse: -   Freq = " << QString::number(dial_frequency) << endl;
+            qDebug() << "UDPServer::parse: -   Freq = " << QString::number(frequency) << endl;
             qDebug() << "UDPServer::parse: -   Mode = " << mode << endl;
             qDebug() << "UDPServer::parse: -   ReportSent = " << report_sent << endl;
             qDebug() << "UDPServer::parse: -   TX_PWR = " << tx_power << endl;
             qDebug() << "UDPServer::parse: -   Comments = " << comments << endl;
             qDebug() << "UDPServer::parse: -   Name = " << name << endl;
             qDebug() << "UDPServer::parse: -   Time = " << time_on.toString("HHMMSSzzz") << endl;
-*/
+
 
         break;
         case 6:
@@ -191,16 +214,53 @@ void UDPServer::parse(const QByteArray &msg)
 
 bool UDPServer::stop()
 {
-    //qDebug() << "UDPServer::stop"<< endl;
+    qDebug() << "UDPServer::stop"<< endl;
+    socketServer->close();
+    if (socketServer->isValid())
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
     return false;
 }
 
 void UDPServer::setPort(const int _port)
 {
-    //qDebug() << "UDPServer::setPort: " << QString::number(_port) << endl;
+    qDebug() << "UDPServer::setPort: " << QString::number(_port) << endl;
     if ((_port >= 0) && (_port<=65535))
     {
         port = _port;
     }
 }
 
+void UDPServer::setLogging(const bool _t)
+{
+    qDebug() << "UDPServer::setLogging: " <<   endl;
+    if (_t)
+    {
+        qDebug() << "UDPServer::setLogging: TRUE " <<   endl;
+    }
+    else
+    {
+        qDebug() << "UDPServer::setLogging: FALSE" <<   endl;
+    }
+    logging = _t;
+}
+
+
+void UDPServer::setRealTimeUpdate(const bool _t)
+{
+    qDebug() << "UDPServer::setRealTimeUpdate: " <<   endl;
+    if (_t)
+    {
+        qDebug() << "UDPServer::setRealTimeUpdate: TRUE " <<   endl;
+    }
+    else
+    {
+        qDebug() << "UDPServer::setRealTimeUpdate: FALSE" <<   endl;
+    }
+       realtime = _t;
+}
