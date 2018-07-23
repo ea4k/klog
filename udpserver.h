@@ -14,11 +14,11 @@ public:
     explicit UDPServer(QObject *parent = 0);
     bool start();
     bool stop();
+    bool isStarted();
+    void setLogging(const bool _t);
+    void setRealTimeUpdate(const bool _t);
     //void setAddress(const QString _address);
     void setPort(const int _port);
-
-
-
 
 private:
     void readPendingDatagrams();
@@ -29,6 +29,7 @@ private:
 
     //QString address;
     int port;
+    bool logging, realtime;
 
 signals:
     void status_update (const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,

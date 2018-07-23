@@ -53,8 +53,6 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     fileNameButton = new QPushButton (tr("Browse"));
     dbPushButton = new QPushButton (tr("Browse"));
     moveDBPushButton = new QPushButton(tr("Move DB"));
-    UDPServerCheckBox = new QCheckBox(tr("Start UDP Server"), this);
-    UDPServerPortSpinBox = new QSpinBox;
 
     dbPathApplied = true;
 
@@ -105,8 +103,8 @@ void SetupPageMisc::createUI()
     
     //UDPServerCheckBox->setChecked(true);
     //UDPServerPortSpinBox->setEnabled(true);
-    UDPServerCheckBox->setEnabled(false);
-    UDPServerPortSpinBox->setEnabled(false);
+    //UDPServerCheckBox->setEnabled(false);
+    //UDPServerPortSpinBox->setEnabled(false);
 
     useDefaultName->setChecked(true);
     alwaysADIFCheckBox->setChecked(true);
@@ -130,20 +128,7 @@ void SetupPageMisc::createUI()
     fileNameButton->setToolTip(tr("Click to change the default ADIF file."));
     dbPushButton->setToolTip(tr("Click to change the path of the database."));
     moveDBPushButton->setToolTip(tr("Click to move the DB to the new directory."));
-    UDPServerCheckBox->setToolTip(tr("UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in KLog automatically from those programs."));
-    UDPServerPortSpinBox->setToolTip(tr("UDP port number where the UDP Server will listen for connections. Make sure it is the same port where the other programs are sending the data to."));
 
-    UDPServerPortSpinBox->setMinimum(0);
-    UDPServerPortSpinBox->setMaximum(65535);
-    QLabel *udpPortLabel = new QLabel(tr("UDP Port"));
-    udpPortLabel->setBuddy(UDPServerPortSpinBox);
-    udpPortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    udpPortLabel->setEnabled(false);
-
-    QHBoxLayout *UDPLayout = new QHBoxLayout;
-    UDPLayout->addWidget(UDPServerCheckBox);
-    UDPLayout->addWidget(udpPortLabel);
-    UDPLayout->addWidget(UDPServerPortSpinBox);
 
     QHBoxLayout *fileLayout = new QHBoxLayout;
     fileLayout->addWidget(useDefaultName);
@@ -166,7 +151,7 @@ void SetupPageMisc::createUI()
     mainLayou1->addLayout(fileLayout, 0, 0, 1, -1);
     mainLayou1->addLayout(dbLayout, 1, 0, 1, -1);
     mainLayou1->addWidget(alwaysADIFCheckBox, 2, 0, 1, 1);
-    mainLayou1->addLayout(UDPLayout, 2, 1, 1, 1);
+    //mainLayou1->addLayout(UDPLayout, 2, 1, 1, 1);
     mainLayou1->addWidget(UTCCheckbox, 3, 0, 1, 1);
     mainLayou1->addWidget(realTimeCheckbox, 3, 1, 1, 1);
     mainLayou1->addWidget(imperialCheckBox, 4, 0, 1, 1);
@@ -192,7 +177,7 @@ void SetupPageMisc::createActions(){
     connect(dbPushButton, SIGNAL(clicked () ), this, SLOT(slotDBButtonClicked() ) );
     connect(dbPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDBLineEditChanged() ) );
     connect(moveDBPushButton, SIGNAL(clicked () ), this, SLOT(slotMoveDBButtonClicked() ) );
-    connect(UDPServerCheckBox, SIGNAL(clicked () ), this, SLOT(slotUDPServerCheckBoxClicked() ) );
+    //connect(UDPServerCheckBox, SIGNAL(clicked () ), this, SLOT(slotUDPServerCheckBoxClicked() ) );
 
 }
 
@@ -499,63 +484,7 @@ void SetupPageMisc::setCompleteWithPrevious(const QString t)
     }
 }
 
-void SetupPageMisc::slotUDPServerCheckBoxClicked()
-{
-    if ( UDPServerCheckBox->isChecked())
-    {
-        //UDPServerPortSpinBox->setEnabled(true);
-    }
-    else
-    {
-        //UDPServerPortSpinBox->setEnabled(false);
-    }
-}
 
-QString SetupPageMisc::getUDPServer()
-{
-    if (UDPServerCheckBox->isChecked())
-    {
-        return "True";
-    }
-    else
-    {
-        return "False";
-    }
-}
-
-void SetupPageMisc::setUDPServer(const QString t)
-{
-    if ( (t.toUpper()) == "FALSE")
-    {
-        UDPServerCheckBox->setChecked(false);
-    }
-    else
-    {
-        UDPServerCheckBox->setChecked(true);
-    }
-}
-
-void SetupPageMisc::setUDPServerPort(const QString t)
-{
-    if (  (t.toInt()>=0) && (t.toInt()<=65535))
-    {
-        UDPServerPortSpinBox->setValue(t.toInt());
-    }
-}
-
-QString SetupPageMisc::getUDPServerPort()
-{
-    int t = UDPServerPortSpinBox->value();
-
-    if (  (t>=0) && (t<=65535) )
-    {
-        return QString::number(t);
-    }
-    else
-    {
-        return "-1";
-    }
-}
 
 void SetupPageMisc::slotcheckNewVersionCheckBoxClicked()
 {

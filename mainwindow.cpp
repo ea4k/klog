@@ -107,7 +107,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     myLocator = "";
     dxLocator ="";
     myPower = 0.0;
-    UDPServerStart = true;   // By default the UDP server is started
+    UDPServerStart = false;   // By default the UDP server is started
 
     //lastPower = myPower;
     //lastOperatorQRZ = operatorQRZ;
@@ -805,7 +805,7 @@ void MainWindow::slotQRZReturnPressed()
     QSqlQuery query;
     QString queryString = readDataFromUI();
 
-    qDebug() << "MainWindow::slotQRZReturnPressed: queryString: " << queryString << endl;
+   //qDebug() << "MainWindow::slotQRZReturnPressed: queryString: " << queryString << endl;
 
     if (queryString != "NULL")
     {
@@ -813,7 +813,7 @@ void MainWindow::slotQRZReturnPressed()
         {
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 query.finish();
-                qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
+               //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
                 errorCode = query.lastError().number();
                 QMessageBox msgBox;
                 msgBox.setIcon(QMessageBox::Warning);
@@ -838,7 +838,7 @@ void MainWindow::slotQRZReturnPressed()
                 query.finish();
                 //TODO: To move the following lines to this part to properly manage the query result!!
                 //ret = true;
-                qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
+               //qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
 
                 needToSave = true;
                 if (modify)
@@ -923,7 +923,7 @@ void MainWindow::slotQRZReturnPressed()
         else   // The QUERY string is NULL
         {
             return;
-            qDebug() << "MainWindow::slotQRZReturnPressed: queryString-NULL: " << queryString << endl;
+           //qDebug() << "MainWindow::slotQRZReturnPressed: queryString-NULL: " << queryString << endl;
         }
 
 
@@ -4239,31 +4239,55 @@ void MainWindow::readConfigData()
     searchWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     infoWidget->setColors(newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
 
-    QString aux = tr("UDP Server error") + "</b><br>" + tr("The UDP server failed to ");
+    QString aux = tr("UDP Server error") + "\n" + tr("The UDP server failed to") + " ";
     QString errorMSG;
-    //QString aux1 = "<br><b>" + tr("UDP Server error");
 
     if (UDPServerStart)
     {
-        if (!UDPLogServer->start())
+        qDebug() << "MainWindow::readConfigData: 104: UDPServerStart TRUE" << endl;
+        if (!UDPLogServer->isStarted())
         {
-            errorMSG =  tr("start");
-            showErrorDialog->setText(aux + errorMSG + ".");
-            showErrorDialog->exec();
+            qDebug() << "MainWindow::readConfigData: 104: Server off" << endl;
+            if (!UDPLogServer->start())
+            {
+                errorMSG =  tr("start");
+                showErrorDialog->setText(aux + errorMSG + ".");
+                showErrorDialog->exec();
+            }
+            else
+            {
+              qDebug() << "MainWindow::readConfigData: UDP Log server started!" << endl;
+            }
         }
-    }
+        else
+        {
+           qDebug() << "MainWindow::readConfigData: UDP Log server already started no need to restart!" << endl;
+        }
+    }        
     else
     {
-        if (!UDPLogServer->stop())
+        qDebug() << "MainWindow::readConfigData: 104: UDPServerStart FALSE" << endl;
+        if (UDPLogServer->isStarted())
         {
-            errorMSG =  tr("stop");
-            showErrorDialog->setText(aux + errorMSG + ".");
-            showErrorDialog->exec();
+            if (!UDPLogServer->stop())
+            {
+                errorMSG =  tr("stop");
+                showErrorDialog->setText(aux + errorMSG + ".");
+                showErrorDialog->exec();
+            }
+            else
+            {
+               qDebug() << "MainWindow::readConfigData: UDP Log server stopped!" << endl;
+            }
+        }
+        else
+        {
+           qDebug() << "MainWindow::readConfigData: UDP Log server already stopped no need to restop!" << endl;
         }
     }
 
-    
-    qDebug() << "MainWindow::readConfigData - END" << endl;
+
+   qDebug() << "MainWindow::readConfigData - END" << endl;
 
 }
 
@@ -4465,11 +4489,47 @@ bool MainWindow::processConfigLine(const QString _line){
     {
         defaultColor.setNamedColor(value);
     }
-    else if (field=="UDPSERVER"){
-        UDPServerStart = true;
+    else if (field=="UDPSERVER")
+    {
+        qDebug() << "MainWindow::processConfigLine: UDPSERVER: " << value.toUpper()  << endl;
+        if (value.toUpper() == "TRUE")
+        {
+            UDPServerStart = true;            
+        }
+        else
+        {
+            UDPServerStart = false;
+        }
     }
     else if (field=="UDPSERVERPORT"){
         UDPLogServer->setPort(value.toInt());
+    }   
+    else if (field=="LOGFROMWSJTX")
+    {
+        if (value.toUpper() == "TRUE")
+        {
+            UDPLogServer->setLogging(true);
+        }
+        else
+        {
+            UDPLogServer->setLogging(false);
+        }
+    }
+    else if (field=="LOGAUTOFROMWSJTX")
+    {
+        //CONFIGURAR AQUI EL AUTOLOG
+    }
+    else if (field=="REALTIMEFROMWSJTX")
+    {
+        qDebug() << "MainWindow::processConfigLine: REALTIMEFROMWSJTX: " << value << endl;
+        if (value.toUpper() == "TRUE")
+        {
+            UDPLogServer->setRealTimeUpdate(true);
+        }
+        else
+        {
+            UDPLogServer->setRealTimeUpdate(false);
+        }
     }
     else if(field=="SELECTEDLOG")
     {
@@ -4482,8 +4542,6 @@ bool MainWindow::processConfigLine(const QString _line){
         }
         else
         {
-
-
             int _howManyQSOMax = -1;     // NUmber of QSO of the log with more QSO
             int _howManyQSOMaxT = 0;    // Number of QSO in ine specific log
             QStringList logs = QStringList();
@@ -7046,20 +7104,20 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
 
 
 
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO type: " << QString::number(_type) << endl;
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO dxcall: " << _dxcall << endl;
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO freq: " << QString::number(_freq/1000000) << endl;
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO mode: " << _mode << endl;
+   //qDebug() << "MainWindow::slotWSJTX-loggedQSO type: " << QString::number(_type) << endl;
+   //qDebug() << "MainWindow::slotWSJTX-loggedQSO dxcall: " << _dxcall << endl;
+   //qDebug() << "MainWindow::slotWSJTX-loggedQSO freq: " << QString::number(_freq/1000000) << endl;
+   //qDebug() << "MainWindow::slotWSJTX-loggedQSO mode: " << _mode << endl;
 
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO dx_grid: " << _dx_grid << endl;
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO time_on: " << _time_on << endl;
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO time_off: " << _time_off << endl;
+   //qDebug() << "MainWindow::slotWSJTX-loggedQSO dx_grid: " << _dx_grid << endl;
+   //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_on: " << _time_on << endl;
+   //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_off: " << _time_off << endl;
 
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO report_sent: " << _report_sent << endl;
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO report_rec: " << _report_rec << endl;
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO tx_power: " << _tx_power << endl;
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO comments: " << _comments << endl;
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO name: " << _name << endl;
+   //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_sent: " << _report_sent << endl;
+   //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_rec: " << _report_rec << endl;
+   //qDebug() << "MainWindow::slotWSJTX-loggedQSO tx_power: " << _tx_power << endl;
+   //qDebug() << "MainWindow::slotWSJTX-loggedQSO comments: " << _comments << endl;
+   //qDebug() << "MainWindow::slotWSJTX-loggedQSO name: " << _name << endl;
 
     if (_type == 5)
     {
@@ -7090,7 +7148,6 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
                 "<b>" + tr("RST TX: ") + "</b>" + _report_sent + " - <b>" + tr("RST RX: ") + "</b>" + _report_rec  +
                 "</LI>" +
                 "<LI>" +
-
                 "<b>" + tr("DX-Grid: ") + "</b>" + _dx_grid  +
                 "</LI>" +
                 "<LI>" +
@@ -7113,11 +7170,11 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
 
 bool MainWindow::checkIfNewMode(const QString _mode)
 {
-    qDebug() << "MainWindow::checkIfNewMode: " << _mode << endl;
+   //qDebug() << "MainWindow::checkIfNewMode: " << _mode << endl;
     if (dataProxy->getSubModeIdFromSubMode(_mode)<0)
     {// The mode is not existing; it is not an accepted mode for KLog
      // TODO: Show an error to the user
-        qDebug() << "MainWindow::checkIfNewMode: Mode not valid! - " << _mode << endl;
+       //qDebug() << "MainWindow::checkIfNewMode: Mode not valid! - " << _mode << endl;
 
         QMessageBox msgBox;
 
@@ -7146,7 +7203,7 @@ bool MainWindow::checkIfNewMode(const QString _mode)
     {
         //noMoreModeErrorShown = false;
         //TODO: Add the new mode to the list of active modes
-        qDebug() << "MainWindow::slotStatusFromUDPServer: VALID NEW MODE: Adding... - " << _mode << endl;
+       //qDebug() << "MainWindow::slotStatusFromUDPServer: VALID NEW MODE: Adding... - " << _mode << endl;
         addNewValidMode(_mode);
     }
 
@@ -7161,28 +7218,28 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxc
     {
         return;
     }
-    qDebug() << "MainWindow::slotStatusFromUDPServer type: " << QString::number(_type) << endl;
-    qDebug() << "MainWindow::slotStatusFromUDPServer dxcall: " << _dxcall << endl;
-    qDebug() << "MainWindow::slotStatusFromUDPServer freq: " << QString::number(_freq/1000000) << endl;
-    qDebug() << "MainWindow::slotStatusFromUDPServer mode: " << _mode << endl;
-    qDebug() << "MainWindow::slotStatusFromUDPServer report: " << _report << endl;
-    qDebug() << "MainWindow::slotStatusFromUDPServer de_call: " << _de_call << endl;
-    qDebug() << "MainWindow::slotStatusFromUDPServer _de_grid: " << _de_grid << endl;
-    qDebug() << "MainWindow::slotStatusFromUDPServer dx_grid: " << _dx_grid << endl;
-    qDebug() << "MainWindow::slotStatusFromUDPServer sub_mode: " << _sub_mode << endl;
+   //qDebug() << "MainWindow::slotStatusFromUDPServer type: " << QString::number(_type) << endl;
+   //qDebug() << "MainWindow::slotStatusFromUDPServer dxcall: " << _dxcall << endl;
+   //qDebug() << "MainWindow::slotStatusFromUDPServer freq: " << QString::number(_freq/1000000) << endl;
+   //qDebug() << "MainWindow::slotStatusFromUDPServer mode: " << _mode << endl;
+   //qDebug() << "MainWindow::slotStatusFromUDPServer report: " << _report << endl;
+   //qDebug() << "MainWindow::slotStatusFromUDPServer de_call: " << _de_call << endl;
+   //qDebug() << "MainWindow::slotStatusFromUDPServer _de_grid: " << _de_grid << endl;
+   //qDebug() << "MainWindow::slotStatusFromUDPServer dx_grid: " << _dx_grid << endl;
+   //qDebug() << "MainWindow::slotStatusFromUDPServer sub_mode: " << _sub_mode << endl;
 
 
     if ((modeComboBox->findText(_mode, Qt::MatchCaseSensitive)<0) && (!noMoreModeErrorShown))
     {
 
 
-        qDebug() << "MainWindow::slotStatusFromUDPServer New mode: " << _mode << endl;
+       //qDebug() << "MainWindow::slotStatusFromUDPServer New mode: " << _mode << endl;
         noMoreModeErrorShown = checkIfNewMode(_mode);
 /*
         if (dataProxy->getSubModeIdFromSubMode(_mode)<0)
         {// The mode is not existing; it is not an accepted mode for KLog
          // TODO: Show an error to the user
-            qDebug() << "MainWindow::slotStatusFromUDPServer: Mode not valid! - " << _mode << endl;
+           //qDebug() << "MainWindow::slotStatusFromUDPServer: Mode not valid! - " << _mode << endl;
 
             QMessageBox msgBox;
 
@@ -7209,7 +7266,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxc
         {
             //noMoreModeErrorShown = false;
             //TODO: Add the new mode to the list of active modes
-            qDebug() << "MainWindow::slotStatusFromUDPServer: VALID NEW MODE: Adding... - " << _mode << endl;
+           //qDebug() << "MainWindow::slotStatusFromUDPServer: VALID NEW MODE: Adding... - " << _mode << endl;
             addNewValidMode(_mode);
         }
     */
@@ -7221,7 +7278,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxc
             //MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT/IN - Heartbeat" << endl;
         break;
         case 1:
-            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Status" << endl;
+           //qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Status" << endl;
              qrzLineEdit->setText(_dxcall);
              if ((!noMoreModeErrorShown) && (dataProxy->getSubModeIdFromSubMode(_mode)>0) )
              {
@@ -7241,7 +7298,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxc
              //bandComboBox->setCurrentIndex(bandComboBox->findText(, Qt::MatchCaseSensitive));
 
         default: //NO
-            qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - ERROR on Type" << endl;
+           //qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - ERROR on Type" << endl;
         break;
     }
 }
@@ -7250,7 +7307,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxc
 
 void MainWindow::addNewValidMode(const QString _mode)
 {
-    qDebug() << "MainWindow::addNewMode: " << _mode << endl;
+   //qDebug() << "MainWindow::addNewMode: " << _mode << endl;
     QStringList _newM;
     _newM.clear();
     _newM << _mode;
@@ -7266,9 +7323,9 @@ void MainWindow::addNewValidMode(const QString _mode)
 
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed)
 {
-     //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << endl;
-     //qDebug() << "MainWindow::slotQueryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
-     //qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << endl;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
 
 
     if (noMoreErrorShown)
