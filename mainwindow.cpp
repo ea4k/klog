@@ -2593,8 +2593,8 @@ void MainWindow::createActionsCommon(){
 
     // UDPLogServer - WSJT-x
 
-   connect(UDPLogServer, SIGNAL(status_update(int, QString, quint64, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, quint64, QString, QString, QString, QString, QString, QString) ) );
-   connect(UDPLogServer, SIGNAL( logged_qso(int,QString,quint64,QString,QString,QString,QString,QString,QString,QString,QString,QString)), this, SLOT(slotWSJTXloggedQSO(int,QString,quint64,QString,QString,QString,QString,QString,QString,QString,QString,QString) ) );
+   connect(UDPLogServer, SIGNAL(status_update(int, QString, double, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, double, QString, QString, QString, QString, QString, QString) ) );
+   connect(UDPLogServer, SIGNAL( logged_qso(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString)), this, SLOT(slotWSJTXloggedQSO(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString) ) );
 
 
 }
@@ -7089,7 +7089,7 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 
 }
 
-void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
+void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, const double _freq, const QString _mode,
                                               const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
                                               const QString _tx_power, const QString _comments, const QString _name, const QString _time_on)
 {
@@ -7133,7 +7133,7 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
                 "<b>" + tr("Call: ") + "</b>" + _dxcall +
                 "</LI>" +
                 "<LI>" +
-                "<b>" + tr("Freq: ") + "</b>" + QString::number(_freq/1000000) +
+                "<b>" + tr("Freq: ") + "</b>" + QString::number(_freq) +
                 "</LI>" +
                 "<LI>" +
                 "<b>" + tr("Mode: ") + "</b>" + _mode +
@@ -7163,6 +7163,8 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
 
         msgBox.setText(aux);
         msgBox.exec();
+
+
 
         dataProxy->addQSOFromWSJTX(_dxcall, _freq,  _mode, _dx_grid, _time_off, _report_sent, _report_rec, _tx_power, _comments, _name, _time_on, currentLog);
     }
@@ -7210,7 +7212,7 @@ bool MainWindow::checkIfNewMode(const QString _mode)
     return false;
 }
 
-void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
+void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxcall, const double _freq, const QString _mode,
                                              const QString _report, const QString _de_call, const QString _de_grid,
                                              const QString _dx_grid, const QString _sub_mode)
 {
@@ -7227,7 +7229,6 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxc
    //qDebug() << "MainWindow::slotStatusFromUDPServer _de_grid: " << _de_grid << endl;
    //qDebug() << "MainWindow::slotStatusFromUDPServer dx_grid: " << _dx_grid << endl;
    //qDebug() << "MainWindow::slotStatusFromUDPServer sub_mode: " << _sub_mode << endl;
-
 
     if ((modeComboBox->findText(_mode, Qt::MatchCaseSensitive)<0) && (!noMoreModeErrorShown))
     {
@@ -7285,7 +7286,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxc
                 modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
              }
 
-             txFreqSpinBox->setValue((double)_freq/1000000);
+             txFreqSpinBox->setValue(_freq);
              slotUpdateLocator(_dx_grid);
              rstTXLineEdit->setText(_report);
              myDataTabWidget->setMyLocator(_de_grid);

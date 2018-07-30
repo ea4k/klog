@@ -1920,7 +1920,7 @@ bool DataProxy_SQLite::updateAwardWAZ()
     return db->updateAwardWAZTable();
 }
 
-bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const quint64 _freq, const QString _mode,
+bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const double _freq, const QString _mode,
                                        const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
                                        const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const int _logN)
 {
