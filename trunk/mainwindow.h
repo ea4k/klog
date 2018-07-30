@@ -278,13 +278,13 @@ private slots:
     void slotShowQSOsFromDXCCWidget(QList<int> _qsos);
 
     //UDP Server (WXJT-x)
-    void slotWSJXstatusFromUDPServer(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
+    void slotWSJXstatusFromUDPServer(const int _type, const QString _dxcall, const double _freq, const QString _mode,
                                  const QString _report, const QString _de_call, const QString _de_grid,
                                  const QString _dx_grid, const QString _sub_mode);
 
 
 
-    void slotWSJTXloggedQSO(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
+    void slotWSJTXloggedQSO(const int _type, const QString _dxcall, const double _freq, const QString _mode,
                              const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
                              const QString _tx_power, const QString _comments, const QString _name, const QString _time_on);
 

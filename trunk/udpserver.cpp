@@ -61,7 +61,9 @@ void UDPServer::parse(const QByteArray &msg)
     QDateTime time_off;
     QByteArray dx_call;
     QByteArray dx_grid;
-    quint64 frequency;
+    quint64 frequency = 0; //  In Hz??
+    double frequencyDouble;
+
     QByteArray mode;
     QByteArray report_sent;
     QByteArray report_received;
@@ -117,16 +119,20 @@ void UDPServer::parse(const QByteArray &msg)
         case 0:
             //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT/IN - Heartbeat" << endl;
         break;
-        case 1:
-            qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Status" << endl;
+        case 1:            
+            qDebug() << "UDPServer::parse: -   type" << QString::number(type) << " - OUT - Status" << endl;
             // unpack message
             if (realtime)
             {
                 in >> frequency >> mode >> dx_call >> report >> tx_mode >> tx_enabled >> transmitting >> decoding
                    >> rx_df >> tx_df >> de_call >> de_grid >> dx_grid >> watchdog_timeout >> sub_mode
                    >> fast_mode;
+                frequencyDouble = (double)frequency;
+                frequencyDouble = frequencyDouble/1000000; // Change to MHz
+                qDebug() << "UDPServer::parse: -   Freq quint64 = " << QString::number(frequency)  << endl;
+                qDebug() << "UDPServer::parse: -   Freq double = " << QString::number(frequencyDouble)  << endl;
 
-                emit status_update (type, dx_call, frequency, mode, report, de_call, de_grid, dx_grid, sub_mode);
+                emit status_update (type, dx_call, frequencyDouble, mode, report, de_call, de_grid, dx_grid, sub_mode);
             }
             else
             {
@@ -159,7 +165,9 @@ void UDPServer::parse(const QByteArray &msg)
             if (logging)
             {
                 in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >> tx_power >> comments >> name >> time_on;
-                emit logged_qso (type, dx_call, frequency, mode, dx_grid, time_off.toString("yyyyMMddHHmmss"), report_sent, report_received, tx_power, comments, name, time_on.toString("yyyyMMddHHmmss"));
+                frequencyDouble = (double)frequency;
+                frequencyDouble = frequencyDouble/1000000; // Change to MHz
+                emit logged_qso (type, dx_call, frequencyDouble, mode, dx_grid, time_off.toString("yyyyMMddHHmmss"), report_sent, report_received, tx_power, comments, name, time_on.toString("yyyyMMddHHmmss"));
 
             }
             else
