@@ -223,7 +223,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="362"/>
         <source>Entity not worked in this band.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;entitat no ha treballat en aquesta banda.</translation>
     </message>
 </context>
 <context>
@@ -536,7 +536,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../filemanager.cpp" line="201"/>
         <source>Please select the station callsign you want to export the log from:</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu l&apos;indicatiu de l&apos;estació de la qual voleu exportar el registre:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="226"/>
@@ -562,37 +562,37 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../filemanager.cpp" line="3335"/>
         <source>There is more than one log in this logfile.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hi ha més d&apos;un registre en aquest fitxer de regsitre.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3335"/>
         <source>All logs will be imported into the current log.</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;importaran tots els registres al registre actual.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3335"/>
         <source>Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Voleu continuar?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3588"/>
         <source>Importing ADIF file...</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;està important el fitxer ADIF...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3615"/>
         <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3754"/>
         <source>You have cancelled the file import. The file will be removed and no data will be imported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Heu cancel·lat la importació del fitxer. El fitxer s&apos;eliminarà i no s&apos;importarà cap dada.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4772"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!.</source>
-        <translation>Aquest QSO no inclou les dades mínimes per a considerar-se un QSO vàlid!</translation>
+        <translation>Aquest QSO no inclou les dades mínimes per a considerar-se un QSO vàlid!.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4772"/>
@@ -721,7 +721,7 @@ Voleu tornar-ho a intentar?</translation>
         <location filename="../infowidget.cpp" line="96"/>
         <location filename="../infowidget.cpp" line="101"/>
         <source>Deg</source>
-        <translation type="unfinished"></translation>
+        <translation>Graus</translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="314"/>
@@ -998,7 +998,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="334"/>
         <source>&amp;Log Window</source>
-        <translation>Finestra de registre</translation>
+        <translation>Finestra de &amp;registre</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="335"/>
@@ -1159,7 +1159,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3649"/>
         <source>Please select the station callsign you want to mark as sent to LoTW:</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu l&apos;indicatiu d&apos;estació que voleu marcar com enviat a LoTW:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3704"/>
@@ -1179,22 +1179,22 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3412"/>
         <source>Export to ADIF...</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporta a ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3418"/>
         <source>Export all logs to ADIF...</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporta tots els registres a ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3424"/>
         <source>Export Requested QSL to ADIF...</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporta les QSL sol·licitades a ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3429"/>
         <source>Export ADIF for LoTW...</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporta ADIF per LoTW...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3599"/>
@@ -1259,7 +1259,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="4242"/>
         <source>UDP Server error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error del servidor UDP</translation>
     </message>
     <message>
         <source>The selected log is not existing or it is still empty.</source>
@@ -1455,82 +1455,82 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="7127"/>
         <source>KLog QSO received</source>
-        <translation type="unfinished"></translation>
+        <translation>El Klog ha rebut un QSO</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7130"/>
         <source>The following QSO data has been received from WSJT-X to be logged:</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;han rebut les dades QSO següents del WSJT-X per enregistrar:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7133"/>
         <source>Call: </source>
-        <translation type="unfinished"></translation>
+        <translation>Indicatiu: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7136"/>
         <source>Freq: </source>
-        <translation type="unfinished"></translation>
+        <translation>Freq: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7139"/>
         <source>Mode: </source>
-        <translation type="unfinished"></translation>
+        <translation>Mode: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7142"/>
         <source>Time On: </source>
-        <translation type="unfinished"></translation>
+        <translation>Hora inici: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7145"/>
         <source>Time Off: </source>
-        <translation type="unfinished"></translation>
+        <translation>Hora finali: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7148"/>
         <source>RST TX: </source>
-        <translation type="unfinished"></translation>
+        <translation>RST TX: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7148"/>
         <source>RST RX: </source>
-        <translation type="unfinished"></translation>
+        <translation>RST RX: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7151"/>
         <source>DX-Grid: </source>
-        <translation type="unfinished"></translation>
+        <translation>DX-Grid: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7154"/>
         <source>Name: </source>
-        <translation type="unfinished"></translation>
+        <translation>Nom: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7157"/>
         <source>Comments: </source>
-        <translation type="unfinished"></translation>
+        <translation>Comentaris: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7160"/>
         <source>Power tx: </source>
-        <translation type="unfinished"></translation>
+        <translation>Potència (tx): </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7184"/>
         <source>A new mode not supported by KLog has been received from an external software:</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;ha rebut un mode nou no admès al KLog des d&apos;un programa extern:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7184"/>
         <source>If the receiver mode is correct, please contact KLog development team and request support for that mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Si el mode de recepció és correcte, contacteu amb l&apos;equip de desenvolupament del KLog i sol·liciteu la implementació d&apos;aquest mode</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7184"/>
         <source>Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)</source>
-        <translation type="unfinished"></translation>
+        <translation>Voleu continuar rebent aquestes alertes? (la desactivació d&apos;aquestes alertes evitarà que es detectin els modes no vàlids)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7338"/>
@@ -1814,17 +1814,17 @@ Voleu desar els canvis?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="4242"/>
         <source>The UDP server failed to</source>
-        <translation type="unfinished"></translation>
+        <translation>El servidor UDP ha fallat en</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4253"/>
         <source>start</source>
-        <translation type="unfinished"></translation>
+        <translation>iniciar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4274"/>
         <source>stop</source>
-        <translation type="unfinished"></translation>
+        <translation>aturar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4573"/>
@@ -2592,7 +2592,7 @@ Voleu desar els canvis?</translation>
     <message>
         <location filename="../mainwindowsattab.cpp" line="93"/>
         <source>Locator of the DX station. This box is syncronized with the Locator box in the QSO tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>Localitzador de l&apos;estació DX. Aquest quadre se sincronitza amb el quadre de localitzador de la pestanya QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="404"/>
@@ -2690,7 +2690,7 @@ Voleu desar els canvis?</translation>
     <message>
         <location filename="../database.cpp" line="7428"/>
         <source>Updating WAZ Award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;està actualitzant la informació dels diplomes WAZ...</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="3554"/>
@@ -3137,7 +3137,7 @@ Voleu desar els canvis?</translation>
     <message>
         <location filename="../setupdialog.cpp" line="96"/>
         <source>WSJT-x</source>
-        <translation type="unfinished"></translation>
+        <translation>WSJT-x</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="99"/>
@@ -3165,7 +3165,7 @@ Voleu desar els canvis?</translation>
     <message>
         <location filename="../setupdialog.cpp" line="172"/>
         <source>WSJT-X</source>
-        <translation type="unfinished"></translation>
+        <translation>WSJT-X</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="290"/>
@@ -4018,62 +4018,62 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppageudp.cpp" line="10"/>
         <source>Start UDP Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicia el servidor UDP</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="31"/>
         <source>Log automatically QSOs from WSJT-X</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistra automàticament els QSO del WSJT-X</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="32"/>
         <source>Allow WSJT-X to send logged QSO to KLog</source>
-        <translation type="unfinished"></translation>
+        <translation>Peremet que el WSJT-X enviï QSO enregistrats al KLog</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="33"/>
         <source>QSO logged in WSJT-X will be sent to KLog and KLog will ask before logging into KLog unless</source>
-        <translation type="unfinished"></translation>
+        <translation>El QSO enregistrats al WSJT-X s&apos;enviaran al KLog i el KLog preguntarà abans d&apos;eregistrar-los al KLog a menys que</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="33"/>
         <source>is selected.</source>
-        <translation type="unfinished"></translation>
+        <translation>estigui seleccionat.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="36"/>
         <source>KLog will log automatically any QSO coming from WSJT-X without any manual confirmation.</source>
-        <translation type="unfinished"></translation>
+        <translation>El KLog enregistrarà automàticament qualsevol QSO que vingui del WSJT-X sense cap confirmació manual.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="39"/>
         <source>Receive and Update QSO data to KLog</source>
-        <translation type="unfinished"></translation>
+        <translation>Recepció i actualització de dades QSO al KLog</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="40"/>
         <source>KLog will automatically show and update data coming from WSJT-X (DX callsign, locator, RPT, ...)</source>
-        <translation type="unfinished"></translation>
+        <translation>El KLog mostrarà i actualitzarà automàticament les ddes provinents del WSJT-X (indicador DX, localitzador, RPT, ...)</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="57"/>
         <source>UDP port number where the UDP Server will listen for connections.</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de port UDP a on el servidor UDP escoltarà les connexions.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="57"/>
         <source>Make sure it is the same port where the other programs are sending the data to. Default port is 2237.</source>
-        <translation type="unfinished"></translation>
+        <translation>Comproveu que sigui el mateix port a on els altres programes envien les dades. El port predeterminat és el 2237.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="58"/>
         <source>UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in KLog automatically from those programs.</source>
-        <translation type="unfinished"></translation>
+        <translation>El servidor UDP rebrà els QSO enviats des d&apos;altres programes com el WSJT-X, permetent enregistrar-los automàticament al KLog des d&apos;aquests programes.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="64"/>
         <source>UDP Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port UDP</translation>
     </message>
 </context>
 <context>
