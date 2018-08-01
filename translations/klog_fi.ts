@@ -352,7 +352,7 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Kyselyt onnistuivat</translation>
     </message>
     <message>
-        <location line="+4067"/>
+        <location line="+4095"/>
         <source>KLog DXCC</source>
         <translation>KLog DXCC</translation>
     </message>
@@ -993,14 +993,14 @@ Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+95"/>
-        <location line="+608"/>
-        <location line="+2186"/>
+        <location line="+530"/>
+        <location line="+2248"/>
         <location line="+64"/>
         <source>&amp;Add</source>
         <translation>&amp;Lisää</translation>
     </message>
     <message>
-        <location line="-2855"/>
+        <location line="-2839"/>
         <source>&amp;Clear</source>
         <translation>T&amp;yhjennä</translation>
     </message>
@@ -1037,13 +1037,13 @@ Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+85"/>
-        <location line="+2909"/>
+        <location line="+2893"/>
         <location line="+710"/>
         <source>KLog</source>
         <translation>KLog</translation>
     </message>
     <message>
-        <location line="-3407"/>
+        <location line="-3391"/>
         <source>Ready</source>
         <translation>Valmis</translation>
     </message>
@@ -1053,7 +1053,7 @@ Haluatko varmasti peruuttaa?</translation>
         <translation>Tapahtui odottamaton virhe, kun yritit lisätä QSO:n lokiin. Jos ongelma jatkuu, ota yhteyttä kehittäjään analyysiä varten: </translation>
     </message>
     <message>
-        <location line="+206"/>
+        <location line="+190"/>
         <location line="+699"/>
         <source>You have selected an entity:</source>
         <translation>Olet valinnut yksikön:</translation>
@@ -1136,28 +1136,28 @@ Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+4041"/>
+        <location line="+4046"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location line="-4034"/>
-        <location line="+4032"/>
+        <location line="-4039"/>
+        <location line="+4037"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
     <message>
-        <location line="-4023"/>
+        <location line="-4028"/>
         <location line="+800"/>
         <location line="+6"/>
         <location line="+908"/>
-        <location line="+975"/>
+        <location line="+980"/>
         <location line="+1332"/>
         <source>QRZ</source>
         <translation>QRZ</translation>
     </message>
     <message>
-        <location line="-4014"/>
+        <location line="-4019"/>
         <source>STX</source>
         <translation>STX</translation>
     </message>
@@ -1644,7 +1644,7 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+299"/>
+        <location line="+304"/>
         <source>It seems that there are no QSO in the database.</source>
         <translation>Näyttää siltä ettei tietokannassa ole QSO:ta.</translation>
     </message>
@@ -1830,11 +1830,12 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location line="+18"/>
+        <location line="+2190"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="-2186"/>
         <source>QTH</source>
         <translation>QTH</translation>
     </message>
@@ -2011,11 +2012,56 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+1785"/>
+        <source>Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Freq</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Time On</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Time Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>RST TX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>RST RX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>DX-Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Comments</source>
+        <translation type="unfinished">Kommentit</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>TX Pwr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Remember to sign the LoTW log before you upload it!</source>
         <translation type="vanished">Muista kirjata LoTW loki ennen lähetystä!</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="-1791"/>
         <source>There was no QSO to be exported.</source>
         <translation>Vietäviä QSO:ita ei ollut.</translation>
     </message>
@@ -2104,11 +2150,12 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location line="+2"/>
+        <location line="+683"/>
         <source>Mode</source>
         <translation>Tila</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="-668"/>
         <source>Print Log</source>
         <translation>Tulosta loki</translation>
     </message>
@@ -2136,73 +2183,13 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+5"/>
         <source>The following QSO data has been received from WSJT-X to be logged:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Call: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Freq: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Mode: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Time On: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Time Off: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>RST TX: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>RST RX: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>DX-Grid: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Name: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Comments: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Power tx: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+24"/>
+        <location line="+95"/>
         <source>A new mode not supported by KLog has been received from an external software:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>If the receiver mode is correct, please contact KLog development team and request support for that mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2211,7 +2198,12 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+154"/>
+        <location line="+0"/>
+        <source>If the received mode is correct, please contact KLog development team and request support for that mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+153"/>
         <source>An unexpected error ocurred!!</source>
         <translation>Odottamaton virhe tapahtui!!</translation>
     </message>
@@ -3168,18 +3160,12 @@ Do you want to save your changes?</translation>
         <translation>Lokit</translation>
     </message>
     <message>
-        <location line="-217"/>
-        <location line="+76"/>
+        <location line="-141"/>
         <source>ClubLog</source>
         <translation>ClubLog</translation>
     </message>
     <message>
-        <location line="-75"/>
-        <source>WSJT-x</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="-72"/>
         <location line="+77"/>
         <source>Cancel</source>
         <translation>Peru</translation>
@@ -4070,13 +4056,13 @@ Lokia ei avata.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
-        <source>UDP port number where the UDP Server will listen for connections.</source>
+        <location line="+16"/>
+        <source>Make sure it is the same port where the other programs are sending the data to. Default port is 2237.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Make sure it is the same port where the other programs are sending the data to. Default port is 2237.</source>
+        <source>UDP port number where the UDP Server will listen for packets.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
