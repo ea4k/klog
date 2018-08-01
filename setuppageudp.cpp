@@ -48,13 +48,12 @@ void SetupPageUDP::createUI()
     logAutomaticallyWSJTXCheckbox->setEnabled(false);
     realDataFromWSJTXCheckbox->setEnabled(false);
 
-
     QVBoxLayout *checkLayout = new QVBoxLayout;
     checkLayout->addWidget(logFromWSJTXCheckbox);
     checkLayout->addWidget(logAutomaticallyWSJTXCheckbox);
     checkLayout->addWidget(realDataFromWSJTXCheckbox);
 
-    QString labelTip = tr("UDP port number where the UDP Server will listen for connections.") + "\n" + tr("Make sure it is the same port where the other programs are sending the data to. Default port is 2237.");
+    QString labelTip = tr("UDP port number where the UDP Server will listen for packets.") + "\n" + tr("Make sure it is the same port where the other programs are sending the data to. Default port is 2237.");
     UDPServerCheckBox->setToolTip(tr("UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in KLog automatically from those programs."));
     UDPServerPortSpinBox->setToolTip(labelTip);
 
