@@ -89,7 +89,8 @@ public:
 
     virtual bool addQSOFromWSJTX(const QString _dxcall, const double _freq, const QString _mode,
                                  const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
-                                 const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const int _logN);
+                                 const QString _tx_power, const QString _comments, const QString _name, const QString _time_on,
+                                 const int _dxcc, const QString _opQrz, const QString _stQrz, const QString _myLoc, const int _logN);
 
     virtual bool deleteQSO(const int _qsoId);
     virtual int isWorkedB4(const QString _qrz, const int _currentLog);

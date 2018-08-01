@@ -322,6 +322,7 @@ private:
     QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
     QString readDataFromUIDX();
     QString readDataFromUIDXModifying();
+    void actionsJustAfterAddingOneQSO();
     void clearForNextQSO();
     void clearUIDX(bool full=false); //full= false leaves some data to allow pileup or normal Dx in same band; full removes freqs and everything
 
@@ -533,7 +534,8 @@ private:
 
     bool qslingNeeded;
     bool noMoreErrorShown;              // If true, the errors shown in slotQueryErrorManagement will not be shown anymore in that KLog execution
-    bool noMoreModeErrorShown;          // If true, the non-valdi modes received from WSJT-x will not be showed to the user
+    bool noMoreModeErrorShown;          // If true, the non-valid modes received from WSJT-x will not be showed to the user
+    bool wsjtxAutoLog;                  // If true, logged QSO are automatically logged into the log when sent from WSJTX
     MainWindowSatTab *satTabWidget;
     MainWindowMyDataTab *myDataTabWidget;
     MainWindowInputComment *commentTabWidget;

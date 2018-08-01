@@ -92,8 +92,8 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
     tabWidget->addTab(miscPage, tr("Misc"));
     tabWidget->addTab(worldEditorPage, tr("World Editor"));
     logsPageTabN = tabWidget->addTab(logsPage, tr("Logs"));
-    tabWidget->addTab(clubLogPage, tr("ClubLog"));
-    tabWidget->addTab(UDPPage, tr("WSJT-x"));
+    tabWidget->addTab(clubLogPage, "ClubLog");
+    tabWidget->addTab(UDPPage, "WSJT-X");
 
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));

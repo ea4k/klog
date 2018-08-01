@@ -779,7 +779,7 @@ void MainWindow::slotQRZReturnPressed()
 {
       //qDebug() << "MainWindow::slotQRZReturnPressed: " << qrzLineEdit->text() << " - " << QString::number(bandComboBox->currentIndex()) << "/" << QString::number(modeComboBox->currentIndex()) << endl;
     //int newId = -1;
-    int lastId = -1;
+
     int errorCode = 0;
     QString aux;
     //int _x; //for clublog management
@@ -839,84 +839,7 @@ void MainWindow::slotQRZReturnPressed()
                 //TODO: To move the following lines to this part to properly manage the query result!!
                 //ret = true;
                //qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
-
-                needToSave = true;
-                if (modify)
-                {
-                     //qDebug() << "MainWindow::slotQRZReturnPressed: Modifying! " << endl;
-
-                    if(modifyingQSO>0)
-                    {
-                        awards->setAwards(modifyingQSO);
-
-                        if ((clublogActive) & (clublogRealTime))
-                        {
-                              //qDebug() << "MainWindow::slotQRZReturnPressed: (Modifiying ClubLog) Lastid: "<< QString::number(lastId) << endl;
-                            // Delete QSO in CLubLog
-                            elogClublog->deleteQSO(clublogPrevQSO);
-                            // Add modified QSO in ClubLog
-                            elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSO));
-
-                        }
-                        else
-                        {
-                              //qDebug() << "MainWindow::slotQRZReturnPressed: (No ClubLog) Lastid: "<< QString::number(lastId) << endl;
-                        }
-
-
-                    }
-
-                    // CHECK WHAT WAS THE QSOID to add the awards, if needed
-                    awards->setAwards(modifyingQSO);   //Update the DXCC award status
-
-                }
-                else
-                {
-                    //qDebug() << "MainWindow::slotQRZReturnPressed: Not Modifying " << endl;
-                    lastId = dataProxy->getLastQSOid();
-                    if (lastId>=0)
-                    {
-                         //qDebug() << "MainWindow::slotQRZReturnPressed: Lastid: "<< QString::number(lastId) << endl;
-                        awards->setAwards(lastId);   //Update the DXCC award status
-
-                        // Send to CLUBLOG if enabled
-
-                        if (clublogActive)
-                        {
-                              //qDebug() << "MainWindow::slotQRZReturnPressed: clublogActive TRUE" << endl;
-                        }
-                        else
-                        {
-                              //qDebug() << "MainWindow::slotQRZReturnPressed: clublogActive FALSE" << endl;
-                        }
-                        if (clublogRealTime)
-                        {
-                              //qDebug() << "MainWindow::slotQRZReturnPressed: clublogRealTime TRUE" << endl;
-                        }
-                        else
-                        {
-                              //qDebug() << "MainWindow::slotQRZReturnPressed: clublogRealTime FALSE" << endl;
-                        }
-
-
-                        if ((clublogActive) & (clublogRealTime))
-                        {
-                              //qDebug() << "MainWindow::slotQRZReturnPressed: (Sending ClubLog) Lastid: "<< QString::number(lastId) << endl;
-                            elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(lastId));
-
-                        }
-                        else
-                        {
-                              //qDebug() << "MainWindow::slotQRZReturnPressed: (No ClubLog) Lastid: "<< QString::number(lastId) << endl;
-                        }
-                        //<CLUBLOG>
-                    }
-                }
-                //slotShowAwards();
-
-                logWindow->refresh();
-                dxccStatusWidget->refresh();
-                //slotClearButtonClicked();
+                actionsJustAfterAddingOneQSO();
                 clearForNextQSO();
             }
         }
@@ -926,10 +849,71 @@ void MainWindow::slotQRZReturnPressed()
            //qDebug() << "MainWindow::slotQRZReturnPressed: queryString-NULL: " << queryString << endl;
         }
 
-
     modify = false;
     modifyingQSO = -1;
     OKButton->setText(tr("&Add"));
+}
+void MainWindow::actionsJustAfterAddingOneQSO()
+{
+    qDebug() << "MainWindow::actionsJustAfterAddingOneQSO" << endl;
+    int lastId = -1;
+    needToSave = true;
+    if (modify)
+    {
+        //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Modifying! " << endl;
+       needToSave = true;
+       if(modifyingQSO>0)
+       {
+           awards->setAwards(modifyingQSO);
+
+           if ((clublogActive) & (clublogRealTime))
+           {
+                 //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (Modifiying ClubLog) Lastid: "<< QString::number(lastId) << endl;
+               // Delete QSO in CLubLog
+               elogClublog->deleteQSO(clublogPrevQSO);
+               // Add modified QSO in ClubLog
+               elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSO));
+
+           }
+           else
+           {
+                 //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (No ClubLog) Lastid: "<< QString::number(lastId) << endl;
+           }
+       }
+
+       // CHECK WHAT WAS THE QSOID to add the awards, if needed
+       awards->setAwards(modifyingQSO);   //Update the DXCC award status
+    }
+    else
+    {
+        //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Not Modifying " << endl;
+        lastId = dataProxy->getLastQSOid();
+        if (lastId>=0)
+        {
+            qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid: "<< QString::number(lastId) << endl;
+            awards->setAwards(lastId);   //Update the DXCC award status
+
+            // Send to CLUBLOG if enabled
+
+            if ((clublogActive) & (clublogRealTime))
+            {
+                  //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (Sending ClubLog) Lastid: "<< QString::number(lastId) << endl;
+                elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(lastId));
+
+            }
+            else
+            {
+                  //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (No ClubLog) Lastid: "<< QString::number(lastId) << endl;
+            }
+            //<CLUBLOG>
+        }
+
+    }
+
+    logWindow->refresh();
+    dxccStatusWidget->refresh();
+    qDebug() << "MainWindow::actionsJustAfterAddingOneQSO - END" << endl;
+
 }
 
 QString MainWindow::readDataFromUI()
@@ -1091,7 +1075,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     {
         stringFields = stringFields + ", qth";
         stringData = stringData + ", '" + aux1 + "'";
-    }
+    }   
 
     aux1 = myDataTabWidget->getOperator();
     //aux1 = operatorLineEdit->text();
@@ -4336,14 +4320,11 @@ bool MainWindow::processConfigLine(const QString _line){
         readActiveBands(value.split(", ", QString::SkipEmptyParts));
     }else if (field=="REALTIME"){
            //qDebug() << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
-
         realTime = util->trueOrFalse(value);
-
     }
     else if (field=="INMEMORY")
     {
        //qDebug() << "MainWindow::processConfigLine: INMEMORY: " << value.toUpper() << endl;
-
          DBinMemory = util->trueOrFalse(value);
 
     }
@@ -4460,7 +4441,6 @@ bool MainWindow::processConfigLine(const QString _line){
         defaultADIFLogFile = value.toLower();
            //qDebug() << "MainWindow::processConfigLine: " << defaultADIFLogFile << endl;
     }
-
     else if (field=="STATIONLOCATOR")
     {
 
@@ -4517,7 +4497,16 @@ bool MainWindow::processConfigLine(const QString _line){
     }
     else if (field=="LOGAUTOFROMWSJTX")
     {
-        //CONFIGURAR AQUI EL AUTOLOG
+        if (value.toUpper() == "TRUE")
+        {
+            wsjtxAutoLog = true;
+            //UDPLogServer->setLogging(true);
+        }
+        else
+        {
+            wsjtxAutoLog = false;
+            //UDPLogServer->setLogging(false);
+        }
     }
     else if (field=="REALTIMEFROMWSJTX")
     {
@@ -7093,14 +7082,9 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
                                               const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
                                               const QString _tx_power, const QString _comments, const QString _name, const QString _time_on)
 {
-    if (modify)
-    {
-        return;
-        //TODO: SHow a message showing the data received and ask the user if that QSO should be directly logged or discarded
-        // This may require a different approach to log QSO data doing it directly instead of going through te UI
-    }
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO type: " << QString::number(_type) << endl;
 
-
+    bool logTheQso = false;
 
 
 
@@ -7121,53 +7105,101 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
 
     if (_type == 5)
     {
+        if (wsjtxAutoLog)
+        { // Log automatically, without confirmation
+            logTheQso = true;
+        }
+        else
+        { // Ask for confirmation before logging
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setWindowTitle(tr("KLog QSO received"));
+            msgBox.setTextFormat(Qt::RichText);
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+            msgBox.setDefaultButton(QMessageBox::Yes);
+            QString aux;
+            aux = tr("The following QSO data has been received from WSJT-X to be logged:") + "\n\n" +
+                    "<UL>" +
+                    "<LI>" +
+                    "<b>" + tr("Call") + ": " + "</b>" + _dxcall.toUpper() +
+                    "</LI>" +
+                    "<LI>" +
+                    "<b>" + tr("Freq") + ": " + "</b>" + QString::number(_freq) +
+                    "</LI>" +
+                    "<LI>" +
+                    "<b>" + tr("Mode") + ": " + "</b>" + _mode.toUpper() +
+                    "</LI>" +
+                    "<LI>" +
+                    "<b>" + tr("Time On") + ": " + "</b>" + (QDateTime::fromString(_time_on, "yyyyMMddhhmmss")).toString("yyyy/MM/dd - hh:mm:ss") +
+                    "</LI>" +
+                    "<LI>" +
+                    "<b>" + tr("Time Off") + ": " + "</b>" + (QDateTime::fromString(_time_off, "yyyyMMddhhmmss")).toString("yyyy/MM/dd - hh:mm:ss") +
+                    "</LI>" +
+                    "<LI>" +
+                    "<b>" + tr("RST TX") + ": " + "</b>" + _report_sent + " - <b>" + tr("RST RX") + ": " + "</b>" + _report_rec  +
+                    "</LI>" +
+                    "<LI>" +
+                    "<b>" + tr("DX-Grid") + ": " + "</b>" + _dx_grid.toUpper()  +
+                    "</LI>" +
+                    "<LI>" +
+                    "<b>" + tr("Name") + ": " + "</b>" + _name  +
+                    "</LI>" +
+                    "<LI>" +
+                    "<b>" + tr("Comments") + ": " + "</b>" + _comments +
+                    "</LI>" +
+                    "<LI>" +
+                    "<b>" + tr("TX Pwr") + ": " + "</b>" + _tx_power +
+                    "</LI>" +
+                    "</UL>" ;
 
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Information);
-        msgBox.setWindowTitle(tr("KLog QSO received"));
-        msgBox.setTextFormat(Qt::RichText);
-        QString aux;
-        aux = tr("The following QSO data has been received from WSJT-X to be logged:") + "\n\n" +
-                "<UL>" +
-                "<LI>" +
-                "<b>" + tr("Call: ") + "</b>" + _dxcall +
-                "</LI>" +
-                "<LI>" +
-                "<b>" + tr("Freq: ") + "</b>" + QString::number(_freq) +
-                "</LI>" +
-                "<LI>" +
-                "<b>" + tr("Mode: ") + "</b>" + _mode +
-                "</LI>" +
-                "<LI>" +
-                "<b>" + tr("Time On: ") + "</b>" + (QDateTime::fromString(_time_on, "yyyyMMddhhmmss")).toString("yyyy/MM/dd - hh:mm:ss") +
-                "</LI>" +
-                "<LI>" +
-                "<b>" + tr("Time Off: ") + "</b>" + (QDateTime::fromString(_time_off, "yyyyMMddhhmmss")).toString("yyyy/MM/dd - hh:mm:ss") +
-                "</LI>" +
-                "<LI>" +
-                "<b>" + tr("RST TX: ") + "</b>" + _report_sent + " - <b>" + tr("RST RX: ") + "</b>" + _report_rec  +
-                "</LI>" +
-                "<LI>" +
-                "<b>" + tr("DX-Grid: ") + "</b>" + _dx_grid  +
-                "</LI>" +
-                "<LI>" +
-                "<b>" + tr("Name: ") + "</b>" + _name  +
-                "</LI>" +
-                "<LI>" +
-                "<b>" + tr("Comments: ") + "</b>" + _comments +
-                "</LI>" +
-                "<LI>" +
-                "<b>" + tr("Power tx: ") + "</b>" + _tx_power +
-                "</LI>" +
-                "</UL>" ;
+            msgBox.setText(aux);
+            int ret = msgBox.exec();
+            switch (ret)
+            {
+                case QMessageBox::Yes:
+                    logTheQso = true;
+                break;
+                case QMessageBox::No:
+                    logTheQso = false;
+                    break;
+                default:
+                // should never be reached
+                logTheQso = false;
+                break;
+            }
 
-        msgBox.setText(aux);
-        msgBox.exec();
+        }
 
+        if (logTheQso)
+        {
+            qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must be logged" << endl;
+            bool qsoLogged = false;
+            int dxcc = world->getQRZARRLId(_dxcall);
+            dxcc = util->getNormalizedDXCCValue(dxcc);
 
+            qsoLogged = dataProxy->addQSOFromWSJTX(_dxcall.toUpper(), _freq,  _mode, _dx_grid, _time_off, _report_sent, _report_rec, _tx_power, _comments, _name, _time_on, dxcc, operatorQRZ, stationQRZ, myLocator, currentLog);
 
-        dataProxy->addQSOFromWSJTX(_dxcall, _freq,  _mode, _dx_grid, _time_off, _report_sent, _report_rec, _tx_power, _comments, _name, _time_on, currentLog);
+            if (qsoLogged)
+            {
+                qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO OK: " << _dxcall << endl;
+                actionsJustAfterAddingOneQSO();
+            }
+            else
+            {
+                qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO NOK: " << _dxcall << endl;
+            }
+        }
+        else
+        {
+            qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must NOT be logged ... ending" << endl;
+        }
+
     }
+    else
+    {
+        qDebug() << "MainWindow::slotWSJTX-loggedQSO: type != 5, nothing to do or an error"<< endl;
+    }
+    qDebug() << "MainWindow::slotWSJTX-loggedQSO: - END" << endl;
 }
 
 bool MainWindow::checkIfNewMode(const QString _mode)
@@ -7181,7 +7213,7 @@ bool MainWindow::checkIfNewMode(const QString _mode)
         QMessageBox msgBox;
 
         msgBox.setIcon(QMessageBox::Warning);
-        QString aux = tr("A new mode not supported by KLog has been received from an external software:") + "(" + _mode + ")\n\n" + tr("If the receiver mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)");
+        QString aux = tr("A new mode not supported by KLog has been received from an external software:") + "(" + _mode + ")\n\n" + tr("If the received mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)");
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
 
@@ -7245,7 +7277,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxc
             QMessageBox msgBox;
 
             msgBox.setIcon(QMessageBox::Warning);
-            QString aux = tr("A new mode not supported by KLog has been received from an external software:") + "(" + _mode + ")\n\n" + tr("If the receiver mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)");
+            QString aux = tr("A new mode not supported by KLog has been received from an external software:") + "(" + _mode + ")\n\n" + tr("If the received mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)");
             msgBox.setText(aux);
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
 
@@ -7324,9 +7356,9 @@ void MainWindow::addNewValidMode(const QString _mode)
 
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed)
 {
-    //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << endl;
-    //qDebug() << "MainWindow::slotQueryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
-    //qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
+    qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << endl;
+    qDebug() << "MainWindow::slotQueryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
+    qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
 
 
     if (noMoreErrorShown)
