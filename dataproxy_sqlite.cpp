@@ -1983,6 +1983,9 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const double _freq
     {
             stringFields  = stringFields  + "bandid, " ;
             stringData =  stringData + "'" + QString::number(getBandIdFromFreq(_freq)) + "', ";
+
+            stringFields  = stringFields  + "freq, " ;
+            stringData =  stringData + "'" + QString::number(_freq) + "', ";
     }
     else
     {

@@ -42,12 +42,14 @@ public:
     void setReaDataFromWSJTx(const QString t);
     void setUDPServer(const QString t);
     void setUDPServerPort(const QString t);
+    void setTimeout(const QString t);
 
     QString getLogFromWSJTx();
     QString getAutoLogFromWSJTx();
     QString getReaDataFromWSJTx();
     QString getUDPServerPort();
     QString getUDPServer();
+    QString getTimeout();
 
 private:
     void createUI();
@@ -56,7 +58,9 @@ private:
     QCheckBox *logFromWSJTXCheckbox, *logAutomaticallyWSJTXCheckbox, *realDataFromWSJTXCheckbox, *UDPServerCheckBox;
     //QLineEdit *wsjtxIPAddress, *wsjtxPortNumber;
     QSpinBox *UDPServerPortSpinBox;
-    int defaultport;
+    QSpinBox *miliSecsSpinBox;
+
+    int defaultport, defaultTimer;
 
     //bool logFromWSJTx, autoLogFromWSJTx, realDataFromWSJTx;
     

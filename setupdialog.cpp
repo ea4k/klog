@@ -573,6 +573,7 @@ qDebug() << "SetupDialog::slotOkButtonClicked" << endl;
         stream << "LogFromWSJTX=" << UDPPage->getLogFromWSJTx() << ";" <<  endl;
         stream << "LogAutoFromWSJTX=" << UDPPage->getAutoLogFromWSJTx() << ";" <<  endl;
         stream << "RealTimeFromWSJTX=" << UDPPage->getReaDataFromWSJTx() << ";" <<  endl;
+        stream << "InfoTimeOut=" << UDPPage->getTimeout() << ";" <<  endl;
 
         //WSJTX
 
@@ -739,6 +740,10 @@ bool SetupDialog::processConfigLine(const QString _line)
     else if (tab=="REALTIMEFROMWSJTX")
     {
         UDPPage->setReaDataFromWSJTx(value);
+    }
+    else if (tab=="INFOTIMEOUT")
+    {
+        UDPPage->setTimeout(value);
     }
     else if (tab =="NAME")
     {
@@ -997,6 +1002,7 @@ void SetupDialog::setDefaults()
 
     UDPPage->setUDPServer("FALSE");
     UDPPage->setUDPServerPort("2237");
+    UDPPage->setTimeout("2000");
     UDPPage->setLogFromWSJTx("FALSE");
     UDPPage->setReaDataFromWSJTx("FALSE");
     UDPPage->setAutoLogFromWSJTx("FALSE");

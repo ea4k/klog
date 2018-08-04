@@ -70,6 +70,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     dxclusterServerToConnect = "dxfun.com";
     dxclusterServerPort = 8000;
     contestMode = "DX";
+    infoTimeout = 2000; // default timeout
 
     defaultADIFLogFile = "klog.adi";
 
@@ -153,6 +154,9 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     clublogUser = QString();
     clublogPass = QString();
     clublogEmail = QString();
+
+    infoLabel1T = QString();
+    infoLabel2T = QString();
 /*
     db = new DataBase(Q_FUNC_INFO, softwareVersion, util->getKLogDBFile());
     if (!db->createConnection())
@@ -300,6 +304,9 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
     timer->start(1000);
+    timerInfoBars = new QTimer(this);
+    connect(timerInfoBars, SIGNAL(timeout()), this, SLOT(slotTimeOutInfoBars()) );
+
 
     previousQrz = "";
     qrzLineEdit = new QLineEdit;
@@ -688,6 +695,12 @@ void MainWindow::createUI()
     }
 
 
+}
+
+void MainWindow::slotTimeOutInfoBars()
+{
+    infoLabel1->setText(infoLabel1T);
+    infoLabel2->setText(infoLabel2T);
 }
 
 void MainWindow::slotModeComboBoxChanged()
@@ -2578,7 +2591,7 @@ void MainWindow::createActionsCommon(){
     // UDPLogServer - WSJT-x
 
    connect(UDPLogServer, SIGNAL(status_update(int, QString, double, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, double, QString, QString, QString, QString, QString, QString) ) );
-   connect(UDPLogServer, SIGNAL( logged_qso(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString)), this, SLOT(slotWSJTXloggedQSO(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString) ) );
+   connect(UDPLogServer, SIGNAL( logged_qso(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString)), this, SLOT(slotWSJTXloggedQSO(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString) ) );
 
 
 }
@@ -4481,9 +4494,20 @@ bool MainWindow::processConfigLine(const QString _line){
             UDPServerStart = false;
         }
     }
-    else if (field=="UDPSERVERPORT"){
+    else if (field=="UDPSERVERPORT")
+    {
         UDPLogServer->setPort(value.toInt());
     }   
+    else if (field=="INFOTIMEOUT")
+    {
+        int a = value.toInt();
+        if ((a>0) && (a<=30000))
+        {
+            infoTimeout = a;
+        }
+
+
+    }
     else if (field=="LOGFROMWSJTX")
     {
         if (value.toUpper() == "TRUE")
@@ -7080,13 +7104,12 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 
 void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, const double _freq, const QString _mode,
                                               const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
-                                              const QString _tx_power, const QString _comments, const QString _name, const QString _time_on)
+                                              const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const QString _de_call, const QString _de_grid)
 {
+
     qDebug() << "MainWindow::slotWSJTX-loggedQSO type: " << QString::number(_type) << endl;
 
     bool logTheQso = false;
-
-
 
    //qDebug() << "MainWindow::slotWSJTX-loggedQSO type: " << QString::number(_type) << endl;
    //qDebug() << "MainWindow::slotWSJTX-loggedQSO dxcall: " << _dxcall << endl;
@@ -7150,6 +7173,12 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
                     "<LI>" +
                     "<b>" + tr("TX Pwr") + ": " + "</b>" + _tx_power +
                     "</LI>" +
+                    "<LI>" +
+                    "<b>" + tr("Operator") + ": " + "</b>" + _de_call.toUpper() +
+                    "</LI>" +
+                    "<LI>" +
+                    "<b>" + tr("Local-Grid") + ": " + "</b>" + _de_grid +
+                    "</LI>" +
                     "</UL>" ;
 
             msgBox.setText(aux);
@@ -7177,12 +7206,30 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
             int dxcc = world->getQRZARRLId(_dxcall);
             dxcc = util->getNormalizedDXCCValue(dxcc);
 
-            qsoLogged = dataProxy->addQSOFromWSJTX(_dxcall.toUpper(), _freq,  _mode, _dx_grid, _time_off, _report_sent, _report_rec, _tx_power, _comments, _name, _time_on, dxcc, operatorQRZ, stationQRZ, myLocator, currentLog);
+            QString _oper = _de_call;
+            if (!(util->isValidCall(_oper)))
+            {
+                _oper = operatorQRZ;
+            }
+
+            QString _myLoc = _de_grid;
+            if (!(locator->isValidLocator(_myLoc)))
+            {
+                _myLoc = myLocator;
+            }
+
+            qsoLogged = dataProxy->addQSOFromWSJTX(_dxcall.toUpper(), _freq,  _mode, _dx_grid, _time_off, _report_sent, _report_rec, _tx_power, _comments, _name, _time_on, dxcc, _oper, stationQRZ, _myLoc, currentLog);
 
             if (qsoLogged)
             {
                 qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO OK: " << _dxcall << endl;
                 actionsJustAfterAddingOneQSO();
+                infoLabel1T = infoLabel1->text();
+                infoLabel2T = infoLabel2->text();
+
+                infoLabel1->setText(tr("QSO logged from WSJTX:"));
+                infoLabel2->setText(_dxcall + " - " + dataProxy->getBandNameFromFreq(_freq) + "/" + _mode);
+                timerInfoBars->start(infoTimeout);
             }
             else
             {

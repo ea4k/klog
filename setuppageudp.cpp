@@ -9,6 +9,7 @@ SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
 
     UDPServerCheckBox = new QCheckBox(tr("Start UDP Server"), this);
     UDPServerPortSpinBox = new QSpinBox;
+    miliSecsSpinBox = new QSpinBox;
     
     //wsjtxIPAddress = new QLineEdit(this);
     //wsjtxPortNumber = new QLineEdit(this);
@@ -16,7 +17,8 @@ SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
     //autoLogFromWSJTx = false;
     //realDataFromWSJTx = false;
     
-    defaultport = 2237;
+    defaultport = 2237;     // Default WSJTX port
+    defaultTimer = 2000;  // 2 secs
 
     createUI();
     createActions();
@@ -59,7 +61,7 @@ void SetupPageUDP::createUI()
 
     UDPServerPortSpinBox->setMinimum(0);
     UDPServerPortSpinBox->setMaximum(65535);
-    UDPServerPortSpinBox->setValue(2237);
+    UDPServerPortSpinBox->setValue(defaultport);
     QLabel *udpPortLabel = new QLabel(tr("UDP Port"));
     udpPortLabel->setBuddy(UDPServerPortSpinBox);
     udpPortLabel->setToolTip(labelTip);
@@ -70,9 +72,22 @@ void SetupPageUDP::createUI()
     UDPLayout1->addWidget(udpPortLabel);
     UDPLayout1->addWidget(UDPServerPortSpinBox);
 
+    miliSecsSpinBox->setMinimum(0);
+    miliSecsSpinBox->setMaximum(30000);
+    miliSecsSpinBox->setValue(defaultTimer);
+    QLabel *miliSecsSpinBoxLabel = new QLabel(tr("QSO notification timeout (milisecs)"));
+    miliSecsSpinBox->setToolTip(tr("Miliseconds that the notification of QSO received from WSJTX will be shown."));
+    miliSecsSpinBoxLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    miliSecsSpinBoxLabel->setEnabled(true);
+    miliSecsSpinBox->setEnabled(false);
+
+
     QHBoxLayout *UDPLayout = new QHBoxLayout;
     UDPLayout->addWidget(UDPServerCheckBox);
     UDPLayout->addLayout(UDPLayout1);
+    UDPLayout->addWidget(miliSecsSpinBoxLabel);
+    UDPLayout->addWidget(miliSecsSpinBox);
+
 
 
     //QLabel *IPAddressLabel = new QLabel(tr("WSJT-x IP address"));
@@ -116,6 +131,7 @@ void SetupPageUDP::slotUDPServerCheckBoxClicked()
         logFromWSJTXCheckbox->setChecked(true);
         logAutomaticallyWSJTXCheckbox->setEnabled(true);
         realDataFromWSJTXCheckbox->setEnabled(true);
+        miliSecsSpinBox->setEnabled(true);
     }
     else
     {
@@ -125,6 +141,7 @@ void SetupPageUDP::slotUDPServerCheckBoxClicked()
         logFromWSJTXCheckbox->setEnabled(false);
         logAutomaticallyWSJTXCheckbox->setEnabled(false);
         realDataFromWSJTXCheckbox->setEnabled(false);
+        miliSecsSpinBox->setEnabled(false);
     }
  }
 
@@ -192,7 +209,34 @@ QString SetupPageUDP::getUDPServerPort()
     }
     else
     {
-        return "-1";
+        return QString::number(defaultport);
+    }
+}
+
+void SetupPageUDP::setTimeout(const QString t)
+{
+    if (  (t.toInt()>=0) && (t.toInt()<=30000))
+    {
+        miliSecsSpinBox->setValue(t.toInt());
+    }
+    else
+    {
+        miliSecsSpinBox->setValue(defaultTimer);
+    }
+
+}
+
+QString SetupPageUDP::getTimeout()
+{
+    int t = miliSecsSpinBox->value();
+
+    if (  (t>=0) && (t<=30000) )
+    {
+        return QString::number(t);
+    }
+    else
+    {
+        return QString::number(defaultTimer);
     }
 }
 
