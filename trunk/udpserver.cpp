@@ -164,10 +164,12 @@ void UDPServer::parse(const QByteArray &msg)
             //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - QSO logged" << endl;
             if (logging)
             {
-                in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >> tx_power >> comments >> name >> time_on;
+                in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >> tx_power >> comments >> name >> time_on >> de_call >> de_grid;
                 frequencyDouble = (double)frequency;
                 frequencyDouble = frequencyDouble/1000000; // Change to MHz
-                emit logged_qso (type, dx_call, frequencyDouble, mode, dx_grid, time_off.toString("yyyyMMddHHmmss"), report_sent, report_received, tx_power, comments, name, time_on.toString("yyyyMMddHHmmss"));
+                emit logged_qso (type, dx_call, frequencyDouble, mode, dx_grid,
+                                 time_off.toString("yyyyMMddHHmmss"), report_sent, report_received, tx_power, comments,
+                                 name, time_on.toString("yyyyMMddHHmmss"), de_call, de_grid);
 
             }
             else

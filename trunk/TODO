@@ -27,6 +27,7 @@ Working:
 TODO: ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing
 
 
+TODO: Check how to implement qInstallMessageHandler
 SAT DB: https://db.satnogs.org/api/
 
 This is a kind of roadmap for KLog development.

@@ -202,6 +202,7 @@ private slots:
     void slotRQSLExport();
     void slotCabrilloExport();
     //void slotQSLViaTextChanged();
+    void slotTimeOutInfoBars(); // Clears the infoLabels when the timeout emits the signal
 
 
 //TODO: REMOVE EQSL
@@ -286,7 +287,7 @@ private slots:
 
     void slotWSJTXloggedQSO(const int _type, const QString _dxcall, const double _freq, const QString _mode,
                              const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
-                             const QString _tx_power, const QString _comments, const QString _name, const QString _time_on);
+                             const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const QString _de_call, const QString _de_grid);
 
 private:
     bool maybeSave();
@@ -561,8 +562,10 @@ private:
     // </CLUSTER>
 
     // </UI>
-    QTimer *timer;
+    int infoTimeout; // timeout that temporary info will stay in the infobars
+    QTimer *timer, *timerInfoBars;
     QDateTime *dateTime;
+    QString infoLabel1T, infoLabel2T;
 
     QString klogDir, ctyDatFile, defaultADIFLogFile, configFileName;
     QString softwareVersion;

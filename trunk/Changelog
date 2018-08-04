@@ -1,5 +1,6 @@
 TBD - 0.9.4
-- Check bool DataBase::updateTo012() / there is a return true bypassing everything
+- WSJT-X support to receive logged QSO and realtime data.
+- Check bool DataBase::updateTo012() / it was always returning true without any action.
 - Syncronize RX Freq with the satellite downlink combobox.
 - Update process has been improved.
 - Bugfix: When adding a QSO, if the QSL is marked as received, KLog showed a SQL error.
