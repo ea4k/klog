@@ -352,7 +352,7 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Kyselyt onnistuivat</translation>
     </message>
     <message>
-        <location line="+4095"/>
+        <location line="+4098"/>
         <source>KLog DXCC</source>
         <translation>KLog DXCC</translation>
     </message>
@@ -977,7 +977,7 @@ Haluatko varmasti peruuttaa?</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="+199"/>
+        <location filename="../mainwindow.cpp" line="+203"/>
         <source>Recalculate</source>
         <translation>Laske uudelleen</translation>
     </message>
@@ -992,15 +992,15 @@ Haluatko varmasti peruuttaa?</translation>
         <translation>Käynnistetään KLog</translation>
     </message>
     <message>
-        <location line="+95"/>
-        <location line="+530"/>
+        <location line="+98"/>
+        <location line="+536"/>
         <location line="+2248"/>
         <location line="+64"/>
         <source>&amp;Add</source>
         <translation>&amp;Lisää</translation>
     </message>
     <message>
-        <location line="-2839"/>
+        <location line="-2845"/>
         <source>&amp;Clear</source>
         <translation>T&amp;yhjennä</translation>
     </message>
@@ -1037,18 +1037,18 @@ Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+85"/>
-        <location line="+2893"/>
+        <location line="+2899"/>
         <location line="+710"/>
         <source>KLog</source>
         <translation>KLog</translation>
     </message>
     <message>
-        <location line="-3391"/>
+        <location line="-3397"/>
         <source>Ready</source>
         <translation>Valmis</translation>
     </message>
     <message>
-        <location line="+164"/>
+        <location line="+170"/>
         <source>An unexpected error ocurred when trying to add the QSO to your log. If the problem persists, please contact the developer for analysis: </source>
         <translation>Tapahtui odottamaton virhe, kun yritit lisätä QSO:n lokiin. Jos ongelma jatkuu, ota yhteyttä kehittäjään analyysiä varten: </translation>
     </message>
@@ -1136,28 +1136,28 @@ Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+4046"/>
+        <location line="+4057"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location line="-4039"/>
-        <location line="+4037"/>
+        <location line="-4050"/>
+        <location line="+4048"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
     <message>
-        <location line="-4028"/>
+        <location line="-4039"/>
         <location line="+800"/>
         <location line="+6"/>
         <location line="+908"/>
-        <location line="+980"/>
+        <location line="+991"/>
         <location line="+1332"/>
         <source>QRZ</source>
         <translation>QRZ</translation>
     </message>
     <message>
-        <location line="-4019"/>
+        <location line="-4030"/>
         <source>STX</source>
         <translation>STX</translation>
     </message>
@@ -1644,7 +1644,7 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+304"/>
+        <location line="+315"/>
         <source>It seems that there are no QSO in the database.</source>
         <translation>Näyttää siltä ettei tietokannassa ole QSO:ta.</translation>
     </message>
@@ -1830,12 +1830,12 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location line="+18"/>
-        <location line="+2190"/>
+        <location line="+2189"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location line="-2186"/>
+        <location line="-2185"/>
         <source>QTH</source>
         <translation>QTH</translation>
     </message>
@@ -2012,7 +2012,7 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1785"/>
+        <location line="+1784"/>
         <source>Call</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2061,7 +2061,7 @@ Do you want to save your changes?</translation>
         <translation type="vanished">Muista kirjata LoTW loki ennen lähetystä!</translation>
     </message>
     <message>
-        <location line="-1791"/>
+        <location line="-1790"/>
         <source>There was no QSO to be exported.</source>
         <translation>Vietäviä QSO:ita ei ollut.</translation>
     </message>
@@ -2150,12 +2150,12 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+683"/>
+        <location line="+682"/>
         <source>Mode</source>
         <translation>Tila</translation>
     </message>
     <message>
-        <location line="-668"/>
+        <location line="-667"/>
         <source>Print Log</source>
         <translation>Tulosta loki</translation>
     </message>
@@ -2178,7 +2178,7 @@ Do you want to save your changes?</translation>
  QSO: </translation>
     </message>
     <message>
-        <location line="+619"/>
+        <location line="+618"/>
         <source>KLog QSO received</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2188,7 +2188,22 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+33"/>
+        <source>Operator</source>
+        <translation type="unfinished">Operaattori</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Local-Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <source>QSO logged from WSJTX:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+33"/>
         <source>A new mode not supported by KLog has been received from an external software:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4021,7 +4036,7 @@ Lokia ei avata.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+23"/>
         <source>Log automatically QSOs from WSJT-X</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4073,6 +4088,16 @@ Lokia ei avata.</translation>
     <message>
         <location line="+6"/>
         <source>UDP Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>QSO notification timeout (milisecs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Miliseconds that the notification of QSO received from WSJTX will be shown.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
