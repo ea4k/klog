@@ -727,7 +727,7 @@ void SearchWidget::slotRighButtonSearch(const QPoint& pos)
         return;
     }
     //qDebug() << "SearchWidget::slotRighButtonSearch: "  << QString::number(_qsoID) << endl;
-
+    searchBoxLineEdit->setFocus();
 }
 
 void SearchWidget::righButtonSearchMenu(const int trow)

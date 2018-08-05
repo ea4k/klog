@@ -2649,7 +2649,7 @@ Do you want to save your changes?</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../awards.cpp" line="+751"/>
+        <location filename="../awards.cpp" line="+772"/>
         <source>New One, work it!</source>
         <translation>Uusi, työstä se!</translation>
     </message>

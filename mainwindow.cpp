@@ -868,7 +868,7 @@ void MainWindow::slotQRZReturnPressed()
 }
 void MainWindow::actionsJustAfterAddingOneQSO()
 {
-    qDebug() << "MainWindow::actionsJustAfterAddingOneQSO" << endl;
+    //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO" << endl;
     int lastId = -1;
     needToSave = true;
     if (modify)
@@ -903,7 +903,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
         lastId = dataProxy->getLastQSOid();
         if (lastId>=0)
         {
-            qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid: "<< QString::number(lastId) << endl;
+            //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid: "<< QString::number(lastId) << endl;
             awards->setAwards(lastId);   //Update the DXCC award status
 
             // Send to CLUBLOG if enabled
@@ -925,7 +925,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
 
     logWindow->refresh();
     dxccStatusWidget->refresh();
-    qDebug() << "MainWindow::actionsJustAfterAddingOneQSO - END" << endl;
+    //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO - END" << endl;
 
 }
 
@@ -2816,7 +2816,7 @@ void MainWindow::slotQRZTextChanged()
     }
     int cursorP = qrzLineEdit->cursorPosition();
     //qDebug()<< "MainWindow::slotQRZTextChanged: cursor position: " << QString::number(cursorP) << endl;
-  qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
+    qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
     if (cleaning)
     {
            //qDebug()<< "MainWindow::slotQRZTextChanged: Cleaning" << endl;
@@ -4241,10 +4241,10 @@ void MainWindow::readConfigData()
 
     if (UDPServerStart)
     {
-        qDebug() << "MainWindow::readConfigData: 104: UDPServerStart TRUE" << endl;
+        //qDebug() << "MainWindow::readConfigData: 104: UDPServerStart TRUE" << endl;
         if (!UDPLogServer->isStarted())
         {
-            qDebug() << "MainWindow::readConfigData: 104: Server off" << endl;
+            //qDebug() << "MainWindow::readConfigData: 104: Server off" << endl;
             if (!UDPLogServer->start())
             {
                 errorMSG =  tr("start");
@@ -4253,17 +4253,17 @@ void MainWindow::readConfigData()
             }
             else
             {
-              qDebug() << "MainWindow::readConfigData: UDP Log server started!" << endl;
+              //qDebug() << "MainWindow::readConfigData: UDP Log server started!" << endl;
             }
         }
         else
         {
-           qDebug() << "MainWindow::readConfigData: UDP Log server already started no need to restart!" << endl;
+           //qDebug() << "MainWindow::readConfigData: UDP Log server already started no need to restart!" << endl;
         }
     }        
     else
     {
-        qDebug() << "MainWindow::readConfigData: 104: UDPServerStart FALSE" << endl;
+        //qDebug() << "MainWindow::readConfigData: 104: UDPServerStart FALSE" << endl;
         if (UDPLogServer->isStarted())
         {
             if (!UDPLogServer->stop())
@@ -4274,17 +4274,17 @@ void MainWindow::readConfigData()
             }
             else
             {
-               qDebug() << "MainWindow::readConfigData: UDP Log server stopped!" << endl;
+               //qDebug() << "MainWindow::readConfigData: UDP Log server stopped!" << endl;
             }
         }
         else
         {
-           qDebug() << "MainWindow::readConfigData: UDP Log server already stopped no need to restop!" << endl;
+           //qDebug() << "MainWindow::readConfigData: UDP Log server already stopped no need to restop!" << endl;
         }
     }
 
 
-   qDebug() << "MainWindow::readConfigData - END" << endl;
+   //qDebug() << "MainWindow::readConfigData - END" << endl;
 
 }
 
@@ -4484,7 +4484,7 @@ bool MainWindow::processConfigLine(const QString _line){
     }
     else if (field=="UDPSERVER")
     {
-        qDebug() << "MainWindow::processConfigLine: UDPSERVER: " << value.toUpper()  << endl;
+        //qDebug() << "MainWindow::processConfigLine: UDPSERVER: " << value.toUpper()  << endl;
         if (value.toUpper() == "TRUE")
         {
             UDPServerStart = true;            
@@ -4534,7 +4534,7 @@ bool MainWindow::processConfigLine(const QString _line){
     }
     else if (field=="REALTIMEFROMWSJTX")
     {
-        qDebug() << "MainWindow::processConfigLine: REALTIMEFROMWSJTX: " << value << endl;
+        //qDebug() << "MainWindow::processConfigLine: REALTIMEFROMWSJTX: " << value << endl;
         if (value.toUpper() == "TRUE")
         {
             UDPLogServer->setRealTimeUpdate(true);
@@ -7107,7 +7107,7 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
                                               const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const QString _de_call, const QString _de_grid)
 {
 
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO type: " << QString::number(_type) << endl;
+    //qDebug() << "MainWindow::slotWSJTX-loggedQSO type: " << QString::number(_type) << endl;
 
     bool logTheQso = false;
 
@@ -7201,7 +7201,7 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
 
         if (logTheQso)
         {
-            qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must be logged" << endl;
+            //qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must be logged" << endl;
             bool qsoLogged = false;
             int dxcc = world->getQRZARRLId(_dxcall);
             dxcc = util->getNormalizedDXCCValue(dxcc);
@@ -7222,7 +7222,7 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
 
             if (qsoLogged)
             {
-                qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO OK: " << _dxcall << endl;
+                //qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO OK: " << _dxcall << endl;
                 actionsJustAfterAddingOneQSO();
                 infoLabel1T = infoLabel1->text();
                 infoLabel2T = infoLabel2->text();
@@ -7233,20 +7233,20 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
             }
             else
             {
-                qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO NOK: " << _dxcall << endl;
+                //qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO NOK: " << _dxcall << endl;
             }
         }
         else
         {
-            qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must NOT be logged ... ending" << endl;
+            //qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must NOT be logged ... ending" << endl;
         }
 
     }
     else
     {
-        qDebug() << "MainWindow::slotWSJTX-loggedQSO: type != 5, nothing to do or an error"<< endl;
+        //qDebug() << "MainWindow::slotWSJTX-loggedQSO: type != 5, nothing to do or an error"<< endl;
     }
-    qDebug() << "MainWindow::slotWSJTX-loggedQSO: - END" << endl;
+    //qDebug() << "MainWindow::slotWSJTX-loggedQSO: - END" << endl;
 }
 
 bool MainWindow::checkIfNewMode(const QString _mode)
@@ -7403,9 +7403,9 @@ void MainWindow::addNewValidMode(const QString _mode)
 
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed)
 {
-    qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << endl;
-    qDebug() << "MainWindow::slotQueryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
-    qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << endl;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
 
 
     if (noMoreErrorShown)
