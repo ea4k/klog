@@ -1925,7 +1925,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const double _freq
                                        const QString _tx_power, const QString _comments, const QString _name, const QString _time_on,
                                        const int _dxcc, const QString _opQrz, const QString _stQrz, const QString _myLoc, const int _logN)
 {
-    qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << _dxcall << endl;
+    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << _dxcall << endl;
 
     //void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
     //                                              const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
@@ -1989,7 +1989,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const double _freq
     }
     else
     {
-        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: band" << endl;
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: band" << endl;
 
 
         emit queryError(Q_FUNC_INFO, "Incorrect band: " + _band, -1000 , "No query error");
@@ -2006,7 +2006,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const double _freq
     }
     else
     {
-        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: mode" << endl;
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: mode" << endl;
         emit queryError(Q_FUNC_INFO, "Incorrect mode: " + _mode, -1000, "No query error");
         return false;
     }

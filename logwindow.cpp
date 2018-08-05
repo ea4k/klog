@@ -155,7 +155,7 @@ void LogWindow::setColumnsToDX()
 
 void LogWindow::refresh()
 {
-    qDebug() << "LogWindow::refresh"  << endl;
+    //qDebug() << "LogWindow::refresh"  << endl;
     logModel->select();
 }
 

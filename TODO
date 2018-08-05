@@ -1,11 +1,9 @@
 RC-BUGS:
 TODO: Check if dxccStatusWidget in logwindow is useful and remove it if not.
-TODO: When entering a Satellite QSO, when you select the sat, the frecuency is defined but the band is not synchronized.
 NONE
 
 For 0.9.4
 TODO: - Right-click on search box to mark as received a QSL is slow. An optimization is needed.
-TODO: - UDP server to receive data from WSJT-X
 TODO: - Some warnings removed from compilation time.
 TODO: - The log can be now updated with a LoTW ADIF file import.
 TODO: - Add a warning or periodically ADIF export so data is backup.
