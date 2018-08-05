@@ -224,7 +224,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="362"/>
         <source>Entity not worked in this band.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entitet nije rađen na ovom pojasu.</translation>
     </message>
 </context>
 <context>
@@ -370,7 +370,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../downloadcty.cpp" line="64"/>
         <source>Download of cty.csv failed with the following error code: </source>
-        <translation>Preuzimanje cty.csv je neuspjelo s kodom greške:</translation>
+        <translation>Preuzimanje cty.csv je neuspjelo s kodom greške: </translation>
     </message>
     <message>
         <location filename="../downloadcty.cpp" line="76"/>
@@ -385,7 +385,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../downloadcty.cpp" line="177"/>
         <source>Could not open </source>
-        <translation>Ne mogu otvoriti</translation>
+        <translation>Ne mogu otvoriti </translation>
     </message>
     <message>
         <location filename="../downloadcty.cpp" line="177"/>
@@ -538,7 +538,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../filemanager.cpp" line="201"/>
         <source>Please select the station callsign you want to export the log from:</source>
-        <translation type="unfinished"></translation>
+        <translation>Molim izaberite pozivni znak postaje za koju želite izvesti dnevnik:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="226"/>
@@ -564,32 +564,32 @@ Do you want to try again?</source>
     <message>
         <location filename="../filemanager.cpp" line="3335"/>
         <source>There is more than one log in this logfile.</source>
-        <translation type="unfinished"></translation>
+        <translation>U ovoj dnevničkoj datoteci nalazi se više od jednog dnevnika.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3335"/>
         <source>All logs will be imported into the current log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Svi dnevnici bit će uvezeni u trenutni dnevnik.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3335"/>
         <source>Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Želite li nastaviti?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3588"/>
         <source>Importing ADIF file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozim ADIF datoteku...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3754"/>
         <source>You have cancelled the file import. The file will be removed and no data will be imported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Prekinuli ste uvoz datoteke. Datoteka će biti izbrisana i nijedan podatak neće biti uvezen.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3615"/>
         <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
-        <translation type="unfinished"></translation>
+        <translation>Izgleda da imate duplikate QSOa u ADIF datoteci koju uvozite. Želite li nastaviti? (Duplicirani QSOi neće biti uvezeni)</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4772"/>
@@ -723,7 +723,7 @@ Do you want to try again?</source>
         <location filename="../infowidget.cpp" line="96"/>
         <location filename="../infowidget.cpp" line="101"/>
         <source>Deg</source>
-        <translation type="unfinished"></translation>
+        <translation>Stu</translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="314"/>
@@ -1161,7 +1161,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3646"/>
         <source>Please select the station callsign you want to mark as sent to LoTW:</source>
-        <translation type="unfinished"></translation>
+        <translation>Molim izaberite pozivni znak postaje za koju želite označiti kao poslanu u LoTW:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3701"/>
@@ -1176,103 +1176,103 @@ Do you want to try again?</source>
     <message>
         <location filename="../mainwindow.cpp" line="7147"/>
         <source>Call</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozivni</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7150"/>
         <source>Freq</source>
-        <translation type="unfinished"></translation>
+        <translation>Frekv</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7156"/>
         <source>Time On</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrijeme početka</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7159"/>
         <source>Time Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrijeme kraja</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7162"/>
         <source>RST TX</source>
-        <translation type="unfinished"></translation>
+        <translation>RST TX</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7162"/>
         <source>RST RX</source>
-        <translation type="unfinished"></translation>
+        <translation>RST RX</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7165"/>
         <source>DX-Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>DX-Polje</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7171"/>
         <source>Comments</source>
-        <translation type="unfinished">Komentari</translation>
+        <translation>Komentari</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7174"/>
         <source>TX Pwr</source>
-        <translation type="unfinished"></translation>
+        <translation>TX snaga</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3646"/>
         <source>The log that you have selected contains more than just one station callsign.</source>
-        <translation type="unfinished">Dnevnik koji ste izabrali sadrži više od jednog pozivnog znaka.</translation>
+        <translation>Dnevnik koji ste izabrali sadrži više od jednog pozivnog znaka.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3409"/>
         <source>Export to ADIF...</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvezi u ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3415"/>
         <source>Export all logs to ADIF...</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvezi sve dnevnike u ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3421"/>
         <source>Export Requested QSL to ADIF...</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvezi zatražene QSL u ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3426"/>
         <source>Export ADIF for LoTW...</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvezi ADIF za LoTW...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3596"/>
         <location filename="../mainwindow.cpp" line="3619"/>
         <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sad možete otići u izbornik Datoteka kako bi izvezli LoTW ADIF datoteku i učitali je u LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3649"/>
         <source>Station Callsign:</source>
-        <translation type="unfinished">Pozivni znak postaje:</translation>
+        <translation>Pozivni znak postaje:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3658"/>
         <source>Define Station Callsign</source>
-        <translation type="unfinished">Odrediti pozivni znak postaje</translation>
+        <translation>Odrediti pozivni znak postaje</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3659"/>
         <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Niste izabrali pozivni znak. KLog će označiti QSOe bez definiranog pozivnog znaka i one sa pozivnim znakom kojeg unesete ovdje.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3659"/>
         <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
-        <translation type="unfinished">Unesite pozivni znak za ovaj dnevnik ili ga ostavite praznim za QSO bez definiranog pozivnog znaka postaje:</translation>
+        <translation>Unesite pozivni znak za ovaj dnevnik ili ga ostavite praznim za QSO bez definiranog pozivnog znaka postaje:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3672"/>
         <source>No station callsign has been selected and therefore no log will be marked</source>
-        <translation type="unfinished"></translation>
+        <translation>Niti jedan pozivni znak nije izabran i kao takav niti jedan dnevnik neće biti označen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3727"/>
@@ -1302,7 +1302,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../mainwindow.cpp" line="4239"/>
         <source>UDP Server error</source>
-        <translation type="unfinished"></translation>
+        <translation>Pogreška UDP poslužitelja</translation>
     </message>
     <message>
         <source>The selected log is not existing or it is still empty.</source>
@@ -1498,42 +1498,42 @@ Do you want to try again?</source>
     <message>
         <location filename="../mainwindow.cpp" line="7139"/>
         <source>KLog QSO received</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog QSO primljen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7144"/>
         <source>The following QSO data has been received from WSJT-X to be logged:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sljedeći QSO podatci primljeni su iz WSJT-Xa kako bi bili zapisani:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7177"/>
         <source>Operator</source>
-        <translation type="unfinished">Operater</translation>
+        <translation>Operater</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7180"/>
         <source>Local-Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokalni lokator</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7230"/>
         <source>QSO logged from WSJTX:</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO zapisan iz WSJTXa:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7263"/>
         <source>A new mode not supported by KLog has been received from an external software:</source>
-        <translation type="unfinished"></translation>
+        <translation>Novi način rada primljen iz vanjskog softvera nije podržan u KLogu:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7263"/>
         <source>Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)</source>
-        <translation type="unfinished"></translation>
+        <translation>Želite li i dalje primati ove obavijesti? (onemogućavanje ovih obavijesti spriječit će otkrivanje nevažećih načina rada)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7263"/>
         <source>If the received mode is correct, please contact KLog development team and request support for that mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Ako je primljeni način rada ispravan, molimo kontaktirajte razvojni tim KLoga i zatražite podršku za taj način rada</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7416"/>
@@ -2102,12 +2102,12 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3502"/>
         <source>Queue all QSL to be sent of this log</source>
-        <translation type="unfinished"></translation>
+        <translation>Stavi sve QSLe za slanje iz ovog dnevnika u red</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3507"/>
         <source>Queue all QSL to be sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Stavi sve QSLe u red za slanje</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3522"/>
@@ -2122,17 +2122,17 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="4239"/>
         <source>The UDP server failed to</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP poslužitelj nije uspio</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4250"/>
         <source>start</source>
-        <translation type="unfinished"></translation>
+        <translation>početi</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4271"/>
         <source>stop</source>
-        <translation type="unfinished"></translation>
+        <translation>stati</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4586"/>
@@ -2542,7 +2542,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindowsattab.cpp" line="93"/>
         <source>Locator of the DX station. This box is syncronized with the Locator box in the QSO tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokator DX postaje. Ova kućica sinkronizirana je sa kućicom Lokator u QSO odjeljku.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="96"/>
@@ -2567,7 +2567,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindowsattab.cpp" line="112"/>
         <source>DX Locator</source>
-        <translation type="unfinished"></translation>
+        <translation>DX lokator</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="117"/>
@@ -2598,7 +2598,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindowsattab.cpp" line="404"/>
         <source>The satellite you have in your QSO is: </source>
-        <translation>Satelit kojeg imate u QSOu je:</translation>
+        <translation>Satelit kojeg imate u QSOu je: </translation>
     </message>
 </context>
 <context>
@@ -2670,7 +2670,7 @@ Do you want to save your changes?</source>
         <location filename="../database.cpp" line="3958"/>
         <location filename="../database.cpp" line="4160"/>
         <source>Progress: </source>
-        <translation>Napredak:</translation>
+        <translation>Napredak: </translation>
     </message>
     <message>
         <location filename="../database.cpp" line="7113"/>
@@ -2691,7 +2691,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../database.cpp" line="7428"/>
         <source>Updating WAZ Award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ažuriram podatke o WAZ nagradama...</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="3554"/>
@@ -3160,7 +3160,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../setupdialog.cpp" line="172"/>
         <source>WSJT-X</source>
-        <translation type="unfinished"></translation>
+        <translation>WSJT-X</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="290"/>
@@ -4013,72 +4013,72 @@ The log will not be opened.</oldsource>
     <message>
         <location filename="../setuppageudp.cpp" line="10"/>
         <source>Start UDP Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokreni UDP poslužitelj</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="33"/>
         <source>Log automatically QSOs from WSJT-X</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatski zapiši QSOe iz WSJT-Xa</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="34"/>
         <source>Allow WSJT-X to send logged QSO to KLog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dozvoli WSJT-Xu da šalje zapisani QSO KLogu</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="35"/>
         <source>QSO logged in WSJT-X will be sent to KLog and KLog will ask before logging into KLog unless</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO zapisan u WSJT-Xu bit će poslan u KLog i KLog će pitati prije upisivanja u KLog ako ne</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="35"/>
         <source>is selected.</source>
-        <translation type="unfinished"></translation>
+        <translation>je označen.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="38"/>
         <source>KLog will log automatically any QSO coming from WSJT-X without any manual confirmation.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog će automatski upisati svaki QSO koji dolazi iz WSJT-Xa bez ikakve ručne potvrde.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="41"/>
         <source>Receive and Update QSO data to KLog</source>
-        <translation type="unfinished"></translation>
+        <translation>Primi i osvježi QSO podatke u KLogu</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="42"/>
         <source>KLog will automatically show and update data coming from WSJT-X (DX callsign, locator, RPT, ...)</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog će automatski pokazati i osvježiti podatke koji dolaze iz WSJT-Xa (DX pozivni znak, lokator, izvještaj, ...)</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="58"/>
         <source>Make sure it is the same port where the other programs are sending the data to. Default port is 2237.</source>
-        <translation type="unfinished"></translation>
+        <translation>Provjerite da je to isti port na koji i drugi programi šalju podatke. Uobičajena vrijednost je 2237.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="58"/>
         <source>UDP port number where the UDP Server will listen for packets.</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP port na kojem će UDP poslužitelj slušati za pakete.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="59"/>
         <source>UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in KLog automatically from those programs.</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP poslužitelj će primiti QSOe poslane iz drugih programa kao na primjer WSJT-X što će vam omogućiti automatsko zapisivanje iz tih programa u KLog.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="65"/>
         <source>UDP Port</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP Port</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="78"/>
         <source>QSO notification timeout (milisecs)</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrijeme trajanja QSO obavijesti (milisekundi)</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="79"/>
         <source>Miliseconds that the notification of QSO received from WSJTX will be shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Milisekunde koliko će trajati prikaz obavijesti za QSO primljen iz WSJTXa.</translation>
     </message>
 </context>
 <context>
