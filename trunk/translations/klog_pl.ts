@@ -2766,37 +2766,37 @@ Ewentualnie, proszę o kontak z twórcami programu aby satelita mógł zostać d
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../awards.cpp" line="751"/>
+        <location filename="../awards.cpp" line="772"/>
         <source>New One, work it!</source>
         <translation>New One, work it!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="755"/>
-        <location filename="../awards.cpp" line="759"/>
-        <location filename="../awards.cpp" line="765"/>
-        <location filename="../awards.cpp" line="768"/>
-        <location filename="../awards.cpp" line="771"/>
-        <location filename="../awards.cpp" line="774"/>
+        <location filename="../awards.cpp" line="776"/>
         <location filename="../awards.cpp" line="780"/>
         <location filename="../awards.cpp" line="786"/>
+        <location filename="../awards.cpp" line="789"/>
+        <location filename="../awards.cpp" line="792"/>
+        <location filename="../awards.cpp" line="795"/>
+        <location filename="../awards.cpp" line="801"/>
+        <location filename="../awards.cpp" line="807"/>
         <source>Needed, work it!</source>
         <translation>Potrzebny, zrób QSO!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="762"/>
-        <location filename="../awards.cpp" line="777"/>
         <location filename="../awards.cpp" line="783"/>
-        <location filename="../awards.cpp" line="789"/>
+        <location filename="../awards.cpp" line="798"/>
+        <location filename="../awards.cpp" line="804"/>
+        <location filename="../awards.cpp" line="810"/>
         <source>Worked but not confirmed</source>
         <translation>Zrobione, ale nie potwierdzone</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="792"/>
+        <location filename="../awards.cpp" line="813"/>
         <source>Confirmed</source>
         <translation>Potwierdzone</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="796"/>
+        <location filename="../awards.cpp" line="817"/>
         <source>Not identified</source>
         <translation>Nie zidetyfikowany</translation>
     </message>
