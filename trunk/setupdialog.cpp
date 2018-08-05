@@ -79,9 +79,9 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
     logsPage = new SetupPageLogs(dataProxy, this);
    //qDebug() << "SetupDialog::SetupDialog 3.11" << endl;
     clubLogPage = new SetupPageClubLog(this);
-    qDebug() << "SetupDialog::SetupDialog 3.12" << endl;
+    //qDebug() << "SetupDialog::SetupDialog 3.12" << endl;
     UDPPage = new SetupPageUDP(this);
-   qDebug() << "SetupDialog::SetupDialog 3.13" << endl;
+   //qDebug() << "SetupDialog::SetupDialog 3.13" << endl;
 
    //qDebug() << "SetupDialog::SetupDialog 4" << endl;
 
@@ -135,7 +135,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
 
 SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
 {
-    qDebug() << "SetupDialog::SetupDialog 2" << endl;
+    //qDebug() << "SetupDialog::SetupDialog 2" << endl;
     constrid = 2;
     util = new Utilities;
     firstTime = _firstTime;

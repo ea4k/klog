@@ -123,7 +123,7 @@ void SetupPageUDP::createActions()
 
 void SetupPageUDP::slotUDPServerCheckBoxClicked()
  {
-    qDebug() << "SetupPageUDP::slotUDPServerCheckBoxClicked" << endl;
+    //qDebug() << "SetupPageUDP::slotUDPServerCheckBoxClicked" << endl;
 
     if (UDPServerCheckBox->isChecked())
     {
@@ -147,7 +147,7 @@ void SetupPageUDP::slotUDPServerCheckBoxClicked()
 
 void SetupPageUDP::slotLogFromWSJTCheckBoxClicked()
 {
-    qDebug() << "SetupPageUDP::slotLogFromWSJTCheckBoxClicked" << endl;
+    //qDebug() << "SetupPageUDP::slotLogFromWSJTCheckBoxClicked" << endl;
     if (logFromWSJTXCheckbox->isChecked())
     {
         logAutomaticallyWSJTXCheckbox->setEnabled(true);
@@ -174,7 +174,7 @@ QString SetupPageUDP::getUDPServer()
 
 void SetupPageUDP::setUDPServer(const QString t)
 {
-    qDebug() << "SetupPageUDP::setUDPServer: "  << t << endl;
+    //qDebug() << "SetupPageUDP::setUDPServer: "  << t << endl;
     if ( (t.toUpper()) == "FALSE")
     {
         UDPServerCheckBox->setChecked(false);

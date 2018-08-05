@@ -336,29 +336,29 @@ QDate Utilities::getDefaultDate()
 
 bool Utilities::isValidDate(const QDate _d)
 {
-    qDebug() << "Utilities::isValidDate: " << _d << endl;
+    //qDebug() << "Utilities::isValidDate: " << _d << endl;
     if (_d.isValid())
     {
         if ( _d > getDefaultDate())
         {
-            qDebug() << "Utilities::isValidDate: OK" << endl;
+            //qDebug() << "Utilities::isValidDate: OK" << endl;
             return true;
         }
     }
-    qDebug() << "Utilities::isValidDate: Error" << endl;
+    //qDebug() << "Utilities::isValidDate: Error" << endl;
     return false;
 }
 
 bool Utilities::isValidDateTime(const QString _d)
 {
-    qDebug() << "Utilities::isValidDateTime: " << _d << endl;
+    //qDebug() << "Utilities::isValidDateTime: " << _d << endl;
     QDateTime _dateTime = QDateTime::fromString(_d, "yyyyMMddhhmmss");
     if ( _dateTime.isValid()  )
     {
-        qDebug() << "Utilities::isValidDateTime: 1"  << endl;
+        //qDebug() << "Utilities::isValidDateTime: 1"  << endl;
         return isValidDate(_dateTime.date());
     }
-    qDebug() << "Utilities::isValidDateTime: Error" << endl;
+    //qDebug() << "Utilities::isValidDateTime: Error" << endl;
     return false;
 }
 
