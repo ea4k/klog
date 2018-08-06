@@ -58,7 +58,7 @@
         <location filename="../aboutdialog.cpp" line="73"/>
         <location filename="../aboutdialog.cpp" line="87"/>
         <source>KLog development mailing list</source>
-        <translation>la lista de desarrollo de KLog</translation>
+        <translation>lista de desarrollo de KLog</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="73"/>
@@ -69,7 +69,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="87"/>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the</source>
-        <translation>Si KLog aun no está en su idioma y quiere ayudarnos, es bienvenido a contactar con nosotros a través de la</translation>
+        <translation>Si KLog aun no está en su idioma y quiere ayudarnos, puede contactar con nosotros a través de la</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="69"/>
@@ -2030,17 +2030,17 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="7177"/>
         <source>Operator</source>
-        <translation type="unfinished">Operador</translation>
+        <translation>Operador</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7180"/>
         <source>Local-Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Locator local:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7230"/>
         <source>QSO logged from WSJTX:</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO recibido de WSJT-X:</translation>
     </message>
     <message>
         <source>Call: </source>
@@ -2106,42 +2106,42 @@ Do you want to save your changes?</source>
         <translation>Si el modo recibido es correcto, por favor contacte con el equipo de desarrollo de KLog y solicite que lo incluyan</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7416"/>
+        <location filename="../mainwindow.cpp" line="7417"/>
         <source>An unexpected error ocurred!!</source>
         <translation>¡Ha ocurrido un error inesperado!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7416"/>
+        <location filename="../mainwindow.cpp" line="7417"/>
         <source>If the problem persists, please contact the developers</source>
         <translation>Si el problema persiste, contacte con los desarrolladores</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7416"/>
+        <location filename="../mainwindow.cpp" line="7417"/>
         <source>for analysis:</source>
         <translation>para que lo analicen:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7418"/>
+        <location filename="../mainwindow.cpp" line="7419"/>
         <source>Error in function</source>
         <translation>Error en la funcion</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7419"/>
+        <location filename="../mainwindow.cpp" line="7420"/>
         <source>Error code</source>
         <translation>Código de error</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7420"/>
+        <location filename="../mainwindow.cpp" line="7421"/>
         <source>Error text</source>
         <translation>Texto del error</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7421"/>
+        <location filename="../mainwindow.cpp" line="7422"/>
         <source>Failed query</source>
         <translation>Query fallida</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7432"/>
+        <location filename="../mainwindow.cpp" line="7433"/>
         <source>Do you want to keep showing errors?</source>
         <translation>¿Quiere seguir mostrando los errores?</translation>
     </message>
@@ -2709,8 +2709,8 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../database.cpp" line="3575"/>
         <location filename="../database.cpp" line="3758"/>
-        <location filename="../database.cpp" line="7205"/>
-        <location filename="../database.cpp" line="7428"/>
+        <location filename="../database.cpp" line="7203"/>
+        <location filename="../database.cpp" line="7426"/>
         <location filename="../dataproxy_sqlite.cpp" line="4157"/>
         <source>QSO: </source>
         <translation>QSO: </translation>
@@ -2730,23 +2730,23 @@ Do you want to save your changes?</source>
         <translation>Progreso: </translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7113"/>
+        <location filename="../database.cpp" line="7111"/>
         <source>Updating DXCC award information...</source>
         <translation>Actualizand la información del diploma DXCC...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7205"/>
+        <location filename="../database.cpp" line="7203"/>
         <location filename="../dataproxy_sqlite.cpp" line="4157"/>
         <source>Updating DXCC Award information...</source>
         <translation>Actualizando la información del diploma DXCC...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7336"/>
+        <location filename="../database.cpp" line="7334"/>
         <source>Updating WAZ award information...</source>
         <translation>Actualizando la información del diploma WAZ...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7428"/>
+        <location filename="../database.cpp" line="7426"/>
         <source>Updating WAZ Award information...</source>
         <translation>Actualizando la información del diploma WAZ...</translation>
     </message>
@@ -2761,8 +2761,8 @@ Do you want to save your changes?</source>
         <location filename="../database.cpp" line="3739"/>
         <location filename="../database.cpp" line="3936"/>
         <location filename="../database.cpp" line="4137"/>
-        <location filename="../database.cpp" line="7113"/>
-        <location filename="../database.cpp" line="7336"/>
+        <location filename="../database.cpp" line="7111"/>
+        <location filename="../database.cpp" line="7334"/>
         <location filename="../dataproxy_sqlite.cpp" line="4116"/>
         <source>Abort updating</source>
         <translation>Cancelar actualización</translation>
@@ -2786,38 +2786,38 @@ Do you want to save your changes?</source>
         <translation>Actualizando información de modos en %1...</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="772"/>
+        <location filename="../awards.cpp" line="755"/>
         <source>New One, work it!</source>
         <oldsource>nNew One, work it!</oldsource>
         <translation>¡Nuevo, trabájelo!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="776"/>
-        <location filename="../awards.cpp" line="780"/>
-        <location filename="../awards.cpp" line="786"/>
-        <location filename="../awards.cpp" line="789"/>
-        <location filename="../awards.cpp" line="792"/>
-        <location filename="../awards.cpp" line="795"/>
-        <location filename="../awards.cpp" line="801"/>
-        <location filename="../awards.cpp" line="807"/>
+        <location filename="../awards.cpp" line="759"/>
+        <location filename="../awards.cpp" line="763"/>
+        <location filename="../awards.cpp" line="769"/>
+        <location filename="../awards.cpp" line="772"/>
+        <location filename="../awards.cpp" line="775"/>
+        <location filename="../awards.cpp" line="778"/>
+        <location filename="../awards.cpp" line="784"/>
+        <location filename="../awards.cpp" line="790"/>
         <source>Needed, work it!</source>
         <translation>¡Necesitado, trabájelo!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="783"/>
-        <location filename="../awards.cpp" line="798"/>
-        <location filename="../awards.cpp" line="804"/>
-        <location filename="../awards.cpp" line="810"/>
+        <location filename="../awards.cpp" line="766"/>
+        <location filename="../awards.cpp" line="781"/>
+        <location filename="../awards.cpp" line="787"/>
+        <location filename="../awards.cpp" line="793"/>
         <source>Worked but not confirmed</source>
         <translation>Trabajado pero no confirmado</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="813"/>
+        <location filename="../awards.cpp" line="796"/>
         <source>Confirmed</source>
         <translation>Confirmado</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="817"/>
+        <location filename="../awards.cpp" line="800"/>
         <source>Not identified</source>
         <translation>No identificado</translation>
     </message>
@@ -4133,12 +4133,12 @@ The log will not be opened.</oldsource>
     <message>
         <location filename="../setuppageudp.cpp" line="78"/>
         <source>QSO notification timeout (milisecs)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo de notificación de QSO(milisegundos)</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="79"/>
         <source>Miliseconds that the notification of QSO received from WSJTX will be shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Milisegundos que se mostrará la notificación de QSO recibido desde WSJT-X</translation>
     </message>
     <message>
         <source>UDP port number where the UDP Server will listen for connections.</source>
