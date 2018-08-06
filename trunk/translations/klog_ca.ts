@@ -1174,62 +1174,62 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="7147"/>
         <source>Call</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicatiu</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7150"/>
         <source>Freq</source>
-        <translation type="unfinished"></translation>
+        <translation>Freq</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7156"/>
         <source>Time On</source>
-        <translation type="unfinished"></translation>
+        <translation>Hora inici</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7159"/>
         <source>Time Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Hora final</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7162"/>
         <source>RST TX</source>
-        <translation type="unfinished"></translation>
+        <translation>RST TX</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7162"/>
         <source>RST RX</source>
-        <translation type="unfinished"></translation>
+        <translation>RST RX</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7165"/>
         <source>DX-Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>DX-Grid</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7171"/>
         <source>Comments</source>
-        <translation type="unfinished">Comentaris</translation>
+        <translation>Comentaris</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7174"/>
         <source>TX Pwr</source>
-        <translation type="unfinished"></translation>
+        <translation>Potència TX</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7177"/>
         <source>Operator</source>
-        <translation type="unfinished">Operador</translation>
+        <translation>Operador</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7180"/>
         <source>Local-Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Local-Grid</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7230"/>
         <source>QSO logged from WSJTX:</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO enregistrat des de WSJTX:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3646"/>
@@ -1540,7 +1540,7 @@ Voleu tornar-ho a intentar?</translation>
     </message>
     <message>
         <source>Time Off: </source>
-        <translation type="vanished">Hora finali: </translation>
+        <translation type="vanished">Hora final: </translation>
     </message>
     <message>
         <source>RST TX: </source>
@@ -1583,7 +1583,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="7263"/>
         <source>If the received mode is correct, please contact KLog development team and request support for that mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Si el mode rebut és correcte, contacteu amb l&apos;equip de desenvolupament del KLog i sol·liciteu la implentació d&apos;aquest mode</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7416"/>
@@ -4111,12 +4111,12 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppageudp.cpp" line="78"/>
         <source>QSO notification timeout (milisecs)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps excedit de la notificació QSO (mil·lisegons)</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="79"/>
         <source>Miliseconds that the notification of QSO received from WSJTX will be shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mil·lisegons en que es mostrarà la notificació del QSO rebut des de WSJTX.</translation>
     </message>
     <message>
         <source>UDP port number where the UDP Server will listen for connections.</source>
@@ -4130,7 +4130,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppageudp.cpp" line="58"/>
         <source>UDP port number where the UDP Server will listen for packets.</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de port UDP a on el servidor UDP escoltarà els paquets.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="59"/>
