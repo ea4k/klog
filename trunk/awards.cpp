@@ -568,10 +568,11 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
         queryString = QString("SELECT confirmed FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND lognumber='%3' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
     }
 
+    int status = 0;
 
     if (query.exec(queryString))
     {
-        if (query.next())
+        while (query.next())
         {
             if ( query.isValid() )
             {
@@ -584,29 +585,14 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
                 else if(query.value(0).toString() == "0")
                 {
                     //qDebug() << "Awards::dxccStatusBandMode: return - 1" << endl;
-                    query.finish();
-                    return 1;
-                }
-                else
-                {
-                    //qDebug() << "Awards::dxccStatusBandMode: return - 0-1" << endl;
-                    query.finish();
-                    return 0;
+                   if (status < 1)
+                   {
+                       status = 1;
+                   }
                 }
             }
-            else
-            {
-                //qDebug() << "Awards::dxccStatusBandMode: return - 0-2" << endl;
-                query.finish();
-                return 0;
-            }
         }
-        else
-        { // No value => Not Worked
-            //qDebug() << "Awards::dxccStatusBandMode: return - 0-3" << endl;
-            query.finish();
-            return 0;
-        }
+        query.finish();
 
     }
     else
@@ -617,7 +603,7 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
         return -1;
     }
         //qDebug() << "Awards::dxccStatusBandMode: return - 0-4" << endl;
-    return 0;
+    return status;
 }
 
 
@@ -643,7 +629,8 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
                 {
 
                     //qDebug() << "Awards::dxccStatus: value = 1 - return 2" << endl;
-                    worked = 2;
+                    query.finish();
+                    return 2;
                 }
                 else if((query.value(0)).toString() == "0")
                 {
@@ -653,10 +640,6 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
                     {
                         worked = 1;
                     }
-                }
-                else
-                {
-                    //qDebug() << "Awards::dxccStatus: value = ELSE - return -1" << endl;
                 }
             }
         }
@@ -674,7 +657,7 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
         return -1;
     }
     //qDebug() << "Awards::dxccStatus: return 0"  << endl;
-    return 0;
+    return worked;
 }
 
 
@@ -834,6 +817,7 @@ QString Awards::getDXCCStatusBand(const int _dxcc, const int _band, const int _l
     {
         stringQuery = QString("SELECT confirmed from awarddxcc WHERE dxcc='%1' AND band='%2' AND lognumber='%3'").arg(_dxcc).arg(_band).arg(_logNumber);
     }
+    QString status = "-";
 
     QSqlQuery query;
     bool sqlOk = query.exec(stringQuery);
@@ -849,15 +833,11 @@ QString Awards::getDXCCStatusBand(const int _dxcc, const int _band, const int _l
                 }
                 else if ((query.value(0)).toString() == "0")
                 {
-                    query.finish();
-                    return "W";
+                    if (status == "-")
+                    {
+                        status = "W";
+                    }
                 }
-                else
-                {
-                    query.finish();
-                    return "-";
-                }
-
             }
         }
     }
@@ -868,7 +848,7 @@ QString Awards::getDXCCStatusBand(const int _dxcc, const int _band, const int _l
         return "-";
     }
     query.finish();
-    return "-";
+    return status;
 }
 
 
@@ -1469,53 +1449,40 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
         QString queryString = QString();
 
         queryString = QString("SELECT confirmed FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
-
+        int status = 0;
 
         if (query.exec(queryString))
         {
-            if (query.next())
+            while (query.next())
             {
                 if ( query.isValid() )
                 {
                     if(query.value(0).toString() == "1")         // Confirmed
                     {
-
                         query.finish();
                         return 2;
                     }
                     else if(query.value(0).toString() == "0")    // Worked
                     {
-                        query.finish();
-                        return 1;
-                    }
-                    else                                    // Not worked
-                    {
-                        query.finish();
-                        return 0;
+                        if (status < 1)
+                        {
+                            status = 1;
+                        }
                     }
                 }                                           // Not present => Not worked
-                else
-                {
-                    query.finish();
-                    return 0;
-                }
             }
-            else                                            // Not present => Not worked
-            { // No value => Not Worked
-                query.finish();
-                return 0;
-            }
-
+            query.finish();
         }
         else
-        { // The query fails...
-          //TODO: Manage the query error
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-            query.finish();
-            return -1;
+        {
+            //TODO: Manage the query error
+              emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+              query.finish();
+              return -1;
         }
+
     //qDebug() << "Awards::dxccStatusBand: return - 0.3" << endl;
-        return 0;                                       // if arrives to here decision => not worked
+        return status;                                       // if arrives to here decision => not worked
 }
 
 int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
@@ -1529,13 +1496,13 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
         {
             return -1;
         }
-
+        int status = 0;
         queryString = QString("SELECT confirmed FROM awarddxcc WHERE dxcc='%1' AND mode='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_mode)).arg(QString::number(_logNumber));
 
 
         if (query.exec(queryString))
         {
-            if (query.next())
+            while (query.next())
             {
                 if ( query.isValid() )
                 {
@@ -1546,27 +1513,14 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
                     }
                     else if(query.value(0).toString() == "0")    // Worked
                     {
-                        query.finish();
-                        return 1;
-                    }
-                    else                                    // Not worked
-                    {
-                        query.finish();
-                        return 0;
+                        if (status < 1)
+                        {
+                            status = 1;
+                        }
                     }
                 }                                           // Not present => Not worked
-                else
-                {
-                    query.finish();
-                    return 0;
-                }
             }
-            else                                            // Not present => Not worked
-            { // No value => Not Worked
-                query.finish();return 0;
-
-            }
-
+            query.finish();
         }
         else
         { // The query fails...
@@ -1575,7 +1529,7 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
           //TODO: Manage the query error
             return -1;
         }
-        return 0;                                       // if arrives to here decision => not worked
+        return status;                                       // if arrives to here decision => not worked
 }
 
 void Awards::setManageModes(const bool _manageModes)

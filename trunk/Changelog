@@ -1,4 +1,4 @@
-TBD - 0.9.4
+August 2018 - 0.9.4
 - WSJT-X support to receive logged QSO and realtime data.
 - Check bool DataBase::updateTo012() / it was always returning true without any action.
 - Syncronize RX Freq with the satellite downlink combobox.
@@ -9,7 +9,7 @@ TBD - 0.9.4
 - Bugfix: Some DXCC status were nor properly calculated.
 - Updated translations: Catalan (TNX Josep), Croatian (TNX M0NKC), Spanish (EA4TV).
 
-April - 0.9.3
+April 2018 - 0.9.3
 - Double clicking on DXCC Widget name of the Entity will show the QSO is providing that status on the Search widget.
 - Added DXCC support for Kosovo.
 - Bugfix: Default band & mode are now defined as the most used band and mode.
@@ -24,14 +24,14 @@ April - 0.9.3
 - Bugfix: Updating the WAZ status was not always possible due to a incorrect DB query.
 - Updated translations: Danish (TNX Joe), Spanish (EA4TV).
 
-January - 0.9.2.9
+January 2018 - 0.9.2.9
 - Bugfix: Adding new QSO that implies a DXCC or WAZ status already worked failed.
 - Bugfix: Modes where not properly added from the setup (TNX KB2YSI).
 - UI Change: Freq in the Satellite tab is now not deleted when a new QSO is added.
 - New translation: Catalan by Josep (Thank you!)
 - New translation: Finnish by Kristjan (Thank you!)
 
-January - 0.9.2.8
+January 2018 - 0.9.2.8
 - Important Optimization on KLog speed on start and general use.
 - New satellites (AO-91 & AO-92) added.
 - Added ALL the ADIF 3.0.7 fields (except the _INTL ones).
