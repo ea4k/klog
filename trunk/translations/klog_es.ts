@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="es_ES">
+<TS version="2.0" language="es_ES">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -309,7 +309,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxcluster.cpp" line="511"/>
         <source>Enter here the commands to be sent to the DX-Cluster server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduzca aquí los comandos a enviar al servidor de DX-Cluster.</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="503"/>
@@ -331,7 +331,7 @@ Do you want to try again?</source>
     </message>
     <message>
         <source>Enter here the commands to be sent to the DX-Cluster server</source>
-        <translation type="vanished">Introduzca aquí los comandos a enviar al servidor de DX-Cluster</translation>
+        <translation>Introduzca aquí los comandos a enviar al servidor de DX-Cluster</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="521"/>
@@ -341,7 +341,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxcluster.cpp" line="527"/>
         <source>Click on Connect to connect to the DX-Cluster server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pulse en Conectar para conectar al servidor de DX-Cluster.</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="587"/>
@@ -420,7 +420,7 @@ Do you want to try again?</source>
     </message>
     <message>
         <source>Please select the station callsing you want to export the log from:</source>
-        <translation type="vanished">Por favor seleccione el indicativo de estación del que quiere exportar el log:</translation>
+        <translation>Por favor seleccione el indicativo de estación del que quiere exportar el log:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="204"/>
@@ -976,7 +976,7 @@ Do you want to try again?</source>
     </message>
     <message>
         <source>Click to recalculate the award status</source>
-        <translation type="vanished">Pulse para recalcular el estado de los diplomas</translation>
+        <translation>Pulse para recalcular el estado de los diplomas</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="233"/>
@@ -1099,7 +1099,7 @@ Do you want to try again?</source>
     </message>
     <message>
         <source>QRZ of the QSO</source>
-        <translation type="vanished">QRZ del QSO</translation>
+        <translation>QRZ del QSO</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2383"/>
@@ -1311,7 +1311,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Please select the station callsing you want to mark as sent to LoTW:</source>
-        <translation type="vanished">Por favor, seleccione el indicativo de estación del que quiere marcar como enviados a LoTW:</translation>
+        <translation>Por favor, seleccione el indicativo de estación del que quiere marcar como enviados a LoTW:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3649"/>
@@ -1770,23 +1770,23 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>The UDP server failed to </source>
-        <translation type="vanished">El servidor UDP falló al </translation>
+        <translation>El servidor UDP falló al </translation>
     </message>
     <message>
         <source>The selected log is not existing or it is still empty.</source>
-        <translation type="vanished">El log seleccionado no existe o está vacío.</translation>
+        <translation>El log seleccionado no existe o está vacío.</translation>
     </message>
     <message>
         <source>Click Yes and KLog will open an empty log.</source>
-        <translation type="vanished">Pulse en Si y KLog abrirá un log vacío.</translation>
+        <translation>Pulse en Si y KLog abrirá un log vacío.</translation>
     </message>
     <message>
         <source>Click No and KLog will select another log with data.</source>
-        <translation type="vanished">Pulse en No y KLog seleccionará otro log con datos.</translation>
+        <translation>Pulse en No y KLog seleccionará otro log con datos.</translation>
     </message>
     <message>
         <source>You can modify the config file accordingly, if needed.</source>
-        <translation type="vanished">Puede modificar el fichero de configuración, si es necesario.</translation>
+        <translation>Puede modificar el fichero de configuración, si es necesario.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4920"/>
@@ -1842,7 +1842,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindow.cpp" line="204"/>
         <source>Click to recalculate the award status.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pulse para recalcular el estado de los diplomas.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4932"/>
@@ -2056,47 +2056,47 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Call: </source>
-        <translation type="vanished">Indicativo: </translation>
+        <translation>Indicativo: </translation>
     </message>
     <message>
         <source>Freq: </source>
-        <translation type="vanished">Frecuencia: </translation>
+        <translation>Frecuencia: </translation>
     </message>
     <message>
         <source>Mode: </source>
-        <translation type="vanished">Modo: </translation>
+        <translation>Modo: </translation>
     </message>
     <message>
         <source>Time On: </source>
-        <translation type="vanished">Hora Inicio: </translation>
+        <translation>Hora Inicio: </translation>
     </message>
     <message>
         <source>Time Off: </source>
-        <translation type="vanished">Hora fin: </translation>
+        <translation>Hora fin: </translation>
     </message>
     <message>
         <source>RST TX: </source>
-        <translation type="vanished">RST TX: </translation>
+        <translation>RST TX: </translation>
     </message>
     <message>
         <source>RST RX: </source>
-        <translation type="vanished">RST RX: </translation>
+        <translation>RST RX: </translation>
     </message>
     <message>
         <source>DX-Grid: </source>
-        <translation type="vanished">Loc DX: </translation>
+        <translation>Loc DX: </translation>
     </message>
     <message>
         <source>Name: </source>
-        <translation type="vanished">Nombre: </translation>
+        <translation>Nombre: </translation>
     </message>
     <message>
         <source>Comments: </source>
-        <translation type="vanished">Comentarios: </translation>
+        <translation>Comentarios: </translation>
     </message>
     <message>
         <source>Power tx: </source>
-        <translation type="vanished">Potencia TX: </translation>
+        <translation>Potencia TX: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7263"/>
@@ -2105,7 +2105,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>If the receiver mode is correct, please contact KLog development team and request support for that mode</source>
-        <translation type="vanished">Si el modo recibido es correcto, por favor contacte con el equipo de desarrollo de KLog y solicite que lo incluyan</translation>
+        <translation>Si el modo recibido es correcto, por favor contacte con el equipo de desarrollo de KLog y solicite que lo incluyan</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7263"/>
@@ -2282,12 +2282,12 @@ Do you want to save your changes?</source>
     <name>MainWindowInputComment</name>
     <message>
         <source>Add a comment for this QSO</source>
-        <translation type="vanished">Añadir un comentario a este QSO</translation>
+        <translation>Añadir un comentario a este QSO</translation>
     </message>
     <message>
         <location filename="../mainwindowinputcomment.cpp" line="46"/>
         <source>Add a comment for this QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir un comentario a este QSO.</translation>
     </message>
 </context>
 <context>
@@ -2594,7 +2594,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Locator of the DX station. This box will is syncronized with the Locator box in the QSO tab.</source>
-        <translation type="vanished">Locator de la estación DX. Este cuadro se sincronizará con el cuadro de Locator en la pestaña QSO.</translation>
+        <translation>Locator de la estación DX. Este cuadro se sincronizará con el cuadro de Locator en la pestaña QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="96"/>
@@ -3209,7 +3209,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>WSJT-x</source>
-        <translation type="vanished">WSJT-X</translation>
+        <translation>WSJT-X</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="99"/>
@@ -3944,7 +3944,7 @@ The log will not be opened.</oldsource>
     </message>
     <message>
         <source>Start UDP Server</source>
-        <translation type="vanished">Arrancar servidor UDP</translation>
+        <translation>Arrancar servidor UDP</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="119"/>
@@ -3973,15 +3973,15 @@ The log will not be opened.</oldsource>
     </message>
     <message>
         <source>UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in  in KLog automatically from those programs.</source>
-        <translation type="vanished">El servidor UDP recibirá los QSO enviados desde otros programas como WSJT-X permitiendo registrar en KLog los contactos automáticamente desde esos programas.</translation>
+        <translation>El servidor UDP recibirá los QSO enviados desde otros programas como WSJT-X permitiendo registrar en KLog los contactos automáticamente desde esos programas.</translation>
     </message>
     <message>
         <source>UDP port number where the UDP Server will listen for connections. Make sure it is the same port where the other programs are sending the data to.</source>
-        <translation type="vanished">Puerto UDP donde el servidor UDP escuchará las conexiones. Asegúrese de que es el mismo puerto que al que los otros programas están enviando datos.</translation>
+        <translation>Puerto UDP donde el servidor UDP escuchará las conexiones. Asegúrese de que es el mismo puerto que al que los otros programas están enviando datos.</translation>
     </message>
     <message>
         <source>UDP Port</source>
-        <translation type="vanished">Puerto UDP</translation>
+        <translation>Puerto UDP</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="610"/>
@@ -4005,7 +4005,7 @@ The log will not be opened.</oldsource>
     </message>
     <message>
         <source>UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in KLog automatically from those programs.</source>
-        <translation type="vanished">El servidor UDP recibirá los QSO enviados desde otros programas como WSJT-X permitiendo registrar en KLog los contactos automáticamente desde esos programas.</translation>
+        <translation>El servidor UDP recibirá los QSO enviados desde otros programas como WSJT-X permitiendo registrar en KLog los contactos automáticamente desde esos programas.</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="573"/>
