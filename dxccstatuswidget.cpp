@@ -83,7 +83,7 @@ void DXCCStatusWidget::update()
     QStringList list;
 
     QString aux;
-    dxccView->sortByColumn(1, Qt::AscendingOrder);
+    //dxccView->sortByColumn(1, Qt::AscendingOrder);
     dxccView->clearContents();
 
     tempLog = -1;

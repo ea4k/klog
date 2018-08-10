@@ -201,7 +201,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
       //qDebug() << "MainWindow::MainWindow: 0010" << endl;
 
     recalculateAwardsButton = new QPushButton(tr("Recalculate"), this);
-    recalculateAwardsButton->setToolTip(tr("Click to recalculate the award status"));
+    recalculateAwardsButton->setToolTip(tr("Click to recalculate the award status."));
 
     scoreTextEdit = new QTextEdit;
 
@@ -2296,7 +2296,7 @@ WHERE [condition];
 void MainWindow::createSearchResultsPanel()
 {
 
-    searchBoxClearButton->setToolTip(tr("Clear the searchs"));
+    searchBoxClearButton->setToolTip(tr("Clear the searches"));
     searchBoxExportButton->setToolTip(tr("Export the search result to an ADIF file"));
     searchBoxSelectAllButton->setToolTip(tr("Select/Unselect all the QSO of the box"));
     searchBoxReSearchButton->setToolTip(tr("Search in the log"));
@@ -2379,7 +2379,7 @@ void MainWindow::createUICQWW()
      //qDebug() << "MainWindow::createUICQWW - 1-" << QString::number(modes.count()) << endl;
     modeComboBox->addItems(modes);
 
-    qrzLineEdit->setToolTip(tr("QRZ of the QSO"));
+    qrzLineEdit->setToolTip(tr("QRZ of the QSO."));
     rstTXLineEdit->setToolTip(tr("TX RST"));
     rstRXLineEdit->setToolTip(tr("RX RST"));
     STXLineEdit->setToolTip(tr("TX Exchange"));
@@ -7369,6 +7369,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxc
              slotUpdateLocator(_dx_grid);
              rstTXLineEdit->setText(_report);
              myDataTabWidget->setMyLocator(_de_grid);
+             myDataTabWidget->setStationQRZ(_de_call.toUpper());
 
              //TODO: Check what to do with _de_call -> Check if _de_call == station callsign and update if needed.
              //TODO: Check what to do with _de_grid -> Check if _de_grid == My Grid and update if needed.

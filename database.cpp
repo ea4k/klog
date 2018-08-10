@@ -6945,8 +6945,6 @@ bool DataBase::updateTo013()
         }
 
         // Now I am in the previous version and I can update the DB.
-        bool sqlOK = false;
-
 
         if (!recreateSupportedContest())
         {

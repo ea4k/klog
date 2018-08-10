@@ -3,7 +3,9 @@ TODO: Check if dxccStatusWidget in logwindow is useful and remove it if not.
 NONE
 
 For 0.9.4
-TODO: - Right-click on search box to mark as received a QSL is slow. An optimization is needed.
+
+
+For next release:
 TODO: - Some warnings removed from compilation time.
 TODO: - The log can be now updated with a LoTW ADIF file import.
 TODO: - Add a warning or periodically ADIF export so data is backup.
@@ -12,7 +14,6 @@ TODO: - ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing.
 TODO: Rework the band & mode hash tables to optimize queries (not sql queries)
 TODO: Rework the DXCC & WAZ hash table sto optimize queries (not SQL queries)
 
-For next release:
 TODO: - Add an option to disable DX-Marathon support.
 TODO: - Check if the save to adif on exit is working properly
 
@@ -76,7 +77,6 @@ TODO: Review the color management in MainWindowInputOthers::setIOTA (and maybe o
 TODO: Check if in mainwindow (read formUI and modify the eQSL/LOTW REC/SENT values are correct
 
 TODO: If no QSL sent via or rec via are defined, KLog shows as direct? It should be bureau
-
 
 
 TODO: Add a cheking to the list of bureaus and propose the bureau for QSL via when there is an existing one and propose direct when no bureau is existing.

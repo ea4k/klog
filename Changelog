@@ -2,8 +2,9 @@ August 2018 - 0.9.4
 - WSJT-X support to receive logged QSO and realtime data.
 - Check bool DataBase::updateTo012() / it was always returning true without any action.
 - Syncronize RX Freq with the satellite downlink combobox.
-- Focus is bac to sarch
+- Focus is back to search line edit when right click on the list of found QSOs.
 - Update process has been improved.
+- Some warnings removed from compilation time.
 - Bugfix: When adding a QSO, if the QSL is marked as received, KLog showed a SQL error.
 - Bugfix: Table qsl_via needed to be renamed (TNX EA6ZS).
 - Bugfix: Some DXCC status were nor properly calculated.

@@ -230,12 +230,11 @@ Haluatko yrittää uudelleen?</translation>
     <name>DXClusterWidget</name>
     <message>
         <location filename="../dxcluster.cpp" line="+70"/>
-        <location line="+457"/>
         <source>Click on Connect to connect to the DX-Cluster server</source>
         <translation>Napsauta Yhdistä, kun haluat muodostaa yhteyden DX-klusteripalvelimeen</translation>
     </message>
     <message>
-        <location line="-453"/>
+        <location line="+4"/>
         <location line="+451"/>
         <source>Connect</source>
         <translation>Yhdistä</translation>
@@ -325,8 +324,12 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location line="+4"/>
+        <source>Enter here the commands to be sent to the DX-Cluster server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Enter here the commands to be sent to the DX-Cluster server</source>
-        <translation>Anna tähän komennot, jotka lähetetään DX-klusteripalvelimelle</translation>
+        <translation type="vanished">Anna tähän komennot, jotka lähetetään DX-klusteripalvelimelle</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -334,7 +337,12 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Palvelin katkaisi yhteyden</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+6"/>
+        <source>Click on Connect to connect to the DX-Cluster server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+60"/>
         <source>Send</source>
         <translation>Lähetä</translation>
     </message>
@@ -982,12 +990,11 @@ Haluatko varmasti peruuttaa?</translation>
         <translation>Laske uudelleen</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Click to recalculate the award status</source>
-        <translation>Napsauta laskeaksesi uudelleen palkinto tilanne</translation>
+        <translation type="vanished">Napsauta laskeaksesi uudelleen palkinto tilanne</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+30"/>
         <source>Starting KLog</source>
         <translation>Käynnistetään KLog</translation>
     </message>
@@ -1075,12 +1082,11 @@ Haluatko varmasti peruuttaa?</translation>
         <translation>Napsauta oikean yksikön etuliitettä tai paina Peruuta korjataksesi.</translation>
     </message>
     <message>
-        <location line="+659"/>
         <source>QRZ of the QSO</source>
-        <translation>QSO:n QRZ</translation>
+        <translation type="vanished">QSO:n QRZ</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+660"/>
         <source>TX RST</source>
         <translation>TX RST</translation>
     </message>
@@ -1699,12 +1705,18 @@ Do you want to save your changes?</translation>
         <translation>DX:n lokaattori.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-2547"/>
+        <location line="+2549"/>
         <source>QRZ of the QSO.</source>
         <translation>QSO:n QRZ.</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-4727"/>
+        <source>Click to recalculate the award status.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4728"/>
         <source>TX RST.</source>
         <translation>TX RST.</translation>
     </message>
@@ -2218,7 +2230,7 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+153"/>
+        <location line="+154"/>
         <source>An unexpected error ocurred!!</source>
         <translation>Odottamaton virhe tapahtui!!</translation>
     </message>
@@ -2261,9 +2273,13 @@ Do you want to save your changes?</translation>
 <context>
     <name>MainWindowInputComment</name>
     <message>
-        <location filename="../mainwindowinputcomment.cpp" line="+46"/>
         <source>Add a comment for this QSO</source>
-        <translation>Lisää kommentti tälle QSO:lle</translation>
+        <translation type="vanished">Lisää kommentti tälle QSO:lle</translation>
+    </message>
+    <message>
+        <location filename="../mainwindowinputcomment.cpp" line="+46"/>
+        <source>Add a comment for this QSO.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2649,7 +2665,7 @@ Do you want to save your changes?</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../awards.cpp" line="+772"/>
+        <location filename="../awards.cpp" line="+755"/>
         <source>New One, work it!</source>
         <translation>Uusi, työstä se!</translation>
     </message>
@@ -2740,23 +2756,23 @@ Do you want to save your changes?</translation>
         <location line="+185"/>
         <location line="+197"/>
         <location line="+201"/>
-        <location line="+2976"/>
+        <location line="+2974"/>
         <location line="+223"/>
         <location filename="../dataproxy_sqlite.cpp" line="-57"/>
         <source>Abort updating</source>
         <translation>Keskeytä päivittäminen</translation>
     </message>
     <message>
-        <location line="-3761"/>
+        <location line="-3759"/>
         <location line="+183"/>
-        <location line="+3447"/>
+        <location line="+3445"/>
         <location line="+223"/>
         <location filename="../dataproxy_sqlite.cpp" line="+41"/>
         <source>QSO: </source>
         <translation>QSO:</translation>
     </message>
     <message>
-        <location line="-3778"/>
+        <location line="-3776"/>
         <location line="+177"/>
         <location line="+201"/>
         <location line="+208"/>
@@ -2788,7 +2804,7 @@ Do you want to save your changes?</translation>
         <translation>Päivitetään tilatiedot %1 tila...</translation>
     </message>
     <message>
-        <location line="+2978"/>
+        <location line="+2976"/>
         <source>Updating DXCC award information...</source>
         <translation>Päivitetään DXCC palkinto tiedot...</translation>
     </message>

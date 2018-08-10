@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="hr_HR">
+<TS version="2.0" language="hr_HR">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -263,7 +263,6 @@ Do you want to try again?</source>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="70"/>
-        <location filename="../dxcluster.cpp" line="527"/>
         <source>Click on Connect to connect to the DX-Cluster server</source>
         <translation>Kliknite Spoji za spajanje na DX-Cluster poslužitelj</translation>
     </message>
@@ -309,6 +308,11 @@ Do you want to try again?</source>
         <translation>Niste prijavljeni, možda ćete trebati ponovo unijeti svoj pozivni znak.</translation>
     </message>
     <message>
+        <location filename="../dxcluster.cpp" line="511"/>
+        <source>Enter here the commands to be sent to the DX-Cluster server.</source>
+        <translation>Unesite naredbu za poslati DX-Clusteru.</translation>
+    </message>
+    <message>
         <location filename="../dxcluster.cpp" line="503"/>
         <location filename="../dxcluster.cpp" line="582"/>
         <source>Disconnect</source>
@@ -327,7 +331,6 @@ Do you want to try again?</source>
 - ime poslužitelja i port.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="511"/>
         <source>Enter here the commands to be sent to the DX-Cluster server</source>
         <translation>Unesite naredbu za poslati DX-Clusteru</translation>
     </message>
@@ -335,6 +338,11 @@ Do you want to try again?</source>
         <location filename="../dxcluster.cpp" line="521"/>
         <source>Connection closed by the server</source>
         <translation>Poslužitelj je prekinuo vezu</translation>
+    </message>
+    <message>
+        <location filename="../dxcluster.cpp" line="527"/>
+        <source>Click on Connect to connect to the DX-Cluster server.</source>
+        <translation>Kliknite Spoji za spajanje na DX-Cluster poslužitelj.</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="587"/>
@@ -413,7 +421,7 @@ Do you want to try again?</source>
     </message>
     <message>
         <source>Please select the station callsing you want to export the log from:</source>
-        <translation type="vanished">Molim izaberite pozivni znak postaje za koju želite izvesti dnevnik:</translation>
+        <translation>Molim izaberite pozivni znak postaje za koju želite izvesti dnevnik:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="204"/>
@@ -969,7 +977,6 @@ Do you want to try again?</source>
         <translation>Preračunaj</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="204"/>
         <source>Click to recalculate the award status</source>
         <translation>Kliknite za preračunavanje statusa nagrada</translation>
     </message>
@@ -1306,19 +1313,19 @@ Do you want to try again?</source>
     </message>
     <message>
         <source>The selected log is not existing or it is still empty.</source>
-        <translation type="vanished">Izabrani dnevnik ne postoji ili je još uvijek prazan.</translation>
+        <translation>Izabrani dnevnik ne postoji ili je još uvijek prazan.</translation>
     </message>
     <message>
         <source>Click Yes and KLog will open an empty log.</source>
-        <translation type="vanished">Kliknite Da i KLog će otvoriti prazan dnevnik.</translation>
+        <translation>Kliknite Da i KLog će otvoriti prazan dnevnik.</translation>
     </message>
     <message>
         <source>Click No and KLog will select another log with data.</source>
-        <translation type="vanished">Kliknite Ne i KLog će izabrati drugi dnevnik s podatcima.</translation>
+        <translation>Kliknite Ne i KLog će izabrati drugi dnevnik s podatcima.</translation>
     </message>
     <message>
         <source>You can modify the config file accordingly, if needed.</source>
-        <translation type="vanished">Možete proizvoljno urediti konfiguracijsku datoteku, ako bude potrebno.</translation>
+        <translation>Možete proizvoljno urediti konfiguracijsku datoteku, ako bude potrebno.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4920"/>
@@ -1366,9 +1373,15 @@ Do you want to try again?</source>
         <translation>DXov lokator.</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="2382"/>
         <location filename="../mainwindow.cpp" line="4931"/>
         <source>QRZ of the QSO.</source>
         <translation>QRZ QSOa.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="204"/>
+        <source>Click to recalculate the award status.</source>
+        <translation>Kliknite za preračunavanje statusa nagrada.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4932"/>
@@ -1536,42 +1549,42 @@ Do you want to try again?</source>
         <translation>Ako je primljeni način rada ispravan, molimo kontaktirajte razvojni tim KLoga i zatražite podršku za taj način rada</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7416"/>
+        <location filename="../mainwindow.cpp" line="7417"/>
         <source>An unexpected error ocurred!!</source>
         <translation>Nastupila je neočekivana greška!!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7416"/>
+        <location filename="../mainwindow.cpp" line="7417"/>
         <source>If the problem persists, please contact the developers</source>
         <translation>Ako se problem nastavi, molim kontaktirajte razvijatelje programa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7416"/>
+        <location filename="../mainwindow.cpp" line="7417"/>
         <source>for analysis:</source>
         <translation>za analizu:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7418"/>
+        <location filename="../mainwindow.cpp" line="7419"/>
         <source>Error in function</source>
         <translation>Greška u funkciji</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7419"/>
+        <location filename="../mainwindow.cpp" line="7420"/>
         <source>Error code</source>
         <translation>Kod greške</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7420"/>
+        <location filename="../mainwindow.cpp" line="7421"/>
         <source>Error text</source>
         <translation>Tekst greške</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7421"/>
+        <location filename="../mainwindow.cpp" line="7422"/>
         <source>Failed query</source>
         <translation>Neuspio upit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7432"/>
+        <location filename="../mainwindow.cpp" line="7433"/>
         <source>Do you want to keep showing errors?</source>
         <translation>Želite li vidjeti daljnje greške?</translation>
     </message>
@@ -1629,7 +1642,6 @@ Do you want to try again?</source>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2382"/>
         <source>QRZ of the QSO</source>
         <translation>QRZ QSOa</translation>
     </message>
@@ -2216,9 +2228,13 @@ Do you want to save your changes?</source>
 <context>
     <name>MainWindowInputComment</name>
     <message>
-        <location filename="../mainwindowinputcomment.cpp" line="46"/>
         <source>Add a comment for this QSO</source>
         <translation>Dodaj komentar za ovaj QSO</translation>
+    </message>
+    <message>
+        <location filename="../mainwindowinputcomment.cpp" line="46"/>
+        <source>Add a comment for this QSO.</source>
+        <translation>Dodaj komentar za ovaj QSO.</translation>
     </message>
 </context>
 <context>
@@ -2652,8 +2668,8 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../database.cpp" line="3575"/>
         <location filename="../database.cpp" line="3758"/>
-        <location filename="../database.cpp" line="7205"/>
-        <location filename="../database.cpp" line="7428"/>
+        <location filename="../database.cpp" line="7203"/>
+        <location filename="../database.cpp" line="7426"/>
         <location filename="../dataproxy_sqlite.cpp" line="4157"/>
         <source>QSO: </source>
         <translation>QSO: </translation>
@@ -2673,23 +2689,23 @@ Do you want to save your changes?</source>
         <translation>Napredak: </translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7113"/>
+        <location filename="../database.cpp" line="7111"/>
         <source>Updating DXCC award information...</source>
         <translation>Ažuriram podatke o DXCC nagradama...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7205"/>
+        <location filename="../database.cpp" line="7203"/>
         <location filename="../dataproxy_sqlite.cpp" line="4157"/>
         <source>Updating DXCC Award information...</source>
         <translation>Ažuriram podatke o DXCC nagradama...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7336"/>
+        <location filename="../database.cpp" line="7334"/>
         <source>Updating WAZ award information...</source>
         <translation>Ažuriram podatke o WAZ nagradama...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7428"/>
+        <location filename="../database.cpp" line="7426"/>
         <source>Updating WAZ Award information...</source>
         <translation>Ažuriram podatke o WAZ nagradama...</translation>
     </message>
@@ -2704,8 +2720,8 @@ Do you want to save your changes?</source>
         <location filename="../database.cpp" line="3739"/>
         <location filename="../database.cpp" line="3936"/>
         <location filename="../database.cpp" line="4137"/>
-        <location filename="../database.cpp" line="7113"/>
-        <location filename="../database.cpp" line="7336"/>
+        <location filename="../database.cpp" line="7111"/>
+        <location filename="../database.cpp" line="7334"/>
         <location filename="../dataproxy_sqlite.cpp" line="4116"/>
         <source>Abort updating</source>
         <translation>Prekini ažuriranje</translation>
@@ -2729,38 +2745,38 @@ Do you want to save your changes?</source>
         <translation>Ažuriram podatke o načinu rada za %1 status...</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="772"/>
+        <location filename="../awards.cpp" line="755"/>
         <source>New One, work it!</source>
         <oldsource>nNew One, work it!</oldsource>
         <translation>Novi, odradite!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="776"/>
-        <location filename="../awards.cpp" line="780"/>
-        <location filename="../awards.cpp" line="786"/>
-        <location filename="../awards.cpp" line="789"/>
-        <location filename="../awards.cpp" line="792"/>
-        <location filename="../awards.cpp" line="795"/>
-        <location filename="../awards.cpp" line="801"/>
-        <location filename="../awards.cpp" line="807"/>
+        <location filename="../awards.cpp" line="759"/>
+        <location filename="../awards.cpp" line="763"/>
+        <location filename="../awards.cpp" line="769"/>
+        <location filename="../awards.cpp" line="772"/>
+        <location filename="../awards.cpp" line="775"/>
+        <location filename="../awards.cpp" line="778"/>
+        <location filename="../awards.cpp" line="784"/>
+        <location filename="../awards.cpp" line="790"/>
         <source>Needed, work it!</source>
         <translation>Treba, odradite!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="783"/>
-        <location filename="../awards.cpp" line="798"/>
-        <location filename="../awards.cpp" line="804"/>
-        <location filename="../awards.cpp" line="810"/>
+        <location filename="../awards.cpp" line="766"/>
+        <location filename="../awards.cpp" line="781"/>
+        <location filename="../awards.cpp" line="787"/>
+        <location filename="../awards.cpp" line="793"/>
         <source>Worked but not confirmed</source>
         <translation>Rađen ali nije potvrđen</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="813"/>
+        <location filename="../awards.cpp" line="796"/>
         <source>Confirmed</source>
         <translation>Potvrđeno</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="817"/>
+        <location filename="../awards.cpp" line="800"/>
         <source>Not identified</source>
         <translation>Nije identificiran</translation>
     </message>
