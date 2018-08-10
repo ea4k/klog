@@ -257,7 +257,6 @@ Voleu tornar-ho a intentar?</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="70"/>
-        <location filename="../dxcluster.cpp" line="527"/>
         <source>Click on Connect to connect to the DX-Cluster server</source>
         <translation>Cliqueu a Connecta per connectar al servidor de DX-Cluster</translation>
     </message>
@@ -308,6 +307,11 @@ Voleu tornar-ho a intentar?</translation>
         <translation>No esteu connectat, cal tornar a introduir el vostre indicatiu un altre cop.</translation>
     </message>
     <message>
+        <location filename="../dxcluster.cpp" line="511"/>
+        <source>Enter here the commands to be sent to the DX-Cluster server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../dxcluster.cpp" line="503"/>
         <location filename="../dxcluster.cpp" line="582"/>
         <source>Disconnect</source>
@@ -326,14 +330,18 @@ Voleu tornar-ho a intentar?</translation>
 - la configuració del nom de màquina i el port.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="511"/>
         <source>Enter here the commands to be sent to the DX-Cluster server</source>
-        <translation>Introduïu aquí les ordres a enviar al servidor de DX-Cluster</translation>
+        <translation type="vanished">Introduïu aquí les ordres a enviar al servidor de DX-Cluster</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="521"/>
         <source>Connection closed by the server</source>
         <translation>Connexió tancada pel servidor</translation>
+    </message>
+    <message>
+        <location filename="../dxcluster.cpp" line="527"/>
+        <source>Click on Connect to connect to the DX-Cluster server.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="587"/>
@@ -967,9 +975,8 @@ Voleu tornar-ho a intentar?</translation>
         <translation>Recalcula</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="204"/>
         <source>Click to recalculate the award status</source>
-        <translation>Cliqueu per recalcular l&apos;estat dels diplomes</translation>
+        <translation type="vanished">Cliqueu per recalcular l&apos;estat dels diplomes</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="233"/>
@@ -1174,62 +1181,62 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="7147"/>
         <source>Call</source>
-        <translation>Indicatiu</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7150"/>
         <source>Freq</source>
-        <translation>Freq</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7156"/>
         <source>Time On</source>
-        <translation>Hora inici</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7159"/>
         <source>Time Off</source>
-        <translation>Hora final</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7162"/>
         <source>RST TX</source>
-        <translation>RST TX</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7162"/>
         <source>RST RX</source>
-        <translation>RST RX</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7165"/>
         <source>DX-Grid</source>
-        <translation>DX-Grid</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7171"/>
         <source>Comments</source>
-        <translation>Comentaris</translation>
+        <translation type="unfinished">Comentaris</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7174"/>
         <source>TX Pwr</source>
-        <translation>Potència TX</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7177"/>
         <source>Operator</source>
-        <translation>Operador</translation>
+        <translation type="unfinished">Operador</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7180"/>
         <source>Local-Grid</source>
-        <translation>Local-Grid</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7230"/>
         <source>QSO logged from WSJTX:</source>
-        <translation>QSO enregistrat des de WSJTX:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3646"/>
@@ -1383,6 +1390,7 @@ Voleu tornar-ho a intentar?</translation>
         <translation>Localitzador del DX.</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="2382"/>
         <location filename="../mainwindow.cpp" line="4931"/>
         <source>QRZ of the QSO.</source>
         <translation>QRZ del QSO.</translation>
@@ -1540,7 +1548,7 @@ Voleu tornar-ho a intentar?</translation>
     </message>
     <message>
         <source>Time Off: </source>
-        <translation type="vanished">Hora final: </translation>
+        <translation type="vanished">Hora finali: </translation>
     </message>
     <message>
         <source>RST TX: </source>
@@ -1583,45 +1591,45 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="7263"/>
         <source>If the received mode is correct, please contact KLog development team and request support for that mode</source>
-        <translation>Si el mode rebut és correcte, contacteu amb l&apos;equip de desenvolupament del KLog i sol·liciteu la implentació d&apos;aquest mode</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7416"/>
+        <location filename="../mainwindow.cpp" line="7417"/>
         <source>An unexpected error ocurred!!</source>
         <translation>Hi ha hagut un error inesperat!!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7416"/>
+        <location filename="../mainwindow.cpp" line="7417"/>
         <source>If the problem persists, please contact the developers</source>
         <translation>Si el problema persisteix, contacteu amb els desenvolupadors</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7416"/>
+        <location filename="../mainwindow.cpp" line="7417"/>
         <source>for analysis:</source>
         <translation>per a l&apos;anàlisi:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7418"/>
+        <location filename="../mainwindow.cpp" line="7419"/>
         <source>Error in function</source>
         <translation>Error a la funció</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7419"/>
+        <location filename="../mainwindow.cpp" line="7420"/>
         <source>Error code</source>
         <translation>Codi d&apos;error</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7420"/>
+        <location filename="../mainwindow.cpp" line="7421"/>
         <source>Error text</source>
         <translation>Text de l&apos;error</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7421"/>
+        <location filename="../mainwindow.cpp" line="7422"/>
         <source>Failed query</source>
         <translation>Ha fallat la consulta</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7432"/>
+        <location filename="../mainwindow.cpp" line="7433"/>
         <source>Do you want to keep showing errors?</source>
         <translation>Voleu mantenir la visualització dels errors?</translation>
     </message>
@@ -1679,9 +1687,8 @@ Voleu tornar-ho a intentar?</translation>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2382"/>
         <source>QRZ of the QSO</source>
-        <translation>QRZ del QSO</translation>
+        <translation type="vanished">QRZ del QSO</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2383"/>
@@ -1819,6 +1826,11 @@ Voleu desar els canvis?</translation>
         <location filename="../mainwindow.cpp" line="3390"/>
         <source>&amp;Import from ADIF...</source>
         <translation>&amp;Importa des d&apos;ADIF...</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="204"/>
+        <source>Click to recalculate the award status.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3478"/>
@@ -2266,9 +2278,13 @@ Voleu desar els canvis?</translation>
 <context>
     <name>MainWindowInputComment</name>
     <message>
-        <location filename="../mainwindowinputcomment.cpp" line="46"/>
         <source>Add a comment for this QSO</source>
-        <translation>Afegeix un comentari a aquest QSO</translation>
+        <translation type="vanished">Afegeix un comentari a aquest QSO</translation>
+    </message>
+    <message>
+        <location filename="../mainwindowinputcomment.cpp" line="46"/>
+        <source>Add a comment for this QSO.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2706,8 +2722,8 @@ Voleu desar els canvis?</translation>
     <message>
         <location filename="../database.cpp" line="3575"/>
         <location filename="../database.cpp" line="3758"/>
-        <location filename="../database.cpp" line="7205"/>
-        <location filename="../database.cpp" line="7428"/>
+        <location filename="../database.cpp" line="7203"/>
+        <location filename="../database.cpp" line="7426"/>
         <location filename="../dataproxy_sqlite.cpp" line="4157"/>
         <source>QSO: </source>
         <translation>QSO: </translation>
@@ -2727,23 +2743,23 @@ Voleu desar els canvis?</translation>
         <translation>Progrés: </translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7113"/>
+        <location filename="../database.cpp" line="7111"/>
         <source>Updating DXCC award information...</source>
         <translation>S&apos;està actualitzant la informació dels diplomes DXCC...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7205"/>
+        <location filename="../database.cpp" line="7203"/>
         <location filename="../dataproxy_sqlite.cpp" line="4157"/>
         <source>Updating DXCC Award information...</source>
         <translation>S&apos;està actualitzant la informació dels diplomes DXCC...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7336"/>
+        <location filename="../database.cpp" line="7334"/>
         <source>Updating WAZ award information...</source>
         <translation>S&apos;està actualitzant la informació dels diplomes WAZ...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7428"/>
+        <location filename="../database.cpp" line="7426"/>
         <source>Updating WAZ Award information...</source>
         <translation>S&apos;està actualitzant la informació dels diplomes WAZ...</translation>
     </message>
@@ -2758,8 +2774,8 @@ Voleu desar els canvis?</translation>
         <location filename="../database.cpp" line="3739"/>
         <location filename="../database.cpp" line="3936"/>
         <location filename="../database.cpp" line="4137"/>
-        <location filename="../database.cpp" line="7113"/>
-        <location filename="../database.cpp" line="7336"/>
+        <location filename="../database.cpp" line="7111"/>
+        <location filename="../database.cpp" line="7334"/>
         <location filename="../dataproxy_sqlite.cpp" line="4116"/>
         <source>Abort updating</source>
         <translation>Interromp l&apos;actualització</translation>
@@ -2783,38 +2799,38 @@ Voleu desar els canvis?</translation>
         <translation>Actualitzant informació dels modes en %1...</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="772"/>
+        <location filename="../awards.cpp" line="755"/>
         <source>New One, work it!</source>
         <oldsource>nNew One, work it!</oldsource>
         <translation>Un de nou, treballeu-ho!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="776"/>
-        <location filename="../awards.cpp" line="780"/>
-        <location filename="../awards.cpp" line="786"/>
-        <location filename="../awards.cpp" line="789"/>
-        <location filename="../awards.cpp" line="792"/>
-        <location filename="../awards.cpp" line="795"/>
-        <location filename="../awards.cpp" line="801"/>
-        <location filename="../awards.cpp" line="807"/>
+        <location filename="../awards.cpp" line="759"/>
+        <location filename="../awards.cpp" line="763"/>
+        <location filename="../awards.cpp" line="769"/>
+        <location filename="../awards.cpp" line="772"/>
+        <location filename="../awards.cpp" line="775"/>
+        <location filename="../awards.cpp" line="778"/>
+        <location filename="../awards.cpp" line="784"/>
+        <location filename="../awards.cpp" line="790"/>
         <source>Needed, work it!</source>
         <translation>Necessari, treballeu-ho!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="783"/>
-        <location filename="../awards.cpp" line="798"/>
-        <location filename="../awards.cpp" line="804"/>
-        <location filename="../awards.cpp" line="810"/>
+        <location filename="../awards.cpp" line="766"/>
+        <location filename="../awards.cpp" line="781"/>
+        <location filename="../awards.cpp" line="787"/>
+        <location filename="../awards.cpp" line="793"/>
         <source>Worked but not confirmed</source>
         <translation>Treballat però no confirmat</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="813"/>
+        <location filename="../awards.cpp" line="796"/>
         <source>Confirmed</source>
         <translation>Confirmat</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="817"/>
+        <location filename="../awards.cpp" line="800"/>
         <source>Not identified</source>
         <translation>No identificat</translation>
     </message>
@@ -4111,12 +4127,12 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppageudp.cpp" line="78"/>
         <source>QSO notification timeout (milisecs)</source>
-        <translation>Temps excedit de la notificació QSO (mil·lisegons)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="79"/>
         <source>Miliseconds that the notification of QSO received from WSJTX will be shown.</source>
-        <translation>Mil·lisegons en que es mostrarà la notificació del QSO rebut des de WSJTX.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>UDP port number where the UDP Server will listen for connections.</source>
@@ -4130,7 +4146,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppageudp.cpp" line="58"/>
         <source>UDP port number where the UDP Server will listen for packets.</source>
-        <translation>Número de port UDP a on el servidor UDP escoltarà els paquets.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="59"/>

@@ -508,7 +508,7 @@ void DXClusterWidget::slotClusterSocketConnected()
             dxClusterAlreadyConnected = false;
         }
         inputCommand->setEnabled(true);
-        inputCommand->setToolTip(tr("Enter here the commands to be sent to the DX-Cluster server"));
+        inputCommand->setToolTip(tr("Enter here the commands to be sent to the DX-Cluster server."));
 
     }
 }
@@ -524,7 +524,7 @@ void DXClusterWidget::slotClusterSocketConnectionClosed()
     dxClusterAlreadyConnected = false;
     sendButton->setText(tr("Connect"));
     inputCommand->setDisabled(true);
-    inputCommand->setToolTip(tr("Click on Connect to connect to the DX-Cluster server"));
+    inputCommand->setToolTip(tr("Click on Connect to connect to the DX-Cluster server."));
     //connect(inputCommand, SIGNAL(returnPressed()), this, SLOT(slotClusterSendToServer()) );
     disconnect (inputCommand, SIGNAL(returnPressed()), this, SLOT(slotClusterSendToServer()) );
 }

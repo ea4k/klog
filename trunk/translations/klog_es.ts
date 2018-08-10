@@ -42,7 +42,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="42"/>
         <source>Please provide your review in KLog&apos;s eHam review page:</source>
-        <translation>Por favor, escribe tu crítica en la página de críticas de eHam:</translation>
+        <translation>Por favor, escriba su crítica en la página de críticas de eHam:</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="45"/>
@@ -52,7 +52,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="73"/>
         <source>If you want to provide support you are welcome to join the</source>
-        <translation>Si quieres colaborar eres bienvenido a unirte a</translation>
+        <translation>Si quiere colaborar es bienvenido a unirse a</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="73"/>
@@ -84,12 +84,12 @@
     <message>
         <location filename="../aboutdialog.cpp" line="73"/>
         <source>KLog is developed by a very small team and you are invited to join!</source>
-        <translation>¡KLog está desarrollado por un equipo muy pequeño y estás invitado a unirte!</translation>
+        <translation>¡KLog está desarrollado por un equipo muy pequeño y está invitado a unirse!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="73"/>
         <source>You can also help us by sending bug reports or small code contributions, ideas or whatever you think may improve KLog.</source>
-        <translation>Puedes ayudarnos reportando errores o pequeñas contribuciones de código, ideas o cualquier otra cosa que creas que pueda mejorar KLog.</translation>
+        <translation>Puede ayudarnos reportando errores o pequeñas contribuciones de código, ideas o cualquier otra cosa que crea que puede mejorar KLog.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="101"/>
@@ -109,7 +109,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="87"/>
         <source>Translators bring KLog into your language. They are really an important part of the KLog development team.</source>
-        <translation>Los traductores traen KLog a tu idioma. Son una parte realmente importante del equipo de desarrollo de KLog.</translation>
+        <translation>Los traductores traen KLog a su idioma. Son una parte realmente importante del equipo de desarrollo de KLog.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="88"/>
@@ -257,7 +257,6 @@ Do you want to try again?</source>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="70"/>
-        <location filename="../dxcluster.cpp" line="527"/>
         <source>Click on Connect to connect to the DX-Cluster server</source>
         <translation>Pulse en Conectar para conectar al servidor de DX-Cluster</translation>
     </message>
@@ -308,6 +307,11 @@ Do you want to try again?</source>
         <translation>No identificado, puede introducir su contraseña de nuevo.</translation>
     </message>
     <message>
+        <location filename="../dxcluster.cpp" line="511"/>
+        <source>Enter here the commands to be sent to the DX-Cluster server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../dxcluster.cpp" line="503"/>
         <location filename="../dxcluster.cpp" line="582"/>
         <source>Disconnect</source>
@@ -326,14 +330,18 @@ Do you want to try again?</source>
  - el nombre de máquina y puerto.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="511"/>
         <source>Enter here the commands to be sent to the DX-Cluster server</source>
-        <translation>Introduzca aquí los comandos a enviar al servidor de DX-Cluster</translation>
+        <translation type="vanished">Introduzca aquí los comandos a enviar al servidor de DX-Cluster</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="521"/>
         <source>Connection closed by the server</source>
         <translation>Conexión cerrada por el servidor</translation>
+    </message>
+    <message>
+        <location filename="../dxcluster.cpp" line="527"/>
+        <source>Click on Connect to connect to the DX-Cluster server.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="587"/>
@@ -967,9 +975,8 @@ Do you want to try again?</source>
         <translation>Recalcular</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="204"/>
         <source>Click to recalculate the award status</source>
-        <translation>Pulse para recalcular el estado de los diplomas</translation>
+        <translation type="vanished">Pulse para recalcular el estado de los diplomas</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="233"/>
@@ -1091,19 +1098,18 @@ Do you want to try again?</source>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2382"/>
         <source>QRZ of the QSO</source>
-        <translation>QRZ del QSO</translation>
+        <translation type="vanished">QRZ del QSO</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2383"/>
         <source>TX RST</source>
-        <translation>RST TX</translation>
+        <translation>RST enviado.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2384"/>
         <source>RX RST</source>
-        <translation>RST RX</translation>
+        <translation>RST recibido.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2385"/>
@@ -1828,9 +1834,15 @@ Do you want to save your changes?</source>
         <translation>Locator del DX.</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="2382"/>
         <location filename="../mainwindow.cpp" line="4931"/>
         <source>QRZ of the QSO.</source>
         <translation>QRZ del QSO.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="204"/>
+        <source>Click to recalculate the award status.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4932"/>
@@ -2269,9 +2281,13 @@ Do you want to save your changes?</source>
 <context>
     <name>MainWindowInputComment</name>
     <message>
-        <location filename="../mainwindowinputcomment.cpp" line="46"/>
         <source>Add a comment for this QSO</source>
-        <translation>Añadir un comentario a este QSO</translation>
+        <translation type="vanished">Añadir un comentario a este QSO</translation>
+    </message>
+    <message>
+        <location filename="../mainwindowinputcomment.cpp" line="46"/>
+        <source>Add a comment for this QSO.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2392,22 +2408,22 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="80"/>
         <source>Select the entity for this QSO</source>
-        <translation>Seleccione la entidad para este QSO</translation>
+        <translation>Seleccione la entidad para este QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="81"/>
         <source>Select the propagation mode for this QSO</source>
-        <translation>Seleccione el modo de propagación para este QSO</translation>
+        <translation>Seleccione el modo de propagación para este QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="82"/>
         <source>Select the IOTA continent for this QSO</source>
-        <translation>Seleccione el continente IOTA para este QSO</translation>
+        <translation>Seleccione el continente IOTA para este QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="83"/>
         <source>Select the IOTA reference number for this QSO</source>
-        <translation>Seleccione la referencia IOTA para este QSO</translation>
+        <translation>Seleccione la referencia IOTA para este QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="108"/>

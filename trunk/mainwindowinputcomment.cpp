@@ -43,7 +43,7 @@ MainWindowInputComment::~MainWindowInputComment(){}
 void MainWindowInputComment::createUI()
 {
 
-    commentLineEdit->setToolTip(tr("Add a comment for this QSO"));
+    commentLineEdit->setToolTip(tr("Add a comment for this QSO."));
 
     QVBoxLayout *tabLayout = new QVBoxLayout;
     tabLayout->addWidget(commentLineEdit);

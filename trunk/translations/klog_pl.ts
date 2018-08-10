@@ -230,7 +230,6 @@ Czy chciałbyś spróbować ponownie?</translation>
     <name>DXClusterWidget</name>
     <message>
         <location filename="../dxcluster.cpp" line="70"/>
-        <location filename="../dxcluster.cpp" line="527"/>
         <source>Click on Connect to connect to the DX-Cluster server</source>
         <translation>Naciśnij Połącz aby połączyć z DX-Cluterem</translation>
     </message>
@@ -335,14 +334,23 @@ Czy chciałbyś spróbować ponownie?</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="511"/>
+        <source>Enter here the commands to be sent to the DX-Cluster server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Enter here the commands to be sent to the DX-Cluster server</source>
-        <translation>Wprowadź swoje hasło aby połączyć się z DX- Clusterem:
+        <translation type="vanished">Wprowadź swoje hasło aby połączyć się z DX- Clusterem:
  ( Naciśnij Enter aby połączyć bez hasła )</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="521"/>
         <source>Connection closed by the server</source>
         <translation>Połączenie zamknięte przez serwer</translation>
+    </message>
+    <message>
+        <location filename="../dxcluster.cpp" line="527"/>
+        <source>Click on Connect to connect to the DX-Cluster server.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="587"/>
@@ -1053,9 +1061,8 @@ Czy nadalch chcesz anulować?</translation>
         <translation>Przeliczanie</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="204"/>
         <source>Click to recalculate the award status</source>
-        <translation>Proszę nacisnąć aby przeliczuć status dyplomów</translation>
+        <translation type="vanished">Proszę nacisnąć aby przeliczuć status dyplomów</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="233"/>
@@ -1136,9 +1143,8 @@ Czy nadalch chcesz anulować?</translation>
         <translation>Proszę naciśniej na prefix właściwej jednostki lub Porzuć aby poprawić.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2382"/>
         <source>QRZ of the QSO</source>
-        <translation>QRZ of the QSO</translation>
+        <translation type="vanished">QRZ of the QSO</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2383"/>
@@ -1661,42 +1667,42 @@ Czy chcesz zapisać zmiany?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7416"/>
+        <location filename="../mainwindow.cpp" line="7417"/>
         <source>An unexpected error ocurred!!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7416"/>
+        <location filename="../mainwindow.cpp" line="7417"/>
         <source>If the problem persists, please contact the developers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7416"/>
+        <location filename="../mainwindow.cpp" line="7417"/>
         <source>for analysis:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7418"/>
+        <location filename="../mainwindow.cpp" line="7419"/>
         <source>Error in function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7419"/>
+        <location filename="../mainwindow.cpp" line="7420"/>
         <source>Error code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7420"/>
+        <location filename="../mainwindow.cpp" line="7421"/>
         <source>Error text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7421"/>
+        <location filename="../mainwindow.cpp" line="7422"/>
         <source>Failed query</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7432"/>
+        <location filename="../mainwindow.cpp" line="7433"/>
         <source>Do you want to keep showing errors?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1761,6 +1767,7 @@ Czy chcesz zapisać zmiany?</translation>
         <translation>Lokator.stacji DX.</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="2382"/>
         <location filename="../mainwindow.cpp" line="4931"/>
         <source>QRZ of the QSO.</source>
         <translation>QRZ of the QSO.</translation>
@@ -2111,6 +2118,11 @@ Czy chcesz zapisać zmiany?</translation>
         <translation>QSOs</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="204"/>
+        <source>Click to recalculate the award status.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="3409"/>
         <source>Export to ADIF...</source>
         <translation type="unfinished"></translation>
@@ -2353,9 +2365,13 @@ QSO: </translation>
 <context>
     <name>MainWindowInputComment</name>
     <message>
-        <location filename="../mainwindowinputcomment.cpp" line="46"/>
         <source>Add a comment for this QSO</source>
-        <translation>Dodaj komentarz do tego QSO</translation>
+        <translation type="vanished">Dodaj komentarz do tego QSO</translation>
+    </message>
+    <message>
+        <location filename="../mainwindowinputcomment.cpp" line="46"/>
+        <source>Add a comment for this QSO.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2766,37 +2782,37 @@ Ewentualnie, proszę o kontak z twórcami programu aby satelita mógł zostać d
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../awards.cpp" line="772"/>
+        <location filename="../awards.cpp" line="755"/>
         <source>New One, work it!</source>
         <translation>New One, work it!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="776"/>
-        <location filename="../awards.cpp" line="780"/>
-        <location filename="../awards.cpp" line="786"/>
-        <location filename="../awards.cpp" line="789"/>
-        <location filename="../awards.cpp" line="792"/>
-        <location filename="../awards.cpp" line="795"/>
-        <location filename="../awards.cpp" line="801"/>
-        <location filename="../awards.cpp" line="807"/>
+        <location filename="../awards.cpp" line="759"/>
+        <location filename="../awards.cpp" line="763"/>
+        <location filename="../awards.cpp" line="769"/>
+        <location filename="../awards.cpp" line="772"/>
+        <location filename="../awards.cpp" line="775"/>
+        <location filename="../awards.cpp" line="778"/>
+        <location filename="../awards.cpp" line="784"/>
+        <location filename="../awards.cpp" line="790"/>
         <source>Needed, work it!</source>
         <translation>Potrzebny, zrób QSO!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="783"/>
-        <location filename="../awards.cpp" line="798"/>
-        <location filename="../awards.cpp" line="804"/>
-        <location filename="../awards.cpp" line="810"/>
+        <location filename="../awards.cpp" line="766"/>
+        <location filename="../awards.cpp" line="781"/>
+        <location filename="../awards.cpp" line="787"/>
+        <location filename="../awards.cpp" line="793"/>
         <source>Worked but not confirmed</source>
         <translation>Zrobione, ale nie potwierdzone</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="813"/>
+        <location filename="../awards.cpp" line="796"/>
         <source>Confirmed</source>
         <translation>Potwierdzone</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="817"/>
+        <location filename="../awards.cpp" line="800"/>
         <source>Not identified</source>
         <translation>Nie zidetyfikowany</translation>
     </message>
@@ -2839,8 +2855,8 @@ Ewentualnie, proszę o kontak z twórcami programu aby satelita mógł zostać d
     <message>
         <location filename="../database.cpp" line="3575"/>
         <location filename="../database.cpp" line="3758"/>
-        <location filename="../database.cpp" line="7205"/>
-        <location filename="../database.cpp" line="7428"/>
+        <location filename="../database.cpp" line="7203"/>
+        <location filename="../database.cpp" line="7426"/>
         <location filename="../dataproxy_sqlite.cpp" line="4157"/>
         <source>QSO: </source>
         <translation>QSO: </translation>
@@ -2860,23 +2876,23 @@ Ewentualnie, proszę o kontak z twórcami programu aby satelita mógł zostać d
         <translation>Postęp: </translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7113"/>
+        <location filename="../database.cpp" line="7111"/>
         <source>Updating DXCC award information...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7205"/>
+        <location filename="../database.cpp" line="7203"/>
         <location filename="../dataproxy_sqlite.cpp" line="4157"/>
         <source>Updating DXCC Award information...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7336"/>
+        <location filename="../database.cpp" line="7334"/>
         <source>Updating WAZ award information...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7428"/>
+        <location filename="../database.cpp" line="7426"/>
         <source>Updating WAZ Award information...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2901,8 +2917,8 @@ Ewentualnie, proszę o kontak z twórcami programu aby satelita mógł zostać d
         <location filename="../database.cpp" line="3739"/>
         <location filename="../database.cpp" line="3936"/>
         <location filename="../database.cpp" line="4137"/>
-        <location filename="../database.cpp" line="7113"/>
-        <location filename="../database.cpp" line="7336"/>
+        <location filename="../database.cpp" line="7111"/>
+        <location filename="../database.cpp" line="7334"/>
         <location filename="../dataproxy_sqlite.cpp" line="4116"/>
         <source>Abort updating</source>
         <translation>Przerwij aktualizowanie</translation>
