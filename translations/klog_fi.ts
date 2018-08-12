@@ -1044,13 +1044,13 @@ Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+85"/>
-        <location line="+2899"/>
+        <location line="+2898"/>
         <location line="+710"/>
         <source>KLog</source>
         <translation>KLog</translation>
     </message>
     <message>
-        <location line="-3397"/>
+        <location line="-3396"/>
         <source>Ready</source>
         <translation>Valmis</translation>
     </message>
@@ -1142,28 +1142,28 @@ Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+4057"/>
+        <location line="+4056"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location line="-4050"/>
-        <location line="+4048"/>
+        <location line="-4049"/>
+        <location line="+4047"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
     <message>
-        <location line="-4039"/>
+        <location line="-4038"/>
         <location line="+800"/>
         <location line="+6"/>
-        <location line="+908"/>
+        <location line="+907"/>
         <location line="+991"/>
         <location line="+1332"/>
         <source>QRZ</source>
         <translation>QRZ</translation>
     </message>
     <message>
-        <location line="-4030"/>
+        <location line="-4029"/>
         <source>STX</source>
         <translation>STX</translation>
     </message>
@@ -1188,7 +1188,7 @@ Haluatko varmasti peruuttaa?</translation>
         <translation>Valmis...</translation>
     </message>
     <message>
-        <location line="+346"/>
+        <location line="+345"/>
         <source>The logfile has been modified.
 Do you want to save your changes?</source>
         <translation>The logfile has been modified.
@@ -1705,18 +1705,18 @@ Do you want to save your changes?</translation>
         <translation>DX:n lokaattori.</translation>
     </message>
     <message>
-        <location line="-2547"/>
-        <location line="+2549"/>
+        <location line="-2546"/>
+        <location line="+2548"/>
         <source>QRZ of the QSO.</source>
         <translation>QSO:n QRZ.</translation>
     </message>
     <message>
-        <location line="-4727"/>
+        <location line="-4726"/>
         <source>Click to recalculate the award status.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4728"/>
+        <location line="+4727"/>
         <source>TX RST.</source>
         <translation>TX RST.</translation>
     </message>
