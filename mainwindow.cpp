@@ -3304,16 +3304,18 @@ void MainWindow::slotUpdateTime()
 
         //dateTime->currentDateTime();
 
-        dateEdit->setDate((dateTime->currentDateTime()).date());
+
 
 
         if (UTCTime)
         {
             timeEdit->setTime((dateTime->currentDateTime().toUTC()).time());
+            dateEdit->setDate((dateTime->currentDateTime().toUTC()).date());
         }
         else
         {
             timeEdit->setTime((dateTime->currentDateTime()).time());
+            dateEdit->setDate((dateTime->currentDateTime()).date());
         }
     }
 }
