@@ -15,10 +15,13 @@ SOURCES="../klog"
 TARGET="../target"
 TRANSLATIONS="../klog/translations"
 POFILES="../po"
+QT_SELECT="qt5"
 
 echo "ja: "; msgfmt -o /dev/null --statistics $POFILES/klog_ja.po
 echo "hr: "; msgfmt -o /dev/null --statistics $POFILES/klog_hr.po
 echo "ca: "; msgfmt -o /dev/null --statistics $POFILES/klog_ca.po
+echo "da: "; msgfmt -o /dev/null --statistics $POFILES/klog_da.po
+echo "fi: "; msgfmt -o /dev/null --statistics $POFILES/klog_fi.po
 echo "es: "; msgfmt -o /dev/null --statistics $POFILES/klog_es.po
 echo "pl: "; msgfmt -o /dev/null --statistics $POFILES/klog_pl.po
 echo "it: "; msgfmt -o /dev/null --statistics $POFILES/klog_it.po

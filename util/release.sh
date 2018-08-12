@@ -4,6 +4,7 @@ SOURCES="../klog"
 TARGET="../target"
 TRANSLATIONS="../klog/translations"
 POFILES="../po"
+QT_SELECT="qt5"
 
 mkdir -p $TARGET
 

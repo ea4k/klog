@@ -15,7 +15,7 @@ SOURCES="../klog"
 TARGET="../target"
 TRANSLATIONS="../klog/translations"
 POFILES="../svn/po"
-
+QT_SELECT="qt5"
 
 lupdate -no-obsolete $SOURCES/klog.pro
 

@@ -4,6 +4,7 @@ SOURCES="../klog"
 TARGET="../target"
 TRANSLATIONS="../klog/translations"
 POFILES="../svn/po"
+QT_SELECT="qt5"
 
 echo "Preparing the sources to be sent to SVN..."
 
