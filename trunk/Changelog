@@ -9,7 +9,7 @@ August 2018 - 0.9.4
 - Bugfix: When adding a QSO, if the QSL is marked as received, KLog showed a SQL error.
 - Bugfix: Table qsl_via needed to be renamed (TNX EA6ZS).
 - Bugfix: Some DXCC status were nor properly calculated.
-- Updated translations: Catalan (TNX Josep), Croatian (TNX M0NKC), Spanish (EA4TV).
+- Updated translations: Catalan (TNX Josep), Croatian (TNX M0NKC), Danish (TNX Joe), Spanish (EA4TV).
 
 April 2018 - 0.9.3
 - Double clicking on DXCC Widget name of the Entity will show the QSO is providing that status on the Search widget.
