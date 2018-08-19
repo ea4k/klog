@@ -49,7 +49,7 @@ void DXCCStatusWidget::createUI()
     //showAllLogsButton->setText("All logs");
 
     dxccView->setContextMenuPolicy(Qt::CustomContextMenu);
-    dxccView->setSortingEnabled(true);
+    //dxccView->setSortingEnabled(true);
     dxccView->horizontalHeader()->setStretchLastSection(true);
     dxccView->setColumnCount(numberOfColumns);
     dxccView->setRowCount(0);
@@ -97,6 +97,7 @@ void DXCCStatusWidget::update()
             addEntity(list);
         }
     }
+    dxccView->setSortingEnabled(true);
     //qDebug() << "DXCCStatusWidget::update END" << endl;
 }
 
