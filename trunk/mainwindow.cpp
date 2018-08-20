@@ -2591,7 +2591,7 @@ void MainWindow::createActionsCommon(){
     // UDPLogServer - WSJT-x
 
    connect(UDPLogServer, SIGNAL(status_update(int, QString, double, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, double, QString, QString, QString, QString, QString, QString) ) );
-   connect(UDPLogServer, SIGNAL( logged_qso(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString)), this, SLOT(slotWSJTXloggedQSO(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString) ) );
+   connect(UDPLogServer, SIGNAL( logged_qso(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString)), this, SLOT(slotWSJTXloggedQSO(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString) ) );
 
 
 }
@@ -7106,7 +7106,7 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 
 void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, const double _freq, const QString _mode,
                                               const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
-                                              const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const QString _de_call, const QString _de_grid)
+                                              const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const QString _de_call, const QString _opCall, const QString _de_grid)
 {
 
     //qDebug() << "MainWindow::slotWSJTX-loggedQSO type: " << QString::number(_type) << endl;
@@ -7119,6 +7119,8 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
    //qDebug() << "MainWindow::slotWSJTX-loggedQSO mode: " << _mode << endl;
 
    //qDebug() << "MainWindow::slotWSJTX-loggedQSO dx_grid: " << _dx_grid << endl;
+    //qDebug() << "MainWindow::slotWSJTX-loggedQSO dx_grid: " << _de_grid << endl;
+     //qDebug() << "MainWindow::slotWSJTX-loggedQSO opCall: " << _opCall << endl;
    //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_on: " << _time_on << endl;
    //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_off: " << _time_off << endl;
 
@@ -7128,8 +7130,26 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
    //qDebug() << "MainWindow::slotWSJTX-loggedQSO comments: " << _comments << endl;
    //qDebug() << "MainWindow::slotWSJTX-loggedQSO name: " << _name << endl;
 
+    QString _oper = QString();
+    QString _myLoc = QString();
+
+
+
     if (_type == 5)
     {
+        _oper = _opCall;
+        _myLoc = _de_grid;
+
+        if (!(util->isValidCall(_oper)))
+        {
+            _oper = operatorQRZ;
+        }
+
+        if (!(locator->isValidLocator(_myLoc)))
+        {
+            _myLoc = myLocator;
+        }
+
         if (wsjtxAutoLog)
         { // Log automatically, without confirmation
             logTheQso = true;
@@ -7176,10 +7196,10 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
                     "<b>" + tr("TX Pwr") + ": " + "</b>" + _tx_power +
                     "</LI>" +
                     "<LI>" +
-                    "<b>" + tr("Operator") + ": " + "</b>" + _de_call.toUpper() +
+                    "<b>" + tr("Operator") + ": " + "</b>" + _oper.toUpper() +
                     "</LI>" +
                     "<LI>" +
-                    "<b>" + tr("Local-Grid") + ": " + "</b>" + _de_grid +
+                    "<b>" + tr("Local-Grid") + ": " + "</b>" + _myLoc +
                     "</LI>" +
                     "</UL>" ;
 
@@ -7208,17 +7228,6 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
             int dxcc = world->getQRZARRLId(_dxcall);
             dxcc = util->getNormalizedDXCCValue(dxcc);
 
-            QString _oper = _de_call;
-            if (!(util->isValidCall(_oper)))
-            {
-                _oper = operatorQRZ;
-            }
-
-            QString _myLoc = _de_grid;
-            if (!(locator->isValidLocator(_myLoc)))
-            {
-                _myLoc = myLocator;
-            }
 
             qsoLogged = dataProxy->addQSOFromWSJTX(_dxcall.toUpper(), _freq,  _mode, _dx_grid, _time_off, _report_sent, _report_rec, _tx_power, _comments, _name, _time_on, dxcc, _oper, stationQRZ, _myLoc, currentLog);
 

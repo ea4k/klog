@@ -3,6 +3,7 @@
 #include <QUrl>
 #include <QNetworkRequest>
 #include <QFile>
+#include <QMessageBox>
 //#include <QDebug>
 
 
@@ -68,11 +69,18 @@ eLogClubLog::~eLogClubLog()
     {
        //qDebug() << "eLogClubLog::slotQsoUploadFinished - Result = Password Error! = " << QString::number(result)  << endl;
         text = "ClubLog: " + tr("It seems to be a PASSWORD ERROR; check your password.");
-
-        int ret = QMessageBox::warning(nullptr, tr("KLog - ClubLog"),
+        QString _title = QString(tr("KLog - ClubLog"));
+        QString _mText = QString( tr("It seems that your ClubLog password is not correct.") + "\n" +
+                                  tr("Please check your password in the setup. ClubLog uploads will be disabled."));
+        int ret = QMessageBox::warning(0, _title, _mText, QMessageBox::Ok);
+/*
+        int ret = QMessageBox::warning(this, tr("KLog - ClubLog"),
                                        tr("It seems that your ClubLog password is not correct.") + "\n" +
                                           tr("Please check your password in the setup. ClubLog uploads will be disabled."),
                                        QMessageBox::Ok);
+        */
+
+
         emit disableClubLogAction(true);
         //TODO: Mark the previous QSO as not sent to clublog
 
