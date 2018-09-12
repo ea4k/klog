@@ -161,9 +161,21 @@ public:
 
     bool clearLog();
 
+    // Stats
     int getQSOonYear(const int _year, const int _logNumber);
     int getDXCConYear(const int _year, const int _logNumber);
     int getCQzonYear(const int _year, const int _logNumber);
+    int getQSOsWithDXCC(const int _dxcc, const int _logNumber);
+
+    int getHowManyQSOInLog(const int _log);
+    int getHowManyConfirmedQSLInLog(const int _log);
+
+    int getQSOsInBand(const QString _band, const int _log);
+    int getQSOsInMode(const QString _mode, const int _log);
+
+    // Stats - end
+
+
     bool newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber);
 
     QStringList getContestNames();
@@ -189,8 +201,7 @@ public:
     QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
     bool fillEmptyDXCCInTheLog();
-    int getHowManyQSOInLog(const int _log);
-    int getHowManyConfirmedQSLInLog(const int _log);
+
     int getNumberOfManagedLogs();
     QStringList getListOfManagedLogs();
     int getMaxLogNumber();

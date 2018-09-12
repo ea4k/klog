@@ -58,10 +58,10 @@ void SoftwareUpdate::slotReadyRead()
    //qDebug() << "SoftwareUpdate::slotReadyRead: " << endl;
 }
 
-//void SoftwareUpdate::slotError(int _p)
-//{
+void SoftwareUpdate::slotError(int _p)
+{
     //qDebug() << "SoftwareUpdate::slotError: " << endl;
-//}
+}
 
 void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
 {

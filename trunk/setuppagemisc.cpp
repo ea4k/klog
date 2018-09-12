@@ -117,7 +117,7 @@ void SetupPageMisc::createUI()
     keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
     checkNewVersionCheckBox->setToolTip(tr("Check if there is a new release of KLog available every time you start KLog."));
     provideCallCheckBox->setToolTip(tr("If new version checking is selected, KLog will send the developer your callsign, KLog version & Operating system to help in improving KLog."));
-    imperialCheckBox ->setToolTip(tr("Check it for Imperial system (Miles instead of Kilometres)."));
+    imperialCheckBox ->setToolTip(tr("Check it for Imperial system (Miles instead of Kilometers)."));
     realTimeCheckbox->setToolTip(tr("Select to use real time."));
     UTCCheckbox->setToolTip(tr("Select to use UTC time."));
     alwaysADIFCheckBox->setToolTip(tr("Select if you want to save to ADIF on exit."));    

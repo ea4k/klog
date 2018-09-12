@@ -2,7 +2,7 @@ CONFIG += app_bundle
 CONFIG += static
 #CONFIG += release
 TEMPLATE = app
-VERSION = 0.9.4
+VERSION = 0.9.5
 DEFINES += APP_VERSION="$$VERSION"
 
 APP_NAME = KLog
@@ -27,8 +27,9 @@ QT += core \
     widgets
 
 greaterThan(QT_MAJOR_VERSION, 4) {
-    QT *= printsupport
-    QT += widgets
+    QT += printsupport
+    QT += widgets \
+        charts
 }
 
 
@@ -75,7 +76,10 @@ HEADERS += setupdialog.h \
     infowidget.h \
     showerrordialog.h \
     udpserver.h \
-    setuppageudp.h
+    setuppageudp.h \
+    statisticswidget.h \
+    charts/barchartstats.h \
+    charts/donutchartstats.h
 SOURCES += main.cpp \
     aboutdialog.cpp \
     setupdialog.cpp \
@@ -120,7 +124,10 @@ SOURCES += main.cpp \
     infowidget.cpp \
     showerrordialog.cpp \
     udpserver.cpp \
-    setuppageudp.cpp
+    setuppageudp.cpp \
+    statisticswidget.cpp \
+    charts/barchartstats.cpp \
+    charts/donutchartstats.cpp
 
 OTHER_FILES += \
     README-DEVEL \

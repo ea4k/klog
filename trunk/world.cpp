@@ -485,7 +485,7 @@ QString World::getEntityName(const int _entityN)
     int prefixIDNumber = _entityN;
     if (prefixIDNumber<=0)
     {
-        return "";
+        return QString();
     }
     return dataProxy->getEntityNameFromId(prefixIDNumber);
 /*

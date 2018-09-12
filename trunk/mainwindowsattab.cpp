@@ -77,19 +77,19 @@ void MainWindowSatTab::createUI()
     QLabel *keepLabel = new QLabel();
     keepLabel->setText(tr("Keep this data"));
     keepLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    keepLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO"));
+    keepLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
 
-    keepThisDataForNextQSORadiobutton->setToolTip(tr("Data entered in this tab will be copied into the next QSO"));
+    keepThisDataForNextQSORadiobutton->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
     QString othersat = tr("Other - Sat not in the list");
     QString aux;
     aux.clear();
-    aux = QString(tr("Name of the Satellite if not in the list. Select: \"")) + othersat + QString(tr("\" to enable this box. (format like AO-51)"));
+    aux = QString(tr("Name of the Satellite if not in the list. Select: \"")) + othersat + QString(tr("\" to enable this box. (format like AO-51)."));
     satNameLineEdit->setToolTip(aux);
     //satNameLineEdit->setToolTip(tr("Name of the Satellite if not in the list. Select Other Sat (format like AO-51)"));
-    satModeLineEdit->setToolTip(tr("Satellite mode used"));
-    satNameComboBox->setToolTip(tr("Select the satellite you are using"));
-    satBandTXComboBox->setToolTip(tr("UpLink band"));
-    satBandRXComboBox->setToolTip(tr("DownLink band"));
+    satModeLineEdit->setToolTip(tr("Satellite mode used."));
+    satNameComboBox->setToolTip(tr("Select the satellite you are using."));
+    satBandTXComboBox->setToolTip(tr("UpLink band."));
+    satBandRXComboBox->setToolTip(tr("DownLink band."));
     satDXLocatorLineEdit->setToolTip(tr("Locator of the DX station. This box is syncronized with the Locator box in the QSO tab."));
 
     QLabel *upLinkLabel = new QLabel();

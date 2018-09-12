@@ -72,14 +72,14 @@ SetupPageLogs::SetupPageLogs(DataProxy *dp, QWidget *parent) : QWidget(parent){
     removePushButton = new QPushButton(tr("&Remove"), this);
 
 
-    newLogPushButton->setToolTip(tr("Add a new log"));
+    newLogPushButton->setToolTip(tr("Add a new log."));
     //loadAllPushButton->setToolTip(tr("Load all the logs"));
     //loadSelectedPushButton->setToolTip(tr("Load only the selected log"));
     //clearPushButton->setToolTip(tr("Clear selection"));
-    editPushButton->setToolTip(tr("Edit the selected log"));
-    removePushButton->setToolTip(tr("Remove the selected log"));
+    editPushButton->setToolTip(tr("Edit the selected log."));
+    removePushButton->setToolTip(tr("Remove the selected log."));
 
-    currentLogs->setToolTip(tr("Select the log you want to open"));
+    currentLogs->setToolTip(tr("Select the log you want to open."));
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(newLogPushButton);

@@ -75,12 +75,12 @@ void MainWindowInputOthers::createUI()
     entityNameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     propModeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-    entityPrimDivComboBox->setToolTip(tr("Select the primary division for this QSO"));
-    entitySecDivComboBox->setToolTip(tr("Select the secondary division for this QSO"));
-    entityNameComboBox->setToolTip(tr("Select the entity for this QSO"));
-    propModeComboBox->setToolTip(tr("Select the propagation mode for this QSO"));
-    iotaContinentComboBox->setToolTip(tr("Select the IOTA continent for this QSO"));
-    iotaNumberLineEdit->setToolTip(tr("Select the IOTA reference number for this QSO"));
+    entityPrimDivComboBox->setToolTip(tr("Select the primary division for this QSO."));
+    entitySecDivComboBox->setToolTip(tr("Select the secondary division for this QSO."));
+    entityNameComboBox->setToolTip(tr("Select the entity for this QSO."));
+    propModeComboBox->setToolTip(tr("Select the propagation mode for this QSO."));
+    iotaContinentComboBox->setToolTip(tr("Select the IOTA continent for this QSO."));
+    iotaNumberLineEdit->setToolTip(tr("Select the IOTA reference number for this QSO."));
 
     entityPrimDivComboBox->setEnabled(false);
     entitySecDivComboBox->setEnabled(false);
