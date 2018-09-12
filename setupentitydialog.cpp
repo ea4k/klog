@@ -68,15 +68,15 @@ SetupEntityDialog::SetupEntityDialog(){
 
     QLabel *entityLabel = new QLabel(tr("Entity"));
     entityLineEdit  = new QLineEdit;
-    entityLineEdit->setToolTip(tr("Name of the Entity"));
+    entityLineEdit->setToolTip(tr("Name of the Entity."));
 
     QLabel *cqLabel = new QLabel(tr("CQ"));
     cqLineEdit  = new QLineEdit;
-    cqLineEdit->setToolTip(tr("CQ zone"));
+    cqLineEdit->setToolTip(tr("CQ zone."));
 
     QLabel *ituLabel = new QLabel(tr("ITU"));
     ituLineEdit = new QLineEdit;
-    ituLineEdit->setToolTip(tr("ITU zone"));
+    ituLineEdit->setToolTip(tr("ITU zone."));
 
     //QLabel *contLabel = new QLabel(tr("Continent"));
     //contLineEdit = new QLineEdit;
@@ -84,25 +84,25 @@ SetupEntityDialog::SetupEntityDialog(){
 
     QLabel *latLabel = new QLabel(tr("Latitude"));
     latLineEdit  = new QLineEdit;
-    latLineEdit->setToolTip(tr("Longitude of the Entity"));
+    latLineEdit->setToolTip(tr("Longitude of the Entity."));
 
     QLabel *lonLabel = new QLabel(tr("Longitude"));
     lonLineEdit  = new QLineEdit;
-    lonLineEdit->setToolTip(tr("Longitude of the Entity"));
+    lonLineEdit->setToolTip(tr("Longitude of the Entity."));
 
     QLabel *utcLabel = new QLabel(tr("UTC"));
     utcLineEdit  = new QLineEdit;
-    utcLineEdit->setToolTip(tr("Local time difference to UTC"));
+    utcLineEdit->setToolTip(tr("Local time difference to UTC."));
 
     QLabel *mprefLabel = new QLabel(tr("Main prefix"));
     mprefLineEdit = new QLineEdit;
-    mprefLineEdit->setToolTip(tr("Main prefix of the entity"));
+    mprefLineEdit->setToolTip(tr("Main prefix of the entity."));
 
     //qDebug() << "SetupEntityDialog::SetupEntityDialog -  1" << endl;
 
     QLabel *arrlidLabel = new QLabel(tr("ARRL ID"));
     arrlidLineEdit = new QLineEdit;
-    arrlidLineEdit->setToolTip(tr("ARRL ID"));
+    arrlidLineEdit->setToolTip(tr("ARRL ID."));
 
     //QLabel *deletedLabel = new QLabel(tr("Deleted"));
     //deletedLineEdit = new QLineEdit;
@@ -113,7 +113,7 @@ SetupEntityDialog::SetupEntityDialog(){
     prefLineEdit->setToolTip(tr("Comma separated possible prefixes, e.g. EA1, EA2, ..."));
 
     delQDateEdit = new QDateEdit;
-    delQDateEdit->setToolTip(tr("Date of the deletion"));
+    delQDateEdit->setToolTip(tr("Date of the deletion."));
 
     delRbutton = new QRadioButton(tr("Deleted"), this);
 

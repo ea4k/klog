@@ -424,6 +424,11 @@ int DataProxy::getCQzonYear(const int _year, const int _logNumber)
     return -1;
 }
 
+int DataProxy::getQSOsWithDXCC(const int _dxcc, const int _logNumber)
+{
+    return -1;
+}
+
 bool DataProxy::newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber)
 {
     return false;
@@ -576,6 +581,16 @@ int DataProxy::getHowManyQSOInLog(const int _log)
 }
 
 int DataProxy::getHowManyConfirmedQSLInLog(const int _log)
+{
+    return 0;
+}
+
+int DataProxy::getQSOsInBand(const QString _band, const int _log)
+{
+    return 0;
+}
+
+int DataProxy::getQSOsInMode(const QString _mode, const int _log)
 {
     return 0;
 }

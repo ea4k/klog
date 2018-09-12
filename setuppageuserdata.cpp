@@ -67,15 +67,15 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy *dp, QWidget *parent) : Q
    provinceLineEdit = new QLineEdit;
    countryLineEdit = new QLineEdit;
 
-   nameLineEdit->setToolTip(tr("Enter your name"));
-   address1LineEdit->setToolTip(tr("Enter your address - 1st line"));
-   address2LineEdit->setToolTip(tr("Enter your address - 2nd line"));
-   address3LineEdit->setToolTip(tr("Enter your address - 3rd line"));
-   address4LineEdit->setToolTip(tr("Enter your address - 4th line"));
-   cityLineEdit->setToolTip(tr("Enter your city"));
-   zipLineEdit->setToolTip(tr("Enter your zip code"));
-   provinceLineEdit->setToolTip(tr("Enter your province or state"));
-   countryLineEdit->setToolTip(tr("Enter your country"));
+   nameLineEdit->setToolTip(tr("Enter your name."));
+   address1LineEdit->setToolTip(tr("Enter your address - 1st line."));
+   address2LineEdit->setToolTip(tr("Enter your address - 2nd line."));
+   address3LineEdit->setToolTip(tr("Enter your address - 3rd line."));
+   address4LineEdit->setToolTip(tr("Enter your address - 4th line."));
+   cityLineEdit->setToolTip(tr("Enter your city."));
+   zipLineEdit->setToolTip(tr("Enter your zip code."));
+   provinceLineEdit->setToolTip(tr("Enter your province or state."));
+   countryLineEdit->setToolTip(tr("Enter your country."));
 
    QLabel *nameLabel = new QLabel(tr("&Name"));
    QLabel *addressLabel = new QLabel(tr("&Address"));
@@ -136,13 +136,13 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy *dp, QWidget *parent) : Q
    myPowerSpinBox->setDecimals(2);
    myPowerSpinBox->setMaximum(9999);
 
-   rig1LineEdit->setToolTip(tr("Enter your information for rig") + " #1");
-   rig2LineEdit->setToolTip(tr("Enter your information for rig") + " #2");
-   rig3LineEdit->setToolTip(tr("Enter your information for rig") + " #3");
-   ant1LineEdit->setToolTip(tr("Enter your information for antenna") + " #1");
-   ant2LineEdit->setToolTip(tr("Enter your information for antenna") + " #2");
-   ant3LineEdit->setToolTip(tr("Enter your information for antenna") + " #3");
-   myPowerSpinBox->setToolTip(tr("Enter your power information"));
+   rig1LineEdit->setToolTip(tr("Enter your information for rig") + " #1.");
+   rig2LineEdit->setToolTip(tr("Enter your information for rig") + " #2.");
+   rig3LineEdit->setToolTip(tr("Enter your information for rig") + " #3.");
+   ant1LineEdit->setToolTip(tr("Enter your information for antenna") + " #1.");
+   ant2LineEdit->setToolTip(tr("Enter your information for antenna") + " #2.");
+   ant3LineEdit->setToolTip(tr("Enter your information for antenna") + " #3.");
+   myPowerSpinBox->setToolTip(tr("Enter your power information."));
 
    QLabel *rig1Label = new QLabel(tr("&Rig 1"));
    QLabel *rig2Label = new QLabel(tr("R&ig 2"));
@@ -183,7 +183,7 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy *dp, QWidget *parent) : Q
     stationTab->setLayout(stationLayout);
 
     //TODO:Defining ALL the tooltips
-    qrzLineEdit->setToolTip(tr("Enter the station callsign that will be used for logging"));
+    qrzLineEdit->setToolTip(tr("Enter the station callsign that will be used for logging."));
     operatorsLineEdit->setToolTip(tr("Enter the operators (comma separated if more than one)."));
     myLocatorLineEdit->setToolTip(tr("Enter the locator of your station. Alternatively, KLog can use an approximate locator based on your callsign."));
 

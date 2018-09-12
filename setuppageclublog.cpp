@@ -60,9 +60,9 @@ SetupPageClubLog::SetupPageClubLog(QWidget *parent) : QWidget(parent)
     sendInRealTimeCheckBox = new QCheckBox(tr("&Send QSOs in real time"), this);
     clubLogActiveCheckBox = new QCheckBox(tr("&Activate ClubLog"), this);
     useQSOStationCallCheckBox = new QCheckBox(tr("Use QSO Station &Callsign"), this);
-    sendInRealTimeCheckBox->setToolTip(tr("Send each QSO to ClubLog in real time, as they are added (or modified) in KLog"));
-    clubLogActiveCheckBox->setToolTip(tr("Starts the ClubLog support in KLog"));
-    useQSOStationCallCheckBox->setToolTip(tr("Use the Station Callsign defined in each QSO instead of the one defined here"));
+    sendInRealTimeCheckBox->setToolTip(tr("Send each QSO to ClubLog in real time, as they are added (or modified) in KLog."));
+    clubLogActiveCheckBox->setToolTip(tr("Starts the ClubLog support in KLog."));
+    useQSOStationCallCheckBox->setToolTip(tr("Use the Station Callsign defined in each QSO instead of the one defined here."));
 
     QHBoxLayout *callSLayout = new QHBoxLayout;
     callSLayout->addWidget(callLineEdit);

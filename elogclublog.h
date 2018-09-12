@@ -26,7 +26,6 @@
  *                                                                           *
  *****************************************************************************/
 #include <QObject>
-#include <QtWidgets>
 #include <QFile>
 #include <QString>
 #include <QMessageBox>

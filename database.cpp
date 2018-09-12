@@ -303,7 +303,10 @@ bool DataBase::createConnection(bool newDB)
         //qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
         //db = QSqlDatabase::database();
         db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName(dbName);
+
+
+            db.setDatabaseName(dbName);
+
 
         if (!db.open())
         {

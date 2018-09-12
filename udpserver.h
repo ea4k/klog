@@ -38,8 +38,9 @@ signals:
 
     void logged_qso (const int _type, const QString _dxcall, const double _freq, const QString _mode,
                      const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
-                     const QString _tx_power, const QString _comments, const QString _name, const QString _time_on,
-                     const QString _de_call, const QString _de_opCall, const QString _de_grid);
+                     const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const QString _de_call, const QString _de_grid);
+
+
 
 private slots:
     void slotReadPendingDatagrams();

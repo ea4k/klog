@@ -1,5 +1,6 @@
-August 2018 - 0.9.4.1
-- Bugfix: When data was received from WSJT-X, local locator & operator was not properly parsed.
+TBD - 0.9.5
+- Added a dot at the end of all the tooltips.
+- Stats widget created to show statistics on the log.
 
 August 2018 - 0.9.4
 - WSJT-X support to receive logged QSO and realtime data.

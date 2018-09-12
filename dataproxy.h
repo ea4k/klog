@@ -83,6 +83,8 @@ public:
     virtual QStringList getModesInLog(const int _log);
     virtual int getMostUsedBand(const int _log);
     virtual int getMostUsedMode(const int _log);
+    virtual int getQSOsInBand(const QString _band, const int _log);
+    virtual int getQSOsInMode(const QString _mode, const int _log);
 
     virtual int getLastQSOid();
     virtual bool clearLog();
@@ -160,6 +162,7 @@ public:
     virtual int getQSOonYear(const int _year, const int _logNumber);
     virtual int getDXCConYear(const int _year, const int _logNumber);
     virtual int getCQzonYear(const int _year, const int _logNumber);
+    virtual int getQSOsWithDXCC(const int _dxcc, const int _logNumber);
     virtual bool newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber);
 
     virtual QStringList getContestNames();

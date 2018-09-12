@@ -63,14 +63,14 @@ void MainWindowMyDataTab::createUI()
     QLabel *keepLabel = new QLabel();
     keepLabel->setText(tr("Keep this data"));
     keepLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    keepLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO"));
+    keepLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
 
-    keepThisDataForNextQSORadiobutton->setToolTip(tr("Data entered in this tab will be copied into the next QSO"));
+    keepThisDataForNextQSORadiobutton->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
 
-    myPowerSpinBox->setToolTip(tr("Power used for the QSO in watts"));
-    operatorLineEdit->setToolTip(tr("Logging operator's callsign"));
-    stationCallSignLineEdit->setToolTip(tr("Callsign used over the air"));
-    myLocatorLineEdit->setToolTip(tr("My QTH locator"));
+    myPowerSpinBox->setToolTip(tr("Power used for the QSO in watts."));
+    operatorLineEdit->setToolTip(tr("Logging operator's callsign."));
+    stationCallSignLineEdit->setToolTip(tr("Callsign used over the air."));
+    myLocatorLineEdit->setToolTip(tr("My QTH locator."));
 
     QLabel *myPowerSpinBoxLabelN = new QLabel(tr("Power"));
     myPowerSpinBoxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);

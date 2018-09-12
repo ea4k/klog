@@ -55,7 +55,7 @@ public:
 
 private slots:
     void slotReadyRead();
-    //void slotError(int _p);
+    void slotError(int _p);
     //void slotSslErrors(QList _p);
     //void replyFinished(QNetworkReply *data);
 

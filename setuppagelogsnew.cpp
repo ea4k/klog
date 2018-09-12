@@ -156,11 +156,11 @@ void SetupPageLogsNew::createWidget()
     validCats->setWordWrap(true);
 
 
-    stationCallsignLineEdit->setToolTip(tr("Callsign used for this log"));
-    operatorsLineEdit->setToolTip(tr("Comma separated list of operators: callsign1, callsign2"));
+    stationCallsignLineEdit->setToolTip(tr("Callsign used for this log."));
+    operatorsLineEdit->setToolTip(tr("Comma separated list of operators: callsign1, callsign2."));
 
-    dateEdit->setToolTip(tr("Start date of this log"));
-    commentLineEdit->setToolTip(tr("Add a comment about this log"));
+    dateEdit->setToolTip(tr("Start date of this log."));
+    commentLineEdit->setToolTip(tr("Add a comment about this log."));
 
     typeLabel->setText(tr("&Type of Operation"));
     typeLabel->setWordWrap(true);
@@ -169,7 +169,7 @@ void SetupPageLogsNew::createWidget()
     dateLabel->setWordWrap(true);
 
 
-    typeComboBox->setToolTip(tr("Select the kind of operation for this log"));
+    typeComboBox->setToolTip(tr("Select the kind of operation for this log."));
     QStringList _qs;
     _qs.clear();
     _qs.append(dataProxy->getContestNames());    
@@ -178,7 +178,7 @@ void SetupPageLogsNew::createWidget()
 
     catModeLabel->setText(tr("&Mode Category"));
     catModeLabel->setWordWrap(true);
-    contestCatModeComboBox->setToolTip(tr("Select the mode category"));
+    contestCatModeComboBox->setToolTip(tr("Select the mode category."));
     _qs.clear();
     _qs.append(dataProxy->getContestCat(6));
     contestCatModeComboBox->addItems(_qs);
@@ -186,14 +186,14 @@ void SetupPageLogsNew::createWidget()
     //QLabel *catOpLabel = new QLabel(tr("Operators Category"));
     catOpLabel->setText(tr("O&perators Category"));
     catOpLabel->setWordWrap(true);
-    contestCatOperatorsComboBox->setToolTip(tr("Select the operators category"));
+    contestCatOperatorsComboBox->setToolTip(tr("Select the operators category."));
     _qs.clear();
     _qs.append(dataProxy->getContestCat(1));
     contestCatOperatorsComboBox->addItems(_qs);
 
     catAsLabel->setText(tr("&Assisted Category"));
     catOpLabel->setWordWrap(true);
-    contestCatAssistedComboBox->setToolTip(tr("Select the assisted category"));
+    contestCatAssistedComboBox->setToolTip(tr("Select the assisted category."));
     _qs.clear();
     _qs.append(dataProxy->getContestCat(2));
     contestCatAssistedComboBox->addItems(_qs);
@@ -201,7 +201,7 @@ void SetupPageLogsNew::createWidget()
     //QLabel *catPowerLabel = new QLabel(tr("Power Category"));
     catPowerLabel->setText(tr("Po&wer Category"));
     catPowerLabel->setWordWrap(true);
-    contestCatPowerComboBox->setToolTip(tr("Select the power category"));
+    contestCatPowerComboBox->setToolTip(tr("Select the power category."));
     _qs.clear();
     _qs.append(dataProxy->getContestCat(3));
     contestCatPowerComboBox->addItems(_qs);
@@ -209,14 +209,14 @@ void SetupPageLogsNew::createWidget()
     //QLabel *catBandsLabel = new QLabel(tr("Bands Category"));
     catBandsLabel->setText(tr("&Bands Category"));
     catBandsLabel->setWordWrap(true);
-    contestCatBandsComboBox->setToolTip(tr("Select the bands category"));
+    contestCatBandsComboBox->setToolTip(tr("Select the bands category."));
     _qs.clear();
     _qs.append(dataProxy->getContestCat(4));
     contestCatBandsComboBox->addItems(_qs);
 
     overlayLabel->setText(tr("O&verlay"));
     overlayLabel->setWordWrap(true);
-    contestCatOverlayComboBox->setToolTip(tr("Select the Overlay category"));
+    contestCatOverlayComboBox->setToolTip(tr("Select the Overlay category."));
     _qs.clear();
     _qs.append(dataProxy->getContestOverlays());
     contestCatOverlayComboBox->addItems(_qs);
