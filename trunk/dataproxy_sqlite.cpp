@@ -2617,7 +2617,6 @@ int DataProxy_SQLite::getCQzonYear(const int _year, const int _logNumber)
         queryString = QString("SELECT COUNT (DISTINCT cqz) FROM log where lognumber='%1' AND qso_date LIKE '%2%'").arg(_logNumber).arg(_year);
     }
 
-
     sqlOK = query.exec(queryString);
 
       //qDebug() << "DataProxy_SQLite::getCQzonYear: queryString: " << queryString << endl;
@@ -2637,7 +2636,6 @@ int DataProxy_SQLite::getCQzonYear(const int _year, const int _logNumber)
             query.finish();
             return 0;
         }
-
     }
     else
     {
@@ -2694,6 +2692,61 @@ int DataProxy_SQLite::getQSOsWithDXCC(const int _dxcc, const int _logNumber)
       return 0;
   }
 }
+
+int DataProxy_SQLite::getQSOsAtHour(const int _hour, const int _log)
+{
+  //qDebug() << "DataProxy_SQLite::getQSOsAtHour: " << QString::number(_hour) << endl;
+  QSqlQuery query;
+  QString queryString;
+  bool sqlOK;
+  QString aux = QString();
+  if (_hour < 10)
+  {
+      aux = "0" + QString::number(_hour);
+  }
+  else
+  {
+      aux = QString::number(_hour);
+  }
+
+  if (_log < 0)
+  {
+      queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE time_on LIKE '%1:%'").arg(aux);
+  }
+  else
+  {
+      queryString = QString("SELECT COUNT(DISTINCT id) FROM log Wwhere lognumber='%1' AND time_on LIKE '%2:%'").arg(_log).arg(aux);
+  }
+
+  sqlOK = query.exec(queryString);
+
+    //qDebug() << "DataProxy_SQLite::getQSOsAtHour: queryString: " << queryString << endl;
+  if (sqlOK)
+  {
+      query.next();
+      if (query.isValid())
+      {
+            //qDebug() << "DataProxy_SQLite::getQSOsAtHour: " << QString::number((query.value(0)).toInt()) << endl;
+          int v = (query.value(0)).toInt();
+          query.finish();
+          return v;
+      }
+      else
+      {
+            //qDebug() << "DataProxy_SQLite::getQSOsAtHour: 0" << endl;
+          query.finish();
+          return 0;
+      }
+  }
+  else
+  {
+      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        //qDebug() << "DataProxy_SQLite::getQSOsAtHour: Query error" << endl;
+      query.finish();
+      return 0;
+  }
+}
+
 
 
 bool DataProxy_SQLite::newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber)
@@ -5236,6 +5289,40 @@ QStringList DataProxy_SQLite::getEntitiesNames()
     query.finish();
     return qs;
 }
+
+QStringList DataProxy_SQLite::getEntitiesIds()
+{
+    QString aux = QString();
+    QStringList qs;
+    qs.clear();
+    QString queryString = QString("SELECT dxcc FROM entity");
+    QSqlQuery query;
+
+    bool sqlOK = query.exec(queryString);
+
+    if (sqlOK)
+    {
+        while ( (query.next())) {
+            if (query.isValid())
+            {
+                if (query.value(0).toInt()>0)
+                {
+                    aux.clear();
+                    aux = (query.value(0)).toString();
+                    qs << aux;
+                }
+            }
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+    }
+    query.finish();
+    qs.sort();
+    return qs;
+}
+
 
 /*
  * The following code was showing in the Entities prefixes and entities like Sicily, African Italy... and they are not officially an entity in the DXCC

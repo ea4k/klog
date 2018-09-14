@@ -84,7 +84,7 @@ public:
     virtual int getMostUsedBand(const int _log);
     virtual int getMostUsedMode(const int _log);
     virtual int getQSOsInBand(const QString _band, const int _log);
-    virtual int getQSOsInMode(const QString _mode, const int _log);
+    virtual int getQSOsInMode(const QString _mode, const int _log);    
 
     virtual int getLastQSOid();
     virtual bool clearLog();
@@ -150,6 +150,7 @@ public:
     virtual int getDXCCFromPrefix(const QString _p);
     virtual QString getEntityPrefixes(const int _enti);
     virtual QStringList getEntitiesNames();
+    virtual QStringList getEntitiesIds();
     virtual int getHowManyEntities();
     virtual int getMaxEntityID(bool limit);                 // limit = true implies that it will only shouw ARRL valid DXCC (i.e. will not count Sicily)
 
@@ -163,6 +164,7 @@ public:
     virtual int getDXCConYear(const int _year, const int _logNumber);
     virtual int getCQzonYear(const int _year, const int _logNumber);
     virtual int getQSOsWithDXCC(const int _dxcc, const int _logNumber);
+    virtual int getQSOsAtHour(const int _hour, const int _log);
     virtual bool newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber);
 
     virtual QStringList getContestNames();

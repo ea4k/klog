@@ -429,6 +429,13 @@ int DataProxy::getQSOsWithDXCC(const int _dxcc, const int _logNumber)
     return -1;
 }
 
+int DataProxy::getQSOsAtHour(const int _hour, const int _log)
+{
+    return -1;
+}
+
+
+
 bool DataProxy::newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber)
 {
     return false;
@@ -691,6 +698,11 @@ QString DataProxy::getEntityPrefixes(const int _enti)
 }
 
 QStringList DataProxy::getEntitiesNames()
+{
+    return QStringList();
+}
+
+QStringList DataProxy::getEntitiesIds()
 {
     return QStringList();
 }

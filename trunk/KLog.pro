@@ -80,6 +80,7 @@ HEADERS += setupdialog.h \
     statisticswidget.h \
     charts/barchartstats.h \
     charts/donutchartstats.h
+
 SOURCES += main.cpp \
     aboutdialog.cpp \
     setupdialog.cpp \

@@ -150,6 +150,7 @@ public:
     int getDXCCFromPrefix(const QString _p);
     QString getEntityPrefixes(const int _enti);
     QStringList getEntitiesNames();
+    QStringList getEntitiesIds();
     int getHowManyEntities();
     int getMaxEntityID(bool limit = true);      // limit = true implies that it will only shouw ARRL valid DXCC (i.e. will not count Sicily)
 
@@ -166,6 +167,7 @@ public:
     int getDXCConYear(const int _year, const int _logNumber);
     int getCQzonYear(const int _year, const int _logNumber);
     int getQSOsWithDXCC(const int _dxcc, const int _logNumber);
+    int getQSOsAtHour(const int _hour, const int _log);
 
     int getHowManyQSOInLog(const int _log);
     int getHowManyConfirmedQSLInLog(const int _log);
