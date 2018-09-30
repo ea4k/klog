@@ -51,7 +51,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
      //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
     showErrorDialog = new ShowErrorDialog();
-    UDPLogServer = new UDPServer();
+    UDPLogServer = new UDPServer();    
 
     upAndRunning = false; // To define some actions that can only be run when starting the software
     //connect(&manager, SIGNAL(finished(QNetworkReply*)), SLOT(slotDownloadFinished(QNetworkReply*))); // To download cty.csv
@@ -180,6 +180,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     confirmedColor.setNamedColor("red");
     newOneColor.setNamedColor("green");
 
+    updateSatsData = new UpdateSatsData(dataProxy);
     statsWidget = new StatisticsWidget(dataProxy);
     //statsWidget->show();
     //Default band/modes
@@ -3525,6 +3526,11 @@ void MainWindow::createMenusCommon()
     connect(downloadCTYAct, SIGNAL(triggered()), this, SLOT(slotUpdateCTYDAT()));
     downloadCTYAct->setToolTip(tr("For updated DX-Entity data, update cty.csv."));
 
+    downloadSATSAct = new QAction (tr("&Update Satellite Data"), this);
+    toolMenu->addAction(downloadSATSAct);
+    connect(downloadSATSAct, SIGNAL(triggered()), this, SLOT(slotUpdateSATSDAT()));
+    downloadSATSAct->setToolTip(tr("For updated DX-Entity data, update cty.csv."));
+
     toolMenu->addSeparator();
 
     showStatsAct = new QAction (tr("Show stats"), this);
@@ -6414,6 +6420,15 @@ void MainWindow::slotUpdateCTYDAT()
 {
       //qDebug() << "MainWindow::slotUpdateCTYDAT" << endl;
     downloadcty->download();
+}
+
+void MainWindow::slotUpdateSATSDAT()
+{
+    //qDebug() << "MainWindow::slotUpdateSATSDAT" << endl;
+
+    updateSatsData->readSatDataFile();
+    satTabWidget->refreshData();
+
 }
 
 void MainWindow::slotShowStats()

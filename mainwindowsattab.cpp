@@ -189,6 +189,8 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
         satNameLineEdit->setEnabled(false);
         satOtherLabel->setEnabled(false);
         setBandsOfSat(satNameComboBox->currentText());
+
+        //dataProxy->getSatelliteMode(satNameComboBox->currentText())
     }
 
 }
@@ -358,6 +360,10 @@ void MainWindowSatTab::clear()
     }
 
 }
+void MainWindowSatTab::refreshData()
+{
+    populateSatComboBox();
+}
 
 void MainWindowSatTab::populateSatComboBox()
 {
@@ -372,7 +378,7 @@ void MainWindowSatTab::populateSatComboBox()
 
     if (satellitesList.size()>1)
     {
-
+        satNameComboBox->clear();
         satNameComboBox->addItems(satellitesList);
     }
     else
@@ -601,14 +607,11 @@ void MainWindowSatTab::setBandsOfSat(const QString _p)
             indexRX = satBandRXComboBox->findText(downLinkBand, Qt::MatchCaseSensitive);
             satBandRXComboBox->setCurrentIndex(indexRX);
         }
-
     }
     else
     {
         satBandRXComboBox->setCurrentIndex(0);
     }
-
-
 
 }
 

@@ -2986,6 +2986,40 @@ QStringList DataProxy_SQLite::getPropModeList()
     return qs;
 }
 
+bool DataProxy_SQLite::clearSatList()
+{
+    QSqlQuery query;
+    bool sqlOK = query.exec("DELETE FROM satellites");
+
+    if (sqlOK)
+    {
+          return true;
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        return false;
+    }
+}
+
+bool DataProxy_SQLite::addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode)
+{
+    QSqlQuery query;
+    QString queryString = QString("INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('%1', '%2', '%3', '%4', '%5')").arg(_arrlId).arg(_name).arg(_upLink).arg(_downLink).arg(_mode);
+    bool sqlOK = query.exec(queryString);
+
+    if (sqlOK)
+    {
+          return true;
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        return false;
+    }
+
+}
+
 QStringList DataProxy_SQLite::getSatellitesList()
 {
       //qDebug()  << "DataProxy_SQLite::getSatellitesList"  << endl;
@@ -3028,7 +3062,7 @@ QString DataProxy_SQLite::getSatelliteUplink(const QString _sat)
 {
       //qDebug()  << "DataProxy_SQLite::getSatelliteUplink: " << _sat << endl;
     QString aux = QString();
-    QString aux2 = QString();
+    //QString aux2 = QString();
     //double fr1, fr2, fr;
     QString queryString = QString("SELECT uplink FROM satellites WHERE satarrlid='%1'").arg(_sat);
     QSqlQuery query;
@@ -3068,7 +3102,7 @@ QString DataProxy_SQLite::getSatelliteDownlink(const QString _sat)
 {
       //qDebug()  << "DataProxy_SQLite::getSatelliteDownlink: " << _sat << endl;
     QString aux = QString();
-    QString aux2 = QString();
+    //QString aux2 = QString();
     //double fr1, fr2, fr;
     QString queryString = QString("SELECT downlink FROM satellites WHERE satarrlid='%1'").arg(_sat);
     QSqlQuery query;
@@ -3102,6 +3136,50 @@ QString DataProxy_SQLite::getSatelliteDownlink(const QString _sat)
       //qDebug()  << "DataProxy_SQLite::getSatelliteDownlink: final: " << aux << endl;
     query.finish();
     return aux;
+}
+
+QString DataProxy_SQLite::getSatelliteMode(const QString _sat)
+{
+
+    QString aux = QString();
+    QString queryString = QString("SELECT satmode FROM satellites WHERE satarrlid='%1'").arg(_sat);
+    QSqlQuery query;
+
+    bool sqlOK = query.exec(queryString);
+
+
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            aux = query.value(0).toString();
+            query.finish();
+            if (aux.contains(','))
+            {   // Potentially somethink like: SSB,CW
+                // We select the first one
+                aux = aux.section(',', 0, 0);   // We select the first package
+            }
+
+        }
+        else
+        {
+              //qDebug()  << "DataProxy_SQLite::getSatelliteMode:  query not valid"  << endl;
+            query.finish();
+            return QString();
+        }
+    }
+    else
+    {
+          //qDebug()  << "DataProxy_SQLite::getSatelliteMode:  query failed: " << query.lastQuery()  << endl;
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return QString();
+    }
+
+      //qDebug()  << "DataProxy_SQLite::getSatelliteMode: final: " << aux << endl;
+    return aux;
+
 }
 
 double DataProxy_SQLite::getFreqFromRange(QString _fr)

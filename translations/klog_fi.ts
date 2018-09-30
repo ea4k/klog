@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fi_FI">
+<TS version="2.0" language="fi_FI">
+<defaultcodec>UTF-8</defaultcodec>
 <context>
     <name>AboutDialog</name>
     <message>
@@ -149,6 +150,141 @@
     </message>
 </context>
 <context>
+    <name>BarChartStats</name>
+    <message>
+        <location filename="../charts/barchartstats.cpp" line="+71"/>
+        <source>Chart title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Reading data... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>QSOs</source>
+        <translation type="unfinished">QSO:t</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>QSOs per year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Reading data...
+ QSO: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>DXCC Entities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>DXCC Entities per year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Reading data...
+ Entities: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>CQ zones</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CQ zone per year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Reading data...
+ Years: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Bands</source>
+        <translation type="unfinished">Taajuusalueet</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>QSO per band distribution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Reading data...
+ Bands: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Modes</source>
+        <translation type="unfinished">Moodit</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>QSO per mode distribution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Reading data...
+ Modes: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <location line="+43"/>
+        <source>Reading data...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Entity: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Top ten DXCC per QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>QSOs at hour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Reading data...
+ Hours: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CTYPage</name>
     <message>
         <location filename="../startwizard.cpp" line="+914"/>
@@ -211,7 +347,7 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Päivitä</translation>
     </message>
     <message>
-        <location line="+229"/>
+        <location line="+238"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
@@ -221,7 +357,7 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Yksikkö</translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+86"/>
         <source>Entity not worked in this band.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -328,10 +464,6 @@ Haluatko yrittää uudelleen?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter here the commands to be sent to the DX-Cluster server</source>
-        <translation type="vanished">Anna tähän komennot, jotka lähetetään DX-klusteripalvelimelle</translation>
-    </message>
-    <message>
         <location line="+10"/>
         <source>Connection closed by the server</source>
         <translation>Palvelin katkaisi yhteyden</translation>
@@ -360,7 +492,7 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Kyselyt onnistuivat</translation>
     </message>
     <message>
-        <location line="+4098"/>
+        <location line="+4293"/>
         <source>KLog DXCC</source>
         <translation>KLog DXCC</translation>
     </message>
@@ -404,10 +536,6 @@ Haluatko yrittää uudelleen?</translation>
         <location filename="../filemanager.cpp" line="+201"/>
         <source>The log that you have selected contains more than just one station callsign.</source>
         <translation>Valitsemasi loki sisältää enemmän kuin vain yhden aseman kutsutunnuksen.</translation>
-    </message>
-    <message>
-        <source>Please select the station callsing you want to export the log from:</source>
-        <translation type="vanished">Valitse aseman kutsutunnus, jonka lokin haluat viedä:</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -484,26 +612,6 @@ Haluatko yrittää uudelleen?</translation>
         <location line="+132"/>
         <source>Reading LoTW file...</source>
         <translation>Luetaan LoTW -tiedostoa...</translation>
-    </message>
-    <message>
-        <source>There are more than one log in this logfile.
-All logs will be imported in the current log.
-Do you want to continue?</source>
-        <translation type="vanished">Tässä lokitiedostossa on useampi kuin yksi loki.
-Kaikki lokit tuodaan nykyiseen lokiin.
-Haluatko jatkaa?</translation>
-    </message>
-    <message>
-        <source>Importing ADIF file...
- QSO: </source>
-        <translation type="vanished">Tuodaan ADIF -tiedostoa...
- QSO: </translation>
-    </message>
-    <message>
-        <source>You have cancelled the file export. The file will be removed and no data will be exported.
-Do you still want to cancel?</source>
-        <translation type="vanished">Olet peruuttanut tiedostonviennin. Tiedosto poistetaan eikä tietoja ole viety.
-Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+1680"/>
@@ -749,10 +857,6 @@ Haluatko varmasti peruuttaa?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Grad</source>
-        <translation type="vanished">Suuntima</translation>
-    </message>
-    <message>
         <location line="+213"/>
         <location line="+1"/>
         <source>Miles</source>
@@ -985,13 +1089,9 @@ Haluatko varmasti peruuttaa?</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="+203"/>
+        <location filename="../mainwindow.cpp" line="+206"/>
         <source>Recalculate</source>
         <translation>Laske uudelleen</translation>
-    </message>
-    <message>
-        <source>Click to recalculate the award status</source>
-        <translation type="vanished">Napsauta laskeaksesi uudelleen palkinto tilanne</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -1044,13 +1144,13 @@ Haluatko varmasti peruuttaa?</translation>
     </message>
     <message>
         <location line="+85"/>
-        <location line="+2898"/>
-        <location line="+710"/>
+        <location line="+2892"/>
+        <location line="+721"/>
         <source>KLog</source>
         <translation>KLog</translation>
     </message>
     <message>
-        <location line="-3396"/>
+        <location line="-3401"/>
         <source>Ready</source>
         <translation>Valmis</translation>
     </message>
@@ -1082,88 +1182,39 @@ Haluatko varmasti peruuttaa?</translation>
         <translation>Napsauta oikean yksikön etuliitettä tai paina Peruuta korjataksesi.</translation>
     </message>
     <message>
-        <source>QRZ of the QSO</source>
-        <translation type="vanished">QSO:n QRZ</translation>
-    </message>
-    <message>
-        <location line="+660"/>
-        <source>TX RST</source>
-        <translation>TX RST</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>RX RST</source>
-        <translation>RX RST</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>TX Exchange</source>
-        <translation>TX Exchange</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+663"/>
         <source>RX Exchange</source>
         <translation>RX Exchange</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Band of the QSO</source>
-        <translation>QSO:n taajuusalue</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Mode of the QSO</source>
-        <translation>QSO:n moodi</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Date of the QSO</source>
-        <translation>QSO:n päivämäärä</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Time of the QSO</source>
-        <translation>QSO:n aika</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Add the QSO to the log</source>
-        <translation>Lisää QSO lokiin</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Clear the box</source>
-        <translation>Tyhjennä laatikko</translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location line="+11"/>
         <source>Input</source>
         <translation>Syöttö</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+4056"/>
+        <location line="+4072"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location line="-4049"/>
-        <location line="+4047"/>
+        <location line="-4065"/>
+        <location line="+4063"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
     <message>
-        <location line="-4038"/>
+        <location line="-4054"/>
         <location line="+800"/>
         <location line="+6"/>
-        <location line="+907"/>
-        <location line="+991"/>
-        <location line="+1332"/>
+        <location line="+912"/>
+        <location line="+990"/>
+        <location line="+1344"/>
         <source>QRZ</source>
         <translation>QRZ</translation>
     </message>
     <message>
-        <location line="-4029"/>
+        <location line="-4045"/>
         <source>STX</source>
         <translation>STX</translation>
     </message>
@@ -1188,7 +1239,7 @@ Haluatko varmasti peruuttaa?</translation>
         <translation>Valmis...</translation>
     </message>
     <message>
-        <location line="+345"/>
+        <location line="+339"/>
         <source>The logfile has been modified.
 Do you want to save your changes?</source>
         <translation>The logfile has been modified.
@@ -1220,25 +1271,9 @@ Do you want to save your changes?</translation>
         <translation>Tallenna &amp;nimellä...</translation>
     </message>
     <message>
-        <source>&amp;Export to ADIF...</source>
-        <translation type="vanished">&amp;Vie ADIF -tiedostoon...</translation>
-    </message>
-    <message>
-        <source>&amp;Export all logs to ADIF...</source>
-        <translation type="vanished">Vie &amp;kaikki lokit ADIF -tiedostoon...</translation>
-    </message>
-    <message>
         <location line="+17"/>
         <source>Export ALL the QSOs into one ADIF file, merging QSOs from all the logs.</source>
         <translation>Vie kaikki QSO:t yhteen ADIF -tiedostoon, yhdistäen QSO:t kaikista lokeista.</translation>
-    </message>
-    <message>
-        <source>&amp;Export Requested QSL to ADIF...</source>
-        <translation type="vanished">Vie &amp;pyydetty QSL ADIF -tiedostoon...</translation>
-    </message>
-    <message>
-        <source>&amp;Export ADIF for LoTW...</source>
-        <translation type="vanished">Vie ADIF LoTW:iä varten...</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1381,17 +1416,9 @@ Do you want to save your changes?</translation>
         <translation>LoTW työkalut...</translation>
     </message>
     <message>
-        <source>Queue all QSO of this log</source>
-        <translation type="vanished">Aseta jonoon kaikki tämän lokin QSO:t</translation>
-    </message>
-    <message>
         <location line="+5"/>
         <source>Mark all non sent QSOs in this log as queued to be uploaded.</source>
         <translation>Merkitse kaikki tässä lokissa olevat lähettämättömät QSO:t lähetysjonoon.</translation>
-    </message>
-    <message>
-        <source>Queue all QSO</source>
-        <translation type="vanished">Aseta jonoon kaikki QSO:t</translation>
     </message>
     <message>
         <location line="-3"/>
@@ -1435,11 +1462,12 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location line="+4"/>
+        <location line="+5"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
         <translation>Päivitettyjä DX-yksikkö tietoja varten, päivitä cty.csv.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+11"/>
         <source>&amp;Setup</source>
         <translation>&amp;Asetukset</translation>
     </message>
@@ -1619,22 +1647,6 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The selected log is not existing or it is still empty.</source>
-        <translation type="vanished">Valittua lokia ei ole, tai se on vielä tyhjä.</translation>
-    </message>
-    <message>
-        <source>Click Yes and KLog will open an empty log.</source>
-        <translation type="vanished">Napsauta Kyllä ja KLog avaa tyhjän lokin.</translation>
-    </message>
-    <message>
-        <source>Click No and KLog will select another log with data.</source>
-        <translation type="vanished">Napsauta Ei ja KLog valitsee toisen lokin jossa on tietoja.</translation>
-    </message>
-    <message>
-        <source>You can modify the config file accordingly, if needed.</source>
-        <translation type="vanished">Voit muokata config -tiedostoa jos tarvitaan.</translation>
-    </message>
-    <message>
         <location line="+0"/>
         <source>The UDP server failed to</source>
         <translation type="unfinished"></translation>
@@ -1660,7 +1672,7 @@ Do you want to save your changes?</translation>
         <translation>Jos olet varma että tietokannassa on QSO:ita ja KLog ei löydä niitä, voit ottaa yhteyttä kehittäjiin (Katso, Tietoja KLogista) apua varten.</translation>
     </message>
     <message>
-        <location line="+334"/>
+        <location line="+333"/>
         <source>TX Frequency in MHz.</source>
         <translation>TX Taajuus MHz:inä.</translation>
     </message>
@@ -1705,28 +1717,31 @@ Do you want to save your changes?</translation>
         <translation>DX:n lokaattori.</translation>
     </message>
     <message>
-        <location line="-2546"/>
-        <location line="+2548"/>
+        <location line="-2550"/>
+        <location line="+2552"/>
         <source>QRZ of the QSO.</source>
         <translation>QSO:n QRZ.</translation>
     </message>
     <message>
-        <location line="-4726"/>
+        <location line="-4730"/>
         <source>Click to recalculate the award status.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4727"/>
+        <location line="+2179"/>
+        <location line="+2552"/>
         <source>TX RST.</source>
         <translation>TX RST.</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-2551"/>
+        <location line="+2552"/>
         <source>RX RST.</source>
         <translation>RX RST.</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-2551"/>
+        <location line="+2552"/>
         <source>TX Exchange.</source>
         <translation>TX Exchange.</translation>
     </message>
@@ -1736,32 +1751,57 @@ Do you want to save your changes?</translation>
         <translation>RX Exchange.</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-2551"/>
+        <location line="+2552"/>
         <source>Band of the QSO.</source>
         <translation>QSO:n taajuusalue.</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-2551"/>
+        <location line="+2552"/>
         <source>Mode of the QSO.</source>
         <translation>QSO:n moodi.</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-2551"/>
+        <location line="+2552"/>
         <source>Date of the QSO.</source>
         <translation>QSO:n päivämäärä.</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-2551"/>
+        <location line="+2552"/>
         <source>Time of the QSO.</source>
         <translation>QSO:n aika.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="-2549"/>
+        <location line="+2552"/>
         <source>Add the QSO to the log.</source>
         <translation>Lisää QSO lokiin.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-2550"/>
+        <source>Clear the box.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1131"/>
+        <source>&amp;Update Satellite Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Show stats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Show the statistics of your radio activity.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1411"/>
         <source>Clears the QSO entry.</source>
         <translation>Poistaa QSO merkinnän.</translation>
     </message>
@@ -1842,12 +1882,12 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location line="+18"/>
-        <location line="+2189"/>
+        <location line="+2200"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location line="-2185"/>
+        <location line="-2196"/>
         <source>QTH</source>
         <translation>QTH</translation>
     </message>
@@ -1898,12 +1938,12 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+1362"/>
+        <location line="+1374"/>
         <source>Comment</source>
         <translation>Kommentti</translation>
     </message>
     <message>
-        <location line="-1359"/>
+        <location line="-1371"/>
         <source>Others</source>
         <translation>Muut</translation>
     </message>
@@ -2024,7 +2064,7 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1784"/>
+        <location line="+1795"/>
         <source>Call</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2069,11 +2109,7 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Remember to sign the LoTW log before you upload it!</source>
-        <translation type="vanished">Muista kirjata LoTW loki ennen lähetystä!</translation>
-    </message>
-    <message>
-        <location line="-1790"/>
+        <location line="-1801"/>
         <source>There was no QSO to be exported.</source>
         <translation>Vietäviä QSO:ita ei ollut.</translation>
     </message>
@@ -2109,7 +2145,7 @@ Do you want to save your changes?</translation>
         <translation>Avaa Tiedosto</translation>
     </message>
     <message>
-        <location line="+119"/>
+        <location line="+117"/>
         <source>&amp;Modify</source>
         <translation>&amp;Muokkaa</translation>
     </message>
@@ -2141,7 +2177,7 @@ Do you want to save your changes?</translation>
  QSO: </translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+74"/>
         <source>Number</source>
         <translation>Numero</translation>
     </message>
@@ -2162,12 +2198,12 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+682"/>
+        <location line="+681"/>
         <source>Mode</source>
         <translation>Tila</translation>
     </message>
     <message>
-        <location line="-667"/>
+        <location line="-666"/>
         <source>Print Log</source>
         <translation>Tulosta loki</translation>
     </message>
@@ -2190,7 +2226,7 @@ Do you want to save your changes?</translation>
  QSO: </translation>
     </message>
     <message>
-        <location line="+618"/>
+        <location line="+617"/>
         <source>KLog QSO received</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2272,10 +2308,6 @@ Do you want to save your changes?</translation>
 </context>
 <context>
     <name>MainWindowInputComment</name>
-    <message>
-        <source>Add a comment for this QSO</source>
-        <translation type="vanished">Lisää kommentti tälle QSO:lle</translation>
-    </message>
     <message>
         <location filename="../mainwindowinputcomment.cpp" line="+46"/>
         <source>Add a comment for this QSO.</source>
@@ -2389,33 +2421,33 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location line="+8"/>
-        <source>Select the primary division for this QSO</source>
-        <translation>Valitse ensisijainen hallinnollinen alue tälle QSO:lle</translation>
+        <source>Select the primary division for this QSO.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Select the secondary division for this QSO</source>
-        <translation>Valitse toissijainen hallinnollinen alue tälle QSO:lle</translation>
+        <source>Select the secondary division for this QSO.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Select the entity for this QSO</source>
-        <translation>Valitse yksikkö tälle QSO:lle</translation>
+        <source>Select the entity for this QSO.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Select the propagation mode for this QSO</source>
-        <translation>Valitse etenemismoodi tälle QSO:lle</translation>
+        <source>Select the propagation mode for this QSO.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Select the IOTA continent for this QSO</source>
-        <translation>Valitse IOTA -manner tälle QSO:lle</translation>
+        <source>Select the IOTA continent for this QSO.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Select the IOTA reference number for this QSO</source>
-        <translation>Valitse IOTA -referenssinumero tälle QSO:lle</translation>
+        <source>Select the IOTA reference number for this QSO.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+25"/>
@@ -2507,28 +2539,28 @@ Do you want to save your changes?</translation>
     <message>
         <location line="+2"/>
         <location line="+2"/>
-        <source>Data entered in this tab will be copied into the next QSO</source>
-        <translation>Tähän kenttään syötetyt tiedot kopioidaan seuraavaan QSO:n</translation>
+        <source>Data entered in this tab will be copied into the next QSO.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Power used for the QSO in watts</source>
-        <translation>QSO:n käytetty teho watteina</translation>
+        <source>Power used for the QSO in watts.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Logging operator&apos;s callsign</source>
-        <translation>Lokinpitäjän kutsutunnus.</translation>
+        <source>Logging operator&apos;s callsign.</source>
+        <translation type="unfinished">Lokinpitäjän kutsutunnus.</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Callsign used over the air</source>
-        <translation>Lähetyksessä käytetty kutsutunnus</translation>
+        <source>Callsign used over the air.</source>
+        <translation type="unfinished">Lähetyksissä käytetty kutsutunnus.</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>My QTH locator</source>
-        <translation>Minun QTH lokaattori</translation>
+        <source>My QTH locator.</source>
+        <translation type="unfinished">Minun QTH lokaattori.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2559,46 +2591,46 @@ Do you want to save your changes?</translation>
         <translation>Säilytä nämä tiedot</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <location line="+2"/>
-        <source>Data entered in this tab will be copied into the next QSO</source>
-        <translation>Tähän välilehteen syötetyt tiedot kopioidaan seuraavaan QSO:n</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <location line="+284"/>
+        <location line="+5"/>
+        <location line="+290"/>
         <source>Other - Sat not in the list</source>
         <translation>Muut - Satelliitti ei ole listalla</translation>
     </message>
     <message>
-        <location line="-281"/>
+        <location line="-287"/>
         <source>Name of the Satellite if not in the list. Select: &quot;</source>
         <translation>Satelliitin nimi, jos ei listalla. Valitse: &quot;</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>&quot; to enable this box. (format like AO-51)</source>
-        <translation>&quot; aktivoidaksesi tämän. (Muotoile kuten: AO-51)</translation>
+        <location line="-6"/>
+        <location line="+2"/>
+        <source>Data entered in this tab will be copied into the next QSO.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>&quot; to enable this box. (format like AO-51).</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Satellite mode used</source>
-        <translation>Satelliitti tila käytössä</translation>
+        <source>Satellite mode used.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Select the satellite you are using</source>
-        <translation>Valitse käytettävä satelliitti</translation>
+        <source>Select the satellite you are using.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>UpLink band</source>
-        <translation>Lähetyslinkin taajuusalue</translation>
+        <source>UpLink band.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>DownLink band</source>
-        <translation>Vastaanottolinkin taajuusalue</translation>
+        <source>DownLink band.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2642,7 +2674,7 @@ Do you want to save your changes?</translation>
         <translation>MHz</translation>
     </message>
     <message>
-        <location line="+239"/>
+        <location line="+245"/>
         <source>Not Sat QSO</source>
         <translation>Ei Satelliitti QSO</translation>
     </message>
@@ -2701,7 +2733,7 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="+271"/>
-        <location line="+39"/>
+        <location line="+42"/>
         <source>Database Error</source>
         <translation>Tietokantavirhe</translation>
     </message>
@@ -2746,7 +2778,7 @@ Do you want to save your changes?</translation>
         <translation>Kaikki tiedot siirrettiin oikein. Sinun pitäisi nyt mennä Asetukset-&gt; Lisäasetukset-&gt; Lokit  tarkistaaksesi, että kaikki on OK.</translation>
     </message>
     <message>
-        <location line="+1424"/>
+        <location line="+1434"/>
         <location line="+21"/>
         <source>Updating mode information...</source>
         <translation>Päivitetään tilatietoja...</translation>
@@ -2756,23 +2788,23 @@ Do you want to save your changes?</translation>
         <location line="+185"/>
         <location line="+197"/>
         <location line="+201"/>
-        <location line="+2974"/>
+        <location line="+3044"/>
         <location line="+223"/>
         <location filename="../dataproxy_sqlite.cpp" line="-57"/>
         <source>Abort updating</source>
         <translation>Keskeytä päivittäminen</translation>
     </message>
     <message>
-        <location line="-3759"/>
+        <location line="-3829"/>
         <location line="+183"/>
-        <location line="+3445"/>
+        <location line="+3515"/>
         <location line="+223"/>
         <location filename="../dataproxy_sqlite.cpp" line="+41"/>
         <source>QSO: </source>
         <translation>QSO:</translation>
     </message>
     <message>
-        <location line="-3776"/>
+        <location line="-3846"/>
         <location line="+177"/>
         <location line="+201"/>
         <location line="+208"/>
@@ -2804,7 +2836,7 @@ Do you want to save your changes?</translation>
         <translation>Päivitetään tilatiedot %1 tila...</translation>
     </message>
     <message>
-        <location line="+2976"/>
+        <location line="+3046"/>
         <source>Updating DXCC award information...</source>
         <translation>Päivitetään DXCC palkinto tiedot...</translation>
     </message>
@@ -3306,43 +3338,22 @@ Lisää, ja valitse millaista lokia haluat käyttää.</translation>
         <translation>Yksikkö</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Name of the Entity</source>
-        <translation>Yksikön nimi</translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>CQ</source>
         <translation>CQ</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>CQ zone</source>
-        <translation>CQ vyöhyke</translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>ITU</source>
         <translation>ITU</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>ITU zone</source>
-        <translation>ITU vyöhyke</translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>Latitude</source>
         <translation>Leveysaste</translation>
     </message>
     <message>
-        <location line="+2"/>
         <location line="+4"/>
-        <source>Longitude of the Entity</source>
-        <translation>Yksikön pituusaste</translation>
-    </message>
-    <message>
-        <location line="-2"/>
         <source>Longitude</source>
         <translation>Pituusaste</translation>
     </message>
@@ -3352,28 +3363,17 @@ Lisää, ja valitse millaista lokia haluat käyttää.</translation>
         <translation>UTC</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Local time difference to UTC</source>
-        <translation>Paikallinen aikaero UTC:hen</translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>Main prefix</source>
         <translation>Ensisijainen etuliite</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Main prefix of the entity</source>
-        <translation>Yksikön ensisijainen etuliite</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <location line="+2"/>
+        <location line="+6"/>
         <source>ARRL ID</source>
         <translation>ARRL ID</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>Prefixes</source>
         <translation>Etuliitteet</translation>
     </message>
@@ -3383,9 +3383,45 @@ Lisää, ja valitse millaista lokia haluat käyttää.</translation>
         <translation>Mahdolliset etuliitteet, pilkulla eroteltuina, esim. OH1, OH2, ...</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Date of the deletion</source>
-        <translation>Poistamisen päivämäärä</translation>
+        <location line="-42"/>
+        <source>Name of the Entity.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>CQ zone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>ITU zone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <location line="+4"/>
+        <source>Longitude of the Entity.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Local time difference to UTC.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Main prefix of the entity.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>ARRL ID.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Date of the deletion.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3470,18 +3506,18 @@ Lisää, ja valitse millaista lokia haluat käyttää.</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Send each QSO to ClubLog in real time, as they are added (or modified) in KLog</source>
-        <translation>Lähetä jokainen QSO ClubLog:iin reaaliajassa, samalla kun ne lisätään (tai niitä muokataan) KLog:issa</translation>
+        <source>Send each QSO to ClubLog in real time, as they are added (or modified) in KLog.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Starts the ClubLog support in KLog</source>
-        <translation>Käynnistää ClubLog -tuen KLog:issa</translation>
+        <source>Starts the ClubLog support in KLog.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Use the Station Callsign defined in each QSO instead of the one defined here</source>
-        <translation>Käytä jokaisessa QSO:ssa määritettyä aseman kutsutunnusta, tässä määritetyn sijaan</translation>
+        <source>Use the Station Callsign defined in each QSO instead of the one defined here.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3613,23 +3649,23 @@ Jos porttia ei syötetä, Käytetään oletusarvoa 41112:</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Add a new log</source>
-        <translation>Lisää uusi loki</translation>
+        <source>Add a new log.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>Edit the selected log</source>
-        <translation>Muokkaa valittua lokia</translation>
+        <source>Edit the selected log.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Remove the selected log</source>
-        <translation>Poista valittu loki</translation>
+        <source>Remove the selected log.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Select the log you want to open</source>
-        <translation>Valitse loki jonka haluat avata</translation>
+        <source>Select the log you want to open.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+137"/>
@@ -3741,96 +3777,96 @@ Jos porttia ei syötetä, Käytetään oletusarvoa 41112:</translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>Callsign used for this log</source>
-        <translation>Tässä lokissa käytettävä asematunnus</translation>
+        <source>Callsign used for this log.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Comma separated list of operators: callsign1, callsign2</source>
-        <translation>Pilkulla eroteltu lista operaattoreista: kutsutunnus1, kutsutunnus2</translation>
+        <source>Comma separated list of operators: callsign1, callsign2.</source>
+        <translation type="unfinished">Pilkulla eroteltu lista operaattoreista: kutsutunnus1, kutsutunnus2. {1,?}</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Start date of this log</source>
-        <translation>Tämän lokin alkamispäivämäärä</translation>
+        <source>Start date of this log.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Add a comment about this log</source>
-        <translation>Lisää kommentti tästä lokista</translation>
+        <source>Add a comment about this log.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+9"/>
+        <source>Select the kind of operation for this log.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Select the mode category.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Select the operators category.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Select the assisted category.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Select the power category.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Select the bands category.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Select the Overlay category.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-54"/>
         <source>&amp;Type of Operation</source>
         <translation>&amp;Toiminnan tyyppi</translation>
     </message>
     <message>
-        <location line="+7"/>
-        <source>Select the kind of operation for this log</source>
-        <translation>Valitse toiminnan tyyppi tätä lokia varten</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+14"/>
         <source>&amp;Mode Category</source>
         <translation>&amp;Moodi kategoria</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Select the mode category</source>
-        <translation>Valitse moodi kategoria</translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>O&amp;perators Category</source>
         <translation>Operaattorit kategoria</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Select the operators category</source>
-        <translation>Valitse operaattorit kategoria</translation>
-    </message>
-    <message>
-        <location line="+5"/>
+        <location line="+7"/>
         <source>&amp;Assisted Category</source>
         <translation>Avustettu kategoria</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Select the assisted category</source>
-        <translation>Valitse avustettu kategoria</translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>Po&amp;wer Category</source>
         <translation>Teho kategoria</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Select the power category</source>
-        <translation>Valitse teho kategoria</translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>&amp;Bands Category</source>
         <translation>Taajuusalue kategoria</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Select the bands category</source>
-        <translation>Valitse taajuusalue kategoria</translation>
-    </message>
-    <message>
-        <location line="+5"/>
+        <location line="+7"/>
         <source>O&amp;verlay</source>
         <translation>Yleisnäkymä</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Select the Overlay category</source>
-        <translation>Valitse yleisnäkym kategoria</translation>
-    </message>
-    <message>
-        <location line="+161"/>
+        <location line="+163"/>
         <location line="+556"/>
         <source>Categories not OK</source>
         <translation>Kategoriat ok</translation>
@@ -3950,8 +3986,8 @@ Lokia ei avata.</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Check it for Imperial system (Miles instead of Kilometres).</source>
-        <translation>Valitse empiiristä järjestelmää varten (Mailit, kilometrien sijaan).</translation>
+        <source>Check it for Imperial system (Miles instead of Kilometers).</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4131,48 +4167,48 @@ Lokia ei avata.</translation>
     </message>
     <message>
         <location line="+29"/>
-        <source>Enter your name</source>
-        <translation>Syötä nimesi</translation>
+        <source>Enter your name.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Enter your address - 1st line</source>
-        <translation>Syötä osoitteesi - 1. rivi</translation>
+        <source>Enter your address - 1st line.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Enter your address - 2nd line</source>
-        <translation>Syötä osoitteesi - 2. rivi</translation>
+        <source>Enter your address - 2nd line.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Enter your address - 3rd line</source>
-        <translation>Syötä osoitteesi - 3. rivi</translation>
+        <source>Enter your address - 3rd line.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Enter your address - 4th line</source>
-        <translation>Syötä osoitteesi - 4. rivi</translation>
+        <source>Enter your address - 4th line.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Enter your city</source>
-        <translation>Syötä kaupunki</translation>
+        <source>Enter your city.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Enter your zip code</source>
-        <translation>Syötä postinumero</translation>
+        <source>Enter your zip code.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Enter your province or state</source>
-        <translation>Syötä maakunta</translation>
+        <source>Enter your province or state.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Enter your country</source>
-        <translation>Syötä maa</translation>
+        <source>Enter your country.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4220,11 +4256,16 @@ Lokia ei avata.</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Enter your power information</source>
-        <translation>Syötä virtalähteen tiedot</translation>
+        <source>Enter your power information.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+41"/>
+        <source>Enter the station callsign that will be used for logging.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-39"/>
         <source>&amp;Rig 1</source>
         <translation>Kokoonpano 1</translation>
     </message>
@@ -4259,12 +4300,7 @@ Lokia ei avata.</translation>
         <translation>Vi&amp;rtalähde</translation>
     </message>
     <message>
-        <location line="+33"/>
-        <source>Enter the station callsign that will be used for logging</source>
-        <translation>Syötä asematunnus jota käytetään lokissa</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+34"/>
         <source>Enter the operators (comma separated if more than one).</source>
         <translation>Syötä operaattorit (pilkulla eroteltuina jos useita).</translation>
     </message>
@@ -4455,6 +4491,67 @@ Lokia ei avata.</translation>
         <location line="+0"/>
         <source>Setup is not complete yet. Are you sure you want to quit setup?</source>
         <translation>Asennus ei ole vielä  valmis. Oletko varma että haluat lopettaa?</translation>
+    </message>
+</context>
+<context>
+    <name>StatisticsWidget</name>
+    <message>
+        <location filename="../statisticswidget.cpp" line="+86"/>
+        <source>QSO per year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>DXCC per year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CQ zones per year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>QSO per band</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>QSO per mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>QSO per DXCC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>QSO per hour</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateSatsData</name>
+    <message>
+        <location filename="../updatesatsdata.cpp" line="+58"/>
+        <source>Reading Satellites data file...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+185"/>
+        <source>Open File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Sat Data</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

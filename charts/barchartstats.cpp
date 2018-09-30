@@ -210,77 +210,77 @@ void BarChartStats::prepareChart(const int _selection)
     break;
     case 6:
     {
-       qDebug() << "BarChartStats::prepareChart SelectedGrapth-6: per dxcc " << endl;
+        //qDebug() << "BarChartStats::prepareChart SelectedGrapth-6: per dxcc " << endl;
 
-        //bool noMore = false;
-        aux = tr("Reading data...") ;
-        progress.setLabelText(aux);
-        progress.setValue(0);
+         //bool noMore = false;
+         aux = tr("Reading data...") ;
+         progress.setLabelText(aux);
+         progress.setValue(0);
 
-        QStringList entities;
-        entities.clear();
+         QStringList entities;
+         entities.clear();
 
-        entities << dataProxy->getEntitiesIds();
+         entities << dataProxy->getEntitiesIds();
 
 
-        QMap<int, int> map; // key,value = number of QSO, dxcc
-        int qsos = -1;
-        map.clear();
-        aux.clear();
+         QMap<int, int> map; // key,value = number of QSO, dxcc
+         int qsos = -1;
+         map.clear();
+         aux.clear();
 
-        for (int i = 0; i < entities.size(); ++i)
-        {
-            qsos = dataProxy->getQSOsWithDXCC((entities.at(i)).toInt(), -1);
-            if (qsos>0)
-            {
-                //qDebug() << "Checking: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
+         for (int i = 0; i < entities.size(); ++i)
+         {
+             qsos = dataProxy->getQSOsWithDXCC((entities.at(i)).toInt(), -1);
+             if (qsos>0)
+             {
+                 //qDebug() << "Checking: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
 
-                if (map.size()<10)
-                {
-                    //qDebug() << "Inserting: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
-                    map.insert(qsos, (entities.at(i)).toInt());
-                }
-                else
-                {
-                    QMapIterator<int, int> it(map);
-                    while (it.hasNext()) {
-                        it.next();
-                        if (it.key()< qsos)
-                        {
-                            //qDebug() << "Removing: " << QString::number(it.key()) << " / " << QString::number(it.value()) << endl;
-                            //qDebug() << "Replacing by: " << entities.at(i) << " / " << QString::number(qsos) << " - " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << endl;
-                            map.remove(it.key());
-                            map.insert(qsos, (entities.at(i)).toInt());
-                            it.toBack();
-                        }
-                    }
-                }
-            }
-            aux = tr("Reading data...") + "\n" + tr("Entity: ")  + QString::number(i) + "/" + QString::number(entities.size());
-            progress.setLabelText(aux);
-            progress.setValue(i);
+                 if (map.size()<10)
+                 {
+                     //qDebug() << "Inserting: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
+                     map.insert(qsos, (entities.at(i)).toInt());
+                 }
+                 else
+                 {
+                     QMapIterator<int, int> it(map);
+                     while (it.hasNext()) {
+                         it.next();
+                         if (it.key()< qsos)
+                         {
+                             //qDebug() << "Removing: " << QString::number(it.key()) << " / " << QString::number(it.value()) << endl;
+                             //qDebug() << "Replacing by: " << entities.at(i) << " / " << QString::number(qsos) << " - " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << endl;
+                             map.remove(it.key());
+                             map.insert(qsos, (entities.at(i)).toInt());
+                             it.toBack();
+                         }
+                     }
+                 }
+             }
+             aux = tr("Reading data...") + "\n" + tr("Entity: ")  + QString::number(i) + "/" + QString::number(entities.size());
+             progress.setLabelText(aux);
+             progress.setValue(i);
 
-            if ( progress.wasCanceled() )
-            {
-                i = entities.size();
-            }
-         //qDebug() << "End of for iteration" << endl;
-        }
+             if ( progress.wasCanceled() )
+             {
+                 i = entities.size();
+             }
+          //qDebug() << "End of for iteration" << endl;
+         }
 
-        QMapIterator<int, int> it(map);
-        while (it.hasNext()) {
-            it.next();            
-            x_axis.append(dataProxy->getEntityMainPrefix(it.value()));
+         QMapIterator<int, int> it(map);
+         while (it.hasNext()) {
+             it.next();
+             x_axis.append(dataProxy->getEntityMainPrefix(it.value()));
 
-            numberPerX = it.key();
-            *set0 << numberPerX;
-            numberPerX = 0;
-            //qDebug() << "End of while iteration" << endl;
-        }
-        //qDebug() << "Out of while" << endl;
+             numberPerX = it.key();
+             *set0 << numberPerX;
+             numberPerX = 0;
+             //qDebug() << "End of while iteration" << endl;
+         }
+         //qDebug() << "Out of while" << endl;
 
-        x_axisElem = tr("DXCC");
-        x_axisTitle = tr("Top ten DXCC per QSO");
+         x_axisElem = tr("DXCC");
+         x_axisTitle = tr("Top ten DXCC per QSO");
     }
     break;
     case 7:
@@ -297,7 +297,7 @@ void BarChartStats::prepareChart(const int _selection)
          for (int i = 0; i < x_axis.count(); i++ )
          {
              numberPerX = dataProxy->getQSOsAtHour((x_axis.at(i)).toInt(), -1);
-             qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour: " << x_axis.at(i) << " - " << QString::number(numberPerX) << endl;
+             //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour: " << x_axis.at(i) << " - " << QString::number(numberPerX) << endl;
              *set0 << numberPerX;
              numberPerX = 0;
 

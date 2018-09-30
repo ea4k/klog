@@ -1,6 +1,9 @@
 TBD - 0.9.5
 - Added a dot at the end of all the tooltips.
 - Updated the Satellite database (TNX KB2YSI).
+- New feature: KLog shows some statistics of your log: Tools->Show stats
+- New feature: It is now possible to update the satellite data reading a sats.dat file: Tools->Update Satellite Data
+TBD:- Satellites file (sats.dat) updated to september 2018 (TNX KB2YSI).
 
 August 2018 - 0.9.4
 - WSJT-X support to receive logged QSO and realtime data.
