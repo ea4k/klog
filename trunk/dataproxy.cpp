@@ -464,6 +464,16 @@ QStringList DataProxy::getPropModeList()
     return QStringList();
 }
 
+bool DataProxy::clearSatList()
+{
+    return false;
+}
+
+bool DataProxy::addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode)
+{
+    return false;
+}
+
 QStringList DataProxy::getSatellitesList()
 {
     return QStringList();
@@ -475,6 +485,11 @@ QString DataProxy::getSatelliteUplink(const QString _sat)
 }
 
 QString DataProxy::getSatelliteDownlink(const QString _sat)
+{
+    return QString();
+}
+
+QString DataProxy::getSatelliteMode(const QString _sat)
 {
     return QString();
 }

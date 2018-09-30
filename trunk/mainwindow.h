@@ -65,6 +65,7 @@
 #include "showerrordialog.h"
 #include "udpserver.h"
 #include "statisticswidget.h"
+#include "updatesatsdata.h"
 
 
 
@@ -218,6 +219,7 @@ private slots:
     void slotSetPropMode(const QString _p);
     void slotFillEmptyDXCCInTheLog();
     void slotUpdateCTYDAT();
+    void slotUpdateSATSDAT();
     void slotShowStats();
     void slotWorldReload();
 
@@ -295,7 +297,7 @@ private slots:
 private:
     bool maybeSave();
 
-
+    UpdateSatsData *updateSatsData;
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
     //</UPDATE CTY.DAT>
@@ -463,6 +465,7 @@ private:
     QAction *lotwMarkSentYesAct;
 
     QAction *downloadCTYAct;
+    QAction *downloadSATSAct;
     QAction *showStatsAct;
 
     QAction *loggWinAct;

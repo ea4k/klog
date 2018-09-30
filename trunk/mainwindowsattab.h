@@ -56,6 +56,7 @@ public:
 
     void setUpLink(const QString _t);
     void setLocator(const QString _t);
+    void refreshData();
 
     void clear();
 

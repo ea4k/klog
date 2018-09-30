@@ -79,7 +79,8 @@ HEADERS += setupdialog.h \
     setuppageudp.h \
     statisticswidget.h \
     charts/barchartstats.h \
-    charts/donutchartstats.h
+    charts/donutchartstats.h \
+    updatesatsdata.h
 
 SOURCES += main.cpp \
     aboutdialog.cpp \
@@ -128,7 +129,8 @@ SOURCES += main.cpp \
     setuppageudp.cpp \
     statisticswidget.cpp \
     charts/barchartstats.cpp \
-    charts/donutchartstats.cpp
+    charts/donutchartstats.cpp \
+    updatesatsdata.cpp
 
 OTHER_FILES += \
     README-DEVEL \

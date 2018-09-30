@@ -86,9 +86,6 @@ private:
     QString dbPath;
     QString softwareVersion;
 
-
-
-
 };
 
 #endif // UTILITIES_H

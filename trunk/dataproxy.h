@@ -179,9 +179,13 @@ public:
 
     virtual QStringList getBandNames();
     virtual QStringList getPropModeList();
+
+    virtual bool clearSatList();
+    virtual bool addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode);
     virtual QStringList getSatellitesList();
     virtual QString getSatelliteUplink(const QString _sat);
     virtual QString getSatelliteDownlink(const QString _sat);
+    virtual QString getSatelliteMode(const QString _sat);
     virtual QStringList getQSLRcvdList();
     virtual QStringList getQSLSentList();
     virtual QStringList getClubLogStatusList();

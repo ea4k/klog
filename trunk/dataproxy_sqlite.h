@@ -162,6 +162,7 @@ public:
 
     bool clearLog();
 
+
     // Stats
     int getQSOonYear(const int _year, const int _logNumber);
     int getDXCConYear(const int _year, const int _logNumber);
@@ -192,9 +193,13 @@ public:
 
     QStringList getBandNames();
     QStringList getPropModeList();
+
+    bool clearSatList();
+    bool addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode);
     QStringList getSatellitesList();   
     QString getSatelliteUplink(const QString _sat);
     QString getSatelliteDownlink(const QString _sat);
+    QString getSatelliteMode(const QString _sat);
     QStringList getQSLRcvdList();
     QStringList getQSLSentList();
     QStringList getClubLogStatusList();
