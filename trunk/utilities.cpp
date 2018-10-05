@@ -510,3 +510,165 @@ bool Utilities::isDBFileExisting(const QString _file)
     }
     return false;
 }
+
+bool Utilities::isValidADIFField(const QString _b)
+{
+    //qDebug() << "Utilities::isValidADIFField: " << _b << endl;
+    /*
+        This functions checks if the ADIF field has the proper format.
+        <Field:length:Data type>Data
+    */
+
+    if (!((_b.startsWith('<')) &&  (_b.count('>')) == 1 ))
+    {
+        //qDebug() << "Utilities::isValidADIFField: BAD FORMAT: No < or > delimiters: " << _b << endl;
+        return false;
+    }
+    if (_b.simplified() == "<EOR>")
+    {
+        return true;
+    }
+
+    QStringList validDataTypes = {"B", "N", "D", "T", "S", "I", "M", "G", "E", "L"};
+    QStringList qs;
+    qs.clear();
+    qs.append(_b.split('>'));
+
+    if (qs.size()!= 2)
+    {
+        //qDebug() << "Utilities::isValidADIFField-0 (not two): " << QString::number(qs.size()) << endl;
+        return false;
+    }
+
+    QString field = (qs.at(0)).right((qs.at(0)).length() - 1);
+    QString data = (qs.at(1)).simplified();
+    //data = data.simplified();
+    QString dataType = QString();
+
+   //qDebug() << "Utilities::isValidADIFField-Field: " << field << endl;
+   //qDebug() << "Utilities::isValidADIFField_Data: " << data << endl;
+
+    int length = data.length();
+    int separatorPosition = 0;
+    int i = (field).count(":"); //Check how many ":" do we have, to see if we have a data type or not
+
+    if (i == 2) // We have data type
+    { // DATE:8:D / 20141020
+        separatorPosition = (field.section(':', 1, 1)).toInt();
+        dataType = field.section(':', 2, 2);
+        if (!validDataTypes.contains(dataType.toUpper()))
+        {
+            //qDebug() << "Utilities::isValidADIFField - FORMAT ERROR: Wrong data type: " << dataType << endl;
+            return false;
+        }
+    }
+    else if (i == 1)
+    { // DATE:8 / 20141020
+        separatorPosition = (field.section(':', 1, 1)).toInt();
+    }
+    else
+    {
+        //qDebug() << "Utilities::isValidADIFField - FORMAT ERROR, more than 2 \":\" - " << field << endl;
+        return false;
+    }
+
+    if ( length != separatorPosition)
+    {
+        //qDebug() << "Utilities::isValidADIFField: Data Length problem: " << (field) << "/" << data << " - " << QString::number(length) << "/" << QString::number(separatorPosition) << endl;
+        return false;
+    }
+
+    if (separatorPosition <= 0)
+    {
+        //qDebug() << "Utilities::isValidADIFField: Length problem <= 0" << endl;
+        return false;
+    }
+
+    //qDebug() << "FileManager::checkADIFValidFormat: Return true" << endl;
+
+    return true;
+}
+
+QStringList Utilities::getValidADIFFieldAndData(const QString _b)
+{
+    //qDebug() << "Utilities::getValidADIFFieldAndData: " << _b << endl;
+    /*
+        This functions checks if the ADIF field has the proper format.
+        <Field:length:Data type>Data
+    */
+    QStringList result;
+    result.clear();
+
+    if (!((_b.startsWith('<')) &&  (_b.count('>')) == 1 ))
+    {
+        //qDebug() << "Utilities::getValidADIFFieldAndData: BAD FORMAT: No < or > delimiters: " << _b << endl;
+        return QStringList();
+    }
+    if (_b.simplified() == "<EOR>")
+    {
+        result << "EOR" << "EOR";
+        return result;
+    }
+
+    QStringList validDataTypes = {"B", "N", "D", "T", "S", "I", "M", "G", "E", "L"};
+    QStringList qs;
+    qs.clear();
+    qs.append(_b.split('>'));
+
+    if (qs.size()!= 2)
+    {
+        //qDebug() << "Utilities::getValidADIFFieldAndData-0 (not two): " << QString::number(qs.size()) << endl;
+        return result;
+    }
+
+    //QString field = (qs.at(0)).right((qs.at(0)).length() - 1);
+    QString field = (qs.at(0)).right((qs.at(0)).length() - 1);
+    QString data = (qs.at(1)).simplified();
+    //data = data.simplified();
+    QString dataType = QString();
+
+   //qDebug() << "Utilities::getValidADIFFieldAndData-Field: " << field << endl;
+   //qDebug() << "Utilities::getValidADIFFieldAndData_Data: " << data << endl;
+
+    int length = data.length();
+    int separatorPosition = 0;
+    int i = (field).count(":"); //Check how many ":" do we have, to see if we have a data type or not
+
+    if (i == 2) // We have data type
+    { // DATE:8:D / 20141020
+        separatorPosition = (field.section(':', 1, 1)).toInt();
+        dataType = field.section(':', 2, 2);
+        if (!validDataTypes.contains(dataType.toUpper()))
+        {
+
+            //qDebug() << "Utilities::getValidADIFFieldAndData - FORMAT ERROR: Wrong data type: " << dataType << endl;
+            return result;
+        }
+    }
+    else if (i == 1)
+    { // DATE:8 / 20141020
+        separatorPosition = (field.section(':', 1, 1)).toInt();
+    }
+    else
+    {
+        //qDebug() << "Utilities::getValidADIFFieldAndData - FORMAT ERROR, more than 2 \":\" - " << field << endl;
+        return result;
+    }
+
+    if ( length != separatorPosition)
+    {
+        //qDebug() << "Utilities::getValidADIFFieldAndData: Data Length problem: " << (field) << "/" << data << " - " << QString::number(length) << "/" << QString::number(separatorPosition) << endl;
+        return result;
+    }
+
+    if (separatorPosition <= 0)
+    {
+        //qDebug() << "Utilities::getValidADIFFieldAndData: Length problem <= 0" << endl;
+        return result;
+    }
+
+    //qDebug() << "FileManager::checkADIFValidFormat: Return true" << endl;
+    field = field.section(':', 0, 0);
+    result << field << data;
+    return result;
+}

@@ -3533,7 +3533,7 @@ void MainWindow::createMenusCommon()
 
     toolMenu->addSeparator();
 
-    showStatsAct = new QAction (tr("Show stats"), this);
+    showStatsAct = new QAction (tr("Stats"), this);
     toolMenu->addAction(showStatsAct);
     connect(showStatsAct, SIGNAL(triggered()), this, SLOT(slotShowStats()));
     showStatsAct->setToolTip(tr("Show the statistics of your radio activity."));

@@ -3010,10 +3010,12 @@ bool DataProxy_SQLite::addSatellite(const QString _arrlId, const QString _name, 
 
     if (sqlOK)
     {
+        qDebug()  << "DataProxy_SQLite::addSatellite - TRUE"  << endl;
           return true;
     }
     else
     {
+        qDebug()  << "DataProxy_SQLite::addSatellite - FALSE"  << endl;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return false;
     }

@@ -78,6 +78,8 @@ public:
     bool isValidPower(const QString _b);
     bool isValidComment(const QString _b);
     bool isValidName(const QString _b);
+    bool isValidADIFField(const QString _b);
+    QStringList getValidADIFFieldAndData(const QString _b);
 
 
 private:

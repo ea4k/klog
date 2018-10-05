@@ -162,8 +162,6 @@ bool FileManager::checkADIFValidFormat(const QStringList _qs)
     //qDebug() << "FileManager::checkADIFValidFormat-4 (true)" << endl;
 
     return true;
-
-
 }
 
 bool FileManager::adifLogExport(const QString& _fileName, const int _logN)

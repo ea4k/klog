@@ -36,6 +36,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 HEADERS += setupdialog.h \      
     aboutdialog.h \
     mainwindow.h \
+    setupdialog.h \
     world.h \
     logwindow.h \
     filemanager.h \
@@ -79,13 +80,12 @@ HEADERS += setupdialog.h \
     setuppageudp.h \
     statisticswidget.h \
     charts/barchartstats.h \
-    charts/donutchartstats.h \
     updatesatsdata.h
 
 SOURCES += main.cpp \
     aboutdialog.cpp \
+    mainwindow.cpp \
     setupdialog.cpp \
-    mainwindow.cpp \ 
     world.cpp \
     logwindow.cpp \
     filemanager.cpp \
@@ -129,7 +129,6 @@ SOURCES += main.cpp \
     setuppageudp.cpp \
     statisticswidget.cpp \
     charts/barchartstats.cpp \
-    charts/donutchartstats.cpp \
     updatesatsdata.cpp
 
 OTHER_FILES += \

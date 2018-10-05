@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fi_FI">
-<defaultcodec>UTF-8</defaultcodec>
+<TS version="2.1" language="fi_FI">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -158,12 +157,12 @@
     </message>
     <message>
         <location line="+4"/>
-        <source>Reading data... </source>
+        <source>Abort reading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Abort reading</source>
+        <source>Reading data ... </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -177,13 +176,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
-        <source>Reading data...
- QSO: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+17"/>
+        <location line="+28"/>
         <source>DXCC Entities</source>
         <translation type="unfinished"></translation>
     </message>
@@ -193,13 +186,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
-        <source>Reading data...
- Entities: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
+        <location line="+24"/>
         <source>CQ zones</source>
         <translation type="unfinished"></translation>
     </message>
@@ -209,13 +196,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
-        <source>Reading data...
- Years: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
+        <location line="+24"/>
         <source>Bands</source>
         <translation type="unfinished">Taajuusalueet</translation>
     </message>
@@ -225,9 +206,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
-        <source>Reading data...
- Bands: </source>
+        <location line="-68"/>
+        <location line="+26"/>
+        <location line="+25"/>
+        <location line="+25"/>
+        <location line="+133"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-209"/>
+        <source>QSO: </source>
+        <translation type="unfinished">QSO:</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Entities: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Years: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Bands: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -242,18 +246,18 @@
     </message>
     <message>
         <location line="+9"/>
-        <source>Reading data...
- Modes: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location line="+18"/>
         <location line="+43"/>
         <source>Reading data...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-61"/>
+        <source>Modes: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+61"/>
         <source>Entity: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -279,8 +283,7 @@
     </message>
     <message>
         <location line="+10"/>
-        <source>Reading data...
- Hours: </source>
+        <source>Hours: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -492,7 +495,7 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Kyselyt onnistuivat</translation>
     </message>
     <message>
-        <location line="+4293"/>
+        <location line="+4295"/>
         <source>KLog DXCC</source>
         <translation>KLog DXCC</translation>
     </message>
@@ -533,7 +536,7 @@ Haluatko yrittää uudelleen?</translation>
 <context>
     <name>FileManager</name>
     <message>
-        <location filename="../filemanager.cpp" line="+201"/>
+        <location filename="../filemanager.cpp" line="+199"/>
         <source>The log that you have selected contains more than just one station callsign.</source>
         <translation>Valitsemasi loki sisältää enemmän kuin vain yhden aseman kutsutunnuksen.</translation>
     </message>
@@ -1091,12 +1094,17 @@ Haluatko yrittää uudelleen?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="+206"/>
         <source>Recalculate</source>
-        <translation>Laske uudelleen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+1"/>
+        <source>Click to recalculate the award status.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+29"/>
         <source>Starting KLog</source>
-        <translation>Käynnistetään KLog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+98"/>
@@ -1104,104 +1112,163 @@ Haluatko yrittää uudelleen?</translation>
         <location line="+2248"/>
         <location line="+64"/>
         <source>&amp;Add</source>
-        <translation>&amp;Lisää</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-2845"/>
         <source>&amp;Clear</source>
-        <translation>T&amp;yhjennä</translation>
+        <translation type="unfinished">T&amp;yhjennä</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Status bar...</source>
-        <translation>Tilapalkki...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DX Entity</source>
-        <translation>DX Yksikkö</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Log Window</source>
-        <translation>&amp;Loki ikkuna</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;Score Window</source>
-        <translation>Pi&amp;steytysikkuna</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Watts</source>
-        <translation>Wattia</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+5"/>
         <source>MHz</source>
-        <translation>MHz</translation>
+        <translation type="unfinished">MHz</translation>
     </message>
     <message>
         <location line="+85"/>
         <location line="+2892"/>
         <location line="+721"/>
         <source>KLog</source>
-        <translation>KLog</translation>
+        <translation type="unfinished">KLog</translation>
     </message>
     <message>
         <location line="-3401"/>
         <source>Ready</source>
-        <translation>Valmis</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+170"/>
         <source>An unexpected error ocurred when trying to add the QSO to your log. If the problem persists, please contact the developer for analysis: </source>
-        <translation>Tapahtui odottamaton virhe, kun yritit lisätä QSO:n lokiin. Jos ongelma jatkuu, ota yhteyttä kehittäjään analyysiä varten: </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+190"/>
         <location line="+699"/>
         <source>You have selected an entity:</source>
-        <translation>Olet valinnut yksikön:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-699"/>
         <location line="+699"/>
         <source>that is different from the KLog proposed entity:</source>
-        <translation>joka eroaa KLog:in ehdotetusta kokoonpanosta:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-698"/>
         <source>Click on the prefix of the correct entity or Cancel to edit the QSO again.</source>
-        <translation>Napsauta oikean yksikön etuliitettä tai Peruuta, jos haluat muokata QSO:ta uudelleen.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+699"/>
         <source>Click on the prefix of the right entity or Cancel to correct.</source>
-        <translation>Napsauta oikean yksikön etuliitettä tai paina Peruuta korjataksesi.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+663"/>
+        <location line="+659"/>
+        <location line="+2552"/>
+        <source>QRZ of the QSO.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2551"/>
+        <location line="+2552"/>
+        <source>TX RST.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2551"/>
+        <location line="+2552"/>
+        <source>RX RST.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2551"/>
+        <location line="+2552"/>
+        <source>TX Exchange.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2551"/>
         <source>RX Exchange</source>
-        <translation>RX Exchange</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+1"/>
+        <location line="+2552"/>
+        <source>Band of the QSO.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2551"/>
+        <location line="+2552"/>
+        <source>Mode of the QSO.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2551"/>
+        <location line="+2552"/>
+        <source>Date of the QSO.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2551"/>
+        <location line="+2552"/>
+        <source>Time of the QSO.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2549"/>
+        <location line="+2552"/>
+        <source>Add the QSO to the log.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2550"/>
+        <source>Clear the box.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Input</source>
-        <translation>Syöttö</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
         <location line="+4072"/>
         <source>RSTrx</source>
-        <translation>RSTrx</translation>
+        <translation type="unfinished">RSTrx</translation>
     </message>
     <message>
         <location line="-4065"/>
         <location line="+4063"/>
         <source>RSTtx</source>
-        <translation>RSTtx</translation>
+        <translation type="unfinished">RSTtx</translation>
     </message>
     <message>
         <location line="-4054"/>
@@ -1211,144 +1278,78 @@ Haluatko yrittää uudelleen?</translation>
         <location line="+990"/>
         <location line="+1344"/>
         <source>QRZ</source>
-        <translation>QRZ</translation>
+        <translation type="unfinished">QRZ</translation>
     </message>
     <message>
         <location line="-4045"/>
         <source>STX</source>
-        <translation>STX</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
         <source>SRX</source>
-        <translation>SRX</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+307"/>
         <source>NEW MULT</source>
-        <translation>NEW MULT</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+106"/>
         <source>Invalid characters used in the QRZ</source>
-        <translation>Virheellisiä merkkejä käytetty QRZ:ssa</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+152"/>
         <source>Ready...</source>
-        <translation>Valmis...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+339"/>
         <source>The logfile has been modified.
 Do you want to save your changes?</source>
-        <translation>The logfile has been modified.
-Do you want to save your changes?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+27"/>
         <source>&amp;File</source>
-        <translation>&amp;Tiedosto</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;New...</source>
-        <translation>&amp;Uusi...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Avaa...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
         <source>&amp;Import from ADIF...</source>
-        <translation>Tu&amp;o ADIF -tiedostosta...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
-        <source>&amp;Save As...</source>
-        <translation>Tallenna &amp;nimellä...</translation>
-    </message>
-    <message>
-        <location line="+17"/>
-        <source>Export ALL the QSOs into one ADIF file, merging QSOs from all the logs.</source>
-        <translation>Vie kaikki QSO:t yhteen ADIF -tiedostoon, yhdistäen QSO:t kaikista lokeista.</translation>
-    </message>
-    <message>
-        <location line="+10"/>
-        <source>Export an ADIF file to be sent to LoTW. Remember to sign it with TQSL before uploading to LoTW!</source>
-        <translation>Vie ADIF-tiedosto lähetettäväksi LoTW:iin. Muista kirjata se TQSL:lla ennen lataamista LoTW:iin!</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>&amp;Print Log...</source>
-        <translation>Tulosta Loki...</translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>KLog folder</source>
-        <translation>KLog -kansio</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>E&amp;xit</source>
-        <translation>Ulo&amp;s</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>&amp;Tools</source>
-        <translation>Työkalut</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Fill in QSO data</source>
-        <translation>Täytä QSO:n tiedot</translation>
-    </message>
-    <message>
-        <location line="+15"/>
-        <source>QSL tools...</source>
-        <translation>QSL työkalut...</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>&amp;Find QSO to QSL</source>
-        <translation>&amp;Etsi QSO QSL:lle</translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Find My-QSLs pending to send</source>
-        <translation>Etsi Minun QSL:t jotka odottavat lähetystä</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Shows the QSOs with pending requests to send QSLs. You should keep this queue empty!</source>
-        <translation>Näyttää QSO:t joilla on odottavia pyyntöjä lähettää QSL:iä. tämä jono tulisi pitää tyhjänä!</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>&amp;Find DX-QSLs pending to receive</source>
-        <translation>&amp;Etsi DX-QSL:t jotka odottavat vastaanottoa</translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>&amp;Find requested pending to receive</source>
-        <translation>&amp;Etsi vastaanottoa odottavat</translation>
-    </message>
-    <message>
-        <location line="-101"/>
+        <location line="+3"/>
         <source>Import an ADIF file into the current log.</source>
-        <translation>Tuo ADIF -tiedosto nykyiseen lokiin.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+9"/>
+        <source>&amp;Save As...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Export to ADIF...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Export the current log to an ADIF logfile.</source>
-        <translation>Vie nykyinen loki ADIF lokitiedostoon.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1356,14 +1357,19 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+4"/>
+        <source>Export ALL the QSOs into one ADIF file, merging QSOs from all the logs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Export Requested QSL to ADIF...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program).</source>
-        <translation>Vie kaikki QSO:t joilla on QSL pyyntöjä, ADIF tiedostoon (esim. tuodaksesi ne QSL tagin tulostus ohjelmaan).</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1371,130 +1377,205 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+3"/>
+        <source>Export an ADIF file to be sent to LoTW. Remember to sign it with TQSL before uploading to LoTW!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>&amp;Print Log...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Print your log.</source>
-        <translation>Tulosta lokisi.</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Opens the data folder of KLog.</source>
-        <translation>Avaa KLog:in tallennuskansion.</translation>
-    </message>
-    <message>
-        <location line="+17"/>
-        <source>Go through the log reusing previous QSOs to fill missing information in other QSOs.</source>
-        <translation>Käy loki läpi käyttäen edellisiä QSO:ita täyttämään puuttuvat tiedot muissa QSO:issa.</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Fill in DXCC data</source>
-        <translation>Täytä DXCC tiedot</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Go through the log filling QSOs without a DXCC defined.</source>
-        <translation>Käy loki läpi täyttäen QSO:t joihin ei ole määritelty DXCC:tä.</translation>
-    </message>
-    <message>
-        <location line="+16"/>
-        <source>Shows QSOs for which you should send your QSL and request the DX QSL.</source>
-        <translation>Näyttää QSO:t joita varten sinun tulisi lähettää QSL ja pyytää DX QSL:ää.</translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Shows the DX-QSL that has been requested or QSLs has been sent with no answer.</source>
-        <translation>Näyttää DX-QSL:t jotka on pyydetty, tai QSL:t on lähetetty ilman vastausta.</translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Shows the DX-QSL that has been requested.</source>
-        <translation>Näyttää DX-QSL:n jota on pyydetty.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>LoTW tools...</source>
-        <translation>LoTW työkalut...</translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Mark all non sent QSOs in this log as queued to be uploaded.</source>
-        <translation>Merkitse kaikki tässä lokissa olevat lähettämättömät QSO:t lähetysjonoon.</translation>
-    </message>
-    <message>
-        <location line="-3"/>
-        <source>Queue all QSL to be sent of this log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
+        <source>KLog folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Opens the data folder of KLog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>E&amp;xit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>&amp;Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Fill in QSO data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Go through the log reusing previous QSOs to fill missing information in other QSOs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Fill in DXCC data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Go through the log filling QSOs without a DXCC defined.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>QSL tools...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>&amp;Find QSO to QSL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Shows QSOs for which you should send your QSL and request the DX QSL.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Find My-QSLs pending to send</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Shows the QSOs with pending requests to send QSLs. You should keep this queue empty!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&amp;Find DX-QSLs pending to receive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Shows the DX-QSL that has been requested or QSLs has been sent with no answer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&amp;Find requested pending to receive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Shows the DX-QSL that has been requested.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>LoTW tools...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Queue all QSL to be sent of this log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Mark all non sent QSOs in this log as queued to be uploaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Queue all QSL to be sent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Mark all non sent QSOs as queued to be uploaded.</source>
-        <translation>Merkitse kaikki lähettämättömät QSO:t lähetysjonoon.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Mark as sent all queued QSO of this log</source>
-        <translation>Merkitse kaikki tämän lokin jonossa olevat QSO:t lähetetyiksi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Mark all queued QSOs in this log as sent to LoTW.</source>
-        <translation>Merkitse kaikki tämän lokin jonossa olevat QSO:t lähetetyiksi LoTW:iin.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Mark all queued QSO as sent</source>
-        <translation>Merkitse kaikki jonossa olevat QSO:t lähetetyiksi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Mark all queued QSOs as sent to LoTW.</source>
-        <translation>Merkitse kaikki jonossa olevat QSO:t lähetetyiksi LoTW:iin.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
         <source>&amp;Update cty.csv</source>
-        <translation>&amp;Päivitä cty.csv</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
         <location line="+5"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
-        <translation>Päivitettyjä DX-yksikkö tietoja varten, päivitä cty.csv.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="-3"/>
+        <source>&amp;Update Satellite Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Stats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Show the statistics of your radio activity.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>&amp;Setup</source>
-        <translation>&amp;Asetukset</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Setup...</source>
-        <translation>&amp;Asetukset</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&amp;Help</source>
-        <translation>&amp;Ohjeet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Check updates...</source>
-        <translation>Tarkista päivitykset...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
         <source>&amp;About...</source>
-        <translation>&amp;Tietoja</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
         <source>About Qt...</source>
-        <translation>Tietoja QT:stä</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+39"/>
@@ -1506,12 +1587,12 @@ Do you want to save your changes?</translation>
         <location line="+18"/>
         <location line="+8"/>
         <source>KLog LoTW</source>
-        <translation>KLog LoTW</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-138"/>
         <source>All pending QSO of this log has been marked as queued for LoTW!</source>
-        <translation>Kaikki tämän lokin odottavat QSO:t on merkattu jonoon LOTW:iä varten!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
@@ -1523,12 +1604,12 @@ Do you want to save your changes?</translation>
         <location line="-14"/>
         <location line="+22"/>
         <source>There was a problem to mark all pending QSO of this log as queued for LoTW!</source>
-        <translation>Odottavien QSO:iden merkinnässä jonoon LoTW:iä varten, ilmeni ongelma!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-8"/>
         <source>All pending QSO has been marked as queued for LoTW!</source>
-        <translation>Kaikki odottavat QSO:t on merkattu jonoon LOTW:iä varten!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+27"/>
@@ -1568,78 +1649,78 @@ Do you want to save your changes?</translation>
     <message>
         <location line="+29"/>
         <source>All queued QSO of this log has been marked as sent for LoTW!</source>
-        <translation>Kaikki tämän lokin jonossa olevat QSO:t on merkattu lähetetyiksi LOTW:iin!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+8"/>
         <source>There was a problem to mark all queued QSO of this log as sent for LoTW!</source>
-        <translation>Kaikkien QSO:iden merkinnässä lähetetyiksi LoTW:iin, ilmeni ongelma!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+18"/>
         <source>All queued QSO has been marked as sent to LoTW!</source>
-        <translation>Kaikki jonossa olevat QSO:t on merkattu lähetetyiksi LoTW:iin!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+8"/>
         <source>There was a problem to mark all queued QSO of this log as sent to LoTW!</source>
-        <translation>Kaikkien jonossa olevien QSO:iden merkinnässä lähetetyiksi LoTW:iin, ilmeni ongelma!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+9"/>
         <source>About...</source>
-        <translation>Tietoja...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+56"/>
         <source>KLog update checking result</source>
-        <translation>KLog päivityksen tarkastuksen tulos</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Congratulations!</source>
-        <translation>Onnittelut!</translation>
+        <translation type="unfinished">Onnittelut!</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>You already have the latest version.</source>
-        <translation>Sinulla on jo viimeisin versio.</translation>
+        <translation type="unfinished">Sinulla on jo viimeisin versio.</translation>
     </message>
     <message>
         <location line="+145"/>
         <location line="+50"/>
         <source>Nothing has been saved. You have to select a valid file type.</source>
-        <translation>Mitään ei ole tallennettu. Sinun täytyy valita oikea tiedostotyyppi.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-22"/>
         <source>Save File</source>
-        <translation>Tallenna Tiedosto</translation>
+        <translation type="unfinished">Tallenna tiedosto</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ADIF file</source>
-        <translation>ADIF -tiedosto</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Cabrillo files</source>
-        <translation>Cabrillo -tiedostot</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Any file</source>
-        <translation>Kaikki tiedostot</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+77"/>
         <source>You can find the KLog data folder here: </source>
-        <translation>KLog talletuskansio löytyy täältä: </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+83"/>
         <source>DUPE</source>
-        <translation>DUPE</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+103"/>
@@ -1664,376 +1745,297 @@ Do you want to save your changes?</translation>
     <message>
         <location line="+315"/>
         <source>It seems that there are no QSO in the database.</source>
-        <translation>Näyttää siltä ettei tietokannassa ole QSO:ta.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.</source>
-        <translation>Jos olet varma että tietokannassa on QSO:ita ja KLog ei löydä niitä, voit ottaa yhteyttä kehittäjiin (Katso, Tietoja KLogista) apua varten.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+333"/>
         <source>TX Frequency in MHz.</source>
-        <translation>TX Taajuus MHz:inä.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>RX Frequency in MHz.</source>
-        <translation>RX Taajuus MHz:inä.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Power used by the DX.</source>
-        <translation>DX:n käyttämä virta.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Logging operator&apos;s callsign.</source>
-        <translation>Lokinpitäjän kutsutunnus.</translation>
+        <translation type="unfinished">Lokinpitäjän kutsutunnus.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Callsign used over the air.</source>
-        <translation>Lähetyksissä käytetty kutsutunnus.</translation>
+        <translation type="unfinished">Lähetyksissä käytetty kutsutunnus.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>My QTH locator.</source>
-        <translation>Minun QTH lokaattori.</translation>
+        <translation type="unfinished">Minun QTH lokaattori.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Name of the DX.</source>
-        <translation>DX:n nimi.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>QTH of the DX.</source>
-        <translation>DX:n QTH.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Locator of the DX.</source>
-        <translation>DX:n lokaattori.</translation>
-    </message>
-    <message>
-        <location line="-2550"/>
-        <location line="+2552"/>
-        <source>QRZ of the QSO.</source>
-        <translation>QSO:n QRZ.</translation>
-    </message>
-    <message>
-        <location line="-4730"/>
-        <source>Click to recalculate the award status.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2179"/>
-        <location line="+2552"/>
-        <source>TX RST.</source>
-        <translation>TX RST.</translation>
-    </message>
-    <message>
-        <location line="-2551"/>
-        <location line="+2552"/>
-        <source>RX RST.</source>
-        <translation>RX RST.</translation>
-    </message>
-    <message>
-        <location line="-2551"/>
-        <location line="+2552"/>
-        <source>TX Exchange.</source>
-        <translation>TX Exchange.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+6"/>
         <source>RX Exchange.</source>
-        <translation>RX Exchange.</translation>
-    </message>
-    <message>
-        <location line="-2551"/>
-        <location line="+2552"/>
-        <source>Band of the QSO.</source>
-        <translation>QSO:n taajuusalue.</translation>
-    </message>
-    <message>
-        <location line="-2551"/>
-        <location line="+2552"/>
-        <source>Mode of the QSO.</source>
-        <translation>QSO:n moodi.</translation>
-    </message>
-    <message>
-        <location line="-2551"/>
-        <location line="+2552"/>
-        <source>Date of the QSO.</source>
-        <translation>QSO:n päivämäärä.</translation>
-    </message>
-    <message>
-        <location line="-2551"/>
-        <location line="+2552"/>
-        <source>Time of the QSO.</source>
-        <translation>QSO:n aika.</translation>
-    </message>
-    <message>
-        <location line="-2549"/>
-        <location line="+2552"/>
-        <source>Add the QSO to the log.</source>
-        <translation>Lisää QSO lokiin.</translation>
-    </message>
-    <message>
-        <location line="-2550"/>
-        <source>Clear the box.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1131"/>
-        <source>&amp;Update Satellite Data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Show stats</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Show the statistics of your radio activity.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1411"/>
+        <location line="+9"/>
         <source>Clears the QSO entry.</source>
-        <translation>Poistaa QSO merkinnän.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Number of confirmed DXCC entities.</source>
-        <translation>Vahvistettujen DXCC yksiköiden määrä.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of worked DXCC entities.</source>
-        <translation>Työstettyjen DXCC yksiköiden määrä.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of confirmed WAZ zones.</source>
-        <translation>Vahvistettujen WAZ vyöhykkeiden määrä.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of worked WAZ zones.</source>
-        <translation>Työstettyjen WAZ vyöhykkeiden määrä.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of confirmed local references.</source>
-        <translation>Vahvistettujen paikallisten referenssien määrä.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of worked local references.</source>
-        <translation>Työstettyjen paikallisten referenssien määrä.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of confirmed QSOs.</source>
-        <translation>Vahvistettujen QSO:iden määrä.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of worked QSOs.</source>
-        <translation>Työstettyjen QSO:iden määrä.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of QSOs worked on the selected year.</source>
-        <translation>Työstettyjen QSO:iden määrä, valittuna vuonna.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of DXCC worked on the selected year.</source>
-        <translation>Työstettyjen DXCC:iden määrä, valittuna vuonna.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of CQ Zones worked on the selected year.</source>
-        <translation>Työstettyjen CQ vyöhykkeiden määrä, valittuna vuonna.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Score for the DXMarathon on the selected year.</source>
-        <translation>DXMarathon pisteet, valittuna vuonna.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Select the year you want to check.</source>
-        <translation>Valitse vuosi jonka haluat nähdä.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Status of the DX entity.</source>
-        <translation>DX yksikön tila.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Name of the DX entity.</source>
-        <translation>DX yksikön nimi.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+18"/>
         <location line="+2200"/>
         <source>Name</source>
-        <translation>Nimi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-2196"/>
         <source>QTH</source>
-        <translation>QTH</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Locator</source>
-        <translation>Lokaattori</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Power(rx)</source>
-        <translation>Teho(rx)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
         <source>RST(tx)</source>
-        <translation>RST(tx)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>RST(rx)</source>
-        <translation>RST(rx)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+33"/>
         <source>Freq TX</source>
-        <translation>TX Taajuus</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Freq RX</source>
-        <translation>RX Taajuus</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+68"/>
         <source>QSO</source>
-        <translation>QSO</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
         <source>QSL</source>
-        <translation>QSL</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>eQSL</source>
-        <translation>eQSL</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+1374"/>
         <source>Comment</source>
-        <translation>Kommentti</translation>
+        <translation type="unfinished">Kommentti</translation>
     </message>
     <message>
         <location line="-1371"/>
         <source>Others</source>
-        <translation>Muut</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>My Data</source>
-        <translation>Minun tiedot</translation>
+        <translation type="unfinished">Minun Tiedot</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Satellite</source>
-        <translation>Satelliitti</translation>
+        <translation type="unfinished">Satelliitti</translation>
     </message>
     <message>
         <location line="+50"/>
         <location line="+34"/>
         <source>QSOs</source>
-        <translation>QSO:t</translation>
+        <translation type="unfinished">QSO:t</translation>
     </message>
     <message>
         <location line="-33"/>
         <location line="+24"/>
         <location line="+55"/>
         <source>DXCC</source>
-        <translation>DXCC</translation>
+        <translation type="unfinished">DXCC</translation>
     </message>
     <message>
         <location line="-78"/>
         <source>CQ</source>
-        <translation>CQ</translation>
+        <translation type="unfinished">CQ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Score</source>
-        <translation>Pisteet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DX-Marathon</source>
-        <translation>DX-Maratoni</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Info</source>
-        <translation>Info</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Award</source>
-        <translation>Palkinto</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Confirmed</source>
-        <translation>Vahvistettu</translation>
+        <translation type="unfinished">Vahvistettu</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Worked</source>
-        <translation>Työstetty</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+6"/>
         <source>WAZ</source>
-        <translation>WAZ</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Local</source>
-        <translation>Paikallinen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+44"/>
         <source>Awards</source>
-        <translation>Palkinnot</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Search</source>
-        <translation>Etsi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Log</source>
-        <translation>Loki</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DX-Cluster</source>
-        <translation>DX-Klusteri</translation>
+        <translation type="unfinished">DX-Klusteri</translation>
     </message>
     <message>
         <location line="+96"/>
@@ -2041,12 +2043,12 @@ Do you want to save your changes?</translation>
         <location line="+74"/>
         <location line="+10"/>
         <source>Save ADIF File</source>
-        <translation>Tallenna ADIF -tiedosto</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-74"/>
         <source>LoTW logfile has been properly exported!</source>
-        <translation>LoTW lokitiedosto on viety onnistuneesti!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
@@ -2064,7 +2066,132 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1795"/>
+        <location line="+21"/>
+        <source>There was no QSO to be exported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>If you think that some QSO should have been exported, please look for them and ensure that the eQSL LoTW QSL sent box is marked as:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Q - Queued</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>There was an error while exporting the LoTW. The log has not been exported!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
+        <source>Save Cabrillo File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Cabrillo (*.log)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <location line="+24"/>
+        <source>Open File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+117"/>
+        <source>&amp;Modify</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+538"/>
+        <source>--</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source> - Needed for DXMarathon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+111"/>
+        <source>Filling QSOs...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Abort filling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+118"/>
+        <source>Filling QSOs...
+ QSO: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+74"/>
+        <source>Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Date</source>
+        <translation type="unfinished">Päivämäärä</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Time</source>
+        <translation type="unfinished">Aika</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Band</source>
+        <translation type="unfinished">Taajuusalue</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location line="+681"/>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-666"/>
+        <source>Print Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Printing the log...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Abort printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <location line="+15"/>
+        <source>Printing the log...
+ QSO: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+617"/>
+        <source>KLog QSO received</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The following QSO data has been received from WSJT-X to be logged:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Call</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2109,134 +2236,7 @@ Do you want to save your changes?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1801"/>
-        <source>There was no QSO to be exported.</source>
-        <translation>Vietäviä QSO:ita ei ollut.</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>If you think that some QSO should have been exported, please look for them and ensure that the eQSL LoTW QSL sent box is marked as:</source>
-        <translation>Jos uskot, että joitakin QSO:ita olisi pitänyt viedä, etsi niitä ja varmista, että eQSL LoTW QSL lähetetty laatikko on merkitty seuraavasti: </translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Q - Queued</source>
-        <translation>J - Jonossa</translation>
-    </message>
-    <message>
-        <location line="+21"/>
-        <source>There was an error while exporting the LoTW. The log has not been exported!</source>
-        <translation>LotW viennissä tapahtui virhe. Lokin vienti epäonnistui!</translation>
-    </message>
-    <message>
-        <location line="+46"/>
-        <source>Save Cabrillo File</source>
-        <translation>Tallenna Cabrillo Tiedosto</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Cabrillo (*.log)</source>
-        <translation>Cabrillo (*.log)</translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <location line="+24"/>
-        <source>Open File</source>
-        <translation>Avaa Tiedosto</translation>
-    </message>
-    <message>
-        <location line="+117"/>
-        <source>&amp;Modify</source>
-        <translation>&amp;Muokkaa</translation>
-    </message>
-    <message>
-        <location line="+538"/>
-        <source>--</source>
-        <translation>--</translation>
-    </message>
-    <message>
-        <location line="+25"/>
-        <source> - Needed for DXMarathon</source>
-        <translation>- Tarvitaan DXMarathon:iin</translation>
-    </message>
-    <message>
-        <location line="+111"/>
-        <source>Filling QSOs...</source>
-        <translation>Täyttää QSO:t...</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Abort filling</source>
-        <translation>Keskeytä täyttäminen</translation>
-    </message>
-    <message>
-        <location line="+118"/>
-        <source>Filling QSOs...
- QSO: </source>
-        <translation>Täyttää QSO:ita...
- QSO: </translation>
-    </message>
-    <message>
-        <location line="+74"/>
-        <source>Number</source>
-        <translation>Numero</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Date</source>
-        <translation>Päivämäärä</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Time</source>
-        <translation>Aika</translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>Band</source>
-        <translation>Taajuusalue</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <location line="+681"/>
-        <source>Mode</source>
-        <translation>Tila</translation>
-    </message>
-    <message>
-        <location line="-666"/>
-        <source>Print Log</source>
-        <translation>Tulosta loki</translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Printing the log...</source>
-        <translation>Tulostetaan lokia...</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Abort printing</source>
-        <translation>Keskeytä tulostus</translation>
-    </message>
-    <message>
-        <location line="+15"/>
-        <location line="+15"/>
-        <source>Printing the log...
- QSO: </source>
-        <translation>Tulostetaan lokia...
- QSO: </translation>
-    </message>
-    <message>
-        <location line="+617"/>
-        <source>KLog QSO received</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>The following QSO data has been received from WSJT-X to be logged:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+33"/>
+        <location line="+3"/>
         <source>Operator</source>
         <translation type="unfinished">Operaattori</translation>
     </message>
@@ -2257,53 +2257,53 @@ Do you want to save your changes?</translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)</source>
+        <source>If the received mode is correct, please contact KLog development team and request support for that mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>If the received mode is correct, please contact KLog development team and request support for that mode</source>
+        <source>Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+154"/>
         <source>An unexpected error ocurred!!</source>
-        <translation>Odottamaton virhe tapahtui!!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>If the problem persists, please contact the developers</source>
-        <translation>Jos ongelma jatkuu, ota yhteyttä kehitystiimiin</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>for analysis:</source>
-        <translation>analysointia varten:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Error in function</source>
-        <translation>Virhe funktiossa</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Error code</source>
-        <translation>Virhekoodi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Error text</source>
-        <translation>Virheteksti</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Failed query</source>
-        <translation>Epäonnistunut kysely</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Do you want to keep showing errors?</source>
-        <translation>Haluatko jatkaa virheiden näyttämistä?</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4544,7 +4544,7 @@ Lokia ei avata.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+176"/>
         <source>Open File</source>
         <translation type="unfinished"></translation>
     </message>
