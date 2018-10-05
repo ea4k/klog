@@ -72,7 +72,7 @@ void BarChartStats::prepareChart(const int _selection)
 
     //*set0->remove(0, set0->count()-1);
     qreal sum = 0;
-    QProgressDialog progress(tr("Reading data... "), tr("Abort reading"), 0, x_axis.count(), this);
+    QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, x_axis.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
     switch (_selection)
@@ -93,7 +93,7 @@ void BarChartStats::prepareChart(const int _selection)
                numberPerX = 0;
                //qDebug() << "BarChartStats::prepareChart QSOs: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
 
-               aux = tr("Reading data...\n QSO: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
+               aux = tr("Reading data ...") + "\n" + tr("QSO: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
                progress.setLabelText(aux);
                progress.setValue(i);
 
@@ -119,7 +119,7 @@ void BarChartStats::prepareChart(const int _selection)
                 *set0 << numberPerX;
                 numberPerX = 0;
 
-                aux = tr("Reading data...\n Entities: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
+                aux = tr("Reading data ...") + "\n" + tr("Entities: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
                 progress.setLabelText(aux);
                 progress.setValue(i);
 
@@ -144,7 +144,7 @@ void BarChartStats::prepareChart(const int _selection)
             *set0 << numberPerX;
             numberPerX = 0;
 
-            aux = tr("Reading data...\n Years: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
+            aux = tr("Reading data ...") + "\n" + tr("Years: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
             progress.setLabelText(aux);
             progress.setValue(i);
 
@@ -169,7 +169,7 @@ void BarChartStats::prepareChart(const int _selection)
             *set0 << numberPerX;
             numberPerX = 0;
 
-            aux = tr("Reading data...\n Bands: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
+            aux = tr("Reading data ...") + "\n" + tr("Bands: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
             progress.setLabelText(aux);
             progress.setValue(i);
 
@@ -195,7 +195,7 @@ void BarChartStats::prepareChart(const int _selection)
             *set0 << numberPerX;
             numberPerX = 0;
 
-            aux = tr("Reading data...\n Modes: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
+            aux = tr("Reading data...") + "\n" + tr("Modes: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
             progress.setLabelText(aux);
             progress.setValue(i);
 
@@ -302,7 +302,7 @@ void BarChartStats::prepareChart(const int _selection)
              numberPerX = 0;
 
 
-             aux = tr("Reading data...\n Hours: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
+             aux = tr("Reading data ...") + "\n" + tr("Hours: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
              progress.setLabelText(aux);
              progress.setValue(i);
 
