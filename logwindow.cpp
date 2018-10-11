@@ -51,7 +51,7 @@ LogWindow::LogWindow(DataProxy *dp, QWidget *parent) : QWidget(parent)
 
 LogWindow::~LogWindow()
 {
-
+//    emit clearError();
 }
 
 

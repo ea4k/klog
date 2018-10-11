@@ -190,8 +190,11 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     dxccStatusWidget = new DXCCStatusWidget(dataProxy);
     logWindow = new LogWindow(dataProxy, this);
     connect(logWindow, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    //connect(logWindow, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
+
     searchWidget = new SearchWidget (dataProxy, this);
     connect(searchWidget, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    //connect(searchWidget, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
     infoWidget = new InfoWidget(dataProxy, this);
 
     //qDebug() << "MainWindow::MainWindow: 0009" << endl;
@@ -252,6 +255,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //qDebug() << "MainWindow::MainWindow: 4" << endl;
     world = new World(dataProxy, klogDir, softwareVersion);
     connect(world, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    //connect(world, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
 
     if (!existingData)
     {
@@ -267,13 +271,16 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
 
     connect(dataProxy, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    //connect(dataProxy, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
     connect(this, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    //connect(this, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
 
 
     //qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
     //setupDialog = new SetupDialog(!configured);
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured);
     connect(setupDialog, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    //connect(setupDialog, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
     //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab(dataProxy);
     connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
@@ -567,10 +574,12 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     }
 
     connect(awards, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    //connect(awards, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
     connect(awards, SIGNAL(awardDXCCUpdated()), this, SLOT(slotRefreshDXCCWidget()) );
 
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
     connect(filemanager, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    //connect(filemanager, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
 
 
     //qDebug() << "MainWindow::MainWindow: END" << endl;
@@ -2386,7 +2395,7 @@ void MainWindow::createUICQWW()
     rstTXLineEdit->setToolTip(tr("TX RST."));
     rstRXLineEdit->setToolTip(tr("RX RST."));
     STXLineEdit->setToolTip(tr("TX Exchange."));
-    SRXLineEdit->setToolTip(tr("RX Exchange"));
+    SRXLineEdit->setToolTip(tr("RX Exchange."));
     bandComboBox->setToolTip(tr("Band of the QSO."));
     modeComboBox->setToolTip(tr("Mode of the QSO."));
     dateEdit->setToolTip(tr("Date of the QSO."));
@@ -3337,15 +3346,15 @@ void MainWindow::closeEvent(QCloseEvent *event)
 bool MainWindow::maybeSave()
 {
        //qDebug() << "MainWindow::maybeSave" << endl;
+    QString str = tr("The logfile has been modified.") + "\n" + tr("Do you want to save your changes?");
 
     if ((alwaysADIF) || (DBinMemory) )
     {
         if (needToSave)
         {
             QMessageBox::StandardButton ret;
-            ret = QMessageBox::warning(this, tr("KLog"),
-                     tr("The logfile has been modified.\n"
-                        "Do you want to save your changes?"),
+            ret = QMessageBox::warning(this, "KLog",
+                     str,
                      QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
             if (ret == QMessageBox::Save)
             {
@@ -5456,7 +5465,7 @@ void MainWindow::slotCabrilloExport()
 
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save Cabrillo File"),
                                util->getHomeDir(),
-                               tr("Cabrillo (*.log)"));
+                               "Cabrillo (*.log)");
 
 
     contest->saveFileToSend(fileName);
@@ -6144,7 +6153,7 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
     if ((_qs.length() != 4) || (_qs.at(1) == "-1")) // is the qs valid?
     {
         infoWidget->clear();
-        infoLabel1->setText(tr("--"));
+        infoLabel1->setText("--");
         return;
     }
     // Set the status bar with the appropriate message
@@ -7244,7 +7253,7 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
                 infoLabel1T = infoLabel1->text();
                 infoLabel2T = infoLabel2->text();
 
-                infoLabel1->setText(tr("QSO logged from WSJTX:"));
+                infoLabel1->setText(tr("QSO logged from WSJT-X:"));
                 infoLabel2->setText(_dxcall + " - " + dataProxy->getBandNameFromFreq(_freq) + "/" + _mode);
                 timerInfoBars->start(infoTimeout);
             }
@@ -7419,6 +7428,11 @@ void MainWindow::addNewValidMode(const QString _mode)
     modeComboBox->addItems(modes);
 }
 
+void MainWindow::slotClearNoMorErrorShown()
+{
+    noMoreErrorShown = false;
+}
+
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed)
 {
     //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << endl;
@@ -7428,6 +7442,16 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
 
     if (noMoreErrorShown)
     {return;}
+
+    if ((functionFailed == "virtual bool DataProxy_SQLite::addSatellite(QString, QString, QString, QString, QString)") && (errorCodeN == 19))
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText(tr("A duplicated satellite has been detected in the file and will not be imported."));
+        msgBox.setInformativeText(tr("Please check the satellite information file and ensure it is properly populated.") + "\n" + tr("Now you will see a more detailed error that can be used for debugging..."));
+        msgBox.exec();
+
+    }
     // TODO: An error on DB has been detected.
     // KLog should suggest to export ALL the data to an ADIF file to prevent any log lose
 

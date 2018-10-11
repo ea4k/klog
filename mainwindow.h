@@ -132,6 +132,7 @@ public:
 
 private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+    void slotClearNoMorErrorShown();
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed);
     void slotQRZReturnPressed();
     void slotQRZSpacePressed();

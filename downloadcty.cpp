@@ -174,7 +174,8 @@ bool DownLoadCTY::saveToDisk(const QString &filename, QIODevice *data)
     if (!file.open(QIODevice::WriteOnly)) {
 
         msgBox.setIcon(QMessageBox::Warning);
-        aux = tr("Could not open ") + filename + tr(" for writing.");
+        aux = tr("Could not open %1 for writing").arg(filename);
+        //aux = tr("Could not open ") + filename + tr(" for writing.");
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
