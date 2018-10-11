@@ -49,6 +49,7 @@ private:
 
 signals:
     void satsUpdatedSignal(const bool _p);
+//    void clearError();
 
 public slots:
 };

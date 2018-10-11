@@ -1260,7 +1260,7 @@ bool DataProxy_SQLite::isQSLReceived(const int _qsoId)
             }
             else
             {
-                  //qDebug() << "DataProxy_SQLite::isQSLReceived: " << QString::number(_qsoId) << "QSL NOT Received-1" << endl;                
+                  //qDebug() << "DataProxy_SQLite::isQSLReceived: " << QString::number(_qsoId) << "QSL NOT Received-1" << endl;
                 return false;
             }
         }
@@ -1299,7 +1299,7 @@ bool DataProxy_SQLite::isQSLSent(const int _qsoId)
             query.finish();
             if (queryString == "Y")
             {
-                  //qDebug() << "DataProxy_SQLite::isQSLSent: " << QString::number(_qsoId) << "QSL Sent" << endl;                
+                  //qDebug() << "DataProxy_SQLite::isQSLSent: " << QString::number(_qsoId) << "QSL Sent" << endl;
                 return true;
             }
             else
@@ -2409,7 +2409,7 @@ QStringList DataProxy_SQLite::getOperatingYears(const int _currentLog)
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-          //qDebug() << "DataProxy_SQLite::getYearsOperating: sqlOk = false" << endl;        
+          //qDebug() << "DataProxy_SQLite::getYearsOperating: sqlOk = false" << endl;
     }
     return years;
 }
@@ -2993,11 +2993,13 @@ bool DataProxy_SQLite::clearSatList()
 
     if (sqlOK)
     {
-          return true;
+        query.finish();
+        return true;
     }
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
         return false;
     }
 }
@@ -3010,13 +3012,25 @@ bool DataProxy_SQLite::addSatellite(const QString _arrlId, const QString _name, 
 
     if (sqlOK)
     {
-        qDebug()  << "DataProxy_SQLite::addSatellite - TRUE"  << endl;
-          return true;
+        //QDebug()  << "DataProxy_SQLite::addSatellite - TRUE"  << endl;
+        //QDebug()  << "DataProxy_SQLite::addSatellite - TRUE - ERROR: " <<  QString::number(query.lastError().number()) << endl;
+        query.finish();
+        return true;
     }
     else
     {
-        qDebug()  << "DataProxy_SQLite::addSatellite - FALSE"  << endl;
+        //QDebug()  << "DataProxy_SQLite::addSatellite - FALSE"  << endl;
+        //if (query.lastError().number() == 19)
+        //{ // Duplicate Satellite
+        //    QMessageBox msgBox;
+        //    msgBox.setIcon(QMessageBox::Warning);
+        //    msgBox.setText(tr("A duplicated satellite has been detected in the file and will not be imported."));
+        //    msgBox.setInformativeText(tr("Please check the satellite information file and ensure it is properly populated.") + "\n" + tr("Now you will see a more detailed error that can be used for debugging..."));
+        //    msgBox.exec();
+        //}
+
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
         return false;
     }
 

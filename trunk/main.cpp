@@ -183,13 +183,11 @@ int main(int argc, char *argv[])
             msgBox.setWindowTitle("KLog");
             msgBox.setIcon(QMessageBox::Warning);
             msgBox.setTextFormat(Qt::RichText);
+            QString language = (QLocale::system().name()).left(2);
 
-            msg = QString("No translation files for your language have been found so KLog will be shown in English. <p>") +
-                  QString("If you have the klog_") + (QLocale::system().name()).left(2) +
-                  QString(".qm file for your language, you can copy it into the ") +
-                  QCoreApplication::applicationDirPath() + "/translations/" +
-                  QString("folder and restart KLog.</p><p>If you want to help to translate KLog into your language, please contact the author.</p>") +
-                  urlTranslate;
+            msg = QString("No translation files for your language have been found so KLog will be shown in English.") + "<p>" +
+                  QString("If you have the klog_%1.qm file for your language, you can copy it into the %2/translations/ folder and restart KLog.</p><p>If you want to help to translate KLog into your language, please contact the author.").arg(language).arg(QCoreApplication::applicationDirPath()) +
+                  "</p>" + urlTranslate;
 
             msgBox.setText(msg);
             msgBox.setStandardButtons(QMessageBox::Ok);

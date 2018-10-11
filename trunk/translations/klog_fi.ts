@@ -176,7 +176,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+11"/>
+        <source>QSO: %1/%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
         <source>DXCC Entities</source>
         <translation type="unfinished"></translation>
     </message>
@@ -196,7 +201,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+8"/>
+        <source>Years: %1/%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <source>Bands</source>
         <translation type="unfinished">Taajuusalueet</translation>
     </message>
@@ -215,22 +225,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-209"/>
-        <source>QSO: </source>
-        <translation type="unfinished">QSO:</translation>
-    </message>
-    <message>
-        <location line="+26"/>
+        <location line="-183"/>
         <source>Entities: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+25"/>
-        <source>Years: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+25"/>
+        <location line="+50"/>
         <source>Bands: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -495,7 +495,7 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Kyselyt onnistuivat</translation>
     </message>
     <message>
-        <location line="+4295"/>
+        <location line="+4309"/>
         <source>KLog DXCC</source>
         <translation>KLog DXCC</translation>
     </message>
@@ -524,13 +524,8 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location line="+30"/>
-        <source>Could not open </source>
-        <translation>Ei voitu avata</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source> for writing.</source>
-        <translation>kirjoittamista varten.</translation>
+        <source>Could not open %1 for writing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1092,7 +1087,7 @@ Haluatko yrittää uudelleen?</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="+206"/>
+        <location filename="../mainwindow.cpp" line="+209"/>
         <source>Recalculate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1107,15 +1102,15 @@ Haluatko yrittää uudelleen?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+98"/>
-        <location line="+536"/>
+        <location line="+102"/>
+        <location line="+538"/>
         <location line="+2248"/>
         <location line="+64"/>
         <source>&amp;Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2845"/>
+        <location line="-2847"/>
         <source>&amp;Clear</source>
         <translation type="unfinished">T&amp;yhjennä</translation>
     </message>
@@ -1152,8 +1147,7 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location line="+85"/>
-        <location line="+2892"/>
-        <location line="+721"/>
+        <location line="+3615"/>
         <source>KLog</source>
         <translation type="unfinished">KLog</translation>
     </message>
@@ -1214,12 +1208,7 @@ Haluatko yrittää uudelleen?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2551"/>
-        <source>RX Exchange</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="-2550"/>
         <location line="+2552"/>
         <source>Band of the QSO.</source>
         <translation type="unfinished"></translation>
@@ -1306,13 +1295,7 @@ Haluatko yrittää uudelleen?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+339"/>
-        <source>The logfile has been modified.
-Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+27"/>
+        <location line="+366"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1798,12 +1781,28 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+2312"/>
+        <source>QSO logged from WSJT-X:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-4858"/>
+        <location line="+2552"/>
         <source>RX Exchange.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="-1601"/>
+        <source>The logfile has been modified.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Do you want to save your changes?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1610"/>
         <source>Clears the QSO entry.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2091,12 +2090,7 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Cabrillo (*.log)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+9"/>
+        <location line="+11"/>
         <location line="+24"/>
         <source>Open File</source>
         <translation type="unfinished"></translation>
@@ -2107,12 +2101,7 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+538"/>
-        <source>--</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+25"/>
+        <location line="+563"/>
         <source> - Needed for DXMarathon</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2246,12 +2235,7 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+50"/>
-        <source>QSO logged from WSJTX:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+33"/>
+        <location line="+83"/>
         <source>A new mode not supported by KLog has been received from an external software:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2266,7 +2250,22 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+154"/>
+        <location line="+161"/>
+        <source>A duplicated satellite has been detected in the file and will not be imported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Please check the satellite information file and ensure it is properly populated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Now you will see a more detailed error that can be used for debugging...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>An unexpected error ocurred!!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2857,7 +2856,7 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="+269"/>
+        <location filename="../main.cpp" line="+267"/>
         <source>Install wizard was canceled before completing...</source>
         <translation>Asennusohjelma keskeytettiin ennen valmistumista...</translation>
     </message>
@@ -4534,7 +4533,7 @@ Lokia ei avata.</translation>
 <context>
     <name>UpdateSatsData</name>
     <message>
-        <location filename="../updatesatsdata.cpp" line="+58"/>
+        <location filename="../updatesatsdata.cpp" line="+56"/>
         <source>Reading Satellites data file...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4544,7 +4543,12 @@ Lokia ei avata.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+176"/>
+        <location line="+166"/>
+        <source>The Satellites information has been updated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
         <source>Open File</source>
         <translation type="unfinished"></translation>
     </message>

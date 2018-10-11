@@ -53,8 +53,6 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
 
     file.seek(pos);
 
-
-
     QProgressDialog progress(tr("Reading Satellites data file..."), tr("Abort reading"), 0, numberOfSats, 0);
 
     progress.setWindowModality(Qt::ApplicationModal);
@@ -119,27 +117,27 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
             foreach (aux, fields)
             {
                 aux = aux.simplified();
-                qDebug() << "UpdateSatsData::satDataFileRead-aux:" << aux << endl;
+                //QDebug() << "UpdateSatsData::satDataFileRead-aux:" << aux << endl;
                 fieldToAnalyze = util->getValidADIFFieldAndData("<" + aux);
                 if (fieldToAnalyze.size() == 2)
                 {
                     field = fieldToAnalyze.at(0);
                     data = fieldToAnalyze.at(1);
-                    qDebug() << "UpdateSatsData::satDataFileRead-Field:" << field << endl;
-                    qDebug() << "UpdateSatsData::satDataFileRead-Data:" << data << endl;
+                    //QDebug() << "UpdateSatsData::satDataFileRead-Field:" << field << endl;
+                    //QDebug() << "UpdateSatsData::satDataFileRead-Data:" << data << endl;
                     if (field == "EOR")
                     {
-                        qDebug() << "UpdateSatsData::satDataFileRead - EOR DETECTED!" << endl;
+                        //QDebug() << "UpdateSatsData::satDataFileRead - EOR DETECTED!" << endl;
                         if (haveId && haveName)
                         {
-                            qDebug() << "UpdateSatsData::satDataFileRead - EOR DETECTED and have it all!" << endl;
+                            //QDebug() << "UpdateSatsData::satDataFileRead - EOR DETECTED and have it all!" << endl;
                             haveId = false;
                             haveName = false;
                             haveUpLink = false;
                             haveDownLink = false;
                             haveMode = false;
                             dataProxy->addSatellite(satID, satName, satDownLink,satUpLink, satMode);
-                            qDebug() << "UpdateSatsData::satDataFileRead - Satellite added: " << satID << endl;
+                            //QDebug() << "UpdateSatsData::satDataFileRead - Satellite added: " << satID << endl;
                             satID = QString();
                             satName = QString();
                             satUpLink = QString();
@@ -219,6 +217,10 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
 
     //qDebug() << "UpdateSatsData::satDataFileRead: END"  << endl;
     emit satsUpdatedSignal(true);
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.setText(tr("The Satellites information has been updated."));
+    msgBox.exec();
     return true;
 }
 
