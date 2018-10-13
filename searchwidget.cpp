@@ -1108,7 +1108,7 @@ void SearchWidget::slotQsoDeleteFromSearch()
     if (_qrz.length()>=3)
     {
 
-        QString message = QString(tr("You have requested to delete the QSO with:") + (" %1")).arg(_qrz);
+        QString message = QString(tr("You have requested to delete the QSO with: %1").arg(_qrz));
 
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Question);

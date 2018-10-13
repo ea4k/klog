@@ -4252,7 +4252,8 @@ void MainWindow::readConfigData()
     searchWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     infoWidget->setColors(newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
 
-    QString aux = tr("UDP Server error") + "\n" + tr("The UDP server failed to") + " ";
+    QString aux;
+
     QString errorMSG;
 
     if (UDPServerStart)
@@ -4264,7 +4265,8 @@ void MainWindow::readConfigData()
             if (!UDPLogServer->start())
             {
                 errorMSG =  tr("start");
-                showErrorDialog->setText(aux + errorMSG + ".");
+                aux = tr("UDP Server error\nThe UDP server failed to %1.", "start or stop").arg(errorMSG);
+                showErrorDialog->setText(aux);
                 showErrorDialog->exec();
             }
             else
@@ -4285,7 +4287,8 @@ void MainWindow::readConfigData()
             if (!UDPLogServer->stop())
             {
                 errorMSG =  tr("stop");
-                showErrorDialog->setText(aux + errorMSG + ".");
+                aux = tr("UDP Server error\nThe UDP server failed to %1.", "start or stop").arg(errorMSG);
+                showErrorDialog->setText(aux);
                 showErrorDialog->exec();
             }
             else

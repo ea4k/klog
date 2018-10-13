@@ -32,7 +32,7 @@ void SetupPageUDP::createUI()
 {
     QString msgAuto = QString(tr("Log automatically QSOs from WSJT-X"));
     logFromWSJTXCheckbox->setText(tr("Allow WSJT-X to send logged QSO to KLog"));
-    logFromWSJTXCheckbox->setToolTip(tr("QSO logged in WSJT-X will be sent to KLog and KLog will ask before logging into KLog unless") + " \"" + msgAuto + "\" " + tr ("is selected."));
+    logFromWSJTXCheckbox->setToolTip(tr("QSO logged in WSJT-X will be sent to KLog and KLog will ask before logging into KLog unless \"%1\" is selected").arg(msgAuto));
 
     logAutomaticallyWSJTXCheckbox->setText(msgAuto);
     logAutomaticallyWSJTXCheckbox->setToolTip(tr("KLog will log automatically any QSO coming from WSJT-X without any manual confirmation."));
