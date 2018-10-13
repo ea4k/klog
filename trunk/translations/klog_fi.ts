@@ -59,26 +59,19 @@
         <translation>KLogia kehittää erittäin pieni ryhmä ihmisiä ja sinut on kutsuttu mukaan!</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>If you want to provide support you are welcome to join the</source>
-        <translation>Jos haluat antaa tukesi, olet tervetullut liittymään</translation>
-    </message>
-    <message>
-        <location line="+0"/>
         <location line="+14"/>
-        <source>KLog development mailing list</source>
-        <translation>KLog kehitystiimin postituslistaan</translation>
-    </message>
-    <message>
-        <location line="-14"/>
-        <location line="+14"/>
-        <source>!</source>
-        <translation>!</translation>
+        <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog development mailing list&lt;/a&gt;!</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-14"/>
         <source>You can also help us by sending bug reports or small code contributions, ideas or whatever you think may improve KLog.</source>
         <translation>Voit auttaa meitä myös lähettämällä virheilmoituksia tai ohjelmointiapua, ideoita tai mitä vain, mikä mielestäsi voisi parantaa KLogia.</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>If you want to provide support you are welcome to join the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog development mailing list&lt;/a&gt;!</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -90,11 +83,6 @@
         <location line="-58"/>
         <source>Translators bring KLog into your language. They are really an important part of the KLog development team.</source>
         <translation>Kääntäjät tuovat KLogin kielellesi, ja he ovat todella tärkeä osa KLog-kehitystiimiä.</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the</source>
-        <translation>Mikäli KLogia ei vielä ole omalla kielelläsi ja haluat auttaa meitä, olet tervetullut ottamaan yhteyttä meihin</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1185,60 +1173,60 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location line="+659"/>
-        <location line="+2552"/>
+        <location line="+2555"/>
         <source>QRZ of the QSO.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2551"/>
-        <location line="+2552"/>
+        <location line="-2554"/>
+        <location line="+2555"/>
         <source>TX RST.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2551"/>
-        <location line="+2552"/>
+        <location line="-2554"/>
+        <location line="+2555"/>
         <source>RX RST.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2551"/>
-        <location line="+2552"/>
+        <location line="-2554"/>
+        <location line="+2555"/>
         <source>TX Exchange.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2550"/>
-        <location line="+2552"/>
+        <location line="-2553"/>
+        <location line="+2555"/>
         <source>Band of the QSO.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2551"/>
-        <location line="+2552"/>
+        <location line="-2554"/>
+        <location line="+2555"/>
         <source>Mode of the QSO.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2551"/>
-        <location line="+2552"/>
+        <location line="-2554"/>
+        <location line="+2555"/>
         <source>Date of the QSO.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2551"/>
-        <location line="+2552"/>
+        <location line="-2554"/>
+        <location line="+2555"/>
         <source>Time of the QSO.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2549"/>
-        <location line="+2552"/>
+        <location line="-2552"/>
+        <location line="+2555"/>
         <source>Add the QSO to the log.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2550"/>
+        <location line="-2553"/>
         <source>Clear the box.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1249,28 +1237,28 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+4072"/>
+        <location line="+4075"/>
         <source>RSTrx</source>
         <translation type="unfinished">RSTrx</translation>
     </message>
     <message>
-        <location line="-4065"/>
-        <location line="+4063"/>
+        <location line="-4068"/>
+        <location line="+4066"/>
         <source>RSTtx</source>
         <translation type="unfinished">RSTtx</translation>
     </message>
     <message>
-        <location line="-4054"/>
+        <location line="-4057"/>
         <location line="+800"/>
         <location line="+6"/>
         <location line="+912"/>
-        <location line="+990"/>
+        <location line="+993"/>
         <location line="+1344"/>
         <source>QRZ</source>
         <translation type="unfinished">QRZ</translation>
     </message>
     <message>
-        <location line="-4045"/>
+        <location line="-4048"/>
         <source>STX</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1706,27 +1694,17 @@ Haluatko yrittää uudelleen?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+103"/>
-        <source>UDP Server error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>The UDP server failed to</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+11"/>
+        <location line="+115"/>
         <source>start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+22"/>
         <source>stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+315"/>
+        <location line="+316"/>
         <source>It seems that there are no QSO in the database.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1786,13 +1764,13 @@ Haluatko yrittää uudelleen?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-4858"/>
-        <location line="+2552"/>
+        <location line="-4861"/>
+        <location line="+2555"/>
         <source>RX Exchange.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1601"/>
+        <location line="-1604"/>
         <source>The logfile has been modified.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1802,7 +1780,15 @@ Haluatko yrittää uudelleen?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1610"/>
+        <location line="+919"/>
+        <location line="+22"/>
+        <source>UDP Server error
+The UDP server failed to %1.</source>
+        <comment>start or stop</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+672"/>
         <source>Clears the QSO entry.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2596,19 +2582,14 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Muut - Satelliitti ei ole listalla</translation>
     </message>
     <message>
-        <location line="-287"/>
-        <source>Name of the Satellite if not in the list. Select: &quot;</source>
-        <translation>Satelliitin nimi, jos ei listalla. Valitse: &quot;</translation>
-    </message>
-    <message>
-        <location line="-6"/>
+        <location line="-293"/>
         <location line="+2"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>&quot; to enable this box. (format like AO-51).</source>
+        <source>Name of the Satellite if not in the list. Select: &quot;%1&quot; to enable this box. (format like AO-51).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3149,8 +3130,8 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location line="+236"/>
-        <source>You have requested to delete the QSO with:</source>
-        <translation>Olet pyytänyt poistamaan QSO:n joissa on:</translation>
+        <source>You have requested to delete the QSO with: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3277,47 +3258,22 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>Go to the Misc tab and click on Move DB
+ or the DB will not be moved to the new location.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+9"/>
-        <source>Go to the</source>
-        <translation>Mene</translation>
+        <source>Go to the User tab and enter valid QRZ.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-9"/>
-        <source>Misc tab</source>
-        <translation>Sekalaiset -välilehdelle</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>and click on</source>
-        <translation>Ja klikkaa</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Move DB</source>
-        <translation>Siirrä tietokanta</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>or the DB will not be moved to the new location.</source>
-        <translation>tai tietokantaa ei siirretä.</translation>
-    </message>
-    <message>
-        <location line="+8"/>
+        <location line="-1"/>
         <source>You need to enter at least a valid QRZ.</source>
         <translation>Ainakin olemassaoleva QRZ on syötettävä.</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>User tab</source>
-        <translation>Käyttäjä -välilehdelle</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>and enter valid QRZ.</source>
-        <translation>ja syötä olemassaoleva QRZ.</translation>
-    </message>
-    <message>
-        <location line="+11"/>
+        <location line="+12"/>
         <source>You have not selected the kind of log you want.</source>
         <translation>Et ole valinnut minkälaisen lokin haluat.</translation>
     </message>
@@ -4098,12 +4054,7 @@ Lokia ei avata.</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>QSO logged in WSJT-X will be sent to KLog and KLog will ask before logging into KLog unless</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>is selected.</source>
+        <source>QSO logged in WSJT-X will be sent to KLog and KLog will ask before logging into KLog unless &quot;%1&quot; is selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

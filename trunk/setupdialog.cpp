@@ -369,7 +369,7 @@ qDebug() << "SetupDialog::slotOkButtonClicked" << endl;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText(tr("DB has not been moved to new path"));
-        msgBox.setInformativeText(tr("Go to the") + " " + tr("Misc tab") + " " + tr("and click on") + " " + tr("Move DB") + "\n" + tr("or the DB will not be moved to the new location."));
+        msgBox.setInformativeText(tr("Go to the Misc tab and click on Move DB\n or the DB will not be moved to the new location."));
         msgBox.exec();
         return;
     }
@@ -378,7 +378,7 @@ qDebug() << "SetupDialog::slotOkButtonClicked" << endl;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You need to enter at least a valid QRZ."));
-        msgBox.setInformativeText(tr("Go to the") + " " + tr("User tab") + " " + tr("and enter valid QRZ."));
+        msgBox.setInformativeText(tr("Go to the User tab and enter valid QRZ."));
         msgBox.exec();
         return;
     }

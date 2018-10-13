@@ -83,7 +83,7 @@ void MainWindowSatTab::createUI()
     QString othersat = tr("Other - Sat not in the list");
     QString aux;
     aux.clear();
-    aux = QString(tr("Name of the Satellite if not in the list. Select: \"")) + othersat + QString(tr("\" to enable this box. (format like AO-51)."));
+    aux = QString(tr("Name of the Satellite if not in the list. Select: \"%1\" to enable this box. (format like AO-51).").arg(othersat));
     satNameLineEdit->setToolTip(aux);
     //satNameLineEdit->setToolTip(tr("Name of the Satellite if not in the list. Select Other Sat (format like AO-51)"));
     satModeLineEdit->setToolTip(tr("Satellite mode used."));

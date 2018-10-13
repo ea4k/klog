@@ -4,7 +4,7 @@ TBD - 0.9.5
 - New feature: KLog shows some statistics of your log: Tools->Show stats
 - New feature: It is now possible to update the satellite data reading a sats.dat file: Tools->Update Satellite Data
 - Satellites file (sats.dat) updated to september 2018 (TNX KB2YSI).
-TBD - New translations: French (TNX Christophe) and German (TNX Lück).
+- New translations: French (TNX Christophe) and German (TNX Lück).
 - Updated translations: Catalan (TNX Txema), Croatian (TNX M0NKC), Spanish (EA4TV).
 
 
