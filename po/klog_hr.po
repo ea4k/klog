@@ -21,35 +21,10 @@ msgstr ""
 "Također nam možete pomoći šaljući izvješća o greškama ili malih doprinosa u "
 "programskom kodu ili bilo što što mislite da može unaprijediti KLog."
 
-#: ../aboutdialog.cpp:73
-msgctxt "AboutDialog|"
-msgid "If you want to provide support you are welcome to join the"
-msgstr "Ako želite podržati dobrodošli ste pridružiti se"
-
-# This is the infinitive form. If this is to be concatenated to the "if you want to provide support..." string, the last word should say "listi" instead of "lista".
-#: ../aboutdialog.cpp:73 ../aboutdialog.cpp:87
-msgctxt "AboutDialog|"
-msgid "KLog development mailing list"
-msgstr "KLog razvoj mailing lista"
-
-#: ../aboutdialog.cpp:73 ../aboutdialog.cpp:87
-msgctxt "AboutDialog|"
-msgid "!"
-msgstr "!"
-
 #: ../aboutdialog.cpp:74 ../aboutdialog.cpp:145
 msgctxt "AboutDialog|"
 msgid "Authors"
 msgstr "Autori"
-
-#: ../aboutdialog.cpp:87
-msgctxt "AboutDialog|"
-msgid ""
-"If KLog is still not in your language and you want to help us, you are "
-"welcome to contact us through the"
-msgstr ""
-"Ako KLog još nije na vašem jeziku i želite nam pomoći, dobrodošli ste javiti "
-"nam se kroz"
 
 #: ../aboutdialog.cpp:35
 msgctxt "AboutDialog|"
@@ -113,6 +88,15 @@ msgctxt "AboutDialog|"
 msgid "KLog is developed by a very small team and you are invited to join!"
 msgstr "Klog razvija vrlo mali tim i pozvani ste da se pridružite!"
 
+#: ../aboutdialog.cpp:87
+msgctxt "AboutDialog|"
+msgid ""
+"If KLog is still not in your language and you want to help us, you are "
+"welcome to contact us through the <a "
+"href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog "
+"development mailing list</a>!"
+msgstr ""
+
 #: ../aboutdialog.cpp:101
 msgctxt "AboutDialog|"
 msgid ""
@@ -148,6 +132,14 @@ msgid ""
 msgstr ""
 "Prevoditelji donose KLog u vaš jezik. Oni su važan dio tima koji razvija "
 "KLog."
+
+#: ../aboutdialog.cpp:73
+msgctxt "AboutDialog|"
+msgid ""
+"If you want to provide support you are welcome to join the <a "
+"href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog "
+"development mailing list</a>!"
+msgstr ""
 
 #: ../aboutdialog.cpp:88 ../aboutdialog.cpp:146
 msgctxt "AboutDialog|"
@@ -1227,47 +1219,47 @@ msgctxt "MainWindow|"
 msgid "Click on the prefix of the right entity or Cancel to correct."
 msgstr "Kliknite na prefiks ispravnog entiteta ili Poništi za ispravku."
 
-#: ../mainwindow.cpp:2394 ../mainwindow.cpp:4946
+#: ../mainwindow.cpp:2394 ../mainwindow.cpp:4949
 msgctxt "MainWindow|"
 msgid "QRZ of the QSO."
 msgstr "QRZ QSOa."
 
-#: ../mainwindow.cpp:2395 ../mainwindow.cpp:4947
+#: ../mainwindow.cpp:2395 ../mainwindow.cpp:4950
 msgctxt "MainWindow|"
 msgid "TX RST."
 msgstr "TX RST."
 
-#: ../mainwindow.cpp:2396 ../mainwindow.cpp:4948
+#: ../mainwindow.cpp:2396 ../mainwindow.cpp:4951
 msgctxt "MainWindow|"
 msgid "RX RST."
 msgstr "RX RST."
 
-#: ../mainwindow.cpp:2397 ../mainwindow.cpp:4949
+#: ../mainwindow.cpp:2397 ../mainwindow.cpp:4952
 msgctxt "MainWindow|"
 msgid "TX Exchange."
 msgstr "TX izmjena."
 
-#: ../mainwindow.cpp:2399 ../mainwindow.cpp:4951
+#: ../mainwindow.cpp:2399 ../mainwindow.cpp:4954
 msgctxt "MainWindow|"
 msgid "Band of the QSO."
 msgstr "Frekvencijski pojas QSOa."
 
-#: ../mainwindow.cpp:2400 ../mainwindow.cpp:4952
+#: ../mainwindow.cpp:2400 ../mainwindow.cpp:4955
 msgctxt "MainWindow|"
 msgid "Mode of the QSO."
 msgstr "Način rada QSOa."
 
-#: ../mainwindow.cpp:2401 ../mainwindow.cpp:4953
+#: ../mainwindow.cpp:2401 ../mainwindow.cpp:4956
 msgctxt "MainWindow|"
 msgid "Date of the QSO."
 msgstr "Datum QSOa."
 
-#: ../mainwindow.cpp:2402 ../mainwindow.cpp:4954
+#: ../mainwindow.cpp:2402 ../mainwindow.cpp:4957
 msgctxt "MainWindow|"
 msgid "Time of the QSO."
 msgstr "Vrijeme QSOa."
 
-#: ../mainwindow.cpp:2405 ../mainwindow.cpp:4957
+#: ../mainwindow.cpp:2405 ../mainwindow.cpp:4960
 msgctxt "MainWindow|"
 msgid "Add the QSO to the log."
 msgstr "Dodaj QSO u dnevnik."
@@ -1283,18 +1275,18 @@ msgctxt "MainWindow|"
 msgid "Input"
 msgstr "Unos"
 
-#: ../mainwindow.cpp:2422 ../mainwindow.cpp:6494
+#: ../mainwindow.cpp:2422 ../mainwindow.cpp:6497
 msgctxt "MainWindow|"
 msgid "RSTrx"
 msgstr "RSTrx"
 
-#: ../mainwindow.cpp:2429 ../mainwindow.cpp:6492
+#: ../mainwindow.cpp:2429 ../mainwindow.cpp:6495
 msgctxt "MainWindow|"
 msgid "RSTtx"
 msgstr "RSTtx"
 
 #: ../mainwindow.cpp:2438 ../mainwindow.cpp:3238 ../mainwindow.cpp:3244
-#: ../mainwindow.cpp:4156 ../mainwindow.cpp:5146 ../mainwindow.cpp:6490
+#: ../mainwindow.cpp:4156 ../mainwindow.cpp:5149 ../mainwindow.cpp:6493
 msgctxt "MainWindow|"
 msgid "QRZ"
 msgstr "QRZ"
@@ -1774,32 +1766,22 @@ msgctxt "MainWindow|"
 msgid "DUPE"
 msgstr "DUPLI"
 
-#: ../mainwindow.cpp:4255
-msgctxt "MainWindow|"
-msgid "UDP Server error"
-msgstr "Greška UDP poslužitelja"
-
-#: ../mainwindow.cpp:4255
-msgctxt "MainWindow|"
-msgid "The UDP server failed to"
-msgstr "UDP poslužitelj nije se uspio"
-
-#: ../mainwindow.cpp:4266
+#: ../mainwindow.cpp:4267
 msgctxt "MainWindow|"
 msgid "start"
 msgstr "pokrenuti"
 
-#: ../mainwindow.cpp:4287
+#: ../mainwindow.cpp:4289
 msgctxt "MainWindow|"
 msgid "stop"
 msgstr "zaustaviti"
 
-#: ../mainwindow.cpp:4602
+#: ../mainwindow.cpp:4605
 msgctxt "MainWindow|"
 msgid "It seems that there are no QSO in the database."
 msgstr "Izgleda da u bazi podatake nema QSOa."
 
-#: ../mainwindow.cpp:4602
+#: ../mainwindow.cpp:4605
 msgctxt "MainWindow|"
 msgid ""
 "If you are sure that the database contains QSOs and KLog is not able to find "
@@ -1808,57 +1790,57 @@ msgstr ""
 "Ako ste sigurni da baza podataka sadrži QSOe i KLog ih nije uspio pronaći, "
 "molimo kontaktirajte razvijatelje programa (vidite O Klogu) za pomoć."
 
-#: ../mainwindow.cpp:4935
+#: ../mainwindow.cpp:4938
 msgctxt "MainWindow|"
 msgid "TX Frequency in MHz."
 msgstr "TX frekvencija u MHz."
 
-#: ../mainwindow.cpp:4936
+#: ../mainwindow.cpp:4939
 msgctxt "MainWindow|"
 msgid "RX Frequency in MHz."
 msgstr "RX frekvencija u MHz."
 
-#: ../mainwindow.cpp:4938
+#: ../mainwindow.cpp:4941
 msgctxt "MainWindow|"
 msgid "Power used by the DX."
 msgstr "Snaga koju je koristio DX."
 
-#: ../mainwindow.cpp:4939
+#: ../mainwindow.cpp:4942
 msgctxt "MainWindow|"
 msgid "Logging operator's callsign."
 msgstr "Snimam operaterov pozivni znak."
 
-#: ../mainwindow.cpp:4940
+#: ../mainwindow.cpp:4943
 msgctxt "MainWindow|"
 msgid "Callsign used over the air."
 msgstr "Pozivni znak korišten u eteru."
 
-#: ../mainwindow.cpp:4941
+#: ../mainwindow.cpp:4944
 msgctxt "MainWindow|"
 msgid "My QTH locator."
 msgstr "Moj QTH lokator."
 
-#: ../mainwindow.cpp:4942
+#: ../mainwindow.cpp:4945
 msgctxt "MainWindow|"
 msgid "Name of the DX."
 msgstr "Ime DXa."
 
-#: ../mainwindow.cpp:4943
+#: ../mainwindow.cpp:4946
 msgctxt "MainWindow|"
 msgid "QTH of the DX."
 msgstr "QTH DXa."
 
-#: ../mainwindow.cpp:4944
+#: ../mainwindow.cpp:4947
 msgctxt "MainWindow|"
 msgid "Locator of the DX."
 msgstr "Lokator DXa."
 
-#: ../mainwindow.cpp:7256
+#: ../mainwindow.cpp:7259
 msgctxt "MainWindow|"
 msgid "QSO logged from WSJT-X:"
 msgstr ""
 
-#: ../mainwindow.cpp:2398 ../mainwindow.cpp:4950
+#: ../mainwindow.cpp:2398 ../mainwindow.cpp:4953
 msgctxt "MainWindow|"
 msgid "RX Exchange."
 msgstr "RX izmjena."
@@ -1873,269 +1855,277 @@ msgctxt "MainWindow|"
 msgid "Do you want to save your changes?"
 msgstr ""
 
-#: ../mainwindow.cpp:4959
+#: ../mainwindow.cpp:4268 ../mainwindow.cpp:4290
+#, qt-format
+msgctxt "MainWindow|start or stop"
+msgid ""
+"UDP Server error\n"
+"The UDP server failed to %1."
+msgstr ""
+
+#: ../mainwindow.cpp:4962
 msgctxt "MainWindow|"
 msgid "Clears the QSO entry."
 msgstr "Izbriši unos QSOa."
 
-#: ../mainwindow.cpp:4961
+#: ../mainwindow.cpp:4964
 msgctxt "MainWindow|"
 msgid "Number of confirmed DXCC entities."
 msgstr "Broj potvrđenih DXCC entiteta."
 
-#: ../mainwindow.cpp:4962
+#: ../mainwindow.cpp:4965
 msgctxt "MainWindow|"
 msgid "Number of worked DXCC entities."
 msgstr "Broj rađenih DXCC entiteta."
 
-#: ../mainwindow.cpp:4963
+#: ../mainwindow.cpp:4966
 msgctxt "MainWindow|"
 msgid "Number of confirmed WAZ zones."
 msgstr "Broj potvrđenih WAZ zona."
 
-#: ../mainwindow.cpp:4964
+#: ../mainwindow.cpp:4967
 msgctxt "MainWindow|"
 msgid "Number of worked WAZ zones."
 msgstr "Broj rađenih WAZ zona."
 
-#: ../mainwindow.cpp:4965
+#: ../mainwindow.cpp:4968
 msgctxt "MainWindow|"
 msgid "Number of confirmed local references."
 msgstr "Broj potvrđenih lokalnih referenci."
 
-#: ../mainwindow.cpp:4966
+#: ../mainwindow.cpp:4969
 msgctxt "MainWindow|"
 msgid "Number of worked local references."
 msgstr "Broj rađenih lokalnih referenci."
 
-#: ../mainwindow.cpp:4967
+#: ../mainwindow.cpp:4970
 msgctxt "MainWindow|"
 msgid "Number of confirmed QSOs."
 msgstr "Broj potvrđenih QSOa."
 
-#: ../mainwindow.cpp:4968
+#: ../mainwindow.cpp:4971
 msgctxt "MainWindow|"
 msgid "Number of worked QSOs."
 msgstr "Broj rađenih QSOa."
 
-#: ../mainwindow.cpp:4969
+#: ../mainwindow.cpp:4972
 msgctxt "MainWindow|"
 msgid "Number of QSOs worked on the selected year."
 msgstr "Broj QSOa rađenih u izabranoj godini."
 
-#: ../mainwindow.cpp:4970
+#: ../mainwindow.cpp:4973
 msgctxt "MainWindow|"
 msgid "Number of DXCC worked on the selected year."
 msgstr "Broj DXCCa rađenih u izabranoj godini."
 
-#: ../mainwindow.cpp:4971
+#: ../mainwindow.cpp:4974
 msgctxt "MainWindow|"
 msgid "Number of CQ Zones worked on the selected year."
 msgstr "Broj CQ zona rađenih u izabranoj godini."
 
-#: ../mainwindow.cpp:4972
+#: ../mainwindow.cpp:4975
 msgctxt "MainWindow|"
 msgid "Score for the DXMarathon on the selected year."
 msgstr "Zbroj za DXMarathon u izabranoj godini."
 
-#: ../mainwindow.cpp:4973
+#: ../mainwindow.cpp:4976
 msgctxt "MainWindow|"
 msgid "Select the year you want to check."
 msgstr "Izaberite godinu koju želite provjeriti."
 
-#: ../mainwindow.cpp:4975
+#: ../mainwindow.cpp:4978
 msgctxt "MainWindow|"
 msgid "Status of the DX entity."
 msgstr "Status DX entiteta."
 
-#: ../mainwindow.cpp:4976
+#: ../mainwindow.cpp:4979
 msgctxt "MainWindow|"
 msgid "Name of the DX entity."
 msgstr "Ime DX entiteta."
 
-#: ../mainwindow.cpp:4994 ../mainwindow.cpp:7194
+#: ../mainwindow.cpp:4997 ../mainwindow.cpp:7197
 msgctxt "MainWindow|"
 msgid "Name"
 msgstr "Ime"
 
-#: ../mainwindow.cpp:4998
+#: ../mainwindow.cpp:5001
 msgctxt "MainWindow|"
 msgid "QTH"
 msgstr "QTH"
 
-#: ../mainwindow.cpp:5001
+#: ../mainwindow.cpp:5004
 msgctxt "MainWindow|"
 msgid "Locator"
 msgstr "Lokator"
 
-#: ../mainwindow.cpp:5004
+#: ../mainwindow.cpp:5007
 msgctxt "MainWindow|"
 msgid "Power(rx)"
 msgstr "Snaga(rx)"
 
-#: ../mainwindow.cpp:5008
+#: ../mainwindow.cpp:5011
 msgctxt "MainWindow|"
 msgid "RST(tx)"
 msgstr "RST(tx)"
 
-#: ../mainwindow.cpp:5011
+#: ../mainwindow.cpp:5014
 msgctxt "MainWindow|"
 msgid "RST(rx)"
 msgstr "RST(rx)"
 
-#: ../mainwindow.cpp:5044
+#: ../mainwindow.cpp:5047
 msgctxt "MainWindow|"
 msgid "Freq TX"
 msgstr "Frekv TX"
 
-#: ../mainwindow.cpp:5046
+#: ../mainwindow.cpp:5049
 msgctxt "MainWindow|"
 msgid "Freq RX"
 msgstr "Frekv RX"
 
-#: ../mainwindow.cpp:5114
+#: ../mainwindow.cpp:5117
 msgctxt "MainWindow|"
 msgid "QSO"
 msgstr "QSO"
 
-#: ../mainwindow.cpp:5124
+#: ../mainwindow.cpp:5127
 msgctxt "MainWindow|"
 msgid "QSL"
 msgstr "QSL"
 
-#: ../mainwindow.cpp:5125
+#: ../mainwindow.cpp:5128
 msgctxt "MainWindow|"
 msgid "eQSL"
 msgstr "eQSL"
 
-#: ../mainwindow.cpp:5126 ../mainwindow.cpp:6500
+#: ../mainwindow.cpp:5129 ../mainwindow.cpp:6503
 msgctxt "MainWindow|"
 msgid "Comment"
 msgstr "Komentar"
 
-#: ../mainwindow.cpp:5129
+#: ../mainwindow.cpp:5132
 msgctxt "MainWindow|"
 msgid "Others"
 msgstr "Drugi"
 
-#: ../mainwindow.cpp:5131
+#: ../mainwindow.cpp:5134
 msgctxt "MainWindow|"
 msgid "My Data"
 msgstr "Moji podaci"
 
-#: ../mainwindow.cpp:5132
+#: ../mainwindow.cpp:5135
 msgctxt "MainWindow|"
 msgid "Satellite"
 msgstr "Satelit"
 
-#: ../mainwindow.cpp:5182 ../mainwindow.cpp:5216
+#: ../mainwindow.cpp:5185 ../mainwindow.cpp:5219
 msgctxt "MainWindow|"
 msgid "QSOs"
 msgstr "QSOi"
 
-#: ../mainwindow.cpp:5183 ../mainwindow.cpp:5207 ../mainwindow.cpp:5262
+#: ../mainwindow.cpp:5186 ../mainwindow.cpp:5210 ../mainwindow.cpp:5265
 msgctxt "MainWindow|"
 msgid "DXCC"
 msgstr "DXCC"
 
-#: ../mainwindow.cpp:5184
+#: ../mainwindow.cpp:5187
 msgctxt "MainWindow|"
 msgid "CQ"
 msgstr "CQ"
 
-#: ../mainwindow.cpp:5185
+#: ../mainwindow.cpp:5188
 msgctxt "MainWindow|"
 msgid "Score"
 msgstr "Zbroj"
 
-#: ../mainwindow.cpp:5186
+#: ../mainwindow.cpp:5189
 msgctxt "MainWindow|"
 msgid "DX-Marathon"
 msgstr "DX-Marathon"
 
-#: ../mainwindow.cpp:5194
+#: ../mainwindow.cpp:5197
 msgctxt "MainWindow|"
 msgid "Info"
 msgstr "Podaci"
 
-#: ../mainwindow.cpp:5198
+#: ../mainwindow.cpp:5201
 msgctxt "MainWindow|"
 msgid "Award"
 msgstr "Priznanje"
 
-#: ../mainwindow.cpp:5201
+#: ../mainwindow.cpp:5204
 msgctxt "MainWindow|"
 msgid "Confirmed"
 msgstr "Potvrđeno"
 
-#: ../mainwindow.cpp:5204
+#: ../mainwindow.cpp:5207
 msgctxt "MainWindow|"
 msgid "Worked"
 msgstr "Rađeno"
 
-#: ../mainwindow.cpp:5210
+#: ../mainwindow.cpp:5213
 msgctxt "MainWindow|"
 msgid "WAZ"
 msgstr "WAZ"
 
-#: ../mainwindow.cpp:5213
+#: ../mainwindow.cpp:5216
 msgctxt "MainWindow|"
 msgid "Local"
 msgstr "Lokalno"
 
-#: ../mainwindow.cpp:5257
+#: ../mainwindow.cpp:5260
 msgctxt "MainWindow|"
 msgid "Awards"
 msgstr "Priznanja"
 
-#: ../mainwindow.cpp:5258
+#: ../mainwindow.cpp:5261
 msgctxt "MainWindow|"
 msgid "Search"
 msgstr "Traži"
 
-#: ../mainwindow.cpp:5260
+#: ../mainwindow.cpp:5263
 msgctxt "MainWindow|"
 msgid "Log"
 msgstr "Dnevnik"
 
-#: ../mainwindow.cpp:5261
+#: ../mainwindow.cpp:5264
 msgctxt "MainWindow|"
 msgid "DX-Cluster"
 msgstr "DX-Cluster"
 
-#: ../mainwindow.cpp:5357 ../mainwindow.cpp:5368 ../mainwindow.cpp:5442
-#: ../mainwindow.cpp:5452
+#: ../mainwindow.cpp:5360 ../mainwindow.cpp:5371 ../mainwindow.cpp:5445
+#: ../mainwindow.cpp:5455
 msgctxt "MainWindow|"
 msgid "Save ADIF File"
 msgstr "Spremi ADIF datoteku"
 
-#: ../mainwindow.cpp:5378
+#: ../mainwindow.cpp:5381
 msgctxt "MainWindow|"
 msgid "LoTW logfile has been properly exported!"
 msgstr "LoTW dnevnička datoteka je uspješno izvezena!"
 
-#: ../mainwindow.cpp:5378
+#: ../mainwindow.cpp:5381
 msgctxt "MainWindow|"
 msgid "Remember to:"
 msgstr "Sjetite se:"
 
-#: ../mainwindow.cpp:5378
+#: ../mainwindow.cpp:5381
 msgctxt "MainWindow|"
 msgid "Before uploading: sign the LoTW log; and"
 msgstr "Prije učitavanja: potpišite LoTW dnevničku datoteku; i"
 
-#: ../mainwindow.cpp:5378
+#: ../mainwindow.cpp:5381
 msgctxt "MainWindow|"
 msgid "After uploading: mark as sent all the queued QSO (LoTW Tools)."
 msgstr ""
 "Poslije učitavanja: označite kao poslane sve poredane QSOe (LoTW alati)."
 
-#: ../mainwindow.cpp:5399
+#: ../mainwindow.cpp:5402
 msgctxt "MainWindow|"
 msgid "There was no QSO to be exported."
 msgstr "Nije bilo QSOa za izvoz."
 
-#: ../mainwindow.cpp:5399
+#: ../mainwindow.cpp:5402
 msgctxt "MainWindow|"
 msgid ""
 "If you think that some QSO should have been exported, please look for them "
@@ -2144,48 +2134,48 @@ msgstr ""
 "Ako mislite da je neki QSO trebao biti izvezen, molim potražite ih i "
 "osigurajte da je eQSL LoTW QSL poslana kućica označena kao:"
 
-#: ../mainwindow.cpp:5399
+#: ../mainwindow.cpp:5402
 msgctxt "MainWindow|"
 msgid "Q - Queued"
 msgstr "Q - Poredana"
 
-#: ../mainwindow.cpp:5420
+#: ../mainwindow.cpp:5423
 msgctxt "MainWindow|"
 msgid ""
 "There was an error while exporting the LoTW. The log has not been exported!"
 msgstr "Dogodola se greška prilikom izvoza u LoTW. Dnevnik nije bio izvezen!"
 
-#: ../mainwindow.cpp:5466
+#: ../mainwindow.cpp:5469
 msgctxt "MainWindow|"
 msgid "Save Cabrillo File"
 msgstr "Spremi Cabrillo datoteku"
 
-#: ../mainwindow.cpp:5477 ../mainwindow.cpp:5501
+#: ../mainwindow.cpp:5480 ../mainwindow.cpp:5504
 msgctxt "MainWindow|"
 msgid "Open File"
 msgstr "Otvori datoteku"
 
-#: ../mainwindow.cpp:5618
+#: ../mainwindow.cpp:5621
 msgctxt "MainWindow|"
 msgid "&Modify"
 msgstr "&Promijeni"
 
-#: ../mainwindow.cpp:6181
+#: ../mainwindow.cpp:6184
 msgctxt "MainWindow|"
 msgid " - Needed for DXMarathon"
 msgstr " - Potrebno za DXMarathon"
 
-#: ../mainwindow.cpp:6292
+#: ../mainwindow.cpp:6295
 msgctxt "MainWindow|"
 msgid "Filling QSOs..."
 msgstr "Ispunjavam QSOe..."
 
-#: ../mainwindow.cpp:6292
+#: ../mainwindow.cpp:6295
 msgctxt "MainWindow|"
 msgid "Abort filling"
 msgstr "Prekini ispunjavanje"
 
-#: ../mainwindow.cpp:6410
+#: ../mainwindow.cpp:6413
 msgctxt "MainWindow|"
 msgid ""
 "Filling QSOs...\n"
@@ -2194,47 +2184,47 @@ msgstr ""
 "Ispunjavam QSOe...\n"
 " QSO: "
 
-#: ../mainwindow.cpp:6484
+#: ../mainwindow.cpp:6487
 msgctxt "MainWindow|"
 msgid "Number"
 msgstr "Broj"
 
-#: ../mainwindow.cpp:6486
+#: ../mainwindow.cpp:6489
 msgctxt "MainWindow|"
 msgid "Date"
 msgstr "Datum"
 
-#: ../mainwindow.cpp:6488
+#: ../mainwindow.cpp:6491
 msgctxt "MainWindow|"
 msgid "Time"
 msgstr "Vrijeme"
 
-#: ../mainwindow.cpp:6496
+#: ../mainwindow.cpp:6499
 msgctxt "MainWindow|"
 msgid "Band"
 msgstr "Pojas"
 
-#: ../mainwindow.cpp:6498 ../mainwindow.cpp:7179
+#: ../mainwindow.cpp:6501 ../mainwindow.cpp:7182
 msgctxt "MainWindow|"
 msgid "Mode"
 msgstr "Način rada"
 
-#: ../mainwindow.cpp:6513
+#: ../mainwindow.cpp:6516
 msgctxt "MainWindow|"
 msgid "Print Log"
 msgstr "Ispiši dnevnik"
 
-#: ../mainwindow.cpp:6518
+#: ../mainwindow.cpp:6521
 msgctxt "MainWindow|"
 msgid "Printing the log..."
 msgstr "Ispisujem dnevnik..."
 
-#: ../mainwindow.cpp:6518
+#: ../mainwindow.cpp:6521
 msgctxt "MainWindow|"
 msgid "Abort printing"
 msgstr "Prekini ispis"
 
-#: ../mainwindow.cpp:6533 ../mainwindow.cpp:6548
+#: ../mainwindow.cpp:6536 ../mainwindow.cpp:6551
 msgctxt "MainWindow|"
 msgid ""
 "Printing the log...\n"
@@ -2243,81 +2233,81 @@ msgstr ""
 "Ispisujem dnevnik...\n"
 " QSO: "
 
-#: ../mainwindow.cpp:7165
+#: ../mainwindow.cpp:7168
 msgctxt "MainWindow|"
 msgid "KLog QSO received"
 msgstr "KLog QSO primljen"
 
-#: ../mainwindow.cpp:7170
+#: ../mainwindow.cpp:7173
 msgctxt "MainWindow|"
 msgid "The following QSO data has been received from WSJT-X to be logged:"
 msgstr ""
 "QSO sa slijedećim podacima je primljen iz WSJT-Xa kako bi bilo zapisan u "
 "dnevnik:"
 
-#: ../mainwindow.cpp:7173
+#: ../mainwindow.cpp:7176
 msgctxt "MainWindow|"
 msgid "Call"
 msgstr "Znak"
 
-#: ../mainwindow.cpp:7176
+#: ../mainwindow.cpp:7179
 msgctxt "MainWindow|"
 msgid "Freq"
 msgstr "Frekv"
 
-#: ../mainwindow.cpp:7182
+#: ../mainwindow.cpp:7185
 msgctxt "MainWindow|"
 msgid "Time On"
 msgstr "Vrijeme početka"
 
-#: ../mainwindow.cpp:7185
+#: ../mainwindow.cpp:7188
 msgctxt "MainWindow|"
 msgid "Time Off"
 msgstr "Vrijeme kraja"
 
-#: ../mainwindow.cpp:7188
+#: ../mainwindow.cpp:7191
 msgctxt "MainWindow|"
 msgid "RST TX"
 msgstr "RST TX"
 
-#: ../mainwindow.cpp:7188
+#: ../mainwindow.cpp:7191
 msgctxt "MainWindow|"
 msgid "RST RX"
 msgstr "RST RX"
 
-#: ../mainwindow.cpp:7191
+#: ../mainwindow.cpp:7194
 msgctxt "MainWindow|"
 msgid "DX-Grid"
 msgstr "DX koordinata"
 
-#: ../mainwindow.cpp:7197
+#: ../mainwindow.cpp:7200
 msgctxt "MainWindow|"
 msgid "Comments"
 msgstr "Komentari"
 
-#: ../mainwindow.cpp:7200
+#: ../mainwindow.cpp:7203
 msgctxt "MainWindow|"
 msgid "TX Pwr"
 msgstr "TX snaga"
 
-#: ../mainwindow.cpp:7203
+#: ../mainwindow.cpp:7206
 msgctxt "MainWindow|"
 msgid "Operator"
 msgstr "Operater"
 
-#: ../mainwindow.cpp:7206
+#: ../mainwindow.cpp:7209
 msgctxt "MainWindow|"
 msgid "Local-Grid"
 msgstr "Lokalna koordinata"
 
-#: ../mainwindow.cpp:7289
+#: ../mainwindow.cpp:7292
 msgctxt "MainWindow|"
 msgid ""
 "A new mode not supported by KLog has been received from an external software:"
 msgstr ""
 "Novi način rada koji nije podržan u KLogu primljen je iz vanjskog softvera:"
 
-#: ../mainwindow.cpp:7289
+#: ../mainwindow.cpp:7292
 msgctxt "MainWindow|"
 msgid ""
 "If the received mode is correct, please contact KLog development team and "
@@ -2326,7 +2316,7 @@ msgstr ""
 "Ako je ovaj način rada valjan, molimo javite razvijateljima KLoga i "
 "zatražite podršku za ovaj način rada"
 
-#: ../mainwindow.cpp:7289
+#: ../mainwindow.cpp:7292
 msgctxt "MainWindow|"
 msgid ""
 "Do you want to keep receiving this alerts? (disabling this alerts will "
@@ -2335,62 +2325,62 @@ msgstr ""
 "Želite li nastaviti primati ovu obavijest? (ako onemogućite ovu obavijest "
 "nećete moći otkriti nevažeće načine rada)"
 
-#: ../mainwindow.cpp:7450
+#: ../mainwindow.cpp:7453
 msgctxt "MainWindow|"
 msgid ""
 "A duplicated satellite has been detected in the file and will not be "
 "imported."
 msgstr ""
 
-#: ../mainwindow.cpp:7451
+#: ../mainwindow.cpp:7454
 msgctxt "MainWindow|"
 msgid ""
 "Please check the satellite information file and ensure it is properly "
 "populated."
 msgstr ""
 
-#: ../mainwindow.cpp:7451
+#: ../mainwindow.cpp:7454
 msgctxt "MainWindow|"
 msgid ""
 "Now you will see a more detailed error that can be used for debugging..."
 msgstr ""
 
-#: ../mainwindow.cpp:7458
+#: ../mainwindow.cpp:7461
 msgctxt "MainWindow|"
 msgid "An unexpected error ocurred!!"
 msgstr "Dogodila se nepredviđena greška!!"
 
-#: ../mainwindow.cpp:7458
+#: ../mainwindow.cpp:7461
 msgctxt "MainWindow|"
 msgid "If the problem persists, please contact the developers"
 msgstr "Ako problem i dalje traje, molimo javite razvijateljima programa"
 
-#: ../mainwindow.cpp:7458
+#: ../mainwindow.cpp:7461
 msgctxt "MainWindow|"
 msgid "for analysis:"
 msgstr "za analizu:"
 
-#: ../mainwindow.cpp:7460
+#: ../mainwindow.cpp:7463
 msgctxt "MainWindow|"
 msgid "Error in function"
 msgstr "Greška u funkciji"
 
-#: ../mainwindow.cpp:7461
+#: ../mainwindow.cpp:7464
 msgctxt "MainWindow|"
 msgid "Error code"
 msgstr "Kod greške"
 
-#: ../mainwindow.cpp:7462
+#: ../mainwindow.cpp:7465
 msgctxt "MainWindow|"
 msgid "Error text"
 msgstr "Tekst greške"
 
-#: ../mainwindow.cpp:7463
+#: ../mainwindow.cpp:7466
 msgctxt "MainWindow|"
 msgid "Failed query"
 msgstr "Neuspio upit"
 
-#: ../mainwindow.cpp:7474
+#: ../mainwindow.cpp:7477
 msgctxt "MainWindow|"
 msgid "Do you want to keep showing errors?"
 msgstr "Želite li nastaviti viđati greške?"
@@ -2665,20 +2655,18 @@ msgctxt "MainWindowSatTab|"
 msgid "Other - Sat not in the list"
 msgstr "Drugo - Satelit nije na listi"
 
-#: ../mainwindowsattab.cpp:86
-msgctxt "MainWindowSatTab|"
-msgid "Name of the Satellite if not in the list. Select: \""
-msgstr "Ime satelita ako ga nema na listi. Izaberite: \""
-
 #: ../mainwindowsattab.cpp:80 ../mainwindowsattab.cpp:82
 msgctxt "MainWindowSatTab|"
 msgid "Data entered in this tab will be copied into the next QSO."
 msgstr "Podaci uneseni u ovu karticu biti će kopirani u sljedeći QSO."
 
 #: ../mainwindowsattab.cpp:86
+#, qt-format
 msgctxt "MainWindowSatTab|"
-msgid "\" to enable this box. (format like AO-51)."
-msgstr "\" da bi omogućili ovu kućicu (format poput AO-51)."
+msgid ""
+"Name of the Satellite if not in the list. Select: \"%1\" to enable this box. "
+"(format like AO-51)."
+msgstr ""
 
 #: ../mainwindowsattab.cpp:89
 msgctxt "MainWindowSatTab|"
@@ -3210,9 +3198,10 @@ msgid "QSL received via direct"
 msgstr "QSL primljena izravno"
 
 #: ../searchwidget.cpp:1111
+#, qt-format
 msgctxt "SearchWidget|"
-msgid "You have requested to delete the QSO with:"
-msgstr "Zatražili ste brisanje QSOa sa:"
+msgid "You have requested to delete the QSO with: %1"
+msgstr ""
 
 #: ../searchwidget.cpp:1116
 msgctxt "SearchWidget|"
@@ -3274,6 +3263,18 @@ msgctxt "SetupDialog|"
 msgid "ClubLog"
 msgstr "ClubLog"
 
+#: ../setupdialog.cpp:372
+msgctxt "SetupDialog|"
+msgid ""
+"Go to the Misc tab and click on Move DB\n"
+" or the DB will not be moved to the new location."
+msgstr ""
+
+#: ../setupdialog.cpp:381
+msgctxt "SetupDialog|"
+msgid "Go to the User tab and enter valid QRZ."
+msgstr ""
+
 #: ../setupdialog.cpp:99 ../setupdialog.cpp:176
 msgctxt "SetupDialog|"
 msgid "Cancel"
@@ -3304,50 +3305,15 @@ msgctxt "SetupDialog|"
 msgid "You need to enter at least one log in the Logs tab."
 msgstr "Trebate unijeti barem jedan dnevnik na kartici Dnevnici."
 
-#: ../setupdialog.cpp:372
-msgctxt "SetupDialog|"
-msgid "Misc tab"
-msgstr "kartica Razno"
-
-#: ../setupdialog.cpp:372
-msgctxt "SetupDialog|"
-msgid "and click on"
-msgstr "i kliknite na"
-
-#: ../setupdialog.cpp:372
-msgctxt "SetupDialog|"
-msgid "Move DB"
-msgstr "Makni bazu podataka"
-
-#: ../setupdialog.cpp:372
-msgctxt "SetupDialog|"
-msgid "or the DB will not be moved to the new location."
-msgstr "ili baza podataka neće biti maknuta na novu lokaciju."
-
 #: ../setupdialog.cpp:380
 msgctxt "SetupDialog|"
 msgid "You need to enter at least a valid QRZ."
 msgstr "Trebate unijeti barem važeći QRZ."
 
-#: ../setupdialog.cpp:372 ../setupdialog.cpp:381
-msgctxt "SetupDialog|"
-msgid "Go to the"
-msgstr "Idi na"
-
 #: ../setupdialog.cpp:371
 msgctxt "SetupDialog|"
 msgid "DB has not been moved to new path"
 msgstr "baza podataka nije bila maknuta na novu lokaciju"
-
-#: ../setupdialog.cpp:381
-msgctxt "SetupDialog|"
-msgid "User tab"
-msgstr "Korisnička kartica"
-
-#: ../setupdialog.cpp:381
-msgctxt "SetupDialog|"
-msgid "and enter valid QRZ."
-msgstr "i unesite ispravan QRZ."
 
 #: ../setupdialog.cpp:392
 msgctxt "SetupDialog|"
@@ -4176,18 +4142,12 @@ msgid "Allow WSJT-X to send logged QSO to KLog"
 msgstr "Dozvoli WSJT-Xu da šalje zapisani QSO KLogu"
 
 #: ../setuppageudp.cpp:35
+#, qt-format
 msgctxt "SetupPageUDP|"
 msgid ""
 "QSO logged in WSJT-X will be sent to KLog and KLog will ask before logging "
-"into KLog unless"
+"into KLog unless \"%1\" is selected"
 msgstr ""
-"QSO zapisan u WSJT-Xu bit će poslan u KLog i KLog će pitati prije upisivanja "
-"u KLog ako ne"
-
-#: ../setuppageudp.cpp:35
-msgctxt "SetupPageUDP|"
-msgid "is selected."
-msgstr "je označen."
 
 #: ../setuppageudp.cpp:38
 msgctxt "SetupPageUDP|"
