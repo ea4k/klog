@@ -253,7 +253,7 @@ msgstr "Distribubución de QSO por banda"
 
 #: ../charts/barchartstats.cpp:96 ../charts/barchartstats.cpp:122
 #: ../charts/barchartstats.cpp:147 ../charts/barchartstats.cpp:172
-#: ../charts/barchartstats.cpp:305
+#: ../charts/barchartstats.cpp:305 ../charts/barchartstats.cpp:336
 msgctxt "BarChartStats|"
 msgid "Reading data ..."
 msgstr "Leyendo datos ..."
@@ -306,15 +306,25 @@ msgstr "Top 10 de DXCC por QSO"
 
 #: ../charts/barchartstats.cpp:294
 msgctxt "BarChartStats|"
+msgid "Continents"
+msgstr "Continentes"
+
+#: ../charts/barchartstats.cpp:295
+msgctxt "BarChartStats|"
+msgid "QSOs per continent"
+msgstr "QSOs por continente"
+
+#: ../charts/barchartstats.cpp:325
+msgctxt "BarChartStats|"
 msgid "Hours"
 msgstr "Horas"
 
-#: ../charts/barchartstats.cpp:295
+#: ../charts/barchartstats.cpp:326
 msgctxt "BarChartStats|"
 msgid "QSOs at hour"
 msgstr "QSO por hora"
 
-#: ../charts/barchartstats.cpp:305
+#: ../charts/barchartstats.cpp:305 ../charts/barchartstats.cpp:336
 msgctxt "BarChartStats|"
 msgid "Hours: "
 msgstr "Horas:"
@@ -594,18 +604,21 @@ msgid "Satellite"
 msgstr "Satélite"
 
 #: ../dataproxy_sqlite.cpp:3540
-#, fuzzy
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Bureau"
 msgstr "Bureau"
 
 #: ../dataproxy_sqlite.cpp:3552
-#, fuzzy
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Manager"
 msgstr "Manager"
+
+#: ../dataproxy_sqlite.cpp:4575
+msgctxt "DataProxy_SQLite|"
+msgid "All QSOs have been updated with a DXCC and the Continent."
+msgstr "Todos los QSO se han actualizado con un DXCC y un continente."
 
 #: ../dataproxy_sqlite.cpp:3000
 msgctxt ""
@@ -686,15 +699,10 @@ msgctxt "DataProxy_SQLite|"
 msgid "Electronic"
 msgstr "Electrónica"
 
-#: ../dataproxy_sqlite.cpp:4571
+#: ../dataproxy_sqlite.cpp:4574
 msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr "KLog DXCC"
-
-#: ../dataproxy_sqlite.cpp:4572
-msgctxt "DataProxy_SQLite|"
-msgid "All QSOs have been updated with a DXCC."
-msgstr "Se ha añadido el DXCC a todos los QSOs."
 
 #: ../downloadcty.cpp:64
 msgctxt "DownLoadCTY|"
@@ -3049,7 +3057,7 @@ msgstr "Actualizando información de modo..."
 
 #: ../database.cpp:3567 ../database.cpp:3752 ../database.cpp:3949
 #: ../database.cpp:4150 ../database.cpp:7194 ../database.cpp:7417
-#: ../dataproxy_sqlite.cpp:4514
+#: ../dataproxy_sqlite.cpp:4513
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "Cancelar actualización"
@@ -3142,15 +3150,10 @@ msgctxt "QObject|"
 msgid "Thank you for running KLog!"
 msgstr "¡Gracias por usar KLog!"
 
-#: ../dataproxy_sqlite.cpp:4514
-msgctxt "QObject|"
-msgid "Updating DXCC information..."
-msgstr "Actualizando información DXCC..."
-
-#: ../dataproxy_sqlite.cpp:4556
+#: ../dataproxy_sqlite.cpp:4513 ../dataproxy_sqlite.cpp:4556
 msgctxt "QObject|"
 msgid "Updating DXCC and Continent information..."
-msgstr ""
+msgstr "Actualizando la información de DXCC y continente..."
 
 #: ../searchwidget.cpp:26
 msgctxt "SearchWidget|"
@@ -4793,37 +4796,42 @@ msgstr ""
 "La configuración no está completa. ¿Está seguro de querer salir de la "
 "configuración?"
 
-#: ../statisticswidget.cpp:86
+#: ../statisticswidget.cpp:91
 msgctxt "StatisticsWidget|"
 msgid "QSO per year"
 msgstr "QSO por año"
 
-#: ../statisticswidget.cpp:87
+#: ../statisticswidget.cpp:92
 msgctxt "StatisticsWidget|"
 msgid "DXCC per year"
 msgstr "Entidades DXCC por año"
 
-#: ../statisticswidget.cpp:88
+#: ../statisticswidget.cpp:93
 msgctxt "StatisticsWidget|"
 msgid "CQ zones per year"
 msgstr "Zonas CQ por año"
 
-#: ../statisticswidget.cpp:89
+#: ../statisticswidget.cpp:94
 msgctxt "StatisticsWidget|"
 msgid "QSO per band"
 msgstr "QSOs por banda"
 
-#: ../statisticswidget.cpp:90
+#: ../statisticswidget.cpp:95
 msgctxt "StatisticsWidget|"
 msgid "QSO per mode"
 msgstr "QSOs por modo"
 
-#: ../statisticswidget.cpp:91
+#: ../statisticswidget.cpp:96
 msgctxt "StatisticsWidget|"
 msgid "QSO per DXCC"
 msgstr "QSOs por DXCC"
 
-#: ../statisticswidget.cpp:92
+#: ../statisticswidget.cpp:97
+msgctxt "StatisticsWidget|"
+msgid "QSO per Continent"
+msgstr "QSO por Continente"
+
+#: ../statisticswidget.cpp:98
 msgctxt "StatisticsWidget|"
 msgid "QSO per hour"
 msgstr "QSOs por hora"

@@ -246,7 +246,7 @@ msgstr ""
 
 #: ../charts/barchartstats.cpp:96 ../charts/barchartstats.cpp:122
 #: ../charts/barchartstats.cpp:147 ../charts/barchartstats.cpp:172
-#: ../charts/barchartstats.cpp:305
+#: ../charts/barchartstats.cpp:305 ../charts/barchartstats.cpp:336
 msgctxt "BarChartStats|"
 msgid "Reading data ..."
 msgstr ""
@@ -301,15 +301,25 @@ msgstr ""
 
 #: ../charts/barchartstats.cpp:294
 msgctxt "BarChartStats|"
-msgid "Hours"
+msgid "Continents"
 msgstr ""
 
 #: ../charts/barchartstats.cpp:295
 msgctxt "BarChartStats|"
+msgid "QSOs per continent"
+msgstr ""
+
+#: ../charts/barchartstats.cpp:325
+msgctxt "BarChartStats|"
+msgid "Hours"
+msgstr ""
+
+#: ../charts/barchartstats.cpp:326
+msgctxt "BarChartStats|"
 msgid "QSOs at hour"
 msgstr ""
 
-#: ../charts/barchartstats.cpp:305
+#: ../charts/barchartstats.cpp:305 ../charts/barchartstats.cpp:336
 msgctxt "BarChartStats|"
 msgid "Hours: "
 msgstr ""
@@ -598,6 +608,11 @@ msgctxt ""
 msgid "Manager"
 msgstr ""
 
+#: ../dataproxy_sqlite.cpp:4575
+msgctxt "DataProxy_SQLite|"
+msgid "All QSOs have been updated with a DXCC and the Continent."
+msgstr ""
+
 #: ../dataproxy_sqlite.cpp:3000
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
@@ -678,15 +693,10 @@ msgctxt "DataProxy_SQLite|"
 msgid "Electronic"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4571
+#: ../dataproxy_sqlite.cpp:4574
 msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr "KLog-DXCC"
-
-#: ../dataproxy_sqlite.cpp:4572
-msgctxt "DataProxy_SQLite|"
-msgid "All QSOs have been updated with a DXCC."
-msgstr "Alle QSO'er er blevet opdateret med en DXCC."
 
 #: ../downloadcty.cpp:64
 msgctxt "DownLoadCTY|"
@@ -2996,7 +3006,7 @@ msgstr "Opdaterer tilstandsinformation ..."
 
 #: ../database.cpp:3567 ../database.cpp:3752 ../database.cpp:3949
 #: ../database.cpp:4150 ../database.cpp:7194 ../database.cpp:7417
-#: ../dataproxy_sqlite.cpp:4514
+#: ../dataproxy_sqlite.cpp:4513
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "Afbryd opdatering"
@@ -3103,12 +3113,7 @@ msgctxt "QObject|"
 msgid "Remember that your KLog dir is on your system..."
 msgstr "Husk at din KLog-mappe er på dit system ..."
 
-#: ../dataproxy_sqlite.cpp:4514
-msgctxt "QObject|"
-msgid "Updating DXCC information..."
-msgstr "Opdaterer DXCC-information ..."
-
-#: ../dataproxy_sqlite.cpp:4556
+#: ../dataproxy_sqlite.cpp:4513 ../dataproxy_sqlite.cpp:4556
 msgctxt "QObject|"
 msgid "Updating DXCC and Continent information..."
 msgstr ""
@@ -4706,37 +4711,42 @@ msgstr ""
 "Opsætning er ikke færdig endnu. Er du sikker på, at du ønsker at afslutte "
 "opsætningen?"
 
-#: ../statisticswidget.cpp:86
+#: ../statisticswidget.cpp:91
 msgctxt "StatisticsWidget|"
 msgid "QSO per year"
 msgstr ""
 
-#: ../statisticswidget.cpp:87
+#: ../statisticswidget.cpp:92
 msgctxt "StatisticsWidget|"
 msgid "DXCC per year"
 msgstr ""
 
-#: ../statisticswidget.cpp:88
+#: ../statisticswidget.cpp:93
 msgctxt "StatisticsWidget|"
 msgid "CQ zones per year"
 msgstr ""
 
-#: ../statisticswidget.cpp:89
+#: ../statisticswidget.cpp:94
 msgctxt "StatisticsWidget|"
 msgid "QSO per band"
 msgstr ""
 
-#: ../statisticswidget.cpp:90
+#: ../statisticswidget.cpp:95
 msgctxt "StatisticsWidget|"
 msgid "QSO per mode"
 msgstr ""
 
-#: ../statisticswidget.cpp:91
+#: ../statisticswidget.cpp:96
 msgctxt "StatisticsWidget|"
 msgid "QSO per DXCC"
 msgstr ""
 
-#: ../statisticswidget.cpp:92
+#: ../statisticswidget.cpp:97
+msgctxt "StatisticsWidget|"
+msgid "QSO per Continent"
+msgstr ""
+
+#: ../statisticswidget.cpp:98
 msgctxt "StatisticsWidget|"
 msgid "QSO per hour"
 msgstr ""

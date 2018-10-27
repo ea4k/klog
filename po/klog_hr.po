@@ -245,7 +245,7 @@ msgstr "Raspodjela QSOa po opsezima"
 
 #: ../charts/barchartstats.cpp:96 ../charts/barchartstats.cpp:122
 #: ../charts/barchartstats.cpp:147 ../charts/barchartstats.cpp:172
-#: ../charts/barchartstats.cpp:305
+#: ../charts/barchartstats.cpp:305 ../charts/barchartstats.cpp:336
 msgctxt "BarChartStats|"
 msgid "Reading data ..."
 msgstr "Učitavam podatke ..."
@@ -298,15 +298,25 @@ msgstr "Gornjih deset DXCCa po QSOu"
 
 #: ../charts/barchartstats.cpp:294
 msgctxt "BarChartStats|"
+msgid "Continents"
+msgstr ""
+
+#: ../charts/barchartstats.cpp:295
+msgctxt "BarChartStats|"
+msgid "QSOs per continent"
+msgstr ""
+
+#: ../charts/barchartstats.cpp:325
+msgctxt "BarChartStats|"
 msgid "Hours"
 msgstr "Sati"
 
-#: ../charts/barchartstats.cpp:295
+#: ../charts/barchartstats.cpp:326
 msgctxt "BarChartStats|"
 msgid "QSOs at hour"
 msgstr "QSOa po satu"
 
-#: ../charts/barchartstats.cpp:305
+#: ../charts/barchartstats.cpp:305 ../charts/barchartstats.cpp:336
 msgctxt "BarChartStats|"
 msgid "Hours: "
 msgstr "Sati: "
@@ -598,6 +608,11 @@ msgctxt ""
 msgid "Manager"
 msgstr ""
 
+#: ../dataproxy_sqlite.cpp:4575
+msgctxt "DataProxy_SQLite|"
+msgid "All QSOs have been updated with a DXCC and the Continent."
+msgstr ""
+
 #: ../dataproxy_sqlite.cpp:3000
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
@@ -678,15 +693,10 @@ msgctxt "DataProxy_SQLite|"
 msgid "Electronic"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4571
+#: ../dataproxy_sqlite.cpp:4574
 msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr "KLog DXCC"
-
-#: ../dataproxy_sqlite.cpp:4572
-msgctxt "DataProxy_SQLite|"
-msgid "All QSOs have been updated with a DXCC."
-msgstr "Svi QSOi su ažurirani sa DXCC."
 
 #: ../downloadcty.cpp:64
 msgctxt "DownLoadCTY|"
@@ -3022,7 +3032,7 @@ msgstr "Ažuriram podatke o načinu rada..."
 
 #: ../database.cpp:3567 ../database.cpp:3752 ../database.cpp:3949
 #: ../database.cpp:4150 ../database.cpp:7194 ../database.cpp:7417
-#: ../dataproxy_sqlite.cpp:4514
+#: ../dataproxy_sqlite.cpp:4513
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "Prekini ažuriranje"
@@ -3115,12 +3125,7 @@ msgctxt "QObject|"
 msgid "Thank you for running KLog!"
 msgstr "Hvala što koristite KLog!"
 
-#: ../dataproxy_sqlite.cpp:4514
-msgctxt "QObject|"
-msgid "Updating DXCC information..."
-msgstr "Ažuriram DXCC podatke..."
-
-#: ../dataproxy_sqlite.cpp:4556
+#: ../dataproxy_sqlite.cpp:4513 ../dataproxy_sqlite.cpp:4556
 msgctxt "QObject|"
 msgid "Updating DXCC and Continent information..."
 msgstr ""
@@ -4756,37 +4761,42 @@ msgid "Setup is not complete yet. Are you sure you want to quit setup?"
 msgstr ""
 "Postavljanje nije završeno. Jeste li sigurni da želite izaći iz postavljanja?"
 
-#: ../statisticswidget.cpp:86
+#: ../statisticswidget.cpp:91
 msgctxt "StatisticsWidget|"
 msgid "QSO per year"
 msgstr "QSOi po godini"
 
-#: ../statisticswidget.cpp:87
+#: ../statisticswidget.cpp:92
 msgctxt "StatisticsWidget|"
 msgid "DXCC per year"
 msgstr "DXCC po godini"
 
-#: ../statisticswidget.cpp:88
+#: ../statisticswidget.cpp:93
 msgctxt "StatisticsWidget|"
 msgid "CQ zones per year"
 msgstr "CQ zone po godini"
 
-#: ../statisticswidget.cpp:89
+#: ../statisticswidget.cpp:94
 msgctxt "StatisticsWidget|"
 msgid "QSO per band"
 msgstr "QSOi po frekv. pojasu"
 
-#: ../statisticswidget.cpp:90
+#: ../statisticswidget.cpp:95
 msgctxt "StatisticsWidget|"
 msgid "QSO per mode"
 msgstr "QSOi po načinu rada"
 
-#: ../statisticswidget.cpp:91
+#: ../statisticswidget.cpp:96
 msgctxt "StatisticsWidget|"
 msgid "QSO per DXCC"
 msgstr "QSOi po DXCCu"
 
-#: ../statisticswidget.cpp:92
+#: ../statisticswidget.cpp:97
+msgctxt "StatisticsWidget|"
+msgid "QSO per Continent"
+msgstr ""
+
+#: ../statisticswidget.cpp:98
 msgctxt "StatisticsWidget|"
 msgid "QSO per hour"
 msgstr "QSOi po satu"

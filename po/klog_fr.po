@@ -214,7 +214,7 @@ msgstr "QSOs par an"
 
 #: ../charts/barchartstats.cpp:96 ../charts/barchartstats.cpp:122
 #: ../charts/barchartstats.cpp:147 ../charts/barchartstats.cpp:172
-#: ../charts/barchartstats.cpp:305
+#: ../charts/barchartstats.cpp:305 ../charts/barchartstats.cpp:336
 msgctxt "BarChartStats|"
 msgid "Reading data ..."
 msgstr "Lecture des données en cours..."
@@ -309,15 +309,25 @@ msgstr "Top 10 DXCC par QSO"
 
 #: ../charts/barchartstats.cpp:294
 msgctxt "BarChartStats|"
+msgid "Continents"
+msgstr ""
+
+#: ../charts/barchartstats.cpp:295
+msgctxt "BarChartStats|"
+msgid "QSOs per continent"
+msgstr ""
+
+#: ../charts/barchartstats.cpp:325
+msgctxt "BarChartStats|"
 msgid "Hours"
 msgstr "Heures"
 
-#: ../charts/barchartstats.cpp:295
+#: ../charts/barchartstats.cpp:326
 msgctxt "BarChartStats|"
 msgid "QSOs at hour"
 msgstr "QSOs à l'heure"
 
-#: ../charts/barchartstats.cpp:305
+#: ../charts/barchartstats.cpp:305 ../charts/barchartstats.cpp:336
 msgctxt "BarChartStats|"
 msgid "Hours: "
 msgstr "Heures : "
@@ -534,76 +544,75 @@ msgstr "Aucune requête n'a échoué"
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Aircraft Scatter"
-msgstr ""
+msgstr "Aircraft Scatter"
 
 #: ../dataproxy_sqlite.cpp:2980
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora"
-msgstr ""
+msgstr "Aurora"
 
 #: ../dataproxy_sqlite.cpp:2984
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora-E"
-msgstr ""
+msgstr "Aurora-E"
 
 #: ../dataproxy_sqlite.cpp:2988
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Back scatter"
-msgstr ""
+msgstr "Back scatter"
 
 #: ../dataproxy_sqlite.cpp:2992
 msgctxt "DataProxy_SQLite|"
 msgid "Earth-Moon-Earth"
-msgstr ""
+msgstr "Terre-Lune-Terre"
 
 #: ../dataproxy_sqlite.cpp:2996
 msgctxt "DataProxy_SQLite|"
 msgid "Sporadic E"
-msgstr ""
+msgstr "Sporadique E"
 
 #: ../dataproxy_sqlite.cpp:3000
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Field Aligned Irregularities"
-msgstr ""
+msgstr "Field Aligned Irregularities"
 
 #: ../dataproxy_sqlite.cpp:3004
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "F2 Reflection"
-msgstr ""
+msgstr "F2 Reflection"
 
 #: ../dataproxy_sqlite.cpp:3008
 msgctxt "DataProxy_SQLite|"
 msgid "Internet-assisted"
-msgstr ""
+msgstr "Assisté par Internet"
 
 #: ../dataproxy_sqlite.cpp:3012
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Ionoscatter"
-msgstr ""
+msgstr "Ionoscatter"
 
 #: ../dataproxy_sqlite.cpp:3016
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Meteor scatter"
-msgstr ""
+msgstr "Meteor scatter"
 
 #: ../dataproxy_sqlite.cpp:3020
 msgctxt "DataProxy_SQLite|"
 msgid "Terrestrial or atmospheric repeater or transponder"
-msgstr ""
+msgstr "Répéteur terrestre ou atmosphérique ou transpondeur"
 
 #: ../dataproxy_sqlite.cpp:3024
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Rain scatter"
-msgstr ""
+msgstr "Rain scatter"
 
 #: ../dataproxy_sqlite.cpp:3028
-#, fuzzy
 msgctxt "DataProxy_SQLite|"
 msgid "Satellite"
 msgstr "Satellite"
@@ -612,67 +621,66 @@ msgstr "Satellite"
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Trans-equatorial"
-msgstr ""
+msgstr "Trans-équatorial"
 
 #: ../dataproxy_sqlite.cpp:3036
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Tropospheric ducting"
-msgstr ""
+msgstr "Tropospheric ducting"
 
 #: ../dataproxy_sqlite.cpp:3351 ../dataproxy_sqlite.cpp:3418
 msgctxt "DataProxy_SQLite|"
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 #: ../dataproxy_sqlite.cpp:3355 ../dataproxy_sqlite.cpp:3422
 msgctxt "DataProxy_SQLite|"
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 #: ../dataproxy_sqlite.cpp:3359 ../dataproxy_sqlite.cpp:3426
 msgctxt "DataProxy_SQLite|"
 msgid "Requested"
-msgstr ""
+msgstr "Demandé"
 
 #: ../dataproxy_sqlite.cpp:3363 ../dataproxy_sqlite.cpp:3434
 msgctxt "DataProxy_SQLite|"
 msgid "Ignore/Invalid"
-msgstr ""
+msgstr "Ignoré/Incorrect"
 
 #: ../dataproxy_sqlite.cpp:3367
 msgctxt "DataProxy_SQLite|"
 msgid "Validated"
-msgstr ""
+msgstr "Validé"
 
 #: ../dataproxy_sqlite.cpp:3430
 msgctxt "DataProxy_SQLite|"
 msgid "Queued"
-msgstr ""
+msgstr "Mis en file d'attente"
 
 #: ../dataproxy_sqlite.cpp:3482
 msgctxt "DataProxy_SQLite|"
 msgid "Uploaded"
-msgstr ""
+msgstr "Téléversé"
 
 #: ../dataproxy_sqlite.cpp:3486
 msgctxt "DataProxy_SQLite|"
 msgid "Do not upload"
-msgstr ""
+msgstr "Ne pas téléverser"
 
 #: ../dataproxy_sqlite.cpp:3490
 msgctxt "DataProxy_SQLite|"
 msgid "Modified"
-msgstr ""
+msgstr "Modifié"
 
 #: ../dataproxy_sqlite.cpp:3540
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Bureau"
-msgstr ""
+msgstr "Bureau"
 
 #: ../dataproxy_sqlite.cpp:3544
-#, fuzzy
 msgctxt "DataProxy_SQLite|"
 msgid "Direct"
 msgstr "Direct"
@@ -680,23 +688,23 @@ msgstr "Direct"
 #: ../dataproxy_sqlite.cpp:3548
 msgctxt "DataProxy_SQLite|"
 msgid "Electronic"
-msgstr ""
+msgstr "Électronique"
 
 #: ../dataproxy_sqlite.cpp:3552
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Manager"
-msgstr ""
+msgstr "Manager"
 
-#: ../dataproxy_sqlite.cpp:4571
+#: ../dataproxy_sqlite.cpp:4574
 msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr "DXCC KLog"
 
-#: ../dataproxy_sqlite.cpp:4572
+#: ../dataproxy_sqlite.cpp:4575
 msgctxt "DataProxy_SQLite|"
-msgid "All QSOs have been updated with a DXCC."
-msgstr "Tous les QSOs ont été mis à jour avec un DXCC."
+msgid "All QSOs have been updated with a DXCC and the Continent."
+msgstr ""
 
 #: ../downloadcty.cpp:64
 msgctxt "DownLoadCTY|"
@@ -3059,7 +3067,7 @@ msgstr "Mise à jour des informations sur les modes..."
 
 #: ../database.cpp:3567 ../database.cpp:3752 ../database.cpp:3949
 #: ../database.cpp:4150 ../database.cpp:7194 ../database.cpp:7417
-#: ../dataproxy_sqlite.cpp:4514
+#: ../dataproxy_sqlite.cpp:4513
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "Mise à jour annulée"
@@ -3123,15 +3131,10 @@ msgctxt "QObject|"
 msgid "Updating WAZ Award information..."
 msgstr "Lise à jour des informations sur les Diplômes WAZ..."
 
-#: ../dataproxy_sqlite.cpp:4514
-msgctxt "QObject|"
-msgid "Updating DXCC information..."
-msgstr "Mise à jour des informations DXCC..."
-
-#: ../dataproxy_sqlite.cpp:4556
+#: ../dataproxy_sqlite.cpp:4513 ../dataproxy_sqlite.cpp:4556
 msgctxt "QObject|"
 msgid "Updating DXCC and Continent information..."
-msgstr ""
+msgstr "Mise à jour des informations sur les Contrées DXCC et Continents..."
 
 #: ../main.cpp:267
 msgctxt "QObject|"
@@ -4599,13 +4602,11 @@ msgid "&Locator (not valid)"
 msgstr "&Locator (invalide)"
 
 #: ../setuppageworldeditor.cpp:32
-#, fuzzy
 msgctxt "SetupPageWorldEditor|"
 msgid "Add"
 msgstr "Ajouter"
 
 #: ../setuppageworldeditor.cpp:33
-#, fuzzy
 msgctxt "SetupPageWorldEditor|"
 msgid "Delete"
 msgstr "Supprimer"
@@ -4613,28 +4614,28 @@ msgstr "Supprimer"
 #: ../setuppageworldeditor.cpp:34
 msgctxt "SetupPageWorldEditor|"
 msgid "Edit"
-msgstr ""
+msgstr "Éditer"
 
 #: ../setuppageworldeditor.cpp:36
 msgctxt "SetupPageWorldEditor|"
 msgid "Export World"
-msgstr ""
+msgstr "Exporter"
 
 #: ../setuppageworldeditor.cpp:37
 msgctxt "SetupPageWorldEditor|"
 msgid "Import World"
-msgstr ""
+msgstr "Importer"
 
 #: ../setuppageworldeditor.cpp:43 ../setuppageworldeditor.cpp:44
 #: ../setuppageworldeditor.cpp:45 ../setuppageworldeditor.cpp:49
 msgctxt "SetupPageWorldEditor|"
 msgid "Still not implemented."
-msgstr ""
+msgstr "Pas encore implémenté."
 
 #: ../setuppageworldeditor.cpp:50
 msgctxt "SetupPageWorldEditor|"
 msgid "Import a new cty.csv file"
-msgstr ""
+msgstr "Importer un nouveau fichier cty.csv"
 
 #: ../setuppageworldeditor.cpp:88
 msgctxt "SetupPageWorldEditor|"
@@ -4785,37 +4786,42 @@ msgstr ""
 "L'installation n'est pas encore terminée. Êtes-vous sûr de quitter "
 "l'installation ?"
 
-#: ../statisticswidget.cpp:86
+#: ../statisticswidget.cpp:91
 msgctxt "StatisticsWidget|"
 msgid "QSO per year"
 msgstr "QSO par an"
 
-#: ../statisticswidget.cpp:87
+#: ../statisticswidget.cpp:92
 msgctxt "StatisticsWidget|"
 msgid "DXCC per year"
 msgstr "DXCC par an"
 
-#: ../statisticswidget.cpp:88
+#: ../statisticswidget.cpp:93
 msgctxt "StatisticsWidget|"
 msgid "CQ zones per year"
 msgstr "Zones CQ par an"
 
-#: ../statisticswidget.cpp:89
+#: ../statisticswidget.cpp:94
 msgctxt "StatisticsWidget|"
 msgid "QSO per band"
 msgstr "QSO par bande"
 
-#: ../statisticswidget.cpp:90
+#: ../statisticswidget.cpp:95
 msgctxt "StatisticsWidget|"
 msgid "QSO per mode"
 msgstr "QSO par mode"
 
-#: ../statisticswidget.cpp:91
+#: ../statisticswidget.cpp:96
 msgctxt "StatisticsWidget|"
 msgid "QSO per DXCC"
 msgstr "QSO par DXCC"
 
-#: ../statisticswidget.cpp:92
+#: ../statisticswidget.cpp:97
+msgctxt "StatisticsWidget|"
+msgid "QSO per Continent"
+msgstr ""
+
+#: ../statisticswidget.cpp:98
 msgctxt "StatisticsWidget|"
 msgid "QSO per hour"
 msgstr "QSO par heure"
