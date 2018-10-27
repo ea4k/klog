@@ -173,6 +173,8 @@ public:
     int getHowManyQSOInLog(const int _log);
     int getHowManyConfirmedQSLInLog(const int _log);
 
+    int getQSOsWithContinent(const QString _cont, const int _logNumber);
+
     int getQSOsInBand(const QString _band, const int _log);
     int getQSOsInMode(const QString _mode, const int _log);
 

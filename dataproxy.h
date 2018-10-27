@@ -196,6 +196,7 @@ public:
     virtual bool fillEmptyDXCCInTheLog();
     virtual int getHowManyQSOInLog(const int _log);
     virtual int getHowManyConfirmedQSLInLog(const int _log);
+    virtual int getQSOsWithContinent(const QString _cont, const int _logNumber);
     virtual int getNumberOfManagedLogs();
     virtual int getMaxLogNumber();
     virtual QStringList getListOfManagedLogs();
