@@ -607,6 +607,11 @@ int DataProxy::getHowManyConfirmedQSLInLog(const int _log)
     return 0;
 }
 
+int DataProxy::getQSOsWithContinent(const QString _cont, const int _logNumber)
+{
+    return 0;
+}
+
 int DataProxy::getQSOsInBand(const QString _band, const int _log)
 {
     return 0;

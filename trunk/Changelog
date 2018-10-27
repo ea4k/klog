@@ -1,11 +1,13 @@
-TBD - 0.9.5
+October 2018 - 0.9.5
 - Added a dot at the end of all the tooltips.
 - Updated the Satellite database (TNX KB2YSI).
-- New feature: KLog shows some statistics of your log: Tools->Show stats
-- New feature: It is now possible to update the satellite data reading a sats.dat file: Tools->Update Satellite Data
+- Some queries optimized.
+- Bugfix: You can nor close the About KLog window from any tag (TNX F4HWL).
+- New feature: KLog shows some statistics of your log: Tools->Stats
+- New feature: It is now possible to update the satellite data reading a sats.dat file: Tools->Update Satellite Data.
 - Satellites file (sats.dat) updated to september 2018 (TNX KB2YSI).
-- New translations: French (TNX Christophe) and German (TNX Lück).
-- Updated translations: Catalan (TNX Txema), Croatian (TNX M0NKC), Spanish (EA4TV).
+- New translations: French (TNX F4HWL) and German (TNX Burkhard).
+- Updated translations: Catalan (TNX Txema), Croatian (TNX M0NKC), Finnish (TNX Kristjan), Spanish (EA4TV).
 
 
 August 2018 - 0.9.4

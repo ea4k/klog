@@ -2961,13 +2961,91 @@ QStringList DataProxy_SQLite::getPropModeList()
 
     bool sqlOK = query.exec(queryString);
 
+
     if (sqlOK)
     {
+        QString translatedValue = QString();
+        QString valueToTranslate = QString();
         while ( (query.next())) {
             if (query.isValid())
             {
+
+                valueToTranslate = (query.value(2)).toString();
+                if (valueToTranslate == "Aircraft Scatter")
+                {
+                    translatedValue = tr("Aircraft Scatter", "Common term in hamradio, do not translate if not sure");
+                }
+                else if(valueToTranslate == "Aurora")
+                {
+                    translatedValue = tr("Aurora");
+                }
+                else if(valueToTranslate == "Aurora-E")
+                {
+                    translatedValue = tr("Aurora-E");
+                }
+                else if(valueToTranslate == "Back scatter")
+                {
+                    translatedValue = tr("Back scatter", "Common term in hamradio, do not translate if not sure");
+                }
+                else if(valueToTranslate == "Earth-Moon-Earth")
+                {
+                    translatedValue = tr("Earth-Moon-Earth");
+                }
+                else if(valueToTranslate == "Sporadic E")
+                {
+                    translatedValue = tr("Sporadic E");
+                }
+                else if(valueToTranslate == "Field Aligned Irregularities")
+                {
+                    translatedValue = tr("Field Aligned Irregularities", "Common term in hamradio, do not translate if not sure");
+                }
+                else if(valueToTranslate == "F2 Reflection")
+                {
+                    translatedValue = tr("F2 Reflection", "Common term in hamradio, do not translate if not sure");
+                }
+                else if(valueToTranslate == "Internet-assisted")
+                {
+                    translatedValue = tr("Internet-assisted");
+                }
+                else if(valueToTranslate == "Ionoscatter")
+                {
+                    translatedValue = tr("Ionoscatter", "Common term in hamradio, do not translate if not sure");
+                }
+                else if(valueToTranslate == "Meteor scatter")
+                {
+                    translatedValue = tr("Meteor scatter", "Common term in hamradio, do not translate if not sure");
+                }
+                else if(valueToTranslate == "Terrestrial or atmospheric repeater or transponder")
+                {
+                    translatedValue = tr("Terrestrial or atmospheric repeater or transponder");
+                }
+                else if(valueToTranslate == "Rain scatter")
+                {
+                    translatedValue = tr("Rain scatter", "Common term in hamradio, do not translate if not sure");
+                }
+                else if(valueToTranslate == "Satellite")
+                {
+                    translatedValue = tr("Satellite");
+                }
+                else if(valueToTranslate == "Trans-equatorial")
+                {
+                    translatedValue = tr("Trans-equatorial", "Common term in hamradio, do not translate if not sure");
+                }
+                else if(valueToTranslate == "Tropospheric ducting")
+                {
+                    translatedValue = tr("Tropospheric ducting", "Common term in hamradio, do not translate if not sure");
+                }
+                else if(valueToTranslate == "")
+                {
+                    translatedValue = tr("");
+                }
+                else
+                {
+                   translatedValue = valueToTranslate;
+                }
+
                 aux.clear();
-                aux = (query.value(0)).toString() + " - " + (query.value(1)).toString() + " - " + (query.value(2)).toString();
+                aux = (query.value(0)).toString() + " - " + (query.value(1)).toString() + " - " + translatedValue;
                 qs << aux;
             }
             else
@@ -3259,11 +3337,41 @@ QStringList DataProxy_SQLite::getQSLRcvdList()
 
      if (sqlOK)
      {
+         QString translatedValue = QString();
+         QString valueToTranslate = QString();
+
+
+
          while ( (query.next())) {
              if (query.isValid())
              {
+                 valueToTranslate = (query.value(1)).toString();
+                 if (valueToTranslate == "Yes")
+                 {
+                     translatedValue = tr("Yes");
+                 }
+                 else if(valueToTranslate == "No")
+                 {
+                     translatedValue = tr("No");
+                 }
+                 else if(valueToTranslate == "Requested")
+                 {
+                     translatedValue = tr("Requested");
+                 }
+                 else if(valueToTranslate == "Ignore/Invalid")
+                 {
+                     translatedValue = tr("Ignore/Invalid");
+                 }
+                 else if(valueToTranslate == "Validated")
+                 {
+                     translatedValue = tr("Validated");
+                 }
+                 else
+                 {
+                    translatedValue = valueToTranslate;
+                 }
                  aux.clear();
-                 aux = (query.value(0)).toString() + " - " + (query.value(1)).toString();
+                 aux = (query.value(0)).toString() + " - " + translatedValue;
                  qs << aux;
              }
              else
@@ -3294,11 +3402,43 @@ QStringList DataProxy_SQLite::getQSLSentList()
 
      if (sqlOK)
      {
-         while ( (query.next())) {
+         QString translatedValue = QString();
+         QString valueToTranslate = QString();
+
+
+
+         while ( (query.next()))
+         {
+
              if (query.isValid())
              {
+                 valueToTranslate = (query.value(1)).toString();
+                 if (valueToTranslate == "Yes")
+                 {
+                     translatedValue = tr("Yes");
+                 }
+                 else if(valueToTranslate == "No")
+                 {
+                     translatedValue = tr("No");
+                 }
+                 else if(valueToTranslate == "Requested")
+                 {
+                     translatedValue = tr("Requested");
+                 }
+                 else if(valueToTranslate == "Queued")
+                 {
+                     translatedValue = tr("Queued");
+                 }
+                 else if(valueToTranslate == "Ignore/Invalid")
+                 {
+                     translatedValue = tr("Ignore/Invalid");
+                 }
+                 else
+                 {
+                    translatedValue = valueToTranslate;
+                 }
                  aux.clear();
-                 aux = (query.value(0)).toString() + " - " + (query.value(1)).toString();
+                 aux = (query.value(0)).toString() + " - " + translatedValue;
                  qs << aux;
              }
              else
@@ -3328,13 +3468,33 @@ QStringList DataProxy_SQLite::getClubLogStatusList()
      QSqlQuery query;
      bool sqlOK = query.exec(queryString);
 
+    QString translatedValue = QString();
+    QString valueToTranslate = QString();
+
      if (sqlOK)
      {
          while ( (query.next())) {
              if (query.isValid())
              {
+                 valueToTranslate = (query.value(1)).toString();
+                 if (valueToTranslate == "Uploaded")
+                 {
+                     translatedValue = tr("Uploaded");
+                 }
+                 else if(valueToTranslate == "Do not upload")
+                 {
+                     translatedValue = tr("Do not upload");
+                 }
+                 else if(valueToTranslate == "Modified")
+                 {
+                     translatedValue = tr("Modified");
+                 }
+                 else
+                 {
+                    translatedValue = valueToTranslate;
+                 }
                  aux.clear();
-                 aux = (query.value(0)).toString() + " - " + (query.value(1)).toString();
+                 aux = (query.value(0)).toString() + " - " + translatedValue;
                  qs << aux;
              }
              else
@@ -3364,13 +3524,40 @@ QStringList DataProxy_SQLite::getQSLViaList()
 
      bool sqlOK = query.exec(queryString);
 
+
      if (sqlOK)
      {
+         QString translatedValue = QString();
+         QString valueToTranslate = QString();
+
          while ( (query.next())) {
              if (query.isValid())
              {
+                 valueToTranslate = (query.value(1)).toString();
+
+                 if (valueToTranslate == "Bureau")
+                 {
+                     translatedValue = tr("Bureau", "Common term in hamradio, do not translate if not sure");
+                 }
+                 else if(valueToTranslate == "Direct")
+                 {
+                     translatedValue = tr("Direct");
+                 }
+                 else if(valueToTranslate == "Electronic")
+                 {
+                     translatedValue = tr("Electronic");
+                 }
+                 else if(valueToTranslate == "Manager")
+                 {
+                     translatedValue = tr("Manager", "Common term in hamradio, do not translate if not sure");
+                 }
+                 else
+                 {
+                    translatedValue = valueToTranslate;
+                 }
+
                  aux.clear();
-                 aux = (query.value(0)).toString() + " - " + (query.value(1)).toString();
+                 aux = (query.value(0)).toString() + " - " + translatedValue;
                  qs << aux;
              }
              else
@@ -4299,7 +4486,7 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
     QSqlQuery query;
     QSqlQuery query2;
 
-    QString queryString = QString("SELECT COUNT (id) FROM log WHERE dxcc =''");
+    QString queryString = QString("SELECT COUNT (id) FROM log WHERE dxcc IS NULL OR dxcc<1 OR cont IS NULL");
 
     bool sqlOK = query.exec(queryString);
     int qsos = -1;
@@ -4310,7 +4497,6 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
         query.next();
         qsos = (query.value(0)).toInt();
         query.finish();
-
     }
     else
     {
@@ -4324,12 +4510,11 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
     }
     int step = util->getProgresStepForDialog(qsos);
 
-    QProgressDialog progress(QObject::tr("Updating DXCC information..."), QObject::tr("Abort updating"), 0, qsos);
+    QProgressDialog progress(QObject::tr("Updating DXCC and Continent information..."), QObject::tr("Abort updating"), 0, qsos);
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
 
-
-    queryString = QString("SELECT id, call FROM log WHERE dxcc =''");
+    queryString = QString("SELECT id, call FROM log WHERE dxcc IS NULL OR dxcc<1 OR cont IS NULL");
     sqlOK = query.exec(queryString);
 
     if (sqlOK)
@@ -4339,6 +4524,7 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
         QString _id = QString();
         QString _dxcc = QString();
         QString _aux = QString();
+        QString _continent = QString();
         int j = 0;
 
         while (query.next())
@@ -4351,37 +4537,42 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
                 _call = (query.value(nameCol)).toString();
 
                 _dxcc = QString::number(getPrefixId(_call));
-
+                _continent = getContinentShortNameFromEntity(_dxcc.toInt());
+                //qDebug() << "DataBase::fillEmptyDXCCInTheLog: DXCC: " << _dxcc << endl;
+                //qDebug() << "DataBase::fillEmptyDXCCInTheLog: Cont: " << _continent << endl;
                 // UPDATE THE ID WITH THE DXCC
-                queryString = QString("UPDATE log SET dxcc = '%1' WHERE id = '%2'").arg(_dxcc).arg(_id);
+                queryString = QString("UPDATE log SET dxcc = '%1', cont = '%2' WHERE id = '%3'").arg(_dxcc).arg(_continent).arg(_id);
                 sqlOK = query2.exec(queryString);
                 if (!sqlOK)
                 {
                     emit queryError(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
-                    query.finish();
+                    query2.finish();
                     return false;
                 }
                 query2.finish();
 
                 if (( (j % step )== 0) )
                 { // To update the speed I will only show the progress once each X QSOs
-                    _aux = QObject::tr("Updating DXCC Award information...") + "\n" + QObject::tr("QSO: ")  + QString::number(j) + "/" + QString::number(qsos);
+                    _aux = QObject::tr("Updating DXCC and Continent information...") + "\n" + QObject::tr("QSO: ")  + QString::number(j) + "/" + QString::number(qsos);
+                    //_aux = "Updating ...";
                     progress.setLabelText(_aux);
                     progress.setValue(j);
                 }
                 if ( progress.wasCanceled() )
                 {
                     //qDebug() << "DataBase::fillEmptyDXCCInTheLog: progress canceled" << endl;
+                    query.finish();
                     return true;
                 }
                 j++;
             }
-            progress.setValue(qsos);
+
         }
+        progress.setValue(qsos);
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setWindowTitle(tr("KLog DXCC"));
-        msgBox.setText(tr("All QSOs have been updated with a DXCC.") );
+        msgBox.setText(tr("All QSOs have been updated with a DXCC and the Continent.") );
         msgBox.exec();
     }
     else
@@ -4392,9 +4583,9 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
     }
 
     query.finish();
-
     return true;
 }
+
 
 int DataProxy_SQLite::getHowManyQSOInLog(const int _log)
 {
@@ -4472,6 +4663,52 @@ int DataProxy_SQLite::getHowManyConfirmedQSLInLog(const int _log)
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return 0;
+    }
+}
+
+int DataProxy_SQLite::getQSOsWithContinent(const QString _cont, const int _logNumber)
+{
+    //qDebug() << "DataProxy_SQLite::getQSOsWithContinent: " << QString::number(_dxcc) << endl;
+    QSqlQuery query;
+    QString queryString;
+    bool sqlOK;
+    if (_logNumber < 0)
+    {
+        queryString = QString("SELECT COUNT (DISTINCT id) FROM log where cont LIKE '%1'").arg(_cont);
+    }
+    else
+    {
+        queryString = QString("SELECT COUNT (DISTINCT id) FROM log where lognumber='%1' AND cont LIKE '%2'").arg(_logNumber).arg(_cont);
+    }
+
+
+    sqlOK = query.exec(queryString);
+
+      //qDebug() << "DataProxy_SQLite::getQSOsWithContinent: queryString: " << queryString << endl;
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+              //qDebug() << "DataProxy_SQLite::getQSOsWithContinent: " << QString::number((query.value(0)).toInt()) << endl;
+            int v = (query.value(0)).toInt();
+            query.finish();
+            return v;
+        }
+        else
+        {
+              //qDebug() << "DataProxy_SQLite::getQSOsWithContinent: 0" << endl;
+            query.finish();
+            return 0;
+        }
+
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+          //qDebug() << "DataProxy_SQLite::getQSOsWithContinent: Query error" << endl;
         query.finish();
         return 0;
     }
@@ -4765,7 +5002,9 @@ int DataProxy_SQLite::getContinentIdFromContinentShortName(const QString _n)
 QString DataProxy_SQLite::getContinentShortNameFromEntity(const int _n)
 {
     QSqlQuery query;
-    QString queryString= QString("SELECT continent.shortname FROM entity JOIN continent ON entity.continent=continent.shortname WHERE dxcc='%1'").arg(_n);
+
+    QString queryString= QString("SELECT continent FROM entity WHERE dxcc='%1'").arg(_n);
+    //QString queryString= QString("SELECT continent.shortname FROM entity JOIN continent ON entity.continent=continent.shortname WHERE dxcc='%1'").arg(_n);
     bool sqlOK = query.exec(queryString);
 
     if (sqlOK)
@@ -5034,7 +5273,6 @@ QString DataProxy_SQLite::getEntityNameFromId(const int _n)
         else
         {
             emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-
         }
     }
     query.finish();
@@ -5304,7 +5542,7 @@ QString DataProxy_SQLite::getEntityPrefixes(const int _enti)
 
     }
     QString result;
-    result = "";
+    result = QString();
     QString queryString;
     QSqlQuery query;
     int i = _enti;

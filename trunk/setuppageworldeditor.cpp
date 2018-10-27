@@ -29,25 +29,25 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy *dp, QWidget *parent) : QWi
     exportWorldPushButton  = new QPushButton;
     loadWorldPushButton  = new QPushButton;
 
-    addEntityPushButton->setText("Add");
-    delEntityPushButton->setText("Delete");
-    editEntityPushButton->setText("Edit");
+    addEntityPushButton->setText(tr("Add"));
+    delEntityPushButton->setText(tr("Delete"));
+    editEntityPushButton->setText(tr("Edit"));
 
-    exportWorldPushButton->setText("Export World");
-    loadWorldPushButton->setText("Import World");
+    exportWorldPushButton->setText(tr("Export World"));
+    loadWorldPushButton->setText(tr("Import World"));
 
     addEntityPushButton->setEnabled(false);
     delEntityPushButton->setEnabled(false);
     editEntityPushButton->setEnabled(false);
 
-    addEntityPushButton->setToolTip("Still not implemented.");
-    delEntityPushButton->setToolTip("Still not implemented.");
-    editEntityPushButton->setToolTip("Still not implemented.");
+    addEntityPushButton->setToolTip(tr("Still not implemented."));
+    delEntityPushButton->setToolTip(tr("Still not implemented."));
+    editEntityPushButton->setToolTip(tr("Still not implemented."));
 
     exportWorldPushButton->setEnabled(false);
     loadWorldPushButton->setEnabled(true);
-    exportWorldPushButton->setToolTip("Still not implemented.");
-    loadWorldPushButton->setToolTip("Import a new cty.csv file");
+    exportWorldPushButton->setToolTip(tr("Still not implemented."));
+    loadWorldPushButton->setToolTip(tr("Import a new cty.csv file"));
 
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;

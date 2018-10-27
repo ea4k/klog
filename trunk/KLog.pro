@@ -187,23 +187,31 @@ QMAKE_EXTRA_COMPILERS += updateqm
 
 # deploy
 DISTFILES += Changelog COPYING
+
 unix:!mac {
     DEFINES += APP_LINUX
     CONFIG   += c++11
-
+# Translations should be copied in /usr/share/klog/translations
+# https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
 #    QT += dbus
     isEmpty(PREFIX):PREFIX = /usr
     BINDIR = $$PREFIX/bin
-    INSTALLS += target
-    target.path = $$BINDIR
     DATADIR = $$PREFIX/share
     PKGDATADIR = $$DATADIR/klog
-    DEFINES += DATADIR=\\\"$$DATADIR\\\" \
-        PKGDATADIR=\\\"$$PKGDATADIR\\\"
-    translations.path = $$PKGDATADIR
-    translations.files += $$DESTDIR/translations
-
+    INSTALLS += target
+    target.path = $$BINDIR
+#   DEFINES += DATADIR=\\\"$$DATADIR\\\" \
+#   PKGDATADIR=\\\"$$PKGDATADIR\\\"
+#    translations.path = /usr/share/klog/translations
+    translations.path = $$PKGDATADIR/translations
+#    translations.files += build/target/translations/*
+    translations.files += $$DESTDIR/translations/*
+    #INSTALLS += translations
+    datafiles.path = $$PKGDATADIR
+    datafiles.files = $$DISTFILES
     INSTALLS += translations
+    INSTALLS += datafiles
+
 }
 
 macx: {
@@ -213,6 +221,9 @@ macx: {
 
 win32: {
  RC_ICONS = klog.ico   
- TARGET = klog   
+ TARGET = klog
+ QMAKE_TARGET_COMPANY = EA4TV
+ QMAKE_TARGET_DESCRIPTION = Hamradio logging
 }
+
 else:TARGET = klog

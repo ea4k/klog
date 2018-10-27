@@ -1052,6 +1052,13 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         {}
     }
 
+    aux1 = dataProxy->getContinentShortNameFromEntity(dxcc);
+    if (dataProxy->isValidContinentShortName(aux1))
+    {
+        stringFields = stringFields + ", cont";
+        stringData = stringData + ", '" + aux1 + "'";
+    }
+
     int cqz = world->getEntityCqz(dxcc);
     int ituz = world->getEntityItuz(dxcc);
 
@@ -1752,10 +1759,18 @@ WHERE [condition];
     }
 
 
+
     /**/
 
 
     QString updateString = "UPDATE log SET call = '" + tqrz + "', bandid = '" + QString::number(tband) + "', modeid = '" + QString::number(tmode) + "', qso_date = '" + tdate + "', time_on = '" + ttime + "', rst_sent = '" + trsttx + "', rst_rcvd = '" + trstrx + "', lognumber = '" + QString::number(currentLog) + "', ";
+
+    aux1 = dataProxy->getContinentShortNameFromEntity(dxcc);
+    if (dataProxy->isValidContinentShortName(aux1))
+    {
+        updateString = updateString + ", cont";
+        updateString = updateString + aux1 + "', ";
+    }
 
     aux1 = nameLineEdit->text();
     if (aux1.length()>1)
@@ -3468,9 +3483,6 @@ void MainWindow::createMenusCommon()
     toolMenu->addAction(fillDXCCAct);
     connect(fillDXCCAct, SIGNAL(triggered()), this, SLOT(slotFillEmptyDXCCInTheLog()));
     fillDXCCAct->setToolTip(tr("Go through the log filling QSOs without a DXCC defined."));
-
-
-
 
     toolMenu->addSeparator();
     qslToolMenu = toolMenu->addMenu(tr("QSL tools..."));
@@ -6742,7 +6754,7 @@ void MainWindow::updateQSLRecAndSent()
 
     //queryString = QString("SELECT id, qsl_rcvd, qsl_sent FROM log WHERE lognumber='%1'").arg(currentLog);
     //queryString = QString("SELECT id, qsl_rcvd, qsl_sent FROM log WHERE qsl_rcvd !='Y' AND qsl_rcvd !='N' AND qsl_rcvd !='R' AND qsl_rcvd !='I' AND qsl_rcvd !='V' AND lognumber='%1'").arg(currentLog);
-    //queryString = QString("SELECT id, qsl_rcvd, qsl_sent FROM log WHERE qsl_rcvd ='' OR qsl_sent ='' AND lognumber='%1'").arg(currentLog);
+    //queryString = QString("SELECT id, qsl_rcvd, qsl_sent FROM log WHERE qsl_rcvd ='' OR qsl_rcvd IS NULL OR qsl_sent ='' AND lognumber='%1'").arg(currentLog);
     queryString = QString("UPDATE log SET qsl_rcvd='N' WHERE qsl_rcvd ='' AND lognumber='%1'").arg(currentLog);
 
     bool sqlOK = query.exec(queryString);

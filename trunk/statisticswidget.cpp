@@ -65,8 +65,13 @@ void StatisticsWidget::slotChartComboBoxChanged()
             barChartStats->prepareChart(6);
     break;
     case 7:
-            //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGraph-6:  " << text << endl;
+            //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGraph-7:  " << text << endl;
             barChartStats->prepareChart(7);
+             //l->addWidget(barChartStats);
+    break;
+    case 8:
+            //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGraph-8:  " << text << endl;
+            barChartStats->prepareChart(8);
              //l->addWidget(barChartStats);
     break;
 /*    case 4:
@@ -89,7 +94,9 @@ void StatisticsWidget::slotChartComboBoxChanged()
      statisticsToShowList << "04-" + tr("QSO per band");
      statisticsToShowList << "05-" + tr("QSO per mode");
      statisticsToShowList << "06-" + tr("QSO per DXCC");
-     statisticsToShowList << "07-" + tr("QSO per hour");
+     statisticsToShowList << "07-" + tr("QSO per Continent");
+     statisticsToShowList << "08-" + tr("QSO per hour");
+
 
      statisticToShowComboBox->addItems(statisticsToShowList);
 
