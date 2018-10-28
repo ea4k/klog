@@ -4,7 +4,7 @@
 if [ $# -ne 1 ]; then
 	echo "You must include the version of KLog you want to deploy as a single parameter"
 	echo ""
-	echo "example: deployOSX.sh 0.9.5"
+	echo "example: deployOSX.sh 0.9.2 "
 	echo ""
 	echo ""
 	exit -1
