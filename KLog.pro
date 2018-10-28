@@ -33,6 +33,10 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 }
 
 
+greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4) {
+macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
+}
+
 HEADERS += setupdialog.h \      
     aboutdialog.h \
     mainwindow.h \
@@ -217,6 +221,7 @@ unix:!mac {
 macx: {
    ICON = klog.icns
    TARGET = KLog
+   CONFIG   += c++11
 }
 
 win32: {
