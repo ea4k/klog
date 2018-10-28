@@ -2852,7 +2852,7 @@ The UDP server failed to %1.</source>
         <location filename="../database.cpp" line="271"/>
         <location filename="../database.cpp" line="313"/>
         <source>Database Error</source>
-        <translation>データベース&#x3000;エラー</translation>
+        <translation>データベース　エラー</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="1455"/>
@@ -2909,7 +2909,7 @@ The UDP server failed to %1.</source>
         <location filename="../database.cpp" line="4041"/>
         <location filename="../database.cpp" line="4249"/>
         <source>Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?</source>
-        <translation>更新を中止するとデータに矛盾が生じたり、データが失われる可能性があります. &#x3000;更新を中止しますか？</translation>
+        <translation>更新を中止するとデータに矛盾が生じたり、データが失われる可能性があります. 　更新を中止しますか？</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="3971"/>
