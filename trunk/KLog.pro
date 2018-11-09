@@ -84,7 +84,9 @@ HEADERS += setupdialog.h \
     charts/statsgeneralchartwidget.h \
     charts/statsqsosperyearbarchartwidget.h \
     charts/statsentitiesperyearbarchartwidget.h \
-    charts/statscqzperyearbarchartwidget.h
+    charts/statscqzperyearbarchartwidget.h \
+    charts/statsqsosperbandbarchartwidget.h \
+    charts/statsqsospermodebarchartwidget.h
 
 SOURCES += main.cpp \
     aboutdialog.cpp \
@@ -137,7 +139,9 @@ SOURCES += main.cpp \
     charts/statsgeneralchartwidget.cpp \
     charts/statsqsosperyearbarchartwidget.cpp \
     charts/statsentitiesperyearbarchartwidget.cpp \
-    charts/statscqzperyearbarchartwidget.cpp
+    charts/statscqzperyearbarchartwidget.cpp \
+    charts/statsqsosperbandbarchartwidget.cpp \
+    charts/statsqsospermodebarchartwidget.cpp
 
 OTHER_FILES += \
     README-DEVEL \
