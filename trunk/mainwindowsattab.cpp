@@ -90,7 +90,7 @@ void MainWindowSatTab::createUI()
     satNameComboBox->setToolTip(tr("Select the satellite you are using."));
     satBandTXComboBox->setToolTip(tr("UpLink band."));
     satBandRXComboBox->setToolTip(tr("DownLink band."));
-    satDXLocatorLineEdit->setToolTip(tr("Locator of the DX station. This box is syncronized with the Locator box in the QSO tab."));
+    satDXLocatorLineEdit->setToolTip(tr("Locator of the DX station. This box is synchronized with the Locator box in the QSO tab."));
 
     QLabel *upLinkLabel = new QLabel();
     upLinkLabel->setText(tr("UpLink"));

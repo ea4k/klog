@@ -76,7 +76,7 @@ void SetupPageUDP::createUI()
     miliSecsSpinBox->setMaximum(30000);
     miliSecsSpinBox->setValue(defaultTimer);
     QLabel *miliSecsSpinBoxLabel = new QLabel(tr("QSO notification timeout (milisecs)"));
-    miliSecsSpinBox->setToolTip(tr("Miliseconds that the notification of QSO received from WSJTX will be shown."));
+    miliSecsSpinBox->setToolTip(tr("Milliseconds that the notification of QSO received from WSJTX will be shown."));
     miliSecsSpinBoxLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     miliSecsSpinBoxLabel->setEnabled(true);
     miliSecsSpinBox->setEnabled(false);
