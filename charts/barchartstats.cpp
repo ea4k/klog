@@ -28,11 +28,24 @@
 BarChartStats::BarChartStats(DataProxy *dp, QWidget *parent) : QWidget(parent)
 {
 
-     dataProxy = dp;
      chart = new QChart();
      chartView = new QChartView(chart);
 
-     createUI();
+     chart->setAnimationOptions(QChart::SeriesAnimations);
+     chart->legend()->setVisible(true);
+     chart->legend()->setAlignment(Qt::AlignBottom);
+     chartView->setRenderHint(QPainter::Antialiasing);
+
+     dataProxy = dp;
+     mainWidget = new QWidget();
+     mLayout = new QVBoxLayout;
+     mainWidget->setLayout(mLayout);
+
+     QVBoxLayout *mainLayout = new QVBoxLayout;
+     mainLayout->addWidget(mainWidget);
+     setLayout(mainLayout);
+
+     //createUI();
 }
 
 BarChartStats::~BarChartStats(){}
@@ -41,15 +54,20 @@ void BarChartStats::createUI()
 {
 
 
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
-    chartView->setRenderHint(QPainter::Antialiasing);
 
-    QVBoxLayout *graphLayout = new QVBoxLayout;
-    graphLayout->addWidget(chartView);
-    setLayout(graphLayout);
+    //QVBoxLayout *graphLayout = new QVBoxLayout;
+    //graphLayout->addWidget(chartView);
+    //setLayout(graphLayout);
 }
+
+void BarChartStats::cleanLayout()
+{
+    QLayoutItem *child;
+    while ((child = mLayout->takeAt(0)) != 0) {
+        delete child;
+    }
+}
+
 
 void BarChartStats::prepareChart(const int _selection)
 {
@@ -79,56 +97,16 @@ void BarChartStats::prepareChart(const int _selection)
     {
         case 1:
     {
-           //qDebug() << "BarChartStats::prepareChart: SelectedGrapth-1: YEARS " << endl;
-            x_axis.append(dataProxy->getOperatingYears(-1));
-            x_axisElem = tr("QSOs");
-            x_axisTitle = tr("QSOs per year");
-           //qDebug() << "BarChartStats::prepareChart years: " << QString::number(x-axis.count()) << endl;
-            aux.clear();
-           for (int i = 0; i < x_axis.count();i++ )
-           {
-               numberPerX = dataProxy->getQSOonYear((x_axis.at(i)).toInt(), -1);
-               //qDebug() << x_axis.at(i) + "-" + QString::number(numberPerX) << endl;
-               *set0 << numberPerX;
-               numberPerX = 0;
-               //qDebug() << "BarChartStats::prepareChart QSOs: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
-
-               aux = tr("Reading data ...") + "\n" + tr("QSO: %1/%2").arg(QString::number(i)).arg(QString::number(x_axis.count()));
-               progress.setLabelText(aux);
-               progress.setValue(i);
-
-               if ( progress.wasCanceled() )
-               {
-                   i = x_axis.count();
-               }
-           }
-           sum = set0->sum();
-           set0->setLabel(QString::number(sum));
+        cleanLayout();
+        genchart = new StatsQSOsPerYearBarChartWidget(dataProxy, 0);
+        mLayout->addWidget(genchart);
     }
         break;
         case 2:
     {
-            //qDebug() << "BarChartStats::prepareChart: SelectedGrapth-2: DXCC " << endl;
-            x_axis.append(dataProxy->getOperatingYears(-1));
-            x_axisElem = tr("DXCC Entities");
-            x_axisTitle = tr("DXCC Entities per year");
-            aux.clear();
-            for (int i = 0; i < x_axis.count();i++ )
-            {
-                numberPerX = dataProxy->getDXCConYear((x_axis.at(i)).toInt(), -1);
-                *set0 << numberPerX;
-                numberPerX = 0;
-
-                aux = tr("Reading data ...") + "\n" + tr("Entities: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
-                progress.setLabelText(aux);
-                progress.setValue(i);
-
-                if ( progress.wasCanceled() )
-                {
-                    i = x_axis.count();
-                }
-                //qDebug() << "BarChartStats::prepareChart DXCCs: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
-            }
+        cleanLayout();
+        genchart = new StatsEntitiesPerYearBarChartWidget(dataProxy, 0);
+        mLayout->addWidget(genchart);
     }
         break;
     case 3:
@@ -345,6 +323,11 @@ void BarChartStats::prepareChart(const int _selection)
          }
     }
     break;
+    case 9:
+    {
+
+    }
+        break;
     }
 
     series->append(set0);

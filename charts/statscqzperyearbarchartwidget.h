@@ -1,9 +1,9 @@
-#ifndef BARCHARTSTATS_H
-#define BARCHARTSTATS_H
+#ifndef STATSCQZSPERYEARBARCHARTWIDGET_H
+#define STATSCQZSPERYEARBARCHARTWIDGET_H
 /***************************************************************************
-                          barchartstats.h  -  description
+                          statscqzperyearbarchatwidget.h  -  description
                              -------------------
-    begin                : ago 2018
+    begin                : oct 2018
     copyright            : (C) 2018 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
@@ -25,24 +25,25 @@
  *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
+
 #include <QObject>
 #include <QWidget>
+#include <QtWidgets>
 #include <QtCharts>
+#include <QtDebug>
 #include "dataproxy.h"
 #include "charts/statsgeneralchartwidget.h"
-#include "charts/statsqsosperyearbarchartwidget.h"
-#include "charts/statsentitiesperyearbarchartwidget.h"
-#include "charts/statscqzperyearbarchartwidget.h"
 
 
 
-class BarChartStats : public QWidget
+class StatsCQZPerYearBarChartWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
 public:
-    BarChartStats(DataProxy *dp, QWidget *parent = nullptr);
-    ~BarChartStats();
-    void prepareChart(const int _selection);
+    StatsCQZPerYearBarChartWidget(DataProxy *dp, QWidget *parent = 0);
+    StatsCQZPerYearBarChartWidget();
+    void prepareChart();
+
 
 signals:
 
@@ -50,20 +51,11 @@ public slots:
 
 private:
     void createUI();
-    void cleanLayout();
     DataProxy *dataProxy;
-
 
     QChart *chart;
     QChartView *chartView;
 
-    QWidget *mainWidget;
-    StatsGeneralChartWidget *genchart;
-    QVBoxLayout *mLayout;
-
-
-    //QBarCategoryAxis *axis;
-
 };
 
-#endif // BARCHARTSTATS_H
+#endif // QSOSPERYEARBARCHARTWIDGET_H
