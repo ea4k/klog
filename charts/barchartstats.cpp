@@ -111,79 +111,26 @@ void BarChartStats::prepareChart(const int _selection)
         break;
     case 3:
     {
-       //qDebug() << "BarChartStats::prepareChart SelectedGrapth-3: WAZ " << endl;
-        x_axis.append(dataProxy->getOperatingYears(-1));
-        x_axisElem = tr("CQ zones");
-        x_axisTitle = tr("CQ zone per year");
-        aux.clear();
-        for (int i = 0; i < x_axis.count();i++ )
-        {
-            numberPerX = dataProxy->getCQzonYear((x_axis.at(i)).toInt(), -1);
-            *set0 << numberPerX;
-            numberPerX = 0;
-
-            aux = tr("Reading data ...") + "\n" + tr("Years: %1/%2").arg(QString::number(i)).arg(QString::number(x_axis.count()));
-            progress.setLabelText(aux);
-            progress.setValue(i);
-
-            if ( progress.wasCanceled() )
-            {
-                i = x_axis.count();
-            }
-            //qDebug() << "BarChartStats::prepareChart CQz: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
-        }
+        cleanLayout();
+        genchart = new StatsCQZPerYearBarChartWidget(dataProxy, 0);
+        mLayout->addWidget(genchart);
     }
     break;
     case 4:
     {
-       //qDebug() << "BarChartStats::prepareChart SelectedGrapth-4: per modes " << endl;
-       x_axis.append(dataProxy->getBandsInLog(-1));
-       x_axisElem = tr("Bands");
-       x_axisTitle = tr("QSO per band distribution");
-        aux.clear();
-        for (int i = 0; i < x_axis.count();i++ )
-        {
-            numberPerX = dataProxy->getQSOsInBand(x_axis.at(i), -1);
-            *set0 << numberPerX;
-            numberPerX = 0;
-
-            aux = tr("Reading data ...") + "\n" + tr("Bands: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
-            progress.setLabelText(aux);
-            progress.setValue(i);
-
-            if ( progress.wasCanceled() )
-            {
-                i = x_axis.count();
-            }
-            //qDebug() << "BarChartStats::prepareChart Bands: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
-        }
+       //qDebug() << "BarChartStats::prepareChart SelectedGrapth-4: per band " << endl;
+        cleanLayout();
+        genchart = new StatsQSOsPerBandBarChartWidget(dataProxy, 0);
+        mLayout->addWidget(genchart);
     }
     break;
     case 5:
     {
        //qDebug() << "BarChartStats::prepareChart SelectedGrapth-5: per modes " << endl;
-       x_axis.append(dataProxy->getModesInLog(-1));
-       x_axisElem = tr("Modes");
-       x_axisTitle = tr("QSO per mode distribution");
-       //x_axis = _modes.count();
-        aux.clear();
-        for (int i = 0; i < x_axis.count();i++ )
-        {
-            numberPerX = dataProxy->getQSOsInMode(x_axis.at(i), -1);
-            *set0 << numberPerX;
-            numberPerX = 0;
+        cleanLayout();
+        genchart = new StatsQSOsPerModeBarChartWidget(dataProxy, 0);
+        mLayout->addWidget(genchart);
 
-            aux = tr("Reading data...") + "\n" + tr("Modes: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
-            progress.setLabelText(aux);
-            progress.setValue(i);
-
-            if ( progress.wasCanceled() )
-            {
-                i = x_axis.count();
-            }
-
-                    //qDebug() << "BarChartStats::prepareChart Modes: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
-        }
     }
     break;
     case 6:
