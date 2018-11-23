@@ -165,6 +165,8 @@ public:
     virtual int getCQzonYear(const int _year, const int _logNumber);
     virtual int getQSOsWithDXCC(const int _dxcc, const int _logNumber);
     virtual int getQSOsAtHour(const int _hour, const int _log);
+    virtual int getQSOsOnMonth(const int _month, const int _log);
+
     virtual bool newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber);
 
     virtual QStringList getContestNames();
@@ -196,6 +198,7 @@ public:
     virtual bool fillEmptyDXCCInTheLog();
     virtual int getHowManyQSOInLog(const int _log);
     virtual int getHowManyConfirmedQSLInLog(const int _log);
+    virtual int getHowManyQSLSentInLog(const int _log);
     virtual int getQSOsWithContinent(const QString _cont, const int _logNumber);
     virtual int getNumberOfManagedLogs();
     virtual int getMaxLogNumber();

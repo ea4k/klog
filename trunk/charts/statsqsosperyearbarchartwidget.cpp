@@ -51,19 +51,19 @@ void StatsQSOsPerYearBarChartWidget::prepareChart()
     QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, x_axis.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
-    //qDebug() << "StatsQSOsPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
+     qDebug() << "StatsQSOsPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
      x_axis.append(dataProxy->getOperatingYears(-1));
      x_axisElem = tr("QSOs");
      x_axisTitle = tr("QSOs per year");
-    //qDebug() << "StatsQSOsPerYearBarChartWidget::prepareChart years: " << QString::number(x-axis.count()) << endl;
+
      aux.clear();
     for (int i = 0; i < x_axis.count();i++ )
     {
         numberPerX = dataProxy->getQSOonYear((x_axis.at(i)).toInt(), -1);
-        //qDebug() << x_axis.at(i) + "-" + QString::number(numberPerX) << endl;
+         qDebug() << x_axis.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;
         numberPerX = 0;
-        //qDebug() << "StatsQSOsPerYearBarChartWidget::prepareChart QSOs: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
+         qDebug() << "StatsQSOsPerYearBarChartWidget::prepareChart QSOs: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
 
         aux = tr("Reading data ...") + "\n" + tr("QSO: %1/%2").arg(QString::number(i)).arg(QString::number(x_axis.count()));
         progress.setLabelText(aux);

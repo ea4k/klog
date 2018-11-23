@@ -29,7 +29,7 @@
 MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     QWidget(parent)
 {
-    //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab"   << endl;
+     qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab"   << endl;
     myPowerSpinBox = new QDoubleSpinBox;
     operatorLineEdit = new QLineEdit;
     stationCallSignLineEdit = new QLineEdit;
@@ -48,7 +48,7 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
 
     myPower = 0;
     lastPower = 0;
-    //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab - END"   << endl;
+     qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab - END"   << endl;
 
 }
 
@@ -110,11 +110,11 @@ void MainWindowMyDataTab::clear(const bool _keepMyData)
     // _keepMyData comes from the setup
     if (_keepMyData)
     {
-       //qDebug() << "MainWindowMyDataTab::clear:  TRUE"  << endl;
+        qDebug() << "MainWindowMyDataTab::clear:  TRUE"  << endl;
     }
     else
     {
-       //qDebug() << "MainWindowMyDataTab::clear:  FALSE"  << endl;
+        qDebug() << "MainWindowMyDataTab::clear:  FALSE"  << endl;
     }
 
     if (keepThisDataForNextQSORadiobutton->isChecked())
@@ -146,7 +146,7 @@ void MainWindowMyDataTab::clear(const bool _keepMyData)
 void MainWindowMyDataTab::show()
 {
 
-    //qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationQRZ << "/" << myLocator << endl;
+     qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationQRZ << "/" << myLocator << endl;
     myPowerSpinBox->setValue(myPower);
     operatorLineEdit->setText(operatorQRZ);
     stationCallSignLineEdit->setText(stationQRZ);
@@ -175,7 +175,7 @@ void MainWindowMyDataTab::setSetupMyLocator(const QString _op)
 
 void MainWindowMyDataTab::setMyPower(const double _power)
 {
-   //qDebug() << "MainWindowMyDataTab::setMyPower: " << QString::number(_power) << endl;
+    qDebug() << "MainWindowMyDataTab::setMyPower: " << QString::number(_power) << endl;
     myPowerSpinBox->setValue(_power);
 }
 
@@ -196,7 +196,7 @@ double MainWindowMyDataTab::getMyPower()
 
 void MainWindowMyDataTab::setOperator(const QString _op)
 {
-   //qDebug() << "MainWindowMyDataTab::setOperator: " << _op << endl;
+    qDebug() << "MainWindowMyDataTab::setOperator: " << _op << endl;
     operatorLineEdit->setText(_op);
 }
 
@@ -209,7 +209,7 @@ QString MainWindowMyDataTab::getOperator()
 
 void MainWindowMyDataTab::setStationQRZ(const QString _op)
 {
-   //qDebug() << "MainWindowMyDataTab::setStationQRZ: " << _op << endl;
+    qDebug() << "MainWindowMyDataTab::setStationQRZ: " << _op << endl;
     stationCallSignLineEdit->setText(_op);
 }
 

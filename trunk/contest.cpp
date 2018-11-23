@@ -28,13 +28,13 @@
 Contest::Contest()
 {
     constrid = 1;
-    //qDebug() << "Contest::Contest - START:END"  << endl;
+     qDebug() << "Contest::Contest - START:END"  << endl;
 }
 
 Contest::Contest(const QStringList _qs)
 {
     constrid = 2;
-    //qDebug() << "Contest::Contest (_qs) - START:END"  << endl;
+     qDebug() << "Contest::Contest (_qs) - START:END"  << endl;
 }
 
 Contest::~Contest()
@@ -44,13 +44,13 @@ Contest::~Contest()
 
 bool Contest::isMultiplier(const QStringList _qs)
 {
-    //qDebug() << "Contest::isMultiplier"  << endl;
+     qDebug() << "Contest::isMultiplier"  << endl;
     return false;
 }
 
 int Contest::getQSOPoints(const QStringList _qs)
 {
-    //qDebug() << "Contest::getQSOPoints"  << endl;
+     qDebug() << "Contest::getQSOPoints"  << endl;
     return 0;
 }
 
@@ -70,7 +70,7 @@ int Contest::getPoints()
 
 bool Contest::saveFileToSend(const QString& _fileName)
 {
-    //qDebug() << "Contest::saveFileToSend"  << endl;
+     qDebug() << "Contest::saveFileToSend"  << endl;
     return false;
 }
 

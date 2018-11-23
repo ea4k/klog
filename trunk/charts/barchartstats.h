@@ -35,6 +35,12 @@
 #include "charts/statsqsospermodebarchartwidget.h"
 #include "charts/statsentitiesperyearbarchartwidget.h"
 #include "charts/statscqzperyearbarchartwidget.h"
+#include "charts/statsqsosperdxccbarchartwidget.h"
+#include "charts/statsqsospercontinentbarchartwidget.h"
+#include "charts/statsqsosperhourbarchartwidget.h"
+#include "charts/statsqsospermonthbarchartwidget.h"
+#include "charts/statsworkedconfirmedpiechartwidget.h"
+#include "charts/statsworkedsentpiechartwidget.h"
 
 
 

@@ -23,71 +23,13 @@ StatisticsWidget::~StatisticsWidget(){}
 
 void StatisticsWidget::slotChartComboBoxChanged()
 {    
-    //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: " << statisticToShowComboBox->currentText()  << endl;
+     qDebug() << "StatisticsWidget::slotChartComboBoxChanged: " << statisticToShowComboBox->currentText()  << endl;
     QString text = statisticToShowComboBox->currentText();
     text.truncate(2);
-    //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGrapth:  " << text << endl;
-    //QHBoxLayout *l = new QHBoxLayout;
-    //l->setContentsMargins(0, 0, 0, 0);
+     qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGrapth:  " << text << endl;
 
-    switch (text.toInt())
-    {
+    barChartStats->prepareChart(text.toInt());
 
-    case 1:
-            //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGraph-1:  " << text << endl;
-            barChartStats->prepareChart(1);
-            //l->addWidget(barChartStats);
-
-    break;
-    case 2:
-            //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGraph-2:  " << text << endl;
-            barChartStats->prepareChart(2);
-            //l->addWidget(barChartStats);
-    break;
-    case 3:
-            //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGraph-3:  " << text << endl;
-            barChartStats->prepareChart(3);
-             //l->addWidget(barChartStats);
-    break;
-    case 4:
-            //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGraph-3:  " << text << endl;
-            barChartStats->prepareChart(4);
-             //l->addWidget(barChartStats);
-    break;
-    case 5:
-            //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGraph-3:  " << text << endl;
-            barChartStats->prepareChart(5);
-             //l->addWidget(barChartStats);
-    break;
-
-    case 6:
-            //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGraph-6:  " << text << endl;
-            barChartStats->prepareChart(6);
-    break;
-    case 7:
-            //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGraph-7:  " << text << endl;
-            barChartStats->prepareChart(7);
-             //l->addWidget(barChartStats);
-    break;
-    case 8:
-            //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGraph-8:  " << text << endl;
-            barChartStats->prepareChart(8);
-             //l->addWidget(barChartStats);
-    break;
-    case 9:
-            //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGraph-8:  " << text << endl;
-            barChartStats->prepareChart(9);
-             //l->addWidget(barChartStats);
-    break;
-/*    case 4:
-        //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGraph-4:  " << text << endl;
-        //donutChartStats->prepareChart(3);
-       //l->addWidget(donutChartStats);
-*/
-     // break;
-        }
-        //graphWidget->setLayout(l);
-        //barChartStats->show();
     statisticToShowComboBox->setFocus();
 }
 
@@ -101,8 +43,10 @@ void StatisticsWidget::slotChartComboBoxChanged()
      statisticsToShowList << "06-" + tr("QSO per DXCC");
      statisticsToShowList << "07-" + tr("QSO per Continent");
      statisticsToShowList << "08-" + tr("QSO per hour");
-     statisticsToShowList << "09-" + tr("Test");
-
+     statisticsToShowList << "09-" + tr("QSO per month");
+     statisticsToShowList << "10-" + tr("Worked / Confirmed status");
+     statisticsToShowList << "11-" + tr("Worked / Sent status");
+     statisticsToShowList << "12-" + tr("Sent / Confirmed status");
 
      statisticToShowComboBox->addItems(statisticsToShowList);
 

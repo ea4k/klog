@@ -2,10 +2,10 @@
 
 Utilities::Utilities()
 {
-    //qDebug() << "Utilities::Utilities"  << endl;
+     qDebug() << "Utilities::Utilities"  << endl;
     //dbPath = getKLogDBFile();
     softwareVersion = "0.0";
-    //qDebug() << "Utilities::Utilities - END"  << endl;
+     qDebug() << "Utilities::Utilities - END"  << endl;
 }
 Utilities::~Utilities()
 {
@@ -13,7 +13,7 @@ Utilities::~Utilities()
 }
 void Utilities::setVersion(const QString _v)
 {
-    //qDebug() << "Utilities::setVersion: " << _v << endl;
+     qDebug() << "Utilities::setVersion: " << _v << endl;
     softwareVersion = _v;
 }
 
@@ -24,7 +24,7 @@ QString Utilities::getVersion()
 
 double Utilities::getVersionDouble()
 {
-    //qDebug() << "Utilities::getVersionDouble: " << softwareVersion << endl;
+     qDebug() << "Utilities::getVersionDouble: " << softwareVersion << endl;
 
     if (softwareVersion.count('.')>1)
     {
@@ -34,18 +34,18 @@ double Utilities::getVersionDouble()
         QString decimals = softwareVersion.section('.', pos, -1);
         decimals.remove('.');
         first = first + "." + decimals;
-        //qDebug() << "Utilities::getVersionDouble - returning: "  << first << endl;
+         qDebug() << "Utilities::getVersionDouble - returning: "  << first << endl;
         return first.toDouble();
 
     }
-    //qDebug() << "Utilities::getVersionDouble: no points detected" << endl;
+     qDebug() << "Utilities::getVersionDouble: no points detected" << endl;
     return softwareVersion.toDouble();
 }
 
 
 int Utilities::getProgresStepForDialog(int totalSteps)
 {
-    //qDebug() << "Utilities::getProgresStepForDialog";
+     qDebug() << "Utilities::getProgresStepForDialog";
     if (totalSteps <=100)
         return 1;
     else if (totalSteps <=1000)
@@ -64,7 +64,7 @@ int Utilities::getProgresStepForDialog(int totalSteps)
 
 bool Utilities::trueOrFalse(const QString _s)
 {// reads a String and return true if s.upper()== TRUE :-)
-      //qDebug() << "Utilities::trueOrFalse: " << _s << endl;
+       qDebug() << "Utilities::trueOrFalse: " << _s << endl;
 
     if ( (_s.toUpper()) == "TRUE")
     {
@@ -79,7 +79,7 @@ bool Utilities::trueOrFalse(const QString _s)
 
 QString Utilities::checkAndFixASCIIinADIF(const QString _data)
 {
-      //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << endl;
+       qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << endl;
 // This function is not really working with ASCII but with Unicode
 
 //TODO: this function is also in the FileManager class. Maybe I should call that one and keep just one copy
@@ -95,7 +95,7 @@ QString Utilities::checkAndFixASCIIinADIF(const QString _data)
         {
             newString.append(st.at(i));
         }
-          //qDebug() << "SetupDialog::checkAndFixunicodeinADIF: " << st.at(i) <<" = " << QString::number(unicodeVal) << endl;
+           qDebug() << "SetupDialog::checkAndFixunicodeinADIF: " << st.at(i) <<" = " << QString::number(unicodeVal) << endl;
     }
 
     // Show into another lineEdit
@@ -105,17 +105,17 @@ QString Utilities::checkAndFixASCIIinADIF(const QString _data)
 
 void Utilities::printQString(const QStringList _qs)
 {
-     //qDebug() << "Utilities::printQString: COMMENT THIS CALL BEFORE RELEASING" << endl;
+      qDebug() << "Utilities::printQString: COMMENT THIS CALL BEFORE RELEASING" << endl;
     if (_qs.length()<1)
     {
-         //qDebug() << "Utilities::printQString: EMPTY QStringList received!!" << endl;
+          qDebug() << "Utilities::printQString: EMPTY QStringList received!!" << endl;
         return;
     }
     for (int i=0; i<_qs.length()-1;i++)
     {
-         //qDebug() << _qs.at(i) << "/" ;
+          qDebug() << _qs.at(i) << "/" ;
     }
-     //qDebug() << _qs.at(_qs.length()-1) << endl;
+      qDebug() << _qs.at(_qs.length()-1) << endl;
 }
 
 QString Utilities::getAgent(const QString _klogversion)
@@ -196,11 +196,11 @@ QString Utilities::getHomeDir()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
 #ifdef Q_OS_WIN
-      //qDebug() << "WINDOWS DETECTED!: "  << QDir::homePath() + "/klog" << endl;
+       qDebug() << "WINDOWS DETECTED!: "  << QDir::homePath() + "/klog" << endl;
     return QDir::homePath()+"/klog";  // We create the \klog for the logs and data
 
 #else
-      //qDebug() << "NO WINDOWS DETECTED!"  << endl;
+       qDebug() << "NO WINDOWS DETECTED!"  << endl;
     return QDir::homePath()+"/.klog";  // We create the ~/.klog for the logs and data
 #endif
 }
@@ -213,13 +213,13 @@ QString Utilities::getKLogDefaultDatabaseFile()
 
 QString Utilities::getKLogDBFile()
 {
-     //qDebug() << "Utilities::getKLogDBFile: start " << endl;
+      qDebug() << "Utilities::getKLogDBFile: start " << endl;
 
     dbPath = getKLogDefaultDatabaseFile();
     QFile file(getCfgFile());
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-         //qDebug() << "Utilities::getKLogDBFile: return1: " << getKLogDatabaseFile(dbPath) << endl;
+
         //return dbPath;
         //return getKLogDatabaseFile(dbPath);
     }
@@ -237,14 +237,14 @@ QString Utilities::getKLogDBFile()
 
     }
 
-    //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << endl;
+     qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << endl;
 
     return dbPath + "/logbook.dat";
 }
 
 bool Utilities::processConfigLine(const QString _line)
 {
-          //qDebug() << "Utilities::processConfigLine: " << _line << endl;
+           qDebug() << "Utilities::processConfigLine: " << _line << endl;
 
         QString line = _line.simplified();
         //line.simplified();
@@ -254,11 +254,11 @@ bool Utilities::processConfigLine(const QString _line)
 
 
         if (line.startsWith('#')){
-              //qDebug() << "Utilities::processConfigLine: notes Line!" << endl;
+               qDebug() << "Utilities::processConfigLine: notes Line!" << endl;
             return true;
         }
         if (!( (line.contains('=')) && (line.contains(';')))){
-              //qDebug() << "Utilities::processConfigLine: Wrong Line!" << endl;
+               qDebug() << "Utilities::processConfigLine: Wrong Line!" << endl;
             return false;
         }
         QString field = (values.at(0)).toUpper();
@@ -272,7 +272,7 @@ bool Utilities::processConfigLine(const QString _line)
 
         if (field == "DBPATH")
         {
-               //qDebug() << "Utilities::processConfigLine: dbPATH found: " << value << endl;
+                qDebug() << "Utilities::processConfigLine: dbPATH found: " << value << endl;
             dbPath = value;
         }
         return true;
@@ -281,15 +281,15 @@ bool Utilities::processConfigLine(const QString _line)
 /*
 QString Utilities::getKLogDatabaseFile(const QString _file)
 {
-    //qDebug() << "Utilities::getKLogDatabaseFile:" << _file << endl;
+     qDebug() << "Utilities::getKLogDatabaseFile:" << _file << endl;
     if ( QFile::exists(_file + "/logbook.dat") )
     {
-        //qDebug() << "Utilities::getKLogDatabaseFile:returning: " <<  _file + "/logbook.dat" << endl;
+         qDebug() << "Utilities::getKLogDatabaseFile:returning: " <<  _file + "/logbook.dat" << endl;
         return _file + "/logbook.dat";
     }
     else
     {}
-      //qDebug() << "Utilities::getKLogDatabaseFile: Does not exist so default: " <<  getKLogDefaultDatabaseFile() << endl;
+       qDebug() << "Utilities::getKLogDatabaseFile: Does not exist so default: " <<  getKLogDefaultDatabaseFile() << endl;
         return getKLogDefaultDatabaseFile();
 }
 */
@@ -300,11 +300,11 @@ QString Utilities::getCfgFile()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
 #ifdef Q_OS_WIN
-      //qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
+       qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
     return getHomeDir() + "/klogrc.cfg";
 
 #else
-      //qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
+       qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
     return getHomeDir() + "/klogrc";
 
 #endif
@@ -336,29 +336,29 @@ QDate Utilities::getDefaultDate()
 
 bool Utilities::isValidDate(const QDate _d)
 {
-    //qDebug() << "Utilities::isValidDate: " << _d << endl;
+     qDebug() << "Utilities::isValidDate: " << _d << endl;
     if (_d.isValid())
     {
         if ( _d > getDefaultDate())
         {
-            //qDebug() << "Utilities::isValidDate: OK" << endl;
+             qDebug() << "Utilities::isValidDate: OK" << endl;
             return true;
         }
     }
-    //qDebug() << "Utilities::isValidDate: Error" << endl;
+     qDebug() << "Utilities::isValidDate: Error" << endl;
     return false;
 }
 
 bool Utilities::isValidDateTime(const QString _d)
 {
-    //qDebug() << "Utilities::isValidDateTime: " << _d << endl;
+     qDebug() << "Utilities::isValidDateTime: " << _d << endl;
     QDateTime _dateTime = QDateTime::fromString(_d, "yyyyMMddhhmmss");
     if ( _dateTime.isValid()  )
     {
-        //qDebug() << "Utilities::isValidDateTime: 1"  << endl;
+         qDebug() << "Utilities::isValidDateTime: 1"  << endl;
         return isValidDate(_dateTime.date());
     }
-    //qDebug() << "Utilities::isValidDateTime: Error" << endl;
+     qDebug() << "Utilities::isValidDateTime: Error" << endl;
     return false;
 }
 
@@ -479,16 +479,16 @@ bool Utilities::isValidName(const QString _b)
 
 bool Utilities::isDBFileExisting()
 {
-      //qDebug() << "Utilities::isDBFileExisting: " << getKLogDBFile() << endl;
+       qDebug() << "Utilities::isDBFileExisting: " << getKLogDBFile() << endl;
 
     if (QFile::exists(getKLogDBFile()))
     {
-          //qDebug() << "Utilities::isDBFileExisting - true" << endl;
+           qDebug() << "Utilities::isDBFileExisting - true" << endl;
         return true;
     }
     else
     {
-          //qDebug() << "Utilities::isDBFileExisting - false" << endl;
+           qDebug() << "Utilities::isDBFileExisting - false" << endl;
         return false;
     }
     return false;
@@ -496,16 +496,16 @@ bool Utilities::isDBFileExisting()
 
 bool Utilities::isDBFileExisting(const QString _file)
 {
-      //qDebug() << "Utilities::isDBFileExisting2: " << _file << endl;
+       qDebug() << "Utilities::isDBFileExisting2: " << _file << endl;
 
     if (QFile::exists(_file))
     {
-          //qDebug() << "Utilities::isDBFileExisting2 - true" << endl;
+           qDebug() << "Utilities::isDBFileExisting2 - true" << endl;
         return true;
     }
     else
     {
-          //qDebug() << "Utilities::isDBFileExisting2 - false" << endl;
+           qDebug() << "Utilities::isDBFileExisting2 - false" << endl;
         return false;
     }
     return false;
@@ -513,7 +513,7 @@ bool Utilities::isDBFileExisting(const QString _file)
 
 bool Utilities::isValidADIFField(const QString _b)
 {
-    //qDebug() << "Utilities::isValidADIFField: " << _b << endl;
+     qDebug() << "Utilities::isValidADIFField: " << _b << endl;
     /*
         This functions checks if the ADIF field has the proper format.
         <Field:length:Data type>Data
@@ -521,7 +521,7 @@ bool Utilities::isValidADIFField(const QString _b)
 
     if (!((_b.startsWith('<')) &&  (_b.count('>')) == 1 ))
     {
-        //qDebug() << "Utilities::isValidADIFField: BAD FORMAT: No < or > delimiters: " << _b << endl;
+         qDebug() << "Utilities::isValidADIFField: BAD FORMAT: No < or > delimiters: " << _b << endl;
         return false;
     }
     if (_b.simplified() == "<EOR>")
@@ -536,7 +536,7 @@ bool Utilities::isValidADIFField(const QString _b)
 
     if (qs.size()!= 2)
     {
-        //qDebug() << "Utilities::isValidADIFField-0 (not two): " << QString::number(qs.size()) << endl;
+         qDebug() << "Utilities::isValidADIFField-0 (not two): " << QString::number(qs.size()) << endl;
         return false;
     }
 
@@ -545,8 +545,8 @@ bool Utilities::isValidADIFField(const QString _b)
     //data = data.simplified();
     QString dataType = QString();
 
-   //qDebug() << "Utilities::isValidADIFField-Field: " << field << endl;
-   //qDebug() << "Utilities::isValidADIFField_Data: " << data << endl;
+    qDebug() << "Utilities::isValidADIFField-Field: " << field << endl;
+    qDebug() << "Utilities::isValidADIFField_Data: " << data << endl;
 
     int length = data.length();
     int separatorPosition = 0;
@@ -558,7 +558,7 @@ bool Utilities::isValidADIFField(const QString _b)
         dataType = field.section(':', 2, 2);
         if (!validDataTypes.contains(dataType.toUpper()))
         {
-            //qDebug() << "Utilities::isValidADIFField - FORMAT ERROR: Wrong data type: " << dataType << endl;
+             qDebug() << "Utilities::isValidADIFField - FORMAT ERROR: Wrong data type: " << dataType << endl;
             return false;
         }
     }
@@ -568,30 +568,30 @@ bool Utilities::isValidADIFField(const QString _b)
     }
     else
     {
-        //qDebug() << "Utilities::isValidADIFField - FORMAT ERROR, more than 2 \":\" - " << field << endl;
+         qDebug() << "Utilities::isValidADIFField - FORMAT ERROR, more than 2 \":\" - " << field << endl;
         return false;
     }
 
     if ( length != separatorPosition)
     {
-        //qDebug() << "Utilities::isValidADIFField: Data Length problem: " << (field) << "/" << data << " - " << QString::number(length) << "/" << QString::number(separatorPosition) << endl;
+         qDebug() << "Utilities::isValidADIFField: Data Length problem: " << (field) << "/" << data << " - " << QString::number(length) << "/" << QString::number(separatorPosition) << endl;
         return false;
     }
 
     if (separatorPosition <= 0)
     {
-        //qDebug() << "Utilities::isValidADIFField: Length problem <= 0" << endl;
+         qDebug() << "Utilities::isValidADIFField: Length problem <= 0" << endl;
         return false;
     }
 
-    //qDebug() << "FileManager::checkADIFValidFormat: Return true" << endl;
+     qDebug() << "FileManager::checkADIFValidFormat: Return true" << endl;
 
     return true;
 }
 
 QStringList Utilities::getValidADIFFieldAndData(const QString _b)
 {
-    //qDebug() << "Utilities::getValidADIFFieldAndData: " << _b << endl;
+     qDebug() << "Utilities::getValidADIFFieldAndData: " << _b << endl;
     /*
         This functions checks if the ADIF field has the proper format.
         <Field:length:Data type>Data
@@ -601,7 +601,7 @@ QStringList Utilities::getValidADIFFieldAndData(const QString _b)
 
     if (!((_b.startsWith('<')) &&  (_b.count('>')) == 1 ))
     {
-        //qDebug() << "Utilities::getValidADIFFieldAndData: BAD FORMAT: No < or > delimiters: " << _b << endl;
+         qDebug() << "Utilities::getValidADIFFieldAndData: BAD FORMAT: No < or > delimiters: " << _b << endl;
         return QStringList();
     }
     if (_b.simplified() == "<EOR>")
@@ -617,7 +617,7 @@ QStringList Utilities::getValidADIFFieldAndData(const QString _b)
 
     if (qs.size()!= 2)
     {
-        //qDebug() << "Utilities::getValidADIFFieldAndData-0 (not two): " << QString::number(qs.size()) << endl;
+         qDebug() << "Utilities::getValidADIFFieldAndData-0 (not two): " << QString::number(qs.size()) << endl;
         return result;
     }
 
@@ -627,8 +627,8 @@ QStringList Utilities::getValidADIFFieldAndData(const QString _b)
     //data = data.simplified();
     QString dataType = QString();
 
-   //qDebug() << "Utilities::getValidADIFFieldAndData-Field: " << field << endl;
-   //qDebug() << "Utilities::getValidADIFFieldAndData_Data: " << data << endl;
+    qDebug() << "Utilities::getValidADIFFieldAndData-Field: " << field << endl;
+    qDebug() << "Utilities::getValidADIFFieldAndData_Data: " << data << endl;
 
     int length = data.length();
     int separatorPosition = 0;
@@ -641,7 +641,7 @@ QStringList Utilities::getValidADIFFieldAndData(const QString _b)
         if (!validDataTypes.contains(dataType.toUpper()))
         {
 
-            //qDebug() << "Utilities::getValidADIFFieldAndData - FORMAT ERROR: Wrong data type: " << dataType << endl;
+             qDebug() << "Utilities::getValidADIFFieldAndData - FORMAT ERROR: Wrong data type: " << dataType << endl;
             return result;
         }
     }
@@ -651,23 +651,23 @@ QStringList Utilities::getValidADIFFieldAndData(const QString _b)
     }
     else
     {
-        //qDebug() << "Utilities::getValidADIFFieldAndData - FORMAT ERROR, more than 2 \":\" - " << field << endl;
+         qDebug() << "Utilities::getValidADIFFieldAndData - FORMAT ERROR, more than 2 \":\" - " << field << endl;
         return result;
     }
 
     if ( length != separatorPosition)
     {
-        //qDebug() << "Utilities::getValidADIFFieldAndData: Data Length problem: " << (field) << "/" << data << " - " << QString::number(length) << "/" << QString::number(separatorPosition) << endl;
+         qDebug() << "Utilities::getValidADIFFieldAndData: Data Length problem: " << (field) << "/" << data << " - " << QString::number(length) << "/" << QString::number(separatorPosition) << endl;
         return result;
     }
 
     if (separatorPosition <= 0)
     {
-        //qDebug() << "Utilities::getValidADIFFieldAndData: Length problem <= 0" << endl;
+         qDebug() << "Utilities::getValidADIFFieldAndData: Length problem <= 0" << endl;
         return result;
     }
 
-    //qDebug() << "FileManager::checkADIFValidFormat: Return true" << endl;
+     qDebug() << "FileManager::checkADIFValidFormat: Return true" << endl;
     field = field.section(':', 0, 0);
     result << field << data;
     return result;

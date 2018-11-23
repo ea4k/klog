@@ -5,7 +5,7 @@
 
 SoftwareUpdateDialog::SoftwareUpdateDialog()
 {
-    //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog"  << endl;
+     qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog"  << endl;
 
     textBrowser = new QTextBrowser;
     textBrowser->setOpenLinks(true);
@@ -37,12 +37,12 @@ SoftwareUpdateDialog::SoftwareUpdateDialog()
     ///
 
     connect(acceptButton, SIGNAL(clicked()), this, SLOT(slotAcceptButtonClicked()));
-    //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog - END"  << endl;
+     qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog - END"  << endl;
 }
 
 void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateNeeded)
 {
-   //qDebug() << "SoftwareUpdateDialog::setVersion: " << tversion << endl;
+    qDebug() << "SoftwareUpdateDialog::setVersion: " << tversion << endl;
     _version = tversion;
     if (updateNeeded)
     {
@@ -59,12 +59,12 @@ void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateN
 
 SoftwareUpdateDialog::~SoftwareUpdateDialog()
 {
-    //qDebug() << "SoftwareUpdateDialog::~SoftwareUpdateDialog"  << endl;
+     qDebug() << "SoftwareUpdateDialog::~SoftwareUpdateDialog"  << endl;
 }
 
 void SoftwareUpdateDialog::slotAcceptButtonClicked()
 {
-    //qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked"  << endl;
+     qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked"  << endl;
     accept();
 }
 

@@ -169,9 +169,11 @@ public:
     int getCQzonYear(const int _year, const int _logNumber);
     int getQSOsWithDXCC(const int _dxcc, const int _logNumber);
     int getQSOsAtHour(const int _hour, const int _log);
+    int getQSOsOnMonth(const int _month, const int _log);
 
     int getHowManyQSOInLog(const int _log);
     int getHowManyConfirmedQSLInLog(const int _log);
+    int getHowManyQSLSentInLog(const int _log);
 
     int getQSOsWithContinent(const QString _cont, const int _logNumber);
 
