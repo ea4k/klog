@@ -1,4 +1,4 @@
-#include "StatsQSOsPerModeBarChartWidget.h"
+#include "statsqsospermodebarchartwidget.h"
 
 
 StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget(){}
@@ -51,19 +51,19 @@ void StatsQSOsPerModeBarChartWidget::prepareChart()
     QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, x_axis.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
-    //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart: SelectedGrapth-1: MODES " << endl;
+     qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart: SelectedGrapth-1: MODES " << endl;
      x_axis.append(dataProxy->getModesInLog(-1));
      x_axisElem = tr("Modes");
      x_axisTitle = tr("QSO per mode distribution");
-    //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart years: " << QString::number(x-axis.count()) << endl;
+
      aux.clear();
     for (int i = 0; i < x_axis.count();i++ )
     {
         numberPerX = dataProxy->getQSOsInMode((x_axis.at(i)), -1);
-        //qDebug() << x_axis.at(i) + "-" + QString::number(numberPerX) << endl;
+         qDebug() << x_axis.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;
         numberPerX = 0;
-        //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart QSOs: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
+         qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart QSOs: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
         aux = tr("Reading data ...") + "\n" + tr("Modes: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
         //aux = tr("Reading data ...") + "\n" + tr("Modes: %1/%2").arg(QString::number(i)).arg(QString::number(x_axis.count()));
         progress.setLabelText(aux);

@@ -30,7 +30,7 @@
 
 DataProxy::DataProxy()
 {
-   //qDebug() << "DataProxy::DataProxy"  << endl;
+    qDebug() << "DataProxy::DataProxy"  << endl;
 }
 
 DataProxy::~DataProxy()
@@ -434,6 +434,10 @@ int DataProxy::getQSOsAtHour(const int _hour, const int _log)
     return -1;
 }
 
+int DataProxy::getQSOsOnMonth(const int _month, const int _log)
+{
+    return -1;
+}
 
 
 bool DataProxy::newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber)
@@ -603,6 +607,10 @@ int DataProxy::getHowManyQSOInLog(const int _log)
 }
 
 int DataProxy::getHowManyConfirmedQSLInLog(const int _log)
+{
+    return 0;
+}
+int DataProxy_SQLite::getHowManyQSLSentInLog(const int _log)
 {
     return 0;
 }
