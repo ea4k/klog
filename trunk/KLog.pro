@@ -2,7 +2,7 @@ CONFIG += app_bundle
 CONFIG += static
 #CONFIG += release
 TEMPLATE = app
-VERSION = 0.9.6-RC1
+VERSION = 0.9.5
 DEFINES += APP_VERSION="$$VERSION"
 
 APP_NAME = KLog
@@ -32,6 +32,10 @@ greaterThan(QT_MAJOR_VERSION, 4) {
         charts
 }
 
+
+greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4) {
+macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
+}
 
 HEADERS += setupdialog.h \      
     aboutdialog.h \
@@ -80,19 +84,7 @@ HEADERS += setupdialog.h \
     setuppageudp.h \
     statisticswidget.h \
     charts/barchartstats.h \
-    updatesatsdata.h \
-    charts/statsgeneralchartwidget.h \
-    charts/statsqsosperyearbarchartwidget.h \
-    charts/statsentitiesperyearbarchartwidget.h \
-    charts/statscqzperyearbarchartwidget.h \
-    charts/statsqsosperbandbarchartwidget.h \
-    charts/statsqsospermodebarchartwidget.h \
-    charts/statsqsosperdxccbarchartwidget.h \
-    charts/statsqsospercontinentbarchartwidget.h \
-    charts/statsqsosperhourbarchartwidget.h \
-    charts/statsqsospermonthbarchartwidget.h \
-    charts/statsworkedconfirmedpiechartwidget.h \
-    charts/statsworkedsentpiechartwidget.h
+    updatesatsdata.h
 
 SOURCES += main.cpp \
     aboutdialog.cpp \
@@ -141,19 +133,7 @@ SOURCES += main.cpp \
     setuppageudp.cpp \
     statisticswidget.cpp \
     charts/barchartstats.cpp \
-    updatesatsdata.cpp \
-    charts/statsgeneralchartwidget.cpp \
-    charts/statsqsosperyearbarchartwidget.cpp \
-    charts/statsentitiesperyearbarchartwidget.cpp \
-    charts/statscqzperyearbarchartwidget.cpp \
-    charts/statsqsosperbandbarchartwidget.cpp \
-    charts/statsqsospermodebarchartwidget.cpp \
-    charts/statsqsosperdxccbarchartwidget.cpp \
-    charts/statsqsospercontinentbarchartwidget.cpp \
-    charts/statsqsosperhourbarchartwidget.cpp \
-    charts/statsqsospermonthbarchartwidget.cpp \
-    charts/statsworkedconfirmedpiechartwidget.cpp \
-    charts/statsworkedsentpiechartwidget.cpp
+    updatesatsdata.cpp
 
 OTHER_FILES += \
     README-DEVEL \
@@ -241,6 +221,7 @@ unix:!mac {
 macx: {
    ICON = klog.icns
    TARGET = KLog
+   CONFIG   += c++11
 }
 
 win32: {
