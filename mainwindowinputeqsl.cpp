@@ -3,7 +3,7 @@
 MainWindowInputEQSL::MainWindowInputEQSL(DataProxy *dp, QWidget *parent) :
     QWidget(parent)
 {
-     qDebug() << "MainWindowInputEQSL::MainWindowInputEQSL"   << endl;
+     //qDebug() << "MainWindowInputEQSL::MainWindowInputEQSL"   << endl;
     util = new Utilities;
     qslSentStatusList.clear();
     qslRcvdStatusList.clear();
@@ -36,7 +36,7 @@ MainWindowInputEQSL::MainWindowInputEQSL(DataProxy *dp, QWidget *parent) :
     createUI();
     setDefaultData();
     clear();
-     qDebug() << "MainWindowInputEQSL::MainWindowInputEQSL - END"   << endl;
+     //qDebug() << "MainWindowInputEQSL::MainWindowInputEQSL - END"   << endl;
 }
 
 void MainWindowInputEQSL::createUI()
@@ -151,7 +151,7 @@ void MainWindowInputEQSL::setDefaultData()
 }
 void MainWindowInputEQSL::clear()
 {
-    qDebug() << "MainWindowInputEQSL::clear"  << endl;
+    //qDebug() << "MainWindowInputEQSL::clear"  << endl;
     clublogComboBox->setCurrentIndex(1); // Do not upload
     eqslSentComboBox->setCurrentIndex(1);
     eqslRecComboBox->setCurrentIndex(1);
@@ -179,9 +179,9 @@ void MainWindowInputEQSL::clear()
 QString MainWindowInputEQSL::getClubLogStatus()
 {
     QString _pm = QString();
-   qDebug() << "MainWindowInputEQSL::getClubLogStatus:" << clublogComboBox->currentText() << endl;
+   //qDebug() << "MainWindowInputEQSL::getClubLogStatus:" << clublogComboBox->currentText() << endl;
      _pm = (((clublogComboBox->currentText()).split('-')).at(0)).simplified();
-   qDebug() << "MainWindowInputEQSL::getClubLogStatus: " << _pm << endl;
+   //qDebug() << "MainWindowInputEQSL::getClubLogStatus: " << _pm << endl;
      //if (_pm == "Not")
      //{
      //    return QString();
@@ -192,9 +192,9 @@ QString MainWindowInputEQSL::getClubLogStatus()
 QString MainWindowInputEQSL::getEQSLRecStatus()
 {
    QString _pm = QString();
-  qDebug() << "MainWindowInputEQSL::getEQSLRecStatus:" << eqslRecComboBox->currentText() << endl;
+  //qDebug() << "MainWindowInputEQSL::getEQSLRecStatus:" << eqslRecComboBox->currentText() << endl;
     _pm = (((eqslRecComboBox->currentText()).split('-')).at(0)).simplified();
-  qDebug() << "MainWindowInputEQSL::getEQSLRecStatus: " << _pm << endl;
+  //qDebug() << "MainWindowInputEQSL::getEQSLRecStatus: " << _pm << endl;
     //if (_pm == "Not")
     //{
     //    return QString();
@@ -206,9 +206,9 @@ QString MainWindowInputEQSL::getEQSLRecStatus()
 QString MainWindowInputEQSL::getEQSLSenStatus()
 {
     QString _pm = QString();
-   qDebug() << "MainWindowInputEQSL::getEQSLSenStatus:" << eqslSentComboBox->currentText() << endl;
+   //qDebug() << "MainWindowInputEQSL::getEQSLSenStatus:" << eqslSentComboBox->currentText() << endl;
      _pm = (((eqslSentComboBox->currentText()).split('-')).at(0)).simplified();
-   qDebug() << "MainWindowInputEQSL::getEQSLSenStatus: " << _pm << endl;
+   //qDebug() << "MainWindowInputEQSL::getEQSLSenStatus: " << _pm << endl;
      //if (_pm == "Not")
      //{
      //    return QString();
@@ -219,9 +219,9 @@ QString MainWindowInputEQSL::getEQSLSenStatus()
 QString MainWindowInputEQSL::getLOTWRecStatus()
 {
     QString _pm = QString();
-   qDebug() << "MainWindowInputEQSL::getLOTWRecStatus:" << lotwRecComboBox->currentText() << endl;
+   //qDebug() << "MainWindowInputEQSL::getLOTWRecStatus:" << lotwRecComboBox->currentText() << endl;
      _pm = (((lotwRecComboBox->currentText()).split('-')).at(0)).simplified();
-   qDebug() << "MainWindowInputEQSL::getLOTWRecStatus: " << _pm << endl;
+   //qDebug() << "MainWindowInputEQSL::getLOTWRecStatus: " << _pm << endl;
      //if (_pm == "Not")
      //{
      //    return QString();
@@ -232,9 +232,9 @@ QString MainWindowInputEQSL::getLOTWRecStatus()
 QString MainWindowInputEQSL::getLOTWSenStatus()
 {
     QString _pm = QString();
-   qDebug() << "MainWindowInputEQSL::getLOTWSenStatus:" << lotwSentComboBox->currentText() << endl;
+   //qDebug() << "MainWindowInputEQSL::getLOTWSenStatus:" << lotwSentComboBox->currentText() << endl;
      _pm = (((lotwSentComboBox->currentText()).split('-')).at(0)).simplified();
-   qDebug() << "MainWindowInputEQSL::getLOTWSenStatus: " << _pm << endl;
+   //qDebug() << "MainWindowInputEQSL::getLOTWSenStatus: " << _pm << endl;
      //if (_pm == "Not")
      //{
      //    return QString();
@@ -245,7 +245,7 @@ QString MainWindowInputEQSL::getLOTWSenStatus()
 
 void MainWindowInputEQSL::setClubLogStatus(const QString _qs)
 {
-     qDebug() << "MainWindowInputEQSL::setClubLogStatus: " << _qs << endl;
+     //qDebug() << "MainWindowInputEQSL::setClubLogStatus: " << _qs << endl;
      if(( clublogComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
      {
          clublogComboBox->setCurrentIndex( clublogComboBox->findText(_qs+" -", Qt::MatchStartsWith));
@@ -259,7 +259,7 @@ void MainWindowInputEQSL::setClubLogStatus(const QString _qs)
 
 void MainWindowInputEQSL::setEQSLRecStatus(const QString _qs)
 {
-     qDebug() << "MainWindowInputEQSL::setEQSLRecStatus: " << _qs << endl;
+     //qDebug() << "MainWindowInputEQSL::setEQSLRecStatus: " << _qs << endl;
      if(( eqslRecComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
      {
          eqslRecComboBox->setCurrentIndex( eqslRecComboBox->findText(_qs+" -", Qt::MatchStartsWith));
@@ -272,7 +272,7 @@ void MainWindowInputEQSL::setEQSLRecStatus(const QString _qs)
 
 void MainWindowInputEQSL::setEQSLSenStatus(const QString _qs)
 {
-     qDebug() << "MainWindowInputEQSL::setEQSLSenStatus: #" << _qs+" -" << endl;
+     //qDebug() << "MainWindowInputEQSL::setEQSLSenStatus: #" << _qs+" -" << endl;
 
      if(( eqslSentComboBox->findText(_qs, Qt::MatchStartsWith))>=0)
      {
@@ -280,14 +280,14 @@ void MainWindowInputEQSL::setEQSLSenStatus(const QString _qs)
      }
      else
      {
-          qDebug() << "MainWindowInputEQSL::setEQSLSenStatus: NOT found" << endl;
+          //qDebug() << "MainWindowInputEQSL::setEQSLSenStatus: NOT found" << endl;
          eqslSentComboBox->setCurrentIndex(1);
      }
 }
 
 void MainWindowInputEQSL::setLOTWRecStatus(const QString _qs)
 {
-    qDebug() << "MainWindowInputEQSL::setLOTWRecStatus: " << _qs << endl;
+    //qDebug() << "MainWindowInputEQSL::setLOTWRecStatus: " << _qs << endl;
      if(( lotwRecComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
      {
          lotwRecComboBox->setCurrentIndex( lotwRecComboBox->findText(_qs+" -", Qt::MatchStartsWith));
@@ -301,7 +301,7 @@ void MainWindowInputEQSL::setLOTWRecStatus(const QString _qs)
 
 void MainWindowInputEQSL::setLOTWSenStatus(const QString _qs)
 {
-    qDebug() << "MainWindowInputEQSL::setLOTWSenStatus: " << _qs << endl;
+    //qDebug() << "MainWindowInputEQSL::setLOTWSenStatus: " << _qs << endl;
      if(( lotwSentComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
      {
          lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText(_qs+" -", Qt::MatchStartsWith));
@@ -314,7 +314,7 @@ void MainWindowInputEQSL::setLOTWSenStatus(const QString _qs)
 
 
 void MainWindowInputEQSL::slotLotwRecvComboBoxChanged(){
-     qDebug() << "MainWindowInputEQSL::slotLotwRecvComboBoxChanged" << endl;
+     //qDebug() << "MainWindowInputEQSL::slotLotwRecvComboBoxChanged" << endl;
 
 //QSLRDATE (only valid if QSL_RCVD is Y-0, I-3, or V-4)
 //Y-Yes-0
@@ -351,7 +351,7 @@ void MainWindowInputEQSL::slotLotwRecvComboBoxChanged(){
 
 
 void MainWindowInputEQSL::slotLotwSentComboBoxChanged(){
-     qDebug() << "MainWindowInputEQSL::slotLotwSentComboBoxChanged" << endl;
+     //qDebug() << "MainWindowInputEQSL::slotLotwSentComboBoxChanged" << endl;
 
     int i = lotwSentComboBox->currentIndex();
 //{Y, N, R, I, V}
@@ -385,7 +385,7 @@ void MainWindowInputEQSL::slotLotwSentComboBoxChanged(){
 
 
 void MainWindowInputEQSL::sloteQSLRecvComboBoxChanged(){
-     qDebug() << "MainWindowInputEQSL::sloteQSLRecvComboBoxChanged" << endl;
+     //qDebug() << "MainWindowInputEQSL::sloteQSLRecvComboBoxChanged" << endl;
 
 //QSLRDATE (only valid if QSL_RCVD is Y-0, I-3, or V-4)
 //Y-Yes-0
@@ -422,7 +422,7 @@ void MainWindowInputEQSL::sloteQSLRecvComboBoxChanged(){
 
 
 void MainWindowInputEQSL::sloteQSLSentComboBoxChanged(){
-     qDebug() << "MainWindowInputEQSL::sloteQSLSentComboBoxChanged" << endl;
+     //qDebug() << "MainWindowInputEQSL::sloteQSLSentComboBoxChanged" << endl;
 
     int i = eqslSentComboBox->currentIndex();
 //{Y, N, R, I, V}

@@ -34,7 +34,7 @@ This class calls all the othet "Setup..." to manage the configuration
 SetupEntityDialog::SetupEntityDialog(){
 
 
-     qDebug() << "SetupEntityDialog::SetupEntityDialog: " << endl;
+     //qDebug() << "SetupEntityDialog::SetupEntityDialog: " << endl;
 
     //QPalette::ColorRole QWidget::foregroundRole () const;
     //QPalette::ColorRole
@@ -64,7 +64,7 @@ SetupEntityDialog::SetupEntityDialog(){
     delBool = false;
     delDateBool = false;
     prefBool = false;
- qDebug() << "SetupEntityDialog::SetupEntityDialog -  0" << endl;
+ //qDebug() << "SetupEntityDialog::SetupEntityDialog -  0" << endl;
 
     QLabel *entityLabel = new QLabel(tr("Entity"));
     entityLineEdit  = new QLineEdit;
@@ -98,7 +98,7 @@ SetupEntityDialog::SetupEntityDialog(){
     mprefLineEdit = new QLineEdit;
     mprefLineEdit->setToolTip(tr("Main prefix of the entity."));
 
-     qDebug() << "SetupEntityDialog::SetupEntityDialog -  1" << endl;
+     //qDebug() << "SetupEntityDialog::SetupEntityDialog -  1" << endl;
 
     QLabel *arrlidLabel = new QLabel(tr("ARRL ID"));
     arrlidLineEdit = new QLineEdit;
@@ -120,7 +120,7 @@ SetupEntityDialog::SetupEntityDialog(){
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
     QPushButton *okButton = new QPushButton(tr("OK"));
 
-     qDebug() << "SetupEntityDialog::SetupEntityDialog -  2" << endl;
+     //qDebug() << "SetupEntityDialog::SetupEntityDialog -  2" << endl;
 /*
     connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
@@ -138,7 +138,7 @@ SetupEntityDialog::SetupEntityDialog(){
     connect(delQDateEdit, SIGNAL(dateChanged), this, SLOT(slotCheckDeletedDate() ) );
     connect(prefLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotCheckPrefixes() ) );
 */
- qDebug() << "SetupEntityDialog::SetupEntityDialog -  3" << endl;
+ //qDebug() << "SetupEntityDialog::SetupEntityDialog -  3" << endl;
 
     QVBoxLayout *cqLayout = new QVBoxLayout;
     cqLayout->addWidget(cqLabel);
@@ -203,23 +203,23 @@ SetupEntityDialog::SetupEntityDialog(){
     mainLayout->addStretch(1);
     mainLayout->addSpacing(12);
     mainLayout->addLayout(buttonsLayout);
- qDebug() << "SetupEntityDialog::SetupEntityDialog -  3" << endl;
+ //qDebug() << "SetupEntityDialog::SetupEntityDialog -  3" << endl;
     setLayout(mainLayout);
 
     setWindowTitle(tr("Entity Dialog"));
 
     pal = lonLineEdit->palette();
-     qDebug() << "SetupEntityDialog::SetupEntityDialog: END" << endl;
+     //qDebug() << "SetupEntityDialog::SetupEntityDialog: END" << endl;
 }
 
 SetupEntityDialog::~SetupEntityDialog()
 {
-     qDebug() << "SetupEntityDialog::~SetupEntityDialog " << endl;
+     //qDebug() << "SetupEntityDialog::~SetupEntityDialog " << endl;
 }
 
 void SetupEntityDialog::slotOkButtonClicked()
 {
-     qDebug() << "SetupEntityDialog::slotOkButtonClicked " << endl;
+     //qDebug() << "SetupEntityDialog::slotOkButtonClicked " << endl;
     QStringList ql;
     ql.clear();
 
@@ -261,7 +261,7 @@ void SetupEntityDialog::slotOkButtonClicked()
 }
 QString SetupEntityDialog::checkContinent()
 {
-  qDebug() << "SetupEntityDialog::checkContinent" << endl;
+  //qDebug() << "SetupEntityDialog::checkContinent" << endl;
 
     if(contBool)
     {
@@ -276,7 +276,7 @@ QString SetupEntityDialog::checkContinent()
 
 QString SetupEntityDialog::checkEntity()
 {
-  qDebug() << "SetupEntityDialog::checkEntity" << endl;
+  //qDebug() << "SetupEntityDialog::checkEntity" << endl;
 
     if(entityBool)
     {
@@ -291,7 +291,7 @@ QString SetupEntityDialog::checkEntity()
 
 QString SetupEntityDialog::checkMainprefix()
 {
-  qDebug() << "SetupEntityDialog::checkMainprefix" << endl;
+  //qDebug() << "SetupEntityDialog::checkMainprefix" << endl;
 
     if(mainPrefixBool)
     {
@@ -306,7 +306,7 @@ QString SetupEntityDialog::checkMainprefix()
 
 QString SetupEntityDialog::checkCQz()
 {
-     qDebug() << "SetupEntityDialog::checkCQz" << endl;
+     //qDebug() << "SetupEntityDialog::checkCQz" << endl;
 
     if(cqBool)
     {
@@ -322,7 +322,7 @@ QString SetupEntityDialog::checkCQz()
 
 QString SetupEntityDialog::checkITUz()
 {
-     qDebug() << "SetupEntityDialog::checkITUz" << endl;
+     //qDebug() << "SetupEntityDialog::checkITUz" << endl;
 
     if(ituBool)
     {
@@ -338,7 +338,7 @@ QString SetupEntityDialog::checkITUz()
 
 QString SetupEntityDialog::checkLatitude()
 {
-     qDebug() << "SetupEntityDialog::checkLatitude" << endl;
+     //qDebug() << "SetupEntityDialog::checkLatitude" << endl;
 
     if(latBool)
     {
@@ -354,7 +354,7 @@ QString SetupEntityDialog::checkLatitude()
 
 QString SetupEntityDialog::checkLongitude()
 {
-     qDebug() << "SetupEntityDialog::checkLongitude" << endl;
+     //qDebug() << "SetupEntityDialog::checkLongitude" << endl;
 
     if(lonBool)
     {
@@ -370,7 +370,7 @@ QString SetupEntityDialog::checkLongitude()
 
 QString SetupEntityDialog::checkUTC()
 {
-     qDebug() << "SetupEntityDialog::checkUTC" << endl;
+     //qDebug() << "SetupEntityDialog::checkUTC" << endl;
 
     if(utcBool)
     {
@@ -386,7 +386,7 @@ QString SetupEntityDialog::checkUTC()
 
 QString SetupEntityDialog::checkARRLid()
 {
-     qDebug() << "SetupEntityDialog::checkARRLid" << endl;
+     //qDebug() << "SetupEntityDialog::checkARRLid" << endl;
 
     if(arrlidBool)
     {
@@ -403,7 +403,7 @@ QString SetupEntityDialog::checkARRLid()
 
 QString SetupEntityDialog::checkDeleted()
 {
-     qDebug() << "SetupEntityDialog::checkDeleted" << endl;
+     //qDebug() << "SetupEntityDialog::checkDeleted" << endl;
 
     if(delBool)
     {
@@ -419,7 +419,7 @@ QString SetupEntityDialog::checkDeleted()
 
 QString SetupEntityDialog::checkDeletedDate()
 {
-     qDebug() << "SetupEntityDialog::checkDeletedDate" << endl;
+     //qDebug() << "SetupEntityDialog::checkDeletedDate" << endl;
 
     if(delDateBool)
     {
@@ -434,7 +434,7 @@ QString SetupEntityDialog::checkDeletedDate()
 
 QString SetupEntityDialog::checkPrefixes()
 {
-     qDebug() << "SetupEntityDialog::checkPrefixes" << endl;
+     //qDebug() << "SetupEntityDialog::checkPrefixes" << endl;
 
     if(prefBool)
     {
@@ -451,7 +451,7 @@ QString SetupEntityDialog::checkPrefixes()
 
 void SetupEntityDialog::slotCancelButtonClicked()
 {
-     qDebug() << "SetupEntityDialog::slotCancelButtonClicked " << endl;
+     //qDebug() << "SetupEntityDialog::slotCancelButtonClicked " << endl;
 
     reject();
 
@@ -459,7 +459,7 @@ void SetupEntityDialog::slotCancelButtonClicked()
 
 void SetupEntityDialog::slotCheckEntity()
 {
-     qDebug() << "SetupEntityDialog::slotCheckEntity " << endl;
+     //qDebug() << "SetupEntityDialog::slotCheckEntity " << endl;
 
     QString aux;
     aux = entityLineEdit->text();
@@ -478,7 +478,7 @@ void SetupEntityDialog::slotCheckEntity()
 
 void SetupEntityDialog::slotCheckMainprefix()
 {
-     qDebug() << "SetupEntityDialog::slotCheckMainprefix" << endl;
+     //qDebug() << "SetupEntityDialog::slotCheckMainprefix" << endl;
 
     QString aux;
     aux = mprefLineEdit->text();
@@ -497,7 +497,7 @@ void SetupEntityDialog::slotCheckMainprefix()
 
 void SetupEntityDialog::slotCheckCQz()
 {
-     qDebug() << "SetupEntityDialog::slotCheckCQz" << endl;
+     //qDebug() << "SetupEntityDialog::slotCheckCQz" << endl;
 
     QString aux;
     aux = cqLineEdit->text();
@@ -516,7 +516,7 @@ void SetupEntityDialog::slotCheckCQz()
 
 void SetupEntityDialog::slotCheckITUz()
 {
-     qDebug() << "SetupEntityDialog::slotCheckITUz" << endl;
+     //qDebug() << "SetupEntityDialog::slotCheckITUz" << endl;
 
 
     QString aux;
@@ -536,7 +536,7 @@ void SetupEntityDialog::slotCheckITUz()
 
 void SetupEntityDialog::slotCheckContinent()
 {
-     qDebug() << "SetupEntityDialog::slotCheckContinent" << endl;
+     //qDebug() << "SetupEntityDialog::slotCheckContinent" << endl;
 
     QString aux;
     aux = contLineEdit->text();
@@ -555,7 +555,7 @@ void SetupEntityDialog::slotCheckContinent()
 
 void SetupEntityDialog::slotCheckLatitude()
 {
-     qDebug() << "SetupEntityDialog::slotCheckLatitude" << endl;
+     //qDebug() << "SetupEntityDialog::slotCheckLatitude" << endl;
 
     QString aux;
     aux = latLineEdit->text();
@@ -574,7 +574,7 @@ void SetupEntityDialog::slotCheckLatitude()
 
 void SetupEntityDialog::slotCheckLongitude()
 {
-     qDebug() << "SetupEntityDialog::slotCheckLongitude" << endl;
+     //qDebug() << "SetupEntityDialog::slotCheckLongitude" << endl;
 
 
 
@@ -600,7 +600,7 @@ void SetupEntityDialog::slotCheckLongitude()
 
 void SetupEntityDialog::slotCheckUTC()
 {
-     qDebug() << "SetupEntityDialog::slotCheckUTC" << endl;
+     //qDebug() << "SetupEntityDialog::slotCheckUTC" << endl;
 
     QString aux;
     aux = utcLineEdit->text();
@@ -619,7 +619,7 @@ void SetupEntityDialog::slotCheckUTC()
 
 void SetupEntityDialog::slotCheckARRLid()
 {
-     qDebug() << "SetupEntityDialog::slotCheckARRLid" << endl;
+     //qDebug() << "SetupEntityDialog::slotCheckARRLid" << endl;
 
     QString aux;
     aux = arrlidLineEdit->text();
@@ -640,7 +640,7 @@ void SetupEntityDialog::slotCheckARRLid()
 
 void SetupEntityDialog::slotCheckDeleted()
 {
-     qDebug() << "SetupEntityDialog::slotCheckDeleted" << endl;
+     //qDebug() << "SetupEntityDialog::slotCheckDeleted" << endl;
 
     if (delRbutton->isChecked())
     {
@@ -655,7 +655,7 @@ void SetupEntityDialog::slotCheckDeleted()
 
 void SetupEntityDialog::slotCheckDeletedDate()
 {
-     qDebug() << "SetupEntityDialog::slotCheckDeletedDate" << endl;
+     //qDebug() << "SetupEntityDialog::slotCheckDeletedDate" << endl;
     delDateBool = false;
     //arrlidLineEdit->setPalette(palw);
 
@@ -663,7 +663,7 @@ void SetupEntityDialog::slotCheckDeletedDate()
 
 void SetupEntityDialog::slotCheckPrefixes()
 {
-     qDebug() << "SetupEntityDialog::slotCheckPrefixes" << endl;
+     //qDebug() << "SetupEntityDialog::slotCheckPrefixes" << endl;
 
     QString aux;
     aux = prefLineEdit->text();

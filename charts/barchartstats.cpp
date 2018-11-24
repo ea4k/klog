@@ -97,7 +97,7 @@ void BarChartStats::prepareChart(const int _selection)
     break;
     case 4:
     {
-        qDebug() << "BarChartStats::prepareChart SelectedGrapth-4: per band " << endl;
+        //qDebug() << "BarChartStats::prepareChart SelectedGrapth-4: per band " << endl;
         cleanLayout();
         genchart = new StatsQSOsPerBandBarChartWidget(dataProxy, nullptr);
         mLayout->addWidget(genchart);
@@ -105,7 +105,7 @@ void BarChartStats::prepareChart(const int _selection)
     break;
     case 5:
     {
-        qDebug() << "BarChartStats::prepareChart SelectedGrapth-5: per modes " << endl;
+        //qDebug() << "BarChartStats::prepareChart SelectedGrapth-5: per modes " << endl;
         cleanLayout();
         genchart = new StatsQSOsPerModeBarChartWidget(dataProxy, nullptr);
         mLayout->addWidget(genchart);
@@ -114,7 +114,7 @@ void BarChartStats::prepareChart(const int _selection)
     break;
     case 6:
     {
-         qDebug() << "BarChartStats::prepareChart SelectedGrapth-6: per dxcc " << endl;
+         //qDebug() << "BarChartStats::prepareChart SelectedGrapth-6: per dxcc " << endl;
         cleanLayout();
         genchart = new StatsQSOsPerDXCCBarChartWidget(dataProxy, nullptr);
         mLayout->addWidget(genchart);
@@ -122,7 +122,7 @@ void BarChartStats::prepareChart(const int _selection)
     break;
     case 7:
     { // How many QSO per Continent
-         qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/Continent " << endl;
+         //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/Continent " << endl;
         cleanLayout();
         genchart = new StatsQSOsPerContinentBarChartWidget(dataProxy, nullptr);
         mLayout->addWidget(genchart);
@@ -130,7 +130,7 @@ void BarChartStats::prepareChart(const int _selection)
     break;
     case 8:
     {
-         qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour " << endl;
+         //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour " << endl;
         cleanLayout();
         genchart = new StatsQSOsPerHourBarChartWidget(dataProxy, nullptr);
         mLayout->addWidget(genchart);

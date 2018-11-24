@@ -23,10 +23,10 @@ StatisticsWidget::~StatisticsWidget(){}
 
 void StatisticsWidget::slotChartComboBoxChanged()
 {    
-     qDebug() << "StatisticsWidget::slotChartComboBoxChanged: " << statisticToShowComboBox->currentText()  << endl;
+     //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: " << statisticToShowComboBox->currentText()  << endl;
     QString text = statisticToShowComboBox->currentText();
     text.truncate(2);
-     qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGrapth:  " << text << endl;
+     //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGrapth:  " << text << endl;
 
     barChartStats->prepareChart(text.toInt());
 

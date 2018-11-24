@@ -3,7 +3,7 @@
 InfoWidget::InfoWidget(DataProxy *dp, QWidget *parent) :
     QWidget(parent)
 {
-     qDebug() << "InfoWidget::InfoWidget: "   << endl;
+     //qDebug() << "InfoWidget::InfoWidget: "   << endl;
     dataProxy = dp;
     awards = new Awards(dataProxy); //Just to know colors
 
@@ -40,7 +40,7 @@ InfoWidget::InfoWidget(DataProxy *dp, QWidget *parent) :
 
     createUI();
     clearBandLabels();
-     qDebug() << "InfoWidget::InfoWidget: - END"   << endl;
+     //qDebug() << "InfoWidget::InfoWidget: - END"   << endl;
 }
 
 void InfoWidget::createUI()
@@ -278,7 +278,7 @@ void InfoWidget::clearBandLabels()
 
 void InfoWidget::clearInfoFromLocators()
 {
-     qDebug() << "InfoWidget::clearInfoFromLocators" << endl;
+     //qDebug() << "InfoWidget::clearInfoFromLocators" << endl;
     gradShortLabel->setText( "0" );
     gradLongLabel->setText( "0" );
     distShortLabel->setText( "0" );
@@ -325,13 +325,13 @@ void InfoWidget::setImperialSystem (const  bool _imp)
 
 QString InfoWidget::getStyleColorToLabelFromBand(const QString _b, const QString _q)
 { // Receives band name, Entity number (as a String)
-     qDebug() << "InfoWidget::getStyleColorToLabelFromBand: " << _b << "/" << _q << endl;
+     //qDebug() << "InfoWidget::getStyleColorToLabelFromBand: " << _b << "/" << _q << endl;
    QStringList _qs;
     _qs.clear();
 
     _qs << _q << QString::number(dataProxy->getIdFromBandName(_b)) << QString::number(-1) << QString::number(currentLog);
     //TODO: Check if we can know the mode and replace the -1
-     qDebug() << "InfoWidget::getStyleColorToLabelFromBand (Band/background-color): " << _b << (awards->getQRZDXStatusColor(_qs)).name()  << endl;
+     //qDebug() << "InfoWidget::getStyleColorToLabelFromBand (Band/background-color): " << _b << (awards->getQRZDXStatusColor(_qs)).name()  << endl;
     return "* { background-color: " + (awards->getQRZDXStatusColor(_qs)).name() + "; }";
 }
 
@@ -339,7 +339,7 @@ QString InfoWidget::getStyleColorToLabelFromBand(const QString _b, const QString
 //void InfoWidget::showInfo(const int _entity, const int _bandid, const int _modeid, const int _log)
 void InfoWidget::showInfo(const int _entity)
 { // Default values of _modeid & _log = -1
-     qDebug() << "InfoWidget::showInfo: " << QString::number(_entity) << endl;
+     //qDebug() << "InfoWidget::showInfo: " << QString::number(_entity) << endl;
  //QColor getQRZDXStatusColor(const QStringList _qs); // Receives Entity, band, mode & log
 
     bandLabel1->setStyleSheet(getStyleColorToLabelFromBand(bandLabel1->text(), QString::number(_entity)));
@@ -359,7 +359,7 @@ void InfoWidget::showInfo(const int _entity)
 
 void InfoWidget::showEntityInfo(const int _enti, int _cq, int _itu)
 {
-   qDebug() << "InfoWidget::showEntityInfo" << QString::number(_enti) << endl;
+   //qDebug() << "InfoWidget::showEntityInfo" << QString::number(_enti) << endl;
 
     if (_enti<=0)
     {
@@ -440,7 +440,7 @@ void InfoWidget::showEntityInfo(const int _enti, int _cq, int _itu)
 
 void InfoWidget::showDistanceAndBearing(const QString _locLocal, const QString _locDX)
 {// Local / DX
-     qDebug() << "InfoWidget::showDistanceAndBearing: " << _locLocal << "/" << _locDX << endl;
+     //qDebug() << "InfoWidget::showDistanceAndBearing: " << _locLocal << "/" << _locDX << endl;
     QString lloc = _locLocal.toUpper();
     QString ldx = _locDX.toUpper();
 
