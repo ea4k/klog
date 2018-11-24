@@ -30,7 +30,7 @@
 
 DataProxy::DataProxy()
 {
-    qDebug() << "DataProxy::DataProxy"  << endl;
+    //qDebug() << "DataProxy::DataProxy"  << endl;
 }
 
 DataProxy::~DataProxy()
@@ -610,7 +610,7 @@ int DataProxy::getHowManyConfirmedQSLInLog(const int _log)
 {
     return 0;
 }
-int DataProxy_SQLite::getHowManyQSLSentInLog(const int _log)
+int DataProxy::getHowManyQSLSentInLog(const int _log)
 {
     return 0;
 }

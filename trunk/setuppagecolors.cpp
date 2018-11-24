@@ -31,7 +31,7 @@
 
 SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
 {
-     qDebug() << "SetupPageColors::SetupPageColors" << endl;
+     //qDebug() << "SetupPageColors::SetupPageColors" << endl;
 
     newOneColorButton = new QPushButton;
     neededColorButton = new QPushButton;
@@ -68,7 +68,7 @@ SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
     setConfirmedColor("#32CD32");
     setDefaultColor("#00BFFF");
 
-     qDebug() << "SetupPageColors::SetupPageColors - END" << endl;
+     //qDebug() << "SetupPageColors::SetupPageColors - END" << endl;
 }
 
 SetupPageColors::~SetupPageColors()
@@ -77,7 +77,7 @@ SetupPageColors::~SetupPageColors()
 
 void SetupPageColors::slotNewOneColorButtonClicked()
 {
-     qDebug()  << "SetupPageColors::slotNewOneColorButtonClicked " << endl;
+     //qDebug()  << "SetupPageColors::slotNewOneColorButtonClicked " << endl;
     QString style = "* { background-color: ";
     style = style + (giveColor(newOneColorButton->palette().color(QPalette::Button))).name();
     style = style + "; }";
@@ -86,7 +86,7 @@ void SetupPageColors::slotNewOneColorButtonClicked()
 
 void SetupPageColors::slotNeededColorButtonClicked ()
 {
-     qDebug()  << "SetupPageColors::slotNeededColorButtonClicked " << endl;
+     //qDebug()  << "SetupPageColors::slotNeededColorButtonClicked " << endl;
     QString style = "* { background-color: ";
     style = style + (giveColor(neededColorButton->palette().color(QPalette::Button))).name();
     style = style + "; }";
@@ -96,7 +96,7 @@ void SetupPageColors::slotNeededColorButtonClicked ()
 
 void SetupPageColors::slotWorkedColorButtonClicked ()
 {
-     qDebug()  << "SetupPageColors::slotWorkedColorButtonClicked " << endl;
+     //qDebug()  << "SetupPageColors::slotWorkedColorButtonClicked " << endl;
     QString style = "* { background-color: ";
     style = style + (giveColor(workedColorButton->palette().color(QPalette::Button))).name();
     style = style + "; }";
@@ -106,7 +106,7 @@ void SetupPageColors::slotWorkedColorButtonClicked ()
 
 void SetupPageColors::slotConfirmedColorButtonClicked ()
 {
-     qDebug()  << "SetupPageColors::slotNeededColorButtonClicked " << endl;
+     //qDebug()  << "SetupPageColors::slotNeededColorButtonClicked " << endl;
     QString style = "* { background-color: ";
     style = style + (giveColor(confirmedColorButton->palette().color(QPalette::Button))).name();
     style = style + "; }";
@@ -115,7 +115,7 @@ void SetupPageColors::slotConfirmedColorButtonClicked ()
 
 void SetupPageColors::slotDefaultColorButtonClicked()
 {
-     qDebug()  << "SetupPageColors::slotDefaultColorButtonClicked " << endl;
+     //qDebug()  << "SetupPageColors::slotDefaultColorButtonClicked " << endl;
     QString style = "* { background-color: ";
     style = style + (giveColor(defaultColorButton->palette().color(QPalette::Button))).name();
     style = style + "; }";
@@ -131,12 +131,12 @@ QColor SetupPageColors::giveColor (QColor c)
   color = QColorDialog::getColor (color, this, tr("Choose a color"));
   if (color.isValid ())
     {
-          qDebug()  << "SetupPageColors::giveColor valid color: " << color.name() << endl;
+          //qDebug()  << "SetupPageColors::giveColor valid color: " << color.name() << endl;
       return color;
     }
   else
     {
-         qDebug()  << "SetupPageColors::giveColor NOT valid color" << endl;
+         //qDebug()  << "SetupPageColors::giveColor NOT valid color" << endl;
       return colorb;
     }
 
@@ -144,7 +144,7 @@ QColor SetupPageColors::giveColor (QColor c)
 
 QString SetupPageColors::getNewOneColor()
 {
-     qDebug()  << "SetupPageColors::getNewOneColor: " << (newOneColorButton->palette().color(QPalette::Button)).name() << endl;
+     //qDebug()  << "SetupPageColors::getNewOneColor: " << (newOneColorButton->palette().color(QPalette::Button)).name() << endl;
     return (newOneColorButton->palette().color(QPalette::Button)).name();
 }
 
