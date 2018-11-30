@@ -2,7 +2,7 @@ CONFIG += app_bundle
 CONFIG += static
 #CONFIG += release
 TEMPLATE = app
-VERSION = 0.9.6-RC1
+VERSION = 0.9.6-RC2
 DEFINES += APP_VERSION="$$VERSION"
 
 APP_NAME = KLog
@@ -96,7 +96,9 @@ HEADERS += setupdialog.h \
     charts/statsqsosperhourbarchartwidget.h \
     charts/statsqsospermonthbarchartwidget.h \
     charts/statsworkedconfirmedpiechartwidget.h \
-    charts/statsworkedsentpiechartwidget.h
+    charts/statsworkedsentpiechartwidget.h \
+    charts/statssentconfirmedpiechartwidget.h \
+    charts/statsqsosperbandbarchartwidget.h
 
 
 SOURCES += main.cpp \
@@ -151,14 +153,15 @@ SOURCES += main.cpp \
     charts/statsqsosperyearbarchartwidget.cpp \
     charts/statsentitiesperyearbarchartwidget.cpp \
     charts/statscqzperyearbarchartwidget.cpp \
-    charts/statsqsosperbandbarchartwidget.cpp \
     charts/statsqsospermodebarchartwidget.cpp \
     charts/statsqsosperdxccbarchartwidget.cpp \
     charts/statsqsospercontinentbarchartwidget.cpp \
     charts/statsqsosperhourbarchartwidget.cpp \
     charts/statsqsospermonthbarchartwidget.cpp \
     charts/statsworkedconfirmedpiechartwidget.cpp \
-    charts/statsworkedsentpiechartwidget.cpp
+    charts/statsworkedsentpiechartwidget.cpp \
+    charts/statssentconfirmedpiechartwidget.cpp \
+    charts/statsqsosperbandbarchartwidget.cpp
 
 
 OTHER_FILES += \

@@ -5,7 +5,7 @@ StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget(){}
 
 StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget(DataProxy *dp, QWidget *parent)
 {
-    //qDebug() << "StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget" << endl;
+    qDebug() << "StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget" << endl;
 
     dataProxy = dp;
     chart = new QChart();
@@ -51,7 +51,7 @@ void StatsQSOsPerBandBarChartWidget::prepareChart()
     QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, x_axis.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
-     //qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
+     qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
      x_axis.append(dataProxy->getBandsInLog(-1));
      x_axisElem = tr("Bands");
      x_axisTitle = tr("QSO per band distribution");
@@ -60,10 +60,10 @@ void StatsQSOsPerBandBarChartWidget::prepareChart()
     for (int i = 0; i < x_axis.count();i++ )
     {
         numberPerX = dataProxy->getQSOsInBand((x_axis.at(i)), -1);
-         //qDebug() << x_axis.at(i) + "-" + QString::number(numberPerX) << endl;
+         qDebug() << x_axis.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;
         numberPerX = 0;
-         //qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart QSOs: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
+         qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart QSOs: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
         aux = tr("Reading data ...") + "\n" + tr("Bands: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
         //aux = tr("Reading data ...") + "\n" + tr("Bands: %1/%2").arg(QString::number(i)).arg(QString::number(x_axis.count()));
         progress.setLabelText(aux);
