@@ -154,10 +154,19 @@ void BarChartStats::prepareChart(const int _selection)
     {
         cleanLayout();
         genchart = new StatsWorkedSentPieChartWidget(dataProxy, nullptr);
+        //genchart = new StatsPieChartWidget(dataProxy, Worked, Sent, nullptr);
         mLayout->addWidget(genchart);
     }
     break;
-
+    case 12:
+    {
+        cleanLayout();
+        genchart = new StatsSentConfirmedPieChartWidget(dataProxy, nullptr);
+        //genchart = new StatsPieChartWidget(dataProxy, Sent, Confirmed, nullptr);
+        //genchart = new StatsPieChartWidget(dataProxy, Worked, Confirmed, nullptr);
+        mLayout->addWidget(genchart);
+    }
+    break;
     }
 
 }

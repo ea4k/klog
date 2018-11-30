@@ -36,7 +36,7 @@ void StatsWorkedSentPieChartWidget::prepareChart()
      //qDebug() << "Confirmed: " << QString::number(confirmed) << endl;
      //qDebug() << "Worked: " << QString::number(qsos - confirmed) << endl;
 
-    series->append(tr("Worked - %1").arg(qsos-confirmed), qsos - confirmed);
+    series->append(tr("Worked - %1").arg(qsos), qsos);
     series->append(tr("Sent - %2").arg(confirmed), confirmed);
 
     QPieSlice *slice = series->slices().at(1);
@@ -45,9 +45,15 @@ void StatsWorkedSentPieChartWidget::prepareChart()
     slice->setPen(QPen(Qt::darkGreen, 2));
     slice->setBrush(Qt::green);
 
+    QPieSlice *slice1 = series->slices().at(0);
+    slice1->setExploded();
+    slice1->setLabelVisible();
+    slice1->setPen(QPen(Qt::blue, 2));
+    slice1->setBrush(Qt::blue);
+
 
     chart->addSeries(series);
-    chart->setTitle("Worked / Confirmed status");
+    chart->setTitle("Worked / Sent status");
     chart->legend()->hide();
 
     chartView->setRenderHint(QPainter::Antialiasing);

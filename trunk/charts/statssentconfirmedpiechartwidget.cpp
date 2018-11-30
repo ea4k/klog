@@ -1,10 +1,10 @@
-#include "statsworkedconfirmedpiechartwidget.h"
+#include "statssentconfirmedpiechartwidget.h"
 
-StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(){}
+StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget(){}
 
-StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(DataProxy *dp, QWidget *parent)
+StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget(DataProxy *dp, QWidget *parent)
 {
-    //qDebug() << "StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget" << endl;
+    //qDebug() << "StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget" << endl;
 
     dataProxy = dp;
     chart = new QChart();
@@ -14,7 +14,7 @@ StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(DataProxy
     prepareChart();
 }
 
-void StatsWorkedConfirmedPieChartWidget::createUI()
+void StatsSentConfirmedPieChartWidget::createUI()
 {
     chart->setAnimationOptions(QChart::SeriesAnimations);
     chart->legend()->setVisible(true);
@@ -26,17 +26,17 @@ void StatsWorkedConfirmedPieChartWidget::createUI()
     setLayout(graphLayout);
 }
 
-void StatsWorkedConfirmedPieChartWidget::prepareChart()
+void StatsSentConfirmedPieChartWidget::prepareChart()
 {
     QPieSeries *series = new QPieSeries();
     //PieSlice append(string label, real value)
-    int qsos = dataProxy->getHowManyQSOInLog(-1);
+    int sent = dataProxy->getHowManyQSLSentInLog(-1);
     int confirmed = dataProxy->getHowManyConfirmedQSLInLog(-1);
      //qDebug() << "QSOs: " << QString::number(qsos) << endl;
      //qDebug() << "Confirmed: " << QString::number(confirmed) << endl;
      //qDebug() << "Worked: " << QString::number(qsos - confirmed) << endl;
 
-    series->append(tr("Worked - %1").arg(qsos-confirmed), qsos - confirmed);
+    series->append(tr("Sent - %1").arg(sent), sent);
     series->append(tr("Confirmed - %2").arg(confirmed), confirmed);
 
     QPieSlice *slice = series->slices().at(1);
@@ -52,7 +52,7 @@ void StatsWorkedConfirmedPieChartWidget::prepareChart()
     slice1->setBrush(Qt::blue);
 
     chart->addSeries(series);
-    chart->setTitle("Worked / Confirmed status");
+    chart->setTitle("Sent / Confirmed status");
     chart->legend()->hide();
 
     chartView->setRenderHint(QPainter::Antialiasing);
