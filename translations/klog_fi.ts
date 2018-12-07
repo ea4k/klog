@@ -139,152 +139,108 @@
 <context>
     <name>BarChartStats</name>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="71"/>
         <source>Chart title</source>
-        <translation type="unfinished">Listan otsikko</translation>
+        <translation type="obsolete">Listan otsikko</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="75"/>
         <source>Reading data ... </source>
-        <translation>Luetaan tietoja ... </translation>
+        <translation type="vanished">Luetaan tietoja ... </translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="75"/>
         <source>Abort reading</source>
-        <translation>Peruuta lukeminen</translation>
+        <translation type="vanished">Peruuta lukeminen</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="84"/>
         <source>QSOs</source>
-        <translation>QSO:t</translation>
+        <translation type="vanished">QSO:t</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="85"/>
         <source>QSOs per year</source>
-        <translation>QSO:ta vuodessa</translation>
+        <translation type="vanished">QSO:ta vuodessa</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="96"/>
-        <location filename="../charts/barchartstats.cpp" line="122"/>
-        <location filename="../charts/barchartstats.cpp" line="147"/>
-        <location filename="../charts/barchartstats.cpp" line="172"/>
-        <location filename="../charts/barchartstats.cpp" line="305"/>
-        <location filename="../charts/barchartstats.cpp" line="336"/>
         <source>Reading data ...</source>
-        <translation>Luetaan tietoja ... </translation>
+        <translation type="vanished">Luetaan tietoja ... </translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="96"/>
         <source>QSO: %1/%2</source>
-        <translation>QSO: %1/%2</translation>
+        <translation type="vanished">QSO: %1/%2</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="113"/>
         <source>DXCC Entities</source>
-        <translation>DXCC Yksiköitä</translation>
+        <translation type="vanished">DXCC Yksiköitä</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="114"/>
         <source>DXCC Entities per year</source>
-        <translation>DXCC Yksiköitä vuosittain</translation>
+        <translation type="vanished">DXCC Yksiköitä vuosittain</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="122"/>
         <source>Entities: </source>
-        <translation>Yksiköitä</translation>
+        <translation type="vanished">Yksiköitä</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="138"/>
         <source>CQ zones</source>
-        <translation>CQ alueet</translation>
+        <translation type="vanished">CQ alueet</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="139"/>
         <source>CQ zone per year</source>
-        <translation>CQ alueita vuosittain</translation>
+        <translation type="vanished">CQ alueita vuosittain</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="147"/>
         <source>Years: %1/%2</source>
-        <translation>Vuodet: %1%2</translation>
+        <translation type="vanished">Vuodet: %1%2</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="163"/>
         <source>Bands</source>
-        <translation>Taajuusalueet</translation>
+        <translation type="vanished">Taajuusalueet</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="164"/>
         <source>QSO per band distribution</source>
-        <translation>QSO:t taajuusalueittain</translation>
+        <translation type="vanished">QSO:t taajuusalueittain</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="172"/>
         <source>Bands: </source>
-        <translation>Taajuusalueet:</translation>
+        <translation type="vanished">Taajuusalueet:</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="188"/>
         <source>Modes</source>
-        <translation>Moodit</translation>
+        <translation type="vanished">Moodit</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="189"/>
         <source>QSO per mode distribution</source>
-        <translation>QSO:t moodeittain</translation>
+        <translation type="vanished">QSO:t moodeittain</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="198"/>
-        <location filename="../charts/barchartstats.cpp" line="216"/>
-        <location filename="../charts/barchartstats.cpp" line="259"/>
         <source>Reading data...</source>
-        <translation>Luetaan tietoja...</translation>
+        <translation type="vanished">Luetaan tietoja...</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="198"/>
         <source>Modes: </source>
-        <translation>Moodit:</translation>
+        <translation type="vanished">Moodit:</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="259"/>
         <source>Entity: </source>
-        <translation>Yksikkö: </translation>
+        <translation type="vanished">Yksikkö: </translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="282"/>
         <source>DXCC</source>
-        <translation>DXCC</translation>
+        <translation type="vanished">DXCC</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="283"/>
         <source>Top ten DXCC per QSO</source>
-        <translation>Kymmenen parasta DXCC:tä QSOittain</translation>
+        <translation type="vanished">Kymmenen parasta DXCC:tä QSOittain</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="294"/>
-        <source>Continents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="295"/>
-        <source>QSOs per continent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="325"/>
         <source>Hours</source>
-        <translation>Tunnit</translation>
+        <translation type="vanished">Tunnit</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="326"/>
         <source>QSOs at hour</source>
-        <translation>QSO:t tunneittain</translation>
+        <translation type="vanished">QSO:t tunneittain</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="305"/>
-        <location filename="../charts/barchartstats.cpp" line="336"/>
         <source>Hours: </source>
-        <translation>Tunnit: </translation>
+        <translation type="vanished">Tunnit: </translation>
     </message>
 </context>
 <context>
@@ -495,172 +451,172 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Kyselyt onnistuivat</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="2976"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3027"/>
         <source>Aircraft Scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Lentokone </translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="2980"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3031"/>
         <source>Aurora</source>
         <translation>Revontulet</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="2984"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3035"/>
         <source>Aurora-E</source>
         <translation type="unfinished">Revontuliheijastukset</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="2988"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3039"/>
         <source>Back scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Takasironta</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="2992"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3043"/>
         <source>Earth-Moon-Earth</source>
         <translation>Maa-Kuu-Maa</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="2996"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3047"/>
         <source>Sporadic E</source>
         <translation type="unfinished">Satunnaisheijastukset</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3000"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3051"/>
         <source>Field Aligned Irregularities</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3004"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3055"/>
         <source>F2 Reflection</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>F2 Heijastus</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3008"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3059"/>
         <source>Internet-assisted</source>
         <translation>Internet-avusteinen</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3012"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3063"/>
         <source>Ionoscatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Ionosfäärisironta</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3016"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3067"/>
         <source>Meteor scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Meteorisironta</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3020"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3071"/>
         <source>Terrestrial or atmospheric repeater or transponder</source>
         <translation>Maanpäällinen tai ilmakehässä oleva toistin tai transponderi</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3024"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3075"/>
         <source>Rain scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Sadesironta</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3028"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3079"/>
         <source>Satellite</source>
         <translation>Satelliitti</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3032"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3083"/>
         <source>Trans-equatorial</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Päiväntasaajan ylittävä</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3036"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3087"/>
         <source>Tropospheric ducting</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Troposfäärikanavat</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3351"/>
-        <location filename="../dataproxy_sqlite.cpp" line="3418"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3402"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3469"/>
         <source>Yes</source>
         <translation>Kyllä</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3355"/>
-        <location filename="../dataproxy_sqlite.cpp" line="3422"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3406"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3473"/>
         <source>No</source>
         <translation>Ei</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3359"/>
-        <location filename="../dataproxy_sqlite.cpp" line="3426"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3410"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3477"/>
         <source>Requested</source>
         <translation>Pyydetty</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3363"/>
-        <location filename="../dataproxy_sqlite.cpp" line="3434"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3414"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3485"/>
         <source>Ignore/Invalid</source>
         <translation>Hylkää/Mitätön</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3367"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3418"/>
         <source>Validated</source>
         <translation>Vahvistettu</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3430"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3481"/>
         <source>Queued</source>
         <translation>Jonossa</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3482"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3533"/>
         <source>Uploaded</source>
         <translation>Lähetetty</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3486"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3537"/>
         <source>Do not upload</source>
         <translation>Älä lähetä</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3490"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3541"/>
         <source>Modified</source>
         <translation>Muokattu</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3540"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3591"/>
         <source>Bureau</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Bureau</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3544"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3595"/>
         <source>Direct</source>
         <translation>Direct</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3548"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3599"/>
         <source>Electronic</source>
         <translation>Elektrooninen</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3552"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3603"/>
         <source>Manager</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished">Hallinta</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4574"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4625"/>
         <source>KLog DXCC</source>
         <translation>KLog DXCC</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4575"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4626"/>
         <source>All QSOs have been updated with a DXCC and the Continent.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -745,7 +701,7 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="441"/>
-        <location filename="../filemanager.cpp" line="3586"/>
+        <location filename="../filemanager.cpp" line="3583"/>
         <source> QSO: </source>
         <translation> QSO: </translation>
     </message>
@@ -763,7 +719,7 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2628"/>
-        <location filename="../filemanager.cpp" line="3752"/>
+        <location filename="../filemanager.cpp" line="3749"/>
         <source>Do you still want to cancel?</source>
         <translation>Haluatko varmasti peruuttaa?</translation>
     </message>
@@ -789,129 +745,129 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3094"/>
-        <location filename="../filemanager.cpp" line="3380"/>
+        <location filename="../filemanager.cpp" line="3377"/>
         <source>Abort reading</source>
         <translation>Keskeytä lukeminen</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3333"/>
+        <location filename="../filemanager.cpp" line="3330"/>
         <source>There is more than one log in this logfile.</source>
         <translation>Tässä lokitiedostossa on enemmän kuin yksi loki.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3333"/>
+        <location filename="../filemanager.cpp" line="3330"/>
         <source>All logs will be imported into the current log.</source>
         <translation>Kaikki lokit tuodaan nykyiseen lokiin.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3333"/>
+        <location filename="../filemanager.cpp" line="3330"/>
         <source>Do you want to continue?</source>
         <translation>Haluatko jatkaa?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3380"/>
+        <location filename="../filemanager.cpp" line="3377"/>
         <source>Reading ADIF file...</source>
         <translation>Luetaan ADIF-tiedostoa...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3586"/>
+        <location filename="../filemanager.cpp" line="3583"/>
         <source>Importing ADIF file...</source>
         <translation>Tuodaan ADIF-tiedostoa...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3613"/>
+        <location filename="../filemanager.cpp" line="3610"/>
         <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
         <translation>ADIF-tiedostossa jota olet tuomassa, on päällekkäisiä QSO:ita. Haluatko jatkaa? (Duplikaatti QSO:ita ei tuoda)</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3752"/>
+        <location filename="../filemanager.cpp" line="3749"/>
         <source>You have cancelled the file import. The file will be removed and no data will be imported.</source>
         <translation>Olet peruuttanut tiedoston tuonnin. Tiedosto poistetaan, eikä tietoja tuoda.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4770"/>
+        <location filename="../filemanager.cpp" line="4767"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!.</source>
         <translation>Tämä QSO ei sisällä vähimmäistietoja, jotta QSO:ta voidaan pitää oikeana!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4770"/>
+        <location filename="../filemanager.cpp" line="4767"/>
         <source>Please edit the ADIF file and make sure that it include at least:</source>
         <translation>Muokkaa ADIF-tiedostoa ja varmista, että se sisältää ainakin:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4770"/>
+        <location filename="../filemanager.cpp" line="4767"/>
         <source>and</source>
         <translation>ja</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4770"/>
+        <location filename="../filemanager.cpp" line="4767"/>
         <source>This QSO had:</source>
         <translation>Tässä QSO:ssa oli:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4774"/>
+        <location filename="../filemanager.cpp" line="4771"/>
         <source> - The band missing and the following call: </source>
         <translation> - Taajuusalue puuttuu ja seuraava kutsu: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4779"/>
+        <location filename="../filemanager.cpp" line="4776"/>
         <source> - The call missing but was done at this time: </source>
         <translation> - Kutsu puuttuu mutta toteutettiin tällä kertaa: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4784"/>
+        <location filename="../filemanager.cpp" line="4781"/>
         <source> - The mode missing and the following call: </source>
         <translation> - Tila puuttuu ja seuraava kutsu: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4789"/>
+        <location filename="../filemanager.cpp" line="4786"/>
         <source> - The date missing and the following call: </source>
         <translation> - Päiväys puuttuu ja seuraava kutsu: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4794"/>
+        <location filename="../filemanager.cpp" line="4791"/>
         <source> - The time missing and the following call: </source>
         <translation> - Aika puuttuu ja seuraava kutsu: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4799"/>
+        <location filename="../filemanager.cpp" line="4796"/>
         <source>Do you want to continue with the current file?</source>
         <translation>Haluatko jatkaa nykyisen tiedoston kanssa?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4803"/>
+        <location filename="../filemanager.cpp" line="4800"/>
         <source>KLog: Not all required data found!</source>
         <translation>KLog: kaikkia vaadittavia tietoja ei löydetty!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4827"/>
+        <location filename="../filemanager.cpp" line="4824"/>
         <source>This log seems to lack of RST-TX information.</source>
         <translation>Tästä lokista näyttää puuttuvan RST-TX-tieto.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4827"/>
-        <location filename="../filemanager.cpp" line="4849"/>
+        <location filename="../filemanager.cpp" line="4824"/>
+        <location filename="../filemanager.cpp" line="4846"/>
         <source>Click on Yes to add a default 59 to all QSO with a similar problem.</source>
         <translation>Napsauta Kyllä, jos haluat lisätä oletusarvon 59 kaikille QSO:ille, joilla on vastaava ongelma.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4827"/>
-        <location filename="../filemanager.cpp" line="4849"/>
+        <location filename="../filemanager.cpp" line="4824"/>
+        <location filename="../filemanager.cpp" line="4846"/>
         <source>If you select NO, the QSO may not be imported.</source>
         <translation>Jos valitset EI, QSO:ta ei ehkä tuoda.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4828"/>
+        <location filename="../filemanager.cpp" line="4825"/>
         <source>KLog: No RST TX found!</source>
         <translation>KLog: RST TX:ää ei löydy!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4849"/>
+        <location filename="../filemanager.cpp" line="4846"/>
         <source>This log seems to lack of RST-RX information.</source>
         <translation>Tästä lokista näyttää puuttuvan RST-RX-tieto.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4851"/>
+        <location filename="../filemanager.cpp" line="4848"/>
         <source>KLog: No RST RX found!</source>
         <translation>KLog: RST RX:ää ei löydy!</translation>
     </message>
@@ -1345,13 +1301,13 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2437"/>
-        <location filename="../mainwindow.cpp" line="6509"/>
+        <location filename="../mainwindow.cpp" line="6525"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2444"/>
-        <location filename="../mainwindow.cpp" line="6507"/>
+        <location filename="../mainwindow.cpp" line="6523"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
@@ -1361,7 +1317,7 @@ Haluatko yrittää uudelleen?</translation>
         <location filename="../mainwindow.cpp" line="3259"/>
         <location filename="../mainwindow.cpp" line="4168"/>
         <location filename="../mainwindow.cpp" line="5161"/>
-        <location filename="../mainwindow.cpp" line="6505"/>
+        <location filename="../mainwindow.cpp" line="6521"/>
         <source>QRZ</source>
         <translation>QRZ</translation>
     </message>
@@ -1802,7 +1758,13 @@ Haluatko yrittää uudelleen?</translation>
         <translation>DUPE</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7271"/>
+        <location filename="../mainwindow.cpp" line="6441"/>
+        <source>Filling DXCC in QSOs...
+ QSO: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="7287"/>
         <source>QSO logged from WSJT-X:</source>
         <translation type="unfinished">QSO kirjattu WSJT-X:stä:</translation>
     </message>
@@ -2042,7 +2004,7 @@ UDP-palvelin ei onnistunut %1.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5009"/>
-        <location filename="../mainwindow.cpp" line="7209"/>
+        <location filename="../mainwindow.cpp" line="7225"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
@@ -2098,7 +2060,7 @@ UDP-palvelin ei onnistunut %1.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5141"/>
-        <location filename="../mainwindow.cpp" line="6515"/>
+        <location filename="../mainwindow.cpp" line="6531"/>
         <source>Comment</source>
         <translation>Kommentti</translation>
     </message>
@@ -2265,203 +2227,202 @@ UDP-palvelin ei onnistunut %1.</translation>
         <translation>- Tarvitaan DXMarathon:iin</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6307"/>
+        <location filename="../mainwindow.cpp" line="6308"/>
         <source>Filling QSOs...</source>
         <translation>Täyttää QSO:t...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6307"/>
+        <location filename="../mainwindow.cpp" line="6308"/>
         <source>Abort filling</source>
         <translation>Keskeytä täyttäminen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6425"/>
         <source>Filling QSOs...
  QSO: </source>
-        <translation>Täyttää QSO:ita...
+        <translation type="vanished">Täyttää QSO:ita...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6499"/>
+        <location filename="../mainwindow.cpp" line="6515"/>
         <source>Number</source>
         <translation>Numero</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6501"/>
+        <location filename="../mainwindow.cpp" line="6517"/>
         <source>Date</source>
         <translation>Päivämäärä</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6503"/>
+        <location filename="../mainwindow.cpp" line="6519"/>
         <source>Time</source>
         <translation>Aika</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6511"/>
+        <location filename="../mainwindow.cpp" line="6527"/>
         <source>Band</source>
         <translation>Taajuusalue</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6513"/>
-        <location filename="../mainwindow.cpp" line="7194"/>
+        <location filename="../mainwindow.cpp" line="6529"/>
+        <location filename="../mainwindow.cpp" line="7210"/>
         <source>Mode</source>
         <translation>Tila</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6528"/>
+        <location filename="../mainwindow.cpp" line="6544"/>
         <source>Print Log</source>
         <translation>Tulosta loki</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6533"/>
+        <location filename="../mainwindow.cpp" line="6549"/>
         <source>Printing the log...</source>
         <translation>Tulostetaan lokia...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6533"/>
+        <location filename="../mainwindow.cpp" line="6549"/>
         <source>Abort printing</source>
         <translation>Keskeytä tulostus</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6548"/>
-        <location filename="../mainwindow.cpp" line="6563"/>
+        <location filename="../mainwindow.cpp" line="6564"/>
+        <location filename="../mainwindow.cpp" line="6579"/>
         <source>Printing the log...
  QSO: </source>
         <translation>Tulostetaan lokia...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7180"/>
+        <location filename="../mainwindow.cpp" line="7196"/>
         <source>KLog QSO received</source>
         <translation>KLoq QSO vastaanotettu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7185"/>
+        <location filename="../mainwindow.cpp" line="7201"/>
         <source>The following QSO data has been received from WSJT-X to be logged:</source>
         <translation>Seuraavat QSO tiedot vastaanotettu WSJT-X:ltä kirjattaviksi:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7188"/>
+        <location filename="../mainwindow.cpp" line="7204"/>
         <source>Call</source>
         <translation>Kutsutunnus</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7191"/>
+        <location filename="../mainwindow.cpp" line="7207"/>
         <source>Freq</source>
         <translation>Taajuus</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7197"/>
+        <location filename="../mainwindow.cpp" line="7213"/>
         <source>Time On</source>
         <translation>Lähetys alkaa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7200"/>
+        <location filename="../mainwindow.cpp" line="7216"/>
         <source>Time Off</source>
         <translation>Lähetys päättyy</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7203"/>
+        <location filename="../mainwindow.cpp" line="7219"/>
         <source>RST TX</source>
         <translation>RST TX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7203"/>
+        <location filename="../mainwindow.cpp" line="7219"/>
         <source>RST RX</source>
         <translation>RST RX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7206"/>
+        <location filename="../mainwindow.cpp" line="7222"/>
         <source>DX-Grid</source>
         <translation>DX-Verkko</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7212"/>
+        <location filename="../mainwindow.cpp" line="7228"/>
         <source>Comments</source>
         <translation>Kommentit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7215"/>
+        <location filename="../mainwindow.cpp" line="7231"/>
         <source>TX Pwr</source>
         <translation>TX teho</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7218"/>
+        <location filename="../mainwindow.cpp" line="7234"/>
         <source>Operator</source>
         <translation>Operaattori</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7221"/>
+        <location filename="../mainwindow.cpp" line="7237"/>
         <source>Local-Grid</source>
         <translation>Paikallisverkko</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7304"/>
+        <location filename="../mainwindow.cpp" line="7320"/>
         <source>A new mode not supported by KLog has been received from an external software:</source>
         <translation>Ulkoisesta ohjelmistosta on vastaanotettu uusi tila, jota KLog ei tue:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7304"/>
+        <location filename="../mainwindow.cpp" line="7320"/>
         <source>Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)</source>
         <translation>Haluatko jatkossa saada tämän ilmoituksen? (Mikäli ilmoitus poistetaan käytöstä, ei tuettuja tiloja ei tunnisteta)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7304"/>
+        <location filename="../mainwindow.cpp" line="7320"/>
         <source>If the received mode is correct, please contact KLog development team and request support for that mode</source>
         <translation>Mikäli vastaanotettu tila on oikea, ota yhteyttä KLog-kehitystiimiin ja pyydä tukea kyseiselle tilalle</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7465"/>
+        <location filename="../mainwindow.cpp" line="7481"/>
         <source>A duplicated satellite has been detected in the file and will not be imported.</source>
         <translation>Tiedostossa havaittiin päällekkäinen satelliitti, eikä sitä tuoda.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7466"/>
+        <location filename="../mainwindow.cpp" line="7482"/>
         <source>Please check the satellite information file and ensure it is properly populated.</source>
         <translation type="unfinished">Tarkista satelliitti tiedot-tiedosto ja varmista ettö siellä on kaikki tarvittava.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7466"/>
+        <location filename="../mainwindow.cpp" line="7482"/>
         <source>Now you will see a more detailed error that can be used for debugging...</source>
         <translation type="unfinished">Nyt näet tarkemmat virhetiedot joita voidaan käyttää vianmäärityksessä...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7473"/>
+        <location filename="../mainwindow.cpp" line="7489"/>
         <source>An unexpected error ocurred!!</source>
         <translation>Odottamaton virhe tapahtui!!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7473"/>
+        <location filename="../mainwindow.cpp" line="7489"/>
         <source>If the problem persists, please contact the developers</source>
         <translation>Jos ongelma jatkuu, ota yhteyttä kehitystiimiin</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7473"/>
+        <location filename="../mainwindow.cpp" line="7489"/>
         <source>for analysis:</source>
         <translation>analysointia varten:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7475"/>
+        <location filename="../mainwindow.cpp" line="7491"/>
         <source>Error in function</source>
         <translation>Virhe funktiossa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7476"/>
+        <location filename="../mainwindow.cpp" line="7492"/>
         <source>Error code</source>
         <translation>Virhekoodi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7477"/>
+        <location filename="../mainwindow.cpp" line="7493"/>
         <source>Error text</source>
         <translation>Virheteksti</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7478"/>
+        <location filename="../mainwindow.cpp" line="7494"/>
         <source>Failed query</source>
         <translation>Epäonnistunut kysely</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7489"/>
+        <location filename="../mainwindow.cpp" line="7505"/>
         <source>Do you want to keep showing errors?</source>
         <translation>Haluatko jatkaa virheiden näyttämistä?</translation>
     </message>
@@ -2788,9 +2749,13 @@ UDP-palvelin ei onnistunut %1.</translation>
         <translation>Vastaanottolinkin taajuusalue.</translation>
     </message>
     <message>
-        <location filename="../mainwindowsattab.cpp" line="93"/>
         <source>Locator of the DX station. This box is syncronized with the Locator box in the QSO tab.</source>
-        <translation>DX aseman lokaattori. Tämä ruutu on synkronoitu QSO-välilehden Locator-ruutuun.</translation>
+        <translation type="vanished">DX aseman lokaattori. Tämä ruutu on synkronoitu QSO-välilehden Locator-ruutuun.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindowsattab.cpp" line="93"/>
+        <source>Locator of the DX station. This box is synchronized with the Locator box in the QSO tab.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="96"/>
@@ -2933,86 +2898,86 @@ UDP-palvelin ei onnistunut %1.</translation>
         <translation>Kaikki tiedot siirrettiin oikein. Sinun pitäisi nyt mennä Asetukset-&gt; Lisäasetukset-&gt; Lokit  tarkistaaksesi, että kaikki on OK.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3567"/>
-        <location filename="../database.cpp" line="3588"/>
+        <location filename="../database.cpp" line="3562"/>
+        <location filename="../database.cpp" line="3583"/>
         <source>Updating mode information...</source>
         <translation>Päivitetään tilatietoja...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3567"/>
-        <location filename="../database.cpp" line="3752"/>
-        <location filename="../database.cpp" line="3949"/>
-        <location filename="../database.cpp" line="4150"/>
-        <location filename="../database.cpp" line="7194"/>
-        <location filename="../database.cpp" line="7417"/>
-        <location filename="../dataproxy_sqlite.cpp" line="4513"/>
+        <location filename="../database.cpp" line="3562"/>
+        <location filename="../database.cpp" line="3747"/>
+        <location filename="../database.cpp" line="3944"/>
+        <location filename="../database.cpp" line="4145"/>
+        <location filename="../database.cpp" line="7189"/>
+        <location filename="../database.cpp" line="7412"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4564"/>
         <source>Abort updating</source>
         <translation>Keskeytä päivittäminen</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3588"/>
-        <location filename="../database.cpp" line="3771"/>
-        <location filename="../database.cpp" line="7286"/>
-        <location filename="../database.cpp" line="7509"/>
-        <location filename="../dataproxy_sqlite.cpp" line="4556"/>
+        <location filename="../database.cpp" line="3583"/>
+        <location filename="../database.cpp" line="3766"/>
+        <location filename="../database.cpp" line="7281"/>
+        <location filename="../database.cpp" line="7504"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4607"/>
         <source>QSO: </source>
         <translation>QSO:</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3663"/>
-        <location filename="../database.cpp" line="3840"/>
-        <location filename="../database.cpp" line="4041"/>
-        <location filename="../database.cpp" line="4249"/>
+        <location filename="../database.cpp" line="3658"/>
+        <location filename="../database.cpp" line="3835"/>
+        <location filename="../database.cpp" line="4036"/>
+        <location filename="../database.cpp" line="4244"/>
         <source>Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?</source>
         <translation>Tämän päivityksen peruuttaminen aiheuttaa epäjohdonmukaisuuksia ja mahdollisen tietojen menettämisen. Haluatko silti peruuttaa?</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3752"/>
-        <location filename="../database.cpp" line="3771"/>
-        <location filename="../database.cpp" line="3971"/>
-        <location filename="../database.cpp" line="4173"/>
+        <location filename="../database.cpp" line="3747"/>
+        <location filename="../database.cpp" line="3766"/>
+        <location filename="../database.cpp" line="3966"/>
+        <location filename="../database.cpp" line="4168"/>
         <source>Updating bands information...</source>
         <translation>Päivitetään taajuusalue tiedot...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3947"/>
+        <location filename="../database.cpp" line="3942"/>
         <source>Updating bands information in %1 status...</source>
         <translation>Päivitetään taajuusalue tiedot %1 tila...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3971"/>
-        <location filename="../database.cpp" line="4173"/>
+        <location filename="../database.cpp" line="3966"/>
+        <location filename="../database.cpp" line="4168"/>
         <source>Progress: </source>
         <translation>Eteneminen:</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="4148"/>
+        <location filename="../database.cpp" line="4143"/>
         <source>Updating mode information in %1 status...</source>
         <translation>Päivitetään tilatiedot %1 tila...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7194"/>
+        <location filename="../database.cpp" line="7189"/>
         <source>Updating DXCC award information...</source>
         <translation>Päivitetään DXCC palkinto tiedot...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7286"/>
+        <location filename="../database.cpp" line="7281"/>
         <source>Updating DXCC Award information...</source>
         <translation>Päivitetään DXCC palkinto tiedot...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7417"/>
+        <location filename="../database.cpp" line="7412"/>
         <source>Updating WAZ award information...</source>
         <translation>Päivitetään WAZ palkintotiedot...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7509"/>
+        <location filename="../database.cpp" line="7504"/>
         <source>Updating WAZ Award information...</source>
         <translation>Päivitetään WAZ palkintotiedot...</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4513"/>
-        <location filename="../dataproxy_sqlite.cpp" line="4556"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4564"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4607"/>
         <source>Updating DXCC and Continent information...</source>
         <translation>Päivitetään DXCC- ja manner-tietoja...</translation>
     </message>
@@ -3304,28 +3269,28 @@ UDP-palvelin ei onnistunut %1.</translation>
         <translation>QSL vastaanotettu direct:in kautta</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1111"/>
+        <location filename="../searchwidget.cpp" line="1108"/>
         <source>You have requested to delete the QSO with: %1</source>
         <translation>Olet pyytänyt poistettaviksi QSO:t joissa on: %1</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1116"/>
+        <location filename="../searchwidget.cpp" line="1113"/>
         <source>Are you sure?</source>
         <translation>Oletko varma?</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1179"/>
+        <location filename="../searchwidget.cpp" line="1176"/>
         <source>Needed QSO to send the QSL</source>
         <translation>Tarvittava QSO, QSL:n lähetystä varten</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1187"/>
+        <location filename="../searchwidget.cpp" line="1184"/>
         <source>My QSL requested to be sent</source>
         <translation>QSL pyydetty lähetettäväksi</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1192"/>
-        <location filename="../searchwidget.cpp" line="1197"/>
+        <location filename="../searchwidget.cpp" line="1189"/>
+        <location filename="../searchwidget.cpp" line="1194"/>
         <source>DX QSL pending to be received</source>
         <translation>DX QSL odottaa vastaanottoa</translation>
     </message>
@@ -3998,7 +3963,7 @@ Jos porttia ei määritetä, Käytetään oletusarvoa 41112:</translation>
     </message>
     <message>
         <location filename="../setuppagelogsnew.cpp" line="380"/>
-        <location filename="../setuppagelogsnew.cpp" line="936"/>
+        <location filename="../setuppagelogsnew.cpp" line="933"/>
         <source>Categories not OK</source>
         <translation>Kategoriat ok</translation>
     </message>
@@ -4017,7 +3982,7 @@ The log will not be opened.</source>
 Lokia ei avata.</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="928"/>
+        <location filename="../setuppagelogsnew.cpp" line="925"/>
         <source>Categories OK</source>
         <translation>Kategoriat OK</translation>
     </message>
@@ -4275,8 +4240,12 @@ Lokia ei avata.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="79"/>
+        <source>Milliseconds that the notification of QSO received from WSJTX will be shown.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Miliseconds that the notification of QSO received from WSJTX will be shown.</source>
-        <translation>Millisekunnit, jonka ajan WSJT-X:ltä saadut, QSO vastaanotettu, ilmoitukset näytetään.</translation>
+        <translation type="vanished">Millisekunnit, jonka ajan WSJT-X:ltä saadut, QSO vastaanotettu, ilmoitukset näytetään.</translation>
     </message>
 </context>
 <context>
@@ -4583,22 +4552,22 @@ Lokia ei avata.</translation>
         <translation>Päivämäärään asti</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="305"/>
+        <location filename="../setuppageworldeditor.cpp" line="302"/>
         <source>Open File</source>
         <translation>Avaa Tiedosto</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="305"/>
+        <location filename="../setuppageworldeditor.cpp" line="302"/>
         <source>BigCTY (*.csv)</source>
         <translation>BigCTY (*.csv)</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="314"/>
+        <location filename="../setuppageworldeditor.cpp" line="311"/>
         <source>Entities information has been updated.</source>
         <translation>Yksikkötiedot on päivitetty.</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="320"/>
+        <location filename="../setuppageworldeditor.cpp" line="317"/>
         <source>Entities information has not been updated.</source>
         <translation>Yksikkötietoja ei ole päivitetty.</translation>
     </message>
@@ -4660,44 +4629,502 @@ Lokia ei avata.</translation>
 <context>
     <name>StatisticsWidget</name>
     <message>
-        <location filename="../statisticswidget.cpp" line="91"/>
+        <location filename="../statisticswidget.cpp" line="38"/>
         <source>QSO per year</source>
         <translation>QSO:ta vuodessa</translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="92"/>
+        <location filename="../statisticswidget.cpp" line="39"/>
         <source>DXCC per year</source>
         <translation>DXCC:tä vuodessa</translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="93"/>
+        <location filename="../statisticswidget.cpp" line="40"/>
         <source>CQ zones per year</source>
         <translation>CQ vyöhykkeitä vuodessa</translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="94"/>
+        <location filename="../statisticswidget.cpp" line="41"/>
         <source>QSO per band</source>
         <translation>QSO:ta taajuusalueittain</translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="95"/>
+        <location filename="../statisticswidget.cpp" line="42"/>
         <source>QSO per mode</source>
         <translation>QSO:ta moodeittain</translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="96"/>
+        <location filename="../statisticswidget.cpp" line="43"/>
         <source>QSO per DXCC</source>
         <translation>QSO:ta DXCCittäin</translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="97"/>
+        <location filename="../statisticswidget.cpp" line="44"/>
         <source>QSO per Continent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="98"/>
+        <location filename="../statisticswidget.cpp" line="45"/>
         <source>QSO per hour</source>
         <translation>QSO:ta tunneittain</translation>
+    </message>
+    <message>
+        <location filename="../statisticswidget.cpp" line="46"/>
+        <source>QSO per month</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../statisticswidget.cpp" line="47"/>
+        <source>Worked / Confirmed status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../statisticswidget.cpp" line="48"/>
+        <source>Worked / Sent status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../statisticswidget.cpp" line="49"/>
+        <source>Sent / Confirmed status</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsCQZPerYearBarChartWidget</name>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="47"/>
+        <source>CQ Zones per year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="56"/>
+        <source>CQ zones</source>
+        <translation type="unfinished">CQ alueet</translation>
+    </message>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="57"/>
+        <source>CQ zones per year</source>
+        <translation type="unfinished">CQ vyöhykkeitä vuodessa</translation>
+    </message>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="69"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="69"/>
+        <source>Years: %1/%2</source>
+        <translation type="unfinished">Vuodet: %1%2</translation>
+    </message>
+</context>
+<context>
+    <name>StatsEntitiesPerYearBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="47"/>
+        <source>Chart title</source>
+        <translation type="unfinished">Listan otsikko</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="57"/>
+        <source>DXCC Entities</source>
+        <translation type="unfinished">DXCC Yksiköitä</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="58"/>
+        <source>DXCC Entities per year</source>
+        <translation type="unfinished">DXCC Yksiköitä vuosittain</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="66"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="66"/>
+        <source>Entities: </source>
+        <translation type="unfinished">Yksiköitä</translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerBandBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="47"/>
+        <source>QSOs per band</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="56"/>
+        <source>Bands</source>
+        <translation type="unfinished">Taajuusalueet</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="57"/>
+        <source>QSO per band distribution</source>
+        <translation type="unfinished">QSO:t taajuusalueittain</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="67"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="67"/>
+        <source>Bands: </source>
+        <translation type="unfinished">Taajuusalueet:</translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerContinentBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="47"/>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="61"/>
+        <source>QSOs per continent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="60"/>
+        <source>Continents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="70"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="70"/>
+        <source>Hours: </source>
+        <translation type="unfinished">Tunnit: </translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerDXCCBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="47"/>
+        <source>QSOs per DXCC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="53"/>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="96"/>
+        <source>Reading data...</source>
+        <translation type="unfinished">Luetaan tietoja...</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="96"/>
+        <source>Entity: </source>
+        <translation type="unfinished">Yksikkö: </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="119"/>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="120"/>
+        <source>Top ten DXCC per QSO</source>
+        <translation type="unfinished">Kymmenen parasta DXCC:tä QSOittain</translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerHourBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="47"/>
+        <source>QSOs per hour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="59"/>
+        <source>Hours</source>
+        <translation type="unfinished">Tunnit</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="60"/>
+        <source>QSOs at hour</source>
+        <translation type="unfinished">QSO:t tunneittain</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="70"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="70"/>
+        <source>Hours: </source>
+        <translation type="unfinished">Tunnit: </translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerModeBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="47"/>
+        <source>QSOs per mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="56"/>
+        <source>Modes</source>
+        <translation type="unfinished">Moodit</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="57"/>
+        <source>QSO per mode distribution</source>
+        <translation type="unfinished">QSO:t moodeittain</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="67"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="67"/>
+        <source>Modes: </source>
+        <translation type="unfinished">Moodit:</translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerMonthBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="47"/>
+        <source>QSOs per month</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
+        <source>Jan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
+        <source>Feb</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
+        <source>Mar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
+        <source>Apr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
+        <source>May</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
+        <source>Jun</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
+        <source>Jul</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
+        <source>Sep</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
+        <source>Oct</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
+        <source>Nov</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
+        <source>Dec</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
+        <source>Aug</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="59"/>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="60"/>
+        <source>QSOs at Month</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="70"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="70"/>
+        <source>Months: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerYearBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="47"/>
+        <source>Chart title</source>
+        <translation type="unfinished">Listan otsikko</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="56"/>
+        <source>QSOs</source>
+        <translation type="unfinished">QSO:t</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="57"/>
+        <source>QSOs per year</source>
+        <translation type="unfinished">QSO:ta vuodessa</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="68"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished">Luetaan tietoja ... </translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="68"/>
+        <source>QSO: %1/%2</source>
+        <translation type="unfinished">QSO: %1/%2</translation>
+    </message>
+</context>
+<context>
+    <name>StatsSentConfirmedPieChartWidget</name>
+    <message>
+        <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="39"/>
+        <source>Sent - %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="40"/>
+        <source>Confirmed - %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsWorkedConfirmedPieChartWidget</name>
+    <message>
+        <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="39"/>
+        <source>Worked - %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="40"/>
+        <source>Confirmed - %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsWorkedSentPieChartWidget</name>
+    <message>
+        <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="39"/>
+        <source>Worked - %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="40"/>
+        <source>Sent - %2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4741,12 +5168,12 @@ Lokia ei avata.</translation>
         <translation>Manner</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1202"/>
+        <location filename="../world.cpp" line="1199"/>
         <source>Reading cty.csv...</source>
         <translation>Luetaan cty.csv...</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1202"/>
+        <location filename="../world.cpp" line="1199"/>
         <source>Abort reading</source>
         <translation>Keskeytä luku</translation>
     </message>

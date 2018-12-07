@@ -146,6 +146,7 @@ private slots:
     void slotFreqRXChanged();
 
     void slotSearchBoxTextChanged();
+    void slotCloseStats(bool _vis);
     void slotSearchToolNeededQSLToSend();
     void slotToolSearchRequestedQSLToSend();
     void slotToolSearchNeededQSLPendingToReceive();

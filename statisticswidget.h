@@ -15,6 +15,11 @@ class StatisticsWidget : public QWidget
 public:
     explicit StatisticsWidget(DataProxy *dp, QWidget *parent = nullptr);
     ~StatisticsWidget();
+    void clear();
+
+protected:
+    void closeEvent(QCloseEvent *event);
+    void showEvent(QShowEvent *event);
 
 private slots:
     void slotChartComboBoxChanged();

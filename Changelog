@@ -1,7 +1,8 @@
-TBD - 0.9.6
+December 2018 - 0.9.6
 - Optimizing the Statistics widget.
 - Added some new Statistics widgets.
 - Fixed some messages with typos.
+- Bugfix: Fixed a bug preventing to modify a QSO. (TNX KB2YSI).
 
 October 2018 - 0.9.5
 - Added a dot at the end of all the tooltips.

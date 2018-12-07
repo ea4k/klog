@@ -139,152 +139,20 @@
 <context>
     <name>BarChartStats</name>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="71"/>
-        <source>Chart title</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="75"/>
-        <source>Abort reading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="75"/>
-        <source>Reading data ... </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="84"/>
         <source>QSOs</source>
-        <translation type="unfinished">QSO</translation>
+        <translation type="obsolete">QSO</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="85"/>
-        <source>QSOs per year</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="96"/>
-        <source>QSO: %1/%2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="113"/>
-        <source>DXCC Entities</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="114"/>
-        <source>DXCC Entities per year</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="138"/>
-        <source>CQ zones</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="139"/>
-        <source>CQ zone per year</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="147"/>
-        <source>Years: %1/%2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="163"/>
         <source>Bands</source>
-        <translation type="unfinished">Bande</translation>
+        <translation type="obsolete">Bande</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="164"/>
-        <source>QSO per band distribution</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="96"/>
-        <location filename="../charts/barchartstats.cpp" line="122"/>
-        <location filename="../charts/barchartstats.cpp" line="147"/>
-        <location filename="../charts/barchartstats.cpp" line="172"/>
-        <location filename="../charts/barchartstats.cpp" line="305"/>
-        <location filename="../charts/barchartstats.cpp" line="336"/>
-        <source>Reading data ...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="122"/>
-        <source>Entities: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="172"/>
-        <source>Bands: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="188"/>
         <source>Modes</source>
-        <translation type="unfinished">Modi</translation>
+        <translation type="obsolete">Modi</translation>
     </message>
     <message>
-        <location filename="../charts/barchartstats.cpp" line="189"/>
-        <source>QSO per mode distribution</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="198"/>
-        <location filename="../charts/barchartstats.cpp" line="216"/>
-        <location filename="../charts/barchartstats.cpp" line="259"/>
-        <source>Reading data...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="198"/>
-        <source>Modes: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="259"/>
-        <source>Entity: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="282"/>
         <source>DXCC</source>
-        <translation type="unfinished">DXCC</translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="283"/>
-        <source>Top ten DXCC per QSO</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="294"/>
-        <source>Continents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="295"/>
-        <source>QSOs per continent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="325"/>
-        <source>Hours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="326"/>
-        <source>QSOs at hour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charts/barchartstats.cpp" line="305"/>
-        <location filename="../charts/barchartstats.cpp" line="336"/>
-        <source>Hours: </source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">DXCC</translation>
     </message>
 </context>
 <context>
@@ -494,172 +362,172 @@ Vuoi fare un ulteriore tentativo?</translation>
         <translation>Nessuna query fallita</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="2976"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3027"/>
         <source>Aircraft Scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="2980"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3031"/>
         <source>Aurora</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="2984"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3035"/>
         <source>Aurora-E</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="2988"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3039"/>
         <source>Back scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="2992"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3043"/>
         <source>Earth-Moon-Earth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="2996"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3047"/>
         <source>Sporadic E</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3008"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3059"/>
         <source>Internet-assisted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3012"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3063"/>
         <source>Ionoscatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3016"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3067"/>
         <source>Meteor scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3020"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3071"/>
         <source>Terrestrial or atmospheric repeater or transponder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3024"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3075"/>
         <source>Rain scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3028"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3079"/>
         <source>Satellite</source>
         <translation type="unfinished">Satellite</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3540"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3591"/>
         <source>Bureau</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3552"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3603"/>
         <source>Manager</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4575"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4626"/>
         <source>All QSOs have been updated with a DXCC and the Continent.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3000"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3051"/>
         <source>Field Aligned Irregularities</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3004"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3055"/>
         <source>F2 Reflection</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3032"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3083"/>
         <source>Trans-equatorial</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3036"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3087"/>
         <source>Tropospheric ducting</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3351"/>
-        <location filename="../dataproxy_sqlite.cpp" line="3418"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3402"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3469"/>
         <source>Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3355"/>
-        <location filename="../dataproxy_sqlite.cpp" line="3422"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3406"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3473"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3359"/>
-        <location filename="../dataproxy_sqlite.cpp" line="3426"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3410"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3477"/>
         <source>Requested</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3363"/>
-        <location filename="../dataproxy_sqlite.cpp" line="3434"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3414"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3485"/>
         <source>Ignore/Invalid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3367"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3418"/>
         <source>Validated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3430"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3481"/>
         <source>Queued</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3482"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3533"/>
         <source>Uploaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3486"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3537"/>
         <source>Do not upload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3490"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3541"/>
         <source>Modified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3544"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3595"/>
         <source>Direct</source>
         <translation type="unfinished">Diretta</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3548"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3599"/>
         <source>Electronic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4574"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4625"/>
         <source>KLog DXCC</source>
         <translation>KLog-DXCC</translation>
     </message>
@@ -716,13 +584,13 @@ Vuoi fare un ulteriore tentativo?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2628"/>
-        <location filename="../filemanager.cpp" line="3752"/>
+        <location filename="../filemanager.cpp" line="3749"/>
         <source>Do you still want to cancel?</source>
         <translation>Sei sicuro di voler annullare l&apos;operazione?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="441"/>
-        <location filename="../filemanager.cpp" line="3586"/>
+        <location filename="../filemanager.cpp" line="3583"/>
         <source> QSO: </source>
         <translation> QSO: </translation>
     </message>
@@ -777,33 +645,33 @@ Vuoi fare un ulteriore tentativo?</translation>
         <translation>Lettura file LoTW...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3380"/>
+        <location filename="../filemanager.cpp" line="3377"/>
         <source>Reading ADIF file...</source>
         <translation>File ADIF in lettura...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4770"/>
+        <location filename="../filemanager.cpp" line="4767"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!.</source>
         <translation>Questo QSO non contiene le informazioni minime necessarie per essere considerato un QSO valido!.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4770"/>
+        <location filename="../filemanager.cpp" line="4767"/>
         <source>Please edit the ADIF file and make sure that it include at least:</source>
         <translation>Per favore modifica il file ADIF ed inserisci al suo interno almeno:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4770"/>
+        <location filename="../filemanager.cpp" line="4767"/>
         <source>and</source>
         <translation>e</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4770"/>
+        <location filename="../filemanager.cpp" line="4767"/>
         <source>This QSO had:</source>
         <translation>Questo QSO aveva:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3094"/>
-        <location filename="../filemanager.cpp" line="3380"/>
+        <location filename="../filemanager.cpp" line="3377"/>
         <source>Abort reading</source>
         <translation>Annullamento lettura</translation>
     </message>
@@ -813,32 +681,32 @@ Vuoi fare un ulteriore tentativo?</translation>
         <translation>Non hai scelto un nominativo di stazione e perciò nessun log sarà esportato</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3333"/>
+        <location filename="../filemanager.cpp" line="3330"/>
         <source>There is more than one log in this logfile.</source>
         <translation>Esiste più di una registrazione in questo file log.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3333"/>
+        <location filename="../filemanager.cpp" line="3330"/>
         <source>All logs will be imported into the current log.</source>
         <translation>Tutte le registrazioni saranno importante nel corrente log.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3333"/>
+        <location filename="../filemanager.cpp" line="3330"/>
         <source>Do you want to continue?</source>
         <translation>Vuoi proseguire?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3586"/>
+        <location filename="../filemanager.cpp" line="3583"/>
         <source>Importing ADIF file...</source>
         <translation>Import di ADIF file in corso...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3752"/>
+        <location filename="../filemanager.cpp" line="3749"/>
         <source>You have cancelled the file import. The file will be removed and no data will be imported.</source>
         <translation>Hai annullato l&apos;import. Il file sarà rimosso e nessun dato importato.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="3613"/>
+        <location filename="../filemanager.cpp" line="3610"/>
         <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
         <translation>Ho trovato alcuni QSL duplicati nel file ADIF che stai importando. Vuoi continuare ugualmente? (I QSO duplicati non saranno comunque importati)</translation>
     </message>
@@ -848,69 +716,69 @@ Vuoi fare un ulteriore tentativo?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4774"/>
+        <location filename="../filemanager.cpp" line="4771"/>
         <source> - The band missing and the following call: </source>
         <translation> - La banda non è indicata ed il seguente nominativo: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4779"/>
+        <location filename="../filemanager.cpp" line="4776"/>
         <source> - The call missing but was done at this time: </source>
         <translation> - Il nominativo non è indicato ma è stato effettuato all&apos;ora: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4784"/>
+        <location filename="../filemanager.cpp" line="4781"/>
         <source> - The mode missing and the following call: </source>
         <translation> - Il modo operativo non è indicato e il seguente nominativo: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4789"/>
+        <location filename="../filemanager.cpp" line="4786"/>
         <source> - The date missing and the following call: </source>
         <translation> - La data non è indicata ed il seguente nominativo: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4794"/>
+        <location filename="../filemanager.cpp" line="4791"/>
         <source> - The time missing and the following call: </source>
         <translation> - L&apos;ora non è indicata ed ils eguente nominativo: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4799"/>
+        <location filename="../filemanager.cpp" line="4796"/>
         <source>Do you want to continue with the current file?</source>
         <translation>Vuoi poroseguire sul seguente file?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4803"/>
+        <location filename="../filemanager.cpp" line="4800"/>
         <source>KLog: Not all required data found!</source>
         <translation>KLOg: Dati necessari mancanti!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4827"/>
+        <location filename="../filemanager.cpp" line="4824"/>
         <source>This log seems to lack of RST-TX information.</source>
         <translation>Questo log sembra non contenere informazioni RTS-TX.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4827"/>
-        <location filename="../filemanager.cpp" line="4849"/>
+        <location filename="../filemanager.cpp" line="4824"/>
+        <location filename="../filemanager.cpp" line="4846"/>
         <source>Click on Yes to add a default 59 to all QSO with a similar problem.</source>
         <translation>Clicca su Sì per aggiungere un 59 come default a tutti i QSO con un problema simile.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4827"/>
-        <location filename="../filemanager.cpp" line="4849"/>
+        <location filename="../filemanager.cpp" line="4824"/>
+        <location filename="../filemanager.cpp" line="4846"/>
         <source>If you select NO, the QSO may not be imported.</source>
         <translation>Se scegli NO, il QSO non sarà importato.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4828"/>
+        <location filename="../filemanager.cpp" line="4825"/>
         <source>KLog: No RST TX found!</source>
         <translation>KLog: Non trovato RST TX!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4849"/>
+        <location filename="../filemanager.cpp" line="4846"/>
         <source>This log seems to lack of RST-RX information.</source>
         <translation>Questo log sembra non contenere informazioni RST-RX.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4851"/>
+        <location filename="../filemanager.cpp" line="4848"/>
         <source>KLog: No RST RX found!</source>
         <translation>KLog: Non trovato RST TX!</translation>
     </message>
@@ -1408,13 +1276,13 @@ Vuoi fare un ulteriore tentativo?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2437"/>
-        <location filename="../mainwindow.cpp" line="6509"/>
+        <location filename="../mainwindow.cpp" line="6525"/>
         <source>RSTrx</source>
         <translation type="unfinished">RSTrx</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2444"/>
-        <location filename="../mainwindow.cpp" line="6507"/>
+        <location filename="../mainwindow.cpp" line="6523"/>
         <source>RSTtx</source>
         <translation type="unfinished">RSTtx</translation>
     </message>
@@ -1424,7 +1292,7 @@ Vuoi fare un ulteriore tentativo?</translation>
         <location filename="../mainwindow.cpp" line="3259"/>
         <location filename="../mainwindow.cpp" line="4168"/>
         <location filename="../mainwindow.cpp" line="5161"/>
-        <location filename="../mainwindow.cpp" line="6505"/>
+        <location filename="../mainwindow.cpp" line="6521"/>
         <source>QRZ</source>
         <translation type="unfinished">QRZ</translation>
     </message>
@@ -1930,7 +1798,13 @@ Vuoi fare un ulteriore tentativo?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7271"/>
+        <location filename="../mainwindow.cpp" line="6441"/>
+        <source>Filling DXCC in QSOs...
+ QSO: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="7287"/>
         <source>QSO logged from WSJT-X:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2040,7 +1914,7 @@ The UDP server failed to %1.</source>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5009"/>
-        <location filename="../mainwindow.cpp" line="7209"/>
+        <location filename="../mainwindow.cpp" line="7225"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2096,7 +1970,7 @@ The UDP server failed to %1.</source>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5141"/>
-        <location filename="../mainwindow.cpp" line="6515"/>
+        <location filename="../mainwindow.cpp" line="6531"/>
         <source>Comment</source>
         <translation type="unfinished">Commento</translation>
     </message>
@@ -2263,201 +2137,195 @@ The UDP server failed to %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6307"/>
+        <location filename="../mainwindow.cpp" line="6308"/>
         <source>Filling QSOs...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6307"/>
+        <location filename="../mainwindow.cpp" line="6308"/>
         <source>Abort filling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6425"/>
-        <source>Filling QSOs...
- QSO: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="6499"/>
+        <location filename="../mainwindow.cpp" line="6515"/>
         <source>Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6501"/>
+        <location filename="../mainwindow.cpp" line="6517"/>
         <source>Date</source>
         <translation type="unfinished">Data</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6503"/>
+        <location filename="../mainwindow.cpp" line="6519"/>
         <source>Time</source>
         <translation type="unfinished">Ora</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6511"/>
+        <location filename="../mainwindow.cpp" line="6527"/>
         <source>Band</source>
         <translation type="unfinished">Banda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6513"/>
-        <location filename="../mainwindow.cpp" line="7194"/>
+        <location filename="../mainwindow.cpp" line="6529"/>
+        <location filename="../mainwindow.cpp" line="7210"/>
         <source>Mode</source>
         <translation type="unfinished">Modo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6528"/>
+        <location filename="../mainwindow.cpp" line="6544"/>
         <source>Print Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6533"/>
+        <location filename="../mainwindow.cpp" line="6549"/>
         <source>Printing the log...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6533"/>
+        <location filename="../mainwindow.cpp" line="6549"/>
         <source>Abort printing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6548"/>
-        <location filename="../mainwindow.cpp" line="6563"/>
+        <location filename="../mainwindow.cpp" line="6564"/>
+        <location filename="../mainwindow.cpp" line="6579"/>
         <source>Printing the log...
  QSO: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7180"/>
+        <location filename="../mainwindow.cpp" line="7196"/>
         <source>KLog QSO received</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7185"/>
+        <location filename="../mainwindow.cpp" line="7201"/>
         <source>The following QSO data has been received from WSJT-X to be logged:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7188"/>
+        <location filename="../mainwindow.cpp" line="7204"/>
         <source>Call</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7191"/>
+        <location filename="../mainwindow.cpp" line="7207"/>
         <source>Freq</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7197"/>
+        <location filename="../mainwindow.cpp" line="7213"/>
         <source>Time On</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7200"/>
+        <location filename="../mainwindow.cpp" line="7216"/>
         <source>Time Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7203"/>
+        <location filename="../mainwindow.cpp" line="7219"/>
         <source>RST TX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7203"/>
+        <location filename="../mainwindow.cpp" line="7219"/>
         <source>RST RX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7206"/>
+        <location filename="../mainwindow.cpp" line="7222"/>
         <source>DX-Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7212"/>
+        <location filename="../mainwindow.cpp" line="7228"/>
         <source>Comments</source>
         <translation type="unfinished">Commenti</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7215"/>
+        <location filename="../mainwindow.cpp" line="7231"/>
         <source>TX Pwr</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7218"/>
+        <location filename="../mainwindow.cpp" line="7234"/>
         <source>Operator</source>
         <translation type="unfinished">Operatore</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7221"/>
+        <location filename="../mainwindow.cpp" line="7237"/>
         <source>Local-Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7304"/>
+        <location filename="../mainwindow.cpp" line="7320"/>
         <source>A new mode not supported by KLog has been received from an external software:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7304"/>
+        <location filename="../mainwindow.cpp" line="7320"/>
         <source>If the received mode is correct, please contact KLog development team and request support for that mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7304"/>
+        <location filename="../mainwindow.cpp" line="7320"/>
         <source>Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7465"/>
+        <location filename="../mainwindow.cpp" line="7481"/>
         <source>A duplicated satellite has been detected in the file and will not be imported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7466"/>
+        <location filename="../mainwindow.cpp" line="7482"/>
         <source>Please check the satellite information file and ensure it is properly populated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7466"/>
+        <location filename="../mainwindow.cpp" line="7482"/>
         <source>Now you will see a more detailed error that can be used for debugging...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7473"/>
+        <location filename="../mainwindow.cpp" line="7489"/>
         <source>An unexpected error ocurred!!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7473"/>
+        <location filename="../mainwindow.cpp" line="7489"/>
         <source>If the problem persists, please contact the developers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7473"/>
+        <location filename="../mainwindow.cpp" line="7489"/>
         <source>for analysis:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7475"/>
+        <location filename="../mainwindow.cpp" line="7491"/>
         <source>Error in function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7476"/>
+        <location filename="../mainwindow.cpp" line="7492"/>
         <source>Error code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7477"/>
+        <location filename="../mainwindow.cpp" line="7493"/>
         <source>Error text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7478"/>
+        <location filename="../mainwindow.cpp" line="7494"/>
         <source>Failed query</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7489"/>
+        <location filename="../mainwindow.cpp" line="7505"/>
         <source>Do you want to keep showing errors?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2772,6 +2640,11 @@ The UDP server failed to %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../mainwindowsattab.cpp" line="93"/>
+        <source>Locator of the DX station. This box is synchronized with the Locator box in the QSO tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindowsattab.cpp" line="96"/>
         <source>UpLink</source>
         <translation>Uplink</translation>
@@ -2832,11 +2705,6 @@ The UDP server failed to %1.</source>
         <location filename="../mainwindowsattab.cpp" line="80"/>
         <location filename="../mainwindowsattab.cpp" line="82"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindowsattab.cpp" line="93"/>
-        <source>Locator of the DX station. This box is syncronized with the Locator box in the QSO tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2919,51 +2787,51 @@ The UDP server failed to %1.</source>
         <translation>Tutti i dati sono stati copiati correttamente. Adesso dovresti andare su Configurazione &gt; Preferenze &gt;Logs per controllare che sia tutto OK.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3588"/>
-        <location filename="../database.cpp" line="3771"/>
-        <location filename="../database.cpp" line="7286"/>
-        <location filename="../database.cpp" line="7509"/>
-        <location filename="../dataproxy_sqlite.cpp" line="4556"/>
+        <location filename="../database.cpp" line="3583"/>
+        <location filename="../database.cpp" line="3766"/>
+        <location filename="../database.cpp" line="7281"/>
+        <location filename="../database.cpp" line="7504"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4607"/>
         <source>QSO: </source>
         <translation>QSO: </translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3663"/>
-        <location filename="../database.cpp" line="3840"/>
-        <location filename="../database.cpp" line="4041"/>
-        <location filename="../database.cpp" line="4249"/>
+        <location filename="../database.cpp" line="3658"/>
+        <location filename="../database.cpp" line="3835"/>
+        <location filename="../database.cpp" line="4036"/>
+        <location filename="../database.cpp" line="4244"/>
         <source>Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?</source>
         <translation>Annullare questo aggiornamento può causare inconsistenza dei dati caricati e perdite di dati. Ancora vuoi effettuare l&apos;annullamento?</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3971"/>
-        <location filename="../database.cpp" line="4173"/>
+        <location filename="../database.cpp" line="3966"/>
+        <location filename="../database.cpp" line="4168"/>
         <source>Progress: </source>
         <translation>Progresso: </translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7194"/>
+        <location filename="../database.cpp" line="7189"/>
         <source>Updating DXCC award information...</source>
         <translation>Aggiornamento imformazioni award DXCC...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7286"/>
+        <location filename="../database.cpp" line="7281"/>
         <source>Updating DXCC Award information...</source>
         <translation>Aggiornamento infomrazioni award DXCC...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7417"/>
+        <location filename="../database.cpp" line="7412"/>
         <source>Updating WAZ award information...</source>
         <translation>Aggiornamento informazioni award WAZ...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7509"/>
+        <location filename="../database.cpp" line="7504"/>
         <source>Updating WAZ Award information...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3567"/>
-        <location filename="../database.cpp" line="3588"/>
+        <location filename="../database.cpp" line="3562"/>
+        <location filename="../database.cpp" line="3583"/>
         <source>Updating mode information...</source>
         <translation>Aggiornamento informazioni modi...</translation>
     </message>
@@ -2978,31 +2846,31 @@ The UDP server failed to %1.</source>
         <translation>Se il DB non è aggiornato KLog potrebbe non funzionare correttamente.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3567"/>
-        <location filename="../database.cpp" line="3752"/>
-        <location filename="../database.cpp" line="3949"/>
-        <location filename="../database.cpp" line="4150"/>
-        <location filename="../database.cpp" line="7194"/>
-        <location filename="../database.cpp" line="7417"/>
-        <location filename="../dataproxy_sqlite.cpp" line="4513"/>
+        <location filename="../database.cpp" line="3562"/>
+        <location filename="../database.cpp" line="3747"/>
+        <location filename="../database.cpp" line="3944"/>
+        <location filename="../database.cpp" line="4145"/>
+        <location filename="../database.cpp" line="7189"/>
+        <location filename="../database.cpp" line="7412"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4564"/>
         <source>Abort updating</source>
         <translation>Annulla aggiornamento</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3752"/>
-        <location filename="../database.cpp" line="3771"/>
-        <location filename="../database.cpp" line="3971"/>
-        <location filename="../database.cpp" line="4173"/>
+        <location filename="../database.cpp" line="3747"/>
+        <location filename="../database.cpp" line="3766"/>
+        <location filename="../database.cpp" line="3966"/>
+        <location filename="../database.cpp" line="4168"/>
         <source>Updating bands information...</source>
         <translation>Aggiornamento informazione bande...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3947"/>
+        <location filename="../database.cpp" line="3942"/>
         <source>Updating bands information in %1 status...</source>
         <translation>Aggiornamento informazione bande %1 stato...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="4148"/>
+        <location filename="../database.cpp" line="4143"/>
         <source>Updating mode information in %1 status...</source>
         <translation>Aggiornamento informazioni modi %1 stato...</translation>
     </message>
@@ -3045,8 +2913,8 @@ The UDP server failed to %1.</source>
         <translation>Grazie per aver usato KLog!</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4513"/>
-        <location filename="../dataproxy_sqlite.cpp" line="4556"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4564"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4607"/>
         <source>Updating DXCC and Continent information...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3300,28 +3168,28 @@ The UDP server failed to %1.</source>
         <translation>QSL ricevuta via diretta</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1111"/>
+        <location filename="../searchwidget.cpp" line="1108"/>
         <source>You have requested to delete the QSO with: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1116"/>
+        <location filename="../searchwidget.cpp" line="1113"/>
         <source>Are you sure?</source>
         <translation>Sei sicuro?</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1179"/>
+        <location filename="../searchwidget.cpp" line="1176"/>
         <source>Needed QSO to send the QSL</source>
         <translation>QSO che hanno bisogno to inviare la QSL</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1187"/>
+        <location filename="../searchwidget.cpp" line="1184"/>
         <source>My QSL requested to be sent</source>
         <translation>La mia richiesta di QSL da inviare</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1192"/>
-        <location filename="../searchwidget.cpp" line="1197"/>
+        <location filename="../searchwidget.cpp" line="1189"/>
+        <location filename="../searchwidget.cpp" line="1194"/>
         <source>DX QSL pending to be received</source>
         <translation>QSL DX in attesa di essere ricevuta</translation>
     </message>
@@ -3993,7 +3861,7 @@ Se la porta non è specificata, 41112 sarà usato di default:</translation>
     </message>
     <message>
         <location filename="../setuppagelogsnew.cpp" line="380"/>
-        <location filename="../setuppagelogsnew.cpp" line="936"/>
+        <location filename="../setuppagelogsnew.cpp" line="933"/>
         <source>Categories not OK</source>
         <translation>Categorie non OK</translation>
     </message>
@@ -4012,7 +3880,7 @@ The log will not be opened.</source>
 Il log non sarà aperto.</translation>
     </message>
     <message>
-        <location filename="../setuppagelogsnew.cpp" line="928"/>
+        <location filename="../setuppagelogsnew.cpp" line="925"/>
         <source>Categories OK</source>
         <translation>Categorie OK</translation>
     </message>
@@ -4270,7 +4138,7 @@ Il log non sarà aperto.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="79"/>
-        <source>Miliseconds that the notification of QSO received from WSJTX will be shown.</source>
+        <source>Milliseconds that the notification of QSO received from WSJTX will be shown.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4578,22 +4446,22 @@ Il log non sarà aperto.</translation>
         <translation>Alla data</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="305"/>
+        <location filename="../setuppageworldeditor.cpp" line="302"/>
         <source>Open File</source>
         <translation>Apre File</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="305"/>
+        <location filename="../setuppageworldeditor.cpp" line="302"/>
         <source>BigCTY (*.csv)</source>
         <translation>BigCTY (*.csv)</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="314"/>
+        <location filename="../setuppageworldeditor.cpp" line="311"/>
         <source>Entities information has been updated.</source>
         <translation>Informazioni collegamento aggiornate.</translation>
     </message>
     <message>
-        <location filename="../setuppageworldeditor.cpp" line="320"/>
+        <location filename="../setuppageworldeditor.cpp" line="317"/>
         <source>Entities information has not been updated.</source>
         <translation>Informazioni collegamento non aggiornate.</translation>
     </message>
@@ -4655,43 +4523,501 @@ Il log non sarà aperto.</translation>
 <context>
     <name>StatisticsWidget</name>
     <message>
-        <location filename="../statisticswidget.cpp" line="91"/>
+        <location filename="../statisticswidget.cpp" line="38"/>
         <source>QSO per year</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="92"/>
+        <location filename="../statisticswidget.cpp" line="39"/>
         <source>DXCC per year</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="93"/>
+        <location filename="../statisticswidget.cpp" line="40"/>
         <source>CQ zones per year</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="94"/>
+        <location filename="../statisticswidget.cpp" line="41"/>
         <source>QSO per band</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="95"/>
+        <location filename="../statisticswidget.cpp" line="42"/>
         <source>QSO per mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="96"/>
+        <location filename="../statisticswidget.cpp" line="43"/>
         <source>QSO per DXCC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="97"/>
+        <location filename="../statisticswidget.cpp" line="44"/>
         <source>QSO per Continent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="98"/>
+        <location filename="../statisticswidget.cpp" line="45"/>
         <source>QSO per hour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../statisticswidget.cpp" line="46"/>
+        <source>QSO per month</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../statisticswidget.cpp" line="47"/>
+        <source>Worked / Confirmed status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../statisticswidget.cpp" line="48"/>
+        <source>Worked / Sent status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../statisticswidget.cpp" line="49"/>
+        <source>Sent / Confirmed status</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsCQZPerYearBarChartWidget</name>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="47"/>
+        <source>CQ Zones per year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="56"/>
+        <source>CQ zones</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="57"/>
+        <source>CQ zones per year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="69"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="69"/>
+        <source>Years: %1/%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsEntitiesPerYearBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="47"/>
+        <source>Chart title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="57"/>
+        <source>DXCC Entities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="58"/>
+        <source>DXCC Entities per year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="66"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="66"/>
+        <source>Entities: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerBandBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="47"/>
+        <source>QSOs per band</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="56"/>
+        <source>Bands</source>
+        <translation type="unfinished">Bande</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="57"/>
+        <source>QSO per band distribution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="67"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="67"/>
+        <source>Bands: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerContinentBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="47"/>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="61"/>
+        <source>QSOs per continent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="60"/>
+        <source>Continents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="70"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="70"/>
+        <source>Hours: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerDXCCBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="47"/>
+        <source>QSOs per DXCC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="53"/>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="96"/>
+        <source>Reading data...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="96"/>
+        <source>Entity: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="119"/>
+        <source>DXCC</source>
+        <translation type="unfinished">DXCC</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="120"/>
+        <source>Top ten DXCC per QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerHourBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="47"/>
+        <source>QSOs per hour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="59"/>
+        <source>Hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="60"/>
+        <source>QSOs at hour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="70"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="70"/>
+        <source>Hours: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerModeBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="47"/>
+        <source>QSOs per mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="56"/>
+        <source>Modes</source>
+        <translation type="unfinished">Modi</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="57"/>
+        <source>QSO per mode distribution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="67"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="67"/>
+        <source>Modes: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerMonthBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="47"/>
+        <source>QSOs per month</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
+        <source>Jan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
+        <source>Feb</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
+        <source>Mar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
+        <source>Apr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
+        <source>May</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
+        <source>Jun</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
+        <source>Jul</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
+        <source>Sep</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
+        <source>Oct</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
+        <source>Nov</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
+        <source>Dec</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
+        <source>Aug</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="59"/>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="60"/>
+        <source>QSOs at Month</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="70"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="70"/>
+        <source>Months: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsQSOsPerYearBarChartWidget</name>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="47"/>
+        <source>Chart title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="51"/>
+        <source>Reading data ... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="51"/>
+        <source>Abort reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="56"/>
+        <source>QSOs</source>
+        <translation type="unfinished">QSO</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="57"/>
+        <source>QSOs per year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="68"/>
+        <source>Reading data ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="68"/>
+        <source>QSO: %1/%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsSentConfirmedPieChartWidget</name>
+    <message>
+        <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="39"/>
+        <source>Sent - %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="40"/>
+        <source>Confirmed - %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsWorkedConfirmedPieChartWidget</name>
+    <message>
+        <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="39"/>
+        <source>Worked - %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="40"/>
+        <source>Confirmed - %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatsWorkedSentPieChartWidget</name>
+    <message>
+        <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="39"/>
+        <source>Worked - %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="40"/>
+        <source>Sent - %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4736,12 +5062,12 @@ Il log non sarà aperto.</translation>
         <translation>continente</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1202"/>
+        <location filename="../world.cpp" line="1199"/>
         <source>Abort reading</source>
         <translation>Annulla lettura</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1202"/>
+        <location filename="../world.cpp" line="1199"/>
         <source>Reading cty.csv...</source>
         <translation>Lettura cty.cvs...</translation>
     </message>

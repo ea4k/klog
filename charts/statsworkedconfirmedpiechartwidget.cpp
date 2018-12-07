@@ -36,7 +36,7 @@ void StatsWorkedConfirmedPieChartWidget::prepareChart()
      //qDebug() << "Confirmed: " << QString::number(confirmed) << endl;
      //qDebug() << "Worked: " << QString::number(qsos - confirmed) << endl;
 
-    series->append(tr("Worked - %1").arg(qsos-confirmed), qsos - confirmed);
+    series->append(tr("Worked, not confirmed - %1").arg(qsos-confirmed), qsos - confirmed);
     series->append(tr("Confirmed - %2").arg(confirmed), confirmed);
 
     QPieSlice *slice = series->slices().at(1);

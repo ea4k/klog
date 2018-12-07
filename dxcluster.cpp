@@ -33,7 +33,6 @@ DXClusterWidget::DXClusterWidget(DataProxy *dp, QWidget *parent)
     constrid = 1;
     awards = new Awards(dataProxy);
 
-
     initClass();
      //qDebug() << "DXClusterWidget::DXClusterWidget - END" << endl;
 }

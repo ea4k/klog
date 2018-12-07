@@ -19,7 +19,29 @@ StatisticsWidget::StatisticsWidget(DataProxy *dp, QWidget *parent): QWidget(pare
 
 }
 
-StatisticsWidget::~StatisticsWidget(){}
+StatisticsWidget::~StatisticsWidget()
+{
+
+}
+
+void StatisticsWidget::clear()
+{
+   //qDebug() <<  "StatisticsWidget::clear()" << endl;
+}
+
+void StatisticsWidget::closeEvent(QCloseEvent *event)
+{
+     //qDebug() << "StatisticsWidget::closeEvent" << endl;
+    //barChartStats->clear();
+    event->accept();
+}
+
+void StatisticsWidget::showEvent(QShowEvent *event)
+{
+    //qDebug() << "StatisticsWidget::showEvent" << endl;
+    barChartStats->clear();
+    event->accept();
+}
 
 void StatisticsWidget::slotChartComboBoxChanged()
 {    
