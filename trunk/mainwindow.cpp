@@ -1768,7 +1768,7 @@ WHERE [condition];
     aux1 = dataProxy->getContinentShortNameFromEntity(dxcc);
     if (dataProxy->isValidContinentShortName(aux1))
     {
-        updateString = updateString + ", cont";
+        updateString = updateString + "cont = '";
         updateString = updateString + aux1 + "', ";
     }
 
@@ -3354,8 +3354,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
     {
         event->ignore();
     }
-
-
 }
 
 bool MainWindow::maybeSave()
@@ -3557,6 +3555,7 @@ void MainWindow::createMenusCommon()
     showStatsAct = new QAction (tr("Stats"), this);
     toolMenu->addAction(showStatsAct);
     connect(showStatsAct, SIGNAL(triggered()), this, SLOT(slotShowStats()));
+    //connect(statsWidget, SIGNAL(visibilityChanged(bool)), this, SLOT(slotCloseStats(bool)));
     showStatsAct->setToolTip(tr("Show the statistics of your radio activity."));
 
     toolMenu->addSeparator();
@@ -3585,9 +3584,13 @@ void MainWindow::createMenusCommon()
     helpMenu->addAction(aboutQtAct);
     aboutQtAct->setMenuRole(QAction::AboutQtRole);
     connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(slotAboutQt()));
-    
-    
+
  }
+
+void MainWindow::slotCloseStats(bool _vis)
+{
+  statsWidget->clear();
+}
 
 void MainWindow::slotSearchToolNeededQSLToSend()
 {
@@ -6280,7 +6283,7 @@ void MainWindow::fillQSOData()
        //qDebug() << "MainWindow::fillQSOData" << endl;
 
     //QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, time_on, lognumber, confirmed, id, cqz, ituz, dxcc FROM log WHERE lognumber='%1'").arg(currentLog);
-    QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, time_on, lognumber, id, cqz, ituz, dxcc FROM log WHERE lognumber='%1'").arg(currentLog);
+    QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, time_on, lognumber, id, cqz, ituz, dxcc, cont FROM log WHERE lognumber='%1'").arg(currentLog);
 
     QSqlQuery query;
     bool sqlOK = query.exec(stringQuery);
@@ -6299,6 +6302,7 @@ void MainWindow::fillQSOData()
 
     int numberOfQsos = 0;
     int i = 0;
+    int _dxcc = 0;
 
     numberOfQsos = dataProxy->getHowManyQSOInLog(currentLog);
 
@@ -6366,7 +6370,7 @@ void MainWindow::fillQSOData()
             }
             else
             {
-            }
+            }            
 
             nameCol = rec.indexOf("ituz");
             if (( (query.value(nameCol)).toString()).length() < 1 )
@@ -6378,8 +6382,11 @@ void MainWindow::fillQSOData()
             else
             {}
         //qDebug() << "MainWindow::fillQSOData: DXCC" << endl;
+
             nameCol = rec.indexOf("dxcc");
-            if (( (query.value(nameCol)).toString()).length() < 1 )
+            _dxcc = (query.value(nameCol)).toInt();
+            //if (( (query.value(nameCol)).toString()).length() < 1 )
+            if (_dxcc < 1)
             {
                 aux1 = QString::number(world->getQRZARRLId(_call) );
                     //qDebug() << "MainWindow::fillQSOData: DXCC proposed: " << aux1 << endl;
@@ -6388,18 +6395,30 @@ void MainWindow::fillQSOData()
                     updateString = updateString + ", dxcc='" + aux1 + "'";
                     toModify = true;
                         //qDebug() << "MainWindow::fillQSOData: DXCC: " << aux1 << endl;
+                    _dxcc = aux1.toInt();
                 }
                 else
-                {
+                {                    
                         //qDebug() << "MainWindow::fillQSOData: no DXCC identified"  << endl;
                 }
 
             }
             else
             {
+
                     //qDebug() << "MainWindow::fillQSOData: DXCC already existed"  << endl;
             }
-
+            nameCol = rec.indexOf("cont");
+            if (( (query.value(nameCol)).toString()).length() < 2 )
+            {
+                aux1 = world->getContinentShortName(_dxcc);
+                //aux1 = QString::number( world->getQRZItuz(_call) );
+                updateString = updateString + ", ituz='" + aux1 + "'";
+                toModify = true;
+            }
+            else
+            {}
+            _dxcc = -1;
                 //qDebug() << "MainWindow::fillQSOData1: " << updateString << endl;
             if (toModify)
             {
@@ -6422,7 +6441,7 @@ void MainWindow::fillQSOData()
                 updateString.clear();
             }
 
-            aux = tr("Filling QSOs...\n QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
+            aux = tr("Filling DXCC in QSOs...\n QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
             progress.setLabelText(aux);
             progress.setValue(i);
 

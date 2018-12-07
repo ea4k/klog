@@ -54,7 +54,7 @@ void StatsQSOsPerMonthBarChartWidget::prepareChart()
     QStringList months;
     months.clear();
     months << tr("Jan") << tr("Feb") << tr("Mar") << tr("Apr") << tr("May") << tr("Jun")
-              << tr("Jul") << tr("Ago") << tr("Sep") << tr("Oct") << tr("Nov") << tr("Dec");
+              << tr("Jul") << tr("Aug") << tr("Sep") << tr("Oct") << tr("Nov") << tr("Dec");
      x_axis.append(months);
      x_axisElem = tr("Months");
      x_axisTitle = tr("QSOs at Month");

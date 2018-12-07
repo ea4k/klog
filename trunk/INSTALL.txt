@@ -4,6 +4,6 @@ Please read:
 
  INSTALL-linux.txt for linux installations.
 
- INSTALL-OSX.txt for OSX installations.
+ INSTALL-macOS.txt for macOS installations.
 
  INSTALL-win.txt for Windows installations.

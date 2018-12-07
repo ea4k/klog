@@ -52,6 +52,7 @@ public:
     BarChartStats(DataProxy *dp, QWidget *parent = nullptr);
     ~BarChartStats();
     void prepareChart(const int _selection);
+    void clear();
 
 signals:
 
