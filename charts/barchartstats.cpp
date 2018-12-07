@@ -84,7 +84,6 @@ void BarChartStats::prepareChart(const int _selection)
         case 1:
     {
         //cleanLayout();
-A lo mejor en vez de crear, debo mostrar uno u otro pero crearlos todos antes
         genchart = new StatsQSOsPerYearBarChartWidget(dataProxy, 0);
         mLayout->addWidget(genchart);
     }
