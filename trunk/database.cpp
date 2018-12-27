@@ -302,21 +302,31 @@ bool DataBase::createConnection(bool newDB)
     {
          //qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
         //db = QSqlDatabase::database();
-        db = QSqlDatabase::addDatabase("QSQLITE");
+        qDebug() << "DataBase::createConnection: Start the test"  << endl;
+        if (db.isValid())
+        {
+            qDebug() << "DataBase::createConnection: DB is Valid"  << endl;
 
-
+        }
+        else
+        {
+            qDebug() << "DataBase::createConnection: DB is not valid, let's call addDataBase"  << endl;
+            db = QSqlDatabase::addDatabase("QSQLITE");
+            qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  << endl;
             db.setDatabaseName(dbName);
-
-
+            qDebug() << "DataBase::createConnection: end of not valid"  << endl;
+        }
+        qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  << endl;
         if (!db.open())
         {
+            qDebug() << "DataBase::createConnection:Not open "  << endl;
             QMessageBox::warning(0, QObject::tr("Database Error"), db.lastError().text());
              //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
             return false;
         }
         else
         {
-             //qDebug() << "DataBase::createConnection: created and opened after the creation" << endl;
+             qDebug() << "DataBase::createConnection: created and opened after the creation" << endl;
             if (isTheDBCreated())
             {
                  //qDebug() << "DataBase::createConnection: DB Exists"  << endl;
@@ -367,7 +377,7 @@ bool DataBase::createConnection(bool newDB)
     }
 
     //created = true;
-     //qDebug() << "DataBase::createConnection -------------------------------------------- END" << endl;
+    qDebug() << "DataBase::createConnection -------------------------------------------- END" << endl;
     return unMarkAllQSO();
 }
 

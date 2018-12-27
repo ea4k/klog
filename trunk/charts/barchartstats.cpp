@@ -36,10 +36,14 @@ BarChartStats::BarChartStats(DataProxy *dp, QWidget *parent) : QWidget(parent)
      //chart->legend()->setAlignment(Qt::AlignBottom);
      //chartView->setRenderHint(QPainter::Antialiasing);
 
+
+
      dataProxy = dp;
      mainWidget = new QWidget();
      mLayout = new QVBoxLayout;
      mainWidget->setLayout(mLayout);
+
+     qsoPerYearBarChartWidget = new StatsQSOsPerYearBarChartWidget(dataProxy, 0);
 
      QVBoxLayout *mainLayout = new QVBoxLayout;
      mainLayout->addWidget(mainWidget);
@@ -76,15 +80,17 @@ void BarChartStats::cleanLayout()
 }
 
 
-void BarChartStats::prepareChart(const int _selection)
+void BarChartStats::prepareChart(const int _selection, const int _log)
 {
     cleanLayout();
+
     switch (_selection)
     {
         case 1:
     {
-        //cleanLayout();
-        genchart = new StatsQSOsPerYearBarChartWidget(dataProxy, 0);
+        //qsoPerYearBarChartWidget->prepareChart()
+        //genchart = new StatsQSOsPerYearBarChartWidget(dataProxy, 0);
+        genchart = qsoPerYearBarChartWidget;
         mLayout->addWidget(genchart);
     }
         break;

@@ -38,6 +38,7 @@
 #include "setuppageworldeditor.h"
 #include "setuppageclublog.h"
 #include "setuppageudp.h"
+#include "setuppagesats.h"
 #include "utilities.h"
 
 
@@ -119,6 +120,7 @@ private:
     SetupPageWorldEditor *worldEditorPage;
     SetupPageClubLog *clubLogPage;
     SetupPageUDP *UDPPage;
+    SetupPageSats *satsPage;
 
     int pageRequested; // The page on the Dialog that is requested to be shown when you call it
     //QString klogDir;

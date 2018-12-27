@@ -80,8 +80,9 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
     //qDebug() << "SetupDialog::SetupDialog 3.11" << endl;
     clubLogPage = new SetupPageClubLog(this);
      //qDebug() << "SetupDialog::SetupDialog 3.12" << endl;
-    UDPPage = new SetupPageUDP(this);
+    UDPPage = new SetupPageUDP(this);    
     //qDebug() << "SetupDialog::SetupDialog 3.13" << endl;
+    satsPage = new SetupPageSats(dataProxy, this);
 
     //qDebug() << "SetupDialog::SetupDialog 4" << endl;
 
@@ -94,6 +95,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
     logsPageTabN = tabWidget->addTab(logsPage, tr("Logs"));
     tabWidget->addTab(clubLogPage, "ClubLog");
     tabWidget->addTab(UDPPage, "WSJT-X");
+    tabWidget->addTab(satsPage , tr("Satellites"));
 
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
@@ -159,6 +161,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString
     logsPage = new SetupPageLogs(dataProxy, this);
     clubLogPage = new SetupPageClubLog(this);
     UDPPage = new SetupPageUDP(this);
+    satsPage = new SetupPageSats(dataProxy, this);
 
      //qDebug() << "SetupDialog::SetupDialog 02" << endl;
     tabWidget->addTab(userDataPage, tr("User data"));
@@ -170,6 +173,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString
     logsPageTabN = tabWidget->addTab(logsPage, tr("Logs"));
     tabWidget->addTab(clubLogPage, tr("ClubLog"));
     tabWidget->addTab(UDPPage, tr("WSJT-X"));
+    tabWidget->addTab(satsPage , tr("Satellites"));
 
      //qDebug() << "SetupDialog::SetupDialog 03" << endl;
 

@@ -23,9 +23,12 @@ protected:
 
 private slots:
     void slotChartComboBoxChanged();
+    void slotLogComboBoxChanged();
 
 private:
     void createUI();
+    void fillLogCombo();
+    void updateChart();
    // void paintQSOperOtherBarChart(const int _i);
 
 
@@ -37,7 +40,7 @@ private:
      BarChartStats *barChartStats;
      //DonutChartStats *donutChartStats;
 
-     QComboBox *statisticToShowComboBox;
+     QComboBox *statisticToShowComboBox, *logComboBox;
      QStringList statisticsToShowList;
 };
 

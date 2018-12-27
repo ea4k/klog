@@ -51,7 +51,7 @@ class BarChartStats : public QWidget
 public:
     BarChartStats(DataProxy *dp, QWidget *parent = nullptr);
     ~BarChartStats();
-    void prepareChart(const int _selection);
+    void prepareChart(const int _selection, const int _log=-1);
     void clear();
 
 signals:
@@ -70,6 +70,7 @@ private:
     QWidget *mainWidget;
     StatsGeneralChartWidget *genchart;
     QVBoxLayout *mLayout;
+    StatsQSOsPerYearBarChartWidget *qsoPerYearBarChartWidget;
 
 
     //QBarCategoryAxis *axis;
