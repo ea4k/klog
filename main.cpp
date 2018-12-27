@@ -309,7 +309,7 @@ int main(int argc, char *argv[])
     {
          //qDebug() << "Main: Start of DB Activities" << endl;
         DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
-         //qDebug() << "Main: After Start of DB Activities" << endl;
+        qDebug() << "Main: After Start of DB Activities" << endl;
         if (!db->createConnection())
         {
              //qDebug() << "Main: Conection not created" << endl;

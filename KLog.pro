@@ -98,7 +98,8 @@ HEADERS += setupdialog.h \
     charts/statsworkedconfirmedpiechartwidget.h \
     charts/statsworkedsentpiechartwidget.h \
     charts/statssentconfirmedpiechartwidget.h \
-    charts/statsqsosperbandbarchartwidget.h
+    charts/statsqsosperbandbarchartwidget.h \
+    setuppagesats.h
 
 
 SOURCES += main.cpp \
@@ -161,7 +162,8 @@ SOURCES += main.cpp \
     charts/statsworkedconfirmedpiechartwidget.cpp \
     charts/statsworkedsentpiechartwidget.cpp \
     charts/statssentconfirmedpiechartwidget.cpp \
-    charts/statsqsosperbandbarchartwidget.cpp
+    charts/statsqsosperbandbarchartwidget.cpp \
+    setuppagesats.cpp
 
 
 OTHER_FILES += \

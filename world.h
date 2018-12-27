@@ -86,7 +86,6 @@ public:
     double getQRZLatitude(const QString _qrz); // Returns the latitude of the Entity
     double getLatitude(const int _enti); // Returns the latitude of the Entity
 
-
     int getEntityCqz(const int _enti);
     int getQRZCqz(const QString _qrz);
     //int getPrefixCQz(const QString _p);
