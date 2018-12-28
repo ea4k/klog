@@ -8,22 +8,24 @@ UpdateSatsData::UpdateSatsData(DataProxy *dp, QObject *parent) : QObject(parent)
 
 bool UpdateSatsData::satDataFileRead(const QString& tfileName)
 {
-     //qDebug() << "UpdateSatsData::satDataFileRead: " << tfileName << endl;
+     qDebug() << "UpdateSatsData::satDataFileRead: " << tfileName << endl;
     QString fileName = tfileName;
+    bool errorFound = true;
 
     QFile file( fileName );
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-         //qDebug() << "UpdateSatsData::satDataFileRead File not found" << fileName << endl;
+         qDebug() << "UpdateSatsData::satDataFileRead File not found" << fileName << endl;
         return false;
     }
     if (dataProxy->clearSatList())
     {
-         //qDebug() << "UpdateSatsData::satDataFileRead Sats YES deleted"  << endl;
+         qDebug() << "UpdateSatsData::satDataFileRead Sats YES deleted"  << endl;
     }
     else
     {
-         //qDebug() << "UpdateSatsData::satDataFileRead Sats NOT deleted"  << endl;
+         qDebug() << "UpdateSatsData::satDataFileRead Sats NOT deleted"  << endl;
+         return false;
     }
 
     int numberOfSats = 0;
@@ -45,6 +47,7 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
         numberOfSats = numberOfSats + line.count("EOR>");
         if ((line.count("<EOH>")>0) && (!hasEOH))
         {
+            errorFound = false;
             hasEOH = true;
             pos = file.pos();
 
@@ -61,7 +64,7 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
     progress.setMaximum(numberOfSats);
 
 
-     //qDebug() << "UpdateSatsData::satDataFileRead: END OF HEADER"  << endl;
+     qDebug() << "UpdateSatsData::satDataFileRead: END OF HEADER"  << endl;
 
 
     //file.seek(pos);
@@ -81,27 +84,6 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
     QString satDownLink = QString();
     QString satMode = QString();
 
-/*
-    while (!noMoreRegisters)
-    {
-        if (!file.atEnd())
-        {
-            line.clear();
-            line.append(file.readLine().trimmed().toUpper());
-             //qDebug() << "UpdateSatsData::satDataFileRead-line:" << line << endl;
-            fields.clear();
-            fields << line.split("<", QString::SkipEmptyParts);
-
-
-        }
-        else
-        {
-            noMoreRegisters = true;
-             //qDebug() << "UpdateSatsData::satDataFileRead: While - End of File"  << endl;
-        }
-    }
-
-    */
 
     while (!noMoreRegisters)
     {
@@ -136,7 +118,11 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
                             haveUpLink = false;
                             haveDownLink = false;
                             haveMode = false;
-                            dataProxy->addSatellite(satID, satName, satDownLink,satUpLink, satMode);
+                            if (!dataProxy->addSatellite(satID, satName, satDownLink,satUpLink, satMode))
+                            {
+                                errorFound = true;
+                                return false;
+                            }
                             //QDebug() << "UpdateSatsData::satDataFileRead - Satellite added: " << satID << endl;
                             satID = QString();
                             satName = QString();
@@ -213,14 +199,23 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
     }
 
 
+    if (errorFound)
+    {
+        qDebug() << "UpdateSatsData::satDataFileRead: errorFound = true"  << endl;
+        return false;
+    }
+    else
+    {
+       qDebug() << "UpdateSatsData::satDataFileRead: END"  << endl;
+       emit satsUpdatedSignal(true);
+       QMessageBox msgBox;
+       msgBox.setIcon(QMessageBox::Information);
+       msgBox.setText(tr("The Satellites information has been updated."));
+       msgBox.exec();
+    }
 
 
-     //qDebug() << "UpdateSatsData::satDataFileRead: END"  << endl;
-    emit satsUpdatedSignal(true);
-    QMessageBox msgBox;
-    msgBox.setIcon(QMessageBox::Information);
-    msgBox.setText(tr("The Satellites information has been updated."));
-    msgBox.exec();
+    qDebug() << "UpdateSatsData::satDataFileRead: END "  << endl;
     return true;
 }
 
