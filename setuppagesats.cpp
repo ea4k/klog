@@ -379,74 +379,6 @@ void SetupPageSats::createActions()
 
 }
 
-QStringList SetupPageSats::readSats()
-{
-     //qDebug() << "SetupPageSats::readSats" << endl;
-
-    QString aux, aux2;
-    QStringList _sats;
-    QSqlQuery query;
-    int nameCol = -1;
-    bool sqlOk = false;
-    //QDate date = QDate::currentDate();
-    aux2.clear();
-    aux.clear();
-    _sats.clear();
-
-
-    aux = "SELECT id, satarrlid, satname, uplink, downlink, satmode FROM satellites";
-
-    sqlOk = query.exec(aux);
-    if (sqlOk)
-    {
-        QSqlRecord rec = query.record();
-
-        while ( (query.next()) && (query.isValid()) )
-        {
-            aux2.clear();
-
-            nameCol = rec.indexOf("id");
-            aux2 = (query.value(nameCol)).toString();
-
-            nameCol = rec.indexOf("satarrlid");
-            aux2 = aux2.append("-");
-            aux2.append((query.value(nameCol)).toString());
-
-            nameCol = rec.indexOf("satname");
-            aux2 = aux2.append("-");
-            aux2.append((query.value(nameCol)).toString());
-
-            nameCol = rec.indexOf("uplink");
-            aux2 = aux2.append("-");
-            aux2.append((query.value(nameCol)).toString());
-
-            nameCol = rec.indexOf("downlink");
-            aux2 = aux2.append("-");
-            aux2.append((query.value(nameCol)).toString());
-
-            nameCol = rec.indexOf("satmode");
-            aux2 = aux2.append("-");
-            aux2.append((query.value(nameCol)).toString());
-
-            _sats.append(aux2);
-
-        }
-        return _sats;
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        return _sats;
-    }
-
-
-    _sats.clear();
-     //qDebug() << "SetupPageSats::readSats: " << QString::number(_sats.size())<< endl;
-
-    return _sats;
-
-}
-
 /*
 bool SetupPageSats::addNewSat(const QStringList _qs)
 {
@@ -510,6 +442,73 @@ void SetupPageSats::updateSelectedSats()
          qDebug() << "SetupPageSats::updateSelectedSats Not selected (less than 1)" << endl;
         currentSats->clear();
     }
+}
+
+QStringList SetupPageSats::readSats()
+{
+     //qDebug() << "SetupPageSats::readSats" << endl;
+
+    QString aux, aux2;
+    QStringList _sats;
+    QSqlQuery query;
+    int nameCol = -1;
+    bool sqlOk = false;
+    //QDate date = QDate::currentDate();
+    aux2.clear();
+    aux.clear();
+    _sats.clear();
+
+
+    aux = "SELECT id, satarrlid, satname, uplink, downlink, satmode FROM satellites";
+
+    sqlOk = query.exec(aux);
+    if (sqlOk)
+    {
+        QSqlRecord rec = query.record();
+
+        while ( (query.next()) && (query.isValid()) )
+        {
+            aux2.clear();
+
+            nameCol = rec.indexOf("id");
+            aux2 = (query.value(nameCol)).toString();
+
+            nameCol = rec.indexOf("satarrlid");
+            aux2 = aux2.append("-");
+            aux2.append((query.value(nameCol)).toString());
+
+            nameCol = rec.indexOf("satname");
+             aux2 = aux2.append("-");
+             aux2.append((query.value(nameCol)).toString());
+
+             nameCol = rec.indexOf("uplink");
+             aux2 = aux2.append("-");
+             aux2.append((query.value(nameCol)).toString());
+
+             nameCol = rec.indexOf("downlink");
+             aux2 = aux2.append("-");
+             aux2.append((query.value(nameCol)).toString());
+
+             nameCol = rec.indexOf("satmode");
+             aux2 = aux2.append("-");
+             aux2.append((query.value(nameCol)).toString());
+
+             _sats.append(aux2);
+
+         }
+         return _sats;
+     }
+     else
+     {
+         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+         return _sats;
+     }
+
+
+     _sats.clear();
+      //qDebug() << "SetupPageSats::readSats: " << QString::number(_sats.size())<< endl;
+
+     return _sats;
 }
 
 int SetupPageSats::getSelectedSat()
@@ -593,17 +592,51 @@ void SetupPageSats::setDefaultOperators(const QString _p)
 
 }
 
-bool SetupPageSats::readSatsFile()
-{
-
-
-    return false;
-}
 
 void SetupPageSats::slotImportButtonClicked()
 {
     qDebug() << "SetupPageSats::slotImportButtonClicked" << endl;
-    readSatsFile();
+
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Satellites File"),
+                                                     util->getHomeDir(),
+                                                     "SATS (*.dat)");
+    if (fileName.isNull())
+    {
+        return;
+    }
+
+    UpdateSatsData *updateSat = new UpdateSatsData(dataProxy, this);
+    if (updateSat->satDataFileRead(fileName))
+    {
+
+        qDebug() << "SetupPageSats::slotImportButtonClicked IMPORTED OK" << endl;
+    }
+    else
+    {
+        qDebug() << "SetupPageSats::slotImportButtonClicked IMPORTED NOK" << endl;
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog warning"));
+        QString aux = QString();
+        aux = tr("An unexpected error ocurred while importing the satellite data.\n\nIt may be caused because the file you are trying to import does not have the right format.");
+        //msgBox.setText(aux + "MW-1#" + QString::number(errorCode));
+        msgBox.setText(aux);
+        msgBox.setDetailedText(tr("Please check the format or contact the developer for analysis with the error code: ") + "SetupPageSats error #1");
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        int ret = msgBox.exec();
+        switch (ret)
+        {
+            case QMessageBox::Ok:
+            break;
+            default:
+            // should never be reached
+            break;
+        }
+
+    }
+    satsModel->select();
+    updateSelectedSats();
 
 }
 

@@ -30,6 +30,7 @@
 #include <QtWidgets>
 #include <QtSql>
 #include <QSqlQuery>
+#include "updatesatsdata.h"
 #include "dataproxy.h"
 #include "utilities.h"
 
@@ -66,8 +67,9 @@ signals:
 
 private:
     //void createActions();
+
     QStringList readSats();
-    bool readSatsFile();
+    //bool readSatsFile();
 
     void createSatsPanel();
     void createSatsModel();
@@ -76,6 +78,7 @@ private:
     void updateSelectedSats();
     void readSelectedSat(const int _i);
     void showError(const QString _errorC);
+
 
     /* Wizard to create a new Sat*/
 

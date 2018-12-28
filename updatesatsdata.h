@@ -40,10 +40,11 @@ class UpdateSatsData : public QObject
 public:
     explicit UpdateSatsData(DataProxy *dp, QObject *parent = nullptr);
     bool readSatDataFile();
+    bool satDataFileRead(const QString& tfileName);
 
 private:
 
-    bool satDataFileRead(const QString& tfileName);
+
     Utilities *util;
     DataProxy *dataProxy;
 
