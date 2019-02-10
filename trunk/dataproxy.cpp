@@ -498,6 +498,31 @@ QString DataProxy::getSatelliteMode(const QString _sat)
     return QString();
 }
 
+QString DataProxy::getSatelliteFullUplink(const QString _sat)
+{
+    return QString();
+}
+
+QString DataProxy::getSatelliteFullDownlink(const QString _sat)
+{
+    return QString();
+}
+
+QString DataProxy::getSatelliteFullMode(const QString _sat)
+{
+    return QString();
+}
+
+QString DataProxy::getSatelliteName(const QString _sat)
+{
+    return QString();
+}
+
+QString DataProxy::getSateliteArrlIdFromId(const int _id)
+{
+    return QString();
+}
+
 QStringList DataProxy::getQSLRcvdList()
 {
     return QStringList();

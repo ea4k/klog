@@ -42,8 +42,8 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
             tr("Please provide your review in KLog's eHam review page:") +
             "<bR>" +
             "<a href=http://www.eham.net/reviews/detail/3118>http://www.eham.net/reviews/detail/3118</a><br><br>" +
-            tr("Find more information and the latest release at") + "<br><a href=http://www.klog.xyz>http://www.klog.xyz</a><br><br>" +
-            tr("Author") + ": <a href=http://jaime.robles.es/klog>Jaime Robles</a>, <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a><br><a href=mailto:jaime@robles.es>jaime@robles.es</a>";
+            tr("Find more information and the latest release at") + "<br><a href=https://www.klog.xyz>https://www.klog.xyz</a><br><br>" +
+            tr("Author") + ": <a href=https://jaime.robles.es/klog>Jaime Robles</a>, <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a><br><a href=mailto:jaime@robles.es>jaime@robles.es</a>";
 
 
     QLabel *copyRightLabel = new QLabel(description);

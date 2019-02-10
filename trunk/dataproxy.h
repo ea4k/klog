@@ -188,6 +188,11 @@ public:
     virtual QString getSatelliteUplink(const QString _sat);
     virtual QString getSatelliteDownlink(const QString _sat);
     virtual QString getSatelliteMode(const QString _sat);
+    virtual QString getSatelliteFullUplink(const QString _sat);
+    virtual QString getSatelliteFullDownlink(const QString _sat);
+    virtual QString getSatelliteFullMode(const QString _sat);
+    virtual QString getSatelliteName(const QString _sat);
+    virtual QString getSateliteArrlIdFromId(const int _id);
     virtual QStringList getQSLRcvdList();
     virtual QStringList getQSLSentList();
     virtual QStringList getClubLogStatusList();

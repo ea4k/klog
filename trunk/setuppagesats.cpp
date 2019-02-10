@@ -36,6 +36,7 @@ SetupPageSats::SetupPageSats(DataProxy *dp, QWidget *parent) : QWidget(parent){
     uplink = QString();
     downlink = QString();
     modes = QString();
+    newSat = new SetupPageSatsNew(dataProxy, this);
 
     util = new Utilities;
 
@@ -116,19 +117,8 @@ void SetupPageSats::createNewSat()
     //qDebug() << "SetupPageSats::createNewSat" << endl;
     selectedSat = -1;
     //newSat->clear();
-    //newSat->setEditing(false);
-    if (defaultStationCallSign.length()>2)
-    {
-        //newSat->setStationCallSign(defaultStationCallSign);
-    }
-    if (defaultOperators.length()>2)
-    {
-        //newSat->setOperators(defaultOperators);
-    }
-    //newSat->setDateString(QDate::currentDate().toString("yyyy/MM/dd"));
-    //newSat->setComment("");
-
-    //newSat->exec();
+    newSat->setEditing(false);
+    newSat->exec();
 }
 
 void SetupPageSats::slotNewButtonClicked()
@@ -140,16 +130,21 @@ void SetupPageSats::slotNewButtonClicked()
 
 void SetupPageSats::slotEditButtonClicked()
 {
-     //qDebug() << "SetupPageSats::slotEditButtonClicked" << endl;
+    qDebug() << "SetupPageSats::slotEditButtonClicked" << endl;
     //QSqlQuery query;
     //int nameCol = -1;
 
     selectedSat = getSelectedSat();
+    QString shortName = dataProxy->getSateliteArrlIdFromId(selectedSat);
 
-    QString getStationCallSignFromSat(const int _sat);
-
-    //newSat->setEditing(true);
-
+    newSat->clear();
+    newSat->setEditing(true);
+    newSat->setShortName(shortName);
+    newSat->setName(dataProxy->getSatelliteName(shortName));
+    newSat->setUpLink(dataProxy->getSatelliteFullUplink(shortName));
+    newSat->setDownLink(dataProxy->getSatelliteFullDownlink(shortName));
+    newSat->setModes(dataProxy->getSatelliteFullMode(shortName));
+    newSat->exec();
     //newSat->setStationCallSign(dataProxy->getStationCallSignFromSat(selectedSat));
     //newSat->setOperators(dataProxy->getOperatorsFromSat(selectedSat));
     //newSat->setComment(dataProxy->getCommentsFromSat(selectedSat));
@@ -344,7 +339,7 @@ void SetupPageSats::createSatsModel()
 
 void SetupPageSats::slotSatselected(const QModelIndex & index)
 {
-     //qDebug() << "SetupPageSats::slotSatselected"  << endl;
+    qDebug() << "SetupPageSats::slotSatselected"  << endl;
     int row = index.row();
     setSelectedSat((satsModel->index(row, 0)).data(0).toInt());
 
@@ -427,6 +422,7 @@ bool SetupPageSats::addNewSat(const QStringList _qs)
     return false;
 }
 */
+
 void SetupPageSats::updateSelectedSats()
 {
   qDebug() << "SetupPageSats::updateSelectedSats" << endl;
@@ -513,7 +509,7 @@ QStringList SetupPageSats::readSats()
 
 int SetupPageSats::getSelectedSat()
 {
-    //qDebug() << "SetupPageSats::getSelectedSat: " << currentSats->currentText() << endl;
+    qDebug() << "SetupPageSats::getSelectedSat: " << currentSats->currentText() << endl;
     QString selectedSat = currentSats->currentText();
     int i = 0;
     QStringList qs;
@@ -533,22 +529,21 @@ int SetupPageSats::getSelectedSat()
 
 void SetupPageSats::setSelectedSat(const int _i)
 {
-     //qDebug() << "SetupPageSats::SetupPageSats::setSelectedSat: " << QString::number(_i) << endl;
+    qDebug() << "SetupPageSats::SetupPageSats::setSelectedSat: " << QString::number(_i) << endl;
 
-    QString n = QString::number(_i) + "--";
+    QString n = QString::number(_i) + "-";
     int selected = currentSats->findText(n, Qt::MatchStartsWith);
     if (selected >= 0)
     {
-         //qDebug() << "SetupPageSats::SetupPageSats::setSelectedSat selected>0: " << QString::number(selected) << endl;
+        qDebug() << "SetupPageSats::SetupPageSats::setSelectedSat selected>0: " << QString::number(selected) << endl;
         currentSats->setCurrentIndex(selected);
     }
     else
     {
-         //qDebug() << "SetupPageSats::SetupPageSats::setSelectedSat not selcted" << endl;
+         qDebug() << "SetupPageSats::SetupPageSats::setSelectedSat not selected" << endl;
         return;
     }
 }
-
 
 void SetupPageSats::readSelectedSat(const int _i)
 {
@@ -578,20 +573,6 @@ void SetupPageSats::showError(const QString _errorC)
                                    QMessageBox::Ok);
 
 }
-
-void SetupPageSats::setDefaultStationCallsign(const QString _p)
-{
-     //qDebug() << "SetupPageSats::setDefaultStationCallsign: " << _p << endl;
-    defaultStationCallSign = _p;
-}
-
-void SetupPageSats::setDefaultOperators(const QString _p)
-{
-     //qDebug() << "SetupPageSats::setDefaultOperators: " << _p << endl;
-    defaultOperators = _p;
-
-}
-
 
 void SetupPageSats::slotImportButtonClicked()
 {

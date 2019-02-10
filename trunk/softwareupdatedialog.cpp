@@ -5,7 +5,7 @@
 
 SoftwareUpdateDialog::SoftwareUpdateDialog()
 {
-     //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog"  << endl;
+     qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog"  << endl;
 
     textBrowser = new QTextBrowser;
     textBrowser->setOpenLinks(true);
@@ -37,16 +37,16 @@ SoftwareUpdateDialog::SoftwareUpdateDialog()
     ///
 
     connect(acceptButton, SIGNAL(clicked()), this, SLOT(slotAcceptButtonClicked()));
-     //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog - END"  << endl;
+    qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog - END"  << endl;
 }
 
 void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateNeeded)
 {
-    //qDebug() << "SoftwareUpdateDialog::setVersion: " << tversion << endl;
+    qDebug() << "SoftwareUpdateDialog::setVersion: " << tversion << endl;
     _version = tversion;
     if (updateNeeded)
     {
-        text = "<center><h2>KLog new version ("+ tversion + ") is available! </h2></center><br>There is a new version of KLog available.<br><br><b>You can get the new version from:<br><br><center><a href=http://www.klog.xyz>http://www.klog.xyz</a></center>";
+        text = "<center><h2>KLog new version ("+ tversion + ") is available! </h2></center><br>There is a new version of KLog available.<br><br><b>You can get the new version from:<br><br><center><a href=https://www.klog.xyz>https://www.klog.xyz</a></center>";
     }
     else
     {
@@ -54,24 +54,26 @@ void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateN
     }
 
     textBrowser->setHtml(text);
-
+    qDebug() << "SoftwareUpdateDialog::setVersion: END"<< endl;
 }
 
 SoftwareUpdateDialog::~SoftwareUpdateDialog()
 {
-     //qDebug() << "SoftwareUpdateDialog::~SoftwareUpdateDialog"  << endl;
+     qDebug() << "SoftwareUpdateDialog::~SoftwareUpdateDialog"  << endl;
 }
 
 void SoftwareUpdateDialog::slotAcceptButtonClicked()
 {
-     //qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked"  << endl;
+     qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked"  << endl;
     accept();
+    qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked END"  << endl;
 }
 
 
 
-void SoftwareUpdateDialog::keyPressEvent(QKeyEvent *event){
-
+void SoftwareUpdateDialog::keyPressEvent(QKeyEvent *event)
+{
+    qDebug() << "SoftwareUpdateDialog::keyPressEvent"  << endl;
     switch (event->key()) {
 
         break;
@@ -81,4 +83,5 @@ void SoftwareUpdateDialog::keyPressEvent(QKeyEvent *event){
         slotAcceptButtonClicked();
 
     }
+    qDebug() << "SoftwareUpdateDialog::keyPressEvent END"  << endl;
 }

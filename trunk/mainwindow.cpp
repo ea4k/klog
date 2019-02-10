@@ -3791,7 +3791,7 @@ void MainWindow::slotHelpAboutAction()
         //qDebug() << "MainWindow::slotHelpAboutAction "  << endl;
    // QMessageBox::about(this, tr("About KLog"),
     //            tr("<b>KLog</b> "
-   //                "Find the last release at http://jaime.robles.es/klog."));
+   //                "Find the last release at https://jaime.robles.es/klog."));
 
 
     aboutDialog->exec();
