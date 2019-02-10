@@ -65,7 +65,7 @@ signals:
     void updateNeededSignal(const bool _q); // Will be TRUE if updated if needed and FALSE if we already have the latest version
 
 private:
-    void connectToURL();
+    void connectToURL(const QString _url);
     bool checkUpdates(QIODevice *data);
     void updateNeeded(QString _newVer);
     void setTheURL(QString _url);
@@ -77,7 +77,7 @@ private:
     QString urld;
     QUrl *url;
     
-    QNetworkAccessManager *manager;
+    //QNetworkAccessManager *manager;
     QNetworkRequest request;
 
     SoftwareUpdateDialog *updateDialog;

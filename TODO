@@ -2,9 +2,6 @@ RC-BUGS:
 TODO: Check if dxccStatusWidget in logwindow is useful and remove it if not.
 NONE
 
-For 0.9.4
-
-
 For next release:
 TODO: - Some warnings removed from compilation time.
 TODO: - The log can be now updated with a LoTW ADIF file import.

@@ -33,6 +33,7 @@
 #include "updatesatsdata.h"
 #include "dataproxy.h"
 #include "utilities.h"
+#include "setuppagesatsnew.h"
 
 
 
@@ -109,6 +110,7 @@ private:
     QString defaultStationCallSign, defaultOperators;
 
     Utilities *util;
+    SetupPageSatsNew *newSat;
 };
 
 

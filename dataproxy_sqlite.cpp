@@ -134,7 +134,7 @@ void DataProxy_SQLite::createLogPanel(){
 
 int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
 {
-     //qDebug() << "DataProxy_SQLite::getIdFromModeName: " << _modeName << "/" << QString::number(db->getModeIDFromName2(_modeName)) << endl;
+    qDebug() << "DataProxy_SQLite::getIdFromModeName: " << _modeName << "/" << QString::number(db->getModeIDFromName2(_modeName)) << endl;
     if (_modeName.length()<2)
     {
         return -4;
@@ -145,14 +145,14 @@ int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
 
 int DataProxy_SQLite::getSubModeIdFromSubMode(const QString _subModeName)
 {
-     //qDebug() << "DataProxy_SQLite::getSubModeIdFromSubMode: " << _subModeName << endl;
+    qDebug() << "DataProxy_SQLite::getSubModeIdFromSubMode: " << _subModeName << endl;
 
     if (_subModeName.length()<2)
     {
         return -3;
     }
     QSqlQuery query;
-    QString stQuery = QString("SELECT id FROM mode WHERE submode='%1'").arg(_subModeName);
+    QString stQuery = QString("SELECT id FROM mode WHERE submode='%1'").arg(_subModeName.toUpper());
     if (query.exec(stQuery))
     {
 
@@ -3323,6 +3323,196 @@ QString DataProxy_SQLite::getSatelliteMode(const QString _sat)
     }
 
        //qDebug()  << "DataProxy_SQLite::getSatelliteMode: final: " << aux << endl;
+    return aux;
+}
+
+QString DataProxy_SQLite::getSatelliteFullUplink(const QString _sat)
+{
+    //qDebug()  << "DataProxy_SQLite::getSatelliteFullUplink: " << _sat << endl;
+ QString aux = QString();
+ //QString aux2 = QString();
+ //double fr1, fr2, fr;
+ QString queryString = QString("SELECT uplink FROM satellites WHERE satarrlid='%1'").arg(_sat);
+ QSqlQuery query;
+
+ bool sqlOK = query.exec(queryString);
+
+ if (sqlOK)
+ {
+     query.next();
+     if (query.isValid())
+     {
+         aux = query.value(0).toString();
+     }
+     else
+     {
+            //qDebug()  << "DataProxy_SQLite::getSatelliteFullUplink:  query not valid"  << endl;
+         query.finish();
+         return QString();
+     }
+ }
+ else
+ {
+        //qDebug()  << "DataProxy_SQLite::getSatelliteFullUplink:  query failed: " << query.lastQuery()  << endl;
+     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+     query.finish();
+     return QString();
+ }
+
+    //qDebug()  << "DataProxy_SQLite::getSatelliteFullUplink: final: " << aux << endl;
+ query.finish();
+ return aux;
+}
+
+QString DataProxy_SQLite::getSatelliteFullDownlink(const QString _sat)
+{
+    //qDebug()  << "DataProxy_SQLite::getSatelliteFullDownlink: " << _sat << endl;
+ QString aux = QString();
+ //QString aux2 = QString();
+ //double fr1, fr2, fr;
+ QString queryString = QString("SELECT downlink FROM satellites WHERE satarrlid='%1'").arg(_sat);
+ QSqlQuery query;
+
+ bool sqlOK = query.exec(queryString);
+
+
+ if (sqlOK)
+ {
+     query.next();
+     if (query.isValid())
+     {
+         aux = query.value(0).toString();
+     }
+     else
+     {
+            //qDebug()  << "DataProxy_SQLite::getSatelliteFullDownlink:  query not valid"  << endl;
+         query.finish();
+         return QString();
+     }
+ }
+ else
+ {
+        //qDebug()  << "DataProxy_SQLite::getSatelliteFullDownlink:  query failed: " << query.lastQuery()  << endl;
+     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+     query.finish();
+     return QString();
+ }
+
+    //qDebug()  << "DataProxy_SQLite::getSatelliteFullDownlink: final: " << aux << endl;
+ query.finish();
+ return aux;
+
+}
+
+QString DataProxy_SQLite::getSatelliteFullMode(const QString _sat)
+{
+
+    QString aux = QString();
+    QString queryString = QString("SELECT satmode FROM satellites WHERE satarrlid='%1'").arg(_sat);
+    QSqlQuery query;
+
+    bool sqlOK = query.exec(queryString);
+
+
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            aux = query.value(0).toString();
+            query.finish();
+
+        }
+        else
+        {
+               //qDebug()  << "DataProxy_SQLite::getSatelliteMode:  query not valid"  << endl;
+            query.finish();
+            return QString();
+        }
+    }
+    else
+    {
+           //qDebug()  << "DataProxy_SQLite::getSatelliteMode:  query failed: " << query.lastQuery()  << endl;
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return QString();
+    }
+
+       //qDebug()  << "DataProxy_SQLite::getSatelliteMode: final: " << aux << endl;
+    return aux;
+}
+
+QString DataProxy_SQLite::getSatelliteName(const QString _sat)
+{
+    //qDebug()  << "DataProxy_SQLite::getSatelliteName: " << _sat << endl;
+ QString aux = QString();
+
+ QString queryString = QString("SELECT satname FROM satellites WHERE satarrlid='%1'").arg(_sat);
+ QSqlQuery query;
+
+ bool sqlOK = query.exec(queryString);
+
+
+ if (sqlOK)
+ {
+     query.next();
+     if (query.isValid())
+     {
+         aux = query.value(0).toString();
+     }
+     else
+     {
+            //qDebug()  << "DataProxy_SQLite::getSatelliteName:  query not valid"  << endl;
+         query.finish();
+         return QString();
+     }
+ }
+ else
+ {
+        //qDebug()  << "DataProxy_SQLite::getSatelliteName:  query failed: " << query.lastQuery()  << endl;
+     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+     query.finish();
+     return QString();
+ }
+
+    //qDebug()  << "DataProxy_SQLite::getSatelliteName: final: " << aux << endl;
+ query.finish();
+ return aux;
+}
+
+QString DataProxy_SQLite::getSateliteArrlIdFromId(const int _id)
+{
+    QString aux = QString();
+    QString queryString = QString("SELECT satarrlid FROM satellites WHERE id='%1'").arg(_id);
+    QSqlQuery query;
+
+    bool sqlOK = query.exec(queryString);
+
+
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            aux = query.value(0).toString();
+            query.finish();
+        }
+        else
+        {
+               //qDebug()  << "DataProxy_SQLite::getSateliteArrlIdFromId:  query not valid"  << endl;
+            query.finish();
+            return QString();
+        }
+    }
+    else
+    {
+           //qDebug()  << "DataProxy_SQLite::getSateliteArrlIdFromId:  query failed: " << query.lastQuery()  << endl;
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return QString();
+    }
+
+       //qDebug()  << "DataProxy_SQLite::getSateliteArrlIdFromId: final: " << aux << endl;
     return aux;
 
 }

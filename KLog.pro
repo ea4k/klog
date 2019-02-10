@@ -2,7 +2,7 @@ CONFIG += app_bundle
 CONFIG += static
 #CONFIG += release
 TEMPLATE = app
-VERSION = 0.9.6
+VERSION = 0.9.7
 DEFINES += APP_VERSION="$$VERSION"
 
 APP_NAME = KLog
@@ -99,7 +99,8 @@ HEADERS += setupdialog.h \
     charts/statsworkedsentpiechartwidget.h \
     charts/statssentconfirmedpiechartwidget.h \
     charts/statsqsosperbandbarchartwidget.h \
-    setuppagesats.h
+    setuppagesats.h \
+    setuppagesatsnew.h
 
 
 SOURCES += main.cpp \
@@ -163,7 +164,8 @@ SOURCES += main.cpp \
     charts/statsworkedsentpiechartwidget.cpp \
     charts/statssentconfirmedpiechartwidget.cpp \
     charts/statsqsosperbandbarchartwidget.cpp \
-    setuppagesats.cpp
+    setuppagesats.cpp \
+    setuppagesatsnew.cpp
 
 
 OTHER_FILES += \
@@ -253,6 +255,8 @@ macx: {
    ICON = klog.icns
    TARGET = KLog
    CONFIG   += c++11
+   INCLUDEPATH +=../hamlib/include/
+   LIBS += -L"../hamlib/lib" -lhamlib
 }
 
 win32: {

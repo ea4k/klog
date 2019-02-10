@@ -324,116 +324,116 @@ Haluatko yrittää uudelleen?</translation>
 <context>
     <name>DXClusterWidget</name>
     <message>
-        <location filename="../dxcluster.cpp" line="70"/>
+        <location filename="../dxcluster.cpp" line="69"/>
         <source>Click on Connect to connect to the DX-Cluster server</source>
         <translation>Napsauta yhdistä, kun haluat muodostaa yhteyden DX-klusteripalvelimeen</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="74"/>
-        <location filename="../dxcluster.cpp" line="525"/>
+        <location filename="../dxcluster.cpp" line="73"/>
+        <location filename="../dxcluster.cpp" line="524"/>
         <source>Connect</source>
         <translation>Yhdistä</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="75"/>
-        <location filename="../dxcluster.cpp" line="504"/>
-        <location filename="../dxcluster.cpp" line="583"/>
-        <location filename="../dxcluster.cpp" line="588"/>
+        <location filename="../dxcluster.cpp" line="74"/>
+        <location filename="../dxcluster.cpp" line="503"/>
+        <location filename="../dxcluster.cpp" line="582"/>
+        <location filename="../dxcluster.cpp" line="587"/>
         <source>Clear</source>
         <translation>Tyhjennä</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="150"/>
+        <location filename="../dxcluster.cpp" line="149"/>
         <source>Click on connect to connect to the DX-Cluster</source>
         <translation>Napsauta yhdistä muodostaaksesi yhteyden DX-klusteriin</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="209"/>
+        <location filename="../dxcluster.cpp" line="208"/>
         <source>Trying to connect to the server</source>
         <translation>Muodostetaan yhteyttä palvelimeen</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="220"/>
-        <location filename="../dxcluster.cpp" line="226"/>
-        <location filename="../dxcluster.cpp" line="233"/>
+        <location filename="../dxcluster.cpp" line="219"/>
+        <location filename="../dxcluster.cpp" line="225"/>
+        <location filename="../dxcluster.cpp" line="232"/>
         <source>KLog DXCluster</source>
         <translation>KLog DXKlusteri</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="221"/>
+        <location filename="../dxcluster.cpp" line="220"/>
         <source>The host was not found. Please check:</source>
         <translation>Isäntää ei löytynyt. Tarkista:</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="222"/>
+        <location filename="../dxcluster.cpp" line="221"/>
         <source>- your network connection;
 - the host name and port settings.</source>
         <translation>- verkkoyhteytesi;
 - isäntänimi ja porttiasetukset.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="227"/>
+        <location filename="../dxcluster.cpp" line="226"/>
         <source>The connection was refused by the peer. Make sure the DXCluster server is running, and check that the host name and port settings are correct.</source>
         <translation>Yhteys vertaisverkkoon evättiin. Varmista, että DX Klusteripalvelin on käynnissä ja tarkista, että isäntänimi ja porttiasetukset ovat oikein.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="234"/>
+        <location filename="../dxcluster.cpp" line="233"/>
         <source>The following error occurred: %1.</source>
         <translation>Tapahtui seuraava virhe: %1.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="477"/>
+        <location filename="../dxcluster.cpp" line="476"/>
         <source>Connected to server</source>
         <translation>Yhdistetty palvelimeen</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="490"/>
-        <location filename="../dxcluster.cpp" line="494"/>
-        <location filename="../dxcluster.cpp" line="498"/>
+        <location filename="../dxcluster.cpp" line="489"/>
+        <location filename="../dxcluster.cpp" line="493"/>
+        <location filename="../dxcluster.cpp" line="497"/>
         <source>KLog message</source>
         <translation>KLog viesti</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="490"/>
-        <location filename="../dxcluster.cpp" line="494"/>
+        <location filename="../dxcluster.cpp" line="489"/>
+        <location filename="../dxcluster.cpp" line="493"/>
         <source>Enter your callsign to connect to the cluster:</source>
         <translation>Syötä kutsutunnuksesi liittyäksesi klusteriin:</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="498"/>
+        <location filename="../dxcluster.cpp" line="497"/>
         <source>Enter your password to connect to the cluster:
 (Just hit enter for no password)</source>
         <translation>Syötä salasanasi yhteyden muodostamiseksi klusteriin:
 (Paina enter jättääksesi salasanan tyhjäksi)</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="503"/>
-        <location filename="../dxcluster.cpp" line="582"/>
+        <location filename="../dxcluster.cpp" line="502"/>
+        <location filename="../dxcluster.cpp" line="581"/>
         <source>Disconnect</source>
         <translation>Katkaise yhteys</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="507"/>
+        <location filename="../dxcluster.cpp" line="506"/>
         <source>Not logged on, you may need to enter your callsign again.</source>
         <translation>Et ole kirjautunut sisään, sinun on ehkä annettava kutsutunnuksesi uudelleen.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="511"/>
+        <location filename="../dxcluster.cpp" line="510"/>
         <source>Enter here the commands to be sent to the DX-Cluster server.</source>
         <translation>Syötä tähän komennot, jotka lähetetään DX-klusteripalvelimelle</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="521"/>
+        <location filename="../dxcluster.cpp" line="520"/>
         <source>Connection closed by the server</source>
         <translation>Palvelin katkaisi yhteyden</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="527"/>
+        <location filename="../dxcluster.cpp" line="526"/>
         <source>Click on Connect to connect to the DX-Cluster server.</source>
         <translation>Napsauta yhdistä, muodostaaksesi yhteyden DX-klusteriin</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="587"/>
+        <location filename="../dxcluster.cpp" line="586"/>
         <source>Send</source>
         <translation>Lähetä</translation>
     </message>
@@ -540,83 +540,83 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Troposfäärikanavat</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3402"/>
-        <location filename="../dataproxy_sqlite.cpp" line="3469"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3592"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3659"/>
         <source>Yes</source>
         <translation>Kyllä</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3406"/>
-        <location filename="../dataproxy_sqlite.cpp" line="3473"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3596"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3663"/>
         <source>No</source>
         <translation>Ei</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3410"/>
-        <location filename="../dataproxy_sqlite.cpp" line="3477"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3600"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3667"/>
         <source>Requested</source>
         <translation>Pyydetty</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3414"/>
-        <location filename="../dataproxy_sqlite.cpp" line="3485"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3604"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3675"/>
         <source>Ignore/Invalid</source>
         <translation>Hylkää/Mitätön</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3418"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3608"/>
         <source>Validated</source>
         <translation>Vahvistettu</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3481"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3671"/>
         <source>Queued</source>
         <translation>Jonossa</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3533"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3723"/>
         <source>Uploaded</source>
         <translation>Lähetetty</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3537"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3727"/>
         <source>Do not upload</source>
         <translation>Älä lähetä</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3541"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3731"/>
         <source>Modified</source>
         <translation>Muokattu</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3591"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3781"/>
         <source>Bureau</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Bureau</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3595"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3785"/>
         <source>Direct</source>
         <translation>Direct</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3599"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3789"/>
         <source>Electronic</source>
         <translation>Elektrooninen</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3603"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3793"/>
         <source>Manager</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation type="unfinished">Hallinta</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4625"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4815"/>
         <source>KLog DXCC</source>
         <translation>KLog DXCC</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4626"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4816"/>
         <source>All QSOs have been updated with a DXCC and the Continent.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1258,7 +1258,7 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="461"/>
-        <location filename="../mainwindow.cpp" line="4088"/>
+        <location filename="../mainwindow.cpp" line="4091"/>
         <source>KLog</source>
         <translation>KLog</translation>
     </message>
@@ -1301,13 +1301,13 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2437"/>
-        <location filename="../mainwindow.cpp" line="6525"/>
+        <location filename="../mainwindow.cpp" line="6528"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2444"/>
-        <location filename="../mainwindow.cpp" line="6523"/>
+        <location filename="../mainwindow.cpp" line="6526"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
@@ -1315,9 +1315,9 @@ Haluatko yrittää uudelleen?</translation>
         <location filename="../mainwindow.cpp" line="2453"/>
         <location filename="../mainwindow.cpp" line="3253"/>
         <location filename="../mainwindow.cpp" line="3259"/>
-        <location filename="../mainwindow.cpp" line="4168"/>
-        <location filename="../mainwindow.cpp" line="5161"/>
-        <location filename="../mainwindow.cpp" line="6521"/>
+        <location filename="../mainwindow.cpp" line="4171"/>
+        <location filename="../mainwindow.cpp" line="5164"/>
+        <location filename="../mainwindow.cpp" line="6524"/>
         <source>QRZ</source>
         <translation>QRZ</translation>
     </message>
@@ -1347,495 +1347,495 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Valmis...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3398"/>
+        <location filename="../mainwindow.cpp" line="3396"/>
         <source>&amp;File</source>
         <translation>&amp;Tiedosto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3400"/>
+        <location filename="../mainwindow.cpp" line="3398"/>
         <source>&amp;New...</source>
         <translation>&amp;Uusi...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3405"/>
+        <location filename="../mainwindow.cpp" line="3403"/>
         <source>&amp;Open...</source>
         <translation>&amp;Avaa...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3410"/>
+        <location filename="../mainwindow.cpp" line="3408"/>
         <source>&amp;Import from ADIF...</source>
         <translation>Tu&amp;o ADIF-tiedostosta...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3413"/>
+        <location filename="../mainwindow.cpp" line="3411"/>
         <source>Import an ADIF file into the current log.</source>
         <translation>Tuo ADIF-tiedosto nykyiseen lokiin.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3422"/>
+        <location filename="../mainwindow.cpp" line="3420"/>
         <source>&amp;Save As...</source>
         <translation>Tallenna &amp;nimellä...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3429"/>
+        <location filename="../mainwindow.cpp" line="3427"/>
         <source>Export to ADIF...</source>
         <translation>Vie ADIF-tiedostoon...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3433"/>
+        <location filename="../mainwindow.cpp" line="3431"/>
         <source>Export the current log to an ADIF logfile.</source>
         <translation>Vie nykyinen loki ADIF lokitiedostoon.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3435"/>
+        <location filename="../mainwindow.cpp" line="3433"/>
         <source>Export all logs to ADIF...</source>
         <translation>Vie kaikki lokit ADIF-tiedostoon...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3439"/>
+        <location filename="../mainwindow.cpp" line="3437"/>
         <source>Export ALL the QSOs into one ADIF file, merging QSOs from all the logs.</source>
         <translation>Vie kaikki QSO:t yhteen ADIF-tiedostoon, yhdistäen QSO:t kaikista lokeista.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3441"/>
+        <location filename="../mainwindow.cpp" line="3439"/>
         <source>Export Requested QSL to ADIF...</source>
         <translation>Vie pyydetty QSL ADIF-tiedostoon...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3444"/>
+        <location filename="../mainwindow.cpp" line="3442"/>
         <source>Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program).</source>
         <translation>Vie kaikki QSO:t joilla on QSL pyyntöjä, ADIF-tiedostoon (esim. tuodaksesi ne QSL tagin tulostus ohjelmaan).</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3446"/>
+        <location filename="../mainwindow.cpp" line="3444"/>
         <source>Export ADIF for LoTW...</source>
         <translation>Vie ADIF LoTW:iä varten...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3449"/>
+        <location filename="../mainwindow.cpp" line="3447"/>
         <source>Export an ADIF file to be sent to LoTW. Remember to sign it with TQSL before uploading to LoTW!</source>
         <translation>Vie ADIF-tiedosto lähetettäväksi LoTW:iin. Muista kirjata se TQSL:lla ennen lataamista LoTW:iin!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3453"/>
+        <location filename="../mainwindow.cpp" line="3451"/>
         <source>&amp;Print Log...</source>
         <translation>Tulosta loki...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3456"/>
+        <location filename="../mainwindow.cpp" line="3454"/>
         <source>Print your log.</source>
         <translation>Tulosta lokisi.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3461"/>
+        <location filename="../mainwindow.cpp" line="3459"/>
         <source>KLog folder</source>
         <translation>KLog-kansio</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3463"/>
+        <location filename="../mainwindow.cpp" line="3461"/>
         <source>Opens the data folder of KLog.</source>
         <translation>Avaa KLog:in tallennuskansion.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3468"/>
+        <location filename="../mainwindow.cpp" line="3466"/>
         <source>E&amp;xit</source>
         <translation>Ulo&amp;s</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3474"/>
+        <location filename="../mainwindow.cpp" line="3472"/>
         <source>&amp;Tools</source>
         <translation>Työkalut</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3476"/>
+        <location filename="../mainwindow.cpp" line="3474"/>
         <source>Fill in QSO data</source>
         <translation>Täytä QSO:n tiedot</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3480"/>
+        <location filename="../mainwindow.cpp" line="3478"/>
         <source>Go through the log reusing previous QSOs to fill missing information in other QSOs.</source>
         <translation>Käy loki läpi käyttäen edellisiä QSO:ita täyttämään puuttuvat tiedot muissa QSO:issa.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3482"/>
+        <location filename="../mainwindow.cpp" line="3480"/>
         <source>Fill in DXCC data</source>
         <translation>Täytä DXCC-tiedot</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3485"/>
+        <location filename="../mainwindow.cpp" line="3483"/>
         <source>Go through the log filling QSOs without a DXCC defined.</source>
         <translation>Käy loki läpi täyttäen QSO:t joihin ei ole määritelty DXCC:tä.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3488"/>
+        <location filename="../mainwindow.cpp" line="3486"/>
         <source>QSL tools...</source>
         <translation>QSL työkalut...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3495"/>
+        <location filename="../mainwindow.cpp" line="3493"/>
         <source>&amp;Find QSO to QSL</source>
         <translation>&amp;Etsi QSO QSL:lle</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3498"/>
+        <location filename="../mainwindow.cpp" line="3496"/>
         <source>Shows QSOs for which you should send your QSL and request the DX QSL.</source>
         <translation>Näyttää QSO:t joita varten sinun tulisi lähettää QSL ja pyytää DX QSL:ää.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3500"/>
+        <location filename="../mainwindow.cpp" line="3498"/>
         <source>Find My-QSLs pending to send</source>
         <translation>Etsi Minun QSL:t jotka odottavat lähetystä</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3504"/>
+        <location filename="../mainwindow.cpp" line="3502"/>
         <source>Shows the QSOs with pending requests to send QSLs. You should keep this queue empty!</source>
         <translation>Näyttää QSO:t joilla on odottavia pyyntöjä lähettää QSL:iä. Tämä jono tulisi pitää tyhjänä!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3506"/>
+        <location filename="../mainwindow.cpp" line="3504"/>
         <source>&amp;Find DX-QSLs pending to receive</source>
         <translation>&amp;Etsi DX-QSL:t jotka odottavat vastaanottoa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3509"/>
+        <location filename="../mainwindow.cpp" line="3507"/>
         <source>Shows the DX-QSL that has been requested or QSLs has been sent with no answer.</source>
         <translation>Näyttää DX-QSL:t jotka on pyydetty, tai QSL:t on lähetetty ilman vastausta.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3511"/>
+        <location filename="../mainwindow.cpp" line="3509"/>
         <source>&amp;Find requested pending to receive</source>
         <translation>&amp;Etsi vastaanottoa odottavat</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3514"/>
+        <location filename="../mainwindow.cpp" line="3512"/>
         <source>Shows the DX-QSL that has been requested.</source>
         <translation>Näyttää DX-QSL:n jota on pyydetty.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3517"/>
+        <location filename="../mainwindow.cpp" line="3515"/>
         <source>LoTW tools...</source>
         <translation>LoTW työkalut...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3519"/>
+        <location filename="../mainwindow.cpp" line="3517"/>
         <source>Queue all QSL to be sent of this log</source>
         <translation>Aseta jonoon kaikki tämän lokin QSL:t</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3522"/>
+        <location filename="../mainwindow.cpp" line="3520"/>
         <source>Mark all non sent QSOs in this log as queued to be uploaded.</source>
         <translation>Merkitse kaikki tässä lokissa olevat lähettämättömät QSO:t lähetysjonoon.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3524"/>
+        <location filename="../mainwindow.cpp" line="3522"/>
         <source>Queue all QSL to be sent</source>
         <translation>Aseta jonoon kaikki tämän lokin QSL:t</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3527"/>
+        <location filename="../mainwindow.cpp" line="3525"/>
         <source>Mark all non sent QSOs as queued to be uploaded.</source>
         <translation>Merkitse kaikki lähettämättömät QSO:t lähetysjonoon.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3531"/>
+        <location filename="../mainwindow.cpp" line="3529"/>
         <source>Mark as sent all queued QSO of this log</source>
         <translation>Merkitse kaikki tämän lokin jonossa olevat QSO:t lähetetyiksi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3534"/>
+        <location filename="../mainwindow.cpp" line="3532"/>
         <source>Mark all queued QSOs in this log as sent to LoTW.</source>
         <translation>Merkitse kaikki tämän lokin jonossa olevat QSO:t lähetetyiksi LoTW:iin.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3536"/>
+        <location filename="../mainwindow.cpp" line="3534"/>
         <source>Mark all queued QSO as sent</source>
         <translation>Merkitse kaikki jonossa olevat QSO:t lähetetyiksi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3539"/>
+        <location filename="../mainwindow.cpp" line="3537"/>
         <source>Mark all queued QSOs as sent to LoTW.</source>
         <translation>Merkitse kaikki jonossa olevat QSO:t lähetetyiksi LoTW:iin.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3544"/>
+        <location filename="../mainwindow.cpp" line="3542"/>
         <source>&amp;Update cty.csv</source>
         <translation>&amp;Päivitä cty.csv</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3548"/>
-        <location filename="../mainwindow.cpp" line="3553"/>
+        <location filename="../mainwindow.cpp" line="3546"/>
+        <location filename="../mainwindow.cpp" line="3551"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
         <translation>Päivitettyjä DX-yksikkö tietoja varten, päivitä cty.csv.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3550"/>
+        <location filename="../mainwindow.cpp" line="3548"/>
         <source>&amp;Update Satellite Data</source>
         <translation>&amp;Päivitä Satelliitti Tiedot</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3557"/>
+        <location filename="../mainwindow.cpp" line="3555"/>
         <source>Stats</source>
         <translation>Tilastot</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3560"/>
+        <location filename="../mainwindow.cpp" line="3559"/>
         <source>Show the statistics of your radio activity.</source>
         <translation>Näytä radioaktiivisuutesi tilastot.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3564"/>
+        <location filename="../mainwindow.cpp" line="3563"/>
         <source>&amp;Setup</source>
         <translation>&amp;Asetukset</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3566"/>
+        <location filename="../mainwindow.cpp" line="3565"/>
         <source>&amp;Setup...</source>
         <translation>&amp;Asetukset...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3572"/>
+        <location filename="../mainwindow.cpp" line="3571"/>
         <source>&amp;Help</source>
         <translation>&amp;Ohjeet</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3574"/>
+        <location filename="../mainwindow.cpp" line="3573"/>
         <source>Check updates...</source>
         <translation>Tarkista päivitykset...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3579"/>
+        <location filename="../mainwindow.cpp" line="3578"/>
         <source>&amp;About...</source>
         <translation>&amp;Tietoja...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3584"/>
+        <location filename="../mainwindow.cpp" line="3583"/>
         <source>About Qt...</source>
         <translation>Tietoja Qt:stä...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3623"/>
-        <location filename="../mainwindow.cpp" line="3632"/>
-        <location filename="../mainwindow.cpp" line="3646"/>
-        <location filename="../mainwindow.cpp" line="3654"/>
-        <location filename="../mainwindow.cpp" line="3728"/>
-        <location filename="../mainwindow.cpp" line="3736"/>
-        <location filename="../mainwindow.cpp" line="3754"/>
-        <location filename="../mainwindow.cpp" line="3762"/>
+        <location filename="../mainwindow.cpp" line="3626"/>
+        <location filename="../mainwindow.cpp" line="3635"/>
+        <location filename="../mainwindow.cpp" line="3649"/>
+        <location filename="../mainwindow.cpp" line="3657"/>
+        <location filename="../mainwindow.cpp" line="3731"/>
+        <location filename="../mainwindow.cpp" line="3739"/>
+        <location filename="../mainwindow.cpp" line="3757"/>
+        <location filename="../mainwindow.cpp" line="3765"/>
         <source>KLog LoTW</source>
         <translation>KLog LoTW</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3624"/>
+        <location filename="../mainwindow.cpp" line="3627"/>
         <source>All pending QSO of this log has been marked as queued for LoTW!</source>
         <translation>Kaikki tämän lokin odottavat QSO:t on merkattu jonoon LOTW:iä varten!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3624"/>
-        <location filename="../mainwindow.cpp" line="3647"/>
+        <location filename="../mainwindow.cpp" line="3627"/>
+        <location filename="../mainwindow.cpp" line="3650"/>
         <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
         <translation>Nyt voit mennä Tiedostot valikkoon viedäksesi LoTW:n ADIF-tiedostoon ja lataa se LoTW:iin.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3633"/>
-        <location filename="../mainwindow.cpp" line="3655"/>
+        <location filename="../mainwindow.cpp" line="3636"/>
+        <location filename="../mainwindow.cpp" line="3658"/>
         <source>There was a problem to mark all pending QSO of this log as queued for LoTW!</source>
         <translation>Odottavien QSO:iden merkinnässä jonoon LoTW:iä varten ilmeni ongelma!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3647"/>
+        <location filename="../mainwindow.cpp" line="3650"/>
         <source>All pending QSO has been marked as queued for LoTW!</source>
         <translation>Kaikki odottavat QSO:t on merkattu jonoon LOTW:iä varten!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3674"/>
+        <location filename="../mainwindow.cpp" line="3677"/>
         <source>The log that you have selected contains more than just one station callsign.</source>
         <translation>Valitsemasi loki sisältää enemmän kuin vain yhden aseman kutsutunnuksen.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3674"/>
+        <location filename="../mainwindow.cpp" line="3677"/>
         <source>Please select the station callsign you want to mark as sent to LoTW:</source>
         <translation>Valitse aseman kutsutunnus, jonka haluat merkata ladatuksi LoTW:iin:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3677"/>
+        <location filename="../mainwindow.cpp" line="3680"/>
         <source>Station Callsign:</source>
         <translation>Aseman kutsutunnus:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3686"/>
+        <location filename="../mainwindow.cpp" line="3689"/>
         <source>Define Station Callsign</source>
         <translation>Määritä aseman kutsutunnus</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3687"/>
+        <location filename="../mainwindow.cpp" line="3690"/>
         <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.</source>
         <translation>Et ole valinnut kutsutunnusta. KLog merkkaa QSO:t ilman asetettua aseman kutsutunnusta, kutsulla jonka syötät tähän.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3687"/>
+        <location filename="../mainwindow.cpp" line="3690"/>
         <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
         <translation>Syötä tässä lokissa käytettävä aseman kutsutunnus, tai jätä se tyhjäksi QSO:lle ilman määritettyä aseman kutsutunnusta:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3700"/>
+        <location filename="../mainwindow.cpp" line="3703"/>
         <source>No station callsign has been selected and therefore no log will be marked</source>
         <translation>Aseman kutsutunnusta ei ole valittu, joten lokia ei merkata</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3729"/>
+        <location filename="../mainwindow.cpp" line="3732"/>
         <source>All queued QSO of this log has been marked as sent for LoTW!</source>
         <translation>Kaikki tämän lokin jonossa olevat QSO:t on merkattu lähetetyiksi LOTW:iin!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3737"/>
+        <location filename="../mainwindow.cpp" line="3740"/>
         <source>There was a problem to mark all queued QSO of this log as sent for LoTW!</source>
         <translation>Kaikkien QSO:iden merkinnässä lähetetyiksi LoTW:iin, ilmeni ongelma!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3755"/>
+        <location filename="../mainwindow.cpp" line="3758"/>
         <source>All queued QSO has been marked as sent to LoTW!</source>
         <translation>Kaikki jonossa olevat QSO:t on merkattu lähetetyiksi LoTW:iin!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3763"/>
+        <location filename="../mainwindow.cpp" line="3766"/>
         <source>There was a problem to mark all queued QSO of this log as sent to LoTW!</source>
         <translation>Kaikkien jonossa olevien QSO:iden merkinnässä lähetetyiksi LoTW:iin, ilmeni ongelma!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3772"/>
+        <location filename="../mainwindow.cpp" line="3775"/>
         <source>About...</source>
         <translation>Tietoja...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3828"/>
+        <location filename="../mainwindow.cpp" line="3831"/>
         <source>KLog update checking result</source>
         <translation>KLog päivityksen tarkastuksen tulos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3829"/>
+        <location filename="../mainwindow.cpp" line="3832"/>
         <source>Congratulations!</source>
         <translation>Onnittelut!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3829"/>
+        <location filename="../mainwindow.cpp" line="3832"/>
         <source>You already have the latest version.</source>
         <translation>Sinulla on jo viimeisin versio.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3974"/>
-        <location filename="../mainwindow.cpp" line="4024"/>
+        <location filename="../mainwindow.cpp" line="3977"/>
+        <location filename="../mainwindow.cpp" line="4027"/>
         <source>Nothing has been saved. You have to select a valid file type.</source>
         <translation>Mitään ei ole tallennettu. Sinun täytyy valita oikea tiedostotyyppi.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4002"/>
+        <location filename="../mainwindow.cpp" line="4005"/>
         <source>Save File</source>
         <translation>Tallenna tiedosto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4004"/>
+        <location filename="../mainwindow.cpp" line="4007"/>
         <source>ADIF file</source>
         <translation>ADIF-tiedosto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4004"/>
+        <location filename="../mainwindow.cpp" line="4007"/>
         <source>Cabrillo files</source>
         <translation>Cabrillo-tiedostot</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4004"/>
+        <location filename="../mainwindow.cpp" line="4007"/>
         <source>Any file</source>
         <translation>Kaikki tiedostot</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4081"/>
+        <location filename="../mainwindow.cpp" line="4084"/>
         <source>You can find the KLog data folder here: </source>
         <translation>KLog talletuskansio löytyy täältä: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4164"/>
+        <location filename="../mainwindow.cpp" line="4167"/>
         <source>DUPE</source>
         <translation>DUPE</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6441"/>
+        <location filename="../mainwindow.cpp" line="6444"/>
         <source>Filling DXCC in QSOs...
  QSO: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7287"/>
+        <location filename="../mainwindow.cpp" line="7290"/>
         <source>QSO logged from WSJT-X:</source>
         <translation type="unfinished">QSO kirjattu WSJT-X:stä:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4279"/>
+        <location filename="../mainwindow.cpp" line="4282"/>
         <source>start</source>
         <translation>käynnistys</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4301"/>
+        <location filename="../mainwindow.cpp" line="4304"/>
         <source>stop</source>
         <translation>pysäytys</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4617"/>
+        <location filename="../mainwindow.cpp" line="4620"/>
         <source>It seems that there are no QSO in the database.</source>
         <translation>Näyttää siltä ettei tietokannassa ole QSO:ta.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4617"/>
+        <location filename="../mainwindow.cpp" line="4620"/>
         <source>If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.</source>
         <translation>Jos olet varma että tietokannassa on QSO:ita ja KLog ei löydä niitä, voit ottaa yhteyttä kehittäjiin saadaksesi apua (katso valikon kohta Tietoja KLogista)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4950"/>
+        <location filename="../mainwindow.cpp" line="4953"/>
         <source>TX Frequency in MHz.</source>
         <translation>TX Taajuus MHz:inä.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4951"/>
+        <location filename="../mainwindow.cpp" line="4954"/>
         <source>RX Frequency in MHz.</source>
         <translation>RX Taajuus MHz:inä.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4953"/>
+        <location filename="../mainwindow.cpp" line="4956"/>
         <source>Power used by the DX.</source>
         <translation>DX:n käyttämä virta.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4954"/>
+        <location filename="../mainwindow.cpp" line="4957"/>
         <source>Logging operator&apos;s callsign.</source>
         <translation>Lokinpitäjän kutsutunnus.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4955"/>
+        <location filename="../mainwindow.cpp" line="4958"/>
         <source>Callsign used over the air.</source>
         <translation>Lähetyksissä käytetty kutsutunnus.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4956"/>
+        <location filename="../mainwindow.cpp" line="4959"/>
         <source>My QTH locator.</source>
         <translation>Minun QTH lokaattori.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4957"/>
+        <location filename="../mainwindow.cpp" line="4960"/>
         <source>Name of the DX.</source>
         <translation>DX:n nimi.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4958"/>
+        <location filename="../mainwindow.cpp" line="4961"/>
         <source>QTH of the DX.</source>
         <translation>DX:n QTH.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4959"/>
+        <location filename="../mainwindow.cpp" line="4962"/>
         <source>Locator of the DX.</source>
         <translation>DX:n lokaattori.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2409"/>
-        <location filename="../mainwindow.cpp" line="4961"/>
+        <location filename="../mainwindow.cpp" line="4964"/>
         <source>QRZ of the QSO.</source>
         <translation>QSO:n QRZ.</translation>
     </message>
@@ -1846,55 +1846,55 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2410"/>
-        <location filename="../mainwindow.cpp" line="4962"/>
+        <location filename="../mainwindow.cpp" line="4965"/>
         <source>TX RST.</source>
         <translation>TX RST.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2411"/>
-        <location filename="../mainwindow.cpp" line="4963"/>
+        <location filename="../mainwindow.cpp" line="4966"/>
         <source>RX RST.</source>
         <translation>RX RST.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2412"/>
-        <location filename="../mainwindow.cpp" line="4964"/>
+        <location filename="../mainwindow.cpp" line="4967"/>
         <source>TX Exchange.</source>
         <translation>TX Exchange.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2413"/>
-        <location filename="../mainwindow.cpp" line="4965"/>
+        <location filename="../mainwindow.cpp" line="4968"/>
         <source>RX Exchange.</source>
         <translation>RX Exchange.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2414"/>
-        <location filename="../mainwindow.cpp" line="4966"/>
+        <location filename="../mainwindow.cpp" line="4969"/>
         <source>Band of the QSO.</source>
         <translation>QSO:n taajuusalue.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2415"/>
-        <location filename="../mainwindow.cpp" line="4967"/>
+        <location filename="../mainwindow.cpp" line="4970"/>
         <source>Mode of the QSO.</source>
         <translation>QSO:n moodi.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2416"/>
-        <location filename="../mainwindow.cpp" line="4968"/>
+        <location filename="../mainwindow.cpp" line="4971"/>
         <source>Date of the QSO.</source>
         <translation>QSO:n päivämäärä.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2417"/>
-        <location filename="../mainwindow.cpp" line="4969"/>
+        <location filename="../mainwindow.cpp" line="4972"/>
         <source>Time of the QSO.</source>
         <translation>QSO:n aika.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2420"/>
-        <location filename="../mainwindow.cpp" line="4972"/>
+        <location filename="../mainwindow.cpp" line="4975"/>
         <source>Add the QSO to the log.</source>
         <translation>Lisää QSO lokiin.</translation>
     </message>
@@ -1904,18 +1904,18 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Tyhjennä ruutu.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3364"/>
+        <location filename="../mainwindow.cpp" line="3362"/>
         <source>The logfile has been modified.</source>
         <translation>Lokia on muokattu.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3364"/>
+        <location filename="../mainwindow.cpp" line="3362"/>
         <source>Do you want to save your changes?</source>
         <translation>Haluatko tallentaa muutokset?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4280"/>
-        <location filename="../mainwindow.cpp" line="4302"/>
+        <location filename="../mainwindow.cpp" line="4283"/>
+        <location filename="../mainwindow.cpp" line="4305"/>
         <source>UDP Server error
 The UDP server failed to %1.</source>
         <comment>start or stop</comment>
@@ -1923,316 +1923,316 @@ The UDP server failed to %1.</source>
 UDP-palvelin ei onnistunut %1.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4974"/>
+        <location filename="../mainwindow.cpp" line="4977"/>
         <source>Clears the QSO entry.</source>
         <translation>Poistaa QSO merkinnän.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4976"/>
+        <location filename="../mainwindow.cpp" line="4979"/>
         <source>Number of confirmed DXCC entities.</source>
         <translation>Vahvistettujen DXCC-yksiköiden määrä.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4977"/>
+        <location filename="../mainwindow.cpp" line="4980"/>
         <source>Number of worked DXCC entities.</source>
         <translation>Työstettyjen DXCC-yksiköiden määrä.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4978"/>
+        <location filename="../mainwindow.cpp" line="4981"/>
         <source>Number of confirmed WAZ zones.</source>
         <translation>Vahvistettujen WAZ vyöhykkeiden määrä.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4979"/>
+        <location filename="../mainwindow.cpp" line="4982"/>
         <source>Number of worked WAZ zones.</source>
         <translation>Työstettyjen WAZ vyöhykkeiden määrä.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4980"/>
+        <location filename="../mainwindow.cpp" line="4983"/>
         <source>Number of confirmed local references.</source>
         <translation>Vahvistettujen paikallisten referenssien määrä.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4981"/>
+        <location filename="../mainwindow.cpp" line="4984"/>
         <source>Number of worked local references.</source>
         <translation>Työstettyjen paikallisten referenssien määrä.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4982"/>
+        <location filename="../mainwindow.cpp" line="4985"/>
         <source>Number of confirmed QSOs.</source>
         <translation>Vahvistettujen QSO:iden määrä.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4983"/>
+        <location filename="../mainwindow.cpp" line="4986"/>
         <source>Number of worked QSOs.</source>
         <translation>Työstettyjen QSO:iden määrä.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4984"/>
+        <location filename="../mainwindow.cpp" line="4987"/>
         <source>Number of QSOs worked on the selected year.</source>
         <translation>Työstettyjen QSO:iden määrä, valittuna vuonna.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4985"/>
+        <location filename="../mainwindow.cpp" line="4988"/>
         <source>Number of DXCC worked on the selected year.</source>
         <translation>Työstettyjen DXCC:iden määrä, valittuna vuonna.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4986"/>
+        <location filename="../mainwindow.cpp" line="4989"/>
         <source>Number of CQ Zones worked on the selected year.</source>
         <translation>Työstettyjen CQ vyöhykkeiden määrä, valittuna vuonna.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4987"/>
+        <location filename="../mainwindow.cpp" line="4990"/>
         <source>Score for the DXMarathon on the selected year.</source>
         <translation>DXMarathon pisteet, valittuna vuonna.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4988"/>
+        <location filename="../mainwindow.cpp" line="4991"/>
         <source>Select the year you want to check.</source>
         <translation>Valitse vuosi jonka haluat nähdä.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4990"/>
+        <location filename="../mainwindow.cpp" line="4993"/>
         <source>Status of the DX entity.</source>
         <translation>DX yksikön tila.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4991"/>
+        <location filename="../mainwindow.cpp" line="4994"/>
         <source>Name of the DX entity.</source>
         <translation>DX yksikön nimi.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5009"/>
-        <location filename="../mainwindow.cpp" line="7225"/>
+        <location filename="../mainwindow.cpp" line="5012"/>
+        <location filename="../mainwindow.cpp" line="7228"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5013"/>
+        <location filename="../mainwindow.cpp" line="5016"/>
         <source>QTH</source>
         <translation>QTH</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5016"/>
+        <location filename="../mainwindow.cpp" line="5019"/>
         <source>Locator</source>
         <translation>Lokaattori</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5019"/>
+        <location filename="../mainwindow.cpp" line="5022"/>
         <source>Power(rx)</source>
         <translation>Teho(rx)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5023"/>
+        <location filename="../mainwindow.cpp" line="5026"/>
         <source>RST(tx)</source>
         <translation>RST(tx)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5026"/>
+        <location filename="../mainwindow.cpp" line="5029"/>
         <source>RST(rx)</source>
         <translation>RST(rx)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5059"/>
+        <location filename="../mainwindow.cpp" line="5062"/>
         <source>Freq TX</source>
         <translation>TX Taajuus</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5061"/>
+        <location filename="../mainwindow.cpp" line="5064"/>
         <source>Freq RX</source>
         <translation>RX Taajuus</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5129"/>
+        <location filename="../mainwindow.cpp" line="5132"/>
         <source>QSO</source>
         <translation>QSO</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5139"/>
+        <location filename="../mainwindow.cpp" line="5142"/>
         <source>QSL</source>
         <translation>QSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5140"/>
+        <location filename="../mainwindow.cpp" line="5143"/>
         <source>eQSL</source>
         <translation>eQSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5141"/>
-        <location filename="../mainwindow.cpp" line="6531"/>
+        <location filename="../mainwindow.cpp" line="5144"/>
+        <location filename="../mainwindow.cpp" line="6534"/>
         <source>Comment</source>
         <translation>Kommentti</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5144"/>
+        <location filename="../mainwindow.cpp" line="5147"/>
         <source>Others</source>
         <translation>Muut</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5146"/>
+        <location filename="../mainwindow.cpp" line="5149"/>
         <source>My Data</source>
         <translation>Minun tiedot</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5147"/>
+        <location filename="../mainwindow.cpp" line="5150"/>
         <source>Satellite</source>
         <translation>Satelliitti</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5197"/>
-        <location filename="../mainwindow.cpp" line="5231"/>
+        <location filename="../mainwindow.cpp" line="5200"/>
+        <location filename="../mainwindow.cpp" line="5234"/>
         <source>QSOs</source>
         <translation>QSO:t</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5198"/>
-        <location filename="../mainwindow.cpp" line="5222"/>
-        <location filename="../mainwindow.cpp" line="5277"/>
+        <location filename="../mainwindow.cpp" line="5201"/>
+        <location filename="../mainwindow.cpp" line="5225"/>
+        <location filename="../mainwindow.cpp" line="5280"/>
         <source>DXCC</source>
         <translation>DXCC</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5199"/>
+        <location filename="../mainwindow.cpp" line="5202"/>
         <source>CQ</source>
         <translation>CQ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5200"/>
+        <location filename="../mainwindow.cpp" line="5203"/>
         <source>Score</source>
         <translation>Pisteet</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5201"/>
+        <location filename="../mainwindow.cpp" line="5204"/>
         <source>DX-Marathon</source>
         <translation>DX-Maratoni</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5209"/>
+        <location filename="../mainwindow.cpp" line="5212"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5213"/>
+        <location filename="../mainwindow.cpp" line="5216"/>
         <source>Award</source>
         <translation>Palkinto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5216"/>
+        <location filename="../mainwindow.cpp" line="5219"/>
         <source>Confirmed</source>
         <translation>Vahvistettu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5219"/>
+        <location filename="../mainwindow.cpp" line="5222"/>
         <source>Worked</source>
         <translation>Työstetty</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5225"/>
+        <location filename="../mainwindow.cpp" line="5228"/>
         <source>WAZ</source>
         <translation>WAZ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5228"/>
+        <location filename="../mainwindow.cpp" line="5231"/>
         <source>Local</source>
         <translation>Paikallinen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5272"/>
+        <location filename="../mainwindow.cpp" line="5275"/>
         <source>Awards</source>
         <translation>Palkinnot</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5273"/>
+        <location filename="../mainwindow.cpp" line="5276"/>
         <source>Search</source>
         <translation>Etsi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5275"/>
+        <location filename="../mainwindow.cpp" line="5278"/>
         <source>Log</source>
         <translation>Loki</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5276"/>
+        <location filename="../mainwindow.cpp" line="5279"/>
         <source>DX-Cluster</source>
         <translation>DX-Klusteri</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5372"/>
-        <location filename="../mainwindow.cpp" line="5383"/>
-        <location filename="../mainwindow.cpp" line="5457"/>
-        <location filename="../mainwindow.cpp" line="5467"/>
+        <location filename="../mainwindow.cpp" line="5375"/>
+        <location filename="../mainwindow.cpp" line="5386"/>
+        <location filename="../mainwindow.cpp" line="5460"/>
+        <location filename="../mainwindow.cpp" line="5470"/>
         <source>Save ADIF File</source>
         <translation>Tallenna ADIF-tiedosto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5393"/>
+        <location filename="../mainwindow.cpp" line="5396"/>
         <source>LoTW logfile has been properly exported!</source>
         <translation>LoTW lokitiedosto on viety onnistuneesti!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5393"/>
+        <location filename="../mainwindow.cpp" line="5396"/>
         <source>Remember to:</source>
         <translation>Muista:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5393"/>
+        <location filename="../mainwindow.cpp" line="5396"/>
         <source>Before uploading: sign the LoTW log; and</source>
         <translation>Ennen lataamista: allekirjoita LoTW loki; ja</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5393"/>
+        <location filename="../mainwindow.cpp" line="5396"/>
         <source>After uploading: mark as sent all the queued QSO (LoTW Tools).</source>
         <translation>Lataamisen jälkeen, merkkaa kaikki jonossa olevat QSO:t lähetetyiksi (LoTW työkalut).</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5414"/>
+        <location filename="../mainwindow.cpp" line="5417"/>
         <source>There was no QSO to be exported.</source>
         <translation>Vietäviä QSO:ita ei ollut.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5414"/>
+        <location filename="../mainwindow.cpp" line="5417"/>
         <source>If you think that some QSO should have been exported, please look for them and ensure that the eQSL LoTW QSL sent box is marked as:</source>
         <translation>Jos uskot, että joitakin QSO:ita olisi pitänyt viedä, etsi niitä ja varmista, että eQSL LoTW QSL lähetetty laatikko on merkitty seuraavasti: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5414"/>
+        <location filename="../mainwindow.cpp" line="5417"/>
         <source>Q - Queued</source>
         <translation>J - Jonossa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5435"/>
+        <location filename="../mainwindow.cpp" line="5438"/>
         <source>There was an error while exporting the LoTW. The log has not been exported!</source>
         <translation>LotW viennissä tapahtui virhe. Lokin vienti epäonnistui!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5481"/>
+        <location filename="../mainwindow.cpp" line="5484"/>
         <source>Save Cabrillo File</source>
         <translation>Tallenna Cabrillo Tiedosto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5492"/>
-        <location filename="../mainwindow.cpp" line="5516"/>
+        <location filename="../mainwindow.cpp" line="5495"/>
+        <location filename="../mainwindow.cpp" line="5519"/>
         <source>Open File</source>
         <translation>Avaa Tiedosto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5633"/>
+        <location filename="../mainwindow.cpp" line="5636"/>
         <source>&amp;Modify</source>
         <translation>&amp;Muokkaa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6196"/>
+        <location filename="../mainwindow.cpp" line="6199"/>
         <source> - Needed for DXMarathon</source>
         <translation>- Tarvitaan DXMarathon:iin</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6308"/>
+        <location filename="../mainwindow.cpp" line="6311"/>
         <source>Filling QSOs...</source>
         <translation>Täyttää QSO:t...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6308"/>
+        <location filename="../mainwindow.cpp" line="6311"/>
         <source>Abort filling</source>
         <translation>Keskeytä täyttäminen</translation>
     </message>
@@ -2243,186 +2243,186 @@ UDP-palvelin ei onnistunut %1.</translation>
  QSO: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6515"/>
+        <location filename="../mainwindow.cpp" line="6518"/>
         <source>Number</source>
         <translation>Numero</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6517"/>
+        <location filename="../mainwindow.cpp" line="6520"/>
         <source>Date</source>
         <translation>Päivämäärä</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6519"/>
+        <location filename="../mainwindow.cpp" line="6522"/>
         <source>Time</source>
         <translation>Aika</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6527"/>
+        <location filename="../mainwindow.cpp" line="6530"/>
         <source>Band</source>
         <translation>Taajuusalue</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6529"/>
-        <location filename="../mainwindow.cpp" line="7210"/>
+        <location filename="../mainwindow.cpp" line="6532"/>
+        <location filename="../mainwindow.cpp" line="7213"/>
         <source>Mode</source>
         <translation>Tila</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6544"/>
+        <location filename="../mainwindow.cpp" line="6547"/>
         <source>Print Log</source>
         <translation>Tulosta loki</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6549"/>
+        <location filename="../mainwindow.cpp" line="6552"/>
         <source>Printing the log...</source>
         <translation>Tulostetaan lokia...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6549"/>
+        <location filename="../mainwindow.cpp" line="6552"/>
         <source>Abort printing</source>
         <translation>Keskeytä tulostus</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6564"/>
-        <location filename="../mainwindow.cpp" line="6579"/>
+        <location filename="../mainwindow.cpp" line="6567"/>
+        <location filename="../mainwindow.cpp" line="6582"/>
         <source>Printing the log...
  QSO: </source>
         <translation>Tulostetaan lokia...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7196"/>
+        <location filename="../mainwindow.cpp" line="7199"/>
         <source>KLog QSO received</source>
         <translation>KLoq QSO vastaanotettu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7201"/>
+        <location filename="../mainwindow.cpp" line="7204"/>
         <source>The following QSO data has been received from WSJT-X to be logged:</source>
         <translation>Seuraavat QSO tiedot vastaanotettu WSJT-X:ltä kirjattaviksi:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7204"/>
+        <location filename="../mainwindow.cpp" line="7207"/>
         <source>Call</source>
         <translation>Kutsutunnus</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7207"/>
+        <location filename="../mainwindow.cpp" line="7210"/>
         <source>Freq</source>
         <translation>Taajuus</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7213"/>
+        <location filename="../mainwindow.cpp" line="7216"/>
         <source>Time On</source>
         <translation>Lähetys alkaa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7216"/>
+        <location filename="../mainwindow.cpp" line="7219"/>
         <source>Time Off</source>
         <translation>Lähetys päättyy</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7219"/>
+        <location filename="../mainwindow.cpp" line="7222"/>
         <source>RST TX</source>
         <translation>RST TX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7219"/>
+        <location filename="../mainwindow.cpp" line="7222"/>
         <source>RST RX</source>
         <translation>RST RX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7222"/>
+        <location filename="../mainwindow.cpp" line="7225"/>
         <source>DX-Grid</source>
         <translation>DX-Verkko</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7228"/>
+        <location filename="../mainwindow.cpp" line="7231"/>
         <source>Comments</source>
         <translation>Kommentit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7231"/>
+        <location filename="../mainwindow.cpp" line="7234"/>
         <source>TX Pwr</source>
         <translation>TX teho</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7234"/>
+        <location filename="../mainwindow.cpp" line="7237"/>
         <source>Operator</source>
         <translation>Operaattori</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7237"/>
+        <location filename="../mainwindow.cpp" line="7240"/>
         <source>Local-Grid</source>
         <translation>Paikallisverkko</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7320"/>
+        <location filename="../mainwindow.cpp" line="7323"/>
         <source>A new mode not supported by KLog has been received from an external software:</source>
         <translation>Ulkoisesta ohjelmistosta on vastaanotettu uusi tila, jota KLog ei tue:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7320"/>
+        <location filename="../mainwindow.cpp" line="7323"/>
         <source>Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)</source>
         <translation>Haluatko jatkossa saada tämän ilmoituksen? (Mikäli ilmoitus poistetaan käytöstä, ei tuettuja tiloja ei tunnisteta)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7320"/>
+        <location filename="../mainwindow.cpp" line="7323"/>
         <source>If the received mode is correct, please contact KLog development team and request support for that mode</source>
         <translation>Mikäli vastaanotettu tila on oikea, ota yhteyttä KLog-kehitystiimiin ja pyydä tukea kyseiselle tilalle</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7481"/>
+        <location filename="../mainwindow.cpp" line="7484"/>
         <source>A duplicated satellite has been detected in the file and will not be imported.</source>
         <translation>Tiedostossa havaittiin päällekkäinen satelliitti, eikä sitä tuoda.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7482"/>
+        <location filename="../mainwindow.cpp" line="7485"/>
         <source>Please check the satellite information file and ensure it is properly populated.</source>
         <translation type="unfinished">Tarkista satelliitti tiedot-tiedosto ja varmista ettö siellä on kaikki tarvittava.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7482"/>
+        <location filename="../mainwindow.cpp" line="7485"/>
         <source>Now you will see a more detailed error that can be used for debugging...</source>
         <translation type="unfinished">Nyt näet tarkemmat virhetiedot joita voidaan käyttää vianmäärityksessä...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7489"/>
+        <location filename="../mainwindow.cpp" line="7492"/>
         <source>An unexpected error ocurred!!</source>
         <translation>Odottamaton virhe tapahtui!!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7489"/>
+        <location filename="../mainwindow.cpp" line="7492"/>
         <source>If the problem persists, please contact the developers</source>
         <translation>Jos ongelma jatkuu, ota yhteyttä kehitystiimiin</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7489"/>
+        <location filename="../mainwindow.cpp" line="7492"/>
         <source>for analysis:</source>
         <translation>analysointia varten:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7491"/>
+        <location filename="../mainwindow.cpp" line="7494"/>
         <source>Error in function</source>
         <translation>Virhe funktiossa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7492"/>
+        <location filename="../mainwindow.cpp" line="7495"/>
         <source>Error code</source>
         <translation>Virhekoodi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7493"/>
+        <location filename="../mainwindow.cpp" line="7496"/>
         <source>Error text</source>
         <translation>Virheteksti</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7494"/>
+        <location filename="../mainwindow.cpp" line="7497"/>
         <source>Failed query</source>
         <translation>Epäonnistunut kysely</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7505"/>
+        <location filename="../mainwindow.cpp" line="7508"/>
         <source>Do you want to keep showing errors?</source>
         <translation>Haluatko jatkaa virheiden näyttämistä?</translation>
     </message>
@@ -2853,131 +2853,131 @@ UDP-palvelin ei onnistunut %1.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="271"/>
-        <location filename="../database.cpp" line="313"/>
+        <location filename="../database.cpp" line="323"/>
         <source>Database Error</source>
         <translation>Tietokantavirhe</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1455"/>
+        <location filename="../database.cpp" line="1465"/>
         <source>KLog DB needs to be upgraded.</source>
         <translation>KLog tietokanta pitää päivittää uudempaan.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1456"/>
+        <location filename="../database.cpp" line="1466"/>
         <source>Do you want to upgrade it now?</source>
         <translation>Haluatko päivittää uudempaan nyt?</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1456"/>
+        <location filename="../database.cpp" line="1466"/>
         <source>If DB is not upgraded KLog may not work properly.</source>
         <translation>Jos tietokantaa ei päivitetä, KLog ei välttämättä toimi oikein.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2062"/>
+        <location filename="../database.cpp" line="2072"/>
         <source>KLog has detected a previous log in the DB. All data will be migrated to a newly created DX type log for you.</source>
         <translation>KLog on havainnut aikaisemman lokin tietokannassa. Kaikki tiedot siirretään juuri luotuun DX tyyppiseen lokiin.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2080"/>
+        <location filename="../database.cpp" line="2090"/>
         <source>KLog: Enter Station callsign</source>
         <translation>KLog: Syötä aseman kutsutunnus</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2081"/>
+        <location filename="../database.cpp" line="2091"/>
         <source>Enter the station callsign used in this log</source>
         <translation>Syötä tässä lokissa käytetty aseman kutsutunnus</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2082"/>
+        <location filename="../database.cpp" line="2092"/>
         <source>Station Callsign</source>
         <translation>Aseman kutsutunnus</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2133"/>
+        <location filename="../database.cpp" line="2143"/>
         <source>All the data was migrated correctly. You should now go to Setup-&gt;Preferences-&gt;Logs to check that everything is OK.</source>
         <translation>Kaikki tiedot siirrettiin oikein. Sinun pitäisi nyt mennä Asetukset-&gt; Lisäasetukset-&gt; Lokit  tarkistaaksesi, että kaikki on OK.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3562"/>
-        <location filename="../database.cpp" line="3583"/>
+        <location filename="../database.cpp" line="3572"/>
+        <location filename="../database.cpp" line="3593"/>
         <source>Updating mode information...</source>
         <translation>Päivitetään tilatietoja...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3562"/>
-        <location filename="../database.cpp" line="3747"/>
-        <location filename="../database.cpp" line="3944"/>
-        <location filename="../database.cpp" line="4145"/>
-        <location filename="../database.cpp" line="7189"/>
-        <location filename="../database.cpp" line="7412"/>
-        <location filename="../dataproxy_sqlite.cpp" line="4564"/>
+        <location filename="../database.cpp" line="3572"/>
+        <location filename="../database.cpp" line="3757"/>
+        <location filename="../database.cpp" line="3954"/>
+        <location filename="../database.cpp" line="4155"/>
+        <location filename="../database.cpp" line="7199"/>
+        <location filename="../database.cpp" line="7422"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4754"/>
         <source>Abort updating</source>
         <translation>Keskeytä päivittäminen</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3583"/>
-        <location filename="../database.cpp" line="3766"/>
-        <location filename="../database.cpp" line="7281"/>
-        <location filename="../database.cpp" line="7504"/>
-        <location filename="../dataproxy_sqlite.cpp" line="4607"/>
+        <location filename="../database.cpp" line="3593"/>
+        <location filename="../database.cpp" line="3776"/>
+        <location filename="../database.cpp" line="7291"/>
+        <location filename="../database.cpp" line="7514"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4797"/>
         <source>QSO: </source>
         <translation>QSO:</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3658"/>
-        <location filename="../database.cpp" line="3835"/>
-        <location filename="../database.cpp" line="4036"/>
-        <location filename="../database.cpp" line="4244"/>
+        <location filename="../database.cpp" line="3668"/>
+        <location filename="../database.cpp" line="3845"/>
+        <location filename="../database.cpp" line="4046"/>
+        <location filename="../database.cpp" line="4254"/>
         <source>Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?</source>
         <translation>Tämän päivityksen peruuttaminen aiheuttaa epäjohdonmukaisuuksia ja mahdollisen tietojen menettämisen. Haluatko silti peruuttaa?</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3747"/>
-        <location filename="../database.cpp" line="3766"/>
-        <location filename="../database.cpp" line="3966"/>
-        <location filename="../database.cpp" line="4168"/>
+        <location filename="../database.cpp" line="3757"/>
+        <location filename="../database.cpp" line="3776"/>
+        <location filename="../database.cpp" line="3976"/>
+        <location filename="../database.cpp" line="4178"/>
         <source>Updating bands information...</source>
         <translation>Päivitetään taajuusalue tiedot...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3942"/>
+        <location filename="../database.cpp" line="3952"/>
         <source>Updating bands information in %1 status...</source>
         <translation>Päivitetään taajuusalue tiedot %1 tila...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3966"/>
-        <location filename="../database.cpp" line="4168"/>
+        <location filename="../database.cpp" line="3976"/>
+        <location filename="../database.cpp" line="4178"/>
         <source>Progress: </source>
         <translation>Eteneminen:</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="4143"/>
+        <location filename="../database.cpp" line="4153"/>
         <source>Updating mode information in %1 status...</source>
         <translation>Päivitetään tilatiedot %1 tila...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7189"/>
+        <location filename="../database.cpp" line="7199"/>
         <source>Updating DXCC award information...</source>
         <translation>Päivitetään DXCC palkinto tiedot...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7281"/>
+        <location filename="../database.cpp" line="7291"/>
         <source>Updating DXCC Award information...</source>
         <translation>Päivitetään DXCC palkinto tiedot...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7412"/>
+        <location filename="../database.cpp" line="7422"/>
         <source>Updating WAZ award information...</source>
         <translation>Päivitetään WAZ palkintotiedot...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7504"/>
+        <location filename="../database.cpp" line="7514"/>
         <source>Updating WAZ Award information...</source>
         <translation>Päivitetään WAZ palkintotiedot...</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4564"/>
-        <location filename="../dataproxy_sqlite.cpp" line="4607"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4754"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4797"/>
         <source>Updating DXCC and Continent information...</source>
         <translation>Päivitetään DXCC- ja manner-tietoja...</translation>
     </message>
@@ -3298,128 +3298,134 @@ UDP-palvelin ei onnistunut %1.</translation>
 <context>
     <name>SetupDialog</name>
     <message>
-        <location filename="../setupdialog.cpp" line="88"/>
+        <location filename="../setupdialog.cpp" line="89"/>
         <source>My Data</source>
         <translation>Minun Tiedot</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="89"/>
-        <location filename="../setupdialog.cpp" line="165"/>
-        <location filename="../setupdialog.cpp" line="318"/>
+        <location filename="../setupdialog.cpp" line="90"/>
+        <location filename="../setupdialog.cpp" line="168"/>
+        <location filename="../setupdialog.cpp" line="322"/>
         <source>Bands/Modes</source>
         <translation>Taajuusalueet/Moodit</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="90"/>
-        <location filename="../setupdialog.cpp" line="324"/>
+        <location filename="../setupdialog.cpp" line="91"/>
+        <location filename="../setupdialog.cpp" line="328"/>
         <source>DX-Cluster</source>
         <translation>DX-Klusteri</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="91"/>
-        <location filename="../setupdialog.cpp" line="167"/>
-        <location filename="../setupdialog.cpp" line="330"/>
+        <location filename="../setupdialog.cpp" line="92"/>
+        <location filename="../setupdialog.cpp" line="170"/>
+        <location filename="../setupdialog.cpp" line="334"/>
         <source>Colors</source>
         <translation>Värit</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="92"/>
-        <location filename="../setupdialog.cpp" line="168"/>
-        <location filename="../setupdialog.cpp" line="336"/>
+        <location filename="../setupdialog.cpp" line="93"/>
+        <location filename="../setupdialog.cpp" line="171"/>
+        <location filename="../setupdialog.cpp" line="340"/>
         <source>Misc</source>
         <translation>Sekalaiset</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="93"/>
-        <location filename="../setupdialog.cpp" line="169"/>
+        <location filename="../setupdialog.cpp" line="94"/>
+        <location filename="../setupdialog.cpp" line="172"/>
         <source>World Editor</source>
         <translation>Maailma Editori</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="94"/>
-        <location filename="../setupdialog.cpp" line="170"/>
-        <location filename="../setupdialog.cpp" line="312"/>
+        <location filename="../setupdialog.cpp" line="95"/>
+        <location filename="../setupdialog.cpp" line="173"/>
+        <location filename="../setupdialog.cpp" line="316"/>
         <source>Logs</source>
         <translation>Lokit</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="99"/>
+        <location filename="../setupdialog.cpp" line="98"/>
         <location filename="../setupdialog.cpp" line="176"/>
+        <source>Satellites</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setupdialog.cpp" line="101"/>
+        <location filename="../setupdialog.cpp" line="180"/>
         <source>Cancel</source>
         <translation>Peru</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="100"/>
-        <location filename="../setupdialog.cpp" line="177"/>
+        <location filename="../setupdialog.cpp" line="102"/>
+        <location filename="../setupdialog.cpp" line="181"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="123"/>
-        <location filename="../setupdialog.cpp" line="195"/>
+        <location filename="../setupdialog.cpp" line="125"/>
+        <location filename="../setupdialog.cpp" line="199"/>
         <source>Config Dialog</source>
         <translation>Asetusikkuna</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="164"/>
-        <location filename="../setupdialog.cpp" line="306"/>
+        <location filename="../setupdialog.cpp" line="167"/>
+        <location filename="../setupdialog.cpp" line="310"/>
         <source>User data</source>
         <translation>Käyttäjätiedot</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="166"/>
+        <location filename="../setupdialog.cpp" line="169"/>
         <source>D&amp;X-Cluster</source>
         <translation>D&amp;X-Klusteri</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="171"/>
+        <location filename="../setupdialog.cpp" line="174"/>
         <source>ClubLog</source>
         <translation>ClubLog</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="172"/>
+        <location filename="../setupdialog.cpp" line="175"/>
         <source>WSJT-X</source>
         <translation>WSJT-X</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="290"/>
+        <location filename="../setupdialog.cpp" line="294"/>
         <source>You need to enter at least one log in the Logs tab.</source>
         <translation>Ainakin yksi loki on syötettävä Lokit -välilehdellä.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="342"/>
+        <location filename="../setupdialog.cpp" line="346"/>
         <source>World</source>
         <translation>Maailma</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="371"/>
+        <location filename="../setupdialog.cpp" line="375"/>
         <source>DB has not been moved to new path</source>
         <translation>Tietokantaa ei ole siirretty</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="372"/>
+        <location filename="../setupdialog.cpp" line="376"/>
         <source>Go to the Misc tab and click on Move DB
  or the DB will not be moved to the new location.</source>
         <translation>Siirry sekalaiset-välilehdelle ja napsauta &quot;siirrä tietokanta&quot;
  muulloin tietokantaa ei siirretä uuteen paikkaan.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="381"/>
+        <location filename="../setupdialog.cpp" line="385"/>
         <source>Go to the User tab and enter valid QRZ.</source>
         <translation>Siirry käyttäjä-välilehdelle ja syötä kelvollinen QRZ.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="380"/>
+        <location filename="../setupdialog.cpp" line="384"/>
         <source>You need to enter at least a valid QRZ.</source>
         <translation>Ainakin olemassaoleva QRZ on syötettävä.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="392"/>
+        <location filename="../setupdialog.cpp" line="396"/>
         <source>You have not selected the kind of log you want.</source>
         <translation>Et ole valinnut minkälaisen lokin haluat.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="393"/>
+        <location filename="../setupdialog.cpp" line="397"/>
         <source>You will be redirected to the Log tab.
 Please add and select the kind of log you want to use.</source>
         <translation>Sinut ohjataan lokit -välilehdelle.
@@ -4177,6 +4183,229 @@ Lokia ei avata.</translation>
     </message>
 </context>
 <context>
+    <name>SetupPageSats</name>
+    <message>
+        <location filename="../setuppagesats.cpp" line="65"/>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Uusi</translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="66"/>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Muokkaa</translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="67"/>
+        <source>&amp;Remove</source>
+        <translation type="unfinished">&amp;Poista</translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="68"/>
+        <source>&amp;Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="69"/>
+        <source>E&amp;xport</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="72"/>
+        <source>Add a new satellite.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="73"/>
+        <source>Edit the selected satellite.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="74"/>
+        <source>Remove the selected satellite.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="75"/>
+        <source>Import a satellites file. It will replace the satellites you have now configured.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="76"/>
+        <source>Export your current satellites to a file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="78"/>
+        <source>Select the sat you want to open.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="212"/>
+        <source>KLog</source>
+        <translation type="unfinished">KLog</translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="213"/>
+        <source>Do you really want to remove this satellite?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="214"/>
+        <source>This satellite will not be longer available to be selected ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="246"/>
+        <source>Sat has not been removed. (#3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="253"/>
+        <source>Sat has not been removed. (#2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="260"/>
+        <source>Sat has not been removed. (#1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="320"/>
+        <source>ID</source>
+        <translation type="unfinished">ID</translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="323"/>
+        <source>Short</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="326"/>
+        <source>Name</source>
+        <translation type="unfinished">Nimi</translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="329"/>
+        <source>Uplink</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="332"/>
+        <source>Downlink</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="335"/>
+        <source>Modes</source>
+        <translation type="unfinished">Moodit</translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="568"/>
+        <source>An error has occurred showing the following error code:</source>
+        <translation type="unfinished">On tapahtunut virhe seuraavalla koodilla:</translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="571"/>
+        <source>KLog - SetupPageSats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="581"/>
+        <source>Open Satellites File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="600"/>
+        <source>KLog warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="602"/>
+        <source>An unexpected error ocurred while importing the satellite data.
+
+It may be caused because the file you are trying to import does not have the right format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="605"/>
+        <source>Please check the format or contact the developer for analysis with the error code: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesats.cpp" line="672"/>
+        <source>Save Satellites File</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SetupPageSatsNew</name>
+    <message>
+        <location filename="../setuppagesatsnew.cpp" line="46"/>
+        <source>Short name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesatsnew.cpp" line="47"/>
+        <source>Sat name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesatsnew.cpp" line="48"/>
+        <source>UpLink</source>
+        <translation type="unfinished">Lähetyslinkki</translation>
+    </message>
+    <message>
+        <location filename="../setuppagesatsnew.cpp" line="49"/>
+        <source>DownLink</source>
+        <translation type="unfinished">Vastaanottolinkki</translation>
+    </message>
+    <message>
+        <location filename="../setuppagesatsnew.cpp" line="50"/>
+        <source>Modes</source>
+        <translation type="unfinished">Moodit</translation>
+    </message>
+    <message>
+        <location filename="../setuppagesatsnew.cpp" line="56"/>
+        <source>&amp;Ok</source>
+        <translation type="unfinished">&amp;Ok</translation>
+    </message>
+    <message>
+        <location filename="../setuppagesatsnew.cpp" line="57"/>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">Peru</translation>
+    </message>
+    <message>
+        <location filename="../setuppagesatsnew.cpp" line="103"/>
+        <source>Enter the short name. Try to use the LoTW short name so you can upload your QSO to LoTW afterwards.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesatsnew.cpp" line="104"/>
+        <source>Enter the name of the satellite.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesatsnew.cpp" line="105"/>
+        <source>Enter the uplink frequencies in this format: 144.300</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesatsnew.cpp" line="106"/>
+        <source>Enter the downlink frequencies in this format: 144.300</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesatsnew.cpp" line="107"/>
+        <source>Enter the modes in this format: USB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppagesatsnew.cpp" line="376"/>
+        <source>Some of the data you have entered is not correct, the satellite can&apos;t be added.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SetupPageUDP</name>
     <message>
         <location filename="../setuppageudp.cpp" line="10"/>
@@ -4629,62 +4858,62 @@ Lokia ei avata.</translation>
 <context>
     <name>StatisticsWidget</name>
     <message>
-        <location filename="../statisticswidget.cpp" line="38"/>
+        <location filename="../statisticswidget.cpp" line="79"/>
         <source>QSO per year</source>
         <translation>QSO:ta vuodessa</translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="39"/>
+        <location filename="../statisticswidget.cpp" line="80"/>
         <source>DXCC per year</source>
         <translation>DXCC:tä vuodessa</translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="40"/>
+        <location filename="../statisticswidget.cpp" line="81"/>
         <source>CQ zones per year</source>
         <translation>CQ vyöhykkeitä vuodessa</translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="41"/>
+        <location filename="../statisticswidget.cpp" line="82"/>
         <source>QSO per band</source>
         <translation>QSO:ta taajuusalueittain</translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="42"/>
+        <location filename="../statisticswidget.cpp" line="83"/>
         <source>QSO per mode</source>
         <translation>QSO:ta moodeittain</translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="43"/>
+        <location filename="../statisticswidget.cpp" line="84"/>
         <source>QSO per DXCC</source>
         <translation>QSO:ta DXCCittäin</translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="44"/>
+        <location filename="../statisticswidget.cpp" line="85"/>
         <source>QSO per Continent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="45"/>
+        <location filename="../statisticswidget.cpp" line="86"/>
         <source>QSO per hour</source>
         <translation>QSO:ta tunneittain</translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="46"/>
+        <location filename="../statisticswidget.cpp" line="87"/>
         <source>QSO per month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="47"/>
+        <location filename="../statisticswidget.cpp" line="88"/>
         <source>Worked / Confirmed status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="48"/>
+        <location filename="../statisticswidget.cpp" line="89"/>
         <source>Worked / Sent status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../statisticswidget.cpp" line="49"/>
+        <location filename="../statisticswidget.cpp" line="90"/>
         <source>Sent / Confirmed status</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5105,7 +5334,7 @@ Lokia ei avata.</translation>
     <name>StatsWorkedConfirmedPieChartWidget</name>
     <message>
         <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="39"/>
-        <source>Worked - %1</source>
+        <source>Worked, not confirmed - %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5130,27 +5359,27 @@ Lokia ei avata.</translation>
 <context>
     <name>UpdateSatsData</name>
     <message>
-        <location filename="../updatesatsdata.cpp" line="56"/>
+        <location filename="../updatesatsdata.cpp" line="59"/>
         <source>Reading Satellites data file...</source>
         <translation>Luetaan satelliitti tiedot-tiedostoa...</translation>
     </message>
     <message>
-        <location filename="../updatesatsdata.cpp" line="56"/>
+        <location filename="../updatesatsdata.cpp" line="59"/>
         <source>Abort reading</source>
         <translation>Peruuta lukeminen</translation>
     </message>
     <message>
-        <location filename="../updatesatsdata.cpp" line="222"/>
+        <location filename="../updatesatsdata.cpp" line="213"/>
         <source>The Satellites information has been updated.</source>
         <translation>Satelliitti tiedot päivitetty.</translation>
     </message>
     <message>
-        <location filename="../updatesatsdata.cpp" line="236"/>
+        <location filename="../updatesatsdata.cpp" line="231"/>
         <source>Open File</source>
         <translation>Avaa tiedosto</translation>
     </message>
     <message>
-        <location filename="../updatesatsdata.cpp" line="238"/>
+        <location filename="../updatesatsdata.cpp" line="233"/>
         <source>Sat Data</source>
         <translation>Satelliittitiedot</translation>
     </message>

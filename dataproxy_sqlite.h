@@ -204,6 +204,11 @@ public:
     QString getSatelliteUplink(const QString _sat);
     QString getSatelliteDownlink(const QString _sat);
     QString getSatelliteMode(const QString _sat);
+    QString getSatelliteFullUplink(const QString _sat);
+    QString getSatelliteFullDownlink(const QString _sat);
+    QString getSatelliteFullMode(const QString _sat);
+    QString getSatelliteName(const QString _sat);
+    QString getSateliteArrlIdFromId(const int _id);
     QStringList getQSLRcvdList();
     QStringList getQSLSentList();
     QStringList getClubLogStatusList();

@@ -1,5 +1,6 @@
 TBD - 0.9.7
-- Added Satellites widget in Setup. (export)
+- Bugfix: When clicking on Check updates, the dialog froze.
+- Added Satellites widget in Setup.
 
 December 2018 - 0.9.6
 - Optimizing the Statistics widget.
