@@ -137,113 +137,6 @@
     </message>
 </context>
 <context>
-    <name>BarChartStats</name>
-    <message>
-        <source>Chart title</source>
-        <translation type="vanished">Diagrammtitel</translation>
-    </message>
-    <message>
-        <source>Reading data ... </source>
-        <translation type="vanished">Daten werden gelesen ...</translation>
-    </message>
-    <message>
-        <source>Abort reading</source>
-        <translation type="vanished">Lesen abbrechen</translation>
-    </message>
-    <message>
-        <source>QSOs</source>
-        <translation type="vanished">QSOs</translation>
-    </message>
-    <message>
-        <source>QSOs per year</source>
-        <translation type="vanished">QSOs pro Jahr</translation>
-    </message>
-    <message>
-        <source>Reading data ...</source>
-        <translation type="vanished">Daten werden gelesen ...</translation>
-    </message>
-    <message>
-        <source>QSO: %1/%2</source>
-        <translation type="vanished">QSO: %1/%2</translation>
-    </message>
-    <message>
-        <source>DXCC Entities</source>
-        <translation type="vanished">DXCC-Einträge</translation>
-    </message>
-    <message>
-        <source>DXCC Entities per year</source>
-        <translation type="vanished">DXCC-Einträge pro Jahr</translation>
-    </message>
-    <message>
-        <source>Entities: </source>
-        <translation type="vanished">Einträge:</translation>
-    </message>
-    <message>
-        <source>CQ zones</source>
-        <translation type="vanished">CQ-Zonen</translation>
-    </message>
-    <message>
-        <source>CQ zone per year</source>
-        <translation type="vanished">CQ-Zonen pro Jahr</translation>
-    </message>
-    <message>
-        <source>Years: %1/%2</source>
-        <translation type="vanished">Jahre: %1/%2</translation>
-    </message>
-    <message>
-        <source>Bands</source>
-        <translation type="vanished">Bänder</translation>
-    </message>
-    <message>
-        <source>QSO per band distribution</source>
-        <translation type="vanished">QSO pro Frequenzbandverteilung</translation>
-    </message>
-    <message>
-        <source>Bands: </source>
-        <translation type="vanished">Bänder: </translation>
-    </message>
-    <message>
-        <source>Modes</source>
-        <translation type="vanished">Modi</translation>
-    </message>
-    <message>
-        <source>QSO per mode distribution</source>
-        <translation type="vanished">QSO pro Modusverteilung</translation>
-    </message>
-    <message>
-        <source>Reading data...</source>
-        <translation type="vanished">Daten werden gelesen ...</translation>
-    </message>
-    <message>
-        <source>Modes: </source>
-        <translation type="vanished">Modi: </translation>
-    </message>
-    <message>
-        <source>Entity: </source>
-        <translation type="vanished">Eintrag: </translation>
-    </message>
-    <message>
-        <source>DXCC</source>
-        <translation type="vanished">DXCC</translation>
-    </message>
-    <message>
-        <source>Top ten DXCC per QSO</source>
-        <translation type="vanished">Erste zehn DXCC pro QSO</translation>
-    </message>
-    <message>
-        <source>Hours</source>
-        <translation type="vanished">Stunden</translation>
-    </message>
-    <message>
-        <source>QSOs at hour</source>
-        <translation type="vanished">QSOs je Stunde</translation>
-    </message>
-    <message>
-        <source>Hours: </source>
-        <translation type="vanished">Stunden: </translation>
-    </message>
-</context>
-<context>
     <name>CTYPage</name>
     <message>
         <location filename="../startwizard.cpp" line="914"/>
@@ -2237,12 +2130,6 @@ Der UDP-Server kann %1 nicht ausführen.</translation>
         <translation>Ausfüllen abbrechen</translation>
     </message>
     <message>
-        <source>Filling QSOs...
- QSO: </source>
-        <translation type="vanished">QSOs werden ausgefüllt ...
-  QSO:</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="6518"/>
         <source>Number</source>
         <translation>Anzahl</translation>
@@ -2747,10 +2634,6 @@ Der UDP-Server kann %1 nicht ausführen.</translation>
         <location filename="../mainwindowsattab.cpp" line="92"/>
         <source>DownLink band.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locator of the DX station. This box is syncronized with the Locator box in the QSO tab.</source>
-        <translation type="vanished">Locator der DX-Station. Dieser Wert wird mit dem Locator-Feld auf der Karteikarte QSO abgeglichen.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="93"/>
@@ -4471,10 +4354,6 @@ It may be caused because the file you are trying to import does not have the rig
         <location filename="../setuppageudp.cpp" line="79"/>
         <source>Milliseconds that the notification of QSO received from WSJTX will be shown.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Miliseconds that the notification of QSO received from WSJTX will be shown.</source>
-        <translation type="vanished">Anzeigedauer der Benachrichtigungen über QSOs von WSJTX in Millisekunden.</translation>
     </message>
 </context>
 <context>

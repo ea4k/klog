@@ -137,105 +137,6 @@
     </message>
 </context>
 <context>
-    <name>BarChartStats</name>
-    <message>
-        <source>Chart title</source>
-        <translation type="vanished">Naslov dijagrama</translation>
-    </message>
-    <message>
-        <source>Abort reading</source>
-        <translation type="vanished">Prekini čitanje</translation>
-    </message>
-    <message>
-        <source>Reading data ... </source>
-        <translation type="vanished">Učitavam podatke ... </translation>
-    </message>
-    <message>
-        <source>QSOs</source>
-        <translation type="vanished">QSOi</translation>
-    </message>
-    <message>
-        <source>QSOs per year</source>
-        <translation type="vanished">QSOi po godini</translation>
-    </message>
-    <message>
-        <source>DXCC Entities</source>
-        <translation type="vanished">DXCC Entiteti</translation>
-    </message>
-    <message>
-        <source>DXCC Entities per year</source>
-        <translation type="vanished">DXCC Entiteti po godini</translation>
-    </message>
-    <message>
-        <source>CQ zones</source>
-        <translation type="vanished">CQ zone</translation>
-    </message>
-    <message>
-        <source>CQ zone per year</source>
-        <translation type="vanished">CQ zone po godini</translation>
-    </message>
-    <message>
-        <source>Bands</source>
-        <translation type="vanished">Frekvencijski pojasevi</translation>
-    </message>
-    <message>
-        <source>QSO per band distribution</source>
-        <translation type="vanished">Raspodjela QSOa po opsezima</translation>
-    </message>
-    <message>
-        <source>Reading data ...</source>
-        <translation type="vanished">Učitavam podatke ...</translation>
-    </message>
-    <message>
-        <source>Entities: </source>
-        <translation type="vanished">Entiteti: </translation>
-    </message>
-    <message>
-        <source>Bands: </source>
-        <translation type="vanished">Pojasevi: </translation>
-    </message>
-    <message>
-        <source>Modes</source>
-        <translation type="vanished">Načini rada</translation>
-    </message>
-    <message>
-        <source>QSO per mode distribution</source>
-        <translation type="vanished">Raspodjela QSOa po načinu rada</translation>
-    </message>
-    <message>
-        <source>Reading data...</source>
-        <translation type="vanished">Učitavam podatke ...</translation>
-    </message>
-    <message>
-        <source>Modes: </source>
-        <translation type="vanished">Načini rada: </translation>
-    </message>
-    <message>
-        <source>Entity: </source>
-        <translation type="vanished">Entitet: </translation>
-    </message>
-    <message>
-        <source>DXCC</source>
-        <translation type="vanished">DXCC</translation>
-    </message>
-    <message>
-        <source>Top ten DXCC per QSO</source>
-        <translation type="vanished">Gornjih deset DXCCa po QSOu</translation>
-    </message>
-    <message>
-        <source>Hours</source>
-        <translation type="vanished">Sati</translation>
-    </message>
-    <message>
-        <source>QSOs at hour</source>
-        <translation type="vanished">QSOa po satu</translation>
-    </message>
-    <message>
-        <source>Hours: </source>
-        <translation type="vanished">Sati: </translation>
-    </message>
-</context>
-<context>
     <name>CTYPage</name>
     <message>
         <location filename="../startwizard.cpp" line="914"/>
@@ -2235,12 +2136,6 @@ The UDP server failed to %1.</source>
         <translation>Prekini ispunjavanje</translation>
     </message>
     <message>
-        <source>Filling QSOs...
- QSO: </source>
-        <translation type="vanished">Ispunjavam QSOe...
- QSO: </translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="6518"/>
         <source>Number</source>
         <translation>Broj</translation>
@@ -2745,10 +2640,6 @@ The UDP server failed to %1.</source>
         <location filename="../mainwindowsattab.cpp" line="92"/>
         <source>DownLink band.</source>
         <translation>DownLink frekvencijski pojas.</translation>
-    </message>
-    <message>
-        <source>Locator of the DX station. This box is syncronized with the Locator box in the QSO tab.</source>
-        <translation type="vanished">Lokator DX postaje. Ova kućica sinkronizirana je sa kućicom Lokator u QSO odjeljku.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="93"/>
@@ -4492,10 +4383,6 @@ It may be caused because the file you are trying to import does not have the rig
         <location filename="../setuppageudp.cpp" line="79"/>
         <source>Milliseconds that the notification of QSO received from WSJTX will be shown.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Miliseconds that the notification of QSO received from WSJTX will be shown.</source>
-        <translation type="vanished">Milisekunde koliko će trajati prikaz obavijesti za QSO primljen iz WSJTXa.</translation>
     </message>
 </context>
 <context>

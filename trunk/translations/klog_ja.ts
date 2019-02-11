@@ -137,25 +137,6 @@
     </message>
 </context>
 <context>
-    <name>BarChartStats</name>
-    <message>
-        <source>Abort reading</source>
-        <translation type="obsolete">読込みの中止</translation>
-    </message>
-    <message>
-        <source>QSOs</source>
-        <translation type="obsolete">QSO総数</translation>
-    </message>
-    <message>
-        <source>Bands</source>
-        <translation type="obsolete">バンド</translation>
-    </message>
-    <message>
-        <source>Modes</source>
-        <translation type="obsolete">モード</translation>
-    </message>
-</context>
-<context>
     <name>CTYPage</name>
     <message>
         <location filename="../startwizard.cpp" line="914"/>

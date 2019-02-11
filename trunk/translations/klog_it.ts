@@ -137,25 +137,6 @@
     </message>
 </context>
 <context>
-    <name>BarChartStats</name>
-    <message>
-        <source>QSOs</source>
-        <translation type="obsolete">QSO</translation>
-    </message>
-    <message>
-        <source>Bands</source>
-        <translation type="obsolete">Bande</translation>
-    </message>
-    <message>
-        <source>Modes</source>
-        <translation type="obsolete">Modi</translation>
-    </message>
-    <message>
-        <source>DXCC</source>
-        <translation type="obsolete">DXCC</translation>
-    </message>
-</context>
-<context>
     <name>CTYPage</name>
     <message>
         <location filename="../startwizard.cpp" line="914"/>

@@ -137,121 +137,6 @@
     </message>
 </context>
 <context>
-    <name>BarChartStats</name>
-    <message>
-        <source>Chart title</source>
-        <translation type="vanished">Diagramtitel</translation>
-    </message>
-    <message>
-        <source>Reading data ... </source>
-        <translation type="vanished">Læser data ... </translation>
-    </message>
-    <message>
-        <source>Abort reading</source>
-        <translation type="vanished">Om læsning</translation>
-    </message>
-    <message>
-        <source>QSOs</source>
-        <translation type="vanished">QSO&apos;er</translation>
-    </message>
-    <message>
-        <source>QSOs per year</source>
-        <translation type="vanished">QSO&apos;er per år</translation>
-    </message>
-    <message>
-        <source>Reading data ...</source>
-        <translation type="vanished">Læser data ...</translation>
-    </message>
-    <message>
-        <source>QSO: %1/%2</source>
-        <translation type="vanished">QSO: %1/%2</translation>
-    </message>
-    <message>
-        <source>DXCC Entities</source>
-        <translation type="vanished">DXCC-elementer</translation>
-    </message>
-    <message>
-        <source>DXCC Entities per year</source>
-        <translation type="vanished">DXCC-elementer per år</translation>
-    </message>
-    <message>
-        <source>Entities: </source>
-        <translation type="vanished">Elementer: </translation>
-    </message>
-    <message>
-        <source>CQ zones</source>
-        <translation type="vanished">CQ-zoner</translation>
-    </message>
-    <message>
-        <source>CQ zone per year</source>
-        <translation type="vanished">CQ-zone per år</translation>
-    </message>
-    <message>
-        <source>Years: %1/%2</source>
-        <translation type="vanished">År: %1/%2</translation>
-    </message>
-    <message>
-        <source>Bands</source>
-        <translation type="vanished">Bånd</translation>
-    </message>
-    <message>
-        <source>QSO per band distribution</source>
-        <translation type="vanished">QSO per bånddistribution</translation>
-    </message>
-    <message>
-        <source>Bands: </source>
-        <translation type="vanished">Bånd: </translation>
-    </message>
-    <message>
-        <source>Modes</source>
-        <translation type="vanished">Tilstande</translation>
-    </message>
-    <message>
-        <source>QSO per mode distribution</source>
-        <translation type="vanished">QSO per tilstandsdistribution</translation>
-    </message>
-    <message>
-        <source>Reading data...</source>
-        <translation type="vanished">Læser data ...</translation>
-    </message>
-    <message>
-        <source>Modes: </source>
-        <translation type="vanished">Tilstande: </translation>
-    </message>
-    <message>
-        <source>Entity: </source>
-        <translation type="vanished">Element: </translation>
-    </message>
-    <message>
-        <source>DXCC</source>
-        <translation type="vanished">DXCC</translation>
-    </message>
-    <message>
-        <source>Top ten DXCC per QSO</source>
-        <translation type="vanished">Top ti DXCC per QSO</translation>
-    </message>
-    <message>
-        <source>Continents</source>
-        <translation type="vanished">Kontinenter</translation>
-    </message>
-    <message>
-        <source>QSOs per continent</source>
-        <translation type="vanished">QSO&apos;er per kontinent</translation>
-    </message>
-    <message>
-        <source>Hours: </source>
-        <translation type="vanished">Timer: </translation>
-    </message>
-    <message>
-        <source>Hours</source>
-        <translation type="vanished">Timer</translation>
-    </message>
-    <message>
-        <source>QSOs at hour</source>
-        <translation type="vanished">QSO&apos;er per time</translation>
-    </message>
-</context>
-<context>
     <name>CTYPage</name>
     <message>
         <location filename="../startwizard.cpp" line="914"/>
@@ -1216,10 +1101,6 @@ igen. Ønsker du at prøve igen?</translation>
         <translation>Genberegn</translation>
     </message>
     <message>
-        <source>Click to recalculate the award status</source>
-        <translation type="vanished">Klik for at genberegne præmiestatus</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="239"/>
         <source>Starting KLog</source>
         <translation>Starter KLog</translation>
@@ -1307,50 +1188,6 @@ igen. Ønsker du at prøve igen?</translation>
         <translation>Klik på præfikset på den højre entitet eller Afbryd for at rette.</translation>
     </message>
     <message>
-        <source>QRZ of the QSO</source>
-        <translation type="vanished">QRZ for QSO&apos;en</translation>
-    </message>
-    <message>
-        <source>TX RST</source>
-        <translation type="vanished">TX RST</translation>
-    </message>
-    <message>
-        <source>RX RST</source>
-        <translation type="vanished">RX RST</translation>
-    </message>
-    <message>
-        <source>TX Exchange</source>
-        <translation type="vanished">TX Exchange</translation>
-    </message>
-    <message>
-        <source>RX Exchange</source>
-        <translation type="vanished">RX Exchange</translation>
-    </message>
-    <message>
-        <source>Band of the QSO</source>
-        <translation type="vanished">Bånd for QSO&apos;en</translation>
-    </message>
-    <message>
-        <source>Mode of the QSO</source>
-        <translation type="vanished">Tilstand for QSO&apos;en</translation>
-    </message>
-    <message>
-        <source>Date of the QSO</source>
-        <translation type="vanished">Dato for QSO&apos;en</translation>
-    </message>
-    <message>
-        <source>Time of the QSO</source>
-        <translation type="vanished">Tidspunkt for QSO&apos;en</translation>
-    </message>
-    <message>
-        <source>Add the QSO to the log</source>
-        <translation type="vanished">Tilføj QSO&apos;en til loggen</translation>
-    </message>
-    <message>
-        <source>Clear the box</source>
-        <translation type="vanished">Ryd boksen</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="2424"/>
         <source>Input</source>
         <translation>Inddata</translation>
@@ -1401,12 +1238,6 @@ igen. Ønsker du at prøve igen?</translation>
         <location filename="../mainwindow.cpp" line="3032"/>
         <source>Ready...</source>
         <translation>Klar ...</translation>
-    </message>
-    <message>
-        <source>The logfile has been modified.
-Do you want to save your changes?</source>
-        <translation type="vanished">Logfilen er blevet ændret.
-Ønsker du at gemme dine ændringer?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3396"/>
@@ -1803,14 +1634,6 @@ Do you want to save your changes?</source>
         <location filename="../mainwindow.cpp" line="4167"/>
         <source>DUPE</source>
         <translation>DUPE</translation>
-    </message>
-    <message>
-        <source>UDP Server error</source>
-        <translation type="vanished">UDP-serverfejl</translation>
-    </message>
-    <message>
-        <source>The UDP server failed to</source>
-        <translation type="vanished">UDP-serveren kunne ikke</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4282"/>
@@ -2336,10 +2159,6 @@ UDP-serveren mislykkedes i at %1.</translation>
         <translation>QSO logget fra WSJT-X:</translation>
     </message>
     <message>
-        <source>Cabrillo (*.log)</source>
-        <translation type="vanished">Cabrillo (*.log)</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="5495"/>
         <location filename="../mainwindow.cpp" line="5519"/>
         <source>Open File</source>
@@ -2349,10 +2168,6 @@ UDP-serveren mislykkedes i at %1.</translation>
         <location filename="../mainwindow.cpp" line="5636"/>
         <source>&amp;Modify</source>
         <translation>&amp;Ændr</translation>
-    </message>
-    <message>
-        <source>--</source>
-        <translation type="vanished">--</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6199"/>
@@ -2368,12 +2183,6 @@ UDP-serveren mislykkedes i at %1.</translation>
         <location filename="../mainwindow.cpp" line="6311"/>
         <source>Abort filling</source>
         <translation>Afbryd udfyldning</translation>
-    </message>
-    <message>
-        <source>Filling QSOs...
- QSO: </source>
-        <translation type="vanished">Udfyler QSO&apos;er ...
- QSO: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6518"/>
@@ -2435,57 +2244,9 @@ UDP-serveren mislykkedes i at %1.</translation>
         <translation>De følgende QSO-data er blevet modtaget fra WSJT-X for at blive logget:</translation>
     </message>
     <message>
-        <source>Call: </source>
-        <translation type="vanished">Kald: </translation>
-    </message>
-    <message>
-        <source>Freq: </source>
-        <translation type="vanished">Frek.: </translation>
-    </message>
-    <message>
-        <source>Mode: </source>
-        <translation type="vanished">Tilstand: </translation>
-    </message>
-    <message>
-        <source>Time On: </source>
-        <translation type="vanished">Tid aktiveret: </translation>
-    </message>
-    <message>
-        <source>Time Off: </source>
-        <translation type="vanished">Tid deaktiveret: </translation>
-    </message>
-    <message>
-        <source>RST TX: </source>
-        <translation type="vanished">RST TX: </translation>
-    </message>
-    <message>
-        <source>RST RX: </source>
-        <translation type="vanished">RST RX: </translation>
-    </message>
-    <message>
-        <source>DX-Grid: </source>
-        <translation type="vanished">DX-Grid: </translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">Navn: </translation>
-    </message>
-    <message>
-        <source>Comments: </source>
-        <translation type="vanished">Kommentarer: </translation>
-    </message>
-    <message>
-        <source>Power tx: </source>
-        <translation type="vanished">Strøm tx: </translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="7323"/>
         <source>A new mode not supported by KLog has been received from an external software:</source>
         <translation>En ny tilstand der ikke er understøttet af KLog er blevet modtaget fra et eksternt program:</translation>
-    </message>
-    <message>
-        <source>If the receiver mode is correct, please contact KLog development team and request support for that mode</source>
-        <translation type="vanished">Hvis modtagertilstanden er korrekt, så kontakt venligst KLog-udviklingsholdet og anmod om understøttelse for den tilstand (mode)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7323"/>
@@ -2555,10 +2316,6 @@ UDP-serveren mislykkedes i at %1.</translation>
 </context>
 <context>
     <name>MainWindowInputComment</name>
-    <message>
-        <source>Add a comment for this QSO</source>
-        <translation type="vanished">Tilføj en kommentar for denne QSO</translation>
-    </message>
     <message>
         <location filename="../mainwindowinputcomment.cpp" line="46"/>
         <source>Add a comment for this QSO.</source>
@@ -2701,30 +2458,6 @@ UDP-serveren mislykkedes i at %1.</translation>
         <translation>Vælg IOTA-referencenummeret for denne QSO.</translation>
     </message>
     <message>
-        <source>Select the primary division for this QSO</source>
-        <translation type="vanished">Vælg den primære division for denne QSO</translation>
-    </message>
-    <message>
-        <source>Select the secondary division for this QSO</source>
-        <translation type="vanished">Vælg den sekundære division for denne QSO</translation>
-    </message>
-    <message>
-        <source>Select the entity for this QSO</source>
-        <translation type="vanished">Vælg identiteten for denne QSO</translation>
-    </message>
-    <message>
-        <source>Select the propagation mode for this QSO</source>
-        <translation type="vanished">Vælg propagatonstilstand for denne QSO</translation>
-    </message>
-    <message>
-        <source>Select the IOTA continent for this QSO</source>
-        <translation type="vanished">Vælg IOTA-kontinentet for denne QSO</translation>
-    </message>
-    <message>
-        <source>Select the IOTA reference number for this QSO</source>
-        <translation type="vanished">Vælg IOTA-referencenummeret for denne QSO</translation>
-    </message>
-    <message>
         <location filename="../mainwindowinputothers.cpp" line="108"/>
         <location filename="../mainwindowinputothers.cpp" line="150"/>
         <source>Not Identified</source>
@@ -2812,26 +2545,6 @@ UDP-serveren mislykkedes i at %1.</translation>
         <translation>Behold disse data</translation>
     </message>
     <message>
-        <source>Data entered in this tab will be copied into the next QSO</source>
-        <translation type="vanished">Data indtastet i dette faneblad vil blive kopieret ind i den næste QSO</translation>
-    </message>
-    <message>
-        <source>Power used for the QSO in watts</source>
-        <translation type="vanished">Strøm brugt for QSO&apos;en i watt</translation>
-    </message>
-    <message>
-        <source>Logging operator&apos;s callsign</source>
-        <translation type="vanished">Logningsoperatørs kaldesignal</translation>
-    </message>
-    <message>
-        <source>Callsign used over the air</source>
-        <translation type="vanished">Kaldesignal brugt over radioen</translation>
-    </message>
-    <message>
-        <source>My QTH locator</source>
-        <translation type="vanished">Min QTH-locator</translation>
-    </message>
-    <message>
         <location filename="../mainwindowmydatatab.cpp" line="66"/>
         <location filename="../mainwindowmydatatab.cpp" line="68"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
@@ -2886,38 +2599,10 @@ UDP-serveren mislykkedes i at %1.</translation>
         <translation>Behold disse data</translation>
     </message>
     <message>
-        <source>Data entered in this tab will be copied into the next QSO</source>
-        <translation type="vanished">Data indtastes i dette faneblad vil blive kopieret ind i den næste QSO</translation>
-    </message>
-    <message>
         <location filename="../mainwindowsattab.cpp" line="83"/>
         <location filename="../mainwindowsattab.cpp" line="373"/>
         <source>Other - Sat not in the list</source>
         <translation>Andre - sat er ikke i listen</translation>
-    </message>
-    <message>
-        <source>Name of the Satellite if not in the list. Select: &quot;</source>
-        <translation type="vanished">Navn på satellitten hvis not i listen. Vælg: &quot;</translation>
-    </message>
-    <message>
-        <source>&quot; to enable this box. (format like AO-51)</source>
-        <translation type="vanished">&quot; for at aktivere denne boks. (format som AO-51)</translation>
-    </message>
-    <message>
-        <source>Satellite mode used</source>
-        <translation type="vanished">Satellittilstand anvendt</translation>
-    </message>
-    <message>
-        <source>Select the satellite you are using</source>
-        <translation type="vanished">Vælg satellitten du anvender</translation>
-    </message>
-    <message>
-        <source>UpLink band</source>
-        <translation type="vanished">UpLink-bånd</translation>
-    </message>
-    <message>
-        <source>DownLink band</source>
-        <translation type="vanished">DownLink-bånd</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="80"/>
@@ -2949,10 +2634,6 @@ UDP-serveren mislykkedes i at %1.</translation>
         <location filename="../mainwindowsattab.cpp" line="92"/>
         <source>DownLink band.</source>
         <translation>DownLink-bånd.</translation>
-    </message>
-    <message>
-        <source>Locator of the DX station. This box is syncronized with the Locator box in the QSO tab.</source>
-        <translation type="vanished">Lokalisering af DX-stationen. Denne boks bliver synkroniseret med lokaliseringsboksen i QSO-fanebladet.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="93"/>
@@ -3216,10 +2897,6 @@ UDP-serveren mislykkedes i at %1.</translation>
         <translation>Husk at din KLog-mappe er på dit system ...</translation>
     </message>
     <message>
-        <source>Updating DXCC information...</source>
-        <translation type="vanished">Opdaterer DXCC-information ...</translation>
-    </message>
-    <message>
         <location filename="../dataproxy_sqlite.cpp" line="4754"/>
         <location filename="../dataproxy_sqlite.cpp" line="4797"/>
         <source>Updating DXCC and Continent information...</source>
@@ -3480,10 +3157,6 @@ UDP-serveren mislykkedes i at %1.</translation>
         <translation>Du har anmodt om at slette QSO&apos;en med: %1</translation>
     </message>
     <message>
-        <source>You have requested to delete the QSO with:</source>
-        <translation type="vanished">Du har anmodt om at slette QSO&apos;en med:</translation>
-    </message>
-    <message>
         <location filename="../searchwidget.cpp" line="1113"/>
         <source>Are you sure?</source>
         <translation>Er du sikker?</translation>
@@ -3564,10 +3237,6 @@ UDP-serveren mislykkedes i at %1.</translation>
         <translation>ClubLog</translation>
     </message>
     <message>
-        <source>WSJT-x</source>
-        <translation type="vanished">WSJT-x</translation>
-    </message>
-    <message>
         <location filename="../setupdialog.cpp" line="101"/>
         <location filename="../setupdialog.cpp" line="180"/>
         <source>Cancel</source>
@@ -3629,37 +3298,9 @@ UDP-serveren mislykkedes i at %1.</translation>
         <translation>Gå til brugerfanebladet og indtast gyldig QRZ.</translation>
     </message>
     <message>
-        <source>Go to the</source>
-        <translation type="vanished">Gå til</translation>
-    </message>
-    <message>
-        <source>Misc tab</source>
-        <translation type="vanished">Diverse faneblad</translation>
-    </message>
-    <message>
-        <source>and click on</source>
-        <translation type="vanished">og klik på</translation>
-    </message>
-    <message>
-        <source>Move DB</source>
-        <translation type="vanished">Flyt database</translation>
-    </message>
-    <message>
-        <source>or the DB will not be moved to the new location.</source>
-        <translation type="vanished">ellers vil databasen ikke blive flyttet til den nye placering.</translation>
-    </message>
-    <message>
         <location filename="../setupdialog.cpp" line="384"/>
         <source>You need to enter at least a valid QRZ.</source>
         <translation>Du skal indtaste mindst en gyldig QRZ.</translation>
-    </message>
-    <message>
-        <source>User tab</source>
-        <translation type="vanished">Brugerfaneblad</translation>
-    </message>
-    <message>
-        <source>and enter valid QRZ.</source>
-        <translation type="vanished">og indtast gyldig QRZ.</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="396"/>
@@ -3682,17 +3323,9 @@ Tilføj og vælg den slags log du ønsker at bruge.</translation>
         <translation>Entitet</translation>
     </message>
     <message>
-        <source>Name of the Entity</source>
-        <translation type="vanished">Nav på entitet</translation>
-    </message>
-    <message>
         <location filename="../setupentitydialog.cpp" line="73"/>
         <source>CQ</source>
         <translation>CQ</translation>
-    </message>
-    <message>
-        <source>CQ zone</source>
-        <translation type="vanished">CQ-zone</translation>
     </message>
     <message>
         <location filename="../setupentitydialog.cpp" line="77"/>
@@ -3700,17 +3333,9 @@ Tilføj og vælg den slags log du ønsker at bruge.</translation>
         <translation>ITU</translation>
     </message>
     <message>
-        <source>ITU zone</source>
-        <translation type="vanished">ITU-zone</translation>
-    </message>
-    <message>
         <location filename="../setupentitydialog.cpp" line="85"/>
         <source>Latitude</source>
         <translation>Breddegrad</translation>
-    </message>
-    <message>
-        <source>Longitude of the Entity</source>
-        <translation type="vanished">Længdegrad for entitet</translation>
     </message>
     <message>
         <location filename="../setupentitydialog.cpp" line="89"/>
@@ -3723,17 +3348,9 @@ Tilføj og vælg den slags log du ønsker at bruge.</translation>
         <translation>UTC</translation>
     </message>
     <message>
-        <source>Local time difference to UTC</source>
-        <translation type="vanished">Lokal forskel i tid til UTC</translation>
-    </message>
-    <message>
         <location filename="../setupentitydialog.cpp" line="97"/>
         <source>Main prefix</source>
         <translation>Hovedpræfiks</translation>
-    </message>
-    <message>
-        <source>Main prefix of the entity</source>
-        <translation type="vanished">Hovedpræfiks for entitet</translation>
     </message>
     <message>
         <location filename="../setupentitydialog.cpp" line="103"/>
@@ -3749,10 +3366,6 @@ Tilføj og vælg den slags log du ønsker at bruge.</translation>
         <location filename="../setupentitydialog.cpp" line="113"/>
         <source>Comma separated possible prefixes, e.g. EA1, EA2, ...</source>
         <translation>Kommaadskilt mulige præfiks, f.eks. EA1, EA2, ...</translation>
-    </message>
-    <message>
-        <source>Date of the deletion</source>
-        <translation type="vanished">Sletningsdato</translation>
     </message>
     <message>
         <location filename="../setupentitydialog.cpp" line="71"/>
@@ -3891,18 +3504,6 @@ Tilføj og vælg den slags log du ønsker at bruge.</translation>
         <source>Use the Station Callsign defined in each QSO instead of the one defined here.</source>
         <translation>Brug stationskaldenavnet defineret i hver QSO i stedet for det defineret her.</translation>
     </message>
-    <message>
-        <source>Send each QSO to ClubLog in real time, as they are added (or modified) in KLog</source>
-        <translation type="vanished">Send hver QSO til ClubLog i realtid, efterhånden som de tilføjes (eller ændres) i KLog</translation>
-    </message>
-    <message>
-        <source>Starts the ClubLog support in KLog</source>
-        <translation type="vanished">Starter ClubLog-understøttelse i KLog</translation>
-    </message>
-    <message>
-        <source>Use the Station Callsign defined in each QSO instead of the one defined here</source>
-        <translation type="vanished">Brug stationskaldenavnet defineret i hver QSO i stedet for det defineret her</translation>
-    </message>
 </context>
 <context>
     <name>SetupPageColors</name>
@@ -4030,22 +3631,6 @@ Hvis ingen port er angivet, så vil 41112 blive brugt som standard:</translation
         <location filename="../setuppagelogs.cpp" line="72"/>
         <source>&amp;Remove</source>
         <translation>&amp;Fjern</translation>
-    </message>
-    <message>
-        <source>Add a new log</source>
-        <translation type="vanished">Tilføj en ny log</translation>
-    </message>
-    <message>
-        <source>Edit the selected log</source>
-        <translation type="vanished">Rediger den valgte log</translation>
-    </message>
-    <message>
-        <source>Remove the selected log</source>
-        <translation type="vanished">Fjern den valgte log</translation>
-    </message>
-    <message>
-        <source>Select the log you want to open</source>
-        <translation type="vanished">Vælg loggen du ønsker at åbne</translation>
     </message>
     <message>
         <location filename="../setuppagelogs.cpp" line="75"/>
@@ -4231,29 +3816,9 @@ Hvis ingen port er angivet, så vil 41112 blive brugt som standard:</translation
         <translation>Vælg overlagskategorien.</translation>
     </message>
     <message>
-        <source>Callsign used for this log</source>
-        <translation type="vanished">Kaldesignal brugt for denne log</translation>
-    </message>
-    <message>
-        <source>Comma separated list of operators: callsign1, callsign2</source>
-        <translation type="vanished">Kommaadskilt liste over operatører: kaldesignal1, kaldesignal2</translation>
-    </message>
-    <message>
-        <source>Start date of this log</source>
-        <translation type="vanished">Startdato for denne log</translation>
-    </message>
-    <message>
-        <source>Add a comment about this log</source>
-        <translation type="vanished">Tilføj en kommentar om denne log</translation>
-    </message>
-    <message>
         <location filename="../setuppagelogsnew.cpp" line="165"/>
         <source>&amp;Type of Operation</source>
         <translation>&amp;Operatonstype</translation>
-    </message>
-    <message>
-        <source>Select the kind of operation for this log</source>
-        <translation type="vanished">Vælg operationsarten for denne log</translation>
     </message>
     <message>
         <location filename="../setuppagelogsnew.cpp" line="179"/>
@@ -4261,17 +3826,9 @@ Hvis ingen port er angivet, så vil 41112 blive brugt som standard:</translation
         <translation>&amp;Tilstandskategori</translation>
     </message>
     <message>
-        <source>Select the mode category</source>
-        <translation type="vanished">Vælg tilstandskategorien</translation>
-    </message>
-    <message>
         <location filename="../setuppagelogsnew.cpp" line="187"/>
         <source>O&amp;perators Category</source>
         <translation>&amp;Operatørkategori</translation>
-    </message>
-    <message>
-        <source>Select the operators category</source>
-        <translation type="vanished">Vælg operatørkategorien</translation>
     </message>
     <message>
         <location filename="../setuppagelogsnew.cpp" line="194"/>
@@ -4279,17 +3836,9 @@ Hvis ingen port er angivet, så vil 41112 blive brugt som standard:</translation
         <translation>&amp;Bistået kategori</translation>
     </message>
     <message>
-        <source>Select the assisted category</source>
-        <translation type="vanished">Vælg den biståede kategori</translation>
-    </message>
-    <message>
         <location filename="../setuppagelogsnew.cpp" line="202"/>
         <source>Po&amp;wer Category</source>
         <translation>&amp;Strømkategori</translation>
-    </message>
-    <message>
-        <source>Select the power category</source>
-        <translation type="vanished">Vælg strømkategorien</translation>
     </message>
     <message>
         <location filename="../setuppagelogsnew.cpp" line="210"/>
@@ -4297,17 +3846,9 @@ Hvis ingen port er angivet, så vil 41112 blive brugt som standard:</translation
         <translation>&amp;Båndkategori</translation>
     </message>
     <message>
-        <source>Select the bands category</source>
-        <translation type="vanished">Vælg båndkategorien</translation>
-    </message>
-    <message>
         <location filename="../setuppagelogsnew.cpp" line="217"/>
         <source>O&amp;verlay</source>
         <translation>&amp;Overlag</translation>
-    </message>
-    <message>
-        <source>Select the Overlay category</source>
-        <translation type="vanished">Vælg overlagskategorien</translation>
     </message>
     <message>
         <location filename="../setuppagelogsnew.cpp" line="380"/>
@@ -4432,10 +3973,6 @@ Loggen vil ikke blive åbnet.</translation>
         <location filename="../setuppagemisc.cpp" line="120"/>
         <source>Check it for Imperial system (Miles instead of Kilometers).</source>
         <translation>Kontroller for Imperial-system (mil i stedet for kilometer).</translation>
-    </message>
-    <message>
-        <source>Check it for Imperial system (Miles instead of Kilometres).</source>
-        <translation type="vanished">Kontroller for Imperial-system (mil i stedet for kilometer).</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="121"/>
@@ -4784,18 +4321,6 @@ It may be caused because the file you are trying to import does not have the rig
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Miliseconds that the notification of QSO received from WSJTX will be shown.</source>
-        <translation type="vanished">Millisekunder som påmindelsen af QSO modtaget fra WSJTX vil blive vist.</translation>
-    </message>
-    <message>
-        <source>QSO logged in WSJT-X will be sent to KLog and KLog will ask before logging into KLog unless</source>
-        <translation type="vanished">QSO logget i WSJT-X vil blive sendt til KLog og KLog vil spørge før der logges ind i KLog med mindre</translation>
-    </message>
-    <message>
-        <source>is selected.</source>
-        <translation type="vanished">er valgt.</translation>
-    </message>
-    <message>
         <location filename="../setuppageudp.cpp" line="38"/>
         <source>KLog will log automatically any QSO coming from WSJT-X without any manual confirmation.</source>
         <translation>KLog vil automatisk logge enhver QSO fra WSJT-X uden nogen manuel bekræftelse.</translation>
@@ -4809,10 +4334,6 @@ It may be caused because the file you are trying to import does not have the rig
         <location filename="../setuppageudp.cpp" line="42"/>
         <source>KLog will automatically show and update data coming from WSJT-X (DX callsign, locator, RPT, ...)</source>
         <translation>KLog vil automatisk vise og opdatere data fra WSJT-X (DX-kaldesignal, lokalisering, RPT, ...)</translation>
-    </message>
-    <message>
-        <source>UDP port number where the UDP Server will listen for connections.</source>
-        <translation type="vanished">UDP-portnummer hvor UDP-serveren vil lytte efter forbindelser.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="58"/>
@@ -4846,42 +4367,6 @@ It may be caused because the file you are trying to import does not have the rig
         <location filename="../setuppageuserdata.cpp" line="41"/>
         <source>Station &amp;data</source>
         <translation>Stations&amp;data</translation>
-    </message>
-    <message>
-        <source>Enter your name</source>
-        <translation type="vanished">Indtast dit navn</translation>
-    </message>
-    <message>
-        <source>Enter your address - 1st line</source>
-        <translation type="vanished">Indtast din adresse - 1. linje</translation>
-    </message>
-    <message>
-        <source>Enter your address - 2nd line</source>
-        <translation type="vanished">Indtast din adresse - 2. linje</translation>
-    </message>
-    <message>
-        <source>Enter your address - 3rd line</source>
-        <translation type="vanished">Indtast din adresse - 3. linje</translation>
-    </message>
-    <message>
-        <source>Enter your address - 4th line</source>
-        <translation type="vanished">Indtast din adresse - 4. linje</translation>
-    </message>
-    <message>
-        <source>Enter your city</source>
-        <translation type="vanished">Indtast din by</translation>
-    </message>
-    <message>
-        <source>Enter your zip code</source>
-        <translation type="vanished">Indtast din zip-kode</translation>
-    </message>
-    <message>
-        <source>Enter your province or state</source>
-        <translation type="vanished">Indtast din provins eller stat</translation>
-    </message>
-    <message>
-        <source>Enter your country</source>
-        <translation type="vanished">Indtast dit land</translation>
     </message>
     <message>
         <location filename="../setuppageuserdata.cpp" line="70"/>
@@ -4983,10 +4468,6 @@ It may be caused because the file you are trying to import does not have the rig
         <translation>Indtast stationskaldesignalet som vil blive brugt til logning.</translation>
     </message>
     <message>
-        <source>Enter your power information</source>
-        <translation type="vanished">Indtast din strøminformation</translation>
-    </message>
-    <message>
         <location filename="../setuppageuserdata.cpp" line="147"/>
         <source>&amp;Rig 1</source>
         <translation>&amp;Rig 1</translation>
@@ -5020,10 +4501,6 @@ It may be caused because the file you are trying to import does not have the rig
         <location filename="../setuppageuserdata.cpp" line="153"/>
         <source>Po&amp;wer</source>
         <translation>&amp;Strøm</translation>
-    </message>
-    <message>
-        <source>Enter the station callsign that will be used for logging</source>
-        <translation type="vanished">Indtast stationskaldesignalet som vil blive brugt til logning</translation>
     </message>
     <message>
         <location filename="../setuppageuserdata.cpp" line="187"/>

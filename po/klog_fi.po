@@ -183,152 +183,6 @@ msgctxt "AboutDialog|"
 msgid "Privacy"
 msgstr "Tietosuoja"
 
-#: ../charts/barchartstats.cpp:71
-#, fuzzy
-msgctxt "BarChartStats|"
-msgid "Chart title"
-msgstr "Listan otsikko"
-
-#: ../charts/barchartstats.cpp:75
-msgctxt "BarChartStats|"
-msgid "Reading data ... "
-msgstr "Luetaan tietoja ... "
-
-#: ../charts/barchartstats.cpp:75
-msgctxt "BarChartStats|"
-msgid "Abort reading"
-msgstr "Peruuta lukeminen"
-
-#: ../charts/barchartstats.cpp:84
-msgctxt "BarChartStats|"
-msgid "QSOs"
-msgstr "QSO:t"
-
-#: ../charts/barchartstats.cpp:85
-msgctxt "BarChartStats|"
-msgid "QSOs per year"
-msgstr "QSO:ta vuodessa"
-
-#: ../charts/barchartstats.cpp:96 ../charts/barchartstats.cpp:122
-#: ../charts/barchartstats.cpp:147 ../charts/barchartstats.cpp:172
-#: ../charts/barchartstats.cpp:305 ../charts/barchartstats.cpp:336
-msgctxt "BarChartStats|"
-msgid "Reading data ..."
-msgstr "Luetaan tietoja ... "
-
-#: ../charts/barchartstats.cpp:96
-#, qt-format
-msgctxt "BarChartStats|"
-msgid "QSO: %1/%2"
-msgstr "QSO: %1/%2"
-
-#: ../charts/barchartstats.cpp:113
-msgctxt "BarChartStats|"
-msgid "DXCC Entities"
-msgstr "DXCC Yksiköitä"
-
-#: ../charts/barchartstats.cpp:114
-msgctxt "BarChartStats|"
-msgid "DXCC Entities per year"
-msgstr "DXCC Yksiköitä vuosittain"
-
-#: ../charts/barchartstats.cpp:122
-msgctxt "BarChartStats|"
-msgid "Entities: "
-msgstr "Yksiköitä"
-
-#: ../charts/barchartstats.cpp:138
-msgctxt "BarChartStats|"
-msgid "CQ zones"
-msgstr "CQ alueet"
-
-#: ../charts/barchartstats.cpp:139
-msgctxt "BarChartStats|"
-msgid "CQ zone per year"
-msgstr "CQ alueita vuosittain"
-
-#: ../charts/barchartstats.cpp:147
-#, qt-format
-msgctxt "BarChartStats|"
-msgid "Years: %1/%2"
-msgstr "Vuodet: %1%2"
-
-#: ../charts/barchartstats.cpp:163
-msgctxt "BarChartStats|"
-msgid "Bands"
-msgstr "Taajuusalueet"
-
-#: ../charts/barchartstats.cpp:164
-msgctxt "BarChartStats|"
-msgid "QSO per band distribution"
-msgstr "QSO:t taajuusalueittain"
-
-#: ../charts/barchartstats.cpp:172
-msgctxt "BarChartStats|"
-msgid "Bands: "
-msgstr "Taajuusalueet:"
-
-#: ../charts/barchartstats.cpp:188
-msgctxt "BarChartStats|"
-msgid "Modes"
-msgstr "Moodit"
-
-#: ../charts/barchartstats.cpp:189
-msgctxt "BarChartStats|"
-msgid "QSO per mode distribution"
-msgstr "QSO:t moodeittain"
-
-#: ../charts/barchartstats.cpp:198 ../charts/barchartstats.cpp:216
-#: ../charts/barchartstats.cpp:259
-msgctxt "BarChartStats|"
-msgid "Reading data..."
-msgstr "Luetaan tietoja..."
-
-#: ../charts/barchartstats.cpp:198
-msgctxt "BarChartStats|"
-msgid "Modes: "
-msgstr "Moodit:"
-
-#: ../charts/barchartstats.cpp:259
-msgctxt "BarChartStats|"
-msgid "Entity: "
-msgstr "Yksikkö: "
-
-#: ../charts/barchartstats.cpp:282
-msgctxt "BarChartStats|"
-msgid "DXCC"
-msgstr "DXCC"
-
-#: ../charts/barchartstats.cpp:283
-msgctxt "BarChartStats|"
-msgid "Top ten DXCC per QSO"
-msgstr "Kymmenen parasta DXCC:tä QSOittain"
-
-#: ../charts/barchartstats.cpp:294
-msgctxt "BarChartStats|"
-msgid "Continents"
-msgstr ""
-
-#: ../charts/barchartstats.cpp:295
-msgctxt "BarChartStats|"
-msgid "QSOs per continent"
-msgstr ""
-
-#: ../charts/barchartstats.cpp:325
-msgctxt "BarChartStats|"
-msgid "Hours"
-msgstr "Tunnit"
-
-#: ../charts/barchartstats.cpp:326
-msgctxt "BarChartStats|"
-msgid "QSOs at hour"
-msgstr "QSO:t tunneittain"
-
-#: ../charts/barchartstats.cpp:305 ../charts/barchartstats.cpp:336
-msgctxt "BarChartStats|"
-msgid "Hours: "
-msgstr "Tunnit: "
-
 #: ../startwizard.cpp:914
 msgctxt "CTYPage|"
 msgid "Country data download"
@@ -411,43 +265,43 @@ msgctxt "DXCCStatusWidget|"
 msgid "Entity not worked in this band."
 msgstr "Ei työstetty tällä taajuusalueella"
 
-#: ../dxcluster.cpp:70
+#: ../dxcluster.cpp:69
 msgctxt "DXClusterWidget|"
 msgid "Click on Connect to connect to the DX-Cluster server"
 msgstr "Napsauta yhdistä, kun haluat muodostaa yhteyden DX-klusteripalvelimeen"
 
-#: ../dxcluster.cpp:74 ../dxcluster.cpp:525
+#: ../dxcluster.cpp:73 ../dxcluster.cpp:524
 msgctxt "DXClusterWidget|"
 msgid "Connect"
 msgstr "Yhdistä"
 
-#: ../dxcluster.cpp:75 ../dxcluster.cpp:504 ../dxcluster.cpp:583
-#: ../dxcluster.cpp:588
+#: ../dxcluster.cpp:74 ../dxcluster.cpp:503 ../dxcluster.cpp:582
+#: ../dxcluster.cpp:587
 msgctxt "DXClusterWidget|"
 msgid "Clear"
 msgstr "Tyhjennä"
 
-#: ../dxcluster.cpp:150
+#: ../dxcluster.cpp:149
 msgctxt "DXClusterWidget|"
 msgid "Click on connect to connect to the DX-Cluster"
 msgstr "Napsauta yhdistä muodostaaksesi yhteyden DX-klusteriin"
 
-#: ../dxcluster.cpp:209
+#: ../dxcluster.cpp:208
 msgctxt "DXClusterWidget|"
 msgid "Trying to connect to the server"
 msgstr "Muodostetaan yhteyttä palvelimeen"
 
-#: ../dxcluster.cpp:220 ../dxcluster.cpp:226 ../dxcluster.cpp:233
+#: ../dxcluster.cpp:219 ../dxcluster.cpp:225 ../dxcluster.cpp:232
 msgctxt "DXClusterWidget|"
 msgid "KLog DXCluster"
 msgstr "KLog DXKlusteri"
 
-#: ../dxcluster.cpp:221
+#: ../dxcluster.cpp:220
 msgctxt "DXClusterWidget|"
 msgid "The host was not found. Please check:"
 msgstr "Isäntää ei löytynyt. Tarkista:"
 
-#: ../dxcluster.cpp:222
+#: ../dxcluster.cpp:221
 msgctxt "DXClusterWidget|"
 msgid ""
 "- your network connection;\n"
@@ -456,7 +310,7 @@ msgstr ""
 "- verkkoyhteytesi;\n"
 "- isäntänimi ja porttiasetukset."
 
-#: ../dxcluster.cpp:227
+#: ../dxcluster.cpp:226
 msgctxt "DXClusterWidget|"
 msgid ""
 "The connection was refused by the peer. Make sure the DXCluster server is "
@@ -465,28 +319,28 @@ msgstr ""
 "Yhteys vertaisverkkoon evättiin. Varmista, että DX Klusteripalvelin on "
 "käynnissä ja tarkista, että isäntänimi ja porttiasetukset ovat oikein."
 
-#: ../dxcluster.cpp:234
+#: ../dxcluster.cpp:233
 #, qt-format
 msgctxt "DXClusterWidget|"
 msgid "The following error occurred: %1."
 msgstr "Tapahtui seuraava virhe: %1."
 
-#: ../dxcluster.cpp:477
+#: ../dxcluster.cpp:476
 msgctxt "DXClusterWidget|"
 msgid "Connected to server"
 msgstr "Yhdistetty palvelimeen"
 
-#: ../dxcluster.cpp:490 ../dxcluster.cpp:494 ../dxcluster.cpp:498
+#: ../dxcluster.cpp:489 ../dxcluster.cpp:493 ../dxcluster.cpp:497
 msgctxt "DXClusterWidget|"
 msgid "KLog message"
 msgstr "KLog viesti"
 
-#: ../dxcluster.cpp:490 ../dxcluster.cpp:494
+#: ../dxcluster.cpp:489 ../dxcluster.cpp:493
 msgctxt "DXClusterWidget|"
 msgid "Enter your callsign to connect to the cluster:"
 msgstr "Syötä kutsutunnuksesi liittyäksesi klusteriin:"
 
-#: ../dxcluster.cpp:498
+#: ../dxcluster.cpp:497
 msgctxt "DXClusterWidget|"
 msgid ""
 "Enter your password to connect to the cluster:\n"
@@ -495,33 +349,33 @@ msgstr ""
 "Syötä salasanasi yhteyden muodostamiseksi klusteriin:\n"
 "(Paina enter jättääksesi salasanan tyhjäksi)"
 
-#: ../dxcluster.cpp:503 ../dxcluster.cpp:582
+#: ../dxcluster.cpp:502 ../dxcluster.cpp:581
 msgctxt "DXClusterWidget|"
 msgid "Disconnect"
 msgstr "Katkaise yhteys"
 
-#: ../dxcluster.cpp:507
+#: ../dxcluster.cpp:506
 msgctxt "DXClusterWidget|"
 msgid "Not logged on, you may need to enter your callsign again."
 msgstr ""
 "Et ole kirjautunut sisään, sinun on ehkä annettava kutsutunnuksesi uudelleen."
 
-#: ../dxcluster.cpp:511
+#: ../dxcluster.cpp:510
 msgctxt "DXClusterWidget|"
 msgid "Enter here the commands to be sent to the DX-Cluster server."
 msgstr "Syötä tähän komennot, jotka lähetetään DX-klusteripalvelimelle"
 
-#: ../dxcluster.cpp:521
+#: ../dxcluster.cpp:520
 msgctxt "DXClusterWidget|"
 msgid "Connection closed by the server"
 msgstr "Palvelin katkaisi yhteyden"
 
-#: ../dxcluster.cpp:527
+#: ../dxcluster.cpp:526
 msgctxt "DXClusterWidget|"
 msgid "Click on Connect to connect to the DX-Cluster server."
 msgstr "Napsauta yhdistä, muodostaaksesi yhteyden DX-klusteriin"
 
-#: ../dxcluster.cpp:587
+#: ../dxcluster.cpp:586
 msgctxt "DXClusterWidget|"
 msgid "Send"
 msgstr "Lähetä"
@@ -536,171 +390,171 @@ msgctxt "DataProxy_SQLite|"
 msgid "No query failed"
 msgstr "Kyselyt onnistuivat"
 
-#: ../dataproxy_sqlite.cpp:2976
+#: ../dataproxy_sqlite.cpp:3027
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Aircraft Scatter"
 msgstr "Lentokone "
 
-#: ../dataproxy_sqlite.cpp:2980
+#: ../dataproxy_sqlite.cpp:3031
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora"
 msgstr "Revontulet"
 
-#: ../dataproxy_sqlite.cpp:2984
+#: ../dataproxy_sqlite.cpp:3035
 #, fuzzy
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora-E"
 msgstr "Revontuliheijastukset"
 
-#: ../dataproxy_sqlite.cpp:2988
+#: ../dataproxy_sqlite.cpp:3039
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Back scatter"
 msgstr "Takasironta"
 
-#: ../dataproxy_sqlite.cpp:2992
+#: ../dataproxy_sqlite.cpp:3043
 msgctxt "DataProxy_SQLite|"
 msgid "Earth-Moon-Earth"
 msgstr "Maa-Kuu-Maa"
 
-#: ../dataproxy_sqlite.cpp:2996
+#: ../dataproxy_sqlite.cpp:3047
 #, fuzzy
 msgctxt "DataProxy_SQLite|"
 msgid "Sporadic E"
 msgstr "Satunnaisheijastukset"
 
-#: ../dataproxy_sqlite.cpp:3000
+#: ../dataproxy_sqlite.cpp:3051
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Field Aligned Irregularities"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:3004
+#: ../dataproxy_sqlite.cpp:3055
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "F2 Reflection"
 msgstr "F2 Heijastus"
 
-#: ../dataproxy_sqlite.cpp:3008
+#: ../dataproxy_sqlite.cpp:3059
 msgctxt "DataProxy_SQLite|"
 msgid "Internet-assisted"
 msgstr "Internet-avusteinen"
 
-#: ../dataproxy_sqlite.cpp:3012
+#: ../dataproxy_sqlite.cpp:3063
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Ionoscatter"
 msgstr "Ionosfäärisironta"
 
-#: ../dataproxy_sqlite.cpp:3016
+#: ../dataproxy_sqlite.cpp:3067
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Meteor scatter"
 msgstr "Meteorisironta"
 
-#: ../dataproxy_sqlite.cpp:3020
+#: ../dataproxy_sqlite.cpp:3071
 msgctxt "DataProxy_SQLite|"
 msgid "Terrestrial or atmospheric repeater or transponder"
 msgstr "Maanpäällinen tai ilmakehässä oleva toistin tai transponderi"
 
-#: ../dataproxy_sqlite.cpp:3024
+#: ../dataproxy_sqlite.cpp:3075
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Rain scatter"
 msgstr "Sadesironta"
 
-#: ../dataproxy_sqlite.cpp:3028
+#: ../dataproxy_sqlite.cpp:3079
 msgctxt "DataProxy_SQLite|"
 msgid "Satellite"
 msgstr "Satelliitti"
 
-#: ../dataproxy_sqlite.cpp:3032
+#: ../dataproxy_sqlite.cpp:3083
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Trans-equatorial"
 msgstr "Päiväntasaajan ylittävä"
 
-#: ../dataproxy_sqlite.cpp:3036
+#: ../dataproxy_sqlite.cpp:3087
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Tropospheric ducting"
 msgstr "Troposfäärikanavat"
 
-#: ../dataproxy_sqlite.cpp:3351 ../dataproxy_sqlite.cpp:3418
+#: ../dataproxy_sqlite.cpp:3592 ../dataproxy_sqlite.cpp:3659
 msgctxt "DataProxy_SQLite|"
 msgid "Yes"
 msgstr "Kyllä"
 
-#: ../dataproxy_sqlite.cpp:3355 ../dataproxy_sqlite.cpp:3422
+#: ../dataproxy_sqlite.cpp:3596 ../dataproxy_sqlite.cpp:3663
 msgctxt "DataProxy_SQLite|"
 msgid "No"
 msgstr "Ei"
 
-#: ../dataproxy_sqlite.cpp:3359 ../dataproxy_sqlite.cpp:3426
+#: ../dataproxy_sqlite.cpp:3600 ../dataproxy_sqlite.cpp:3667
 msgctxt "DataProxy_SQLite|"
 msgid "Requested"
 msgstr "Pyydetty"
 
-#: ../dataproxy_sqlite.cpp:3363 ../dataproxy_sqlite.cpp:3434
+#: ../dataproxy_sqlite.cpp:3604 ../dataproxy_sqlite.cpp:3675
 msgctxt "DataProxy_SQLite|"
 msgid "Ignore/Invalid"
 msgstr "Hylkää/Mitätön"
 
-#: ../dataproxy_sqlite.cpp:3367
+#: ../dataproxy_sqlite.cpp:3608
 msgctxt "DataProxy_SQLite|"
 msgid "Validated"
 msgstr "Vahvistettu"
 
-#: ../dataproxy_sqlite.cpp:3430
+#: ../dataproxy_sqlite.cpp:3671
 msgctxt "DataProxy_SQLite|"
 msgid "Queued"
 msgstr "Jonossa"
 
-#: ../dataproxy_sqlite.cpp:3482
+#: ../dataproxy_sqlite.cpp:3723
 msgctxt "DataProxy_SQLite|"
 msgid "Uploaded"
 msgstr "Lähetetty"
 
-#: ../dataproxy_sqlite.cpp:3486
+#: ../dataproxy_sqlite.cpp:3727
 msgctxt "DataProxy_SQLite|"
 msgid "Do not upload"
 msgstr "Älä lähetä"
 
-#: ../dataproxy_sqlite.cpp:3490
+#: ../dataproxy_sqlite.cpp:3731
 msgctxt "DataProxy_SQLite|"
 msgid "Modified"
 msgstr "Muokattu"
 
-#: ../dataproxy_sqlite.cpp:3540
+#: ../dataproxy_sqlite.cpp:3781
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Bureau"
 msgstr "Bureau"
 
-#: ../dataproxy_sqlite.cpp:3544
+#: ../dataproxy_sqlite.cpp:3785
 msgctxt "DataProxy_SQLite|"
 msgid "Direct"
 msgstr "Direct"
 
-#: ../dataproxy_sqlite.cpp:3548
+#: ../dataproxy_sqlite.cpp:3789
 msgctxt "DataProxy_SQLite|"
 msgid "Electronic"
 msgstr "Elektrooninen"
 
-#: ../dataproxy_sqlite.cpp:3552
+#: ../dataproxy_sqlite.cpp:3793
 #, fuzzy
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Manager"
 msgstr "Hallinta"
 
-#: ../dataproxy_sqlite.cpp:4574
+#: ../dataproxy_sqlite.cpp:4815
 msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr "KLog DXCC"
 
-#: ../dataproxy_sqlite.cpp:4575
+#: ../dataproxy_sqlite.cpp:4816
 msgctxt "DataProxy_SQLite|"
 msgid "All QSOs have been updated with a DXCC and the Continent."
 msgstr ""
@@ -789,7 +643,7 @@ msgctxt "FileManager|"
 msgid "Exporting LoTW ADIF file..."
 msgstr "LoTW ADIF-tiedoston vienti..."
 
-#: ../filemanager.cpp:441 ../filemanager.cpp:3586
+#: ../filemanager.cpp:441 ../filemanager.cpp:3583
 msgctxt "FileManager|"
 msgid " QSO: "
 msgstr " QSO: "
@@ -811,7 +665,7 @@ msgid ""
 msgstr ""
 "Olet peruuttanut tiedoston viennin. Tiedosto poistetaan, eikä tietoja viedä."
 
-#: ../filemanager.cpp:2628 ../filemanager.cpp:3752
+#: ../filemanager.cpp:2628 ../filemanager.cpp:3749
 msgctxt "FileManager|"
 msgid "Do you still want to cancel?"
 msgstr "Haluatko varmasti peruuttaa?"
@@ -840,37 +694,37 @@ msgctxt "FileManager|"
 msgid "Reading LoTW file..."
 msgstr "Luetaan LoTW-tiedostoa..."
 
-#: ../filemanager.cpp:3094 ../filemanager.cpp:3380
+#: ../filemanager.cpp:3094 ../filemanager.cpp:3377
 msgctxt "FileManager|"
 msgid "Abort reading"
 msgstr "Keskeytä lukeminen"
 
-#: ../filemanager.cpp:3333
+#: ../filemanager.cpp:3330
 msgctxt "FileManager|"
 msgid "There is more than one log in this logfile."
 msgstr "Tässä lokitiedostossa on enemmän kuin yksi loki."
 
-#: ../filemanager.cpp:3333
+#: ../filemanager.cpp:3330
 msgctxt "FileManager|"
 msgid "All logs will be imported into the current log."
 msgstr "Kaikki lokit tuodaan nykyiseen lokiin."
 
-#: ../filemanager.cpp:3333
+#: ../filemanager.cpp:3330
 msgctxt "FileManager|"
 msgid "Do you want to continue?"
 msgstr "Haluatko jatkaa?"
 
-#: ../filemanager.cpp:3380
+#: ../filemanager.cpp:3377
 msgctxt "FileManager|"
 msgid "Reading ADIF file..."
 msgstr "Luetaan ADIF-tiedostoa..."
 
-#: ../filemanager.cpp:3586
+#: ../filemanager.cpp:3583
 msgctxt "FileManager|"
 msgid "Importing ADIF file..."
 msgstr "Tuodaan ADIF-tiedostoa..."
 
-#: ../filemanager.cpp:3613
+#: ../filemanager.cpp:3610
 msgctxt "FileManager|"
 msgid ""
 "It seems that there are some duplicated QSOs in the ADIF file you are "
@@ -879,7 +733,7 @@ msgstr ""
 "ADIF-tiedostossa jota olet tuomassa, on päällekkäisiä QSO:ita. Haluatko "
 "jatkaa? (Duplikaatti QSO:ita ei tuoda)"
 
-#: ../filemanager.cpp:3752
+#: ../filemanager.cpp:3749
 msgctxt "FileManager|"
 msgid ""
 "You have cancelled the file import. The file will be removed and no data "
@@ -887,90 +741,90 @@ msgid ""
 msgstr ""
 "Olet peruuttanut tiedoston tuonnin. Tiedosto poistetaan, eikä tietoja tuoda."
 
-#: ../filemanager.cpp:4770
+#: ../filemanager.cpp:4767
 msgctxt "FileManager|"
 msgid "This QSO is not including the minimum data to consider a QSO as valid!."
 msgstr ""
 "Tämä QSO ei sisällä vähimmäistietoja, jotta QSO:ta voidaan pitää oikeana!"
 
-#: ../filemanager.cpp:4770
+#: ../filemanager.cpp:4767
 msgctxt "FileManager|"
 msgid "Please edit the ADIF file and make sure that it include at least:"
 msgstr "Muokkaa ADIF-tiedostoa ja varmista, että se sisältää ainakin:"
 
-#: ../filemanager.cpp:4770
+#: ../filemanager.cpp:4767
 msgctxt "FileManager|"
 msgid "and"
 msgstr "ja"
 
-#: ../filemanager.cpp:4770
+#: ../filemanager.cpp:4767
 msgctxt "FileManager|"
 msgid "This QSO had:"
 msgstr "Tässä QSO:ssa oli:"
 
-#: ../filemanager.cpp:4774
+#: ../filemanager.cpp:4771
 msgctxt "FileManager|"
 msgid " - The band missing and the following call: "
 msgstr " - Taajuusalue puuttuu ja seuraava kutsu: "
 
-#: ../filemanager.cpp:4779
+#: ../filemanager.cpp:4776
 msgctxt "FileManager|"
 msgid " - The call missing but was done at this time: "
 msgstr " - Kutsu puuttuu mutta toteutettiin tällä kertaa: "
 
-#: ../filemanager.cpp:4784
+#: ../filemanager.cpp:4781
 msgctxt "FileManager|"
 msgid " - The mode missing and the following call: "
 msgstr " - Tila puuttuu ja seuraava kutsu: "
 
-#: ../filemanager.cpp:4789
+#: ../filemanager.cpp:4786
 msgctxt "FileManager|"
 msgid " - The date missing and the following call: "
 msgstr " - Päiväys puuttuu ja seuraava kutsu: "
 
-#: ../filemanager.cpp:4794
+#: ../filemanager.cpp:4791
 msgctxt "FileManager|"
 msgid " - The time missing and the following call: "
 msgstr " - Aika puuttuu ja seuraava kutsu: "
 
-#: ../filemanager.cpp:4799
+#: ../filemanager.cpp:4796
 msgctxt "FileManager|"
 msgid "Do you want to continue with the current file?"
 msgstr "Haluatko jatkaa nykyisen tiedoston kanssa?"
 
-#: ../filemanager.cpp:4803
+#: ../filemanager.cpp:4800
 msgctxt "FileManager|"
 msgid "KLog: Not all required data found!"
 msgstr "KLog: kaikkia vaadittavia tietoja ei löydetty!"
 
-#: ../filemanager.cpp:4827
+#: ../filemanager.cpp:4824
 msgctxt "FileManager|"
 msgid "This log seems to lack of RST-TX information."
 msgstr "Tästä lokista näyttää puuttuvan RST-TX-tieto."
 
-#: ../filemanager.cpp:4827 ../filemanager.cpp:4849
+#: ../filemanager.cpp:4824 ../filemanager.cpp:4846
 msgctxt "FileManager|"
 msgid "Click on Yes to add a default 59 to all QSO with a similar problem."
 msgstr ""
 "Napsauta Kyllä, jos haluat lisätä oletusarvon 59 kaikille QSO:ille, joilla "
 "on vastaava ongelma."
 
-#: ../filemanager.cpp:4827 ../filemanager.cpp:4849
+#: ../filemanager.cpp:4824 ../filemanager.cpp:4846
 msgctxt "FileManager|"
 msgid "If you select NO, the QSO may not be imported."
 msgstr "Jos valitset EI, QSO:ta ei ehkä tuoda."
 
-#: ../filemanager.cpp:4828
+#: ../filemanager.cpp:4825
 msgctxt "FileManager|"
 msgid "KLog: No RST TX found!"
 msgstr "KLog: RST TX:ää ei löydy!"
 
-#: ../filemanager.cpp:4849
+#: ../filemanager.cpp:4846
 msgctxt "FileManager|"
 msgid "This log seems to lack of RST-RX information."
 msgstr "Tästä lokista näyttää puuttuvan RST-RX-tieto."
 
-#: ../filemanager.cpp:4851
+#: ../filemanager.cpp:4848
 msgctxt "FileManager|"
 msgid "KLog: No RST RX found!"
 msgstr "KLog: RST RX:ää ei löydy!"
@@ -1346,7 +1200,7 @@ msgctxt "MainWindow|"
 msgid "MHz"
 msgstr "MHz"
 
-#: ../mainwindow.cpp:461 ../mainwindow.cpp:4088
+#: ../mainwindow.cpp:461 ../mainwindow.cpp:4091
 msgctxt "MainWindow|"
 msgid "KLog"
 msgstr "KLog"
@@ -1393,18 +1247,18 @@ msgctxt "MainWindow|"
 msgid "Input"
 msgstr "Syöttö"
 
-#: ../mainwindow.cpp:2437 ../mainwindow.cpp:6509
+#: ../mainwindow.cpp:2437 ../mainwindow.cpp:6528
 msgctxt "MainWindow|"
 msgid "RSTrx"
 msgstr "RSTrx"
 
-#: ../mainwindow.cpp:2444 ../mainwindow.cpp:6507
+#: ../mainwindow.cpp:2444 ../mainwindow.cpp:6526
 msgctxt "MainWindow|"
 msgid "RSTtx"
 msgstr "RSTtx"
 
 #: ../mainwindow.cpp:2453 ../mainwindow.cpp:3253 ../mainwindow.cpp:3259
-#: ../mainwindow.cpp:4168 ../mainwindow.cpp:5161 ../mainwindow.cpp:6505
+#: ../mainwindow.cpp:4171 ../mainwindow.cpp:5164 ../mainwindow.cpp:6524
 msgctxt "MainWindow|"
 msgid "QRZ"
 msgstr "QRZ"
@@ -1434,63 +1288,63 @@ msgctxt "MainWindow|"
 msgid "Ready..."
 msgstr "Valmis..."
 
-#: ../mainwindow.cpp:3398
+#: ../mainwindow.cpp:3396
 msgctxt "MainWindow|"
 msgid "&File"
 msgstr "&Tiedosto"
 
-#: ../mainwindow.cpp:3400
+#: ../mainwindow.cpp:3398
 msgctxt "MainWindow|"
 msgid "&New..."
 msgstr "&Uusi..."
 
-#: ../mainwindow.cpp:3405
+#: ../mainwindow.cpp:3403
 msgctxt "MainWindow|"
 msgid "&Open..."
 msgstr "&Avaa..."
 
-#: ../mainwindow.cpp:3410
+#: ../mainwindow.cpp:3408
 msgctxt "MainWindow|"
 msgid "&Import from ADIF..."
 msgstr "Tu&o ADIF-tiedostosta..."
 
-#: ../mainwindow.cpp:3413
+#: ../mainwindow.cpp:3411
 msgctxt "MainWindow|"
 msgid "Import an ADIF file into the current log."
 msgstr "Tuo ADIF-tiedosto nykyiseen lokiin."
 
-#: ../mainwindow.cpp:3422
+#: ../mainwindow.cpp:3420
 msgctxt "MainWindow|"
 msgid "&Save As..."
 msgstr "Tallenna &nimellä..."
 
-#: ../mainwindow.cpp:3429
+#: ../mainwindow.cpp:3427
 msgctxt "MainWindow|"
 msgid "Export to ADIF..."
 msgstr "Vie ADIF-tiedostoon..."
 
-#: ../mainwindow.cpp:3433
+#: ../mainwindow.cpp:3431
 msgctxt "MainWindow|"
 msgid "Export the current log to an ADIF logfile."
 msgstr "Vie nykyinen loki ADIF lokitiedostoon."
 
-#: ../mainwindow.cpp:3435
+#: ../mainwindow.cpp:3433
 msgctxt "MainWindow|"
 msgid "Export all logs to ADIF..."
 msgstr "Vie kaikki lokit ADIF-tiedostoon..."
 
-#: ../mainwindow.cpp:3439
+#: ../mainwindow.cpp:3437
 msgctxt "MainWindow|"
 msgid "Export ALL the QSOs into one ADIF file, merging QSOs from all the logs."
 msgstr ""
 "Vie kaikki QSO:t yhteen ADIF-tiedostoon, yhdistäen QSO:t kaikista lokeista."
 
-#: ../mainwindow.cpp:3441
+#: ../mainwindow.cpp:3439
 msgctxt "MainWindow|"
 msgid "Export Requested QSL to ADIF..."
 msgstr "Vie pyydetty QSL ADIF-tiedostoon..."
 
-#: ../mainwindow.cpp:3444
+#: ../mainwindow.cpp:3442
 msgctxt "MainWindow|"
 msgid ""
 "Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a "
@@ -1499,12 +1353,12 @@ msgstr ""
 "Vie kaikki QSO:t joilla on QSL pyyntöjä, ADIF-tiedostoon (esim. tuodaksesi "
 "ne QSL tagin tulostus ohjelmaan)."
 
-#: ../mainwindow.cpp:3446
+#: ../mainwindow.cpp:3444
 msgctxt "MainWindow|"
 msgid "Export ADIF for LoTW..."
 msgstr "Vie ADIF LoTW:iä varten..."
 
-#: ../mainwindow.cpp:3449
+#: ../mainwindow.cpp:3447
 msgctxt "MainWindow|"
 msgid ""
 "Export an ADIF file to be sent to LoTW. Remember to sign it with TQSL before "
@@ -1513,42 +1367,42 @@ msgstr ""
 "Vie ADIF-tiedosto lähetettäväksi LoTW:iin. Muista kirjata se TQSL:lla ennen "
 "lataamista LoTW:iin!"
 
-#: ../mainwindow.cpp:3453
+#: ../mainwindow.cpp:3451
 msgctxt "MainWindow|"
 msgid "&Print Log..."
 msgstr "Tulosta loki..."
 
-#: ../mainwindow.cpp:3456
+#: ../mainwindow.cpp:3454
 msgctxt "MainWindow|"
 msgid "Print your log."
 msgstr "Tulosta lokisi."
 
-#: ../mainwindow.cpp:3461
+#: ../mainwindow.cpp:3459
 msgctxt "MainWindow|"
 msgid "KLog folder"
 msgstr "KLog-kansio"
 
-#: ../mainwindow.cpp:3463
+#: ../mainwindow.cpp:3461
 msgctxt "MainWindow|"
 msgid "Opens the data folder of KLog."
 msgstr "Avaa KLog:in tallennuskansion."
 
-#: ../mainwindow.cpp:3468
+#: ../mainwindow.cpp:3466
 msgctxt "MainWindow|"
 msgid "E&xit"
 msgstr "Ulo&s"
 
-#: ../mainwindow.cpp:3474
+#: ../mainwindow.cpp:3472
 msgctxt "MainWindow|"
 msgid "&Tools"
 msgstr "Työkalut"
 
-#: ../mainwindow.cpp:3476
+#: ../mainwindow.cpp:3474
 msgctxt "MainWindow|"
 msgid "Fill in QSO data"
 msgstr "Täytä QSO:n tiedot"
 
-#: ../mainwindow.cpp:3480
+#: ../mainwindow.cpp:3478
 msgctxt "MainWindow|"
 msgid ""
 "Go through the log reusing previous QSOs to fill missing information in "
@@ -1557,38 +1411,38 @@ msgstr ""
 "Käy loki läpi käyttäen edellisiä QSO:ita täyttämään puuttuvat tiedot muissa "
 "QSO:issa."
 
-#: ../mainwindow.cpp:3482
+#: ../mainwindow.cpp:3480
 msgctxt "MainWindow|"
 msgid "Fill in DXCC data"
 msgstr "Täytä DXCC-tiedot"
 
-#: ../mainwindow.cpp:3485
+#: ../mainwindow.cpp:3483
 msgctxt "MainWindow|"
 msgid "Go through the log filling QSOs without a DXCC defined."
 msgstr "Käy loki läpi täyttäen QSO:t joihin ei ole määritelty DXCC:tä."
 
-#: ../mainwindow.cpp:3488
+#: ../mainwindow.cpp:3486
 msgctxt "MainWindow|"
 msgid "QSL tools..."
 msgstr "QSL työkalut..."
 
-#: ../mainwindow.cpp:3495
+#: ../mainwindow.cpp:3493
 msgctxt "MainWindow|"
 msgid "&Find QSO to QSL"
 msgstr "&Etsi QSO QSL:lle"
 
-#: ../mainwindow.cpp:3498
+#: ../mainwindow.cpp:3496
 msgctxt "MainWindow|"
 msgid "Shows QSOs for which you should send your QSL and request the DX QSL."
 msgstr ""
 "Näyttää QSO:t joita varten sinun tulisi lähettää QSL ja pyytää DX QSL:ää."
 
-#: ../mainwindow.cpp:3500
+#: ../mainwindow.cpp:3498
 msgctxt "MainWindow|"
 msgid "Find My-QSLs pending to send"
 msgstr "Etsi Minun QSL:t jotka odottavat lähetystä"
 
-#: ../mainwindow.cpp:3504
+#: ../mainwindow.cpp:3502
 msgctxt "MainWindow|"
 msgid ""
 "Shows the QSOs with pending requests to send QSLs. You should keep this "
@@ -1597,12 +1451,12 @@ msgstr ""
 "Näyttää QSO:t joilla on odottavia pyyntöjä lähettää QSL:iä. Tämä jono tulisi "
 "pitää tyhjänä!"
 
-#: ../mainwindow.cpp:3506
+#: ../mainwindow.cpp:3504
 msgctxt "MainWindow|"
 msgid "&Find DX-QSLs pending to receive"
 msgstr "&Etsi DX-QSL:t jotka odottavat vastaanottoa"
 
-#: ../mainwindow.cpp:3509
+#: ../mainwindow.cpp:3507
 msgctxt "MainWindow|"
 msgid ""
 "Shows the DX-QSL that has been requested or QSLs has been sent with no "
@@ -1610,131 +1464,131 @@ msgid ""
 msgstr ""
 "Näyttää DX-QSL:t jotka on pyydetty, tai QSL:t on lähetetty ilman vastausta."
 
-#: ../mainwindow.cpp:3511
+#: ../mainwindow.cpp:3509
 msgctxt "MainWindow|"
 msgid "&Find requested pending to receive"
 msgstr "&Etsi vastaanottoa odottavat"
 
-#: ../mainwindow.cpp:3514
+#: ../mainwindow.cpp:3512
 msgctxt "MainWindow|"
 msgid "Shows the DX-QSL that has been requested."
 msgstr "Näyttää DX-QSL:n jota on pyydetty."
 
-#: ../mainwindow.cpp:3517
+#: ../mainwindow.cpp:3515
 msgctxt "MainWindow|"
 msgid "LoTW tools..."
 msgstr "LoTW työkalut..."
 
-#: ../mainwindow.cpp:3519
+#: ../mainwindow.cpp:3517
 msgctxt "MainWindow|"
 msgid "Queue all QSL to be sent of this log"
 msgstr "Aseta jonoon kaikki tämän lokin QSL:t"
 
-#: ../mainwindow.cpp:3522
+#: ../mainwindow.cpp:3520
 msgctxt "MainWindow|"
 msgid "Mark all non sent QSOs in this log as queued to be uploaded."
 msgstr ""
 "Merkitse kaikki tässä lokissa olevat lähettämättömät QSO:t lähetysjonoon."
 
-#: ../mainwindow.cpp:3524
+#: ../mainwindow.cpp:3522
 msgctxt "MainWindow|"
 msgid "Queue all QSL to be sent"
 msgstr "Aseta jonoon kaikki tämän lokin QSL:t"
 
-#: ../mainwindow.cpp:3527
+#: ../mainwindow.cpp:3525
 msgctxt "MainWindow|"
 msgid "Mark all non sent QSOs as queued to be uploaded."
 msgstr "Merkitse kaikki lähettämättömät QSO:t lähetysjonoon."
 
-#: ../mainwindow.cpp:3531
+#: ../mainwindow.cpp:3529
 msgctxt "MainWindow|"
 msgid "Mark as sent all queued QSO of this log"
 msgstr "Merkitse kaikki tämän lokin jonossa olevat QSO:t lähetetyiksi"
 
-#: ../mainwindow.cpp:3534
+#: ../mainwindow.cpp:3532
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs in this log as sent to LoTW."
 msgstr ""
 "Merkitse kaikki tämän lokin jonossa olevat QSO:t lähetetyiksi LoTW:iin."
 
-#: ../mainwindow.cpp:3536
+#: ../mainwindow.cpp:3534
 msgctxt "MainWindow|"
 msgid "Mark all queued QSO as sent"
 msgstr "Merkitse kaikki jonossa olevat QSO:t lähetetyiksi"
 
-#: ../mainwindow.cpp:3539
+#: ../mainwindow.cpp:3537
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs as sent to LoTW."
 msgstr "Merkitse kaikki jonossa olevat QSO:t lähetetyiksi LoTW:iin."
 
-#: ../mainwindow.cpp:3544
+#: ../mainwindow.cpp:3542
 msgctxt "MainWindow|"
 msgid "&Update cty.csv"
 msgstr "&Päivitä cty.csv"
 
-#: ../mainwindow.cpp:3548 ../mainwindow.cpp:3553
+#: ../mainwindow.cpp:3546 ../mainwindow.cpp:3551
 msgctxt "MainWindow|"
 msgid "For updated DX-Entity data, update cty.csv."
 msgstr "Päivitettyjä DX-yksikkö tietoja varten, päivitä cty.csv."
 
-#: ../mainwindow.cpp:3550
+#: ../mainwindow.cpp:3548
 msgctxt "MainWindow|"
 msgid "&Update Satellite Data"
 msgstr "&Päivitä Satelliitti Tiedot"
 
-#: ../mainwindow.cpp:3557
+#: ../mainwindow.cpp:3555
 msgctxt "MainWindow|"
 msgid "Stats"
 msgstr "Tilastot"
 
-#: ../mainwindow.cpp:3560
+#: ../mainwindow.cpp:3559
 msgctxt "MainWindow|"
 msgid "Show the statistics of your radio activity."
 msgstr "Näytä radioaktiivisuutesi tilastot."
 
-#: ../mainwindow.cpp:3564
+#: ../mainwindow.cpp:3563
 msgctxt "MainWindow|"
 msgid "&Setup"
 msgstr "&Asetukset"
 
-#: ../mainwindow.cpp:3566
+#: ../mainwindow.cpp:3565
 msgctxt "MainWindow|"
 msgid "&Setup..."
 msgstr "&Asetukset..."
 
-#: ../mainwindow.cpp:3572
+#: ../mainwindow.cpp:3571
 msgctxt "MainWindow|"
 msgid "&Help"
 msgstr "&Ohjeet"
 
-#: ../mainwindow.cpp:3574
+#: ../mainwindow.cpp:3573
 msgctxt "MainWindow|"
 msgid "Check updates..."
 msgstr "Tarkista päivitykset..."
 
-#: ../mainwindow.cpp:3579
+#: ../mainwindow.cpp:3578
 msgctxt "MainWindow|"
 msgid "&About..."
 msgstr "&Tietoja..."
 
-#: ../mainwindow.cpp:3584
+#: ../mainwindow.cpp:3583
 msgctxt "MainWindow|"
 msgid "About Qt..."
 msgstr "Tietoja Qt:stä..."
 
-#: ../mainwindow.cpp:3623 ../mainwindow.cpp:3632 ../mainwindow.cpp:3646
-#: ../mainwindow.cpp:3654 ../mainwindow.cpp:3728 ../mainwindow.cpp:3736
-#: ../mainwindow.cpp:3754 ../mainwindow.cpp:3762
+#: ../mainwindow.cpp:3626 ../mainwindow.cpp:3635 ../mainwindow.cpp:3649
+#: ../mainwindow.cpp:3657 ../mainwindow.cpp:3731 ../mainwindow.cpp:3739
+#: ../mainwindow.cpp:3757 ../mainwindow.cpp:3765
 msgctxt "MainWindow|"
 msgid "KLog LoTW"
 msgstr "KLog LoTW"
 
-#: ../mainwindow.cpp:3624
+#: ../mainwindow.cpp:3627
 msgctxt "MainWindow|"
 msgid "All pending QSO of this log has been marked as queued for LoTW!"
 msgstr "Kaikki tämän lokin odottavat QSO:t on merkattu jonoon LOTW:iä varten!"
 
-#: ../mainwindow.cpp:3624 ../mainwindow.cpp:3647
+#: ../mainwindow.cpp:3627 ../mainwindow.cpp:3650
 msgctxt "MainWindow|"
 msgid ""
 "Now you can go to the File menu to export the LoTW ADIF file and upload it "
@@ -1743,40 +1597,40 @@ msgstr ""
 "Nyt voit mennä Tiedostot valikkoon viedäksesi LoTW:n ADIF-tiedostoon ja "
 "lataa se LoTW:iin."
 
-#: ../mainwindow.cpp:3633 ../mainwindow.cpp:3655
+#: ../mainwindow.cpp:3636 ../mainwindow.cpp:3658
 msgctxt "MainWindow|"
 msgid ""
 "There was a problem to mark all pending QSO of this log as queued for LoTW!"
 msgstr "Odottavien QSO:iden merkinnässä jonoon LoTW:iä varten ilmeni ongelma!"
 
-#: ../mainwindow.cpp:3647
+#: ../mainwindow.cpp:3650
 msgctxt "MainWindow|"
 msgid "All pending QSO has been marked as queued for LoTW!"
 msgstr "Kaikki odottavat QSO:t on merkattu jonoon LOTW:iä varten!"
 
-#: ../mainwindow.cpp:3674
+#: ../mainwindow.cpp:3677
 msgctxt "MainWindow|"
 msgid ""
 "The log that you have selected contains more than just one station callsign."
 msgstr ""
 "Valitsemasi loki sisältää enemmän kuin vain yhden aseman kutsutunnuksen."
 
-#: ../mainwindow.cpp:3674
+#: ../mainwindow.cpp:3677
 msgctxt "MainWindow|"
 msgid "Please select the station callsign you want to mark as sent to LoTW:"
 msgstr "Valitse aseman kutsutunnus, jonka haluat merkata ladatuksi LoTW:iin:"
 
-#: ../mainwindow.cpp:3677
+#: ../mainwindow.cpp:3680
 msgctxt "MainWindow|"
 msgid "Station Callsign:"
 msgstr "Aseman kutsutunnus:"
 
-#: ../mainwindow.cpp:3686
+#: ../mainwindow.cpp:3689
 msgctxt "MainWindow|"
 msgid "Define Station Callsign"
 msgstr "Määritä aseman kutsutunnus"
 
-#: ../mainwindow.cpp:3687
+#: ../mainwindow.cpp:3690
 msgctxt "MainWindow|"
 msgid ""
 "You have selected no callsign. KLog will mark QSOs without a station "
@@ -1785,7 +1639,7 @@ msgstr ""
 "Et ole valinnut kutsutunnusta. KLog merkkaa QSO:t ilman asetettua aseman "
 "kutsutunnusta, kutsulla jonka syötät tähän."
 
-#: ../mainwindow.cpp:3687
+#: ../mainwindow.cpp:3690
 msgctxt "MainWindow|"
 msgid ""
 "Enter the station callsign to use for this log or leave it empty for QSO "
@@ -1794,113 +1648,120 @@ msgstr ""
 "Syötä tässä lokissa käytettävä aseman kutsutunnus, tai jätä se tyhjäksi "
 "QSO:lle ilman määritettyä aseman kutsutunnusta:"
 
-#: ../mainwindow.cpp:3700
+#: ../mainwindow.cpp:3703
 msgctxt "MainWindow|"
 msgid ""
 "No station callsign has been selected and therefore no log will be marked"
 msgstr "Aseman kutsutunnusta ei ole valittu, joten lokia ei merkata"
 
-#: ../mainwindow.cpp:3729
+#: ../mainwindow.cpp:3732
 msgctxt "MainWindow|"
 msgid "All queued QSO of this log has been marked as sent for LoTW!"
 msgstr ""
 "Kaikki tämän lokin jonossa olevat QSO:t on merkattu lähetetyiksi LOTW:iin!"
 
-#: ../mainwindow.cpp:3737
+#: ../mainwindow.cpp:3740
 msgctxt "MainWindow|"
 msgid ""
 "There was a problem to mark all queued QSO of this log as sent for LoTW!"
 msgstr "Kaikkien QSO:iden merkinnässä lähetetyiksi LoTW:iin, ilmeni ongelma!"
 
-#: ../mainwindow.cpp:3755
+#: ../mainwindow.cpp:3758
 msgctxt "MainWindow|"
 msgid "All queued QSO has been marked as sent to LoTW!"
 msgstr "Kaikki jonossa olevat QSO:t on merkattu lähetetyiksi LoTW:iin!"
 
-#: ../mainwindow.cpp:3763
+#: ../mainwindow.cpp:3766
 msgctxt "MainWindow|"
 msgid "There was a problem to mark all queued QSO of this log as sent to LoTW!"
 msgstr ""
 "Kaikkien jonossa olevien QSO:iden merkinnässä lähetetyiksi LoTW:iin, ilmeni "
 "ongelma!"
 
-#: ../mainwindow.cpp:3772
+#: ../mainwindow.cpp:3775
 msgctxt "MainWindow|"
 msgid "About..."
 msgstr "Tietoja..."
 
-#: ../mainwindow.cpp:3828
+#: ../mainwindow.cpp:3831
 msgctxt "MainWindow|"
 msgid "KLog update checking result"
 msgstr "KLog päivityksen tarkastuksen tulos"
 
-#: ../mainwindow.cpp:3829
+#: ../mainwindow.cpp:3832
 msgctxt "MainWindow|"
 msgid "Congratulations!"
 msgstr "Onnittelut!"
 
-#: ../mainwindow.cpp:3829
+#: ../mainwindow.cpp:3832
 msgctxt "MainWindow|"
 msgid "You already have the latest version."
 msgstr "Sinulla on jo viimeisin versio."
 
-#: ../mainwindow.cpp:3974 ../mainwindow.cpp:4024
+#: ../mainwindow.cpp:3977 ../mainwindow.cpp:4027
 msgctxt "MainWindow|"
 msgid "Nothing has been saved. You have to select a valid file type."
 msgstr "Mitään ei ole tallennettu. Sinun täytyy valita oikea tiedostotyyppi."
 
-#: ../mainwindow.cpp:4002
+#: ../mainwindow.cpp:4005
 msgctxt "MainWindow|"
 msgid "Save File"
 msgstr "Tallenna tiedosto"
 
-#: ../mainwindow.cpp:4004
+#: ../mainwindow.cpp:4007
 msgctxt "MainWindow|"
 msgid "ADIF file"
 msgstr "ADIF-tiedosto"
 
-#: ../mainwindow.cpp:4004
+#: ../mainwindow.cpp:4007
 msgctxt "MainWindow|"
 msgid "Cabrillo files"
 msgstr "Cabrillo-tiedostot"
 
-#: ../mainwindow.cpp:4004
+#: ../mainwindow.cpp:4007
 msgctxt "MainWindow|"
 msgid "Any file"
 msgstr "Kaikki tiedostot"
 
-#: ../mainwindow.cpp:4081
+#: ../mainwindow.cpp:4084
 msgctxt "MainWindow|"
 msgid "You can find the KLog data folder here: "
 msgstr "KLog talletuskansio löytyy täältä: "
 
-#: ../mainwindow.cpp:4164
+#: ../mainwindow.cpp:4167
 msgctxt "MainWindow|"
 msgid "DUPE"
 msgstr "DUPE"
 
-#: ../mainwindow.cpp:7271
+#: ../mainwindow.cpp:6444
+msgctxt "MainWindow|"
+msgid ""
+"Filling DXCC in QSOs...\n"
+" QSO: "
+msgstr ""
+
+#: ../mainwindow.cpp:7290
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "QSO logged from WSJT-X:"
 msgstr "QSO kirjattu WSJT-X:stä:"
 
-#: ../mainwindow.cpp:4279
+#: ../mainwindow.cpp:4282
 msgctxt "MainWindow|"
 msgid "start"
 msgstr "käynnistys"
 
-#: ../mainwindow.cpp:4301
+#: ../mainwindow.cpp:4304
 msgctxt "MainWindow|"
 msgid "stop"
 msgstr "pysäytys"
 
-#: ../mainwindow.cpp:4617
+#: ../mainwindow.cpp:4620
 msgctxt "MainWindow|"
 msgid "It seems that there are no QSO in the database."
 msgstr "Näyttää siltä ettei tietokannassa ole QSO:ta."
 
-#: ../mainwindow.cpp:4617
+#: ../mainwindow.cpp:4620
 msgctxt "MainWindow|"
 msgid ""
 "If you are sure that the database contains QSOs and KLog is not able to find "
@@ -1910,52 +1771,52 @@ msgstr ""
 "ottaa yhteyttä kehittäjiin saadaksesi apua (katso valikon kohta Tietoja "
 "KLogista)"
 
-#: ../mainwindow.cpp:4950
+#: ../mainwindow.cpp:4953
 msgctxt "MainWindow|"
 msgid "TX Frequency in MHz."
 msgstr "TX Taajuus MHz:inä."
 
-#: ../mainwindow.cpp:4951
+#: ../mainwindow.cpp:4954
 msgctxt "MainWindow|"
 msgid "RX Frequency in MHz."
 msgstr "RX Taajuus MHz:inä."
 
-#: ../mainwindow.cpp:4953
+#: ../mainwindow.cpp:4956
 msgctxt "MainWindow|"
 msgid "Power used by the DX."
 msgstr "DX:n käyttämä virta."
 
-#: ../mainwindow.cpp:4954
+#: ../mainwindow.cpp:4957
 msgctxt "MainWindow|"
 msgid "Logging operator's callsign."
 msgstr "Lokinpitäjän kutsutunnus."
 
-#: ../mainwindow.cpp:4955
+#: ../mainwindow.cpp:4958
 msgctxt "MainWindow|"
 msgid "Callsign used over the air."
 msgstr "Lähetyksissä käytetty kutsutunnus."
 
-#: ../mainwindow.cpp:4956
+#: ../mainwindow.cpp:4959
 msgctxt "MainWindow|"
 msgid "My QTH locator."
 msgstr "Minun QTH lokaattori."
 
-#: ../mainwindow.cpp:4957
+#: ../mainwindow.cpp:4960
 msgctxt "MainWindow|"
 msgid "Name of the DX."
 msgstr "DX:n nimi."
 
-#: ../mainwindow.cpp:4958
+#: ../mainwindow.cpp:4961
 msgctxt "MainWindow|"
 msgid "QTH of the DX."
 msgstr "DX:n QTH."
 
-#: ../mainwindow.cpp:4959
+#: ../mainwindow.cpp:4962
 msgctxt "MainWindow|"
 msgid "Locator of the DX."
 msgstr "DX:n lokaattori."
 
-#: ../mainwindow.cpp:2409 ../mainwindow.cpp:4961
+#: ../mainwindow.cpp:2409 ../mainwindow.cpp:4964
 msgctxt "MainWindow|"
 msgid "QRZ of the QSO."
 msgstr "QSO:n QRZ."
@@ -1965,47 +1826,47 @@ msgctxt "MainWindow|"
 msgid "Click to recalculate the award status."
 msgstr "Napsauta laskeaksesi palkintotilanne uudestaan."
 
-#: ../mainwindow.cpp:2410 ../mainwindow.cpp:4962
+#: ../mainwindow.cpp:2410 ../mainwindow.cpp:4965
 msgctxt "MainWindow|"
 msgid "TX RST."
 msgstr "TX RST."
 
-#: ../mainwindow.cpp:2411 ../mainwindow.cpp:4963
+#: ../mainwindow.cpp:2411 ../mainwindow.cpp:4966
 msgctxt "MainWindow|"
 msgid "RX RST."
 msgstr "RX RST."
 
-#: ../mainwindow.cpp:2412 ../mainwindow.cpp:4964
+#: ../mainwindow.cpp:2412 ../mainwindow.cpp:4967
 msgctxt "MainWindow|"
 msgid "TX Exchange."
 msgstr "TX Exchange."
 
-#: ../mainwindow.cpp:2413 ../mainwindow.cpp:4965
+#: ../mainwindow.cpp:2413 ../mainwindow.cpp:4968
 msgctxt "MainWindow|"
 msgid "RX Exchange."
 msgstr "RX Exchange."
 
-#: ../mainwindow.cpp:2414 ../mainwindow.cpp:4966
+#: ../mainwindow.cpp:2414 ../mainwindow.cpp:4969
 msgctxt "MainWindow|"
 msgid "Band of the QSO."
 msgstr "QSO:n taajuusalue."
 
-#: ../mainwindow.cpp:2415 ../mainwindow.cpp:4967
+#: ../mainwindow.cpp:2415 ../mainwindow.cpp:4970
 msgctxt "MainWindow|"
 msgid "Mode of the QSO."
 msgstr "QSO:n moodi."
 
-#: ../mainwindow.cpp:2416 ../mainwindow.cpp:4968
+#: ../mainwindow.cpp:2416 ../mainwindow.cpp:4971
 msgctxt "MainWindow|"
 msgid "Date of the QSO."
 msgstr "QSO:n päivämäärä."
 
-#: ../mainwindow.cpp:2417 ../mainwindow.cpp:4969
+#: ../mainwindow.cpp:2417 ../mainwindow.cpp:4972
 msgctxt "MainWindow|"
 msgid "Time of the QSO."
 msgstr "QSO:n aika."
 
-#: ../mainwindow.cpp:2420 ../mainwindow.cpp:4972
+#: ../mainwindow.cpp:2420 ../mainwindow.cpp:4975
 msgctxt "MainWindow|"
 msgid "Add the QSO to the log."
 msgstr "Lisää QSO lokiin."
@@ -2015,17 +1876,17 @@ msgctxt "MainWindow|"
 msgid "Clear the box."
 msgstr "Tyhjennä ruutu."
 
-#: ../mainwindow.cpp:3364
+#: ../mainwindow.cpp:3362
 msgctxt "MainWindow|"
 msgid "The logfile has been modified."
 msgstr "Lokia on muokattu."
 
-#: ../mainwindow.cpp:3364
+#: ../mainwindow.cpp:3362
 msgctxt "MainWindow|"
 msgid "Do you want to save your changes?"
 msgstr "Haluatko tallentaa muutokset?"
 
-#: ../mainwindow.cpp:4280 ../mainwindow.cpp:4302
+#: ../mainwindow.cpp:4283 ../mainwindow.cpp:4305
 #, qt-format
 msgctxt "MainWindow|start or stop"
 msgid ""
@@ -2035,270 +1896,270 @@ msgstr ""
 "UDP-palvelinvirhe\n"
 "UDP-palvelin ei onnistunut %1."
 
-#: ../mainwindow.cpp:4974
+#: ../mainwindow.cpp:4977
 msgctxt "MainWindow|"
 msgid "Clears the QSO entry."
 msgstr "Poistaa QSO merkinnän."
 
-#: ../mainwindow.cpp:4976
+#: ../mainwindow.cpp:4979
 msgctxt "MainWindow|"
 msgid "Number of confirmed DXCC entities."
 msgstr "Vahvistettujen DXCC-yksiköiden määrä."
 
-#: ../mainwindow.cpp:4977
+#: ../mainwindow.cpp:4980
 msgctxt "MainWindow|"
 msgid "Number of worked DXCC entities."
 msgstr "Työstettyjen DXCC-yksiköiden määrä."
 
-#: ../mainwindow.cpp:4978
+#: ../mainwindow.cpp:4981
 msgctxt "MainWindow|"
 msgid "Number of confirmed WAZ zones."
 msgstr "Vahvistettujen WAZ vyöhykkeiden määrä."
 
-#: ../mainwindow.cpp:4979
+#: ../mainwindow.cpp:4982
 msgctxt "MainWindow|"
 msgid "Number of worked WAZ zones."
 msgstr "Työstettyjen WAZ vyöhykkeiden määrä."
 
-#: ../mainwindow.cpp:4980
+#: ../mainwindow.cpp:4983
 msgctxt "MainWindow|"
 msgid "Number of confirmed local references."
 msgstr "Vahvistettujen paikallisten referenssien määrä."
 
-#: ../mainwindow.cpp:4981
+#: ../mainwindow.cpp:4984
 msgctxt "MainWindow|"
 msgid "Number of worked local references."
 msgstr "Työstettyjen paikallisten referenssien määrä."
 
-#: ../mainwindow.cpp:4982
+#: ../mainwindow.cpp:4985
 msgctxt "MainWindow|"
 msgid "Number of confirmed QSOs."
 msgstr "Vahvistettujen QSO:iden määrä."
 
-#: ../mainwindow.cpp:4983
+#: ../mainwindow.cpp:4986
 msgctxt "MainWindow|"
 msgid "Number of worked QSOs."
 msgstr "Työstettyjen QSO:iden määrä."
 
-#: ../mainwindow.cpp:4984
+#: ../mainwindow.cpp:4987
 msgctxt "MainWindow|"
 msgid "Number of QSOs worked on the selected year."
 msgstr "Työstettyjen QSO:iden määrä, valittuna vuonna."
 
-#: ../mainwindow.cpp:4985
+#: ../mainwindow.cpp:4988
 msgctxt "MainWindow|"
 msgid "Number of DXCC worked on the selected year."
 msgstr "Työstettyjen DXCC:iden määrä, valittuna vuonna."
 
-#: ../mainwindow.cpp:4986
+#: ../mainwindow.cpp:4989
 msgctxt "MainWindow|"
 msgid "Number of CQ Zones worked on the selected year."
 msgstr "Työstettyjen CQ vyöhykkeiden määrä, valittuna vuonna."
 
-#: ../mainwindow.cpp:4987
+#: ../mainwindow.cpp:4990
 msgctxt "MainWindow|"
 msgid "Score for the DXMarathon on the selected year."
 msgstr "DXMarathon pisteet, valittuna vuonna."
 
-#: ../mainwindow.cpp:4988
+#: ../mainwindow.cpp:4991
 msgctxt "MainWindow|"
 msgid "Select the year you want to check."
 msgstr "Valitse vuosi jonka haluat nähdä."
 
-#: ../mainwindow.cpp:4990
+#: ../mainwindow.cpp:4993
 msgctxt "MainWindow|"
 msgid "Status of the DX entity."
 msgstr "DX yksikön tila."
 
-#: ../mainwindow.cpp:4991
+#: ../mainwindow.cpp:4994
 msgctxt "MainWindow|"
 msgid "Name of the DX entity."
 msgstr "DX yksikön nimi."
 
-#: ../mainwindow.cpp:5009 ../mainwindow.cpp:7209
+#: ../mainwindow.cpp:5012 ../mainwindow.cpp:7228
 msgctxt "MainWindow|"
 msgid "Name"
 msgstr "Nimi"
 
-#: ../mainwindow.cpp:5013
+#: ../mainwindow.cpp:5016
 msgctxt "MainWindow|"
 msgid "QTH"
 msgstr "QTH"
 
-#: ../mainwindow.cpp:5016
+#: ../mainwindow.cpp:5019
 msgctxt "MainWindow|"
 msgid "Locator"
 msgstr "Lokaattori"
 
-#: ../mainwindow.cpp:5019
+#: ../mainwindow.cpp:5022
 msgctxt "MainWindow|"
 msgid "Power(rx)"
 msgstr "Teho(rx)"
 
-#: ../mainwindow.cpp:5023
+#: ../mainwindow.cpp:5026
 msgctxt "MainWindow|"
 msgid "RST(tx)"
 msgstr "RST(tx)"
 
-#: ../mainwindow.cpp:5026
+#: ../mainwindow.cpp:5029
 msgctxt "MainWindow|"
 msgid "RST(rx)"
 msgstr "RST(rx)"
 
-#: ../mainwindow.cpp:5059
+#: ../mainwindow.cpp:5062
 msgctxt "MainWindow|"
 msgid "Freq TX"
 msgstr "TX Taajuus"
 
-#: ../mainwindow.cpp:5061
+#: ../mainwindow.cpp:5064
 msgctxt "MainWindow|"
 msgid "Freq RX"
 msgstr "RX Taajuus"
 
-#: ../mainwindow.cpp:5129
+#: ../mainwindow.cpp:5132
 msgctxt "MainWindow|"
 msgid "QSO"
 msgstr "QSO"
 
-#: ../mainwindow.cpp:5139
+#: ../mainwindow.cpp:5142
 msgctxt "MainWindow|"
 msgid "QSL"
 msgstr "QSL"
 
-#: ../mainwindow.cpp:5140
+#: ../mainwindow.cpp:5143
 msgctxt "MainWindow|"
 msgid "eQSL"
 msgstr "eQSL"
 
-#: ../mainwindow.cpp:5141 ../mainwindow.cpp:6515
+#: ../mainwindow.cpp:5144 ../mainwindow.cpp:6534
 msgctxt "MainWindow|"
 msgid "Comment"
 msgstr "Kommentti"
 
-#: ../mainwindow.cpp:5144
+#: ../mainwindow.cpp:5147
 msgctxt "MainWindow|"
 msgid "Others"
 msgstr "Muut"
 
-#: ../mainwindow.cpp:5146
+#: ../mainwindow.cpp:5149
 msgctxt "MainWindow|"
 msgid "My Data"
 msgstr "Minun tiedot"
 
-#: ../mainwindow.cpp:5147
+#: ../mainwindow.cpp:5150
 msgctxt "MainWindow|"
 msgid "Satellite"
 msgstr "Satelliitti"
 
-#: ../mainwindow.cpp:5197 ../mainwindow.cpp:5231
+#: ../mainwindow.cpp:5200 ../mainwindow.cpp:5234
 msgctxt "MainWindow|"
 msgid "QSOs"
 msgstr "QSO:t"
 
-#: ../mainwindow.cpp:5198 ../mainwindow.cpp:5222 ../mainwindow.cpp:5277
+#: ../mainwindow.cpp:5201 ../mainwindow.cpp:5225 ../mainwindow.cpp:5280
 msgctxt "MainWindow|"
 msgid "DXCC"
 msgstr "DXCC"
 
-#: ../mainwindow.cpp:5199
+#: ../mainwindow.cpp:5202
 msgctxt "MainWindow|"
 msgid "CQ"
 msgstr "CQ"
 
-#: ../mainwindow.cpp:5200
+#: ../mainwindow.cpp:5203
 msgctxt "MainWindow|"
 msgid "Score"
 msgstr "Pisteet"
 
-#: ../mainwindow.cpp:5201
+#: ../mainwindow.cpp:5204
 msgctxt "MainWindow|"
 msgid "DX-Marathon"
 msgstr "DX-Maratoni"
 
-#: ../mainwindow.cpp:5209
+#: ../mainwindow.cpp:5212
 msgctxt "MainWindow|"
 msgid "Info"
 msgstr "Info"
 
-#: ../mainwindow.cpp:5213
+#: ../mainwindow.cpp:5216
 msgctxt "MainWindow|"
 msgid "Award"
 msgstr "Palkinto"
 
-#: ../mainwindow.cpp:5216
+#: ../mainwindow.cpp:5219
 msgctxt "MainWindow|"
 msgid "Confirmed"
 msgstr "Vahvistettu"
 
-#: ../mainwindow.cpp:5219
+#: ../mainwindow.cpp:5222
 msgctxt "MainWindow|"
 msgid "Worked"
 msgstr "Työstetty"
 
-#: ../mainwindow.cpp:5225
+#: ../mainwindow.cpp:5228
 msgctxt "MainWindow|"
 msgid "WAZ"
 msgstr "WAZ"
 
-#: ../mainwindow.cpp:5228
+#: ../mainwindow.cpp:5231
 msgctxt "MainWindow|"
 msgid "Local"
 msgstr "Paikallinen"
 
-#: ../mainwindow.cpp:5272
+#: ../mainwindow.cpp:5275
 msgctxt "MainWindow|"
 msgid "Awards"
 msgstr "Palkinnot"
 
-#: ../mainwindow.cpp:5273
+#: ../mainwindow.cpp:5276
 msgctxt "MainWindow|"
 msgid "Search"
 msgstr "Etsi"
 
-#: ../mainwindow.cpp:5275
+#: ../mainwindow.cpp:5278
 msgctxt "MainWindow|"
 msgid "Log"
 msgstr "Loki"
 
-#: ../mainwindow.cpp:5276
+#: ../mainwindow.cpp:5279
 msgctxt "MainWindow|"
 msgid "DX-Cluster"
 msgstr "DX-Klusteri"
 
-#: ../mainwindow.cpp:5372 ../mainwindow.cpp:5383 ../mainwindow.cpp:5457
-#: ../mainwindow.cpp:5467
+#: ../mainwindow.cpp:5375 ../mainwindow.cpp:5386 ../mainwindow.cpp:5460
+#: ../mainwindow.cpp:5470
 msgctxt "MainWindow|"
 msgid "Save ADIF File"
 msgstr "Tallenna ADIF-tiedosto"
 
-#: ../mainwindow.cpp:5393
+#: ../mainwindow.cpp:5396
 msgctxt "MainWindow|"
 msgid "LoTW logfile has been properly exported!"
 msgstr "LoTW lokitiedosto on viety onnistuneesti!"
 
-#: ../mainwindow.cpp:5393
+#: ../mainwindow.cpp:5396
 msgctxt "MainWindow|"
 msgid "Remember to:"
 msgstr "Muista:"
 
-#: ../mainwindow.cpp:5393
+#: ../mainwindow.cpp:5396
 msgctxt "MainWindow|"
 msgid "Before uploading: sign the LoTW log; and"
 msgstr "Ennen lataamista: allekirjoita LoTW loki; ja"
 
-#: ../mainwindow.cpp:5393
+#: ../mainwindow.cpp:5396
 msgctxt "MainWindow|"
 msgid "After uploading: mark as sent all the queued QSO (LoTW Tools)."
 msgstr ""
 "Lataamisen jälkeen, merkkaa kaikki jonossa olevat QSO:t lähetetyiksi (LoTW "
 "työkalut)."
 
-#: ../mainwindow.cpp:5414
+#: ../mainwindow.cpp:5417
 msgctxt "MainWindow|"
 msgid "There was no QSO to be exported."
 msgstr "Vietäviä QSO:ita ei ollut."
 
-#: ../mainwindow.cpp:5414
+#: ../mainwindow.cpp:5417
 msgctxt "MainWindow|"
 msgid ""
 "If you think that some QSO should have been exported, please look for them "
@@ -2307,97 +2168,88 @@ msgstr ""
 "Jos uskot, että joitakin QSO:ita olisi pitänyt viedä, etsi niitä ja "
 "varmista, että eQSL LoTW QSL lähetetty laatikko on merkitty seuraavasti: "
 
-#: ../mainwindow.cpp:5414
+#: ../mainwindow.cpp:5417
 msgctxt "MainWindow|"
 msgid "Q - Queued"
 msgstr "J - Jonossa"
 
-#: ../mainwindow.cpp:5435
+#: ../mainwindow.cpp:5438
 msgctxt "MainWindow|"
 msgid ""
 "There was an error while exporting the LoTW. The log has not been exported!"
 msgstr "LotW viennissä tapahtui virhe. Lokin vienti epäonnistui!"
 
-#: ../mainwindow.cpp:5481
+#: ../mainwindow.cpp:5484
 msgctxt "MainWindow|"
 msgid "Save Cabrillo File"
 msgstr "Tallenna Cabrillo Tiedosto"
 
-#: ../mainwindow.cpp:5492 ../mainwindow.cpp:5516
+#: ../mainwindow.cpp:5495 ../mainwindow.cpp:5519
 msgctxt "MainWindow|"
 msgid "Open File"
 msgstr "Avaa Tiedosto"
 
-#: ../mainwindow.cpp:5633
+#: ../mainwindow.cpp:5636
 msgctxt "MainWindow|"
 msgid "&Modify"
 msgstr "&Muokkaa"
 
-#: ../mainwindow.cpp:6196
+#: ../mainwindow.cpp:6199
 msgctxt "MainWindow|"
 msgid " - Needed for DXMarathon"
 msgstr "- Tarvitaan DXMarathon:iin"
 
-#: ../mainwindow.cpp:6307
+#: ../mainwindow.cpp:6311
 msgctxt "MainWindow|"
 msgid "Filling QSOs..."
 msgstr "Täyttää QSO:t..."
 
-#: ../mainwindow.cpp:6307
+#: ../mainwindow.cpp:6311
 msgctxt "MainWindow|"
 msgid "Abort filling"
 msgstr "Keskeytä täyttäminen"
 
-#: ../mainwindow.cpp:6425
-msgctxt "MainWindow|"
-msgid ""
-"Filling QSOs...\n"
-" QSO: "
-msgstr ""
-"Täyttää QSO:ita...\n"
-" QSO: "
-
-#: ../mainwindow.cpp:6499
+#: ../mainwindow.cpp:6518
 msgctxt "MainWindow|"
 msgid "Number"
 msgstr "Numero"
 
-#: ../mainwindow.cpp:6501
+#: ../mainwindow.cpp:6520
 msgctxt "MainWindow|"
 msgid "Date"
 msgstr "Päivämäärä"
 
-#: ../mainwindow.cpp:6503
+#: ../mainwindow.cpp:6522
 msgctxt "MainWindow|"
 msgid "Time"
 msgstr "Aika"
 
-#: ../mainwindow.cpp:6511
+#: ../mainwindow.cpp:6530
 msgctxt "MainWindow|"
 msgid "Band"
 msgstr "Taajuusalue"
 
-#: ../mainwindow.cpp:6513 ../mainwindow.cpp:7194
+#: ../mainwindow.cpp:6532 ../mainwindow.cpp:7213
 msgctxt "MainWindow|"
 msgid "Mode"
 msgstr "Tila"
 
-#: ../mainwindow.cpp:6528
+#: ../mainwindow.cpp:6547
 msgctxt "MainWindow|"
 msgid "Print Log"
 msgstr "Tulosta loki"
 
-#: ../mainwindow.cpp:6533
+#: ../mainwindow.cpp:6552
 msgctxt "MainWindow|"
 msgid "Printing the log..."
 msgstr "Tulostetaan lokia..."
 
-#: ../mainwindow.cpp:6533
+#: ../mainwindow.cpp:6552
 msgctxt "MainWindow|"
 msgid "Abort printing"
 msgstr "Keskeytä tulostus"
 
-#: ../mainwindow.cpp:6548 ../mainwindow.cpp:6563
+#: ../mainwindow.cpp:6567 ../mainwindow.cpp:6582
 msgctxt "MainWindow|"
 msgid ""
 "Printing the log...\n"
@@ -2406,78 +2258,78 @@ msgstr ""
 "Tulostetaan lokia...\n"
 " QSO: "
 
-#: ../mainwindow.cpp:7180
+#: ../mainwindow.cpp:7199
 msgctxt "MainWindow|"
 msgid "KLog QSO received"
 msgstr "KLoq QSO vastaanotettu"
 
-#: ../mainwindow.cpp:7185
+#: ../mainwindow.cpp:7204
 msgctxt "MainWindow|"
 msgid "The following QSO data has been received from WSJT-X to be logged:"
 msgstr "Seuraavat QSO tiedot vastaanotettu WSJT-X:ltä kirjattaviksi:"
 
-#: ../mainwindow.cpp:7188
+#: ../mainwindow.cpp:7207
 msgctxt "MainWindow|"
 msgid "Call"
 msgstr "Kutsutunnus"
 
-#: ../mainwindow.cpp:7191
+#: ../mainwindow.cpp:7210
 msgctxt "MainWindow|"
 msgid "Freq"
 msgstr "Taajuus"
 
-#: ../mainwindow.cpp:7197
+#: ../mainwindow.cpp:7216
 msgctxt "MainWindow|"
 msgid "Time On"
 msgstr "Lähetys alkaa"
 
-#: ../mainwindow.cpp:7200
+#: ../mainwindow.cpp:7219
 msgctxt "MainWindow|"
 msgid "Time Off"
 msgstr "Lähetys päättyy"
 
-#: ../mainwindow.cpp:7203
+#: ../mainwindow.cpp:7222
 msgctxt "MainWindow|"
 msgid "RST TX"
 msgstr "RST TX"
 
-#: ../mainwindow.cpp:7203
+#: ../mainwindow.cpp:7222
 msgctxt "MainWindow|"
 msgid "RST RX"
 msgstr "RST RX"
 
-#: ../mainwindow.cpp:7206
+#: ../mainwindow.cpp:7225
 msgctxt "MainWindow|"
 msgid "DX-Grid"
 msgstr "DX-Verkko"
 
-#: ../mainwindow.cpp:7212
+#: ../mainwindow.cpp:7231
 msgctxt "MainWindow|"
 msgid "Comments"
 msgstr "Kommentit"
 
-#: ../mainwindow.cpp:7215
+#: ../mainwindow.cpp:7234
 msgctxt "MainWindow|"
 msgid "TX Pwr"
 msgstr "TX teho"
 
-#: ../mainwindow.cpp:7218
+#: ../mainwindow.cpp:7237
 msgctxt "MainWindow|"
 msgid "Operator"
 msgstr "Operaattori"
 
-#: ../mainwindow.cpp:7221
+#: ../mainwindow.cpp:7240
 msgctxt "MainWindow|"
 msgid "Local-Grid"
 msgstr "Paikallisverkko"
 
-#: ../mainwindow.cpp:7304
+#: ../mainwindow.cpp:7323
 msgctxt "MainWindow|"
 msgid ""
 "A new mode not supported by KLog has been received from an external software:"
 msgstr "Ulkoisesta ohjelmistosta on vastaanotettu uusi tila, jota KLog ei tue:"
 
-#: ../mainwindow.cpp:7304
+#: ../mainwindow.cpp:7323
 msgctxt "MainWindow|"
 msgid ""
 "Do you want to keep receiving this alerts? (disabling this alerts will "
@@ -2486,7 +2338,7 @@ msgstr ""
 "Haluatko jatkossa saada tämän ilmoituksen? (Mikäli ilmoitus poistetaan "
 "käytöstä, ei tuettuja tiloja ei tunnisteta)"
 
-#: ../mainwindow.cpp:7304
+#: ../mainwindow.cpp:7323
 msgctxt "MainWindow|"
 msgid ""
 "If the received mode is correct, please contact KLog development team and "
@@ -2495,14 +2347,14 @@ msgstr ""
 "Mikäli vastaanotettu tila on oikea, ota yhteyttä KLog-kehitystiimiin ja "
 "pyydä tukea kyseiselle tilalle"
 
-#: ../mainwindow.cpp:7465
+#: ../mainwindow.cpp:7484
 msgctxt "MainWindow|"
 msgid ""
 "A duplicated satellite has been detected in the file and will not be "
 "imported."
 msgstr "Tiedostossa havaittiin päällekkäinen satelliitti, eikä sitä tuoda."
 
-#: ../mainwindow.cpp:7466
+#: ../mainwindow.cpp:7485
 #, fuzzy
 msgctxt "MainWindow|"
 msgid ""
@@ -2512,7 +2364,7 @@ msgstr ""
 "Tarkista satelliitti tiedot-tiedosto ja varmista ettö siellä on kaikki "
 "tarvittava."
 
-#: ../mainwindow.cpp:7466
+#: ../mainwindow.cpp:7485
 #, fuzzy
 msgctxt "MainWindow|"
 msgid ""
@@ -2520,42 +2372,42 @@ msgid ""
 msgstr ""
 "Nyt näet tarkemmat virhetiedot joita voidaan käyttää vianmäärityksessä..."
 
-#: ../mainwindow.cpp:7473
+#: ../mainwindow.cpp:7492
 msgctxt "MainWindow|"
 msgid "An unexpected error ocurred!!"
 msgstr "Odottamaton virhe tapahtui!!"
 
-#: ../mainwindow.cpp:7473
+#: ../mainwindow.cpp:7492
 msgctxt "MainWindow|"
 msgid "If the problem persists, please contact the developers"
 msgstr "Jos ongelma jatkuu, ota yhteyttä kehitystiimiin"
 
-#: ../mainwindow.cpp:7473
+#: ../mainwindow.cpp:7492
 msgctxt "MainWindow|"
 msgid "for analysis:"
 msgstr "analysointia varten:"
 
-#: ../mainwindow.cpp:7475
+#: ../mainwindow.cpp:7494
 msgctxt "MainWindow|"
 msgid "Error in function"
 msgstr "Virhe funktiossa"
 
-#: ../mainwindow.cpp:7476
+#: ../mainwindow.cpp:7495
 msgctxt "MainWindow|"
 msgid "Error code"
 msgstr "Virhekoodi"
 
-#: ../mainwindow.cpp:7477
+#: ../mainwindow.cpp:7496
 msgctxt "MainWindow|"
 msgid "Error text"
 msgstr "Virheteksti"
 
-#: ../mainwindow.cpp:7478
+#: ../mainwindow.cpp:7497
 msgctxt "MainWindow|"
 msgid "Failed query"
 msgstr "Epäonnistunut kysely"
 
-#: ../mainwindow.cpp:7489
+#: ../mainwindow.cpp:7508
 msgctxt "MainWindow|"
 msgid "Do you want to keep showing errors?"
 msgstr "Haluatko jatkaa virheiden näyttämistä?"
@@ -2872,11 +2724,9 @@ msgstr "Vastaanottolinkin taajuusalue."
 #: ../mainwindowsattab.cpp:93
 msgctxt "MainWindowSatTab|"
 msgid ""
-"Locator of the DX station. This box is syncronized with the Locator box in "
+"Locator of the DX station. This box is synchronized with the Locator box in "
 "the QSO tab."
 msgstr ""
-"DX aseman lokaattori. Tämä ruutu on synkronoitu QSO-välilehden "
-"Locator-ruutuun."
 
 #: ../mainwindowsattab.cpp:96
 msgctxt "MainWindowSatTab|"
@@ -2971,27 +2821,27 @@ msgctxt "QObject|"
 msgid "Not identified"
 msgstr "Ei tunnistettu"
 
-#: ../database.cpp:271 ../database.cpp:313
+#: ../database.cpp:271 ../database.cpp:323
 msgctxt "QObject|"
 msgid "Database Error"
 msgstr "Tietokantavirhe"
 
-#: ../database.cpp:1455
+#: ../database.cpp:1465
 msgctxt "QObject|"
 msgid "KLog DB needs to be upgraded."
 msgstr "KLog tietokanta pitää päivittää uudempaan."
 
-#: ../database.cpp:1456
+#: ../database.cpp:1466
 msgctxt "QObject|"
 msgid "Do you want to upgrade it now?"
 msgstr "Haluatko päivittää uudempaan nyt?"
 
-#: ../database.cpp:1456
+#: ../database.cpp:1466
 msgctxt "QObject|"
 msgid "If DB is not upgraded KLog may not work properly."
 msgstr "Jos tietokantaa ei päivitetä, KLog ei välttämättä toimi oikein."
 
-#: ../database.cpp:2062
+#: ../database.cpp:2072
 msgctxt "QObject|"
 msgid ""
 "KLog has detected a previous log in the DB. All data will be migrated to a "
@@ -3000,22 +2850,22 @@ msgstr ""
 "KLog on havainnut aikaisemman lokin tietokannassa. Kaikki tiedot siirretään "
 "juuri luotuun DX tyyppiseen lokiin."
 
-#: ../database.cpp:2080
+#: ../database.cpp:2090
 msgctxt "QObject|"
 msgid "KLog: Enter Station callsign"
 msgstr "KLog: Syötä aseman kutsutunnus"
 
-#: ../database.cpp:2081
+#: ../database.cpp:2091
 msgctxt "QObject|"
 msgid "Enter the station callsign used in this log"
 msgstr "Syötä tässä lokissa käytetty aseman kutsutunnus"
 
-#: ../database.cpp:2082
+#: ../database.cpp:2092
 msgctxt "QObject|"
 msgid "Station Callsign"
 msgstr "Aseman kutsutunnus"
 
-#: ../database.cpp:2133
+#: ../database.cpp:2143
 msgctxt "QObject|"
 msgid ""
 "All the data was migrated correctly. You should now go to "
@@ -3024,26 +2874,26 @@ msgstr ""
 "Kaikki tiedot siirrettiin oikein. Sinun pitäisi nyt mennä Asetukset-> "
 "Lisäasetukset-> Lokit  tarkistaaksesi, että kaikki on OK."
 
-#: ../database.cpp:3567 ../database.cpp:3588
+#: ../database.cpp:3572 ../database.cpp:3593
 msgctxt "QObject|"
 msgid "Updating mode information..."
 msgstr "Päivitetään tilatietoja..."
 
-#: ../database.cpp:3567 ../database.cpp:3752 ../database.cpp:3949
-#: ../database.cpp:4150 ../database.cpp:7194 ../database.cpp:7417
-#: ../dataproxy_sqlite.cpp:4513
+#: ../database.cpp:3572 ../database.cpp:3757 ../database.cpp:3954
+#: ../database.cpp:4155 ../database.cpp:7199 ../database.cpp:7422
+#: ../dataproxy_sqlite.cpp:4754
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "Keskeytä päivittäminen"
 
-#: ../database.cpp:3588 ../database.cpp:3771 ../database.cpp:7286
-#: ../database.cpp:7509 ../dataproxy_sqlite.cpp:4556
+#: ../database.cpp:3593 ../database.cpp:3776 ../database.cpp:7291
+#: ../database.cpp:7514 ../dataproxy_sqlite.cpp:4797
 msgctxt "QObject|"
 msgid "QSO: "
 msgstr "QSO:"
 
-#: ../database.cpp:3663 ../database.cpp:3840 ../database.cpp:4041
-#: ../database.cpp:4249
+#: ../database.cpp:3668 ../database.cpp:3845 ../database.cpp:4046
+#: ../database.cpp:4254
 msgctxt "QObject|"
 msgid ""
 "Canceling this update will cause data inconsistencies and possibly data "
@@ -3052,50 +2902,50 @@ msgstr ""
 "Tämän päivityksen peruuttaminen aiheuttaa epäjohdonmukaisuuksia ja "
 "mahdollisen tietojen menettämisen. Haluatko silti peruuttaa?"
 
-#: ../database.cpp:3752 ../database.cpp:3771 ../database.cpp:3971
-#: ../database.cpp:4173
+#: ../database.cpp:3757 ../database.cpp:3776 ../database.cpp:3976
+#: ../database.cpp:4178
 msgctxt "QObject|"
 msgid "Updating bands information..."
 msgstr "Päivitetään taajuusalue tiedot..."
 
-#: ../database.cpp:3947
+#: ../database.cpp:3952
 #, qt-format
 msgctxt "QObject|"
 msgid "Updating bands information in %1 status..."
 msgstr "Päivitetään taajuusalue tiedot %1 tila..."
 
-#: ../database.cpp:3971 ../database.cpp:4173
+#: ../database.cpp:3976 ../database.cpp:4178
 msgctxt "QObject|"
 msgid "Progress: "
 msgstr "Eteneminen:"
 
-#: ../database.cpp:4148
+#: ../database.cpp:4153
 #, qt-format
 msgctxt "QObject|"
 msgid "Updating mode information in %1 status..."
 msgstr "Päivitetään tilatiedot %1 tila..."
 
-#: ../database.cpp:7194
+#: ../database.cpp:7199
 msgctxt "QObject|"
 msgid "Updating DXCC award information..."
 msgstr "Päivitetään DXCC palkinto tiedot..."
 
-#: ../database.cpp:7286
+#: ../database.cpp:7291
 msgctxt "QObject|"
 msgid "Updating DXCC Award information..."
 msgstr "Päivitetään DXCC palkinto tiedot..."
 
-#: ../database.cpp:7417
+#: ../database.cpp:7422
 msgctxt "QObject|"
 msgid "Updating WAZ award information..."
 msgstr "Päivitetään WAZ palkintotiedot..."
 
-#: ../database.cpp:7509
+#: ../database.cpp:7514
 msgctxt "QObject|"
 msgid "Updating WAZ Award information..."
 msgstr "Päivitetään WAZ palkintotiedot..."
 
-#: ../dataproxy_sqlite.cpp:4513 ../dataproxy_sqlite.cpp:4556
+#: ../dataproxy_sqlite.cpp:4754 ../dataproxy_sqlite.cpp:4797
 msgctxt "QObject|"
 msgid "Updating DXCC and Continent information..."
 msgstr "Päivitetään DXCC- ja manner-tietoja..."
@@ -3378,118 +3228,123 @@ msgctxt "SearchWidget|"
 msgid "QSL received via direct"
 msgstr "QSL vastaanotettu direct:in kautta"
 
-#: ../searchwidget.cpp:1111
+#: ../searchwidget.cpp:1108
 #, qt-format
 msgctxt "SearchWidget|"
 msgid "You have requested to delete the QSO with: %1"
 msgstr "Olet pyytänyt poistettaviksi QSO:t joissa on: %1"
 
-#: ../searchwidget.cpp:1116
+#: ../searchwidget.cpp:1113
 msgctxt "SearchWidget|"
 msgid "Are you sure?"
 msgstr "Oletko varma?"
 
-#: ../searchwidget.cpp:1179
+#: ../searchwidget.cpp:1176
 msgctxt "SearchWidget|"
 msgid "Needed QSO to send the QSL"
 msgstr "Tarvittava QSO, QSL:n lähetystä varten"
 
-#: ../searchwidget.cpp:1187
+#: ../searchwidget.cpp:1184
 msgctxt "SearchWidget|"
 msgid "My QSL requested to be sent"
 msgstr "QSL pyydetty lähetettäväksi"
 
-#: ../searchwidget.cpp:1192 ../searchwidget.cpp:1197
+#: ../searchwidget.cpp:1189 ../searchwidget.cpp:1194
 msgctxt "SearchWidget|"
 msgid "DX QSL pending to be received"
 msgstr "DX QSL odottaa vastaanottoa"
 
-#: ../setupdialog.cpp:88
+#: ../setupdialog.cpp:89
 msgctxt "SetupDialog|"
 msgid "My Data"
 msgstr "Minun Tiedot"
 
-#: ../setupdialog.cpp:89 ../setupdialog.cpp:165 ../setupdialog.cpp:318
+#: ../setupdialog.cpp:90 ../setupdialog.cpp:168 ../setupdialog.cpp:322
 msgctxt "SetupDialog|"
 msgid "Bands/Modes"
 msgstr "Taajuusalueet/Moodit"
 
-#: ../setupdialog.cpp:90 ../setupdialog.cpp:324
+#: ../setupdialog.cpp:91 ../setupdialog.cpp:328
 msgctxt "SetupDialog|"
 msgid "DX-Cluster"
 msgstr "DX-Klusteri"
 
-#: ../setupdialog.cpp:91 ../setupdialog.cpp:167 ../setupdialog.cpp:330
+#: ../setupdialog.cpp:92 ../setupdialog.cpp:170 ../setupdialog.cpp:334
 msgctxt "SetupDialog|"
 msgid "Colors"
 msgstr "Värit"
 
-#: ../setupdialog.cpp:92 ../setupdialog.cpp:168 ../setupdialog.cpp:336
+#: ../setupdialog.cpp:93 ../setupdialog.cpp:171 ../setupdialog.cpp:340
 msgctxt "SetupDialog|"
 msgid "Misc"
 msgstr "Sekalaiset"
 
-#: ../setupdialog.cpp:93 ../setupdialog.cpp:169
+#: ../setupdialog.cpp:94 ../setupdialog.cpp:172
 msgctxt "SetupDialog|"
 msgid "World Editor"
 msgstr "Maailma Editori"
 
-#: ../setupdialog.cpp:94 ../setupdialog.cpp:170 ../setupdialog.cpp:312
+#: ../setupdialog.cpp:95 ../setupdialog.cpp:173 ../setupdialog.cpp:316
 msgctxt "SetupDialog|"
 msgid "Logs"
 msgstr "Lokit"
 
-#: ../setupdialog.cpp:99 ../setupdialog.cpp:176
+#: ../setupdialog.cpp:98 ../setupdialog.cpp:176
+msgctxt "SetupDialog|"
+msgid "Satellites"
+msgstr ""
+
+#: ../setupdialog.cpp:101 ../setupdialog.cpp:180
 msgctxt "SetupDialog|"
 msgid "Cancel"
 msgstr "Peru"
 
-#: ../setupdialog.cpp:100 ../setupdialog.cpp:177
+#: ../setupdialog.cpp:102 ../setupdialog.cpp:181
 msgctxt "SetupDialog|"
 msgid "OK"
 msgstr "OK"
 
-#: ../setupdialog.cpp:123 ../setupdialog.cpp:195
+#: ../setupdialog.cpp:125 ../setupdialog.cpp:199
 msgctxt "SetupDialog|"
 msgid "Config Dialog"
 msgstr "Asetusikkuna"
 
-#: ../setupdialog.cpp:164 ../setupdialog.cpp:306
+#: ../setupdialog.cpp:167 ../setupdialog.cpp:310
 msgctxt "SetupDialog|"
 msgid "User data"
 msgstr "Käyttäjätiedot"
 
-#: ../setupdialog.cpp:166
+#: ../setupdialog.cpp:169
 msgctxt "SetupDialog|"
 msgid "D&X-Cluster"
 msgstr "D&X-Klusteri"
 
-#: ../setupdialog.cpp:171
+#: ../setupdialog.cpp:174
 msgctxt "SetupDialog|"
 msgid "ClubLog"
 msgstr "ClubLog"
 
-#: ../setupdialog.cpp:172
+#: ../setupdialog.cpp:175
 msgctxt "SetupDialog|"
 msgid "WSJT-X"
 msgstr "WSJT-X"
 
-#: ../setupdialog.cpp:290
+#: ../setupdialog.cpp:294
 msgctxt "SetupDialog|"
 msgid "You need to enter at least one log in the Logs tab."
 msgstr "Ainakin yksi loki on syötettävä Lokit -välilehdellä."
 
-#: ../setupdialog.cpp:342
+#: ../setupdialog.cpp:346
 msgctxt "SetupDialog|"
 msgid "World"
 msgstr "Maailma"
 
-#: ../setupdialog.cpp:371
+#: ../setupdialog.cpp:375
 msgctxt "SetupDialog|"
 msgid "DB has not been moved to new path"
 msgstr "Tietokantaa ei ole siirretty"
 
-#: ../setupdialog.cpp:372
+#: ../setupdialog.cpp:376
 msgctxt "SetupDialog|"
 msgid ""
 "Go to the Misc tab and click on Move DB\n"
@@ -3498,22 +3353,22 @@ msgstr ""
 "Siirry sekalaiset-välilehdelle ja napsauta \"siirrä tietokanta\"\n"
 " muulloin tietokantaa ei siirretä uuteen paikkaan."
 
-#: ../setupdialog.cpp:381
+#: ../setupdialog.cpp:385
 msgctxt "SetupDialog|"
 msgid "Go to the User tab and enter valid QRZ."
 msgstr "Siirry käyttäjä-välilehdelle ja syötä kelvollinen QRZ."
 
-#: ../setupdialog.cpp:380
+#: ../setupdialog.cpp:384
 msgctxt "SetupDialog|"
 msgid "You need to enter at least a valid QRZ."
 msgstr "Ainakin olemassaoleva QRZ on syötettävä."
 
-#: ../setupdialog.cpp:392
+#: ../setupdialog.cpp:396
 msgctxt "SetupDialog|"
 msgid "You have not selected the kind of log you want."
 msgstr "Et ole valinnut minkälaisen lokin haluat."
 
-#: ../setupdialog.cpp:393
+#: ../setupdialog.cpp:397
 msgctxt "SetupDialog|"
 msgid ""
 "You will be redirected to the Log tab.\n"
@@ -4047,7 +3902,7 @@ msgctxt "SetupPageLogsNew|"
 msgid "O&verlay"
 msgstr "Yleisnäkymä"
 
-#: ../setuppagelogsnew.cpp:380 ../setuppagelogsnew.cpp:936
+#: ../setuppagelogsnew.cpp:380 ../setuppagelogsnew.cpp:933
 msgctxt "SetupPageLogsNew|"
 msgid "Categories not OK"
 msgstr "Kategoriat ok"
@@ -4070,7 +3925,7 @@ msgstr ""
 "Valitsit väärän yhdistelmän.\n"
 "Lokia ei avata."
 
-#: ../setuppagelogsnew.cpp:928
+#: ../setuppagelogsnew.cpp:925
 msgctxt "SetupPageLogsNew|"
 msgid "Categories OK"
 msgstr "Kategoriat OK"
@@ -4283,6 +4138,246 @@ msgid ""
 "The target directory does not exist. Please select an existing directory."
 msgstr "Kohdekansiota ei ole olemassa. Valitse olemassaoleva kansio."
 
+#: ../setuppagesats.cpp:65
+#, fuzzy
+msgctxt "SetupPageSats|"
+msgid "&New"
+msgstr "&Uusi"
+
+#: ../setuppagesats.cpp:66
+#, fuzzy
+msgctxt "SetupPageSats|"
+msgid "&Edit"
+msgstr "&Muokkaa"
+
+#: ../setuppagesats.cpp:67
+#, fuzzy
+msgctxt "SetupPageSats|"
+msgid "&Remove"
+msgstr "&Poista"
+
+#: ../setuppagesats.cpp:68
+msgctxt "SetupPageSats|"
+msgid "&Import"
+msgstr ""
+
+#: ../setuppagesats.cpp:69
+msgctxt "SetupPageSats|"
+msgid "E&xport"
+msgstr ""
+
+#: ../setuppagesats.cpp:72
+msgctxt "SetupPageSats|"
+msgid "Add a new satellite."
+msgstr ""
+
+#: ../setuppagesats.cpp:73
+msgctxt "SetupPageSats|"
+msgid "Edit the selected satellite."
+msgstr ""
+
+#: ../setuppagesats.cpp:74
+msgctxt "SetupPageSats|"
+msgid "Remove the selected satellite."
+msgstr ""
+
+#: ../setuppagesats.cpp:75
+msgctxt "SetupPageSats|"
+msgid ""
+"Import a satellites file. It will replace the satellites you have now "
+"configured."
+msgstr ""
+
+#: ../setuppagesats.cpp:76
+msgctxt "SetupPageSats|"
+msgid "Export your current satellites to a file."
+msgstr ""
+
+#: ../setuppagesats.cpp:78
+msgctxt "SetupPageSats|"
+msgid "Select the sat you want to open."
+msgstr ""
+
+#: ../setuppagesats.cpp:212
+#, fuzzy
+msgctxt "SetupPageSats|"
+msgid "KLog"
+msgstr "KLog"
+
+#: ../setuppagesats.cpp:213
+msgctxt "SetupPageSats|"
+msgid "Do you really want to remove this satellite?"
+msgstr ""
+
+#: ../setuppagesats.cpp:214
+msgctxt "SetupPageSats|"
+msgid "This satellite will not be longer available to be selected ..."
+msgstr ""
+
+#: ../setuppagesats.cpp:246
+msgctxt "SetupPageSats|"
+msgid "Sat has not been removed. (#3)"
+msgstr ""
+
+#: ../setuppagesats.cpp:253
+msgctxt "SetupPageSats|"
+msgid "Sat has not been removed. (#2)"
+msgstr ""
+
+#: ../setuppagesats.cpp:260
+msgctxt "SetupPageSats|"
+msgid "Sat has not been removed. (#1)"
+msgstr ""
+
+#: ../setuppagesats.cpp:320
+#, fuzzy
+msgctxt "SetupPageSats|"
+msgid "ID"
+msgstr "ID"
+
+#: ../setuppagesats.cpp:323
+msgctxt "SetupPageSats|"
+msgid "Short"
+msgstr ""
+
+#: ../setuppagesats.cpp:326
+#, fuzzy
+msgctxt "SetupPageSats|"
+msgid "Name"
+msgstr "Nimi"
+
+#: ../setuppagesats.cpp:329
+msgctxt "SetupPageSats|"
+msgid "Uplink"
+msgstr ""
+
+#: ../setuppagesats.cpp:332
+msgctxt "SetupPageSats|"
+msgid "Downlink"
+msgstr ""
+
+#: ../setuppagesats.cpp:335
+#, fuzzy
+msgctxt "SetupPageSats|"
+msgid "Modes"
+msgstr "Moodit"
+
+#: ../setuppagesats.cpp:568
+#, fuzzy
+msgctxt "SetupPageSats|"
+msgid "An error has occurred showing the following error code:"
+msgstr "On tapahtunut virhe seuraavalla koodilla:"
+
+#: ../setuppagesats.cpp:571
+msgctxt "SetupPageSats|"
+msgid "KLog - SetupPageSats"
+msgstr ""
+
+#: ../setuppagesats.cpp:581
+msgctxt "SetupPageSats|"
+msgid "Open Satellites File"
+msgstr ""
+
+#: ../setuppagesats.cpp:600
+msgctxt "SetupPageSats|"
+msgid "KLog warning"
+msgstr ""
+
+#: ../setuppagesats.cpp:602
+msgctxt "SetupPageSats|"
+msgid ""
+"An unexpected error ocurred while importing the satellite data.\n"
+"\n"
+"It may be caused because the file you are trying to import does not have the "
+"right format."
+msgstr ""
+
+#: ../setuppagesats.cpp:605
+msgctxt "SetupPageSats|"
+msgid ""
+"Please check the format or contact the developer for analysis with the error "
+"code: "
+msgstr ""
+
+#: ../setuppagesats.cpp:672
+msgctxt "SetupPageSats|"
+msgid "Save Satellites File"
+msgstr ""
+
+#: ../setuppagesatsnew.cpp:46
+msgctxt "SetupPageSatsNew|"
+msgid "Short name"
+msgstr ""
+
+#: ../setuppagesatsnew.cpp:47
+msgctxt "SetupPageSatsNew|"
+msgid "Sat name"
+msgstr ""
+
+#: ../setuppagesatsnew.cpp:48
+#, fuzzy
+msgctxt "SetupPageSatsNew|"
+msgid "UpLink"
+msgstr "Lähetyslinkki"
+
+#: ../setuppagesatsnew.cpp:49
+#, fuzzy
+msgctxt "SetupPageSatsNew|"
+msgid "DownLink"
+msgstr "Vastaanottolinkki"
+
+#: ../setuppagesatsnew.cpp:50
+#, fuzzy
+msgctxt "SetupPageSatsNew|"
+msgid "Modes"
+msgstr "Moodit"
+
+#: ../setuppagesatsnew.cpp:56
+#, fuzzy
+msgctxt "SetupPageSatsNew|"
+msgid "&Ok"
+msgstr "&Ok"
+
+#: ../setuppagesatsnew.cpp:57
+#, fuzzy
+msgctxt "SetupPageSatsNew|"
+msgid "&Cancel"
+msgstr "Peru"
+
+#: ../setuppagesatsnew.cpp:103
+msgctxt "SetupPageSatsNew|"
+msgid ""
+"Enter the short name. Try to use the LoTW short name so you can upload your "
+"QSO to LoTW afterwards."
+msgstr ""
+
+#: ../setuppagesatsnew.cpp:104
+msgctxt "SetupPageSatsNew|"
+msgid "Enter the name of the satellite."
+msgstr ""
+
+#: ../setuppagesatsnew.cpp:105
+msgctxt "SetupPageSatsNew|"
+msgid "Enter the uplink frequencies in this format: 144.300"
+msgstr ""
+
+#: ../setuppagesatsnew.cpp:106
+msgctxt "SetupPageSatsNew|"
+msgid "Enter the downlink frequencies in this format: 144.300"
+msgstr ""
+
+#: ../setuppagesatsnew.cpp:107
+msgctxt "SetupPageSatsNew|"
+msgid "Enter the modes in this format: USB"
+msgstr ""
+
+#: ../setuppagesatsnew.cpp:376
+msgctxt "SetupPageSatsNew|"
+msgid ""
+"Some of the data you have entered is not correct, the satellite can't be "
+"added."
+msgstr ""
+
 #: ../setuppageudp.cpp:10
 msgctxt "SetupPageUDP|"
 msgid "Start UDP Server"
@@ -4367,10 +4462,8 @@ msgstr "QSO ilmoituksen aikakatkaisu (millisekuntia)"
 #: ../setuppageudp.cpp:79
 msgctxt "SetupPageUDP|"
 msgid ""
-"Miliseconds that the notification of QSO received from WSJTX will be shown."
+"Milliseconds that the notification of QSO received from WSJTX will be shown."
 msgstr ""
-"Millisekunnit, jonka ajan WSJT-X:ltä saadut, QSO vastaanotettu, ilmoitukset "
-"näytetään."
 
 #: ../setuppageuserdata.cpp:40
 msgctxt "SetupPageUserDataPage|"
@@ -4672,22 +4765,22 @@ msgctxt "SetupPageWorldEditor|"
 msgid "To Date"
 msgstr "Päivämäärään asti"
 
-#: ../setuppageworldeditor.cpp:305
+#: ../setuppageworldeditor.cpp:302
 msgctxt "SetupPageWorldEditor|"
 msgid "Open File"
 msgstr "Avaa Tiedosto"
 
-#: ../setuppageworldeditor.cpp:305
+#: ../setuppageworldeditor.cpp:302
 msgctxt "SetupPageWorldEditor|"
 msgid "BigCTY (*.csv)"
 msgstr "BigCTY (*.csv)"
 
-#: ../setuppageworldeditor.cpp:314
+#: ../setuppageworldeditor.cpp:311
 msgctxt "SetupPageWorldEditor|"
 msgid "Entities information has been updated."
 msgstr "Yksikkötiedot on päivitetty."
 
-#: ../setuppageworldeditor.cpp:320
+#: ../setuppageworldeditor.cpp:317
 msgctxt "SetupPageWorldEditor|"
 msgid "Entities information has not been updated."
 msgstr "Yksikkötietoja ei ole päivitetty."
@@ -4737,67 +4830,537 @@ msgctxt "StartWizard|"
 msgid "Setup is not complete yet. Are you sure you want to quit setup?"
 msgstr "Asennus ei ole vielä  valmis. Oletko varma että haluat lopettaa?"
 
-#: ../statisticswidget.cpp:91
+#: ../statisticswidget.cpp:79
 msgctxt "StatisticsWidget|"
 msgid "QSO per year"
 msgstr "QSO:ta vuodessa"
 
-#: ../statisticswidget.cpp:92
+#: ../statisticswidget.cpp:80
 msgctxt "StatisticsWidget|"
 msgid "DXCC per year"
 msgstr "DXCC:tä vuodessa"
 
-#: ../statisticswidget.cpp:93
+#: ../statisticswidget.cpp:81
 msgctxt "StatisticsWidget|"
 msgid "CQ zones per year"
 msgstr "CQ vyöhykkeitä vuodessa"
 
-#: ../statisticswidget.cpp:94
+#: ../statisticswidget.cpp:82
 msgctxt "StatisticsWidget|"
 msgid "QSO per band"
 msgstr "QSO:ta taajuusalueittain"
 
-#: ../statisticswidget.cpp:95
+#: ../statisticswidget.cpp:83
 msgctxt "StatisticsWidget|"
 msgid "QSO per mode"
 msgstr "QSO:ta moodeittain"
 
-#: ../statisticswidget.cpp:96
+#: ../statisticswidget.cpp:84
 msgctxt "StatisticsWidget|"
 msgid "QSO per DXCC"
 msgstr "QSO:ta DXCCittäin"
 
-#: ../statisticswidget.cpp:97
+#: ../statisticswidget.cpp:85
 msgctxt "StatisticsWidget|"
 msgid "QSO per Continent"
 msgstr ""
 
-#: ../statisticswidget.cpp:98
+#: ../statisticswidget.cpp:86
 msgctxt "StatisticsWidget|"
 msgid "QSO per hour"
 msgstr "QSO:ta tunneittain"
 
-#: ../updatesatsdata.cpp:56
+#: ../statisticswidget.cpp:87
+msgctxt "StatisticsWidget|"
+msgid "QSO per month"
+msgstr ""
+
+#: ../statisticswidget.cpp:88
+msgctxt "StatisticsWidget|"
+msgid "Worked / Confirmed status"
+msgstr ""
+
+#: ../statisticswidget.cpp:89
+msgctxt "StatisticsWidget|"
+msgid "Worked / Sent status"
+msgstr ""
+
+#: ../statisticswidget.cpp:90
+msgctxt "StatisticsWidget|"
+msgid "Sent / Confirmed status"
+msgstr ""
+
+#: ../charts/statscqzperyearbarchartwidget.cpp:47
+msgctxt "StatsCQZPerYearBarChartWidget|"
+msgid "CQ Zones per year"
+msgstr ""
+
+#: ../charts/statscqzperyearbarchartwidget.cpp:51
+#, fuzzy
+msgctxt "StatsCQZPerYearBarChartWidget|"
+msgid "Reading data ... "
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statscqzperyearbarchartwidget.cpp:51
+msgctxt "StatsCQZPerYearBarChartWidget|"
+msgid "Abort reading"
+msgstr ""
+
+#: ../charts/statscqzperyearbarchartwidget.cpp:56
+#, fuzzy
+msgctxt "StatsCQZPerYearBarChartWidget|"
+msgid "CQ zones"
+msgstr "CQ alueet"
+
+#: ../charts/statscqzperyearbarchartwidget.cpp:57
+#, fuzzy
+msgctxt "StatsCQZPerYearBarChartWidget|"
+msgid "CQ zones per year"
+msgstr "CQ vyöhykkeitä vuodessa"
+
+#: ../charts/statscqzperyearbarchartwidget.cpp:69
+#, fuzzy
+msgctxt "StatsCQZPerYearBarChartWidget|"
+msgid "Reading data ..."
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statscqzperyearbarchartwidget.cpp:69
+#, fuzzy, qt-format
+msgctxt "StatsCQZPerYearBarChartWidget|"
+msgid "Years: %1/%2"
+msgstr "Vuodet: %1%2"
+
+#: ../charts/statsentitiesperyearbarchartwidget.cpp:47
+#, fuzzy
+msgctxt "StatsEntitiesPerYearBarChartWidget|"
+msgid "Chart title"
+msgstr "Listan otsikko"
+
+#: ../charts/statsentitiesperyearbarchartwidget.cpp:51
+#, fuzzy
+msgctxt "StatsEntitiesPerYearBarChartWidget|"
+msgid "Reading data ... "
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsentitiesperyearbarchartwidget.cpp:51
+msgctxt "StatsEntitiesPerYearBarChartWidget|"
+msgid "Abort reading"
+msgstr ""
+
+#: ../charts/statsentitiesperyearbarchartwidget.cpp:57
+#, fuzzy
+msgctxt "StatsEntitiesPerYearBarChartWidget|"
+msgid "DXCC Entities"
+msgstr "DXCC Yksiköitä"
+
+#: ../charts/statsentitiesperyearbarchartwidget.cpp:58
+#, fuzzy
+msgctxt "StatsEntitiesPerYearBarChartWidget|"
+msgid "DXCC Entities per year"
+msgstr "DXCC Yksiköitä vuosittain"
+
+#: ../charts/statsentitiesperyearbarchartwidget.cpp:66
+#, fuzzy
+msgctxt "StatsEntitiesPerYearBarChartWidget|"
+msgid "Reading data ..."
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsentitiesperyearbarchartwidget.cpp:66
+#, fuzzy
+msgctxt "StatsEntitiesPerYearBarChartWidget|"
+msgid "Entities: "
+msgstr "Yksiköitä"
+
+#: ../charts/statsqsosperbandbarchartwidget.cpp:47
+msgctxt "StatsQSOsPerBandBarChartWidget|"
+msgid "QSOs per band"
+msgstr ""
+
+#: ../charts/statsqsosperbandbarchartwidget.cpp:51
+#, fuzzy
+msgctxt "StatsQSOsPerBandBarChartWidget|"
+msgid "Reading data ... "
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsqsosperbandbarchartwidget.cpp:51
+msgctxt "StatsQSOsPerBandBarChartWidget|"
+msgid "Abort reading"
+msgstr ""
+
+#: ../charts/statsqsosperbandbarchartwidget.cpp:56
+#, fuzzy
+msgctxt "StatsQSOsPerBandBarChartWidget|"
+msgid "Bands"
+msgstr "Taajuusalueet"
+
+#: ../charts/statsqsosperbandbarchartwidget.cpp:57
+#, fuzzy
+msgctxt "StatsQSOsPerBandBarChartWidget|"
+msgid "QSO per band distribution"
+msgstr "QSO:t taajuusalueittain"
+
+#: ../charts/statsqsosperbandbarchartwidget.cpp:67
+#, fuzzy
+msgctxt "StatsQSOsPerBandBarChartWidget|"
+msgid "Reading data ..."
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsqsosperbandbarchartwidget.cpp:67
+#, fuzzy
+msgctxt "StatsQSOsPerBandBarChartWidget|"
+msgid "Bands: "
+msgstr "Taajuusalueet:"
+
+#: ../charts/statsqsospercontinentbarchartwidget.cpp:47
+#: ../charts/statsqsospercontinentbarchartwidget.cpp:61
+msgctxt "StatsQSOsPerContinentBarChartWidget|"
+msgid "QSOs per continent"
+msgstr ""
+
+#: ../charts/statsqsospercontinentbarchartwidget.cpp:51
+#, fuzzy
+msgctxt "StatsQSOsPerContinentBarChartWidget|"
+msgid "Reading data ... "
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsqsospercontinentbarchartwidget.cpp:51
+msgctxt "StatsQSOsPerContinentBarChartWidget|"
+msgid "Abort reading"
+msgstr ""
+
+#: ../charts/statsqsospercontinentbarchartwidget.cpp:60
+msgctxt "StatsQSOsPerContinentBarChartWidget|"
+msgid "Continents"
+msgstr ""
+
+#: ../charts/statsqsospercontinentbarchartwidget.cpp:70
+#, fuzzy
+msgctxt "StatsQSOsPerContinentBarChartWidget|"
+msgid "Reading data ..."
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsqsospercontinentbarchartwidget.cpp:70
+#, fuzzy
+msgctxt "StatsQSOsPerContinentBarChartWidget|"
+msgid "Hours: "
+msgstr "Tunnit: "
+
+#: ../charts/statsqsosperdxccbarchartwidget.cpp:47
+msgctxt "StatsQSOsPerDXCCBarChartWidget|"
+msgid "QSOs per DXCC"
+msgstr ""
+
+#: ../charts/statsqsosperdxccbarchartwidget.cpp:51
+#, fuzzy
+msgctxt "StatsQSOsPerDXCCBarChartWidget|"
+msgid "Reading data ... "
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsqsosperdxccbarchartwidget.cpp:51
+msgctxt "StatsQSOsPerDXCCBarChartWidget|"
+msgid "Abort reading"
+msgstr ""
+
+#: ../charts/statsqsosperdxccbarchartwidget.cpp:53
+#: ../charts/statsqsosperdxccbarchartwidget.cpp:96
+#, fuzzy
+msgctxt "StatsQSOsPerDXCCBarChartWidget|"
+msgid "Reading data..."
+msgstr "Luetaan tietoja..."
+
+#: ../charts/statsqsosperdxccbarchartwidget.cpp:96
+#, fuzzy
+msgctxt "StatsQSOsPerDXCCBarChartWidget|"
+msgid "Entity: "
+msgstr "Yksikkö: "
+
+#: ../charts/statsqsosperdxccbarchartwidget.cpp:119
+#, fuzzy
+msgctxt "StatsQSOsPerDXCCBarChartWidget|"
+msgid "DXCC"
+msgstr "DXCC"
+
+#: ../charts/statsqsosperdxccbarchartwidget.cpp:120
+#, fuzzy
+msgctxt "StatsQSOsPerDXCCBarChartWidget|"
+msgid "Top ten DXCC per QSO"
+msgstr "Kymmenen parasta DXCC:tä QSOittain"
+
+#: ../charts/statsqsosperhourbarchartwidget.cpp:47
+msgctxt "StatsQSOsPerHourBarChartWidget|"
+msgid "QSOs per hour"
+msgstr ""
+
+#: ../charts/statsqsosperhourbarchartwidget.cpp:51
+#, fuzzy
+msgctxt "StatsQSOsPerHourBarChartWidget|"
+msgid "Reading data ... "
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsqsosperhourbarchartwidget.cpp:51
+msgctxt "StatsQSOsPerHourBarChartWidget|"
+msgid "Abort reading"
+msgstr ""
+
+#: ../charts/statsqsosperhourbarchartwidget.cpp:59
+#, fuzzy
+msgctxt "StatsQSOsPerHourBarChartWidget|"
+msgid "Hours"
+msgstr "Tunnit"
+
+#: ../charts/statsqsosperhourbarchartwidget.cpp:60
+#, fuzzy
+msgctxt "StatsQSOsPerHourBarChartWidget|"
+msgid "QSOs at hour"
+msgstr "QSO:t tunneittain"
+
+#: ../charts/statsqsosperhourbarchartwidget.cpp:70
+#, fuzzy
+msgctxt "StatsQSOsPerHourBarChartWidget|"
+msgid "Reading data ..."
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsqsosperhourbarchartwidget.cpp:70
+#, fuzzy
+msgctxt "StatsQSOsPerHourBarChartWidget|"
+msgid "Hours: "
+msgstr "Tunnit: "
+
+#: ../charts/statsqsospermodebarchartwidget.cpp:47
+msgctxt "StatsQSOsPerModeBarChartWidget|"
+msgid "QSOs per mode"
+msgstr ""
+
+#: ../charts/statsqsospermodebarchartwidget.cpp:51
+#, fuzzy
+msgctxt "StatsQSOsPerModeBarChartWidget|"
+msgid "Reading data ... "
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsqsospermodebarchartwidget.cpp:51
+msgctxt "StatsQSOsPerModeBarChartWidget|"
+msgid "Abort reading"
+msgstr ""
+
+#: ../charts/statsqsospermodebarchartwidget.cpp:56
+#, fuzzy
+msgctxt "StatsQSOsPerModeBarChartWidget|"
+msgid "Modes"
+msgstr "Moodit"
+
+#: ../charts/statsqsospermodebarchartwidget.cpp:57
+#, fuzzy
+msgctxt "StatsQSOsPerModeBarChartWidget|"
+msgid "QSO per mode distribution"
+msgstr "QSO:t moodeittain"
+
+#: ../charts/statsqsospermodebarchartwidget.cpp:67
+#, fuzzy
+msgctxt "StatsQSOsPerModeBarChartWidget|"
+msgid "Reading data ..."
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsqsospermodebarchartwidget.cpp:67
+#, fuzzy
+msgctxt "StatsQSOsPerModeBarChartWidget|"
+msgid "Modes: "
+msgstr "Moodit:"
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:47
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "QSOs per month"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:51
+#, fuzzy
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Reading data ... "
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:51
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Abort reading"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:56
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Jan"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:56
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Feb"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:56
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Mar"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:56
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Apr"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:56
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "May"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:56
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Jun"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:57
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Jul"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:57
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Sep"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:57
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Oct"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:57
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Nov"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:57
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Dec"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:57
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Aug"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:59
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Months"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:60
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "QSOs at Month"
+msgstr ""
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:70
+#, fuzzy
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Reading data ..."
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsqsospermonthbarchartwidget.cpp:70
+msgctxt "StatsQSOsPerMonthBarChartWidget|"
+msgid "Months: "
+msgstr ""
+
+#: ../charts/statsqsosperyearbarchartwidget.cpp:47
+#, fuzzy
+msgctxt "StatsQSOsPerYearBarChartWidget|"
+msgid "Chart title"
+msgstr "Listan otsikko"
+
+#: ../charts/statsqsosperyearbarchartwidget.cpp:51
+#, fuzzy
+msgctxt "StatsQSOsPerYearBarChartWidget|"
+msgid "Reading data ... "
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsqsosperyearbarchartwidget.cpp:51
+msgctxt "StatsQSOsPerYearBarChartWidget|"
+msgid "Abort reading"
+msgstr ""
+
+#: ../charts/statsqsosperyearbarchartwidget.cpp:56
+#, fuzzy
+msgctxt "StatsQSOsPerYearBarChartWidget|"
+msgid "QSOs"
+msgstr "QSO:t"
+
+#: ../charts/statsqsosperyearbarchartwidget.cpp:57
+#, fuzzy
+msgctxt "StatsQSOsPerYearBarChartWidget|"
+msgid "QSOs per year"
+msgstr "QSO:ta vuodessa"
+
+#: ../charts/statsqsosperyearbarchartwidget.cpp:68
+#, fuzzy
+msgctxt "StatsQSOsPerYearBarChartWidget|"
+msgid "Reading data ..."
+msgstr "Luetaan tietoja ... "
+
+#: ../charts/statsqsosperyearbarchartwidget.cpp:68
+#, fuzzy, qt-format
+msgctxt "StatsQSOsPerYearBarChartWidget|"
+msgid "QSO: %1/%2"
+msgstr "QSO: %1/%2"
+
+#: ../charts/statssentconfirmedpiechartwidget.cpp:39
+#, qt-format
+msgctxt "StatsSentConfirmedPieChartWidget|"
+msgid "Sent - %1"
+msgstr ""
+
+#: ../charts/statssentconfirmedpiechartwidget.cpp:40
+#, qt-format
+msgctxt "StatsSentConfirmedPieChartWidget|"
+msgid "Confirmed - %2"
+msgstr ""
+
+#: ../charts/statsworkedconfirmedpiechartwidget.cpp:39
+#, qt-format
+msgctxt "StatsWorkedConfirmedPieChartWidget|"
+msgid "Worked, not confirmed - %1"
+msgstr ""
+
+#: ../charts/statsworkedconfirmedpiechartwidget.cpp:40
+#, qt-format
+msgctxt "StatsWorkedConfirmedPieChartWidget|"
+msgid "Confirmed - %2"
+msgstr ""
+
+#: ../charts/statsworkedsentpiechartwidget.cpp:39
+#, qt-format
+msgctxt "StatsWorkedSentPieChartWidget|"
+msgid "Worked - %1"
+msgstr ""
+
+#: ../charts/statsworkedsentpiechartwidget.cpp:40
+#, qt-format
+msgctxt "StatsWorkedSentPieChartWidget|"
+msgid "Sent - %2"
+msgstr ""
+
+#: ../updatesatsdata.cpp:59
 msgctxt "UpdateSatsData|"
 msgid "Reading Satellites data file..."
 msgstr "Luetaan satelliitti tiedot-tiedostoa..."
 
-#: ../updatesatsdata.cpp:56
+#: ../updatesatsdata.cpp:59
 msgctxt "UpdateSatsData|"
 msgid "Abort reading"
 msgstr "Peruuta lukeminen"
 
-#: ../updatesatsdata.cpp:222
+#: ../updatesatsdata.cpp:213
 msgctxt "UpdateSatsData|"
 msgid "The Satellites information has been updated."
 msgstr "Satelliitti tiedot päivitetty."
 
-#: ../updatesatsdata.cpp:236
+#: ../updatesatsdata.cpp:231
 msgctxt "UpdateSatsData|"
 msgid "Open File"
 msgstr "Avaa tiedosto"
 
-#: ../updatesatsdata.cpp:238
+#: ../updatesatsdata.cpp:233
 msgctxt "UpdateSatsData|"
 msgid "Sat Data"
 msgstr "Satelliittitiedot"
@@ -4812,12 +5375,12 @@ msgctxt "World|"
 msgid "Continent"
 msgstr "Manner"
 
-#: ../world.cpp:1202
+#: ../world.cpp:1199
 msgctxt "World|"
 msgid "Reading cty.csv..."
 msgstr "Luetaan cty.csv..."
 
-#: ../world.cpp:1202
+#: ../world.cpp:1199
 msgctxt "World|"
 msgid "Abort reading"
 msgstr "Keskeytä luku"

@@ -137,113 +137,6 @@
     </message>
 </context>
 <context>
-    <name>BarChartStats</name>
-    <message>
-        <source>Chart title</source>
-        <translation type="obsolete">Listan otsikko</translation>
-    </message>
-    <message>
-        <source>Reading data ... </source>
-        <translation type="vanished">Luetaan tietoja ... </translation>
-    </message>
-    <message>
-        <source>Abort reading</source>
-        <translation type="vanished">Peruuta lukeminen</translation>
-    </message>
-    <message>
-        <source>QSOs</source>
-        <translation type="vanished">QSO:t</translation>
-    </message>
-    <message>
-        <source>QSOs per year</source>
-        <translation type="vanished">QSO:ta vuodessa</translation>
-    </message>
-    <message>
-        <source>Reading data ...</source>
-        <translation type="vanished">Luetaan tietoja ... </translation>
-    </message>
-    <message>
-        <source>QSO: %1/%2</source>
-        <translation type="vanished">QSO: %1/%2</translation>
-    </message>
-    <message>
-        <source>DXCC Entities</source>
-        <translation type="vanished">DXCC Yksiköitä</translation>
-    </message>
-    <message>
-        <source>DXCC Entities per year</source>
-        <translation type="vanished">DXCC Yksiköitä vuosittain</translation>
-    </message>
-    <message>
-        <source>Entities: </source>
-        <translation type="vanished">Yksiköitä</translation>
-    </message>
-    <message>
-        <source>CQ zones</source>
-        <translation type="vanished">CQ alueet</translation>
-    </message>
-    <message>
-        <source>CQ zone per year</source>
-        <translation type="vanished">CQ alueita vuosittain</translation>
-    </message>
-    <message>
-        <source>Years: %1/%2</source>
-        <translation type="vanished">Vuodet: %1%2</translation>
-    </message>
-    <message>
-        <source>Bands</source>
-        <translation type="vanished">Taajuusalueet</translation>
-    </message>
-    <message>
-        <source>QSO per band distribution</source>
-        <translation type="vanished">QSO:t taajuusalueittain</translation>
-    </message>
-    <message>
-        <source>Bands: </source>
-        <translation type="vanished">Taajuusalueet:</translation>
-    </message>
-    <message>
-        <source>Modes</source>
-        <translation type="vanished">Moodit</translation>
-    </message>
-    <message>
-        <source>QSO per mode distribution</source>
-        <translation type="vanished">QSO:t moodeittain</translation>
-    </message>
-    <message>
-        <source>Reading data...</source>
-        <translation type="vanished">Luetaan tietoja...</translation>
-    </message>
-    <message>
-        <source>Modes: </source>
-        <translation type="vanished">Moodit:</translation>
-    </message>
-    <message>
-        <source>Entity: </source>
-        <translation type="vanished">Yksikkö: </translation>
-    </message>
-    <message>
-        <source>DXCC</source>
-        <translation type="vanished">DXCC</translation>
-    </message>
-    <message>
-        <source>Top ten DXCC per QSO</source>
-        <translation type="vanished">Kymmenen parasta DXCC:tä QSOittain</translation>
-    </message>
-    <message>
-        <source>Hours</source>
-        <translation type="vanished">Tunnit</translation>
-    </message>
-    <message>
-        <source>QSOs at hour</source>
-        <translation type="vanished">QSO:t tunneittain</translation>
-    </message>
-    <message>
-        <source>Hours: </source>
-        <translation type="vanished">Tunnit: </translation>
-    </message>
-</context>
-<context>
     <name>CTYPage</name>
     <message>
         <location filename="../startwizard.cpp" line="914"/>
@@ -2237,12 +2130,6 @@ UDP-palvelin ei onnistunut %1.</translation>
         <translation>Keskeytä täyttäminen</translation>
     </message>
     <message>
-        <source>Filling QSOs...
- QSO: </source>
-        <translation type="vanished">Täyttää QSO:ita...
- QSO: </translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="6518"/>
         <source>Number</source>
         <translation>Numero</translation>
@@ -2747,10 +2634,6 @@ UDP-palvelin ei onnistunut %1.</translation>
         <location filename="../mainwindowsattab.cpp" line="92"/>
         <source>DownLink band.</source>
         <translation>Vastaanottolinkin taajuusalue.</translation>
-    </message>
-    <message>
-        <source>Locator of the DX station. This box is syncronized with the Locator box in the QSO tab.</source>
-        <translation type="vanished">DX aseman lokaattori. Tämä ruutu on synkronoitu QSO-välilehden Locator-ruutuun.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="93"/>
@@ -4471,10 +4354,6 @@ It may be caused because the file you are trying to import does not have the rig
         <location filename="../setuppageudp.cpp" line="79"/>
         <source>Milliseconds that the notification of QSO received from WSJTX will be shown.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Miliseconds that the notification of QSO received from WSJTX will be shown.</source>
-        <translation type="vanished">Millisekunnit, jonka ajan WSJT-X:ltä saadut, QSO vastaanotettu, ilmoitukset näytetään.</translation>
     </message>
 </context>
 <context>
