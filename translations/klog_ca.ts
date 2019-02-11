@@ -137,113 +137,6 @@
     </message>
 </context>
 <context>
-    <name>BarChartStats</name>
-    <message>
-        <source>Chart title</source>
-        <translation type="vanished">Títol del gràfic</translation>
-    </message>
-    <message>
-        <source>Abort reading</source>
-        <translation type="vanished">Interromp la lectura</translation>
-    </message>
-    <message>
-        <source>Reading data ... </source>
-        <translation type="vanished">S&apos;estan llegint les dades... </translation>
-    </message>
-    <message>
-        <source>QSOs</source>
-        <translation type="vanished">QSO</translation>
-    </message>
-    <message>
-        <source>QSOs per year</source>
-        <translation type="vanished">QSO per any</translation>
-    </message>
-    <message>
-        <source>QSO: %1/%2</source>
-        <translation type="vanished">QSO: %1/%2</translation>
-    </message>
-    <message>
-        <source>DXCC Entities</source>
-        <translation type="vanished">Entitats DXCC</translation>
-    </message>
-    <message>
-        <source>DXCC Entities per year</source>
-        <translation type="vanished">Entitats DXCC per any</translation>
-    </message>
-    <message>
-        <source>CQ zones</source>
-        <translation type="vanished">Zones CQ</translation>
-    </message>
-    <message>
-        <source>CQ zone per year</source>
-        <translation type="vanished">Zones CQ per any</translation>
-    </message>
-    <message>
-        <source>Years: %1/%2</source>
-        <translation type="vanished">Anys: %1/%2</translation>
-    </message>
-    <message>
-        <source>Bands</source>
-        <translation type="vanished">Bandes</translation>
-    </message>
-    <message>
-        <source>QSO per band distribution</source>
-        <translation type="vanished">QSO per distribució de bandes</translation>
-    </message>
-    <message>
-        <source>Reading data ...</source>
-        <translation type="vanished">S&apos;estan llegint les dades...</translation>
-    </message>
-    <message>
-        <source>Entities: </source>
-        <translation type="vanished">Entitats: </translation>
-    </message>
-    <message>
-        <source>Bands: </source>
-        <translation type="vanished">Bandes: </translation>
-    </message>
-    <message>
-        <source>Modes</source>
-        <translation type="vanished">Modes</translation>
-    </message>
-    <message>
-        <source>QSO per mode distribution</source>
-        <translation type="vanished">QSO per distribució de modes</translation>
-    </message>
-    <message>
-        <source>Reading data...</source>
-        <translation type="vanished">S&apos;estan llegint les dades...</translation>
-    </message>
-    <message>
-        <source>Modes: </source>
-        <translation type="vanished">Modes: </translation>
-    </message>
-    <message>
-        <source>Entity: </source>
-        <translation type="vanished">Entitat: </translation>
-    </message>
-    <message>
-        <source>DXCC</source>
-        <translation type="vanished">DXCC</translation>
-    </message>
-    <message>
-        <source>Top ten DXCC per QSO</source>
-        <translation type="vanished">Els deu DXCC més importants per QSO</translation>
-    </message>
-    <message>
-        <source>Hours</source>
-        <translation type="vanished">Hores</translation>
-    </message>
-    <message>
-        <source>QSOs at hour</source>
-        <translation type="vanished">QSO per hora</translation>
-    </message>
-    <message>
-        <source>Hours: </source>
-        <translation type="vanished">Hores: </translation>
-    </message>
-</context>
-<context>
     <name>CTYPage</name>
     <message>
         <location filename="../startwizard.cpp" line="914"/>
@@ -2241,12 +2134,6 @@ El servidor UDP ha fallat en %1.</translation>
         <translation>Interromp l&apos;ompliment</translation>
     </message>
     <message>
-        <source>Filling QSOs...
- QSO: </source>
-        <translation type="vanished">Ompliment dels QSO... 
- QSO:</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="6518"/>
         <source>Number</source>
         <translation>Número</translation>
@@ -2807,10 +2694,6 @@ El servidor UDP ha fallat en %1.</translation>
         <location filename="../mainwindowsattab.cpp" line="82"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
         <translation>Les dades introduïdes en aquesta pestanya es copiaran en el QSO següent.</translation>
-    </message>
-    <message>
-        <source>Locator of the DX station. This box is syncronized with the Locator box in the QSO tab.</source>
-        <translation type="vanished">Localitzador de l&apos;estació DX. Aquest quadre se sincronitza amb el quadre de localitzador de la pestanya QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="410"/>
@@ -4475,10 +4358,6 @@ It may be caused because the file you are trying to import does not have the rig
         <location filename="../setuppageudp.cpp" line="79"/>
         <source>Milliseconds that the notification of QSO received from WSJTX will be shown.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Miliseconds that the notification of QSO received from WSJTX will be shown.</source>
-        <translation type="vanished">Mil·lisegons en que es mostrarà la notificació del QSO rebut des de WSJTX.</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="58"/>

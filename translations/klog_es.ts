@@ -137,121 +137,6 @@
     </message>
 </context>
 <context>
-    <name>BarChartStats</name>
-    <message>
-        <source>Chart title</source>
-        <translation type="vanished">Título del gráfico</translation>
-    </message>
-    <message>
-        <source>Abort reading</source>
-        <translation type="vanished">Cancelar lectura</translation>
-    </message>
-    <message>
-        <source>Reading data ... </source>
-        <translation type="vanished">Leyendo datos ...</translation>
-    </message>
-    <message>
-        <source>QSOs</source>
-        <translation type="vanished">QSOs</translation>
-    </message>
-    <message>
-        <source>QSOs per year</source>
-        <translation type="vanished">QSOs por año</translation>
-    </message>
-    <message>
-        <source>QSO: %1/%2</source>
-        <translation type="vanished">QSO: %1/%2</translation>
-    </message>
-    <message>
-        <source>DXCC Entities</source>
-        <translation type="vanished">Entidades DXCC</translation>
-    </message>
-    <message>
-        <source>DXCC Entities per year</source>
-        <translation type="vanished">Entidades DXCC por año</translation>
-    </message>
-    <message>
-        <source>CQ zones</source>
-        <translation type="vanished">Zonas CQ</translation>
-    </message>
-    <message>
-        <source>CQ zone per year</source>
-        <translation type="vanished">Zonas CQ por año</translation>
-    </message>
-    <message>
-        <source>Years: %1/%2</source>
-        <translation type="vanished">Años: %1/%2</translation>
-    </message>
-    <message>
-        <source>Bands</source>
-        <translation type="vanished">Bandas</translation>
-    </message>
-    <message>
-        <source>QSO per band distribution</source>
-        <translation type="vanished">Distribubución de QSO por banda</translation>
-    </message>
-    <message>
-        <source>Reading data ...</source>
-        <translation type="vanished">Leyendo datos ...</translation>
-    </message>
-    <message>
-        <source>Entities: </source>
-        <translation type="vanished">Entidades:</translation>
-    </message>
-    <message>
-        <source>Bands: </source>
-        <translation type="vanished">Bandas:</translation>
-    </message>
-    <message>
-        <source>Modes</source>
-        <translation type="vanished">Modos</translation>
-    </message>
-    <message>
-        <source>QSO per mode distribution</source>
-        <translation type="vanished">Distribución QSO por modo</translation>
-    </message>
-    <message>
-        <source>Reading data...</source>
-        <translation type="vanished">Leyendo datos ...</translation>
-    </message>
-    <message>
-        <source>Modes: </source>
-        <translation type="vanished">Modos:</translation>
-    </message>
-    <message>
-        <source>Entity: </source>
-        <translation type="vanished">Entidad:</translation>
-    </message>
-    <message>
-        <source>DXCC</source>
-        <translation type="vanished">DXCC</translation>
-    </message>
-    <message>
-        <source>Top ten DXCC per QSO</source>
-        <translation type="vanished">Top 10 de DXCC por QSO</translation>
-    </message>
-    <message>
-        <source>Continents</source>
-        <translation type="vanished">Continentes</translation>
-    </message>
-    <message>
-        <source>QSOs per continent</source>
-        <translation type="vanished">QSOs por continente</translation>
-    </message>
-    <message>
-        <source>Hours</source>
-        <translation type="vanished">Horas</translation>
-    </message>
-    <message>
-        <source>QSOs at hour</source>
-        <translation type="vanished">QSO por hora</translation>
-    </message>
-    <message>
-        <source>Hours: </source>
-        <translation type="vanished">Horas:</translation>
-    </message>
-</context>
-<context>
     <name>CTYPage</name>
     <message>
         <location filename="../startwizard.cpp" line="914"/>
@@ -2250,12 +2135,6 @@ El servidor de UDP falló al %1.</translation>
         <translation>Cancelar completado</translation>
     </message>
     <message>
-        <source>Filling QSOs...
- QSO: </source>
-        <translation type="vanished">Completando QSOs ...
- QSO: </translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="6518"/>
         <source>Number</source>
         <translation>Número</translation>
@@ -2816,10 +2695,6 @@ El servidor de UDP falló al %1.</translation>
         <location filename="../mainwindowsattab.cpp" line="82"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
         <translation>Los datos introducidos en esta pestaña se copiarán al próximo QSO.</translation>
-    </message>
-    <message>
-        <source>Locator of the DX station. This box is syncronized with the Locator box in the QSO tab.</source>
-        <translation type="vanished">Locator de la estación DX. Este cuadro se sincroniza con el cuadro de Locator en la pestaña QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="410"/>
@@ -4485,10 +4360,6 @@ It may be caused because the file you are trying to import does not have the rig
         <translation>Milisegundos que se mostrará la notificación de QSO recibida de WSJTX.</translation>
     </message>
     <message>
-        <source>Miliseconds that the notification of QSO received from WSJTX will be shown.</source>
-        <translation type="vanished">Milisegundos que se mostrará la notificación de QSO recibido desde WSJT-X</translation>
-    </message>
-    <message>
         <location filename="../setuppageudp.cpp" line="58"/>
         <source>Make sure it is the same port where the other programs are sending the data to. Default port is 2237.</source>
         <translation>Asegúrese de que es el mismo puerto al que los otrosprogramas están enviando datos. El puerto predeterminado es el 2237.</translation>
@@ -5279,10 +5150,6 @@ It may be caused because the file you are trying to import does not have the rig
         <translation>Jul</translation>
     </message>
     <message>
-        <source>Ago</source>
-        <translation type="vanished">Ago</translation>
-    </message>
-    <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
         <source>Sep</source>
         <translation>Sep</translation>
@@ -5381,10 +5248,6 @@ It may be caused because the file you are trying to import does not have the rig
 </context>
 <context>
     <name>StatsWorkedConfirmedPieChartWidget</name>
-    <message>
-        <source>Worked - %1</source>
-        <translation type="vanished">Trabajado - %1</translation>
-    </message>
     <message>
         <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="39"/>
         <source>Worked, not confirmed - %1</source>
