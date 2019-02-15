@@ -278,8 +278,8 @@ private slots:
     void slotSatBandTXComboBoxChanged(const QString _q);
 
     void slotDefineNewBands(const QStringList _bands);
-    void slotChangeRXFreq(const QString _f);
-    void slotChangeTXFreq(const QString _f);
+    void slotSatChangeRXFreq(const double _f);
+    void slotSatChangeTXFreq(const double _f);
 	
     //DXCCWIDGET
     void slotShowQSOFromDXCCWidget(const int _q);

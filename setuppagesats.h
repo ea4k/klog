@@ -56,7 +56,7 @@ private slots:
     void slotNewButtonClicked();
     void slotEditButtonClicked();
     void slotRemoveButtonClicked();
-    //void slotAnalyzeNewSatData(const QStringList _qs);
+    void slotAnalyzeNewSatData(const QStringList _qs);
     void slotSatselected(const QModelIndex & index);
     void slotSatDoubleClicked(const QModelIndex & index);
     void slotSatsCancelled(const bool _q);

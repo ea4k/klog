@@ -473,9 +473,14 @@ bool DataProxy::clearSatList()
     return false;
 }
 
-bool DataProxy::addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode)
+bool DataProxy::addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode, int id)
 {
     return false;
+}
+
+int DataProxy::getDBSatId(const QString _arrlId)
+{
+    return -1;
 }
 
 QStringList DataProxy::getSatellitesList()

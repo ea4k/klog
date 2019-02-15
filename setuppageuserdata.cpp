@@ -270,6 +270,7 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy *dp, QWidget *parent) : Q
     connect(operatorsLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotOperatorsChanged() ) );
 
     setLayout(mainLayout);
+    qrzLineEdit->setFocus();
 
      //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage - END" << endl;
 }

@@ -316,7 +316,7 @@ QString DataProxy_SQLite::getSubModeFromId (const int _id)
     }
 
 
-    return QString();
+    //return QString();
 }
 
 QString DataProxy_SQLite::getNameFromSubMode (const QString _sm)
@@ -756,7 +756,7 @@ int DataProxy_SQLite::getMostUsedBand(const int _log)
 
 int DataProxy_SQLite::getMostUsedMode(const int _log)
 {
-       //qDebug() << "DataProxy_SQLite::getMostUsedMode: " << endl;
+    qDebug() << "DataProxy_SQLite::getMostUsedMode: " << endl;
 
     QString queryString = QString();
     if (_log <=0 )
@@ -1320,7 +1320,7 @@ bool DataProxy_SQLite::isQSLSent(const int _qsoId)
         query.finish();
         return false;
     }
-    return false;
+    //return false;
 }
 
 
@@ -3133,15 +3133,28 @@ bool DataProxy_SQLite::clearSatList()
     }
 }
 
-bool DataProxy_SQLite::addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode)
+bool DataProxy_SQLite::addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode, int id)
 {
+    qDebug()  << "DataProxy_SQLite::addSatellite: " << QString::number(id)  << endl;
     QSqlQuery query;
-    QString queryString = QString("INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('%1', '%2', '%3', '%4', '%5')").arg(_arrlId).arg(_name).arg(_upLink).arg(_downLink).arg(_mode);
+    QString queryString;
+
+    if (id>0)
+    {
+        queryString = QString("UPDATE satellites set satarrlid = '%1', satname = '%2', uplink = '%3', downlink = '%4', satmode = '%5' WHERE id = '%6'").arg(_arrlId).arg(_name).arg(_upLink).arg(_downLink).arg(_mode).arg(id);
+
+    }
+    else
+    {
+        queryString = QString("INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('%1', '%2', '%3', '%4', '%5')").arg(_arrlId).arg(_name).arg(_upLink).arg(_downLink).arg(_mode);
+    }
+
     bool sqlOK = query.exec(queryString);
+    qDebug()  << "DataProxy_SQLite::addSatellite - query: " <<  query.lastQuery() << endl;
 
     if (sqlOK)
     {
-        //QDebug()  << "DataProxy_SQLite::addSatellite - TRUE"  << endl;
+        qDebug()  << "DataProxy_SQLite::addSatellite - TRUE"  << endl;
         //QDebug()  << "DataProxy_SQLite::addSatellite - TRUE - ERROR: " <<  QString::number(query.lastError().number()) << endl;
         query.finish();
         return true;
@@ -3163,6 +3176,40 @@ bool DataProxy_SQLite::addSatellite(const QString _arrlId, const QString _name, 
         return false;
     }
 
+}
+
+int DataProxy_SQLite::getDBSatId(const QString _arrlId)
+{
+    //qDebug()  << "DataProxy_SQLite::getDBSatId: " << _sat << endl;
+ int aux = -1;
+ QString queryString = QString("SELECT id FROM satellites WHERE satarrlid='%1'").arg(_arrlId);
+ QSqlQuery query;
+
+ bool sqlOK = query.exec(queryString);
+
+ if (sqlOK)
+ {
+     query.next();
+     if (query.isValid())
+     {
+         aux = query.value(0).toInt();
+     }
+     else
+     {
+            //qDebug()  << "DataProxy_SQLite::getDBSatId:  query not valid"  << endl;
+         query.finish();
+     }
+ }
+ else
+ {
+        //qDebug()  << "DataProxy_SQLite::getSatelliteUplink:  query failed: " << query.lastQuery()  << endl;
+     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+     query.finish();
+ }
+
+    //qDebug()  << "DataProxy_SQLite::getSatelliteUplink: final: " << aux << endl;
+ query.finish();
+ return aux;
 }
 
 QStringList DataProxy_SQLite::getSatellitesList()
@@ -3916,7 +3963,7 @@ bool DataProxy_SQLite::haveAtLeastOneLog()
         query.finish();
         return false;
     }
-    return false;
+    //return false;
 }
 
 QStringList DataProxy_SQLite::getColumnNamesFromTableLog()
@@ -5372,7 +5419,7 @@ QStringList DataProxy_SQLite::getContinentShortNames()
         query.finish();
         return QStringList();
     }
-    return QStringList();
+    //return QStringList();
 }
 
 bool DataProxy_SQLite::isValidContinentShortName(const QString _n)
@@ -5679,7 +5726,7 @@ int DataProxy_SQLite::getDXCCFromPrefix(const QString _p)
         query.finish();
         return -3;
     }
-    return -4;
+    //return -4;
 }
 
 
@@ -5713,7 +5760,7 @@ bool DataProxy_SQLite::isNewCQz(int _c)
 
     }
 
-    return false;
+    //return false;
 }
 
 bool DataProxy_SQLite::isNewEntity(int _e)

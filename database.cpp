@@ -302,31 +302,31 @@ bool DataBase::createConnection(bool newDB)
     {
          //qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
         //db = QSqlDatabase::database();
-        qDebug() << "DataBase::createConnection: Start the test"  << endl;
+       //qDebug) << "DataBase::createConnection: Start the test"  << endl;
         if (db.isValid())
         {
-            qDebug() << "DataBase::createConnection: DB is Valid"  << endl;
+           //qDebug) << "DataBase::createConnection: DB is Valid"  << endl;
 
         }
         else
         {
-            qDebug() << "DataBase::createConnection: DB is not valid, let's call addDataBase"  << endl;
+           //qDebug) << "DataBase::createConnection: DB is not valid, let's call addDataBase"  << endl;
             db = QSqlDatabase::addDatabase("QSQLITE");
-            qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  << endl;
+           //qDebug) << "DataBase::createConnection: Now we call setDatabaseName"  << endl;
             db.setDatabaseName(dbName);
-            qDebug() << "DataBase::createConnection: end of not valid"  << endl;
+           //qDebug) << "DataBase::createConnection: end of not valid"  << endl;
         }
-        qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  << endl;
+       //qDebug) << "DataBase::createConnection: end of valid check, let's try if it is open"  << endl;
         if (!db.open())
         {
-            qDebug() << "DataBase::createConnection:Not open "  << endl;
+           //qDebug) << "DataBase::createConnection:Not open "  << endl;
             QMessageBox::warning(0, QObject::tr("Database Error"), db.lastError().text());
              //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
             return false;
         }
         else
         {
-             qDebug() << "DataBase::createConnection: created and opened after the creation" << endl;
+            //qDebug) << "DataBase::createConnection: created and opened after the creation" << endl;
             if (isTheDBCreated())
             {
                  //qDebug() << "DataBase::createConnection: DB Exists"  << endl;
@@ -377,7 +377,7 @@ bool DataBase::createConnection(bool newDB)
     }
 
     //created = true;
-    qDebug() << "DataBase::createConnection -------------------------------------------- END" << endl;
+   //qDebug) << "DataBase::createConnection -------------------------------------------- END" << endl;
     return unMarkAllQSO();
 }
 
@@ -1042,7 +1042,7 @@ int DataBase::getModeIdFromSubMode(const QString b)
 {
       //qDebug() << "DataBase::getModeIdFromSubMode: " << b << endl;
      QSqlQuery query;
-     QString queryString = QString("SELECT id FROM modetemp WHERE submode='%1'").arg(b);
+     QString queryString = QString("SELECT id FROM mode WHERE submode='%1'").arg(b);
 /*
      if (_tmp)
      {
@@ -1667,7 +1667,7 @@ int DataBase::getBandIDFromName2(const QString b)
 
 int DataBase::getModeIDFromName2(const QString b)
 {
-    qDebug() << "DataBase::getModeIDFromName2: " << b << endl;
+    //qDebug() << "DataBase::getModeIDFromName2: " << b << endl;
     return getModeIdFromSubMode(b);
 
     if (b.length()<2)
@@ -1694,7 +1694,7 @@ int DataBase::getModeIDFromName2(const QString b)
 
 int DataBase::getSubModeIDFromName2(const QString b)
 {
-     qDebug() << "DataBase::getSubModeIDFromName2: " << b << endl;
+     //qDebug() << "DataBase::getSubModeIDFromName2: " << b << endl;
 
 
     return getModeIdFromSubMode(b);

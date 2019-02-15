@@ -119,7 +119,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(horizontalLayout);
     mainLayout->addLayout(buttonsLayout);
-
+    userDataPage->setFocus();
     setLayout(mainLayout);
 
     setWindowTitle(tr("Config Dialog"));

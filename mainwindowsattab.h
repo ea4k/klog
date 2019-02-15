@@ -55,6 +55,7 @@ public:
     void setDefaultBands(); //Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist on the selected bands
 
     void setUpLink(const QString _t);
+    void setUpLinkFreq(const double _t);
     void setLocator(const QString _t);
     void refreshData();
 
@@ -65,8 +66,8 @@ signals:
     void satBandTXChanged(const QString _p);
     void satBandRXChanged(const QString _p);
     void newBandsToBeAdded(const QStringList _p);
-    void txFreqChanged(const QString _p);
-    void rxFreqChanged(const QString _p);
+    void satTxFreqChanged(const double _p);
+    void satRxFreqChanged(const double _p);
     void dxLocatorChanged(const QString _p);
 
 private slots:
