@@ -61,13 +61,11 @@ SetupPageSats::SetupPageSats(DataProxy *dp, QWidget *parent) : QWidget(parent){
 
     lastSat = 0;
 
-
     newSatPushButton = new QPushButton(tr("&New"), this);
     editPushButton = new QPushButton(tr("&Edit"), this);
     removePushButton = new QPushButton(tr("&Remove"), this);
     importPushButton = new QPushButton(tr("&Import"), this);
     exportPushButton = new QPushButton(tr("E&xport"), this);
-
 
     newSatPushButton->setToolTip(tr("Add a new satellite."));
     editPushButton->setToolTip(tr("Edit the selected satellite."));
@@ -130,7 +128,7 @@ void SetupPageSats::slotNewButtonClicked()
 
 void SetupPageSats::slotEditButtonClicked()
 {
-    qDebug() << "SetupPageSats::slotEditButtonClicked" << endl;
+   //qDebug) << "SetupPageSats::slotEditButtonClicked" << endl;
     //QSqlQuery query;
     //int nameCol = -1;
 
@@ -304,7 +302,7 @@ void SetupPageSats::createSatsPanel()
 
 void SetupPageSats::createSatsModel()
 {
-    qDebug() << "SetupPageSats::createsatsModel" << endl;
+   //qDebug) << "SetupPageSats::createsatsModel" << endl;
 
         QString stringQuery = QString("SELECT * FROM satellites");
         QSqlQuery q(stringQuery);
@@ -339,7 +337,7 @@ void SetupPageSats::createSatsModel()
 
 void SetupPageSats::slotSatselected(const QModelIndex & index)
 {
-    qDebug() << "SetupPageSats::slotSatselected"  << endl;
+   //qDebug) << "SetupPageSats::slotSatselected"  << endl;
     int row = index.row();
     setSelectedSat((satsModel->index(row, 0)).data(0).toInt());
 
@@ -354,6 +352,10 @@ void SetupPageSats::slotSatDoubleClicked(const QModelIndex & index)
     slotEditButtonClicked();
 
 }
+void SetupPageSats::slotAnalyzeNewSatData(const QStringList _qs)
+{
+    updateSelectedSats();
+}
 
 void SetupPageSats::createActions()
 {
@@ -363,7 +365,7 @@ void SetupPageSats::createActions()
     connect(newSatPushButton, SIGNAL(clicked ( )), this, SLOT(slotNewButtonClicked() ) );
     connect(removePushButton, SIGNAL(clicked ( )), this, SLOT(slotRemoveButtonClicked() ) );
     connect(editPushButton, SIGNAL(clicked ( )), this, SLOT(slotEditButtonClicked() ) );
-    //connect(newSat, SIGNAL(newSatData(QStringList)), this, SLOT(slotAnalyzeNewSatData(QStringList) ) );
+    connect(newSat, SIGNAL(newSatData(QStringList)), this, SLOT(slotAnalyzeNewSatData(QStringList) ) );
     connect(satsView, SIGNAL(clicked(QModelIndex)), this, SLOT(slotSatselected(QModelIndex) ) );
     connect(satsView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(slotSatDoubleClicked(QModelIndex) ) );
     //connect(SatView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickSat( const QModelIndex& ) ) );
@@ -425,8 +427,9 @@ bool SetupPageSats::addNewSat(const QStringList _qs)
 
 void SetupPageSats::updateSelectedSats()
 {
-  qDebug() << "SetupPageSats::updateSelectedSats" << endl;
+ //qDebug) << "SetupPageSats::updateSelectedSats" << endl;
     satsAvailable = readSats();
+    satsModel->select();
 
     if (satsAvailable.length()>0)
     {
@@ -435,7 +438,7 @@ void SetupPageSats::updateSelectedSats()
     }
     else
     {
-         qDebug() << "SetupPageSats::updateSelectedSats Not selected (less than 1)" << endl;
+        //qDebug) << "SetupPageSats::updateSelectedSats Not selected (less than 1)" << endl;
         currentSats->clear();
     }
 }
@@ -509,7 +512,7 @@ QStringList SetupPageSats::readSats()
 
 int SetupPageSats::getSelectedSat()
 {
-    qDebug() << "SetupPageSats::getSelectedSat: " << currentSats->currentText() << endl;
+   //qDebug) << "SetupPageSats::getSelectedSat: " << currentSats->currentText() << endl;
     QString selectedSat = currentSats->currentText();
     int i = 0;
     QStringList qs;
@@ -529,18 +532,18 @@ int SetupPageSats::getSelectedSat()
 
 void SetupPageSats::setSelectedSat(const int _i)
 {
-    qDebug() << "SetupPageSats::SetupPageSats::setSelectedSat: " << QString::number(_i) << endl;
+   //qDebug) << "SetupPageSats::SetupPageSats::setSelectedSat: " << QString::number(_i) << endl;
 
     QString n = QString::number(_i) + "-";
     int selected = currentSats->findText(n, Qt::MatchStartsWith);
     if (selected >= 0)
     {
-        qDebug() << "SetupPageSats::SetupPageSats::setSelectedSat selected>0: " << QString::number(selected) << endl;
+       //qDebug) << "SetupPageSats::SetupPageSats::setSelectedSat selected>0: " << QString::number(selected) << endl;
         currentSats->setCurrentIndex(selected);
     }
     else
     {
-         qDebug() << "SetupPageSats::SetupPageSats::setSelectedSat not selected" << endl;
+        //qDebug) << "SetupPageSats::SetupPageSats::setSelectedSat not selected" << endl;
         return;
     }
 }
@@ -576,7 +579,7 @@ void SetupPageSats::showError(const QString _errorC)
 
 void SetupPageSats::slotImportButtonClicked()
 {
-    qDebug() << "SetupPageSats::slotImportButtonClicked" << endl;
+   //qDebug) << "SetupPageSats::slotImportButtonClicked" << endl;
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Satellites File"),
                                                      util->getHomeDir(),
@@ -590,11 +593,11 @@ void SetupPageSats::slotImportButtonClicked()
     if (updateSat->satDataFileRead(fileName))
     {
 
-        qDebug() << "SetupPageSats::slotImportButtonClicked IMPORTED OK" << endl;
+       //qDebug) << "SetupPageSats::slotImportButtonClicked IMPORTED OK" << endl;
     }
     else
     {
-        qDebug() << "SetupPageSats::slotImportButtonClicked IMPORTED NOK" << endl;
+       //qDebug) << "SetupPageSats::slotImportButtonClicked IMPORTED NOK" << endl;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog warning"));
@@ -623,7 +626,7 @@ void SetupPageSats::slotImportButtonClicked()
 
 void SetupPageSats::slotExportButtonClicked()
 {
-    qDebug() << "SetupPageSats::slotExportButtonClicked" << endl;
+   //qDebug) << "SetupPageSats::slotExportButtonClicked" << endl;
 
     int nameCol = -1;
     QString queryString, aux;
@@ -642,7 +645,7 @@ void SetupPageSats::slotExportButtonClicked()
             if (query.isValid())
             {
                 satsN = (query.value(0)).toInt();
-                qDebug() << "SetupPageSats::slotExportButtonClicked: Sats: " << QString::number(satsN) << endl;
+               //qDebug) << "SetupPageSats::slotExportButtonClicked: Sats: " << QString::number(satsN) << endl;
             }
             else
             {
@@ -718,5 +721,5 @@ void SetupPageSats::slotExportButtonClicked()
 
     }
 
-    qDebug() << "SetupPageSats::slotExportButtonClicked END" << endl;
+   //qDebug) << "SetupPageSats::slotExportButtonClicked END" << endl;
 }

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
+    <extra-po-header-language>de</extra-po-header-language>
+    <extra-po-header-language_team>German &lt;kde-i18n-de@kde.org&gt;</extra-po-header-language_team>
+    <extra-po-header-last_translator>Burkhard Lück &lt;lueck@hube-lueck.de&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2019-02-12 09:12+0100</extra-po-header-po_revision_date>
+    <extra-po-header-project_id_version></extra-po-header-project_id_version>
+    <extra-po-header-x_generator>Lokalize 2.0</extra-po-header-x_generator>
+    <extra-po-header_comment># Burkhard Lück &lt;lueck@hube-lueck.de&gt;, 2019.</extra-po-header_comment>
+    <extra-po-headers>MIME-Version,Content-Type,Content-Transfer-Encoding,Plural-Forms,X-Language,X-Qt-Contexts,Last-Translator,PO-Revision-Date,Project-Id-Version,Language-Team,Language,X-Generator</extra-po-headers>
 <context>
     <name>AboutDialog</name>
     <message>
@@ -3229,7 +3237,7 @@ Der UDP-Server kann %1 nicht ausführen.</translation>
         <location filename="../setupdialog.cpp" line="98"/>
         <location filename="../setupdialog.cpp" line="176"/>
         <source>Satellites</source>
-        <translation type="unfinished"></translation>
+        <translation>Satelliten</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="101"/>
@@ -4070,102 +4078,102 @@ Das Protokoll wird nicht geöffnet.</translation>
     <message>
         <location filename="../setuppagesats.cpp" line="65"/>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Neu</translation>
+        <translation>&amp;Neu</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="66"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Bearbeiten</translation>
+        <translation>&amp;Bearbeiten</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="67"/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Entfernen</translation>
+        <translation>&amp;Entfernen</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="68"/>
         <source>&amp;Import</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Importieren</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="69"/>
         <source>E&amp;xport</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;xportieren</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="72"/>
         <source>Add a new satellite.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügt einen neuen Satelliten hinzu.</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="73"/>
         <source>Edit the selected satellite.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeitet den ausgewählten Satelliten.</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="74"/>
         <source>Remove the selected satellite.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entfernt den ausgewählten Satelliten.</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="75"/>
         <source>Import a satellites file. It will replace the satellites you have now configured.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiert eine Satellitendatei. Die eingerichteten Satellitendaten werden dadurch ersetzt.</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="76"/>
         <source>Export your current satellites to a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportiert die aktuellen Satellitendaten in eine Datei.</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="78"/>
         <source>Select the sat you want to open.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie die Satellitendaten, den Sie öffnen möchten.</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="212"/>
         <source>KLog</source>
-        <translation type="unfinished">KLog</translation>
+        <translation>KLog</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="213"/>
         <source>Do you really want to remove this satellite?</source>
-        <translation type="unfinished"></translation>
+        <translation>Möchten Sie diese Satellitendaten wirklich entfernen?</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="214"/>
         <source>This satellite will not be longer available to be selected ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Satellit kann nicht mehr ausgewählt werden...</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="246"/>
         <source>Sat has not been removed. (#3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Satellitendaten wurde nicht entfernt. (#3)</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="253"/>
         <source>Sat has not been removed. (#2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Satellitendaten wurde nicht entfernt. (#2)</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="260"/>
         <source>Sat has not been removed. (#1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Satellitendaten wurde nicht entfernt. (#1)</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="320"/>
         <source>ID</source>
-        <translation type="unfinished">Kennung</translation>
+        <translation>Kennung</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="323"/>
         <source>Short</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurz</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="326"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="329"/>
@@ -4180,27 +4188,27 @@ Das Protokoll wird nicht geöffnet.</translation>
     <message>
         <location filename="../setuppagesats.cpp" line="335"/>
         <source>Modes</source>
-        <translation type="unfinished">Modi</translation>
+        <translation>Modi</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="568"/>
         <source>An error has occurred showing the following error code:</source>
-        <translation type="unfinished">Es ist ein Fehler mit folgendem Fehlercode aufgetreten:</translation>
+        <translation>Es ist ein Fehler mit folgendem Fehlercode aufgetreten:</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="571"/>
         <source>KLog - SetupPageSats</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Einrichtungsseite Satelliten</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="581"/>
         <source>Open Satellites File</source>
-        <translation type="unfinished"></translation>
+        <translation>Satellitendatei öffnen</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="600"/>
         <source>KLog warning</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog-Warnung</translation>
     </message>
     <message>
         <location filename="../setuppagesats.cpp" line="602"/>
@@ -4217,7 +4225,7 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../setuppagesats.cpp" line="672"/>
         <source>Save Satellites File</source>
-        <translation type="unfinished"></translation>
+        <translation>Satellitendatei speichern</translation>
     </message>
 </context>
 <context>
@@ -4225,12 +4233,12 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../setuppagesatsnew.cpp" line="46"/>
         <source>Short name</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurzname</translation>
     </message>
     <message>
         <location filename="../setuppagesatsnew.cpp" line="47"/>
         <source>Sat name</source>
-        <translation type="unfinished"></translation>
+        <translation>Satellitenname</translation>
     </message>
     <message>
         <location filename="../setuppagesatsnew.cpp" line="48"/>
@@ -4245,17 +4253,17 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../setuppagesatsnew.cpp" line="50"/>
         <source>Modes</source>
-        <translation type="unfinished">Modi</translation>
+        <translation>Modi</translation>
     </message>
     <message>
         <location filename="../setuppagesatsnew.cpp" line="56"/>
         <source>&amp;Ok</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <location filename="../setuppagesatsnew.cpp" line="57"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Abbrechen</translation>
+        <translation>&amp;Abbrechen</translation>
     </message>
     <message>
         <location filename="../setuppagesatsnew.cpp" line="103"/>
@@ -4265,7 +4273,7 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../setuppagesatsnew.cpp" line="104"/>
         <source>Enter the name of the satellite.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie den Namen des Satelliten ein.</translation>
     </message>
     <message>
         <location filename="../setuppagesatsnew.cpp" line="105"/>
@@ -4280,7 +4288,7 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../setuppagesatsnew.cpp" line="107"/>
         <source>Enter the modes in this format: USB</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie die Modi in diesem Format ein: USB</translation>
     </message>
     <message>
         <location filename="../setuppagesatsnew.cpp" line="376"/>
@@ -4769,7 +4777,7 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../statisticswidget.cpp" line="85"/>
         <source>QSO per Continent</source>
-        <translation type="unfinished"></translation>
+        <translation>QSOs je Kontinent</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="86"/>
@@ -4779,22 +4787,22 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../statisticswidget.cpp" line="87"/>
         <source>QSO per month</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO pro Monat</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="88"/>
         <source>Worked / Confirmed status</source>
-        <translation type="unfinished"></translation>
+        <translation>Status Bearbeitet / Bestätigt</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="89"/>
         <source>Worked / Sent status</source>
-        <translation type="unfinished"></translation>
+        <translation>Status Bearbeitet / Bestätigt</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="90"/>
         <source>Sent / Confirmed status</source>
-        <translation type="unfinished"></translation>
+        <translation>Status Versendet / Bestätigt</translation>
     </message>
 </context>
 <context>
@@ -4802,37 +4810,37 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="47"/>
         <source>CQ Zones per year</source>
-        <translation type="unfinished"></translation>
+        <translation>CQ-Zonen pro Jahr</translation>
     </message>
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="51"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="51"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Lesen abbrechen</translation>
+        <translation>Lesen abbrechen</translation>
     </message>
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="56"/>
         <source>CQ zones</source>
-        <translation type="unfinished">CQ-Zonen</translation>
+        <translation>CQ-Zonen</translation>
     </message>
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="57"/>
         <source>CQ zones per year</source>
-        <translation type="unfinished">CQ-Zonen pro Jahr</translation>
+        <translation>CQ-Zonen pro Jahr</translation>
     </message>
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="69"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="69"/>
         <source>Years: %1/%2</source>
-        <translation type="unfinished">Jahre: %1/%2</translation>
+        <translation>Jahre: %1/%2</translation>
     </message>
 </context>
 <context>
@@ -4840,37 +4848,37 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="47"/>
         <source>Chart title</source>
-        <translation type="unfinished">Diagrammtitel</translation>
+        <translation>Diagrammtitel</translation>
     </message>
     <message>
         <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="51"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="51"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Lesen abbrechen</translation>
+        <translation>Lesen abbrechen</translation>
     </message>
     <message>
         <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="57"/>
         <source>DXCC Entities</source>
-        <translation type="unfinished">DXCC-Einträge</translation>
+        <translation>DXCC-Einträge</translation>
     </message>
     <message>
         <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="58"/>
         <source>DXCC Entities per year</source>
-        <translation type="unfinished">DXCC-Einträge pro Jahr</translation>
+        <translation>DXCC-Einträge pro Jahr</translation>
     </message>
     <message>
         <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="66"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="66"/>
         <source>Entities: </source>
-        <translation type="unfinished">Einträge:</translation>
+        <translation>Einträge:</translation>
     </message>
 </context>
 <context>
@@ -4878,37 +4886,37 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="47"/>
         <source>QSOs per band</source>
-        <translation type="unfinished"></translation>
+        <translation>QSOs pro Band</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="51"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="51"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Lesen abbrechen</translation>
+        <translation>Lesen abbrechen</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="56"/>
         <source>Bands</source>
-        <translation type="unfinished">Bänder</translation>
+        <translation>Bänder</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="57"/>
         <source>QSO per band distribution</source>
-        <translation type="unfinished">QSO pro Frequenzbandverteilung</translation>
+        <translation>QSO pro Frequenzbandverteilung</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="67"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="67"/>
         <source>Bands: </source>
-        <translation type="unfinished">Bänder: </translation>
+        <translation>Bänder: </translation>
     </message>
 </context>
 <context>
@@ -4917,32 +4925,32 @@ It may be caused because the file you are trying to import does not have the rig
         <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="47"/>
         <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="61"/>
         <source>QSOs per continent</source>
-        <translation type="unfinished"></translation>
+        <translation>QSOs je Kontinent</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="51"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="51"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Lesen abbrechen</translation>
+        <translation>Lesen abbrechen</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="60"/>
         <source>Continents</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontinente</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="70"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="70"/>
         <source>Hours: </source>
-        <translation type="unfinished">Stunden: </translation>
+        <translation>Stunden: </translation>
     </message>
 </context>
 <context>
@@ -4950,38 +4958,38 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="47"/>
         <source>QSOs per DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>QSOs pro DXCC</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="51"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="51"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Lesen abbrechen</translation>
+        <translation>Lesen abbrechen</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="53"/>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="96"/>
         <source>Reading data...</source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="96"/>
         <source>Entity: </source>
-        <translation type="unfinished">Eintrag: </translation>
+        <translation>Eintrag: </translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="119"/>
         <source>DXCC</source>
-        <translation type="unfinished">DXCC</translation>
+        <translation>DXCC</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="120"/>
         <source>Top ten DXCC per QSO</source>
-        <translation type="unfinished">Erste zehn DXCC pro QSO</translation>
+        <translation>Erste zehn DXCC pro QSO</translation>
     </message>
 </context>
 <context>
@@ -4989,37 +4997,37 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="47"/>
         <source>QSOs per hour</source>
-        <translation type="unfinished"></translation>
+        <translation>QSOs pro Stunde</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="51"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="51"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Lesen abbrechen</translation>
+        <translation>Lesen abbrechen</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="59"/>
         <source>Hours</source>
-        <translation type="unfinished">Stunden</translation>
+        <translation>Stunden</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="60"/>
         <source>QSOs at hour</source>
-        <translation type="unfinished">QSOs je Stunde</translation>
+        <translation>QSOs je Stunde</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="70"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="70"/>
         <source>Hours: </source>
-        <translation type="unfinished">Stunden: </translation>
+        <translation>Stunden: </translation>
     </message>
 </context>
 <context>
@@ -5027,37 +5035,37 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="47"/>
         <source>QSOs per mode</source>
-        <translation type="unfinished"></translation>
+        <translation>QSOs pro Modus</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="51"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="51"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Lesen abbrechen</translation>
+        <translation>Lesen abbrechen</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="56"/>
         <source>Modes</source>
-        <translation type="unfinished">Modi</translation>
+        <translation>Modi</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="57"/>
         <source>QSO per mode distribution</source>
-        <translation type="unfinished">QSO pro Modusverteilung</translation>
+        <translation>QSO pro Modusverteilung</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="67"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="67"/>
         <source>Modes: </source>
-        <translation type="unfinished">Modi: </translation>
+        <translation>Modi: </translation>
     </message>
 </context>
 <context>
@@ -5065,97 +5073,97 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="47"/>
         <source>QSOs per month</source>
-        <translation type="unfinished"></translation>
+        <translation>QSOs je Monat</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="51"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="51"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Lesen abbrechen</translation>
+        <translation>Lesen abbrechen</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
         <source>Jan</source>
-        <translation type="unfinished"></translation>
+        <translation>Jan.</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
         <source>Feb</source>
-        <translation type="unfinished"></translation>
+        <translation>Feb.</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
         <source>Mar</source>
-        <translation type="unfinished"></translation>
+        <translation>März</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
         <source>Apr</source>
-        <translation type="unfinished"></translation>
+        <translation>Apr.</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
         <source>May</source>
-        <translation type="unfinished"></translation>
+        <translation>Mai</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="56"/>
         <source>Jun</source>
-        <translation type="unfinished"></translation>
+        <translation>Jun.</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
         <source>Jul</source>
-        <translation type="unfinished"></translation>
+        <translation>Jul.</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
         <source>Sep</source>
-        <translation type="unfinished"></translation>
+        <translation>Sep.</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
         <source>Oct</source>
-        <translation type="unfinished"></translation>
+        <translation>Okt.</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
         <source>Nov</source>
-        <translation type="unfinished"></translation>
+        <translation>Nov.</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
         <source>Dec</source>
-        <translation type="unfinished"></translation>
+        <translation>Dez.</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="57"/>
         <source>Aug</source>
-        <translation type="unfinished"></translation>
+        <translation>Aug.</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="59"/>
         <source>Months</source>
-        <translation type="unfinished"></translation>
+        <translation>Monate</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="60"/>
         <source>QSOs at Month</source>
-        <translation type="unfinished"></translation>
+        <translation>QSOs je Monat</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="70"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="70"/>
         <source>Months: </source>
-        <translation type="unfinished"></translation>
+        <translation>Monate: </translation>
     </message>
 </context>
 <context>
@@ -5163,37 +5171,37 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="47"/>
         <source>Chart title</source>
-        <translation type="unfinished">Diagrammtitel</translation>
+        <translation>Diagrammtitel</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="51"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="51"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Lesen abbrechen</translation>
+        <translation>Lesen abbrechen</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="56"/>
         <source>QSOs</source>
-        <translation type="unfinished">QSOs</translation>
+        <translation>QSOs</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="57"/>
         <source>QSOs per year</source>
-        <translation type="unfinished">QSOs pro Jahr</translation>
+        <translation>QSOs pro Jahr</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="68"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Daten werden gelesen ...</translation>
+        <translation>Daten werden gelesen ...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="68"/>
         <source>QSO: %1/%2</source>
-        <translation type="unfinished">QSO: %1/%2</translation>
+        <translation>QSO: %1/%2</translation>
     </message>
 </context>
 <context>
@@ -5201,12 +5209,12 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="39"/>
         <source>Sent - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Versendet - %1</translation>
     </message>
     <message>
         <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="40"/>
         <source>Confirmed - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestätigt - %2</translation>
     </message>
 </context>
 <context>
@@ -5214,12 +5222,12 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="39"/>
         <source>Worked, not confirmed - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeitet, nicht bestätigt - %1</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="40"/>
         <source>Confirmed - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestätigt - %2</translation>
     </message>
 </context>
 <context>
@@ -5227,12 +5235,12 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="39"/>
         <source>Worked - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeitet - %1</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="40"/>
         <source>Sent - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Versendet - %2</translation>
     </message>
 </context>
 <context>

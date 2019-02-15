@@ -199,7 +199,8 @@ public:
     QStringList getPropModeList();
 
     bool clearSatList();
-    bool addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode);
+    bool addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode, int id = -1);
+    int getDBSatId(const QString _arrlId);
     QStringList getSatellitesList();   
     QString getSatelliteUplink(const QString _sat);
     QString getSatelliteDownlink(const QString _sat);

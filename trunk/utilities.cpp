@@ -74,7 +74,7 @@ bool Utilities::trueOrFalse(const QString _s)
     {
         return false;
     }
-    return false;
+    //return false;
 }
 
 QString Utilities::checkAndFixASCIIinADIF(const QString _data)
@@ -331,7 +331,9 @@ int Utilities::getNormalizedDXCCValue(const int _dxcc)
 
 QDate Utilities::getDefaultDate()
 {
-    return QDate::fromString("18000101", "yyyyMMdd");
+
+    //return QDate::fromString("18000101", "yyyyMMdd");
+    return QDate::currentDate();
 }
 
 bool Utilities::isValidDate(const QDate _d)
@@ -403,7 +405,7 @@ bool Utilities::isValidBandId(const int _b)
     {
         return false;
     }
-    return false;
+    //return false;
 }
 
 
@@ -418,7 +420,7 @@ bool Utilities::isValidModeId(const int _m)
     {
         return false;
     }
-    return false;
+    //return false;
 }
 
 bool Utilities::isValidFreq(const QString _b)
@@ -431,7 +433,7 @@ bool Utilities::isValidFreq(const QString _b)
     {
         return false;
     }
-    return false;
+    //return false;
 }
 
 bool Utilities::isValidGrid(const QString _b)
@@ -460,7 +462,7 @@ bool Utilities::isValidPower(const QString _b)
 
 bool Utilities::isValidComment(const QString _b)
 {
-    if (_b>0)
+    if (_b.length()>0)
     {
         return true;
     }
@@ -469,7 +471,7 @@ bool Utilities::isValidComment(const QString _b)
 
 bool Utilities::isValidName(const QString _b)
 {
-    if (_b>0)
+    if (_b.length()>0)
     {
         return true;
     }
@@ -491,7 +493,7 @@ bool Utilities::isDBFileExisting()
            //qDebug() << "Utilities::isDBFileExisting - false" << endl;
         return false;
     }
-    return false;
+    //return false;
 }
 
 bool Utilities::isDBFileExisting(const QString _file)
@@ -508,7 +510,7 @@ bool Utilities::isDBFileExisting(const QString _file)
            //qDebug() << "Utilities::isDBFileExisting2 - false" << endl;
         return false;
     }
-    return false;
+    //return false;
 }
 
 bool Utilities::isValidADIFField(const QString _b)

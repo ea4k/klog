@@ -183,7 +183,8 @@ public:
     virtual QStringList getPropModeList();
 
     virtual bool clearSatList();
-    virtual bool addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode);
+    virtual bool addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode, int id = -1);
+    virtual int getDBSatId(const QString _arrlId);
     virtual QStringList getSatellitesList();
     virtual QString getSatelliteUplink(const QString _sat);
     virtual QString getSatelliteDownlink(const QString _sat);

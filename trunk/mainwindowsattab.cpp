@@ -543,6 +543,15 @@ void MainWindowSatTab::setUpLink(const QString _t)
 
 }
 
+void MainWindowSatTab::setUpLinkFreq(const double _t)
+{
+   //qDebug) << "MainWindowsatTab::setUpLinkFreq: " << QString::number(_t) << endl;
+    if ((dataProxy->getBandIdFromFreq(_t))>0)
+    {
+        txFreqSpinBox->setValue(_t);
+    }
+}
+
 void MainWindowSatTab::setBandsOfSat(const QString _p)
 {
     // Until the data is in the DB, this function tries to solve data of active sats from: http://www.amsat.org/status/
@@ -551,23 +560,21 @@ void MainWindowSatTab::setBandsOfSat(const QString _p)
     //2M/10M << 2M/70CM
 
 
-    QString upLink;
-    upLink.clear();
-    upLink = dataProxy->getSatelliteUplink(_p.section(' ', 0, 0));
+    double upLink = 0.0;
+    upLink = (dataProxy->getSatelliteUplink(_p.section(' ', 0, 0))).toDouble();
 
-    QString downLink;
-    downLink.clear();
-    downLink = dataProxy->getSatelliteDownlink(_p.section(' ', 0, 0));
+    double downLink = 0.0;
+    downLink = (dataProxy->getSatelliteDownlink(_p.section(' ', 0, 0))).toDouble();
 
      //qDebug() << "MainWindowSatTab::setBandsOfSat upLink: " << upLink << endl;
 
-    emit txFreqChanged(upLink);
-    txFreqSpinBox->setValue(upLink.toDouble());
+    emit satTxFreqChanged(upLink);
+    txFreqSpinBox->setValue(upLink);
 
 
-    if (upLink.toDouble()>0)
+    if (upLink>0)
     {
-        QString upLinkBand = dataProxy->getBandNameFromFreq(upLink.toDouble());
+        QString upLinkBand = dataProxy->getBandNameFromFreq(upLink);
 
         int indexTX = satBandTXComboBox->findText(upLinkBand, Qt::MatchCaseSensitive);
         if (indexTX>0)
@@ -587,13 +594,13 @@ void MainWindowSatTab::setBandsOfSat(const QString _p)
     }
 
 
-    emit rxFreqChanged(downLink);
-    rxFreqSpinBox->setValue(downLink.toDouble());
+    emit satRxFreqChanged(downLink);
+    rxFreqSpinBox->setValue(downLink);
 
-    if (downLink.toDouble()>0)
+    if (downLink>0)
     {
 
-        QString downLinkBand = dataProxy->getBandNameFromFreq(downLink.toDouble());
+        QString downLinkBand = dataProxy->getBandNameFromFreq(downLink);
 
         int indexRX = satBandRXComboBox->findText(downLinkBand, Qt::MatchCaseSensitive);
 
