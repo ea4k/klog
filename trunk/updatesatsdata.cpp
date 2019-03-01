@@ -8,23 +8,23 @@ UpdateSatsData::UpdateSatsData(DataProxy *dp, QObject *parent) : QObject(parent)
 
 bool UpdateSatsData::satDataFileRead(const QString& tfileName)
 {
-     qDebug() << "UpdateSatsData::satDataFileRead: " << tfileName << endl;
+     //qDebug() << "UpdateSatsData::satDataFileRead: " << tfileName << endl;
     QString fileName = tfileName;
     bool errorFound = true;
 
     QFile file( fileName );
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-         qDebug() << "UpdateSatsData::satDataFileRead File not found" << fileName << endl;
+         //qDebug() << "UpdateSatsData::satDataFileRead File not found" << fileName << endl;
         return false;
     }
     if (dataProxy->clearSatList())
     {
-         qDebug() << "UpdateSatsData::satDataFileRead Sats YES deleted"  << endl;
+         //qDebug() << "UpdateSatsData::satDataFileRead Sats YES deleted"  << endl;
     }
     else
     {
-         qDebug() << "UpdateSatsData::satDataFileRead Sats NOT deleted"  << endl;
+         //qDebug() << "UpdateSatsData::satDataFileRead Sats NOT deleted"  << endl;
          return false;
     }
 
@@ -64,7 +64,7 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
     progress.setMaximum(numberOfSats);
 
 
-     qDebug() << "UpdateSatsData::satDataFileRead: END OF HEADER"  << endl;
+     //qDebug() << "UpdateSatsData::satDataFileRead: END OF HEADER"  << endl;
 
 
     //file.seek(pos);
@@ -201,12 +201,12 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
 
     if (errorFound)
     {
-        qDebug() << "UpdateSatsData::satDataFileRead: errorFound = true"  << endl;
+        //qDebug() << "UpdateSatsData::satDataFileRead: errorFound = true"  << endl;
         return false;
     }
     else
     {
-       qDebug() << "UpdateSatsData::satDataFileRead: END"  << endl;
+       //qDebug() << "UpdateSatsData::satDataFileRead: END"  << endl;
        emit satsUpdatedSignal(true);
        QMessageBox msgBox;
        msgBox.setIcon(QMessageBox::Information);
@@ -215,7 +215,7 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
     }
 
 
-    qDebug() << "UpdateSatsData::satDataFileRead: END "  << endl;
+    //qDebug() << "UpdateSatsData::satDataFileRead: END "  << endl;
     return true;
 }
 

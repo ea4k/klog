@@ -125,6 +125,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     qrzSmallModDontCalculate=false;
     imperialSystem=false;
     sendQSLWhenRec = true;
+    manageDxMarathon = false;
 
     dxClusterShowHF=true;
     dxClusterShowVHF=true;
@@ -307,6 +308,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     bandComboBox = new QComboBox;
     modeComboBox = new QComboBox;
 
+
     dateEdit = new QDateEdit;
     dateEdit->setDisplayFormat("dd/MM/yyyy");
     timeEdit = new QTimeEdit;
@@ -352,10 +354,12 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     qsoConfirmedQLCDNumber = new QLCDNumber;
     qsoWorkedQLCDNumber = new QLCDNumber;
     dxMarathonQSOLCDNumber = new QLCDNumber;
+    dxMarathonTopScoreLabelN = new QLabel();
     dxMarathonDXCCQLCDNumber = new QLCDNumber;
     dxMarathonCQQLCDNumber = new QLCDNumber;
     dxMarathonPointsQLCDNumber = new QLCDNumber;
     operatingYearsComboBox = new QComboBox;
+    dxMarathonLabelN = new QLabel;
 
     qsoWorkedQLCDNumber->setDigitCount(7);
     qsoConfirmedQLCDNumber->setDigitCount(7);
@@ -470,7 +474,24 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
         showAwards();
          //qDebug() << "MainWindow::MainWindow: 18.9" << endl;
         dxClusterWidget->setCurrentLog(currentLog);
-         //qDebug() << "MainWindow::MainWindow: 18.10" << endl;
+
+        //qDebug() << "MainWindow::MainWindow: 18.10" << endl;
+
+        if (manageDxMarathon)
+        {
+            dxMarathonLabelN->setText(tr("DX-Marathon"));
+            dxMarathonTopScoreLabelN->setEnabled(true);
+            dxMarathonPointsQLCDNumber->setEnabled(true);
+
+        }
+        else
+        {
+            dxMarathonLabelN->setText(tr("Annual"));
+            dxMarathonTopScoreLabelN->setEnabled(false);
+            dxMarathonPointsQLCDNumber->setEnabled(false);
+        }
+        //qDebug() << "MainWindow::MainWindow: 18.11" << endl;
+
     }
     else if ((contestMode == "CQ-WW-SSB") || (contestMode == "CQ-WW-CW"))
     {}
@@ -548,7 +569,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //connect(filemanager, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
 
 
-     //qDebug() << "MainWindow::MainWindow: END" << endl;
+    //qDebug() << "MainWindow::MainWindow: END" << endl;
 }
 
 MainWindow::~MainWindow()
@@ -684,7 +705,7 @@ void MainWindow::slotTimeOutInfoBars()
 void MainWindow::slotModeComboBoxChanged()
 {
        //qDebug() << "MainWindow::slotModeComboBoxChanged: " << QString::number(modeComboBox->currentIndex()) << endl;
-       //qDebug() << "MainWindow::slotModeComboBoxChanged: " << modeComboBox->currentText() << endl;
+    //qDebug() << "MainWindow::slotModeComboBoxChanged: " << modeComboBox->currentText() << endl;
 /*
     int i;
     i = dataProxy->getSubModeIdFromSubMode(modeComboBox->currentText());
@@ -722,7 +743,7 @@ void MainWindow::slotModeComboBoxChanged()
     showStatusOfDXCC(_qs);
 
 
-        //qDebug() << "MainWindow::slotModeComboBoxChanged2: " << modeComboBox->currentText() << endl;
+    //qDebug() << "MainWindow::slotModeComboBoxChanged2: " << modeComboBox->currentText() << endl;
 }
 
 void MainWindow::slotBandComboBoxChanged(){
@@ -3894,7 +3915,11 @@ void MainWindow::slotSetup(const int _page)
         else
         {
              //qDebug() << "MainWindow::slotSetup - Just before readConfigData"  << endl;
-            readConfigData();            
+            readConfigData();
+            if (contestMode == "DX")
+            {
+                reconfigureDXMarathonUI(manageDxMarathon);
+            }
              //qDebug() << "MainWindow::slotSetup - Just after readConfigData"  << endl;
         }
 
@@ -4303,7 +4328,7 @@ void MainWindow::readConfigData()
 }
 
 bool MainWindow::processConfigLine(const QString _line){
-      //qDebug() << "MainWindow::processConfigLine: " << _line << endl;
+    //qDebug() << "MainWindow::processConfigLine: " << _line << endl;
     int _logWithMoreQSOs = 0; // At the end, if the this variable is >0 the Selectedlog will have to be changed in the file.
     QString line = _line.simplified();
     //line.simplified();
@@ -4390,6 +4415,24 @@ bool MainWindow::processConfigLine(const QString _line){
     else if (field=="SENDQSLWHENREC")
     {
         sendQSLWhenRec = util->trueOrFalse(value);
+    }
+    else if (field=="MANAGEDXMARATHON")
+    {
+        //qDebug() << "MainWindow::processConfigLine: Marathon-1 - Value: " << value << endl;
+        manageDxMarathon = util->trueOrFalse(value);
+        //qDebug() << "MainWindow::processConfigLine: Marathon-2" << endl;
+        if (manageDxMarathon)
+        {
+            dxMarathonLabelN->setText(tr("DX-Marathon"));
+            //qDebug() << "MainWindow::processConfigLine: Marathon True" << endl;
+        }
+        else
+        {
+            //qDebug() << "MainWindow::processConfigLine: Marathon false-1" << endl;
+            dxMarathonLabelN->setText(tr("Annual"));
+            //qDebug() << "MainWindow::processConfigLine: Marathon false-2" << endl;
+        }
+        //qDebug() << "MainWindow::processConfigLine: Marathon - END" << endl;
     }
 
     else if (field=="SHOWCALLSIGNINSEARCH")
@@ -4715,7 +4758,7 @@ bool MainWindow::processConfigLine(const QString _line){
     }
 
     // Lines are: Option = value;
-
+    //qDebug() << "MainWindow::processConfigLine: END" << endl;
     return true;
 }
 
@@ -4873,6 +4916,7 @@ void MainWindow::readActiveBands (const QStringList actives)
 void MainWindow::readActiveModes (const QStringList actives)
 {
      //qDebug() << "MainWindow::readActiveModes: " << actives << endl;
+    //qDebug() << "MainWindow::readActiveModes: " << endl;
 
     //bool atLeastOne = false;
     QString aux;
@@ -4911,7 +4955,7 @@ void MainWindow::readActiveModes (const QStringList actives)
     modes.removeDuplicates();
     modes.sort();
 
-     //qDebug() << "MainWindow::readActiveModes - END" << endl;
+    //qDebug() << "MainWindow::readActiveModes - END" << endl;
 }
 
 void MainWindow::createData()
@@ -5180,14 +5224,12 @@ void MainWindow::createUIDX()
     QLabel *dxMarathonTopQSOsLabelN = new QLabel(tr("QSOs"));
     QLabel *dxMarathonTopDXCCLabelN = new QLabel(tr("DXCC"));
     QLabel *dxMarathonTopCQLabelN = new QLabel(tr("CQ"));
-    QLabel *dxMarathonTopScoreLabelN = new QLabel(tr("Score"));
-    QLabel *dxMarathonLabelN = new QLabel(tr("DX-Marathon"));
 
-    dxMarathonTopQSOsLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-    dxMarathonTopDXCCLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-    dxMarathonTopCQLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-    dxMarathonTopScoreLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-    dxMarathonLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+    dxMarathonTopScoreLabelN->setText(tr("Score"));
+
+   // dxMarathonLabelN = new QLabel;
+
+
 
     dxUpRightTab->addTab(infoWidget, tr("Info"));
 
@@ -5213,6 +5255,14 @@ void MainWindow::createUIDX()
 
     QLabel *qsoNLabelN = new QLabel(tr("QSOs"));
     qsoNLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+
+    reconfigureDXMarathonUI(manageDxMarathon);
+
+    dxMarathonTopQSOsLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+    dxMarathonTopDXCCLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+    dxMarathonTopCQLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+    dxMarathonTopScoreLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+    dxMarathonLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
 
     QGridLayout *dxMarathonDLayout = new QGridLayout;
 
@@ -5598,7 +5648,7 @@ void  MainWindow::initialContestModeConfiguration()
          //qDebug() << "MainWindow::initialContestModeConfiguration-2: " << QString::number(defaultBand) << endl;
          //qDebug() << "MainWindow::initialContestModeConfiguration-2-index: " << bandComboBox->currentText() << endl;
     }
-     //qDebug() << "MainWindow::initialContestModeConfiguration END: " << bandComboBox->currentText() << endl;
+    //qDebug() << "MainWindow::initialContestModeConfiguration END: " << bandComboBox->currentText() << endl;
 }
 
 
@@ -6253,9 +6303,16 @@ void MainWindow::showDXMarathon(const int _year)
     dxMarathonCQQLCDNumber->display(i);
         //qDebug() << "MainWindow::MainWindow::showDXMarathon: CQ: " << QString::number(i) << endl;
 
-    i = awards->getDXMarathonScore(_year, currentLog);
+    if (manageDxMarathon)
+    {
+        i = awards->getDXMarathonScore(_year, currentLog);
+    }
+    else
+    {
+        i = 0;
+    }
     dxMarathonPointsQLCDNumber->display(i);
-        //qDebug() << "MainWindow::MainWindow::showDXMarathon: Score: " << QString::number(i) << endl;
+    //qDebug() << "MainWindow::MainWindow::showDXMarathon: Score: " << QString::number(i) << endl;
 }
 
 void MainWindow::fillQSOData()
@@ -6608,14 +6665,21 @@ void MainWindow::slotFilePrint()
                     emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number(), query1.lastQuery());
                 }
 
-
+                //qDebug() << "MainWindow::slotFilePrint: Band: " << aux << endl;
                 nameCol = rec.indexOf("modeid");
+                //qDebug() << "MainWindow::slotFilePrint: nameCol: " << QString::number(nameCol) << endl;
                 aux = (query.value(nameCol)).toString();
+                //qDebug() << "MainWindow::slotFilePrint: Mode1: " << aux << endl;
                 aux = dataProxy->getNameFromSubModeId(aux.toInt());
+                //qDebug() << "MainWindow::slotFilePrint: Mode2: " << aux << endl;
                 if (aux.length()>1)
                 {
                     cursor = textTable->cellAt(row, 7).firstCursorPosition();
-                    cursor.insertText((query1.value(0)).toString());
+                    cursor.insertText(aux);
+                }
+                else
+                {
+                    //qDebug() << "MainWindow::slotFilePrint: ERROR: " << aux << endl;
                 }
 
                 nameCol = rec.indexOf("comment");
@@ -7440,6 +7504,7 @@ void MainWindow::addNewValidMode(const QString _mode)
     readActiveModes (_newM);
     modeComboBox->clear();
     modeComboBox->addItems(modes);
+    //qDebug() << "MainWindow::addNewValidMode: END"  << endl;
 }
 
 void MainWindow::slotClearNoMorErrorShown()
@@ -7519,3 +7584,29 @@ void MainWindow::slotUpdateLocator(QString _loc)
     locatorLineEdit->setText(_loc.toUpper());
 }
 
+void MainWindow::reconfigureDXMarathonUI(const bool _dxM)
+{
+    if (_dxM)
+    {
+        dxMarathonLabelN->setText(tr("DX-Marathon"));
+        dxMarathonTopScoreLabelN->setEnabled(true);
+        dxMarathonPointsQLCDNumber->setEnabled(true);
+        dxMarathonPointsQLCDNumber->display(0);
+
+    }
+    else
+    {
+        dxMarathonLabelN->setText(tr("Annual"));
+        dxMarathonTopScoreLabelN->setEnabled(false);
+        dxMarathonPointsQLCDNumber->setEnabled(false);
+        int i = awards->getDXMarathonScore(dateEdit->date().year(), currentLog);
+        if (i>0)
+        {
+            dxMarathonPointsQLCDNumber->display(i);
+        }
+        else
+        {
+            dxMarathonPointsQLCDNumber->display(0);
+        }
+    }
+}

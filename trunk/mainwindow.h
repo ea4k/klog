@@ -308,6 +308,7 @@ private:
     void createUI();
     void createUICQWW();
     void createUIDX();
+    void reconfigureDXMarathonUI(const bool _dxM);
     //void createDXClusterUI();
     void clearBandLabels();
 
@@ -504,7 +505,8 @@ private:
 
     // UI DX
     //QLabel *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel; //entityPrimLabel
-    QLabel *infoLabel1, *infoLabel2;
+    QLabel *infoLabel1, *infoLabel2, *dxMarathonLabelN, *dxMarathonTopScoreLabelN;
+
     //QPushButton *flagIcon; // To paint a flag of the worked entity
     //QLabel *bandLabel1, *bandLabel2, *bandLabel3, *bandLabel4;
     //QLabel *bandLabel5, *bandLabel6, *bandLabel7, *bandLabel8;
@@ -587,7 +589,7 @@ private:
     QString stx;
     QString srx;
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
-    bool realTime, UTCTime, alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, keepMyData, completeWithPrevious, completedWithPreviousQTH, completedWithPreviousLocator, completedWithPreviousName, completedWithPreviousIOTA, completedWithPreviousQSLVia;
+    bool realTime, UTCTime, alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, manageDxMarathon, keepMyData, completeWithPrevious, completedWithPreviousQTH, completedWithPreviousLocator, completedWithPreviousName, completedWithPreviousIOTA, completedWithPreviousQSLVia;
     bool cleaning;
     bool manageMode; // If true, the DXCC and awards will take the mode into consideration to decide if needed or worked. False implies only band is taken into account
     // Station Setup

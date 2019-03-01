@@ -65,6 +65,8 @@ public:
     void setCheckNewVersions(const QString t);
     QString getReportInfo();
     void setReportInfo(const QString t);
+    QString getDXMarathon();
+    void setDXMarathon(const QString t);
 
     bool areDBPathChangesApplied();
 
@@ -87,7 +89,7 @@ private:
 
     QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox, *keepMyDataCheckBox;
-    QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox;
+    QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox;
     QString defaultFileName;
     QLineEdit *defaultFileNameLineEdit, *dbPathLineEdit;
     QPushButton *fileNameButton, *dbPushButton, *moveDBPushButton;

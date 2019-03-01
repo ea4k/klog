@@ -517,6 +517,7 @@ qDebug() << "SetupDialog::slotOkButtonClicked" << endl;
         stream << "KeepMyData=" << miscPage->getKeepMyData() << ";" <<  endl;
         stream << "CompleteWithPrevious=" << miscPage->getCompleteWithPrevious() << ";" <<  endl;
         stream << "CheckNewVersions=" << miscPage->getCheckNewVersions() << ";" <<  endl;
+        stream << "ManageDXMarathon=" << miscPage->getDXMarathon() << ";" <<  endl;
 
         if ((miscPage->getReportInfo()).toUpper() == "TRUE")
         {
@@ -717,6 +718,8 @@ bool SetupDialog::processConfigLine(const QString _line)
         miscPage->setCompleteWithPrevious(value.toLower());
     }else if (tab=="SENDQSLWHENREC"){
         miscPage->setSendQSLWhenRec(value.toLower());
+    }else if (tab=="MANAGEDXMARATHON"){
+        miscPage->setDXMarathon(value.toLower());
     }
     else if (tab=="SHOWCALLSIGNINSEARCH"){
         miscPage->setShowStationCallSignInSearch(value.toLower());
@@ -1003,6 +1006,7 @@ void SetupDialog::setDefaults()
     miscPage->setKeepMyData("TRUE");
     miscPage->setCheckNewVersions("TRUE");
     miscPage->setReportInfo("FALSE");
+    miscPage->setDXMarathon("FALSE");
 
     UDPPage->setUDPServer("FALSE");
     UDPPage->setUDPServerPort("2237");
@@ -1102,7 +1106,6 @@ void SetupDialog::checkIfNewBandOrMode()
     _items.removeDuplicates();
     bandModePage->setActiveModes(_items);
      //qDebug() << "SetupDialog::checkIfNewBandOrMode END" << endl;
-
 }
 
 
@@ -1117,7 +1120,6 @@ void SetupDialog::slotAnalyzeNewLogData(const QStringList _qs)
     }
     userDataPage->setStationQrz(_qs.at(0));
     userDataPage->setOperators(_qs.at(1));
-
 }
 
 void SetupDialog::slotSetStationCallSign(const QString _p)

@@ -1,10 +1,11 @@
-TBD - 0.9.7
+March - 0.9.7
 - Bugfix: When clicking on Check updates, the dialog froze.
+- Bugfix: Printing log is not longer showing band in the mode column.
 - Updated the default date on date boxes to the current date.
 - Improved the Frequency syncronization between Satellite tab and the main tab.
 - Improved how default mode is calculated.
 - Added Satellites widget in Setup.
-- Updated translations: Catalan (TNX Txema), Danish (TNX Joe), French (F4HWL), German (TNX Burkhard), Spanish (EA4TV).
+- Updated translations: Catalan (TNX Txema), Danish (TNX Joe), Finnish (TNX Kristjan), French (F4HWL), German (TNX Burkhard), Spanish (EA4TV).
 
 December 2018 - 0.9.6
 - Optimizing the Statistics widget.
