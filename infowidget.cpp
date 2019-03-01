@@ -496,3 +496,4 @@ void InfoWidget::setDXLocator(const QString _loc)
         dxLocator = _loc;
     }
 }
+

@@ -134,7 +134,7 @@ void DataProxy_SQLite::createLogPanel(){
 
 int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
 {
-    qDebug() << "DataProxy_SQLite::getIdFromModeName: " << _modeName << "/" << QString::number(db->getModeIDFromName2(_modeName)) << endl;
+    //qDebug() << "DataProxy_SQLite::getIdFromModeName: " << _modeName << "/" << QString::number(db->getModeIDFromName2(_modeName)) << endl;
     if (_modeName.length()<2)
     {
         return -4;
@@ -145,7 +145,7 @@ int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
 
 int DataProxy_SQLite::getSubModeIdFromSubMode(const QString _subModeName)
 {
-    qDebug() << "DataProxy_SQLite::getSubModeIdFromSubMode: " << _subModeName << endl;
+    //qDebug() << "DataProxy_SQLite::getSubModeIdFromSubMode: " << _subModeName << endl;
 
     if (_subModeName.length()<2)
     {
@@ -756,7 +756,7 @@ int DataProxy_SQLite::getMostUsedBand(const int _log)
 
 int DataProxy_SQLite::getMostUsedMode(const int _log)
 {
-    qDebug() << "DataProxy_SQLite::getMostUsedMode: " << endl;
+    //qDebug() << "DataProxy_SQLite::getMostUsedMode: " << endl;
 
     QString queryString = QString();
     if (_log <=0 )
@@ -3135,7 +3135,7 @@ bool DataProxy_SQLite::clearSatList()
 
 bool DataProxy_SQLite::addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode, int id)
 {
-    qDebug()  << "DataProxy_SQLite::addSatellite: " << QString::number(id)  << endl;
+    //qDebug()  << "DataProxy_SQLite::addSatellite: " << QString::number(id)  << endl;
     QSqlQuery query;
     QString queryString;
 
@@ -3150,11 +3150,11 @@ bool DataProxy_SQLite::addSatellite(const QString _arrlId, const QString _name, 
     }
 
     bool sqlOK = query.exec(queryString);
-    qDebug()  << "DataProxy_SQLite::addSatellite - query: " <<  query.lastQuery() << endl;
+    //qDebug()  << "DataProxy_SQLite::addSatellite - query: " <<  query.lastQuery() << endl;
 
     if (sqlOK)
     {
-        qDebug()  << "DataProxy_SQLite::addSatellite - TRUE"  << endl;
+        //qDebug()  << "DataProxy_SQLite::addSatellite - TRUE"  << endl;
         //QDebug()  << "DataProxy_SQLite::addSatellite - TRUE - ERROR: " <<  QString::number(query.lastError().number()) << endl;
         query.finish();
         return true;

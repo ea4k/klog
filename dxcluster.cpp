@@ -33,6 +33,7 @@ DXClusterWidget::DXClusterWidget(DataProxy *dp, QWidget *parent)
     constrid = 1;
     awards = new Awards(dataProxy);
 
+
     initClass();
      //qDebug() << "DXClusterWidget::DXClusterWidget - END" << endl;
 }
@@ -106,6 +107,7 @@ void DXClusterWidget::initClass()
 {
     dxClusterConnected = false;
     dxClusterAlreadyConnected = false;
+    showDxMarathon = false;
 
     showhf = true;
     showvhf = true;
@@ -367,11 +369,14 @@ void DXClusterWidget::slotClusterDataArrived()
             qs << QString::number(dxEntity) << spotBand << "-1" << QString::number(currentLog) ;
              //qDebug() << "DXClusterWidget::slotClusterDataArrived: Calling-2: " << QString::number(dxEntity) << endl;
             dxSpotColor = awards->getQRZDXStatusColor(qs);
-
-            if (awards->isDXMarathonNeed(dxEntity, world->getQRZCqz(dxCall), QDateTime::currentDateTime().date().year(), currentLog))
+            if  (showDxMarathon)
             {
-                dxClusterString = dxClusterString + "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
+                if (awards->isDXMarathonNeed(dxEntity, world->getQRZCqz(dxCall), QDateTime::currentDateTime().date().year(), currentLog))
+                {
+                    dxClusterString = dxClusterString + "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
+                }
             }
+
 
             //qDebug() << "DX de ->" << "Spotter: " << spotter << "Freq: "<< dxFrequency << "DX: " << dxCall << endl;
 
@@ -398,11 +403,15 @@ void DXClusterWidget::slotClusterDataArrived()
              //qDebug() << "DXClusterWidget::slotClusterDataArrived: Calling-1: " << QString::number(dxEntity) << endl;
             qs << QString::number(dxEntity) << spotBand << "-1" << QString::number(currentLog) ;
             dxSpotColor = awards->getQRZDXStatusColor(qs);
-
-            if (awards->isDXMarathonNeed(dxEntity, world->getQRZCqz(dxCall), QDateTime::currentDateTime().date().year(), currentLog))
+            if (showDxMarathon)
             {
-                dxClusterString = dxClusterString + "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
+                if (awards->isDXMarathonNeed(dxEntity, world->getQRZCqz(dxCall), QDateTime::currentDateTime().date().year(), currentLog))
+                {
+                    dxClusterString = dxClusterString + "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
+                }
             }
+
+
         }
         else
         {
@@ -748,6 +757,11 @@ void DXClusterWidget::setDXClusterServer(const QString &clusterToConnect, const 
     server = clusterToConnect;
     port = portToConnect;
      //qDebug() << "DXClusterWidget::setDXClusterServer: " << server << ":"<< QString::number(port)  << endl;
+}
+
+void DXClusterWidget::setDXMarathon (const bool _enable)
+{
+    showDxMarathon = _enable;
 }
 
 /*

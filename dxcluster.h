@@ -52,6 +52,7 @@ class DXClusterWidget : public QWidget
     void setCurrentLog(const int _log);
     bool isConnected();
     void setMyQRZ(const QString _qrz);
+    void setDXMarathon (const bool _enable);
     //void sendSpotToCluster(const QString _dx, const QString _freq);
 
 
@@ -105,6 +106,7 @@ private:
 
     bool showhf, showvhf, showwarc, showworked, showconfirmed, showann,  showwwv, showwcy;
     bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;
+    bool showDxMarathon;
     QString myQrz;
     int currentLog;
 

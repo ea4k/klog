@@ -46,6 +46,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSOs"), this);
     checkNewVersionCheckBox = new QCheckBox(tr("&Check for new versions automatically"), this);
     provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
+    useDxMarathonCheckBox = new QCheckBox(tr("Manage DX-Marathon"), this);
 
     defaultFileNameLineEdit = new QLineEdit;
     dbPathLineEdit = new QLineEdit;
@@ -123,6 +124,7 @@ void SetupPageMisc::createUI()
     alwaysADIFCheckBox->setToolTip(tr("Select if you want to save to ADIF on exit."));    
     useDefaultName->setToolTip(tr("Select to use the following name for the logfile without being asked for it again."));
     completeWithPreviousCheckBox->setToolTip(tr("Complete the current QSO with previous QSO data."));
+    useDxMarathonCheckBox->setToolTip(tr("Select if you want to manage DX-Marathon."));
     defaultFileNameLineEdit->setToolTip(tr("This is the default file where ADIF data will be saved."));
     dbPathLineEdit->setToolTip(tr("This is the directory where the database (logbook.dat) will be saved."));
     fileNameButton->setToolTip(tr("Click to change the default ADIF file."));
@@ -136,7 +138,6 @@ void SetupPageMisc::createUI()
     fileLayout->addWidget(fileNameButton);
     defaultFileNameLineEdit->setEnabled(true);
     fileNameButton->setEnabled(true);
-
 
     QHBoxLayout *dbLayout = new QHBoxLayout;
 
@@ -155,6 +156,7 @@ void SetupPageMisc::createUI()
     mainLayou1->addWidget(UTCCheckbox, 3, 0, 1, 1);
     mainLayou1->addWidget(realTimeCheckbox, 3, 1, 1, 1);
     mainLayou1->addWidget(imperialCheckBox, 4, 0, 1, 1);
+    mainLayou1->addWidget(useDxMarathonCheckBox, 4, 1, 1, 1);
     mainLayou1->addWidget(keepMyDataCheckBox, 5, 0, 1, 1);
     mainLayou1->addWidget(completeWithPreviousCheckBox, 5, 1, 1, 1);
     mainLayou1->addWidget(sendQSLWhenRecCheckBox,6, 0, 1, 1);
@@ -566,6 +568,33 @@ void SetupPageMisc::setUseDefaultDBPath(const QString t)
     dbPathLineEdit->setText(dbDirCurrent);
 
 }
+
+
+QString SetupPageMisc::getDXMarathon(){
+
+    if (useDxMarathonCheckBox->isChecked())
+    {
+        return "True";
+    }
+    else
+    {
+        return "False";
+    }
+}
+
+void SetupPageMisc::setDXMarathon(const QString t){
+    //QString st = t;
+    if ( (t.toUpper()) == "FALSE")
+    {
+        useDxMarathonCheckBox->setChecked(false);
+    }
+    else
+    {
+        useDxMarathonCheckBox->setChecked(true);
+    }
+
+}
+
 
 void SetupPageMisc::slotDBButtonClicked()
 {
