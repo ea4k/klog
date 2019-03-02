@@ -366,7 +366,7 @@ void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous
 
 void SetupDialog::slotOkButtonClicked()
 {
-qDebug() << "SetupDialog::slotOkButtonClicked" << endl;
+ //qDebug() << "SetupDialog::slotOkButtonClicked" << endl;
 
     if (!miscPage->areDBPathChangesApplied())
     {

@@ -3929,6 +3929,7 @@ void MainWindow::slotSetup(const int _page)
             //qDebug() << "MainWindow::MainWindow: logmodel has been created-2" << endl;
 
     }
+
     defineStationCallsign();
         //qDebug() << "MainWindow::MainWindow: before db->reConnect" << endl;
     dataProxy->reconnectDB();
@@ -7586,12 +7587,14 @@ void MainWindow::slotUpdateLocator(QString _loc)
 
 void MainWindow::reconfigureDXMarathonUI(const bool _dxM)
 {
+    dxClusterWidget->setDXMarathon(_dxM);
     if (_dxM)
     {
         dxMarathonLabelN->setText(tr("DX-Marathon"));
         dxMarathonTopScoreLabelN->setEnabled(true);
         dxMarathonPointsQLCDNumber->setEnabled(true);
         dxMarathonPointsQLCDNumber->display(0);
+
 
     }
     else
