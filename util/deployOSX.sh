@@ -4,7 +4,7 @@
 if [ $# -ne 1 ]; then
 	echo "You must include the version of KLog you want to deploy as a single parameter"
 	echo ""
-	echo "example: deployOSX.sh 0.9.5"
+	echo "example: deployOSX.sh 0.9.7"
 	echo ""
 	echo ""
 	exit -1
@@ -22,9 +22,9 @@ mv build/target/klog.app KLog.app
 mkdir -p KLog.app/Contents/PlugIns/sqldrivers
 cp $QTDIRi/plugins/sqldrivers/libqsqlite.dylib KLog.app/Contents/PlugIns/sqldrivers
 mkdir -p KLog.app/Contents/MacOS/translations
-#$QTDIRi/bin/lupdate KLog.pro
-#$QTDIRi/bin/lrelease KLog.pro
-cp $KLOG_SOURCES/translations/*.qm KLog.app/Contents/MacOS/translations/
+$QTDIRi/bin/lupdate KLog.pro
+$QTDIRi/bin/lrelease KLog.pro
+cp ./translations/*.qm KLog.app/Contents/MacOS/translations/
 $QTDIRi/bin/macdeployqt KLog.app/ -dmg
 mv KLog.dmg KLog-$KLOG_VERSION.dmg
 echo "You can find the dmg file in this folder... enjoy KLog!"
