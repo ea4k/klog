@@ -337,12 +337,12 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     txFreqSpinBox = new QDoubleSpinBox;
     txFreqSpinBox->setDecimals(3);
-    txFreqSpinBox->setMaximum(9999);
+    //txFreqSpinBox->setMaximum(9999);
     txFreqSpinBox->setSuffix(" " + tr("MHz"));
 
     rxFreqSpinBox = new QDoubleSpinBox;
     rxFreqSpinBox->setDecimals(3);
-    rxFreqSpinBox->setMaximum(9999);
+    //rxFreqSpinBox->setMaximum(9999);
     rxFreqSpinBox->setSuffix(" " + tr("MHz"));
 
     dxccConfirmedQLCDNumber = new QLCDNumber;
@@ -775,9 +775,12 @@ void MainWindow::slotBandComboBoxChanged(){
      //qDebug() << "MainWindow::MainWindow: 9.4 - currentBandShown: " << QString::number(currentBandShown) << endl;
      //qDebug() << "MainWindow::MainWindow: Going to update the UpLink with: " << bandComboBox->currentText() << endl;
      //satTabWidget->setUpLink(bandComboBox->currentText());
-    double txFr = (dataProxy->getFreqFromBandId(currentBandShown)).toDouble();
-    satTabWidget->setUpLinkFreq(txFr);
-    txFreqSpinBox->setValue(txFr);
+    if (!dataProxy->isThisFreqInBand((dataProxy->getNameFromBandId(currentBandShown)), QString::number(txFreqSpinBox->value())))
+    {
+        double txFr = (dataProxy->getFreqFromBandId(currentBandShown)).toDouble();
+        satTabWidget->setUpLinkFreq(txFr);
+        txFreqSpinBox->setValue(txFr);
+    }
 
        //currentModeShown = modeComboBox->currentIndex();
     checkIfWorkedB4(currentQrz);
@@ -1073,8 +1076,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
      //qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << QString::number(txFreqSpinBox->value()) << endl;
     if ( (txFreqSpinBox->value()) > 0  )
     {
-        aux1 = QString::number(txFreqSpinBox->value());
-         //qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << aux1 << "/" << tband << endl;
+        aux1 = QString::number(txFreqSpinBox->value());        
+        //qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << aux1 << "/" << tband << endl;
 
         if (dataProxy->isThisFreqInBand(dataProxy->getNameFromBandId(tband), aux1) )
         {

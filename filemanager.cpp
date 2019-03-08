@@ -981,9 +981,9 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                     nameCol = rec.indexOf("freq");
                     aux1 = (query.value(nameCol)).toString();
-                     //qDebug() << "FileManager::adifLogExportToFile FREQ1: "  << aux1 << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile FREQ1: "  << aux1 << endl;
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
-                     //qDebug() << "FileManager::adifLogExportToFile FREQ1.1: "  << aux1 << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile FREQ1.1: "  << aux1 << endl;
                     if ((aux1.length())>0){
                         //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
                         if (dataProxy->getBandIdFromFreq(aux1.toDouble()) == dataProxy->getIdFromBandName(bandst))
@@ -1647,10 +1647,12 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 {
                     out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1 << " ";
                 }
-                 //qDebug() << "FileManager::adifLogExportToFile before 30 " << endl;
+                //qDebug() << "FileManager::adifLogExportToFile before 30 " << endl;
                 nameCol = rec.indexOf("qso_date");
                 aux1 = (query.value(nameCol)).toString();
+                //qDebug() << "FileManager::adifLogExportToFile: QSO_DATE: " << aux1 << endl;
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
+                //qDebug() << "FileManager::adifLogExportToFile: QSO_DATE-1: " << aux1 << endl;
                 if ((aux1.length()) == 10){
                     aux1.remove(QChar('-'), Qt::CaseInsensitive);
                     aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -1658,7 +1660,12 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                     if (util->isValidDate(date))
                     {
+
                         out << "<QSO_DATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                    }
+                    else
+                    {
+                        //qDebug() << "FileManager::adifLogExportToFile: QSO_DATE not valid: " << aux1 << endl;
                     }
                 }
 
@@ -1716,7 +1723,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 nameCol = rec.indexOf("band_rx");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
 
-qDebug() << "FileManager::adifLogExportToFile before 60 " << endl;
+            //qDebug() << "FileManager::adifLogExportToFile before 60 " << endl;
                 if ( (0 < aux1.toInt()) && (aux1.toInt() < 30) && (aux1.length()>0) && (dataProxy->getIdFromBandName(aux1)>=0) )  {
                     //aux1 = db->getBandNameFromID2(aux1.toInt());
                     aux1 = dataProxy->getNameFromBandId(aux1.toInt());
@@ -2011,20 +2018,19 @@ qDebug() << "FileManager::adifLogExportToFile before 90 " << endl;
                 if ((aux1.length())>0){
                     out << "<FORCE_INIT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
-                 //qDebug() << "FileManager::adifLogExportToFile before freq: " << endl;
+                //qDebug() << "FileManager::adifLogExportToFile before freq: " << endl;
                 nameCol = rec.indexOf("freq");
-                 //qDebug() << "FileManager::adifLogExportToFile before freq: nameCol: " << QString::number(nameCol) << endl;
+                //qDebug() << "FileManager::adifLogExportToFile before freq: nameCol: " << QString::number(nameCol) << endl;
                 aux1 = (query.value(nameCol)).toString();
-                 //qDebug() << "FileManager::adifLogExportToFile FREQ2: "  << aux1 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile FREQ2: "  << aux1 << endl;
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                 //qDebug() << "FileManager::adifLogExportToFile FREQ2.1: "  << aux1 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile FREQ2.1: "  << aux1 << endl;
                 if ((aux1.length())>0){
                     if (dataProxy->getBandIdFromFreq(aux1.toDouble()) == dataProxy->getIdFromBandName(bandst))
                     //if (db->isThisFreqInBand(bandst, aux1))
                     {
                         out << "<FREQ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
-
                 }
 
                 nameCol = rec.indexOf("freq_rx");

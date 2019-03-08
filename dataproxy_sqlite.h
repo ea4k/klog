@@ -80,7 +80,7 @@ public:
     QString getBandNameFromFreq(const double _n);
     double getLowLimitBandFromBandName(const QString _sm);
     double getLowLimitBandFromBandId(const QString _sm);
-    bool isThisFreqInBand(const QString b, const QString fr);
+    bool isThisFreqInBand(const QString _band, const QString _fr);
 
     int getLastQSOid();
     bool addQSOFromWSJTX(const QString _dxcall, const double _freq, const QString _mode,

@@ -496,9 +496,9 @@ double DataProxy_SQLite::getLowLimitBandFromBandId(const QString _sm)
 
 }
 
-bool DataProxy_SQLite::isThisFreqInBand(const QString b, const QString fr)
+bool DataProxy_SQLite::isThisFreqInBand(const QString _band, const QString _fr)
 {
-    return db->isThisFreqInBand(b, fr);
+    return db->isThisFreqInBand(_band, _fr);
 }
 
 QStringList DataProxy_SQLite::getBands()
