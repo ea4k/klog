@@ -1,3 +1,7 @@
+March - 0.9.7.1
+- Bugfix: The frequency was not properly saved in the DB. (TNX KB2YSI)
+- Bugfix: The QSO_DATE was not exported into ADIF. (TNX KB2YSI)
+
 March - 0.9.7
 - Bugfix: When clicking on Check updates, the dialog froze.
 - Bugfix: Printing log is not longer showing band in the mode column.

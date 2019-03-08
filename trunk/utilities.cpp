@@ -338,16 +338,16 @@ QDate Utilities::getDefaultDate()
 
 bool Utilities::isValidDate(const QDate _d)
 {
-     //qDebug() << "Utilities::isValidDate: " << _d << endl;
+    //qDebug() << "Utilities::isValidDate: " << _d.toString("yyyyMMdd") << endl;
     if (_d.isValid())
     {
-        if ( _d > getDefaultDate())
+        if ( _d > QDate::fromString("18000101", "yyyyMMdd") )
         {
-             //qDebug() << "Utilities::isValidDate: OK" << endl;
+            //qDebug() << "Utilities::isValidDate: OK" << endl;
             return true;
         }
     }
-     //qDebug() << "Utilities::isValidDate: Error" << endl;
+    //qDebug() << "Utilities::isValidDate: Error" << endl;
     return false;
 }
 
