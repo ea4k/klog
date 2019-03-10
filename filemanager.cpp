@@ -1765,7 +1765,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
                 }
 
-qDebug() << "FileManager::adifLogExportToFile before 70 " << endl;
+                //qDebug() << "FileManager::adifLogExportToFile before 70 " << endl;
                 nameCol = rec.indexOf("srx");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
@@ -1817,7 +1817,7 @@ qDebug() << "FileManager::adifLogExportToFile before 70 " << endl;
                 if ((aux1.length())>0){
                     out << "<ADDRESS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
-qDebug() << "FileManager::adifLogExportToFile before 80 " << endl;
+                //qDebug() << "FileManager::adifLogExportToFile before 80 " << endl;
                 nameCol = rec.indexOf("age");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
@@ -1859,7 +1859,7 @@ qDebug() << "FileManager::adifLogExportToFile before 80 " << endl;
                 if ((aux1.length())>0){
                     out << "<ANT_PATH:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
-qDebug() << "FileManager::adifLogExportToFile before 90 " << endl;
+                //qDebug() << "FileManager::adifLogExportToFile before 90 " << endl;
                 nameCol = rec.indexOf("arrl_sect");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
