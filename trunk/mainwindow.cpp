@@ -337,12 +337,12 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     txFreqSpinBox = new QDoubleSpinBox;
     txFreqSpinBox->setDecimals(3);
-    //txFreqSpinBox->setMaximum(9999);
+    txFreqSpinBox->setMaximum(99999);
     txFreqSpinBox->setSuffix(" " + tr("MHz"));
 
     rxFreqSpinBox = new QDoubleSpinBox;
     rxFreqSpinBox->setDecimals(3);
-    //rxFreqSpinBox->setMaximum(9999);
+    rxFreqSpinBox->setMaximum(99999);
     rxFreqSpinBox->setSuffix(" " + tr("MHz"));
 
     dxccConfirmedQLCDNumber = new QLCDNumber;
