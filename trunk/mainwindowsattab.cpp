@@ -50,6 +50,10 @@ MainWindowSatTab::MainWindowSatTab(DataProxy *dp, QWidget *parent) :
 
     createUI();
     populateSatComboBox();
+    txBandBeingChanged = false;
+    rxBandBeingChanged = false;
+    txFreqBeingAutoChanged = false;
+    rxFreqBeingAutoChanged = false;
     satNameLineEdit->setEnabled(false);
     satOtherLabel->setEnabled(false);
 
@@ -67,8 +71,6 @@ void MainWindowSatTab::createUI()
     connect(satNameComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotSatNameComboBoxChanged() ) ) ;
     connect(satBandRXComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotSatBandRXComboBoxChanged()) ) ;
     connect(satBandTXComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotSatBandTXComboBoxChanged()) ) ;
-
-
 
     connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotSatFreqTXChanged()) ) ;
     connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotSatFreqRXChanged()) ) ;
@@ -466,19 +468,65 @@ void MainWindowSatTab::setDefaultBands()
 
 void MainWindowSatTab::slotSatBandRXComboBoxChanged()
 {
-     //qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged" << endl;
+    //qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged" << endl;
+    rxBandBeingChanged = true;
     emit satBandRXChanged(satBandRXComboBox->currentText());
+    //qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged-END" << endl;
 
-}
-
-void MainWindowSatTab::slotSatBandTXComboBoxChanged()
-{
-     //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged" << endl;
-    emit satBandTXChanged(satBandTXComboBox->currentText());
 }
 
 void MainWindowSatTab::slotSatFreqRXChanged()
 {
+    //qDebug() << "MainWindowsatTab::slotSatFreqRXChanged: " << QString::number(rxFreqSpinBox->value()) << endl;
+
+    // user changes RX Freq
+    // If band is real and band is configured, bandcombo is selected
+    // If band is real and not configured, we launch the band config and select the band.
+    // if band is real emit the band
+
+   // if (dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())<1)
+   // { //This prevent that a non-hamradio frequency is used on TX
+   //     //qDebug() << "MainWindowsatTab::slotSatFreqRXChanged: Not in band, exiting... - " << QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) << endl;
+   //     return;
+   // }
+
+    rxFreqBeingChanged = true;
+
+    int bandId = dataProxy->getBandIdFromFreq(rxFreqSpinBox->value());
+    //if (!rxFreqBeingAutoChanged)
+    //{
+        emit satRxFreqChanged(rxFreqSpinBox->value());
+      //  rxFreqBeingAutoChanged = false;
+    //}
+    if (bandId > 1)
+    { // If the freq belongs to one ham band
+        //qDebug() << "MainWindowSatTab::slotSatFreqTXChanged Freq is HamBand" << endl;
+
+
+        bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(), QString::number(rxFreqSpinBox->value()));
+
+        if(freqInBand)
+        { // If the freq does not belong to the current band, we need to update the band
+            //qDebug() << "MainWindowSatTab::slotSatFreqTXChanged Freq is in band" << endl;
+
+            //QString _newBand = dataProxy->getBandNameFromFreq(txFreqSpinBox->value());
+            //updateBandComboBox(_newBand);
+            //satBandTXComboBox->setCurrentIndex(satBandTXComboBox->findText(dataProxy->getBandNameFromFreq(txFreqSpinBox->value()), Qt::MatchCaseSensitive));
+        }
+        else
+        {
+            satBandRXComboBox->setCurrentIndex(satBandRXComboBox->findText(dataProxy->getBandNameFromFreq(rxFreqSpinBox->value()), Qt::MatchCaseSensitive));
+            //qDebug() << "MainWindowSatTab::slotSatFreqRXChanged Freq is not in band" << endl;
+        }
+    }
+    else
+    {
+        //qDebug() << "MainWindowsatTab::slotSatFreqRXChanged Freq is not in ANY ham band" << endl;
+    }
+
+    rxFreqBeingChanged = false;
+
+/*
     QString _q;
     int v = dataProxy->getBandIdFromFreq(rxFreqSpinBox->value());
     if (v<0)
@@ -489,11 +537,80 @@ void MainWindowSatTab::slotSatFreqRXChanged()
     _q = dataProxy->getNameFromBandId (v);
 
     satBandRXComboBox->setCurrentIndex(satBandRXComboBox->findText(_q));
+    */
+    //qDebug() << "MainWindowsatTab::slotSatFreqRXChanged-END" << endl;
+}
+
+void MainWindowSatTab::slotSatBandTXComboBoxChanged()
+{
+    //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged" << endl;
+    txBandBeingChanged = true;
+    if (!dataProxy->isThisFreqInBand(satBandTXComboBox->currentText(), QString::number(txFreqSpinBox->value())))
+    {
+        setUpLinkFreq(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()));
+
+    }
+
+    emit satBandTXChanged(satBandTXComboBox->currentText());
+    //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged-END" << endl;
 
 }
+
+
 void MainWindowSatTab::slotSatFreqTXChanged()
 {
-     //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged" << endl;
+    //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: " << QString::number(txFreqSpinBox->value()) << endl;
+    // user changes TX Freq
+    // If band is real and band is configured, bandcombo is selected
+    // If band is real and not configured, we launch the band config and select the band.
+    // if band is real emit the band
+
+    //if (txFreqBeingAutoChanged)
+    //{
+    //   //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: Freq being changed from the outside, not the user" << endl;
+    //}
+
+
+    if (dataProxy->getBandIdFromFreq(txFreqSpinBox->value())<1)
+    { //This prevent that a non-hamradio frequency is used on TX
+        //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: Not in band, exiting... " << endl;
+        return;
+
+    }
+    txFreqBeingChanged = true;
+
+    int bandId = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
+    if (bandId > 1)
+    { // If the freq belongs to one ham band
+        //qDebug() << "MainWindowSatTab::slotSatFreqTXChanged Freq is HamBand" << endl;
+        if (!txFreqBeingAutoChanged)
+        {
+            emit satTxFreqChanged(txFreqSpinBox->value());
+        }
+
+        bool freqInBand = dataProxy->isThisFreqInBand(satBandTXComboBox->currentText(), QString::number(txFreqSpinBox->value()));
+
+        if(freqInBand)
+        { // If the freq does not belong to the current band, we need to update the band
+            //qDebug() << "MainWindowSatTab::slotSatFreqTXChanged Freq is in band" << endl;
+
+            //QString _newBand = dataProxy->getBandNameFromFreq(txFreqSpinBox->value());
+            //updateBandComboBox(_newBand);
+            //satBandTXComboBox->setCurrentIndex(satBandTXComboBox->findText(dataProxy->getBandNameFromFreq(txFreqSpinBox->value()), Qt::MatchCaseSensitive));
+        }
+        else
+        {
+            satBandTXComboBox->setCurrentIndex(satBandTXComboBox->findText(dataProxy->getBandNameFromFreq(txFreqSpinBox->value()), Qt::MatchCaseSensitive));
+            //qDebug() << "MainWindowSatTab::slotSatFreqTXChanged Freq is not in band" << endl;
+        }
+    }
+    else
+    {
+        //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged Freq is not in ANY ham band" << endl;
+    }
+
+    txFreqBeingChanged = false;
+/*
 
     QString _q;
     int v = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
@@ -502,10 +619,22 @@ void MainWindowSatTab::slotSatFreqTXChanged()
         return;
     }
 
-    _q = dataProxy->getNameFromBandId (v);
-
-    satBandTXComboBox->setCurrentIndex(satBandTXComboBox->findText(_q));
-
+    if (txFreqBeingChanged)
+    {
+        //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged-FreqBeingChanged = true" << endl;
+        
+        txFreqBeingChanged = true;
+        emit satTxFreqChanged(txFreqSpinBox->value());
+    }
+    else
+    {
+        //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged-FreqBeingChanged = false" << endl;
+        _q = dataProxy->getNameFromBandId (v);
+        satBandTXComboBox->setCurrentIndex(satBandTXComboBox->findText(_q));
+        txFreqBeingChanged = false;
+    }
+*/
+    //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged-END" << endl;
 }
 
 void MainWindowSatTab::setUpLink(const QString _t)
@@ -545,11 +674,44 @@ void MainWindowSatTab::setUpLink(const QString _t)
 
 void MainWindowSatTab::setUpLinkFreq(const double _t)
 {
-   //qDebug) << "MainWindowsatTab::setUpLinkFreq: " << QString::number(_t) << endl;
-    if ((dataProxy->getBandIdFromFreq(_t))>0)
-    {
-        txFreqSpinBox->setValue(_t);
+    //qDebug() << "MainWindowsatTab::setUpLinkFreq: " << QString::number(_t) << endl;
+    if (dataProxy->getBandIdFromFreq(_t)<1)
+    { //This prevent that a non-hamradio frequency is used on TX
+        return;
     }
+    txFreqBeingAutoChanged = true;
+    txFreqSpinBox->setValue(_t);
+/*
+    int bandId = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
+    if (bandId > 1)
+    { // If the freq belongs to one ham band
+        bool freqInBand = dataProxy->isThisFreqInBand(satBandTXComboBox->currentText(), QString::number(txFreqSpinBox->value()));
+        if(!freqInBand)
+        { // If the freq does not belong to the current band, we need to update the band
+            //qDebug() << "MainWindowSatTab::setUpLinkFreq Freq is not in band" << endl;
+            emit satTxFreqChanged(txFreqSpinBox->value());
+            satBandTXComboBox->setCurrentIndex(satBandTXComboBox->findText(dataProxy->getBandNameFromFreq(txFreqSpinBox->value()), Qt::MatchCaseSensitive));
+        }
+    }
+    else
+    {
+        //qDebug() << "MainWindowsatTab::setUpLinkFreq Freq is not in ANY ham band" << endl;
+    }
+*/
+    txFreqBeingAutoChanged = false;
+    //qDebug() << "MainWindowsatTab::setUpLinkFreq END" << endl;
+}
+
+
+
+void MainWindowSatTab::setDownLinkFreq(const double _t)
+{
+    //qDebug() << "MainWindowsatTab::setDownLinkFreq: " << QString::number(_t) << endl;
+    rxFreqBeingAutoChanged = true;
+    rxFreqSpinBox->setValue(_t);
+//    rxFreqBeingAutoChanged = false;
+
+    //qDebug() << "MainWindowsatTab::setDownLinkFreq END" << endl;
 }
 
 void MainWindowSatTab::setBandsOfSat(const QString _p)

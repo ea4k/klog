@@ -128,6 +128,7 @@ QString DataProxy::getBandNameFromFreq(const double _n)
     return QString();
 }
 
+
 double DataProxy::getLowLimitBandFromBandName(const QString _sm)
 {
     return -1.0;

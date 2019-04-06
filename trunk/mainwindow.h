@@ -298,7 +298,7 @@ private slots:
 
 private:
     bool maybeSave();
-
+    void updateBandComboBox(const QString _band);
     UpdateSatsData *updateSatsData;
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
@@ -543,7 +543,7 @@ private:
     //bool searchSelectAllClicked, stationCallSignShownInSearch;
 
     bool checkNewVersions, reportInfo; // Selected in the Setup->Misc to check if new versions and report info back to KLog's servers
-
+    bool txFreqBeingChanged;            // When the TX freq is being modified it is defined to true to prevent other automated to change.
     bool qslingNeeded;
     bool noMoreErrorShown;              // If true, the errors shown in slotQueryErrorManagement will not be shown anymore in that KLog execution
     bool noMoreModeErrorShown;          // If true, the non-valid modes received from WSJT-x will not be showed to the user
