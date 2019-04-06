@@ -1,11 +1,16 @@
-March - 0.9.7.2
+TBD - 0.9.7.3
+- TODO: Remove the band 0 / Light from the DB.
+- UI: KLog warns the user if the frequency used is out of the hamradio bands.
+- Reworked how freqs and bands are managed.
+
+March 2019 - 0.9.7.2
 - Bugfix: Frequency boxes did not accepted frequencies higher than 99.999 MHz. (TNX KB2YSI)
 
-March - 0.9.7.1
+March 2019 - 0.9.7.1
 - Bugfix: The frequency was not properly saved in the DB. (TNX KB2YSI)
 - Bugfix: The QSO_DATE was not exported into ADIF. (TNX KB2YSI)
 
-March - 0.9.7
+March 2019 - 0.9.7
 - Bugfix: When clicking on Check updates, the dialog froze.
 - Bugfix: Printing log is not longer showing band in the mode column.
 - Updated the default date on date boxes to the current date.

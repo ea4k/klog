@@ -63,7 +63,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
     tabWidget = new QTabWidget;
     //qDebug() << "SetupDialog::SetupDialog 3.4" << endl;
 
-
+    hamlibPage = new SetupPageHamLib(dataProxy, this);
     userDataPage = new SetupPageUserDataPage(dataProxy);
     //qDebug() << "SetupDialog::SetupDialog 3.5" << endl;
     bandModePage = new SetupPageBandMode(dataProxy, this);
@@ -83,6 +83,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
     UDPPage = new SetupPageUDP(this);    
     //qDebug() << "SetupDialog::SetupDialog 3.13" << endl;
     satsPage = new SetupPageSats(dataProxy, this);
+    //hamlibPage = new SetupPageHamLib(dataProxy, this);
 
     //qDebug() << "SetupDialog::SetupDialog 4" << endl;
 
@@ -96,6 +97,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
     tabWidget->addTab(clubLogPage, "ClubLog");
     tabWidget->addTab(UDPPage, "WSJT-X");
     tabWidget->addTab(satsPage , tr("Satellites"));
+    tabWidget->addTab(hamlibPage, tr ("HamLib"));
 
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
@@ -162,6 +164,8 @@ SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString
     clubLogPage = new SetupPageClubLog(this);
     UDPPage = new SetupPageUDP(this);
     satsPage = new SetupPageSats(dataProxy, this);
+    hamlibPage = new SetupPageHamLib(dataProxy, this);
+
 
      //qDebug() << "SetupDialog::SetupDialog 02" << endl;
     tabWidget->addTab(userDataPage, tr("User data"));
@@ -174,6 +178,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString
     tabWidget->addTab(clubLogPage, tr("ClubLog"));
     tabWidget->addTab(UDPPage, tr("WSJT-X"));
     tabWidget->addTab(satsPage , tr("Satellites"));
+    tabWidget->addTab(hamlibPage, tr ("HamLib"));
 
      //qDebug() << "SetupDialog::SetupDialog 03" << endl;
 
@@ -579,6 +584,12 @@ void SetupDialog::slotOkButtonClicked()
         stream << "LogAutoFromWSJTX=" << UDPPage->getAutoLogFromWSJTx() << ";" <<  endl;
         stream << "RealTimeFromWSJTX=" << UDPPage->getReaDataFromWSJTx() << ";" <<  endl;
         stream << "InfoTimeOut=" << UDPPage->getTimeout() << ";" <<  endl;
+
+        qDebug() << "SetupDialog::slotOkButtonClicked: hamlib" << endl;
+        QString _aa = hamlibPage->getData();
+        stream << _aa << endl;
+
+        qDebug() << "SetupDialog::slotOkButtonClicked: hamlib-2: " << _aa << endl;
 
         //WSJTX
 

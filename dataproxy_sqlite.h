@@ -78,6 +78,7 @@ public:
     QString getFreqFromBandId(const int _id);
     int getBandIdFromFreq(const double _n);
     QString getBandNameFromFreq(const double _n);
+
     double getLowLimitBandFromBandName(const QString _sm);
     double getLowLimitBandFromBandId(const QString _sm);
     bool isThisFreqInBand(const QString _band, const QString _fr);

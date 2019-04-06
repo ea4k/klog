@@ -39,6 +39,7 @@
 #include "setuppageclublog.h"
 #include "setuppageudp.h"
 #include "setuppagesats.h"
+#include "setuppagehamlib.h"
 #include "utilities.h"
 
 
@@ -121,6 +122,7 @@ private:
     SetupPageClubLog *clubLogPage;
     SetupPageUDP *UDPPage;
     SetupPageSats *satsPage;
+    SetupPageHamLib *hamlibPage;
 
     int pageRequested; // The page on the Dialog that is requested to be shown when you call it
     //QString klogDir;

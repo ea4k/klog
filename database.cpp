@@ -986,7 +986,7 @@ int DataBase::getBandIdFromName(const QString b)
         {
             queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             query.finish();
-            return -1;
+            return -2;
         }
            //qDebug() << "DataBase::getBandIdFromName: NOK 3" << endl;
     }
@@ -995,7 +995,7 @@ int DataBase::getBandIdFromName(const QString b)
          //qDebug() << "DataBase::getBandIdFromName: BAND NOT VALID: " << b << endl;
     }
     query.finish();
-    return -1;
+    return -3;
 }
 
 int DataBase::getModeIdFromName(const QString b)

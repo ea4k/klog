@@ -2,7 +2,7 @@ CONFIG += app_bundle
 CONFIG += static
 #CONFIG += release
 TEMPLATE = app
-VERSION = 0.9.7.2
+VERSION = 0.9.8
 DEFINES += APP_VERSION="$$VERSION"
 
 APP_NAME = KLog
@@ -24,6 +24,7 @@ QT += core \
     gui \   
     sql \
     network \
+    serialport \
     widgets
 
 greaterThan(QT_MAJOR_VERSION, 4) {
@@ -100,7 +101,8 @@ HEADERS += setupdialog.h \
     charts/statssentconfirmedpiechartwidget.h \
     charts/statsqsosperbandbarchartwidget.h \
     setuppagesats.h \
-    setuppagesatsnew.h
+    setuppagesatsnew.h \
+    setuppagehamlib.h
 
 
 SOURCES += main.cpp \
@@ -165,7 +167,8 @@ SOURCES += main.cpp \
     charts/statssentconfirmedpiechartwidget.cpp \
     charts/statsqsosperbandbarchartwidget.cpp \
     setuppagesats.cpp \
-    setuppagesatsnew.cpp
+    setuppagesatsnew.cpp \
+    setuppagehamlib.cpp
 
 
 OTHER_FILES += \
@@ -248,6 +251,7 @@ unix:!mac {
     datafiles.files = $$DISTFILES
     INSTALLS += translations
     INSTALLS += datafiles
+    LIBS += -lhamlib
 
 }
 

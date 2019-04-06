@@ -65,6 +65,7 @@ public:
     virtual QString getFreqFromBandId(const int _id);
     virtual int getBandIdFromFreq(const double _n);
     virtual QString getBandNameFromFreq(const double _n);
+
     virtual double getLowLimitBandFromBandName(const QString _sm);
     virtual double getLowLimitBandFromBandId(const QString _sm);
     virtual bool isThisFreqInBand(const QString b, const QString fr);
