@@ -32,7 +32,7 @@
 #include <QtWidgets>
 //#include <QSerialPort>
 #include <QSerialPortInfo>
-
+#include "hamlibclass.h"
 #include "dataproxy.h"
 #include <hamlib/rig.h>
 
@@ -46,31 +46,38 @@ public:
     bool setRigType(const QString _radio);
     bool setSerialPort(const QString _port);
     bool setSerialSpeed(const QString _speed );
+    bool setActive(const QString _active);
+
 
 signals:
 
 public slots:
+    void slotScanPorts();
 
 private:
     void createUI();
     void setRig();
     void setDefaults();
-    static int addRigToList(const struct rig_caps* caps, void* data);
+    void fillSerialPortsComboBox();
+    //static int addRigToList(const struct rig_caps* caps, void* data);
     QStringList getAvailableSerialPorts();
     QButtonGroup *flowControlLineButtonGroup, *handshakeButtonGroup, *dataBitsGroupButton, *stopBitsButtonGroup;
-
+    QPushButton *scanSerialPortButton;
     QComboBox *rigTypeComboBox, *serialBaudsComboBox, *serialPortComboBox;
     //QSpinBox *serialBaudsSpinBox;
     QLineEdit *serialPort;
 
-    RIG *my_rig;            // handle to rig (instance)
-    freq_t freq;
-    rig_model_t myrig_model;
+    HamLibClass *hamlib;
+
+    //RIG *my_rig;            // handle to rig (instance)
+    //freq_t freq;
+    //rig_model_t myrig_model;
 
     QStringList strings, baudSpeeds, serialPorts;
     QCheckBox *dataBits7CheckBox, *dataBits8CheckBox, *stopBits1CheckBox, *stopBits2CheckBox,
     *handshakeNoneCheckBox, *handshakeXCheckBox, *handshakeHCheckBox,
-    *flowControlLinesDTRCheckBox,  *flowControlLinesRTSCheckBox;
+    *flowControlLinesDTRCheckBox,  *flowControlLinesRTSCheckBox,
+    *activateHamlibCheckBox;
 
 
     //int defaultPortSpeed;

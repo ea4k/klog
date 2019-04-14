@@ -66,8 +66,7 @@
 #include "udpserver.h"
 #include "statisticswidget.h"
 #include "updatesatsdata.h"
-
-
+#include "hamlibclass.h"
 
 
 
@@ -155,14 +154,6 @@ private slots:
     void slotToolLoTWMarkAllQueued();
     void slotToolLoTWMarkAllYesThisLog();
     void slotToolLoTWMarkAllYes();
-    //void slotSearchExportButtonClicked();
-    //void slotSearchBoxSelectAllButtonClicked();
-    //void slotSearchClearButtonClicked();
-    //void slotSearchBoxSelectionChanged();
-    //void slotSearchBoxReSearchButtonClicked();
-
-    //void showMenuRightButtonSearchCreateActions();
-    //void righButtonSearchMenu(const int trow);
 
     void slotModeComboBoxChanged();
     void slotBandComboBoxChanged();
@@ -183,20 +174,6 @@ private slots:
 
     void slotSetup(const int _page=0);
 
-    //void slotQsoDeleteFromSearch();
-    //void slotQSLSentViaBureauFromSearch();
-    //void slotQSLSentViaDirectFromSearch();
-    //void slotQSLSentViaDirectMarkDXReqFromSearch();
-
-    //void slotQSLSentViaBureuMarkDXReqFromSearch();
-    //void slotQSLRecViaDirectFromSearch();
-    //void slotQSLRecViaBureauFromSearch();
-    //void slotQSLRecViaDirectMarkReqFromSearch();
-    //void slotQSLRecViaBureauMarkReqFromSearch();
-    //void slotQSLSentMarkAsRequested();
-    //void slotQSLRecMarkAsRequested();
-    //void slotQSOToEditFromSearch();
-
     void slotrstTXTextChanged();
     void slotrstRXTextChanged();
     void slotADIFExport();
@@ -208,15 +185,6 @@ private slots:
     void slotCabrilloExport();
     //void slotQSLViaTextChanged();
     void slotTimeOutInfoBars(); // Clears the infoLabels when the timeout emits the signal
-
-
-//TODO: REMOVE EQSL
-    //void slotQSLRecvComboBoxChanged();
-    //void slotQSLSentComboBoxChanged();
-    //void sloteQSLRecvComboBoxChanged();
-    //void sloteQSLSentComboBoxChanged();
-    //void slotLotwRecvComboBoxChanged();
-    //void slotLotwSentComboBoxChanged();
 
     void slotSetPropMode(const QString _p);
     void slotFillEmptyDXCCInTheLog();
@@ -254,12 +222,6 @@ private slots:
 
     //SEARCH    
     void slotShowSearchWidget();                // The SearchWidget request being shown
-    //void slotDoubleClickSearch( QTreeWidgetItem* item, int); // Double click on a QSO in the search box
-    //void slotRighButtonSearch(const QPoint& pos);
-    //void slotToolSearchNeededQSLToSend();
-    //void slotToolSearchNeededQSLPendingToReceive();
-    //void slotToolSearchNeededQSLRequested();
-    //void slotToolSearchQSL(const int actionQSL);
     //SEARCH
 
     // CLUSTER
@@ -280,7 +242,10 @@ private slots:
     void slotDefineNewBands(const QStringList _bands);
     void slotSatChangeRXFreq(const double _f);
     void slotSatChangeTXFreq(const double _f);
-	
+
+    //HAMLIB
+    void slotHamlibTXFreqChanged(const double _f);
+
     //DXCCWIDGET
     void slotShowQSOFromDXCCWidget(const int _q);
     void slotShowQSOsFromDXCCWidget(QList<int> _qsos);
@@ -302,6 +267,8 @@ private:
     UpdateSatsData *updateSatsData;
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
+    HamLibClass *hamlib;
+    bool hamlibActive;
     //</UPDATE CTY.DAT>
 
     void createStatusBar();
