@@ -102,7 +102,8 @@ HEADERS += setupdialog.h \
     charts/statsqsosperbandbarchartwidget.h \
     setuppagesats.h \
     setuppagesatsnew.h \
-    setuppagehamlib.h
+    setuppagehamlib.h \
+    hamlibclass.h
 
 
 SOURCES += main.cpp \
@@ -168,7 +169,8 @@ SOURCES += main.cpp \
     charts/statsqsosperbandbarchartwidget.cpp \
     setuppagesats.cpp \
     setuppagesatsnew.cpp \
-    setuppagehamlib.cpp
+    setuppagehamlib.cpp \
+    hamlibclass.cpp
 
 
 OTHER_FILES += \

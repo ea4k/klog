@@ -1,6 +1,10 @@
 RC-BUGS:
+
 TODO: Check if dxccStatusWidget in logwindow is useful and remove it if not.
 NONE
+
+TBD - 0.9.8
+Hamlib: COMports in Windows must follow the format: \\.\com14 for ports highet than 9 but it works also for lower so ALL should be managed that way.
 
 For next release:
 TODO: - Some warnings removed from compilation time.

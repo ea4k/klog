@@ -40,7 +40,6 @@
 
 MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 {
-
     //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
     //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
 
@@ -49,13 +48,12 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
       //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
     showErrorDialog = new ShowErrorDialog();
-    UDPLogServer = new UDPServer();    
+    UDPLogServer = new UDPServer();
+    hamlib = new HamLibClass();
+    hamlibActive = false;
 
     upAndRunning = false; // To define some actions that can only be run when starting the software
-    //connect(&manager, SIGNAL(finished(QNetworkReply*)), SLOT(slotDownloadFinished(QNetworkReply*))); // To download cty.csv
-    //flagIcon = new QPushButton; // To paint a flag of the worked entity
 
-    // <ui>
     softwareVersion = tversion;
     itIsANewversion = false;
     dataProxy = new DataProxy_SQLite(softwareVersion, Q_FUNC_INFO);
@@ -147,20 +145,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     infoLabel1T = QString();
     infoLabel2T = QString();
-/*
-    db = new DataBase(Q_FUNC_INFO, softwareVersion, util->getKLogDBFile());
-    if (!db->createConnection())
-    {
-            //qDebug() << "MainWindow::MainWindow: Conection not created" << endl;
-        return;
-    }
-    else
-    {
-        //db->updateIfNeeded(); // Check if we need to update the DB
-            //qDebug() << "MainWindow::MainWindow: DB updated was checked here" << endl;
-    }
 
-*/
     elogClublog = new eLogClubLog();
     clublogAnswer = -1;
 
@@ -268,6 +253,8 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotSatChangeRXFreq(double)) );
     connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotSatChangeTXFreq(double)) );
     connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
+
+    connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
 
     myDataTabWidget = new MainWindowMyDataTab();
     commentTabWidget = new MainWindowInputComment();
@@ -748,7 +735,7 @@ void MainWindow::slotModeComboBoxChanged()
 }
 
 void MainWindow::slotBandComboBoxChanged(){
-    qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << "/" << bandComboBox->currentText()<< endl;
+    //qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << "/" << bandComboBox->currentText()<< endl;
 /*
     int i;
     i = dataProxy->getIdFromBandName(bandComboBox->currentText());
@@ -760,14 +747,14 @@ void MainWindow::slotBandComboBoxChanged(){
 */
     if (txFreqBeingChanged)
     {
-         qDebug() << "MainWindow::slotBandComboBoxChanged: txFreqBeingChanged"  << endl;
+         //qDebug() << "MainWindow::slotBandComboBoxChanged: txFreqBeingChanged"  << endl;
         return;
     }
 
     bool isFRinBand = dataProxy->isThisFreqInBand(bandComboBox->currentText(), QString::number(txFreqSpinBox->value()));
     if ((isFRinBand) && (txFreqSpinBox->value() >0 ))
     {
-        qDebug() << "MainWindow::slotBandComboBoxChanged: idFRinBand and Freq >0"  << endl;
+        //qDebug() << "MainWindow::slotBandComboBoxChanged: idFRinBand and Freq >0"  << endl;
         return;
     }
 
@@ -791,15 +778,15 @@ void MainWindow::slotBandComboBoxChanged(){
     //qDebug() << "MainWindow::slotBandComboBoxChanged Freq in txFreqSpinBox" << QString::number(txFreqSpinBox->value()) << endl;
     //qDebug() << "MainWindow::slotBandComboBoxChanged: Band Shown: " << dataProxy->getNameFromBandId(currentBandShown) << endl;
    // bool isFRinBand = dataProxy->isThisFreqInBand((dataProxy->getNameFromBandId(currentBandShown)), QString::number(txFreqSpinBox->value()));
-    qDebug() << "MainWindow::MainWindow: Freq: " << QString::number(txFreqSpinBox->value()) << endl;
+    //qDebug() << "MainWindow::MainWindow: Freq: " << QString::number(txFreqSpinBox->value()) << endl;
     if ((!isFRinBand) || (txFreqSpinBox->value()<=0))
     {        
         double txFr = (dataProxy->getFreqFromBandId(currentBandShown)).toDouble();        
         //satTabWidget->setUpLinkFreq(txFr);
-        qDebug() << "MainWindow::slotBandComboBoxChanged updating txFreqSpinBox" << QString::number(txFr) << endl;
+        //qDebug() << "MainWindow::slotBandComboBoxChanged updating txFreqSpinBox" << QString::number(txFr) << endl;
         txFreqSpinBox->setValue(txFr);
     }
-     qDebug() << "MainWindow::MainWindow: Freq2: " << QString::number(txFreqSpinBox->value()) << endl;
+     //qDebug() << "MainWindow::MainWindow: Freq2: " << QString::number(txFreqSpinBox->value()) << endl;
 
        //currentModeShown = modeComboBox->currentIndex();
     checkIfWorkedB4(currentQrz);
@@ -810,7 +797,7 @@ void MainWindow::slotBandComboBoxChanged(){
 
 
     showStatusOfDXCC(_qs);
-    qDebug() << "MainWindow::slotBandComboBoxChanged: END" << endl;
+    //qDebug() << "MainWindow::slotBandComboBoxChanged: END" << endl;
 }
 
 
@@ -3294,7 +3281,7 @@ void MainWindow::slotClearButtonClicked()
 
 void MainWindow::clearUIDX(bool full)
 {
-    qDebug() << "MainWindow::clearUIDX" << endl;
+    //qDebug() << "MainWindow::clearUIDX" << endl;
     SRXLineEdit->setText("59");
     STXLineEdit->setText("59");
     nameLineEdit->clear();
@@ -4346,7 +4333,14 @@ void MainWindow::readConfigData()
             //qDebug() << "MainWindow::readConfigData: UDP Log server already stopped no need to restop!" << endl;
         }
     }
-
+    if (hamlibActive)
+    {
+        hamlib->init();
+    }
+    else
+    {
+        hamlib->stop();
+    }
 
     //qDebug() << "MainWindow::readConfigData - END" << endl;
 
@@ -4613,6 +4607,22 @@ bool MainWindow::processConfigLine(const QString _line){
             wsjtxAutoLog = false;
             //UDPLogServer->setLogging(false);
         }
+    }
+    else if (field == "HAMLIBRIGTYPE" )
+    {
+        hamlib->setModelId(value.toInt());
+    }
+    else if(field == "HAMLIBSERIALPORT")
+    {
+        hamlib->setPort(value);
+    }
+    else if (field == "HAMLIBSERIALBAUDS")
+    {
+        hamlib->setSpeed(value.toInt());
+    }
+    else if (field == "HAMLIB")
+    {
+        hamlibActive = true;
     }
     else if (field=="REALTIMEFROMWSJTX")
     {
@@ -7178,13 +7188,17 @@ void MainWindow::updateBandComboBox(const QString _band)
 
 void MainWindow::slotFreqTXChanged()
 {
-    //qDebug() << "MainWindow::slotFreqTXChanged" << QString::number(txFreqSpinBox->value()) << endl;
+    qDebug() << "MainWindow::slotFreqTXChanged" << QString::number(txFreqSpinBox->value()) << endl;
     txFreqBeingChanged = true;
     int bandId = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
     if (bandId > 1)
-    { // If the freq belongs to onne ham band
+    { // If the freq belongs to one ham band
        txFreqSpinBox->setPalette(palBlack);
        txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
+       if (hamlibActive)
+       {
+           hamlib->setFreq(txFreqSpinBox->value());
+       }
 
         bool freqInBand = dataProxy->isThisFreqInBand(bandComboBox->currentText(), QString::number(txFreqSpinBox->value()));
         if(!freqInBand)
@@ -7193,6 +7207,7 @@ void MainWindow::slotFreqTXChanged()
             QString _newBand = dataProxy->getBandNameFromFreq(txFreqSpinBox->value());
             updateBandComboBox(_newBand);
             bandComboBox->setCurrentIndex(bandComboBox->findText(_newBand, Qt::MatchCaseSensitive));
+
         }
     }
     else
@@ -7653,8 +7668,8 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
                         "<li><b>" + tr("Error code") +":</b> " + QString::number(errorCodeN) + "</li>" +
                         "<li><b>" + tr("Error text") + ":</b> " + errorCodeS + "</li>" +
                         "<li><b>" + tr("Failed query") + ":</b> " + queryFailed + "</li>" +
-                        "</ul><br>"
-                        "<b>Recomendation:</b> Export, periodically, your data to ADIF to prevent a potential data loss.<br>";
+                        "</ul><br>" +
+                        "<b>" + tr("Recomendation:") + "</b>" + tr("Export, periodically, your data to ADIF to prevent a potential data loss.") + "<br>";
 
     showErrorDialog->setText(aux + errorMSG);
     //showErrorDialog->setModal(true);
@@ -7692,6 +7707,13 @@ void MainWindow::slotSatChangeTXFreq(const double _f)
     //qDebug() << "MainWindow::slotSatChangeTXFreq updating txFreqSpinBox" << QString::number(_f) << endl;
     txFreqSpinBox->setValue(_f);
 }
+
+
+void MainWindow::slotHamlibTXFreqChanged(const double _f)
+{
+    txFreqSpinBox->setValue(_f);
+}
+
 
 void MainWindow::slotUpdateLocator(QString _loc)
 {
