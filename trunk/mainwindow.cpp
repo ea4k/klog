@@ -4333,6 +4333,7 @@ void MainWindow::readConfigData()
             //qDebug() << "MainWindow::readConfigData: UDP Log server already stopped no need to restop!" << endl;
         }
     }
+    /*
     if (hamlibActive)
     {
         hamlib->init();
@@ -4341,7 +4342,8 @@ void MainWindow::readConfigData()
     {
         hamlib->stop();
     }
-
+    */
+    hamlib->init();
     //qDebug() << "MainWindow::readConfigData - END" << endl;
 
 }
@@ -4611,19 +4613,51 @@ bool MainWindow::processConfigLine(const QString _line){
     else if (field == "HAMLIBRIGTYPE" )
     {
         hamlib->setModelId(value.toInt());
+        qDebug() << "MainWindow::processConfigLine: HAMLIBRIGTYPE: " << value << endl;
     }
     else if(field == "HAMLIBSERIALPORT")
     {
+        qDebug() << "MainWindow::processConfigLine: HAMLIBSERIALPORT: " << value << endl;
         hamlib->setPort(value);
     }
     else if (field == "HAMLIBSERIALBAUDS")
     {
-        hamlib->setSpeed(value.toInt());
+        qDebug() << "MainWindow::processConfigLine: HAMLIBSERIALBAUDS: " << value << endl;
+        hamlib->setSpeed(value);
+    }else if(field =="HAMLIBSERIALDATABITS"){
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDATABITS: " << value << endl;
+        hamlib->setData(value);
+    }else if(field =="HAMLIBSERIALSTOPBITS"){
+    //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALSTOPBITS: " << value << endl;
+        hamlib->setStop(value);
+    }else if(field =="HAMLIBSERIALFLOWCONTROL"){
+    //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALFLOWCONTROL: " << value << endl;
+        hamlib->setFlow(value);
+    }else if(field =="HAMLIBSERIALPARITY"){
+    //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPARITY: " << value << endl;
+        hamlib->setParity(value);
+    }else if(field =="HAMLIBSERIALRTS"){
+    //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALRTS: " << value << endl;
+        hamlib->setRTS(value);
+    }else if(field =="HAMLIBSERIALDTR"){
+    //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDTR: " << value << endl;
+        hamlib->setDTR(value);
     }
     else if (field == "HAMLIB")
     {
-        hamlibActive = true;
+        qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
+        if (value.toUpper() == "TRUE")
+        {
+            hamlibActive = true;
+        }
+        else
+        {
+            hamlibActive = false;
+        }
+
     }
+
+
     else if (field=="REALTIMEFROMWSJTX")
     {
          //qDebug() << "MainWindow::processConfigLine: REALTIMEFROMWSJTX: " << value << endl;
@@ -7188,7 +7222,7 @@ void MainWindow::updateBandComboBox(const QString _band)
 
 void MainWindow::slotFreqTXChanged()
 {
-    qDebug() << "MainWindow::slotFreqTXChanged" << QString::number(txFreqSpinBox->value()) << endl;
+    //qDebug() << "MainWindow::slotFreqTXChanged" << QString::number(txFreqSpinBox->value()) << endl;
     txFreqBeingChanged = true;
     int bandId = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
     if (bandId > 1)

@@ -585,11 +585,11 @@ void SetupDialog::slotOkButtonClicked()
         stream << "RealTimeFromWSJTX=" << UDPPage->getReaDataFromWSJTx() << ";" <<  endl;
         stream << "InfoTimeOut=" << UDPPage->getTimeout() << ";" <<  endl;
 
-        qDebug() << "SetupDialog::slotOkButtonClicked: hamlib" << endl;
+        //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib" << endl;
         QString _aa = hamlibPage->getData();
         stream << _aa << endl;
 
-        qDebug() << "SetupDialog::slotOkButtonClicked: hamlib-2: " << _aa << endl;
+        //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib-2: " << _aa << endl;
 
         //WSJTX
 
@@ -685,8 +685,8 @@ bool SetupDialog::processConfigLine(const QString _line)
         value = value.left(value.length() - (value.length() - endValue));
     }
     value = checkAndFixASCIIinADIF(value); // Check whether the value is valid.
-    qDebug() << "SetupDialog::processConfigLine: TAB: " << tab << endl;
-    qDebug() << "SetupDialog::processConfigLine: VALUE: " << value << endl;
+    //qDebug() << "SetupDialog::processConfigLine: TAB: " << tab << endl;
+    //qDebug() << "SetupDialog::processConfigLine: VALUE: " << value << endl;
     if (tab == "CALLSIGN"){
          //qDebug() << "SetupDialog::processConfigLine: CALLSIGN: " << value << endl;
         userDataPage->setStationQrz(value);
@@ -869,19 +869,37 @@ bool SetupDialog::processConfigLine(const QString _line)
         colorsPage->setConfirmedColor(value);
     }else if(tab =="DEFAULTCOLOR"){
         colorsPage->setDefaultColor(value);
-        qDebug() << "SetupDialog::processConfigLine: DEFAULTCOLOR: " << value << endl;
+        //qDebug() << "SetupDialog::processConfigLine: DEFAULTCOLOR: " << value << endl;
     }else if(tab =="HAMLIBRIGTYPE"){
-        qDebug() << "SetupDialog::processConfigLine: HAMLIBRIGTYPE: " << value << endl;
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIBRIGTYPE: " << value << endl;
         hamlibPage->setRigType(value);
     }else if(tab =="HAMLIBSERIALPORT"){
-        qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPORT: " << value << endl;
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPORT: " << value << endl;
         hamlibPage->setSerialPort(value);
     }else if(tab =="HAMLIBSERIALBAUDS"){
-        qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALBAUDS: " << value << endl;
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALBAUDS: " << value << endl;
         hamlibPage->setSerialSpeed(value);
     }else if(tab =="HAMLIB"){
-        qDebug() << "SetupDialog::processConfigLine: HAMLIB: " << value << endl;
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIB: " << value << endl;
         hamlibPage->setActive(value);
+    }else if(tab =="HAMLIBSERIALDATABITS"){
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDATABITS: " << value << endl;
+        hamlibPage->setDataBits(value);
+    }else if(tab =="HAMLIBSERIALSTOPBITS"){
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALSTOPBITS: " << value << endl;
+        hamlibPage->setStopBits(value);
+    }else if(tab =="HAMLIBSERIALFLOWCONTROL"){
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALFLOWCONTROL: " << value << endl;
+        hamlibPage->setFlowControl(value);
+    }else if(tab =="HAMLIBSERIALPARITY"){
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPARITY: " << value << endl;
+        hamlibPage->setParity(value);
+    }else if(tab =="HAMLIBSERIALRTS"){
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALRTS: " << value << endl;
+        hamlibPage->setRTS(value);
+    }else if(tab =="HAMLIBSERIALDTR"){
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDTR: " << value << endl;
+        hamlibPage->setDTR(value);
 
     }else if(tab =="SELECTEDLOG"){
          //qDebug() << "SetupDialog::processConfigLine: SELECTEDLOG: " << value << endl;

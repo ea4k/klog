@@ -24,17 +24,29 @@ public:
     QString getNameFromModelId(const int _id);
     void setModelId(const int _id);
     void setPort(const QString _port);
-    void setSpeed(const int _speed);
-    void setPatity(const int _parity);
-    void setFlow(const int _flow);
-    void setStop(const int _stop);
-    void setData(const int _data);
+
+    void setData(const QString _data);
+    void setStop(const QString _stop);
+    void setFlow(const QString _flow);
+    void setParity(const QString _parity);
+    void setSpeed(const QString _speed);
+    void setRTS(const QString _state);
+    void setDTR(const QString _state);
+
+
+
+
     bool setFreq(const double _fr);
+
 
     bool init();
     bool stop();
     bool isRunning();
     void clean();
+
+    //bool openSerialPort();
+    //bool closeSerialPort();
+
 
 signals:
     void freqChanged(double newFreq);
@@ -61,11 +73,13 @@ private:
     int bauds;                  // default 9600
     int dataBits;               // default 8
     int stopBits;               // default 1
-    int flowControl;            // default QSerialPort::NoFLowControl
-    int parity;                 // default QSerialPort::NoParity
+    QString flowControl;            // default QSerialPort::NoFLowControl
+    QString parity;                 // default QSerialPort::NoParity
     QString serialPort;
 
     bool rigLaunched;
+
+    //QSerialPort *m_serial;
 };
 
 #endif // HAMLIBCLASS_H

@@ -47,6 +47,12 @@ public:
     bool setSerialPort(const QString _port);
     bool setSerialSpeed(const QString _speed );
     bool setActive(const QString _active);
+    void setRTS(const QString _state);
+    void setDTR(const QString _state);
+    void setDataBits(const QString _st);
+    void setFlowControl(const QString _st);
+    void setParity(const QString _st);
+    void setStopBits(const QString _st);
 
 
 signals:
@@ -61,9 +67,24 @@ private:
     void fillSerialPortsComboBox();
     //static int addRigToList(const struct rig_caps* caps, void* data);
     QStringList getAvailableSerialPorts();
-    QButtonGroup *flowControlLineButtonGroup, *handshakeButtonGroup, *dataBitsGroupButton, *stopBitsButtonGroup;
+
+    QString getDataBits();
+    QString getFlowControl();
+    QString getParity();
+    QString getStopBits();
+
+/*
+
+DataBits { Data5, Data6, Data7, Data8, UnknownDataBits }
+FlowControl { NoFlowControl, HardwareControl, SoftwareControl, UnknownFlowControl }
+Parity { NoParity, EvenParity, OddParity, SpaceParity, MarkParity, UnknownParity }
+StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
+
+*/
+
     QPushButton *scanSerialPortButton;
-    QComboBox *rigTypeComboBox, *serialBaudsComboBox, *serialPortComboBox;
+    QComboBox *rigTypeComboBox, *serialBaudsComboBox, *serialPortComboBox, *dataBitsComboBox,
+                *flowControlComboBox, *parityComboBox, *stopBitsComboBox;
     //QSpinBox *serialBaudsSpinBox;
     QLineEdit *serialPort;
 
@@ -73,11 +94,8 @@ private:
     //freq_t freq;
     //rig_model_t myrig_model;
 
-    QStringList strings, baudSpeeds, serialPorts;
-    QCheckBox *dataBits7CheckBox, *dataBits8CheckBox, *stopBits1CheckBox, *stopBits2CheckBox,
-    *handshakeNoneCheckBox, *handshakeXCheckBox, *handshakeHCheckBox,
-    *flowControlLinesDTRCheckBox,  *flowControlLinesRTSCheckBox,
-    *activateHamlibCheckBox;
+    QStringList strings, serialPorts;
+    QCheckBox *activateHamlibCheckBox, *RTSCheckBox, *DTRCheckBox;
 
 
     //int defaultPortSpeed;
