@@ -32,14 +32,10 @@ public:
     void setSpeed(const QString _speed);
     void setRTS(const QString _state);
     void setDTR(const QString _state);
-
-
-
-
     bool setFreq(const double _fr);
 
 
-    bool init();
+    bool init(bool _active);
     bool stop();
     bool isRunning();
     void clean();
@@ -64,11 +60,22 @@ private:
     RIG *my_rig;                // handle to rig (instance)
     freq_t freq, freq_old;                // Radio freq
     rmode_t rmode;              // Radio mode
+    serial_parity_e sparity;
+    serial_handshake_e shandshake;
+    serial_control_state_e srts, sdtr;
+
 
     int retcode;                // generic return code from functions
 
     rig_model_t myrig_model;    // Integer radio model
-    hamlib_port_t myport;       // Hamlib port
+    //hamlib_port_t myport;       // Hamlib port
+
+
+    pbwidth_t width;
+    vfo_t vfo;              /* vfo selection */
+    int strength;           /* S-Meter level */
+
+
 
     int bauds;                  // default 9600
     int dataBits;               // default 8

@@ -285,9 +285,10 @@ QString SetupPageHamLib::getData()
 
 bool SetupPageHamLib::setRigType(const QString _radio)
 {
-    //qDebug() << "SetupPageHamLib::setRig: " << _radio << endl;
+    qDebug() << "SetupPageHamLib::setRig: " << _radio << endl;
 
     int _index = rigTypeComboBox->findText(hamlib->getNameFromModelId(_radio.toInt()), Qt::MatchFlag::MatchExactly);
+    qDebug() << "SetupPageHamLib::setRig: After: "  << QString::number(_index)  << endl;
     if (_index >= 0)
     {
         rigTypeComboBox->setCurrentIndex(_index);

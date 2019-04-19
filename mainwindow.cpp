@@ -45,12 +45,14 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
    QTime start;
    start = QTime::currentTime();
-      //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
+   //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
+    qDebug() << "MainWindow::MainWindow: BEFORE HAMLIB " << endl;
     hamlib = new HamLibClass();
-    hamlibActive = false;
+    qDebug() << "MainWindow::MainWindow: AFTER HAMLILB " << endl;
+    hamlibActive = true;
 
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
@@ -88,7 +90,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     defaultBand = 1;
      //qDebug() << "MainWindow::MainWindow: 1 - currentMode: " << QString::number(currentMode) << endl;
     currentMode = 1;
-    //qDebug << "MainWindow::MainWindow: 2 - currentMode: " << QString::number(currentMode) << endl;
+    qDebug() << "MainWindow::MainWindow: 2 - currentMode: " << QString::number(currentMode) << endl;
     currentModeShown = currentMode;
     currentBand = 1;
     currentBandShown = currentBand;
@@ -136,7 +138,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     dxClusterShowWCY=true;
 
     keepSatPage = false;
-     //qDebug() << "MainWindow::MainWindow: 0008" << endl;
+     qDebug() << "MainWindow::MainWindow: 0008" << endl;
     clublogActive = false;
     clublogRealTime = false;
     clublogUser = QString();
@@ -193,7 +195,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     //qDebug() << "MainWindow::MainWindow: Before existing Data" << endl;
     bool existingData = QFile::exists(util->getKLogDBFile());
-    //qDebug() << "MainWindow::MainWindow: After existing Data" << endl;
+    qDebug() << "MainWindow::MainWindow: After existing Data" << endl;
 
     if (existingData)
     {
@@ -234,7 +236,9 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     {
      //qDebug() << "MainWindow::MainWindow: existingData" << endl;
     }
-     //qDebug() << "MainWindow::MainWindow: proxy to be created" << endl;
+     qDebug() << "MainWindow::MainWindow: proxy to be created" << endl;
+
+
 
     connect(dataProxy, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     //connect(dataProxy, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
@@ -242,19 +246,23 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //connect(this, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
 
 
-     //qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
+     qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
     //setupDialog = new SetupDialog(!configured);
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured);
     connect(setupDialog, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     //connect(setupDialog, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
      //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab(dataProxy);
+
+
+
+
     connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
     connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotSatChangeRXFreq(double)) );
     connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotSatChangeTXFreq(double)) );
     connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
 
-    connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
+    //connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
 
     myDataTabWidget = new MainWindowMyDataTab();
     commentTabWidget = new MainWindowInputComment();
@@ -363,7 +371,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     // UI DX
 
     // CLUSTER
-     //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
+     qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
     dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
 
 
@@ -380,14 +388,14 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //createDXClusterUI();
     connect( setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
 
-     //qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
+    qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
     readConfigData();
-     //qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
+    qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
     if (itIsANewversion)
     {
         slotSetup();
     }
-     //qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
+    qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
     if (needToEnd)
     {
        //QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -396,7 +404,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
        exit(0);
     }
 
-     //qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
+     qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
 
     logWindow->createlogPanel(currentLog);
 
@@ -417,7 +425,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 
     setWindowTitle(tr("KLog"));
 
-     //qDebug() << "MainWindow::MainWindow: 16" << endl;
+    qDebug() << "MainWindow::MainWindow: 16" << endl;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
          //qDebug() << "MainWindow::MainWindow: 16.1" << endl;
@@ -556,8 +564,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     connect(filemanager, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     //connect(filemanager, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
 
-
-    //qDebug() << "MainWindow::MainWindow: END" << endl;
+    qDebug() << "MainWindow::MainWindow: END" << endl;
 }
 
 MainWindow::~MainWindow()
@@ -4195,7 +4202,7 @@ void MainWindow::checkIfWorkedB4(const QString _qrz)
 
 void MainWindow::readConfigData()
 {
-     //qDebug() << "MainWindow::readConfigData - 01" << endl;
+     qDebug() << "MainWindow::readConfigData - 01" << endl;
 
     if (needToEnd)
     {
@@ -4221,10 +4228,10 @@ void MainWindow::readConfigData()
         QByteArray line = file.readLine();
         processConfigLine(line);
     }
-     //qDebug() << "MainWindow::readConfigData: After processConfigLine "  << endl;
+   qDebug() << "MainWindow::readConfigData: After processConfigLine "  << endl;
     defineStationCallsign();
 
-     //qDebug() << "MainWindow::readConfigData: " << defaultADIFLogFile << endl;
+    qDebug() << "MainWindow::readConfigData: " << defaultADIFLogFile << endl;
 
     if ((useDefaultLogFileName) && (defaultADIFLogFile.length()>0))
     {
@@ -4248,7 +4255,7 @@ void MainWindow::readConfigData()
 
     checkIfNewBandOrMode();
     initialContestModeConfiguration();
-     //qDebug() << "MainWindow::readConfigData: 99" << endl;
+    qDebug() << "MainWindow::readConfigData: 99" << endl;
 
     if (upAndRunning)
     { // Next actions will not be executed in the first run
@@ -4333,6 +4340,9 @@ void MainWindow::readConfigData()
             //qDebug() << "MainWindow::readConfigData: UDP Log server already stopped no need to restop!" << endl;
         }
     }
+    qDebug() << "MainWindow::readConfigData: Before hamlib init" << endl;
+    hamlib->init(true);
+    qDebug() << "MainWindow::readConfigData: After hamlib init" << endl;
     /*
     if (hamlibActive)
     {
@@ -4342,9 +4352,9 @@ void MainWindow::readConfigData()
     {
         hamlib->stop();
     }
-    */
-    hamlib->init();
-    //qDebug() << "MainWindow::readConfigData - END" << endl;
+*/
+
+   qDebug() << "MainWindow::readConfigData - END" << endl;
 
 }
 
@@ -4656,6 +4666,7 @@ bool MainWindow::processConfigLine(const QString _line){
         }
 
     }
+
 
 
     else if (field=="REALTIMEFROMWSJTX")
@@ -7231,7 +7242,7 @@ void MainWindow::slotFreqTXChanged()
        txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
        if (hamlibActive)
        {
-           hamlib->setFreq(txFreqSpinBox->value());
+           //hamlib->setFreq(txFreqSpinBox->value());
        }
 
         bool freqInBand = dataProxy->isThisFreqInBand(bandComboBox->currentText(), QString::number(txFreqSpinBox->value()));
