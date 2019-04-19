@@ -631,7 +631,7 @@ void SetupDialog::slotReadConfigData()
         processConfigLine(line);        
         //qDebug() << "SetupDialog::slotReadConfigData - in the while" << endl;
     }
-     //qDebug() << "SetupDialog::slotReadConfigData - 3" << endl;
+    qDebug() << "SetupDialog::slotReadConfigData - 3" << endl;
 
     dxClusterPage->setDxclusterServersComboBox(dxClusterServers);
     dxClusterPage->setSelectedDxClusterServer(dxClusterServerToUse);
@@ -652,7 +652,7 @@ void SetupDialog::slotReadConfigData()
     bands.removeDuplicates();
    //qDebug() << "SetupDialog::slotReadConfigData - duplicate bands: " << QString::number(a)  << endl;
     bandModePage->setActiveBands(bands);
-    //qDebug() << "SetupDialog::slotReadConfigData - END" << endl;
+    qDebug() << "SetupDialog::slotReadConfigData - END" << endl;
 
 }
 
@@ -871,10 +871,12 @@ bool SetupDialog::processConfigLine(const QString _line)
         colorsPage->setDefaultColor(value);
         //qDebug() << "SetupDialog::processConfigLine: DEFAULTCOLOR: " << value << endl;
     }else if(tab =="HAMLIBRIGTYPE"){
-        //qDebug() << "SetupDialog::processConfigLine: HAMLIBRIGTYPE: " << value << endl;
+        qDebug() << "SetupDialog::processConfigLine: Before HAMLIBRIGTYPE: " << value << endl;
+
         hamlibPage->setRigType(value);
+        qDebug() << "SetupDialog::processConfigLine: After HAMLIBRIGTYPE: " << value << endl;
     }else if(tab =="HAMLIBSERIALPORT"){
-        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPORT: " << value << endl;
+        qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPORT: " << value << endl;
         hamlibPage->setSerialPort(value);
     }else if(tab =="HAMLIBSERIALBAUDS"){
         //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALBAUDS: " << value << endl;

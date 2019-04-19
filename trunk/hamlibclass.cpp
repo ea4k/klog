@@ -1,10 +1,17 @@
 #include "hamlibclass.h"
 
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+
 
 HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
 {
+    qDebug() << "HamLibClass::HamLibClass" << endl;
     timer = new QTimer(this);
     //m_serial = new QSerialPort();
+
 
     connect(timer, SIGNAL(timeout()), this, SLOT(slotTimer()) );
 
@@ -13,6 +20,7 @@ HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
 
     //timer->start(1000);
     clean();
+    qDebug() << "HamLibClass::HamLibClass  END" << endl;
 }
 
 HamLibClass::~HamLibClass()
@@ -28,7 +36,7 @@ HamLibClass::~HamLibClass()
 void HamLibClass::slotTimer()
 {
     //freq_old = freq;
-    int retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
+    retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
 
 
     if (retcode == RIG_OK)
@@ -55,9 +63,10 @@ void HamLibClass::slotTimer()
 bool HamLibClass::stop()
 {
     qDebug() << "HamLibClass::stop" << endl;
+    timer->stop();
     int errorCode = rig_close(my_rig);
     qDebug() << "HamLibClass::stop-1" << endl;
-    timer->stop();
+
 
     if (errorCode == RIG_OK)
     {
@@ -85,31 +94,92 @@ bool HamLibClass::stop()
 
 void HamLibClass::clean()
 {            
-    myrig_model = -1;        //Dummy equipment
-    myport.parm.serial.rate = 57600;
-    myport.parm.serial.data_bits = 8;
-    myport.parm.serial.stop_bits = 1;
-    myport.parm.serial.handshake = RIG_HANDSHAKE_NONE;
-    myport.parm.serial.parity = RIG_PARITY_NONE;
-    myport.type.rig = RIG_PORT_SERIAL;
-    myport.parm.serial.dtr_state = RIG_SIGNAL_OFF;
-    myport.parm.serial.rts_state = RIG_SIGNAL_OFF;
+    qDebug() << "HamLibClass::Clean" << endl;
+    myrig_model = 228;        //Dummy equipment
+    qDebug() << "HamLibClass::Clean 0" << endl;
+    //myport.parm.serial.rate = 57600;
+    bauds = 9600;
+     qDebug() << "HamLibClass::Clean - 1" << endl;
+    dataBits = 8;
+     qDebug() << "HamLibClass::Clean - 2" << endl;
+    stopBits = 1;
+    qDebug() << "HamLibClass::Clean - 3" << endl;
+    shandshake = RIG_HANDSHAKE_NONE;
+    qDebug() << "HamLibClass::Clean - 4" << endl;
+    sparity = RIG_PARITY_NONE;
+    qDebug() << "HamLibClass::Clean - 5" << endl;
+    //myport.type.rig = RIG_PORT_SERIAL;
+
+    qDebug() << "HamLibClass::Clean - 8" << endl;
     serialPort = QString();
+    sdtr = RIG_SIGNAL_UNSET;
+    qDebug() << "HamLibClass::Clean - 9" << endl;
+    srts = RIG_SIGNAL_UNSET;
 
+    qDebug() << "HamLibClass::Clean - 10" << endl;
     rigLaunched = false;
-
+    qDebug() << "HamLibClass::clean - END" << endl;
 }
 
-bool HamLibClass::init()
+bool HamLibClass::init(bool _active)
 {
-    qDebug() << "HamLibClass::init: " << QString::number(myrig_model) << endl;
+    qDebug() << "HamLibClass::init: "  << endl;
     //qDebug() << "HamLibClass::init: " << getNameFromModelId(myrig_model) << endl;
     //qDebug() << "HamLibClass::init: " << getNameFromModelId(myrig_model) << endl;
+    if (!_active)
+    {
+        return false;
+    }
 
     if (myrig_model == -1)
     {
         return false;
     }
+
+    rig_set_debug(RIG_DEBUG_VERBOSE);
+    my_rig = rig_init(myrig_model);
+
+    if (my_rig == NULL)
+    {
+       qDebug() << "HamLibClass::init: Init failed, hamlib returned fail!" << endl;
+       return false;
+    }
+    else
+    {
+        qDebug() << "HamLibClass::init: rig_init went OK!" << endl;
+    }
+    my_rig->state.rigport.type.rig = RIG_PORT_SERIAL;
+    //serialPort = "/dev/cu.usbserial";
+    qDebug() << "HamLibClass::init: serialport: " << serialPort << endl;
+    qDebug() << "HamLibClass::init: serialport2: " << serialPort.toLocal8Bit() << endl;
+    strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
+    qDebug() << "HamLibClass::init: rigport: " << my_rig->state.rigport.pathname << endl;
+    my_rig->state.rigport.parm.serial.rate = bauds;
+    qDebug() << "HamLibClass::init: serial rate: " << QString::number(my_rig->state.rigport.parm.serial.rate) << endl;
+    my_rig->state.rigport.parm.serial.data_bits = dataBits;
+    qDebug() << "HamLibClass::init: data bits: " << QString::number(my_rig->state.rigport.parm.serial.data_bits) << endl;
+    my_rig->state.rigport.parm.serial.stop_bits = stopBits;
+    qDebug() << "HamLibClass::init: stop bits: " << QString::number(my_rig->state.rigport.parm.serial.stop_bits) << endl;
+    my_rig->state.rigport.parm.serial.parity = sparity;
+    //my_rig->state.rigport.parm.serial.dtr_state = RIG_SIGNAL_ON;
+    //my_rig->state.rigport.parm.serial.rts_state = RIG_SIGNAL_ON;
+
+    my_rig->state.rigport.parm.serial.handshake = shandshake;
+
+    // Config done
+    retcode = rig_open(my_rig);
+
+    if (retcode != RIG_OK)
+    {
+        qDebug() << "HamLibClass::init: Can't open: " << rigerror(retcode) << endl;
+        rig_cleanup(my_rig);
+        return false;
+    }
+
+    rigLaunched = true;
+    timer->start(1000);
+
+    /*
     stop();
 
     if (!rigLaunched)
@@ -158,6 +228,7 @@ bool HamLibClass::init()
     {
         qDebug() << "HamLibClass::init: Rig was already launched" << endl;
     }
+    */
     qDebug() << "HamLibClass::init: END TRUE" << endl;
     return true;
 }
@@ -224,69 +295,75 @@ void HamLibClass::setPort(const QString _port)
 {
     qDebug() << "HamLibClass::setPort: " << _port << endl;
     serialPort = _port;
-    qstrncpy(myport.pathname, serialPort.toLocal8Bit().constData(), serialPort.length()+1);
+    //strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
+    //qstrncpy(myport.pathname, serialPort.toLocal8Bit().constData(), serialPort.length()+1);
 }
 
 void HamLibClass::setSpeed(const QString _speed)
 {
     bauds = _speed.toInt();
+    /*
     switch (bauds)
     {
         case QSerialPort::Baud1200:
-            myport.parm.serial.rate = 1200;
+            my_rig->state.rigport.parm.serial.rate = 1200;
         break;
         case QSerialPort::Baud2400:
-            myport.parm.serial.rate = 2400;
+            my_rig->state.rigport.parm.serial.rate = 2400;
         break;
         case QSerialPort::Baud4800:
-            myport.parm.serial.rate = 4800;
+            my_rig->state.rigport.parm.serial.rate = 4800;
         break;
         case QSerialPort::Baud9600:
-            myport.parm.serial.rate = 9600;
+            my_rig->state.rigport.parm.serial.rate = 9600;
         break;
         case QSerialPort::Baud19200:
-            myport.parm.serial.rate = 19200;
+            my_rig->state.rigport.parm.serial.rate = 19200;
         break;
         case QSerialPort::Baud38400:
-            myport.parm.serial.rate = 38400;
+            my_rig->state.rigport.parm.serial.rate = 38400;
         break;
         case QSerialPort::Baud57600:
-            myport.parm.serial.rate = 57600;
+            my_rig->state.rigport.parm.serial.rate = 57600;
             qDebug() << "HamLibClass::setSpeed 57600" << endl;
         break;
         case QSerialPort::Baud115200:
-            myport.parm.serial.rate = 115200;
+            my_rig->state.rigport.parm.serial.rate = 115200;
         break;
         default:
-            myport.parm.serial.rate = 9600;
+            my_rig->state.rigport.parm.serial.rate = 9600;
         break;
     }
+    */
 }
 
 void HamLibClass::setData(const QString _data)
 {
     dataBits = _data.toInt();
+    /*
     if ((dataBits >=5) || (dataBits<=8))
     {
-        myport.parm.serial.data_bits = dataBits;
+        my_rig->state.rigport.parm.serial.data_bits = dataBits;
     }
     else
     {
-        myport.parm.serial.data_bits = 8;
+        my_rig->state.rigport.parm.serial.data_bits = 8;
     }
+    */
 }
 void HamLibClass::setStop(const QString _stop)
 {
     stopBits = _stop.toInt();
-
+    /*
     if ((stopBits >=1) || (stopBits<=3))
     {
-        myport.parm.serial.stop_bits = stopBits;
+        my_rig->state.rigport.parm.serial.stop_bits = stopBits;
     }
     else
     {
-        myport.parm.serial.stop_bits = 1;
+        my_rig->state.rigport.parm.serial.stop_bits = 1;
     }
+    */
 }
 
 void HamLibClass::setFlow(const QString _flow)
@@ -295,16 +372,16 @@ void HamLibClass::setFlow(const QString _flow)
     flowControl = _flow.toUpper();
 
     if (flowControl == "HARDWARE")
-    {
-        myport.parm.serial.handshake = RIG_HANDSHAKE_HARDWARE;
+    {        
+        shandshake = RIG_HANDSHAKE_HARDWARE;
     }
     else if (flowControl == "SOFTWARE")
     {
-        myport.parm.serial.handshake = RIG_HANDSHAKE_XONXOFF;
+        shandshake = RIG_HANDSHAKE_XONXOFF;
     }
     else
     {
-        myport.parm.serial.handshake = RIG_HANDSHAKE_NONE;
+        shandshake = RIG_HANDSHAKE_NONE;
     }
 }
 
@@ -313,23 +390,23 @@ void HamLibClass::setParity(const QString _parity)
     parity = _parity.toUpper();
     if (parity == "EVEN")
     {
-        myport.parm.serial.parity = RIG_PARITY_EVEN;
+        sparity= RIG_PARITY_EVEN;
     }
     else if (parity == "ODD")
     {
-        myport.parm.serial.parity = RIG_PARITY_ODD;
+        sparity = RIG_PARITY_ODD;
     }
     else if (parity == "SPACE")
     {
-        myport.parm.serial.parity = RIG_PARITY_SPACE;
+        sparity = RIG_PARITY_SPACE;
     }
     else if (parity == "MARK")
     {
-        myport.parm.serial.parity = RIG_PARITY_MARK;
+        sparity = RIG_PARITY_MARK;
     }
     else
     {
-        myport.parm.serial.parity = RIG_PARITY_NONE;
+        sparity = RIG_PARITY_NONE;
     }
 }
 
@@ -397,7 +474,8 @@ bool HamLibClass::closeSerialPort()
 
 void HamLibClass::setRTS(const QString _state)
 {
-    if (myport.parm.serial.handshake == RIG_HANDSHAKE_HARDWARE)
+
+    if (shandshake == RIG_HANDSHAKE_HARDWARE)
     { // Note: An attempt to control the RTS signal in the HardwareControl mode will fail with error code
       // set to UnsupportedOperationError, because the signal is automatically controlled by the driver.
         return;
@@ -405,26 +483,23 @@ void HamLibClass::setRTS(const QString _state)
 
     if (_state.toUpper() == "TRUE")
     {
-        myport.parm.serial.rts_state = RIG_SIGNAL_ON;
+        srts = RIG_SIGNAL_ON;
     }
     else
     {
-           myport.parm.serial.rts_state = RIG_SIGNAL_OFF;
+           srts = RIG_SIGNAL_OFF;
     }
 }
 
 void HamLibClass::setDTR(const QString _state)
 {
+
     if (_state.toUpper() == "TRUE")
     {
-        myport.parm.serial.dtr_state = RIG_SIGNAL_ON;
+        sdtr = RIG_SIGNAL_ON;
     }
     else
     {
-           myport.parm.serial.dtr_state = RIG_SIGNAL_OFF;
+           sdtr = RIG_SIGNAL_OFF;
     }
-
 }
-
-
-
