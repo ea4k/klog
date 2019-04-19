@@ -245,6 +245,7 @@ private slots:
 
     //HAMLIB
     void slotHamlibTXFreqChanged(const double _f);
+    void slotHamlibModeChanged(const QString _m);
 
     //DXCCWIDGET
     void slotShowQSOFromDXCCWidget(const int _q);

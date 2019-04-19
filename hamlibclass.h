@@ -32,7 +32,9 @@ public:
     void setSpeed(const QString _speed);
     void setRTS(const QString _state);
     void setDTR(const QString _state);
+
     bool setFreq(const double _fr);
+    bool setMode(const QString _m);
 
 
     bool init(bool _active);
@@ -46,12 +48,15 @@ public:
 
 signals:
     void freqChanged(double newFreq);
+    void modeChanged(QString newFreq);
 
 public slots:
     void slotTimer();
 
 private:
     static int addRigToList(const struct rig_caps* caps, void* data);
+    QString hamlibMode2Mode(rmode_t _rmode);
+    rmode_t mode2HamlibMode(const QString _m);
     QStringList strings;
     QTimer *timer;
     QMap<QString, rig_model_t> rigName2RigId;
@@ -59,7 +64,7 @@ private:
 
     RIG *my_rig;                // handle to rig (instance)
     freq_t freq, freq_old;                // Radio freq
-    rmode_t rmode;              // Radio mode
+    rmode_t rmode, mode_old;              // Radio mode
     serial_parity_e sparity;
     serial_handshake_e shandshake;
     serial_control_state_e srts, sdtr;

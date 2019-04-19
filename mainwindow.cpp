@@ -262,7 +262,9 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotSatChangeTXFreq(double)) );
     connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
 
-    //connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
+    connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
+    connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
+
 
     myDataTabWidget = new MainWindowMyDataTab();
     commentTabWidget = new MainWindowInputComment();
@@ -648,6 +650,10 @@ MainWindow::~MainWindow()
     dxClusterWidget->~DXClusterWidget();
     softUpdate->~SoftwareUpdate();
     */
+    if (hamlibActive)
+    {
+        hamlib->stop();
+    }
 }
 
 
@@ -736,7 +742,10 @@ void MainWindow::slotModeComboBoxChanged()
     _qs.clear();
     _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
     showStatusOfDXCC(_qs);
-
+    if (hamlibActive)
+    {
+        hamlib->setMode(modeComboBox->currentText());
+    }
 
     //qDebug() << "MainWindow::slotModeComboBoxChanged2: " << modeComboBox->currentText() << endl;
 }
@@ -4340,19 +4349,16 @@ void MainWindow::readConfigData()
             //qDebug() << "MainWindow::readConfigData: UDP Log server already stopped no need to restop!" << endl;
         }
     }
-    qDebug() << "MainWindow::readConfigData: Before hamlib init" << endl;
-    hamlib->init(true);
-    qDebug() << "MainWindow::readConfigData: After hamlib init" << endl;
-    /*
+
+
     if (hamlibActive)
     {
-        hamlib->init();
+        hamlib->init(true);
     }
     else
     {
         hamlib->stop();
     }
-*/
 
    qDebug() << "MainWindow::readConfigData - END" << endl;
 
@@ -7242,7 +7248,7 @@ void MainWindow::slotFreqTXChanged()
        txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
        if (hamlibActive)
        {
-           //hamlib->setFreq(txFreqSpinBox->value());
+           hamlib->setFreq(txFreqSpinBox->value());
        }
 
         bool freqInBand = dataProxy->isThisFreqInBand(bandComboBox->currentText(), QString::number(txFreqSpinBox->value()));
@@ -7537,7 +7543,7 @@ bool MainWindow::checkIfNewMode(const QString _mode)
         QMessageBox msgBox;
 
         msgBox.setIcon(QMessageBox::Warning);
-        QString aux = tr("A new mode not supported by KLog has been received from an external software:") + "(" + _mode + ")\n\n" + tr("If the received mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)");
+        QString aux = tr("A new mode not supported by KLog has been received from an external software or radio:") + "(" + _mode + ")\n\n" + tr("If the received mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)");
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
 
@@ -7757,6 +7763,24 @@ void MainWindow::slotSatChangeTXFreq(const double _f)
 void MainWindow::slotHamlibTXFreqChanged(const double _f)
 {
     txFreqSpinBox->setValue(_f);
+}
+
+void MainWindow::slotHamlibModeChanged(const QString _m)
+{
+
+    if (checkIfNewMode(_m))
+    {
+        return;
+    }
+    if (modeComboBox->findText(_m, Qt::MatchCaseSensitive)>=0)
+    {
+        //qDebug() << "slotHamlibModeChanged: Mode in the Combobox: " << _m << " - Result: " << QString::number(modeComboBox->findText(_m)) << endl;
+        modeComboBox->setCurrentIndex(modeComboBox->findText(_m, Qt::MatchCaseSensitive));
+    }
+    else
+    {
+        qDebug() << "MainWindow::slotHamlibModeChanged: Mode not found in combobox" << _m << endl;
+    }
 }
 
 
