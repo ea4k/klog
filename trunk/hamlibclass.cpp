@@ -58,6 +58,202 @@ void HamLibClass::slotTimer()
         qDebug() << "HamLibClass::slotTimer Unable to read FREQ - Error: " << rigerror(retcode) << endl;
     }
 
+    retcode = rig_get_mode(my_rig, RIG_VFO_CURR, &rmode, &width);
+    if (retcode == RIG_OK)
+    {
+        if (mode_old != rmode)
+        {
+            emit modeChanged(hamlibMode2Mode(rmode));
+        }
+    }
+
+}
+bool HamLibClass::setMode(const QString _m)
+{
+    qDebug() << "HamLibClass::setMode: " << _m << endl;
+
+
+    retcode = rig_set_mode(my_rig, RIG_VFO_CURR, rig_parse_mode(_m.toLocal8Bit()), rig_passband_normal(my_rig, rig_parse_mode(_m.toLocal8Bit())));
+    if (retcode != RIG_OK)
+    {
+        qDebug() << "HamLibClass::setMode: ERROR: Could not set mode: " << _m << endl;
+    }
+}
+
+rmode_t HamLibClass::mode2HamlibMode(const QString _m)
+{
+
+    /*
+    if (_m == "USB")
+    {
+        return RIG_MODE_USB;
+    }
+    else if (_m == "LSB")
+    {
+        return RIG_MODE_LSB;
+    }
+    else if (_m == "CW")
+    {
+        return RIG_MODE_CW;
+    }
+    else if (_m == "FM")
+    {
+        return RIG_MODE_FM;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+    else if (_m == "")
+    {
+        return RIG_MODE_;
+    }
+
+    */
+
+}
+QString HamLibClass::hamlibMode2Mode(rmode_t _rmode)
+{
+
+    switch (_rmode)
+    {
+        case RIG_MODE_NONE:
+            return QString();
+        break;
+        case RIG_MODE_AM:
+            return "AM";
+        break;
+    case RIG_MODE_CW:
+        return "CW";
+    break;
+    case RIG_MODE_USB:
+        return "USB";
+    break;
+    case RIG_MODE_LSB:
+        return "LSB";
+    break;
+    case RIG_MODE_RTTY:
+        return "RTTY";
+    break;
+    case RIG_MODE_FM:
+        return "FM";
+    break;
+    case RIG_MODE_WFM:
+        return "WFM";
+    break;
+    case RIG_MODE_CWR:
+        return "CW"; //TODO: Check with ADIF
+    break;
+    case RIG_MODE_RTTYR:
+        return "RTTY"; // TODO Check
+    break;
+    case RIG_MODE_AMS://TODO: Check with ADIF
+        return "AM";
+    break;
+    case RIG_MODE_PKTLSB:
+        return "LSB";//TODO: Check with ADIF
+    break;
+    case RIG_MODE_PKTUSB:
+        return "USB";//TODO: Check with ADIF
+    break;
+    case RIG_MODE_PKTFM:
+        return "FM";//TODO: Check with ADIF
+    break;
+    case RIG_MODE_ECSSUSB:
+        return "USB";//TODO: Check with ADIF
+    break;
+    case RIG_MODE_ECSSLSB:
+        return "LSB";//TODO: Check with ADIF
+    break;
+    case RIG_MODE_FAX:
+        return "FAX";
+    break;
+    case RIG_MODE_SAM:
+        return "AM"; //TODO: Check with ADIF
+    break;
+    case RIG_MODE_SAL:
+        return "LSB";//TODO: Check with ADIF
+    break;
+    case RIG_MODE_SAH:
+        return "USB";//TODO: Check with ADIF
+    break;
+    case RIG_MODE_DSB:
+        return "SSB";//TODO: Check with ADIF
+    break;
+    case RIG_MODE_FMN:
+        return "FM";//TODO: Check with ADIF
+    break;
+
+    break;
+        default:
+            return QString();
+        break;
+    }
+
 }
 
 bool HamLibClass::stop()
@@ -128,6 +324,7 @@ bool HamLibClass::init(bool _active)
     //qDebug() << "HamLibClass::init: " << getNameFromModelId(myrig_model) << endl;
     if (!_active)
     {
+        stop();
         return false;
     }
 
@@ -179,56 +376,7 @@ bool HamLibClass::init(bool _active)
     rigLaunched = true;
     timer->start(1000);
 
-    /*
-    stop();
 
-    if (!rigLaunched)
-    {
-        rig_set_debug(RIG_DEBUG_NONE);
-        qDebug() << "HamLibClass::init: 1" << endl;
-
-        //qstrncpy(myport.pathname, serialPort.toLocal8Bit().constData(), serialPort.length());
-        //serialPort = myport.pathname;
-        qDebug() << "HamLibClass::init: 3 (pathname): " << myport.pathname << endl;
-
-        rig_load_all_backends();
-        my_rig = rig_init(myrig_model);
-        if (!my_rig)
-        {
-            rigLaunched = false;
-            qDebug() << "HamLibClass::init: END FALSE1" << endl;
-            return false;
-        }
-        //qstrncpy(myport.pathname, serialPort.toLocal8Bit(), FILPATHLEN - 1);
-        qDebug() << "HamLibClass::init: 4 - SerialPort: " << serialPort << endl;
-        qstrncpy(my_rig->state.rigport.pathname,serialPort.toLocal8Bit(),FILPATHLEN - 1);
-        qDebug() << "HamLibClass::init: 4 - SerialPort-2: " << my_rig->state.rigport.pathname << endl;
-
-        //qstrncpy(my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constEnd(), serialPort.length());
-        //qstrncpy(my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constEnd(), serialPort.length());
-        //serialPort = my_rig->state.rigport.pathname;
-        int retcode = rig_open(my_rig);
-
-        qDebug() << "HamLibClass::init: 5 - " << endl;
-        if (retcode != RIG_OK)
-        {
-            rigLaunched = false;
-            qDebug() << "HamLibClass::init: Error: " << QString::number(retcode) << "-" << rigerror(retcode);
-            qDebug() << "HamLibClass::init: END FALSE2" << endl;
-            return false;
-        }
-        else
-        {
-            qDebug() << "HamLibClass::init: RADIO OPENED" << endl;
-        }
-        rigLaunched = true;
-        timer->start(1000);
-    }
-    else
-    {
-        qDebug() << "HamLibClass::init: Rig was already launched" << endl;
-    }
-    */
     qDebug() << "HamLibClass::init: END TRUE" << endl;
     return true;
 }
@@ -302,68 +450,15 @@ void HamLibClass::setPort(const QString _port)
 void HamLibClass::setSpeed(const QString _speed)
 {
     bauds = _speed.toInt();
-    /*
-    switch (bauds)
-    {
-        case QSerialPort::Baud1200:
-            my_rig->state.rigport.parm.serial.rate = 1200;
-        break;
-        case QSerialPort::Baud2400:
-            my_rig->state.rigport.parm.serial.rate = 2400;
-        break;
-        case QSerialPort::Baud4800:
-            my_rig->state.rigport.parm.serial.rate = 4800;
-        break;
-        case QSerialPort::Baud9600:
-            my_rig->state.rigport.parm.serial.rate = 9600;
-        break;
-        case QSerialPort::Baud19200:
-            my_rig->state.rigport.parm.serial.rate = 19200;
-        break;
-        case QSerialPort::Baud38400:
-            my_rig->state.rigport.parm.serial.rate = 38400;
-        break;
-        case QSerialPort::Baud57600:
-            my_rig->state.rigport.parm.serial.rate = 57600;
-            qDebug() << "HamLibClass::setSpeed 57600" << endl;
-        break;
-        case QSerialPort::Baud115200:
-            my_rig->state.rigport.parm.serial.rate = 115200;
-        break;
-        default:
-            my_rig->state.rigport.parm.serial.rate = 9600;
-        break;
-    }
-    */
 }
 
 void HamLibClass::setData(const QString _data)
 {
     dataBits = _data.toInt();
-    /*
-    if ((dataBits >=5) || (dataBits<=8))
-    {
-        my_rig->state.rigport.parm.serial.data_bits = dataBits;
-    }
-    else
-    {
-        my_rig->state.rigport.parm.serial.data_bits = 8;
-    }
-    */
 }
 void HamLibClass::setStop(const QString _stop)
 {
     stopBits = _stop.toInt();
-    /*
-    if ((stopBits >=1) || (stopBits<=3))
-    {
-        my_rig->state.rigport.parm.serial.stop_bits = stopBits;
-    }
-    else
-    {
-        my_rig->state.rigport.parm.serial.stop_bits = 1;
-    }
-    */
 }
 
 void HamLibClass::setFlow(const QString _flow)
@@ -413,64 +508,32 @@ void HamLibClass::setParity(const QString _parity)
 
 bool HamLibClass::setFreq(const double _fr)
 {
-    //qDebug() << "HamLibClass::setFreq: " << QString::number(_fr) << endl;
+    qDebug() << "HamLibClass::setFreq: " << QString::number(_fr) << endl;
 
     freq = _fr * 1000000;
     int retcode = rig_set_freq(my_rig, RIG_VFO_CURR, freq);
     if (retcode != RIG_OK)
     {
-        //qDebug() << "HamLibClass::setFreq NOK: "  << endl;
+        qDebug() << "HamLibClass::setFreq NOK: "  << endl;
 
         return false;
     }
     else
     {
-        //qDebug() << "HamLibClass::setFreq OK: " << QString::number(freq) << endl;
+        qDebug() << "HamLibClass::setFreq OK: " << QString::number(freq) << endl;
         retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
         if (retcode == RIG_OK)
         {
-            //qDebug() << "HamLibClass::setFreq read: " << QString::number(freq) << endl;
+            qDebug() << "HamLibClass::setFreq read: " << QString::number(freq) << endl;
         }
         else
         {
-            //qDebug() << "HamLibClass::setFreq Unable to read FREQ" << endl;
+            qDebug() << "HamLibClass::setFreq Unable to read FREQ" << endl;
         }
         return true;
     }
 }
-/*
-bool HamLibClass::openSerialPort()
-{
-   qDebug() << "HamLibClass::openSerialPort: Opening: " << serialPort << endl;
-   closeSerialPort();
-    m_serial->setPortName(serialPort);
-    m_serial->setBaudRate(bauds);
-    m_serial->setDataBits(QSerialPort::Data8);
-    m_serial->setParity(QSerialPort::NoParity);
-    m_serial->setStopBits(QSerialPort::OneStop);
-    m_serial->setFlowControl(QSerialPort::HardwareControl);
-    if (m_serial->open(QIODevice::ReadWrite))
-    {
-        qDebug() << "HamLibClass::openSerialPort: OPEN OK: " << serialPort << endl;
-        return true;
-    }
-    else
-    {
 
-        qDebug() << "HamLibClass::openSerialPort: OPEN ERROR: " << m_serial->errorString() << endl;
-        return false;
-    }
-}
-
-
-bool HamLibClass::closeSerialPort()
-{
-    qDebug() << "HamLibClass::closeSerialPort" << endl;
-    if (m_serial->isOpen())
-        m_serial->close();
-    return true;
-}
-*/
 
 void HamLibClass::setRTS(const QString _state)
 {
