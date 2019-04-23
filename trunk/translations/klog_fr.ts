@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="fr_FR">
+    <extra-po-header-language>fr_FR</extra-po-header-language>
+    <extra-po-header-language_team></extra-po-header-language_team>
+    <extra-po-header-last_translator></extra-po-header-last_translator>
+    <extra-po-header-po_revision_date></extra-po-header-po_revision_date>
+    <extra-po-header-pot_creation_date></extra-po-header-pot_creation_date>
+    <extra-po-header-project_id_version></extra-po-header-project_id_version>
+    <extra-po-header-x_generator>Poedit 2.2.1</extra-po-header-x_generator>
+    <extra-po-headers>MIME-Version,Content-Type,Content-Transfer-Encoding,Plural-Forms,X-Language,X-Qt-Contexts,Project-Id-Version,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,Language,X-Generator</extra-po-headers>
 <context>
     <name>AboutDialog</name>
     <message>
@@ -61,12 +69,12 @@
     <message>
         <location filename="../aboutdialog.cpp" line="89"/>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog development mailing list&lt;/a&gt;!</source>
-        <translation>Si KLog n&apos;est pas encore dans votre langue et que vous souhaitez nous aidez, rejoignez-nous sur la &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;liste de diffusion KLog dédiée au développement&lt;/a&gt; !</translation>
+        <translation>Si KLog n&apos;est pas encore disponible dans votre langue et que vous souhaitez nous aidez, rejoignez-nous sur la &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;liste de diffusion KLog dédiée au développement&lt;/a&gt; !</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="73"/>
         <source>You can also help us by sending bug reports or small code contributions, ideas or whatever you think may improve KLog.</source>
-        <translation>Vous pouvez aussi nous aider en postant des rapports de bogues ou de petites contributions au code source, idées ou tout ce que vous pensez qui puisse améliorer KLog.</translation>
+        <translation>Vous pouvez aussi nous aider en postant des rapports de bogues ou de petites contributions au code source, idées ou tout ce qui selon vous, pourrait améliorer KLog.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="73"/>
@@ -98,7 +106,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="103"/>
         <source>KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account user&apos;s needs</source>
-        <translation>Les développeurs de KLog ont inclus une fonction qui rapporte quelques données utilisateurs au serveur KLog avec le seul but d&apos;identifier le nombre de versions installées, de concentrer le développement dans une direction ou une autre en prenant en compte les besoins de l&apos;utilisateur</translation>
+        <translation>Les développeurs de KLog ont inclus une fonctionnalité qui rapporte quelques données utilisateurs au serveur KLog avec le seul but d&apos;identifier les versions installées, de concentrer le développement dans une direction ou une autre en prenant en compte les besoins de l&apos;utilisateur.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="104"/>
@@ -133,7 +141,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="147"/>
         <source>Privacy</source>
-        <translation>Cnfidentialité</translation>
+        <translation>Confidentialité</translation>
     </message>
 </context>
 <context>
@@ -211,7 +219,7 @@ Souhaitez-vous réessayez ?</translation>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="372"/>
         <source>Entity not worked in this band.</source>
-        <translation>Entité non contacté sur cette bande.</translation>
+        <translation>Entité non contacté sur cette bande</translation>
     </message>
 </context>
 <context>
@@ -1160,7 +1168,7 @@ QSO : </translation>
         <location filename="../mainwindow.cpp" line="4482"/>
         <location filename="../mainwindow.cpp" line="7822"/>
         <source>Annual</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuel</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="663"/>
@@ -1264,7 +1272,7 @@ QSO : </translation>
     <message>
         <location filename="../mainwindow.cpp" line="3447"/>
         <source>&amp;Import from ADIF...</source>
-        <translation>&amp;Importer depuis ADIF...</translation>
+        <translation>&amp;Importer depuis un fichier ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3450"/>
@@ -1274,12 +1282,12 @@ QSO : </translation>
     <message>
         <location filename="../mainwindow.cpp" line="3459"/>
         <source>&amp;Save As...</source>
-        <translation>&amp;Sauvegarder comme...</translation>
+        <translation>&amp;Enregistrer sous...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3466"/>
         <source>Export to ADIF...</source>
-        <translation>Exporter en ADIF...</translation>
+        <translation>Exporter vers un fichier ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3470"/>
@@ -1309,7 +1317,7 @@ QSO : </translation>
     <message>
         <location filename="../mainwindow.cpp" line="3483"/>
         <source>Export ADIF for LoTW...</source>
-        <translation>Exporter ADIF pour LoTW...</translation>
+        <translation>Exporter en ADIF pour LoTW...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3486"/>
@@ -1319,12 +1327,12 @@ QSO : </translation>
     <message>
         <location filename="../mainwindow.cpp" line="3490"/>
         <source>&amp;Print Log...</source>
-        <translation>Im&amp;primer le journal...</translation>
+        <translation>Im&amp;primer...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3493"/>
         <source>Print your log.</source>
-        <translation>Imprimer votre journal.</translation>
+        <translation>Imprimer votre journal</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3498"/>
@@ -1394,7 +1402,7 @@ QSO : </translation>
     <message>
         <location filename="../mainwindow.cpp" line="3543"/>
         <source>&amp;Find DX-QSLs pending to receive</source>
-        <translation>Rechercher des QSLs-DX en attente de reception</translation>
+        <translation>Rechercher des QSLs-DX en attente de réception</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3546"/>
@@ -1668,13 +1676,15 @@ QSO:</translation>
         <location filename="../mainwindow.cpp" line="7279"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation>Fréquence d&apos;émission en MHz.
+La fréquence n&apos;est pas une bande réservée aux radioamateurs !</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7352"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation>Fréquence de réception en MHz.
+La fréquence n&apos;est pas une bande réservée aux radioamateurs !</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7526"/>
@@ -1705,23 +1715,23 @@ Frequency is not in a hamradio band!</source>
         <location filename="../mainwindow.cpp" line="5076"/>
         <location filename="../mainwindow.cpp" line="7261"/>
         <source>TX Frequency in MHz.</source>
-        <translation>Fréquence TX en MHz.</translation>
+        <translation>Fréquence TX en MHz</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5077"/>
         <location filename="../mainwindow.cpp" line="7339"/>
         <source>RX Frequency in MHz.</source>
-        <translation>Fréquence RX en MHz.</translation>
+        <translation>Fréquence RX en MHz</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5079"/>
         <source>Power used by the DX.</source>
-        <translation>Puissance utilisé pour le DX.</translation>
+        <translation>Puissance utilisé pour le contact</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5080"/>
         <source>Logging operator&apos;s callsign.</source>
-        <translation>Authentification de l&apos;indicatif de l&apos;opérateur.</translation>
+        <translation>Indicatif de la station utilisée pour le log</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5081"/>
@@ -1731,28 +1741,28 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../mainwindow.cpp" line="5082"/>
         <source>My QTH locator.</source>
-        <translation>Mon QTH locator.</translation>
+        <translation>Mon QTH locator</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5083"/>
         <source>Name of the DX.</source>
-        <translation>Nom du DX.</translation>
+        <translation>Nom du contact</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5084"/>
         <source>QTH of the DX.</source>
-        <translation>QTH du DX.</translation>
+        <translation>QTH du contact</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5085"/>
         <source>Locator of the DX.</source>
-        <translation>Locator du DX.</translation>
+        <translation>Locator du contact</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2438"/>
         <location filename="../mainwindow.cpp" line="5087"/>
         <source>QRZ of the QSO.</source>
-        <translation>QRZ du QSO.</translation>
+        <translation>QRZ du contact</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="184"/>
@@ -1763,55 +1773,55 @@ Frequency is not in a hamradio band!</source>
         <location filename="../mainwindow.cpp" line="2439"/>
         <location filename="../mainwindow.cpp" line="5088"/>
         <source>TX RST.</source>
-        <translation>RST TX.</translation>
+        <translation>RST TX</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2440"/>
         <location filename="../mainwindow.cpp" line="5089"/>
         <source>RX RST.</source>
-        <translation>RST RX.</translation>
+        <translation>RST RX</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2441"/>
         <location filename="../mainwindow.cpp" line="5090"/>
         <source>TX Exchange.</source>
-        <translation>Echange TX.</translation>
+        <translation>Echange TX</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2442"/>
         <location filename="../mainwindow.cpp" line="5091"/>
         <source>RX Exchange.</source>
-        <translation>Echange RX.</translation>
+        <translation>Echange RX</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2443"/>
         <location filename="../mainwindow.cpp" line="5092"/>
         <source>Band of the QSO.</source>
-        <translation>Bande du QSO.</translation>
+        <translation>Bande</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2444"/>
         <location filename="../mainwindow.cpp" line="5093"/>
         <source>Mode of the QSO.</source>
-        <translation>Mode du QSO.</translation>
+        <translation>Mode</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2445"/>
         <location filename="../mainwindow.cpp" line="5094"/>
         <source>Date of the QSO.</source>
-        <translation>Date du QSO.</translation>
+        <translation>Date</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2446"/>
         <location filename="../mainwindow.cpp" line="5095"/>
         <source>Time of the QSO.</source>
-        <translation>Heure du QSO.</translation>
+        <translation>Heure</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2449"/>
         <location filename="../mainwindow.cpp" line="5098"/>
         <source>Add the QSO to the log.</source>
-        <translation>Ajouter le QSO au journal.</translation>
+        <translation>Ajouter le contact</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2451"/>
@@ -1840,7 +1850,7 @@ Le serveur UDP à échoué : %1.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="5100"/>
         <source>Clears the QSO entry.</source>
-        <translation>Efface la saisie du QSO.</translation>
+        <translation>Efface la saisie</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5102"/>
@@ -1910,12 +1920,12 @@ Le serveur UDP à échoué : %1.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="5116"/>
         <source>Status of the DX entity.</source>
-        <translation>Statut de l&apos;entité DX.</translation>
+        <translation>Statut de la contrée contactée</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5117"/>
         <source>Name of the DX entity.</source>
-        <translation>Nom de l&apos;entité DX.</translation>
+        <translation>Nom de la contrée contactée</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5135"/>
@@ -2268,10 +2278,6 @@ QSO : </translation>
         <translation>Grid-Local</translation>
     </message>
     <message>
-        <source>A new mode not supported by KLog has been received from an external software:</source>
-        <translation type="vanished">Un nouveau mode non-supporté par KLog a été reçu d&apos;un logiciel externe :</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="7559"/>
         <source>Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)</source>
         <translation>Souhaitez-vous continuer à recevoir ces alertes ? (la désactivation de ces alertes empêchera que les modes non-valides soient détectés)</translation>
@@ -2284,7 +2290,7 @@ QSO : </translation>
     <message>
         <location filename="../mainwindow.cpp" line="7559"/>
         <source>A new mode not supported by KLog has been received from an external software or radio:</source>
-        <translation type="unfinished"></translation>
+        <translation>Un nouveau mode non supporté par KLog a été reçu d&apos;un logiciel externe ou d&apos;une radio :</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7721"/>
@@ -2339,12 +2345,12 @@ QSO : </translation>
     <message>
         <location filename="../mainwindow.cpp" line="7736"/>
         <source>Recomendation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Recommandation :</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7736"/>
         <source>Export, periodically, your data to ADIF to prevent a potential data loss.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporte périodiquement vos données en ADIF pour prévenir une perte de données potentielle.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7745"/>
@@ -2365,17 +2371,17 @@ QSO : </translation>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="44"/>
         <source>Date of the ClubLog upload.</source>
-        <translation>Date di téléversement ClubLog.</translation>
+        <translation>Date du transfert vers ClubLog</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="45"/>
         <source>Date of the eQSL sending.</source>
-        <translation>Date de l&apos;envoi de l&apos;eQSL.</translation>
+        <translation>Date de l&apos;envoi de l&apos;eQSL</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="46"/>
         <source>Date of the eQSL reception.</source>
-        <translation>Date de réception de l&quot;eQSL.</translation>
+        <translation>Date de réception de l&quot;eQSL</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="47"/>
@@ -2385,32 +2391,32 @@ QSO : </translation>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="48"/>
         <source>Date of the LoTW reception.</source>
-        <translation>Date de la réception LoTW.</translation>
+        <translation>Date de la réception LoTW</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="50"/>
         <source>Status on ClubLog.</source>
-        <translation>Statut sur ClubLog.</translation>
+        <translation>Statut sur ClubLog</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="51"/>
         <source>Status of the eQSL sending.</source>
-        <translation>Statut de l&apos;envoi de l&apos;eQSL.</translation>
+        <translation>Statut de l&apos;envoi de l&apos;eQSL</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="52"/>
         <source>Status of the eQSL reception.</source>
-        <translation>Statut de la réception de l&apos;eQSL.</translation>
+        <translation>Statut de la réception de l&apos;eQSL</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="53"/>
         <source>Status of the LoTW sending.</source>
-        <translation>Statut de l&apos;envoi LoTW.</translation>
+        <translation>Statut de l&apos;envoi LoTW</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="54"/>
         <source>Status of the LoTW reception.</source>
-        <translation>Statut de la réception LoTW.</translation>
+        <translation>Statut de la réception LoTW</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="58"/>
@@ -2532,42 +2538,42 @@ QSO : </translation>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="78"/>
         <source>Status of the QSL sending.</source>
-        <translation>Statut de l&apos;envoi de la QSL.</translation>
+        <translation>Statut de l&apos;envoi de la QSL</translation>
     </message>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="79"/>
         <source>Status of the QSL reception.</source>
-        <translation>Statut de la réception de la QSL.</translation>
+        <translation>Statut de la réception de la QSL</translation>
     </message>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="80"/>
         <source>QSL sending information.</source>
-        <translation>Informations d&apos;envoi de la QSL.</translation>
+        <translation>Informations d&apos;envoi de la QSL</translation>
     </message>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="81"/>
         <source>QSL reception information.</source>
-        <translation>Informations de réception de la QSL.</translation>
+        <translation>Informations de réception de la QSL</translation>
     </message>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="83"/>
         <source>Date of the QSL sending.</source>
-        <translation>Date d&apos;envoi de la QSL.</translation>
+        <translation>Date d&apos;envoi de la QSL</translation>
     </message>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="84"/>
         <source>Date of the QSL reception.</source>
-        <translation>Date de la réception de la QSL.</translation>
+        <translation>Date de la réception de la QSL</translation>
     </message>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="85"/>
         <source>Message of the QSL.</source>
-        <translation>Message de la QSL.</translation>
+        <translation>Message de la QSL</translation>
     </message>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="86"/>
         <source>QSL via information.</source>
-        <translation>Information QSL via.</translation>
+        <translation>Information QSL via</translation>
     </message>
 </context>
 <context>
@@ -2580,7 +2586,7 @@ QSO : </translation>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="64"/>
         <source>Keep this data</source>
-        <translation>Conserver cette donnée</translation>
+        <translation>Conserver ces données</translation>
     </message>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="66"/>
@@ -2634,7 +2640,7 @@ QSO : </translation>
     <message>
         <location filename="../mainwindowsattab.cpp" line="80"/>
         <source>Keep this data</source>
-        <translation>Conserver cette donnée</translation>
+        <translation>Conserver ces données</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="85"/>
@@ -2951,7 +2957,7 @@ QSO : </translation>
     <message>
         <location filename="../searchwidget.cpp" line="27"/>
         <source>&amp;Export Highlighted</source>
-        <translation>&amp;Exporter en Surbrillance</translation>
+        <translation>&amp;Exporter la Sélection</translation>
     </message>
     <message>
         <location filename="../searchwidget.cpp" line="28"/>
@@ -3003,7 +3009,7 @@ QSO : </translation>
     <message>
         <location filename="../searchwidget.cpp" line="75"/>
         <source>Search results.</source>
-        <translation>Résultats de la recherche.</translation>
+        <translation>Résultats de la recherche</translation>
     </message>
     <message>
         <location filename="../searchwidget.cpp" line="81"/>
@@ -3273,7 +3279,7 @@ QSO : </translation>
         <location filename="../setupdialog.cpp" line="100"/>
         <location filename="../setupdialog.cpp" line="181"/>
         <source>HamLib</source>
-        <translation type="unfinished"></translation>
+        <translation>HamLib</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="103"/>
@@ -3506,17 +3512,17 @@ Veuillez ajouter et choisir le type de journal que vous souhaitez utiliser.</tra
     <message>
         <location filename="../setuppageclublog.cpp" line="53"/>
         <source>Enter the email you used to register in ClubLog.</source>
-        <translation>Entrez le mail utilisé lors de votre enregistrement à ClubLog.</translation>
+        <translation>Entrez le mail utilisé lors de votre inscription à ClubLog</translation>
     </message>
     <message>
         <location filename="../setuppageclublog.cpp" line="54"/>
         <source>Enter the callsign you used to register in ClubLog.</source>
-        <translation>Entrez l&apos;indicatif utilisé lors de votre enregistrement à ClubLog.</translation>
+        <translation>Entrez l&apos;indicatif utilisé lors de votre enregistrement à ClubLog</translation>
     </message>
     <message>
         <location filename="../setuppageclublog.cpp" line="55"/>
         <source>Enter your password in ClubLog.</source>
-        <translation>Entrez votre mot de passe ClubLog.</translation>
+        <translation>Entrez votre mot de passe ClubLog</translation>
     </message>
     <message>
         <location filename="../setuppageclublog.cpp" line="60"/>
@@ -3536,17 +3542,17 @@ Veuillez ajouter et choisir le type de journal que vous souhaitez utiliser.</tra
     <message>
         <location filename="../setuppageclublog.cpp" line="63"/>
         <source>Send each QSO to ClubLog in real time, as they are added (or modified) in KLog.</source>
-        <translation>Envoyer chaque QSO à ClubLog en même temps qu&apos;ils sont ajoutés ou modifiés dans KLog.</translation>
+        <translation>Envoyer chaque QSO à ClubLog en même temps qu&apos;ils sont ajoutés ou modifiés dans KLog</translation>
     </message>
     <message>
         <location filename="../setuppageclublog.cpp" line="64"/>
         <source>Starts the ClubLog support in KLog.</source>
-        <translation>Activer le support de ClubLog dans KLog.</translation>
+        <translation>Activer le support de ClubLog dans KLog</translation>
     </message>
     <message>
         <location filename="../setuppageclublog.cpp" line="65"/>
         <source>Use the Station Callsign defined in each QSO instead of the one defined here.</source>
-        <translation>Utiliser l&apos;indicatif de station défini dans chaque QSO au lieu de celui défini ici.</translation>
+        <translation>Utiliser l&apos;indicatif de station défini dans chaque QSO au lieu de celui défini ici</translation>
     </message>
 </context>
 <context>
@@ -3664,197 +3670,197 @@ Si aucun port n&apos;est précisé, le port 41112 sera utilisé par défaut :</t
     <message>
         <location filename="../setuppagehamlib.cpp" line="50"/>
         <source>Activate HamLib</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer HamLib</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="51"/>
         <source>Activates the hamlib support that will enable the connection to a radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer le support hamlib pour permettre la connexion à un transceiver.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="53"/>
         <source>RTS on</source>
-        <translation type="unfinished"></translation>
+        <translation>RTS sur</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="54"/>
         <source>Setting RTS may be needed for some serial ports.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le paramétrage de RTS peut être nécessaire pour certains ports série.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="55"/>
         <source>DTR on</source>
-        <translation type="unfinished"></translation>
+        <translation>DTR sur</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="56"/>
         <source>Setting DTR may be needed for some serial ports.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le paramétrage de RTS peut être nécessaire pour certains ports série.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="66"/>
         <source>Radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="68"/>
         <source>Select your rig.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionnez votre rig</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="72"/>
         <source>Defines the interval to pool the radio in msecs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir l&apos;intervalle de polling avec la radio en millisecondes.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="78"/>
         <source>Pool interval</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalle de pooling</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="90"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="92"/>
         <source>Select the serial port. Only the serial ports that are detected are shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner le port série. Seuls les ports série détectés sont affichés.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="96"/>
         <source>Scan</source>
-        <translation type="unfinished"></translation>
+        <translation>Scanner</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="97"/>
         <source>Click to identify the serial ports available in your computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquer pour identifier les ports série disponible sur votre ordinateur</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="102"/>
         <source>Bauds</source>
-        <translation type="unfinished"></translation>
+        <translation>Bauds</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="104"/>
         <source>Select the serial port speed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner la vitesse du port série</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>5 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>5 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>6 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>6 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>7 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>7 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>8 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>8 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="113"/>
         <source>Data bits</source>
-        <translation type="unfinished"></translation>
+        <translation>Bits de données</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="115"/>
         <source>Select the serial data bits.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner les bits de données</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>Hardware</source>
-        <translation type="unfinished"></translation>
+        <translation>Matériel</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>Software XON/XOFF</source>
-        <translation type="unfinished"></translation>
+        <translation>Software XON/XOFF</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="123"/>
         <source>Flow control</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrôle de flux</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="125"/>
         <source>Select the serial flow control</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner le contrôle de flux</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>No parity</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de parité</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Even</source>
-        <translation type="unfinished"></translation>
+        <translation>Pair</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>Impair</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Espace</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Marque</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="133"/>
         <source>Parity</source>
-        <translation type="unfinished"></translation>
+        <translation>Parité</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="135"/>
         <source>Select the serial parity.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner la parité</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>1 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>1 bit</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>1.5 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>1,5 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>2 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>2 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="144"/>
         <source>Stop bits</source>
-        <translation type="unfinished"></translation>
+        <translation>Bits d&apos;arrêt</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="146"/>
         <source>Select the serial stop bits.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner les bits d&apos;arrêt</translation>
     </message>
 </context>
 <context>
@@ -3872,7 +3878,7 @@ Si aucun port n&apos;est précisé, le port 41112 sera utilisé par défaut :</t
     <message>
         <location filename="../setuppagelogs.cpp" line="72"/>
         <source>&amp;Remove</source>
-        <translation>&amp;Retirer</translation>
+        <translation>Supp&amp;rimer</translation>
     </message>
     <message>
         <location filename="../setuppagelogs.cpp" line="75"/>
@@ -3892,7 +3898,7 @@ Si aucun port n&apos;est précisé, le port 41112 sera utilisé par défaut :</t
     <message>
         <location filename="../setuppagelogs.cpp" line="82"/>
         <source>Select the log you want to open.</source>
-        <translation>Choisir le log que vous souhaitez ouvrir</translation>
+        <translation>Choisir le log à éditer</translation>
     </message>
     <message>
         <location filename="../setuppagelogs.cpp" line="219"/>
@@ -4153,7 +4159,7 @@ Le journal ne s&apos;ouvrira pas.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="44"/>
         <source>Complete QSO with previous data</source>
-        <translation>Compléter le QSO avec les données précédentes</translation>
+        <translation>Compléter le QSO avec les données du précédent</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="45"/>
@@ -4173,12 +4179,12 @@ Le journal ne s&apos;ouvrira pas.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="48"/>
         <source>&amp;Provide Info for statistics</source>
-        <translation>Fournir des Informations pour les statistiques</translation>
+        <translation>Fournir des informations pour les statistiques</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="49"/>
         <source>Manage DX-Marathon</source>
-        <translation type="unfinished"></translation>
+        <translation>Gérer le DX-Marathon</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="54"/>
@@ -4194,27 +4200,27 @@ Le journal ne s&apos;ouvrira pas.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="116"/>
         <source>QSOs will be marked as pending to send a QSL if you receive the DX QSL and have not sent yours.</source>
-        <translation>Les QSOs seront marqués en attente pour envoyer une QSL si vous recevez la QSL et que vous n&apos;avez pas encore retourné la vôtre.</translation>
+        <translation>Les QSOs seront marqués en attente pour envoyer une QSL si vous recevez la QSL et que vous n&apos;avez pas encore retourné la vôtre</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="117"/>
         <source>The search box will show also the callsign on the air to do the QSO.</source>
-        <translation>La boîte de recherche affichera aussi l&apos;indicatif sur l&apos;air pour réaliser le QSO.</translation>
+        <translation>La boîte de recherche affichera aussi l&apos;indicatif sur l&apos;air pour réaliser le QSO</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="118"/>
         <source>All the data from the My Data tab will be used or data from the previous QSO will be maintained.</source>
-        <translation>Toutes les données de l&apos;onglet Mes Données seront utilisés ou les données du QSO précédent seront conservées.</translation>
+        <translation>Toutes les données de l&apos;onglet Mes Données seront utilisés ou les données du QSO précédent seront conservées</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="119"/>
         <source>Check if there is a new release of KLog available every time you start KLog.</source>
-        <translation>Vérifier si une nouvelle version de KLog est disponible chaque fois que vous lancez KLog.</translation>
+        <translation>Vérifier si une nouvelle version de KLog est disponible chaque fois que vous lancez KLog</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="120"/>
         <source>If new version checking is selected, KLog will send the developer your callsign, KLog version &amp; Operating system to help in improving KLog.</source>
-        <translation>Si une vérification d&apos;une nouvelle version est sélectionnées, KLog enverra au développeur votre indicatif, version de KLog &amp; Système d&apos;exploitation pour aider à améliorer KLog.</translation>
+        <translation>Si ce champ est côché, KLog enverra au développeur votre indicatif, version de KLog &amp; Système d&apos;exploitation pour aider à améliorer KLog</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="121"/>
@@ -4229,37 +4235,37 @@ Le journal ne s&apos;ouvrira pas.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="123"/>
         <source>Select to use UTC time.</source>
-        <translation>Sélectionnez pour utiliser l&apos;heure UTC.</translation>
+        <translation>Sélectionnez pour utiliser l&apos;heure UTC</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="124"/>
         <source>Select if you want to save to ADIF on exit.</source>
-        <translation>Sélectionnez si vous souhaitez enregistrer vers ADIF en quittant.</translation>
+        <translation>Sélectionnez si vous souhaitez enregistrer vers ADIF en quittant</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="125"/>
         <source>Select to use the following name for the logfile without being asked for it again.</source>
-        <translation>Sélectionnez pour utiliser le nom suivant pour le fichier journal sans que cela soit à nouveau demandé.</translation>
+        <translation>Sélectionnez pour utiliser le nom indiqué pour le fichier journal sans que cela soit à nouveau demandé</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="126"/>
         <source>Complete the current QSO with previous QSO data.</source>
-        <translation>Complétez le QSO en cours avec les données du QSO précédent.</translation>
+        <translation>Complète le QSO en cours avec les données du QSO précédent</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="127"/>
         <source>Select if you want to manage DX-Marathon.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner pour gérer le DX-Marathon</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="128"/>
         <source>This is the default file where ADIF data will be saved.</source>
-        <translation>C&apos;est le fichier par défaut où les données ADIF seront sauvegardées.</translation>
+        <translation>Fichier par défaut où les données ADIF seront sauvegardées</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="129"/>
         <source>This is the directory where the database (logbook.dat) will be saved.</source>
-        <translation>C&apos;est le répertoire où la base de données (logbook.dat) sera sauvegardée.</translation>
+        <translation>Répertoire où la base de données (logbook.dat) sera sauvegardée</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="130"/>
@@ -4567,7 +4573,7 @@ Cela peut provenir du fait que le fichier que vous essayer d&apos;importer n&apo
     <message>
         <location filename="../setuppageudp.cpp" line="38"/>
         <source>KLog will log automatically any QSO coming from WSJT-X without any manual confirmation.</source>
-        <translation>KLog journalisera automatiquement chaque QSO provenant de WSJT-X sans confirmation manuelle.</translation>
+        <translation>KLog journalisera automatiquement chaque QSO provenant de WSJT-X sans confirmation manuelle</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="41"/>
@@ -4587,12 +4593,12 @@ Cela peut provenir du fait que le fichier que vous essayer d&apos;importer n&apo
     <message>
         <location filename="../setuppageudp.cpp" line="58"/>
         <source>UDP port number where the UDP Server will listen for packets.</source>
-        <translation>Numéro du port UDP où le serveur UDP doit être à l&apos;écoute des paquets réseaux.</translation>
+        <translation>Numéro du port UDP où le serveur UDP doit être à l&apos;écoute des paquets réseaux</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="59"/>
         <source>UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in KLog automatically from those programs.</source>
-        <translation>Le serveur UDP recevra les QSOs envoyés par d&apos;autres programmes tels que WSJT-Xvous permettant ainsi de les journaliser automatiquement dans KLog.</translation>
+        <translation>Le serveur UDP recevra les QSOs envoyés par d&apos;autres programmes tels que WSJT-Xvous permettant ainsi de les journaliser automatiquement dans KLog</translation>
     </message>
     <message>
         <location filename="../setuppageudp.cpp" line="65"/>
@@ -4759,7 +4765,7 @@ Cela peut provenir du fait que le fichier que vous essayer d&apos;importer n&apo
     <message>
         <location filename="../setuppageuserdata.cpp" line="187"/>
         <source>Enter the operators (comma separated if more than one).</source>
-        <translation>Entrez les opérateurs (séparés par une virgure si plusieurs).</translation>
+        <translation>Entrez les opérateurs (séparés par une virgule si plusieurs)</translation>
     </message>
     <message>
         <location filename="../setuppageuserdata.cpp" line="188"/>

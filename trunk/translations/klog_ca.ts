@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="ca_ES">
+    <extra-po-header-language>ca</extra-po-header-language>
+    <extra-po-header-language_team>Catalan &lt;kde-i18n-ca@kde.org&gt;</extra-po-header-language_team>
+    <extra-po-header-last_translator>Josep Ma. Ferrer &lt;txemaq@gmail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2019-04-22 19:54+0100</extra-po-header-po_revision_date>
+    <extra-po-header-project_id_version></extra-po-header-project_id_version>
+    <extra-po-header-x_generator>Lokalize 2.0</extra-po-header-x_generator>
+    <extra-po-header_comment># Josep Ma. Ferrer &lt;txemaq@gmail.com&gt;, 2019.</extra-po-header_comment>
+    <extra-po-headers>MIME-Version,Content-Type,Content-Transfer-Encoding,Plural-Forms,X-Language,X-Qt-Contexts,Last-Translator,PO-Revision-Date,Project-Id-Version,Language-Team,Language,X-Generator</extra-po-headers>
 <context>
     <name>AboutDialog</name>
     <message>
@@ -735,7 +743,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../filemanager.cpp" line="4773"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!.</source>
-        <translation>Aquest QSO no inclou les dades mínimes per a considerar-se un QSO vàlid!.</translation>
+        <translation>Aquest QSO no inclou les dades mínimes per a considerar-se un QSO vàlid!</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4773"/>
@@ -885,17 +893,17 @@ Voleu tornar-ho a intentar?</translation>
         <location filename="../startwizard.cpp" line="141"/>
         <source>Welcome to KLog!</source>
         <oldsource>Welcome to Kontest!</oldsource>
-        <translation>Benvingut al KLog!</translation>
+        <translation>Us donem la benvinguda al KLog!</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="143"/>
         <source>Welcome to KLog! - brought to you under the terms of the GPL!</source>
-        <translation>Benvingut al KLog! - Distribuït sota els termes de la GPL!</translation>
+        <translation>Us donem la benvinguda al KLog! - Distribuït sota els termes de la GPL!</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="151"/>
         <source>Welcome to KLog</source>
-        <translation>Benvingut al KLog</translation>
+        <translation>Us donem la benvinguda al KLog</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="152"/>
@@ -958,7 +966,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../startwizard.cpp" line="185"/>
         <source>Welcome to KLog!- brought to you under the terms of the GPL!</source>
-        <translation>Benvingut al KLog! - Distribuït sota els termes de la GPL!</translation>
+        <translation>Us donem la benvinguda al KLog! - Distribuït sota els termes de la GPL!</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="826"/>
@@ -1169,7 +1177,7 @@ Voleu tornar-ho a intentar?</translation>
         <location filename="../mainwindow.cpp" line="4482"/>
         <location filename="../mainwindow.cpp" line="7822"/>
         <source>Annual</source>
-        <translation type="unfinished"></translation>
+        <translation>Anual</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="663"/>
@@ -1803,13 +1811,15 @@ Voleu tornar-ho a intentar?</translation>
         <location filename="../mainwindow.cpp" line="7279"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation>Freqüència TX en MHz.
+La freqüència no es en una banda de radioafició!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7352"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation>Freqüència RX en MHz.
+La freqüència no es en una banda de radioafició!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7526"/>
@@ -2272,10 +2282,6 @@ El servidor UDP ha fallat en %1.</translation>
         <translation>Local-Grid</translation>
     </message>
     <message>
-        <source>A new mode not supported by KLog has been received from an external software:</source>
-        <translation type="vanished">S&apos;ha rebut un mode nou no implementat al KLog des d&apos;un programari extern:</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="7559"/>
         <source>If the received mode is correct, please contact KLog development team and request support for that mode</source>
         <translation>Si el mode rebut és correcte, contacteu amb l&apos;equip de desenvolupament del KLog i sol·liciteu la implementació d&apos;aquest mode</translation>
@@ -2288,12 +2294,12 @@ El servidor UDP ha fallat en %1.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="7559"/>
         <source>A new mode not supported by KLog has been received from an external software or radio:</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;ha rebut un mode nou des de programari extern o ràdio no suportat pel KLog:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7721"/>
         <source>A duplicated satellite has been detected in the file and will not be imported.</source>
-        <translation>S&apos;ha detectat un satèl·lit duplicat al fitxer i  no s&apos;importarà.</translation>
+        <translation>S&apos;ha detectat un satèl·lit duplicat al fitxer i no s&apos;importarà.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7722"/>
@@ -2343,12 +2349,12 @@ El servidor UDP ha fallat en %1.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="7736"/>
         <source>Recomendation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Recomanació:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7736"/>
         <source>Export, periodically, your data to ADIF to prevent a potential data loss.</source>
-        <translation type="unfinished"></translation>
+        <translation>Periódicament exporteu les dades a l&apos;ADIF per evitar una pèrdua potencial de dades.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7745"/>
@@ -3295,7 +3301,7 @@ El servidor UDP ha fallat en %1.</translation>
         <location filename="../setupdialog.cpp" line="100"/>
         <location filename="../setupdialog.cpp" line="181"/>
         <source>HamLib</source>
-        <translation type="unfinished"></translation>
+        <translation>HamLib</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="104"/>
@@ -3682,197 +3688,197 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
     <message>
         <location filename="../setuppagehamlib.cpp" line="50"/>
         <source>Activate HamLib</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa la HamLib</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="51"/>
         <source>Activates the hamlib support that will enable the connection to a radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa la implementació de la «hamlib» que activarà la connexió a la ràdio.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="53"/>
         <source>RTS on</source>
-        <translation type="unfinished"></translation>
+        <translation>RTS actiu</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="54"/>
         <source>Setting RTS may be needed for some serial ports.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pot ser necessari el paràmetre RTS per diversos ports sèrie.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="55"/>
         <source>DTR on</source>
-        <translation type="unfinished"></translation>
+        <translation>DTR actiu</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="56"/>
         <source>Setting DTR may be needed for some serial ports.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pot ser necessari el paràmetre DTR per diversos ports sèrie.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="66"/>
         <source>Radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Ràdio</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="68"/>
         <source>Select your rig.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu el vostre equip.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="72"/>
         <source>Defines the interval to pool the radio in msecs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Defineix l&apos;interval de disponibilitat de la ràdio in msecs.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="78"/>
         <source>Pool interval</source>
-        <translation type="unfinished"></translation>
+        <translation>Interval de disponibilitat</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="90"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="92"/>
         <source>Select the serial port. Only the serial ports that are detected are shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu el port sèrie. Només es mostren els ports sèrie detectats.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="96"/>
         <source>Scan</source>
-        <translation type="unfinished"></translation>
+        <translation>Escaneja</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="97"/>
         <source>Click to identify the serial ports available in your computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Feu clic per identificar els ports sèrie disponibles a l&apos;ordinador.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="102"/>
         <source>Bauds</source>
-        <translation type="unfinished"></translation>
+        <translation>Bauds</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="104"/>
         <source>Select the serial port speed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu la velocitat del port sèrie.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>5 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>5 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>6 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>6 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>7 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>7 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>8 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>8 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="113"/>
         <source>Data bits</source>
-        <translation type="unfinished"></translation>
+        <translation>Bits de dades</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="115"/>
         <source>Select the serial data bits.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu els bits de dades del sèrie.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Cap</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>Hardware</source>
-        <translation type="unfinished"></translation>
+        <translation>Maquinari</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>Software XON/XOFF</source>
-        <translation type="unfinished"></translation>
+        <translation>Programari XON/XOFF</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="123"/>
         <source>Flow control</source>
-        <translation type="unfinished"></translation>
+        <translation>Control de flux</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="125"/>
         <source>Select the serial flow control</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu el control de flux del sèrie</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>No parity</source>
-        <translation type="unfinished"></translation>
+        <translation>Sense paritat</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Even</source>
-        <translation type="unfinished"></translation>
+        <translation>Parells</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>Senars</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Espai</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Marca</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="133"/>
         <source>Parity</source>
-        <translation type="unfinished"></translation>
+        <translation>Paritat</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="135"/>
         <source>Select the serial parity.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu la paritat del sèrie.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>1 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>1 bit</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>1.5 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>1.5 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>2 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>2 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="144"/>
         <source>Stop bits</source>
-        <translation type="unfinished"></translation>
+        <translation>Bits de parada</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="146"/>
         <source>Select the serial stop bits.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu els bits d&apos;aturada del sèrie.</translation>
     </message>
 </context>
 <context>
@@ -4192,7 +4198,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="49"/>
         <source>Manage DX-Marathon</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestiona una marató DX</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="56"/>
@@ -4217,7 +4223,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="127"/>
         <source>Select if you want to manage DX-Marathon.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu si voleu gestionar la marató DX.</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="128"/>
