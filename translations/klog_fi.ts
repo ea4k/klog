@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="fi_FI">
+    <extra-po-header-language>fi_FI</extra-po-header-language>
+    <extra-po-header-language_team>Finnish &lt;kristjan.lorents@gmail.com&gt;</extra-po-header-language_team>
+    <extra-po-header-last_translator>Kristjan Lorents &lt;kristjan.lorents@gmail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2019-04-27 11:12+0300</extra-po-header-po_revision_date>
+    <extra-po-header-project_id_version>628</extra-po-header-project_id_version>
+    <extra-po-header-x_generator>Gtranslator 2.91.7</extra-po-header-x_generator>
+    <extra-po-header_comment>#
+# Kristjan Lorents &lt;kristjan.lorents@gmail.com&gt;, 2019.
+#</extra-po-header_comment>
+    <extra-po-headers>MIME-Version,Content-Type,Content-Transfer-Encoding,Plural-Forms,X-Language,X-Qt-Contexts,Last-Translator,Language-Team,PO-Revision-Date,X-Generator,Language,Project-Id-Version</extra-po-headers>
 <context>
     <name>AboutDialog</name>
     <message>
@@ -379,7 +389,7 @@ Haluatko yrittää uudelleen?</translation>
         <location filename="../dataproxy_sqlite.cpp" line="3051"/>
         <source>Field Aligned Irregularities</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation type="unfinished">Kenttäsuuntainen hajonta</translation>
+        <translation>Kenttäsuuntainen hajonta</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="3055"/>
@@ -1160,7 +1170,7 @@ Haluatko yrittää uudelleen?</translation>
         <location filename="../mainwindow.cpp" line="4482"/>
         <location filename="../mainwindow.cpp" line="7822"/>
         <source>Annual</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuotuinen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="663"/>
@@ -1668,13 +1678,15 @@ Haluatko yrittää uudelleen?</translation>
         <location filename="../mainwindow.cpp" line="7279"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation>TX Taajuus MHz.
+Taajuus ei ole oikealla taajuusalueella!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7352"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation>RX Taajuus MHz.
+Taajuus ei ole oikealla taajuusalueella!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7526"/>
@@ -2268,10 +2280,6 @@ UDP-palvelin ei onnistunut %1.</translation>
         <translation>Paikallisverkko</translation>
     </message>
     <message>
-        <source>A new mode not supported by KLog has been received from an external software:</source>
-        <translation type="vanished">Ulkoisesta ohjelmistosta on vastaanotettu uusi tila, jota KLog ei tue:</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="7559"/>
         <source>Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)</source>
         <translation>Haluatko jatkossa saada tämän ilmoituksen? (Mikäli ilmoitus poistetaan käytöstä, ei tuettuja tiloja ei tunnisteta)</translation>
@@ -2284,7 +2292,7 @@ UDP-palvelin ei onnistunut %1.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="7559"/>
         <source>A new mode not supported by KLog has been received from an external software or radio:</source>
-        <translation type="unfinished"></translation>
+        <translation>Uusi moodi jota KLog ei tue, saatiin ulkoisesta ohjelmistosta tai radiosta:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7721"/>
@@ -2339,12 +2347,12 @@ UDP-palvelin ei onnistunut %1.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="7736"/>
         <source>Recomendation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Suositus:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7736"/>
         <source>Export, periodically, your data to ADIF to prevent a potential data loss.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vie tietosi ADIF:iin säännöllisesti, välttääksesi tietojesi katoaminen.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7745"/>
@@ -3273,7 +3281,7 @@ UDP-palvelin ei onnistunut %1.</translation>
         <location filename="../setupdialog.cpp" line="100"/>
         <location filename="../setupdialog.cpp" line="181"/>
         <source>HamLib</source>
-        <translation type="unfinished"></translation>
+        <translation>HamLib</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="103"/>
@@ -3664,197 +3672,197 @@ Jos porttia ei määritetä, Käytetään oletusarvoa 41112:</translation>
     <message>
         <location filename="../setuppagehamlib.cpp" line="50"/>
         <source>Activate HamLib</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivoi HamLib</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="51"/>
         <source>Activates the hamlib support that will enable the connection to a radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivoi hamlib tuen joka mahdollistaa yhteyden radioon.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="53"/>
         <source>RTS on</source>
-        <translation type="unfinished"></translation>
+        <translation>RTS päällä</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="54"/>
         <source>Setting RTS may be needed for some serial ports.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">RTS:n asetus voi olla vaadittu joillekkin sarjaporteille.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="55"/>
         <source>DTR on</source>
-        <translation type="unfinished"></translation>
+        <translation>DTR päällä</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="56"/>
         <source>Setting DTR may be needed for some serial ports.</source>
-        <translation type="unfinished"></translation>
+        <translation>DTR:n asetus voi olla vaadittu joillekkin sarjaporteille.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="66"/>
         <source>Radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="68"/>
         <source>Select your rig.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse kokoonpanosi.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="72"/>
         <source>Defines the interval to pool the radio in msecs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Määrittää radion kyselyvälin millisekunneissa.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="78"/>
         <source>Pool interval</source>
-        <translation type="unfinished"></translation>
+        <translation>Kyselyväli</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="90"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Portti</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="92"/>
         <source>Select the serial port. Only the serial ports that are detected are shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse sarjaportti. Vain tunnistetut sarjaportit näytetään.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="96"/>
         <source>Scan</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tunnista</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="97"/>
         <source>Click to identify the serial ports available in your computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klikkaa tunnistaaksesi saatavilla olevat sarjaportit.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="102"/>
         <source>Bauds</source>
-        <translation type="unfinished"></translation>
+        <translation>Baudia</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="104"/>
         <source>Select the serial port speed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse sarjaportin nopeus.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>5 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>5 bittiä</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>6 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>6 bittiä</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>7 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>7 bittiä</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>8 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>8 bittiä</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="113"/>
         <source>Data bits</source>
-        <translation type="unfinished"></translation>
+        <translation>Data bittejä</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="115"/>
         <source>Select the serial data bits.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse databittien määrä.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei mitään</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>Hardware</source>
-        <translation type="unfinished"></translation>
+        <translation>Laitteisto</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>Software XON/XOFF</source>
-        <translation type="unfinished"></translation>
+        <translation>Ohjelmisto XON/XOFF</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="123"/>
         <source>Flow control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sarjadatan ohjaus</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="125"/>
         <source>Select the serial flow control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Valitse sarjadatan ohjausmenetelmä.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>No parity</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei pariteettia</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Even</source>
-        <translation type="unfinished"></translation>
+        <translation>Parillinen</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>Pariton</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Space</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tyhjä</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Mark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Merkki</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="133"/>
         <source>Parity</source>
-        <translation type="unfinished"></translation>
+        <translation>Pariteetti</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="135"/>
         <source>Select the serial parity.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse sarjadatan pariteetti.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>1 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>1 bitti</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>1.5 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>1.5 bittiä</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>2 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>2 bittiä</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="144"/>
         <source>Stop bits</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop bitit</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="146"/>
         <source>Select the serial stop bits.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse sarjadatan stop bitit.</translation>
     </message>
 </context>
 <context>
@@ -4178,7 +4186,7 @@ Lokia ei avata.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="49"/>
         <source>Manage DX-Marathon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hallinnoi DX Marathonia</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="54"/>
@@ -4249,7 +4257,7 @@ Lokia ei avata.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="127"/>
         <source>Select if you want to manage DX-Marathon.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Valitse jos haluat hallinnoida DX Marathonia.</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="128"/>
@@ -5152,7 +5160,7 @@ Se voi johtua siitä, että tuotava tiedosto on väärän tyyppinen.</translatio
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="57"/>
         <source>QSO per band distribution</source>
-        <translation type="unfinished">QSO:t taajuusaluejakauman mukaan</translation>
+        <translation>QSO:t taajuusaluejakauman mukaan</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="67"/>
@@ -5204,7 +5212,7 @@ Se voi johtua siitä, että tuotava tiedosto on väärän tyyppinen.</translatio
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="47"/>
         <source>QSOs per DXCC</source>
-        <translation type="unfinished">QSO:t per DXCC</translation>
+        <translation>QSO:ta DXCC:tä kohti</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="51"/>
@@ -5301,7 +5309,7 @@ Se voi johtua siitä, että tuotava tiedosto on väärän tyyppinen.</translatio
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="57"/>
         <source>QSO per mode distribution</source>
-        <translation type="unfinished">QSO:t moodijakauman mukaan</translation>
+        <translation>QSO:t moodijakauman mukaan</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="67"/>
@@ -5399,7 +5407,7 @@ Se voi johtua siitä, että tuotava tiedosto on väärän tyyppinen.</translatio
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="60"/>
         <source>QSOs at Month</source>
-        <translation type="unfinished">QSO:t kuukaudessa</translation>
+        <translation>QSO:t kuukaudessa</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="70"/>
@@ -5417,7 +5425,7 @@ Se voi johtua siitä, että tuotava tiedosto on väärän tyyppinen.</translatio
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="47"/>
         <source>Chart title</source>
-        <translation type="unfinished">Listan otsikko</translation>
+        <translation>Listan otsikko</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="51"/>
