@@ -1918,13 +1918,15 @@ Do you want to try again?</source>
         <location filename="../mainwindow.cpp" line="7279"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation>Frecuencia de TX en MHz.
+¡La frecuencia no está en una banda de radioaficionados!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7352"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation>Frecuencia de RX en MHz.
+¡La frecuencia no está en una banda de radioaficionados!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7526"/>
@@ -2409,7 +2411,7 @@ El servidor de UDP falló al %1.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="7559"/>
         <source>A new mode not supported by KLog has been received from an external software or radio:</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ha recibido un nuevo modo no soportado por KLog desde un software externo o la radio:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7721"/>
@@ -2464,12 +2466,12 @@ El servidor de UDP falló al %1.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="7736"/>
         <source>Recomendation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Recomendación:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7736"/>
         <source>Export, periodically, your data to ADIF to prevent a potential data loss.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporte peódicamente los datos a ADIF para prevenir una potencial pérdida de datos.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7745"/>
@@ -3402,7 +3404,7 @@ El servidor de UDP falló al %1.</translation>
         <location filename="../setupdialog.cpp" line="100"/>
         <location filename="../setupdialog.cpp" line="181"/>
         <source>HamLib</source>
-        <translation type="unfinished"></translation>
+        <translation>HamLib</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="178"/>
@@ -3807,197 +3809,197 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
     <message>
         <location filename="../setuppagehamlib.cpp" line="50"/>
         <source>Activate HamLib</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar HamLib</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="51"/>
         <source>Activates the hamlib support that will enable the connection to a radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa el soporte de hamlib que habilitará la conexión a una radio.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="53"/>
         <source>RTS on</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar RTS</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="54"/>
         <source>Setting RTS may be needed for some serial ports.</source>
-        <translation type="unfinished"></translation>
+        <translation>Puede ser necesario habilitar el RTS en algunos puertos serie.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="55"/>
         <source>DTR on</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar DTR</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="56"/>
         <source>Setting DTR may be needed for some serial ports.</source>
-        <translation type="unfinished"></translation>
+        <translation>Puede ser necesario habilitar el DTR en algunos puertos serie.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="66"/>
         <source>Radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="68"/>
         <source>Select your rig.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar equipo</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="72"/>
         <source>Defines the interval to pool the radio in msecs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Define el intervalo con el que se consulta a la radio en milisegundos.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="78"/>
         <source>Pool interval</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualización</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="90"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="92"/>
         <source>Select the serial port. Only the serial ports that are detected are shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione el puerto serie. Solo se muestran los puertos que se pueden detectar.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="96"/>
         <source>Scan</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="97"/>
         <source>Click to identify the serial ports available in your computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pulsar para identificar los puertos disponibles en el ordenador.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="102"/>
         <source>Bauds</source>
-        <translation type="unfinished"></translation>
+        <translation>Baudios</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="104"/>
         <source>Select the serial port speed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar la velocidad del puerto serie.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>5 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>5 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>6 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>6 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>7 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>7 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>8 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>8 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="113"/>
         <source>Data bits</source>
-        <translation type="unfinished"></translation>
+        <translation>Bits de datos</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="115"/>
         <source>Select the serial data bits.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar los bits de datos</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>Hardware</source>
-        <translation type="unfinished"></translation>
+        <translation>Hardware</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>Software XON/XOFF</source>
-        <translation type="unfinished"></translation>
+        <translation>Software XON/XOFF</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="123"/>
         <source>Flow control</source>
-        <translation type="unfinished"></translation>
+        <translation>Control de flujo</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="125"/>
         <source>Select the serial flow control</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione el contrl de flujo del puerto serie.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>No parity</source>
-        <translation type="unfinished"></translation>
+        <translation>Sin paridad</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Even</source>
-        <translation type="unfinished"></translation>
+        <translation>Par</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>Impar</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Espacio</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Marca</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="133"/>
         <source>Parity</source>
-        <translation type="unfinished"></translation>
+        <translation>Paridad</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="135"/>
         <source>Select the serial parity.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione la paridad del puerto serie.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>1 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>1 bit</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>1.5 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>1.5 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>2 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>2 bits</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="144"/>
         <source>Stop bits</source>
-        <translation type="unfinished"></translation>
+        <translation>Bits de parada</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="146"/>
         <source>Select the serial stop bits.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar los bits de parada.</translation>
     </message>
 </context>
 <context>
