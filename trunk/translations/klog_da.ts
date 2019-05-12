@@ -313,7 +313,7 @@ igen. Ønsker du at prøve igen?</translation>
     <message>
         <location filename="../dxcluster.cpp" line="519"/>
         <source>Enter here the commands to be sent to the DX-Cluster server.</source>
-        <translation>Indtast kommandoerne, der skal sendes til DX-Cluster-serveren, her</translation>
+        <translation>Indtast kommandoerne, der skal sendes til DX-Cluster-serveren, her.</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="529"/>
@@ -1718,7 +1718,7 @@ igen. Ønsker du at prøve igen?</translation>
         <location filename="../mainwindow.cpp" line="4482"/>
         <location filename="../mainwindow.cpp" line="7822"/>
         <source>Annual</source>
-        <translation type="unfinished"></translation>
+        <translation>Årlig</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2439"/>
@@ -2114,13 +2114,15 @@ UDP-serveren mislykkedes i at %1.</translation>
         <location filename="../mainwindow.cpp" line="7279"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation>TX-frekvens i MHz.
+Frekvens er ikke i et amatørradiobånd!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7352"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation>RX-frekvens i MHz.
+Frekvens er ikke i et amatørradiobånd!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7443"/>
@@ -2268,10 +2270,6 @@ Frequency is not in a hamradio band!</source>
         <translation>De følgende QSO-data er blevet modtaget fra WSJT-X for at blive logget:</translation>
     </message>
     <message>
-        <source>A new mode not supported by KLog has been received from an external software:</source>
-        <translation type="vanished">En ny tilstand der ikke er understøttet af KLog er blevet modtaget fra et eksternt program:</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="7559"/>
         <source>Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)</source>
         <translation>Ønsker du at fortsætte med at modtage alarmer? (deaktivering af disse alarmer vil forhindre at ikke-gyldige tilstande registreres)</translation>
@@ -2284,7 +2282,7 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../mainwindow.cpp" line="7559"/>
         <source>A new mode not supported by KLog has been received from an external software or radio:</source>
-        <translation type="unfinished"></translation>
+        <translation>En ny tilstand ikke understøttet af KLog er blevet modtaget fra et eksternt program eller radio:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7721"/>
@@ -2339,12 +2337,12 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../mainwindow.cpp" line="7736"/>
         <source>Recomendation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anbefaling:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7736"/>
         <source>Export, periodically, your data to ADIF to prevent a potential data loss.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksporter, periodisk, dine data til ADIF for at forhindre et potentielt datatab.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7745"/>
@@ -3284,7 +3282,7 @@ Frequency is not in a hamradio band!</source>
         <location filename="../setupdialog.cpp" line="100"/>
         <location filename="../setupdialog.cpp" line="181"/>
         <source>HamLib</source>
-        <translation type="unfinished"></translation>
+        <translation>HamLib</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="104"/>
@@ -3664,197 +3662,197 @@ Hvis ingen port er angivet, så vil 41112 blive brugt som standard:</translation
     <message>
         <location filename="../setuppagehamlib.cpp" line="50"/>
         <source>Activate HamLib</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiver HamLib</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="51"/>
         <source>Activates the hamlib support that will enable the connection to a radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiverer understøttelse af hamlib, der vil aktivere forbindelsen til en radio.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="53"/>
         <source>RTS on</source>
-        <translation type="unfinished"></translation>
+        <translation>RTS aktiveret</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="54"/>
         <source>Setting RTS may be needed for some serial ports.</source>
-        <translation type="unfinished"></translation>
+        <translation>Angivelse af RTS kan være krævet for nogle serielle porte.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="55"/>
         <source>DTR on</source>
-        <translation type="unfinished"></translation>
+        <translation>DTR aktiveret</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="56"/>
         <source>Setting DTR may be needed for some serial ports.</source>
-        <translation type="unfinished"></translation>
+        <translation>Angivelse af DTR kan være krævet for nogle serielle porte.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="66"/>
         <source>Radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="68"/>
         <source>Select your rig.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg din rig.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="72"/>
         <source>Defines the interval to pool the radio in msecs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Definerer intervallet at samle radioen i msek.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="78"/>
         <source>Pool interval</source>
-        <translation type="unfinished"></translation>
+        <translation>Indsamlingsinterval</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="90"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="92"/>
         <source>Select the serial port. Only the serial ports that are detected are shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg den serielel port. Kun den serielle porter, der er registreret vises.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="96"/>
         <source>Scan</source>
-        <translation type="unfinished"></translation>
+        <translation>Skan</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="97"/>
         <source>Click to identify the serial ports available in your computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik for at identificere de serielle porte tilgængelige i din computer.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="102"/>
         <source>Bauds</source>
-        <translation type="unfinished"></translation>
+        <translation>Bauds</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="104"/>
         <source>Select the serial port speed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg den serielle porthastighed.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>5 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>5-bit</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>6 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>6-bit</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>7 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>7-bit</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="111"/>
         <source>8 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>8-bit</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="113"/>
         <source>Data bits</source>
-        <translation type="unfinished"></translation>
+        <translation>Databit</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="115"/>
         <source>Select the serial data bits.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg den serielle databit.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>Hardware</source>
-        <translation type="unfinished"></translation>
+        <translation>Udstyr</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="121"/>
         <source>Software XON/XOFF</source>
-        <translation type="unfinished"></translation>
+        <translation>Software XON/XOFF</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="123"/>
         <source>Flow control</source>
-        <translation type="unfinished"></translation>
+        <translation>Flow-kontrol</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="125"/>
         <source>Select the serial flow control</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg den serielle flow-kontrol</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>No parity</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen paritet</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Even</source>
-        <translation type="unfinished"></translation>
+        <translation>Lige</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>Ulige</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Mellemrum</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="131"/>
         <source>Mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Mærke</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="133"/>
         <source>Parity</source>
-        <translation type="unfinished"></translation>
+        <translation>Paritet</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="135"/>
         <source>Select the serial parity.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg den serielle paritet.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>1 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>1 bit</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>1.5 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>1,5 bit</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="142"/>
         <source>2 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>2 bit</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="144"/>
         <source>Stop bits</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop-bit</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="146"/>
         <source>Select the serial stop bits.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg den serielle stop-bit.</translation>
     </message>
 </context>
 <context>
@@ -4178,7 +4176,7 @@ Loggen vil ikke blive åbnet.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="49"/>
         <source>Manage DX-Marathon</source>
-        <translation type="unfinished"></translation>
+        <translation>Håndter DX-Maraton</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="54"/>
@@ -4249,7 +4247,7 @@ Loggen vil ikke blive åbnet.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="127"/>
         <source>Select if you want to manage DX-Marathon.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg om du ønsker at håndtere DX-Marathon.</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="128"/>
