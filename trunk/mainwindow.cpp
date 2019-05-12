@@ -743,7 +743,20 @@ void MainWindow::slotModeComboBoxChanged()
     _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
     showStatusOfDXCC(_qs);
     if (hamlibActive)
-    {
+    {        
+        QString _modeSeen = modeComboBox->currentText();
+        if (_modeSeen == "SSB")
+        {
+            if (txFreqSpinBox->value() >= dataProxy->getLowLimitBandFromBandName("20M"))
+            {
+                hamlib->setMode("USB");
+            }
+            else
+            {
+                hamlib->setMode("LSB");
+            }
+        }
+
         hamlib->setMode(modeComboBox->currentText());
     }
 
@@ -4232,7 +4245,7 @@ void MainWindow::readConfigData()
 
         return;
     }
-
+    hamlibActive = false;
     while (!file.atEnd()) {
         QByteArray line = file.readLine();
         processConfigLine(line);
@@ -7767,7 +7780,10 @@ void MainWindow::slotHamlibTXFreqChanged(const double _f)
 
 void MainWindow::slotHamlibModeChanged(const QString _m)
 {
-
+    if (_m.length()<2)
+    {
+        return;
+    }
     if (checkIfNewMode(_m))
     {
         return;

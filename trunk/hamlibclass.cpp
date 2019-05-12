@@ -10,6 +10,7 @@ HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
 {
     qDebug() << "HamLibClass::HamLibClass" << endl;
     timer = new QTimer(this);
+    rigLaunched = false;
     //m_serial = new QSerialPort();
 
 
@@ -46,23 +47,25 @@ void HamLibClass::slotTimer()
         {
             emit freqChanged(freq/1000000);
             freq_old = freq;
-            qDebug() << "HamLibClass::slotTimer EMITING; " << QString::number(freq) << endl;
+            //qDebug() << "HamLibClass::slotTimer EMITING; " << QString::number(freq) << endl;
 
         }
-        qDebug() << "HamLibClass::slotTimer read: " << QString::number(freq) << endl;
+        //qDebug() << "HamLibClass::slotTimer read: " << QString::number(freq) << endl;
 
     }
     else
     {
-        qDebug() << "HamLibClass::slotTimer Unable to read FREQ - Error: " << QString::number(retcode) << endl;
-        qDebug() << "HamLibClass::slotTimer Unable to read FREQ - Error: " << rigerror(retcode) << endl;
+        //qDebug() << "HamLibClass::slotTimer Unable to read FREQ - Error: " << QString::number(retcode) << endl;
+        //qDebug() << "HamLibClass::slotTimer Unable to read FREQ - Error: " << rigerror(retcode) << endl;
     }
 
     retcode = rig_get_mode(my_rig, RIG_VFO_CURR, &rmode, &width);
     if (retcode == RIG_OK)
     {
+        qDebug() << "HamLibClass::slotTimer: Mode: " << hamlibMode2Mode(rmode) << endl;
         if (mode_old != rmode)
         {
+            mode_old = rmode;
             emit modeChanged(hamlibMode2Mode(rmode));
         }
     }
@@ -71,13 +74,14 @@ void HamLibClass::slotTimer()
 bool HamLibClass::setMode(const QString _m)
 {
     qDebug() << "HamLibClass::setMode: " << _m << endl;
-
-
     retcode = rig_set_mode(my_rig, RIG_VFO_CURR, rig_parse_mode(_m.toLocal8Bit()), rig_passband_normal(my_rig, rig_parse_mode(_m.toLocal8Bit())));
     if (retcode != RIG_OK)
     {
+        return false;
         qDebug() << "HamLibClass::setMode: ERROR: Could not set mode: " << _m << endl;
     }
+    qDebug() << "HamLibClass::setMode - END true " << endl;
+    return true;
 }
 
 rmode_t HamLibClass::mode2HamlibMode(const QString _m)
@@ -187,68 +191,66 @@ QString HamLibClass::hamlibMode2Mode(rmode_t _rmode)
         case RIG_MODE_AM:
             return "AM";
         break;
-    case RIG_MODE_CW:
-        return "CW";
-    break;
-    case RIG_MODE_USB:
-        return "USB";
-    break;
-    case RIG_MODE_LSB:
-        return "LSB";
-    break;
-    case RIG_MODE_RTTY:
-        return "RTTY";
-    break;
-    case RIG_MODE_FM:
-        return "FM";
-    break;
-    case RIG_MODE_WFM:
-        return "WFM";
-    break;
-    case RIG_MODE_CWR:
-        return "CW"; //TODO: Check with ADIF
-    break;
-    case RIG_MODE_RTTYR:
-        return "RTTY"; // TODO Check
-    break;
-    case RIG_MODE_AMS://TODO: Check with ADIF
-        return "AM";
-    break;
-    case RIG_MODE_PKTLSB:
-        return "LSB";//TODO: Check with ADIF
-    break;
-    case RIG_MODE_PKTUSB:
-        return "USB";//TODO: Check with ADIF
-    break;
-    case RIG_MODE_PKTFM:
-        return "FM";//TODO: Check with ADIF
-    break;
-    case RIG_MODE_ECSSUSB:
-        return "USB";//TODO: Check with ADIF
-    break;
-    case RIG_MODE_ECSSLSB:
-        return "LSB";//TODO: Check with ADIF
-    break;
-    case RIG_MODE_FAX:
-        return "FAX";
-    break;
-    case RIG_MODE_SAM:
-        return "AM"; //TODO: Check with ADIF
-    break;
-    case RIG_MODE_SAL:
-        return "LSB";//TODO: Check with ADIF
-    break;
-    case RIG_MODE_SAH:
-        return "USB";//TODO: Check with ADIF
-    break;
-    case RIG_MODE_DSB:
-        return "SSB";//TODO: Check with ADIF
-    break;
-    case RIG_MODE_FMN:
-        return "FM";//TODO: Check with ADIF
-    break;
-
-    break;
+        case RIG_MODE_CW:
+            return "CW";
+        break;
+        case RIG_MODE_USB:
+            return "USB";
+        break;
+        case RIG_MODE_LSB:
+            return "LSB";
+        break;
+        case RIG_MODE_RTTY:
+            return "RTTY";
+        break;
+        case RIG_MODE_FM:
+            return "FM";
+        break;
+        case RIG_MODE_WFM:
+            return "WFM";
+        break;
+        case RIG_MODE_CWR:
+            return "CW"; //TODO: Check with ADIF
+        break;
+        case RIG_MODE_RTTYR:
+            return "RTTY"; // TODO Check
+        break;
+        case RIG_MODE_AMS://TODO: Check with ADIF
+            return "AM";
+        break;
+        case RIG_MODE_PKTLSB:
+            return "LSB";//TODO: Check with ADIF
+        break;
+        case RIG_MODE_PKTUSB:
+            return "USB";//TODO: Check with ADIF
+        break;
+        case RIG_MODE_PKTFM:
+            return "FM";//TODO: Check with ADIF
+        break;
+        case RIG_MODE_ECSSUSB:
+            return "USB";//TODO: Check with ADIF
+        break;
+        case RIG_MODE_ECSSLSB:
+            return "LSB";//TODO: Check with ADIF
+        break;
+        case RIG_MODE_FAX:
+            return "FAX";
+        break;
+        case RIG_MODE_SAM:
+            return "AM"; //TODO: Check with ADIF
+        break;
+        case RIG_MODE_SAL:
+            return "LSB";//TODO: Check with ADIF
+        break;
+        case RIG_MODE_SAH:
+            return "USB";//TODO: Check with ADIF
+        break;
+        case RIG_MODE_DSB:
+            return "SSB";//TODO: Check with ADIF
+        break;
+        case RIG_MODE_FMN:
+            return "FM";//TODO: Check with ADIF
+        break;
         default:
             return QString();
         break;
@@ -260,6 +262,10 @@ bool HamLibClass::stop()
 {
     qDebug() << "HamLibClass::stop" << endl;
     timer->stop();
+    if (!rigLaunched)
+    {
+        return true;
+    }
     int errorCode = rig_close(my_rig);
     qDebug() << "HamLibClass::stop-1" << endl;
 
@@ -333,7 +339,7 @@ bool HamLibClass::init(bool _active)
         return false;
     }
 
-    rig_set_debug(RIG_DEBUG_VERBOSE);
+    rig_set_debug(RIG_DEBUG_NONE);
     my_rig = rig_init(myrig_model);
 
     if (my_rig == NULL)

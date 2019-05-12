@@ -6,6 +6,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy *dp, QWidget *parent) : QWidget(paren
     hamlib = new HamLibClass();
     activateHamlibCheckBox = new QCheckBox();
     rigTypeComboBox = new QComboBox();
+    poolIntervalQSpinBox = new QSpinBox();
     serialBaudsComboBox = new QComboBox();
     serialPortComboBox = new QComboBox();
 
@@ -49,7 +50,6 @@ void SetupPageHamLib::createUI()
     activateHamlibCheckBox->setText(tr("Activate HamLib"));
     activateHamlibCheckBox->setToolTip(tr("Activates the hamlib support that will enable the connection to a radio."));
 
-
     RTSCheckBox->setText(tr("RTS on"));
     RTSCheckBox->setToolTip(tr("Setting RTS may be needed for some serial ports."));
     DTRCheckBox->setText(tr("DTR on"));
@@ -68,6 +68,23 @@ void SetupPageHamLib::createUI()
     rigTypeLabel->setToolTip(tr("Select your rig."));
     rigTypeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     rigTypeLabel->setEnabled(true);
+
+    QString poolTip = QString(tr("Defines the interval to pool the radio in msecs."));
+
+    poolIntervalQSpinBox->setToolTip(poolTip);
+    poolIntervalQSpinBox->setMinimum(10);
+    poolIntervalQSpinBox->setMaximum(5000);
+
+    QLabel *poolIntervalLabel = new QLabel(tr("Pool interval"));
+    poolIntervalLabel->setBuddy(rigTypeComboBox);
+    poolIntervalLabel->setToolTip(poolTip);
+    poolIntervalLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    poolIntervalLabel->setEnabled(true);
+
+    QHBoxLayout *poolIntervalLayout = new QHBoxLayout;
+    poolIntervalLayout->addWidget(poolIntervalLabel);
+    poolIntervalLayout->addWidget(poolIntervalQSpinBox);
+
 
     serialPortComboBox->addItems(serialPorts);
     QLabel *serialPortLabel = new QLabel(tr("Port"));
@@ -137,6 +154,7 @@ void SetupPageHamLib::createUI()
     QGridLayout *topData = new QGridLayout;
     topData->addWidget(rigTypeLabel, 0, 0);
     topData->addWidget(rigTypeComboBox, 0, 1);
+    topData->addLayout(poolIntervalLayout, 0, 2);
     topData->addWidget(serialPortLabel, 1, 0);
     topData->addWidget(serialPortComboBox, 1, 1);
     topData->addWidget(scanSerialPortButton, 1, 2);

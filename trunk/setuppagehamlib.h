@@ -53,6 +53,8 @@ public:
     void setFlowControl(const QString _st);
     void setParity(const QString _st);
     void setStopBits(const QString _st);
+    void setPoolInterval(const QString _st);
+
 
 
 signals:
@@ -72,6 +74,7 @@ private:
     QString getFlowControl();
     QString getParity();
     QString getStopBits();
+    QString getPoolInterval();
 
 /*
 
@@ -87,6 +90,7 @@ StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
                 *flowControlComboBox, *parityComboBox, *stopBitsComboBox;
     //QSpinBox *serialBaudsSpinBox;
     QLineEdit *serialPort;
+    QSpinBox *poolIntervalQSpinBox;
 
     HamLibClass *hamlib;
 
