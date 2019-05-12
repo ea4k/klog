@@ -36,6 +36,8 @@ public:
     bool setFreq(const double _fr);
     bool setMode(const QString _m);
 
+   // bool isModeExisting(const QString _m);
+
 
     bool init(bool _active);
     bool stop();
