@@ -52,7 +52,7 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     qDebug() << "MainWindow::MainWindow: BEFORE HAMLIB " << endl;
     hamlib = new HamLibClass();
     qDebug() << "MainWindow::MainWindow: AFTER HAMLILB " << endl;
-    hamlibActive = true;
+    hamlibActive = false;
 
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
@@ -4366,11 +4366,15 @@ void MainWindow::readConfigData()
 
     if (hamlibActive)
     {
+        qDebug() << "MainWindow::readConfigData: STARTING HAMLIB" << endl;
         hamlib->init(true);
+        qDebug() << "MainWindow::readConfigData: HAMLIB STARTED";
     }
     else
     {
+        qDebug() << "MainWindow::readConfigData: STOPPING HAMLIB";
         hamlib->stop();
+        qDebug() << "MainWindow::readConfigData: NOT STARTING HAMLIB";
     }
 
    qDebug() << "MainWindow::readConfigData - END" << endl;
