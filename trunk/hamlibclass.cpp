@@ -51,8 +51,8 @@ void HamLibClass::slotTimer()
     {
         return;
     }
-    retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
 
+    retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
 
     if (retcode == RIG_OK)
     {
@@ -72,6 +72,7 @@ void HamLibClass::slotTimer()
     {
         //qDebug() << "HamLibClass::slotTimer Unable to read FREQ - Error: " << QString::number(retcode) << endl;
         //qDebug() << "HamLibClass::slotTimer Unable to read FREQ - Error: " << rigerror(retcode) << endl;
+        stop();
     }
 
     retcode = rig_get_mode(my_rig, RIG_VFO_CURR, &rmode, &width);
@@ -85,7 +86,11 @@ void HamLibClass::slotTimer()
             emit modeChanged(hamlibMode2Mode(rmode));
         }
     }
-    checkErrorCountAndStop();
+    else
+    {
+        stop();
+    }
+    //checkErrorCountAndStop();
 
 }
 void HamLibClass::setMode(const QString _m)
@@ -560,6 +565,7 @@ void HamLibClass::setFreq(const double _fr)
     if (retcode != RIG_OK)
     {
         qDebug() << "HamLibClass::setFreq NOK: "  << endl;
+        stop();
         errorCount++;
 
         return;
@@ -576,6 +582,7 @@ void HamLibClass::setFreq(const double _fr)
         }
         else
         {
+            stop();
             errorCount++;
             qDebug() << "HamLibClass::setFreq Unable to read FREQ" << endl;
         }
@@ -599,7 +606,7 @@ void HamLibClass::setRTS(const QString _state)
     }
     else
     {
-           srts = RIG_SIGNAL_OFF;
+        srts = RIG_SIGNAL_OFF;
     }
 }
 
@@ -612,7 +619,7 @@ void HamLibClass::setDTR(const QString _state)
     }
     else
     {
-           sdtr = RIG_SIGNAL_OFF;
+        sdtr = RIG_SIGNAL_OFF;
     }
 }
 
