@@ -196,10 +196,10 @@ int main(int argc, char *argv[])
 
         }
 
-     //qDebug() << "KLog Main-1" << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
+    //qDebug() << "KLog Main-1" << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
 
     app.installTranslator(&myappTranslator);
-     //qDebug() << "KLog Main: End of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << endl;
+    //qDebug() << "KLog Main: End of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << endl;
     // Traslations end
 
     QString configFileName, klogDir;
@@ -209,7 +209,7 @@ int main(int argc, char *argv[])
 
     //qDebug() << "KLog Main-10" << endl;
 
-     //qDebug() << "KLog Main: Setting klog dir: " << (QTime::currentTime()).toString("HH:mm:ss")<< endl;;
+    //qDebug() << "KLog Main: Setting klog dir: " << (QTime::currentTime()).toString("HH:mm:ss")<< endl;;
     if (!QDir::setCurrent (klogDir) )
     {
          //qDebug() << "MAIN:  KLogDir does not exist.... creating " << endl;
@@ -233,9 +233,9 @@ int main(int argc, char *argv[])
     {
          //qDebug() << "MAIN:  KLogDir already existed!! " << endl;
     }
-     //qDebug() << "KLog Main: Setting klog dir - finished: " << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+   //qDebug() << "KLog Main: Setting klog dir - finished: " << (QTime::currentTime()).toString("HH:mm:ss") << endl;
 
-     //qDebug() << "KLog Main: Setting config file: " << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
+    //qDebug() << "KLog Main: Setting config file: " << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
     if(!QFile::exists(configFileName))
     {
          //qDebug() << "MAIN:  Starting wizard... " << endl;
@@ -243,7 +243,7 @@ int main(int argc, char *argv[])
         StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
         int inMemory = wizard->exec();
-         //qDebug() << "MAIN: Wizard inMemory: " << QString::number(inMemory) << endl;
+        //qDebug() << "MAIN: Wizard inMemory: " << QString::number(inMemory) << endl;
 
         if (inMemory == 1)
         {
@@ -341,7 +341,7 @@ int main(int argc, char *argv[])
         return app.exec();
         //qDebug() << "KLog Main-103" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
     }
-     //qDebug() << "KLog Main-END: " << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
+    //qDebug() << "KLog Main-END: " << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
 
     //return app.exec();
 }

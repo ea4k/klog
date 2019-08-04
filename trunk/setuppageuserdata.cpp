@@ -30,7 +30,7 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy *dp, QWidget *parent) : Q
     //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage" << endl;
    locator = new Locator();
    dataProxy = dp;
-   world = new World(dataProxy);
+   world = new World(dataProxy, Q_FUNC_INFO);
    operatorOK = false;
    operatorsOK = false;
    tabWidget = new QTabWidget;
@@ -577,6 +577,7 @@ bool SetupPageUserDataPage::setPower(const QString _aux)
 {
     myPowerSpinBox->setValue(_aux.toFloat());
     return true;
+
 }
 
 bool SetupPageUserDataPage::setRig1 (const QString _aux)

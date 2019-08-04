@@ -31,7 +31,7 @@ DXClusterWidget::DXClusterWidget(DataProxy *dp, QWidget *parent)
      //qDebug() << "DXClusterWidget::DXClusterWidget" << endl;
     dataProxy = dp;
     constrid = 1;
-    awards = new Awards(dataProxy);
+    awards = new Awards(dataProxy, Q_FUNC_INFO);
 
 
     initClass();
@@ -55,8 +55,8 @@ DXClusterWidget::DXClusterWidget(DataProxy *dp, const QString &clusterToConnect,
     //confirmedColor.setNamedColor("slategrey");
     //newOneColor.setNamedColor("slategrey");
     dataProxy = dp;
-    world = new World(dataProxy);
-    awards = new Awards(dataProxy);
+    world = new World(dataProxy, Q_FUNC_INFO);
+    awards = new Awards(dataProxy, Q_FUNC_INFO);
 
 
     tcpSocket = new QTcpSocket(this);

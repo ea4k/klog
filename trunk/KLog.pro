@@ -270,6 +270,8 @@ win32: {
  TARGET = klog
  QMAKE_TARGET_COMPANY = EA4TV
  QMAKE_TARGET_DESCRIPTION = Hamradio logging
+ LIBS += -L"C:/radio/hamlib-w32-3.3/lib/gcc" -lhamlib
+ INCLUDEPATH += "C:/radio/hamlib-w32-3.3/include/"
 }
 
 else:TARGET = klog

@@ -6,11 +6,11 @@ SearchWidget::SearchWidget(DataProxy *dp, QWidget *parent) :
      //qDebug() << "SearchWidget::SearchWidget"   << endl;
     searchBoxLineEdit = new QLineEdit;
     dataProxy = dp;
-    awards = new Awards(dataProxy);
+    awards = new Awards(dataProxy, Q_FUNC_INFO);
     util = new Utilities;
     filemanager = new FileManager(dataProxy);
 
-    world = new World(dataProxy);
+    world = new World(dataProxy, Q_FUNC_INFO);
 
     currentLog = -1;
 

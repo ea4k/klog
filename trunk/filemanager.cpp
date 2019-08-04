@@ -39,8 +39,8 @@ FileManager::FileManager(DataProxy *dp)
     db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
 
     ignoreUnknownAlways = false;
-    world = new World(dataProxy);
-    awards = new Awards(dataProxy);
+    world = new World(dataProxy, Q_FUNC_INFO);
+    awards = new Awards(dataProxy, Q_FUNC_INFO);
 
 
 
@@ -91,8 +91,8 @@ FileManager::FileManager(DataProxy *dp, const QString _klogDir, const QString _s
 
     klogDir = _klogDir;
     ignoreUnknownAlways = false;
-    world = new World(dataProxy, klogDir);
-    awards = new Awards(dataProxy);
+    world = new World(dataProxy, klogDir, Q_FUNC_INFO);
+    awards = new Awards(dataProxy, Q_FUNC_INFO);
 
     noMoreQso = false;  
     hashLogs.clear();

@@ -5,10 +5,10 @@ InfoWidget::InfoWidget(DataProxy *dp, QWidget *parent) :
 {
      //qDebug() << "InfoWidget::InfoWidget: "   << endl;
     dataProxy = dp;
-    awards = new Awards(dataProxy); //Just to know colors
+    awards = new Awards(dataProxy, Q_FUNC_INFO); //Just to know colors
 
     locator = new Locator();
-    world = new World(dataProxy);
+    world = new World(dataProxy, Q_FUNC_INFO);
 
     bandLabel1 = new QLabel;
     bandLabel2 = new QLabel;

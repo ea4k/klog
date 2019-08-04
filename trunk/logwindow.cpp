@@ -40,7 +40,7 @@ LogWindow::LogWindow(DataProxy *dp, QWidget *parent) : QWidget(parent)
     currentLog = -1;
 
 
-    awards = new Awards(dataProxy);
+    awards = new Awards(dataProxy, Q_FUNC_INFO);
 
     createUI();
     createActions();

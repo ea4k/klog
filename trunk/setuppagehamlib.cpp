@@ -44,6 +44,7 @@ void SetupPageHamLib::fillSerialPortsComboBox()
 
 void SetupPageHamLib::createUI()
 {
+    //qDebug() << "SetupPageHamLib::createUI" << endl;
 
     connect(scanSerialPortButton, SIGNAL(clicked(bool)), this, SLOT(slotScanPorts()) );
 
@@ -59,16 +60,19 @@ void SetupPageHamLib::createUI()
     rigTypeComboBox->clear();
     strings.clear();
     setRig();
+    //qDebug() << "SetupPageHamLib::createUI-20" << endl;
     //serialPortComboBox->addItems(getAvailableSerialPorts());
     fillSerialPortsComboBox();
+    //qDebug() << "SetupPageHamLib::createUI-21" << endl;
     rigTypeComboBox->setCurrentIndex(0);
+    //qDebug() << "SetupPageHamLib::createUI-22" << endl;
 
     QLabel *rigTypeLabel = new QLabel(tr("Radio"));
     rigTypeLabel->setBuddy(rigTypeComboBox);
     rigTypeLabel->setToolTip(tr("Select your rig."));
     rigTypeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     rigTypeLabel->setEnabled(true);
-
+    //qDebug() << "SetupPageHamLib::createUI-30" << endl;
     QString poolTip = QString(tr("Defines the interval to pool the radio in msecs."));
 
     poolIntervalQSpinBox->setToolTip(poolTip);
@@ -95,7 +99,7 @@ void SetupPageHamLib::createUI()
 
     scanSerialPortButton->setText(tr("Scan"));;
     scanSerialPortButton->setToolTip(tr("Click to identify the serial ports available in your computer."));
-
+    //qDebug() << "SetupPageHamLib::createUI-40" << endl;
     strings.clear();
     strings << "1200" << "2400" << "4800" << "9600" << "19200" << "38400" << "57600" << "115200";
     serialBaudsComboBox->addItems(strings);
@@ -105,7 +109,7 @@ void SetupPageHamLib::createUI()
     serialBaudsLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     serialBaudsLabel->setEnabled(true);
 
-
+    //qDebug() << "SetupPageHamLib::createUI-50" << endl;
     dataBitsComboBox = new QComboBox();
     strings.clear();
     strings << tr("5 bits") << tr("6 bits") << tr("7 bits") << tr("8 bits");
@@ -116,6 +120,7 @@ void SetupPageHamLib::createUI()
     dataBitsLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     dataBitsLabel->setEnabled(true);
 
+    //qDebug() << "SetupPageHamLib::createUI-60" << endl;
     flowControlComboBox = new QComboBox();
     strings.clear();
     strings << tr("None") << tr("Hardware") << tr("Software XON/XOFF");
@@ -185,6 +190,7 @@ void SetupPageHamLib::createUI()
 
 
     setLayout(mLayout);
+    //qDebug() << "SetupPageHamLib::createUI-END" << endl;
 }
 
 void SetupPageHamLib::setRig()
@@ -204,6 +210,7 @@ void SetupPageHamLib::setRig()
   rigTypeComboBox->insertItems (0, strings);
   strings.clear ();
   */
+    //qDebug() << "SetupPageHamLib::SetRig - END" << endl;
 }
 /*
 int SetupPageHamLib::addRigToList (const struct rig_caps *caps, void *data)
@@ -238,6 +245,7 @@ QStringList SetupPageHamLib::getAvailableSerialPorts()
 
 void SetupPageHamLib::setDefaults()
 {
+    //qDebug() << "SetupPageHamLib::setDefaults" << endl;
     rigTypeComboBox->setCurrentIndex(0);
     serialPortComboBox->setCurrentIndex(0);
     serialBaudsComboBox->setCurrentIndex(0);
@@ -248,6 +256,7 @@ void SetupPageHamLib::setDefaults()
 
     RTSCheckBox->setChecked(false);
     DTRCheckBox->setChecked(false);
+    //qDebug() << "SetupPageHamLib::setDefaults-END" << endl;
 
 }
 
@@ -303,10 +312,10 @@ QString SetupPageHamLib::getData()
 
 bool SetupPageHamLib::setRigType(const QString _radio)
 {
-    qDebug() << "SetupPageHamLib::setRig: " << _radio << endl;
+    //qDebug() << "SetupPageHamLib::setRig: " << _radio << endl;
 
     int _index = rigTypeComboBox->findText(hamlib->getNameFromModelId(_radio.toInt()), Qt::MatchFlag::MatchExactly);
-    qDebug() << "SetupPageHamLib::setRig: After: "  << QString::number(_index)  << endl;
+    //qDebug() << "SetupPageHamLib::setRig: After: "  << QString::number(_index)  << endl;
     if (_index >= 0)
     {
         rigTypeComboBox->setCurrentIndex(_index);
@@ -349,8 +358,9 @@ bool SetupPageHamLib::setSerialSpeed(const QString _speed )
     return false;
 }
 
-bool SetupPageHamLib::setActive(const QString _active)
+void SetupPageHamLib::setActive(const QString _active)
 {
+    //qDebug() << "SetupPageHamLib::setActive: " << _active << endl;
     if (_active.toUpper() == "TRUE")
     {
         activateHamlibCheckBox->setChecked(true);

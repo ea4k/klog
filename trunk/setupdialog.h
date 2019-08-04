@@ -26,7 +26,6 @@
  *                                                                           *
  *****************************************************************************/
 
-//#include <QtWidgets>
 #include <QDialog>
 
 #include "setuppageuserdata.h"

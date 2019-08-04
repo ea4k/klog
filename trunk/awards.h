@@ -52,7 +52,7 @@ class Awards : public QObject {
     //friend class World;
 
 public:
-    Awards(DataProxy *dp);
+    Awards(DataProxy *dp, const QString _parentFunction);
     ~Awards();
     void setAwards(const int _qsoId);
     void setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId);

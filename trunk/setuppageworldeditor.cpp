@@ -7,7 +7,7 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy *dp, QWidget *parent) : QWi
      //qDebug() << "SetupPageWorldEditor::SetupPageWorldEditor"  << endl;
     //worldPanel = new QWidget;
     dataProxy = dp;
-    world = new World(dataProxy);
+    world = new World(dataProxy, Q_FUNC_INFO);
     util = new Utilities();
 
     setupEntityDialog = new SetupEntityDialog();

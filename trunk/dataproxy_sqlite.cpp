@@ -576,35 +576,39 @@ QStringList DataProxy_SQLite::getModes()
 QStringList DataProxy_SQLite::sortBandNamesBottonUp(const QStringList _qs)
 {
     //Receives a list of band names, sorts it from the lower band to the upper band and returns
-     //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp" << endl;
-
+    //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp: " << QString::number(_qs.length()) << endl;
+    if (_qs.length()<2)
+    {
+        return _qs;
+    }
    //Next lines to be commented out
-   for (int i=0; i<_qs.length();i++)
-   {
-          //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp - band: " << _qs.at(i) << endl;
-   }
+   //for (int i=0; i<_qs.length();i++)
+   //{
+         // //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp - band: " << _qs.at(i) << QString::number(i) << "/" << QString::number(_qs.length())<< endl;
+   //}
    //Previous lines to be commented out
 
     QMap<double, QString> map;
+    map.clear();
     QStringList qs;
     qs.clear();
-
+    //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp-00" << endl;
 
     for (int j=0; j<_qs.count(); j++)
     {
         map.insert(getLowLimitBandFromBandName(_qs.at(j)), _qs.at(j));
     }
-
+    //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp-10" << endl;
     QMap<double, QString>::const_iterator i = map.constBegin();
-
+    //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp-20" << endl;
     while (i != map.constEnd()) {
         qs << i.value();
         ++i;
     }
 
-      //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp - END -lengh = " << QString::number(qs.length()) << endl;
+    //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp - END -lengh = " << QString::number(qs.length()) << endl;
     qs.removeDuplicates();
-    return qs;
+    return qs;    
 }
 
 
@@ -2714,7 +2718,7 @@ int DataProxy_SQLite::getQSOsAtHour(const int _hour, const int _log)
   }
   else
   {
-      queryString = QString("SELECT COUNT(DISTINCT id) FROM log Wwhere lognumber='%1' AND time_on LIKE '%2:%'").arg(_log).arg(aux);
+      queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE lognumber='%1' AND time_on LIKE '%2:%'").arg(_log).arg(aux);
   }
 
   sqlOK = query.exec(queryString);
@@ -2744,6 +2748,62 @@ int DataProxy_SQLite::getQSOsAtHour(const int _hour, const int _log)
       query.finish();
       return 0;
   }
+}
+
+
+int DataProxy_SQLite::getQSOsAtHourOnBand(const int _hour, const int _band, const int _log)
+{
+    //qDebug() << "DataProxy_SQLite::getQSOsAtHourOnBand: " << QString::number(_hour) << endl;
+   QSqlQuery query;
+   QString queryString;
+   bool sqlOK;
+   QString aux = QString();
+
+   if (_hour < 10)
+   {
+       aux = "0" + QString::number(_hour);
+   }
+   else
+   {
+       aux = QString::number(_hour);
+   }
+
+   if (_log < 0)
+   {
+       queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE time_on LIKE '%1:%' AND bandid='%2'").arg(aux).arg(_band);
+   }
+   else
+   {
+       queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE lognumber='%1' AND time_on LIKE '%2:%' AND bandid='%3'").arg(_log).arg(aux).arg(_band);
+   }
+
+   sqlOK = query.exec(queryString);
+
+      //qDebug() << "DataProxy_SQLite::getQSOsAtHourOnBand: queryString: " << queryString << endl;
+   if (sqlOK)
+   {
+       query.next();
+       if (query.isValid())
+       {
+              //qDebug() << "DataProxy_SQLite::getQSOsAtHourOnBand: " << QString::number((query.value(0)).toInt()) << endl;
+           int v = (query.value(0)).toInt();
+           query.finish();
+           return v;
+       }
+       else
+       {
+              //qDebug() << "DataProxy_SQLite::getQSOsAtHourOnBand: 0" << endl;
+           query.finish();
+           return 0;
+       }
+   }
+   else
+   {
+       emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+          //qDebug() << "DataProxy_SQLite::getQSOsAtHourOnBandç: Query error" << endl;
+       query.finish();
+       return 0;
+   }
 }
 
 int DataProxy_SQLite::getQSOsOnMonth(const int _month, const int _log)
@@ -5647,6 +5707,42 @@ QString DataProxy_SQLite::getEntityNameFromId(const int _n)
     return QString();
 }
 
+int DataProxy_SQLite::getEntityIdFromName(const QString _e)
+{
+  //qDebug() << "DataProxy_SQLite::getEntityIdFromName:" << _e << endl;
+
+    int id = -1;
+  QString queryString;
+  QSqlQuery query;
+
+  //queryString = QString("SELECT mainprefix FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_entityN);
+  queryString = QString("SELECT dxcc FROM entity WHERE name='%1'").arg(_e);
+  //queryString = "SELECT prefix FROM prefixesofentity WHERE dxcc=='" + QString::number(i) +"'";
+  bool sqlOK = query.exec(queryString);
+
+  if (!sqlOK)
+  {
+      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+      query.finish();
+      return id;
+  }
+  else
+  {
+    query.next();
+    if (query.isValid())
+    {
+        id = (query.value(0)).toInt();
+        query.finish();
+        return id;
+    }
+      else
+      {
+        query.finish();
+          return -1;
+      }
+  }
+    return -1;
+}
 
 QString DataProxy_SQLite::getEntityMainPrefix(const int _entityN)
 {

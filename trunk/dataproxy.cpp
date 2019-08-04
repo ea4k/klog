@@ -435,6 +435,11 @@ int DataProxy::getQSOsAtHour(const int _hour, const int _log)
     return -1;
 }
 
+int DataProxy::getQSOsAtHourOnBand(const int _hour, const int _band ,const int _log)
+{
+    return -1;
+}
+
 int DataProxy::getQSOsOnMonth(const int _month, const int _log)
 {
     return -1;
@@ -719,6 +724,11 @@ int DataProxy::getITUzFromEntity(const int _n)
 QString DataProxy::getEntityNameFromId(const int _n)
 {
     return QString();
+}
+
+int DataProxy::getEntityIdFromName(const QString _e)
+{
+    return -1;
 }
 
 QString DataProxy::getEntityMainPrefix(const int _entityN)
