@@ -7,7 +7,7 @@
 
 
 
-eLogClubLog::eLogClubLog() : QObject(0)
+eLogClubLog::eLogClubLog() : QObject(nullptr)
 {
      //qDebug() << "eLogClubLog::eLogClubLog"  << endl;
     call= QString();

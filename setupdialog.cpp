@@ -34,7 +34,7 @@ This class calls all the othet "Setup..." to manage the configuration
 
 SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
 {
-     //qDebug() << "SetupDialog::SetupDialog 1" << endl;
+    //qDebug() << "SetupDialog::SetupDialog 1" << endl;
     util = new Utilities;
     constrid = 1;
     nolog = true;
@@ -62,8 +62,8 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
     //qDebug() << "SetupDialog::SetupDialog 3.3" << endl;
     tabWidget = new QTabWidget;
     //qDebug() << "SetupDialog::SetupDialog 3.4" << endl;
-
     hamlibPage = new SetupPageHamLib(dataProxy, this);
+    //qDebug() << "SetupDialog::SetupDialog 3.4.1" << endl;
     userDataPage = new SetupPageUserDataPage(dataProxy);
     //qDebug() << "SetupDialog::SetupDialog 3.5" << endl;
     bandModePage = new SetupPageBandMode(dataProxy, this);
@@ -139,7 +139,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
 
 SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
 {
-     //qDebug() << "SetupDialog::SetupDialog 2" << endl;
+    //qDebug() << "SetupDialog::SetupDialog 2" << endl;
     constrid = 2;
     util = new Utilities;
     firstTime = _firstTime;
@@ -167,7 +167,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString
     hamlibPage = new SetupPageHamLib(dataProxy, this);
 
 
-     //qDebug() << "SetupDialog::SetupDialog 02" << endl;
+    //qDebug() << "SetupDialog::SetupDialog 02" << endl;
     tabWidget->addTab(userDataPage, tr("User data"));
     tabWidget->addTab(bandModePage, tr("Bands/Modes"));
     tabWidget->addTab(dxClusterPage, tr("D&X-Cluster"));
@@ -197,16 +197,16 @@ SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString
     mainLayout->addLayout(horizontalLayout);
     mainLayout->addLayout(buttonsLayout);
 
-     //qDebug() << "SetupDialog::SetupDialog 04" << endl;
+    //qDebug() << "SetupDialog::SetupDialog 04" << endl;
 
     setLayout(mainLayout);
 
     setWindowTitle(tr("Config Dialog"));
 
-     //qDebug() << "SetupDialog::SetupDialog 05" << endl;
+    //qDebug() << "SetupDialog::SetupDialog 05" << endl;
 
     slotReadConfigData();
-     //qDebug() << "SetupDialog::SetupDialog 05.1" << endl;
+    //qDebug() << "SetupDialog::SetupDialog 05.1" << endl;
 
     if ((pageRequested==6) && (logsPageTabN>0))// The user is opening a new log
     {
@@ -220,7 +220,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
     connectActions();
 
-     //qDebug() << "SetupDialog::SetupDialog 2  - END" << endl;
+    //qDebug() << "SetupDialog::SetupDialog 2  - END" << endl;
 }
 
 
@@ -603,7 +603,7 @@ void SetupDialog::slotOkButtonClicked()
 
 void SetupDialog::slotReadConfigData()
 {
-     //qDebug() << "SetupDialog::slotReadConfigData" << endl;
+    //qDebug() << "SetupDialog::slotReadConfigData" << endl;
     if (firstTime)
     {
         setDefaults();
@@ -613,7 +613,7 @@ void SetupDialog::slotReadConfigData()
         bandModePage->setActiveBands(bands);
     }
 
-         //qDebug() << "SetupDialog::slotReadConfigData - 1" << endl;
+    //qDebug() << "SetupDialog::slotReadConfigData - 1" << endl;
 
     QFile file(configFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -621,7 +621,7 @@ void SetupDialog::slotReadConfigData()
         //firstTime = true;
         return;
     }
-     //qDebug() << "SetupDialog::slotReadConfigData - 2" << endl;
+    //qDebug() << "SetupDialog::slotReadConfigData - 2" << endl;
     //dxClusterServers.clear();
 
 
@@ -631,7 +631,7 @@ void SetupDialog::slotReadConfigData()
         processConfigLine(line);        
         //qDebug() << "SetupDialog::slotReadConfigData - in the while" << endl;
     }
-    qDebug() << "SetupDialog::slotReadConfigData - 3" << endl;
+    //qDebug() << "SetupDialog::slotReadConfigData - 3" << endl;
 
     dxClusterPage->setDxclusterServersComboBox(dxClusterServers);
     dxClusterPage->setSelectedDxClusterServer(dxClusterServerToUse);
@@ -652,7 +652,7 @@ void SetupDialog::slotReadConfigData()
     bands.removeDuplicates();
    //qDebug() << "SetupDialog::slotReadConfigData - duplicate bands: " << QString::number(a)  << endl;
     bandModePage->setActiveBands(bands);
-    qDebug() << "SetupDialog::slotReadConfigData - END" << endl;
+    //qDebug() << "SetupDialog::slotReadConfigData - END" << endl;
 
 }
 
@@ -871,12 +871,12 @@ bool SetupDialog::processConfigLine(const QString _line)
         colorsPage->setDefaultColor(value);
         //qDebug() << "SetupDialog::processConfigLine: DEFAULTCOLOR: " << value << endl;
     }else if(tab =="HAMLIBRIGTYPE"){
-        qDebug() << "SetupDialog::processConfigLine: Before HAMLIBRIGTYPE: " << value << endl;
+        //qDebug() << "SetupDialog::processConfigLine: Before HAMLIBRIGTYPE: " << value << endl;
 
         hamlibPage->setRigType(value);
-        qDebug() << "SetupDialog::processConfigLine: After HAMLIBRIGTYPE: " << value << endl;
+        //qDebug() << "SetupDialog::processConfigLine: After HAMLIBRIGTYPE: " << value << endl;
     }else if(tab =="HAMLIBSERIALPORT"){
-        qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPORT: " << value << endl;
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPORT: " << value << endl;
         hamlibPage->setSerialPort(value);
     }else if(tab =="HAMLIBSERIALBAUDS"){
         //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALBAUDS: " << value << endl;

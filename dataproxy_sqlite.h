@@ -143,6 +143,7 @@ public:
     int getITUzFromEntity(const int _n);
     int getITUzFromPrefix(const QString _p);
     QString getEntityNameFromId(const int _n);
+    int getEntityIdFromName(const QString _e);
     QString getEntityMainPrefix(const int _entityN);
     bool isNewCQz(int _c);
     bool isNewEntity(int _e);
@@ -170,6 +171,7 @@ public:
     int getCQzonYear(const int _year, const int _logNumber);
     int getQSOsWithDXCC(const int _dxcc, const int _logNumber);
     int getQSOsAtHour(const int _hour, const int _log);
+    int getQSOsAtHourOnBand(const int _hour, const int _band ,const int _log);
     int getQSOsOnMonth(const int _month, const int _log);
 
     int getHowManyQSOInLog(const int _log);

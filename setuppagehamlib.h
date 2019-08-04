@@ -46,7 +46,7 @@ public:
     bool setRigType(const QString _radio);
     bool setSerialPort(const QString _port);
     bool setSerialSpeed(const QString _speed );
-    bool setActive(const QString _active);
+    void setActive(const QString _active);
     void setRTS(const QString _state);
     void setDTR(const QString _state);
     void setDataBits(const QString _st);

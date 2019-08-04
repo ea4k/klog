@@ -35,9 +35,9 @@ To insert a (key, value) pair into the hash, you can use operator[]():
  hash["EA8"] = 132;
 
 */
-World::World(DataProxy *dp)
+World::World(DataProxy *dp, const QString _parentFunction)
 {
-     //qDebug() << "World::World(0)" << endl;
+     //qDebug() << "World::World(0)" << _parentFunction << endl;
     constrid = 1;
 
     worldModel = new QSqlRelationalTableModel(this);
@@ -48,14 +48,13 @@ World::World(DataProxy *dp)
     locator = new Locator();
     created = false;
     dataProxy = dp;
-    //awards = new Awards();
+    //awards = new Awards(Q_FUNC_INFO);
      //qDebug() << "World::World(0) - END" << endl;
 }
 
-
-World::World(DataProxy *dp, const QString _klogDir)
+World::World(DataProxy *dp, const QString _klogDir, const QString _parentFunction)
 {
-     //qDebug() << "World::World(1): Dir" << _klogDir << endl;
+     //qDebug() << "World::World(1): Dir" << _klogDir << _parentFunction << endl;
     constrid = 2;
     klogDir = _klogDir;
     kontestVersion = "";
@@ -66,13 +65,13 @@ World::World(DataProxy *dp, const QString _klogDir)
     //flagsDir=":/flags/";
     locator = new Locator();
     dataProxy = dp;
-     //qDebug() << "World::World(1): - END"  << endl;
+    //qDebug() << "World::World(1): - END"  << endl;
 
 }
 
-World::World(DataProxy *dp, const QString _klogDir, const QString _kontestVer)
+World::World(DataProxy *dp, const QString _klogDir, const QString _kontestVer, const QString _parentFunction)
 {
-     //qDebug() << "World::World(2): Dir" << _klogDir << endl;
+     //qDebug() << "World::World(2): Dir" << _klogDir << _parentFunction << endl;
     constrid = 3;
     klogDir = _klogDir;
     kontestVersion = _kontestVer;    

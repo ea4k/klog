@@ -142,6 +142,7 @@ public:
     virtual int getITUzFromEntity(const int _n);
     virtual int getITUzFromPrefix(const QString _p);
     virtual QString getEntityNameFromId(const int _n);
+    virtual int getEntityIdFromName(const QString _e);
     virtual QString getEntityMainPrefix(const int _entityN);
     virtual bool isNewCQz(int _c);
     virtual bool isNewEntity(int _e);
@@ -166,6 +167,7 @@ public:
     virtual int getCQzonYear(const int _year, const int _logNumber);
     virtual int getQSOsWithDXCC(const int _dxcc, const int _logNumber);
     virtual int getQSOsAtHour(const int _hour, const int _log);
+    virtual int getQSOsAtHourOnBand(const int _hour, const int _band ,const int _log);
     virtual int getQSOsOnMonth(const int _month, const int _log);
 
     virtual bool newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber);

@@ -28,12 +28,12 @@
 
 //#include <QDebug>
 
-Awards::Awards(DataProxy *dp)
+Awards::Awards(DataProxy *dp, const QString _parentFunction)
 {
-    //qDebug() << "Awards::Awards"  << endl;
+    //qDebug() << "Awards::Awards- from: " << _parentFunction << endl;
     dataProxy = dp;
     //QSqlDatabase db = QSqlDatabase::database("QSQLITE");
-    world = new World(dp);
+    world = new World(dataProxy, Q_FUNC_INFO);
 
      //qDebug() << "Awards::Awards - Before DXMarathon"  << endl;
     dxMarathon = new DXMarathon(dataProxy);

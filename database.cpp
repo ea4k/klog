@@ -1411,7 +1411,7 @@ bool DataBase::unMarkAllQSO()
 
 bool DataBase::updateIfNeeded()
 {
-       //qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << endl;
+     //qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << endl;
 
     /**************************************************************************************
      * This function should call to bool updateToXXX () being XXX dbVersion and
@@ -1446,20 +1446,20 @@ bool DataBase::updateIfNeeded()
     //query.next();
     //latestReaded = (query.value(0)).toFloat();
     query.finish();
-       //qDebug() << "DataBase::updateIfNeeded - LatestReaded: " << QString::number(latestReaded) << endl;
+    //qDebug() << "DataBase::updateIfNeeded - LatestReaded: " << QString::number(latestReaded) << endl;
 
 
 
     if (latestReaded >= dbVersion)
     { // DB is updated, no update is needed
-          //qDebug() << "DataBase::updateIfNeeded - DB updated (no need to update anything!) " << endl;
+        //qDebug() << "DataBase::updateIfNeeded - DB updated (no need to update anything!) " << endl;
         //toBeUpdated = false;
-          //qDebug() << "DataBase::updateIfNeeded - TRUE - END "  << endl;
+        //qDebug() << "DataBase::updateIfNeeded - TRUE - END "  << endl;
         return true;
     }
     else
     { // DB is outdated. We need to update!!
-          //qDebug() << "DataBase::updateIfNeeded - DB outdated... upgrade starts now! " << endl;
+        //qDebug() << "DataBase::updateIfNeeded - DB outdated... upgrade starts now! " << endl;
         QMessageBox msgBox;
         msgBox.setWindowTitle("KLog");
         msgBox.setText( QObject::tr("KLog DB needs to be upgraded."));
@@ -1883,9 +1883,9 @@ bool DataBase::updateToLatest()
  * The updateXXX are recursive calls that calls the previous one.
  *
  */
-     //qDebug() << "DataBase::updateToLatest " << endl;
+    //qDebug() << "DataBase::updateToLatest " << endl;
     //return updateTo010();
-    return updateTo014();
+    return updateTo015();
 
 }
 
@@ -2586,6 +2586,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FAX', 'FAX', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FM', 'FM', 'PH', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FMHELL', 'HELL', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FT4', 'MFSK', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FT8', 'FT8', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSK31', 'PSK', 'NO', '1')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSK441', 'FSK441', 'NO', '0')").arg(tableName));
@@ -2598,6 +2599,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT', 'ISCAT', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT-A', 'ISCAT', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT-B', 'ISCAT', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JS8', 'MFSK', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4', 'JT4', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4A', 'JT4', 'NO', '1')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4B', 'JT4', 'NO', '1')").arg(tableName));
@@ -2632,7 +2634,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65B2', 'JT65', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65C', 'JT65', 'NO', '1')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65C2', 'JT65', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK', 'MFSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK', 'MFSK', 'NO', '0')").arg(tableName));    
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK4', 'MFSK', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK8', 'MFSK', 'NO', '1')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK11', 'MFSK', 'NO', '0')").arg(tableName));
@@ -7009,14 +7011,13 @@ bool DataBase::updateTo014()
     // Updates the Satellite DB
 
 
-
          //qDebug() << "DataBase::updateto014: latestRead: " << getDBVersion() << endl;
         bool IAmIn014 = false;
         bool IAmIn013 = false;
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
          //qDebug() << "DataBase::updateto014: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
-        if (latestReaded >= float(0.04))
+        if (latestReaded >= float(0.14))
         {
              //qDebug() << "DataBase::updateto014: - I am in 013" << endl;
             IAmIn014 = true;
@@ -7071,6 +7072,78 @@ bool DataBase::updateTo014()
         return true;
 
 }
+
+
+bool DataBase::updateTo015()
+{
+    // Updates the DB to 0.015:
+    // Adds the FT4 mode
+
+    //qDebug() << "DataBase::updateto015: latestRead: " << getDBVersion() << endl;
+    bool IAmIn015 = false;
+    bool IAmIn014 = false;
+    bool ErrorUpdating = false;
+    latestReaded = getDBVersion().toFloat();
+    //qDebug() << "DataBase::updateto015: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+    if (latestReaded >= float(0.15))
+    {
+        //qDebug() << "DataBase::updateto015: - I am in 013" << endl;
+        IAmIn015 = true;
+        return true;
+    }
+    else
+    {
+        //qDebug() << "DataBase::updateto014: - I am not in 0.014 I am in: " << getDBVersion() << endl;
+        while (!IAmIn014 && !ErrorUpdating)
+        {
+            //qDebug() << "DataBase::updateto015: - Check if I am in 014: !" << endl;
+            IAmIn014 = updateTo014();
+            if (IAmIn014)
+            {
+                //qDebug() << "DataBase::updateto015: - updateTo013 returned TRUE - I am in 0.014: " << QString::number(latestReaded) << endl;
+            }
+            else
+            {
+                //qDebug() << "DataBase::updateto015: - updateTo011 returned FALSE - I am NOT in 0.014: " << QString::number(latestReaded) << endl;
+                ErrorUpdating = false;
+            }
+        }
+        if (ErrorUpdating)
+        {
+            //qDebug() << "DataBase::updateto015: - I Could not update to: " << QString::number(dbVersion) << endl;
+            return false;
+        }
+    }
+
+    // Now I am in the previous version and I can update the DB.
+
+
+    if (updateTheModeTableAndSyncLog())
+    {
+        //qDebug() << "DataBase::updateTo015: - updateTheModeTableAndSyncLog OK" << endl;
+    }
+    else
+    {
+        //qDebug() << "DataBase::updateTo015: UPDATED NOK!(9)" << endl;
+        ErrorUpdating = true;
+    }
+
+
+    if (updateDBVersion(softVersion, "0.015"))
+    {
+        //qDebug() << "DataBase::updateto015: - We are in 015! " << endl;
+    }
+    else
+    {
+        //qDebug() << "DataBase::updateto015: - Failed to go to 014! " << endl;
+        return false;
+    }
+
+    //qDebug() << "DataBase::updateTo015: UPDATED OK!" << endl;
+    return true;
+
+}
+
 
 
 bool DataBase::updateAwardDXCCTable()

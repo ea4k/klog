@@ -57,9 +57,9 @@ class World : public QWidget
     Q_OBJECT
 
 public:
-    World(DataProxy *dp);
-    World(DataProxy *dp, const QString _klogDir);
-    World(DataProxy *dp, const QString _klogDir, const QString _kontestVer);
+    World(DataProxy *dp, const QString _parentFunction);
+    World(DataProxy *dp, const QString _klogDir, const QString _parentFunction);
+    World(DataProxy *dp, const QString _klogDir, const QString _kontestVer, const QString _parentFunction);
 
     ~World();
     bool create(const QString _worldFile);

@@ -1,5 +1,9 @@
 TBD - 0.9.8
-- Working: Hamlib support!
+- New feature: Hamlib support!
+- Fixed a bug in the SQL update database.
+- Fixed a bug in the DXCCWidget.
+- Fixed a bug in the QSO per hour stats.
+- Added th FT4 mode.
 
 TBD - 0.9.7.3
 - TODO: Remove the band 0 / Light from the DB.

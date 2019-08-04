@@ -32,6 +32,7 @@
 #include "awards.h"
 #include "world.h"
 #include "dataproxy.h"
+#include "locator.h"
 
 
 //TODO: Creating the widget to show the DXCC status
@@ -40,12 +41,15 @@ class DXCCStatusWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit DXCCStatusWidget(DataProxy *dp, QWidget *parent = 0);
+    explicit DXCCStatusWidget(DataProxy *dp, const QString _parentFunction, QWidget *parent = nullptr);
     ~DXCCStatusWidget();
     
     void update();    
+    //void awardsUpdated();
     void setBands(const QStringList _ent, const bool _creating = false); // Receives the list of bandIDs
     void setCurrentLog(const int _logN);
+    void setMyLocator(const QString _loc);
+
     void refresh();
 
 signals:
@@ -69,6 +73,7 @@ private:
     Awards *awards;
     World *world;
     DataProxy *dataProxy;
+    Locator *locator;
 
     QHeaderView *hv, *hh;
     //QLineEdit *searchLineEdit;
@@ -79,6 +84,7 @@ private:
     int numberOfColumns; // Columns will be number Of Bands + 2 (Id + Name)
     QStringList bandNames, validBands;
     int logNumber, tempLog; // log in use in the log / log to be used in the widget
+    QString loc; // The locator of the user.
 
 };
 
