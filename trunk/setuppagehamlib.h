@@ -87,7 +87,7 @@ StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
 
     QPushButton *scanSerialPortButton;
     QComboBox *rigTypeComboBox, *serialBaudsComboBox, *serialPortComboBox, *dataBitsComboBox,
-                *flowControlComboBox, *parityComboBox, *stopBitsComboBox;
+                *flowControlComboBox, *parityComboBox, *stopBitsComboBox, *RTSComboBox, *DTRComboBox;
     //QSpinBox *serialBaudsSpinBox;
     QLineEdit *serialPort;
     QSpinBox *poolIntervalQSpinBox;
@@ -99,7 +99,7 @@ StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
     //rig_model_t myrig_model;
 
     QStringList strings, serialPorts;
-    QCheckBox *activateHamlibCheckBox, *RTSCheckBox, *DTRCheckBox;
+    QCheckBox *activateHamlibCheckBox; //, *RTSCheckBox, *DTRCheckBox;
 
 
     //int defaultPortSpeed;
