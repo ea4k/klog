@@ -4694,11 +4694,11 @@ bool MainWindow::processConfigLine(const QString _line){
         //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPARITY: " << value << endl;
     }else if(field =="HAMLIBSERIALRTS"){
         //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALRTS: " << value << endl;
-        hamlib->setRTS(value);
+        //hamlib->setRTS(value);
         //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALRTS: " << value << endl;
     }else if(field =="HAMLIBSERIALDTR"){
         //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDTR: " << value << endl;
-        hamlib->setDTR(value);
+        //hamlib->setDTR(value);
         //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDTR: " << value << endl;
     }
     else if (field == "HAMLIB")

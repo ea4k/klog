@@ -898,10 +898,10 @@ bool SetupDialog::processConfigLine(const QString _line)
         hamlibPage->setParity(value);
     }else if(tab =="HAMLIBSERIALRTS"){
         //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALRTS: " << value << endl;
-        hamlibPage->setRTS(value);
+        //hamlibPage->setRTS(value);
     }else if(tab =="HAMLIBSERIALDTR"){
         //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDTR: " << value << endl;
-        hamlibPage->setDTR(value);
+        //hamlibPage->setDTR(value);
 
     }else if(tab =="SELECTEDLOG"){
          //qDebug() << "SetupDialog::processConfigLine: SELECTEDLOG: " << value << endl;
