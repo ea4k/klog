@@ -377,8 +377,8 @@ void HamLibClass::init(bool _active)
     my_rig->state.rigport.parm.serial.stop_bits = stopBits;
     //qDebug() << "HamLibClass::init: stop bits: " << QString::number(my_rig->state.rigport.parm.serial.stop_bits) << endl;
     my_rig->state.rigport.parm.serial.parity = sparity;
-    my_rig->state.rigport.parm.serial.dtr_state = RIG_SIGNAL_UNSET;
-    my_rig->state.rigport.parm.serial.rts_state = RIG_SIGNAL_UNSET;
+    //my_rig->state.rigport.parm.serial.dtr_state = RIG_SIGNAL_ON;
+    //my_rig->state.rigport.parm.serial.rts_state = RIG_SIGNAL_ON;
 
     //qDebug() << "HamLibClass::init: handshake before"  << endl;
     my_rig->state.rigport.parm.serial.handshake = shandshake;
@@ -585,46 +585,28 @@ void HamLibClass::setRTS(const QString _state)
         return;
     }
 
-    if (_state.toUpper() == "HIGH")
+    if (_state.toUpper() == "TRUE")
     {
-
-        my_rig->state.rigport.parm.serial.rts_state = RIG_SIGNAL_ON;
-
         srts = RIG_SIGNAL_ON;
-    }
-    else if (_state.toUpper() == "LOW")
-    {
-        my_rig->state.rigport.parm.serial.rts_state = RIG_SIGNAL_OFF;
-        srts = RIG_SIGNAL_OFF;
     }
     else
     {
-        my_rig->state.rigport.parm.serial.rts_state = RIG_SIGNAL_UNSET;
-        srts = RIG_SIGNAL_UNSET;
+        srts = RIG_SIGNAL_OFF;
     }
 }
 
 void HamLibClass::setDTR(const QString _state)
 {
 
-    if (_state.toUpper() == "HIGH")
+    if (_state.toUpper() == "TRUE")
     {
-        my_rig->state.rigport.parm.serial.dtr_state = RIG_SIGNAL_ON;
-
         sdtr = RIG_SIGNAL_ON;
-    }
-    else if (_state.toUpper() == "LOW")
-    {
-        my_rig->state.rigport.parm.serial.dtr_state = RIG_SIGNAL_OFF;
-        sdtr = RIG_SIGNAL_OFF;
     }
     else
     {
-        my_rig->state.rigport.parm.serial.dtr_state = RIG_SIGNAL_UNSET;
-        sdtr = RIG_SIGNAL_UNSET;
+        sdtr = RIG_SIGNAL_OFF;
     }
 }
-
 
 void HamLibClass::checkErrorCountAndStop()
 {

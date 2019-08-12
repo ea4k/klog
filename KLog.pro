@@ -105,6 +105,7 @@ HEADERS += setupdialog.h \
     setuppagehamlib.h \
     hamlibclass.h
 
+message(Sources)
 
 SOURCES += main.cpp \
     aboutdialog.cpp \
@@ -172,6 +173,7 @@ SOURCES += main.cpp \
     setuppagehamlib.cpp \
     hamlibclass.cpp
 
+message (Other files)
 
 OTHER_FILES += \
     README-DEVEL \
@@ -188,7 +190,7 @@ OTHER_FILES += \
     AUTHORS \
     README
 
-
+message (More...)
 RESOURCES += klog.qrc
 DESTDIR = build/target/
 OBJECTS_DIR = build/obj/
@@ -199,6 +201,8 @@ RCC_DIR = build/rcc/
 CODECFORTR = UTF-8
 CODECFORSRC = UTF-8
 #include(translations/translations.pri)
+message (Translations)
+
 TRANSLATIONS = translations/klog_es.ts \
     translations/klog_ca.ts \
     translations/klog_da.ts \
@@ -209,6 +213,8 @@ TRANSLATIONS = translations/klog_es.ts \
     translations/klog_it.ts \
     translations/klog_pl.ts \
     translations/klog_ja.ts
+
+message(End of translations...)
 
 isEmpty(QMAKE_LRELEASE) {
     win32|os2:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe
@@ -231,6 +237,7 @@ QMAKE_EXTRA_COMPILERS += updateqm
 DISTFILES += Changelog COPYING
 
 unix:!mac {
+    message (Unix, not macOS detected!)
     DEFINES += APP_LINUX
     CONFIG   += c++11
 # Translations should be copied in /usr/share/klog/translations
@@ -258,20 +265,26 @@ unix:!mac {
 }
 
 macx: {
-   ICON = klog.icns
-   TARGET = KLog
-   CONFIG   += c++11
-   INCLUDEPATH +=../hamlib/include/
-   LIBS += -L"../hamlib/lib" -lhamlib
+    message (macOS detected!)
+    ICON = klog.icns
+    TARGET = KLog
+    CONFIG   += c++11
+    INCLUDEPATH +=../hamlib/include/
+    LIBS += -L"../hamlib/lib" -lhamlib
 }
 
 win32: {
- RC_ICONS = klog.ico   
- TARGET = klog
- QMAKE_TARGET_COMPANY = EA4TV
- QMAKE_TARGET_DESCRIPTION = Hamradio logging
- LIBS += -L"C:/radio/hamlib-w32-3.3/lib/gcc" -lhamlib
- INCLUDEPATH += "C:/radio/hamlib-w32-3.3/include/"
+    message (Windows detected!)
+    RC_ICONS = klog.ico
+    TARGET = klog
+    QMAKE_TARGET_COMPANY = EA4TV
+    QMAKE_TARGET_DESCRIPTION = Hamradio logging
+    LIBS += -L"C:/radio/hamlib-w32-3.3/lib/gcc" -lhamlib
+    INCLUDEPATH += "C:/radio/hamlib-w32-3.3/include/"
 }
 
-else:TARGET = klog
+else:
+{
+    message (Else...)
+    TARGET = klog
+}

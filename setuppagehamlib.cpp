@@ -15,9 +15,6 @@ SetupPageHamLib::SetupPageHamLib(DataProxy *dp, QWidget *parent) : QWidget(paren
     parityComboBox = new QComboBox();
     stopBitsComboBox = new QComboBox();
 
-    RTSComboBox = new QComboBox();
-    DTRComboBox = new QComboBox();
-
     //RTSCheckBox = new QCheckBox();
     //DTRCheckBox = new QCheckBox();
 
@@ -54,21 +51,11 @@ void SetupPageHamLib::createUI()
     activateHamlibCheckBox->setText(tr("Activate HamLib"));
     activateHamlibCheckBox->setToolTip(tr("Activates the hamlib support that will enable the connection to a radio."));
 
-    strings.clear();
-    strings << "Unset" << tr("High") << tr("Low");
-    RTSComboBox->clear();
-    RTSComboBox->addItems(strings);
-    DTRComboBox->clear();
-    DTRComboBox->addItems(strings);
-    RTSComboBox->setToolTip(tr("Setting RTS may be needed for some serial ports."));
-    DTRComboBox->setToolTip(tr("Setting DTR may be needed for some serial ports."));
+    //RTSCheckBox->setText(tr("RTS on"));
+    //RTSCheckBox->setToolTip(tr("Setting RTS may be needed for some serial ports."));
+    //DTRCheckBox->setText(tr("DTR on"));
+    //DTRCheckBox->setToolTip(tr("Setting DTR may be needed for some serial ports."));
 
-    /*
-    RTSCheckBox->setText(tr("RTS on"));
-    RTSCheckBox->setToolTip(tr("Setting RTS may be needed for some serial ports."));
-    DTRCheckBox->setText(tr("DTR on"));
-    DTRCheckBox->setToolTip(tr("Setting DTR may be needed for some serial ports."));
-    */
 
     rigTypeComboBox->clear();
     strings.clear();
@@ -166,50 +153,8 @@ void SetupPageHamLib::createUI()
     stopBitsLabel->setEnabled(true);
 
     //QHBoxLayout *checkLayout = new QHBoxLayout;
-    //checkLayout->addWidget(RTSComboBox);
-    //checkLayout->addWidget(DTRComboBox);
-
-    QLabel *controlLinesLabel = new QLabel(tr("Control Lines"));
-    //controlLinesLabel->setBuddy(checkLayout);
-    controlLinesLabel->setToolTip(tr("Special CAT control. Leave unset unless you know what are you doing."));
-    controlLinesLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    controlLinesLabel->setEnabled(true);
-
-    QLabel *RTSLabel = new QLabel(tr("RTS"));
-    RTSLabel->setBuddy(RTSComboBox);
-    RTSLabel->setToolTip(tr("Special CAT RTS control. Leave unset by default."));
-    RTSLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    RTSLabel->setEnabled(true);
-
-    QLabel *DTRLabel = new QLabel(tr("DTR"));
-    DTRLabel->setBuddy(RTSComboBox);
-    DTRLabel->setToolTip(tr("Special CAT DTR control. Leave unset by default."));
-    DTRLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    DTRLabel->setEnabled(true);
-
-    QGridLayout *controlLayout = new QGridLayout;
-    controlLayout->addWidget(RTSLabel, 0, 0);
-    controlLayout->addWidget(RTSComboBox, 0, 1);
-    controlLayout->addWidget(DTRLabel, 1, 0);
-    controlLayout->addWidget(DTRComboBox, 1, 1);
-
-    /*
-    QHBoxLayout *RTSLayout = new QHBoxLayout;
-    RTSLayout->addWidget(RTSLabel);
-    RTSLayout->addWidget(RTSComboBox);
-
-    QHBoxLayout *DTRLayout = new QHBoxLayout;
-    DTRLayout->addWidget(DTRLabel);
-    DTRLayout->addWidget(DTRComboBox);
-
-    QSpacerItem *item = new QSpacerItem(1,1, QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-
-    QHBoxLayout *controlLayout = new QHBoxLayout;
-    controlLayout->addLayout(RTSLayout);
-    controlLayout->addSpacerItem(item);
-    controlLayout->addLayout(DTRLayout);
-    */
+    //checkLayout->addWidget(RTSCheckBox);
+    //checkLayout->addWidget(DTRCheckBox);
 
     QGridLayout *topData = new QGridLayout;
     topData->addWidget(rigTypeLabel, 0, 0);
@@ -228,8 +173,7 @@ void SetupPageHamLib::createUI()
     topData->addWidget(flowControlComboBox, 5, 1);
     topData->addWidget(parityLabel, 6, 0);
     topData->addWidget(parityComboBox, 6, 1);
-    topData->addWidget(controlLinesLabel, 7, 0);
-    topData->addLayout(controlLayout, 7, 1);
+    //topData->addLayout(checkLayout, 7, 1);
 
 
     QGridLayout *mainLayout = new QGridLayout;
@@ -310,8 +254,6 @@ void SetupPageHamLib::setDefaults()
     parityComboBox->setCurrentIndex(0);
     stopBitsComboBox->setCurrentIndex(0);
 
-    RTSComboBox->setCurrentIndex(0);
-    DTRComboBox->setCurrentIndex(0);
     //RTSCheckBox->setChecked(false);
     //DTRCheckBox->setChecked(false);
     //qDebug() << "SetupPageHamLib::setDefaults-END" << endl;
@@ -342,32 +284,14 @@ QString SetupPageHamLib::getData()
     {
 
     }
-    if (RTSComboBox->currentIndex()==1)
-    {
-        _output = _output + "HamLibSerialRTS=High;\n";
-    }
-    else if (RTSComboBox->currentIndex()==2)
-    {
-        _output = _output + "HamLibSerialRTS=Low;\n";
-    }
-    if (DTRComboBox->currentIndex()==1)
-    {
-        _output = _output + "HamLibSerialDTR=High;\n";
-    }
-    else if (DTRComboBox->currentIndex()==2)
-    {
-        _output = _output + "HamLibSerialDTR=Low;\n";
-    }
-    /*
-    if (RTSCheckBox->isChecked())
-    {
-        _output = _output + "HamLibSerialRTS=True;\n";
-    }
-    if (DTRCheckBox->isChecked())
-    {
-        _output = _output + "HamLibSerialDTR=True;\n";
-    }
-    */
+    //if (RTSCheckBox->isChecked())
+    //{
+    //    _output = _output + "HamLibSerialRTS=True;\n";
+    //}
+    //if (DTRCheckBox->isChecked())
+    //{
+    //    _output = _output + "HamLibSerialDTR=True;\n";
+    //}
     _output = _output + getDataBits() + ";\n";
     //qDebug() << "SetupPageHamLib::getData: dataBits: " << getDataBits() << endl;
     _output = _output + getStopBits() + ";\n";
@@ -646,32 +570,24 @@ void SetupPageHamLib::setStopBits(const QString _st)
 
 void SetupPageHamLib::setRTS(const QString _state)
 {
-    if (_state.toUpper() == "HIGH")
-    {
-        RTSComboBox->setCurrentIndex(1);
-    }
-    else if (_state.toUpper() == "LOW")
-    {
-        RTSComboBox->setCurrentIndex(2);
-    }
-    else
-    {
-        RTSComboBox->setCurrentIndex(0);
-    }
+    //if (_state.toUpper() == "TRUE")
+    //{
+    //    RTSCheckBox->setChecked(true);
+    //}
+    //else
+    //{
+    //    RTSCheckBox->setChecked(false);
+    //}
 }
 
 void SetupPageHamLib::setDTR(const QString _state)
 {
-    if (_state.toUpper() == "HIGH")
-    {
-        DTRComboBox->setCurrentIndex(1);
-    }
-    else if (_state.toUpper() == "LOW")
-    {
-        DTRComboBox->setCurrentIndex(2);
-    }
-    else
-    {
-        DTRComboBox->setCurrentIndex(0);
-    }
+    //if (_state.toUpper() == "TRUE")
+    //{
+    //    DTRCheckBox->setChecked(true);
+    //}
+    //else
+    //{
+    //    DTRCheckBox->setChecked(false);
+    //}
 }

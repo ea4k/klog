@@ -1,11 +1,12 @@
-TBD - 0.9.8
-- New feature: Hamlib support!
+August - 0.9.8
+- New feature: Basic Hamlib support.
 - Fixed a bug in the SQL update database.
 - Fixed a bug in the DXCCWidget.
 - Fixed a bug in the QSO per hour stats.
 - Added th FT4 mode.
+- Updated translations: Catalan (TNX Txema), Danish (TNX Joe), Finnish (TNX Kristjan), French (F4HWL), German (TNX Burkhard), Spanish (EA4TV).
 
-TBD - 0.9.7.3
+March - 0.9.7.3
 - TODO: Remove the band 0 / Light from the DB.
 - UI: KLog warns the user if the frequency used is out of the hamradio bands.
 - Reworked how freqs and bands are managed.

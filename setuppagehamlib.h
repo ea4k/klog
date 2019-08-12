@@ -87,7 +87,7 @@ StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
 
     QPushButton *scanSerialPortButton;
     QComboBox *rigTypeComboBox, *serialBaudsComboBox, *serialPortComboBox, *dataBitsComboBox,
-                *flowControlComboBox, *parityComboBox, *stopBitsComboBox, *RTSComboBox, *DTRComboBox;
+                *flowControlComboBox, *parityComboBox, *stopBitsComboBox;
     //QSpinBox *serialBaudsSpinBox;
     QLineEdit *serialPort;
     QSpinBox *poolIntervalQSpinBox;
