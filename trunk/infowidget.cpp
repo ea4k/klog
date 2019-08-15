@@ -106,6 +106,18 @@ void InfoWidget::createUI()
     distLongLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     distLongLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
+    clear();
+
+
+    //continentLabel->setText("--");
+    //prefixLabel->setText("--");
+    //cqzLabel->setText("0");
+    //ituzLabel->setText("0");
+    //gradShortLabel->setText("0");
+    //gradLongLabel->setText("0");
+    //distLongLabel->setText("0");
+    //distShortLabel->setText("0");
+
     QGridLayout *infoLayout1 = new QGridLayout;
     infoLayout1->addWidget(continentLabelN, 0, 0);
     infoLayout1->addWidget(continentLabel, 1, 0);
@@ -130,7 +142,7 @@ void InfoWidget::createUI()
     longPathLayout->addWidget(distLongLabelN, 1, 2);
     longPathLayout->addWidget(distLongLabel, 1, 3);
 
-    QHBoxLayout *    pathsLayout = new QHBoxLayout;
+    QHBoxLayout *pathsLayout = new QHBoxLayout;
     pathsLayout->addLayout(shortPathLayout);
     pathsLayout->addLayout(longPathLayout);
 
@@ -289,8 +301,8 @@ void InfoWidget::clearInfoFromLocators()
 
 void InfoWidget::clear()
 {
-    continentLabel->setText("-");
-    prefixLabel->setText("-");
+    continentLabel->setText("--");
+    prefixLabel->setText("--");
     clearBandLabels();
     clearInfoFromLocators();
 }
