@@ -136,18 +136,6 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
    //qDebug() << "SoftwareUpdate::checkUpdates: " << QString::number(data->size()) << endl;
     QString line, release;
     QStringList stringList, klogStringList;
-/*
-#ifdef Q_OS_WIN
-        //qDebug() << "MainWindow::createUIDX - WINDOWS DETECTED!"  << endl;
-        QRegularExpression rx("href=\"klog-(\\d\\.)+tar.gz");
-#elif Q_OS_MACOS
-    QRegularExpression rx("href=\"klog-(\\d\\.)+tar.gz");
-#elif Q_OS_UNIX
-    QRegularExpression rx("href=\"klog-(\\d\\.)+tar.gz");
-#else
-    QRegularExpression rx("href=\"klog-(\\d\\.)+tar.gz");
-#endif
-*/
 
     QRegularExpression rx("href=\"klog-(\\d\\.)+tar.gz");
 

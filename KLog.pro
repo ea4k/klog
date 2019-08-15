@@ -237,7 +237,7 @@ QMAKE_EXTRA_COMPILERS += updateqm
 DISTFILES += Changelog COPYING
 
 unix:!mac {
-    message (Unix  not macOS detected!)
+    message (Unix, not macOS detected!)
     DEFINES += APP_LINUX
     CONFIG   += c++11
 # Translations should be copied in /usr/share/klog/translations

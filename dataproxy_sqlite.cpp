@@ -570,7 +570,6 @@ QStringList DataProxy_SQLite::getModes()
         }
     }
     query.finish();
-    modes.sort();
     return modes;
 }
 
@@ -716,7 +715,6 @@ QStringList DataProxy_SQLite::getModesInLog(const int _log)
     }
     query.finish();
       //qDebug() << "DataProxy_SQLite::getModesInLog: " << modes.join(" - ") << endl;
-    modes.sort();
     return modes;
 }
 
@@ -2947,7 +2945,6 @@ QStringList DataProxy_SQLite::getContestNames()
 
         }
         query.finish();
-        contests.sort();
         return contests;
     }
     else
@@ -3175,7 +3172,6 @@ QStringList DataProxy_SQLite::getPropModeList()
         return QStringList();
     }
     query.finish();
-    qs.sort();
     return qs;
 }
 
@@ -3310,7 +3306,6 @@ QStringList DataProxy_SQLite::getSatellitesList()
          return QStringList();
      }
      query.finish();
-     qs.sort();
      return qs;
 }
 
@@ -4050,38 +4045,33 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     // If the band/mode/log is already worked and status confirmed: Update and Return true
     // If not worked: Add and Return true
 
-    qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: " << QString::number(_qsoId) << endl;
+     //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: " << QString::number(_qsoId) << endl;
     if (_qsoId <= 0)
     {
-         qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: QSOid <=0 " << QString::number(_qsoId) << endl;
         return false;
     }
 
     int _dxcc = getDXCCFromId(_qsoId);
     if (_dxcc <= 0)
     {
-         qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: DXCC <= 0: DXCC: " << QString::number(_dxcc) << " - "  << QString::number(_qsoId) << endl;
         return false;
     }
 
     int _band = getBandFromId(_qsoId);
     if (_band <= 0)
     {
-        qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: Band <= 0: BAND: " << QString::number(_band) << " - "  << QString::number(_qsoId) << endl;
         return false;
     }
 
     int _mode = getModeFromId(_qsoId);
     if (_mode <= 0)
     {
-        qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: Mode <= 0: Mode: " << QString::number(_mode) << " - "  << QString::number(_qsoId) << endl;
         return false;
     }
 
     int _log = getLogNumberFromQSOId(_qsoId);
     if (_log <= 0)
     {
-        qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: Log <= 0: Log: " << QString::number(_log) << " - "  << QString::number(_qsoId) << endl;
         return false;
     }
 
@@ -4097,7 +4087,6 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     QString queryString = QString("SELECT id, confirmed, qsoid FROM awarddxcc WHERE band='%1' AND mode='%2' AND dxcc='%3'").arg(_band).arg(_mode).arg(_dxcc);
 
     bool sqlOK = query.exec(queryString);
-    qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: Queryexec-1: " << queryString << endl;
     queryString.clear();
 
     if (sqlOK)
@@ -4149,14 +4138,13 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
             //#4 - If not worked: Add and Return true
             query.finish();
             // awarddxcc id dxcc band mode confirmed qsoid lognumber
-            queryString = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, qsoid, lognumber) values('%1','%2','%3','0', '%5', '%6')").arg(_dxcc).arg(_band).arg(_mode).arg(_qsoId).arg(_log);
+            queryString = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, qsoid, lognumber) values('%1','%2','%3','%4', '%5', '%6')").arg(_dxcc);
         }
 
         if (queryString.length()>5)
         {
             if (query.exec(queryString))
             {
-                qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: Queryexec-2: " << queryString << endl;
                 query.finish();
                 return true;
             }
@@ -4498,7 +4486,6 @@ QStringList DataProxy_SQLite::getStationCallSignsFromLog(const int _log)
        query.finish();
        return QStringList();
    }
-   calls.sort();
    return calls;
 }
 
@@ -4871,7 +4858,7 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
     }
     int step = util->getProgresStepForDialog(qsos);
 
-    QProgressDialog progress(QObject::tr("Urt information..."), QObject::tr("Abort updating"), 0, qsos);
+    QProgressDialog progress(QObject::tr("Updating DXCC and Continent information..."), QObject::tr("Abort updating"), 0, qsos);
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
 
@@ -5484,7 +5471,6 @@ QStringList DataProxy_SQLite::getContinentShortNames()
             }
         }
         query.finish();
-        continents.sort();
         return continents;
     }
     else
@@ -6059,7 +6045,6 @@ QStringList DataProxy_SQLite::getEntitiesNames()
 
     }
     query.finish();
-    qs.sort();
     return qs;
 }
 
