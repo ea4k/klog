@@ -363,8 +363,8 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     operatingYearsComboBox = new QComboBox;
     dxMarathonLabelN = new QLabel;
 
-    qsoWorkedQLCDNumber->setDigitCount(7);
-    qsoConfirmedQLCDNumber->setDigitCount(7);
+    //qsoWorkedQLCDNumber->setDigitCount(7);
+    //qsoConfirmedQLCDNumber->setDigitCount(7);
 
     // Check date & time and set them in the UI at the begining
     dateTime->currentDateTime();
@@ -850,6 +850,7 @@ void MainWindow::slotQRZReturnPressed()
     slotModeComboBoxChanged();
 
     // Just to prepare or some tasks before reading DATA from UI
+    /*
     if (contestMode == "CQ-WW-SSB")
     {
         if ((SRXLineEdit->text()).toInt() < 1    ){
@@ -860,7 +861,7 @@ void MainWindow::slotQRZReturnPressed()
     {
 
     }
-
+    */
     QSqlQuery query;
     QString queryString = readDataFromUI();
 
@@ -932,7 +933,6 @@ void MainWindow::actionsJustAfterAddingOneQSO()
                elogClublog->deleteQSO(clublogPrevQSO);
                // Add modified QSO in ClubLog
                elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSO));
-
            }
            else
            {
@@ -945,11 +945,11 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     }
     else
     {
-         //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Not Modifying " << endl;
+        qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Not Modifying " << endl;
         lastId = dataProxy->getLastQSOid();
         if (lastId>=0)
         {
-             //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid: "<< QString::number(lastId) << endl;
+            qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid: "<< QString::number(lastId) << endl;
             awards->setAwards(lastId);   //Update the DXCC award status
 
             // Send to CLUBLOG if enabled
@@ -966,7 +966,12 @@ void MainWindow::actionsJustAfterAddingOneQSO()
             }
             //<CLUBLOG>
         }
+        else
 
+        {
+            qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid < 0 "<< QString::number(lastId) << endl;
+        }
+        //awards->setAwards(lastId);
     }
 
     logWindow->refresh();
@@ -986,6 +991,15 @@ QString MainWindow::readDataFromUI()
         return "NULL";
     }
 
+    if (modify)
+    {
+        return readDataFromUIDXModifying();
+    }
+    else
+    {
+        return readDataFromUIDX();
+    }
+   /*
     if (contestMode == "DX")
     {
         if (modify)
@@ -998,7 +1012,9 @@ QString MainWindow::readDataFromUI()
         }
     }
     else if (contestMode == "CQ-WW-SSB")
-    {}
+    {
+
+    }
     else
     {
         if (modify)
@@ -1010,6 +1026,7 @@ QString MainWindow::readDataFromUI()
             return readDataFromUIDX();
         }
     }
+    */
 
         //qDebug() << "MainWindow::readDataFromUI: END" << endl;
     return "NULL";
@@ -1877,12 +1894,16 @@ WHERE [condition];
     }
 
     aux1 = commentTabWidget->getComment();
+    updateString = updateString + "comment = '";
+    updateString = updateString + aux1 + "', ";
     //aux1 = commentLineEdit->text();
+    /*
     if (aux1.length()>0)
     {
         updateString = updateString + "comment = '";
         updateString = updateString + aux1 + "', ";
     }
+    */
 
     aux1 = QSLTabWidget->getQSLMsg();
     //aux1 = qslmsgTextEdit->toPlainText();
@@ -3182,6 +3203,9 @@ void MainWindow::clearForNextQSO()
     rstTXLineEdit->setText("59");
     rstRXLineEdit->setText("59");
     qthLineEdit->clear();
+    //bandComboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+    //modeComboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+
 
      //qDebug() << "MainWindow::clearForNextQSO: - currentBand: " << QString::number(currentBand) << endl;
      //qDebug() << "MainWindow::clearForNextQSO: - defaultBand: " << QString::number(defaultBand) << endl;
@@ -3211,6 +3235,8 @@ void MainWindow::clearForNextQSO()
     clublogAnswer = -1;
     clublogPrevQSO.clear();
 
+    clearUIDX();
+    /*
     if (contestMode == "DX")
     {
         clearUIDX();
@@ -3223,7 +3249,7 @@ void MainWindow::clearForNextQSO()
     {
         clearUIDX();
     }
-
+    */
     statusBar()->clearMessage();
     cleaning = false;
         //qDebug() << "MainWindow::clearForNextQSO: " << modeComboBox->currentText() << endl;
@@ -5101,7 +5127,23 @@ void MainWindow::createUIDX()
     //modes << "SSB" << "CW" << "RTTY";
     bandComboBox->addItems(bands);
        //qDebug() << "MainWindow::createUIDX - 1-" << QString::number(modes.count()) << endl;
+    modeComboBox->clear();
     modeComboBox->addItems(modes);
+    /*
+    int mi = 0;
+    for (int i = 0; i < modes.size(); ++i)
+    {
+        if (mi > (modes.at(i)).size())
+        {
+            mi = (modes.at(i)).size();
+        }
+    }
+    //modeComboBox->setMinimumContentsLength(mi);
+    modeComboBox->setMinimumWidth(mi);
+    */
+    //modeComboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+
+
     txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
     rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
     //myPowerSpinBox->setToolTip(tr("Power used for the QSO in watts"));
@@ -5256,7 +5298,6 @@ void MainWindow::createUIDX()
     nameLayout->addLayout(nameHLayout);
     nameLayout->addWidget(nameLineEdit);
 
-
     QVBoxLayout *rxPwrLayout = new QVBoxLayout;
     rxPwrLayout->addWidget(rxPowerSpinBoxLabelN);
     rxPwrLayout->addWidget(rxPowerSpinBox);
@@ -5317,7 +5358,7 @@ void MainWindow::createUIDX()
     qrzgroupBox->setFlat(true);
     QVBoxLayout *qrzvbox = new QVBoxLayout;
     qrzvbox->addLayout(QrzBandModeLayout);
-    qrzvbox->addStretch(1);
+    //qrzvbox->addStretch(1);
     qrzgroupBox->setLayout(qrzvbox);
 
 
@@ -5357,8 +5398,6 @@ void MainWindow::createUIDX()
 
    // dxMarathonLabelN = new QLabel;
 
-
-
     dxUpRightTab->addTab(infoWidget, tr("Info"));
 
     QWidget *awardsTabWidget = new QWidget;
@@ -5383,6 +5422,7 @@ void MainWindow::createUIDX()
 
     QLabel *qsoNLabelN = new QLabel(tr("QSOs"));
     qsoNLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+
 
     reconfigureDXMarathonUI(manageDxMarathon);
 
@@ -6349,7 +6389,7 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
 void MainWindow::showDXMarathonNeeded(const int _dxcc, const int _cqz, const int _year, const int _log)
 {
         //qDebug() << "MainWindow::showDXMarathonNeeded" << endl;
-    if ((_dxcc<=0) || (_cqz<=0))
+    if ((_dxcc<=0) || (_cqz<=0) || (!manageDxMarathon))
     {
         return;
     }
@@ -6392,9 +6432,26 @@ void MainWindow::showAwards()
     }
     */
     _num = dataProxy->getHowManyQSOInLog(currentLog);
+    if (_num>99999)
+    {
+        qsoWorkedQLCDNumber->setDigitCount((QString::number(_num)).size());
+    }
+    else
+    {
+         qsoWorkedQLCDNumber->setDigitCount(5);
+    }
     qsoWorkedQLCDNumber->display(_num);
 
+
     _num = dataProxy->getHowManyConfirmedQSLInLog(currentLog);
+    if (_num>99999)
+    {
+        qsoConfirmedQLCDNumber->setDigitCount((QString::number(_num)).size());
+    }
+    else
+    {
+         qsoConfirmedQLCDNumber->setDigitCount(5);
+    }
 
     qsoConfirmedQLCDNumber->display(_num);
     _num = 0;

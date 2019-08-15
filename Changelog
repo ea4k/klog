@@ -1,9 +1,19 @@
+August - 0.9.8.1
+- UI: Satellite list, propagation modes and others are now shown sorted. (TNX Isabel)
+- UI: Added default values to the infoWidget (Continent, Prefix, CQ, ITU...). (TNX Isabel)
+- Bugfix: Editing a QSO to remove a comment was not properly working. (TNX Isabel)
+- Bugfix: Worked & Confirmed QSO numbers are now aligned in the Awards tab. (TNX Isabel)
+- Bugfix: KLog.pro is now fixed to compile in Linux. (TNX KB2YSI)
+- Bugfix: Improved how the DXMarathon was managed when disabled.
+- Bugfix: Improved how DXCC Award was updated after one QSO was added. (TNX Isabel)
+
+
 August - 0.9.8
 - New feature: Basic Hamlib support.
 - Fixed a bug in the SQL update database.
 - Fixed a bug in the DXCCWidget.
 - Fixed a bug in the QSO per hour stats.
-- Added th FT4 mode.
+- Added the FT4 mode.
 - Updated translations: Catalan (TNX Txema), Danish (TNX Joe), Finnish (TNX Kristjan), French (F4HWL), German (TNX Burkhard), Spanish (EA4TV).
 
 March - 0.9.7.3
