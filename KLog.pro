@@ -2,7 +2,7 @@ CONFIG += app_bundle
 CONFIG += static
 #CONFIG += release
 TEMPLATE = app
-VERSION = 0.9.8
+VERSION = 0.9.8.1
 DEFINES += APP_VERSION="$$VERSION"
 
 APP_NAME = KLog
@@ -237,9 +237,8 @@ QMAKE_EXTRA_COMPILERS += updateqm
 DISTFILES += Changelog COPYING
 
 unix:!mac {
-    message (Unix  not macOS detected!)
     DEFINES += APP_LINUX
-    CONFIG   += c++11
+    CONFIG  += c++11
 # Translations should be copied in /usr/share/klog/translations
 # https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
 #    QT += dbus
@@ -265,16 +264,14 @@ unix:!mac {
 }
 
 macx: {
-    message (macOS detected!)
     ICON = klog.icns
     TARGET = KLog
-    CONFIG   += c++11
+    CONFIG += c++11
     INCLUDEPATH +=../hamlib/include/
     LIBS += -L"../hamlib/lib" -lhamlib
 }
 
 win32: {
-    message (Windows detected!)
     RC_ICONS = klog.ico
     TARGET = klog
     QMAKE_TARGET_COMPANY = EA4TV
@@ -285,6 +282,5 @@ win32: {
 
 else:
 {
-    message (Else...)
     TARGET = klog
 }

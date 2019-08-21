@@ -104,6 +104,7 @@ private:
     QStringList satNames, satModes;
     QStringList satellitesList;
     bool txBandBeingChanged, rxBandBeingChanged, txFreqBeingChanged, txFreqBeingAutoChanged, rxFreqBeingChanged, rxFreqBeingAutoChanged;
+    QPalette palRed, palBlack; // To paint Text in red or black(normal)
 
     QDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;
     DataProxy *dataProxy;
