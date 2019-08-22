@@ -1886,7 +1886,6 @@ bool DataBase::updateToLatest()
     //qDebug() << "DataBase::updateToLatest " << endl;
     //return updateTo010();
     return updateTo015();
-
 }
 
 bool DataBase::updateTo003()
@@ -2836,7 +2835,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('CAS-4B', 'CAMSAT 4B', '435.270-435.290', '145.935-145.915', 'LSB/USB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('DO-64', 'Delfi OSCAR-64', '', '145.870', 'CW')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('EO-79', 'FUNcube-3', '435.047-435.077', '145.935-145.965', 'LSB/USB')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('EO-88', 'Emirates OSCAR 88 (Nayif-1)', '435.045-435.015', '145.960-145.990', 'LSB/USB')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('EO-88', 'Emirates OSCAR 88 (Nayif-1)', '435.045-435.015', '145.960-145.990', 'LSB/USB')").arg(tableName));    
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FO-12', 'Fuji-OSCAR 12', '145.900-146.000,145.85', '435.900-435.800,435.91', 'SSB,PKT')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FO-20', 'Fuji-OSCAR 20', '145.900-146.000', '435.900-435.800', 'SSB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FO-29', 'Fuji-OSCAR 29', '145.900-145.999', '435.900-435.800', 'LSB/USB,CW')").arg(tableName));
@@ -2878,6 +2877,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-91', 'RadFxSat (Fox-1B)', '435.250', '145.960', 'FM')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('AO-92', 'Fox-1D', '435.350,1267.35', '145.880', 'FM')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FS-3', 'FalconSat-3', '435.103', '145.840', 'PKT')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('QO-100', 'Es''hail-2', '2400.050-2409.500', '10489.550-10499.000', 'SSB,CW')").arg(tableName));
 
 
      //qDebug() << "DataBase::populateTableSatellites - END" << endl;
@@ -7070,7 +7070,6 @@ bool DataBase::updateTo014()
 
          //qDebug() << "DataBase::updateTo014: UPDATED OK!" << endl;
         return true;
-
 }
 
 
@@ -7142,6 +7141,70 @@ bool DataBase::updateTo015()
     //qDebug() << "DataBase::updateTo015: UPDATED OK!" << endl;
     return true;
 
+}
+
+
+bool DataBase::updateTo016()
+{
+    // Updates the DB to 0.016:
+    // Updates the Satellite DB
+
+
+         //qDebug() << "DataBase::updateto016: latestRead: " << getDBVersion() << endl;
+        bool IAmIn016 = false;
+        bool IAmIn015 = false;
+        bool ErrorUpdating = false;
+        latestReaded = getDBVersion().toFloat();
+         //qDebug() << "DataBase::updateto016: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+        if (latestReaded >= float(0.16))
+        {
+             //qDebug() << "DataBase::updateto016: - I am in 015" << endl;
+            IAmIn016 = true;
+            return true;
+        }
+        else
+        {
+             //qDebug() << "DataBase::updateto016: - I am not in 0.015 I am in: " << getDBVersion() << endl;
+            while (!IAmIn015 && !ErrorUpdating)
+            {
+                 //qDebug() << "DataBase::updateto014: - Check if I am in 015: !" << endl;
+                IAmIn015 = updateTo015();
+
+                if (IAmIn015)
+                {
+                       //qDebug() << "DataBase::updateto016: - updateTo015 returned TRUE - I am in 0.015: " << QString::number(latestReaded) << endl;
+                }
+                else
+                {
+                      //qDebug() << "DataBase::updateto016: - updateTo015 returned FALSE - I am NOT in 0.015: " << QString::number(latestReaded) << endl;
+                    ErrorUpdating = false;
+                }
+            }
+            if (ErrorUpdating)
+            {
+                  //qDebug() << "DataBase::updateto016: - I Could not update to: " << QString::number(dbVersion) << endl;
+                return false;
+            }
+        }
+
+        // Now I am in the previous version and I can update the DB.
+
+        if (!recreateSatelliteData())
+        {
+             //qDebug() << "DataBase::updateTo016: - Sats update NOK " << endl;
+            return false;
+        }
+        if (updateDBVersion(softVersion, "0.016"))
+        {
+             //qDebug() << "DataBase::updateto014: - We are in 016! " << endl;
+        }
+        else
+        {
+             //qDebug() << "DataBase::updateto014: - Failed to go to 016! " << endl;
+            return false;
+        }
+         //qDebug() << "DataBase::updateTo016: UPDATED OK!" << endl;
+        return true;
 }
 
 

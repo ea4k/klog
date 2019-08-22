@@ -33,7 +33,7 @@ AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
     const QString br = QLatin1String("<br/>");
 
     const QString description = "<center><h2>KLog " + tversion + "</h2><h4> " +tr("By") +
-            " <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a> - 2002-2018</h4></center><br>" +
+            " <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a> - 2002-2019</h4></center><br>" +
             tr("KLog is a free logbook for hamradio operators.") +"<br><br><b>" +
             tr("Please know that this is an BETA release and it may contain many bugs.<br>Backup your data before using this software!") +
             "</b><br><br>" +

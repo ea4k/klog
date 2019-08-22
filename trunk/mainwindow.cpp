@@ -945,11 +945,11 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     }
     else
     {
-        qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Not Modifying " << endl;
+        //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Not Modifying " << endl;
         lastId = dataProxy->getLastQSOid();
         if (lastId>=0)
         {
-            qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid: "<< QString::number(lastId) << endl;
+            //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid: "<< QString::number(lastId) << endl;
             awards->setAwards(lastId);   //Update the DXCC award status
 
             // Send to CLUBLOG if enabled
@@ -969,7 +969,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
         else
 
         {
-            qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid < 0 "<< QString::number(lastId) << endl;
+            //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid < 0 "<< QString::number(lastId) << endl;
         }
         //awards->setAwards(lastId);
     }

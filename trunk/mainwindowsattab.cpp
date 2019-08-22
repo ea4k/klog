@@ -479,7 +479,7 @@ void MainWindowSatTab::slotSatBandRXComboBoxChanged()
 
 void MainWindowSatTab::slotSatFreqRXChanged()
 {
-    qDebug() << "MainWindowsatTab::slotSatFreqRXChanged: " << QString::number(rxFreqSpinBox->value()) << endl;
+    //qDebug() << "MainWindowsatTab::slotSatFreqRXChanged: " << QString::number(rxFreqSpinBox->value()) << endl;
 
     // user changes RX Freq
     // If band is real and band is configured, bandcombo is selected
@@ -603,7 +603,7 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
 
 void MainWindowSatTab::slotSatFreqTXChanged()
 {
-    qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: " << QString::number(txFreqSpinBox->value()) << endl;
+    //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: " << QString::number(txFreqSpinBox->value()) << endl;
     // user changes TX Freq
     // If band is real and band is configured, bandcombo is selected
     // If band is real and not configured, we launch the band config and select the band.
@@ -617,7 +617,7 @@ void MainWindowSatTab::slotSatFreqTXChanged()
     int bandId = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
     if (bandId<1)
     { //This prevent that a non-hamradio frequency is used on TX
-        qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: Not in band, exiting... " << endl;
+        //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: Not in band, exiting... " << endl;
         txFreqSpinBox->setToolTip(tr("TX Frequency in MHz.\nFrequency is not in a hamradio band!"));
         txFreqSpinBox->setPalette(palRed);
         emit satTxFreqChanged(txFreqSpinBox->value());
@@ -790,7 +790,7 @@ void MainWindowSatTab::setBandsOfSat(const QString _p)
     double downLink = 0.0;
     downLink = (dataProxy->getSatelliteDownlink(_p.section(' ', 0, 0))).toDouble();
 
-     //qDebug() << "MainWindowSatTab::setBandsOfSat upLink: " << upLink << endl;
+     //qDebug() << "MainWindowSatTab::setBandsOfSat upLink: " << QString::number(upLink)<< endl;
 
     emit satTxFreqChanged(upLink);
     txFreqSpinBox->setValue(upLink);
@@ -799,6 +799,7 @@ void MainWindowSatTab::setBandsOfSat(const QString _p)
     if (upLink>0)
     {
         QString upLinkBand = dataProxy->getBandNameFromFreq(upLink);
+        qDebug() << "MainWindowSatTab::setBandsOfSat upLinkband: " << upLinkBand << endl;
 
         int indexTX = satBandTXComboBox->findText(upLinkBand, Qt::MatchCaseSensitive);
         if (indexTX>0)
