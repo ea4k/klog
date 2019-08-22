@@ -38,9 +38,7 @@
 #include "utilities.h"
 
 class QSqlRelationalTableModel;
-
-// Previous db update 0.011
-const float DBVersionf = 0.015; // TODO:
+const float DBVersionf = 0.016; // This is the latest version of the DB.
 
 struct AwarddxccEntry
 { // Information to update the awarddxcc table; For other Award tables, the DXCC is just the ID of the award element
@@ -151,6 +149,7 @@ private:
     bool updateTo013(); // Update the qsl_via_enumeration bug caused for calling the table just qsl_via
     bool updateTo014(); // Update the Satellite DB
     bool updateTo015();  //Adds the FT4 mode
+    bool updateTo016(); // Recreates the satellite table to add the QO-100
     bool updateTableLog(const int _v);
     bool updateDBVersion(QString _softV, QString _dbV);
 
