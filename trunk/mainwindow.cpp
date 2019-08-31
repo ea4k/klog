@@ -36,8 +36,6 @@
 
 //#include <qDebug>
 
-
-
 MainWindow::MainWindow(const QString _klogDir, const QString tversion)
 {
     //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
@@ -87,6 +85,9 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     qslingNeeded = false; // When clicking on Find QSO to QSL
     manageMode = false;
     txFreqBeingChanged = false;
+    txFreqBeingAutoChanged = false;
+    rxFreqBeingChanged = false;
+    updatingBands = false;
     selectedYear = 0;
     defaultMode = 1;
     defaultBand = 1;
@@ -265,6 +266,9 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotSatChangeRXFreq(double)) );
     connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotSatChangeTXFreq(double)) );
     connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
+    connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
+    connect(satTabWidget, SIGNAL(satTXFreqNeeded(double)), this, SLOT(slotSatTXFreqNeeded(double)));
+    connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotSatRXFreqNeeded(double)));
 
     connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
     connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
@@ -746,6 +750,7 @@ void MainWindow::slotModeComboBoxChanged()
     _qs.clear();
     _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
     showStatusOfDXCC(_qs);
+    setRSTToMode(modeComboBox->currentText());
     if (hamlibActive)
     {        
         QString _modeSeen = modeComboBox->currentText();
@@ -778,7 +783,7 @@ void MainWindow::slotBandComboBoxChanged(){
         //txFreqSpinBox->setValue(dataProxy->getFreqFromBandId(i));
     }
 */
-    if (txFreqBeingChanged)
+    if (txFreqBeingChanged || updatingBands)
     {
          //qDebug() << "MainWindow::slotBandComboBoxChanged: txFreqBeingChanged"  << endl;
         return;
@@ -1029,7 +1034,7 @@ QString MainWindow::readDataFromUI()
     */
 
         //qDebug() << "MainWindow::readDataFromUI: END" << endl;
-    return "NULL";
+    //return "NULL";
 }
 
 QString MainWindow::readDataFromUIDX()
@@ -2480,13 +2485,13 @@ void MainWindow::createUICQWW()
 
     //slotUpdateStatusBar(tr("Ready"));
     //updateQSOStatusBar(tr("Ready"));
-
-    rstTXLineEdit->setInputMask("#990");
-    rstRXLineEdit->setInputMask("#990");
-    rstTXLineEdit->setText("59");
-    rstRXLineEdit->setText("59");
-    rstTXLineEdit->setMaxLength(3);
-    rstRXLineEdit->setMaxLength(3);
+    setRSTToMode(modeComboBox->currentText());
+    //rstTXLineEdit->setInputMask("#990");
+    //rstRXLineEdit->setInputMask("#990");
+    //rstTXLineEdit->setText("59");
+    //rstRXLineEdit->setText("59");
+    //rstTXLineEdit->setMaxLength(3);
+    //rstRXLineEdit->setMaxLength(3);
 
     QGroupBox *RSTrxgroupBox = new QGroupBox(tr("RSTrx"));
     RSTrxgroupBox->setFlat(true);
@@ -2654,7 +2659,9 @@ void MainWindow::createActionsCommon(){
     connect (elogClublog, SIGNAL (actionReturnDownload(int, int)), this, SLOT (slotElogClubLogProcessAnswer(int, int)));
     connect (elogClublog, SIGNAL (disableClubLogAction(bool)), this, SLOT (slotElogClubLogDisable(bool)));
 	// SATELLITE TAB
-    connect (satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
+    //connect (satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
+
+
     // QSL TAB
     connect(QSLTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
     // SEARCH TAB
@@ -2795,7 +2802,7 @@ void MainWindow::createActionsDX(){
     //connect(lotwSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLotwSentComboBoxChanged() ) )  ;
     //connect(lotwRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLotwRecvComboBoxChanged() ) ) ;
 
-    connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
+
 
 
 }
@@ -3172,6 +3179,48 @@ void MainWindow::slotSTXTextChanged()
 
     }
 }
+void MainWindow::setRSTToMode(const QString _m)
+{
+    qDebug() << "MainWindow::setRSTToMode: " << _m << endl;
+    if ((_m == "SSB") || (_m== "LSB") || (_m=="USB") )
+    {
+        //qDebug() << "MainWindow::setRSTToMode: Detected SSB/LSB/USB"  << endl;
+        rstTXLineEdit->setInputMask("#DD");
+        rstRXLineEdit->setInputMask("#DD");
+        rstTXLineEdit->setText("59");
+        rstRXLineEdit->setText("59");
+        rstTXLineEdit->setMaxLength(2);
+        rstRXLineEdit->setMaxLength(2);
+    }
+    else if ((_m == "CW") || (_m == "RTTY"))
+    {
+        rstTXLineEdit->setInputMask("DDD");
+        rstRXLineEdit->setInputMask("DDD");
+        rstTXLineEdit->setText("599");
+        rstRXLineEdit->setText("599");
+        rstTXLineEdit->setMaxLength(3);
+        rstRXLineEdit->setMaxLength(3);
+    }
+    else if (_m == "PSK31")
+    {
+        rstTXLineEdit->setInputMask("#DD0");
+        rstRXLineEdit->setInputMask("#DD0");
+        rstTXLineEdit->setText("599");
+        rstRXLineEdit->setText("599");
+        rstTXLineEdit->setMaxLength(4);
+        rstRXLineEdit->setMaxLength(4);
+    }
+    else
+    { // By default SSB RST is configured but anything could be added
+        rstTXLineEdit->setInputMask("#xxx");
+        rstRXLineEdit->setInputMask("#xxx");
+        rstTXLineEdit->setText("59");
+        rstRXLineEdit->setText("59");
+        rstTXLineEdit->setMaxLength(4);
+        rstRXLineEdit->setMaxLength(4);
+    }
+
+}
 
 void MainWindow::slotrstTXTextChanged()
 {
@@ -3199,9 +3248,10 @@ void MainWindow::clearForNextQSO()
     modifyingQSO = -1;
     qrzLineEdit->clear();
     qrzLineEdit->setFocus(Qt::OtherFocusReason);
+    setRSTToMode(modeComboBox->currentText());
 
-    rstTXLineEdit->setText("59");
-    rstRXLineEdit->setText("59");
+    //rstTXLineEdit->setText("59");
+    //rstRXLineEdit->setText("59");
     qthLineEdit->clear();
     //bandComboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
     //modeComboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
@@ -3267,9 +3317,10 @@ void MainWindow::slotClearButtonClicked()
     modifyingQSO = -1;
     qrzLineEdit->clear();
     qrzLineEdit->setFocus(Qt::OtherFocusReason);
+    setRSTToMode(modeComboBox->currentText());
 
-    rstTXLineEdit->setText("59");
-    rstRXLineEdit->setText("59");
+    //rstTXLineEdit->setText("59");
+    //rstRXLineEdit->setText("59");
     qthLineEdit->clear();
 
     //qDebug() << "MainWindow::slotClearButtonClicked: - currentBand: " << QString::number(currentBand) << endl;
@@ -4999,25 +5050,6 @@ void MainWindow::selectDefaultMode()
    //qDebug << "MainWindow::selectDefaultMode-END" << endl;
 }
 
-void MainWindow::slotDefineNewBands (const QStringList _bands)
-{
-        //qDebug() << "MainWindow::defineNewBands: "  << endl;
-    QStringList qsTemp;
-    qsTemp.clear();
-
-
-    //qsTemp << _bands;
-    //qsTemp.removeDuplicates();
-
-    qsTemp << dataProxy->sortBandNamesBottonUp(_bands);
-    bands.clear();
-    bands << qsTemp;
-
-    bandComboBox->clear();
-    bandComboBox->addItems(bands);
-    satTabWidget->addBands(bands);
-}
-
 
 void MainWindow::readActiveBands (const QStringList actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
@@ -5222,13 +5254,14 @@ void MainWindow::createUIDX()
 
     QLabel *rstRxLabelN = new QLabel(tr("RST(rx)"));
     rstRxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    setRSTToMode(modeComboBox->currentText());
 
-    rstTXLineEdit->setInputMask("#990");
-    rstRXLineEdit->setInputMask("#990");
-    rstTXLineEdit->setText("59");
-    rstRXLineEdit->setText("59");
-    rstTXLineEdit->setMaxLength(3);
-    rstRXLineEdit->setMaxLength(3);
+    //rstTXLineEdit->setInputMask("#990");
+    //rstRXLineEdit->setInputMask("#990");
+    //rstTXLineEdit->setText("59");
+    //rstRXLineEdit->setText("59");
+    //rstTXLineEdit->setMaxLength(3);
+    //rstRXLineEdit->setMaxLength(3);
     //rstTXLineEdit->setFixedWidth(30);
     //rstRXLineEdit->setFixedWidth(30);
 
@@ -7293,27 +7326,18 @@ void MainWindow::completeWithPreviousQSO(const QString _call)
     }
 }
 
-void MainWindow::slotSatBandTXComboBoxChanged(const QString _q)
-{
-     //qDebug() << "MainWindow::slotSatBandTXComboBoxChanged" << _q << endl;
-    if (modify)
-    {
-        return;
-    }
-     //qDebug() << "MainWindow::slotSatBandTXComboBoxChanged1: " << bandComboBox->currentText() << endl;
-    bandComboBox->setCurrentIndex(bandComboBox->findText(_q, Qt::MatchCaseSensitive));
-    //qDebugf() << "MainWindow::slotSatBandTXComboBoxChanged2: " << bandComboBox->currentText() << endl;
-}
 void MainWindow::updateBandComboBox(const QString _band)
 {
-    //qDebug() << "MainWindow::updateBandComboBox: " << _band << endl;
+    qDebug() << "MainWindow::updateBandComboBox: " << _band << endl;
+    updatingBands = true;
+    QString _currentBand = bandComboBox->currentText();
     if (bandComboBox->findText(_band, Qt::MatchCaseSensitive) < 0)
     {// The selected frequency is of a band that is not currently selected
-            //qDebug() << "MainWindow::updateBandComboBox - New band found: " << _q << endl;
+        qDebug() << "MainWindow::updateBandComboBox - New band found: " << _band << endl;
         if (dataProxy->getIdFromBandName(_band) > 1)
         {// Not affected if 0 (light) is the frequency
          // In this case the user should select the band in the setup
-                //qDebug() << "MainWindow::updateBandComboBox- Band is valid: " << _q << endl;
+            qDebug() << "MainWindow::updateBandComboBox- Band is valid: " << _band << endl;
             QStringList qsTemp;
             qsTemp.clear();
             qsTemp << bands;
@@ -7323,23 +7347,28 @@ void MainWindow::updateBandComboBox(const QString _band)
             bandComboBox->clear();
             bandComboBox->addItems(bands);
             dxccStatusWidget->setBands(bands);
+            qDebug() << "MainWindow::updateBandComboBox - Before adding bands!" << endl;
             satTabWidget->addBands(bands);
+            qDebug() << "MainWindow::updateBandComboBox - Band has been added!" << endl;
 
-            //qDebug() << "MainWindow::updateBandComboBox - Band has been added!" << endl;
         }
         else
         {
-            //qDebug() << "MainWindow::updateBandComboBox- (END) Band is NOT  valid: " <<_band<< endl;
+            qDebug() << "MainWindow::updateBandComboBox- (END) Band is NOT  valid: " <<_band<< endl;
+            updatingBands = false;
             return;
         }
     }
+    bandComboBox->setCurrentIndex(bandComboBox->findText(_currentBand, Qt::MatchCaseSensitive));
+    updatingBands = false;
     //bandComboBox->setCurrentIndex(bandComboBox->findText(_band, Qt::MatchCaseSensitive));
-    //qDebug() << "MainWindow::updateBandComboBox- END"  << endl;
+    qDebug() << "MainWindow::updateBandComboBox- END"  << endl;
 }
 
 void MainWindow::slotFreqTXChanged()
 {
-    //qDebug() << "MainWindow::slotFreqTXChanged" << QString::number(txFreqSpinBox->value()) << endl;
+
+    qDebug() << "MainWindow::slotFreqTXChanged" << QString::number(txFreqSpinBox->value()) << endl;
     txFreqBeingChanged = true;
     int bandId = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
     if (bandId > 1)
@@ -7354,11 +7383,10 @@ void MainWindow::slotFreqTXChanged()
         bool freqInBand = dataProxy->isThisFreqInBand(bandComboBox->currentText(), QString::number(txFreqSpinBox->value()));
         if(!freqInBand)
         { // If the freq does not belong to the current band, we need to update the band
-            //qDebug() << "MainWindow::slotFreqTXChanged Freq is not in band" << endl;
+            qDebug() << "MainWindow::slotFreqTXChanged Freq is not in the current band" << endl;
             QString _newBand = dataProxy->getBandNameFromFreq(txFreqSpinBox->value());
             updateBandComboBox(_newBand);
             bandComboBox->setCurrentIndex(bandComboBox->findText(_newBand, Qt::MatchCaseSensitive));
-
         }
     }
     else
@@ -7367,8 +7395,11 @@ void MainWindow::slotFreqTXChanged()
         txFreqSpinBox->setPalette(palRed);
         //qDebug() << "MainWindow::slotFreqTXChanged Freq is not in ANY ham band" << endl;
     }
+    if (!txFreqBeingAutoChanged)
+    {
+        satTabWidget->setUpLinkFreq(txFreqSpinBox->value());
+    }
 
-    satTabWidget->setUpLinkFreq(txFreqSpinBox->value());
     txFreqBeingChanged = false;
     //slotBandComboBoxChanged();
     /*
@@ -7413,21 +7444,24 @@ void MainWindow::slotFreqTXChanged()
     bandComboBox->setCurrentIndex(bandComboBox->findText(_q, Qt::MatchCaseSensitive));
      //qDebug() << "MainWindow::slotFreqTXChanged - band2: " << bandComboBox->currentText() << endl;
     */
+    qDebug() << "MainWindow::slotFreqTXChanged - END"  << endl;
 }
 
 void MainWindow::slotFreqRXChanged()
 {
-    //qDebug() << "MainWindow::slotFreqRXChanged: " << QString::number(rxFreqSpinBox->value()) << endl;
+    qDebug() << "MainWindow::slotFreqRXChanged: " << QString::number(rxFreqSpinBox->value()) << endl;
 
+    rxFreqBeingChanged = true;
     int bandId = dataProxy->getBandIdFromFreq(rxFreqSpinBox->value());
     if (bandId > 1)
-    { // If the freq belongs to onne ham band
-        rxFreqSpinBox->setPalette(palBlack);
-        rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
+    { // If the freq belongs to one ham band
+       rxFreqSpinBox->setPalette(palBlack);
+       rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
+
         bool freqInBand = dataProxy->isThisFreqInBand(bandComboBox->currentText(), QString::number(rxFreqSpinBox->value()));
         if(!freqInBand)
         { // If the freq does not belong to the current band, we need to update the band
-            //qDebug() << "MainWindow::slotFreqTXChanged Freq is not in band" << endl;
+            qDebug() << "MainWindow::slotFreqTXChanged Freq is not in the current band" << endl;
             QString _newBand = dataProxy->getBandNameFromFreq(rxFreqSpinBox->value());
             updateBandComboBox(_newBand);
             //bandComboBox->setCurrentIndex(bandComboBox->findText(_newBand, Qt::MatchCaseSensitive));
@@ -7435,41 +7469,18 @@ void MainWindow::slotFreqRXChanged()
     }
     else
     {
-        rxFreqSpinBox->setPalette(palRed);
         rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz.\nFrequency is not in a hamradio band!"));
-        //qDebug() << "MainWindow::slotFreqTXChanged Freq is not in ANY ham band" << endl;
+        rxFreqSpinBox->setPalette(palRed);
+        //qDebug() << "MainWindow::slotFreqRXChanged Freq is not in ANY ham band" << endl;
     }
-    satTabWidget->setDownLinkFreq(rxFreqSpinBox->value());
-    //satTabWidget->setUpLinkFreq(txFreqSpinBox->value());
-
-/*
-    QString _q;
-    int v = dataProxy->getBandIdFromFreq(rxFreqSpinBox->value());
-
-     //qDebug() << "MainWindow::slotFreqRXChanged: F/v(rx): " << QString::number(rxFreqSpinBox->value()) << "/" << QString::number(v) << endl;
-
-    if ((v<0) || (modify))
+    if (!rxFreqBeingAutoChanged)
     {
-        return;
+        satTabWidget->setDownLinkFreq(rxFreqSpinBox->value());
     }
 
-    //int txv = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
+    rxFreqBeingChanged = false;
 
-    if ((rxFreqSpinBox->value() > 0) && (txFreqSpinBox->value()<=0))
-    { // There is no TX freq but there is a RX Freq. Band Used (bandid) will be updated to the RX Freq
-        _q = dataProxy->getNameFromBandId (v);
-         //qDebug() << "MainWindow::slotFreqRXChanged: band: " << _q << endl;
-        bandComboBox->setCurrentIndex(bandComboBox->findText(_q, Qt::MatchCaseSensitive));
-         //qDebug() << "MainWindow::slotFreqRXChanged: band2: " << bandComboBox->currentText() << endl;
-         //qDebug() << "MainWindow::slotFreqRXChanged: NO TX, so RX" << endl;
-    }
-    else
-    {
-         //qDebug() << "MainWindow::slotFreqRXChanged: TX is there, no change" << endl;
-        //_q = dataProxy->getNameFromBandId (v);
-    }
-    */
-    //qDebug() << "MainWindow::slotFreqRXChanged: END" << endl;
+    qDebug() << "MainWindow::slotFreqRXChanged: END" << endl;
 }
 
 void MainWindow::slotShowQSOFromDXCCWidget(const int _q)
@@ -7848,17 +7859,70 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
     }
 }
 
+void MainWindow::slotDefineNewBands (const QStringList _bands)
+{
+        //qDebug() << "MainWindow::defineNewBands: "  << endl;
+    QStringList qsTemp;
+    qsTemp.clear();
+
+
+    //qsTemp << _bands;
+    //qsTemp.removeDuplicates();
+
+    qsTemp << dataProxy->sortBandNamesBottonUp(_bands);
+    bands.clear();
+    bands << qsTemp;
+
+    bandComboBox->clear();
+    bandComboBox->addItems(bands);
+    satTabWidget->addBands(bands);
+}
+
 void MainWindow::slotSatChangeRXFreq(const double _f)
 {
+    rxFreqBeingAutoChanged = true;
     rxFreqSpinBox->setValue(_f);
+    rxFreqBeingAutoChanged = false;
 }
 
 void MainWindow::slotSatChangeTXFreq(const double _f)
 {
-    //qDebug() << "MainWindow::slotSatChangeTXFreq updating txFreqSpinBox" << QString::number(_f) << endl;
+    qDebug() << "MainWindow::slotSatChangeTXFreq updating txFreqSpinBox" << QString::number(_f) << endl;
+    txFreqBeingAutoChanged = true;
     txFreqSpinBox->setValue(_f);
+    txFreqBeingAutoChanged = false;
+
+    qDebug() << "MainWindow::slotSatChangeTXFreq updating txFreqSpinBox - END"  << endl;
 }
 
+void MainWindow::slotSatTXFreqNeeded(const double _f)
+{
+    qDebug() << "MainWindow::slotSatTXFreqNeeded: " << QString::number(_f) << endl;
+
+    QString _band = dataProxy->getBandNameFromFreq(_f);
+    if (bandComboBox->findText(_band, Qt::MatchCaseSensitive) < 0)
+    {
+        updateBandComboBox(_band);
+    }
+    slotSatChangeTXFreq(_f);
+
+    satTabWidget->setUpLinkFreq(_f);
+    qDebug() << "MainWindow::slotSatTXFreqNeeded - END " << endl;
+}
+
+void MainWindow::slotSatRXFreqNeeded(const double _f)
+{
+    qDebug() << "MainWindow::slotSatRXFreqNeeded: " << QString::number(_f) << endl;
+
+    QString _band = dataProxy->getBandNameFromFreq(_f);
+    if (bandComboBox->findText(_band, Qt::MatchCaseSensitive) < 0)
+    {
+        updateBandComboBox(_band);
+    }
+    slotSatChangeRXFreq(_f);
+    satTabWidget->setDownLinkFreq(_f);
+    qDebug() << "MainWindow::slotSatRXFreqNeeded - END " << endl;
+}
 
 void MainWindow::slotHamlibTXFreqChanged(const double _f)
 {

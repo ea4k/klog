@@ -38,7 +38,10 @@
 #include "utilities.h"
 
 class QSqlRelationalTableModel;
+// Previous db update 0.011
+
 const float DBVersionf = 0.016; // This is the latest version of the DB.
+
 
 struct AwarddxccEntry
 { // Information to update the awarddxcc table; For other Award tables, the DXCC is just the ID of the award element
