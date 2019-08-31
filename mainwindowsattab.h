@@ -65,11 +65,13 @@ public:
 
 signals:
     void setPropModeSat(const QString _p);
-    void satBandTXChanged(const QString _p);
-    void satBandRXChanged(const QString _p);
+    //void satBandTXChanged(const QString _p);
+    //void satBandRXChanged(const QString _p);
     void newBandsToBeAdded(const QStringList _p);
     void satTxFreqChanged(const double _p);
     void satRxFreqChanged(const double _p);
+    void satTXFreqNeeded(const double _p);
+    void satRXFreqNeeded(const double _p);
     void dxLocatorChanged(const QString _p);
 
 private slots:
@@ -103,7 +105,7 @@ private:
     QComboBox *satBandTXComboBox, *satBandRXComboBox;
     QStringList satNames, satModes;
     QStringList satellitesList;
-    bool txBandBeingChanged, rxBandBeingChanged, txFreqBeingChanged, txFreqBeingAutoChanged, rxFreqBeingChanged, rxFreqBeingAutoChanged;
+    bool txFreqBeingAutoChanged, rxFreqBeingAutoChanged, updatingBands;
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
 
     QDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;

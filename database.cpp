@@ -1411,7 +1411,9 @@ bool DataBase::unMarkAllQSO()
 
 bool DataBase::updateIfNeeded()
 {
+
      //qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << endl;
+
 
     /**************************************************************************************
      * This function should call to bool updateToXXX () being XXX dbVersion and
@@ -1446,20 +1448,26 @@ bool DataBase::updateIfNeeded()
     //query.next();
     //latestReaded = (query.value(0)).toFloat();
     query.finish();
+
     //qDebug() << "DataBase::updateIfNeeded - LatestReaded: " << QString::number(latestReaded) << endl;
+
 
 
 
     if (latestReaded >= dbVersion)
     { // DB is updated, no update is needed
+
         //qDebug() << "DataBase::updateIfNeeded - DB updated (no need to update anything!) " << endl;
+
         //toBeUpdated = false;
         //qDebug() << "DataBase::updateIfNeeded - TRUE - END "  << endl;
         return true;
     }
     else
     { // DB is outdated. We need to update!!
+
         //qDebug() << "DataBase::updateIfNeeded - DB outdated... upgrade starts now! " << endl;
+
         QMessageBox msgBox;
         msgBox.setWindowTitle("KLog");
         msgBox.setText( QObject::tr("KLog DB needs to be upgraded."));
@@ -1883,9 +1891,11 @@ bool DataBase::updateToLatest()
  * The updateXXX are recursive calls that calls the previous one.
  *
  */
+
     //qDebug() << "DataBase::updateToLatest " << endl;
-    //return updateTo010();
-    return updateTo015();
+
+    return updateTo016();
+
 }
 
 bool DataBase::updateTo003()
@@ -7206,8 +7216,6 @@ bool DataBase::updateTo016()
          //qDebug() << "DataBase::updateTo016: UPDATED OK!" << endl;
         return true;
 }
-
-
 
 bool DataBase::updateAwardDXCCTable()
 {

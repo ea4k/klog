@@ -237,9 +237,10 @@ private slots:
     void slotShowSoftUpdateResults(const bool _b);   // Software Update: Receives the signal to see if it is needed or not to update
 
     //SATELLITE
-    void slotSatBandTXComboBoxChanged(const QString _q);
-
-    void slotDefineNewBands(const QStringList _bands);
+    //void slotSatBandTXComboBoxChanged(const QString _q);
+    void slotDefineNewBands (const QStringList _bands);
+    void slotSatTXFreqNeeded(const double _f);
+    void slotSatRXFreqNeeded(const double _f);
     void slotSatChangeRXFreq(const double _f);
     void slotSatChangeTXFreq(const double _f);
 
@@ -334,6 +335,7 @@ private:
     void showDXMarathon(const int _year);
     void updateQSLRecAndSent();
     double checkFreqRanges(double _f);
+    void setRSTToMode(const QString _m);
 
     // CLUSTER
     void clusterSpotToLog(const QString _call, const QString _freq);
@@ -511,7 +513,8 @@ private:
     //bool searchSelectAllClicked, stationCallSignShownInSearch;
 
     bool checkNewVersions, reportInfo; // Selected in the Setup->Misc to check if new versions and report info back to KLog's servers
-    bool txFreqBeingChanged;            // When the TX freq is being modified it is defined to true to prevent other automated to change.
+    bool txFreqBeingChanged, rxFreqBeingChanged, updatingBands;            // When the freqs is being modified it is defined to true to prevent other automated to change.
+    bool txFreqBeingAutoChanged, rxFreqBeingAutoChanged;        // This is defined to true when freq is being changed by the Sat tab to prevent a loop.
     bool qslingNeeded;
     bool noMoreErrorShown;              // If true, the errors shown in slotQueryErrorManagement will not be shown anymore in that KLog execution
     bool noMoreModeErrorShown;          // If true, the non-valid modes received from WSJT-x will not be showed to the user
