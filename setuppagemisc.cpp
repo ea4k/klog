@@ -47,6 +47,8 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     checkNewVersionCheckBox = new QCheckBox(tr("&Check for new versions automatically"), this);
     provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
     useDxMarathonCheckBox = new QCheckBox(tr("Manage DX-Marathon"), this);
+    debugLogCheckBox = new QCheckBox(tr("Activate the application debug log"));
+
 
     defaultFileNameLineEdit = new QLineEdit;
     dbPathLineEdit = new QLineEdit;
@@ -112,6 +114,7 @@ void SetupPageMisc::createUI()
     showStationCallWhenSearchCheckBox->setChecked(true);
     keepMyDataCheckBox->setChecked(true);
     completeWithPreviousCheckBox->setChecked(false);
+    debugLogCheckBox->setChecked(false);
 
     sendQSLWhenRecCheckBox->setToolTip(tr("QSOs will be marked as pending to send a QSL if you receive the DX QSL and have not sent yours."));
     showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will show also the callsign on the air to do the QSO."));
@@ -130,7 +133,7 @@ void SetupPageMisc::createUI()
     fileNameButton->setToolTip(tr("Click to change the default ADIF file."));
     dbPushButton->setToolTip(tr("Click to change the path of the database."));
     moveDBPushButton->setToolTip(tr("Click to move the DB to the new directory."));
-
+    debugLogCheckBox->setToolTip(tr("Activates the application debug log. This may be useful if something is not working as expected. A debug file will be created in the KLog directory."));
 
     QHBoxLayout *fileLayout = new QHBoxLayout;
     fileLayout->addWidget(useDefaultName);
@@ -152,7 +155,7 @@ void SetupPageMisc::createUI()
     mainLayou1->addLayout(fileLayout, 0, 0, 1, -1);
     mainLayou1->addLayout(dbLayout, 1, 0, 1, -1);
     mainLayou1->addWidget(alwaysADIFCheckBox, 2, 0, 1, 1);
-    //mainLayou1->addLayout(UDPLayout, 2, 1, 1, 1);
+    mainLayou1->addWidget(debugLogCheckBox, 2, 1, 1, 1);
     mainLayou1->addWidget(UTCCheckbox, 3, 0, 1, 1);
     mainLayou1->addWidget(realTimeCheckbox, 3, 1, 1, 1);
     mainLayou1->addWidget(imperialCheckBox, 4, 0, 1, 1);
@@ -592,8 +595,33 @@ void SetupPageMisc::setDXMarathon(const QString t){
     {
         useDxMarathonCheckBox->setChecked(true);
     }
-
 }
+
+QString SetupPageMisc::getDebugLog()
+{
+    if (debugLogCheckBox->isChecked())
+    {
+        return "True";
+    }
+    else
+    {
+        return "False";
+    }
+}
+
+void SetupPageMisc::setDebugLog(const QString _t)
+{
+    if ( (_t.toUpper()) == "TRUE")
+    {
+
+        debugLogCheckBox->setChecked(true);
+    }
+    else
+    {
+        debugLogCheckBox->setChecked(false);
+    }
+}
+
 
 
 void SetupPageMisc::slotDBButtonClicked()

@@ -57,6 +57,7 @@ public:
     QString getHomeDir();
     QString getCfgFile();
     QString getCTYFile();
+    QString getDebugLogFile();
 
     void setVersion(const QString _v);
     QString getVersion();

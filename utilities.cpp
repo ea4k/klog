@@ -7,10 +7,12 @@ Utilities::Utilities()
     softwareVersion = "0.0";
      //qDebug() << "Utilities::Utilities - END"  << endl;
 }
+
 Utilities::~Utilities()
 {
 
 }
+
 void Utilities::setVersion(const QString _v)
 {
      //qDebug() << "Utilities::setVersion: " << _v << endl;
@@ -41,7 +43,6 @@ double Utilities::getVersionDouble()
      //qDebug() << "Utilities::getVersionDouble: no points detected" << endl;
     return softwareVersion.toDouble();
 }
-
 
 int Utilities::getProgresStepForDialog(int totalSteps)
 {
@@ -294,8 +295,6 @@ QString Utilities::getKLogDatabaseFile(const QString _file)
 }
 */
 
-
-
 QString Utilities::getCfgFile()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
@@ -310,6 +309,20 @@ QString Utilities::getCfgFile()
 #endif
 
 }
+
+QString Utilities::getDebugLogFile()
+{
+#ifdef Q_OS_WIN
+       //qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
+    return getHomeDir() + "/klogdebug.log";
+
+#else
+       //qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
+    return getHomeDir() + "/klogdebug.log";
+
+#endif
+}
+
 
 QString Utilities::getCTYFile()
 {
@@ -327,7 +340,6 @@ int Utilities::getNormalizedDXCCValue(const int _dxcc)
         return _dxcc;
     }
 }
-
 
 QDate Utilities::getDefaultDate()
 {
@@ -363,7 +375,6 @@ bool Utilities::isValidDateTime(const QString _d)
      //qDebug() << "Utilities::isValidDateTime: Error" << endl;
     return false;
 }
-
 
 bool Utilities::isValidCall(const QString _c)
 {
@@ -407,8 +418,6 @@ bool Utilities::isValidBandId(const int _b)
     }
     //return false;
 }
-
-
 
 bool Utilities::isValidModeId(const int _m)
 {
@@ -477,7 +486,6 @@ bool Utilities::isValidName(const QString _b)
     }
     return false;
 }
-
 
 bool Utilities::isDBFileExisting()
 {

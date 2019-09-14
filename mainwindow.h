@@ -38,6 +38,7 @@
 #include "setupdialog.h"
 //#include "helpaboutdialog.h"
 #include "aboutdialog.h"
+//#include "tipsdialog.h"
 #include "world.h"
 #include "filemanager.h"
 #include "contest.h"
@@ -194,6 +195,7 @@ private slots:
     void slotWorldReload();
 
     void slotExitFromSlotDialog(const int exitID);
+    void exitQuestion();
 
     //void slotDownloadFinished(QNetworkReply *reply);
 
@@ -206,12 +208,13 @@ private slots:
     bool slotOpenKLogFolder();
 
     void slotFilePrint();
-    //void slotFileClose();
+    void slotFileClose();
 
     //void slotHelpHelpAction();
     void slotHelpAboutAction();
     void slotHelpCheckUpdatesAction();
     void slotAboutQt();
+    void slotTipsAction();
        
     void slotRecalculateAwardsButtonClicked();
 
@@ -263,8 +266,11 @@ private slots:
                              const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
                              const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const QString _de_call, const QString _de_grid);
 
+    void slotCaptureDebugLogs(const QString _func, const QString _msg, const int _level=7);
 private:
     bool maybeSave();
+    void logEvent(const QString _func, const QString _msg, const int _level=7);
+    void setSeverity(const int _sev);
     void updateBandComboBox(const QString _band);
     UpdateSatsData *updateSatsData;
     //UPDATE CTY.DAT
@@ -314,6 +320,7 @@ private:
 
     bool createConnection();
     void createData();
+    void openSetup(const int _page=0);
     bool processConfigLine(const QString _line);
     void readConfigData();    
     void defineStationCallsign();
@@ -328,6 +335,7 @@ private:
     void addNewValidMode(const QString _mode);
 
     void qsoToEdit (const int _qso);
+    void setModifying(const bool _m);
 
     void completeWithPreviousQSO(const QString _call);
 
@@ -336,6 +344,7 @@ private:
     void updateQSLRecAndSent();
     double checkFreqRanges(double _f);
     void setRSTToMode(const QString _m);
+
 
     // CLUSTER
     void clusterSpotToLog(const QString _call, const QString _freq);
@@ -357,6 +366,8 @@ private:
     //HelpHelpDialog *helpHelpDialog;
     //HelpAboutDialog *helpAboutDialog;
     AboutDialog *aboutDialog;
+   // TipsDialog *tipsDialog;
+
 
     QPushButton *addButton;
     //QLabel *distShortLabelN;
@@ -414,6 +425,7 @@ private:
     QAction *setupAct;
     QAction *helpAct;
     QAction *aboutAct;
+    QAction *tipsAct;
     QAction *aboutQtAct;
     QAction *updateAct;
 
@@ -513,6 +525,11 @@ private:
     //bool searchSelectAllClicked, stationCallSignShownInSearch;
 
     bool checkNewVersions, reportInfo; // Selected in the Setup->Misc to check if new versions and report info back to KLog's servers
+    bool logEvents;                     // Should KLog log the events for debugging
+    bool debugFileOpen;                 //Is the debugFile open?
+    QFile *debugFile;
+    int logSeverity;    // Manages as syslog, the severity of the application debug log (7 means debug, 0 emergency)
+
     bool txFreqBeingChanged, rxFreqBeingChanged, updatingBands;            // When the freqs is being modified it is defined to true to prevent other automated to change.
     bool txFreqBeingAutoChanged, rxFreqBeingAutoChanged;        // This is defined to true when freq is being changed by the Sat tab to prevent a loop.
     bool qslingNeeded;

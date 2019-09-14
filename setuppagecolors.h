@@ -58,8 +58,13 @@ private slots:
     void slotNeededColorButtonClicked();
     void slotDefaultColorButtonClicked();
 
+    void slotWSJTXButtonClicked();
+    void slotKLogButtonClicked();
+
 
 private:
+    void setDefaultColors();
+    void setWSJTXColors();
     QColor giveColor (QColor c);
 
     QPalette palette;
@@ -69,6 +74,8 @@ private:
     QPushButton *workedColorButton;     // In this band
     QPushButton *confirmedColorButton;  // In this band
     QPushButton *defaultColorButton;  // In this band
+    QPushButton *wsjtxColorButton;  // In this band
+    QPushButton *klogColorButton;  // In this band
 
     QColor color;
 /*

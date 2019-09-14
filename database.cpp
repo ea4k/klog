@@ -41,7 +41,7 @@ DataBase::DataBase(const QString _parentClass, const QString _DBName)
     //db = QSqlDatabase::database();
 
     dbVersion = DBVersionf;
-    createConnection();
+    createConnection(QString(Q_FUNC_INFO)+"1");
      //qDebug() << "DataBase::DataBase: PLAIN - connection Name: " << dbConnectionName << endl;
      //qDebug() << "DataBase::DataBase: PLAIN - DB Name: " << db.databaseName() << endl;
     insertPreparedQueries.clear();
@@ -70,7 +70,7 @@ DataBase::DataBase(const QString _parentClass, const QString _softVersion, const
     //db = QSqlDatabase::database();
     if (util->getVersionDouble()>0)
     {
-        createConnection();
+        createConnection(QString(Q_FUNC_INFO)+"2");
     }
      //qDebug() << "DataBase::DataBase: - connection Name: " << dbConnectionName << endl;
      //qDebug() << "DataBase::DataBase: - DB Name: " << db.databaseName() << endl;
@@ -176,7 +176,7 @@ QString DataBase::getSoftVersion()
         query.finish();
         return QString();
     }
-    return QString();
+    //return QString();
 
 }
 
@@ -207,7 +207,7 @@ QString DataBase::getDBVersion()
         query.finish();
         return QString();
     }
-    return QString();
+    //return QString();
 }
 
 /*
@@ -286,54 +286,61 @@ bool DataBase::reConnect(const QString _DBName)
       //qDebug() << "DataBase::reConnect: DB closed"  << endl;
     //dbName = util->getKLogDBFile();
       //qDebug() << "DataBase::reConnect: DB: " << dbDir  << endl;
-    return createConnection();
+    return createConnection(Q_FUNC_INFO);
       //qDebug() << "DataBase::reConnect: END"  << endl;
 
 }
 
-bool DataBase::createConnection(bool newDB)
+bool DataBase::createConnection(const QString function, bool newDB)
 {
-     //qDebug() << "DataBase::createConnection: " << QString::number(dbVersion) << "/" << softVersion << endl;
+    //qDebug() << "DataBase::createConnection: " << function << "-" << QString::number(dbVersion) << "/" << softVersion << endl;
     QString stringQuery;
     QSqlQuery query;
 
 
     if (!db.isOpen())
     {
-         //qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
-        //db = QSqlDatabase::database();
-       //qDebug) << "DataBase::createConnection: Start the test"  << endl;
+        //qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
+        //db = QSqlDatabase::database();       
         if (db.isValid())
         {
-           //qDebug) << "DataBase::createConnection: DB is Valid"  << endl;
-
+           //qDebug() << "DataBase::createConnection: DB is Valid"  << endl;
         }
         else
         {
-           //qDebug) << "DataBase::createConnection: DB is not valid, let's call addDataBase"  << endl;
-            db = QSqlDatabase::addDatabase("QSQLITE");
-           //qDebug) << "DataBase::createConnection: Now we call setDatabaseName"  << endl;
+            //qDebug() << "DataBase::createConnection: DB is not valid, let's call addDataBase"  << endl;
+            if (db.isOpen())
+            {
+                //qDebug() << "DataBase::createConnection: DB is already open"  << endl;
+            }
+            else
+            {
+                //qDebug() << "DataBase::createConnection: DB is NOT open, let's open"  << endl;
+                db = QSqlDatabase::addDatabase("QSQLITE");
+            }
+
+            //qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  << endl;
             db.setDatabaseName(dbName);
-           //qDebug) << "DataBase::createConnection: end of not valid"  << endl;
+            //qDebug() << "DataBase::createConnection: end of not valid"  << endl;
         }
-       //qDebug) << "DataBase::createConnection: end of valid check, let's try if it is open"  << endl;
+        //qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  << endl;
         if (!db.open())
         {
-           //qDebug) << "DataBase::createConnection:Not open "  << endl;
-            QMessageBox::warning(0, QObject::tr("Database Error"), db.lastError().text());
-             //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
+            //qDebug() << "DataBase::createConnection:Not open "  << endl;
+            QMessageBox::warning(nullptr, QObject::tr("Database Error"), db.lastError().text());
+            //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
             return false;
         }
         else
         {
-            //qDebug) << "DataBase::createConnection: created and opened after the creation" << endl;
+            //qDebug() << "DataBase::createConnection: created and opened after the creation" << endl;
             if (isTheDBCreated())
             {
                  //qDebug() << "DataBase::createConnection: DB Exists"  << endl;
             }
             else
             {
-                 //qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
+                //qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
                 createDataBase();
 
                 stringQuery ="PRAGMA main.page_size = 4096;";
@@ -361,23 +368,23 @@ bool DataBase::createConnection(bool newDB)
     }
     else
     {
-         //qDebug() << "DataBase::createConnection: No Error, DB is open" << endl;
+        //qDebug() << "DataBase::createConnection: No Error, DB is open" << endl;
     }
 
 
-       //qDebug() << "DataBase::createConnection: Going to run - createBandModeMaps " << endl;
+    //qDebug() << "DataBase::createConnection: Going to run - createBandModeMaps " << endl;
 
     if (createBandModeMaps())
     {
-           //qDebug() << "DataBase::createConnection: createBandModeMaps true" << endl;
+        //qDebug() << "DataBase::createConnection: createBandModeMaps true" << endl;
     }
     else
     {
-           //qDebug() << "DataBase::createConnection: createBandModeMaps false SSSSSSSSSSSSSSSTOOOOOOOOOOOOOOOOOOOOOPPPPPPPPPPPPPPPPPPPP" << endl;
+        //qDebug() << "DataBase::createConnection: createBandModeMaps false SSSSSSSSSSSSSSSTOOOOOOOOOOOOOOOOOOOOOPPPPPPPPPPPPPPPPPPPP" << endl;
     }
 
     //created = true;
-   //qDebug) << "DataBase::createConnection -------------------------------------------- END" << endl;
+    //qDebug() << "DataBase::createConnection -------------------------------------------- END" << endl;
     return unMarkAllQSO();
 }
 
@@ -432,9 +439,9 @@ bool DataBase::isTheDBCreated()
         query.finish();
         return false;
     }
-    query.finish();
+    //query.finish();
      //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-X" << endl;
-    return false;
+    //return false;
 
 }
 
@@ -1081,8 +1088,8 @@ int DataBase::getModeIdFromSubMode(const QString b)
 
 
        //qDebug() << "DataBase::getModeIdFromName: NOK 3" << "-------- END"<< endl;
-     query.finish();
-     return -1;
+     //query.finish();
+     //return -1;
 }
 
 QString DataBase::getBandNameFromNumber(const int _n)
@@ -1243,8 +1250,8 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
         return QString();
     }
       //qDebug() << "DataBase::getSubModeNameFromNumber: - END-X" << endl;
-    query.finish();
-    return QString();
+    //query.finish();
+    //return QString();
 }
 
 bool DataBase::isValidBand (const QString b)
@@ -1375,8 +1382,8 @@ int DataBase::getBandIdFromFreq(const QString fr)
        return -2;
     }
       //qDebug() << "DataBase::getBandIdFromFreq: END-X" << endl;
-    query.finish();
-    return -3;
+    //query.finish();
+    //return -3;
 }
 
 
@@ -1397,7 +1404,7 @@ bool DataBase::isThisFreqInBand(const QString b, const QString fr)
         return false;
     }
       //qDebug() << "DataBase::isThisFreqInBand: END" << endl;
-    return false;
+    //return false;
 }
 
 
@@ -1669,7 +1676,7 @@ int DataBase::getBandIDFromName2(const QString b)
         return -1;
     }
        //qDebug() << "DataBase::getBandIDFromName2: Safety exit" << endl;
-    return -2;
+    //return -2;
 
 }
 
@@ -1706,7 +1713,7 @@ int DataBase::getSubModeIDFromName2(const QString b)
 
 
     return getModeIdFromSubMode(b);
-
+    /*
     //return getModeIdFromName(b);
 
     if (b.length()<2)
@@ -1727,6 +1734,7 @@ int DataBase::getSubModeIDFromName2(const QString b)
     }
       //qDebug() << "DataBase::getSubModeIDFromName2: Safety exit - END" << endl;
     return -2;
+    */
 
 }
 
@@ -1734,7 +1742,7 @@ QString DataBase::getBandNameFromID2(const int _i)
 {
      //qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << endl;
     return getBandNameFromNumber(_i);
-
+    /*
     if (IDBandHash.contains(_i))
     {
           //qDebug() << "DataBase::getBandNameFromid2: END OK"  << endl;
@@ -1745,15 +1753,16 @@ QString DataBase::getBandNameFromID2(const int _i)
           //qDebug() << "DataBase::getBandNameFromid2: END-1"  << endl;
         return "-1";
     }
+    */
       //qDebug() << "DataBase::getBandNameFromid2: END-2"  << endl;
-    return "-2";
+    //return "-2";
 
 }
 QString DataBase::getModeNameFromID2(const int _i)
 {
        //qDebug() << "DataBase::getModeNameFromId2: " << QString::number(_i) << endl;
     return getSubModeNameFromNumber(_i);
-
+/*
     if (IDModeHash.contains(_i))
     {
           //qDebug() << "DataBase::getModeNameFromId2: END OK - " << IDModeHash.value(_i) << endl;
@@ -1764,8 +1773,9 @@ QString DataBase::getModeNameFromID2(const int _i)
            //qDebug() << "DataBase::getModeNameFromId2: END-1" << endl;
         return "-1";
     }
+    */
        //qDebug() << "DataBase::getModeNameFromId2: END-2" << endl;
-    return "-2";
+    //return "-2";
 }
 
 QString DataBase::getSubModeNameFromID2(const int _i)
@@ -1784,7 +1794,7 @@ QString DataBase::getSubModeNameFromID2(const int _i)
         return "-1";
     }
        //qDebug() << "DataBase::getSubModeNameFromId2: END-2" << endl;
-    return "-2";
+    //return "-2";
 }
 
 bool DataBase::createBandModeMaps()
@@ -1808,7 +1818,7 @@ bool DataBase::createBandModeMaps()
            //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated FALSE" << endl;
         return false;
     }
-    return false;
+    //return false;
       //qDebug() << "DataBase::createBandModeMaps END" << endl;
 }
 
@@ -1827,7 +1837,7 @@ QString DataBase::getFreqFromBandId(const int _i)
         return "-1.0";
     }
       //qDebug() << "DataBase::getFreqFromBandId END-2" << endl;
-    return "-2.0";
+    //return "-2.0";
 }
 
 int DataBase::getLogTypeNumber(const QString _logType)
@@ -1880,8 +1890,8 @@ QString DataBase::getLogTypeName(const int _logType)
          query.finish();
          return QString();
      }
-     query.finish();
-     return QString();
+     //query.finish();
+     //return QString();
 }
 
 bool DataBase::updateToLatest()
@@ -3482,7 +3492,7 @@ bool DataBase::updateTableEntity()
         return false;
     }
 
-    return false;
+    //return false;
 }
 
 bool DataBase::updateTableLogs()
@@ -4305,8 +4315,8 @@ bool DataBase::updateModeIdTableAward(const int _db)
         return false;
     }
       //qDebug() << "DataBase::updateModeIdTableAward: Checkif seen END"   << endl;
-    query.finish();
-     return false;
+    //query.finish();
+    //return false;
 }
 
 /*
@@ -4836,7 +4846,7 @@ bool DataBase::updateTheModeTableAndSyncLog()
         return false;
     }
        //qDebug() << "DataBase::updateTheModeTableAndSyncLog END" << endl;
-    return true;
+    //return true;
 }
 
 bool DataBase::recreateTableBand()
@@ -4858,7 +4868,7 @@ bool DataBase::recreateTableBand()
         return false;
     }
       //qDebug() << "DataBase::recreateTableBand END" << endl;
-    return true;
+    //return true;
 }
 
 bool DataBase::updateTheEntityTableISONames()
@@ -6726,8 +6736,8 @@ bool DataBase::hasTheTableData(const QString _tableName)
     }
 
       //qDebug() << "DataBase::isTheDBCreated: END FALSE" << endl;
-    query.finish();
-    return false;
+    //query.finish();
+    //return false;
 }
 
 bool DataBase::updateTo011()

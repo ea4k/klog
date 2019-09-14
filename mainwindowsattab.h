@@ -60,6 +60,7 @@ public:
 
     void setLocator(const QString _t);
     void refreshData();
+    void setModifying (const bool _m);
 
     void clear();
 
@@ -111,6 +112,7 @@ private:
     QDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;
     DataProxy *dataProxy;
     Locator *locator;
+    bool modifying;
 };
 
 #endif // MAINWINDOWSATTAB_H

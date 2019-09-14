@@ -38,12 +38,24 @@ SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
     workedColorButton = new QPushButton;
     confirmedColorButton = new QPushButton;
     defaultColorButton = new QPushButton;
+    wsjtxColorButton = new QPushButton;
+    klogColorButton = new QPushButton;
 
     newOneColorButton->setText(tr("New One"));
     neededColorButton->setText(tr("Needed in this band"));
     workedColorButton->setText(tr("Worked in this band"));
     confirmedColorButton->setText(tr("Confirmed in this band"));
     defaultColorButton->setText(tr("Default"));
+    wsjtxColorButton->setText(tr("WSJT-X palette"));
+    klogColorButton->setText(tr("Default palette"));
+
+    newOneColorButton->setToolTip(tr("Color when the DXCC is an ATNO (All Time New One)"));
+    neededColorButton->setToolTip(tr("This DXCC was worked before in another band but not in the selected band. It may be needed due to the CQ, ITU, Grid, ..."));
+    workedColorButton->setToolTip(tr("Worked DXCC, but not confirmed in this band."));
+    confirmedColorButton->setToolTip(tr("DXCC is confirmed in this band"));
+    defaultColorButton->setToolTip(tr("Default color"));
+    wsjtxColorButton->setToolTip(tr("Sets a palette of colors similar to the one used in WSJT-X"));
+    klogColorButton->setToolTip(tr("Sets the default palette"));
 
     newOneColorButton->setAutoFillBackground ( true );
 
@@ -55,24 +67,49 @@ SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
     buttonsLayout->addWidget(confirmedColorButton);
     buttonsLayout->addWidget(defaultColorButton);
 
-    setLayout(buttonsLayout);
+    QHBoxLayout *schemasLayout = new QHBoxLayout;
+    schemasLayout->addWidget(wsjtxColorButton);
+    schemasLayout->addWidget(klogColorButton);
+
+    QGridLayout *mainLayout = new QGridLayout;
+    mainLayout->addLayout(buttonsLayout, 0, 0);
+    mainLayout->addLayout(schemasLayout, 1, 0);
+    //setLayout(buttonsLayout);
+    setLayout(mainLayout);
 
     connect(newOneColorButton, SIGNAL(clicked()), this, SLOT(slotNewOneColorButtonClicked()) );
     connect(neededColorButton, SIGNAL(clicked()), this, SLOT(slotNeededColorButtonClicked()) );
     connect(workedColorButton, SIGNAL(clicked()), this, SLOT(slotWorkedColorButtonClicked()) );
     connect(confirmedColorButton, SIGNAL(clicked()), this, SLOT(slotConfirmedColorButtonClicked()) );
     connect(defaultColorButton, SIGNAL(clicked()), this, SLOT(slotDefaultColorButtonClicked()) );
-    setNewOneColor("#FF0000");
-    setNeededColor("#FF8C00");
-    setWorkedColor("#FFD700");
-    setConfirmedColor("#32CD32");
-    setDefaultColor("#00BFFF");
+    connect(wsjtxColorButton, SIGNAL(clicked()), this, SLOT(slotWSJTXButtonClicked()) );
+    connect(klogColorButton, SIGNAL(clicked()), this, SLOT(slotKLogButtonClicked()) );
+
+    setDefaultColors();
 
      //qDebug() << "SetupPageColors::SetupPageColors - END" << endl;
 }
 
 SetupPageColors::~SetupPageColors()
 {;
+}
+
+void SetupPageColors::setDefaultColors()
+{
+    setNewOneColor("#FF0000");
+    setNeededColor("#FF8C00");
+    setWorkedColor("#FFD700");
+    setConfirmedColor("#32CD32");
+    setDefaultColor("#00BFFF");
+}
+
+void SetupPageColors::setWSJTXColors()
+{
+    setNewOneColor("#FF00FF");      // New DXCC
+    setNeededColor("#FFAAFF");      // New DXCC on Band
+    setWorkedColor("#00BFFF");      // Like Default, WSJT-X does not make any difference
+    setConfirmedColor("#00BFFF");   // Like Default, WSJT-X does not make any difference
+    setDefaultColor("#00BFFF");
 }
 
 void SetupPageColors::slotNewOneColorButtonClicked()
@@ -208,4 +245,14 @@ void SetupPageColors::setDefaultColor(const QString c)
     style = style + c;
     style = style + "; }";
     defaultColorButton->setStyleSheet(style);
+}
+
+void SetupPageColors::slotWSJTXButtonClicked()
+{
+    setWSJTXColors();
+}
+
+void SetupPageColors::slotKLogButtonClicked()
+{
+    setDefaultColors();
 }
