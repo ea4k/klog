@@ -38,7 +38,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString _softVersion, const QString _pa
 
     db = new DataBase(Q_FUNC_INFO, _softVersion, util->getKLogDBFile());
     //db = new DataBase(Q_FUNC_INFO, util->getKLogDBFile());
-    dbCreated = db->createConnection();
+    dbCreated = db->createConnection(Q_FUNC_INFO);
     //dbCreated = db->createBandModeMaps();
      //qDebug() << "DataProxy_SQLite::DataProxy_SQLite - END" << endl;
     searching = false;
@@ -341,8 +341,8 @@ QString DataProxy_SQLite::getNameFromSubMode (const QString _sm)
             query.finish();
             return QString();
         }
-        query.finish();
-        return QString();
+        //query.finish();
+        //return QString();
     }
     else
     {
@@ -393,7 +393,7 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
         query.finish();
         return -2;
     }
-    return -3;
+    //return -3;
 }
 
 QString DataProxy_SQLite::getBandNameFromFreq(const double _n)
@@ -483,8 +483,8 @@ double DataProxy_SQLite::getLowLimitBandFromBandId(const QString _sm)
         }
 
            //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandId: -1.0-3" << endl;
-        query.finish();
-        return -1.0;
+        //query.finish();
+        //return -1.0;
     }
     else
     {
@@ -1717,10 +1717,10 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
         query.finish();
         return QStringList();
     }
-    query.finish();
-    query2.finish();
+    //query.finish();
+    //query2.finish();
       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId END NOT OK" << endl;
-    return QStringList();
+    //return QStringList();
 }
 
 QString DataProxy_SQLite::getNameFromQRZ(const QString _call)
@@ -2263,7 +2263,7 @@ int DataProxy_SQLite::getDuplicatedQSOId(const QString _qrz, const QString _date
          return -1;
      }
 
-    return -1;
+    //return -1;
 }
 
 bool DataProxy_SQLite::isDXCCConfirmed(const int _dxcc, const int _currentLog)
@@ -2957,7 +2957,7 @@ QStringList DataProxy_SQLite::getContestNames()
         return QStringList();
     }
 
-    return QStringList();
+    //return QStringList();
 
 }
 
@@ -4355,7 +4355,7 @@ int DataProxy_SQLite::getNumberOfManagedLogs()
         query.finish();
         return -1;
     }
-    return -1;
+    //return -1;
 }
 
 int DataProxy_SQLite::getMaxLogNumber()
@@ -4385,7 +4385,7 @@ int DataProxy_SQLite::getMaxLogNumber()
         query.finish();
         return -1;
     }
-    return -1;
+    //return -1;
 }
 
 
@@ -4452,7 +4452,7 @@ QString DataProxy_SQLite::getStationCallSignFromLog(const int _log)
     }
 
        //qDebug() << "DataProxy_SQLite::getStationCallSignFromLog: END" << endl;
-    return QString();
+    //return QString();
 
 }
 
@@ -5266,7 +5266,7 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
             query.finish();
             return false;
         }
-        return false;
+        //return false;
     }
 
       //qDebug() << "DataProxy_SQLite::addNewLog: We are adding a new log" << endl;
@@ -5364,7 +5364,7 @@ bool DataProxy_SQLite::doesThisLogExist(const int _log)
         return false;
     }
      //qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 4"  << endl;
-    return false;
+    //return false;
 }
 
 
@@ -5718,7 +5718,7 @@ QString DataProxy_SQLite::getEntityNameFromId(const int _n)
         query.finish();
         return QString();
     }
-    return QString();
+    //return QString();
 }
 
 int DataProxy_SQLite::getEntityIdFromName(const QString _e)
@@ -5755,7 +5755,7 @@ int DataProxy_SQLite::getEntityIdFromName(const QString _e)
           return -1;
       }
   }
-    return -1;
+    //return -1;
 }
 
 QString DataProxy_SQLite::getEntityMainPrefix(const int _entityN)
@@ -5797,7 +5797,7 @@ QString DataProxy_SQLite::getEntityMainPrefix(const int _entityN)
             return QString();
         }
     }
-    return QString();
+    //return QString();
 }
 
 int DataProxy_SQLite::getDXCCFromPrefix(const QString _p)
@@ -5908,7 +5908,7 @@ bool DataProxy_SQLite::isNewEntity(int _e)
             return false;
         }
     }
-    return false;
+    //return false;
 }
 
 double DataProxy_SQLite::getLongitudeFromEntity(const int _e)
@@ -5940,7 +5940,7 @@ double DataProxy_SQLite::getLongitudeFromEntity(const int _e)
         }
 
     }
-    return 0.0;
+    //return 0.0;
 }
 
 double DataProxy_SQLite::getLatitudeFromEntity(const int _e)

@@ -67,6 +67,8 @@ public:
     void setReportInfo(const QString t);
     QString getDXMarathon();
     void setDXMarathon(const QString t);
+    QString getDebugLog();
+    void setDebugLog(const QString _t);
 
     bool areDBPathChangesApplied();
 
@@ -89,10 +91,11 @@ private:
 
     QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox, *keepMyDataCheckBox;
-    QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox;
+    QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *debugLogCheckBox;
     QString defaultFileName;
     QLineEdit *defaultFileNameLineEdit, *dbPathLineEdit;
     QPushButton *fileNameButton, *dbPushButton, *moveDBPushButton;
+
 
     QString klogDir, dbDirNew, dbDirCurrent; //TODO: To be removed when the defaultDir is saved in the config file
     QPalette palRight, palWrong; // To paint Text in red or black(normal)

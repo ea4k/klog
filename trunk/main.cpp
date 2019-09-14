@@ -31,7 +31,7 @@
 
 int main(int argc, char *argv[])
 {
-    QString version = "0.9.8.1" ;
+    QString version = "0.9.9" ;
     QDir d1 = QDir();
     Utilities util = Utilities();
     QStringList arguments;
@@ -44,11 +44,9 @@ int main(int argc, char *argv[])
     QIcon KLogIcon(iconSt);
     QApplication::setWindowIcon(KLogIcon);
 
-
     //QApplication app(argc, argv);
     app.setApplicationName(QString("KLog"));
     app.setApplicationVersion(QString(version));
-
 
     // Now we check if the user is executing from the command line
     arguments.clear();
@@ -89,16 +87,13 @@ int main(int argc, char *argv[])
 
         app.quit();
         return 0;
-
     }
-
 
      //qDebug() << "KLog Main: Start of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << endl;
      //qDebug() << "KLog Main: Detected language: " << (QLocale::system().name()).left(2) << ".qm" << endl;
     // Translations begin
         QTranslator qtTranslator;
-        qtTranslator.load("qt_" + QLocale::system().name(),
-                QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+        qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
         app.installTranslator(&qtTranslator);
         QTranslator myappTranslator;
 
@@ -310,7 +305,7 @@ int main(int argc, char *argv[])
          //qDebug() << "Main: Start of DB Activities" << endl;
         DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
         //qDebug() << "Main: After Start of DB Activities" << endl;
-        if (!db->createConnection())
+        if (!db->createConnection(Q_FUNC_INFO))
         {
              //qDebug() << "Main: Conection not created" << endl;
             return -1; // Exits with an error; no DB has been created
@@ -318,6 +313,7 @@ int main(int argc, char *argv[])
         else
         {
             db->updateIfNeeded(); // Check if we need to update the DB
+
              //qDebug() << "Main: DB Updated" << endl;
         }
         db->~DataBase();

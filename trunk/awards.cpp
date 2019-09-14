@@ -345,6 +345,14 @@ int Awards::getDXStatus (const QStringList _qs)
 12  -   Confirmed in this band but worked in this mode                                          - Worked One    - Confirmed One -   13
 13  -   Confirmed in this band and mode                                                         - Confirmed One - Confirmed One -   13
 
+
+14  -   New CQ Zone
+15  -   New CQ Zone on band
+16  -   New ITU Zone
+17  -   New ITU Zone on band
+18  -   New Grid
+19  -   New Grid on band
+
 */
 
 /*

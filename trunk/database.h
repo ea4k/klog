@@ -74,7 +74,7 @@ public:
     QString getDBVersion();
     QString getDBName();
 
-    bool createConnection(bool newDB=false);    // If true that means that we are creating the DB,
+    bool createConnection(const QString function, bool newDB=false);    // If true that means that we are creating the DB,
                                                 // not just connecting to an existing one.
                                                 // That will be done in the default path
     bool reConnect(const QString _DBName);

@@ -304,8 +304,14 @@ void SetupPageUserDataPage::slotEnterKeyPressed()
 void SetupPageUserDataPage::slotQRZTextChanged()
 {
     //qDebug() << "SetupPageUserDataPage::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << endl;
+
     int i = qrzLineEdit->cursorPosition();
     QString _a = qrzLineEdit->text();
+    if (i<1)
+    {
+        return;
+    }
+
     if ((_a.at(i-1)).isSpace())
     {
         qrzLineEdit->setText(_a.remove(i-1, 1));

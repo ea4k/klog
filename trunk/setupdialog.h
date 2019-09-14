@@ -61,12 +61,14 @@ public:
     void setData(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime=true);
     void setClubLogActive(const bool _b);
     void checkIfNewBandOrMode();
+    void setSeverity(const int _sev);
 
 public slots:
 
 signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void debugLog (QString _func, QString _msg, int _level);
     //void newLogRequested(const bool _s); // true show new log
 
 private slots:
@@ -134,6 +136,7 @@ private:
     Utilities *util;
 
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
+    int logSeverity;    // Manages as syslog, the severity of the application debug log
 };
 
 
