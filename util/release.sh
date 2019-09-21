@@ -18,6 +18,7 @@ cp -r $SOURCES ./$TARGET/klog-$VERSION
 
 # Cleaning ...
 echo "Cleaning and preparing the sources to be packaged"
+rm -f $TARGET/klog/$VERSION/.qmake.stash
 rm -f $TARGET/klog-$VERSION/klog.pro.user
 rm -f $TARGET/klog-$VERSION/translations/klog_template*
 rm -f $TARGET/klog-$VERSION/translations/*.qm
