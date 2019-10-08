@@ -36,10 +36,10 @@ class MainWindowInputComment : public QWidget
     Q_OBJECT
 
 public:
-    explicit MainWindowInputComment(QWidget *parent = 0);
+    explicit MainWindowInputComment(QWidget *parent = nullptr);
     ~MainWindowInputComment();
     void createUI();
-    void setData(const QString _comment);
+    void setData(const QString &_comment);
     QString getComment();
 
     void clear();

@@ -37,7 +37,7 @@ class AboutDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit AboutDialog(const QString tversion, QWidget *parent = 0);
+    explicit AboutDialog(const QString &tversion, QWidget *parent = nullptr);
     ~AboutDialog();
 
     bool event(QEvent *event);

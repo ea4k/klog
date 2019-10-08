@@ -41,7 +41,6 @@ macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
 HEADERS += setupdialog.h \      
     aboutdialog.h \
     mainwindow.h \
-    setupdialog.h \
     world.h \
     logwindow.h \
     filemanager.h \
@@ -99,11 +98,12 @@ HEADERS += setupdialog.h \
     charts/statsworkedconfirmedpiechartwidget.h \
     charts/statsworkedsentpiechartwidget.h \
     charts/statssentconfirmedpiechartwidget.h \
-    charts/statsqsosperbandbarchartwidget.h \
     setuppagesats.h \
     setuppagesatsnew.h \
     setuppagehamlib.h \
-    hamlibclass.h
+    hamlibclass.h \
+    tipsdialog.h \
+    worldmapwidget.h
 
 message(Sources)
 
@@ -171,7 +171,9 @@ SOURCES += main.cpp \
     setuppagesats.cpp \
     setuppagesatsnew.cpp \
     setuppagehamlib.cpp \
-    hamlibclass.cpp
+    hamlibclass.cpp \
+    tipsdialog.cpp \
+    worldmapwidget.cpp
 
 message (Other files)
 
@@ -196,6 +198,8 @@ DESTDIR = build/target/
 OBJECTS_DIR = build/obj/
 MOC_DIR = build/moc/
 RCC_DIR = build/rcc/
+#D_OBJECTS = $(SRC:%.cpp=build/obj/%.o)
+#R_OBJECTS = $(SRC:%.cpp=build/obj/%.o)
 
 # Tell Qt Linguist that we use UTF-8 strings in our sources
 CODECFORTR = UTF-8

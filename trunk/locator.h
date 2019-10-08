@@ -35,7 +35,7 @@ const double PI = 3.141592654; //http://en.wikipedia.org/wiki/Pi
 const bool LATITUDE = false;
 const bool LONGITUDE = true;
 const double EARTH_RADIUS = 6371; //http://en.wikipedia.org/wiki/Earth_radius
-const bool RADIAN = 180.0/PI;
+const double RADIAN = 180.0/PI;
 const double DEG_TO_RAD = PI/180.0;
 const double KM_IN_A_MILE = 1.609344;
 

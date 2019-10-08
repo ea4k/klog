@@ -28,7 +28,7 @@
 #include "utilities.h"
 //#include <QDebug>
 
-DataProxy_SQLite::DataProxy_SQLite(const QString _softVersion, const QString _parentFunction)
+DataProxy_SQLite::DataProxy_SQLite(const QString &_softVersion, const QString &_parentFunction)
 {
      //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << _softVersion << _parentFunction << endl;
 
@@ -143,7 +143,7 @@ int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
 
 }
 
-int DataProxy_SQLite::getSubModeIdFromSubMode(const QString _subModeName)
+int DataProxy_SQLite::getSubModeIdFromSubMode(const QString &_subModeName)
 {
     //qDebug() << "DataProxy_SQLite::getSubModeIdFromSubMode: " << _subModeName << endl;
 
@@ -184,7 +184,7 @@ int DataProxy_SQLite::getModeIdFromSubModeId(const int _sm)
 }
 
 
-bool DataProxy_SQLite::isModeDeprecated (const QString _sm)
+bool DataProxy_SQLite::isModeDeprecated (const QString &_sm)
 {
     if (_sm.length()<2)
     {
@@ -319,7 +319,7 @@ QString DataProxy_SQLite::getSubModeFromId (const int _id)
     //return QString();
 }
 
-QString DataProxy_SQLite::getNameFromSubMode (const QString _sm)
+QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
 {
     QSqlQuery query;
     QString queryString = QString("SELECT name FROM mode WHERE submode='%1'").arg(_sm.toUpper());
@@ -402,7 +402,7 @@ QString DataProxy_SQLite::getBandNameFromFreq(const double _n)
     return getNameFromBandId(getBandIdFromFreq(_n));
 }
 
-double DataProxy_SQLite::getLowLimitBandFromBandName(const QString _sm)
+double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
 {
        //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: " << _sm << endl;
     QSqlQuery query;
@@ -449,7 +449,7 @@ double DataProxy_SQLite::getLowLimitBandFromBandName(const QString _sm)
 }
 
 
-double DataProxy_SQLite::getLowLimitBandFromBandId(const QString _sm)
+double DataProxy_SQLite::getLowLimitBandFromBandId(const QString &_sm)
 {
        //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandId" << endl;
     QSqlQuery query;
@@ -496,7 +496,7 @@ double DataProxy_SQLite::getLowLimitBandFromBandId(const QString _sm)
 
 }
 
-bool DataProxy_SQLite::isThisFreqInBand(const QString _band, const QString _fr)
+bool DataProxy_SQLite::isThisFreqInBand(const QString &_band, const QString &_fr)
 {
     return db->isThisFreqInBand(_band, _fr);
 }
@@ -924,7 +924,7 @@ bool DataProxy_SQLite::clearLog()
     return false;
 }
 
-bool DataProxy_SQLite::qslSentViaDirect(const int _qsoId, const QString _updateDate)
+bool DataProxy_SQLite::qslSentViaDirect(const int _qsoId, const QString &_updateDate)
 {
        //qDebug() << "DataProxy_SQLite::qslSentViaDirect" << endl;
     QSqlQuery query;
@@ -945,7 +945,7 @@ bool DataProxy_SQLite::qslSentViaDirect(const int _qsoId, const QString _updateD
     return false;
 }
 
-bool DataProxy_SQLite::qslSentViaBureau(const int _qsoId, const QString _updateDate)
+bool DataProxy_SQLite::qslSentViaBureau(const int _qsoId, const QString &_updateDate)
 {
        //qDebug() << "DataProxy_SQLite::qslSentViaBureau" << endl;
 
@@ -967,7 +967,7 @@ bool DataProxy_SQLite::qslSentViaBureau(const int _qsoId, const QString _updateD
     return false;
 }
 
-bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString _updateDate)
+bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString &_updateDate)
 {
        //qDebug() << "DataProxy_SQLite::" << QString::number (_qsoId) << "/" << _updateDate << endl;
     QSqlQuery query;
@@ -993,7 +993,7 @@ bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString _updateDa
     return false;
 }
 
-bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString _updateDate, const bool _queueSentQSL)
+bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString &_updateDate, const bool _queueSentQSL)
 {
        //qDebug() << "DataProxy_SQLite::qslRecViaBureau: " << _updateDate << endl;
     QSqlQuery query;
@@ -1073,7 +1073,7 @@ bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QString _updateDa
     return false;
 }
 
-bool DataProxy_SQLite::qslRecViaDirect(const int _qsoId, const QString _updateDate)
+bool DataProxy_SQLite::qslRecViaDirect(const int _qsoId, const QString &_updateDate)
 {
        //qDebug() << "DataProxy_SQLite::qslRecViaDirect" << endl;
     QSqlQuery query;
@@ -1096,7 +1096,7 @@ bool DataProxy_SQLite::qslRecViaDirect(const int _qsoId, const QString _updateDa
     return false;
 }
 
-bool DataProxy_SQLite::qslRecViaDirect(const int _qsoId, const QString _updateDate, const bool _queueSentQSL)
+bool DataProxy_SQLite::qslRecViaDirect(const int _qsoId, const QString &_updateDate, const bool _queueSentQSL)
 {
        //qDebug() << "DataProxy_SQLite::qslRecViaDirect: " << _updateDate << endl;
     QSqlQuery query;
@@ -1167,7 +1167,7 @@ bool DataProxy_SQLite::qslRecViaDirect(const int _qsoId, const QString _updateDa
 }
 
 
-bool DataProxy_SQLite::qslSentAsRequested(const int _qsoId, const QString _updateDate)
+bool DataProxy_SQLite::qslSentAsRequested(const int _qsoId, const QString &_updateDate)
 {
     //TODO: Add some protection to the data before modifying
        //qDebug() << "DataProxy_SQLite::qslSentAsRequested" << endl;
@@ -1192,7 +1192,7 @@ bool DataProxy_SQLite::qslSentAsRequested(const int _qsoId, const QString _updat
     return false;
 }
 
-bool DataProxy_SQLite::qslRecAsRequested(const int _qsoId, const QString _updateDate)
+bool DataProxy_SQLite::qslRecAsRequested(const int _qsoId, const QString &_updateDate)
 {
 //TODO: Add some protection to the data before modifying
        //qDebug() << "DataProxy_SQLite::qslRecAsRequested" << endl;
@@ -1217,7 +1217,7 @@ bool DataProxy_SQLite::qslRecAsRequested(const int _qsoId, const QString _update
     return false;
 }
 
-bool DataProxy_SQLite::setClubLogSent(const int _qsoId, const QString _st, const QString _updateDate)
+bool DataProxy_SQLite::setClubLogSent(const int _qsoId, const QString &_st, const QString &_updateDate)
 { // Updates the QSO with the ClubLog status & date
 
     QSqlQuery query;
@@ -1723,7 +1723,7 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
     //return QStringList();
 }
 
-QString DataProxy_SQLite::getNameFromQRZ(const QString _call)
+QString DataProxy_SQLite::getNameFromQRZ(const QString &_call)
 {
     if (_call.length() <= 0)
     {
@@ -1762,7 +1762,7 @@ QString DataProxy_SQLite::getNameFromQRZ(const QString _call)
     }
 }
 
-QString DataProxy_SQLite::getQTHFromQRZ(const QString _call)
+QString DataProxy_SQLite::getQTHFromQRZ(const QString &_call)
 {
     if (_call.length() <= 0)
     {
@@ -1799,7 +1799,7 @@ QString DataProxy_SQLite::getQTHFromQRZ(const QString _call)
 
 }
 
-QString DataProxy_SQLite::getLocatorFromQRZ(const QString _call)
+QString DataProxy_SQLite::getLocatorFromQRZ(const QString &_call)
 {
     if (_call.length() <= 0)
     {
@@ -1837,7 +1837,7 @@ QString DataProxy_SQLite::getLocatorFromQRZ(const QString _call)
 }
 
 
-QString DataProxy_SQLite::getIOTAFromQRZ(const QString _call)
+QString DataProxy_SQLite::getIOTAFromQRZ(const QString &_call)
 {
     if (_call.length() <= 0)
     {
@@ -1875,7 +1875,7 @@ QString DataProxy_SQLite::getIOTAFromQRZ(const QString _call)
 }
 
 
-QString DataProxy_SQLite::getQSLViaFromQRZ(const QString _call)
+QString DataProxy_SQLite::getQSLViaFromQRZ(const QString &_call)
 {
     if (_call.length() <= 0)
     {
@@ -1925,16 +1925,16 @@ bool DataProxy_SQLite::updateAwardWAZ()
     return db->updateAwardWAZTable();
 }
 
-bool DataProxy_SQLite::addQSOFromWSJTX(const QString _dxcall, const double _freq, const QString _mode,
-                                       const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
-                                       const QString _tx_power, const QString _comments, const QString _name, const QString _time_on,
-                                       const int _dxcc, const QString _opQrz, const QString _stQrz, const QString _myLoc, const int _logN)
+bool DataProxy_SQLite::addQSOFromWSJTX(const QString &_dxcall, const double _freq, const QString &_mode,
+                                       const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
+                                       const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on,
+                                       const int _dxcc, const QString &_opQrz, const QString &_stQrz, const QString &_myLoc, const int _logN)
 {
      //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << _dxcall << endl;
 
-    //void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, const quint64 _freq, const QString _mode,
-    //                                              const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
-    //                                              const QString _tx_power, const QString _comments, const QString _name, const QString _time_on)
+    //void MainWindow::slotWSJTXloggedQSO(const int _type, const QString &_dxcall, const quint64 _freq, const QString &_mode,
+    //                                              const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
+    //                                              const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on)
 
     //_qso format: Date/TimeOn/call/bandid/modeid/freq/dxgrid/timeOff/rsttx/rstrx/txpower/comments/name
 /*
@@ -2140,7 +2140,7 @@ bool DataProxy_SQLite::deleteQSO(const int _qsoId)
     }
 }
 
-int DataProxy_SQLite::isWorkedB4(const QString _qrz, const int _currentLog)
+int DataProxy_SQLite::isWorkedB4(const QString &_qrz, const int _currentLog)
 {
        //qDebug() << "DataProxy_SQLite::isWorkedB4" << endl;
     //Returns the QSO id
@@ -2181,7 +2181,7 @@ int DataProxy_SQLite::isWorkedB4(const QString _qrz, const int _currentLog)
 
 }
 
-bool DataProxy_SQLite::isThisQSODuplicated(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode)
+bool DataProxy_SQLite::isThisQSODuplicated(const QString &_qrz, const QString &_date, const QString &_time, const int _band, const int _mode)
 {
       //qDebug() << "DataProxy_SQLite::isThisQSODuplicated" << endl;
     QSqlQuery query;
@@ -2222,7 +2222,7 @@ bool DataProxy_SQLite::isThisQSODuplicated(const QString _qrz, const QString _da
 }
 
 
-int DataProxy_SQLite::getDuplicatedQSOId(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode)
+int DataProxy_SQLite::getDuplicatedQSOId(const QString &_qrz, const QString &_date, const QString &_time, const int _band, const int _mode)
 {
        //qDebug() << "DataProxy_SQLite::isThisQSODuplicated" << endl;
      QSqlQuery query;
@@ -2429,7 +2429,7 @@ bool DataProxy_SQLite::unMarkAllQSO()
     return db->unMarkAllQSO();
 }
 
-bool DataProxy_SQLite::lotwSentQueue(const QString _updateDate, const int _currentLog)
+bool DataProxy_SQLite::lotwSentQueue(const QString &_updateDate, const int _currentLog)
 {// Mark LOTW QSL SENT as Q (Queued)
     // If currentLog <0 ALL the QSO of the log will be queued
 
@@ -2461,7 +2461,7 @@ bool DataProxy_SQLite::lotwSentQueue(const QString _updateDate, const int _curre
     return false;
 }
 
-bool DataProxy_SQLite::lotwSentYes(const QString _updateDate, const int _currentLog, const QString _station)
+bool DataProxy_SQLite::lotwSentYes(const QString &_updateDate, const int _currentLog, const QString &_station)
 {// Mark LOTW QSL SENT as Q (Queued)
     // If currentLog <0 ALL the QSO of the log will be queued
 
@@ -3197,7 +3197,7 @@ bool DataProxy_SQLite::clearSatList()
     }
 }
 
-bool DataProxy_SQLite::addSatellite(const QString _arrlId, const QString _name, const QString _downLink, const QString _upLink, const QString _mode, int id)
+bool DataProxy_SQLite::addSatellite(const QString &_arrlId, const QString &_name, const QString &_downLink, const QString &_upLink, const QString &_mode, int id)
 {
     //qDebug()  << "DataProxy_SQLite::addSatellite: " << QString::number(id)  << endl;
     QSqlQuery query;
@@ -3242,7 +3242,7 @@ bool DataProxy_SQLite::addSatellite(const QString _arrlId, const QString _name, 
 
 }
 
-int DataProxy_SQLite::getDBSatId(const QString _arrlId)
+int DataProxy_SQLite::getDBSatId(const QString &_arrlId)
 {
     //qDebug()  << "DataProxy_SQLite::getDBSatId: " << _sat << endl;
  int aux = -1;
@@ -3315,7 +3315,7 @@ QStringList DataProxy_SQLite::getSatellitesList()
 }
 
 
-QString DataProxy_SQLite::getSatelliteUplink(const QString _sat)
+QString DataProxy_SQLite::getSatelliteUplink(const QString &_sat)
 {
        //qDebug()  << "DataProxy_SQLite::getSatelliteUplink: " << _sat << endl;
     QString aux = QString();
@@ -3355,7 +3355,7 @@ QString DataProxy_SQLite::getSatelliteUplink(const QString _sat)
 }
 
 
-QString DataProxy_SQLite::getSatelliteDownlink(const QString _sat)
+QString DataProxy_SQLite::getSatelliteDownlink(const QString &_sat)
 {
        //qDebug()  << "DataProxy_SQLite::getSatelliteDownlink: " << _sat << endl;
     QString aux = QString();
@@ -3395,7 +3395,7 @@ QString DataProxy_SQLite::getSatelliteDownlink(const QString _sat)
     return aux;
 }
 
-QString DataProxy_SQLite::getSatelliteMode(const QString _sat)
+QString DataProxy_SQLite::getSatelliteMode(const QString &_sat)
 {
 
     QString aux = QString();
@@ -3438,7 +3438,7 @@ QString DataProxy_SQLite::getSatelliteMode(const QString _sat)
     return aux;
 }
 
-QString DataProxy_SQLite::getSatelliteFullUplink(const QString _sat)
+QString DataProxy_SQLite::getSatelliteFullUplink(const QString &_sat)
 {
     //qDebug()  << "DataProxy_SQLite::getSatelliteFullUplink: " << _sat << endl;
  QString aux = QString();
@@ -3476,7 +3476,7 @@ QString DataProxy_SQLite::getSatelliteFullUplink(const QString _sat)
  return aux;
 }
 
-QString DataProxy_SQLite::getSatelliteFullDownlink(const QString _sat)
+QString DataProxy_SQLite::getSatelliteFullDownlink(const QString &_sat)
 {
     //qDebug()  << "DataProxy_SQLite::getSatelliteFullDownlink: " << _sat << endl;
  QString aux = QString();
@@ -3516,7 +3516,7 @@ QString DataProxy_SQLite::getSatelliteFullDownlink(const QString _sat)
 
 }
 
-QString DataProxy_SQLite::getSatelliteFullMode(const QString _sat)
+QString DataProxy_SQLite::getSatelliteFullMode(const QString &_sat)
 {
 
     QString aux = QString();
@@ -3554,7 +3554,7 @@ QString DataProxy_SQLite::getSatelliteFullMode(const QString _sat)
     return aux;
 }
 
-QString DataProxy_SQLite::getSatelliteName(const QString _sat)
+QString DataProxy_SQLite::getSatelliteName(const QString &_sat)
 {
     //qDebug()  << "DataProxy_SQLite::getSatelliteName: " << _sat << endl;
  QString aux = QString();
@@ -4037,7 +4037,7 @@ QStringList DataProxy_SQLite::getColumnNamesFromTableLog()
     return getColumnNamesFromTable("log");
 }
 
-QStringList DataProxy_SQLite::getColumnNamesFromTable(const QString _tableName)
+QStringList DataProxy_SQLite::getColumnNamesFromTable(const QString &_tableName)
 {
      //qDebug() << "DataProxy_SQLite::getColumnNamesFromTable" << endl;
     return db->getColumnNamesFromTable(_tableName);
@@ -4762,7 +4762,7 @@ QStringList DataProxy_SQLite::getDataFromContestType(const int _n)
     }
 }
 
-int DataProxy_SQLite::getLogTypeNumber(const QString _logType)
+int DataProxy_SQLite::getLogTypeNumber(const QString &_logType)
 {
     return db->getLogTypeNumber(_logType);
 }
@@ -5071,7 +5071,7 @@ int DataProxy_SQLite::getHowManyQSLSentInLog(const int _log)
     }
 }
 
-int DataProxy_SQLite::getQSOsWithContinent(const QString _cont, const int _logNumber)
+int DataProxy_SQLite::getQSOsWithContinent(const QString &_cont, const int _logNumber)
 {
      //qDebug() << "DataProxy_SQLite::getQSOsWithContinent: " << _cont << endl;
     QSqlQuery query;
@@ -5117,7 +5117,7 @@ int DataProxy_SQLite::getQSOsWithContinent(const QString _cont, const int _logNu
     }
 }
 
-int DataProxy_SQLite::getQSOsInBand(const QString _band, const int _log)
+int DataProxy_SQLite::getQSOsInBand(const QString &_band, const int _log)
 {
     if (!doesThisLogExist(_log) && (_log>0))
     {
@@ -5165,7 +5165,7 @@ int DataProxy_SQLite::getQSOsInBand(const QString _band, const int _log)
     }
 }
 
-int DataProxy_SQLite::getQSOsInMode(const QString _mode, const int _log)
+int DataProxy_SQLite::getQSOsInMode(const QString &_mode, const int _log)
 {
     if (!doesThisLogExist(_log) && (_log>0))
     {
@@ -5368,7 +5368,7 @@ bool DataProxy_SQLite::doesThisLogExist(const int _log)
 }
 
 
-int DataProxy_SQLite::getContinentIdFromContinentShortName(const QString _n)
+int DataProxy_SQLite::getContinentIdFromContinentShortName(const QString &_n)
 {
 
     if (_n.length()!=2)
@@ -5496,7 +5496,7 @@ QStringList DataProxy_SQLite::getContinentShortNames()
     //return QStringList();
 }
 
-bool DataProxy_SQLite::isValidContinentShortName(const QString _n)
+bool DataProxy_SQLite::isValidContinentShortName(const QString &_n)
 {
     QString queryString = QString("SELECT id FROM continent WHERE shortname ='%1'").arg(_n);
     QSqlQuery query;
@@ -5532,7 +5532,7 @@ bool DataProxy_SQLite::isValidContinentShortName(const QString _n)
     }
 }
 
-int DataProxy_SQLite::getITUzFromPrefix(const QString _p)
+int DataProxy_SQLite::getITUzFromPrefix(const QString &_p)
 {
     QSqlQuery query;
     QString queryString = QString("SELECT ituz FROM prefixesofentity WHERE prefix LIKE '%1'").arg(_p);
@@ -5562,7 +5562,7 @@ int DataProxy_SQLite::getITUzFromPrefix(const QString _p)
 
 }
 
-int DataProxy_SQLite::getCQzFromPrefix(const QString _p)
+int DataProxy_SQLite::getCQzFromPrefix(const QString &_p)
 {
     QSqlQuery query;
     QString queryString = QString("SELECT cqz FROM prefixesofentity WHERE prefix LIKE '%1'").arg(_p);
@@ -5721,7 +5721,7 @@ QString DataProxy_SQLite::getEntityNameFromId(const int _n)
     //return QString();
 }
 
-int DataProxy_SQLite::getEntityIdFromName(const QString _e)
+int DataProxy_SQLite::getEntityIdFromName(const QString &_e)
 {
   //qDebug() << "DataProxy_SQLite::getEntityIdFromName:" << _e << endl;
 
@@ -5800,7 +5800,7 @@ QString DataProxy_SQLite::getEntityMainPrefix(const int _entityN)
     //return QString();
 }
 
-int DataProxy_SQLite::getDXCCFromPrefix(const QString _p)
+int DataProxy_SQLite::getDXCCFromPrefix(const QString &_p)
 {
        //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix(: -" << _p << "-" << endl;
 
@@ -6305,7 +6305,7 @@ QString DataProxy_SQLite::getISOName(const int _n)
     //return "un"; // When no flag is known, we return the UN flag
 }
 
-void DataProxy_SQLite::getFoundInLog(const QString _txt, const int _log)
+void DataProxy_SQLite::getFoundInLog(const QString &_txt, const int _log)
 {
        //qDebug()  << "DataProxy_SQLite::getFoundInLog: " << _txt << "/" << QString::number(_log)  << endl;
 /*
@@ -6414,7 +6414,7 @@ void DataProxy_SQLite::getFoundInLog(const QString _txt, const int _log)
     */
 }
 /*
-bool DataProxy_SQLite::queryPrepare(const QString _query)
+bool DataProxy_SQLite::queryPrepare(const QString &_query)
 {
      //qDebug()  << "DataProxy_SQLite::queryPrepare: " << _query << endl;
     //return preparedQuery.prepare( _query );
@@ -6424,7 +6424,7 @@ bool DataProxy_SQLite::queryPrepare(const QString _query)
     return true;
 }
 
-bool DataProxy_SQLite::queryBind(const QString _field, const QString value)
+bool DataProxy_SQLite::queryBind(const QString &_field, const QString &value)
 {
      //qDebug()  << "DataProxy_SQLite::queryBind: " << _field << "/" << value << endl;
     //preparedQuery.bindValue( _field, value );
@@ -6454,7 +6454,7 @@ bool DataProxy_SQLite::queryExec()
 }
 */
 
-int DataProxy_SQLite::getPrefixId(const QString _qrz)
+int DataProxy_SQLite::getPrefixId(const QString &_qrz)
 {
      //qDebug() << "DataProxy_SQLite::getPrefixId: -" << _qrz <<"-" << endl;
     //TODO: Instead of going from long to short, identify prefixes from the begining:
@@ -6483,7 +6483,7 @@ int DataProxy_SQLite::getPrefixId(const QString _qrz)
     return entityID;
 }
 
-QString DataProxy_SQLite::changeSlashAndFindPrefix(const QString _qrz)
+QString DataProxy_SQLite::changeSlashAndFindPrefix(const QString &_qrz)
 {
      //qDebug() << "DataProxy_SQLite::changeSlashAndFindPrefix: -"  << _qrz <<"-" << endl;
     int iaux1, iaux2;

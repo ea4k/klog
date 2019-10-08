@@ -43,9 +43,9 @@ public:
     Contest(const QStringList _qs);
     ~Contest();
 
-    virtual bool isMultiplier(const QStringList _qs);
-    virtual int getQSOPoints(const QStringList _qs);
-    virtual bool saveFileToSend(const QString& _fileName);
+    virtual bool isMultiplier(const QStringList &_qs);
+    virtual int getQSOPoints(const QStringList &_qs);
+    virtual bool saveFileToSend(const QString &_fileName);
     virtual int getTotalScore();
     virtual int getMultipliers();
     virtual int getPoints();

@@ -38,7 +38,7 @@
 #include "setupdialog.h"
 //#include "helpaboutdialog.h"
 #include "aboutdialog.h"
-//#include "tipsdialog.h"
+#include "tipsdialog.h"
 #include "world.h"
 #include "filemanager.h"
 #include "contest.h"
@@ -68,6 +68,7 @@
 #include "statisticswidget.h"
 #include "updatesatsdata.h"
 #include "hamlibclass.h"
+#include "worldmapwidget.h"
 
 
 
@@ -127,7 +128,8 @@ class MainWindow : public  QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(const QString _klogDir, const QString tversion);
+    MainWindow(const QString &_klogDir, const QString &tversion);
+
      ~MainWindow();
 
 private slots:
@@ -171,7 +173,7 @@ private slots:
     void slotQSODelete(const int _id);
 
     void slotShowAwards();
-    void slotUpdateStatusBar(const QString statusm);
+    void slotUpdateStatusBar(const QString &statusm);
 
     void slotSetup(const int _page=0);
 
@@ -187,7 +189,7 @@ private slots:
     //void slotQSLViaTextChanged();
     void slotTimeOutInfoBars(); // Clears the infoLabels when the timeout emits the signal
 
-    void slotSetPropMode(const QString _p);
+    void slotSetPropMode(const QString &_p);
     void slotFillEmptyDXCCInTheLog();
     void slotUpdateCTYDAT();
     void slotUpdateSATSDAT();
@@ -203,7 +205,7 @@ private slots:
 
     void newFile();
     void openFile();
-    bool saveFile(const QString _fileName);
+    bool saveFile(const QString &_fileName);
     bool saveFileAs();
     bool slotOpenKLogFolder();
 
@@ -232,7 +234,7 @@ private slots:
 
     // CLUSTER
     //CLUBLOG
-    void slotElogClubLogShowMessage(const QString _s);
+    void slotElogClubLogShowMessage(const QString &_s);
     void slotElogClubLogProcessAnswer(const int _i, const int _qID);
     void slotElogClubLogDisable(const bool _b);
     //CLUBLOG
@@ -249,36 +251,39 @@ private slots:
 
     //HAMLIB
     void slotHamlibTXFreqChanged(const double _f);
-    void slotHamlibModeChanged(const QString _m);
+    void slotHamlibModeChanged(const QString &_m);
+
+    // WORLD MAP
+    void slotWorldMapShow();
 
     //DXCCWIDGET
     void slotShowQSOFromDXCCWidget(const int _q);
     void slotShowQSOsFromDXCCWidget(QList<int> _qsos);
 
     //UDP Server (WXJT-x)
-    void slotWSJXstatusFromUDPServer(const int _type, const QString _dxcall, const double _freq, const QString _mode,
-                                 const QString _report, const QString _de_call, const QString _de_grid,
-                                 const QString _dx_grid, const QString _sub_mode);
+    void slotWSJXstatusFromUDPServer(const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
+                                 const QString &_report, const QString &_de_call, const QString &_de_grid,
+                                 const QString &_dx_grid, const QString &_sub_mode);
 
 
 
-    void slotWSJTXloggedQSO(const int _type, const QString _dxcall, const double _freq, const QString _mode,
-                             const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
-                             const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const QString _de_call, const QString _de_grid);
+    void slotWSJTXloggedQSO(const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
+                             const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
+                             const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on, const QString &_de_call, const QString &_de_grid);
 
-    void slotCaptureDebugLogs(const QString _func, const QString _msg, const int _level=7);
+    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level=7);
 private:
     bool maybeSave();
-    void logEvent(const QString _func, const QString _msg, const int _level=7);
+    void logEvent(const QString &_func, const QString &_msg, const int _level=7);
     void setSeverity(const int _sev);
-    void updateBandComboBox(const QString _band);
+    void updateBandComboBox(const QString &_band);
     UpdateSatsData *updateSatsData;
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
     HamLibClass *hamlib;
     bool hamlibActive;
     //</UPDATE CTY.DAT>
-
+    WorldMapWidget *worldMapWidget;
     void createStatusBar();
     void createUI();
     void createUICQWW();
@@ -302,7 +307,7 @@ private:
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);
 
-    bool validCharactersInCall(const QString _qrz); // Looks for SQLi and no valid chars in the QRZ
+    bool validCharactersInCall(const QString &_qrz); // Looks for SQLi and no valid chars in the QRZ
     QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
     QString readDataFromUIDX();
     QString readDataFromUIDXModifying();
@@ -313,7 +318,7 @@ private:
     void setAwardDXCC(const int _qsoId, bool modifying); // Adds or modify the status of a DXCC entity
     // data << dxcc(id) << band(id) << mode(id) << confirmed(0/1) << qsoid(id) << modify(0/1);
 
-    void checkIfWorkedB4(const QString _qrz);
+    void checkIfWorkedB4(const QString &_qrz);
     bool checkContest();    
     void showStatusOfDXCC(const QStringList _qs);
     void showDXMarathonNeeded(const int _dxcc, const int _cqz, const int _year, const int _log);
@@ -321,7 +326,7 @@ private:
     bool createConnection();
     void createData();
     void openSetup(const int _page=0);
-    bool processConfigLine(const QString _line);
+    bool processConfigLine(const QString &_line);
     void readConfigData();    
     void defineStationCallsign();
     QString selectStationCallsign();
@@ -331,23 +336,23 @@ private:
     void selectDefaultMode();
     void readActiveBands (const QStringList actives);
     void readActiveModes (const QStringList actives);
-    bool checkIfNewMode(const QString _mode);
-    void addNewValidMode(const QString _mode);
+    bool checkIfNewMode(const QString &_mode);
+    void addNewValidMode(const QString &_mode);
 
     void qsoToEdit (const int _qso);
     void setModifying(const bool _m);
 
-    void completeWithPreviousQSO(const QString _call);
+    void completeWithPreviousQSO(const QString &_call);
 
     void showAwards();
     void showDXMarathon(const int _year);
     void updateQSLRecAndSent();
     double checkFreqRanges(double _f);
-    void setRSTToMode(const QString _m);
+    void setRSTToMode(const QString &_m);
 
 
     // CLUSTER
-    void clusterSpotToLog(const QString _call, const QString _freq);
+    void clusterSpotToLog(const QString &_call, const QString &_freq);
     QStringList dxclusterServersList;
     QString dxclusterServerToConnect;
     int dxclusterServerPort;
@@ -366,7 +371,7 @@ private:
     //HelpHelpDialog *helpHelpDialog;
     //HelpAboutDialog *helpAboutDialog;
     AboutDialog *aboutDialog;
-   // TipsDialog *tipsDialog;
+    TipsDialog *tipsDialog;
 
 
     QPushButton *addButton;
@@ -464,6 +469,8 @@ private:
 */
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
+
+    QAction *showWorldMapAct;
 
     //QAction *delQSOFromSearchAct;
     //QAction *qsoToEditFromSearchAct;

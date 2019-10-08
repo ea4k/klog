@@ -28,7 +28,7 @@
 
 //#include <QDebug>
 
-Awards::Awards(DataProxy *dp, const QString _parentFunction)
+Awards::Awards(DataProxy *dp, const QString &_parentFunction)
 {
     //qDebug() << "Awards::Awards- from: " << _parentFunction << endl;
     dataProxy = dp;
@@ -306,7 +306,7 @@ int Awards::getWAZConfirmed(const int _logNumber)
 
 }
 
-bool Awards::isThisSpotConfirmed(const QStringList _qs)
+bool Awards::isThisSpotConfirmed(const QStringList &_qs)
 {
 
     if (getDXStatus(_qs) == 13)
@@ -320,7 +320,7 @@ bool Awards::isThisSpotConfirmed(const QStringList _qs)
 
 }
 
-int Awards::getDXStatus (const QStringList _qs)
+int Awards::getDXStatus (const QStringList &_qs)
 {
 
      //qDebug() << "Awards::getDXStatus: Entity: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
@@ -415,7 +415,7 @@ int Awards::getDXStatus (const QStringList _qs)
     case 0:
          //qDebug() << "Awards::getDXStatus: return 0" << endl;
         return 0;                   // ATNO
-        break;
+        //break;
     case 1:                         // Worked, not confirmed
         switch (wb)
         {
@@ -670,7 +670,7 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
 
 
 
-QColor Awards::getQRZDXStatusColor(const QStringList _qs)
+QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
 {
     //qs << Entity << spotBand << "-1" << QString::number(currentLog) ;
 
@@ -750,7 +750,7 @@ QColor Awards::getQRZDXStatusColor(const QStringList _qs)
     return returnedColor;
 }
 
-QString Awards::getDXStatusString (const int _status)
+QString Awards::getDXStatusString (const int &_status)
 {
 
      //qDebug() << "Awards::getDXStatusString: " << QString::number(_status) << endl;
@@ -860,7 +860,7 @@ QString Awards::getDXCCStatusBand(const int _dxcc, const int _band, const int _l
 }
 
 
-QString Awards::checkIfValidIOTA(const QString _tiota)
+QString Awards::checkIfValidIOTA(const QString &_tiota)
 {
 /**********************************
   IOTA should be always with this format: CC-NNN
@@ -968,7 +968,7 @@ Returns a valid format IOTA if possible and "" in other cases.
 }
 
 
-void Awards::setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default)
+void Awards::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
 //void Awards::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
 {
      //qDebug() << "Awards::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << endl;

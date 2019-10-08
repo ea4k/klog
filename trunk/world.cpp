@@ -35,7 +35,7 @@ To insert a (key, value) pair into the hash, you can use operator[]():
  hash["EA8"] = 132;
 
 */
-World::World(DataProxy *dp, const QString _parentFunction)
+World::World(DataProxy *dp, const QString &_parentFunction)
 {
      //qDebug() << "World::World(0)" << _parentFunction << endl;
     constrid = 1;
@@ -43,6 +43,13 @@ World::World(DataProxy *dp, const QString _parentFunction)
     worldModel = new QSqlRelationalTableModel(this);
     numberOfEntities = 0;
     progressBarPosition = 0;
+    cqz = -1;
+    ituz = -1;
+    ret = false;
+    continentId = -1;
+    lat = 0.0;
+    lon = 0.0;
+    utc = 0.0;
     klogDir = "";
     kontestVersion = "";
     locator = new Locator();
@@ -52,7 +59,7 @@ World::World(DataProxy *dp, const QString _parentFunction)
      //qDebug() << "World::World(0) - END" << endl;
 }
 
-World::World(DataProxy *dp, const QString _klogDir, const QString _parentFunction)
+World::World(DataProxy *dp, const QString &_klogDir, const QString &_parentFunction)
 {
      //qDebug() << "World::World(1): Dir" << _klogDir << _parentFunction << endl;
     constrid = 2;
@@ -62,6 +69,13 @@ World::World(DataProxy *dp, const QString _klogDir, const QString _parentFunctio
     numberOfEntities = 0;
     progressBarPosition = 0;
     created = false;
+    cqz = -1;
+    ituz = -1;
+    ret = false;
+    continentId = -1;
+    lat = 0.0;
+    lon = 0.0;
+    utc = 0.0;
     //flagsDir=":/flags/";
     locator = new Locator();
     dataProxy = dp;
@@ -69,7 +83,7 @@ World::World(DataProxy *dp, const QString _klogDir, const QString _parentFunctio
 
 }
 
-World::World(DataProxy *dp, const QString _klogDir, const QString _kontestVer, const QString _parentFunction)
+World::World(DataProxy *dp, const QString &_klogDir, const QString &_kontestVer, const QString &_parentFunction)
 {
      //qDebug() << "World::World(2): Dir" << _klogDir << _parentFunction << endl;
     constrid = 3;
@@ -80,6 +94,13 @@ World::World(DataProxy *dp, const QString _klogDir, const QString _kontestVer, c
     numberOfEntities = 0;
     progressBarPosition = 0;
     created = false;
+    cqz = -1;
+    ituz = -1;
+    ret = false;
+    continentId = -1;
+    lat = 0.0;
+    lon = 0.0;
+    utc = 0.0;
     //appDir = QString();
     //flagsDir=":/flags/";
     //qDebug() << "World::World(2): 2" << endl;
@@ -96,7 +117,7 @@ World::~World()
 }
 
 
-bool World::recreate(const QString _worldFile)
+bool World::recreate(const QString &_worldFile)
 {
    //qDebug() << "World::recreate: " << _worldFile << endl;
 
@@ -123,10 +144,10 @@ bool World::recreate(const QString _worldFile)
         return false;
     }
    //qDebug() << "World::recreate: END..."  << endl;
-    return false;
+    //return false;
 }
 
-bool World::create(const QString _worldFile)
+bool World::create(const QString &_worldFile)
 {
      //qDebug() << "World::create: " << _worldFile << endl;
     //klogDir = _worldFile;
@@ -174,7 +195,7 @@ void World::createWorldModel()
 
 }
 
-QStringList World::processLine(const QString _line)
+QStringList World::processLine(const QString &_line)
 {
 
      //qDebug() << "World::processLine: received: " << _line << endl;
@@ -208,6 +229,7 @@ QStringList World::processLine(const QString _line)
         lat = list[4].toDouble();
         lon = list[5].toDouble();
         utc  = ((list[6]).simplified()).toDouble();
+        //utc  = ((list[6]).simplified()).toInt();
         prefix = list[7];
         currentPrefix = prefix;
 
@@ -226,11 +248,10 @@ QStringList World::processLine(const QString _line)
 
         //queryString = QString("INSERT INTO entity (id, name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix) VALUES (NULL,'%1','%2','%3','%4','%5','%6','%7','%8','%9');\n").arg(entityName).arg(cqz).arg(ituz).arg(QString::number(continentId)).arg(lat).arg(lon).arg(utc).arg(numberOfEntities).arg(prefix);
         aa << entityName << QString::number(cqz) << QString::number(ituz) <<QString::number(continentId) << QString::number(lat) << QString::number(lon) << QString::number(utc) << QString::number(numberOfEntities) << prefix;
-
+        progressBarPosition++;
         return aa;
         //ret = query.exec(queryString);
 
-        progressBarPosition++;
     }
     aa.clear();
     return aa;
@@ -239,7 +260,7 @@ QStringList World::processLine(const QString _line)
 
 
 
-QStringList World::processLineP(const QString _line, const int _processingEntity){
+QStringList World::processLineP(const QString &_line, const int _processingEntity){
     //Returns QStringList: prefix << dxcc << cqz << ituz OR CurrentEntity as a number
 
      //qDebug() << "World::processLineP: Entity/received: " << QString::number(_processingEntity) << "/" << _line << endl;
@@ -247,8 +268,8 @@ QStringList World::processLineP(const QString _line, const int _processingEntity
     QString line;
     int currentEntity = _processingEntity;
     int _cqz, _ituz;
-    _cqz = 0;
-    _ituz = 0;
+    //_cqz = 0;
+    //_ituz = 0;
     line = (_line).simplified();
 
 
@@ -404,7 +425,7 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
 
 }
 
-int World::getPrefixId(const QString _qrz)
+int World::getPrefixId(const QString &_qrz)
 {
      //qDebug() << "World::getPrefixId: -" << _qrz <<"-" << endl;
     //TODO: Instead of going from long to short, identify prefixes from the begining:
@@ -433,7 +454,7 @@ int World::getPrefixId(const QString _qrz)
     return entityID;
 }
 
-QString World::getQRZEntityName(const QString _qrz)
+QString World::getQRZEntityName(const QString &_qrz)
 {
       //qDebug() << "World::getQRZEntityName: " << _qrz << endl;
     if (_qrz.length() < 1 )
@@ -506,7 +527,7 @@ QString World::getEntityName(const int _entityN)
 */
 }
 
-int World::getQRZCqz(const QString _qrz)
+int World::getQRZCqz(const QString &_qrz)
 {
       //qDebug() << "World::getQRZCqz: " << _qrz << endl;
 
@@ -535,7 +556,7 @@ int World::getQRZCqz(const QString _qrz)
 
 }
 
-int World::getQRZItuz(const QString _qrz)
+int World::getQRZItuz(const QString &_qrz)
 {
      //qDebug() << "World::getQRZItuz: " << _qrz << endl;
     if (_qrz.length() < 1 )
@@ -614,7 +635,7 @@ int World::getEntityItuz(const int _enti)
 */
 }
 
-int World::getQRZARRLId(const QString _qrz)
+int World::getQRZARRLId(const QString &_qrz)
 {
       //qDebug() << "World::getQRZARRLId" << _qrz << endl;
 
@@ -628,7 +649,7 @@ int World::getQRZARRLId(const QString _qrz)
 
 }
 
-QString World::getQRZEntityMainPrefix(const QString _qrz)
+QString World::getQRZEntityMainPrefix(const QString &_qrz)
 {
     if (_qrz.length() < 1 )
     {
@@ -762,7 +783,7 @@ bool World::isNewEntity(const int _entityN)
 */
 }
 
-QString World::getQRZContinentShortName(const QString _qrz)
+QString World::getQRZContinentShortName(const QString &_qrz)
 {
       //qDebug() << "World::getQRZContinentShortName: " << _qrz << endl;
     //QString continentNumber = getQRZContinentNumber (_qrz);
@@ -818,7 +839,7 @@ QString World::getContinentShortName(const int _enti)
 */
 }
 
-QString World::getQRZContinentNumber(const QString _qrz)
+QString World::getQRZContinentNumber(const QString &_qrz)
 {
      //qDebug() << "World::getQRZContinentNumber: " << _qrz << endl;
 
@@ -912,7 +933,7 @@ int World::getContinentNumber(const int _enti)
 */
 }
 
-double World::getQRZLongitude(const QString _qrz)
+double World::getQRZLongitude(const QString &_qrz)
 {
 
     int i = getQRZARRLId(_qrz);
@@ -984,7 +1005,7 @@ double World::getLongitude(const int _enti)
 */
 }
 
-double World::getQRZLatitude(const QString _qrz)
+double World::getQRZLatitude(const QString &_qrz)
 {
 
     int i = getQRZARRLId(_qrz);
@@ -1052,7 +1073,7 @@ double World::getLatitude(const int _enti)
 */
 }
 
-QString World::getQRZLocator(const QString _qrz)
+QString World::getQRZLocator(const QString &_qrz)
 {
     if (_qrz.length() < 1)
     {
@@ -1061,13 +1082,13 @@ QString World::getQRZLocator(const QString _qrz)
     return locator->getLocator(getQRZLongitude(_qrz), getQRZLatitude(_qrz));
 }
 
-QString World::getLocator(const int _enti)
+QString World::getLocator(const int _entityN)
 {
-    if (_enti <= 0)
+    if (_entityN <= 0)
     {
         return "";
     }
-    return locator->getLocator(getLongitude(_enti), getLatitude(_enti));
+    return locator->getLocator(getLongitude(_entityN), getLatitude(_entityN));
 }
 
 /*
@@ -1109,7 +1130,7 @@ int World::getBandIdFromFreq(const QString fr)
 
 
 
-QString World::getQRZEntityPrefixes(const QString _qrz)
+QString World::getQRZEntityPrefixes(const QString &_qrz)
 {
 
     int i = getQRZARRLId(_qrz);
@@ -1153,14 +1174,14 @@ QString World::getQRZEntityPrefixes(const QString _qrz)
 */
 }
 
-bool World::readCTYCSV(const QString _worldFile)
+bool World::readCTYCSV(const QString &_worldFile)
 {
    //qDebug() << "World::readCTYCSV(): " << _worldFile << endl;
 
     QString tq;
     tq.clear();
     QString entityNumber;
-    entityNumber = "-1";
+    //entityNumber = "-1";
     QString fileName;
     qint64 beginingOfFile;
     int numberOfLines = 0;
@@ -1211,7 +1232,7 @@ bool World::readCTYCSV(const QString _worldFile)
     QStringList stringList, stringListPrefixes, stringListProcessedPrefix;
 
     int entN;
-    entN = -1;
+    //entN = -1;
 
     while (!file.atEnd()) {
         progress.setValue(progressBarPosition);
@@ -1243,7 +1264,7 @@ bool World::readCTYCSV(const QString _worldFile)
         { // This is a special Entity. Not really an ARRL Entity but interesting for the DXer.
           // From http://www.country-files.com/cty-dat-format
           // (A “*” preceding this prefix indicates that the country is on the DARC WAEDC list, and counts in CQ-sponsored contests, but not ARRL-sponsored contests).
-            entN = -1;
+            //entN = -1;
             entN = (stringList.at(2)).toInt() + 1000;
 
             while ( (dataProxy->getEntityMainPrefix(entN)).size()>0  )
@@ -1396,10 +1417,10 @@ bool World::readCTYCSV(const QString _worldFile)
 
 }
 
-QString World::changeSlashAndFindPrefix(const QString _qrz)
+QString World::changeSlashAndFindPrefix(const QString &_qrz)
 {
      //qDebug() << "World::changeSlashAndFindPrefix: -"  << _qrz <<"-" << endl;
-    int iaux1, iaux2;
+
 
     QString aux = _qrz.toUpper();
 
@@ -1414,6 +1435,7 @@ QString World::changeSlashAndFindPrefix(const QString _qrz)
 
     if (aux.count('/')) // / found! Checking different options
     {
+        int iaux1, iaux2;
 
         if (aux.endsWith("/") )
         { // We look for calls ending in slash "/" or "\"
@@ -1439,7 +1461,7 @@ QString World::changeSlashAndFindPrefix(const QString _qrz)
 }
 
 
-bool World::checkQRZValidFormat(const QString _qrz)
+bool World::checkQRZValidFormat(const QString &_qrz)
 {
       //qDebug()  << "World::checkQRZValidFormat: -" << _qrz <<"-" << endl;
 
@@ -1455,14 +1477,14 @@ bool World::checkQRZValidFormat(const QString _qrz)
     //bool prefixEnded = false;
     //int callLength = _qrz.length();
 
-    int sepPos = 0;
+    //int sepPos = 0;
 
 
     int barPos = aux.indexOf('/');
 
-    QString prefix = QString();
-    QString suffix = QString();
-    QString separator = QString();
+    //QString prefix = QString();
+    //QString suffix = QString();
+    //QString separator = QString();
     // If barPos > 0 we have a complex call like F/EA4TV
 
     QCharRef c = aux[aux.length()-1];
@@ -1472,20 +1494,20 @@ bool World::checkQRZValidFormat(const QString _qrz)
         return false;
     }
 
-    prefix = prefix + aux.at(0);
+    //prefix = prefix + aux.at(0);
 
     if ( ( aux.at(1) ).isDigit() )
     { // W3 A6
         if ((aux.at(2)).isDigit() )
         { // A60
-            prefix = prefix + aux.at(1);
-            separator = aux.at(2);
-            sepPos = 2;
+            //prefix = prefix + aux.at(1);
+            //separator = aux.at(2);
+            //sepPos = 2;
         }
         else
         { // W3A
-            separator = aux.at(1);
-            sepPos = 1;
+            //separator = aux.at(1);
+            //sepPos = 1;
         }
     }
     else
@@ -1494,28 +1516,28 @@ bool World::checkQRZValidFormat(const QString _qrz)
         if ((aux.at(2)).isDigit() )
         { // EA0
 
-            prefix = prefix + aux.at(1);
-            separator = aux.at(2);
-            sepPos = 2;
+            //prefix = prefix + aux.at(1);
+            //separator = aux.at(2);
+            //sepPos = 2;
 
         }
         else
         { // 3DA
             if (aux.length() < 4)
             {
-                prefix = prefix + aux.at(2);
+                //prefix = prefix + aux.at(2);
                 return false;
             }
 
             if ((aux.at(3)).isDigit())
             { // 3DA0
-                prefix = prefix + aux.at(1);
-                prefix = prefix + aux.at(2);
-                separator = aux.at(3);
-                sepPos = 3;
+                //prefix = prefix + aux.at(1);
+                //prefix = prefix + aux.at(2);
+                //separator = aux.at(3);
+                //sepPos = 3;
                 if (aux.length() < 5)
                 { // 3DA0
-                    prefix = prefix + aux.at(3);
+                    //prefix = prefix + aux.at(3);
                     return false;
                 }
             }
@@ -1526,10 +1548,12 @@ bool World::checkQRZValidFormat(const QString _qrz)
         }
     }
 
+    /*
     for (int i = sepPos+1; i < aux.length(); i++)
     {
         suffix = suffix + aux.at(i);
     }
+    */
       //qDebug()  << "World::checkQRZValidFormat: Prefix = " << prefix << endl;
       //qDebug()  << "World::checkQRZValidFormat: Separator = " << separator << endl;
       //qDebug()  << "World::checkQRZValidFormat: Suffix = " << suffix << endl;
