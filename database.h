@@ -66,49 +66,49 @@ class DataBase
 {
 
 public:
-    DataBase(const QString _parentClass, const QString _DBName);
+    DataBase(const QString &_parentClass, const QString &_DBName);
     //DataBase(const QString _softVersion, bool  inmemoryonly = false);
-    DataBase(const QString _parentClass, const QString _softVersion, const QString _DBName);
+    DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName);
     ~DataBase();
     QString getSoftVersion();
     QString getDBVersion();
     QString getDBName();
 
-    bool createConnection(const QString function, bool newDB=false);    // If true that means that we are creating the DB,
+    bool createConnection(const QString &function, bool newDB=false);    // If true that means that we are creating the DB,
                                                 // not just connecting to an existing one.
                                                 // That will be done in the default path
-    bool reConnect(const QString _DBName);
+    bool reConnect(const QString &_DBName);
     //bool setDir(const QString _dir);
-    QStringList getColumnNamesFromTable(const QString _tableName);
+    QStringList getColumnNamesFromTable(const QString &_tableName);
 
 
-    bool isValidBand (const QString b);
-    bool isValidMode (const QString b, const bool _tmp=false);
+    bool isValidBand (const QString &b);
+    bool isValidMode (const QString &b, const bool _tmp=false);
     bool isValidBandNumber (const int b);
     bool isValidModeNumber (const int b);
     QString getBandNameFromNumber(const int _n);
     QString getModeNameFromNumber(const int _n, bool _tmp=false);
     QString getSubModeNameFromNumber(const int _n, bool _tmp=false);
 
-    int getBandIdFromName(const QString b);
-    int getModeIdFromName(const QString b);
-    int getModeIdFromSubMode(const QString b);
+    int getBandIdFromName(const QString &b);
+    int getModeIdFromName(const QString &b);
+    int getModeIdFromSubMode(const QString &b);
 
     bool createBandModeMaps();
-    int getBandIDFromName2(const QString b);
-    int getModeIDFromName2(const QString b);
-    int getSubModeIDFromName2(const QString b);
+    int getBandIDFromName2(const QString &b);
+    int getModeIDFromName2(const QString &b);
+    int getSubModeIDFromName2(const QString &b);
 
     QString getBandNameFromID2(const int _i);
     QString getModeNameFromID2(const int _i);
     QString getSubModeNameFromID2(const int _i);
 
-    int getBandIdFromFreq(const QString fr); //Freq should be in MHz
-    bool isThisFreqInBand(const QString b, const QString fr); //Freq should be in MHz
+    int getBandIdFromFreq(const QString &fr); //Freq should be in MHz
+    bool isThisFreqInBand(const QString &b, const QString &fr); //Freq should be in MHz
 
     QString getFreqFromBandId(const int _i);
 
-    int getLogTypeNumber(const QString _logType);
+    int getLogTypeNumber(const QString &_logType);
     QString getLogTypeName(const int _logType);
 
     bool unMarkAllQSO();
@@ -118,26 +118,26 @@ public:
     bool updateTheEntityTableISONames();
     bool updateTableLogs();
 
-    bool queryAddField(const QString _field, const QString value);
+    //bool queryAddField(const QString &_field, const QString &value);
     //bool queryPrepare();
     //bool queryExec();
 
-    bool queryPrepare(const QString _query);
-    bool queryBind(const QString _field, const QString value);
+    //bool queryPrepare(const QString &_query);
+    //bool queryBind(const QString _field, const QString value);
     bool updateAwardDXCCTable();
     bool updateAwardWAZTable();
     int getNumberOfQsos(const int _logNumber);
 
 
 private:
-    bool beginTransaction();
-    bool commitTransaction();
-    bool execQuery(const QString function, const QString stringQuery);
+    //bool beginTransaction();
+    //bool commitTransaction();
+    bool execQuery(const QString &function, const QString &stringQuery);
 
     bool createDataBase();
     bool isTheDBCreated();
-    bool isTheTableExisting(const QString _tableName);
-    bool hasTheTableData(const QString _tableName);
+    bool isTheTableExisting(const QString &_tableName);
+    bool hasTheTableData(const QString &_tableName);
     bool updateToLatest();
     bool updateTo003(); // Updates the DB to 0.0.3
     bool updateTo004();

@@ -1,15 +1,4 @@
 #include "aboutdialog.h"
-//#include <QDebug>
-//#include "coreicons.h"
-
-//#include <app/app_version.h>
-//#include <coreplugin/coreicons.h>
-//#include <coreplugin/icore.h>
-//#include <utils/algorithm.h>
-//#include <utils/hostosinfo.h>
-//#include <utils/qtcassert.h>
-//#include <utils/utilsicons.h>
-
 #include <QDialogButtonBox>
 #include <QGridLayout>
 #include <QKeyEvent>
@@ -17,7 +6,7 @@
 #include <QPushButton>
 #include <QDebug>
 
-AboutDialog::AboutDialog(const QString tversion, QWidget *parent)
+AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     : QDialog(parent)
 {
     //qDebug() << "AboutDialog::AboutDialog" << endl;

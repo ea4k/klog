@@ -57,51 +57,51 @@ class World : public QWidget
     Q_OBJECT
 
 public:
-    World(DataProxy *dp, const QString _parentFunction);
-    World(DataProxy *dp, const QString _klogDir, const QString _parentFunction);
-    World(DataProxy *dp, const QString _klogDir, const QString _kontestVer, const QString _parentFunction);
+    World(DataProxy *dp, const QString &_parentFunction);
+    World(DataProxy *dp, const QString &_klogDir, const QString &_parentFunction);
+    World(DataProxy *dp, const QString &_klogDir, const QString &_kontestVer, const QString &_parentFunction);
 
     ~World();
-    bool create(const QString _worldFile);
-    bool recreate(const QString _worldFile);
+    bool create(const QString &_worldFile);
+    bool recreate(const QString &_worldFile);
 
-    QString getQRZEntityName(const QString _qrz);
+    QString getQRZEntityName(const QString &_qrz);
     QString getEntityName(const int _entityN);
 
-    QString getQRZEntityMainPrefix(const QString _qrz);
+    QString getQRZEntityMainPrefix(const QString &_qrz);
     QString getEntityMainPrefix(const int _entityN);
 
-    QString getQRZContinentNumber(const QString _qrz); // Returns the continent id number
+    QString getQRZContinentNumber(const QString &_qrz); // Returns the continent id number
     int getContinentNumber(const int _enti); // Returns the continent id number
 
-    QString getQRZContinentShortName(const QString _qrz); // Returns the continent shortName (EU, AF, ...)
+    QString getQRZContinentShortName(const QString &_qrz); // Returns the continent shortName (EU, AF, ...)
     QString getContinentShortName(const int _enti);
 
-    QString getQRZLocator(const QString _qrz); // Returns the entity locator
+    QString getQRZLocator(const QString &_qrz); // Returns the entity locator
     QString getLocator(const int _entityN); // Returns the entity locator
 
-    double getQRZLongitude(const QString _qrz); // Returns the longitude of the Entity
+    double getQRZLongitude(const QString &_qrz); // Returns the longitude of the Entity
     double getLongitude(const int _enti); // Returns the longitude of the Entity
 
-    double getQRZLatitude(const QString _qrz); // Returns the latitude of the Entity
+    double getQRZLatitude(const QString &_qrz); // Returns the latitude of the Entity
     double getLatitude(const int _enti); // Returns the latitude of the Entity
 
     int getEntityCqz(const int _enti);
-    int getQRZCqz(const QString _qrz);
+    int getQRZCqz(const QString &_qrz);
     //int getPrefixCQz(const QString _p);
 
-    int getQRZItuz(const QString _qrz);
+    int getQRZItuz(const QString &_qrz);
     int getEntityItuz(const int _enti);
 
-    int getQRZARRLId(const QString _qrz); //Returns the ARRL id of the Entity from a QRZ & Returns -1 if not found.
+    int getQRZARRLId(const QString &_qrz); //Returns the ARRL id of the Entity from a QRZ & Returns -1 if not found.
     bool isNewCQz(const int _cqz);
     bool isNewEntity(const int _entityN);
     //int getBandIdFromFreq(const QString fr);
 
-    QString getQRZEntityPrefixes(const QString _qrz);
+    QString getQRZEntityPrefixes(const QString &_qrz);
     QString getEntityPrefixes(const int _enti);
 
-    bool checkQRZValidFormat(const QString _qrz);
+    bool checkQRZValidFormat(const QString &_qrz);
 
     QStringList getEntitiesNames();
     int getHowManyEntities();
@@ -111,14 +111,14 @@ private slots:
 
 private:
     //void identifyOS();
-    int getPrefixId(const QString _qrz);
+    int getPrefixId(const QString &_qrz);
     //bool readCTYDAT();
-    bool readCTYCSV(const QString _worldFile);
-    QStringList processLine(const QString _line);
-    QStringList processLineP(const QString _line, const int _processingEntity);
+    bool readCTYCSV(const QString &_worldFile);
+    QStringList processLine(const QString &_line);
+    QStringList processLineP(const QString &_line, const int _processingEntity);
     void createWorldModel();
     QStringList readZones(const QString &pref, const int _cq, const int _itu);
-    QString changeSlashAndFindPrefix(const QString _qrz); // Changes the \ into / and find the country prefix
+    QString changeSlashAndFindPrefix(const QString &_qrz); // Changes the \ into / and find the country prefix
 
     int progressBarPosition;
 
@@ -133,6 +133,7 @@ private:
     QString continentName, prefix;
     int continentId;
     double lat, lon, utc;
+    //int utc;
     //QString line;
     //bool readingDataOfAnEntity;
     int nullValue;    

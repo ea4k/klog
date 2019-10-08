@@ -16,13 +16,13 @@
  *    the Free Software Foundation, either version 3 of the License, or      *
  *    (at your option) any later version.                                    *
  *                                                                           *
- *    KLog is distributed in the hope that it will be useful,             *
+ *    KLog is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -52,7 +52,7 @@ class Awards : public QObject {
     //friend class World;
 
 public:
-    Awards(DataProxy *dp, const QString _parentFunction);
+    Awards(DataProxy *dp, const QString &_parentFunction);
     ~Awards();
     void setAwards(const int _qsoId);
     void setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId);
@@ -75,20 +75,20 @@ public:
     int getQSOsInLog(const int _logNumber);
 
     bool getIsDXCCConfirmed(const int _dxcc, const int _logNumber);
-    bool isThisSpotConfirmed(const QStringList _qs);
+    bool isThisSpotConfirmed(const QStringList &_qs);
 
-    QString checkIfValidIOTA(const QString _tiota); //TODO: There is an equivalent function in the MainWindowInputOthers class. I should use only one!
+    QString checkIfValidIOTA(const QString &_tiota); //TODO: There is an equivalent function in the MainWindowInputOthers class. I should use only one!
 
     int getEntityDXStatus (const int _enti, const int _bandid, int _modeid = -1, int _log = -1);
     QString getQSOofAward (const int _enti, const int _bandid);
     int getQSOIdofAward (const int _enti, const int _bandid);
 
-    int getDXStatus (const QStringList _qs);
-    QString getDXStatusString (const int _status); // Needs to be called with the output of getDXStatus
+    int getDXStatus (const QStringList &_qs);
+    QString getDXStatusString (const int &_status); // Needs to be called with the output of getDXStatus
     QString getDXCCStatusBand(const int _dxcc, const int _band, const int _logNumber=0); // Returns -, W or C (Not worked, worked, Confirmed)
 
-    void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
-    QColor getQRZDXStatusColor(const QStringList _qs); // Receives Entity, band, mode & log
+    void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
+    QColor getQRZDXStatusColor(const QStringList &_qs); // Receives Entity, band, mode & log
     QColor getDefaultColor();
 
     int getDXMarathonQSO(const int _year, const int _logNumber);

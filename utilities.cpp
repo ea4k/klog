@@ -13,7 +13,7 @@ Utilities::~Utilities()
 
 }
 
-void Utilities::setVersion(const QString _v)
+void Utilities::setVersion(const QString &_v)
 {
      //qDebug() << "Utilities::setVersion: " << _v << endl;
     softwareVersion = _v;
@@ -63,7 +63,7 @@ int Utilities::getProgresStepForDialog(int totalSteps)
         return 50;
 }
 
-bool Utilities::trueOrFalse(const QString _s)
+bool Utilities::trueOrFalse(const QString &_s)
 {// reads a String and return true if s.upper()== TRUE :-)
        //qDebug() << "Utilities::trueOrFalse: " << _s << endl;
 
@@ -78,7 +78,7 @@ bool Utilities::trueOrFalse(const QString _s)
     //return false;
 }
 
-QString Utilities::checkAndFixASCIIinADIF(const QString _data)
+QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
 {
        //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << endl;
 // This function is not really working with ASCII but with Unicode
@@ -104,7 +104,7 @@ QString Utilities::checkAndFixASCIIinADIF(const QString _data)
     return newString;
 }
 
-void Utilities::printQString(const QStringList _qs)
+void Utilities::printQString(const QStringList &_qs)
 {
       //qDebug() << "Utilities::printQString: COMMENT THIS CALL BEFORE RELEASING" << endl;
     if (_qs.length()<1)
@@ -119,7 +119,7 @@ void Utilities::printQString(const QStringList _qs)
       //qDebug() << _qs.at(_qs.length()-1) << endl;
 }
 
-QString Utilities::getAgent(const QString _klogversion)
+QString Utilities::getAgent(const QString &_klogversion)
 {
     QString version;
     version = _klogversion;
@@ -243,7 +243,7 @@ QString Utilities::getKLogDBFile()
     return dbPath + "/logbook.dat";
 }
 
-bool Utilities::processConfigLine(const QString _line)
+bool Utilities::processConfigLine(const QString &_line)
 {
            //qDebug() << "Utilities::processConfigLine: " << _line << endl;
 
@@ -280,7 +280,7 @@ bool Utilities::processConfigLine(const QString _line)
 }
 
 /*
-QString Utilities::getKLogDatabaseFile(const QString _file)
+QString Utilities::getKLogDatabaseFile(const QString &_file)
 {
      //qDebug() << "Utilities::getKLogDatabaseFile:" << _file << endl;
     if ( QFile::exists(_file + "/logbook.dat") )
@@ -363,7 +363,7 @@ bool Utilities::isValidDate(const QDate _d)
     return false;
 }
 
-bool Utilities::isValidDateTime(const QString _d)
+bool Utilities::isValidDateTime(const QString &_d)
 {
      //qDebug() << "Utilities::isValidDateTime: " << _d << endl;
     QDateTime _dateTime = QDateTime::fromString(_d, "yyyyMMddhhmmss");
@@ -376,7 +376,7 @@ bool Utilities::isValidDateTime(const QString _d)
     return false;
 }
 
-bool Utilities::isValidCall(const QString _c)
+bool Utilities::isValidCall(const QString &_c)
 {
     if (_c.length()<3)
     {
@@ -385,7 +385,7 @@ bool Utilities::isValidCall(const QString _c)
     return true;
 }
 
-bool Utilities::isValidTime(const QString _t)
+bool Utilities::isValidTime(const QString &_t)
 {
     QTime time = QTime::fromString(_t, "hhmmss");
     if (time.isValid())
@@ -432,7 +432,7 @@ bool Utilities::isValidModeId(const int _m)
     //return false;
 }
 
-bool Utilities::isValidFreq(const QString _b)
+bool Utilities::isValidFreq(const QString &_b)
 {
     if (_b.toDouble()>0)
     {
@@ -445,13 +445,13 @@ bool Utilities::isValidFreq(const QString _b)
     //return false;
 }
 
-bool Utilities::isValidGrid(const QString _b)
+bool Utilities::isValidGrid(const QString &_b)
 {
     Locator locator;
     return locator.isValidLocator(_b);
 }
 
-bool Utilities::isValidRST(const QString _b)
+bool Utilities::isValidRST(const QString &_b)
 {
     if (_b.length()>0)
     {
@@ -460,7 +460,7 @@ bool Utilities::isValidRST(const QString _b)
     return false;
 }
 
-bool Utilities::isValidPower(const QString _b)
+bool Utilities::isValidPower(const QString &_b)
 {
     if (_b.toDouble()>0)
     {
@@ -469,7 +469,7 @@ bool Utilities::isValidPower(const QString _b)
     return false;
 }
 
-bool Utilities::isValidComment(const QString _b)
+bool Utilities::isValidComment(const QString &_b)
 {
     if (_b.length()>0)
     {
@@ -478,7 +478,7 @@ bool Utilities::isValidComment(const QString _b)
     return false;
 }
 
-bool Utilities::isValidName(const QString _b)
+bool Utilities::isValidName(const QString &_b)
 {
     if (_b.length()>0)
     {
@@ -504,7 +504,7 @@ bool Utilities::isDBFileExisting()
     //return false;
 }
 
-bool Utilities::isDBFileExisting(const QString _file)
+bool Utilities::isDBFileExisting(const QString &_file)
 {
        //qDebug() << "Utilities::isDBFileExisting2: " << _file << endl;
 
@@ -521,7 +521,7 @@ bool Utilities::isDBFileExisting(const QString _file)
     //return false;
 }
 
-bool Utilities::isValidADIFField(const QString _b)
+bool Utilities::isValidADIFField(const QString &_b)
 {
      //qDebug() << "Utilities::isValidADIFField: " << _b << endl;
     /*
@@ -599,7 +599,7 @@ bool Utilities::isValidADIFField(const QString _b)
     return true;
 }
 
-QStringList Utilities::getValidADIFFieldAndData(const QString _b)
+QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
 {
      //qDebug() << "Utilities::getValidADIFFieldAndData: " << _b << endl;
     /*

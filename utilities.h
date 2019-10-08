@@ -43,23 +43,23 @@ public:
     Utilities();
     ~Utilities();
     int getProgresStepForDialog(int totalSteps);
-    bool trueOrFalse(const QString _s); // reads a String and return true if s.upper()== TRUE :-)
-    QString checkAndFixASCIIinADIF(const QString _data);
-    QString getAgent(const QString _klogversion);
+    bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
+    QString checkAndFixASCIIinADIF(const QString &_data);
+    QString getAgent(const QString &_klogversion);
     //Devel or debug functions - Not adding any feature to the user
-    void printQString(const QStringList _qs);
+    void printQString(const QStringList &_qs);
     QString getKLogDBFile();
 
-    //QString getKLogDatabaseFile(const QString _file);
+    //QString getKLogDatabaseFile(const QString &_file);
     bool isDBFileExisting();
-    bool isDBFileExisting(const QString _file);
+    bool isDBFileExisting(const QString &_file);
 
     QString getHomeDir();
     QString getCfgFile();
     QString getCTYFile();
     QString getDebugLogFile();
 
-    void setVersion(const QString _v);
+    void setVersion(const QString &_v);
     QString getVersion();
     double getVersionDouble();
 
@@ -68,23 +68,23 @@ public:
 
     // Validations
     bool isValidDate(const QDate _d);
-    bool isValidDateTime(const QString _d);
-    bool isValidCall(const QString _c);
-    bool isValidTime(const QString _t);
+    bool isValidDateTime(const QString &_d);
+    bool isValidCall(const QString &_c);
+    bool isValidTime(const QString &_t);
     bool isValidBandId(const int _b);
     bool isValidModeId(const int _m);
-    bool isValidFreq(const QString _b);
-    bool isValidGrid(const QString _b);
-    bool isValidRST(const QString _b);
-    bool isValidPower(const QString _b);
-    bool isValidComment(const QString _b);
-    bool isValidName(const QString _b);
-    bool isValidADIFField(const QString _b);
-    QStringList getValidADIFFieldAndData(const QString _b);
+    bool isValidFreq(const QString &_b);
+    bool isValidGrid(const QString &_b);
+    bool isValidRST(const QString &_b);
+    bool isValidPower(const QString &_b);
+    bool isValidComment(const QString &_b);
+    bool isValidName(const QString &_b);
+    bool isValidADIFField(const QString &_b);
+    QStringList getValidADIFFieldAndData(const QString &_b);
 
 
 private:
-    bool processConfigLine(const QString _line);
+    bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
     QString dbPath;
     QString softwareVersion;

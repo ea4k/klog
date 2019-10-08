@@ -1,5 +1,10 @@
 TBD - 0.9.9
+
+Working on the MAP
+Working on the identification of a new version per OS
+
 - Added some debug log option.
+- Code cleaning with cppcheck.
 - UI: Added a WSJT-X like color schema.
 - Bugfix: KLog was crashing if the call was completely removed in the Setup.
 - KLog exit process improved.

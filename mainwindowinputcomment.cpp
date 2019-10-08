@@ -54,7 +54,7 @@ void MainWindowInputComment::createUI()
 
 
 
-void MainWindowInputComment::setData(const QString _comment)
+void MainWindowInputComment::setData(const QString &_comment)
 {
     comment = _comment;
     commentLineEdit->setText(comment);

@@ -42,13 +42,13 @@ Contest::~Contest()
 }
 
 
-bool Contest::isMultiplier(const QStringList _qs)
+bool Contest::isMultiplier(const QStringList &_qs)
 {
      //qDebug() << "Contest::isMultiplier"  << endl;
     return false;
 }
 
-int Contest::getQSOPoints(const QStringList _qs)
+int Contest::getQSOPoints(const QStringList &_qs)
 {
      //qDebug() << "Contest::getQSOPoints"  << endl;
     return 0;

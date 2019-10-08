@@ -36,7 +36,7 @@
 
 //#include <qDebug>
 
-MainWindow::MainWindow(const QString _klogDir, const QString tversion)
+MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
     //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
     //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
@@ -65,8 +65,8 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
         logEvent(Q_FUNC_INFO, "KLog started!", 0);
     }
 
-    QTime start;
-   start = QTime::currentTime();
+    //QTime start;
+    //start = QTime::currentTime();
    //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
     showErrorDialog = new ShowErrorDialog();
@@ -209,7 +209,8 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //qDebug() << "MainWindow::MainWindow: 0009" << endl;
 
     aboutDialog = new AboutDialog(softwareVersion);
-    //tipsDialog = new TipsDialog();
+    tipsDialog = new TipsDialog();
+    connect(tipsDialog, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
 
     //qDebug() << "MainWindow::MainWindow: 0010" << endl;
 
@@ -603,6 +604,9 @@ MainWindow::MainWindow(const QString _klogDir, const QString tversion)
     //connect(awards, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
     connect(awards, SIGNAL(awardDXCCUpdated()), this, SLOT(slotRefreshDXCCWidget()) );
 
+    worldMapWidget = new WorldMapWidget();
+
+
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
     connect(filemanager, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     //connect(filemanager, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
@@ -706,6 +710,11 @@ void MainWindow::createStatusBar()
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     statusBar()->showMessage(tr("Ready"));
     logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+void MainWindow::slotWorldMapShow()
+{
+    //worldMapWidget->resize(500,300);
+    worldMapWidget->show();
 }
 
 void MainWindow::createUI()
@@ -2802,7 +2811,7 @@ void MainWindow::slotElogClubLogDisable(const bool _b)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::slotElogClubLogShowMessage(const QString _s)
+void MainWindow::slotElogClubLogShowMessage(const QString &_s)
 {
         //qDebug() << "MainWindow::slotElogClubLogShowMessage: " << _s << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -2877,7 +2886,6 @@ void MainWindow::exitQuestion()
           // Ok was clicked
         logEvent(Q_FUNC_INFO, "Exiting KLog!", 0);
             exit(0);
-        break;
         default:
             // should never be reached
         break;
@@ -2990,7 +2998,7 @@ void MainWindow::slotQSLViaTextChanged()
 }
 */
 
-bool MainWindow::validCharactersInCall(const QString _qrz)
+bool MainWindow::validCharactersInCall(const QString &_qrz)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     for (int i = 0; i<_qrz.size();i++)
@@ -3297,7 +3305,7 @@ void MainWindow::slotSTXTextChanged()
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
-void MainWindow::setRSTToMode(const QString _m)
+void MainWindow::setRSTToMode(const QString &_m)
 {
     //qDebug() << "MainWindow::setRSTToMode: " << _m << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -3829,8 +3837,12 @@ void MainWindow::createMenusCommon()
     showStatsAct = new QAction (tr("Stats"), this);
     toolMenu->addAction(showStatsAct);
     connect(showStatsAct, SIGNAL(triggered()), this, SLOT(slotShowStats()));
-    //connect(statsWidget, SIGNAL(visibilityChanged(bool)), this, SLOT(slotCloseStats(bool)));
     showStatsAct->setToolTip(tr("Show the statistics of your radio activity."));
+
+    showWorldMapAct = new QAction(tr("World map"), this);
+    toolMenu->addAction(showWorldMapAct);
+    connect(showWorldMapAct, SIGNAL(triggered()), this, SLOT(slotWorldMapShow()));
+    showWorldMapAct->setToolTip(tr("Show a world map with your radio activity."));
 
     toolMenu->addSeparator();
 
@@ -4092,6 +4104,8 @@ void MainWindow::slotTipsAction()
 {
     qDebug() << "MainWindow::slotTipsAction "  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    tipsDialog->exec();
+
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -4296,7 +4310,7 @@ void MainWindow::openFile()
 
 }
 
-bool MainWindow::saveFile(const QString _fileName)
+bool MainWindow::saveFile(const QString &_fileName)
 {
       //qDebug() << "MainWindow::saveFile: " << _fileName  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -4452,7 +4466,7 @@ bool MainWindow::slotOpenKLogFolder()
 }
 
 
-void MainWindow::slotUpdateStatusBar(const QString statusm)
+void MainWindow::slotUpdateStatusBar(const QString &statusm)
 {
         //qDebug() << "MainWindow::slotUpdateStatusBar: " << statusm  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -4512,7 +4526,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::checkIfWorkedB4(const QString _qrz)
+void MainWindow::checkIfWorkedB4(const QString &_qrz)
 {
         //qDebug() << "MainWindow::checkIfWorkedB4: " << _qrz << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -4704,7 +4718,7 @@ void MainWindow::readConfigData()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-bool MainWindow::processConfigLine(const QString _line){
+bool MainWindow::processConfigLine(const QString &_line){
     //qDebug() << "MainWindow::processConfigLine: " << _line << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     int _logWithMoreQSOs = 0; // At the end, if the this variable is >0 the Selectedlog will have to be changed in the file.
@@ -6993,7 +7007,7 @@ void MainWindow::fillQSOData()
                 updateString.clear();
             }
 
-            aux = tr("Filling DXCC in QSOs...\n QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
+            aux = tr("Filling DXCC, CQz, ITUz, Continent in QSOs...\n QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
             progress.setLabelText(aux);
             progress.setValue(i);
 
@@ -7297,7 +7311,7 @@ double MainWindow::checkFreqRanges(double _f)
 }
 
 //void MainWindow::clusterSpotToLog(const QStringList _qs)
-void MainWindow::clusterSpotToLog(const QString _call, const QString _freq)
+void MainWindow::clusterSpotToLog(const QString &_call, const QString &_freq)
 {
     //qDebug() << "MainWindow::clusterSpotToLog: " << _call <<"/" << _freq << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -7401,7 +7415,7 @@ void MainWindow::defineStationCallsign()
 
 }
 
-void MainWindow::slotSetPropMode(const QString _p)
+void MainWindow::slotSetPropMode(const QString &_p)
 {
         //qDebug() << "MainWindow::slotSetPropMode: " << _p << endl;
     //if(modify)
@@ -7417,7 +7431,7 @@ void MainWindow::slotSetPropMode(const QString _p)
 
 
 
-void MainWindow::completeWithPreviousQSO(const QString _call)
+void MainWindow::completeWithPreviousQSO(const QString &_call)
 {
     //qDebug() << "MainWindow::completeWithPreviousQSO" << endl;
     //This function completes: Name, QTH, Locator, Entity, Iota
@@ -7555,7 +7569,7 @@ void MainWindow::completeWithPreviousQSO(const QString _call)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::updateBandComboBox(const QString _band)
+void MainWindow::updateBandComboBox(const QString &_band)
 {
     //qDebug() << "MainWindow::updateBandComboBox: " << _band << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -7692,9 +7706,9 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 
 }
 
-void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, const double _freq, const QString _mode,
-                                              const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
-                                              const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const QString _de_call, const QString _de_grid)
+void MainWindow::slotWSJTXloggedQSO(const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
+                                              const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
+                                              const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on, const QString &_de_call, const QString &_de_grid)
 {
 
      //qDebug() << "MainWindow::slotWSJTX-loggedQSO type: " << QString::number(_type) << endl;
@@ -7840,7 +7854,7 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString _dxcall, cons
      //qDebug() << "MainWindow::slotWSJTX-loggedQSO: - END" << endl;
 }
 
-bool MainWindow::checkIfNewMode(const QString _mode)
+bool MainWindow::checkIfNewMode(const QString &_mode)
 {
     //qDebug() << "MainWindow::checkIfNewMode: " << _mode << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -7886,9 +7900,9 @@ bool MainWindow::checkIfNewMode(const QString _mode)
     return false;
 }
 
-void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxcall, const double _freq, const QString _mode,
-                                             const QString _report, const QString _de_call, const QString _de_grid,
-                                             const QString _dx_grid, const QString _sub_mode)
+void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
+                                             const QString &_report, const QString &_de_call, const QString &_de_grid,
+                                             const QString &_dx_grid, const QString &_sub_mode)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (modify)
@@ -7984,7 +7998,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString _dxc
 
 
 
-void MainWindow::addNewValidMode(const QString _mode)
+void MainWindow::addNewValidMode(const QString &_mode)
 {
     //qDebug() << "MainWindow::addNewMode: " << _mode << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -8153,7 +8167,7 @@ void MainWindow::slotHamlibTXFreqChanged(const double _f)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::slotHamlibModeChanged(const QString _m)
+void MainWindow::slotHamlibModeChanged(const QString &_m)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (_m.length()<2)
@@ -8221,13 +8235,13 @@ void MainWindow::setSeverity(const int _sev)
     setupDialog->setSeverity(logSeverity);
 }
 
-void MainWindow::slotCaptureDebugLogs(const QString _func, const QString _msg, const int _level)
+void MainWindow::slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level)
 {
     //qDebug() << "MainWindow::slotCaptureDebugLogs: " << _func << "_/" << _msg << QString::number(_level) << endl;
     logEvent(_func, _msg, _level);
 }
 
-void MainWindow::logEvent(const QString _func, const QString _msg, const int _level)
+void MainWindow::logEvent(const QString &_func, const QString &_msg, const int _level)
 {   //This function is the only one not logging the activity
     if ((!logEvents) | (!debugFileOpen) | (_level<4)) // Increase to 7 show the full Debug
     {

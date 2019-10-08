@@ -46,12 +46,12 @@ class SoftwareUpdate: public QObject {
     Q_OBJECT
 
 public:
-    SoftwareUpdate(const QString _klogVersion);
+    SoftwareUpdate(const QString &_klogVersion);
     ~SoftwareUpdate();
 
-    void addCall(const QString _call);
+    void addCall(const QString &_call);
     void needToUpdate(bool _showWithoutVersion=false);
-    void setVersion(const QString _klogVersion);
+    void setVersion(const QString &_klogVersion);
 
 private slots:
     void slotReadyRead();
@@ -65,9 +65,9 @@ signals:
     void updateNeededSignal(const bool _q); // Will be TRUE if updated if needed and FALSE if we already have the latest version
 
 private:
-    void connectToURL(const QString _url);
+    void connectToURL(const QString &_url);
     bool checkUpdates(QIODevice *data);
-    void updateNeeded(QString _newVer);
+    void updateNeeded(QString &_newVer);
     void setTheURL(QString _url);
     void setHeader();
 
