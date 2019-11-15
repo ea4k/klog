@@ -25,7 +25,9 @@ mkdir -p KLog.app/Contents/MacOS/translations
 $QTDIRi/bin/lupdate KLog.pro
 $QTDIRi/bin/lrelease KLog.pro
 cp $KLOG_SOURCES/translations/*.qm KLog.app/Contents/MacOS/translations/
-install_name_tool -change /usr/local/lib/libhamlib.2.dylib  @executable_path/../Frameworks/libhamlib.2.dylib KLog.app/Contents/MacOS/klog
+cp /usr/local/lib/libhamlib.2.dylib KLog.app/Contents/MacOS/
+install_name_tool -id @executable_path/libhamlib.2.dylib KLog.app/Contents/MacOS/libhamlib.2.dylib
+install_name_tool -change /usr/local/lib/libhamlib.2.dylib @executable_path/libhamlib.2.dylib KLog.app/Contents/MacOS/klog
 $QTDIRi/bin/macdeployqt KLog.app/ -dmg
 mv KLog.dmg KLog-$KLOG_VERSION.dmg
 echo "You can find the dmg file in this folder... enjoy KLog!"
