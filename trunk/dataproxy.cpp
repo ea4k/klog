@@ -30,7 +30,7 @@
 
 DataProxy::DataProxy()
 {
-    //qDebug() << "DataProxy::DataProxy"  << endl;
+    //qDebug() << "DataProxy::DataProxy: Clean"  << endl;
 }
 
 DataProxy::~DataProxy()
@@ -738,7 +738,7 @@ QString DataProxy::getEntityMainPrefix(const int _entityN)
 
 int DataProxy::getDXCCFromPrefix(const QString _p)
 {
-    return -1;
+    return -10;
 }
 
 bool DataProxy::isNewCQz(int _c)

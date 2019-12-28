@@ -40,7 +40,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
     //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
     //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
-    logSeverity = 0;
+    logSeverity = 7;
     util = new Utilities;
     logEvents = true;
     debugFileOpen = false;
@@ -75,6 +75,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     hamlib = new HamLibClass();
     //qDebug() << "MainWindow::MainWindow: AFTER HAMLIB " << endl;
     hamlibActive = false;
+    yearChangedDuringModification = false;
 
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
@@ -200,22 +201,45 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //qDebug() << "MainWindow::MainWindow: 00087" << endl;
     connect(logWindow, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     //connect(logWindow, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
-    //qDebug() << "MainWindow::MainWindow: 00088" << endl;
+
     searchWidget = new SearchWidget (dataProxy, this);
     connect(searchWidget, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     //connect(searchWidget, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
     infoWidget = new InfoWidget(dataProxy, this);
+
+    //qDebug() << "MainWindow::MainWindow: 00088" << endl;
+    logEvent(Q_FUNC_INFO, "Creating AwardsWidget", 7);
+    awardsWidget = new AwardsWidget(dataProxy, this);
+    connect(awardsWidget, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
+    //connect(awardsWidget, SIGNAL(recalculateAwardsSignal()), this, SLOT(slotRecalculateAwardsButtonClicked()) );
+    connect(awardsWidget, SIGNAL(requireCurrentLogSignal()), this, SLOT(slotAwardsWidgetSetLog()) );
+    connect(awardsWidget, SIGNAL(requireCurrentYearSignal()), this, SLOT(slotAwardsWidgetSetYear()) );
 
     //qDebug() << "MainWindow::MainWindow: 0009" << endl;
 
     aboutDialog = new AboutDialog(softwareVersion);
     tipsDialog = new TipsDialog();
     connect(tipsDialog, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
+    connect(tipsDialog, SIGNAL(findQSL2QSOSignal()), this, SLOT(slotSearchToolNeededQSLToSend()) );
+    connect(tipsDialog, SIGNAL(fillInDXCCSignal()), this, SLOT(slotFillEmptyDXCCInTheLog()) );
+    connect(tipsDialog, SIGNAL(fillInQSOSignal()), this, SLOT(fillQSOData()) );
+    connect(tipsDialog, SIGNAL(fileExportToPrintSignal()), this, SLOT(slotRQSLExport()) );
+    connect(tipsDialog, SIGNAL(fileExportForLoTWSignal()), this, SLOT(slotLoTWExport()));
+    connect(tipsDialog, SIGNAL(fileOpenKLogFolderSignal()), this, SLOT(slotOpenKLogFolder()));
+    connect(tipsDialog, SIGNAL(toolSendPendingQSLSignal()), this, SLOT(slotToolSearchRequestedQSLToSend()));
+    connect(tipsDialog, SIGNAL(toolRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
+    connect(tipsDialog, SIGNAL(toolRecRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLRequested()));
+    //connect(tipsDialog, SIGNAL(), this, SLOT());
+    //connect(tipsDialog, SIGNAL(), this, SLOT());
+    //connect(tipsDialog, SIGNAL(), this, SLOT());
+    //connect(tipsDialog, SIGNAL(), this, SLOT());
+    //connect(tipsDialog, SIGNAL(), this, SLOT());
+    //connect(tipsDialog, SIGNAL(), this, SLOT());
 
     //qDebug() << "MainWindow::MainWindow: 0010" << endl;
 
-    recalculateAwardsButton = new QPushButton(tr("Recalculate"), this);
-    recalculateAwardsButton->setToolTip(tr("Click to recalculate the award status."));
+    //recalculateAwardsButton = new QPushButton(tr("Recalculate"), this);
+    //recalculateAwardsButton->setToolTip(tr("Click to recalculate the award status."));
 
     scoreTextEdit = new QTextEdit;
 
@@ -321,6 +345,8 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     setCentralWidget(mainWidget);
     //qDebug() << "MainWindow::MainWindow: 8" << endl;
     dateTime = new QDateTime();
+    dateTimeTemp = new QDateTime();
+
     selectedYear = (dateTime->currentDateTime()).date().year();
 
     timer = new QTimer(this);
@@ -379,6 +405,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     rxFreqSpinBox->setMaximum(99999);
     rxFreqSpinBox->setSuffix(" " + tr("MHz"));
 
+    /*
     dxccConfirmedQLCDNumber = new QLCDNumber;
     dxccWorkedQLCDNumber = new QLCDNumber;
     wazConfirmedQLCDNumber = new QLCDNumber;
@@ -394,6 +421,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     dxMarathonPointsQLCDNumber = new QLCDNumber;
     operatingYearsComboBox = new QComboBox;
     dxMarathonLabelN = new QLabel;
+    */
 
     //qsoWorkedQLCDNumber->setDigitCount(7);
     //qsoConfirmedQLCDNumber->setDigitCount(7);
@@ -409,16 +437,17 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     // UI DX
 
     // CLUSTER
-     //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
     dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
 
 
     // </CLUSTER>
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
-
+    //qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
     awards->setManageModes(manageMode);
+    //qDebug() << "MainWindow::MainWindow: Awards created" << endl;
     // </UI>
 
 //**************************************************
@@ -483,6 +512,8 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     if (contestMode == "DX")
     {
          //qDebug() << "MainWindow::MainWindow: DX! 18.3" << endl;
+        awardsWidget->fillOperatingYears();
+        /*
         if (dataProxy->getLastQSOid()<=1)
         {
             //qDebug() << "MainWindow::MainWindow: 18.4" << endl;
@@ -507,29 +538,19 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
              //qDebug() << "MainWindow::MainWindow: 18.5.2" << endl;
         }
+        */
          //qDebug() << "MainWindow::MainWindow: 18.6." << endl;
 
         //awards->recalculateAwards();
          //qDebug() << "MainWindow::MainWindow: 18.8" << endl;
-        showAwards();
+
+        awardsWidget->showAwards();
          //qDebug() << "MainWindow::MainWindow: 18.9" << endl;
         dxClusterWidget->setCurrentLog(currentLog);
 
         //qDebug() << "MainWindow::MainWindow: 18.10" << endl;
+        awardsWidget->setManageDXMarathon(manageDxMarathon);
 
-        if (manageDxMarathon)
-        {
-            dxMarathonLabelN->setText(tr("DX-Marathon"));
-            dxMarathonTopScoreLabelN->setEnabled(true);
-            dxMarathonPointsQLCDNumber->setEnabled(true);
-
-        }
-        else
-        {
-            dxMarathonLabelN->setText(tr("Annual"));
-            dxMarathonTopScoreLabelN->setEnabled(false);
-            dxMarathonPointsQLCDNumber->setEnabled(false);
-        }
         //qDebug() << "MainWindow::MainWindow: 18.11" << endl;
 
     }
@@ -539,6 +560,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     {
         //TODO: Check how to do DX if nothing happens without duplicating code.
             //qDebug() << "MainWindow::MainWindow: DX! 18.3" << endl;
+        /*
         if (dataProxy->getLastQSOid()<=1)
         {
                 //qDebug() << "MainWindow::MainWindow: 18.4" << endl;
@@ -552,12 +574,15 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
             operatingYearsComboBox->setCurrentIndex(operatingYearsComboBox->findText((dataProxy->getOperatingYears(currentLog)).last(), Qt::MatchCaseSensitive));
                 //qDebug() << "MainWindow::MainWindow: 18.5.2" << endl;
         }
+        */
+        awardsWidget->fillOperatingYears();
                 //qDebug() << "MainWindow::MainWindow: 18.6." << endl;
 
                 //qDebug() << "MainWindow::MainWindow: 18.7" << endl;
         awards->recalculateAwards();
                 //qDebug() << "MainWindow::MainWindow: 18.8" << endl;
-        showAwards();
+
+        awardsWidget->showAwards();
             //qDebug() << "MainWindow::MainWindow: 18.9" << endl;
         dxClusterWidget->setCurrentLog(currentLog);
             //qDebug() << "MainWindow::MainWindow: 18.10" << endl;
@@ -610,7 +635,9 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
     connect(filemanager, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     //connect(filemanager, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
+    //resize(QGuiApplication::primaryScreen()->availableSize() * 3/5);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
+
     //qDebug() << "MainWindow::MainWindow: END" << endl;
 }
 
@@ -714,6 +741,7 @@ void MainWindow::createStatusBar()
 void MainWindow::slotWorldMapShow()
 {
     //worldMapWidget->resize(500,300);
+    //worldMapWidget->loadMap();
     worldMapWidget->show();
 }
 
@@ -749,6 +777,7 @@ void MainWindow::createUI()
         createMenusCommon();
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
+     //qDebug() << "MainWindow::createUI" << endl;
 }
 
 void MainWindow::slotTimeOutInfoBars()
@@ -797,6 +826,7 @@ void MainWindow::slotModeComboBoxChanged()
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
+    //qDebug() << "MainWindow:: - calling showStatusOfDXCC-01 " << endl;
     _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
     showStatusOfDXCC(_qs);
     setRSTToMode(modeComboBox->currentText());
@@ -856,7 +886,7 @@ void MainWindow::slotBandComboBoxChanged(){
      //qDebug() << "MainWindow::slotBandComboBoxChanged: currentBand: " << QString::number(currentBand) << endl;
     currentBand = currentBandShown;
      //qDebug() << "MainWindow::slotBandComboBoxChanged: currentBand2: " << QString::number(currentBand) << endl;
-        //qDebug() << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
     currentMode = currentModeShown;
     //qDebug << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
      //qDebug() << "MainWindow::MainWindow: 9.1 - currentMode: " << QString::number(currentMode) << endl;
@@ -885,7 +915,7 @@ void MainWindow::slotBandComboBoxChanged(){
     _qs.clear();
     _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
 
-
+    //qDebug() << "MainWindow:: - calling showStatusOfDXCC-02 " << endl;
     showStatusOfDXCC(_qs);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::slotBandComboBoxChanged: END" << endl;
@@ -922,7 +952,7 @@ void MainWindow::slotQRZReturnPressed()
     }
     */
     QSqlQuery query;
-    QString queryString = readDataFromUI();
+    QString queryString = readDataFromUI();    
 
     //qDebug() << "MainWindow::slotQRZReturnPressed: queryString: " << queryString << endl;
 
@@ -971,9 +1001,11 @@ void MainWindow::slotQRZReturnPressed()
 
     setModifying(false);
     modifyingQSO = -1;
+    yearChangedDuringModification = false;
     OKButton->setText(tr("&Add"));
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
+
 void MainWindow::actionsJustAfterAddingOneQSO()
 {
      //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO" << endl;
@@ -987,6 +1019,11 @@ void MainWindow::actionsJustAfterAddingOneQSO()
        if(modifyingQSO>0)
        {
            awards->setAwards(modifyingQSO);
+           if (yearChangedDuringModification)
+           {
+               awardsWidget->fillOperatingYears();
+               yearChangedDuringModification = false;
+           }
 
            if ((clublogActive) & (clublogRealTime))
            {
@@ -1823,6 +1860,13 @@ WHERE [condition];
     int tmode = currentMode;
 
     QString tdate = (dateEdit->date()).toString("yyyy/MM/dd");
+    QString tdateTemp = (dateTimeTemp->date()).toString("yyyy/MM/dd");
+
+    if (tdate != tdateTemp)
+    {
+        yearChangedDuringModification = true;
+    }
+
     QString ttime = (timeEdit->time()).toString("hh:mm:ss");
 
     QString trsttx = rstTXLineEdit->text();
@@ -2711,8 +2755,8 @@ void MainWindow::createActionsCommon(){
     //connect(searchBoxSelectAllButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxSelectAllButtonClicked() ) );
     //connect(searchBoxReSearchButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxReSearchButtonClicked() ) );
 
-    connect(operatingYearsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotOperatingYearComboBoxChanged() ) ) ;
-    connect(recalculateAwardsButton, SIGNAL(clicked()), this, SLOT(slotRecalculateAwardsButtonClicked() ) );
+    //connect(operatingYearsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotOperatingYearComboBoxChanged() ) ) ;
+    //connect(recalculateAwardsButton, SIGNAL(clicked()), this, SLOT(slotRecalculateAwardsButtonClicked() ) );
 
 
     // LOGVIEW
@@ -2837,15 +2881,6 @@ void MainWindow::slotElogClubLogProcessAnswer(const int _i, const int _qID)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::slotRecalculateAwardsButtonClicked()
-{
-        //qDebug() << "MainWindow::recalculateAwardsButtonClicked: " << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    awards->recalculateAwards();
-    showAwards();
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-
-}
 
 void MainWindow::slotExitFromSlotDialog(const int exitID)
 {
@@ -3127,9 +3162,10 @@ void MainWindow::slotQRZTextChanged()
     }
 
     currentQrz = qrzLineEdit->text();
+    //qDebug() << "MainWindow::slotQRZTextChanged: currentQRZ: " << currentQrz << endl;
     currentEntity = world->getQRZARRLId(currentQrz);
     //selectCorrectComboBoxEntity(currentEntity);
-       //qDebug() << "MainWindow::slotQRZTextChanged: " << QString::number(currentEntity) << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
     othersTabWidget->setEntity(currentEntity);
 
 
@@ -3159,7 +3195,7 @@ void MainWindow::slotQRZTextChanged()
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
     _qs << QString::number(currentEntity) << QString::number(currentBand) << QString::number(currentMode) << QString::number(currentLog);
-
+    //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
     if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) )
     {
         dxLocator = (locatorLineEdit->text()).toUpper();
@@ -3170,10 +3206,10 @@ void MainWindow::slotQRZTextChanged()
     }
 
    // NOW ONLY SPECIFIC ACTIONS DEPENDING ON THE RUNNING MODE
-
+    //qDebug() << "MainWindow::slotQRZTextChanged: Going to check the DXCC" << endl;
     if (contestMode == "DX")
     {
-            //qDebug() << "MainWindow::slotQRZTextChanged: Default:" << endl;
+            //qDebug() << "MainWindow::slotQRZTextChanged: DX:" << endl;
             //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
         if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
         {
@@ -3183,7 +3219,7 @@ void MainWindow::slotQRZTextChanged()
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
             infoWidget->showDistanceAndBearing(myLocator, dxLocator);
-
+            //qDebug() << "MainWindow:: - calling showStatusOfDXCC-03 " << endl;
             showStatusOfDXCC(_qs);
             showDXMarathonNeeded(currentEntity, dx_CQz, dateEdit->date().year(), currentLog);
             othersTabWidget->setIOTAContinentFromEntity(currentEntity);
@@ -3191,6 +3227,7 @@ void MainWindow::slotQRZTextChanged()
         }
         else if ((dx_CQz == dxE_CQz) || (dx_ITUz = dxE_ITUz))
         {
+            //qDebug() << "MainWindow::slotQRZTextChanged: 000" << endl;
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
         }
@@ -3224,7 +3261,7 @@ void MainWindow::slotQRZTextChanged()
     }
     else
     {
-            //qDebug() << "MainWindow::slotQRZTextChanged: Default:" << endl;
+           //qDebug() << "MainWindow::slotQRZTextChanged: Default:" << endl;
             //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
         if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
         {
@@ -3234,7 +3271,7 @@ void MainWindow::slotQRZTextChanged()
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
             infoWidget->showDistanceAndBearing(myLocator, dxLocator);
-
+            //qDebug() << "MainWindow:: - calling showStatusOfDXCC-04" << endl;
             showStatusOfDXCC(_qs);
             showDXMarathonNeeded(currentEntity, dx_CQz, dateEdit->date().year(), currentLog);
             othersTabWidget->setIOTAContinentFromEntity(currentEntity);
@@ -3446,8 +3483,10 @@ void MainWindow::slotClearButtonClicked()
     //qDebug() << "MainWindow::slotClearButtonClicked - START" << endl;
      //qDebug() << "MainWindow::slotClearButtonClicked: " << modeComboBox->currentText() << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    yearChangedDuringModification = false;
     cleaning = true;
     setModifying(false);
+    dateTimeTemp = dateTime;
     OKButton->setText(tr("&Add"));
     modifyingQSO = -1;
     qrzLineEdit->clear();
@@ -3839,7 +3878,7 @@ void MainWindow::createMenusCommon()
     connect(showStatsAct, SIGNAL(triggered()), this, SLOT(slotShowStats()));
     showStatsAct->setToolTip(tr("Show the statistics of your radio activity."));
 
-    showWorldMapAct = new QAction(tr("World map"), this);
+    showWorldMapAct = new QAction(tr("CQ zones world map"), this);
     toolMenu->addAction(showWorldMapAct);
     connect(showWorldMapAct, SIGNAL(triggered()), this, SLOT(slotWorldMapShow()));
     showWorldMapAct->setToolTip(tr("Show a world map with your radio activity."));
@@ -4102,7 +4141,7 @@ void MainWindow::slotHelpAboutAction()
 }
 void MainWindow::slotTipsAction()
 {
-    qDebug() << "MainWindow::slotTipsAction "  << endl;
+    //qDebug() << "MainWindow::slotTipsAction "  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     tipsDialog->exec();
 
@@ -4112,7 +4151,7 @@ void MainWindow::slotTipsAction()
 
 void MainWindow::slotHelpCheckUpdatesAction()
 {
-    //qDebug() << "MainWindow::slotHelpCheckUpdatesAction" << endl;
+    qDebug() << "MainWindow::slotHelpCheckUpdatesAction" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     callingUpdate = true;
     softUpdate->addCall(stationQRZ);
@@ -4633,7 +4672,7 @@ void MainWindow::readConfigData()
     {
 
     }
-     //qDebug() << "MainWindow::readConfigData: calling checkIfNewBandOrMode" << endl;
+    //qDebug() << "MainWindow::readConfigData: calling checkIfNewBandOrMode" << endl;
 
 
      //qDebug() << "MainWindow::readConfigData: 100" << endl;
@@ -4720,7 +4759,7 @@ void MainWindow::readConfigData()
 
 bool MainWindow::processConfigLine(const QString &_line){
     //qDebug() << "MainWindow::processConfigLine: " << _line << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    logEvent(Q_FUNC_INFO, "Start: ", logSeverity);
     int _logWithMoreQSOs = 0; // At the end, if the this variable is >0 the Selectedlog will have to be changed in the file.
     QString line = _line.simplified();
     //line.simplified();
@@ -4815,18 +4854,7 @@ bool MainWindow::processConfigLine(const QString &_line){
         //qDebug() << "MainWindow::processConfigLine: Marathon-1 - Value: " << value << endl;
         manageDxMarathon = util->trueOrFalse(value);
         //qDebug() << "MainWindow::processConfigLine: Marathon-2" << endl;
-        if (manageDxMarathon)
-        {
-            dxMarathonLabelN->setText(tr("DX-Marathon"));
-            //qDebug() << "MainWindow::processConfigLine: Marathon True" << endl;
-        }
-        else
-        {
-            //qDebug() << "MainWindow::processConfigLine: Marathon false-1" << endl;
-            dxMarathonLabelN->setText(tr("Annual"));
-            //qDebug() << "MainWindow::processConfigLine: Marathon false-2" << endl;
-        }
-        //qDebug() << "MainWindow::processConfigLine: Marathon - END" << endl;
+        awardsWidget->setManageDXMarathon(manageDxMarathon);
     }
 
     else if (field=="SHOWCALLSIGNINSEARCH")
@@ -5422,7 +5450,7 @@ void MainWindow::createData()
 
 void MainWindow::createUIDX()
 {
-        //qDebug() << "MainWindow::createUIDX" << endl;
+    //qDebug() << "MainWindow::createUIDX" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
     //bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
@@ -5471,7 +5499,8 @@ void MainWindow::createUIDX()
     OKButton->setToolTip(tr("Add the QSO to the log."));
     //spotItButton->setToolTip(tr("Spots this QSO to the DX Cluster - This function is still not implemented"));
     clearButton->setToolTip(tr("Clears the QSO entry."));
-
+    //qDebug() << "MainWindow::createUIDX-25" << endl;
+    /*
     dxccConfirmedQLCDNumber->setToolTip(tr("Number of confirmed DXCC entities."));
     dxccWorkedQLCDNumber->setToolTip(tr("Number of worked DXCC entities."));
     wazConfirmedQLCDNumber->setToolTip(tr("Number of confirmed WAZ zones."));
@@ -5485,12 +5514,13 @@ void MainWindow::createUIDX()
     dxMarathonCQQLCDNumber->setToolTip(tr("Number of CQ Zones worked on the selected year."));
     dxMarathonPointsQLCDNumber->setToolTip(tr("Score for the DXMarathon on the selected year."));
     operatingYearsComboBox->setToolTip(tr("Select the year you want to check."));
-
+    */
+    //qDebug() << "MainWindow::createUIDX-93" << endl;
     infoLabel1->setToolTip(tr("Status of the DX entity."));
     infoLabel2->setToolTip(tr("Name of the DX entity."));
 
     dxUpLeftInputFrame = new QFrame;
-
+    //qDebug() << "MainWindow::createUIDX-50" << endl;
     //dxUpRightOutputFrame = new QFrame;
     //dxUpRightOutputFrame->setFrameShadow(QFrame::Raised);
     //dxUpRightOutputFrame->setFrameStyle(QFrame::StyledPanel);
@@ -5518,22 +5548,12 @@ void MainWindow::createUIDX()
     QLabel *rxPowerSpinBoxLabelN = new QLabel(tr("Power(rx)"));
     rxPowerSpinBoxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
-
     QLabel *rstTxLabelN = new QLabel(tr("RST(tx)"));
     rstTxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
     QLabel *rstRxLabelN = new QLabel(tr("RST(rx)"));
     rstRxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     setRSTToMode(modeComboBox->currentText());
-
-    //rstTXLineEdit->setInputMask("#990");
-    //rstRXLineEdit->setInputMask("#990");
-    //rstTXLineEdit->setText("59");
-    //rstRXLineEdit->setText("59");
-    //rstTXLineEdit->setMaxLength(3);
-    //rstRXLineEdit->setMaxLength(3);
-    //rstTXLineEdit->setFixedWidth(30);
-    //rstRXLineEdit->setFixedWidth(30);
 
     QGridLayout *RSTLayout = new QGridLayout;
     RSTLayout->addWidget(rstTxLabelN, 0, 0);
@@ -5645,6 +5665,7 @@ void MainWindow::createUIDX()
     dxUpLeftTab->addTab(myDataTabWidget, tr("My Data"));
     dxUpLeftTab->addTab(satTabWidget, tr("Satellite"));
 
+    //qDebug() << "MainWindow::createUIDX-99" << endl;
     QHBoxLayout *TimeLayout = new QHBoxLayout;
     TimeLayout->addWidget(dateEdit);
     TimeLayout->addWidget(timeEdit);
@@ -5693,21 +5714,23 @@ void MainWindow::createUIDX()
     infoLabel1->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     infoLabel2->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
+    dxUpRightTab->addTab(infoWidget, tr("Info"));
+
+    /*
     QLabel *dxMarathonTopQSOsLabelN = new QLabel(tr("QSOs"));
     QLabel *dxMarathonTopDXCCLabelN = new QLabel(tr("DXCC"));
     QLabel *dxMarathonTopCQLabelN = new QLabel(tr("CQ"));
 
     dxMarathonTopScoreLabelN->setText(tr("Score"));
 
-   // dxMarathonLabelN = new QLabel;
+    dxMarathonLabelN = new QLabel;
 
-    dxUpRightTab->addTab(infoWidget, tr("Info"));
 
+    //qDebug() << "MainWindow::createUIDX-100" << endl;
     QWidget *awardsTabWidget = new QWidget;
-
+    //qDebug() << "MainWindow::createUIDX-101" << endl;
     QLabel *awardLabelN = new QLabel(tr("Award"));    
     awardLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);    
-
     QLabel *confirmedLabelN = new QLabel(tr("Confirmed"));
     confirmedLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
 
@@ -5725,10 +5748,10 @@ void MainWindow::createUIDX()
 
     QLabel *qsoNLabelN = new QLabel(tr("QSOs"));
     qsoNLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-
+    */
 
     reconfigureDXMarathonUI(manageDxMarathon);
-
+    /*
     dxMarathonTopQSOsLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
     dxMarathonTopDXCCLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
     dxMarathonTopCQLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
@@ -5771,10 +5794,16 @@ void MainWindow::createUIDX()
     dxUpRightAwardsTabLayout->addLayout(dxMarathonDLayout, 5, 1, 1, -1);
     dxUpRightAwardsTabLayout->addWidget(recalculateAwardsButton, 6, 1);
 
+    //qDebug() << "MainWindow::createUIDX-120" << endl;
     awardsTabWidget->setLayout(dxUpRightAwardsTabLayout);
+    //qDebug() << "MainWindow::createUIDX-121" << endl;
 
-    dxUpRightTab->addTab(awardsTabWidget, tr("Awards"));
+    dxUpRightTab->addTab(awardsTabWidget, tr("Awards-OLD"));
+    */
+    //qDebug() << "MainWindow::createUIDX-122" << endl;
+    dxUpRightTab->addTab(awardsWidget, tr("Awards"));
     dxUpRightTab->addTab(searchWidget, tr("Search"));
+
 
     dxBottonTab->addTab(logWindow, tr("Log"));
     dxBottonTab->addTab(dxClusterWidget, tr("DX-Cluster"));
@@ -5810,56 +5839,14 @@ void MainWindow::createUIDX()
     dxUpLeftInputFrame->setFrameShadow(QFrame::Raised);
     dxUpLeftInputFrame->setFrameStyle(QFrame::StyledPanel);
 
-    qsoNLabelN->setFrameShadow(QFrame::Raised);
-    qsoNLabelN->setFrameStyle(QFrame::StyledPanel);
-    wazLabelN->setFrameShadow(QFrame::Raised);
-    wazLabelN->setFrameStyle(QFrame::StyledPanel);
-    localLabelN->setFrameShadow(QFrame::Raised);
-    localLabelN->setFrameStyle(QFrame::StyledPanel);
-    dxccLabelN->setFrameShadow(QFrame::Raised);
-    dxccLabelN->setFrameStyle(QFrame::StyledPanel);
-    workedLabelN->setFrameShadow(QFrame::Raised);
-    workedLabelN->setFrameStyle(QFrame::StyledPanel);
-    confirmedLabelN->setFrameShadow(QFrame::Raised);
-    confirmedLabelN->setFrameStyle(QFrame::StyledPanel);
-    awardLabelN->setFrameShadow(QFrame::Raised);
-    awardLabelN->setFrameStyle(QFrame::StyledPanel);
 
-    dxMarathonTopQSOsLabelN->setFrameShadow(QFrame::Raised);
-    dxMarathonTopDXCCLabelN->setFrameShadow(QFrame::Raised);
-    dxMarathonTopCQLabelN->setFrameShadow(QFrame::Raised);
-    dxMarathonTopScoreLabelN->setFrameShadow(QFrame::Raised);
-    dxMarathonLabelN->setFrameShadow(QFrame::Raised);
-
-    dxMarathonTopQSOsLabelN->setFrameStyle(QFrame::StyledPanel);
-    dxMarathonTopDXCCLabelN->setFrameStyle(QFrame::StyledPanel);
-    dxMarathonTopCQLabelN->setFrameStyle(QFrame::StyledPanel);
-    dxMarathonTopScoreLabelN->setFrameStyle(QFrame::StyledPanel);
-    dxMarathonLabelN->setFrameStyle(QFrame::StyledPanel);
-
-    infoLabel1->setFrameShadow(QFrame::Raised);
-    infoLabel1->setFrameStyle(QFrame::StyledPanel);
-    infoLabel2->setFrameShadow(QFrame::Raised);
-    infoLabel2->setFrameStyle(QFrame::StyledPanel);
 
 
 #else
-        //qDebug() << "MainWindow::createUIDX - NO WINDOWS DETECTED!"  << endl;
+    //qDebug() << "MainWindow::createUIDX - NO WINDOWS DETECTED!"  << endl;
 
     dxUpLeftInputFrame->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
 
-    localLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    qsoNLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    wazLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    dxccLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    workedLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    confirmedLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    awardLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    dxMarathonTopQSOsLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    dxMarathonTopDXCCLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    dxMarathonTopCQLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    dxMarathonTopScoreLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    dxMarathonLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
 
     infoLabel1->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     infoLabel2->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
@@ -5867,6 +5854,7 @@ void MainWindow::createUIDX()
 
 #endif
     logEvent(Q_FUNC_INFO, "END", logSeverity);
+     //qDebug() << "MainWindow::createUIDX-END" << endl;
 
  }
 
@@ -6048,17 +6036,21 @@ void MainWindow::slotADIFImport(){
         if (contestMode == "DX")
         {
              //qDebug() << "MainWindow::slotADIFImport-DX" << endl;
-            operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
+            //operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
+            awardsWidget->fillOperatingYears();
              //qDebug() << "MainWindow::slotADIFImport-DX-1" << endl;
             slotShowAwards();
+            awardsWidget->showAwards();
              //qDebug() << "MainWindow::slotADIFImport-DX-1-end" << endl;
         }
         else if (contestMode == "CQ-WW-SSB")
         {}
         else
         {
-            operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
+            awardsWidget->fillOperatingYears();
+            //operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
             slotShowAwards();
+            awardsWidget->showAwards();
         }
 
          //qDebug() << "MainWindow::slotADIFImport-7" << endl;
@@ -6187,6 +6179,7 @@ void MainWindow::qsoToEdit (const int _qso)
     nameCol = rec.indexOf("qso_date");
     aux1 = (query.value(nameCol)).toString();
     dateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+    dateTimeTemp->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
 
     nameCol = rec.indexOf("time_on");
     aux1 = (query.value(nameCol)).toString();
@@ -6612,6 +6605,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
 
                     //qDebug() << "MainWindow::qsoToEdit: - in default - 104"  << endl;
+                //qDebug() << "MainWindow:: - calling showStatusOfDXCC-05 " << endl;
                 showStatusOfDXCC(_qs);
 
                     //qDebug() << "MainWindow::qsoToEdit: - in default - 105"  << endl;
@@ -6682,7 +6676,7 @@ void MainWindow::slotMyLocatorTextChanged()
 
 void MainWindow::showStatusOfDXCC(const QStringList _qs)
 {
-        //qDebug() << "MainWindow::showStatusOfDXC: Entity: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) << endl;
+    //qDebug() << "MainWindow::showStatusOfDXC: Entity: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     // Receives:  QStringList _qs;
     //_qs << Entity << BandId << ModeId << lognumber;
@@ -6709,7 +6703,7 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
     int status = awards->getDXStatus (_qs);
     QString message = QString();
 
-        //qDebug() << "MainWindow::showStatusOfDXC: " << QString::number(status) << endl;
+    //qDebug() << "MainWindow::showStatusOfDXC: " << QString::number(status) << endl;
 
     message = awards->getDXStatusString(status);
     infoLabel1->setText(message);
@@ -6742,110 +6736,19 @@ void MainWindow::slotShowAwards()
      //qDebug() << "MainWindow::slotShowAwards-1"  << endl;
     logWindow->refresh();
      //qDebug() << "MainWindow::slotShowAwards-2"  << endl;
-    showAwards();
+
+    awardsWidget->showAwards();
      //qDebug() << "MainWindow::slotShowAwards-3"  << endl;
     dxccStatusWidget->refresh();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
      //qDebug() << "MainWindow::slotShowAwards-END"  << endl;
 }
 
-void MainWindow::showAwards()
-{ // Updates and show all the award status tab.
-    //qDebug() << "MainWindow::showAwards" << endl;
-/*
-  WAZ
-  Local
-*/
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    int _num = 0;
-    QSqlQuery query;
-    QString aux;
 
-/*
-    aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
-    query.exec(aux);
-    query.next();
-    if (query.isValid())
-    {
-        _num = (query.value(0)).toInt();
-    }
-    */
-    _num = dataProxy->getHowManyQSOInLog(currentLog);
-    if (_num>99999)
-    {
-        qsoWorkedQLCDNumber->setDigitCount((QString::number(_num)).size());
-    }
-    else
-    {
-         qsoWorkedQLCDNumber->setDigitCount(5);
-    }
-    qsoWorkedQLCDNumber->display(_num);
-
-
-    _num = dataProxy->getHowManyConfirmedQSLInLog(currentLog);
-    if (_num>99999)
-    {
-        qsoConfirmedQLCDNumber->setDigitCount((QString::number(_num)).size());
-    }
-    else
-    {
-         qsoConfirmedQLCDNumber->setDigitCount(5);
-    }
-
-    qsoConfirmedQLCDNumber->display(_num);
-    _num = 0;
-
-    dxccWorkedQLCDNumber->display(awards->getDXCCWorked(currentLog));
-    _num = 0;
-
-    dxccConfirmedQLCDNumber->display(awards->getDXCCConfirmed(currentLog));
-    _num = 0;
-
-    wazWorkedQLCDNumber->display(awards->getWAZWorked(currentLog));
-    _num = 0;
-
-    wazConfirmedQLCDNumber->display(awards->getWAZConfirmed(currentLog));
-
-    showDXMarathon(selectedYear);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-     //qDebug() << "MainWindow::showAwards - END" << endl;
-
-}
-
-void MainWindow::showDXMarathon(const int _year)
-{
-        //qDebug() << "MainWindow::MainWindow::showDXMarathon: Year: " << QString::number(_year) << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    int i = 0;
-
-    i = awards->getDXMarathonQSO(_year, currentLog);
-        //qDebug() << "MainWindow::MainWindow::showDXMarathon: QSO: " << QString::number(i) << endl;
-    dxMarathonQSOLCDNumber->display(i);
-
-    i = awards->getDXMarathonDXCC(_year, currentLog);
-        //qDebug() << "MainWindow::MainWindow::showDXMarathon: DXCC: " << QString::number(i) << endl;
-    dxMarathonDXCCQLCDNumber->display(i);
-
-    i = awards->getDXMarathonCQ(_year, currentLog);
-    dxMarathonCQQLCDNumber->display(i);
-        //qDebug() << "MainWindow::MainWindow::showDXMarathon: CQ: " << QString::number(i) << endl;
-
-    if (manageDxMarathon)
-    {
-        i = awards->getDXMarathonScore(_year, currentLog);
-    }
-    else
-    {
-        i = 0;
-    }
-    dxMarathonPointsQLCDNumber->display(i);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-    //qDebug() << "MainWindow::MainWindow::showDXMarathon: Score: " << QString::number(i) << endl;
-}
 
 void MainWindow::fillQSOData()
 { // Updates all QSO with the dxcc, CQZ, ... if empty.
-       //qDebug() << "MainWindow::fillQSOData" << endl;
+    //qDebug() << "MainWindow::fillQSOData" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
     //QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, time_on, lognumber, confirmed, id, cqz, ituz, dxcc FROM log WHERE lognumber='%1'").arg(currentLog);
@@ -7383,14 +7286,7 @@ void MainWindow::updateQSLRecAndSent()
    //qDebug() << "MainWindow::updateQSLRecAndSent - END"  << endl;
 }
 
-void MainWindow::slotOperatingYearComboBoxChanged()
-{
-        //qDebug() << "MainWindow::slotOperatingYearComboBoxChanged: " << operatingYearsComboBox->currentText() << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    selectedYear = (operatingYearsComboBox->currentText()).toInt();
-    showDXMarathon(selectedYear);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
+
 
 void MainWindow::defineStationCallsign()
 {
@@ -8204,29 +8100,35 @@ void MainWindow::reconfigureDXMarathonUI(const bool _dxM)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     dxClusterWidget->setDXMarathon(_dxM);
-    if (_dxM)
-    {
-        dxMarathonLabelN->setText(tr("DX-Marathon"));
-        dxMarathonTopScoreLabelN->setEnabled(true);
-        dxMarathonPointsQLCDNumber->setEnabled(true);
-        dxMarathonPointsQLCDNumber->display(0);
-    }
-    else
-    {
-        dxMarathonLabelN->setText(tr("Annual"));
-        dxMarathonTopScoreLabelN->setEnabled(false);
-        dxMarathonPointsQLCDNumber->setEnabled(false);
-        int i = awards->getDXMarathonScore(dateEdit->date().year(), currentLog);
-        if (i>0)
-        {
-            dxMarathonPointsQLCDNumber->display(i);
-        }
-        else
-        {
-            dxMarathonPointsQLCDNumber->display(0);
-        }
-    }
+    awardsWidget->setManageDXMarathon(_dxM);
+    //awardsWidget->reconfigureDXMarathonUI(_dxM);
+
     logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+/*
+void MainWindow::slotTipsFillInDXCC()
+{
+   slotFillEmptyDXCCInTheLog();
+}
+
+void MainWindow::slotsTipsFillQSO()
+{
+    fillQSOData();
+}
+
+void MainWindow::slotTipsFindQSL2QSO()
+{
+    slotSearchToolNeededQSLToSend();
+}
+*/
+void MainWindow::slotAwardsWidgetSetLog()
+{
+    awardsWidget->setLog(currentLog);
+}
+
+void MainWindow::slotAwardsWidgetSetYear()
+{
+    awardsWidget->setYear(selectedYear);
 }
 
 void MainWindow::setSeverity(const int _sev)

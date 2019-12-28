@@ -27,6 +27,7 @@ QT += core \
     serialport \
     widgets
 
+
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT += printsupport
     QT += widgets \
@@ -38,8 +39,9 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4) {
 macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
 }
 
-HEADERS += setupdialog.h \      
+HEADERS += setupdialog.h \
     aboutdialog.h \
+    awardswidget.h \
     mainwindow.h \
     world.h \
     logwindow.h \
@@ -109,6 +111,7 @@ message(Sources)
 
 SOURCES += main.cpp \
     aboutdialog.cpp \
+    awardswidget.cpp \
     mainwindow.cpp \
     setupdialog.cpp \
     world.cpp \
@@ -174,6 +177,7 @@ SOURCES += main.cpp \
     hamlibclass.cpp \
     tipsdialog.cpp \
     worldmapwidget.cpp
+
 
 message (Other files)
 
@@ -288,3 +292,4 @@ else:
 {
     TARGET = klog
 }
+

@@ -31,6 +31,8 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
+#include <QOperatingSystemVersion>
+
 //#include <QFile>
 //#include <QDirIterator>
 //#include <QList>
@@ -70,11 +72,14 @@ private:
     void updateNeeded(QString &_newVer);
     void setTheURL(QString _url);
     void setHeader();
+    void findOS(const int _os);
 
     Utilities *util;
 
     QString klogVersion, latestVersion, callsign;
     QString urld;
+    QString OSString;
+    int OSVersion;
     QUrl *url;
     
     //QNetworkAccessManager *manager;
