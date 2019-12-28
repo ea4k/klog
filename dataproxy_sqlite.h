@@ -34,10 +34,12 @@
 #include "database.h"
 
 
-class DataProxy_SQLite : public DataProxy {
+class DataProxy_SQLite : public DataProxy
+{
     Q_OBJECT
 
 public:
+
     DataProxy_SQLite(const QString &_softVersion, const QString &_parentFunction);
     ~DataProxy_SQLite();
 

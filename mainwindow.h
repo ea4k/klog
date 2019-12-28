@@ -58,6 +58,7 @@
 #include "utilities.h"
 #include "downloadcty.h"
 #include "dxccstatuswidget.h"
+#include "awardswidget.h"
 #include "softwareupdate.h"
 #include "logmodel.h"
 #include "logwindow.h"
@@ -69,6 +70,7 @@
 #include "updatesatsdata.h"
 #include "hamlibclass.h"
 #include "worldmapwidget.h"
+
 
 
 
@@ -161,7 +163,7 @@ private slots:
     void slotModeComboBoxChanged();
     void slotBandComboBoxChanged();
     //void slotIOTAComboBoxChanged();
-    void slotOperatingYearComboBoxChanged();
+    //void slotOperatingYearComboBoxChanged();
     void slotOKButtonClicked();
     void slotSpotItButtonClicked();
     void slotClearButtonClicked();
@@ -217,8 +219,11 @@ private slots:
     void slotHelpCheckUpdatesAction();
     void slotAboutQt();
     void slotTipsAction();
-       
-    void slotRecalculateAwardsButtonClicked();
+
+    // To support AwardsWidget
+    //void slotRecalculateAwardsButtonClicked();
+    void slotAwardsWidgetSetLog();
+    void slotAwardsWidgetSetYear();
 
     // logpanel
     //void slotRighButtonFromLog( const QPoint& pos);
@@ -270,6 +275,10 @@ private slots:
     void slotWSJTXloggedQSO(const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
                              const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
                              const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on, const QString &_de_call, const QString &_de_grid);
+
+    //void slotTipsFindQSL2QSO();
+    //void slotTipsFillInDXCC();
+    //void slotsTipsFillQSO();
 
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level=7);
 private:
@@ -344,8 +353,8 @@ private:
 
     void completeWithPreviousQSO(const QString &_call);
 
-    void showAwards();
-    void showDXMarathon(const int _year);
+    //void showAwards();
+    //void showDXMarathon(const int _year);
     void updateQSLRecAndSent();
     double checkFreqRanges(double _f);
     void setRSTToMode(const QString &_m);
@@ -505,16 +514,12 @@ private:
     //QLabel *gradLongLabel, *distLongLabel;
 
     //QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
-    QComboBox *operatingYearsComboBox;
+
     QLineEdit *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit;//, *commentLineEdit, *iotaNumberLineEdit;
     QTextEdit *notesTextEdit;
     QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox; //*myPowerSpinBox,
     QLCDNumber *freqQLCDNumber;
-    QLCDNumber *dxccConfirmedQLCDNumber, *dxccWorkedQLCDNumber,
-                *wazConfirmedQLCDNumber, *wazWorkedQLCDNumber,
-                *localConfirmedQLCDNumber, *localWorkedQLCDNumber,
-                *qsoConfirmedQLCDNumber, *qsoWorkedQLCDNumber,
-                *dxMarathonQSOLCDNumber, *dxMarathonDXCCQLCDNumber, *dxMarathonCQQLCDNumber, *dxMarathonPointsQLCDNumber;
+
     //eQSL
     //QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox;
     //QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit, *clublogQDateEdit;
@@ -528,7 +533,7 @@ private:
     //QLineEdit *searchBoxLineEdit;
     //QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
     //QRadioButton *searchAllRadioButton;
-    QPushButton *recalculateAwardsButton;
+    //QPushButton *recalculateAwardsButton;
     //bool searchSelectAllClicked, stationCallSignShownInSearch;
 
     bool checkNewVersions, reportInfo; // Selected in the Setup->Misc to check if new versions and report info back to KLog's servers
@@ -550,6 +555,7 @@ private:
     MainWindowInputEQSL *eQSLTabWidget;
     MainWindowInputQSL *QSLTabWidget;
 
+    AwardsWidget *awardsWidget;
     SearchWidget *searchWidget;
     InfoWidget *infoWidget;
 
@@ -570,7 +576,8 @@ private:
     // </UI>
     int infoTimeout; // timeout that temporary info will stay in the infobars
     QTimer *timer, *timerInfoBars;
-    QDateTime *dateTime;
+    QDateTime *dateTime, *dateTimeTemp;
+    bool yearChangedDuringModification;
     QString infoLabel1T, infoLabel2T;
 
     QString klogDir, ctyDatFile, defaultADIFLogFile, configFileName;

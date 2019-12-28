@@ -37,7 +37,7 @@ To insert a (key, value) pair into the hash, you can use operator[]():
 */
 World::World(DataProxy *dp, const QString &_parentFunction)
 {
-     //qDebug() << "World::World(0)" << _parentFunction << endl;
+    //qDebug() << "World::World(0)" << _parentFunction << endl;
     constrid = 1;
 
     worldModel = new QSqlRelationalTableModel(this);
@@ -56,12 +56,12 @@ World::World(DataProxy *dp, const QString &_parentFunction)
     created = false;
     dataProxy = dp;
     //awards = new Awards(Q_FUNC_INFO);
-     //qDebug() << "World::World(0) - END" << endl;
+    //qDebug() << "World::World(0) - END" << endl;
 }
 
 World::World(DataProxy *dp, const QString &_klogDir, const QString &_parentFunction)
 {
-     //qDebug() << "World::World(1): Dir" << _klogDir << _parentFunction << endl;
+    //qDebug() << "World::World(1): Dir" << _klogDir << _parentFunction << endl;
     constrid = 2;
     klogDir = _klogDir;
     kontestVersion = "";
@@ -85,7 +85,7 @@ World::World(DataProxy *dp, const QString &_klogDir, const QString &_parentFunct
 
 World::World(DataProxy *dp, const QString &_klogDir, const QString &_kontestVer, const QString &_parentFunction)
 {
-     //qDebug() << "World::World(2): Dir" << _klogDir << _parentFunction << endl;
+    //qDebug() << "World::World(2): Dir" << _klogDir << _parentFunction << endl;
     constrid = 3;
     klogDir = _klogDir;
     kontestVersion = _kontestVer;    
@@ -107,7 +107,7 @@ World::World(DataProxy *dp, const QString &_klogDir, const QString &_kontestVer,
     locator = new Locator();
     //qDebug() << "World::World(2): 3" << endl;
     dataProxy = dp;
-     //qDebug() << "World::World(2): - END" << endl;
+    //qDebug() << "World::World(2): - END" << endl;
 
 }
 
@@ -427,7 +427,7 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
 
 int World::getPrefixId(const QString &_qrz)
 {
-     //qDebug() << "World::getPrefixId: -" << _qrz <<"-" << endl;
+    //qDebug() << "World::getPrefixId: -" << _qrz <<"-" << endl;
     //TODO: Instead of going from long to short, identify prefixes from the begining:
     // character(may be number) + number
 
@@ -441,16 +441,18 @@ int World::getPrefixId(const QString &_qrz)
 
     while ((entityID <= 0) && (aux.length()>=1) )
     {
+        //qDebug() << "World::getPrefixId: in the while before calling dataProxy: " << aux << endl;
         entityID = dataProxy->getDXCCFromPrefix(aux);
+        //qDebug() << "World::getPrefixId: in the while After calling dataProxy" << endl;
 
-          //qDebug() << "World::getPrefixId: in the while" << aux << " = " <<  QString::number(entityID) << endl;
-         if (entityID<=0)
-         {
-             aux.chop(1);             
-         }
+        //qDebug() << "World::getPrefixId: in the while" << aux << " = " <<  QString::number(entityID) << endl;
+        if (entityID<=0)
+        {
+            aux.chop(1);
+        }
 
     }
-      //qDebug() << "World::getPrefixId: " <<  _qrz << QString::number(entityID) << endl;
+    //qDebug() << "World::getPrefixId: END: " <<  _qrz << QString::number(entityID) << endl;
     return entityID;
 }
 
@@ -637,7 +639,7 @@ int World::getEntityItuz(const int _enti)
 
 int World::getQRZARRLId(const QString &_qrz)
 {
-      //qDebug() << "World::getQRZARRLId" << _qrz << endl;
+    //qDebug() << "World::getQRZARRLId" << _qrz << endl;
 
     if (_qrz.length() < 1 )
     {
@@ -1419,7 +1421,7 @@ bool World::readCTYCSV(const QString &_worldFile)
 
 QString World::changeSlashAndFindPrefix(const QString &_qrz)
 {
-     //qDebug() << "World::changeSlashAndFindPrefix: -"  << _qrz <<"-" << endl;
+    //qDebug() << "World::changeSlashAndFindPrefix: -"  << _qrz <<"-" << endl;
 
 
     QString aux = _qrz.toUpper();

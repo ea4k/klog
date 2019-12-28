@@ -30,7 +30,7 @@
 
 DataProxy_SQLite::DataProxy_SQLite(const QString &_softVersion, const QString &_parentFunction)
 {
-     //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << _softVersion << _parentFunction << endl;
+    //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << _softVersion << _parentFunction << endl;
 
      //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1" << endl;
     util = new Utilities();
@@ -47,7 +47,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_softVersion, const QString &_
     //preparedQuery = new QSqlQuery;
     //db = new DataBase(0);
     //dataProxy = new DataProxy_SQLite();
-     //qDebug() << "DataProxy_SQLite::DataProxy_SQLite  END" << endl;
+    //qDebug() << "DataProxy_SQLite::DataProxy_SQLite  END" << endl;
 
 }
 DataProxy_SQLite::~DataProxy_SQLite(){
@@ -5802,7 +5802,7 @@ QString DataProxy_SQLite::getEntityMainPrefix(const int _entityN)
 
 int DataProxy_SQLite::getDXCCFromPrefix(const QString &_p)
 {
-       //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix(: -" << _p << "-" << endl;
+    //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix - " << Q_FUNC_INFO << "-" << _p << "-" << endl;
 
     QSqlQuery query;
     QString queryString = QString("SELECT dxcc FROM prefixesofentity WHERE prefix='%1'").arg(_p);
@@ -5810,30 +5810,36 @@ int DataProxy_SQLite::getDXCCFromPrefix(const QString &_p)
 
     if (sqlOK)
     {
+        //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix: query OK: query: " << queryString << endl;
         if (query.next())
         {
             if (query.isValid())
             {
                 int v = (query.value(0)).toInt();
                 query.finish();
+                //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix: return 0: " << QString::number(v)  << endl;
                 return v;
             }
             else
             {
                 query.finish();
+                //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix: return -1: " << endl;
                 return -1;
             }
         }
         else
         {
             query.finish();
+            //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix: return -2: " << endl;
             return -2;
         }
     }
     else
     {
+        //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix: query NOK: query: " << queryString << endl;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
+        //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix: return -3: " << endl;
         return -3;
     }
     //return -4;
