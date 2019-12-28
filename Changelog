@@ -1,8 +1,11 @@
 TBD - 0.9.9
+BUG: Parece que el dataProxy no se instancia en el dataproxy_sqlite
+Working on isolation of the Awards widget to make KLog more modular.
+Working on the MAP.
+Working on the identification of a new version per OS.
 
-Working on the MAP
-Working on the identification of a new version per OS
 
+- New feature: Added some tips in the Help menu to help the users to get the most of KLog.
 - Added some debug log option.
 - Code cleaning with cppcheck.
 - UI: Added a WSJT-X like color schema.

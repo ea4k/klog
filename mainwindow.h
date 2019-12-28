@@ -69,7 +69,7 @@
 #include "statisticswidget.h"
 #include "updatesatsdata.h"
 #include "hamlibclass.h"
-#include "worldmapwidget.h"
+//#include "worldmapwidget.h"
 
 
 
@@ -259,7 +259,7 @@ private slots:
     void slotHamlibModeChanged(const QString &_m);
 
     // WORLD MAP
-    void slotWorldMapShow();
+    //void slotWorldMapShow();
 
     //DXCCWIDGET
     void slotShowQSOFromDXCCWidget(const int _q);
@@ -292,7 +292,7 @@ private:
     HamLibClass *hamlib;
     bool hamlibActive;
     //</UPDATE CTY.DAT>
-    WorldMapWidget *worldMapWidget;
+    //WorldMapWidget *worldMapWidget;
     void createStatusBar();
     void createUI();
     void createUICQWW();
@@ -479,7 +479,7 @@ private:
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
 
-    QAction *showWorldMapAct;
+    //QAction *showWorldMapAct;
 
     //QAction *delQSOFromSearchAct;
     //QAction *qsoToEditFromSearchAct;
