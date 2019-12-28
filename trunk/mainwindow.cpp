@@ -629,7 +629,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //connect(awards, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
     connect(awards, SIGNAL(awardDXCCUpdated()), this, SLOT(slotRefreshDXCCWidget()) );
 
-    worldMapWidget = new WorldMapWidget();
+    //worldMapWidget = new WorldMapWidget();
 
 
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
@@ -738,13 +738,15 @@ void MainWindow::createStatusBar()
     statusBar()->showMessage(tr("Ready"));
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
+
+/*
 void MainWindow::slotWorldMapShow()
 {
     //worldMapWidget->resize(500,300);
     //worldMapWidget->loadMap();
     worldMapWidget->show();
 }
-
+*/
 void MainWindow::createUI()
 {
 
@@ -3878,10 +3880,10 @@ void MainWindow::createMenusCommon()
     connect(showStatsAct, SIGNAL(triggered()), this, SLOT(slotShowStats()));
     showStatsAct->setToolTip(tr("Show the statistics of your radio activity."));
 
-    showWorldMapAct = new QAction(tr("CQ zones world map"), this);
-    toolMenu->addAction(showWorldMapAct);
-    connect(showWorldMapAct, SIGNAL(triggered()), this, SLOT(slotWorldMapShow()));
-    showWorldMapAct->setToolTip(tr("Show a world map with your radio activity."));
+    //showWorldMapAct = new QAction(tr("CQ zones world map"), this);
+    //toolMenu->addAction(showWorldMapAct);
+    //connect(showWorldMapAct, SIGNAL(triggered()), this, SLOT(slotWorldMapShow()));
+    //showWorldMapAct->setToolTip(tr("Show a world map with your radio activity."));
 
     toolMenu->addSeparator();
 
