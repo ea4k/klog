@@ -1,8 +1,8 @@
 TBD - 0.9.9
 BUG: Parece que el dataProxy no se instancia en el dataproxy_sqlite
 Working on isolation of the Awards widget to make KLog more modular.
-Working on the MAP.
-Working on the identification of a new version per OS.
+- UI: When starting a new version for the first time, the splashscreen is not hidding other messages anymore.
+- New versions are now found depending on the OS, not just for the sources.
 
 
 - New feature: Added some tips in the Help menu to help the users to get the most of KLog.
