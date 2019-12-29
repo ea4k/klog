@@ -458,16 +458,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
     readConfigData();
     //qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
-    if (itIsANewversion)
-    {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Information);
-        msgBox.setWindowTitle(tr("KLog new version detected!"));
-        msgBox.setText(tr("It seems that you are running this version of KLog for the first time."));
-        msgBox.setInformativeText(tr("The setup will be open to allow you to do any new setup you may need."));
-        msgBox.exec();
-        openSetup();
-    }
+
     //qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
     if (needToEnd)
     {
@@ -639,6 +630,20 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
     //qDebug() << "MainWindow::MainWindow: END" << endl;
+}
+
+void MainWindow::checkIfNewVersion()
+{
+    if (itIsANewversion)
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setWindowTitle(tr("KLog new version detected!"));
+        msgBox.setText(tr("It seems that you are running this version of KLog for the first time."));
+        msgBox.setInformativeText(tr("The setup will be open to allow you to do any new setup you may need."));
+        msgBox.exec();
+        openSetup();
+    }
 }
 
 MainWindow::~MainWindow()
@@ -4153,7 +4158,7 @@ void MainWindow::slotTipsAction()
 
 void MainWindow::slotHelpCheckUpdatesAction()
 {
-    qDebug() << "MainWindow::slotHelpCheckUpdatesAction" << endl;
+    //qDebug() << "MainWindow::slotHelpCheckUpdatesAction" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     callingUpdate = true;
     softUpdate->addCall(stationQRZ);
@@ -4594,6 +4599,7 @@ void MainWindow::checkIfWorkedB4(const QString &_qrz)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 }
+
 
 
 void MainWindow::readConfigData()

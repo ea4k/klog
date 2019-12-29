@@ -131,6 +131,7 @@ class MainWindow : public  QMainWindow
 
 public:
     MainWindow(const QString &_klogDir, const QString &tversion);
+    void checkIfNewVersion();
 
      ~MainWindow();
 
