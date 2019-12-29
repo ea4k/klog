@@ -187,7 +187,8 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
         break;
         case QOperatingSystemVersion::Windows:
             qDebug() << "MainWindow::checkUpdates - Windows"  << endl;
-            rx.setPattern("KLog-(\\d+\\.)?(\\d+\\.)?(\\d+)?(-\\d+)?(\\.)?-windows-installer.exe");
+           // rx.setPattern("KLog-(\\d+\\.)?(\\d+\\.)?(\\d+)?(-\\d+)?(\\.)?-windows-installer.exe");
+            rx.setPattern("KLog-(\\d+)(\\.\\d+)?(\\.\\d+)?(\\.\\d+)?(-RC\\d+)?-windows-installer.exe");
             filterString = QString("KLog");
             fileExtension = QString("-windows-installer.exe");
         break;
