@@ -181,7 +181,7 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
     {
         case QOperatingSystemVersion::Unknown:
             qDebug() << "MainWindow::checkUpdates - Unknown"  << endl;
-            rx.setPattern("klog-(\\d+\\.)?(\\d+\\.)?(\\d+)?(-\\d+)?(\\.)?tar.gz");
+            rx.setPattern("kLog-(\\d+)(\\.\\d+)?(\\.\\d+)?(\\.\\d+)?(-RC\\d+)?.tar.gz");
             filterString = QString("klog");
             fileExtension = QString(".tar.gz");
         break;
@@ -193,7 +193,8 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
             fileExtension = QString("-windows-installer.exe");
         break;
         case QOperatingSystemVersion::MacOS:
-            rx.setPattern("KLog-(\\d+\\.)?(\\d+\\.)?(\\d+)?(-\\d+)?(\\.)?dmg");
+            //rx.setPattern("KLog-(\\d+\\.)?(\\d+\\.)?(\\d+)?(-\\d+)?(\\.)?dmg");
+            rx.setPattern("KLog-(\\d+)(\\.\\d+)?(\\.\\d+)?(\\.\\d+)?(-RC\\d+)?.dmg");
             filterString = QString("KLog");
             fileExtension = QString(".dmg");
             qDebug() << "MainWindow::checkUpdates - macOS"  << endl;
