@@ -16,7 +16,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="62"/>
         <source>If you want to provide support you are welcome to join the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog development mailing list&lt;/a&gt;!</source>
-        <translation>Si voleu col·laborar, sou benvingut a posar-vos en contacte amb la &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;llista de desenvolupament del KLog&lt;/a&gt;!</translation>
+        <translation>Si voleu col·laborar, us donem la benvinguda per a posar-vos en contacte amb la &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;llista de desenvolupament del KLog&lt;/a&gt;!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="63"/>
@@ -72,7 +72,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="78"/>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog development mailing list&lt;/a&gt;!</source>
-        <translation>Si el KLog encara no està en el vostre idioma i voleu ajudar-nos, sou benvingut a posar-vos en contacte amb la &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;llista de desenvolupament del KLog&lt;/a&gt;!</translation>
+        <translation>Si el KLog encara no està en el vostre idioma i voleu ajudar-nos, us donem la benvinguda per a posar-vos en contacte amb la &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;llista de desenvolupament del KLog&lt;/a&gt;!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="92"/>
@@ -141,121 +141,121 @@
     <message>
         <location filename="../awardswidget.cpp" line="75"/>
         <source>Recalculate</source>
-        <translation type="unfinished">Recalcula</translation>
+        <translation>Torna a calcular</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="76"/>
         <source>Click to recalculate the award status.</source>
-        <translation type="unfinished">Cliqueu per tornar a calcular l&apos;estat dels diplomes.</translation>
+        <translation>Cliqueu per tornar a calcular l&apos;estat dels diplomes.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="77"/>
         <location filename="../awardswidget.cpp" line="278"/>
         <source>Select the year you want to check.</source>
-        <translation type="unfinished">Seleccioneu l&apos;any que voleu comprovar.</translation>
+        <translation>Seleccioneu l&apos;any que voleu comprovar.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="79"/>
         <location filename="../awardswidget.cpp" line="100"/>
         <source>QSOs</source>
-        <translation type="unfinished">QSO</translation>
+        <translation>QSO</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="80"/>
         <location filename="../awardswidget.cpp" line="91"/>
         <source>DXCC</source>
-        <translation type="unfinished">DXCC</translation>
+        <translation>DXCC</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="81"/>
         <source>CQ</source>
-        <translation type="unfinished">CQ</translation>
+        <translation>CQ</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="83"/>
         <source>Award</source>
-        <translation type="unfinished">Diploma</translation>
+        <translation>Diploma</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="85"/>
         <source>Confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>Confirmat</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="88"/>
         <source>Worked</source>
-        <translation type="unfinished">Treballats</translation>
+        <translation>Treballat</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="94"/>
         <source>WAZ</source>
-        <translation type="unfinished">WAZ</translation>
+        <translation>WAZ</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="167"/>
         <source>Score</source>
-        <translation type="unfinished">Puntuació</translation>
+        <translation>Puntuació</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="168"/>
         <location filename="../awardswidget.cpp" line="398"/>
         <source>Annual</source>
-        <translation type="unfinished">Anual</translation>
+        <translation>Anual</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="265"/>
         <source>Number of confirmed DXCC entities.</source>
-        <translation type="unfinished">Nombre d&apos;entitats DXCC confirmades.</translation>
+        <translation>Nombre d&apos;entitats DXCC confirmades.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="266"/>
         <source>Number of worked DXCC entities.</source>
-        <translation type="unfinished">Nombre d&apos;entitats DXCC treballades.</translation>
+        <translation>Nombre d&apos;entitats DXCC treballades.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="267"/>
         <source>Number of confirmed WAZ zones.</source>
-        <translation type="unfinished">Nombre de zones WAZ confirmades.</translation>
+        <translation>Nombre de zones WAZ confirmades.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="268"/>
         <source>Number of worked WAZ zones.</source>
-        <translation type="unfinished">Nombre de zones WAZ treballades.</translation>
+        <translation>Nombre de zones WAZ treballades.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="271"/>
         <source>Number of confirmed QSOs.</source>
-        <translation type="unfinished">Nombre de QSO confirmats.</translation>
+        <translation>Nombre de QSO confirmats.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="272"/>
         <source>Number of worked QSOs.</source>
-        <translation type="unfinished">Nombre de QSO treballats.</translation>
+        <translation>Nombre de QSO treballats.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="274"/>
         <source>Number of QSOs worked on the selected year.</source>
-        <translation type="unfinished">Nombre de QSO treballats durant l&apos;any seleccionat.</translation>
+        <translation>Nombre de QSO treballats durant l&apos;any seleccionat.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="275"/>
         <source>Number of DXCC worked on the selected year.</source>
-        <translation type="unfinished">Nombre de DXCC treballats durant l&apos;any seleccionat.</translation>
+        <translation>Nombre de DXCC treballats durant l&apos;any seleccionat.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="276"/>
         <source>Number of CQ Zones worked on the selected year.</source>
-        <translation type="unfinished">Nombre de zones CQ treballades durant l&apos;any seleccionat.</translation>
+        <translation>Nombre de zones CQ treballades durant l&apos;any seleccionat.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="277"/>
         <source>Score for the DXMarathon on the selected year.</source>
-        <translation type="unfinished">Puntuació per al DXMarathon durant l&apos;any seleccionat.</translation>
+        <translation>Puntuació per al DXMarathon a l&apos;any seleccionat.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="391"/>
         <source>DX-Marathon</source>
-        <translation type="unfinished">DX-Marathon</translation>
+        <translation>DX-Marathon</translation>
     </message>
 </context>
 <context>
@@ -333,22 +333,22 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="426"/>
         <source>Pref: </source>
-        <translation type="unfinished"></translation>
+        <translation>Pref: </translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="427"/>
         <source>CQ: </source>
-        <translation type="unfinished"></translation>
+        <translation>CQ: </translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="428"/>
         <source>ITU: </source>
-        <translation type="unfinished"></translation>
+        <translation>ITU: </translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="432"/>
         <source>Beam: </source>
-        <translation type="unfinished"></translation>
+        <translation>Raig: </translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="442"/>
@@ -609,7 +609,7 @@ Voleu tornar-ho a intentar?</translation>
         <location filename="../dataproxy_sqlite.cpp" line="3711"/>
         <location filename="../dataproxy_sqlite.cpp" line="3778"/>
         <source>Requested</source>
-        <translation>Requerit</translation>
+        <translation>Sol·licitat</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="3715"/>
@@ -752,7 +752,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../filemanager.cpp" line="4773"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest QSO no inclou les dades mínimes per a considerar-se un QSO vàlid!</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4802"/>
@@ -1061,7 +1061,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../startwizard.cpp" line="155"/>
         <source>It supports QSL management, import and export of ADIF </source>
-        <translation>Permet la gestió de QSL, importació i exportació de formats </translation>
+        <translation>Permet la gestió de QSL, importació i exportació d&apos;ADIF</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="156"/>
@@ -1246,14 +1246,6 @@ Voleu tornar-ho a intentar?</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <source>Recalculate</source>
-        <translation type="vanished">Recalcula</translation>
-    </message>
-    <message>
-        <source>Click to recalculate the award status.</source>
-        <translation type="vanished">Cliqueu per tornar a calcular l&apos;estat dels diplomes.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="269"/>
         <source>Starting KLog</source>
         <translation>S&apos;està iniciant el KLog</translation>
@@ -1307,10 +1299,6 @@ Voleu tornar-ho a intentar?</translation>
         <location filename="../mainwindow.cpp" line="4505"/>
         <source>KLog</source>
         <translation>KLog</translation>
-    </message>
-    <message>
-        <source>Annual</source>
-        <translation type="vanished">Anual</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="744"/>
@@ -1443,7 +1431,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="2921"/>
         <source>Do you really want to exit KLog?</source>
-        <translation type="unfinished"></translation>
+        <translation>Esteu segur que voleu sortir del KLog?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2996"/>
@@ -1513,7 +1501,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3767"/>
         <source>Export Requested QSL to ADIF...</source>
-        <translation>Exporta els QSL sol·licitats a ADIF...</translation>
+        <translation>Exporta les QSL sol·licitades a ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3770"/>
@@ -1588,27 +1576,27 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3822"/>
         <source>&amp;Find QSO to QSL</source>
-        <translation>&amp;Cerca QSO als QSL</translation>
+        <translation>&amp;Cerca QSO a les QSL</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3825"/>
         <source>Shows QSOs for which you should send your QSL and request the DX QSL.</source>
-        <translation>Mostra els QSO pels quals cal enviar el vostre QSL i sol·licitar el DX QSL.</translation>
+        <translation>Mostra els QSO pels quals cal enviar la vostra QSL i sol·licitar la DX QSL.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3827"/>
         <source>Find My-QSLs pending to send</source>
-        <translation>Cerca els meus QSL pendents d&apos;enviar</translation>
+        <translation>Cerca les meves QSL pendents d&apos;enviar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3831"/>
         <source>Shows the QSOs with pending requests to send QSLs. You should keep this queue empty!</source>
-        <translation>Mostra els QSO amb sol·licituds pendents d&apos;enviar els QSL. Cal mantenir buida aquesta cua!</translation>
+        <translation>Mostra els QSO amb sol·licituds pendents d&apos;enviar les QSL. Cal mantenir buida aquesta cua!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3833"/>
         <source>&amp;Find DX-QSLs pending to receive</source>
-        <translation>&amp;Cerca els DX-QSL pendents de rebre</translation>
+        <translation>&amp;Cerca les DX-QSL pendents de rebre</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3836"/>
@@ -1724,7 +1712,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3916"/>
         <source>&amp;Tips...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Consells...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3921"/>
@@ -1946,13 +1934,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="5554"/>
         <source>DX Locator</source>
-        <translation type="unfinished">Localitzador DX</translation>
-    </message>
-    <message>
-        <source>Filling DXCC in QSOs...
- QSO: </source>
-        <translation type="vanished">S&apos;està omplint els DXCC als QSO...
- QSO: </translation>
+        <translation>Localitzador DX</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7546"/>
@@ -1982,22 +1964,22 @@ La freqüència no es en una banda de radioafició!</translation>
     <message>
         <location filename="../mainwindow.cpp" line="56"/>
         <source>It was not possible to open the debug file for writting. No debug log will be saved!</source>
-        <translation type="unfinished"></translation>
+        <translation>No s&apos;ha pogut obrir el fitxer de depuració per escriptura. No es desarà cap registre de depuració!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="642"/>
         <source>KLog new version detected!</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;ha detectat una versió nova del KLog!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="643"/>
         <source>It seems that you are running this version of KLog for the first time.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sembla que esteu executant aquesta versió del KLog per primera vegada.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="644"/>
         <source>The setup will be open to allow you to do any new setup you may need.</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;obrirà la configuració per permetre establir qualsevol paràmetre nou que calgui.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3683"/>
@@ -2022,58 +2004,6 @@ El servidor UDP ha fallat en %1.</translation>
         <location filename="../mainwindow.cpp" line="5510"/>
         <source>Clears the QSO entry.</source>
         <translation>Neteja l&apos;entrada QSO.</translation>
-    </message>
-    <message>
-        <source>Number of confirmed DXCC entities.</source>
-        <translation type="vanished">Nombre d&apos;entitats DXCC confirmades.</translation>
-    </message>
-    <message>
-        <source>Number of worked DXCC entities.</source>
-        <translation type="vanished">Nombre d&apos;entitats DXCC treballades.</translation>
-    </message>
-    <message>
-        <source>Number of confirmed WAZ zones.</source>
-        <translation type="vanished">Nombre de zones WAZ confirmades.</translation>
-    </message>
-    <message>
-        <source>Number of worked WAZ zones.</source>
-        <translation type="vanished">Nombre de zones WAZ treballades.</translation>
-    </message>
-    <message>
-        <source>Number of confirmed local references.</source>
-        <translation type="vanished">Nombre de referències locals confirmades.</translation>
-    </message>
-    <message>
-        <source>Number of worked local references.</source>
-        <translation type="vanished">Nombre de referències locals treballades.</translation>
-    </message>
-    <message>
-        <source>Number of confirmed QSOs.</source>
-        <translation type="vanished">Nombre de QSO confirmats.</translation>
-    </message>
-    <message>
-        <source>Number of worked QSOs.</source>
-        <translation type="vanished">Nombre de QSO treballats.</translation>
-    </message>
-    <message>
-        <source>Number of QSOs worked on the selected year.</source>
-        <translation type="vanished">Nombre de QSO treballats durant l&apos;any seleccionat.</translation>
-    </message>
-    <message>
-        <source>Number of DXCC worked on the selected year.</source>
-        <translation type="vanished">Nombre de DXCC treballats durant l&apos;any seleccionat.</translation>
-    </message>
-    <message>
-        <source>Number of CQ Zones worked on the selected year.</source>
-        <translation type="vanished">Nombre de zones CQ treballades durant l&apos;any seleccionat.</translation>
-    </message>
-    <message>
-        <source>Score for the DXMarathon on the selected year.</source>
-        <translation type="vanished">Puntuació per al DXMarathon durant l&apos;any seleccionat.</translation>
-    </message>
-    <message>
-        <source>Select the year you want to check.</source>
-        <translation type="vanished">Seleccioneu l&apos;any que voleu comprovar.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5528"/>
@@ -2162,50 +2092,14 @@ El servidor UDP ha fallat en %1.</translation>
         <translation>Satèl·lit</translation>
     </message>
     <message>
-        <source>QSOs</source>
-        <translation type="vanished">QSO</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="5819"/>
         <source>DXCC</source>
         <translation>DXCC</translation>
     </message>
     <message>
-        <source>CQ</source>
-        <translation type="vanished">CQ</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation type="vanished">Puntuació</translation>
-    </message>
-    <message>
-        <source>DX-Marathon</source>
-        <translation type="vanished">DX-Marathon</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="5726"/>
         <source>Info</source>
         <translation>Informació</translation>
-    </message>
-    <message>
-        <source>Award</source>
-        <translation type="vanished">Diploma</translation>
-    </message>
-    <message>
-        <source>Confirmed</source>
-        <translation type="vanished">Confirmats</translation>
-    </message>
-    <message>
-        <source>Worked</source>
-        <translation type="vanished">Treballats</translation>
-    </message>
-    <message>
-        <source>WAZ</source>
-        <translation type="vanished">WAZ</translation>
-    </message>
-    <message>
-        <source>Local</source>
-        <translation type="vanished">Local</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5813"/>
@@ -2310,7 +2204,8 @@ El servidor UDP ha fallat en %1.</translation>
         <location filename="../mainwindow.cpp" line="6922"/>
         <source>Filling DXCC, CQz, ITUz, Continent in QSOs...
  QSO: </source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;està omplint DXCC, CQz, ITUz, continent al QSO...
+ QSO: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7006"/>
@@ -2525,12 +2420,12 @@ El servidor UDP ha fallat en %1.</translation>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="45"/>
         <source>Date of the eQSL sending.</source>
-        <translation>Data de l&apos;enviament de l&apos;eQSL.</translation>
+        <translation>Data de l&apos;enviament de la eQSL.</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="46"/>
         <source>Date of the eQSL reception.</source>
-        <translation>Data de la recepció de l&apos;eQSL.</translation>
+        <translation>Data de la recepció de la eQSL.</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="47"/>
@@ -2570,12 +2465,12 @@ El servidor UDP ha fallat en %1.</translation>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="51"/>
         <source>Status of the eQSL sending.</source>
-        <translation>Estat de l&apos;enviament de l&apos;eQSL.</translation>
+        <translation>Estat de l&apos;enviament de la eQSL.</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="52"/>
         <source>Status of the eQSL reception.</source>
-        <translation>Estat de la recepció de l&apos;eQSL.</translation>
+        <translation>Estat de la recepció de la eQSL.</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="58"/>
@@ -2585,12 +2480,12 @@ El servidor UDP ha fallat en %1.</translation>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="61"/>
         <source>eQSL Sent</source>
-        <translation>eQSL enviat</translation>
+        <translation>eQSL enviada</translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="64"/>
         <source>eQSL Rec</source>
-        <translation>eQSL rebut</translation>
+        <translation>eQSL rebuda</translation>
     </message>
 </context>
 <context>
@@ -2874,14 +2769,14 @@ El servidor UDP ha fallat en %1.</translation>
         <location filename="../mainwindowsattab.cpp" line="522"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished">Freqüència RX en MHz.
+        <translation>Freqüència RX en MHz.
 La freqüència no es en una banda de radioafició!</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="135"/>
         <location filename="../mainwindowsattab.cpp" line="527"/>
         <source>RX Frequency in MHz.</source>
-        <translation type="unfinished">Freqüència de RX en MHz.</translation>
+        <translation>Freqüència de RX en MHz.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="99"/>
@@ -2897,14 +2792,14 @@ La freqüència no es en una banda de radioafició!</translation>
         <location filename="../mainwindowsattab.cpp" line="579"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished">Freqüència TX en MHz.
+        <translation>Freqüència TX en MHz.
 La freqüència no es en una banda de radioafició!</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="130"/>
         <location filename="../mainwindowsattab.cpp" line="584"/>
         <source>TX Frequency in MHz.</source>
-        <translation type="unfinished">Freqüència de TX en MHz.</translation>
+        <translation>Freqüència de TX en MHz.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="89"/>
@@ -3127,7 +3022,7 @@ La freqüència no es en una banda de radioafició!</translation>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4873"/>
         <source>Urt information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Informació URT...</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4916"/>
@@ -3517,7 +3412,8 @@ La freqüència no es en una banda de radioafició!</translation>
         <location filename="../setupdialog.cpp" line="322"/>
         <source>Do you want to add one log in the Logs tab or exit KLog?
 (Click Yes to add a log or No to exit KLog)</source>
-        <translation type="unfinished"></translation>
+        <translation>Voleu afegir un registre a la pestanya de Registres o sortir del KLog?
+(Feu clic a Sí per afegir un registre o No per a sortir del KLog)</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="431"/>
@@ -3780,47 +3676,47 @@ Afegiu i seleccioneu la classe de registre que voleu usar.</translation>
     <message>
         <location filename="../setuppagecolors.cpp" line="49"/>
         <source>WSJT-X palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Paleta WSJT-X</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="50"/>
         <source>Default palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Paleta predeterminada</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="52"/>
         <source>Color when the DXCC is an ATNO (All Time New One)</source>
-        <translation type="unfinished"></translation>
+        <translation>Color quan el DXCC és un ATNO («All Time New One», Un de nou de tots els temps )</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="53"/>
         <source>This DXCC was worked before in another band but not in the selected band. It may be needed due to the CQ, ITU, Grid, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest DXCC va funcionar abans en una altra banda però no en la banda seleccionada. Pot haver estat necessari pel CQ, ITU, Grid, ...</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="54"/>
         <source>Worked DXCC, but not confirmed in this band.</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC treballat, però no confirmat en aquesta banda.</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="55"/>
         <source>DXCC is confirmed in this band</source>
-        <translation type="unfinished"></translation>
+        <translation>El DXCC està confirmat en aquesta banda</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="56"/>
         <source>Default color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color predeterminat</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="57"/>
         <source>Sets a palette of colors similar to the one used in WSJT-X</source>
-        <translation type="unfinished"></translation>
+        <translation>Estableix una paleta de colors similar a la usada al WSJT-X</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="58"/>
         <source>Sets the default palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Estableix la paleta predeterminada</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="168"/>
@@ -3928,22 +3824,6 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
         <location filename="../setuppagehamlib.cpp" line="52"/>
         <source>Activates the hamlib support that will enable the connection to a radio.</source>
         <translation>Activa la implementació de la «hamlib» que activarà la connexió a la ràdio.</translation>
-    </message>
-    <message>
-        <source>RTS on</source>
-        <translation type="vanished">RTS actiu</translation>
-    </message>
-    <message>
-        <source>Setting RTS may be needed for some serial ports.</source>
-        <translation type="vanished">Pot ser necessari el paràmetre RTS per diversos ports sèrie.</translation>
-    </message>
-    <message>
-        <source>DTR on</source>
-        <translation type="vanished">DTR actiu</translation>
-    </message>
-    <message>
-        <source>Setting DTR may be needed for some serial ports.</source>
-        <translation type="vanished">Pot ser necessari el paràmetre DTR per diversos ports sèrie.</translation>
     </message>
     <message>
         <location filename="../setuppagehamlib.cpp" line="70"/>
@@ -4433,7 +4313,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="50"/>
         <source>Activate the application debug log</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa el registre de depuració de l&apos;aplicació</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="58"/>
@@ -4478,7 +4358,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppagemisc.cpp" line="136"/>
         <source>Activates the application debug log. This may be useful if something is not working as expected. A debug file will be created in the KLog directory.</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa el registre de depuració de l&apos;aplicació. Això pot ser útil si hi ha quelcom que no funciona com s&apos;espera. Es crearà un fitxer de depuració en el directori del KLog.</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="667"/>
@@ -5777,116 +5657,116 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
     <message>
         <location filename="../tipsdialog.cpp" line="25"/>
         <source>KLog tips</source>
-        <translation type="unfinished"></translation>
+        <translation>Consells del KLog</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="42"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Següent</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="43"/>
         <source>Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Anterior</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="123"/>
         <source>Tip #1:</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in QSO data</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Consell núm. 1:</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="123"/>
         <source>Do you know...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sabíeu que...</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="123"/>
         <source>You can use &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Tools-&gt;Fill in QSO data&lt;/a&gt; to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?</source>
-        <translation type="unfinished"></translation>
+        <translation>podeu usar &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Eines-&gt;Omple les dades QSO&lt;/a&gt; per a llegir automàticament el registre complet per omplir el DXCC, CQ, les zones ITU i el continent?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="127"/>
         <source>&lt;b&gt;Tip #2:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFillInDXCC&quot;&gt;Tools-&gt;Fill in DXCC data&lt;/a&gt; to automatically read the full log to fill the DXCC QSO data?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in DXCC data</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 2:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu usar &lt;a href=&quot;#ToolsFillInDXCC&quot;&gt;Eines-&gt;Omple les dades DXCC&lt;/a&gt; per llegir automàticament el registre complet per omplir les dades QSO del DXCC?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="131"/>
         <source>&lt;b&gt;Tip #3:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find QSO to QSL&lt;/a&gt; to look for all those QSO that you should send your QSL because you still need to confirm that DXCC and you have still not send your QSL card?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;QSL tools...-&gt;Find QSO to QSL</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 3:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu usar &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Eines-&gt;Eines QSL...-&gt;Cerca QSO a les QSL&lt;/a&gt; per cercar tots aquells QSO als que hauríeu d&apos;enviar la vostra QSL perquè encara cal confirmar que el DXCC i vós encara no heu enviat la targeta QSL?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="135"/>
         <source>&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can export your QSO marked as QSL requested with &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;File-&gt;Export Requested QSL to ADIF...&lt;/a&gt; to create an ADIF file that you will be able to import into a QSL tag creation program to print tags for your QSL cards?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export Requested QSL to ADIF...</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 4:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu exportar el vostre QSO marcat com a QSL sol·licitada amb &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;Fitxer-&gt;Exporta les QSL sol·licitades a ADIF...&lt;/a&gt; per a crear un fitxer ADIF que podreu importar a un programa de creació d&apos;etiquetes QSL per a imprimir les etiquetes de les vostres targetes QSL?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="139"/>
         <source>&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can export your QSO marked as requested, via LoTW, in your log with &lt;a href=&quot;#FileExportLoTWADIF&quot;&gt;File-&gt;Export ADIF for LoTW...&lt;/a&gt; to create an ADIF file that you will be able to import in TQSL to be signed and uploaded to LoTW?&lt;br&gt;&lt;br&gt;You have to mark as Q-Queued all the QSOs you want to be exported to be sent to LoTW.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export ADIF for LoTW...</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 5:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu exportar el vostre QSO marcat com a sol·licitat, via LoTW, en el registre amb &lt;a href=&quot;#FileExportLoTWADIF&quot;&gt;Fitxer-&gt;Exporta l&apos;ADIF per a LoTW...&lt;/a&gt; per crear un fitxer ADIF que podreu importar al TQSL per a signar i pujar al to LoTW?&lt;br&gt;&lt;br&gt;Cal marcar tots els QSO que vulgueu que s&apos;exportin com a enviats al LoTW com a Q-«En cua».</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="143"/>
         <source>&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the file containing all your log and other information in the logbook.dat file and the klogrc file, containing the KLog config file in the KLog folder by opening the &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;File-&gt;KLog folder&lt;/a&gt; menu.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;KLog folder</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 6:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu trobar el fitxer que conté tot el vostre registre i altra informació en el fitxer «logbook.dat» i el fitxer «klogrc», que conté el fitxer de configuració del KLog, a la carpeta del KLog obrint el menú &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;Fitxer-&gt;Carpeta del KLog&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="149"/>
         <source>&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you still need to send with &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find My-QSLs pending to send&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Sent marked as &lt;i&gt;Requested&lt;/i&gt;.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find My-QSLs pending to send</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 7:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu trobar les QSL que encara cal enviar amb &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Eines-&gt;Eines QSL...-&gt;Cerca les meves QSL pendents d&apos;enviar&lt;/a&gt;.&lt;bR&gt;Aquesta eina llistarà al quadre de cerca tots els QSO amb la QSL-Sent marcada com a &lt;i&gt;Sol·licitada&lt;/i&gt;.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="153"/>
         <source>&lt;b&gt;Tip #8:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you are still waiting for with &lt;a href=&quot;#ToolsReceivePendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find DX-QSLs pending to receive&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Sent marked as &lt;i&gt;Sent&lt;/i&gt; but you have still not received the QSL card from the DX.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find DX-QSLs pending to receive</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 8:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu trobar les QSL que encara esteu esperant amb &lt;a href=&quot;#ToolsReceivePendingQSL&quot;&gt;Eines-&gt;Eines QSL...-&gt;Cerca les DX-QSL pendents de rebre&lt;/a&gt;.&lt;bR&gt;Aquesta eina llistarà al quadre de cerca tots els QSO amb la QSL-Sent marcada com a &lt;i&gt;Enviada&lt;/i&gt; però que encara no heu rebut la targeta QSL des del DX.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="157"/>
         <source>&lt;b&gt;Tip #9:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you are still waiting for with &lt;a href=&quot;#ToolsReceiveRecPendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find requested pending to receive&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Rec marked as &lt;i&gt;Requested&lt;/i&gt; but you have still not received the QSL card from the DX.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find requested pending to receive</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 9:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu trobar les QSL que encara esteu esperant amb &lt;a href=&quot;#ToolsReceiveRecPendingQSL&quot;&gt;Eines-&gt;Eines QSL...-&gt;Cerca sol·licituds pendents de rebre&lt;/a&gt;.&lt;bR&gt;Aquesta eina llistarà al quadre de cerca tots els QSO amb la QSL-Rec marcada com a &lt;i&gt;Sol·licitada&lt;/i&gt; però que encara no heu rebut la targeta QSL des del DX.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="160"/>
         <source>&lt;b&gt;Tip #10:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to the &lt;a href=https://t.me/klogchat&gt;English KLog Telegram group&lt;/a&gt; to discuss about KLog in English?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 10:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu subscriure&apos;s al &lt;a href=https://t.me/klogchat&gt;grup de Telegram del KLog en anglès&lt;/a&gt; per conversar en anglès quant al KLog?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="163"/>
         <source>&lt;b&gt;Tip #11:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to the &lt;a href=//https://t.me/KLogES&gt;Spanish Telegram group&lt;/a&gt; to discuss about KLog in Spanish?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 11:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu subscriure&apos;s al &lt;a href=//https://t.me/KLogES&gt;grup de Telegram en castellà&lt;/a&gt; per conversar en castellà quant al KLog?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="166"/>
         <source>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to &lt;a href=http://lists.nongnu.org/mailman/listinfo/klog-users&gt;KLog-users mailing list&lt;/a&gt; to discuss via email about KLog in English?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 12:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu subscriure&apos;s a la &lt;a href=http://lists.nongnu.org/mailman/listinfo/klog-users&gt;llista de correu KLog-users&lt;/a&gt; per comentar en anglès via correu electrònic quant al KLog?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="169"/>
         <source>&lt;b&gt;Tip #13:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can &lt;a href=https://twitter.com/ea4tv&gt;follow EA4TV on twitter&lt;/a&gt; to get updates about KLog?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 13:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu &lt;a href=https://twitter.com/ea4tv&gt;seguir a EA4TV al Twitter&lt;/a&gt; per aconseguir notícies quant al KLog?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="172"/>
         <source>&lt;b&gt;Tip #14:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can write your own &lt;a href=https://www.eham.net/reviews/detail/3118&gt;review in eHam.net about KLog&lt;/a&gt; to help other users to decide to use KLog?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 14:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu escriure els vostres propis &lt;a href=https://www.eham.net/reviews/detail/3118&gt;comentaris a eHam.net quant al KLog&lt;/a&gt; per ajudar als altres a decidir-se a usar el KLog?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="175"/>
         <source>&lt;b&gt;Tip #15:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can join the development team by simply &lt;a href=https://www.klog.xyz/contact&gt;Contacting us&lt;/a&gt;?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 15:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu unir-vos a l&apos;equip de desenvolupament senzillament &lt;a href=https://www.klog.xyz/contact&gt;contactant-nos&lt;/a&gt;?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="178"/>
         <source>&lt;b&gt;Tip #16:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;That there are many ways to contribute to KLog and some of them are listed in the &lt;a href=https://www.klog.xyz/contrib&gt;KLog Contribute&lt;/a&gt; page?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 16:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;hi ha moltes maneres de col·laborar amb el KLog i varies estan llistades a la pàgina de &lt;a href=https://www.klog.xyz/contrib&gt;col·laboració del KLog&lt;/a&gt;?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="181"/>
@@ -5894,9 +5774,13 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>&lt;b&gt;Tip #17:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can support translating KLog into your language? Please check &lt;a href=https://www.klog.xyz/contrib/translations&gt;KLog Translations&lt;/a&gt; page?</source>
+        <translation type="vanished">&lt;b&gt;Consell núm. 17:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu ajudar a traduir el KLog al vostre idioma? Si us plau, reviseu la pàgina de &lt;a href=https://www.klog.xyz/contrib/translations&gt;traduccions del KLog&lt;/a&gt;.</translation>
+    </message>
+    <message>
         <location filename="../tipsdialog.cpp" line="184"/>
         <source>TIP-Default: Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Consell predeterminat: Text</translation>
     </message>
 </context>
 <context>
@@ -5955,32 +5839,32 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
     <message>
         <location filename="../worldmapwidget.cpp" line="9"/>
         <source>World map</source>
-        <translation type="unfinished"></translation>
+        <translation>Mapa mundial</translation>
     </message>
     <message>
         <location filename="../worldmapwidget.cpp" line="204"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista</translation>
     </message>
     <message>
         <location filename="../worldmapwidget.cpp" line="205"/>
         <source>Zoom In(25%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Apropa (25%)</translation>
     </message>
     <message>
         <location filename="../worldmapwidget.cpp" line="209"/>
         <source>Zoom Out(25%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Allunya (25%)</translation>
     </message>
     <message>
         <location filename="../worldmapwidget.cpp" line="213"/>
         <source>Normal Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Mida normal</translation>
     </message>
     <message>
         <location filename="../worldmapwidget.cpp" line="216"/>
         <source>Fit to window</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajusta a la finestra</translation>
     </message>
 </context>
 <context>
