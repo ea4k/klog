@@ -1,3 +1,4 @@
+# Josep Ma. Ferrer <txemaq@gmail.com>, 2019.
 msgid ""
 msgstr ""
 "MIME-Version: 1.0\n"
@@ -6,6 +7,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Language: ca_ES\n"
 "X-Qt-Contexts: true\n"
+"Last-Translator: Josep Ma. Ferrer <txemaq@gmail.com>\n"
+"PO-Revision-Date: 2019-12-30 16:39+0100\n"
+"Project-Id-Version: klog\n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca\n"
+"X-Generator: Lokalize 2.0\n"
 
 #: ../aboutdialog.cpp:17
 msgctxt "AboutDialog|"
@@ -28,9 +35,9 @@ msgid ""
 "href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog "
 "development mailing list</a>!"
 msgstr ""
-"Si voleu col·laborar, sou benvingut a posar-vos en contacte amb la <a "
-"href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">llista de "
-"desenvolupament del KLog</a>!"
+"Si voleu col·laborar, us donem la benvinguda per a posar-vos en contacte amb"
+" la <a href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">llista"
+" de desenvolupament del KLog</a>!"
 
 #: ../aboutdialog.cpp:63 ../aboutdialog.cpp:134
 msgctxt "AboutDialog|"
@@ -104,9 +111,9 @@ msgid ""
 "href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog "
 "development mailing list</a>!"
 msgstr ""
-"Si el KLog encara no està en el vostre idioma i voleu ajudar-nos, sou "
-"benvingut a posar-vos en contacte amb la <a "
-"href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">llista de "
+"Si el KLog encara no està en el vostre idioma i voleu ajudar-nos, us donem la"
+" benvinguda per a posar-vos en contacte amb la <a"
+" href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">llista de "
 "desenvolupament del KLog</a>!"
 
 #: ../aboutdialog.cpp:92
@@ -186,43 +193,36 @@ msgid "Privacy"
 msgstr "Privadesa"
 
 #: ../awardswidget.cpp:75
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Recalculate"
-msgstr "Recalcula"
+msgstr "Torna a calcular"
 
 #: ../awardswidget.cpp:76
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Click to recalculate the award status."
 msgstr "Cliqueu per tornar a calcular l'estat dels diplomes."
 
 #: ../awardswidget.cpp:77 ../awardswidget.cpp:278
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Select the year you want to check."
 msgstr "Seleccioneu l'any que voleu comprovar."
 
 #: ../awardswidget.cpp:79 ../awardswidget.cpp:100
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "QSOs"
 msgstr "QSO"
 
 #: ../awardswidget.cpp:80 ../awardswidget.cpp:91
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "DXCC"
 msgstr "DXCC"
 
 #: ../awardswidget.cpp:81
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "CQ"
 msgstr "CQ"
 
 #: ../awardswidget.cpp:83
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Award"
 msgstr "Diploma"
@@ -230,94 +230,79 @@ msgstr "Diploma"
 #: ../awardswidget.cpp:85
 msgctxt "AwardsWidget|"
 msgid "Confirmed"
-msgstr ""
+msgstr "Confirmat"
 
 #: ../awardswidget.cpp:88
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Worked"
-msgstr "Treballats"
+msgstr "Treballat"
 
 #: ../awardswidget.cpp:94
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "WAZ"
 msgstr "WAZ"
 
 #: ../awardswidget.cpp:167
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Score"
 msgstr "Puntuació"
 
 #: ../awardswidget.cpp:168 ../awardswidget.cpp:398
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Annual"
 msgstr "Anual"
 
 #: ../awardswidget.cpp:265
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Number of confirmed DXCC entities."
 msgstr "Nombre d'entitats DXCC confirmades."
 
 #: ../awardswidget.cpp:266
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Number of worked DXCC entities."
 msgstr "Nombre d'entitats DXCC treballades."
 
 #: ../awardswidget.cpp:267
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Number of confirmed WAZ zones."
 msgstr "Nombre de zones WAZ confirmades."
 
 #: ../awardswidget.cpp:268
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Number of worked WAZ zones."
 msgstr "Nombre de zones WAZ treballades."
 
 #: ../awardswidget.cpp:271
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Number of confirmed QSOs."
 msgstr "Nombre de QSO confirmats."
 
 #: ../awardswidget.cpp:272
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Number of worked QSOs."
 msgstr "Nombre de QSO treballats."
 
 #: ../awardswidget.cpp:274
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Number of QSOs worked on the selected year."
 msgstr "Nombre de QSO treballats durant l'any seleccionat."
 
 #: ../awardswidget.cpp:275
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Number of DXCC worked on the selected year."
 msgstr "Nombre de DXCC treballats durant l'any seleccionat."
 
 #: ../awardswidget.cpp:276
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Number of CQ Zones worked on the selected year."
 msgstr "Nombre de zones CQ treballades durant l'any seleccionat."
 
 #: ../awardswidget.cpp:277
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "Score for the DXMarathon on the selected year."
-msgstr "Puntuació per al DXMarathon durant l'any seleccionat."
+msgstr "Puntuació per al DXMarathon a l'any seleccionat."
 
 #: ../awardswidget.cpp:391
-#, fuzzy
 msgctxt "AwardsWidget|"
 msgid "DX-Marathon"
 msgstr "DX-Marathon"
@@ -403,22 +388,22 @@ msgstr "Entitat"
 #: ../dxccstatuswidget.cpp:426
 msgctxt "DXCCStatusWidget|"
 msgid "Pref: "
-msgstr ""
+msgstr "Pref: "
 
 #: ../dxccstatuswidget.cpp:427
 msgctxt "DXCCStatusWidget|"
 msgid "CQ: "
-msgstr ""
+msgstr "CQ: "
 
 #: ../dxccstatuswidget.cpp:428
 msgctxt "DXCCStatusWidget|"
 msgid "ITU: "
-msgstr ""
+msgstr "ITU: "
 
 #: ../dxccstatuswidget.cpp:432
 msgctxt "DXCCStatusWidget|"
 msgid "Beam: "
-msgstr ""
+msgstr "Raig: "
 
 #: ../dxccstatuswidget.cpp:442
 msgctxt "DXCCStatusWidget|"
@@ -672,7 +657,7 @@ msgstr "No"
 #: ../dataproxy_sqlite.cpp:3712 ../dataproxy_sqlite.cpp:3779
 msgctxt "DataProxy_SQLite|"
 msgid "Requested"
-msgstr "Requerit"
+msgstr "Sol·licitat"
 
 #: ../dataproxy_sqlite.cpp:3716 ../dataproxy_sqlite.cpp:3787
 msgctxt "DataProxy_SQLite|"
@@ -1142,7 +1127,7 @@ msgstr ""
 #: ../startwizard.cpp:155
 msgctxt "IntroPage|"
 msgid "It supports QSL management, import and export of ADIF "
-msgstr "Permet la gestió de QSL, importació i exportació de formats "
+msgstr "Permet la gestió de QSL, importació i exportació d'ADIF"
 
 #: ../startwizard.cpp:156
 msgctxt "IntroPage|"
@@ -1491,7 +1476,7 @@ msgstr "SRX"
 #: ../mainwindow.cpp:2920
 msgctxt "MainWindow|"
 msgid "Do you really want to exit KLog?"
-msgstr ""
+msgstr "Esteu segur que voleu sortir del KLog?"
 
 #: ../mainwindow.cpp:2995
 msgctxt "MainWindow|"
@@ -1563,7 +1548,7 @@ msgstr ""
 #: ../mainwindow.cpp:3766
 msgctxt "MainWindow|"
 msgid "Export Requested QSL to ADIF..."
-msgstr "Exporta els QSL sol·licitats a ADIF..."
+msgstr "Exporta les QSL sol·licitades a ADIF..."
 
 #: ../mainwindow.cpp:3769
 msgctxt "MainWindow|"
@@ -1650,18 +1635,18 @@ msgstr "Eines QSL..."
 #: ../mainwindow.cpp:3821
 msgctxt "MainWindow|"
 msgid "&Find QSO to QSL"
-msgstr "&Cerca QSO als QSL"
+msgstr "&Cerca QSO a les QSL"
 
 #: ../mainwindow.cpp:3824
 msgctxt "MainWindow|"
 msgid "Shows QSOs for which you should send your QSL and request the DX QSL."
 msgstr ""
-"Mostra els QSO pels quals cal enviar el vostre QSL i sol·licitar el DX QSL."
+"Mostra els QSO pels quals cal enviar la vostra QSL i sol·licitar la DX QSL."
 
 #: ../mainwindow.cpp:3826
 msgctxt "MainWindow|"
 msgid "Find My-QSLs pending to send"
-msgstr "Cerca els meus QSL pendents d'enviar"
+msgstr "Cerca les meves QSL pendents d'enviar"
 
 #: ../mainwindow.cpp:3830
 msgctxt "MainWindow|"
@@ -1669,13 +1654,13 @@ msgid ""
 "Shows the QSOs with pending requests to send QSLs. You should keep this "
 "queue empty!"
 msgstr ""
-"Mostra els QSO amb sol·licituds pendents d'enviar els QSL. Cal mantenir "
+"Mostra els QSO amb sol·licituds pendents d'enviar les QSL. Cal mantenir "
 "buida aquesta cua!"
 
 #: ../mainwindow.cpp:3832
 msgctxt "MainWindow|"
 msgid "&Find DX-QSLs pending to receive"
-msgstr "&Cerca els DX-QSL pendents de rebre"
+msgstr "&Cerca les DX-QSL pendents de rebre"
 
 #: ../mainwindow.cpp:3835
 msgctxt "MainWindow|"
@@ -1797,7 +1782,7 @@ msgstr "&Quant a..."
 #: ../mainwindow.cpp:3915
 msgctxt "MainWindow|"
 msgid "&Tips..."
-msgstr ""
+msgstr "&Consells..."
 
 #: ../mainwindow.cpp:3920
 msgctxt "MainWindow|"
@@ -2072,21 +2057,25 @@ msgid ""
 "It was not possible to open the debug file for writting. No debug log will "
 "be saved!"
 msgstr ""
+"No s'ha pogut obrir el fitxer de depuració per escriptura. No es desarà cap"
+" registre de depuració!"
 
 #: ../mainwindow.cpp:641
 msgctxt "MainWindow|"
 msgid "KLog new version detected!"
-msgstr ""
+msgstr "S'ha detectat una versió nova del KLog!"
 
 #: ../mainwindow.cpp:642
 msgctxt "MainWindow|"
 msgid "It seems that you are running this version of KLog for the first time."
-msgstr ""
+msgstr "Sembla que esteu executant aquesta versió del KLog per primera vegada."
 
 #: ../mainwindow.cpp:643
 msgctxt "MainWindow|"
 msgid "The setup will be open to allow you to do any new setup you may need."
 msgstr ""
+"S'obrirà la configuració per permetre establir qualsevol paràmetre nou que"
+" calgui."
 
 #: ../mainwindow.cpp:3682
 msgctxt "MainWindow|"
@@ -2318,6 +2307,8 @@ msgid ""
 "Filling DXCC, CQz, ITUz, Continent in QSOs...\n"
 " QSO: "
 msgstr ""
+"S'està omplint DXCC, CQz, ITUz, continent al QSO...\n"
+" QSO: "
 
 #: ../mainwindow.cpp:7005
 msgctxt "MainWindow|"
@@ -2547,12 +2538,12 @@ msgstr "Data de la pujada al ClubLog."
 #: ../mainwindowinputeqsl.cpp:45
 msgctxt "MainWindowInputEQSL|"
 msgid "Date of the eQSL sending."
-msgstr "Data de l'enviament de l'eQSL."
+msgstr "Data de l'enviament de la eQSL."
 
 #: ../mainwindowinputeqsl.cpp:46
 msgctxt "MainWindowInputEQSL|"
 msgid "Date of the eQSL reception."
-msgstr "Data de la recepció de l'eQSL."
+msgstr "Data de la recepció de la eQSL."
 
 #: ../mainwindowinputeqsl.cpp:47
 msgctxt "MainWindowInputEQSL|"
@@ -2592,12 +2583,12 @@ msgstr "Estat al ClubLog."
 #: ../mainwindowinputeqsl.cpp:51
 msgctxt "MainWindowInputEQSL|"
 msgid "Status of the eQSL sending."
-msgstr "Estat de l'enviament de l'eQSL."
+msgstr "Estat de l'enviament de la eQSL."
 
 #: ../mainwindowinputeqsl.cpp:52
 msgctxt "MainWindowInputEQSL|"
 msgid "Status of the eQSL reception."
-msgstr "Estat de la recepció de l'eQSL."
+msgstr "Estat de la recepció de la eQSL."
 
 #: ../mainwindowinputeqsl.cpp:58
 msgctxt "MainWindowInputEQSL|"
@@ -2607,12 +2598,12 @@ msgstr "ClubLog"
 #: ../mainwindowinputeqsl.cpp:61
 msgctxt "MainWindowInputEQSL|"
 msgid "eQSL Sent"
-msgstr "eQSL enviat"
+msgstr "eQSL enviada"
 
 #: ../mainwindowinputeqsl.cpp:64
 msgctxt "MainWindowInputEQSL|"
 msgid "eQSL Rec"
-msgstr "eQSL rebut"
+msgstr "eQSL rebuda"
 
 #: ../mainwindowinputothers.cpp:66
 msgctxt "MainWindowInputOthers|"
@@ -2902,7 +2893,6 @@ msgstr ""
 "tant, aquesta informació es podria perdre!"
 
 #: ../mainwindowsattab.cpp:520
-#, fuzzy
 msgctxt "MainWindowSatTab|"
 msgid ""
 "RX Frequency in MHz.\n"
@@ -2912,13 +2902,11 @@ msgstr ""
 "La freqüència no es en una banda de radioafició!"
 
 #: ../mainwindowsattab.cpp:525
-#, fuzzy
 msgctxt "MainWindowSatTab|"
 msgid "RX Frequency in MHz."
 msgstr "Freqüència de RX en MHz."
 
 #: ../mainwindowsattab.cpp:577
-#, fuzzy
 msgctxt "MainWindowSatTab|"
 msgid ""
 "TX Frequency in MHz.\n"
@@ -2928,7 +2916,6 @@ msgstr ""
 "La freqüència no es en una banda de radioafició!"
 
 #: ../mainwindowsattab.cpp:582
-#, fuzzy
 msgctxt "MainWindowSatTab|"
 msgid "TX Frequency in MHz."
 msgstr "Freqüència de TX en MHz."
@@ -3146,7 +3133,7 @@ msgstr "Moltes gràcies per usar el KLog!"
 #: ../dataproxy_sqlite.cpp:4874
 msgctxt "QObject|"
 msgid "Urt information..."
-msgstr ""
+msgstr "Informació URT..."
 
 #: ../dataproxy_sqlite.cpp:4917
 msgctxt "QObject|"
@@ -3509,6 +3496,8 @@ msgid ""
 "Do you want to add one log in the Logs tab or exit KLog?\n"
 "(Click Yes to add a log or No to exit KLog)"
 msgstr ""
+"Voleu afegir un registre a la pestanya de Registres o sortir del KLog?\n"
+"(Feu clic a Sí per afegir un registre o No per a sortir del KLog)"
 
 #: ../setupdialog.cpp:431
 msgctxt "SetupDialog|"
@@ -3765,17 +3754,19 @@ msgstr "Predeterminat"
 #: ../setuppagecolors.cpp:49
 msgctxt "SetupPageColors|"
 msgid "WSJT-X palette"
-msgstr ""
+msgstr "Paleta WSJT-X"
 
 #: ../setuppagecolors.cpp:50
 msgctxt "SetupPageColors|"
 msgid "Default palette"
-msgstr ""
+msgstr "Paleta predeterminada"
 
 #: ../setuppagecolors.cpp:52
 msgctxt "SetupPageColors|"
 msgid "Color when the DXCC is an ATNO (All Time New One)"
 msgstr ""
+"Color quan el DXCC és un ATNO («All Time New One», Un de nou de tots els"
+" temps )"
 
 #: ../setuppagecolors.cpp:53
 msgctxt "SetupPageColors|"
@@ -3783,31 +3774,33 @@ msgid ""
 "This DXCC was worked before in another band but not in the selected band. It "
 "may be needed due to the CQ, ITU, Grid, ..."
 msgstr ""
+"Aquest DXCC va funcionar abans en una altra banda però no en la banda"
+" seleccionada. Pot haver estat necessari pel CQ, ITU, Grid, ..."
 
 #: ../setuppagecolors.cpp:54
 msgctxt "SetupPageColors|"
 msgid "Worked DXCC, but not confirmed in this band."
-msgstr ""
+msgstr "DXCC treballat, però no confirmat en aquesta banda."
 
 #: ../setuppagecolors.cpp:55
 msgctxt "SetupPageColors|"
 msgid "DXCC is confirmed in this band"
-msgstr ""
+msgstr "El DXCC està confirmat en aquesta banda"
 
 #: ../setuppagecolors.cpp:56
 msgctxt "SetupPageColors|"
 msgid "Default color"
-msgstr ""
+msgstr "Color predeterminat"
 
 #: ../setuppagecolors.cpp:57
 msgctxt "SetupPageColors|"
 msgid "Sets a palette of colors similar to the one used in WSJT-X"
-msgstr ""
+msgstr "Estableix una paleta de colors similar a la usada al WSJT-X"
 
 #: ../setuppagecolors.cpp:58
 msgctxt "SetupPageColors|"
 msgid "Sets the default palette"
-msgstr ""
+msgstr "Estableix la paleta predeterminada"
 
 #: ../setuppagecolors.cpp:168
 msgctxt "SetupPageColors|"
@@ -4400,7 +4393,7 @@ msgstr "Gestiona una marató DX"
 #: ../setuppagemisc.cpp:50
 msgctxt "SetupPageMisc|"
 msgid "Activate the application debug log"
-msgstr ""
+msgstr "Activa el registre de depuració de l'aplicació"
 
 #: ../setuppagemisc.cpp:58
 msgctxt "SetupPageMisc|"
@@ -4457,6 +4450,9 @@ msgid ""
 "Activates the application debug log. This may be useful if something is not "
 "working as expected. A debug file will be created in the KLog directory."
 msgstr ""
+"Activa el registre de depuració de l'aplicació. Això pot ser útil si hi ha"
+" quelcom que no funciona com s'espera. Es crearà un fitxer de depuració en el"
+" directori del KLog."
 
 #: ../setuppagemisc.cpp:667
 msgctxt "SetupPageMisc|"
@@ -5766,28 +5762,28 @@ msgstr "Enviat - %2"
 #: ../tipsdialog.cpp:25
 msgctxt "TipsDialog|"
 msgid "KLog tips"
-msgstr ""
+msgstr "Consells del KLog"
 
 #: ../tipsdialog.cpp:42
 msgctxt "TipsDialog|"
 msgid "Next"
-msgstr ""
+msgstr "Següent"
 
 #: ../tipsdialog.cpp:43
 msgctxt "TipsDialog|"
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #. Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in QSO data
 #: ../tipsdialog.cpp:123
 msgctxt "TipsDialog|"
 msgid "Tip #1:"
-msgstr ""
+msgstr "Consell núm. 1:"
 
 #: ../tipsdialog.cpp:123
 msgctxt "TipsDialog|"
 msgid "Do you know..."
-msgstr ""
+msgstr "Sabíeu que..."
 
 #: ../tipsdialog.cpp:123
 msgctxt "TipsDialog|"
@@ -5796,6 +5792,9 @@ msgid ""
 "automatically read the full log to fill the DXCC, CQ, ITU zones and "
 "continent?"
 msgstr ""
+"podeu usar <a href=\"#ToolsFillInQSO\">Eines->Omple les dades QSO</a> per a"
+" llegir automàticament el registre complet per omplir el DXCC, CQ, les zones"
+" ITU i el continent?"
 
 #. Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in DXCC data
 #: ../tipsdialog.cpp:127
@@ -5805,6 +5804,9 @@ msgid ""
 "href=\"#ToolsFillInDXCC\">Tools->Fill in DXCC data</a> to automatically read "
 "the full log to fill the DXCC QSO data?"
 msgstr ""
+"<b>Consell núm. 2:</b><br>Sabíeu que...<br>podeu usar <a"
+" href=\"#ToolsFillInDXCC\">Eines->Omple les dades DXCC</a> per llegir"
+" automàticament el registre complet per omplir les dades QSO del DXCC?"
 
 #. Translator: Please make sure that the name of the link is coherent with the menu Tools->QSL tools...->Find QSO to QSL
 #: ../tipsdialog.cpp:131
@@ -5815,6 +5817,10 @@ msgid ""
 "for all those QSO that you should send your QSL because you still need to "
 "confirm that DXCC and you have still not send your QSL card?"
 msgstr ""
+"<b>Consell núm. 3:</b><br>Sabíeu que...<br>podeu usar <a"
+" href=\"#ToolsFindQSO2QSL\">Eines->Eines QSL...->Cerca QSO a les QSL</a> per"
+" cercar tots aquells QSO als que hauríeu d'enviar la vostra QSL perquè encara"
+" cal confirmar que el DXCC i vós encara no heu enviat la targeta QSL?"
 
 #. Translator: Please make sure that the name of the link is coherent with the menu File->Export Requested QSL to ADIF...
 #: ../tipsdialog.cpp:135
@@ -5825,6 +5831,11 @@ msgid ""
 "QSL to ADIF...</a> to create an ADIF file that you will be able to import "
 "into a QSL tag creation program to print tags for your QSL cards?"
 msgstr ""
+"<b>Consell núm. 4:</b><br>Sabíeu que...<br>podeu exportar el vostre QSO"
+" marcat com a QSL sol·licitada amb <a href=\"#FileExportQSLADIFToPrint\""
+">Fitxer->Exporta les QSL sol·licitades a ADIF...</a> per a crear un fitxer"
+" ADIF que podreu importar a un programa de creació d'etiquetes QSL per a"
+" imprimir les etiquetes de les vostres targetes QSL?"
 
 #. Translator: Please make sure that the name of the link is coherent with the menu File->Export ADIF for LoTW...
 #: ../tipsdialog.cpp:139
@@ -5837,6 +5848,12 @@ msgid ""
 "to LoTW?<br><br>You have to mark as Q-Queued all the QSOs you want to be "
 "exported to be sent to LoTW."
 msgstr ""
+"<b>Consell núm. 5:</b><br>Sabíeu que...<br>podeu exportar el vostre QSO"
+" marcat com a sol·licitat, via LoTW, en el registre amb <a"
+" href=\"#FileExportLoTWADIF\">Fitxer->Exporta l'ADIF per a LoTW...</a> per"
+" crear un fitxer ADIF que podreu importar al TQSL per a signar i pujar al to"
+" LoTW?<br><br>Cal marcar tots els QSO que vulgueu que s'exportin com a"
+" enviats al LoTW com a Q-«En cua»."
 
 #. Translator: Please make sure that the name of the link is coherent with the menu File->KLog folder
 #: ../tipsdialog.cpp:143
@@ -5847,6 +5864,11 @@ msgid ""
 "containing the KLog config file in the KLog folder by opening the <a "
 "href=\"#FileOpenKLogFolder\">File->KLog folder</a> menu."
 msgstr ""
+"<b>Consell núm. 6:</b><br>Sabíeu que...<br>podeu trobar el fitxer que conté"
+" tot el vostre registre i altra informació en el fitxer «logbook.dat» i el"
+" fitxer «klogrc», que conté el fitxer de configuració del KLog, a la carpeta"
+" del KLog obrint el menú <a href=\"#FileOpenKLogFolder\">Fitxer->Carpeta del"
+" KLog</a>."
 
 #. Translator: Please make sure that the name of the link is coherent with the menu QSL tools...->Find My-QSLs pending to send
 #: ../tipsdialog.cpp:149
@@ -5857,6 +5879,10 @@ msgid ""
 "My-QSLs pending to send</a>.<bR>This tool will list you in the search box "
 "all the QSOs with the QSL-Sent marked as <i>Requested</i>."
 msgstr ""
+"<b>Consell núm. 7:</b><br>Sabíeu que...<br>podeu trobar les QSL que encara"
+" cal enviar amb <a href=\"#ToolsSendPendingQSL\">Eines->Eines QSL...->Cerca"
+" les meves QSL pendents d'enviar</a>.<bR>Aquesta eina llistarà al quadre de"
+" cerca tots els QSO amb la QSL-Sent marcada com a <i>Sol·licitada</i>."
 
 #. Translator: Please make sure that the name of the link is coherent with the menu QSL tools...->Find DX-QSLs pending to receive
 #: ../tipsdialog.cpp:153
@@ -5868,6 +5894,11 @@ msgid ""
 "the search box all the QSOs with the QSL-Sent marked as <i>Sent</i> but you "
 "have still not received the QSL card from the DX."
 msgstr ""
+"<b>Consell núm. 8:</b><br>Sabíeu que...<br>podeu trobar les QSL que encara"
+" esteu esperant amb <a href=\"#ToolsReceivePendingQSL\">Eines->Eines QSL...-"
+">Cerca les DX-QSL pendents de rebre</a>.<bR>Aquesta eina llistarà al quadre"
+" de cerca tots els QSO amb la QSL-Sent marcada com a <i>Enviada</i> però que"
+" encara no heu rebut la targeta QSL des del DX."
 
 #. Translator: Please make sure that the name of the link is coherent with the menu QSL tools...->Find requested pending to receive
 #: ../tipsdialog.cpp:157
@@ -5879,6 +5910,11 @@ msgid ""
 "in the search box all the QSOs with the QSL-Rec marked as <i>Requested</i> "
 "but you have still not received the QSL card from the DX."
 msgstr ""
+"<b>Consell núm. 9:</b><br>Sabíeu que...<br>podeu trobar les QSL que encara"
+" esteu esperant amb <a href=\"#ToolsReceiveRecPendingQSL\">Eines->Eines"
+" QSL...->Cerca sol·licituds pendents de rebre</a>.<bR>Aquesta eina llistarà"
+" al quadre de cerca tots els QSO amb la QSL-Rec marcada com a <i"
+">Sol·licitada</i> però que encara no heu rebut la targeta QSL des del DX."
 
 #: ../tipsdialog.cpp:160
 msgctxt "TipsDialog|"
@@ -5887,6 +5923,9 @@ msgid ""
 "href=https://t.me/klogchat>English KLog Telegram group</a> to discuss about "
 "KLog in English?"
 msgstr ""
+"<b>Consell núm. 10:</b><br>Sabíeu que...<br>podeu subscriure's al <a"
+" href=https://t.me/klogchat>grup de Telegram del KLog en anglès</a> per"
+" conversar en anglès quant al KLog?"
 
 #: ../tipsdialog.cpp:163
 msgctxt "TipsDialog|"
@@ -5895,6 +5934,9 @@ msgid ""
 "href=//https://t.me/KLogES>Spanish Telegram group</a> to discuss about KLog "
 "in Spanish?"
 msgstr ""
+"<b>Consell núm. 11:</b><br>Sabíeu que...<br>podeu subscriure's al <a"
+" href=//https://t.me/KLogES>grup de Telegram en castellà</a> per conversar en"
+" castellà quant al KLog?"
 
 #: ../tipsdialog.cpp:166
 msgctxt "TipsDialog|"
@@ -5903,6 +5945,9 @@ msgid ""
 "href=http://lists.nongnu.org/mailman/listinfo/klog-users>KLog-users mailing "
 "list</a> to discuss via email about KLog in English?"
 msgstr ""
+"<b>Consell núm. 12:</b><br>Sabíeu que...<br>podeu subscriure's a la <a"
+" href=http://lists.nongnu.org/mailman/listinfo/klog-users>llista de correu"
+" KLog-users</a> per comentar en anglès via correu electrònic quant al KLog?"
 
 #: ../tipsdialog.cpp:169
 msgctxt "TipsDialog|"
@@ -5911,6 +5956,9 @@ msgid ""
 "href=https://twitter.com/ea4tv>follow EA4TV on twitter</a> to get updates "
 "about KLog?"
 msgstr ""
+"<b>Consell núm. 13:</b><br>Sabíeu que...<br>podeu <a"
+" href=https://twitter.com/ea4tv>seguir a EA4TV al Twitter</a> per aconseguir"
+" notícies quant al KLog?"
 
 #: ../tipsdialog.cpp:172
 msgctxt "TipsDialog|"
@@ -5919,6 +5967,9 @@ msgid ""
 "href=https://www.eham.net/reviews/detail/3118>review in eHam.net about "
 "KLog</a> to help other users to decide to use KLog?"
 msgstr ""
+"<b>Consell núm. 14:</b><br>Sabíeu que...<br>podeu escriure els vostres propis"
+" <a href=https://www.eham.net/reviews/detail/3118>comentaris a eHam.net quant"
+" al KLog</a> per ajudar als altres a decidir-se a usar el KLog?"
 
 #: ../tipsdialog.cpp:175
 msgctxt "TipsDialog|"
@@ -5926,6 +5977,9 @@ msgid ""
 "<b>Tip #15:</b><br>Do you know...<br>You can join the development team by "
 "simply <a href=https://www.klog.xyz/contact>Contacting us</a>?"
 msgstr ""
+"<b>Consell núm. 15:</b><br>Sabíeu que...<br>podeu unir-vos a l'equip de"
+" desenvolupament senzillament <a href=https://www.klog.xyz/contact"
+">contactant-nos</a>?"
 
 #: ../tipsdialog.cpp:178
 msgctxt "TipsDialog|"
@@ -5934,6 +5988,9 @@ msgid ""
 "to KLog and some of them are listed in the <a "
 "href=https://www.klog.xyz/contrib>KLog Contribute</a> page?"
 msgstr ""
+"<b>Consell núm. 16:</b><br>Sabíeu que...<br>hi ha moltes maneres de"
+" col·laborar amb el KLog i varies estan llistades a la pàgina de <a"
+" href=https://www.klog.xyz/contrib>col·laboració del KLog</a>?"
 
 #: ../tipsdialog.cpp:181
 msgctxt "TipsDialog|"
@@ -5942,11 +5999,14 @@ msgid ""
 "your language? Please check <a "
 "href=https://www.klog.xyz/contrib/translations>KLog Translations</a> page?"
 msgstr ""
+"<b>Consell núm. 17:</b><br>Sabíeu que...<br>podeu ajudar a traduir el KLog al"
+" vostre idioma? Si us plau, reviseu la pàgina de <a"
+" href=https://www.klog.xyz/contrib/translations>traduccions del KLog</a>."
 
 #: ../tipsdialog.cpp:184
 msgctxt "TipsDialog|"
 msgid "TIP-Default: Text"
-msgstr ""
+msgstr "Consell predeterminat: Text"
 
 #: ../updatesatsdata.cpp:59
 msgctxt "UpdateSatsData|"
@@ -5996,32 +6056,32 @@ msgstr "S'està llegint el «cty.csv»..."
 #: ../worldmapwidget.cpp:9
 msgctxt "WorldMapWidget|"
 msgid "World map"
-msgstr ""
+msgstr "Mapa mundial"
 
 #: ../worldmapwidget.cpp:204
 msgctxt "WorldMapWidget|"
 msgid "View"
-msgstr ""
+msgstr "Vista"
 
 #: ../worldmapwidget.cpp:205
 msgctxt "WorldMapWidget|"
 msgid "Zoom In(25%)"
-msgstr ""
+msgstr "Apropa (25%)"
 
 #: ../worldmapwidget.cpp:209
 msgctxt "WorldMapWidget|"
 msgid "Zoom Out(25%)"
-msgstr ""
+msgstr "Allunya (25%)"
 
 #: ../worldmapwidget.cpp:213
 msgctxt "WorldMapWidget|"
 msgid "Normal Size"
-msgstr ""
+msgstr "Mida normal"
 
 #: ../worldmapwidget.cpp:216
 msgctxt "WorldMapWidget|"
 msgid "Fit to window"
-msgstr ""
+msgstr "Ajusta a la finestra"
 
 #: ../elogclublog.cpp:58 ../elogclublog.cpp:118
 msgctxt "eLogClubLog|"
@@ -6178,3 +6238,5 @@ msgstr "S'ha rebutjat l'inici de sessió"
 msgctxt "eLogClubLog|"
 msgid "Rejected: Callsign is your own call"
 msgstr "Rebutjat: L'indicatiu és el vostre propi indicatiu"
+
+
