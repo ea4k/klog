@@ -181,7 +181,7 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
     {
         case QOperatingSystemVersion::Unknown:
             //qDebug() << "MainWindow::checkUpdates - Unknown"  << endl;
-            rx.setPattern("kLog-(\\d+)(\\.\\d+)?(\\.\\d+)?(\\.\\d+)?(-RC\\d+)?.tar.gz");
+            rx.setPattern("klog-(\\d+)(\\.\\d+)?(\\.\\d+)?(\\.\\d+)?(-RC\\d+)?.tar.gz");
             filterString = QString("klog");
             fileExtension = QString(".tar.gz");
         break;
@@ -200,7 +200,9 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
             //qDebug() << "MainWindow::checkUpdates - macOS"  << endl;
         break;
         default:
-            rx.setPattern("href=\"klog-(\\d\\.)+tar.gz");
+            rx.setPattern("klog-(\\d+)(\\.\\d+)?(\\.\\d+)?(\\.\\d+)?(-RC\\d+)?.tar.gz");
+            filterString = QString("klog");
+            fileExtension = QString(".tar.gz");
         // should never be reached
         break;
     }
