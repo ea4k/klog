@@ -39,7 +39,7 @@
 #include <QtDebug>
 
 #include "locator.h"
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 //#include "awards.h"
 
 
@@ -57,9 +57,9 @@ class World : public QWidget
     Q_OBJECT
 
 public:
-    World(DataProxy *dp, const QString &_parentFunction);
-    World(DataProxy *dp, const QString &_klogDir, const QString &_parentFunction);
-    World(DataProxy *dp, const QString &_klogDir, const QString &_kontestVer, const QString &_parentFunction);
+    World(DataProxy_SQLite *dp, const QString &_parentFunction);
+    World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_parentFunction);
+    World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_kontestVer, const QString &_parentFunction);
 
     ~World();
     bool create(const QString &_worldFile);
@@ -142,7 +142,7 @@ private:
     //QProgressBar *progressBar;
 
     Locator *locator;
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
     //Awards *awards;

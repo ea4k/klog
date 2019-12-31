@@ -31,7 +31,7 @@
 //#include <QTableView>
 #include "awards.h"
 #include "world.h"
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "locator.h"
 
 
@@ -41,7 +41,7 @@ class DXCCStatusWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit DXCCStatusWidget(DataProxy *dp, const QString _parentFunction, QWidget *parent = nullptr);
+    explicit DXCCStatusWidget(DataProxy_SQLite *dp, const QString _parentFunction, QWidget *parent = nullptr);
     ~DXCCStatusWidget();
     
     void update();    
@@ -72,7 +72,7 @@ private:
     QTableWidget *dxccView;
     Awards *awards;
     World *world;
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
     Locator *locator;
 
     QHeaderView *hv, *hh;

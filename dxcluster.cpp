@@ -25,7 +25,7 @@ email                : jaime@robles.es
 *****************************************************************************/
 #include "dxcluster.h"
 
-DXClusterWidget::DXClusterWidget(DataProxy *dp, QWidget *parent)
+DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
           : QWidget(parent)
 {
      //qDebug() << "DXClusterWidget::DXClusterWidget" << endl;
@@ -38,7 +38,7 @@ DXClusterWidget::DXClusterWidget(DataProxy *dp, QWidget *parent)
      //qDebug() << "DXClusterWidget::DXClusterWidget - END" << endl;
 }
 
-DXClusterWidget::DXClusterWidget(DataProxy *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent)
+DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent)
           : QWidget(parent)
 {
     //qDebug() << "DXClusterWidget::DXClusterWidget2" << clusterToConnect << QString::number(portToConnect) << endl;

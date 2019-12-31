@@ -26,7 +26,7 @@
 #include "awarddxmarathon.h"
 #include <QDebug>
 
-DXMarathon::DXMarathon(DataProxy *dp)
+DXMarathon::DXMarathon(DataProxy_SQLite *dp)
 {
      //qDebug() << "DXMarathon::DXMarathon"  << endl;
     dataProxy = dp;

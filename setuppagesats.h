@@ -31,7 +31,7 @@
 #include <QtSql>
 #include <QSqlQuery>
 #include "updatesatsdata.h"
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "utilities.h"
 #include "setuppagesatsnew.h"
 
@@ -41,7 +41,7 @@ class SetupPageSats : public QWidget {
     Q_OBJECT
 
 public:
-    SetupPageSats(DataProxy *dp, QWidget *parent=0);
+    SetupPageSats(DataProxy_SQLite *dp, QWidget *parent=0);
     ~SetupPageSats();
     int getSelectedSat();
     void setSelectedSat(const int _i);
@@ -104,7 +104,7 @@ private:
 
     QString arrild, satname, uplink, downlink, modes;
 
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
     int selectedSat;
 
     QString defaultStationCallSign, defaultOperators;

@@ -30,14 +30,14 @@
 //
 #include <QWidget>
 #include <QtWidgets>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 class MainWindowInputOthers : public QWidget
 {
     Q_OBJECT
 
 public:
-    MainWindowInputOthers(DataProxy *dp, QWidget *parent = 0);
+    MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *parent = 0);
     ~MainWindowInputOthers();
 
     void setEntitiesList(const QStringList _qs);
@@ -63,7 +63,7 @@ private slots:
 private:
     QString checkIfValidIOTA(const QString _tiota); //TODO: There is an equivalent function in the Awards class. I should use only one!
 
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
     QStringList entitiesList, propModeList;
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;

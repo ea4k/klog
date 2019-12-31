@@ -42,7 +42,7 @@
 #include "world.h"
 #include "awards.h"
 #include "database.h"
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
 
@@ -59,10 +59,10 @@ class FileManager : public QWidget
 {
     Q_OBJECT
 public:
-    FileManager(DataProxy *dp);
-    //FileManager(DataProxy *dp, const QString _klogDir);
-    FileManager(DataProxy *dp, const QString _klogDir, const QString _softVersion);
-    //FileManager(DataProxy *dp, const QString _softVersion);
+    FileManager(DataProxy_SQLite *dp);
+    //FileManager(DataProxy_SQLite *dp, const QString _klogDir);
+    FileManager(DataProxy_SQLite *dp, const QString _klogDir, const QString _softVersion);
+    //FileManager(DataProxy_SQLite *dp, const QString _softVersion);
     ~FileManager();
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
@@ -101,7 +101,7 @@ private:
     DataBase *db;
     //float softwareVersion;
     //DataProxy_SQLite *dataProxy;
-    DataProxy *dataProxy;//, *dataProxyPrepared;
+    DataProxy_SQLite *dataProxy;//, *dataProxyPrepared;
 
     Utilities *util;    
 

@@ -31,14 +31,14 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "locator.h"
 
 class MainWindowSatTab : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainWindowSatTab(DataProxy *dp, QWidget *parent = 0);
+    explicit MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent = 0);
     ~MainWindowSatTab();
 
     QString getSatName();
@@ -110,7 +110,7 @@ private:
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
 
     QDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
     Locator *locator;
     bool modifying;
 };

@@ -1,6 +1,6 @@
 #include "updatesatsdata.h"
 
-UpdateSatsData::UpdateSatsData(DataProxy *dp, QObject *parent) : QObject(parent)
+UpdateSatsData::UpdateSatsData(DataProxy_SQLite *dp, QObject *parent) : QObject(parent)
 {
     util = new Utilities;
      dataProxy = dp;

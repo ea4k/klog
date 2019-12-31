@@ -35,7 +35,7 @@ To insert a (key, value) pair into the hash, you can use operator[]():
  hash["EA8"] = 132;
 
 */
-World::World(DataProxy *dp, const QString &_parentFunction)
+World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
 {
     //qDebug() << "World::World(0)" << _parentFunction << endl;
     constrid = 1;
@@ -59,7 +59,7 @@ World::World(DataProxy *dp, const QString &_parentFunction)
     //qDebug() << "World::World(0) - END" << endl;
 }
 
-World::World(DataProxy *dp, const QString &_klogDir, const QString &_parentFunction)
+World::World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_parentFunction)
 {
     //qDebug() << "World::World(1): Dir" << _klogDir << _parentFunction << endl;
     constrid = 2;
@@ -83,7 +83,7 @@ World::World(DataProxy *dp, const QString &_klogDir, const QString &_parentFunct
 
 }
 
-World::World(DataProxy *dp, const QString &_klogDir, const QString &_kontestVer, const QString &_parentFunction)
+World::World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_kontestVer, const QString &_parentFunction)
 {
     //qDebug() << "World::World(2): Dir" << _klogDir << _parentFunction << endl;
     constrid = 3;

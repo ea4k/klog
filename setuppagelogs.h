@@ -30,7 +30,7 @@
 #include <QtWidgets>
 #include <QtSql>
 #include <QSqlQuery>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "setuppagelogsnew.h"
 
 
@@ -44,7 +44,7 @@ class SetupPageLogs : public QWidget {
     Q_OBJECT
 
 public:
-    SetupPageLogs(DataProxy *dp, QWidget *parent=0);
+    SetupPageLogs(DataProxy_SQLite *dp, QWidget *parent=0);
     ~SetupPageLogs();
     int getSelectedLog();
     void setSelectedLog(const int _i);
@@ -128,7 +128,7 @@ private:
     QString stationCallsign, operators, comment, dateString, typeContest;
     int contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands, typeContestN;
 
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
     int selectedLog;
 
     QString defaultStationCallSign, defaultOperators;

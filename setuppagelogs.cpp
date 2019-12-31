@@ -28,7 +28,7 @@
 
 #include "setuppagelogs.h"
 
-SetupPageLogs::SetupPageLogs(DataProxy *dp, QWidget *parent) : QWidget(parent){
+SetupPageLogs::SetupPageLogs(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
      //qDebug() << "SetupPageLogs::SetupPageLogs" << endl;
     dataProxy = dp;
     stationCallsign = QString();

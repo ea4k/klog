@@ -26,7 +26,7 @@
 
 #include "setuppageuserdata.h"
 
-SetupPageUserDataPage::SetupPageUserDataPage(DataProxy *dp, QWidget *parent) : QWidget(parent){
+SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
     //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage" << endl;
    locator = new Locator();
    dataProxy = dp;

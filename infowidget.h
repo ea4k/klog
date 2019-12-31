@@ -33,7 +33,7 @@
 #include "locator.h"
 #include "awards.h"
 #include "world.h"
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "dataproxy_sqlite.h"
 
 
@@ -42,7 +42,7 @@ class InfoWidget : public QWidget
 {
     Q_OBJECT
 public:
-    InfoWidget(DataProxy *dp, QWidget *parent = 0);
+    InfoWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
     void createUI();
     void clear();
     void setCurrentLog(const int _log);
@@ -69,7 +69,7 @@ private:
     QLabel *distLongLabelN;
 
     Awards *awards;
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
     Locator *locator;
     World *world;
 

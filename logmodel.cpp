@@ -1,6 +1,6 @@
 #include "logmodel.h"
 
-LogModel::LogModel(DataProxy *dp, QObject *parent):QSqlRelationalTableModel(parent)
+LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableModel(parent)
 {
      //qDebug() << "LogModel::LogModel "  << endl;
     //logModel = new QSqlRelationalTableModel(this);

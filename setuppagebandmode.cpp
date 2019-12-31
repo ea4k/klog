@@ -1,6 +1,6 @@
 #include "setuppagebandmode.h"
 
-SetupPageBandMode::SetupPageBandMode(DataProxy *dp, QWidget *parent) : QWidget(parent)
+SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
      //qDebug() << "SetupPageBandMode::SetupPageBandMode"   << endl;
     dataProxy = dp;

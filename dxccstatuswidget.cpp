@@ -9,7 +9,7 @@ TODO: Call the creation of this depending on the bands that the user is using
 
 */
 
-DXCCStatusWidget::DXCCStatusWidget(DataProxy *dp, const QString _parentFunction, QWidget *parent) : QWidget(parent)
+DXCCStatusWidget::DXCCStatusWidget(DataProxy_SQLite *dp, const QString _parentFunction, QWidget *parent) : QWidget(parent)
 {
     //qDebug() << "DXCCStatusWidget::DXCCStatusWidget from: " << _parentFunction << endl;
     dataProxy = dp;

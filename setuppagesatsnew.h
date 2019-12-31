@@ -28,7 +28,7 @@
 //
 // This class implements the Dialog to add a new satellite
 //
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 #include <QDialog>
 #include <QtWidgets>
@@ -42,7 +42,7 @@ class SetupPageSatsNew : public QDialog
     Q_OBJECT
 
 public:
-    SetupPageSatsNew(DataProxy *dp, QWidget *parent = 0);
+    SetupPageSatsNew(DataProxy_SQLite *dp, QWidget *parent = 0);
 
     void setEditing(const bool b);
 
@@ -83,7 +83,7 @@ private:
     //void clear();
 
 
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
     QLineEdit *shortNameLineEdit, *nameLineEdit;
     QLineEdit *uplinkLineEdit, *downlinkLineEdit;

@@ -1,6 +1,6 @@
 #include "infowidget.h"
 
-InfoWidget::InfoWidget(DataProxy *dp, QWidget *parent) :
+InfoWidget::InfoWidget(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
      //qDebug() << "InfoWidget::InfoWidget: "   << endl;

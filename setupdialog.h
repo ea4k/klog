@@ -54,8 +54,8 @@ class SetupDialog : public QDialog
     Q_OBJECT
 
 public:
-    SetupDialog(DataProxy *dp, const bool _firstTime=true);
-    SetupDialog(DataProxy *dp, const QString _configFile, const QString _softwareVersion, const int _page=0, const bool _firstTime = true);
+    SetupDialog(DataProxy_SQLite *dp, const bool _firstTime=true);
+    SetupDialog(DataProxy_SQLite *dp, const QString _configFile, const QString _softwareVersion, const int _page=0, const bool _firstTime = true);
     ~SetupDialog();
 
     void setData(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime=true);
@@ -131,7 +131,7 @@ private:
 
     QStringList bands, modes;
     Locator *locator;
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
     Utilities *util;
 

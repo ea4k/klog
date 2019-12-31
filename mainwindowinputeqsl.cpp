@@ -1,6 +1,6 @@
 #include "mainwindowinputeqsl.h"
 
-MainWindowInputEQSL::MainWindowInputEQSL(DataProxy *dp, QWidget *parent) :
+MainWindowInputEQSL::MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
      //qDebug() << "MainWindowInputEQSL::MainWindowInputEQSL"   << endl;

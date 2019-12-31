@@ -31,14 +31,14 @@
 //#include <QtWidgets>
 #include "world.h"
 #include "locator.h"
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 
 class SetupPageUserDataPage : public QWidget {
     Q_OBJECT
 
 public:
-    SetupPageUserDataPage(DataProxy *dp, QWidget *parent=0);
+    SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent=0);
     ~SetupPageUserDataPage();
 
     QString getStationQrz();
@@ -153,7 +153,7 @@ private:
 
     Locator *locator;
     World *world;
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
     bool operatorsOK;
     bool operatorOK;

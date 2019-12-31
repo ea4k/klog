@@ -30,7 +30,7 @@
 #include <QProgressDialog>
 #include <QFileDialog>
 #include "utilities.h"
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "dataproxy_sqlite.h"
 
 class UpdateSatsData : public QObject
@@ -38,7 +38,7 @@ class UpdateSatsData : public QObject
     Q_OBJECT
 
 public:
-    explicit UpdateSatsData(DataProxy *dp, QObject *parent = nullptr);
+    explicit UpdateSatsData(DataProxy_SQLite *dp, QObject *parent = nullptr);
     bool readSatDataFile();
     bool satDataFileRead(const QString& tfileName);
 
@@ -46,7 +46,7 @@ private:
 
 
     Utilities *util;
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
 signals:
     void satsUpdatedSignal(const bool _p);

@@ -1,6 +1,6 @@
 #include "searchwidget.h"
 
-SearchWidget::SearchWidget(DataProxy *dp, QWidget *parent) :
+SearchWidget::SearchWidget(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
      //qDebug() << "SearchWidget::SearchWidget"   << endl;

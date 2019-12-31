@@ -26,13 +26,13 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 
 class DXMarathon
 {
 public:
-    DXMarathon(DataProxy *dp);
+    DXMarathon(DataProxy_SQLite *dp);
 
     int getDXMarathonQSO(const int _year, const int _logNumber);
     int getDXMarathonDXCC(const int _year, const int _logNumber);
@@ -41,7 +41,7 @@ public:
     bool neededForDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber);
 
 private:
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
 };
 

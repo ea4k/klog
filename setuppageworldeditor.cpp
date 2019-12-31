@@ -2,7 +2,7 @@
 
 
 
-SetupPageWorldEditor::SetupPageWorldEditor(DataProxy *dp, QWidget *parent) : QWidget(parent)
+SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
      //qDebug() << "SetupPageWorldEditor::SetupPageWorldEditor"  << endl;
     //worldPanel = new QWidget;

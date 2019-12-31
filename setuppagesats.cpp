@@ -28,7 +28,7 @@
 
 #include "setuppagesats.h"
 
-SetupPageSats::SetupPageSats(DataProxy *dp, QWidget *parent) : QWidget(parent){
+SetupPageSats::SetupPageSats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
      //qDebug() << "SetupPageSats::SetupPageSats" << endl;
     dataProxy = dp;
     arrild = QString();

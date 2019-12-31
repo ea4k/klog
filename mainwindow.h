@@ -43,7 +43,7 @@
 #include "filemanager.h"
 #include "contest.h"
 #include "contest_cqwwdxssb.h"
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "dataproxy_sqlite.h"
 #include "locator.h"
 #include "dxcluster.h"
@@ -634,7 +634,7 @@ private:
     QString contestMode;
     Contest *contest;
     // Contest
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
     DataBase *db;
     bool DBinMemory;
