@@ -33,7 +33,7 @@ email                : jaime@robles.es
 #include <QObject>
 #include "awards.h"
 #include "world.h"
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 class QWidget;
 class QTcpSocket;
@@ -43,8 +43,8 @@ class DXClusterWidget : public QWidget
      Q_OBJECT
 
  public:
-    DXClusterWidget(DataProxy *dp, QWidget *parent );
-    DXClusterWidget(DataProxy *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent );
+    DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent );
+    DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent );
 
     void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
     void setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy );
@@ -102,7 +102,7 @@ private:
 
     World *world;
     Awards *awards;
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
     bool showhf, showvhf, showwarc, showworked, showconfirmed, showann,  showwwv, showwcy;
     bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;

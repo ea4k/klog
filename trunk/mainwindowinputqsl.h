@@ -32,7 +32,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include <QWidget>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
 
@@ -40,7 +40,7 @@ class MainWindowInputQSL : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainWindowInputQSL(DataProxy *dp, QWidget *parent = 0);
+    explicit MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent = 0);
     ~MainWindowInputQSL();
 
     QString getQSLRecStatus();
@@ -92,7 +92,7 @@ private:
     QTextEdit *qslmsgTextEdit;
     QLineEdit *qslViaLineEdit;
 
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
     Utilities *util;
 
     QStringList qslSentStatusList, qslRcvdStatusList, qslViaList;

@@ -30,20 +30,20 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QSqlError>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 
 class LogModel : public QSqlRelationalTableModel
 {
     Q_OBJECT
 public:
-    LogModel(DataProxy *dp, QObject *parent);
+    LogModel(DataProxy_SQLite *dp, QObject *parent);
     void createlogModel(const int _i);
 
 private:
     void setColumnsToDX();
     //QSqlRelationalTableModel *logModel;
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
 signals:
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution

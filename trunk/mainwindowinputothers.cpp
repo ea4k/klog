@@ -27,7 +27,7 @@
 
 #include "mainwindowinputothers.h"
 
-MainWindowInputOthers::MainWindowInputOthers(DataProxy *dp, QWidget *parent) :
+MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
      //qDebug() << "MainWindowInputOthers::MainWindowInputOthers" << endl;

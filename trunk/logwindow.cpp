@@ -27,7 +27,7 @@
 #include "logwindow.h"
 
 
-LogWindow::LogWindow(DataProxy *dp, QWidget *parent) : QWidget(parent)
+LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
     //qDebug() << "LogWindow::LogWindow: "  << endl;
     dataProxy = dp;

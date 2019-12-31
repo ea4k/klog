@@ -2,7 +2,7 @@
 #define STATISTICSWIDGET_H
 #include <QWidget>
 #include <QtWidgets>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include <QtCharts>
 #include "charts/barchartstats.h"
 //#include "charts/donutchartstats.h"
@@ -13,7 +13,7 @@ class StatisticsWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit StatisticsWidget(DataProxy *dp, QWidget *parent = nullptr);
+    explicit StatisticsWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~StatisticsWidget();
     void clear();
 
@@ -32,7 +32,7 @@ private:
    // void paintQSOperOtherBarChart(const int _i);
 
 
-     DataProxy *dataProxy;
+     DataProxy_SQLite *dataProxy;
      //QWidget *graphWidget;
 
      QChartView *chartView;

@@ -28,7 +28,7 @@
 //#include <QDebug>
 
 
-FileManager::FileManager(DataProxy *dp)
+FileManager::FileManager(DataProxy_SQLite *dp)
 {
      //qDebug() << "FileManager::FileManager()-1" << endl;
     constrid = 1;
@@ -55,7 +55,7 @@ FileManager::FileManager(DataProxy *dp)
 }
 
 /*
-FileManager::FileManager(DataProxy *dp, const QString _klogDir)
+FileManager::FileManager(DataProxy_SQLite *dp, const QString _klogDir)
 {
      //qDebug() << "FileManager::FileManager()-2: Dir" << _klogDir << endl;
     dataProxy = dp;
@@ -75,7 +75,7 @@ FileManager::FileManager(DataProxy *dp, const QString _klogDir)
 
 }
 */
-FileManager::FileManager(DataProxy *dp, const QString _klogDir, const QString _softVersion)
+FileManager::FileManager(DataProxy_SQLite *dp, const QString _klogDir, const QString _softVersion)
 //FileManager::FileManager(const QString _klogDir, const QString _softVersion, DataBase _db)
 {
      //qDebug() << "FileManager::FileManager()-3: Dir(2)" << _klogDir << endl;

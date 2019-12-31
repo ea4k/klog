@@ -1,6 +1,6 @@
 #include "statisticswidget.h"
 
-StatisticsWidget::StatisticsWidget(DataProxy *dp, QWidget *parent): QWidget(parent)
+StatisticsWidget::StatisticsWidget(DataProxy_SQLite *dp, QWidget *parent): QWidget(parent)
 {
 
     dataProxy = dp;

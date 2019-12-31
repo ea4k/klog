@@ -6419,6 +6419,7 @@ void DataProxy_SQLite::getFoundInLog(const QString &_txt, const int _log)
     return;
     */
 }
+
 /*
 bool DataProxy_SQLite::queryPrepare(const QString &_query)
 {

@@ -29,7 +29,7 @@
 
 #include "mainwindowinputqsl.h"
 
-MainWindowInputQSL::MainWindowInputQSL(DataProxy *dp, QWidget *parent) :
+MainWindowInputQSL::MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
      //qDebug() << "MainWindowInputQSL::MainWindowInputQSL"   << endl;

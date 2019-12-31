@@ -30,11 +30,11 @@
 #include <QObject>
 //#include <QtGlobal>
 
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "database.h"
 
 
-class DataProxy_SQLite : public DataProxy
+class DataProxy_SQLite : public QObject
 {
     Q_OBJECT
 

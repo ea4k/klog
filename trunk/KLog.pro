@@ -61,7 +61,6 @@ HEADERS += setupdialog.h \
     setupentitydialog.h \   
     startwizard.h \
     downloadcty.h \
-    dataproxy.h \  
     dataproxy_sqlite.h \
     mainwindowsattab.h \
     awarddxmarathon.h \ 
@@ -120,7 +119,6 @@ SOURCES += main.cpp \
     contest.cpp \
     contest_cqwwdxssb.cpp \
     database.cpp \
-    dataproxy.cpp \
     dataproxy_sqlite.cpp \
     downloadcty.cpp \
     dxcluster.cpp \  

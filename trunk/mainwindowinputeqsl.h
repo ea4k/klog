@@ -31,14 +31,14 @@
 #include <QWidget>
 #include <QtWidgets>
 #include <QWidget>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "utilities.h"
 
 class MainWindowInputEQSL : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainWindowInputEQSL(DataProxy *dp, QWidget *parent = 0);
+    explicit MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent = 0);
     //~MainWindowInputEQSL();
 
     //void setData(const QString _comment);
@@ -88,7 +88,7 @@ private:
     QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit, *clublogQDateEdit;
 
 
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
     Utilities *util;
 
     QStringList qslSentStatusList, qslRcvdStatusList, clubLogStatusList;

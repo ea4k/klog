@@ -28,7 +28,7 @@
 //
 // This class implements the Dialog to add a new log
 //
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 #include <QDialog>
 #include <QtWidgets>
@@ -43,7 +43,7 @@ class SetupPageLogsNew : public QDialog
 
 public:
     //SetupPageLogsNew(QWidget *parent = 0);
-    SetupPageLogsNew(DataProxy *dp, QWidget *parent = 0);
+    SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent = 0);
 
     void setEditing(const bool b);
     void setStationCallSign(const QString _st);
@@ -97,7 +97,7 @@ private:
     void clear();
 
 
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
     QDateEdit *dateEdit;
 

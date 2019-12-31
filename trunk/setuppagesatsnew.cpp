@@ -30,7 +30,7 @@
 #include "setuppagesatsnew.h"
 
 
-SetupPageSatsNew::SetupPageSatsNew(DataProxy *dp, QWidget *parent)
+SetupPageSatsNew::SetupPageSatsNew(DataProxy_SQLite *dp, QWidget *parent)
 {
      //qDebug() << "SetupPageSatsNew::SetupPageSatsNew"   << endl;
     dataProxy = dp;

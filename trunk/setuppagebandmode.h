@@ -5,14 +5,14 @@
 #include <QSqlQuery>
 #include <QStringList>
 #include <QListWidget>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 
 class SetupPageBandMode : public QWidget
 {
     Q_OBJECT
 public:
-    SetupPageBandMode(DataProxy *dp, QWidget *parent=0);
+    SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent=0);
     ~SetupPageBandMode();
 
 
@@ -32,7 +32,7 @@ private:
 
     QListWidget *bandsListWidget, *modesListWidget;
 
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
 };
 

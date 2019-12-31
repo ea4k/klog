@@ -35,7 +35,7 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QSqlRelationalDelegate>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "logmodel.h"
 #include "awards.h"
 //#include "dxccstatuswidget.h"
@@ -47,7 +47,7 @@ class LogWindow : public  QWidget
     Q_OBJECT
 
 public:
-    explicit LogWindow(DataProxy *dp, QWidget *parent = 0);
+    explicit LogWindow(DataProxy_SQLite *dp, QWidget *parent = 0);
     ~LogWindow();
     void createlogPanel(const int _currentLog);
     void clear();
@@ -100,7 +100,7 @@ private:
     void setColumnsToDX();
 
 
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
     LogModel *logModel;
     Awards *awards;
     //DXCCStatusWidget *dxccStatusWidget;

@@ -28,7 +28,7 @@
 
 //#include <QDebug>
 
-Awards::Awards(DataProxy *dp, const QString &_parentFunction)
+Awards::Awards(DataProxy_SQLite *dp, const QString &_parentFunction)
 {
     //qDebug() << "Awards::Awards- from: " << _parentFunction << endl;
     dataProxy = dp;

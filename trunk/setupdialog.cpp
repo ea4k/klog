@@ -32,7 +32,7 @@ This class calls all the othet "Setup..." to manage the configuration
 
 */
 
-SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
+SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
 {
     //qDebug() << "SetupDialog::SetupDialog 1" << endl;
     logSeverity = 7;  //7 Debug /0=emergency or no debug
@@ -138,7 +138,7 @@ SetupDialog::SetupDialog(DataProxy *dp, const bool _firstTime)
 }
 
 
-SetupDialog::SetupDialog(DataProxy *dp, const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
+SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
 {
     //qDebug() << "SetupDialog::SetupDialog 2: " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) ;
     if (_firstTime)

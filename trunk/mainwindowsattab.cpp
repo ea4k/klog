@@ -28,7 +28,7 @@
 /*
 This class implements the Satellite TAB of the MainWindow
 */
-MainWindowSatTab::MainWindowSatTab(DataProxy *dp, QWidget *parent) :
+MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
      //qDebug() << "MainWindowSatTab::MainWindowSatTab"   << endl;

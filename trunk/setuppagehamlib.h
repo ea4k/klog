@@ -33,7 +33,7 @@
 //#include <QSerialPort>
 #include <QSerialPortInfo>
 #include "hamlibclass.h"
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include <hamlib/rig.h>
 
 
@@ -41,7 +41,7 @@ class SetupPageHamLib : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SetupPageHamLib(DataProxy *dp, QWidget *parent = nullptr);
+    explicit SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     QString getData();
     bool setRigType(const QString _radio);
     bool setSerialPort(const QString _port);

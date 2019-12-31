@@ -41,7 +41,7 @@
 
 #include "world.h"
 #include "awarddxmarathon.h"
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "utilities.h"
 
 class QProgressDialog;
@@ -52,7 +52,7 @@ class Awards : public QObject {
     //friend class World;
 
 public:
-    Awards(DataProxy *dp, const QString &_parentFunction);
+    Awards(DataProxy_SQLite *dp, const QString &_parentFunction);
     ~Awards();
     void setAwards(const int _qsoId);
     void setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId);
@@ -150,7 +150,7 @@ private:
     QColor defaultColor;
 
     World *world;
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
     DXMarathon *dxMarathon;
     Utilities *util;
 

@@ -1,6 +1,6 @@
 #include "awardswidget.h"
 
-AwardsWidget::AwardsWidget(DataProxy *dp, QWidget *parent) :
+AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
     //qDebug() << "AwardsWidget::AwardsWidget"   << endl;

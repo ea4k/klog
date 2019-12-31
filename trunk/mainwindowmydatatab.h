@@ -32,7 +32,7 @@
 
 #include <QWidget>
 #include <QtWidgets>
-//#include "dataproxy.h"
+//#include "dataproxy_sqlite.h"
 //#include "dataproxy_sqlite.h"
 
 class MainWindowMyDataTab : public QWidget

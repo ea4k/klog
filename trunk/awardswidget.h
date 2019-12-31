@@ -30,7 +30,7 @@
 //
 #include <QWidget>
 #include <QtWidgets>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "awards.h"
 //#include "world.h"
 //#include "utilities.h"
@@ -41,7 +41,7 @@ class AwardsWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit AwardsWidget(DataProxy *dp, QWidget *parent = nullptr);
+    explicit AwardsWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~AwardsWidget();
     void setManageDXMarathon(const bool _dx);
     void setLog(const int _log);
@@ -82,7 +82,7 @@ private:
     QPushButton *recalculateAwardsButton;
     QComboBox *operatingYearsComboBox;
 
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
     bool manageDXMarathon;
     int selectedYear;
     int currentLog;
