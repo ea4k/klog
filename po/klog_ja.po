@@ -803,11 +803,6 @@ msgstr ""
 
 #: ../filemanager.cpp:4773
 msgctxt "FileManager|"
-msgid "This QSO is not including the minimum data to consider a QSO as valid!."
-msgstr ""
-
-#: ../filemanager.cpp:4773
-msgctxt "FileManager|"
 msgid "Please edit the ADIF file and make sure that it include at least:"
 msgstr ""
 
@@ -819,6 +814,11 @@ msgstr ""
 #: ../filemanager.cpp:4773
 msgctxt "FileManager|"
 msgid "This QSO had:"
+msgstr ""
+
+#: ../filemanager.cpp:4773
+msgctxt "FileManager|"
+msgid "This QSO is not including the minimum data to consider a QSO as valid!."
 msgstr ""
 
 #: ../filemanager.cpp:4802
@@ -5604,20 +5604,10 @@ msgstr ""
 #. Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in QSO data
 #: ../tipsdialog.cpp:123
 msgctxt "TipsDialog|"
-msgid "Tip #1:"
-msgstr ""
-
-#: ../tipsdialog.cpp:123
-msgctxt "TipsDialog|"
-msgid "Do you know..."
-msgstr ""
-
-#: ../tipsdialog.cpp:123
-msgctxt "TipsDialog|"
 msgid ""
-"You can use <a href=\"#ToolsFillInQSO\">Tools->Fill in QSO data</a> to "
-"automatically read the full log to fill the DXCC, CQ, ITU zones and "
-"continent?"
+"<b>Tip #1:</b><br>Do you know...<br>You can use <a "
+"href=\"#ToolsFillInQSO\">Tools->Fill in QSO data</a> to automatically read "
+"the full log to fill the DXCC, CQ, ITU zones and continent?"
 msgstr ""
 
 #. Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in DXCC data
@@ -5763,7 +5753,7 @@ msgctxt "TipsDialog|"
 msgid ""
 "<b>Tip #17:</b><br>Do you know...<br>You can support translating KLog into "
 "your language? Please check <a "
-"href=https://www.klog.xyz/contrib/translations>KLog Translations</a> page?"
+"href=https://www.klog.xyz/contrib/translations>KLog Translations</a> page."
 msgstr ""
 
 #: ../tipsdialog.cpp:184
