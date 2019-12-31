@@ -119,8 +119,8 @@ void TipsDialog::setTip(const int _t)
     switch (_t) {
 
     case 1:
-        //: Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in QSO data
-        description = "<b>" + tr("Tip #1:") + "</b><br>" + tr("Do you know...") + "<br>" + tr("You can use <a href=\"#ToolsFillInQSO\">Tools->Fill in QSO data</a> to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?");
+        //: Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in QSO data        
+        description = tr("<b>Tip #1:</b><br>Do you know...<br>You can use <a href=\"#ToolsFillInQSO\">Tools->Fill in QSO data</a> to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?");
     break;
     case 2:
         //: Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in DXCC data
@@ -178,7 +178,7 @@ void TipsDialog::setTip(const int _t)
         description = tr("<b>Tip #16:</b><br>Do you know...<br>That there are many ways to contribute to KLog and some of them are listed in the <a href=https://www.klog.xyz/contrib>KLog Contribute</a> page?");
     break;
     case 17:
-        description = tr("<b>Tip #17:</b><br>Do you know...<br>You can support translating KLog into your language? Please check <a href=https://www.klog.xyz/contrib/translations>KLog Translations</a> page?");
+        description = tr("<b>Tip #17:</b><br>Do you know...<br>You can support translating KLog into your language? Please check <a href=https://www.klog.xyz/contrib/translations>KLog Translations</a> page.");
     break;
     default:
         description = tr("TIP-Default: Text");
