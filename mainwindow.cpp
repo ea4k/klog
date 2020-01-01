@@ -130,7 +130,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     operatorQRZ = "";
     stationQRZ = "";
     mainQRZ = "";
-    myLocator = "";
+    //myLocator = "";
     dxLocator ="";
     myPower = 0.0;
     UDPServerStart = false;   // By default the UDP server is started
@@ -320,6 +320,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
     connect(satTabWidget, SIGNAL(satTXFreqNeeded(double)), this, SLOT(slotSatTXFreqNeeded(double)));
     connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotSatRXFreqNeeded(double)));
+    connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
 
     connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
     connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
@@ -388,7 +389,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     scoreWindow = new QWidget;
     operatorLineEdit = new QLineEdit;
     stationCallSignLineEdit = new QLineEdit;
-    myLocatorLineEdit = new QLineEdit;
+    //myLocatorLineEdit = new QLineEdit;
 
     rxPowerSpinBox = new QDoubleSpinBox;
     rxPowerSpinBox->setDecimals(2);
@@ -933,7 +934,7 @@ void MainWindow::slotBandComboBoxChanged(){
 void MainWindow::slotQRZReturnPressed()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-       //qDebug() << "MainWindow::slotQRZReturnPressed: " << qrzLineEdit->text() << " - " << QString::number(bandComboBox->currentIndex()) << "/" << QString::number(modeComboBox->currentIndex()) << endl;
+    qDebug() << "MainWindow::slotQRZReturnPressed: " << qrzLineEdit->text() << " - " << QString::number(bandComboBox->currentIndex()) << "/" << QString::number(modeComboBox->currentIndex()) << endl;
     //int newId = -1;
     readingTheUI = true;
 
@@ -1174,7 +1175,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     QString ttime = (timeEdit->time()).toString("hh:mm:ss");
 
     QString trsttx = rstTXLineEdit->text();
-    qDebug() << "MainWindow::readDataFromUIDX - RSTtx: " << trsttx << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX - RSTtx: " << trsttx << endl;
     QString trstrx = rstRXLineEdit->text();
 
     int dxcc = world->getQRZARRLId(tqrz);
@@ -2716,14 +2717,15 @@ void MainWindow::createActionsCommon(){
     connect(operatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );    
 
-    connect(myLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    //connect(myLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(locatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
     connect(qthLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
     connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorTextChanged() ) );
-    connect(myLocatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotMyLocatorTextChanged() ) );
+    connect(myDataTabWidget, SIGNAL(myLocChangedSignal(QString)), this, SLOT(slotMyLocatorTextChanged(QString) ) );
+    connect(myDataTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
     connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged()) ) ;
     connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqRXChanged()) ) ;
@@ -2787,6 +2789,7 @@ void MainWindow::createActionsCommon(){
     connect (elogClublog, SIGNAL (disableClubLogAction(bool)), this, SLOT (slotElogClubLogDisable(bool)));
 	// SATELLITE TAB
     //connect (satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
+    //connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
 
 
     // QSL TAB
@@ -3230,12 +3233,11 @@ void MainWindow::slotQRZTextChanged()
             InValidCharsInPrevCall = false;
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
-            infoWidget->showDistanceAndBearing(myLocator, dxLocator);
+            infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
             //qDebug() << "MainWindow:: - calling showStatusOfDXCC-03 " << endl;
             showStatusOfDXCC(_qs);
             showDXMarathonNeeded(currentEntity, dx_CQz, dateEdit->date().year(), currentLog);
             othersTabWidget->setIOTAContinentFromEntity(currentEntity);
-
         }
         else if ((dx_CQz == dxE_CQz) || (dx_ITUz = dxE_ITUz))
         {
@@ -3282,7 +3284,7 @@ void MainWindow::slotQRZTextChanged()
             InValidCharsInPrevCall = false;
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
-            infoWidget->showDistanceAndBearing(myLocator, dxLocator);
+            infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
             //qDebug() << "MainWindow:: - calling showStatusOfDXCC-04" << endl;
             showStatusOfDXCC(_qs);
             showDXMarathonNeeded(currentEntity, dx_CQz, dateEdit->date().year(), currentLog);
@@ -3357,7 +3359,7 @@ void MainWindow::slotSTXTextChanged()
 void MainWindow::setRSTToMode(const QString &_m)
 {
 
-    qDebug() << "MainWindow::setRSTToMode: " << _m << endl;
+    //qDebug() << "MainWindow::setRSTToMode: " << _m << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (readingTheUI)
     {
@@ -4970,7 +4972,8 @@ bool MainWindow::processConfigLine(const QString &_line){
 
         if ( locator->isValidLocator(value) )
         {
-            myLocator = value.toUpper();
+            //myLocator = ;
+            myDataTabWidget->setMyLocator(value.toUpper());
         }
     }
     else if(field=="NEWONECOLOR")
@@ -5499,10 +5502,12 @@ void MainWindow::createUIDX()
     rxPowerSpinBox->setToolTip(tr("Power used by the DX."));
     operatorLineEdit->setToolTip(tr("Logging operator's callsign."));
     stationCallSignLineEdit->setToolTip(tr("Callsign used over the air."));
-    myLocatorLineEdit->setToolTip(tr("My QTH locator."));
+
+
     nameLineEdit->setToolTip(tr("Name of the DX."));
     qthLineEdit->setToolTip(tr("QTH of the DX."));
     locatorLineEdit->setToolTip(tr("Locator of the DX."));
+
     //freqQLCDNumber->setToolTip(tr("Frequency of the QSO"));
     qrzLineEdit->setToolTip(tr("QRZ of the QSO."));
     rstTXLineEdit->setToolTip(tr("TX RST."));
@@ -6671,31 +6676,38 @@ void MainWindow::slotLocatorTextChanged()
 {//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
         //qDebug() << "MainWindow::slotLocatorTextChanged: " << locatorLineEdit->text() << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    locatorLineEdit->setText((locatorLineEdit->text()).toUpper());
+
     if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) )
     {
-        dxLocator = (locatorLineEdit->text()).toUpper();
-        infoWidget->showDistanceAndBearing(myLocator, dxLocator);
+        locatorLineEdit->setPalette(palBlack);
+        dxLocator = (locatorLineEdit->text());
+        infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
         satTabWidget->setLocator(dxLocator);
+        locatorLineEdit->setToolTip(tr("My QTH locator."));
         //showInfoFromLocators(myLocator, dxLocator);
     }
     else
     {
+        locatorLineEdit->setPalette(palRed);
+        locatorLineEdit->setToolTip(tr("My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."));
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         return;
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::slotMyLocatorTextChanged()
+
+void MainWindow::slotMyLocatorTextChanged(const QString _loc)
 {
-        //qDebug() << "MainWindow::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << endl;
+        //qDebug() << "MainWindowMy::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    if ( locator->isValidLocator((myLocatorLineEdit->text()).toUpper()) )
+    if ( locator->isValidLocator(_loc))
     {
-        myLocator = (myLocatorLineEdit->text()).toUpper();
-        dxccStatusWidget->setMyLocator(myLocator);
-            //qDebug() << "MainWindow::slotMyLocatorTextChanged: My LOCATOR CHANGED TO: " << myLocator << endl;
+        dxccStatusWidget->setMyLocator(_loc);
+        //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: My LOCATOR CHANGED TO: " << myLocator << endl;
         slotLocatorTextChanged();
+
     }
     else
     {
@@ -7335,8 +7347,8 @@ void MainWindow::defineStationCallsign()
     {
         stationQRZ = mainQRZ;
     }
-    myDataTabWidget->setData(myPower, stationQRZ, operatorQRZ, myLocator);
-    dxccStatusWidget->setMyLocator(myLocator);
+    myDataTabWidget->setData(myPower, stationQRZ, operatorQRZ, myDataTabWidget->getMyLocator());
+    dxccStatusWidget->setMyLocator(myDataTabWidget->getMyLocator());
     logEvent(Q_FUNC_INFO, "END", logSeverity);
      //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << " - END" << endl;
 
@@ -7746,7 +7758,7 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString &_dxcall, con
             QString _myLoc = _de_grid;
             if (!(locator->isValidLocator(_myLoc)))
             {
-                _myLoc = myLocator;
+                _myLoc = myDataTabWidget->getMyLocator();
             }
 
             qsoLogged = dataProxy->addQSOFromWSJTX(_dxcall.toUpper(), _freq,  _mode, _dx_grid, _time_off, _report_sent, _report_rec, _tx_power, _comments, _name, _time_on, dxcc, _oper, stationQRZ, _myLoc, currentLog);

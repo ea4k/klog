@@ -72,7 +72,12 @@ void MainWindowSatTab::createUI()
     connect(satNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSatNameTextChanged() ) );    
     connect(satModeLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSatModeTextChanged() ) );
     connect(satDXLocatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSatDXLocTextChanged() ) );
+    connect(satNameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed()) );
+    connect(satModeLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed()) );
+    connect(satDXLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed()) );
+
     connect(satNameComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotSatNameComboBoxChanged() ) ) ;
+
     connect(satBandRXComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotSatBandRXComboBoxChanged()) ) ;
     connect(satBandTXComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotSatBandTXComboBoxChanged()) ) ;
 
@@ -261,9 +266,13 @@ void MainWindowSatTab::slotSatDXLocTextChanged()
     if ( locator->isValidLocator((satDXLocatorLineEdit->text()).toUpper()) )
     {
         emit dxLocatorChanged((satDXLocatorLineEdit->text()).toUpper());
+        satDXLocatorLineEdit->setPalette(palBlack);
+        satDXLocatorLineEdit->setToolTip(tr("Locator of the DX station. This box is synchronized with the Locator box in the QSO tab."));
     }
     else
     {
+        satDXLocatorLineEdit->setPalette(palRed);
+        satDXLocatorLineEdit->setToolTip(tr("Locator of the DX station. Format should be Maidenhead like IN70AA up to 10 characters."));
         return;
     }
 }
@@ -770,4 +779,9 @@ void MainWindowSatTab::addNewBand(const QString _p)
 void MainWindowSatTab::setModifying (const bool _m)
 {
     modifying = _m;
+}
+
+void MainWindowSatTab::slotReturnPressed()
+{
+    emit returnPressed();
 }

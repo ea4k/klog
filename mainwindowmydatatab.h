@@ -32,6 +32,7 @@
 
 #include <QWidget>
 #include <QtWidgets>
+#include "locator.h"
 //#include "dataproxy_sqlite.h"
 //#include "dataproxy_sqlite.h"
 
@@ -71,6 +72,13 @@ public:
 
     void show(); //Shows the values into the widget
     void clear(const bool _keepMyData);
+signals:
+    void myLocChangedSignal(const QString _q); // MyLocator once updated
+    void returnPressed();
+
+private slots:
+    void slotMyLocatorTextChanged();
+    void slotReturnPressed();
 
 private:
     //void setLastOperator(const QString _op);
@@ -84,8 +92,8 @@ private:
     double myPower, lastPower;
     QLineEdit *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit;
     QRadioButton *keepThisDataForNextQSORadiobutton;
-
-
+    QPalette palRed, palBlack; // To paint Text in red or black(normal)
+    Locator *locator;
 
 };
 

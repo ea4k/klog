@@ -28,6 +28,7 @@
 #define LOCATOR_H
 #include <math.h>
 #include <QString>
+#include <QRegularExpression>
 
 
 
