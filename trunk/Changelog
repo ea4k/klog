@@ -1,6 +1,7 @@
 TBD - 0.9.9
 
-Working on isolation of the Awards widget to make KLog more modular.
+
+- UI: Created a widget to manage the Awards to make KLog more modular.
 - UI: When starting a new version for the first time, the splashscreen is not hidding other messages anymore.
 - New versions are now found depending on the OS, not just for the sources.
 - New feature: Added some tips in the Help menu to help the users to get the most of KLog.
@@ -8,6 +9,7 @@ Working on isolation of the Awards widget to make KLog more modular.
 - Some code cleaning with cppcheck.
 - UI: Added a WSJT-X like color schema.
 - Bugfix: KLog was crashing if the call was completely removed in the Setup.
+- BugFix: KLog was always logging 59 instead of the real RST. (TNX DB4BIN)
 - KLog exit process improved.
 - KLog start process improved.
 - DataProxy class removed to optimize the code.

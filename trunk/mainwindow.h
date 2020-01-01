@@ -283,6 +283,7 @@ private slots:
 
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level=7);
 private:
+    void setWidgetsOrder();
     bool maybeSave();
     void logEvent(const QString &_func, const QString &_msg, const int _level=7);
     void setSeverity(const int _sev);
@@ -610,6 +611,7 @@ private:
                     // them all at the same time.
     int modifyingQSO; // When modifying, the QSO is saved here.
     int selectedYear;
+    bool readingTheUI;  // While reading the data from UI after QSO intro or modificationthis is true
 
     // Station Setup
 
