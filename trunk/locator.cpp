@@ -43,28 +43,97 @@ bool Locator::isValidLocator(const QString& tlocator){
       returned value ==  -1 No error. (Valid locator).
       returned value ==  0 Error.   (Invalid locator).
       Note: also string "END" is considered a valid locator, but returned value is -2.
-   ------------------------------------------------- */
+   -------------------------------------------------
+Wikipedia:
+    Character pairs encode longitude first, and then latitude.
+    The first pair (a field) encodes with base 18 and the letters "A" to "R".
+    The second pair (square) encodes with base 10 and the digits "0" to "9".
+    The third pair (subsquare) encodes with base 24 and the letters "a" to "x".
+    The fourth pair (extended square) encodes with base 10 and the digits "0" to "9".
+    The fifth and subsequent pairs are not formally defined, but recycling the third and fourth
+      pair algorithms is one possible definition:  BL11bh16oo66
+
+*/
+
   //qDebug() << "Locator::isValidLocator: " << tlocator << endl;
 
 	int lenght_of_locator;
 	testLocator ="A";
 	testLocator = tlocator.toUpper();
 	lenght_of_locator = testLocator.length();
+    //IN, IN70, IN70DD, IN70DD20, IN70DD20fs
+    QRegularExpression rx;
+    rx.setPattern("^[A-R]{2}[0-9]{2}$");
 
+    if (rx.match(testLocator).hasMatch())
+    {
+        qDebug() << "Locator::isValidLocator: Match 4: " << testLocator;
+        return true;
+    }
+    else
+    {
+        rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}$");
+        if (rx.match(testLocator).hasMatch())
+        {
+            qDebug() << "Locator::isValidLocator: Match 6: " << testLocator;
+            return true;
+
+        }
+        else
+        {
+            rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}[0-9]{2}$");
+            if (rx.match(testLocator).hasMatch())
+            {
+                qDebug() << "Locator::isValidLocator: Match 8: " << testLocator;
+                return true;
+            }
+            else
+            {
+                rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}[0-9]{2}[A-X]{2}$");
+                if (rx.match(testLocator).hasMatch())
+                {
+                    qDebug() << "Locator::isValidLocator: Match 10: " << testLocator;
+                    return true;
+                }
+                else
+                {
+                    qDebug() << "Locator::isValidLocator: NO MATCH: " << testLocator;
+                    return false;
+                }
+            }
+        }
+    }
+
+
+/*
+    if !((lenght_of_locator == 4) || (lenght_of_locator == 6) || (lenght_of_locator == 8)|| (lenght_of_locator == 10))
+    {
+        return false;
+    }
+*/
+    /*
 	if (lenght_of_locator == 4){
 		testLocator = testLocator +"LM";
 		lenght_of_locator = 6;
 	}
 
-	if (lenght_of_locator != 6) { 
+    if (lenght_of_locator != 6)
+    {
 		return false;
-	}else{
+    }
+    else
+    {
 		theChar = testLocator.at(0);
-		if (!theChar.isLetter()){  //First letter is not a valid letter
+        /*
+        if (!theChar.isLetter())
+        {  //First letter is not a valid letter
 
 			return false;
 		}
-		if ((theChar<'A') && (theChar>'R') ){  //First letter is not a valid letter
+        */
+    /*
+        if ((theChar<'A') && (theChar>'R') )
+        {  //First letter is not a valid letter
 
 			return false;
 		}
@@ -73,17 +142,20 @@ bool Locator::isValidLocator(const QString& tlocator){
 
 			return false;
 		}
-		if ((theChar<'A') && (theChar>'R') ){  //Second letter is not a valid letter
+        if ((theChar<'A') && (theChar>'R') )
+        {  //Second letter is not a valid letter
 
 			return false;
 		}
 		theChar = testLocator.at(2);
-		if (!theChar.isDigit()){  //Second letter is not a number
+        if (!theChar.isDigit())
+        {  //Second letter is not a number
 
 			return false;
 		}
 		theChar = testLocator.at(3);
-		if (!theChar.isDigit()){  //Second letter is not a number
+        if (!theChar.isDigit())
+        {  //Second letter is not a number
 
 			return false;
 		}
@@ -92,7 +164,8 @@ bool Locator::isValidLocator(const QString& tlocator){
 
 			return false;
 		}
-		if ((theChar<'A') && (theChar>'X') ){  //First letter is not a valid letter
+        if ((theChar<'A') && (theChar>'X') )
+        {  //First letter is not a valid letter
 
 			return false;
 		}
@@ -101,13 +174,14 @@ bool Locator::isValidLocator(const QString& tlocator){
 
 			return false;
 		}
-		if ((theChar<'A') && (theChar>'X') ){  //Second letter is not a valid letter
+        if ((theChar<'A') && (theChar>'X') )
+        {  //Second letter is not a valid letter
 
 			return false;
 		}
 	}
-
 	return true;
+    */
 }
 
 
@@ -242,7 +316,6 @@ int Locator::getDistance(const double lon1, const double lat1, const double lon2
   }
 }
 
-
 bool Locator::checkCoords(const double lon1, const double lat1){
  //qDebug() << "Locator::checkCoords" ;
 // Checks if a coordinates is correct.
@@ -314,10 +387,10 @@ void Locator::degTodms(const double deg){
   isec = (int)(temp); 
 }
 
-double Locator::dmsTodeg (int deg, int min, int sec){
+double Locator::dmsTodeg (int deg, int min, int sec)
+{
     return (double)deg + (double)min/60.0 + (double)sec/3600.0;
 }
-
 
 int Locator::getBeamBetweenLocators (const QString& tlocator1, const QString& tlocator2)
 {    

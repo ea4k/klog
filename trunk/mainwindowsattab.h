@@ -74,6 +74,7 @@ signals:
     void satTXFreqNeeded(const double _p);
     void satRXFreqNeeded(const double _p);
     void dxLocatorChanged(const QString _p);
+    void returnPressed();
 
 private slots:
     void slotSatNameTextChanged();
@@ -84,6 +85,7 @@ private slots:
     void slotSatBandTXComboBoxChanged();
     void slotSatFreqRXChanged();
     void slotSatFreqTXChanged();
+    void slotReturnPressed();
 
 private:
     void createUI();

@@ -35,6 +35,7 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     stationCallSignLineEdit = new QLineEdit;
     myLocatorLineEdit = new QLineEdit;
     keepThisDataForNextQSORadiobutton = new QRadioButton;
+    locator = new Locator();
 
     lastOperatorQRZ = QString();    // Last QRZ used by the user, will remain if the button is checked and removed if not
     lastStationQRZ = QString();     // Last QRZ used by the user, will remain if the button is checked and removed if not
@@ -56,6 +57,9 @@ MainWindowMyDataTab::~MainWindowMyDataTab(){}
 
 void MainWindowMyDataTab::createUI()
 {
+    palRed.setColor(QPalette::Text, Qt::red);
+    palBlack.setColor(QPalette::Text, Qt::black);
+
     myPowerSpinBox->setDecimals(2);
     myPowerSpinBox->setMaximum(9999);
     myPowerSpinBox->setSuffix(" " + tr("Watt"));
@@ -102,7 +106,10 @@ void MainWindowMyDataTab::createUI()
     //myDataInputTabWidget->setLayout(myDataInputTabWidgetLayout);
    // i = dxUpLeftTab->addTab(myDataInputTabWidget, tr("My Data"));
     //connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-
+    connect(myLocatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotMyLocatorTextChanged() ) );
+    connect(myLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
+    connect(operatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
+    connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
 }
 
 void MainWindowMyDataTab::clear(const bool _keepMyData)
@@ -145,12 +152,41 @@ void MainWindowMyDataTab::clear(const bool _keepMyData)
 
 void MainWindowMyDataTab::show()
 {
-
      //qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationQRZ << "/" << myLocator << endl;
     myPowerSpinBox->setValue(myPower);
     operatorLineEdit->setText(operatorQRZ);
     stationCallSignLineEdit->setText(stationQRZ);
     myLocatorLineEdit->setText(myLocator);
+}
+
+void MainWindowMyDataTab::slotMyLocatorTextChanged()
+{
+        //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << endl;
+    //logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if ( locator->isValidLocator((myLocatorLineEdit->text()).toUpper()) )
+    {
+        myLocator = (myLocatorLineEdit->text()).toUpper();
+        myLocatorLineEdit->setPalette(palBlack);
+        myLocatorLineEdit->setToolTip(tr("My QTH locator."));
+        emit myLocChangedSignal(myLocator);
+
+        //dxccStatusWidget->setMyLocator(myLocator);
+            //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: My LOCATOR CHANGED TO: " << myLocator << endl;
+        //slotLocatorTextChanged();
+    }
+    else
+    {
+        //logEvent(Q_FUNC_INFO, "END-2", logSeverity);
+        myLocatorLineEdit->setPalette(palRed);
+        myLocatorLineEdit->setToolTip(tr("My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."));
+        return;
+    }
+    //logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+
+void MainWindowMyDataTab::slotReturnPressed()
+{
+    emit returnPressed();
 }
 
 void MainWindowMyDataTab::setSetupMyPower(const double _power)

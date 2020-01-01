@@ -146,7 +146,7 @@ private slots:
     void slotSTXTextChanged();
     void slotUpdateLocator(QString _loc);
     void slotLocatorTextChanged();
-    void slotMyLocatorTextChanged();
+    //void slotMyLocatorTextChanged();
     void slotFreqTXChanged();
     void slotFreqRXChanged();
 
@@ -225,6 +225,9 @@ private slots:
     //void slotRecalculateAwardsButtonClicked();
     void slotAwardsWidgetSetLog();
     void slotAwardsWidgetSetYear();
+
+    // MyDataTab
+    void slotMyLocatorTextChanged(const QString _loc);
 
     // logpanel
     //void slotRighButtonFromLog( const QPoint& pos);
@@ -517,7 +520,7 @@ private:
 
     //QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
 
-    QLineEdit *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit;//, *commentLineEdit, *iotaNumberLineEdit;
+    QLineEdit *operatorLineEdit, *stationCallSignLineEdit;//, *commentLineEdit, *iotaNumberLineEdit;
     QTextEdit *notesTextEdit;
     QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox; //*myPowerSpinBox,
     QLCDNumber *freqQLCDNumber;
@@ -600,7 +603,7 @@ private:
     bool configured, modify;
     bool needToEnd; // Just to control if the software needs to end.
     bool qrzAutoChanging; //To stop executing the slotQRZTextChanged just because KLog uppercase a letter
-    QString mainQRZ, stationQRZ, operatorQRZ, myLocator, dxLocator;
+    QString mainQRZ, stationQRZ, operatorQRZ, dxLocator;
     QString lastOperatorQRZ, lastStationQRZ, lastMyLocator;
     double myPower, lastPower;
 
