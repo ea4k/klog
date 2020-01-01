@@ -78,7 +78,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     yearChangedDuringModification = false;
 
     upAndRunning = false; // To define some actions that can only be run when starting the software
-
+    readingTheUI = false;
     softwareVersion = tversion;
     itIsANewversion = false;
     dataProxy = new DataProxy_SQLite(softwareVersion, Q_FUNC_INFO);
@@ -309,7 +309,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured);    
     connect(setupDialog, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
     connect(setupDialog, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
-    //connect(setupDialog, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
+    //connect(setupDialog, ƒSIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
     //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab(dataProxy);
 
@@ -782,6 +782,7 @@ void MainWindow::createUI()
         createActionsCommon();
         createActionsDX();
         createMenusCommon();
+        setWidgetsOrder();
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
      //qDebug() << "MainWindow::createUI" << endl;
@@ -934,6 +935,7 @@ void MainWindow::slotQRZReturnPressed()
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
        //qDebug() << "MainWindow::slotQRZReturnPressed: " << qrzLineEdit->text() << " - " << QString::number(bandComboBox->currentIndex()) << "/" << QString::number(modeComboBox->currentIndex()) << endl;
     //int newId = -1;
+    readingTheUI = true;
 
     int errorCode = 0;
     QString aux;
@@ -1002,6 +1004,7 @@ void MainWindow::slotQRZReturnPressed()
         else   // The QUERY string is NULL
         {
             logEvent(Q_FUNC_INFO, "END-2", logSeverity);
+            readingTheUI = false;
             return;
             //qDebug() << "MainWindow::slotQRZReturnPressed: queryString-NULL: " << queryString << endl;
         }
@@ -1010,6 +1013,7 @@ void MainWindow::slotQRZReturnPressed()
     modifyingQSO = -1;
     yearChangedDuringModification = false;
     OKButton->setText(tr("&Add"));
+    readingTheUI = false;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -1170,6 +1174,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     QString ttime = (timeEdit->time()).toString("hh:mm:ss");
 
     QString trsttx = rstTXLineEdit->text();
+    qDebug() << "MainWindow::readDataFromUIDX - RSTtx: " << trsttx << endl;
     QString trstrx = rstRXLineEdit->text();
 
     int dxcc = world->getQRZARRLId(tqrz);
@@ -3351,8 +3356,14 @@ void MainWindow::slotSTXTextChanged()
 }
 void MainWindow::setRSTToMode(const QString &_m)
 {
-    //qDebug() << "MainWindow::setRSTToMode: " << _m << endl;
+
+    qDebug() << "MainWindow::setRSTToMode: " << _m << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (readingTheUI)
+    {
+        logEvent(Q_FUNC_INFO, "END", logSeverity);
+        return;
+    }
     if ((_m == "SSB") || (_m== "LSB") || (_m=="USB") )
     {
         //qDebug() << "MainWindow::setRSTToMode: Detected SSB/LSB/USB"  << endl;
@@ -5550,7 +5561,7 @@ void MainWindow::createUIDX()
     qthLabel->setText(tr("QTH"));
     qthLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     QLabel *locLabel = new QLabel(qsoInputTabWidget);
-    locLabel->setText(tr("Locator"));
+    locLabel->setText(tr("DX Locator"));
     locLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
     QLabel *rxPowerSpinBoxLabelN = new QLabel(tr("Power(rx)"));
@@ -5561,7 +5572,7 @@ void MainWindow::createUIDX()
 
     QLabel *rstRxLabelN = new QLabel(tr("RST(rx)"));
     rstRxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    setRSTToMode(modeComboBox->currentText());
+    (modeComboBox->currentText());
 
     QGridLayout *RSTLayout = new QGridLayout;
     RSTLayout->addWidget(rstTxLabelN, 0, 0);
@@ -5847,9 +5858,6 @@ void MainWindow::createUIDX()
     dxUpLeftInputFrame->setFrameShadow(QFrame::Raised);
     dxUpLeftInputFrame->setFrameStyle(QFrame::StyledPanel);
 
-
-
-
 #else
     //qDebug() << "MainWindow::createUIDX - NO WINDOWS DETECTED!"  << endl;
 
@@ -5865,6 +5873,21 @@ void MainWindow::createUIDX()
      //qDebug() << "MainWindow::createUIDX-END" << endl;
 
  }
+void MainWindow::setWidgetsOrder()
+{
+    setTabOrder(qrzLineEdit, bandComboBox);
+    setTabOrder(bandComboBox, modeComboBox);
+    setTabOrder(modeComboBox, dateEdit);
+    setTabOrder(dateEdit, timeEdit);
+    setTabOrder(timeEdit, rstTXLineEdit);
+    setTabOrder(rstTXLineEdit, rstRXLineEdit);
+    setTabOrder(rstRXLineEdit, txFreqSpinBox);
+    setTabOrder(txFreqSpinBox, rxFreqSpinBox);
+    setTabOrder(rxFreqSpinBox, qthLineEdit);
+    setTabOrder(qthLineEdit, locatorLineEdit);
+    setTabOrder(locatorLineEdit, nameLineEdit);
+    setTabOrder(nameLineEdit, rxPowerSpinBox);
+}
 
 void MainWindow::slotADIFExport(){
         //qDebug() << "MainWindow::slotADIFExport " << endl;

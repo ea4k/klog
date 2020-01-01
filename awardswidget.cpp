@@ -24,11 +24,8 @@ AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, QWidget *parent) :
     yearlyScoreQLCDNumber = new QLCDNumber;
     operatingYearsComboBox = new QComboBox;
 
-
     yearlyLabelN = new QLabel();
-
     yearlyScoreLabelN = new QLabel();
-
 
     recalculateAwardsButton = new QPushButton;
     operatingYearsComboBox = new QComboBox;
@@ -111,9 +108,6 @@ void AwardsWidget::createUI()
 #ifdef Q_OS_WIN
         //qDebug() << "AwardsWidget::createUIDX - WINDOWS DETECTED!"  << endl;
 
-    //dxUpLeftInputFrame->setFrameShadow(QFrame::Raised);
-    //dxUpLeftInputFrame->setFrameStyle(QFrame::StyledPanel);
-
     qsoNLabelN->setFrameShadow(QFrame::Raised);
     qsoNLabelN->setFrameStyle(QFrame::StyledPanel);
     wazLabelN->setFrameShadow(QFrame::Raised);
@@ -154,7 +148,6 @@ void AwardsWidget::createUI()
     awardLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     yearlyQSOsLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     yearlyDXCCLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-
     yearlyQSOsLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     yearlyCQLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     yearlyScoreLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
@@ -173,13 +166,9 @@ void AwardsWidget::createUI()
     yearlyDLayout->addWidget(yearlyQSOsLabelN, 0, 0);
     yearlyDLayout->addWidget(yearlyDXCCLabelN, 0, 1);
     yearlyDLayout->addWidget(yearlyCQLabelN, 0, 2);
-    //yearlyDLayout->addWidget(yearlyScoreLabelN, 0, 3);
     yearlyDLayout->addWidget(yearlyQSOLCDNumber, 1, 0);
     yearlyDLayout->addWidget(yearlyDXCCQLCDNumber, 1, 1);
     yearlyDLayout->addWidget(yearlyCQQLCDNumber, 1, 2);
-    //yearlyDLayout->addWidget(yearlyScoreQLCDNumber, 1, 3);
-
-    //yearlyDLayout->addWidget(QSpacerItem(10,0,QSizePolicy::Expanding,QSizePolicy::Maximum), 1, 3);
 
     //qDebug() << "AwardsWidget::createUI-145"   << endl;
     QVBoxLayout *yearlyTLayout = new QVBoxLayout;
