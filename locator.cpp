@@ -124,14 +124,13 @@ Wikipedia:
     else
     {
 		theChar = testLocator.at(0);
-        /*
+
         if (!theChar.isLetter())
         {  //First letter is not a valid letter
 
 			return false;
 		}
-        */
-    /*
+
         if ((theChar<'A') && (theChar>'R') )
         {  //First letter is not a valid letter
 
@@ -187,7 +186,8 @@ Wikipedia:
 
 double Locator::getLat(const QString& tlocator){
  //qDebug() << "Locator::getLat: " << tlocator;
-
+// Read formula from: https://unclassified.software/files/source/MaidenheadLocator.cs
+//Revisar las formulas porque salen distancias erroneas
     if (!isValidLocator(tlocator))
     {
         return 0.0;
@@ -199,11 +199,26 @@ double Locator::getLat(const QString& tlocator){
     }
     if (tlocator.length() == 4)
     {
-        return (((tlocator.at(1)).toLatin1() - 65) * 10) + ((tlocator.at(3)).toLatin1() - 48) - 90;
+        return ((tlocator.at(1)).toLatin1() - 'A') * 10 + ((tlocator.at(3)).toLatin1() - '0' + 0.5) - 90;
+        //return (((tlocator.at(1)).toLatin1() - 65) * 10) + ((tlocator.at(3)).toLatin1() - 48) - 90;
     }
     else if (tlocator.length()== 6)
     {
-        return (((tlocator.at(1)).toLatin1() - 65) * 10) + ((tlocator.at(3)).toLatin1() - 48) + (((tlocator.at(5)).toLatin1() - 65 + 0.5) / 24) - 90;
+        qDebug() << "Locator::getLat: " << QString::number(((tlocator.at(1)).toLatin1() - 'A') * 10 + ((tlocator.at(3)).toLatin1() - '0') + ((tlocator.at(5)).toLatin1() - 'A' + 0.5) / 24 - 90) << endl;
+        return ((tlocator.at(1)).toLatin1() - 'A') * 10 + ((tlocator.at(3)).toLatin1() - '0') + ((tlocator.at(5)).toLatin1() - 'A' + 0.5) / 24 - 90;
+        //return (((tlocator.at(1)).toLatin1() - 65) * 10) + ((tlocator.at(3)).toLatin1() - 48) + (((tlocator.at(5)).toLatin1() - 65 + 0.5) / 24) - 90;
+    }
+    else if (tlocator.length()== 8)
+    {
+        qDebug() << "Locator::getLat: " << QString::number(((tlocator.at(1)).toLatin1() - 'A') * 10 + ((tlocator.at(3)).toLatin1() - '0') + ((tlocator.at(5)).toLatin1() - 'A' + 0.0) / 24 + ((tlocator.at(7)).toLatin1() - '0' + 0.5) / 240 - 90) << endl;
+        return ((tlocator.at(1)).toLatin1() - 'A') * 10 + ((tlocator.at(3)).toLatin1() - '0') + ((tlocator.at(5)).toLatin1() - 'A' + 0.0) / 24 + ((tlocator.at(7)).toLatin1() - '0' + 0.5) / 240 - 90;
+        //return (((tlocator.at(1)).toLatin1() - 65) * 10) + ((tlocator.at(3)).toLatin1() - 48) + (((tlocator.at(5)).toLatin1() - 65 + 0.5) / 24) - 90;
+    }
+    else if (tlocator.length()== 10)
+    {
+        qDebug() << "Locator::getLat: " << QString::number(((tlocator.at(1)).toLatin1() - 'A') * 10 + ((tlocator.at(3)).toLatin1() - '0') + ((tlocator.at(5)).toLatin1() - 'A' + 0.0) / 24 + ((tlocator.at(7)).toLatin1() - '0' + 0.0) / 240 + ((tlocator.at(9)).toLatin1() - 'A' + 0.5) / 240 / 24 - 90) << endl;
+        return ((tlocator.at(1)).toLatin1() - 'A') * 10 + ((tlocator.at(3)).toLatin1() - '0') + ((tlocator.at(5)).toLatin1() - 'A' + 0.0) / 24 + ((tlocator.at(7)).toLatin1() - '0' + 0.0) / 240 + ((tlocator.at(9)).toLatin1() - 'A' + 0.5) / 240 / 24 - 90;
+        //return (((tlocator.at(1)).toLatin1() - 65) * 10) + ((tlocator.at(3)).toLatin1() - 48) + (((tlocator.at(5)).toLatin1() - 65 + 0.5) / 24) - 90;
     }
     else
     {
@@ -229,11 +244,23 @@ double Locator::getLon(const QString& tlocator)
 
     if (tlocator.length() == 4)
     {
-        return (((tlocator.at(0)).toLatin1() - 65) * 20) + (((tlocator.at(2)).toLatin1() - 48) * 2)  - 180;
+        return ((tlocator.at(0)).toLatin1()  - 'A') * 20 + ((tlocator.at(2)).toLatin1()  - '0' + 0.5) * 2 - 180;
+        //return (((tlocator.at(0)).toLatin1() - 65) * 20) + (((tlocator.at(2)).toLatin1() - 48) * 2)  - 180;
     }
     else if (tlocator.length()== 6)
     {
-        return (((tlocator.at(0)).toLatin1() - 65) * 20) + (((tlocator.at(2)).toLatin1() - 48) * 2) + (((tlocator.at(4)).toLatin1() - 65 + 0.5) / 12) - 180;
+        qDebug() << "Locator::getLon: " << QString::number(((tlocator.at(0)).toLatin1()  - 'A') * 20 + ((tlocator.at(2)).toLatin1()  - '0') * 2 + ((tlocator.at(4)).toLatin1()  - 'A' + 0.5) / 12 - 180) << endl;
+        return ((tlocator.at(0)).toLatin1()  - 'A') * 20 + ((tlocator.at(2)).toLatin1()  - '0') * 2 + ((tlocator.at(4)).toLatin1()  - 'A' + 0.5) / 12 - 180;
+        //return (((tlocator.at(0)).toLatin1() - 65) * 20) + (((tlocator.at(2)).toLatin1() - 48) * 2) + (((tlocator.at(4)).toLatin1() - 65 + 0.5) / 12) - 180;
+    }
+    else if (tlocator.length()== 8)
+    {
+        qDebug() << "Locator::getLon: " << QString::number(((tlocator.at(0)).toLatin1() - 'A') * 20 + ((tlocator.at(2)).toLatin1() - '0') * 2 + ((tlocator.at(4)).toLatin1() - 'A' + 0.0) / 12 + ((tlocator.at(6)).toLatin1() - '0' + 0.5) / 120 - 180) << endl;
+        return ((tlocator.at(0)).toLatin1() - 'A') * 20 + ((tlocator.at(2)).toLatin1() - '0') * 2 + ((tlocator.at(4)).toLatin1() - 'A' + 0.0) / 12 + ((tlocator.at(6)).toLatin1() - '0' + 0.5) / 120 - 180;
+    }
+    else if (tlocator.length()== 10)
+    {
+        return ((tlocator.at(0)).toLatin1() - 'A') * 20 + ((tlocator.at(2)).toLatin1() - '0') * 2 + ((tlocator.at(4)).toLatin1() - 'A' + 0.0) / 12 + ((tlocator.at(6)).toLatin1() - '0' + 0.0) / 120 + ((tlocator.at(8)).toLatin1() - 'A' + 0.5) / 120 / 24 - 180;
     }
     else
     {
