@@ -28,9 +28,7 @@
 #include <QtDebug>
 
 Locator::Locator(){
-  ideg = 0;
-  imin = 0;
-  isec = 0;
+
 }
 
 Locator::~Locator(){
@@ -57,135 +55,68 @@ Wikipedia:
 
   //qDebug() << "Locator::isValidLocator: " << tlocator << endl;
 
-	int lenght_of_locator;
-	testLocator ="A";
+    //int lenght_of_locator;
+
+    QString testLocator ="A";
 	testLocator = tlocator.toUpper();
-	lenght_of_locator = testLocator.length();
+    //lenght_of_locator = testLocator.length();
     //IN, IN70, IN70DD, IN70DD20, IN70DD20fs
     QRegularExpression rx;
-    rx.setPattern("^[A-R]{2}[0-9]{2}$");
-
+    rx.setPattern("^[A-R]{2}$");
     if (rx.match(testLocator).hasMatch())
     {
-        qDebug() << "Locator::isValidLocator: Match 4: " << testLocator;
+        //qDebug() << "Locator::isValidLocator: Match 2: " << testLocator;
         return true;
     }
     else
     {
-        rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}$");
+        rx.setPattern("^[A-R]{2}[0-9]{2}$");
         if (rx.match(testLocator).hasMatch())
         {
-            qDebug() << "Locator::isValidLocator: Match 6: " << testLocator;
+            //qDebug() << "Locator::isValidLocator: Match 4: " << testLocator;
             return true;
-
         }
         else
         {
-            rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}[0-9]{2}$");
+            rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}$");
             if (rx.match(testLocator).hasMatch())
             {
-                qDebug() << "Locator::isValidLocator: Match 8: " << testLocator;
+                //qDebug() << "Locator::isValidLocator: Match 6: " << testLocator;
                 return true;
+
             }
             else
             {
-                rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}[0-9]{2}[A-X]{2}$");
+                rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}[0-9]{2}$");
                 if (rx.match(testLocator).hasMatch())
                 {
-                    qDebug() << "Locator::isValidLocator: Match 10: " << testLocator;
+                    //qDebug() << "Locator::isValidLocator: Match 8: " << testLocator;
                     return true;
                 }
                 else
                 {
-                    qDebug() << "Locator::isValidLocator: NO MATCH: " << testLocator;
-                    return false;
+                    rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}[0-9]{2}[A-X]{2}$");
+                    if (rx.match(testLocator).hasMatch())
+                    {
+                        //qDebug() << "Locator::isValidLocator: Match 10: " << testLocator;
+                        return true;
+                    }
+                    else
+                    {
+                        //qDebug() << "Locator::isValidLocator: NO MATCH: " << testLocator;
+                        return false;
+                    }
                 }
             }
         }
     }
 
 
-/*
-    if !((lenght_of_locator == 4) || (lenght_of_locator == 6) || (lenght_of_locator == 8)|| (lenght_of_locator == 10))
-    {
-        return false;
-    }
-*/
-    /*
-	if (lenght_of_locator == 4){
-		testLocator = testLocator +"LM";
-		lenght_of_locator = 6;
-	}
-
-    if (lenght_of_locator != 6)
-    {
-		return false;
-    }
-    else
-    {
-		theChar = testLocator.at(0);
-
-        if (!theChar.isLetter())
-        {  //First letter is not a valid letter
-
-			return false;
-		}
-
-        if ((theChar<'A') && (theChar>'R') )
-        {  //First letter is not a valid letter
-
-			return false;
-		}
-		theChar = testLocator.at(1);
-		if (!theChar.isLetter()){  //Second letter is not a valid letter
-
-			return false;
-		}
-        if ((theChar<'A') && (theChar>'R') )
-        {  //Second letter is not a valid letter
-
-			return false;
-		}
-		theChar = testLocator.at(2);
-        if (!theChar.isDigit())
-        {  //Second letter is not a number
-
-			return false;
-		}
-		theChar = testLocator.at(3);
-        if (!theChar.isDigit())
-        {  //Second letter is not a number
-
-			return false;
-		}
-		theChar = testLocator.at(4);
-		if (!theChar.isLetter()){  //First letter is not a valid letter
-
-			return false;
-		}
-        if ((theChar<'A') && (theChar>'X') )
-        {  //First letter is not a valid letter
-
-			return false;
-		}
-		theChar = testLocator.at(5);
-		if (!theChar.isLetter()){  //Second letter is not a valid letter
-
-			return false;
-		}
-        if ((theChar<'A') && (theChar>'X') )
-        {  //Second letter is not a valid letter
-
-			return false;
-		}
-	}
-	return true;
-    */
 }
 
 
 double Locator::getLat(const QString& tlocator){
- //qDebug() << "Locator::getLat: " << tlocator;
+    qDebug() << "Locator::getLat: " << tlocator;
 // Read formula from: https://unclassified.software/files/source/MaidenheadLocator.cs
 //Revisar las formulas porque salen distancias erroneas
     if (!isValidLocator(tlocator))
@@ -195,6 +126,8 @@ double Locator::getLat(const QString& tlocator){
 
     if (tlocator.length() == 2)
     {
+        //qDebug() << "Locator::getLat - num: " << QString::number((tlocator.at(1)).toLatin1() );
+        qDebug() << "Locator::getLat: " << QString::number((((tlocator.at(1)).toLatin1() - 65) * 10) - 90) << endl;
         return (((tlocator.at(1)).toLatin1() - 65) * 10) - 90;
     }
     if (tlocator.length() == 4)
@@ -225,17 +158,17 @@ double Locator::getLat(const QString& tlocator){
         return 0.0;
     }
 
-
 }
 
 double Locator::getLon(const QString& tlocator)
 {
-  //qDebug() << "Locator::getLon: " << tlocator;
+    qDebug() << "Locator::getLon: " << tlocator;
 
     if (!isValidLocator(tlocator))
     {
         return 0.0;
     }
+
 
     if  (tlocator.length() == 2)
     {
@@ -284,16 +217,16 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
 //                  double *bearing, double *distance )/* From A to B */
 //{
   double
-    gc_arc, cos_gc_arc,       /* Great circle arc   A to B */
+    cos_gc_arc,       /* Great circle arc   A to B */
     cos_bearing, sin_bearing, /* cos/sin of bearing A to B */
     lon_diff;                 /* Difference in longitude of B from A */
-
+    //double gc_arc;
   /* Longitude differnce of B from A */
   lon_diff = lon_b - lon_a;
 
   /* Calculate great circle distance A to B */
   cos_gc_arc = cos(lon_diff)*cos(lat_a)*cos(lat_b) + sin(lat_a)*sin(lat_b);
-  gc_arc = acos( cos_gc_arc );
+  //gc_arc = acos( cos_gc_arc );
 
   /* Distance in km */
 //  *distance = eradius * gc_arc;
@@ -315,7 +248,7 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
    //qDebug() << "Locator::getBeam: " << QString::number(bearing) << endl;
   /* Convert to degrees */
 
-  return (int)bearing;
+  return int(bearing);
 
 }
 
@@ -336,10 +269,10 @@ int Locator::getDistance(const double lon1, const double lat1, const double lon2
 
   if (!_imperialSystem){
    //qDebug() << "Locator::getDistance (Km): " << QString::number((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) << endl;
-    return (int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS);
+    return int(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS);
   }else{ // In milles
      //qDebug() << "Locator::getDistance (Milles): " << QString::number(((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS))* 0.62137) << endl;
-    return ((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) * 0.62137;
+    return int(((acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) * 0.62137);
   }
 }
 
@@ -369,16 +302,16 @@ QString Locator::getLocator(const double lon1, const double lat1) const{
   lo=(-lon1+180)/20;
   la = (lat1+90)/10;
 
-  alo=(int)floor(lo);
-  bla=(int)floor(la);
-  lo=(lo-(double)alo)*10;
-  la=(la-(double)bla)*10;
+  alo=int(floor(lo));
+  bla=int(floor(la));
+  lo=(lo-(double(alo)))*10;
+  la=(la-(double(bla)))*10;
 
-  clo = (int)floor(lo);
-  dla = (int)floor(la);
+  clo = int(floor(lo));
+  dla = int(floor(la));
 
-  elo = (int)floor((lo-(double)clo)*24);
-  fla = (int)floor((la-(double)dla)*24);
+  elo = int(floor((lo-double(clo) ) * 24 )) ;
+  fla = int(floor((la-double(dla) ) * 24 ));
 
 //TODO: Test if locators are calculated correctly.
 // generation function has been changed because of the QT4 migration
@@ -402,22 +335,25 @@ QString Locator::getLocator(const double lon1, const double lat1) const{
 return locat;
 }
 
+/*
 void Locator::degTodms(const double deg){
   double temp;
   double ddeg;
   ddeg = 0;
-  ddeg += 1.0/7200.0; /* Round-up to 0.5 sec */
-  ideg = (int)ddeg;
+  ddeg += 1.0/7200.0; // Round-up to 0.5 sec
+  int ideg = (int)ddeg;
   temp = ( deg - (double)ideg ) * 60.0;
-  imin = (int)temp;
+  int imin = (int)temp;
   temp = ( temp - (double)imin ) * 60.0;
-  isec = (int)(temp); 
+  int isec = (int)(temp);
 }
+
 
 double Locator::dmsTodeg (int deg, int min, int sec)
 {
     return (double)deg + (double)min/60.0 + (double)sec/3600.0;
 }
+*/
 
 int Locator::getBeamBetweenLocators (const QString& tlocator1, const QString& tlocator2)
 {    

@@ -82,7 +82,7 @@ QString Awards::getQSOofAward (const int _enti, const int _bandid)
 {// Returns the QRZ that granted that status in the DXCC
      //qDebug() << "Awards::getQSOofAward: " << QString::number(_enti) << "/" << QString::number(_bandid) << endl;
     QSqlQuery query;
-    QString stringQuery = QString();;
+    QString stringQuery = QString();
     bool sqlOK = false;
     QString answer = QString();
 
@@ -122,7 +122,7 @@ int Awards::getQSOIdofAward (const int _enti, const int _bandid)
 {// Returns the QSOid that granted that status in the DXCC
      //qDebug() << "Awards::getQSOIdofAward: " << QString::number(_enti) << "/" << QString::number(_bandid) << endl;
     QSqlQuery query;
-    QString stringQuery = QString();;
+    QString stringQuery = QString();
     bool sqlOK = false;
     int answer = -1;
 
@@ -438,7 +438,6 @@ int Awards::getDXStatus (const QStringList &_qs)
                  //qDebug() << "Awards::getDXStatus: return 4 nc" << endl;
                 return 4;
             }
-            break;
         case 1:                     // Worked in this band
             if (checkingMode)
             {
@@ -459,15 +458,10 @@ int Awards::getDXStatus (const QStringList &_qs)
                 return 3;
             }
 
-            break;
-
         default:                    // ERROR
              //qDebug() << "Awards::getDXStatus: default return -1 - 1" << endl;
             return -1;
-            break;
         }
-
-    break;
     case 2:         // Confirmed
         if (wb==2)
         {
@@ -547,12 +541,9 @@ int Awards::getDXStatus (const QStringList &_qs)
              //qDebug() << "Awards::getDXStatus: return -1 - 2" << endl;
             return -1;
         }
-    break;
     default:
          //qDebug() << "Awards::getDXStatus: return -1 default2" << endl;
         return -1;
-    break;
-
     }   // END OF SWITCH
      //qDebug() << "Awards::getDXStatus: END, return -1" << endl;
     return -1;

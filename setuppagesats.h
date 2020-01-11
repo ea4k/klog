@@ -59,7 +59,7 @@ private slots:
     void slotAnalyzeNewSatData(const QStringList _qs);
     void slotSatselected(const QModelIndex & index);
     void slotSatDoubleClicked(const QModelIndex & index);
-    void slotSatsCancelled(const bool _q);
+    //void slotSatsCancelled(const bool _q);
 
 signals:
    //void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked

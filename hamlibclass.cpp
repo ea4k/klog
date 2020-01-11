@@ -58,7 +58,8 @@ void HamLibClass::slotTimer()
     {
         errorCount = 0;
         //qDebug() << "HamLibClass::slotTimer: Freq: " << QString::number(freq) << endl;
-        if (freq_old != freq)
+        if ((freq_old > freq) || (freq_old < freq))
+        //if (freq_old != freq)
         {
             emit freqChanged(freq/1000000);
             freq_old = freq;
@@ -355,7 +356,7 @@ void HamLibClass::init(bool _active)
     rig_set_debug(RIG_DEBUG_NONE);
     my_rig = rig_init(myrig_model);
 
-    if (my_rig == NULL)
+    if (my_rig == nullptr)
     {
        //qDebug() << "HamLibClass::init: Init failed, hamlib returned fail!" << endl;
        return;

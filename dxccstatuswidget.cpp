@@ -490,7 +490,7 @@ void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
         return;
     }
     int row = -1;
-    int column = -1;
+    //int column = -1;
     int qsoId = -1;
     int bandi = -1;
     int columns = dxccView->columnCount();
@@ -507,7 +507,7 @@ void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
     if (item)
     {
         row = dxccView->row(item);
-        column = dxccView->column(item);
+        //column = dxccView->column(item);
 
 
          //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: row: " << QString::number(row) << endl;
