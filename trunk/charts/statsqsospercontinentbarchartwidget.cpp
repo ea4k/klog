@@ -3,7 +3,7 @@
 
 StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(){}
 
-StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(DataProxy *dp, QWidget *parent)
+StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
     //qDebug() << "StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget" << endl;
 

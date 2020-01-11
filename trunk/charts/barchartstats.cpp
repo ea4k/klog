@@ -25,7 +25,7 @@
  *                                                                           *
  *****************************************************************************/
 
-BarChartStats::BarChartStats(DataProxy *dp, QWidget *parent) : QWidget(parent)
+BarChartStats::BarChartStats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
 
      //chart = new QChart();

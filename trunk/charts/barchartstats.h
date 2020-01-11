@@ -28,7 +28,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QtCharts>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "charts/statsgeneralchartwidget.h"
 #include "charts/statsqsosperyearbarchartwidget.h"
 #include "charts/statsqsosperbandbarchartwidget.h"
@@ -49,7 +49,7 @@ class BarChartStats : public QWidget
 {
     Q_OBJECT
 public:
-    BarChartStats(DataProxy *dp, QWidget *parent = nullptr);
+    BarChartStats(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~BarChartStats();
     void prepareChart(const int _selection, const int _log=-1);
     void clear();
@@ -61,7 +61,7 @@ public slots:
 private:
     void createUI();
     void cleanLayout();
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
 
     QChart *chart;

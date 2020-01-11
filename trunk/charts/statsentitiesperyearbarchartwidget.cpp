@@ -3,7 +3,7 @@
 
 StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(){}
 
-StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(DataProxy *dp, QWidget *parent)
+StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
     //qDebug() << "StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget" << endl;
 
@@ -47,7 +47,7 @@ void StatsEntitiesPerYearBarChartWidget::prepareChart()
     QBarSet *set0 = new QBarSet(tr("Chart title"));
 
     //*set0->remove(0, set0->count()-1);
-    qreal sum = 0;
+    //qreal sum = 0;
     QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, x_axis.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 

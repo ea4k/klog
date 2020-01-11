@@ -3,7 +3,7 @@
 
 StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget(){}
 
-StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget(DataProxy *dp, QWidget *parent)
+StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
     //qDebug() << "StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget" << endl;
 

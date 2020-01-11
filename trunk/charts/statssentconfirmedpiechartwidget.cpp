@@ -2,7 +2,7 @@
 
 StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget(){}
 
-StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget(DataProxy *dp, QWidget *parent)
+StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
     //qDebug() << "StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget" << endl;
 
