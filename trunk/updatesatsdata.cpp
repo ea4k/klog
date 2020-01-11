@@ -30,15 +30,15 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
 
     int numberOfSats = 0;
     bool hasEOH = false;
-    bool inHeader = true;
+    //bool inHeader = true;
     QString line = QString();
     bool noMoreRegisters = false;
     qint64 pos; //Position in the file
     bool haveId = false;
     bool haveName = false;
-    bool haveUpLink = false;
-    bool haveDownLink = false;
-    bool haveMode = false;
+    //bool haveUpLink = false;
+    //bool haveDownLink = false;
+    //bool haveMode = false;
 
     pos = file.pos();
     while ( !file.atEnd() && !hasEOH)
@@ -56,7 +56,7 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
 
     file.seek(pos);
 
-    QProgressDialog progress(tr("Reading Satellites data file..."), tr("Abort reading"), 0, numberOfSats, 0);
+    QProgressDialog progress(tr("Reading Satellites data file..."), tr("Abort reading"), 0, numberOfSats, nullptr);
 
     progress.setWindowModality(Qt::ApplicationModal);
     progress.setVisible(true);
@@ -76,8 +76,8 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
     fieldToAnalyze.clear();
     QString aux = QString();
     QString field, data;
-    int tagLength = 0;
-    int dataLength = 0;
+    //int tagLength = 0;
+    //int dataLength = 0;
     QString satID = QString();
     QString satName = QString();
     QString satUpLink = QString();
@@ -115,9 +115,9 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
                             //QDebug() << "UpdateSatsData::satDataFileRead - EOR DETECTED and have it all!" << endl;
                             haveId = false;
                             haveName = false;
-                            haveUpLink = false;
-                            haveDownLink = false;
-                            haveMode = false;
+                            //haveUpLink = false;
+                            //haveDownLink = false;
+                            //haveMode = false;
                             if (!dataProxy->addSatellite(satID, satName, satDownLink,satUpLink, satMode))
                             {
                                 errorFound = true;
@@ -134,9 +134,9 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
                         {
                             haveId = false;
                             haveName = false;
-                            haveUpLink = false;
-                            haveDownLink = false;
-                            haveMode = false;
+                            //haveUpLink = false;
+                            //haveDownLink = false;
+                            //haveMode = false;
                             satID = QString();
                             satName = QString();
                             satUpLink = QString();
@@ -161,19 +161,19 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
                         else if (field == "APP_KLOG_SATS_UPLINK")
                         {
                             satUpLink = data;
-                            haveUpLink = true;
+                            //haveUpLink = true;
                              //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_SATS_UPLINK" << endl;
                         }
                         else if (field == "APP_KLOG_SATS_DOWNLINK")
                         {
                             satDownLink = data;
-                            haveDownLink = true;
+                            //haveDownLink = true;
                              //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_SATS_DOWNLINK" << endl;
                         }
                         else if (field == "APP_KLOG_SATS_MODE")
                         {
                             satMode = data;
-                            haveMode = true;
+                            //haveMode = true;
                                  //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_SATS_MODE" << endl;
                         }
                         else if (field == "APP_KLOG_DATA")
@@ -228,7 +228,7 @@ bool UpdateSatsData::readSatDataFile()
     //QString fileName = QFileDialog::getOpenFileName(0, tr("Open File"), "/home", "Sat data (*.dat)");
 
 
-    QString fileName = QFileDialog::getOpenFileName(0, tr("Open File"),
+    QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Open File"),
                                                      util->getHomeDir(),
                                                      tr("Sat Data") + "(*.dat)");
     if (fileName.isNull())

@@ -1,18 +1,19 @@
 TBD - 0.9.9
 
-
 - UI: Created a widget to manage the Awards to make KLog more modular.
 - UI: When starting a new version for the first time, the splashscreen is not hidding other messages anymore.
 - New versions are now found depending on the OS, not just for the sources.
 - New feature: Added some tips in the Help menu to help the users to get the most of KLog.
 - Added some debug log option.
-- Some code cleaning with cppcheck.
+- Some code cleaning with cppcheck and compilation warnings removed.
 - UI: Added a WSJT-X like color schema.
 - Bugfix: KLog was crashing if the call was completely removed in the Setup.
 - BugFix: KLog was always logging 59 instead of the real RST. (TNX DB4BIN)
+- BugFix: KLog was changing the mode in the radio from CW-R to CW if hamlib was active. (TNX G4MKT)
+- BugFix: KLog was changing freq in the radio in the starting process if hamlib was active. (TNX G4MKT)
 - KLog exit process improved.
 - KLog start process improved.
-- DataProxy class removed to optimize the code.
+- DataProxy_SQLite class removed to optimize the code.
 - Other minor improvements.
 
 August - 0.9.8.1

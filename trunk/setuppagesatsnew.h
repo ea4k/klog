@@ -42,7 +42,7 @@ class SetupPageSatsNew : public QDialog
     Q_OBJECT
 
 public:
-    SetupPageSatsNew(DataProxy_SQLite *dp, QWidget *parent = 0);
+    SetupPageSatsNew(DataProxy_SQLite *dp, QWidget *parent = nullptr);
 
     void setEditing(const bool b);
 

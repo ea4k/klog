@@ -196,10 +196,12 @@ void SetupPageSats::slotEditButtonClicked()
     */
 }
 
+/*
 void SetupPageSats::slotSatsCancelled(const bool _q)
 {
     selectedSat = -1;
 }
+*/
 
 void SetupPageSats::slotRemoveButtonClicked()
 {

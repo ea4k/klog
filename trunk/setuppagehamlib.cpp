@@ -97,7 +97,7 @@ void SetupPageHamLib::createUI()
     serialPortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     serialPortLabel->setEnabled(true);
 
-    scanSerialPortButton->setText(tr("Scan"));;
+    scanSerialPortButton->setText(tr("Scan"));
     scanSerialPortButton->setToolTip(tr("Click to identify the serial ports available in your computer."));
     //qDebug() << "SetupPageHamLib::createUI-40" << endl;
     strings.clear();
@@ -395,6 +395,7 @@ QString SetupPageHamLib::getDataBits()
         break;
         case 2:
             output = output + "7";
+        break;
             //qDebug() << "SetupPageHamLib::getDataBits-2-7"  << endl;
         case 3:
             output = output + "8";
@@ -567,7 +568,7 @@ void SetupPageHamLib::setStopBits(const QString _st)
         stopBitsComboBox->setCurrentIndex(0);
     }
 }
-
+/*
 void SetupPageHamLib::setRTS(const QString _state)
 {
     //if (_state.toUpper() == "TRUE")
@@ -591,3 +592,4 @@ void SetupPageHamLib::setDTR(const QString _state)
     //    DTRCheckBox->setChecked(false);
     //}
 }
+*/

@@ -46,7 +46,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_softVersion, const QString &_
 
     //preparedQuery = new QSqlQuery;
     //db = new DataBase(0);
-    //dataProxy = new DataProxy_SQLite();
+    //DataProxy_SQLite = new DataProxy_SQLite();
     //qDebug() << "DataProxy_SQLite::DataProxy_SQLite  END" << endl;
 
 }

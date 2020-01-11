@@ -58,20 +58,20 @@ public:
   int getDistance(const double lon1, const double lat1, const double lon2, const double lat2, const bool _imperialSystem);
   int getDistanceBetweenLocators (const QString& tlocator1, const QString& tlocator2, const bool _imperialSystem);
   //int getDistanceMilles(const double lon1, const double lat1, const double lon2, const double lat2);
-  void degTodms(const double deg);
-  double dmsTodeg (int deg, int min, int sec);
+  //void degTodms(const double deg);
+  //double dmsTodeg (int deg, int min, int sec);
   
   bool checkCoords(const double lon1, const double lat1);
 
 
 private:
   //bool valid;
-  QString myLocator;
-  QString testLocator;
-  QString otherLocator;
-  QChar theChar;
+  //QString myLocator;
+  //QString testLocator;
+  //QString otherLocator;
+  //QChar theChar;
   //double my_lon, my_lat, other_lon, other_lat, beam, testNumb;
-  int ideg, imin, isec;
+  //int ideg, imin, isec;
 
 
 };

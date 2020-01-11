@@ -3238,6 +3238,7 @@ bool FileManager::adifLoTWReadLog(const QString& tfileName)
                 foreach (str, fields)
                 {
                     field = readAdifField(str).at(0);
+                    //field = str;
 
                     if (field == "CALL")
                     {

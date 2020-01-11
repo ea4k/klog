@@ -596,8 +596,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //qDebug << "MainWindow::MainWindow: 20b - currentMode: " << QString::number(currentMode) << endl;
     //qDebug << "MainWindow::MainWindow: 21.1b - currentModeShown: " << QString::number(currentModeShown) << endl;
 
-    upAndRunning = true;
-
         //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
      //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
@@ -628,6 +626,8 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     connect(filemanager, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     //connect(filemanager, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
     //resize(QGuiApplication::primaryScreen()->availableSize() * 3/5);
+    upAndRunning = true;
+
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
     //qDebug() << "MainWindow::MainWindow: END" << endl;
@@ -3937,14 +3937,14 @@ void MainWindow::createMenusCommon()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
  }
-
+/*
 void MainWindow::slotCloseStats(bool _vis)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     statsWidget->clear();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
-
+*/
 void MainWindow::slotSearchToolNeededQSLToSend()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -6674,7 +6674,7 @@ void MainWindow::setModifying(const bool _m)
 
 void MainWindow::slotLocatorTextChanged()
 {//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
-        //qDebug() << "MainWindow::slotLocatorTextChanged: " << locatorLineEdit->text() << endl;
+    qDebug() << "MainWindow::slotLocatorTextChanged: " << locatorLineEdit->text() << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     locatorLineEdit->setText((locatorLineEdit->text()).toUpper());
 
@@ -6685,6 +6685,8 @@ void MainWindow::slotLocatorTextChanged()
         infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
         satTabWidget->setLocator(dxLocator);
         locatorLineEdit->setToolTip(tr("My QTH locator."));
+        qDebug() << "MainWindow::slotLocatorTextChanged: LAT: " << locator->getLat(locatorLineEdit->text()) << endl;
+        qDebug() << "MainWindow::slotLocatorTextChanged: LON: " << locator->getLon(locatorLineEdit->text()) << endl;
         //showInfoFromLocators(myLocator, dxLocator);
     }
     else
@@ -7561,7 +7563,7 @@ void MainWindow::slotFreqTXChanged()
     { // If the freq belongs to one ham band
        txFreqSpinBox->setPalette(palBlack);
        txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
-       if ((hamlibActive) && (!modify))
+       if ((hamlibActive) && (!modify) && (upAndRunning))
        {
            hamlib->setFreq(txFreqSpinBox->value());
        }
@@ -8102,7 +8104,11 @@ void MainWindow::slotSatRXFreqNeeded(const double _f)
 void MainWindow::slotHamlibTXFreqChanged(const double _f)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    txFreqSpinBox->setValue(_f);
+    if (upAndRunning)
+    {
+        txFreqSpinBox->setValue(_f);
+    }
+
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -8114,6 +8120,10 @@ void MainWindow::slotHamlibModeChanged(const QString &_m)
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
+    if ((modeComboBox->currentText()).toUpper() == _m.toUpper())
+    {
+        return;
+    }
     if (checkIfNewMode(_m))
     {
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
@@ -8122,6 +8132,7 @@ void MainWindow::slotHamlibModeChanged(const QString &_m)
     if (modeComboBox->findText(_m, Qt::MatchCaseSensitive)>=0)
     {
         //qDebug() << "slotHamlibModeChanged: Mode in the Combobox: " << _m << " - Result: " << QString::number(modeComboBox->findText(_m)) << endl;
+
         modeComboBox->setCurrentIndex(modeComboBox->findText(_m, Qt::MatchCaseSensitive));
     }
     else

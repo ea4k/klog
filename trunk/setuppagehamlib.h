@@ -47,8 +47,8 @@ public:
     bool setSerialPort(const QString _port);
     bool setSerialSpeed(const QString _speed );
     void setActive(const QString _active);
-    void setRTS(const QString _state);
-    void setDTR(const QString _state);
+    //void setRTS(const QString _state);
+    //void setDTR(const QString _state);
     void setDataBits(const QString _st);
     void setFlowControl(const QString _st);
     void setParity(const QString _st);

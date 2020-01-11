@@ -29,7 +29,6 @@ AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, QWidget *parent) :
 
     recalculateAwardsButton = new QPushButton;
     operatingYearsComboBox = new QComboBox;
-
     dataProxy = dp;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
     //awards = new Awards(dataProxy, Q_FUNC_INFO);
