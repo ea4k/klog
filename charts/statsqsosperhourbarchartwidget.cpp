@@ -3,7 +3,7 @@
 
 StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget(){}
 
-StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget(DataProxy *dp, QWidget *parent)
+StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
     //qDebug() << "StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget" << endl;
 

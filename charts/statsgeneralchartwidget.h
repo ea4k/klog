@@ -4,14 +4,14 @@
 #include <QWidget>
 #include <QtWidgets>
 #include <QtDebug>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 
 class StatsGeneralChartWidget : public QWidget
 {
         Q_OBJECT
 public:
     StatsGeneralChartWidget();
-    StatsGeneralChartWidget(DataProxy *dp, QWidget *parent = 0);
+    StatsGeneralChartWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
     virtual void prepareChart();
 
 private:

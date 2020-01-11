@@ -31,7 +31,7 @@
 #include <QtWidgets>
 #include <QtCharts>
 #include <QtDebug>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "charts/statsgeneralchartwidget.h"
 
 
@@ -40,7 +40,7 @@ class StatsCQZPerYearBarChartWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
 public:
-    StatsCQZPerYearBarChartWidget(DataProxy *dp, QWidget *parent = 0);
+    StatsCQZPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
     StatsCQZPerYearBarChartWidget();
     void prepareChart();
 
@@ -51,7 +51,7 @@ public slots:
 
 private:
     void createUI();
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
     QChart *chart;
     QChartView *chartView;

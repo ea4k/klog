@@ -31,7 +31,7 @@
 #include <QtWidgets>
 #include <QtCharts>
 #include <QtDebug>
-#include "dataproxy.h"
+#include "dataproxy_sqlite.h"
 #include "charts/statsgeneralchartwidget.h"
 
 
@@ -40,7 +40,7 @@ class StatsQSOsPerHourBarChartWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
 public:
-    StatsQSOsPerHourBarChartWidget(DataProxy *dp, QWidget *parent = 0);
+    StatsQSOsPerHourBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
     StatsQSOsPerHourBarChartWidget();
     void prepareChart();
 
@@ -50,7 +50,7 @@ public slots:
 
 private:
     void createUI();
-    DataProxy *dataProxy;
+    DataProxy_SQLite *dataProxy;
 
     QChart *chart;
     QChartView *chartView;

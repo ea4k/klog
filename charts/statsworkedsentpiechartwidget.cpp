@@ -2,7 +2,7 @@
 
 StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget(){}
 
-StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget(DataProxy *dp, QWidget *parent)
+StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
     //qDebug() << "StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget" << endl;
 
