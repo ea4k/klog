@@ -141,121 +141,121 @@
     <message>
         <location filename="../awardswidget.cpp" line="72"/>
         <source>Recalculate</source>
-        <translation type="unfinished">Recalcular</translation>
+        <translation>Recalcular</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="73"/>
         <source>Click to recalculate the award status.</source>
-        <translation type="unfinished">Pulsar para recalcular el estado de los diplomas.</translation>
+        <translation>Pulsar para recalcular el estado de los diplomas.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="74"/>
         <location filename="../awardswidget.cpp" line="267"/>
         <source>Select the year you want to check.</source>
-        <translation type="unfinished">Seleccione el año que quiere comprobar.</translation>
+        <translation>Seleccione el año que quiere comprobar.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="76"/>
         <location filename="../awardswidget.cpp" line="97"/>
         <source>QSOs</source>
-        <translation type="unfinished">QSOs</translation>
+        <translation>QSOs</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="77"/>
         <location filename="../awardswidget.cpp" line="88"/>
         <source>DXCC</source>
-        <translation type="unfinished">DXCC</translation>
+        <translation>DXCC</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="78"/>
         <source>CQ</source>
-        <translation type="unfinished">CQ</translation>
+        <translation>CQ</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="80"/>
         <source>Award</source>
-        <translation type="unfinished">Diploma</translation>
+        <translation>Diploma</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="82"/>
         <source>Confirmed</source>
-        <translation type="unfinished">Confirmado</translation>
+        <translation>Confirmado</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="85"/>
         <source>Worked</source>
-        <translation type="unfinished">Trabajado</translation>
+        <translation>Trabajado</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="91"/>
         <source>WAZ</source>
-        <translation type="unfinished">WAZ</translation>
+        <translation>WAZ</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="160"/>
         <source>Score</source>
-        <translation type="unfinished">Puntuación</translation>
+        <translation>Puntuación</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="161"/>
         <location filename="../awardswidget.cpp" line="387"/>
         <source>Annual</source>
-        <translation type="unfinished">Anual</translation>
+        <translation>Anual</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="254"/>
         <source>Number of confirmed DXCC entities.</source>
-        <translation type="unfinished">Número de entidades DX confirmadas.</translation>
+        <translation>Número de entidades DXCC confirmadas.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="255"/>
         <source>Number of worked DXCC entities.</source>
-        <translation type="unfinished">Número de entidades DXCC confirmadas.</translation>
+        <translation>Número de entidades DXCC trabajadas.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="256"/>
         <source>Number of confirmed WAZ zones.</source>
-        <translation type="unfinished">Número de zonas WAZ confirmadas.</translation>
+        <translation>Número de zonas WAZ confirmadas.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="257"/>
         <source>Number of worked WAZ zones.</source>
-        <translation type="unfinished">Número de zonas WAZ trabajadas.</translation>
+        <translation>Número de zonas WAZ trabajadas.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="260"/>
         <source>Number of confirmed QSOs.</source>
-        <translation type="unfinished">Número de QSOs confirmados.</translation>
+        <translation>Número de QSOs confirmados.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="261"/>
         <source>Number of worked QSOs.</source>
-        <translation type="unfinished">Número de QSOs trabjados.</translation>
+        <translation>Número de QSOs trabajados.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="263"/>
         <source>Number of QSOs worked on the selected year.</source>
-        <translation type="unfinished">Número de QSOs trabajados en el año seleccionado.</translation>
+        <translation>Número de QSOs trabajados en el año seleccionado.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="264"/>
         <source>Number of DXCC worked on the selected year.</source>
-        <translation type="unfinished">Número de entidades DXCC trabajados en el año seleccionado.</translation>
+        <translation>Número de entidades DXCC trabajados en el año seleccionado.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="265"/>
         <source>Number of CQ Zones worked on the selected year.</source>
-        <translation type="unfinished">Número de zonas CQ trabajadas en el año seleccionado.</translation>
+        <translation>Número de zonas CQ trabajadas en el año seleccionado.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="266"/>
         <source>Score for the DXMarathon on the selected year.</source>
-        <translation type="unfinished">Número de QSOs trabajados en el año seleccionado.</translation>
+        <translation>Puntuación de DXMarathon en el año seleccionado.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="380"/>
         <source>DX-Marathon</source>
-        <translation type="unfinished">DX-Marathon</translation>
+        <translation>DX-Marathon</translation>
     </message>
 </context>
 <context>
@@ -463,7 +463,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="432"/>
         <source>Beam: </source>
-        <translation type="unfinished">Azimuth: </translation>
+        <translation>Azimuth: </translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="442"/>
@@ -1554,7 +1554,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../mainwindow.cpp" line="2928"/>
         <source>Do you really want to exit KLog?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Realmente quiere salir de KLog?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3003"/>
@@ -1835,7 +1835,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3928"/>
         <source>&amp;Tips...</source>
-        <translation type="unfinished"></translation>
+        <translation>Conse&amp;jos</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3933"/>
@@ -2057,13 +2057,14 @@ Do you want to try again?</source>
     <message>
         <location filename="../mainwindow.cpp" line="5569"/>
         <source>DX Locator</source>
-        <translation type="unfinished">Locator DX</translation>
+        <translation>Locator DX</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6956"/>
         <source>Filling DXCC, CQz, ITUz, Continent in QSOs...
  QSO: </source>
-        <translation type="unfinished"></translation>
+        <translation>Rellenando DXCC, CQz, ITUz Continente en los QSOs...
+ QSO: </translation>
     </message>
     <message>
         <source>Filling DXCC in QSOs...
@@ -2099,22 +2100,22 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../mainwindow.cpp" line="56"/>
         <source>It was not possible to open the debug file for writting. No debug log will be saved!</source>
-        <translation type="unfinished"></translation>
+        <translation>No fue posible abrir el fichero de depuración para escribir. No se guardará log de depuración.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="642"/>
         <source>KLog new version detected!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Se ha detectado una versión nueva de KLog!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="643"/>
         <source>It seems that you are running this version of KLog for the first time.</source>
-        <translation type="unfinished"></translation>
+        <translation>Parece que está ejecutando esta versión de KLog por primera vez.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="644"/>
         <source>The setup will be open to allow you to do any new setup you may need.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se abrirá la el menú de configuración para que pueda hacer cualquier nueva configuración que pueda necesitar.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3695"/>
@@ -2411,7 +2412,7 @@ El servidor de UDP falló al %1.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="6693"/>
         <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi QTH locator. El formato debe ser tipo Maidenhead, como en IN70AA y hasta 10 caracteres.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6770"/>
@@ -2913,7 +2914,7 @@ El servidor de UDP falló al %1.</translation>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="181"/>
         <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi QTH Locator. El formato debe ser Maidenhead como en IN70AA y hasta 10 caracteres.</translation>
     </message>
 </context>
 <context>
@@ -2993,7 +2994,7 @@ El servidor de UDP falló al %1.</translation>
     <message>
         <location filename="../mainwindowsattab.cpp" line="275"/>
         <source>Locator of the DX station. Format should be Maidenhead like IN70AA up to 10 characters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Locator de la estación DX. El formato debe ser Maidenhead como en IN70AA y hasta 10 caracteres.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="401"/>
@@ -3014,25 +3015,25 @@ El servidor de UDP falló al %1.</translation>
         <location filename="../mainwindowsattab.cpp" line="529"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished">Frecuencia de RX en MHz.
+        <translation>Frecuencia de RX en MHz.
 ¡La frecuencia no está en una banda de radioaficionados!</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="534"/>
         <source>RX Frequency in MHz.</source>
-        <translation type="unfinished">Frecuencia de RX en MHz.</translation>
+        <translation>Frecuencia de RX en MHz.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="586"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished">Frecuencia de TX en MHz.
+        <translation>Frecuencia de TX en MHz.
 ¡La frecuencia no está en una banda de radioaficionados!</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="591"/>
         <source>TX Frequency in MHz.</source>
-        <translation type="unfinished">Frecuencia de TX en MHz.</translation>
+        <translation>Frecuencia de TX en MHz.</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="94"/>
@@ -3259,7 +3260,7 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4874"/>
         <source>Urt information...</source>
-        <translation type="unfinished"></translation>
+        <translation>URL information</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4917"/>
@@ -3609,7 +3610,8 @@ Frequency is not in a hamradio band!</source>
         <location filename="../setupdialog.cpp" line="322"/>
         <source>Do you want to add one log in the Logs tab or exit KLog?
 (Click Yes to add a log or No to exit KLog)</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Quiere añadir un log en la pestaña de Logs o salir de KLog?
+(Pulse Si para añadir un log o No para salir de KLog)</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="422"/>
@@ -3912,47 +3914,47 @@ Añada y seleccione el tipo de log que quiere usar.</translation>
     <message>
         <location filename="../setuppagecolors.cpp" line="49"/>
         <source>WSJT-X palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Paleta WSJT-X</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="50"/>
         <source>Default palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Paleta predeterminada</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="52"/>
         <source>Color when the DXCC is an ATNO (All Time New One)</source>
-        <translation type="unfinished"></translation>
+        <translation>Color cuando el DXCC es un ATNO (nunca trabajado)</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="53"/>
         <source>This DXCC was worked before in another band but not in the selected band. It may be needed due to the CQ, ITU, Grid, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Este DXCC fue trabajado antes en otra banda pero no en la banda seleccionada. Puede ser necesitado debido a CQ, ITU, cuadrícula, ...</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="54"/>
         <source>Worked DXCC, but not confirmed in this band.</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC trababajado pero no confirmado en esta banda.</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="55"/>
         <source>DXCC is confirmed in this band</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC confirmado en esta banda</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="56"/>
         <source>Default color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color predeterminado</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="57"/>
         <source>Sets a palette of colors similar to the one used in WSJT-X</source>
-        <translation type="unfinished"></translation>
+        <translation>Define una paleta de colores similar a la usada en WSJT-X</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="58"/>
         <source>Sets the default palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Define la paleta predeterminada</translation>
     </message>
     <message>
         <location filename="../setuppagecolors.cpp" line="168"/>
@@ -4564,7 +4566,7 @@ The log will not be opened.</oldsource>
     <message>
         <location filename="../setuppagemisc.cpp" line="50"/>
         <source>Activate the application debug log</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar el log de depuración de la aplicación</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="58"/>
@@ -4609,7 +4611,7 @@ The log will not be opened.</oldsource>
     <message>
         <location filename="../setuppagemisc.cpp" line="136"/>
         <source>Activates the application debug log. This may be useful if something is not working as expected. A debug file will be created in the KLog directory.</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa el log de depuración de la aplicación. Puede ser útil si algo no funciona como se espera. Se creará un fichero de depuración en la carpeta de KLog.</translation>
     </message>
     <message>
         <location filename="../setuppagemisc.cpp" line="667"/>
@@ -5920,41 +5922,41 @@ Puede haber sido causado que el fichero que está intentando importar no tiene e
     <message>
         <location filename="../tipsdialog.cpp" line="25"/>
         <source>KLog tips</source>
-        <translation type="unfinished"></translation>
+        <translation>Consejos de KLog</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="42"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Siguiente</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="43"/>
         <source>Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Anterior</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="123"/>
         <source>&lt;b&gt;Tip #1:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Tools-&gt;Fill in QSO data&lt;/a&gt; to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in QSO data</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consejo #1:&lt;/b&gt;&lt;br&gt;¿Sabía que...&lt;br&gt;Puede usar &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Herramientas-&gt;Completar QSOs&lt;/a&gt; para leer automáticamente todo el log y rellenar los campos DXCC, CQ, ITU y continente?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="127"/>
         <source>&lt;b&gt;Tip #2:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFillInDXCC&quot;&gt;Tools-&gt;Fill in DXCC data&lt;/a&gt; to automatically read the full log to fill the DXCC QSO data?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in DXCC data</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consejo #2:&lt;/b&gt;&lt;br&gt;¿Sabía que...&lt;br&gt;Puede usar &lt;a href=&quot;#ToolsFillInDXCC&quot;&gt;Herramientas-&gt;Completar datos DXCC&lt;/a&gt; para leer automáticamente todo el log y rellenar los datos de DXCC de los QSO?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="131"/>
         <source>&lt;b&gt;Tip #3:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find QSO to QSL&lt;/a&gt; to look for all those QSO that you should send your QSL because you still need to confirm that DXCC and you have still not send your QSL card?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;QSL tools...-&gt;Find QSO to QSL</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consejo #3:&lt;/b&gt;&lt;br&gt;¿Sabía que...&lt;br&gt;Puede usar &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Herramientas de QSL ...-&gt;Buscar QSO para enviar QSL&lt;/a&gt; buscar todos los QSO para los que debería enviar su QSL porque aun necesita confirmar ese DXCC y aun no ha enviado si tarjeta QSL?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="135"/>
         <source>&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can export your QSO marked as QSL requested with &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;File-&gt;Export Requested QSL to ADIF...&lt;/a&gt; to create an ADIF file that you will be able to import into a QSL tag creation program to print tags for your QSL cards?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export Requested QSL to ADIF...</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consejo #4:&lt;/b&gt;&lt;br&gt;Sabía que...&lt;br&gt;Puede exportar los QSO marcados como QSL solicitada con &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;Archivo-&gt;Exportar las QSL solicitadas a ADIF...&lt;/a&gt; para crear un fichero ADIF que pueda ser importado a un programa de creación de etiquetas de QSL para imprimir las etiquetas para sus tarjetas QSL?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="139"/>
@@ -6029,7 +6031,7 @@ Puede haber sido causado que el fichero que está intentando importar no tiene e
     <message>
         <location filename="../tipsdialog.cpp" line="184"/>
         <source>TIP-Default: Text</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -6088,32 +6090,32 @@ Puede haber sido causado que el fichero que está intentando importar no tiene e
     <message>
         <location filename="../worldmapwidget.cpp" line="9"/>
         <source>World map</source>
-        <translation type="unfinished"></translation>
+        <translation>Mapa del mundo</translation>
     </message>
     <message>
         <location filename="../worldmapwidget.cpp" line="204"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver</translation>
     </message>
     <message>
         <location filename="../worldmapwidget.cpp" line="205"/>
         <source>Zoom In(25%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Acercar (25%)</translation>
     </message>
     <message>
         <location filename="../worldmapwidget.cpp" line="209"/>
         <source>Zoom Out(25%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Alejar(25%)</translation>
     </message>
     <message>
         <location filename="../worldmapwidget.cpp" line="213"/>
         <source>Normal Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño normal</translation>
     </message>
     <message>
         <location filename="../worldmapwidget.cpp" line="216"/>
         <source>Fit to window</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustar a ventana</translation>
     </message>
 </context>
 <context>
