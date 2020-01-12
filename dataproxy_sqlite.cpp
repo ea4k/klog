@@ -4871,7 +4871,7 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
     }
     int step = util->getProgresStepForDialog(qsos);
 
-    QProgressDialog progress(QObject::tr("Urt information..."), QObject::tr("Abort updating"), 0, qsos);
+    QProgressDialog progress(QObject::tr("Updating information..."), QObject::tr("Abort updating"), 0, qsos);
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
 
