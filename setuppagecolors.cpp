@@ -49,13 +49,13 @@ SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
     wsjtxColorButton->setText(tr("WSJT-X palette"));
     klogColorButton->setText(tr("Default palette"));
 
-    newOneColorButton->setToolTip(tr("Color when the DXCC is an ATNO (All Time New One)"));
+    newOneColorButton->setToolTip(tr("Color when the DXCC is an ATNO (All Time New One)."));
     neededColorButton->setToolTip(tr("This DXCC was worked before in another band but not in the selected band. It may be needed due to the CQ, ITU, Grid, ..."));
     workedColorButton->setToolTip(tr("Worked DXCC, but not confirmed in this band."));
-    confirmedColorButton->setToolTip(tr("DXCC is confirmed in this band"));
-    defaultColorButton->setToolTip(tr("Default color"));
-    wsjtxColorButton->setToolTip(tr("Sets a palette of colors similar to the one used in WSJT-X"));
-    klogColorButton->setToolTip(tr("Sets the default palette"));
+    confirmedColorButton->setToolTip(tr("DXCC is confirmed in this band."));
+    defaultColorButton->setToolTip(tr("Default color."));
+    wsjtxColorButton->setToolTip(tr("Sets a palette of colors similar to the one used in WSJT-X."));
+    klogColorButton->setToolTip(tr("Sets the default palette."));
 
     newOneColorButton->setAutoFillBackground ( true );
 
