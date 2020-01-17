@@ -329,6 +329,7 @@ int main(int argc, char *argv[])
         MainWindow mw(klogDir, version);
         splash.finish(&mw);
         mw.checkIfNewVersion();
+        mw.recommendBackupIfNeeded();
         //checkIfNewVersion();
          //qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         mw.show();

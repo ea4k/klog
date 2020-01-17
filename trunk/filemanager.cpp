@@ -5388,40 +5388,34 @@ bool FileManager::writeBackupDate()
     //qDebug() << "FileManager::writeBackupDate: current: " << (getDateTimeOfLastBackup()).toString("yyyyMMdd-hhmmss") << endl;
 
     QFile file (util->getCfgFile());
-    QString line;
+    QString line, lineTemp;
     //QStringList fields;
     //fields.clear();
     QDateTime _dataTime = QDateTime();
     bool hasLatestBackupDate = false;
 
-    // Estoy uvalidando los campos adif con: til->getValidADIFFieldAndData('<'+fields.at(0));
-    // Para cauando funcione adaptar el de LoTW
+    QStringList completeFile;
+    completeFile.clear();
 
-    if (file.open (QIODevice::ReadWrite))
+    if(file.open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        QTextStream stream (&file);
-
-        while ( !file.atEnd()   )
+        QString s;
+        QTextStream t(&file);
+        while(!t.atEnd())
         {
-            line.clear();
-            line.append(file.readLine().toUpper());
-            if (line.contains("LATESTBACKUP"))
+            QString line = t.readLine();
+            if ( !(line.toUpper()).contains("LATESTBACKUP")  )
             {
-                hasLatestBackupDate = true;
-                stream << "LatestBackup=" << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") << ";" << endl;
-            }
-            else
-            {
-                stream << line << endl;
+                s.append(line + "\n");
             }
         }
-        if (!hasLatestBackupDate)
-        {
-            stream << "LatestBackup=" << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") << ";" << endl;
-        }
+        s.append("LatestBackup=" + (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") + ";\n" );
+        file.resize(0);
+        t << s;
+        file.close();
     }
 
-    return false;
+    return true;
 }
 
 
