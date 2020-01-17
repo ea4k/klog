@@ -40,14 +40,14 @@ class ContestCQWWDXSSB : public Contest {
 
 public:
     ContestCQWWDXSSB();
-    ContestCQWWDXSSB(const QStringList _qs);
+    ContestCQWWDXSSB(const QStringList &_qs);
     ~ContestCQWWDXSSB();
 
-    bool isMultiplier(const QStringList _qs);
+    bool isMultiplier(const QStringList &_qs);
     // Receives:  QStringList _qs;
     //_qs << DX-Entity << DXCQz << DX-band;
 
-    int getQSOPoints(const QStringList _qs);
+    int getQSOPoints(const QStringList &_qs);
     // Receives:  QStringList _qs;
     //_qs << DX-Entity << DX-Continent
 
@@ -67,8 +67,8 @@ private:
 
 
     QString myEntity, myCQz, myContinent, NA, thiscontest, mycategory, arrlSection, stationQrz, claimedScore, name, address, operators, soapbox, club, createdby;
-    bool isValidCQz(const QString _cqz);
-    bool isValidEntity(const QString _ent);
+    bool isValidCQz(const QString &_cqz);
+    bool isValidEntity(const QString &_ent);
 
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
 

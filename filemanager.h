@@ -74,6 +74,9 @@ public:
     bool cabrilloLogExport(const QString& _fileName, const QString _contestType, const int logNconst);
     bool modifySetupFile(const QString& _filename, QString _field, const QString _value);
     void setVersion(const QString _version);
+    QDateTime getDateTimeOfLastBackup();
+
+
 
 
 private:
@@ -84,6 +87,8 @@ private:
     int howManyLogsInFile(QFile & _f);
     bool fillHashLog(QFile & _f);
     QStringList getListOfLogsInFile(QFile & _f);
+    bool writeBackupDate();
+
 
 
     //QString checkAndFixASCIIinADIF(const QString _data);

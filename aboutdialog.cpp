@@ -89,10 +89,10 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     translatorsLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
     QString privacy = "<center><h2>" + tr("Privacy advisory") + "</h2></h4></center><br>" +
-            tr("KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account user's needs") +
+            tr("KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account user's needs.") +
             "<br><br>" + tr("At present, the data that is provided is the following:") +
             "<ul><li>" + tr("Callsign") + "</li><li>" + tr("KLog version") + "</li><li>" + tr("Operating system") + "</li></ul><br><br><b>" +
-            tr("Be aware that you can enable/disable this feature from the Misc tab in the Setup page") + ".</b>";
+            tr("Be aware that you can enable/disable this feature from the Misc tab in the Setup page.") + "</b>";
 
     QLabel *privacyLabel = new QLabel(privacy);
     privacyLabel->setAlignment(Qt::AlignJustify);

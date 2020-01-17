@@ -46,14 +46,14 @@ class DXClusterWidget : public QWidget
     DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent );
     DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent );
 
-    void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
+    void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
     void setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy );
     void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
     void setCurrentLog(const int _log);
     bool isConnected();
-    void setMyQRZ(const QString _qrz);
+    void setMyQRZ(const QString &_qrz);
     void setDXMarathon (const bool _enable);
-    //void sendSpotToCluster(const QString _dx, const QString _freq);
+    //void sendSpotToCluster(const QString &_dx, const QString &_freq);
 
 
     ~DXClusterWidget();
@@ -73,7 +73,7 @@ private slots:
     void slotClusterDXClusterWidgetItemSelected();
 
 signals:
-    void dxspotclicked(const QStringList _qs); // DXSpotCall, DX-Freq, doubleClicked
+    void dxspotclicked(const QStringList &_qs); // DXSpotCall, DX-Freq, doubleClicked
 
 private:
 
@@ -82,7 +82,7 @@ private:
     void initClass();
     void connectToDXCluster();
     QStringList readItem(QListWidgetItem * item);
-    bool checkIfNeedsToBePrinted(const QString _DXEntity, const int _band, const int _mode);
+    bool checkIfNeedsToBePrinted(const QString &_DXEntity, const int _band, const int _mode);
 
     void addData(); //TO BE DELETED, JUST FOR TESTING PURPOSES
 

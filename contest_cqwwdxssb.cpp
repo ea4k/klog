@@ -75,7 +75,7 @@ ContestCQWWDXSSB::ContestCQWWDXSSB()
     //qDebug() << "ContestCQWWDXSSB::ContestCQWWDXSSB1"  << endl;
 }
 
-ContestCQWWDXSSB::ContestCQWWDXSSB(const QStringList _qs)
+ContestCQWWDXSSB::ContestCQWWDXSSB(const QStringList &_qs)
 {
 
     // Receives:  QStringList _qs;
@@ -144,7 +144,7 @@ ContestCQWWDXSSB::ContestCQWWDXSSB(const QStringList _qs)
 ContestCQWWDXSSB::~ContestCQWWDXSSB(){
 }
 
-bool ContestCQWWDXSSB::isMultiplier(const QStringList _qs){
+bool ContestCQWWDXSSB::isMultiplier(const QStringList &_qs){
 //qDebug() << "ContestCQWWDXSSB::isMultiplier"  << endl;
 for (int i = 0; i<_qs.length(); i++){
     ////qDebug() << _qs.at(i) <<", ";
@@ -213,7 +213,7 @@ for (int i = 0; i<_qs.length(); i++){
     return false;
 }
 
-int ContestCQWWDXSSB::getQSOPoints(const QStringList _qs){
+int ContestCQWWDXSSB::getQSOPoints(const QStringList &_qs){
 //qDebug() << "ContestCQWWDXSSB::getQSOPoints"  << endl;
 // Receives:  QStringList _qs;
 //_qs << DX-Entity << DX-Continent
@@ -246,7 +246,7 @@ int ContestCQWWDXSSB::getQSOPoints(const QStringList _qs){
     return 0;
 }
 
-bool ContestCQWWDXSSB::isValidCQz(const QString _cqz){
+bool ContestCQWWDXSSB::isValidCQz(const QString &_cqz){
 //qDebug() << "ContestCQWWDXSSB::isValidCQz: " << _cqz << endl;
     if (  (_cqz.toInt()>0) && (_cqz.toInt()<41) ){
         return true;
@@ -256,7 +256,7 @@ bool ContestCQWWDXSSB::isValidCQz(const QString _cqz){
     return false;
 }
 
-bool ContestCQWWDXSSB::isValidEntity(const QString _ent){
+bool ContestCQWWDXSSB::isValidEntity(const QString &_ent){
     //qDebug() << "ContestCQWWDXSSB::isValidEntity: " << _ent << endl;
     if (  (_ent.toInt()>0) ) {
         return true;

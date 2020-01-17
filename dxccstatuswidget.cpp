@@ -9,7 +9,7 @@ TODO: Call the creation of this depending on the bands that the user is using
 
 */
 
-DXCCStatusWidget::DXCCStatusWidget(DataProxy_SQLite *dp, const QString _parentFunction, QWidget *parent) : QWidget(parent)
+DXCCStatusWidget::DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent) : QWidget(parent)
 {
     //qDebug() << "DXCCStatusWidget::DXCCStatusWidget from: " << _parentFunction << endl;
     dataProxy = dp;
@@ -122,7 +122,7 @@ void DXCCStatusWidget::update()
    //qDebug() << "DXCCStatusWidget::update END" << endl;
 }
 
-void DXCCStatusWidget::addEntity(QStringList const _ent)
+void DXCCStatusWidget::addEntity(const QStringList &_ent)
 {
     //qDebug() << "DXCCStatusWidget::addEntity: " << _ent.at(1) << " / " << QString::number(_ent.length()) << endl;
     // DXCC id, Entity Name, bandName1, bandName2, ...
@@ -232,7 +232,7 @@ void DXCCStatusWidget::addEntity(QStringList const _ent)
 
 }
 
-void DXCCStatusWidget::setBands(QStringList const _ent, const bool _creating)
+void DXCCStatusWidget::setBands(QStringList const &_ent, const bool _creating)
 {// Receives the list of band names
     //qDebug() << "DXCCStatusWidget::setBands: " << endl;
     //qDebug() << "DXCCStatusWidget::setBands: " << QString::number(_ent.length()) << endl;
@@ -563,7 +563,7 @@ void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
      //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: END " << endl;
 }
 
-void DXCCStatusWidget::setMyLocator(const QString _loc)
+void DXCCStatusWidget::setMyLocator(const QString &_loc)
 {
     //qDebug() << "DXCCStatusWidget::setMyLocator: " << _loc << endl;
     QString l = _loc;

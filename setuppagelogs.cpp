@@ -432,12 +432,12 @@ QStringList SetupPageLogs::readLogs()
         return _logs;
     }
 
-
+/*
     _logs.clear();
      //qDebug() << "SetupPageLogs::readLogs: " << QString::number(_logs.size())<< endl;
 
     return _logs;
-
+*/
 }
 
 
@@ -604,7 +604,6 @@ int SetupPageLogs::getSelectedLog()
     {
         return 0;
     }
-    return 0;
 }
 
 void SetupPageLogs::setSelectedLog(const int _i)

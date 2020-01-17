@@ -121,7 +121,7 @@ void DXClusterWidget::initClass()
     currentLog = 0;
 }
 
-void DXClusterWidget::setMyQRZ(const QString _qrz)
+void DXClusterWidget::setMyQRZ(const QString &_qrz)
 {
     if (_qrz.length()>2)
     {
@@ -238,7 +238,7 @@ void DXClusterWidget::slotClusterDisplayError(QAbstractSocket::SocketError socke
 
  }
 
-bool DXClusterWidget::checkIfNeedsToBePrinted(const QString _DXEntity, int const _band, const int _mode)
+bool DXClusterWidget::checkIfNeedsToBePrinted(const QString &_DXEntity, int const _band, const int _mode)
 {
     //qDebug() << "DXClusterWidget::checkIfNeedsToBePrinted: " << _DXEntity << "/" << dataProxy->getNameFromBandId(_band) << QString::number(_mode)<< endl;
     QStringList qs;
@@ -599,7 +599,7 @@ void DXClusterWidget::slotClusterInputTextChanged()
     {}
 }
 
-void DXClusterWidget::setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default)
+void DXClusterWidget::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
 {
      //qDebug() << "DXClusterWidget::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << endl;
     // Just to pass the colors to the awards class
