@@ -463,7 +463,7 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
 bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested , bool _lotw)
 {
     // If _logN = 0, then we will export ALL the logs.
-   //qDebug() << "FileManager::adifLogExportToFile: " << _fileName << endl;
+    qDebug() << "FileManager::adifLogExportToFile: " << _fileName << endl;
 
     bool exportJustMarkedQSO = justMarked;
     //bool marked = false;
@@ -560,7 +560,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         {
             numberOfQsos = (query1.value(0)).toInt();
         }
-         //qDebug() << "FileManager::adifLogExportToFile -  numberOfQsos = " << QString::number(numberOfQsos)<< endl;
+        qDebug() << "FileManager::adifLogExportToFile -  numberOfQsos = " << QString::number(numberOfQsos)<< endl;
     }
 
      //qDebug() << "FileManager::adifLogExportToFile END -  numberOfQsos = " << QString::number(numberOfQsos) << endl;
@@ -2657,21 +2657,23 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         {}
     } //Closes the While
 
-    //qDebug() << "FileManager::adifLogExportToFile -  after the While" << endl;
+    qDebug() << "FileManager::adifLogExportToFile -  after the While" << endl;
     progress.setValue(numberOfQsos);
 
     if (noMoreQso)
     {
     //TODO: Remove the file (_fileName)
+        qDebug() << "FileManager::adifLogExportToFile -  noMoreQSO = true" << endl;
         file.remove();
+        return false;
 
-        return true;
     }
     else
     {
-        return false;
-    }
-    return true;
+        qDebug() << "FileManager::adifLogExportToFile -  noMoreQSO = false" << endl;
+        return writeBackupDate();
+
+    }    
 }
 
 bool FileManager::cabrilloLogExport(const QString& _fileName, const QString _contestType, const int logNconst)
@@ -3082,7 +3084,6 @@ bool FileManager::adifLoTWReadLog(const QString& tfileName)
     qsToPass.clear();
     //int step = 1;
 
-
     while ( !file.atEnd()   )
     {
         line = (file.readLine()).toUpper();
@@ -3093,6 +3094,7 @@ bool FileManager::adifLoTWReadLog(const QString& tfileName)
         }
         numberOfQsosLoWTHeader = numberOfQsosLoWTHeader + line.count("");
     }
+
     //<APP_LoTW_NUMREC:3>847
 
      //qDebug() << "FileManager::adifLoTWReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
@@ -3350,13 +3352,11 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                  //qDebug() << "FileManager::adifReadLog: clicked NO" << endl;
                  keepLogsInFile = false;
                  return false;
-              break;
           default:
                 // should never be reached
                 keepLogsInFile = false;
                 return false;
                  //qDebug() << "FileManager::adifReadLog: default" << endl;
-              break;
         }
     }
 
@@ -3480,7 +3480,6 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             //line.append(file.readLine().toUpper()); // TODO: Check if we should remove extra spaces,tabs and so on...
              //qDebug() << "FileManager::adifReadLog-line:" << line << endl;
             //fields.clear(); //TODO: Check if I should clear fields... I think I should not because I could loose data if a line contains data after an <EOR>
-
              fields << line.split("<", QString::SkipEmptyParts);
         }
 
@@ -3491,14 +3490,19 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
         auxString.clear();
         foreach (aux, fields)
         {
+            QString fieldToCheck;
+            fieldToCheck = "<" + aux;
+            //QStringList _TEST;
+            //_TEST.clear();
+            //_TEST << util->getValidADIFFieldAndData('<'+fields.at(0));
             aux = aux.trimmed();
             if ( (aux.contains('>')) && (auxString.length() > 0) )
             {
                 //qsToPass << auxString + aux;
                 qsToPass.last() = qsToPass.last() + auxString;
-                 //qDebug() << "FileManager::adifReadLog Modified in qsToPass: " << qsToPass.last() << endl;
+                qDebug() << "FileManager::adifReadLog Modified in qsToPass: " << qsToPass.last() << endl;
                 qsToPass << aux.trimmed();
-                 //qDebug() << "FileManager::adifReadLog Added to qsToPass: " << aux.trimmed() << endl;
+                qDebug() << "FileManager::adifReadLog Added to qsToPass: " << aux.trimmed() << endl;
                 auxString.clear();
             }
             else if (( aux.contains('>')) && (auxString.length() <= 0) )
@@ -3508,23 +3512,23 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             else
             {
                 auxString = auxString + "-" + aux.trimmed();
-                //qDebug() << "FileManager::adifReadLog auxString: " << auxString << endl;
+                qDebug() << "FileManager::adifReadLog auxString: " << auxString << endl;
             }
 
-            //qDebug() << "FileManager::adifReadLog fields: " << aux << endl;
+            qDebug() << "FileManager::adifReadLog fields: " << aux << endl;
         }
 
-        //qDebug() << "FileManager::adifReadLog-W-1" << endl;
+        qDebug() << "FileManager::adifReadLog-W-1" << endl;
 
         if (auxString.length()>0)
         {
-            //qDebug() << "FileManager::adifReadLog auxString2: " << auxString << endl;
+            qDebug() << "FileManager::adifReadLog auxString2: " << auxString << endl;
             qsToPass.last() = qsToPass.last() + auxString.trimmed();
         }
 
-         //qDebug() << "FileManager::adifReadLog END fields" << endl;
-         //qDebug() << "FileManager::adifReadLog Mod: " << qsToPass.join("/") << endl;
-         //qDebug() << "FileManager::adifReadLog END2 fields" << endl;
+         qDebug() << "FileManager::adifReadLog END fields" << endl;
+         qDebug() << "FileManager::adifReadLog Mod: " << qsToPass.join("/") << endl;
+         qDebug() << "FileManager::adifReadLog END2 fields" << endl;
 
         fields = qsToPass;
 
@@ -5162,6 +5166,7 @@ void FileManager::setVersion(const QString _version)
     util->setVersion(_version);
 }
 
+
 QStringList FileManager::readAdifField (const QString _field)
 {
     // This function receives a QString with an ADIF field and returns a QString with the following format:
@@ -5318,6 +5323,7 @@ QStringList FileManager::readAdifField (const QString _field)
 
 }
 
+
 QString FileManager::prepareStringLog()
 {
      //qDebug() << "FileManager::prepareStringLog: " << endl;
@@ -5346,7 +5352,76 @@ QString FileManager::prepareStringLog()
     QString string = "INSERT INTO log ("  + queryFields + ") VALUES (" + queryValues + ")";
      //qDebug() << "FileManager::prepareStringLog: " << string << endl;
     return string;
+}
 
+QDateTime FileManager::getDateTimeOfLastBackup()
+{
+    //qDebug() << "FileManager::getDateTimeOfLastBackup: " << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss")<< endl;
+    //qDebug() << "FileManager::getDateTimeOfLastBackup: " << util->getCfgFile() << endl;
+    QFile file (util->getCfgFile());
+    QString line;
+    QStringList fields;
+    fields.clear();
+    QDateTime _dataTime = QDateTime();
+
+    if (file.open (QIODevice::ReadOnly))
+    {
+        while ( !file.atEnd()   )
+        {
+            line.clear();
+            line.append(file.readLine().trimmed().toUpper());
+            if (line.contains("LATESTBACKUP"))
+            {
+                fields << line.split("=", QString::SkipEmptyParts);
+                line = fields.at(1);
+                line.truncate(15);
+                return _dataTime.fromString(line, "yyyyMMdd-hhmmss");
+            }
+        }
+    }
+    return QDateTime();
+}
+
+bool FileManager::writeBackupDate()
+{
+    qDebug() << "FileManager::writeBackupDate: current: " << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") << endl;
+    //qDebug() << "FileManager::writeBackupDate: current: " << (getDateTimeOfLastBackup()).toString("yyyyMMdd-hhmmss") << endl;
+
+    QFile file (util->getCfgFile());
+    QString line;
+    //QStringList fields;
+    //fields.clear();
+    QDateTime _dataTime = QDateTime();
+    bool hasLatestBackupDate = false;
+
+    // Estoy uvalidando los campos adif con: til->getValidADIFFieldAndData('<'+fields.at(0));
+    // Para cauando funcione adaptar el de LoTW
+
+    if (file.open (QIODevice::ReadWrite))
+    {
+        QTextStream stream (&file);
+
+        while ( !file.atEnd()   )
+        {
+            line.clear();
+            line.append(file.readLine().toUpper());
+            if (line.contains("LATESTBACKUP"))
+            {
+                hasLatestBackupDate = true;
+                stream << "LatestBackup=" << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") << ";" << endl;
+            }
+            else
+            {
+                stream << line << endl;
+            }
+        }
+        if (!hasLatestBackupDate)
+        {
+            stream << "LatestBackup=" << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") << ";" << endl;
+        }
+    }
+
+    return false;
 }
 
 

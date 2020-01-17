@@ -41,14 +41,14 @@ class DXCCStatusWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit DXCCStatusWidget(DataProxy_SQLite *dp, const QString _parentFunction, QWidget *parent = nullptr);
+    explicit DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent = nullptr);
     ~DXCCStatusWidget();
     
     void update();    
     //void awardsUpdated();
-    void setBands(const QStringList _ent, const bool _creating = false); // Receives the list of bandIDs
+    void setBands(const QStringList &_ent, const bool _creating = false); // Receives the list of bandIDs
     void setCurrentLog(const int _logN);
-    void setMyLocator(const QString _loc);
+    void setMyLocator(const QString &_loc);
 
     void refresh();
 
@@ -66,7 +66,7 @@ public slots:
 private:
     void createUI();
     void setDefaultBands();
-    void addEntity(QStringList const _ent); // DXCC id, bandid, bandid, ...
+    void addEntity(const QStringList &_ent); // DXCC id, bandid, bandid, ...
     //QStringList sortBandNamesBottonUp(const QStringList _qs);
 
     QTableWidget *dxccView;

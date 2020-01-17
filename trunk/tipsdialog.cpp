@@ -142,7 +142,7 @@ void TipsDialog::setTip(const int _t)
         //: Translator: Please make sure that the name of the link is coherent with the menu File->KLog folder
         description = tr("<b>Tip #6:</b><br>Do you know...<br>You can find the file containing all your log and other information in the logbook.dat "
                          "file and the klogrc file, containing the KLog config file in the KLog folder by opening the"
-                         " <a href=\"#FileOpenKLogFolder\">File->KLog folder</a> menu.");
+                         " <a href=\"#FileOpenKLogFolder\">File->KLog folder</a> menu?");
     break;
     case 7:
         //: Translator: Please make sure that the name of the link is coherent with the menu QSL tools...->Find My-QSLs pending to send
@@ -160,7 +160,7 @@ void TipsDialog::setTip(const int _t)
         description = tr("<b>Tip #10:</b><br>Do you know...<br>You can subscribe to the <a href=https://t.me/klogchat>English KLog Telegram group</a> to discuss about KLog in English?");
     break;
     case 11:
-        description = tr("<b>Tip #11:</b><br>Do you know...<br>You can subscribe to the <a href=//https://t.me/KLogES>Spanish Telegram group</a> to discuss about KLog in Spanish?");
+        description = tr("<b>Tip #11:</b><br>Do you know...<br>You can subscribe to the <a href=https://t.me/KLogES>Spanish Telegram group</a> to discuss about KLog in Spanish?");
     break;
     case 12:
         description = tr("<b>Tip #12:</b><br>Do you know...<br>You can subscribe to <a href=http://lists.nongnu.org/mailman/listinfo/klog-users>KLog-users mailing list</a> to discuss via email about KLog in English?");
