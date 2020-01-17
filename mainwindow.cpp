@@ -596,7 +596,9 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //qDebug << "MainWindow::MainWindow: 20b - currentMode: " << QString::number(currentMode) << endl;
     //qDebug << "MainWindow::MainWindow: 21.1b - currentModeShown: " << QString::number(currentModeShown) << endl;
 
-        //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
+    //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
+
+    //Let's see if it is time for a log backup! At least once per month!
 
      //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
     softUpdate = new SoftwareUpdate(softwareVersion);
@@ -631,6 +633,53 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
     //qDebug() << "MainWindow::MainWindow: END" << endl;
+}
+
+void MainWindow::recommendBackupIfNeeded()
+{
+    QDateTime lastBackupDate;
+    lastBackupDate = QDateTime();
+    lastBackupDate = filemanager->getDateTimeOfLastBackup();
+    bool backupNeeded = false;
+    QString msg;
+    if (lastBackupDate == QDateTime())
+    {
+        backupNeeded = true;
+        msg = tr("It seems that you have never done a backup or exported your log to ADIF.");
+
+    }
+    else if (lastBackupDate.addMonths(1) < QDateTime::currentDateTime())
+    {
+        backupNeeded = true;
+        msg = tr("It seems that the latest backup you did is older than one month.");
+    }
+
+    if (backupNeeded)
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+
+        //msg = msg + tr("Do you want to backup your logs now?");
+        //msgBox.setText(msg);
+        msgBox.setWindowTitle(tr("Log backup recommended!"));
+        msgBox.setText(msg);
+
+        msgBox.setInformativeText(tr("It is a good practice to backup your full log regularly to avoid loosing data in case of a problem.\n"
+                                     "Once you export your log to an ADIF file, you should copy that file to a safe place, like an USB drive, cloud drive, another computer, ...\n\n"
+                                     "KLog will remind you to backup on a monthly basis.\n\n"));
+
+        msgBox.addButton(QMessageBox::Yes);
+        msgBox.addButton(QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        int ret = msgBox.exec();
+        switch (ret)
+        {
+            case QMessageBox::Yes:
+            QString filename = (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmm") + "-klogbackup.adi";
+            filemanager->adifLogExport(filename, 0); // 0 will save ALL the logs
+            break;
+        }
+    }
 }
 
 void MainWindow::checkIfNewVersion()

@@ -132,6 +132,7 @@ class MainWindow : public  QMainWindow
 public:
     MainWindow(const QString &_klogDir, const QString &tversion);
     void checkIfNewVersion();
+    void recommendBackupIfNeeded();
 
      ~MainWindow();
 
@@ -288,6 +289,7 @@ private slots:
 private:
     void setWidgetsOrder();
     bool maybeSave();
+
     void logEvent(const QString &_func, const QString &_msg, const int _level=7);
     void setSeverity(const int _sev);
     void updateBandComboBox(const QString &_band);
