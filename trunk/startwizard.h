@@ -87,7 +87,7 @@ class LicPage : public QWizardPage
       Q_OBJECT
   public:
     LicPage(QWidget *parent = 0);
-    void setNextButtonActive(const bool _active);
+    //void setNextButtonActive(const bool _active);
     int nextId() const;
 
   private:

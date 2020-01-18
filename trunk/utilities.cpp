@@ -601,7 +601,7 @@ bool Utilities::isValidADIFField(const QString &_b)
 
 QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
 {
-    qDebug() << "Utilities::getValidADIFFieldAndData: " << _b << endl;
+    //qDebug() << "Utilities::getValidADIFFieldAndData: " << _b << endl;
     /*
         This functions checks if the ADIF field has the proper format.
         <Field:length:Data type>Data
@@ -611,16 +611,16 @@ QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
 
     if (!(_b.startsWith('<')))
     {
-        qDebug() << "Utilities::getValidADIFFieldAndData: BAD FORMAT: No < or > delimiters: " << _b << endl;
+        //qDebug() << "Utilities::getValidADIFFieldAndData: BAD FORMAT: No < or > delimiters: " << _b << endl;
         return QStringList();
     }
     if (_b.simplified() == "<EOR>")
     {
-        qDebug() << "Utilities::getValidADIFFieldAndData: EOR" << endl;
+        //qDebug() << "Utilities::getValidADIFFieldAndData: EOR" << endl;
         result << "EOR" << "EOR";
         return result;
     }
-    qDebug() << "Utilities::getValidADIFFieldAndData: -20" << endl;
+    //qDebug() << "Utilities::getValidADIFFieldAndData: -20" << endl;
     QStringList validDataTypes = {"B", "N", "D", "T", "S", "I", "M", "G", "E", "L"};
     QStringList qs;
     qs.clear();
@@ -628,18 +628,18 @@ QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
 
     if (qs.size()!= 2)
     {
-        qDebug() << "Utilities::getValidADIFFieldAndData-0 (not two): " << QString::number(qs.size()) << endl;
+        //qDebug() << "Utilities::getValidADIFFieldAndData-0 (not two): " << QString::number(qs.size()) << endl;
         return result;
     }
-    qDebug() << "Utilities::getValidADIFFieldAndData: -30" << endl;
+    //qDebug() << "Utilities::getValidADIFFieldAndData: -30" << endl;
     //QString field = (qs.at(0)).right((qs.at(0)).length() - 1);
     QString field = (qs.at(0)).right((qs.at(0)).length() - 1);
     QString data = (qs.at(1)).simplified();
     //data = data.simplified();
     QString dataType = QString();
 
-    qDebug() << "Utilities::getValidADIFFieldAndData-Field: " << field << endl;
-    qDebug() << "Utilities::getValidADIFFieldAndData_Data: " << data << endl;
+    //qDebug() << "Utilities::getValidADIFFieldAndData-Field: " << field << endl;
+    //qDebug() << "Utilities::getValidADIFFieldAndData_Data: " << data << endl;
 
     int length = data.length();
     int separatorPosition = 0;
@@ -649,11 +649,11 @@ QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
     { // DATE:8:D / 20141020
         separatorPosition = (field.section(':', 1, 1)).toInt();
         dataType = field.section(':', 2, 2);
-        qDebug() << "Utilities::getValidADIFFieldAndData - DataType: -" << dataType << "-" << endl;
+        //qDebug() << "Utilities::getValidADIFFieldAndData - DataType: -" << dataType << "-" << endl;
         if (!validDataTypes.contains(dataType.toUpper()))
         {
 
-            qDebug() << "Utilities::getValidADIFFieldAndData - FORMAT ERROR: Wrong data type: " << dataType << endl;
+            //qDebug() << "Utilities::getValidADIFFieldAndData - FORMAT ERROR: Wrong data type: " << dataType << endl;
             return result;
         }
     }
@@ -663,26 +663,26 @@ QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
     }
     else
     {
-        qDebug() << "Utilities::getValidADIFFieldAndData - FORMAT ERROR, more than 2 \":\" - " << field << endl;
+        //qDebug() << "Utilities::getValidADIFFieldAndData - FORMAT ERROR, more than 2 \":\" - " << field << endl;
         return result;
     }
-    qDebug() << "Utilities::getValidADIFFieldAndData: -60" << endl;
+    //qDebug() << "Utilities::getValidADIFFieldAndData: -60" << endl;
     if ( length != separatorPosition)
     {
-        qDebug() << "Utilities::getValidADIFFieldAndData: Data Length problem: " << (field) << "/" << data << " - " << QString::number(length) << "/" << QString::number(separatorPosition) << endl;
+        //qDebug() << "Utilities::getValidADIFFieldAndData: Data Length problem: " << (field) << "/" << data << " - " << QString::number(length) << "/" << QString::number(separatorPosition) << endl;
         return result;
     }
 
     if (separatorPosition <= 0)
     {
-        qDebug() << "Utilities::getValidADIFFieldAndData: Length problem <= 0" << endl;
+        //qDebug() << "Utilities::getValidADIFFieldAndData: Length problem <= 0" << endl;
         return result;
     }
-    qDebug() << "Utilities::getValidADIFFieldAndData: -90: f: " << field << endl;
-    qDebug() << "Utilities::getValidADIFFieldAndData: -90: d: " << data<< endl;
+    //qDebug() << "Utilities::getValidADIFFieldAndData: -90: f: " << field << endl;
+    //qDebug() << "Utilities::getValidADIFFieldAndData: -90: d: " << data<< endl;
     //field = field.section(':', 0, 0);
     result.clear();
     result << field.section(':', 0, 0) << data;
-    qDebug() << "FileManager::checkADIFValidFormat: Return true: " << result.at(0) << "/" << result.at(1) << endl;
+    //qDebug() << "FileManager::checkADIFValidFormat: Return true: " << result.at(0) << "/" << result.at(1) << endl;
     return result;
 }
