@@ -66,13 +66,13 @@ SoftwareUpdate::~SoftwareUpdate()
 {
 
 }
-
+/*
 void SoftwareUpdate::setTheURL(QString _url)
 {
     //qDebug() << "SoftwareUpdate::setTheURL: " << _url << endl;
 //    request.setUrl(QUrl(_url));
 }
-
+*/
 void SoftwareUpdate::setVersion(const QString &_klogVersion)
 {
     //qDebug() << "SoftwareUpdate::setVersion: " << _klogVersion << endl;

@@ -1,7 +1,4 @@
 TBD - 0.9.9
-
-
-
 - UI: Created a widget to manage the Awards to make KLog more modular.
 - UI: When starting a new version for the first time, the splashscreen is not hidding other messages anymore.
 - New versions are now found depending on the OS, not just for the sources.
@@ -13,6 +10,7 @@ TBD - 0.9.9
 - BugFix: KLog was always logging 59 instead of the real RST. (TNX DB4BIN)
 - BugFix: KLog was changing the mode in the radio from CW-R to CW if hamlib was active. (TNX G4MKT)
 - BugFix: KLog was changing freq in the radio in the starting process if hamlib was active. (TNX G4MKT)
+- BugFix: ADIF export function was not exporting the DARC_DOK properly.
 - Bugfix: Closes Debian bug: #948911: FTBFS on mipsel. (TNX Lisandro)
 - KLog exit process improved.
 - KLog start process improved.

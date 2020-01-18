@@ -841,12 +841,12 @@
     //return StartWizard::Page_Mem;
 }
 
-
+/*
  void LicPage::setNextButtonActive(const bool _active)
  {
 
  }
-/*
+
 FileOrMemoryPage::FileOrMemoryPage(QWidget *parent)
       : QWizardPage(parent)
 {

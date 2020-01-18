@@ -65,7 +65,7 @@ DownLoadCTY::~DownLoadCTY()
        msgBox.setText(aux + reply->errorString());
        msgBox.setStandardButtons(QMessageBox::Ok);
        msgBox.setDefaultButton(QMessageBox::Ok);
-       int ret = msgBox.exec();
+       msgBox.exec();
 
 
    } else {
@@ -77,7 +77,7 @@ DownLoadCTY::~DownLoadCTY()
            msgBox.setText(aux);
            msgBox.setStandardButtons(QMessageBox::Ok);
            msgBox.setDefaultButton(QMessageBox::Ok);
-           int ret = msgBox.exec();
+           msgBox.exec();
            emit actionReturnDownload(QNetworkReply::NoError);
        }
            //printf("Download of %s succeeded (saved to %s)\n",
@@ -148,7 +148,7 @@ QString DownLoadCTY::saveFileName(const QUrl &url)
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
+        msgBox.exec();
 
 
 
@@ -179,7 +179,7 @@ bool DownLoadCTY::saveToDisk(const QString &filename, QIODevice *data)
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
+        msgBox.exec();
 
 
         //fprintf(stderr, "Could not open %s for writing: %s\n",
