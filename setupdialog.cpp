@@ -138,7 +138,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
 }
 
 
-SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
+SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime)
 {
     //qDebug() << "SetupDialog::SetupDialog 2: " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) ;
     if (_firstTime)
@@ -250,7 +250,7 @@ void SetupDialog::connectActions()
 
 }
 
-void SetupDialog::setData(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime)
+void SetupDialog::setData(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime)
 {
     //qDebug() << "SetupDialog::setData: " << "/" << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << endl;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
@@ -275,7 +275,7 @@ void SetupDialog::setData(const QString _configFile, const QString _softwareVers
     //qDebug() << "SetupDialog::setData - END" << endl;
 }
 
-void SetupDialog::setConfigFile(const QString _configFile)
+void SetupDialog::setConfigFile(const QString &_configFile)
 {
      //qDebug() << "SetupDialog::setConfigFile" << endl;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
@@ -283,7 +283,7 @@ void SetupDialog::setConfigFile(const QString _configFile)
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
 
-void SetupDialog::setSoftVersion(const QString _softwareVersion)
+void SetupDialog::setSoftVersion(const QString &_softwareVersion)
 {
      //qDebug() << "SetupDialog::setSoftVersion" << endl;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
@@ -704,7 +704,7 @@ void SetupDialog::slotReadConfigData()
 
 }
 
-bool SetupDialog::processConfigLine(const QString _line)
+bool SetupDialog::processConfigLine(const QString &_line)
 {
 
     //qDebug() << "SetupDialog::processConfigLine: " << _line << endl;
@@ -1006,7 +1006,7 @@ bool SetupDialog::processConfigLine(const QString _line)
 
 }
 
-void SetupDialog::readActiveBands (const QString actives)
+void SetupDialog::readActiveBands (const QString &actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
     // bands used in the program
     //qDebug() << "SetupDialog::readActiveBands: " << actives << endl;
@@ -1044,7 +1044,7 @@ void SetupDialog::readActiveBands (const QString actives)
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
 
-void SetupDialog::readActiveModes (const QString actives)
+void SetupDialog::readActiveModes (const QString &actives)
 {
      //qDebug() << "SetupDialog::readActiveModes: " << actives << endl;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
@@ -1077,7 +1077,7 @@ void SetupDialog::readActiveModes (const QString actives)
      //qDebug() << "SetupDialog::readActiveModes: " << modes.join(" / ") << endl;
 }
 
-bool SetupDialog::isValidBand (const QString b)
+bool SetupDialog::isValidBand (const QString &b)
 {
      //qDebug() << "SetupDialog::isValidBand: "<< b << endl;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
@@ -1088,7 +1088,7 @@ bool SetupDialog::isValidBand (const QString b)
     return query.isValid();
 
 }
-bool SetupDialog::isValidMode (const QString b)
+bool SetupDialog::isValidMode (const QString &b)
 {
      //qDebug() << "SetupDialog::isValidMode: " << b << endl;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
@@ -1149,7 +1149,7 @@ void SetupDialog::setDefaults()
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
 
-QString SetupDialog::checkAndFixASCIIinADIF(const QString _data)
+QString SetupDialog::checkAndFixASCIIinADIF(const QString &_data)
 {
      //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << endl;
 //TODO: this function is also in the FileManager class. Maybe I should call that one and keep just one copy
@@ -1242,7 +1242,7 @@ void SetupDialog::slotAnalyzeNewLogData(const QStringList _qs)
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
 
-void SetupDialog::slotSetStationCallSign(const QString _p)
+void SetupDialog::slotSetStationCallSign(const QString &_p)
 {
      //qDebug() << "SetupDialog::slotSetStationCallSign: " << _p << endl;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
@@ -1250,7 +1250,7 @@ void SetupDialog::slotSetStationCallSign(const QString _p)
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
 
-void SetupDialog::slotSetOperators(const QString _p)
+void SetupDialog::slotSetOperators(const QString &_p)
 {
      //qDebug() << "SetupDialog::slotSetOperators: " << _p << endl;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);

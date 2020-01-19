@@ -39,8 +39,7 @@ void StatsCQZPerYearBarChartWidget::prepareChart()
 
     int numberPerX = 0;
     chart->removeAllSeries();
-    x_axisTitle = QString();
-    x_axisElem = QString();
+
     x_axis.clear();
     axis->clear();
     series->clear();
@@ -63,7 +62,7 @@ void StatsCQZPerYearBarChartWidget::prepareChart()
         //numberPerX = dataProxy->getQSOonYear((x_axis.at(i)).toInt(), -1);
          //qDebug() << x_axis.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;
-        numberPerX = 0;
+
          //qDebug() << "StatsCQZPerYearBarChartWidget::prepareChart QSOs: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
 
         aux = tr("Reading data ...") + "\n" + tr("Years: %1/%2").arg(QString::number(i)).arg(QString::number(x_axis.count()));

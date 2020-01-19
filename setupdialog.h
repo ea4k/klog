@@ -55,10 +55,10 @@ class SetupDialog : public QDialog
 
 public:
     SetupDialog(DataProxy_SQLite *dp, const bool _firstTime=true);
-    SetupDialog(DataProxy_SQLite *dp, const QString _configFile, const QString _softwareVersion, const int _page=0, const bool _firstTime = true);
+    SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const QString &_softwareVersion, const int _page=0, const bool _firstTime = true);
     ~SetupDialog();
 
-    void setData(const QString _configFile, const QString _softwareVersion, const int _page, const bool _firstTime=true);
+    void setData(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime=true);
     void setClubLogActive(const bool _b);
     void checkIfNewBandOrMode();
     void setSeverity(const int _sev);
@@ -77,29 +77,29 @@ private slots:
     void slotOkButtonClicked();
     void slotCancelButtonClicked();
     void slotAnalyzeNewLogData(const QStringList _qs);  // We receive the station callsign and operators from the logs tab
-    void slotSetStationCallSign(const QString _p);      // We receive te station callsign from the userData tab to fill the new log
-    void slotSetOperators(const QString _p);            // We receive te station operators from the userData tab to fill the new log
+    void slotSetStationCallSign(const QString &_p);      // We receive te station callsign from the userData tab to fill the new log
+    void slotSetOperators(const QString &_p);            // We receive te station operators from the userData tab to fill the new log
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
 
 private:
 
-    void setConfigFile(const QString _configFile);
-    void setSoftVersion(const QString _softwareVersion);
+    void setConfigFile(const QString &_configFile);
+    void setSoftVersion(const QString &_softwareVersion);
     void setConfigured(const bool _configured);
     void setPage(const int _page);
     void connectActions();
 
     void createIcons();
-    bool processConfigLine(const QString _line);
+    bool processConfigLine(const QString &_line);
 
     void setDefaults();
 
-    void readActiveBands (const QString actives);
-    void readActiveModes (const QString actives);
-    bool isValidBand (const QString b);
-    bool isValidMode (const QString b);
+    void readActiveBands (const QString &actives);
+    void readActiveModes (const QString &actives);
+    bool isValidBand (const QString &b);
+    bool isValidMode (const QString &b);
 
-    QString checkAndFixASCIIinADIF(const QString _data);
+    QString checkAndFixASCIIinADIF(const QString &_data);
     bool haveAtleastOneLog();
 
     bool firstTime; // To know if we are calling it from the Start wizard or not

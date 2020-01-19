@@ -406,34 +406,10 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     rxFreqSpinBox->setMaximum(99999);
     rxFreqSpinBox->setSuffix(" " + tr("MHz"));
 
-    /*
-    dxccConfirmedQLCDNumber = new QLCDNumber;
-    dxccWorkedQLCDNumber = new QLCDNumber;
-    wazConfirmedQLCDNumber = new QLCDNumber;
-    wazWorkedQLCDNumber = new QLCDNumber;
-    localConfirmedQLCDNumber = new QLCDNumber;
-    localWorkedQLCDNumber = new QLCDNumber;
-    qsoConfirmedQLCDNumber = new QLCDNumber;
-    qsoWorkedQLCDNumber = new QLCDNumber;
-    dxMarathonQSOLCDNumber = new QLCDNumber;
-    dxMarathonTopScoreLabelN = new QLabel();
-    dxMarathonDXCCQLCDNumber = new QLCDNumber;
-    dxMarathonCQQLCDNumber = new QLCDNumber;
-    dxMarathonPointsQLCDNumber = new QLCDNumber;
-    operatingYearsComboBox = new QComboBox;
-    dxMarathonLabelN = new QLabel;
-    */
-
-    //qsoWorkedQLCDNumber->setDigitCount(7);
-    //qsoConfirmedQLCDNumber->setDigitCount(7);
-
     // Check date & time and set them in the UI at the begining
     dateTime->currentDateTime();
     dateEdit->setDate((dateTime->currentDateTime()).date());
     timeEdit->setTime((dateTime->currentDateTime()).time());
-
-    //Search tab
-    //searchBoxLineEdit = new QLineEdit;
 
     // UI DX
 
@@ -505,44 +481,13 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     {
          //qDebug() << "MainWindow::MainWindow: DX! 18.3" << endl;
         awardsWidget->fillOperatingYears();
-        /*
-        if (dataProxy->getLastQSOid()<=1)
-        {
-            //qDebug() << "MainWindow::MainWindow: 18.4" << endl;
-            operatingYearsComboBox->addItem(QString::number(selectedYear));
-        }
-        else
-        {
-             //qDebug() << "MainWindow::MainWindow: 18.5 - currentLog: " << QString::number(currentLog) << endl;
-            operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
-             //qDebug() << "MainWindow::MainWindow: 18.5.1 - currentLog: " << QString::number(currentLog) << endl;
-
-            QStringList a;
-            a.clear();
-            a << dataProxy->getOperatingYears(currentLog);
-             //qDebug() << "MainWindow::MainWindow: 18.5.1.1 - currentLog: " << QString::number(currentLog) << endl;
-            if (!a.isEmpty())
-            {
-                 //qDebug() << "MainWindow::MainWindow: 18.5.1.2 - currentLog: " << QString::number(currentLog) << endl;
-                operatingYearsComboBox->setCurrentIndex(operatingYearsComboBox->findText(a.last(), Qt::MatchCaseSensitive));
-                 //qDebug() << "MainWindow::MainWindow: 18.5.1.3 - currentLog: " << QString::number(currentLog) << endl;
-            }
-
-             //qDebug() << "MainWindow::MainWindow: 18.5.2" << endl;
-        }
-        */
-         //qDebug() << "MainWindow::MainWindow: 18.6." << endl;
-
-        //awards->recalculateAwards();
          //qDebug() << "MainWindow::MainWindow: 18.8" << endl;
 
         awardsWidget->showAwards();
          //qDebug() << "MainWindow::MainWindow: 18.9" << endl;
         dxClusterWidget->setCurrentLog(currentLog);
-
         //qDebug() << "MainWindow::MainWindow: 18.10" << endl;
         awardsWidget->setManageDXMarathon(manageDxMarathon);
-
         //qDebug() << "MainWindow::MainWindow: 18.11" << endl;
 
     }
@@ -552,21 +497,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     {
         //TODO: Check how to do DX if nothing happens without duplicating code.
             //qDebug() << "MainWindow::MainWindow: DX! 18.3" << endl;
-        /*
-        if (dataProxy->getLastQSOid()<=1)
-        {
-                //qDebug() << "MainWindow::MainWindow: 18.4" << endl;
-            operatingYearsComboBox->addItem(QString::number(selectedYear));
-        }
-        else
-        {
-            //qDebug() << "MainWindow::MainWindow: 18.5 - currentLog: " << QString::number(currentLog) << endl;
-            operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
-                //qDebug() << "MainWindow::MainWindow: 18.5.1 - currentLog: " << QString::number(currentLog) << endl;
-            operatingYearsComboBox->setCurrentIndex(operatingYearsComboBox->findText((dataProxy->getOperatingYears(currentLog)).last(), Qt::MatchCaseSensitive));
-                //qDebug() << "MainWindow::MainWindow: 18.5.2" << endl;
-        }
-        */
         awardsWidget->fillOperatingYears();
                 //qDebug() << "MainWindow::MainWindow: 18.6." << endl;
 
@@ -586,15 +516,15 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
     currentBand = currentBandShown;
     currentMode = currentModeShown;
-    //qDebug << "MainWindow::MainWindow: 20 - currentMode: " << QString::number(currentMode) << endl;
+
        //qDebug() << "MainWindow::MainWindow: 21 - currentBand: " << QString::number(currentBand) << endl;
-    //qDebug << "MainWindow::MainWindow: 21.1 - currentModeShown: " << QString::number(currentModeShown) << endl;
+    //qDebug() << "MainWindow::MainWindow: 21.1 - currentModeShown: " << QString::number(currentModeShown) << endl;
      //qDebug() << "MainWindow::MainWindow: 21.2 - currentBandShown: " << QString::number(currentBandShown) << endl;
 
 
     slotClearButtonClicked();
-    //qDebug << "MainWindow::MainWindow: 20b - currentMode: " << QString::number(currentMode) << endl;
-    //qDebug << "MainWindow::MainWindow: 21.1b - currentModeShown: " << QString::number(currentModeShown) << endl;
+    //qDebug() << "MainWindow::MainWindow: 20b - currentMode: " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::MainWindow: 21.1b - currentModeShown: " << QString::number(currentModeShown) << endl;
 
     //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
@@ -699,85 +629,7 @@ void MainWindow::checkIfNewVersion()
 MainWindow::~MainWindow()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    /*
-    doc->~QTextDocument();
-    recalculateAwardsButton->~QPushButton();
-    scoreTextEdit->~QTextEdit();
-    mainWidget->~QWidget();
-    dateTime->~QDateTime();
-    timer->~QTimer();
-    qrzLineEdit->~QLineEdit();
-    nameLineEdit->~QLineEdit();
-    qthLineEdit->~QLineEdit();
-    locatorLineEdit->~QLineEdit();
-    rstTXLineEdit->~QLineEdit();
-    rstRXLineEdit->~QLineEdit();
-    STXLineEdit->~QLineEdit();
-    SRXLineEdit->~QLineEdit();
-    bandComboBox->~QComboBox();
-    modeComboBox->~QComboBox();
 
-    dateEdit->~QDateEdit();
-    timeEdit->~QTimeEdit();
-
-    OKButton->~QPushButton();
-    clearButton->~QPushButton();
-
-    infoLabel1->~QLabel();
-    infoLabel2->~QLabel();
-
-    loggWinAct->~QAction();
-    scoreeWinAct->~QAction();
-
-    scoreWindow->~QWidget();
-    operatorLineEdit->~QLineEdit();
-    stationCallSignLineEdit->~QLineEdit();
-    myLocatorLineEdit->~QLineEdit();
-
-
-    rxPowerSpinBox->~QDoubleSpinBox();
-    txFreqSpinBox->~QDoubleSpinBox();
-    rxFreqSpinBox->~QDoubleSpinBox();
-
-    dxccConfirmedQLCDNumber->~QLCDNumber();
-    dxccWorkedQLCDNumber->~QLCDNumber();
-    wazConfirmedQLCDNumber->~QLCDNumber();
-    wazWorkedQLCDNumber->~QLCDNumber();
-    localConfirmedQLCDNumber->~QLCDNumber();
-    localWorkedQLCDNumber->~QLCDNumber();
-    qsoConfirmedQLCDNumber->~QLCDNumber();
-    qsoWorkedQLCDNumber->~QLCDNumber();
-    dxMarathonQSOLCDNumber->~QLCDNumber();
-    dxMarathonDXCCQLCDNumber->~QLCDNumber();
-    dxMarathonCQQLCDNumber->~QLCDNumber();
-    dxMarathonPointsQLCDNumber->~QLCDNumber();
-    operatingYearsComboBox->~QComboBox();
-
-    showErrorDialog->~ShowErrorDialog();
-    dataProxy->~DataProxy();
-    db->~DataBase();
-    util->~Utilities();
-    elogClublog->~eLogClubLog();
-    dxccStatusWidget->~DXCCStatusWidget();
-    logWindow->~LogWindow();
-    searchWidget->~SearchWidget();
-    aboutDialog->~AboutDialog();
-    infoWidget->~QWidget();
-    downloadcty->~DownLoadCTY();
-    world->~World();
-    setupDialog->~SetupDialog();
-    satTabWidget->~MainWindowSatTab();
-    myDataTabWidget->~MainWindowMyDataTab();
-    commentTabWidget->~MainWindowInputComment();
-    othersTabWidget->~MainWindowInputOthers();
-    eQSLTabWidget->~QWidget();
-    QSLTabWidget->~MainWindowInputQSL();
-    filemanager->~FileManager();
-    locator->~Locator();
-    awards->~Awards();
-    dxClusterWidget->~DXClusterWidget();
-    softUpdate->~SoftwareUpdate();
-    */
     if (hamlibActive)
     {
         hamlib->stop();
@@ -849,6 +701,10 @@ void MainWindow::slotTimeOutInfoBars()
 void MainWindow::slotModeComboBoxChanged()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (!upAndRunning)
+    {
+        return;
+    }
        //qDebug() << "MainWindow::slotModeComboBoxChanged: " << QString::number(modeComboBox->currentIndex()) << endl;
     //qDebug() << "MainWindow::slotModeComboBoxChanged: " << modeComboBox->currentText() << endl;
 /*
@@ -875,7 +731,7 @@ void MainWindow::slotModeComboBoxChanged()
      //qDebug() << "MainWindow::slotModeComboBoxChanged: currentBand2: " << QString::number(currentBand) << endl;
        //qDebug() << "MainWindow::MainWindow: 7 - currentMode: " << QString::number(currentMode) << endl;
     currentMode = currentModeShown;
-    //qDebug << "MainWindow::MainWindow: 8 - currentMode: " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::MainWindow: 8 - currentMode: " << QString::number(currentMode) << endl;
        //qDebug() << "MainWindow::MainWindow: 8.1 - currentBand: " << QString::number(currentBand) << endl;
        //qDebug() << "MainWindow::MainWindow: 8.2 - currentModeShown: " << QString::number(currentModeShown) << endl;
        //qDebug() << "MainWindow::MainWindow: 8.3 - currentBandShown: " << QString::number(currentBandShown) << endl;
@@ -912,6 +768,10 @@ void MainWindow::slotModeComboBoxChanged()
 void MainWindow::slotBandComboBoxChanged(){
     //qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << "/" << bandComboBox->currentText()<< endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (!upAndRunning)
+    {
+        return;
+    }
 /*
     int i;
     i = dataProxy->getIdFromBandName(bandComboBox->currentText());
@@ -946,7 +806,7 @@ void MainWindow::slotBandComboBoxChanged(){
      //qDebug() << "MainWindow::slotBandComboBoxChanged: currentBand2: " << QString::number(currentBand) << endl;
     //qDebug() << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
     currentMode = currentModeShown;
-    //qDebug << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
      //qDebug() << "MainWindow::MainWindow: 9.1 - currentMode: " << QString::number(currentMode) << endl;
      //qDebug() << "MainWindow::MainWindow: 9.2 - currentBand: " << QString::number(currentBand) << endl;
      //qDebug() << "MainWindow::MainWindow: 9.3 - currentModeShown: " << QString::number(currentModeShown) << endl;
@@ -1056,7 +916,7 @@ void MainWindow::slotQRZReturnPressed()
             logEvent(Q_FUNC_INFO, "END-2", logSeverity);
             readingTheUI = false;
             return;
-            //qDebug() << "MainWindow::slotQRZReturnPressed: queryString-NULL: " << queryString << endl;
+
         }
 
     setModifying(false);
@@ -1191,8 +1051,6 @@ QString MainWindow::readDataFromUI()
         }
     }
     */
-
-        //qDebug() << "MainWindow::readDataFromUI: END" << endl;
     //return "NULL";
     //logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -1215,8 +1073,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     QString stringQuery = "NULL";
     QString aux1, aux2, stringFields, stringData;
     //QString aux, aux2;
-    //qDebug << "MainWindow::readDataFromUIDX: Band: " << QString::number(currentBand) << endl;
-    //qDebug << "MainWindow::readDataFromUIDX: Mode: " << QString::number(currentMode)  << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: Band: " << QString::number(currentBand) << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: Mode: " << QString::number(currentMode)  << endl;
     int tband = currentBand;
     int tmode = currentMode;
 
@@ -3577,26 +3435,16 @@ void MainWindow::slotClearButtonClicked()
     }
      //qDebug() << "MainWindow::MainWindow: - Changing from: " << bandComboBox->currentText() << endl;
 
-    bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(currentBand), Qt::MatchCaseSensitive));
+    //EA4TV - bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(currentBand), Qt::MatchCaseSensitive));
     //qDebug() << "MainWindow::slotClearButtonClicked: - 10"  << endl;
      //qDebug() << "MainWindow::MainWindow: - Changing to: " << bandComboBox->currentText() << endl;
         //qDebug() << "MainWindow::MainWindow: 12 - currentMode: " << QString::number(currentMode) << endl;
     if (currentMode < 0)
     {
         currentMode = defaultMode;
-        //qDebug << "MainWindow::MainWindow: 12b - currentMode: " << QString::number(currentMode) << endl;
+        //qDebug() << "MainWindow::MainWindow: 12b - currentMode: " << QString::number(currentMode) << endl;
     }
-/*
-    int indexm = modeComboBox->findText(dataProxy->getSubModeFromId(currentMode), Qt::MatchCaseSensitive);
-    if (indexm >=0)
-    {
-        modeComboBox->setCurrentIndex(indexm);
-    }
-    else
-    {
-        modeComboBox->setCurrentIndex(0);
-    }
-*/
+
     //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromSubModeId(currentMode)));
 
     qsoPoints = 0;
@@ -5361,9 +5209,9 @@ void MainWindow::checkIfNewBandOrMode()
     //qDebug() << "MainWindow::checkIfNewBandOrMode - CurrentBand/CurrentBandShown: " << QString::number(currentBand) << "/" << QString::number(currentBandShown) << endl;
     dxccStatusWidget->setBands(bands);
     //qDebug() << "MainWindow::checkIfNewBandOrMode-98" << endl;
-    selectDefaultBand();
+    //EA4TV - selectDefaultBand();
     //qDebug() << "MainWindow::checkIfNewBandOrMode-99" << endl;
-    selectDefaultMode();
+    //EA4TV - selectDefaultMode();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::checkIfNewBandOrMode END" << endl;
 }
@@ -5372,6 +5220,10 @@ void MainWindow::selectDefaultBand()
 {
      //qDebug() << "MainWindow::selectDefaultBand" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (!upAndRunning)
+    {
+        return;
+    }
     QString aux;
     aux = QString();
     defaultBand = dataProxy->getMostUsedBand(currentLog);
@@ -5389,19 +5241,22 @@ void MainWindow::selectDefaultBand()
 
 void MainWindow::selectDefaultMode()
 {
-    //qDebug << "MainWindow::selectDefaultMode" << endl;
+    //qDebug() << "MainWindow::selectDefaultMode" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-
+    if (!upAndRunning)
+    {
+        return;
+    }
     //int aux = 1;
     defaultMode = dataProxy->getMostUsedMode(currentLog);
-    //qDebug << "MainWindow::selectDefaultMode: " << QString::number(defaultMode) << endl;
+    //qDebug() << "MainWindow::selectDefaultMode: " << QString::number(defaultMode) << endl;
 
     if (defaultMode < 1)
     {
 
         defaultMode = dataProxy->getSubModeIdFromSubMode((modeComboBox->itemText(0)));
-        //qDebug << "MainWindow::selectDefaultMode2: " << QString::number(defaultMode) << endl;
-        //qDebug << "MainWindow::selectDefaultMode2S: " << modeComboBox->itemText(0) << endl;
+        //qDebug() << "MainWindow::selectDefaultMode2: " << QString::number(defaultMode) << endl;
+        //qDebug() << "MainWindow::selectDefaultMode2S: " << modeComboBox->itemText(0) << endl;
 
     }
 
@@ -5409,9 +5264,9 @@ void MainWindow::selectDefaultMode()
 
     modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromSubModeId(defaultMode)));
 
-   //qDebug << "MainWindow::selectDefaultMode3: " << QString::number(defaultMode) << endl;
+   //qDebug() << "MainWindow::selectDefaultMode3: " << QString::number(defaultMode) << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-   //qDebug << "MainWindow::selectDefaultMode-END" << endl;
+   //qDebug() << "MainWindow::selectDefaultMode-END" << endl;
 }
 
 
@@ -6751,12 +6606,12 @@ void MainWindow::slotLocatorTextChanged()
 
 void MainWindow::slotMyLocatorTextChanged(const QString _loc)
 {
-        //qDebug() << "MainWindowMy::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << endl;
+        //qDebug() << "MainWindowMy::slotMyLocatorTextChanged: " <<_loc << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if ( locator->isValidLocator(_loc))
     {
         dxccStatusWidget->setMyLocator(_loc);
-        //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: My LOCATOR CHANGED TO: " << myLocator << endl;
+
         slotLocatorTextChanged();
 
     }
