@@ -5,6 +5,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     //qDebug() << "SetupPageHamLib::SetupPageHamLib" << endl;
     hamlib = new HamLibClass();
     activateHamlibCheckBox = new QCheckBox();
+    readOnlyModeCheckBox = new QCheckBox();
     rigTypeComboBox = new QComboBox();
     poolIntervalQSpinBox = new QSpinBox();
     serialBaudsComboBox = new QComboBox();
@@ -50,6 +51,8 @@ void SetupPageHamLib::createUI()
 
     activateHamlibCheckBox->setText(tr("Activate HamLib"));
     activateHamlibCheckBox->setToolTip(tr("Activates the hamlib support that will enable the connection to a radio."));
+    readOnlyModeCheckBox->setText(tr("Read-Only mode"));
+    readOnlyModeCheckBox->setToolTip(tr("If enabled, the KLog will read Freq/Mode from the radio but will never send any command to the radio."));
 
     //RTSCheckBox->setText(tr("RTS on"));
     //RTSCheckBox->setToolTip(tr("Setting RTS may be needed for some serial ports."));
@@ -183,8 +186,14 @@ void SetupPageHamLib::createUI()
     //mainLayout->addWidget(handShakeGroupBox, 2, 0);
     //mainLayout->addWidget(flowControlLineGroupBox, 2, 1);
 
+    QHBoxLayout *checkBoxLayout = new QHBoxLayout;
+    checkBoxLayout->addWidget(activateHamlibCheckBox);
+    checkBoxLayout->addWidget(readOnlyModeCheckBox);
+
+
     QVBoxLayout *mLayout = new QVBoxLayout;
-    mLayout->addWidget(activateHamlibCheckBox);
+    mLayout->addLayout(checkBoxLayout);
+    //mLayout->addWidget(activateHamlibCheckBox);
     mLayout->addLayout(mainLayout);
     //mLayout->setAlignment(activateHamlibCheckBox, Qt::AlignHCenter | Qt::AlignTop);
 
@@ -284,6 +293,14 @@ QString SetupPageHamLib::getData()
     {
 
     }
+    if (readOnlyModeCheckBox->isChecked())
+    {
+        _output = _output + "HamlibReadOnly=True;\n";
+    }
+    else
+    {
+        _output = _output + "HamlibReadOnly=False;\n";
+    }
     //if (RTSCheckBox->isChecked())
     //{
     //    _output = _output + "HamLibSerialRTS=True;\n";
@@ -310,7 +327,7 @@ QString SetupPageHamLib::getData()
     return _output;
 }
 
-bool SetupPageHamLib::setRigType(const QString _radio)
+bool SetupPageHamLib::setRigType(const QString &_radio)
 {
     //qDebug() << "SetupPageHamLib::setRig: " << _radio << endl;
 
@@ -328,7 +345,7 @@ bool SetupPageHamLib::setRigType(const QString _radio)
     return false;
 }
 
-bool SetupPageHamLib::setSerialPort(const QString _port)
+bool SetupPageHamLib::setSerialPort(const QString &_port)
 {
     int _index = serialPortComboBox->findText(_port, Qt::MatchFlag::MatchExactly);
     if (_index >= 0)
@@ -343,7 +360,7 @@ bool SetupPageHamLib::setSerialPort(const QString _port)
     return false;
 }
 
-bool SetupPageHamLib::setSerialSpeed(const QString _speed )
+bool SetupPageHamLib::setSerialSpeed(const QString &_speed )
 {
     int _index = serialBaudsComboBox->findText(_speed, Qt::MatchFlag::MatchExactly);
     if (_index >= 0)
@@ -358,7 +375,7 @@ bool SetupPageHamLib::setSerialSpeed(const QString _speed )
     return false;
 }
 
-void SetupPageHamLib::setActive(const QString _active)
+void SetupPageHamLib::setActive(const QString &_active)
 {
     //qDebug() << "SetupPageHamLib::setActive: " << _active << endl;
     if (_active.toUpper() == "TRUE")
@@ -367,6 +384,17 @@ void SetupPageHamLib::setActive(const QString _active)
     }
     else {
        activateHamlibCheckBox->setChecked(false);
+    }
+}
+
+void SetupPageHamLib::setReadOnly(const QString &_m)
+{
+    if (_m.toUpper() == "TRUE")
+    {
+        readOnlyModeCheckBox->setChecked(true);
+    }
+    else {
+        readOnlyModeCheckBox->setChecked(false);
     }
 }
 
@@ -410,7 +438,7 @@ QString SetupPageHamLib::getDataBits()
     return output;
 }
 
-void SetupPageHamLib::setDataBits(const QString _st)
+void SetupPageHamLib::setDataBits(const QString &_st)
 {
     if (_st == "5")
     {
@@ -454,7 +482,7 @@ QString SetupPageHamLib::getFlowControl()
     }
     return output;
 }
-void SetupPageHamLib::setFlowControl(const QString _st)
+void SetupPageHamLib::setFlowControl(const QString &_st)
 {
     QString _s = _st.toUpper();
     if (_s == "HARDWARE")
@@ -501,7 +529,7 @@ QString SetupPageHamLib::getParity()
     }
     return output;
 }
-void SetupPageHamLib::setParity(const QString _st)
+void SetupPageHamLib::setParity(const QString &_st)
 {
     QString _s = _st.toUpper();
     if (_s == "EVEN")
@@ -552,7 +580,7 @@ QString SetupPageHamLib::getStopBits()
     }
     return output;
 }
-void SetupPageHamLib::setStopBits(const QString _st)
+void SetupPageHamLib::setStopBits(const QString &_st)
 {
     if (_st == "1.5")
     {
@@ -569,7 +597,7 @@ void SetupPageHamLib::setStopBits(const QString _st)
     }
 }
 /*
-void SetupPageHamLib::setRTS(const QString _state)
+void SetupPageHamLib::setRTS(const QString &_state)
 {
     //if (_state.toUpper() == "TRUE")
     //{
@@ -581,7 +609,7 @@ void SetupPageHamLib::setRTS(const QString _state)
     //}
 }
 
-void SetupPageHamLib::setDTR(const QString _state)
+void SetupPageHamLib::setDTR(const QString &_state)
 {
     //if (_state.toUpper() == "TRUE")
     //{

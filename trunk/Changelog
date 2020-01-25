@@ -3,6 +3,7 @@ TBD - 0.9.9
 - UI: When starting a new version for the first time, the splashscreen is not hidding other messages anymore.
 - New versions are now found depending on the OS, not just for the sources.
 - New feature: Added some tips in the Help menu to help the users to get the most of KLog.
+- Hamlib has now a read-only mode that will read freq & mode from the radio but will never modify/update anything in the radio.
 - Added some debug log option.
 - Some code cleaning with cppcheck and compilation warnings removed.
 - UI: Added a WSJT-X like color schema.
@@ -12,10 +13,12 @@ TBD - 0.9.9
 - BugFix: KLog was changing freq in the radio in the starting process if hamlib was active. (TNX G4MKT)
 - BugFix: ADIF export function was not exporting the DARC_DOK properly.
 - Bugfix: Closes Debian bug: #948911: FTBFS on mipsel. (TNX Lisandro)
+- BugFix: Editing the log metadata in the setup was not possible.
 - KLog exit process improved.
 - KLog start process improved.
 - DataProxy_SQLite class removed to optimize the code.
 - Other minor improvements.
+- Updated translations: Catalan (TNX Txema), French (F4HWL), Spanish (EA4K).
 
 August - 0.9.8.1
 - Added the Es'hail / QO-100 satellite.
@@ -29,6 +32,7 @@ August - 0.9.8.1
 - Bugfix: Improved how the DXMarathon was managed when disabled.
 - Bugfix: Improved how DXCC Award was updated after one QSO was added. (TNX Isabel)
 - Fixed a bug in the SQL update database.
+
 
 August - 0.9.8
 - New feature: Basic Hamlib support.

@@ -44,6 +44,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     util = new Utilities;
     logEvents = true;
     debugFileOpen = false;
+    hamlibActive = false;
     QString debugName = util->getDebugLogFile();
     //qDebug() << "MainWindow::MainWindow: Debug File: "<<  debugName << endl;
     debugFile = new QFile(debugName);
@@ -74,7 +75,9 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //qDebug() << "MainWindow::MainWindow: BEFORE HAMLIB " << endl;
     hamlib = new HamLibClass();
     //qDebug() << "MainWindow::MainWindow: AFTER HAMLIB " << endl;
-    hamlibActive = false;
+
+    hamlibModeNotADIFSupported = false;
+    hamlibChangingMode = false;
     yearChangedDuringModification = false;
 
     upAndRunning = false; // To define some actions that can only be run when starting the software
@@ -219,16 +222,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     aboutDialog = new AboutDialog(softwareVersion);
     tipsDialog = new TipsDialog();
-    connect(tipsDialog, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
-    connect(tipsDialog, SIGNAL(findQSL2QSOSignal()), this, SLOT(slotSearchToolNeededQSLToSend()) );
-    connect(tipsDialog, SIGNAL(fillInDXCCSignal()), this, SLOT(slotFillEmptyDXCCInTheLog()) );
-    connect(tipsDialog, SIGNAL(fillInQSOSignal()), this, SLOT(fillQSOData()) );
-    connect(tipsDialog, SIGNAL(fileExportToPrintSignal()), this, SLOT(slotRQSLExport()) );
-    connect(tipsDialog, SIGNAL(fileExportForLoTWSignal()), this, SLOT(slotLoTWExport()));
-    connect(tipsDialog, SIGNAL(fileOpenKLogFolderSignal()), this, SLOT(slotOpenKLogFolder()));
-    connect(tipsDialog, SIGNAL(toolSendPendingQSLSignal()), this, SLOT(slotToolSearchRequestedQSLToSend()));
-    connect(tipsDialog, SIGNAL(toolRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
-    connect(tipsDialog, SIGNAL(toolRecRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLRequested()));
+
     //connect(tipsDialog, SIGNAL(), this, SLOT());
     //connect(tipsDialog, SIGNAL(), this, SLOT());
     //connect(tipsDialog, SIGNAL(), this, SLOT());
@@ -241,7 +235,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //recalculateAwardsButton = new QPushButton(tr("Recalculate"), this);
     //recalculateAwardsButton->setToolTip(tr("Click to recalculate the award status."));
 
-    scoreTextEdit = new QTextEdit;
+    //scoreTextEdit = new QTextEdit;
 
     configFileName = util->getCfgFile();
     ctyDatFile = util->getCTYFile();
@@ -300,30 +294,16 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     //connect(dataProxy, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     //connect(dataProxy, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
-    connect(this, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+
     //connect(this, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
 
 
     //qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
     //setupDialog = new SetupDialog(!configured);
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured);    
-    connect(setupDialog, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
-    connect(setupDialog, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     //connect(setupDialog, ƒSIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
     //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab(dataProxy);
-
-    connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
-    connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotSatChangeRXFreq(double)) );
-    connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotSatChangeTXFreq(double)) );
-    connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
-    connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
-    connect(satTabWidget, SIGNAL(satTXFreqNeeded(double)), this, SLOT(slotSatTXFreqNeeded(double)));
-    connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotSatRXFreqNeeded(double)));
-    connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
-
-    connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
-    connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
 
     setModifying(false);
 
@@ -348,7 +328,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     dateTime = new QDateTime();
     dateTimeTemp = new QDateTime();
 
-    selectedYear = (dateTime->currentDateTime()).date().year();
+
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
@@ -369,9 +349,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     bandComboBox = new QComboBox;
     modeComboBox = new QComboBox;
 
-
     dateEdit = new QDateEdit;
-    dateEdit->setDisplayFormat("dd/MM/yyyy");
     timeEdit = new QTimeEdit;
 
     OKButton = new QPushButton(tr("&Add"), this);
@@ -382,61 +360,31 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     // UI DX
     infoLabel1 = new QLabel(tr("Status bar..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
-
     loggWinAct = new QAction(tr("&Log Window"), this);
-    scoreeWinAct = new QAction(tr("&Score Window"), this);
 
-    scoreWindow = new QWidget;
     operatorLineEdit = new QLineEdit;
     stationCallSignLineEdit = new QLineEdit;
-    //myLocatorLineEdit = new QLineEdit;
-
-    rxPowerSpinBox = new QDoubleSpinBox;
-    rxPowerSpinBox->setDecimals(2);
-    rxPowerSpinBox->setMaximum(9999);
-    rxPowerSpinBox->setSuffix(" " + tr("Watts"));
-
     txFreqSpinBox = new QDoubleSpinBox;
-    txFreqSpinBox->setDecimals(3);
-    txFreqSpinBox->setMaximum(99999);
-    txFreqSpinBox->setSuffix(" " + tr("MHz"));
-
     rxFreqSpinBox = new QDoubleSpinBox;
-    rxFreqSpinBox->setDecimals(3);
-    rxFreqSpinBox->setMaximum(99999);
-    rxFreqSpinBox->setSuffix(" " + tr("MHz"));
+    rxPowerSpinBox = new QDoubleSpinBox;
 
-    // Check date & time and set them in the UI at the begining
-    dateTime->currentDateTime();
-    dateEdit->setDate((dateTime->currentDateTime()).date());
-    timeEdit->setTime((dateTime->currentDateTime()).time());
-
-    // UI DX
-
-    // CLUSTER
-    //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
+     //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
     dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
-
-
-    // </CLUSTER>
-    palRed.setColor(QPalette::Text, Qt::red);
-    palBlack.setColor(QPalette::Text, Qt::black);
-    //qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
-    awards->setManageModes(manageMode);
+
     //qDebug() << "MainWindow::MainWindow: Awards created" << endl;
     // </UI>
 
 //**************************************************
 
     //createDXClusterUI();
-    connect( setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
+
 
     //qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
-    readConfigData();
-    //qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
 
     //qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
+
     if (needToEnd)
     {
        //QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -449,24 +397,48 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     logWindow->createlogPanel(currentLog);
 
+     //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
+    softUpdate = new SoftwareUpdate(softwareVersion);
+    filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
     createUI();
 
-    //createSearchResultsPanel();
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+
+    //qDebug() << "MainWindow::MainWindow: END" << endl;
+}
+
+void MainWindow::init()
+{
+    callingUpdate = false; // to control whether the update is mannually launched or at the begining
+
+    selectedYear = (dateTime->currentDateTime()).date().year();
     loggWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
-    connect(loggWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
+    dateEdit->setDisplayFormat("dd/MM/yyyy");
+    palRed.setColor(QPalette::Text, Qt::red);
+    palBlack.setColor(QPalette::Text, Qt::black);
 
-    //logPanel->addAction(loggWinAct);
-    //logPanel->addAction(scoreeWinAct);
 
-    scoreeWinAct->setShortcut(Qt::CTRL + Qt::Key_P);
-    connect(scoreeWinAct, SIGNAL(triggered()), this, SLOT(slotScoreWinShow()));
-    scoreWindow->addAction(scoreeWinAct);
-    scoreWindow->addAction(loggWinAct);
-    createScorePanel();
+    rxPowerSpinBox->setDecimals(2);
+    rxPowerSpinBox->setMaximum(9999);
+    rxPowerSpinBox->setSuffix(" " + tr("Watts"));
 
-    setWindowTitle(tr("KLog"));
+    txFreqSpinBox->setDecimals(3);
+    txFreqSpinBox->setMaximum(99999);
+    txFreqSpinBox->setSuffix(" " + tr("MHz"));
 
-    //qDebug() << "MainWindow::MainWindow: 16" << endl;
+    rxFreqSpinBox->setDecimals(3);
+    rxFreqSpinBox->setMaximum(99999);
+    rxFreqSpinBox->setSuffix(" " + tr("MHz"));
+
+    // Check date & time and set them in the UI at the begining
+    dateTime->currentDateTime();
+    dateEdit->setDate((dateTime->currentDateTime()).date());
+    timeEdit->setTime((dateTime->currentDateTime()).time());
+
+    readConfigData();
+
+    awards->setManageModes(manageMode);
+
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
          //qDebug() << "MainWindow::MainWindow: 16.1" << endl;
@@ -475,95 +447,162 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     }
      //qDebug() << "MainWindow::MainWindow: 17" << endl;
     checkIfNewBandOrMode();
-     //qDebug() << "MainWindow::MainWindow: 18" << endl;
 
-    if (contestMode == "DX")
-    {
-         //qDebug() << "MainWindow::MainWindow: DX! 18.3" << endl;
-        awardsWidget->fillOperatingYears();
-         //qDebug() << "MainWindow::MainWindow: 18.8" << endl;
+    awardsWidget->fillOperatingYears();
+    awardsWidget->showAwards();
+    awardsWidget->setManageDXMarathon(manageDxMarathon);
 
-        awardsWidget->showAwards();
-         //qDebug() << "MainWindow::MainWindow: 18.9" << endl;
-        dxClusterWidget->setCurrentLog(currentLog);
-        //qDebug() << "MainWindow::MainWindow: 18.10" << endl;
-        awardsWidget->setManageDXMarathon(manageDxMarathon);
-        //qDebug() << "MainWindow::MainWindow: 18.11" << endl;
+    dxClusterWidget->setCurrentLog(currentLog);
 
-    }
-    else if ((contestMode == "CQ-WW-SSB") || (contestMode == "CQ-WW-CW"))
-    {}
-    else
-    {
-        //TODO: Check how to do DX if nothing happens without duplicating code.
-            //qDebug() << "MainWindow::MainWindow: DX! 18.3" << endl;
-        awardsWidget->fillOperatingYears();
-                //qDebug() << "MainWindow::MainWindow: 18.6." << endl;
-
-                //qDebug() << "MainWindow::MainWindow: 18.7" << endl;
-        awards->recalculateAwards();
-                //qDebug() << "MainWindow::MainWindow: 18.8" << endl;
-
-        awardsWidget->showAwards();
-            //qDebug() << "MainWindow::MainWindow: 18.9" << endl;
-        dxClusterWidget->setCurrentLog(currentLog);
-            //qDebug() << "MainWindow::MainWindow: 18.10" << endl;
-
-    }
-
-    //qDebug() << "MainWindow::MainWindow: 19" << endl;
-    currentBandShown = dataProxy->getIdFromBandName(bandComboBox->currentText());    
-    currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
-    currentBand = currentBandShown;
-    currentMode = currentModeShown;
-
-       //qDebug() << "MainWindow::MainWindow: 21 - currentBand: " << QString::number(currentBand) << endl;
-    //qDebug() << "MainWindow::MainWindow: 21.1 - currentModeShown: " << QString::number(currentModeShown) << endl;
-     //qDebug() << "MainWindow::MainWindow: 21.2 - currentBandShown: " << QString::number(currentBandShown) << endl;
-
-
-    slotClearButtonClicked();
-    //qDebug() << "MainWindow::MainWindow: 20b - currentMode: " << QString::number(currentMode) << endl;
-    //qDebug() << "MainWindow::MainWindow: 21.1b - currentModeShown: " << QString::number(currentModeShown) << endl;
-
-    //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
-
-    //Let's see if it is time for a log backup! At least once per month!
-
-     //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
-    softUpdate = new SoftwareUpdate(softwareVersion);
-    //connect(softUpdate, SIGNAL(updateNeededSignal(bool)), this, SLOT(slotShowSoftUpdateResults(bool) ) );
-    callingUpdate = false; // to control whether the update is mannually launched or at the begining
-
-
-    //qDebug() << "MainWindow::MainWindow: calling Software update..." << endl;
+    //qDebug() << "MainWindow::Init: calling Software update..." << endl;
     if (checkNewVersions)
     {//reportInfo
         if (reportInfo)
         {
             softUpdate->addCall(stationQRZ);
-
         }
         softUpdate->needToUpdate();
     }
 
+    currentBandShown = dataProxy->getIdFromBandName(bandComboBox->currentText());
+    currentModeShown = dataProxy->getIdFromModeName(modeComboBox->currentText());
+    currentBand = currentBandShown;
+    currentMode = currentModeShown;
+
+    slotClearButtonClicked();
+    hamlib->readRadio();
+
+    upAndRunning = true;
+}
+
+
+void MainWindow::createActionsCommon(){
+// Functional widgets connections
+//TODO: Reimplement the possibility to enter a QSO with enter inthe following widgets:
+    //connect(qslViaLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+// Return pressed = QSO ENTRY
+    connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    connect(SRXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    connect(STXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    connect(rstTXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    connect(rstRXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    connect(operatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    connect(locatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+
+    connect(qthLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+
+
+    connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorTextChanged() ) );
+    connect(myDataTabWidget, SIGNAL(myLocChangedSignal(QString)), this, SLOT(slotMyLocatorTextChanged(QString) ) );
+    connect(myDataTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+
+    connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged()) ) ;
+    connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqRXChanged()) ) ;
+
+    connect(loggWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
+//connect(bandComboBox, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+//connect(dateEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+//connect(timeEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+
+//Actions to pass the focus between QRZ / SRX
+    connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
+    connect(SRXLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSRXTextChanged() ) );
+    connect(STXLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSTXTextChanged() ) );
+    connect(rstTXLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotrstTXTextChanged() ) );
+    connect(rstRXLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotrstRXTextChanged() ) );
+
+    //connect(qslViaLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQSLViaTextChanged() ) );
+
+    connect(bandComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotBandComboBoxChanged() ) ) ;
+    connect(modeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotModeComboBoxChanged() ) ) ;
+
+
+//Buttons Actions
+    connect(OKButton, SIGNAL(clicked()), this, SLOT(slotOKButtonClicked() ) );
+    //connect(spotItButton, SIGNAL(clicked()), this, SLOT(slotSpotItButtonClicked() ) );
+    connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked() ) );
+
+
+    // LOGVIEW
+    connect(logWindow, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
+    connect(logWindow, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
+    connect(logWindow, SIGNAL(updateSearchText()), this, SLOT(slotSearchBoxTextChanged() ) ); //When a QSO is deleted
+
+    //CLUSTER
+    //void clusterSpotToLog(const QStringList _qs);
+    //SIGNAL dxspotclicked(const QStringList _qs)
+    connect(dxClusterWidget, SIGNAL(dxspotclicked(QStringList)), this, SLOT(slotAnalyzeDxClusterSignal(QStringList) ) );
+
+    // CLUBLOG
+    connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
+    connect (elogClublog, SIGNAL (actionReturnDownload(int, int)), this, SLOT (slotElogClubLogProcessAnswer(int, int)));
+    connect (elogClublog, SIGNAL (disableClubLogAction(bool)), this, SLOT (slotElogClubLogDisable(bool)));
+    // SATELLITE TAB
+    //connect (satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
+    //connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
+
+
+    // QSL TAB
+    connect(QSLTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
+    // SEARCH TAB
+    connect(searchWidget, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
+    connect(searchWidget, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
+    connect(searchWidget, SIGNAL(logRefresh() ), this, SLOT(slotLogRefresh() ) );
+    connect(searchWidget, SIGNAL(toStatusBar(QString) ), this, SLOT(slotUpdateStatusBar(QString) ) );
+    connect(searchWidget, SIGNAL(requestBeingShown() ), this, SLOT(slotShowSearchWidget() ) );
+    connect(searchWidget, SIGNAL(actionQSODelete( int ) ), this, SLOT(slotQSODelete(int) ) );
+
     connect(awards, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
-    //connect(awards, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
     connect(awards, SIGNAL(awardDXCCUpdated()), this, SLOT(slotRefreshDXCCWidget()) );
 
-    //worldMapWidget = new WorldMapWidget();
+    //DXCCWIDGET TAB
+    //connect(dxccStatusWidget, SIGNAL(showQso(int)), this, SLOT(slotShowQSOFromDXCCWidget(int) ) );
+    connect(dxccStatusWidget, SIGNAL(showQsos(QList<int>)), this, SLOT(slotShowQSOsFromDXCCWidget(QList<int>) ) );
+    //connect(dxccStatusWidget, SIGNAL(updateAwards()), this, SLOT(slotShowAwards() ) );
 
-
-    filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
     connect(filemanager, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
-    //connect(filemanager, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
-    //resize(QGuiApplication::primaryScreen()->availableSize() * 3/5);
-    upAndRunning = true;
+    //connect(scoreeWinAct, SIGNAL(triggered()), this, SLOT(slotScoreWinShow()));
+
+    // UDPLogServer - WSJT-x
+
+   connect(UDPLogServer, SIGNAL(status_update(int, QString, double, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, double, QString, QString, QString, QString, QString, QString) ) );
+   connect(UDPLogServer, SIGNAL( logged_qso(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString)), this, SLOT(slotWSJTXloggedQSO(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString) ) );
+
+   connect(this, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+   connect(setupDialog, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
+   connect(setupDialog, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+   connect( setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
+
+   connect(tipsDialog, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
+   connect(tipsDialog, SIGNAL(findQSL2QSOSignal()), this, SLOT(slotSearchToolNeededQSLToSend()) );
+   connect(tipsDialog, SIGNAL(fillInDXCCSignal()), this, SLOT(slotFillEmptyDXCCInTheLog()) );
+   connect(tipsDialog, SIGNAL(fillInQSOSignal()), this, SLOT(fillQSOData()) );
+   connect(tipsDialog, SIGNAL(fileExportToPrintSignal()), this, SLOT(slotRQSLExport()) );
+   connect(tipsDialog, SIGNAL(fileExportForLoTWSignal()), this, SLOT(slotLoTWExport()));
+   connect(tipsDialog, SIGNAL(fileOpenKLogFolderSignal()), this, SLOT(slotOpenKLogFolder()));
+   connect(tipsDialog, SIGNAL(toolSendPendingQSLSignal()), this, SLOT(slotToolSearchRequestedQSLToSend()));
+   connect(tipsDialog, SIGNAL(toolRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
+   connect(tipsDialog, SIGNAL(toolRecRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLRequested()));
+   connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
+   connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotSatChangeRXFreq(double)) );
+   connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotSatChangeTXFreq(double)) );
+   connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
+   connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
+   connect(satTabWidget, SIGNAL(satTXFreqNeeded(double)), this, SLOT(slotSatTXFreqNeeded(double)));
+   connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotSatRXFreqNeeded(double)));
+   connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
+
+   connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
+   connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
-    //qDebug() << "MainWindow::MainWindow: END" << endl;
 }
+
+
 
 void MainWindow::recommendBackupIfNeeded()
 {
@@ -660,32 +699,13 @@ void MainWindow::createUI()
      //qDebug() << "MainWindow::createUI" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     createStatusBar();
+    setWindowTitle(tr("KLog"));
+    createUIDX();
+    createActionsCommon();
+    createMenusCommon();
+    setWidgetsOrder();
 
-    if (contestMode == "CQ-WW-SSB")
-    {
-        createUIDX();
-        createActionsCommon();
-        createActionsDX();
-        createMenusCommon();
 
-    }
-    else if ( (contestMode == "CQ-WW-SSB") || (contestMode == "CQ-WW-CW") )
-    {
-        createUICQWW();
-        createActionsCommon();
-        createActionsCQWW();
-        createMenusCommon();
-        createMenusCQWW();
-
-    }
-    else
-    { // This is DX. Depending on how KLog evolves I could remove the DX from the first place and leave this only.
-        createUIDX();
-        createActionsCommon();
-        createActionsDX();
-        createMenusCommon();
-        setWidgetsOrder();
-    }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
      //qDebug() << "MainWindow::createUI" << endl;
 }
@@ -744,6 +764,7 @@ void MainWindow::slotModeComboBoxChanged()
     _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
     showStatusOfDXCC(_qs);
     setRSTToMode(modeComboBox->currentText());
+
     if (hamlibActive)
     {        
         QString _modeSeen = modeComboBox->currentText();
@@ -758,8 +779,10 @@ void MainWindow::slotModeComboBoxChanged()
                 hamlib->setMode("LSB");
             }
         }
-
-        hamlib->setMode(modeComboBox->currentText());
+        if (!hamlibChangingMode)
+        {
+            hamlib->setMode(modeComboBox->currentText());
+        }
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::slotModeComboBoxChanged2: " << modeComboBox->currentText() << endl;
@@ -2466,17 +2489,17 @@ void MainWindow::createSearchResultsPanel()
 
 */
 
+/*
 void MainWindow::createScorePanel()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     QVBoxLayout *scoreLayout = new QVBoxLayout;
     scoreLayout->addWidget(scoreTextEdit);
     scoreTextEdit->setPlainText("Test TEXT");
-
     scoreWindow->setLayout(scoreLayout);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
-
+*/
 
 void MainWindow::createUICQWW()
 {
@@ -2610,121 +2633,6 @@ void MainWindow::slotOKButtonClicked(){
     slotQRZReturnPressed();
 }
 
-void MainWindow::createActionsCommon(){
-// Functional widgets connections
-//TODO: Reimplement the possibility to enter a QSO with enter inthe following widgets:
-    //connect(qslViaLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-// Return pressed = QSO ENTRY
-    connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(SRXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(STXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(rstTXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(rstRXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(operatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );    
-
-    //connect(myLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(locatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-
-    connect(qthLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-
-    connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorTextChanged() ) );
-    connect(myDataTabWidget, SIGNAL(myLocChangedSignal(QString)), this, SLOT(slotMyLocatorTextChanged(QString) ) );
-    connect(myDataTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-
-    connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged()) ) ;
-    connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqRXChanged()) ) ;
-
-
-//connect(bandComboBox, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-//connect(dateEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-//connect(timeEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-
-//Actions to pass the focus between QRZ / SRX
-    connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
-    connect(SRXLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSRXTextChanged() ) );
-    connect(STXLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSTXTextChanged() ) );
-    connect(rstTXLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotrstTXTextChanged() ) );
-    connect(rstRXLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotrstRXTextChanged() ) );
-
-    //connect(qslViaLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQSLViaTextChanged() ) );
-
-    connect(bandComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotBandComboBoxChanged() ) ) ;
-    connect(modeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotModeComboBoxChanged() ) ) ;
-
-
-//Buttons Actions
-    connect(OKButton, SIGNAL(clicked()), this, SLOT(slotOKButtonClicked() ) );
-    //connect(spotItButton, SIGNAL(clicked()), this, SLOT(slotSpotItButtonClicked() ) );
-    connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked() ) );
-
-
-// SEARCH BOX VIEW
-
-    //connect(searchBoxLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchBoxTextChanged() ) );
-
-    //connect(searchAllRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotSearchBoxSelectAllButtonClicked() ) );
-
-    //connect(searchResultsTreeWidget, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonSearch( const QPoint& ) ) );
-    //connect(searchResultsTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotDoubleClickSearch(QTreeWidgetItem *, int)));
-    //connect(searchResultsTreeWidget, SIGNAL(itemSelectionChanged( ) ), this, SLOT(slotSearchBoxSelectionChanged( ) ) );
-
-    //connect(searchBoxExportButton, SIGNAL(clicked()), this, SLOT(slotSearchExportButtonClicked() ) );
-    //connect(searchBoxClearButton, SIGNAL(clicked()), this, SLOT(slotSearchClearButtonClicked() ) );
-    //connect(searchBoxSelectAllButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxSelectAllButtonClicked() ) );
-    //connect(searchBoxReSearchButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxReSearchButtonClicked() ) );
-
-    //connect(operatingYearsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotOperatingYearComboBoxChanged() ) ) ;
-    //connect(recalculateAwardsButton, SIGNAL(clicked()), this, SLOT(slotRecalculateAwardsButtonClicked() ) );
-
-
-    // LOGVIEW
-    connect(logWindow, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
-    connect(logWindow, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );    
-    connect(logWindow, SIGNAL(updateSearchText()), this, SLOT(slotSearchBoxTextChanged() ) ); //When a QSO is deleted
-
-    //CLUSTER
-    //void clusterSpotToLog(const QStringList _qs);
-    //SIGNAL dxspotclicked(const QStringList _qs)
-    connect(dxClusterWidget, SIGNAL(dxspotclicked(QStringList)), this, SLOT(slotAnalyzeDxClusterSignal(QStringList) ) );
-
-    // CLUBLOG
-    connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
-    connect (elogClublog, SIGNAL (actionReturnDownload(int, int)), this, SLOT (slotElogClubLogProcessAnswer(int, int)));
-    connect (elogClublog, SIGNAL (disableClubLogAction(bool)), this, SLOT (slotElogClubLogDisable(bool)));
-	// SATELLITE TAB
-    //connect (satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
-    //connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
-
-
-    // QSL TAB
-    connect(QSLTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
-    // SEARCH TAB
-    connect(searchWidget, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
-    connect(searchWidget, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
-    connect(searchWidget, SIGNAL(logRefresh() ), this, SLOT(slotLogRefresh() ) );
-    connect(searchWidget, SIGNAL(toStatusBar(QString) ), this, SLOT(slotUpdateStatusBar(QString) ) );
-    connect(searchWidget, SIGNAL(requestBeingShown() ), this, SLOT(slotShowSearchWidget() ) );
-    connect(searchWidget, SIGNAL(actionQSODelete( int ) ), this, SLOT(slotQSODelete(int) ) );
-
-    //DXCCWIDGET TAB
-    connect(dxccStatusWidget, SIGNAL(showQso(int)), this, SLOT(slotShowQSOFromDXCCWidget(int) ) );
-    connect(dxccStatusWidget, SIGNAL(showQsos(QList<int>)), this, SLOT(slotShowQSOsFromDXCCWidget(QList<int>) ) );
-    //connect(dxccStatusWidget, SIGNAL(updateAwards()), this, SLOT(slotShowAwards() ) );
-
-
-    // UDPLogServer - WSJT-x
-
-   connect(UDPLogServer, SIGNAL(status_update(int, QString, double, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, double, QString, QString, QString, QString, QString, QString) ) );
-   connect(UDPLogServer, SIGNAL( logged_qso(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString)), this, SLOT(slotWSJTXloggedQSO(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString) ) );
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-
-}
-
-
-
 void MainWindow::slotSearchBoxTextChanged()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -2850,34 +2758,6 @@ void MainWindow::exitQuestion()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::createActionsCQWW(){
-// Functional widgets connections
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-
-}
-
-void MainWindow::createActionsDX(){
-// Functional widgets connections
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(qthLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(locatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-
-    //connect(iotaContinentComboBox, SIGNAL(activated ( int)), this, SLOT(slotIOTAComboBoxChanged() ) )  ;
-
-    //QSL Actions
-    //connect(qslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLSentComboBoxChanged() ) )  ;
-    //connect(qslRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLRecvComboBoxChanged() ) ) ;
-
-    //TODO REMOVE EQSL
-    //connect(eqslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLSentComboBoxChanged() ) )  ;
-    //connect(eqslRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLRecvComboBoxChanged() ) ) ;
-    //connect(lotwSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLotwSentComboBoxChanged() ) )  ;
-    //connect(lotwRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLotwRecvComboBoxChanged() ) ) ;
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-
-}
 
 bool MainWindow::checkContest(){
     //qDebug() << "MainWindow::checkContest: " << contestMode << endl;
@@ -3435,7 +3315,6 @@ void MainWindow::slotClearButtonClicked()
     }
      //qDebug() << "MainWindow::MainWindow: - Changing from: " << bandComboBox->currentText() << endl;
 
-    //EA4TV - bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(currentBand), Qt::MatchCaseSensitive));
     //qDebug() << "MainWindow::slotClearButtonClicked: - 10"  << endl;
      //qDebug() << "MainWindow::MainWindow: - Changing to: " << bandComboBox->currentText() << endl;
         //qDebug() << "MainWindow::MainWindow: 12 - currentMode: " << QString::number(currentMode) << endl;
@@ -4112,33 +3991,6 @@ void MainWindow::slotShowSoftUpdateResults(const bool _b)
 }
 
 
-void MainWindow::createMenusCQWW()
-{
-        //qDebug() << "MainWindow::createMenusCQWW" << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-/*
-    logWinAct = new QAction(tr("&Log Window"), this);
-    logWinAct->setCheckable(true);
-    logWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
-    viewMenu->addAction(logWinAct);
-    connect(logWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
-
-    scoreWinAct = new QAction(tr("&Points Window"), this);
-    scoreWinAct->setCheckable(true);
-    scoreWinAct->setShortcut(Qt::CTRL + Qt::Key_P);
-    viewMenu->addAction(scoreWinAct);
-    connect(scoreWinAct, SIGNAL(triggered()), this, SLOT(slotScoreWinShow()));
-
-
-
-    CabrilloExport = new QAction(tr("&Export to Cabrillo..."), this);
-    toolMenu->addAction(CabrilloExport);
-    connect(CabrilloExport, SIGNAL(triggered()), this, SLOT(slotCabrilloExport()));
-    */
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
- }
-
-
 
 void MainWindow::slotLogWinShow()
 {
@@ -4157,6 +4009,7 @@ void MainWindow::slotLogWinShow()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
+/*
 void MainWindow::slotScoreWinShow()
 {
     //qDebug() << "MainWindow::slotScoreWinShow: "  << endl;
@@ -4174,6 +4027,7 @@ void MainWindow::slotScoreWinShow()
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
+*/
 
 void MainWindow::slotSetup(const int _page)
 {
@@ -4570,7 +4424,7 @@ void MainWindow::readConfigData()
     //qDebug() << "MainWindow::readConfigData-97"  << endl;
     checkIfNewBandOrMode();
     //qDebug() << "MainWindow::readConfigData-98"  << endl;
-    initialContestModeConfiguration();
+    //initialContestModeConfiguration();
     //qDebug() << "MainWindow::readConfigData: 99" << endl;
 
     if (upAndRunning)
@@ -4998,6 +4852,18 @@ bool MainWindow::processConfigLine(const QString &_line){
         }
         //qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
     }
+    else if (field == "HAMLIBREADONLY")
+    {
+        //qDebug() << "MainWindow::processConfigLine: HAMLIBREADONLY: " << value << endl;
+        if (value.toUpper() == "TRUE")
+        {
+            hamlib->setReadOnly(true);
+        }
+        else
+        {
+            hamlib->setReadOnly(false);
+        }
+    }
     else if (field=="REALTIMEFROMWSJTX")
     {
          //qDebug() << "MainWindow::processConfigLine: REALTIMEFROMWSJTX: " << value << endl;
@@ -5209,9 +5075,9 @@ void MainWindow::checkIfNewBandOrMode()
     //qDebug() << "MainWindow::checkIfNewBandOrMode - CurrentBand/CurrentBandShown: " << QString::number(currentBand) << "/" << QString::number(currentBandShown) << endl;
     dxccStatusWidget->setBands(bands);
     //qDebug() << "MainWindow::checkIfNewBandOrMode-98" << endl;
-    //EA4TV - selectDefaultBand();
+    selectDefaultBand();
     //qDebug() << "MainWindow::checkIfNewBandOrMode-99" << endl;
-    //EA4TV - selectDefaultMode();
+    selectDefaultMode();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::checkIfNewBandOrMode END" << endl;
 }
@@ -5999,6 +5865,7 @@ void MainWindow::slotADIFImport(){
      //qDebug() << "MainWindow::slotADIFImport-END" << endl;
 }
 
+/*
 void  MainWindow::initialContestModeConfiguration()
 {
     //QString aux = QString();
@@ -6065,7 +5932,7 @@ void  MainWindow::initialContestModeConfiguration()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::initialContestModeConfiguration END: " << bandComboBox->currentText() << endl;
 }
-
+*/
 
 void MainWindow::qsoToEdit (const int _qso)
 {
@@ -7533,14 +7400,14 @@ void MainWindow::slotFreqRXChanged()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::slotFreqRXChanged: END" << endl;
 }
-
+/*
 void MainWindow::slotShowQSOFromDXCCWidget(const int _q)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
      //qDebug() << "MainWindow::slotShowQSOFromDXCCWidget: " << QString::number(_q)<< endl;
 }
-
+*/
 void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 {
      //qDebug() << "MainWindow::slotShowQSOsFromDXCCWidget" << endl;
@@ -8024,12 +7891,17 @@ void MainWindow::slotHamlibModeChanged(const QString &_m)
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
+
+
     if ((modeComboBox->currentText()).toUpper() == _m.toUpper())
     {
         return;
     }
+
+    hamlibChangingMode = true;
     if (checkIfNewMode(_m))
     {
+        hamlibChangingMode = false;
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         return;
     }
@@ -8043,6 +7915,7 @@ void MainWindow::slotHamlibModeChanged(const QString &_m)
     {
         //qDebug() << "MainWindow::slotHamlibModeChanged: Mode not found in combobox" << _m << endl;
     }
+    hamlibChangingMode = false;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 

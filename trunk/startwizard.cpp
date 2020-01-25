@@ -159,7 +159,7 @@
                             "<li>" + tr("Download the DX entities information.") + "</li>" +
                             "<li>" + tr("Enter your callsign, CQ zone, etc. and main configuration.") + "</li></ul>" +
                             "<p>" + tr("Enjoy KLog and contact the development team if you have any suggestions!") + "</p>" +
-                            "<h3>73 de EA4TV</h3></body></html>";
+                            "<h3>73 de EA4K</h3></body></html>";
 
     welcomeBrowser->setHtml(welcometxt);
 

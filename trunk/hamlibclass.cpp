@@ -13,6 +13,8 @@ HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
     rigLaunched = false;
     pollInterval = 300;
     errorCount = 0;
+    readOnlyMode = false;
+    justEmitted = false;
     //m_serial = new QSerialPort();
 
 
@@ -35,6 +37,7 @@ HamLibClass::~HamLibClass()
         rigLaunched = false;
     }
 }
+
 void HamLibClass::setPool(const int _milsecs)
 {
     if (_milsecs>0)
@@ -42,6 +45,10 @@ void HamLibClass::setPool(const int _milsecs)
         pollInterval = _milsecs;
     }
 
+}
+void HamLibClass::readRadio()
+{
+    slotTimer();
 }
 
 void HamLibClass::slotTimer()
@@ -83,8 +90,14 @@ void HamLibClass::slotTimer()
         //qDebug() << "HamLibClass::slotTimer: Mode: " << hamlibMode2Mode(rmode) << endl;
         if (mode_old != rmode)
         {
+            if (justEmitted)
+            {
+                justEmitted = false;
+                return;
+            }
             mode_old = rmode;
             emit modeChanged(hamlibMode2Mode(rmode));
+            justEmitted = true;
         }
     }
     else
@@ -94,13 +107,23 @@ void HamLibClass::slotTimer()
     //checkErrorCountAndStop();
 
 }
-void HamLibClass::setMode(const QString _m)
+
+void HamLibClass::setMode(const QString &_m)
 {
     //qDebug() << "HamLibClass::setMode: " << _m << endl;
-    if (!isRunning())
+    if ((!isRunning()) || (readOnlyMode))
     {
         return;
     }
+
+    // Check if we are already in a mode that should not be changed (CWR should not be changed to CW and so on)
+    retcode = rig_get_mode(my_rig, RIG_VFO_CURR, &rmode, &width);
+    QString currentMode = hamlibMode2Mode(rmode);
+    if (_m == currentMode)
+    {
+        return;
+    }
+
     retcode = rig_set_mode(my_rig, RIG_VFO_CURR, rig_parse_mode(_m.toLocal8Bit()), rig_passband_normal(my_rig, rig_parse_mode(_m.toLocal8Bit())));
     if (retcode != RIG_OK)
     {
@@ -114,7 +137,7 @@ void HamLibClass::setMode(const QString _m)
     return;
 }
 
-rmode_t HamLibClass::mode2HamlibMode(const QString _m)
+rmode_t HamLibClass::mode2HamlibMode(const QString &_m)
 {
 
     /*
@@ -211,6 +234,21 @@ rmode_t HamLibClass::mode2HamlibMode(const QString _m)
     return RIG_MODE_NONE;
 }
 
+bool isModeADIFMode(const QString &_m)
+{
+    QString _mode;
+    _mode = _m.toUpper();
+    if ((_mode == "AM") ||  (_mode == "CW") || (_mode == "FM") || (_mode == "LSB") ||
+            (_mode == "USB") || (_mode == "RTTY") )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 QString HamLibClass::hamlibMode2Mode(rmode_t _rmode)
 {
 
@@ -231,7 +269,7 @@ QString HamLibClass::hamlibMode2Mode(rmode_t _rmode)
         case RIG_MODE_FM:
             return "FM";
         case RIG_MODE_WFM:
-            return "WFM";
+            return "FM";
         case RIG_MODE_CWR:
             return "CW"; //TODO: Check with ADIF
         case RIG_MODE_RTTYR:
@@ -256,8 +294,8 @@ QString HamLibClass::hamlibMode2Mode(rmode_t _rmode)
             return "LSB";//TODO: Check with ADIF
         case RIG_MODE_SAH:
             return "USB";//TODO: Check with ADIF
-        case RIG_MODE_DSB:
-            return "SSB";//TODO: Check with ADIF
+       // case RIG_MODE_DSB:
+       //     return "SSB";//TODO: Check with ADIF
         case RIG_MODE_FMN:
             return "FM";//TODO: Check with ADIF
         default:
@@ -450,7 +488,7 @@ int HamLibClass::addRigToList (const struct rig_caps *caps, void *data)
     return -1;                    // not 0 --> we want all rigs
 }
 
-int HamLibClass::getModelIdFromName (const QString _name)
+int HamLibClass::getModelIdFromName (const QString &_name)
 {
    //HamLibClass *r (HamLibClass *) data;
    int i = -1;
@@ -471,7 +509,7 @@ void HamLibClass::setModelId(const int _id)
     myrig_model = _id;
 }
 
-void HamLibClass::setPort(const QString _port)
+void HamLibClass::setPort(const QString &_port)
 {
     //qDebug() << "HamLibClass::setPort: " << _port << endl;
     serialPort = _port;
@@ -479,21 +517,22 @@ void HamLibClass::setPort(const QString _port)
     //qstrncpy(myport.pathname, serialPort.toLocal8Bit().constData(), serialPort.length()+1);
 }
 
-void HamLibClass::setSpeed(const QString _speed)
+void HamLibClass::setSpeed(const QString &_speed)
 {
     bauds = _speed.toInt();
 }
 
-void HamLibClass::setData(const QString _data)
+void HamLibClass::setData(const QString &_data)
 {
     dataBits = _data.toInt();
 }
-void HamLibClass::setStop(const QString _stop)
+
+void HamLibClass::setStop(const QString &_stop)
 {
     stopBits = _stop.toInt();
 }
 
-void HamLibClass::setFlow(const QString _flow)
+void HamLibClass::setFlow(const QString &_flow)
 {
 
     flowControl = _flow.toUpper();
@@ -512,7 +551,7 @@ void HamLibClass::setFlow(const QString _flow)
     }
 }
 
-void HamLibClass::setParity(const QString _parity)
+void HamLibClass::setParity(const QString &_parity)
 {   
     parity = _parity.toUpper();
     if (parity == "EVEN")
@@ -537,11 +576,10 @@ void HamLibClass::setParity(const QString _parity)
     }
 }
 
-
 void HamLibClass::setFreq(const double _fr)
 {
     //qDebug() << "HamLibClass::setFreq: " << QString::number(_fr) << endl;
-    if (!isRunning())
+    if ((!isRunning()) || (readOnlyMode))
     {
         return;
     }
@@ -576,8 +614,7 @@ void HamLibClass::setFreq(const double _fr)
     }
 }
 
-
-void HamLibClass::setRTS(const QString _state)
+void HamLibClass::setRTS(const QString &_state)
 {
 
     if (shandshake == RIG_HANDSHAKE_HARDWARE)
@@ -596,7 +633,7 @@ void HamLibClass::setRTS(const QString _state)
     }
 }
 
-void HamLibClass::setDTR(const QString _state)
+void HamLibClass::setDTR(const QString &_state)
 {
 
     if (_state.toUpper() == "TRUE")
@@ -615,4 +652,9 @@ void HamLibClass::checkErrorCountAndStop()
     {
         stop();
     }
+}
+
+void HamLibClass::setReadOnly(const bool _r)
+{
+    readOnlyMode = _r;
 }

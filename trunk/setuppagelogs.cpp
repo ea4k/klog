@@ -158,6 +158,7 @@ void SetupPageLogs::slotEditButtonClicked()
     newLog->setComment(dataProxy->getCommentsFromLog(selectedLog));
     newLog->setDateString(dataProxy->getLogDateFromLog(selectedLog));
     newLog->setTypeN(dataProxy->getLogTypeNFromLog(selectedLog).toInt());
+    newLog->exec();
 
 /*
      //qDebug() << "SetupPageLogs::slotEditButtonClicked-1 (selectedlog: " << QString::number(selectedLog) << ")" << endl;

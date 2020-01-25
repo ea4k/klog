@@ -32,7 +32,7 @@
 int main(int argc, char *argv[])
 {
     //qDebug() << "KLog Main: Start! " << endl;
-    QString version = "0.9.9-RC2" ;
+    QString version = "0.9.9-RC4" ;
     QDir d1 = QDir();
     Utilities util = Utilities();
     QStringList arguments;
@@ -240,7 +240,7 @@ int main(int argc, char *argv[])
         StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
         int inMemory = wizard->exec();
-         //qDebug() << "MAIN: Wizard inMemory: " << QString::number(inMemory) << endl;
+        qDebug() << "MAIN: Wizard inMemory: " << QString::number(inMemory) << endl;
 
         if (inMemory == 1)
         {
@@ -332,6 +332,7 @@ int main(int argc, char *argv[])
         splash.finish(&mw);
         mw.checkIfNewVersion();
         mw.recommendBackupIfNeeded();
+        mw.init();
         //checkIfNewVersion();
           //qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         mw.show();

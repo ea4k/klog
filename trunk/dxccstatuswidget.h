@@ -53,7 +53,7 @@ public:
     void refresh();
 
 signals:
-    void showQso(const int _qsoid); // identified QSO double clicking on DXCC
+    //void showQso(const int _qsoid); // identified QSO double clicking on DXCC
     void showQsos(QList<int> _qsos);
     //void updateAwards();
 

@@ -1451,7 +1451,7 @@ QString World::changeSlashAndFindPrefix(const QString &_qrz)
             iaux2 = -iaux2;
         }
 
-        if ( iaux1 < iaux2 ) { //Like in F/EA4TV, we can simply take the first part as the prefix
+        if ( iaux1 < iaux2 ) { //Like in F/EA4K, we can simply take the first part as the prefix
             aux = aux.left(iaux1);
         }
         else
@@ -1487,7 +1487,7 @@ bool World::checkQRZValidFormat(const QString &_qrz)
     //QString prefix = QString();
     //QString suffix = QString();
     //QString separator = QString();
-    // If barPos > 0 we have a complex call like F/EA4TV
+    // If barPos > 0 we have a complex call like F/EA4K
 
     QCharRef c = aux[aux.length()-1];
 

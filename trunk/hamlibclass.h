@@ -20,28 +20,31 @@ public:
     explicit HamLibClass(QObject *parent = nullptr);
     ~HamLibClass();
     QStringList getRigList ();
-    int getModelIdFromName (const QString _name);
+    int getModelIdFromName (const QString &_name);
     QString getNameFromModelId(const int _id);
     void setModelId(const int _id);
-    void setPort(const QString _port);
+    void setPort(const QString &_port);
     void setPool(const int _milsecs);
 
-    void setData(const QString _data);
-    void setStop(const QString _stop);
-    void setFlow(const QString _flow);
-    void setParity(const QString _parity);
-    void setSpeed(const QString _speed);
-    void setRTS(const QString _state);
-    void setDTR(const QString _state);
+    void setData(const QString &_data);
+    void setStop(const QString &_stop);
+    void setFlow(const QString &_flow);
+    void setParity(const QString &_parity);
+    void setSpeed(const QString &_speed);
+    void setRTS(const QString &_state);
+    void setDTR(const QString &_state);
 
     void setFreq(const double _fr);
-    void setMode(const QString _m);
+    void setMode(const QString &_m);
+    void setReadOnly(const bool _r);
+    bool isModeADIFMode(const QString &_m);
 
-   // bool isModeExisting(const QString _m);
+   // bool isModeExisting(const QString &_m);
 
 
     void init(bool _active);
     void stop();
+    void readRadio();
     bool isRunning();
     void clean();
     void checkErrorCountAndStop();
@@ -60,7 +63,7 @@ public slots:
 private:
     static int addRigToList(const struct rig_caps* caps, void* data);
     QString hamlibMode2Mode(rmode_t _rmode);
-    rmode_t mode2HamlibMode(const QString _m);
+    rmode_t mode2HamlibMode(const QString &_m);
     QStringList strings;
     QTimer *timer;
     QMap<QString, rig_model_t> rigName2RigId;
@@ -95,6 +98,9 @@ private:
     int pollInterval;           // Pool interval in mSecs
     int errorCount;            // Number of times that the rig has returned an error since last time OK.
     bool rigLaunched;
+    bool readOnlyMode;          // If true, KLog will not modify any parameter (freq/mode...) in the radio. KLog just will follow the radio.
+    bool justEmitted;
+    //bool active;
 
     //QSerialPort *m_serial;
 };

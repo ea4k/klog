@@ -695,7 +695,7 @@ QStringList DXClusterWidget::readItem(QListWidgetItem * item)
         (fields.at(0)).toFloat(&FirstFrecOK); // Just to see if the first string is a frecuency
 
         if ( (fields.at(0) == "DX" ) && (fields.at(1) == "de" ) )
-        { // DX de EA4TV: 21200.1 EA0JC The comment 1550
+        { // DX de EA4K: 21200.1 EA0JC The comment 1550
 
             if ( world->getQRZARRLId(fields.at(4))> 0 )
             {
@@ -729,7 +729,7 @@ QStringList DXClusterWidget::readItem(QListWidgetItem * item)
         }
         //else if (( isAFrecuency(fields.at(0) ) ) && ( isACall(fields.at(1)) ) )
         else if ( (((fields.at(0)).toFloat()) > 0.0 )&& ( world->getQRZARRLId(fields.at(1))> 0 ) )
-        { // 14205.0 EA0JC    5-Mar-2012 1500Z    <EA4TV>
+        { // 14205.0 EA0JC    5-Mar-2012 1500Z    <EA4K>
 
             dxCallsign = (fields.at(1)).toUpper();
             dxFreq = fields.at(0);

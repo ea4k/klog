@@ -937,6 +937,8 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }else if(tab =="HAMLIB"){
         //qDebug() << "SetupDialog::processConfigLine: HAMLIB: " << value << endl;
         hamlibPage->setActive(value);
+    }else if(tab=="HAMLIBREADONLY"){
+        hamlibPage->setReadOnly(value);
     }else if(tab =="HAMLIBSERIALDATABITS"){
         //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDATABITS: " << value << endl;
         hamlibPage->setDataBits(value);

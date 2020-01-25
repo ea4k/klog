@@ -22,7 +22,7 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     const QString br = QLatin1String("<br/>");
 
     const QString description = "<center><h2>KLog " + tversion + "</h2><h4> " +tr("By") +
-            " <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a> - 2002-2019</h4></center><br>" +
+            " <a href=\"https://www.qrz.com/db/ea4k\">EA4K</a> - 2002-2020</h4></center><br>" +
             tr("KLog is a free logbook for hamradio operators.") +"<br><br><b>" +
             tr("Please know that this is an BETA release and it may contain many bugs.<br>Backup your data before using this software!") +
             "</b><br><br>" +
@@ -32,7 +32,7 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
             "<bR>" +
             "<a href=http://www.eham.net/reviews/detail/3118>http://www.eham.net/reviews/detail/3118</a><br><br>" +
             tr("Find more information and the latest release at") + "<br><a href=https://www.klog.xyz>https://www.klog.xyz</a><br><br>" +
-            tr("Author") + ": <a href=https://jaime.robles.es/klog>Jaime Robles</a>, <a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a><br><a href=mailto:jaime@robles.es>jaime@robles.es</a>";
+            tr("Author") + ": <a href=https://jaime.robles.es/klog>Jaime Robles</a>, <a href=\"https://www.qrz.com/db/ea4k\">EA4K</a><br><a href=mailto:jaime@robles.es>jaime@robles.es</a>";
 
 
     QLabel *copyRightLabel = new QLabel(description);
@@ -55,7 +55,7 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     QLabel *logoLabel4 = new QLabel;
     logoLabel4->setPixmap(pixmap);
 
-    QString author1 = QString("<tr><td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a></td>") + "<td>(2002-" + tr("today") +")" +tr("Main developer") + "</td></tr>";
+    QString author1 = QString("<tr><td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4k\">EA4K</a></td>") + "<td>(2002-" + tr("today") +")" +tr("Main developer") + "</td></tr>";
     QString author2 = QString("<tr><td>Akihiro Koda</td>")  + QString("<td><a href=\"https://www.qrz.com/db/jl3oxr\">JL3OXR</a></td>") + "<td>(2016-2017)</td></tr>";
     QString author3 = QString("<tr><td>Andrew Goldie</td>") + QString("<td><a href=\"https://www.qrz.com/db/zl2agc\">ZL2ACG</a></td>") + "<td>(2009-2010)</td></tr>";
 
@@ -72,7 +72,7 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     QString translator7 = QString("<tr><td>Italian</td>")  + QString("<td>Simona Pisano</td>") + QString("<td><a href=\"https://www.qrz.com/db/iu5hiu\">IU5HIU</a></td></tr>");
     QString translator8 = QString("<tr><td>Japanese</td>")  + QString("<td>Akihiro Koda</td>") + QString("<td><a href=\"https://www.qrz.com/db/jl3oxr\">JL3OXR</a></td></tr>");
     QString translator9 = QString("<tr><td>Polish</td>")  + QString("<td>Piotr Ludwig</td>") + QString("<td><a href=\"https://www.qrz.com/db/la7rra\">LA7RRA</a></td></tr>");
-    QString translator10 = QString("<tr><td>Spanish</td>") + QString("<td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4tv\">EA4TV</a></td></tr>");
+    QString translator10 = QString("<tr><td>Spanish</td>") + QString("<td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4k\">EA4K</a></td></tr>");
 
 
     QString translatorsText = tr("Translators bring KLog into your language. They are really an important part of the KLog development team.") + "<br><br>" + tr("If KLog is still not in your language and you want to help us, you are welcome to contact us through the <a href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog development mailing list</a>!");
