@@ -130,7 +130,7 @@ ContestCQWWDXSSB::ContestCQWWDXSSB(const QStringList &_qs)
     claimedScore = "000";
     name = "No-Name";
     address = "MyPoBox\nADDRESS: SecondLineOfAddress";
-    operators = "EA4TV, EA4GCA";
+    operators = "EA4K, EA4XXX";
     soapbox = "MySoapbox\nSOAPBOX: Another line\nSOAPBOX: and even one more";
 
 
@@ -280,7 +280,6 @@ bool ContestCQWWDXSSB::saveFileToSend(const QString& _fileName)
 
 //_qs << myEntity << myCQz << myContinent << NA-id;
 //myARRLSect << StationQRZ << myCategory << myClub <<
-//myAddress << operators(comma separated EA4TV, EA4GCA, ...)
 //SoapBox
 
 

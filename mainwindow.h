@@ -133,6 +133,7 @@ public:
     MainWindow(const QString &_klogDir, const QString &tversion);
     void checkIfNewVersion();
     void recommendBackupIfNeeded();
+    void init();
 
      ~MainWindow();
 
@@ -173,7 +174,7 @@ private slots:
     void slotUpdateTime();
     void slotLogWinShow();
     void slotLogRefresh();
-    void slotScoreWinShow();
+    //void slotScoreWinShow();
     void slotQSODelete(const int _id);
 
     void slotShowAwards();
@@ -262,12 +263,13 @@ private slots:
     //HAMLIB
     void slotHamlibTXFreqChanged(const double _f);
     void slotHamlibModeChanged(const QString &_m);
+    //void slotHamlibModeNotADIF();
 
     // WORLD MAP
     //void slotWorldMapShow();
 
     //DXCCWIDGET
-    void slotShowQSOFromDXCCWidget(const int _q);
+    //void slotShowQSOFromDXCCWidget(const int _q);
     void slotShowQSOsFromDXCCWidget(QList<int> _qsos);
 
     //UDP Server (WXJT-x)
@@ -298,6 +300,8 @@ private:
     DownLoadCTY *downloadcty;
     HamLibClass *hamlib;
     bool hamlibActive;
+    bool hamlibChangingMode;
+    bool hamlibModeNotADIFSupported;
     //</UPDATE CTY.DAT>
     //WorldMapWidget *worldMapWidget;
     void createStatusBar();
@@ -309,13 +313,8 @@ private:
     void clearBandLabels();
 
     void createMenusCommon();
-    void createMenusCQWW();
     void createActionsCommon();
-    void createActionsCQWW();
-    void createActionsDX();
 
-    void createScorePanel();
-    void initialContestModeConfiguration();
 
 
     bool readCtyFile();
@@ -401,8 +400,8 @@ private:
     //QTreeWidget *searchResultsTreeWidget;
     QLabel *logLabel;
 
-    QWidget *scoreWindow; //, dxWindow;
-    QTextEdit *scoreTextEdit;
+    //QWidget *scoreWindow; //, dxWindow;
+    //QTextEdit *scoreTextEdit;
 
     LogModel *logModel;
     LogWindow *logWindow;

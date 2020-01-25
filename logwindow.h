@@ -47,13 +47,12 @@ class LogWindow : public  QWidget
     Q_OBJECT
 
 public:
-    explicit LogWindow(DataProxy_SQLite *dp, QWidget *parent = 0);
+    explicit LogWindow(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~LogWindow();
     void createlogPanel(const int _currentLog);
     void clear();
     void refresh();
     void setCurrentLog(const int _currentLog);
-
 
     void qslSentViaBureau(const int _qsoId);    //Maybe this could be defined as private and call it with an action, if needed.
     void qslRecViaBureau(const int _qsoId);     //Maybe this could be defined as private and call it with an action, if needed.

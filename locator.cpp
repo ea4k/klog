@@ -37,7 +37,7 @@ Locator::~Locator(){
 bool Locator::isValidLocator(const QString& tlocator){
 /* -------------- Subroutine -----------------------
       Check valid locator (VALID: AA00AA -> RR99XX
-      Input : char *locator = 4 or 6 characters word wide locator.
+      Input : char *locator = 4 - 8 characters word wide locator.
       returned value ==  -1 No error. (Valid locator).
       returned value ==  0 Error.   (Invalid locator).
       Note: also string "END" is considered a valid locator, but returned value is -2.
@@ -59,8 +59,8 @@ Wikipedia:
 
     QString testLocator ="A";
 	testLocator = tlocator.toUpper();
-    //lenght_of_locator = testLocator.length();
-    //IN, IN70, IN70DD, IN70DD20, IN70DD20fs
+    //lenght_of_locator = testLocator.length(); Locators up to 8 digits!
+    //IN, IN70, IN70DD, IN70DD20, IN70DD20
     QRegularExpression rx;
     rx.setPattern("^[A-R]{2}$");
     if (rx.match(testLocator).hasMatch())
@@ -83,7 +83,6 @@ Wikipedia:
             {
                 //qDebug() << "Locator::isValidLocator: Match 6: " << testLocator;
                 return true;
-
             }
             else
             {
@@ -95,23 +94,11 @@ Wikipedia:
                 }
                 else
                 {
-                    rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}[0-9]{2}[A-X]{2}$");
-                    if (rx.match(testLocator).hasMatch())
-                    {
-                        //qDebug() << "Locator::isValidLocator: Match 10: " << testLocator;
-                        return true;
-                    }
-                    else
-                    {
-                        //qDebug() << "Locator::isValidLocator: NO MATCH: " << testLocator;
-                        return false;
-                    }
+                    return false;
                 }
             }
         }
     }
-
-
 }
 
 
@@ -191,10 +178,10 @@ double Locator::getLon(const QString& tlocator)
         //qDebug() << "Locator::getLon: " << QString::number(((tlocator.at(0)).toLatin1() - 'A') * 20 + ((tlocator.at(2)).toLatin1() - '0') * 2 + ((tlocator.at(4)).toLatin1() - 'A' + 0.0) / 12 + ((tlocator.at(6)).toLatin1() - '0' + 0.5) / 120 - 180) << endl;
         return ((tlocator.at(0)).toLatin1() - 'A') * 20 + ((tlocator.at(2)).toLatin1() - '0') * 2 + ((tlocator.at(4)).toLatin1() - 'A' + 0.0) / 12 + ((tlocator.at(6)).toLatin1() - '0' + 0.5) / 120 - 180;
     }
-    else if (tlocator.length()== 10)
-    {
-        return ((tlocator.at(0)).toLatin1() - 'A') * 20 + ((tlocator.at(2)).toLatin1() - '0') * 2 + ((tlocator.at(4)).toLatin1() - 'A' + 0.0) / 12 + ((tlocator.at(6)).toLatin1() - '0' + 0.0) / 120 + ((tlocator.at(8)).toLatin1() - 'A' + 0.5) / 120 / 24 - 180;
-    }
+    //else if (tlocator.length()== 10)
+    //{
+    //        return ((tlocator.at(0)).toLatin1() - 'A') * 20 + ((tlocator.at(2)).toLatin1() - '0') * 2 + ((tlocator.at(4)).toLatin1() - 'A' + 0.0) / 12 + ((tlocator.at(6)).toLatin1() - '0' + 0.0) / 120 + ((tlocator.at(8)).toLatin1() - 'A' + 0.5) / 120 / 24 - 180;
+    //    }
     else
     {
         return 0.0;
