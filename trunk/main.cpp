@@ -328,12 +328,12 @@ int main(int argc, char *argv[])
           //qDebug() << "KLog Main-52" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         splash.show();
           //qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
-        MainWindow mw(klogDir, version);
+        MainWindow mw(klogDir, version);        
+        mw.init();
         splash.finish(&mw);
         mw.checkIfNewVersion();
         mw.recommendBackupIfNeeded();
-        mw.init();
-        //checkIfNewVersion();
+
           //qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         mw.show();
           //qDebug() << "KLog Main-101.5" << (QTime::currentTime()).toString("HH:mm:ss") << endl;

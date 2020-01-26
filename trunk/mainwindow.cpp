@@ -38,13 +38,15 @@
 
 MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
-    //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
+    qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
     //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
     logSeverity = 7;
+    klogDir = _klogDir;
+    needToEnd = false;
+    upAndRunning = false; // To define some actions that can only be run when starting the software
+
     util = new Utilities;
-    logEvents = true;
-    debugFileOpen = false;
-    hamlibActive = false;
+
     QString debugName = util->getDebugLogFile();
     //qDebug() << "MainWindow::MainWindow: Debug File: "<<  debugName << endl;
     debugFile = new QFile(debugName);
@@ -68,29 +70,180 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     //QTime start;
     //start = QTime::currentTime();
-   //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
+    qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
-    //qDebug() << "MainWindow::MainWindow: BEFORE HAMLIB " << endl;
+    qDebug() << "MainWindow::MainWindow: BEFORE HAMLIB " << endl;
     hamlib = new HamLibClass();
-    //qDebug() << "MainWindow::MainWindow: AFTER HAMLIB " << endl;
+    qDebug() << "MainWindow::MainWindow: AFTER HAMLIB " << endl;
 
+
+    softwareVersion = tversion;
+
+    dataProxy = new DataProxy_SQLite(softwareVersion, Q_FUNC_INFO);
+    doc = new QTextDocument;
+
+    qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << endl;
+    dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
+    //qDebug() << "MainWindow::MainWindow: After DXCCStatusWidget " << endl;
+    //qDebug() << "MainWindow::MainWindow: 00081" << endl;
+    elogClublog = new eLogClubLog();
+    //qDebug() << "MainWindow::MainWindow: 00082" << endl;
+
+    //qDebug() << "MainWindow::MainWindow: 00083" << endl;
+    updateSatsData = new UpdateSatsData(dataProxy);
+    //qDebug() << "MainWindow::MainWindow: 00084" << endl;
+    statsWidget = new StatisticsWidget(dataProxy);
+    //qDebug() << "MainWindow::MainWindow: 00085" << endl;
+    //statsWidget->show();
+
+
+
+    qDebug() << "MainWindow::MainWindow: 00086" << endl;
+    logWindow = new LogWindow(dataProxy, this);
+    qDebug() << "MainWindow::MainWindow: 00087" << endl;
+
+
+    searchWidget = new SearchWidget (dataProxy, this);
+    infoWidget = new InfoWidget(dataProxy, this);
+
+    //qDebug() << "MainWindow::MainWindow: 00088" << endl;
+    logEvent(Q_FUNC_INFO, "Creating AwardsWidget", 7);
+    awardsWidget = new AwardsWidget(dataProxy, this);
+
+    qDebug() << "MainWindow::MainWindow: 0009" << endl;
+
+    aboutDialog = new AboutDialog(softwareVersion);
+    tipsDialog = new TipsDialog();
+
+
+    configFileName = util->getCfgFile();
+    ctyDatFile = util->getCTYFile();
+
+    downloadcty = new DownLoadCTY(klogDir, softwareVersion);
+
+    statusBarMessage = tr("Starting KLog");
+
+    if (!QDir::setCurrent ( klogDir )){
+        QDir d1(klogDir);
+        if (d1.mkdir(klogDir))
+        {
+            QDir::setCurrent ( klogDir );
+        }
+    }
+
+     qDebug() << "MainWindow::MainWindow: 4" << endl;
+    world = new World(dataProxy, klogDir, softwareVersion, Q_FUNC_INFO);
+
+     qDebug() << "MainWindow::MainWindow: xx" << endl;
+
+
+    setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured);    
+    qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
+    satTabWidget = new MainWindowSatTab(dataProxy);
+
+    myDataTabWidget = new MainWindowMyDataTab();
+    commentTabWidget = new MainWindowInputComment();
+    othersTabWidget = new MainWindowInputOthers(dataProxy);
+    eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
+    QSLTabWidget = new MainWindowInputQSL(dataProxy);
+    //qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
+    locator = new Locator();
+
+    mainWidget = new QWidget(this);
+    setCentralWidget(mainWidget);
+    qDebug() << "MainWindow::MainWindow: 8" << endl;
+
+    dateTime = new QDateTime();
+    dateTimeTemp = new QDateTime();
+    timer = new QTimer(this);
+
+    qrzLineEdit = new QLineEdit;
+    nameLineEdit = new QLineEdit;
+    qthLineEdit = new QLineEdit;
+    locatorLineEdit = new QLineEdit;
+    rstTXLineEdit = new QLineEdit;
+    rstRXLineEdit = new QLineEdit;
+    STXLineEdit = new QLineEdit;
+    SRXLineEdit = new QLineEdit;
+    bandComboBox = new QComboBox;
+    modeComboBox = new QComboBox;
+
+    dateEdit = new QDateEdit;
+    timeEdit = new QTimeEdit;
+
+    OKButton = new QPushButton(tr("&Add"), this);
+    //spotItButton = new QPushButton(tr("&Spot"), this);
+    //spotItButton->setEnabled(false);
+    clearButton = new QPushButton(tr("&Clear"), this);
+
+    // UI DX
+    infoLabel1 = new QLabel(tr("Status bar..."));
+    infoLabel2 = new QLabel(tr("DX Entity"));
+    loggWinAct = new QAction(tr("&Log Window"), this);
+
+    operatorLineEdit = new QLineEdit;
+    stationCallSignLineEdit = new QLineEdit;
+    txFreqSpinBox = new QDoubleSpinBox;
+    rxFreqSpinBox = new QDoubleSpinBox;
+    rxPowerSpinBox = new QDoubleSpinBox;
+
+    qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
+    dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
+    qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
+    awards = new Awards(dataProxy, Q_FUNC_INFO);
+    qDebug() << "MainWindow::MainWindow: Awards created" << endl;
+    // </UI>
+
+
+    if (needToEnd)
+    {
+       //QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+      //db->compress();
+      //qDebug() << "MainWindow::MainWindow: 12.5" << endl;
+       exit(0);
+    }
+
+    qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
+
+
+
+     //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
+    softUpdate = new SoftwareUpdate(softwareVersion);
+    filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
+
+
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+
+    qDebug() << "MainWindow::MainWindow: END" << endl;
+}
+
+void MainWindow::init()
+{
+     qDebug() << "MainWindow::init: START" << endl;
+    logEvents = true;
+    debugFileOpen = false;
+
+    clublogUser = QString();
+    clublogPass = QString();
+    clublogEmail = QString();
+
+    infoLabel1T = QString();
+    infoLabel2T = QString();
+
+    //Default band/modes
+    bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
+    modes << "SSB" << "CW" << "RTTY";
+    hamlibActive = false;
     hamlibModeNotADIFSupported = false;
     hamlibChangingMode = false;
     yearChangedDuringModification = false;
 
-    upAndRunning = false; // To define some actions that can only be run when starting the software
-    readingTheUI = false;
-    softwareVersion = tversion;
-    itIsANewversion = false;
-    dataProxy = new DataProxy_SQLite(softwareVersion, Q_FUNC_INFO);
-    doc = new QTextDocument;
 
-    //qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << endl;
-    dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
-    //qDebug() << "MainWindow::MainWindow: After DXCCStatusWidget " << endl;
-    needToEnd = false;
+    readingTheUI = false;
+    itIsANewversion = false;
+
     cleaning = false;
     qrzAutoChanging = false;
     dxclusterServerToConnect = "dxfun.com";
@@ -100,7 +253,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     defaultADIFLogFile = "klog.adi";
 
-    klogDir = _klogDir;
 
     InValidCharsInPrevCall = false;
     //stationCallSignShownInSearch = true;
@@ -172,245 +324,9 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //qDebug() << "MainWindow::MainWindow: 0008" << endl;
     clublogActive = false;
     clublogRealTime = false;
-    clublogUser = QString();
-    clublogPass = QString();
-    clublogEmail = QString();
-
-    infoLabel1T = QString();
-    infoLabel2T = QString();
-    //qDebug() << "MainWindow::MainWindow: 00081" << endl;
-    elogClublog = new eLogClubLog();
-    //qDebug() << "MainWindow::MainWindow: 00082" << endl;
-    clublogAnswer = -1;
-
-    defaultColor.setNamedColor("slategrey");
-    neededColor.setNamedColor("yellow");
-    workedColor.setNamedColor("blue");
-    confirmedColor.setNamedColor("red");
-    newOneColor.setNamedColor("green");
-    //qDebug() << "MainWindow::MainWindow: 00083" << endl;
-    updateSatsData = new UpdateSatsData(dataProxy);
-    //qDebug() << "MainWindow::MainWindow: 00084" << endl;
-    statsWidget = new StatisticsWidget(dataProxy);
-    //qDebug() << "MainWindow::MainWindow: 00085" << endl;
-    //statsWidget->show();
-    //Default band/modes
-    bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
-    modes << "SSB" << "CW" << "RTTY";
-
-
-    //qDebug() << "MainWindow::MainWindow: 00086" << endl;
-    logWindow = new LogWindow(dataProxy, this);
-    //qDebug() << "MainWindow::MainWindow: 00087" << endl;
-    connect(logWindow, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
-    //connect(logWindow, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
-
-    searchWidget = new SearchWidget (dataProxy, this);
-    connect(searchWidget, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
-    //connect(searchWidget, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
-    infoWidget = new InfoWidget(dataProxy, this);
-
-    //qDebug() << "MainWindow::MainWindow: 00088" << endl;
-    logEvent(Q_FUNC_INFO, "Creating AwardsWidget", 7);
-    awardsWidget = new AwardsWidget(dataProxy, this);
-    connect(awardsWidget, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
-    //connect(awardsWidget, SIGNAL(recalculateAwardsSignal()), this, SLOT(slotRecalculateAwardsButtonClicked()) );
-    connect(awardsWidget, SIGNAL(requireCurrentLogSignal()), this, SLOT(slotAwardsWidgetSetLog()) );
-    connect(awardsWidget, SIGNAL(requireCurrentYearSignal()), this, SLOT(slotAwardsWidgetSetYear()) );
-
-    //qDebug() << "MainWindow::MainWindow: 0009" << endl;
-
-    aboutDialog = new AboutDialog(softwareVersion);
-    tipsDialog = new TipsDialog();
-
-    //connect(tipsDialog, SIGNAL(), this, SLOT());
-    //connect(tipsDialog, SIGNAL(), this, SLOT());
-    //connect(tipsDialog, SIGNAL(), this, SLOT());
-    //connect(tipsDialog, SIGNAL(), this, SLOT());
-    //connect(tipsDialog, SIGNAL(), this, SLOT());
-    //connect(tipsDialog, SIGNAL(), this, SLOT());
-
-    //qDebug() << "MainWindow::MainWindow: 0010" << endl;
-
-    //recalculateAwardsButton = new QPushButton(tr("Recalculate"), this);
-    //recalculateAwardsButton->setToolTip(tr("Click to recalculate the award status."));
-
-    //scoreTextEdit = new QTextEdit;
-
-    configFileName = util->getCfgFile();
-    ctyDatFile = util->getCTYFile();
-
-    downloadcty = new DownLoadCTY(klogDir, softwareVersion);
-    connect( downloadcty, SIGNAL(done()), this, SLOT(slotWorldReload()) );
-
-    //qDebug() << "MainWindow::MainWindow: logbook: " << QString(util->getKLogDBFile()) << endl;
-
-    //qDebug() << "MainWindow::MainWindow: Before existing Data" << endl;
-    bool existingData = QFile::exists(util->getKLogDBFile());
-    //qDebug() << "MainWindow::MainWindow: After existing Data" << endl;
-
-    if (existingData)
-    {
-                //qDebug() << "MainWindow::MainWindow: existing data" << endl;
-           //configured= false;
-    }
-    else
-    {
-                //qDebug() << "MainWindow::MainWindow: NOT existing data" << endl;
-    }
-
-    statusBarMessage = tr("Starting KLog");
-
-    if (!QDir::setCurrent ( klogDir )){
-        QDir d1(klogDir);
-        if (d1.mkdir(klogDir))
-        {
-            QDir::setCurrent ( klogDir );
-        }
-    }
-
-   //qDebug() << "MainWindow::MainWindow: 3" << endl;
-
-
-    DBinMemory = false;
-    //db = new DataBase(softwareVersion, DBinMemory);
-
-     //qDebug() << "MainWindow::MainWindow: 4" << endl;
-    world = new World(dataProxy, klogDir, softwareVersion, Q_FUNC_INFO);
-    connect(world, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
-    //connect(world, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
-
-    if (!existingData)
-    {
-    //qDebug() << "MainWindow::MainWindow: !existingData" << endl;
-        world->create(ctyDatFile);
-    }else
-    {
-     //qDebug() << "MainWindow::MainWindow: existingData" << endl;
-    }
-     //qDebug() << "MainWindow::MainWindow: xx" << endl;
-
-
-
-    //connect(dataProxy, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
-    //connect(dataProxy, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
-
-    //connect(this, SIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
-
-
-    //qDebug() << "MainWindow::MainWindow: setupDialog to be created" << endl;
-    //setupDialog = new SetupDialog(!configured);
-    setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured);    
-    //connect(setupDialog, ƒSIGNAL(clearError()), this, SLOT(slotClearNoMorErrorShown()) );
-    //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
-    satTabWidget = new MainWindowSatTab(dataProxy);
-
-    setModifying(false);
-
-    myDataTabWidget = new MainWindowMyDataTab();
-    commentTabWidget = new MainWindowInputComment();
-    othersTabWidget = new MainWindowInputOthers(dataProxy);
-    eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
-    QSLTabWidget = new MainWindowInputQSL(dataProxy);
-
-     //qDebug() << "MainWindow::MainWindow: fileManager to be created" << endl;
-    //filemanager = new FileManager(klogDir, softwareVersion, *db);
-
-    //qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
-    locator = new Locator();
-        //qDebug() << "MainWindow::MainWindow: awards to be created" << endl;
-
-
-    //qDebug() << "MainWindow::MainWindow: awards already created" << endl;
-    mainWidget = new QWidget(this);
-    setCentralWidget(mainWidget);
-    //qDebug() << "MainWindow::MainWindow: 8" << endl;
-    dateTime = new QDateTime();
-    dateTimeTemp = new QDateTime();
-
-
-
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
-    timer->start(1000);
-    timerInfoBars = new QTimer(this);
-    connect(timerInfoBars, SIGNAL(timeout()), this, SLOT(slotTimeOutInfoBars()) );
-
-    previousQrz = "";
-    qrzLineEdit = new QLineEdit;
-
-    nameLineEdit = new QLineEdit;
-    qthLineEdit = new QLineEdit;
-    locatorLineEdit = new QLineEdit;
-    rstTXLineEdit = new QLineEdit;
-    rstRXLineEdit = new QLineEdit;
-    STXLineEdit = new QLineEdit;
-    SRXLineEdit = new QLineEdit;
-    bandComboBox = new QComboBox;
-    modeComboBox = new QComboBox;
-
-    dateEdit = new QDateEdit;
-    timeEdit = new QTimeEdit;
-
-    OKButton = new QPushButton(tr("&Add"), this);
-    //spotItButton = new QPushButton(tr("&Spot"), this);
-    //spotItButton->setEnabled(false);
-    clearButton = new QPushButton(tr("&Clear"), this);
-
-    // UI DX
-    infoLabel1 = new QLabel(tr("Status bar..."));
-    infoLabel2 = new QLabel(tr("DX Entity"));
-    loggWinAct = new QAction(tr("&Log Window"), this);
-
-    operatorLineEdit = new QLineEdit;
-    stationCallSignLineEdit = new QLineEdit;
-    txFreqSpinBox = new QDoubleSpinBox;
-    rxFreqSpinBox = new QDoubleSpinBox;
-    rxPowerSpinBox = new QDoubleSpinBox;
-
-     //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
-    dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
-   //qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
-    awards = new Awards(dataProxy, Q_FUNC_INFO);
-
-    //qDebug() << "MainWindow::MainWindow: Awards created" << endl;
-    // </UI>
-
-//**************************************************
-
-    //createDXClusterUI();
-
-
-    //qDebug() << "MainWindow::MainWindow:  readconfigdata" << endl;
-
-    //qDebug() << "MainWindow::MainWindow:  after readconfigdata" << endl;
-
-    if (needToEnd)
-    {
-       //QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-      //db->compress();
-      //qDebug() << "MainWindow::MainWindow: 12.5" << endl;
-       exit(0);
-    }
-
-    //qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
-
-    logWindow->createlogPanel(currentLog);
-
-     //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
-    softUpdate = new SoftwareUpdate(softwareVersion);
-    filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
-    createUI();
-
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-
-    //qDebug() << "MainWindow::MainWindow: END" << endl;
-}
-
-void MainWindow::init()
-{
     callingUpdate = false; // to control whether the update is mannually launched or at the begining
-
+    previousQrz = "";
+    setModifying(false);
     selectedYear = (dateTime->currentDateTime()).date().year();
     loggWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
     dateEdit->setDisplayFormat("dd/MM/yyyy");
@@ -435,8 +351,23 @@ void MainWindow::init()
     dateEdit->setDate((dateTime->currentDateTime()).date());
     timeEdit->setTime((dateTime->currentDateTime()).time());
 
+    clublogAnswer = -1;
+
+    defaultColor.setNamedColor("slategrey");
+    neededColor.setNamedColor("yellow");
+    workedColor.setNamedColor("blue");
+    confirmedColor.setNamedColor("red");
+    newOneColor.setNamedColor("green");
+
+    bool existingData = QFile::exists(util->getKLogDBFile());
+    if (!existingData)
+    {
+        world->create(ctyDatFile);
+    }
+
     readConfigData();
 
+    logWindow->createlogPanel(currentLog);
     awards->setManageModes(manageMode);
 
     if (dataProxy->getNumberOfManagedLogs()<1)
@@ -469,10 +400,18 @@ void MainWindow::init()
     currentBand = currentBandShown;
     currentMode = currentModeShown;
 
-    slotClearButtonClicked();
+
+
     hamlib->readRadio();
 
+
+    timer->start(1000);
+    timerInfoBars = new QTimer(this);
+    createUI();
+    slotClearButtonClicked();
+    infoWidget->showInfo(-1);
     upAndRunning = true;
+    qDebug() << "MainWindow::init: END" << endl;
 }
 
 
@@ -530,6 +469,8 @@ void MainWindow::createActionsCommon(){
     connect(logWindow, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
     connect(logWindow, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
     connect(logWindow, SIGNAL(updateSearchText()), this, SLOT(slotSearchBoxTextChanged() ) ); //When a QSO is deleted
+    connect(logWindow, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+
 
     //CLUSTER
     //void clusterSpotToLog(const QStringList _qs);
@@ -543,7 +484,7 @@ void MainWindow::createActionsCommon(){
     // SATELLITE TAB
     //connect (satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
     //connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
-
+    connect(world, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
 
     // QSL TAB
     connect(QSLTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
@@ -554,9 +495,13 @@ void MainWindow::createActionsCommon(){
     connect(searchWidget, SIGNAL(toStatusBar(QString) ), this, SLOT(slotUpdateStatusBar(QString) ) );
     connect(searchWidget, SIGNAL(requestBeingShown() ), this, SLOT(slotShowSearchWidget() ) );
     connect(searchWidget, SIGNAL(actionQSODelete( int ) ), this, SLOT(slotQSODelete(int) ) );
+    connect(searchWidget, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
 
     connect(awards, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     connect(awards, SIGNAL(awardDXCCUpdated()), this, SLOT(slotRefreshDXCCWidget()) );
+    connect(awardsWidget, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
+    connect(awardsWidget, SIGNAL(requireCurrentLogSignal()), this, SLOT(slotAwardsWidgetSetLog()) );
+    connect(awardsWidget, SIGNAL(requireCurrentYearSignal()), this, SLOT(slotAwardsWidgetSetYear()) );
 
     //DXCCWIDGET TAB
     //connect(dxccStatusWidget, SIGNAL(showQso(int)), this, SLOT(slotShowQSOFromDXCCWidget(int) ) );
@@ -594,6 +539,11 @@ void MainWindow::createActionsCommon(){
    connect(satTabWidget, SIGNAL(satTXFreqNeeded(double)), this, SLOT(slotSatTXFreqNeeded(double)));
    connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotSatRXFreqNeeded(double)));
    connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
+
+   connect(downloadcty, SIGNAL(done()), this, SLOT(slotWorldReload()) );
+
+   connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
+   connect(timerInfoBars, SIGNAL(timeout()), this, SLOT(slotTimeOutInfoBars()) );
 
    connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
    connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
@@ -696,7 +646,7 @@ void MainWindow::slotWorldMapShow()
 void MainWindow::createUI()
 {
 
-     //qDebug() << "MainWindow::createUI" << endl;
+    qDebug() << "MainWindow::createUI" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     createStatusBar();
     setWindowTitle(tr("KLog"));
@@ -707,7 +657,7 @@ void MainWindow::createUI()
 
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-     //qDebug() << "MainWindow::createUI" << endl;
+    qDebug() << "MainWindow::createUI" << endl;
 }
 
 void MainWindow::slotTimeOutInfoBars()
@@ -3007,10 +2957,8 @@ void MainWindow::slotQRZTextChanged()
         dxLocator = world->getLocator(currentEntity);
     }
 
-   // NOW ONLY SPECIFIC ACTIONS DEPENDING ON THE RUNNING MODE
     //qDebug() << "MainWindow::slotQRZTextChanged: Going to check the DXCC" << endl;
-    if (contestMode == "DX")
-    {
+
             //qDebug() << "MainWindow::slotQRZTextChanged: DX:" << endl;
             //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
         if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
@@ -3036,58 +2984,7 @@ void MainWindow::slotQRZTextChanged()
         {
                     //qDebug() << "MainWindow::slotQRZTextChanged: Default: else" << endl;
         }
-    }
-    else if (contestMode == "CQ-WW-SSB")
-    {
-            //qDebug() << "MainWindow::slotQRZTextChanged: CQ-WW-SSB:" << endl;
 
-        STXLineEdit->setText(QString::number(my_CQz));  // My Own CQZ
-        if (dx_CQz > 0)
-        {
-            //if(QString::number(world->getQRZCqz(qrzLineEdit->text())) > 0 ){
-            SRXLineEdit->setText(QString::number(dx_CQz));
-        }else{
-                //qDebug() << "MainWindow::checkContest  CQZ < 0"<< endl;
-        }
-        if (currentEntity>0){
-            slotUpdateStatusBar(world->getEntityName(currentEntity) + "  -  CQ: " + QString::number(dx_CQz) + "  -  ITU: " + QString::number(dx_ITUz));
-        }
-        else
-        {
-            slotUpdateStatusBar(tr("Ready..."));
-        }
-        checkIfWorkedB4(currentQrz); // Has the QSO id if worked before
-        checkContest();
-
-    }
-    else
-    {
-           //qDebug() << "MainWindow::slotQRZTextChanged: Default:" << endl;
-            //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
-        if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
-        {
-            //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << endl;
-            previousEntity = currentEntity;
-            InValidCharsInPrevCall = false;
-            infoLabel2->setText(world->getEntityName(currentEntity));
-            infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
-            infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
-            //qDebug() << "MainWindow:: - calling showStatusOfDXCC-04" << endl;
-            showStatusOfDXCC(_qs);
-            showDXMarathonNeeded(currentEntity, dx_CQz, dateEdit->date().year(), currentLog);
-            othersTabWidget->setIOTAContinentFromEntity(currentEntity);
-
-        }
-        else if ((dx_CQz == dxE_CQz) || (dx_ITUz = dxE_ITUz))
-        {
-            infoLabel2->setText(world->getEntityName(currentEntity));
-            infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
-        }
-        else
-        {
-                    //qDebug() << "MainWindow::slotQRZTextChanged: Default: else" << endl;
-        }
-    }
 
 
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
@@ -3331,35 +3228,8 @@ void MainWindow::slotClearButtonClicked()
     clublogAnswer = -1;
     clublogPrevQSO.clear();
     //qDebug() << "MainWindow::slotClearButtonClicked: - 11"  << endl;
-    if (contestMode == "DX")
-    {
-        //qDebug() << "MainWindow::slotClearButtonClicked: - 12"  << endl;
-        clearUIDX(true);
-        //qDebug() << "MainWindow::slotClearButtonClicked: - 13"  << endl;
 
-    }
-    else if (contestMode == "CQ-WW-SSB")
-    {
-        //qDebug() << "MainWindow::slotClearButtonClicked: - 20"  << endl;
-        SRXLineEdit->clear();
-        STXLineEdit->setText( QString::number( world->getQRZCqz(stationQRZ) ) );
-
-        qrzgroupBox->setTitle(tr("QRZ"));
-    }
-    else if (contestMode == "CQ-WW-CW")
-    {
-        //qDebug() << "MainWindow::slotClearButtonClicked: - 30"  << endl;
-        SRXLineEdit->clear();
-        STXLineEdit->setText( QString::number( world->getQRZCqz(stationQRZ) ) );
-        qrzgroupBox->setTitle(tr("QRZ"));
-    }
-    else
-    {
-        //qDebug() << "MainWindow::slotClearButtonClicked: - 40"  << endl;
-        clearUIDX(true);
-        //qDebug() << "MainWindow::slotClearButtonClicked: - 41"  << endl;
-    }
-
+    clearUIDX(true);
     statusBar()->clearMessage();
     cleaning = false;
         //qDebug() << "MainWindow::slotClearButtonClicked: " << modeComboBox->currentText() << endl;
@@ -3396,23 +3266,6 @@ void MainWindow::clearUIDX(bool full)
 
 }
 
-/*
-void MainWindow::clearBandLabels()
-{
-    bandLabel1->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
-    bandLabel2->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
-    bandLabel3->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
-    bandLabel4->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
-    bandLabel5->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
-    bandLabel6->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
-    bandLabel7->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
-    bandLabel8->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
-    bandLabel9->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
-    bandLabel10->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
-    bandLabel11->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
-    bandLabel12->setStyleSheet("* { background-color: " + defaultColor.name() + "; }");
-}
-*/
 
 void MainWindow::slotRefreshDXCCWidget()
 {
@@ -3470,7 +3323,7 @@ bool MainWindow::maybeSave()
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     QString str = tr("The logfile has been modified.") + "\n" + tr("Do you want to save your changes?");
 
-    if ((alwaysADIF) || (DBinMemory) )
+    if (alwaysADIF)
     {
         if (needToSave)
         {
@@ -4578,12 +4431,6 @@ bool MainWindow::processConfigLine(const QString &_line){
     }else if (field=="REALTIME"){
             //qDebug() << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
         realTime = util->trueOrFalse(value);
-    }
-    else if (field=="INMEMORY")
-    {
-        //qDebug() << "MainWindow::processConfigLine: INMEMORY: " << value.toUpper() << endl;
-         DBinMemory = util->trueOrFalse(value);
-
     }
     else if (field =="DXCLUSTERSERVERTOUSE"){
         aux = value;  //dxfun.com:8000
