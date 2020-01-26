@@ -400,17 +400,15 @@ void MainWindow::init()
     currentBand = currentBandShown;
     currentMode = currentModeShown;
 
-
-
-    hamlib->readRadio();
-
-
     timer->start(1000);
     timerInfoBars = new QTimer(this);
     createUI();
+
     slotClearButtonClicked();
+
     infoWidget->showInfo(-1);
     upAndRunning = true;
+    hamlib->readRadio();
     qDebug() << "MainWindow::init: END" << endl;
 }
 
@@ -657,7 +655,7 @@ void MainWindow::createUI()
 
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-    qDebug() << "MainWindow::createUI" << endl;
+    qDebug() << "MainWindow::createUI-END" << endl;
 }
 
 void MainWindow::slotTimeOutInfoBars()
