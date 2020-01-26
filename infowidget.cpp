@@ -366,7 +366,6 @@ void InfoWidget::showInfo(const int _entity)
     bandLabel10->setStyleSheet(getStyleColorToLabelFromBand(bandLabel10->text(), QString::number(_entity)));
     bandLabel11->setStyleSheet(getStyleColorToLabelFromBand(bandLabel11->text(), QString::number(_entity)));
     bandLabel12->setStyleSheet(getStyleColorToLabelFromBand(bandLabel12->text(), QString::number(_entity)));
-
 }
 
 void InfoWidget::showEntityInfo(const int _enti, int _cq, int _itu)
@@ -399,17 +398,6 @@ void InfoWidget::showEntityInfo(const int _enti, int _cq, int _itu)
     //infoLabel2->setText(world->getEntityName(_enti));
     continentLabel->setText( world->getContinentShortName(_enti) );
     prefixLabel->setText( world->getEntityMainPrefix(_enti));
-
-    //if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) )
-    //{
-    //    dxLocator = (locatorLineEdit->text()).toUpper();
-    //}
-    //else
-    //{
-    //    dxLocator = world->getLocator(_enti);
-    //}
-
-    //showDistanceAndBearing (myLocator, dxLocator);
 
     int i = -1;
 

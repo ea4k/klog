@@ -643,7 +643,6 @@ private:
     DataProxy_SQLite *dataProxy;
 
     DataBase *db;
-    bool DBinMemory;
 
     QTextDocument *doc;
 

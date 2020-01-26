@@ -285,35 +285,6 @@ void SetupPageMisc::slotOpenFileButtonClicked()
  }
 
 
-/*
-QString SetupPageMisc::getInMemory()
-{
-    if (dbInMemory->isChecked())
-    {
-        return "True";
-    }
-    else
-    {
-        return "False";
-    }
-
-}
-
-
-void SetupPageMisc::setInMemory(const QString t)
-{
-
-    if ( (t.toUpper()) == "FALSE")
-    {
-        dbInMemory->setChecked(false);
-    }
-    else
-    {
-        dbInMemory->setChecked(true);
-    }
-}
-*/
-
 QString SetupPageMisc::getUseDefaultName()
 {
     if (useDefaultName->isChecked())
