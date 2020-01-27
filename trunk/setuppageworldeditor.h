@@ -57,7 +57,7 @@ private slots:
     void slotAddButtonClicked();
     void slotDelButtonClicked();
     void slotEditButtonClicked();
-    void slotDoubleClickEntity( const QModelIndex & index);
+    //void slotDoubleClickEntity( const QModelIndex & index);
     void slotAnalyzeEntityAddedSignal(const QStringList _qs);
 
     void slotImportWorldButtonClicked();

@@ -77,7 +77,7 @@ private:
     void createActions();
     //bool addNewSat(const QStringList _qs);
     void updateSelectedSats();
-    void readSelectedSat(const int _i);
+    //void readSelectedSat(const int _i);
     void showError(const QString _errorC);
 
 

@@ -42,11 +42,11 @@ macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
 HEADERS += setupdialog.h \
     aboutdialog.h \
     awardswidget.h \
+    logviewsortfilterproxymodel.h \
     mainwindow.h \
     world.h \
     logwindow.h \
     filemanager.h \
-    contest.h \
     database.h \
     setuppagemisc.h \
     locator.h \
@@ -55,7 +55,6 @@ HEADERS += setupdialog.h \
     setuppageuserdata.h \
     setuppagedxcluster.h \
     setuppagecolors.h \   
-    contest_cqwwdxssb.h \ 
     setuppagelogs.h \
     setuppageworldeditor.h \
     setupentitydialog.h \   
@@ -111,13 +110,12 @@ message(Sources)
 SOURCES += main.cpp \
     aboutdialog.cpp \
     awardswidget.cpp \
+    logviewsortfilterproxymodel.cpp \
     mainwindow.cpp \
     setupdialog.cpp \
     world.cpp \
     logwindow.cpp \
     filemanager.cpp \
-    contest.cpp \
-    contest_cqwwdxssb.cpp \
     database.cpp \
     dataproxy_sqlite.cpp \
     downloadcty.cpp \

@@ -175,15 +175,10 @@ void SetupPageLogs::slotEditButtonClicked()
         {//id/logdate/stationcall/comment/logtype/logtypeid
              //qDebug() << "SetupPageLogs::slotEditButtonClicked Query Valid" << endl;
 
-
-
             //nameCol = rec.indexOf("stationcall");
             //newLog->setStationCallSign((query.value(nameCol)).toString());
             //nameCol = rec.indexOf("operators");
             //newLog->setOperators((query.value(nameCol)).toString());
-
-
-
 
             //nameCol = rec.indexOf("comment");
             //newLog->setComment((query.value(nameCol)).toString());
@@ -197,7 +192,6 @@ void SetupPageLogs::slotEditButtonClicked()
 
             newLog->exec();
         }
-
     }
     else
     {
@@ -206,10 +200,12 @@ void SetupPageLogs::slotEditButtonClicked()
     */
 }
 
+/*
 void SetupPageLogs::slotLogsCancelled(const bool _q)
 {
     selectedLog = -1;
 }
+*/
 
 void SetupPageLogs::slotRemoveButtonClicked()
 {
@@ -625,25 +621,13 @@ void SetupPageLogs::setSelectedLog(const int _i)
     }
 }
 
-
+/*
 void SetupPageLogs::readSelectedLog(const int _i)
 {
 
-    /*
-stationCallsign = _qs.at(0);
-operators = _qs.at(1);
-comment = _qs.at(2);
-dateString = _qs.at(3);
-typeContest  = _qs.at(4);
-contestCatMode  = (_qs.at(5)).toInt();
-contestCatOperators  = (_qs.at(6)).toInt();
-contestCatAssisted  = (_qs.at(7)).toInt();
-contestCatPower  = (_qs.at(8)).toInt();
-contestCatBands  = (_qs.at(9)).toInt();
-contestBands  = (_qs.at(10)).toInt();
-*/
-}
 
+}
+*/
 void SetupPageLogs::showError(const QString _errorC)
 {
     QString text = QString(tr("An error has occurred showing the following error code:") + "\n'%1'").arg(_errorC);

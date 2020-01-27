@@ -1,6 +1,8 @@
 TBD - 0.9.9
 - UI: Created a widget to manage the Awards to make KLog more modular.
 - UI: When starting a new version for the first time, the splashscreen is not hidding other messages anymore.
+- UI: Removed some not used File menus (New, Open, Save & Save As).
+- UI: Sorting by date the log is also sorting taking into account the time.
 - New versions are now found depending on the OS, not just for the sources.
 - New feature: Added some tips in the Help menu to help the users to get the most of KLog.
 - Hamlib has now a read-only mode that will read freq & mode from the radio but will never modify/update anything in the radio.

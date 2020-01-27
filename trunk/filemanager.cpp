@@ -228,9 +228,8 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
                  switch (ret) {
                    case QMessageBox::Ok:
                        // Ok was clicked
-                         return -3;
-                       break;
-                   default:
+                       return -3;
+                       default:
                          // should never be reached
                        break;
                  }
@@ -5171,7 +5170,7 @@ void FileManager::setVersion(const QString _version)
 }
 
 
-QStringList FileManager::readAdifField (const QString _field)
+QStringList FileManager::readAdifField(const QString _field)
 {
     // This function receives a QString with an ADIF field and returns a QString with the following format:
     // ADIF-tag, value

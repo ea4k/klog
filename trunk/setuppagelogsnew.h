@@ -52,14 +52,14 @@ public:
     void setDateString(const QString _st);
     void setTypeN(const int _n);
 
-    void setType(const QString _st);
-    void setCMode(const int _n);
-    void setCOperators(const int _n);
-    void setCAssisted(const int _n);
-    void setCPower(const int _n);
-    void setCBands(const int _n);
-    void setBands(const int _n);
-    void setCOverlay(const int _n);
+    //void setType(const QString _st);
+    //void setCMode(const int _n);
+    //void setCOperators(const int _n);
+    //void setCAssisted(const int _n);
+    //void setCPower(const int _n);
+    //void setCBands(const int _n);
+    //void setBands(const int _n);
+    //void setCOverlay(const int _n);
 
 
 
@@ -88,7 +88,7 @@ private:
     //bool isThereAnyNotManagedLog();
     void createWidget();
     void gatherAndSend();
-    QStringList getValidCatOptions(const int _currentCat, const int _higherCat);
+    //QStringList getValidCatOptions(const int _currentCat, const int _higherCat);
     int getSelectedTypeContest();
     void fillWithType(const int _n);
     void updateAllCats();

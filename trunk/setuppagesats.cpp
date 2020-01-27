@@ -506,10 +506,10 @@ QStringList SetupPageSats::readSats()
      }
 
 
-     _sats.clear();
+     //_sats.clear();
       //qDebug() << "SetupPageSats::readSats: " << QString::number(_sats.size())<< endl;
 
-     return _sats;
+     //return _sats;
 }
 
 int SetupPageSats::getSelectedSat()
@@ -529,7 +529,7 @@ int SetupPageSats::getSelectedSat()
     {
         return 0;
     }
-    return 0;
+    //return 0;
 }
 
 void SetupPageSats::setSelectedSat(const int _i)
@@ -550,23 +550,10 @@ void SetupPageSats::setSelectedSat(const int _i)
     }
 }
 
-void SetupPageSats::readSelectedSat(const int _i)
-{
+//void SetupPageSats::readSelectedSat(const int _i)
+//{
 
-    /*
-stationCallsign = _qs.at(0);
-operators = _qs.at(1);
-comment = _qs.at(2);
-dateString = _qs.at(3);
-typeContest  = _qs.at(4);
-contestCatMode  = (_qs.at(5)).toInt();
-contestCatOperators  = (_qs.at(6)).toInt();
-contestCatAssisted  = (_qs.at(7)).toInt();
-contestCatPower  = (_qs.at(8)).toInt();
-contestCatBands  = (_qs.at(9)).toInt();
-contestBands  = (_qs.at(10)).toInt();
-*/
-}
+//}
 
 void SetupPageSats::showError(const QString _errorC)
 {

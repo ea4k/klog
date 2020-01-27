@@ -220,7 +220,7 @@ public:
     QStringList getClubLogStatusList();
     QStringList getQSLViaList();
 
-    QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
+    //QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
     bool fillEmptyDXCCInTheLog();
 

@@ -40,7 +40,9 @@
 #include "awards.h"
 //#include "dxccstatuswidget.h"
 #include "elogclublog.h"
+#include "logviewsortfilterproxymodel.h"
 
+class  LogViewSortFilterProxyModel;
 
 class LogWindow : public  QWidget
 {
@@ -116,6 +118,8 @@ private:
     QAction *qslRecViaDirectFromLogAct;
 
     int currentLog;
+
+   LogViewSortFilterProxyModel *proxyModel;
 };
 
 

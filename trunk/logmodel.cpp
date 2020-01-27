@@ -38,19 +38,21 @@ This should be coherent with the logview
 
     //qDebug() << "LogModel::createlogModel: log: " << QString::number(_i) << endl;
 
-   QString contestMode = dataProxy->getLogTypeOfUserLog(_i);
+   //QString contestMode = dataProxy->getLogTypeOfUserLog(_i);
     //qDebug() << "LogModel::createlogModel - contestMode: " << contestMode << endl;
 
    QString stringQuery = QString("lognumber='%1'").arg(_i);
    QSqlQuery query(stringQuery);
    setFilter(stringQuery);
+    setColumnsToDX();
 
+    /*
 
    //if (contestMode.compare("DX"))
     if (contestMode == "DX")
    {
         //qDebug() << "LogModel::createlogModel: found type DX" << endl;
-       setColumnsToDX();
+
    }
    else if (contestMode == "CQ-WW-SSB")
    {
@@ -62,7 +64,7 @@ This should be coherent with the logview
        // Maybe the way should be to move ALL the actions from DX here.
         //qDebug() << "LogModel::createlogModel: log type NOT found" << endl;
    }
-
+    */
 
     select();
 
