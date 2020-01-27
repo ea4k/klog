@@ -1,4 +1,4 @@
-TBD - 0.9.9
+January 2020 - 0.9.9
 - UI: Created a widget to manage the Awards to make KLog more modular.
 - UI: When starting a new version for the first time, the splashscreen is not hidding other messages anymore.
 - UI: Removed some not used File menus (New, Open, Save & Save As).
