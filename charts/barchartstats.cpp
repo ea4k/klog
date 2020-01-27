@@ -73,7 +73,7 @@ void BarChartStats::cleanLayout()
 {
 
     QLayoutItem *child;
-    while ((child = mLayout->takeAt(0)) != 0) {
+    while ((child = mLayout->takeAt(0)) != nullptr) {
         delete child;
     }
 

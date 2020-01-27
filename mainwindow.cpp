@@ -38,7 +38,7 @@
 
 MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
-    qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
+    //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
     //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
     logSeverity = 7;
     klogDir = _klogDir;
@@ -70,13 +70,13 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     //QTime start;
     //start = QTime::currentTime();
-    qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
+    //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
-    qDebug() << "MainWindow::MainWindow: BEFORE HAMLIB " << endl;
+    //qDebug() << "MainWindow::MainWindow: BEFORE HAMLIB " << endl;
     hamlib = new HamLibClass();
-    qDebug() << "MainWindow::MainWindow: AFTER HAMLIB " << endl;
+    //qDebug() << "MainWindow::MainWindow: AFTER HAMLIB " << endl;
 
 
     softwareVersion = tversion;
@@ -84,7 +84,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     dataProxy = new DataProxy_SQLite(softwareVersion, Q_FUNC_INFO);
     doc = new QTextDocument;
 
-    qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << endl;
+    //qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << endl;
     dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
     //qDebug() << "MainWindow::MainWindow: After DXCCStatusWidget " << endl;
     //qDebug() << "MainWindow::MainWindow: 00081" << endl;
@@ -100,9 +100,9 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
 
 
-    qDebug() << "MainWindow::MainWindow: 00086" << endl;
+    //qDebug() << "MainWindow::MainWindow: 00086" << endl;
     logWindow = new LogWindow(dataProxy, this);
-    qDebug() << "MainWindow::MainWindow: 00087" << endl;
+    //qDebug() << "MainWindow::MainWindow: 00087" << endl;
 
 
     searchWidget = new SearchWidget (dataProxy, this);
@@ -112,7 +112,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     logEvent(Q_FUNC_INFO, "Creating AwardsWidget", 7);
     awardsWidget = new AwardsWidget(dataProxy, this);
 
-    qDebug() << "MainWindow::MainWindow: 0009" << endl;
+    //qDebug() << "MainWindow::MainWindow: 0009" << endl;
 
     aboutDialog = new AboutDialog(softwareVersion);
     tipsDialog = new TipsDialog();
@@ -133,14 +133,14 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
         }
     }
 
-     qDebug() << "MainWindow::MainWindow: 4" << endl;
+     //qDebug() << "MainWindow::MainWindow: 4" << endl;
     world = new World(dataProxy, klogDir, softwareVersion, Q_FUNC_INFO);
 
-     qDebug() << "MainWindow::MainWindow: xx" << endl;
+     //qDebug() << "MainWindow::MainWindow: xx" << endl;
 
 
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured);    
-    qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab(dataProxy);
 
     myDataTabWidget = new MainWindowMyDataTab();
@@ -153,7 +153,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     mainWidget = new QWidget(this);
     setCentralWidget(mainWidget);
-    qDebug() << "MainWindow::MainWindow: 8" << endl;
+    //qDebug() << "MainWindow::MainWindow: 8" << endl;
 
     dateTime = new QDateTime();
     dateTimeTemp = new QDateTime();
@@ -189,11 +189,11 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     rxFreqSpinBox = new QDoubleSpinBox;
     rxPowerSpinBox = new QDoubleSpinBox;
 
-    qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
     dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
-    qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
-    qDebug() << "MainWindow::MainWindow: Awards created" << endl;
+    //qDebug() << "MainWindow::MainWindow: Awards created" << endl;
     // </UI>
 
 
@@ -205,7 +205,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
        exit(0);
     }
 
-    qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
 
 
 
@@ -216,12 +216,12 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
-    qDebug() << "MainWindow::MainWindow: END" << endl;
+    //qDebug() << "MainWindow::MainWindow: END" << endl;
 }
 
 void MainWindow::init()
 {
-     qDebug() << "MainWindow::init: START" << endl;
+     //qDebug() << "MainWindow::init: START" << endl;
     logEvents = true;
     debugFileOpen = false;
 
@@ -278,10 +278,10 @@ void MainWindow::init()
     currentBand = 1;
     currentBandShown = currentBand;
     currentLog = 1;
-    points = 0;
-    multipliers = 0;
-    qsoPoints = 0;
-    qsoMultiplier = 0;
+    //points = 0;
+    //multipliers = 0;
+    //qsoPoints = 0;
+    //qsoMultiplier = 0;
     operatorQRZ = "";
     stationQRZ = "";
     mainQRZ = "";
@@ -409,7 +409,7 @@ void MainWindow::init()
     infoWidget->showInfo(-1);
     upAndRunning = true;
     hamlib->readRadio();
-    qDebug() << "MainWindow::init: END" << endl;
+    //qDebug() << "MainWindow::init: END" << endl;
 }
 
 
@@ -644,7 +644,7 @@ void MainWindow::slotWorldMapShow()
 void MainWindow::createUI()
 {
 
-    qDebug() << "MainWindow::createUI" << endl;
+    //qDebug() << "MainWindow::createUI" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     createStatusBar();
     setWindowTitle(tr("KLog"));
@@ -655,7 +655,7 @@ void MainWindow::createUI()
 
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-    qDebug() << "MainWindow::createUI-END" << endl;
+    //qDebug() << "MainWindow::createUI-END" << endl;
 }
 
 void MainWindow::slotTimeOutInfoBars()
@@ -704,7 +704,7 @@ void MainWindow::slotModeComboBoxChanged()
        //qDebug() << "MainWindow::MainWindow: 8.2 - currentModeShown: " << QString::number(currentModeShown) << endl;
        //qDebug() << "MainWindow::MainWindow: 8.3 - currentBandShown: " << QString::number(currentBandShown) << endl;
 
-    checkIfWorkedB4(currentQrz);
+    //checkIfWorkedB4(currentQrz);
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
@@ -713,27 +713,36 @@ void MainWindow::slotModeComboBoxChanged()
     showStatusOfDXCC(_qs);
     setRSTToMode(modeComboBox->currentText());
 
+    QString _modeSeen = modeComboBox->currentText();
+    if (_modeSeen == "SSB")
+    {
+        setModeFromFreq();
+    }
+
+
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+    //qDebug() << "MainWindow::slotModeComboBoxChanged2: " << modeComboBox->currentText() << endl;
+}
+
+void MainWindow::setModeFromFreq()
+{
+    //TODO: define frequency ranges for the different modes
     if (hamlibActive)
-    {        
-        QString _modeSeen = modeComboBox->currentText();
-        if (_modeSeen == "SSB")
+    {
+        if (txFreqSpinBox->value() >= dataProxy->getLowLimitBandFromBandName("20M"))
         {
-            if (txFreqSpinBox->value() >= dataProxy->getLowLimitBandFromBandName("20M"))
-            {
-                hamlib->setMode("USB");
-            }
-            else
-            {
-                hamlib->setMode("LSB");
-            }
+            hamlib->setMode("USB");
         }
+        else
+        {
+            hamlib->setMode("LSB");
+        }
+
         if (!hamlibChangingMode)
         {
             hamlib->setMode(modeComboBox->currentText());
         }
     }
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-    //qDebug() << "MainWindow::slotModeComboBoxChanged2: " << modeComboBox->currentText() << endl;
 }
 
 void MainWindow::slotBandComboBoxChanged(){
@@ -798,7 +807,7 @@ void MainWindow::slotBandComboBoxChanged(){
      //qDebug() << "MainWindow::MainWindow: Freq2: " << QString::number(txFreqSpinBox->value()) << endl;
 
        //currentModeShown = modeComboBox->currentIndex();
-    checkIfWorkedB4(currentQrz);
+    //checkIfWorkedB4(currentQrz);
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
@@ -929,10 +938,11 @@ void MainWindow::actionsJustAfterAddingOneQSO()
            {
                   //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (No ClubLog) Lastid: "<< QString::number(lastId) << endl;
            }
+           awards->setAwards(modifyingQSO);   //Update the DXCC award status
        }
 
        // CHECK WHAT WAS THE QSOID to add the awards, if needed
-       awards->setAwards(modifyingQSO);   //Update the DXCC award status
+
     }
     else
     {
@@ -2706,7 +2716,7 @@ void MainWindow::exitQuestion()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-
+/*
 bool MainWindow::checkContest(){
     //qDebug() << "MainWindow::checkContest: " << contestMode << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -2775,6 +2785,7 @@ bool MainWindow::checkContest(){
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     return false;
 }
+*/
 /*
 void MainWindow::slotQSLViaTextChanged()
 {
@@ -3152,8 +3163,8 @@ void MainWindow::clearForNextQSO()
 
     //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getSubModeFromId(currentMode), Qt::MatchCaseSensitive));
 
-    qsoPoints = 0;
-    qsoMultiplier = 0;
+    //qsoPoints = 0;
+    //qsoMultiplier = 0;
     clublogAnswer = -1;
     clublogPrevQSO.clear();
 
@@ -3221,8 +3232,8 @@ void MainWindow::slotClearButtonClicked()
 
     //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromSubModeId(currentMode)));
 
-    qsoPoints = 0;
-    qsoMultiplier = 0;
+    //qsoPoints = 0;
+    //qsoMultiplier = 0;
     clublogAnswer = -1;
     clublogPrevQSO.clear();
     //qDebug() << "MainWindow::slotClearButtonClicked: - 11"  << endl;
@@ -3334,12 +3345,16 @@ bool MainWindow::maybeSave()
                 if (useDefaultLogFileName)
                 {
                     logEvent(Q_FUNC_INFO, "END-1", logSeverity);
-                    return saveFile(defaultADIFLogFile);
+
+                    //return saveFile(defaultADIFLogFile);
+                    return !(filemanager->adifLogExport(defaultADIFLogFile, currentLog));
                 }
                 else
                 {
                     logEvent(Q_FUNC_INFO, "END-2", logSeverity);
-                    return saveFileAs();
+                    slotADIFImport();
+                    return true;
+                    //return saveFileAs();
                 }
             }
 
@@ -3362,15 +3377,14 @@ void MainWindow::createMenusCommon()
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     fileMenu = menuBar()->addMenu(tr("&File"));
 
-    openAct = new QAction(tr("&New..."), this);
-    fileMenu->addAction(openAct);
-    //openAct->setShortcut(Qt::CTRL + Qt::Key_N);
-    connect(openAct, SIGNAL(triggered()), this, SLOT(newFile()));
+    //openAct = new QAction(tr("&New..."), this);
+    //fileMenu->addAction(openAct);
+    //connect(openAct, SIGNAL(triggered()), this, SLOT(newFile()));
 
-    openAct = new QAction(tr("&Open..."), this);
-    fileMenu->addAction(openAct);
-    openAct->setShortcut(Qt::CTRL + Qt::Key_O);
-    connect(openAct, SIGNAL(triggered()), this, SLOT(openFile()));
+    //openAct = new QAction(tr("&Open..."), this);
+    //fileMenu->addAction(openAct);
+    //openAct->setShortcut(Qt::CTRL + Qt::Key_O);
+    //connect(openAct, SIGNAL(triggered()), this, SLOT(openFile()));
 
     ADIFImport = new QAction(tr("&Import from ADIF..."), this);
     fileMenu->addAction(ADIFImport);
@@ -3383,11 +3397,12 @@ void MainWindow::createMenusCommon()
     //LoTWImport->setToolTip(tr("Import an LoTW file into the current log"));
 
     fileMenu->addSeparator();
-
+    /*
     saveAct = new QAction(tr("&Save As..."), this);
     fileMenu->addAction(saveAct);
     saveAct->setShortcut(Qt::CTRL + Qt::Key_S);
     connect(saveAct, SIGNAL(triggered()), this, SLOT(saveFileAs()));
+    */
 
     fileMenu->addSeparator();
 
@@ -3926,10 +3941,10 @@ void MainWindow::openSetup(const int _page)
              //qDebug() << "MainWindow::slotSetup - Just before readConfigData"  << endl;
             logEvent(Q_FUNC_INFO, "Just before readConfigData", logSeverity);
             readConfigData();
-            if (contestMode == "DX")
-            {
-                reconfigureDXMarathonUI(manageDxMarathon);
-            }
+            reconfigureDXMarathonUI(manageDxMarathon);
+            //if (contestMode == "DX")
+            //{
+            //}
             logEvent(Q_FUNC_INFO, "Just after readConfigData", logSeverity);
              //qDebug() << "MainWindow::slotSetup - Just after readConfigData"  << endl;
         }
@@ -3952,7 +3967,7 @@ void MainWindow::openSetup(const int _page)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-
+/*
 void MainWindow::openFile()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -3970,7 +3985,9 @@ void MainWindow::openFile()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 }
+*/
 
+/*
 bool MainWindow::saveFile(const QString &_fileName)
 {
       //qDebug() << "MainWindow::saveFile: " << _fileName  << endl;
@@ -4017,14 +4034,6 @@ bool MainWindow::saveFileAs()
             << "Cabrillo files (*.log)"
             << "Any files (*)";
 
-//    dialog.setNameFilters(filters);
-
-/*
- QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
-                            "/home/jana/untitled.png",
-                            tr("Images (*.png *.xpm *.jpg)"));
-*/
-
    // klogDir+"/"+defaultADIFLogFile,
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
                                                    util->getHomeDir(),
@@ -4059,8 +4068,8 @@ bool MainWindow::saveFileAs()
     //return false;
 
 }
-
-
+*/
+/*
 void MainWindow::newFile()
 {
          //qDebug() << "MainWindow::newFile"  << endl;
@@ -4076,31 +4085,18 @@ void MainWindow::newFile()
         return;
     }
 
-    points = 0;
-    multipliers = 0;
-    qsoPoints = 0;
-    qsoMultiplier = 0;
+    //points = 0;
+    //multipliers = 0;
+    //qsoPoints = 0;
+    //qsoMultiplier = 0;
     logWindow->refresh();
     slotClearButtonClicked();
     searchWidget->clear();
     //searchResultsTreeWidget->clear();
 
-
-/*
-    if (dataProxy->clearLog())
-    {
-
-
-
-    }
-    else
-    {
-        //TODO: An error to create a new file has ocurred. Manage it!
-    }
-*/
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-
 }
+*/
 
 bool MainWindow::slotOpenKLogFolder()
 {
@@ -4187,6 +4183,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
+/*
 void MainWindow::checkIfWorkedB4(const QString &_qrz)
 {
         //qDebug() << "MainWindow::checkIfWorkedB4: " << _qrz << endl;
@@ -4211,9 +4208,11 @@ void MainWindow::checkIfWorkedB4(const QString &_qrz)
     }
     else
     {}
+
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 }
+*/
 
 
 
@@ -5621,7 +5620,8 @@ void MainWindow::slotRQSLExport()
 }
 
 
-void MainWindow::slotCabrilloExport()
+/*
+ * void MainWindow::slotCabrilloExport()
 {
         //qDebug() << "MainWindow::slotCabrilloExport " << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -5630,10 +5630,10 @@ void MainWindow::slotCabrilloExport()
                                "Cabrillo (*.log)");
 
 
-    contest->saveFileToSend(fileName);
+    //contest->saveFileToSend(fileName);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-
 }
+*/
 void MainWindow::slotLoTWImport(){
         //qDebug() << "MainWindow::slotLoTWImport " << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -6834,7 +6834,6 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
         else if ((ql.at(2)) == "selected")
         {
             infoLabel2->setText(world->getEntityName(_entity));            
-
             infoWidget->showEntityInfo( _entity );
 
             // Becareful, he Frecuency arrives in KHz instead of bandid!!
@@ -6910,6 +6909,10 @@ void MainWindow::clusterSpotToLog(const QString &_call, const QString &_freq)
     {
         bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand), Qt::MatchCaseSensitive));
         //bandComboBox->setCurrentIndex(defaultBand);
+    }
+    if (hamlibActive)
+    {
+        //hamlib->readRadio();
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 

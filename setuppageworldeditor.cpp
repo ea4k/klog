@@ -222,7 +222,7 @@ void SetupPageWorldEditor::createActions()
 
 
 
-    connect(worldView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickEntity( const QModelIndex& ) ) );
+    //connect(worldView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickEntity( const QModelIndex& ) ) );
 
     //SIGNAL received from the setupEntityDialog
     // void entityAdded(const QStringList _qs); // entity
@@ -259,7 +259,7 @@ bool SetupPageWorldEditor::isWorldEmpty()
     {
        return false;
     }
-    return true;
+    //return true;
 }
 
 void SetupPageWorldEditor::slotAddButtonClicked()
@@ -281,6 +281,7 @@ void SetupPageWorldEditor::slotEditButtonClicked()
     //TODO
 }
 
+/*
 void SetupPageWorldEditor::slotDoubleClickEntity( const QModelIndex & index)
 {
      //qDebug() << "SetupPageWorldEditor::slotDoubleClickEntity" << endl;
@@ -291,6 +292,7 @@ void SetupPageWorldEditor::slotDoubleClickEntity( const QModelIndex & index)
     //int row = index.row();
 
 }
+*/
 
 void SetupPageWorldEditor::slotImportWorldButtonClicked()
 {

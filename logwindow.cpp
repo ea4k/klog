@@ -38,7 +38,8 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
     elogClublog = new eLogClubLog();
 
     currentLog = -1;
-
+    proxyModel = new LogViewSortFilterProxyModel(this);
+    proxyModel->setSourceModel(logModel);
 
     awards = new Awards(dataProxy, Q_FUNC_INFO);
 
@@ -84,11 +85,15 @@ void LogWindow::createlogPanel(const int _currentLog)
     //qDebug() << "LogWindow::createlogPanel: " << QString::number(_currentLog) << endl;
     currentLog = _currentLog;
     logModel->createlogModel(currentLog);
-    logView->setModel(logModel);
-    logView->setCurrentIndex(logModel->index(0, 0));
+    //logView->setModel(logModel);
+    //logView->setCurrentIndex(logModel->index(0, 0));
+
+    logView->setModel(proxyModel);
+    logView->setCurrentIndex(proxyModel->index(0, 0));
 
     QString contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
-
+    setColumnsToDX();
+/*
     if (contestMode == "DX")
     {
          //qDebug() << "LogWindow::createlogPanel: DX"  << endl;
@@ -105,7 +110,7 @@ void LogWindow::createlogPanel(const int _currentLog)
         // Maybe the way should be to move ALL the actions from DX here.
          //qDebug() << "LogWindow::createlogPanel: No log type found!"  << endl;
     }
-
+*/
     logView->setItemDelegate(new QSqlRelationalDelegate(this));
     logView->setSelectionMode( QAbstractItemView::SingleSelection);
     logView->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -156,6 +161,7 @@ void LogWindow::setColumnsToDX()
 void LogWindow::refresh()
 {
      //qDebug() << "LogWindow::refresh"  << endl;
+
     logModel->select();
 }
 
@@ -254,6 +260,7 @@ void LogWindow::slotDoubleClickLog(const QModelIndex & index)
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
 
     //TODO: To be added to the logWindow and create an action that emist the QSO id to be edited
+
     logModel->select();
 }
 

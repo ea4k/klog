@@ -3929,6 +3929,7 @@ QStringList DataProxy_SQLite::getQSLViaList()
      return qs;
 }
 
+/*
 QStringList DataProxy_SQLite::getValidCatOptions(const int _currentCat, const int _lowerCat)
 {
        //qDebug() << "DataProxy_SQLite::getContestNames: " << QString::number(_currentCat) <<"/" << QString::number(_lowerCat) << endl;
@@ -3991,6 +3992,7 @@ QStringList DataProxy_SQLite::getValidCatOptions(const int _currentCat, const in
         return QStringList();
     }
 }
+*/
 
 bool DataProxy_SQLite::haveAtLeastOneLog()
 {
@@ -4104,10 +4106,10 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     {
         QSqlRecord rec = query.record();
         query.next();
-        int nameCol = -1;
+        //int nameCol = -1;
         if (query.isValid())
         {
-            nameCol = rec.indexOf("id");
+            int nameCol = rec.indexOf("id");
             int __id = (query.value(nameCol)).toInt();
 
             nameCol = rec.indexOf("confirmed");

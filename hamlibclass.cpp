@@ -374,12 +374,12 @@ void HamLibClass::clean()
 
 void HamLibClass::init(bool _active)
 {
-    qDebug() << "HamLibClass::init: "  << endl;
+    //qDebug()<< "HamLibClass::init: "  << endl;
     //qDebug() << "HamLibClass::init: " << getNameFromModelId(myrig_model) << endl;
     //qDebug() << "HamLibClass::init: " << getNameFromModelId(myrig_model) << endl;
     if (!_active)
     {
-        qDebug() << "HamLibClass::init: Stopping..."  << endl;
+         //qDebug()<< "HamLibClass::init: Stopping..."  << endl;
         stop();
         //qDebug() << "HamLibClass::init: Stopped!"  << endl;
         return;
@@ -387,7 +387,7 @@ void HamLibClass::init(bool _active)
 
     if (myrig_model == -1)
     {
-        qDebug() << "HamLibClass::init: Rig Model not valid"  << endl;
+         //qDebug()<< "HamLibClass::init: Rig Model not valid"  << endl;
         return;
     }
 
@@ -396,7 +396,7 @@ void HamLibClass::init(bool _active)
 
     if (my_rig == nullptr)
     {
-       qDebug() << "HamLibClass::init: Init failed, hamlib returned fail!" << endl;
+        //qDebug()<< "HamLibClass::init: Init failed, hamlib returned fail!" << endl;
        return;
     }
     else
@@ -428,18 +428,18 @@ void HamLibClass::init(bool _active)
 
     if (retcode != RIG_OK)
     {
-        qDebug() << "HamLibClass::init: Can't open: " << rigerror(retcode) << endl;
+         //qDebug()<< "HamLibClass::init: Can't open: " << rigerror(retcode) << endl;
         errorCount++;
         rig_cleanup(my_rig);
         return ;
     }
-    qDebug() << "HamLibClass::init: Rig open!"  << endl;
+     //qDebug()<< "HamLibClass::init: Rig open!"  << endl;
     errorCount = 0;
     rigLaunched = true;
     timer->start(pollInterval);
 
 
-    qDebug() << "HamLibClass::init: END TRUE" << endl;
+    //qDebug() << "HamLibClass::init: END TRUE" << endl;
     return;
 }
 

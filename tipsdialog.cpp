@@ -166,7 +166,7 @@ void TipsDialog::setTip(const int _t)
         description = tr("<b>Tip #12:</b><br>Do you know...<br>You can subscribe to <a href=http://lists.nongnu.org/mailman/listinfo/klog-users>KLog-users mailing list</a> to discuss via email about KLog in English?");
     break;
     case 13:
-        description = tr("<b>Tip #13:</b><br>Do you know...<br>You can <a href=https://twitter.com/ea4tv>follow EA4K on twitter</a> to get updates about KLog?");
+        description = tr("<b>Tip #13:</b><br>Do you know...<br>You can <a href=https://twitter.com/_ea4k>follow EA4K on twitter</a> to get updates about KLog?");
     break;
     case 14:
         description = tr("<b>Tip #14:</b><br>Do you know...<br>You can write your own <a href=https://www.eham.net/reviews/detail/3118>review in eHam.net about KLog</a> to help other users to decide to use KLog?");

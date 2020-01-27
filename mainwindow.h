@@ -41,8 +41,8 @@
 #include "tipsdialog.h"
 #include "world.h"
 #include "filemanager.h"
-#include "contest.h"
-#include "contest_cqwwdxssb.h"
+//#include "contest.h"
+//#include "contest_cqwwdxssb.h"
 #include "dataproxy_sqlite.h"
 #include "dataproxy_sqlite.h"
 #include "locator.h"
@@ -89,7 +89,7 @@ class QMessageBox;
 class QTextEdit;
 class QProgressDialog;
 
-class QPoint;
+//class QPoint;
 
 class QGroupBox;
 class QTabWidget;
@@ -102,7 +102,7 @@ class QTableView;
 class QLabel;
 
 
-
+/*
 enum
 {
     Log_Id = 0,
@@ -112,6 +112,7 @@ enum
     Log_DateId = 4,
     Log_TimeId = 5
 };
+
 
 enum
 {
@@ -123,7 +124,7 @@ enum
     CQ_WPX_CW = 4,
     CQ_WPX_RTTY = 5
 };
-
+*/
 
 class MainWindow : public  QMainWindow
 {
@@ -190,7 +191,7 @@ private slots:
     void slotADIFExportAll();
     void slotADIFImport();
     void slotRQSLExport();
-    void slotCabrilloExport();
+    //void slotCabrilloExport();
     //void slotQSLViaTextChanged();
     void slotTimeOutInfoBars(); // Clears the infoLabels when the timeout emits the signal
 
@@ -208,10 +209,10 @@ private slots:
 
     void fillQSOData();
 
-    void newFile();
-    void openFile();
-    bool saveFile(const QString &_fileName);
-    bool saveFileAs();
+    //void newFile();
+    //void openFile();
+    //bool saveFile(const QString &_fileName);
+    //bool saveFileAs();
     bool slotOpenKLogFolder();
 
     void slotFilePrint();
@@ -333,8 +334,8 @@ private:
     void setAwardDXCC(const int _qsoId, bool modifying); // Adds or modify the status of a DXCC entity
     // data << dxcc(id) << band(id) << mode(id) << confirmed(0/1) << qsoid(id) << modify(0/1);
 
-    void checkIfWorkedB4(const QString &_qrz);
-    bool checkContest();    
+    //void checkIfWorkedB4(const QString &_qrz);
+    //bool checkContest();
     void showStatusOfDXCC(const QStringList _qs);
     void showDXMarathonNeeded(const int _dxcc, const int _cqz, const int _year, const int _log);
 
@@ -353,6 +354,7 @@ private:
     void readActiveModes (const QStringList actives);
     bool checkIfNewMode(const QString &_mode);
     void addNewValidMode(const QString &_mode);
+    void setModeFromFreq();
 
     void qsoToEdit (const int _qso);
     void setModifying(const bool _m);
@@ -434,8 +436,8 @@ private:
     QMenu *helpMenu;
 
     QAction *klogFolderAct;
-    QAction *openAct;
-    QAction *saveAct;
+    //QAction *openAct;
+    //QAction *saveAct;
     QAction *exitAct;
     QAction *printLogAct;
     QAction *addAct;
@@ -636,9 +638,9 @@ private:
     //</CLUBLOG>
 
     // Contest
-    int points, qsoPoints, multipliers, qsoMultiplier;
+    //int points, qsoPoints, multipliers, qsoMultiplier;
     QString contestMode;
-    Contest *contest;
+    //Contest *contest;
     // Contest
     DataProxy_SQLite *dataProxy;
 

@@ -35,16 +35,16 @@
 
 
 const int CONTEST_DX = 0;
-const int CONTEST_CQ_WW_SSB = 1;
-const int CONTEST_CQ_WW_CW = 2;
-const int CONTEST_CQ_WPX_SSB = 3;
-const int CONTEST_CQ_WPX_CW = 4;
+//const int CONTEST_CQ_WW_SSB = 1;
+//const int CONTEST_CQ_WW_CW = 2;
+//const int CONTEST_CQ_WPX_SSB = 3;
+//const int CONTEST_CQ_WPX_CW = 4;
 
 class SetupPageLogs : public QWidget {
     Q_OBJECT
 
 public:
-    SetupPageLogs(DataProxy_SQLite *dp, QWidget *parent=0);
+    SetupPageLogs(DataProxy_SQLite *dp, QWidget *parent=nullptr);
     ~SetupPageLogs();
     int getSelectedLog();
     void setSelectedLog(const int _i);
@@ -74,7 +74,7 @@ private slots:
     void slotAnalyzeNewLogData(const QStringList _qs);
     void slotLogSelected(const QModelIndex & index);
     void slotLogDoubleClicked(const QModelIndex & index);
-    void slotLogsCancelled(const bool _q);
+    //void slotLogsCancelled(const bool _q);
 
     //void slotCreateLog();
 
@@ -93,7 +93,7 @@ private:
     void createActions();
     //bool addNewLog(const QStringList _qs);
     void updateSelectedLogs();
-    void readSelectedLog(const int _i);
+    //void readSelectedLog(const int _i);
     void showError(const QString _errorC);
 
     /* Wizard to create a new log*/

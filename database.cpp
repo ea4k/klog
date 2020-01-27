@@ -1863,8 +1863,8 @@ int DataBase::getLogTypeNumber(const QString &_logType)
          query.finish();
          return -1;
      }
-     query.finish();
-     return -2;
+     //query.finish();
+     //return -2;
 }
 
 QString DataBase::getLogTypeName(const int _logType)
@@ -3365,7 +3365,7 @@ bool DataBase::updateTableLog(const int _v)
     default:
           //qDebug() << "DataBase::updateTableLog FALSE END" << endl;
         return false;
-    break;
+    //break;
     }
 
     if (execQuery(Q_FUNC_INFO, queryString))
@@ -3733,8 +3733,8 @@ bool DataBase::updateModeIdFromSubModeId()
         return false;
     }
       //qDebug() << "DataBase::updateModeIdFromSubModeId: CHECK IF this is seen - END"  << endl;
-    query.finish();
-   return false;
+    //query.finish();
+   //return false;
 }
 
 
@@ -3877,7 +3877,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                       case QMessageBox::No:
                           // No Save was clicked
                             cancel = false;
-                            progress.setCancelButton(0);
+                            progress.setCancelButton(nullptr);
                           break;
                       default:
                           // should never be reached
@@ -4078,7 +4078,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
                       case QMessageBox::No:
                           // No Save was clicked
                             cancel = false;
-                            progress.setCancelButton(0);
+                            progress.setCancelButton(nullptr);
                           break;
                       default:
                           // should never be reached
@@ -4286,7 +4286,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
                       case QMessageBox::No:
                           // No Save was clicked
                             cancel = false;
-                            progress.setCancelButton(0);
+                            progress.setCancelButton(nullptr);
                           break;
                       default:
                           // should never be reached
@@ -4556,12 +4556,12 @@ bool DataBase::updateTo008()
     latestReaded = getDBVersion().toFloat();
     if (latestReaded >= (0.008))
     {
-           //qDebug() << "DataBase::updateTo008: - I am in 008" << endl;
+        //qDebug() << "DataBase::updateTo008: - I am in 008" << endl;
         return true;
     }
     else
     {
-           //qDebug() << "DataBase::updateTo008: - I am not in 008" << endl;
+        //qDebug() << "DataBase::updateTo008: - I am not in 008" << endl;
         IAmIn008 = false;
     }
 

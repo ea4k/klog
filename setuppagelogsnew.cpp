@@ -754,7 +754,7 @@ void SetupPageLogsNew::slotCancelButtonClicked()
 }
 
 
-
+/*
 QStringList SetupPageLogsNew::getValidCatOptions(const int _currentCat, const int _higherCat)
 {// currentCat is the current category and highercat is the category we want to know the information
 // being:
@@ -769,7 +769,7 @@ QStringList SetupPageLogsNew::getValidCatOptions(const int _currentCat, const in
     //return dataProxy->getValidCatOptions(_currentCat, _higherCat);
     return QStringList();
 }
-
+*/
 
 void SetupPageLogsNew::setStationCallSign(const QString _st)
 {
@@ -795,7 +795,7 @@ void SetupPageLogsNew::setDateString(const QString _st)
     dateEdit->setDate(QDate::fromString(dateString, "yyyy/MM/dd"));
 
 }
-
+/*
 void SetupPageLogsNew::setType(const QString _st)
 {
     typeConteststr = _st;
@@ -847,6 +847,7 @@ void SetupPageLogsNew::setCOverlay(const int _n)
     contestCatOverlayComboBox->setCurrentIndex(contestCatOverlay);
 
 }
+*/
 
 void SetupPageLogsNew::setEditing(const bool b)
 {
@@ -875,6 +876,7 @@ void SetupPageLogsNew::setTypeN(const int _n)
     fillWithType(typeContestSelected);
 }
 
+
 void SetupPageLogsNew::fillWithType(const int _n)
 {
      //qDebug() << "SetupPageLogsNew::fillWithType - n = " << QString::number(_n) << endl;
@@ -886,13 +888,13 @@ void SetupPageLogsNew::fillWithType(const int _n)
     {
 
          //qDebug() << "SetupPageLogsNew::fillWithType-2" << endl;
-        setCOperators ((contestData.at(1)).toInt());
-        setCAssisted ((contestData.at(2)).toInt());
-        setCPower ((contestData.at(3)).toInt());
-        setCOverlay ((contestData.at(4)).toInt());
-        setCMode ((contestData.at(5)).toInt());
-        setType(contestData.at(6));
-        setCBands((contestData.at(7)).toInt());
+        //setCOperators ((contestData.at(1)).toInt());
+        //setCAssisted ((contestData.at(2)).toInt());
+        //setCPower ((contestData.at(3)).toInt());
+        //setCOverlay ((contestData.at(4)).toInt());
+        //setCMode ((contestData.at(5)).toInt());
+        //setType(contestData.at(6));
+        //setCBands((contestData.at(7)).toInt());
          //qDebug() << "SetupPageLogsNew::fillWithType: " << contestData.at(6) << endl;
     }
     else
