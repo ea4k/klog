@@ -55,6 +55,20 @@ LogWindow::~LogWindow()
 //    emit clearError();
 }
 
+void LogWindow::setProxyModel (const bool _p)
+{
+    if (_p)
+    {
+        logView->setModel(proxyModel);
+        logView->setCurrentIndex(proxyModel->index(0, 0));
+    }
+    else
+    {
+        logView->setModel(logModel);
+        logView->setCurrentIndex(logModel->index(0, 0));
+    }
+
+}
 
 void LogWindow::clear()
 {
@@ -88,8 +102,7 @@ void LogWindow::createlogPanel(const int _currentLog)
     //logView->setModel(logModel);
     //logView->setCurrentIndex(logModel->index(0, 0));
 
-    logView->setModel(proxyModel);
-    logView->setCurrentIndex(proxyModel->index(0, 0));
+    setProxyModel(false);
 
     QString contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
     setColumnsToDX();

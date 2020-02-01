@@ -382,6 +382,17 @@ bool Utilities::isValidCall(const QString &_c)
     {
         return false;
     }
+    /*
+    QRegularExpression rx;
+    rx.setPattern("[a-zA-Z0-9]{1,3}[0123456789[]");
+    rx.setPattern("^\d[A-Z]{2}$");
+    if (rx.match(testLocator).hasMatch())
+    {
+        //qDebug() << "Locator::isValidLocator: Match 2: " << testLocator;
+        return true;
+    }
+    if ()
+        */
     return true;
 }
 

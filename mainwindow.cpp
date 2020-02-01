@@ -554,6 +554,10 @@ void MainWindow::createActionsCommon(){
 
 void MainWindow::recommendBackupIfNeeded()
 {
+    if (dataProxy->getHowManyQSOInLog(-1)<1)
+    {
+        return;
+    }
     QDateTime lastBackupDate;
     lastBackupDate = QDateTime();
     lastBackupDate = filemanager->getDateTimeOfLastBackup();
@@ -4512,6 +4516,10 @@ bool MainWindow::processConfigLine(const QString &_line){
     else if (field=="KEEPMYDATA")
     {
         keepMyData  = util->trueOrFalse(value);
+    }
+    else if (field=="LOGSORT")
+    {
+        logWindow->setProxyModel(util->trueOrFalse(value));
     }
     else if (field=="COMPLETEWITHPREVIOUS")
     {
