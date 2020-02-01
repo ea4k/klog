@@ -32,7 +32,7 @@
 int main(int argc, char *argv[])
 {
     //qDebug() << "KLog Main: Start! " << endl;
-    QString version = "0.9.9" ;
+    QString version = "0.9.9.1" ;
     QDir d1 = QDir();
     Utilities util = Utilities();
     QStringList arguments;

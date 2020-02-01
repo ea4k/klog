@@ -220,7 +220,7 @@ private slots:
 
     //void slotHelpHelpAction();
     void slotHelpAboutAction();
-    void slotHelpCheckUpdatesAction();
+    //void slotHelpCheckUpdatesAction();
     void slotAboutQt();
     void slotTipsAction();
 
@@ -251,7 +251,7 @@ private slots:
     void slotElogClubLogDisable(const bool _b);
     //CLUBLOG
 
-    void slotShowSoftUpdateResults(const bool _b);   // Software Update: Receives the signal to see if it is needed or not to update
+    //void slotShowSoftUpdateResults(const bool _b);   // Software Update: Receives the signal to see if it is needed or not to update
 
     //SATELLITE
     //void slotSatBandTXComboBoxChanged(const QString _q);

@@ -412,7 +412,7 @@ void MainWindowSatTab::populateSatComboBox()
     }
     else
     {
-        //TODO: Check how to do it better... now I could simply remove the if
+        //TODO: Check how to do it better... now I could simply remove the if        
         satNameComboBox->addItems(satellitesList);
     }
 }
@@ -494,6 +494,9 @@ void MainWindowSatTab::setDefaultBands()
     _b.clear();
 
     _b << "10M" << "2M" << "70CM" << "23CM";
+    satBandRXComboBox->clear();
+    satBandTXComboBox->clear();
+
     satBandRXComboBox->addItems(_b);
     satBandTXComboBox->addItems(_b);
 
