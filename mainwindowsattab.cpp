@@ -372,13 +372,13 @@ void MainWindowSatTab::clear()
     if (keepThisDataForNextQSORadiobutton->isChecked())
     {
         satDXLocatorLineEdit->clear();
-        return;
     }
     else
     {
         satModeLineEdit->clear();
         satNameComboBox->setCurrentIndex(0);
         satNameLineEdit->clear();
+        satDXLocatorLineEdit->clear();
 
         //txFreqSpinBox->setValue(0);
         //rxFreqSpinBox->setValue(0);

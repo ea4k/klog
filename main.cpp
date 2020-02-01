@@ -233,6 +233,9 @@ int main(int argc, char *argv[])
     //qDebug() << "KLog Main: Setting klog dir - finished: " << (QTime::currentTime()).toString("HH:mm:ss") << endl;
 
      //qDebug() << "KLog Main: Setting config file: " << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
+    QPixmap pixmap(":img/klog_512x512.png");
+      //qDebug() << "KLog Main-51" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+    QSplashScreen splash(pixmap);
     if(!QFile::exists(configFileName))
     {
           //qDebug() << "MAIN:  Starting wizard... " << endl;
@@ -242,23 +245,22 @@ int main(int argc, char *argv[])
         int inMemory = wizard->exec();
         //qDebug() << "MAIN: Wizard inMemory: " << QString::number(inMemory) << endl;
 
+
         if (inMemory == 1)
         {
-            //qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in Memory " << endl;
-            MainWindow mw(klogDir, version);
+            qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in Memory " << endl;
+            MainWindow mw(klogDir, version);     
+            mw.init();
+            splash.finish(&mw);
+            //mw.checkIfNewVersion();
+            //mw.recommendBackupIfNeeded();
             mw.show();
             return app.exec();
         }
-        else if (inMemory == 2)
-        {
-             //qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in file " << endl;
-            MainWindow mw(klogDir, version);
-            mw.show();
-            return app.exec();
-        }
+
         else
         {
-             //qDebug() << "MAIN: Wizard cancelled " << QString::number(inMemory) << " ... should close " << endl;
+             qDebug() << "MAIN: Wizard cancelled " << QString::number(inMemory) << " ... should close " << endl;
 
             QMessageBox msgBox;
             msgBox.setText(QObject::tr("Install wizard was canceled before completing..."));
@@ -315,16 +317,13 @@ int main(int argc, char *argv[])
         else
         {
             db->updateIfNeeded(); // Check if we need to update the DB
-
               //qDebug() << "Main: DB Updated" << endl;
         }
         db->~DataBase();
           //qDebug() << "Main: End of DB Activities" << endl;
 
           //qDebug() << "KLog Main-50" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
-        QPixmap pixmap(":img/klog_512x512.png");
-          //qDebug() << "KLog Main-51" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
-        QSplashScreen splash(pixmap);
+
           //qDebug() << "KLog Main-52" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         splash.show();
           //qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << endl;

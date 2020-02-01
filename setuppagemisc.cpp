@@ -48,6 +48,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
     useDxMarathonCheckBox = new QCheckBox(tr("Manage DX-Marathon"), this);
     debugLogCheckBox = new QCheckBox(tr("Activate the application debug log"));
+    logSortCheckBox = new QCheckBox(tr("Sort log based in date & time"));
 
 
     defaultFileNameLineEdit = new QLineEdit;
@@ -115,6 +116,11 @@ void SetupPageMisc::createUI()
     keepMyDataCheckBox->setChecked(true);
     completeWithPreviousCheckBox->setChecked(false);
     debugLogCheckBox->setChecked(false);
+    UTCCheckbox->setChecked(true);
+    realTimeCheckbox->setChecked(true);
+    logSortCheckBox->setChecked(false);
+    defaultFileNameLineEdit->setEnabled(true);
+    fileNameButton->setEnabled(true);
 
     sendQSLWhenRecCheckBox->setToolTip(tr("QSOs will be marked as pending to send a QSL if you receive the DX QSL and have not sent yours."));
     showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will show also the callsign on the air to do the QSO."));
@@ -134,22 +140,19 @@ void SetupPageMisc::createUI()
     dbPushButton->setToolTip(tr("Click to change the path of the database."));
     moveDBPushButton->setToolTip(tr("Click to move the DB to the new directory."));
     debugLogCheckBox->setToolTip(tr("Activates the application debug log. This may be useful if something is not working as expected. A debug file will be created in the KLog directory."));
+    logSortCheckBox->setToolTip(tr("Click to enable that log will be sorted based on date & time when clicking on the date column. It may be a little bit slower."));
 
     QHBoxLayout *fileLayout = new QHBoxLayout;
     fileLayout->addWidget(useDefaultName);
     fileLayout->addWidget(defaultFileNameLineEdit);
     fileLayout->addWidget(fileNameButton);
-    defaultFileNameLineEdit->setEnabled(true);
-    fileNameButton->setEnabled(true);
+
 
     QHBoxLayout *dbLayout = new QHBoxLayout;
 
     dbLayout->addWidget(dbPathLineEdit);
     dbLayout->addWidget(dbPushButton);
     dbLayout->addWidget(moveDBPushButton);
-
-    UTCCheckbox->setChecked(true);
-    realTimeCheckbox->setChecked(true);
 
     QGridLayout *mainLayou1 = new QGridLayout;
     mainLayou1->addLayout(fileLayout, 0, 0, 1, -1);
@@ -166,6 +169,7 @@ void SetupPageMisc::createUI()
     mainLayou1->addWidget(showStationCallWhenSearchCheckBox, 6, 1, 1, 1);
     mainLayou1->addWidget(checkNewVersionCheckBox, 7, 0, 1, 1);
     mainLayou1->addWidget(provideCallCheckBox, 7, 1, 1, 1);
+    mainLayou1->addWidget(logSortCheckBox, 8, 0, 1, 1);
 
     setLayout(mainLayou1);
 
@@ -186,6 +190,31 @@ void SetupPageMisc::createActions(){
 
 }
 
+QString SetupPageMisc::getLogSort(){
+
+    if (logSortCheckBox->isChecked())
+    {
+        return "True";
+    }
+    else
+    {
+        return "False";
+    }
+}
+
+void SetupPageMisc::setLogSort(const QString &_t){
+
+    if ( (_t.toUpper()) == "FALSE")
+    {
+        logSortCheckBox->setChecked(false);
+    }
+    else
+    {
+        logSortCheckBox->setChecked(true);
+    }
+}
+
+
 QString SetupPageMisc::getRealTime(){
 
     if (realTimeCheckbox->isChecked())
@@ -198,9 +227,10 @@ QString SetupPageMisc::getRealTime(){
     }
 }
 
-void SetupPageMisc::setRealTime(const QString t){
+void SetupPageMisc::setRealTime(const QString &_t)
+{
     //QString st = t;
-    if ( (t.toUpper()) == "FALSE")
+    if ( (_t.toUpper()) == "FALSE")
     {
         realTimeCheckbox->setChecked(false);
     }
@@ -208,7 +238,6 @@ void SetupPageMisc::setRealTime(const QString t){
     {
         realTimeCheckbox->setChecked(true);
     }
-
 }
 
 QString SetupPageMisc::getUTCTime(){
@@ -221,12 +250,11 @@ QString SetupPageMisc::getUTCTime(){
     {
         return "False";
     }
-
 }
 
 
-void SetupPageMisc::setUTCTime(const QString t){
-    if ( (t.toUpper()) == "FALSE")
+void SetupPageMisc::setUTCTime(const QString &_t){
+    if ( (_t.toUpper()) == "FALSE")
     {
         UTCCheckbox->setChecked(false);
     }
@@ -248,9 +276,9 @@ QString SetupPageMisc::getAlwaysADIF()
         return "False";
     }
 }
-void SetupPageMisc::setAlwaysADIF(const QString t)
+void SetupPageMisc::setAlwaysADIF(const QString &_t)
 { // Defaul value is false
-    if ( (t.toUpper()) == "TRUE")
+    if ( (_t.toUpper()) == "TRUE")
     {
         alwaysADIFCheckBox->setChecked(true);
     }
@@ -265,10 +293,10 @@ QString SetupPageMisc::getDefaultFileName()
 {
     return defaultFileName;
 }
-void SetupPageMisc::setDefaultFileName(const QString t)
+void SetupPageMisc::setDefaultFileName(const QString &_t)
 {
      //qDebug() << "SetupPageMisc::setDefaultFileName: " << t << endl;
-    defaultFileName = t;
+    defaultFileName = _t;
     defaultFileNameLineEdit->setText(defaultFileName);
 }
 
@@ -298,10 +326,10 @@ QString SetupPageMisc::getUseDefaultName()
 
 }
 
-void SetupPageMisc::setUseDefaultName(const QString t)
+void SetupPageMisc::setUseDefaultName(const QString &_t)
 {
 
-    if ( (t.toUpper()) == "FALSE")
+    if ( (_t.toUpper()) == "FALSE")
     {
         useDefaultName->setChecked(false);
     }
@@ -324,10 +352,10 @@ QString SetupPageMisc::getImperial()
 
 }
 
-void SetupPageMisc::setImperial(const QString t)
+void SetupPageMisc::setImperial(const QString &_t)
 {
 
-    if ( (t.toUpper()) == "FALSE")
+    if ( (_t.toUpper()) == "FALSE")
     {
         imperialCheckBox->setChecked(false);
     }
@@ -369,8 +397,8 @@ QString SetupPageMisc::getSendQSLWhenRec(){
 }
 
 
-void SetupPageMisc::setSendQSLWhenRec(const QString t){
-    if ( (t.toUpper()) == "FALSE")
+void SetupPageMisc::setSendQSLWhenRec(const QString &_t){
+    if ( (_t.toUpper()) == "FALSE")
     {
         sendQSLWhenRecCheckBox->setChecked(false);
     }
@@ -394,9 +422,9 @@ QString SetupPageMisc::getShowStationCallSignInSearch()
 
 }
 
-void SetupPageMisc::setShowStationCallSignInSearch(const QString t)
+void SetupPageMisc::setShowStationCallSignInSearch(const QString &_t)
 {
-    if ( (t.toUpper()) == "FALSE")
+    if ( (_t.toUpper()) == "FALSE")
     {
         showStationCallWhenSearchCheckBox->setChecked(false);
     }
@@ -422,9 +450,9 @@ QString SetupPageMisc::getKeepMyData()
 
 }
 
-void SetupPageMisc::setKeepMyData(const QString t)
+void SetupPageMisc::setKeepMyData(const QString &_t)
 {
-    if ( (t.toUpper()) == "FALSE")
+    if ( (_t.toUpper()) == "FALSE")
     {
         keepMyDataCheckBox->setChecked(false);
     }
@@ -448,9 +476,9 @@ QString SetupPageMisc::getCompleteWithPrevious()
 
 }
 
-void SetupPageMisc::setCompleteWithPrevious(const QString t)
+void SetupPageMisc::setCompleteWithPrevious(const QString &_t)
 {
-    if ( (t.toUpper()) == "FALSE")
+    if ( (_t.toUpper()) == "FALSE")
     {
         completeWithPreviousCheckBox->setChecked(false);
     }
@@ -487,9 +515,9 @@ QString SetupPageMisc::getCheckNewVersions()
     }
 }
 
-void SetupPageMisc::setCheckNewVersions(const QString t)
+void SetupPageMisc::setCheckNewVersions(const QString &_t)
 {
-    if ( (t.toUpper()) == "FALSE")
+    if ( (_t.toUpper()) == "FALSE")
     {
         checkNewVersionCheckBox->setChecked(false);
     }
@@ -518,9 +546,9 @@ QString SetupPageMisc::getReportInfo()
     }
 }
 
-void SetupPageMisc::setReportInfo(const QString t)
+void SetupPageMisc::setReportInfo(const QString &_t)
 {
-    if ( (t.toUpper()) == "FALSE")
+    if ( (_t.toUpper()) == "FALSE")
     {
         provideCallCheckBox->setChecked(false);
     }
@@ -536,9 +564,9 @@ QString SetupPageMisc::getDefaultDBPath()
 }
 
 
-void SetupPageMisc::setUseDefaultDBPath(const QString t)
+void SetupPageMisc::setUseDefaultDBPath(const QString &_t)
 {
-    dbDirCurrent = t;
+    dbDirCurrent = _t;
     dbPathLineEdit->setText(dbDirCurrent);
 
 }
@@ -556,9 +584,9 @@ QString SetupPageMisc::getDXMarathon(){
     }
 }
 
-void SetupPageMisc::setDXMarathon(const QString t){
+void SetupPageMisc::setDXMarathon(const QString &_t){
     //QString st = t;
-    if ( (t.toUpper()) == "FALSE")
+    if ( (_t.toUpper()) == "FALSE")
     {
         useDxMarathonCheckBox->setChecked(false);
     }
@@ -580,7 +608,7 @@ QString SetupPageMisc::getDebugLog()
     }
 }
 
-void SetupPageMisc::setDebugLog(const QString _t)
+void SetupPageMisc::setDebugLog(const QString &_t)
 {
     if ( (_t.toUpper()) == "TRUE")
     {
