@@ -2480,6 +2480,7 @@ void MainWindow::createUICQWW()
 */
     //bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     //modes << "SSB" << "CW" << "RTTY";
+    bandComboBox->clear();
     bandComboBox->addItems(bands);
       //qDebug() << "MainWindow::createUICQWW - 1-" << QString::number(modes.count()) << endl;
     modeComboBox->addItems(modes);
@@ -3814,7 +3815,7 @@ void MainWindow::slotTipsAction()
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
-
+/*
 void MainWindow::slotHelpCheckUpdatesAction()
 {
     //qDebug() << "MainWindow::slotHelpCheckUpdatesAction" << endl;
@@ -3860,7 +3861,7 @@ void MainWindow::slotShowSoftUpdateResults(const bool _b)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-
+*/
 
 void MainWindow::slotLogWinShow()
 {
@@ -4906,12 +4907,13 @@ void MainWindow::checkIfNewBandOrMode()
     qsTemp.clear();
     //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.1" << endl;
     bands << bandsInLog;
+    bands.removeDuplicates();
     //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.2" << endl;
     qsTemp << dataProxy->sortBandNamesBottonUp(bands);
     //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.3" << endl;
     bands.clear();
     bands << qsTemp;
-    
+
     modes << modesInLog;
     modes.removeDuplicates();
 
@@ -5099,7 +5101,9 @@ void MainWindow::createUIDX()
 
     //bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     //modes << "SSB" << "CW" << "RTTY";
-    bandComboBox->addItems(bands);
+    bands.removeDuplicates();
+    bandComboBox->clear();
+    bandComboBox->addItems( dataProxy->sortBandNamesBottonUp(bands));
        //qDebug() << "MainWindow::createUIDX - 1-" << QString::number(modes.count()) << endl;
     modeComboBox->clear();
     modeComboBox->addItems(modes);
@@ -7156,6 +7160,7 @@ void MainWindow::updateBandComboBox(const QString &_band)
             qsTemp << _band;
             bands.clear();
             bands << dataProxy->sortBandNamesBottonUp(qsTemp);
+            bands.removeDuplicates();
             bandComboBox->clear();
             bandComboBox->addItems(bands);
             dxccStatusWidget->setBands(bands);
@@ -7667,6 +7672,7 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
     qsTemp << dataProxy->sortBandNamesBottonUp(_bands);
     bands.clear();
     bands << qsTemp;
+    bands.removeDuplicates();
 
     bandComboBox->clear();
     bandComboBox->addItems(bands);

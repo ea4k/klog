@@ -69,7 +69,7 @@ signals:
 private:
     void connectToURL(const QString &_url);
     bool checkUpdates(QIODevice *data);
-    void updateNeeded(QString &_newVer);
+    void updateNeeded(const QString &_newVer);
     //void setTheURL(QString _url);
     void setHeader();
     void findOS(const int _os);

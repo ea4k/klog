@@ -266,7 +266,7 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
     //return false;
 }
 
-void SoftwareUpdate::updateNeeded(QString &_newVer)
+void SoftwareUpdate::updateNeeded(const QString &_newVer)
 {
      //qDebug() << "SoftwareUpdate::updateNeeded: new: " << _newVer  << endl;
      //qDebug() << "SoftwareUpdate::updateNeeded: cur: " << latestVersion  << endl;
