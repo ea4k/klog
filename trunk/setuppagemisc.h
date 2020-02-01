@@ -34,41 +34,43 @@ class SetupPageMisc : public QWidget {
     Q_OBJECT
 
 public:
-    SetupPageMisc(QWidget *parent=0);
+    SetupPageMisc(QWidget *parent=nullptr);
     ~SetupPageMisc();
 
     QString getRealTime();
-    void setRealTime(const QString t);
+    void setRealTime(const QString &_t);
     QString getUTCTime();
-    void setUTCTime(const QString t);
+    void setUTCTime(const QString &_t);
     QString getAlwaysADIF();
-    void setAlwaysADIF(const QString t);
+    void setAlwaysADIF(const QString &_t);
     QString getDefaultFileName();
-    void setUseDefaultName(const QString t);    
+    void setUseDefaultName(const QString &_t);
     QString getDefaultDBPath();
-    void setUseDefaultDBPath(const QString t);
+    void setUseDefaultDBPath(const QString &_t);
     QString getUseDefaultName();
-    void setDefaultFileName(const QString t);
+    void setDefaultFileName(const QString &_t);
     //QString getInMemory();
-    //void setInMemory(const QString t);
+    //void setInMemory(const QString &_t);
     QString getImperial();
-    void setImperial(const QString t);
+    void setImperial(const QString &_t);
     QString getSendQSLWhenRec();
-    void setSendQSLWhenRec(const QString t);
+    void setSendQSLWhenRec(const QString &_t);
     QString getShowStationCallSignInSearch();
-    void setShowStationCallSignInSearch(const QString t);
+    void setShowStationCallSignInSearch(const QString &_t);
     QString getKeepMyData();
-    void setKeepMyData(const QString t);
+    void setKeepMyData(const QString &_t);
     QString getCompleteWithPrevious();
-    void setCompleteWithPrevious(const QString t);
+    void setCompleteWithPrevious(const QString &_t);
     QString getCheckNewVersions();
-    void setCheckNewVersions(const QString t);
+    void setCheckNewVersions(const QString &_t);
     QString getReportInfo();
-    void setReportInfo(const QString t);
+    void setReportInfo(const QString &_t);
     QString getDXMarathon();
-    void setDXMarathon(const QString t);
+    void setDXMarathon(const QString &_t);
     QString getDebugLog();
-    void setDebugLog(const QString _t);
+    void setDebugLog(const QString &_t);
+    QString getLogSort();
+    void setLogSort(const QString &_t);
 
     bool areDBPathChangesApplied();
 
@@ -92,6 +94,7 @@ private:
     QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox, *keepMyDataCheckBox;
     QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *debugLogCheckBox;
+    QCheckBox *logSortCheckBox;
     QString defaultFileName;
     QLineEdit *defaultFileNameLineEdit, *dbPathLineEdit;
     QPushButton *fileNameButton, *dbPushButton, *moveDBPushButton;

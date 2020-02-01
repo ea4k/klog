@@ -62,6 +62,7 @@ public:
 
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);
+    void setProxyModel (const bool _p);
 
 signals:
     void actionQSODoubleClicked(const int _qsoid);

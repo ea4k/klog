@@ -567,6 +567,7 @@ void SetupDialog::slotOkButtonClicked()
         stream << "CheckNewVersions=" << miscPage->getCheckNewVersions() << ";" <<  endl;
         stream << "ManageDXMarathon=" << miscPage->getDXMarathon() << ";" <<  endl;
         stream << "DebugLog=" << miscPage->getDebugLog() << ";" << endl;
+        stream << "LogSort=" << miscPage->getLogSort() << ";" << endl;
 
         if ((miscPage->getReportInfo()).toUpper() == "TRUE")
         {
@@ -794,6 +795,9 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else if (tab=="PROVIDEINFO"){
         miscPage->setReportInfo(value);
+    }
+    else if (tab=="LOGSORT"){
+        miscPage->setLogSort(value);
     }
     else if (tab=="UDPSERVER"){
         UDPPage->setUDPServer(value);
@@ -1117,6 +1121,7 @@ void SetupDialog::setDefaults()
     miscPage->setReportInfo("FALSE");
     miscPage->setDXMarathon("FALSE");
     miscPage->setDebugLog("FALSE");
+    miscPage->setLogSort("FALSE");
 
     UDPPage->setUDPServer("FALSE");
     UDPPage->setUDPServerPort("2237");
