@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -49,7 +49,8 @@ DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
      //qDebug() << "DataBase::DataBase: PLAIN: - END" << endl;
 }
 
-DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName){
+DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName)
+{
      //qDebug() << "DataBase::DataBase2: " << _parentClass << "/" << _softVersion << " / Name = " << _DBName << endl;
     //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
     constrid = 2;
@@ -68,9 +69,14 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
      //qDebug() << "DataBase::DataBase: DB(string): " << dbName << endl;
 
     //db = QSqlDatabase::database();
+
+
+    //db = QSqlDatabase::removeDatabase("QSQLITE");
     if (util->getVersionDouble()>0)
     {
+
         createConnection(QString(Q_FUNC_INFO)+"2");
+
     }
      //qDebug() << "DataBase::DataBase: - connection Name: " << dbConnectionName << endl;
      //qDebug() << "DataBase::DataBase: - DB Name: " << db.databaseName() << endl;
@@ -315,8 +321,15 @@ bool DataBase::createConnection(const QString &function, bool newDB)
             }
             else
             {
-                //qDebug() << "DataBase::createConnection: DB is NOT open, let's open"  << endl;
+                //qDebug() << "DataBase::createConnection: DB is NOT open, let's open: connection name" << db.connectionName()<< endl;
+                QSqlDatabase::removeDatabase("qt_sql_default_connection");
                 db = QSqlDatabase::addDatabase("QSQLITE");
+
+                //if (QSqlDatabase::contains("myConnection"))
+                //{
+                //    db = QSqlDatabase::addDatabase("QSQLITE", "myConnection");
+                //}
+
             }
 
             //qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  << endl;

@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
  *                                                                           *
  *****************************************************************************/
 //
@@ -288,7 +288,7 @@ void SetupPageSatsNew::slotModesTextChanged()
     //qDebug() << "SetupPageSatsNew::slotModesTextChanged: length >=2" << endl;
     QStringList _modes;
     _modes.clear();
-    _modes << (modesLineEdit->text()).split(',');
+    _modes = (modesLineEdit->text()).split(',');
 
     //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Starting to process the list"  << endl;
     foreach (aux, _modes)

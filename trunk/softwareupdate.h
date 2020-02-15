@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 #include <QCoreApplication>
@@ -69,7 +69,7 @@ signals:
 private:
     void connectToURL(const QString &_url);
     bool checkUpdates(QIODevice *data);
-    void updateNeeded(const QString &_newVer);
+    void updateNeeded(QString &_newVer);
     //void setTheURL(QString _url);
     void setHeader();
     void findOS(const int _os);

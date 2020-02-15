@@ -99,7 +99,7 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
 
     QUrl url = reply->url();
     //qDebug() << "SoftwareUpdate::slotDownloadFinished - URL: " << url.toString()  << endl;
-    if (url.toString().length()< QString("http://download.klog.xyz").length())
+    if (url.toString().length()< QString("https://download.klog.xyz").length())
     {
         //qDebug() << "SoftwareUpdate::slotDownloadFinished - URL: URL too short"  << endl;
         return;
@@ -266,7 +266,7 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
     //return false;
 }
 
-void SoftwareUpdate::updateNeeded(const QString &_newVer)
+void SoftwareUpdate::updateNeeded(QString &_newVer)
 {
      //qDebug() << "SoftwareUpdate::updateNeeded: new: " << _newVer  << endl;
      //qDebug() << "SoftwareUpdate::updateNeeded: cur: " << latestVersion  << endl;
@@ -300,7 +300,7 @@ void SoftwareUpdate::needToUpdate(bool _showWithoutVersion)
     messageShown = _showWithoutVersion;
     setVersion(klogVersion);
     //setTheURL("http://download.klog.xyz");
-    connectToURL("http://download.klog.xyz/" + OSString);
+    connectToURL("https://download.klog.xyz/" + OSString);
     //qDebug() << "SoftwareUpdate::neededToUpdate - END" << endl;
 }
 

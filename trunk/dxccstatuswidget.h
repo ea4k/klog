@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 #include <QWidget>
@@ -60,14 +60,21 @@ signals:
 public slots:
     //void slotSearchLineEditTextChanged();
     void slotRefreshButtonClicked();
+
+private slots:
+    //void slotRightButton(const QPoint& pos);
+    //void slotWikipedia();
     void slotItemEntered(QTableWidgetItem  * item );
     void slotItemDoubleClicked(QTableWidgetItem  * item );
+
 
 private:
     void createUI();
     void setDefaultBands();
     void addEntity(const QStringList &_ent); // DXCC id, bandid, bandid, ...
-    //QStringList sortBandNamesBottonUp(const QStringList _qs);
+//    void showMenuRightButtonFromLogCreateActions();
+//    void righButtonFromLogMenu(const int trow);
+
 
     QTableWidget *dxccView;
     Awards *awards;
@@ -85,6 +92,8 @@ private:
     QStringList bandNames, validBands;
     int logNumber, tempLog; // log in use in the log / log to be used in the widget
     QString loc; // The locator of the user.
+
+    QAction *showDXCCWikipediaAct;
 
 };
 

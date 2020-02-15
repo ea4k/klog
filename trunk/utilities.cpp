@@ -323,6 +323,17 @@ QString Utilities::getDebugLogFile()
 #endif
 }
 
+QString Utilities::getSaveSpotsLogFile()
+{
+#ifdef Q_OS_WIN
+    return getHomeDir() + "/klogdxcluster.log";
+
+#else
+       //qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
+    return getHomeDir() + "/klogdxcluster.log";
+
+#endif
+}
 
 QString Utilities::getCTYFile()
 {

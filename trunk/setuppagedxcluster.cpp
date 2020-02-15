@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
  *                                                                           *
  *****************************************************************************/
 
@@ -52,6 +52,7 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
 
     saveAllDXClusterDataRadiobutton = new QRadioButton;
 
+    saveAllDXClusterDataRadiobutton->setAutoExclusive(false);
     showHFRadiobutton->setAutoExclusive(false);
     showVHFRadiobutton->setAutoExclusive(false);
     showWARCRadiobutton->setAutoExclusive(false);
@@ -69,6 +70,7 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
     showANNRadiobutton->setChecked(true);
     showWWVRadiobutton->setChecked(true);
     showWCYRadiobutton->setChecked(true);
+    saveAllDXClusterDataRadiobutton->setChecked(false);
 
 
     addClusterButton->setText(tr("Add"));
@@ -82,6 +84,9 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
     showANNRadiobutton->setText(tr("Show ANN/&FULL messages"));
     showWWVRadiobutton->setText(tr("Show WW&V messages"));
     showWCYRadiobutton->setText(tr("Show WC&Y messages"));
+    saveAllDXClusterDataRadiobutton->setText(tr("Save DX Cluster activity"));
+    saveAllDXClusterDataRadiobutton->setToolTip(tr("Saves all the DX-Cluster activity to a file in the KLog folder"));
+
 
     QGroupBox *spotsGroupBox = new QGroupBox(tr("DX Spots"));
 
@@ -94,6 +99,12 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
     spotsVBoxLayout->addStretch(1);
     spotsGroupBox->setLayout(spotsVBoxLayout);
 
+    QGroupBox *miscGroupBox = new QGroupBox(tr("Others"));
+
+    QVBoxLayout *miscVBoxLayout = new QVBoxLayout;
+    miscVBoxLayout->addWidget(saveAllDXClusterDataRadiobutton);
+    miscVBoxLayout->addStretch(1);
+    miscGroupBox->setLayout(miscVBoxLayout);
 
     QGroupBox *messagesGroupBox = new QGroupBox(tr("Messages"));
 
@@ -122,6 +133,7 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
     mainLayout->addLayout(serversLayout, 0, 0);
     mainLayout->addWidget(spotsGroupBox, 1, 0);
     mainLayout->addWidget(messagesGroupBox, 1, 1);
+    mainLayout->addWidget(miscGroupBox, 2, 0, 1, -1);
 
     setLayout(mainLayout);
 
@@ -211,22 +223,30 @@ bool SetupPageDxCluster::checkIfValidDXCluster (const QString & tdxcluster)
 
 bool SetupPageDxCluster::checkIfNewDXCluster (const QString & tdxcluster) {
    //qDebug()  << "checkIfNewDXCluster: -" << tdxcluster << "-"<< endl;
-    int numberOfDXClusterServers = dxclusterServersComboBox->count ();
+    //int numberOfDXClusterServers = dxclusterServersComboBox->count ();
 
+    if (dxclusterServersComboBox->findText(tdxcluster)>=0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    /*
     for (int i = 0; i <= numberOfDXClusterServers - 1; i++)
     {
+
 
         if ((dxclusterServersComboBox->currentText ()) == (tdxcluster))
         {
             return false;
         }
-        else
-        {
-            return true;
-        }
+
         dxclusterServersComboBox->setCurrentIndex(i);
     }
     return true;
+    */
 }
 
 QStringList SetupPageDxCluster::getDxclusterServersComboBox()
@@ -279,6 +299,19 @@ void SetupPageDxCluster::setDxclusterServersComboBox(const QStringList t)
             }
         }
     }
+}
+
+QString SetupPageDxCluster::getSaveActivityRadiobutton()
+{
+    if (saveAllDXClusterDataRadiobutton->isChecked())
+    {
+        return "True";
+    }
+    else
+    {
+        return "False";
+    }
+
 }
 
 QString SetupPageDxCluster::getShowHFRadiobutton()
@@ -429,6 +462,18 @@ void SetupPageDxCluster::setShowWARCRadiobutton(const QString t)
     }
 }
 
+void SetupPageDxCluster::setSaveActivityRadiobutton(const QString t)
+{
+    if ( (t.toUpper()) == "FALSE")
+    {
+        saveAllDXClusterDataRadiobutton->setChecked(false);
+    }
+    else
+    {
+        saveAllDXClusterDataRadiobutton->setChecked(true);
+    }
+}
+
 void SetupPageDxCluster::setShowWorkedRadiobutton(const QString t)
 {
     if ( (t.toUpper()) == "FALSE")
@@ -503,11 +548,14 @@ QString SetupPageDxCluster::getSelectedDxClusterServer()
     {
         return QString::null;
     }
-    return QString::null;
+    //return QString::null;
 
 }
+
 
 void SetupPageDxCluster::setSelectedDxClusterServer(const QString t)
 {
     dxclusterServersComboBox->setCurrentIndex(dxclusterServersComboBox->findText(t));
 }
+
+

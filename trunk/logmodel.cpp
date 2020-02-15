@@ -41,9 +41,9 @@ This should be coherent with the logview
    //QString contestMode = dataProxy->getLogTypeOfUserLog(_i);
     //qDebug() << "LogModel::createlogModel - contestMode: " << contestMode << endl;
 
-   QString stringQuery = QString("lognumber='%1'").arg(_i);
-   QSqlQuery query(stringQuery);
-   setFilter(stringQuery);
+    QString stringQuery = QString("lognumber='%1'").arg(_i);
+    QSqlQuery query(stringQuery);
+    setFilter(stringQuery);
     setColumnsToDX();
 
     /*

@@ -2,7 +2,7 @@ CONFIG += app_bundle
 CONFIG += static
 #CONFIG += release
 TEMPLATE = app
-VERSION = 0.9.9
+VERSION = 1.0
 DEFINES += APP_VERSION="$$VERSION"
 
 APP_NAME = KLog
@@ -43,6 +43,7 @@ HEADERS += setupdialog.h \
     aboutdialog.h \
     awardswidget.h \
     logviewsortfilterproxymodel.h \
+    mainqsoentrywidget.h \
     mainwindow.h \
     world.h \
     logwindow.h \
@@ -111,6 +112,7 @@ SOURCES += main.cpp \
     aboutdialog.cpp \
     awardswidget.cpp \
     logviewsortfilterproxymodel.cpp \
+    mainqsoentrywidget.cpp \
     mainwindow.cpp \
     setupdialog.cpp \
     world.cpp \

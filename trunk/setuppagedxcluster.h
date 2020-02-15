@@ -23,7 +23,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
  *                                                                           *
  *****************************************************************************/
 
@@ -38,7 +38,7 @@ class SetupPageDxCluster : public QWidget {
     Q_OBJECT
 
 public:
-    SetupPageDxCluster(QWidget *parent=0);
+    SetupPageDxCluster(QWidget *parent=nullptr);
     ~SetupPageDxCluster();
 
     QStringList getDxclusterServersComboBox();
@@ -54,6 +54,8 @@ public:
     QString getShowANNRadiobutton();
     QString getShowWWVRadiobutton();
     QString getShowWCYRadiobutton();
+    QString getSaveActivityRadiobutton();
+
 
     void setShowHFRadiobutton(const QString t);
     void setShowVHFRadiobutton(const QString t);
@@ -63,6 +65,7 @@ public:
     void setShowANNRadiobutton(const QString t);
     void setShowWWVRadiobutton(const QString t);
     void setShowWCYRadiobutton(const QString t);
+    void setSaveActivityRadiobutton(const QString t);
 
 private slots:
     void slotAddButtonClicked();

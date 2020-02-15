@@ -15,15 +15,13 @@ DownLoadCTY::DownLoadCTY(const QString _klogDir, const QString _klogVersion) : Q
 
     manager = new QNetworkAccessManager;
     request = new QNetworkRequest;
-    //request->setUrl(QUrl("http://www.country-files.com/cty/cty.csv"));
-    request->setUrl(QUrl("http://www.country-files.com/bigcty/cty.csv"));
+    //request->setUrl(QUrl("https://www.country-files.com/cty/cty.csv"));
+    request->setUrl(QUrl("https://www.country-files.com/bigcty/cty.csv"));
     QString ver = "KLog"+_klogVersion;
     QByteArray str;
     str.clear();
     str.append(util->getAgent(_klogVersion));
-    //str.append(_klogVersion);
 
-    //request.setUrl(QUrl("http://qt.nokia.com"));
     request->setRawHeader("User-Agent", str);
     //request->setHeader(QNetworkRequest::UserAgentHeader, str);
 

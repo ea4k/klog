@@ -942,7 +942,7 @@ CTYPage::CTYPage(const QString _klogDir, const QString _version, QWidget *parent
     QString st = tr("Country data needed");
     QString gplLic = "<html><head><title>";
     gplLic = gplLic+st+"</title></head><body><p>";
-    st = tr("KLog uses the cty.csv file from http://www.country-files.com/ to get DXCC information.");
+    st = tr("KLog uses the cty.csv file from https://www.country-files.com/ to get DXCC information.");
     gplLic = gplLic + st + "</p><p>";
     st = tr("You need to download the cty.csv file if you want KLog to show you the countries, locator, ... of the QSOs you do.");
     gplLic = gplLic + st + "</p><p>";
