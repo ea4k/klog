@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 #include <QString>
@@ -30,7 +30,6 @@
 #include <QObject>
 //#include <QtGlobal>
 
-#include "dataproxy_sqlite.h"
 #include "database.h"
 
 
@@ -147,6 +146,7 @@ public:
     QString getEntityNameFromId(const int _n);
     int getEntityIdFromName(const QString &_e);
     QString getEntityMainPrefix(const int _entityN);
+    int getEntityIdFromMainPrefix(const QString &_e);
     bool isNewCQz(int _c);
     bool isNewEntity(int _e);
     double getLongitudeFromEntity(const int _e);
@@ -270,5 +270,4 @@ signals:
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
 };
-
 #endif // DATAPROXY_SQLITE_H

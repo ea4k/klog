@@ -81,6 +81,7 @@ void DXCCStatusWidget::createUI()
     connect(dxccView, SIGNAL(itemDoubleClicked(QTableWidgetItem *)), this, SLOT(slotItemDoubleClicked(QTableWidgetItem *) ) );
     //qDebug() << "DXCCStatusWidget::createUI-92" << endl;
     connect(dxccView, SIGNAL(itemEntered(QTableWidgetItem *)), this, SLOT(slotItemEntered(QTableWidgetItem *) ) );
+    //connect(dxccView, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRightButton( const QPoint& ) ) );
     //qDebug() << "DXCCStatusWidget::createUI-93" << endl;
     //dxccView->setSortingEnabled(false);
     //qDebug() << "DXCCStatusWidget::createUI-END" << endl;
@@ -98,9 +99,9 @@ void DXCCStatusWidget::update()
     list.clear();
    //qDebug() << "DXCCStatusWidget::update: -2"  << endl;
 
-    QString aux;
+    QString aux, prefix;
    //qDebug() << "DXCCStatusWidget::update: -3"  << endl;
-    if (dxccView->columnCount()>1)
+    if (dxccView->columnCount()>0)
     {
         //dxccView->sortByColumn(1, Qt::AscendingOrder);
         dxccView->clearContents();
@@ -110,11 +111,17 @@ void DXCCStatusWidget::update()
         {
            //qDebug() << "DXCCStatusWidget::update in FOR " << QString::number(i) << endl;
             aux = world->getEntityName(i);
+            prefix = world->getEntityMainPrefix(i);
+            if (prefix.startsWith("*"))
+            {
+                QString a = prefix.right(prefix.length()-1);
+                prefix = a;
+            }
            //qDebug() << "DXCCStatusWidget::update in FOR aux: " << aux << endl;
             list.clear();
             if (aux.length()>2)  // Not all integers refers to an entity.
             {
-                list << QString::number(i) << aux  << bandNames;
+                list << prefix << aux  << bandNames;
                 addEntity(list);
             }
         }
@@ -128,20 +135,21 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
     // DXCC id, Entity Name, bandName1, bandName2, ...
     if (_ent.length() != numberOfColumns)
     {
-         //qDebug() << "DXCCStatusWidget::addEntity: ERROR: in number of columns" << QString::number(_ent.length()) << "/" << QString::number(numberOfColumns) << endl;
+        //qDebug() << "DXCCStatusWidget::addEntity: ERROR: in number of columns" << QString::number(_ent.length()) << "/" << QString::number(numberOfColumns) << endl;
         return;
     }
 
     int status = -1;
-
-    int ent = (_ent.at(0)).toInt();
+    int ent = dataProxy->getEntityIdFromMainPrefix(_ent.at(0));
+            //(_ent.at(0)).toInt();
     int bandid = 0;
+    //qDebug() << "DXCCStatusWidget::addEntity: ent = " << QString::number(ent) << endl;
 
     QString entName = _ent.at(1);
 
     if (entName.length()<2)
     {
-         //qDebug() << "DXCCStatusWidget::addEntity: ERROR: entname too short!" << endl;
+        //qDebug() << "DXCCStatusWidget::addEntity: ERROR: entname too short!" << endl;
         return;
     }
 
@@ -168,6 +176,7 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
      //qDebug() << "DXCCStatusWidget::addEntity: rowCount:  " << QString::number(dxccView->rowCount()) << endl;
 
     QTableWidgetItem *newItemID = new QTableWidgetItem(_ent.at(0));
+
     newItemID->setTextAlignment(Qt::AlignCenter);
     newItemID->setFlags(Qt::NoItemFlags);
     dxccView->setItem(dxccView->rowCount()-1, 0, newItemID);
@@ -176,10 +185,8 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
     {
         bandid = dataProxy->getIdFromBandName(_ent.at(i));
         QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand(ent, bandid, tempLog));
-        newItem->setTextAlignment(Qt::AlignCenter);
-        //newItem->setFlags(Qt::NoItemFlags);
+        newItem->setTextAlignment(Qt::AlignCenter);        
         newItem->setFlags(Qt::ItemIsEnabled);
-        //newItem->setFont(font);
 
         if (newItem->text()=="C")
         {
@@ -198,12 +205,15 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
         }
         else
         {
-
         }
 
         dxccView->setItem(dxccView->rowCount()-1, i, newItem);
          //qDebug() << "DXCCStatusWidget::addEntity: rowCount-2:  " << QString::number(dxccView->rowCount()) << "/" << QString::number(i) << " / " << newItem->text() << endl;
     }
+
+    QTableWidgetItem *newItemPref = new QTableWidgetItem(_ent.at(0));
+    newItemPref->setTextAlignment(Qt::AlignLeft|Qt::AlignVCenter);
+    newItemPref->setFlags(Qt::ItemIsEnabled);
 
     QTableWidgetItem *newItemName = new QTableWidgetItem(entName);
     newItemName->setTextAlignment(Qt::AlignLeft|Qt::AlignVCenter);
@@ -215,18 +225,21 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
     if (status == 1)
     {
         newItemName->setTextColor(Qt::blue);
+        newItemPref->setTextColor(Qt::blue);
         //newItemName->setTextColor(Qt::blue);
         //newItemName->setBackgroundColor(Qt::green);
     }
     else if (status == 0)
     {
         newItemName->setTextColor(Qt::darkRed);
+        newItemPref->setTextColor(Qt::darkRed);
     }
     else
     {
         newItemName->setTextColor(Qt::red);
+        newItemPref->setTextColor(Qt::red);
     }
-
+    dxccView->setItem(dxccView->rowCount()-1, 0, newItemPref);
     dxccView->setItem(dxccView->rowCount()-1, 1, newItemName);
      //qDebug() << "DXCCStatusWidget::addEntity: END" << endl;
 
@@ -235,15 +248,6 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
 void DXCCStatusWidget::setBands(QStringList const &_ent, const bool _creating)
 {// Receives the list of band names
     //qDebug() << "DXCCStatusWidget::setBands: " << endl;
-    //qDebug() << "DXCCStatusWidget::setBands: " << QString::number(_ent.length()) << endl;
-    //if (_creating)
-    //{
-      //qDebug() << "DXCCStatusWidget::setBands (creating true) " << QString::number(_ent.length()) << endl;
-    //}
-    //else
-    //{
-      //qDebug() << "DXCCStatusWidget::setBands (creating false) " << QString::number(_ent.length()) << endl;
-    //}
 
     QStringList qs;
     qs.clear();
@@ -264,17 +268,12 @@ void DXCCStatusWidget::setBands(QStringList const &_ent, const bool _creating)
     //qDebug() << "DXCCStatusWidget::setBands - 03 " << endl;
     validBands.clear();
     //validBands << dataProxy->getBands();
-    validBands << dataProxy->getBandNames();
+    validBands = dataProxy->getBandNames();
     //qDebug() << "DXCCStatusWidget::setBands - 04 " << endl;
     //dxccView->clearContents();
     dxccView->clearSelection();
     dxccView->clear();
-   // for (int x = 0; x < dxccView->columnCount(); x++)
-   // {
-   //     dxccView->removeColumn(x);
-   // }
 
-    //bands.clear();
     for (int i = 0; i<qs.length(); i++)
     {
         //qDebug() << "DXCCStatusWidget::setBands-4.1: " << qs.at(i) << endl;
@@ -293,13 +292,6 @@ void DXCCStatusWidget::setBands(QStringList const &_ent, const bool _creating)
     dxccView->setColumnCount(0);
     numberOfColumns = dxccView->columnCount();
 
-    //qDebug() << "DXCCStatusWidget::setBands 5 to Remove: " << QString::number(dxccView->columnCount()) << endl;
-    //for (int i=0; i<dxccView->columnCount(); i++)
-    //{
-    //    dxccView->removeColumn(i);
-//        //qDebug() << "DXCCStatusWidget::setBands: Still pending: " << QString::number(i) << endl;
-    //}
-    //dxccView->clear();
     while(dxccView->columnCount()>0)
     {
         //qDebug() << "DXCCStatusWidget::setBands: Still pending: " << QString::number(dxccView->columnCount()) << endl;
@@ -311,7 +303,7 @@ void DXCCStatusWidget::setBands(QStringList const &_ent, const bool _creating)
 
     //qDebug() << "DXCCStatusWidget::setBands - 7 " << endl;
 
-    numberOfColumns = 2 + bandNames.length();
+    numberOfColumns = 2 + bandNames.length(); //Prefix, Entity Name
     //qDebug() << "DXCCStatusWidget::setBands - 7.1 - columnCount: " << QString::number(dxccView->columnCount()) << endl;
     //qDebug() << "DXCCStatusWidget::setBands - 7.1 - numberOfColumns: " << QString::number(numberOfColumns) << endl;
     dxccView->setColumnCount(numberOfColumns);  
@@ -323,7 +315,7 @@ void DXCCStatusWidget::setBands(QStringList const &_ent, const bool _creating)
     //qDebug() << "DXCCStatusWidget::setBands - 7.4 " << endl;
     headerqs.clear();
     //qDebug() << "DXCCStatusWidget::setBands - 7.5 " << endl;
-    headerqs << tr("ID") << tr("Entity") << bandNames;
+    headerqs << tr("Prefix") << tr("Entity") << bandNames;
     //qDebug() << "DXCCStatusWidget::setBands - 8 " << endl;
     dxccView->setHorizontalHeaderLabels(headerqs);
 
@@ -359,10 +351,11 @@ void DXCCStatusWidget::setDefaultBands()
 
 void DXCCStatusWidget::slotRefreshButtonClicked()
 {
-   //qDebug() << "DXCCStatusWidget::slotRefreshButtonClicked" << endl;
+    //qDebug() << "DXCCStatusWidget::slotRefreshButtonClicked" << endl;
     //TODO: Define a way to show the status of the selected log or all the logs in the DB
     if (dxccView->rowCount()<1)
     {
+        //qDebug() << "DXCCStatusWidget::slotRefreshButtonClicked - rowcount <1" << endl;
         return;
     }
     QStringList _bands = bandNames;
@@ -398,10 +391,12 @@ void DXCCStatusWidget::refresh()
      //qDebug() << "DXCCStatusWidget::slotItemEntered: " << ((item->data(0)).toString()).simplified() << endl;
      //qDebug() << "DXCCStatusWidget::slotItemEntered: " << item->text() << endl;
      //qDebug() << "DXCCStatusWidget::slotItemEntered: " << endl;
-     if (dxccView->rowCount()<1)
-     {
-         return;
-     }
+
+    if (dxccView->rowCount()<1)
+    {
+        return;
+    }
+
     QString tip;
     tip.clear();
     int row = -1;
@@ -409,30 +404,32 @@ void DXCCStatusWidget::refresh()
     int bandi = -1;
     QString band = QString();
 
+
     if (item)
     {
-        row = dxccView->row(item);
+      //  row = dxccView->row(item);
         column = dxccView->column(item);
-
 
          //qDebug() << "DXCCStatusWidget::slotItemEntered: row: " << QString::number(row) << endl;
          //qDebug() << "DXCCStatusWidget::slotItemEntered: hrow: " <<  dxccView->verticalHeaderItem(row)->text() << endl;
-        row = (dxccView->item(row,0)->text()).toInt();
-        //qDebug() << "DXCCStatusWidget::slotItemEntered: column: " << QString::number(column) << endl;
+      //  row = (dxccView->item(row,0)->text()).toInt();
 
-        if (column == 1)
+        int entiID = dataProxy->getEntityIdFromMainPrefix(dxccView->item(dxccView->row(item),0)->text());
+        if (entiID<0)
+        { // Some prefix are shown with a * in the begining that is removed to show the real prefix
+            entiID = dataProxy->getEntityIdFromMainPrefix("*" + dxccView->item(dxccView->row(item),0)->text());
+        }
+        //qDebug() << "DXCCStatusWidget::slotItemEntered: entiID: " << QString::number(entiID) << endl;
+
+        if ((column == 0) || (column == 1))
         {
-            int _enti = dataProxy->getEntityIdFromName(item->text()) ;
-            tip = tr("Pref: ") + dataProxy->getEntityMainPrefix(_enti) + " - ";
-            tip = tip + tr("CQ: ") + QString::number(dataProxy->getCQzFromEntity(_enti)) + " - ";
-            tip = tip + tr("ITU: ") + QString::number(dataProxy->getITUzFromEntity(_enti)) + " - ";
 
-
-            QString dxLoc = locator->getLocator(dataProxy->getLongitudeFromEntity(_enti), dataProxy->getLatitudeFromEntity(_enti)) ;
+            //tip = tr("Pref: ") + (dxccView->item(row, 1))->text() + " - ";
+            tip = tr("Pref: ") + dataProxy->getEntityMainPrefix(entiID) + " - ";
+            tip = tip + tr("CQ: ") + QString::number(dataProxy->getCQzFromEntity(entiID)) + " - ";
+            tip = tip + tr("ITU: ") + QString::number(dataProxy->getITUzFromEntity(entiID)) + " - ";
+            QString dxLoc = locator->getLocator(dataProxy->getLongitudeFromEntity(entiID), dataProxy->getLatitudeFromEntity(entiID)) ;
             tip = tip + tr("Beam: ") + QString::number(locator->getBeamBetweenLocators(loc, dxLoc));
-
-            //qDebug() << "DXCCStatusWidget::slotItemEntered: myLoc: " <<  loc << endl;
-            //qDebug() << "DXCCStatusWidget::slotItemEntered: DXLoc: " <<  dxLoc << endl;
         }
 
         else if (column >= 2)
@@ -447,7 +444,8 @@ void DXCCStatusWidget::refresh()
                  //qDebug() << "DXCCStatusWidget::slotItemEntered: band: " << band << endl;
                 bandi = dataProxy->getIdFromBandName(band);
                  //qDebug() << "DXCCStatusWidget::slotItemEntered: band: " << QString::number(bandi) << endl;
-                tip = awards->getQSOofAward(row, bandi);
+                //tip = awards->getQSOofAward(row, bandi);
+                tip = awards->getQSOofAward(entiID, bandi);
                  //qDebug() << "DXCCStatusWidget::slotItemEntered: tip: " << tip << endl;
                 if (tip.length()>3)
                 {
@@ -459,7 +457,6 @@ void DXCCStatusWidget::refresh()
                     tip = tr("");
                 }
             }
-
         }
         else
         {
@@ -469,8 +466,6 @@ void DXCCStatusWidget::refresh()
 
         item->setToolTip(tip);
          //qDebug() << "DXCCStatusWidget::slotItemEntered: tip: " << tip << endl;
-
-
     }
     else
     {}
@@ -494,69 +489,61 @@ void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
     int qsoId = -1;
     int bandi = -1;
     int columns = dxccView->columnCount();
-    int _entiNumb = -1; //Read the ENtity number that the user is selecting.
+    int _entiNumb = -1; //Read the Entity number that the user is selecting.
     QString band = QString();
-    //QString entityName = QString();
+
     QList<int> qsos;
     qsos.clear();
 
     QTableWidgetItem * it = new QTableWidgetItem(0);
-    //it->setText(item->data(Qt::DisplayRole));
 
-     //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - 01"  << endl;
+    //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - 01"  << endl;
+
     if (item)
     {
+
         row = dxccView->row(item);
-        //column = dxccView->column(item);
 
-
-         //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: row: " << QString::number(row) << endl;
-         //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: column: " << QString::number(column) << endl;
-
-        //if (column == 1)
-        if (true)
-        {
-             //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column = 1"  << endl;
-             //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column header: " << dxccView->horizontalHeaderItem(column)->text() << endl;
-            _entiNumb = ((dxccView->item(row,0))->text()).toInt();
-             //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - EntityNumber: " << QString::number(_entiNumb) << endl;
-
-            for (int i = 2; i < columns; ++i)
-            {
-                 //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column: "  << QString::number(i) << endl;
-                 //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column header: " << (dxccView->horizontalHeaderItem(i))->text() << endl;
-                //entityName = (dxccView->item(row,i))->text() ;
-                 //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - item: "  << endl;
-
-
-               it->setText(dxccView->item(row,i)->text());
-                //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column-txt: "  << it->text() << endl;
-
-               band = dxccView->horizontalHeaderItem(i)->text();
-                //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: band: " << band << endl;
-               bandi = dataProxy->getIdFromBandName(band);
-                //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: band: " << QString::number(bandi) << endl;
-               qsoId = awards->getQSOIdofAward(_entiNumb, bandi);
-                //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: QSOid: " << QString::number(qsoId) << endl;
-               if (qsoId>0)
-               {
-                   qsos.append(qsoId);
-               }
-
-            }
-             //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - END of for"  << endl;
-            if (qsos.length()>0)
-            {
-                 //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - qsos.length = " << QString::number(qsos.length())  << endl;
-                emit showQsos(qsos);
-            }
-             //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - END of column == 1"  << endl;
+        //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column = 1"  << endl;
+        //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column header: " << dxccView->horizontalHeaderItem(column)->text() << endl;
+        _entiNumb= dataProxy->getEntityIdFromMainPrefix(dxccView->item(dxccView->row(item),0)->text());
+        if (_entiNumb<0)
+        { // Some prefix are shown with a * in the begining that is removed to show the real prefix
+            _entiNumb= dataProxy->getEntityIdFromMainPrefix("*" + dxccView->item(dxccView->row(item),0)->text());
         }
-        else
-        {
-             //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column != 1"  << endl;
-            //tip = ""; // TODO define a text to be shown when no band column is selected (maybe Continent & bearing or a link to wikipedia or whatever!)
-        }
+       //_entiNumb = ((dxccView->item(row,0))->text()).toInt();
+        //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - EntityNumber: " << QString::number(_entiNumb) << endl;
+
+       for (int i = 2; i < columns; ++i)
+       {
+            //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column: "  << QString::number(i) << endl;
+            //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column header: " << (dxccView->horizontalHeaderItem(i))->text() << endl;
+            //entityName = (dxccView->item(row,i))->text() ;
+            //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - item: "  << endl;
+
+          it->setText(dxccView->item(row,i)->text());
+          //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column-txt: "  << it->text() << endl;
+
+          band = dxccView->horizontalHeaderItem(i)->text();
+           //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: band: " << band << endl;
+          bandi = dataProxy->getIdFromBandName(band);
+           //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: band: " << QString::number(bandi) << endl;
+          qsoId = awards->getQSOIdofAward(_entiNumb, bandi);
+           //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: QSOid: " << QString::number(qsoId) << endl;
+          if (qsoId>0)
+          {
+              qsos.append(qsoId);
+          }
+
+       }
+        //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - END of for"  << endl;
+       if (qsos.length()>0)
+       {
+            //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - qsos.length = " << QString::number(qsos.length())  << endl;
+           emit showQsos(qsos);
+       }
+        //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - END of column == 1"  << endl;
+
     }
 
 
@@ -573,3 +560,44 @@ void DXCCStatusWidget::setMyLocator(const QString &_loc)
     }
 
 }
+/*
+void DXCCStatusWidget::slotRightButton(const QPoint& pos)
+{
+     //qDebug() << "DXCCStatusWidget::slotRighButton"  << endl;
+    int row = (dxccView->indexAt(pos)).row();
+
+    showDXCCWikipediaAct = new QAction(tr("&Wikipedia"), this);
+    showDXCCWikipediaAct->setShortcut(Qt::CTRL + Qt::Key_W);
+    showDXCCWikipediaAct->setStatusTip(tr("Show this DXCC in Wikipedia"));
+    connect(showDXCCWikipediaAct, SIGNAL(triggered()), this, SLOT(slotWikipedia()));
+
+    righButtonFromLogMenu(row);
+
+}
+
+void DXCCStatusWidget::slotWikipedia()
+{
+     //qDebug() << "DXCCStatusWidget::slotWikipedia: " << (showDXCCWikipediaAct->data()).toString() << endl;
+    //TODO: To be added to the DXCCStatusWidget and create an action that emist the QSO id
+    //int QSOid = ((logModel->index((showDXCCWikipediaAct->data()).toInt(), 0)).data(0)).toInt();
+
+    //qDebug() << "DXCCStatusWidget::slotQsoDeleteFromLog (id): " << QString::number(QSOid) << endl;
+
+}
+
+void DXCCStatusWidget::righButtonFromLogMenu(const int trow)
+{
+      //qDebug() << "DXCCStatusWidget::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << endl;
+
+    //int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
+     //qDebug() << "DXCCStatusWidget::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID) << endl;
+
+    QMenu menu(this);
+
+    menu.addAction(showDXCCWikipediaAct);
+    showDXCCWikipediaAct->setData(trow);
+
+
+    menu.exec(QCursor::pos());
+}
+*/

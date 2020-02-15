@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
  *                                                                           *
  *****************************************************************************/
 
@@ -48,7 +48,8 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
     useDxMarathonCheckBox = new QCheckBox(tr("Manage DX-Marathon"), this);
     debugLogCheckBox = new QCheckBox(tr("Activate the application debug log"));
-    logSortCheckBox = new QCheckBox(tr("Sort log based in date & time"));
+    logSortCheckBox = new QCheckBox(tr("Sort log based in date && time"));
+    sendEQSLByDefaultSearchCheckBox = new QCheckBox(tr("Mark sent eQSL && LoTW in new QSO as queued"));
 
 
     defaultFileNameLineEdit = new QLineEdit;
@@ -141,12 +142,12 @@ void SetupPageMisc::createUI()
     moveDBPushButton->setToolTip(tr("Click to move the DB to the new directory."));
     debugLogCheckBox->setToolTip(tr("Activates the application debug log. This may be useful if something is not working as expected. A debug file will be created in the KLog directory."));
     logSortCheckBox->setToolTip(tr("Click to enable that log will be sorted based on date & time when clicking on the date column. It may be a little bit slower."));
+    sendEQSLByDefaultSearchCheckBox->setToolTip(tr("Click to mark as Queued (to be sent) all the eQSL (LoTW & eQSL) in all the new QSO by default."));
 
     QHBoxLayout *fileLayout = new QHBoxLayout;
     fileLayout->addWidget(useDefaultName);
     fileLayout->addWidget(defaultFileNameLineEdit);
     fileLayout->addWidget(fileNameButton);
-
 
     QHBoxLayout *dbLayout = new QHBoxLayout;
 
@@ -166,13 +167,13 @@ void SetupPageMisc::createUI()
     mainLayou1->addWidget(keepMyDataCheckBox, 5, 0, 1, 1);
     mainLayou1->addWidget(completeWithPreviousCheckBox, 5, 1, 1, 1);
     mainLayou1->addWidget(sendQSLWhenRecCheckBox,6, 0, 1, 1);
-    mainLayou1->addWidget(showStationCallWhenSearchCheckBox, 6, 1, 1, 1);
+    mainLayou1->addWidget(sendEQSLByDefaultSearchCheckBox, 6, 1, 1, 1);
     mainLayou1->addWidget(checkNewVersionCheckBox, 7, 0, 1, 1);
     mainLayou1->addWidget(provideCallCheckBox, 7, 1, 1, 1);
     mainLayou1->addWidget(logSortCheckBox, 8, 0, 1, 1);
+    mainLayou1->addWidget(showStationCallWhenSearchCheckBox, 8, 1, 1, 1);
 
     setLayout(mainLayou1);
-
 
 }
 
@@ -214,6 +215,30 @@ void SetupPageMisc::setLogSort(const QString &_t){
     }
 }
 
+
+QString SetupPageMisc::getSendEQSLByDefault(){
+
+    if (sendEQSLByDefaultSearchCheckBox->isChecked())
+    {
+        return "True";
+    }
+    else
+    {
+        return "False";
+    }
+}
+
+void SetupPageMisc::setSetEQSLByDefault(const QString &_t){
+
+    if ( (_t.toUpper()) == "FALSE")
+    {
+        sendEQSLByDefaultSearchCheckBox->setChecked(false);
+    }
+    else
+    {
+        sendEQSLByDefaultSearchCheckBox->setChecked(true);
+    }
+}
 
 QString SetupPageMisc::getRealTime(){
 

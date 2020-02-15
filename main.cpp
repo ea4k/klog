@@ -11,7 +11,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -32,7 +32,7 @@
 int main(int argc, char *argv[])
 {
     //qDebug() << "KLog Main: Start! " << endl;
-    QString version = "0.9.9.1" ;
+    QString version = "1.0.0" ;
     QDir d1 = QDir();
     Utilities util = Utilities();
     QStringList arguments;
@@ -248,7 +248,7 @@ int main(int argc, char *argv[])
 
         if (inMemory == 1)
         {
-            qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in Memory " << endl;
+            //qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in Memory " << endl;
             MainWindow mw(klogDir, version);     
             mw.init();
             splash.finish(&mw);
@@ -260,7 +260,7 @@ int main(int argc, char *argv[])
 
         else
         {
-             qDebug() << "MAIN: Wizard cancelled " << QString::number(inMemory) << " ... should close " << endl;
+             //qDebug() << "MAIN: Wizard cancelled " << QString::number(inMemory) << " ... should close " << endl;
 
             QMessageBox msgBox;
             msgBox.setText(QObject::tr("Install wizard was canceled before completing..."));
@@ -320,13 +320,9 @@ int main(int argc, char *argv[])
               //qDebug() << "Main: DB Updated" << endl;
         }
         db->~DataBase();
-          //qDebug() << "Main: End of DB Activities" << endl;
 
-          //qDebug() << "KLog Main-50" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
-
-          //qDebug() << "KLog Main-52" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         splash.show();
-          //qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
+        //qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         MainWindow mw(klogDir, version);        
         mw.init();
         splash.finish(&mw);

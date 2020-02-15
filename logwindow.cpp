@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
  *                                                                           *
  *****************************************************************************/
 
@@ -31,6 +31,7 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
     //qDebug() << "LogWindow::LogWindow: "  << endl;
     dataProxy = dp;
+    sortingThroughProxyModel = false;
     logModel = new LogModel(dataProxy, this);
     connect(logModel, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     logView = new QTableView;
@@ -39,7 +40,7 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 
     currentLog = -1;
     proxyModel = new LogViewSortFilterProxyModel(this);
-    proxyModel->setSourceModel(logModel);
+
 
     awards = new Awards(dataProxy, Q_FUNC_INFO);
 
@@ -57,7 +58,8 @@ LogWindow::~LogWindow()
 
 void LogWindow::setProxyModel (const bool _p)
 {
-    if (_p)
+    sortingThroughProxyModel = _p;
+    if (sortingThroughProxyModel)
     {
         logView->setModel(proxyModel);
         logView->setCurrentIndex(proxyModel->index(0, 0));
@@ -68,6 +70,11 @@ void LogWindow::setProxyModel (const bool _p)
         logView->setCurrentIndex(logModel->index(0, 0));
     }
 
+}
+
+void LogWindow::sortColumn(const int _c)
+{
+    proxyModel->sort(_c);
 }
 
 void LogWindow::clear()
@@ -90,7 +97,7 @@ void LogWindow::createUI()
 void LogWindow::setDefaultData()
 {
 
-     //qDebug() << "LogWindow::setDefaultData"  << endl;
+     //qDebug() << "LogWindow::setDefaultData"  << endl;    
 }
 
 
@@ -99,13 +106,16 @@ void LogWindow::createlogPanel(const int _currentLog)
     //qDebug() << "LogWindow::createlogPanel: " << QString::number(_currentLog) << endl;
     currentLog = _currentLog;
     logModel->createlogModel(currentLog);
+    proxyModel->setSourceModel(logModel);
     //logView->setModel(logModel);
     //logView->setCurrentIndex(logModel->index(0, 0));
 
-    setProxyModel(false);
+    //setProxyModel(false);
 
-    QString contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
+    //QString contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
     setColumnsToDX();
+    sortColumn(1);  //Initial sort by column 1 (date & time)
+
 /*
     if (contestMode == "DX")
     {
@@ -125,10 +135,19 @@ void LogWindow::createlogPanel(const int _currentLog)
     }
 */
     logView->setItemDelegate(new QSqlRelationalDelegate(this));
-    logView->setSelectionMode( QAbstractItemView::SingleSelection);
+    logView->setSelectionMode(QAbstractItemView::SingleSelection);
     logView->setSelectionBehavior(QAbstractItemView::SelectRows);
     logView->resizeColumnsToContents();
     logView->horizontalHeader()->setStretchLastSection(true);
+    if (sortingThroughProxyModel)
+    {
+        proxyModel->sort(1);
+    }
+    else
+    {
+        logView->sortByColumn(1);
+    }
+
 
 }
 
@@ -214,6 +233,10 @@ void LogWindow::righButtonFromLogMenu(const int trow)
     delQSOFromLogAct->setData(trow);
     menu.addAction(qsoToEditFromLogAct);
     qsoToEditFromLogAct->setData(trow);
+    menu.addAction(checkQRZCOMFromLogAct);
+    checkQRZCOMFromLogAct->setData(trow);
+    menu.addAction(checkDXHeatFromLogAct);
+    checkDXHeatFromLogAct->setData(trow);
 
     QString contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
 
@@ -294,36 +317,46 @@ void LogWindow::showMenuRightButtonFromLogCreateActions()
 {
  //qDebug() << "LogWindow::showMenuRightButtonFromLogCreateActions" << endl;
 
+    delQSOFromLogAct = new QAction(tr("&Delete"), this);
+    delQSOFromLogAct->setShortcut(Qt::CTRL + Qt::Key_D);
+    delQSOFromLogAct->setStatusTip(tr("Delete a QSO"));
+    connect(delQSOFromLogAct, SIGNAL(triggered()), this, SLOT(slotQsoDeleteFromLog()));
 
-  delQSOFromLogAct = new QAction(tr("&Delete"), this);
-  delQSOFromLogAct->setShortcut(Qt::CTRL + Qt::Key_D);
-  delQSOFromLogAct->setStatusTip(tr("Delete a QSO"));
-  connect(delQSOFromLogAct, SIGNAL(triggered()), this, SLOT(slotQsoDeleteFromLog()));
+    qsoToEditFromLogAct = new QAction(tr("&Edit QSO"), this);
+    qsoToEditFromLogAct->setShortcut(Qt::CTRL + Qt::Key_E);
+    qsoToEditFromLogAct->setStatusTip(tr("Edit this QSO"));
+    connect(qsoToEditFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOToEditFromLog()));
 
-  qsoToEditFromLogAct = new QAction(tr("&Edit QSO"), this);
-  qsoToEditFromLogAct->setShortcut(Qt::CTRL + Qt::Key_E);
-  qsoToEditFromLogAct->setStatusTip(tr("Edit this QSO"));
-  connect(qsoToEditFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOToEditFromLog()));
+    qslSentViaBureauFromLogAct = new QAction(tr("Via &bureau"), this);
+    qslSentViaBureauFromLogAct->setShortcut(Qt::CTRL + Qt::Key_B);
+    qslSentViaBureauFromLogAct->setStatusTip(tr("Send this QSL via bureau"));
+    connect(qslSentViaBureauFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaBureauFromLog() ));
 
-  qslSentViaBureauFromLogAct = new QAction(tr("Via &bureau"), this);
-  qslSentViaBureauFromLogAct->setShortcut(Qt::CTRL + Qt::Key_B);
-  qslSentViaBureauFromLogAct->setStatusTip(tr("Send this QSL via bureau"));
-  connect(qslSentViaBureauFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaBureauFromLog() ));
+    qslSentViaDirectFromLogAct = new QAction(tr("D&irect"), this);
+    qslSentViaDirectFromLogAct->setShortcut(Qt::CTRL + Qt::Key_I);
+    qslSentViaDirectFromLogAct->setStatusTip(tr("Send this QSL via direct"));
+    connect(qslSentViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaDirectFromLog()   ));
 
-  qslSentViaDirectFromLogAct = new QAction(tr("D&irect"), this);
-  qslSentViaDirectFromLogAct->setShortcut(Qt::CTRL + Qt::Key_I);
-  qslSentViaDirectFromLogAct->setStatusTip(tr("Send this QSL via direct"));
-  connect(qslSentViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaDirectFromLog()   ));
+    qslRecViaBureauFromLogAct = new QAction(tr("Via bureau"), this);
+    qslRecViaBureauFromLogAct->setShortcut(Qt::CTRL + Qt::Key_R);
+    qslRecViaBureauFromLogAct->setStatusTip(tr("QSL &received via bureau"));
+    connect(qslRecViaBureauFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaBureauFromLog() ));
 
-  qslRecViaBureauFromLogAct = new QAction(tr("Via bureau"), this);
-  qslRecViaBureauFromLogAct->setShortcut(Qt::CTRL + Qt::Key_R);
-  qslRecViaBureauFromLogAct->setStatusTip(tr("QSL &received via bureau"));
-  connect(qslRecViaBureauFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaBureauFromLog() ));
+    qslRecViaDirectFromLogAct = new QAction(tr("Direct"), this);
+    qslRecViaDirectFromLogAct->setShortcut(Qt::CTRL + Qt::Key_T);
+    qslRecViaDirectFromLogAct->setStatusTip(tr("QSL received via direc&t"));
+    connect(qslRecViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectFromLog() ));
 
-  qslRecViaDirectFromLogAct = new QAction(tr("Direct"), this);
-  qslRecViaDirectFromLogAct->setShortcut(Qt::CTRL + Qt::Key_T);
-  qslRecViaDirectFromLogAct->setStatusTip(tr("QSL received via direc&t"));
-  connect(qslRecViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectFromLog() ));
+    checkQRZCOMFromLogAct = new QAction(tr("Check in QRZ.com"), this);
+    checkQRZCOMFromLogAct->setShortcut(Qt::CTRL + Qt::Key_Q);
+    checkQRZCOMFromLogAct->setStatusTip(tr("Check this callsign in QRZ.com"));
+    connect(checkQRZCOMFromLogAct, SIGNAL(triggered()), this, SLOT( slotCheckQRZCom() ));
+
+    checkDXHeatFromLogAct = new QAction(tr("Check in DXHeat.com"), this);
+    checkDXHeatFromLogAct->setShortcut(Qt::CTRL + Qt::Key_Q);
+    checkDXHeatFromLogAct->setStatusTip(tr("Check this callsign in DXHeat.com"));
+    connect(checkDXHeatFromLogAct, SIGNAL(triggered()), this, SLOT( slotCheckDXHeatCom() ));
+
 
 }
 
@@ -463,3 +496,22 @@ void LogWindow::slotQueryErrorManagement(QString functionFailed, QString errorCo
     emit queryError(functionFailed, errorCodeS, errorCodeN, failedQuery);
 }
 
+void LogWindow::slotCheckQRZCom()
+{
+    int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
+    QString _qrz = dataProxy->getCallFromId(_qsoId);
+    //qDebug() << "LogWindow::sloTCheckQRZCom: " << _qrz << endl;
+    QString url = "https://www.qrz.com/db/" + _qrz;
+
+    QDesktopServices::openUrl(QUrl(url));
+
+}
+
+void LogWindow::slotCheckDXHeatCom()
+{
+    int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
+    QString _qrz = dataProxy->getCallFromId(_qsoId);
+    //qDebug() << "LogWindow::slotCheckDXHeatCom(): " << _qrz << endl;
+    QString url = "https://www.dxheat.com/db/" + _qrz;
+    QDesktopServices::openUrl(QUrl(url));
+}

@@ -17,7 +17,7 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     //tipTextEdit->setReadOnly(true);
     //tipTextEdit->setWordWrapMode(QTextOption::WordWrap);
     tipId = 1;
-    tipMax = 17;
+    tipMax = 20;
 
     //QPixmap pixmap(":/img/klog_256x256.png");
 
@@ -163,7 +163,7 @@ void TipsDialog::setTip(const int _t)
         description = tr("<b>Tip #11:</b><br>Do you know...<br>You can subscribe to the <a href=https://t.me/KLogES>Spanish Telegram group</a> to discuss about KLog in Spanish?");
     break;
     case 12:
-        description = tr("<b>Tip #12:</b><br>Do you know...<br>You can subscribe to <a href=http://lists.nongnu.org/mailman/listinfo/klog-users>KLog-users mailing list</a> to discuss via email about KLog in English?");
+        description = tr("<b>Tip #12:</b><br>Do you know...<br>You can subscribe to <a href=https://lists.nongnu.org/mailman/listinfo/klog-users>KLog-users mailing list</a> to discuss via email about KLog in English?");
     break;
     case 13:
         description = tr("<b>Tip #13:</b><br>Do you know...<br>You can <a href=https://twitter.com/_ea4k>follow EA4K on twitter</a> to get updates about KLog?");
@@ -179,6 +179,15 @@ void TipsDialog::setTip(const int _t)
     break;
     case 17:
         description = tr("<b>Tip #17:</b><br>Do you know...<br>You can support translating KLog into your language? Please check <a href=https://www.klog.xyz/contrib/translations>KLog Translations</a> page.");
+    break;
+    case 18:
+        description = tr("<b>Tip #18:</b><br>Do you know...<br>You can double-click on an entity name in the DXCC table and all the QSOs with that DXCC Entity will be shown in the search box?");
+    break;
+    case 19:
+        description = tr("<b>Tip #19:</b><br>Do you know...<br>You can right-click on a QSO and select <i>Check in QRZ.com</i> to check that callsign in QRZ.com?");
+    break;
+    case 20:
+        description = tr("<b>Tip #20:</b><br>Do you know...<br>You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?");
     break;
     default:
         description = tr("TIP-Default: Text");

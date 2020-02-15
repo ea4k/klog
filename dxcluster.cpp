@@ -20,7 +20,7 @@ email                : jaime@robles.es
 *    GNU General Public License for more details.                           *
 *                                                                           *
 *    You should have received a copy of the GNU General Public License      *
-*    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
+*    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
 *                                                                           *
 *****************************************************************************/
 #include "dxcluster.h"
@@ -32,6 +32,8 @@ DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
     dataProxy = dp;
     constrid = 1;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
+    util = new Utilities;
+    saveSpotsFile = new QFile();
 
 
     initClass();
@@ -43,6 +45,8 @@ DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToC
 {
     //qDebug() << "DXClusterWidget::DXClusterWidget2" << clusterToConnect << QString::number(portToConnect) << endl;
    constrid = 2;
+   util = new Utilities;
+   saveSpotsFile = new QFile();
 
     initClass();
     server = clusterToConnect;
@@ -117,8 +121,11 @@ void DXClusterWidget::initClass()
     showann = true;
     showwwv = true;
     showwcy = true;
+    saveSpots = false;
+    saveSpotsFileOpen = false;
     myQrz = QString();
     currentLog = 0;
+    saveSpotsFile->setFileName(util->getSaveSpotsLogFile());
 }
 
 void DXClusterWidget::setMyQRZ(const QString &_qrz)
@@ -203,7 +210,7 @@ void DXClusterWidget::connectToDXCluster()
     connect(tcpSocket, SIGNAL(disconnected()), SLOT(slotClusterSocketConnectionClosed()) );
     connect(inputCommand, SIGNAL(returnPressed()), this, SLOT(slotClusterSendToServer()) );
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClusterClearLineInput()) );
-
+    openFile(); // This functions opens the file to save the DX-Cluster activity. The file will be closed when the DX is disconnected.
     tcpSocket->connectToHost( server, port );
     dxClusterListWidget->setSortingEnabled (false);
 
@@ -530,6 +537,8 @@ void DXClusterWidget::slotClusterSocketConnectionClosed()
     dxClusterListWidget->insertItem(0,item);
     dxClusterConnected = false;
     dxClusterAlreadyConnected = false;
+    saveSpotsFile->close();
+    saveSpotsFileOpen = false;
     sendButton->setText(tr("Connect"));
     inputCommand->setDisabled(true);
     inputCommand->setToolTip(tr("Click on Connect to connect to the DX-Cluster server."));
@@ -690,6 +699,7 @@ QStringList DXClusterWidget::readItem(QListWidgetItem * item)
 
         fields.clear();
         dxClusterString = ((item->data(0)).toString()).simplified();
+        saveSpot(dxClusterString);
         fields << dxClusterString.split(" ");
 
         (fields.at(0)).toFloat(&FirstFrecOK); // Just to see if the first string is a frecuency
@@ -762,6 +772,48 @@ void DXClusterWidget::setDXClusterServer(const QString &clusterToConnect, const 
 void DXClusterWidget::setDXMarathon (const bool _enable)
 {
     showDxMarathon = _enable;
+}
+
+void  DXClusterWidget::setSaveSpots (const bool _enable)
+{
+    saveSpots = _enable;
+}
+
+bool DXClusterWidget::openFile()
+{
+    if (saveSpotsFile->isOpen())
+    {
+        return true;
+    }
+    if (!saveSpotsFile->open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        QString aux = tr("It was not possible to open the a file to save the DX-Spots for writting. DX-Cluster activity will be saved!");
+        msgBox.setText(aux);
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+        return false;
+    }
+    else
+    {
+        saveSpotsFileOpen = true;
+        //saveSpots = false;
+        return true;
+    }
+}
+
+void DXClusterWidget::saveSpot (const QString &_spot)
+{
+    if ((!saveSpots) | (!saveSpotsFileOpen))
+    {
+        return;
+    }
+
+    QTextStream out(saveSpotsFile);
+    //out << _spot << endl;
+    out << (QDateTime::currentDateTime()).toString("yyyy/MM/dd-hh:mm:ss") << " - " << _spot  << endl;
 }
 
 /*

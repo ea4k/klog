@@ -1,5 +1,20 @@
+TBD - 1.0.0
+
+- UI: Removed the first column inthe DXCC widget to make it more user friendly.
+- UI: Created a widget to manage the Main QSO entry to make KLog more modular.
+- UI: eQSL & LoTW are marked as queued to be sent by default if the user activates it in the setup.
+- New feature: You can check a call in QRZ.com by right-clicking in the call from the log.
+- New feature: You can check a call in DXHeat.com by right-clicking in the call from the log.
+TEST: Added the date/time stamp - DX-Cluster: It is now possible to save in a file all the DX-Cluster activity.
+- Improvement: Changed http to https to the cty.dat download.
+- Improvement: Changed http to https to download.klog.xyz
+- Improvement: Three new tips added.
+- Improvement: eQSL & LoTW dates are updated always that are modified to any status.
+- Removed one console message about a duplicated database connection.
+- BugFix: Locator in SAT widget was not always not correctly evaluated as correct.
+
 February 2020 - 0.9.9.1
-- BugFix: Bands & Modes where sometimes duplicated in the combobox (TNX G4MKT).
+- BugFix: Bands & modes where sometimes duplicated in the combobox (TNX G4MKT).
 
 January 2020 - 0.9.9
 - UI: Created a widget to manage the Awards to make KLog more modular.

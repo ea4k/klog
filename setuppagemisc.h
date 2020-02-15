@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -71,6 +71,8 @@ public:
     void setDebugLog(const QString &_t);
     QString getLogSort();
     void setLogSort(const QString &_t);
+    QString getSendEQSLByDefault();
+    void setSetEQSLByDefault(const QString &_t);
 
     bool areDBPathChangesApplied();
 
@@ -95,6 +97,7 @@ private:
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox, *keepMyDataCheckBox;
     QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *debugLogCheckBox;
     QCheckBox *logSortCheckBox;
+    QCheckBox *sendEQSLByDefaultSearchCheckBox;
     QString defaultFileName;
     QLineEdit *defaultFileNameLineEdit, *dbPathLineEdit;
     QPushButton *fileNameButton, *dbPushButton, *moveDBPushButton;

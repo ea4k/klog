@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -568,6 +568,7 @@ void SetupDialog::slotOkButtonClicked()
         stream << "ManageDXMarathon=" << miscPage->getDXMarathon() << ";" <<  endl;
         stream << "DebugLog=" << miscPage->getDebugLog() << ";" << endl;
         stream << "LogSort=" << miscPage->getLogSort() << ";" << endl;
+        stream << "SendEQSLByDefault=" << miscPage->getSendEQSLByDefault() << ";" << endl;
 
         if ((miscPage->getReportInfo()).toUpper() == "TRUE")
         {
@@ -600,6 +601,7 @@ void SetupDialog::slotOkButtonClicked()
         stream << "DXClusterShowAnn=" << dxClusterPage->getShowANNRadiobutton() << ";" <<  endl;
         stream << "DXClusterShowWWV=" << dxClusterPage->getShowWWVRadiobutton() << ";" <<  endl;
         stream << "DXClusterShowWCY=" << dxClusterPage->getShowWCYRadiobutton() << ";" <<  endl;
+        stream << "DXClusterSave=" << dxClusterPage->getSaveActivityRadiobutton() << ";" <<  endl;
 
         stream << "NewOneColor=" << colorsPage->getNewOneColor() << ";" <<  endl;
         stream << "NeededColor=" << colorsPage->getNeededColor() << ";" <<  endl;
@@ -799,6 +801,9 @@ bool SetupDialog::processConfigLine(const QString &_line)
     else if (tab=="LOGSORT"){
         miscPage->setLogSort(value);
     }
+    else if (tab=="SENDEQSLBYDEFAULT"){
+        miscPage->setSetEQSLByDefault(value);
+    }
     else if (tab=="UDPSERVER"){
         UDPPage->setUDPServer(value);
     }
@@ -913,8 +918,11 @@ bool SetupDialog::processConfigLine(const QString &_line)
         dxClusterServers << value;
          //qDebug() << "SetupDialog::processConfigLine: dxClusterServers: " << dxClusterServers.last() << endl;
 
-    }else if (tab  =="DXCLUSTERSERVERTOUSE"){
+    }else if (tab  =="DXCLUSTERSERVERTOUSE"){        
         dxClusterServerToUse=value;
+    }
+    else if (tab  =="DXCLUSTERSAVE"){
+        dxClusterPage->setSaveActivityRadiobutton(value);
     }
     else if(tab =="NEWONECOLOR"){
         colorsPage->setNewOneColor(value);
@@ -1041,10 +1049,9 @@ void SetupDialog::readActiveBands (const QString &actives)
     }
 
     bands.clear();
-    _abands.removeDuplicates();
+    //_abands.removeDuplicates();
 
     bands << dataProxy->getBandsInLog(-1);
-
     bands << _abands;
     bands.removeDuplicates();    
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
@@ -1076,7 +1083,7 @@ void SetupDialog::readActiveModes (const QString &actives)
     }
 
     modes.clear();
-    modes << dataProxy->getModesInLog(-1);
+    modes = dataProxy->getModesInLog(-1);
     modes << _amodes;
     modes.removeDuplicates();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
@@ -1122,6 +1129,7 @@ void SetupDialog::setDefaults()
     miscPage->setDXMarathon("FALSE");
     miscPage->setDebugLog("FALSE");
     miscPage->setLogSort("FALSE");
+    miscPage->setSetEQSLByDefault("TRUE");
 
     UDPPage->setUDPServer("FALSE");
     UDPPage->setUDPServerPort("2237");

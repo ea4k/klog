@@ -5,15 +5,7 @@ MainWindowInputEQSL::MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent) 
 {
      //qDebug() << "MainWindowInputEQSL::MainWindowInputEQSL"   << endl;
     util = new Utilities;
-    qslSentStatusList.clear();
-    qslRcvdStatusList.clear();
-    clubLogStatusList.clear();
-
     dataProxy = dp;
-
-    qslSentStatusList = dataProxy->getQSLSentList();
-    qslRcvdStatusList = dataProxy->getQSLRcvdList();
-    clubLogStatusList = dataProxy->getClubLogStatusList();
 
     eqslSentComboBox = new QComboBox;
     eqslRecComboBox = new QComboBox;
@@ -27,12 +19,6 @@ MainWindowInputEQSL::MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent) 
     lotwRecQDateEdit = new QDateEdit;
     clublogQDateEdit = new QDateEdit;
 
-    eqslSentQDateEdit->setDisplayFormat("dd/MM/yyyy");
-    eqslRecQDateEdit->setDisplayFormat("dd/MM/yyyy");
-    lotwSentQDateEdit->setDisplayFormat("dd/MM/yyyy");
-    lotwRecQDateEdit->setDisplayFormat("dd/MM/yyyy");
-    clublogQDateEdit->setDisplayFormat("dd/MM/yyyy");
-
     createUI();
     setDefaultData();
     clear();
@@ -41,6 +27,19 @@ MainWindowInputEQSL::MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent) 
 
 void MainWindowInputEQSL::createUI()
 {
+    qslSentStatusList.clear();
+    qslRcvdStatusList.clear();
+    clubLogStatusList.clear();
+    qslSentStatusList = dataProxy->getQSLSentList();
+    qslRcvdStatusList = dataProxy->getQSLRcvdList();
+    clubLogStatusList = dataProxy->getClubLogStatusList();
+
+    eqslSentQDateEdit->setDisplayFormat("dd/MM/yyyy");
+    eqslRecQDateEdit->setDisplayFormat("dd/MM/yyyy");
+    lotwSentQDateEdit->setDisplayFormat("dd/MM/yyyy");
+    lotwRecQDateEdit->setDisplayFormat("dd/MM/yyyy");
+    clublogQDateEdit->setDisplayFormat("dd/MM/yyyy");
+
     clublogQDateEdit->setToolTip(tr("Date of the ClubLog upload."));
     eqslSentQDateEdit->setToolTip(tr("Date of the eQSL sending."));
     eqslRecQDateEdit->setToolTip(tr("Date of the eQSL reception."));
@@ -70,27 +69,7 @@ void MainWindowInputEQSL::createUI()
     QLabel *lotWRecLabelN = new QLabel(tr("LoTW Rec"));
     lotWRecLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-/*
-    QHBoxLayout *eqslSentLayout = new QHBoxLayout;
-    eqslSentLayout->addWidget(eqslSentComboBox);
-    eqslSentLayout->addWidget(eqslSentQDateEdit);
-    QHBoxLayout *eqslRecLayout = new QHBoxLayout;
-    eqslRecLayout->addWidget(eqslRecComboBox);
-    eqslRecLayout->addWidget(eqslRecQDateEdit);
-    QHBoxLayout *lotwSentLayout = new QHBoxLayout;
-    lotwSentLayout->addWidget(lotwSentComboBox);
-    lotwSentLayout->addWidget(lotwSentQDateEdit);
-    QHBoxLayout *lotwRecLayout = new QHBoxLayout;
-    lotwRecLayout->addWidget(lotwRecComboBox);
-    lotwRecLayout->addWidget(lotwRecQDateEdit);
 
-    QFormLayout *eqslInputTabWidgetLayout = new QFormLayout;
-
-    eqslInputTabWidgetLayout->addRow(eQSLSentLabelN, eqslSentLayout);
-    eqslInputTabWidgetLayout->addRow(eQSLRecLabelN, eqslRecLayout);
-    eqslInputTabWidgetLayout->addRow(lotWSentLabelN, lotwSentLayout);
-    eqslInputTabWidgetLayout->addRow(lotWRecLabelN, lotwRecLayout);
-*/
     QGridLayout *eqslInputTabWidgetLayout = new QGridLayout;
 
     eqslInputTabWidgetLayout->addWidget(clublogLabelN, 0, 0);
@@ -128,7 +107,6 @@ void MainWindowInputEQSL::createUI()
 void MainWindowInputEQSL::setDefaultData()
 {
 
-
     //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Validated");
 
     //eqslRecComboBox->addItems(qsAux);
@@ -148,14 +126,25 @@ void MainWindowInputEQSL::setDefaultData()
     //qsAux << tr("Y-Uploaded") << tr("N-Do not upload") << tr("M-Modified");
     clublogComboBox->addItems(clubLogStatusList);
 
+    queueSentByDefault = true;
+
 }
 void MainWindowInputEQSL::clear()
 {
     //qDebug() << "MainWindowInputEQSL::clear"  << endl;
     clublogComboBox->setCurrentIndex(1); // Do not upload
-    eqslSentComboBox->setCurrentIndex(1);
-    eqslRecComboBox->setCurrentIndex(1);
-    lotwSentComboBox->setCurrentIndex(1);
+    if (queueSentByDefault)
+    {
+         eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText("Q", Qt::MatchStartsWith));
+         lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText("Q", Qt::MatchStartsWith));
+    }
+    else
+    {
+        eqslSentComboBox->setCurrentIndex(1);
+        lotwSentComboBox->setCurrentIndex(1);
+    }
+
+    eqslRecComboBox->setCurrentIndex(1);    
     lotwRecComboBox->setCurrentIndex(1);
 
     //dateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
@@ -323,6 +312,8 @@ void MainWindowInputEQSL::slotLotwRecvComboBoxChanged(){
 //I-Ignore-3
 //V-Verified-4
 
+
+
     int i = lotwRecComboBox->currentIndex();
 
     switch (i)
@@ -333,6 +324,8 @@ void MainWindowInputEQSL::slotLotwRecvComboBoxChanged(){
 
         break;
         case 2:
+            lotwRecQDateEdit->setEnabled(true);
+            lotwRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 3:
             lotwRecQDateEdit->setEnabled(true);
@@ -343,8 +336,6 @@ void MainWindowInputEQSL::slotLotwRecvComboBoxChanged(){
         default: //NO
             lotwRecQDateEdit->setEnabled(false);
         break;
-
-
     }
 
 }
@@ -366,15 +357,18 @@ void MainWindowInputEQSL::slotLotwSentComboBoxChanged(){
         case 0:
             lotwSentQDateEdit->setEnabled(true);
             lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
-
         break;
         case 2:
+            lotwSentQDateEdit->setEnabled(true);
+            lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 3:
             lotwSentQDateEdit->setEnabled(true);
+            lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 4:
             lotwSentQDateEdit->setEnabled(true);
+            lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
 
         default: //NO
@@ -401,15 +395,18 @@ void MainWindowInputEQSL::sloteQSLRecvComboBoxChanged(){
         case 0:
             eqslRecQDateEdit->setEnabled(true);
             eqslRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
-
         break;
         case 2:
+            eqslRecQDateEdit->setEnabled(true);
+            eqslRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 3:
             eqslRecQDateEdit->setEnabled(true);
+            eqslRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 4:
             eqslRecQDateEdit->setEnabled(true);
+            eqslRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         default: //NO
             eqslRecQDateEdit->setEnabled(false);
@@ -437,15 +434,18 @@ void MainWindowInputEQSL::sloteQSLSentComboBoxChanged(){
         case 0:
             eqslSentQDateEdit->setEnabled(true);
             eqslSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
-
         break;
         case 2:
+            eqslSentQDateEdit->setEnabled(true);
+            eqslSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 3:
             eqslSentQDateEdit->setEnabled(true);
+            eqslSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 4:
             eqslSentQDateEdit->setEnabled(true);
+            eqslSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
 
         default: //NO
@@ -564,3 +564,7 @@ QDate MainWindowInputEQSL::getLOTWSenDate()
     return lotwSentQDateEdit->date();
 }
 
+void MainWindowInputEQSL::setQueueSentByDefault(const bool _b)
+{
+    queueSentByDefault = _b;
+}

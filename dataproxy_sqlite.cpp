@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
  *                                                                           *
  *****************************************************************************/
 
@@ -585,7 +585,7 @@ QStringList DataProxy_SQLite::sortBandNamesBottonUp(const QStringList _qs)
    //Next lines to be commented out
    //for (int i=0; i<_qs.length();i++)
    //{
-         // //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp - band: " << _qs.at(i) << QString::number(i) << "/" << QString::number(_qs.length())<< endl;
+         //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp - band: " << _qs.at(i) << QString::number(i) << "/" << QString::number(_qs.length())<< endl;
    //}
    //Previous lines to be commented out
 
@@ -5757,7 +5757,7 @@ int DataProxy_SQLite::getEntityIdFromName(const QString &_e)
           return -1;
       }
   }
-    //return -1;
+
 }
 
 QString DataProxy_SQLite::getEntityMainPrefix(const int _entityN)
@@ -5800,6 +5800,40 @@ QString DataProxy_SQLite::getEntityMainPrefix(const int _entityN)
         }
     }
     //return QString();
+}
+
+int DataProxy_SQLite::getEntityIdFromMainPrefix(const QString &_e)
+{
+
+    //qDebug() << "DataProxy_SQLite::getEntityIdFromMainPrefix:" << _e << endl;
+
+    int id = -1;
+    QString queryString;
+    QSqlQuery query;
+    queryString = QString("SELECT dxcc FROM entity WHERE mainprefix='%1'").arg(_e);
+    bool sqlOK = query.exec(queryString);
+
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return id;
+    }
+    else
+    {
+        query.next();
+        if (query.isValid())
+        {
+            id = (query.value(0)).toInt();
+            query.finish();
+            return id;
+        }
+        else
+        {
+            query.finish();
+            return -1;
+        }
+    }
 }
 
 int DataProxy_SQLite::getDXCCFromPrefix(const QString &_p)

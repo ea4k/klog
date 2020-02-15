@@ -340,7 +340,7 @@ ClubLog only accepts the following ADIF fields:
     qso = qso + "<CREDIT_GRANTED:" + QString::number((_q.at(15)).length()) + ">" + _q.at(15) + " ";
      //qDebug() << "eLogClubLog::getClubLogAdif: 150"  << endl;
     qso = qso + "<EOR>";
-    // //qDebug() << "eLogClubLog:: - QSO: "  << qso << endl;
+    //qDebug() << "eLogClubLog:: - QSO: "  << qso << endl;
 
 
      //qDebug() << "eLogClubLog::getClubLogAdif: 100"  << endl;

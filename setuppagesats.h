@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
  *                                                                           *
  *****************************************************************************/
 
@@ -78,7 +78,7 @@ private:
     //bool addNewSat(const QStringList _qs);
     void updateSelectedSats();
     //void readSelectedSat(const int _i);
-    void showError(const QString _errorC);
+    void showError(const QString &_errorC);
 
 
     /* Wizard to create a new Sat*/

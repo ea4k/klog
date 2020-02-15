@@ -56,32 +56,8 @@
 LogViewSortFilterProxyModel::LogViewSortFilterProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)
 {
+    //setDynamicSortFilter(true);
 }
-/*
-void LogViewSortFilterProxyModel::setFilterMinimumDate(const QDate &date)
-{
-    minDate = date;
-    invalidateFilter();
-}
-
-void LogViewSortFilterProxyModel::setFilterMaximumDate(const QDate &date)
-{
-    maxDate = date;
-    invalidateFilter();
-}
-
-bool LogViewSortFilterProxyModel::filterAcceptsRow(int sourceRow,
-        const QModelIndex &sourceParent) const
-{
-    QModelIndex index0 = sourceModel()->index(sourceRow, 0, sourceParent);
-    QModelIndex index1 = sourceModel()->index(sourceRow, 1, sourceParent);
-    QModelIndex index2 = sourceModel()->index(sourceRow, 2, sourceParent);
-
-    return (sourceModel()->data(index0).toString().contains(filterRegExp())
-            || sourceModel()->data(index1).toString().contains(filterRegExp()))
-            && dateInRange(sourceModel()->data(index2).toDate());
-}
-*/
 
 bool LogViewSortFilterProxyModel::lessThan(const QModelIndex &left,
                                       const QModelIndex &right) const
@@ -89,23 +65,96 @@ bool LogViewSortFilterProxyModel::lessThan(const QModelIndex &left,
     QVariant leftData = sourceModel()->data(left);
     QVariant rightData = sourceModel()->data(right);
 
+    QString leftString = leftData.toString();
+    QString rightString = rightData.toString();
+    //qDebug() << "LogViewSortFilterProxyModel::lessThan (leftString):  " << leftString << endl;
+    //qDebug() << "LogViewSortFilterProxyModel::lessThan (rightString):  " << rightString << endl;
+
+    QDateTime leftDT = QDateTime::fromString((sourceModel()->data(left.siblingAtColumn(1))).toString() + (sourceModel()->data(left.siblingAtColumn(2))).toString(), "yyyy/MM/ddHH:mm:ss");
+    QDateTime rightDT = QDateTime::fromString((sourceModel()->data(right.siblingAtColumn(1))).toString() + (sourceModel()->data(right.siblingAtColumn(2))).toString(), "yyyy/MM/ddHH:mm:ss");
+
+    //qDebug() << "LogViewSortFilterProxyModel::lessThan - DateTime: " << leftDT.toString("yyyy-MM-dd / hh:mm:ss") << endl;
     //qDebug() << "LogViewSortFilterProxyModel::lessThan - Columns: " << (sourceModel()->data(left.siblingAtColumn(2))).toString() << endl;
 
+    /*
+     * if (leftData.type() == QVariant::String)
+    {
+         //qDebug() << "LogViewSortFilterProxyModel::lessThan - QString" << endl;
+    }
+    */
+    //qDebug() << "LogViewSortFilterProxyModel::lessThan - Left column: " << QString::number(left.column())<< endl;
+    //qDebug() << "LogViewSortFilterProxyModel::lessThan - Right column: " << QString::number(right.column())<< endl;
+
+    //qDebug() << "LogViewSortFilterProxyModel::lessThan - date: " << leftDT.toString("yyyy-MM-dd--hh:mm:ss") <<"<==>" << rightDT.toString("yyyy-MM-dd--hh:mm:ss")  << endl;
+    if (left.column() == 1)
+    {
+        //qDebug() << "LogViewSortFilterProxyModel::lessThan - left: " << (sourceModel()->data(left.siblingAtColumn(1))).toString() << endl;
+        //QDate leftD = QDate::fromString((sourceModel()->data(left.siblingAtColumn(1))).toString(), "yyyy/MM/dd");
+        //QDate rightD = QDate::fromString((sourceModel()->data(right.siblingAtColumn(1))).toString(), "yyyy/MM/dd");
+
+        if (leftDT.date() == rightDT.date())
+        {
+            //qDebug() << "LogViewSortFilterProxyModel::lessThan - SAME" << endl;
+
+            if (leftDT.time() < rightDT.time())
+            {
+                //qDebug() << "LogViewSortFilterProxyModel::lessThan - SAME - (time) TRUE - Left" << endl;
+            }
+            else
+            {
+                //qDebug() << "LogViewSortFilterProxyModel::lessThan - SAME - (time) FALSE - Right" << endl;
+            }
+            return QString::localeAwareCompare(leftDT.toString("hh:mm:ss"), rightDT.toString("hh:mm:ss")) < 0;
+            //return leftDT.time() < rightDT.time();
+
+        }
+        else
+        {
+            //qDebug() << "LogViewSortFilterProxyModel::lessThan - DIFFERENT: " << endl;
+            //return leftD < rightD;
+            if (leftDT.date() < rightDT.date())
+            {
+                //qDebug() << "LogViewSortFilterProxyModel::lessThan - DIFFERENT - (date) TRUE - Left" << endl;
+
+            }
+            else
+            {
+                //qDebug() << "LogViewSortFilterProxyModel::lessThan - DIFFERENT - (date) FALSE - Right" << endl;
+            }
+            //return leftDT.date() < rightDT.date();
+            return QString::localeAwareCompare(leftString, rightString) < 0;
+        }
+    }
+    else
+    {
+        //return leftData < rightData;
+        //qDebug() << "LogViewSortFilterProxyModel::lessThan - No column 1: " << leftString << " / " << rightString << endl;
+        return QString::localeAwareCompare(leftString, rightString) < 0;
+    }
+
+
+
+    /*
     if (rightData.type() == QVariant::DateTime) {
     //if (rightData.type() == QVariant::Time) {
         //qDebug() << "LogViewSortFilterProxyModel::lessThan - 1" << endl;
         return leftData.toDateTime() < rightData.toDateTime();
 
-    } else {
+    }
+    else
+    {
 
         QString leftString = leftData.toString();
         QString rightString = rightData.toString();
 
         if (left.column() == 1)
         {
+
             //qDebug() << "LogViewSortFilterProxyModel::lessThan - left Column == 1" << endl;
-            if (leftData == rightData)
+            //qDebug() << "LogViewSortFilterProxyModel::lessThan - leftData/rightData: " << leftString<< "/" << rightString << endl;
+            if (leftD == rightD)
             {
+                //qDebug() << "LogViewSortFilterProxyModel::lessThan - leftData == rightData: " << leftString<< "/" << rightString << endl;
                 QString leftN = (sourceModel()->data(left.siblingAtColumn(2))).toString();
                 QString rightN = (sourceModel()->data(right.siblingAtColumn(2))).toString();
 
@@ -118,23 +167,17 @@ bool LogViewSortFilterProxyModel::lessThan(const QModelIndex &left,
             else
             {
                 //qDebug() << "LogViewSortFilterProxyModel::lessThan - left != right" << endl;
+                //qDebug() << "LogViewSortFilterProxyModel::lessThan - leftData != rightData: " << leftString<< "/" << rightString << endl;
+                return leftD < rightD;
+
             }
         }
         //qDebug() << "LogViewSortFilterProxyModel::lessThan - 2: " << leftString << "/" << rightString << endl;
-        /*
-        static QRegExp emailPattern("[\\w\\.]*@[\\w\\.]*)");
-
-
-        if(left.column() == 1 && emailPattern.indexIn(leftString) != -1)
-            leftString = emailPattern.cap(1);
-
-
-        if(right.column() == 1 && emailPattern.indexIn(rightString) != -1)
-            rightString = emailPattern.cap(1);
-        */
-        return QString::localeAwareCompare(leftString, rightString) < 0;
+        return QDate::fromString(leftString, "yyyy/MM/dd") < QDate::fromString(rightString, "yyyy/MM/dd");
+        //return QString::localeAwareCompare(leftString, rightString) < 0;
 
     }
+    */
 }
 
 

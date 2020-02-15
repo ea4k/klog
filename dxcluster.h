@@ -22,7 +22,7 @@ email                : jaime@robles.es
 *    GNU General Public License for more details.                           *
 *                                                                           *
 *    You should have received a copy of the GNU General Public License      *
-*    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
+*    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
 *                                                                           *
 *****************************************************************************/
 
@@ -33,6 +33,7 @@ email                : jaime@robles.es
 #include <QObject>
 #include "awards.h"
 #include "world.h"
+#include "utilities.h"
 #include "dataproxy_sqlite.h"
 
 class QWidget;
@@ -53,6 +54,7 @@ class DXClusterWidget : public QWidget
     bool isConnected();
     void setMyQRZ(const QString &_qrz);
     void setDXMarathon (const bool _enable);
+    void setSaveSpots (const bool _enable);
     //void sendSpotToCluster(const QString &_dx, const QString &_freq);
 
 
@@ -74,6 +76,7 @@ private slots:
 
 signals:
     void dxspotclicked(const QStringList &_qs); // DXSpotCall, DX-Freq, doubleClicked
+    //void dxspot(const QString &_spot); // The text string to be saved
 
 private:
 
@@ -83,8 +86,10 @@ private:
     void connectToDXCluster();
     QStringList readItem(QListWidgetItem * item);
     bool checkIfNeedsToBePrinted(const QString &_DXEntity, const int _band, const int _mode);
-
+    void saveSpot (const QString &_spot);
+    bool openFile();
     void addData(); //TO BE DELETED, JUST FOR TESTING PURPOSES
+
 
     QTcpSocket *tcpSocket;
     QListWidget *dxClusterListWidget;
@@ -103,14 +108,20 @@ private:
     World *world;
     Awards *awards;
     DataProxy_SQLite *dataProxy;
+    Utilities *util;
 
     bool showhf, showvhf, showwarc, showworked, showconfirmed, showann,  showwwv, showwcy;
     bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;
     bool showDxMarathon;
+
     QString myQrz;
     int currentLog;
-
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
+
+    bool saveSpotsFileOpen;                 //Is the saveSpotsFile open?
+    QFile *saveSpotsFile;
+    bool saveSpots; // write/save the spots to a file
+
  };
 
 class dxClusterSpotItem : public QListWidgetItem {

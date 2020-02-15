@@ -21,7 +21,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 #include "mainwindowsattab.h"
@@ -259,22 +259,24 @@ void MainWindowSatTab::slotSatDXLocTextChanged()
 {
      //qDebug() << "MainWindowSatTab::slotSatDXLocTextChanged: " << satDXLocatorLineEdit->text() << endl;
     satDXLocatorLineEdit->setText((satDXLocatorLineEdit->text()).toUpper());
-    if (modifying)
-    {
-        return;
-    }
+
     if ( locator->isValidLocator((satDXLocatorLineEdit->text()).toUpper()) )
     {
-        emit dxLocatorChanged((satDXLocatorLineEdit->text()).toUpper());
         satDXLocatorLineEdit->setPalette(palBlack);
         satDXLocatorLineEdit->setToolTip(tr("Locator of the DX station. This box is synchronized with the Locator box in the QSO tab."));
+
+        //if (!modifying)
+        //{
+        //    emit dxLocatorChanged((satDXLocatorLineEdit->text()).toUpper());
+        //}
     }
     else
     {
         satDXLocatorLineEdit->setPalette(palRed);
         satDXLocatorLineEdit->setToolTip(tr("Locator of the DX station. Format should be Maidenhead like IN70AA up to 10 characters."));
-        return;
+
     }
+    emit dxLocatorChanged((satDXLocatorLineEdit->text()).toUpper());
 }
 
 QString MainWindowSatTab::getSatName()
@@ -412,7 +414,7 @@ void MainWindowSatTab::populateSatComboBox()
     }
     else
     {
-        //TODO: Check how to do it better... now I could simply remove the if        
+        //TODO: Check how to do it better... now I could simply remove the if
         satNameComboBox->addItems(satellitesList);
     }
 }
@@ -494,9 +496,6 @@ void MainWindowSatTab::setDefaultBands()
     _b.clear();
 
     _b << "10M" << "2M" << "70CM" << "23CM";
-    satBandRXComboBox->clear();
-    satBandTXComboBox->clear();
-
     satBandRXComboBox->addItems(_b);
     satBandTXComboBox->addItems(_b);
 
