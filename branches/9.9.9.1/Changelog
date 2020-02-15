@@ -1,0 +1,706 @@
+February 2020 - 0.9.9.1
+- BugFix: Bands & Modes where sometimes duplicated in the combobox (TNX G4MKT).
+
+January 2020 - 0.9.9
+- UI: Created a widget to manage the Awards to make KLog more modular.
+- UI: When starting a new version for the first time, the splashscreen is not hidding other messages anymore.
+- UI: Removed some not used File menus (New, Open, Save & Save As).
+- UI: Sorting by date the log is also sorting taking into account the time.
+- New versions are now found depending on the OS, not just for the sources.
+- New feature: Added some tips in the Help menu to help the users to get the most of KLog.
+- Hamlib has now a read-only mode that will read freq & mode from the radio but will never modify/update anything in the radio.
+- Added some debug log option.
+- Some code cleaning with cppcheck and compilation warnings removed.
+- UI: Added a WSJT-X like color schema.
+- Bugfix: KLog was crashing if the call was completely removed in the Setup.
+- BugFix: KLog was always logging 59 instead of the real RST. (TNX DB4BIN)
+- BugFix: KLog was changing the mode in the radio from CW-R to CW if hamlib was active. (TNX G4MKT)
+- BugFix: KLog was changing freq in the radio in the starting process if hamlib was active. (TNX G4MKT)
+- Improvement: KLog reads the radio freq/mode when starting. (TNX G4MKT)
+- BugFix: ADIF export function was not exporting the DARC_DOK properly.
+- Bugfix: Closes Debian bug: #948911: FTBFS on mipsel. (TNX Lisandro)
+- BugFix: Editing the log metadata in the setup was not possible.
+- KLog exit process improved.
+- KLog start process improved.
+- DataProxy_SQLite class removed to optimize the code.
+- Other minor improvements.
+- Updated translations: Catalan (TNX Txema), French (F4HWL), Spanish (EA4K).
+
+August 2019 - 0.9.8.1
+- Added the Es'hail / QO-100 satellite.
+- UI: Satellite list, propagation modes and others are now shown sorted. (TNX Isabel)
+- UI: Added default values to the infoWidget (Continent, Prefix, CQ, ITU...). (TNX Isabel)
+- UI: RX/TX Freq in Satellite tab are also in red/black depending on the frequency being out/in of ham bands.
+- UI: Mode selected is now changing the RST format and default values for some modes.
+- Bugfix: Editing a QSO to remove a comment was not properly working. (TNX Isabel)
+- Bugfix: Worked & Confirmed QSO numbers are now aligned in the Awards tab. (TNX Isabel)
+- Bugfix: KLog.pro is now fixed to compile in Linux. (TNX KB2YSI)
+- Bugfix: Improved how the DXMarathon was managed when disabled.
+- Bugfix: Improved how DXCC Award was updated after one QSO was added. (TNX Isabel)
+- Fixed a bug in the SQL update database.
+
+
+August 2019 - 0.9.8
+- New feature: Basic Hamlib support.
+- Fixed a bug in the SQL update database.
+- Fixed a bug in the DXCCWidget.
+- Fixed a bug in the QSO per hour stats.
+- Added the FT4 mode.
+- Updated translations: Catalan (TNX Txema), Danish (TNX Joe), Finnish (TNX Kristjan), French (F4HWL), German (TNX Burkhard), Spanish (EA4TV).
+
+March 2019 - 0.9.7.3
+- TODO: Remove the band 0 / Light from the DB.
+- UI: KLog warns the user if the frequency used is out of the hamradio bands.
+- Reworked how freqs and bands are managed.
+
+March 2019 - 0.9.7.2
+- Bugfix: Frequency boxes did not accepted frequencies higher than 99.999 MHz. (TNX KB2YSI)
+
+March 2019 - 0.9.7.1
+- Bugfix: The frequency was not properly saved in the DB. (TNX KB2YSI)
+- Bugfix: The QSO_DATE was not exported into ADIF. (TNX KB2YSI)
+
+March 2019 - 0.9.7
+- Bugfix: When clicking on Check updates, the dialog froze.
+- Bugfix: Printing log is not longer showing band in the mode column.
+- Updated the default date on date boxes to the current date.
+- Improved the Frequency syncronization between Satellite tab and the main tab.
+- Improved how default mode is calculated.
+- Added Satellites widget in Setup.
+- Updated translations: Catalan (TNX Txema), Danish (TNX Joe), Finnish (TNX Kristjan), French (F4HWL), German (TNX Burkhard), Spanish (EA4TV).
+
+December 2018 - 0.9.6
+- Optimizing the Statistics widget.
+- Added some new Statistics widgets.
+- Fixed some messages with typos.
+- Bugfix: Fixed a bug preventing to modify a QSO. (TNX KB2YSI).
+
+October 2018 - 0.9.5
+- Added a dot at the end of all the tooltips.
+- Updated the Satellite database (TNX KB2YSI).
+- Some queries optimized.
+- Bugfix: You can nor close the About KLog window from any tag (TNX F4HWL).
+- New feature: KLog shows some statistics of your log: Tools->Stats
+- New feature: It is now possible to update the satellite data reading a sats.dat file: Tools->Update Satellite Data.
+- Satellites file (sats.dat) updated to september 2018 (TNX KB2YSI).
+- New translations: French (TNX F4HWL) and German (TNX Burkhard).
+- Updated translations: Catalan (TNX Txema), Croatian (TNX M0NKC), Finnish (TNX Kristjan), Spanish (EA4TV).
+
+
+August 2018 - 0.9.4
+- WSJT-X support to receive logged QSO and realtime data.
+- Check bool DataBase::updateTo012() / it was always returning true without any action.
+- Syncronize RX Freq with the satellite downlink combobox.
+- Focus is back to search line edit when right click on the list of found QSOs.
+- Update process has been improved.
+- Some warnings removed from compilation time.
+- Bugfix: Date was not properly calculated and UTC settings was not applied. That may create wrong date QSO when date changes due to UTC (TNX AC1DW).
+- Bugfix: When adding a QSO, if the QSL is marked as received, KLog showed a SQL error.
+- Bugfix: Table qsl_via needed to be renamed (TNX EA6ZS).
+- Bugfix: Some DXCC status were nor properly calculated.
+- Updated translations: Catalan (TNX Josep), Croatian (TNX M0NKC), Danish (TNX Joe), Spanish (EA4TV).
+
+April 2018 - 0.9.3
+- Double clicking on DXCC Widget name of the Entity will show the QSO is providing that status on the Search widget.
+- Added DXCC support for Kosovo.
+- Bugfix: Default band & mode are now defined as the most used band and mode.
+- Bugfix: TX frequency was not saved.
+- Bugfix: In the dxcc status widget, some countries were showing the UN flag unappropriately.
+- Bugfix: When updating the CTY file, query errors were shown on world.readCTYCSV function.
+- Bugfix: When editing the QRZ, the cursor position was not properly maintained.
+- Bugfix: Fixed the flags of several DXCC entities that were not correctly shown.
+- Bugfix: DXCC Status widget was not listing all the DX entities.
+- Bugfix: Modes & Bands where not always properly updated from the Setup.
+- Bugfix: Adding new QSO that implies a DXCC or WAZ status already worked failed.
+- Bugfix: Updating the WAZ status was not always possible due to a incorrect DB query.
+- Updated translations: Danish (TNX Joe), Spanish (EA4TV).
+
+January 2018 - 0.9.2.9
+- Bugfix: Adding new QSO that implies a DXCC or WAZ status already worked failed.
+- Bugfix: Modes where not properly added from the setup (TNX KB2YSI).
+- UI Change: Freq in the Satellite tab is now not deleted when a new QSO is added.
+- New translation: Catalan by Josep (Thank you!)
+- New translation: Finnish by Kristjan (Thank you!)
+
+January 2018 - 0.9.2.8
+- Important Optimization on KLog speed on start and general use.
+- New satellites (AO-91 & AO-92) added.
+- Added ALL the ADIF 3.0.7 fields (except the _INTL ones).
+- New feature: New menus to export ADIF files for LoTW and manage LoTW status.
+- GUI: Implemented an error reporting for the users for main errors
+- GUI: When a satellite is selected the main bands are automatically proposed.
+- GUI: QSO band is now linked to the uplink & downlink bands in the satellite tab.
+- Bugfix: Some ADIF fields were not properly imported/exported.
+- Bugfix: When searching calls like 1A0XX, 2E0XX, ... no results were found but there are with 3D0XXX
+- Bugfix: If an empty log was selected on config file, on next KLog start KLog crashed.
+- Bugfix: Doubleclicking on the log to edit was sometimes causing the band/mode data to be shown as a number instead of the human readable name.
+- Bugfix: Windows version did not detected the DB movement correctly.
+- New translation: Polish by LA7RRA (Thank you!).
+- New translation: Danish by Joe (Thank you!).
+- Updated translations: Croatian (TNX M0NKC), Italian (TNX IU5HIU), Spanish (EA4TV)
+- Several internal updates.
+
+September 2017 - 0.9.2.7
+- KLog offers the possibility to move the DB to another path (maybe a DropBox folder!)
+- New Operating systems recognized in runtime.
+- Updated the references to macOS from OSX.
+- Updated the list of valid modes up to ADIF 3.0.6.
+- Updated the list of valid propagation modes up to ADIF 3.0.6.
+- Update the 136KHz band limits to the new US licenses.
+- Optimized the speed of printing the log.
+- GUI: Added the QSO information done in a year on the DX-Marathon area.
+- GUI: Simplified the way active bands/modes are selected.
+- GUI: Satellite tab is redesigned.
+- GUI: Created a widget to manage all "eQSL" simplifying implementation of the main widget.
+- GUI: Created a widget to manage the Log, simplifying implementation of the main widget.
+- GUI: Created a widget to manage the Search, simplifying implementation of the main widget.
+- GUI: Added a SplashScreen on KLog start to show the user the starting process.
+- GUI: If the user adds a frequency in the TX Freq box that is not a currently used band, it is automatically added to the band seletion widget.
+- BugFix: Fixed how new logs were added to the DB.
+- BugFix: Identification is a band was HF or VHF was not always properly done.
+- BugFix: Higher bands where not shown to be selected in the preferences.
+- BugFix: DB updating function (009) blocked the execution of KLog the first time it was executed.
+- BugFix: Language message if English is the System language is no shown anymore.
+- New translation: Italian by IU5HIU (Thank you!).
+- Translations updated: Original English (TNX JustinBRye, from Debian-10n-english), Spanish (EA4TV), Japanese (TNX JL3OXR).
+
+May 2017 - 0.9.2.6
+- Check updates feature added. On start or when user desires KLog checks if there is one updated version available.
+- Simplified the way new logs are added, importing the general StationCallsign & Operators as default for new logs.
+- Improved the way first start was managed when no entity information was loaded.
+- GUI: Application icon is now shown in the application windows.
+- GUI: Updated some messages & tips.
+- GUI: DXCluster offers the Station Callsign as default value to connect.
+- GUI: Some menu minor reorganization.
+- Console: Added a few commands to the console command.
+- Changed the World class to be able to import files from any folder.
+- Changed how some non ARRL valid entities are managed to show the common name (Sicily / Italy)
+- BugFix: When manually importing a new CTY.CSV, although data was updated, it was not shown until next KLog start.
+- BugFix: In the others tab, the DXCC was sometime not correctly identified.
+- BugFix: Update on the DXCC widget caused no data to be shown if some columns were selected.
+- BugFix: Identification is a band was HF or VHF was not always properly done.
+- BugFix: Some improvements in data quality when exporting an ADIF file.
+- BugFix: When importing an ADIF file, if the file was not correct it was not possible to cancel the whole importing process.
+- Some minor changes on source code to optimize and improve.
+- Translations updated: Croatian (TNX M0NKC), Japanese (TNX JL3OXR) & Spanish (EA4TV).
+
+November 2016 - 0.9.2.5
+- BugFix: ADIF export function was not exporting the correct BAND & MODE data.
+
+September 2016 - 0.9.2.4
+- GUI: Created a DXCC status where all the DXCC entities are listed showing the working/confirmed status.
+- GUI: Created a Satellite list including (up to now) only LOTW compatible satellites.
+- GUI: Created a widget to manage all "My Data" simplifying implementation of the main widget.
+- GUI: Bands in the combobox are always shown correctly ordered (botton-up).
+- GUI: Improved the LOTW date management (TNX JL3OXR).
+- BugFix: Preferences->Misc: It was not possible to edit the default filename. (TNX K6XT).
+- BugFix: Added the Power unit (W) to the power box. Debian bug #654332.
+- BugFix: When editing a QSO in some text boxes text was reused from previous QSO and data could be corrupted.
+- BugFix: Minor bug in WAZ management.
+- BugFix: When managing logs in the setup is was not possible to edit the log data as a new log was always created.
+- When starting KLog for the first time, the setup guidance has been improved.
+- When selecting an entity, different from the proposed on country file, KLog asks the user which one to use.
+- Operator from the selected log is used as default when entering QSO (as station callsign).
+- Japanese translation updated. (TNX JL3OXR).
+- Spanish translation updated.
+- Some cleaning in the code.
+
+January 2016 - 0.9.2.3
+- Improved the way translations are managed (Specially in Linux).
+- Icon application is now shown in OSX & Windows.
+- New translation: Japanese by JL3OXR (Thank you!).
+- Bugfix: Some strings where not defined to be translated (TNX JL3OXR).
+- Bugfix: Some tips in the UI where not correctly placed (TNX JL3OXR).
+- Bugfix: QSOs in JT9 were not properly imported from ADIF (TNX EA3XQ).
+- Bugfix: Logfiles with the <EOH> in the first line, following some test were not properly imported.
+
+November-2015 - 0.9.2.2
+- Translations are now working properly in Windows & OSX.
+- New translation: Catalan by EA3NM (Thank you!).
+- Ported from Qt4 to Qt5.
+- BugFix: Aether ADIF files could not be properly imported. (TNX AA5VU).
+- BugFix: QSOs where not properly shown in the search box.
+- BugFix: When started for the first time, no modes were shown as default.
+- BugFix: CTY.CSV was not properly updated.
+- BugFix: When upgrading the mode information in database some modes where not properly updated.
+- GUI: Changed the year to show the full number to avoid problems with old QSO.
+- Import ADIF functionality is improved to support importing of logs with some missing data.
+- Removed the Spot button until its functionality is implemented.
+
+
+September-2015 - 0.9.2.1
+-BugFix: Band & Mode information was not properly stored.
+
+August-2015 - 0.9.2
+- Bugfix: An ADIF file with one blank line and one QSO used to froze KLog.
+- Bugfix: Minor bugfix in the definition of propagation modes.
+- BugFix: When editing a QSO the name was not shown.
+- BugFix: STX_String field was not always imported properly.
+- BugFix: Fixed a minor bug in log table regarding the prop_mode foreign key.
+- BugFix: Improved the color & status shown of a QSO on the DXCC.
+- BugFix: DXCluster: Fixed a bug that caused the colors to appear always as new one.
+- BugFix: DXCluster: The option to show only not confirmed was not working correcty.
+- BugFix: IOTA reference was not saved when entering a QSO.
+- BugFix: BIGCTY.DAT was not properly download in KLog first start.
+- GUI: Added some shortcuts in the preference widget.
+- GUI: DXCluster: Add a suggestion to hit enter if no password is expected for the cluster. (tnx AA5VI)
+- GUI: DXCluster: Warns you if the spot is needed for the current year DX-Marathon
+- GUI: Added a Propagation Mode Combobox.
+- GUI: Prop_Mode combobox automatically goes to SAT if sat name or sat mode are defined.
+- GUI: Added a Find DX-QSL requested option.
+- Added the 630M & 13CM bands.
+- Updated Mode & submode definition up to ADIF 3.0.4.
+- Special CQ & ITU zones in some calls are now identified.
+- KLog is able to import QSOs with no BAND field if FREQ field is present.
+- KLog offers the user a default value if RST_TX or RST_RX field is not present when importing.
+- Support of realtime upload, modification & removal of a single QSO to/from ClubLog.org.
+- Updated the DB with the PROP_MODE options.
+- Improved the way KLog manages & shows the bands & modes.
+- Removed the option to choose to run in memory or file in the start wizard. KLog will run always using a file for the DB.
+- Added an auto complete option to auto-complete info (QTH, Locator, Name, QSL Manager & IOTA) from previously worked QSO.
+- Cleared the world.cpp file.
+- Some minor performance improvements.
+
+April-2015 - 0.9.1.1
+- Bugfix: Editing a QSO with satellite data was not properly done and caused some errors.
+
+April-2015 - 0.9.1
+- Bugfix: Fixed DataBase::getBandIdFromFreq it was not ansswering properly.
+- Now checks if band & frequency are coherent before adding a QSO. Band wins.
+- All Satellite QSO include the PROP_MODE ADIF tag to make it compatible with LOTW.
+- Improved the DXMarathon code.
+- GUI: Added basic Satellite support.
+- GUI: It is possible to mark a QSL sent via bureau/direct & DX QSL as requested with one action from Search box.
+- GUI: KLog request a valid QRZ and at least one first logtype to start using it.
+- KLog supports the management of several logs, being possible to edit, remove and select the one to use.
+
+January-2015 - 0.9.0.3
+- Bugfix: ADIF was not properly imported when Fields where using the Type of data optional field preventing logs from Logger32 being imported. (TNX EB1TR)
+- Bugfix: QSL Sent/Received status in the search box were switched.
+- Bugfix: CTY.CSV was not updated if the file was already existing.
+- Bugfix: Entity DB was not updated when CTY.CSV was updated.
+- Bugfix: Search results showed the default Station Callsign if non was in the QSO. This lead to errors if QRZ was not the default.
+- KLog recognizes now .ADIF files (instead of only .ADI).
+- KLog shows now the WAZ status.
+- Added a very basic support of DX Marathon (http://www.dxmarathon.com/).
+- DXCluster filters are now working.
+- The user can manually assign the DXCC entity for a DX.
+- Improved the function to update the DB from one release to the following.
+- DB file is compressed everytime KLog finishes.
+- It is possible to find QSL pending to receive.
+- It is possible to modify entities data in the World Editor in preferences.
+- It is possible to choose in preferences whether to keep my Data Tab from one QSO to the next or not.
+- GUI: A tooltip is shown in the search results showing the DXCC name / CQ zone.
+- GUI: Added a button to rescore awards.
+- GUI: Added a button to update the search Box without modifying the text.
+- GUI: Updates Bearing/distance/... when changing Locator.
+- GUI: When the QRZ lineedit is blank or the clear button is clicked, entity info is deleted (beam, distance, ...).
+- GUI: The IOTA continent is updated when the QRZ is modified.
+- GUI: DXCluster input is disabled when not connected.
+- GUI: Corrected the behaviour of the status bar.
+- GUI: Added primary & secondary subdivisions in the Others Tab.
+- Some other minor fixes.
+
+
+November-2014 - 0.9.0.2
+- Bugfix: Right-click on search result sometimes caused KLog to crash.
+
+November-2014 - 0.9.0.1
+- Bugfix: Selected DX-Cluster servers were not used to connect. (TNX DL6FBS)
+
+November-2014 - 0.9.0
+- Ensures the ASCII requirement of ADIF.
+- Updated the Preferences dialog.
+- Added the About Qt help menu.
+- Bugfix: Selected DX-Cluster servers were not used to connect.
+- Bugfix: When selecting QSL received/sent with right click, date was not updated.
+- Bugfix: Fixed the FileManager::adifReadLog to be able to read logs with several lines per QSO.
+- Some other minor bugfixes.
+- New feature: It is possible to show Imperial System (Miles instead of Km) data. (TNX - KF5JNU)
+- New feature: It is possible to mark/look for & export requested QSL.
+- New feature: It is possible to automatically mark(or not) a QSL as requested by the DX when the DX's card is received.
+- New feature: It is possible to show (or not) the callsign used in the search box.
+- New feature: KLog uses bigcty.csv for normal DX & will use cty.csv for contesting.
+
+April-2014 - 0.7.1
+- Backport to Qt 4.8.
+- Download the http://www.country-files.com/cty/cty.csv instead of cty.dat (with no ARRL id).
+- Capable to read cty.csv to get the info of the ARRL id.
+
+April-2014 - 0.7.0
+- Full rewritten software based only in Qt. NO KDE dependency.
+- KLog can now run on Linux, OSX and Windows.
+
+November-2013 - 0.6.2
+- Bug fixed: Under some conditions, KLog crashes when entering a new QRZ. (TNX LW1EQI).
+- Bug fixed: IOTA data was not properly cleared when clicking the Cancel button.
+- Bug fixed: QSL combobox content was not properly managed. (TNX DF4FH).
+- Bug (gui) fixed: IOTA continent is now "automagically" detected... again (a bug prevented this functionality).
+- GUI updated: You can click on RX or TX Frequency buttons to copy the frequency to the other one.
+- GUI updated: You can select eQSL in the QSL combobox as an option to mark the QSL information of a QSO.
+- GUI updated: Two new shortcuts: CTRL+W: deletes the current QSO. CTRL+Q: to (quick)edit the last QSO added.
+- GUI updated: Minor tab reorder.
+
+June-2013 - 0.6.1
+- Bug fixed: Locator was not properly calculated due to a sign difference management from KLog and CTY.DAT.
+- GUI updated: The cursor position management of the QRZ box has been improved to ease the operation.
+
+January-2013 - 0.6.0
+- Bug fixed: Typo "Frecuency" changed to "Frequency" in a tooltip. (Debian bug: #654328) (TNX Jonas Stein)
+- Bug fixed: Typo/wishlist "Numb" changed to "Number" in main table. (Debian bug: #654331) (TNX Jonas Stein)
+- Bug fixed: Typo/wishlist "UTC" changed to "Time" in main table. (Debian bug: #654331) (TNX Jonas Stein)
+- Removal of several not needed #includes.
+- Removed some warnings on compilation.
+- GUI improved: The information boxes are now independant from the top right tab widget to improve usability.
+- GUI updated: Disabled the Setup tab of Hamlib until hamlib is properly working.
+
+January-2012 - 0.5.9
+- Bug fixed: When starting for the first time, the CTY.DAT file downloaded had a loop that was not properly managed. (Debian bug: #653697) (TNX Jonas Stein)
+- Fixed some typo: "Km" changed to "km". (Debian bug: #6536978) (TNX Jonas Stein)
+
+December-2011 - 0.5.8
+- Bug fixed: Right button in the search result did not "sent" the QSL card.
+- Bug fixed: Closing the window did not ask to save data before exit. (TNX EA7HEG).
+- Bug fixed: Beam was not properly calculated. (TNX DL6FBS).
+- Bug fixed: Minor problem of APP_KLOG_NUMBER ADIF header fixed.
+- Bug fixed: When modifying, some fields did not accepted empty fields (deleting). (TNX VK4JAZ).
+- GUI updated: Remove the map tab in the main GUI as it is still not implemented.
+- GUI updated: Ordered the tab-switching to make it more usable. (TNX Cedric).
+- Added the support for QRP. Power has two decimals. (TNX VK4JAZ).
+
+November-2010 - 0.5.7
+- New feature: Added the Export needed QSL that allows to create an ADIF file with all the QSO with new ones and new bands still not confirmed that has not been QSLed.
+  The objective is to export it to a QSL or label printing software (until KLog implements that feature).
+- Updated translations: SV by SM4ABE.
+- GUI improved: Added sliders to be able to move panels.
+- GUI improved: Changing the band combobox changes the TX Freq box and viceversa.
+- Minor fix: The PROGRAMVERSION tag in log was not properly formated.
+
+July-2010 - 0.5.6
+- Fixed the hamlib compilation scripts (CMakeLists.txt, FindHamlib.cmake). (TNX AB4BD).
+- Fixed one bug that causes some architectures not to compile.
+- Fixed some permisions and other warnings for Fedora packaging. (TNX N3LRX).
+- BUG fixed: Setting QSL from the log with right button was not working.
+
+May-2010 - 0.5.5
+- New feature: If cty.dat file is not found, KLog offers to download from the web. 
+- New feature: New tool to update the update the cty.dat file from the web.
+- New feature: QRZ font color changes to red if has been worked previously. (Proposed by KE7TDY)
+
+March-2010 - 0.5.4
+- Small fix to initialize a variable before using it.(realTimeLog in klog.cpp)
+- Fixed a bug that caused KLog to crash of no cty.dat file was found (bug #016917)(TNX KA6MAL)
+
+February-2010 - 0.5.3
+- Fixed a bug that caused modified QSO not being updated.
+- Fixed a bug in the way the band & mode combobox managed the data.
+
+February-2010 - 0.5.2
+- Fixed a bug that causes a crash when connectiong to DXCluster. (bug #016653)
+- Added a very basic Satellite support.
+- Removed the Freq LCD and added two new editable widgets: Freq TX and Freq RX. (bug #016609)
+- Added again the entity count of /M stations.
+
+January-2010 - 0.5.1
+- Fixed a bug with the display of the Date.
+
+December-2009 - 0.5.0
+- Migrated to Qt4.
+- Updated translations: SV by SM4ABE, DE by DL5PD, ES by EA4TV.
+- ZL2ACG joined the KLog team. Welcome and thank you Andrew!
+
+April-2009 0.4.7
+- New feature: Import cabrillo logs.
+- Improved the ADIF compatibility up to ADIF 2.2.2.
+- BUG fixed: Improved the confirmed QSO accounting.
+- BUG fixed: RST format were not changed when another mode was selected if the CALL was empty. (TNX Alvaro, EA4RCT).
+- BUG fixed: Calls like F0XXX/TU8 were not recognised if written as TU8/F0XXX.
+- BUG fixed: TX_PWR is only saved when bigger than 0w :-)
+- BUG fixed: Prefixes were not properly managed and some information, as the STATE from ADIF files were not always well imported.
+- BUG fixed: Related with the ADIF saving CQ & ITU zones for QSO. It was not properly saved but can be recovered from the CALL.
+
+20-dic-2008 - 0.4.6
+- BUG fixed: Printing was not properly working due to library actualization.
+- BUG fixed: Fields STX/SRX/STATION_CALLSIGN/CONTEST_ID were copied from one QSO to the following one.
+
+23-nov-2008 - 0.4.5
+- GUI fixed: Changed the order of the input fields tab switching.
+- GUI fixed: Corrected the layout to fix the screen as ITU was not properly shown.
+- GUI improved: Added a new one color to differ a completely new one spot in the DX-cluster from a needed in a band.
+  This last improvement is specially usefull in the search QSO to QSL. Test it!
+- GUI improved: Added a tab in the botton box with the DXCC status (only main HF bands).
+- New feature: Added the possibility to choose to show or not DX Spots based on CW/SSB activity. (TNX EA7BJ)
+- New feature: Added the support of the 0.136KHz and GHz bands (not to the GUI but KLog can process them).
+- BUG fixed: Minor check on QSL sent date was not properly done (no data lost).
+- BUG fixed: Some Entities & zones where not properly recognized.
+- BUG fixed: The state (needed/worked/confirmed) was not always properly shown.
+- Improved the way is readed the cty.dat file and added support for its new format.
+- Improved the ADIF compatibility supported fields, band frecuencies, modes...
+- Improved the QSO merging with previous data.
+- Updated translations: English, Spanish, TNX: Swedish (SM4ABE), German (DL5PD).
+
+1-may-2008 - 0.4.4
+- BUG fixed: KLog now recognises a "/LH" LightHouse stations (TNX G3OAG)
+- BUG fixed: TLF import did not show the imported QSO in the log. QSO were not lost, just not shown. They were added to the logfile and saved when saving. No data was lost. This bug was introduced in release 0.4.2 after an optimization in the logfile reading.
+BUG: Frequency was not compliance with ADIF as was saved in KHz instead of MHz.
+- BUG fixed: If a logfile does not provide a MY_GRIDSQUARE, KLog does not add the predefined MY_GRIDSQUARE.
+- BUG fixed: Some GRIDSQUARES were not detected as wrong althought they were.
+- Minor fix: Corrected the URL to CTY.DAT file in the start message.
+- GUI improved: Added a progress dialog when saving.
+- GUI changes: Some widgets have been changed to prepare for the Qt4 migration. Specially the Led near the QRZ box that will reapear as usual when KLog is migrated to Qt4.
+- Added the 70Mhz band.
+- New feature: New tool added "Merge QSO data" that looks in all the log for the QSO that has been worked more than once and merges the data like Name, QSL info, QTH, Locator, ...
+The information comming from all the appearances of a call in the log is grouped in the first appearance of that call in the log.
+
+18-jan-2008 - 0.4.3.1
+- Package fix: Distributed with the language (po) files.
+
+12-jan-2008 - 0.4.3
+- BUG fixed: KLog copied the QSL sent date into the QSL rec date. Only QSL rec date was lost but not the QSL status.
+- BUG fixed: KLog now recognises a "/J" (Jamboree On The Air) Scout Station.
+- GUI improved: Added the cty.dat URL.
+
+
+12-Sep-2007 - 0.4.2
+
+- New feature: The user can now configure to require or not the mandatory data for each QSO (QRZ, date, time, band, mode, RST tx & RST rx. (if not all the mandatory fields are entered, KLog's behaviour may be unexpected).
+- New feature: Klog creates a temp file (~.klog/tempklog.adi) where it saves automatically all the QSOs entered until the log is manually saved. It prevents the log to be lost in case of unprevented KLog/computer failure. (TNX SM5OUU)
+- BUG fixed: If the field (maybe any other field too) COMMENT is more than one line long, the log is broken and cannot be read. (TNX SM5OUU)
+- BUG fixed: KLog does not ask for the file name if you have previously opened one file and the name has not changed.
+- BUG fixed: In the GUI, the "Preferences" is correctly shown and not as "&Preferences".
+- BUG fixed: When modifying a QSO, the number of QSOs was incremented when the user click over OK.
+- BUG fixed: If a QSO was deleted the awards/number of QSO where not decresed.
+- BUG fixed: When the date
+- GUI improved: Deleted the WAE box (the WAE calculations was not implemented).
+- New translation: KLog is now also in Swedish.(TNX SM4BE)
+- New translation: KLog is now also in Galician.(TNX Fuco Mera)
+- Updated German translation.(TNX DL5PD)
+- Updated Spanish translation.
+
+16-Dic-2006 - 0.4.1
+
+- Bug fixed: The distance and beam is also resetted when the call box is deleted.
+- Bug fixed: Calls /M and /MM do not count for DXCC.(TNX SM5CNQ)
+- Bug fixed: It is possible to filter only for needed entities spots.
+- Change: The hamlib signal meter has been removed from the GUI.
+- New feature: There is a new tool available to find QSO from which the QSL is needed that you have still not sent the QSL. Very useful to find which QSL you need to send first!
+- New feature: The MY_GRIDSQUARE is managed by default by all QSO (saves the default if none is entered)
+
+
+10-Sep-2006 - 0.4.0
+
+- New feature: It is possible to manage user-created local awards (TPEA, DOK, WAS, ...) KLog reads user defined awards in a special format.
+- New feature: KLog reads ".adif" files also.(TNX DL5PD)
+- New feature: It is possible to add/delete new DXServer clusters in the setup box.(TNX DL5PD)
+- GUI Improved: IOTA continent is now "automagically" detected.
+- Bug fixed: Not really a bug but now, the log is cleaner as it does not save the "STATE" for ALL the QSO, only does it if needed.
+- Bug fixed: After modifying a QSO the band and mode did not return to the last used (TNX DL5PD).
+- Bug fixed: If the band changed, without any call in the Call box, KLog showed "new one, work it"
+- Bug fixed: If the band changed, when modifying KLog fooled the entity color band boxes.
+- Bug fixed: KLog recognises /MM as maritime mobile station
+- Bug fixed: When opening a new log, the number of QSO did not start from zero.
+- New translation: KLog is now also in German.(TNX DL5PD)
+
+
+18-Jan-2006 - 0.3.3
+- New feature: It is now possible to sort the log by numbers from the main log.
+- New feature: The frequency box is now also used when no hamlib support is active (double clicking over a
+  dx-cluster spot.
+- New feature: If file name does not end in .adi, add the .adi.  
+- Bug fixed: Reporting a bug does not crash KLog although the widget has been temporally/drastically simplified.
+- Bug fixed: It is possible to select the radio from the setup.  
+- Bug fixed: (introduced in 0.3.2) It was not possible to activate the progress dialog.
+- Bug fixed: When clicking over "New File", confirmed entities was not set to "zero".
+- Bug fixed: When reading from cty.dat file, the prefix was reading with some spaces at the begining.
+- GUI Improved: After pressing OK/clear button, the QRZ box is selected. (TNX P.H. Rankin Hansen)
+- GUI Improved: You can now reach to Name&QTH using the tab key (TNX P.H. Rankin Hansen)
+- GUI Improved: QTH/Locator is now on the main QSO tab (TNX P.H. Rankin Hansen)
+
+25-Apr-2005 - 0.3.2
+- New feature-(unstable): Hamlib support to control/read the rig from KLog.
+- New feature-(unstable): It is possible to click over a DX-Spot and set the radio to that frecuency & mode to work the spot (hamlib).
+- New feature-(unstable): KLog reads the frecuency, band, mode and signal from the radio in real time (hamlib).
+- New feature: After QSLing using the Right Button option from the search box, the search box is updated so the QSL status is shown updated.
+- New feature: Local operator callsign can now be also logged.
+- Bug fixed: A call ending in /B is now correctly recognised as a beacon.
+- Bug fixed: Now it recognise all the "special suffix" like /r Rotuma, /a Mount Athos,...
+- Bug fixed: WARC Bands were not correctly detected.
+- GUI improved: The QRZ box always shows the QRZ as uppercase. (TNX ea4eej)
+- Bug fixed: KLog can now read ADIF files where the QSO can be in several lines.
+- Bug fixed: Importing from tlf, the QSO count was not properly done because of the comment lines.
+
+16-Jan-2005 - 0.3.1
+
+- KLog has been optimized and now runs faster.
+- New feature: KLog saves the date/time of the last log file save.
+- New feature: KLog ask the user for a comment when Importing a TLF log (for example 
+  to note that those QSO are from an specific contest or whatever).
+- Bug fixed: When selecting a DX-Spot from the DX-Cluster it did not overwrote the name.
+- Bug fixed: When writting the log, there was an space missing before the <EOR>.
+  It is just a "cosmetic" fix, not a real bug.
+- Bug fixed: The same with the QSL card status.
+- Bug fixed: KLog now recognises all the prefix that appears in cty.dat file with 
+  special CQ/ITU zones.
+- Bug fixed: KLog recognises the special call "3XDQC/P" as "3X" although it does not
+  follow the "prefix+number+suffix" pattern
+- Bug fixed: When starting it now looks the cty.dat file in: ~/.klog and in the current 
+  directory before starting without Entities' data. (TNX oh7jjt)
+- Bug fixed: If we are modifying a QSO, the search box is not updated. Avoids some 
+  crashes.
+
+07-Nov-2004 - 0.3.0
+
+- Fixed source code to allow compiling in more architectures.
+- New feature: It is possible to show a progress dialog when opening the log file. 
+  This is configurable.
+- New feature: It is now possible to hide/show WARC spots or announces from cluster.
+- New feature: Printing the is now possible.
+- New feature: Sorting the log file is now possible.
+- New feature: New option in right button to send&rec QSL at once.
+- New feature: If a CALL has been previously worked it shows data to the actual QSO.
+- Fixed bug: When modifying, the QTH was not modified.
+- Fixed bug: It did not make you save if you just modify a QSO.
+- Improved the gui: The "T" (from RST) does not disappears but is disabled when is 
+  not needed. (TNX Ferm�n H.). 
+- Improved the gui: The QSL info text box is always active.
+- Improved the gui: When connecting to the DX-Cluster server, automatically sets 
+  the DXCluster window as active.
+
+2-May-2004 - 0.2.9
+
+- New feature: Selection of a DX-Spot shows the Entity data and state.
+- New feature: KLog checks and captures the output of a sh/dx command in cluster.
+- Fixed bug(caused in 0.2.8): QRZs as KA3AA, when the prefix is just one letter but the call uses two are now well recognised.
+- Fixed bug: Better recognision from /number calls from DX-Cluster.
+
+21-Mar-2004 - 0.2.8
+
+- Fixed bug: Now ignores comments in TLF's files.
+- Fixed bug: QRZs as VP2MCV, with complex prefixes are now well recognised.
+- Improved the gui: RST, Power size adjusted. (TNX ea1ddn)
+- Improved the gui: Name and QTH moved to QSO tab.
+- Improved the gui: QSL via bureau is now the default option. (TNX ea1ddn)
+- New feature: Calculate distance and beam if locator is entered. (TNX ea1ddn)
+- New feature: Auto-open logfile when starting is now possible. (TNX ke6sls & ea1ddn)
+- New feature: Now it is possible to double-click over a DXCluster spot to copy it to the QSO input box. (TNX ea1ddn)
+- New feature: In the search box, QSOs are colored indicating if worked, needed, ...
+
+04-Jan-2004 - 0.2.7
+
+- Fixed bug: When editing a QSO, the QSL date was not properly displayed.
+- Fixed bug: When entering a QSO, if the band is changed, KLog checks the state in this new band.
+- Fixed bug: RST (tx&rx) in ADIF was always length 3, now is calculated for every QSO (at writing).
+- Fixed bug: When modifying if QSL rec, the date was shown as 00/00/0000
+- New feature: It is posible to select a default mode & band in the setup.
+- First Icon draft created.
+
+02-Dec-2003 - 0.2.6
+
+- Fixed bug: When Non real time logging was setting the time was "real time" when modifying. (TNX rz3dfs)
+- Fixed bug: When reading the log file if an entity was not recognised Klog used to crash.
+- Fixed bug: Now we recognise calls like 3XY1L when reading from a log file.
+- Fixed bug: Improved the way of checking the confirmed/worked entities.
+- Fixed bug: /P, /M and /QRZ are now better recognised when reading from logfile or clicked.
+- Fixed bug: Stats were not shown after importing a tlf log file.
+- Fixed bug: The zone & entity numbering fixed.
+- New feature: It is posible to setup a default power level.
+- New feature: When receiving a qsl with the mouse's right button the numbers are updated.
+- New feature: Also a default color is selectionable as non-info color.
+- Improved the gui: Band info leds removed to gain space in the info widget.
+
+26-Aug-2003 - 0.2.5
+
+- Fixed bug:�RST was changed so when entering SSB RST. Entering 590 -> showed 509. (TNX ke6sls)
+- Fixed bug: In cluster some frecs (432MHz and 2190m) were not properly recognized.
+- New feature: It is now possible to hide HF/VHF/ANN spots or announces from cluster.
+- New feature: It ask for the file name when saving first time instead of using "klog.adi" as default. (TNX ke6sls)
+- New feature: It is now possible to add QSO in non real time (to add previous QSOs). (TNX yu1is)
+- New feature: Power value is remembered from previous QSO. (TNX ke6sls)
+- New feature: Basic bug report system. (TNX ke6sls)
+- New feature: Mode selection affects to the RST configuration (TNX yu1is & ke6sls)
+- New feature: Colors for confirmed/worked/needed are configurable by the user.
+- New feature: Added tips to many widgets to explain their functions.
+
+31-Jul-2003 - 0.2.4
+
+- Fixed bug: Some calls were not recognized when checked (as 3da0sv).
+- Fixed bug: When opening a second log having a previous one KLog did not ask for saving if needed.
+- New feature: Basic Setup dialog and functions.
+- New feature: Now the band combo change checks automatically the entity state.
+- New feature: Smart cluster tells you if a dx spot is needed, worked and/or confirmed using colors.
+- New feature: Clock is now in UTC by default but can be changed in preferences.
+
+
+24-Jul-2003 - 0.2.3
+- Improved the gui: The "entity state" LED has been moved to a always seen zone.
+- Improved the gui: The way to edit QSO.
+- Fixed bug: When searching it showed a wrong name and a qth.
+- New feature: Basic DX-Cluster support.
+- New feature: It is possible to add a log file to the current log.
+- New feature: QSO deletion.
+- New feature: QSO selection's data is shown in the show box.
+- New feature: You can delete qso & manage qsl from the list with righ button quickly & easily.
+
+30-Jun-2003 - 0.2.2
+
+- Changed the behavior of the search box to look not only for complete calls but characters.
+- Fixed bug: Improved the GUI layout.
+- Fixed bug: When editing a previous QSO the date was not always properly saved.
+- New feature: Added real time clock.
+
+20-Mar-2003 - 0.2.0
+
+- New feature: Added search for QSO tab.
+- New feature: Added Name field.
+- New feature: Added QTH field.
+- New feature: Added operator (self call) field.
+- Fixed bug: When saving log to file comment is not saved if there is no comment.
+- Fixed bug: When selecting a "portable" (/P) (or /number) qso in the list it didn't recognize the entity.
+- Translation updated: pt_BR.
+
+13-Mar-2003 - 0.1-beta02
+
+- Added many modes and some more bands.
+- New feature: Asking for saving when finishing without save.
+- New feature: Asking if overwrite when saving as to an existing file.
+- New feature: The main led only shows info about the current band.
+- New feature: Band/Mode sticky between contacts.
+- New feature: Added the long path beam and distance.
+- New feature: You can track each entity state per band with leds.
+- New feature: Basic WAZ award support.
+- Fixed bug: If you had a log and started a new one, the DXCC kept the data.
+- Fixed bug: The IOTA number was limited to 99 (now 999).
+
+28-Feb-2003 - 0.1-beta
+
+- New feature: Led is green (new one), yellow (worked but not confirmed), red (confirmed).
+- New feature: Support calls as EA4TV/EA8, EA8/EA4TV.
+- New feature: Import TLF logs.
+- New feature: Added beam and distance calculations.
+- New feature: Added Locator & IOTA fields.
+- New feature: Basic DXCC award support.
+- Improved the search the Entity algorithm (much quick).
+- Clear button shows "Cancel" when modifying.
+- Changed many classes from Qt classes to KDE classes.
+- Fixed bug: Some times the QSL was checked automaticaly.
+- Fixed bug: The Mode combobox showed SBB and it is SSB.
+- Fixed bug: some calls showed as worked before and they were not.
+
+29-Jan-2003 - 0.1-alpha
+- Fixed bug: When modifying a QSO it was not shown in the log box.
+- Fixed bug: If you clicked over the log box but not over a qso, the program crashed
+- Fixed bug: When modifying a QSO the date was always set to "now".
+- Now you can select what log file you want to open.
+- Now you can select the file's name when saving the log.
+- Now you can create a new log always you want.
+- Logs are now stored in ~/.klog directory by default.
+- Logs are saved as klog.adi by default.
+- Some prefix were not found in previous version.
+- QSL date is activated when a QSO is selected
+- QSL via is working, manager field, and QSL info field
+
+
+22-Jan-2003 - 0.1-pre-alpha
+- First "release" of the software.
+- You can add/edit QSOs and save/read your log to/from the disk with a fixed name in ADIF format.
+- Can manage QSL sent/rec.
