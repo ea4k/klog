@@ -1,9 +1,0 @@
-This file is about the installation process of KLog.
-
-Please read:
-
- INSTALL-linux.txt for linux installations.
-
- INSTALL-macOS.txt for macOS installations.
-
- INSTALL-win.txt for Windows installations.
