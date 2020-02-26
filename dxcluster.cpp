@@ -782,7 +782,7 @@ bool DXClusterWidget::openFile()
     {
         return true;
     }
-    if (!saveSpotsFile->open(QIODevice::WriteOnly | QIODevice::Text))
+    if (!saveSpotsFile->open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);

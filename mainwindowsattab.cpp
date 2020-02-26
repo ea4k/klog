@@ -611,13 +611,14 @@ void MainWindowSatTab::slotSatFreqTXChanged()
 
 void MainWindowSatTab::setUpLink(const QString _t)
 {
-     //qDebug() << "MainWindowsatTab::setUpLink: " << _t << endl;
+    qDebug() << "MainWindowsatTab::setUpLink: " << _t << endl;
     int index = satBandTXComboBox->findText(_t, Qt::MatchCaseSensitive);
-     int indexRX;
-     if (index>=0)
-     {
-         satBandTXComboBox->setCurrentIndex(index);
-         //if ((dataProxy->isVHF(dataProxy->getIdFromBandName(_t))) && !(dataProxy->isUHF(dataProxy->getIdFromBandName(_t))) )
+    qDebug() << "MainWindowsatTab::setUpLink: new index: " << QString::number(index) << endl;
+    qDebug() << "MainWindowsatTab::setUpLink: current index: " << QString::number(satBandTXComboBox->currentIndex()) << endl;
+    int indexRX;
+    if (index>=0)
+    {
+        satBandTXComboBox->setCurrentIndex(index);
          if ( dataProxy->getIdFromBandName("2M") ==  dataProxy->getIdFromBandName(_t) )
          {
               //qDebug() << satNameComboBox->currentText() << endl;
@@ -631,17 +632,13 @@ void MainWindowSatTab::setUpLink(const QString _t)
              }
 
              satBandRXComboBox->setCurrentIndex(indexRX);
-         }
-         //else if(dataProxy->isUHF(dataProxy->getIdFromBandName(_t)))
+         }         
          else if ( dataProxy->getIdFromBandName("70CM") ==  dataProxy->getIdFromBandName(_t) )
-         //else
          {
              indexRX = satBandRXComboBox->findText("2M", Qt::MatchCaseSensitive);
              satBandRXComboBox->setCurrentIndex(indexRX);
          }
-
      }
-
 }
 
 void MainWindowSatTab::setUpLinkFreq(const double _t)
@@ -651,9 +648,14 @@ void MainWindowSatTab::setUpLinkFreq(const double _t)
     txFreqBeingAutoChanged = true;
 
     txFreqSpinBox->setValue(_t);
+    setUpLink(dataProxy->getBandNameFromFreq(_t));
 
     txFreqBeingAutoChanged = false;
     //qDebug() << "MainWindowsatTab::setUpLinkFreq END" << endl;
+}
+double MainWindowSatTab::getRXFreq()
+{
+    return rxFreqSpinBox->value();
 }
 
 void MainWindowSatTab::setDownLinkFreq(const double _t)
@@ -661,6 +663,13 @@ void MainWindowSatTab::setDownLinkFreq(const double _t)
     //qDebug() << "MainWindowsatTab::setDownLinkFreq: " << QString::number(_t) << endl;
     rxFreqBeingAutoChanged = true;
     rxFreqSpinBox->setValue(_t);
+    QString downLinkBand = dataProxy->getBandNameFromFreq(_t);
+
+    int index = satBandRXComboBox->findText(downLinkBand, Qt::MatchCaseSensitive);
+    if (index>=0)
+    {
+        satBandRXComboBox->setCurrentIndex(index);
+    }
     rxFreqBeingAutoChanged = false;
 
     //qDebug() << "MainWindowsatTab::setDownLinkFreq END" << endl;

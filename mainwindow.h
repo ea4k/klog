@@ -168,13 +168,15 @@ private slots:
     void slotToolLoTWMarkAllYesThisLog();
     void slotToolLoTWMarkAllYes();
 
-    void slotModeComboBoxChanged();
-    void slotBandComboBoxChanged();
+    //void slotModeComboBoxChanged();
+    //void slotBandComboBoxChanged();
     //void slotIOTAComboBoxChanged();
     //void slotOperatingYearComboBoxChanged();
     void slotOKButtonClicked();
     void slotSpotItButtonClicked();
     void slotClearButtonClicked();
+    void slotBandChanged (const QString &_b);
+    void slotModeChanged (const QString &_m);
     void slotRefreshDXCCWidget();
     //void slotUpdateTime();
     void slotLogWinShow();
@@ -192,7 +194,9 @@ private slots:
     void slotADIFExport();
     void slotLoTWImport();
     void slotLoTWExport();
-    void slotLOTWTQSLCall();
+
+    void slotLoTWUpload();
+
     void slotADIFExportAll();
     void slotADIFImport();
     void slotRQSLExport();
@@ -309,6 +313,8 @@ private:
     void logEvent(const QString &_func, const QString &_msg, const int _level=7);
     void setSeverity(const int _sev);
     void updateBandComboBox(const QString &_band);
+    bool callTQSL(const QString &_filename, const QString &_call);
+    QString getCallToUseForLoTWExportUpload();
     UpdateSatsData *updateSatsData;
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
@@ -548,6 +554,8 @@ private:
     QTextEdit *notesTextEdit;
     QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox; //*myPowerSpinBox,
     QLCDNumber *freqQLCDNumber;
+
+    QString lotwTQSLpath;
 
     //eQSL
     //QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox;

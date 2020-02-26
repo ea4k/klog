@@ -46,7 +46,9 @@ public:
     void setOtherSatName(const QString _t);
     QString getOtherSatName();
     QString getSatMode();
+    double getRXFreq();
     void setSatMode(const QString _t);
+
 
     bool getRepeatThis();
     void setRepeatThis(const bool _t);
@@ -95,6 +97,7 @@ private:
     void setBandsOfSat(const QString _p);
     void addNewBand(const QString _p);
     void setUpLink(const QString _t);
+
 
     QLineEdit *satNameLineEdit;
     QLineEdit *satModeLineEdit;
