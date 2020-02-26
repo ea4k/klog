@@ -1817,7 +1817,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3049"/>
         <source>Queue all QSL to be sent</source>
-        <translation>Encolar toas las QSL a enviar</translation>
+        <translation>Encolar todas las QSL a enviar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3052"/>
