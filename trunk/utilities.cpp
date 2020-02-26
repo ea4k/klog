@@ -356,19 +356,19 @@ QString Utilities::getTQSLsFileName()
 
 QString Utilities::getTQSLsPath()
 {
-    qDebug() << "Utilities::getDefaultProgramsPath: " <<  QStandardPaths::displayName(QStandardPaths::ApplicationsLocation)  << endl;
+    qDebug() << "Utilities::getDefaultProgramsPath " << endl;
 
 #if defined(Q_OS_WIN64)
        //qDebug() << "WINDOWS DETECTED!: "   << endl;
-    return "C:/Program Files/TrustedQSL";
+    return "C:/Program Files/TrustedQSL/";
 #elif defined(Q_OS_WIN32)
-    return "C:/Program Files (x86)/TrustedQSL";
+    return "C:/Program Files (x86)/TrustedQSL/";
 #elif defined(Q_OS_MACOS)
     //qDebug() << "macOS DETECTED!: "   << endl;
-    return "/Applications/tqsl.app/Contents/MacOS";
+    return "/Applications/tqsl.app/Contents/MacOS/";
 #else
        //qDebug() << "NO WINDOWS/macOS DETECTED!: "   << endl;
-    return getHomeDir() + "/klogdebug.log";
+    return "/usr/bin/";
 
 #endif
 

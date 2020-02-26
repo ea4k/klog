@@ -56,6 +56,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog - File not open"));
         QString aux = tr("It was not possible to open the debug file for writting. No debug log will be saved!");
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok);
@@ -409,6 +410,8 @@ void MainWindow::init()
     slotClearButtonClicked();
 
     infoWidget->showInfo(-1);
+
+    lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
     hamlib->readRadio();
@@ -467,6 +470,8 @@ void MainWindow::createActionsCommon(){
     connect(mainQSOEntryWidget, SIGNAL(showInfoLabel(QString)), this, SLOT(slotShowInfoLabel(QString)) );
     connect(mainQSOEntryWidget, SIGNAL(clearForNextQSOSignal()), this, SLOT(slotClearButtonClicked()) );
     connect(mainQSOEntryWidget, SIGNAL(OKClicked()), this, SLOT(slotQRZReturnPressed() ) );
+    connect(mainQSOEntryWidget, SIGNAL(bandChanged(QString)), this, SLOT(slotBandChanged(QString) ) );
+    connect(mainQSOEntryWidget, SIGNAL(modeChanged(QString)), this, SLOT(slotModeChanged(QString) ) );
 
 
     // LOGVIEW
@@ -660,8 +665,6 @@ void MainWindow::createUI()
     createUIDX();
     createActionsCommon();
     createMenusCommon();
-//    setWidgetsOrder();
-
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::createUI-END" << endl;
@@ -677,8 +680,10 @@ void MainWindow::slotTimeOutInfoBars()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::slotModeComboBoxChanged()
+/*
+ * void MainWindow::slotModeComboBoxChanged()
 {
+
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (!upAndRunning)
     {
@@ -686,17 +691,7 @@ void MainWindow::slotModeComboBoxChanged()
     }
        //qDebug() << "MainWindow::slotModeComboBoxChanged: " << QString::number(modeComboBox->currentIndex()) << endl;
     //qDebug() << "MainWindow::slotModeComboBoxChanged: " << mainQSOEntryWidget->getMode() << endl;
-/*
-    int i;
-    i = dataProxy->getSubModeIdFromSubMode(mainQSOEntryWidget->getMode());
-    if (i>=0)
-    {
-           //qDebug() << "MainWindow::MainWindow: 5 - currentMode: " << QString::number(currentMode) << endl;
-        currentMode = i;
-           //qDebug() << "MainWindow::MainWindow: 6 - currentMode: " << QString::number(currentMode) << endl;
-    }
-     //qDebug() << "MainWindow::slotModeComboBoxChanged: i: " << QString::number(i) << endl;
-*/
+
 
      //qDebug() << "MainWindow::slotModeComboBoxChanged: currentMode: " << QString::number(currentMode) << endl;
 
@@ -733,7 +728,9 @@ void MainWindow::slotModeComboBoxChanged()
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::slotModeComboBoxChanged2: " << mainQSOEntryWidget->getMode() << endl;
+
 }
+*/
 
 void MainWindow::setModeFromFreq()
 {
@@ -755,70 +752,44 @@ void MainWindow::setModeFromFreq()
         }
     }
 }
-
-void MainWindow::slotBandComboBoxChanged(){
-    //qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << "/" << mainQSOEntryWidget->getBand()<< endl;
+void MainWindow::slotBandChanged (const QString &_b)
+{
+    //qDebug() << "MainWindow::slotBandChanged: " << _b << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (!upAndRunning)
     {
         return;
     }
-/*
-    int i;
-    i = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
-    if (i>=0)
-    {
-        currentBand = i;
-        //txFreqSpinBox->setValue(dataProxy->getFreqFromBandId(i));
-    }
-*/
+
     if (txFreqBeingChanged || updatingBands)
     {
-         //qDebug() << "MainWindow::slotBandComboBoxChanged: txFreqBeingChanged"  << endl;
+        //qDebug() << "MainWindow::slotBandChanged: txFreqBeingChanged"  << endl;
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
 
-    bool isFRinBand = dataProxy->isThisFreqInBand(mainQSOEntryWidget->getBand(), QString::number(txFreqSpinBox->value()));
+    bool isFRinBand = dataProxy->isThisFreqInBand(_b, QString::number(txFreqSpinBox->value()));
     if ((isFRinBand) && (txFreqSpinBox->value() >0 ))
-    {
-        //qDebug() << "MainWindow::slotBandComboBoxChanged: idFRinBand and Freq >0"  << endl;
+    { // No change in txFreq
+        //qDebug() << "MainWindow::slotBandChanged: idFRinBand and Freq >0"  << endl;
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         return;
     }
 
-     //qDebug() << "MainWindow::slotBandComboBoxChanged: " << QString::number(bandComboBox->currentIndex()) << "/" << QString::number(currentBand) << endl;
-     //qDebug() << "MainWindow::slotBandComboBoxChanged: currentBandShown: " << QString::number(currentBandShown) << endl;
-    currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
-     //qDebug() << "MainWindow::slotBandComboBoxChanged: currentBandShown2: " << QString::number(currentBandShown) << endl;
+    currentBandShown = dataProxy->getIdFromBandName(_b);
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
-     //qDebug() << "MainWindow::slotBandComboBoxChanged: currentBand: " << QString::number(currentBand) << endl;
     currentBand = currentBandShown;
-     //qDebug() << "MainWindow::slotBandComboBoxChanged: currentBand2: " << QString::number(currentBand) << endl;
-    //qDebug() << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
     currentMode = currentModeShown;
-    //qDebug() << "MainWindow::MainWindow: 9 - currentMode: " << QString::number(currentMode) << endl;
-     //qDebug() << "MainWindow::MainWindow: 9.1 - currentMode: " << QString::number(currentMode) << endl;
-     //qDebug() << "MainWindow::MainWindow: 9.2 - currentBand: " << QString::number(currentBand) << endl;
-     //qDebug() << "MainWindow::MainWindow: 9.3 - currentModeShown: " << QString::number(currentModeShown) << endl;
-     //qDebug() << "MainWindow::MainWindow: 9.4 - currentBandShown: " << QString::number(currentBandShown) << endl;
-     //qDebug() << "MainWindow::MainWindow: Going to update the UpLink with: " << mainQSOEntryWidget->getBand() << endl;
-     //satTabWidget->setUpLink(mainQSOEntryWidget->getBand());
-    //qDebug() << "MainWindow::slotBandComboBoxChanged Freq in txFreqSpinBox" << QString::number(txFreqSpinBox->value()) << endl;
-    //qDebug() << "MainWindow::slotBandComboBoxChanged: Band Shown: " << dataProxy->getNameFromBandId(currentBandShown) << endl;
-   // bool isFRinBand = dataProxy->isThisFreqInBand((dataProxy->getNameFromBandId(currentBandShown)), QString::number(txFreqSpinBox->value()));
-    //qDebug() << "MainWindow::MainWindow: Freq: " << QString::number(txFreqSpinBox->value()) << endl;
+    //qDebug() << "MainWindow::slotBandChanged: Checking to update Freq"  << endl;
     if ((!isFRinBand) || (txFreqSpinBox->value()<=0))
-    {        
-        double txFr = (dataProxy->getFreqFromBandId(currentBandShown)).toDouble();        
-        //satTabWidget->setUpLinkFreq(txFr);
-        //qDebug() << "MainWindow::slotBandComboBoxChanged updating txFreqSpinBox" << QString::number(txFr) << endl;
+    {
+        //qDebug() << "MainWindow::slotBandChanged: Freq is not in band or empty"  << endl;
+        double txFr = (dataProxy->getFreqFromBandId(currentBandShown)).toDouble();
         txFreqSpinBox->setValue(txFr);
+        //qDebug() << "MainWindow::slotBandChanged: Ne Freq: " << QString::number(txFr)  << endl;
     }
-     //qDebug() << "MainWindow::MainWindow: Freq2: " << QString::number(txFreqSpinBox->value()) << endl;
+    //qDebug() << "MainWindow::slotBandChanged: Checking to update Freq  - DONE"  << endl;
 
-       //currentModeShown = modeComboBox->currentIndex();
-    //checkIfWorkedB4(currentQrz);
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
@@ -827,7 +798,39 @@ void MainWindow::slotBandComboBoxChanged(){
     //qDebug() << "MainWindow:: - calling showStatusOfDXCC-02 " << endl;
     showStatusOfDXCC(_qs);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-    //qDebug() << "MainWindow::slotBandComboBoxChanged: END" << endl;
+    //qDebug() << "MainWindow::slotBandChanged: END" << endl;
+}
+
+void MainWindow::slotModeChanged (const QString &_m)
+{
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (!upAndRunning)
+    {
+        return;
+    }
+    //qDebug() << "MainWindow::slotModeChanged: " << _m << endl;
+
+    currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
+     //qDebug() << "MainWindow::slotModeComboBoxChanged: currentBandShown2: " << QString::number(currentBandShown) << endl;
+    currentModeShown = dataProxy->getIdFromModeName(_m);
+    currentBand = currentBandShown;
+    currentMode = currentModeShown;
+
+    QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
+    _qs.clear();
+    //qDebug() << "MainWindow:: - calling showStatusOfDXCC-01 " << endl;
+    _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
+    showStatusOfDXCC(_qs);
+    setRSTToMode(mainQSOEntryWidget->getMode());
+
+    QString _modeSeen = mainQSOEntryWidget->getMode();
+    if (_modeSeen == "SSB")
+    {
+        setModeFromFreq();
+    }
+
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+    //qDebug() << "MainWindow::slotModeComboBoxChanged2: " << mainQSOEntryWidget->getMode() << endl;
 }
 
 
@@ -856,6 +859,7 @@ void MainWindow::slotQRZReturnPressed()
                 //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
                 errorCode = query.lastError().number();
                 QMessageBox msgBox;
+                msgBox.setWindowTitle(tr("KLog - Unexpected error"));
                 msgBox.setIcon(QMessageBox::Warning);
                 QString aux = tr("An unexpected error ocurred when trying to add the QSO to your log. If the problem persists, please contact the developer for analysis: ");
                 msgBox.setText(aux + "MW-1#" + QString::number(errorCode));
@@ -1048,6 +1052,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         int ret;
 
         QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("KLog - Select correct entity"));
         msgBox.setText( tr("You have selected an entity:") + "\n\n"+"- "+dxccn2+"\n\n"+tr("that is different from the KLog proposed entity:") + "\n\n"+ "- "+dxccn1+"\n\n"
                         +tr("Click on the prefix of the correct entity or Cancel to edit the QSO again."));
 
@@ -1115,8 +1120,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     if ( (rxFreqSpinBox->value()) > 0  )
     {
         aux1 = QString::number(rxFreqSpinBox->value());
-        stringFields = stringFields + ", freq_rx";
-        stringData = stringData + ", '" + aux1 + "'";
+        stringFields = stringFields + ", freq_rx, band_rx";
+        stringData = stringData + ", '" + aux1 + ", " + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "'";
     }
 
     aux1 = qthLineEdit->text();
@@ -1243,15 +1248,20 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
+
+
+
     keepSatPage = satTabWidget->getRepeatThis();
 
     aux1 = othersTabWidget->getPropModeFromComboBox();
-    qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << endl;
     if ((aux1.length()>0) && (aux1 != "Not"))
     {
         stringFields = stringFields + ", prop_mode";
         stringData = stringData + ", '" + aux1 + "'";
     }
+
+
 
     //CLUBLOG
 
@@ -1756,6 +1766,7 @@ WHERE [condition];
         int ret;
 
         QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("KLog - Select correct entity"));
         msgBox.setText( tr("You have selected an entity:") + "\n\n"+"- "+dxccn2+"\n\n"+tr("that is different from the KLog proposed entity:") + "\n\n- "+dxccn1+"\n\n"
                         +tr("Click on the prefix of the right entity or Cancel to correct."));
 
@@ -1813,15 +1824,9 @@ WHERE [condition];
         if (dataProxy->isThisFreqInBand(dataProxy->getNameFromBandId(tband), aux1) )
         //if (db->isThisFreqInBand(db->getBandNameFromID2(tband), aux1) )
         {
-
             updateString = updateString + "freq = '";
             updateString = updateString + aux1 + "', ";
-
         }
-        else
-        {
-        }
-
     }
 
     if ( (rxFreqSpinBox->value()) > 0  )
@@ -1829,6 +1834,9 @@ WHERE [condition];
         aux1 = QString::number(rxFreqSpinBox->value());
         updateString = updateString + "freq_rx = '";
         updateString = updateString + aux1 + "', ";
+
+        updateString = updateString + "band_rx = '";
+        updateString = updateString + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "', ";
     }
 
     aux1 = qthLineEdit->text();
@@ -1955,7 +1963,7 @@ WHERE [condition];
 
     aux1 = othersTabWidget->getPropModeFromComboBox();
     //aux1 = getPropModeFromComboBox();
-    qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << endl;
     if ((aux1.length()>0) && (aux1 != "Not"))
     {
             //qDebug() << "MainWindow::readDataFromUIDX: PropMode(1):  " << aux1 << endl;
@@ -2448,7 +2456,7 @@ void MainWindow::exitQuestion()
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Question);
-
+    msgBox.setWindowTitle(tr("KLog - Exit"));
     QString aux = QString(tr("Do you really want to exit KLog?") );
     msgBox.setText(aux);
     msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
@@ -3066,7 +3074,7 @@ void MainWindow::createMenusCommon()
 
     lotwCallTQSL = new QAction(tr("Upload to LoTW"), this);
     lotwToolMenu ->addAction(lotwCallTQSL);
-    connect(lotwCallTQSL, SIGNAL(triggered()), this, SLOT(slotLOTWTQSLCall()));
+    connect(lotwCallTQSL, SIGNAL(triggered()), this, SLOT(slotLoTWUpload()));
     lotwCallTQSL->setToolTip(tr("Sends the log to LoTW calling TQSL."));
 
     toolMenu->addSeparator();
@@ -3224,16 +3232,101 @@ void MainWindow::slotToolLoTWMarkAllQueued()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::slotLOTWTQSLCall()
-{
+bool MainWindow::callTQSL(const QString &_filename, const QString &_call)
+{ //https://lotw.arrl.org/lotw-help/cmdline/
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    qDebug() << "MainWindow::slotLOTWTQSLCall" << endl;
-    QString program = "C:/Program Files (x86)/TrustedQSL/tqsl.exe";
+    //qDebug() << "MainWindow::callTQSL: " << lotwTQSLpath << endl;
+
+    //QString program = "C:/Program Files (x86)/TrustedQSL/tqsl.exe";
     QStringList arguments;
     arguments.clear();
-    arguments << "-c EA4K" << "-x" << "C:/Users/radio/klog/lotw.adi";
-    int ok = QProcess::execute(program, arguments);
-    qDebug() << "MainWindow::slotLOTWTQSLCall - result: " << QString::number(ok) << endl;
+    arguments << QString("-c %1").arg(_call) << "-x" << _filename;// "C:/Users/radio/klog/lotw.adi";
+    int ok = -1;
+    QString msg;
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setWindowTitle(tr("KLog - TQSL"));
+    //msgBox.setWindowTitle(tr("KLog LoTW"));
+
+    if (!QFile::exists(lotwTQSLpath))
+    {
+        msg = tr("TQSL is not installed or KLog can't find it. Please check the configuration.");
+        ok = 6; // A positive value here will return false, an error below.
+    }
+    else
+    {
+        ok = QProcess::execute(lotwTQSLpath, arguments);
+
+        switch (ok)
+        {
+        case 0: // success: all qsos submitted were signed and saved or signed and uploaded
+            //qDebug() << "MainWindow::callTQSL: 0"  << endl;
+            msg = tr("All the QSOs were signed and uploaded with no error.");
+            msgBox.setIcon(QMessageBox::Information);
+        break;
+        case 1: // cancelled by user
+            //qDebug() << "MainWindow::callTQSL: 1"  << endl;
+            msg = tr("Error #1: The process was cancelled by the user or TQSL was not configured. No QSOs were uploaded.");
+        break;
+        case 2: // rejected by LoTW
+            //qDebug() << "MainWindow::callTQSL: 2"  << endl;
+            msg = tr("Error #2: Upload was rejected by LoTW, please check your data.");
+            break;
+        case 3: // unexpected response from TQSL server
+            //qDebug() << "MainWindow::callTQSL: 3"  << endl;
+            msg = tr("Error #3: The TQSL server returned an unexpected response.");
+            break;
+        case 4: // TQSL error
+            //qDebug() << "MainWindow::callTQSL: 4"  << endl;
+            msg = tr("Error #4: There was a TQSL error.");
+            break;
+        case 5: // TQSLlib error
+            //qDebug() << "MainWindow::callTQSL: 5"  << endl;
+            msg = tr("Error #5: There was a TQSLLib error.");
+            break;
+        case 6: // unable to open input file
+            //qDebug() << "MainWindow::callTQSL: 6"  << endl;
+            msg = tr("Error #6: It was not possible to open the input file.");
+            break;
+        case 7: // unable to open output file
+            //qDebug() << "MainWindow::callTQSL: 7"  << endl;
+            msg = tr("Error #7: It was not possible to open the ouput file.");
+            break;
+        case 8: // No QSOs were processed since some QSOs were duplicates or out of date range
+            //qDebug() << "MainWindow::callTQSL: 8"  << endl;
+            msg = tr("Error #8: No QSOs were processed since some QSOs were duplicates or out of date range.");
+            break;
+        case 9: // Some QSOs were processed, and some QSOs were ignored because they were duplicates or out of date range
+            //qDebug() << "MainWindow::callTQSL: 9"  << endl;
+            msg = tr("Error #9: Some QSOs were processed, and some QSOs were ignored because they were duplicates or out of date range.");
+            break;
+        case 10: // command syntax error
+            //qDebug() << "MainWindow::callTQSL: 10"  << endl;
+            msg = tr("Error #10: Command syntax error. KLog sent a bad syntax command.");
+            break;
+        case 11: // LoTW Connection error (no network or LoTW is unreachable)
+            //qDebug() << "MainWindow::callTQSL: 11"  << endl;
+            msg = tr("Error #11: LoTW Connection error (no network or LoTW is unreachable).");
+            break;
+        default:
+            msg = tr("Error #00: Unexpected error. Please contact the development team.");
+            return false;
+
+                // should never be reached
+        }
+    }
+
+
+    msgBox.setText(msg);
+    msgBox.exec();
+    if (ok>0)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -3274,9 +3367,9 @@ QString MainWindow::selectStationCallsign()
              }
              else
              {
-                 QMessageBox msgBox;
-                 msgBox.setIcon(QMessageBox::Warning);
-
+                QMessageBox msgBox;
+                msgBox.setIcon(QMessageBox::Warning);
+                msgBox.setWindowTitle(tr("KLog - No station selected"));
                  QString aux = QString(tr("No station callsign has been selected and therefore no log will be marked") );
                  msgBox.setText(aux);
                  msgBox.setStandardButtons(QMessageBox::Ok);
@@ -5108,46 +5201,174 @@ void MainWindow::createUIDX()
 
 
 void MainWindow::slotADIFExport(){
-        //qDebug() << "MainWindow::slotADIFExport " << endl;
+    //qDebug() << "MainWindow::slotADIFExport - Start" << endl;
 
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"),
                                util->getHomeDir(),
                                "ADIF (*.adi *.adif)");
 
     filemanager->adifLogExport(fileName, currentLog);
+    //qDebug() << "MainWindow::slotADIFExport -END " << endl;
+}
+
+void MainWindow::slotLoTWUpload()
+{
+    // 1.- Selec call
+    // 2.- Select file and export (fixed filename?)
+    // 3.- Call tqsl with the filename
+    // 4.- Ask for the user to remove or not the file
+    //qDebug() << "MainWindow::slotLoTWUpload - Start" << endl;
+    bool emptyCall = false;
+    QString fileName = "klog-lotw-upload.adi";
+    QString stationCallToUse = getCallToUseForLoTWExportUpload();
+    if (!util->isValidCall(stationCallToUse))
+    {
+        return;
+    }
+    if (stationCallToUse == "NONE")
+    {
+        emptyCall = true;
+    }
+
+    //qDebug() << "MainWindow::slotLoTWUpload: filename: " << fileName << endl;
+    //qDebug() << "MainWindow::slotLoTWUpload: statioNCallToUse: " << stationCallToUse << endl;
+    int exportedQSO = filemanager->adifLoTWLogExport(fileName, stationCallToUse, currentLog, emptyCall) ;
+    //qDebug() << "MainWindow::slotLoTWUpload: exported: " << QString::number(exportedQSO) << endl;
+
+    if (exportedQSO <= 0)
+    { // TODO: Check if errors should be managed.
+        return;
+    }
+    //qDebug() << "MainWindow::slotLoTWUpload - 50" << endl;
+    callTQSL(fileName, stationCallToUse);
+    //qDebug() << "MainWindow::slotLoTWUpload - 51" << endl;
+
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Question);
+    msgBox.setWindowTitle(tr("KLog LoTW"));
+    msgBox.setText(tr("The LoTW upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
+
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    int i = msgBox.exec();
+    if (i == QMessageBox::Yes)
+    {
+        if (QFile::remove(fileName))
+        {
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setWindowTitle(tr("KLog LoTW"));
+            msgBox.setText(tr("The file has been removed."));
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+        }
+    }
+    //qDebug() << "MainWindow::slotLoTWUpload - END" << endl;
 
 }
 
+
+QString MainWindow::getCallToUseForLoTWExportUpload()
+{
+    QString stationCallToUse = QString();
+    QStringList stationCallSigns;
+    stationCallSigns.clear();
+    stationCallSigns << "NONE";
+    stationCallSigns << dataProxy->getStationCallSignsFromLog(currentLog);
+
+    if (stationCallSigns.length()>1)
+    {
+        QString msg = QString(tr("The log that you have selected contains more than just one station callsign.") + "\n\n" + tr("Please select the station callsign you want to export the log from:"));
+        bool ok;
+        stationCallToUse = QInputDialog::getItem(this, tr("Station Callsign:"),
+                                             msg, stationCallSigns, 0, false, &ok);
+
+        if (!ok)
+        {
+            return QString();
+        }
+
+        //qDebug() << "MainWindow::slotLoTWUpload: " << stationCallToUse << endl;
+        if (!util->isValidCall(stationCallToUse))
+        {
+            //qDebug() << "MainWindow::slotLoTWUpload: station <2  "  << endl;
+            QMessageBox msgBox;
+            msgBox.setWindowTitle(tr("KLog - LoTW"));
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("The selected callsign is not valid, LoTW log will not be uploaded."));
+            msgBox.setStandardButtons(QMessageBox::Ok );
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.exec();
+            return QString();
+        }
+        if (stationCallToUse == "NONE")
+        {
+            stationCallToUse = stationQRZ;
+            //qDebug() << "MainWindow::slotLoTWUpload: station <2  "  << endl;
+            QMessageBox msgBox;
+            msgBox.setTextFormat(Qt::RichText);
+            msgBox.setWindowTitle(tr("KLog - LoTW"));
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("You selected NONE so all the QSOs without a station callsign in your log will be selected and the current station callsign (%1) will be automatically added to the QSOs. <br><br><b>Please check that this is correct as it may cause errors in your uploaded logs</b>.").arg(stationQRZ));
+            msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel );
+            msgBox.setDefaultButton(QMessageBox::Cancel);
+            int i = msgBox.exec();
+            if (i == QMessageBox::Cancel)
+            {
+                return "NONE";
+            }
+        }
+
+
+        return stationCallToUse;
+
+    }
+    else
+    { // No station callsigns are in the log so we return "NONE"
+        return "NONE";
+    }
+
+}
+
+
 void MainWindow::slotLoTWExport(){
-        //qDebug() << "MainWindow::slotLoTWExport " << endl;
+    //qDebug() << "MainWindow::slotLoTWExport " << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+
+    // 1.- Selec call
+    // 2.- Select file and export
+
+    QString stationCallToUse = getCallToUseForLoTWExportUpload();
+    //qDebug() << "MainWindow::slotLoTWExport: " << stationCallToUse << endl;
+    if (stationCallToUse.length()<2)
+    {
+       //qDebug() << "MainWindow::slotLoTWExport: - exiting ..." << endl;
+        return;
+    }
+
     QString aux;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"),
                                util->getHomeDir(),
                                "ADIF (*.adi *.adif)");
 
-    int exportedQSO = filemanager->adifLoTWLogExport(fileName, currentLog) ;
+    //qDebug() << "MainWindow::slotLoTWExport: " << "/" << fileName << "/" << endl;
+    if (fileName.length()<1)
+    {
+        return;
+    }
+    int exportedQSO = filemanager->adifLoTWLogExport(fileName, stationCallToUse, currentLog) ;
      //qDebug() << "MainWindow::slotLoTWExport - exported: " << QString::number(exportedQSO) << endl;
     if (exportedQSO > 0)
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        aux = tr("LoTW logfile has been properly exported!") + "\n\n" + tr("Remember to:") + "\n\n-" + tr("Before uploading: sign the LoTW log; and") + "\n-" + tr("After uploading: mark as sent all the queued QSO (LoTW Tools).");
 
+        aux = tr("LoTW logfile has been properly exported!") + "\n\n" + tr("Remember to:") + "\n\n-" + tr("Before uploading: sign the LoTW log; and") + "\n-" + tr("After uploading: mark as sent all the queued QSO (LoTW Tools).");
 
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok );
-
         msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
-        switch (ret)
-        {
-            case QMessageBox::Ok:
-            break;
-            default:
-            // should never be reached
-            break;
-        }
+        msgBox.exec();
+
     }
     else if (exportedQSO == 0)
     {
@@ -5349,11 +5570,11 @@ void MainWindow::qsoToEdit (const int _qso)
 
     // ADD THE DATA THAT IS PRESENT IN ALL THE MODES
 
-
+    //QString currentQrz = dataProxy->getCallFromId(modifyingQSO);
     nameCol = rec.indexOf("call");
     aux1 = (query.value(nameCol)).toString();
     mainQSOEntryWidget->setQRZ(aux1);
-    mainQSOEntryWidget->setQRZ(aux1);
+
     QString currentQrz = aux1;
     currentEntity = world->getQRZARRLId(currentQrz);
 
@@ -5389,8 +5610,6 @@ void MainWindow::qsoToEdit (const int _qso)
         mainQSOEntryWidget->setBand(aux1);
         //bandComboBox->setCurrentIndex(bandComboBox->findText(aux1, Qt::MatchCaseSensitive));
          //qDebug() << "MainWindow::qsoToEdit: - Changing to: " << mainQSOEntryWidget->getBand() << endl;
-
-
     }
     else
     {
@@ -5512,7 +5731,6 @@ void MainWindow::qsoToEdit (const int _qso)
         locatorLineEdit->setText(aux1);
         satTabWidget->setLocator(aux1);
 
-
         nameCol = rec.indexOf("operator");
         aux1 = (query.value(nameCol)).toString();
         myDataTabWidget->setOperator(aux1);
@@ -5550,12 +5768,19 @@ void MainWindow::qsoToEdit (const int _qso)
         {
             txFreqSpinBox->setValue(testValueDouble);
                 //qDebug() << "MainWindow::qsoToEdit: Freq - OverFlow "  << endl;
-
         }
         else
         {
                 //qDebug() << "MainWindow::qsoToEdit: Freq - OK "  << endl;
-            txFreqSpinBox->setValue(0);
+            testValueDouble = (dataProxy->getFreqFromBandId(dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand()))).toDouble();
+            if (testValueDouble>0)
+            {
+                txFreqSpinBox->setValue(testValueDouble);
+            }
+            else
+            {
+                txFreqSpinBox->setValue(0);
+            }
         }
 
 
@@ -6757,11 +6982,13 @@ void MainWindow::slotFreqTXChanged()
     }
     if (!txFreqBeingAutoChanged)
     {
+        //qDebug() << "MainWindow::slotFreqTXChanged: Updating SAT Uplink" << endl;
         satTabWidget->setUpLinkFreq(txFreqSpinBox->value());
+
     }
 
     txFreqBeingChanged = false;
-    //slotBandComboBoxChanged();
+
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::slotFreqTXChanged - END"  << endl;
 }
@@ -6794,6 +7021,7 @@ void MainWindow::slotFreqRXChanged()
     }
     if (!rxFreqBeingAutoChanged)
     {
+        //qDebug() << "MainWindow::slotFreqTXChanged: Updating SAT Downlink" << endl;
         satTabWidget->setDownLinkFreq(rxFreqSpinBox->value());
     }
 
@@ -6978,6 +7206,7 @@ bool MainWindow::checkIfNewMode(const QString &_mode)
         //qDebug() << "MainWindow::checkIfNewMode: Mode not valid! - " << _mode << endl;
 
         QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("KLog - Non supported mode"));
 
         msgBox.setIcon(QMessageBox::Warning);
         QString aux = tr("A new mode not supported by KLog has been received from an external software or radio:") + "(" + _mode + ")\n\n" + tr("If the received mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)");
@@ -7152,6 +7381,7 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
     if ((functionFailed == "virtual bool DataProxy_SQLite::addSatellite(QString, QString, QString, QString, QString)") && (errorCodeN == 19))
     {
         QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("KLog - Duplicated satellite"));
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText(tr("A duplicated satellite has been detected in the file and will not be imported."));
         msgBox.setInformativeText(tr("Please check the satellite information file and ensure it is properly populated.") + "\n" + tr("Now you will see a more detailed error that can be used for debugging..."));
@@ -7175,7 +7405,7 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
     showErrorDialog->exec();
 
     QMessageBox msgBox;
-
+    msgBox.setWindowTitle(tr("KLog - Show errors"));
     msgBox.setIcon(QMessageBox::Question);
     aux = tr("Do you want to keep showing errors?");
     msgBox.setText(aux);

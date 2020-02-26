@@ -2044,6 +2044,7 @@ bool DataBase::updateTo005()
        //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
        QSqlQuery query;
        QMessageBox msgBox;
+       msgBox.setWindowTitle(QObject::tr("KLog - DB update"));
        msgBox.setIcon(QMessageBox::Information);
        //int errorCode;
 
@@ -3699,6 +3700,7 @@ bool DataBase::updateModeIdFromSubModeId()
                     alreadyCancelled = true;
 
                     QMessageBox msgBox;
+                    msgBox.setWindowTitle(QObject::tr("KLog - DB update"));
                     aux = QObject::tr("Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -3876,6 +3878,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                     alreadyCancelled = true;
 
                     QMessageBox msgBox;
+                    msgBox.setWindowTitle(QObject::tr("KLog - DB update"));
                     aux = QObject::tr("Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -4077,6 +4080,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
                     alreadyCancelled = true;
 
                     QMessageBox msgBox;
+                    msgBox.setWindowTitle(QObject::tr("KLog - DB update"));
                     aux = QObject::tr("Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -4285,6 +4289,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
                     alreadyCancelled = true;
 
                     QMessageBox msgBox;
+                    msgBox.setWindowTitle(QObject::tr("KLog - DB update"));
                     aux = QObject::tr("Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);

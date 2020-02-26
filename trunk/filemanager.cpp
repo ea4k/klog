@@ -172,73 +172,49 @@ bool FileManager::adifLogExport(const QString& _fileName, const int _logN)
     return adifLogExportToFile(_fileName, _logN, false, false, false);
 
 }
-
-int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
+void FileManager::showError (const QString &_txt)
 {
-     //qDebug() << "FileManager::adifLoTWLogExport: " << _fileName << endl;
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("KLog - Error"));
+    msgBox.setIcon(QMessageBox::Warning);
+
+    QString aux = QString(_txt );
+    msgBox.setText(aux);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    int ret = msgBox.exec();
+    switch (ret) {
+      case QMessageBox::Ok:
+          // Ok was clicked
+            default:
+            // should never be reached
+          break;
+    }
+}
+
+int FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const int _logN, bool emptyCall)
+{
+     qDebug() << "FileManager::adifLoTWLogExport: " << _fileName << "/" << _callsign << endl;
 
     if (!dataProxy->doesThisLogExist(_logN))
     {
          //qDebug() << "FileManager::adifLoTWLogExport - The log does not exist" << endl;
-        return -1;
+
+        showError(tr("The selected log does not exist, please check it again."));
+        return  -1;
+    }
+
+    if (_callsign.length()<2)
+    {
+        showError(tr("The selected callsign (%1) is not valid, please check it again.").arg(_callsign));
+        return -2;
     }
 
     QFile file(_fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-        return -2;
-
-    QString stationCallToUse = QString();
-    QStringList stationCallSigns;
-    stationCallSigns.clear();
-    stationCallSigns << "NONE";
-    stationCallSigns << dataProxy->getStationCallSignsFromLog(_logN);
-    //bool callsignTyped = false;
-
-    if (stationCallSigns.length()>1)
     {
-        QString msg = QString(tr("The log that you have selected contains more than just one station callsign.") + "\n\n" + tr("Please select the station callsign you want to export the log from:"));
-
-        bool ok;
-        stationCallToUse = QInputDialog::getItem(this, tr("Station Callsign:"),
-                                             msg, stationCallSigns, 0, false, &ok);
-
-        if (ok && !stationCallToUse.isEmpty())
-        {
-             //qDebug() << "FileManager::adifLoTWLogExport: StatioNCallsign: " << stationCallToUse << endl;
-        }
-        else
-        {
-            stationCallToUse = (QInputDialog::getText(this, tr("Define Station Callsign"),
-                                                     tr("You have selected no callsign. KLog will export QSOs without a station callsign defined and those with the call you are entering here.") + "\n\n" + tr("Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:"), QLineEdit::Normal,
-                                                     "", &ok)).toUpper();
-             if (ok)
-             {
-                //callsignTyped = true;
-
-             }
-             else
-             {
-                 QMessageBox msgBox;
-                 msgBox.setIcon(QMessageBox::Warning);
-
-                 QString aux = QString(tr("No station callsign has been selected and therefore no log will be exported") );
-                 msgBox.setText(aux);
-                 msgBox.setStandardButtons(QMessageBox::Ok);
-                 int ret = msgBox.exec();
-                 switch (ret) {
-                   case QMessageBox::Ok:
-                       // Ok was clicked
-                       return -3;
-                       default:
-                         // should never be reached
-                       break;
-                 }
-
-             }
-        }
+        showError(tr("The file %1 can't be opened.").arg(_fileName));
+        return -3;
     }
-
-
 
     QTextStream out(&file);
     int numberOfQsos = dataProxy->getHowManyQSOInLog(_logN);
@@ -261,11 +237,20 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
     // Required fields: call sign, UTC Date, UTC time, Mode, Band
     // Optional fields: RX band, Frecuency TX, frecuency RX, Propagation mode, Satellite
 
-    QString queryString = QString("SELECT call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log WHERE lognumber='%1'").arg(_logN);
+    QString queryString;
+    if (emptyCall)
+    {
+        queryString = QString("SELECT call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log WHERE lognumber='%1' AND station_callsign = '' AND lotw_qsl_sent='Q'").arg(_logN);
+    }
+    else
+    {
+        queryString = QString("SELECT call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log WHERE lognumber='%1' AND station_callsign ='%2' AND lotw_qsl_sent='Q'").arg(_logN).arg(_callsign);
+    }
+
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
-     //qDebug() << "FileManager::adifLoTWLogExport: " << query.lastQuery() << endl;
+    qDebug() << "FileManager::adifLoTWLogExport: " << query.lastQuery() << endl;
     if (!sqlOK)
     {
          //qDebug() << "FileManager::adifLoTWLogExport: Query Error"  << endl;
@@ -278,9 +263,9 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
     QString aux, aux2;
     QString bandst, bandrxst;
     double freqTX, freqRX;
-
+    bool finishExport = false;
     bool propsat;
-    while ( (query.next()))
+    while ( (query.next()) && (!finishExport))
     {
         freqTX = 0.0;
         freqRX = 0.0;
@@ -291,200 +276,198 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
          //qDebug() << "FileManager::adifLoTWLogExport: Start of While"  << endl;
         if (query.isValid())
         {
+
+            //qDebug() << "FileManager::adifLoTWLogExport: Start of isValid"  << endl;
+            propsat = false;    // Reset the QSO in case it is a Satellite QSO
+            nameCol = rec.indexOf("call");
+            aux = (query.value(nameCol)).toString();
+            aux = util->checkAndFixASCIIinADIF(aux);
+            //qDebug() << "FileManager::adifLoTWLogExport: " << QString::number(nameCol) << "/" << aux << endl;
+            if (aux.length()>2)
+            {
+                out << "<CALL:" << QString::number(aux.length()) << ">" << aux<< " ";
+            }
+            //qDebug() << "FileManager::adifLoTWLogExport: CALL"  << endl;
+
+            nameCol = rec.indexOf("qso_date");
+            aux = (query.value(nameCol)).toString();
+            aux = util->checkAndFixASCIIinADIF(aux);
+            if ((aux.length()) == 10){
+                aux.remove(QChar('-'), Qt::CaseInsensitive);
+                aux.remove(QChar('/'), Qt::CaseInsensitive);
+                QDate date = QDate::fromString(aux, "yyyyMMdd");
+                if (util->isValidDate(date))
+                {
+                    out << "<QSO_DATE:" << QString::number(aux.length()) << ">" << aux  << " ";
+                }
+            }
+
+            nameCol = rec.indexOf("time_on");
+            aux = (query.value(nameCol)).toString();
+            aux = util->checkAndFixASCIIinADIF(aux);
+            if ((QTime::fromString(aux,"hh:mm:ss")).isValid())
+            {
+                aux.remove(QChar(':'), Qt::CaseInsensitive);
+                out << "<TIME_ON:" << QString::number(aux.length()) << ">" << aux  << " ";
+            }
+
+            nameCol = rec.indexOf("bandid");
+            aux = (query.value(nameCol)).toString();
+            //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-1: "  << aux << endl;
+            aux = util->checkAndFixASCIIinADIF(aux);
+            //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-2: "  << aux << endl;
+            aux = dataProxy->getNameFromBandId(aux.toInt());
+            if (dataProxy->getIdFromBandName(aux)>=0)
+            {
+                //out << "<BAND:" << QString::number(aux.length()) << ">" << aux  << " ";
+                bandst = aux;
+            }
+
+            nameCol = rec.indexOf("freq");
+            aux = (query.value(nameCol)).toString();
+            //qDebug() << "FileManager::adifLoTWLogExportToFile FREQ1: "  << aux << endl;
+            aux = util->checkAndFixASCIIinADIF(aux);
+            freqTX = aux.toDouble();
+            if (freqTX > 0.0)
+            {
+            //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
+                if (dataProxy->getBandIdFromFreq(freqTX) != dataProxy->getIdFromBandName(bandst))
+                {
+                    bandst = dataProxy->getBandNameFromFreq(freqTX);
+                }
+                out << "<FREQ:" << QString::number(aux.length()) << ">" << aux  << " ";
+            }
+            if (dataProxy->getIdFromBandName(bandst)>0)
+            {
+                out << "<BAND:" << QString::number(bandst.length()) << ">" << bandst  << " ";
+            }
+            // Now the BAND RX
+            nameCol = rec.indexOf("band_rx");
+            aux = (query.value(nameCol)).toString();
+            aux = util->checkAndFixASCIIinADIF(aux);
+            aux = dataProxy->getNameFromBandId(aux.toInt());
+            if (dataProxy->getIdFromBandName(aux)>=0)
+            {
+                bandrxst = aux;
+            }
+
+            nameCol = rec.indexOf("freq_rx");
+            aux = (query.value(nameCol)).toString();
+            aux = util->checkAndFixASCIIinADIF(aux);
+            freqRX = aux.toDouble();
+            if (freqRX > 0.0)
+            {
+            //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
+                if (dataProxy->getBandIdFromFreq(freqRX) != dataProxy->getIdFromBandName(bandrxst))
+                {
+                    bandrxst = dataProxy->getBandNameFromFreq(freqRX);
+                }
+                out << "<FREQ_RX:" << QString::number(aux.length()) << ">" << aux  << " ";
+            }
+            if (dataProxy->getIdFromBandName(bandrxst)>0)
+            {
+                out << "<BAND_RX:" << QString::number(bandrxst.length()) << ">" << bandrxst  << " ";
+            }
+            // END of Band RX
+
+            nameCol = rec.indexOf("modeid");
+            aux = (query.value(nameCol)).toString();
+            aux = util->checkAndFixASCIIinADIF(aux);
+            // get SubModeId to check if it is the same or not from modeid
+            aux2 = dataProxy->getSubModeFromId(aux.toInt());
+            //aux = db->getModeNameFromID2(aux.toInt());
+            aux = dataProxy->getNameFromSubMode(aux2);
+
+            if ((aux.length()>1) && (dataProxy->getIdFromModeName(aux)>=0))
+            {
+                out << "<MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
+            }
+            if ((aux != aux2) && (aux.length()>1) && (dataProxy->getSubModeIdFromSubMode(aux2)>=0) )
+            {
+                out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
+            }
+
+            nameCol = rec.indexOf("prop_mode");
+            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+            if ((aux.length())>1)
+            {
+                out << "<PROP_MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
+                if (aux == "SAT")
+                {
+                    propsat = true;
+                }
+            }
+            //qDebug() << "FileManager::adifLoTWLogExport: PROP_MODE"  << endl;
+
+            nameCol = rec.indexOf("sat_name");
+            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+            if ((aux.length())>0)
+            {
+                out << "<SAT_NAME:" << QString::number(aux.length()) << ">" << aux  << " ";
+                if (!propsat)
+                {
+                    out << "<PROP_MODE:3>SAT ";
+                }
+            }
+                 //qDebug() << "FileManager::adifLoTWLogExport: SAT_NAME"  << endl;
+
             nameCol = rec.indexOf("station_callsign");
             aux = (query.value(nameCol)).toString();
+            qDebug() << "FileManager::adifLoTWLogExport: StationCallSign: " << aux  << endl;
+            if (emptyCall)
+            { // User selected no call - NONE
+                aux = _callsign;
+                qDebug() << "FileManager::adifLoTWLogExport: StationCallSign - emptycall: " << aux  << endl;
 
-            if ( ( (stationCallToUse == "NONE") && (util->isValidCall(aux)) ) || (aux == stationCallToUse)  )
-            { // We are only exporting the QSO from the appropriate station callsign or with empty stationcallsigns but we will add the one entered by the user.
-                nameCol = rec.indexOf("lotw_qsl_sent");
-                aux = (query.value(nameCol)).toString();
-                if (aux == "Q")
-                {
-                     //qDebug() << "FileManager::adifLoTWLogExport: Start of isValid"  << endl;
-                    propsat = false;    // Reset the QSO in case it is a Satellite QSO
+            }
+            if ((util->isValidCall(aux)))
+            { // User selected one station callsign from the log
+                out << "<STATION_CALLSIGN:" << QString::number(aux.length()) << ">" << aux  << " ";
+            }
+            else
+            { // Other cases
 
-                    nameCol = rec.indexOf("call");
-                    aux = (query.value(nameCol)).toString();
-                    aux = util->checkAndFixASCIIinADIF(aux);
-                     //qDebug() << "FileManager::adifLoTWLogExport: " << QString::number(nameCol) << "/" << aux << endl;
-                    if (aux.length()>2)
-                    {
-                        out << "<CALL:" << QString::number(aux.length()) << ">" << aux<< " ";
-                    }
-                     //qDebug() << "FileManager::adifLoTWLogExport: CALL"  << endl;
+            }
 
-                    nameCol = rec.indexOf("qso_date");
-                    aux = (query.value(nameCol)).toString();
-                    aux = util->checkAndFixASCIIinADIF(aux);
-                    if ((aux.length()) == 10){
-                        aux.remove(QChar('-'), Qt::CaseInsensitive);
-                        aux.remove(QChar('/'), Qt::CaseInsensitive);
-                        QDate date = QDate::fromString(aux, "yyyyMMdd");
+            out << "<EOR> " << endl;
+            i++;
 
-                        if (util->isValidDate(date))
-                        {
-                            out << "<QSO_DATE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                        }
-                    }
-
-                    nameCol = rec.indexOf("time_on");
-                    aux = (query.value(nameCol)).toString();
-                    aux = util->checkAndFixASCIIinADIF(aux);
-                    if ((QTime::fromString(aux,"hh:mm:ss")).isValid())
-                    {
-                        aux.remove(QChar(':'), Qt::CaseInsensitive);
-                        out << "<TIME_ON:" << QString::number(aux.length()) << ">" << aux  << " ";
-                    }
-
-                    nameCol = rec.indexOf("bandid");
-                    aux = (query.value(nameCol)).toString();
-                     //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-1: "  << aux << endl;
-                    aux = util->checkAndFixASCIIinADIF(aux);
-                     //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-2: "  << aux << endl;
-                    //aux = db->getBandNameFromID2(aux.toInt());
-                    aux = dataProxy->getNameFromBandId(aux.toInt());
-                     //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-3: "  << aux << endl;
-
-
-                    if (dataProxy->getIdFromBandName(aux)>=0)
-                    {
-                        out << "<BAND:" << QString::number(aux.length()) << ">" << aux  << " ";
-                        bandst = aux;
-                    }
-
-                    nameCol = rec.indexOf("freq");
-                    aux = (query.value(nameCol)).toString();
-                     //qDebug() << "FileManager::adifLoTWLogExportToFile FREQ1: "  << aux << endl;
-                    aux = util->checkAndFixASCIIinADIF(aux);
-                    freqTX = aux.toDouble();
-                    if (freqTX > 0.0)
-                    {
-                        //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
-                        if (dataProxy->getBandIdFromFreq(freqTX) == dataProxy->getIdFromBandName(bandst))
-                        //if (db->isThisFreqInBand(bandst, aux))
-                        {
-                           out << "<FREQ:" << QString::number(aux.length()) << ">" << aux  << " ";
-                        }
-                    }
-
-                    nameCol = rec.indexOf("band_rx");
-                    aux = (query.value(nameCol)).toString();
-                     //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-1: "  << aux << endl;
-                    aux = util->checkAndFixASCIIinADIF(aux);
-                     //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-2: "  << aux << endl;
-                    //aux = db->getBandNameFromID2(aux.toInt());
-                    aux = dataProxy->getNameFromBandId(aux.toInt());
-                     //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-3: "  << aux << endl;
-
-
-                    if (dataProxy->getIdFromBandName(aux)>=0)
-                    {
-                        out << "<BAND_RX:" << QString::number(aux.length()) << ">" << aux  << " ";
-                        bandrxst = aux;
-                    }
-
-                    nameCol = rec.indexOf("freq_rx");
-                    aux = (query.value(nameCol)).toString();
-                     //qDebug() << "FileManager::adifLoTWLogExportToFile FREQ1: "  << aux << endl;
-                    aux = util->checkAndFixASCIIinADIF(aux);
-                    freqRX = aux.toDouble();
-                    if (freqRX > 0.0)
-                    {
-                        //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
-                        if (dataProxy->getBandIdFromFreq(freqRX) == dataProxy->getIdFromBandName(bandrxst))
-                        {
-                           out << "<FREQ_RX:" << QString::number(aux.length()) << ">" << aux  << " ";
-                        }
-                    }
-
-                     //qDebug() << "FileManager::adifLoTWLogExport: BAND_RX"  << endl;
-
-                    nameCol = rec.indexOf("modeid");
-                    aux = (query.value(nameCol)).toString();
-                    aux = util->checkAndFixASCIIinADIF(aux);
-                    // get SubModeId to check if it is the same or not from modeid
-                    aux2 = dataProxy->getSubModeFromId(aux.toInt());
-                    //aux = db->getModeNameFromID2(aux.toInt());
-                    aux = dataProxy->getNameFromSubMode(aux2);
-
-                     //qDebug() << "FileManager::adifLoTWLogExportToFile - MODE aux2:  " << aux2 << endl;
-                     //qDebug() << "FileManager::adifLoTWLogExportToFile - MODE aux:  " << aux << endl;
-
-                    if ((aux.length()>1) && (dataProxy->getIdFromModeName(aux)>=0))
-                    {
-                        //haveMode = true;
-                        out << "<MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                    }
-
-                    if ((aux != aux2) && (aux.length()>1) && (dataProxy->getSubModeIdFromSubMode(aux2)>=0) )
-                    {
-                        //haveMode = true;
-                        out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
-                    }
-
-                     //qDebug() << "FileManager::adifLoTWLogExport: SUBMODE: " << aux2  << endl;
-
-
-                    nameCol = rec.indexOf("prop_mode");
-                    aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                    if ((aux.length())>1){
-                        out << "<PROP_MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                        if (aux == "SAT")
-                        {
-                            propsat = true;
-                        }
-
-                    }
-                     //qDebug() << "FileManager::adifLoTWLogExport: PROP_MODE"  << endl;
-
-                    nameCol = rec.indexOf("sat_name");
-                    aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                    if ((aux.length())>0)
-                    {
-                        out << "<SAT_NAME:" << QString::number(aux.length()) << ">" << aux  << " ";
-
-                        if (!propsat)
-                        {
-                             out << "<PROP_MODE:3>SAT ";
-                        }
-                    }
-                     //qDebug() << "FileManager::adifLoTWLogExport: SAT_NAME"  << endl;
-                    if ((bandst.length()<1) && (freqTX>0.0))
-                    {
-                        bandst = dataProxy->getBandNameFromFreq(freqTX);
-                        out << "<BAND:" << QString::number(bandst.length()) << ">" << bandst  << " ";
-                        out << "<FREQ:" << QString::number((QString::number(freqTX)).length()) << ">" << QString::number(freqTX)  << " ";
-                    }
-
-                    if ((bandrxst.length()<1) && (freqRX>0.0))
-                    {
-                        bandrxst = dataProxy->getBandNameFromFreq(freqRX);
-                        out << "<BAND_RX:" << QString::number(bandrxst.length()) << ">" << bandrxst  << " ";
-                        out << "<FREQ_RX:" << QString::number((QString::number(freqRX)).length()) << ">" << QString::number(freqRX)  << " ";
-                    }
-
-                    out << "<EOR> " << endl;
-
-                    i++;
-                    if (( (i % step ) == 0) )
-                    { // To update the speed I will only show the progress once each X QSOs
-                        //qDebug() << "FileManager::adifLoTWLogExport: MOD 0 - i = " << QString::number(i)  << endl;
-
-                        aux = tr("Exporting LoTW ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
-
-                       progress.setLabelText(aux);
-                       progress.setValue(i);
-
-                    }
-                    else
-                    {
-                        //qDebug() << "FileManager::adifLoTWLogExport: Mod: "<< QString::number(i) << " mod " << QString::number(step) << " = " << QString::number(i % step) << endl;
-
-                    }
-                }
+            if (( (i % step ) == 0) )
+            { // To update the speed I will only show the progress once each X QSOs
+                //qDebug() << "FileManager::adifLoTWLogExport: MOD 0 - i = " << QString::number(i)  << endl;
+                aux = tr("Exporting LoTW ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
+                progress.setLabelText(aux);
+                progress.setValue(i);
+            }
+            else
+            {
+                    //qDebug() << "FileManager::adifLoTWLogExport: Mod: "<< QString::number(i) << " mod " << QString::number(step) << " = " << QString::number(i % step) << endl;
             }
         }
          //qDebug() << "FileManager::adifLoTWLogExport: End Of Valid"  << endl;
+        if ( progress.wasCanceled() )
+        {
+            QMessageBox msgBox;
+            msgBox.setWindowTitle(tr("KLog - User cancelled"));
+            QString aux = QString(tr("You have canceled the file export. The file will be removed and no data will be exported.") + "\n" + tr("Do you still want to cancel?"));
+            msgBox.setText(aux);
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            msgBox.setDefaultButton(QMessageBox::No);
+            int ret = msgBox.exec();
+            switch (ret) {
+              case QMessageBox::Yes:
+                  // Yes was clicked
+                    finishExport = true;
+                    return -1;
+                  break;
+              case QMessageBox::No:
+                    // No Save was clicked
+                  break;
+              default:
+                    // should never be reached
+                  break;
+            }
+        }
     }
 
      //qDebug() << "FileManager::adifLoTWLogExport: End of While " << endl;
@@ -2646,6 +2629,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         if ( progress.wasCanceled() )
         {
             QMessageBox msgBox;
+            msgBox.setWindowTitle(tr("KLog - User cancelled"));
             QString aux = QString(tr("You have canceled the file export. The file will be removed and no data will be exported.") + "\n" + tr("Do you still want to cancel?"));
             msgBox.setText(aux);
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -2665,8 +2649,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
             }
 
         }
-        else
-        {}
+
     } // Closes the isValid
         else
         {}
@@ -3351,6 +3334,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     {
 
         QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("KLog - log selection"));
         aux = QString(tr("There is more than one log in this logfile.") + "\n" + tr("All logs will be imported into the current log.") + "\n" + tr("Do you want to continue?"));
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -3633,6 +3617,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                 if ((errorCode == 19) && (!ignoreErrorCode19))
                 { // There are some repeated QSO
                     QMessageBox msgBox;
+                    msgBox.setWindowTitle(tr("KLog - Duplicated QSOs"));
                     aux = tr("It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No);
@@ -3772,6 +3757,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             {
 
                 QMessageBox msgBox;
+                msgBox.setWindowTitle(tr("KLog - User cancelled"));
                 aux = QString(tr("You have cancelled the file import. The file will be removed and no data will be imported.") + "\n" + tr("Do you still want to cancel?"));
                 msgBox.setText(aux);
                 msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
