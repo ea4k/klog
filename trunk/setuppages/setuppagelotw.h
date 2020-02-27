@@ -38,12 +38,15 @@ public:
     ~SetupPageLoTW();
 
 
-    void sePath(const QString &c);
+    void setPath(const QString &c);
     QString getPath();
+    void setLoTW(const QString &_s);
+    QString getLoTW();
 
 
 private slots:
     void slotSelectTQSLClicked();
+    void slotPathLineEditChanged(const QString _q);
     //void slotClubLogActive(bool _s);
     //void slotUseStationCall(bool _s);
 

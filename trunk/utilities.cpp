@@ -198,7 +198,7 @@ QString Utilities::getAgent(const QString &_klogversion)
 QString Utilities::getHomeDir()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN)
        //qDebug() << "WINDOWS DETECTED!: "  << QDir::homePath() + "/klog" << endl;
     return QDir::homePath()+"/klog";  // We create the \klog for the logs and data
 
@@ -300,7 +300,7 @@ QString Utilities::getKLogDatabaseFile(const QString &_file)
 QString Utilities::getCfgFile()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN)
        //qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
     return getHomeDir() + "/klogrc.cfg";
 
@@ -314,7 +314,7 @@ QString Utilities::getCfgFile()
 
 QString Utilities::getDebugLogFile()
 {
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN)
        //qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
     return getHomeDir() + "/klogdebug.log";
 
@@ -327,24 +327,20 @@ QString Utilities::getDebugLogFile()
 
 QString Utilities::getSaveSpotsLogFile()
 {
-#ifdef Q_OS_WIN
-    return getHomeDir() + "/klogdxcluster.log";
+    QString filename = "/" + (QDateTime::currentDateTime()).toString("yyyyMMdd") + "-klogdxcluster.adi";
 
-#else
-       //qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << endl;
-    return getHomeDir() + "/klogdxcluster.log";
+    return getHomeDir() + filename;
 
-#endif
 }
 
 QString Utilities::getTQSLsFileName()
 {
     qDebug() << "Utilities::getTQSLsFileName: "   << endl;
 
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN)
        //qDebug() << "WINDOWS DETECTED!: "   << endl;
     return "tqsl.exe";
-#elif Q_OS_MACOS
+#elif   defined(Q_OS_MACOS)
     //qDebug() << "macOS DETECTED!: "   << endl;
     return "tqsl";
 #else

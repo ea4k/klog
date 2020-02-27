@@ -34,7 +34,7 @@ This class calls all the othet "Setup..." to manage the configuration
 
 SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
 {
-    //qDebug() << "SetupDialog::SetupDialog 1" << endl;
+    qDebug() << "SetupDialog::SetupDialog 1" << endl;
     logSeverity = 7;  //7 Debug /0=emergency or no debug
     util = new Utilities;
     constrid = 1;
@@ -138,7 +138,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
         tabWidget->setCurrentIndex(logsPageTabN);
     }
     nolog = !(haveAtleastOneLog());
-    //qDebug() << "SetupDialog::SetupDialog 1 END" << endl;
+    qDebug() << "SetupDialog::SetupDialog 1 END" << endl;
 }
 
 
@@ -597,7 +597,7 @@ void SetupDialog::slotOkButtonClicked()
         stringList << dxClusterPage->getDxclusterServersComboBox();
 
         if (stringList.size()>0)
-        { 
+        {
             for (int i = 0; i < stringList.size(); i++)
             {
                  stream << "DXClusterServerPort="<< stringList.at(i) << ";" << endl;
@@ -634,6 +634,12 @@ void SetupDialog::slotOkButtonClicked()
         }
 
         // CLUBLOG
+
+        // LOTW
+        stream << "LoTWActive=" << lotwPage->getLoTW() << ";" <<  endl;
+        stream << "LoTWPath=" << lotwPage->getPath() << ";" <<  endl;
+
+        // LOTW
 
         //WSJTX
         stream << "UDPServer=" << UDPPage->getUDPServer() << ";" <<  endl;
@@ -1028,6 +1034,12 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else if(tab =="CLUBLOGUSESTATIONCALLSIGN"){
             clubLogPage->setUseStationCall(value);
+    }
+    else if(tab =="LOTWACTIVE"){
+        lotwPage->setLoTW(value);
+    }
+    else if(tab =="LOTWPATH"){
+        lotwPage->setPath(value);
     }else{
          //qDebug() << "SetupDialog::processConfigLine: NONE: " << endl;
     }

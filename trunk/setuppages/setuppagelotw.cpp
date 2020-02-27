@@ -58,24 +58,47 @@ SetupPageLoTW::SetupPageLoTW(QWidget *parent) : QWidget(parent)
     setLayout(pathLayout);
 
     connect(searchTQSLPushButton, SIGNAL(clicked()), this, SLOT(slotSelectTQSLClicked()) );
+    connect(tqslPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotPathLineEditChanged(QString)) );
     //connect(clubLogActiveCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotClubLogActive(bool)));
-
-
 }
 
 SetupPageLoTW::~SetupPageLoTW()
 {
 }
 
-void SetupPageLoTW::sePath(const QString &c)
+void SetupPageLoTW::setLoTW(const QString &_s)
+{
+    if ( (_s.toUpper()) == "FALSE")
+    {
+        lotwActiveCheckBox->setChecked(false);
+    }
+    else
+    {
+        lotwActiveCheckBox->setChecked(true);
+    }
+}
+
+QString SetupPageLoTW::getLoTW()
+{
+    if (lotwActiveCheckBox->isChecked() )
+    {
+        return "True";
+    }
+    else
+    {
+        return "False";
+    }
+}
+
+void SetupPageLoTW::setPath(const QString &c)
 {
     tqslPathLineEdit->setText(c);
 }
+
 QString SetupPageLoTW::getPath()
 {
     return tqslPathLineEdit->text();
 }
-
 
 void SetupPageLoTW::slotSelectTQSLClicked()
 {
@@ -86,9 +109,11 @@ void SetupPageLoTW::slotSelectTQSLClicked()
     appsDir = util->getTQSLsPath();
     QString filter;
     filter.clear();
-#if defined(Q_OS_WIN)
-    filter = "TQSL (*.exe)";
-#endif
+    #if defined(Q_OS_WIN)
+        filter = "TQSL (*.exe)";
+    #else
+        filter = "TQSL (tqsl)";
+    #endif
     QString tqslFile;
     tqslFile.clear();
     tqslFile = QFileDialog::getOpenFileName(this, tr("Select File"), appsDir, filter);
@@ -101,3 +126,19 @@ void SetupPageLoTW::slotSelectTQSLClicked()
      //qDebug() << "SetupPageLoTWr::slotSelectTQSLClicked - END" << endl;
 }
 
+void SetupPageLoTW::slotPathLineEditChanged(const QString _q)
+{
+    QPalette palRed;
+    palRed.setColor(QPalette::Text, Qt::red);
+    QPalette palBlack;
+    palBlack.setColor(QPalette::Text, Qt::black);
+    if (QFile::exists(_q))
+    {
+        tqslPathLineEdit->setPalette(palBlack);
+    }
+    else
+    {
+        tqslPathLineEdit->setPalette(palRed);
+    }
+
+}
