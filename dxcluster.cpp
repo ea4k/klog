@@ -50,7 +50,7 @@ DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToC
 
     initClass();
     server = clusterToConnect;
-    port = portToConnect;
+    port = quint16(portToConnect);
 
     dxSpotColor.setNamedColor("slategrey");
     //defaultColor.setNamedColor("slategrey");
@@ -153,8 +153,8 @@ void DXClusterWidget::addData()
                 item->setToolTip(6, aux);
 */
 
-
     dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Click on connect to connect to the DX-Cluster"), awards->getDefaultColor());
+
 
 
 }
@@ -209,11 +209,12 @@ void DXClusterWidget::connectToDXCluster()
     connect(tcpSocket, SIGNAL(disconnected()), SLOT(slotClusterSocketConnectionClosed()) );
     connect(inputCommand, SIGNAL(returnPressed()), this, SLOT(slotClusterSendToServer()) );
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClusterClearLineInput()) );
-    openFile(); // This functions opens the file to save the DX-Cluster activity. The file will be closed when the DX is disconnected.
+    //openFile(); // This functions opens the file to save the DX-Cluster activity. The file will be closed when the DX is disconnected.
     tcpSocket->connectToHost( server, port );
     dxClusterListWidget->setSortingEnabled (false);
 
     dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Trying to connect to the server") + "\n", awards->getDefaultColor());
+
 }
 
 
@@ -332,7 +333,7 @@ void DXClusterWidget::setCurrentLog(const int _log)
 
 void DXClusterWidget::slotClusterDataArrived()
 {
-    //qDebug() << "DXClusterWidget::slotClusterDataArrived" << endl;
+    qDebug() << "DXClusterWidget::slotClusterDataArrived" << endl;
     QStringList qs;
     QString dxClusterString;
     QString dxCall;
@@ -342,7 +343,8 @@ void DXClusterWidget::slotClusterDataArrived()
     //bool isADXSpot = false;
     int dxEntity = -1;
 
-    while ( tcpSocket->canReadLine() ) {
+    while ( tcpSocket->canReadLine() )
+    {
         dxClusterString =  tcpSocket->readLine();
         dxClusterString = dxClusterString.trimmed();
         saveSpot(dxClusterString);
@@ -364,7 +366,7 @@ void DXClusterWidget::slotClusterDataArrived()
             dxFrequency = tokens[3];
             // Convert KHz to MHz...
             //dxFrequency = QString::number(abs (dxFrequency.toFloat())/1000);
-            dxFrequency = QString::number( (dxFrequency.toFloat())/1000);
+            dxFrequency = QString::number( (dxFrequency.toDouble())/1000);
             dxCall = tokens[4];
             dxEntity = world->getQRZARRLId(dxCall);
             //
@@ -402,7 +404,7 @@ void DXClusterWidget::slotClusterDataArrived()
             //isADXSpot = true;
             dxCall = tokens[1];
             dxFrequency = tokens[0];
-            dxFrequency = QString::number( (dxFrequency.toFloat())/1000);
+            dxFrequency = QString::number( (dxFrequency.toDouble())/1000);
 
             qs.clear();
             spotBand = QString::number(dataProxy->getBandIdFromFreq(  dxFrequency.toDouble()  ) );
@@ -735,7 +737,7 @@ QStringList DXClusterWidget::readItem(QListWidgetItem * item)
             }
         }
         //else if (( isAFrecuency(fields.at(0) ) ) && ( isACall(fields.at(1)) ) )
-        else if ( (((fields.at(0)).toFloat()) > 0.0 )&& ( world->getQRZARRLId(fields.at(1))> 0 ) )
+        else if ( (((fields.at(0)).toDouble()) > 0.0 )&& ( world->getQRZARRLId(fields.at(1))> 0 ) )
         { // 14205.0 EA0JC    5-Mar-2012 1500Z    <EA4K>
 
             dxCallsign = (fields.at(1)).toUpper();
@@ -762,7 +764,7 @@ QStringList DXClusterWidget::readItem(QListWidgetItem * item)
 void DXClusterWidget::setDXClusterServer(const QString &clusterToConnect, const int portToConnect)
 {
     server = clusterToConnect;
-    port = portToConnect;
+    port = quint16(portToConnect);
      //qDebug() << "DXClusterWidget::setDXClusterServer: " << server << ":"<< QString::number(port)  << endl;
 }
 
@@ -804,16 +806,23 @@ void DXClusterWidget::saveSpot(const QString &_spot)
     qDebug() << "DXClusterWidget::saveSpot: " << _spot  << endl;
     if (!saveSpots)
     {
+        qDebug() << "DXClusterWidget::saveSpot: Not saving" << endl;
         return;
     }
     else
     {
         if (openFile())
         {
+            qDebug() << "DXClusterWidget::saveSpot: File Open" << endl;
             QTextStream out(saveSpotsFile);
             //out << _spot << endl;
             out << (QDateTime::currentDateTime()).toString("yyyy/MM/dd-hh:mm:ss") << " - " << _spot  << endl;
             saveSpotsFile->close();
+        }
+        else {
+            {
+                qDebug() << "DXClusterWidget::saveSpot: File NOT Open" << endl;
+            }
         }
     }
 }

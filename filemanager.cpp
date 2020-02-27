@@ -225,8 +225,49 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_cal
     progress.setMaximum(numberOfQsos);
     progress.setWindowModality(Qt::ApplicationModal);
 
-    out << "ADIF v3.0.7 Export from KLog\nhttps://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
+
+
+    QString queryString;
+    QSqlQuery query;
+    if (emptyCall)
+    {
+        queryString = QString("SELECT COUNT (id) FROM log WHERE lognumber='%1' AND station_callsign = '' AND lotw_qsl_sent='Q'").arg(_logN);
+    }
+    else
+    {
+        queryString = QString("SELECT COUNT (id) FROM log WHERE lognumber='%1' AND station_callsign ='%2' AND lotw_qsl_sent='Q'").arg(_logN).arg(_callsign);
+    }
+
+    bool sqlOK = query.exec(queryString);
+   //qDebug() << "FileManager::adifLoTWLogExport: " << query.lastQuery() << endl;
+    if (!sqlOK)
+    {
+         //qDebug() << "FileManager::adifLoTWLogExport: Query Error"  << endl;
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        return -4;
+    }
+    else
+    {
+        query.next();
+        if (query.isValid())
+        {
+            i = (query.value(0)).toInt();
+            if (i>0)
+            {
+                numberOfQsos = i;
+            }
+            else if (i == 0)
+            {
+                showError(tr("There are no QSOs pending to be uploaded with that station callsign."));
+                return -5;
+            }
+        }
+    }
+      out << "ADIF v3.0.7 Export from KLog\nhttps://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
+    qDebug() << "FileManager::adifLoTWLogExport: Number: " << QString::number(numberOfQsos) << endl;
     out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
+
+
 
     QDateTime dateTime = (QDateTime::currentDateTime()).toUTC();
 
@@ -237,7 +278,7 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_cal
     // Required fields: call sign, UTC Date, UTC time, Mode, Band
     // Optional fields: RX band, Frecuency TX, frecuency RX, Propagation mode, Satellite
 
-    QString queryString;
+    i = 0;
     if (emptyCall)
     {
         queryString = QString("SELECT call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log WHERE lognumber='%1' AND station_callsign = '' AND lotw_qsl_sent='Q'").arg(_logN);
@@ -247,15 +288,15 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_cal
         queryString = QString("SELECT call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log WHERE lognumber='%1' AND station_callsign ='%2' AND lotw_qsl_sent='Q'").arg(_logN).arg(_callsign);
     }
 
-    QSqlQuery query;
 
-    bool sqlOK = query.exec(queryString);
+
+    sqlOK = query.exec(queryString);
     qDebug() << "FileManager::adifLoTWLogExport: " << query.lastQuery() << endl;
     if (!sqlOK)
     {
          //qDebug() << "FileManager::adifLoTWLogExport: Query Error"  << endl;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        return -4;
+        return -6;
     }
 
     QSqlRecord rec = query.record();

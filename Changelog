@@ -1,6 +1,7 @@
 TBD - 1.0.0
-TODO: When exporting a LoTW log, the number of QSOs is not correct. It shows the full log, not just the exported.
-TODO: The filename must containthe date to prevent one very big file - DX-Cluster: It is now possible to save in a file all the DX-Cluster activity.
+
+TODO: Read the standard error when processing TQSL for the user and show a kind of a log.
+TODO: Offer to mark as sent all the sent QSO to LoTW.
 TODO: New feature: Integrate TQSL to upload QSOs to LoTW directly from KLog.
 TODO: New feature: KLog can now control a rotator through PSTRotator.
 TODO: UI: Added a DXCC summary obtained from the Tools menu.
@@ -10,6 +11,7 @@ TODO: UI: Added a DXCC summary obtained from the Tools menu.
 - UI: Added the title to some QMessage boxes that were missing.
 - New feature: You can check a call in QRZ.com by right-clicking in the call from the log.
 - New feature: You can check a call in DXHeat.com by right-clicking in the call from the log.
+- New feature: It is now possible to save in a file all the DX-Cluster activity.
 - Improvement: Added https to the cty.dat download.
 - Improvement: Added the https to download.klog.xyz
 - Improvement: Propagation modes are now sorted in the Propagation mode combobox.

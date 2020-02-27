@@ -215,6 +215,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     softUpdate = new SoftwareUpdate(softwareVersion);
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
 
+    lotwCallTQSL = new QAction(tr("Upload to LoTW"), this);
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
@@ -366,12 +367,13 @@ void MainWindow::init()
     {
         world->create(ctyDatFile);
     }
-
+    //qDebug() << "MainWindow::init: 0013" << endl;
     readConfigData();
-
+    //qDebug() << "MainWindow::init: 0014" << endl;
     logWindow->createlogPanel(currentLog);
+    //qDebug() << "MainWindow::init: 0015" << endl;
     awards->setManageModes(manageMode);
-
+    //qDebug() << "MainWindow::init: 0016" << endl;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
         //qDebug() << "MainWindow::init: 16.1" << endl;
@@ -411,7 +413,7 @@ void MainWindow::init()
 
     infoWidget->showInfo(-1);
 
-    lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
+    //lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
     hamlib->readRadio();
@@ -3072,10 +3074,10 @@ void MainWindow::createMenusCommon()
     connect(lotwMarkSentYesAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllYes()));
     lotwMarkSentYesAct->setToolTip(tr("Mark all queued QSOs as sent to LoTW."));
 
-    lotwCallTQSL = new QAction(tr("Upload to LoTW"), this);
+
     lotwToolMenu ->addAction(lotwCallTQSL);
     connect(lotwCallTQSL, SIGNAL(triggered()), this, SLOT(slotLoTWUpload()));
-    lotwCallTQSL->setToolTip(tr("Sends the log to LoTW calling TQSL."));
+    lotwCallTQSL->setToolTip("Sends the log to LoTW calling TQSL.");
 
     toolMenu->addSeparator();
 
@@ -3240,7 +3242,8 @@ bool MainWindow::callTQSL(const QString &_filename, const QString &_call)
     //QString program = "C:/Program Files (x86)/TrustedQSL/tqsl.exe";
     QStringList arguments;
     arguments.clear();
-    arguments << QString("-c %1").arg(_call) << "-x" << _filename;// "C:/Users/radio/klog/lotw.adi";
+    //arguments << "--action=compliant" << QString("-c %1").arg(_call) << "-d" << "-u"  << "-x" << _filename;// "C:/Users/radio/klog/lotw.adi";
+    arguments  << QString("-c %1").arg(_call) << "-u" << _filename;// "C:/Users/radio/klog/lotw.adi";
     int ok = -1;
     QString msg;
     QMessageBox msgBox;
@@ -3256,6 +3259,7 @@ bool MainWindow::callTQSL(const QString &_filename, const QString &_call)
     else
     {
         ok = QProcess::execute(lotwTQSLpath, arguments);
+        //-c ea4k //qDebug() << "MainWindow::callTQSL: " << (QProcess::readAllStandardError()) << endl;
 
         switch (ok)
         {
@@ -3315,7 +3319,6 @@ bool MainWindow::callTQSL(const QString &_filename, const QString &_call)
                 // should never be reached
         }
     }
-
 
     msgBox.setText(msg);
     msgBox.exec();
@@ -4553,6 +4556,24 @@ bool MainWindow::processConfigLine(const QString &_line){
     else if(field=="CLUBLOGEMAIL")
     {
         clublogEmail = value;
+    }
+    else if(field =="LOTWACTIVE"){
+        //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE" << endl;
+        if (util->trueOrFalse(value))
+        {
+            lotwCallTQSL->setEnabled(true);
+            lotwCallTQSL->setWhatsThis(tr("Sends the log to LoTW calling TQSL."));
+        }
+        else
+        {
+            lotwCallTQSL->setEnabled(false);
+            lotwCallTQSL->setWhatsThis(tr("This function is disabled. Go to the Setup->LoTW tab to enable it."));
+        }
+        //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE-END" << endl;
+    }
+    else if(field =="LOTWPATH"){
+        //qDebug() << "MainWindow::processConfigLine - LOTWPATH" << endl;
+        lotwTQSLpath = value;
     }
     else if(field=="VERSION")
     {
