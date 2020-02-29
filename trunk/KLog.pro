@@ -2,7 +2,7 @@ CONFIG += app_bundle
 CONFIG += static
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.0
+VERSION = 1.0-RC2
 DEFINES += APP_VERSION="$$VERSION"
 
 APP_NAME = KLog
