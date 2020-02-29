@@ -5253,25 +5253,51 @@ void MainWindow::slotLoTWUpload()
 
     //qDebug() << "MainWindow::slotLoTWUpload: filename: " << fileName << endl;
     //qDebug() << "MainWindow::slotLoTWUpload: statioNCallToUse: " << stationCallToUse << endl;
-    int exportedQSO = filemanager->adifLoTWLogExport(fileName, stationCallToUse, currentLog, emptyCall) ;
+    QList<int> qsos = filemanager->adifLoTWLogExport(fileName, stationCallToUse, currentLog, emptyCall) ;
     //qDebug() << "MainWindow::slotLoTWUpload: exported: " << QString::number(exportedQSO) << endl;
 
-    if (exportedQSO <= 0)
+    if (qsos.count() <= 0)
     { // TODO: Check if errors should be managed.
         return;
     }
     //qDebug() << "MainWindow::slotLoTWUpload - 50" << endl;
-    callTQSL(fileName, stationCallToUse);
+    //bool uploadedToLoTW = callTQSL(fileName, stationCallToUse);
+    bool uploadedToLoTW = true;
     //qDebug() << "MainWindow::slotLoTWUpload - 51" << endl;
-
     QMessageBox msgBox;
+    int i ;
+    if (uploadedToLoTW)
+    {
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setWindowTitle(tr("KLog LoTW"));
+        msgBox.setText(tr("The LoTW upload successfully.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
+
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        int i = msgBox.exec();
+        if (i == QMessageBox::Yes)
+        {
+           uploadedToLoTW = dataProxy->lotwSentQSOs(qsos);
+           if (!uploadedToLoTW)
+           {
+               QMessageBox msgBox;
+               msgBox.setWindowTitle(tr("KLog - LoTW"));
+               msgBox.setIcon(QMessageBox::Warning);
+               msgBox.setText(tr("There was an error while updating to Yes the LoTW QSL sent information."));
+               msgBox.setStandardButtons(QMessageBox::Ok );
+               msgBox.setDefaultButton(QMessageBox::Ok);
+               msgBox.exec();
+           }
+        }
+    }
+
+
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setWindowTitle(tr("KLog LoTW"));
     msgBox.setText(tr("The LoTW upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
-
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
     msgBox.setDefaultButton(QMessageBox::Yes);
-    int i = msgBox.exec();
+    i = msgBox.exec();
     if (i == QMessageBox::Yes)
     {
         if (QFile::remove(fileName))
@@ -5286,7 +5312,6 @@ void MainWindow::slotLoTWUpload()
     //qDebug() << "MainWindow::slotLoTWUpload - END" << endl;
 
 }
-
 
 QString MainWindow::getCallToUseForLoTWExportUpload()
 {
@@ -5376,9 +5401,9 @@ void MainWindow::slotLoTWExport(){
     {
         return;
     }
-    int exportedQSO = filemanager->adifLoTWLogExport(fileName, stationCallToUse, currentLog) ;
+    QList<int> qsos = filemanager->adifLoTWLogExport(fileName, stationCallToUse, currentLog) ;
      //qDebug() << "MainWindow::slotLoTWExport - exported: " << QString::number(exportedQSO) << endl;
-    if (exportedQSO > 0)
+    if (qsos.count() > 0)
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
@@ -5391,7 +5416,7 @@ void MainWindow::slotLoTWExport(){
         msgBox.exec();
 
     }
-    else if (exportedQSO == 0)
+    else
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
@@ -5409,29 +5434,7 @@ void MainWindow::slotLoTWExport(){
             // should never be reached
             break;
         }
-
-    }
-    else
-    {
-        QMessageBox msgBox;
-
-        msgBox.setIcon(QMessageBox::Warning);
-        aux = tr("There was an error while exporting the LoTW. The log has not been exported!");
-        msgBox.setText(aux);
-        msgBox.setStandardButtons(QMessageBox::Ok );
-
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
-        switch (ret)
-        {
-            case QMessageBox::Ok:
-            break;
-
-            default:
-            // should never be reached
-            break;
-        }
-    }
+    }   
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 

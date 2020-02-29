@@ -67,7 +67,7 @@ public:
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
     bool adifLoTWReadLog(const QString& tfileName);
-    int adifLoTWLogExport(const QString& _fileName,const QString &_callsign, const int _logN, bool emptyCall=false);
+    QList<int> adifLoTWLogExport(const QString& _fileName,const QString &_callsign, const int _logN, bool emptyCall=false);
     bool adifLogExport(const QString& _fileName, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);
     bool adifReqQSLExport(const QString& _fileName);

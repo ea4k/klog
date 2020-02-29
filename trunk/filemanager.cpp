@@ -191,29 +191,31 @@ void FileManager::showError (const QString &_txt)
     }
 }
 
-int FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const int _logN, bool emptyCall)
+QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const int _logN, bool emptyCall)
 {
      qDebug() << "FileManager::adifLoTWLogExport: " << _fileName << "/" << _callsign << endl;
+     QList<int> qsos;
+     qsos.clear();
 
     if (!dataProxy->doesThisLogExist(_logN))
     {
          //qDebug() << "FileManager::adifLoTWLogExport - The log does not exist" << endl;
 
         showError(tr("The selected log does not exist, please check it again."));
-        return  -1;
+        return qsos;
     }
 
     if (_callsign.length()<2)
     {
         showError(tr("The selected callsign (%1) is not valid, please check it again.").arg(_callsign));
-        return -2;
+        return qsos;
     }
 
     QFile file(_fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         showError(tr("The file %1 can't be opened.").arg(_fileName));
-        return -3;
+        return qsos;
     }
 
     QTextStream out(&file);
@@ -244,7 +246,7 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_cal
     {
          //qDebug() << "FileManager::adifLoTWLogExport: Query Error"  << endl;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        return -4;
+        return qsos;
     }
     else
     {
@@ -259,7 +261,7 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_cal
             else if (i == 0)
             {
                 showError(tr("There are no QSOs pending to be uploaded with that station callsign."));
-                return -5;
+                return qsos;
             }
         }
     }
@@ -281,11 +283,11 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_cal
     i = 0;
     if (emptyCall)
     {
-        queryString = QString("SELECT call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log WHERE lognumber='%1' AND station_callsign = '' AND lotw_qsl_sent='Q'").arg(_logN);
+        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log WHERE lognumber='%1' AND station_callsign = '' AND lotw_qsl_sent='Q'").arg(_logN);
     }
     else
     {
-        queryString = QString("SELECT call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log WHERE lognumber='%1' AND station_callsign ='%2' AND lotw_qsl_sent='Q'").arg(_logN).arg(_callsign);
+        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log WHERE lognumber='%1' AND station_callsign ='%2' AND lotw_qsl_sent='Q'").arg(_logN).arg(_callsign);
     }
 
 
@@ -296,18 +298,21 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_cal
     {
          //qDebug() << "FileManager::adifLoTWLogExport: Query Error"  << endl;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        return -6;
+        return qsos;
     }
+
 
     QSqlRecord rec = query.record();
     int nameCol;
     QString aux, aux2;
     QString bandst, bandrxst;
-    double freqTX, freqRX;
-    bool finishExport = false;
+
+    //bool finishExport = false;
     bool propsat;
-    while ( (query.next()) && (!finishExport))
+    //while ( (query.next()) && (!finishExport))
+    while ( query.next() )
     {
+        double freqTX, freqRX;
         freqTX = 0.0;
         freqRX = 0.0;
         bandrxst.clear();
@@ -320,6 +325,8 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_cal
 
             //qDebug() << "FileManager::adifLoTWLogExport: Start of isValid"  << endl;
             propsat = false;    // Reset the QSO in case it is a Satellite QSO
+            nameCol = rec.indexOf("id");
+            qsos.append((query.value(nameCol)).toInt());
             nameCol = rec.indexOf("call");
             aux = (query.value(nameCol)).toString();
             aux = util->checkAndFixASCIIinADIF(aux);
@@ -498,9 +505,9 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_cal
             switch (ret) {
               case QMessageBox::Yes:
                   // Yes was clicked
-                    finishExport = true;
-                    return -1;
-                  break;
+                   // finishExport = true;
+                    qsos.clear();
+                    return qsos;
               case QMessageBox::No:
                     // No Save was clicked
                   break;
@@ -511,9 +518,9 @@ int FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_cal
         }
     }
 
-     //qDebug() << "FileManager::adifLoTWLogExport: End of While " << endl;
+   qDebug() << "FileManager::adifLoTWLogExport: End of While: " << QString::number(qsos.count()) << endl;
 
-    return i;
+    return qsos;
 }
 
 bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested , bool _lotw)

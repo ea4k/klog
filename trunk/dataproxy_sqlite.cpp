@@ -2512,7 +2512,37 @@ bool DataProxy_SQLite::lotwSentYes(const QString &_updateDate, const int _curren
     return false;
 }
 
+bool DataProxy_SQLite::lotwSentQSOs(const QList<int> &_qsos)
+{
+    qDebug() << " DataProxy_SQLite::lotwSentQSOs" << QString::number(_qsos.count()) << endl;
+    if (_qsos.count() < 1)
+    {
+        return true;
+    }
+    QString queryString;
+    bool sqlOK;
+    QSqlQuery query;
 
+    for (int i = 0; i< _qsos.count(); i++)
+    {
+        qDebug() << " DataProxy_SQLite::lotwSentQSOs: updating QSO: " << QString::number(_qsos.at(i)) << endl;
+         queryString = QString("UPDATE log SET lotw_qsl_sent = 'Y', lotw_qslsdate = '%1' WHERE id='%2'").arg((QDate::currentDate()).toString("yyyy/MM/dd")).arg(QString::number(_qsos.at(i)));
+         sqlOK = query.exec(queryString);
+         query.finish();
+         if (sqlOK)
+         {
+            qDebug() << " DataProxy_SQLite::lotwSentQSOs: exec: " << query.lastQuery() << endl;
+         }
+         else
+         {
+             emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+             qDebug() << " DataProxy_SQLite::lotwSentQSOs: END FALSE"  << endl;
+             return false;
+         }
+    }
+    qDebug() << " DataProxy_SQLite::lotwSentQSOs: END TRUE"  << endl;
+    return true;
+}
 
 int DataProxy_SQLite::getQSOonYear(const int _year, const int _logNumber)
 {

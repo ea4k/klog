@@ -163,7 +163,7 @@ public:
     bool unMarkAllQSO();            // Unmarks all the marked QSO
     bool lotwSentQueue(const QString &_updateDate, const int _currentLog);          // Mark LOTW QSL SENT as Q (Queued)
     bool lotwSentYes(const QString &_updateDate, const int _currentLog, const QString &_station);         // Update LOTW QSL SENT marked as Q as Y (Queued)
-
+    bool lotwSentQSOs(const QList<int> &_qsos);
     bool clearLog();
 
 
