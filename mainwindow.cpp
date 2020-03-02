@@ -5272,8 +5272,8 @@ void MainWindow::slotLoTWUpload()
         return;
     }
     //qDebug() << "MainWindow::slotLoTWUpload - 50" << endl;
-    //bool uploadedToLoTW = callTQSL(fileName, stationCallToUse);
-    bool uploadedToLoTW = true;
+    bool uploadedToLoTW = callTQSL(fileName, stationCallToUse);
+    //bool uploadedToLoTW = true;
     //qDebug() << "MainWindow::slotLoTWUpload - 51" << endl;
     QMessageBox msgBox;
     int i ;

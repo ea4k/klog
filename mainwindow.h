@@ -173,7 +173,7 @@ private slots:
     //void slotIOTAComboBoxChanged();
     //void slotOperatingYearComboBoxChanged();
     void slotOKButtonClicked();
-    void slotSpotItButtonClicked();
+    //void slotSpotItButtonClicked();
     void slotClearButtonClicked();
     void slotBandChanged (const QString &_b);
     void slotModeChanged (const QString &_m);
