@@ -952,7 +952,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
 
             // Send to CLUBLOG if enabled
 
-            if ((clublogActive) & (clublogRealTime))
+            if ((clublogActive) && (clublogRealTime))
             {
                    //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (Sending ClubLog) Lastid: "<< QString::number(lastId) << endl;
                 elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(lastId));
@@ -1123,7 +1123,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     {
         aux1 = QString::number(rxFreqSpinBox->value());
         stringFields = stringFields + ", freq_rx, band_rx";
-        stringData = stringData + ", '" + aux1 + ", " + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "'";
+       stringData = stringData + ", '" + aux1 + "', '" + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "'";
+        //stringData = stringData + ", '" + aux1 + ", " + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "'";
     }
 
     aux1 = qthLineEdit->text();
