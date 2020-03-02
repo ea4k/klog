@@ -1,4 +1,4 @@
-#include "statsgeneralchartwidget.h"
+#include "charts/statsgeneralchartwidget.h"
 
 
 StatsGeneralChartWidget::StatsGeneralChartWidget()

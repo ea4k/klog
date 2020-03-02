@@ -1,4 +1,4 @@
-#include "statsworkedconfirmedpiechartwidget.h"
+#include "charts/statsworkedconfirmedpiechartwidget.h"
 
 StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(){}
 

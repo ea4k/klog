@@ -1,4 +1,4 @@
-#include "statsqsospercontinentbarchartwidget.h"
+#include "charts/statsqsospercontinentbarchartwidget.h"
 
 
 StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(){}

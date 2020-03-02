@@ -5249,6 +5249,7 @@ void MainWindow::slotLoTWUpload()
     if (stationCallToUse == "NONE")
     {
         emptyCall = true;
+        stationCallToUse = stationQRZ;
     }
 
     //qDebug() << "MainWindow::slotLoTWUpload: filename: " << fileName << endl;
@@ -5261,8 +5262,8 @@ void MainWindow::slotLoTWUpload()
         return;
     }
     //qDebug() << "MainWindow::slotLoTWUpload - 50" << endl;
-    bool uploadedToLoTW = callTQSL(fileName, stationCallToUse);
-    //bool uploadedToLoTW = true;
+    //bool uploadedToLoTW = callTQSL(fileName, stationCallToUse);
+    bool uploadedToLoTW = true;
     //qDebug() << "MainWindow::slotLoTWUpload - 51" << endl;
     QMessageBox msgBox;
     int i ;
@@ -5316,14 +5317,16 @@ void MainWindow::slotLoTWUpload()
 QString MainWindow::getCallToUseForLoTWExportUpload()
 {
     QString stationCallToUse = QString();
+    QString msg;
     QStringList stationCallSigns;
     stationCallSigns.clear();
     stationCallSigns << "NONE";
     stationCallSigns << dataProxy->getStationCallSignsFromLog(currentLog);
+    QMessageBox msgBox;
 
     if (stationCallSigns.length()>1)
     {
-        QString msg = QString(tr("The log that you have selected contains more than just one station callsign.") + "\n\n" + tr("Please select the station callsign you want to export the log from:"));
+        msg = QString(tr("The log that you have selected contains more than just one station callsign.") + "<br><br>" + tr("Please select the station callsign you want to export the log from:"));
         bool ok;
         stationCallToUse = QInputDialog::getItem(this, tr("Station Callsign:"),
                                              msg, stationCallSigns, 0, false, &ok);
@@ -5337,7 +5340,7 @@ QString MainWindow::getCallToUseForLoTWExportUpload()
         if (!util->isValidCall(stationCallToUse))
         {
             //qDebug() << "MainWindow::slotLoTWUpload: station <2  "  << endl;
-            QMessageBox msgBox;
+
             msgBox.setWindowTitle(tr("KLog - LoTW"));
             msgBox.setIcon(QMessageBox::Warning);
             msgBox.setText(tr("The selected callsign is not valid, LoTW log will not be uploaded."));
@@ -5350,29 +5353,46 @@ QString MainWindow::getCallToUseForLoTWExportUpload()
         {
             stationCallToUse = stationQRZ;
             //qDebug() << "MainWindow::slotLoTWUpload: station <2  "  << endl;
-            QMessageBox msgBox;
+
             msgBox.setTextFormat(Qt::RichText);
             msgBox.setWindowTitle(tr("KLog - LoTW"));
             msgBox.setIcon(QMessageBox::Warning);
             msgBox.setText(tr("You selected NONE so all the QSOs without a station callsign in your log will be selected and the current station callsign (%1) will be automatically added to the QSOs. <br><br><b>Please check that this is correct as it may cause errors in your uploaded logs</b>.").arg(stationQRZ));
-            msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel );
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel );
             msgBox.setDefaultButton(QMessageBox::Cancel);
             int i = msgBox.exec();
-            if (i == QMessageBox::Cancel)
+            if (i == QMessageBox::Yes)
             {
-                return "NONE";
+                return stationCallToUse;
+            }
+            else
+            {
+                return QString();
             }
         }
-
-
         return stationCallToUse;
-
     }
     else
     { // No station callsigns are in the log so we return "NONE"
-        return "NONE";
-    }
 
+        msg = tr("The log that you have selected does not contain any QSO with the station callsign defined.")+ "<br><br>" + tr("If you click on 'Yes' KLog will fill all the QSO with your Station Callsign <b>(%1)</b> automatically.").arg(stationQRZ) + "<br><br>" + tr("Do you want to fill all the QSO with the Station Callsign: %1?").arg(stationQRZ) + "<br>" + tr("(If you answer 'No', no QSO will be exported to LoTW)");
+
+        msgBox.setTextFormat(Qt::RichText);
+        msgBox.setWindowTitle(tr("KLog - LoTW"));
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText(msg);
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        int i = msgBox.exec();
+        if (i == QMessageBox::Yes)
+        {
+            return stationQRZ;
+        }
+        else
+        {
+            return QString();
+        }
+    }
 }
 
 

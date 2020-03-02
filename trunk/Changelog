@@ -1,5 +1,5 @@
 TBD - 1.0.0
-
+TODO: update setAxisX as it is deprecated
 TODO: Read the standard error when processing TQSL for the user and show a kind of a log.
 TODO: Offer to mark as sent all the sent QSO to LoTW.
 TODO: New feature: Integrate TQSL to upload QSOs to LoTW directly from KLog.

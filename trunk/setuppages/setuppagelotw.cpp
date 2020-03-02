@@ -102,7 +102,7 @@ QString SetupPageLoTW::getPath()
 
 void SetupPageLoTW::slotSelectTQSLClicked()
 {
-    qDebug() << "SetupPageLoTWr::slotSelectTQSLClicked: " << QStandardPaths::ApplicationsLocation << endl;
+    //qDebug() << "SetupPageLoTWr::slotSelectTQSLClicked: " << QStandardPaths::ApplicationsLocation << endl;
     QString appsDir;
     QString executableName, proposedName;
     proposedName = util->getTQSLsFileName();

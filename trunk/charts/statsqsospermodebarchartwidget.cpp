@@ -1,4 +1,4 @@
-#include "statsqsospermodebarchartwidget.h"
+#include "charts/statsqsospermodebarchartwidget.h"
 
 
 StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget(){}

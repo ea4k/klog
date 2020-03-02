@@ -32,8 +32,9 @@
 int main(int argc, char *argv[])
 {
     //qDebug() << "KLog Main: Start! " << endl;
-    QString version = "1.0-RC2" ;
+    qDebug() << "KLog Main: " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString() << endl;
     QDir d1 = QDir();
+    QString version = "1.0-RC3";
     Utilities util = Utilities();
     QStringList arguments;
     QTextStream cout(stdout);

@@ -1,4 +1,4 @@
-#include "barchartstats.h"
+#include "charts/barchartstats.h"
 /***************************************************************************
                           barchartstats.cpp  -  description
                              -------------------
