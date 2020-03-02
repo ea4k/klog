@@ -906,7 +906,7 @@ void MainWindow::slotQRZReturnPressed()
 
 void MainWindow::actionsJustAfterAddingOneQSO()
 {
-     //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO" << endl;
+    qDebug() << "MainWindow::actionsJustAfterAddingOneQSO" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     int lastId = -1;
     needToSave = true;
@@ -2744,6 +2744,15 @@ void MainWindow::setRSTToMode(const QString &_m)
         rstTXLineEdit->setMaxLength(4);
         rstRXLineEdit->setMaxLength(4);
     }
+    else if ( (_m.contains("FT", Qt::CaseInsensitive)) || (_m.contains("JT", Qt::CaseInsensitive)) || (_m.contains("QRA64", Qt::CaseInsensitive)) || (_m.contains("JS", Qt::CaseInsensitive)))
+    {
+        rstTXLineEdit->setInputMask("#DD0");
+        rstRXLineEdit->setInputMask("#DD0");
+        rstTXLineEdit->setText("0");
+        rstRXLineEdit->setText("0");
+        rstTXLineEdit->setMaxLength(4);
+        rstRXLineEdit->setMaxLength(4);
+    }
     else
     { // By default SSB RST is configured but anything could be added
         rstTXLineEdit->setInputMask("#xxx");
@@ -2766,7 +2775,7 @@ void MainWindow::slotrstRXTextChanged()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
+}/*
 
 void MainWindow::slotSpotItButtonClicked()
 {
@@ -2778,7 +2787,7 @@ void MainWindow::slotSpotItButtonClicked()
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
-
+*/
 void MainWindow::setCleaning(const bool _c)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -5580,6 +5589,7 @@ void MainWindow::qsoToEdit (const int _qso)
       //qDebug() << "MainWindow::qsoToEdit: " << QString::number(_qso) << endl;
 
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    readingTheUI = true;
     int nameCol;
     QString aux1;
     double testValueDouble; // Variable just to test if the value is in the appropriate range
@@ -6083,6 +6093,7 @@ void MainWindow::qsoToEdit (const int _qso)
         //qDebug() << "MainWindow::qsoToEdit: - in default - 106"  << endl;
     } //Closes the next.isValid
         //qDebug() << "MainWindow::qsoToEdit: - in default - END"  << endl;
+    readingTheUI = false;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 }
@@ -7333,7 +7344,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
             {
                 case QMessageBox::Yes:
                 break;
-                case QMessageBox::No:
+                case QMessageBox::No:RX
                     noMoreModeErrorShown = true;
                     break;
                 default:
