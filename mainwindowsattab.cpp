@@ -611,10 +611,10 @@ void MainWindowSatTab::slotSatFreqTXChanged()
 
 void MainWindowSatTab::setUpLink(const QString _t)
 {
-    qDebug() << "MainWindowsatTab::setUpLink: " << _t << endl;
+    //qDebug() << "MainWindowsatTab::setUpLink: " << _t << endl;
     int index = satBandTXComboBox->findText(_t, Qt::MatchCaseSensitive);
-    qDebug() << "MainWindowsatTab::setUpLink: new index: " << QString::number(index) << endl;
-    qDebug() << "MainWindowsatTab::setUpLink: current index: " << QString::number(satBandTXComboBox->currentIndex()) << endl;
+    //qDebug() << "MainWindowsatTab::setUpLink: new index: " << QString::number(index) << endl;
+    //qDebug() << "MainWindowsatTab::setUpLink: current index: " << QString::number(satBandTXComboBox->currentIndex()) << endl;
     int indexRX;
     if (index>=0)
     {

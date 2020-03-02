@@ -335,7 +335,7 @@ QString Utilities::getSaveSpotsLogFile()
 
 QString Utilities::getTQSLsFileName()
 {
-    qDebug() << "Utilities::getTQSLsFileName: "   << endl;
+    //qDebug() << "Utilities::getTQSLsFileName: "   << endl;
 
 #if defined(Q_OS_WIN)
        //qDebug() << "WINDOWS DETECTED!: "   << endl;
@@ -352,7 +352,7 @@ QString Utilities::getTQSLsFileName()
 
 QString Utilities::getTQSLsPath()
 {
-    qDebug() << "Utilities::getDefaultProgramsPath " << endl;
+    //qDebug() << "Utilities::getDefaultProgramsPath " << endl;
 
 #if defined(Q_OS_WIN64)
        //qDebug() << "WINDOWS DETECTED!: "   << endl;

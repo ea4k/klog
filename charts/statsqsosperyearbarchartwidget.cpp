@@ -1,4 +1,4 @@
-#include "statsqsosperyearbarchartwidget.h"
+#include "charts/statsqsosperyearbarchartwidget.h"
 
 
 StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget(){}
