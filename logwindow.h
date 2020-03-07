@@ -41,9 +41,9 @@
 #include "awards.h"
 //#include "dxccstatuswidget.h"
 #include "elogclublog.h"
-#include "logviewsortfilterproxymodel.h"
+//#include "logviewsortfilterproxymodel.h"
 
-class  LogViewSortFilterProxyModel;
+//class  LogViewSortFilterProxyModel;
 
 class LogWindow : public  QWidget
 {
@@ -63,7 +63,7 @@ public:
 
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);
-    void setProxyModel (const bool _p);
+    //void setProxyModel (const bool _p);
     void sortColumn(const int _c);
 
 signals:
@@ -124,8 +124,8 @@ private:
 
     int currentLog;
 
-   LogViewSortFilterProxyModel *proxyModel;
-   bool sortingThroughProxyModel;
+   //LogViewSortFilterProxyModel *proxyModel;
+   //bool sortingThroughProxyModel;
 };
 
 

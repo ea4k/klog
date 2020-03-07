@@ -69,8 +69,8 @@ public:
     void setDXMarathon(const QString &_t);
     QString getDebugLog();
     void setDebugLog(const QString &_t);
-    QString getLogSort();
-    void setLogSort(const QString &_t);
+    //QString getLogSort();
+    //void setLogSort(const QString &_t);
     QString getSendEQSLByDefault();
     void setSetEQSLByDefault(const QString &_t);
 
@@ -96,7 +96,7 @@ private:
     QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox, *keepMyDataCheckBox;
     QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *debugLogCheckBox;
-    QCheckBox *logSortCheckBox;
+    //QCheckBox *logSortCheckBox;
     QCheckBox *sendEQSLByDefaultSearchCheckBox;
     QString defaultFileName;
     QLineEdit *defaultFileNameLineEdit, *dbPathLineEdit;

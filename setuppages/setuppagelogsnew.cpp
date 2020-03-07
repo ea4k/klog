@@ -32,18 +32,20 @@
 
 SetupPageLogsNew::SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent)
 {
-     //qDebug() << "SetupPageLogsNew::SetupPageLogsNew"   << endl;
+    qDebug() << "SetupPageLogsNew::SetupPageLogsNew"   << endl;
     dataProxy = dp;
     editing = false;
     checking = false;
-    bCass = false;
+
+    /*
+     * bCass = false;
     bCOp = false;
     bCMo = false;
     bCPo = false;
     bCBa = false;
     bCOv = false;
     bCTy = false;
-
+    */
     logData.clear();
     stationCallsignFilled = false;
     operatorsFilled = true;
@@ -51,16 +53,16 @@ SetupPageLogsNew::SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent)
     operators = QString();
     comment = QString();
     dateString = QString();
-    typeContest = 0;
-    contestCatMode = 0;
-    contestCatOperators = 0;
-    contestCatAssisted = 0;
-    contestCatPower = 0;
-    contestCatBands = 0;
-    contestBands = 0;
-    contestCatOverlay = 0;
-    typeContestSelected = 0;
-    typeConteststr = QString();
+    //typeContest = 0;
+    //contestCatMode = 0;
+    //contestCatOperators = 0;
+    //contestCatAssisted = 0;
+    //contestCatPower = 0;
+    //contestCatBands = 0;
+    //contestBands = 0;
+    //contestCatOverlay = 0;
+    //typeContestSelected = 0;
+    //typeConteststr = QString();
 
 
     stationCallsignLineEdit = new QLineEdit;
@@ -69,7 +71,7 @@ SetupPageLogsNew::SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent)
     dateEdit = new QDateEdit;
     dateEdit->setDate(QDate::currentDate ());
     commentLineEdit = new QLineEdit;
-
+    /*
     typeComboBox = new QComboBox;
     contestCatModeComboBox = new QComboBox;
     contestCatOperatorsComboBox = new QComboBox;
@@ -88,7 +90,7 @@ SetupPageLogsNew::SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent)
     catBandsLabel = new QLabel();
     overlayLabel = new QLabel();
     validCats = new QLabel();
-
+    */
     dateLabel = new QLabel(tr("&Date"));
     stationCallsignLabel = new QLabel(tr("&Station Callsign"));
     operatorsLabel = new QLabel(tr("&Operators"));
@@ -106,11 +108,11 @@ SetupPageLogsNew::SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent)
 
 void SetupPageLogsNew::clear()
 {
+    qDebug() << "SetupPageLogsNew::Clear - Start"   << endl;
     stationCallsignLineEdit->clear();
     operatorsLineEdit->clear();
     dateEdit->setDate(QDate::currentDate ());
-
-
+/*
     typeComboBox->setCurrentIndex(0);
     contestCatModeComboBox->setCurrentIndex(0);
     contestCatOperatorsComboBox->setCurrentIndex(0);
@@ -128,13 +130,13 @@ void SetupPageLogsNew::clear()
     contestCatBands = 0;
     contestBands = 0;
     contestCatOverlay = 0;
-    typeContestSelected = 0;
-
+    typeContestSelected = 0;*/
+    qDebug() << "SetupPageLogsNew::Clear - END"   << endl;
 }
 
 void SetupPageLogsNew::createWidget()
 {
-     //qDebug() << "SetupPageLogsNew::createWidget" << endl;
+    qDebug() << "SetupPageLogsNew::createWidget - Start" << endl;
 
     stationCallsignLabel->setWordWrap(true);
     operatorsLabel->setWordWrap(true);
@@ -144,6 +146,7 @@ void SetupPageLogsNew::createWidget()
     stationCallsignLabel->setBuddy(stationCallsignLineEdit);
     operatorsLabel->setBuddy(operatorsLineEdit);
     commentLabel->setBuddy(commentLineEdit);
+    /*
     catAsLabel->setBuddy(contestCatAssistedComboBox);
     typeLabel->setBuddy(typeComboBox);
     catOpLabel->setBuddy(contestCatOperatorsComboBox);
@@ -154,7 +157,7 @@ void SetupPageLogsNew::createWidget()
 
     validCats->setText(tr("Select categories"));
     validCats->setWordWrap(true);
-
+    */
 
     stationCallsignLineEdit->setToolTip(tr("Callsign used for this log."));
     operatorsLineEdit->setToolTip(tr("Comma separated list of operators: callsign1, callsign2."));
@@ -162,12 +165,12 @@ void SetupPageLogsNew::createWidget()
     dateEdit->setToolTip(tr("Start date of this log."));
     commentLineEdit->setToolTip(tr("Add a comment about this log."));
 
-    typeLabel->setText(tr("&Type of Operation"));
-    typeLabel->setWordWrap(true);
+    //typeLabel->setText(tr("&Type of Operation"));
+    //typeLabel->setWordWrap(true);
 
     //nameLabel->setWordWrap(true);
     dateLabel->setWordWrap(true);
-
+    /*
 
     typeComboBox->setToolTip(tr("Select the kind of operation for this log."));
     QStringList _qs;
@@ -220,11 +223,11 @@ void SetupPageLogsNew::createWidget()
     _qs.clear();
     _qs.append(dataProxy->getContestOverlays());
     contestCatOverlayComboBox->addItems(_qs);
-
+    */
     connect(stationCallsignLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStationCallSignTextChanged() ) );
     connect(operatorsLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotOperatorsTextChanged() ) );
 
-
+    /*
     connect(typeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotTypeComboBoxChanged() ) ) ;
     connect(contestCatModeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatModeComboBoxChanged() ) ) ;
     connect(contestCatAssistedComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatAssistedComboBoxChanged() ) ) ;
@@ -232,7 +235,7 @@ void SetupPageLogsNew::createWidget()
     connect(contestCatPowerComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatPowerComboBoxChanged() ) ) ;
     connect(contestCatBandsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatBandsComboBoxChanged() ) ) ;
     connect(contestCatOverlayComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatOverlayComboBoxChanged() ) ) ;
-
+    */
     //connect(typeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotTypeComboBoxChanged() ) ) ;
     //connect(contestCatModeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatModeComboBoxChanged() ) ) ;
     //connect(contestCatAssistedComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatAssistedComboBoxChanged() ) ) ;
@@ -241,7 +244,7 @@ void SetupPageLogsNew::createWidget()
     //connect(contestCatBandsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatBandsComboBoxChanged() ) ) ;
     //connect(contestCatOverlayComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatOverlayComboBoxChanged() ) ) ;
 
-    connect(contestBandsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotBandsComboBoxChanged() ) ) ;
+    //connect(contestBandsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotBandsComboBoxChanged() ) ) ;
     //connect(contestCatModeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatModeComboBoxChanged() ) ) ;
     connect(okButton,SIGNAL(clicked()), this, SLOT(slotOKButtonClicked() ) );
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked() ) );
@@ -292,13 +295,14 @@ void SetupPageLogsNew::createWidget()
     setLayout(mainLayout);
     clear();
     //page->setLayout(callsLayout);
+    qDebug() << "SetupPageLogsNew::createWidget - End" << endl;
 
 }
 
 
 void SetupPageLogsNew::slotOperatorsTextChanged()
 {
-     //qDebug() << "SetupPageLogsNew::slotOperatorsTextChanged" << endl;
+     qDebug() << "SetupPageLogsNew::slotOperatorsTextChanged - Start" << endl;
 //    connect(stationCallsignLineEdit, SIGNAL(textChanged(QString)), this, SLOT( ) );
     if ((operatorsLineEdit->text()).length()<1)
     {
@@ -324,11 +328,12 @@ void SetupPageLogsNew::slotOperatorsTextChanged()
     {//TODO: Add a check of the format (comma separated)
         operatorsFilled= true;
     }
+    qDebug() << "SetupPageLogsNew::slotOperatorsTextChanged - End" << endl;
 }
 
 void SetupPageLogsNew::slotStationCallSignTextChanged()
 {
-     //qDebug() << "SetupPageLogsNew::slotStationCallSignTextChanged" << endl;
+     qDebug() << "SetupPageLogsNew::slotStationCallSignTextChanged" << endl;
 //    connect(stationCallsignLineEdit, SIGNAL(textChanged(QString)), this, SLOT( ) );
     if ((stationCallsignLineEdit->text()).length()<1)
     {
@@ -356,8 +361,10 @@ void SetupPageLogsNew::slotStationCallSignTextChanged()
         stationCallsignFilled = true;
     }
     showOK();
+    qDebug() << "SetupPageLogsNew::slotStationCallSignTextChanged - End" << endl;
 }
 
+/*
 void SetupPageLogsNew::slotTypeComboBoxChanged()
 {
      //qDebug() << "SetupPageLogsNew::slotTypeComboBoxChanged" << endl;
@@ -387,8 +394,6 @@ void SetupPageLogsNew::slotTypeComboBoxChanged()
             showOK();
     }
 }
-
-
 
 void SetupPageLogsNew::slotCatAssistedComboBoxChanged()
 {
@@ -564,7 +569,7 @@ void SetupPageLogsNew::slotCatModeComboBoxChanged()
     }
 
 }
-
+*/
 void SetupPageLogsNew::slotOKButtonClicked()
 {
 
@@ -584,9 +589,25 @@ void SetupPageLogsNew::slotOKButtonClicked()
     comment = commentLineEdit->text();    
     dateString = dateEdit->date().toString("yyyy/MM/dd");
 
+    logData.clear();
+    logData << stationCallsign << operators << comment << dateString;
+    if (editing)
+    {
+        logData << "1";
+        editing = false;
+    }
+    else
+    {
+        logData << "0";
+    }
+    emit newLogData(logData);
+
+    //gatherAndSend();
+    close();
+
     //typeContest, contestCatOperators, contestCatAssisted, contestCatPower,
     //contestCatBands, contestCatOverlay, contestCatMode
-
+/*
     if (typeComboBox->isEnabled())
     {
          //qDebug() << "SetupPageLogsNew::slotOkButtonClicked ENA: type" << endl;
@@ -680,7 +701,7 @@ void SetupPageLogsNew::slotOKButtonClicked()
 
     //typeContest, contestCatOperators, contestCatAssisted, contestCatPower,
     //contestCatBands, contestCatOverlay, contestCatMode
-    typeContest = getSelectedTypeContest();
+   // typeContest = getSelectedTypeContest();
     if (typeContest < 0)
     {
         QMessageBox msgBox;
@@ -691,32 +712,33 @@ void SetupPageLogsNew::slotOKButtonClicked()
     }
     else
     {
-        gatherAndSend();
-        close();
+
 
     }
-
+*/
 
 }
+
 void SetupPageLogsNew::gatherAndSend()
 {
       //qDebug() << "SetupPageLogsNew::gatherAndSend: " << typeConteststr << endl;
 
     // The following lines will be removed once more contest types have been added
-    contestCatMode = contestCatModeComboBox->currentIndex();
-    contestCatBands = contestCatBandsComboBox->currentIndex();
-    contestCatPower = contestCatPowerComboBox->currentIndex();
-    contestCatOperators = contestCatOperatorsComboBox->currentIndex();
-    contestCatAssisted = contestCatAssistedComboBox->currentIndex();
-    typeContestSelected = typeComboBox->currentIndex();
-    contestCatOverlay = contestCatOverlayComboBox->currentIndex();
-    typeContest = getSelectedTypeContest();
+    //contestCatMode = contestCatModeComboBox->currentIndex();
+    //contestCatBands = contestCatBandsComboBox->currentIndex();
+    //contestCatPower = contestCatPowerComboBox->currentIndex();
+    //contestCatOperators = contestCatOperatorsComboBox->currentIndex();
+    //contestCatAssisted = contestCatAssistedComboBox->currentIndex();
+    //typeContestSelected = typeComboBox->currentIndex();
+    //contestCatOverlay = contestCatOverlayComboBox->currentIndex();
+    //typeContest = getSelectedTypeContest();
 
     // The previous lines will be removed once more contest types have been added
 
     logData.clear();
+    logData << stationCallsign << operators << comment << dateString;
 
-    logData << stationCallsign << operators << comment << dateString
+    /*
             << typeConteststr
             << QString::number(contestCatMode)
             << QString::number(contestCatOperators)
@@ -726,6 +748,7 @@ void SetupPageLogsNew::gatherAndSend()
             << QString::number(contestBands)
             << QString::number(contestCatOverlay)
             << QString::number(typeContest);
+    */
 
     if (editing)
     {
@@ -736,6 +759,7 @@ void SetupPageLogsNew::gatherAndSend()
     {
         logData << "0";
     }
+
 
     //logData << QString::number(typeContest)
     // Update the SetupPageLogs::slotAnalyzeNewLogData if you add or remove any field (Today 12)
@@ -752,7 +776,6 @@ void SetupPageLogsNew::slotCancelButtonClicked()
     emit cancelled(true);
     close();
 }
-
 
 /*
 QStringList SetupPageLogsNew::getValidCatOptions(const int _currentCat, const int _higherCat)
@@ -771,32 +794,33 @@ QStringList SetupPageLogsNew::getValidCatOptions(const int _currentCat, const in
 }
 */
 
-void SetupPageLogsNew::setStationCallSign(const QString _st)
+void SetupPageLogsNew::setStationCallSign(const QString &_st)
 {
     stationCallsign = _st;
     stationCallsignLineEdit->setText(stationCallsign.toUpper());
 }
 
-void SetupPageLogsNew::setOperators(const QString _st)
+void SetupPageLogsNew::setOperators(const QString &_st)
 {
     operators = _st;
     operatorsLineEdit->setText(operators.toUpper());
 }
 
-void SetupPageLogsNew::setComment(const QString _st)
+void SetupPageLogsNew::setComment(const QString &_st)
 {
     comment = _st;
     commentLineEdit->setText(comment.toUpper());
 }
 
-void SetupPageLogsNew::setDateString(const QString _st)
+void SetupPageLogsNew::setDateString(const QString &_st)
 {
     dateString = _st;
     dateEdit->setDate(QDate::fromString(dateString, "yyyy/MM/dd"));
 
 }
+
 /*
-void SetupPageLogsNew::setType(const QString _st)
+void SetupPageLogsNew::setType(const QString &_st)
 {
     typeConteststr = _st;
     //typeConteststr = typeComboBox->currentText();
@@ -859,6 +883,7 @@ void SetupPageLogsNew::setEditing(const bool b)
 
 }
 
+/*
 int SetupPageLogsNew::getSelectedTypeContest()
 {
      //qDebug() << "SetupPageLogsNew::getSelectedTypeContest: " << endl;
@@ -875,7 +900,6 @@ void SetupPageLogsNew::setTypeN(const int _n)
     typeContestSelected = _n;
     fillWithType(typeContestSelected);
 }
-
 
 void SetupPageLogsNew::fillWithType(const int _n)
 {
@@ -905,6 +929,7 @@ void SetupPageLogsNew::fillWithType(const int _n)
 
 }
 
+
 void SetupPageLogsNew::updateAllCats()
 {
      //qDebug() << "SetupPageLogsNew::updateAllCats" << endl;
@@ -916,23 +941,22 @@ void SetupPageLogsNew::updateAllCats()
     contestCatAssisted = contestCatAssistedComboBox->currentIndex();
     typeContestSelected = typeComboBox->currentIndex();
     contestCatOverlay= contestCatOverlayComboBox->currentIndex();
-
     typeContest = getSelectedTypeContest();
 
-
 }
+    */
 
 void SetupPageLogsNew::showOK()
 {
-    validCats->setText(tr("Categories OK"));
-    validCats->setStyleSheet("QLabel {color : black; }");
+    //validCats->setText(tr("Data OK"));
+    //validCats->setStyleSheet("QLabel {color : black; }");
     okButton->setEnabled(true);
 
 }
 
 void SetupPageLogsNew::showNOK()
 {
-    validCats->setText(tr("Categories not OK"));
-    validCats->setStyleSheet("QLabel {color : red; }");
+    //validCats->setText(tr("Data not OK"));
+    //validCats->setStyleSheet("QLabel {color : red; }");
     okButton->setEnabled(false);
 }

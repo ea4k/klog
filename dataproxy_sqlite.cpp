@@ -3019,7 +3019,7 @@ QStringList DataProxy_SQLite::getContestCat(const int _catn)
         break;
         default:
             return QStringList();
-        break;
+        //break;
         }
 
     sqlOK = query.exec(queryString);
@@ -4574,7 +4574,7 @@ QString DataProxy_SQLite::getOperatorsFromLog(const int _log)
   }
 
      //qDebug() << "DataProxy_SQLite::getOperatorsFromLog: END" << endl;
-  return QString();
+  //return QString();
 }
 
 QString DataProxy_SQLite::getCommentsFromLog(const int _log)
@@ -4648,7 +4648,7 @@ QString DataProxy_SQLite::getLogDateFromLog(const int _log)
      //qDebug() << "DataProxy_SQLite::getLogDateFromLog: END" << endl;
   return QString();
 }
-
+/*
 QString DataProxy_SQLite::getLogTypeNFromLog(const int _log)
 {
      //qDebug() << "DataProxy_SQLite::getLogTypeNFromLog: " << QString::number(_log)<< endl;
@@ -4811,9 +4811,9 @@ QString DataProxy_SQLite::getLogTypeName(const int _logType)
 
 QString DataProxy_SQLite::getLogTypeOfUserLog(const int _logN)
 {
-/*
- *  Returns the type of log (DX, CQ-WW-SSB, ...) or DX as default if nothing found
-*/
+
+ //  Returns the type of log (DX, CQ-WW-SSB, ...) or DX as default if nothing found
+
        //qDebug() << "DataProxy_SQLite::getLogTypeOfUserLog: " << QString::number(_logN) << endl;
     QSqlQuery query;
     QString queryString;
@@ -4846,7 +4846,7 @@ QString DataProxy_SQLite::getLogTypeOfUserLog(const int _logN)
         return "DX";
     }
 }
-
+*/
 int DataProxy_SQLite::getLogNumberFromQSOId(const int _qsoId)
 {
     QSqlQuery query;
@@ -5253,17 +5253,15 @@ int DataProxy_SQLite::getQSOsInMode(const QString &_mode, const int _log)
 bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 {
       //qDebug() << "DataProxy_SQLite::addNewLog: " << _qs.at(2) << "/" << _qs.at(5) << "/" << _qs.at(6) << endl;
+    qDebug() << "DataProxy_SQLite::addNewLog: Size: " << QString::number(_qs.size()) << endl;
+    // newLogq << dateString << stationCallsign << operators << comment << QString::number(selectedLog) << _qs.at(4) ; (last field is 1 or 0 editing)
 
-    //_qs << dateString << stationCallsign << _qs.at(4) << comment << _qs.at(12);
-       //qDebug() << "DataProxy_SQLite::slotAnalyzeNewLogData:  " << _qs.at(4) << "/" << _qs.at(12) << endl;
-    // Date/Call/Operators/"DX"/comment/"1"
-
-    if (_qs.size()!=8)
+    if (_qs.size()!=6)
     {
-          //qDebug() << "DataProxy_SQLite::addNewLog: != 8"  << endl;
+        qDebug() << "DataProxy_SQLite::addNewLog: != 6"  << endl;
         return false;
     }
-      //qDebug() << "DataProxy_SQLite::addNewLog: Has the appropriate length"  << endl;
+    qDebug() << "DataProxy_SQLite::addNewLog: Has the appropriate length"  << endl;
 
     QString aux = QString();
     //int nameCol = -1;
@@ -5274,11 +5272,12 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 
     //_operators.clear();
     //_operators << (_qs.at(2)).split(',', QString::SkipEmptyParts);
-    QString _typeContest = _qs.at(3);
-    QString _comment = _qs.at(4);
-    QString _typeContestN = _qs.at(5);
-    QString id = _qs.at(6);
-    QString editing = _qs.at(7);
+    //QString _typeContest = _qs.at(3);
+    QString _comment = _qs.at(3);
+    //QString _typeContestN = _qs.at(5);
+
+    QString id = _qs.at(4);
+    QString editing = _qs.at(5);
 
     QString queryString;
     QSqlQuery query;
@@ -5287,7 +5286,8 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
     if (editing == "1")
     { // We are editing
           //qDebug() << "DataProxy_SQLite::addNewLog: We are editing!" << endl;
-        queryString = QString("UPDATE logs SET logdate = '%1', stationcall = '%2', operators = '%3', comment = '%4',  logtype = '%5', logtypen = '%6' WHERE id = '%7'").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment).arg(_typeContest).arg(_typeContestN).arg(id);
+        //queryString = QString("UPDATE logs SET logdate = '%1', stationcall = '%2', operators = '%3', comment = '%4',  logtype = '%5', logtypen = '%6' WHERE id = '%7'").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment).arg(_typeContest).arg(_typeContestN).arg(id);
+        queryString = QString("UPDATE logs SET logdate = '%1', stationcall = '%2', operators = '%3', comment = '%4' WHERE id = '%5'").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment).arg(id);
         sqlOK = query.exec(queryString);
 
         if (sqlOK)
@@ -5309,7 +5309,8 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
       //qDebug() << "DataProxy_SQLite::addNewLog: We are adding a new log" << endl;
 
     // First we check if the log is already there
-    queryString = QString("SELECT id FROM logs WHERE logdate='%1' AND stationcall='%2' AND logtype='%3' AND logtypen='%4'").arg(_dateString).arg(_stationCallsign).arg(_typeContest).arg(_typeContestN);
+    //queryString = QString("SELECT id FROM logs WHERE logdate='%1' AND stationcall='%2' AND logtype='%3' AND logtypen='%4'").arg(_dateString).arg(_stationCallsign).arg(_typeContest).arg(_typeContestN);
+    queryString = QString("SELECT id FROM logs WHERE logdate='%1' AND stationcall='%2'").arg(_dateString).arg(_stationCallsign);
     //"logs"
     //"id, logdate, stationcall, comment, logtype"
        //qDebug() << "DataProxy_SQLite::addNewLog query1: " << queryString << endl;
@@ -5337,7 +5338,8 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 
     //Now we add the new log
 
-    queryString = QString("INSERT INTO logs (logdate, stationcall, operators, comment, logtype, logtypen) values('%1','%2','%3','%4', '%5', '%6')").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment).arg(_typeContest).arg(_typeContestN);
+    //queryString = QString("INSERT INTO logs (logdate, stationcall, operators, comment, logtype, logtypen) values('%1','%2','%3','%4', '%5', '%6')").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment).arg(_typeContest).arg(_typeContestN);
+    queryString = QString("INSERT INTO logs (logdate, stationcall, operators, comment) values('%1','%2','%3','%4')").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment);
        //qDebug() << "DataProxy_SQLite::addNewLog query1: " << queryString << endl;
     sqlOK = query.exec(queryString);
 

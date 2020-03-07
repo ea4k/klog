@@ -108,8 +108,8 @@ public:
 
     QString getFreqFromBandId(const int _i);
 
-    int getLogTypeNumber(const QString &_logType);
-    QString getLogTypeName(const int _logType);
+    //int getLogTypeNumber(const QString &_logType);
+    //QString getLogTypeName(const int _logType);
 
     bool unMarkAllQSO();
     bool updateIfNeeded();

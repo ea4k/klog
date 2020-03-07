@@ -48,7 +48,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
     useDxMarathonCheckBox = new QCheckBox(tr("Manage DX-Marathon"), this);
     debugLogCheckBox = new QCheckBox(tr("Activate the application debug log"));
-    logSortCheckBox = new QCheckBox(tr("Sort log based in date && time"));
+    //logSortCheckBox = new QCheckBox(tr("Sort log based in date && time"));
     sendEQSLByDefaultSearchCheckBox = new QCheckBox(tr("Mark sent eQSL && LoTW in new QSO as queued"));
 
 
@@ -119,7 +119,7 @@ void SetupPageMisc::createUI()
     debugLogCheckBox->setChecked(false);
     UTCCheckbox->setChecked(true);
     realTimeCheckbox->setChecked(true);
-    logSortCheckBox->setChecked(false);
+    //logSortCheckBox->setChecked(false);
     defaultFileNameLineEdit->setEnabled(true);
     fileNameButton->setEnabled(true);
 
@@ -141,7 +141,7 @@ void SetupPageMisc::createUI()
     dbPushButton->setToolTip(tr("Click to change the path of the database."));
     moveDBPushButton->setToolTip(tr("Click to move the DB to the new directory."));
     debugLogCheckBox->setToolTip(tr("Activates the application debug log. This may be useful if something is not working as expected. A debug file will be created in the KLog directory."));
-    logSortCheckBox->setToolTip(tr("Click to enable that log will be sorted based on date & time when clicking on the date column. It may be a little bit slower."));
+    //logSortCheckBox->setToolTip(tr("Click to enable that log will be sorted based on date & time when clicking on the date column. It may be a little bit slower."));
     sendEQSLByDefaultSearchCheckBox->setToolTip(tr("Click to mark as Queued (to be sent) all the eQSL (LoTW & eQSL) in all the new QSO by default."));
 
     QHBoxLayout *fileLayout = new QHBoxLayout;
@@ -170,8 +170,8 @@ void SetupPageMisc::createUI()
     mainLayou1->addWidget(sendEQSLByDefaultSearchCheckBox, 6, 1, 1, 1);
     mainLayou1->addWidget(checkNewVersionCheckBox, 7, 0, 1, 1);
     mainLayou1->addWidget(provideCallCheckBox, 7, 1, 1, 1);
-    mainLayou1->addWidget(logSortCheckBox, 8, 0, 1, 1);
-    mainLayou1->addWidget(showStationCallWhenSearchCheckBox, 8, 1, 1, 1);
+    //mainLayou1->addWidget(logSortCheckBox, 8, 0, 1, 1);
+    mainLayou1->addWidget(showStationCallWhenSearchCheckBox, 8, 0, 1, 1);
 
     setLayout(mainLayou1);
 
@@ -190,6 +190,7 @@ void SetupPageMisc::createActions(){
     //connect(UDPServerCheckBox, SIGNAL(clicked () ), this, SLOT(slotUDPServerCheckBoxClicked() ) );
 
 }
+/*
 
 QString SetupPageMisc::getLogSort(){
 
@@ -203,6 +204,7 @@ QString SetupPageMisc::getLogSort(){
     }
 }
 
+
 void SetupPageMisc::setLogSort(const QString &_t){
 
     if ( (_t.toUpper()) == "FALSE")
@@ -214,7 +216,7 @@ void SetupPageMisc::setLogSort(const QString &_t){
         logSortCheckBox->setChecked(true);
     }
 }
-
+*/
 
 QString SetupPageMisc::getSendEQSLByDefault(){
 

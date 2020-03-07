@@ -9,20 +9,20 @@
  ***************************************************************************/
 
 /*****************************************************************************
- * This file is part of KLog.                                             *
+ * This file is part of KLog.                                                *
  *                                                                           *
- *    KLog is free software: you can redistribute it and/or modify        *
+ *    KLog is free software: you can redistribute it and/or modify           *
  *    it under the terms of the GNU General Public License as published by   *
  *    the Free Software Foundation, either version 3 of the License, or      *
  *    (at your option) any later version.                                    *
  *                                                                           *
- *    KLog is distributed in the hope that it will be useful,             *
+ *    KLog is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 
@@ -34,7 +34,7 @@
 #include "setuppages/setuppagelogsnew.h"
 
 
-const int CONTEST_DX = 0;
+//const int CONTEST_DX = 0;
 //const int CONTEST_CQ_WW_SSB = 1;
 //const int CONTEST_CQ_WW_CW = 2;
 //const int CONTEST_CQ_WPX_SSB = 3;
@@ -74,6 +74,7 @@ private slots:
     void slotAnalyzeNewLogData(const QStringList _qs);
     void slotLogSelected(const QModelIndex & index);
     void slotLogDoubleClicked(const QModelIndex & index);
+    void slotCurrentLogsComboBoxChanged();
     //void slotLogsCancelled(const bool _q);
 
     //void slotCreateLog();
@@ -83,6 +84,7 @@ signals:
    //void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
     void newLogData(const QStringList _qs); // Station QRZ + Operators to be shown in the main tab
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void focusOK();
 
 private:
     //void createActions();
@@ -125,8 +127,8 @@ private:
 
     SetupPageLogsNew *newLog;
 
-    QString stationCallsign, operators, comment, dateString, typeContest;
-    int contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands, typeContestN;
+    QString stationCallsign, operators, comment, dateString;//, typeContest;
+    //int contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands;//, typeContestN;
 
     DataProxy_SQLite *dataProxy;
     int selectedLog;

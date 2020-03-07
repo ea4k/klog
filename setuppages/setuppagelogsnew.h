@@ -43,14 +43,14 @@ class SetupPageLogsNew : public QDialog
 
 public:
     //SetupPageLogsNew(QWidget *parent = 0);
-    SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent = 0);
+    SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent = nullptr);
 
     void setEditing(const bool b);
-    void setStationCallSign(const QString _st);
-    void setOperators(const QString _st);
-    void setComment(const QString _st);
-    void setDateString(const QString _st);
-    void setTypeN(const int _n);
+    void setStationCallSign(const QString &_st);
+    void setOperators(const QString &_st);
+    void setComment(const QString &_st);
+    void setDateString(const QString &_st);
+    //void setTypeN(const int _n);
 
     //void setType(const QString _st);
     //void setCMode(const int _n);
@@ -68,15 +68,15 @@ private slots:
     void slotCancelButtonClicked();
 
     void slotStationCallSignTextChanged();
-    void slotTypeComboBoxChanged();
-    void slotCatAssistedComboBoxChanged();
-    void slotCatOperatorsComboBoxChanged();
     void slotOperatorsTextChanged();
-    void slotCatPowerComboBoxChanged();
-    void slotCatBandsComboBoxChanged();
-    void slotBandsComboBoxChanged();
-    void slotCatModeComboBoxChanged();
-    void slotCatOverlayComboBoxChanged();
+    //void slotTypeComboBoxChanged();
+    //void slotCatAssistedComboBoxChanged();
+    //void slotCatOperatorsComboBoxChanged();
+    //void slotCatPowerComboBoxChanged();
+    //void slotCatBandsComboBoxChanged();
+    //void slotBandsComboBoxChanged();
+    //void slotCatModeComboBoxChanged();
+    //void slotCatOverlayComboBoxChanged();
 
 
 signals:
@@ -89,9 +89,9 @@ private:
     void createWidget();
     void gatherAndSend();
     //QStringList getValidCatOptions(const int _currentCat, const int _higherCat);
-    int getSelectedTypeContest();
-    void fillWithType(const int _n);
-    void updateAllCats();
+    //int getSelectedTypeContest();
+    //void fillWithType(const int _n);
+    //void updateAllCats();
     void showOK();
     void showNOK();
     void clear();
@@ -104,6 +104,7 @@ private:
     QLineEdit *stationCallsignLineEdit;
     QLineEdit *operatorsLineEdit, *commentLineEdit;
 
+    /*
     QComboBox *typeComboBox;
     QComboBox *contestCatModeComboBox;
     QComboBox *contestCatOperatorsComboBox;
@@ -112,25 +113,26 @@ private:
     QComboBox *contestCatBandsComboBox;
     QComboBox *contestBandsComboBox;
     QComboBox *contestCatOverlayComboBox;
+    */
 
-
-    QString stationCallsign, operators, comment, dateString, typeConteststr;
-    int typeContest, typeContestSelected, contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands, contestCatOverlay;
+    QString stationCallsign, operators, comment, dateString;//, typeConteststr;
+    //int typeContest, typeContestSelected, contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands, contestCatOverlay;
 
     bool stationCallsignFilled, operatorsFilled;
-    int typeOperation; // DX, CQ-WW-SSB, CQ-WW-CW, CQ-WPX-SSB, CQ-WPX-CW
+    //int typeOperation; // DX, CQ-WW-SSB, CQ-WW-CW, CQ-WPX-SSB, CQ-WPX-CW
 
     QPushButton *okButton, *cancelButton;
 
     QStringList logData;
     bool editing;
 
-    QLabel *catAsLabel, *catOpLabel, *catModeLabel, *catPowerLabel, *catBandsLabel, *overlayLabel;
-    QLabel *typeLabel, *validCats, *stationCallsignLabel, *operatorsLabel, *commentLabel, *dateLabel;
+    //QLabel *catAsLabel, *catOpLabel, *catModeLabel, *catPowerLabel, *catBandsLabel, *overlayLabel;
+    //QLabel *typeLabel, *validCats,
+    QLabel *stationCallsignLabel, *operatorsLabel, *commentLabel, *dateLabel;
 
     //nameLabel->setBuddy();
 
-    bool checking, bCass, bCOp, bCMo, bCPo, bCBa, bCOv, bCTy;
+    bool checking; //, bCass, bCOp, bCMo, bCPo, bCBa, bCOv, bCTy;
 
 };
 

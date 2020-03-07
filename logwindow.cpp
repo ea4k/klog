@@ -31,7 +31,7 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
     //qDebug() << "LogWindow::LogWindow: "  << endl;
     dataProxy = dp;
-    sortingThroughProxyModel = false;
+    //sortingThroughProxyModel = false;
     logModel = new LogModel(dataProxy, this);
     connect(logModel, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     logView = new QTableView;
@@ -39,7 +39,7 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
     elogClublog = new eLogClubLog();
 
     currentLog = -1;
-    proxyModel = new LogViewSortFilterProxyModel(this);
+    //proxyModel = new LogViewSortFilterProxyModel(this);
 
 
     awards = new Awards(dataProxy, Q_FUNC_INFO);
@@ -55,7 +55,7 @@ LogWindow::~LogWindow()
 {
 //    emit clearError();
 }
-
+/*
 void LogWindow::setProxyModel (const bool _p)
 {
     sortingThroughProxyModel = _p;
@@ -69,12 +69,13 @@ void LogWindow::setProxyModel (const bool _p)
         logView->setModel(logModel);
         logView->setCurrentIndex(logModel->index(0, 0));
     }
-
 }
+*/
 
 void LogWindow::sortColumn(const int _c)
 {
-    proxyModel->sort(_c);
+    //proxyModel->sort(_c);
+    logModel->sort(_c, Qt::AscendingOrder);
 }
 
 void LogWindow::clear()
@@ -106,9 +107,9 @@ void LogWindow::createlogPanel(const int _currentLog)
     //qDebug() << "LogWindow::createlogPanel: " << QString::number(_currentLog) << endl;
     currentLog = _currentLog;
     logModel->createlogModel(currentLog);
-    proxyModel->setSourceModel(logModel);
-    //logView->setModel(logModel);
-    //logView->setCurrentIndex(logModel->index(0, 0));
+    //proxyModel->setSourceModel(logModel);
+    logView->setModel(logModel);
+    logView->setCurrentIndex(logModel->index(0, 0));
 
     //setProxyModel(false);
 
@@ -139,6 +140,8 @@ void LogWindow::createlogPanel(const int _currentLog)
     logView->setSelectionBehavior(QAbstractItemView::SelectRows);
     logView->resizeColumnsToContents();
     logView->horizontalHeader()->setStretchLastSection(true);
+    logView->sortByColumn(1);
+    /*
     if (sortingThroughProxyModel)
     {
         proxyModel->sort(1);
@@ -147,7 +150,7 @@ void LogWindow::createlogPanel(const int _currentLog)
     {
         logView->sortByColumn(1);
     }
-
+    */
 
 }
 
@@ -238,10 +241,7 @@ void LogWindow::righButtonFromLogMenu(const int trow)
     menu.addAction(checkDXHeatFromLogAct);
     checkDXHeatFromLogAct->setData(trow);
 
-    QString contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
 
-    if (contestMode == "DX")
-    {
         menu.addSeparator();
         if (qslSent)
         {
@@ -266,18 +266,6 @@ void LogWindow::righButtonFromLogMenu(const int trow)
             qslRecViaBureauFromLogAct->setData(trow);
             qslRecViaDirectFromLogAct->setData(trow);
         }
-    }
-    else if (contestMode == "CQ-WW-SSB")
-    {
-
-    }
-
-    else
-    {
-        // THIS POINT SHOULD NOT BE REACHED. It means that there is a kind of contest not supported.
-        // Maybe the way should be to move ALL the actions from DX here.
-    }
-
     menu.exec(QCursor::pos());
 }
 
@@ -398,10 +386,15 @@ void LogWindow::slotQSLRecViaDirectFromLog()
 
 void LogWindow::slotQSOToEditFromLog()
 {
-     //qDebug() << "slotQSOToEditFromLog: " << (qsoToEditFromLogAct->data()).toString() << endl;
+     qDebug() << "slotQSOToEditFromLog: " << (qsoToEditFromLogAct->data()).toString() << endl;
 
     //qsoToEdit((logModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0).toInt());
     int QSOid = ((logModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0)).toInt();
+    /*
+    int row = index.row();
+    int qsoID = ((logModel->index(row, Qt::DisplayRole)).data(0)).toInt();
+    emit actionQSODoubleClicked(qsoID);
+    */
 
     //int row = index.row();
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
@@ -409,7 +402,7 @@ void LogWindow::slotQSOToEditFromLog()
 
 
 
-    //TODO: To be added to the logWindow and create an action that emist the QSO id
+    //TODO: To be added to the logWindow and create an action that emit the QSO id
 }
 
 

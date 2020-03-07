@@ -43,7 +43,6 @@ macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
 HEADERS += setupdialog.h \
     aboutdialog.h \
     awardswidget.h \
-    logviewsortfilterproxymodel.h \
     mainqsoentrywidget.h \
     mainwindow.h \
     pstrotatorsupport.h \
@@ -117,7 +116,6 @@ message(Sources)
 SOURCES += main.cpp \
     aboutdialog.cpp \
     awardswidget.cpp \
-    logviewsortfilterproxymodel.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \
     pstrotatorsupport.cpp \
