@@ -7,20 +7,20 @@
  ***************************************************************************/
 
 /*****************************************************************************
- * This file is part of KLog.                                             *
+ * This file is part of KLog.                                                *
  *                                                                           *
- *    KLog is free software: you can redistribute it and/or modify        *
+ *    KLog is free software: you can redistribute it and/or modify           *
  *    it under the terms of the GNU General Public License as published by   *
  *    the Free Software Foundation, either version 3 of the License, or      *
  *    (at your option) any later version.                                    *
  *                                                                           *
- *    KLog is distributed in the hope that it will be useful,             *
+ *    KLog is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 
@@ -36,14 +36,14 @@ SetupPageLogs::SetupPageLogs(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
     comment = QString();
     //dateString = QDate::currentDate().toString("yyyy/MM/dd");
     dateString = QString();
-    typeContest = QString();
-    contestCatMode = -1;
-    contestCatOperators = -1;
-    contestCatAssisted = -1;
-    contestCatPower = -1;
-    contestCatBands = -1;
-    contestBands = -1;
-    typeContestN = -1;
+    //typeContest = QString();
+    //contestCatMode = -1;
+    //contestCatOperators = -1;
+    //contestCatAssisted = -1;
+    //contestCatPower = -1;
+    //contestCatBands = -1;
+    //contestBands = -1;
+    //typeContestN = -1;
 
     selectedLog = -1;
     defaultStationCallSign.clear();
@@ -131,7 +131,11 @@ void SetupPageLogs::createNewLog()
     newLog->setDateString(QDate::currentDate().toString("yyyy/MM/dd"));
     newLog->setComment("");
 
-    newLog->exec();
+    int result = newLog->exec();
+    if (result == QDialog::Accepted)
+    {
+        emit focusOK();
+    }
 }
 
 void SetupPageLogs::slotNewButtonClicked()
@@ -143,7 +147,7 @@ void SetupPageLogs::slotNewButtonClicked()
 
 void SetupPageLogs::slotEditButtonClicked()
 {
-     //qDebug() << "SetupPageLogs::slotEditButtonClicked" << endl;
+     qDebug() << "SetupPageLogs::slotEditButtonClicked" << endl;
     //QSqlQuery query;
     //int nameCol = -1;
 
@@ -157,7 +161,7 @@ void SetupPageLogs::slotEditButtonClicked()
     newLog->setOperators(dataProxy->getOperatorsFromLog(selectedLog));
     newLog->setComment(dataProxy->getCommentsFromLog(selectedLog));
     newLog->setDateString(dataProxy->getLogDateFromLog(selectedLog));
-    newLog->setTypeN(dataProxy->getLogTypeNFromLog(selectedLog).toInt());
+    //newLog->setTypeN(dataProxy->getLogTypeNFromLog(selectedLog).toInt());
     newLog->exec();
 
 /*
@@ -295,8 +299,8 @@ void SetupPageLogs::createLogsPanel()
     logsView->setColumnHidden(columns, false);
     columns = rec.indexOf("comment");
     logsView->setColumnHidden(columns, false);
-    columns = rec.indexOf("logtype");
-    logsView->setColumnHidden(columns, false);
+    //columns = rec.indexOf("logtype");
+    //logsView->setColumnHidden(columns, false);
 
     logsView->setItemDelegate(new QSqlRelationalDelegate(this));
     logsView->setSelectionMode( QAbstractItemView::SingleSelection);
@@ -335,8 +339,8 @@ void SetupPageLogs::createLogsModel()
         nameCol = rec.indexOf("comment");
         logsModel->setHeaderData(nameCol, Qt::Horizontal, tr("Comments"));
 
-        nameCol = rec.indexOf("logtype");
-        logsModel->setHeaderData(nameCol, Qt::Horizontal, tr("Type"));
+        //nameCol = rec.indexOf("logtype");
+        //logsModel->setHeaderData(nameCol, Qt::Horizontal, tr("Type"));
 
         logsModel->select();
 }
@@ -351,7 +355,7 @@ void SetupPageLogs::slotLogSelected(const QModelIndex & index)
 
 void SetupPageLogs::slotLogDoubleClicked(const QModelIndex & index)
 {
-     //qDebug() << "SetupPageLogs::slotLogDoubleClicked"  << endl;
+    qDebug() << "SetupPageLogs::slotLogDoubleClicked"  << endl;
 
     int row = index.row();
     setSelectedLog((logsModel->index(row, 0)).data(0).toInt());
@@ -359,9 +363,11 @@ void SetupPageLogs::slotLogDoubleClicked(const QModelIndex & index)
 
 }
 
+
 void SetupPageLogs::createActions()
 {
      //qDebug() << "SetupPageLogs::createActions" << endl;
+    connect(currentLogs, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentLogsComboBoxChanged() ) ) ;
     connect(newLogPushButton, SIGNAL(clicked ( )), this, SLOT(slotNewButtonClicked() ) );
     connect(removePushButton, SIGNAL(clicked ( )), this, SLOT(slotRemoveButtonClicked() ) );
     connect(editPushButton, SIGNAL(clicked ( )), this, SLOT(slotEditButtonClicked() ) );
@@ -391,7 +397,8 @@ QStringList SetupPageLogs::readLogs()
     _logs.clear();
 
 
-    aux = "SELECT id, logdate, stationcall, logtype FROM logs";
+    //aux = "SELECT id, logdate, stationcall, logtype FROM logs";
+    aux = "SELECT id, logdate, stationcall FROM logs";
 
     sqlOk = query.exec(aux);
     if (sqlOk)
@@ -409,9 +416,9 @@ QStringList SetupPageLogs::readLogs()
             aux2 = aux2.append("-");
             aux2.append((query.value(nameCol)).toString());
 
-            nameCol = rec.indexOf("logtype");
-            aux2 = aux2.append("-");
-            aux2.append((query.value(nameCol)).toString());
+            //nameCol = rec.indexOf("logtype");
+            //aux2 = aux2.append("-");
+            //aux2.append((query.value(nameCol)).toString());
 
             nameCol = rec.indexOf("logdate");
             aux2 = aux2.append(" (");
@@ -440,10 +447,10 @@ QStringList SetupPageLogs::readLogs()
 
 void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
 {
-     //qDebug() << "SetupPageLogs::slotAnalyzeNewLogData (length=" << QString::number(_qs.length()) << ")" << endl;
+     qDebug() << "SetupPageLogs::slotAnalyzeNewLogData (length=" << QString::number(_qs.length()) << ")" << endl;
 
 
-    if (_qs.length()!=14)
+    if (_qs.length()!=5)
     {
         return;
     }
@@ -461,13 +468,12 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
             << QString::number(typeContest);
             << editing (1/0)
 
-
 */
     stationCallsign = _qs.at(0);
     operators = _qs.at(1);
     comment = _qs.at(2);
     dateString = _qs.at(3);
-    typeContest  = _qs.at(4);
+   //typeContest  = _qs.at(4);
 /*
     contestCatMode  = (_qs.at(5)).toInt();
     contestCatOperators  = (_qs.at(6)).toInt();
@@ -477,9 +483,9 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     contestBands  = (_qs.at(10)).toInt();
     typeContestN = (_qs.at(12)).toInt();
 */
-/*
+
     bool editing;
-    if ( (_qs.at(13)).toInt() == 1)
+    if ( (_qs.at(4)).toInt() == 1)
     {
         editing = true;
     }
@@ -487,7 +493,7 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     {
         editing = false;
     }
-*/
+
     //OVERLAY = 11
 /*
     QString _dateString = _qs.at(0);
@@ -505,7 +511,8 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     newLogq.clear();
     //If qs.at(12) == 1 then we are editing, any other value is a new log
     //Date/Call/Operators/"DX"/comment/"1"
-    newLogq << dateString << stationCallsign << operators << typeContest << comment << "1" << QString::number(selectedLog) << _qs.at(13) ;
+    //newLogq << dateString << stationCallsign << operators << typeContest << comment << "1" << QString::number(selectedLog) << _qs.at(13) ;
+    newLogq << dateString << stationCallsign << operators << comment << QString::number(selectedLog) << _qs.at(4) ;
 
     if (dataProxy->addNewLog(newLogq))
     {
@@ -586,13 +593,14 @@ void SetupPageLogs::updateSelectedLogs()
 
 int SetupPageLogs::getSelectedLog()
 {
-    //qDebug() << "SetupPageLogs::getSelectedLog: " << currentLogs->currentText() << endl;
+    qDebug() << "SetupPageLogs::getSelectedLog: " << currentLogs->currentText() << endl;
     QString selectedLog = currentLogs->currentText();
     int i = 0;
     QStringList qs;
     qs.clear();
     qs << selectedLog.split("-");
     i = (qs.at(0)).toInt();
+    qDebug() << "SetupPageLogs::getSelectedLog: " << QString::number(i) << endl;
     if (i>=1)
     {
         return i;
@@ -603,20 +611,60 @@ int SetupPageLogs::getSelectedLog()
     }
 }
 
+void SetupPageLogs::slotCurrentLogsComboBoxChanged()
+{
+    qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: " << currentLogs->currentText() << endl;
+    QString a = (currentLogs->currentText()).section('-', 0, 0);
+    qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: a: " << a << endl;
+
+    /*
+    int log = (logsModel->index(logsView->currentIndex().row(), 0)).data(0).toInt();
+    qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: log: " << log << endl;
+
+    if (a.toInt() == getSelectedLog())
+    {
+        return;
+    }
+    */
+    setSelectedLog(a.toInt());
+    /*
+    //logsView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    //logsView->setSelectionMode(QAbstractItemView::SingleSelection);
+    int num = a.toInt(); // Comes from the ComboBox
+    qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: num: " << QString::number(num) << endl;
+    int currentId; // Comes from the logView as we run though it
+    for (int i = 0; i< logsView->verticalHeader()->count(); i++)
+    {
+        //logsView->setCurrentIndex(logsModel->index(0, 0));
+        currentId = ((logsModel->index(i, 0)).data(0)).toInt();
+        qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: for i/num/currentId: " << QString::number(i) << "/" << QString::number(num) << "/" << QString::number(currentId) << endl;
+        if (currentId == num)
+        {
+            qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: currentId == num " << endl;
+            logsView->selectRow(num);
+        }
+    }
+    */
+
+
+    //logsView->selectRow(a.toInt());
+
+}
+
 void SetupPageLogs::setSelectedLog(const int _i)
 {
-     //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << endl;
+    qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << endl;
 
-    QString n = QString::number(_i) + "--";
+    QString n = QString::number(_i) + "-";
     int selected = currentLogs->findText(n, Qt::MatchStartsWith);
     if (selected >= 0)
     {
-         //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog selected>0: " << QString::number(selected) << endl;
+         qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog selected>=0: " << QString::number(selected) << endl;
         currentLogs->setCurrentIndex(selected);
     }
     else
     {
-         //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog not selcted" << endl;
+        qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog not selected" << endl;
         return;
     }
 }

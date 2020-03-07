@@ -15,9 +15,10 @@ TODO: UI: Added a DXCC summary obtained from the Tools menu.
 - Improvement: Added https to the cty.dat download.
 - Improvement: Added the https to download.klog.xyz
 - Improvement: Propagation modes are now sorted in the Propagation mode combobox.
-- Improvement: Three new tips added.
+- Improvement: Four new tips added.
 - Improvement: eQSL & LoTW dates are updated always that are modified to any status.
-- Improvement: If a QSO does not have a freq, a default freq based on the band is assigned if editted.
+- Improvement: If a QSO does not have a freq, a default freq based on the band is assigned if edited.
+- Removed the functionality to sort the log based on Date & Time columns.
 - Removed one console message about a duplicated database connection.
 - Bugfix: The default value of RST in some digital modes using SNR were not properly shown.
 - Bugfix: In translated instances of KLog, Propagation mode was sometimes not properly saved when no propagation mode eas selected.

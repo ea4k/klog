@@ -541,6 +541,8 @@ void MainWindow::createActionsCommon(){
    connect(tipsDialog, SIGNAL(toolSendPendingQSLSignal()), this, SLOT(slotToolSearchRequestedQSLToSend()));
    connect(tipsDialog, SIGNAL(toolRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
    connect(tipsDialog, SIGNAL(toolRecRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLRequested()));
+   connect(tipsDialog, SIGNAL(toolsUploadLoTWSignal()), this, SLOT(slotLoTWUpload()));
+
    connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
    connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotSatChangeRXFreq(double)) );
    connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotSatChangeTXFreq(double)) );
@@ -4192,10 +4194,12 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
         keepMyData  = util->trueOrFalse(value);
     }
+    /*
     else if (field=="LOGSORT")
     {
         logWindow->setProxyModel(util->trueOrFalse(value));
     }
+    */
     else if (field=="SENDEQSLBYDEFAULT")
     {
         eQSLTabWidget->setQueueSentByDefault(util->trueOrFalse(value));

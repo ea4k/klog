@@ -193,11 +193,11 @@ public:
     QStringList getContestNames();
     QStringList getContestCat(const int _catn);
     QStringList getContestOverlays();
-    int getContestTypeN(const int _co, const int _catop, const int _catas, const int _catpo, const int _catba, const int _catov, const int _catmo);
-    QStringList getDataFromContestType(const int _n);
-    int getLogTypeNumber(const QString &_logType);
-    QString getLogTypeName(const int _logType);
-    QString getLogTypeOfUserLog(const int _logN);
+    //int getContestTypeN(const int _co, const int _catop, const int _catas, const int _catpo, const int _catba, const int _catov, const int _catmo);
+    //QStringList getDataFromContestType(const int _n);
+    //int getLogTypeNumber(const QString &_logType);
+    //QString getLogTypeName(const int _logType);
+    //QString getLogTypeOfUserLog(const int _logN);
     int getLogNumberFromQSOId(const int _qsoId);
 
     QStringList getBandNames();
@@ -232,7 +232,7 @@ public:
     QString getOperatorsFromLog(const int _log);
     QString getCommentsFromLog(const int _log);
     QString getLogDateFromLog(const int _log);
-    QString getLogTypeNFromLog(const int _log);
+    //QString getLogTypeNFromLog(const int _log);
     bool addNewLog (const QStringList _qs);
     bool doesThisLogExist(const int _log);
 

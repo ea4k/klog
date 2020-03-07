@@ -189,6 +189,10 @@ void TipsDialog::setTip(const int _t)
     case 20:
         description = tr("<b>Tip #20:</b><br>Do you know...<br>You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?");
     break;
+    case 21:
+        //: Translator: Please make sure that the name of the link is coherent with the menu File->Export ADIF for LoTW...
+        description = tr("<b>Tip #21:</b><br>Do you know...<br>You can upload your QSO marked as queued to LoTW via TQSL with <a href=\"#ToolsUploadLoTW\">Tools->Upload to LoTW...</a> ?<br><br>You have to configure TQSL in the preferences to be able to use this functionality.");
+    break;
     default:
         description = tr("TIP-Default: Text");
     break;
@@ -239,6 +243,10 @@ void TipsDialog::slotLinkActivated(const QString &_link)
     else if (_link == "#ToolsReceiveRecPendingQSL")
     {
         emit toolRecRecPendingQSLSignal();
+    }
+    else if (_link == "#ToolsUploadLoTW")
+    {
+        emit toolsUploadLoTWSignal();
     }
 }
 

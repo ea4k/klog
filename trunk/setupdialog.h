@@ -80,6 +80,7 @@ private slots:
     void slotSetStationCallSign(const QString &_p);      // We receive te station callsign from the userData tab to fill the new log
     void slotSetOperators(const QString &_p);            // We receive te station operators from the userData tab to fill the new log
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+    void slotFocusOK();
 
 private:
 

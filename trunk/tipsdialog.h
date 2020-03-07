@@ -57,6 +57,7 @@ signals:
     void toolSendPendingQSLSignal();
     void toolRecPendingQSLSignal();
     void toolRecRecPendingQSLSignal();
+    void toolsUploadLoTWSignal();
 
 private slots:
     void slotPrevButtonClicked();

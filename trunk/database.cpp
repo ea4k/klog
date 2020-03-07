@@ -1852,6 +1852,7 @@ QString DataBase::getFreqFromBandId(const int _i)
     //return "-2.0";
 }
 
+/*
 int DataBase::getLogTypeNumber(const QString &_logType)
 {
       //qDebug() << "DataBase::getLogTypeNumber: " << _logType << endl;
@@ -1905,7 +1906,7 @@ QString DataBase::getLogTypeName(const int _logType)
      //query.finish();
      //return QString();
 }
-
+*/
 bool DataBase::updateToLatest()
 {
 /*

@@ -112,6 +112,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
 
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));       
     connect(logsPage, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );    
+
     connectActions();
 
 
@@ -251,6 +252,7 @@ void SetupDialog::connectActions()
 {
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     connect (logsPage, SIGNAL(newLogData(QStringList)), this, SLOT(slotAnalyzeNewLogData(QStringList)));
+    connect(logsPage, SIGNAL(focusOk()), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     connect (userDataPage, SIGNAL(stationCallSignal(QString)), this, SLOT(slotSetStationCallSign(QString)));
     connect (userDataPage, SIGNAL(operatorsSignal(QString)), this, SLOT(slotSetOperators(QString)));
     connect (userDataPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
@@ -574,7 +576,7 @@ void SetupDialog::slotOkButtonClicked()
         stream << "CheckNewVersions=" << miscPage->getCheckNewVersions() << ";" <<  endl;
         stream << "ManageDXMarathon=" << miscPage->getDXMarathon() << ";" <<  endl;
         stream << "DebugLog=" << miscPage->getDebugLog() << ";" << endl;
-        stream << "LogSort=" << miscPage->getLogSort() << ";" << endl;
+        //stream << "LogSort=" << miscPage->getLogSort() << ";" << endl;
         stream << "SendEQSLByDefault=" << miscPage->getSendEQSLByDefault() << ";" << endl;
         stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";" << endl;
         stream << "PSTRotatorServer=" << interfacesWindowsPage->getPSTRotatorUDPServer() << ";" << endl;
@@ -815,9 +817,11 @@ bool SetupDialog::processConfigLine(const QString &_line)
     else if (tab=="PROVIDEINFO"){
         miscPage->setReportInfo(value);
     }
+    /*
     else if (tab=="LOGSORT"){
         miscPage->setLogSort(value);
     }
+    */
     else if (tab=="SENDEQSLBYDEFAULT"){
         miscPage->setSetEQSLByDefault(value);
     }
@@ -1161,7 +1165,7 @@ void SetupDialog::setDefaults()
     miscPage->setReportInfo("FALSE");
     miscPage->setDXMarathon("FALSE");
     miscPage->setDebugLog("FALSE");
-    miscPage->setLogSort("FALSE");
+    //miscPage->setLogSort("FALSE");
     miscPage->setSetEQSLByDefault("TRUE");
 
     UDPPage->setUDPServer("FALSE");
@@ -1279,7 +1283,7 @@ void SetupDialog::checkIfNewBandOrMode()
 
 void SetupDialog::slotAnalyzeNewLogData(const QStringList _qs)
 {
-    //qDebug() << "SetupDialog::slotAnalyzeNewLogData (length=" << QString::number(_qs.length()) << ")" << endl;
+    qDebug() << "SetupDialog::slotAnalyzeNewLogData (length=" << QString::number(_qs.length()) << ")" << endl;
      //qDebug() << "SetupDialog::slotAnalyzeNewLogData" << endl;
  // We receive the station callsign and operators from the logs tab
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
@@ -1320,3 +1324,7 @@ void SetupDialog::slotQueryErrorManagement(QString functionFailed, QString error
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
 
+void SetupDialog::slotFocusOK()
+{
+
+}
