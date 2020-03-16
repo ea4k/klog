@@ -108,6 +108,7 @@ private:
     QString dxClusterServerToUse;
     QStringList dxClusterServers;
 
+    QPushButton *okButton;
     QTabWidget *tabWidget;
     int logsPageTabN;
 

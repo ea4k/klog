@@ -71,16 +71,17 @@ public:
     bool adifLogExport(const QString& _fileName, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);
     bool adifReqQSLExport(const QString& _fileName);
-    bool cabrilloLogExport(const QString& _fileName, const QString _contestType, const int logNconst);
-    bool modifySetupFile(const QString& _filename, QString _field, const QString _value);
-    void setVersion(const QString _version);
+    bool cabrilloLogExport(const QString& _fileName, const QString &_contestType, const int logNconst);
+    bool modifySetupFile(const QString& _filename, const QString &_field, const QString &_value);
+    void setVersion(const QString &_version);
     QDateTime getDateTimeOfLastBackup();
+    void setStationCallSign(const QString& _st);
 
 
 
 
-private:
-    bool adifLogExportToFile(const QString& _fileName, const int _logN=0, bool justMarked = false, bool _qslRequested = false, bool _lotw=false);
+private:    
+    bool adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested, bool _lotw);
     bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);
     bool cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst);
     //bool adifCheckMoreThanOneLog(QFile &_f);
@@ -92,14 +93,14 @@ private:
     void showError (const QString &_txt);
 
 
-    //QString checkAndFixASCIIinADIF(const QString _data);
+    //QString checkAndFixASCIIinADIF(_data);
 
-    bool processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile);
+    bool processQsoReadingADIF(const QStringList &_line, const int logNumber, const bool _keepLogsInFile);
     void queryPreparation(const int _logN);
 
-    bool checkADIFValidFormat(const QStringList _qs);
+    bool checkADIFValidFormat(const QStringList &_qs);
 
-    QStringList readAdifField (const QString _field);
+    QStringList readAdifField (const QString &_field);
     QString prepareStringLog();
 
 
@@ -115,12 +116,14 @@ private:
 
 
     //bool printQs(const QString _q, const QStringList _line);
-    bool printQs(const QStringList _line);
+    bool printQs(const QStringList &_line);
     //int confirmed;
     QString klogDir;
     QString klogVersion;
+    QString defaultStationCallsign;
     //QProgressBar *progressBar;
     bool ignoreUnknownAlways;   // When importing ADIF, ignore all unknown fields.
+    bool usePreviousStationCallsignAnswerAlways;   // When importing ADIF, ignore all unknown fields.
     bool noMoreQso;
 
     World *world;
@@ -135,7 +138,7 @@ private:
 
 
 signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString _functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
 };
 #endif // FILEMANAGER_H

@@ -106,7 +106,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
 
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
-    QPushButton *okButton = new QPushButton(tr("OK"));
+    okButton = new QPushButton(tr("OK"));
 
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
 
@@ -202,7 +202,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
      //qDebug() << "SetupDialog::SetupDialog 03" << endl;
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
-    QPushButton *okButton = new QPushButton(tr("OK"));
+    okButton = new QPushButton(tr("OK"));
 
     QHBoxLayout *horizontalLayout = new QHBoxLayout;
     horizontalLayout->addWidget(tabWidget);
@@ -252,7 +252,7 @@ void SetupDialog::connectActions()
 {
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     connect (logsPage, SIGNAL(newLogData(QStringList)), this, SLOT(slotAnalyzeNewLogData(QStringList)));
-    connect(logsPage, SIGNAL(focusOk()), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    connect(logsPage, SIGNAL(focusOK()), this, SLOT(slotFocusOK()) );
     connect (userDataPage, SIGNAL(stationCallSignal(QString)), this, SLOT(slotSetStationCallSign(QString)));
     connect (userDataPage, SIGNAL(operatorsSignal(QString)), this, SLOT(slotSetOperators(QString)));
     connect (userDataPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
@@ -1326,5 +1326,6 @@ void SetupDialog::slotQueryErrorManagement(QString functionFailed, QString error
 
 void SetupDialog::slotFocusOK()
 {
-
+    qDebug() << "SetupDialog::slotFocusOK" << endl;
+    okButton->setFocus(Qt::OtherFocusReason);
 }

@@ -169,32 +169,41 @@ void SetupPageDxCluster::slotAddButtonClicked()
                            tr("Add the address followed by the :port\nExample: dxfun.com:8000\nIf no port is specified, 41112 will be used by default:"),
                            QLineEdit::Normal, QString::null,
                            &ok);
+        //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - SERVER: " << text << endl;
         if (ok && !text.isEmpty ())
         {
+            //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 01"  << endl;
             if (checkIfValidDXCluster (text))
             {
+                //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 02"  << endl;
                 if (checkIfNewDXCluster (text))
                 {
+                    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 03"  << endl;
                     ok = true;
                     if ((text.contains (":")) == 0)
                     {
+                        //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 04"  << endl;
                         text = text + ":41112";
                     }
                     dxclusterServersComboBox->insertItem (0, text);
+                    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 05"  << endl;
                 }
                 else
                 {
+                    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 06"  << endl;
                     ok = false;
                 }
             }
             else
             {
+                //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 07"  << endl;
                 ok = false;
             }
         }
         else
         {
             // user entered nothing or pressed Cancel
+            //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 08"  << endl;
             ok = true;
         }
     }
@@ -222,15 +231,17 @@ bool SetupPageDxCluster::checkIfValidDXCluster (const QString & tdxcluster)
 }
 
 bool SetupPageDxCluster::checkIfNewDXCluster (const QString & tdxcluster) {
-   //qDebug()  << "checkIfNewDXCluster: -" << tdxcluster << "-"<< endl;
+    //qDebug()  << "checkIfNewDXCluster: -" << tdxcluster << "-"<< endl;
     //int numberOfDXClusterServers = dxclusterServersComboBox->count ();
 
-    if (dxclusterServersComboBox->findText(tdxcluster)>=0)
+    if (dxclusterServersComboBox->findText(tdxcluster)<0)
     {
+        //qDebug()  << "checkIfNewDXCluster: true" << endl;
         return true;
     }
     else
     {
+        //qDebug()  << "checkIfNewDXCluster: false" << endl;
         return false;
     }
     /*

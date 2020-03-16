@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 
@@ -39,8 +39,10 @@ FileManager::FileManager(DataProxy_SQLite *dp)
     db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
 
     ignoreUnknownAlways = false;
+    usePreviousStationCallsignAnswerAlways = false;
     world = new World(dataProxy, Q_FUNC_INFO);
     awards = new Awards(dataProxy, Q_FUNC_INFO);
+    defaultStationCallsign = QString();
 
 
 
@@ -83,6 +85,7 @@ FileManager::FileManager(DataProxy_SQLite *dp, const QString _klogDir, const QSt
     dataProxy = dp;
     util = new Utilities;
     util->setVersion(klogVersion);
+    defaultStationCallsign = QString();
 
     db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
 
@@ -91,6 +94,7 @@ FileManager::FileManager(DataProxy_SQLite *dp, const QString _klogDir, const QSt
 
     klogDir = _klogDir;
     ignoreUnknownAlways = false;
+    usePreviousStationCallsignAnswerAlways = false;
     world = new World(dataProxy, klogDir, Q_FUNC_INFO);
     awards = new Awards(dataProxy, Q_FUNC_INFO);
 
@@ -104,7 +108,7 @@ FileManager::~FileManager()
 
 }
 
-bool FileManager::checkADIFValidFormat(const QStringList _qs)
+bool FileManager::checkADIFValidFormat(const QStringList &_qs)
 {
     QStringList qs = _qs;
 
@@ -172,6 +176,7 @@ bool FileManager::adifLogExport(const QString& _fileName, const int _logN)
     return adifLogExportToFile(_fileName, _logN, false, false, false);
 
 }
+
 void FileManager::showError (const QString &_txt)
 {
     QMessageBox msgBox;
@@ -525,6 +530,7 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
 
 bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested , bool _lotw)
 {
+    //adifLogExportToFile(const QString& _fileName, const int _logN=0, bool justMarked = false, bool _qslRequested = false, bool _lotw=false);
     // If _logN = 0, then we will export ALL the logs.
     //qDebug() << "FileManager::adifLogExportToFile: " << _fileName << endl;
 
@@ -2722,7 +2728,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     }    
 }
 
-bool FileManager::cabrilloLogExport(const QString& _fileName, const QString _contestType, const int logNconst)
+bool FileManager::cabrilloLogExport(const QString& _fileName, const QString &_contestType, const int logNconst)
 {
      //qDebug() << "FileManager::cabrilloLogExport" << endl;
 
@@ -3018,7 +3024,7 @@ bool FileManager::cabrilloLogExportToFile(const QString& _fileName, const int lo
     return false;
 }
 
-bool FileManager::printQs(const QStringList _line)
+bool FileManager::printQs(const QStringList &_line)
 //bool FileManager::printQs(const QString _q, const QStringList _line)
 {
     QStringList qs = _line;
@@ -3032,8 +3038,8 @@ bool FileManager::printQs(const QStringList _line)
 
 
 bool FileManager::adifLogExportMarked(const QString& _fileName)
-{    
-    return adifLogExportToFile(_fileName, 0, true, false);
+{        
+    return adifLogExportToFile(_fileName, 0, true, false, false);
 }
 
 /*
@@ -3334,7 +3340,6 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     //QSqlDatabase db = QSqlDatabase::database();
     //int maxLogs = dataProxy->getNumberOfManagedLogs(); // To manage several logs
 
-
     bool sqlOK = true;
     QStringList queries = QStringList();
     queries.clear();
@@ -3380,9 +3385,8 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
     if (howManyLogs>1)
     {
-
         QMessageBox msgBox;
-        msgBox.setWindowTitle(tr("KLog - log selection"));
+        msgBox.setWindowTitle(tr("KLog - Log selection"));
         aux = QString(tr("There is more than one log in this logfile.") + "\n" + tr("All logs will be imported into the current log.") + "\n" + tr("Do you want to continue?"));
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -3923,9 +3927,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
 }
 
-
-
-bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile)
+bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logNumber, const bool _keepLogsInFile)
 //bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile, QHash<int, int> &_logs)
 {
 
@@ -3945,6 +3947,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     QStringList oneField;
     QString field, data;
     QSqlQuery query;
+
     //confirmed = 0; // 0 means worked, 1 means confirmed
 
     QString queryString, stringFields, stringData;
@@ -3957,7 +3960,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     QString aux2, aux3;
     QString qrzCall = "";
     QString submode = QString();
-    bool bandRXDef = false;
+
     int bandi = -1;
     int bandrxi = -1;
     bool rstRXr = false;
@@ -3966,10 +3969,14 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
     //KLog does not understand (and will not import) a QSO without these fields
     bool haveCall = false;
     bool haveBand = false;
+    bool bandRXDef = false;
     bool haveMode = false;
     bool haveSubMode = false;
     bool haveTime = false;
     bool haveDate = false;
+    bool haveFreqTX = false;
+    bool haveFreqRX = false;
+    bool hasStationCall = false;
 
     //bool ret;
     //int lenght = 0;
@@ -4331,13 +4338,14 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                 else if (field == "FREQ")
                 {
                      //qDebug() << "FileManager::processQsoReadingADIF  -FREQ: " << QString::number(data.toDouble()) << endl;
-                    preparedQuery.bindValue( ":freq", data);
+
                     if (haveBand)
                     {
                         if (dataProxy->getBandIdFromFreq(data.toDouble()) == bandi)
                         //if (db->isThisFreqInBand(db->getBandNameFromNumber(bandi), data))
                         {
                             preparedQuery.bindValue( ":freq", data);
+                            haveFreqTX =true;
                         }
                         else
                         {
@@ -4347,27 +4355,25 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                     else
                     {
                         preparedQuery.bindValue( ":freq", data);
+                        haveFreqTX =true;
                         i = dataProxy->getBandIdFromFreq(data.toDouble());
 
                         if (i>=0)
                         {
-                            preparedQuery.bindValue( ":bandid", QString::number(i) );
+                            preparedQuery.bindValue( ":bandid", QString::number(i) );                            
                             haveBand = true;
                              //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << endl;
                         }
                     }
                 }
                 else if (field == "FREQ_RX")
-                {
-                    //haveBand = true;
-                    //bandi = i;
-                    //i = db->getBandIDFromName2(data);
+                {                    
                     if (bandRXDef)
                     {
-                        if (dataProxy->getBandIdFromFreq(data.toDouble()) == bandrxi)
-                        //if (db->isThisFreqInBand(db->getBandNameFromNumber(bandrxi), data))
+                        if (dataProxy->getBandIdFromFreq(data.toDouble()) == bandrxi)                        
                         {
                             preparedQuery.bindValue( ":freq_rx", data);
+                            haveFreqRX =true;
                         }
                         else
                         {
@@ -4375,10 +4381,17 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                         }
                     }
                     else
-                    {
-                        preparedQuery.bindValue( ":freq_rx", data);
-                    }
+                    {                        
+                        i = dataProxy->getBandIdFromFreq(data.toDouble());
 
+                        if (i>=0)
+                        {
+                            preparedQuery.bindValue( ":band_rx", QString::number(i) );
+                            haveFreqRX =true;
+                            bandRXDef = true;
+                             //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << endl;
+                        }
+                    }
                 }
                 else if (field == "GRIDSQUARE")
                 {
@@ -4552,6 +4565,7 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
                 {
                     if (util->isValidCall(data))
                     {
+                        hasStationCall = true;
                         preparedQuery.bindValue( ":station_callsign", data );
                     }
                 }
@@ -4804,15 +4818,16 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
             }
         }
     }
-    //preparedQuery.bindValue( ":lognumber", i);
-    //qDebug() << "FileManager::processQsoReadingADIF: logNumber: " << QString::number(logNumber) << endl;
 
-   // if ((haveSubMode) && (!haveMode))
-   // { // We can guess the mode from a submode!
+    if ((haveBand) && (!haveFreqTX))
+    {
+        preparedQuery.bindValue( ":freq",  dataProxy->getFreqFromBandId(bandi));
+    }
+    if ((bandRXDef) && (!haveFreqRX))
+    {
+        preparedQuery.bindValue( ":freq_rx",  dataProxy->getFreqFromBandId(bandrxi));
+    }
 
-   //     preparedQuery.bindValue( ":mode", dataProxy->getIdFromModeName(dataProxy->getModeFromSubMode(submode)) );
-   //     haveMode  = true;
-   // }
 
     if (!(haveBand && haveCall && haveMode && haveTime && haveDate ))
     {
@@ -4922,18 +4937,72 @@ bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNu
 
     if ((!rstRXr) && (rstRXDefault))
     {
-
         preparedQuery.bindValue( ":rst_rcvd", "59" );
     }
 
+    if ((!hasStationCall) && (!usePreviousStationCallsignAnswerAlways))
+    {
+
+        QMessageBox msgBox;
+
+
+        msgBox.setWindowTitle(tr("KLog: No Station callsign found!"));
+
+        qDebug() << "FileManager::processQsoReadingADIF defaultStationCallsign: " << defaultStationCallsign << endl;
+
+        if (util->isValidCall(defaultStationCallsign))
+        {
+            aux = tr("Some QSO of this log has no Station Callsign.") + "\n\n" + tr("The Station Callsign that is defined is: %1.").arg(defaultStationCallsign) + "\n\n" + tr("If you select YES, KLog will fill the QSOs with that station callsign. If you select NO, no Station Callsign will be defined for those QSOs and that may create some problems in some situations (i.e LoTW upload).");
+            msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+            msgBox.setDefaultButton(QMessageBox::Yes);
+        }
+        else
+        {
+            aux = tr("Some QSO of this log has no Station Callsign and there is no Station Callsign defined.") +  "\n\n" + tr("It is recommended that you fix those QSOs as soon as possible as that may create some problems in some situations (i.e LoTW upload)");
+            msgBox.setStandardButtons(QMessageBox::Ok);
+        }
+
+        msgBox.setText(aux);
+        msgBox.setIcon(QMessageBox::Warning);
+        int ret = msgBox.exec();
+        switch (ret) {
+          case QMessageBox::Yes:
+              // Yes was clicked
+                preparedQuery.bindValue( ":station_callsign", defaultStationCallsign );
+              break;
+          default:
+              // should never be reached
+
+              break;
+        }
+
+
+        //QMessageBox msgBox;
+        aux = tr("Do you want to use the same answer for all the QSOs in this log?");
+        msgBox.setText(aux);
+        msgBox.setWindowTitle(tr("KLog: No Station Callsign!"));
+        msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        msgBox.setIcon(QMessageBox::Warning);
+        ret = msgBox.exec();
+        switch (ret) {
+          case QMessageBox::Yes:
+              // Yes was clicked
+                usePreviousStationCallsignAnswerAlways = true;
+              break;
+          default:
+              // should never be reached
+                usePreviousStationCallsignAnswerAlways = false;
+              break;
+        }
+
+    }
 
     preparedQuery.bindValue( ":lognumber", QString::number(logNumber));
-
 
     return true;
 
 }
-
 
 void FileManager::queryPreparation(const int _logN)
 {
@@ -4975,11 +5044,11 @@ void FileManager::queryPreparation(const int _logN)
 
 bool FileManager::adifReqQSLExport(const QString& _fileName)
 {
-    return adifLogExportToFile(_fileName, 0, false, true);
+
+    return adifLogExportToFile(_fileName, 0, false, true, false);
 }
 
-
-bool FileManager::modifySetupFile(const QString& _filename, QString _field, const QString _value)
+bool FileManager::modifySetupFile(const QString& _filename, const QString &_field, const QString &_value)
 {
     //qDebug() << "FileManager::modifySetupFile" << endl;
 
@@ -5094,7 +5163,6 @@ int FileManager::howManyLogsInFile(QFile& _f)
     return logs.size();
 }
 
-
 bool FileManager::fillHashLog(QFile &_f)
 {
      //qDebug() << "FileManager::fillHashLog:" << endl;
@@ -5202,13 +5270,12 @@ QStringList FileManager::getListOfLogsInFile(QFile& _f)
     return logs;
 }
 
-void FileManager::setVersion(const QString _version)
+void FileManager::setVersion(const QString &_version)
 {
     util->setVersion(_version);
 }
 
-
-QStringList FileManager::readAdifField(const QString _field)
+QStringList FileManager::readAdifField(const QString &_field)
 {
     // This function receives a QString with an ADIF field and returns a QString with the following format:
     // ADIF-tag, value
@@ -5364,7 +5431,6 @@ QStringList FileManager::readAdifField(const QString _field)
 
 }
 
-
 QString FileManager::prepareStringLog()
 {
      //qDebug() << "FileManager::prepareStringLog: " << endl;
@@ -5458,4 +5524,14 @@ bool FileManager::writeBackupDate()
     return true;
 }
 
+void FileManager::setStationCallSign(const QString& _st)
+{
+    qDebug() << "FileManager::setStationCallSign: " << _st << endl;
+    if (util->isValidCall(defaultStationCallsign))
+    {        
+        defaultStationCallsign = _st;
+        qDebug() << "FileManager::setStationCallSign: " << defaultStationCallsign << endl;
+    }
+ qDebug() << "FileManager::setStationCallSign: -" << defaultStationCallsign << endl;
+}
 

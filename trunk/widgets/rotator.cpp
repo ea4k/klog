@@ -133,14 +133,12 @@ void RotatorWidget::paintEvent(QPaintEvent *)
 
   for (int i = 0; i< 4; i++)
   {
-      /*
+
       painter.save();
       painter.rotate((i * 90) - 90);
       //painter.rotate(i * (270/4) + 135);
       painter.drawText(((width() -50)/2)-30, 0, QString::number((i * 90) ));
       painter.restore();
-      */
-
   }
 }
 
