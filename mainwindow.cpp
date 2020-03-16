@@ -3135,20 +3135,17 @@ void MainWindow::createMenusCommon()
     //TODO: To be added once the help dialog has been implemented
     helpMenu = menuBar()->addMenu(tr("&Help"));
 
-    updateAct = new QAction(tr("Check updates..."), this);
-    helpMenu->addAction(updateAct);
-    updateAct->setMenuRole(QAction::ApplicationSpecificRole);
-    connect(updateAct, SIGNAL(triggered()), this, SLOT(slotHelpCheckUpdatesAction()));
-
-    aboutAct = new QAction(tr("&About..."), this);
-    helpMenu->addAction(aboutAct);
-    aboutAct->setMenuRole(QAction::AboutRole);
-    connect(aboutAct, SIGNAL(triggered()), this, SLOT(slotHelpAboutAction()));
-
     tipsAct = new QAction(tr("&Tips..."), this);
     helpMenu->addAction(tipsAct);
     tipsAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(tipsAct, SIGNAL(triggered()), this, SLOT(slotTipsAction()));
+
+    helpMenu->addSeparator();
+
+    aboutAct = new QAction(tr("&About..."), this);
+    helpMenu->addAction(aboutAct);
+    aboutAct->setMenuRole(QAction::AboutRole);
+    connect(aboutAct, SIGNAL(triggered()), this, SLOT(slotHelpAboutAction()));    
 
     aboutQtAct = new QAction(tr("About Qt..."), this);
     helpMenu->addAction(aboutQtAct);
@@ -3156,6 +3153,12 @@ void MainWindow::createMenusCommon()
     connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(slotAboutQt()));
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
+    helpMenu->addSeparator();
+
+    updateAct = new QAction(tr("Check updates..."), this);
+    helpMenu->addAction(updateAct);
+    updateAct->setMenuRole(QAction::ApplicationSpecificRole);
+    connect(updateAct, SIGNAL(triggered()), this, SLOT(slotHelpCheckUpdatesAction()));
  }
 /*
 void MainWindow::slotCloseStats(bool _vis)
@@ -4088,7 +4091,6 @@ bool MainWindow::processConfigLine(const QString &_line){
 
         value = value.left(value.length() - (value.length() - endValue));
     }
-
 
     if (field == "CALLSIGN"){
         mainQRZ = value;
@@ -6791,12 +6793,13 @@ void MainWindow::defineStationCallsign()
 
     if (world->checkQRZValidFormat(logQRZ))
     {
-        stationQRZ = logQRZ;
+        stationQRZ = logQRZ;        
     }
     else
     {
         stationQRZ = mainQRZ;
     }
+    filemanager->setStationCallSign(stationQRZ);
     myDataTabWidget->setData(myPower, stationQRZ, operatorQRZ, myDataTabWidget->getMyLocator());
     dxccStatusWidget->setMyLocator(myDataTabWidget->getMyLocator());
     logEvent(Q_FUNC_INFO, "END", logSeverity);

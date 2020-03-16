@@ -132,10 +132,13 @@ void SetupPageLogs::createNewLog()
     newLog->setComment("");
 
     int result = newLog->exec();
+    //qDebug() << "SetupPageLogs::createNewLog: result: " << QString::number(result) << endl;
     if (result == QDialog::Accepted)
     {
+        //qDebug() << "SetupPageLogs::createNewLog - Accepted, emitting focusOK" << endl;
         emit focusOK();
     }
+    //qDebug() << "SetupPageLogs::createNewLog - END" << endl;
 }
 
 void SetupPageLogs::slotNewButtonClicked()
@@ -147,7 +150,7 @@ void SetupPageLogs::slotNewButtonClicked()
 
 void SetupPageLogs::slotEditButtonClicked()
 {
-     qDebug() << "SetupPageLogs::slotEditButtonClicked" << endl;
+     //qDebug() << "SetupPageLogs::slotEditButtonClicked" << endl;
     //QSqlQuery query;
     //int nameCol = -1;
 
@@ -161,8 +164,12 @@ void SetupPageLogs::slotEditButtonClicked()
     newLog->setOperators(dataProxy->getOperatorsFromLog(selectedLog));
     newLog->setComment(dataProxy->getCommentsFromLog(selectedLog));
     newLog->setDateString(dataProxy->getLogDateFromLog(selectedLog));
-    //newLog->setTypeN(dataProxy->getLogTypeNFromLog(selectedLog).toInt());
-    newLog->exec();
+    //newLog->setTypeN(dataProxy->getLogTypeNFromLog(selectedLog).toInt());    
+    int result = newLog->exec();
+    if (result == QDialog::Accepted)
+    {
+        emit focusOK();
+    }
 
 /*
      //qDebug() << "SetupPageLogs::slotEditButtonClicked-1 (selectedlog: " << QString::number(selectedLog) << ")" << endl;
@@ -355,7 +362,7 @@ void SetupPageLogs::slotLogSelected(const QModelIndex & index)
 
 void SetupPageLogs::slotLogDoubleClicked(const QModelIndex & index)
 {
-    qDebug() << "SetupPageLogs::slotLogDoubleClicked"  << endl;
+    //qDebug() << "SetupPageLogs::slotLogDoubleClicked"  << endl;
 
     int row = index.row();
     setSelectedLog((logsModel->index(row, 0)).data(0).toInt());
@@ -447,7 +454,7 @@ QStringList SetupPageLogs::readLogs()
 
 void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
 {
-     qDebug() << "SetupPageLogs::slotAnalyzeNewLogData (length=" << QString::number(_qs.length()) << ")" << endl;
+     //qDebug() << "SetupPageLogs::slotAnalyzeNewLogData (length=" << QString::number(_qs.length()) << ")" << endl;
 
 
     if (_qs.length()!=5)
@@ -593,14 +600,14 @@ void SetupPageLogs::updateSelectedLogs()
 
 int SetupPageLogs::getSelectedLog()
 {
-    qDebug() << "SetupPageLogs::getSelectedLog: " << currentLogs->currentText() << endl;
+    //qDebug() << "SetupPageLogs::getSelectedLog: " << currentLogs->currentText() << endl;
     QString selectedLog = currentLogs->currentText();
     int i = 0;
     QStringList qs;
     qs.clear();
     qs << selectedLog.split("-");
     i = (qs.at(0)).toInt();
-    qDebug() << "SetupPageLogs::getSelectedLog: " << QString::number(i) << endl;
+    //qDebug() << "SetupPageLogs::getSelectedLog: " << QString::number(i) << endl;
     if (i>=1)
     {
         return i;
@@ -613,13 +620,13 @@ int SetupPageLogs::getSelectedLog()
 
 void SetupPageLogs::slotCurrentLogsComboBoxChanged()
 {
-    qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: " << currentLogs->currentText() << endl;
+    //qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: " << currentLogs->currentText() << endl;
     QString a = (currentLogs->currentText()).section('-', 0, 0);
-    qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: a: " << a << endl;
+    //qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: a: " << a << endl;
 
     /*
     int log = (logsModel->index(logsView->currentIndex().row(), 0)).data(0).toInt();
-    qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: log: " << log << endl;
+    //qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: log: " << log << endl;
 
     if (a.toInt() == getSelectedLog())
     {
@@ -631,16 +638,16 @@ void SetupPageLogs::slotCurrentLogsComboBoxChanged()
     //logsView->setSelectionBehavior(QAbstractItemView::SelectRows);
     //logsView->setSelectionMode(QAbstractItemView::SingleSelection);
     int num = a.toInt(); // Comes from the ComboBox
-    qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: num: " << QString::number(num) << endl;
+    //qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: num: " << QString::number(num) << endl;
     int currentId; // Comes from the logView as we run though it
     for (int i = 0; i< logsView->verticalHeader()->count(); i++)
     {
         //logsView->setCurrentIndex(logsModel->index(0, 0));
         currentId = ((logsModel->index(i, 0)).data(0)).toInt();
-        qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: for i/num/currentId: " << QString::number(i) << "/" << QString::number(num) << "/" << QString::number(currentId) << endl;
+        //qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: for i/num/currentId: " << QString::number(i) << "/" << QString::number(num) << "/" << QString::number(currentId) << endl;
         if (currentId == num)
         {
-            qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: currentId == num " << endl;
+            //qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: currentId == num " << endl;
             logsView->selectRow(num);
         }
     }
@@ -653,18 +660,18 @@ void SetupPageLogs::slotCurrentLogsComboBoxChanged()
 
 void SetupPageLogs::setSelectedLog(const int _i)
 {
-    qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << endl;
+    //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << endl;
 
     QString n = QString::number(_i) + "-";
     int selected = currentLogs->findText(n, Qt::MatchStartsWith);
     if (selected >= 0)
     {
-         qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog selected>=0: " << QString::number(selected) << endl;
+         //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog selected>=0: " << QString::number(selected) << endl;
         currentLogs->setCurrentIndex(selected);
     }
     else
     {
-        qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog not selected" << endl;
+        //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog not selected" << endl;
         return;
     }
 }

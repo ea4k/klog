@@ -788,7 +788,7 @@ bool DXClusterWidget::openFile()
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
-        QString aux = tr("It was not possible to open the a file to save the DX-Spots for writting. DX-Cluster activity will be saved!");
+        QString aux = tr("It was not possible to open the a file to save the DX-Spots for writting. DX-Cluster activity will not be saved!");
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);

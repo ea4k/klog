@@ -26,18 +26,13 @@ QT += core \
     sql \
     network \
     serialport \
+    printsupport \
+    charts \
     widgets
 
-
-greaterThan(QT_MAJOR_VERSION, 4) {
-    QT += printsupport
-    QT += widgets \
-        charts
-}
-
-
-greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4) {
-macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
+greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
+{
+    macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
 }
 
 HEADERS += setupdialog.h \

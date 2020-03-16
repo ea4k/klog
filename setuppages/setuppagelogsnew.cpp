@@ -32,7 +32,7 @@
 
 SetupPageLogsNew::SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent)
 {
-    qDebug() << "SetupPageLogsNew::SetupPageLogsNew"   << endl;
+    //qDebug() << "SetupPageLogsNew::SetupPageLogsNew"   << endl;
     dataProxy = dp;
     editing = false;
     checking = false;
@@ -108,7 +108,7 @@ SetupPageLogsNew::SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent)
 
 void SetupPageLogsNew::clear()
 {
-    qDebug() << "SetupPageLogsNew::Clear - Start"   << endl;
+    //qDebug() << "SetupPageLogsNew::Clear - Start"   << endl;
     stationCallsignLineEdit->clear();
     operatorsLineEdit->clear();
     dateEdit->setDate(QDate::currentDate ());
@@ -131,12 +131,12 @@ void SetupPageLogsNew::clear()
     contestBands = 0;
     contestCatOverlay = 0;
     typeContestSelected = 0;*/
-    qDebug() << "SetupPageLogsNew::Clear - END"   << endl;
+    //qDebug() << "SetupPageLogsNew::Clear - END"   << endl;
 }
 
 void SetupPageLogsNew::createWidget()
 {
-    qDebug() << "SetupPageLogsNew::createWidget - Start" << endl;
+    //qDebug() << "SetupPageLogsNew::createWidget - Start" << endl;
 
     stationCallsignLabel->setWordWrap(true);
     operatorsLabel->setWordWrap(true);
@@ -295,14 +295,14 @@ void SetupPageLogsNew::createWidget()
     setLayout(mainLayout);
     clear();
     //page->setLayout(callsLayout);
-    qDebug() << "SetupPageLogsNew::createWidget - End" << endl;
+    //qDebug() << "SetupPageLogsNew::createWidget - End" << endl;
 
 }
 
 
 void SetupPageLogsNew::slotOperatorsTextChanged()
 {
-     qDebug() << "SetupPageLogsNew::slotOperatorsTextChanged - Start" << endl;
+     //qDebug() << "SetupPageLogsNew::slotOperatorsTextChanged - Start" << endl;
 //    connect(stationCallsignLineEdit, SIGNAL(textChanged(QString)), this, SLOT( ) );
     if ((operatorsLineEdit->text()).length()<1)
     {
@@ -328,12 +328,12 @@ void SetupPageLogsNew::slotOperatorsTextChanged()
     {//TODO: Add a check of the format (comma separated)
         operatorsFilled= true;
     }
-    qDebug() << "SetupPageLogsNew::slotOperatorsTextChanged - End" << endl;
+    //qDebug() << "SetupPageLogsNew::slotOperatorsTextChanged - End" << endl;
 }
 
 void SetupPageLogsNew::slotStationCallSignTextChanged()
 {
-     qDebug() << "SetupPageLogsNew::slotStationCallSignTextChanged" << endl;
+     //qDebug() << "SetupPageLogsNew::slotStationCallSignTextChanged" << endl;
 //    connect(stationCallsignLineEdit, SIGNAL(textChanged(QString)), this, SLOT( ) );
     if ((stationCallsignLineEdit->text()).length()<1)
     {
@@ -361,7 +361,7 @@ void SetupPageLogsNew::slotStationCallSignTextChanged()
         stationCallsignFilled = true;
     }
     showOK();
-    qDebug() << "SetupPageLogsNew::slotStationCallSignTextChanged - End" << endl;
+    //qDebug() << "SetupPageLogsNew::slotStationCallSignTextChanged - End" << endl;
 }
 
 /*
@@ -603,7 +603,9 @@ void SetupPageLogsNew::slotOKButtonClicked()
     emit newLogData(logData);
 
     //gatherAndSend();
-    close();
+
+    clear();
+    accept();
 
     //typeContest, contestCatOperators, contestCatAssisted, contestCatPower,
     //contestCatBands, contestCatOverlay, contestCatMode
@@ -774,6 +776,8 @@ void SetupPageLogsNew::slotCancelButtonClicked()
      //qDebug() << "SetupPageLogsNew::slotCancelButtonClicked" << endl;
     logData.clear();
     emit cancelled(true);
+    setResult(QDialog::Rejected);
+    clear();
     close();
 }
 
@@ -880,7 +884,6 @@ void SetupPageLogsNew::setEditing(const bool b)
     {
         clear();
     }
-
 }
 
 /*
