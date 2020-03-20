@@ -89,6 +89,7 @@ private:
     bool fillHashLog(QFile & _f);
     QStringList getListOfLogsInFile(QFile & _f);
     bool writeBackupDate();
+    bool getStationCallsignFromUser();
 
     void showError (const QString &_txt);
 

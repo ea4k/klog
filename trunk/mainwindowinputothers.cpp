@@ -207,10 +207,10 @@ void MainWindowInputOthers::setPropMode(const QString _qs)
 QString MainWindowInputOthers::getPropModeFromComboBox()
 {
     QString _pm = QString();
-    qDebug() << "MainWindow::getPropModeFromComboBox:" << propModeComboBox->currentText() << endl;
+    //qDebug() << "MainWindow::getPropModeFromComboBox:" << propModeComboBox->currentText() << endl;
     _pm = (((propModeComboBox->currentText()).split('-')).at(1)).simplified();
     QString _n = (((propModeComboBox->currentText()).split('-')).at(0)).simplified();
-    qDebug() << "MainWindow::getPropModeFromComboBox: " << _pm << endl;
+    //qDebug() << "MainWindow::getPropModeFromComboBox: " << _pm << endl;
 
     if (_n == "00")
     {

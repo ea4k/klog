@@ -2514,7 +2514,7 @@ bool DataProxy_SQLite::lotwSentYes(const QString &_updateDate, const int _curren
 
 bool DataProxy_SQLite::lotwSentQSOs(const QList<int> &_qsos)
 {
-    qDebug() << " DataProxy_SQLite::lotwSentQSOs" << QString::number(_qsos.count()) << endl;
+    //qDebug() << " DataProxy_SQLite::lotwSentQSOs" << QString::number(_qsos.count()) << endl;
     if (_qsos.count() < 1)
     {
         return true;
@@ -2525,22 +2525,22 @@ bool DataProxy_SQLite::lotwSentQSOs(const QList<int> &_qsos)
 
     for (int i = 0; i< _qsos.count(); i++)
     {
-        qDebug() << " DataProxy_SQLite::lotwSentQSOs: updating QSO: " << QString::number(_qsos.at(i)) << endl;
+        //qDebug() << " DataProxy_SQLite::lotwSentQSOs: updating QSO: " << QString::number(_qsos.at(i)) << endl;
          queryString = QString("UPDATE log SET lotw_qsl_sent = 'Y', lotw_qslsdate = '%1' WHERE id='%2'").arg((QDate::currentDate()).toString("yyyy/MM/dd")).arg(QString::number(_qsos.at(i)));
          sqlOK = query.exec(queryString);
          query.finish();
          if (sqlOK)
          {
-            qDebug() << " DataProxy_SQLite::lotwSentQSOs: exec: " << query.lastQuery() << endl;
+            //qDebug() << " DataProxy_SQLite::lotwSentQSOs: exec: " << query.lastQuery() << endl;
          }
          else
          {
              emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-             qDebug() << " DataProxy_SQLite::lotwSentQSOs: END FALSE"  << endl;
+             //qDebug() << " DataProxy_SQLite::lotwSentQSOs: END FALSE"  << endl;
              return false;
          }
     }
-    qDebug() << " DataProxy_SQLite::lotwSentQSOs: END TRUE"  << endl;
+    //qDebug() << " DataProxy_SQLite::lotwSentQSOs: END TRUE"  << endl;
     return true;
 }
 
@@ -5253,15 +5253,15 @@ int DataProxy_SQLite::getQSOsInMode(const QString &_mode, const int _log)
 bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 {
       //qDebug() << "DataProxy_SQLite::addNewLog: " << _qs.at(2) << "/" << _qs.at(5) << "/" << _qs.at(6) << endl;
-    qDebug() << "DataProxy_SQLite::addNewLog: Size: " << QString::number(_qs.size()) << endl;
+    //qDebug() << "DataProxy_SQLite::addNewLog: Size: " << QString::number(_qs.size()) << endl;
     // newLogq << dateString << stationCallsign << operators << comment << QString::number(selectedLog) << _qs.at(4) ; (last field is 1 or 0 editing)
 
     if (_qs.size()!=6)
     {
-        qDebug() << "DataProxy_SQLite::addNewLog: != 6"  << endl;
+        //qDebug() << "DataProxy_SQLite::addNewLog: != 6"  << endl;
         return false;
     }
-    qDebug() << "DataProxy_SQLite::addNewLog: Has the appropriate length"  << endl;
+    //qDebug() << "DataProxy_SQLite::addNewLog: Has the appropriate length"  << endl;
 
     QString aux = QString();
     //int nameCol = -1;

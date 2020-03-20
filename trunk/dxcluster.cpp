@@ -333,7 +333,7 @@ void DXClusterWidget::setCurrentLog(const int _log)
 
 void DXClusterWidget::slotClusterDataArrived()
 {
-    qDebug() << "DXClusterWidget::slotClusterDataArrived" << endl;
+    //qDebug() << "DXClusterWidget::slotClusterDataArrived" << endl;
     QStringList qs;
     QString dxClusterString;
     QString dxCall;
@@ -687,7 +687,7 @@ bool DXClusterWidget::isConnected()
 
 QStringList DXClusterWidget::readItem(QListWidgetItem * item)
 {
-    qDebug() << "DXClusterWidget::readItem" << endl;
+    //qDebug() << "DXClusterWidget::readItem" << endl;
 
     QStringList fields;
     QString dxClusterString;
@@ -803,17 +803,17 @@ bool DXClusterWidget::openFile()
 
 void DXClusterWidget::saveSpot(const QString &_spot)
 {
-    qDebug() << "DXClusterWidget::saveSpot: " << _spot  << endl;
+    //qDebug() << "DXClusterWidget::saveSpot: " << _spot  << endl;
     if (!saveSpots)
     {
-        qDebug() << "DXClusterWidget::saveSpot: Not saving" << endl;
+        //qDebug() << "DXClusterWidget::saveSpot: Not saving" << endl;
         return;
     }
     else
     {
         if (openFile())
         {
-            qDebug() << "DXClusterWidget::saveSpot: File Open" << endl;
+            //qDebug() << "DXClusterWidget::saveSpot: File Open" << endl;
             QTextStream out(saveSpotsFile);
             //out << _spot << endl;
             out << (QDateTime::currentDateTime()).toString("yyyy/MM/dd-hh:mm:ss") << " - " << _spot  << endl;
@@ -821,7 +821,7 @@ void DXClusterWidget::saveSpot(const QString &_spot)
         }
         else {
             {
-                qDebug() << "DXClusterWidget::saveSpot: File NOT Open" << endl;
+                //qDebug() << "DXClusterWidget::saveSpot: File NOT Open" << endl;
             }
         }
     }

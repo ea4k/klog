@@ -198,7 +198,7 @@ void FileManager::showError (const QString &_txt)
 
 QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const int _logN, bool emptyCall)
 {
-     qDebug() << "FileManager::adifLoTWLogExport: " << _fileName << "/" << _callsign << endl;
+     //qDebug() << "FileManager::adifLoTWLogExport: " << _fileName << "/" << _callsign << endl;
      QList<int> qsos;
      qsos.clear();
 
@@ -271,7 +271,7 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
         }
     }
       out << "ADIF v3.0.7 Export from KLog\nhttps://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
-    qDebug() << "FileManager::adifLoTWLogExport: Number: " << QString::number(numberOfQsos) << endl;
+    //qDebug() << "FileManager::adifLoTWLogExport: Number: " << QString::number(numberOfQsos) << endl;
     out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
 
 
@@ -298,7 +298,7 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
 
 
     sqlOK = query.exec(queryString);
-    qDebug() << "FileManager::adifLoTWLogExport: " << query.lastQuery() << endl;
+    //qDebug() << "FileManager::adifLoTWLogExport: " << query.lastQuery() << endl;
     if (!sqlOK)
     {
          //qDebug() << "FileManager::adifLoTWLogExport: Query Error"  << endl;
@@ -466,11 +466,11 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
 
             nameCol = rec.indexOf("station_callsign");
             aux = (query.value(nameCol)).toString();
-            qDebug() << "FileManager::adifLoTWLogExport: StationCallSign: " << aux  << endl;
+            //qDebug() << "FileManager::adifLoTWLogExport: StationCallSign: " << aux  << endl;
             if (emptyCall)
             { // User selected no call - NONE
                 aux = _callsign;
-                qDebug() << "FileManager::adifLoTWLogExport: StationCallSign - emptycall: " << aux  << endl;
+                //qDebug() << "FileManager::adifLoTWLogExport: StationCallSign - emptycall: " << aux  << endl;
 
             }
             if ((util->isValidCall(aux)))
@@ -523,7 +523,7 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
         }
     }
 
-   qDebug() << "FileManager::adifLoTWLogExport: End of While: " << QString::number(qsos.count()) << endl;
+   //qDebug() << "FileManager::adifLoTWLogExport: End of While: " << QString::number(qsos.count()) << endl;
 
     return qsos;
 }
@@ -3339,7 +3339,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     //int n = 0;
     //QSqlDatabase db = QSqlDatabase::database();
     //int maxLogs = dataProxy->getNumberOfManagedLogs(); // To manage several logs
-
+    usePreviousStationCallsignAnswerAlways = false; // This is to ensure that the StationCallsign is used in the process Line function
     bool sqlOK = true;
     QStringList queries = QStringList();
     queries.clear();
@@ -4940,60 +4940,67 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
         preparedQuery.bindValue( ":rst_rcvd", "59" );
     }
 
-    if ((!hasStationCall) && (!usePreviousStationCallsignAnswerAlways))
+    if ((!hasStationCall)  )
     {
 
-        QMessageBox msgBox;
-
-
-        msgBox.setWindowTitle(tr("KLog: No Station callsign found!"));
-
-        qDebug() << "FileManager::processQsoReadingADIF defaultStationCallsign: " << defaultStationCallsign << endl;
-
-        if (util->isValidCall(defaultStationCallsign))
+        if (!usePreviousStationCallsignAnswerAlways)
         {
-            aux = tr("Some QSO of this log has no Station Callsign.") + "\n\n" + tr("The Station Callsign that is defined is: %1.").arg(defaultStationCallsign) + "\n\n" + tr("If you select YES, KLog will fill the QSOs with that station callsign. If you select NO, no Station Callsign will be defined for those QSOs and that may create some problems in some situations (i.e LoTW upload).");
-            msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+            QMessageBox msgBox;
+            if(getStationCallsignFromUser())
+            {
+                hasStationCall = true;
+            }
+            else
+            {
+
+                msgBox.setWindowTitle(tr("KLog - No Station callsign entered."));
+                msgBox.setIcon(QMessageBox::Warning);
+                msgBox.setText("KLog - No Station callsign entered.");
+                msgBox.setInformativeText("Not entering a valid Station Callsign may create problems in some ocasions, like when uplading data to LoTW.\n\n Do you want to try again?");
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                msgBox.setDefaultButton(QMessageBox::Yes);
+                int ret = msgBox.exec();
+                if (ret == QMessageBox::Yes)
+                {
+                    if (!getStationCallsignFromUser())
+                    {
+                        msgBox.setWindowTitle(tr("KLog - No Station callsign entered."));
+                        msgBox.setIcon(QMessageBox::Warning);
+                        msgBox.setText("KLog - No Station callsign entered.");
+                        msgBox.setInformativeText("No valid station callsign to add to the QSO.");
+                        msgBox.setStandardButtons(QMessageBox::Ok);
+                        msgBox.setDefaultButton(QMessageBox::Ok);
+                        msgBox.exec();
+
+                    }
+                    else
+                    {
+                        hasStationCall = true;
+                    }
+                }
+            }
+
+            msgBox.setWindowTitle(tr("KLog - Apply to all QSO in this log?"));
+            msgBox.setIcon(QMessageBox::Question);
+            msgBox.setText("KLog - Do you want to use the same answer for all the QSO in this log?");
+            msgBox.setInformativeText("KLog can use the same answer that you provided to all the QSO in this logfile when importing it.");
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
             msgBox.setDefaultButton(QMessageBox::Yes);
-        }
-        else
-        {
-            aux = tr("Some QSO of this log has no Station Callsign and there is no Station Callsign defined.") +  "\n\n" + tr("It is recommended that you fix those QSOs as soon as possible as that may create some problems in some situations (i.e LoTW upload)");
-            msgBox.setStandardButtons(QMessageBox::Ok);
-        }
-
-        msgBox.setText(aux);
-        msgBox.setIcon(QMessageBox::Warning);
-        int ret = msgBox.exec();
-        switch (ret) {
-          case QMessageBox::Yes:
-              // Yes was clicked
-                preparedQuery.bindValue( ":station_callsign", defaultStationCallsign );
-              break;
-          default:
-              // should never be reached
-
-              break;
-        }
-
-
-        //QMessageBox msgBox;
-        aux = tr("Do you want to use the same answer for all the QSOs in this log?");
-        msgBox.setText(aux);
-        msgBox.setWindowTitle(tr("KLog: No Station Callsign!"));
-        msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
-        msgBox.setDefaultButton(QMessageBox::Yes);
-        msgBox.setIcon(QMessageBox::Warning);
-        ret = msgBox.exec();
-        switch (ret) {
-          case QMessageBox::Yes:
-              // Yes was clicked
+            int ret = msgBox.exec();
+            if (ret == QMessageBox::Yes)
+            {
                 usePreviousStationCallsignAnswerAlways = true;
-              break;
-          default:
-              // should never be reached
+            }
+            else
+            {
                 usePreviousStationCallsignAnswerAlways = false;
-              break;
+            }
+            }
+        //qDebug() << "FileManager::processQsoReadingADIF defaultStationCallsign: " << defaultStationCallsign << endl;
+
+        if ((hasStationCall) && (util->isValidCall(defaultStationCallsign)))
+        {
+            preparedQuery.bindValue( ":station_callsign", defaultStationCallsign );
         }
 
     }
@@ -5002,6 +5009,24 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
     return true;
 
+}
+
+bool FileManager::getStationCallsignFromUser()
+{
+
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("KLog - QSO without Station Callsign"),
+                                               tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO:"), QLineEdit::Normal,
+                                               "", &ok);
+    if (ok && util->isValidCall(text))
+    {
+        defaultStationCallsign = text.toUpper();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void FileManager::queryPreparation(const int _logN)
@@ -5526,12 +5551,18 @@ bool FileManager::writeBackupDate()
 
 void FileManager::setStationCallSign(const QString& _st)
 {
-    qDebug() << "FileManager::setStationCallSign: " << _st << endl;
-    if (util->isValidCall(defaultStationCallsign))
+    //qDebug() << "FileManager::setStationCallSign: " << _st << endl;
+    if (util->isValidCall(_st))
     {        
+        //qDebug() << "FileManager::setStationCallSign: True" << endl;
         defaultStationCallsign = _st;
-        qDebug() << "FileManager::setStationCallSign: " << defaultStationCallsign << endl;
+        //qDebug() << "FileManager::setStationCallSign: " << defaultStationCallsign << endl;
     }
- qDebug() << "FileManager::setStationCallSign: -" << defaultStationCallsign << endl;
+    else
+    {
+        //qDebug() << "FileManager::setStationCallSign: FALSE" << endl;
+    }
+
+ //qDebug() << "FileManager::setStationCallSign: -" << defaultStationCallsign << "-END" << endl;
 }
 

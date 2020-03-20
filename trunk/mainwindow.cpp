@@ -908,7 +908,7 @@ void MainWindow::slotQRZReturnPressed()
 
 void MainWindow::actionsJustAfterAddingOneQSO()
 {
-    qDebug() << "MainWindow::actionsJustAfterAddingOneQSO" << endl;
+    //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     int lastId = -1;
     needToSave = true;
@@ -6785,21 +6785,26 @@ void MainWindow::updateQSLRecAndSent()
 
 void MainWindow::defineStationCallsign()
 {
-     //qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << endl;
+    //qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     QString logQRZ;
     logQRZ = dataProxy->getStationCallSignFromLog(currentLog);
-       //qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ << endl;
+    //qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ << endl;
 
-    if (world->checkQRZValidFormat(logQRZ))
+    if ((world->checkQRZValidFormat(logQRZ)) && (util->isValidCall(logQRZ)))
     {
+        //qDebug() << "MainWindow::defineStationCallsign TRUE "  << endl;
         stationQRZ = logQRZ;        
     }
     else
     {
+        //qDebug() << "MainWindow::defineStationCallsign FALSE "  << endl;
         stationQRZ = mainQRZ;
     }
+
+    //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ  << endl;
     filemanager->setStationCallSign(stationQRZ);
+    //qDebug() << "MainWindow::defineStationCallsign: AFTER"  << endl;
     myDataTabWidget->setData(myPower, stationQRZ, operatorQRZ, myDataTabWidget->getMyLocator());
     dxccStatusWidget->setMyLocator(myDataTabWidget->getMyLocator());
     logEvent(Q_FUNC_INFO, "END", logSeverity);
