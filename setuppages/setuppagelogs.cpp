@@ -122,6 +122,7 @@ void SetupPageLogs::createNewLog()
     newLog->setEditing(false);
     if (defaultStationCallSign.length()>2)
     {
+        //qDebug() << "SetupPageLogs::createNewLog-1" << endl;
         newLog->setStationCallSign(defaultStationCallSign);
     }
     if (defaultOperators.length()>2)
@@ -159,7 +160,7 @@ void SetupPageLogs::slotEditButtonClicked()
     QString getStationCallSignFromLog(const int _log);
 
     newLog->setEditing(true);
-
+    //qDebug() << "SetupPageLogs::slotEditButtonClicked" << endl;
     newLog->setStationCallSign(dataProxy->getStationCallSignFromLog(selectedLog));
     newLog->setOperators(dataProxy->getOperatorsFromLog(selectedLog));
     newLog->setComment(dataProxy->getCommentsFromLog(selectedLog));

@@ -77,7 +77,7 @@ void PSTRotatorSupport::sendFreq(const int _freq, const int _radio)
      * // Radio is 1..4
         <PST><FREQUENCY>2489200</FREQUENCY><RADIO>1</RADIO></PST>
      */
-    qDebug() << "PSTRotatorSupport::sendFreq: " << QString::number(_freq) << "/" << QString::number(_radio)<< endl;
+    //qDebug() << "PSTRotatorSupport::sendFreq: " << QString::number(_freq) << "/" << QString::number(_radio)<< endl;
     if ((_freq>0) && (_radio>0) && (_radio <5))
     {
         int f = _freq/100;

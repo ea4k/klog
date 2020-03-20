@@ -288,6 +288,7 @@ win32: {
     QMAKE_TARGET_DESCRIPTION = Hamradio logging
     LIBS += -L"C:/radio/hamlib-w32-3.3/lib/gcc" -lhamlib
     INCLUDEPATH += "C:/radio/hamlib-w32-3.3/include/"
+
 }
 
 else:

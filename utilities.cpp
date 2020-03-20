@@ -424,8 +424,10 @@ bool Utilities::isValidDateTime(const QString &_d)
 
 bool Utilities::isValidCall(const QString &_c)
 {
+    //qDebug() << "Utilities::isValidCall: " << _c << endl;
     if (_c.length()<3)
     {
+        //qDebug() << "Utilities::isValidCall: FALSE" << endl;
         return false;
     }
     /*
@@ -439,6 +441,7 @@ bool Utilities::isValidCall(const QString &_c)
     }
     if ()
         */
+    //qDebug() << "Utilities::isValidCall: TRUE" << endl;
     return true;
 }
 
