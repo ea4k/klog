@@ -22,27 +22,6 @@ msgctxt "AboutDialog|"
 msgid "KLog is a free logbook for hamradio operators."
 msgstr "KLog on ilmainen päiväkirja radioamatööreille."
 
-#: ../aboutdialog.cpp:27
-msgctxt "AboutDialog|"
-msgid ""
-"Please know that this is an BETA release and it may contain many "
-"bugs.<br>Backup your data before using this software!"
-msgstr ""
-"Huomaa, että tämä on BETA-julkaisu ja saattaa sisältää monia vikoja. "
-"<br>Varmuuskopioi omat tiedostot ennen tämän ohjelmiston käyttämistä!"
-
-#: ../aboutdialog.cpp:29
-msgctxt "AboutDialog|"
-msgid ""
-"KLog has been fully rewritten from the 0.6.2 to be able to provide a "
-"cross-platform application that runs in the main operating systems (Linux, "
-"macOS & Windows) and provide new functionalities that KLog was not providing."
-msgstr ""
-"KLog on tehty kokonaan uudelleen versiosta 0.6.2:sta, jotta voisimme tarjota "
-"järjestelmäriippumattoman sovelluksen, joka toimii tärkeimmissä "
-"käyttöjärjestelmissä (Linux, MacOS ja Windows), sekä uusia toimintoja, joita "
-"KLog ei aiemmin tarjonnut."
-
 #: ../aboutdialog.cpp:31
 msgctxt "AboutDialog|"
 msgid "Please provide your review in KLog's eHam review page:"
@@ -87,15 +66,6 @@ msgstr ""
 "href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">KLog "
 "kehitystiimin postituslistaa</a>!"
 
-#: ../aboutdialog.cpp:92
-msgctxt "AboutDialog|"
-msgid ""
-"KLog developers have included a feature that reports some user data to the "
-"KLog server with the sole purpose of identifying the number of installed "
-"versions, to focus development in one direction or another taking into "
-"account user's needs."
-msgstr ""
-
 #: ../aboutdialog.cpp:95
 msgctxt "AboutDialog|"
 msgid ""
@@ -111,6 +81,21 @@ msgid ""
 msgstr ""
 "Voit auttaa meitä myös lähettämällä virheilmoituksia tai ohjelmointiapua, "
 "ideoita tai mitä vain, mikä mielestäsi voisi parantaa KLogia."
+
+#: ../aboutdialog.cpp:27
+msgctxt "AboutDialog|"
+msgid ""
+"Please be aware that this is an BETA release and it may contain many "
+"bugs.<br>Backup your data before using this software!"
+msgstr ""
+
+#: ../aboutdialog.cpp:29
+msgctxt "AboutDialog|"
+msgid ""
+"Since 0.6.2, KLog has been fully rewritten to provide a cross-platform "
+"application that runs on all major operating systems (Linux, macOS and "
+"Windows) and to support new functionality."
+msgstr ""
 
 #: ../aboutdialog.cpp:62
 msgctxt "AboutDialog|"
@@ -147,17 +132,14 @@ msgctxt "AboutDialog|"
 msgid "Privacy advisory"
 msgstr "Tietosuojakäytäntö"
 
-#~ msgctxt "AboutDialog|"
-#~ msgid ""
-#~ "KLog developers have included a feature that reports some user data to "
-#~ "the KLog server with the sole purpose of identifying the number of "
-#~ "installed versions, to focus development in one direction or another "
-#~ "taking into account user's needs"
-#~ msgstr ""
-#~ "KLog-kehittäjät ovat sisällyttäneet ominaisuuden, joka raportoi joitakin "
-#~ "käyttäjätietoja KLog-palvelimelle, jonka ainoana tarkoituksena on "
-#~ "tunnistaa asennetut versiot, jotta kehityksessä osataan keskittyä oikeaan "
-#~ "suuntaan, käyttäjien tarpeet huomioiden"
+#: ../aboutdialog.cpp:92
+msgctxt "AboutDialog|"
+msgid ""
+"KLog developers have included a feature that reports some user data to the "
+"KLog server with the sole purpose of identifying the number of installed "
+"versions, to focus development in one direction or another taking into "
+"account users' needs."
+msgstr ""
 
 #: ../aboutdialog.cpp:93
 msgctxt "AboutDialog|"
@@ -178,14 +160,6 @@ msgstr "KLog versio"
 msgctxt "AboutDialog|"
 msgid "Operating system"
 msgstr "Käyttöjärjestelmä"
-
-#~ msgctxt "AboutDialog|"
-#~ msgid ""
-#~ "Be aware that you can enable/disable this feature from the Misc tab in "
-#~ "the Setup page"
-#~ msgstr ""
-#~ "Huomaa, että voit ottaa tämän ominaisuuden käyttöön tai poistaa sen "
-#~ "käytöstä, Sekalaiset-välilehdellä, asetussivulla"
 
 #: ../aboutdialog.cpp:133
 msgctxt "AboutDialog|"
@@ -306,28 +280,24 @@ msgid "Number of worked QSOs."
 msgstr "Työstettyjen QSO:iden määrä."
 
 #: ../awardswidget.cpp:262
-#, fuzzy
 msgctxt "AwardsWidget|"
-msgid "Number of QSOs worked on the selected year."
-msgstr "Työstettyjen QSO:iden määrä, valittuna vuonna."
+msgid "Number of QSOs worked in the selected year."
+msgstr ""
 
 #: ../awardswidget.cpp:263
-#, fuzzy
 msgctxt "AwardsWidget|"
-msgid "Number of DXCC worked on the selected year."
-msgstr "Työstettyjen DXCC:iden määrä, valittuna vuonna."
+msgid "Number of DXCCs worked in the selected year."
+msgstr ""
 
 #: ../awardswidget.cpp:264
-#, fuzzy
 msgctxt "AwardsWidget|"
-msgid "Number of CQ Zones worked on the selected year."
-msgstr "Työstettyjen CQ vyöhykkeiden määrä, valittuna vuonna."
+msgid "Number of CQ Zones worked in the selected year."
+msgstr ""
 
 #: ../awardswidget.cpp:265
-#, fuzzy
 msgctxt "AwardsWidget|"
-msgid "Score for the DXMarathon on the selected year."
-msgstr "DXMarathon pisteet, valittuna vuonna."
+msgid "Score for the DXMarathon in the selected year."
+msgstr ""
 
 #: ../awardswidget.cpp:379
 #, fuzzy
@@ -367,22 +337,12 @@ msgid ""
 "information."
 msgstr ""
 
-#~ msgctxt "CTYPage|"
-#~ msgid ""
-#~ "KLog uses the cty.csv file from http://www.country-files.com/ to get DXCC "
-#~ "information."
-#~ msgstr ""
-#~ "KLog käyttää cty.csv-tiedostoa osoitteesta http://www.country-files.com/ "
-#~ "saadakseen DXCC-tiedot."
-
 #: ../startwizard.cpp:947
 msgctxt "CTYPage|"
 msgid ""
 "You need to download the cty.csv file if you want KLog to show you the "
-"countries, locator, ... of the QSOs you do."
+"countries, locator, etc. of the QSOs you do."
 msgstr ""
-"Sinun on ladattava cty.csv-tiedosto, jos haluat, että KLog näyttää sinulle "
-"maat, lokaattorit, ... tekemillesi QSO:ille."
 
 #: ../startwizard.cpp:949
 msgctxt "CTYPage|"
@@ -407,10 +367,6 @@ msgstr ""
 msgctxt "DXCCStatusWidget|"
 msgid "Update"
 msgstr "Päivitä"
-
-#~ msgctxt "DXCCStatusWidget|"
-#~ msgid "ID"
-#~ msgstr "ID"
 
 #: ../dxccstatuswidget.cpp:318
 msgctxt "DXCCStatusWidget|"
@@ -577,8 +533,8 @@ msgstr "Ohjelmistoversio tietokannassa on tyhjä"
 
 #: ../dataproxy_sqlite.cpp:74
 msgctxt "DataProxy_SQLite|"
-msgid "No query failed"
-msgstr "Kyselyt onnistuivat"
+msgid "Query didn't failed"
+msgstr ""
 
 #: ../dataproxy_sqlite.cpp:3120
 msgctxt ""
@@ -770,47 +726,6 @@ msgctxt "DownLoadCTY|"
 msgid "Could not open %1 for writing"
 msgstr "Ei voitu avata %1 kirjoittamista varten"
 
-#~ msgctxt "FileManager|"
-#~ msgid ""
-#~ "The log that you have selected contains more than just one station "
-#~ "callsign."
-#~ msgstr ""
-#~ "Valitsemasi loki sisältää enemmän kuin vain yhden aseman kutsutunnuksen."
-
-#~ msgctxt "FileManager|"
-#~ msgid "Please select the station callsign you want to export the log from:"
-#~ msgstr "Valitse aseman kutsutunnus, jonka lokin haluat viedä:"
-
-#~ msgctxt "FileManager|"
-#~ msgid "Station Callsign:"
-#~ msgstr "Aseman kutsutunnus:"
-
-#~ msgctxt "FileManager|"
-#~ msgid "Define Station Callsign"
-#~ msgstr "Määritä aseman kutsutunnus"
-
-#~ msgctxt "FileManager|"
-#~ msgid ""
-#~ "You have selected no callsign. KLog will export QSOs without a station "
-#~ "callsign defined and those with the call you are entering here."
-#~ msgstr ""
-#~ "Et ole valinnut kutsutunnusta. KLog vie QSO:t ilman asetettua aseman "
-#~ "kutsutunnusta ja ne, kutsulla jonka syötät tähän."
-
-#~ msgctxt "FileManager|"
-#~ msgid ""
-#~ "Enter the station callsign to use for this log or leave it empty for QSO "
-#~ "without station callsign defined:"
-#~ msgstr ""
-#~ "Syötä tässä lokissa käytettävä aseman kutsutunnus, tai jätä se tyhjäksi "
-#~ "QSO:lle ilman määritettyä aseman kutsutunnusta:"
-
-#~ msgctxt "FileManager|"
-#~ msgid ""
-#~ "No station callsign has been selected and therefore no log will be "
-#~ "exported"
-#~ msgstr "Aseman kutsutunnusta ei ole valittu, joten lokia ei viedä"
-
 #: ../filemanager.cpp:231 ../filemanager.cpp:639
 msgctxt "FileManager|"
 msgid "Writing ADIF file..."
@@ -961,16 +876,36 @@ msgstr ""
 #: ../filemanager.cpp:3813
 msgctxt "FileManager|"
 msgid ""
-"You have cancelled the file import. The file will be removed and no data "
-"will be imported."
+"You have canceled the file import. The file will be removed and no data will "
+"be imported."
 msgstr ""
-"Olet peruuttanut tiedoston tuonnin. Tiedosto poistetaan, eikä tietoja tuoda."
 
-#: ../filemanager.cpp:4834
+#: ../filemanager.cpp:4891
+#, qt-format
 msgctxt "FileManager|"
-msgid "This QSO is not including the minimum data to consider a QSO as valid!."
+msgid "Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information."
 msgstr ""
-"Tämä QSO ei sisällä vähimmäistietoja, jotta QSO:ta voidaan pitää oikeana!"
+
+#: ../filemanager.cpp:4891
+msgctxt "FileManager|"
+msgid "Click on Yes to add a default 59 to all QSOs with a similar problem."
+msgstr ""
+
+#: ../filemanager.cpp:4891
+msgctxt "FileManager|"
+msgid "If you select NO, maybe the QSO will not be imported."
+msgstr ""
+
+#: ../filemanager.cpp:4913
+#, qt-format
+msgctxt "FileManager|"
+msgid "Some QSOs of this log, (i.e.: %1) seems to lack RST-RX information."
+msgstr ""
+
+#: ../filemanager.cpp:4983
+msgctxt "FileManager|"
+msgid "KLog - Apply to all QSOs in this log?"
+msgstr ""
 
 #: ../filemanager.cpp:4834
 msgctxt "FileManager|"
@@ -986,6 +921,11 @@ msgstr "ja"
 msgctxt "FileManager|"
 msgid "This QSO had:"
 msgstr "Tässä QSO:ssa oli:"
+
+#: ../filemanager.cpp:4834
+msgctxt "FileManager|"
+msgid "This QSO is not including the minimum data to consider a QSO as valid!"
+msgstr ""
 
 #: ../filemanager.cpp:4838
 msgctxt "FileManager|"
@@ -1022,20 +962,9 @@ msgctxt "FileManager|"
 msgid "KLog: Not all required data found!"
 msgstr "KLog: kaikkia vaadittavia tietoja ei löydetty!"
 
-#: ../filemanager.cpp:4913
-#, qt-format
-msgctxt "FileManager|"
-msgid "Some QSO of this log, (i.e.: %1) seems to lack of RST-RX information."
-msgstr ""
-
 #: ../filemanager.cpp:4956 ../filemanager.cpp:4967
 msgctxt "FileManager|"
 msgid "KLog - No Station callsign entered."
-msgstr ""
-
-#: ../filemanager.cpp:4983
-msgctxt "FileManager|"
-msgid "KLog - Apply to all QSO in this log?"
 msgstr ""
 
 #: ../filemanager.cpp:5018
@@ -1051,36 +980,22 @@ msgid ""
 "Enter the Station Callsign that was used to do this QSO:"
 msgstr ""
 
-#~ msgctxt "FileManager|"
-#~ msgid "This log seems to lack of RST-TX information."
-#~ msgstr "Tästä lokista näyttää puuttuvan RST-TX-tieto."
-
-#: ../filemanager.cpp:4891 ../filemanager.cpp:4913
+#: ../filemanager.cpp:4913
 msgctxt "FileManager|"
 msgid "Click on Yes to add a default 59 to all QSO with a similar problem."
 msgstr ""
 "Napsauta Kyllä, jos haluat lisätä oletusarvon 59 kaikille QSO:ille, joilla "
 "on vastaava ongelma."
 
-#: ../filemanager.cpp:4891 ../filemanager.cpp:4913
+#: ../filemanager.cpp:4913
 msgctxt "FileManager|"
 msgid "If you select NO, the QSO may not be imported."
 msgstr "Jos valitset EI, QSO:ta ei ehkä tuoda."
-
-#: ../filemanager.cpp:4891
-#, qt-format
-msgctxt "FileManager|"
-msgid "Some QSO of this log, (i.e.: %1) seems to lack of RST-TX information."
-msgstr ""
 
 #: ../filemanager.cpp:4892
 msgctxt "FileManager|"
 msgid "KLog: No RST TX found!"
 msgstr "KLog: RST TX:ää ei löydy!"
-
-#~ msgctxt "FileManager|"
-#~ msgid "This log seems to lack of RST-RX information."
-#~ msgstr "Tästä lokista näyttää puuttuvan RST-RX-tieto."
 
 #: ../filemanager.cpp:4915
 msgctxt "FileManager|"
@@ -1217,17 +1132,14 @@ msgstr ""
 #: ../startwizard.cpp:153
 msgctxt "IntroPage|"
 msgid ""
-"KLog is a free hamradio logging program that can run on Linux macOS and "
+"KLog is a free hamradio logging program that can run on Linux, macOS, and "
 "Windows."
 msgstr ""
-"KLog on ilmainen lokikirjaohjelma radioamatööreille, joka toimii Linuxissa, "
-"macOSissa ja Windowsissa."
 
 #: ../startwizard.cpp:154
 msgctxt "IntroPage|"
-msgid "It is designed to provide general purpose, DX and contest logging."
+msgid "It is designed to provide general purpose DX, and contest logging."
 msgstr ""
-"Se on suunniteltu tarjoamaan yleistä, sekä DX ja kilpailu -lokin pitoa."
 
 #: ../startwizard.cpp:155
 msgctxt "IntroPage|"
@@ -1500,26 +1412,10 @@ msgctxt "MainQSOEntryWidget|"
 msgid "&Modify"
 msgstr "&Muokkaa"
 
-#~ msgctxt "MainWindow|"
-#~ msgid "Recalculate"
-#~ msgstr "Laske uudelleen"
-
 #: ../mainwindow.cpp:130
 msgctxt "MainWindow|"
 msgid "Starting KLog"
 msgstr "Käynnistetään KLog"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "&Add"
-#~ msgstr "&Lisää"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "&Clear"
-#~ msgstr "T&yhjennä"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Status bar..."
-#~ msgstr "Tilapalkki..."
 
 #: ../mainwindow.cpp:105 ../mainwindow.cpp:188
 msgctxt "MainWindow|"
@@ -1530,10 +1426,6 @@ msgstr "DX Yksikkö"
 msgctxt "MainWindow|"
 msgid "&Log Window"
 msgstr "&Loki ikkuna"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "&Score Window"
-#~ msgstr "Pi&steytysikkuna"
 
 #: ../mainwindow.cpp:344
 msgctxt "MainWindow|"
@@ -1549,10 +1441,6 @@ msgstr "MHz"
 msgctxt "MainWindow|"
 msgid "KLog"
 msgstr "KLog"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Annual"
-#~ msgstr "Vuotuinen"
 
 #: ../mainwindow.cpp:650
 msgctxt "MainWindow|"
@@ -1591,10 +1479,6 @@ msgctxt "MainWindow|"
 msgid "Click on the prefix of the right entity or Cancel to correct."
 msgstr "Napsauta oikean yksikön etuliitettä tai paina Peruuta korjataksesi."
 
-#~ msgctxt "MainWindow|"
-#~ msgid "Input"
-#~ msgstr "Syöttö"
-
 #: ../mainwindow.cpp:6496
 msgctxt "MainWindow|"
 msgid "RSTrx"
@@ -1610,43 +1494,15 @@ msgctxt "MainWindow|"
 msgid "QRZ"
 msgstr "QRZ"
 
-#~ msgctxt "MainWindow|"
-#~ msgid "STX"
-#~ msgstr "STX"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "SRX"
-#~ msgstr "SRX"
-
 #: ../mainwindow.cpp:2465
 msgctxt "MainWindow|"
 msgid "Do you really want to exit KLog?"
 msgstr ""
 
-#~ msgctxt "MainWindow|"
-#~ msgid "NEW MULT"
-#~ msgstr "NEW MULT"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Invalid characters used in the QRZ"
-#~ msgstr "Virheellisiä merkkejä käytetty QRZ:ssa"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Ready..."
-#~ msgstr "Valmis..."
-
 #: ../mainwindow.cpp:2945
 msgctxt "MainWindow|"
 msgid "&File"
 msgstr "&Tiedosto"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "&New..."
-#~ msgstr "&Uusi..."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "&Open..."
-#~ msgstr "&Avaa..."
 
 #: ../mainwindow.cpp:2956
 msgctxt "MainWindow|"
@@ -1657,10 +1513,6 @@ msgstr "Tu&o ADIF-tiedostosta..."
 msgctxt "MainWindow|"
 msgid "Import an ADIF file into the current log."
 msgstr "Tuo ADIF-tiedosto nykyiseen lokiin."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "&Save As..."
-#~ msgstr "Tallenna &nimellä..."
 
 #: ../mainwindow.cpp:2976
 msgctxt "MainWindow|"
@@ -1800,65 +1652,21 @@ msgctxt "MainWindow|"
 msgid "&Find DX-QSLs pending to receive"
 msgstr "&Etsi DX-QSL:t jotka odottavat vastaanottoa"
 
-#: ../mainwindow.cpp:3057
-msgctxt "MainWindow|"
-msgid ""
-"Shows the DX-QSL that has been requested or QSLs has been sent with no "
-"answer."
-msgstr ""
-"Näyttää DX-QSL:t jotka on pyydetty, tai QSL:t on lähetetty ilman vastausta."
-
 #: ../mainwindow.cpp:3059
 msgctxt "MainWindow|"
 msgid "&Find requested pending to receive"
 msgstr "&Etsi vastaanottoa odottavat"
-
-#: ../mainwindow.cpp:3062
-msgctxt "MainWindow|"
-msgid "Shows the DX-QSL that has been requested."
-msgstr "Näyttää DX-QSL:n jota on pyydetty."
 
 #: ../mainwindow.cpp:3065
 msgctxt "MainWindow|"
 msgid "LoTW tools..."
 msgstr "LoTW työkalut..."
 
-#: ../mainwindow.cpp:3067
-msgctxt "MainWindow|"
-msgid "Queue all QSL to be sent of this log"
-msgstr "Aseta jonoon kaikki tämän lokin QSL:t"
-
-#: ../mainwindow.cpp:3070
-msgctxt "MainWindow|"
-msgid "Mark all non sent QSOs in this log as queued to be uploaded."
-msgstr ""
-"Merkitse kaikki tässä lokissa olevat lähettämättömät QSO:t lähetysjonoon."
-
-#: ../mainwindow.cpp:3072
-msgctxt "MainWindow|"
-msgid "Queue all QSL to be sent"
-msgstr "Aseta jonoon kaikki tämän lokin QSL:t"
-
-#: ../mainwindow.cpp:3075
-msgctxt "MainWindow|"
-msgid "Mark all non sent QSOs as queued to be uploaded."
-msgstr "Merkitse kaikki lähettämättömät QSO:t lähetysjonoon."
-
-#: ../mainwindow.cpp:3079
-msgctxt "MainWindow|"
-msgid "Mark as sent all queued QSO of this log"
-msgstr "Merkitse kaikki tämän lokin jonossa olevat QSO:t lähetetyiksi"
-
 #: ../mainwindow.cpp:3082
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs in this log as sent to LoTW."
 msgstr ""
 "Merkitse kaikki tämän lokin jonossa olevat QSO:t lähetetyiksi LoTW:iin."
-
-#: ../mainwindow.cpp:3084
-msgctxt "MainWindow|"
-msgid "Mark all queued QSO as sent"
-msgstr "Merkitse kaikki jonossa olevat QSO:t lähetetyiksi"
 
 #: ../mainwindow.cpp:3087
 msgctxt "MainWindow|"
@@ -1953,11 +1761,6 @@ msgctxt "MainWindow|"
 msgid "KLog LoTW"
 msgstr "KLog LoTW"
 
-#: ../mainwindow.cpp:3212
-msgctxt "MainWindow|"
-msgid "All pending QSO of this log has been marked as queued for LoTW!"
-msgstr "Kaikki tämän lokin odottavat QSO:t on merkattu jonoon LOTW:iä varten!"
-
 #: ../mainwindow.cpp:3212 ../mainwindow.cpp:3237
 msgctxt "MainWindow|"
 msgid ""
@@ -1966,17 +1769,6 @@ msgid ""
 msgstr ""
 "Nyt voit mennä Tiedostot valikkoon viedäksesi LoTW:n ADIF-tiedostoon ja "
 "lataa se LoTW:iin."
-
-#: ../mainwindow.cpp:3221 ../mainwindow.cpp:3245
-msgctxt "MainWindow|"
-msgid ""
-"There was a problem to mark all pending QSO of this log as queued for LoTW!"
-msgstr "Odottavien QSO:iden merkinnässä jonoon LoTW:iä varten ilmeni ongelma!"
-
-#: ../mainwindow.cpp:3237
-msgctxt "MainWindow|"
-msgid "All pending QSO has been marked as queued for LoTW!"
-msgstr "Kaikki odottavat QSO:t on merkattu jonoon LOTW:iä varten!"
 
 #: ../mainwindow.cpp:3266
 msgctxt "MainWindow|"
@@ -2111,30 +1903,6 @@ msgid ""
 "No station callsign has been selected and therefore no log will be marked"
 msgstr "Aseman kutsutunnusta ei ole valittu, joten lokia ei merkata"
 
-#: ../mainwindow.cpp:3422
-msgctxt "MainWindow|"
-msgid "All queued QSO of this log has been marked as sent for LoTW!"
-msgstr ""
-"Kaikki tämän lokin jonossa olevat QSO:t on merkattu lähetetyiksi LOTW:iin!"
-
-#: ../mainwindow.cpp:3430
-msgctxt "MainWindow|"
-msgid ""
-"There was a problem to mark all queued QSO of this log as sent for LoTW!"
-msgstr "Kaikkien QSO:iden merkinnässä lähetetyiksi LoTW:iin, ilmeni ongelma!"
-
-#: ../mainwindow.cpp:3449
-msgctxt "MainWindow|"
-msgid "All queued QSO has been marked as sent to LoTW!"
-msgstr "Kaikki jonossa olevat QSO:t on merkattu lähetetyiksi LoTW:iin!"
-
-#: ../mainwindow.cpp:3457
-msgctxt "MainWindow|"
-msgid "There was a problem to mark all queued QSO of this log as sent to LoTW!"
-msgstr ""
-"Kaikkien jonossa olevien QSO:iden merkinnässä lähetetyiksi LoTW:iin, ilmeni "
-"ongelma!"
-
 #: ../mainwindow.cpp:3467
 msgctxt "MainWindow|"
 msgid "About..."
@@ -2155,49 +1923,16 @@ msgctxt "MainWindow|"
 msgid "You already have the latest version."
 msgstr "Sinulla on jo viimeisin versio."
 
-#~ msgctxt "MainWindow|"
-#~ msgid "Nothing has been saved. You have to select a valid file type."
-#~ msgstr ""
-#~ "Mitään ei ole tallennettu. Sinun täytyy valita oikea tiedostotyyppi."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Save File"
-#~ msgstr "Tallenna tiedosto"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "ADIF file"
-#~ msgstr "ADIF-tiedosto"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Cabrillo files"
-#~ msgstr "Cabrillo-tiedostot"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Any file"
-#~ msgstr "Kaikki tiedostot"
-
 #: ../mainwindow.cpp:3787
 msgctxt "MainWindow|"
 msgid "You can find the KLog data folder here: "
 msgstr "KLog talletuskansio löytyy täältä: "
-
-#~ msgctxt "MainWindow|"
-#~ msgid "DUPE"
-#~ msgstr "DUPE"
 
 #: ../mainwindow.cpp:4927
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "DX Locator"
 msgstr "DX lokaattori"
-
-#~ msgctxt "MainWindow|"
-#~ msgid ""
-#~ "Filling DXCC in QSOs...\n"
-#~ " QSO: "
-#~ msgstr ""
-#~ "Täytetään DXCC QSO:n\n"
-#~ " QSO:"
 
 #: ../mainwindow.cpp:7047
 msgctxt "MainWindow|"
@@ -2302,15 +2037,117 @@ msgctxt "MainWindow|"
 msgid "KLog - Exit"
 msgstr ""
 
+#: ../mainwindow.cpp:3057
+msgctxt "MainWindow|"
+msgid "Shows DX-QSLs for which requests or QSLs have been sent with no answer."
+msgstr ""
+
+#: ../mainwindow.cpp:3062
+msgctxt "MainWindow|"
+msgid "Shows the DX-QSLs that have been requested."
+msgstr ""
+
+#: ../mainwindow.cpp:3067
+msgctxt "MainWindow|"
+msgid "Queue all QSLs from this log to be sent"
+msgstr ""
+
+#: ../mainwindow.cpp:3070
+msgctxt "MainWindow|"
+msgid "Mark all non-sent QSOs in this log as queued to be uploaded."
+msgstr ""
+
+#: ../mainwindow.cpp:3072
+msgctxt "MainWindow|"
+msgid "Queue all QSLs to be sent"
+msgstr ""
+
+#: ../mainwindow.cpp:3075
+msgctxt "MainWindow|"
+msgid "Put all the non-sent QSOs in the queue to be uploaded."
+msgstr ""
+
+#: ../mainwindow.cpp:3079
+msgctxt "MainWindow|"
+msgid "Mark as sent all queued QSOs of this log"
+msgstr ""
+
+#: ../mainwindow.cpp:3084
+msgctxt "MainWindow|"
+msgid "Mark all queued QSOs as sent"
+msgstr ""
+
+#: ../mainwindow.cpp:3212
+msgctxt "MainWindow|"
+msgid "All pending QSOs of this log has been marked as queued for LoTW!"
+msgstr ""
+
+#: ../mainwindow.cpp:3221 ../mainwindow.cpp:3245
+msgctxt "MainWindow|"
+msgid ""
+"There was a problem to mark all pending QSOs of this log as queued for LoTW!"
+msgstr ""
+
+#: ../mainwindow.cpp:3237
+msgctxt "MainWindow|"
+msgid "All pending QSOs has been marked as queued for LoTW!"
+msgstr ""
+
+#: ../mainwindow.cpp:3422
+msgctxt "MainWindow|"
+msgid "All queued QSOs of this log has been marked as sent for LoTW!"
+msgstr ""
+
+#: ../mainwindow.cpp:3430
+msgctxt "MainWindow|"
+msgid ""
+"There was a problem to mark all queued QSOs of this log as sent for LoTW!"
+msgstr ""
+
+#: ../mainwindow.cpp:3449
+msgctxt "MainWindow|"
+msgid "All queued QSOs has been marked as sent to LoTW!"
+msgstr ""
+
+#: ../mainwindow.cpp:3457
+msgctxt "MainWindow|"
+msgid ""
+"There was a problem to mark all queued QSOs of this log as sent to LoTW!"
+msgstr ""
+
 #: ../mainwindow.cpp:4031
 msgctxt "MainWindow|"
 msgid "stop"
 msgstr "pysäytys"
 
-#: ../mainwindow.cpp:4471
+#: ../mainwindow.cpp:7277
 msgctxt "MainWindow|"
-msgid "It seems that there are no QSO in the database."
-msgstr "Näyttää siltä ettei tietokannassa ole QSO:ta."
+msgid "KLog - Non-supported mode"
+msgstr ""
+
+#: ../mainwindow.cpp:7280
+msgctxt "MainWindow|"
+msgid ""
+"A new mode not supported by KLog has been received from an external program "
+"or radio:"
+msgstr ""
+
+#: ../mainwindow.cpp:7280
+msgctxt "MainWindow|"
+msgid ""
+"Do you want to keep receiving these alerts? (disabling these alerts will "
+"prevent non-valid modes being detected)"
+msgstr ""
+
+#: ../mainwindow.cpp:7469
+msgctxt "MainWindow|"
+msgid "Recommendation:"
+msgstr ""
+
+#: ../mainwindow.cpp:7469
+msgctxt "MainWindow|"
+msgid "Periodically export your data to ADIF to prevent a potential data loss."
+msgstr ""
 
 #: ../mainwindow.cpp:4471
 msgctxt "MainWindow|"
@@ -2321,6 +2158,11 @@ msgstr ""
 "Jos olet varma että tietokannassa on QSO:ita ja KLog ei löydä niitä, voit "
 "ottaa yhteyttä kehittäjiin saadaksesi apua (katso valikon kohta Tietoja "
 "KLogista)"
+
+#: ../mainwindow.cpp:4471
+msgctxt "MainWindow|"
+msgid "It seems that there are no QSOs in the database."
+msgstr ""
 
 #: ../mainwindow.cpp:4586
 msgctxt "MainWindow|"
@@ -2407,6 +2249,42 @@ msgid ""
 "cause errors in your uploaded logs</b>."
 msgstr ""
 
+#: ../mainwindow.cpp:5394
+#, qt-format
+msgctxt "MainWindow|"
+msgid ""
+"If you click on 'Yes' KLog will fill all the QSOs with your Station Callsign "
+"<b>(%1)</b> automatically."
+msgstr ""
+
+#: ../mainwindow.cpp:5394
+#, qt-format
+msgctxt "MainWindow|"
+msgid "Do you want to fill all the QSOs with the Station Callsign: %1?"
+msgstr ""
+
+#: ../mainwindow.cpp:5394
+msgctxt "MainWindow|"
+msgid "(If you answer 'No', no QSOs will be exported to LoTW)"
+msgstr ""
+
+#: ../mainwindow.cpp:5447
+msgctxt "MainWindow|"
+msgid "After uploading: mark as sent all the queued QSOs (LoTW Tools)."
+msgstr ""
+
+#: ../mainwindow.cpp:5459
+msgctxt "MainWindow|"
+msgid "There was no QSOs to be exported."
+msgstr ""
+
+#: ../mainwindow.cpp:5459
+msgctxt "MainWindow|"
+msgid ""
+"If you think that some QSOs should have been exported, please look for them "
+"and ensure that the eQSL LoTW QSL sent box is marked as:"
+msgstr ""
+
 #: ../mainwindow.cpp:6128
 msgctxt "MainWindow|"
 msgid "My QTH locator."
@@ -2427,14 +2305,6 @@ msgctxt "MainWindow|"
 msgid "Locator of the DX."
 msgstr "DX:n lokaattori."
 
-#~ msgctxt "MainWindow|"
-#~ msgid "QRZ of the QSO."
-#~ msgstr "QSO:n QRZ."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Click to recalculate the award status."
-#~ msgstr "Napsauta laskeaksesi palkintotilanne uudestaan."
-
 #: ../mainwindow.cpp:4864
 msgctxt "MainWindow|"
 msgid "TX RST."
@@ -2444,38 +2314,6 @@ msgstr "TX RST."
 msgctxt "MainWindow|"
 msgid "RX RST."
 msgstr "RX RST."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "TX Exchange."
-#~ msgstr "TX Exchange."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "RX Exchange."
-#~ msgstr "RX Exchange."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Band of the QSO."
-#~ msgstr "QSO:n taajuusalue."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Mode of the QSO."
-#~ msgstr "QSO:n moodi."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Date of the QSO."
-#~ msgstr "QSO:n päivämäärä."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Time of the QSO."
-#~ msgstr "QSO:n aika."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Add the QSO to the log."
-#~ msgstr "Lisää QSO lokiin."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Clear the box."
-#~ msgstr "Tyhjennä ruutu."
 
 #: ../mainwindow.cpp:2900
 msgctxt "MainWindow|"
@@ -2497,62 +2335,6 @@ msgstr ""
 "UDP-palvelinvirhe\n"
 "UDP-palvelin ei onnistunut %1."
 
-#~ msgctxt "MainWindow|"
-#~ msgid "Clears the QSO entry."
-#~ msgstr "Poistaa QSO merkinnän."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Number of confirmed DXCC entities."
-#~ msgstr "Vahvistettujen DXCC-yksiköiden määrä."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Number of worked DXCC entities."
-#~ msgstr "Työstettyjen DXCC-yksiköiden määrä."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Number of confirmed WAZ zones."
-#~ msgstr "Vahvistettujen WAZ vyöhykkeiden määrä."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Number of worked WAZ zones."
-#~ msgstr "Työstettyjen WAZ vyöhykkeiden määrä."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Number of confirmed local references."
-#~ msgstr "Vahvistettujen paikallisten referenssien määrä."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Number of worked local references."
-#~ msgstr "Työstettyjen paikallisten referenssien määrä."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Number of confirmed QSOs."
-#~ msgstr "Vahvistettujen QSO:iden määrä."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Number of worked QSOs."
-#~ msgstr "Työstettyjen QSO:iden määrä."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Number of QSOs worked on the selected year."
-#~ msgstr "Työstettyjen QSO:iden määrä, valittuna vuonna."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Number of DXCC worked on the selected year."
-#~ msgstr "Työstettyjen DXCC:iden määrä, valittuna vuonna."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Number of CQ Zones worked on the selected year."
-#~ msgstr "Työstettyjen CQ vyöhykkeiden määrä, valittuna vuonna."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Score for the DXMarathon on the selected year."
-#~ msgstr "DXMarathon pisteet, valittuna vuonna."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Select the year you want to check."
-#~ msgstr "Valitse vuosi jonka haluat nähdä."
-
 #: ../mainwindow.cpp:4869
 msgctxt "MainWindow|"
 msgid "Status of the DX entity."
@@ -2572,10 +2354,6 @@ msgstr "Nimi"
 msgctxt "MainWindow|"
 msgid "QTH"
 msgstr "QTH"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Locator"
-#~ msgstr "Lokaattori"
 
 #: ../mainwindow.cpp:4930
 msgctxt "MainWindow|"
@@ -2637,51 +2415,15 @@ msgctxt "MainWindow|"
 msgid "Satellite"
 msgstr "Satelliitti"
 
-#~ msgctxt "MainWindow|"
-#~ msgid "QSOs"
-#~ msgstr "QSO:t"
-
 #: ../mainwindow.cpp:5191
 msgctxt "MainWindow|"
 msgid "DXCC"
 msgstr "DXCC"
 
-#~ msgctxt "MainWindow|"
-#~ msgid "CQ"
-#~ msgstr "CQ"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Score"
-#~ msgstr "Pisteet"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "DX-Marathon"
-#~ msgstr "DX-Maratoni"
-
 #: ../mainwindow.cpp:5098
 msgctxt "MainWindow|"
 msgid "Info"
 msgstr "Info"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Award"
-#~ msgstr "Palkinto"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Confirmed"
-#~ msgstr "Vahvistettu"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Worked"
-#~ msgstr "Työstetty"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "WAZ"
-#~ msgstr "WAZ"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Local"
-#~ msgstr "Paikallinen"
 
 #: ../mainwindow.cpp:5185
 msgctxt "MainWindow|"
@@ -2716,25 +2458,6 @@ msgid ""
 "callsign defined."
 msgstr ""
 
-#: ../mainwindow.cpp:5394
-#, qt-format
-msgctxt "MainWindow|"
-msgid ""
-"If you click on 'Yes' KLog will fill all the QSO with your Station Callsign "
-"<b>(%1)</b> automatically."
-msgstr ""
-
-#: ../mainwindow.cpp:5394
-#, qt-format
-msgctxt "MainWindow|"
-msgid "Do you want to fill all the QSO with the Station Callsign: %1?"
-msgstr ""
-
-#: ../mainwindow.cpp:5394
-msgctxt "MainWindow|"
-msgid "(If you answer 'No', no QSO will be exported to LoTW)"
-msgstr ""
-
 #: ../mainwindow.cpp:5447
 msgctxt "MainWindow|"
 msgid "LoTW logfile has been properly exported!"
@@ -2750,50 +2473,15 @@ msgctxt "MainWindow|"
 msgid "Before uploading: sign the LoTW log; and"
 msgstr "Ennen lataamista: allekirjoita LoTW loki; ja"
 
-#: ../mainwindow.cpp:5447
-msgctxt "MainWindow|"
-msgid "After uploading: mark as sent all the queued QSO (LoTW Tools)."
-msgstr ""
-"Lataamisen jälkeen, merkkaa kaikki jonossa olevat QSO:t lähetetyiksi (LoTW "
-"työkalut)."
-
-#: ../mainwindow.cpp:5459
-msgctxt "MainWindow|"
-msgid "There was no QSO to be exported."
-msgstr "Vietäviä QSO:ita ei ollut."
-
-#: ../mainwindow.cpp:5459
-msgctxt "MainWindow|"
-msgid ""
-"If you think that some QSO should have been exported, please look for them "
-"and ensure that the eQSL LoTW QSL sent box is marked as:"
-msgstr ""
-"Jos uskot, että joitakin QSO:ita olisi pitänyt viedä, etsi niitä ja "
-"varmista, että eQSL LoTW QSL lähetetty laatikko on merkitty seuraavasti: "
-
 #: ../mainwindow.cpp:5459
 msgctxt "MainWindow|"
 msgid "Q - Queued"
 msgstr "J - Jonossa"
 
-#~ msgctxt "MainWindow|"
-#~ msgid ""
-#~ "There was an error while exporting the LoTW. The log has not been "
-#~ "exported!"
-#~ msgstr "LotW viennissä tapahtui virhe. Lokin vienti epäonnistui!"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Save Cabrillo File"
-#~ msgstr "Tallenna Cabrillo Tiedosto"
-
 #: ../mainwindow.cpp:5521 ../mainwindow.cpp:5547
 msgctxt "MainWindow|"
 msgid "Open File"
 msgstr "Avaa Tiedosto"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "&Modify"
-#~ msgstr "&Muokkaa"
 
 #: ../mainwindow.cpp:6136
 msgctxt "MainWindow|"
@@ -2937,20 +2625,6 @@ msgctxt "MainWindow|"
 msgid "Local-Grid"
 msgstr "Paikallisverkko"
 
-#: ../mainwindow.cpp:7277
-msgctxt "MainWindow|"
-msgid "KLog - Non supported mode"
-msgstr ""
-
-#: ../mainwindow.cpp:7280
-msgctxt "MainWindow|"
-msgid ""
-"Do you want to keep receiving this alerts? (disabling this alerts will "
-"prevent that non-valid modes are detected)"
-msgstr ""
-"Haluatko jatkossa saada tämän ilmoituksen? (Mikäli ilmoitus poistetaan "
-"käytöstä, ei tuettuja tiloja ei tunnisteta)"
-
 #: ../mainwindow.cpp:7280
 msgctxt "MainWindow|"
 msgid ""
@@ -2959,14 +2633,6 @@ msgid ""
 msgstr ""
 "Mikäli vastaanotettu tila on oikea, ota yhteyttä KLog-kehitystiimiin ja "
 "pyydä tukea kyseiselle tilalle"
-
-#: ../mainwindow.cpp:7280
-msgctxt "MainWindow|"
-msgid ""
-"A new mode not supported by KLog has been received from an external software "
-"or radio:"
-msgstr ""
-"Uusi moodi jota KLog ei tue, saatiin ulkoisesta ohjelmistosta tai radiosta:"
 
 #: ../mainwindow.cpp:7452
 msgctxt "MainWindow|"
@@ -3030,19 +2696,6 @@ msgstr "Virheteksti"
 msgctxt "MainWindow|"
 msgid "Failed query"
 msgstr "Epäonnistunut kysely"
-
-#: ../mainwindow.cpp:7469
-msgctxt "MainWindow|"
-msgid "Recomendation:"
-msgstr "Suositus:"
-
-#: ../mainwindow.cpp:7469
-#, fuzzy
-msgctxt "MainWindow|"
-msgid ""
-"Export, periodically, your data to ADIF to prevent a potential data loss."
-msgstr ""
-"Vie tietosi ADIF:iin säännöllisesti, välttääksesi tietojesi katoaminen."
 
 #: ../mainwindow.cpp:7476
 msgctxt "MainWindow|"
@@ -3259,10 +2912,6 @@ msgctxt "MainWindowInputQSL|"
 msgid "QSL via information."
 msgstr "QSL -kautta tieto."
 
-#~ msgctxt "MainWindowMyDataTab|"
-#~ msgid "Watt"
-#~ msgstr "Wattia"
-
 #: ../mainwindowmydatatab.cpp:65
 #, fuzzy
 msgctxt "MainWindowMyDataTab|"
@@ -3448,11 +3097,9 @@ msgstr "QSO:ssa oleva satelliitti on: "
 #: ../mainwindowsattab.cpp:441
 msgctxt "MainWindowSatTab|"
 msgid ""
-"Please know that the satellite name will not be saved if it is not in the "
-"list so that information may be lost!"
+"Please be aware that the satellite name will not be saved if it is not in "
+"the list, so that information may be lost!"
 msgstr ""
-"Huomaa, että satelliitin nimi ei tallennu, jos se ei ole listalla, joten "
-"satelliitin tiedot voivat kadota!"
 
 #: ../mainwindowsattab.cpp:531
 #, fuzzy
@@ -3566,10 +3213,8 @@ msgstr "Aseman kutsutunnus"
 msgctxt "QObject|"
 msgid ""
 "All the data was migrated correctly. You should now go to "
-"Setup->Preferences->Logs to check that everything is OK."
+"Setup->Preferences->Logs to check that everything is okay."
 msgstr ""
-"Kaikki tiedot siirrettiin oikein. Sinun pitäisi nyt mennä Asetukset-> "
-"Lisäasetukset-> Lokit  tarkistaaksesi, että kaikki on OK."
 
 #: ../database.cpp:3608 ../database.cpp:3629
 msgctxt "QObject|"
@@ -3867,23 +3512,43 @@ msgstr "Merkitse minun QSL pyydetyksi"
 
 #: ../searchwidget.cpp:846
 msgctxt "SearchWidget|"
-msgid "Via Direct && mark DX QSL as requested"
-msgstr "Direct:in kautta && merkitse DX QSL pyydetyksi"
+msgid "Via Direct and mark DX QSL as requested"
+msgstr ""
 
 #: ../searchwidget.cpp:847
 msgctxt "SearchWidget|"
-msgid "Send this QSL via direct & mark DX QSL as requested"
-msgstr "Lähetä tämä QSL direct:in kautta & merkitse DX QSL pyydetyksi"
+msgid "Send this QSL via direct and mark DX QSL as requested"
+msgstr ""
 
 #: ../searchwidget.cpp:850
 msgctxt "SearchWidget|"
-msgid "Via Bureau && mark DX QSL as requested"
-msgstr "Bureau:n kautta && merkitse DX QSL pyydetyksi"
+msgid "Via Bureau and mark DX QSL as requested"
+msgstr ""
 
 #: ../searchwidget.cpp:851
 msgctxt "SearchWidget|"
-msgid "Send this QSL via bureau & mark DX QSL as requested"
-msgstr "Lähetä tämä QSL bureau:n kautta & merkitse DX QSL pyydetyksi"
+msgid "Send this QSL via bureau and mark DX QSL as requested"
+msgstr ""
+
+#: ../searchwidget.cpp:861
+msgctxt "SearchWidget|"
+msgid "Via bureau and mark my QSL as requested"
+msgstr ""
+
+#: ../searchwidget.cpp:862
+msgctxt "SearchWidget|"
+msgid "QSL received via bureau and mark my QSL as requested"
+msgstr ""
+
+#: ../searchwidget.cpp:870
+msgctxt "SearchWidget|"
+msgid "Direc&t and mark as my QSL requested"
+msgstr ""
+
+#: ../searchwidget.cpp:871
+msgctxt "SearchWidget|"
+msgid "QSL received via direct and mark my QSL as requested"
+msgstr ""
 
 #: ../searchwidget.cpp:855
 msgctxt "SearchWidget|"
@@ -3895,16 +3560,6 @@ msgctxt "SearchWidget|"
 msgid "Mark the QSL as requested"
 msgstr "Merkitse QSL pyydetyksi"
 
-#: ../searchwidget.cpp:861
-msgctxt "SearchWidget|"
-msgid "Via bureau && mark my QSL as requested"
-msgstr "Bureau:n kautta && merkitse minun QSL pyydetyksi"
-
-#: ../searchwidget.cpp:862
-msgctxt "SearchWidget|"
-msgid "QSL received via bureau & mark my QSL as requested"
-msgstr "QSL vastaanotettu bureau:n kautta & merkitse minun QSL pyydetyksi"
-
 #: ../searchwidget.cpp:865
 msgctxt "SearchWidget|"
 msgid "Via bureau"
@@ -3914,16 +3569,6 @@ msgstr "Bureau:n kautta"
 msgctxt "SearchWidget|"
 msgid "QSL received via bureau"
 msgstr "QSL vastaanotettu bureau:n kautta"
-
-#: ../searchwidget.cpp:870
-msgctxt "SearchWidget|"
-msgid "Direc&t && mark as my QSL requested"
-msgstr "Direc&t && merkitse minun QSL pyydetyksi"
-
-#: ../searchwidget.cpp:871
-msgctxt "SearchWidget|"
-msgid "QSL received via direct & mark my QSL as requested"
-msgstr "QSL vastaanotettu direct:in kautta & merkitse minun QSL pyydetyksi"
 
 #: ../searchwidget.cpp:874
 msgctxt "SearchWidget|"
@@ -4016,7 +3661,13 @@ msgctxt "SetupDialog|"
 msgid "Cancel"
 msgstr "Peru"
 
-#: ../setupdialog.cpp:109 ../setupdialog.cpp:205
+#: ../setupdialog.cpp:109
+#, fuzzy
+msgctxt "SetupDialog|"
+msgid "Ok"
+msgstr "Ok"
+
+#: ../setupdialog.cpp:205
 msgctxt "SetupDialog|"
 msgid "OK"
 msgstr "OK"
@@ -4156,6 +3807,12 @@ msgctxt "SetupEntityDialog|"
 msgid "Comma separated possible prefixes, e.g. EA1, EA2, ..."
 msgstr "Mahdolliset etuliitteet, pilkulla eroteltuina, esim. OH1, OH2, ..."
 
+#: ../setuppages/setupentitydialog.cpp:121
+#, fuzzy
+msgctxt "SetupEntityDialog|"
+msgid "Ok"
+msgstr "Ok"
+
 #: ../setuppages/setupentitydialog.cpp:71
 msgctxt "SetupEntityDialog|"
 msgid "Name of the Entity."
@@ -4206,11 +3863,6 @@ msgstr "Poistettu"
 msgctxt "SetupEntityDialog|"
 msgid "Cancel"
 msgstr "Peru"
-
-#: ../setuppages/setupentitydialog.cpp:121
-msgctxt "SetupEntityDialog|"
-msgid "OK"
-msgstr "OK"
 
 #: ../setuppages/setupentitydialog.cpp:209
 msgctxt "SetupEntityDialog|"
@@ -4473,23 +4125,6 @@ msgctxt "SetupPageHamLib|"
 msgid ""
 "Activates the hamlib support that will enable the connection to a radio."
 msgstr "Aktivoi hamlib tuen joka mahdollistaa yhteyden radioon."
-
-#~ msgctxt "SetupPageHamLib|"
-#~ msgid "RTS on"
-#~ msgstr "RTS päällä"
-
-#, fuzzy
-#~ msgctxt "SetupPageHamLib|"
-#~ msgid "Setting RTS may be needed for some serial ports."
-#~ msgstr "RTS:n asetus voi olla vaadittu joillekkin sarjaporteille."
-
-#~ msgctxt "SetupPageHamLib|"
-#~ msgid "DTR on"
-#~ msgstr "DTR päällä"
-
-#~ msgctxt "SetupPageHamLib|"
-#~ msgid "Setting DTR may be needed for some serial ports."
-#~ msgstr "DTR:n asetus voi olla vaadittu joillekkin sarjaporteille."
 
 #: ../setuppages/setuppagehamlib.cpp:54
 msgctxt "SetupPageHamLib|"
@@ -4784,8 +4419,8 @@ msgstr "Haluatko varmasti poistaa tämän lokin?"
 
 #: ../setuppages/setuppagelogs.cpp:230
 msgctxt "SetupPageLogs|"
-msgid "All the QSOs from this log will be also deleted..."
-msgstr "Lokista poistetaan myös kaikki QSO:t..."
+msgid "All the QSOs from this log will also be deleted..."
+msgstr ""
 
 #: ../setuppages/setuppagelogs.cpp:262
 msgctxt "SetupPageLogs|"
@@ -4827,10 +4462,6 @@ msgctxt "SetupPageLogs|"
 msgid "Comments"
 msgstr "Kommentit"
 
-#~ msgctxt "SetupPageLogs|"
-#~ msgid "Type"
-#~ msgstr "Tyyppi"
-
 #: ../setuppages/setuppagelogs.cpp:689
 msgctxt "SetupPageLogs|"
 msgid "An error has occurred showing the following error code:"
@@ -4871,10 +4502,6 @@ msgctxt "SetupPageLogsNew|"
 msgid "&Cancel"
 msgstr "Peru"
 
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select categories"
-#~ msgstr "Valitse kategoriat"
-
 #: ../setuppages/setuppagelogsnew.cpp:162
 msgctxt "SetupPageLogsNew|"
 msgid "Callsign used for this log."
@@ -4895,68 +4522,6 @@ msgctxt "SetupPageLogsNew|"
 msgid "Add a comment about this log."
 msgstr "Lisää kommentti tästä lokista."
 
-#, fuzzy
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the kind of operation for this log."
-#~ msgstr "Valitse operaation tyyppi tälle lokille."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the mode category."
-#~ msgstr "Valitse moodi kategoria."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the operators category."
-#~ msgstr "Valitse operaattorit kategoria."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the assisted category."
-#~ msgstr "Valitse avustettu kategoria."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the power category."
-#~ msgstr "Valitse tehokategoria."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the bands category."
-#~ msgstr "Valitse taajuusaluekategoria."
-
-#, fuzzy
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the Overlay category."
-#~ msgstr "Valitse yleiset kategoria."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "&Type of Operation"
-#~ msgstr "&Toiminnan tyyppi"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "&Mode Category"
-#~ msgstr "&Moodi kategoria"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "O&perators Category"
-#~ msgstr "Operaattorit kategoria"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "&Assisted Category"
-#~ msgstr "Avustettu kategoria"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Po&wer Category"
-#~ msgstr "Teho kategoria"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "&Bands Category"
-#~ msgstr "Taajuusalue kategoria"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "O&verlay"
-#~ msgstr "Yleisnäkymä"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Categories not OK"
-#~ msgstr "Kategoriat ok"
-
 #: ../setuppages/setuppagelogsnew.cpp:582
 msgctxt "SetupPageLogsNew|"
 msgid ""
@@ -4965,18 +4530,6 @@ msgid ""
 msgstr ""
 "Aseman kutsutunnus lokeroon tulee syöttää toimiva QRZ.\n"
 "Lokia ei avata."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid ""
-#~ "You selected an invalid combination.\n"
-#~ "The log will not be opened."
-#~ msgstr ""
-#~ "Valitsit väärän yhdistelmän.\n"
-#~ "Lokia ei avata."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Categories OK"
-#~ msgstr "Kategoriat OK"
 
 #: ../setuppages/setuppagemisc.cpp:38
 msgctxt "SetupPageMisc|"
@@ -5070,8 +4623,22 @@ msgstr ""
 
 #: ../setuppages/setuppagemisc.cpp:127
 msgctxt "SetupPageMisc|"
-msgid "The search box will show also the callsign on the air to do the QSO."
-msgstr "Etsintälokero näyttää kutsussa olevan kutsutunnuksen tehdäkseen QSO:n."
+msgid "The search box will also show the callsign on the air to do the QSO."
+msgstr ""
+
+#: ../setuppages/setuppagemisc.cpp:130
+msgctxt "SetupPageMisc|"
+msgid ""
+"If new version checking is selected, KLog will send the developer your "
+"callsign, KLog version and Operating system to help in improving KLog."
+msgstr ""
+
+#: ../setuppages/setuppagemisc.cpp:145
+msgctxt "SetupPageMisc|"
+msgid ""
+"Click to mark as Queued (to be sent) all the eQSL (LoTW and eQSL) in all the "
+"new QSO by default."
+msgstr ""
 
 #: ../setuppages/setuppagemisc.cpp:128
 msgctxt "SetupPageMisc|"
@@ -5087,16 +4654,6 @@ msgctxt "SetupPageMisc|"
 msgid ""
 "Check if there is a new release of KLog available every time you start KLog."
 msgstr "Tarkista KLog päivitysten varalta joka käynnistyskerralla."
-
-#: ../setuppages/setuppagemisc.cpp:130
-msgctxt "SetupPageMisc|"
-msgid ""
-"If new version checking is selected, KLog will send the developer your "
-"callsign, KLog version & Operating system to help in improving KLog."
-msgstr ""
-"Jos päivityksien tarkistus on valittu, KLog lähettää kehitystiimille "
-"kutsutunnuksesi, KLog version, sekä Käyttöjärjestelmän tiedot, KLogin "
-"kehitystä varten."
 
 #: ../setuppages/setuppagemisc.cpp:131
 msgctxt "SetupPageMisc|"
@@ -5169,13 +4726,6 @@ msgctxt "SetupPageMisc|"
 msgid ""
 "Activates the application debug log. This may be useful if something is not "
 "working as expected. A debug file will be created in the KLog directory."
-msgstr ""
-
-#: ../setuppages/setuppagemisc.cpp:145
-msgctxt "SetupPageMisc|"
-msgid ""
-"Click to mark as Queued (to be sent) all the eQSL (LoTW & eQSL) in all the "
-"new QSO by default."
 msgstr ""
 
 #: ../setuppages/setuppagemisc.cpp:332
@@ -5262,13 +4812,6 @@ msgctxt "SetupPageSats|"
 msgid "Remove the selected satellite."
 msgstr "Poista valittu satelliitti."
 
-#: ../setuppages/setuppagesats.cpp:73
-msgctxt "SetupPageSats|"
-msgid ""
-"Import a satellites file. It will replace the satellites you have now "
-"configured."
-msgstr "Tuo satelliittitiedosto. Se korvaa nyt määritellyt satelliitit."
-
 #: ../setuppages/setuppagesats.cpp:74
 msgctxt "SetupPageSats|"
 msgid "Export your current satellites to a file."
@@ -5289,10 +4832,17 @@ msgctxt "SetupPageSats|"
 msgid "Do you really want to remove this satellite?"
 msgstr "Haluatko todella poistaa tämän satelliitin?"
 
+#: ../setuppages/setuppagesats.cpp:73
+msgctxt "SetupPageSats|"
+msgid ""
+"Import a satellites file. It will replace the satellites you have in the "
+"current list."
+msgstr ""
+
 #: ../setuppages/setuppagesats.cpp:214
 msgctxt "SetupPageSats|"
-msgid "This satellite will not be longer available to be selected ..."
-msgstr "Tätä satelliittia ei voi enään valita..."
+msgid "This satellite will no be longer available to be selected ..."
+msgstr ""
 
 #: ../setuppages/setuppagesats.cpp:246
 msgctxt "SetupPageSats|"
@@ -5458,49 +5008,14 @@ msgstr "Syötä moodit muodossa: USB"
 #: ../setuppages/setuppagesatsnew.cpp:385
 msgctxt "SetupPageSatsNew|"
 msgid ""
-"Some of the data you have entered is not correct, the satellite can't be "
+"Some of the data you have entered is not correct; the satellite can't be "
 "added."
 msgstr ""
-"Jokin syöttämästäsi tiedoista ei ole oikein, satelliittia ei voida lisätä."
 
 #: ../setuppages/setuppageudp.cpp:10
 msgctxt "SetupPageUDP|"
 msgid "Start UDP Server"
 msgstr "Käynnistä UDP-palvelin"
-
-#: ../setuppages/setuppageudp.cpp:33
-msgctxt "SetupPageUDP|"
-msgid "Log automatically QSOs from WSJT-X"
-msgstr "Kirjaa WSJT-X:stä saadut QSO:t automaattisesti"
-
-#: ../setuppages/setuppageudp.cpp:34
-msgctxt "SetupPageUDP|"
-msgid "Allow WSJT-X to send logged QSO to KLog"
-msgstr "Salli WSJT-X:n lähettää kirjatut QSO:t KLog:iin"
-
-#: ../setuppages/setuppageudp.cpp:35
-#, qt-format
-msgctxt "SetupPageUDP|"
-msgid ""
-"QSO logged in WSJT-X will be sent to KLog and KLog will ask before logging "
-"into KLog unless \"%1\" is selected"
-msgstr ""
-"WSJT-X:ään kirjatut QSO:t lähetetään KLogiin ja KLog varmistaa ennen KLogiin "
-"kirjaamista, ellei \"%1\" ole valittuna"
-
-#: ../setuppages/setuppageudp.cpp:38
-msgctxt "SetupPageUDP|"
-msgid ""
-"KLog will log automatically any QSO coming from WSJT-X without any manual "
-"confirmation."
-msgstr ""
-"KLog kirjaa automaattisesti WSJT-X:stä tulevat QSO:t, ilman manuaalista "
-"vahvistusta."
-
-#: ../setuppages/setuppageudp.cpp:41
-msgctxt "SetupPageUDP|"
-msgid "Receive and Update QSO data to KLog"
-msgstr "Vastaanota ja päivitä QSO tiedot KLog:iin"
 
 #: ../setuppages/setuppageudp.cpp:42
 msgctxt "SetupPageUDP|"
@@ -5511,19 +5026,47 @@ msgstr ""
 "KLog näyttää ja päivittää automaattisesti, tiedot jotka tulevat WSJT-X:ltä "
 "(DX kutsutunnus, lokaattori, RPT, ...)"
 
-#: ../setuppages/setuppageudp.cpp:58
+#: ../setuppages/setuppageudp.cpp:33
+msgctxt "SetupPageUDP|"
+msgid "Automatically log QSOs from WSJT-X"
+msgstr ""
+
+#: ../setuppages/setuppageudp.cpp:34
+msgctxt "SetupPageUDP|"
+msgid "Allow WSJT-X to send logged QSOs to KLog"
+msgstr ""
+
+#: ../setuppages/setuppageudp.cpp:35
+#, qt-format
 msgctxt "SetupPageUDP|"
 msgid ""
-"Make sure it is the same port where the other programs are sending the data "
-"to. Default port is 2237."
+"QSOs logged in WSJT-X will be sent to KLog and KLog will ask before logging "
+"into KLog unless \"%1\" is selected"
 msgstr ""
-"Varmista että se on sama portti johon toiset ohjelmat lähettävät tiedot. "
-"Oletusportti on 2237."
+
+#: ../setuppages/setuppageudp.cpp:38
+msgctxt "SetupPageUDP|"
+msgid ""
+"KLog will automatically log any QSO coming from WSJT-X without any manual "
+"confirmation."
+msgstr ""
+
+#: ../setuppages/setuppageudp.cpp:41
+msgctxt "SetupPageUDP|"
+msgid "Receive QSOs data and update to KLog"
+msgstr ""
 
 #: ../setuppages/setuppageudp.cpp:58
 msgctxt "SetupPageUDP|"
 msgid "UDP port number where the UDP Server will listen for packets."
 msgstr "UDP-portti jolla UDP-palvelin kuuntelee paketteja."
+
+#: ../setuppages/setuppageudp.cpp:58
+msgctxt "SetupPageUDP|"
+msgid ""
+"Make sure it is the same port that the other programs are sending the data "
+"to. Default port is 2237."
+msgstr ""
 
 #: ../setuppages/setuppageudp.cpp:59
 msgctxt "SetupPageUDP|"
@@ -5541,16 +5084,14 @@ msgstr "UDP-portti"
 
 #: ../setuppages/setuppageudp.cpp:78
 msgctxt "SetupPageUDP|"
-msgid "QSO notification timeout (milisecs)"
-msgstr "QSO ilmoituksen aikakatkaisu (millisekuntia)"
+msgid "QSOs notification timeout (milisecs)"
+msgstr ""
 
 #: ../setuppages/setuppageudp.cpp:79
 msgctxt "SetupPageUDP|"
 msgid ""
-"Milliseconds that the notification of QSO received from WSJTX will be shown."
+"Miliseconds that the notification of QSOs received from WSJTX will be shown."
 msgstr ""
-"Aika, millisekunneissa, jonka QSO vastaanotettu WSJTX:ltä, huomautus "
-"näytetään."
 
 #: ../setuppages/setuppageuserdata.cpp:40
 msgctxt "SetupPageUserDataPage|"
@@ -6081,8 +5622,8 @@ msgstr "Taajuusalueet"
 
 #: ../charts/statsqsosperbandbarchartwidget.cpp:57
 msgctxt "StatsQSOsPerBandBarChartWidget|"
-msgid "QSO per band distribution"
-msgstr "QSO:t taajuusaluejakauman mukaan"
+msgid "QSOs per band distribution"
+msgstr ""
 
 #: ../charts/statsqsosperbandbarchartwidget.cpp:67
 msgctxt "StatsQSOsPerBandBarChartWidget|"
@@ -6218,8 +5759,8 @@ msgstr "Moodit"
 
 #: ../charts/statsqsospermodebarchartwidget.cpp:57
 msgctxt "StatsQSOsPerModeBarChartWidget|"
-msgid "QSO per mode distribution"
-msgstr "QSO:t moodijakauman mukaan"
+msgid "QSOs per mode distribution"
+msgstr ""
 
 #: ../charts/statsqsospermodebarchartwidget.cpp:67
 msgctxt "StatsQSOsPerModeBarChartWidget|"

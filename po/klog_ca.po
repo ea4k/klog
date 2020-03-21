@@ -42,36 +42,30 @@ msgctxt "AboutDialog|"
 msgid "By"
 msgstr "Per"
 
-#: ../aboutdialog.cpp:27
-msgctxt "AboutDialog|"
-msgid ""
-"Please know that this is an BETA release and it may contain many "
-"bugs.<br>Backup your data before using this software!"
-msgstr ""
-"Tingueu present que aquesta és un llançament BETA i podria contenir algun "
-"error.<br>Feu una còpia de seguretat abans d'usar aquest programari!"
-
 #: ../aboutdialog.cpp:35
 msgctxt "AboutDialog|"
 msgid "Author"
 msgstr "Autor"
 
-#: ../aboutdialog.cpp:29
-msgctxt "AboutDialog|"
-msgid ""
-"KLog has been fully rewritten from the 0.6.2 to be able to provide a "
-"cross-platform application that runs in the main operating systems (Linux, "
-"macOS & Windows) and provide new functionalities that KLog was not providing."
-msgstr ""
-"El KLog s'ha reescrit completament a partir de la 0.6.2 per ser capaç de "
-"proporcionar una aplicació multiplataforma que s'executa en els sistemes "
-"operatius principals (Linux, macOS i Windows) i proporciona funcionalitats "
-"noves que el KLog no feia."
-
 #: ../aboutdialog.cpp:26
 msgctxt "AboutDialog|"
 msgid "KLog is a free logbook for hamradio operators."
 msgstr "El KLog és un registre lliure per a operadors de radioafició."
+
+#: ../aboutdialog.cpp:27
+msgctxt "AboutDialog|"
+msgid ""
+"Please be aware that this is an BETA release and it may contain many "
+"bugs.<br>Backup your data before using this software!"
+msgstr ""
+
+#: ../aboutdialog.cpp:29
+msgctxt "AboutDialog|"
+msgid ""
+"Since 0.6.2, KLog has been fully rewritten to provide a cross-platform "
+"application that runs on all major operating systems (Linux, macOS and "
+"Windows) and to support new functionality."
+msgstr ""
 
 #: ../aboutdialog.cpp:31
 msgctxt "AboutDialog|"
@@ -109,31 +103,19 @@ msgstr ""
 "href=\"https://lists.nongnu.org/mailman/listinfo/klog-devel\">llista de "
 "desenvolupament del KLog</a>!"
 
-#~ msgctxt "AboutDialog|"
-#~ msgid ""
-#~ "KLog developers have included a feature that reports some user data to "
-#~ "the KLog server with the sole purpose of identifying the number of "
-#~ "installed versions, to focus development in one direction or another "
-#~ "taking into account user's needs"
-#~ msgstr ""
-#~ "Els desenvolupadors del KLog han inclòs una funcionalitat que informa de "
-#~ "vàries dades d'usuari al servidor del KLog amb l'únic propòsit "
-#~ "d'identificat el nombre de versions instal·lades, per enfocar el "
-#~ "desenvolupament cap a una direcció o una altre tenint en compte les "
-#~ "necessitats dels usuaris"
+#: ../aboutdialog.cpp:92
+msgctxt "AboutDialog|"
+msgid ""
+"KLog developers have included a feature that reports some user data to the "
+"KLog server with the sole purpose of identifying the number of installed "
+"versions, to focus development in one direction or another taking into "
+"account users' needs."
+msgstr ""
 
 #: ../aboutdialog.cpp:93
 msgctxt "AboutDialog|"
 msgid "At present, the data that is provided is the following:"
 msgstr "Actualment, les dades proporcionades són les següents:"
-
-#~ msgctxt "AboutDialog|"
-#~ msgid ""
-#~ "Be aware that you can enable/disable this feature from the Misc tab in "
-#~ "the Setup page"
-#~ msgstr ""
-#~ "Tingueu present que podeu activar/desactivar aquesta funcionalitat des de "
-#~ "la pestanya Varis a la pestanya de configuració"
 
 #: ../aboutdialog.cpp:78
 msgctxt "AboutDialog|"
@@ -158,15 +140,6 @@ msgstr "Traductors"
 msgctxt "AboutDialog|"
 msgid "Privacy advisory"
 msgstr "Avís de privadesa"
-
-#: ../aboutdialog.cpp:92
-msgctxt "AboutDialog|"
-msgid ""
-"KLog developers have included a feature that reports some user data to the "
-"KLog server with the sole purpose of identifying the number of installed "
-"versions, to focus development in one direction or another taking into "
-"account user's needs."
-msgstr ""
 
 #: ../aboutdialog.cpp:94
 msgctxt "AboutDialog|"
@@ -292,23 +265,23 @@ msgstr "Nombre de QSO treballats."
 
 #: ../awardswidget.cpp:262
 msgctxt "AwardsWidget|"
-msgid "Number of QSOs worked on the selected year."
-msgstr "Nombre de QSO treballats durant l'any seleccionat."
+msgid "Number of QSOs worked in the selected year."
+msgstr ""
 
 #: ../awardswidget.cpp:263
 msgctxt "AwardsWidget|"
-msgid "Number of DXCC worked on the selected year."
-msgstr "Nombre de DXCC treballats durant l'any seleccionat."
+msgid "Number of DXCCs worked in the selected year."
+msgstr ""
 
 #: ../awardswidget.cpp:264
 msgctxt "AwardsWidget|"
-msgid "Number of CQ Zones worked on the selected year."
-msgstr "Nombre de zones CQ treballades durant l'any seleccionat."
+msgid "Number of CQ Zones worked in the selected year."
+msgstr ""
 
 #: ../awardswidget.cpp:265
 msgctxt "AwardsWidget|"
-msgid "Score for the DXMarathon on the selected year."
-msgstr "Puntuació per al DXMarathon a l'any seleccionat."
+msgid "Score for the DXMarathon in the selected year."
+msgstr ""
 
 #: ../awardswidget.cpp:379
 msgctxt "AwardsWidget|"
@@ -347,22 +320,12 @@ msgid ""
 "information."
 msgstr ""
 
-#~ msgctxt "CTYPage|"
-#~ msgid ""
-#~ "KLog uses the cty.csv file from http://www.country-files.com/ to get DXCC "
-#~ "information."
-#~ msgstr ""
-#~ "El KLog usa el fitxer «cty.csv» de http://www.country-files.com/ per "
-#~ "obtenir la informació DXCC."
-
 #: ../startwizard.cpp:947
 msgctxt "CTYPage|"
 msgid ""
 "You need to download the cty.csv file if you want KLog to show you the "
-"countries, locator, ... of the QSOs you do."
+"countries, locator, etc. of the QSOs you do."
 msgstr ""
-"Cal baixar el fitxer «cty.csv» si voleu que el KLog mostri els països, "
-"localitzadors, ... dels QSO que feu."
 
 #: ../startwizard.cpp:949
 msgctxt "CTYPage|"
@@ -388,10 +351,6 @@ msgstr ""
 msgctxt "DXCCStatusWidget|"
 msgid "Update"
 msgstr "Actualitza"
-
-#~ msgctxt "DXCCStatusWidget|"
-#~ msgid "ID"
-#~ msgstr "ID"
 
 #: ../dxccstatuswidget.cpp:318
 msgctxt "DXCCStatusWidget|"
@@ -559,11 +518,6 @@ msgctxt "DataProxy_SQLite|"
 msgid "Software version in DB is null"
 msgstr "La versió del programari a la BD és nul"
 
-#: ../dataproxy_sqlite.cpp:74
-msgctxt "DataProxy_SQLite|"
-msgid "No query failed"
-msgstr "No ha fallat cap consulta"
-
 #: ../dataproxy_sqlite.cpp:3120
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
@@ -651,6 +605,11 @@ msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Field Aligned Irregularities"
 msgstr "Field Aligned Irregularities"
+
+#: ../dataproxy_sqlite.cpp:74
+msgctxt "DataProxy_SQLite|"
+msgid "Query didn't failed"
+msgstr ""
 
 #: ../dataproxy_sqlite.cpp:3148
 msgctxt ""
@@ -764,36 +723,6 @@ msgctxt "FileManager|"
 msgid "Abort reading"
 msgstr "Interromp la lectura"
 
-#~ msgctxt "FileManager|"
-#~ msgid ""
-#~ "The log that you have selected contains more than just one station "
-#~ "callsign."
-#~ msgstr "El registre que heu seleccionat conté més d'un indicatiu d'estació."
-
-#~ msgctxt "FileManager|"
-#~ msgid "Station Callsign:"
-#~ msgstr "Indicatiu d'estació:"
-
-#~ msgctxt "FileManager|"
-#~ msgid "Define Station Callsign"
-#~ msgstr "Defineix l'indicatiu d'estació"
-
-#~ msgctxt "FileManager|"
-#~ msgid ""
-#~ "You have selected no callsign. KLog will export QSOs without a station "
-#~ "callsign defined and those with the call you are entering here."
-#~ msgstr ""
-#~ "No heu seleccionat cap indicatiu. El KLog exportarà els QSO sense cap "
-#~ "indicatiu d'estació definit i aquells amb l'indicatiu que introduïu aquí."
-
-#~ msgctxt "FileManager|"
-#~ msgid ""
-#~ "Enter the station callsign to use for this log or leave it empty for QSO "
-#~ "without station callsign defined:"
-#~ msgstr ""
-#~ "Introduïu l'indicatiu emprat en aquest registre o deixeu-ho buit pels QSO "
-#~ "sense indicatiu d'estació definit:"
-
 #: ../filemanager.cpp:231 ../filemanager.cpp:639
 msgctxt "FileManager|"
 msgid "Writing ADIF file..."
@@ -823,36 +752,35 @@ msgctxt "FileManager|"
 msgid "Reading LoTW file..."
 msgstr "S'està llegint el fitxer LoTW..."
 
-#~ msgctxt "FileManager|"
-#~ msgid ""
-#~ "This QSO is not including the minimum data to consider a QSO as valid!"
-#~ msgstr ""
-#~ "Aquest QSO no inclou les dades mínimes per a considerar-se un QSO vàlid!"
+#: ../filemanager.cpp:3813
+msgctxt "FileManager|"
+msgid ""
+"You have canceled the file import. The file will be removed and no data will "
+"be imported."
+msgstr ""
+
+#: ../filemanager.cpp:4834
+msgctxt "FileManager|"
+msgid "This QSO is not including the minimum data to consider a QSO as valid!"
+msgstr ""
+"Aquest QSO no inclou les dades mínimes per a considerar-se un QSO vàlid!"
 
 #: ../filemanager.cpp:4863
 msgctxt "FileManager|"
 msgid "Do you want to continue with the current file?"
 msgstr "Voleu continuar amb el fitxer actual?"
 
-#~ msgctxt "FileManager|"
-#~ msgid "This log seems to lack of RST-TX information."
-#~ msgstr "Sembla que aquest registre li manca informació de RST-TX."
-
-#: ../filemanager.cpp:4891 ../filemanager.cpp:4913
+#: ../filemanager.cpp:4913
 msgctxt "FileManager|"
 msgid "Click on Yes to add a default 59 to all QSO with a similar problem."
 msgstr ""
 "Cliqueu a Sí per afegir un 59 per defecte a tots els QSO amb un problema "
 "semblant."
 
-#: ../filemanager.cpp:4891 ../filemanager.cpp:4913
+#: ../filemanager.cpp:4913
 msgctxt "FileManager|"
 msgid "If you select NO, the QSO may not be imported."
 msgstr "Si seleccioneu No, el QSO pot no importar-se."
-
-#~ msgctxt "FileManager|"
-#~ msgid "This log seems to lack of RST-RX information."
-#~ msgstr "Sembla que aquest registre li manca informació de RST-RX."
 
 #: ../filemanager.cpp:4838
 msgctxt "FileManager|"
@@ -930,19 +858,6 @@ msgctxt "FileManager|"
 msgid " QSO: "
 msgstr " QSO: "
 
-#~ msgctxt "FileManager|"
-#~ msgid "Please select the station callsign you want to export the log from:"
-#~ msgstr ""
-#~ "Seleccioneu l'indicatiu de l'estació de la qual voleu exportar el "
-#~ "registre:"
-
-#~ msgctxt "FileManager|"
-#~ msgid ""
-#~ "No station callsign has been selected and therefore no log will be "
-#~ "exported"
-#~ msgstr ""
-#~ "No s'ha seleccionat cap indicatiu, i per tant no s'exportarà cap registre"
-
 #: ../filemanager.cpp:2837
 msgctxt "FileManager|"
 msgid "Writing Cabrillo file..."
@@ -1002,20 +917,32 @@ msgstr ""
 "Sembla que hi ha diversos QSO duplicats al fitxer ADIF que s'està important. "
 "Voleu continuar? (Els QSO duplicats no s'importaran)"
 
-#: ../filemanager.cpp:3813
+#: ../filemanager.cpp:4891
+#, qt-format
 msgctxt "FileManager|"
-msgid ""
-"You have cancelled the file import. The file will be removed and no data "
-"will be imported."
+msgid "Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information."
 msgstr ""
-"Heu cancel·lat la importació del fitxer. El fitxer s'eliminarà i no "
-"s'importarà cap dada."
 
-#: ../filemanager.cpp:4834
+#: ../filemanager.cpp:4891
 msgctxt "FileManager|"
-msgid "This QSO is not including the minimum data to consider a QSO as valid!."
+msgid "Click on Yes to add a default 59 to all QSOs with a similar problem."
 msgstr ""
-"Aquest QSO no inclou les dades mínimes per a considerar-se un QSO vàlid!"
+
+#: ../filemanager.cpp:4891
+msgctxt "FileManager|"
+msgid "If you select NO, maybe the QSO will not be imported."
+msgstr ""
+
+#: ../filemanager.cpp:4913
+#, qt-format
+msgctxt "FileManager|"
+msgid "Some QSOs of this log, (i.e.: %1) seems to lack RST-RX information."
+msgstr ""
+
+#: ../filemanager.cpp:4983
+msgctxt "FileManager|"
+msgid "KLog - Apply to all QSOs in this log?"
+msgstr ""
 
 #: ../filemanager.cpp:4834
 msgctxt "FileManager|"
@@ -1037,22 +964,10 @@ msgctxt "FileManager|"
 msgid "KLog: Not all required data found!"
 msgstr "KLog: No s'han trobat totes les dades necessàries!"
 
-#: ../filemanager.cpp:4891
-#, qt-format
-msgctxt "FileManager|"
-msgid "Some QSO of this log, (i.e.: %1) seems to lack of RST-TX information."
-msgstr ""
-
 #: ../filemanager.cpp:4892
 msgctxt "FileManager|"
 msgid "KLog: No RST TX found!"
 msgstr "KLog: No s'ha trobat RST TX!"
-
-#: ../filemanager.cpp:4913
-#, qt-format
-msgctxt "FileManager|"
-msgid "Some QSO of this log, (i.e.: %1) seems to lack of RST-RX information."
-msgstr ""
 
 #: ../filemanager.cpp:4915
 msgctxt "FileManager|"
@@ -1062,11 +977,6 @@ msgstr "KLog: No s'ha trobat RST RX!"
 #: ../filemanager.cpp:4956 ../filemanager.cpp:4967
 msgctxt "FileManager|"
 msgid "KLog - No Station callsign entered."
-msgstr ""
-
-#: ../filemanager.cpp:4983
-msgctxt "FileManager|"
-msgid "KLog - Apply to all QSO in this log?"
 msgstr ""
 
 #: ../filemanager.cpp:5018
@@ -1214,18 +1124,14 @@ msgstr ""
 #: ../startwizard.cpp:153
 msgctxt "IntroPage|"
 msgid ""
-"KLog is a free hamradio logging program that can run on Linux macOS and "
+"KLog is a free hamradio logging program that can run on Linux, macOS, and "
 "Windows."
 msgstr ""
-"El KLog és un programa lliure d'enregistrament de radioafició que es pot "
-"executar en el Linux, MacOS i Windows."
 
 #: ../startwizard.cpp:154
 msgctxt "IntroPage|"
-msgid "It is designed to provide general purpose, DX and contest logging."
+msgid "It is designed to provide general purpose DX, and contest logging."
 msgstr ""
-"Està dissenyat per proporcionar enregistrament de propòsit general, DX i "
-"concurs."
 
 #: ../startwizard.cpp:155
 msgctxt "IntroPage|"
@@ -1505,18 +1411,6 @@ msgctxt "MainWindow|"
 msgid "Starting KLog"
 msgstr "S'està iniciant el KLog"
 
-#~ msgctxt "MainWindow|"
-#~ msgid "&Add"
-#~ msgstr "&Afegeix"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "&Clear"
-#~ msgstr "&Neteja"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Status bar..."
-#~ msgstr "Barra d'estat..."
-
 #: ../mainwindow.cpp:105 ../mainwindow.cpp:188
 msgctxt "MainWindow|"
 msgid "DX Entity"
@@ -1526,10 +1420,6 @@ msgstr "Entitat DX"
 msgctxt "MainWindow|"
 msgid "&Log Window"
 msgstr "&Finestra del registre"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "&Score Window"
-#~ msgstr "Fine&stra de puntuació"
 
 #: ../mainwindow.cpp:344
 msgctxt "MainWindow|"
@@ -1611,10 +1501,6 @@ msgctxt "MainWindow|"
 msgid "Click on the prefix of the right entity or Cancel to correct."
 msgstr "Feu clic al prefix de l'entitat correcta o Cancel·la per corregir."
 
-#~ msgctxt "MainWindow|"
-#~ msgid "QRZ of the QSO."
-#~ msgstr "QRZ del QSO."
-
 #: ../mainwindow.cpp:4864
 msgctxt "MainWindow|"
 msgid "TX RST."
@@ -1624,38 +1510,6 @@ msgstr "TX RST."
 msgctxt "MainWindow|"
 msgid "RX RST."
 msgstr "RX RST."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "TX Exchange."
-#~ msgstr "Intercanvi TX."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Band of the QSO."
-#~ msgstr "Banda del QSO."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Mode of the QSO."
-#~ msgstr "Mode del QSO."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Date of the QSO."
-#~ msgstr "Data del QSO."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Time of the QSO."
-#~ msgstr "Hora del QSO."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Add the QSO to the log."
-#~ msgstr "Afegeix el QSO al registre."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Clear the box."
-#~ msgstr "Neteja el quadre."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Input"
-#~ msgstr "Entrada"
 
 #: ../mainwindow.cpp:6496
 msgctxt "MainWindow|"
@@ -1672,43 +1526,15 @@ msgctxt "MainWindow|"
 msgid "QRZ"
 msgstr "QRZ"
 
-#~ msgctxt "MainWindow|"
-#~ msgid "STX"
-#~ msgstr "STX"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "SRX"
-#~ msgstr "SRX"
-
 #: ../mainwindow.cpp:2465
 msgctxt "MainWindow|"
 msgid "Do you really want to exit KLog?"
 msgstr "Esteu segur que voleu sortir del KLog?"
 
-#~ msgctxt "MainWindow|"
-#~ msgid "NEW MULT"
-#~ msgstr "NEW MULT"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Invalid characters used in the QRZ"
-#~ msgstr "Caràcters no vàlids usats al QRZ"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Ready..."
-#~ msgstr "Llest..."
-
 #: ../mainwindow.cpp:2945
 msgctxt "MainWindow|"
 msgid "&File"
 msgstr "&Fitxer"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "&New..."
-#~ msgstr "&Nou..."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "&Open..."
-#~ msgstr "&Obre..."
 
 #: ../mainwindow.cpp:2956
 msgctxt "MainWindow|"
@@ -1719,10 +1545,6 @@ msgstr "&Importa des d'ADIF..."
 msgctxt "MainWindow|"
 msgid "Import an ADIF file into the current log."
 msgstr "Importa un fitxer ADIF al registre actual."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "&Save As..."
-#~ msgstr "&Desa com a..."
 
 #: ../mainwindow.cpp:2976
 msgctxt "MainWindow|"
@@ -1863,67 +1685,21 @@ msgctxt "MainWindow|"
 msgid "&Find DX-QSLs pending to receive"
 msgstr "&Cerca les DX-QSL pendents de rebre"
 
-#: ../mainwindow.cpp:3057
-msgctxt "MainWindow|"
-msgid ""
-"Shows the DX-QSL that has been requested or QSLs has been sent with no "
-"answer."
-msgstr ""
-"Mostra les DX-QSL que s'han sol·licitat o les QSL que s'han enviat sense "
-"resposta."
-
 #: ../mainwindow.cpp:3059
 msgctxt "MainWindow|"
 msgid "&Find requested pending to receive"
 msgstr "&Cerca sol·licituds pendents de rebre"
-
-#: ../mainwindow.cpp:3062
-msgctxt "MainWindow|"
-msgid "Shows the DX-QSL that has been requested."
-msgstr "Mostra les DX-QSL que s'han sol·licitat."
 
 #: ../mainwindow.cpp:3065
 msgctxt "MainWindow|"
 msgid "LoTW tools..."
 msgstr "Eines LoTW..."
 
-#: ../mainwindow.cpp:3067
-msgctxt "MainWindow|"
-msgid "Queue all QSL to be sent of this log"
-msgstr "Posa a la cua totes les QSL a enviar d'aquest registre"
-
-#: ../mainwindow.cpp:3070
-msgctxt "MainWindow|"
-msgid "Mark all non sent QSOs in this log as queued to be uploaded."
-msgstr ""
-"Marca tots els QSO no enviats en aquest registre com a posats en cua per a "
-"ser pujats."
-
-#: ../mainwindow.cpp:3072
-msgctxt "MainWindow|"
-msgid "Queue all QSL to be sent"
-msgstr "Posa a la cua totes les QSL a enviar"
-
-#: ../mainwindow.cpp:3075
-msgctxt "MainWindow|"
-msgid "Mark all non sent QSOs as queued to be uploaded."
-msgstr "Marca tots els QSO no enviats com a posats en cua per a ser pujats."
-
-#: ../mainwindow.cpp:3079
-msgctxt "MainWindow|"
-msgid "Mark as sent all queued QSO of this log"
-msgstr "Marca com a enviats tots els QSO d'aquest registre"
-
 #: ../mainwindow.cpp:3082
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs in this log as sent to LoTW."
 msgstr ""
 "Marca tots els QSO posats en cua d'aquest registre com a enviats al LoTW."
-
-#: ../mainwindow.cpp:3084
-msgctxt "MainWindow|"
-msgid "Mark all queued QSO as sent"
-msgstr "Marca tots els QSO posats en cua com a enviats"
 
 #: ../mainwindow.cpp:3087
 msgctxt "MainWindow|"
@@ -2018,13 +1794,6 @@ msgctxt "MainWindow|"
 msgid "KLog LoTW"
 msgstr "KLog LoTW"
 
-#: ../mainwindow.cpp:3212
-msgctxt "MainWindow|"
-msgid "All pending QSO of this log has been marked as queued for LoTW!"
-msgstr ""
-"Tots els QSO pendents d'aquest registre s'han marcat com a posats en cua pel "
-"LoTW!"
-
 #: ../mainwindow.cpp:3212 ../mainwindow.cpp:3237
 msgctxt "MainWindow|"
 msgid ""
@@ -2033,19 +1802,6 @@ msgid ""
 msgstr ""
 "Ara podeu anar al menú Fitxer per exportar el fitxer LoTW ADIF i pujar-lo a "
 "LoTW."
-
-#: ../mainwindow.cpp:3221 ../mainwindow.cpp:3245
-msgctxt "MainWindow|"
-msgid ""
-"There was a problem to mark all pending QSO of this log as queued for LoTW!"
-msgstr ""
-"Hi ha hagut un problema en marcar tots els QSO pendents d'aquest registre "
-"com a posats en cua pel LoTW!"
-
-#: ../mainwindow.cpp:3237
-msgctxt "MainWindow|"
-msgid "All pending QSO has been marked as queued for LoTW!"
-msgstr "Tots els QSO pendents s'han marcat com a posats en cua pel LoTW!"
 
 #: ../mainwindow.cpp:3266
 msgctxt "MainWindow|"
@@ -2180,33 +1936,6 @@ msgid ""
 msgstr ""
 "No s'ha seleccionat cap indicatiu, i per tant no es marcarà cap registre"
 
-#: ../mainwindow.cpp:3422
-msgctxt "MainWindow|"
-msgid "All queued QSO of this log has been marked as sent for LoTW!"
-msgstr ""
-"Tots els QSO posats en cua d'aquest registre s'han marcat com a enviats pel "
-"LoTW!"
-
-#: ../mainwindow.cpp:3430
-msgctxt "MainWindow|"
-msgid ""
-"There was a problem to mark all queued QSO of this log as sent for LoTW!"
-msgstr ""
-"Hi ha hagut un problema en marcar tots els QSO posats en cua d'aquest "
-"registre com a enviats pel LoTW!"
-
-#: ../mainwindow.cpp:3449
-msgctxt "MainWindow|"
-msgid "All queued QSO has been marked as sent to LoTW!"
-msgstr "Tots els QSO posats en cua s'han marcat com a enviats al LoTW!"
-
-#: ../mainwindow.cpp:3457
-msgctxt "MainWindow|"
-msgid "There was a problem to mark all queued QSO of this log as sent to LoTW!"
-msgstr ""
-"Hi ha hagut un problema en marcar tots els QSO posats en cua d'aquest "
-"registre com a enviats al LoTW!"
-
 #: ../mainwindow.cpp:3467
 msgctxt "MainWindow|"
 msgid "About..."
@@ -2227,34 +1956,10 @@ msgctxt "MainWindow|"
 msgid "You already have the latest version."
 msgstr "Ja teniu la versió més recent."
 
-#~ msgctxt "MainWindow|"
-#~ msgid "Nothing has been saved. You have to select a valid file type."
-#~ msgstr "No s'ha guardat res. Cal seleccionar un tipus de fitxer vàlid."
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Save File"
-#~ msgstr "Desa el fitxer"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "ADIF file"
-#~ msgstr "Fitxer ADIF"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Cabrillo files"
-#~ msgstr "Fitxers Cabrillo"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Any file"
-#~ msgstr "Qualsevol fitxer"
-
 #: ../mainwindow.cpp:3787
 msgctxt "MainWindow|"
 msgid "You can find the KLog data folder here: "
 msgstr "Podeu trobar la carpeta de dades del KLog aquí:"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "DUPE"
-#~ msgstr "DUPLICAT"
 
 #: ../mainwindow.cpp:4009
 msgctxt "MainWindow|"
@@ -2265,11 +1970,6 @@ msgstr "començar"
 msgctxt "MainWindow|"
 msgid "stop"
 msgstr "aturar"
-
-#: ../mainwindow.cpp:4471
-msgctxt "MainWindow|"
-msgid "It seems that there are no QSO in the database."
-msgstr "Sembla que no hi ha cap QSO a la base de dades."
 
 #: ../mainwindow.cpp:4471
 msgctxt "MainWindow|"
@@ -2313,25 +2013,6 @@ msgid ""
 "callsign defined."
 msgstr ""
 
-#: ../mainwindow.cpp:5394
-#, qt-format
-msgctxt "MainWindow|"
-msgid ""
-"If you click on 'Yes' KLog will fill all the QSO with your Station Callsign "
-"<b>(%1)</b> automatically."
-msgstr ""
-
-#: ../mainwindow.cpp:5394
-#, qt-format
-msgctxt "MainWindow|"
-msgid "Do you want to fill all the QSO with the Station Callsign: %1?"
-msgstr ""
-
-#: ../mainwindow.cpp:5394
-msgctxt "MainWindow|"
-msgid "(If you answer 'No', no QSO will be exported to LoTW)"
-msgstr ""
-
 #: ../mainwindow.cpp:6128
 msgctxt "MainWindow|"
 msgid "My QTH locator."
@@ -2357,6 +2038,42 @@ msgctxt "MainWindow|"
 msgid "DX Locator"
 msgstr "Localitzador DX"
 
+#: ../mainwindow.cpp:5394
+#, qt-format
+msgctxt "MainWindow|"
+msgid ""
+"If you click on 'Yes' KLog will fill all the QSOs with your Station Callsign "
+"<b>(%1)</b> automatically."
+msgstr ""
+
+#: ../mainwindow.cpp:5394
+#, qt-format
+msgctxt "MainWindow|"
+msgid "Do you want to fill all the QSOs with the Station Callsign: %1?"
+msgstr ""
+
+#: ../mainwindow.cpp:5394
+msgctxt "MainWindow|"
+msgid "(If you answer 'No', no QSOs will be exported to LoTW)"
+msgstr ""
+
+#: ../mainwindow.cpp:5447
+msgctxt "MainWindow|"
+msgid "After uploading: mark as sent all the queued QSOs (LoTW Tools)."
+msgstr ""
+
+#: ../mainwindow.cpp:5459
+msgctxt "MainWindow|"
+msgid "There was no QSOs to be exported."
+msgstr ""
+
+#: ../mainwindow.cpp:5459
+msgctxt "MainWindow|"
+msgid ""
+"If you think that some QSOs should have been exported, please look for them "
+"and ensure that the eQSL LoTW QSL sent box is marked as:"
+msgstr ""
+
 #: ../mainwindow.cpp:7047
 msgctxt "MainWindow|"
 msgid ""
@@ -2379,10 +2096,6 @@ msgstr ""
 msgctxt "MainWindow|"
 msgid "QSO logged from WSJT-X:"
 msgstr "QSO enregistrat des del WSJT-X:"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "RX Exchange."
-#~ msgstr "Intercanvi RX."
 
 #: ../mainwindow.cpp:60
 msgctxt "MainWindow|"
@@ -2430,10 +2143,6 @@ msgstr ""
 "Error del servidor UDP\n"
 "El servidor UDP ha fallat en %1."
 
-#~ msgctxt "MainWindow|"
-#~ msgid "Clears the QSO entry."
-#~ msgstr "Neteja l'entrada QSO."
-
 #: ../mainwindow.cpp:4869
 msgctxt "MainWindow|"
 msgid "Status of the DX entity."
@@ -2453,10 +2162,6 @@ msgstr "Nom"
 msgctxt "MainWindow|"
 msgid "QTH"
 msgstr "QTH"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Locator"
-#~ msgstr "Localitzador"
 
 #: ../mainwindow.cpp:4930
 msgctxt "MainWindow|"
@@ -2553,6 +2258,89 @@ msgctxt "MainWindow|"
 msgid "KLog - Exit"
 msgstr ""
 
+#: ../mainwindow.cpp:3057
+msgctxt "MainWindow|"
+msgid "Shows DX-QSLs for which requests or QSLs have been sent with no answer."
+msgstr ""
+
+#: ../mainwindow.cpp:3062
+msgctxt "MainWindow|"
+msgid "Shows the DX-QSLs that have been requested."
+msgstr ""
+
+#: ../mainwindow.cpp:3067
+msgctxt "MainWindow|"
+msgid "Queue all QSLs from this log to be sent"
+msgstr ""
+
+#: ../mainwindow.cpp:3070
+msgctxt "MainWindow|"
+msgid "Mark all non-sent QSOs in this log as queued to be uploaded."
+msgstr ""
+
+#: ../mainwindow.cpp:3072
+msgctxt "MainWindow|"
+msgid "Queue all QSLs to be sent"
+msgstr ""
+
+#: ../mainwindow.cpp:3075
+msgctxt "MainWindow|"
+msgid "Put all the non-sent QSOs in the queue to be uploaded."
+msgstr ""
+
+#: ../mainwindow.cpp:3079
+msgctxt "MainWindow|"
+msgid "Mark as sent all queued QSOs of this log"
+msgstr ""
+
+#: ../mainwindow.cpp:3084
+msgctxt "MainWindow|"
+msgid "Mark all queued QSOs as sent"
+msgstr ""
+
+#: ../mainwindow.cpp:3212
+msgctxt "MainWindow|"
+msgid "All pending QSOs of this log has been marked as queued for LoTW!"
+msgstr ""
+
+#: ../mainwindow.cpp:3221 ../mainwindow.cpp:3245
+msgctxt "MainWindow|"
+msgid ""
+"There was a problem to mark all pending QSOs of this log as queued for LoTW!"
+msgstr ""
+
+#: ../mainwindow.cpp:3237
+msgctxt "MainWindow|"
+msgid "All pending QSOs has been marked as queued for LoTW!"
+msgstr ""
+
+#: ../mainwindow.cpp:3422
+msgctxt "MainWindow|"
+msgid "All queued QSOs of this log has been marked as sent for LoTW!"
+msgstr ""
+
+#: ../mainwindow.cpp:3430
+msgctxt "MainWindow|"
+msgid ""
+"There was a problem to mark all queued QSOs of this log as sent for LoTW!"
+msgstr ""
+
+#: ../mainwindow.cpp:3449
+msgctxt "MainWindow|"
+msgid "All queued QSOs has been marked as sent to LoTW!"
+msgstr ""
+
+#: ../mainwindow.cpp:3457
+msgctxt "MainWindow|"
+msgid ""
+"There was a problem to mark all queued QSOs of this log as sent to LoTW!"
+msgstr ""
+
+#: ../mainwindow.cpp:4471
+msgctxt "MainWindow|"
+msgid "It seems that there are no QSOs in the database."
+msgstr ""
+
 #: ../mainwindow.cpp:4586
 msgctxt "MainWindow|"
 msgid "This function is disabled. Go to the Setup->LoTW tab to enable it."
@@ -2619,6 +2407,35 @@ msgid "Please select the station callsign you want to export the log from:"
 msgstr ""
 "Seleccioneu l'indicatiu de l'estació de la qual voleu exportar el registre:"
 
+#: ../mainwindow.cpp:7277
+msgctxt "MainWindow|"
+msgid "KLog - Non-supported mode"
+msgstr ""
+
+#: ../mainwindow.cpp:7280
+msgctxt "MainWindow|"
+msgid ""
+"A new mode not supported by KLog has been received from an external program "
+"or radio:"
+msgstr ""
+
+#: ../mainwindow.cpp:7280
+msgctxt "MainWindow|"
+msgid ""
+"Do you want to keep receiving these alerts? (disabling these alerts will "
+"prevent non-valid modes being detected)"
+msgstr ""
+
+#: ../mainwindow.cpp:7469
+msgctxt "MainWindow|"
+msgid "Recommendation:"
+msgstr ""
+
+#: ../mainwindow.cpp:7469
+msgctxt "MainWindow|"
+msgid "Periodically export your data to ADIF to prevent a potential data loss."
+msgstr ""
+
 #: ../mainwindow.cpp:5301 ../mainwindow.cpp:5360 ../mainwindow.cpp:5374
 #: ../mainwindow.cpp:5397
 msgctxt "MainWindow|"
@@ -2655,51 +2472,15 @@ msgctxt "MainWindow|"
 msgid "Before uploading: sign the LoTW log; and"
 msgstr "Abans de la pujada: signeu el registre LoTW; i"
 
-#: ../mainwindow.cpp:5447
-msgctxt "MainWindow|"
-msgid "After uploading: mark as sent all the queued QSO (LoTW Tools)."
-msgstr ""
-"Després de la pujada: marca com a enviats tots els QSO en la cau (eines "
-"LoTW)."
-
-#: ../mainwindow.cpp:5459
-msgctxt "MainWindow|"
-msgid "There was no QSO to be exported."
-msgstr "No hi ha cap QSO a exportar."
-
-#: ../mainwindow.cpp:5459
-msgctxt "MainWindow|"
-msgid ""
-"If you think that some QSO should have been exported, please look for them "
-"and ensure that the eQSL LoTW QSL sent box is marked as:"
-msgstr ""
-"Si penseu que s'haurien d'haver exportat alguns QSO, cerqueu-los i "
-"assegureu-vos que la casella d'enviament eQSL LoTW QSL està marcada amb:"
-
 #: ../mainwindow.cpp:5459
 msgctxt "MainWindow|"
 msgid "Q - Queued"
 msgstr "Q - A la cua"
 
-#~ msgctxt "MainWindow|"
-#~ msgid ""
-#~ "There was an error while exporting the LoTW. The log has not been "
-#~ "exported!"
-#~ msgstr ""
-#~ "S'ha produït un error en exportar el LoTW. No s'ha exportat el registre!"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "Save Cabrillo File"
-#~ msgstr "Desa el fitxer Cabrillo"
-
 #: ../mainwindow.cpp:5521 ../mainwindow.cpp:5547
 msgctxt "MainWindow|"
 msgid "Open File"
 msgstr "Obre un fitxer"
-
-#~ msgctxt "MainWindow|"
-#~ msgid "&Modify"
-#~ msgstr "&Modifica"
 
 #: ../mainwindow.cpp:6136
 msgctxt "MainWindow|"
@@ -2845,11 +2626,6 @@ msgctxt "MainWindow|"
 msgid "Local-Grid"
 msgstr "Local-Grid"
 
-#: ../mainwindow.cpp:7277
-msgctxt "MainWindow|"
-msgid "KLog - Non supported mode"
-msgstr ""
-
 #: ../mainwindow.cpp:7280
 msgctxt "MainWindow|"
 msgid ""
@@ -2858,23 +2634,6 @@ msgid ""
 msgstr ""
 "Si el mode rebut és correcte, contacteu amb l'equip de desenvolupament del "
 "KLog i sol·liciteu la implementació d'aquest mode"
-
-#: ../mainwindow.cpp:7280
-msgctxt "MainWindow|"
-msgid ""
-"Do you want to keep receiving this alerts? (disabling this alerts will "
-"prevent that non-valid modes are detected)"
-msgstr ""
-"Voleu continuar rebent aquestes alertes? (la desactivació d'aquestes alertes "
-"evitarà que es detectin modes no vàlids)"
-
-#: ../mainwindow.cpp:7280
-msgctxt "MainWindow|"
-msgid ""
-"A new mode not supported by KLog has been received from an external software "
-"or radio:"
-msgstr ""
-"S'ha rebut un mode nou des de programari extern o ràdio no suportat pel KLog:"
 
 #: ../mainwindow.cpp:7452
 msgctxt "MainWindow|"
@@ -2937,19 +2696,6 @@ msgstr "Text de l'error"
 msgctxt "MainWindow|"
 msgid "Failed query"
 msgstr "Ha fallat la consulta"
-
-#: ../mainwindow.cpp:7469
-msgctxt "MainWindow|"
-msgid "Recomendation:"
-msgstr "Recomanació:"
-
-#: ../mainwindow.cpp:7469
-msgctxt "MainWindow|"
-msgid ""
-"Export, periodically, your data to ADIF to prevent a potential data loss."
-msgstr ""
-"Periódicament exporteu les dades a l'ADIF per evitar una pèrdua potencial de "
-"dades."
 
 #: ../mainwindow.cpp:7476
 msgctxt "MainWindow|"
@@ -3166,10 +2912,6 @@ msgctxt "MainWindowInputQSL|"
 msgid "QSL via information."
 msgstr "QSL via informació."
 
-#~ msgctxt "MainWindowMyDataTab|"
-#~ msgid "Watt"
-#~ msgstr "Watt"
-
 #: ../mainwindowmydatatab.cpp:65
 #, fuzzy
 msgctxt "MainWindowMyDataTab|"
@@ -3340,11 +3082,9 @@ msgstr ""
 #: ../mainwindowsattab.cpp:441
 msgctxt "MainWindowSatTab|"
 msgid ""
-"Please know that the satellite name will not be saved if it is not in the "
-"list so that information may be lost!"
+"Please be aware that the satellite name will not be saved if it is not in "
+"the list, so that information may be lost!"
 msgstr ""
-"Sapigueu que el nom del satèl·lit no es desarà si no és a la llista, per "
-"tant, aquesta informació es podria perdre!"
 
 #: ../mainwindowsattab.cpp:531
 msgctxt "MainWindowSatTab|"
@@ -3440,15 +3180,6 @@ msgctxt "QObject|"
 msgid "Station Callsign"
 msgstr "Indicatiu de l'estació"
 
-#: ../database.cpp:2176
-msgctxt "QObject|"
-msgid ""
-"All the data was migrated correctly. You should now go to "
-"Setup->Preferences->Logs to check that everything is OK."
-msgstr ""
-"Totes les dades s'han migrat correctament. Ara hauríeu d'anar a "
-"Configuració->Preferències->Registres per comprovar que tot és correcte."
-
 #: ../database.cpp:3629 ../database.cpp:3813 ../database.cpp:7441
 #: ../database.cpp:7664 ../dataproxy_sqlite.cpp:4954
 msgctxt "QObject|"
@@ -3494,6 +3225,13 @@ msgstr "S'està actualitzant la informació dels diplomes WAZ..."
 msgctxt "QObject|"
 msgid "Updating mode information..."
 msgstr "Actualitzant informació del mode..."
+
+#: ../database.cpp:2176
+msgctxt "QObject|"
+msgid ""
+"All the data was migrated correctly. You should now go to "
+"Setup->Preferences->Logs to check that everything is okay."
+msgstr ""
 
 #: ../database.cpp:3608 ../database.cpp:3794 ../database.cpp:3992
 #: ../database.cpp:4194 ../database.cpp:7349 ../database.cpp:7572
@@ -3589,10 +3327,6 @@ msgstr "Recordeu que el directori del KLog és al vostre sistema..."
 msgctxt "QObject|"
 msgid "Thank you for running KLog!"
 msgstr "Moltes gràcies per usar el KLog!"
-
-#~ msgctxt "QObject|"
-#~ msgid "Urt information..."
-#~ msgstr "Informació URT..."
 
 #: ../dataproxy_sqlite.cpp:4911
 msgctxt "QObject|"
@@ -3776,23 +3510,43 @@ msgstr "Marca la meva QSL com a sol·licitada"
 
 #: ../searchwidget.cpp:846
 msgctxt "SearchWidget|"
-msgid "Via Direct && mark DX QSL as requested"
-msgstr "Via directa i marca la QSL DX com a sol·licitada"
+msgid "Via Direct and mark DX QSL as requested"
+msgstr ""
 
 #: ../searchwidget.cpp:847
 msgctxt "SearchWidget|"
-msgid "Send this QSL via direct & mark DX QSL as requested"
-msgstr "Envia aquesta QSL via directa i marca la QSL DX com sol·licitada"
+msgid "Send this QSL via direct and mark DX QSL as requested"
+msgstr ""
 
 #: ../searchwidget.cpp:850
 msgctxt "SearchWidget|"
-msgid "Via Bureau && mark DX QSL as requested"
-msgstr "Via bureau i marca la QSL DX com a sol·licitada"
+msgid "Via Bureau and mark DX QSL as requested"
+msgstr ""
 
 #: ../searchwidget.cpp:851
 msgctxt "SearchWidget|"
-msgid "Send this QSL via bureau & mark DX QSL as requested"
-msgstr "Envia aquesta QSL via bureau i marca la QSL DX com a sol·licitada"
+msgid "Send this QSL via bureau and mark DX QSL as requested"
+msgstr ""
+
+#: ../searchwidget.cpp:861
+msgctxt "SearchWidget|"
+msgid "Via bureau and mark my QSL as requested"
+msgstr ""
+
+#: ../searchwidget.cpp:862
+msgctxt "SearchWidget|"
+msgid "QSL received via bureau and mark my QSL as requested"
+msgstr ""
+
+#: ../searchwidget.cpp:870
+msgctxt "SearchWidget|"
+msgid "Direc&t and mark as my QSL requested"
+msgstr ""
+
+#: ../searchwidget.cpp:871
+msgctxt "SearchWidget|"
+msgid "QSL received via direct and mark my QSL as requested"
+msgstr ""
 
 #: ../searchwidget.cpp:855
 msgctxt "SearchWidget|"
@@ -3804,16 +3558,6 @@ msgctxt "SearchWidget|"
 msgid "Mark the QSL as requested"
 msgstr "Marca la QSL com a sol·licitada"
 
-#: ../searchwidget.cpp:861
-msgctxt "SearchWidget|"
-msgid "Via bureau && mark my QSL as requested"
-msgstr "Via bureau i marcar la meva QSL com a sol·licitada"
-
-#: ../searchwidget.cpp:862
-msgctxt "SearchWidget|"
-msgid "QSL received via bureau & mark my QSL as requested"
-msgstr "QSL rebuda via bureau i marca la meva QSL com a sol·licitada"
-
 #: ../searchwidget.cpp:865
 msgctxt "SearchWidget|"
 msgid "Via bureau"
@@ -3823,16 +3567,6 @@ msgstr "Via bureau"
 msgctxt "SearchWidget|"
 msgid "QSL received via bureau"
 msgstr "QSL rebuda via bureau"
-
-#: ../searchwidget.cpp:870
-msgctxt "SearchWidget|"
-msgid "Direc&t && mark as my QSL requested"
-msgstr "Direc&ta i marca-la com a QSL sol·licitada"
-
-#: ../searchwidget.cpp:871
-msgctxt "SearchWidget|"
-msgid "QSL received via direct & mark my QSL as requested"
-msgstr "QSL rebuda via directa i marca la meva QSL com a sol·licitada"
 
 #: ../searchwidget.cpp:874
 msgctxt "SearchWidget|"
@@ -3939,7 +3673,7 @@ msgctxt "SetupDialog|"
 msgid "Interfaces"
 msgstr ""
 
-#: ../setupdialog.cpp:109 ../setupdialog.cpp:205
+#: ../setupdialog.cpp:205
 msgctxt "SetupDialog|"
 msgid "OK"
 msgstr "D'acord"
@@ -3948,6 +3682,12 @@ msgstr "D'acord"
 msgctxt "SetupDialog|"
 msgid "Config Dialog"
 msgstr "Diàleg de configuració"
+
+#: ../setupdialog.cpp:109
+#, fuzzy
+msgctxt "SetupDialog|"
+msgid "Ok"
+msgstr "D'acord"
 
 #: ../setupdialog.cpp:190
 msgctxt "SetupDialog|"
@@ -4119,8 +3859,9 @@ msgid "Cancel"
 msgstr "Cancel·la"
 
 #: ../setuppages/setupentitydialog.cpp:121
+#, fuzzy
 msgctxt "SetupEntityDialog|"
-msgid "OK"
+msgid "Ok"
 msgstr "D'acord"
 
 #: ../setuppages/setupentitydialog.cpp:209
@@ -4266,12 +4007,6 @@ msgctxt "SetupPageColors|"
 msgid "Sets the default palette."
 msgstr ""
 
-#~ msgctxt "SetupPageColors|"
-#~ msgid "Color when the DXCC is an ATNO (All Time New One)"
-#~ msgstr ""
-#~ "Color quan el DXCC és un ATNO («All Time New One», Un de nou de tots els "
-#~ "temps )"
-
 #: ../setuppages/setuppagecolors.cpp:53
 msgctxt "SetupPageColors|"
 msgid ""
@@ -4285,22 +4020,6 @@ msgstr ""
 msgctxt "SetupPageColors|"
 msgid "Worked DXCC, but not confirmed in this band."
 msgstr "DXCC treballat, però no confirmat en aquesta banda."
-
-#~ msgctxt "SetupPageColors|"
-#~ msgid "DXCC is confirmed in this band"
-#~ msgstr "El DXCC està confirmat en aquesta banda"
-
-#~ msgctxt "SetupPageColors|"
-#~ msgid "Default color"
-#~ msgstr "Color predeterminat"
-
-#~ msgctxt "SetupPageColors|"
-#~ msgid "Sets a palette of colors similar to the one used in WSJT-X"
-#~ msgstr "Estableix una paleta de colors similar a la usada al WSJT-X"
-
-#~ msgctxt "SetupPageColors|"
-#~ msgid "Sets the default palette"
-#~ msgstr "Estableix la paleta predeterminada"
 
 #: ../setuppages/setuppagecolors.cpp:168
 msgctxt "SetupPageColors|"
@@ -4665,10 +4384,6 @@ msgctxt "SetupPageLoTW|"
 msgid "Select File"
 msgstr ""
 
-#~ msgctxt "SetupPageLogs|"
-#~ msgid "Type"
-#~ msgstr "Tipus"
-
 #: ../setuppages/setuppagelogs.cpp:70
 #| msgid "New"
 msgctxt "SetupPageLogs|"
@@ -4694,11 +4409,6 @@ msgstr "KLog"
 msgctxt "SetupPageLogs|"
 msgid "Do you really want to remove this log?"
 msgstr "Esteu segur que voleu eliminar aquest registre?"
-
-#: ../setuppages/setuppagelogs.cpp:230
-msgctxt "SetupPageLogs|"
-msgid "All the QSOs from this log will be also deleted..."
-msgstr "També s'eliminaran tots els QSO d'aquest registre..."
 
 #: ../setuppages/setuppagelogs.cpp:345
 msgctxt "SetupPageLogs|"
@@ -4734,6 +4444,11 @@ msgstr "Elimina el registre seleccionat."
 msgctxt "SetupPageLogs|"
 msgid "Select the log you want to open."
 msgstr "Seleccioneu el registre que voleu obrir."
+
+#: ../setuppages/setuppagelogs.cpp:230
+msgctxt "SetupPageLogs|"
+msgid "All the QSOs from this log will also be deleted..."
+msgstr ""
 
 #: ../setuppages/setuppagelogs.cpp:269
 msgctxt "SetupPageLogs|"
@@ -4780,10 +4495,6 @@ msgctxt "SetupPageLogsNew|"
 msgid "&Cancel"
 msgstr "&Cancel·la"
 
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select categories"
-#~ msgstr "Seleccioneu les categories"
-
 #: ../setuppages/setuppagelogsnew.cpp:94
 msgctxt "SetupPageLogsNew|"
 msgid "&Date"
@@ -4824,66 +4535,6 @@ msgctxt "SetupPageLogsNew|"
 msgid "Add a comment about this log."
 msgstr "Afegiu un comentari quant a aquest registre."
 
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "&Type of Operation"
-#~ msgstr "&Tipus d'operació"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the kind of operation for this log."
-#~ msgstr "Seleccioneu la classe d'operació per a aquest registre."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "&Mode Category"
-#~ msgstr "Categoria de &mode"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the mode category."
-#~ msgstr "Seleccioneu la categoria del mode."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "O&perators Category"
-#~ msgstr "Categoria d'o&peradors"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the operators category."
-#~ msgstr "Seleccioneu la categoria dels operadors."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "&Assisted Category"
-#~ msgstr "Categoria d'&assistit"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the assisted category."
-#~ msgstr "Seleccioneu la categoria d'assistit."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Po&wer Category"
-#~ msgstr "Categoria de &potència"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the power category."
-#~ msgstr "Seleccioneu la categoria de la potència."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "&Bands Category"
-#~ msgstr "Categoria de &bandes"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the bands category."
-#~ msgstr "Seleccioneu la categoria de les bandes."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "O&verlay"
-#~ msgstr "S&uperposició"
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Select the Overlay category."
-#~ msgstr "Seleccioneu la categoria de la superposició."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Categories not OK"
-#~ msgstr "Categories no correctes"
-
 #: ../setuppages/setuppagelogsnew.cpp:582
 #| msgid ""
 #| "You need to enter a valid QRZ in the Station Callsign box\n"
@@ -4895,21 +4546,6 @@ msgid ""
 msgstr ""
 "Cal introduir un QRZ vàlid a la casella d'indicatiu d'estació.\n"
 "El registre no s'obrirà."
-
-#~| msgid ""
-#~| "You selected an invalid combination\n"
-#~| "The log will not be opened."
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid ""
-#~ "You selected an invalid combination.\n"
-#~ "The log will not be opened."
-#~ msgstr ""
-#~ "Heu seleccionat una combinació no vàlida.\n"
-#~ "El registre no s'obrirà."
-
-#~ msgctxt "SetupPageLogsNew|"
-#~ msgid "Categories OK"
-#~ msgstr "Categories correctes"
 
 #: ../setuppages/setuppagemisc.cpp:38
 #| msgid "Imperial system"
@@ -4972,16 +4608,6 @@ msgctxt "SetupPageMisc|"
 msgid "Move DB"
 msgstr "Mou la BD"
 
-#: ../setuppages/setuppagemisc.cpp:130
-msgctxt "SetupPageMisc|"
-msgid ""
-"If new version checking is selected, KLog will send the developer your "
-"callsign, KLog version & Operating system to help in improving KLog."
-msgstr ""
-"Si s'ha seleccionat la comprovació de versió nova, el KLog enviarà al "
-"desenvolupador el vostre indicatiu, la versió del KLog i el sistema operatiu "
-"per ajudar a millorar el KLog."
-
 #: ../setuppages/setuppagemisc.cpp:131
 msgctxt "SetupPageMisc|"
 msgid "Check it for Imperial system (Miles instead of Kilometers)."
@@ -5026,6 +4652,13 @@ msgstr ""
 "quelcom que no funciona com s'espera. Es crearà un fitxer de depuració en el "
 "directori del KLog."
 
+#: ../setuppages/setuppagemisc.cpp:145
+msgctxt "SetupPageMisc|"
+msgid ""
+"Click to mark as Queued (to be sent) all the eQSL (LoTW and eQSL) in all the "
+"new QSO by default."
+msgstr ""
+
 #: ../setuppages/setuppagemisc.cpp:693
 msgctxt "SetupPageMisc|"
 msgid ""
@@ -5055,13 +4688,6 @@ msgctxt "SetupPageMisc|"
 msgid "Click to move the DB to the new directory."
 msgstr "Cliqueu per moure la BD a un directori nou."
 
-#: ../setuppages/setuppagemisc.cpp:145
-msgctxt "SetupPageMisc|"
-msgid ""
-"Click to mark as Queued (to be sent) all the eQSL (LoTW & eQSL) in all the "
-"new QSO by default."
-msgstr ""
-
 #: ../setuppages/setuppagemisc.cpp:656
 msgctxt "SetupPageMisc|"
 msgid "Select Directory"
@@ -5088,12 +4714,6 @@ msgid ""
 "The target directory does not exist. Please select an existing directory."
 msgstr ""
 "El directori de destinació no existeix. Seleccioneu un directori existent."
-
-#: ../setuppages/setuppagemisc.cpp:127
-msgctxt "SetupPageMisc|"
-msgid "The search box will show also the callsign on the air to do the QSO."
-msgstr ""
-"El quadre de cerca mostrarà també l'indicatiu a l'aire emprat per fer el QSO."
 
 #: ../setuppages/setuppagemisc.cpp:45
 msgctxt "SetupPageMisc|"
@@ -5135,6 +4755,18 @@ msgstr ""
 msgctxt "SetupPageMisc|"
 msgid "&Provide Info for statistics"
 msgstr "&Proporciona informació per a estadístiques"
+
+#: ../setuppages/setuppagemisc.cpp:127
+msgctxt "SetupPageMisc|"
+msgid "The search box will also show the callsign on the air to do the QSO."
+msgstr ""
+
+#: ../setuppages/setuppagemisc.cpp:130
+msgctxt "SetupPageMisc|"
+msgid ""
+"If new version checking is selected, KLog will send the developer your "
+"callsign, KLog version and Operating system to help in improving KLog."
+msgstr ""
 
 #: ../setuppages/setuppagemisc.cpp:132
 msgctxt "SetupPageMisc|"
@@ -5206,15 +4838,6 @@ msgctxt "SetupPageSats|"
 msgid "Remove the selected satellite."
 msgstr "Elimina el satèl·lit seleccionat."
 
-#: ../setuppages/setuppagesats.cpp:73
-msgctxt "SetupPageSats|"
-msgid ""
-"Import a satellites file. It will replace the satellites you have now "
-"configured."
-msgstr ""
-"Importa un fitxers de satèl·lits. Substituirà els satèl·lits que tingueu "
-"configurats ara."
-
 #: ../setuppages/setuppagesats.cpp:74
 msgctxt "SetupPageSats|"
 msgid "Export your current satellites to a file."
@@ -5235,10 +4858,17 @@ msgctxt "SetupPageSats|"
 msgid "Do you really want to remove this satellite?"
 msgstr "Esteu segur que voleu eliminar aquest satèl·lit?"
 
+#: ../setuppages/setuppagesats.cpp:73
+msgctxt "SetupPageSats|"
+msgid ""
+"Import a satellites file. It will replace the satellites you have in the "
+"current list."
+msgstr ""
+
 #: ../setuppages/setuppagesats.cpp:214
 msgctxt "SetupPageSats|"
-msgid "This satellite will not be longer available to be selected ..."
-msgstr "Aquest satèl·lit ja no estarà disponible per a sigui seleccionable..."
+msgid "This satellite will no be longer available to be selected ..."
+msgstr ""
 
 #: ../setuppages/setuppagesats.cpp:246
 msgctxt "SetupPageSats|"
@@ -5399,40 +5029,14 @@ msgstr "Introduïu els modes aquest format: USB"
 #: ../setuppages/setuppagesatsnew.cpp:385
 msgctxt "SetupPageSatsNew|"
 msgid ""
-"Some of the data you have entered is not correct, the satellite can't be "
+"Some of the data you have entered is not correct; the satellite can't be "
 "added."
 msgstr ""
-"Diverses dades que heu introduït no són correctes, no s'ha pogut afegir el "
-"satèl·lit."
 
 #: ../setuppages/setuppageudp.cpp:10
 msgctxt "SetupPageUDP|"
 msgid "Start UDP Server"
 msgstr "Inicia el servidor UDP"
-
-#: ../setuppages/setuppageudp.cpp:33
-msgctxt "SetupPageUDP|"
-msgid "Log automatically QSOs from WSJT-X"
-msgstr "Enregistra automàticament els QSO del WSJT-X"
-
-#: ../setuppages/setuppageudp.cpp:34
-msgctxt "SetupPageUDP|"
-msgid "Allow WSJT-X to send logged QSO to KLog"
-msgstr "Permet que el WSJT-X enviï QSO enregistrats al KLog"
-
-#: ../setuppages/setuppageudp.cpp:38
-msgctxt "SetupPageUDP|"
-msgid ""
-"KLog will log automatically any QSO coming from WSJT-X without any manual "
-"confirmation."
-msgstr ""
-"El KLog enregistrarà automàticament qualsevol QSO que vingui del WSJT-X "
-"sense cap confirmació manual."
-
-#: ../setuppages/setuppageudp.cpp:41
-msgctxt "SetupPageUDP|"
-msgid "Receive and Update QSO data to KLog"
-msgstr "Recepció i actualització de dades QSO al KLog"
 
 #: ../setuppages/setuppageudp.cpp:42
 msgctxt "SetupPageUDP|"
@@ -5443,42 +5047,47 @@ msgstr ""
 "El KLog mostrarà i actualitzarà automàticament les dades provinents del "
 "WSJT-X (indicador DX, localitzador, RPT, ...)"
 
-#: ../setuppages/setuppageudp.cpp:78
+#: ../setuppages/setuppageudp.cpp:33
 msgctxt "SetupPageUDP|"
-msgid "QSO notification timeout (milisecs)"
-msgstr "Temps excedit de la notificació QSO (mil·lisegons)"
-
-#: ../setuppages/setuppageudp.cpp:79
-msgctxt "SetupPageUDP|"
-msgid ""
-"Milliseconds that the notification of QSO received from WSJTX will be shown."
+msgid "Automatically log QSOs from WSJT-X"
 msgstr ""
-"Mil·lisegons durant els que es mostrarà la notificació del QSO rebut des del "
-"WSJTX."
 
-#: ../setuppages/setuppageudp.cpp:58
+#: ../setuppages/setuppageudp.cpp:34
 msgctxt "SetupPageUDP|"
-msgid ""
-"Make sure it is the same port where the other programs are sending the data "
-"to. Default port is 2237."
+msgid "Allow WSJT-X to send logged QSOs to KLog"
 msgstr ""
-"Comproveu que sigui el mateix port a on els altres programes envien les "
-"dades. El port predeterminat és el 2237."
 
 #: ../setuppages/setuppageudp.cpp:35
 #, qt-format
 msgctxt "SetupPageUDP|"
 msgid ""
-"QSO logged in WSJT-X will be sent to KLog and KLog will ask before logging "
+"QSOs logged in WSJT-X will be sent to KLog and KLog will ask before logging "
 "into KLog unless \"%1\" is selected"
 msgstr ""
-"Els QSO enregistrats al WSJT-X s'enviaran al KLog i el KLog preguntarà abans "
-"d'enregistrar-los al KLog a menys que se seleccioni «%1»"
+
+#: ../setuppages/setuppageudp.cpp:38
+msgctxt "SetupPageUDP|"
+msgid ""
+"KLog will automatically log any QSO coming from WSJT-X without any manual "
+"confirmation."
+msgstr ""
+
+#: ../setuppages/setuppageudp.cpp:41
+msgctxt "SetupPageUDP|"
+msgid "Receive QSOs data and update to KLog"
+msgstr ""
 
 #: ../setuppages/setuppageudp.cpp:58
 msgctxt "SetupPageUDP|"
 msgid "UDP port number where the UDP Server will listen for packets."
 msgstr "Número de port UDP a on el servidor UDP escoltarà els paquets."
+
+#: ../setuppages/setuppageudp.cpp:58
+msgctxt "SetupPageUDP|"
+msgid ""
+"Make sure it is the same port that the other programs are sending the data "
+"to. Default port is 2237."
+msgstr ""
 
 #: ../setuppages/setuppageudp.cpp:59
 msgctxt "SetupPageUDP|"
@@ -5493,6 +5102,17 @@ msgstr ""
 msgctxt "SetupPageUDP|"
 msgid "UDP Port"
 msgstr "Port UDP"
+
+#: ../setuppages/setuppageudp.cpp:78
+msgctxt "SetupPageUDP|"
+msgid "QSOs notification timeout (milisecs)"
+msgstr ""
+
+#: ../setuppages/setuppageudp.cpp:79
+msgctxt "SetupPageUDP|"
+msgid ""
+"Miliseconds that the notification of QSOs received from WSJTX will be shown."
+msgstr ""
 
 #: ../setuppages/setuppageuserdata.cpp:40
 #| msgid "Personal data"
@@ -6031,8 +5651,8 @@ msgstr "Bandes"
 
 #: ../charts/statsqsosperbandbarchartwidget.cpp:57
 msgctxt "StatsQSOsPerBandBarChartWidget|"
-msgid "QSO per band distribution"
-msgstr "QSO per distribució de bandes"
+msgid "QSOs per band distribution"
+msgstr ""
 
 #: ../charts/statsqsosperbandbarchartwidget.cpp:67
 msgctxt "StatsQSOsPerBandBarChartWidget|"
@@ -6168,8 +5788,8 @@ msgstr "Modes"
 
 #: ../charts/statsqsospermodebarchartwidget.cpp:57
 msgctxt "StatsQSOsPerModeBarChartWidget|"
-msgid "QSO per mode distribution"
-msgstr "QSO per distribució de modes"
+msgid "QSOs per mode distribution"
+msgstr ""
 
 #: ../charts/statsqsospermodebarchartwidget.cpp:67
 msgctxt "StatsQSOsPerModeBarChartWidget|"
@@ -6364,25 +5984,6 @@ msgid "Previous"
 msgstr "Anterior"
 
 #. Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in QSO data
-#~ msgctxt "TipsDialog|"
-#~ msgid "Tip #1:"
-#~ msgstr "Consell núm. 1:"
-
-#~ msgctxt "TipsDialog|"
-#~ msgid "Do you know..."
-#~ msgstr "Sabíeu que..."
-
-#~ msgctxt "TipsDialog|"
-#~ msgid ""
-#~ "You can use <a href=\"#ToolsFillInQSO\">Tools->Fill in QSO data</a> to "
-#~ "automatically read the full log to fill the DXCC, CQ, ITU zones and "
-#~ "continent?"
-#~ msgstr ""
-#~ "podeu usar <a href=\"#ToolsFillInQSO\">Eines->Omple les dades QSO</a> per "
-#~ "a llegir automàticament el registre complet per omplir el DXCC, CQ, les "
-#~ "zones ITU i el continent?"
-
-#. Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in QSO data
 #: ../tipsdialog.cpp:123
 msgctxt "TipsDialog|"
 msgid ""
@@ -6501,20 +6102,6 @@ msgid ""
 msgstr ""
 
 #. Translator: Please make sure that the name of the link is coherent with the menu File->KLog folder
-#~ msgctxt "TipsDialog|"
-#~ msgid ""
-#~ "<b>Tip #6:</b><br>Do you know...<br>You can find the file containing all "
-#~ "your log and other information in the logbook.dat file and the klogrc "
-#~ "file, containing the KLog config file in the KLog folder by opening the "
-#~ "<a href=\"#FileOpenKLogFolder\">File->KLog folder</a> menu."
-#~ msgstr ""
-#~ "<b>Consell núm. 6:</b><br>Sabíeu que...<br>podeu trobar el fitxer que "
-#~ "conté tot el vostre registre i altra informació en el fitxer "
-#~ "«logbook.dat» i el fitxer «klogrc», que conté el fitxer de configuració "
-#~ "del KLog, a la carpeta del KLog obrint el menú <a "
-#~ "href=\"#FileOpenKLogFolder\">Fitxer->Carpeta del KLog</a>."
-
-#. Translator: Please make sure that the name of the link is coherent with the menu File->KLog folder
 #: ../tipsdialog.cpp:143
 msgctxt "TipsDialog|"
 msgid ""
@@ -6581,16 +6168,6 @@ msgstr ""
 "href=https://t.me/klogchat>grup de Telegram del KLog en anglès</a> per "
 "conversar en anglès quant al KLog?"
 
-#~ msgctxt "TipsDialog|"
-#~ msgid ""
-#~ "<b>Tip #11:</b><br>Do you know...<br>You can subscribe to the <a "
-#~ "href=//https://t.me/KLogES>Spanish Telegram group</a> to discuss about "
-#~ "KLog in Spanish?"
-#~ msgstr ""
-#~ "<b>Consell núm. 11:</b><br>Sabíeu que...<br>podeu subscriure's al <a "
-#~ "href=//https://t.me/KLogES>grup de Telegram en castellà</a> per conversar "
-#~ "en castellà quant al KLog?"
-
 #: ../tipsdialog.cpp:163
 msgctxt "TipsDialog|"
 msgid ""
@@ -6598,26 +6175,6 @@ msgid ""
 "href=https://t.me/KLogES>Spanish Telegram group</a> to discuss about KLog in "
 "Spanish?"
 msgstr ""
-
-#~ msgctxt "TipsDialog|"
-#~ msgid ""
-#~ "<b>Tip #12:</b><br>Do you know...<br>You can subscribe to <a "
-#~ "href=http://lists.nongnu.org/mailman/listinfo/klog-users>KLog-users "
-#~ "mailing list</a> to discuss via email about KLog in English?"
-#~ msgstr ""
-#~ "<b>Consell núm. 12:</b><br>Sabíeu que...<br>podeu subscriure's a la <a "
-#~ "href=http://lists.nongnu.org/mailman/listinfo/klog-users>llista de correu "
-#~ "KLog-users</a> per comentar en anglès via correu electrònic quant al KLog?"
-
-#~ msgctxt "TipsDialog|"
-#~ msgid ""
-#~ "<b>Tip #13:</b><br>Do you know...<br>You can <a "
-#~ "href=https://twitter.com/ea4tv>follow EA4TV on twitter</a> to get updates "
-#~ "about KLog?"
-#~ msgstr ""
-#~ "<b>Consell núm. 13:</b><br>Sabíeu que...<br>podeu <a "
-#~ "href=https://twitter.com/ea4tv>seguir a EA4TV al Twitter</a> per "
-#~ "aconseguir notícies quant al KLog?"
 
 #: ../tipsdialog.cpp:172
 msgctxt "TipsDialog|"
@@ -6658,16 +6215,6 @@ msgid ""
 "your language? Please check <a "
 "href=https://www.klog.xyz/contrib/translations>KLog Translations</a> page."
 msgstr ""
-
-#~ msgctxt "TipsDialog|"
-#~ msgid ""
-#~ "<b>Tip #17:</b><br>Do you know...<br>You can support translating KLog "
-#~ "into your language? Please check <a "
-#~ "href=https://www.klog.xyz/contrib/translations>KLog Translations</a> page?"
-#~ msgstr ""
-#~ "<b>Consell núm. 17:</b><br>Sabíeu que...<br>podeu ajudar a traduir el "
-#~ "KLog al vostre idioma? Si us plau, reviseu la pàgina de <a "
-#~ "href=https://www.klog.xyz/contrib/translations>traduccions del KLog</a>."
 
 #: ../tipsdialog.cpp:197
 msgctxt "TipsDialog|"
