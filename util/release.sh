@@ -9,7 +9,7 @@ QT_SELECT="qt5"
 mkdir -p $TARGET
 
 echo "Getting the version to be released..."
-VERSION=`grep "QString version" $SOURCES/main.cpp | awk '{print $4}' | sed 's:^.\(.*\).$:\1:' `
+VERSION=`grep "QString version" $SOURCES/main.cpp | awk '{print $4}' | sed 's:^.\(.*\).$:\1:' | sed 's/..$// ' `
 echo "Version: $VERSION to be released!"
 
 rm -rf $TARGET/klog-$VERSION
