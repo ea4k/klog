@@ -102,7 +102,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
     tabWidget->addTab(UDPPage, "WSJT-X");
     tabWidget->addTab(satsPage , tr("Satellites"));
     tabWidget->addTab(hamlibPage, tr ("HamLib"));
-    tabWidget->addTab(interfacesWindowsPage, tr ("Interfaces"));
+    //tabWidget->addTab(interfacesWindowsPage, tr ("Interfaces"));
 
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));

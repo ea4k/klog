@@ -3111,12 +3111,11 @@ void MainWindow::createMenusCommon()
     connect(showStatsAct, SIGNAL(triggered()), this, SLOT(slotShowStats()));
     showStatsAct->setToolTip(tr("Show the statistics of your radio activity."));
 
-    toolMenu->addSeparator();
-
-    showRotatorAct = new QAction (tr("Rotator"), this);
-    toolMenu->addAction(showRotatorAct);
-    connect(showRotatorAct, SIGNAL(triggered()), this, SLOT(slotRotatorShow()));
-    showRotatorAct->setToolTip(tr("Show the rotator controller."));
+    //toolMenu->addSeparator();
+    //showRotatorAct = new QAction (tr("Rotator"), this);
+    //toolMenu->addAction(showRotatorAct);
+    //connect(showRotatorAct, SIGNAL(triggered()), this, SLOT(slotRotatorShow()));
+    //showRotatorAct->setToolTip(tr("Show the rotator controller."));
 
     //showWorldMapAct = new QAction(tr("CQ zones world map"), this);
     //toolMenu->addAction(showWorldMapAct);
