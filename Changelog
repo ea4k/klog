@@ -18,6 +18,7 @@ New feature: Integrate TQSL to upload QSOs to LoTW directly from KLog.
 - Improvement: Four new tips added.
 - Improvement: eQSL & LoTW dates are updated always that are modified to any status.
 - Improvement: If a QSO does not have a freq, a default freq based on the band is assigned if edited.
+- Improvement: Removed some deprecated functions.
 - Removed the functionality to sort the log based on Date & Time columns.
 - Removed one console message about a duplicated database connection.
 - Bugfix: It was not possible to include new dxcluster servers in the setup.
