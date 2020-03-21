@@ -30,59 +30,62 @@ void StatsQSOsPerBandBarChartWidget::createUI()
 void StatsQSOsPerBandBarChartWidget::prepareChart()
 {
 
-    QString x_axisTitle;
-    QString x_axisElem;
-    QStringList x_axis;
+    QString categoriesTitle;
+    QString categoriesElem;
+    QStringList categories;
     QBarSeries *series = new QBarSeries();
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     QString aux;
 
     int numberPerX = 0;
     chart->removeAllSeries();
-    x_axisTitle = QString();
-    x_axisElem = QString();
-    x_axis.clear();
+    categoriesTitle = QString();
+    categoriesElem = QString();
+    categories.clear();
     axis->clear();
     series->clear();
     QBarSet *set0 = new QBarSet(tr("QSOs per band"));
 
     //*set0->remove(0, set0->count()-1);
     qreal sum = 0;
-    QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, x_axis.count(), this);
+    QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, categories.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
      //qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
-     x_axis.append(dataProxy->getBandsInLog(-1));
-     x_axisElem = tr("Bands");
-     x_axisTitle = tr("QSOs per band distribution");
+     categories.append(dataProxy->getBandsInLog(-1));
+     categoriesElem = tr("Bands");
+     categoriesTitle = tr("QSOs per band distribution");
 
      aux.clear();
-    for (int i = 0; i < x_axis.count();i++ )
+    for (int i = 0; i < categories.count();i++ )
     {
-        numberPerX = dataProxy->getQSOsInBand((x_axis.at(i)), -1);
-         //qDebug() << x_axis.at(i) + "-" + QString::number(numberPerX) << endl;
+        numberPerX = dataProxy->getQSOsInBand((categories.at(i)), -1);
+         //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;
         numberPerX = 0;
-         //qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart QSOs: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
-        aux = tr("Reading data ...") + "\n" + tr("Bands: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
-        //aux = tr("Reading data ...") + "\n" + tr("Bands: %1/%2").arg(QString::number(i)).arg(QString::number(x_axis.count()));
+         //qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
+        aux = tr("Reading data ...") + "\n" + tr("Bands: ")  + QString::number(i) + "/" + QString::number(categories.count());
+        //aux = tr("Reading data ...") + "\n" + tr("Bands: %1/%2").arg(QString::number(i)).arg(QString::number(categories.count()));
         progress.setLabelText(aux);
         progress.setValue(i);
 
         if ( progress.wasCanceled() )
         {
-            i = x_axis.count();
+            i = categories.count();
         }
     }
     sum = set0->sum();
     set0->setLabel(QString::number(sum));
 
     series->append(set0);
-    set0->setLabel(x_axisElem);
+    set0->setLabel(categoriesElem);
     chart->addSeries(series);
-    chart->setTitle(x_axisTitle);
+    chart->setTitle(categoriesTitle);
 
-    axis->append(x_axis);
-    chart->createDefaultAxes();
-    chart->setAxisX(axis, series);
+    axis->append(categories);
+    //chart->createDefaultAxes();
+    //series->attachAxis(axis);
+    chart->addAxis(axis, Qt::AlignBottom);
+
+    //chart->setAxisX(axis, series);
 }
