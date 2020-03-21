@@ -118,7 +118,7 @@ SetupEntityDialog::SetupEntityDialog(){
     delRbutton = new QRadioButton(tr("Deleted"), this);
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
-    QPushButton *okButton = new QPushButton(tr("OK"));
+    QPushButton *okButton = new QPushButton(tr("Ok"));
 
      //qDebug() << "SetupEntityDialog::SetupEntityDialog -  2" << endl;
 /*

@@ -106,7 +106,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
 
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
-    okButton = new QPushButton(tr("OK"));
+    okButton = new QPushButton(tr("Ok"));
 
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
 

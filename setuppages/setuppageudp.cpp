@@ -30,15 +30,15 @@ SetupPageUDP::~SetupPageUDP(){
 
 void SetupPageUDP::createUI()
 {
-    QString msgAuto = QString(tr("Log automatically QSOs from WSJT-X"));
-    logFromWSJTXCheckbox->setText(tr("Allow WSJT-X to send logged QSO to KLog"));
-    logFromWSJTXCheckbox->setToolTip(tr("QSO logged in WSJT-X will be sent to KLog and KLog will ask before logging into KLog unless \"%1\" is selected").arg(msgAuto));
+    QString msgAuto = QString(tr("Automatically log QSOs from WSJT-X"));
+    logFromWSJTXCheckbox->setText(tr("Allow WSJT-X to send logged QSOs to KLog"));
+    logFromWSJTXCheckbox->setToolTip(tr("QSOs logged in WSJT-X will be sent to KLog and KLog will ask before logging into KLog unless \"%1\" is selected").arg(msgAuto));
 
     logAutomaticallyWSJTXCheckbox->setText(msgAuto);
-    logAutomaticallyWSJTXCheckbox->setToolTip(tr("KLog will log automatically any QSO coming from WSJT-X without any manual confirmation."));
+    logAutomaticallyWSJTXCheckbox->setToolTip(tr("KLog will automatically log any QSO coming from WSJT-X without any manual confirmation."));
 
 
-    realDataFromWSJTXCheckbox->setText(tr("Receive and Update QSO data to KLog"));
+    realDataFromWSJTXCheckbox->setText(tr("Receive QSOs data and update to KLog"));
     realDataFromWSJTXCheckbox->setToolTip(tr("KLog will automatically show and update data coming from WSJT-X (DX callsign, locator, RPT, ...)"));
     
     UDPServerCheckBox->setChecked(false);
@@ -55,7 +55,7 @@ void SetupPageUDP::createUI()
     checkLayout->addWidget(logAutomaticallyWSJTXCheckbox);
     checkLayout->addWidget(realDataFromWSJTXCheckbox);
 
-    QString labelTip = tr("UDP port number where the UDP Server will listen for packets.") + "\n" + tr("Make sure it is the same port where the other programs are sending the data to. Default port is 2237.");
+    QString labelTip = tr("UDP port number where the UDP Server will listen for packets.") + "\n" + tr("Make sure it is the same port that the other programs are sending the data to. Default port is 2237.");
     UDPServerCheckBox->setToolTip(tr("UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in KLog automatically from those programs."));
     UDPServerPortSpinBox->setToolTip(labelTip);
 
@@ -75,8 +75,8 @@ void SetupPageUDP::createUI()
     miliSecsSpinBox->setMinimum(0);
     miliSecsSpinBox->setMaximum(30000);
     miliSecsSpinBox->setValue(defaultTimer);
-    QLabel *miliSecsSpinBoxLabel = new QLabel(tr("QSO notification timeout (milisecs)"));
-    miliSecsSpinBox->setToolTip(tr("Milliseconds that the notification of QSO received from WSJTX will be shown."));
+    QLabel *miliSecsSpinBoxLabel = new QLabel(tr("QSOs notification timeout (milisecs)"));
+    miliSecsSpinBox->setToolTip(tr("Miliseconds that the notification of QSOs received from WSJTX will be shown."));
     miliSecsSpinBoxLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     miliSecsSpinBoxLabel->setEnabled(true);
     miliSecsSpinBox->setEnabled(false);

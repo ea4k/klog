@@ -124,10 +124,10 @@ void SetupPageMisc::createUI()
     fileNameButton->setEnabled(true);
 
     sendQSLWhenRecCheckBox->setToolTip(tr("QSOs will be marked as pending to send a QSL if you receive the DX QSL and have not sent yours."));
-    showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will show also the callsign on the air to do the QSO."));
+    showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will also show the callsign on the air to do the QSO."));
     keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
     checkNewVersionCheckBox->setToolTip(tr("Check if there is a new release of KLog available every time you start KLog."));
-    provideCallCheckBox->setToolTip(tr("If new version checking is selected, KLog will send the developer your callsign, KLog version & Operating system to help in improving KLog."));
+    provideCallCheckBox->setToolTip(tr("If new version checking is selected, KLog will send the developer your callsign, KLog version and Operating system to help in improving KLog."));
     imperialCheckBox ->setToolTip(tr("Check it for Imperial system (Miles instead of Kilometers)."));
     realTimeCheckbox->setToolTip(tr("Select to use real time."));
     UTCCheckbox->setToolTip(tr("Select to use UTC time."));
@@ -141,8 +141,8 @@ void SetupPageMisc::createUI()
     dbPushButton->setToolTip(tr("Click to change the path of the database."));
     moveDBPushButton->setToolTip(tr("Click to move the DB to the new directory."));
     debugLogCheckBox->setToolTip(tr("Activates the application debug log. This may be useful if something is not working as expected. A debug file will be created in the KLog directory."));
-    //logSortCheckBox->setToolTip(tr("Click to enable that log will be sorted based on date & time when clicking on the date column. It may be a little bit slower."));
-    sendEQSLByDefaultSearchCheckBox->setToolTip(tr("Click to mark as Queued (to be sent) all the eQSL (LoTW & eQSL) in all the new QSO by default."));
+    //logSortCheckBox->setToolTip(tr("Click to enable that log will be sorted based on date and time when clicking on the date column. It may be a little bit slower."));
+    sendEQSLByDefaultSearchCheckBox->setToolTip(tr("Click to mark as Queued (to be sent) all the eQSL (LoTW and eQSL) in all the new QSO by default."));
 
     QHBoxLayout *fileLayout = new QHBoxLayout;
     fileLayout->addWidget(useDefaultName);

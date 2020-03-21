@@ -259,10 +259,10 @@ void AwardsWidget::setToolTips()
     qsoConfirmedQLCDNumber->setToolTip(tr("Number of confirmed QSOs."));
     qsoWorkedQLCDNumber->setToolTip(tr("Number of worked QSOs."));
 
-    yearlyQSOLCDNumber->setToolTip(tr("Number of QSOs worked on the selected year."));
-    yearlyDXCCQLCDNumber->setToolTip(tr("Number of DXCC worked on the selected year."));
-    yearlyCQQLCDNumber->setToolTip(tr("Number of CQ Zones worked on the selected year."));
-    yearlyScoreQLCDNumber->setToolTip(tr("Score for the DXMarathon on the selected year."));
+    yearlyQSOLCDNumber->setToolTip(tr("Number of QSOs worked in the selected year."));
+    yearlyDXCCQLCDNumber->setToolTip(tr("Number of DXCCs worked in the selected year."));
+    yearlyCQQLCDNumber->setToolTip(tr("Number of CQ Zones worked in the selected year."));
+    yearlyScoreQLCDNumber->setToolTip(tr("Score for the DXMarathon in the selected year."));
     operatingYearsComboBox->setToolTip(tr("Select the year you want to check."));
 
     emit debugLog (Q_FUNC_INFO, "End", logSeverity);

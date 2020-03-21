@@ -461,7 +461,7 @@ void DXCCStatusWidget::refresh()
         else
         {
              //tip = tr("ADD: Pref: Bearing, CQ & ITU.");
-            tip = ""; // TODO define a text to be shown when no band column is selected (maybe Continent & bearing or a link to wikipedia or whatever!)
+            tip = ""; // TODO define a text to be shown when no band column is selected (maybe Continent and bearing or a link to wikipedia or whatever!)
         }
 
         item->setToolTip(tip);

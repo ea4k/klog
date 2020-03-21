@@ -71,7 +71,7 @@ QString DataProxy_SQLite::getSoftVersion()
             if (v.length()<1)
             {
                 //The following is not a query error but if the softwareversion value is lower than 0 or empty
-                queryError(Q_FUNC_INFO, tr("Software version in DB is null"), -1, tr("No query failed")); // To alert about any failed query execution
+                queryError(Q_FUNC_INFO, tr("Software version in DB is null"), -1, tr("Query didn't failed")); // To alert about any failed query execution
             }
             return v;
         }

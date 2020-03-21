@@ -438,7 +438,7 @@ void MainWindowSatTab::setSatelliteCombo(const QString _p)
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Warning);
             aux = tr("KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.") + "\n\n";
-            msgBox.setText(aux + tr("The satellite you have in your QSO is: ") + _p + "\n\n" + tr("Please know that the satellite name will not be saved if it is not in the list so that information may be lost!"));
+            msgBox.setText(aux + tr("The satellite you have in your QSO is: ") + _p + "\n\n" + tr("Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!"));
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
             int ret = msgBox.exec();
@@ -490,7 +490,7 @@ void MainWindowSatTab::addBands(QStringList _bands)
 }
 
 void MainWindowSatTab::setDefaultBands()
-{//Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist on the selected bands
+{//Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist in the selected bands
      //qDebug() << "MainWindowsatTab::setDefaultBands: " << endl;
     QStringList _b;
     _b.clear();

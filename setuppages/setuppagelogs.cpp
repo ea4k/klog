@@ -227,7 +227,7 @@ void SetupPageLogs::slotRemoveButtonClicked()
     QMessageBox::StandardButton ret;
     ret = QMessageBox::warning(this, tr("KLog"),
              tr("Do you really want to remove this log?") + "\n" +
-                tr("All the QSOs from this log will be also deleted..."),
+                tr("All the QSOs from this log will also be deleted..."),
              QMessageBox::Yes | QMessageBox::No);
     if (ret == QMessageBox::Yes)
     {

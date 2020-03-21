@@ -54,7 +54,7 @@ void StatsQSOsPerBandBarChartWidget::prepareChart()
      //qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
      x_axis.append(dataProxy->getBandsInLog(-1));
      x_axisElem = tr("Bands");
-     x_axisTitle = tr("QSO per band distribution");
+     x_axisTitle = tr("QSOs per band distribution");
 
      aux.clear();
     for (int i = 0; i < x_axis.count();i++ )

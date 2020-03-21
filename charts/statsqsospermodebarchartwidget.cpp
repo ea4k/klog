@@ -54,7 +54,7 @@ void StatsQSOsPerModeBarChartWidget::prepareChart()
      //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart: SelectedGrapth-1: MODES " << endl;
      x_axis.append(dataProxy->getModesInLog(-1));
      x_axisElem = tr("Modes");
-     x_axisTitle = tr("QSO per mode distribution");
+     x_axisTitle = tr("QSOs per mode distribution");
 
      aux.clear();
     for (int i = 0; i < x_axis.count();i++ )

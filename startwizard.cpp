@@ -150,8 +150,8 @@
 
     QString welcometxt = "<html><head><title>" + tr("Welcome to KLog") + "</title></head><body>" +
                             "<p>" + tr("This looks like it's the first time you've run KLog on this computer.") + "</p>" +
-                            "<p>" + tr("KLog is a free hamradio logging program that can run on Linux macOS and Windows.") +
-                            tr("It is designed to provide general purpose, DX and contest logging.") + "</p>" +
+                            "<p>" + tr("KLog is a free hamradio logging program that can run on Linux, macOS, and Windows.") +
+                            tr("It is designed to provide general purpose DX, and contest logging.") + "</p>" +
                             "<p>" + tr("It supports QSL management, import and export of ADIF ") +
                             tr("and Cabrillo file formats and many other features...") + "</p><p>" +
                             tr("Before you can start using KLog, you will be asked to:") + "</p><ul>" +
@@ -944,7 +944,7 @@ CTYPage::CTYPage(const QString _klogDir, const QString _version, QWidget *parent
     gplLic = gplLic+st+"</title></head><body><p>";
     st = tr("KLog uses the cty.csv file from https://www.country-files.com/ to get DXCC information.");
     gplLic = gplLic + st + "</p><p>";
-    st = tr("You need to download the cty.csv file if you want KLog to show you the countries, locator, ... of the QSOs you do.");
+    st = tr("You need to download the cty.csv file if you want KLog to show you the countries, locator, etc. of the QSOs you do.");
     gplLic = gplLic + st + "</p><p>";
     st = tr("Click on Download to download now.");
     gplLic = gplLic+st+"</p></body></html>";
