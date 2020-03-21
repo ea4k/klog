@@ -30,59 +30,62 @@ void StatsQSOsPerModeBarChartWidget::createUI()
 void StatsQSOsPerModeBarChartWidget::prepareChart()
 {
 
-    QString x_axisTitle;
-    QString x_axisElem;
-    QStringList x_axis;
+    QString categoriesTitle;
+    QString categoriesElem;
+    QStringList categories;
     QBarSeries *series = new QBarSeries();
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     QString aux;
 
     int numberPerX = 0;
     chart->removeAllSeries();
-    x_axisTitle = QString();
-    x_axisElem = QString();
-    x_axis.clear();
+    categoriesTitle = QString();
+    categoriesElem = QString();
+    categories.clear();
     axis->clear();
     series->clear();
     QBarSet *set0 = new QBarSet(tr("QSOs per mode"));
 
     //*set0->remove(0, set0->count()-1);
     qreal sum = 0;
-    QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, x_axis.count(), this);
+    QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, categories.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
      //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart: SelectedGrapth-1: MODES " << endl;
-     x_axis.append(dataProxy->getModesInLog(-1));
-     x_axisElem = tr("Modes");
-     x_axisTitle = tr("QSOs per mode distribution");
+     categories.append(dataProxy->getModesInLog(-1));
+     categoriesElem = tr("Modes");
+     categoriesTitle = tr("QSOs per mode distribution");
 
      aux.clear();
-    for (int i = 0; i < x_axis.count();i++ )
+    for (int i = 0; i < categories.count();i++ )
     {
-        numberPerX = dataProxy->getQSOsInMode((x_axis.at(i)), -1);
-         //qDebug() << x_axis.at(i) + "-" + QString::number(numberPerX) << endl;
+        numberPerX = dataProxy->getQSOsInMode((categories.at(i)), -1);
+         //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;
         numberPerX = 0;
-         //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart QSOs: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
-        aux = tr("Reading data ...") + "\n" + tr("Modes: ")  + QString::number(i) + "/" + QString::number(x_axis.count());
-        //aux = tr("Reading data ...") + "\n" + tr("Modes: %1/%2").arg(QString::number(i)).arg(QString::number(x_axis.count()));
+         //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
+        aux = tr("Reading data ...") + "\n" + tr("Modes: ")  + QString::number(i) + "/" + QString::number(categories.count());
+        //aux = tr("Reading data ...") + "\n" + tr("Modes: %1/%2").arg(QString::number(i)).arg(QString::number(categories.count()));
         progress.setLabelText(aux);
         progress.setValue(i);
 
         if ( progress.wasCanceled() )
         {
-            i = x_axis.count();
+            i = categories.count();
         }
     }
     sum = set0->sum();
     set0->setLabel(QString::number(sum));
 
     series->append(set0);
-    set0->setLabel(x_axisElem);
+    set0->setLabel(categoriesElem);
     chart->addSeries(series);
-    chart->setTitle(x_axisTitle);
+    chart->setTitle(categoriesTitle);
 
-    axis->append(x_axis);
-    chart->createDefaultAxes();
-    chart->setAxisX(axis, series);
+    axis->append(categories);
+    //chart->createDefaultAxes();
+    //series->attachAxis(axis);
+    chart->addAxis(axis, Qt::AlignBottom);
+
+    //chart->setAxisX(axis, series);
 }

@@ -10,6 +10,8 @@ StatsCQZPerYearBarChartWidget::StatsCQZPerYearBarChartWidget(DataProxy_SQLite *d
     dataProxy = dp;
     chart = new QChart();
     chartView = new QChartView(chart);
+    //chart->setTheme(QChart::ChartThemeQt);
+    //chart->setTheme(QChart::ChartThemeBlueCerulean);
 
     createUI();
     prepareChart();
@@ -30,9 +32,9 @@ void StatsCQZPerYearBarChartWidget::createUI()
 void StatsCQZPerYearBarChartWidget::prepareChart()
 {
 
-    QString x_axisTitle;
-    QString x_axisElem;
-    QStringList x_axis;
+    QString categoriesTitle;
+    QString categoriesElem;
+    QStringList categories;
     QBarSeries *series = new QBarSeries();
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     QString aux;
@@ -40,49 +42,51 @@ void StatsCQZPerYearBarChartWidget::prepareChart()
     int numberPerX = 0;
     chart->removeAllSeries();
 
-    x_axis.clear();
+    categories.clear();
     axis->clear();
     series->clear();
     QBarSet *set0 = new QBarSet(tr("CQ Zones per year"));
 
     //*set0->remove(0, set0->count()-1);
     qreal sum = 0;
-    QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, x_axis.count(), this);
+    QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, categories.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
      //qDebug() << "StatsCQZPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
-     x_axis.append(dataProxy->getOperatingYears(-1));
-     x_axisElem = tr("CQ zones");
-     x_axisTitle = tr("CQ zones per year");
+     categories.append(dataProxy->getOperatingYears(-1));
+     categoriesElem = tr("CQ zones");
+     categoriesTitle = tr("CQ zones per year");
 
      aux.clear();
-    for (int i = 0; i < x_axis.count();i++ )
+    for (int i = 0; i < categories.count();i++ )
     {
-        numberPerX = dataProxy->getCQzonYear((x_axis.at(i)).toInt(), -1);
-        //numberPerX = dataProxy->getQSOonYear((x_axis.at(i)).toInt(), -1);
-         //qDebug() << x_axis.at(i) + "-" + QString::number(numberPerX) << endl;
+        numberPerX = dataProxy->getCQzonYear((categories.at(i)).toInt(), -1);
+        //numberPerX = dataProxy->getQSOonYear((categories.at(i)).toInt(), -1);
+         //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;
 
-         //qDebug() << "StatsCQZPerYearBarChartWidget::prepareChart QSOs: " << QString::number((x_axis.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
+         //qDebug() << "StatsCQZPerYearBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
 
-        aux = tr("Reading data ...") + "\n" + tr("Years: %1/%2").arg(QString::number(i)).arg(QString::number(x_axis.count()));
+        aux = tr("Reading data ...") + "\n" + tr("Years: %1/%2").arg(QString::number(i)).arg(QString::number(categories.count()));
         progress.setLabelText(aux);
         progress.setValue(i);
 
         if ( progress.wasCanceled() )
         {
-            i = x_axis.count();
+            i = categories.count();
         }
     }
     sum = set0->sum();
     set0->setLabel(QString::number(sum));
 
     series->append(set0);
-    set0->setLabel(x_axisElem);
+    set0->setLabel(categoriesElem);
     chart->addSeries(series);
-    chart->setTitle(x_axisTitle);
+    chart->setTitle(categoriesTitle);
 
-    axis->append(x_axis);
-    chart->createDefaultAxes();
-    chart->setAxisX(axis, series);
+    axis->append(categories);
+    //chart->createDefaultAxes();
+    //series->attachAxis(axis);
+    chart->addAxis(axis, Qt::AlignBottom);
+    //chart->setAxisX(axis, series);
 }
