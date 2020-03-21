@@ -3054,34 +3054,34 @@ void MainWindow::createMenusCommon()
     findQSLPendingToReceiveAct = new QAction(tr("&Find DX-QSLs pending to receive"), this);
     qslToolMenu->addAction(findQSLPendingToReceiveAct);
     connect(findQSLPendingToReceiveAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
-    findQSLPendingToReceiveAct->setToolTip(tr("Shows the DX-QSL that has been requested or QSLs has been sent with no answer."));
+    findQSLPendingToReceiveAct->setToolTip(tr("Shows DX-QSLs for which requests or QSLs have been sent with no answer."));
 
     findQSLDXRequestedAct = new QAction(tr("&Find requested pending to receive"), this);
     qslToolMenu->addAction(findQSLDXRequestedAct);
     connect(findQSLDXRequestedAct, SIGNAL(triggered()), this, SLOT(slotToolSearchNeededQSLRequested()));
-    findQSLDXRequestedAct->setToolTip(tr("Shows the DX-QSL that has been requested."));
+    findQSLDXRequestedAct->setToolTip(tr("Shows the DX-QSLs that have been requested."));
 
     toolMenu->addSeparator();
     lotwToolMenu = toolMenu->addMenu(tr("LoTW tools..."));
 
-    lotwMarkSentQueuedThisLogAct = new QAction(tr("Queue all QSL to be sent of this log"), this);
+    lotwMarkSentQueuedThisLogAct = new QAction(tr("Queue all QSLs from this log to be sent"), this);
     lotwToolMenu->addAction(lotwMarkSentQueuedThisLogAct);
     connect(lotwMarkSentQueuedThisLogAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllQueuedThisLog()));
-    lotwMarkSentQueuedThisLogAct->setToolTip(tr("Mark all non sent QSOs in this log as queued to be uploaded."));
+    lotwMarkSentQueuedThisLogAct->setToolTip(tr("Mark all non-sent QSOs in this log as queued to be uploaded."));
 
-    lotwMarkSentQueuedAct = new QAction(tr("Queue all QSL to be sent"), this);
+    lotwMarkSentQueuedAct = new QAction(tr("Queue all QSLs to be sent"), this);
     lotwToolMenu ->addAction(lotwMarkSentQueuedAct);
     connect(lotwMarkSentQueuedAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllQueued()));
-    lotwMarkSentQueuedAct->setToolTip(tr("Mark all non sent QSOs as queued to be uploaded."));
+    lotwMarkSentQueuedAct->setToolTip(tr("Put all the non-sent QSOs in the queue to be uploaded."));
 
     lotwToolMenu->addSeparator();
 
-    lotwMarkSentYesThisLogAct = new QAction(tr("Mark as sent all queued QSO of this log"), this);
+    lotwMarkSentYesThisLogAct = new QAction(tr("Mark as sent all queued QSOs of this log"), this);
     lotwToolMenu->addAction(lotwMarkSentYesThisLogAct);
     connect(lotwMarkSentYesThisLogAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllYesThisLog()));
     lotwMarkSentYesThisLogAct->setToolTip(tr("Mark all queued QSOs in this log as sent to LoTW."));
 
-    lotwMarkSentYesAct = new QAction(tr("Mark all queued QSO as sent"), this);
+    lotwMarkSentYesAct = new QAction(tr("Mark all queued QSOs as sent"), this);
     lotwToolMenu ->addAction(lotwMarkSentYesAct);
     connect(lotwMarkSentYesAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllYes()));
     lotwMarkSentYesAct->setToolTip(tr("Mark all queued QSOs as sent to LoTW."));
@@ -3209,7 +3209,7 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("All pending QSO of this log has been marked as queued for LoTW!") + "\n\n" + tr("Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW."));
+        msgBox.setText(tr("All pending QSOs of this log has been marked as queued for LoTW!") + "\n\n" + tr("Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW."));
         msgBox.exec();
 
     }
@@ -3218,7 +3218,7 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("There was a problem to mark all pending QSO of this log as queued for LoTW!") );
+        msgBox.setText(tr("There was a problem to mark all pending QSOs of this log as queued for LoTW!") );
         msgBox.exec();
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -3234,7 +3234,7 @@ void MainWindow::slotToolLoTWMarkAllQueued()
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("All pending QSO has been marked as queued for LoTW!") + "\n\n" +  tr("Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW."));
+        msgBox.setText(tr("All pending QSOs has been marked as queued for LoTW!") + "\n\n" +  tr("Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW."));
         msgBox.exec();
     }
     else
@@ -3242,7 +3242,7 @@ void MainWindow::slotToolLoTWMarkAllQueued()
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("There was a problem to mark all pending QSO of this log as queued for LoTW!") );
+        msgBox.setText(tr("There was a problem to mark all pending QSOs of this log as queued for LoTW!") );
         msgBox.exec();
 
     }
@@ -3419,7 +3419,7 @@ void MainWindow::slotToolLoTWMarkAllYesThisLog()
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("All queued QSO of this log has been marked as sent for LoTW!")  );
+        msgBox.setText(tr("All queued QSOs of this log has been marked as sent for LoTW!")  );
         msgBox.exec();
     }
     else
@@ -3427,7 +3427,7 @@ void MainWindow::slotToolLoTWMarkAllYesThisLog()
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("There was a problem to mark all queued QSO of this log as sent for LoTW!") );
+        msgBox.setText(tr("There was a problem to mark all queued QSOs of this log as sent for LoTW!") );
         msgBox.exec();
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -3446,7 +3446,7 @@ void MainWindow::slotToolLoTWMarkAllYes()
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("All queued QSO has been marked as sent to LoTW!") );
+        msgBox.setText(tr("All queued QSOs has been marked as sent to LoTW!") );
         msgBox.exec();
     }
     else
@@ -3454,7 +3454,7 @@ void MainWindow::slotToolLoTWMarkAllYes()
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("There was a problem to mark all queued QSO of this log as sent to LoTW!") );
+        msgBox.setText(tr("There was a problem to mark all queued QSOs of this log as sent to LoTW!") );
         msgBox.exec();
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -4468,7 +4468,7 @@ bool MainWindow::processConfigLine(const QString &_line){
             QMessageBox msgBox;
 
             msgBox.setIcon(QMessageBox::Critical);
-            QString aux = tr("It seems that there are no QSO in the database.") + "\n\n" + tr("If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.");
+            QString aux = tr("It seems that there are no QSOs in the database.") + "\n\n" + tr("If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.");
             msgBox.setText(aux);
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
@@ -4524,7 +4524,7 @@ bool MainWindow::processConfigLine(const QString &_line){
                     else
                 {
                     msgBox.setIcon(QMessageBox::Critical);
-                    QString aux = tr("It seems that there are no QSO in the database.") + "\n\n" + tr("If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.");
+                    QString aux = tr("It seems that there are no QSOs in the database.") + "\n\n" + tr("If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Ok);
                     msgBox.setDefaultButton(QMessageBox::Ok);
@@ -5391,7 +5391,7 @@ QString MainWindow::getCallToUseForLoTWExportUpload()
     else
     { // No station callsigns are in the log so we return "NONE"
 
-        msg = tr("The log that you have selected does not contain any QSO with the station callsign defined.")+ "<br><br>" + tr("If you click on 'Yes' KLog will fill all the QSO with your Station Callsign <b>(%1)</b> automatically.").arg(stationQRZ) + "<br><br>" + tr("Do you want to fill all the QSO with the Station Callsign: %1?").arg(stationQRZ) + "<br>" + tr("(If you answer 'No', no QSO will be exported to LoTW)");
+        msg = tr("The log that you have selected does not contain any QSO with the station callsign defined.")+ "<br><br>" + tr("If you click on 'Yes' KLog will fill all the QSOs with your Station Callsign <b>(%1)</b> automatically.").arg(stationQRZ) + "<br><br>" + tr("Do you want to fill all the QSOs with the Station Callsign: %1?").arg(stationQRZ) + "<br>" + tr("(If you answer 'No', no QSOs will be exported to LoTW)");
 
         msgBox.setTextFormat(Qt::RichText);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
@@ -5444,7 +5444,7 @@ void MainWindow::slotLoTWExport(){
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
 
-        aux = tr("LoTW logfile has been properly exported!") + "\n\n" + tr("Remember to:") + "\n\n-" + tr("Before uploading: sign the LoTW log; and") + "\n-" + tr("After uploading: mark as sent all the queued QSO (LoTW Tools).");
+        aux = tr("LoTW logfile has been properly exported!") + "\n\n" + tr("Remember to:") + "\n\n-" + tr("Before uploading: sign the LoTW log; and") + "\n-" + tr("After uploading: mark as sent all the queued QSOs (LoTW Tools).");
 
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok );
@@ -5456,7 +5456,7 @@ void MainWindow::slotLoTWExport(){
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        aux = tr("There was no QSO to be exported.") + "\n\n" + tr("If you think that some QSO should have been exported, please look for them and ensure that the eQSL LoTW QSL sent box is marked as:") + "\n\n " + tr("Q - Queued") + "." ;
+        aux = tr("There was no QSOs to be exported.") + "\n\n" + tr("If you think that some QSOs should have been exported, please look for them and ensure that the eQSL LoTW QSL sent box is marked as:") + "\n\n " + tr("Q - Queued") + "." ;
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok );
 
@@ -7274,10 +7274,10 @@ bool MainWindow::checkIfNewMode(const QString &_mode)
         //qDebug() << "MainWindow::checkIfNewMode: Mode not valid! - " << _mode << endl;
 
         QMessageBox msgBox;
-        msgBox.setWindowTitle(tr("KLog - Non supported mode"));
+        msgBox.setWindowTitle(tr("KLog - Non-supported mode"));
 
         msgBox.setIcon(QMessageBox::Warning);
-        QString aux = tr("A new mode not supported by KLog has been received from an external software or radio:") + "(" + _mode + ")\n\n" + tr("If the received mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)");
+        QString aux = tr("A new mode not supported by KLog has been received from an external program or radio:") + "(" + _mode + ")\n\n" + tr("If the received mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving these alerts? (disabling these alerts will prevent non-valid modes being detected)");
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
 
@@ -7346,7 +7346,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
             QMessageBox msgBox;
 
             msgBox.setIcon(QMessageBox::Warning);
-            QString aux = tr("A new mode not supported by KLog has been received from an external software:") + "(" + _mode + ")\n\n" + tr("If the received mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)");
+            QString aux = tr("A new mode not supported by KLog has been received from an external software:") + "(" + _mode + ")\n\n" + tr("If the received mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving these alerts? (disabling these alerts will prevent non-valid modes being detected)");
             msgBox.setText(aux);
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
 
@@ -7466,7 +7466,7 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
                         "<li><b>" + tr("Error text") + ":</b> " + errorCodeS + "</li>" +
                         "<li><b>" + tr("Failed query") + ":</b> " + queryFailed + "</li>" +
                         "</ul><br>" +
-                        "<b>" + tr("Recomendation:") + "</b>" + tr("Export, periodically, your data to ADIF to prevent a potential data loss.") + "<br>";
+                        "<b>" + tr("Recommendation:") + "</b>" + tr("Periodically export your data to ADIF to prevent a potential data loss.") + "<br>";
 
     showErrorDialog->setText(aux + errorMSG);
     //showErrorDialog->setModal(true);

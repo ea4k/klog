@@ -3810,7 +3810,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
                 QMessageBox msgBox;
                 msgBox.setWindowTitle(tr("KLog - User cancelled"));
-                aux = QString(tr("You have cancelled the file import. The file will be removed and no data will be imported.") + "\n" + tr("Do you still want to cancel?"));
+                aux = QString(tr("You have canceled the file import. The file will be removed and no data will be imported.") + "\n" + tr("Do you still want to cancel?"));
                 msgBox.setText(aux);
                 msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                 msgBox.setDefaultButton(QMessageBox::No);
@@ -4831,7 +4831,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
     if (!(haveBand && haveCall && haveMode && haveTime && haveDate ))
     {
-        aux2 = tr ("This QSO is not including the minimum data to consider a QSO as valid!.") + "\n\n\n" + tr("Please edit the ADIF file and make sure that it include at least:") + "\n\nCALL, QSO_DATE, TIME_ON, BAND "+ tr("and") +" MODE.\n\n" + tr("This QSO had:") + "\n";
+        aux2 = tr ("This QSO is not including the minimum data to consider a QSO as valid!") + "\n\n\n" + tr("Please edit the ADIF file and make sure that it include at least:") + "\n\nCALL, QSO_DATE, TIME_ON, BAND "+ tr("and") +" MODE.\n\n" + tr("This QSO had:") + "\n";
 
         if (!haveBand)
         {
@@ -4888,7 +4888,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     if ((!rstTXr) && (!rstTXDefault))
     {
         QMessageBox msgBox;
-        aux = tr("Some QSO of this log, (i.e.: %1) seems to lack of RST-TX information.").arg(qrzCall)  + "\n\n" + tr("Click on Yes to add a default 59 to all QSO with a similar problem.") + "\n\n" + tr("If you select NO, the QSO may not be imported.");
+        aux = tr("Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information.").arg(qrzCall)  + "\n\n" + tr("Click on Yes to add a default 59 to all QSOs with a similar problem.") + "\n\n" + tr("If you select NO, maybe the QSO will not be imported.");
         msgBox.setWindowTitle(tr("KLog: No RST TX found!"));
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
@@ -4910,7 +4910,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     if ((!rstRXr) && (!rstRXDefault))
     {
         QMessageBox msgBox;
-        aux = tr("Some QSO of this log, (i.e.: %1) seems to lack of RST-RX information.").arg(qrzCall) + "\n\n" + tr("Click on Yes to add a default 59 to all QSO with a similar problem.") + "\n\n" + tr("If you select NO, the QSO may not be imported.");
+        aux = tr("Some QSOs of this log, (i.e.: %1) seems to lack RST-RX information.").arg(qrzCall) + "\n\n" + tr("Click on Yes to add a default 59 to all QSO with a similar problem.") + "\n\n" + tr("If you select NO, the QSO may not be imported.");
         msgBox.setText(aux);
         msgBox.setWindowTitle(tr("KLog: No RST RX found!"));
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
@@ -4980,10 +4980,10 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 }
             }
 
-            msgBox.setWindowTitle(tr("KLog - Apply to all QSO in this log?"));
+            msgBox.setWindowTitle(tr("KLog - Apply to all QSOs in this log?"));
             msgBox.setIcon(QMessageBox::Question);
-            msgBox.setText("KLog - Do you want to use the same answer for all the QSO in this log?");
-            msgBox.setInformativeText("KLog can use the same answer that you provided to all the QSO in this logfile when importing it.");
+            msgBox.setText("KLog - Do you want to use the same answer for all the QSOs in this log?");
+            msgBox.setInformativeText("KLog can use the same answer that you provided to all the QSOs in this logfile when importing it.");
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
             msgBox.setDefaultButton(QMessageBox::Yes);
             int ret = msgBox.exec();

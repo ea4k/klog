@@ -70,7 +70,7 @@ SetupPageSats::SetupPageSats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
     newSatPushButton->setToolTip(tr("Add a new satellite."));
     editPushButton->setToolTip(tr("Edit the selected satellite."));
     removePushButton->setToolTip(tr("Remove the selected satellite."));
-    importPushButton->setToolTip(tr("Import a satellites file. It will replace the satellites you have now configured."));
+    importPushButton->setToolTip(tr("Import a satellites file. It will replace the satellites you have in the current list."));
     exportPushButton->setToolTip(tr("Export your current satellites to a file."));
 
     currentSats->setToolTip(tr("Select the sat you want to open."));
@@ -211,7 +211,7 @@ void SetupPageSats::slotRemoveButtonClicked()
     QMessageBox::StandardButton ret;
     ret = QMessageBox::warning(this, tr("KLog"),
              tr("Do you really want to remove this satellite?") + "\n" +
-                tr("This satellite will not be longer available to be selected ..."),
+                tr("This satellite will no be longer available to be selected ..."),
              QMessageBox::Yes | QMessageBox::No);
     if (ret == QMessageBox::Yes)
     {

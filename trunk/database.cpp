@@ -2173,7 +2173,7 @@ bool DataBase::updateTo005()
        //TODO: Delete the table and recreate it
        if (IAmIn005)
        {
-            msgBox.setText(QObject::tr("All the data was migrated correctly. You should now go to Setup->Preferences->Logs to check that everything is OK."));
+            msgBox.setText(QObject::tr("All the data was migrated correctly. You should now go to Setup->Preferences->Logs to check that everything is okay."));
             msgBox.exec();
        }
            //qDebug() << "DataBase::updateTo005 - I am in 005 already!! " << endl;

@@ -843,12 +843,12 @@ void SearchWidget::showMenuRightButtonSearchCreateActions()
     qslSentRequestedAct->setStatusTip(tr("Mark my QSL as requested"));
     connect(qslSentRequestedAct, SIGNAL(triggered()), this, SLOT( slotQSLSentMarkAsRequested()   ));
 
-    qslSentViaDirectMarkRcvReqFromSearchAct = new QAction(tr("Via Direct && mark DX QSL as requested"), this);
-    qslSentViaDirectMarkRcvReqFromSearchAct->setStatusTip(tr("Send this QSL via direct & mark DX QSL as requested"));
+    qslSentViaDirectMarkRcvReqFromSearchAct = new QAction(tr("Via Direct and mark DX QSL as requested"), this);
+    qslSentViaDirectMarkRcvReqFromSearchAct->setStatusTip(tr("Send this QSL via direct and mark DX QSL as requested"));
     connect(qslSentViaDirectMarkRcvReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaDirectMarkDXReqFromSearch() ));
 
-    qslSentViaBureauMarkRcvReqFromSearchAct = new QAction(tr("Via Bureau && mark DX QSL as requested"), this);
-    qslSentViaBureauMarkRcvReqFromSearchAct->setStatusTip(tr("Send this QSL via bureau & mark DX QSL as requested"));
+    qslSentViaBureauMarkRcvReqFromSearchAct = new QAction(tr("Via Bureau and mark DX QSL as requested"), this);
+    qslSentViaBureauMarkRcvReqFromSearchAct->setStatusTip(tr("Send this QSL via bureau and mark DX QSL as requested"));
     connect(qslSentViaBureauMarkRcvReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaBureuMarkDXReqFromSearch() ));
 
 
@@ -858,8 +858,8 @@ void SearchWidget::showMenuRightButtonSearchCreateActions()
     connect(qslRecRequestedAct, SIGNAL(triggered()), this, SLOT( slotQSLRecMarkAsRequested()   ));
 
 
-    qslRecViaBureauMarkReqFromSearchAct = new QAction(tr("Via bureau && mark my QSL as requested"), this);
-    qslRecViaBureauMarkReqFromSearchAct->setStatusTip(tr("QSL received via bureau & mark my QSL as requested"));
+    qslRecViaBureauMarkReqFromSearchAct = new QAction(tr("Via bureau and mark my QSL as requested"), this);
+    qslRecViaBureauMarkReqFromSearchAct->setStatusTip(tr("QSL received via bureau and mark my QSL as requested"));
     connect(qslRecViaBureauMarkReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaBureauMarkReqFromSearch() ));
 
     qslRecViaBureauFromSearchAct = new QAction(tr("Via bureau"), this);
@@ -867,8 +867,8 @@ void SearchWidget::showMenuRightButtonSearchCreateActions()
     //qslRecViaBureauFromSearchAct->setShortcut(Qt::CTRL + Qt::Key_R);
     connect(qslRecViaBureauFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaBureauFromSearch() ));
 
-    qslRecViaDirectMarkReqFromSearchAct = new QAction(tr("Direc&t && mark as my QSL requested"), this);
-    qslRecViaDirectMarkReqFromSearchAct->setStatusTip(tr("QSL received via direct & mark my QSL as requested"));
+    qslRecViaDirectMarkReqFromSearchAct = new QAction(tr("Direc&t and mark as my QSL requested"), this);
+    qslRecViaDirectMarkReqFromSearchAct->setStatusTip(tr("QSL received via direct and mark my QSL as requested"));
     connect(qslRecViaDirectMarkReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectMarkReqFromSearch() ));
 
     qslRecViaDirectFromSearchAct = new QAction(tr("Direc&t"), this);
