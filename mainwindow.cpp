@@ -5286,7 +5286,7 @@ void MainWindow::slotLoTWUpload()
     {
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("The LoTW upload successfully.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
+        msgBox.setText(tr("The LoTW upload was successful.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
 
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
         msgBox.setDefaultButton(QMessageBox::Yes);
