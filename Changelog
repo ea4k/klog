@@ -1,8 +1,6 @@
 TBD - 1.0.0
-TODO: New feature: KLog can now control a rotator through PSTRotator.
-TODO: UI: Added a DXCC summary obtained from the Tools menu.
 
-New feature: Integrate TQSL to upload QSOs to LoTW directly from KLog.
+- New feature: Integrate TQSL to upload QSOs to LoTW directly from KLog.
 - UI: Removed the first column inthe DXCC widget to make it more user friendly.
 - UI: Created a widget to manage the Main QSO entry to make KLog more modular.
 - UI: eQSL & LoTW are marked as queued to be sent by default if the user activates it in the setup.
