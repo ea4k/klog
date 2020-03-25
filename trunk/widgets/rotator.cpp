@@ -57,6 +57,7 @@
 RotatorWidget::RotatorWidget(QWidget *parent) : QWidget(parent)
 
 {
+    qDebug() << "RotatorWidget::RotatorWidget" << endl;
     QTimer *timer = new QTimer(this);
     //connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     //timer->start(1000);
@@ -65,85 +66,81 @@ RotatorWidget::RotatorWidget(QWidget *parent) : QWidget(parent)
 }
 
 void RotatorWidget::paintEvent(QPaintEvent *)
-
 {
-    if (width() != height())
-    {
-        return;
-    }
-    static const QPoint antennaDirection[3] = {
-        QPoint(3, 4),
-        QPoint(-3, 4),
-        QPoint(0, -90)
+    qDebug() << "RotatorWidget::paintEvent" << endl;
+    static const QPoint hourHand[3] = {
+        QPoint(7, 8),
+        QPoint(-7, 8),
+        QPoint(0, -40)
+    };
+    static const QPoint minuteHand[3] = {
+        QPoint(7, 8),
+        QPoint(-7, 8),
+        QPoint(0, -70)
     };
 
-    QColor dirColor(Qt::blue);
-    QColor antennaColor(Qt::red);
+    QColor hourColor(127, 0, 127);
+    QColor minuteColor(0, 127, 127, 191);
 
     int side = qMin(width(), height());
     QTime time = QTime::currentTime();
-    QPainter painter(this);
 
+    QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.translate(width() / 2, height() / 2);
-    //qDebug() << "RotatorWidget::paintEvent: " << QString::number(width()) << "/" << QString::number(height()) << endl;
     painter.scale(side / 200.0, side / 200.0);
-    //qDebug() << "RotatorWidget::paintEvent: scaled: " << QString::number(width()) << "/" << QString::number(height()) << endl;
-    // Antenna
+
     painter.setPen(Qt::NoPen);
-    painter.setBrush(antennaColor);
+    painter.setBrush(hourColor);
 
+    // Paints the hour hand
     painter.save();
-    painter.rotate(6.0 * (time.second() / 60.0*60.0));
-    painter.drawConvexPolygon(antennaDirection, 3);
+    painter.rotate(30.0 * ((time.hour() + time.minute() / 60.0)));
+    painter.drawConvexPolygon(hourHand, 3);
     painter.restore();
 
-    painter.setPen(dirColor);
-    painter.save();
-    for (int j = 0; j < 60; ++j) {
+    painter.setPen(hourColor);
 
-        if ((j % 5) != 0)
-        {
-            painter.drawLine(92, 0, 96, 0);
-        }
-        painter.rotate(6.0);
-    }
-    painter.restore();
-
-    painter.save();
-
-    for (int i = 0; i < 12; i++)
-    {
+    // Paints the hours lines
+    for (int i = 0; i < 12; ++i) {
         painter.drawLine(88, 0, 96, 0);
         painter.rotate(30.0);
     }
 
-    //painter.restore();
-    painter.resetTransform();
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(minuteColor);
 
-    int x = (width()/4);// - (width()/3);
-    int y = height()/4;
+    painter.save();
+    //Paints the minute hand
+    painter.rotate(6.0 * (time.minute() + time.second() / 60.0));
+    painter.drawConvexPolygon(minuteHand, 3);
+    painter.restore();
 
+    painter.setPen(minuteColor);
+    painter.save();
+    // Paints the minutes
+    for (int j = 0; j < 60; ++j) {
+        if ((j % 5) != 0) // Skips the hour lines
+            painter.drawLine(92, 0, 96, 0);
+        painter.rotate(6.0);
+    }
+    painter.restore();
+    QPointF point;
+     qDebug() << "RotatorWidget::paintEvent width: " << QString::number(width()) << endl;
+          qDebug() << "RotatorWidget::paintEvent height: " << QString::number(height()) << endl;
+    point.setX(20);
+    point.setY(20);
+    painter.save();
+    //painter.translate(width()/2, 8);
+    painter.drawText(point, "0");
 
-    painter.drawText(x, height()/2, "270" );
-    //painter.drawText((width()/2)-(width()/3), 0, "90" );
-    painter.drawText(width()/2, y , "0" );
-    painter.drawText(width() /2, height()-y, "180" );
-    painter.drawText(width() - x, height()/2, "90" );
+    painter.restore();
 
-  for (int i = 0; i< 4; i++)
-  {
-
-      painter.save();
-      painter.rotate((i * 90) - 90);
-      //painter.rotate(i * (270/4) + 135);
-      painter.drawText(((width() -50)/2)-30, 0, QString::number((i * 90) ));
-      painter.restore();
-  }
 }
 
 void RotatorWidget::resizeEvent(QResizeEvent *event)
 {
+    qDebug() << "RotatorWidget::resizeEvent" << endl;
     event->accept();
 
     if(event->size().width() > event->size().height()){
