@@ -89,14 +89,14 @@ private:
     bool fillHashLog(QFile & _f);
     QStringList getListOfLogsInFile(QFile & _f);
     bool writeBackupDate();
-    bool getStationCallsignFromUser();
+    bool getStationCallsignFromUser(const QString _qrzDX);
 
     void showError (const QString &_txt);
 
 
     //QString checkAndFixASCIIinADIF(_data);
 
-    bool processQsoReadingADIF(const QStringList &_line, const int logNumber, const bool _keepLogsInFile);
+    bool processQsoReadingADIF(const QStringList &_line, const int logNumber);//, const bool _keepLogsInFile);
     void queryPreparation(const int _logN);
 
     bool checkADIFValidFormat(const QStringList &_qs);

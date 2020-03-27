@@ -546,7 +546,7 @@ int Awards::getDXStatus (const QStringList &_qs)
         return -1;
     }   // END OF SWITCH
      //qDebug() << "Awards::getDXStatus: END, return -1" << endl;
-    return -1;
+    //return -1;
 }
 
 
@@ -656,7 +656,7 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
         return -1;
     }
      //qDebug() << "Awards::dxccStatus: return 0"  << endl;
-    return worked;
+    //return worked;
 }
 
 
@@ -732,7 +732,7 @@ QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
         case 13:
             returnedColor =  confirmedColor;
         break;
-        break;
+        //break;
         default:
             returnedColor =  defaultColor;
         break;
@@ -794,7 +794,7 @@ QString Awards::getDXStatusString (const int &_status)
     case 13:
     message = QObject::tr("Confirmed");
    break;
-    break;
+    //break;
     default:
         message = QObject::tr("Not identified");
     break;
@@ -874,8 +874,29 @@ Returns a valid format IOTA if possible and "" in other cases.
     if (_tiota.count("-") == 1)
     {
         QStringList _values = _tiota.split("-", QString::SkipEmptyParts);
-        _continent = _values.at(0);
-        _number = _values.at(1);
+        if (_values.size() != 2)
+        {
+            return "";
+        }
+
+        if (dataProxy->isValidContinentShortName(_values.at(0)))
+        {
+            _continent = _values.at(0);
+        }
+        else
+        {
+            return "";
+        }
+        if ((_values.at(1)).toInt() > 0)
+        {
+            _number = _values.at(1);
+        }
+        else
+        {
+            return "";
+        }
+
+
     }
     else
     {
@@ -917,7 +938,7 @@ Returns a valid format IOTA if possible and "" in other cases.
     {
         return QString();
     }
-    return QString();
+    //return QString();
 
  /*
     QString stringQuery = QString("SELECT id FROM continent WHERE shortname ='%1'").arg(_continent);
