@@ -3379,7 +3379,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     //We need to fill the hashLog to process then in processLog
 
 
-    bool keepLogsInFile = false;
+    //bool keepLogsInFile = false;
 
     //qDebug() << "FileManager::adifReadLog: Logs: " << QString::number(howManyLogs) << endl;
 
@@ -3396,16 +3396,16 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
           case QMessageBox::Yes:
               // Yes was clicked
                  //qDebug() << "FileManager::adifReadLog: clicked YES" << endl;
-                keepLogsInFile = true;
+                //keepLogsInFile = true;
               break;
           case QMessageBox::No:
                 // No Save was clicked
                  //qDebug() << "FileManager::adifReadLog: clicked NO" << endl;
-                 keepLogsInFile = false;
+                 //keepLogsInFile = false;
                  return false;
           default:
                 // should never be reached
-                keepLogsInFile = false;
+                //keepLogsInFile = false;
                 return false;
                  //qDebug() << "FileManager::adifReadLog: default" << endl;
         }
@@ -3601,7 +3601,8 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                       //qDebug() << "FileManager::adifReadLog-W-2.1" << endl;
                     currentQSOfields << fieldToAnalyze;
                     //preparedQBool = processQsoReadingADIF(currentQSOfields, logN, keepLogsInFile, hashLogs);
-                    preparedQBool = processQsoReadingADIF(currentQSOfields, logN, keepLogsInFile);
+                    //XpreparedQBool = processQsoReadingADIF(currentQSOfields, logN, keepLogsInFile);
+                    preparedQBool = processQsoReadingADIF(currentQSOfields, logN);
                     if (preparedQBool)
                     {
                          //qDebug() << "FileManager::adifReadLog: preparedQBool = true"  << endl;
@@ -3927,7 +3928,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
 }
 
-bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logNumber, const bool _keepLogsInFile)
+bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logNumber) //, const bool _keepLogsInFile)
 //bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile, QHash<int, int> &_logs)
 {
 
@@ -3968,6 +3969,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
     //KLog does not understand (and will not import) a QSO without these fields
     bool haveCall = false;
+    QString wrongCall = QString();
     bool haveBand = false;
     bool bandRXDef = false;
     bool haveMode = false;
@@ -4036,15 +4038,15 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
                 if (field == "CALL")
                 {
-                    qrzCall = data;
-                    if (util->isValidCall(qrzCall))
+                    //qDebug() << "FileManager::processQsoReadingADIF-CALL:" << data << endl;
+                    qrzCall = data;                    
+                    haveCall = util->isValidCall(qrzCall);
+                    if (haveCall)
                     {
+                        //qDebug() << "FileManager::processQsoReadingADIF-CALL: Have CALL!!"  << endl;
                         preparedQuery.bindValue( ":call", qrzCall );
                     }
-
-                    haveCall = true;
-
-                     //qDebug() << "FileManager::processQsoReadingADIF-CALL:" << data << endl;
+                    //qDebug() << "FileManager::processQsoReadingADIF-CALL-END:" << data << endl;
                 }
                 else if (field == "QSO_DATE")
                 {
@@ -4831,6 +4833,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
     if (!(haveBand && haveCall && haveMode && haveTime && haveDate ))
     {
+        //qDebug() << "FileManager::processQsoReadingADIF (Don't have all mandatory fields): " << endl;
         aux2 = tr ("This QSO is not including the minimum data to consider a QSO as valid!") + "\n\n\n" + tr("Please edit the ADIF file and make sure that it include at least:") + "\n\nCALL, QSO_DATE, TIME_ON, BAND "+ tr("and") +" MODE.\n\n" + tr("This QSO had:") + "\n";
 
         if (!haveBand)
@@ -4840,7 +4843,17 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
         }
         if (!haveCall)
         {
-            aux2 = aux2 + tr(" - The call missing but was done at this time: ") + aux3 + ".\n";
+            //qDebug() << "FileManager::processQsoReadingADIF (Don't have CALL): " << endl;
+            if (qrzCall.length() > 0)
+            {
+                //qDebug() << "FileManager::processQsoReadingADIF (Don't have VALID CALL): " << qrzCall << endl;
+                aux2 = aux2 + tr(" - A wrong call: %1 but was done at this time: ").arg(qrzCall) + aux3 + ".\n";
+            }
+            else
+            {
+                aux2 = aux2 + tr(" - The call missing but was done at this time: ") + aux3 + ".\n";
+            }
+
             //aux2 = "Call missing " + aux3 + " ";
         }
         if (!haveMode)
@@ -4946,7 +4959,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
         if (!usePreviousStationCallsignAnswerAlways)
         {
             QMessageBox msgBox;
-            if(getStationCallsignFromUser())
+            if(getStationCallsignFromUser(qrzCall))
             {
                 hasStationCall = true;
             }
@@ -4962,7 +4975,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 int ret = msgBox.exec();
                 if (ret == QMessageBox::Yes)
                 {
-                    if (!getStationCallsignFromUser())
+                    if (!getStationCallsignFromUser(qrzCall))
                     {
                         msgBox.setWindowTitle(tr("KLog - No Station callsign entered."));
                         msgBox.setIcon(QMessageBox::Warning);
@@ -5011,13 +5024,25 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
 }
 
-bool FileManager::getStationCallsignFromUser()
+bool FileManager::getStationCallsignFromUser(const QString _qrzDX)
 {
 
     bool ok;
-    QString text = QInputDialog::getText(this, tr("KLog - QSO without Station Callsign"),
-                                               tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO:"), QLineEdit::Normal,
-                                               "", &ok);
+    QString text;
+    QString aux;
+    if (util->isValidCall(_qrzDX))
+    {
+        aux = tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO with %1:").arg(_qrzDX);
+        text = QInputDialog::getText(this, tr("KLog - QSO without Station Callsign"),
+                                                   aux, QLineEdit::Normal,                                                   "", &ok);
+    }
+    else
+    {
+        text = QInputDialog::getText(this, tr("KLog - QSO without Station Callsign"),
+                                                   tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO:"), QLineEdit::Normal,
+                                                   "", &ok);
+    }
+
     if (ok && util->isValidCall(text))
     {
         defaultStationCallsign = text.toUpper();

@@ -1,6 +1,4 @@
-TBD - 1.0.0
-
-- New feature: Integrate TQSL to upload QSOs to LoTW directly from KLog.
+New feature: Integrate TQSL to upload QSOs to LoTW directly from KLog.
 - UI: Removed the first column inthe DXCC widget to make it more user friendly.
 - UI: Created a widget to manage the Main QSO entry to make KLog more modular.
 - UI: eQSL & LoTW are marked as queued to be sent by default if the user activates it in the setup.
@@ -16,6 +14,8 @@ TBD - 1.0.0
 - Improvement: eQSL & LoTW dates are updated always that are modified to any status.
 - Improvement: If a QSO does not have a freq, a default freq based on the band is assigned if edited.
 - Improvement: Removed some deprecated functions.
+- Improvement: Improved the way KLog checks for a wrong call (IARU rules applied).
+- Improvement: Improved the way KLog checks for a wrong IOTA reference.
 - Removed the functionality to sort the log based on Date & Time columns.
 - Removed one console message about a duplicated database connection.
 - Bugfix: It was not possible to include new dxcluster servers in the setup.
