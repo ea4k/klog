@@ -447,9 +447,9 @@ bool Utilities::isValidCall(const QString &_c)
 
         if ((parts.at(0)).length()==(parts.at(1)).length())
         {
-            if ((((parts.at(0)).back()).isLetter()) &&  if !(((parts.at(1)).back()).isLetter()))
+            if ((((parts.at(0)).back()).isLetter()) && !(((parts.at(1)).back()).isLetter()))
             {
-                call = parts.at(1);
+                call = parts.at(0);
             }
             else
             {
