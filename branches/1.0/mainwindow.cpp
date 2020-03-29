@@ -2748,12 +2748,12 @@ void MainWindow::setRSTToMode(const QString &_m)
     }
     else if ( (_m.contains("FT", Qt::CaseInsensitive)) || (_m.contains("JT", Qt::CaseInsensitive)) || (_m.contains("QRA64", Qt::CaseInsensitive)) || (_m.contains("JS", Qt::CaseInsensitive)))
     {
-        rstTXLineEdit->setInputMask("#DD0");
-        rstRXLineEdit->setInputMask("#DD0");
+        rstTXLineEdit->setInputMask("#99");
+        rstRXLineEdit->setInputMask("#99");
         rstTXLineEdit->setText("0");
         rstRXLineEdit->setText("0");
-        rstTXLineEdit->setMaxLength(4);
-        rstRXLineEdit->setMaxLength(4);
+        rstTXLineEdit->setMaxLength(3);
+        rstRXLineEdit->setMaxLength(3);
     }
     else
     { // By default SSB RST is configured but anything could be added
