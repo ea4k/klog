@@ -327,7 +327,7 @@ QString Utilities::getDebugLogFile()
 
 QString Utilities::getSaveSpotsLogFile()
 {
-    QString filename = "/" + (QDateTime::currentDateTime()).toString("yyyyMMdd") + "-klogdxcluster.adi";
+    QString filename = "/" + (QDateTime::currentDateTime()).toString("yyyyMMdd") + "-klogdxcluster.txt";
 
     return getHomeDir() + filename;
 
