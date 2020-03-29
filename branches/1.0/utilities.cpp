@@ -425,23 +425,208 @@ bool Utilities::isValidDateTime(const QString &_d)
 bool Utilities::isValidCall(const QString &_c)
 {
     //qDebug() << "Utilities::isValidCall: " << _c << endl;
+    //Rules: http://life.itu.int/radioclub/rr/art19.pdf
     if (_c.length()<3)
     {
-        //qDebug() << "Utilities::isValidCall: FALSE" << endl;
+        //qDebug() << "Utilities::isValidCall: FALSE-1: " << _c << endl;
         return false;
     }
-    /*
-    QRegularExpression rx;
-    rx.setPattern("[a-zA-Z0-9]{1,3}[0123456789[]");
-    rx.setPattern("^\d[A-Z]{2}$");
-    if (rx.match(testLocator).hasMatch())
+    QString call = _c;
+
+    if ((call.contains('/')) || (call.contains('\\')))
     {
-        //qDebug() << "Locator::isValidLocator: Match 2: " << testLocator;
-        return true;
+        call.replace('\\', '/');
+        if (call.count('/')>2)
+        {
+            //qDebug() << "Utilities::isValidCall: FALSE-2: " << call << endl;
+            return false;
+        }
+        QStringList parts;
+        parts.clear();
+        parts << call.split('/');
+
+        if ((parts.at(0)).length()==(parts.at(1)).length())
+        {
+            if ((((parts.at(0)).back()).isLetter()) && !(((parts.at(1)).back()).isLetter()))
+            {
+                call = parts.at(0);
+            }
+            else
+            {
+                call = parts.at(1);
+            }
+        }
+        else if ((parts.at(0)).length()>(parts.at(1)).length())
+        {
+            call = parts.at(0);
+            if (parts.length()>2)
+            {
+                if( (parts.at(2)).length() > call.length() )
+                {
+                    call = parts.at(2);
+                }
+            }
+        }
+        else
+        {
+            call = parts.at(1);
+            if (parts.length()>2)
+            {
+                if( (parts.at(2)).length() > call.length() )
+                {
+                    call = parts.at(2);
+                }
+            }
+        }
     }
-    if ()
-        */
-    //qDebug() << "Utilities::isValidCall: TRUE" << endl;
+
+    if ((call.back()).isDigit())
+    {
+        //qDebug() << "Utilities::isValidCall: FALSE-3 " << call << endl;
+        return false;
+    }
+
+    QChar firstChar = call.at(0);
+    QChar secondChar = call.at(1);
+    QChar thirdChar = call.at(2);
+
+    if ((call.length() == 3) && ( thirdChar.isDigit()))
+    {
+        //qDebug() << "Utilities::isValidCall: FALSE-4: " << call << endl;
+        return false;
+    }
+
+    // The first two characters shall be two letters or a letter followed
+    // by a digit or a digit followed by a letter. The first two characters or in certain cases
+    // the first character of a call sign constitute the nationality identification4
+
+    if (firstChar.isDigit() && secondChar.isDigit())
+    {
+        //qDebug() << "Utilities::isValidCall: FALSE-5: " << call << endl;
+        return false;
+    }
+
+    if (firstChar.isLetter() && secondChar.isLetter() && thirdChar.isLetter())
+    {
+        //qDebug() << "Utilities::isValidCall: FALSE-6: " << call << endl;
+        return false;
+    }
+
+    QList<QChar> validFirstLetters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'I', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T' ,'U', 'V', 'W', 'Z'};
+
+    if ((firstChar.isLetter()) && (secondChar.isDigit()) && (!validFirstLetters.contains(firstChar)) )
+    {
+        if (validFirstLetters.contains(firstChar))
+        {
+            if (firstChar == 'C')
+            {
+                if ((secondChar == '1') || (secondChar == '7'))
+                {
+                    //qDebug() << "Utilities::isValidCall: FALSE-7.1: " << call << endl;
+                    return false;
+                }
+            }
+            if (firstChar == 'D')
+            {
+                if ((secondChar == '5') )
+                {
+                    //qDebug() << "Utilities::isValidCall: FALSE-7.2: " << call << endl;
+                    return false;
+                }
+            }
+            if (firstChar == 'E')
+            {
+                if (!(secondChar == '2') && !(secondChar == '3') && !(secondChar == '4'))
+                {
+                    //qDebug() << "Utilities::isValidCall: FALSE-7.3: " << call << endl;
+                    return false;
+                }
+            }
+            if (firstChar == 'H')
+            {
+                if ((secondChar == '1') )
+                {
+                    //qDebug() << "Utilities::isValidCall: FALSE-7.4: " << call << endl;
+                    return false;
+                }
+            }
+            if (firstChar == 'J')
+            {
+                if ((secondChar == '1') || (secondChar == '9'))
+                {
+                    //qDebug() << "Utilities::isValidCall: FALSE-7.5: " << call << endl;
+                    return false;
+                }
+            }
+            if (firstChar == 'P')
+            {
+                if (secondChar == '1')
+                {
+                    //qDebug() << "Utilities::isValidCall: FALSE-7.6: " << call << endl;
+                    return false;
+                }
+            }
+            if (firstChar == 'S')
+            {
+                if ((secondChar == '1') || (secondChar == '6'))
+                {
+                    //qDebug() << "Utilities::isValidCall: FALSE-7.7: " << call << endl;
+                    return false;
+                }
+            }
+            if (firstChar == 'T')
+            {
+                if (secondChar == '0')
+                {
+                    //qDebug() << "Utilities::isValidCall: FALSE-7.8: " << call << endl;
+                    return false;
+                }
+            }
+            if (firstChar == 'V')
+            {
+                if ((secondChar == '1') || (secondChar == '9'))
+                {
+                    //qDebug() << "Utilities::isValidCall: FALSE-7.9: " << call << endl;
+                    return false;
+                }
+            }
+            if (firstChar == 'Z')
+            {
+                if (!(secondChar == '2') && !(secondChar == '3'))
+                {
+                    //qDebug() << "Utilities::isValidCall: FALSE-7.10: " << call << endl;
+                    return false;
+                }
+            }
+
+        }
+        else
+        {
+            //qDebug() << "Utilities::isValidCall: FALSE-8: " << call << endl;
+            return false;
+        }
+
+        //qDebug() << "Utilities::isValidCall: FALSE-9: " << call << endl;
+        return false;
+    }
+
+
+    //Amateur and experimental stations19.68
+    //1) –one  character
+    // (provided  that  it  is  the  letter  B,  F,  G,  I,  K,  M,  N,  R  or  W)
+    // and  a  single  digit,
+    // followed  by  a  group  of  not  more  than  four  characters,
+    // the last of which shall be a letter,
+
+
+    //2) or–two characters and a single digit,
+    // followed by a group of not more than four characters, the last of which shall be a letter.
+
+    // 5(WRC-03)19.68A1A)   On special occasions, for temporary use, administrations may authorize
+    // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
+
+
+    //qDebug() << "Utilities::isValidCall: TRUE: " << call << endl;
     return true;
 }
 
