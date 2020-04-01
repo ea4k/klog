@@ -1,9 +1,10 @@
-New feature: Integrate TQSL to upload QSOs to LoTW directly from KLog.
+March 2020 - 1.0
 - UI: Removed the first column inthe DXCC widget to make it more user friendly.
 - UI: Created a widget to manage the Main QSO entry to make KLog more modular.
 - UI: eQSL & LoTW are marked as queued to be sent by default if the user activates it in the setup.
 - UI: Added the title to some QMessage boxes that were missing.
 - UI: Improved the usability of creating new logs or editing existing logs in the setup.
+- New feature: Integrate TQSL to upload QSOs to LoTW directly from KLog.
 - New feature: You can check a call in QRZ.com by right-clicking in the call from the log.
 - New feature: You can check a call in DXHeat.com by right-clicking in the call from the log.
 - New feature: It is now possible to save in a file all the DX-Cluster activity.
