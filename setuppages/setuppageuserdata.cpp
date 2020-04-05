@@ -346,7 +346,7 @@ int SetupPageUserDataPage::getITUz(){
     return (ituzLineEdit->text()).toInt();
 }
 
-bool SetupPageUserDataPage::setStationQrz(const QString _qrz){
+bool SetupPageUserDataPage::setStationQrz(const QString &_qrz){
     qrzLineEdit->setText((_qrz).toUpper());
     return true;
 }
@@ -396,7 +396,7 @@ QString SetupPageUserDataPage::getStationLocator()
 
 }
 
-bool SetupPageUserDataPage::setStationLocator(const QString _loc)
+bool SetupPageUserDataPage::setStationLocator(const QString &_loc)
 {
 
     if (!(locator->isValidLocator(_loc) ))
@@ -495,7 +495,7 @@ QString SetupPageUserDataPage::getCountry()
     return countryLineEdit->text();
 }
 
-bool SetupPageUserDataPage::setName (const QString _aux)
+bool SetupPageUserDataPage::setName (const QString &_aux)
 {
     nameLineEdit->setText(_aux);
     return true;
@@ -511,47 +511,47 @@ bool SetupPageUserDataPage::setAddress (const QStringList _aux)
 
 }
 
-bool SetupPageUserDataPage::setAddress1 (const QString _aux)
+bool SetupPageUserDataPage::setAddress1 (const QString &_aux)
 {
     address1LineEdit->setText(_aux);
     return true;
 
 }
 
-bool SetupPageUserDataPage::setAddress2 (const QString _aux)
+bool SetupPageUserDataPage::setAddress2 (const QString &_aux)
 {
     address2LineEdit->setText(_aux);
     return true;
 
 }
-bool SetupPageUserDataPage::setAddress3 (const QString _aux)
+bool SetupPageUserDataPage::setAddress3 (const QString &_aux)
 {
     address3LineEdit->setText(_aux);
     return true;
 
 }
-bool SetupPageUserDataPage::setAddress4 (const QString _aux)
+bool SetupPageUserDataPage::setAddress4 (const QString &_aux)
 {
     address4LineEdit->setText(_aux);
     return true;
 
 }
-bool SetupPageUserDataPage::setCity (const QString _aux)
+bool SetupPageUserDataPage::setCity (const QString &_aux)
 {
     cityLineEdit->setText(_aux);
     return true;
 }
-bool SetupPageUserDataPage::setZipCode(const QString _aux)
+bool SetupPageUserDataPage::setZipCode(const QString &_aux)
 {
     zipLineEdit->setText(_aux);
     return true;
 }
-bool SetupPageUserDataPage::setProvince (const QString _aux)
+bool SetupPageUserDataPage::setProvince (const QString &_aux)
 {
     provinceLineEdit->setText(_aux);
     return true;
 }
-bool SetupPageUserDataPage::setCountry (const QString _aux)
+bool SetupPageUserDataPage::setCountry (const QString &_aux)
 {
     countryLineEdit->setText(_aux);
     return true;
@@ -579,48 +579,48 @@ QString SetupPageUserDataPage::getPower()
 }
 
 
-bool SetupPageUserDataPage::setPower(const QString _aux)
+bool SetupPageUserDataPage::setPower(const QString &_aux)
 {
     myPowerSpinBox->setValue(_aux.toFloat());
     return true;
 
 }
 
-bool SetupPageUserDataPage::setRig1 (const QString _aux)
+bool SetupPageUserDataPage::setRig1 (const QString &_aux)
 {
     rig1LineEdit->setText(_aux);
     return true;
 
 }
 
-bool SetupPageUserDataPage::setRig2 (const QString _aux)
+bool SetupPageUserDataPage::setRig2 (const QString &_aux)
 {
     rig2LineEdit->setText(_aux);
     return true;
 
 }
-bool SetupPageUserDataPage::setRig3 (const QString _aux)
+bool SetupPageUserDataPage::setRig3 (const QString &_aux)
 {
     rig3LineEdit->setText(_aux);
     return true;
 
 }
 
-bool SetupPageUserDataPage::setAntenna1 (const QString _aux)
+bool SetupPageUserDataPage::setAntenna1 (const QString &_aux)
 {
     ant1LineEdit->setText(_aux);
     return true;
 
 }
 
-bool SetupPageUserDataPage::setAntenna2 (const QString _aux)
+bool SetupPageUserDataPage::setAntenna2 (const QString &_aux)
 {
     ant2LineEdit->setText(_aux);
     return true;
 
 }
 
-bool SetupPageUserDataPage::setAntenna3 (const QString _aux)
+bool SetupPageUserDataPage::setAntenna3 (const QString &_aux)
 {
     ant3LineEdit->setText(_aux);
     return true;
@@ -719,7 +719,7 @@ QString SetupPageUserDataPage::getOperators()
     }
 
 }
-bool SetupPageUserDataPage::setOperators(const QString _aux)
+bool SetupPageUserDataPage::setOperators(const QString &_aux)
 {
     if (checkOperatorsLineQString(_aux))
     {
@@ -731,7 +731,7 @@ bool SetupPageUserDataPage::setOperators(const QString _aux)
 
 }
 
-bool  SetupPageUserDataPage::checkOperatorsLineQString(const QString _auxLine)
+bool  SetupPageUserDataPage::checkOperatorsLineQString(const QString &_auxLine)
 {
     QStringList _aux = _auxLine.split(',');
     for (int ii = 0; ii < _aux.size(); ++ii)
