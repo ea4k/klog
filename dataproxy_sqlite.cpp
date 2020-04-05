@@ -830,6 +830,41 @@ int DataProxy_SQLite::getLastQSOid()
 
 }
 
+QString DataProxy_SQLite::getFirstQSODateFromCall (const QString _call)
+{
+    qDebug() << "DataProxy_SQLite::getFirstQSODateFromCall: " << _call << endl;
+    if (!util->isValidCall(_call))
+    {
+        return QString();
+    }
+    QSqlQuery query;
+    QString stringQuery = QString("SELECT qso_date from log where station_callsign='%1' ORDER BY qso_date ASC LIMIT 1").arg(_call);
+    bool sqlOK = query.exec(stringQuery);
+
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            stringQuery = query.value(0).toString();
+            query.finish();
+            return stringQuery;
+        }
+        else
+        {
+            query.finish();
+            return QString();
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return QString();
+    }
+
+}
+
 bool DataProxy_SQLite::clearLog()
 {
        //qDebug() << "DataProxy_SQLite::clearLog" << endl;

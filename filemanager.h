@@ -78,8 +78,6 @@ public:
     void setStationCallSign(const QString& _st);
 
 
-
-
 private:    
     bool adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested, bool _lotw);
     bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);

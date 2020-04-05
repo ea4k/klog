@@ -1,10 +1,10 @@
-#ifndef DOWNLOADCTY_H
-#define DOWNLOADCTY_H
+#ifndef LOTWUTILITIES_H
+#define LOTWUTILITIES_H
 /***************************************************************************
-                          downloadcty.h  -  description
+                          lotwutilities.h  -  description
                              -------------------
-    begin                : feb 2015
-    copyright            : (C) 2015 by Jaime Robles
+    begin                : apr 2020
+    copyright            : (C) 2020 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 #include <QObject>
@@ -37,47 +37,64 @@
 #include <QTimer>
 #include <QUrl>
 #include <QMessageBox>
+#include <QInputDialog>
+#include "dataproxy_sqlite.h"
 #include "utilities.h"
 
 class QSslError;
 
-class DownLoadCTY : public QObject {
+class LoTWUtilities : public QObject
+{
     Q_OBJECT
+
 public:
-    explicit DownLoadCTY(const QString &_klogDir, const QString &_klogVersion);
-    ~DownLoadCTY();
+    explicit LoTWUtilities(const QString &_klogDir, const QString &_klogVersion, const QString &_parentFunction, DataProxy_SQLite *dp);
+    ~LoTWUtilities();
+    bool setStationCallSign(const QString &_call);
     int download();
+    void setUser(const QString &_call);
+    void setPass(const QString &_pass);
+    bool getIsReady();
 
 private:
+    void startRequest(QUrl url);
+    bool selectQuery(const int _queryId);
+    void parseDownloadedFile(const QString &_fn);
+    void showMessage(const int _messageIcon, const QString &_msg, const QString &_msgExt);
+
+
     Utilities *util;
 
     //void setTarget(const QString& t);
-    bool saveToDisk(const QString &filename, QIODevice *data);
-    QString saveFileName(const QUrl &url);
 
     QNetworkAccessManager *manager;
-    QNetworkRequest *request;
+    QNetworkReply *reply;
+    QProgressDialog *progressDialog;
+    QFile *file;
+    bool downloadAborted;
+    qint64 fileSize;
+    QUrl url;
 
-
-    //QString target;
-    int result; // enum QNetworkReply::NetworkError
     QString klogDir;
     QString urld;
-    QUrl *url;
+
+    QString stationCallsign;
+    QString startDate;
+    QString lotwQuery;
+    QString lotwUser, lotwPassword;
+
+    DataProxy_SQLite *dataProxy;//, *dataProxyPrepared;
 
 private slots:
-    void slotDownloadFinished(QNetworkReply* reply);
-    void slotDownloadProgress(qint64 received, qint64 total);
-    void slotErrorManagement(QNetworkReply::NetworkError networkError);
+    void slotReadyRead();
+    void slotFinished();
+    void slotDownloadProgress(qint64 bytesRead, qint64 totalBytes);
+    void slotCancelDownload();
 
 
 
 signals:
-    void actionReturnDownload(const int _i);
-    void done();
-    void actionShowProgres(qint64 received, qint64 total);
-    void actionError(const int _i);
-
 
 };
-#endif // DOWNLOADCTY_H
+
+#endif // LOTWUTILITIES_H

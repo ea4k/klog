@@ -72,6 +72,7 @@
 #include "updatesatsdata.h"
 #include "hamlibclass.h"
 #include "pstrotatorsupport.h"
+#include "lotwutilities.h"
 #include "widgets/rotator.h"
 //#include "worldmapwidget.h"
 
@@ -196,6 +197,7 @@ private slots:
     void slotLoTWExport();
 
     void slotLoTWUpload();
+    void slotLoTWDownload();
 
     void slotADIFExportAll();
     void slotADIFImport();
@@ -495,6 +497,7 @@ private:
     QAction *lotwMarkSentYesThisLogAct;
     QAction *lotwMarkSentYesAct;
     QAction *lotwCallTQSL;
+    QAction *lotwUpdateFromLoTWAct;
 
     QAction *downloadCTYAct;
     QAction *downloadSATSAct;
@@ -682,7 +685,8 @@ private:
     bool callingUpdate;
     
     bool UDPServerStart;
-
+    // LOTWUTILITIES
+    LoTWUtilities *lotwUtilities;
     //LOGVIEW
     //QString bandOld, modeOld;
     //LOGVIEW

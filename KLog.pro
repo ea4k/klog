@@ -3,7 +3,7 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.0
+VERSION = 1.1
 DEFINES += APP_VERSION="$$VERSION"
 
 APP_NAME = KLog
@@ -38,6 +38,7 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
 HEADERS += setupdialog.h \
     aboutdialog.h \
     awardswidget.h \
+    lotwutilities.h \
     mainqsoentrywidget.h \
     mainwindow.h \
     pstrotatorsupport.h \
@@ -111,6 +112,7 @@ message(Sources)
 SOURCES += main.cpp \
     aboutdialog.cpp \
     awardswidget.cpp \
+    lotwutilities.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \
     pstrotatorsupport.cpp \

@@ -639,7 +639,21 @@ void SetupDialog::slotOkButtonClicked()
 
         // LOTW
         stream << "LoTWActive=" << lotwPage->getLoTW() << ";" <<  endl;
-        stream << "LoTWPath=" << lotwPage->getPath() << ";" <<  endl;
+        tmp = lotwPage->getPath();
+        if (tmp.length()>0)
+        {
+            stream << "LoTWPath=" << tmp << ";" <<  endl;
+        }
+        tmp = lotwPage->getLoTWUser();
+        if (tmp.length()>0)
+        {
+            stream << "LoTWUSer=" << tmp << ";" <<  endl;
+        }
+        tmp = lotwPage->getLoTWPass();
+        if (tmp.length()>0)
+        {
+            stream << "LoTWPass=" << tmp << ";" <<  endl;
+        }
 
         // LOTW
 
@@ -1044,6 +1058,13 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else if(tab =="LOTWPATH"){
         lotwPage->setPath(value);
+    }
+    else if(tab =="LOTWUSER"){
+            lotwPage->setLoTWUser(value);
+    }
+    else if(tab =="LOTWPASS"){
+            lotwPage->setLoTWPass(value);
+
     }else{
          //qDebug() << "SetupDialog::processConfigLine: NONE: " << endl;
     }
