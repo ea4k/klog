@@ -1,7 +1,7 @@
 #include "startwizard.h"
 //#include <QDebug>
 
- StartWizard::StartWizard(const QString _klogDir, const QString _softVersion, QWidget *parent)
+ StartWizard::StartWizard(const QString &_klogDir, const QString &_softVersion, QWidget *parent)
      : QWizard(parent)
  {
       //qDebug() << "StartWizard::StartWizard: v=" << _softVersion << endl;
@@ -45,7 +45,7 @@
 
  }
 
- void StartWizard::setVersion(QString tversion)
+ void StartWizard::setVersion(const QString &tversion)
  {
      version = tversion;
  }
@@ -902,7 +902,7 @@ int FileOrMemoryPage::nextId() const
 }
 */
 
-CTYPage::CTYPage(const QString _klogDir, const QString _version, QWidget *parent) : QWizardPage(parent)
+CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *parent) : QWizardPage(parent)
 {
     //completed = false;
 

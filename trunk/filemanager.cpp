@@ -1054,21 +1054,24 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     //qDebug() << "FileManager::adifLogExportToFile FREQ1: "  << aux1 << endl;
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
                     //qDebug() << "FileManager::adifLogExportToFile FREQ1.1: "  << aux1 << endl;
+                    aux2.clear();
                     if ((aux1.length())>0){
                         //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
                         if (dataProxy->getBandIdFromFreq(aux1.toDouble()) == dataProxy->getIdFromBandName(bandst))
                         //if (db->isThisFreqInBand(bandst, aux1))
                         {
                            out << "<FREQ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                           aux2 = aux1;
                         }
 
                     }
+                    //qDebug() << "FileManager::adifLogExportToFile FREQ_tx: "  << aux2 << endl;
                     nameCol = rec.indexOf("freq_rx");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
+                    //qDebug() << "FileManager::adifLogExportToFile FREQ_rx: "  << aux1 << endl;
                     if ((aux1.length())>0){
                         //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
-                        if (dataProxy->getBandIdFromFreq(aux1.toDouble()) == dataProxy->getIdFromBandName(bandrxst))
-                        //if (db->isThisFreqInBand(bandrxst, aux1))
+                        if ((dataProxy->getBandIdFromFreq(aux1.toDouble()) == dataProxy->getIdFromBandName(bandrxst)) && (aux2 != aux1) )
                         {
                            out << "<FREQ_RX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                         }
@@ -2096,18 +2099,25 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     //if (db->isThisFreqInBand(bandst, aux1))
                     {
                         out << "<FREQ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                        aux2 = aux1;
                     }
                 }
 
                 nameCol = rec.indexOf("freq_rx");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
+
+                if (aux2.length()>0)
+                {
+                    //qDebug() << "FileManager::adifLogExportToFile FREQ_TX: "  << aux2 << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile FREQ_RX: "  << aux1 << endl;
+                }
+
                 if ((aux1.length())>0){
-                    if (dataProxy->getBandIdFromFreq(aux1.toDouble()) == dataProxy->getIdFromBandName(bandst))
+                    if ((dataProxy->getBandIdFromFreq(aux1.toDouble()) == dataProxy->getIdFromBandName(bandst)) && (aux1 != aux2) && (aux2.length()>0))
                     //if (db->isThisFreqInBand(bandst, aux1))
                     {
                         out << "<FREQ_RX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
-
                 }
 
                 nameCol = rec.indexOf("guest_op");
