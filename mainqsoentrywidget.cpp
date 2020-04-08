@@ -505,7 +505,6 @@ void MainQSOEntryWidget::slotUpdateTime()
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
     if ( (!modify) && (realTime)  )
     {
-
         if (UTCTime)
         {
             dateEdit->setDate(QDateTime::currentDateTime().toUTC().date());
@@ -530,7 +529,6 @@ bool MainQSOEntryWidget::validCharactersInCall(const QString &_qrz)
             emit debugLog(Q_FUNC_INFO, "END-1", logSeverity);
             return false;
         }
-
     }
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
     return true;
@@ -549,7 +547,6 @@ bool MainQSOEntryWidget::isModeExisting(const QString &_m)
         emit debugLog(Q_FUNC_INFO, "END-2", logSeverity);
         return false;
     }
-
 }
 
 bool MainQSOEntryWidget::isBandExisting(const QString &_b)
@@ -590,9 +587,7 @@ void MainQSOEntryWidget::selectDefaultBand(const bool _init)
     //qDebug() << "MainQSOEntryWidget::selectDefaultBand: " << QString::number(defaultBand) << dataProxy->getNameFromBandId (defaultBand)<< endl;
     if (defaultBand<1)
     {
-
         defaultBand = dataProxy->getIdFromBandName(getBand(0));
-
     }
 
     aux = dataProxy->getNameFromBandId(defaultBand);

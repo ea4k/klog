@@ -85,8 +85,6 @@ public:
     bool isThisFreqInBand(const QString &_band, const QString &_fr);
 
     int getLastQSOid();
-    QString getFirstQSODateFromCall (const QString _call);
-
     bool addQSOFromWSJTX(const QString &_dxcall, const double _freq, const QString &_mode,
                                  const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
                                  const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on,
@@ -134,10 +132,6 @@ public:
 
 
     //LOTW
-    bool lotwSentQueue(const QString &_updateDate, const int _currentLog);          // Mark LOTW QSL SENT as Q (Queued)
-    bool lotwSentYes(const QString &_updateDate, const int _currentLog, const QString &_station);         // Update LOTW QSL SENT marked as Q as Y (Queued)
-    bool lotwSentQSOs(const QList<int> &_qsos);
-    int lotwUpdateQSLReception (const QString &_call, const QString &_qso_date, const QString &_time_on, const QString &_band, const QString &_mode, const QString &_qslrdate);
 
     int getContinentIdFromContinentShortName(const QString &_n);
     QString getContinentShortNameFromEntity(const int _n);
@@ -167,7 +161,9 @@ public:
     QStringList getOperatingYears(const int _currentLog);
     void compressDB();
     bool unMarkAllQSO();            // Unmarks all the marked QSO
-
+    bool lotwSentQueue(const QString &_updateDate, const int _currentLog);          // Mark LOTW QSL SENT as Q (Queued)
+    bool lotwSentYes(const QString &_updateDate, const int _currentLog, const QString &_station);         // Update LOTW QSL SENT marked as Q as Y (Queued)
+    bool lotwSentQSOs(const QList<int> &_qsos);
     bool clearLog();
 
 

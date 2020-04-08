@@ -5,7 +5,7 @@
 #include <QFile>
 //#include <QDebug>
 
-DownLoadCTY::DownLoadCTY(const QString &_klogDir, const QString &_klogVersion) : QObject(nullptr)
+DownLoadCTY::DownLoadCTY(const QString _klogDir, const QString _klogVersion) : QObject(0)
 {    
     //qDebug() << "DownLoadCTY::DownLoadCTY(): " << _klogDir << endl;
     util = new Utilities;

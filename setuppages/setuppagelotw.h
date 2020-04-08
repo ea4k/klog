@@ -42,10 +42,7 @@ public:
     QString getPath();
     void setLoTW(const QString &_s);
     QString getLoTW();
-    void setLoTWUser(const QString &_s);
-    QString getLoTWUser();
-    void setLoTWPass(const QString &_s);
-    QString getLoTWPass();
+
 
 private slots:
     void slotSelectTQSLClicked();
@@ -54,15 +51,12 @@ private slots:
     //void slotUseStationCall(bool _s);
 
 private:
-    void createUI();
+
     //QString defaultFileName;
     QPushButton *searchTQSLPushButton;
-    //QPushButton *testPushButton;
     QCheckBox *lotwActiveCheckBox;
     QLineEdit *tqslPathLineEdit;
     QLabel *pathLabel;
-
-    QLineEdit *lotwUserLineEdit, *lotwPassLineEdit;
 
     Utilities *util;
 };

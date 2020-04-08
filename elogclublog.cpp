@@ -190,7 +190,7 @@ int eLogClubLog::sendQSO(QStringList _qso)
 }
 
 
-int eLogClubLog::sendData(const QString &_q)
+int eLogClubLog::sendData(const QString _q)
 {
     //qDebug() << "eLogClubLog::sendData: " << _q << endl;
 
@@ -347,7 +347,7 @@ ClubLog only accepts the following ADIF fields:
     return qso;
 }
 
-void eLogClubLog::setCredentials(const QString &_call, const QString &_email, const QString &_pass, const bool _useQSOStationCall)
+void eLogClubLog::setCredentials(const QString _call, const QString _email, const QString _pass, const bool _useQSOStationCall)
 {
     //qDebug() << "eLogClubLog::setCredentials" << endl;
     call = _call;
@@ -383,7 +383,7 @@ int eLogClubLog::deleteQSO(QStringList _qso)
 
 }
 
-QString eLogClubLog::prepareToTranslate(const QString &_m)
+QString eLogClubLog::prepareToTranslate(const QString _m)
 {
     //qDebug() << "eLogClubLog:: = prepareToTranslate" << _m << endl;
     if (_m == "Callsign missing")

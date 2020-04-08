@@ -59,22 +59,22 @@ public:
     QString getProvince();
     QString getCountry();
 
-    bool setName (const QString &_aux);
-    bool setAddress1 (const QString &_aux);
-    bool setAddress2 (const QString &_aux);
-    bool setAddress3 (const QString &_aux);
-    bool setAddress4 (const QString &_aux);
+    bool setName (const QString _aux);
+    bool setAddress1 (const QString _aux);
+    bool setAddress2 (const QString _aux);
+    bool setAddress3 (const QString _aux);
+    bool setAddress4 (const QString _aux);
     bool setAddress (const QStringList _aux);
 
-    bool setCity (const QString &_aux);
-    bool setZipCode (const QString &_aux);
-    bool setProvince (const QString &_aux);
-    bool setCountry (const QString &_aux);
+    bool setCity (const QString _aux);
+    bool setZipCode (const QString _aux);
+    bool setProvince (const QString _aux);
+    bool setCountry (const QString _aux);
 
-    bool setStationQrz(const QString &_qrz);
-    bool setOperators(const QString &_aux);
+    bool setStationQrz(const QString _qrz);
+    bool setOperators(const QString _aux);
 
-    bool setStationLocator(const QString &_loc);
+    bool setStationLocator(const QString _loc);
     bool setCQz(const int _cqz);
     bool setITUz(const int _ituz);
 
@@ -90,18 +90,18 @@ public:
 
     bool setRigs(const QStringList _aux);
     bool setAntennas(const QStringList _aux);
-    bool setPower(const QString &_aux);
-    bool setRig1 (const QString &_aux);
-    bool setRig2 (const QString &_aux);
-    bool setRig3 (const QString &_aux);
+    bool setPower(const QString _aux);
+    bool setRig1 (const QString _aux);
+    bool setRig2 (const QString _aux);
+    bool setRig3 (const QString _aux);
 
-    bool setAntenna1 (const QString &_aux);
-    bool setAntenna2 (const QString &_aux);
-    bool setAntenna3 (const QString &_aux);
+    bool setAntenna1 (const QString _aux);
+    bool setAntenna2 (const QString _aux);
+    bool setAntenna3 (const QString _aux);
 
 signals:
-    void stationCallSignal (const QString &_p);
-    void operatorsSignal (const QString &_p);
+    void stationCallSignal (const QString _p);
+    void operatorsSignal (const QString _p);
     void enterKey();
 
 private slots:
@@ -115,7 +115,7 @@ private slots:
 //    void slotContestOverLayChanged(int i);
 
 private:
-    bool checkOperatorsLineQString(const QString &_auxLine);
+    bool checkOperatorsLineQString(const QString _auxLine);
 
     QTabWidget *tabWidget;
 
