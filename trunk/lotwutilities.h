@@ -55,13 +55,15 @@ public:
     void setUser(const QString &_call);
     void setPass(const QString &_pass);
     bool getIsReady();
+    void setFileName(const QString &_fn);
+    QString getFileName();
+
 
 private:
     void startRequest(QUrl url);
     bool selectQuery(const int _queryId);
     void parseDownloadedFile(const QString &_fn);
     void showMessage(const int _messageIcon, const QString &_msg, const QString &_msgExt);
-
 
     Utilities *util;
 
@@ -77,6 +79,7 @@ private:
 
     QString klogDir;
     QString urld;
+    QString fileName;
 
     QString stationCallsign;
     QString startDate;
@@ -91,9 +94,8 @@ private slots:
     void slotDownloadProgress(qint64 bytesRead, qint64 totalBytes);
     void slotCancelDownload();
 
-
-
 signals:
+    void actionProcessLoTWDownloadedFile(QString _fn);
 
 };
 

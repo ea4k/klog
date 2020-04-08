@@ -168,6 +168,7 @@ private slots:
     void slotToolLoTWMarkAllQueued();
     void slotToolLoTWMarkAllYesThisLog();
     void slotToolLoTWMarkAllYes();
+    void slotLoTWDownloadedFileProcess(QString _fn);
 
     //void slotModeComboBoxChanged();
     //void slotBandComboBoxChanged();
@@ -193,7 +194,7 @@ private slots:
     void slotrstTXTextChanged();
     void slotrstRXTextChanged();
     void slotADIFExport();
-    void slotLoTWImport();
+    //void slotLoTWImport();
     void slotLoTWExport();
 
     void slotLoTWUpload();
@@ -632,7 +633,8 @@ private:
     QString stx;
     QString srx;
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
-    bool realTime, UTCTime, alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, manageDxMarathon, keepMyData, completeWithPrevious, completedWithPreviousQTH, completedWithPreviousLocator, completedWithPreviousName, completedWithPreviousIOTA, completedWithPreviousQSLVia;
+    bool  alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, manageDxMarathon, keepMyData, completeWithPrevious, completedWithPreviousQTH, completedWithPreviousLocator, completedWithPreviousName, completedWithPreviousIOTA, completedWithPreviousQSLVia;
+    // bool realTime, UTCTime;
     bool cleaning;
     bool manageMode; // If true, the DXCC and awards will take the mode into consideration to decide if needed or worked. False implies only band is taken into account
     // Station Setup

@@ -2579,6 +2579,102 @@ bool DataProxy_SQLite::lotwSentQSOs(const QList<int> &_qsos)
     return true;
 }
 
+int DataProxy_SQLite::lotwUpdateQSLReception (const QString &_call, const QString &_qso_date, const QString &_time_on, const QString &_band, const QString &_mode, const QString &_qslrdate)
+{ //Returns the QSO id updated or -1 if none was updated.
+
+    int bandid = getIdFromBandName(_band);
+    int modeid = getIdFromModeName(_mode);
+    QString qso_date;
+    if (_qso_date.contains('/'))
+    {
+        qso_date = _qso_date;
+    }
+    else
+    {
+        qso_date = (QDate::fromString(_qso_date, "yyyyMMdd")).toString("yyyy/MM/dd");
+
+    }
+
+    QString timeon;
+    if (_time_on.contains(':'))
+    {
+        timeon = _time_on;
+    }
+    else
+    {
+        timeon = (QTime::fromString(_time_on, "hhmmss")).toString("hh:mm:ss");
+
+    }
+
+
+    QString queryString;
+    queryString = QString("SELECT id FROM log WHERE call='%1' AND qso_date='%2' AND time_on='%3' AND bandid='%4' AND modeid='%5'").arg(_call).arg(qso_date).arg(timeon).arg(bandid).arg(modeid);
+
+    QSqlQuery query;
+
+    bool sqlOK = query.exec(queryString);
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            int id = (query.value(0)).toInt();
+
+            if ( id > 0)
+            {
+                query.finish();
+
+
+                QString qslrdate;
+                if (_qslrdate.contains('/'))
+                {
+                    qslrdate = _qslrdate;
+                }
+                else
+                {
+                    qslrdate = (QDate::fromString(_qslrdate, "yyyyMMdd")).toString("yyyy/MM/dd");
+
+                }
+
+                //QString qslsdate = (QDate::fromString(_qslsdate, "yyyyMMdd")).toString("yyyy/MM/dd");
+                //QString qslrdate = (QDate::fromString(_qslrdate, "yyyyMMdd")).toString("yyyy/MM/dd");
+                queryString = QString("UPDATE log SET lotw_qsl_rcvd = 'Y', lotw_qslrdate = '%1' WHERE id='%2'").arg(qslrdate).arg(QString::number(id));
+
+                sqlOK = query.exec(queryString);
+                query.finish();
+                if (sqlOK)
+                {
+                    return id;
+                }
+                else
+                {
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                    return -4;
+                }
+            }
+            else
+            {
+                qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception ID Not found" << endl;
+                query.finish();
+                return -1;
+            }
+        }
+        else
+        {
+            qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception Query not valid: " << query.lastQuery() << endl;
+
+            query.finish();
+            return -2;
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+    }
+    query.finish();
+    return -3;
+}
+
 int DataProxy_SQLite::getQSOonYear(const int _year, const int _logNumber)
 {
      //qDebug() << "DataProxy_SQLite::getQSOonYear: " << QString::number(_year) << "/" << QString::number(_logNumber) << endl;
