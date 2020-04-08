@@ -38,7 +38,7 @@
 
 MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
-    //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
+    //qDebug << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
     //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
     logSeverity = 7;
     klogDir = _klogDir;
@@ -48,7 +48,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     util = new Utilities;
 
     QString debugName = util->getDebugLogFile();
-    //qDebug() << "MainWindow::MainWindow: Debug File: "<<  debugName << endl;
+    //qDebug << "MainWindow::MainWindow: Debug File: "<<  debugName << endl;
     debugFile = new QFile(debugName);
 
 
@@ -89,7 +89,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
   //qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << endl;
     dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
-  //qDebug() << "MainWindow::MainWindow: After DXCCStatusWidget " << endl;
+  //qDebug << "MainWindow::MainWindow: After DXCCStatusWidget " << endl;
   //qDebug() << "MainWindow::MainWindow: 00081" << endl;
     elogClublog = new eLogClubLog();
   //qDebug() << "MainWindow::MainWindow: 00082" << endl;
@@ -137,7 +137,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
         }
     }
 
-   //qDebug() << "MainWindow::MainWindow: 4" << endl;
+   //qDebug << "MainWindow::MainWindow: 4" << endl;
     world = new World(dataProxy, klogDir, softwareVersion, Q_FUNC_INFO);
 
    //qDebug() << "MainWindow::MainWindow: xx" << endl;
@@ -194,7 +194,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     rxFreqSpinBox = new QDoubleSpinBox;
     rxPowerSpinBox = new QDoubleSpinBox;
 
-  //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
+ //qDebug << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
     dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
   //qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
@@ -211,17 +211,18 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
 
 
-   //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
+   //qDebug << "MainWindow::MainWindow: Software update to be created" << endl;
     softUpdate = new SoftwareUpdate(softwareVersion);
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
 
     lotwCallTQSL = new QAction(tr("Upload to LoTW"), this);
 
-    lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
+
     //lotwUtilities->download();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
-    //qDebug() << "MainWindow::MainWindow: END" << endl;
+
+    qDebug() << "MainWindow::MainWindow: END" << endl;
 }
 
 void MainWindow::init()
@@ -300,8 +301,8 @@ void MainWindow::init()
         //qDebug() << "MainWindow::init: 0007" << endl;
     currentEntity = -1; // To optimize the calls to different world methods if the entity does not change. Used in slotQRZTextChanged
     previousEntity = -1;// To optimize the calls to different world methods if the entity does not change.
-    realTime=true;
-    UTCTime=true;
+    //realTime=true;
+    //UTCTime=true;
     keepMyData=true;
     completeWithPrevious=false;
     completedWithPreviousQTH=false;
@@ -408,6 +409,8 @@ void MainWindow::init()
 
 //    timer->start(1000);
     timerInfoBars = new QTimer(this);
+
+    lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
         //qDebug() << "MainWindow::init: Calling createUI" << endl;
     createUI();
         //qDebug() << "MainWindow::init: Calling slotClearButtonClicked" << endl;
@@ -561,6 +564,8 @@ void MainWindow::createActionsCommon(){
 
    connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
    connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
+
+   connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
@@ -1129,7 +1134,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
 
     if ( (rxFreqSpinBox->value()) > 0  )
     {
-        qDebug() << "MainWindow::readDataFromUIDX: TX FREQ & RX FREQ ARE DIFFERENT AND != 0" << endl;
+        //qDebug << "MainWindow::readDataFromUIDX: TX FREQ & RX FREQ ARE DIFFERENT AND != 0" << endl;
         aux1 = QString::number(rxFreqSpinBox->value());        
         stringFields = stringFields + ", freq_rx, band_rx";
        stringData = stringData + ", '" + aux1 + "', '" + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "'";
@@ -3243,6 +3248,39 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
+void MainWindow::slotLoTWDownloadedFileProcess(QString _fn)
+{
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+
+    QList<int> a;
+    a.clear();
+    qDebug() << "MainWindow::MainWindow: END-0" << endl;
+    a.append(filemanager->adifLoTWReadLog("_fn"));
+    QString aux;
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("KLog LoTW"));
+
+    if (a.length()>0)
+    {
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setText(tr("Your log has been updated with the LoTW downloaded QSOs"));
+        aux = QString(tr("KLog has updated %1 QSOs from LoTW")).arg(a.length());
+        msgBox.setInformativeText(aux);
+    }
+    else
+    {
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText(tr("Your log has not been updated."));
+        aux = QString(tr("No QSO was updated with the data coming from LoTW. This may be because of errors in the logfile or simply because your log was already updated."));
+        msgBox.setInformativeText(aux);
+
+    }
+    msgBox.exec();
+
+    filemanager->adifLoTWReadLog(_fn);
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+
 void MainWindow::slotToolLoTWMarkAllQueued()
 {
          //qDebug() << "MainWindow::slotToolLoTWMarkAllQueued"  << endl;
@@ -4129,7 +4167,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     }else if (field=="REALTIME"){
                 //qDebug() << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
         mainQSOEntryWidget->setRealTime(util->trueOrFalse(value));
-        realTime = util->trueOrFalse(value);
+        //realTime = util->trueOrFalse(value);
     }
     else if (field =="DXCLUSTERSERVERTOUSE"){
         aux = value;  //dxfun.com:8000
@@ -4209,7 +4247,8 @@ bool MainWindow::processConfigLine(const QString &_line){
     else if (field=="UTCTIME")
     {
                 //qDebug() << "MainWindow::processConfigLine: UTCTIME: " << value.toUpper() <<endl;
-        UTCTime = util->trueOrFalse(value);
+        //UTCTime = util->trueOrFalse(value);
+        mainQSOEntryWidget->setUTC(util->trueOrFalse(value));
     }
     else if (field=="KEEPMYDATA")
     {
@@ -5357,7 +5396,7 @@ void MainWindow::slotLoTWUpload()
 
 void MainWindow::slotLoTWDownload()
 {
-    qDebug() << "MainWindow::slotLoTWUpload - Start" << endl;
+    //qDebug << "MainWindow::slotLoTWUpload - Start" << endl;
 
     QStringList calls;
     calls << dataProxy->getStationCallSignsFromLog(-1);
@@ -5367,7 +5406,7 @@ void MainWindow::slotLoTWDownload()
     QString callToUse = QInputDialog::getItem(this, tr("KLog - Select the Station Callsign"),
                                          tr("Select the Station Callsign to use when quering LoTW:"), calls, 0, false, &ok);
 
-    qDebug() << "MainWindow::slotLoTWUpload: " << callToUse << endl;
+    //qDebug << "MainWindow::slotLoTWUpload: " << callToUse << endl;
     if (ok && !callToUse.isEmpty())
     {
         lotwUtilities->setStationCallSign(callToUse);
@@ -5391,8 +5430,7 @@ void MainWindow::slotLoTWDownload()
     }
 
     lotwUtilities->download();
-
-    qDebug() << "MainWindow::slotLoTWUpload - END" << endl;
+   //qDebug << "MainWindow::slotLoTWUpload - END" << endl;
 }
 
 QString MainWindow::getCallToUseForLoTWExportUpload()
@@ -5579,31 +5617,6 @@ void MainWindow::slotRQSLExport()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 */
-void MainWindow::slotLoTWImport(){
-            //qDebug() << "MainWindow::slotLoTWImport " << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-
-     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                      util->getHomeDir(),
-                                                      "ADIF (*.adi *.adif)");
-     if (fileName.isNull())
-     {
-     }
-     else
-     {
-                //qDebug() << "MainWindow::slotLoTWImport -1" << endl;
-        filemanager->adifLoTWReadLog(fileName);
-                //qDebug() << "MainWindow::slotLoTWImport -2" << endl;
-
-        logWindow->refresh();
-                //qDebug() << "MainWindow::slotLoTWImport -3" << endl;
-        //checkIfNewBandOrMode();
-                //qDebug() << "MainWindow::slotLoTWImport -4" << endl;
-      }
-     logEvent(Q_FUNC_INFO, "END", logSeverity);
-            //qDebug() << "MainWindow::slotLoTWImport-END" << endl;
- }
-
 
 void MainWindow::slotADIFImport(){
            //qDebug() << "MainWindow::slotADIFImport " << endl;

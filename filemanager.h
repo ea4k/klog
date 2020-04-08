@@ -66,7 +66,7 @@ public:
     ~FileManager();
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
-    bool adifLoTWReadLog(const QString& tfileName);
+    QList<int> adifLoTWReadLog(const QString& tfileName);
     QList<int> adifLoTWLogExport(const QString& _fileName,const QString &_callsign, const int _logN, bool emptyCall=false);
     bool adifLogExport(const QString& _fileName, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);

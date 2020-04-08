@@ -3,6 +3,7 @@ TODO: New feature: KLog can now control a rotator through PSTRotator.
 TODO: UI: Added a DXCC summary obtained from the Tools menu.
 Working: Improved how TX & RX freqs are managed when editing, cleaning, ...
 - Improvement: If TX Freq & RX Freq are the same, only TX Freq is exported
+- BugFix: UTC time was not properly managed, specially in the date.
 
 March 2020 - 1.0
 - UI: Removed the first column inthe DXCC widget to make it more user friendly.

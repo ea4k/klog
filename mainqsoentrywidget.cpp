@@ -505,14 +505,16 @@ void MainQSOEntryWidget::slotUpdateTime()
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
     if ( (!modify) && (realTime)  )
     {
-        dateEdit->setDate(QDateTime::currentDateTime().date());
+
         if (UTCTime)
         {
+            dateEdit->setDate(QDateTime::currentDateTime().toUTC().date());
             timeEdit->setTime(QDateTime::currentDateTime().toUTC().time());
         }
         else
         {
-            timeEdit->setTime(QDateTime::currentDateTime().toUTC().time());
+            dateEdit->setDate(QDateTime::currentDateTime().date());
+            timeEdit->setTime(QDateTime::currentDateTime().time());
         }
     }
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);

@@ -16,6 +16,7 @@ LoTWUtilities::LoTWUtilities(const QString &_klogDir, const QString &_klogVersio
     stationCallsign.clear();
     startDate.clear();
     lotwQuery.clear();
+    fileName = "lotwDownload.adi";
 
     qDebug() << "LoTWUtilities::LoTWUtilities(): - END"  << endl;
 }
@@ -23,6 +24,19 @@ LoTWUtilities::LoTWUtilities(const QString &_klogDir, const QString &_klogVersio
 LoTWUtilities::~LoTWUtilities()
 {
    //qDebug() << "LoTWUtilities::~LoTWUtilities"  << endl;
+}
+
+void LoTWUtilities::setFileName(const QString &_fn)
+{
+    if (_fn.length()>0)
+    {
+        fileName = _fn;
+    }
+}
+
+QString LoTWUtilities::getFileName()
+{
+    return fileName;
 }
 
 bool LoTWUtilities::selectQuery(const int _queryId)
@@ -122,10 +136,10 @@ int LoTWUtilities::download()
 
 
     QFileInfo fileInfo(url.path());
-    QString fileName = fileInfo.fileName();
+    //fileName = fileInfo.fileName();
 
-    if (fileName.isEmpty())
-          fileName = "lotwDownload.adi";
+    //if (fileName.isEmpty())
+    //      fileName = "lotwDownload.adi";
 
     if (QFile::exists(fileName))
     {
@@ -315,14 +329,14 @@ bool LoTWUtilities::getIsReady()
 void LoTWUtilities::parseDownloadedFile(const QString &_fn)
 {
     qDebug() << "LoTWUtilities::parseDownloadedFile: " << _fn << endl;
-    QString fileName = _fn;
+    QString _fileName = _fn;
     QMessageBox msgBox;
     QString aux;
 
-    QFile file( fileName );
+    QFile file( _fileName );
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        qDebug() << "FileManager::adifLoTWReadLog File not found" << fileName << endl;
+        qDebug() << "FileManager::adifLoTWReadLog File not found" << _fileName << endl;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - File not found"));
         msgBox.setText(tr("KLog can't find the downloaded file."));
@@ -336,13 +350,13 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
     }
     else
     {
-        qint64 startOfFile = file.pos();
+        //qint64 startOfFile = file.pos();
         // Look for a Header
         bool hasHeader = false;
         int numQSO = 0;
         QString Lotw_owncall = QString("OWNCALL: %1").arg(stationCallsign.toUpper());
-        bool hasOwnCall = false;
-        bool hasProgramID = false;
+        //bool hasOwnCall = false;
+        //bool hasProgramID = false;
         bool userPasswordError = false;
         while ((!file.atEnd()) && (!hasHeader))
         {
@@ -354,16 +368,16 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
                 qDebug() << "LoTWUtilities::parseDownloadedFile: EOH found" << endl;
                 hasHeader = true;
             }
-            else if (lineU.contains("<PROGRAMID:4>LOTW"))
-            {
-                qDebug() << "LoTWUtilities::parseDownloadedFile: ProgramID found" << endl;
-                hasProgramID = true;
-            }
-            else if (lineU.contains(Lotw_owncall))
-            {
-                qDebug() << "LoTWUtilities::parseDownloadedFile: OWNCALL found" << endl;
-                hasOwnCall = true;
-            }
+            //else if (lineU.contains("<PROGRAMID:4>LOTW"))
+            //{
+            //    qDebug() << "LoTWUtilities::parseDownloadedFile: ProgramID found" << endl;
+            //    hasProgramID = true;
+            //}
+            //else if (lineU.contains(Lotw_owncall))
+            //{
+            //    qDebug() << "LoTWUtilities::parseDownloadedFile: OWNCALL found" << endl;
+            //    hasOwnCall = true;
+            //}
             else if (lineU.contains("<APP_LOTW_NUMREC:"))
             {
                 QStringList data;
@@ -380,7 +394,7 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
         if (!hasHeader || (numQSO<1))
         {
 
-            qDebug() << "FileManager::adifLoTWReadLog Header not found" << fileName << endl;
+            qDebug() << "FileManager::adifLoTWReadLog Header not found" << _fileName << endl;
             QString aux;
             if (userPasswordError)
             {
@@ -398,7 +412,7 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
             {
                 msgBox.setWindowTitle(tr("KLog - LoTW Unknown error"));
                 msgBox.setText(tr("KLog can't recognize the file that has been downloaded from LoTW."));
-                aux = QString(tr("Try again and send the downloaded file (%1) to the KLog developer for analysis") ).arg(fileName);
+                aux = QString(tr("Try again and send the downloaded file (%1) to the KLog developer for analysis") ).arg(_fileName);
             }
 
             msgBox.setIcon(QMessageBox::Warning);
@@ -412,7 +426,7 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
 
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setWindowTitle(tr("KLog - LoTW download"));
-        msgBox.setText(tr("KLog downloaded %1 QSOs suscessfully. Do you want to proceed?").arg(QString::number(numQSO)));
+        msgBox.setText(tr("KLog downloaded %1 QSOs suscessfully. Do you want to update your log with the downloaded data?").arg(QString::number(numQSO)));
         aux = QString(tr("Now KLog will process the downloaded QSO and update your local log.") );
 
         msgBox.setDetailedText(aux);
@@ -422,13 +436,8 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
         {
             return ;
         }
-
-
-        file.seek(startOfFile);
-
-        QString LoTW_CALL, LoTW_BAND, LoTW_FREQ, LoTW_MODE, LoTW_QSO_DATE, LoTW_TIME_ON, LoTW_QSL_RCVD, LoTW_QSLRDATE,LOTW_RXQSO;
-
-
+        //file.seek(startOfFile);
+        emit actionProcessLoTWDownloadedFile(_fileName);
 
     }
 
