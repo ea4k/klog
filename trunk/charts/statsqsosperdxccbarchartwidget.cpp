@@ -5,7 +5,7 @@ StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(){}
 
 StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-    //qDebug() << "StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget" << endl;
+      //qDebug() << "StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget" << endl;
 
     dataProxy = dp;
     chart = new QChart();
@@ -58,7 +58,7 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart()
     entities.clear();
     entities << dataProxy->getEntitiesIds();
 
-     //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
+       //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
 
      QMap<int, int> map; // key,value = number of QSO, dxcc
      int qsos = -1;
@@ -70,11 +70,11 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart()
          qsos = dataProxy->getQSOsWithDXCC((entities.at(i)).toInt(), -1);
          if (qsos>0)
          {
-              //qDebug() << "Checking: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
+                //qDebug() << "Checking: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
 
              if (map.size()<10)
              {
-                  //qDebug() << "Inserting: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
+                    //qDebug() << "Inserting: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
                  map.insert(qsos, (entities.at(i)).toInt());
              }
              else
@@ -84,8 +84,8 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart()
                      it.next();
                      if (it.key()< qsos)
                      {
-                          //qDebug() << "Removing: " << QString::number(it.key()) << " / " << QString::number(it.value()) << endl;
-                          //qDebug() << "Replacing by: " << entities.at(i) << " / " << QString::number(qsos) << " - " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << endl;
+                            //qDebug() << "Removing: " << QString::number(it.key()) << " / " << QString::number(it.value()) << endl;
+                            //qDebug() << "Replacing by: " << entities.at(i) << " / " << QString::number(qsos) << " - " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << endl;
                          map.remove(it.key());
                          map.insert(qsos, (entities.at(i)).toInt());
                          it.toBack();
@@ -101,7 +101,7 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart()
          {
              i = entities.size();
          }
-       //qDebug() << "End of for iteration" << endl;
+         //qDebug() << "End of for iteration" << endl;
      }
 
      QMapIterator<int, int> it(map);
@@ -112,9 +112,9 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart()
          numberPerX = it.key();
          *set0 << numberPerX;
          numberPerX = 0;
-          //qDebug() << "End of while iteration" << endl;
+            //qDebug() << "End of while iteration" << endl;
      }
-      //qDebug() << "Out of while" << endl;
+        //qDebug() << "Out of while" << endl;
 
      categoriesElem = tr("DXCC");
      categoriesTitle = tr("Top ten DXCC per QSO");

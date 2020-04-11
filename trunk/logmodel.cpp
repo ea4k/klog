@@ -2,12 +2,12 @@
 
 LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableModel(parent)
 {
-     //qDebug() << "LogModel::LogModel "  << endl;
+       //qDebug() << "LogModel::LogModel "  << endl;
     //logModel = new QSqlRelationalTableModel(this);
     dataProxy = dp;
     setTable("log");
     setEditStrategy(QSqlTableModel::OnFieldChange);
-     //qDebug() << "LogModel::LogModel - END"  << endl;
+       //qDebug() << "LogModel::LogModel - END"  << endl;
 }
 
 
@@ -36,10 +36,10 @@ the view should present the city's name field to the user.
 This should be coherent with the logview
 */
 
-    //qDebug() << "LogModel::createlogModel: log: " << QString::number(_i) << endl;
+      //qDebug() << "LogModel::createlogModel: log: " << QString::number(_i) << endl;
 
    //QString contestMode = dataProxy->getLogTypeOfUserLog(_i);
-    //qDebug() << "LogModel::createlogModel - contestMode: " << contestMode << endl;
+
 
     QString stringQuery = QString("lognumber='%1'").arg(_i);
     QSqlQuery query(stringQuery);
@@ -51,18 +51,18 @@ This should be coherent with the logview
    //if (contestMode.compare("DX"))
     if (contestMode == "DX")
    {
-        //qDebug() << "LogModel::createlogModel: found type DX" << endl;
+          //qDebug() << "LogModel::createlogModel: found type DX" << endl;
 
    }
    else if (contestMode == "CQ-WW-SSB")
    {
-        //qDebug() << "LogModel::createlogModel: found type CQ-WW-SSB" << endl;
+          //qDebug() << "LogModel::createlogModel: found type CQ-WW-SSB" << endl;
    }
    else
    {
        // THIS POINT SHOULD NOT BE REACHED. It means that there is a kind of contest not supported.
        // Maybe the way should be to move ALL the actions from DX here.
-        //qDebug() << "LogModel::createlogModel: log type NOT found" << endl;
+          //qDebug() << "LogModel::createlogModel: log type NOT found" << endl;
    }
     */
 
@@ -73,7 +73,7 @@ This should be coherent with the logview
 
  void LogModel::setColumnsToDX()
  {
-      //qDebug() << "LogModel::setColumnsToDX"  << endl;
+        //qDebug() << "LogModel::setColumnsToDX"  << endl;
 
      QSqlQuery q;
      QString stringQuery = QString("SELECT * from log LIMIT 1");
@@ -90,7 +90,7 @@ This should be coherent with the logview
      q.next();
      rec = q.record(); // Number of columns
 
-      //qDebug() << "LogModel::createlogModel - columns: " << QString::number(rec.count()) << endl;
+        //qDebug() << "LogModel::createlogModel - columns: " << QString::number(rec.count()) << endl;
 
 
 

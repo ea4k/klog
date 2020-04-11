@@ -5,7 +5,7 @@ StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget(){}
 
 StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-    //qDebug() << "StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget" << endl;
+      //qDebug() << "StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget" << endl;
 
     dataProxy = dp;
     chart = new QChart();
@@ -51,7 +51,7 @@ void StatsQSOsPerYearBarChartWidget::prepareChart()
     QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, categories.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
-     //qDebug() << "StatsQSOsPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
+       //qDebug() << "StatsQSOsPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
      categories.append(dataProxy->getOperatingYears(-1));
      categoriesElem = tr("QSOs");
      categoriesTitle = tr("QSOs per year");
@@ -60,10 +60,10 @@ void StatsQSOsPerYearBarChartWidget::prepareChart()
     for (int i = 0; i < categories.count();i++ )
     {
         numberPerX = dataProxy->getQSOonYear((categories.at(i)).toInt(), -1);
-         //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << endl;
+           //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;
         numberPerX = 0;
-         //qDebug() << "StatsQSOsPerYearBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
+           //qDebug() << "StatsQSOsPerYearBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
 
         aux = tr("Reading data ...") + "\n" + tr("QSO: %1/%2").arg(QString::number(i)).arg(QString::number(categories.count()));
         progress.setLabelText(aux);

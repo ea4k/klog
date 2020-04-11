@@ -9,7 +9,7 @@
 
 TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
 {
-    //qDebug() << "TipsDialog::TipsDialog" << endl;
+      //qDebug() << "TipsDialog::TipsDialog" << endl;
     logSeverity = 7;  //7 Debug /0=emergency or no debug
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     tipTextQLabel = new QLabel;
@@ -68,7 +68,7 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     setLayout(layout);
 
 
-     //qDebug() << "TipsDialog::TipsDialog - END" << endl;
+       //qDebug() << "TipsDialog::TipsDialog - END" << endl;
     emit debugLog (Q_FUNC_INFO, "End", logSeverity);
 }
 
@@ -115,7 +115,7 @@ void TipsDialog::setSeverity(const int _sev)
 void TipsDialog::setTip(const int _t)
 {
     //QSize _size = tipTextQLabel->sizeHint();
-    //qDebug() << "TipsDialog::setTip: Height: " << QString::number(_size.height()) << " / Width: " << QString::number(_size.width()) << endl;
+    //qDebug() << "TipsDialog::setTip: Height: " << QString::number(_t) <<endl;
     switch (_t) {
 
     case 1:
@@ -136,7 +136,8 @@ void TipsDialog::setTip(const int _t)
     break;
     case 5:
         //: Translator: Please make sure that the name of the link is coherent with the menu File->Export ADIF for LoTW...
-        description = tr("<b>Tip #5:</b><br>Do you know...<br>You can export your QSO marked as requested, via LoTW, in your log with <a href=\"#FileExportLoTWADIF\">File->Export ADIF for LoTW...</a> to create an ADIF file that you will be able to import in TQSL to be signed and uploaded to LoTW?<br><br>You have to mark as Q-Queued all the QSOs you want to be exported to be sent to LoTW.");
+        return;
+        //description = tr("<b>Tip #5:</b><br>Do you know...<br>You can export your QSO marked as requested, via LoTW, in your log with <a href=\"#FileExportLoTWADIF\">File->Export ADIF for LoTW...</a> to create an ADIF file that you will be able to import in TQSL to be signed and uploaded to LoTW?<br><br>You have to mark as Q-Queued all the QSOs you want to be exported to be sent to LoTW.");
     break;
     case 6:
         //: Translator: Please make sure that the name of the link is coherent with the menu File->KLog folder
@@ -201,12 +202,12 @@ void TipsDialog::setTip(const int _t)
 
     tipTextQLabel->setText(description);
 
-    //qDebug() << "TipsDialog::setTip: 2 Height: " << QString::number(_size.height()) << " / Width: " << QString::number(_size.width()) << endl;
+      //qDebug() << "TipsDialog::setTip: END"  << endl;
 }
 
 void TipsDialog::slotLinkActivated(const QString &_link)
 {
-    //qDebug() << "TipsDialog::slotLinkActivated: " << _link << endl;
+      //qDebug() << "TipsDialog::slotLinkActivated: " << _link << endl;
     //Comprobar el enalce y activar el menu correspondiente
     if (_link == "#ToolsFillInQSO")
     {
@@ -226,7 +227,7 @@ void TipsDialog::slotLinkActivated(const QString &_link)
     }
     else if (_link == "#FileExportLoTWADIF")
     {
-        emit fileExportForLoTWSignal();
+        //emit fileExportForLoTWSignal();
     }
     else if (_link == "#FileOpenKLogFolder")
     {

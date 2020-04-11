@@ -42,6 +42,8 @@ HEADERS += setupdialog.h \
     mainqsoentrywidget.h \
     mainwindow.h \
     pstrotatorsupport.h \
+    widgets/adiflotwexportwidget.h \
+    widgets/showadifimportwidget.h \
     world.h \
     logwindow.h \
     filemanager.h \
@@ -117,8 +119,10 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     pstrotatorsupport.cpp \
     setupdialog.cpp \
+    widgets/adiflotwexportwidget.cpp \
     widgets/rotator.cpp \
     widgets/rotatorcontrol.cpp \
+    widgets/showadifimportwidget.cpp \
     world.cpp \
     logwindow.cpp \
     filemanager.cpp \

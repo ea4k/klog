@@ -13,7 +13,7 @@ SetupPageInterfacesWindows::SetupPageInterfacesWindows(QWidget *parent) : QWidge
 }
 
 SetupPageInterfacesWindows::~SetupPageInterfacesWindows(){
-     //qDebug() << "SetupPageInterfacesWindows::~SetupPageInterfacesWindows" << endl;
+       //qDebug() << "SetupPageInterfacesWindows::~SetupPageInterfacesWindows" << endl;
 }
 
 void SetupPageInterfacesWindows::createUI()
@@ -68,7 +68,7 @@ void SetupPageInterfacesWindows::createActions()
 
 void SetupPageInterfacesWindows::setSendToPSTRotator(const QString &_t)
 {
-     //qDebug() << "SetupPageInterfacesWindows::setUDPServer: "  << t << endl;
+       //qDebug() << "SetupPageInterfacesWindows::setUDPServer: "  << _t << endl;
     if ( (_t.toUpper()) == "FALSE")
     {
         sendToPSTRotatorCheckBox->setChecked(false);
@@ -133,7 +133,7 @@ QString SetupPageInterfacesWindows::getPSTRotatorUDPServer()
 
 void SetupPageInterfacesWindows::slotSendToPSTRotatorCheckBoxClicked()
 {
-     //qDebug() << "SetupPageInterfacesWindows::slotLogFromWSJTCheckBoxClicked" << endl;
+       //qDebug() << "SetupPageInterfacesWindows::slotLogFromWSJTCheckBoxClicked" << endl;
     if (sendToPSTRotatorCheckBox->isChecked())
     {
         PSTRotatorUDPServerPortSpinBox->setEnabled(true);

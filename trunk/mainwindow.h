@@ -74,9 +74,9 @@
 #include "pstrotatorsupport.h"
 #include "lotwutilities.h"
 #include "widgets/rotator.h"
+#include "widgets/adiflotwexportwidget.h"
+#include "widgets/showadifimportwidget.h"
 //#include "worldmapwidget.h"
-
-
 
 
 class QTimer;
@@ -168,7 +168,7 @@ private slots:
     void slotToolLoTWMarkAllQueued();
     void slotToolLoTWMarkAllYesThisLog();
     void slotToolLoTWMarkAllYes();
-    void slotLoTWDownloadedFileProcess(QString _fn);
+    void slotLoTWDownloadedFileProcess(const QString &_fn);
 
     //void slotModeComboBoxChanged();
     //void slotBandComboBoxChanged();
@@ -195,14 +195,16 @@ private slots:
     void slotrstRXTextChanged();
     void slotADIFExport();
     //void slotLoTWImport();
-    void slotLoTWExport();
+    //void slotLoTWExport();
 
     void slotLoTWUpload();
     void slotLoTWDownload();
+    void slotLoTWExportPeriod(const QString &_st, const QDate &_startDate, const QDate &_endDate);
 
     void slotADIFExportAll();
     void slotADIFImport();
     void slotRQSLExport();
+    void slotReceiveQSOListToShowFromFile(QStringList _qs);
     //void slotCabrilloExport();
     //void slotQSLViaTextChanged();
     void slotTimeOutInfoBars(); // Clears the infoLabels when the timeout emits the signal
@@ -317,7 +319,7 @@ private:
     void setSeverity(const int _sev);
     void updateBandComboBox(const QString &_band);
     bool callTQSL(const QString &_filename, const QString &_call);
-    QString getCallToUseForLoTWExportUpload();
+    //QString getCallToUseForLoTWExportUpload();
     UpdateSatsData *updateSatsData;
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
@@ -401,6 +403,10 @@ private:
     int dxclusterServerPort;
     // CLUSTER
 
+    //LOTW
+    AdifLoTWExportWidget *adifLoTWExportWidget;
+    //LOTW
+    ShowAdifImportWidget *showAdifImportWidget;
 
     QWidget *mainWidget;
     //QWidget *dxClusterTabWidget;//, *searchTabWidget;
@@ -483,7 +489,7 @@ private:
     QAction *ADIFExport;
     QAction *ADIFExportAll;
     QAction *ADIFImport;
-    QAction *LoTWExport;
+    //QAction *LoTWExport;
     QAction *LoTWImport;
     QAction *ReqQSLExport;
     QAction *CabrilloExport;

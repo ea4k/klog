@@ -4,7 +4,7 @@
 PSTRotatorSupport::PSTRotatorSupport(QObject *parent) :
     QObject(parent)
 {
-     //qDebug() << "PSTRotatorSupport::PSTRotatorSupport"  << endl;
+       //qDebug() << "PSTRotatorSupport::PSTRotatorSupport"  << endl;
        //address = QString("127.0.0.1");
        port = 12040;
        socketServer = new QUdpSocket(this);
@@ -22,7 +22,7 @@ bool PSTRotatorSupport::start()
 
 void PSTRotatorSupport::setPort(const int _port)
 {
-     //qDebug() << "PSTRotatorSupport::setPort: " << QString::number(_port) << endl;
+       //qDebug() << "PSTRotatorSupport::setPort: " << QString::number(_port) << endl;
     if ((_port >= 0) && (_port<=65535))
     {
         port = _port;
@@ -77,7 +77,7 @@ void PSTRotatorSupport::sendFreq(const int _freq, const int _radio)
      * // Radio is 1..4
         <PST><FREQUENCY>2489200</FREQUENCY><RADIO>1</RADIO></PST>
      */
-    //qDebug() << "PSTRotatorSupport::sendFreq: " << QString::number(_freq) << "/" << QString::number(_radio)<< endl;
+      //qDebug() << "PSTRotatorSupport::sendFreq: " << QString::number(_freq) << "/" << QString::number(_radio)<< endl;
     if ((_freq>0) && (_radio>0) && (_radio <5))
     {
         int f = _freq/100;
