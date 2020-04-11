@@ -5,7 +5,7 @@ StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget(){}
 
 StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-    //qDebug() << "StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget" << endl;
+      //qDebug() << "StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget" << endl;
 
     dataProxy = dp;
     chart = new QChart();
@@ -51,7 +51,7 @@ void StatsQSOsPerModeBarChartWidget::prepareChart()
     QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, categories.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
-     //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart: SelectedGrapth-1: MODES " << endl;
+       //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart: SelectedGrapth-1: MODES " << endl;
      categories.append(dataProxy->getModesInLog(-1));
      categoriesElem = tr("Modes");
      categoriesTitle = tr("QSOs per mode distribution");
@@ -60,10 +60,10 @@ void StatsQSOsPerModeBarChartWidget::prepareChart()
     for (int i = 0; i < categories.count();i++ )
     {
         numberPerX = dataProxy->getQSOsInMode((categories.at(i)), -1);
-         //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << endl;
+           //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;
         numberPerX = 0;
-         //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
+           //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
         aux = tr("Reading data ...") + "\n" + tr("Modes: ")  + QString::number(i) + "/" + QString::number(categories.count());
         //aux = tr("Reading data ...") + "\n" + tr("Modes: %1/%2").arg(QString::number(i)).arg(QString::number(categories.count()));
         progress.setLabelText(aux);

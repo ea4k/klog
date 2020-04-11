@@ -52,7 +52,7 @@ signals:
     void fillInDXCCSignal();
     void findQSL2QSOSignal();
     void fileExportToPrintSignal();
-    void fileExportForLoTWSignal();
+    //void fileExportForLoTWSignal();
     void fileOpenKLogFolderSignal();
     void toolSendPendingQSLSignal();
     void toolRecPendingQSLSignal();

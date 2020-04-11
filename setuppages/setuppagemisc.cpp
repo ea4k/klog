@@ -31,7 +31,7 @@
 //      instead. It is easy to change but the code would not be so clear... Think about this. :-)
 
 SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
-     //qDebug() << "SetupPageMisc::SetupPageMisc" << endl;
+       //qDebug() << "SetupPageMisc::SetupPageMisc" << endl;
 
     util = new Utilities;
 
@@ -72,11 +72,11 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     {
         moveDBPushButton->setEnabled(true);
     }
-     //qDebug() << "SetupPageMisc::SetupPageMisc - END" << endl;
+       //qDebug() << "SetupPageMisc::SetupPageMisc - END" << endl;
 }
 
 SetupPageMisc::~SetupPageMisc(){
-     //qDebug() << "SetupPageMisc::~SetupPageMisc" << endl;
+       //qDebug() << "SetupPageMisc::~SetupPageMisc" << endl;
 }
 
 void SetupPageMisc::createUI()
@@ -87,11 +87,11 @@ void SetupPageMisc::createUI()
 
     //TODO: To be removed when the defaultDir is saved in the config file
     #ifdef Q_OS_WIN
-     //qDebug() << "WINDOWS DETECTED!"  << endl;
+       //qDebug() << "WINDOWS DETECTED!"  << endl;
     klogDir = util->getHomeDir();  // We create the \klog for the logs and data
     defaultFileName = klogDir+"/klog.adi";
     #else
-     //qDebug() << "NO WINDOWS DETECTED!"  << endl;
+       //qDebug() << "NO WINDOWS DETECTED!"  << endl;
     klogDir = util->getHomeDir();  // We create the ~/.klog for the logs and data
     defaultFileName = klogDir+"/klog.adi";
     #endif
@@ -322,7 +322,7 @@ QString SetupPageMisc::getDefaultFileName()
 }
 void SetupPageMisc::setDefaultFileName(const QString &_t)
 {
-     //qDebug() << "SetupPageMisc::setDefaultFileName: " << t << endl;
+       //qDebug() << "SetupPageMisc::setDefaultFileName: " << _t << endl;
     defaultFileName = _t;
     defaultFileNameLineEdit->setText(defaultFileName);
 }
@@ -395,7 +395,7 @@ void SetupPageMisc::setImperial(const QString &_t)
 
 void SetupPageMisc::slotUseDefaultButtonStateChanged(int state)
 {
-     //qDebug() << "SetupPageMisc::slotUseDefaultButtonStateChanged" << endl;
+       //qDebug() << "SetupPageMisc::slotUseDefaultButtonStateChanged" << endl;
 
     if (state)
     {
@@ -678,7 +678,7 @@ void SetupPageMisc::slotDBButtonClicked()
 
 void SetupPageMisc::slotDBLineEditChanged()
 {
-     //qDebug() << "SetupPageMisc::slotDBLineEditChanged: " << dbPathLineEdit->text() << endl;
+       //qDebug() << "SetupPageMisc::slotDBLineEditChanged: " << dbPathLineEdit->text() << endl;
     QString aux;
     aux = dbPathLineEdit->text();
 
@@ -712,8 +712,8 @@ void SetupPageMisc::slotMoveDBButtonClicked()
     QString target = dbDirNew + "/logbook.dat";
     QMessageBox msgBox;
 
-     //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source << endl;
-     //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target << endl;
+       //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source << endl;
+       //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target << endl;
     if ( QFile::exists(dbDirNew) )
     {
         //dbDirCurrent

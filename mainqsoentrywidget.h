@@ -29,6 +29,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
+#include "utilities.h"
 
 class MainQSOEntryWidget : public QWidget
 {
@@ -116,6 +117,8 @@ private:
 
     QTimer *timer;
     bool realTime, UTCTime, modify;
+    QPalette palRed, palBlack; // To paint Text in red or black(normal)
+    Utilities *util;
 };
 
 #endif // MAINQSOENTRYWIDGET_H

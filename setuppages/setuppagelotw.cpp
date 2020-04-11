@@ -31,7 +31,7 @@
 
 SetupPageLoTW::SetupPageLoTW(QWidget *parent) : QWidget(parent)
 {
-     qDebug() << "SetupPageLoTW::SetupPageLoTW" << endl;
+     //qDebug() << "SetupPageLoTW::SetupPageLoTW" << endl;
 
     util = new Utilities;
 
@@ -45,7 +45,7 @@ SetupPageLoTW::SetupPageLoTW(QWidget *parent) : QWidget(parent)
 
 
    createUI();
-    qDebug() << "SetupPageLoTW::SetupPageLoTW-END" << endl;
+    //qDebug() << "SetupPageLoTW::SetupPageLoTW-END" << endl;
     //connect(clubLogActiveCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotClubLogActive(bool)));
 }
 
@@ -163,7 +163,7 @@ QString SetupPageLoTW::getPath()
 
 void SetupPageLoTW::slotSelectTQSLClicked()
 {
-    //qDebug() << "SetupPageLoTWr::slotSelectTQSLClicked: " << QStandardPaths::ApplicationsLocation << endl;
+      //qDebug() << "SetupPageLoTWr::slotSelectTQSLClicked: " << QStandardPaths::ApplicationsLocation << endl;
     QString appsDir;
     QString executableName, proposedName;
     proposedName = util->getTQSLsFileName();
@@ -184,7 +184,7 @@ void SetupPageLoTW::slotSelectTQSLClicked()
         tqslPathLineEdit->setText(tqslFile);
     }
 
-     //qDebug() << "SetupPageLoTWr::slotSelectTQSLClicked - END" << endl;
+       //qDebug() << "SetupPageLoTWr::slotSelectTQSLClicked - END" << endl;
 }
 
 void SetupPageLoTW::slotPathLineEditChanged(const QString _q)

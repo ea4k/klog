@@ -86,6 +86,7 @@ public:
 
     int getLastQSOid();
     QString getFirstQSODateFromCall (const QString _call);
+    QString getLastQSODateFromCall (const QString _call);
 
     bool addQSOFromWSJTX(const QString &_dxcall, const double _freq, const QString &_mode,
                                  const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
@@ -138,6 +139,8 @@ public:
     bool lotwSentYes(const QString &_updateDate, const int _currentLog, const QString &_station);         // Update LOTW QSL SENT marked as Q as Y (Queued)
     bool lotwSentQSOs(const QList<int> &_qsos);
     int lotwUpdateQSLReception (const QString &_call, const QString &_qso_date, const QString &_time_on, const QString &_band, const QString &_mode, const QString &_qslrdate);
+    QList<int> getQSOsListLoTWNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool justQueued=true);
+    QStringList getQSODetailsForLoTWDownload(const int _id);
 
     int getContinentIdFromContinentShortName(const QString &_n);
     QString getContinentShortNameFromEntity(const int _n);

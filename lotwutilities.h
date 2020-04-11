@@ -83,7 +83,7 @@ private:
 
     QString stationCallsign;
     QString startDate;
-    QString lotwQuery;
+    QString lotwQuery;    
     QString lotwUser, lotwPassword;
 
     DataProxy_SQLite *dataProxy;//, *dataProxyPrepared;

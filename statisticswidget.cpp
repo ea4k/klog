@@ -30,19 +30,19 @@ StatisticsWidget::~StatisticsWidget()
 
 void StatisticsWidget::clear()
 {
-   //qDebug() <<  "StatisticsWidget::clear()" << endl;
+     //qDebug() <<  "StatisticsWidget::clear()" << endl;
 }
 
 void StatisticsWidget::closeEvent(QCloseEvent *event)
 {
-     //qDebug() << "StatisticsWidget::closeEvent" << endl;
+       //qDebug() << "StatisticsWidget::closeEvent" << endl;
     //barChartStats->clear();
     event->accept();
 }
 
 void StatisticsWidget::showEvent(QShowEvent *event)
 {
-    //qDebug() << "StatisticsWidget::showEvent" << endl;
+      //qDebug() << "StatisticsWidget::showEvent" << endl;
     barChartStats->clear();
     fillLogCombo();
     event->accept();
@@ -50,10 +50,10 @@ void StatisticsWidget::showEvent(QShowEvent *event)
 
 void StatisticsWidget::slotChartComboBoxChanged()
 {    
-     //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: " << statisticToShowComboBox->currentText()  << endl;
+       //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: " << statisticToShowComboBox->currentText()  << endl;
     //QString text = statisticToShowComboBox->currentText();
     //text.truncate(2);
-     //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: SelectedGrapth:  " << text << endl;
+
 
     //barChartStats->prepareChart(text.toInt());
     updateChart();

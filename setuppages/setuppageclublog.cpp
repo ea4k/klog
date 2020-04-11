@@ -31,7 +31,7 @@
 
 SetupPageClubLog::SetupPageClubLog(QWidget *parent) : QWidget(parent)
 {
-     //qDebug() << "SetupPageClubLog::SetupPageClubLog" << endl;
+       //qDebug() << "SetupPageClubLog::SetupPageClubLog" << endl;
     clubLogActive = false;
     call = QString();
     email = QString();
@@ -94,7 +94,7 @@ SetupPageClubLog::SetupPageClubLog(QWidget *parent) : QWidget(parent)
     connect(useQSOStationCallCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotUseStationCall(bool)));
     //connect(sendInRealTimeCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotClubLogActive(bool)));
     slotClubLogActive(clubLogActive);
-     //qDebug() << "SetupPageClubLog::SetupPageClubLog - END" << endl;
+       //qDebug() << "SetupPageClubLog::SetupPageClubLog - END" << endl;
 
 }
 
@@ -203,7 +203,7 @@ void SetupPageClubLog::setClubLog(const QString &_s)
 
 void SetupPageClubLog::slotUseStationCall(bool _s)
 {
-    //qDebug() << "SetupPageClubLog::slotUseStationCall" << endl;
+      //qDebug() << "SetupPageClubLog::slotUseStationCall" << endl;
     if (useQSOStationCallCheckBox->isChecked())
     {
         callLineEdit->setEnabled(false);
@@ -219,10 +219,10 @@ void SetupPageClubLog::slotUseStationCall(bool _s)
 
 void SetupPageClubLog::slotClubLogActive(bool _s)
 {
-    //qDebug() << "SetupPageClubLog::slotClubLogActive" << endl;
+      //qDebug() << "SetupPageClubLog::slotClubLogActive" << endl;
     if (_s)
     {
-        //qDebug() << "SetupPageClubLog::slotClubLogActive TRUE" << endl;
+          //qDebug() << "SetupPageClubLog::slotClubLogActive TRUE" << endl;
         callLabel->setEnabled(true);
         emailLabel->setEnabled(true);
         passwordLabel->setEnabled(true);
@@ -235,7 +235,7 @@ void SetupPageClubLog::slotClubLogActive(bool _s)
     }
     else
     {
-        //qDebug() << "SetupPageClubLog::slotClubLogActive FALSE" << endl;
+          //qDebug() << "SetupPageClubLog::slotClubLogActive FALSE" << endl;
         callLabel->setEnabled(false);
         emailLabel->setEnabled(false);
         passwordLabel->setEnabled(false);

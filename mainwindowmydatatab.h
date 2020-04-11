@@ -33,6 +33,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "locator.h"
+#include "utilities.h"
 //#include "dataproxy_sqlite.h"
 //#include "dataproxy_sqlite.h"
 
@@ -78,6 +79,8 @@ signals:
 
 private slots:
     void slotMyLocatorTextChanged();
+    void slotOperatorTextChanged();
+    void slotStationCallSignTextChanged();
     void slotReturnPressed();
 
 private:
@@ -94,6 +97,7 @@ private:
     QRadioButton *keepThisDataForNextQSORadiobutton;
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
     Locator *locator;
+    Utilities *util;
 
 };
 

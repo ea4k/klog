@@ -61,13 +61,14 @@ class FileManager : public QWidget
 public:
     FileManager(DataProxy_SQLite *dp);
     //FileManager(DataProxy_SQLite *dp, const QString _klogDir);
-    FileManager(DataProxy_SQLite *dp, const QString _klogDir, const QString _softVersion);
+    FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_softVersion);
     //FileManager(DataProxy_SQLite *dp, const QString _softVersion);
     ~FileManager();
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
     QList<int> adifLoTWReadLog(const QString& tfileName);
-    QList<int> adifLoTWLogExport(const QString& _fileName,const QString &_callsign, const int _logN, bool emptyCall=false);
+    //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, bool emptyCall=false);
+    QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     bool adifLogExport(const QString& _fileName, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);
     bool adifReqQSLExport(const QString& _fileName);
@@ -120,7 +121,7 @@ private:
     QString klogDir;
     QString klogVersion;
     QString defaultStationCallsign;
-    //QProgressBar *progressBar;
+
     bool ignoreUnknownAlways;   // When importing ADIF, ignore all unknown fields.
     bool usePreviousStationCallsignAnswerAlways;   // When importing ADIF, ignore all unknown fields.
     bool noMoreQso;
@@ -137,6 +138,7 @@ private:
 
 
 signals:
+    void addQSOToList(QStringList _qso);
     void queryError(QString _functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
 };

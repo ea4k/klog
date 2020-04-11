@@ -9,7 +9,7 @@
 AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     : QDialog(parent)
 {
-    //qDebug() << "AboutDialog::AboutDialog" << endl;
+      //qDebug() << "AboutDialog::AboutDialog" << endl;
 
     QPixmap pixmap(":/img/klog_256x256.png");
 
@@ -141,7 +141,7 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     setLayout(layout);
 
 
-     //qDebug() << "AboutDialog::AboutDialog - END" << endl;
+       //qDebug() << "AboutDialog::AboutDialog - END" << endl;
 
 }
 AboutDialog::~AboutDialog()
