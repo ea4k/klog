@@ -1,9 +1,14 @@
 TBD - 1.1
 TODO: New feature: KLog can now control a rotator through PSTRotator.
 TODO: UI: Added a DXCC summary obtained from the Tools menu.
+Working: Widget to show the QSOs to be exported to LoTW.
+Working: Widget to show the QSOs updated from LoTW.
+Working: When importing the lotw downloaded log, if the user cancels, everything is shown as if it was imported.
+Working: - Improvement: Search widget has been improved.
 Working: Improved how TX & RX freqs are managed when editing, cleaning, ...
 - Improvement: If TX Freq & RX Freq are the same, only TX Freq is exported.
-- Improvement: Callsigns are  always checked to be a good callsign before they are saved to the log and exported to ADIF.
+- Improvement: Callsigns are always checked to be a good callsign before they are saved to the log and exported to ADIF.
+- Improvement: Removed some death code.
 REVISAR AL IMPORTAR
 
 DONE:

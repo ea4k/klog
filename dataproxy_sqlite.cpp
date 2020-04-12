@@ -2806,6 +2806,7 @@ QStringList DataProxy_SQLite::getQSODetailsForLoTWDownload(const int _id)
         return result;
     }
 }
+
 int DataProxy_SQLite::getQSOonYear(const int _year, const int _logNumber)
 {
        //qDebug() << "DataProxy_SQLite::getQSOonYear: " << QString::number(_year) << "/" << QString::number(_logNumber) << endl;
@@ -4762,7 +4763,15 @@ QStringList DataProxy_SQLite::getStationCallSignsFromLog(const int _log)
    QSqlQuery query;
    QString queryString;
    bool sqlOK;
-   queryString = QString("SELECT DISTINCT station_callsign FROM log");
+   if (doesThisLogExist(_log))
+   {
+       queryString = QString("SELECT DISTINCT station_callsign FROM log WHERE lognumber='%1'").arg(_log);
+   }
+   else
+   {
+       queryString = QString("SELECT DISTINCT station_callsign FROM log");
+   }
+
    sqlOK = query.exec(queryString);
 
    if (sqlOK)
