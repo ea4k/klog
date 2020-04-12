@@ -148,7 +148,7 @@ private slots:
     void slotClearNoMorErrorShown();
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed);
     void slotQRZReturnPressed();
-    void slotQRZSpacePressed();
+    //void slotQRZSpacePressed();
     void slotQRZTextChanged(QString _qrz);
     //void slotSRXTextChanged();
     //void slotSTXTextChanged();
@@ -191,8 +191,8 @@ private slots:
 
     void slotSetup(const int _page=0);
 
-    void slotrstTXTextChanged();
-    void slotrstRXTextChanged();
+    //void slotrstTXTextChanged();
+    //void slotrstRXTextChanged();
     void slotADIFExport();
     //void slotLoTWImport();
     //void slotLoTWExport();
@@ -351,7 +351,7 @@ private:
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);
 
-    bool validCharactersInCall(const QString &_qrz); // Looks for SQLi and no valid chars in the QRZ
+    //bool validCharactersInCall(const QString &_qrz); // Looks for SQLi and no valid chars in the QRZ
     QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
     QString readDataFromUIDX();
     QString readDataFromUIDXModifying();

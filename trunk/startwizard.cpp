@@ -918,6 +918,8 @@ CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *pare
     topLabel->setWordWrap(true);
     progressBar = new QProgressBar;
     progressBar->setEnabled(false);
+    progressBar->setMinimum(0);
+    progressBar->setMaximum(0);
 
     downloadButton = new QPushButton(tr("&Download"));
     ignoreDownloadButton  = new QPushButton(tr("&Ignore"));
@@ -962,8 +964,9 @@ CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *pare
 void CTYPage::slotUpdateDownloadProgress(qint64 received, qint64 total)
 {
        //qDebug() << "CTYPage::slotUpdateDownloadProgress: " << QString::number(received) << "/" << QString::number(total) << endl;
-    progressBar->setMaximum(total);
+
     progressBar->setValue(received);
+
 }
 
 void CTYPage::slotDownloadButtonClicked()

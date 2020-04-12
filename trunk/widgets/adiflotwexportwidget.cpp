@@ -10,7 +10,8 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
     okButton = new QPushButton;
     cancelButton = new QPushButton;
     tableWidget = new QTableWidget;
-    setWindowTitle("AdifLoTWExport");
+    selectedEMode = ModeLotW;   //By default this widget will vbe used for LoTW Export.
+
     createUI();
 }
 
@@ -173,4 +174,17 @@ void AdifLoTWExportWidget::showEvent(QShowEvent *event)
     startDate->setDate(QDate::fromString((dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy/MM/dd"));
     endDate->setDate(QDate::fromString((dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy/MM/dd"));
     event->accept();
+}
+
+void AdifLoTWExportWidget::setExportMode(const ExportMode _EMode)
+{
+    if (_EMode == ModeLotW)
+    {
+        setWindowTitle("KLog - QSOs to be uploaded to LoTW");
+    }
+    else
+    {
+        setWindowTitle("KLog - QSOs to be exported to ADIF");
+    }
+
 }

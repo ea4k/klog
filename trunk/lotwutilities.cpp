@@ -13,6 +13,8 @@ LoTWUtilities::LoTWUtilities(const QString &_klogDir, const QString &_klogVersio
     manager = new QNetworkAccessManager(this);
     progressDialog = new QProgressDialog(nullptr);
     progressDialog->setWindowTitle(tr("KLog - LoTW Download"));
+    progressDialog->setMaximum(0);
+    progressDialog->setMinimum(0);
     //progressDialog->setLabelText("LoTWUtilities");
     progressDialog->cancel();
     reply = nullptr;
@@ -210,8 +212,8 @@ void LoTWUtilities::slotDownloadProgress(qint64 bytesRead, qint64 totalBytes) {
         //qDebug() << "LoTWUtilities::slotDownloadProgress: CANCELLED" << endl;
         return;
     }
-    progressDialog->setMaximum(totalBytes);
-    progressDialog->setValue(bytesRead);
+
+    progressDialog->setValue(0);
     //qDebug() << "LoTWUtilities::slotDownloadProgress - END " << endl;
 }
 

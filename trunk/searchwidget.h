@@ -89,6 +89,8 @@ private slots:
     void slotQSOToEditFromSearch();
     void qslRecViaBureauMarkReq(const int _qsoId);
     void qslRecViaDirectMarkReq(const int _qsoId);
+    void slotStationCallsignChanged();
+    void slotRadioButtonToggled();
 
 
 signals:
@@ -103,6 +105,7 @@ signals:
 
 private:
     void createUI();
+    void fillStationCallsignComboBox();
     // The following  function is adding a line to the search list
     void addQSOToSearchList(const QString _call, const QString _dateTime, const QString _band, const QString _mode, const QString _qslrx, const QString _qsltx, const QString _stationcallsign, const QString _id, const QColor _color);
     bool fillTheList(const QString _query);
@@ -113,6 +116,7 @@ private:
     QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
     QRadioButton *searchAllRadioButton;
     QTreeWidget *searchResultsTreeWidget;
+    QComboBox *stationCallsignComboBox;
 
     bool qslingNeeded;
     bool searchSelectAllClicked, stationCallSignShownInSearch;
@@ -138,6 +142,8 @@ private:
 
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
+
+
 
 };
 
