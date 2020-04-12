@@ -71,11 +71,12 @@ private:
 
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
-    QProgressDialog *progressDialog;
+
     QFile *file;
     bool downloadAborted;
     qint64 fileSize;
     QUrl url;
+    QProgressDialog *pDialog;
 
     QString klogDir;
     QString urld;

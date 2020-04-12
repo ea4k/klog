@@ -903,7 +903,8 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                     nameCol = rec.indexOf("contacted_op");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    if ((aux1.length())>0){
+                    if (util->isValidCall(aux1))
+                    {
                         out << "<CONTACTED_OP:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
@@ -962,7 +963,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                     nameCol = rec.indexOf("eq_call");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    if ((aux1.length())>0){
+                    if (util->isValidCall(aux1)){
                         out << "<EQ_CALL:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
@@ -1332,7 +1333,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                       //qDebug() << "FileManager::adifLogExportToFile - 160" << endl;
                     nameCol = rec.indexOf("owner_callsign");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    if ((aux1.length())>0){
+                    if (util->isValidCall(aux1)){
                         out << "<OWNER_CALLSIGN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
@@ -1943,7 +1944,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
                 nameCol = rec.indexOf("contacted_op");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                if ((aux1.length())>0){
+                if (util->isValidCall(aux1)){
                     out << "<CONTACTED_OP:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("contest_id");
@@ -2001,7 +2002,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
                 nameCol = rec.indexOf("eq_call");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                if ((aux1.length())>0){
+                if (util->isValidCall(aux1)){
                     out << "<EQ_CALL:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("email");
@@ -2355,7 +2356,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
                 nameCol = rec.indexOf("owner_callsign");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                if ((aux1.length())>0){
+                if (util->isValidCall(aux1)){
                     out << "<OWNER_CALLSIGN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
@@ -3167,8 +3168,8 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
 
     //<APP_LoTW_NUMREC:3>847
 
-    qDebug() << "FileManager::adifLoTWReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
-    qDebug() << "FileManager::adifLoTWReadLog STEP: " << QString::number(step) << endl;
+    //qDebug() << "FileManager::adifLoTWReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
+    //qDebug() << "FileManager::adifLoTWReadLog STEP: " << QString::number(step) << endl;
 
     QProgressDialog progress(tr("Reading LoTW file..."), tr("Abort reading"), 0, numberOfQsos, this);
     progress.setWindowModality(Qt::ApplicationModal);

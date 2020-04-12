@@ -12,6 +12,7 @@ SearchWidget::SearchWidget(DataProxy_SQLite *dp, QWidget *parent) :
     filemanager = new FileManager(dataProxy);
 
     world = new World(dataProxy, Q_FUNC_INFO);
+    mainStationCallsign = QString();
 
     currentLog = -1;
 
@@ -63,6 +64,25 @@ void SearchWidget::setColors (const QString _newOne, const QString _needed, cons
 void SearchWidget::setVersion (const QString _version)
 {
     filemanager->setVersion(_version);
+}
+
+void SearchWidget::setStationCallsign(const QString &_st)
+{
+    if (util->isValidCall(_st))
+    {
+        mainStationCallsign = _st;
+        selectStationCallSign();
+    }
+
+}
+
+void SearchWidget::selectStationCallSign()
+{
+    int index = stationCallsignComboBox->findText(mainStationCallsign);
+    if (index>=0)
+    {
+        stationCallsignComboBox->setCurrentIndex(index);
+    }
 }
 
 void SearchWidget::createUI()
@@ -147,6 +167,8 @@ void SearchWidget::fillStationCallsignComboBox()
     {
         stationCallsignComboBox->addItems(dataProxy->getStationCallSignsFromLog(currentLog));
     }
+
+
 }
 
 void SearchWidget::slotRadioButtonToggled()
@@ -158,7 +180,7 @@ void SearchWidget::slotRadioButtonToggled()
 
 void SearchWidget::slotStationCallsignChanged()
 {
-    qDebug() << "SearchWidget::slotStationCallsignChanged: " << stationCallsignComboBox->currentText() << endl;
+    //qDebug() << "SearchWidget::slotStationCallsignChanged: " << stationCallsignComboBox->currentText() << endl;
     slotSearchBoxTextChanged();
 }
 
@@ -183,7 +205,7 @@ void SearchWidget::slotDoubleClickSearch(QTreeWidgetItem * item, int)
 
 void SearchWidget::slotSearchBoxTextChanged()
 {
-    qDebug() << "SearchWidget::slotSearchBoxTextChanged: "  << searchBoxLineEdit->text() << endl;
+    //qDebug() << "SearchWidget::slotSearchBoxTextChanged: "  << searchBoxLineEdit->text() << endl;
 
     //QString _id, _call, _dateTime, _band, _bandid, _mode, _qsltx, _qslrx, _stationcallsign, _dxcc;
     //QStringList q;
@@ -264,7 +286,7 @@ void SearchWidget::slotSearchBoxTextChanged()
 
     queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE") + STQuery + "AND" + stationCallQuery + "AND" + searchAllQuery;
 
-    qDebug() << "SearchWidget::slotSearchBoxTextChanged: Query: "  << queryString << endl;
+    //qDebug() << "SearchWidget::slotSearchBoxTextChanged: Query: "  << queryString << endl;
     fillTheList(queryString);
 
 
@@ -305,7 +327,7 @@ void SearchWidget::slotSearchBoxTextChanged()
 
 bool SearchWidget::fillTheList(const QString _query)
 {
-    qDebug() << "SearchWidget::fillTheList: "  << _query << endl;
+    //qDebug() << "SearchWidget::fillTheList: "  << _query << endl;
     if (_query.length()<=0)
     {
         return false;
@@ -444,7 +466,7 @@ bool SearchWidget::fillTheList(const QString _query)
         } // Closes if next.isValid
         if (pDialog->wasCanceled())
         {
-            qDebug() << "SearchWidget::fillTheList: pDialog Cancelled"   << endl;
+            //qDebug() << "SearchWidget::fillTheList: pDialog Cancelled"   << endl;
             return false;
         }
         //qDebug() << "SearchWidget::fillTheList: While next - end of IF " << endl;
@@ -513,6 +535,7 @@ void SearchWidget::slotSearchClearButtonClicked()
     searchBoxLineEdit->clear();
     searchSelectAllClicked = false;
     qslingNeeded = false;
+    selectStationCallSign();
 }
 
 void SearchWidget::slotSearchBoxSelectAllButtonClicked()

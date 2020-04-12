@@ -114,7 +114,7 @@ void ShowAdifImportWidget::slotOKPushButtonClicked()
 
 void ShowAdifImportWidget::closeEvent(QCloseEvent *event)
 {
-    qDebug() << "ShowAdifImportWidget::closeEvent" << endl;
+    //qDebug() << "ShowAdifImportWidget::closeEvent" << endl;
     event->accept();
 }
 
@@ -127,35 +127,35 @@ void ShowAdifImportWidget::showEvent(QShowEvent *event)
 
 void ShowAdifImportWidget::addQSOToTheList(const QStringList _qso)
 {
-    qDebug() << "ShowAdifImportWidget::addQSOToTheList - Start" << endl;
+    //qDebug() << "ShowAdifImportWidget::addQSOToTheList - Start" << endl;
     // QRZ-DX, Date-Time(yyyyMMdd-hhmmss), Band, Mode
     if (_qso.length()!=4)
     {
-        qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid qso list received" << endl;
+        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid qso list received" << endl;
         return;
     }
     if (!util->isValidCall(_qso.at(0)))
     {
-        qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid QRZ received" << endl;
+        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid QRZ received" << endl;
         return;
     }
     if (dataProxy->getIdFromBandName(_qso.at(2))<0)
     {
-        qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid BAND received" << endl;
+        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid BAND received" << endl;
         return;
     }
     if (dataProxy->getIdFromModeName(_qso.at(3))<0)
     {
-        qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid Mode received" << endl;
+        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid Mode received" << endl;
         return;
     }
     if (!QDateTime::fromString(_qso.at(1), "yyyyMMdd-hhmmss").isValid())
     {
-        qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid DateTime received" << endl;
+        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid DateTime received" << endl;
         return;
     }
 
 
     qsosList << _qso;
-    qDebug() << "ShowAdifImportWidget::addQSOToTheList QSO Added! - "<< _qso.at(0) <<" - END" << endl;
+    //qDebug() << "ShowAdifImportWidget::addQSOToTheList QSO Added! - "<< _qso.at(0) <<" - END" << endl;
 }

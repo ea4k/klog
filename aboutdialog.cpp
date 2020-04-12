@@ -24,7 +24,7 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     const QString description = "<center><h2>KLog " + tversion + "</h2><h4> " +tr("By") +
             " <a href=\"https://www.qrz.com/db/ea4k\">EA4K</a> - 2002-2020</h4></center><br>" +
             tr("KLog is a free logbook for hamradio operators.") +"<br><br><b>" +
-            tr("Please be aware that this is an BETA release and it may contain many bugs.<br>Backup your data before using this software!") +
+            tr("Please be aware that this is a development release and it may contain many bugs.<br>Backup your data before using this software!") +
             "</b><br><br>" +
             tr("Since 0.6.2, KLog has been fully rewritten to provide a cross-platform application that runs on all major operating systems (Linux, macOS and Windows) and to support new functionality.") +
             "<br><br>" +
