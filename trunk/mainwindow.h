@@ -130,6 +130,7 @@ enum
     CQ_WPX_RTTY = 5
 };
 */
+//enum ExportMode {ModeLotW, ModeADIF};
 
 class MainWindow : public  QMainWindow
 {

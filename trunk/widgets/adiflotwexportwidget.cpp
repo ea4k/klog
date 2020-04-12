@@ -10,6 +10,7 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
     okButton = new QPushButton;
     cancelButton = new QPushButton;
     tableWidget = new QTableWidget;
+    topLabel = new QLabel;
     selectedEMode = ModeLotW;   //By default this widget will vbe used for LoTW Export.
 
     createUI();
@@ -55,16 +56,17 @@ void AdifLoTWExportWidget::createUI()
     tableWidget->setHorizontalHeaderLabels(header);
 
     QGridLayout *mainLayout = new QGridLayout;
-    mainLayout->addWidget(stationLabel, 0, 0);
-    mainLayout->addWidget(stationCallsignComboBox, 1, 0);
-    mainLayout->addWidget(startLabel, 0, 1);
-    mainLayout->addWidget(startDate, 1, 1);
-    mainLayout->addWidget(endLabel, 0, 2);
-    mainLayout->addWidget(endDate, 1, 2);
-    mainLayout->addWidget(tableWidget, 2, 0, 1, -1);
+    mainLayout->addWidget(topLabel, 0, 0, 1, -1);
+    mainLayout->addWidget(stationLabel, 1, 0);
+    mainLayout->addWidget(stationCallsignComboBox, 2, 0);
+    mainLayout->addWidget(startLabel, 1, 1);
+    mainLayout->addWidget(startDate, 2, 1);
+    mainLayout->addWidget(endLabel, 1, 2);
+    mainLayout->addWidget(endDate, 2, 2);
+    mainLayout->addWidget(tableWidget, 3, 0, 1, -1);
 
-    mainLayout->addWidget(okButton, 3, 1);
-    mainLayout->addWidget(cancelButton, 3, 2);
+    mainLayout->addWidget(okButton, 4, 1);
+    mainLayout->addWidget(cancelButton, 4, 2);
 
     setLayout(mainLayout);
     connect(startDate, SIGNAL(dateChanged(QDate)), this, SLOT(slotDateChanged()) );
@@ -72,6 +74,11 @@ void AdifLoTWExportWidget::createUI()
     connect(stationCallsignComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotStationCallsignChanged() ) ) ;
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOKPushButtonClicked() ) );
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancelPushButtonClicked() ) );
+}
+
+void AdifLoTWExportWidget::setTopLabel()
+{
+
 }
 
 void AdifLoTWExportWidget::fillTable()
@@ -158,19 +165,19 @@ void AdifLoTWExportWidget::slotOKPushButtonClicked()
 
 void AdifLoTWExportWidget::slotCancelPushButtonClicked()
 {
-     qDebug() << "AdifLoTWExportWidget::slotCancelPushButtonClicked" << endl;
+     //qDebug() << "AdifLoTWExportWidget::slotCancelPushButtonClicked" << endl;
      close();
 }
 
 void AdifLoTWExportWidget::closeEvent(QCloseEvent *event)
 {
-    qDebug() << "AdifLoTWExportWidget::closeEvent" << endl;
+    //qDebug() << "AdifLoTWExportWidget::closeEvent" << endl;
     event->accept();
 }
 
 void AdifLoTWExportWidget::showEvent(QShowEvent *event)
 {
-    qDebug() << "AdifLoTWExportWidget::showEvent" << endl;
+    //qDebug() << "AdifLoTWExportWidget::showEvent" << endl;
     startDate->setDate(QDate::fromString((dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy/MM/dd"));
     endDate->setDate(QDate::fromString((dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy/MM/dd"));
     event->accept();
@@ -180,11 +187,12 @@ void AdifLoTWExportWidget::setExportMode(const ExportMode _EMode)
 {
     if (_EMode == ModeLotW)
     {
-        setWindowTitle("KLog - QSOs to be uploaded to LoTW");
+        setWindowTitle("KLog - QSOs to be uploaded to LoTW.");
+        topLabel->setText(tr("This table shows the QSOs that will be sent to LoTW."));
     }
     else
     {
-        setWindowTitle("KLog - QSOs to be exported to ADIF");
+        setWindowTitle("KLog - QSOs to be exported to ADIF.");
+        topLabel->setText(tr("This table shows the QSOs that will be exported to ADIF."));
     }
-
 }

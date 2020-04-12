@@ -4,11 +4,12 @@
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
 
+enum ExportMode {ModeLotW, ModeADIF};
 
 class AdifLoTWExportWidget : public QWidget
 {
     Q_OBJECT
-enum ExportMode {ModeLotW, ModeADIF};
+
 
 public:
     explicit AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent = nullptr);
@@ -29,12 +30,14 @@ signals:
 private:
     void createUI();
     void fillTable();
+    void setTopLabel();
     void addQSO(const int _qsoID);
 
 
     DataProxy_SQLite *dataProxy;
     QComboBox *stationCallsignComboBox;
     QDateEdit *startDate, *endDate;
+    QLabel *topLabel;
 
     QPushButton *okButton, *cancelButton;
     ExportMode selectedEMode;

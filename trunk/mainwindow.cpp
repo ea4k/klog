@@ -3294,7 +3294,8 @@ QString MainWindow::selectStationCallsign()
         stationCallToUse = QInputDialog::getItem(this, tr("Station Callsign:"),
                                              msg, stationCallSigns, 0, false, &ok);
 
-        if (ok && !stationCallToUse.isEmpty())
+        if (ok && util->isValidCall(stationCallToUse))
+        //if (ok && !stationCallToUse.isEmpty())
         {
             logEvent(Q_FUNC_INFO, "END-1", logSeverity);
             return stationCallToUse;
@@ -3307,8 +3308,12 @@ QString MainWindow::selectStationCallsign()
              if (ok)
              {
                 //callsignTyped = true;
-                 logEvent(Q_FUNC_INFO, "END-2", logSeverity);
-                return stationCallToUse;
+                 if (util->isValidCall(stationCallToUse))
+                 {
+                    logEvent(Q_FUNC_INFO, "END-2", logSeverity);
+                    return stationCallToUse;
+                 }
+
 
              }
              else
@@ -3396,30 +3401,30 @@ void MainWindow::slotReceiveQSOListToShowFromFile(QStringList _qs)
     // Must send QRZ-DX, Date-Time(yyyyMMdd-hhmmss), Band, Mode
     if (_qs.length()!=5)
     {
-        qDebug() << "MainWindow::slotReceiveQSOListToShowFromFile - NO valid qso list received - length: " << QString::number(_qs.length()) << endl;
+        //qDebug() << "MainWindow::slotReceiveQSOListToShowFromFile - NO valid qso list received - length: " << QString::number(_qs.length()) << endl;
         return;
     }
 
     if (!util->isValidCall(_qs.at(0)))
     {
-        qDebug() << "MainWindow::slotReceiveQSOListToShowFromFile - NO valid QRZ received - " << _qs.at(0) << endl;
+        //qDebug() << "MainWindow::slotReceiveQSOListToShowFromFile - NO valid QRZ received - " << _qs.at(0) << endl;
         return;
     }
 
     if (dataProxy->getIdFromBandName(_qs.at(2))<0)
     {
-        qDebug() << "SMainWindow::slotReceiveQSOListToShowFromFile - NO valid BAND received"<< _qs.at(2) << endl;
+        //qDebug() << "SMainWindow::slotReceiveQSOListToShowFromFile - NO valid BAND received"<< _qs.at(2) << endl;
         return;
     }
     if (dataProxy->getIdFromModeName(_qs.at(3))<0)
     {
-        qDebug() << "MainWindow::slotReceiveQSOListToShowFromFile - NO valid Mode received" << _qs.at(3)<< endl;
+        //qDebug() << "MainWindow::slotReceiveQSOListToShowFromFile - NO valid Mode received" << _qs.at(3)<< endl;
         return;
     }
 
     if (!QDateTime::fromString(_qs.at(1), "yyyyMMdd-hhmmss").isValid())
     {
-        qDebug() << "MainWindow::slotReceiveQSOListToShowFromFile - NO valid DateTime received: " << _qs.at(2) << endl;
+        //qDebug() << "MainWindow::slotReceiveQSOListToShowFromFile - NO valid DateTime received: " << _qs.at(2) << endl;
         return;
     }
 
@@ -4066,7 +4071,11 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
 
     if (field == "CALLSIGN"){
-        mainQRZ = value;
+        if (util->isValidCall(value))
+        {
+            mainQRZ = value;
+        }
+
     }else if (field=="CQZ"){
         my_CQz = value.toInt();
     }else if (field=="ITUZ"){
@@ -5307,9 +5316,9 @@ void MainWindow::slotLoTWUpload()
     // 2.- Select file and export (fixed filename?)
     // 3.- Call tqsl with the filename
     // 4.- Ask for the user to remove or not the file
-    qDebug() << "MainWindow::slotLoTWUpload - Start" << endl;
+    //qDebug() << "MainWindow::slotLoTWUpload - Start" << endl;
    // bool emptyCall = false;
-
+    adifLoTWExportWidget->setExportMode(ModeLotW);
     adifLoTWExportWidget->show();
 
 
@@ -5333,7 +5342,7 @@ void MainWindow::slotLoTWUpload()
 
 
     */
-    qDebug() << "MainWindow::slotLoTWUpload - END" << endl;
+    //qDebug() << "MainWindow::slotLoTWUpload - END" << endl;
 
 }
 
@@ -6827,6 +6836,7 @@ void MainWindow::defineStationCallsign()
           //qDebug() << "MainWindow::defineStationCallsign: AFTER"  << endl;
     myDataTabWidget->setData(myPower, stationQRZ, operatorQRZ, myDataTabWidget->getMyLocator());
     dxccStatusWidget->setMyLocator(myDataTabWidget->getMyLocator());
+    searchWidget->setStationCallsign(stationQRZ);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
            //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << " - END" << endl;
 

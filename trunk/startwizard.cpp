@@ -918,8 +918,7 @@ CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *pare
     topLabel->setWordWrap(true);
     progressBar = new QProgressBar;
     progressBar->setEnabled(false);
-    progressBar->setMinimum(0);
-    progressBar->setMaximum(0);
+    progressBar->setRange(0, 0);
 
     downloadButton = new QPushButton(tr("&Download"));
     ignoreDownloadButton  = new QPushButton(tr("&Ignore"));
