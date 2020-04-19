@@ -69,7 +69,9 @@ public:
     QList<int> adifLoTWReadLog(const QString& tfileName);
     //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, bool emptyCall=false);
     QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
+    QList<int> adifLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
     bool adifLogExport(const QString& _fileName, const int _logN);
+   // QList<int> adifLogExportDates(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);
     bool adifReqQSLExport(const QString& _fileName);
     bool cabrilloLogExport(const QString& _fileName, const QString &_contestType, const int logNconst);
@@ -88,7 +90,7 @@ private:
     bool fillHashLog(QFile & _f);
     QStringList getListOfLogsInFile(QFile & _f);
     bool writeBackupDate();
-    bool getStationCallsignFromUser(const QString _qrzDX);
+    bool getStationCallsignFromUser(const QString &_qrzDX, const QDate &_dt);
 
     void showError (const QString &_txt);
 

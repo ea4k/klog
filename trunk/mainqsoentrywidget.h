@@ -85,6 +85,7 @@ private slots:
     void slotModeComboBoxChanged();
     void slotOKButtonClicked();
     void slotClearButtonClicked();
+    //void slotRealTimeCheckBoxChanged();
 
 
 private:
@@ -102,6 +103,7 @@ private:
     QDateEdit *dateEdit;
     QTimeEdit *timeEdit;
     QPushButton *OKButton, *clearButton;
+    QCheckBox *realtimeCheckBox;
     int logSeverity;
     bool cleaning;
     bool qrzAutoChanging;
@@ -116,7 +118,7 @@ private:
     QStringList bands, modes;
 
     QTimer *timer;
-    bool realTime, UTCTime, modify;
+    bool UTCTime, modify; //realTime,
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
     Utilities *util;
 };

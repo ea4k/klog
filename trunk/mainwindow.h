@@ -216,7 +216,7 @@ private slots:
     void slotUpdateSATSDAT();
     void slotShowStats();
     //void slotShowDXCCSummary();
-    void slotWorldReload();
+    void slotWorldReload(const bool _b);
 
     void slotExitFromSlotDialog(const int exitID);
     void exitQuestion();

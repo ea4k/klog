@@ -50,7 +50,7 @@ class SetupPageWorldEditor : public QWidget {
     Q_OBJECT
 
 public:    
-    SetupPageWorldEditor(DataProxy_SQLite *dp, QWidget *parent=0);
+    SetupPageWorldEditor(DataProxy_SQLite *dp, QWidget *parent=nullptr);
     ~SetupPageWorldEditor();
 
 private slots:

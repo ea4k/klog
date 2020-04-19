@@ -78,7 +78,7 @@ private:
     QUrl url;
     QProgressDialog *pDialog;
 
-    QString klogDir;
+    QString klogDir, klogVersion;
     QString urld;
     QString fileName;
 
@@ -92,7 +92,7 @@ private:
 private slots:
     void slotReadyRead();
     void slotFinished();
-    void slotDownloadProgress(qint64 bytesRead, qint64 totalBytes);
+    void slotDownloadProgress(qint64 bytesRead);
     void slotCancelDownload();
 
 signals:

@@ -40,6 +40,7 @@ SetupPageClubLog::SetupPageClubLog(QWidget *parent) : QWidget(parent)
     emailLineEdit = new QLineEdit;
     callLineEdit = new QLineEdit;
     passwordLineEdit = new QLineEdit;
+    passwordLineEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
 
 
     callLabel = new QLabel(tr("&Callsign"));

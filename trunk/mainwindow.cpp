@@ -128,6 +128,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     configFileName = util->getCfgFile();
     ctyDatFile = util->getCTYFile();
 
+    //downloadcty = new DownLoadCTY(klogDir, softwareVersion, Q_FUNC_INFO);
     downloadcty = new DownLoadCTY(klogDir, softwareVersion);
 
     statusBarMessage = tr("Starting KLog");
@@ -545,7 +546,7 @@ void MainWindow::createActionsCommon(){
    connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotSatRXFreqNeeded(double)));
    connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
 
-   connect(downloadcty, SIGNAL(done()), this, SLOT(slotWorldReload()) );
+   connect(downloadcty, SIGNAL(done(bool)), this, SLOT(slotWorldReload(bool)) );
 
  //connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
    connect(timerInfoBars, SIGNAL(timeout()), this, SLOT(slotTimeOutInfoBars()) );
@@ -3180,13 +3181,12 @@ void MainWindow::slotToolLoTWMarkAllQueued()
 bool MainWindow::callTQSL(const QString &_filename, const QString &_call)
 { //https://lotw.arrl.org/lotw-help/cmdline/
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-          //qDebug() << "MainWindow::callTQSL: " << lotwTQSLpath << endl;
+    qDebug() << "MainWindow::callTQSL: " << lotwTQSLpath << endl;
 
-    //QString program = "C:/Program Files (x86)/TrustedQSL/tqsl.exe";
     QStringList arguments;
     arguments.clear();
-    //arguments << "--action=compliant" << QString("-c %1").arg(_call) << "-d" << "-u"  << "-x" << _filename;// "C:/Users/radio/klog/lotw.adi";
-    arguments  << QString("-c %1").arg(_call) << "-u" << _filename;// "C:/Users/radio/klog/lotw.adi";
+    //arguments << "--action=compliant" << QString("-c %1").arg(_call) << "-d" << "-u"  << "-x" << _filename;
+    arguments  << QString("-c %1").arg(_call) << "-u" << _filename;
     int ok = -1;
     QString msg;
     QMessageBox msgBox;
@@ -3201,14 +3201,16 @@ bool MainWindow::callTQSL(const QString &_filename, const QString &_call)
     }
     else
     {
-        ok = QProcess::execute(lotwTQSLpath, arguments);
-        //-c ea4k       //qDebug() << "MainWindow::callTQSL: " << (QProcess::readAllStandardError()) << endl;
+        ok = QProcess::execute(lotwTQSLpath, arguments);   
+        //qDebug() << "MainWindow::callTQSL error: " << (QProcess::readAllStandardError()) << endl;
+        qDebug() << "MainWindow::callTQSL-ok: " << QString::number(ok) << endl;
 
         switch (ok)
         {
         case 0: // success: all qsos submitted were signed and saved or signed and uploaded
                   //qDebug() << "MainWindow::callTQSL: 0"  << endl;
-            msg = tr("All the QSOs were signed and uploaded with no error.");
+            //msg = tr("All the QSOs were signed and uploaded with no error.");
+            msg = tr("TQSL finished with no error.");
             msgBox.setIcon(QMessageBox::Information);
         break;
         case 1: // cancelled by user
@@ -3577,6 +3579,7 @@ void MainWindow::openSetup(const int _page)
             logEvent(Q_FUNC_INFO, "Just before SetupDialog->exec", logSeverity);
             itIsANewversion = false;
             setupDialog->exec();
+            //setupDialog->open();
             logEvent(Q_FUNC_INFO, "Just after setupDialog->exec", logSeverity);
                   //qDebug() << "MainWindow::slotSetup - Just after setupDialog->exec"  << endl;
         }
@@ -5228,20 +5231,21 @@ void MainWindow::createUIDX()
  }
 
 
-void MainWindow::slotADIFExport(){
-          //qDebug() << "MainWindow::slotADIFExport - Start" << endl;
+void MainWindow::slotADIFExport()
+{
+    qDebug() << "MainWindow::slotADIFExport - Start" << endl;
 
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"),
                                util->getHomeDir(),
                                "ADIF (*.adi *.adif)");
 
     filemanager->adifLogExport(fileName, currentLog);
-          //qDebug() << "MainWindow::slotADIFExport -END " << endl;
+    qDebug() << "MainWindow::slotADIFExport -END " << endl;
 }
 
 void MainWindow::slotLoTWExportPeriod(const QString &_st, const QDate &_startDate, const QDate &_endDate)
 {
-    //qDebug() << "MainWindow::slotLoTWExportPeriod  - Start" << endl;
+    qDebug() << "MainWindow::slotLoTWExportPeriod  - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") << endl;
     if (!util->isValidCall(_st))
     {
         return;
@@ -5252,23 +5256,24 @@ void MainWindow::slotLoTWExportPeriod(const QString &_st, const QDate &_startDat
     }
 
     QString fileName = "klog-lotw-upload.adi";
-    QList<int> qsos = filemanager->adifLoTWLogExport(fileName, _st, _startDate, _endDate, currentLog);
+    //QList<int> qsos = filemanager->adifLoTWLogExport(fileName, _st, _startDate, _endDate, currentLog);
+    QList<int> qsos = filemanager->adifLogExport(fileName, _st, _startDate, _endDate, currentLog, true);
 
     if (qsos.count() <= 0)
     { // TODO: Check if errors should be managed.
         return;
     }
-          //qDebug() << "MainWindow::slotLoTWUpload - 50" << endl;
+          //qDebug() << "MainWindow::slotLoTWExportPeriod - 50" << endl;
     bool uploadedToLoTW = callTQSL(fileName, _st);
     //bool uploadedToLoTW = true;
-          //qDebug() << "MainWindow::slotLoTWUpload - 51" << endl;
+          //qDebug() << "MainWindow::slotLoTWExportPeriod - 51" << endl;
     QMessageBox msgBox;
     int i ;
     if (uploadedToLoTW)
     {
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("The LoTW upload was successful.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
+        msgBox.setText(tr("If you uploaded any QSO to LoTW while you were using TQSL you can now mark them as sent in KLog.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
 
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
         msgBox.setDefaultButton(QMessageBox::Yes);
@@ -5322,26 +5327,7 @@ void MainWindow::slotLoTWUpload()
     adifLoTWExportWidget->show();
 
 
-  /*
-    QString stationCallToUse = getCallToUseForLoTWExportUpload();
-    if (!util->isValidCall(stationCallToUse))
-    {
-        return;
-    }
-    if (stationCallToUse == "NONE")
-    {
-        emptyCall = true;
-        stationCallToUse = stationQRZ;
-    }
 
-          //qDebug() << "MainWindow::slotLoTWUpload: filename: " << fileName << endl;
-          //qDebug() << "MainWindow::slotLoTWUpload: statioNCallToUse: " << stationCallToUse << endl;
-    QList<int> qsos = filemanager->adifLoTWLogExport(fileName, stationCallToUse, currentLog, emptyCall) ;
-    adifLoTWLogExport(fileName, stationCallToUse, const QDate &_startDate, const QDate &_endDate, currentLog, emptyCall);
-          //qDebug() << "MainWindow::slotLoTWUpload: exported: "  << endl;
-
-
-    */
     //qDebug() << "MainWindow::slotLoTWUpload - END" << endl;
 
 }
@@ -5384,151 +5370,7 @@ void MainWindow::slotLoTWDownload()
     lotwUtilities->download();
     //qDebug() << "MainWindow::slotDownUpload - END" << endl;
 }
-/*
-QString MainWindow::getCallToUseForLoTWExportUpload()
-{
-    QString stationCallToUse = QString();
-    QString msg;
-    QStringList stationCallSigns;
-    stationCallSigns.clear();
-    stationCallSigns << "NONE";
-    stationCallSigns << dataProxy->getStationCallSignsFromLog(currentLog);
-    QMessageBox msgBox;
 
-    if (stationCallSigns.length()>1)
-    {
-        msg = QString(tr("The log that you have selected contains more than just one station callsign.") + "<br><br>" + tr("Please select the station callsign you want to export the log from:"));
-        bool ok;
-        stationCallToUse = QInputDialog::getItem(this, tr("Station Callsign:"),
-                                             msg, stationCallSigns, 0, false, &ok);
-
-        if (!ok)
-        {
-            return QString();
-        }
-
-              //qDebug() << "MainWindow::slotLoTWUpload: " << stationCallToUse << endl;
-        if (!util->isValidCall(stationCallToUse))
-        {                
-            msgBox.setWindowTitle(tr("KLog - LoTW"));
-            msgBox.setIcon(QMessageBox::Warning);
-            msgBox.setText(tr("The selected callsign is not valid, LoTW log will not be uploaded."));
-            msgBox.setStandardButtons(QMessageBox::Ok );
-            msgBox.setDefaultButton(QMessageBox::Ok);
-            msgBox.exec();
-            return QString();
-        }
-        if (stationCallToUse == "NONE")
-        {
-            stationCallToUse = stationQRZ;
-                  //qDebug() << "MainWindow::slotLoTWUpload: station <2  "  << endl;
-
-            msgBox.setTextFormat(Qt::RichText);
-            msgBox.setWindowTitle(tr("KLog - LoTW"));
-            msgBox.setIcon(QMessageBox::Warning);
-            msgBox.setText(tr("You selected NONE so all the QSOs without a station callsign in your log will be selected and the current station callsign (%1) will be automatically added to the QSOs. <br><br><b>Please check that this is correct as it may cause errors in your uploaded logs</b>.").arg(stationQRZ));
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel );
-            msgBox.setDefaultButton(QMessageBox::Cancel);
-            int i = msgBox.exec();
-            if (i == QMessageBox::Yes)
-            {
-                return stationCallToUse;
-            }
-            else
-            {
-                return QString();
-            }
-        }
-        return stationCallToUse;
-    }
-    else
-    { // No station callsigns are in the log so we return "NONE"
-
-        msg = tr("The log that you have selected does not contain any QSO with the station callsign defined.")+ "<br><br>" + tr("If you click on 'Yes' KLog will fill all the QSOs with your Station Callsign <b>(%1)</b> automatically.").arg(stationQRZ) + "<br><br>" + tr("Do you want to fill all the QSOs with the Station Callsign: %1?").arg(stationQRZ) + "<br>" + tr("(If you answer 'No', no QSOs will be exported to LoTW)");
-
-        msgBox.setTextFormat(Qt::RichText);
-        msgBox.setWindowTitle(tr("KLog - LoTW"));
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText(msg);
-        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-        msgBox.setDefaultButton(QMessageBox::Yes);
-        int i = msgBox.exec();
-        if (i == QMessageBox::Yes)
-        {
-            return stationQRZ;
-        }
-        else
-        {
-            return QString();
-        }
-    }
-}
-*/
-/*
-void MainWindow::slotLoTWExport(){
-          //qDebug() << "MainWindow::slotLoTWExport " << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-
-    // 1.- Selec call
-    // 2.- Select file and export
-
-    QString stationCallToUse = getCallToUseForLoTWExportUpload();
-          //qDebug() << "MainWindow::slotLoTWExport: " << stationCallToUse << endl;
-    if (stationCallToUse.length()<2)
-    {
-             //qDebug() << "MainWindow::slotLoTWExport: - exiting ..." << endl;
-        return;
-    }
-
-    QString aux;
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"),
-                               util->getHomeDir(),
-                               "ADIF (*.adi *.adif)");
-
-          //qDebug() << "MainWindow::slotLoTWExport: " << "/" << fileName << "/" << endl;
-    if (fileName.length()<1)
-    {
-        return;
-    }
-    //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
-    //QList<int> qsos = filemanager->adifLoTWLogExport(fileName, stationCallToUse, currentLog) ;
-
-    if (qsos.count() > 0)
-    {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Information);
-
-        aux = tr("LoTW logfile has been properly exported!") + "\n\n" + tr("Remember to:") + "\n\n-" + tr("Before uploading: sign the LoTW log; and") + "\n-" + tr("After uploading: mark as sent all the queued QSOs (LoTW Tools).");
-
-        msgBox.setText(aux);
-        msgBox.setStandardButtons(QMessageBox::Ok );
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        msgBox.exec();
-
-    }
-    else
-    {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Information);
-        aux = tr("There was no QSOs to be exported.") + "\n\n" + tr("If you think that some QSOs should have been exported, please look for them and ensure that the eQSL LoTW QSL sent box is marked as:") + "\n\n " + tr("Q - Queued") + "." ;
-        msgBox.setText(aux);
-        msgBox.setStandardButtons(QMessageBox::Ok );
-
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
-        switch (ret)
-        {
-            case QMessageBox::Ok:
-            break;
-            default:
-            // should never be reached
-            break;
-        }
-    }   
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
-
-*/
 void MainWindow::slotADIFExportAll(){
               //qDebug() << "MainWindow::slotADIFExportAll " << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -6473,12 +6315,16 @@ void MainWindow::slotShowStats()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::slotWorldReload()
+void MainWindow::slotWorldReload(const bool _b)
 {
              //qDebug() << "MainWindow::slotWorldReload" << endl;
     //TODO: world.recreate returns a boolean, so it is possible to manage the errors
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    world->recreate(ctyDatFile);
+    if (_b)
+    {
+        world->recreate(ctyDatFile);
+    }
+
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 

@@ -907,9 +907,10 @@ CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *pare
     //completed = false;
 
     dl = new DownLoadCTY(_klogDir, _version);
-    QObject::connect(dl, SIGNAL(actionReturnDownload(int)), this, SLOT(slotDownloadFinished(int)));
-    QObject::connect(dl, SIGNAL(actionShowProgres(qint64,qint64)), this, SLOT(slotUpdateDownloadProgress(qint64,qint64)));
-    QObject::connect(dl, SIGNAL(actionError(int)), this, SLOT(slotDownloadError(int)));
+    connect(dl, SIGNAL(actionReturnDownload(int)), this, SLOT(slotDownloadFinished(int)));
+    connect(dl, SIGNAL(actionShowProgres(qint64,qint64)), this, SLOT(slotUpdateDownloadProgress(qint64,qint64)));
+    connect(dl, SIGNAL(actionError(int)), this, SLOT(slotDownloadError(int)));
+    connect(dl, SIGNAL(downloadStopped()), this, SLOT(slotStopProgressBar()));
 
     setTitle(tr("Country data download"));
 
@@ -918,7 +919,7 @@ CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *pare
     topLabel->setWordWrap(true);
     progressBar = new QProgressBar;
     progressBar->setEnabled(false);
-    progressBar->setRange(0, 0);
+
 
     downloadButton = new QPushButton(tr("&Download"));
     ignoreDownloadButton  = new QPushButton(tr("&Ignore"));
@@ -972,13 +973,16 @@ void CTYPage::slotDownloadButtonClicked()
 {
         //qDebug() << "CTYPage::slotDownloadButtonClicked" << endl;
      progressBar->setEnabled(true);
+     progressBar->reset();
+     progressBar->setRange(0, 0);
      dl->download();
      //completed = true;
 }
 void CTYPage::slotIgnoreDownloadButtonClicked()
 {
-       //qDebug() << "CTYPage::slotIgnoreDownloadButtonClicked" << endl;
+    //qDebug() << "CTYPage::slotIgnoreDownloadButtonClicked" << endl;
     //ignoreDownloadButton->setChecked(true);
+    slotStopProgressBar();
     hiddenCheckBox->setChecked(true);
     progressBar->setEnabled(false);
 
@@ -988,14 +992,15 @@ void CTYPage::slotIgnoreDownloadButtonClicked()
 
 void CTYPage::slotDownloadFinished(const int ret)
 {
-       //qDebug() << "CTYPage::slotDownloadFinished: " << QString::number(ret) << endl;
+    //qDebug() << "CTYPage::slotDownloadFinished: " << QString::number(ret) << endl;
+    slotStopProgressBar();
      if (ret == QNetworkReply::NoError) // No error
      {
-         hiddenCheckBox->setChecked(true);
-         progressBar->setEnabled(false);
-         progressBar->setValue(progressBar->maximum());
-         //hiddenCheckBox->setChecked(true);
-       //qDebug() << "CTYPage::slotDownloadFinished: (no error): " << QString::number(ret) << endl;
+        hiddenCheckBox->setChecked(true);
+        progressBar->setEnabled(false);
+        //progressBar->setValue(progressBar->maximum());
+        //hiddenCheckBox->setChecked(true);
+        //qDebug() << "CTYPage::slotDownloadFinished: (no error): " << QString::number(ret) << endl;
      }
      else if (ret == -1) // File could not be created!
      {
@@ -1011,10 +1016,10 @@ void CTYPage::slotDownloadFinished(const int ret)
 
 void CTYPage::slotDownloadError(const int ret)
 {
-       //qDebug() << "CTYPage::slotDownloadError: " << QString::number(ret) << endl;
+    //qDebug() << "CTYPage::slotDownloadError: " << QString::number(ret) << endl;
     int errorCode = ret;
     int i;
-    progressBar->setValue(0);
+    slotStopProgressBar();
     progressBar->setEnabled(false);
 
     if(errorCode == QNetworkReply::NoError)
@@ -1041,6 +1046,12 @@ void CTYPage::slotDownloadError(const int ret)
     {
         //TODO: Add a message showing the error that has occur. errorString()?
     }
-
 }
 
+void CTYPage::slotStopProgressBar()
+{
+    //qDebug() << "CTYPage::slotStopProgressBar" << endl;
+    progressBar->reset();
+    progressBar->setRange(0,1);
+    progressBar->setValue(1);
+}

@@ -167,8 +167,6 @@ void SearchWidget::fillStationCallsignComboBox()
     {
         stationCallsignComboBox->addItems(dataProxy->getStationCallSignsFromLog(currentLog));
     }
-
-
 }
 
 void SearchWidget::slotRadioButtonToggled()
@@ -327,7 +325,7 @@ void SearchWidget::slotSearchBoxTextChanged()
 
 bool SearchWidget::fillTheList(const QString _query)
 {
-    //qDebug() << "SearchWidget::fillTheList: "  << _query << endl;
+    qDebug() << "SearchWidget::fillTheList: "  << _query << endl;
     if (_query.length()<=0)
     {
         return false;

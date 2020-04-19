@@ -38,7 +38,7 @@ class SetupPageUserDataPage : public QWidget {
     Q_OBJECT
 
 public:
-    SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent=0);
+    SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent=nullptr);
     ~SetupPageUserDataPage();
 
     QString getStationQrz();
@@ -98,6 +98,7 @@ public:
     bool setAntenna1 (const QString &_aux);
     bool setAntenna2 (const QString &_aux);
     bool setAntenna3 (const QString &_aux);
+    void setStationFocus();
 
 signals:
     void stationCallSignal (const QString &_p);

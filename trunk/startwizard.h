@@ -74,7 +74,7 @@ class CTYPage;
    {
        Q_OBJECT
    public:
-     IntroPage(QWidget *parent = 0);
+     IntroPage(QWidget *parent = nullptr);
      int nextId() const;
    private:
        QLabel *topLabel;
@@ -148,9 +148,11 @@ private slots:
     void slotIgnoreDownloadButtonClicked();
     void slotDownloadFinished(const int ret);
     void slotDownloadError(const int ret);
+    void slotStopProgressBar();
 
 signals:
     void downloadTheFileSignal(const bool mem);
+
 
   private:
     bool prepareTheDownload();

@@ -18,8 +18,7 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
 
 void AdifLoTWExportWidget::createUI()
 {
-    stationCallsignComboBox->clear();
-    stationCallsignComboBox->addItems(dataProxy->getStationCallSignsFromLog(-1));
+    fillStationCallsignComboBox();
     stationCallsignComboBox->setToolTip(tr("Select the Station Callsign that you want to use to upload the log."));
 
     startDate->clear();    
@@ -69,11 +68,18 @@ void AdifLoTWExportWidget::createUI()
     mainLayout->addWidget(cancelButton, 4, 2);
 
     setLayout(mainLayout);
-    connect(startDate, SIGNAL(dateChanged(QDate)), this, SLOT(slotDateChanged()) );
-    connect(endDate, SIGNAL(dateChanged(QDate)), this, SLOT(slotDateChanged()) );
+    connect(startDate, SIGNAL(dateChanged(QDate)), this, SLOT(slotStationCallsignChanged())) ;
+    connect(endDate, SIGNAL(dateChanged(QDate)), this, SLOT(slotStationCallsignChanged() ));
     connect(stationCallsignComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotStationCallsignChanged() ) ) ;
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOKPushButtonClicked() ) );
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancelPushButtonClicked() ) );
+}
+
+void AdifLoTWExportWidget::fillStationCallsignComboBox()
+{
+    stationCallsignComboBox->clear();
+    stationCallsignComboBox->addItem(tr("Not defined"));
+    stationCallsignComboBox->addItems(dataProxy->getStationCallSignsFromLog(-1));
 }
 
 void AdifLoTWExportWidget::setTopLabel()
@@ -92,7 +98,17 @@ void AdifLoTWExportWidget::fillTable()
     //QList<int> DataProxy_SQLite::getQSOsListLoTWNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool justQueued)
     QList<int> qsos;
     qsos.clear();
-    qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
+    if (stationCallsignComboBox->currentIndex() == 0)
+    {
+        //NO se pone la fechas del primer y ultimo qso
+
+        qsos.append(dataProxy->getQSOsListLoTWNotSent(QString(), startDate->date(), endDate->date(), true));
+    }
+    else
+    {
+        qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
+    }
+    //qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
     //qDebug() << "AdifLoTWExportWidget::fillTable QSOS: " << QString::number(qsos.length()) << endl;
 
     QString aux, prefix;
@@ -153,6 +169,7 @@ void AdifLoTWExportWidget::slotStationCallsignChanged()
 
 void AdifLoTWExportWidget::slotDateChanged()
 {
+    slotStationCallsignChanged();
     fillTable();
 }
 
