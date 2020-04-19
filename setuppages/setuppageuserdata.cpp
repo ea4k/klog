@@ -743,3 +743,8 @@ bool  SetupPageUserDataPage::checkOperatorsLineQString(const QString &_auxLine)
     }
     return true;
 }
+void SetupPageUserDataPage::setStationFocus()
+{
+    //qDebug() << "SetupPageUserDataPage::setStationFocus" << endl;
+    qrzLineEdit->setFocus();
+}

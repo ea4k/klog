@@ -16,6 +16,7 @@ LoTWUtilities::LoTWUtilities(const QString &_klogDir, const QString &_klogVersio
     file = new QFile;
     //url = new QUrl;
     klogDir = _klogDir;
+    klogVersion = _klogVersion;
     downloadAborted = false;
     stationCallsign.clear();
     startDate.clear();
@@ -57,9 +58,10 @@ bool LoTWUtilities::selectQuery(const int _queryId)
     if (lotwPassword.length()<1)
     {
         savePassword = false;
+
         bool ok;
         lotwPassword = QInputDialog::getText(nullptr, tr("KLog - LoTW password needed"),
-                                                   tr("Please senter your LoTW password: "), QLineEdit::Normal, "", &ok);
+                                                   tr("Please enter your LoTW password: "), QLineEdit::Password, "", &ok);
         if (!ok)
         {
              //qDebug() << "LoTWUtilities::selectQuery: - END 1" <<  endl;
@@ -116,15 +118,20 @@ bool LoTWUtilities::setStationCallSign (const QString &_call)
 void LoTWUtilities::startRequest(QUrl url)
 {
     //qDebug() << "LoTWUtilities::startRequest: " << url.toString()  << endl;
-
-    reply = manager->get(QNetworkRequest(url));
+    QByteArray agent = QString("KLog-" + klogVersion).toUtf8();
+    QNetworkRequest request;
+    request.setUrl(url);
+    request.setHeader(QNetworkRequest::UserAgentHeader, agent);
+    //request.setRawHeader("User-Agent", agent);
+    //reply = manager->get(QNetworkRequest(url));
+    reply = manager->get(request);
     //qDebug() << "LoTWUtilities::startRequest - 10"  << endl;
       // Whenever more data is received from the network,
       // this readyRead() signal is emitted
       connect(reply, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
 
       // Also, downloadProgress() signal is emitted when data is received
-      connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(slotDownloadProgress(qint64,qint64)));
+      connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(slotDownloadProgress(qint64)));
 
       // This signal is emitted when the reply has finished processing.
       // After this signal is emitted,
@@ -226,7 +233,7 @@ int LoTWUtilities::download()
 
 }
 
-void LoTWUtilities::slotDownloadProgress(qint64 bytesRead, qint64 totalBytes) {
+void LoTWUtilities::slotDownloadProgress(qint64 bytesRead) {
     //qDebug() << "LoTWUtilities::slotDownloadProgress: " << QString::number(bytesRead) << "/" << QString::number(totalBytes) << endl;
     if (downloadAborted)
     {
@@ -240,12 +247,12 @@ void LoTWUtilities::slotDownloadProgress(qint64 bytesRead, qint64 totalBytes) {
 
 void LoTWUtilities::slotReadyRead()
 {
-     //qDebug() << "LoTWUtilities::slotReadyRead" << endl;
+    qDebug() << "LoTWUtilities::slotReadyRead: " << reply->readLine() << endl;
     if (file)
     {
         file->write(reply->readAll());
     }
-     //qDebug() << "LoTWUtilities::slotReadyRead - END" << endl;
+    qDebug() << "LoTWUtilities::slotReadyRead - END" << endl;
 }
 
 void LoTWUtilities::slotFinished()

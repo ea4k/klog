@@ -10,6 +10,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     modeComboBox = new QComboBox;
     dateEdit = new QDateEdit;
     timeEdit = new QTimeEdit;
+    realtimeCheckBox = new QCheckBox;
     OKButton = new QPushButton(tr("&Add"), this);
     clearButton = new QPushButton(tr("&Clear"), this);
     timer = new QTimer(this);
@@ -34,10 +35,12 @@ void MainQSOEntryWidget::createUI()
     timeEdit->setToolTip(tr("Time of the QSO."));
     OKButton->setToolTip(tr("Add the QSO to the log."));
     clearButton->setToolTip(tr("Clears the QSO entry."));
+    realtimeCheckBox->setToolTip(tr("KLog will show real time if enabled."));
 
     QHBoxLayout *TimeLayout = new QHBoxLayout;
     TimeLayout->addWidget(dateEdit);
     TimeLayout->addWidget(timeEdit);
+    TimeLayout->addWidget(realtimeCheckBox);
 
     QHBoxLayout *BandModeLayout = new QHBoxLayout;
     BandModeLayout->addWidget(bandComboBox);
@@ -73,7 +76,7 @@ void MainQSOEntryWidget::createUI()
     connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotOKButtonClicked() ) );
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
     connect(bandComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotBandComboBoxChanged() ) ) ;
-    connect(modeComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotModeComboBoxChanged() ) ) ;
+    connect(modeComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotModeComboBoxChanged() ) ) ;    
 
     connect(OKButton, SIGNAL(clicked()), this, SLOT(slotOKButtonClicked() ) );
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked() ) );
@@ -298,7 +301,7 @@ void MainQSOEntryWidget::setInitialData()
     timeEdit->setTime(QTime::currentTime());
 
     UTCTime = true;
-    realTime = true;
+    //realTime = true;
 
     timer->start(1000);
    emit debugLog(Q_FUNC_INFO, "END", logSeverity);
@@ -489,9 +492,11 @@ QTime MainQSOEntryWidget::getTime()
 void MainQSOEntryWidget::setRealTime(const bool _realTime)
 {
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
-    realTime = _realTime;
+    realtimeCheckBox->setChecked(_realTime);
+    //realTime = _realTime;
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
 }
+
 
 void MainQSOEntryWidget::setUTC(const bool _utc)
 {
@@ -517,9 +522,11 @@ void MainQSOEntryWidget::setModify(const bool _modify)
 
 void MainQSOEntryWidget::slotUpdateTime()
 {
+    //qDebug()<< "MainQSOEntryWidget::slotUpdateTime" << endl;
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
-    if ( (!modify) && (realTime)  )
+    if ( (!modify) && (realtimeCheckBox->isChecked())  )
     {
+        //qDebug()<< "MainQSOEntryWidget::slotUpdateTime - Real Time & update" << endl;
 
         if (UTCTime)
         {

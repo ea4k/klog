@@ -59,8 +59,10 @@ int Utilities::getProgresStepForDialog(int totalSteps)
         return 20;
     else if (totalSteps <=9999)
         return 25;
+    else if (totalSteps <=20000)
+        return 100;
     else
-        return 50;
+        return 200;
 }
 
 bool Utilities::trueOrFalse(const QString &_s)
@@ -423,23 +425,32 @@ bool Utilities::isValidDateTime(const QString &_d)
 
 bool Utilities::isValidCall(const QString &_c)
 {
-      //qDebug() << "Utilities::isValidCall: " << _c << endl;
+    qDebug() << "Utilities::isValidCall: " << _c << endl;
     //Rules: http://life.itu.int/radioclub/rr/art19.pdf
     if (_c.length()<3)
     {
-          //qDebug() << "Utilities::isValidCall: FALSE-1: " << _c << endl;
+        qDebug() << "Utilities::isValidCall: FALSE-1: " << _c << endl;
         return false;
     }
-    QString call = _c;
 
+    if ( !(_c.at(0).isLetterOrNumber()) )
+    {
+        qDebug() << "Utilities::isValidCall: FALSE-2: " << _c << endl;
+        return false;
+    }
+
+
+    QString call = _c;
+    qDebug() << "Utilities::isValidCall: -10 "  << endl;
     if ((call.contains('/')) || (call.contains('\\')))
     {
         call.replace('\\', '/');
         if (call.count('/')>2)
         {
-              //qDebug() << "Utilities::isValidCall: FALSE-2: " << call << endl;
+            qDebug() << "Utilities::isValidCall: FALSE-3: " << call << endl;
             return false;
         }
+
         QStringList parts;
         parts.clear();
         parts << call.split('/');
@@ -478,20 +489,32 @@ bool Utilities::isValidCall(const QString &_c)
             }
         }
     }
-
-    if ((call.back()).isDigit())
+    qDebug() << "Utilities::isValidCall: -20 "  << endl;
+    for (int i=0; i<call.length(); i++)
     {
-          //qDebug() << "Utilities::isValidCall: FALSE-3 " << call << endl;
-        return false;
+        qDebug() << "Utilities::isValidCall: FOR: " << call << "/" << call.at(i)  << endl;
+        if (( !(call.at(i).isLetterOrNumber()) ) && !(call.at(i) != "/"))
+        {
+            qDebug() << "Utilities::isValidCall: FALSE-4 " << call << endl;
+            return false;
+        }
     }
 
+   /*
+    if ((call.back()).isDigit())
+    {
+        qDebug() << "Utilities::isValidCall: FALSE-3 " << call << endl;
+        return false;
+    }
+ */
+    qDebug() << "Utilities::isValidCall: -30 "  << endl;
     QChar firstChar = call.at(0);
     QChar secondChar = call.at(1);
     QChar thirdChar = call.at(2);
 
     if ((call.length() == 3) && ( thirdChar.isDigit()))
     {
-          //qDebug() << "Utilities::isValidCall: FALSE-4: " << call << endl;
+        qDebug() << "Utilities::isValidCall: FALSE-5: " << call << endl;
         return false;
     }
 
@@ -501,7 +524,7 @@ bool Utilities::isValidCall(const QString &_c)
 
     if (firstChar.isDigit() && secondChar.isDigit())
     {
-          //qDebug() << "Utilities::isValidCall: FALSE-5: " << call << endl;
+        qDebug() << "Utilities::isValidCall: FALSE-6: " << call << endl;
         return false;
     }
 
@@ -625,7 +648,7 @@ bool Utilities::isValidCall(const QString &_c)
     // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
 
 
-      //qDebug() << "Utilities::isValidCall: TRUE: " << call << endl;
+    qDebug() << "Utilities::isValidCall: TRUE: " << call << endl;
     return true;
 }
 

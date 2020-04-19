@@ -78,6 +78,7 @@ void SetupPageLoTW::createUI()
 
 
     // Download
+    lotwPassLineEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
     QLabel *userlabel = new QLabel;
     QLabel *passlabel = new QLabel;
     userlabel->setText(tr("User:"));

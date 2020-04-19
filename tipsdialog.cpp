@@ -135,9 +135,8 @@ void TipsDialog::setTip(const int _t)
         description = tr("<b>Tip #4:</b><br>Do you know...<br>You can export your QSO marked as QSL requested with <a href=\"#FileExportQSLADIFToPrint\">File->Export Requested QSL to ADIF...</a> to create an ADIF file that you will be able to import into a QSL tag creation program to print tags for your QSL cards?");
     break;
     case 5:
-        //: Translator: Please make sure that the name of the link is coherent with the menu File->Export ADIF for LoTW...
         return;
-        //description = tr("<b>Tip #5:</b><br>Do you know...<br>You can export your QSO marked as requested, via LoTW, in your log with <a href=\"#FileExportLoTWADIF\">File->Export ADIF for LoTW...</a> to create an ADIF file that you will be able to import in TQSL to be signed and uploaded to LoTW?<br><br>You have to mark as Q-Queued all the QSOs you want to be exported to be sent to LoTW.");
+        description = tr("<b>Tip #5:</b><br>Do you know...<br>You can enter a '*' in the search box, in the search window to search for all the QSOs done with one specific station callsign?");
     break;
     case 6:
         //: Translator: Please make sure that the name of the link is coherent with the menu File->KLog folder

@@ -32,6 +32,7 @@ private:
     void fillTable();
     void setTopLabel();
     void addQSO(const int _qsoID);
+    void fillStationCallsignComboBox();
 
 
     DataProxy_SQLite *dataProxy;

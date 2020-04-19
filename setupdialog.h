@@ -83,7 +83,7 @@ private slots:
     void slotFocusOK();
 
 private:
-
+    void showEvent(QShowEvent *event);
     void setConfigFile(const QString &_configFile);
     void setSoftVersion(const QString &_softwareVersion);
     void setConfigured(const bool _configured);

@@ -41,7 +41,7 @@ class SetupPageSats : public QWidget {
     Q_OBJECT
 
 public:
-    SetupPageSats(DataProxy_SQLite *dp, QWidget *parent=0);
+    SetupPageSats(DataProxy_SQLite *dp, QWidget *parent=nullptr);
     ~SetupPageSats();
     int getSelectedSat();
     void setSelectedSat(const int _i);

@@ -1348,3 +1348,9 @@ void SetupDialog::slotFocusOK()
       //qDebug() << "SetupDialog::slotFocusOK" << endl;
     okButton->setFocus(Qt::OtherFocusReason);
 }
+
+void SetupDialog::showEvent(QShowEvent *event)
+{
+    QWidget::showEvent(event);
+    userDataPage->setStationFocus();
+}
