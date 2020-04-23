@@ -172,7 +172,7 @@ int Awards::getDXCCWorked(const int _logNumber)
     QString stringQuery;
     bool sqlOK;
 
-    stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where lognumber='%1'").arg(_logNumber);
+    stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log WHERE dxcc>'0' AND lognumber='%1'").arg(_logNumber);
 
     sqlOK = query.exec(stringQuery);
        //qDebug() << "Awards::getDXCCWorked: stringQuery: " << stringQuery << endl;
@@ -207,7 +207,7 @@ int Awards::getDXCCConfirmed(const int _logNumber)
     QSqlQuery query;
     QString stringQuery;
     bool sqlOK;
-    stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where qsl_rcvd='Y' AND lognumber='%1'").arg(_logNumber);
+    stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where qsl_rcvd='Y' AND dxcc!='' AND dxcc >'0' AND lognumber='%1'").arg(_logNumber);
     sqlOK = query.exec(stringQuery);
        //qDebug() << "Awards::getDXCCWorked: stringQuery: " << stringQuery << endl;
 
@@ -244,9 +244,7 @@ int Awards::getWAZWorked(const int _logNumber)
        //qDebug() << "Awards::getWAZWorked (logNumber): " << QString::number(_logNumber) << endl;
     QSqlQuery query;
     QString stringQuery;
-    //stringQuery = QString("SELECT count (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND qsl_rcvd='Y' AND lognumber='%1')").arg(_logNumber);
-    stringQuery = QString("SELECT count (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND lognumber='%1')").arg(_logNumber);
-    //stringQuery = QString("SELECT count (cqz) from  (SELECT DISTINCT cqz FROM awardwaz WHERE lognumber='%1' AND cqz <> '')").arg(_logNumber);
+    stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND lognumber='%1')").arg(_logNumber);
     bool sqlOK = query.exec(stringQuery);
     if (sqlOK)
     {
@@ -279,8 +277,8 @@ int Awards::getWAZConfirmed(const int _logNumber)
     QSqlQuery query;
     QString stringQuery;
     //Usar la siguiente para el confirmed
-    stringQuery = QString("SELECT count (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND qsl_rcvd='Y' AND lognumber='%1')").arg(_logNumber);
-    //stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM awardwaz WHERE lognumber='%1' AND confirmed='1' AND cqz <> '')").arg(_logNumber);
+    stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND qsl_rcvd='Y' AND lognumber='%1')").arg(_logNumber);
+
     bool sqlOK = query.exec(stringQuery);
     if (sqlOK)
     {

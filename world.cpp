@@ -461,7 +461,7 @@ QString World::getQRZEntityName(const QString &_qrz)
         //qDebug() << "World::getQRZEntityName: " << _qrz << endl;
     if (_qrz.length() < 1 )
     {
-        return "";
+        return QString();
     }
     //QString queryString;
     //QSqlQuery query;
@@ -699,7 +699,8 @@ QString World::getEntityMainPrefix(const int _entityN)
 {
     if (_entityN <= 0 )
     {
-        return "";
+        return QString();
+        //return tr("NONE");
     }
     return dataProxy->getEntityMainPrefix(_entityN);
  /*

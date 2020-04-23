@@ -92,10 +92,9 @@ bool LoTWUtilities::setStationCallSign (const QString &_call)
     {
          //qDebug() << "LoTWUtilities::setStationCallSign: TRUE"  << endl;
         stationCallsign = _call;
-        startDate = dataProxy->getFirstQSODateFromCall(stationCallsign);
-         //qDebug() << "LoTWUtilities::setStationCallSign: Date: " << startDate  << endl;
-        QDate date;
-        date = QDate::fromString(startDate, "yyyy/MM/dd");
+        QDate date = dataProxy->getFirstQSODateFromCall(stationCallsign);
+         //qDebug() << "LoTWUtilities::setStationCallSign: Date: " << startDate  << endl;        
+        //date = QDate::fromString(startDate, "yyyy/MM/dd");
         if (date.isValid())
         {
             startDate = date.toString("yyyyMMdd");
@@ -247,12 +246,12 @@ void LoTWUtilities::slotDownloadProgress(qint64 bytesRead) {
 
 void LoTWUtilities::slotReadyRead()
 {
-    qDebug() << "LoTWUtilities::slotReadyRead: " << reply->readLine() << endl;
+    //qDebug() << "LoTWUtilities::slotReadyRead: " << reply->readLine() << endl;
     if (file)
     {
         file->write(reply->readAll());
     }
-    qDebug() << "LoTWUtilities::slotReadyRead - END" << endl;
+    //qDebug() << "LoTWUtilities::slotReadyRead - END" << endl;
 }
 
 void LoTWUtilities::slotFinished()
@@ -385,7 +384,7 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
     QFile file( _fileName );
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-         //qDebug() << "FileManager::adifLoTWReadLog File not found" << _fileName << endl;
+         //qDebug() << "LoTWUtilities::parseDownloadedFile File not found" << _fileName << endl;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - File not found"));
         msgBox.setText(tr("KLog can't find the downloaded file."));
@@ -444,7 +443,7 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
         if (!hasHeader || (numQSO<1))
         {
 
-             //qDebug() << "FileManager::adifLoTWReadLog Header not found" << _fileName << endl;
+             //qDebug() << "LoTWUtilities::parseDownloadedFile Header not found" << _fileName << endl;
             QString aux;
             if (userPasswordError)
             {

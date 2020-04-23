@@ -425,29 +425,29 @@ bool Utilities::isValidDateTime(const QString &_d)
 
 bool Utilities::isValidCall(const QString &_c)
 {
-    qDebug() << "Utilities::isValidCall: " << _c << endl;
+    //qDebug() << "Utilities::isValidCall: " << _c << endl;
     //Rules: http://life.itu.int/radioclub/rr/art19.pdf
     if (_c.length()<3)
     {
-        qDebug() << "Utilities::isValidCall: FALSE-1: " << _c << endl;
+        //qDebug() << "Utilities::isValidCall: FALSE-1: " << _c << endl;
         return false;
     }
 
     if ( !(_c.at(0).isLetterOrNumber()) )
     {
-        qDebug() << "Utilities::isValidCall: FALSE-2: " << _c << endl;
+        //qDebug() << "Utilities::isValidCall: FALSE-2: " << _c << endl;
         return false;
     }
 
 
     QString call = _c;
-    qDebug() << "Utilities::isValidCall: -10 "  << endl;
+    //qDebug() << "Utilities::isValidCall: -10 "  << endl;
     if ((call.contains('/')) || (call.contains('\\')))
     {
         call.replace('\\', '/');
         if (call.count('/')>2)
         {
-            qDebug() << "Utilities::isValidCall: FALSE-3: " << call << endl;
+            //qDebug() << "Utilities::isValidCall: FALSE-3: " << call << endl;
             return false;
         }
 
@@ -489,13 +489,13 @@ bool Utilities::isValidCall(const QString &_c)
             }
         }
     }
-    qDebug() << "Utilities::isValidCall: -20 "  << endl;
+    //qDebug() << "Utilities::isValidCall: -20 "  << endl;
     for (int i=0; i<call.length(); i++)
     {
-        qDebug() << "Utilities::isValidCall: FOR: " << call << "/" << call.at(i)  << endl;
+        //qDebug() << "Utilities::isValidCall: FOR: " << call << "/" << call.at(i)  << endl;
         if (( !(call.at(i).isLetterOrNumber()) ) && !(call.at(i) != "/"))
         {
-            qDebug() << "Utilities::isValidCall: FALSE-4 " << call << endl;
+            //qDebug() << "Utilities::isValidCall: FALSE-4 " << call << endl;
             return false;
         }
     }
@@ -503,18 +503,18 @@ bool Utilities::isValidCall(const QString &_c)
    /*
     if ((call.back()).isDigit())
     {
-        qDebug() << "Utilities::isValidCall: FALSE-3 " << call << endl;
+        //qDebug() << "Utilities::isValidCall: FALSE-3 " << call << endl;
         return false;
     }
  */
-    qDebug() << "Utilities::isValidCall: -30 "  << endl;
+    //qDebug() << "Utilities::isValidCall: -30 "  << endl;
     QChar firstChar = call.at(0);
     QChar secondChar = call.at(1);
     QChar thirdChar = call.at(2);
 
     if ((call.length() == 3) && ( thirdChar.isDigit()))
     {
-        qDebug() << "Utilities::isValidCall: FALSE-5: " << call << endl;
+        //qDebug() << "Utilities::isValidCall: FALSE-5: " << call << endl;
         return false;
     }
 
@@ -524,7 +524,7 @@ bool Utilities::isValidCall(const QString &_c)
 
     if (firstChar.isDigit() && secondChar.isDigit())
     {
-        qDebug() << "Utilities::isValidCall: FALSE-6: " << call << endl;
+        //qDebug() << "Utilities::isValidCall: FALSE-6: " << call << endl;
         return false;
     }
 
@@ -648,7 +648,7 @@ bool Utilities::isValidCall(const QString &_c)
     // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
 
 
-    qDebug() << "Utilities::isValidCall: TRUE: " << call << endl;
+    //qDebug() << "Utilities::isValidCall: TRUE: " << call << endl;
     return true;
 }
 
@@ -950,6 +950,42 @@ QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
     //field = field.section(':', 0, 0);
     result.clear();
     result << field.section(':', 0, 0) << data;
-      //qDebug() << "FileManager::checkADIFValidFormat: Return true: " << result.at(0) << "/" << result.at(1) << endl;
+      //qDebug() << "Utilities::checkADIFValidFormat: Return true: " << result.at(0) << "/" << result.at(1) << endl;
     return result;
+}
+
+QString Utilities::getAValidCall (const QString &_wrongCall)
+{
+    //qDebug() << "Utilities::getAValidCall: " << _wrongCall << endl;
+    QString _confirmedCall;
+    _confirmedCall.clear();
+
+    bool ok;
+    if (_wrongCall.length() > 0)
+    {
+
+        //qDebug() << "Utilities::getAValidCall (Don't have VALID CALL): " << _wrongCall << endl;
+        _confirmedCall = QString(QObject::tr("A wrong call has been found: %1. Please enter a new call or confirm that the current one is a good call.")).arg(_wrongCall);
+    }
+    else
+    {
+        //qDebug() << "Utilities::getAValidCall (Don't have ANY CALL): " << _wrongCall << endl;
+        _confirmedCall = QString(QObject::tr("An empty callsign has been detected. If it is possible, please enter the right call."));
+    }
+
+    QString text = QInputDialog::getText(nullptr, QObject::tr("KLog - Not valid callsign found"),
+                                               _confirmedCall, QLineEdit::Normal, _wrongCall, &ok);
+    if (!(ok && isValidCall(text)))
+    {
+        _confirmedCall = text;
+    }
+    else
+    {
+        _confirmedCall = QString();
+    }
+
+
+
+    //qDebug() << "Utilities::getAValidCall: " << _confirmedCall << endl;
+    return _confirmedCall;
 }

@@ -55,6 +55,8 @@ enum
     DXCCEntities = 521 // http://www.adif.org/adif302.htm#Country%20Codes
 };
 
+//enum ExportMode {ModeLotW, ModeADIF};
+
 class FileManager : public QWidget
 {
     Q_OBJECT
@@ -67,9 +69,9 @@ public:
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
     QList<int> adifLoTWReadLog(const QString& tfileName);
-    //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, bool emptyCall=false);
     QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
-    QList<int> adifLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
+    //QList<int> adifLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
+    QList<int> adifLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em);
     bool adifLogExport(const QString& _fileName, const int _logN);
    // QList<int> adifLogExportDates(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);
@@ -103,6 +105,7 @@ private:
     bool checkADIFValidFormat(const QStringList &_qs);
 
     QStringList readAdifField (const QString &_field);
+    // void writeAdifField(const QString &_field, const QString &_data); // It should possibly receive also the QTextStream
     QString prepareStringLog();
 
 

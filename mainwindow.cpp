@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 
@@ -535,7 +535,7 @@ void MainWindow::createActionsCommon(){
    connect(tipsDialog, SIGNAL(toolSendPendingQSLSignal()), this, SLOT(slotToolSearchRequestedQSLToSend()));
    connect(tipsDialog, SIGNAL(toolRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
    connect(tipsDialog, SIGNAL(toolRecRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLRequested()));
-   connect(tipsDialog, SIGNAL(toolsUploadLoTWSignal()), this, SLOT(slotLoTWUpload()));
+   connect(tipsDialog, SIGNAL(toolsUploadLoTWSignal()), this, SLOT(slotLoTWExport()));
 
    connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
    connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotSatChangeRXFreq(double)) );
@@ -555,7 +555,8 @@ void MainWindow::createActionsCommon(){
    connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
 
    connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
-   connect(adifLoTWExportWidget, SIGNAL(selection(QString, QDate, QDate)), this, SLOT(slotLoTWExportPeriod(QString, QDate, QDate)) );
+
+   connect(adifLoTWExportWidget, SIGNAL(selection(QString, QDate, QDate, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QDate, QDate, ExportMode)) );
 
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -793,7 +794,11 @@ void MainWindow::slotQRZReturnPressed()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
           //qDebug() << "MainWindow::slotQRZReturnPressed: "  << endl;
-
+    if (mainQSOEntryWidget->getQrz().length()<=0)
+    {
+        //qDebug() << "MainWindow::slotQRZReturnPressed: no QRZ"  << endl;
+        return;
+    }
     readingTheUI = true;
 
     int errorCode = 0;
@@ -803,7 +808,7 @@ void MainWindow::slotQRZReturnPressed()
     QSqlQuery query;
     QString queryString = readDataFromUI();    
 
-          //qDebug() << "MainWindow::slotQRZReturnPressed: queryString: " << queryString << endl;
+    //qDebug() << "MainWindow::slotQRZReturnPressed: queryString: " << queryString << endl;
 
     if (queryString != "NULL")
     {
@@ -811,7 +816,7 @@ void MainWindow::slotQRZReturnPressed()
         {
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 query.finish();
-                      //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
+                //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
                 errorCode = query.lastError().number();
                 QMessageBox msgBox;
                 msgBox.setWindowTitle(tr("KLog - Unexpected error"));
@@ -837,7 +842,7 @@ void MainWindow::slotQRZReturnPressed()
                 query.finish();
                 //TODO: To move the following lines to this part to properly manage the query result!!
                 //ret = true;
-                      //qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
+                //qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << endl;
                 actionsJustAfterAddingOneQSO();
                 slotClearButtonClicked();
             }
@@ -845,6 +850,7 @@ void MainWindow::slotQRZReturnPressed()
     else   // The QUERY string is NULL
         {
             logEvent(Q_FUNC_INFO, "END-2", logSeverity);
+            //qDebug() << "MainWindow::slotQRZReturnPressed: QUERY string is NULL " << endl;
             readingTheUI = false;
             return;
 
@@ -961,9 +967,28 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     QString tqrz = (mainQSOEntryWidget->getQrz()).toUpper();
     if (!util->isValidCall(tqrz))
     {
-        logEvent(Q_FUNC_INFO, "END-1", logSeverity);
-        return "NULL";
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setWindowTitle(tr("KLog - Not valid call"));
+        QString aux = QString(tr("The call %1 is not a valid call. Do you really want to add this call to the log?") ).arg(tqrz);
+        msgBox.setText(aux);
+        msgBox.setInformativeText(tr("Adding non-valid calls to the log may create problems when appliting for awards, exporting ADIF files to other systems or applications."));
+        msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+        int ret = msgBox.exec();
+        switch (ret)
+        {
+            case QMessageBox::Yes:
+              // Ok was clicked
+            break;
+            case QMessageBox::No:
+            return "NULL";
+            default:
+                // should never be reached
+            break;
+        }
     }
+
 
     QString stringQuery = "NULL";
     QString aux1, aux2, stringFields, stringData;
@@ -989,6 +1014,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
              //qDebug() << "MainWindow::readDataFromUIDX - DXCC2: " << QString::number(dxcc2) << endl;
     dxcc = util->getNormalizedDXCCValue(dxcc);
     dxcc2 = util->getNormalizedDXCCValue(dxcc2);
+    //qDebug() << "MainWindow::readDataFromUIDX - DXCC: " << QString::number(dxcc) << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX - DXCC2: " << QString::number(dxcc2) << endl;
 
     if (dxcc!=dxcc2)
     {
@@ -1107,8 +1134,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-    aux1 = myDataTabWidget->getMyLocator();
-    //aux1 = myLocatorLineEdit->text();
+    aux1 = myDataTabWidget->getMyLocator();    
     if (aux1.length()>2)
     {                   
 
@@ -1116,6 +1142,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringFields = stringFields + ", my_gridsquare";
         stringData = stringData + ", '" + aux1 + "'";
     }
+
     aux1 = commentTabWidget->getComment();
     //aux1 = commentLineEdit->text();
     if (aux1.length()>0)
@@ -1655,7 +1682,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
 
 QString MainWindow::readDataFromUIDXModifying()
 {
-              //qDebug() << "MainWindow::readDataFromUIDXModifying:" << endl;
+    //qDebug() << "MainWindow::readDataFromUIDXModifying:" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
 /*
@@ -1666,10 +1693,32 @@ WHERE [condition];
     QString tqrz = (mainQSOEntryWidget->getQrz()).toUpper();
     if (!util->isValidCall(tqrz))
     {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setWindowTitle(tr("KLog - Not valid call"));
+        QString aux = QString(tr("The call %1 is not a valid call. Do you really want to add this call to the log?") ).arg(tqrz);
+        msgBox.setText(aux);
+        msgBox.setInformativeText(tr("Adding non-valid calls to the log may create problems when appliting for awards, exporting ADIF files to other systems or applications."));
+        msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+        int ret = msgBox.exec();
+        switch (ret)
+        {
+            case QMessageBox::Yes:
+              // Ok was clicked
+            break;
+            case QMessageBox::No:
+            return "NULL";
+            default:
+                // should never be reached
+            break;
+        }
+
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
-        return "NULL";
+
     }
 
+    //qDebug() << "MainWindow::readDataFromUIDXModifying: " << tqrz << endl;
 
     QString stringQuery = "NULL";
     QString aux1, aux2;
@@ -1701,29 +1750,53 @@ WHERE [condition];
 
     //int dxcc2 = getDXCCFromComboBox();
     int dxcc2 = world->getQRZARRLId(othersTabWidget->getEntityPrefix());
-             //qDebug() << "MainWindow::readDataFromUIDXModifying - DXCC: " << QString::number(dxcc) << endl;
-             //qDebug() << "MainWindow::readDataFromUIDXModifying- DXCC2: " << QString::number(dxcc2) << endl;
+    //qDebug() << "MainWindow::readDataFromUIDXModifying - DXCC: " << QString::number(dxcc) << endl;
+    //qDebug() << "MainWindow::readDataFromUIDXModifying- DXCC2: " << QString::number(dxcc2) << endl;
     dxcc = util->getNormalizedDXCCValue(dxcc);
     dxcc2 = util->getNormalizedDXCCValue(dxcc2);
+    //qDebug() << "MainWindow::readDataFromUIDXModifying - DXCC: " << QString::number(dxcc) << endl;
+    //qDebug() << "MainWindow::readDataFromUIDXModifying- DXCC2: " << QString::number(dxcc2) << endl;
 
-    if (dxcc!=dxcc2)
-
+    if (dxcc!=dxcc2)    
     {
+        QString dxccPref1, dxccPref2;
         QString dxccn1 = world->getEntityName(dxcc);
-        dxccn1 = dxccn1 + " - " + world->getEntityMainPrefix(dxcc);
+        if (dxccn1.length()>0)
+        {
+            dxccPref1 = world->getEntityMainPrefix(dxcc);
+            dxccn1 = dxccn1 + " - " + dxccPref1;
+        }
+        else
+        {
+            dxccn1 = tr("No DXCC");
+            dxccPref1 = tr("None");
+        }
+
 
         QString dxccn2 = world->getEntityName(dxcc2);
-        dxccn2 = dxccn2 + " - " + world->getEntityMainPrefix(dxcc2);
+        if (dxccn2.length()>0)
+        {
+            dxccPref2 = world->getEntityMainPrefix(dxcc2);
+            dxccn2 = dxccn2 + " - " + dxccPref2;
+        }
+        else
+        {
+            dxccn2 = tr("No DXCC");
+            dxccPref2 = tr("None");
+        }
+
+
 
         QPushButton *button2 = new QPushButton(this);
         QPushButton *button1 = new QPushButton(this);
 
-        button1->setText(world->getEntityMainPrefix(dxcc));
-        button2->setText(world->getEntityMainPrefix(dxcc2));
+        button1->setText(dxccPref1);
+        button2->setText(dxccPref2);
 
         int ret;
 
         QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - Select correct entity"));
         msgBox.setText( tr("You have selected an entity:") + "\n\n"+"- "+dxccn2+"\n\n"+tr("that is different from the KLog proposed entity:") + "\n\n- "+dxccn1+"\n\n"
                         +tr("Click on the prefix of the right entity or Cancel to correct."));
@@ -1736,10 +1809,16 @@ WHERE [condition];
         if (ret == QMessageBox::AcceptRole)
         {
             dxcc = dxcc2;
+            //qDebug() << "MainWindow::readDataFromUIDXModifying - Button 2: " << QString::number(dxcc2) << endl;
+        }
+        else if (ret == QMessageBox::ActionRole)
+        {
+            //qDebug() << "MainWindow::readDataFromUIDXModifying - Button 1: " << endl;
         }
         else if (ret == QMessageBox::Cancel)
         {
             logEvent(Q_FUNC_INFO, "END-2", logSeverity);
+            //qDebug() << "MainWindow::readDataFromUIDXModifying - Button 2: " << QString::number(dxcc2) << endl;
             return  "NULL";
         }
         else
@@ -1759,6 +1838,10 @@ WHERE [condition];
         updateString = updateString + "cont = '";
         updateString = updateString + aux1 + "', ";
     }
+    else
+    {
+        updateString = updateString + "cont = '', ";
+    }
 
     aux1 = nameLineEdit->text();
     if (aux1.length()>1)
@@ -1766,13 +1849,20 @@ WHERE [condition];
         updateString = updateString + "name = '";
         updateString = updateString + aux1 + "', ";
     }
+    else
+    {
+        updateString = updateString + "name = '', ";
+    }
 
     aux1 = (locatorLineEdit->text()).toUpper();
     if ( locator->isValidLocator(aux1)  )
     {
         updateString = updateString + "gridsquare = '";
         updateString = updateString + aux1 + "', ";
-
+    }
+    else
+    {
+        updateString = updateString + "gridsquare = '', ";
     }
 
     if ( (txFreqSpinBox->value()) > 0  )
@@ -1785,6 +1875,14 @@ WHERE [condition];
             updateString = updateString + "freq = '";
             updateString = updateString + aux1 + "', ";
         }
+        else
+        {
+            updateString = updateString + "freq = '0', ";
+        }
+    }
+    else
+    {
+        updateString = updateString + "freq = '0', ";
     }
 
     if ( (rxFreqSpinBox->value()) > 0  )
@@ -1796,6 +1894,11 @@ WHERE [condition];
         updateString = updateString + "band_rx = '";
         updateString = updateString + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "', ";
     }
+    else
+    {
+        updateString = updateString + "freq_rx = '0', ";
+        updateString = updateString + "band_rx = '', ";
+    }
 
     aux1 = qthLineEdit->text();
     if (aux1.length()>2)
@@ -1803,29 +1906,46 @@ WHERE [condition];
         updateString = updateString + "qth = '";
         updateString = updateString + aux1 + "', ";
     }
+    else
+    {
+        updateString = updateString + "qth = '', ";
+    }
+
 
     aux1 = myDataTabWidget->getOperator();
     //aux1 = operatorLineEdit->text();
-    if (aux1.length()>2)
+    if (util->isValidCall(aux1))
     {
         updateString = updateString + "operator = '";
         updateString = updateString + aux1 + "', ";
     }
+    else
+    {
+        updateString = updateString + "operator = '', ";
+    }
 
     aux1 = myDataTabWidget->getStationQRZ();
     //aux1 = (stationCallSignLineEdit->text()).toUpper();
-    if (aux1.length()>2)
+    if (util->isValidCall(aux1))
     {
         updateString = updateString + "station_callsign = '";
         updateString = updateString + aux1 + "', ";
     }
+    else
+    {
+        updateString = updateString + "station_callsign = '', ";
+    }
 
-    aux1 = myDataTabWidget->getMyLocator();
-    //aux1 = myLocatorLineEdit->text();
-    if (aux1.length()>2)
+    aux1 = (myDataTabWidget->getMyLocator()).toUpper();
+
+    if (locator->isValidLocator(aux1))
     {
         updateString = updateString + "my_gridsquare = '";
         updateString = updateString + aux1 + "', ";
+    }
+    else
+    {
+        updateString = updateString + "my_gridsquare = '', ";
     }
 
     aux1 = commentTabWidget->getComment();
@@ -1841,28 +1961,47 @@ WHERE [condition];
         updateString = updateString + "qslmsg = '";
         updateString = updateString + aux1 + "', ";
     }
+    else
+    {
+        updateString = updateString + "qslmsg = '', ";
+    }
 
     aux1 = QString::number(dxcc);
-              //qDebug() << "MainWindow::readDataFromUIDXModifying: DXCC=" << aux1 << endl;
-    if (aux1.length()>0)
+
+    //qDebug() << "MainWindow::readDataFromUIDXModifying: DXCC=" << aux1 << endl;
+    if (dataProxy->isValidDXCC(dxcc))
     {
         updateString = updateString + "dxcc = '";
         updateString = updateString + aux1 + "', ";
                   //qDebug() << "MainWindow::readDataFromUIDXModifying: Saving DXCC=" << aux1 << endl;
     }
-
-    aux1 = QString::number(cqz);
-    if (aux1.length()>0)
+    else
     {
+        updateString = updateString + "dxcc = '', ";
+    }
+
+
+    if ((cqz>0) && (cqz<41))
+    {
+        aux1 = QString::number(cqz);
         updateString = updateString + "cqz = '";
         updateString = updateString + aux1 + "', ";
     }
-
-    aux1 = QString::number(ituz);
-    if (aux1.length()>0)
+    else
     {
+        updateString = updateString + "cqz = '', ";
+    }
+
+
+    if ((ituz>0) && (ituz<91))
+    {
+        aux1 = QString::number(ituz);
         updateString = updateString + "ituz = '";
         updateString = updateString + aux1 + "', ";
+    }
+    else
+    {
+        updateString = updateString + "ituz = '', ";
     }
 
     aux1 = QSLTabWidget->getQSLVia();
@@ -1872,20 +2011,34 @@ WHERE [condition];
         updateString = updateString + "qsl_via = '";
         updateString = updateString + aux1 + "', ";
     }
+    else
+    {
+        updateString = updateString + "qsl_via = '', ";
+    }
 
     //aux1 = QString::number(myPowerSpinBox->value());
-    aux1 = QString::number(myDataTabWidget->getMyPower());
-    if ((aux1.toDouble())>0.0)
+
+    if (myDataTabWidget->getMyPower()>0.0)
     {
+        aux1 = QString::number(myDataTabWidget->getMyPower());
         updateString = updateString + "tx_pwr = '";
         updateString = updateString + aux1 + "', ";
     }
-
-    aux1 = QString::number(rxPowerSpinBox->value());
-    if ((aux1.toDouble())>0.0)
+    else
     {
+        updateString = updateString + "tx_pwr = '', ";
+    }
+
+
+    if (rxPowerSpinBox->value()>0.0)
+    {
+        aux1 = QString::number(rxPowerSpinBox->value());
         updateString = updateString + "rx_pwr = '";
         updateString = updateString + aux1 + "', ";
+    }
+    else
+    {
+        updateString = updateString + "rx_pwr = '', ";
     }
 
     aux1 = othersTabWidget->getIOTA();
@@ -1898,6 +2051,7 @@ WHERE [condition];
     }
     else
     {
+        updateString = updateString + "iota = '', ";
                 //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
     }
 
@@ -1911,12 +2065,20 @@ WHERE [condition];
         updateString = updateString + "sat_name = '";
         updateString = updateString + aux1 + "', ";
     }
+    else
+    {
+        updateString = updateString + "sat_name = '', ";
+    }
 
     aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
     if (aux1.length()>0)
     {
         updateString = updateString + "sat_mode = '";
         updateString = updateString + aux1 + "', ";
+    }
+    else
+    {
+        updateString = updateString + "sat_mode = '', ";
     }
 
     aux1 = othersTabWidget->getPropModeFromComboBox();
@@ -1936,6 +2098,7 @@ WHERE [condition];
     }
     else
     {
+        updateString = updateString + "prop_mode = '', ";
                  //qDebug() << "MainWindow::readDataFromUIDX: PropMode(3):  " << aux1 << endl;
     }
 
@@ -2298,7 +2461,7 @@ WHERE [condition];
    // updateString = "UPDATE log SET call = '" + tqrz + "', bandid = '" + QString::number(tband) + "', modeid = '" + QString::number(tmode) + "', qso_date = '" + tdate + "', time_on = '" + ttime + "', lognumber = '" + QString::number(currentLog) + "', " + updateString;
 
     stringQuery = updateString + " WHERE id = " + "'" + QString::number(modifyingQSO) + "'";
-              //qDebug() << "MainWindow::readDataFromUIDXModifying: queryCreated: " << stringQuery << endl;
+    //qDebug() << "MainWindow::readDataFromUIDXModifying: queryCreated: " << stringQuery << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     return stringQuery;
 }
@@ -2719,7 +2882,7 @@ void MainWindow::slotClearButtonClicked()
 
 void MainWindow::clearUIDX(bool full)
 {
-          //qDebug() << "MainWindow::clearUIDX" << endl;
+    //qDebug() << "MainWindow::clearUIDX" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //SRXLineEdit->setText("59");
     //STXLineEdit->setText("59");
@@ -2872,10 +3035,10 @@ void MainWindow::createMenusCommon()
     connect(ADIFExportAll, SIGNAL(triggered()), this, SLOT(slotADIFExportAll()));
     ADIFExportAll->setToolTip(tr("Export ALL the QSOs into one ADIF file, merging QSOs from all the logs."));
 
-    ReqQSLExport = new QAction(tr("Export Requested QSL to ADIF..."), this);
-    fileMenu->addAction(ReqQSLExport);
-    connect(ReqQSLExport, SIGNAL(triggered()), this, SLOT(slotRQSLExport()));
-    ReqQSLExport->setToolTip(tr("Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program)."));
+    //ReqQSLExport = new QAction(tr("Export Requested QSL to ADIF..."), this);
+    //fileMenu->addAction(ReqQSLExport);
+    //connect(ReqQSLExport, SIGNAL(triggered()), this, SLOT(slotRQSLExport()));
+    //ReqQSLExport->setToolTip(tr("Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program)."));
 
     //LoTWExport = new QAction(tr("Export ADIF for LoTW..."), this);
     //fileMenu->addAction(LoTWExport);
@@ -2914,10 +3077,10 @@ void MainWindow::createMenusCommon()
     connect(fillQsoAct, SIGNAL(triggered()), this, SLOT(fillQSOData()));
     fillQsoAct->setToolTip(tr("Go through the log reusing previous QSOs to fill missing information in other QSOs."));
 
-    fillDXCCAct = new QAction(tr("Fill in DXCC data"), this);
-    toolMenu->addAction(fillDXCCAct);
-    connect(fillDXCCAct, SIGNAL(triggered()), this, SLOT(slotFillEmptyDXCCInTheLog()));
-    fillDXCCAct->setToolTip(tr("Go through the log filling QSOs without a DXCC defined."));
+    //fillDXCCAct = new QAction(tr("Fill in DXCC data"), this);
+    //toolMenu->addAction(fillDXCCAct);
+    //connect(fillDXCCAct, SIGNAL(triggered()), this, SLOT(slotFillEmptyDXCCInTheLog()));
+    //fillDXCCAct->setToolTip(tr("Go through the log filling QSOs without a DXCC defined."));
 
     toolMenu->addSeparator();
     qslToolMenu = toolMenu->addMenu(tr("QSL tools..."));
@@ -2974,7 +3137,7 @@ void MainWindow::createMenusCommon()
     lotwMarkSentYesAct->setToolTip(tr("Mark all queued QSOs as sent to LoTW."));
 
     lotwToolMenu ->addAction(lotwCallTQSL);
-    connect(lotwCallTQSL, SIGNAL(triggered()), this, SLOT(slotLoTWUpload()));
+    connect(lotwCallTQSL, SIGNAL(triggered()), this, SLOT(slotLoTWExport()));
     lotwCallTQSL->setToolTip("Sends the log to LoTW calling TQSL. You will be able to select the Station Callsign and start and end dates.");
 
     lotwToolMenu->addSeparator();
@@ -3004,11 +3167,11 @@ void MainWindow::createMenusCommon()
     showStatsAct->setToolTip(tr("Show the statistics of your radio activity."));
 
          //qDebug() << "MainWindow::createMenusCommon before" << endl;
-    toolMenu->addSeparator();
-    showRotatorAct = new QAction (tr("Rotator"), this);
-    toolMenu->addAction(showRotatorAct);
-    connect(showRotatorAct, SIGNAL(triggered()), this, SLOT(slotRotatorShow()));
-    showRotatorAct->setToolTip(tr("Show the rotator controller."));
+    //toolMenu->addSeparator();
+    //showRotatorAct = new QAction (tr("Rotator"), this);
+    //toolMenu->addAction(showRotatorAct);
+    //connect(showRotatorAct, SIGNAL(triggered()), this, SLOT(slotRotatorShow()));
+    //showRotatorAct->setToolTip(tr("Show the rotator controller."));
          //qDebug() << "MainWindow::createMenusCommon after" << endl;
 
     //showWorldMapAct = new QAction(tr("CQ zones world map"), this);
@@ -3145,10 +3308,7 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
         aux = QString(tr("No QSO was updated with the data coming from LoTW. This may be because of errors in the logfile or simply because your log was already updated."));
         msgBox.setInformativeText(aux);
         msgBox.exec();
-
     }
-
-
     //filemanager->adifLoTWReadLog(_fn);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -3181,7 +3341,7 @@ void MainWindow::slotToolLoTWMarkAllQueued()
 bool MainWindow::callTQSL(const QString &_filename, const QString &_call)
 { //https://lotw.arrl.org/lotw-help/cmdline/
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    qDebug() << "MainWindow::callTQSL: " << lotwTQSLpath << endl;
+    //qDebug() << "MainWindow::callTQSL: " << lotwTQSLpath << endl;
 
     QStringList arguments;
     arguments.clear();
@@ -3192,7 +3352,6 @@ bool MainWindow::callTQSL(const QString &_filename, const QString &_call)
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Warning);
     msgBox.setWindowTitle(tr("KLog - TQSL"));
-    //msgBox.setWindowTitle(tr("KLog LoTW"));
 
     if (!QFile::exists(lotwTQSLpath))
     {
@@ -3203,7 +3362,7 @@ bool MainWindow::callTQSL(const QString &_filename, const QString &_call)
     {
         ok = QProcess::execute(lotwTQSLpath, arguments);   
         //qDebug() << "MainWindow::callTQSL error: " << (QProcess::readAllStandardError()) << endl;
-        qDebug() << "MainWindow::callTQSL-ok: " << QString::number(ok) << endl;
+        //qDebug() << "MainWindow::callTQSL-ok: " << QString::number(ok) << endl;
 
         switch (ok)
         {
@@ -5233,19 +5392,67 @@ void MainWindow::createUIDX()
 
 void MainWindow::slotADIFExport()
 {
-    qDebug() << "MainWindow::slotADIFExport - Start" << endl;
+    //qDebug() << "MainWindow::slotADIFExport - Start" << endl;
 
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"),
-                               util->getHomeDir(),
-                               "ADIF (*.adi *.adif)");
+   // QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
 
-    filemanager->adifLogExport(fileName, currentLog);
-    qDebug() << "MainWindow::slotADIFExport -END " << endl;
+    adifLoTWExportWidget->setExportMode(ModeADIF);
+    adifLoTWExportWidget->show();
+
+    //filemanager->adifLogExport(fileName, currentLog);
+    //qDebug() << "MainWindow::slotADIFExport -END " << endl;
 }
 
-void MainWindow::slotLoTWExportPeriod(const QString &_st, const QDate &_startDate, const QDate &_endDate)
+void MainWindow::showNumberOfSavedQSO(const QString &_fn, const int _n)
 {
-    qDebug() << "MainWindow::slotLoTWExportPeriod  - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") << endl;
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.setWindowTitle(tr("KLog ADIF export"));
+    if (_n <= 0)
+    { // TODO: Check if errors should be managed.
+        msgBox.setText(tr("No QSOs have been exported to ADIF.") );
+    }
+    else
+    {
+        QString msg = QString(tr("KLog has exported %1 QSOs to the ADIF file: %2")).arg(QString::number(_n)).arg(_fn);
+        msgBox.setText(msg);
+    }
+
+    msgBox.setStandardButtons(QMessageBox::Ok );
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+}
+
+void MainWindow::fileExportADIF(const QString &_st, const QDate &_startDate, const QDate &_endDate)
+{
+    //qDebug() << "MainWindow::fileExportADIF " << _st << endl;
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
+    QList<int> qsos = filemanager->adifLogExport(fileName, _st, _startDate, _endDate, currentLog, ModeADIF);
+
+    showNumberOfSavedQSO(fileName, qsos.count());
+
+    //qDebug() << "MainWindow::fileExportADIF - END" << endl;
+}
+
+void MainWindow::slotADIFExportAll()
+{
+    //qDebug() << "MainWindow::slotADIFExportAll " << endl;
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+
+    QString _callToUse = "ALL";
+
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
+    QList<int> qsos = filemanager->adifLogExport(fileName, _callToUse, dataProxy->getFirstQSODateFromCall(_callToUse), dataProxy->getLastQSODateFromCall(_callToUse), -1, ModeADIF);
+
+    showNumberOfSavedQSO(fileName, qsos.count());
+
+    //filemanager->adifLogExport(fileName, 0);
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+
+void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate)
+{
+    //qDebug() << "MainWindow::fileExportLoTW  - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") << endl;
     if (!util->isValidCall(_st))
     {
         return;
@@ -5256,17 +5463,17 @@ void MainWindow::slotLoTWExportPeriod(const QString &_st, const QDate &_startDat
     }
 
     QString fileName = "klog-lotw-upload.adi";
-    //QList<int> qsos = filemanager->adifLoTWLogExport(fileName, _st, _startDate, _endDate, currentLog);
-    QList<int> qsos = filemanager->adifLogExport(fileName, _st, _startDate, _endDate, currentLog, true);
+
+    QList<int> qsos = filemanager->adifLogExport(fileName, _st, _startDate, _endDate, currentLog, ModeLotW);
 
     if (qsos.count() <= 0)
     { // TODO: Check if errors should be managed.
         return;
     }
-          //qDebug() << "MainWindow::slotLoTWExportPeriod - 50" << endl;
+          //qDebug() << "MainWindow::fileExportLoTW - 50" << endl;
     bool uploadedToLoTW = callTQSL(fileName, _st);
     //bool uploadedToLoTW = true;
-          //qDebug() << "MainWindow::slotLoTWExportPeriod - 51" << endl;
+          //qDebug() << "MainWindow::fileExportLoTW - 51" << endl;
     QMessageBox msgBox;
     int i ;
     if (uploadedToLoTW)
@@ -5294,7 +5501,6 @@ void MainWindow::slotLoTWExportPeriod(const QString &_st, const QDate &_startDat
         }
     }
 
-
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setWindowTitle(tr("KLog LoTW"));
     msgBox.setText(tr("The LoTW upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
@@ -5312,24 +5518,38 @@ void MainWindow::slotLoTWExportPeriod(const QString &_st, const QDate &_startDat
             msgBox.setDefaultButton(QMessageBox::Ok);
         }
     }
-qDebug() << "MainWindow::slotLoTWExportPeriod -END " << endl;
+qDebug() << "MainWindow::fileExportLoTW -END " << endl;
 }
 
-void MainWindow::slotLoTWUpload()
+void MainWindow::slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM)
+{
+    //qDebug() << "MainWindow::slotADIFExportSelection  - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") << endl;
+
+    switch (_eM)
+    {
+    case ModeADIF:         // General ADIF
+         //qDebug() << "MainWindow::slotADIFExportSelection  - ADIF" << endl;
+            fileExportADIF(_st, _startDate, _endDate);
+        break;
+    case ModeLotW:         // LoTW
+        //qDebug() << "MainWindow::slotADIFExportSelection  - LoTW" << endl;
+        fileExportLoTW(_st, _startDate, _endDate);
+        break;
+    }
+
+    //qDebug() << "MainWindow::slotADIFExportSelection -END " << endl;
+}
+void MainWindow::slotLoTWExport()
 {
     // 1.- Selec call
     // 2.- Select file and export (fixed filename?)
     // 3.- Call tqsl with the filename
     // 4.- Ask for the user to remove or not the file
-    //qDebug() << "MainWindow::slotLoTWUpload - Start" << endl;
+    //qDebug() << "MainWindow::slotLoTWExport - Start" << endl;
    // bool emptyCall = false;
     adifLoTWExportWidget->setExportMode(ModeLotW);
     adifLoTWExportWidget->show();
-
-
-
-    //qDebug() << "MainWindow::slotLoTWUpload - END" << endl;
-
+    //qDebug() << "MainWindow::slotLoTWExport- END" << endl;
 }
 
 void MainWindow::slotLoTWDownload()
@@ -5371,17 +5591,7 @@ void MainWindow::slotLoTWDownload()
     //qDebug() << "MainWindow::slotDownUpload - END" << endl;
 }
 
-void MainWindow::slotADIFExportAll(){
-              //qDebug() << "MainWindow::slotADIFExportAll " << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"),
-                               util->getHomeDir(),
-                               "ADIF (*.adi *.adif)");
 
-    filemanager->adifLogExport(fileName, 0);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-
-}
 
 void MainWindow::slotRQSLExport()
 {
@@ -5665,10 +5875,12 @@ void MainWindow::qsoToEdit (const int _qso)
 
         nameCol = rec.indexOf("operator");
         aux1 = (query.value(nameCol)).toString();
+        //qDebug() << "MainWindow::qsoToEdit: - OPERATOR: " << aux1  << endl;
         myDataTabWidget->setOperator(aux1);
 
         nameCol = rec.indexOf("station_callsign");
         aux1 = (query.value(nameCol)).toString();
+        //qDebug() << "MainWindow::qsoToEdit: - STATIONQRZ: " << aux1  << endl;
         myDataTabWidget->setStationQRZ(aux1);
 
         nameCol = rec.indexOf("my_gridsquare");
