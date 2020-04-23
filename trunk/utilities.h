@@ -37,6 +37,8 @@
 #include "locator.h"
 #include <QtDebug>
 
+enum ExportMode {ModeLotW, ModeADIF};
+
 class Utilities
 {
 public:
@@ -83,7 +85,10 @@ public:
     bool isValidComment(const QString &_b);
     bool isValidName(const QString &_b);
     bool isValidADIFField(const QString &_b);
+
+
     QStringList getValidADIFFieldAndData(const QString &_b);
+    QString getAValidCall (const QString &_wrongCall);
 
 
 private:

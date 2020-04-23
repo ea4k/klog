@@ -51,9 +51,6 @@ void MainWindowInputComment::createUI()
     setLayout(tabLayout);
 }
 
-
-
-
 void MainWindowInputComment::setData(const QString &_comment)
 {
     comment = _comment;
@@ -70,5 +67,3 @@ void MainWindowInputComment::clear()
     comment.clear();
     commentLineEdit->clear();
 }
-
-

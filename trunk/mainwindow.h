@@ -198,9 +198,10 @@ private slots:
     //void slotLoTWImport();
     //void slotLoTWExport();
 
-    void slotLoTWUpload();
+    void slotLoTWExport();
     void slotLoTWDownload();
-    void slotLoTWExportPeriod(const QString &_st, const QDate &_startDate, const QDate &_endDate);
+    void slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
+    //void slotADIFExportPeriod(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
 
     void slotADIFExportAll();
     void slotADIFImport();
@@ -319,7 +320,10 @@ private:
     void logEvent(const QString &_func, const QString &_msg, const int _level=7);
     void setSeverity(const int _sev);
     void updateBandComboBox(const QString &_band);
+    void fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate);
+    void fileExportADIF(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     bool callTQSL(const QString &_filename, const QString &_call);
+    void showNumberOfSavedQSO(const QString &_fn, const int _n);
     //QString getCallToUseForLoTWExportUpload();
     UpdateSatsData *updateSatsData;
     //UPDATE CTY.DAT

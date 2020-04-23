@@ -249,6 +249,10 @@ void MainQSOEntryWidget::slotModeComboBoxChanged()
 void MainQSOEntryWidget::slotOKButtonClicked()
 {
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
+    if ((qrzLineEdit->text()).length()<1)
+    {
+        return;
+    }
     emit OKClicked();
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
 }

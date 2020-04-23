@@ -4,7 +4,7 @@
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
 
-enum ExportMode {ModeLotW, ModeADIF};
+
 
 class AdifLoTWExportWidget : public QWidget
 {
@@ -24,8 +24,9 @@ private slots:
     void slotCancelPushButtonClicked();
     void slotStationCallsignChanged();
     void slotDateChanged();
+
 signals:
-    void selection(QString _st, QDate _startD, QDate _endD);
+    void selection(QString _st, QDate _startD, QDate _endD, ExportMode _exportMode);
 
 private:
     void createUI();
@@ -38,13 +39,14 @@ private:
     DataProxy_SQLite *dataProxy;
     QComboBox *stationCallsignComboBox;
     QDateEdit *startDate, *endDate;
-    QLabel *topLabel;
+    QLabel *topLabel, *numberLabel;
 
     QPushButton *okButton, *cancelButton;
     ExportMode selectedEMode;
 
     QTableWidget *tableWidget;
     QHeaderView *hv, *hh;
+    ExportMode currentExportMode;
 
 };
 

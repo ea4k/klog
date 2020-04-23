@@ -2,20 +2,22 @@ TBD - 1.1
 TODO: New feature: KLog can now control a rotator through PSTRotator.
 TODO: UI: Added a DXCC summary obtained from the Tools menu.
 
-
-Working: Improved how TX & RX freqs are managed when editing, cleaning, ...
-
-- UI: Widget to show the QSOs to be exported to LoTW.
-- UI: Widget to show the QSOs updated from LoTW.
 - Improvement: Search widget has been improved.
 - Improvement: Callsigns are always checked to be a good callsign before they are saved to the log, imported and exported to ADIF.
 - Improvement: Removed some death code.
 - Improvement: If TX Freq & RX Freq are the same, only TX Freq is exported.
 - Improvement: New functions to check calls when importing ADIF logs.
 - Improvement: Improved how CTY.CSV (country files) is working.
+- UI: Widget to show the QSOs to be exported to ADIF & LoTW.
+- UI: Widget to show the QSOs updated from ADIF & LoTW.
 - UI: Clear the UI also clears the status of a DXCC in the Band status widget.
 - UI: Added a checkbox to easily enable/disable the real time in the QSO entry box.
 - UI: Passwords are now hidden in the UI when entered.
+- BugFix: Only QSOs are now updated when data is uploaded from LoTW.
+- BugFix: DXCC & WAZ information was updated twice when removing a QSO.
+- BugFix: DXCC & WAZ count.
+- BugFix: Fixed one SQL query on satellite.
+- Translations: Spanish (EA4K).
 
 April 2020 - 1.0.1
 - BugFix: UTC time was not properly managed, specially in the date.

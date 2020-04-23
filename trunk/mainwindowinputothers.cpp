@@ -186,7 +186,7 @@ void MainWindowInputOthers::setEntity(const int _ent)
 
 QString MainWindowInputOthers::getEntityPrefix()
 {
-      //qDebug() << "MainWindowInputOthers::getEntityName" << endl;
+    //qDebug() << "MainWindowInputOthers::getEntityPrefix: " << (entityNameComboBox->currentText()).split('-').at(0) << endl;
     return (entityNameComboBox->currentText()).split('-').at(0);
     //return world->getQRZARRLId(pref);
 }

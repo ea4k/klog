@@ -41,7 +41,6 @@ public:
     void createUI();
     void setData(const QString &_comment);
     QString getComment();
-
     void clear();
 
 private:

@@ -85,8 +85,8 @@ public:
     bool isThisFreqInBand(const QString &_band, const QString &_fr);
 
     int getLastQSOid();
-    QString getFirstQSODateFromCall (const QString _call);  // If the callsign provided is not valid it provides the date of the first QSO
-    QString getLastQSODateFromCall (const QString _call);   // If the callsign provided is not valid it provides the date of the last QSO
+    QDate getFirstQSODateFromCall (const QString &_call);  // If the callsign provided is not valid it provides the date of the first QSO
+    QDate getLastQSODateFromCall (const QString &_call);   // If the callsign provided is not valid it provides the date of the last QSO
 
     bool addQSOFromWSJTX(const QString &_dxcall, const double _freq, const QString &_mode,
                                  const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
@@ -147,6 +147,7 @@ public:
     int getContinentIdFromEntity(const int _n);
     QStringList getContinentShortNames();
     bool isValidContinentShortName(const QString &_n);
+    bool isValidDXCC(const int _e);
 
     int getCQzFromPrefix(const QString &_p);
     int getCQzFromEntity(const int _n);
