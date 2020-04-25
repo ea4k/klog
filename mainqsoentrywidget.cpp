@@ -10,7 +10,9 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     modeComboBox = new QComboBox;
     dateEdit = new QDateEdit;
     timeEdit = new QTimeEdit;
+    realTime =true;
     realtimeCheckBox = new QCheckBox;
+    enabledCR = realtimeCheckBox->backgroundRole();
     OKButton = new QPushButton(tr("&Add"), this);
     clearButton = new QPushButton(tr("&Clear"), this);
     timer = new QTimer(this);
@@ -81,8 +83,22 @@ void MainQSOEntryWidget::createUI()
     connect(OKButton, SIGNAL(clicked()), this, SLOT(slotOKButtonClicked() ) );
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked() ) );
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
+    connect(realtimeCheckBox, SIGNAL(clicked()), this, SLOT(slotCheckBoxClicked()) );
       //qDebug()<< "MainQSOEntryWidget::createUI-END" << endl;
 
+}
+
+void MainQSOEntryWidget::slotCheckBoxClicked()
+{
+
+    if (realtimeCheckBox->isChecked())
+    {
+        timeEdit->setBackgroundRole(enabledCR);
+    }
+    else
+    {
+        timeEdit->setBackgroundRole(QPalette::BrightText);
+    }
 }
 
 void MainQSOEntryWidget::setCleaning (const bool _c)
@@ -497,7 +513,7 @@ void MainQSOEntryWidget::setRealTime(const bool _realTime)
 {
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
     realtimeCheckBox->setChecked(_realTime);
-    //realTime = _realTime;
+    realTime = _realTime;
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -515,11 +531,14 @@ void MainQSOEntryWidget::setModify(const bool _modify)
     modify = _modify;
     if (modify)
     {
+        realTime = realtimeCheckBox->isChecked();
         OKButton->setText(tr("&Modify"));
+        realtimeCheckBox->setChecked(false);
     }
     else
     {
         OKButton->setText(tr("&Add"));
+        realtimeCheckBox->setChecked(realTime);
     }
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -528,7 +547,7 @@ void MainQSOEntryWidget::slotUpdateTime()
 {
     //qDebug()<< "MainQSOEntryWidget::slotUpdateTime" << endl;
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
-    if ( (!modify) && (realtimeCheckBox->isChecked())  )
+    if ( (!modify) && (realTime)  )
     {
         //qDebug()<< "MainQSOEntryWidget::slotUpdateTime - Real Time & update" << endl;
 

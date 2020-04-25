@@ -1,7 +1,4 @@
 TBD - 1.1
-TODO: New feature: KLog can now control a rotator through PSTRotator.
-TODO: UI: Added a DXCC summary obtained from the Tools menu.
-
 - Improvement: Search widget has been improved.
 - Improvement: Callsigns are always checked to be a good callsign before they are saved to the log, imported and exported to ADIF.
 - Improvement: Removed some death code.

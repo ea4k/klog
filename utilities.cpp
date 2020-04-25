@@ -62,7 +62,7 @@ int Utilities::getProgresStepForDialog(int totalSteps)
     else if (totalSteps <=20000)
         return 100;
     else
-        return 200;
+        return 250;
 }
 
 bool Utilities::trueOrFalse(const QString &_s)
