@@ -584,7 +584,7 @@ The information comming from all the appearances of a call in the log is grouped
 - New feature: KLog ask the user for a comment when Importing a TLF log (for example 
   to note that those QSO are from an specific contest or whatever).
 - Bug fixed: When selecting a DX-Spot from the DX-Cluster it did not overwrote the name.
-- Bug fixed: When writting the log, there was an space missing before the <EOR>.
+- Bug fixed: When writing the log, there was an space missing before the <EOR>.
   It is just a "cosmetic" fix, not a real bug.
 - Bug fixed: The same with the QSL card status.
 - Bug fixed: KLog now recognises all the prefix that appears in cty.dat file with 

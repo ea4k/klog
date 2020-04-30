@@ -301,7 +301,7 @@ void LoTWUtilities::slotFinished()
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog - Redirection found"));
         QString aux = QString(tr("The remote server redirected our connection to %1") ).arg(newUrl.toString());
-        msgBox.setText(tr("Do you want to follow the redirection)"));
+        msgBox.setText(tr("Do you want to follow the redirection?"));
         msgBox.setDetailedText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::Yes);
@@ -388,7 +388,7 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - File not found"));
         msgBox.setText(tr("KLog can't find the downloaded file."));
-        aux = QString(tr("It was not possible for find the file %1 that has been just downloaded") ).arg(_fn);
+        aux = QString(tr("It was not possible for find the file %1 that has been just downloaded.") ).arg(_fn);
 
         msgBox.setDetailedText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok);
@@ -455,13 +455,13 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
             {
                 msgBox.setWindowTitle(tr("KLog - LoTW No QSOs "));
                 msgBox.setText(tr("LoTW sent no QSOs"));
-                aux = QString(tr("It seems that LoTW has no QSO with the Station Callsign you are using (%1)") ).arg(stationCallsign);
+                aux = QString(tr("It seems that LoTW has no QSO with the Station Callsign you are using (%1).") ).arg(stationCallsign);
             }
             else
             {
                 msgBox.setWindowTitle(tr("KLog - LoTW Unknown error"));
                 msgBox.setText(tr("KLog can't recognize the file that has been downloaded from LoTW."));
-                aux = QString(tr("Try again and send the downloaded file (%1) to the KLog developer for analysis") ).arg(_fileName);
+                aux = QString(tr("Try again and send the downloaded file (%1) to the KLog developer for analysis.") ).arg(_fileName);
             }
 
             msgBox.setIcon(QMessageBox::Warning);
@@ -477,7 +477,7 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
 
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setWindowTitle(tr("KLog - LoTW download"));
-        msgBox.setText(tr("KLog downloaded %1 QSOs suscessfully. Do you want to update your log with the downloaded data?").arg(QString::number(numQSO)));
+        msgBox.setText(tr("KLog downloaded %1 QSOs successfully. Do you want to update your log with the downloaded data?").arg(QString::number(numQSO)));
         aux = QString(tr("Now KLog will process the downloaded QSO and update your local log.") );
 
         msgBox.setDetailedText(aux);

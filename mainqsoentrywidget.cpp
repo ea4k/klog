@@ -93,10 +93,12 @@ void MainQSOEntryWidget::slotCheckBoxClicked()
 
     if (realtimeCheckBox->isChecked())
     {
+        realTime = true;
         timeEdit->setBackgroundRole(enabledCR);
     }
     else
     {
+        realTime = false;
         timeEdit->setBackgroundRole(QPalette::BrightText);
     }
 }

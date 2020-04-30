@@ -20,6 +20,8 @@
 #include <QTranslator>
 #include <cstdlib>
 #include <QTextStream>
+#include <QCoreApplication>
+#include <QCommandLineParser>
 
 //#include <QDebug>
 
@@ -34,7 +36,7 @@ int main(int argc, char *argv[])
       //qDebug() << "KLog Main: Start! " << endl;
       //qDebug() << "KLog Main: " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString() << endl;
     QDir d1 = QDir();
-    QString version = "1.1-rc2";
+    QString version = "1.1-rc3";
     Utilities util = Utilities();
     QStringList arguments;
     QTextStream cout(stdout);
@@ -48,6 +50,7 @@ int main(int argc, char *argv[])
 
     //QApplication app(argc, argv);
     app.setApplicationName(QString("KLog"));
+
     app.setApplicationVersion(QString(version));
       //qDebug() << "KLog Main: -10 " << endl;
     // Now we check if the user is executing from the command line
