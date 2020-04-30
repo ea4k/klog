@@ -43,7 +43,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     sendQSLWhenRecCheckBox = new QCheckBox(tr("Mark &QSO to send QSL when QSL is received"), this);
     completeWithPreviousCheckBox = new QCheckBox(tr("Complete QSO with previous data"));
     showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station &Callsign used in the search box"), this);  
-    keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSOs"), this);
+    keepMyDataCheckBox = new QCheckBox(tr("&Keep My Data for all QSOs"), this);
     checkNewVersionCheckBox = new QCheckBox(tr("&Check for new versions automatically"), this);
     provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
     useDxMarathonCheckBox = new QCheckBox(tr("Manage DX-Marathon"), this);
@@ -711,6 +711,7 @@ void SetupPageMisc::slotMoveDBButtonClicked()
     QString source = dbDirCurrent + "/logbook.dat";
     QString target = dbDirNew + "/logbook.dat";
     QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("KLog - Move DB"));
 
        //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source << endl;
        //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target << endl;
@@ -718,6 +719,10 @@ void SetupPageMisc::slotMoveDBButtonClicked()
     {
         //dbDirCurrent
         //dbDir
+        if (QFile::exists(target))
+        {
+            qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << endl;
+        }
         if (QFile::copy(source, target))
         {
 
@@ -734,6 +739,7 @@ void SetupPageMisc::slotMoveDBButtonClicked()
             }
             else
             {
+
                 msgBox.setIcon(QMessageBox::Warning);
                 msgBox.setText(tr("File copied"));
                 msgBox.setStandardButtons(QMessageBox::Ok);
@@ -745,18 +751,31 @@ void SetupPageMisc::slotMoveDBButtonClicked()
         else
         {
             msgBox.setIcon(QMessageBox::Warning);
-            msgBox.setText(tr("File NOT copied"));
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
+
+            if (QFile::exists(target))
+            {
+                qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << endl;
+
+                msgBox.setText(tr("File already exist."));
+                msgBox.setDetailedText(tr("The destination file already exist and KLog will not replace it. Please remove the file from the destination folder before moving the file with KLog to make sure KLog can copy the file."));
+            }
+            else
+            {
+
+                msgBox.setText(tr("File NOT copied"));
+                msgBox.setDetailedText(tr("The file was not copied due to an unknown problem."));
+
+            }
             msgBox.exec();
             dbPathApplied = false;
             moveDBPushButton->setEnabled(true);
         }
-
-
     }
     else
     {
+
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText(tr("The target directory does not exist. Please select an existing directory."));
         msgBox.setStandardButtons(QMessageBox::Ok);

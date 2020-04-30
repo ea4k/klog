@@ -232,7 +232,7 @@ void InfoWidget::createUI()
     bandLabel12->setFrameShadow(QFrame::Raised);
     bandLabel12->setFrameStyle(QFrame::StyledPanel);
 
-#else
+#else    
     continentLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     continentLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     prefixLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);

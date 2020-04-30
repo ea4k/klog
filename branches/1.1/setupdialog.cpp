@@ -428,7 +428,7 @@ void SetupDialog::slotOkButtonClicked()
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText(tr("DB has not been moved to new path"));
+        msgBox.setText(tr("DB has not been moved to new path."));
         msgBox.setInformativeText(tr("Go to the Misc tab and click on Move DB\n or the DB will not be moved to the new location."));
         msgBox.exec();
         emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);

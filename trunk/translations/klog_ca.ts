@@ -884,6 +884,13 @@ Voleu tornar-ho a intentar?</translation>
         <translation>Si seleccioneu No, el QSO pot no importar-se.</translation>
     </message>
     <message>
+        <location filename="../filemanager.cpp" line="6598"/>
+        <source>KLog has found one QSO without the Station Callsign defined.
+
+Enter the Station Callsign that was used to do this QSO on %1:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../filemanager.cpp" line="6406"/>
         <source> - The band missing and the following call: </source>
         <translation> - Manca la banda i l&apos;indicatiu següent: </translation>
@@ -1036,20 +1043,18 @@ Voleu tornar-ho a intentar?</translation>
         <translation>Sembla que hi ha diversos QSO duplicats al fitxer ADIF que s&apos;està important. Voleu continuar? (Els QSO duplicats no s&apos;importaran)</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6591"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
 Enter the Station Callsign that was used to do this QSO with %1%2:</source>
-        <translation>El KLog ha trobat un QSO sense un identificador definit d&apos;estació.
+        <translation type="vanished">El KLog ha trobat un QSO sense un identificador definit d&apos;estació.
 
 Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QSO amb %1%2:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6598"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
 Enter the Station Callsign that was used to do this QSO%1:</source>
-        <translation>El KLog ha trobat un QSO sense un identificador definit d&apos;estació.
+        <translation type="vanished">El KLog ha trobat un QSO sense un identificador definit d&apos;estació.
 
 Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QSO%1:</translation>
     </message>
@@ -1113,6 +1118,13 @@ Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QS
         <location filename="../filemanager.cpp" line="6530"/>
         <source>KLog - No Station callsign entered.</source>
         <translation>KLog - No s&apos;ha introduït l&apos;identificador de l&apos;estació.</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6591"/>
+        <source>KLog has found one QSO without the Station Callsign defined.
+
+Enter the Station Callsign that was used to do this QSO with %1 on %2:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="6592"/>
@@ -1410,6 +1422,21 @@ Error retornat: %2</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../lotwutilities.cpp" line="391"/>
+        <source>It was not possible for find the file %1 that has been just downloaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lotwutilities.cpp" line="458"/>
+        <source>It seems that LoTW has no QSO with the Station Callsign you are using (%1).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lotwutilities.cpp" line="464"/>
+        <source>Try again and send the downloaded file (%1) to the KLog developer for analysis.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../lotwutilities.cpp" line="480"/>
         <source>KLog downloaded %1 QSOs successfully. Do you want to update your log with the downloaded data?</source>
         <translation type="unfinished"></translation>
@@ -1429,9 +1456,8 @@ Error retornat: %2</translation>
         <translation>No s&apos;ha pogut trobar el fitxer baixat.</translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="391"/>
         <source>It was not possible for find the file %1 that has been just downloaded</source>
-        <translation>No ha estat possible trobar el fitxer %1 que s&apos;acaba de baixar</translation>
+        <translation type="vanished">No ha estat possible trobar el fitxer %1 que s&apos;acaba de baixar</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="450"/>
@@ -1459,9 +1485,8 @@ Error retornat: %2</translation>
         <translation>El LoTW no ha enviat cap QSO</translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="458"/>
         <source>It seems that LoTW has no QSO with the Station Callsign you are using (%1)</source>
-        <translation>Sembla que el LoTW no té cap QSO amb l&apos;indicatiu d&apos;estació que esteu usant (%1)</translation>
+        <translation type="vanished">Sembla que el LoTW no té cap QSO amb l&apos;indicatiu d&apos;estació que esteu usant (%1)</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="462"/>
@@ -1474,9 +1499,8 @@ Error retornat: %2</translation>
         <translation>El KLog no ha pogut reconèixer el fitxer que s&apos;ha baixat des del LoTW.</translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="464"/>
         <source>Try again and send the downloaded file (%1) to the KLog developer for analysis</source>
-        <translation>Torneu a intentar-ho i envieu el fitxer baixat (%1) al desenvolupador del KLog per a la seva anàlisi</translation>
+        <translation type="vanished">Torneu a intentar-ho i envieu el fitxer baixat (%1) al desenvolupador del KLog per a la seva anàlisi</translation>
     </message>
     <message>
         <source>KLog downloaded %1 QSOs suscessfully. Do you want to update your log with the downloaded data?</source>
@@ -1817,9 +1841,8 @@ El KLog us recordarà que feu una còpia de seguretat mensualment.
         <translation>RSTtx</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5564"/>
         <source>KLog - Select the Station Callsign</source>
-        <translation>KLog - Selecció de l&apos;indicatiu d&apos;estació</translation>
+        <translation type="vanished">KLog - Selecció de l&apos;indicatiu d&apos;estació</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5565"/>
@@ -2445,9 +2468,8 @@ El servidor UDP ha fallat en %1.</translation>
         <translation>L&apos;indicatiu %1 no és un indicatiu vàlid. Esteu segur que voleu afegir aquest indicatiu al registre?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1701"/>
         <source>Adding non-valid calls to the log may create problems when appliting for awards, exporting ADIF files to other systems or applications.</source>
-        <translation>Afegir indicatiu no vàlids al registre pot crear problemes en sol·licitar diplomes, exportar a fitxers ADIF o a altres sistemes o aplicacions.</translation>
+        <translation type="vanished">Afegir indicatiu no vàlids al registre pot crear problemes en sol·licitar diplomes, exportar a fitxers ADIF o a altres sistemes o aplicacions.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1037"/>
@@ -2462,6 +2484,7 @@ El servidor UDP ha fallat en %1.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="975"/>
+        <location filename="../mainwindow.cpp" line="1701"/>
         <source>Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2539,14 +2562,12 @@ El servidor UDP ha fallat en %1.</translation>
         <translation>Hi ha hagut un problema en marcar tots els QSO pendents d&apos;aquest registre com a posats en cua per al LoTW!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3298"/>
         <source>Your log has been updated with the LoTW downloaded QSOs</source>
-        <translation>El registre s&apos;ha actualitzat amb els QSO baixats del LoTW</translation>
+        <translation type="vanished">El registre s&apos;ha actualitzat amb els QSO baixats del LoTW</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3299"/>
         <source>KLog has updated %1 QSOs from LoTW</source>
-        <translation>El KLog ha actualitzat %1 QSO des del LoTW</translation>
+        <translation type="vanished">El KLog ha actualitzat %1 QSO des del LoTW</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3307"/>
@@ -2698,6 +2719,21 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <location filename="../mainwindow.cpp" line="5580"/>
         <source>KLog - LoTW</source>
         <translation>KLog - LoTW</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3298"/>
+        <source>Your log has been updated with the LoTW downloaded QSOs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3299"/>
+        <source>KLog has updated %1 QSOs from LoTW.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="5564"/>
+        <source>KLog - Select the Station Callsign.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5628"/>
@@ -4005,6 +4041,11 @@ La freqüència no es en una banda de radioafició!</translation>
 (Feu clic a Sí per afegir un registre o No per a sortir del KLog)</translation>
     </message>
     <message>
+        <location filename="../setupdialog.cpp" line="431"/>
+        <source>DB has not been moved to new path.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../setupdialog.cpp" line="441"/>
         <source>You need to enter at least a valid QRZ.</source>
         <translation>Com a mínim cal introduir un QRZ vàlid.</translation>
@@ -4022,9 +4063,8 @@ Please add and select the kind of log you want to use.</source>
 Afegiu i seleccioneu la classe de registre que voleu usar.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="431"/>
         <source>DB has not been moved to new path</source>
-        <translation>La BD no s&apos;ha mogut al camí nou</translation>
+        <translation type="vanished">La BD no s&apos;ha mogut al camí nou</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="454"/>
@@ -5016,22 +5056,42 @@ El registre no s&apos;obrirà.</translation>
         <translation>Selecció de directori</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="728"/>
+        <location filename="../setuppages/setuppagemisc.cpp" line="714"/>
+        <source>KLog - Move DB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="733"/>
         <source>File moved</source>
         <translation>S&apos;ha mogut el fitxer</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="738"/>
+        <location filename="../setuppages/setuppagemisc.cpp" line="744"/>
         <source>File copied</source>
         <translation>S&apos;ha copiat el fitxer</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="748"/>
+        <location filename="../setuppages/setuppagemisc.cpp" line="761"/>
+        <source>File already exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="762"/>
+        <source>The destination file already exist and KLog will not replace it. Please remove the file from the destination folder before moving the file with KLog to make sure KLog can copy the file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="767"/>
         <source>File NOT copied</source>
         <translation>NO s&apos;ha copiat el fitxer</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="761"/>
+        <location filename="../setuppages/setuppagemisc.cpp" line="768"/>
+        <source>The file was not copied due to an unknown problem.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="780"/>
         <source>The target directory does not exist. Please select an existing directory.</source>
         <translation>El directori de destinació no existeix. Seleccioneu un directori existent.</translation>
     </message>
@@ -5735,9 +5795,13 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
 <context>
     <name>ShowAdifImportWidget</name>
     <message>
-        <location filename="../widgets/showadifimportwidget.cpp" line="19"/>
         <source>The following QSO are those QSOs that you have received the LoTW confirmation.</source>
-        <translation>Els QSO següents són aquells QSO pels que heu rebut la confirmació del LoTW.</translation>
+        <translation type="vanished">Els QSO següents són aquells QSO pels que heu rebut la confirmació del LoTW.</translation>
+    </message>
+    <message>
+        <location filename="../widgets/showadifimportwidget.cpp" line="19"/>
+        <source>The following QSOs are those QSOs that you have received the LoTW confirmation.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="20"/>

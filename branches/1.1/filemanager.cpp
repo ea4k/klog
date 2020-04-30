@@ -6588,14 +6588,14 @@ bool FileManager::getStationCallsignFromUser(const QString &_qrzDX, const QDate 
 
     if (util->isValidCall(_qrzDX))
     {
-        aux = tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO with %1%2:").arg(_qrzDX).arg(_date);
+        aux = tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO with %1 on %2:").arg(_qrzDX).arg(_date);
         text = QInputDialog::getText(this, tr("KLog - QSO without Station Callsign"),
                                                    aux, QLineEdit::Normal, "", &ok);
     }
     else
     {
         text = QInputDialog::getText(this, tr("KLog - QSO without Station Callsign"),
-                                                   tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO%1:").arg(_date), QLineEdit::Normal,
+                                                   tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO on %1:").arg(_date), QLineEdit::Normal,
                                                    "", &ok);
     }
 

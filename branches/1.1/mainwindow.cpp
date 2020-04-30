@@ -59,7 +59,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - File not open"));
-        QString aux = tr("It was not possible to open the debug file for writting. No debug log will be saved!");
+        QString aux = tr("It was not possible to open the debug file for writing. No debug log will be saved!");
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
@@ -972,7 +972,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         msgBox.setWindowTitle(tr("KLog - Not valid call"));
         QString aux = QString(tr("The call %1 is not a valid call. Do you really want to add this call to the log?") ).arg(tqrz);
         msgBox.setText(aux);
-        msgBox.setInformativeText(tr("Adding non-valid calls to the log may create problems when appliting for awards, exporting ADIF files to other systems or applications."));
+        msgBox.setInformativeText(tr("Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications."));
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::No);
         int ret = msgBox.exec();
@@ -1698,7 +1698,7 @@ WHERE [condition];
         msgBox.setWindowTitle(tr("KLog - Not valid call"));
         QString aux = QString(tr("The call %1 is not a valid call. Do you really want to add this call to the log?") ).arg(tqrz);
         msgBox.setText(aux);
-        msgBox.setInformativeText(tr("Adding non-valid calls to the log may create problems when appliting for awards, exporting ADIF files to other systems or applications."));
+        msgBox.setInformativeText(tr("Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications."));
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::No);
         int ret = msgBox.exec();
@@ -3295,8 +3295,8 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
     if (a.length()>0)
     {        
         msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("Your log has been updated with the LoTW downloaded QSOs"));
-        aux = QString(tr("KLog has updated %1 QSOs from LoTW")).arg(a.length());
+        msgBox.setText(tr("Your log has been updated with the LoTW downloaded QSOs."));
+        aux = QString(tr("KLog has updated %1 QSOs from LoTW.")).arg(a.length());
         msgBox.setInformativeText(aux);
         msgBox.exec();
         showAdifImportWidget->show();
@@ -5561,7 +5561,7 @@ void MainWindow::slotLoTWDownload()
 
     bool ok;
 
-    QString callToUse = QInputDialog::getItem(this, tr("KLog - Select the Station Callsign"),
+    QString callToUse = QInputDialog::getItem(this, tr("KLog - Select the Station Callsign."),
                                          tr("Select the Station Callsign to use when quering LoTW:"), calls, 0, false, &ok);
 
       //qDebug() << "MainWindow::slotDownUpload: " << callToUse << endl;
