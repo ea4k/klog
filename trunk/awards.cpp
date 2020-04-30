@@ -167,12 +167,20 @@ int Awards::getQSOIdofAward (const int _enti, const int _bandid)
 
 int Awards::getDXCCWorked(const int _logNumber)
 {
-       //qDebug() << "Awards::getDXCCWorked (logNumber): " << QString::number(_logNumber) << endl;
+    //qDebug() << "Awards::getDXCCWorked (logNumber): " << QString::number(_logNumber) << endl;
     QSqlQuery query;
     QString stringQuery;
     bool sqlOK;
 
-    stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log WHERE dxcc>'0' AND lognumber='%1'").arg(_logNumber);
+    if (dataProxy->doesThisLogExist(_logNumber))
+    {
+        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log WHERE dxcc>'0' AND lognumber='%1'").arg(_logNumber);
+    }
+    else
+    {
+        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log WHERE dxcc>'0'");
+    }
+
 
     sqlOK = query.exec(stringQuery);
        //qDebug() << "Awards::getDXCCWorked: stringQuery: " << stringQuery << endl;
@@ -203,27 +211,35 @@ int Awards::getDXCCWorked(const int _logNumber)
 
 int Awards::getDXCCConfirmed(const int _logNumber)
 {
-       //qDebug() << "Awards::getDXCCConfirmed (logNumber): " << QString::number(_logNumber) << endl;
+     //qDebug() << "Awards::getDXCCConfirmed (logNumber): " << QString::number(_logNumber) << endl;
     QSqlQuery query;
     QString stringQuery;
     bool sqlOK;
-    stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where qsl_rcvd='Y' AND dxcc!='' AND dxcc >'0' AND lognumber='%1'").arg(_logNumber);
+    if (dataProxy->doesThisLogExist(_logNumber))
+    {
+        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where qsl_rcvd='Y' AND dxcc!='' AND dxcc >'0' AND lognumber='%1'").arg(_logNumber);
+    }
+    else
+    {
+        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where qsl_rcvd='Y' AND dxcc!='' AND dxcc >'0'");
+    }
+
     sqlOK = query.exec(stringQuery);
-       //qDebug() << "Awards::getDXCCWorked: stringQuery: " << stringQuery << endl;
+     //qDebug() << "Awards::getDXCCWorked: stringQuery: " << stringQuery << endl;
 
     if (sqlOK)
     {
         query.next();
         if (query.isValid())
         {
-               //qDebug() << "Awards::getDXCCConfirmed: " << QString::number((query.value(0)).toInt()) << endl;
+             //qDebug() << "Awards::getDXCCConfirmed: " << QString::number((query.value(0)).toInt()) << endl;
             int v = (query.value(0)).toInt();
             query.finish();
             return v;
         }
         else
         {
-                //qDebug() << "Awards::getDXCCConfirmed: 0" << endl;
+             //qDebug() << "Awards::getDXCCConfirmed: 0" << endl;
             return 0;
         }
 
@@ -232,7 +248,7 @@ int Awards::getDXCCConfirmed(const int _logNumber)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
-           //qDebug() << "Awards::getDXCCConfirmed: query error" << endl;
+         //qDebug() << "Awards::getDXCCConfirmed: query error" << endl;
       return 0;
     }
 
@@ -244,7 +260,15 @@ int Awards::getWAZWorked(const int _logNumber)
        //qDebug() << "Awards::getWAZWorked (logNumber): " << QString::number(_logNumber) << endl;
     QSqlQuery query;
     QString stringQuery;
-    stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND lognumber='%1')").arg(_logNumber);
+    if (dataProxy->doesThisLogExist(_logNumber))
+    {
+        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND lognumber='%1')").arg(_logNumber);
+    }
+    else
+    {
+        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41')");
+    }
+
     bool sqlOK = query.exec(stringQuery);
     if (sqlOK)
     {
@@ -277,7 +301,16 @@ int Awards::getWAZConfirmed(const int _logNumber)
     QSqlQuery query;
     QString stringQuery;
     //Usar la siguiente para el confirmed
-    stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND qsl_rcvd='Y' AND lognumber='%1')").arg(_logNumber);
+    if (dataProxy->doesThisLogExist(_logNumber))
+    {
+        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND qsl_rcvd='Y' AND lognumber='%1')").arg(_logNumber);
+    }
+    else
+    {
+        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND qsl_rcvd='Y')");
+    }
+
+
 
     bool sqlOK = query.exec(stringQuery);
     if (sqlOK)
