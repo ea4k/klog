@@ -87,8 +87,8 @@ void SetupPageLoTW::createUI()
     QTextEdit *warningTextEdit = new QTextEdit;
     warningTextEdit->setAlignment(Qt::AlignJustify);
     warningTextEdit->setReadOnly(true);
-    QLabel *warninglabel = new QLabel;
-    warningTextEdit->setText(tr("Enter your password LoTW here. Warning: The password will be save on clear in the KLog config file!! (If you don't want to enter the password, KLog will ask you when it is needed."));
+    //QLabel *warninglabel = new QLabel;
+    warningTextEdit->setText(tr("Enter your password LoTW here. Warning: The password will be save on clear in the KLog config file!! If you don't want to enter the password, KLog will ask you when it is needed."));
 
     QGroupBox *downloadGroupBox = new QGroupBox(tr("LoTW download"));
     QGridLayout *dhbox = new QGridLayout;

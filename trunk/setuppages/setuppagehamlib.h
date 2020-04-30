@@ -30,7 +30,6 @@
 #include <QObject>
 #include <QWidget>
 #include <QtWidgets>
-//#include <QSerialPort>
 #include <QSerialPortInfo>
 #include "hamlibclass.h"
 #include "dataproxy_sqlite.h"

@@ -606,7 +606,7 @@ igen. Ønsker du at prøve igen?</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="791"/>
-        <source>It was not possible to open the file to save the DX-Spots for writting. DX-Cluster activity will not be saved!</source>
+        <source>It was not possible to open the file to save the DX-Spots for writing. DX-Cluster activity will not be saved!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1497,7 +1497,12 @@ Error returned: %2</source>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="304"/>
-        <source>Do you want to follow the redirection)</source>
+        <source>Do you want to follow the redirection?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lotwutilities.cpp" line="480"/>
+        <source>KLog downloaded %1 QSOs successfully. Do you want to update your log with the downloaded data?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1558,11 +1563,6 @@ Error returned: %2</source>
     <message>
         <location filename="../lotwutilities.cpp" line="464"/>
         <source>Try again and send the downloaded file (%1) to the KLog developer for analysis</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lotwutilities.cpp" line="480"/>
-        <source>KLog downloaded %1 QSOs suscessfully. Do you want to update your log with the downloaded data?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1721,8 +1721,8 @@ Error returned: %2</source>
     <name>MainQSOEntryWidget</name>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="16"/>
-        <location filename="../mainqsoentrywidget.cpp" line="289"/>
-        <location filename="../mainqsoentrywidget.cpp" line="540"/>
+        <location filename="../mainqsoentrywidget.cpp" line="291"/>
+        <location filename="../mainqsoentrywidget.cpp" line="542"/>
         <source>&amp;Add</source>
         <translation type="unfinished">&amp;Tilføj</translation>
     </message>
@@ -1781,7 +1781,7 @@ Error returned: %2</source>
         <translation type="obsolete">Ugyldige tegn brugt i QRZ&apos;en</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="535"/>
+        <location filename="../mainqsoentrywidget.cpp" line="537"/>
         <source>&amp;Modify</source>
         <translation type="unfinished">&amp;Ændr</translation>
     </message>
@@ -1847,6 +1847,11 @@ Error returned: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="62"/>
+        <source>It was not possible to open the debug file for writing. No debug log will be saved!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="588"/>
         <source>It seems that the latest backup you did is older than one month.</source>
         <translation type="unfinished"></translation>
@@ -1905,6 +1910,10 @@ KLog will remind you to backup on a monthly basis.
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="975"/>
+        <source>Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="1701"/>
         <source>Adding non-valid calls to the log may create problems when appliting for awards, exporting ADIF files to other systems or applications.</source>
         <translation type="unfinished"></translation>
@@ -2364,11 +2373,6 @@ KLog will remind you to backup on a monthly basis.
         <location filename="../mainwindow.cpp" line="3452"/>
         <source>The log that you have selected contains more than just one station callsign.</source>
         <translation>Loggen du har valgt indeholder mere end bare et stationskaldesignal.</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="62"/>
-        <source>It was not possible to open the debug file for writting. No debug log will be saved!</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3026"/>
@@ -3960,40 +3964,40 @@ Frekvens er ikke i et amatørradiobånd!</translation>
         <translation>Opdaterer WAZ Award-information ...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="267"/>
+        <location filename="../main.cpp" line="270"/>
         <source>Install wizard was canceled before completing...</source>
         <translation>Installationsguide blev afbrudt før fuldførelse ...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="268"/>
+        <location filename="../main.cpp" line="271"/>
         <source>Do you want to remove the KLog dir from your disk?</source>
         <translation>Ønsker du at fjerne KLog-mappen fra din disk?</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="281"/>
+        <location filename="../main.cpp" line="284"/>
         <source>Your KLog dir has been removed</source>
         <translation>Din KLog-mappe er blevet fjernet</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="281"/>
-        <location filename="../main.cpp" line="287"/>
-        <location filename="../main.cpp" line="294"/>
-        <location filename="../main.cpp" line="300"/>
+        <location filename="../main.cpp" line="284"/>
+        <location filename="../main.cpp" line="290"/>
+        <location filename="../main.cpp" line="297"/>
+        <location filename="../main.cpp" line="303"/>
         <source>Thank you for running KLog!</source>
         <translation>Tak fordi du bruger KLog!</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="287"/>
+        <location filename="../main.cpp" line="290"/>
         <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.</source>
         <translation>Jeg kunne ikke fjerne din KLog-mappe. Du bør gøre det manuelt, hvis du ønsker at den fjernes fra din harddisk.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="294"/>
+        <location filename="../main.cpp" line="297"/>
         <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.</source>
         <translation>Din KLog-mappe kan ikke fjernes. Du skal gøre det manuelt, hvis du ønsker den fjernet fra din harddisk.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="300"/>
+        <location filename="../main.cpp" line="303"/>
         <source>Remember that your KLog dir is on your system...</source>
         <translation>Husk at din KLog-mappe er på dit system ...</translation>
     </message>
@@ -5180,7 +5184,7 @@ Hvis ingen port er angivet, så vil 41112 blive brugt som standard:</translation
     </message>
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="91"/>
-        <source>Enter your password LoTW here. Warning: The password will be save on clear in the KLog config file!! (If you don&apos;t want to enter the password, KLog will ask you when it is needed.</source>
+        <source>Enter your password LoTW here. Warning: The password will be save on clear in the KLog config file!! If you don&apos;t want to enter the password, KLog will ask you when it is needed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5494,9 +5498,8 @@ Loggen vil ikke blive åbnet.</translation>
         <translation>Vis stations&amp;kaldesignal brugt i søgeboksen</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="46"/>
         <source>&amp;Reset to My Data for all QSOs</source>
-        <translation>&amp;Nulstil til Mine data for alle QSO&apos;er</translation>
+        <translation type="vanished">&amp;Nulstil til Mine data for alle QSO&apos;er</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="47"/>
@@ -5571,6 +5574,11 @@ Loggen vil ikke blive åbnet.</translation>
     <message>
         <source>If new version checking is selected, KLog will send the developer your callsign, KLog version &amp; Operating system to help in improving KLog.</source>
         <translation type="vanished">Hvis kontrol af ny version er valgt så vil KLog sende udvikleren dit kaldesignal, KLog-version og operativsystem for at hjælpe med at forbedre KLog.</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="46"/>
+        <source>&amp;Keep My Data for all QSOs</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="131"/>

@@ -566,7 +566,7 @@ Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="791"/>
-        <source>It was not possible to open the file to save the DX-Spots for writting. DX-Cluster activity will not be saved!</source>
+        <source>It was not possible to open the file to save the DX-Spots for writing. DX-Cluster activity will not be saved!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1413,7 +1413,12 @@ Error returned: %2</source>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="304"/>
-        <source>Do you want to follow the redirection)</source>
+        <source>Do you want to follow the redirection?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lotwutilities.cpp" line="480"/>
+        <source>KLog downloaded %1 QSOs successfully. Do you want to update your log with the downloaded data?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1474,11 +1479,6 @@ Error returned: %2</source>
     <message>
         <location filename="../lotwutilities.cpp" line="464"/>
         <source>Try again and send the downloaded file (%1) to the KLog developer for analysis</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lotwutilities.cpp" line="480"/>
-        <source>KLog downloaded %1 QSOs suscessfully. Do you want to update your log with the downloaded data?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1637,8 +1637,8 @@ Error returned: %2</source>
     <name>MainQSOEntryWidget</name>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="16"/>
-        <location filename="../mainqsoentrywidget.cpp" line="289"/>
-        <location filename="../mainqsoentrywidget.cpp" line="540"/>
+        <location filename="../mainqsoentrywidget.cpp" line="291"/>
+        <location filename="../mainqsoentrywidget.cpp" line="542"/>
         <source>&amp;Add</source>
         <translation type="unfinished">&amp;Lisää</translation>
     </message>
@@ -1697,7 +1697,7 @@ Error returned: %2</source>
         <translation type="vanished">Virheellisiä merkkejä käytetty QRZ:ssa</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="535"/>
+        <location filename="../mainqsoentrywidget.cpp" line="537"/>
         <source>&amp;Modify</source>
         <translation>&amp;Muokkaa</translation>
     </message>
@@ -2259,9 +2259,8 @@ Taajuus ei ole oikealla taajuusalueella!</translation>
         <translation>KLog - Tiedosto ei auki</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="62"/>
         <source>It was not possible to open the debug file for writting. No debug log will be saved!</source>
-        <translation>Vianmääritystiedostoa ei voitu avata. Vianmäärityslokia ei tallenneta!</translation>
+        <translation type="vanished">Vianmääritystiedostoa ei voitu avata. Vianmäärityslokia ei tallenneta!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="107"/>
@@ -2331,7 +2330,6 @@ KLog muistuttaa sinua varmuuskopioimaan tiedot kuukausittain.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="975"/>
         <location filename="../mainwindow.cpp" line="1701"/>
         <source>Adding non-valid calls to the log may create problems when appliting for awards, exporting ADIF files to other systems or applications.</source>
         <translation type="unfinished"></translation>
@@ -2341,6 +2339,16 @@ KLog muistuttaa sinua varmuuskopioimaan tiedot kuukausittain.
         <location filename="../mainwindow.cpp" line="1800"/>
         <source>KLog - Select correct entity</source>
         <translation>KLog - Vakitse oikea yksikkö</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="62"/>
+        <source>It was not possible to open the debug file for writing. No debug log will be saved!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="975"/>
+        <source>Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1771"/>
@@ -3608,40 +3616,40 @@ Taajuus ei ole oikealla taajuusalueella!</translation>
         <translation>Päivitetään DXCC- ja manner-tietoja...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="267"/>
+        <location filename="../main.cpp" line="270"/>
         <source>Install wizard was canceled before completing...</source>
         <translation>Asennusohjelma keskeytettiin ennen valmistumista...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="268"/>
+        <location filename="../main.cpp" line="271"/>
         <source>Do you want to remove the KLog dir from your disk?</source>
         <translation>Haluatko poistaa KLog-kansion kiintolevyltä?</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="281"/>
+        <location filename="../main.cpp" line="284"/>
         <source>Your KLog dir has been removed</source>
         <translation>KLog-kansio on poistettu</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="281"/>
-        <location filename="../main.cpp" line="287"/>
-        <location filename="../main.cpp" line="294"/>
-        <location filename="../main.cpp" line="300"/>
+        <location filename="../main.cpp" line="284"/>
+        <location filename="../main.cpp" line="290"/>
+        <location filename="../main.cpp" line="297"/>
+        <location filename="../main.cpp" line="303"/>
         <source>Thank you for running KLog!</source>
         <translation>Kiitos KLogin käyttämisestä!</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="287"/>
+        <location filename="../main.cpp" line="290"/>
         <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.</source>
         <translation>En voinut poistaa KLog-kansiota. Sinun tulee tehdä se manuaalisesti, jos haluat poistaa sen kiintolevyltä.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="294"/>
+        <location filename="../main.cpp" line="297"/>
         <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.</source>
         <translation>KLog-kansiota ei voitu poistaa. Sinun tulee tehdä se manuaalisesti, jos haluat poistaa sen kiintolevyltä.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="300"/>
+        <location filename="../main.cpp" line="303"/>
         <source>Remember that your KLog dir is on your system...</source>
         <translation>Muista että KLog-kansio on kiintolevyllä...</translation>
     </message>
@@ -4767,7 +4775,7 @@ Jos porttia ei määritetä, Käytetään oletusarvoa 41112:</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="91"/>
-        <source>Enter your password LoTW here. Warning: The password will be save on clear in the KLog config file!! (If you don&apos;t want to enter the password, KLog will ask you when it is needed.</source>
+        <source>Enter your password LoTW here. Warning: The password will be save on clear in the KLog config file!! If you don&apos;t want to enter the password, KLog will ask you when it is needed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4999,9 +5007,8 @@ Lokia ei avata.</translation>
         <translation>Näytä hakukentässä käytetty &amp;Asematunnus</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="46"/>
         <source>&amp;Reset to My Data for all QSOs</source>
-        <translation>&amp;Palauta minun tiedot kaikkiin QSO:ihin</translation>
+        <translation type="vanished">&amp;Palauta minun tiedot kaikkiin QSO:ihin</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="47"/>
@@ -5063,6 +5070,11 @@ Lokia ei avata.</translation>
         <location filename="../setuppages/setuppagemisc.cpp" line="128"/>
         <source>All the data from the My Data tab will be used or data from the previous QSO will be maintained.</source>
         <translation>Kaikki tiedot Minun Tiedot -välilehdeltä käytetään, tai tiedot edellisestä QSO:sta Säilytetään.</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="46"/>
+        <source>&amp;Keep My Data for all QSOs</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="129"/>
