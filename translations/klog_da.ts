@@ -3788,37 +3788,37 @@ Frekvens er ikke i et amatørradiobånd!</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../awards.cpp" line="752"/>
+        <location filename="../awards.cpp" line="785"/>
         <source>New One, work it!</source>
         <translation>Ny, bearbejd den!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="756"/>
-        <location filename="../awards.cpp" line="760"/>
-        <location filename="../awards.cpp" line="766"/>
-        <location filename="../awards.cpp" line="769"/>
-        <location filename="../awards.cpp" line="772"/>
-        <location filename="../awards.cpp" line="775"/>
-        <location filename="../awards.cpp" line="781"/>
-        <location filename="../awards.cpp" line="787"/>
+        <location filename="../awards.cpp" line="789"/>
+        <location filename="../awards.cpp" line="793"/>
+        <location filename="../awards.cpp" line="799"/>
+        <location filename="../awards.cpp" line="802"/>
+        <location filename="../awards.cpp" line="805"/>
+        <location filename="../awards.cpp" line="808"/>
+        <location filename="../awards.cpp" line="814"/>
+        <location filename="../awards.cpp" line="820"/>
         <source>Needed, work it!</source>
         <translation>Krævet, bearbejd den!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="763"/>
-        <location filename="../awards.cpp" line="778"/>
-        <location filename="../awards.cpp" line="784"/>
-        <location filename="../awards.cpp" line="790"/>
+        <location filename="../awards.cpp" line="796"/>
+        <location filename="../awards.cpp" line="811"/>
+        <location filename="../awards.cpp" line="817"/>
+        <location filename="../awards.cpp" line="823"/>
         <source>Worked but not confirmed</source>
         <translation>Bearbejdet men ikke bekræftet</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="793"/>
+        <location filename="../awards.cpp" line="826"/>
         <source>Confirmed</source>
         <translation>Bekræftet</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="797"/>
+        <location filename="../awards.cpp" line="830"/>
         <source>Not identified</source>
         <translation>Ikke identficeret</translation>
     </message>
