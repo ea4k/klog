@@ -388,7 +388,7 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - File not found"));
         msgBox.setText(tr("KLog can't find the downloaded file."));
-        aux = QString(tr("It was not possible for find the file %1 that has been just downloaded") ).arg(_fn);
+        aux = QString(tr("It was not possible for find the file %1 that has been just downloaded.") ).arg(_fn);
 
         msgBox.setDetailedText(aux);
         msgBox.setStandardButtons(QMessageBox::Ok);
@@ -455,13 +455,13 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
             {
                 msgBox.setWindowTitle(tr("KLog - LoTW No QSOs "));
                 msgBox.setText(tr("LoTW sent no QSOs"));
-                aux = QString(tr("It seems that LoTW has no QSO with the Station Callsign you are using (%1)") ).arg(stationCallsign);
+                aux = QString(tr("It seems that LoTW has no QSO with the Station Callsign you are using (%1).") ).arg(stationCallsign);
             }
             else
             {
                 msgBox.setWindowTitle(tr("KLog - LoTW Unknown error"));
                 msgBox.setText(tr("KLog can't recognize the file that has been downloaded from LoTW."));
-                aux = QString(tr("Try again and send the downloaded file (%1) to the KLog developer for analysis") ).arg(_fileName);
+                aux = QString(tr("Try again and send the downloaded file (%1) to the KLog developer for analysis.") ).arg(_fileName);
             }
 
             msgBox.setIcon(QMessageBox::Warning);

@@ -16,7 +16,7 @@ ShowAdifImportWidget::ShowAdifImportWidget(DataProxy_SQLite *dp, const QString &
 void ShowAdifImportWidget::createUI()
 {
     QLabel *msgLabel = new QLabel;
-    msgLabel->setText(tr("The following QSO are those QSOs that you have received the LoTW confirmation."));
+    msgLabel->setText(tr("The following QSOs are those QSOs that you have received the LoTW confirmation."));
     okButton->setText(tr("Ok"));
     //cancelButton->setText(tr("Cancel"));
 

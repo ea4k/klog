@@ -1037,17 +1037,10 @@ QSO: </translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6591"/>
-        <source>KLog has found one QSO without the Station Callsign defined.
-
-Enter the Station Callsign that was used to do this QSO with %1%2:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../filemanager.cpp" line="6598"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
-Enter the Station Callsign that was used to do this QSO%1:</source>
+Enter the Station Callsign that was used to do this QSO on %1:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1192,6 +1185,13 @@ Enter the Station Callsign that was used to do this QSO%1:</source>
         <location filename="../filemanager.cpp" line="6519"/>
         <location filename="../filemanager.cpp" line="6530"/>
         <source>KLog - No Station callsign entered.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6591"/>
+        <source>KLog has found one QSO without the Station Callsign defined.
+
+Enter the Station Callsign that was used to do this QSO with %1 on %2:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1496,6 +1496,21 @@ Error returned: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../lotwutilities.cpp" line="391"/>
+        <source>It was not possible for find the file %1 that has been just downloaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lotwutilities.cpp" line="458"/>
+        <source>It seems that LoTW has no QSO with the Station Callsign you are using (%1).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lotwutilities.cpp" line="464"/>
+        <source>Try again and send the downloaded file (%1) to the KLog developer for analysis.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../lotwutilities.cpp" line="480"/>
         <source>KLog downloaded %1 QSOs successfully. Do you want to update your log with the downloaded data?</source>
         <translation type="unfinished"></translation>
@@ -1508,11 +1523,6 @@ Error returned: %2</source>
     <message>
         <location filename="../lotwutilities.cpp" line="390"/>
         <source>KLog can&apos;t find the downloaded file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lotwutilities.cpp" line="391"/>
-        <source>It was not possible for find the file %1 that has been just downloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1541,11 +1551,6 @@ Error returned: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="458"/>
-        <source>It seems that LoTW has no QSO with the Station Callsign you are using (%1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../lotwutilities.cpp" line="462"/>
         <source>KLog - LoTW Unknown error</source>
         <translation type="unfinished"></translation>
@@ -1553,11 +1558,6 @@ Error returned: %2</source>
     <message>
         <location filename="../lotwutilities.cpp" line="463"/>
         <source>KLog can&apos;t recognize the file that has been downloaded from LoTW.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lotwutilities.cpp" line="464"/>
-        <source>Try again and send the downloaded file (%1) to the KLog developer for analysis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2404,12 +2404,8 @@ Frequency is not in a hamradio band!</source>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="975"/>
-        <source>Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="1701"/>
-        <source>Adding non-valid calls to the log may create problems when appliting for awards, exporting ADIF files to other systems or applications.</source>
+        <source>Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2488,16 +2484,6 @@ Frequency is not in a hamradio band!</source>
         <location filename="../mainwindow.cpp" line="3277"/>
         <location filename="../mainwindow.cpp" line="3334"/>
         <source>There was a problem to mark all pending QSOs of this log as queued for LoTW!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3298"/>
-        <source>Your log has been updated with the LoTW downloaded QSOs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3299"/>
-        <source>KLog has updated %1 QSOs from LoTW</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2663,11 +2649,6 @@ Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5564"/>
-        <source>KLog - Select the Station Callsign</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="5565"/>
         <source>Select the Station Callsign to use when quering LoTW:</source>
         <translation type="unfinished"></translation>
@@ -2778,6 +2759,21 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="62"/>
         <source>It was not possible to open the debug file for writing. No debug log will be saved!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3298"/>
+        <source>Your log has been updated with the LoTW downloaded QSOs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3299"/>
+        <source>KLog has updated %1 QSOs from LoTW.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="5564"/>
+        <source>KLog - Select the Station Callsign.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4094,6 +4090,11 @@ Frequency is not in a hamradio band!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../setupdialog.cpp" line="431"/>
+        <source>DB has not been moved to new path.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../setupdialog.cpp" line="432"/>
         <source>Go to the Misc tab and click on Move DB
  or the DB will not be moved to the new location.</source>
@@ -4133,9 +4134,8 @@ Frequency is not in a hamradio band!</source>
         <translation>D&amp;X-Cluster</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="431"/>
         <source>DB has not been moved to new path</source>
-        <translation>DB nie została przeniesiona w nowe miejsce</translation>
+        <translation type="vanished">DB nie została przeniesiona w nowe miejsce</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="455"/>
@@ -5253,22 +5253,42 @@ Log nie zostanie otwarty.</translation>
         <translation>Zaznacz Katalog</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="728"/>
+        <location filename="../setuppages/setuppagemisc.cpp" line="714"/>
+        <source>KLog - Move DB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="733"/>
         <source>File moved</source>
         <translation>Plik przeniesiony</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="738"/>
+        <location filename="../setuppages/setuppagemisc.cpp" line="744"/>
         <source>File copied</source>
         <translation>Plik skopiowany</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="748"/>
+        <location filename="../setuppages/setuppagemisc.cpp" line="761"/>
+        <source>File already exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="762"/>
+        <source>The destination file already exist and KLog will not replace it. Please remove the file from the destination folder before moving the file with KLog to make sure KLog can copy the file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="767"/>
         <source>File NOT copied</source>
         <translation>Plik NIE skopiowany</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="761"/>
+        <location filename="../setuppages/setuppagemisc.cpp" line="768"/>
+        <source>The file was not copied due to an unknown problem.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="780"/>
         <source>The target directory does not exist. Please select an existing directory.</source>
         <translation>Katalog docelowy nie istnieje . Proszę wybrać istniejący katalog.</translation>
     </message>
@@ -5892,7 +5912,7 @@ It may be caused because the file you are trying to import does not have the rig
     <name>ShowAdifImportWidget</name>
     <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="19"/>
-        <source>The following QSO are those QSOs that you have received the LoTW confirmation.</source>
+        <source>The following QSOs are those QSOs that you have received the LoTW confirmation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
