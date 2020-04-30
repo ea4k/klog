@@ -301,7 +301,7 @@ void LoTWUtilities::slotFinished()
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog - Redirection found"));
         QString aux = QString(tr("The remote server redirected our connection to %1") ).arg(newUrl.toString());
-        msgBox.setText(tr("Do you want to follow the redirection)"));
+        msgBox.setText(tr("Do you want to follow the redirection?"));
         msgBox.setDetailedText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::Yes);
@@ -477,7 +477,7 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
 
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setWindowTitle(tr("KLog - LoTW download"));
-        msgBox.setText(tr("KLog downloaded %1 QSOs suscessfully. Do you want to update your log with the downloaded data?").arg(QString::number(numQSO)));
+        msgBox.setText(tr("KLog downloaded %1 QSOs successfully. Do you want to update your log with the downloaded data?").arg(QString::number(numQSO)));
         aux = QString(tr("Now KLog will process the downloaded QSO and update your local log.") );
 
         msgBox.setDetailedText(aux);
