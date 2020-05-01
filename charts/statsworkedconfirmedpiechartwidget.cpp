@@ -1,10 +1,10 @@
-#include "charts/statsworkedconfirmedpiechartwidget.h"
+#include "statsworkedconfirmedpiechartwidget.h"
 
 StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(){}
 
 StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget" << endl;
+    //qDebug() << "StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget" << endl;
 
     dataProxy = dp;
     chart = new QChart();
@@ -32,9 +32,9 @@ void StatsWorkedConfirmedPieChartWidget::prepareChart()
     //PieSlice append(string label, real value)
     int qsos = dataProxy->getHowManyQSOInLog(-1);
     int confirmed = dataProxy->getHowManyConfirmedQSLInLog(-1);
-       //qDebug() << "QSOs: " << QString::number(qsos) << endl;
-       //qDebug() << "Confirmed: " << QString::number(confirmed) << endl;
-       //qDebug() << "Worked: " << QString::number(qsos - confirmed) << endl;
+     //qDebug() << "QSOs: " << QString::number(qsos) << endl;
+     //qDebug() << "Confirmed: " << QString::number(confirmed) << endl;
+     //qDebug() << "Worked: " << QString::number(qsos - confirmed) << endl;
 
     series->append(tr("Worked, not confirmed - %1").arg(qsos-confirmed), qsos - confirmed);
     series->append(tr("Confirmed - %2").arg(confirmed), confirmed);

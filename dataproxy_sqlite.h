@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 #include <QString>
@@ -30,6 +30,7 @@
 #include <QObject>
 //#include <QtGlobal>
 
+#include "dataproxy_sqlite.h"
 #include "database.h"
 
 
@@ -85,9 +86,6 @@ public:
     bool isThisFreqInBand(const QString &_band, const QString &_fr);
 
     int getLastQSOid();
-    QDate getFirstQSODateFromCall (const QString &_call);  // If the callsign provided is not valid it provides the date of the first QSO
-    QDate getLastQSODateFromCall (const QString &_call);   // If the callsign provided is not valid it provides the date of the last QSO
-
     bool addQSOFromWSJTX(const QString &_dxcall, const double _freq, const QString &_mode,
                                  const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
                                  const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on,
@@ -135,19 +133,12 @@ public:
 
 
     //LOTW
-    bool lotwSentQueue(const QString &_updateDate, const int _currentLog);          // Mark LOTW QSL SENT as Q (Queued)
-    bool lotwSentYes(const QString &_updateDate, const int _currentLog, const QString &_station);         // Update LOTW QSL SENT marked as Q as Y (Queued)
-    bool lotwSentQSOs(const QList<int> &_qsos);
-    int lotwUpdateQSLReception (const QString &_call, const QString &_qso_date, const QString &_time_on, const QString &_band, const QString &_mode, const QString &_qslrdate);
-    QList<int> getQSOsListLoTWNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true);
-    QStringList getQSODetailsForLoTWDownload(const int _id);
 
     int getContinentIdFromContinentShortName(const QString &_n);
     QString getContinentShortNameFromEntity(const int _n);
     int getContinentIdFromEntity(const int _n);
     QStringList getContinentShortNames();
     bool isValidContinentShortName(const QString &_n);
-    bool isValidDXCC(const int _e);
 
     int getCQzFromPrefix(const QString &_p);
     int getCQzFromEntity(const int _n);
@@ -156,7 +147,6 @@ public:
     QString getEntityNameFromId(const int _n);
     int getEntityIdFromName(const QString &_e);
     QString getEntityMainPrefix(const int _entityN);
-    int getEntityIdFromMainPrefix(const QString &_e);
     bool isNewCQz(int _c);
     bool isNewEntity(int _e);
     double getLongitudeFromEntity(const int _e);
@@ -171,6 +161,8 @@ public:
     QStringList getOperatingYears(const int _currentLog);
     void compressDB();
     bool unMarkAllQSO();            // Unmarks all the marked QSO
+    bool lotwSentQueue(const QString &_updateDate, const int _currentLog);          // Mark LOTW QSL SENT as Q (Queued)
+    bool lotwSentYes(const QString &_updateDate, const int _currentLog, const QString &_station);         // Update LOTW QSL SENT marked as Q as Y (Queued)
 
     bool clearLog();
 
@@ -201,11 +193,11 @@ public:
     QStringList getContestNames();
     QStringList getContestCat(const int _catn);
     QStringList getContestOverlays();
-    //int getContestTypeN(const int _co, const int _catop, const int _catas, const int _catpo, const int _catba, const int _catov, const int _catmo);
-    //QStringList getDataFromContestType(const int _n);
-    //int getLogTypeNumber(const QString &_logType);
-    //QString getLogTypeName(const int _logType);
-    //QString getLogTypeOfUserLog(const int _logN);
+    int getContestTypeN(const int _co, const int _catop, const int _catas, const int _catpo, const int _catba, const int _catov, const int _catmo);
+    QStringList getDataFromContestType(const int _n);
+    int getLogTypeNumber(const QString &_logType);
+    QString getLogTypeName(const int _logType);
+    QString getLogTypeOfUserLog(const int _logN);
     int getLogNumberFromQSOId(const int _qsoId);
 
     QStringList getBandNames();
@@ -240,7 +232,7 @@ public:
     QString getOperatorsFromLog(const int _log);
     QString getCommentsFromLog(const int _log);
     QString getLogDateFromLog(const int _log);
-    //QString getLogTypeNFromLog(const int _log);
+    QString getLogTypeNFromLog(const int _log);
     bool addNewLog (const QStringList _qs);
     bool doesThisLogExist(const int _log);
 
@@ -278,4 +270,5 @@ signals:
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
 };
+
 #endif // DATAPROXY_SQLITE_H

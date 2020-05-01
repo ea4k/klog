@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -30,11 +30,11 @@
 MainWindowInputComment::MainWindowInputComment(QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowInputComment::MainWindowInputComment"   << endl;
+     //qDebug() << "MainWindowInputComment::MainWindowInputComment"   << endl;
     commentLineEdit = new QLineEdit();
     comment.clear();
     createUI();
-       //qDebug() << "MainWindowInputComment::MainWindowInputComment - END"   << endl;
+     //qDebug() << "MainWindowInputComment::MainWindowInputComment - END"   << endl;
 }
 
 
@@ -50,6 +50,9 @@ void MainWindowInputComment::createUI()
 
     setLayout(tabLayout);
 }
+
+
+
 
 void MainWindowInputComment::setData(const QString &_comment)
 {
@@ -67,3 +70,5 @@ void MainWindowInputComment::clear()
     comment.clear();
     commentLineEdit->clear();
 }
+
+

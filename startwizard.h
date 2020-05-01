@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -48,8 +48,8 @@ class CTYPage;
  public:
      enum { Page_Intro, Page_Lic, Page_Mem, Page_CTY };
 
-    StartWizard(const QString &_klogDir, const QString &_softVersion, QWidget *parent = nullptr);
-    void setVersion(const QString &tversion);
+    StartWizard(const QString _klogDir, const QString _softVersion, QWidget *parent = 0);
+    void setVersion(QString tversion);
     //~StartWizard();
 
  protected:
@@ -74,7 +74,7 @@ class CTYPage;
    {
        Q_OBJECT
    public:
-     IntroPage(QWidget *parent = nullptr);
+     IntroPage(QWidget *parent = 0);
      int nextId() const;
    private:
        QLabel *topLabel;
@@ -86,7 +86,7 @@ class LicPage : public QWizardPage
   {
       Q_OBJECT
   public:
-    LicPage(QWidget *parent = nullptr);
+    LicPage(QWidget *parent = 0);
     //void setNextButtonActive(const bool _active);
     int nextId() const;
 
@@ -131,7 +131,7 @@ class CTYPage : public QWizardPage
   {
       Q_OBJECT
   public:
-    CTYPage(const QString &_klogDir, const QString &_version, QWidget *parent = nullptr);
+    CTYPage(const QString _klogDir, const QString _version, QWidget *parent = 0);
     void updateProgress (qint64 v,qint64 t);
 
 private slots:
@@ -148,11 +148,9 @@ private slots:
     void slotIgnoreDownloadButtonClicked();
     void slotDownloadFinished(const int ret);
     void slotDownloadError(const int ret);
-    void slotStopProgressBar();
 
 signals:
     void downloadTheFileSignal(const bool mem);
-
 
   private:
     bool prepareTheDownload();

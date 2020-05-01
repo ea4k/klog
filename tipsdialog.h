@@ -24,7 +24,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -52,12 +52,11 @@ signals:
     void fillInDXCCSignal();
     void findQSL2QSOSignal();
     void fileExportToPrintSignal();
-    //void fileExportForLoTWSignal();
+    void fileExportForLoTWSignal();
     void fileOpenKLogFolderSignal();
     void toolSendPendingQSLSignal();
     void toolRecPendingQSLSignal();
     void toolRecRecPendingQSLSignal();
-    void toolsUploadLoTWSignal();
 
 private slots:
     void slotPrevButtonClicked();

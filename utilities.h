@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 /*
@@ -36,8 +36,6 @@
 #include <QtWidgets>
 #include "locator.h"
 #include <QtDebug>
-
-enum ExportMode {ModeLotW, ModeADIF};
 
 class Utilities
 {
@@ -56,13 +54,11 @@ public:
     //QString getKLogDatabaseFile(const QString &_file);
     bool isDBFileExisting();
     bool isDBFileExisting(const QString &_file);
-    QString getTQSLsFileName();
-    QString getTQSLsPath();   // Depending on the OS where are usually installed the executables
+
     QString getHomeDir();
     QString getCfgFile();
     QString getCTYFile();
     QString getDebugLogFile();
-    QString getSaveSpotsLogFile();
 
     void setVersion(const QString &_v);
     QString getVersion();
@@ -85,10 +81,7 @@ public:
     bool isValidComment(const QString &_b);
     bool isValidName(const QString &_b);
     bool isValidADIFField(const QString &_b);
-
-
     QStringList getValidADIFFieldAndData(const QString &_b);
-    QString getAValidCall (const QString &_wrongCall);
 
 
 private:

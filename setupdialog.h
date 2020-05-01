@@ -22,26 +22,26 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
  *                                                                           *
  *****************************************************************************/
 
 #include <QDialog>
 
-#include "setuppages/setuppageuserdata.h"
-#include "setuppages/setuppagebandmode.h"
-#include "setuppages/setuppagemisc.h"
-#include "setuppages/setuppagedxcluster.h"
-#include "setuppages/setuppagecolors.h"
-#include "setuppages/setuppagelogs.h"
-#include "setuppages/setuppageworldeditor.h"
-#include "setuppages/setuppageclublog.h"
-#include "setuppages/setuppagelotw.h"
-#include "setuppages/setuppageudp.h"
-#include "setuppages/setuppagesats.h"
-#include "setuppages/setuppagehamlib.h"
-#include "setuppages/setuppageinterfaceswindows.h"
+#include "setuppageuserdata.h"
+#include "setuppagebandmode.h"
+#include "setuppagemisc.h"
+#include "setuppagedxcluster.h"
+#include "setuppagecolors.h"
+#include "setuppagelogs.h"
+#include "setuppageworldeditor.h"
+#include "setuppageclublog.h"
+#include "setuppageudp.h"
+#include "setuppagesats.h"
+#include "setuppagehamlib.h"
 #include "utilities.h"
+
+
 #include "locator.h"
 
 
@@ -80,10 +80,9 @@ private slots:
     void slotSetStationCallSign(const QString &_p);      // We receive te station callsign from the userData tab to fill the new log
     void slotSetOperators(const QString &_p);            // We receive te station operators from the userData tab to fill the new log
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
-    void slotFocusOK();
 
 private:
-    void showEvent(QShowEvent *event);
+
     void setConfigFile(const QString &_configFile);
     void setSoftVersion(const QString &_softwareVersion);
     void setConfigured(const bool _configured);
@@ -108,7 +107,6 @@ private:
     QString dxClusterServerToUse;
     QStringList dxClusterServers;
 
-    QPushButton *okButton;
     QTabWidget *tabWidget;
     int logsPageTabN;
 
@@ -123,11 +121,9 @@ private:
     SetupPageLogs *logsPage;
     SetupPageWorldEditor *worldEditorPage;
     SetupPageClubLog *clubLogPage;
-    SetupPageLoTW *lotwPage;
     SetupPageUDP *UDPPage;
     SetupPageSats *satsPage;
     SetupPageHamLib *hamlibPage;
-    SetupPageInterfacesWindows *interfacesWindowsPage;
 
     int pageRequested; // The page on the Dialog that is requested to be shown when you call it
     //QString klogDir;

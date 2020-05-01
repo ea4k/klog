@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 //
@@ -46,15 +46,13 @@ public:
     void setOtherSatName(const QString _t);
     QString getOtherSatName();
     QString getSatMode();
-    double getRXFreq();
     void setSatMode(const QString _t);
-
 
     bool getRepeatThis();
     void setRepeatThis(const bool _t);
 
     void addBands(QStringList _bands);
-    void setDefaultBands(); //Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist in the selected bands
+    void setDefaultBands(); //Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist on the selected bands
 
 
     void setUpLinkFreq(const double _t);
@@ -97,7 +95,6 @@ private:
     void setBandsOfSat(const QString _p);
     void addNewBand(const QString _p);
     void setUpLink(const QString _t);
-
 
     QLineEdit *satNameLineEdit;
     QLineEdit *satModeLineEdit;

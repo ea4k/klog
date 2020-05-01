@@ -1,54 +1,5 @@
-May 2020 - 1.1
-- Improvement: Search widget has been improved.
-- Improvement: Callsigns are always checked to be a good callsign before they are saved to the log, imported and exported to ADIF.
-- Improvement: Removed some death code.
-- Improvement: If TX Freq & RX Freq are the same, only TX Freq is exported.
-- Improvement: New functions to check calls when importing ADIF logs.
-- Improvement: Improved how CTY.CSV (country files) is working.
-- UI: Widget to show the QSOs to be exported to ADIF & LoTW.
-- UI: Widget to show the QSOs updated from ADIF & LoTW.
-- UI: Clear the UI also clears the status of a DXCC in the Band status widget.
-- UI: Added a checkbox to easily enable/disable the real time in the QSO entry box.
-- UI: Passwords are now hidden in the UI when entered.
-- BugFix: Only QSOs are now updated when data is uploaded from LoTW.
-- BugFix: DXCC & WAZ information was updated twice when removing a QSO.
-- BugFix: DXCC & WAZ count.
-- BugFix: Fixed one SQL query on satellite.
-- Bugfix: Fixed the print function. (JL3OXR).
-- Translations: Catalan (TNX Txema), Spanish (EA4K).
-
-April 2020 - 1.0.1
-- BugFix: UTC time was not properly managed, specially in the date.
-
-March 2020 - 1.0
-- UI: Removed the first column inthe DXCC widget to make it more user friendly.
-- UI: Created a widget to manage the Main QSO entry to make KLog more modular.
-- UI: eQSL & LoTW are marked as queued to be sent by default if the user activates it in the setup.
-- UI: Added the title to some QMessage boxes that were missing.
-- UI: Improved the usability of creating new logs or editing existing logs in the setup.
-- New feature: Integrate TQSL to upload QSOs to LoTW directly from KLog.
-- New feature: You can check a call in QRZ.com by right-clicking in the call from the log.
-- New feature: You can check a call in DXHeat.com by right-clicking in the call from the log.
-- New feature: It is now possible to save in a file all the DX-Cluster activity.
-- Improvement: Added https to the cty.dat download.
-- Improvement: Added the https to download.klog.xyz
-- Improvement: Propagation modes are now sorted in the Propagation mode combobox.
-- Improvement: Four new tips added.
-- Improvement: eQSL & LoTW dates are updated always that are modified to any status.
-- Improvement: If a QSO does not have a freq, a default freq based on the band is assigned if edited.
-- Improvement: Removed some deprecated functions.
-- Improvement: Improved the way KLog checks for a wrong call (IARU rules applied).
-- Improvement: Improved the way KLog checks for a wrong IOTA reference.
-- Removed the functionality to sort the log based on Date & Time columns.
-- Removed one console message about a duplicated database connection.
-- Bugfix: It was not possible to include new dxcluster servers in the setup.
-- Bugfix: The default value of RST in some digital modes using SNR were not properly shown.
-- Bugfix: In translated instances of KLog, Propagation mode was sometimes not properly saved when no propagation mode eas selected.
-- BugFix: Locator in SAT widget was not always not correctly evaluated as correct.
-- Updated translations: Catalan (TNX Txema), Croatian (TNX M0NKC), Finnish (TNX Kristjan), Spanish (EA4K).
-
 February 2020 - 0.9.9.1
-- BugFix: Bands & modes where sometimes duplicated in the combobox (TNX G4MKT).
+- BugFix: Bands & Modes where sometimes duplicated in the combobox (TNX G4MKT).
 
 January 2020 - 0.9.9
 - UI: Created a widget to manage the Awards to make KLog more modular.
@@ -585,7 +536,7 @@ The information comming from all the appearances of a call in the log is grouped
 - New feature: KLog ask the user for a comment when Importing a TLF log (for example 
   to note that those QSO are from an specific contest or whatever).
 - Bug fixed: When selecting a DX-Spot from the DX-Cluster it did not overwrote the name.
-- Bug fixed: When writing the log, there was an space missing before the <EOR>.
+- Bug fixed: When writting the log, there was an space missing before the <EOR>.
   It is just a "cosmetic" fix, not a real bug.
 - Bug fixed: The same with the QSL card status.
 - Bug fixed: KLog now recognises all the prefix that appears in cty.dat file with 

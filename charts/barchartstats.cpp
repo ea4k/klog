@@ -1,4 +1,4 @@
-#include "charts/barchartstats.h"
+#include "barchartstats.h"
 /***************************************************************************
                           barchartstats.cpp  -  description
                              -------------------
@@ -21,7 +21,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -56,7 +56,7 @@ BarChartStats::~BarChartStats(){}
 
 void BarChartStats::clear()
 {
-      //qDebug() << "BarChartStats::clear()" << endl;
+    //qDebug() << "BarChartStats::clear()" << endl;
     //cleanLayout();
     prepareChart(1);
 }
@@ -113,7 +113,7 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
     case 4:
     {
         //cleanLayout();
-          //qDebug() << "BarChartStats::prepareChart SelectedGrapth-4: per band " << endl;
+        //qDebug() << "BarChartStats::prepareChart SelectedGrapth-4: per band " << endl;
         genchart = new StatsQSOsPerBandBarChartWidget(dataProxy, nullptr);
         mLayout->addWidget(genchart);
     }
@@ -121,7 +121,7 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
     case 5:
     {
         //cleanLayout();
-          //qDebug() << "BarChartStats::prepareChart SelectedGrapth-5: per modes " << endl;
+        //qDebug() << "BarChartStats::prepareChart SelectedGrapth-5: per modes " << endl;
         genchart = new StatsQSOsPerModeBarChartWidget(dataProxy, nullptr);
         mLayout->addWidget(genchart);
 
@@ -130,14 +130,14 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
     case 6:
     {
         //cleanLayout();
-           //qDebug() << "BarChartStats::prepareChart SelectedGrapth-6: per dxcc " << endl;
+         //qDebug() << "BarChartStats::prepareChart SelectedGrapth-6: per dxcc " << endl;
         genchart = new StatsQSOsPerDXCCBarChartWidget(dataProxy, nullptr);
         mLayout->addWidget(genchart);
     }
     break;
     case 7:
     { // How many QSO per Continent
-           //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/Continent " << endl;
+         //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/Continent " << endl;
         //cleanLayout();
         genchart = new StatsQSOsPerContinentBarChartWidget(dataProxy, nullptr);
         mLayout->addWidget(genchart);
@@ -145,7 +145,7 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
     break;
     case 8:
     {
-           //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour " << endl;
+         //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour " << endl;
         //cleanLayout();
         genchart = new StatsQSOsPerHourBarChartWidget(dataProxy, nullptr);
         mLayout->addWidget(genchart);

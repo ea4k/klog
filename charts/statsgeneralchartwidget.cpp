@@ -1,14 +1,14 @@
-#include "charts/statsgeneralchartwidget.h"
+#include "statsgeneralchartwidget.h"
 
 
 StatsGeneralChartWidget::StatsGeneralChartWidget()
 {
-      //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget"  << endl;
+    //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget"  << endl;
 }
 
 StatsGeneralChartWidget::StatsGeneralChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget"  << endl;
+    //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget"  << endl;
 }
 
 

@@ -23,7 +23,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -35,15 +35,14 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QSqlRelationalDelegate>
-#include <QDesktopServices>
 #include "dataproxy_sqlite.h"
 #include "logmodel.h"
 #include "awards.h"
 //#include "dxccstatuswidget.h"
 #include "elogclublog.h"
-//#include "logviewsortfilterproxymodel.h"
+#include "logviewsortfilterproxymodel.h"
 
-//class  LogViewSortFilterProxyModel;
+class  LogViewSortFilterProxyModel;
 
 class LogWindow : public  QWidget
 {
@@ -63,8 +62,7 @@ public:
 
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);
-    //void setProxyModel (const bool _p);
-    void sortColumn(const int _c);
+    void setProxyModel (const bool _p);
 
 signals:
     void actionQSODoubleClicked(const int _qsoid);
@@ -79,6 +77,8 @@ private slots:
     void slotDoubleClickLog(const QModelIndex & index);
 
     void slotRighButtonFromLog(const QPoint& pos);
+
+
     void slotQSLSentViaBureauFromLog();
     void slotQSLSentViaDirectFromLog();
     void slotQSLRecViaDirectFromLog();
@@ -86,8 +86,6 @@ private slots:
     void slotQsoDeleteFromLog();
     void slotQSOToEditFromLog();
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
-    void slotCheckQRZCom();
-    void slotCheckDXHeatCom();
 
 
 private:    
@@ -119,13 +117,10 @@ private:
     QAction *qslSentViaDirectFromLogAct;
     QAction *qslRecViaBureauFromLogAct;
     QAction *qslRecViaDirectFromLogAct;
-    QAction *checkQRZCOMFromLogAct;
-    QAction *checkDXHeatFromLogAct;
 
     int currentLog;
 
-   //LogViewSortFilterProxyModel *proxyModel;
-   //bool sortingThroughProxyModel;
+   LogViewSortFilterProxyModel *proxyModel;
 };
 
 

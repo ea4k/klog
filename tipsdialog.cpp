@@ -9,7 +9,7 @@
 
 TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
 {
-      //qDebug() << "TipsDialog::TipsDialog" << endl;
+    //qDebug() << "TipsDialog::TipsDialog" << endl;
     logSeverity = 7;  //7 Debug /0=emergency or no debug
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     tipTextQLabel = new QLabel;
@@ -17,7 +17,7 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     //tipTextEdit->setReadOnly(true);
     //tipTextEdit->setWordWrapMode(QTextOption::WordWrap);
     tipId = 1;
-    tipMax = 20;
+    tipMax = 17;
 
     //QPixmap pixmap(":/img/klog_256x256.png");
 
@@ -68,7 +68,7 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     setLayout(layout);
 
 
-       //qDebug() << "TipsDialog::TipsDialog - END" << endl;
+     //qDebug() << "TipsDialog::TipsDialog - END" << endl;
     emit debugLog (Q_FUNC_INFO, "End", logSeverity);
 }
 
@@ -115,7 +115,7 @@ void TipsDialog::setSeverity(const int _sev)
 void TipsDialog::setTip(const int _t)
 {
     //QSize _size = tipTextQLabel->sizeHint();
-    //qDebug() << "TipsDialog::setTip: Height: " << QString::number(_t) <<endl;
+    //qDebug() << "TipsDialog::setTip: Height: " << QString::number(_size.height()) << " / Width: " << QString::number(_size.width()) << endl;
     switch (_t) {
 
     case 1:
@@ -135,7 +135,8 @@ void TipsDialog::setTip(const int _t)
         description = tr("<b>Tip #4:</b><br>Do you know...<br>You can export your QSO marked as QSL requested with <a href=\"#FileExportQSLADIFToPrint\">File->Export Requested QSL to ADIF...</a> to create an ADIF file that you will be able to import into a QSL tag creation program to print tags for your QSL cards?");
     break;
     case 5:
-        description = tr("<b>Tip #5:</b><br>Do you know...<br>You can enter a '*' in the search box, in the search window to search for all the QSOs done with one specific station callsign?");
+        //: Translator: Please make sure that the name of the link is coherent with the menu File->Export ADIF for LoTW...
+        description = tr("<b>Tip #5:</b><br>Do you know...<br>You can export your QSO marked as requested, via LoTW, in your log with <a href=\"#FileExportLoTWADIF\">File->Export ADIF for LoTW...</a> to create an ADIF file that you will be able to import in TQSL to be signed and uploaded to LoTW?<br><br>You have to mark as Q-Queued all the QSOs you want to be exported to be sent to LoTW.");
     break;
     case 6:
         //: Translator: Please make sure that the name of the link is coherent with the menu File->KLog folder
@@ -162,7 +163,7 @@ void TipsDialog::setTip(const int _t)
         description = tr("<b>Tip #11:</b><br>Do you know...<br>You can subscribe to the <a href=https://t.me/KLogES>Spanish Telegram group</a> to discuss about KLog in Spanish?");
     break;
     case 12:
-        description = tr("<b>Tip #12:</b><br>Do you know...<br>You can subscribe to <a href=https://lists.nongnu.org/mailman/listinfo/klog-users>KLog-users mailing list</a> to discuss via email about KLog in English?");
+        description = tr("<b>Tip #12:</b><br>Do you know...<br>You can subscribe to <a href=http://lists.nongnu.org/mailman/listinfo/klog-users>KLog-users mailing list</a> to discuss via email about KLog in English?");
     break;
     case 13:
         description = tr("<b>Tip #13:</b><br>Do you know...<br>You can <a href=https://twitter.com/_ea4k>follow EA4K on twitter</a> to get updates about KLog?");
@@ -179,19 +180,6 @@ void TipsDialog::setTip(const int _t)
     case 17:
         description = tr("<b>Tip #17:</b><br>Do you know...<br>You can support translating KLog into your language? Please check <a href=https://www.klog.xyz/contrib/translations>KLog Translations</a> page.");
     break;
-    case 18:
-        description = tr("<b>Tip #18:</b><br>Do you know...<br>You can double-click on an entity name in the DXCC table and all the QSOs with that DXCC Entity will be shown in the search box?");
-    break;
-    case 19:
-        description = tr("<b>Tip #19:</b><br>Do you know...<br>You can right-click on a QSO and select <i>Check in QRZ.com</i> to check that callsign in QRZ.com?");
-    break;
-    case 20:
-        description = tr("<b>Tip #20:</b><br>Do you know...<br>You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?");
-    break;
-    case 21:
-        //: Translator: Please make sure that the name of the link is coherent with the menu File->Export ADIF for LoTW...
-        description = tr("<b>Tip #21:</b><br>Do you know...<br>You can upload your QSO marked as queued to LoTW via TQSL with <a href=\"#ToolsUploadLoTW\">Tools->Upload to LoTW...</a> ?<br><br>You have to configure TQSL in the preferences to be able to use this functionality.");
-    break;
     default:
         description = tr("TIP-Default: Text");
     break;
@@ -200,12 +188,12 @@ void TipsDialog::setTip(const int _t)
 
     tipTextQLabel->setText(description);
 
-      //qDebug() << "TipsDialog::setTip: END"  << endl;
+    //qDebug() << "TipsDialog::setTip: 2 Height: " << QString::number(_size.height()) << " / Width: " << QString::number(_size.width()) << endl;
 }
 
 void TipsDialog::slotLinkActivated(const QString &_link)
 {
-      //qDebug() << "TipsDialog::slotLinkActivated: " << _link << endl;
+    //qDebug() << "TipsDialog::slotLinkActivated: " << _link << endl;
     //Comprobar el enalce y activar el menu correspondiente
     if (_link == "#ToolsFillInQSO")
     {
@@ -225,7 +213,7 @@ void TipsDialog::slotLinkActivated(const QString &_link)
     }
     else if (_link == "#FileExportLoTWADIF")
     {
-        //emit fileExportForLoTWSignal();
+        emit fileExportForLoTWSignal();
     }
     else if (_link == "#FileOpenKLogFolder")
     {
@@ -242,10 +230,6 @@ void TipsDialog::slotLinkActivated(const QString &_link)
     else if (_link == "#ToolsReceiveRecPendingQSL")
     {
         emit toolRecRecPendingQSLSignal();
-    }
-    else if (_link == "#ToolsUploadLoTW")
-    {
-        emit toolsUploadLoTWSignal();
     }
 }
 

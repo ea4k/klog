@@ -1,11 +1,11 @@
-#include "charts/statsqsosperdxccbarchartwidget.h"
+#include "statsqsosperdxccbarchartwidget.h"
 
 
 StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(){}
 
 StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget" << endl;
+    //qDebug() << "StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget" << endl;
 
     dataProxy = dp;
     chart = new QChart();
@@ -30,25 +30,25 @@ void StatsQSOsPerDXCCBarChartWidget::createUI()
 void StatsQSOsPerDXCCBarChartWidget::prepareChart()
 {
 
-    QString categoriesTitle;
-    QString categoriesElem;
-    QStringList categories;
+    QString x_axisTitle;
+    QString x_axisElem;
+    QStringList x_axis;
     QBarSeries *series = new QBarSeries();
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     QString aux;
 
     int numberPerX = 0;
     chart->removeAllSeries();
-    categoriesTitle = QString();
-    categoriesElem = QString();
-    categories.clear();
+    x_axisTitle = QString();
+    x_axisElem = QString();
+    x_axis.clear();
     axis->clear();
     series->clear();
     QBarSet *set0 = new QBarSet(tr("QSOs per DXCC"));
 
     //*set0->remove(0, set0->count()-1);
     qreal sum = 0;
-    QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, categories.count(), this);
+    QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, x_axis.count(), this);
     progress.setWindowModality(Qt::WindowModal);
     aux = tr("Reading data...") ;
     progress.setLabelText(aux);
@@ -58,7 +58,7 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart()
     entities.clear();
     entities << dataProxy->getEntitiesIds();
 
-       //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
+     //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
 
      QMap<int, int> map; // key,value = number of QSO, dxcc
      int qsos = -1;
@@ -70,11 +70,11 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart()
          qsos = dataProxy->getQSOsWithDXCC((entities.at(i)).toInt(), -1);
          if (qsos>0)
          {
-                //qDebug() << "Checking: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
+              //qDebug() << "Checking: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
 
              if (map.size()<10)
              {
-                    //qDebug() << "Inserting: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
+                  //qDebug() << "Inserting: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
                  map.insert(qsos, (entities.at(i)).toInt());
              }
              else
@@ -84,8 +84,8 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart()
                      it.next();
                      if (it.key()< qsos)
                      {
-                            //qDebug() << "Removing: " << QString::number(it.key()) << " / " << QString::number(it.value()) << endl;
-                            //qDebug() << "Replacing by: " << entities.at(i) << " / " << QString::number(qsos) << " - " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << endl;
+                          //qDebug() << "Removing: " << QString::number(it.key()) << " / " << QString::number(it.value()) << endl;
+                          //qDebug() << "Replacing by: " << entities.at(i) << " / " << QString::number(qsos) << " - " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << endl;
                          map.remove(it.key());
                          map.insert(qsos, (entities.at(i)).toInt());
                          it.toBack();
@@ -101,36 +101,33 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart()
          {
              i = entities.size();
          }
-         //qDebug() << "End of for iteration" << endl;
+       //qDebug() << "End of for iteration" << endl;
      }
 
      QMapIterator<int, int> it(map);
      while (it.hasNext()) {
          it.next();
-         categories.append(dataProxy->getEntityMainPrefix(it.value()));
+         x_axis.append(dataProxy->getEntityMainPrefix(it.value()));
 
          numberPerX = it.key();
          *set0 << numberPerX;
          numberPerX = 0;
-            //qDebug() << "End of while iteration" << endl;
+          //qDebug() << "End of while iteration" << endl;
      }
-        //qDebug() << "Out of while" << endl;
+      //qDebug() << "Out of while" << endl;
 
-     categoriesElem = tr("DXCC");
-     categoriesTitle = tr("Top ten DXCC per QSO");
+     x_axisElem = tr("DXCC");
+     x_axisTitle = tr("Top ten DXCC per QSO");
 
     sum = set0->sum();
     set0->setLabel(QString::number(sum));
 
     series->append(set0);
-    set0->setLabel(categoriesElem);
+    set0->setLabel(x_axisElem);
     chart->addSeries(series);
-    chart->setTitle(categoriesTitle);
+    chart->setTitle(x_axisTitle);
 
-    axis->append(categories);
-    //chart->createDefaultAxes();
-    //series->attachAxis(axis);
-    chart->addAxis(axis, Qt::AlignBottom);
-
-    //chart->setAxisX(axis, series);
+    axis->append(x_axis);
+    chart->createDefaultAxes();
+    chart->setAxisX(axis, series);
 }

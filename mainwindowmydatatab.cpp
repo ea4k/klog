@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -29,7 +29,7 @@
 MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab"   << endl;
+     //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab"   << endl;
     myPowerSpinBox = new QDoubleSpinBox;
     operatorLineEdit = new QLineEdit;
     stationCallSignLineEdit = new QLineEdit;
@@ -44,13 +44,12 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     stationQRZ = QString();         // Defined in the configuration by the user, will be used if the user configured so in the setup
     operatorQRZ = QString();        // Defined in the configuration by the user, will be used if the user configured so in the setup
     myLocator = QString();          // Defined in the configuration by the user, will be used if the user configured so in the setup
-    util = new Utilities;
 
     createUI();
 
     myPower = 0;
     lastPower = 0;
-       //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab - END"   << endl;
+     //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab - END"   << endl;
 
 }
 
@@ -63,7 +62,7 @@ void MainWindowMyDataTab::createUI()
 
     myPowerSpinBox->setDecimals(2);
     myPowerSpinBox->setMaximum(9999);
-    myPowerSpinBox->setSuffix(" " + tr("Watts"));
+    myPowerSpinBox->setSuffix(" " + tr("Watt"));
 
     QLabel *keepLabel = new QLabel();
     keepLabel->setText(tr("Keep this data"));
@@ -110,9 +109,7 @@ void MainWindowMyDataTab::createUI()
     connect(myLocatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotMyLocatorTextChanged() ) );
     connect(myLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
     connect(operatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
-    connect(operatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotOperatorTextChanged()) );
-    connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );    
-    connect(stationCallSignLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStationCallSignTextChanged() ) );
+    connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
 }
 
 void MainWindowMyDataTab::clear(const bool _keepMyData)
@@ -120,11 +117,11 @@ void MainWindowMyDataTab::clear(const bool _keepMyData)
     // _keepMyData comes from the setup
     if (_keepMyData)
     {
-          //qDebug() << "MainWindowMyDataTab::clear:  TRUE"  << endl;
+        //qDebug() << "MainWindowMyDataTab::clear:  TRUE"  << endl;
     }
     else
     {
-          //qDebug() << "MainWindowMyDataTab::clear:  FALSE"  << endl;
+        //qDebug() << "MainWindowMyDataTab::clear:  FALSE"  << endl;
     }
 
     if (keepThisDataForNextQSORadiobutton->isChecked())
@@ -132,7 +129,6 @@ void MainWindowMyDataTab::clear(const bool _keepMyData)
         myPowerSpinBox->setValue(lastPower);
         operatorLineEdit->setText(lastOperatorQRZ.toUpper());
         stationCallSignLineEdit->setText(lastStationQRZ.toUpper());
-        //qDebug() << "MainWindowMyDataTab::clear-1: setMyLocator: " << myLocator  << endl;
         myLocatorLineEdit->setText(lastMyLocator);
     }
     else
@@ -142,7 +138,6 @@ void MainWindowMyDataTab::clear(const bool _keepMyData)
             myPowerSpinBox->setValue(myPower);
             operatorLineEdit->setText(operatorQRZ.toUpper());
             stationCallSignLineEdit->setText(stationQRZ.toUpper());
-            //qDebug() << "MainWindowMyDataTab::clear-2: setMyLocator: " << myLocator  << endl;
             myLocatorLineEdit->setText(myLocator);
         }
         else
@@ -157,31 +152,26 @@ void MainWindowMyDataTab::clear(const bool _keepMyData)
 
 void MainWindowMyDataTab::show()
 {
-       //qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationQRZ << "/" << myLocator << endl;
+     //qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationQRZ << "/" << myLocator << endl;
     myPowerSpinBox->setValue(myPower);
     operatorLineEdit->setText(operatorQRZ);
     stationCallSignLineEdit->setText(stationQRZ);
-    //qDebug() << "MainWindowMyDataTab::show: setMyLocator: " << myLocator  << endl;
     myLocatorLineEdit->setText(myLocator);
 }
 
 void MainWindowMyDataTab::slotMyLocatorTextChanged()
 {
-          //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << endl;
+        //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << endl;
     //logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    int cursorP = myLocatorLineEdit->cursorPosition();
-    myLocatorLineEdit->setText(myLocatorLineEdit->text().toUpper());
-    //qDebug() << "MainWindowMyDataTab::clear: setMyLocator: " << myLocatorLineEdit->text()  << endl;
     if ( locator->isValidLocator((myLocatorLineEdit->text()).toUpper()) )
     {
         myLocator = (myLocatorLineEdit->text()).toUpper();
         myLocatorLineEdit->setPalette(palBlack);
         myLocatorLineEdit->setToolTip(tr("My QTH locator."));
-        myLocatorLineEdit->setCursorPosition(cursorP);
         emit myLocChangedSignal(myLocator);
 
         //dxccStatusWidget->setMyLocator(myLocator);
-              //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: My LOCATOR CHANGED TO: " << myLocator << endl;
+            //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: My LOCATOR CHANGED TO: " << myLocator << endl;
         //slotLocatorTextChanged();
     }
     else
@@ -189,7 +179,6 @@ void MainWindowMyDataTab::slotMyLocatorTextChanged()
         //logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         myLocatorLineEdit->setPalette(palRed);
         myLocatorLineEdit->setToolTip(tr("My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."));
-        myLocatorLineEdit->setCursorPosition(cursorP);
         return;
     }
     //logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -222,7 +211,7 @@ void MainWindowMyDataTab::setSetupMyLocator(const QString _op)
 
 void MainWindowMyDataTab::setMyPower(const double _power)
 {
-      //qDebug() << "MainWindowMyDataTab::setMyPower: " << QString::number(_power) << endl;
+    //qDebug() << "MainWindowMyDataTab::setMyPower: " << QString::number(_power) << endl;
     myPowerSpinBox->setValue(_power);
 }
 
@@ -268,7 +257,6 @@ QString MainWindowMyDataTab::getStationQRZ()
 
 void MainWindowMyDataTab::setMyLocator(const QString _op)
 {
-    //qDebug() << "MainWindowMyDataTab::setMyLocator: " << _op << endl;
     myLocatorLineEdit->setText(_op);
 }
 
@@ -316,36 +304,4 @@ void MainWindowMyDataTab::setData(const double _power, const QString _stationQRZ
     {
         myLocator = QString();
     }
-}
-
-void MainWindowMyDataTab::slotOperatorTextChanged()
-{
-    int cursorP = operatorLineEdit->cursorPosition();
-    operatorLineEdit->setText(operatorLineEdit->text().toUpper());
-    if (util->isValidCall(operatorLineEdit->text()))
-    {
-        operatorLineEdit->setPalette(palBlack);
-        operatorQRZ = (operatorLineEdit->text()).toUpper();
-    }
-    else
-    {
-        operatorLineEdit->setPalette(palRed);
-    }
-    operatorLineEdit->setCursorPosition(cursorP);
-}
-
-void MainWindowMyDataTab::slotStationCallSignTextChanged()
-{
-    int cursorP = stationCallSignLineEdit->cursorPosition();
-    stationCallSignLineEdit->setText(stationCallSignLineEdit->text().toUpper());
-    if (util->isValidCall(stationCallSignLineEdit->text()))
-    {
-        stationCallSignLineEdit->setPalette(palBlack);
-        stationQRZ = (stationCallSignLineEdit->text()).toUpper();
-    }
-    else
-    {
-        stationCallSignLineEdit->setPalette(palRed);
-    }
-    stationCallSignLineEdit->setCursorPosition(cursorP);
 }

@@ -5,7 +5,7 @@
 
 SoftwareUpdateDialog::SoftwareUpdateDialog()
 {
-      //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog"  << endl;
+    //qDebug) << "SoftwareUpdateDialog::SoftwareUpdateDialog"  << endl;
 
     textBrowser = new QTextBrowser;
     textBrowser->setOpenLinks(true);
@@ -37,12 +37,12 @@ SoftwareUpdateDialog::SoftwareUpdateDialog()
     ///
 
     connect(acceptButton, SIGNAL(clicked()), this, SLOT(slotAcceptButtonClicked()));
-     //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog - END"  << endl;
+   //qDebug) << "SoftwareUpdateDialog::SoftwareUpdateDialog - END"  << endl;
 }
 
 void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateNeeded)
 {
-     //qDebug() << "SoftwareUpdateDialog::setVersion: " << tversion << endl;
+   //qDebug) << "SoftwareUpdateDialog::setVersion: " << tversion << endl;
     _version = tversion;
     if (updateNeeded)
     {
@@ -54,26 +54,26 @@ void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateN
     }
 
     textBrowser->setHtml(text);
-     //qDebug() << "SoftwareUpdateDialog::setVersion: END"<< endl;
+   //qDebug) << "SoftwareUpdateDialog::setVersion: END"<< endl;
 }
 
 SoftwareUpdateDialog::~SoftwareUpdateDialog()
 {
-      //qDebug() << "SoftwareUpdateDialog::~SoftwareUpdateDialog"  << endl;
+    //qDebug) << "SoftwareUpdateDialog::~SoftwareUpdateDialog"  << endl;
 }
 
 void SoftwareUpdateDialog::slotAcceptButtonClicked()
 {
-      //qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked"  << endl;
+    //qDebug) << "SoftwareUpdateDialog::slotAcceptButtonClicked"  << endl;
     accept();
-     //qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked END"  << endl;
+   //qDebug) << "SoftwareUpdateDialog::slotAcceptButtonClicked END"  << endl;
 }
 
 
 
 void SoftwareUpdateDialog::keyPressEvent(QKeyEvent *event)
 {
-     //qDebug() << "SoftwareUpdateDialog::keyPressEvent"  << endl;
+   //qDebug) << "SoftwareUpdateDialog::keyPressEvent"  << endl;
     switch (event->key()) {
 
         break;
@@ -83,5 +83,5 @@ void SoftwareUpdateDialog::keyPressEvent(QKeyEvent *event)
         slotAcceptButtonClicked();
 
     }
-     //qDebug() << "SoftwareUpdateDialog::keyPressEvent END"  << endl;
+   //qDebug) << "SoftwareUpdateDialog::keyPressEvent END"  << endl;
 }

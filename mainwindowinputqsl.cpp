@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 //
@@ -32,7 +32,7 @@
 MainWindowInputQSL::MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowInputQSL::MainWindowInputQSL"   << endl;
+     //qDebug() << "MainWindowInputQSL::MainWindowInputQSL"   << endl;
     util = new Utilities;
     qslSentComboBox = new QComboBox;
     qslRecComboBox = new QComboBox;
@@ -50,7 +50,7 @@ MainWindowInputQSL::MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent) :
     createUI();
     setDefaultData();
     clear();
-       //qDebug() << "MainWindowInputQSL::MainWindowInputQSL - END"   << endl;
+     //qDebug() << "MainWindowInputQSL::MainWindowInputQSL - END"   << endl;
 
 }
 
@@ -170,7 +170,7 @@ QString MainWindowInputQSL::getSentVia()
 {
     QString _pm = QString();
     _pm = (((qslSentViaComboBox->currentText()).split('-')).at(0)).simplified();
-       //qDebug() << "MainWindow::getSentVia: " << _pm << endl;
+     //qDebug() << "MainWindow::getSentVia: " << _pm << endl;
      return _pm;
 }
 
@@ -178,7 +178,7 @@ QString MainWindowInputQSL::getRecVia()
 {
     QString _pm = QString();
     _pm = (((qslRecViaComboBox->currentText()).split('-')).at(0)).simplified();
-       //qDebug() << "MainWindowInputQSL::getRecVia: " << _pm << endl;
+     //qDebug() << "MainWindowInputQSL::getRecVia: " << _pm << endl;
      return _pm;
 }
 
@@ -231,7 +231,7 @@ void MainWindowInputQSL::setQSLRecVia(const QString _qs)
 
 void MainWindowInputQSL::setQSLSenVia(const QString _qs)
 {
-       //qDebug() << "MainWindowInputQSL::setQSLSenVia: " << _qs << endl;
+     //qDebug() << "MainWindowInputQSL::setQSLSenVia: " << _qs << endl;
     if(( qslSentViaComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
     {
         qslSentViaComboBox->setCurrentIndex( qslSentViaComboBox->findText(_qs+" -", Qt::MatchStartsWith));
@@ -309,7 +309,7 @@ void MainWindowInputQSL::setQSLSenDate(const QDate _qs)
 
 void MainWindowInputQSL::slotQSLViaTextChanged()
 {
-       //qDebug() << "MainWindow::slotQSLViaTextChanged: " << qslViaLineEdit->text() << " / Length: " << QString::number((qslViaLineEdit->text()).size()) << endl;
+     //qDebug() << "MainWindow::slotQSLViaTextChanged: " << qslViaLineEdit->text() << " / Length: " << QString::number((qslViaLineEdit->text()).size()) << endl;
     qslViaLineEdit->setText((qslViaLineEdit->text()).toUpper());
 }
 

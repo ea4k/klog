@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 //
@@ -49,7 +49,6 @@ public:
     void clear();
     void showQSO(const int _q);
     void showQSOs(QList<int> qsoIdList);
-    void setStationCallsign(const QString &_st);
 
     void searchToolNeededQSLToSend();
 
@@ -90,8 +89,6 @@ private slots:
     void slotQSOToEditFromSearch();
     void qslRecViaBureauMarkReq(const int _qsoId);
     void qslRecViaDirectMarkReq(const int _qsoId);
-    void slotStationCallsignChanged();
-    void slotRadioButtonToggled();
 
 
 signals:
@@ -106,8 +103,6 @@ signals:
 
 private:
     void createUI();
-    void selectStationCallSign();
-    void fillStationCallsignComboBox();
     // The following  function is adding a line to the search list
     void addQSOToSearchList(const QString _call, const QString _dateTime, const QString _band, const QString _mode, const QString _qslrx, const QString _qsltx, const QString _stationcallsign, const QString _id, const QColor _color);
     bool fillTheList(const QString _query);
@@ -118,12 +113,10 @@ private:
     QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
     QRadioButton *searchAllRadioButton;
     QTreeWidget *searchResultsTreeWidget;
-    QComboBox *stationCallsignComboBox;
 
     bool qslingNeeded;
     bool searchSelectAllClicked, stationCallSignShownInSearch;
     int currentLog;
-    QString mainStationCallsign;
 
     DataProxy_SQLite *dataProxy;
     Awards *awards;
@@ -145,8 +138,6 @@ private:
 
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
-
-
 
 };
 

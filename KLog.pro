@@ -1,9 +1,8 @@
 CONFIG += app_bundle
 CONFIG += static
-CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.1
+VERSION = 0.9.9
 DEFINES += APP_VERSION="$$VERSION"
 
 APP_NAME = KLog
@@ -26,75 +25,66 @@ QT += core \
     sql \
     network \
     serialport \
-    printsupport \
-    charts \
     widgets
 
-greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
-{
-    macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+    QT += printsupport
+    QT += widgets \
+        charts
+}
+
+
+greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4) {
+macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
 }
 
 HEADERS += setupdialog.h \
     aboutdialog.h \
     awardswidget.h \
-    lotwutilities.h \
-    mainqsoentrywidget.h \
+    logviewsortfilterproxymodel.h \
     mainwindow.h \
-    pstrotatorsupport.h \
-    widgets/adiflotwexportwidget.h \
-    widgets/showadifimportwidget.h \
     world.h \
     logwindow.h \
     filemanager.h \
     database.h \
+    setuppagemisc.h \
     locator.h \
     dxcluster.h \
-    awards.h \
+    awards.h \   
+    setuppageuserdata.h \
+    setuppagedxcluster.h \
+    setuppagecolors.h \   
+    setuppagelogs.h \
+    setuppageworldeditor.h \
+    setupentitydialog.h \   
     startwizard.h \
     downloadcty.h \
     dataproxy_sqlite.h \
     mainwindowsattab.h \
-    awarddxmarathon.h \
+    awarddxmarathon.h \ 
+    setuppagelogsnew.h \
+    setuppageclublog.h \
     elogclublog.h \
     softwareupdate.h \
     softwareupdatedialog.h \
-    utilities.h \
+    utilities.h \  
     dxccstatuswidget.h \
     mainwindowmydatatab.h \
     mainwindowinputcomment.h \
-    mainwindowinputothers.h \
+    mainwindowinputothers.h \   
     mainwindowinputeqsl.h \
     mainwindowinputqsl.h \
+    setuppagebandmode.h \
     logmodel.h \
     searchwidget.h \
     infowidget.h \
     showerrordialog.h \
     udpserver.h \
+    setuppageudp.h \
     statisticswidget.h \
     charts/barchartstats.h \
     updatesatsdata.h \
-    hamlibclass.h \
-    tipsdialog.h \
-    worldmapwidget.h \
-    widgets/rotator.h \
-    widgets/rotatorcontrol.h \
-    setuppages/setuppageinterfaceswindows.h \
-    setuppages/setuppagelotw.h \
-    setuppages/setuppagemisc.h \
-    setuppages/setuppageuserdata.h \
-    setuppages/setuppagedxcluster.h \
-    setuppages/setuppagecolors.h \
-    setuppages/setuppagelogs.h \
-    setuppages/setuppageworldeditor.h \
-    setuppages/setuppagesats.h \
-    setuppages/setuppagesatsnew.h \
-    setuppages/setuppagehamlib.h \
-    setuppages/setuppagelogsnew.h \
-    setuppages/setuppageclublog.h \
-    setuppages/setuppagebandmode.h \
-    setuppages/setupentitydialog.h \
-    setuppages/setuppageudp.h \
     charts/statsgeneralchartwidget.h \
     charts/statsqsosperyearbarchartwidget.h \
     charts/statsentitiesperyearbarchartwidget.h \
@@ -107,50 +97,43 @@ HEADERS += setupdialog.h \
     charts/statsqsospermonthbarchartwidget.h \
     charts/statsworkedconfirmedpiechartwidget.h \
     charts/statsworkedsentpiechartwidget.h \
-    charts/statssentconfirmedpiechartwidget.h
+    charts/statssentconfirmedpiechartwidget.h \
+    setuppagesats.h \
+    setuppagesatsnew.h \
+    setuppagehamlib.h \
+    hamlibclass.h \
+    tipsdialog.h \
+    worldmapwidget.h
 
 message(Sources)
 
 SOURCES += main.cpp \
     aboutdialog.cpp \
     awardswidget.cpp \
-    lotwutilities.cpp \
-    mainqsoentrywidget.cpp \
+    logviewsortfilterproxymodel.cpp \
     mainwindow.cpp \
-    pstrotatorsupport.cpp \
     setupdialog.cpp \
-    widgets/adiflotwexportwidget.cpp \
-    widgets/rotator.cpp \
-    widgets/rotatorcontrol.cpp \
-    widgets/showadifimportwidget.cpp \
     world.cpp \
     logwindow.cpp \
     filemanager.cpp \
     database.cpp \
     dataproxy_sqlite.cpp \
     downloadcty.cpp \
-    dxcluster.cpp \      
+    dxcluster.cpp \  
+    setuppagemisc.cpp \
     locator.cpp \
     awards.cpp \ 
-    setuppages/setuppageinterfaceswindows.cpp \
-    setuppages/setuppagelotw.cpp \
-    setuppages/setuppagemisc.cpp \
-    setuppages/setuppageuserdata.cpp \
-    setuppages/setuppagedxcluster.cpp \
-    setuppages/setuppagecolors.cpp \
-    setuppages/setuppagelogs.cpp \
-    setuppages/setuppageworldeditor.cpp \
-    setuppages/setuppagelogsnew.cpp \
-    setuppages/setuppageclublog.cpp \
-    setuppages/setuppagebandmode.cpp \
-    setuppages/setuppageudp.cpp \
-    setuppages/setuppagesats.cpp \
-    setuppages/setuppagesatsnew.cpp \
-    setuppages/setuppagehamlib.cpp \
-    setuppages/setupentitydialog.cpp \
+    setuppageuserdata.cpp \
+    setuppagedxcluster.cpp \
+    setuppagecolors.cpp \   
+    setuppagelogs.cpp \     
+    setuppageworldeditor.cpp \
+    setupentitydialog.cpp \   
     startwizard.cpp \
     mainwindowsattab.cpp \
     awarddxmarathon.cpp \ 
+    setuppagelogsnew.cpp \
+    setuppageclublog.cpp \
     elogclublog.cpp \
     softwareupdate.cpp \
     softwareupdatedialog.cpp \
@@ -161,11 +144,13 @@ SOURCES += main.cpp \
     mainwindowinputothers.cpp \   
     mainwindowinputeqsl.cpp \
     mainwindowinputqsl.cpp \
+    setuppagebandmode.cpp \
     logmodel.cpp \
     searchwidget.cpp \
     infowidget.cpp \
     showerrordialog.cpp \
     udpserver.cpp \
+    setuppageudp.cpp \
     statisticswidget.cpp \
     charts/barchartstats.cpp \
     updatesatsdata.cpp \
@@ -182,6 +167,9 @@ SOURCES += main.cpp \
     charts/statsworkedsentpiechartwidget.cpp \
     charts/statssentconfirmedpiechartwidget.cpp \
     charts/statsqsosperbandbarchartwidget.cpp \
+    setuppagesats.cpp \
+    setuppagesatsnew.cpp \
+    setuppagehamlib.cpp \
     hamlibclass.cpp \
     tipsdialog.cpp \
     worldmapwidget.cpp
@@ -276,6 +264,7 @@ unix:!mac {
     INSTALLS += translations
     INSTALLS += datafiles
     LIBS += -lhamlib
+
 }
 
 macx: {
@@ -286,13 +275,13 @@ macx: {
     LIBS += -L"../hamlib/lib" -lhamlib
 }
 
-win32: {    
+win32: {
     RC_ICONS = klog.ico
     TARGET = klog
     QMAKE_TARGET_COMPANY = EA4K
     QMAKE_TARGET_DESCRIPTION = Hamradio logging
-    LIBS += -L"$$PWD/../libs/hamlib-w32-3.3/lib/gcc" -lhamlib
-    INCLUDEPATH += "$$PWD/../libs/hamlib-w32-3.3/include/"
+    LIBS += -L"C:/radio/hamlib-w32-3.3/lib/gcc" -lhamlib
+    INCLUDEPATH += "C:/radio/hamlib-w32-3.3/include/"
 }
 
 else:

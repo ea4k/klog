@@ -15,13 +15,15 @@ DownLoadCTY::DownLoadCTY(const QString _klogDir, const QString _klogVersion) : Q
 
     manager = new QNetworkAccessManager;
     request = new QNetworkRequest;
-    //request->setUrl(QUrl("https://www.country-files.com/cty/cty.csv"));
-    request->setUrl(QUrl("https://www.country-files.com/bigcty/cty.csv"));
+    //request->setUrl(QUrl("http://www.country-files.com/cty/cty.csv"));
+    request->setUrl(QUrl("http://www.country-files.com/bigcty/cty.csv"));
     QString ver = "KLog"+_klogVersion;
     QByteArray str;
     str.clear();
     str.append(util->getAgent(_klogVersion));
+    //str.append(_klogVersion);
 
+    //request.setUrl(QUrl("http://qt.nokia.com"));
     request->setRawHeader("User-Agent", str);
     //request->setHeader(QNetworkRequest::UserAgentHeader, str);
 
@@ -41,7 +43,7 @@ DownLoadCTY::~DownLoadCTY()
  void DownLoadCTY::slotDownloadFinished(QNetworkReply *reply)
 {
    //qDebug() << "DownLoadCTY::slotDownloadFinished"  << endl;
-   emit downloadStopped();
+
    QUrl url = reply->url();
    //qDebug() << "DownLoadCTY::slotDownloadFinished - URL: " << url.toString()  << endl;
 
@@ -84,7 +86,7 @@ DownLoadCTY::~DownLoadCTY()
 
    reply->deleteLater();
 
-   emit done(true);
+   emit done();
 
 }
 
@@ -124,7 +126,7 @@ void DownLoadCTY::slotErrorManagement(QNetworkReply::NetworkError networkError)
         //qDebug() << "DownLoadCTY::downloadFinished: ERROR: " << QString::number(result) << endl;
     }
 
-    emit actionError(result);
+    actionError(result);
 }
 
 QString DownLoadCTY::saveFileName(const QUrl &url)
@@ -147,6 +149,7 @@ QString DownLoadCTY::saveFileName(const QUrl &url)
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
         msgBox.exec();
+
 
 
         // already exists, don't overwrite

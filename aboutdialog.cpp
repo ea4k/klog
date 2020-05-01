@@ -9,7 +9,7 @@
 AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     : QDialog(parent)
 {
-      //qDebug() << "AboutDialog::AboutDialog" << endl;
+    //qDebug() << "AboutDialog::AboutDialog" << endl;
 
     QPixmap pixmap(":/img/klog_256x256.png");
 
@@ -24,13 +24,13 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     const QString description = "<center><h2>KLog " + tversion + "</h2><h4> " +tr("By") +
             " <a href=\"https://www.qrz.com/db/ea4k\">EA4K</a> - 2002-2020</h4></center><br>" +
             tr("KLog is a free logbook for hamradio operators.") +"<br><br><b>" +
-            tr("Please be aware that this is a development release and it may contain many bugs.<br>Backup your data before using this software!") +
+            tr("Please know that this is an BETA release and it may contain many bugs.<br>Backup your data before using this software!") +
             "</b><br><br>" +
-            tr("Since 0.6.2, KLog has been fully rewritten to provide a cross-platform application that runs on all major operating systems (Linux, macOS and Windows) and to support new functionality.") +
+            tr("KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, macOS & Windows) and provide new functionalities that KLog was not providing.") +
             "<br><br>" +
             tr("Please provide your review in KLog's eHam review page:") +
             "<bR>" +
-            "<a href=https://www.eham.net/reviews/detail/3118>https://www.eham.net/reviews/detail/3118</a><br><br>" +
+            "<a href=http://www.eham.net/reviews/detail/3118>http://www.eham.net/reviews/detail/3118</a><br><br>" +
             tr("Find more information and the latest release at") + "<br><a href=https://www.klog.xyz>https://www.klog.xyz</a><br><br>" +
             tr("Author") + ": <a href=https://jaime.robles.es/klog>Jaime Robles</a>, <a href=\"https://www.qrz.com/db/ea4k\">EA4K</a><br><a href=mailto:jaime@robles.es>jaime@robles.es</a>";
 
@@ -89,7 +89,7 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     translatorsLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
     QString privacy = "<center><h2>" + tr("Privacy advisory") + "</h2></h4></center><br>" +
-            tr("KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account users' needs.") +
+            tr("KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account user's needs.") +
             "<br><br>" + tr("At present, the data that is provided is the following:") +
             "<ul><li>" + tr("Callsign") + "</li><li>" + tr("KLog version") + "</li><li>" + tr("Operating system") + "</li></ul><br><br><b>" +
             tr("Be aware that you can enable/disable this feature from the Misc tab in the Setup page.") + "</b>";
@@ -141,7 +141,7 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     setLayout(layout);
 
 
-       //qDebug() << "AboutDialog::AboutDialog - END" << endl;
+     //qDebug() << "AboutDialog::AboutDialog - END" << endl;
 
 }
 AboutDialog::~AboutDialog()

@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -30,32 +30,34 @@
 
 FileManager::FileManager(DataProxy_SQLite *dp)
 {
-       //qDebug() << "FileManager::FileManager()-1" << endl;
+     //qDebug() << "FileManager::FileManager()-1" << endl;
     constrid = 1;
     dataProxy = dp;
-    dbCreated = false;
-    rstTXDefault  = false;
-    rstRXDefault = false;
-    ignoreUnknownAlways = false;
-    noMoreQso = false;
-    defaultStationCallsign = QString();
 
     util = new Utilities;
     klogVersion = util->getVersion();
     db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
 
-    usePreviousStationCallsignAnswerAlways = false;
+    ignoreUnknownAlways = false;
     world = new World(dataProxy, Q_FUNC_INFO);
     awards = new Awards(dataProxy, Q_FUNC_INFO);
+
+
+
+    //dataProxyPrepared = new DataProxy_SQLite(klogVersion);
+
+    noMoreQso = false;
+
+
     hashLogs.clear();
-    //qDebug() << "FileManager::FileManager()-1  - END" << endl;
+     //qDebug() << "FileManager::FileManager()-1  - END" << endl;
 
 }
 
 /*
 FileManager::FileManager(DataProxy_SQLite *dp, const QString _klogDir)
 {
-       //qDebug() << "FileManager::FileManager()-2: Dir" << _klogDir << endl;
+     //qDebug() << "FileManager::FileManager()-2: Dir" << _klogDir << endl;
     dataProxy = dp;
     db = new DataBase(0);
 
@@ -73,18 +75,15 @@ FileManager::FileManager(DataProxy_SQLite *dp, const QString _klogDir)
 
 }
 */
-FileManager::FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_softVersion)
+FileManager::FileManager(DataProxy_SQLite *dp, const QString _klogDir, const QString _softVersion)
 //FileManager::FileManager(const QString _klogDir, const QString _softVersion, DataBase _db)
 {
-       //qDebug() << "FileManager::FileManager()-3: Dir(2)" << _klogDir << endl;
+     //qDebug() << "FileManager::FileManager()-3: Dir(2)" << _klogDir << endl;
     constrid = 2;
     dataProxy = dp;
     util = new Utilities;
     util->setVersion(klogVersion);
-    defaultStationCallsign = QString();
-    dbCreated = false;
-    rstTXDefault  = false;
-    rstRXDefault = false;
+
     db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
 
     klogVersion = _softVersion;
@@ -92,13 +91,12 @@ FileManager::FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QS
 
     klogDir = _klogDir;
     ignoreUnknownAlways = false;
-    usePreviousStationCallsignAnswerAlways = false;
     world = new World(dataProxy, klogDir, Q_FUNC_INFO);
     awards = new Awards(dataProxy, Q_FUNC_INFO);
 
     noMoreQso = false;  
     hashLogs.clear();
-       //qDebug() << "FileManager::FileManager()-3: Dir(2) - END"  << endl;
+     //qDebug() << "FileManager::FileManager()-3: Dir(2) - END"  << endl;
 }
 
 FileManager::~FileManager()
@@ -106,22 +104,22 @@ FileManager::~FileManager()
 
 }
 
-bool FileManager::checkADIFValidFormat(const QStringList &_qs)
+bool FileManager::checkADIFValidFormat(const QStringList _qs)
 {
     QStringList qs = _qs;
 
 
     if (qs.size()!= 2)
     {
-           //qDebug() << "FileManager::checkADIFValidFormat-0 (not two) " << endl;
+         //qDebug() << "FileManager::checkADIFValidFormat-0 (not two) " << endl;
         return false;
     }
 
     QString q0 = qs.at(0);
     QString q1 = qs.at(1);
 
-      //qDebug() << "FileManager::checkADIFValidFormat: " << qs.at(0) << endl;
-      //qDebug() << "FileManager::checkADIFValidFormat: " << qs.at(1) << endl;
+    //qDebug() << "FileManager::checkADIFValidFormat: " << qs.at(0) << endl;
+    //qDebug() << "FileManager::checkADIFValidFormat: " << qs.at(1) << endl;
 
     int len = 0;
     int i = (qs.at(0)).count(":");       
@@ -136,114 +134,111 @@ bool FileManager::checkADIFValidFormat(const QStringList &_qs)
     }
     else
     {
-           //qDebug() << "FileManager::checkADIFValidFormat-1 " << endl;
+         //qDebug() << "FileManager::checkADIFValidFormat-1 " << endl;
         return false;
     }
 
     //i = (qs.at(0)).indexOf(":");
     //i = (qs.at(0)).length() - i -1;
 
-       //qDebug() << "i = " << QString::number(i) << "/" << qs.at(0) << endl;
+     //qDebug() << "i = " << QString::number(i) << "/" << qs.at(0) << endl;
 
 
     //len = ( (qs.at(0)).right(i)).toInt();
-       //qDebug() << "len = " << QString::number(len) << endl;
+     //qDebug() << "len = " << QString::number(len) << endl;
 
     if ( (q1).length() != len )
     {
-           //qDebug() << "FileManager::checkADIFValidFormat-2: " << (qs.at(1)) << " - " << QString::number((qs.at(1)).length()) << "/" << QString::number(len) << endl;
+         //qDebug() << "FileManager::checkADIFValidFormat-2: " << (qs.at(1)) << " - " << QString::number((qs.at(1)).length()) << "/" << QString::number(len) << endl;
         return false;
     }
 
     if (len <= 0)
     {
-           //qDebug() << "FileManager::checkADIFValidFormat-3 " << endl;
+         //qDebug() << "FileManager::checkADIFValidFormat-3 " << endl;
         return false;
     }
 
-       //qDebug() << "FileManager::checkADIFValidFormat-4 (true)" << endl;
+     //qDebug() << "FileManager::checkADIFValidFormat-4 (true)" << endl;
 
     return true;
 }
 
 bool FileManager::adifLogExport(const QString& _fileName, const int _logN)
 {
-     //qDebug() << "FileManager::adifLogExport" << _fileName << endl;
+   //qDebug() << "FileManager::adifLogExport" << endl;
 
 
     return adifLogExportToFile(_fileName, _logN, false, false, false);
 
 }
 
-void FileManager::showError (const QString &_txt)
+int FileManager::adifLoTWLogExport(const QString& _fileName, const int _logN)
 {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle(tr("KLog - Error"));
-    msgBox.setIcon(QMessageBox::Warning);
-
-    QString aux = QString(_txt );
-    msgBox.setText(aux);
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    int ret = msgBox.exec();
-    switch (ret) {
-      case QMessageBox::Ok:
-          // Ok was clicked
-            default:
-            // should never be reached
-          break;
-    }
-}
-
-QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN)
-{
-    //qDebug() << "FileManager::adifLoTWLogExport: " << _fileName << "/" << _callsign << endl;
-     QList<int> qsos;
-     qsos.clear();
+     //qDebug() << "FileManager::adifLoTWLogExport: " << _fileName << endl;
 
     if (!dataProxy->doesThisLogExist(_logN))
     {
-           //qDebug() << "FileManager::adifLoTWLogExport - The log does not exist" << endl;
-
-        showError(tr("The selected log does not exist, please check it again."));
-        return qsos;
-    }
-
-    QString queryStringCount;
-    QString queryString;
-    QString _queryStation;
-
-    if (util->isValidCall(_callsign))
-    {
-        _queryStation = QString("station_callsign ='%1'").arg(_callsign);
-    }
-    else
-    {
-        _queryStation = QString("station_callsign =''");
-    }
-    /*
-    QString _queryDateFrom;
-    if (_startDate.isValid())
-    {
-        _queryDateFrom = QString("qso_date >= '%1'").arg(_startDate.toString("yyyyMMdd"));
-    }
-    else
-    {
-        //TODO
-    }
-    */
-
-    if ((!util->isValidCall(_callsign)) || (_callsign == !"ALL"))
-    {
-        showError(tr("The selected callsign (%1) is not valid, please check it again.").arg(_callsign));
-        return qsos;
+         //qDebug() << "FileManager::adifLoTWLogExport - The log does not exist" << endl;
+        return -1;
     }
 
     QFile file(_fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return -2;
+
+    QString stationCallToUse = QString();
+    QStringList stationCallSigns;
+    stationCallSigns.clear();
+    stationCallSigns << "NONE";
+    stationCallSigns << dataProxy->getStationCallSignsFromLog(_logN);
+    //bool callsignTyped = false;
+
+    if (stationCallSigns.length()>1)
     {
-        showError(tr("The file %1 can't be opened.").arg(_fileName));
-        return qsos;
+        QString msg = QString(tr("The log that you have selected contains more than just one station callsign.") + "\n\n" + tr("Please select the station callsign you want to export the log from:"));
+
+        bool ok;
+        stationCallToUse = QInputDialog::getItem(this, tr("Station Callsign:"),
+                                             msg, stationCallSigns, 0, false, &ok);
+
+        if (ok && !stationCallToUse.isEmpty())
+        {
+             //qDebug() << "FileManager::adifLoTWLogExport: StatioNCallsign: " << stationCallToUse << endl;
+        }
+        else
+        {
+            stationCallToUse = (QInputDialog::getText(this, tr("Define Station Callsign"),
+                                                     tr("You have selected no callsign. KLog will export QSOs without a station callsign defined and those with the call you are entering here.") + "\n\n" + tr("Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:"), QLineEdit::Normal,
+                                                     "", &ok)).toUpper();
+             if (ok)
+             {
+                //callsignTyped = true;
+
+             }
+             else
+             {
+                 QMessageBox msgBox;
+                 msgBox.setIcon(QMessageBox::Warning);
+
+                 QString aux = QString(tr("No station callsign has been selected and therefore no log will be exported") );
+                 msgBox.setText(aux);
+                 msgBox.setStandardButtons(QMessageBox::Ok);
+                 int ret = msgBox.exec();
+                 switch (ret) {
+                   case QMessageBox::Ok:
+                       // Ok was clicked
+                       return -3;
+                       default:
+                         // should never be reached
+                       break;
+                 }
+
+             }
+        }
     }
+
+
 
     QTextStream out(&file);
     int numberOfQsos = dataProxy->getHowManyQSOInLog(_logN);
@@ -254,1695 +249,218 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
     progress.setMaximum(numberOfQsos);
     progress.setWindowModality(Qt::ApplicationModal);
 
+    out << "ADIF v3.0.7 Export from KLog\nhttp://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
+    out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
 
-    //QString queryString;
+    QDateTime dateTime = (QDateTime::currentDateTime()).toUTC();
+
+    out << "<APP_KLOG_LOG_DATE_EXPORT:" << QString::number((dateTime.toString("yyyyMMdd-hhmm")).length()) << ">" << dateTime.toString("yyyyMMdd-hhmm") << endl;
+
+    out << "<EOH>" << endl;
+
+    QString queryString = QString("SELECT call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log WHERE lognumber='%1'").arg(_logN);
     QSqlQuery query;
-    if (_callsign == "ALL")
-    {
-        queryString = QString("SELECT COUNT (id) FROM log");
-    }
-    else
-    {
-        queryString = QString("SELECT COUNT (id) FROM log WHERE lognumber='%1' AND station_callsign ='%2' AND lotw_qsl_sent='Q'").arg(_logN).arg(_callsign);
-    }
 
     bool sqlOK = query.exec(queryString);
      //qDebug() << "FileManager::adifLoTWLogExport: " << query.lastQuery() << endl;
     if (!sqlOK)
     {
-           //qDebug() << "FileManager::adifLoTWLogExport: Query Error"  << endl;
+         //qDebug() << "FileManager::adifLoTWLogExport: Query Error"  << endl;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        return qsos;
+        return -4;
     }
-    else
-    {
-        query.next();
-        if (query.isValid())
-        {
-            i = (query.value(0)).toInt();
-            if (i>0)
-            {
-                numberOfQsos = i;
-            }
-            else if (i == 0)
-            {
-                showError(tr("There are no QSOs pending to be uploaded with that station callsign."));
-                return qsos;
-            }
-        }
-    }
-      out << "ADIF v3.0.7 Export from KLog\nhttps://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
-      //qDebug() << "FileManager::adifLoTWLogExport: Number: " << QString::number(numberOfQsos) << endl;
-    out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
-
-
-
-    QDateTime dateTime = (QDateTime::currentDateTime()).toUTC();
-
-    out << "<APP_KLOG_LOG_DATE_EXPORT:" << QString::number((dateTime.toString("yyyyMMdd-hhmm")).length()) << ">" << dateTime.toString("yyyyMMdd-hhmm") << endl;
-
-    out << "<EOH>" << endl;
-
-    // Required fields: call sign, UTC Date, UTC time, Mode, Band
-    // Optional fields: RX band, Frecuency TX, frecuency RX, Propagation mode, Satellite
-
-    i = 0;
-
-    if (_callsign == "ALL")
-    {
-        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log ");
-    }
-    else
-    {
-        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log WHERE lognumber='%1' AND station_callsign ='%2' AND lotw_qsl_sent='Q'").arg(_logN).arg(_callsign);
-    }
-
-
-
-
-    sqlOK = query.exec(queryString);
-      //qDebug() << "FileManager::adifLoTWLogExport: " << query.lastQuery() << endl;
-    if (!sqlOK)
-    {
-           //qDebug() << "FileManager::adifLoTWLogExport: Query Error"  << endl;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        return qsos;
-    }
-
 
     QSqlRecord rec = query.record();
     int nameCol;
     QString aux, aux2;
     QString bandst, bandrxst;
-
-    //bool finishExport = false;
     bool propsat;
-    //while ( (query.next()) && (!finishExport))
-    while ( query.next() )
+    while ( (query.next()))
     {
-        double freqTX, freqRX;
-        freqTX = 0.0;
-        freqRX = 0.0;
-        bandrxst.clear();
-        bandst.clear();
-        aux.clear();
-
-           //qDebug() << "FileManager::adifLoTWLogExport: Start of While"  << endl;
+         //qDebug() << "FileManager::adifLoTWLogExport: Start of While"  << endl;
         if (query.isValid())
         {
-
-              //qDebug() << "FileManager::adifLoTWLogExport: Start of isValid"  << endl;
-            propsat = false;    // Reset the QSO in case it is a Satellite QSO
-            nameCol = rec.indexOf("id");
-            qsos.append((query.value(nameCol)).toInt());
-            nameCol = rec.indexOf("call");
-
-            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-
-            if (util->isValidCall(aux))
-            {
-                out << "<CALL:" << QString::number(aux.length()) << ">" << aux << " ";
-            }
-            else
-            {
-                QMessageBox msgBox;
-                msgBox.setIcon(QMessageBox::Warning);
-                msgBox.setWindowTitle(tr("KLog - Invalid call detected"));
-                QString aux = QString(tr("An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?").arg(aux));
-                msgBox.setText(aux);
-                msgBox.setInformativeText(tr("Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished."));
-                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                msgBox.setDefaultButton(QMessageBox::No);
-                int ret = msgBox.exec();
-                switch (ret) {
-                  case QMessageBox::Yes:
-                      // Yes was clicked
-                       out << "<CALL:" << QString::number(aux.length()) << ">" << aux << " ";
-                      break;
-                  case QMessageBox::No:
-                        // No Save was clicked
-                      break;
-                  default:
-                        // should never be reached
-                      break;
-                }
-            }
-              //qDebug() << "FileManager::adifLoTWLogExport: CALL"  << endl;
-
-            nameCol = rec.indexOf("qso_date");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            if ((aux.length()) == 10){
-                aux.remove(QChar('-'), Qt::CaseInsensitive);
-                aux.remove(QChar('/'), Qt::CaseInsensitive);
-                QDate date = QDate::fromString(aux, "yyyyMMdd");
-                if (util->isValidDate(date))
-                {
-                    out << "<QSO_DATE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-            }
-
-            nameCol = rec.indexOf("time_on");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            if ((QTime::fromString(aux,"hh:mm:ss")).isValid())
-            {
-                aux.remove(QChar(':'), Qt::CaseInsensitive);
-                out << "<TIME_ON:" << QString::number(aux.length()) << ">" << aux  << " ";
-            }
-
-            nameCol = rec.indexOf("bandid");
-            aux = (query.value(nameCol)).toString();
-              //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-1: "  << aux << endl;
-            aux = util->checkAndFixASCIIinADIF(aux);
-              //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-2: "  << aux << endl;
-            aux = dataProxy->getNameFromBandId(aux.toInt());
-            if (dataProxy->getIdFromBandName(aux)>=0)
-            {
-                //out << "<BAND:" << QString::number(aux.length()) << ">" << aux  << " ";
-                bandst = aux;
-            }
-
-            nameCol = rec.indexOf("freq");
-            aux = (query.value(nameCol)).toString();
-              //qDebug() << "FileManager::adifLoTWLogExportToFile FREQ1: "  << aux << endl;
-            aux = util->checkAndFixASCIIinADIF(aux);
-            freqTX = aux.toDouble();
-            if (freqTX > 0.0)
-            {
-            //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
-                if (dataProxy->getBandIdFromFreq(freqTX) != dataProxy->getIdFromBandName(bandst))
-                {
-                    bandst = dataProxy->getBandNameFromFreq(freqTX);
-                }
-                out << "<FREQ:" << QString::number(aux.length()) << ">" << aux  << " ";
-            }
-            if (dataProxy->getIdFromBandName(bandst)>0)
-            {
-                out << "<BAND:" << QString::number(bandst.length()) << ">" << bandst  << " ";
-            }
-            // Now the BAND RX
-            nameCol = rec.indexOf("band_rx");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            aux = dataProxy->getNameFromBandId(aux.toInt());
-            if (dataProxy->getIdFromBandName(aux)>=0)
-            {
-                bandrxst = aux;
-            }
-
-            nameCol = rec.indexOf("freq_rx");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            freqRX = aux.toDouble();
-            if (freqRX > 0.0)
-            {
-            //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
-                if (dataProxy->getBandIdFromFreq(freqRX) != dataProxy->getIdFromBandName(bandrxst))
-                {
-                    bandrxst = dataProxy->getBandNameFromFreq(freqRX);
-                }
-                out << "<FREQ_RX:" << QString::number(aux.length()) << ">" << aux  << " ";
-            }
-            if (dataProxy->getIdFromBandName(bandrxst)>0)
-            {
-                out << "<BAND_RX:" << QString::number(bandrxst.length()) << ">" << bandrxst  << " ";
-            }
-            // END of Band RX
-
-            nameCol = rec.indexOf("modeid");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            // get SubModeId to check if it is the same or not from modeid
-            aux2 = dataProxy->getSubModeFromId(aux.toInt());
-            //aux = db->getModeNameFromID2(aux.toInt());
-            aux = dataProxy->getNameFromSubMode(aux2);
-
-            if ((aux.length()>1) && (dataProxy->getIdFromModeName(aux)>=0))
-            {
-                out << "<MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
-            }
-            if ((aux != aux2) && (aux.length()>1) && (dataProxy->getSubModeIdFromSubMode(aux2)>=0) )
-            {
-                out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
-            }
-
-            nameCol = rec.indexOf("prop_mode");
-            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-            if ((aux.length())>1)
-            {
-                out << "<PROP_MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                if (aux == "SAT")
-                {
-                    propsat = true;
-                }
-            }
-              //qDebug() << "FileManager::adifLoTWLogExport: PROP_MODE"  << endl;
-
-            nameCol = rec.indexOf("sat_name");
-            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-            if ((aux.length())>0)
-            {
-                out << "<SAT_NAME:" << QString::number(aux.length()) << ">" << aux  << " ";
-                if (!propsat)
-                {
-                    out << "<PROP_MODE:3>SAT ";
-                }
-            }
-                   //qDebug() << "FileManager::adifLoTWLogExport: SAT_NAME"  << endl;
-
             nameCol = rec.indexOf("station_callsign");
             aux = (query.value(nameCol)).toString();
-              //qDebug() << "FileManager::adifLoTWLogExport: StationCallSign: " << aux  << endl;
 
-            if ((util->isValidCall(aux)))
-            { // User selected one station callsign from the log
-                out << "<STATION_CALLSIGN:" << QString::number(aux.length()) << ">" << aux  << " ";
-            }
-            else
-            { // Other cases
-
-            }
-
-            out << "<EOR> " << endl;
-            i++;
-
-            if (( (i % step ) == 0) )
-            { // To update the speed I will only show the progress once each X QSOs
-                  //qDebug() << "FileManager::adifLoTWLogExport: MOD 0 - i = " << QString::number(i)  << endl;
-                aux = tr("Exporting LoTW ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
-                progress.setLabelText(aux);
-                progress.setValue(i);
-            }
-            else
-            {
-                      //qDebug() << "FileManager::adifLoTWLogExport: Mod: "<< QString::number(i) << " mod " << QString::number(step) << " = " << QString::number(i % step) << endl;
-            }
-        }
-           //qDebug() << "FileManager::adifLoTWLogExport: End Of Valid"  << endl;
-        if ( progress.wasCanceled() )
-        {
-            QMessageBox msgBox;
-            msgBox.setWindowTitle(tr("KLog - User cancelled"));
-            QString aux = QString(tr("You have canceled the file export. The file will be removed and no data will be exported.") + "\n" + tr("Do you still want to cancel?"));
-            msgBox.setText(aux);
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::No);
-            int ret = msgBox.exec();
-            switch (ret) {
-              case QMessageBox::Yes:
-                  // Yes was clicked
-                   // finishExport = true;
-                    qsos.clear();
-                    return qsos;
-              case QMessageBox::No:
-                    // No Save was clicked
-                  break;
-              default:
-                    // should never be reached
-                  break;
-            }
-        }
-    }
-
-     //qDebug() << "FileManager::adifLoTWLogExport: End : " << QString::number(qsos.count()) << endl;
-
-    return qsos;
-}
-
-
-QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em)
-//QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly)
-{
-
-    //qDebug() << "FileManager::adifLogExport: Start)" << _fileName << "/" << _callsign << endl;
-    QList<int> qsos;
-    qsos.clear();
-
-    if (_logN != -1)
-    { // We will export data from ALL logs.
-        if (!dataProxy->doesThisLogExist(_logN))
-        {
-            //qDebug() << "FileManager::adifLogExport - The log does not exist" << endl;
-            showError(tr("The selected log does not exist, please check it again."));
-            return qsos;
-        }
-    }
-
-    QString queryStringCount;
-    QString queryString;
-    QString _queryStation;
-
-    if (util->isValidCall(_callsign))
-    {
-         _queryStation = QString(" station_callsign ='%1'").arg(_callsign);
-    }
-    else if (_callsign == "ALL")
-    {
-        _queryStation = QString(" station_callsign !='ALL'");
-    }
-    else
-    {
-         _queryStation = QString(" station_callsign =''");
-    }
-
-    QString _queryDateFrom;
-    if (_startDate.isValid())
-    {
-         _queryDateFrom = QString(" AND qso_date >= '%1'").arg(_startDate.toString("yyyy/MM/dd"));
-    }
-    else
-    {
-         _queryDateFrom = QString(" AND qso_date != '1'");
-    }
-
-    QString _queryDateTo;
-    if (_startDate.isValid())
-    {
-         _queryDateTo = QString(" AND qso_date <= '%1'").arg(_endDate.toString("yyyy/MM/dd"));
-    }
-    else
-    {
-         _queryDateTo = QString();
-    }
-
-    QString _queryLog;
-    if (_logN == -1)
-    {
-         _queryLog = QString(" AND logNumber = '%1'").arg(_logN);
-    }
-    else
-    {
-         _queryLog = QString();
-    }
-
-    if ((!util->isValidCall(_callsign)) && (_callsign != "ALL"))
-    {
-         showError(tr("The selected callsign (%1) is not valid, please check it again to export the log.").arg(_callsign));
-         return qsos;
-    }
-
-
-    QFile file(_fileName);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-         showError(tr("The file %1 can't be opened.").arg(_fileName));
-         return qsos;
-    }
-
-    QSqlQuery query;
-
-    if (_em == ModeLotW)
-    {
-        //qDebug() << "FileManager::adifLogExport: Exporting for LoTW" << endl;
-        // LoTW Required fields: call sign, UTC Date, UTC time, Mode, Band
-        // LoTW Optional fields: RX band, Frecuency TX, frecuency RX, Propagation mode, Satellite
-
-        queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation + QString(" AND lotw_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
-        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, station_callsign FROM log WHERE") + _queryStation + QString(" AND lotw_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
-    }
-    else
-    {
-        //qDebug() << "FileManager::adifLogExport: Exporting normal ADIF" << endl;
-        if (_callsign == "ALL")
-        {
-            queryStringCount = QString("SELECT COUNT (id) FROM log");
-            queryString = QString("SELECT * FROM log");
-        }
-        else
-        {
-            queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation  + _queryDateFrom + _queryDateTo + _queryLog;
-            queryString = QString("SELECT * FROM log WHERE") + _queryStation + _queryDateFrom + _queryDateTo + _queryLog;
-        }
-
-
-    }
-
-    int numberOfQsos = dataProxy->getHowManyQSOInLog(_logN);
-    int i = 0;
-
-    bool sqlOK = query.exec(queryStringCount);
-    //qDebug() << "FileManager::adifLogExport: " << query.lastQuery() << endl;
-    if (!sqlOK)
-    {
-        //qDebug() << "FileManager::adifLogExport: Query Error"  << endl;
-         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        return qsos;
-    }
-    else
-    {
-        query.next();
-        if (query.isValid())
-        {
-            i = (query.value(0)).toInt();
-            if (i>0)
-            {
-                numberOfQsos = i;
-                query.finish();
-            }
-            else if (i == 0)
-            {
-                showError(tr("There are no QSOs pending to be uploaded with that station callsign."));
-                query.finish();
-                return qsos;
-            }
-        }
-    }
-
-    QTextStream out(&file);
-
-    int step = util->getProgresStepForDialog(numberOfQsos);
-
-    QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQsos, this);
-    progress.setMaximum(numberOfQsos);
-    progress.setWindowModality(Qt::NonModal);
-    //progress.setWindowModality(Qt::ApplicationModal);
-
-    out << "ADIF v3.0.7 Export from KLog\nhttps://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
-    //qDebug() << "FileManager::adifLogExport: Number: " << QString::number(numberOfQsos) << endl;
-    out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
-
-    QDateTime dateTime = (QDateTime::currentDateTime()).toUTC();
-    out << "<APP_KLOG_LOG_DATE_EXPORT:" << QString::number((dateTime.toString("yyyyMMdd-hhmm")).length()) << ">" << dateTime.toString("yyyyMMdd-hhmm") << endl;
-    out << "<EOH>" << endl;
-
-    i = 0;
-
-    sqlOK = query.exec(queryString);
-    //qDebug() << "FileManager::adifLogExport: " << query.lastQuery() << endl;
-    if (!sqlOK)
-    {
-        //qDebug() << "FileManager::adifLogExport: Query Error"  << endl;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        return qsos;
-    }
-
-
-    QSqlRecord rec = query.record();
-    int nameCol;
-    QString aux, aux2;
-    QString bandst, bandrxst;
-
-    //bool finishExport = false;
-    bool propsat;
-    //while ( (query.next()) && (!finishExport))
-    //qDebug() << "FileManager::adifLogExport: Entering the While..."  << endl;
-    while ( query.next() )
-    {
-        double freqTX, freqRX;
-        freqTX = 0.0;
-        freqRX = 0.0;
-        bandrxst.clear();
-        bandst.clear();
-        aux.clear();
-
-        //qDebug() << "FileManager::adifLogExport: Start of While"  << endl;
-        if (query.isValid())
-        {
-            //qDebug() << "FileManager::adifLogExport: Start of isValid"  << endl;
-            propsat = false;    // Reset the QSO in case it is a Satellite QSO
-
-            nameCol = rec.indexOf("id");
-            qsos.append((query.value(nameCol)).toInt());
-
-            nameCol = rec.indexOf("call");
-            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-            //qDebug() << "FileManager::adifLogExport: Call: " << aux << endl;
-            if (util->isValidCall(aux))
-            {
-                //qDebug() << "FileManager::adifLogExport: Valid Call: " << aux << endl;
-                out << "<CALL:" << QString::number(aux.length()) << ">" << aux << " ";
-            }
-            else
-            {
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: " << aux << endl;
-                QMessageBox msgBox;
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: 00"  << endl;
-                msgBox.setIcon(QMessageBox::Warning);
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: 01"  << endl;
-                msgBox.setWindowTitle(tr("KLog - Invalid call detected"));
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: 02"  << endl;
-                QString msgText = QString(tr("An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?").arg(aux));
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: 03"  << endl;
-                msgBox.setText(msgText);
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: 04"  << endl;
-                msgBox.setInformativeText(tr("Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished."));
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: 05"  << endl;
-                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                msgBox.setDefaultButton(QMessageBox::No);
-                int ret = msgBox.exec();
-                int tempValue = progress.value();
-                progress.cancel();
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: ret = " << QString::number(ret)  << endl;
-                switch (ret)
-                {
-                case QMessageBox::Yes:
-                   // Yes was clicked
-                    //qDebug() << "FileManager::adifLogExport: NOT Valid Call: YES clicked"  << endl;
-                    out << "<CALL:" << QString::number(aux.length()) << ">" << aux << " ";
-
-                   break;
-                case QMessageBox::No:
-                     // No Save was clicked
-                    //qDebug() << "FileManager::adifLogExport: NOT Valid Call: NO Clicked"  << endl;
-                   break;
-                default:
-                    //qDebug() << "FileManager::adifLogExport: NOT Valid Call: DEFAULT"  << endl;
-                     // should never be reached
-                    break;
-                }
-                progress.reset();
-                progress.setMaximum(numberOfQsos);
-                progress.setValue(tempValue);
-
-                //qDebug() << "FileManager::adifLogExport: End of NOT Valid Call: " << aux << endl;
-            }
-            //qDebug() << "FileManager::adifLogExport: QSO_DATE"  << endl;
-
-            nameCol = rec.indexOf("qso_date");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            if ((aux.length()) == 10)
-            {
-                aux.remove(QChar('-'), Qt::CaseInsensitive);
-                aux.remove(QChar('/'), Qt::CaseInsensitive);
-                QDate date = QDate::fromString(aux, "yyyyMMdd");
-                if (util->isValidDate(date))
-                {
-                     out << "<QSO_DATE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-            }
-
-            nameCol = rec.indexOf("time_on");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            if ((QTime::fromString(aux,"hh:mm:ss")).isValid())
-            {
-                aux.remove(QChar(':'), Qt::CaseInsensitive);
-                out << "<TIME_ON:" << QString::number(aux.length()) << ">" << aux  << " ";
-            }
-
-            nameCol = rec.indexOf("bandid");
-            aux = (query.value(nameCol)).toString();
-            //qDebug() << "FileManager::adifLogExportToFile-Band-1: "  << aux << endl;
-            aux = util->checkAndFixASCIIinADIF(aux);
-            //qDebug() << "FileManager::adifLogExportToFile-Band-2: "  << aux << endl;
-            aux = dataProxy->getNameFromBandId(aux.toInt());
-            if (dataProxy->getIdFromBandName(aux)>=0)
-            {
-             //out << "<BAND:" << QString::number(aux.length()) << ">" << aux  << " ";
-             bandst = aux;
-            }
-
-            nameCol = rec.indexOf("freq");
-            aux = (query.value(nameCol)).toString();
-            //qDebug() << "FileManager::adifLogExport FREQ1: "  << aux << endl;
-            aux = util->checkAndFixASCIIinADIF(aux);
-            freqTX = aux.toDouble();
-            if (freqTX > 0.0)
-            {
-                //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
-                if (dataProxy->getBandIdFromFreq(freqTX) != dataProxy->getIdFromBandName(bandst))
-                {
-                    bandst = dataProxy->getBandNameFromFreq(freqTX);
-                }
-                out << "<FREQ:" << QString::number(aux.length()) << ">" << aux  << " ";
-            }
-            if (dataProxy->getIdFromBandName(bandst)>0)
-            {
-                out << "<BAND:" << QString::number(bandst.length()) << ">" << bandst  << " ";
-            }
-
-            // Now the BAND RX
-            nameCol = rec.indexOf("band_rx");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            aux = dataProxy->getNameFromBandId(aux.toInt());
-            if (dataProxy->getIdFromBandName(aux)>=0)
-            {
-                bandrxst = aux;
-            }
-
-            nameCol = rec.indexOf("freq_rx");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            freqRX = aux.toDouble();
-            if (freqRX > 0.0)
-            {
-            //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
-            if (dataProxy->getBandIdFromFreq(freqRX) != dataProxy->getIdFromBandName(bandrxst))
-            {
-                bandrxst = dataProxy->getBandNameFromFreq(freqRX);
-            }
-            out << "<FREQ_RX:" << QString::number(aux.length()) << ">" << aux  << " ";
-            }
-            if (dataProxy->getIdFromBandName(bandrxst)>0)
-            {
-                out << "<BAND_RX:" << QString::number(bandrxst.length()) << ">" << bandrxst  << " ";
-            }
-            // END of Band RX
-
-            nameCol = rec.indexOf("modeid");
-            aux = (query.value(nameCol)).toString();
-            aux = util->checkAndFixASCIIinADIF(aux);
-            // get SubModeId to check if it is the same or not from modeid
-            aux2 = dataProxy->getSubModeFromId(aux.toInt());
-            //aux = db->getModeNameFromID2(aux.toInt());
-            aux = dataProxy->getNameFromSubMode(aux2);
-
-            if ((aux.length()>1) && (dataProxy->getIdFromModeName(aux)>=0))
-            {
-                out << "<MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
-            }
-            if ((aux != aux2) && (aux.length()>1) && (dataProxy->getSubModeIdFromSubMode(aux2)>=0) )
-            {
-                out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
-            }
-
-            nameCol = rec.indexOf("prop_mode");
-            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-            if ((aux.length())>1)
-            {
-                out << "<PROP_MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                if (aux == "SAT")
-                {
-                    propsat = true;
-                }
-            }
-            //qDebug() << "FileManager::adifLogExport: PROP_MODE"  << endl;
-
-            nameCol = rec.indexOf("sat_name");
-            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-            if ((aux.length())>0)
-            {
-                out << "<SAT_NAME:" << QString::number(aux.length()) << ">" << aux  << " ";
-                if (!propsat && (_em == ModeLotW))
-                {
-                    out << "<PROP_MODE:3>SAT ";
-                    propsat = false;
-                }
-            }
-            //qDebug() << "FileManager::adifLogExport: SAT_NAME"  << endl;
-
-            nameCol = rec.indexOf("station_callsign");
-            aux = (query.value(nameCol)).toString();
-            //qDebug() << "FileManager::adifLogExport: StationCallSign: " << aux  << endl;
-
-            if ((util->isValidCall(aux)))
-            { // User selected one station callsign from the log
-                out << "<STATION_CALLSIGN:" << QString::number(aux.length()) << ">" << aux  << " ";
-            }
-
-
-            if (_em == ModeADIF)
-            { // START OF EXPORT OF GENERAL ADIF
-
-                nameCol = rec.indexOf("qso_date_off");
-                aux = (query.value(nameCol)).toString();
-                aux = util->checkAndFixASCIIinADIF(aux);
-                if (util->isValidDate(QDate::fromString("yyyy/MM/dd")))
-                {
-                    aux.remove(QChar('/'), Qt::CaseInsensitive);
-                    QDate date = QDate::fromString(aux, "yyyyMMdd");
-                    out << "<QSO_DATE_OFF:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("time_off");
-                aux = (query.value(nameCol)).toString();
-                aux = util->checkAndFixASCIIinADIF(aux);
-                //qDebug() << "FileManager::adifLogExport: time_off-682" << QString::number(nameCol) << "/" << aux << endl;
-                if ( ((aux.length()) == 5) || ((aux.length()) == 8) )
-                {
-                    aux.remove(QChar(':'), Qt::CaseInsensitive);
-                    out << "<TIME_OFF:" << QString::number(aux.length()) << ">" << aux  << " ";
-                    //qDebug() << "FileManager::adifLogExport: time_off exported-682" << endl;
-                }
-
-                nameCol = rec.indexOf("srx");
-                aux = (query.value(nameCol)).toString();
-                aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<SRX:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("srx_string");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<SRX_STRING:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-                nameCol = rec.indexOf("stx");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<STX:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("stx_string");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<STX_STRING:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-                //qDebug() << "FileManager::adifLogExport - 100" << endl;
-                nameCol = rec.indexOf("cqz");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ( ((aux.length())>0) && (0 < aux.toInt()) && (aux.toInt() < CQZones+1) )
-                {
-                    out << "<CQZ:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("ituz");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ( ((aux.length())>0) && (0 < aux.toInt()) && (aux.toInt() < ITUZones+1) )
-                {
-                    out << "<ITUZ:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                //qDebug() << "FileManager::adifLogExport: DXCC - Now..."  << endl;
-
-                nameCol = rec.indexOf("dxcc");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<DXCC:" << QString::number(aux.length()) << ">" << aux  << " ";
-                    //qDebug() << "FileManager::adifLogExport: DXCC " << aux << endl;
-                }
-                //qDebug() << "FileManager::adifLogExport: DXCC - Exported!"  << endl;
-
-                nameCol = rec.indexOf("address");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<ADDRESS:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("age");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<AGE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("cnty");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<CNTY:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("comment");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<COMMENT:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-                //qDebug() << "FileManager::adifLogExport - 200" << endl;
-                nameCol = rec.indexOf("a_index");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<A_INDEX:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("ant_az");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<ANT_AZ:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("ant_el");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<ANT_EL:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("ant_path");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<ANT_PATH:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("arrl_sect");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<ARRL_SECT:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("checkcontest");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<CHECKCONTEST:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                //qDebug() << "FileManager::adifLogExport - 30" << endl;
-                nameCol = rec.indexOf("class");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<CLASS:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("cont");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<CONT:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("contacted_op");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if (util->isValidCall(aux))
-                {
-                    out << "<CONTACTED_OP:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("contest_id");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<CONTEST_ID:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("points");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<APP_KLOG_POINTS:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("multiplier");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<APP_KLOG_MULTIPLIER:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-                //qDebug() << "FileManager::adifLogExport - 40" << endl;
-                nameCol = rec.indexOf("transmiterid");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<APP_KLOG_TRX:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("country");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<COUNTRY:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("credit_submitted");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<CREDIT_SUBMITTED:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("credit_granted");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<CREDIT_GRANTED:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("distance");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<DISTANCE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("darc_dok");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<DARC_DOK:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("eq_call");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if (util->isValidCall(aux))
-                {
-                    out << "<EQ_CALL:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("email");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    if (aux.contains("@") && (aux.contains(".")))
-                    {
-                        out << "<EMAIL:" << QString::number(aux.length()) << ">" << aux  << " ";
-                    }
-                }
-
-                nameCol = rec.indexOf("eqsl_qslrdate");
-                aux = (query.value(nameCol)).toString();
-                aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length()) == 10)
-                {
-                    aux.remove(QChar('-'), Qt::CaseInsensitive);
-                    aux.remove(QChar('/'), Qt::CaseInsensitive);
-                    QDate date = QDate::fromString(aux, "yyyyMMdd");
-
-                    if (util->isValidDate(date))
-                    {
-                        out << "<EQSL_QSLRDATE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                    }
-                }
-
-                nameCol = rec.indexOf("eqsl_qslsdate");
-                aux = (query.value(nameCol)).toString();
-                aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length()) == 10)
-                {
-                    aux.remove(QChar('-'), Qt::CaseInsensitive);
-                    aux.remove(QChar('/'), Qt::CaseInsensitive);
-                    QDate date = QDate::fromString(aux, "yyyyMMdd");
-                    if (util->isValidDate(date))
-                    {
-                        out << "<EQSL_QSLSDATE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                    }
-                }
-
-                nameCol = rec.indexOf("eqsl_qsl_rcvd");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if (  ((aux.length())==1) && (aux!="N") )
-                {
-                    out << "<EQSL_QSL_RCVD:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("eqsl_qsl_sent");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if (  ((aux.length())==1) && (aux!="N") )
-                {
-                    out << "<EQSL_QSL_SENT:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("fists");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<FISTS:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("fists_cc");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<FISTS_CC:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("force_init");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<FORCE_INIT:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-
-                nameCol = rec.indexOf("guest_op");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<GUEST_OP:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("hrdlog_qso_upload_date");
-                aux = (query.value(nameCol)).toString();
-                aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length()) == 10)
-                {
-                    aux.remove(QChar('-'), Qt::CaseInsensitive);
-                    aux.remove(QChar('/'), Qt::CaseInsensitive);
-                    QDate date = QDate::fromString(aux, "yyyyMMdd");
-
-                    if (util->isValidDate(date))
-                    {
-                        out << "<HRDLOG_QSO_UPLOAD_DATE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                    }
-                }
-
-                nameCol = rec.indexOf("hrdlog_qso_upload_status");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
-                {
-                    out << "<HRDLOG_QSO_UPLOAD_STATUS:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("gridsquare");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<GRIDSQUARE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_gridsquare");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_GRIDSQUARE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_antenna");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_ANTENNA:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_dxcc");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_DXCC:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_fists");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_FISTS:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("iota");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                //qDebug() << "FileManager::adifLogExportToFile (IOTA): " << aux << endl;
-                if (((aux.length())>=4) && ((aux.length())<=6))
-                {
-                    out << "<IOTA:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("iota_island_id");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                //qDebug() << "FileManager::adifLogExportToFile (IOTA_ID): " << aux << endl;
-
-                if ((aux.length())>0)
-                {
-                    out << "<IOTA_ISLAND_ID:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_iota");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if (((aux.length())>=4) && ((aux.length())<=6))
-                {
-                    out << "<MY_IOTA:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_iota_island_id");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_IOTA_ISLAND_ID:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("k_index");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<K_INDEX:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_itu_zone");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_ITU_ZONE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("lat");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<LAT:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("lon");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<LON:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_lat");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_LAT:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_lon");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_LON:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("lotw_qslrdate");
-                aux = (query.value(nameCol)).toString();
-                aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length()) == 10)
-                {
-                    aux.remove(QChar('-'), Qt::CaseInsensitive);
-                    aux.remove(QChar('/'), Qt::CaseInsensitive);
-                    QDate date = QDate::fromString(aux, "yyyyMMdd");
-                    if (util->isValidDate(date))
-                    {
-                        out << "<LOTW_QSLRDATE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                    }
-                }
-
-                nameCol = rec.indexOf("lotw_qslsdate");
-                aux = (query.value(nameCol)).toString();
-                aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length()) == 10)
-                {
-                    aux.remove(QChar('-'), Qt::CaseInsensitive);
-                    aux.remove(QChar('/'), Qt::CaseInsensitive);
-                    QDate date = QDate::fromString(aux, "yyyyMMdd");
-                    if (util->isValidDate(date))
-                    {
-                        out << "<LOTW_QSLSDATE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                    }
-                }
-
-
-                nameCol = rec.indexOf("lotw_qsl_rcvd");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ( ((aux.length())==1) && (aux!="N") )
-                {
-                    out << "<LOTW_QSL_RCVD:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
+            if ( ( (stationCallToUse == "NONE") && util->isValidCall(aux) ) || (aux == stationCallToUse)  )
+            { // We are only exporting the QSO from the appropriate station callsign or with empty stationcallsigns but we will add the one entered by the user.
                 nameCol = rec.indexOf("lotw_qsl_sent");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ( ((aux.length())==1)  && (aux!="N") )
-                {
-                    out << "<LOTW_QSL_SENT:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("clublog_qso_upload_date");
                 aux = (query.value(nameCol)).toString();
-                aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length()) == 10)
+                if (aux == "Q")
                 {
-                    aux.remove(QChar('-'), Qt::CaseInsensitive);
-                    aux.remove(QChar('/'), Qt::CaseInsensitive);
-                    QDate date = QDate::fromString(aux, "yyyyMMdd");
-                    if (util->isValidDate(date))
+                     //qDebug() << "FileManager::adifLoTWLogExport: Start of isValid"  << endl;
+                    propsat = false;    // Reset the QSO in case it is a Satellite QSO
+
+                    nameCol = rec.indexOf("call");
+                    aux = (query.value(nameCol)).toString();
+                    aux = util->checkAndFixASCIIinADIF(aux);
+                     //qDebug() << "FileManager::adifLoTWLogExport: " << QString::number(nameCol) << "/" << aux << endl;
+                    if (aux.length()>0)
                     {
-                        out << "<CLUBLOG_QSO_UPLOAD_DATE:" << QString::number(aux.length()) << ">" << aux  << " ";
+                        out << "<CALL:" << QString::number(aux.length()) << ">" << aux<< " ";
                     }
-                }
+                     //qDebug() << "FileManager::adifLoTWLogExport: CALL"  << endl;
 
-                nameCol = rec.indexOf("clublog_qso_upload_status");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
-                {
-                    out << "<CLUBLOG_QSO_UPLOAD_STATUS:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
+                    nameCol = rec.indexOf("qso_date");
+                    aux = (query.value(nameCol)).toString();
+                    aux = util->checkAndFixASCIIinADIF(aux);
+                    if ((aux.length()) == 10){
+                        aux.remove(QChar('-'), Qt::CaseInsensitive);
+                        aux.remove(QChar('/'), Qt::CaseInsensitive);
+                        QDate date = QDate::fromString(aux, "yyyyMMdd");
 
-                nameCol = rec.indexOf("qrzcom_qso_upload_date");
-                aux = (query.value(nameCol)).toString();
-                aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length()) == 10)
-                {
-                    aux.remove(QChar('-'), Qt::CaseInsensitive);
-                    aux.remove(QChar('/'), Qt::CaseInsensitive);
-                    QDate date = QDate::fromString(aux, "yyyyMMdd");
-                    if (util->isValidDate(date))
+                        if (util->isValidDate(date))
+                        {
+                            out << "<QSO_DATE:" << QString::number(aux.length()) << ">" << aux  << " ";
+                        }
+                    }
+
+                    nameCol = rec.indexOf("time_on");
+                    aux = (query.value(nameCol)).toString();
+                    aux = util->checkAndFixASCIIinADIF(aux);
+                     //qDebug() << "FileManager::adifLoTWLogExportToFile-time_on: "  << aux << endl;
+                    if ( ((aux.length()) == 5) || ((aux.length()) == 8) ){
+                        aux.remove(QChar(':'), Qt::CaseInsensitive);
+
+                        out << "<TIME_ON:" << QString::number(aux.length()) << ">" << aux  << " ";
+                    }
+
+                    nameCol = rec.indexOf("bandid");
+                    aux = (query.value(nameCol)).toString();
+                     //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-1: "  << aux << endl;
+                    aux = util->checkAndFixASCIIinADIF(aux);
+                     //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-2: "  << aux << endl;
+                    //aux = db->getBandNameFromID2(aux.toInt());
+                    aux = dataProxy->getNameFromBandId(aux.toInt());
+                     //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-3: "  << aux << endl;
+
+
+                    if (dataProxy->getIdFromBandName(aux)>=0)
                     {
-                        out << "<QRZCOM_QSO_UPLOAD_DATE:" << QString::number(aux.length()) << ">" << aux  << " ";
+                        out << "<BAND:" << QString::number(aux.length()) << ">" << aux  << " ";
+                        bandst = aux;
                     }
-                }
 
-                nameCol = rec.indexOf("qrzcom_qso_upload_status");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
-                {
-                    out << "<QRZCOM_QSO_UPLOAD_STATUS:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
+                    nameCol = rec.indexOf("band_rx");
+                    aux = (query.value(nameCol)).toString();
+                    aux = util->checkAndFixASCIIinADIF(aux);
+                    aux = dataProxy->getNameFromBandId(aux.toInt());
 
-                nameCol = rec.indexOf("max_bursts");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MAX_BURSTS:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("ms_shower");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MS_SHOWER:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_city");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_CITY:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_cnty");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_CNTY:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_country");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_COUNTRY:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_cq_zone");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_CQ_ZONE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_name");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_NAME:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("name");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<NAME:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("operator");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if (util->isValidCall(aux))
-                {
-                    out << "<OPERATOR:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("owner_callsign");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if (util->isValidCall(aux))
-                {
-                    out << "<OWNER_CALLSIGN:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_postal_code");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_POSTAL_CODE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_rig");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_RIG:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_sig");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_SIG:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_sota_ref");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_SOTA_REF:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_postal_code");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_POSTAL_CODE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_state");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_STATE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_street");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<MY_STREET:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("notes");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    aux.replace("\n", "---");
-                    out << "<NOTES:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("nr_bursts");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<NR_BURSTS:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("nr_pings");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<NR_PINGS:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("pfx");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<PFX:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("precedence");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0)
-                {
-                    out << "<PRECEDENCE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("public_key");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<PUBLIC_KEY:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("qslmsg");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<QSLMSG:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("qslrdate");
-                aux = (query.value(nameCol)).toString();
-                aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length()) == 10){
-                    aux.remove(QChar('-'), Qt::CaseInsensitive);
-                    aux.remove(QChar('/'), Qt::CaseInsensitive);
-                    QDate date = QDate::fromString(aux, "yyyyMMdd");
-
-                    if (util->isValidDate(date))
+                    if ( dataProxy->getIdFromBandName(aux)>=0)
                     {
-                        out << "<QSLRDATE:" << QString::number(aux.length()) << ">" << aux  << " ";
+                        out << "<BAND_RX:" << QString::number(aux.length()) << ">" << aux  << " ";
+                        QString bandrxst = aux;
                     }
-                }
+                     //qDebug() << "FileManager::adifLoTWLogExport: BAND_RX"  << endl;
 
-                nameCol = rec.indexOf("qslsdate");
-                aux = (query.value(nameCol)).toString();
-                aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length()) == 10){
-                    aux.remove(QChar('-'), Qt::CaseInsensitive);
-                    aux.remove(QChar('/'), Qt::CaseInsensitive);
-                    QDate date = QDate::fromString(aux, "yyyyMMdd");
+                    nameCol = rec.indexOf("modeid");
+                    aux = (query.value(nameCol)).toString();
+                    aux = util->checkAndFixASCIIinADIF(aux);
+                    // get SubModeId to check if it is the same or not from modeid
+                    aux2 = dataProxy->getSubModeFromId(aux.toInt());
+                    //aux = db->getModeNameFromID2(aux.toInt());
+                    aux = dataProxy->getNameFromSubMode(aux2);
 
-                    if (util->isValidDate(date))
+                     //qDebug() << "FileManager::adifLoTWLogExportToFile - MODE aux2:  " << aux2 << endl;
+                     //qDebug() << "FileManager::adifLoTWLogExportToFile - MODE aux:  " << aux << endl;
+
+                    if ((aux.length()>1) && (dataProxy->getIdFromModeName(aux)>=0))
                     {
-                        out << "<QSLSDATE:" << QString::number(aux.length()) << ">" << aux  << " ";
+                        //haveMode = true;
+                        out << "<MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
                     }
-                }
 
-                nameCol = rec.indexOf("qsl_rcvd");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if (((aux.length())==1) && (aux!="N") ){
-                    out << "<QSL_RCVD:" << QString::number(aux.length()) << ">" << aux  << " ";
+                    if ((aux != aux2) && (aux.length()>1) && (dataProxy->getSubModeIdFromSubMode(aux2)>=0) )
+                    {
+                        //haveMode = true;
+                        out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
+                    }
 
-                    nameCol = rec.indexOf("qsl_rcvd_via");
+                     //qDebug() << "FileManager::adifLoTWLogExport: SUBMODE: " << aux2  << endl;
+
+                    nameCol = rec.indexOf("freq");
+                    aux = (query.value(nameCol)).toString();
+                     //qDebug() << "FileManager::adifLoTWLogExportToFile FREQ1: "  << aux << endl;
+                    aux = util->checkAndFixASCIIinADIF(aux);
+
+                    if ((aux.length())>0){
+                        //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
+                        if (dataProxy->getBandIdFromFreq(aux.toDouble()) == dataProxy->getIdFromBandName(bandst))
+                        //if (db->isThisFreqInBand(bandst, aux))
+                        {
+                           out << "<FREQ:" << QString::number(aux.length()) << ">" << aux  << " ";
+                        }
+
+                    }
+                     //qDebug() << "FileManager::adifLoTWLogExport: FREQ"  << endl;
+                    nameCol = rec.indexOf("freq_rx");
                     aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                    if ((aux.length())==1){
-                        out << "<QSL_RCVD_VIA:" << QString::number(aux.length()) << ">" << aux  << " ";
+                    if ((aux.length())>0){
+                        //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
+                        if (dataProxy->getBandIdFromFreq(aux.toDouble()) == dataProxy->getIdFromBandName(bandrxst))
+                        //if (db->isThisFreqInBand(bandrxst, aux))
+                        {
+                           out << "<FREQ_RX:" << QString::number(aux.length()) << ">" << aux  << " ";
+                        }
                     }
-                }
+                     //qDebug() << "FileManager::adifLoTWLogExport: FREQ_RX"  << endl;
 
-                nameCol = rec.indexOf("qsl_sent");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if (((aux.length())==1) && (aux!="N") ){
-                    out << "<QSL_SENT:" << QString::number(aux.length()) << ">" << aux  << " ";
-                    nameCol = rec.indexOf("qsl_sent_via");
+                    nameCol = rec.indexOf("prop_mode");
                     aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                    if ((aux.length())==1)  {
-                        out << "<QSL_SENT_VIA:" << QString::number(aux.length()) << ">" << aux  << " ";
+                    if ((aux.length())>1){
+                        out << "<PROP_MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
+                        if (aux == "SAT")
+                        {
+                            propsat = true;
+                        }
+
                     }
+                     //qDebug() << "FileManager::adifLoTWLogExport: PROP_MODE"  << endl;
 
-                }
-
-                nameCol = rec.indexOf("qsl_via");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<QSL_VIA:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("qso_complete");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<QSO_COMPLETE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("qso_random");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<QSO_RANDOM:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("qth");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<QTH:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("rst_sent");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<RST_SENT:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("rst_rcvd");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<RST_RCVD:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("region");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<REGION:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("rig");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<RIG:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("rx_pwr");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if (((aux.length())>0) && (aux.toDouble()>0) ){
-                    out << "<RX_PWR:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("tx_pwr");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ( ((aux.length())>0) && (aux.toDouble()>0)) {
-                    out << "<TX_PWR:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-
-                nameCol = rec.indexOf("sat_mode");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<SAT_MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-
-                nameCol = rec.indexOf("sfi");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<SFI:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("sig");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<SIG:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("sig_info");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<SIG_INFO:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("silent_key");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<SILENT_KEY:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("skcc");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<SKCC:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("sota_ref");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<SOTA_REF:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("state");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<STATE:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("swl");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<SWL:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("ten_ten");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<TEN_TEN:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("ten_ten");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<TEN_TEN:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("uksmg");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<UKSMG:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("ve_prov");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<VE_PROV:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_usaca_counties");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<MY_USACA_COUNTIES:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("usaca_counties");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<USACA_COUNTIES:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("vucc_grids");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<VUCC_GRIDS:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("my_vucc_grids");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<MY_VUCC_GRIDS:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("web");
-                aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                if ((aux.length())>0){
-                    out << "<WEB:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                if (_logN == -1)
-                {
-                    nameCol = rec.indexOf("lognumber");
+                    nameCol = rec.indexOf("sat_name");
                     aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                    if ((aux.length())>0)
+                    if ((aux.length())>0){
+                        out << "<SAT_NAME:" << QString::number(aux.length()) << ">" << aux  << " ";
+
+                        if (!propsat)
+                        {
+                             out << "<PROP_MODE:3>SAT ";
+                        }
+                    }
+                     //qDebug() << "FileManager::adifLoTWLogExport: SAT_NAME"  << endl;
+
+                    out << "<EOR> " << endl;
+
+                    i++;
+                    if (( (i % step ) == 0) )
+                    { // To update the speed I will only show the progress once each X QSOs
+                        //qDebug() << "FileManager::adifLoTWLogExport: MOD 0 - i = " << QString::number(i)  << endl;
+
+                        aux = tr("Exporting LoTW ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
+
+                       progress.setLabelText(aux);
+                       progress.setValue(i);
+
+                    }
+                    else
                     {
-                        out << "<APP_KLOG_LOGN:" << QString::number(aux.length()) << ">" << aux  << " ";
+                        //qDebug() << "FileManager::adifLoTWLogExport: Mod: "<< QString::number(i) << " mod " << QString::number(step) << " = " << QString::number(i % step) << endl;
+
                     }
                 }
-
-
-
-
-
-            } // END OF EXPORT OF GENERAL ADIF
-
-
-            out << "<EOR> " << endl;
-            i++;
-
-            if (( (i % step ) == 0) )
-            { // To update the speed I will only show the progress once each X QSOs
-                //qDebug() << "FileManager::adifLogExport: MOD 0 - i = " << QString::number(i)  << endl;
-
-                aux = tr("Exporting ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
-                progress.setLabelText(aux);
-                progress.setValue(i);
-            }
-        } // END of if (query.isValid())
-        //qDebug() << "FileManager::adifLogExport: End Of Valid"  << endl;
-        if ( progress.wasCanceled() )
-        {
-            QMessageBox msgBox;
-            msgBox.setWindowTitle(tr("KLog - User cancelled"));
-            QString aux = QString(tr("You have canceled the file export. The file will be removed and no data will be exported.") + "\n" + tr("Do you still want to cancel?"));
-            msgBox.setText(aux);
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::No);
-            int ret = msgBox.exec();
-            switch (ret)
-            {
-                case QMessageBox::Yes:
-                    // Yes was clicked
-                    // finishExport = true;
-                    qsos.clear();
-                    return qsos;
-                case QMessageBox::No:
-                // No Save was clicked
-                break;
-                default:
-                // should never be reached
-                break;
             }
         }
-    } // END OF WHOLE
+         //qDebug() << "FileManager::adifLoTWLogExport: End Of Valid"  << endl;
+    }
 
-    //qDebug() << "FileManager::adifLogExport: End: " << QString::number(qsos.count()) << endl;
+     //qDebug() << "FileManager::adifLoTWLogExport: End of While " << endl;
 
-    return qsos;
+    return i;
 }
 
 bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested , bool _lotw)
 {
-    //adifLogExportToFile(const QString& _fileName, const int _logN=0, bool justMarked = false, bool _qslRequested = false, bool _lotw=false);
     // If _logN = 0, then we will export ALL the logs.
     //qDebug() << "FileManager::adifLogExportToFile: " << _fileName << endl;
 
@@ -2017,7 +535,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
             {
             }
         }
-           //qDebug() << "FileManager::adifLogExportToFile -  numberOfQsos = " << QString::number(numberOfQsos)<< endl;
+         //qDebug() << "FileManager::adifLogExportToFile -  numberOfQsos = " << QString::number(numberOfQsos)<< endl;
     }
     else
     {
@@ -2041,10 +559,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         {
             numberOfQsos = (query1.value(0)).toInt();
         }
-          //qDebug() << "FileManager::adifLogExportToFile -  numberOfQsos = " << QString::number(numberOfQsos)<< endl;
+        //qDebug() << "FileManager::adifLogExportToFile -  numberOfQsos = " << QString::number(numberOfQsos)<< endl;
     }
 
-       //qDebug() << "FileManager::adifLogExportToFile END -  numberOfQsos = " << QString::number(numberOfQsos) << endl;
+     //qDebug() << "FileManager::adifLogExportToFile END -  numberOfQsos = " << QString::number(numberOfQsos) << endl;
 
     step = util->getProgresStepForDialog(numberOfQsos);
     //step = getProgresStepForDialog(numberOfQsos);
@@ -2052,7 +570,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     progress.setMaximum(numberOfQsos);
     progress.setWindowModality(Qt::ApplicationModal);
 
-    out << "ADIF v3.0.7 Export from KLog\nhttps://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
+    out << "ADIF v3.0.7 Export from KLog\nhttp://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
     out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
 
     QDateTime dateTime = (QDateTime::currentDateTime()).toUTC();
@@ -2082,7 +600,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     QSqlRecord rec = query.record();
 
 
-      //qDebug() << "FileManager::adifLogExportToFile -  before the While" << endl;
+    //qDebug() << "FileManager::adifLogExportToFile -  before the While" << endl;
     while ( (query.next()) && (!noMoreQso) )
     {
         //marked = false;
@@ -2097,41 +615,18 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 aux1 = (query.value(nameCol)).toString();
                 if (aux1 == "X")
                 {
-                       //qDebug() << "FileManager::adifLogExportToFile: MARKED: " << aux1 << endl;
+                     //qDebug() << "FileManager::adifLogExportToFile: MARKED: " << aux1 << endl;
 
                     currentQso++;
 
                     nameCol = rec.indexOf("call");
-                    aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                       //qDebug() << "FileManager::adifLogExportToFile: " << QString::number(nameCol) << "/" << aux1 << endl;
-                    if (util->isValidCall(aux1))
-                    //if (aux1.length()>0)
+                    aux1 = (query.value(nameCol)).toString();
+
+                    aux1 = util->checkAndFixASCIIinADIF(aux1);
+                     //qDebug() << "FileManager::adifLogExportToFile: " << QString::number(nameCol) << "/" << aux1 << endl;
+                    if (aux1.length()>0)
                     {
-                        out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1 << " ";
-                    }
-                    else
-                    {
-                        QMessageBox msgBox;
-                        msgBox.setIcon(QMessageBox::Warning);
-                        msgBox.setWindowTitle(tr("KLog - Invalid call detected"));
-                        QString aux = QString(tr("An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?").arg(aux1));
-                        msgBox.setText(aux);
-                        msgBox.setInformativeText(tr("Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished."));
-                        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                        msgBox.setDefaultButton(QMessageBox::No);
-                        int ret = msgBox.exec();
-                        switch (ret) {
-                          case QMessageBox::Yes:
-                              // Yes was clicked
-                               out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1 << " ";
-                              break;
-                          case QMessageBox::No:
-                                // No Save was clicked
-                              break;
-                          default:
-                                // should never be reached
-                              break;
-                        }
+                        out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1<< " ";
                     }
 
                     nameCol = rec.indexOf("qso_date");
@@ -2164,7 +659,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     nameCol = rec.indexOf("time_on");
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
-                      //qDebug() << "FileManager::adifLogExportToFile-time_on: "  << aux1 << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile-time_on: "  << aux1 << endl;
                     if ( ((aux1.length()) == 5) || ((aux1.length()) == 8) ){
                         aux1.remove(QChar(':'), Qt::CaseInsensitive);
 
@@ -2175,22 +670,22 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     nameCol = rec.indexOf("time_off");
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
-                      //qDebug() << "FileManager::adifLogExportToFile: time_off-682" << QString::number(nameCol) << "/" << aux1 << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile: time_off-682" << QString::number(nameCol) << "/" << aux1 << endl;
                     if ( ((aux1.length()) == 5) || ((aux1.length()) == 8) ){
                         aux1.remove(QChar(':'), Qt::CaseInsensitive);
                         out << "<TIME_OFF:" << QString::number(aux1.length()) << ">" << aux1  << " ";
-                           //qDebug() << "FileManager::adifLogExportToFile: time_off exported-682" << endl;
+                         //qDebug() << "FileManager::adifLogExportToFile: time_off exported-682" << endl;
                     }
 
                     nameCol = rec.indexOf("bandid");
                     aux1 = (query.value(nameCol)).toString();
-                      //qDebug() << "FileManager::adifLogExportToFile: bandid1: " << aux1 << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile: bandid1: " << aux1 << endl;
 
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
-                      //qDebug() << "FileManager::adifLogExportToFile: bandid2: " << aux1 << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile: bandid2: " << aux1 << endl;
                     aux1 = dataProxy->getNameFromBandId(aux1.toInt());
                     //aux1 = db->getBandNameFromID2(aux1.toInt());
-                      //qDebug() << "FileManager::adifLogExportToFile: bandid3: " << aux1 << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile: bandid3: " << aux1 << endl;
 
                     if (dataProxy->getIdFromBandName(aux1)>=0)
                     {
@@ -2219,8 +714,8 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     aux1 = dataProxy->getNameFromModeId(aux1.toInt());
                     //aux1 = db->getModeNameFromID2(aux1.toInt());
 
-                       //qDebug() << "FileManager::adifLogExportToFile - MODE aux2:  " << aux2 << endl;
-                       //qDebug() << "FileManager::adifLogExportToFile - MODE aux1:  " << aux1 << endl;
+                     //qDebug() << "FileManager::adifLogExportToFile - MODE aux2:  " << aux2 << endl;
+                     //qDebug() << "FileManager::adifLogExportToFile - MODE aux1:  " << aux1 << endl;
 
                     if ((aux1.length()>1) && (dataProxy->getIdFromModeName(aux1)>=0))
                     {
@@ -2258,7 +753,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     if ((aux1.length())>0){
                         out << "<STX_STRING:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
-                      //qDebug() << "FileManager::adifLogExportToFile - 100" << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile - 100" << endl;
                     nameCol = rec.indexOf("cqz");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ( ((aux1.length())>0) && (0 < aux1.toInt()) && (aux1.toInt() < CQZones+1) ){
@@ -2271,15 +766,15 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                         out << "<ITUZ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
-                       //qDebug() << "FileManager::adifLogExportToFile: DXCC - Now..."  << endl;
+                     //qDebug() << "FileManager::adifLogExportToFile: DXCC - Now..."  << endl;
 
                     nameCol = rec.indexOf("dxcc");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
                         out << "<DXCC:" << QString::number(aux1.length()) << ">" << aux1  << " ";
-                           //qDebug() << "FileManager::adifLogExportToFile: DXCC " << aux1 << endl;
+                         //qDebug() << "FileManager::adifLogExportToFile: DXCC " << aux1 << endl;
                     }
-                      //qDebug() << "FileManager::adifLogExportToFile: DXCC - Exported!"  << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile: DXCC - Exported!"  << endl;
 
                     nameCol = rec.indexOf("address");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
@@ -2304,7 +799,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     if ((aux1.length())>0){
                         out << "<COMMENT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
-                      //qDebug() << "FileManager::adifLogExportToFile - 200" << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile - 200" << endl;
                     nameCol = rec.indexOf("a_index");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
@@ -2340,7 +835,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     if ((aux1.length())>0){
                         out << "<CHECKCONTEST:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
-                      //qDebug() << "FileManager::adifLogExportToFile - 30" << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile - 30" << endl;
                     nameCol = rec.indexOf("class");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
@@ -2355,8 +850,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                     nameCol = rec.indexOf("contacted_op");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    if (util->isValidCall(aux1))
-                    {
+                    if ((aux1.length())>0){
                         out << "<CONTACTED_OP:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
@@ -2377,7 +871,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     if ((aux1.length())>0){
                         out << "<APP_KLOG_MULTIPLIER:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
-                  //qDebug() << "FileManager::adifLogExportToFile - 40" << endl;
+                //qDebug() << "FileManager::adifLogExportToFile - 40" << endl;
                     nameCol = rec.indexOf("transmiterid");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                     if ((aux1.length())>0){
@@ -2415,7 +909,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                     nameCol = rec.indexOf("eq_call");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    if (util->isValidCall(aux1)){
+                    if ((aux1.length())>0){
                         out << "<EQ_CALL:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
@@ -2487,27 +981,24 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                     nameCol = rec.indexOf("freq");
                     aux1 = (query.value(nameCol)).toString();
-                      //qDebug() << "FileManager::adifLogExportToFile FREQ1: "  << aux1 << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile FREQ1: "  << aux1 << endl;
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
-                      //qDebug() << "FileManager::adifLogExportToFile FREQ1.1: "  << aux1 << endl;
-                    aux2.clear();
+                    //qDebug() << "FileManager::adifLogExportToFile FREQ1.1: "  << aux1 << endl;
                     if ((aux1.length())>0){
                         //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
                         if (dataProxy->getBandIdFromFreq(aux1.toDouble()) == dataProxy->getIdFromBandName(bandst))
                         //if (db->isThisFreqInBand(bandst, aux1))
                         {
                            out << "<FREQ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
-                           aux2 = aux1;
                         }
 
                     }
-                      //qDebug() << "FileManager::adifLogExportToFile FREQ_tx: "  << aux2 << endl;
                     nameCol = rec.indexOf("freq_rx");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                      //qDebug() << "FileManager::adifLogExportToFile FREQ_rx: "  << aux1 << endl;
                     if ((aux1.length())>0){
                         //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
-                        if ((dataProxy->getBandIdFromFreq(aux1.toDouble()) == dataProxy->getIdFromBandName(bandrxst)) && (aux2 != aux1) )
+                        if (dataProxy->getBandIdFromFreq(aux1.toDouble()) == dataProxy->getIdFromBandName(bandrxst))
+                        //if (db->isThisFreqInBand(bandrxst, aux1))
                         {
                            out << "<FREQ_RX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                         }
@@ -2576,7 +1067,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                     nameCol = rec.indexOf("iota");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                       //qDebug() << "FileManager::adifLogExportToFile (IOTA): " << aux1 << endl;
+                     //qDebug() << "FileManager::adifLogExportToFile (IOTA): " << aux1 << endl;
 
                     if (((aux1.length())>=4) && ((aux1.length())<=6)){
                     //if ((aux1.length())==6){
@@ -2585,7 +1076,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                     nameCol = rec.indexOf("iota_island_id");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                       //qDebug() << "FileManager::adifLogExportToFile (IOTA_ID): " << aux1 << endl;
+                     //qDebug() << "FileManager::adifLogExportToFile (IOTA_ID): " << aux1 << endl;
 
                     if ((aux1.length())>0){
                         out << "<IOTA_ISLAND_ID:" << QString::number(aux1.length()) << ">" << aux1  << " ";
@@ -2770,22 +1261,19 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                     nameCol = rec.indexOf("operator");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    if (util->isValidCall(aux1)){
-                    //if ((aux1.length())>0){
+                    if ((aux1.length())>0){
                         out << "<OPERATOR:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("station_callsign");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    if (util->isValidCall(aux1))
-                    //if ((aux1.length())>0)
-                    {
+                    if ((aux1.length())>0){
                         out << "<STATION_CALLSIGN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
-                      //qDebug() << "FileManager::adifLogExportToFile - 160" << endl;
+                    //qDebug() << "FileManager::adifLogExportToFile - 160" << endl;
                     nameCol = rec.indexOf("owner_callsign");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    if (util->isValidCall(aux1)){
+                    if ((aux1.length())>0){
                         out << "<OWNER_CALLSIGN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
@@ -3131,7 +1619,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
                 else
                 {
-                       //qDebug() << "FileManager::adifLogExportToFile: NOT MARKED" << endl;
+                     //qDebug() << "FileManager::adifLogExportToFile: NOT MARKED" << endl;
                     //marked = false;
                     // Find something that bypass the while without breaking it all
 
@@ -3154,42 +1642,17 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                 nameCol = rec.indexOf("call");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                   //qDebug() << "FileManager::adifLogExportToFile: " << QString::number(nameCol) << "/" << aux1 << endl;
-                if (util->isValidCall(aux1))
-                //if (aux1.length()>0)
+                 //qDebug() << "FileManager::adifLogExportToFile: " << QString::number(nameCol) << "/" << aux1 << endl;
+                if (aux1.length()>0)
                 {
                     out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1 << " ";
                 }
-                else
-                {
-                    QMessageBox msgBox;
-                    msgBox.setIcon(QMessageBox::Warning);
-                    msgBox.setWindowTitle(tr("KLog - Invalid call detected"));
-                    QString aux = QString(tr("An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?").arg(aux1));
-                    msgBox.setText(aux);
-                    msgBox.setInformativeText(tr("Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished."));
-                    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                    msgBox.setDefaultButton(QMessageBox::No);
-                    int ret = msgBox.exec();
-                    switch (ret) {
-                      case QMessageBox::Yes:
-                          // Yes was clicked
-                           out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1 << " ";
-                          break;
-                      case QMessageBox::No:
-                            // No Save was clicked
-                          break;
-                      default:
-                            // should never be reached
-                          break;
-                    }
-                }
-                  //qDebug() << "FileManager::adifLogExportToFile before 30 " << endl;
+                //qDebug() << "FileManager::adifLogExportToFile before 30 " << endl;
                 nameCol = rec.indexOf("qso_date");
                 aux1 = (query.value(nameCol)).toString();
-                  //qDebug() << "FileManager::adifLogExportToFile: QSO_DATE: " << aux1 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile: QSO_DATE: " << aux1 << endl;
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                  //qDebug() << "FileManager::adifLogExportToFile: QSO_DATE-1: " << aux1 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile: QSO_DATE-1: " << aux1 << endl;
                 if ((aux1.length()) == 10){
                     aux1.remove(QChar('-'), Qt::CaseInsensitive);
                     aux1.remove(QChar('/'), Qt::CaseInsensitive);
@@ -3202,7 +1665,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
                     else
                     {
-                          //qDebug() << "FileManager::adifLogExportToFile: QSO_DATE not valid: " << aux1 << endl;
+                        //qDebug() << "FileManager::adifLogExportToFile: QSO_DATE not valid: " << aux1 << endl;
                     }
                 }
 
@@ -3219,10 +1682,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                         out << "<QSO_DATE_OFF" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                 }
-       //qDebug() << "FileManager::adifLogExportToFile before 50 " << endl;
+     //qDebug() << "FileManager::adifLogExportToFile before 50 " << endl;
                 nameCol = rec.indexOf("time_on");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                   //qDebug() << "FileManager::adifLogExportToFile-time_on: "  << aux1 << endl;
+                 //qDebug() << "FileManager::adifLogExportToFile-time_on: "  << aux1 << endl;
                 if ( ((aux1.length()) == 5) || ((aux1.length()) == 8) ){
                     aux1.remove(QChar(':'), Qt::CaseInsensitive);
                     out << "<TIME_ON:" << QString::number(aux1.length()) << ">" << aux1  << " ";
@@ -3230,22 +1693,22 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                 nameCol = rec.indexOf("time_off");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                   //qDebug() << "FileManager::adifLogExportToFile: time_off-1489" << QString::number(nameCol) << "/" << aux1 << endl;
+                 //qDebug() << "FileManager::adifLogExportToFile: time_off-1489" << QString::number(nameCol) << "/" << aux1 << endl;
                 if ( ((aux1.length()) == 5) || ((aux1.length()) == 8) ){
                     aux1.remove(QChar(':'), Qt::CaseInsensitive);
                     out << "<TIME_OFF:" << QString::number(aux1.length()) << ">" << aux1  << " ";
-                       //qDebug() << "FileManager::adifLogExportToFile: time_off-1489-exported"  << endl;
+                     //qDebug() << "FileManager::adifLogExportToFile: time_off-1489-exported"  << endl;
                 }
 
                 nameCol = rec.indexOf("bandid");
                 aux1 = (query.value(nameCol)).toString();
-                  //qDebug() << "FileManager::adifLogExportToFile: bandid21: " << aux1 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile: bandid21: " << aux1 << endl;
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                  //qDebug() << "FileManager::adifLogExportToFile: bandid22: " << aux1 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile: bandid22: " << aux1 << endl;
 
                 //aux1 = db->getBandNameFromID2(aux1.toInt());
                 aux1 = dataProxy->getNameFromBandId(aux1.toInt());
-                  //qDebug() << "FileManager::adifLogExportToFile: bandid23: " << aux1 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile: bandid23: " << aux1 << endl;
 
                 //TODO: If the DB has some blank fields (bandid or whatever, they will be exported as "-1" so not valid.
                 // Check how to avoid exporting wrong data.
@@ -3260,7 +1723,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 nameCol = rec.indexOf("band_rx");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
 
-              //qDebug() << "FileManager::adifLogExportToFile before 60 " << endl;
+            //qDebug() << "FileManager::adifLogExportToFile before 60 " << endl;
                 if ( (0 < aux1.toInt()) && (aux1.toInt() < 30) && (aux1.length()>0) && (dataProxy->getIdFromBandName(aux1)>=0) )  {
                     //aux1 = db->getBandNameFromID2(aux1.toInt());
                     aux1 = dataProxy->getNameFromBandId(aux1.toInt());
@@ -3286,8 +1749,8 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 aux1 = dataProxy->getNameFromSubMode(aux2);
                 //aux1 = db->getModeNameFromID2(aux1.toInt());
 
-                  //qDebug() << "FileManager::adifLogExportToFile - MODE2 aux2:  " << aux2 << endl;
-                   //qDebug() << "FileManager::adifLogExportToFile - MODE2 aux1:  " << aux1 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile - MODE2 aux2:  " << aux2 << endl;
+                 //qDebug() << "FileManager::adifLogExportToFile - MODE2 aux1:  " << aux1 << endl;
 
                 if ((aux1.length()>1) && (dataProxy->getIdFromModeName(aux1)>=0))
                 {
@@ -3302,7 +1765,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
                 }
 
-                  //qDebug() << "FileManager::adifLogExportToFile before 70 " << endl;
+                //qDebug() << "FileManager::adifLogExportToFile before 70 " << endl;
                 nameCol = rec.indexOf("srx");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
@@ -3337,23 +1800,23 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     out << "<ITUZ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
-                   //qDebug() << "FileManager::adifLogExportToFile - DXCC to be exported:  " << endl;
+                 //qDebug() << "FileManager::adifLogExportToFile - DXCC to be exported:  " << endl;
                 nameCol = rec.indexOf("dxcc");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                   //qDebug() << "FileManager::adifLogExportToFile - DXCC: " << aux1 << endl;
+                 //qDebug() << "FileManager::adifLogExportToFile - DXCC: " << aux1 << endl;
                 //if ((aux1.length())>0){
                 if ( ((aux1.length())>0) && (0 < aux1.toInt()) && (aux1.toInt() < DXCCEntities + 5) ){
                     out << "<DXCC:" << QString::number(aux1.length()) << ">" << aux1  << " ";
-                       //qDebug() << "FileManager::adifLogExportToFile - DXCC  in the if"  << endl;
+                     //qDebug() << "FileManager::adifLogExportToFile - DXCC  in the if"  << endl;
                 }
-                  //qDebug() << "FileManager::adifLogExportToFile - DXCC alreadyexported:  "  << endl;
+                //qDebug() << "FileManager::adifLogExportToFile - DXCC alreadyexported:  "  << endl;
 
                 nameCol = rec.indexOf("address");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<ADDRESS:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
-                  //qDebug() << "FileManager::adifLogExportToFile before 80 " << endl;
+                //qDebug() << "FileManager::adifLogExportToFile before 80 " << endl;
                 nameCol = rec.indexOf("age");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
@@ -3394,7 +1857,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 if ((aux1.length())>0){
                     out << "<ANT_PATH:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
-                  //qDebug() << "FileManager::adifLogExportToFile before 90 " << endl;
+                //qDebug() << "FileManager::adifLogExportToFile before 90 " << endl;
                 nameCol = rec.indexOf("arrl_sect");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
@@ -3420,7 +1883,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
                 nameCol = rec.indexOf("contacted_op");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                if (util->isValidCall(aux1)){
+                if ((aux1.length())>0){
                     out << "<CONTACTED_OP:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("contest_id");
@@ -3447,7 +1910,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     out << "<APP_KLOG_TRX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
-               //qDebug() << "FileManager::adifLogExportToFile before 100 " << endl;
+             //qDebug() << "FileManager::adifLogExportToFile before 100 " << endl;
                 nameCol = rec.indexOf("country");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
@@ -3478,7 +1941,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
                 nameCol = rec.indexOf("eq_call");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                if (util->isValidCall(aux1)){
+                if ((aux1.length())>0){
                     out << "<EQ_CALL:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("email");
@@ -3519,14 +1982,14 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                         out << "<EQSL_QSLSDATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                 }
-                   //qDebug() << "FileManager::adifLogExportToFile before eqsl_qsl_rcvd: " << endl;
+                 //qDebug() << "FileManager::adifLogExportToFile before eqsl_qsl_rcvd: " << endl;
                 nameCol = rec.indexOf("eqsl_qsl_rcvd");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if (  ((aux1.length())==1) && (aux1!="N") ) {
                     out << "<EQSL_QSL_RCVD:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
-                  //qDebug() << "FileManager::adifLogExportToFile before eqsl_qsl_sent: " << endl;
+                //qDebug() << "FileManager::adifLogExportToFile before eqsl_qsl_sent: " << endl;
                 nameCol = rec.indexOf("eqsl_qsl_sent");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if (  ((aux1.length())==1) && (aux1!="N") ){
@@ -3545,43 +2008,36 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     out << "<FISTS_CC:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
-                   //qDebug() << "FileManager::adifLogExportToFile before force_init: " << endl;
+                 //qDebug() << "FileManager::adifLogExportToFile before force_init: " << endl;
                 nameCol = rec.indexOf("force_init");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
                     out << "<FORCE_INIT:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
-                  //qDebug() << "FileManager::adifLogExportToFile before freq: " << endl;
+                //qDebug() << "FileManager::adifLogExportToFile before freq: " << endl;
                 nameCol = rec.indexOf("freq");
-                  //qDebug() << "FileManager::adifLogExportToFile before freq: nameCol: " << QString::number(nameCol) << endl;
+                //qDebug() << "FileManager::adifLogExportToFile before freq: nameCol: " << QString::number(nameCol) << endl;
                 aux1 = (query.value(nameCol)).toString();
-                  //qDebug() << "FileManager::adifLogExportToFile FREQ2: "  << aux1 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile FREQ2: "  << aux1 << endl;
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                  //qDebug() << "FileManager::adifLogExportToFile FREQ2.1: "  << aux1 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile FREQ2.1: "  << aux1 << endl;
                 if ((aux1.length())>0){
                     if (dataProxy->getBandIdFromFreq(aux1.toDouble()) == dataProxy->getIdFromBandName(bandst))
                     //if (db->isThisFreqInBand(bandst, aux1))
                     {
                         out << "<FREQ:" << QString::number(aux1.length()) << ">" << aux1  << " ";
-                        aux2 = aux1;
                     }
                 }
 
                 nameCol = rec.indexOf("freq_rx");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-
-                if (aux2.length()>0)
-                {
-                      //qDebug() << "FileManager::adifLogExportToFile FREQ_TX: "  << aux2 << endl;
-                      //qDebug() << "FileManager::adifLogExportToFile FREQ_RX: "  << aux1 << endl;
-                }
-
                 if ((aux1.length())>0){
-                    if ((dataProxy->getBandIdFromFreq(aux1.toDouble()) == dataProxy->getIdFromBandName(bandst)) && (aux1 != aux2) && (aux2.length()>0))
+                    if (dataProxy->getBandIdFromFreq(aux1.toDouble()) == dataProxy->getIdFromBandName(bandst))
                     //if (db->isThisFreqInBand(bandst, aux1))
                     {
                         out << "<FREQ_RX:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
+
                 }
 
                 nameCol = rec.indexOf("guest_op");
@@ -3629,14 +2085,14 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                 nameCol = rec.indexOf("iota");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                   //qDebug() << "FileManager::adifLogExportToFile (IOTA2): " << aux1 << endl;
+                 //qDebug() << "FileManager::adifLogExportToFile (IOTA2): " << aux1 << endl;
                 if (((aux1.length())>=4) && ((aux1.length())<=6)){
                 //if ((aux1.length())==6){
                     out << "<IOTA:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("iota_island_id");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                  //qDebug() << "FileManager::adifLogExportToFile (IOTA_ID2): " << aux1 << endl;
+                //qDebug() << "FileManager::adifLogExportToFile (IOTA_ID2): " << aux1 << endl;
 
                 if ((aux1.length())>0){
                     out << "<IOTA_ISLAND_ID:" << QString::number(aux1.length()) << ">" << aux1  << " ";
@@ -3666,7 +2122,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 if ((aux1.length())>0){
                     out << "<MY_ITU_ZONE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
-          //qDebug() << "FileManager::adifLogExportToFile - a- 90" << endl;
+        //qDebug() << "FileManager::adifLogExportToFile - a- 90" << endl;
                 nameCol = rec.indexOf("lat");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                 if ((aux1.length())>0){
@@ -3817,22 +2273,18 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
                 nameCol = rec.indexOf("operator");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                //if ((aux1.length())>0)
-                if (util->isValidCall(aux1))
-                {
+                if ((aux1.length())>0){
                     out << "<OPERATOR:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("station_callsign");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                if (util->isValidCall(aux1))
-                //if ((aux1.length())>0){
-                {
+                if ((aux1.length())>0){
                     out << "<STATION_CALLSIGN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                 nameCol = rec.indexOf("owner_callsign");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                if (util->isValidCall(aux1)){
+                if ((aux1.length())>0){
                     out << "<OWNER_CALLSIGN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
@@ -4161,7 +2613,6 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         if ( progress.wasCanceled() )
         {
             QMessageBox msgBox;
-            msgBox.setWindowTitle(tr("KLog - User cancelled"));
             QString aux = QString(tr("You have canceled the file export. The file will be removed and no data will be exported.") + "\n" + tr("Do you still want to cancel?"));
             msgBox.setText(aux);
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -4181,34 +2632,35 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
             }
 
         }
-
+        else
+        {}
     } // Closes the isValid
         else
         {}
     } //Closes the While
 
-      //qDebug() << "FileManager::adifLogExportToFile -  after the While" << endl;
+    //qDebug() << "FileManager::adifLogExportToFile -  after the While" << endl;
     progress.setValue(numberOfQsos);
 
     if (noMoreQso)
     {
     //TODO: Remove the file (_fileName)
-          //qDebug() << "FileManager::adifLogExportToFile -  noMoreQSO = true" << endl;
+        //qDebug() << "FileManager::adifLogExportToFile -  noMoreQSO = true" << endl;
         file.remove();
         return false;
 
     }
     else
     {
-          //qDebug() << "FileManager::adifLogExportToFile -  noMoreQSO = false" << endl;
+        //qDebug() << "FileManager::adifLogExportToFile -  noMoreQSO = false" << endl;
         return writeBackupDate();
 
     }    
 }
 
-bool FileManager::cabrilloLogExport(const QString& _fileName, const QString &_contestType, const int logNconst)
+bool FileManager::cabrilloLogExport(const QString& _fileName, const QString _contestType, const int logNconst)
 {
-       //qDebug() << "FileManager::cabrilloLogExport" << endl;
+     //qDebug() << "FileManager::cabrilloLogExport" << endl;
 
     return cabrilloLogExportToFile(_fileName, logNconst);
 
@@ -4216,7 +2668,7 @@ bool FileManager::cabrilloLogExport(const QString& _fileName, const QString &_co
 
 bool FileManager::cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst)
 {
-       //qDebug() << "FileManager::cabrilloLogExportCQWWToFile" << _fileName, endl;
+     //qDebug() << "FileManager::cabrilloLogExportCQWWToFile" << _fileName, endl;
 /*
 START-OF-LOG:
 ARRL-SECTION:
@@ -4426,7 +2878,7 @@ QFile file(_fileName);
 
             nameCol = rec.indexOf("time_on");
             aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-               //qDebug() << "FileManager::adifLogExportToFile-time_on: "  << aux1 << endl;
+             //qDebug() << "FileManager::adifLogExportToFile-time_on: "  << aux1 << endl;
             if ( ((aux1.length()) == 5) || ((aux1.length()) == 8) ){
                 aux1.remove(QChar(':'), Qt::CaseInsensitive);
                 //out << aux1.resize(2) << " ";
@@ -4438,8 +2890,7 @@ QFile file(_fileName);
 
             nameCol = rec.indexOf("station_callsign");
             aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-            if (util->isValidCall(aux1))
-            //if ( (0 <= aux1.length()) && (aux1.length() <= 14) )
+            if ( (0 <= aux1.length()) && (aux1.length() <= 14) )
             {
                 out << aux1.rightJustified(13, ' ', true) << " ";
             }
@@ -4456,8 +2907,8 @@ QFile file(_fileName);
 
             nameCol = rec.indexOf("call");
             aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-            if (util->isValidCall(aux1))
-            //if ((0 <= aux1.length()) && (aux1.length() <= 14) )
+
+            if ((0 <= aux1.length()) && (aux1.length() <= 14) )
             {
                 out << aux1.rightJustified(13, ' ', true) << " ";
             }
@@ -4491,7 +2942,7 @@ QFile file(_fileName);
 
 bool FileManager::cabrilloLogExportToFile(const QString& _fileName, const int logNconst)
 {
-       //qDebug() << "FileManager::cabrilloLogExportToFile" << endl;
+     //qDebug() << "FileManager::cabrilloLogExportToFile" << endl;
 
     QString fn = _fileName;
 
@@ -4503,13 +2954,13 @@ bool FileManager::cabrilloLogExportToFile(const QString& _fileName, const int lo
     return false;
 }
 
-bool FileManager::printQs(const QStringList &_line)
+bool FileManager::printQs(const QStringList _line)
 //bool FileManager::printQs(const QString _q, const QStringList _line)
 {
     QStringList qs = _line;
 
     for (int i = 0; i<qs.size(); i++){
-           //qDebug() << qs.at(i) << " ";
+         //qDebug() << qs.at(i) << " ";
     }
 
     return true;
@@ -4517,40 +2968,94 @@ bool FileManager::printQs(const QStringList &_line)
 
 
 bool FileManager::adifLogExportMarked(const QString& _fileName)
-{
-    //qDebug() << "FileManager::adifLogExportMarked:" << _fileName << endl;
-    return adifLogExportToFile(_fileName, 0, true, false, false);
+{    
+    return adifLogExportToFile(_fileName, 0, true, false);
 }
 
-QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
+/*
+bool FileManager::adifCheckMoreThanOneLog(QFile& _f)
 {
-    //qDebug() << "FileManager::adifLoTWReadLog: " << tfileName << endl;
+     //qDebug() << "FileManager::adifCheckMoreThanOneLog:" << endl;
+    QFile &file = _f;
+    qint64 pos; //Position in the file
+    QString line = QString();
+    QStringList fields;
+    QString aux = QString();
+    QString lastAux = QString();
+    QStringList data = QStringList();
+    int log1 = -1;
+    int log2 = -2;
+    bool firstLog = true;
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+         //qDebug() << "FileManager::adifCheckMoreThanOneLog File not found" << endl;
+        return false;
+    }
+
+    pos = file.pos();
+
+    while ( !file.atEnd()   )
+    {
+        //line = file.readLine();
+
+        line.clear();
+        line.append(file.readLine().trimmed().toUpper());
+
+        if (line.contains("APP_KLOG_LOGN"))
+        {   fields.clear();
+            fields << line.split("<", QString::SkipEmptyParts);
+
+            foreach (aux, fields)
+            {
+                aux = aux.trimmed();
+                if (aux.contains("APP_KLOG_LOGN"))
+                {
+                    data.clear();
+                    data << aux.split('>');
+                     //qDebug() << "FileManager::adifCheckMoreThanOneLog: data.0: " << data.at(0) << endl;
+                     //qDebug() << "FileManager::adifCheckMoreThanOneLog: data.1: " << data.at(1) << endl;
+                    if (firstLog)
+                    {
+                        log1 = (data.at(1)).toInt();
+                        firstLog = false;
+                    }
+                    else
+                    {
+                        if (log1 == (data.at(1)).toInt())
+                        {}
+                        else
+                        {
+                            file.close();
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+     //qDebug() << "FileManager::adifCheckMoreThanOneLog: JUST ONE!" << aux << endl;
+    file.close();
+    return false;
+}
+*/
+
+bool FileManager::adifLoTWReadLog(const QString& tfileName)
+{
+     //qDebug() << "FileManager::adifLoTWReadLog: " << tfileName << endl;
     QString fileName = tfileName;
-    QList<int> readed;
-    readed.clear();
 
     QFile file( fileName );
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-           //qDebug() << "FileManager::adifLoTWReadLog File not found" << fileName << endl;
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog - File not opened"));
-        QString aux = QString(tr("It was not possible to open the file %1 for reading.") ).arg(fileName);
-        msgBox.setText(tr("KLog was not able to read the LoTW file"));
-        msgBox.setInformativeText(aux);
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.exec();
-        return readed;
+         //qDebug() << "FileManager::adifLoTWReadLog File not found" << fileName << endl;
+        return false;
     }
 
     QStringList fields, qsToPass;
-    QStringList modifiedQSOList;    // This is to emit it so after reading the full file, it is possible to show a qtable showing the QSOs that have been modified.
-    modifiedQSOList.clear();
     bool hasEOH = false;
     int numberOfQsos = 0;
-    int i = 0;
-    //int numberOfQsosLoWTHeader = 0;
+    int numberOfQsosLoWTHeader = 0;
     QString line = QString();
     QString auxString = QString();
     QString aux = QString();
@@ -4569,16 +3074,12 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
         {
             hasEOH = true;
         }
-
+        numberOfQsosLoWTHeader = numberOfQsosLoWTHeader + line.count("");
     }
-
-
-    int step = util->getProgresStepForDialog(numberOfQsos);
 
     //<APP_LoTW_NUMREC:3>847
 
-    //qDebug() << "FileManager::adifLoTWReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
-    //qDebug() << "FileManager::adifLoTWReadLog STEP: " << QString::number(step) << endl;
+     //qDebug() << "FileManager::adifLoTWReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
 
     QProgressDialog progress(tr("Reading LoTW file..."), tr("Abort reading"), 0, numberOfQsos, this);
     progress.setWindowModality(Qt::ApplicationModal);
@@ -4598,10 +3099,10 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
        The first < after <eoh> is the start of the first field of the first data record in the file.
     */
 
-    //qDebug() << "FileManager::adifLoTWReadLog: Going to read the HEADER" << endl;
+     //qDebug() << "FileManager::adifLoTWReadLog: Going to read the HEADER" << endl;
     //Read HEADER
     line = file.readLine().trimmed().toUpper();
-       //qDebug() << "FileManager::adifLoTWReadLog: " << line << endl;
+     //qDebug() << "FileManager::adifLoTWReadLog: " << line << endl;
 
     if ( (!(line.startsWith('<'))) && (inHeader) )
     { // The file has a header
@@ -4646,9 +3147,9 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
 
     file.seek(pos);
     //START reading QSO data...
-    //qDebug() << "FileManager::adifLoTWReadLog: QSO data reading started..."  << endl;
+     //qDebug() << "FileManager::adifLoTWReadLog: QSO data reading started..."  << endl;
 
-    while (!noMoreQso )
+    while ((!noMoreQso) )
     {
         if (!file.atEnd())
         {
@@ -4659,7 +3160,7 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
                 noMoreQso = true;
             }
             //line.append(file.readLine().toUpper()); // TODO: Check if we should remove extra spaces,tabs and so on...
-               //qDebug() << "FileManager::adifLoTWReadLog-line:" << line << endl;
+             //qDebug() << "FileManager::adifLoTWReadLog-line:" << line << endl;
             fields << line.split("<", QString::SkipEmptyParts);
 /*
 <CALL:6>DL4ZAA
@@ -4667,14 +3168,12 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
 <FREQ:8>21.31700
 <MODE:3>SSB
 <APP_LoTW_MODEGROUP:5>PHONE
-<APP_LoTW_RXQSO:19>2019-04-02 10:21:25
 <QSO_DATE:8>20150329
 <TIME_ON:6>112900
 <QSL_RCVD:1>Y
 <QSLRDATE:8>20170910
 <eor>
 */
-
             qsToPass.clear();
             auxString.clear();
             foreach (aux, fields)
@@ -4683,9 +3182,9 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
                 if ( (aux.contains('>')) && (auxString.length() > 0) )
                 {
                     qsToPass.last() = qsToPass.last() + auxString;
-                       //qDebug() << "FileManager::adifLoTWReadLog Modified in qsToPass: " << qsToPass.last() << endl;
+                     //qDebug() << "FileManager::adifLoTWReadLog Modified in qsToPass: " << qsToPass.last() << endl;
                     //qsToPass << aux.trimmed();
-                    //qDebug() << "FileManager::adifLoTWReadLog Added to qsToPass: " << aux.trimmed() << endl;
+                     //qDebug() << "FileManager::adifLoTWReadLog Added to qsToPass: " << aux.trimmed() << endl;
                     auxString.clear();
                 }
                 else if (( aux.contains('>')) && (auxString.length() <= 0) )
@@ -4695,133 +3194,56 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
                 else
                 {
                     auxString = auxString + "-" + aux.trimmed();
-                       //qDebug() << "FileManager::adifLoTWReadLog auxString: " << auxString << endl;
+                     //qDebug() << "FileManager::adifLoTWReadLog auxString: " << auxString << endl;
                 }
-                  //qDebug() << "FileManager::adifLoTWReadLog fields: " << aux << endl;
+                //qDebug() << "FileManager::adifLoTWReadLog fields: " << aux << endl;
             }
 
             if (auxString.length()>0)
             {
-                   //qDebug() << "FileManager::adifLoTWReadLog auxString2: " << auxString << endl;
+                 //qDebug() << "FileManager::adifLoTWReadLog auxString2: " << auxString << endl;
                 qsToPass.last() = qsToPass.last() + auxString.trimmed();
             }
-              //qDebug() << "FileManager::adifLoTWReadLog END fields" << endl;
-               //qDebug() << "FileManager::adifLoTWReadLog Mod: " << qsToPass.join("/") << endl;
-               //qDebug() << "FileManager::adifLoTWReadLog END2 fields" << endl;
+             //qDebug() << "FileManager::adifLoTWReadLog END fields" << endl;
+             //qDebug() << "FileManager::adifLoTWReadLog Mod: " << qsToPass.join("/") << endl;
+             //qDebug() << "FileManager::adifLoTWReadLog END2 fields" << endl;
 
             fields = qsToPass;
 
 
             if (fields.contains("EOR>")) // We are going to add a QSO to the log... prepare the Query!
             {
-                   //qDebug() << "FileManager::adifLoTWReadLog: START of QSO "<< endl;
+                 //qDebug() << "FileManager::adifLoTWReadLog: START of QSO "<< endl;
                 //dataProxy->isThisQSODuplicated()
 
                 //int getDuplicatedQSOId(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode);
-                QString str, _call, _date, _time, _band, _mode, _qslsdate, _qslrdate;
-                bool qsl_rcvd = false;
-                QString field, data;
-                QStringList clearAdif;
-                bool validQSO = false;
-                int modifiedQSO = -1;
+                QString str, _call, _date, _time, _band, _mode;
+                QString field;
                 foreach (str, fields)
                 {
-                    //field = readAdifField("<"+str).at(0);
-                    clearAdif.clear();
-                    clearAdif << readAdifField("<"+str);
-                      //qDebug() << "FileManager::adifLoTWReadLog: clearAdif length: " << QString::number(clearAdif.length()) << endl;
-                    if (clearAdif.length()==2)
+                    field = readAdifField(str).at(0);
+                    //field = str;
+
+                    if (field == "CALL")
                     {
-                        validQSO = true;
-                        field = clearAdif.at(0);
-                        data = clearAdif.at(1);
 
-                        //qDebug() << "FileManager::adifLoTWReadLog: field: " << field << endl;
-                        //qDebug() << "FileManager::adifLoTWReadLog: data: " << data << endl;
-                        if (field == "CALL")
-                        {
-                            if (util->isValidCall(data))
-                            {
-                                _call = data;
-                            }
-                            else
-                            {
-                                _call = util->getAValidCall(data);
-                            }
-
-                        }
-                        else if (field == "QSO_DATE")
-                        {
-                            _date = data;
-                        }
-                        else if (field == "TIME_ON")
-                        {
-                            _time = data;
-                        }
-                        else if (field == "BAND")
-                        {
-                            _band  = data;
-                        }
-                        else if (field == "MODE")
-                        {
-                            _mode = data;
-                        }
-                        else if (field == "FREQ") // In MHz with 5 decimal places
-                        {
-
-                        }
-                        else if (field == "APP_LoTW_RXQSO")
-                        {
-                            //_qslsdate = data;
-                        }
-                        else if (field == "QSL_RCVD")
-                        {
-                            if (data == "Y")
-                            {
-                                qsl_rcvd = true;
-                            }
-                        }
-                        else if (field == "QSLRDATE")
-                        {
-                            _qslrdate = data;
-                        }
-                        else
-                        {}
                     }
+                    else if (field == "QSO_DATE")
+                    {
+
+                    }
+                    else if (field == "TIME_ON")
+                    {}
+                    else if (field == "BAND")
+                    {}
+                    else if (field == "MODE")
+                    {}
                     else
-                    {
-                        //qDebug() << "FileManager::adifLoTWReadLog: NOT VALID ADIF RECEIVED: " << "<" + str << endl;
-                    }
-
+                    {}
+                     //qDebug() << "FileManager::adifLoTWReadLog: " << str << endl;
                 }
-                if (validQSO)
-                {
-                    modifiedQSO = dataProxy->lotwUpdateQSLReception (_call, _date, _time, _band, _mode, _qslrdate);
-                    if (modifiedQSO>0)
-                    {
-                       //qDebug() << "FileManager::adifLoTWReadLog: QSO Modified:  " << _call << endl;
-                       readed.append(modifiedQSO);
-                       modifiedQSOList << _call << _date + "-" +_time << _band << _mode << _qslrdate;
-                       emit addQSOToList(modifiedQSOList);
-                       modifiedQSOList.clear();
-                    }
-                    else
-                    {
-                       //qDebug() << "FileManager::adifLoTWReadLog: QSO NOT Modified:  Error: " << QString::number(modifiedQSO) << " - " << _call << endl;
-                    }
-                }
-
-                _call.clear();
-                _date.clear();
-                _time.clear();
-                _band.clear();
-                _mode.clear();
-                _qslrdate.clear();
-                _qslsdate.clear();
-
-                //qDebug() << "FileManager::adifLoTWReadLog: END of QSO "<< endl;
+                 //qDebug() << "FileManager::adifLoTWReadLog: END of QSO "<< endl;
                 fields.clear();
-                i++;
 
             } // END of  if (fields.contains("EOR>")) // We are going to add a QSO to the log... !
             else
@@ -4830,64 +3252,25 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
                 {
                     noMoreQso = true;
                 }
-                   //qDebug() << "FileManager::adifLoTWReadLog: fields DOES NOT contains EOR>" << endl;
+                 //qDebug() << "FileManager::adifLoTWReadLog: fields DOES NOT contains EOR>" << endl;
 
             }
 
-
-
-        if (( (i % step ) == 0) )
-        { // To update the speed I will only show the progress once each X QSOs
-            //qDebug() << "FileManager::adifLoTWReadLog: MOD 0 - i = " << QString::number(i)  << endl;
-            aux = tr("Importing LoTW ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
-            progress.setLabelText(aux);
-            progress.setValue(i);
-        }
-        if (i>=numberOfQsos)
-        {
-            noMoreQso = true;
-        }
-
-        if ( progress.wasCanceled() )
-        {
-
-            QMessageBox msgBox;
-            msgBox.setWindowTitle(tr("KLog - User cancelled"));
-            aux = QString(tr("You have canceled the file import. The file will be removed and no data will be imported.") + "\n" + tr("Do you still want to cancel?"));
-            msgBox.setText(aux);
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::No);
-            int ret = msgBox.exec();
-            switch (ret) {
-              case QMessageBox::Yes:
-                  // Yes was clicked
-                    noMoreQso = true;
-                  break;
-              case QMessageBox::No:
-                    // No Save was clicked
-                  break;
-              default:
-                    // should never be reached
-                  break;
-            }
-        }
         }
     }
-    progress.setValue(numberOfQsos);
 
-    //qDebug() << "FileManager::adifLoTWReadLog - END" << endl;
-
-    return readed;
+    return true;
 }
 
 bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 {
-    //qDebug() << "FileManager::adifReadLog:" << tfileName << endl;
+     //qDebug() << "FileManager::adifReadLog:" << tfileName << endl;
 
     //int n = 0;
     //QSqlDatabase db = QSqlDatabase::database();
     //int maxLogs = dataProxy->getNumberOfManagedLogs(); // To manage several logs
-    usePreviousStationCallsignAnswerAlways = false; // This is to ensure that the StationCallsign is used in the process Line function
+
+
     bool sqlOK = true;
     QStringList queries = QStringList();
     queries.clear();
@@ -4927,14 +3310,14 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     //We need to fill the hashLog to process then in processLog
 
 
-    //bool keepLogsInFile = false;
+    bool keepLogsInFile = false;
 
-      //qDebug() << "FileManager::adifReadLog: Logs: " << QString::number(howManyLogs) << endl;
+    //qDebug() << "FileManager::adifReadLog: Logs: " << QString::number(howManyLogs) << endl;
 
     if (howManyLogs>1)
     {
+
         QMessageBox msgBox;
-        msgBox.setWindowTitle(tr("KLog - Log selection"));
         aux = QString(tr("There is more than one log in this logfile.") + "\n" + tr("All logs will be imported into the current log.") + "\n" + tr("Do you want to continue?"));
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -4943,26 +3326,26 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
         switch (ret) {
           case QMessageBox::Yes:
               // Yes was clicked
-                   //qDebug() << "FileManager::adifReadLog: clicked YES" << endl;
-                //keepLogsInFile = true;
+                 //qDebug() << "FileManager::adifReadLog: clicked YES" << endl;
+                keepLogsInFile = true;
               break;
           case QMessageBox::No:
                 // No Save was clicked
-                   //qDebug() << "FileManager::adifReadLog: clicked NO" << endl;
-                 //keepLogsInFile = false;
+                 //qDebug() << "FileManager::adifReadLog: clicked NO" << endl;
+                 keepLogsInFile = false;
                  return false;
           default:
                 // should never be reached
-                //keepLogsInFile = false;
+                keepLogsInFile = false;
                 return false;
-                   //qDebug() << "FileManager::adifReadLog: default" << endl;
+                 //qDebug() << "FileManager::adifReadLog: default" << endl;
         }
     }
 
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-          //qDebug() << "FileManager::adifReadLog File not found" << fileName << endl;
+        //qDebug() << "FileManager::adifReadLog File not found" << fileName << endl;
         return false;
     }
 
@@ -4978,7 +3361,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             hasEOH = true;
         }
     }
-       //qDebug() << "FileManager::adifReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
+     //qDebug() << "FileManager::adifReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
 
     QProgressDialog progress(tr("Reading ADIF file..."), tr("Abort reading"), 0, numberOfQsos, this);
     /*progress.setWindowModality(Qt::WindowModal);*/
@@ -4990,8 +3373,8 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     step = util->getProgresStepForDialog(numberOfQsos);
 
     //step = getProgresStepForDialog(numberOfQsos);
-       //qDebug() << "FileManager::adifReadLog (STEP)/Number: " << QString::number(step) << "/" << QString::number(numberOfQsos) << endl;
-       //qDebug() << "FileManager::adifReadLog (number & step: " << QString::number(numberOfQsos % step) << endl;
+     //qDebug() << "FileManager::adifReadLog (STEP)/Number: " << QString::number(step) << "/" << QString::number(numberOfQsos) << endl;
+     //qDebug() << "FileManager::adifReadLog (number & step: " << QString::number(numberOfQsos % step) << endl;
 
     file.seek(pos);
 
@@ -5003,10 +3386,10 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     The first < after <eoh> is the start of the first field of the first data record in the file.
     */
 
-       //qDebug() << "FileManager::adifReadLog: Going to read the HEADER" << endl;
+     //qDebug() << "FileManager::adifReadLog: Going to read the HEADER" << endl;
     //Read HEADER
     line = file.readLine().trimmed().toUpper();
-       //qDebug() << "FileManager::adifReadLog: " << line << endl;
+     //qDebug() << "FileManager::adifReadLog: " << line << endl;
 
     if ( (!(line.startsWith('<'))) && (inHeader) )
     { // The file has a header
@@ -5053,17 +3436,17 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     file.seek(pos);
 
     // START reading QSO data...
-      //qDebug() << "FileManager::adifReadLog: QSO data reading started..."  << endl;
+    //qDebug() << "FileManager::adifReadLog: QSO data reading started..."  << endl;
 
     preparedQuery.prepare( "INSERT INTO log (call, qso_date, bandid, modeid, time_on, time_off, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_state, state, my_street, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, swl, ten_ten, web, points, multiplier, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :time_on, :time_off, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_state, :state, :my_street, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :swl, :ten_ten, :web, :points, :multiplier, :lognumber)" );
 /*
     if (db.transaction())
     {
-           //qDebug() << "FileManager::adifReadLog: Transaction Opened"  << endl;
+         //qDebug() << "FileManager::adifReadLog: Transaction Opened"  << endl;
     }
     else
     {
-           //qDebug() << "FileManager::adifReadLog: Transaction NOT Opened"  << endl;
+         //qDebug() << "FileManager::adifReadLog: Transaction NOT Opened"  << endl;
     }
 */
     //file.seek(pos);
@@ -5077,14 +3460,14 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             line.clear();
             line.append(file.readLine().trimmed().toUpper());
             //line.append(file.readLine().toUpper()); // TODO: Check if we should remove extra spaces,tabs and so on...
-               //qDebug() << "FileManager::adifReadLog-line:" << line << endl;
+             //qDebug() << "FileManager::adifReadLog-line:" << line << endl;
             //fields.clear(); //TODO: Check if I should clear fields... I think I should not because I could loose data if a line contains data after an <EOR>
              fields << line.split("<", QString::SkipEmptyParts);
         }
 
         //TODO: Check what happens
 
-           //qDebug() << "FileManager::adifReadLog START fields" << endl;
+         //qDebug() << "FileManager::adifReadLog START fields" << endl;
         qsToPass.clear();
         auxString.clear();
         foreach (aux, fields)
@@ -5099,9 +3482,9 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             {
                 //qsToPass << auxString + aux;
                 qsToPass.last() = qsToPass.last() + auxString;
-                  //qDebug() << "FileManager::adifReadLog Modified in qsToPass: " << qsToPass.last() << endl;
+                //qDebug() << "FileManager::adifReadLog Modified in qsToPass: " << qsToPass.last() << endl;
                 qsToPass << aux.trimmed();
-                  //qDebug() << "FileManager::adifReadLog Added to qsToPass: " << aux.trimmed() << endl;
+                //qDebug() << "FileManager::adifReadLog Added to qsToPass: " << aux.trimmed() << endl;
                 auxString.clear();
             }
             else if (( aux.contains('>')) && (auxString.length() <= 0) )
@@ -5111,64 +3494,63 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             else
             {
                 auxString = auxString + "-" + aux.trimmed();
-                  //qDebug() << "FileManager::adifReadLog auxString: " << auxString << endl;
+                //qDebug() << "FileManager::adifReadLog auxString: " << auxString << endl;
             }
 
-              //qDebug() << "FileManager::adifReadLog fields: " << aux << endl;
+            //qDebug() << "FileManager::adifReadLog fields: " << aux << endl;
         }
 
-          //qDebug() << "FileManager::adifReadLog-W-1" << endl;
+        //qDebug() << "FileManager::adifReadLog-W-1" << endl;
 
         if (auxString.length()>0)
         {
-              //qDebug() << "FileManager::adifReadLog auxString2: " << auxString << endl;
+            //qDebug() << "FileManager::adifReadLog auxString2: " << auxString << endl;
             qsToPass.last() = qsToPass.last() + auxString.trimmed();
         }
 
-           //qDebug() << "FileManager::adifReadLog END fields" << endl;
-           //qDebug() << "FileManager::adifReadLog Mod: " << qsToPass.join("/") << endl;
-           //qDebug() << "FileManager::adifReadLog END2 fields" << endl;
+         //qDebug() << "FileManager::adifReadLog END fields" << endl;
+         //qDebug() << "FileManager::adifReadLog Mod: " << qsToPass.join("/") << endl;
+         //qDebug() << "FileManager::adifReadLog END2 fields" << endl;
 
         fields = qsToPass;
 
         if (fields.contains("EOR>")) // We are going to add a QSO to the log... prepare the Query!
         {
-               //qDebug() << "FileManager::adifReadLog: fields contains EOR>" << endl;
+             //qDebug() << "FileManager::adifReadLog: fields contains EOR>" << endl;
             preparedQuery.bindValue( ":lognumber", logN);
 
             while ( (!EOR) && (!fields.isEmpty()) )
             {
 
-                   //qDebug() << "FileManager::adifReadLog-W-2" << endl;
+                 //qDebug() << "FileManager::adifReadLog-W-2" << endl;
 
 
                 fieldToAnalyze = (fields.takeFirst()).trimmed();
 
                 if ( fieldToAnalyze.contains("EOR>") )
                 {
-                        //qDebug() << "FileManager::adifReadLog-W-2.1" << endl;
+                      //qDebug() << "FileManager::adifReadLog-W-2.1" << endl;
                     currentQSOfields << fieldToAnalyze;
                     //preparedQBool = processQsoReadingADIF(currentQSOfields, logN, keepLogsInFile, hashLogs);
-                    //XpreparedQBool = processQsoReadingADIF(currentQSOfields, logN, keepLogsInFile);
-                    preparedQBool = processQsoReadingADIF(currentQSOfields, logN);
+                    preparedQBool = processQsoReadingADIF(currentQSOfields, logN, keepLogsInFile);
                     if (preparedQBool)
                     {
-                           //qDebug() << "FileManager::adifReadLog: preparedQBool = true"  << endl;
+                         //qDebug() << "FileManager::adifReadLog: preparedQBool = true"  << endl;
 
                     }
                     else
                     {
-                           //qDebug() << "FileManager::adifReadLog: preparedQBool = false"  << endl;
+                         //qDebug() << "FileManager::adifReadLog: preparedQBool = false"  << endl;
                     }
 
                 }
                 else
                 {
-                       //qDebug() << "FileManager::adifReadLog: Not contains EOR"  << endl;
+                     //qDebug() << "FileManager::adifReadLog: Not contains EOR"  << endl;
 
                     if ((!fieldToAnalyze.contains('>')) && (currentQSOfields.length()>0))
                     {
-                          //qDebug() << "FileManager::adifReadLog: Contains > & currentsQSOfields.length>0"  << endl;
+                        //qDebug() << "FileManager::adifReadLog: Contains > & currentsQSOfields.length>0"  << endl;
                         auxString = currentQSOfields.at(currentQSOfields.length()-1);
                         auxString = auxString + "\n" + fieldToAnalyze;
                         //currentQSOfields.at(currentQSOfields.length()) = auxString;
@@ -5180,14 +3562,16 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                 }
             }
             sqlOK = preparedQuery.exec();
-            //qDebug() << "FileManager::adifReadLog: executedQuery1: " << preparedQuery.executedQuery()  << endl;
-            //qDebug() << "FileManager::adifReadLog: executedQuery2: " << preparedQuery.executedQuery()  << endl;
-            //qDebug() << "FileManager::adifReadLog: LastQuery2: " << preparedQuery.lastQuery()  << endl;
+             //qDebug() << "FileManager::adifReadLog: executedQuery1: " << preparedQuery.executedQuery()  << endl;
+
+
+             //qDebug() << "FileManager::adifReadLog: executedQuery2: " << preparedQuery.executedQuery()  << endl;
+             //qDebug() << "FileManager::adifReadLog: LastQuery2: " << preparedQuery.lastQuery()  << endl;
 
 
             if (( (i % step ) == 0) )
             { // To update the speed I will only show the progress once each X QSOs
-                  //qDebug() << "FileManager::adifReadLog: MOD 0 - i = " << QString::number(i)  << endl;
+                //qDebug() << "FileManager::adifReadLog: MOD 0 - i = " << QString::number(i)  << endl;
 
                 aux = tr("Importing ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
 
@@ -5197,26 +3581,25 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             }
             else
             {
-                  //qDebug() << "FileManager::adifReadLog: Mod: "<< QString::number(i) << " mod " << QString::number(step) << " = " << QString::number(i % step) << endl;
+                //qDebug() << "FileManager::adifReadLog: Mod: "<< QString::number(i) << " mod " << QString::number(step) << " = " << QString::number(i % step) << endl;
             }
 
             if (sqlOK)
             {
-                //qDebug() << "FileManager::adifReadLog: (1) in While sqlOK (QSO added) = TRUE"  << endl;
+                 //qDebug() << "FileManager::adifReadLog: (1) in While sqlOK (QSO added) = TRUE"  << endl;
             }
             else
             {
                 errorCode = preparedQuery.lastError().number();
-                //qDebug() << "FileManager::adifReadLog: QSO DUPE" << endl;
+                 //qDebug() << "FileManager::adifReadLog: QSO DUPE" << endl;
 
-                //qDebug() << "FileManager::adifReadLog: (1) LastQuery: " << preparedQuery.lastQuery()  << endl;
-                //qDebug() << "FileManager::adifReadLog: (1) LastError-data: " << preparedQuery.lastError().databaseText()  << endl;
-                //qDebug() << "FileManager::adifReadLog: (1) LastError-driver: " << preparedQuery.lastError().driverText()  << endl;
-                //qDebug() << "FileManager::adifReadLog: (1) LastError-n: " << QString::number(preparedQuery.lastError().number() ) << endl;
+                 //qDebug() << "FileManager::adifReadLog: (1) LastQuery: " << preparedQuery.lastQuery()  << endl;
+                 //qDebug() << "FileManager::adifReadLog: (1) LastError-data: " << preparedQuery.lastError().databaseText()  << endl;
+                 //qDebug() << "FileManager::adifReadLog: (1) LastError-driver: " << preparedQuery.lastError().driverText()  << endl;
+                 //qDebug() << "FileManager::adifReadLog: (1) LastError-n: " << QString::number(preparedQuery.lastError().number() ) << endl;
                 if ((errorCode == 19) && (!ignoreErrorCode19))
                 { // There are some repeated QSO
                     QMessageBox msgBox;
-                    msgBox.setWindowTitle(tr("KLog - Duplicated QSOs"));
                     aux = tr("It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)");
                     msgBox.setText(aux);
                     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No);
@@ -5225,24 +3608,24 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                     switch (ret) {
                       case QMessageBox::Yes:
                           // Yes was clicked
-                               //qDebug() << "FileManager::adifReadLog: (1) clicked YES" << endl;
+                             //qDebug() << "FileManager::adifReadLog: (1) clicked YES" << endl;
                             sqlOK = true;
                           break;
                     case QMessageBox::YesToAll:
                         // Yes was clicked
-                               //qDebug() << "FileManager::adifReadLog: (1) clicked YES to ALL" << endl;
+                             //qDebug() << "FileManager::adifReadLog: (1) clicked YES to ALL" << endl;
                             ignoreErrorCode19 = true;
                             sqlOK = true;
                         break;
                       case QMessageBox::No:
                           // No Save was clicked
-                               //qDebug() << "FileManager::adifReadLog: (1) clicked NO" << endl;
+                             //qDebug() << "FileManager::adifReadLog: (1) clicked NO" << endl;
                              sqlOK = false;
                           break;
                       default:
                           // should never be reached
                             sqlOK = true;
-                               //qDebug() << "FileManager::adifReadLog: (1) default" << endl;
+                             //qDebug() << "FileManager::adifReadLog: (1) default" << endl;
                           break;
                     }
                     //;
@@ -5251,14 +3634,14 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                 else if((errorCode == 19) && (ignoreErrorCode19))
                 {
                   sqlOK = true;
-                    //qDebug() << "FileManager::adifReadLog: errorCode=19 && ignoreErrorCode19" << endl;
+                  //qDebug() << "FileManager::adifReadLog: errorCode=19 && ignoreErrorCode19" << endl;
                 }
                 else
                 {
-                       //qDebug() << "FileManager::adifReadLog: (2) LastQuery: " << preparedQuery.lastQuery()  << endl;
-                       //qDebug() << "FileManager::adifReadLog: (2) LastError-data: " << preparedQuery.lastError().databaseText()  << endl;
-                       //qDebug() << "FileManager::adifReadLog: (2) LastError-driver: " << preparedQuery.lastError().driverText()  << endl;
-                       //qDebug() << "FileManager::adifReadLog: (2) LastError-n: " << QString::number(preparedQuery.lastError().number() ) << endl;
+                     //qDebug() << "FileManager::adifReadLog: (2) LastQuery: " << preparedQuery.lastQuery()  << endl;
+                     //qDebug() << "FileManager::adifReadLog: (2) LastError-data: " << preparedQuery.lastError().databaseText()  << endl;
+                     //qDebug() << "FileManager::adifReadLog: (2) LastError-driver: " << preparedQuery.lastError().driverText()  << endl;
+                     //qDebug() << "FileManager::adifReadLog: (2) LastError-n: " << QString::number(preparedQuery.lastError().number() ) << endl;
 
                     emit queryError( Q_FUNC_INFO, preparedQuery.lastError().databaseText(), preparedQuery.lastError().number(), preparedQuery.lastQuery());
                     noMoreQso = true;
@@ -5273,14 +3656,14 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                       case QMessageBox::Ok:
                           // Yes was clicked
                             //sqlOK = false;
-                               //qDebug() << "FileManager::adifReadLog: (2) I have just set sqlOK=False (1)" << endl;
+                             //qDebug() << "FileManager::adifReadLog: (2) I have just set sqlOK=False (1)" << endl;
                             noMoreQso = true;
                             return;
                           break;
                       default:
                           // should never be reached
                             //sqlOK = false;
-                               //qDebug() << "FileManager::adifReadLog: (2) I have just set sqlOK=False (2)" << endl;
+                             //qDebug() << "FileManager::adifReadLog: (2) I have just set sqlOK=False (2)" << endl;
                           break;
                     }
                     */
@@ -5288,27 +3671,27 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             }
 
              /*
-               //qDebug() << "FileManager::adifReadLog: qsosInTransaction: " <<  QString::number(qsosInTransaction)   << endl;
+             //qDebug() << "FileManager::adifReadLog: qsosInTransaction: " <<  QString::number(qsosInTransaction)   << endl;
             if ((qsosInTransaction>=step*10) && (qsosInTransaction>200) )
             {
                 qsosInTransaction = 0;
 
                 if (db.commit())
                 {
-                       //qDebug() << "FileManager::adifReadLog: MIDcommit OK: " <<  QString::number(i) << endl;
+                     //qDebug() << "FileManager::adifReadLog: MIDcommit OK: " <<  QString::number(i) << endl;
 
                     if (db.transaction())
                     {
-                           //qDebug() << "FileManager::adifReadLog: MIDTransaction Opened" << endl;
+                         //qDebug() << "FileManager::adifReadLog: MIDTransaction Opened" << endl;
                     }
                     else
                     {
-                           //qDebug() << "FileManager::adifReadLog: MIDTransaction NOT Opened"  << endl;
+                         //qDebug() << "FileManager::adifReadLog: MIDTransaction NOT Opened"  << endl;
                     }
                 }
                 else
                 {
-                       //qDebug() << "FileManager::adifReadLog: MIDcommit NOK: " <<  QString::number(i) << endl;
+                     //qDebug() << "FileManager::adifReadLog: MIDcommit NOK: " <<  QString::number(i) << endl;
                     errorCode = preparedQuery.lastError().number();
 
                     QMessageBox msgBox;
@@ -5323,24 +3706,24 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                           // Yes was clicked
                             sqlOK = false;
                             noMoreQso = true;
-                               //qDebug() << "FileManager::adifReadLog: I have just set sqlOK=False (3)" << endl;
+                             //qDebug() << "FileManager::adifReadLog: I have just set sqlOK=False (3)" << endl;
                           break;
                       default:
                           // should never be reached
                             sqlOK = false;
-                               //qDebug() << "FileManager::adifReadLog: I have just set sqlOK=False (4)" << endl;
+                             //qDebug() << "FileManager::adifReadLog: I have just set sqlOK=False (4)" << endl;
                           break;
                     }
 
                     if (db.rollback())
                     {
-                           //qDebug() << "FileManager::adifReadLog: MIDcommit NOK: Rolledback"  << endl;
+                         //qDebug() << "FileManager::adifReadLog: MIDcommit NOK: Rolledback"  << endl;
 
                     }
                     else
                     {
                       //TODO: Check the error if db.rollback returns false
-                         //qDebug() << "FileManager::adifReadLog: MIDcommit NOK: Roleback returned FALSE¿?"  << endl;
+                       //qDebug() << "FileManager::adifReadLog: MIDcommit NOK: Roleback returned FALSE¿?"  << endl;
                     }
 
                 }
@@ -5356,8 +3739,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             {
 
                 QMessageBox msgBox;
-                msgBox.setWindowTitle(tr("KLog - User cancelled"));
-                aux = QString(tr("You have canceled the file import. The file will be removed and no data will be imported.") + "\n" + tr("Do you still want to cancel?"));
+                aux = QString(tr("You have cancelled the file import. The file will be removed and no data will be imported.") + "\n" + tr("Do you still want to cancel?"));
                 msgBox.setText(aux);
                 msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                 msgBox.setDefaultButton(QMessageBox::No);
@@ -5387,7 +3769,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             {
                 noMoreQso = true;
             }
-               //qDebug() << "FileManager::adifReadLog: fields DOES NOT contains EOR>" << endl;
+             //qDebug() << "FileManager::adifReadLog: fields DOES NOT contains EOR>" << endl;
 
         }
 
@@ -5398,21 +3780,21 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
     if (noMoreQso)
     {
-           //qDebug() << "FileManager::adifReadLog: noMoreQso = true" << endl;
+         //qDebug() << "FileManager::adifReadLog: noMoreQso = true" << endl;
         progress.setValue(numberOfQsos);
 
     }
     else
     {
-           //qDebug() << "FileManager::adifReadLog: noMoreQso = false" << endl;
+         //qDebug() << "FileManager::adifReadLog: noMoreQso = false" << endl;
     }
     if (sqlOK)
     {
-           //qDebug() << "FileManager::adifReadLog: sqlOK = true" << endl;
+         //qDebug() << "FileManager::adifReadLog: sqlOK = true" << endl;
     }
     else
     {
-           //qDebug() << "FileManager::adifReadLog: sqlOK = false" << endl;
+         //qDebug() << "FileManager::adifReadLog: sqlOK = false" << endl;
     }
 
     if (sqlOK)
@@ -5420,7 +3802,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
         /*
         if (db.commit())
         {
-               //qDebug() << "FileManager::adifReadLog: Last commit OK"  << endl;
+             //qDebug() << "FileManager::adifReadLog: Last commit OK"  << endl;
         }
         else
         {
@@ -5436,12 +3818,12 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
               case QMessageBox::Ok:
                   // Yes was clicked
                     sqlOK = false;
-                       //qDebug() << "FileManager::adifReadLog: I have just set sqlOK=False (5)" << endl;
+                     //qDebug() << "FileManager::adifReadLog: I have just set sqlOK=False (5)" << endl;
                   break;
               default:
                   // should never be reached
                     sqlOK = false;
-                       //qDebug() << "FileManager::adifReadLog: I have just set sqlOK=False (6)" << endl;
+                     //qDebug() << "FileManager::adifReadLog: I have just set sqlOK=False (6)" << endl;
                   break;
             }
 
@@ -5460,7 +3842,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     }
     else
     {
-           //qDebug() << "FileManager::adifReadLog: sqlOK = NOK"  << endl;
+         //qDebug() << "FileManager::adifReadLog: sqlOK = NOK"  << endl;
 
     }
 
@@ -5469,18 +3851,20 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
 
 
-       //qDebug() << "FileManager::adifReadLog END "  << endl;
+     //qDebug() << "FileManager::adifReadLog END "  << endl;
     return true;
 
 }
 
-bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logNumber) //, const bool _keepLogsInFile)
+
+
+bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile)
 //bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile, QHash<int, int> &_logs)
 {
 
-       //qDebug() << "FileManager::processQsoReadingADIF: log: " << QString::number(logNumber) << endl;
-       //qDebug() << "FileManager::processQsoReadingADIF: log: " << _line.at(0) << endl;
-       //qDebug() << "FileManager::processQsoReadingADIF: " << _line.join("/") << endl;
+     //qDebug() << "FileManager::processQsoReadingADIF: log: " << QString::number(logNumber) << endl;
+     //qDebug() << "FileManager::processQsoReadingADIF: log: " << _line.at(0) << endl;
+     //qDebug() << "FileManager::processQsoReadingADIF: " << _line.join("/") << endl;
 
     //QHash<int, int> &hashLogs = _logs;
 
@@ -5488,15 +3872,12 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
     //bool keepLogsInF;// = _keepLogsInFile; //TODO: Check if needed or remove it completely. This line is just to remove a warning
     int i = -1;
-    QDate date, dateT;
-    date = QDate();
-    dateT = QDate();
+    QDate date;
     QTime time;
     QStringList qs = _line;
     QStringList oneField;
     QString field, data;
     QSqlQuery query;
-
     //confirmed = 0; // 0 means worked, 1 means confirmed
 
     QString queryString, stringFields, stringData;
@@ -5509,7 +3890,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     QString aux2, aux3;
     QString qrzCall = "";
     QString submode = QString();
-
+    bool bandRXDef = false;
     int bandi = -1;
     int bandrxi = -1;
     bool rstRXr = false;
@@ -5517,42 +3898,37 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
     //KLog does not understand (and will not import) a QSO without these fields
     bool haveCall = false;
-    QString wrongCall = QString();
     bool haveBand = false;
-    bool bandRXDef = false;
     bool haveMode = false;
     bool haveSubMode = false;
     bool haveTime = false;
     bool haveDate = false;
-    bool haveFreqTX = false;
-    bool haveFreqRX = false;
-    bool hasStationCall = false;
 
     //bool ret;
-    //int length = 0;
+    //int lenght = 0;
     //int currentLog = logNumber;
 
-       //qDebug() << "FileManager::processQsoReadingADIF" << QString::number(qs.size()) << "/" << QString::number(logNumber) << endl;
+     //qDebug() << "FileManager::processQsoReadingADIF" << QString::number(qs.size()) << "/" << QString::number(logNumber) << endl;
     //TODO: To remove the next line, it was just to measure the time it takes.
     ignoreUnknownAlways = true;
     QString str;
     //preparedQuery.bindValue( ":confirmed", '0' );
 
-       //qDebug() << "FileManager::processQsoReadingADIF: Entering the foreach" << endl;
+     //qDebug() << "FileManager::processQsoReadingADIF: Entering the foreach" << endl;
     foreach (str, qs)
     {
-           //qDebug() << "FileManager::processQsoReadingADIF: " << str << endl;
+         //qDebug() << "FileManager::processQsoReadingADIF: " << str << endl;
         if ( !( (str.contains(":")) && (str.contains(">")) ) )
         {
-               //qDebug() << "FileManager::processQsoReadingADIF: NOT (contains : and >): " << str << endl;
+             //qDebug() << "FileManager::processQsoReadingADIF: NOT (contains : and >): " << str << endl;
         }
         else
         {
-               //qDebug() << "FileManager::processQsoReadingADIF: (contains : and >): " << str << endl;
+             //qDebug() << "FileManager::processQsoReadingADIF: (contains : and >): " << str << endl;
 
             oneField = str.split(">", QString::SkipEmptyParts);
 
-               //qDebug() << "FileManager::processQsoReadingADIF: (oneField)" << oneField << endl;
+             //qDebug() << "FileManager::processQsoReadingADIF: (oneField)" << oneField << endl;
             if (checkADIFValidFormat(oneField))
             {
                 i = (qs.at(0)).count(":");
@@ -5563,44 +3939,43 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
                 if (i == 2)
                 { // DATE:8:D / 20141020
-                    //length = (field.section(':', 1, 1)).toInt();
+                    //lenght = (field.section(':', 1, 1)).toInt();
                     field = field.section(':', 0, 0);
                 }
                 else if (i == 1)
                 { // DATE:8 / 20141020
-                    //length = (field.section(':', 1, 1)).toInt();
+                    //lenght = (field.section(':', 1, 1)).toInt();
                     field = field.section(':', 0, 0);
                 }
                 else
                 {
-                       //qDebug() << "FileManager::checkADIFValidFormat-1 " << endl;
+                     //qDebug() << "FileManager::checkADIFValidFormat-1 " << endl;
                     //return false;
                 }
 
                 //field = oneField.at(0).trimmed();
                 //data = oneField.at(1).trimmed();
 
-                //length = field.indexOf(":");
-                //field = field.left(length);
-                //qDebug() << "FileManager::processQsoReadingADIF (field/data): " << field << "/" << data << endl;
+                //lenght = field.indexOf(":");
+                //field = field.left(lenght);
+                 //qDebug() << "FileManager::processQsoReadingADIF (field/data): " << field << "/" << data << endl;
 
                 if (field == "CALL")
                 {
-                    //qDebug() << "FileManager::processQsoReadingADIF-CALL:" << data << endl;
-                    qrzCall = data;                    
-                    haveCall = util->isValidCall(qrzCall);
-                    if (haveCall)
+                    qrzCall = data;
+                    if (util->isValidCall(qrzCall))
                     {
-                        //qDebug() << "FileManager::processQsoReadingADIF-CALL: Have CALL!!"  << endl;
                         preparedQuery.bindValue( ":call", qrzCall );
                     }
-                   //qDebug() << "FileManager::processQsoReadingADIF-CALL-END:" << data << endl;
+
+                    haveCall = true;
+
+                     //qDebug() << "FileManager::processQsoReadingADIF-CALL:" << data << endl;
                 }
                 else if (field == "QSO_DATE")
                 {
-                    //qDebug() << "FileManager::processQsoReadingADIF-QSO_DATE:" << data << endl;
-                    dateT = dateT.fromString(data, "yyyyMMdd");
-                    preparedQuery.bindValue( ":qso_date", (dateT).toString("yyyy/MM/dd") );
+                     //qDebug() << "FileManager::processQsoReadingADIF-QSO_DATE:" << data << endl;
+                    preparedQuery.bindValue( ":qso_date", (date.fromString(data, "yyyyMMdd")).toString("yyyy/MM/dd") );
                     haveDate = true;
                 }
                 else if (field == "BAND")
@@ -5614,11 +3989,11 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                         haveBand = true;
                         bandi = i;
 
-                           //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << endl;
+                         //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << endl;
                     }
                     else
                     {
-                        //qDebug() << "FileManager::processQsoReadingADIF-Band - Wrong band: " << data << "/"  << QString::number(i) << endl;
+                      //qDebug() << "FileManager::processQsoReadingADIF-Band - Wrong band: " << data << "/"  << QString::number(i) << endl;
                     }
                    /*
                     queryString = QString("SELECT id FROM band WHERE name ='%1'").arg(data);
@@ -5627,7 +4002,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     if (query.isValid())
                     {
                         preparedQuery.bindValue( ":bandid", query.value(0).toInt() );
-                           //qDebug() << "FileManager::bprocessQsoReadingADIF-Band: " << data << endl;
+                         //qDebug() << "FileManager::bprocessQsoReadingADIF-Band: " << data << endl;
                     }
                     */
                 }
@@ -5664,12 +4039,12 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 else if (field == "SRX")
                 {
                     preparedQuery.bindValue( ":srx", data );
-                       //qDebug() << "FileManager::bprocessQsoReadingADIF-srx: " << data << endl;
+                     //qDebug() << "FileManager::bprocessQsoReadingADIF-srx: " << data << endl;
                 }
                 else if (field == "STX")
                 {
                     preparedQuery.bindValue( ":stx", data );
-                       //qDebug() << "FileManager::bprocessQsoReadingADIF-stx: " << data << endl;
+                     //qDebug() << "FileManager::bprocessQsoReadingADIF-stx: " << data << endl;
                 }
 
                 else if (field == "TIME_ON")
@@ -5683,7 +4058,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     haveTime = true;
                     aux3 = (time.fromString(data,"hhmmss")).toString("hh:mm:ss");
 
-                       //qDebug() << "FileManager::bprocessQsoReadingADIF-time_on: " << (time.fromString(data,"hhmmss")).toString("hh:mm:ss") << endl;
+                     //qDebug() << "FileManager::bprocessQsoReadingADIF-time_on: " << (time.fromString(data,"hhmmss")).toString("hh:mm:ss") << endl;
                 }
                 else if (field == "QSO_DATE_OFF")
                 {
@@ -5731,7 +4106,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
                 else if (field == "RST_RCVD")
                 {
-                       //qDebug() << "FileManager::bprocessQsoReadingADIF-rst_rcvd: " << data << endl;
+                     //qDebug() << "FileManager::bprocessQsoReadingADIF-rst_rcvd: " << data << endl;
                     preparedQuery.bindValue( ":rst_rcvd", data );
                     rstRXr = true;
                 }
@@ -5888,15 +4263,14 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 }
                 else if (field == "FREQ")
                 {
-                       //qDebug() << "FileManager::processQsoReadingADIF  -FREQ: " << QString::number(data.toDouble()) << endl;
-
+                     //qDebug() << "FileManager::processQsoReadingADIF  -FREQ: " << QString::number(data.toDouble()) << endl;
+                    preparedQuery.bindValue( ":freq", data);
                     if (haveBand)
                     {
                         if (dataProxy->getBandIdFromFreq(data.toDouble()) == bandi)
                         //if (db->isThisFreqInBand(db->getBandNameFromNumber(bandi), data))
                         {
                             preparedQuery.bindValue( ":freq", data);
-                            haveFreqTX =true;
                         }
                         else
                         {
@@ -5906,25 +4280,27 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     else
                     {
                         preparedQuery.bindValue( ":freq", data);
-                        haveFreqTX =true;
                         i = dataProxy->getBandIdFromFreq(data.toDouble());
 
                         if (i>=0)
                         {
-                            preparedQuery.bindValue( ":bandid", QString::number(i) );                            
+                            preparedQuery.bindValue( ":bandid", QString::number(i) );
                             haveBand = true;
-                               //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << endl;
+                             //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << endl;
                         }
                     }
                 }
                 else if (field == "FREQ_RX")
-                {                    
+                {
+                    //haveBand = true;
+                    //bandi = i;
+                    //i = db->getBandIDFromName2(data);
                     if (bandRXDef)
                     {
-                        if (dataProxy->getBandIdFromFreq(data.toDouble()) == bandrxi)                        
+                        if (dataProxy->getBandIdFromFreq(data.toDouble()) == bandrxi)
+                        //if (db->isThisFreqInBand(db->getBandNameFromNumber(bandrxi), data))
                         {
                             preparedQuery.bindValue( ":freq_rx", data);
-                            haveFreqRX =true;
                         }
                         else
                         {
@@ -5932,17 +4308,10 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                         }
                     }
                     else
-                    {                        
-                        i = dataProxy->getBandIdFromFreq(data.toDouble());
-
-                        if (i>=0)
-                        {
-                            preparedQuery.bindValue( ":band_rx", QString::number(i) );
-                            haveFreqRX =true;
-                            bandRXDef = true;
-                               //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << endl;
-                        }
+                    {
+                        preparedQuery.bindValue( ":freq_rx", data);
                     }
+
                 }
                 else if (field == "GRIDSQUARE")
                 {
@@ -5970,7 +4339,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 }
                 else if (field == "IOTA")
                 {
-                       //qDebug() << "FileManager::processQsoReadingADIF (IOTA): " << data << endl;
+                     //qDebug() << "FileManager::processQsoReadingADIF (IOTA): " << data << endl;
                     data = awards->checkIfValidIOTA(data);
                     /*
                     if (data.length()==4) //EU-1
@@ -6116,7 +4485,6 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 {
                     if (util->isValidCall(data))
                     {
-                        hasStationCall = true;
                         preparedQuery.bindValue( ":station_callsign", data );
                     }
                 }
@@ -6231,7 +4599,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 else if (field == "QSL_VIA")
                 {
 
-                       //qDebug() << "FileManager::bprocessQsoReadingADIF-QSL_VIA: " << data << endl;
+                     //qDebug() << "FileManager::bprocessQsoReadingADIF-QSL_VIA: " << data << endl;
 
                     if (data == "BUREAU") // This comprobation is to "correct" old logs, mainly from KLog
                         // comming from older ADIF files
@@ -6270,12 +4638,12 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 }
                 else if (field == "RX_PWR")
                 {
-                       //qDebug() << "FileManager::bprocessQsoReadingADIF-rx_pwr: " << data << endl;
+                     //qDebug() << "FileManager::bprocessQsoReadingADIF-rx_pwr: " << data << endl;
                     preparedQuery.bindValue( ":rx_pwr", data);
                 }
                 else if (field == "TX_PWR")
                 {
-                       //qDebug() << "FileManager::bprocessQsoReadingADIF-tx_pwr: " << data << endl;
+                     //qDebug() << "FileManager::bprocessQsoReadingADIF-tx_pwr: " << data << endl;
                     preparedQuery.bindValue( ":tx_pwr", data);
                 }
                 else if (field == "SAT_MODE")
@@ -6365,57 +4733,48 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
             }
             else
             {
-                   //qDebug() << "FileManager::processQsoReadingADIF (field) CheckAdif FALSE: " << field << endl;
+                 //qDebug() << "FileManager::processQsoReadingADIF (field) CheckAdif FALSE: " << field << endl;
             }
         }
     }
+    //preparedQuery.bindValue( ":lognumber", i);
+    //qDebug() << "FileManager::processQsoReadingADIF: logNumber: " << QString::number(logNumber) << endl;
 
-    if ((haveBand) && (!haveFreqTX))
-    {
-        preparedQuery.bindValue( ":freq",  dataProxy->getFreqFromBandId(bandi));
-    }
-    if ((bandRXDef) && (!haveFreqRX))
-    {
-        preparedQuery.bindValue( ":freq_rx",  dataProxy->getFreqFromBandId(bandrxi));
-    }
-    if (!haveCall)
-    {
+   // if ((haveSubMode) && (!haveMode))
+   // { // We can guess the mode from a submode!
 
-        //QString text = QInputDialog::getText(this, tr("KLog - QSO without Station Callsign"), calAux, QLineEdit::Normal, qrzCall, &ok);
-        QString text = util->getAValidCall(qrzCall);
-        if (!(util->isValidCall(text)))
-        {
-            haveCall = true;
-            qrzCall = text;
-        }
-        else
-        {
-            qrzCall = QString();
-            haveCall = false;
-        }
-    }
+   //     preparedQuery.bindValue( ":mode", dataProxy->getIdFromModeName(dataProxy->getModeFromSubMode(submode)) );
+   //     haveMode  = true;
+   // }
 
-    if (!(haveBand  && haveMode && haveTime && haveDate ))
+    if (!(haveBand && haveCall && haveMode && haveTime && haveDate ))
     {
-          //qDebug() << "FileManager::processQsoReadingADIF (Don't have all mandatory fields): " << endl;
-        aux2 = tr ("This QSO is not including the minimum data to consider a QSO as valid!") + "\n\n\n" + tr("Please edit the ADIF file and make sure that it include at least:") + "\n\nCALL, QSO_DATE, TIME_ON, BAND "+ tr("and") +" MODE.\n\n" + tr("This QSO had:") + "\n";
+        aux2 = tr ("This QSO is not including the minimum data to consider a QSO as valid!.") + "\n\n\n" + tr("Please edit the ADIF file and make sure that it include at least:") + "\n\nCALL, QSO_DATE, TIME_ON, BAND "+ tr("and") +" MODE.\n\n" + tr("This QSO had:") + "\n";
 
         if (!haveBand)
         {
             aux2 = aux2 + tr(" - The band missing and the following call: ") + qrzCall + ".\n";
+            //aux2 = "Band missing " + qrzCall + " ";
         }
-
+        if (!haveCall)
+        {
+            aux2 = aux2 + tr(" - The call missing but was done at this time: ") + aux3 + ".\n";
+            //aux2 = "Call missing " + aux3 + " ";
+        }
         if (!haveMode)
         {
             aux2 = aux2 + tr(" - The mode missing and the following call: ") + qrzCall + ".\n";
+            //aux2 = "Mode missing " + qrzCall + " ";
         }
         if (!haveDate)
         {
             aux2 = aux2 + tr(" - The date missing and the following call: ") + qrzCall + ".\n";
+            //aux2 = "Date missing " + qrzCall + " ";
         }
         if (!haveTime)
         {
             aux2 = aux2 + tr(" - The time missing and the following call: ") + qrzCall + ".\n";
+            //aux2 = "Time missing " + qrzCall + " ";
         }
 
 
@@ -6429,25 +4788,25 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
         msgBox.setDefaultButton(QMessageBox::Cancel);
         msgBox.setIcon(QMessageBox::Warning);
         int ret = msgBox.exec();
-        switch (ret)
-        {
-            case QMessageBox::Yes:
+        switch (ret) {
+          case QMessageBox::Yes:
               // Yes was clicked
 
+              break;
+        case QMessageBox::Cancel:
+            noMoreQso = true;
             break;
-            case QMessageBox::Cancel:
-                noMoreQso = true;
-            break;
-            default:
+          default:
               // should never be reached
-            break;
+              break;
         }
+
     }
 
     if ((!rstTXr) && (!rstTXDefault))
     {
         QMessageBox msgBox;
-        aux = tr("Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information.").arg(qrzCall)  + "\n\n" + tr("Click on Yes to add a default 59 to all QSOs with a similar problem.") + "\n\n" + tr("If you select NO, maybe the QSO will not be imported.");
+        aux = tr("Some QSO of this log, (i.e.: %1) seems to lack of RST-TX information.").arg(qrzCall)  + "\n\n" + tr("Click on Yes to add a default 59 to all QSO with a similar problem.") + "\n\n" + tr("If you select NO, the QSO may not be imported.");
         msgBox.setWindowTitle(tr("KLog: No RST TX found!"));
         msgBox.setText(aux);
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
@@ -6469,7 +4828,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     if ((!rstRXr) && (!rstRXDefault))
     {
         QMessageBox msgBox;
-        aux = tr("Some QSOs of this log, (i.e.: %1) seems to lack RST-RX information.").arg(qrzCall) + "\n\n" + tr("Click on Yes to add a default 59 to all QSO with a similar problem.") + "\n\n" + tr("If you select NO, the QSO may not be imported.");
+        aux = tr("Some QSO of this log, (i.e.: %1) seems to lack of RST-RX information.").arg(qrzCall) + "\n\n" + tr("Click on Yes to add a default 59 to all QSO with a similar problem.") + "\n\n" + tr("If you select NO, the QSO may not be imported.");
         msgBox.setText(aux);
         msgBox.setWindowTitle(tr("KLog: No RST RX found!"));
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
@@ -6496,122 +4855,22 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
     if ((!rstRXr) && (rstRXDefault))
     {
+
         preparedQuery.bindValue( ":rst_rcvd", "59" );
     }
 
-    if ((!hasStationCall)  )
-    {
-
-        if (!usePreviousStationCallsignAnswerAlways)
-        {
-            QMessageBox msgBox;
-
-
-
-            if(getStationCallsignFromUser(qrzCall, dateT))
-            {
-                hasStationCall = true;
-            }
-            else
-            {
-
-                msgBox.setWindowTitle(tr("KLog - No Station callsign entered."));
-                msgBox.setIcon(QMessageBox::Warning);
-                msgBox.setText("KLog - No Station callsign entered.");
-                msgBox.setInformativeText("Not entering a valid Station Callsign may create problems in some ocasions, like when uploading data to LoTW.\n\n Do you want to try again?");
-                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                msgBox.setDefaultButton(QMessageBox::Yes);
-                int ret = msgBox.exec();
-                if (ret == QMessageBox::Yes)
-                {
-                    if (!getStationCallsignFromUser(qrzCall, dateT))
-                    {
-                        msgBox.setWindowTitle(tr("KLog - No Station callsign entered."));
-                        msgBox.setIcon(QMessageBox::Warning);
-                        msgBox.setText("KLog - No Station callsign entered.");
-                        msgBox.setInformativeText("No valid station callsign to add to the QSO.");
-                        msgBox.setStandardButtons(QMessageBox::Ok);
-                        msgBox.setDefaultButton(QMessageBox::Ok);
-                        msgBox.exec();
-
-                    }
-                    else
-                    {
-                        hasStationCall = true;
-                    }
-                }
-            }
-
-            msgBox.setWindowTitle(tr("KLog - Apply to all QSOs in this log?"));
-            msgBox.setIcon(QMessageBox::Question);
-            msgBox.setText("KLog - Do you want to use the same answer for all the QSOs in this log?");
-            msgBox.setInformativeText("KLog can use the same answer that you provided to all the QSOs in this logfile when importing it.");
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::Yes);
-            int ret = msgBox.exec();
-            if (ret == QMessageBox::Yes)
-            {
-                usePreviousStationCallsignAnswerAlways = true;
-            }
-            else
-            {
-                usePreviousStationCallsignAnswerAlways = false;
-            }
-            }
-          //qDebug() << "FileManager::processQsoReadingADIF defaultStationCallsign: " << defaultStationCallsign << endl;
-
-        if ((hasStationCall) && (util->isValidCall(defaultStationCallsign)))
-        {
-            preparedQuery.bindValue( ":station_callsign", defaultStationCallsign );
-        }
-
-    }
 
     preparedQuery.bindValue( ":lognumber", QString::number(logNumber));
+
 
     return true;
 
 }
 
-bool FileManager::getStationCallsignFromUser(const QString &_qrzDX, const QDate &_dt)
-{
-    //qDebug() << "FileManager::getStationCallsignFromUser: " << _qrzDX << "/" << _dt.toString("yyyy/MM/dd") << "-" << endl;
-    bool ok;
-    QString text;
-    QString aux;
-    QString _date = QString();
-    if (_dt.isValid())
-    {
-        _date = ", on "+ _dt.toString("yyyy/MM/dd");
-    }
-
-    if (util->isValidCall(_qrzDX))
-    {
-        aux = tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO with %1 on %2:").arg(_qrzDX).arg(_date);
-        text = QInputDialog::getText(this, tr("KLog - QSO without Station Callsign"),
-                                                   aux, QLineEdit::Normal, "", &ok);
-    }
-    else
-    {
-        text = QInputDialog::getText(this, tr("KLog - QSO without Station Callsign"),
-                                                   tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO on %1:").arg(_date), QLineEdit::Normal,
-                                                   "", &ok);
-    }
-
-    if (ok && util->isValidCall(text))
-    {
-        defaultStationCallsign = text.toUpper();
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
 
 void FileManager::queryPreparation(const int _logN)
 {
-       //qDebug() << "FileManager::queryPreparation log: " << QString::number(_logN) << endl;
+     //qDebug() << "FileManager::queryPreparation log: " << QString::number(_logN) << endl;
     //Prepares the query, ALL fields to default except lognumber, as may change...
 
     QStringList columns;
@@ -6620,7 +4879,7 @@ void FileManager::queryPreparation(const int _logN)
     columns << dataProxy->getColumnNamesFromTableLog();
     if (columns.size()<2)
     {
-           //qDebug() << "FileManager::queryPreparation: <2 "  << endl;
+         //qDebug() << "FileManager::queryPreparation: <2 "  << endl;
         return;
     }
 
@@ -6649,24 +4908,24 @@ void FileManager::queryPreparation(const int _logN)
 
 bool FileManager::adifReqQSLExport(const QString& _fileName)
 {
-    //qDebug() << "FileManager::adifReqQSLExport" << _fileName << endl;
-    return adifLogExportToFile(_fileName, 0, false, true, false);
+    return adifLogExportToFile(_fileName, 0, false, true);
 }
 
-bool FileManager::modifySetupFile(const QString& _filename, const QString &_field, const QString &_value)
+
+bool FileManager::modifySetupFile(const QString& _filename, QString _field, const QString _value)
 {
-      //qDebug() << "FileManager::modifySetupFile" << endl;
+    //qDebug() << "FileManager::modifySetupFile" << endl;
 
 
     QFile file(_filename);
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)){
-          //qDebug() << "FileManager::modifySetupFile File not found" << _filename << endl;
+        //qDebug() << "FileManager::modifySetupFile File not found" << _filename << endl;
         return false;
     }
 
     QTemporaryFile tmp;
     if (!tmp.open()) {
-             //qDebug() << "FileManager::modifySetupFile- Temp file not opened" << endl;
+           //qDebug() << "FileManager::modifySetupFile- Temp file not opened" << endl;
            return false;
     }
 
@@ -6685,7 +4944,7 @@ bool FileManager::modifySetupFile(const QString& _filename, const QString &_fiel
     while (!out.atEnd())
     {
         line = out.readLine();
-           //qDebug() << "FileManager::modifySetupFile- Temp file: " << line << endl;
+         //qDebug() << "FileManager::modifySetupFile- Temp file: " << line << endl;
         if (line.startsWith(_field))
         {
             in << _field << "=" << _value << ";" << endl;
@@ -6700,7 +4959,7 @@ bool FileManager::modifySetupFile(const QString& _filename, const QString &_fiel
 
 int FileManager::howManyLogsInFile(QFile& _f)
 {
-      //qDebug() << "FileManager::howManyLogsInFile:" << endl;
+    //qDebug() << "FileManager::howManyLogsInFile:" << endl;
     QFile &file = _f;
     //qint64 pos; //Position in the file
     QString line = QString();
@@ -6712,7 +4971,7 @@ int FileManager::howManyLogsInFile(QFile& _f)
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-           //qDebug() << "FileManager::howManyLogsInFile File not found" << endl;
+         //qDebug() << "FileManager::howManyLogsInFile File not found" << endl;
         return false;
     }
 
@@ -6736,8 +4995,8 @@ int FileManager::howManyLogsInFile(QFile& _f)
                 {
                     data.clear();
                     data << aux.split('>');
-                      //qDebug() << "FileManager::howManyLogsInFile: data.0: " << data.at(0) << endl;
-                      //qDebug() << "FileManager::howManyLogsInFile: data.1: " << data.at(1) << endl;
+                    //qDebug() << "FileManager::howManyLogsInFile: data.0: " << data.at(0) << endl;
+                    //qDebug() << "FileManager::howManyLogsInFile: data.1: " << data.at(1) << endl;
                     if (logs.contains(data.at(1)))
                     {
 
@@ -6758,7 +5017,7 @@ int FileManager::howManyLogsInFile(QFile& _f)
 
         }
     }
-       //qDebug() << "FileManager::howManyLogsInFile: JUST ONE!" << aux << endl;
+     //qDebug() << "FileManager::howManyLogsInFile: JUST ONE!" << aux << endl;
     file.close();
 
     if ( (logs.size()<2) && atLeastOneLog )
@@ -6768,9 +5027,10 @@ int FileManager::howManyLogsInFile(QFile& _f)
     return logs.size();
 }
 
+
 bool FileManager::fillHashLog(QFile &_f)
 {
-       //qDebug() << "FileManager::fillHashLog:" << endl;
+     //qDebug() << "FileManager::fillHashLog:" << endl;
    //hashLogs
     //1.- Run the log and fill hashLogs
     //2.- Run the file and continue the log series to be able to translate the files log into our own log
@@ -6781,13 +5041,13 @@ bool FileManager::fillHashLog(QFile &_f)
     int i = 0;
     for (i=0;i<qs.size();i++)
     {
-           //qDebug() << "FileManager::fillHashLog: - log: " << QString::number(qs.at(i).toInt()) << endl;
+         //qDebug() << "FileManager::fillHashLog: - log: " << QString::number(qs.at(i).toInt()) << endl;
         hashLogs.insert(i+1, (qs.at(i)).toInt() );
     }
 
     for (i = 0; i < hashLogs.size(); ++i)
     {
-           //qDebug() << "FileManager::fillHashLog: - hashLogs: " << QString::number(hashLogs[i]) << endl;
+         //qDebug() << "FileManager::fillHashLog: - hashLogs: " << QString::number(hashLogs[i]) << endl;
     }
 
     qs.clear();
@@ -6803,7 +5063,7 @@ bool FileManager::fillHashLog(QFile &_f)
 
     for (i=0; i<hashLogs.size();i++)
     {
-           //qDebug() << "FileManager::fillHashLog: (" << QString::number(hashLogs.value(i)) << "/" << QString::number(i) << ")" << endl;
+         //qDebug() << "FileManager::fillHashLog: (" << QString::number(hashLogs.value(i)) << "/" << QString::number(i) << ")" << endl;
     }
     return true;
 }
@@ -6811,7 +5071,7 @@ bool FileManager::fillHashLog(QFile &_f)
 QStringList FileManager::getListOfLogsInFile(QFile& _f)
 {
     // Returns the logs of the file + 10.000 (So, log 1 is returned as 10001, 2 as 10.002 and so on)
-       //qDebug() << "FileManager::getListOfLogsInFile:" << endl;
+     //qDebug() << "FileManager::getListOfLogsInFile:" << endl;
     QFile &file = _f;
     //qint64 pos; //Position in the file
     QString line = QString();
@@ -6823,7 +5083,7 @@ QStringList FileManager::getListOfLogsInFile(QFile& _f)
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-           //qDebug() << "FileManager::howManyLogsInFile File not found" << endl;
+         //qDebug() << "FileManager::howManyLogsInFile File not found" << endl;
         return QStringList();
     }
 
@@ -6847,8 +5107,8 @@ QStringList FileManager::getListOfLogsInFile(QFile& _f)
                 {
                     data.clear();
                     data << aux.split('>');
-                       //qDebug() << "FileManager::howManyLogsInFile: data.0: " << data.at(0) << endl;
-                       //qDebug() << "FileManager::howManyLogsInFile: data.1: " << data.at(1) << endl;
+                     //qDebug() << "FileManager::howManyLogsInFile: data.0: " << data.at(0) << endl;
+                     //qDebug() << "FileManager::howManyLogsInFile: data.1: " << data.at(1) << endl;
                     if (logs.contains(QString::number(data.at(1).toInt()+10000)))
                     {
 
@@ -6875,88 +5135,73 @@ QStringList FileManager::getListOfLogsInFile(QFile& _f)
     return logs;
 }
 
-void FileManager::setVersion(const QString &_version)
+void FileManager::setVersion(const QString _version)
 {
     util->setVersion(_version);
 }
 
-QStringList FileManager::readAdifField(const QString &_field)
+
+QStringList FileManager::readAdifField(const QString _field)
 {
-    // This function receives a QString with an ADIF field and returns a QStringList with the following format:
+    // This function receives a QString with an ADIF field and returns a QString with the following format:
     // ADIF-tag, value
     // If the QString is not an ADIF tag, it returns a clear QStringList.
     // We are expecting the ADIF format:
     // <F:L:T>D
     // <Field:Length:Type>Data
-
-    //qDebug() << "FileManager::readAdifField: " << _field << endl;
+/*
+     //qDebug() << "FileManager::readAdifField: " << _field << endl;
     QStringList result;
     result.clear();
 
-    if (_field == "<EOR>")
-    {
-        //qDebug() << "FileManager::readAdifField: EOR found!!" << endl;
-        result << "EOR" << "EOR";
-        return result;
-    }
-
     if (!((_field.startsWith("<")) && (_field.contains(":")) && (_field.contains(">"))))
     {
-        //qDebug() << "FileManager::readAdifField: NOT (contains : and >): " << _field << endl;
+         //qDebug() << "FileManager::readAdifField: NOT (contains : and >): " << str << endl;
         return QStringList();
     }
-
 
     // Now we have the data in the result[1]
-    result = _field.split(">", QString::SkipEmptyParts); // Remove the first '<' and split in field & data
+    result = _field.split(">", QString::SkipEmptyParts);
+    QString aux = result.at(0);
     QString data = result.at(1);
-    QStringList fieldList;
-    fieldList.clear();
-    fieldList << (result.at(0)).split(':'); // we may have 1 or 2 depending on the format of the ADIF field.
-    int iAux = fieldList.length();
-      //qDebug() << "FileManager::readAdifField: iAux: " << QString::number(iAux) << endl;
-    int dataLength;
-    QString field;
-    QString fieldType;
-      //qDebug() << "FileManager::readAdifField: analyzing..."  << endl;
+    QString type = QString();
+    int length = -1;
+    QString fname = QString();
 
-    if (iAux == 2)
+    if ( !((aux.endsWith(">")) && !(aux.contains(":"))) )
     {
-        field = fieldList.at(0);
-        dataLength = (fieldList.at(1)).toInt();
-        fieldType = QString();
+        return QStringList();
     }
-    else if (iAux == 3)
+
+    int i = aux.count(":");
+
+    if (i == 1)
     {
-        field = fieldList.at(0);
-        dataLength = (fieldList.at(1)).toInt();
-        fieldType = fieldList.at(2);
+        lenght = (aux.section(':', 1, 1)).toInt();
+        fname = aux.section(':', 0, 0);
+    }
+    else if (i == 2)
+    {
+        lenght = (aux.section(':', 1, 1)).toInt();
+        fname = aux.section(':', 0, 0);
+        type = aux.section(':', 2, 2);
     }
     else
-    { // Not valid ADIF
-         //qDebug() << "FileManager::readAdifField: iAux != 1, 2" << endl;
-        return QStringList();
-    }
-    field.remove('<');
-    data = data.left(dataLength);
-      //qDebug() << "FileManager::readAdifField: field: " << field << endl;
-      //qDebug() << "FileManager::readAdifField: dataLength: " << QString::number(dataLength) << endl;
-      //qDebug() << "FileManager::readAdifField: data: " << data << endl;
-      //qDebug() << "FileManager::readAdifField: fieldType: " << fieldType << endl;
-
-    if (data.length() != dataLength)
     {
-        //qDebug() << "FileManager::readAdifField: data.length != dataLength: " << QString::number(data.length()) << "/" << QString::number(dataLength) << endl;
+         //qDebug() << "FileManager::readAdifField: NO proper format(1): " << str << endl;
         return QStringList();
     }
-    result.clear();
-    result << field << data;
-    //qDebug() << "FileManager::readAdifField: OK: " << field << "/" << data << endl;
-    return result;
 
-    /*
+    if (length<1)
+    {
+         //qDebug() << "FileManager::readAdifField: NO proper format(2): " << str << endl;
+        return QStringList();
+    }
+
+
 
     // Now data is splitted in the appropriate variables. We start checking format!
+    result.at(0) = fname;
 
     if (fname == "QSO_DATE")
     {
@@ -6969,7 +5214,7 @@ QStringList FileManager::readAdifField(const QString &_field)
         }
         else
         {
-               //qDebug() << "FileManager::readAdifField: NO proper format(date): " << str << endl;
+             //qDebug() << "FileManager::readAdifField: NO proper format(date): " << str << endl;
             return QStringList();
         }
     }
@@ -6989,7 +5234,7 @@ QStringList FileManager::readAdifField(const QString &_field)
         }
         else
         {
-               //qDebug() << "FileManager::readAdifField: NO proper format(time): " << str << endl;
+             //qDebug() << "FileManager::readAdifField: NO proper format(time): " << str << endl;
             return QStringList();
         }
 
@@ -7003,7 +5248,7 @@ QStringList FileManager::readAdifField(const QString &_field)
         }
         else
         {
-               //qDebug() << "FileManager::readAdifField: NO proper data(BAND): " << str << endl;
+             //qDebug() << "FileManager::readAdifField: NO proper data(BAND): " << str << endl;
             return QStringList();
         }
     }
@@ -7016,7 +5261,7 @@ QStringList FileManager::readAdifField(const QString &_field)
         }
         else
         {
-               //qDebug() << "FileManager::readAdifField: NO proper data(BAND): " << str << endl;
+             //qDebug() << "FileManager::readAdifField: NO proper data(BAND): " << str << endl;
             return QStringList();
         }
     }
@@ -7035,7 +5280,7 @@ QStringList FileManager::readAdifField(const QString &_field)
         }
         else
         {
-               //qDebug() << "FileManager::readAdifField: NO proper format(qslrdate): " << str << endl;
+             //qDebug() << "FileManager::readAdifField: NO proper format(qslrdate): " << str << endl;
             return QStringList();
         }
     }
@@ -7043,24 +5288,26 @@ QStringList FileManager::readAdifField(const QString &_field)
 
     else
     {
-           //qDebug() << "FileManager::readAdifField: NO Field found: " << str << endl;
+         //qDebug() << "FileManager::readAdifField: NO Field found: " << str << endl;
         return QStringList();
     }
-       //qDebug() << "FileManager::readAdifField: NO Field found-2: " << str << endl;
-    */
+     //qDebug() << "FileManager::readAdifField: NO Field found-2: " << str << endl;
+      */
+    return QStringList();
 
 }
 
+
 QString FileManager::prepareStringLog()
 {
-    //qDebug() << "FileManager::prepareStringLog: " << endl;
+     //qDebug() << "FileManager::prepareStringLog: " << endl;
     QStringList columns;
     columns.clear();
 
     columns << dataProxy->getColumnNamesFromTableLog();
     if (columns.size()<2)
     {
-           //qDebug() << "FileManager::prepareStringLog: <2 "  << endl;
+         //qDebug() << "FileManager::prepareStringLog: <2 "  << endl;
         return QString();
     }
 
@@ -7077,14 +5324,14 @@ QString FileManager::prepareStringLog()
     queryValues = queryValues.left(queryValues.size() -2);
 
     QString string = "INSERT INTO log ("  + queryFields + ") VALUES (" + queryValues + ")";
-       //qDebug() << "FileManager::prepareStringLog: " << string << endl;
+     //qDebug() << "FileManager::prepareStringLog: " << string << endl;
     return string;
 }
 
 QDateTime FileManager::getDateTimeOfLastBackup()
 {
-      //qDebug() << "FileManager::getDateTimeOfLastBackup: " << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss")<< endl;
-      //qDebug() << "FileManager::getDateTimeOfLastBackup: " << util->getCfgFile() << endl;
+    //qDebug() << "FileManager::getDateTimeOfLastBackup: " << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss")<< endl;
+    //qDebug() << "FileManager::getDateTimeOfLastBackup: " << util->getCfgFile() << endl;
     QFile file (util->getCfgFile());
     QString line;
     QStringList fields;
@@ -7111,8 +5358,8 @@ QDateTime FileManager::getDateTimeOfLastBackup()
 
 bool FileManager::writeBackupDate()
 {
-      //qDebug() << "FileManager::writeBackupDate: current: " << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") << endl;
-      //qDebug() << "FileManager::writeBackupDate: current: " << (getDateTimeOfLastBackup()).toString("yyyyMMdd-hhmmss") << endl;
+    //qDebug() << "FileManager::writeBackupDate: current: " << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") << endl;
+    //qDebug() << "FileManager::writeBackupDate: current: " << (getDateTimeOfLastBackup()).toString("yyyyMMdd-hhmmss") << endl;
 
     QFile file (util->getCfgFile());
     QString line, lineTemp;
@@ -7144,20 +5391,4 @@ bool FileManager::writeBackupDate()
     return true;
 }
 
-void FileManager::setStationCallSign(const QString& _st)
-{
-      //qDebug() << "FileManager::setStationCallSign: " << _st << endl;
-    if (util->isValidCall(_st))
-    {        
-          //qDebug() << "FileManager::setStationCallSign: True" << endl;
-        defaultStationCallsign = _st;
-          //qDebug() << "FileManager::setStationCallSign: " << defaultStationCallsign << endl;
-    }
-    else
-    {
-          //qDebug() << "FileManager::setStationCallSign: FALSE" << endl;
-    }
-
-   //qDebug() << "FileManager::setStationCallSign: -" << defaultStationCallsign << "-END" << endl;
-}
 

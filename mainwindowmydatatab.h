@@ -23,7 +23,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 //
@@ -33,7 +33,6 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "locator.h"
-#include "utilities.h"
 //#include "dataproxy_sqlite.h"
 //#include "dataproxy_sqlite.h"
 
@@ -79,8 +78,6 @@ signals:
 
 private slots:
     void slotMyLocatorTextChanged();
-    void slotOperatorTextChanged();
-    void slotStationCallSignTextChanged();
     void slotReturnPressed();
 
 private:
@@ -97,7 +94,6 @@ private:
     QRadioButton *keepThisDataForNextQSORadiobutton;
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
     Locator *locator;
-    Utilities *util;
 
 };
 

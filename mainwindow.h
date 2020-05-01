@@ -9,20 +9,20 @@
  ***************************************************************************/
 
 /*****************************************************************************
- * This file is part of KLog.                                                *
+ * This file is part of KLog.                                             *
  *                                                                           *
- *    KLog is free software: you can redistribute it and/or modify           *
+ *    KLog is free software: you can redistribute it and/or modify        *
  *    it under the terms of the GNU General Public License as published by   *
  *    the Free Software Foundation, either version 3 of the License, or      *
  *    (at your option) any later version.                                    *
  *                                                                           *
- *    KLog is distributed in the hope that it will be useful,                *
+ *    KLog is distributed in the hope that it will be useful,             *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
  *                                                                           *
  *****************************************************************************/
 
@@ -38,7 +38,6 @@
 #include "setupdialog.h"
 //#include "helpaboutdialog.h"
 #include "aboutdialog.h"
-//#include "dxccsummarydialog.h"
 #include "tipsdialog.h"
 #include "world.h"
 #include "filemanager.h"
@@ -55,7 +54,6 @@
 #include "mainwindowinputothers.h"
 #include "mainwindowinputeqsl.h"
 #include "mainwindowinputqsl.h"
-#include "mainqsoentrywidget.h"
 #include "elogclublog.h"
 #include "utilities.h"
 #include "downloadcty.h"
@@ -71,12 +69,9 @@
 #include "statisticswidget.h"
 #include "updatesatsdata.h"
 #include "hamlibclass.h"
-#include "pstrotatorsupport.h"
-#include "lotwutilities.h"
-#include "widgets/rotator.h"
-#include "widgets/adiflotwexportwidget.h"
-#include "widgets/showadifimportwidget.h"
 //#include "worldmapwidget.h"
+
+
 
 
 class QTimer;
@@ -130,7 +125,6 @@ enum
     CQ_WPX_RTTY = 5
 };
 */
-//enum ExportMode {ModeLotW, ModeADIF};
 
 class MainWindow : public  QMainWindow
 {
@@ -149,10 +143,10 @@ private slots:
     void slotClearNoMorErrorShown();
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed);
     void slotQRZReturnPressed();
-    //void slotQRZSpacePressed();
-    void slotQRZTextChanged(QString _qrz);
-    //void slotSRXTextChanged();
-    //void slotSTXTextChanged();
+    void slotQRZSpacePressed();
+    void slotQRZTextChanged();
+    void slotSRXTextChanged();
+    void slotSTXTextChanged();
     void slotUpdateLocator(QString _loc);
     void slotLocatorTextChanged();
     //void slotMyLocatorTextChanged();
@@ -169,19 +163,16 @@ private slots:
     void slotToolLoTWMarkAllQueued();
     void slotToolLoTWMarkAllYesThisLog();
     void slotToolLoTWMarkAllYes();
-    void slotLoTWDownloadedFileProcess(const QString &_fn);
 
-    //void slotModeComboBoxChanged();
-    //void slotBandComboBoxChanged();
+    void slotModeComboBoxChanged();
+    void slotBandComboBoxChanged();
     //void slotIOTAComboBoxChanged();
     //void slotOperatingYearComboBoxChanged();
     void slotOKButtonClicked();
-    //void slotSpotItButtonClicked();
+    void slotSpotItButtonClicked();
     void slotClearButtonClicked();
-    void slotBandChanged (const QString &_b);
-    void slotModeChanged (const QString &_m);
     void slotRefreshDXCCWidget();
-    //void slotUpdateTime();
+    void slotUpdateTime();
     void slotLogWinShow();
     void slotLogRefresh();
     //void slotScoreWinShow();
@@ -192,21 +183,14 @@ private slots:
 
     void slotSetup(const int _page=0);
 
-    //void slotrstTXTextChanged();
-    //void slotrstRXTextChanged();
+    void slotrstTXTextChanged();
+    void slotrstRXTextChanged();
     void slotADIFExport();
-    //void slotLoTWImport();
-    //void slotLoTWExport();
-
+    void slotLoTWImport();
     void slotLoTWExport();
-    void slotLoTWDownload();
-    void slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
-    //void slotADIFExportPeriod(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
-
     void slotADIFExportAll();
     void slotADIFImport();
     void slotRQSLExport();
-    void slotReceiveQSOListToShowFromFile(QStringList _qs);
     //void slotCabrilloExport();
     //void slotQSLViaTextChanged();
     void slotTimeOutInfoBars(); // Clears the infoLabels when the timeout emits the signal
@@ -216,8 +200,7 @@ private slots:
     void slotUpdateCTYDAT();
     void slotUpdateSATSDAT();
     void slotShowStats();
-    //void slotShowDXCCSummary();
-    void slotWorldReload(const bool _b);
+    void slotWorldReload();
 
     void slotExitFromSlotDialog(const int exitID);
     void exitQuestion();
@@ -237,13 +220,10 @@ private slots:
 
     //void slotHelpHelpAction();
     void slotHelpAboutAction();
-    void slotHelpCheckUpdatesAction();
+    //void slotHelpCheckUpdatesAction();
     void slotAboutQt();
     void slotTipsAction();
 
-    // MainQSOEntryWidget
-    void slotShowInfoLabel(const QString _m);
-    //void slotClearForNextQSO();
     // To support AwardsWidget
     //void slotRecalculateAwardsButtonClicked();
     void slotAwardsWidgetSetLog();
@@ -271,7 +251,7 @@ private slots:
     void slotElogClubLogDisable(const bool _b);
     //CLUBLOG
 
-    void slotShowSoftUpdateResults(const bool _b);   // Software Update: Receives the signal to see if it is needed or not to update
+    //void slotShowSoftUpdateResults(const bool _b);   // Software Update: Receives the signal to see if it is needed or not to update
 
     //SATELLITE
     //void slotSatBandTXComboBoxChanged(const QString _q);
@@ -286,8 +266,6 @@ private slots:
     void slotHamlibModeChanged(const QString &_m);
     //void slotHamlibModeNotADIF();
 
-    // PST Rotator
-    void slotRotatorShow();
     // WORLD MAP
     //void slotWorldMapShow();
 
@@ -306,25 +284,18 @@ private slots:
                              const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
                              const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on, const QString &_de_call, const QString &_de_grid);
 
-
     //void slotTipsFindQSL2QSO();
     //void slotTipsFillInDXCC();
     //void slotsTipsFillQSO();
 
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level=7);
 private:
-    //void setWidgetsOrder();
+    void setWidgetsOrder();
     bool maybeSave();
-    void setCleaning(const bool _c);
 
     void logEvent(const QString &_func, const QString &_msg, const int _level=7);
     void setSeverity(const int _sev);
     void updateBandComboBox(const QString &_band);
-    void fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate);
-    void fileExportADIF(const QString &_st, const QDate &_startDate, const QDate &_endDate);
-    bool callTQSL(const QString &_filename, const QString &_call);
-    void showNumberOfSavedQSO(const QString &_fn, const int _n);
-    //QString getCallToUseForLoTWExportUpload();
     UpdateSatsData *updateSatsData;
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
@@ -332,15 +303,11 @@ private:
     bool hamlibActive;
     bool hamlibChangingMode;
     bool hamlibModeNotADIFSupported;
-
-    // PST Rotator
-    PSTRotatorSupport *pstRotator;
-    bool usePSTRotator;
-    RotatorWidget *rotatorWidget;
     //</UPDATE CTY.DAT>
     //WorldMapWidget *worldMapWidget;
     void createStatusBar();
-    void createUI();    
+    void createUI();
+    void createUICQWW();
     void createUIDX();
     void reconfigureDXMarathonUI(const bool _dxM);
     //void createDXClusterUI();
@@ -356,12 +323,12 @@ private:
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);
 
-    //bool validCharactersInCall(const QString &_qrz); // Looks for SQLi and no valid chars in the QRZ
+    bool validCharactersInCall(const QString &_qrz); // Looks for SQLi and no valid chars in the QRZ
     QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
     QString readDataFromUIDX();
     QString readDataFromUIDXModifying();
     void actionsJustAfterAddingOneQSO();
-    //void clearForNextQSO();
+    void clearForNextQSO();
     void clearUIDX(bool full=false); //full= false leaves some data to allow pileup or normal Dx in same band; full removes freqs and everything
 
     void setAwardDXCC(const int _qsoId, bool modifying); // Adds or modify the status of a DXCC entity
@@ -408,10 +375,6 @@ private:
     int dxclusterServerPort;
     // CLUSTER
 
-    //LOTW
-    AdifLoTWExportWidget *adifLoTWExportWidget;
-    //LOTW
-    ShowAdifImportWidget *showAdifImportWidget;
 
     QWidget *mainWidget;
     //QWidget *dxClusterTabWidget;//, *searchTabWidget;
@@ -426,10 +389,9 @@ private:
     //HelpAboutDialog *helpAboutDialog;
     AboutDialog *aboutDialog;
     TipsDialog *tipsDialog;
-    //DXCCSummaryDialog *dxccSummaryDialog;
 
 
-    //QPushButton *addButton;
+    QPushButton *addButton;
     //QLabel *distShortLabelN;
     //QLabel *distLongLabelN;
     StatisticsWidget *statsWidget;
@@ -454,10 +416,10 @@ private:
     QGroupBox *gridGroupBox, *qrzgroupBox;//, *searchgroupBox;
     QFrame *dxUpLeftInputFrame;//, *dxUpRightOutputFrame;
 
-    QLineEdit *nameLineEdit, *qthLineEdit, *locatorLineEdit;
-    //QComboBox *bandComboBox, *modeComboBox;
-    //QDateEdit *dateEdit;
-    //QTimeEdit *timeEdit;
+    QLineEdit *qrzLineEdit, *nameLineEdit, *qthLineEdit, *locatorLineEdit;
+    QComboBox *bandComboBox, *modeComboBox;
+    QDateEdit *dateEdit;
+    QTimeEdit *timeEdit;
     //QStatusBar *statusBar, *qsoStatusBar;
     QString statusBarMessage;
 
@@ -494,7 +456,7 @@ private:
     QAction *ADIFExport;
     QAction *ADIFExportAll;
     QAction *ADIFImport;
-    //QAction *LoTWExport;
+    QAction *LoTWExport;
     QAction *LoTWImport;
     QAction *ReqQSLExport;
     QAction *CabrilloExport;
@@ -508,14 +470,10 @@ private:
     QAction *lotwMarkSentQueuedAct;
     QAction *lotwMarkSentYesThisLogAct;
     QAction *lotwMarkSentYesAct;
-    QAction *lotwCallTQSL;
-    QAction *lotwUpdateFromLoTWAct;
 
     QAction *downloadCTYAct;
     QAction *downloadSATSAct;
     QAction *showStatsAct;
-    QAction *showRotatorAct;
-    //QAction *showDXCCSummaryAct;
 
     QAction *loggWinAct;
 /*
@@ -544,9 +502,9 @@ private:
 
     QLineEdit *rstTXLineEdit;
     QLineEdit *rstRXLineEdit;
-    //QLineEdit *STXLineEdit;
-    //QLineEdit *SRXLineEdit;
-    //QPushButton *OKButton, *spotItButton, *clearButton;
+    QLineEdit *STXLineEdit;
+    QLineEdit *SRXLineEdit;
+    QPushButton *OKButton, *spotItButton, *clearButton;
     QStringList bands;
     QStringList modes;
     QStringList entitiesList, propModeList;
@@ -569,8 +527,6 @@ private:
     QTextEdit *notesTextEdit;
     QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox; //*myPowerSpinBox,
     QLCDNumber *freqQLCDNumber;
-
-    QString lotwTQSLpath;
 
     //eQSL
     //QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox;
@@ -606,7 +562,6 @@ private:
     MainWindowInputOthers *othersTabWidget;
     MainWindowInputEQSL *eQSLTabWidget;
     MainWindowInputQSL *QSLTabWidget;
-    MainQSOEntryWidget *mainQSOEntryWidget;
 
     AwardsWidget *awardsWidget;
     SearchWidget *searchWidget;
@@ -638,20 +593,19 @@ private:
     bool itIsANewversion;
 
 
-    //QString currentQrz;
-    //QString previousQrz;
+    QString currentQrz;
+    QString previousQrz;
 
     QString stx;
     QString srx;
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
-    bool  alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, manageDxMarathon, keepMyData, completeWithPrevious, completedWithPreviousQTH, completedWithPreviousLocator, completedWithPreviousName, completedWithPreviousIOTA, completedWithPreviousQSLVia;
-    // bool realTime, UTCTime;
+    bool realTime, UTCTime, alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, manageDxMarathon, keepMyData, completeWithPrevious, completedWithPreviousQTH, completedWithPreviousLocator, completedWithPreviousName, completedWithPreviousIOTA, completedWithPreviousQSLVia;
     bool cleaning;
     bool manageMode; // If true, the DXCC and awards will take the mode into consideration to decide if needed or worked. False implies only band is taken into account
     // Station Setup
     bool configured, modify;
     bool needToEnd; // Just to control if the software needs to end.
-    //bool qrzAutoChanging; //To stop executing the slotQRZTextChanged just because KLog uppercase a letter
+    bool qrzAutoChanging; //To stop executing the slotQRZTextChanged just because KLog uppercase a letter
     QString mainQRZ, stationQRZ, operatorQRZ, dxLocator;
     QString lastOperatorQRZ, lastStationQRZ, lastMyLocator;
     double myPower, lastPower;
@@ -692,13 +646,13 @@ private:
 
     DataBase *db;
 
+    QTextDocument *doc;
 
     SoftwareUpdate *softUpdate;
     bool callingUpdate;
     
     bool UDPServerStart;
-    // LOTWUTILITIES
-    LoTWUtilities *lotwUtilities;
+
     //LOGVIEW
     //QString bandOld, modeOld;
     //LOGVIEW

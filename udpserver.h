@@ -11,7 +11,7 @@ class UDPServer : public QObject
     Q_OBJECT
 
 public:
-    explicit UDPServer(QObject *parent = nullptr);
+    explicit UDPServer(QObject *parent = 0);
     bool start();
     bool stop();
     bool isStarted();

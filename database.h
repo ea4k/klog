@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 
@@ -108,8 +108,8 @@ public:
 
     QString getFreqFromBandId(const int _i);
 
-    //int getLogTypeNumber(const QString &_logType);
-    //QString getLogTypeName(const int _logType);
+    int getLogTypeNumber(const QString &_logType);
+    QString getLogTypeName(const int _logType);
 
     bool unMarkAllQSO();
     bool updateIfNeeded();

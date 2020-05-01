@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
 //
@@ -70,8 +70,6 @@ public:
     void setLOTWRecDate(const QDate _qs);
     void setLOTWSenDate(const QDate _qs);
 
-    void setQueueSentByDefault(const bool _b);
-
 
 signals:
 
@@ -94,7 +92,6 @@ private:
     Utilities *util;
 
     QStringList qslSentStatusList, qslRcvdStatusList, clubLogStatusList;
-    bool queueSentByDefault;
 
 };
 

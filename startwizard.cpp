@@ -1,10 +1,10 @@
 #include "startwizard.h"
 //#include <QDebug>
 
- StartWizard::StartWizard(const QString &_klogDir, const QString &_softVersion, QWidget *parent)
+ StartWizard::StartWizard(const QString _klogDir, const QString _softVersion, QWidget *parent)
      : QWizard(parent)
  {
-        //qDebug() << "StartWizard::StartWizard: v=" << _softVersion << endl;
+      //qDebug() << "StartWizard::StartWizard: v=" << _softVersion << endl;
     //licAcepted = false;
     version = _softVersion;
     klogDir = _klogDir;
@@ -41,25 +41,25 @@
 
     setWindowTitle(tr("KLog - The free hamradio logging program"));
 
-       //qDebug() << "StartWizard::StartWizard: - END" << endl;
+     //qDebug() << "StartWizard::StartWizard: - END" << endl;
 
  }
 
- void StartWizard::setVersion(const QString &tversion)
+ void StartWizard::setVersion(QString tversion)
  {
      version = tversion;
  }
 
 /*void StartWizard::slotUpdateDownloadProgress(qint64 received, qint64 total)
 {
-        //qDebug() << "StartWizard::slotUpdateDownloadProgress: " << QString::number(received) << "/" << QString::number(total) << endl;
+      //qDebug() << "StartWizard::slotUpdateDownloadProgress: " << QString::number(received) << "/" << QString::number(total) << endl;
      ctyPage->updateProgress(received, total);
 }
 */
 /*
  void StartWizard::slotDownloadFinished()
 {
-        //qDebug() << "StartWizard::slotDownloadFinished" << endl;
+      //qDebug() << "StartWizard::slotDownloadFinished" << endl;
      //close();
 }
 */
@@ -86,16 +86,16 @@
 
  void StartWizard::slotButtonFinishedClicked()
  {
-        //qDebug() << "StartWizard::slotButtonFinishedClicked " << endl;
+      //qDebug() << "StartWizard::slotButtonFinishedClicked " << endl;
 
      if (inMemory)
      {
          setResult(1);
-            //qDebug() << "StartWizard::slotButtonFinishedClicked: done 1 " << endl;
+          //qDebug() << "StartWizard::slotButtonFinishedClicked: done 1 " << endl;
      }
      else
      {
-            //qDebug() << "StartWizard::slotButtonFinishedClicked: done 2 " << endl;
+          //qDebug() << "StartWizard::slotButtonFinishedClicked: done 2 " << endl;
          setResult(2);
      }
 
@@ -105,7 +105,7 @@
 
  bool StartWizard::doTheDownload()
  {
-        //qDebug() << "StartWizard::doTheDownload" << endl;
+      //qDebug() << "StartWizard::doTheDownload" << endl;
     int downloading = 1;
     int i = 0;
     int ret;
@@ -128,7 +128,7 @@
 
  void StartWizard::slotValueReturnedFromDownload(int value)
  {
-        //qDebug() << "StartWizard::slotValueReturnedFromDownload: " << QString::number(value) << endl;
+      //qDebug() << "StartWizard::slotValueReturnedFromDownload: " << QString::number(value) << endl;
      downloadValueResult = value;
      //close();
  }
@@ -150,8 +150,8 @@
 
     QString welcometxt = "<html><head><title>" + tr("Welcome to KLog") + "</title></head><body>" +
                             "<p>" + tr("This looks like it's the first time you've run KLog on this computer.") + "</p>" +
-                            "<p>" + tr("KLog is a free hamradio logging program that can run on Linux, macOS, and Windows.") +
-                            tr("It is designed to provide general purpose DX, and contest logging.") + "</p>" +
+                            "<p>" + tr("KLog is a free hamradio logging program that can run on Linux macOS and Windows.") +
+                            tr("It is designed to provide general purpose, DX and contest logging.") + "</p>" +
                             "<p>" + tr("It supports QSL management, import and export of ADIF ") +
                             tr("and Cabrillo file formats and many other features...") + "</p><p>" +
                             tr("Before you can start using KLog, you will be asked to:") + "</p><ul>" +
@@ -902,15 +902,14 @@ int FileOrMemoryPage::nextId() const
 }
 */
 
-CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *parent) : QWizardPage(parent)
+CTYPage::CTYPage(const QString _klogDir, const QString _version, QWidget *parent) : QWizardPage(parent)
 {
     //completed = false;
 
     dl = new DownLoadCTY(_klogDir, _version);
-    connect(dl, SIGNAL(actionReturnDownload(int)), this, SLOT(slotDownloadFinished(int)));
-    connect(dl, SIGNAL(actionShowProgres(qint64,qint64)), this, SLOT(slotUpdateDownloadProgress(qint64,qint64)));
-    connect(dl, SIGNAL(actionError(int)), this, SLOT(slotDownloadError(int)));
-    connect(dl, SIGNAL(downloadStopped()), this, SLOT(slotStopProgressBar()));
+    QObject::connect(dl, SIGNAL(actionReturnDownload(int)), this, SLOT(slotDownloadFinished(int)));
+    QObject::connect(dl, SIGNAL(actionShowProgres(qint64,qint64)), this, SLOT(slotUpdateDownloadProgress(qint64,qint64)));
+    QObject::connect(dl, SIGNAL(actionError(int)), this, SLOT(slotDownloadError(int)));
 
     setTitle(tr("Country data download"));
 
@@ -919,7 +918,6 @@ CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *pare
     topLabel->setWordWrap(true);
     progressBar = new QProgressBar;
     progressBar->setEnabled(false);
-
 
     downloadButton = new QPushButton(tr("&Download"));
     ignoreDownloadButton  = new QPushButton(tr("&Ignore"));
@@ -944,9 +942,9 @@ CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *pare
     QString st = tr("Country data needed");
     QString gplLic = "<html><head><title>";
     gplLic = gplLic+st+"</title></head><body><p>";
-    st = tr("KLog uses the cty.csv file from https://www.country-files.com/ to get DXCC information.");
+    st = tr("KLog uses the cty.csv file from http://www.country-files.com/ to get DXCC information.");
     gplLic = gplLic + st + "</p><p>";
-    st = tr("You need to download the cty.csv file if you want KLog to show you the countries, locator, etc. of the QSOs you do.");
+    st = tr("You need to download the cty.csv file if you want KLog to show you the countries, locator, ... of the QSOs you do.");
     gplLic = gplLic + st + "</p><p>";
     st = tr("Click on Download to download now.");
     gplLic = gplLic+st+"</p></body></html>";
@@ -963,26 +961,22 @@ CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *pare
 
 void CTYPage::slotUpdateDownloadProgress(qint64 received, qint64 total)
 {
-       //qDebug() << "CTYPage::slotUpdateDownloadProgress: " << QString::number(received) << "/" << QString::number(total) << endl;
-
+     //qDebug() << "CTYPage::slotUpdateDownloadProgress: " << QString::number(received) << "/" << QString::number(total) << endl;
+    progressBar->setMaximum(total);
     progressBar->setValue(received);
-
 }
 
 void CTYPage::slotDownloadButtonClicked()
 {
-        //qDebug() << "CTYPage::slotDownloadButtonClicked" << endl;
+      //qDebug() << "CTYPage::slotDownloadButtonClicked" << endl;
      progressBar->setEnabled(true);
-     progressBar->reset();
-     progressBar->setRange(0, 0);
      dl->download();
      //completed = true;
 }
 void CTYPage::slotIgnoreDownloadButtonClicked()
 {
-    //qDebug() << "CTYPage::slotIgnoreDownloadButtonClicked" << endl;
+     //qDebug() << "CTYPage::slotIgnoreDownloadButtonClicked" << endl;
     //ignoreDownloadButton->setChecked(true);
-    slotStopProgressBar();
     hiddenCheckBox->setChecked(true);
     progressBar->setEnabled(false);
 
@@ -992,23 +986,22 @@ void CTYPage::slotIgnoreDownloadButtonClicked()
 
 void CTYPage::slotDownloadFinished(const int ret)
 {
-    //qDebug() << "CTYPage::slotDownloadFinished: " << QString::number(ret) << endl;
-    slotStopProgressBar();
+     //qDebug() << "CTYPage::slotDownloadFinished: " << QString::number(ret) << endl;
      if (ret == QNetworkReply::NoError) // No error
      {
-        hiddenCheckBox->setChecked(true);
-        progressBar->setEnabled(false);
-        //progressBar->setValue(progressBar->maximum());
-        //hiddenCheckBox->setChecked(true);
-        //qDebug() << "CTYPage::slotDownloadFinished: (no error): " << QString::number(ret) << endl;
+         hiddenCheckBox->setChecked(true);
+         progressBar->setEnabled(false);
+         progressBar->setValue(progressBar->maximum());
+         //hiddenCheckBox->setChecked(true);
+     //qDebug() << "CTYPage::slotDownloadFinished: (no error): " << QString::number(ret) << endl;
      }
      else if (ret == -1) // File could not be created!
      {
-           //qDebug() << "CTYPage::slotDownloadFinished: (file could not be created): " << QString::number(ret) << endl;
+         //qDebug() << "CTYPage::slotDownloadFinished: (file could not be created): " << QString::number(ret) << endl;
      }
      else
      {
-       //qDebug() << "CTYPage::slotDownloadFinished: (another result): " << QString::number(ret) << endl;
+     //qDebug() << "CTYPage::slotDownloadFinished: (another result): " << QString::number(ret) << endl;
      }
 
 
@@ -1016,10 +1009,10 @@ void CTYPage::slotDownloadFinished(const int ret)
 
 void CTYPage::slotDownloadError(const int ret)
 {
-    //qDebug() << "CTYPage::slotDownloadError: " << QString::number(ret) << endl;
+     //qDebug() << "CTYPage::slotDownloadError: " << QString::number(ret) << endl;
     int errorCode = ret;
     int i;
-    slotStopProgressBar();
+    progressBar->setValue(0);
     progressBar->setEnabled(false);
 
     if(errorCode == QNetworkReply::NoError)
@@ -1046,12 +1039,6 @@ void CTYPage::slotDownloadError(const int ret)
     {
         //TODO: Add a message showing the error that has occur. errorString()?
     }
+
 }
 
-void CTYPage::slotStopProgressBar()
-{
-    //qDebug() << "CTYPage::slotStopProgressBar" << endl;
-    progressBar->reset();
-    progressBar->setRange(0,1);
-    progressBar->setValue(1);
-}

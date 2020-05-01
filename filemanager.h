@@ -23,7 +23,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <http://www.gnu.org/licenses/>.       *
  *                                                                           *
  *****************************************************************************/
 
@@ -55,36 +55,32 @@ enum
     DXCCEntities = 521 // http://www.adif.org/adif302.htm#Country%20Codes
 };
 
-//enum ExportMode {ModeLotW, ModeADIF};
-
 class FileManager : public QWidget
 {
     Q_OBJECT
 public:
     FileManager(DataProxy_SQLite *dp);
     //FileManager(DataProxy_SQLite *dp, const QString _klogDir);
-    FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_softVersion);
+    FileManager(DataProxy_SQLite *dp, const QString _klogDir, const QString _softVersion);
     //FileManager(DataProxy_SQLite *dp, const QString _softVersion);
     ~FileManager();
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
-    QList<int> adifLoTWReadLog(const QString& tfileName);
-    QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
-    //QList<int> adifLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
-    QList<int> adifLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em);
+    bool adifLoTWReadLog(const QString& tfileName);
+    int adifLoTWLogExport(const QString& _fileName, const int _logN);
     bool adifLogExport(const QString& _fileName, const int _logN);
-   // QList<int> adifLogExportDates(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);
     bool adifReqQSLExport(const QString& _fileName);
-    bool cabrilloLogExport(const QString& _fileName, const QString &_contestType, const int logNconst);
-    bool modifySetupFile(const QString& _filename, const QString &_field, const QString &_value);
-    void setVersion(const QString &_version);
+    bool cabrilloLogExport(const QString& _fileName, const QString _contestType, const int logNconst);
+    bool modifySetupFile(const QString& _filename, QString _field, const QString _value);
+    void setVersion(const QString _version);
     QDateTime getDateTimeOfLastBackup();
-    void setStationCallSign(const QString& _st);
 
 
-private:    
-    bool adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested, bool _lotw);
+
+
+private:
+    bool adifLogExportToFile(const QString& _fileName, const int _logN=0, bool justMarked = false, bool _qslRequested = false, bool _lotw=false);
     bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);
     bool cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst);
     //bool adifCheckMoreThanOneLog(QFile &_f);
@@ -92,20 +88,17 @@ private:
     bool fillHashLog(QFile & _f);
     QStringList getListOfLogsInFile(QFile & _f);
     bool writeBackupDate();
-    bool getStationCallsignFromUser(const QString &_qrzDX, const QDate &_dt);
-
-    void showError (const QString &_txt);
 
 
-    //QString checkAndFixASCIIinADIF(_data);
 
-    bool processQsoReadingADIF(const QStringList &_line, const int logNumber);//, const bool _keepLogsInFile);
+    //QString checkAndFixASCIIinADIF(const QString _data);
+
+    bool processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile);
     void queryPreparation(const int _logN);
 
-    bool checkADIFValidFormat(const QStringList &_qs);
+    bool checkADIFValidFormat(const QStringList _qs);
 
-    QStringList readAdifField (const QString &_field);
-    // void writeAdifField(const QString &_field, const QString &_data); // It should possibly receive also the QTextStream
+    QStringList readAdifField (const QString _field);
     QString prepareStringLog();
 
 
@@ -121,14 +114,12 @@ private:
 
 
     //bool printQs(const QString _q, const QStringList _line);
-    bool printQs(const QStringList &_line);
+    bool printQs(const QStringList _line);
     //int confirmed;
     QString klogDir;
     QString klogVersion;
-    QString defaultStationCallsign;
-
+    //QProgressBar *progressBar;
     bool ignoreUnknownAlways;   // When importing ADIF, ignore all unknown fields.
-    bool usePreviousStationCallsignAnswerAlways;   // When importing ADIF, ignore all unknown fields.
     bool noMoreQso;
 
     World *world;
@@ -143,8 +134,7 @@ private:
 
 
 signals:
-    void addQSOToList(QStringList _qso);
-    void queryError(QString _functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
 };
 #endif // FILEMANAGER_H
