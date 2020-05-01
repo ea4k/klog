@@ -1,0 +1,83 @@
+<app_klog_data:4>SATS
+<app_klog_sats_references:2>67
+<app_klog_sats_version:8>20200501
+<EOH>
+<app_klog_sats_arrlid:5>AISAT <app_klog_sats_name:5>AISAT <app_klog_sats_uplink:0> <app_klog_sats_downlink:7>437.250 <app_klog_sats_mode:2>CW <EOR>
+<app_klog_sats_arrlid:5>AO-10 <app_klog_sats_name:14>AMSAT-OSCAR 10 <app_klog_sats_uplink:15>435.030,146.180 <app_klog_sats_downlink:6>145.81  <app_klog_sats_mode:6>SSB,CW <EOR>
+<app_klog_sats_arrlid:5>AO-13 <app_klog_sats_name:14>AMSAT-OSCAR 13 <app_klog_sats_uplink:15>435.423-435.573 <app_klog_sats_downlink:15>145.975-145.825  <app_klog_sats_mode:6>SSB,CW <EOR>
+<app_klog_sats_arrlid:5>AO-16 <app_klog_sats_name:14>AMSAT-OSCAR 16 <app_klog_sats_uplink:6>145.92 <app_klog_sats_downlink:7>437.026  <app_klog_sats_mode:6>FM/USB <EOR>
+<app_klog_sats_arrlid:5>AO-21 <app_klog_sats_name:14>OSCAR 21/RS-14 <app_klog_sats_uplink:0> <app_klog_sats_downlink:5>145.8  <app_klog_sats_mode:2>CW <EOR>
+<app_klog_sats_arrlid:5>AO-24 <app_klog_sats_name:15>Arsene-OSCAR 24 <app_klog_sats_uplink:0> <app_klog_sats_downlink:7>145.975  <app_klog_sats_mode:3>PKT <EOR>
+<app_klog_sats_arrlid:5>AO-27 <app_klog_sats_name:14>AMRAD-OSCAR 27 <app_klog_sats_uplink:6>145.85 <app_klog_sats_downlink:7>436.795  <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:4>AO-3 <app_klog_sats_name:13>AMSAT-OSCAR 3 <app_klog_sats_uplink:15>145.975-146.025 <app_klog_sats_downlink:15>144.325-144.375  <app_klog_sats_mode:6>SSB,CW <EOR>
+<app_klog_sats_arrlid:4>AO-4 <app_klog_sats_name:13>AMSAT-OSCAR 4 <app_klog_sats_uplink:15>432.145-432.155 <app_klog_sats_downlink:15>144.300-144.310  <app_klog_sats_mode:6>SSB,CW <EOR>
+<app_klog_sats_arrlid:5>AO-40 <app_klog_sats_name:14>AMSAT-OSCAR 40 <app_klog_sats_uplink:31>145.840-145.990,435.790-435.520 <app_klog_sats_downlink:18>2401.2225-2401.475  <app_klog_sats_mode:6>SSB,CW <EOR>
+<app_klog_sats_arrlid:5>AO-51 <app_klog_sats_name:14>AMSAT-OSCAR 51 <app_klog_sats_uplink:6>145.92 <app_klog_sats_downlink:5>435.3  <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:4>AO-6 <app_klog_sats_name:13>AMSAT-OSCAR 6 <app_klog_sats_uplink:15>145.900-146.000 <app_klog_sats_downlink:13>29.450-29.550  <app_klog_sats_mode:6>SSB,CW <EOR>
+<app_klog_sats_arrlid:4>AO-7 <app_klog_sats_name:13>AMSAT-OSCAR 7 <app_klog_sats_uplink:31>145.850-145.950,432.175-432.125 <app_klog_sats_downlink:29>29.400-29.500,145.925-145.975  <app_klog_sats_mode:11>USB,LSB/USB <EOR>
+<app_klog_sats_arrlid:5>AO-73 <app_klog_sats_name:14>AMSAT-OSCAR 73 <app_klog_sats_uplink:15>435.150-435.130 <app_klog_sats_downlink:15>145.950-145.970  <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:4>AO-8 <app_klog_sats_name:13>AMSAT-OSCAR 8 <app_klog_sats_uplink:31>145.850-145.900,145.900-146.000 <app_klog_sats_downlink:29>29.400-29.500,435.200-435.100  <app_klog_sats_mode:6>SSB,CW <EOR>
+<app_klog_sats_arrlid:5>AO-85 <app_klog_sats_name:23>AMSAT-OSCAR 85 (Fox-1A) <app_klog_sats_uplink:7>435.170 <app_klog_sats_downlink:7>145.980  <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:5>AO-91 <app_klog_sats_name:17>RadFxSat (Fox-1B) <app_klog_sats_uplink:7>435.250 <app_klog_sats_downlink:7>145.960 <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:5>AO-92 <app_klog_sats_name:6>Fox-1D <app_klog_sats_uplink:15>435.350,1267.35 <app_klog_sats_downlink:7>145.880 <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:5>AO-95 <app_klog_sats_name:6>Fox-1C <app_klog_sats_uplink:15>435.300,1267.30 <app_klog_sats_downlink:7>145.920 <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:5>ARISS <app_klog_sats_name:5>ARISS <app_klog_sats_uplink:15>145.200,144.490 <app_klog_sats_downlink:15>145.800,145.800 <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:7>BIRD-BT <app_klog_sats_name:8>BHUTAN-1 <app_klog_sats_uplink:7>145.825 <app_klog_sats_downlink:7>145.825 <app_klog_sats_mode:3>PKT <EOR>
+<app_klog_sats_arrlid:7>BIRD-MY <app_klog_sats_name:9>UiTMSat-1 <app_klog_sats_uplink:7>145.825 <app_klog_sats_downlink:7>145.825 <app_klog_sats_mode:3>PKT <EOR>
+<app_klog_sats_arrlid:7>BIRD-PH <app_klog_sats_name:6>MAYA-1 <app_klog_sats_uplink:7>145.825 <app_klog_sats_downlink:7>145.825 <app_klog_sats_mode:3>PKT <EOR>
+<app_klog_sats_arrlid:6>BY70-1 <app_klog_sats_name:19>Bayi Kepu Weixing 1 <app_klog_sats_uplink:6>145.920 <app_klog_sats_downlink:5>436.200 <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:6>CAS-3H <app_klog_sats_name:10>LilacSat-2 <app_klog_sats_uplink:15>144.350,144.390 <app_klog_sats_downlink:15>437.225,144.390 <app_klog_sats_mode:9>CW,FM,PKT <EOR>
+<app_klog_sats_arrlid:6>CAS-4A <app_klog_sats_name:9>CAMSAT 4A <app_klog_sats_uplink:15>435.210-435.230 <app_klog_sats_downlink:15>145.880-145.860 <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:6>CAS-4B <app_klog_sats_name:9>CAMSAT 4B <app_klog_sats_uplink:15>435.270-435.290 <app_klog_sats_downlink:15>145.935-145.915 <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:5>DO-64 <app_klog_sats_name:14>Delfi OSCAR-64 <app_klog_sats_uplink:0> <app_klog_sats_downlink:7>145.870  <app_klog_sats_mode:2>CW <EOR>
+<app_klog_sats_arrlid:10>DUCHIFAT-3 <app_klog_sats_name:10>DUCHIFAT-3 <app_klog_sats_uplink:7>145.970 <app_klog_sats_downlink:7>436.400 <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:5>EO-79 <app_klog_sats_name:6>QB50p1 <app_klog_sats_uplink:0> <app_klog_sats_downlink:7>145.815 <app_klog_sats_mode:3>USB <EOR>
+<app_klog_sats_arrlid:5>EO-88 <app_klog_sats_name:7>Nayif-1 <app_klog_sats_uplink:15>435.045-435.015 <app_klog_sats_downlink:15>145.960-145.990  <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:5>FO-12 <app_klog_sats_name:13>Fuji-OSCAR 12 <app_klog_sats_uplink:15>145.900-146.000 <app_klog_sats_downlink:15>435.900-435.800 <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:5>FO-20 <app_klog_sats_name:13>Fuji-OSCAR 20 <app_klog_sats_uplink:15>145.900-146.000 <app_klog_sats_downlink:15>435.900-435.800  <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:5>FO-29 <app_klog_sats_name:13>Fuji-OSCAR 29 <app_klog_sats_uplink:15>145.900-146.000 <app_klog_sats_downlink:15>435.900-435.800  <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:5>FO-99 <app_klog_sats_name:5>NEXUS <app_klog_sats_uplink:15>145.900-145.930 <app_klog_sats_downlink:15>435.880-435.910 <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:4>FS-3 <app_klog_sats_name:11>FalconSat-3 <app_klog_sats_uplink:7>435.103 <app_klog_sats_downlink:7>145.840 <app_klog_sats_mode:3>PKT <EOR>
+<app_klog_sats_arrlid:5>HO-68 <app_klog_sats_name:13>Hope OSCAR 68 <app_klog_sats_uplink:23>145.925-145.975,145.825 <app_klog_sats_downlink:23>435.765-435.715,435.675  <app_klog_sats_mode:10>LSB/USB,FM <EOR>
+<app_klog_sats_arrlid:5>IO-86 <app_klog_sats_name:14>LAPAN-A2/ORARI <app_klog_sats_uplink:7>435.880 <app_klog_sats_downlink:7>145.880  <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:5>JO-97 <app_klog_sats_name:6>JY1SAT <app_klog_sats_uplink:15>435.100-435.120 <app_klog_sats_downlink:15>145.855-145.875 <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:5>K2SAT <app_klog_sats_name:5>K2SAT <app_klog_sats_uplink:7>145.980 <app_klog_sats_downlink:7>436.225 <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:5>LO-19 <app_klog_sats_name:14>Lusat-OSCAR 19 <app_klog_sats_uplink:15>145.840-145.900 <app_klog_sats_downlink:15>437.125-437.150  <app_klog_sats_mode:2>CW <EOR>
+<app_klog_sats_arrlid:5>LO-78 <app_klog_sats_name:14>LituanicaSAT-1 <app_klog_sats_uplink:13>145.95,145.85 <app_klog_sats_downlink:15>435.176,437.543  <app_klog_sats_mode:6>FM,PKT <EOR>
+<app_klog_sats_arrlid:5>LO-87 <app_klog_sats_name:7>NUSAT-1 <app_klog_sats_uplink:15>435.935-435.965 <app_klog_sats_downlink:23>145.935-145.965 LSB/USB  <app_klog_sats_mode:0> <EOR>
+<app_klog_sats_arrlid:5>LO-90 <app_klog_sats_name:10>LilacSat-1 <app_klog_sats_uplink:7>145.985 <app_klog_sats_downlink:7>436.510  <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:5>MIREX <app_klog_sats_name:21>Mir packet digipeater <app_klog_sats_uplink:7>145.985 <app_klog_sats_downlink:7>145.985  <app_klog_sats_mode:3>PKT <EOR>
+<app_klog_sats_arrlid:5>NO-44 <app_klog_sats_name:5>PCsat <app_klog_sats_uplink:7>145.827 <app_klog_sats_downlink:7>145.827  <app_klog_sats_mode:3>PKT <EOR>
+<app_klog_sats_arrlid:5>NO-83 <app_klog_sats_name:9>BRICsat-P <app_klog_sats_uplink:14>145.825,28.120 <app_klog_sats_downlink:15>145.825,435.350  <app_klog_sats_mode:9>PKT,PSK31 <EOR>
+<app_klog_sats_arrlid:5>NO-84 <app_klog_sats_name:4>PSAT <app_klog_sats_uplink:14>145.825,28.120 <app_klog_sats_downlink:15>145.825,435.350  <app_klog_sats_mode:9>PKT,PSK31 <EOR>
+<app_klog_sats_arrlid:6>NO-103 <app_klog_sats_name:8>BRICSAT2 <app_klog_sats_uplink:7>145.825 <app_klog_sats_downlink:7>145.825 <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:6>NO-104 <app_klog_sats_name:5>PSAT2 <app_klog_sats_uplink:7>145.825 <app_klog_sats_downlink:7>145.825 <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:6>PO-101 <app_klog_sats_name:8>DIWATA-2 <app_klog_sats_uplink:7>437.500 <app_klog_sats_downlink:7>145.900 <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:8>RS0ISS-4 <app_klog_sats_name:5>ARISS <app_klog_sats_uplink:7>145.825 <app_klog_sats_downlink:7>145.825 <app_klog_sats_mode:3>PKT <EOR>
+<app_klog_sats_arrlid:4>RS-1 <app_klog_sats_name:15>Radio Sputnik 1 <app_klog_sats_uplink:3>145 <app_klog_sats_downlink:2>29  <app_klog_sats_mode:0> <EOR>
+<app_klog_sats_arrlid:5>RS-10 <app_klog_sats_name:16>Radio Sputnik 10 <app_klog_sats_uplink:13>29.357,29.403 <app_klog_sats_downlink:0>  <app_klog_sats_mode:0> <EOR>
+<app_klog_sats_arrlid:5>RS-11 <app_klog_sats_name:16>Radio Sputnik 11 <app_klog_sats_uplink:13>29.357,29.403 <app_klog_sats_downlink:0>  <app_klog_sats_mode:0> <EOR>
+<app_klog_sats_arrlid:5>RS-12 <app_klog_sats_name:16>Radio Sputnik 12 <app_klog_sats_uplink:13>21.210-21.250 <app_klog_sats_downlink:13>29.410-29.450  <app_klog_sats_mode:3>SSB <EOR>
+<app_klog_sats_arrlid:5>RS-13 <app_klog_sats_name:16>Radio Sputnik 13 <app_klog_sats_uplink:13>21.260-21.300 <app_klog_sats_downlink:15>145.860-145.900  <app_klog_sats_mode:3>SSB <EOR>
+<app_klog_sats_arrlid:5>RS-15 <app_klog_sats_name:16>Radio Sputnik 15 <app_klog_sats_uplink:0> <app_klog_sats_downlink:15>29.3525-29.3987  <app_klog_sats_mode:0> <EOR>
+<app_klog_sats_arrlid:4>RS-2 <app_klog_sats_name:15>Radio Sputnik 2 <app_klog_sats_uplink:3>145 <app_klog_sats_downlink:2>29  <app_klog_sats_mode:0> <EOR>
+<app_klog_sats_arrlid:5>RS-44 <app_klog_sats_name:9>DOSAAF-85 <app_klog_sats_uplink:15>145.935-145.995 <app_klog_sats_downlink:15>435.670-435.610  <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:4>RS-5 <app_klog_sats_name:15>Radio Sputnik 5 <app_klog_sats_uplink:0> <app_klog_sats_downlink:0>  <app_klog_sats_mode:2>CW <EOR>
+<app_klog_sats_arrlid:4>RS-6 <app_klog_sats_name:15>Radio Sputnik 6 <app_klog_sats_uplink:0> <app_klog_sats_downlink:0>  <app_klog_sats_mode:0> <EOR>
+<app_klog_sats_arrlid:4>RS-7 <app_klog_sats_name:15>Radio Sputnik 7 <app_klog_sats_uplink:0> <app_klog_sats_downlink:0>  <app_klog_sats_mode:2>CW <EOR>
+<app_klog_sats_arrlid:4>RS-8 <app_klog_sats_name:15>Radio Sputnik 8 <app_klog_sats_uplink:0> <app_klog_sats_downlink:0>  <app_klog_sats_mode:0> <EOR>
+<app_klog_sats_arrlid:5>SAREX <app_klog_sats_name:50>Shuttle Amateur Radio Experiment packet digipeater <app_klog_sats_uplink:13>144.80,144.49 <app_klog_sats_downlink:6>144.55  <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:5>SO-35 <app_klog_sats_name:6>Sunsat <app_klog_sats_uplink:7>436.291 <app_klog_sats_downlink:7>145.825  <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:5>SO-41 <app_klog_sats_name:11>Saudisat-1A <app_klog_sats_uplink:0> <app_klog_sats_downlink:7>436.775  <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:5>SO-50 <app_klog_sats_name:11>Saudisat-1C <app_klog_sats_uplink:7>145.850 <app_klog_sats_downlink:7>436.795  <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:5>SO-67 <app_klog_sats_name:19>Sumbandila OSCAR 67 <app_klog_sats_uplink:7>145.875 <app_klog_sats_downlink:7>435.345  <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:6>UKUBE1 <app_klog_sats_name:19>UKube-1 (FUNcube-2) <app_klog_sats_uplink:15>435.080-435.060 <app_klog_sats_downlink:22>145.940-145.960,2401.0  <app_klog_sats_mode:10>LSB/USB,CW <EOR>
+<app_klog_sats_arrlid:5>UO-14 <app_klog_sats_name:14>UOSAT-OSCAR 14 <app_klog_sats_uplink:7>145.975 <app_klog_sats_downlink:7>435.070  <app_klog_sats_mode:2>FM <EOR>
+<app_klog_sats_arrlid:5>VO-52 <app_klog_sats_name:14>VUsat-OSCAR 52 <app_klog_sats_uplink:31>435.220-435.280,435.225-435.275 <app_klog_sats_downlink:31>145.930-145.870,145.925-145.875  <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:5>VO-96 <app_klog_sats_name:11>ExSeedSAT-1 <app_klog_sats_uplink:15>145.900,435.340 <app_klog_sats_downlink:15>145.900,435.340 <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:5>XW-2A <app_klog_sats_name:14>XW-2A (CAS-3A) <app_klog_sats_uplink:15>435.030-435.050 <app_klog_sats_downlink:15>145.665-145.685  <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:5>XW-2B <app_klog_sats_name:14>XW-2B (CAS-3B) <app_klog_sats_uplink:15>435.090-435.110 <app_klog_sats_downlink:15>145.730-145.750  <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:5>XW-2C <app_klog_sats_name:14>XW-2C (CAS-3C) <app_klog_sats_uplink:15>435.150-435.170 <app_klog_sats_downlink:15>145.795-145.815  <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:5>XW-2D <app_klog_sats_name:14>XW-2D (CAS-3D) <app_klog_sats_uplink:15>435.210-435.230 <app_klog_sats_downlink:15>145.860-145.880  <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:5>XW-2E <app_klog_sats_name:14>XW-2E (CAS-3E) <app_klog_sats_uplink:15>435.270-435.290 <app_klog_sats_downlink:15>145.915-145.935  <app_klog_sats_mode:7>LSB/USB <EOR>
+<app_klog_sats_arrlid:5>XW-2F <app_klog_sats_name:14>XW-2F (CAS-3F) <app_klog_sats_uplink:15>435.330-435.350 <app_klog_sats_downlink:15>145.980-145.999  <app_klog_sats_mode:7>LSB/USB <EOR>
