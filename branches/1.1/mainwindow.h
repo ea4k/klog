@@ -692,7 +692,6 @@ private:
 
     DataBase *db;
 
-    QTextDocument *doc;
 
     SoftwareUpdate *softUpdate;
     bool callingUpdate;

@@ -781,139 +781,139 @@ Voleu tornar-ho a intentar?</translation>
 <context>
     <name>FileManager</name>
     <message>
-        <location filename="../filemanager.cpp" line="4984"/>
+        <location filename="../filemanager.cpp" line="4983"/>
         <source>Reading ADIF file...</source>
         <translation>S&apos;està llegint el fitxer ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4584"/>
-        <location filename="../filemanager.cpp" line="4984"/>
+        <location filename="../filemanager.cpp" line="4583"/>
+        <location filename="../filemanager.cpp" line="4983"/>
         <source>Abort reading</source>
         <translation>Interromp la lectura</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="254"/>
-        <location filename="../filemanager.cpp" line="717"/>
-        <location filename="../filemanager.cpp" line="2052"/>
+        <location filename="../filemanager.cpp" line="253"/>
+        <location filename="../filemanager.cpp" line="716"/>
+        <location filename="../filemanager.cpp" line="2051"/>
         <source>Writing ADIF file...</source>
         <translation>Escrivint el fitxer ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="254"/>
-        <location filename="../filemanager.cpp" line="717"/>
-        <location filename="../filemanager.cpp" line="2052"/>
-        <location filename="../filemanager.cpp" line="4316"/>
+        <location filename="../filemanager.cpp" line="253"/>
+        <location filename="../filemanager.cpp" line="716"/>
+        <location filename="../filemanager.cpp" line="2051"/>
+        <location filename="../filemanager.cpp" line="4315"/>
         <source>Abort writing</source>
         <translation>Interromp l&apos;escriptura</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="371"/>
-        <location filename="../filemanager.cpp" line="784"/>
-        <location filename="../filemanager.cpp" line="2117"/>
-        <location filename="../filemanager.cpp" line="3168"/>
+        <location filename="../filemanager.cpp" line="370"/>
+        <location filename="../filemanager.cpp" line="783"/>
+        <location filename="../filemanager.cpp" line="2116"/>
+        <location filename="../filemanager.cpp" line="3167"/>
         <source>KLog - Invalid call detected</source>
         <translation>KLog - S&apos;ha detectat un indicatiu no vàlid</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="372"/>
-        <location filename="../filemanager.cpp" line="786"/>
-        <location filename="../filemanager.cpp" line="2118"/>
-        <location filename="../filemanager.cpp" line="3169"/>
+        <location filename="../filemanager.cpp" line="371"/>
+        <location filename="../filemanager.cpp" line="785"/>
+        <location filename="../filemanager.cpp" line="2117"/>
+        <location filename="../filemanager.cpp" line="3168"/>
         <source>An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?</source>
         <translation>S&apos;ha detectat un indicatiu no vàlid %1. Voleu exportar igualment aquest indicatiu (clic a Sí) o eliminar l&apos;indicatiu del fitxer de registre exportat?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="374"/>
-        <location filename="../filemanager.cpp" line="790"/>
-        <location filename="../filemanager.cpp" line="2120"/>
-        <location filename="../filemanager.cpp" line="3171"/>
+        <location filename="../filemanager.cpp" line="373"/>
+        <location filename="../filemanager.cpp" line="789"/>
+        <location filename="../filemanager.cpp" line="2119"/>
+        <location filename="../filemanager.cpp" line="3170"/>
         <source>Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished.</source>
         <translation>L&apos;exportació d&apos;indicatius incorrectes pot crear problemes potencials a les aplicacions a les quals s&apos;importa aquest fitxer de registre. Tanmateix, podria ser un indicatiu correcte que el KLog ha identificat incorrectament com a no vàlid. En qualsevol cas podreu editar el fitxer ADIF una vegada acabi el procés d&apos;exportació.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="534"/>
+        <location filename="../filemanager.cpp" line="533"/>
         <source>Exporting LoTW ADIF file...</source>
         <translation>S&apos;està exportant el fitxer ADIF del LoTW...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="642"/>
+        <location filename="../filemanager.cpp" line="641"/>
         <source>The selected callsign (%1) is not valid, please check it again to export the log.</source>
         <translation>L&apos;indicatiu (%1) seleccionat no és vàlid, comproveu-ho de nou per a exportar el registre.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="1907"/>
+        <location filename="../filemanager.cpp" line="1906"/>
         <source>Exporting ADIF file...</source>
         <translation>S&apos;està exportant el fitxer ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4157"/>
+        <location filename="../filemanager.cpp" line="4156"/>
         <source>Writing ADIF file...
  QSO: </source>
         <translation>S&apos;està escrivint el fitxer ADIF...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4584"/>
+        <location filename="../filemanager.cpp" line="4583"/>
         <source>Reading LoTW file...</source>
         <translation>S&apos;està llegint el fitxer del LoTW...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4857"/>
-        <location filename="../filemanager.cpp" line="5361"/>
+        <location filename="../filemanager.cpp" line="4856"/>
+        <location filename="../filemanager.cpp" line="5360"/>
         <source>You have canceled the file import. The file will be removed and no data will be imported.</source>
         <translation>Heu cancel·lat la importació del fitxer. El fitxer s&apos;eliminarà i no s&apos;importarà cap dada.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6402"/>
+        <location filename="../filemanager.cpp" line="6401"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!</source>
         <translation>Aquest QSO no inclou les dades mínimes per a considerar-se un QSO vàlid!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6423"/>
+        <location filename="../filemanager.cpp" line="6422"/>
         <source>Do you want to continue with the current file?</source>
         <translation>Voleu continuar amb el fitxer actual?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6473"/>
+        <location filename="../filemanager.cpp" line="6472"/>
         <source>Click on Yes to add a default 59 to all QSO with a similar problem.</source>
         <translation>Cliqueu a Sí per afegir un 59 per defecte a tots els QSO amb un problema semblant.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6473"/>
+        <location filename="../filemanager.cpp" line="6472"/>
         <source>If you select NO, the QSO may not be imported.</source>
         <translation>Si seleccioneu No, el QSO pot no importar-se.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6598"/>
+        <location filename="../filemanager.cpp" line="6597"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
 Enter the Station Callsign that was used to do this QSO on %1:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6406"/>
+        <location filename="../filemanager.cpp" line="6405"/>
         <source> - The band missing and the following call: </source>
         <translation> - Manca la banda i l&apos;indicatiu següent: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6411"/>
+        <location filename="../filemanager.cpp" line="6410"/>
         <source> - The mode missing and the following call: </source>
         <translation> - Manca el mode i l&apos;indicatiu següent: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6415"/>
+        <location filename="../filemanager.cpp" line="6414"/>
         <source> - The date missing and the following call: </source>
         <translation> - Manca la data i l&apos;indicatiu següent: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6419"/>
+        <location filename="../filemanager.cpp" line="6418"/>
         <source> - The time missing and the following call: </source>
         <translation> - Manca l&apos;hora i l&apos;indicatiu següent: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="548"/>
-        <location filename="../filemanager.cpp" line="1917"/>
-        <location filename="../filemanager.cpp" line="4166"/>
+        <location filename="../filemanager.cpp" line="547"/>
+        <location filename="../filemanager.cpp" line="1916"/>
+        <location filename="../filemanager.cpp" line="4165"/>
         <source>You have canceled the file export. The file will be removed and no data will be exported.</source>
         <translation>Heu cancel·lat l&apos;exportació del fitxer. El fitxer s&apos;eliminarà i no s&apos;exportarà cap dada.</translation>
     </message>
@@ -924,26 +924,35 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="207"/>
-        <location filename="../filemanager.cpp" line="588"/>
+        <location filename="../filemanager.cpp" line="587"/>
         <source>The selected log does not exist, please check it again.</source>
         <translation>El registre seleccionat no existeix, comproveu-ho de nou.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="238"/>
+        <location filename="../filemanager.cpp" line="237"/>
         <source>The selected callsign (%1) is not valid, please check it again.</source>
         <translation>L&apos;indicatiu (%1) seleccionat no és vàlid, comproveu-ho de nou.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="245"/>
-        <location filename="../filemanager.cpp" line="650"/>
+        <location filename="../filemanager.cpp" line="244"/>
+        <location filename="../filemanager.cpp" line="649"/>
         <source>The file %1 can&apos;t be opened.</source>
         <translation>El fitxer «%1» no s&apos;ha pogut obrir.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="290"/>
-        <location filename="../filemanager.cpp" line="706"/>
+        <location filename="../filemanager.cpp" line="289"/>
+        <location filename="../filemanager.cpp" line="705"/>
         <source>There are no QSOs pending to be uploaded with that station callsign.</source>
         <translation>No hi ha cap QSO pendent de pujar amb aquest indicatiu d&apos;estació.</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="546"/>
+        <location filename="../filemanager.cpp" line="1915"/>
+        <location filename="../filemanager.cpp" line="4164"/>
+        <location filename="../filemanager.cpp" line="4855"/>
+        <location filename="../filemanager.cpp" line="5359"/>
+        <source>KLog - User cancelled</source>
+        <translation>KLog - L&apos;usuari ha cancel·lat</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="547"/>
@@ -951,94 +960,85 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
         <location filename="../filemanager.cpp" line="4165"/>
         <location filename="../filemanager.cpp" line="4856"/>
         <location filename="../filemanager.cpp" line="5360"/>
-        <source>KLog - User cancelled</source>
-        <translation>KLog - L&apos;usuari ha cancel·lat</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="548"/>
-        <location filename="../filemanager.cpp" line="1917"/>
-        <location filename="../filemanager.cpp" line="4166"/>
-        <location filename="../filemanager.cpp" line="4857"/>
-        <location filename="../filemanager.cpp" line="5361"/>
         <source>Do you still want to cancel?</source>
         <translation>Encara voleu cancel·lar?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="534"/>
-        <location filename="../filemanager.cpp" line="1907"/>
-        <location filename="../filemanager.cpp" line="4843"/>
-        <location filename="../filemanager.cpp" line="5193"/>
+        <location filename="../filemanager.cpp" line="533"/>
+        <location filename="../filemanager.cpp" line="1906"/>
+        <location filename="../filemanager.cpp" line="4842"/>
+        <location filename="../filemanager.cpp" line="5192"/>
         <source> QSO: </source>
         <translation> QSO: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4316"/>
+        <location filename="../filemanager.cpp" line="4315"/>
         <source>Writing Cabrillo file...</source>
         <translation>S&apos;està escrivint el fitxer Cabrillo...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4501"/>
+        <location filename="../filemanager.cpp" line="4500"/>
         <source>KLog: Cabrillo Log Export not implemented</source>
         <oldsource>Kontest: Cabrillo Log Export not implemented</oldsource>
         <translation>KLog: L&apos;exportació del registre en format Cabrillo no està implementada</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4502"/>
+        <location filename="../filemanager.cpp" line="4501"/>
         <source>I am sorry but the Cabrillo Export To File feature has still not been implemented.</source>
         <translation>Ho sentim però la funció d&apos;exportar Cabrillo encara no està implementada.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4539"/>
+        <location filename="../filemanager.cpp" line="4538"/>
         <source>KLog - File not opened</source>
         <translation>KLog - Fitxer no obert</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4540"/>
+        <location filename="../filemanager.cpp" line="4539"/>
         <source>It was not possible to open the file %1 for reading.</source>
         <translation>No ha estat possible obrir el fitxer %1 per a lectura.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4541"/>
+        <location filename="../filemanager.cpp" line="4540"/>
         <source>KLog was not able to read the LoTW file</source>
         <translation>El KLog no ha pogut llegir el fitxer del LoTW</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4843"/>
+        <location filename="../filemanager.cpp" line="4842"/>
         <source>Importing LoTW ADIF file...</source>
         <translation>S&apos;està important el fitxer ADIF del LoTW...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4938"/>
+        <location filename="../filemanager.cpp" line="4937"/>
         <source>KLog - Log selection</source>
         <translation>KLog - Selecció de registre</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4939"/>
+        <location filename="../filemanager.cpp" line="4938"/>
         <source>There is more than one log in this logfile.</source>
         <translation>Hi ha més d&apos;un registre en aquest fitxer de registre.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4939"/>
+        <location filename="../filemanager.cpp" line="4938"/>
         <source>All logs will be imported into the current log.</source>
         <translation>S&apos;importaran tots els registres al registre actual.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4939"/>
+        <location filename="../filemanager.cpp" line="4938"/>
         <source>Do you want to continue?</source>
         <translation>Voleu continuar?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="5193"/>
+        <location filename="../filemanager.cpp" line="5192"/>
         <source>Importing ADIF file...</source>
         <translation>S&apos;està important el fitxer ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="5220"/>
+        <location filename="../filemanager.cpp" line="5219"/>
         <source>KLog - Duplicated QSOs</source>
         <translation>KLog - QSO duplicats</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="5221"/>
+        <location filename="../filemanager.cpp" line="5220"/>
         <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
         <translation>Sembla que hi ha diversos QSO duplicats al fitxer ADIF que s&apos;està important. Voleu continuar? (Els QSO duplicats no s&apos;importaran)</translation>
     </message>
@@ -1059,76 +1059,76 @@ Enter the Station Callsign that was used to do this QSO%1:</source>
 Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QSO%1:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6451"/>
+        <location filename="../filemanager.cpp" line="6450"/>
         <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information.</source>
         <translation>Sembla que manca la informació RST-TX a diversos QSO d&apos;aquest registre (p. ex.: %1).</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6451"/>
+        <location filename="../filemanager.cpp" line="6450"/>
         <source>Click on Yes to add a default 59 to all QSOs with a similar problem.</source>
         <translation>Feu clic a Sí per afegir un 59 predeterminat a tots els QSO amb un problema semblant.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6451"/>
+        <location filename="../filemanager.cpp" line="6450"/>
         <source>If you select NO, maybe the QSO will not be imported.</source>
         <translation>Si seleccioneu No, potser no s&apos;importaran els QSO.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6473"/>
+        <location filename="../filemanager.cpp" line="6472"/>
         <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-RX information.</source>
         <translation>Sembla que manca la informació RST-RX a diversos QSO d&apos;aquest registre (p. ex.: %1).</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6546"/>
+        <location filename="../filemanager.cpp" line="6545"/>
         <source>KLog - Apply to all QSOs in this log?</source>
         <translation>KLog - Aplico a totes els QSO d&apos;aquest registre?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6402"/>
+        <location filename="../filemanager.cpp" line="6401"/>
         <source>Please edit the ADIF file and make sure that it include at least:</source>
         <translation>Editeu el fitxer ADIF i assegureu-vos que inclou, com a mínim:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6402"/>
+        <location filename="../filemanager.cpp" line="6401"/>
         <source>and</source>
         <translation>i</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6402"/>
+        <location filename="../filemanager.cpp" line="6401"/>
         <source>This QSO had:</source>
         <translation>Aquest QSO té:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6427"/>
+        <location filename="../filemanager.cpp" line="6426"/>
         <source>KLog: Not all required data found!</source>
         <translation>KLog: No s&apos;han trobat totes les dades necessàries!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6452"/>
+        <location filename="../filemanager.cpp" line="6451"/>
         <source>KLog: No RST TX found!</source>
         <translation>KLog: No s&apos;ha trobat RST TX!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6475"/>
+        <location filename="../filemanager.cpp" line="6474"/>
         <source>KLog: No RST RX found!</source>
         <translation>KLog: No s&apos;ha trobat RST RX!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6519"/>
-        <location filename="../filemanager.cpp" line="6530"/>
+        <location filename="../filemanager.cpp" line="6518"/>
+        <location filename="../filemanager.cpp" line="6529"/>
         <source>KLog - No Station callsign entered.</source>
         <translation>KLog - No s&apos;ha introduït l&apos;identificador de l&apos;estació.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6591"/>
+        <location filename="../filemanager.cpp" line="6590"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
 Enter the Station Callsign that was used to do this QSO with %1 on %2:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6592"/>
-        <location filename="../filemanager.cpp" line="6597"/>
+        <location filename="../filemanager.cpp" line="6591"/>
+        <location filename="../filemanager.cpp" line="6596"/>
         <source>KLog - QSO without Station Callsign</source>
         <translation>KLog - QSO sense identificador de l&apos;estació</translation>
     </message>

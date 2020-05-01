@@ -934,13 +934,13 @@ Do you want to try again?</source>
 <context>
     <name>FileManager</name>
     <message>
-        <location filename="../filemanager.cpp" line="4984"/>
+        <location filename="../filemanager.cpp" line="4983"/>
         <source>Reading ADIF file...</source>
         <translation>Čitam ADIF datoteku...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4584"/>
-        <location filename="../filemanager.cpp" line="4984"/>
+        <location filename="../filemanager.cpp" line="4583"/>
+        <location filename="../filemanager.cpp" line="4983"/>
         <source>Abort reading</source>
         <translation>Prekini čitanje</translation>
     </message>
@@ -966,136 +966,136 @@ Do you want to try again?</source>
         <translation type="vanished">Unesite pozivni znak za ovaj dnevnik ili ga ostavite praznim za QSO bez definiranog pozivnog znaka postaje:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="254"/>
-        <location filename="../filemanager.cpp" line="717"/>
-        <location filename="../filemanager.cpp" line="2052"/>
+        <location filename="../filemanager.cpp" line="253"/>
+        <location filename="../filemanager.cpp" line="716"/>
+        <location filename="../filemanager.cpp" line="2051"/>
         <source>Writing ADIF file...</source>
         <translation>Zapisujem ADIF datoteku...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="254"/>
-        <location filename="../filemanager.cpp" line="717"/>
-        <location filename="../filemanager.cpp" line="2052"/>
-        <location filename="../filemanager.cpp" line="4316"/>
+        <location filename="../filemanager.cpp" line="253"/>
+        <location filename="../filemanager.cpp" line="716"/>
+        <location filename="../filemanager.cpp" line="2051"/>
+        <location filename="../filemanager.cpp" line="4315"/>
         <source>Abort writing</source>
         <translation>Prekini pisanje</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="371"/>
-        <location filename="../filemanager.cpp" line="784"/>
-        <location filename="../filemanager.cpp" line="2117"/>
-        <location filename="../filemanager.cpp" line="3168"/>
+        <location filename="../filemanager.cpp" line="370"/>
+        <location filename="../filemanager.cpp" line="783"/>
+        <location filename="../filemanager.cpp" line="2116"/>
+        <location filename="../filemanager.cpp" line="3167"/>
         <source>KLog - Invalid call detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="372"/>
-        <location filename="../filemanager.cpp" line="786"/>
-        <location filename="../filemanager.cpp" line="2118"/>
-        <location filename="../filemanager.cpp" line="3169"/>
+        <location filename="../filemanager.cpp" line="371"/>
+        <location filename="../filemanager.cpp" line="785"/>
+        <location filename="../filemanager.cpp" line="2117"/>
+        <location filename="../filemanager.cpp" line="3168"/>
         <source>An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="374"/>
-        <location filename="../filemanager.cpp" line="790"/>
-        <location filename="../filemanager.cpp" line="2120"/>
-        <location filename="../filemanager.cpp" line="3171"/>
+        <location filename="../filemanager.cpp" line="373"/>
+        <location filename="../filemanager.cpp" line="789"/>
+        <location filename="../filemanager.cpp" line="2119"/>
+        <location filename="../filemanager.cpp" line="3170"/>
         <source>Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="534"/>
+        <location filename="../filemanager.cpp" line="533"/>
         <source>Exporting LoTW ADIF file...</source>
         <translation>Izvozim LoTW ADIF datoteku...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="642"/>
+        <location filename="../filemanager.cpp" line="641"/>
         <source>The selected callsign (%1) is not valid, please check it again to export the log.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="1907"/>
+        <location filename="../filemanager.cpp" line="1906"/>
         <source>Exporting ADIF file...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4157"/>
+        <location filename="../filemanager.cpp" line="4156"/>
         <source>Writing ADIF file...
  QSO: </source>
         <translation>Zapisujem ADIF datoteku ...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4539"/>
+        <location filename="../filemanager.cpp" line="4538"/>
         <source>KLog - File not opened</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4540"/>
+        <location filename="../filemanager.cpp" line="4539"/>
         <source>It was not possible to open the file %1 for reading.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4541"/>
+        <location filename="../filemanager.cpp" line="4540"/>
         <source>KLog was not able to read the LoTW file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4584"/>
+        <location filename="../filemanager.cpp" line="4583"/>
         <source>Reading LoTW file...</source>
         <translation>Čitam LoTW datoteku...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4843"/>
+        <location filename="../filemanager.cpp" line="4842"/>
         <source>Importing LoTW ADIF file...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4857"/>
-        <location filename="../filemanager.cpp" line="5361"/>
+        <location filename="../filemanager.cpp" line="4856"/>
+        <location filename="../filemanager.cpp" line="5360"/>
         <source>You have canceled the file import. The file will be removed and no data will be imported.</source>
         <translation>Prekinuli ste uvoz datoteke. Datoteka će biti izbrisana i nijedan podatak neće biti uvezen.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6402"/>
+        <location filename="../filemanager.cpp" line="6401"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!</source>
         <translation>Ovaj QSO ne sadrži minimalne podatke da bi se smatrao valjanim QSOom!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6598"/>
+        <location filename="../filemanager.cpp" line="6597"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
 Enter the Station Callsign that was used to do this QSO on %1:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6423"/>
+        <location filename="../filemanager.cpp" line="6422"/>
         <source>Do you want to continue with the current file?</source>
         <translation>Želite li nastaviti s trenutnom datotekom?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6451"/>
+        <location filename="../filemanager.cpp" line="6450"/>
         <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information.</source>
         <translation>Nekim QSOima u ovoj datoteci, (npr.: %1) izgleda nedostaje RST-TX informacija.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6451"/>
+        <location filename="../filemanager.cpp" line="6450"/>
         <source>Click on Yes to add a default 59 to all QSOs with a similar problem.</source>
         <translation>Kliknite na Da kako bi primjenili uobičajeni 59 na sve QSOe sa sličnim problemom.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6451"/>
+        <location filename="../filemanager.cpp" line="6450"/>
         <source>If you select NO, maybe the QSO will not be imported.</source>
         <translation>Ako izaberete Ne, QSO možda neće biti uvezen.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6473"/>
+        <location filename="../filemanager.cpp" line="6472"/>
         <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-RX information.</source>
         <translation>Nekim QSOima u ovoj datoteci, (npr.: %1) izgleda nedostaje RST-RX informacija.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6546"/>
+        <location filename="../filemanager.cpp" line="6545"/>
         <source>KLog - Apply to all QSOs in this log?</source>
         <translation>KLog - Primjeni na sve QSOe u ovom dnevniku?</translation>
     </message>
@@ -1104,12 +1104,12 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
         <translation type="vanished">Izgleda da u ovoj datoteci nedostaje RST-TX informacija.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6473"/>
+        <location filename="../filemanager.cpp" line="6472"/>
         <source>Click on Yes to add a default 59 to all QSO with a similar problem.</source>
         <translation>Kliknite na Da kako bi primjenili uobičajeni 59 na sve QSOe sa sličnim problemom.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6473"/>
+        <location filename="../filemanager.cpp" line="6472"/>
         <source>If you select NO, the QSO may not be imported.</source>
         <translation>Ako izaberete Ne, QSO možda neće biti uvezen.</translation>
     </message>
@@ -1118,7 +1118,7 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
         <translation type="vanished">Izgleda da u ovoj datoteci nedostaje RST-RX informacija.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6406"/>
+        <location filename="../filemanager.cpp" line="6405"/>
         <source> - The band missing and the following call: </source>
         <translation> - Frekvencijski pojas nedostaje i sljedeći pozivni znak: </translation>
     </message>
@@ -1127,41 +1127,41 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
         <translation type="vanished"> - Pozivni znak nedostaje ali je urađen sada: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6411"/>
+        <location filename="../filemanager.cpp" line="6410"/>
         <source> - The mode missing and the following call: </source>
         <translation> - Način rada nedostaje i sljedeći pozivni znak: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6415"/>
+        <location filename="../filemanager.cpp" line="6414"/>
         <source> - The date missing and the following call: </source>
         <translation> - Datum nedostaje i sljedeći pozivni znak: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6419"/>
+        <location filename="../filemanager.cpp" line="6418"/>
         <source> - The time missing and the following call: </source>
         <translation> - Vrijeme nedostaje i sljedeći pozivni znak: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="548"/>
-        <location filename="../filemanager.cpp" line="1917"/>
-        <location filename="../filemanager.cpp" line="4166"/>
+        <location filename="../filemanager.cpp" line="547"/>
+        <location filename="../filemanager.cpp" line="1916"/>
+        <location filename="../filemanager.cpp" line="4165"/>
         <source>You have canceled the file export. The file will be removed and no data will be exported.</source>
         <translation>Prekinuli ste izvoz datoteke. Datoteka će biti izbrisana i podaci neće biti izvezeni.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="548"/>
-        <location filename="../filemanager.cpp" line="1917"/>
-        <location filename="../filemanager.cpp" line="4166"/>
-        <location filename="../filemanager.cpp" line="4857"/>
-        <location filename="../filemanager.cpp" line="5361"/>
+        <location filename="../filemanager.cpp" line="547"/>
+        <location filename="../filemanager.cpp" line="1916"/>
+        <location filename="../filemanager.cpp" line="4165"/>
+        <location filename="../filemanager.cpp" line="4856"/>
+        <location filename="../filemanager.cpp" line="5360"/>
         <source>Do you still want to cancel?</source>
         <translation>Želite li još uvijek prekinuti?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="534"/>
-        <location filename="../filemanager.cpp" line="1907"/>
-        <location filename="../filemanager.cpp" line="4843"/>
-        <location filename="../filemanager.cpp" line="5193"/>
+        <location filename="../filemanager.cpp" line="533"/>
+        <location filename="../filemanager.cpp" line="1906"/>
+        <location filename="../filemanager.cpp" line="4842"/>
+        <location filename="../filemanager.cpp" line="5192"/>
         <source> QSO: </source>
         <translation> QSO: </translation>
     </message>
@@ -1174,43 +1174,43 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
         <translation type="vanished">Niti jedan pozivni znak nije izabran i kao takav niti jedan dnevnik neće biti izvezen</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4316"/>
+        <location filename="../filemanager.cpp" line="4315"/>
         <source>Writing Cabrillo file...</source>
         <translation>Zapisujem Cabrillo datoteku...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4501"/>
+        <location filename="../filemanager.cpp" line="4500"/>
         <source>KLog: Cabrillo Log Export not implemented</source>
         <oldsource>Kontest: Cabrillo Log Export not implemented</oldsource>
         <translation>KLog: Izvoz dnevnika u Cabrillo format nije implementiran</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4502"/>
+        <location filename="../filemanager.cpp" line="4501"/>
         <source>I am sorry but the Cabrillo Export To File feature has still not been implemented.</source>
         <translation>Na žalost izvoz Cabrillo dnevnika u datoteku još nije implementiran.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4938"/>
+        <location filename="../filemanager.cpp" line="4937"/>
         <source>KLog - Log selection</source>
         <translation>KLog - Izbor dnevnika</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4939"/>
+        <location filename="../filemanager.cpp" line="4938"/>
         <source>There is more than one log in this logfile.</source>
         <translation>U ovoj dnevničkoj datoteci nalazi se više od jednog dnevnika.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4939"/>
+        <location filename="../filemanager.cpp" line="4938"/>
         <source>All logs will be imported into the current log.</source>
         <translation>Svi dnevnici bit će uvezeni u trenutni dnevnik.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4939"/>
+        <location filename="../filemanager.cpp" line="4938"/>
         <source>Do you want to continue?</source>
         <translation>Želite li nastaviti?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="5193"/>
+        <location filename="../filemanager.cpp" line="5192"/>
         <source>Importing ADIF file...</source>
         <translation>Uvozim ADIF datoteku...</translation>
     </message>
@@ -1219,7 +1219,7 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
         <translation type="vanished">Prekinuli ste uvoz datoteke. Datoteka će biti izbrisana i nijedan podatak neće biti uvezen.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="5221"/>
+        <location filename="../filemanager.cpp" line="5220"/>
         <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
         <translation>Izgleda da imate duplikate QSOa u ADIF datoteci koju uvozite. Želite li nastaviti? (Duplicirani QSOi neće biti uvezeni)</translation>
     </message>
@@ -1230,38 +1230,38 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="207"/>
-        <location filename="../filemanager.cpp" line="588"/>
+        <location filename="../filemanager.cpp" line="587"/>
         <source>The selected log does not exist, please check it again.</source>
         <translation>Izabrani dnevnik ne postoji, molim provjerite još jednom.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="238"/>
+        <location filename="../filemanager.cpp" line="237"/>
         <source>The selected callsign (%1) is not valid, please check it again.</source>
         <translation>Izabrani pozivni znak (%1) nije valjan, molim provjerite još jednom.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="245"/>
-        <location filename="../filemanager.cpp" line="650"/>
+        <location filename="../filemanager.cpp" line="244"/>
+        <location filename="../filemanager.cpp" line="649"/>
         <source>The file %1 can&apos;t be opened.</source>
         <translation>Datoteka %1 ne može biti otvorena.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="290"/>
-        <location filename="../filemanager.cpp" line="706"/>
+        <location filename="../filemanager.cpp" line="289"/>
+        <location filename="../filemanager.cpp" line="705"/>
         <source>There are no QSOs pending to be uploaded with that station callsign.</source>
         <translation>Nema QSOa sa tim pozivnim znakom za koje je učitavanje u tijeku.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="547"/>
-        <location filename="../filemanager.cpp" line="1916"/>
-        <location filename="../filemanager.cpp" line="4165"/>
-        <location filename="../filemanager.cpp" line="4856"/>
-        <location filename="../filemanager.cpp" line="5360"/>
+        <location filename="../filemanager.cpp" line="546"/>
+        <location filename="../filemanager.cpp" line="1915"/>
+        <location filename="../filemanager.cpp" line="4164"/>
+        <location filename="../filemanager.cpp" line="4855"/>
+        <location filename="../filemanager.cpp" line="5359"/>
         <source>KLog - User cancelled</source>
         <translation>KLog - Korisnik poništio</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="5220"/>
+        <location filename="../filemanager.cpp" line="5219"/>
         <source>KLog - Duplicated QSOs</source>
         <translation>KLog - Duplicirani QSOi</translation>
     </message>
@@ -1270,51 +1270,51 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
         <translation type="vanished">Ovaj QSO ne sadrži minimalne podatke za valjan QSO!.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6402"/>
+        <location filename="../filemanager.cpp" line="6401"/>
         <source>Please edit the ADIF file and make sure that it include at least:</source>
         <translation>Molim uredite ADIF datoteku tako da uključuje barem:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6402"/>
+        <location filename="../filemanager.cpp" line="6401"/>
         <source>and</source>
         <translation>i</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6402"/>
+        <location filename="../filemanager.cpp" line="6401"/>
         <source>This QSO had:</source>
         <translation>Ovaj QSO je imao:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6427"/>
+        <location filename="../filemanager.cpp" line="6426"/>
         <source>KLog: Not all required data found!</source>
         <translation>KLog: Nisu pronađeni svi obavezni podaci!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6452"/>
+        <location filename="../filemanager.cpp" line="6451"/>
         <source>KLog: No RST TX found!</source>
         <translation>KLog: Nije nađen RST TX!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6475"/>
+        <location filename="../filemanager.cpp" line="6474"/>
         <source>KLog: No RST RX found!</source>
         <translation>KLog: Nije nađen RST RX!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6519"/>
-        <location filename="../filemanager.cpp" line="6530"/>
+        <location filename="../filemanager.cpp" line="6518"/>
+        <location filename="../filemanager.cpp" line="6529"/>
         <source>KLog - No Station callsign entered.</source>
         <translation>KLog - pozivni znak nije unešen.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6591"/>
+        <location filename="../filemanager.cpp" line="6590"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
 Enter the Station Callsign that was used to do this QSO with %1 on %2:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6592"/>
-        <location filename="../filemanager.cpp" line="6597"/>
+        <location filename="../filemanager.cpp" line="6591"/>
+        <location filename="../filemanager.cpp" line="6596"/>
         <source>KLog - QSO without Station Callsign</source>
         <translation>KLog - QSO bez pozivnog znaka stanice</translation>
     </message>

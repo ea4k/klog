@@ -85,6 +85,8 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     dataProxy = new DataProxy_SQLite(softwareVersion, Q_FUNC_INFO);
 
+
+
     lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
 
     //qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << endl;
