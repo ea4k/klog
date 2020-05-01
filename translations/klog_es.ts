@@ -960,13 +960,13 @@ Do you want to try again?</source>
 <context>
     <name>FileManager</name>
     <message>
-        <location filename="../filemanager.cpp" line="4984"/>
+        <location filename="../filemanager.cpp" line="4983"/>
         <source>Reading ADIF file...</source>
         <translation>Leyendo fichero ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4584"/>
-        <location filename="../filemanager.cpp" line="4984"/>
+        <location filename="../filemanager.cpp" line="4583"/>
+        <location filename="../filemanager.cpp" line="4983"/>
         <source>Abort reading</source>
         <translation>Cancelar lectura</translation>
     </message>
@@ -991,130 +991,130 @@ Do you want to try again?</source>
         <translation type="vanished">Introduzca el indicativo de estación para usar en este log o déjelo vacío para poner un QSO sin un indicativo de estación definido:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="254"/>
-        <location filename="../filemanager.cpp" line="717"/>
-        <location filename="../filemanager.cpp" line="2052"/>
+        <location filename="../filemanager.cpp" line="253"/>
+        <location filename="../filemanager.cpp" line="716"/>
+        <location filename="../filemanager.cpp" line="2051"/>
         <source>Writing ADIF file...</source>
         <translation>Escribiendo fichero ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="254"/>
-        <location filename="../filemanager.cpp" line="717"/>
-        <location filename="../filemanager.cpp" line="2052"/>
-        <location filename="../filemanager.cpp" line="4316"/>
+        <location filename="../filemanager.cpp" line="253"/>
+        <location filename="../filemanager.cpp" line="716"/>
+        <location filename="../filemanager.cpp" line="2051"/>
+        <location filename="../filemanager.cpp" line="4315"/>
         <source>Abort writing</source>
         <translation>Cancelar escritura</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="290"/>
-        <location filename="../filemanager.cpp" line="706"/>
+        <location filename="../filemanager.cpp" line="289"/>
+        <location filename="../filemanager.cpp" line="705"/>
         <source>There are no QSOs pending to be uploaded with that station callsign.</source>
         <translation>No hay QSOs pendientes para subir con ese indicativo de estación.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="371"/>
-        <location filename="../filemanager.cpp" line="784"/>
-        <location filename="../filemanager.cpp" line="2117"/>
-        <location filename="../filemanager.cpp" line="3168"/>
+        <location filename="../filemanager.cpp" line="370"/>
+        <location filename="../filemanager.cpp" line="783"/>
+        <location filename="../filemanager.cpp" line="2116"/>
+        <location filename="../filemanager.cpp" line="3167"/>
         <source>KLog - Invalid call detected</source>
         <translation>KLog - Distintivo no válido detectado</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="372"/>
-        <location filename="../filemanager.cpp" line="786"/>
-        <location filename="../filemanager.cpp" line="2118"/>
-        <location filename="../filemanager.cpp" line="3169"/>
+        <location filename="../filemanager.cpp" line="371"/>
+        <location filename="../filemanager.cpp" line="785"/>
+        <location filename="../filemanager.cpp" line="2117"/>
+        <location filename="../filemanager.cpp" line="3168"/>
         <source>An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?</source>
         <translation>Se ha detectado un distintivo no válido %1. ¿Quiere exportar este distintivo de todas formas (Pulse en Si) o eliminar el distintivo del log que se exportará?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="374"/>
-        <location filename="../filemanager.cpp" line="790"/>
-        <location filename="../filemanager.cpp" line="2120"/>
-        <location filename="../filemanager.cpp" line="3171"/>
+        <location filename="../filemanager.cpp" line="373"/>
+        <location filename="../filemanager.cpp" line="789"/>
+        <location filename="../filemanager.cpp" line="2119"/>
+        <location filename="../filemanager.cpp" line="3170"/>
         <source>Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished.</source>
         <translation>Exportar distintivos erróneos puede crear problemas en las aplicaciones en las que potencialmente va a importar el log. Puede, de todas formas, ser un distintivo correcto que KLog lo haya identificado como incorrecto.
 Aun así puede editar el fichero ADIF una vez el proceso de exportación haya finalizado.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="534"/>
+        <location filename="../filemanager.cpp" line="533"/>
         <source>Exporting LoTW ADIF file...</source>
         <translation>Exportando fichero ADIF de LoTW...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="547"/>
-        <location filename="../filemanager.cpp" line="1916"/>
-        <location filename="../filemanager.cpp" line="4165"/>
-        <location filename="../filemanager.cpp" line="4856"/>
-        <location filename="../filemanager.cpp" line="5360"/>
+        <location filename="../filemanager.cpp" line="546"/>
+        <location filename="../filemanager.cpp" line="1915"/>
+        <location filename="../filemanager.cpp" line="4164"/>
+        <location filename="../filemanager.cpp" line="4855"/>
+        <location filename="../filemanager.cpp" line="5359"/>
         <source>KLog - User cancelled</source>
         <translation>KLog - Cancelación de usuario</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="642"/>
+        <location filename="../filemanager.cpp" line="641"/>
         <source>The selected callsign (%1) is not valid, please check it again to export the log.</source>
         <translation>El distintivo seleccionado (%1) no es válido, revíselo y vuelva a exportar el log.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="1907"/>
+        <location filename="../filemanager.cpp" line="1906"/>
         <source>Exporting ADIF file...</source>
         <translation>Exportando fichero ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4157"/>
+        <location filename="../filemanager.cpp" line="4156"/>
         <source>Writing ADIF file...
  QSO: </source>
         <translation>Escribiendo fichero ADIF ...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4316"/>
+        <location filename="../filemanager.cpp" line="4315"/>
         <source>Writing Cabrillo file...</source>
         <translation>Escribiendo fichero Cabrillo ...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4501"/>
+        <location filename="../filemanager.cpp" line="4500"/>
         <source>KLog: Cabrillo Log Export not implemented</source>
         <oldsource>Kontest: Cabrillo Log Export not implemented</oldsource>
         <translation>KLog: La exportación de log en en formato Cabrillo no está implementada</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4502"/>
+        <location filename="../filemanager.cpp" line="4501"/>
         <source>I am sorry but the Cabrillo Export To File feature has still not been implemented.</source>
         <translation>Lo sentimos pero la función de Exportar Cabrillo aun no está implementada.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4539"/>
+        <location filename="../filemanager.cpp" line="4538"/>
         <source>KLog - File not opened</source>
         <translation>KLog - Fichero no abierto</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4540"/>
+        <location filename="../filemanager.cpp" line="4539"/>
         <source>It was not possible to open the file %1 for reading.</source>
         <translation>No ha sido posible abrir el fichero %1 en modo lectura.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4541"/>
+        <location filename="../filemanager.cpp" line="4540"/>
         <source>KLog was not able to read the LoTW file</source>
         <translation>KLog no ha podido abrir el fichero de LoTW en mod lectura.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4584"/>
+        <location filename="../filemanager.cpp" line="4583"/>
         <source>Reading LoTW file...</source>
         <translation>Leyendo fichero LoTW...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4843"/>
+        <location filename="../filemanager.cpp" line="4842"/>
         <source>Importing LoTW ADIF file...</source>
         <translation>Importando fichero ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4938"/>
+        <location filename="../filemanager.cpp" line="4937"/>
         <source>KLog - Log selection</source>
         <translation>KLog - Selección de log</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6598"/>
+        <location filename="../filemanager.cpp" line="6597"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
 Enter the Station Callsign that was used to do this QSO on %1:</source>
@@ -1123,49 +1123,49 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
 Introduzca el indicativo de estación que fue usado en este QSO en la fecha %1:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4857"/>
-        <location filename="../filemanager.cpp" line="5361"/>
+        <location filename="../filemanager.cpp" line="4856"/>
+        <location filename="../filemanager.cpp" line="5360"/>
         <source>You have canceled the file import. The file will be removed and no data will be imported.</source>
         <translation>Ha cancelado la importación del fichero. El fichero se eliminará y no se importará ningún dato.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6402"/>
+        <location filename="../filemanager.cpp" line="6401"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!</source>
         <translation>¡Este QSO no incluye la información mínima para considerarse un QSO válido!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6451"/>
+        <location filename="../filemanager.cpp" line="6450"/>
         <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information.</source>
         <translation>Algunos QSOs de este log, (ej: %1) parece que no tienen la información de RST-TX.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6451"/>
+        <location filename="../filemanager.cpp" line="6450"/>
         <source>Click on Yes to add a default 59 to all QSOs with a similar problem.</source>
         <translation>Pulse en Si para añadir 59 de forma predeterminada a todos los QSOs con un problema similar.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6451"/>
+        <location filename="../filemanager.cpp" line="6450"/>
         <source>If you select NO, maybe the QSO will not be imported.</source>
         <translation>Si selecciona No, el QSO puede no ser importado.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6473"/>
+        <location filename="../filemanager.cpp" line="6472"/>
         <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-RX information.</source>
         <translation>Algunos QSOs de este log, (ej: %1) parece que no tienen la información de RST-RX.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6519"/>
-        <location filename="../filemanager.cpp" line="6530"/>
+        <location filename="../filemanager.cpp" line="6518"/>
+        <location filename="../filemanager.cpp" line="6529"/>
         <source>KLog - No Station callsign entered.</source>
         <translation>KLog - Sin indicativo de estación.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6546"/>
+        <location filename="../filemanager.cpp" line="6545"/>
         <source>KLog - Apply to all QSOs in this log?</source>
         <translation>KLog - ¿Aplicar a todos los QSOs de este log?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6591"/>
+        <location filename="../filemanager.cpp" line="6590"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
 Enter the Station Callsign that was used to do this QSO with %1 on %2:</source>
@@ -1174,8 +1174,8 @@ Enter the Station Callsign that was used to do this QSO with %1 on %2:</source>
 Introduzca el distintivo de estación que fue usado en este QSO con %1 en la fecha %2:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6592"/>
-        <location filename="../filemanager.cpp" line="6597"/>
+        <location filename="../filemanager.cpp" line="6591"/>
+        <location filename="../filemanager.cpp" line="6596"/>
         <source>KLog - QSO without Station Callsign</source>
         <translation>KLog - QSO sin Indicativo de Estación</translation>
     </message>
@@ -1192,12 +1192,12 @@ Introduzca el indicativo de estación que fue usado en este QSO:</translation>
         <translation type="obsolete">KLog - Selección de log</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="5220"/>
+        <location filename="../filemanager.cpp" line="5219"/>
         <source>KLog - Duplicated QSOs</source>
         <translation>KLog - QSOs duplicados</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6423"/>
+        <location filename="../filemanager.cpp" line="6422"/>
         <source>Do you want to continue with the current file?</source>
         <translation>¿Quiere continuar con el fichero actual?</translation>
     </message>
@@ -1206,12 +1206,12 @@ Introduzca el indicativo de estación que fue usado en este QSO:</translation>
         <translation type="vanished">Este log parece que no tiene la información de RST-TX.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6473"/>
+        <location filename="../filemanager.cpp" line="6472"/>
         <source>Click on Yes to add a default 59 to all QSO with a similar problem.</source>
         <translation>Pulse en Si para añadir 59 de forma predeterminada a todoslos QSO con un problema similar.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6473"/>
+        <location filename="../filemanager.cpp" line="6472"/>
         <source>If you select NO, the QSO may not be imported.</source>
         <translation>Si selecciona No, el QSO puede no ser importado.</translation>
     </message>
@@ -1220,7 +1220,7 @@ Introduzca el indicativo de estación que fue usado en este QSO:</translation>
         <translation type="vanished">Este log parece que no tiene la información de RST-RX.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6406"/>
+        <location filename="../filemanager.cpp" line="6405"/>
         <source> - The band missing and the following call: </source>
         <translation> - La banda inexistente pero el siguiente indicativo: </translation>
     </message>
@@ -1229,24 +1229,24 @@ Introduzca el indicativo de estación que fue usado en este QSO:</translation>
         <translation type="vanished"> - El indicativo inexistente pero la siguiente hora: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6411"/>
+        <location filename="../filemanager.cpp" line="6410"/>
         <source> - The mode missing and the following call: </source>
         <translation> - El modo inexistente pero el siguiente indicativo: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6415"/>
+        <location filename="../filemanager.cpp" line="6414"/>
         <source> - The date missing and the following call: </source>
         <translation> - La fecha inexistente pero el siguiente indicativo: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6419"/>
+        <location filename="../filemanager.cpp" line="6418"/>
         <source> - The time missing and the following call: </source>
         <translation> - La hora inexistente pero el siguiente indicativo: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="548"/>
-        <location filename="../filemanager.cpp" line="1917"/>
-        <location filename="../filemanager.cpp" line="4166"/>
+        <location filename="../filemanager.cpp" line="547"/>
+        <location filename="../filemanager.cpp" line="1916"/>
+        <location filename="../filemanager.cpp" line="4165"/>
         <source>You have canceled the file export. The file will be removed and no data will be exported.</source>
         <translation>Has cancellado la exportación del fichero. El fichero se eliminará y no se exportará ningún dato.</translation>
     </message>
@@ -1257,35 +1257,35 @@ Introduzca el indicativo de estación que fue usado en este QSO:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="207"/>
-        <location filename="../filemanager.cpp" line="588"/>
+        <location filename="../filemanager.cpp" line="587"/>
         <source>The selected log does not exist, please check it again.</source>
         <translation>El log seleccionado no existe, por favor reviselo de nuevo.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="238"/>
+        <location filename="../filemanager.cpp" line="237"/>
         <source>The selected callsign (%1) is not valid, please check it again.</source>
         <translation>El indicativo seleccionado (%1) no es válido, reviselo de nuevo.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="245"/>
-        <location filename="../filemanager.cpp" line="650"/>
+        <location filename="../filemanager.cpp" line="244"/>
+        <location filename="../filemanager.cpp" line="649"/>
         <source>The file %1 can&apos;t be opened.</source>
         <translation>No se pudo abrir el fichero %1 .</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="548"/>
-        <location filename="../filemanager.cpp" line="1917"/>
-        <location filename="../filemanager.cpp" line="4166"/>
-        <location filename="../filemanager.cpp" line="4857"/>
-        <location filename="../filemanager.cpp" line="5361"/>
+        <location filename="../filemanager.cpp" line="547"/>
+        <location filename="../filemanager.cpp" line="1916"/>
+        <location filename="../filemanager.cpp" line="4165"/>
+        <location filename="../filemanager.cpp" line="4856"/>
+        <location filename="../filemanager.cpp" line="5360"/>
         <source>Do you still want to cancel?</source>
         <translation>¿Aun quiere cancelar?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="534"/>
-        <location filename="../filemanager.cpp" line="1907"/>
-        <location filename="../filemanager.cpp" line="4843"/>
-        <location filename="../filemanager.cpp" line="5193"/>
+        <location filename="../filemanager.cpp" line="533"/>
+        <location filename="../filemanager.cpp" line="1906"/>
+        <location filename="../filemanager.cpp" line="4842"/>
+        <location filename="../filemanager.cpp" line="5192"/>
         <source> QSO: </source>
         <translation> QSO: </translation>
     </message>
@@ -1294,22 +1294,22 @@ Introduzca el indicativo de estación que fue usado en este QSO:</translation>
         <translation type="vanished">No se ha seleccionado indicativo de estación por lo que no se exportará ningún log</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4939"/>
+        <location filename="../filemanager.cpp" line="4938"/>
         <source>There is more than one log in this logfile.</source>
         <translation>Hay más de un log en este fichero.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4939"/>
+        <location filename="../filemanager.cpp" line="4938"/>
         <source>All logs will be imported into the current log.</source>
         <translation>Todos los logs se importarán en el log actual.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4939"/>
+        <location filename="../filemanager.cpp" line="4938"/>
         <source>Do you want to continue?</source>
         <translation>¿Quiere continuar?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="5193"/>
+        <location filename="../filemanager.cpp" line="5192"/>
         <source>Importing ADIF file...</source>
         <translation>Importando fichero ADIF...</translation>
     </message>
@@ -1318,7 +1318,7 @@ Introduzca el indicativo de estación que fue usado en este QSO:</translation>
         <translation type="vanished">Has cancelado la importación del fichero. El fichero se eliminará y no se importará ningún dato.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="5221"/>
+        <location filename="../filemanager.cpp" line="5220"/>
         <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
         <translation>Parece que hay algunos QSO duplicados en el fichero ADIF que está importando. ¿Quiere continuar? (los QSO duplicados no se importarán)</translation>
     </message>
@@ -1331,22 +1331,22 @@ Introduzca el indicativo de estación que fue usado en este QSO:</translation>
         <translation type="vanished">¡Este QSO no incluye la información mínima para considerarse un QSO válido!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6402"/>
+        <location filename="../filemanager.cpp" line="6401"/>
         <source>Please edit the ADIF file and make sure that it include at least:</source>
         <translation>Por favor, edite el fichero ADIF y asegúrese de que incluye al menos:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6402"/>
+        <location filename="../filemanager.cpp" line="6401"/>
         <source>and</source>
         <translation>y</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6402"/>
+        <location filename="../filemanager.cpp" line="6401"/>
         <source>This QSO had:</source>
         <translation>Este QSO tenía:</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6427"/>
+        <location filename="../filemanager.cpp" line="6426"/>
         <source>KLog: Not all required data found!</source>
         <translation>KLog: ¡No se encontraron todos los datos necesarios!</translation>
     </message>
@@ -1355,7 +1355,7 @@ Introduzca el indicativo de estación que fue usado en este QSO:</translation>
         <translation type="vanished">Algunos QSOs de este log, (ej: %1) parece que no tienen la información de RST-TX.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6452"/>
+        <location filename="../filemanager.cpp" line="6451"/>
         <source>KLog: No RST TX found!</source>
         <translation>KLog: ¡No se encontró RST TX!</translation>
     </message>
@@ -1364,7 +1364,7 @@ Introduzca el indicativo de estación que fue usado en este QSO:</translation>
         <translation type="vanished">Algunos QSOs de este log, (ej: %1) parece que no tienen la información de RST-RX.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6475"/>
+        <location filename="../filemanager.cpp" line="6474"/>
         <source>KLog: No RST RX found!</source>
         <translation>KLog: ¡No se encontró RST RX!</translation>
     </message>

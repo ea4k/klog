@@ -220,18 +220,17 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
     {
         _queryStation = QString("station_callsign =''");
     }
-
+    /*
     QString _queryDateFrom;
-
     if (_startDate.isValid())
     {
         _queryDateFrom = QString("qso_date >= '%1'").arg(_startDate.toString("yyyyMMdd"));
     }
     else
     {
-        //ea4k
+        //TODO
     }
-
+    */
 
     if ((!util->isValidCall(_callsign)) || (_callsign == !"ALL"))
     {
@@ -365,7 +364,7 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
                 out << "<CALL:" << QString::number(aux.length()) << ">" << aux << " ";
             }
             else
-            {//ea4k
+            {
                 QMessageBox msgBox;
                 msgBox.setIcon(QMessageBox::Warning);
                 msgBox.setWindowTitle(tr("KLog - Invalid call detected"));
@@ -2111,7 +2110,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                         out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1 << " ";
                     }
                     else
-                    {//ea4k
+                    {
                         QMessageBox msgBox;
                         msgBox.setIcon(QMessageBox::Warning);
                         msgBox.setWindowTitle(tr("KLog - Invalid call detected"));
@@ -3162,7 +3161,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1 << " ";
                 }
                 else
-                {//ea4k
+                {
                     QMessageBox msgBox;
                     msgBox.setIcon(QMessageBox::Warning);
                     msgBox.setWindowTitle(tr("KLog - Invalid call detected"));
