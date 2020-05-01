@@ -721,7 +721,7 @@ void SetupPageMisc::slotMoveDBButtonClicked()
         //dbDir
         if (QFile::exists(target))
         {
-            qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << endl;
+            //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << endl;
         }
         if (QFile::copy(source, target))
         {
@@ -756,7 +756,7 @@ void SetupPageMisc::slotMoveDBButtonClicked()
 
             if (QFile::exists(target))
             {
-                qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << endl;
+                //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << endl;
 
                 msgBox.setText(tr("File already exist."));
                 msgBox.setDetailedText(tr("The destination file already exist and KLog will not replace it. Please remove the file from the destination folder before moving the file with KLog to make sure KLog can copy the file."));
