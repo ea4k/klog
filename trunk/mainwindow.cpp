@@ -85,8 +85,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     dataProxy = new DataProxy_SQLite(softwareVersion, Q_FUNC_INFO);
 
-    doc = new QTextDocument;
-
     lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
 
     //qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << endl;
@@ -6554,7 +6552,7 @@ void MainWindow::slotFilePrint()
     _numberOfQsos = dataProxy->getHowManyQSOInLog(currentLog);
     int step = util->getProgresStepForDialog(_numberOfQsos);
 
-
+    QTextDocument *doc = new QTextDocument;
     QTextCursor cursor(doc);
     QTextTable *textTable = cursor.insertTable(1, 9);
 
