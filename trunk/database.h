@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 
@@ -40,7 +40,7 @@
 class QSqlRelationalTableModel;
 // Previous db update 0.011
 
-const float DBVersionf = 0.016; // This is the latest version of the DB.
+const float DBVersionf = 0.017; // This is the latest version of the DB.
 
 
 struct AwarddxccEntry
@@ -113,7 +113,10 @@ public:
 
     bool unMarkAllQSO();
     bool updateIfNeeded();
+    void backupB4Update();
+    void logBackup();
     void compress();
+
 
     bool updateTheEntityTableISONames();
     bool updateTableLogs();
@@ -151,8 +154,9 @@ private:
     bool updateTo012(); // Updates the flags and so on.
     bool updateTo013(); // Update the qsl_via_enumeration bug caused for calling the table just qsl_via
     bool updateTo014(); // Update the Satellite DB
-    bool updateTo015();  //Adds the FT4 mode
+    bool updateTo015(); // Adds the FT4 mode
     bool updateTo016(); // Recreates the satellite table to add the QO-100
+    bool updateTo017(); // Merges the qso_date & time_on fields
     bool updateTableLog(const int _v);
     bool updateDBVersion(QString _softV, QString _dbV);
 
@@ -205,8 +209,6 @@ private:
     bool howManyQSOsInLog(const int i);
     //void showError();
 
-
-
     //bool moveFromModeIdToSubmodeId();
     bool updateModeIdFromSubModeId();
     bool updateBandIdTableLogToNewOnes();
@@ -214,6 +216,7 @@ private:
     bool updateModeIdTableAward(const int _db);
 
     void queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+
 
 
     bool created;

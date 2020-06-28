@@ -10,14 +10,13 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     modeComboBox = new QComboBox;
     dateEdit = new QDateEdit;
     timeEdit = new QTimeEdit;
-    realTime =true;
     realtimeCheckBox = new QCheckBox;
     enabledCR = realtimeCheckBox->backgroundRole();
     OKButton = new QPushButton(tr("&Add"), this);
     clearButton = new QPushButton(tr("&Clear"), this);
     timer = new QTimer(this);
     util = new Utilities;
-
+    realTime = true;
 
     logSeverity = 7;  //7 Debug /0=emergency or no debug
 
@@ -62,7 +61,7 @@ void MainQSOEntryWidget::createUI()
     buttonsLayout->addWidget(OKButton);
     buttonsLayout->addWidget(clearButton);
 
-    dateEdit->setDisplayFormat("yyyy/MM/dd");
+    dateEdit->setDisplayFormat("yyyy-MM-dd");
     timeEdit->setDisplayFormat("HH:mm:ss");
 
     QGridLayout *widgetLayout = new QGridLayout;
@@ -412,17 +411,20 @@ bool MainQSOEntryWidget::setQRZ(const QString &_qrz)
     return false;
 }
 
-bool MainQSOEntryWidget::setDate(const QDate _date)
+bool MainQSOEntryWidget::setDate(const QDateTime _date)
 {
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
     if (_date.isValid())
     {
-        dateEdit->setDate(_date);
+        dateEdit->setDate(_date.date());
+        timeEdit->setTime(_date.time());
+
         emit debugLog(Q_FUNC_INFO, "END", logSeverity);
         return true;
     }
     else
     {
+        qDebug() << "MainQSOEntryWidget::setDate - NO VALID DATE" << endl;
         emit debugLog(Q_FUNC_INFO, "END", logSeverity);
         return false;
     }
@@ -504,6 +506,18 @@ QDate MainQSOEntryWidget::getDate()
     return dateEdit->date();
 }
 
+
+QDateTime MainQSOEntryWidget::getDateTime()
+{
+    emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
+    //emit debugLog(Q_FUNC_INFO, "END", logSeverity);
+    QDateTime dateTime;
+    dateTime.setDate(dateEdit->date());
+    dateTime.setTime(timeEdit->time());
+    return dateTime;
+
+}
+
 QTime MainQSOEntryWidget::getTime()
 {
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
@@ -515,7 +529,7 @@ void MainQSOEntryWidget::setRealTime(const bool _realTime)
 {
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
     realtimeCheckBox->setChecked(_realTime);
-    realTime = _realTime;
+    //realTime = _realTime;
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -533,14 +547,11 @@ void MainQSOEntryWidget::setModify(const bool _modify)
     modify = _modify;
     if (modify)
     {
-        realTime = realtimeCheckBox->isChecked();
         OKButton->setText(tr("&Modify"));
-        realtimeCheckBox->setChecked(false);
     }
     else
     {
         OKButton->setText(tr("&Add"));
-        realtimeCheckBox->setChecked(realTime);
     }
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -549,21 +560,25 @@ void MainQSOEntryWidget::slotUpdateTime()
 {
     //qDebug()<< "MainQSOEntryWidget::slotUpdateTime" << endl;
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
-    if ( (!modify) && (realTime)  )
+
+    if ( (!modify) && (realtimeCheckBox->isChecked())  )
     {
         //qDebug()<< "MainQSOEntryWidget::slotUpdateTime - Real Time & update" << endl;
 
         if (UTCTime)
         {
+
             dateEdit->setDate(QDateTime::currentDateTime().toUTC().date());
             timeEdit->setTime(QDateTime::currentDateTime().toUTC().time());
         }
         else
         {
+
             dateEdit->setDate(QDateTime::currentDateTime().date());
             timeEdit->setTime(QDateTime::currentDateTime().time());
         }
     }
+
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
 }
 

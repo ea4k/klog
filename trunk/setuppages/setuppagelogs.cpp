@@ -129,7 +129,7 @@ void SetupPageLogs::createNewLog()
     {
         newLog->setOperators(defaultOperators);
     }
-    newLog->setDateString(QDate::currentDate().toString("yyyy/MM/dd"));
+    newLog->setDateString(QDate::currentDate().toString("yyyy-MM-dd"));
     newLog->setComment("");
 
     int result = newLog->exec();

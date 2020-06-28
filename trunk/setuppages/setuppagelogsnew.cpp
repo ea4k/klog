@@ -587,7 +587,7 @@ void SetupPageLogsNew::slotOKButtonClicked()
     operators = operatorsLineEdit->text();
     //TODO: Check if operators is really including a comma separated list of QRZ
     comment = commentLineEdit->text();    
-    dateString = dateEdit->date().toString("yyyy/MM/dd");
+    dateString = dateEdit->date().toString("yyyy-MM-dd");
 
     logData.clear();
     logData << stationCallsign << operators << comment << dateString;
@@ -819,7 +819,7 @@ void SetupPageLogsNew::setComment(const QString &_st)
 void SetupPageLogsNew::setDateString(const QString &_st)
 {
     dateString = _st;
-    dateEdit->setDate(QDate::fromString(dateString, "yyyy/MM/dd"));
+    dateEdit->setDate(QDate::fromString(dateString, "yyyy-MM-dd"));
 
 }
 

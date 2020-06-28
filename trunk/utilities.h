@@ -52,6 +52,7 @@ public:
     //Devel or debug functions - Not adding any feature to the user
     void printQString(const QStringList &_qs);
     QString getKLogDBFile();
+    QString getKLogDBBackupFile();
 
     //QString getKLogDatabaseFile(const QString &_file);
     bool isDBFileExisting();
@@ -75,7 +76,7 @@ public:
     bool isValidDate(const QDate _d);
     bool isValidDateTime(const QString &_d);
     bool isValidCall(const QString &_c);
-    bool isValidTime(const QString &_t);
+
     bool isValidBandId(const int _b);
     bool isValidModeId(const int _m);
     bool isValidFreq(const QString &_b);
@@ -86,10 +87,36 @@ public:
     bool isValidName(const QString &_b);
     bool isValidADIFField(const QString &_b);
 
+    bool isValidTimeFromString(const QString &_s);
+    bool isValidDateFromString(const QString &_s);
+    bool isValidDateTimeFromString(const QString &_s);
+
 
     QStringList getValidADIFFieldAndData(const QString &_b);
     QString getAValidCall (const QString &_wrongCall);
 
+    // Write DATE/TIME to DB
+    QString getDateTimeSQLiteStringFromDateTime(const QDateTime &_d);
+    QString getDateSQLiteStringFromDate(const QDate &_d);
+
+    // Read from DB
+    QDateTime getDateTimeFromSQLiteString(const QString &_s);
+    QTime getTimeFromSQLiteString(const QString &_s);
+    QDate getDateFromSQliteString(const QString &_s);
+
+
+    // Creates the ADIF DATE & TIME formats
+    QString getADIFDateFromQDateTime(const QDateTime &_d);  // Will produce the ADIF DATE format: "YYYYMMDD"
+    QString getADIFDateFromQDate(const QDate &_d);          // Will produce the ADIF DATE format: "YYYYMMDD"
+    QString getADIFTimeFromQDateTime(const QDateTime &_d);  // Will produce the ADIF TIME format: "HHMMSS"
+
+    // Parse Date & Time from ADIF
+    QDate getDateFromADIFDateString(const QString &_s);     // Expects an ADIF DATE format string: "YYYYMMDD"
+    QTime getTimeFromADIFTimeString(const QString &_s);     // Expects and ADIF TIME format String "HHMMSS" or "HHMM"
+
+    // Creates the Cabrillo DATE & TIME (http://wwrof.org/cabrillo/)
+    QString getCabrilloDateFromQDate(const QDate &_d);          // Will produce the Cabrillo DATE format: "YYYY-MM-DD"
+    QString getCabrilloTimeFromQDateTime(const QDateTime &_d);  // Will produce the Cabrillo TIME format: "HHMM"
 
 private:
     bool processConfigLine(const QString &_line);

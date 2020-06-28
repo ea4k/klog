@@ -147,7 +147,7 @@ void MainWindowInputEQSL::clear()
     eqslRecComboBox->setCurrentIndex(1);    
     lotwRecComboBox->setCurrentIndex(1);
 
-    //dateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+    //dateEdit->setDate(QDate::fromString(aux1, "yyyy-MM-dd"));
     //QString date;
     //date = "18000101";
     //eqslSentQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));

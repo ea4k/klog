@@ -41,9 +41,11 @@
 #include "awards.h"
 //#include "dxccstatuswidget.h"
 #include "elogclublog.h"
+#include "utilities.h"
 //#include "logviewsortfilterproxymodel.h"
 
 //class  LogViewSortFilterProxyModel;
+//class ItemDelegate;
 
 class LogWindow : public  QWidget
 {
@@ -124,10 +126,22 @@ private:
 
     int currentLog;
 
+    Utilities *util;
+
    //LogViewSortFilterProxyModel *proxyModel;
    //bool sortingThroughProxyModel;
 };
+/*
+class ItemDelegate: public QStyledItemDelegate
+{
+    Q_OBJECT
 
+public:
+    ItemDelegate(QWidget *parent=nullptr){}
 
+    QString displayText(const QVariant &value, const QLocale &locale) const;
 
+    //QString displayText (const QVariant &value);
+};
+*/
 #endif // LOGWINDOW_H

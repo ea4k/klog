@@ -73,7 +73,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     //QTime start;
     //start = QTime::currentTime();
-      //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
+    //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
@@ -141,10 +141,10 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
         }
     }
 
-     //qDebug() << "MainWindow::MainWindow: 4" << endl;
+    //qDebug() << "MainWindow::MainWindow: 4" << endl;
     world = new World(dataProxy, klogDir, softwareVersion, Q_FUNC_INFO);
 
-     //qDebug() << "MainWindow::MainWindow: xx" << endl;
+    //qDebug() << "MainWindow::MainWindow: xx" << endl;
 
 
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured);    
@@ -989,7 +989,6 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         }
     }
 
-
     QString stringQuery = "NULL";
     QString aux1, aux2, stringFields, stringData;
     //QString aux, aux2;
@@ -1000,8 +999,9 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
 
     //int tmode = currentMode;
 
-    QString tdate = (mainQSOEntryWidget->getDate()).toString("yyyy/MM/dd");
-    QString ttime = (mainQSOEntryWidget->getTime()).toString("hh:mm:ss");
+
+    QString tdate = util->getDateTimeSQLiteStringFromDateTime(mainQSOEntryWidget->getDateTime());
+    QString ttime = (mainQSOEntryWidget->getTime()).toString("hh:mm:ss");    
 
     QString trsttx = rstTXLineEdit->text();
           //qDebug() << "MainWindow::readDataFromUIDX - RSTtx: " << trsttx << endl;
@@ -1104,10 +1104,9 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
           //qDebug() << "MainWindow::readDataFromUIDX: TX FREQ & RX FREQ ARE DIFFERENT AND != 0" << endl;
         aux1 = QString::number(rxFreqSpinBox->value());        
         stringFields = stringFields + ", freq_rx, band_rx";
-       stringData = stringData + ", '" + aux1 + "', '" + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "'";
+        stringData = stringData + ", '" + aux1 + "', '" + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "'";
         //stringData = stringData + ", '" + aux1 + ", " + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "'";
     }
-
 
     aux1 = qthLineEdit->text();
     if (aux1.length()>2)
@@ -1117,7 +1116,6 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }   
 
     aux1 = myDataTabWidget->getOperator();
-    //aux1 = operatorLineEdit->text();
     if (aux1.length()>2)
     {
         //lastOperatorQRZ = aux1.toUpper();
@@ -1126,7 +1124,6 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     aux1 = myDataTabWidget->getStationQRZ();
-    //aux1 = (stationCallSignLineEdit->text()).toUpper();
     if (aux1.length()>2)
     {
         //lastStationQRZ = aux1.toUpper();
@@ -1137,14 +1134,11 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     aux1 = myDataTabWidget->getMyLocator();    
     if (aux1.length()>2)
     {                   
-
-        //lastMyLocator = aux1.toUpper();
         stringFields = stringFields + ", my_gridsquare";
         stringData = stringData + ", '" + aux1 + "'";
     }
 
     aux1 = commentTabWidget->getComment();
-    //aux1 = commentLineEdit->text();
     if (aux1.length()>0)
     {
         stringFields = stringFields + ", comment";
@@ -1152,7 +1146,6 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     aux1 = QSLTabWidget->getQSLMsg();
-    //aux1 = qslmsgTextEdit->toPlainText();
     if (aux1.length()>0)
     {
         stringFields = stringFields + ", qslmsg";
@@ -1180,8 +1173,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-    aux1 = QSLTabWidget->getQSLVia();
-    //aux1 = qslViaLineEdit->text();
+    aux1 = QSLTabWidget->getQSLVia();    
     if (aux1.length()>3)
     {
         stringFields = stringFields + ", qsl_via";
@@ -1204,22 +1196,17 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     aux1 = othersTabWidget->getIOTA();
-             //qDebug() << "MainWindow::readDataFromUIDX: IOTA: " << aux1 << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: IOTA: " << aux1 << endl;
     if (aux1.length() == 6) // EU-001
     {
-                //qDebug() << "MainWindow::readDataFromUIDX: IOTA to be saved" << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: IOTA to be saved" << endl;
         stringFields = stringFields + ", iota";
         stringData = stringData + ", '" + aux1 + "'";
     }
-    else
-    {
-                //qDebug() << "MainWindow::readDataFromUIDX: IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
-    }
 
     // SATS
-
     aux1 = satTabWidget->getSatName(); //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
-             //qDebug() << "MainWindow::readDataFromUIDX: SAT1 " << aux1 << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: SAT1 " << aux1 << endl;
     if (aux1.length()>0)
     {
         stringFields = stringFields + ", sat_name";
@@ -1233,19 +1220,15 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-
-
-
     keepSatPage = satTabWidget->getRepeatThis();
 
     aux1 = othersTabWidget->getPropModeFromComboBox();
-          //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << endl;
     if ((aux1.length()>0) && (aux1 != "Not"))
     {
         stringFields = stringFields + ", prop_mode";
         stringData = stringData + ", '" + aux1 + "'";
     }
-
 
 
     //CLUBLOG
@@ -1255,8 +1238,9 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     {
         stringFields = stringFields + ", clublog_qso_upload_status";
         stringData = stringData + ", 'Y'";
-        stringFields = stringFields + ", clublog_qso_upload_date";
-        stringData = stringData + ", '" + (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd") + "'";
+        stringFields = stringFields + ", clublog_qso_upload_date";        
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getClubLogDate()) + "'";
+
     }
     else if (aux1 == "N")
     {
@@ -1267,8 +1251,9 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     {
         stringFields = stringFields + ", clublog_qso_upload_status";
         stringData = stringData + ", 'M'";
-        stringFields = stringFields + ", clublog_qso_upload_date";
-        stringData = stringData + ", '" + (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd") + "'";
+        stringFields = stringFields + ", clublog_qso_upload_date";        
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getClubLogDate()) + "'";
+
     }
     else //TODO: This should be equivalent to N?
     {
@@ -1284,7 +1269,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringFields = stringFields + ", eqsl_qsl_sent";
         stringData = stringData + ", 'Y'";
         stringFields = stringFields + ", eqsl_qslsdate";
-        stringData = stringData + ", '" + (eQSLTabWidget->getEQSLSenDate()).toString("yyyy/MM/dd") + "'";
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLSenDate())+ "'";
     }
     else if (aux1 == "R")
     {
@@ -1296,14 +1281,14 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringFields = stringFields + ", eqsl_qsl_sent";
         stringData = stringData + ", 'Q'";
         stringFields = stringFields + ", eqsl_qslsdate";
-        stringData = stringData + ", '" + (eQSLTabWidget->getEQSLSenDate()).toString("yyyy/MM/dd") + "'";
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLSenDate())+ "'";
     }
     else if (aux1 == "I")
     {
         stringFields = stringFields + ", eqsl_qsl_sent";
         stringData = stringData + ", 'I'";
         stringFields = stringFields + ", eqsl_qslsdate";
-        stringData = stringData + ", '" + (eQSLTabWidget->getEQSLSenDate()).toString("yyyy/MM/dd") + "'";
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLSenDate())+ "'";
     }
     else // N
     {
@@ -1317,7 +1302,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringFields = stringFields + ", eqsl_qsl_rcvd";
         stringData = stringData + ", 'Y'";
         stringFields = stringFields + ", eqsl_qslrdate";
-        stringData = stringData + ", '" + (eQSLTabWidget->getEQSLRecDate()).toString("yyyy/MM/dd") + "'";
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLRecDate())+ "'";
     }
     else if (aux1 == "R")
     {
@@ -1329,14 +1314,14 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringFields = stringFields + ", eqsl_qsl_rcvd";
         stringData = stringData + ", 'Q'";
         stringFields = stringFields + ", eqsl_qslrdate";
-        stringData = stringData + ", '" + (eQSLTabWidget->getEQSLRecDate()).toString("yyyy/MM/dd") + "'";
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLRecDate())+ "'";
     }
     else if (aux1 == "I")
     {
         stringFields = stringFields + ", eqsl_qsl_rcvd";
         stringData = stringData + ", 'I'";
         stringFields = stringFields + ", eqsl_qslrdate";
-        stringData = stringData + ", '" + (eQSLTabWidget->getEQSLRecDate()).toString("yyyy/MM/dd") + "'";
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLRecDate())+ "'";
     }
     else
     {
@@ -1352,7 +1337,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringFields = stringFields + ", lotw_qsl_sent";
         stringData = stringData + ", 'Y'";
         stringFields = stringFields + ", lotw_qslsdate";
-        stringData = stringData + ", '" + (eQSLTabWidget->getLOTWSenDate()).toString("yyyy/MM/dd") + "'";
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWSenDate())+ "'";
     }
     else if (aux1 == "R")
     {
@@ -1364,21 +1349,20 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringFields = stringFields + ", lotw_qsl_sent";
         stringData = stringData + ", 'Q'";
         stringFields = stringFields + ", lotw_qslsdate";
-        stringData = stringData + ", '" + (eQSLTabWidget->getLOTWSenDate()).toString("yyyy/MM/dd") + "'";
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWSenDate())+ "'";
     }
     else if (aux1 == "I")
     {
         stringFields = stringFields + ", lotw_qsl_sent";
         stringData = stringData + ", 'I'";
         stringFields = stringFields + ", lotw_qslsdate";
-        stringData = stringData + ", '" + (eQSLTabWidget->getLOTWSenDate()).toString("yyyy/MM/dd") + "'";
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWSenDate())+ "'";
     }
     else
     {
         stringFields = stringFields + ", lotw_qsl_sent";
         stringData = stringData + ", 'N'";
     }
-
 
     // LOTW-RECEPTION    
     //LOTW_QSLRDATE: (only valid if LOTW_RCVD is Y, I, or V)
@@ -1389,7 +1373,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
             stringFields = stringFields + ", lotw_qsl_rcvd";
             stringData = stringData + ", 'Y'";
             stringFields = stringFields + ", lotw_qslrdate";
-            stringData = stringData + ", '" + (eQSLTabWidget->getLOTWRecDate()).toString("yyyy/MM/dd") + "'";
+            stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWRecDate())+ "'";
     }
     else if (aux1 == "R")
     {
@@ -1401,14 +1385,14 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringFields = stringFields + ", lotw_qsl_rcvd";
         stringData = stringData + ", 'V'";
         stringFields = stringFields + ", lotw_qslrdate";
-        stringData = stringData + ", '" + (eQSLTabWidget->getLOTWRecDate()).toString("yyyy/MM/dd") + "'";
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWRecDate())+ "'";
     }
     else if (aux1 == "I")
     {
         stringFields = stringFields + ", lotw_qsl_rcvd";
         stringData = stringData + ", 'I'";
-        stringFields = stringFields + ", lotw_qslrdate";
-        stringData = stringData + ", '" + (eQSLTabWidget->getLOTWRecDate()).toString("yyyy/MM/dd") + "'";
+        stringFields = stringFields + ", lotw_qslrdate";        
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWRecDate())+ "'";
     }
     else
     {
@@ -1417,23 +1401,23 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     //QSLTABWidget
-
     // QSL SENT: Y/N/R/Q/I
     // QSL_VIA: B/D/E/M
 
     aux1 = QSLTabWidget->getQSLSenStatus();
     aux2 = QSLTabWidget->getSentVia();
-             //qDebug() << "MainWindow::readDataFromUIDX: aux1: " << aux1 << " / aux2: " << aux2 << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: aux1: " << aux1 << " / aux2: " << aux2 << endl;
 
     //TODO: the aux2 switch is repeated and could be improved
-
 
     if (aux1=="Y")
     {
         stringFields = stringFields + ", qsl_sent";
         stringData = stringData + ", 'Y'";
         stringFields = stringFields + ", qslsdate";
-        stringData = stringData + ", '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "'";
+        //stringData = stringData + ", '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "'";
+
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLSenDate())+ "'";
         stringFields = stringFields + ", qsl_sent_via";
         if (aux2 == "D")
         {
@@ -1478,8 +1462,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     {
         stringFields = stringFields + ", qsl_sent";
         stringData = stringData + ", 'Q'";
-        stringFields = stringFields + ", qslsdate";
-        stringData = stringData + ", '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "'";
+        stringFields = stringFields + ", qslsdate";       
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLSenDate())+ "'";
         stringFields = stringFields + ", qsl_sent_via";
         if (aux2 == "D")
         {
@@ -1502,8 +1486,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     {
         stringFields = stringFields + ", qsl_sent";
         stringData = stringData + ", 'I'";
-        stringFields = stringFields + ", qslsdate";
-        stringData = stringData + ", '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "'";
+        stringFields = stringFields + ", qslsdate";        
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLSenDate())+ "'";
         stringFields = stringFields + ", qsl_sent_via";
         if (aux2 == "D")
         {
@@ -1530,7 +1514,6 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", 'B'";
     }
 
-
      // QSL RECEPTION
     //i = qslRecComboBox->currentIndex();
     //ii = qslRecViaComboBox->currentIndex();
@@ -1541,8 +1524,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     {
         stringFields = stringFields + ", qsl_rcvd";
         stringData = stringData + ", 'Y'";
-        stringFields = stringFields + ", qslrdate";
-        stringData = stringData + ", '" + (QSLTabWidget->getQSLRecDate()).toString("yyyy/MM/dd") + "'";
+        stringFields = stringFields + ", qslrdate";        
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLRecDate())+ "'";
         //stringFields = stringFields + ", confirmed";
         //stringData = stringData + ", '1'";
         stringFields = stringFields + ", qsl_rcvd_via";
@@ -1591,8 +1574,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     {
         stringFields = stringFields + ", qsl_rcvd";
         stringData = stringData + ", 'I'";
-        stringFields = stringFields + ", qslrdate";
-        stringData = stringData + ", '" + (QSLTabWidget->getQSLRecDate()).toString("yyyy/MM/dd") + "'";
+        stringFields = stringFields + ", qslrdate";        
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLRecDate())+ "'";
         //stringFields = stringFields + ", confirmed";
         //stringData = stringData + ", '0'";
         stringFields = stringFields + ", qsl_rcvd_via";
@@ -1617,8 +1600,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     {
         stringFields = stringFields + ", qsl_rcvd";
         stringData = stringData + ", 'V'";
-        stringFields = stringFields + ", qslrdate";
-        stringData = stringData + ", '" + (QSLTabWidget->getQSLRecDate()).toString("yyyy/MM/dd") + "'";
+        stringFields = stringFields + ", qslrdate";        
+        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLRecDate())+ "'";
         //TODO: Check if the QSL has been received or not as this "V" could mask a received QSL as a Worked (0)
         //stringFields = stringFields + ", confirmed";
         //stringData = stringData + ", '0'";
@@ -1668,6 +1651,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     stringData.remove(0,1);
+    //stringData += QString(", '%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8'").arg(tqrz).arg(tband).arg(tmode).arg(tdate).arg(ttime).arg(QString::number(currentLog)).arg(trsttx).arg(trstrx);
     stringData += QString(", '%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8'").arg(tqrz).arg(tband).arg(tmode).arg(tdate).arg(ttime).arg(QString::number(currentLog)).arg(trsttx).arg(trstrx);
 
     if (stringData.startsWith(", ") )
@@ -1685,11 +1669,6 @@ QString MainWindow::readDataFromUIDXModifying()
     //qDebug() << "MainWindow::readDataFromUIDXModifying:" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
-/*
-UPDATE table_name
-SET column1 = value1, column2 = value2...., columnN = valueN
-WHERE [condition];
-*/
     QString tqrz = (mainQSOEntryWidget->getQrz()).toUpper();
     if (!util->isValidCall(tqrz))
     {
@@ -1726,17 +1705,16 @@ WHERE [condition];
 
     int tband = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
     int tmode = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
-    QString tdate = (mainQSOEntryWidget->getDate()).toString("yyyy/MM/dd");
-    QString tdateTemp = (dateTimeTemp->date()).toString("yyyy/MM/dd");
+    QString tdate = util->getDateTimeSQLiteStringFromDateTime(mainQSOEntryWidget->getDateTime());
+    //QString tdate = (mainQSOEntryWidget->getDate()).toString("yyyy/MM/dd");
     QString ttime = (mainQSOEntryWidget->getTime()).toString("hh:mm:ss");
 
-
-    if (tdate != tdateTemp)
+    if ((mainQSOEntryWidget->getDate().year()) && (dateTimeTemp->date().year()))
     {
         yearChangedDuringModification = true;
     }
 
-//    QString ttime = (mainQSOEntryWidget->getTime()).toString("hh:mm:ss");
+    //    QString ttime = (mainQSOEntryWidget->getTime()).toString("hh:mm:ss");
 
     QString trsttx = rstTXLineEdit->text();
     QString trstrx = rstRXLineEdit->text();
@@ -1745,10 +1723,6 @@ WHERE [condition];
     int cqz = world->getEntityCqz(dxcc);
     int ituz = world->getEntityItuz(dxcc);
 
-
-    /**/
-
-    //int dxcc2 = getDXCCFromComboBox();
     int dxcc2 = world->getQRZARRLId(othersTabWidget->getEntityPrefix());
     //qDebug() << "MainWindow::readDataFromUIDXModifying - DXCC: " << QString::number(dxcc) << endl;
     //qDebug() << "MainWindow::readDataFromUIDXModifying- DXCC2: " << QString::number(dxcc2) << endl;
@@ -2057,9 +2031,6 @@ WHERE [condition];
 
    aux1 = satTabWidget->getSatName();   //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
              //qDebug() << "MainWindow::readDataFromUIDX: SAT2 modif " << aux1 << endl;
-   //updateString = updateString + "sat_name = '";
-   //updateString = updateString + aux1 + "', ";
-
     if (aux1.length()>0)
     {
         updateString = updateString + "sat_name = '";
@@ -2082,8 +2053,7 @@ WHERE [condition];
     }
 
     aux1 = othersTabWidget->getPropModeFromComboBox();
-    //aux1 = getPropModeFromComboBox();
-          //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << endl;
     if ((aux1.length()>0) && (aux1 != "Not"))
     {
                   //qDebug() << "MainWindow::readDataFromUIDX: PropMode(1):  " << aux1 << endl;
@@ -2092,9 +2062,8 @@ WHERE [condition];
     }
     else if ((aux1.length()==0) || (aux1 == "Not"))
     {
-                 //qDebug() << "MainWindow::readDataFromUIDX: PropMode(2):  " << aux1 << endl;
+        //qDebug() << "MainWindow::readDataFromUIDX: PropMode(2):  " << aux1 << endl;
         updateString = updateString + "prop_mode = '',";
-        //updateString = updateString + aux1 + "', ";
     }
     else
     {
@@ -2108,7 +2077,10 @@ WHERE [condition];
     if (aux1 == "Y")
     {
         updateString = updateString + "clublog_qso_upload_status = 'Y', ";
-        updateString = updateString + "clublog_qso_upload_date = '" + (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd") + "', ";
+        //updateString = updateString + "clublog_qso_upload_date = '" + (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "clublog_qso_upload_date = '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getClubLogDate()) + "', ";
+
+
     }
     else if (aux1 == "N")
     {
@@ -2116,15 +2088,14 @@ WHERE [condition];
     }
     else if (aux1 == "M")
     {
-        updateString = updateString + "clublog_qso_upload_status = 'M', ";
-        updateString = updateString + "clublog_qso_upload_date = '" + (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "clublog_qso_upload_status = 'M', ";        
+        updateString = updateString + "clublog_qso_upload_date = '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getClubLogDate()) + "', ";
     }
     else //TODO: This should be equivalent to N?
     {
         updateString = updateString + "clublog_qso_upload_status = 'N', ";
     }
-//CLUBLOG
-
+    //CLUBLOG
 
 
     // EQSL-SENT
@@ -2132,7 +2103,7 @@ WHERE [condition];
     if (aux1 == "Y")
     {
         updateString = updateString + "eqsl_qsl_sent = 'Y', ";
-        updateString = updateString + "eqsl_qslsdate = '" + (eQSLTabWidget->getEQSLSenDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "eqsl_qslsdate = '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLSenDate()) + "', ";
     }
     else if (aux1 == "R")
     {
@@ -2141,12 +2112,12 @@ WHERE [condition];
     else if (aux1 == "Q")
     {
         updateString = updateString + "eqsl_qsl_sent = 'Q', ";
-        updateString = updateString + "eqsl_qslsdate = '" + (eQSLTabWidget->getEQSLSenDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "eqsl_qslsdate = '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLSenDate()) + "', ";
     }
     else if (aux1 == "I")
     {
         updateString = updateString + "eqsl_qsl_sent = 'I', ";
-        updateString = updateString + "eqsl_qslsdate = '" + (eQSLTabWidget->getEQSLSenDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "eqsl_qslsdate = '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLSenDate()) + "', ";
     }
     else // N
     {
@@ -2159,7 +2130,7 @@ WHERE [condition];
     if (aux1 == "Y")
     {
         updateString = updateString + "eqsl_qsl_rcvd = 'Y', ";
-        updateString = updateString + "eqsl_qslrdate = '" + (eQSLTabWidget->getEQSLRecDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "eqsl_qslrdate = '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLRecDate()) + "', ";
     }
     else if (aux1 == "R")
     {
@@ -2172,7 +2143,7 @@ WHERE [condition];
     else if (aux1 == "V")
     {
         updateString = updateString + "eqsl_qsl_rcvd = 'V', ";
-        updateString = updateString + "eqsl_qslrdate = '" + (eQSLTabWidget->getEQSLRecDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "eqsl_qslrdate = '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLRecDate()) + "', ";
     }
     else
     {
@@ -2185,7 +2156,8 @@ WHERE [condition];
     if (aux1 == "Y")
     {
         updateString = updateString + "lotw_qsl_sent = 'Y', ";
-        updateString = updateString + "lotw_qslsdate = '" + (eQSLTabWidget->getLOTWSenDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "lotw_qslsdate = '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWSenDate()) + "', ";
+
     }
     else if (aux1 == "R")
     {
@@ -2194,12 +2166,12 @@ WHERE [condition];
     else if (aux1 == "Q")
     {
         updateString = updateString + "lotw_qsl_sent = 'Q', ";
-        updateString = updateString + "lotw_qslsdate = '" + (eQSLTabWidget->getLOTWSenDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "lotw_qslsdate = '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWSenDate()) + "', ";
     }
     else if (aux1 == "I")
     {
         updateString = updateString + "lotw_qsl_sent = 'I', ";
-        updateString = updateString + "lotw_qslsdate = '" + (eQSLTabWidget->getLOTWSenDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "lotw_qslsdate = '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWSenDate()) + "', ";
     }
     else
     {
@@ -2212,8 +2184,8 @@ WHERE [condition];
     aux1 = eQSLTabWidget->getLOTWRecStatus();
     if (aux1 == "Y")
     {
-        updateString = updateString + "lotw_qsl_rcvd = 'Y', ";
-        updateString = updateString + "lotw_qslrdate = '" + (eQSLTabWidget->getLOTWRecDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "lotw_qsl_rcvd = 'Y', ";        
+        updateString = updateString + "lotw_qslrdate = '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWRecDate()) + "', ";
     }
     else if (aux1 == "R")
     {
@@ -2222,12 +2194,15 @@ WHERE [condition];
     else if (aux1 == "V")
     {
         updateString = updateString + "lotw_qsl_rcvd = 'V', ";
-        updateString = updateString + "lotw_qslrdate = '" + (eQSLTabWidget->getLOTWRecDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "lotw_qslrdate = '" +  util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWRecDate()) + "', ";
+
     }
     else if (aux1 == "I")
     {
         updateString = updateString + "lotw_qsl_rcvd = 'I', ";
-        updateString = updateString + "lotw_qslrdate = '" + (eQSLTabWidget->getLOTWRecDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "lotw_qslrdate = '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWRecDate()) + "', ";
+
+
     }
     else
     {
@@ -2244,8 +2219,8 @@ WHERE [condition];
 
     if (aux1 == "Y")
     {
-        updateString = updateString + "qsl_sent = 'Y', ";
-        updateString = updateString + "qslsdate = '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "qsl_sent = 'Y', ";        
+        updateString = updateString + "qslsdate = '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLSenDate())  + "', ";
 
         if (aux2 == "D")
         {
@@ -2268,8 +2243,7 @@ WHERE [condition];
     }
     else if (aux1 == "R")
     {
-        updateString = updateString + "qsl_sent = 'R', ";
-        //updateString = updateString + "qslsdate = '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "qsl_sent = 'R', ";        
         if (aux2 == "D")
         {
             updateString = updateString + "qsl_sent_via = 'D', ";
@@ -2290,7 +2264,8 @@ WHERE [condition];
     else if (aux1 == "Q")
     {
         updateString = updateString + "qsl_sent = 'Q', ";
-        updateString = updateString + "qslsdate = '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "qslsdate = '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLSenDate()) + "', ";
+
         if (aux2 == "D")
         {
             updateString = updateString + "qsl_sent_via = 'D', ";
@@ -2310,8 +2285,9 @@ WHERE [condition];
     }
     else if (aux1 == "I")
     {
-        updateString = updateString + "qsl_sent = 'I', ";
-        updateString = updateString + "qslsdate = '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "', ";
+        updateString = updateString + "qsl_sent = 'I', ";        
+        updateString = updateString + "qslsdate = '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLSenDate()) + "', ";
+
         if (aux2 == "D")
         {
             updateString = updateString + "qsl_sent_via = 'D', ";
@@ -2344,9 +2320,8 @@ WHERE [condition];
 
     if (aux1 == "Y")
     {
-        updateString = updateString + "qsl_rcvd = 'Y', ";
-        updateString = updateString + "qslrdate = '" + (QSLTabWidget->getQSLRecDate()).toString("yyyy/MM/dd") + "', ";
-        //updateString = updateString + "confirmed = '1', ";
+        updateString = updateString + "qsl_rcvd = 'Y', ";        
+        updateString = updateString + "qslrdate = '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLRecDate()) + "', ";
 
         if (aux2 == "D")
         {
@@ -2394,7 +2369,10 @@ WHERE [condition];
         //QSL received date
         //(only valid if QSL_RCVD is Y, I, or V)
             updateString = updateString + "qsl_rcvd = 'I', ";
-            updateString = updateString + "qslrdate = '" + (QSLTabWidget->getQSLRecDate()).toString("yyyy/MM/dd") + "', ";
+
+            updateString = updateString + "qslrdate = '" +util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLRecDate()) + "', ";
+            updateString = updateString + "qslrdate = '" +  + "', ";
+
             //updateString = updateString + "confirmed = '0', ";
 
             if (aux2 == "D")
@@ -2419,8 +2397,7 @@ WHERE [condition];
         //QSL received date
         //(only valid if QSL_RCVD is Y, I, or V)
             updateString = updateString + "qsl_rcvd = 'V', ";
-            updateString = updateString + "qslrdate = '" + (QSLTabWidget->getQSLRecDate()).toString("yyyy/MM/dd") + "', ";
-            //updateString = updateString + "confirmed = '1', ";
+            updateString = updateString + "qslrdate = '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLRecDate()) + "', ";
 
             if (aux2 == "D")
             {
@@ -2456,9 +2433,6 @@ WHERE [condition];
     {
         updateString.chop(2);
     }
-
-    //stringQuery = "INSERT INTO log (" + stringFields + ") values (" + stringData +")" ;
-   // updateString = "UPDATE log SET call = '" + tqrz + "', bandid = '" + QString::number(tband) + "', modeid = '" + QString::number(tmode) + "', qso_date = '" + tdate + "', time_on = '" + ttime + "', lognumber = '" + QString::number(currentLog) + "', " + updateString;
 
     stringQuery = updateString + " WHERE id = " + "'" + QString::number(modifyingQSO) + "'";
     //qDebug() << "MainWindow::readDataFromUIDXModifying: queryCreated: " << stringQuery << endl;
@@ -2540,11 +2514,13 @@ void MainWindow::slotElogClubLogProcessAnswer(const int _i, const int _qID)
     if (clublogAnswer == 0) // NO ERROR
     {
 
-        dataProxy->setClubLogSent(_qID, "Y", (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd"));
+        //dataProxy->setClubLogSent(_qID, "Y", (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd"));
+
+        dataProxy->setClubLogSent(_qID, "Y", eQSLTabWidget->getClubLogDate());
     }
     else
     {
-        dataProxy->setClubLogSent(_qID, "M", (eQSLTabWidget->getClubLogDate()).toString("yyyy/MM/dd"));
+        dataProxy->setClubLogSent(_qID, "M", eQSLTabWidget->getClubLogDate());
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -3258,9 +3234,10 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
 {
            //qDebug() << "MainWindow::slotToolLoTWMarkAllQueuedThisLog"  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    QString tdate = (mainQSOEntryWidget->getDate()).toString("yyyy/MM/dd");
+    //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
 
-    if(dataProxy->lotwSentQueue(tdate, currentLog))
+
+    if(dataProxy->lotwSentQueue(mainQSOEntryWidget->getDate(), currentLog))
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
@@ -3317,8 +3294,9 @@ void MainWindow::slotToolLoTWMarkAllQueued()
 {
            //qDebug() << "MainWindow::slotToolLoTWMarkAllQueued"  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    QString tdate = (mainQSOEntryWidget->getDate()).toString("yyyy/MM/dd");
-    if (dataProxy->lotwSentQueue(tdate, -1))
+    //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
+
+    if (dataProxy->lotwSentQueue(mainQSOEntryWidget->getDate(), -1))
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
@@ -3506,9 +3484,9 @@ void MainWindow::slotToolLoTWMarkAllYesThisLog()
 {
            //qDebug() << "MainWindow::slotToolLoTWMarkAllYesThisLog"  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    QString tdate = (mainQSOEntryWidget->getDate()).toString("yyyy/MM/dd");
+    //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
 
-    if(dataProxy->lotwSentYes(tdate, currentLog, "ALL"))
+    if(dataProxy->lotwSentYes(mainQSOEntryWidget->getDate(), currentLog, "ALL"))
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
@@ -3534,8 +3512,8 @@ void MainWindow::slotToolLoTWMarkAllYes()
 
     QString stationCallToUse = selectStationCallsign();
 
-    QString tdate = (mainQSOEntryWidget->getDate()).toString("yyyy/MM/dd");
-    if (dataProxy->lotwSentYes(tdate, -1, stationCallToUse))
+    //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
+    if (dataProxy->lotwSentYes(mainQSOEntryWidget->getDate(), -1, stationCallToUse))
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
@@ -3582,19 +3560,16 @@ void MainWindow::slotReceiveQSOListToShowFromFile(QStringList _qs)
         //qDebug() << "MainWindow::slotReceiveQSOListToShowFromFile - NO valid Mode received" << _qs.at(3)<< endl;
         return;
     }
+    if (!util->isValidDateTimeFromString(_qs.at(1)))
 
-    if (!QDateTime::fromString(_qs.at(1), "yyyyMMdd-hhmmss").isValid())
     {
-        //qDebug() << "MainWindow::slotReceiveQSOListToShowFromFile - NO valid DateTime received: " << _qs.at(2) << endl;
-        return;
+            return;
     }
 
-
-
-    QStringList qsoToSend;
-    qsoToSend.clear();
-    qsoToSend << _qs.at(0) << _qs.at(1) << _qs.at(2) << _qs.at(3);
-    showAdifImportWidget->addQSOToTheList(qsoToSend);
+    //QStringList qsoToSend;
+    //qsoToSend.clear();
+    //qsoToSend << _qs.at(0) << _qs.at(1) << _qs.at(2) << _qs.at(3);
+    showAdifImportWidget->addQSOToTheList(_qs);
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -5199,40 +5174,6 @@ void MainWindow::createUIDX()
     dxUpLeftTab->addTab(satTabWidget, tr("Satellite"));
 
 
-    //QHBoxLayout *TimeLayout = new QHBoxLayout;
-    //TimeLayout->addWidget(dateEdit);
-    //TimeLayout->addWidget(timeEdit);
-
-    //QHBoxLayout *BandModeLayout = new QHBoxLayout;
-    //BandModeLayout->addWidget(bandComboBox);
-    //BandModeLayout->addWidget(modeComboBox);
-
-    //QHBoxLayout *QrzBandModeLayout = new QHBoxLayout;
-    //QrzBandModeLayout->addWidget(qrzLineEdit);
-    //QrzBandModeLayout->addLayout(BandModeLayout);
-
-    //qrzgroupBox = new QGroupBox(tr("QRZ"));
-    //qrzgroupBox->setFlat(true);
-    //QVBoxLayout *qrzvbox = new QVBoxLayout;
-    //qrzvbox->addLayout(QrzBandModeLayout);
-    //qrzgroupBox->setLayout(qrzvbox);
-
-
-    //QHBoxLayout *buttonsLayout = new QHBoxLayout;
-    //buttonsLayout->addWidget(OKButton);
-    //buttonsLayout->addWidget(clearButton);
-
-    //QDateTimeEdit *dateEdit = new QDateTimeEdit(QDate::currentDate());
-    //dateEdit->setDisplayFormat("yyyy/MM/dd");
-    //timeEdit->setDisplayFormat("HH:mm:ss");
-
-    //QGridLayout *dxUpLeftInputFrameLayout = new QGridLayout;
-    //dxUpLeftInputFrameLayout->addWidget(qrzgroupBox, 0, 0, 1, 0);
-    //dxUpLeftInputFrameLayout->addLayout(TimeLayout, 1, 0);
-    //dxUpLeftInputFrameLayout->addLayout(buttonsLayout,1, 1);
-
-    //dxUpLeftInputFrame->setLayout(dxUpLeftInputFrameLayout);
-
           //qDebug() << "MainWindow::createUIDX-90" << endl;
     QSplitter *upLeftSplitter = new QSplitter (this);
     //upLeftSplitter->addWidget(dxUpLeftInputFrame);
@@ -5250,91 +5191,10 @@ void MainWindow::createUIDX()
 
     dxUpRightTab->addTab(infoWidget, tr("Info"));
           //qDebug() << "MainWindow::createUIDX-100" << endl;
-    /*
-    QLabel *dxMarathonTopQSOsLabelN = new QLabel(tr("QSOs"));
-    QLabel *dxMarathonTopDXCCLabelN = new QLabel(tr("DXCC"));
-    QLabel *dxMarathonTopCQLabelN = new QLabel(tr("CQ"));
-
-    dxMarathonTopScoreLabelN->setText(tr("Score"));
-
-    dxMarathonLabelN = new QLabel;
-
-
-
-    QWidget *awardsTabWidget = new QWidget;
-    //      //qDebug() << "MainWindow::createUIDX-101" << endl;
-    QLabel *awardLabelN = new QLabel(tr("Award"));    
-    awardLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);    
-    QLabel *confirmedLabelN = new QLabel(tr("Confirmed"));
-    confirmedLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-
-    QLabel *workedLabelN = new QLabel(tr("Worked"));    
-    workedLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-
-    QLabel *dxccLabelN = new QLabel(tr("DXCC"));
-    dxccLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-
-    QLabel *wazLabelN = new QLabel(tr("WAZ"));    
-    wazLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-
-    QLabel *localLabelN = new QLabel(tr("Local"));    
-    localLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-
-    QLabel *qsoNLabelN = new QLabel(tr("QSOs"));
-    qsoNLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-    */
 
     reconfigureDXMarathonUI(manageDxMarathon);
-    /*
-    dxMarathonTopQSOsLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-    dxMarathonTopDXCCLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-    dxMarathonTopCQLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-    dxMarathonTopScoreLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-    dxMarathonLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
 
-    QGridLayout *dxMarathonDLayout = new QGridLayout;
-
-    dxMarathonDLayout->addWidget(dxMarathonTopQSOsLabelN, 0, 0);
-    dxMarathonDLayout->addWidget(dxMarathonTopDXCCLabelN, 0, 1);
-    dxMarathonDLayout->addWidget(dxMarathonTopCQLabelN, 0, 2);
-    dxMarathonDLayout->addWidget(dxMarathonTopScoreLabelN, 0, 3);
-    dxMarathonDLayout->addWidget(dxMarathonQSOLCDNumber, 1, 0);
-    dxMarathonDLayout->addWidget(dxMarathonDXCCQLCDNumber, 1, 1);
-    dxMarathonDLayout->addWidget(dxMarathonCQQLCDNumber, 1, 2);
-    dxMarathonDLayout->addWidget(dxMarathonPointsQLCDNumber, 1, 3);
-
-    QVBoxLayout *dxMarathonTLayout = new QVBoxLayout;
-    dxMarathonTLayout->addWidget(dxMarathonLabelN);
-    dxMarathonTLayout->addWidget(operatingYearsComboBox);
-
-    QGridLayout *dxUpRightAwardsTabLayout = new QGridLayout;
-    dxUpRightAwardsTabLayout->addWidget(awardLabelN, 0, 0);
-    dxUpRightAwardsTabLayout->addWidget(workedLabelN, 0, 1);
-    dxUpRightAwardsTabLayout->addWidget(confirmedLabelN, 0, 2);
-    dxUpRightAwardsTabLayout->addWidget(dxccLabelN, 1, 0);
-    dxUpRightAwardsTabLayout->addWidget(dxccWorkedQLCDNumber, 1, 1);
-    dxUpRightAwardsTabLayout->addWidget(dxccConfirmedQLCDNumber, 1, 2);
-    dxUpRightAwardsTabLayout->addWidget(wazLabelN, 2, 0);
-    dxUpRightAwardsTabLayout->addWidget(wazWorkedQLCDNumber, 2, 1);
-    dxUpRightAwardsTabLayout->addWidget(wazConfirmedQLCDNumber, 2, 2);
-    dxUpRightAwardsTabLayout->addWidget(localLabelN, 3, 0);
-    dxUpRightAwardsTabLayout->addWidget(localWorkedQLCDNumber, 3, 1);
-    dxUpRightAwardsTabLayout->addWidget(localConfirmedQLCDNumber, 3, 2);
-    dxUpRightAwardsTabLayout->addWidget(qsoNLabelN, 4, 0);
-    dxUpRightAwardsTabLayout->addWidget(qsoWorkedQLCDNumber, 4, 1);
-    dxUpRightAwardsTabLayout->addWidget(qsoConfirmedQLCDNumber, 4, 2);
-
-    dxUpRightAwardsTabLayout->addLayout(dxMarathonTLayout, 5, 0);
-    dxUpRightAwardsTabLayout->addLayout(dxMarathonDLayout, 5, 1, 1, -1);
-    dxUpRightAwardsTabLayout->addWidget(recalculateAwardsButton, 6, 1);
-
-    //      //qDebug() << "MainWindow::createUIDX-120" << endl;
-    awardsTabWidget->setLayout(dxUpRightAwardsTabLayout);
-    //      //qDebug() << "MainWindow::createUIDX-121" << endl;
-
-    dxUpRightTab->addTab(awardsTabWidget, tr("Awards-OLD"));
-    */
-          //qDebug() << "MainWindow::createUIDX-122" << endl;
+    //qDebug() << "MainWindow::createUIDX-122" << endl;
     dxUpRightTab->addTab(awardsWidget, tr("Awards"));
     dxUpRightTab->addTab(searchWidget, tr("Search"));
 
@@ -5724,13 +5584,15 @@ void MainWindow::qsoToEdit (const int _qso)
 
     nameCol = rec.indexOf("qso_date");
     aux1 = (query.value(nameCol)).toString();
-    mainQSOEntryWidget->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-    //dateEdit->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
-    dateTimeTemp->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+    qDebug() << "MainWindow::qsoToEdit - date: " << aux1 << endl;
+    mainQSOEntryWidget->setDate(util->getDateTimeFromSQLiteString(aux1));
+    //mainQSOEntryWidget->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+    dateTimeTemp->setDate(util->getDateFromSQliteString(aux1));
 
-    nameCol = rec.indexOf("time_on");
-    aux1 = (query.value(nameCol)).toString();
-    mainQSOEntryWidget->setTime(QTime::fromString(aux1, "hh:mm:ss"));
+    //nameCol = rec.indexOf("time_on");
+    //aux1 = (query.value(nameCol)).toString();
+    //mainQSOEntryWidget->setTime(util->getTimeFromSQLiteString(aux1));
+
 
     nameCol = rec.indexOf("bandid");
     aux1 = (query.value(nameCol)).toString();
@@ -5955,9 +5817,12 @@ void MainWindow::qsoToEdit (const int _qso)
         //      This code may be importing dates when they should not exist.
         nameCol = rec.indexOf("qslsdate");
         aux1 = (query.value(nameCol)).toString();
-        if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+
+        if (util->getDateFromSQliteString(aux1).isValid()  )
+
+        //if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
         {
-            QSLTabWidget->setQSLSenDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+            QSLTabWidget->setQSLSenDate(util->getDateFromSQliteString(aux1));
         }
 
 
@@ -5980,9 +5845,9 @@ void MainWindow::qsoToEdit (const int _qso)
         //      This code may be importing dates when they should not exist.
         nameCol = rec.indexOf("qslrdate");
         aux1 = (query.value(nameCol)).toString();
-        if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+        if (util->getDateFromSQliteString(aux1).isValid()  )
         {
-            QSLTabWidget->setQSLRecDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+            QSLTabWidget->setQSLRecDate(util->getDateFromSQliteString(aux1));
         }
 
          nameCol = rec.indexOf("qsl_rcvd_via");
@@ -6000,9 +5865,9 @@ void MainWindow::qsoToEdit (const int _qso)
         //      This code may be importing dates when they should not exist.
         nameCol = rec.indexOf("clublog_qso_upload_date");
         aux1 = (query.value(nameCol)).toString();
-        if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+        if (util->getDateFromSQliteString(aux1).isValid()  )
         {
-            eQSLTabWidget->setClubLogDate((QDate::fromString(aux1, "yyyy/MM/dd")));
+            eQSLTabWidget->setClubLogDate(util->getDateFromSQliteString(aux1));
         }
 
         //CLUBLOG
@@ -6020,9 +5885,9 @@ void MainWindow::qsoToEdit (const int _qso)
         //      This code may be importing dates when they should not exist.
         nameCol = rec.indexOf("eqsl_qslsdate");
         aux1 = (query.value(nameCol)).toString();
-        if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+        if (util->getDateFromSQliteString(aux1).isValid()  )
         {
-            eQSLTabWidget->setEQSLSenDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+            eQSLTabWidget->setEQSLSenDate(util->getDateFromSQliteString(aux1));
         }
 
 
@@ -6041,9 +5906,10 @@ void MainWindow::qsoToEdit (const int _qso)
             //      This code may be importing dates when they should not exist.
             nameCol = rec.indexOf("eqsl_qslrdate");
             aux1 = (query.value(nameCol)).toString();
-            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid() )
+            if (util->isValidDateFromString(aux1))
             {
-                eQSLTabWidget->setEQSLRecDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+
+                eQSLTabWidget->setEQSLRecDate(util->getDateFromSQliteString(aux1));
             }
 
             //LOTW_QSL_SENT: {Y, N, R, Q, I}
@@ -6059,9 +5925,10 @@ void MainWindow::qsoToEdit (const int _qso)
             //      This code may be importing dates when they should not exist.
             nameCol = rec.indexOf("lotw_qslsdate");
             aux1 = (query.value(nameCol)).toString();
-            if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+
+            if ( util->isValidDateFromString(aux1) )
             {
-                eQSLTabWidget->setLOTWSenDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+                eQSLTabWidget->setLOTWSenDate(util->getDateFromSQliteString(aux1));
             }
 
             //E-QSL RECEPTION
@@ -6072,19 +5939,19 @@ void MainWindow::qsoToEdit (const int _qso)
 
 
                 nameCol = rec.indexOf("lotw_qsl_rcvd");
-                aux1 = (query.value(nameCol)).toString();
+                aux1 = (query.value(nameCol)).toString();                               
                 eQSLTabWidget->setLOTWRecStatus(aux1.toUpper());
 
                 //TODO: Depending on the Value a date should or not exist.
                 //      This code may be importing dates when they should not exist.
                 nameCol = rec.indexOf("lotw_qslrdate");
                 aux1 = (query.value(nameCol)).toString();
-                if (  (QDate::fromString(aux1, "yyyy/MM/dd")).isValid()  )
+                if ( util->isValidDateFromString(aux1) )
                 {
-                    eQSLTabWidget->setLOTWRecDate(QDate::fromString(aux1, "yyyy/MM/dd"));
+                    eQSLTabWidget->setLOTWRecDate(util->getDateFromSQliteString(aux1));
                 }
 
-                          //qDebug() << "MainWindow::qsoToEdit: - just before IOTA"  << endl;
+                //qDebug() << "MainWindow::qsoToEdit: - just before IOTA"  << endl;
 
                 nameCol = rec.indexOf("iota");
                 aux1 = (query.value(nameCol)).toString();
@@ -6378,11 +6245,20 @@ void MainWindow::fillQSOData()
             {
                 _tdate = (query.value(nameCol)).toString();
             }
+
             nameCol = rec.indexOf("time_on");
             if ( (query.value(nameCol)).isValid() )
             {
-                _ttime = (query.value(nameCol)).toString();
+                if ((QDate::fromString("hh:mm:ss")).isValid())
+                {
+                    _ttime = (query.value(nameCol)).toString();
+                }
+                else if((QDate::fromString("hh:mm")).isValid())
+                {
+                    _ttime = (query.value(nameCol)).toString();
+                }
             }
+
             nameCol = rec.indexOf("lognumber");
             if ( (query.value(nameCol)).isValid() )
             {
@@ -6553,6 +6429,7 @@ void MainWindow::slotFilePrint()
     bool sqlOK;
     _numberOfQsos = dataProxy->getHowManyQSOInLog(currentLog);
     int step = util->getProgresStepForDialog(_numberOfQsos);
+
 
     QTextDocument *doc = new QTextDocument;
     QTextCursor cursor(doc);
@@ -7477,6 +7354,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
              }
                   //qDebug() << "MainWindow::slotWSJXstatusFromUDPServer updating txFreqSpinBox" << QString::number(_freq) << endl;
              txFreqSpinBox->setValue(_freq);
+             rxFreqSpinBox->setValue(_freq);
              slotUpdateLocator(_dx_grid);
              rstTXLineEdit->setText(_report);
              myDataTabWidget->setMyLocator(_de_grid);

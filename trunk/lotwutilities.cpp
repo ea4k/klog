@@ -93,8 +93,7 @@ bool LoTWUtilities::setStationCallSign (const QString &_call)
          //qDebug() << "LoTWUtilities::setStationCallSign: TRUE"  << endl;
         stationCallsign = _call;
         QDate date = dataProxy->getFirstQSODateFromCall(stationCallsign);
-         //qDebug() << "LoTWUtilities::setStationCallSign: Date: " << startDate  << endl;        
-        //date = QDate::fromString(startDate, "yyyy/MM/dd");
+         //qDebug() << "LoTWUtilities::setStationCallSign: Date: " << startDate  << endl;                
         if (date.isValid())
         {
             startDate = date.toString("yyyyMMdd");

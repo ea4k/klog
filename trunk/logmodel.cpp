@@ -90,9 +90,7 @@ This should be coherent with the logview
      q.next();
      rec = q.record(); // Number of columns
 
-        //qDebug() << "LogModel::createlogModel - columns: " << QString::number(rec.count()) << endl;
-
-
+    //qDebug() << "LogModel::createlogModel - columns: " << QString::number(rec.count()) << endl;
 
      nameCol = rec.indexOf("bandid");
      setRelation(nameCol, QSqlRelation("band", "id", "name"));
@@ -105,9 +103,6 @@ This should be coherent with the logview
 
      nameCol = rec.indexOf("qso_date");
      setHeaderData(nameCol, Qt::Horizontal, tr("Date"));
-
-     nameCol = rec.indexOf("time_on");
-     setHeaderData(nameCol, Qt::Horizontal, tr("Time"));
 
      nameCol = rec.indexOf("call");
      setHeaderData(nameCol, Qt::Horizontal,tr("QRZ"));

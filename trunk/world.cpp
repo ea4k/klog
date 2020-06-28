@@ -1452,7 +1452,7 @@ QString World::changeSlashAndFindPrefix(const QString &_qrz)
             iaux2 = -iaux2;
         }
 
-        if ( iaux1 < iaux2 ) { //Like in F/EA4K, we can simply take the first part as the prefix
+        if ( iaux1 < iaux2 ) { //Like in F/EA0XXX, we can simply take the first part as the prefix
             aux = aux.left(iaux1);
         }
         else
